@@ -6,7 +6,7 @@ jobs:
   publish:
     docker:
       - image: circleci/node:9-browsers
-    working_directory: /usr/app
+    working_directory: /home/circleci/docs
     steps:
       - checkout
       - run: yarn install
