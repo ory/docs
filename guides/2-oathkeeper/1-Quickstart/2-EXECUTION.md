@@ -22,7 +22,7 @@ create two files:
 {
   "id": "oathkeeper-client",
   "client_secret": "something-secure",
-  "scope": "hydra.warden",
+  "scope": "hydra.warden hydra.keys.* hydra.introspect",
   "grant_types": ["client_credentials"],
   "response_types": ["token"]
 }
@@ -31,19 +31,20 @@ create two files:
 **policy.json**
 ```json
 {
-  "id": "oathkeeper-policy",
-  "subjects": [
-    "oathkeeper-client"
-  ],
+  "subjects": ["oathkeeper-client"],
   "effect": "allow",
   "resources": [
-    "rn:hydra:warden:allowed",
-    "rn:hydra:warden:token:allowed",
     "rn:hydra:keys:oathkeeper:id-token<.*>",
+    "rn:hydra:warden:<.*>",
+    "rn:hydra:oauth2:tokens"
   ],
   "actions": [
     "decide",
-    "get"
+    "get",
+    "create",
+    "introspect",
+    "update",
+    "delete"
   ]
 }
 ```
@@ -52,7 +53,7 @@ and import them using ORY Hydra's CLI:
 
 ```
 $ hydra clients import client.json
-$ hydra policies create -f policy.json
+$ hydra policies import policy.json
 ```
 
 Now we are all set to boot up ORY Oathkeeper. Because we are using the in-memory database backend, we have to use
@@ -75,7 +76,8 @@ $ export BACKEND_URL=http://my-api-endpoint-servers.com/
 # This should be a proper database URL in production, see `hydra help serve proxy`
 $ export DATABASE_URL=memory
 
-$ docker run oryd/oathkeeper:v0.0.20 serve all
+# Each of environment variables needs to be injected into docker container properly '-e key=value'
+$ docker run -e DATABASE_URL=$DATABASE_URL -e HYDRA_URL=$HYDRA_URL -e HYDRA_JWK_SET_ID=$HYDRA_JWK_SET_ID -e HYDRA_CLIENT_ID=$HYDRA_CLIENT_ID -e HYDRA_CLIENT_SECRET=$HYDRA_CLIENT_SECRET -e BACKEND_URL=$BACKEND_URL  oryd/oathkeeper:v0.0.20 serve all
 ```
 
 Now, we have a proxy listening on port 4455 and the management REST API at port 4456.
