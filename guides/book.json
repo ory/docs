@@ -1,0 +1,33 @@
+{
+  "author": "Aeneas Rekkas",
+  "gitbook": ">=3.2.3",
+  "plugins": [
+    "edit-link",
+    "summary",
+    "etoc",
+    "ga",
+    "sitemap",
+    "versions"
+  ],
+  "pluginsConfig": {
+    "edit-link": {
+      "base": "https://github.com/ory/docs/tree/master/guides",
+      "label": "Edit this page on GitHub"
+    },
+    "etoc": {
+      "h2lb": 2,
+      "mindepth": 2,
+      "maxdepth": 5,
+      "notoc": false
+    },
+    "ga": {
+      "token": "UA-71865250-1"
+    },
+    "sitemap": {
+      "hostname": "https://www.ory.sh/docs/guides"
+    },
+    "versions": {
+      "type": "tags"
+    }
+  }
+}

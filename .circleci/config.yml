@@ -1,0 +1,27 @@
+# Golang CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-go/ for more details
+version: 2
+jobs:
+  publish:
+    docker:
+      - image: circleci/node:9-browsers
+    working_directory: /usr/app
+    steps:
+      - checkout
+      - run: yarn install
+      - run: yarn build
+      - run: git config --global user.email "hi@ory.am"
+      - run: git config --global user.name "ORY Continuous Integration"
+      - run: "git clone https://arekkas:$DOCS_TOKEN_PUSH@github.com/ory/ory-am.git ../ory-am"
+      - run: "cp -R ./build/* ../ory-am/docs/"
+      - run: "(cd ../ory-am && git add -A && git commit -a -m \"docs: Updates documentation\" && git push origin) || exit 0"
+
+workflows:
+  version: 2
+  "publish":
+    jobs:
+      - publish:
+          filters:
+            branches:
+              only: master

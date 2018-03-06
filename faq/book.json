@@ -1,0 +1,18 @@
+{
+  "plugins": [
+    "theme-faq",
+    "-fontsettings",
+    "-sharing",
+    "sitemap",
+    "edit-link"
+  ],
+  "pluginsConfig": {
+    "edit-link": {
+      "base": "https://github.com/ory/docs/tree/master/faq",
+      "label": "Edit this page on GitHub"
+    },
+    "sitemap": {
+      "hostname": "https://www.ory.sh/docs/faq"
+    }
+  }
+}
