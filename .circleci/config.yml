@@ -1,16 +1,34 @@
 # Golang CircleCI 2.0 configuration file
 #
 # Check https://circleci.com/docs/2.0/language-go/ for more details
+defaults: &defaults
+  working_directory:  /home/circleci/docs
+  docker:
+    - image: circleci/node:9-browsers
+
 version: 2
 jobs:
-  publish:
-    docker:
-      - image: circleci/node:9-browsers
-    working_directory: /home/circleci/docs
+  build:
+    <<: *defaults
     steps:
       - checkout
       - run: yarn install
       - run: yarn build
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
+          # taken to be the root directory of the workspace.
+          root: /home/circleci/docs
+          # Must be relative path from root
+          paths:
+            - echo-output
+
+  publish:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: /home/circleci/docs
+      - checkout
       - run: git config --global user.email "hi@ory.am"
       - run: git config --global user.name "ORY Continuous Integration"
       - run: "git clone https://arekkas:$DOCS_TOKEN_PUSH@github.com/ory/ory-am.git ../ory-am"
@@ -22,7 +40,10 @@ workflows:
   version: 2
   "publish":
     jobs:
+      - build
       - publish:
           filters:
             branches:
               only: master
+          requires:
+            - build
