@@ -6,9 +6,9 @@ or from the list below.
 **ORY Hydra:**
 
 * [Developer Guide](./1-hydra)
-* [HTTP API Documentation](./api/hydra)
+* [HTTP API Documentation](https://www.ory.sh/docs/api/hydra)
 
 **ORY Oathkeeper:**
 
 * [Developer Guide](./2-oathkeeper)
-* [HTTP API Documentation](./api/oathkeeper)
+* [HTTP API Documentation](https://www.ory.sh/docs/api/oathkeeper)
