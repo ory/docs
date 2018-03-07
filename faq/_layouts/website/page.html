@@ -1,8 +1,19 @@
 {% extends template.self %}
 
+{% block faq_header_brand %}
+<img src="https://mywebsite.com/images/ory_07_-26-no-border.png" height="30" />
+{% endblock %}
+
 {% block faq_menu %}
 <ul class="nav navbar-nav navbar-right">
-    <li><a href="https://www.ory.sh">Home</a></li>
-    <li><a href="https://www.ory.sh/docs">User Guides</a></li>
+    <li><a href="https://www.ory.sh/">Home</a></li>
+    <li><a href="https://www.ory.sh/docs">Docs</a></li>
+    <li><a href="https://community.ory.am/">Forum</a></li>
+    <li><a href="https://discord.gg/PAMQWkr">Chat</a></li>
+    <li><a href="https://github.com/ory">GitHub</a></li>
 </ul>
+{% endblock %}
+
+{% block faq_footer %}
+<div class="faq-page-footer"></div>
 {% endblock %}
