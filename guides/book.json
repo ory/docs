@@ -12,7 +12,7 @@
   "pluginsConfig": {
     "edit-link": {
       "base": "https://github.com/ory/docs/tree/master/guides",
-      "label": "Edit this page on GitHub"
+      "label": "Edit this page"
     },
     "etoc": {
       "h2lb": 2,
