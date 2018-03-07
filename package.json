@@ -7,8 +7,8 @@
   "scripts": {
     "postinstall": "npm-run-all install:*",
     "build": "npm-run-all build:*",
-    "install:faq": "cd faq && gitbook install",
-    "install:guides": "cd guides && gitbook install",
+    "install:faq": "cd faq && yarn && gitbook install",
+    "install:guides": "cd guides && yarn && gitbook install",
     "build:guides": "cd guides && gitbook build . ../build/guides",
     "build:faq": "cd faq && gitbook build . ../build/faq",
     "start:guides": "cd guides && gitbook serve -http .",
