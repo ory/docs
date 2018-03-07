@@ -1,6 +1,6 @@
 - [5 Minute Tutorial](0-tutorial/0-README.md)
 - [Dependencies & Environment](1-environment/0-README.md)
-- [Understanding ORY Hydra](2-overview/0-README.md)
+- [Concepts & Theory](2-overview/0-README.md)
     - [OAuth 2.0 & OpenID Connect](2-overview/1-oauth2.md)
     - [JSON Web Keys](2-overview/2-jwk.md)
     - [Access Control](2-overview/3-access-control.md)

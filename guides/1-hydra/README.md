@@ -7,9 +7,9 @@ Hydra is a runnable server implementation of the <a href="https://tools.ietf.org
 and the <a href="http://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0</a>.
 </h4>
 
-This is the user guide, you might be looking for the [GitHub Repository](http://github.com/ory-am/hydra), the
-[HTTP REST API Documentation](http://docs.hydra13.apiary.io/) or
-the [Language-Level API Documentation](https://godoc.org/github.com/ory-am/hydra) instead.
+This is the developer guide, you might be looking for the [GitHub Repository](http://github.com/ory/hydra), the
+[HTTP REST API Documentation](http://www.ory.sh/docs/api/hydra) or
+the [Language-Level API Documentation](https://godoc.org/github.com/ory/hydra) instead.
 
 <hr>
 
@@ -149,10 +149,8 @@ Hydra has a limitations too:
 login, sending confirmation emails. This is what the *Identity Provider* is responsible for.
 The communication between Hydra and the Identity Provider is called [*Consent Flow*](https://ory-am.gitbooks.io/hydra/content/oauth2/consent.html).
 2. If you are building a simple service for 50-100 registered users, OAuth2 and Hydra will probably be too sophisticated.
-3. Hydra does currently not support the OAuth2 resource owner password credentials flow. This will change in the future and is tracked
-as issue [#214](https://github.com/ory-am/hydra/issues/214).
-4. Hydra has no management frontend. You must manage OAuth2 Clients and other things using the RESTful endpoints or
-the command line interface. We are open to having an official Hydra Management frontend.
+3. Hydra will not support the OAuth2 resource owner password credentials flow. This flow is legacy, discouraged,
+and insecure.
 
 OAuth2 is used in many areas, for various purposes and supported by all well known programming languages, but it is important
 to understand what the vision of OAuth2 is. This non-exclusive list might help you decide, if OAuth 2.0 and Hydra are
