@@ -1,1 +1,0 @@
-Yes we do. Drop us a line at [mailto:hi@ory.am](hi@ory.am)!
