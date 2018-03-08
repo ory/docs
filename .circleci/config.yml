@@ -7,6 +7,8 @@ jobs:
     docker:
       - image: circleci/node:9-browsers
     working_directory: /home/circleci/docs
+    environment:
+      - GITBOOK_DIR: /home/circleci/docs/.gitbook
     steps:
       - checkout
       - run: yarn install
