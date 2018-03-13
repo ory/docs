@@ -6,7 +6,7 @@
     "summary",
     "etoc",
     "ga",
-    "sitemap",
+    "sitemap-basepath",
     "versions"
   ],
   "pluginsConfig": {
@@ -23,8 +23,9 @@
     "ga": {
       "token": "UA-71865250-1"
     },
-    "sitemap": {
-      "hostname": "https://www.ory.sh/docs/guides"
+    "sitemap-basepath": {
+      "hostname": "https://www.ory.sh/",
+      "basePath": "/docs/guides/"
     },
     "versions": {
       "type": "tags"

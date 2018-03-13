@@ -3,16 +3,21 @@
     "theme-faq",
     "-fontsettings",
     "-sharing",
-    "sitemap",
-    "edit-link"
+    "sitemap-basepath",
+    "edit-link",
+    "ga"
   ],
   "pluginsConfig": {
     "edit-link": {
       "base": "https://github.com/ory/docs/tree/master/faq",
       "label": "Edit this page"
     },
-    "sitemap": {
-      "hostname": "https://www.ory.sh/docs/faq"
+    "ga": {
+      "token": "UA-71865250-1"
+    },
+    "sitemap-basepath": {
+      "hostname": "https://www.ory.sh/",
+      "basePath": "/docs/faq/"
     }
   }
 }

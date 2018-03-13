@@ -1,7 +1,7 @@
 - [ORY Hydra](1-hydra/README.md)
     - [5 Minute Tutorial](1-hydra/0-tutorial/0-README.md)
     - [Dependencies & Environment](1-hydra/1-environment/0-README.md)
-    - [Understanding ORY Hydra](1-hydra/2-overview/0-README.md)
+    - [Concepts and Theory](1-hydra/2-overview/0-README.md)
         - [OAuth 2.0 & OpenID Connect](1-hydra/2-overview/1-oauth2.md)
         - [JSON Web Keys](1-hydra/2-overview/2-jwk.md)
         - [Access Control](1-hydra/2-overview/3-access-control.md)
