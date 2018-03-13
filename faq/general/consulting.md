@@ -1,1 +1,1 @@
-Yes we do. Drop us a line at [mailto:hi@ory.am](hi@ory.am)!
+Yes we do. Drop us a line at [hi@ory.am](mailto:hi@ory.am)!
