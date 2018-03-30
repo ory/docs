@@ -12,7 +12,7 @@ the user's account is limited to the "scope" of the authorization granted (e.g. 
 3. **Client** is the *application* that wants to access the user's account. Before it may do so, it must be authorized
 by the user.
 4. **Identity Provider** contains a login user interface and a database of all your users. To integrate Hydra,
-you must modify the Identity Provider. It mus be able to generate consent tokens and ask for the user's consent.
+you must modify the Identity Provider. It must be able to generate consent tokens and ask for the user's consent.
 5. **User Agent** is usually the resource owner's browser.
 6. **Consent App** is an app (e.g. NodeJS) that is able to receive consent challenges and create consent tokens.
 It must verify the identity of the user that is giving the consent. This can be achieved using Cookie Auth,
