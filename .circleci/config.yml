@@ -32,5 +32,9 @@ workflows:
           filters:
             branches:
               only: master
+  "publish-version":
+    jobs:
+      - publish:
+          filters:
             tags:
               only: /.*/
