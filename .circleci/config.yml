@@ -17,7 +17,7 @@ jobs:
       - run: git config --global user.email "hi@ory.am"
       - run: git config --global user.name "ORY Continuous Integration"
       - run: "git clone https://arekkas:$DOCS_TOKEN_PUSH@github.com/ory/ory-am.git ../ory-am"
-      - run: "VERSION=${CIRCLE_TAG:-latest} mkdir -p ../ory-am/docs/$VERSION/guides/ || mkdir -p ../ory-am/docs/apis/$VERSION/ ||"
+      - run: "VERSION=${CIRCLE_TAG:-latest} mkdir -p ../ory-am/docs/$VERSION/guides/ || mkdir -p ../ory-am/docs/apis/$VERSION/ || exit 0"
       - run: "cp -R ./build/faq/* ../ory-am/docs/faq/"
       - run: "VERSION=${CIRCLE_TAG:-latest} cp -R ./build/guides/* ../ory-am/docs/$VERSION/guides/"
       - run: "VERSION=${CIRCLE_TAG:-latest} cp -R ./apis/* ../ory-am/docs/apis/$VERSION/"
