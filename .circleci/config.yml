@@ -22,7 +22,7 @@ jobs:
       - run: "cp -R ./build/faq/* ../ory-am/docs/faq/"
       - run: "VERSION=${CIRCLE_TAG:-latest} cp -R ./build/guides/* ../ory-am/docs/$VERSION/guides/"
       - run: "VERSION=${CIRCLE_TAG:-latest} cp -R ./apis/* ../ory-am/docs/apis/$VERSION/"
-      - run: "VERSION=${CIRCLE_TAG:-latest} (cd ../ory-am && git add -A && git commit -a -m \"docs: Updates documentation version $VERSION\" && git push origin) || exit 0"
+      - run: "(VERSION=${CIRCLE_TAG:-latest} cd ../ory-am && git add -A && git commit -a -m \"docs: Updates documentation version $VERSION\" && git push origin) || exit 0"
 
 workflows:
   version: 2
