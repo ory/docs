@@ -1522,6 +1522,10 @@ gitbook-plugin-theme-default@1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/gitbook-plugin-theme-default/-/gitbook-plugin-theme-default-1.0.7.tgz#51f71fbca74a261054e9e9d141c42167afefce88"
 
+gitbook-plugin-versions@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/gitbook-plugin-versions/-/gitbook-plugin-versions-2.1.4.tgz#210d0b7d60698f738d77681663992aec4eb12883"
+
 gitbook@^3.2.3:
   version "3.2.3"
   resolved "https://registry.yarnpkg.com/gitbook/-/gitbook-3.2.3.tgz#8c3043df0589e6f328f49c043002de56f3bc2046"

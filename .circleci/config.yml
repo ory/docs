@@ -9,6 +9,7 @@ jobs:
     working_directory: /home/circleci/docs
     environment:
       - GITBOOK_DIR: /home/circleci/docs/.gitbook
+      - VERSION: latest
     steps:
       - checkout
       - run: yarn install
@@ -16,9 +17,10 @@ jobs:
       - run: git config --global user.email "hi@ory.am"
       - run: git config --global user.name "ORY Continuous Integration"
       - run: "git clone https://arekkas:$DOCS_TOKEN_PUSH@github.com/ory/ory-am.git ../ory-am"
-      - run: "cp -R ./build/* ../ory-am/docs/"
-      - run: "cp -R ./apis/* ../ory-am/docs/apis"
-      - run: "(cd ../ory-am && git add -A && git commit -a -m \"docs: Updates documentation\" && git push origin) || exit 0"
+      - run: "cp -R ./build/faq ../ory-am/docs/faq/"
+      - run: "VERSION=${CIRCLE_TAG:-latest} cp -R ./build/guides ../ory-am/docs/$VERSION/guides"
+      - run: "VERSION=${CIRCLE_TAG:-latest} cp -R ./apis/* ../ory-am/docs/apis/$VERSION"
+      - run: "VERSION=${CIRCLE_TAG:-latest} (cd ../ory-am && git add -A && git commit -a -m \"docs: Updates documentation ($VERSION)\" && git push origin) || exit 0"
 
 workflows:
   version: 2

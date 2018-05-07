@@ -2,6 +2,7 @@
   "dependencies": {
     "gitbook": "^3.2.3",
     "gitbook-cli": "^2.3.2",
+    "gitbook-plugin-versions": "^2.1.4",
     "npm-run-all": "^4.1.2"
   },
   "scripts": {

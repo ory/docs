@@ -28,7 +28,18 @@
       "basePath": "/docs/guides/"
     },
     "versions": {
-      "type": "tags"
+      "gitbookConfigURL": "https://raw.githubusercontent.com/ory/docs/master/guides/book.json",
+      "options": [
+        {
+          "value": "https://www.ory.sh/docs/guides/latest",
+          "text": "latest",
+          "selected": true
+        },
+        {
+          "value": "https://www.ory.sh/docs/guides/v0.11.12",
+          "text": "0.11.12"
+        }
+      ]
     }
   }
 }
