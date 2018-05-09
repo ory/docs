@@ -10,9 +10,22 @@ as well as OpenID Connect ID Tokens. It's basically like you storing cookies wit
 adoptable.
 
 ORY Hydra does not store user profiles, usernames, passwords. This capability is up to you. ORY Hydra uses something we
-call a consent flow. The consent flow uses HTTP redirects to forward any incoming authorization request ("Please give
-me an access token.") to a consent app. The consent app is something you implement. It can be a new app, or your existing
-login system. In the consent app, you must authenticate the user. Then you will make an HTTP REST call to ORY Hydra's API
+call a **User Login and Consent Flow**. This flow uses HTTP redirects to forward any incoming authorization request ("Please give
+me an access token.") to the **Login Provider** and the **Consent Provider**. These applications are something you implement.
+t can be a new app, or your existing login system. On a high level, these providers can be summarized as:
+
+- The login provider is responsible for authenticating the user by validating his or her credentials (e.g. username + password).
+- The consent provider is responsible for allowing the OAuth 2.0 application to get a token on the user's behalf ("Do you want
+to allow foobar-app access to all your personal messages and images?".
+
+
+
+
+
+
+
+In the consent app, you must authenticate the user.
+Then you will make an HTTP REST call to ORY Hydra's API
 and let the system know which user authenticated. Here you can add your custom session data, which will be included in the
 access, refresh and ID tokens.
 

@@ -1,12 +1,12 @@
 # Telemetry
 
-Our goal is to have the fastest and most reliable OAuth2 and OpenID Connect server. To achieve this goal,
+Our goal is to have the fastest and most reliable open source services. To achieve this goal,
 we collect metrics on endpoint performance and send a **fully anonymized** telemetry report
 ("anonymous usage statistics") to our servers. This data helps us understand how changes impact performance
 and stability of ORY Hydra and identify potential issues.
 
 We are committed to full transparency on what data we transmit why and how. The source code of the telemetry package is completely open source
-and located [here](https://github.com/ory/hydra/tree/master/metrics). If you do not wish to help us improving ORY Hydra
+and located [here](https://github.com/ory/metrics-middleware). If you do not wish to help us improving ORY Hydra
 by sharing telemetry data, it is possible to [turn this feature off](#disabling-telemetry).
 
 To protect your privacy, we filter out any data that could identify you or your users. We are taking the following
@@ -43,28 +43,6 @@ We collect the following system metrics:
 
 ## Request telemetry
 
-We collect telemetry data from the following endpoints:
-
-```
-"/.well-known/jwks.json",
-"/.well-known/openid-configuration",
-"/clients",
-"/health",
-"/keys",
-"/userinfo",
-"/oauth2/consent-fallback",
-"/oauth2/auth",
-"/oauth2/introspect",
-"/oauth2/revoke",
-"/oauth2/token",
-"/oauth2/consent/requests",
-"/policies",
-"/warden/allowed",
-"/warden/groups",
-"/warden/token/allowed",
-"/",
-```
-
 The ip addresses of both host and client are anonymized to `0.0.0.0`. Any identifiable information in the URL path and query is hashed with
 sha256 using a randomly assigned uuid v4 salt:
 
@@ -88,7 +66,7 @@ analytics.
 			Set("method", r.Method),
 ```
 
-A raw data example can be found [here](https://github.com/ory/hydra/tree/master/docs/metrics/telemetry-example.json).
+A raw data example can be found [here](https://github.com/ory/metrics-middleware).
 
 ## Data processing
 
@@ -108,7 +86,7 @@ We analyze the data from ORY Hydra deployments with the following goals:
 
 ## Disabling telemetry
 
-You can disable telemetry with `hydra host --disable-telemetry`, using the [oryd/hydra:{tag}-without-telemetry](https://hub.docker.com/r/oryd/hydra/tags/) docker image, by
-setting `export DISABLE_TELEMETRY=1`, or `DISABLE_TELEMETRY=1 hydra host`.
+You can disable telemetry in all services with the `--disable-telemetry` flag and
+setting environment variable `DISABLE_TELEMETRY=1`.
 
-Disabling telemetry does not have any downsides, except for us not being able to detect issues automatically ;)
+Disabling telemetry does not have any downsides, except for us not being able to improve the product.
