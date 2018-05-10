@@ -5,6 +5,7 @@ This file keeps track of questions and discussions from Gitter and general help 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [How can I control SQL connection limits?](#how-can-i-control-sql-connection-limits)
 - [Why is the Resource Owner Password Credentials grant not supported?](#why-is-the-resource-owner-password-credentials-grant-not-supported)
 - [Should I use OAuth2 tokens for authentication?](#should-i-use-oauth2-tokens-for-authentication)
@@ -24,28 +25,8 @@ This file keeps track of questions and discussions from Gitter and general help 
 - [Is JWT supported?](#is-jwt-supported)
 - [Refreshing tokens](#refreshing-tokens)
 - [Revoking tokens & log out](#revoking-tokens-&-log-out)
-- [Operational Considerations](#operational-considerations)
-  - [Managing Client/Policy Definitions](#managing-clientpolicy-definitions)
-- [Recovering root client access](#recovering-root-client-access)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-## Consent App Client
-
-> Alexander Alimovs @aalimovs 13:25  
-but this is not advised, and ideally you split consent app (identity provider) from the client app, correct?
-I'm grasping OAuth 2.0 trying to get this work and it starts to make more and more sense, almost there
-
-> Aeneas @arekkas 13:28  
-yes so your consent app is like the source of truth, the globe that knows everything
-
-> Aeneas @arekkas 13:28  
-because it has access to the cryptographic keys that allow it to issue the consent response, which in turn can be used to say: hey, this guy here is peter and he's the freaking super admin
-so hydra will be like: ok cool, welcome peter, here are your keys, don't do anything stupid with that
-so if you use the consent app client everywhere, it might leak, or some one who is not peter may say: oh look, I can look up the cryptographic keys for the consent repsonse, let me use that and impersonate peter
-so now some random internet guy is the superadmin of your system
-thus, it is extremely important to only use the consent app client in the consent app, and nowhere else
-in the error case above you are requesting the scope "hydra" which has not been granted to the client (see the scopes column)
 
 ## How can I control SQL connection limits?
 
@@ -99,22 +80,7 @@ In the second example ("authentication server"), you must use OpenID Connect ID 
 
 ## How to deal with mobile apps?
 
-Authors of apps running on client side (native apps, single page apps, hybrid apps) have for some
-time relied on the Resource Owner Password Credentials grant. This is highly discouraged by the IETF, and replaced
-with recommendations in [OAuth 2.0 for Native Apps](https://tools.ietf.org/html/draft-ietf-oauth-native-apps-03).
-
-To keep things short, it allows you to perform the normal `authorize_code` flows without supplying a password. Hydra
-allows this by setting the public flag, for example:
-
-```sh
-hydra clients create \
-    --id my-id \
-    --is-public \
-    -r code,id_token \
-    -g authorization_code,refresh_token \
-    -a offline,openid \
-    -c https://mydomain/callback
-```
+Read [this article](https://www.ory.sh/oauth2-for-mobile-app-spa-browser).
 
 ## How should I run migrations?
 
@@ -293,62 +259,3 @@ ohh so you mean have two requests one for hydra to revoke and one for consent to
 
 > Aeneas @arekkas 15:47  
 yes
-
-## Operational Considerations
-
-**This section might be outdated.**
-
-This section is intended to give operations folk some useful guidelines on
-how to best manage a hydra deployment.
-
-### Managing Client/Policy Definitions
-
-It is useful for JSON files for client and policy definitions to be persisted outside
-of the hydra database itself. There are several reasons for this:
-
-- client secrets are stored in the database as a bcrypt hash, so you will not be
-  able to read back the secret.  If, at some later point, you need to update the
-  client definition then you need to delete the client definition from the database
-  and recreate it. So as to ensure that existing web/mobile/other apps are able to
-  continue operation, you will need to recreate the same client ID/secret - for which
-  you should use the `hydra clients import` command.
-
-A good storage platform for these files is Hashicorp [Vault](https://www.vaultproject.io). The full setup of a
-Vault deployment is beyond the scope of this document, please refer to the Vault website
-for this.
-
-With LDAP-based authentication configured, reading a client definition from
-the Vault "secrets" backend is as simple as:
-
-````
-$ vault auth -method=ldap username=john.doe
-$ vault read -field=myclient secrets/hydra/clients | hydra clients import /dev/stdin
-````
-
-The first command above will prompt you for your LDAP password and then create
-a file `~/.vault-token`. Note that you may wish to consider using token authentication
-instead of LDAP, but the above should be simple for ops folk to perform.
-
-If you need to update a client later, you can delete the client from hydra using:
-
-````
-$ hydra clients delete "<clientid>"
-````
-and then re-import as above.
-
-The same procedure can be followed for importing/updating policy definitions.
-
-## Recovering root client access
-
-If you somehow manage to lose admin access to your Hydra system, you can regain this
-by making use of Hydra's temporary root client creation - which is triggered when
-hydra is unable to find any client definitions upon startup. Due to the ID given to
-policy used for temporary root clients, you may need to also delete configured
-policies. To do so, make a (sql) back up of existing clients and policies,
-then empty tables `hydra_clients` and `hydra_policies`, and:
-
-- Restart Hydra
-- Re-import your client/policy definitions, as described above
-- Delete your new temporary root client
-- Ensure that any Hydra clients which have read keys from hydra are refreshed, possibly
-  involving a simple restart to effect a timely update
