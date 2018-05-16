@@ -7,7 +7,8 @@
     "etoc",
     "ga",
     "sitemap-basepath",
-    "versions"
+    "versions",
+    "youtube"
   ],
   "pluginsConfig": {
     "edit-link": {
@@ -32,12 +33,12 @@
       "options": [
         {
           "value": "https://www.ory.sh/docs/guides/latest",
-          "text": "latest",
-          "selected": true
+          "text": "latest"
         },
         {
           "value": "https://www.ory.sh/docs/guides/v0.11.12",
-          "text": "0.11.12"
+          "text": "0.11.12",
+          "selected": true
         }
       ]
     }

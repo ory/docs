@@ -1,5 +1,9 @@
 # JSON Web Keys (JWK)
 
+<!-- toc -->
+
+## Overview
+
 A JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key and is
 specified at [IETF RFC7517](https://tools.ietf.org/html/rfc7517). If you've heard of PEM files...
 

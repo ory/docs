@@ -1,12 +1,12 @@
 # Telemetry
 
-Our goal is to have the fastest and most reliable OAuth2 and OpenID Connect server. To achieve this goal,
+Our goal is to have the fastest and most reliable open source services. To achieve this goal,
 we collect metrics on endpoint performance and send a **fully anonymized** telemetry report
 ("anonymous usage statistics") to our servers. This data helps us understand how changes impact performance
 and stability of ORY Hydra and identify potential issues.
 
 We are committed to full transparency on what data we transmit why and how. The source code of the telemetry package is completely open source
-and located [here](https://github.com/ory/hydra/tree/master/metrics). If you do not wish to help us improving ORY Hydra
+and located [here](https://github.com/ory/metrics-middleware). If you do not wish to help us improving ORY Hydra
 by sharing telemetry data, it is possible to [turn this feature off](#disabling-telemetry).
 
 To protect your privacy, we filter out any data that could identify you or your users. We are taking the following
@@ -24,12 +24,14 @@ URL paths is listed in section [Request telemetry](#request-telemetry).
   * Build time, hash and version of ORY Hydra
   * Memory consumption of ORY Hydra's process
 
+The information is stored in an aggregated format without any personally identifiable information.
+
 ## Identification
 
 To identify an installation and group together clusters, we create a SHA-256 hash of the Issuer URL for identification.
 Additionally, each running instance is identified using an unique identifier which is set every time ORY Hydra starts. The identifier
 is a Universally Unique Identifier (V4) and is thus a cryptographically safe random string. Identification is triggered
-when we are confident that the instance is not a test instance (e.g. one of our tutorials).
+when we are confident that the instance is not a test instance (e.g. one of the tutorials or a local installation).
 
 We collect the following system metrics:
 
@@ -43,72 +45,35 @@ We collect the following system metrics:
 
 ## Request telemetry
 
-We collect telemetry data from the following endpoints:
-
-```
-"/.well-known/jwks.json",
-"/.well-known/openid-configuration",
-"/clients",
-"/health",
-"/keys",
-"/userinfo",
-"/oauth2/consent-fallback",
-"/oauth2/auth",
-"/oauth2/introspect",
-"/oauth2/revoke",
-"/oauth2/token",
-"/oauth2/consent/requests",
-"/policies",
-"/warden/allowed",
-"/warden/groups",
-"/warden/token/allowed",
-"/",
-```
-
 The ip addresses of both host and client are anonymized to `0.0.0.0`. Any identifiable information in the URL path and query is hashed with
 sha256 using a randomly assigned uuid v4 salt:
 
 * `/clients/foo` with salt `ABCDEFGH` becomes `/clients/sha256("foo|ABCDEFGH")`: `/clients/0301424a80469ad03a208de925563a97ec6ab2f9dc7a2ad71b2ded85a7f7a7af`
-* `/policies?owner=foo` with salt `ABCDEFGH` becomes `/policies?owner=sha256("foo|ABCDEFGH")`: `/policies?owner=0301424a80469ad03a208de925563a97ec6ab2f9dc7a2ad71b2ded85a7f7a7af`). We do not
+* `/policies?owner=foo` with salt `ABCDEFGH` becomes `/policies?owner=sha256("foo|ABCDEFGH")`: `/policies?owner=0301424a80469ad03a208de925563a97ec6ab2f9dc7a2ad71b2ded85a7f7a7af`).
 
-We do not collect the hostname, headers, payloads. Here is what we do collect:
+## Code
 
-```go
-path := anonymizePath(r.URL.Path)
-query := anonymizeQuery(r.URL.Query())
-analytics.
-			NewProperties().
-			SetURL(scheme + "//" + sw.ID + path + "?" + query). // sw.ID is the SHA-256 hash of the Issuer URL
-			SetPath(path).
-			SetName(path).
-			Set("status", status).
-			Set("size", size).
-			Set("latency", latency).
-			Set("instance", sw.InstanceID).
-			Set("method", r.Method),
-```
-
-A raw data example can be found [here](https://github.com/ory/hydra/tree/master/docs/metrics/telemetry-example.json).
+The full code-base is [open sourced](https://github.com/ory/metrics-middleware).
 
 ## Data processing
 
-Once the data was transmitted to [Segment.com](http://segment.com/) it is then fed to an encrypted AWS S3 bucket and stored
-for analysis using Apache Flink.
+Once the data was transmitted to [Segment.com](http://segment.com/) it is aggregated and then fed to an encrypted AWS S3 bucket.
 
-We analyze the data from ORY Hydra deployments with the following goals:
+We analyze the data with the following goals:
 
 1. Be able to say how many production deployments exist.
-2. Understand how much throughput deployments handle.
-3. Evaluate how frequently specific features (e.g. policies) are used.
-4. Detect issues introduced by new features (e.g. buggy releases). For example:
-  * After release 0.X.Y, all instances show 25% increase in response times for Warden API calls.
-5. Identify real-world problems caused by things such as slow queries. For example:
-  * Searching for policies by owners takes causes high response times.
-  * Running the deployment for several months and high traffic causes slow response times.
+- Understand which features are used and how.
+- Understand how much throughput deployments handle.
+- Evaluate how frequently specific features (e.g. policies) are used.
+- Detect issues introduced by new features (e.g. buggy releases). For example:
+  - After release 0.X.Y, all instances show 25% increase in response times for Warden API calls.
+- Identify real-world problems caused by things such as slow queries. For example:
+  - Searching for policies by owners takes causes high response times.
+  - Running the deployment for several months and high traffic causes slow response times.
 
 ## Disabling telemetry
 
-You can disable telemetry with `hydra host --disable-telemetry`, using the [oryd/hydra:{tag}-without-telemetry](https://hub.docker.com/r/oryd/hydra/tags/) docker image, by
-setting `export DISABLE_TELEMETRY=1`, or `DISABLE_TELEMETRY=1 hydra host`.
+You can opt out of telemetry reports with the `--disable-telemetry` flag and also by
+setting environment variable `DISABLE_TELEMETRY=1`.
 
-Disabling telemetry does not have any downsides, except for us not being able to detect issues automatically ;)
+Disabling telemetry does not have any downsides, except for us not being able to improve the product.

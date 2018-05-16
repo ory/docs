@@ -2,6 +2,8 @@
 
 This guide aims to help setting up a production system with ORY Hydra.
 
+<!-- toc -->
+
 ## ORY Hydra behind a reverse proxy
 
 Although ORY Hydra implements all Go best practices around running public-facing production http servers, we discourage running
