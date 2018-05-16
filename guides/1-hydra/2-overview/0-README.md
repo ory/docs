@@ -1,5 +1,7 @@
 # Concepts and Theory
 
+<!-- toc -->
+
 Please read these chapters carefully, they are imperative to getting started and grasping all the concepts quickly. The
 next sections will give you an overview of this chapter and explain some concepts. Do not skip the chapters. Seriously! :)
 

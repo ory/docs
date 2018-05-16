@@ -1,5 +1,10 @@
 ## PHP SDK
 
+<!-- toc -->
+
+**Please note that this section is not updated to ORY Hydra 1.0.0 but reflects the old API. If you know PHP, please
+provide documentation on how to get started with the PHP SDK.**
+
 ### Installation
 
 Installation is best done using [composer](https://getcomposer.org/)

@@ -2,31 +2,7 @@
 
 This file keeps track of questions and discussions from Gitter and general help with various issues.
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-
-- [How can I control SQL connection limits?](#how-can-i-control-sql-connection-limits)
-- [Why is the Resource Owner Password Credentials grant not supported?](#why-is-the-resource-owner-password-credentials-grant-not-supported)
-- [Should I use OAuth2 tokens for authentication?](#should-i-use-oauth2-tokens-for-authentication)
-- [How to deal with mobile apps?](#how-to-deal-with-mobile-apps)
-- [How should I run migrations?](#how-should-i-run-migrations)
-- [What does the installation process look like?](#what-does-the-installation-process-look-like)
-- [What does a migration process look like?](#what-does-a-migration-process-look-like)
-- [How can I do this in docker?](#how-can-i-do-this-in-docker)
-- [Can I set the log level to warn, error, debug, ...?](#can-i-set-the-log-level-to-warn-error-debug-)
-- [How can I import TLS certificates?](#how-can-i-import-tls-certificates)
-- [Is there an HTTP API Documentation?](#is-there-an-http-api-documentation)
-- [How can I disable HTTPS for testing?](#how-can-i-disable-https-for-testing)
-- [MySQL gives `unsupported Scan, storing driver.Value type []uint8 into type *time.Time`](#mysql-gives-unsupported-scan-storing-drivervalue-type-uint8-into-type-timetime)
-- [The docker image exits immediately](#the-docker-image-exits-immediately)
-- [Insufficient Entropy](#insufficient-entropy)
-- [I get compile errors!](#i-get-compile-errors)
-- [Is JWT supported?](#is-jwt-supported)
-- [Refreshing tokens](#refreshing-tokens)
-- [Revoking tokens & log out](#revoking-tokens-&-log-out)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<!-- toc -->
 
 ## How can I control SQL connection limits?
 

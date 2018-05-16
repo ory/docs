@@ -2,6 +2,8 @@
 
 Hydra is built with tough security in mind.
 
+<!-- toc -->
+
 ## OAuth 2.0 Security Overview
 
 Hydra is an implementation of the security-first Fosite OAuth 2.0 SDK

@@ -1,5 +1,7 @@
 # 5 Minute Tutorial
 
+<!-- toc -->
+
 To start off easy, ORY Hydra provides a docker-compose based example for setting up ORY Hydra, a PostgreSQL instance
 and an exemplary consent app (identity provider). You need to have the latest Docker version installed.
 

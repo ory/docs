@@ -9,6 +9,8 @@ in order to become an OAuth 2.0 and OpenID Connect provider like Google, Dropbox
 Please be aware that you must know how OAuth 2.0 and OpenID Connect work. This documentation will not teach you how to
 use these specifications work.
 
+<!-- toc -->
+
 ## Glossary
 
 Before we get into the gritty details of how everything works, let's get some terminologies out of the way. You will
