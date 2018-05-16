@@ -1,5 +1,8 @@
 # Install, Configure and Run ORY Hydra
 
+The goal of this chapter is to introduce you to a fully functional set up that includes ORY Hydra as well as our
+User Login & Consent Provider reference implementation.
+
 The goal of this section is to familiarize you with the specifics of setting up ORY Hydra in your environment.
 Before starting with this section, please check out the [tutorial](../0-Tutorial/0-README.md). It will teach you the most important flows
 and settings for Hydra.
@@ -8,14 +11,18 @@ This guide will:
 
 1. Download and run a PostgreSQL container in Docker.
 2. Download and run ORY Hydra in Docker.
-3. Create OAuth 2.0 Client for the consent app, and apply necessary policies.
-4. Download and run an exemplary consent app ([node](https://github.com/ory/hydra-consent-app-express), [golang](hydra-consent-app-go)).
-5. Create an OAuth 2.0 consumer app.
-6. Download and run an OAuth 2.0 consumer using docker.
+3. Download and run our reference User Login & Consent Provider.
+4. Create an OAuth 2.0 Client to perform the OAuth 2.0 Authorize Code Flow.
+5. Perform the OAuth 2.0 Authorize Code flow.
 
 Before starting with this guide, please install the most recent version of [Docker](https://www.docker.com/community-edition#/download).
+While docker is not required for running ORY Hydra, we recommend using it for this tutorial as it will greatly reduce
+the complexity of setting up a database on your system without virtualization, installing Go, and compiling ORY Hydra.
 
 ## Create a network
+
+Before we can start, a network must be created which we will attach all our Docker containers to. That way, the containers
+can talk to one another.
 
 ```
 $ docker network create hydraguide
@@ -23,7 +30,7 @@ $ docker network create hydraguide
 
 ## Start a PostgreSQL container
 
-For the purpose of this tutorial, we will use a PostgreSQL container. Never run databases in Docker in production!
+For the purpose of this tutorial, we will use a PostgreSQL container. Don't run databases in Docker in production!
 
 ```
 $ docker run \
@@ -53,11 +60,11 @@ $ export SYSTEM_SECRET=this_needs_to_be_the_same_always_and_also_very_$3cuR3-._
 $ export DATABASE_URL=postgres://hydra:secret@ory-hydra-example--postgres:5432/hydra?sslmode=disable
 
 # Before starting, let's pull the latest ORY Hydra tag from docker.
-$ docker pull oryd/hydra:v0.11.6
+$ docker pull oryd/hydra:v1.0.0-alpha.1
 
 # This command will show you all the environment variables that you can set. Read this carefully.
 # It is the equivalent to `hydra help host`.
-$ docker run -it --rm --entrypoint hydra oryd/hydra:v0.11.6 help host
+$ docker run -it --rm --entrypoint hydra oryd/hydra:v1.0.0-alpha.1 help serve
 
 Starts all HTTP/2 APIs and connects to a database backend.
 [...]
@@ -67,11 +74,9 @@ Starts all HTTP/2 APIs and connects to a database backend.
 # It is the equivalent to `hydra migrate sql postgres://hydra:secret@ory-hydra-example--postgres:5432/hydra?sslmode=disable`
 $ docker run -it --rm \
   --network hydraguide \
-  oryd/hydra:v0.11.6 \
+  oryd/hydra:oryd/hydra:v1.0.0-alpha.1 \
   migrate sql $DATABASE_URL
 
-Applying `ladon` SQL migrations...
-Applied 3 `ladon` SQL migrations.
 Applying `client` SQL migrations...
 [...]
 Migration successful!
@@ -83,10 +88,10 @@ $ docker run -d \
   -p 9000:4444 \
   -e SYSTEM_SECRET=$SYSTEM_SECRET \
   -e DATABASE_URL=$DATABASE_URL \
-  -e ISSUER=https://localhost:9000/ \
-  -e CONSENT_URL=http://localhost:9020/consent \
-  -e FORCE_ROOT_CLIENT_CREDENTIALS=admin:demo-password \
-  oryd/hydra:v0.11.6
+  -e OAUTH2_ISSUER_URL=https://localhost:9000/ \
+  -e OAUTH2_CONSENT_URL=http://localhost:9020/consent \
+  -e OAUTH2_LOGIN_URL=http://localhost:9020/login \
+  oryd/hydra:v1.0.0-alpha.1
 
 # And check if it's running:
 $ docker logs ory-hydra-example--hydra
@@ -103,12 +108,9 @@ Let's dive into the various settings:
 * `-p 9000:4444` exposes ORY Hydra on `https://localhost:9000/`.
 * `-e SYSTEM_SECRET=$SYSTEM_SECRET` sets the system secret environment variable **(required)**.
 * `-e DATABASE_URL=$DATABASE_URL` sets the database url environment variable **(required)**.
-* `-e ISSUER=https://localhost:9000/` set issuer to the publicly accessible url **(required)**.
-* `-e CONSENT_URL=http://localhost:9020/consent` set the url of the consent app to this one. We will set up the consent
-app in the following sections **(required)**.
-* `-e FORCE_ROOT_CLIENT_CREDENTIALS=admin:demo-password` sets the credentials of the root account. Use the root
-account to manage your ORY Hydra instance. If this is not set, ORY Hydra will auto-generate a client and display
-the credentials in the logs **(optional)**.
+* `-e OAUTH2_ISSUER_URL=https://localhost:9000/` this value must be set to the publicly available URL of ORY Hydra **(required)**.
+* `-e OAUTH2_CONSENT_URL=http://localhost:9020/consent` this sets the URL of the consent provider **(required)**.
+* `-e OAUTH2_LOGIN_URL=http://localhost:9020/login` this sets the URL of the login provider **(required)**.
 
 To confirm that the instance is running properly, [open the health check](https://localhost:9000/health/status). If asked,
 accept the self signed certificate in your browser. You should simply see `ok`.
@@ -120,11 +122,6 @@ $ docker logs ory-hydra-example--hydra
 time="2017-06-30T09:06:34Z" level=info msg="Connecting with postgres://*:*@postgres:5432/hydra?sslmode=disable"
 time="2017-06-30T09:06:34Z" level=info msg="Connected to SQL!"
 time="2017-06-30T09:06:34Z" level=info msg="Key pair for signing hydra.openid.id-token is missing. Creating new one."
-time="2017-06-30T09:06:35Z" level=info msg="Setting up telemetry - for more information please visit https://ory.gitbooks.io/hydra/content/telemetry.html"
-time="2017-06-30T09:06:35Z" level=info msg="Key pair for signing hydra.consent.response is missing. Creating new one."
-time="2017-06-30T09:06:39Z" level=info msg="Key pair for signing hydra.consent.challenge is missing. Creating new one."
-time="2017-06-30T09:06:41Z" level=warning msg="No clients were found. Creating a temporary root client..."
-time="2017-06-30T09:06:41Z" level=info msg="Temporary root client created."
 time="2017-06-30T09:06:41Z" level=warning msg="No TLS Key / Certificate for HTTPS found. Generating self-signed certificate."
 time="2017-06-30T09:06:41Z" level=info msg="Setting up http server on :4444"
 ```
@@ -135,9 +132,6 @@ As you can see, the following steps are performed when running ORY Hydra against
 Note this down, otherwise you won't be able to restart Hydra.
 2. Cryptographic keys are generated for the OpenID Connect ID Token, the consent challenge and response, and TLS encryption
 using a self-signed certificate, which is why we need to run all commands using --skip-tls-verify.
-3. If the OAuth 2.0 Client database table is empty, a new root client with random credentials is created. Root clients
-have access to all APIs, OAuth 2.0 flows and are allowed to do everything. If the `FORCE_ROOT_CLIENT_CREDENTIALS` environment.
-is set, those credentials will be used instead.
 
 ORY Hydra can be managed using the Hydra Command Line Interface (CLI), which is using ORY Hydra's REST APIs. To
 see the available commands, run:
@@ -186,7 +180,7 @@ to your `$PATH`. To do so, run the following commands in a shell (bash, sh, cmd.
 
 ```
 $ go get -d -u github.com/ory/hydra
-$ go get github.com/Masterminds/glide
+$ curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 $ cd $GOPATH/src/github.com/ory/hydra
 $ dep ensure --vendor-only
 $ go install github.com/ory/hydra
@@ -201,6 +195,22 @@ Available Commands:
   clients     Manage OAuth2 clients
 ...
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Configure ORY Hydra
 

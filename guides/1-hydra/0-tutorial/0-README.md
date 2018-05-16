@@ -92,7 +92,8 @@ Click on the link, and you will be redirect to the User Login Provider first, an
 After logging in successfully and granting the scopes (you can try out granting different scopes and see how the response
 changes), you should see at least an access token in the response.
 
-Great! You installed hydra, connected the CLI, created a client and completed two authentication flows! Let's clean this all up.
+Great! You installed hydra, connected the CLI, created a client and completed two authentication flows!
+Before you continue, clean up this set up in order to avoid conflicts with other tutorials form this guide:
 
 ```
 $ docker-compose kill
