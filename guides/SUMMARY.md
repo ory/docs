@@ -1,57 +1,41 @@
-- [1-hydra](1-hydra/README.md)
+* [Introduction](keto/0-README.md)
+* [Access Control](keto/1-overview/3-access-control.md)
+* [Access Control Policies](keto/1-overview/copy-pasta.md)
 
-- [0-tutorial]()
+## Overview
 
-- [1-environment]()
+* [Documentation](README.md)
 
-- [2-overview]()
+## ORY Hydra
 
-    - [OAuth 2.0 & OpenID Connect](1-hydra/2-overview/1-oauth2.md)
-    - [JSON Web Keys](1-hydra/2-overview/2-jwk.md)
-- [3-install]()
+* [Introduction](hydra/0-README.md)
+* [5 Minute Tutorial](hydra/1-tutorial/0-README.md)
+* [Dependencies & Environment](hydra/2-environment/0-README.md)
+* [Concepts and Theory](hydra/3-overview/0-README.md)
+* [OAuth 2.0 & OpenID Connect](hydra/3-overview/1-oauth2.md)
+* [JSON Web Keys (JWK)](hydra/3-overview/2-jwk.md)
+* [Install, Configure and Run ORY Hydra](hydra/4-install/0-README.md)
+* [Security Overview](hydra/5-security/0-README.md)
+* [How To](hydra/6-how-to/0-README.md)
+* [ORY Hydra in production](hydra/6-how-to/1-production.md)
+* [SDK](hydra/7-sdk/0-README.md)
+* [Go SDK](hydra/7-sdk/1-go.md)
+* [JavaScript SDK](hydra/7-sdk/2-js.md)
+* [PHP SDK](hydra/7-sdk/3-php.md)
+* [FAQ](hydra/8-faq/0-README.md)
 
-- [4-security]()
+## ORY Oathkeeper
 
-- [6-how-to]()
+* [Introduction](oathkeeper/0-README.md)
+* [Quickstart](oathkeeper/1-Quickstart/0-README.md)
+* [Installing ORY Oathkeeper](oathkeeper/1-Quickstart/1-INSTALLATION.md)
+* [Running ORY Oathkeeper](oathkeeper/1-Quickstart/2-EXECUTION.md)
+* [Concepts](oathkeeper/2-Concepts/0-README.md)
+* [Terminology](oathkeeper/2-Concepts/1-TERMINOLOGY.md)
+* [Rules](oathkeeper/2-Concepts/2-RULES.md)
+* [Deployment](oathkeeper/3-Deyploment/0-README.md)
+* [Security](oathkeeper/4-Security/0-README.md)
 
-    - [ORY Hydra in production](1-hydra/6-how-to/1-production.md)
-- [7-sdk]()
+## Telemetry
 
-    - [Go SDK](1-hydra/7-sdk/1-go.md)
-    - [JavaScript SDK](1-hydra/7-sdk/2-js.md)
-    - [PHP SDK](1-hydra/7-sdk/3-php.md)
-- [8-faq]()
-
-- [SUMMARY.md](1-hydra/SUMMARY.md)
-- [images]()
-    - [gliffy]()
-    - [sponsors]()
-- [metrics]()
-- [2-oathkeeper](2-oathkeeper/README.md)
-
-- [1-Quickstart]()
-
-    - [Installing ORY Oathkeeper](2-oathkeeper/1-Quickstart/1-INSTALLATION.md)
-    - [Running ORY Oathkeeper](2-oathkeeper/1-Quickstart/2-EXECUTION.md)
-- [2-Concepts]()
-
-    - [Terminology](2-oathkeeper/2-Concepts/1-TERMINOLOGY.md)
-    - [Rules](2-oathkeeper/2-Concepts/2-RULES.md)
-- [3-Deyploment]()
-
-- [4-Security]()
-
-- [SUMMARY.md](2-oathkeeper/SUMMARY.md)
-- [diagrams]()
-- [images]()
-- [3-keto](3-keto/README.md)
-
-- [0-overview]()
-    - [Access Control](3-keto/0-overview/3-access-control.md)
-    - [Access Control Policies](3-keto/0-overview/copy-pasta.md)
-- [SUMMARY.md](3-keto/SUMMARY.md)
-- [9-telemetry](9-telemetry/README.md)
-
-- [SUMMARY.md](9-telemetry/SUMMARY.md)
-
-## images
+* [Telemetry](telemetry/0-README.md)

@@ -1,4 +1,4 @@
-# ORY Oathkeeper
+# Introduction
 
 Welcome to the ORY Oathkeeper documentation!
 

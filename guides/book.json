@@ -3,7 +3,7 @@
   "gitbook": ">=3.2.3",
   "plugins": [
     "edit-link",
-    "summary",
+    "auto-summary",
     "etoc",
     "ga",
     "sitemap-basepath",
@@ -11,6 +11,14 @@
     "youtube"
   ],
   "pluginsConfig": {
+    "auto-summary": {
+      "parts": {
+        "README.md": "Overview",
+        "hydra/**/*.md": "ORY Hydra",
+        "oathkeeper/**/*.md": "ORY Oathkeeper",
+        "telemetry/*.md": "Telemetry"
+      }
+    },
     "edit-link": {
       "base": "https://github.com/ory/docs/tree/master/guides",
       "label": "Edit this page"
