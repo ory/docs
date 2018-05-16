@@ -73,11 +73,252 @@ consent screen. A well-documented reference implementation for both the Login an
 
 ### The flow from a user's point of view
 
-{% youtube src="https://www.youtube.com/watch?v=txUmfORzu8Y" %}{% endyoutube %}
+{% youtube %}https://www.youtube.com/watch?v=txUmfORzu8Y{% endyoutube %}
 
 ### The flow from a network perspective
 
 ![https://mermaidjs.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgT0F1dGgyIENsaWVudC0-Pk9SWSBIeWRyYTogSW5pdGlhdGVzIE9BdXRoMiBBdXRob3JpemUgQ29kZSBvciBJbXBsaWNpdCBGbG93XG4gICAgT1JZIEh5ZHJhLS0-Pk9SWSBIeWRyYTogTm8gZW5kIHVzZXIgc2Vzc2lvbiBhdmFpbGFibGUgKG5vdCBhdXRoZW50aWNhdGVkKVxuICAgIE9SWSBIeWRyYS0-PkxvZ2luIFByb3ZpZGVyOiBSZWRpcmVjdHMgZW5kIHVzZXIgd2l0aCBsb2dpbiBjaGFsbGVuZ2VcbiAgICBMb2dpbiBQcm92aWRlci0tPk9SWSBIeWRyYTogRmV0Y2hlcyBsb2dpbiBpbmZvXG4gICAgTG9naW4gUHJvdmlkZXItLT4-TG9naW4gUHJvdmlkZXI6IEF1dGhlbnRpY2F0ZXMgdXNlciB3aXRoIGNyZWRlbnRpYWxzXG4gICAgTG9naW4gUHJvdmlkZXItLT5PUlkgSHlkcmE6IFRyYW5zbWl0cyBsb2dpbiBpbmZvIGFuZCByZWNlaXZlcyByZWRpcmVjdCB1cmwgd2l0aCBsb2dpbiB2ZXJpZmllclxuICAgIExvZ2luIFByb3ZpZGVyLT4-T1JZIEh5ZHJhOiBSZWRpcmVjdHMgZW5kIHVzZXIgdG8gcmVkaXJlY3QgdXJsIHdpdGggbG9naW4gdmVyaWZpZXJcbiAgICBPUlkgSHlkcmEtLT4-T1JZIEh5ZHJhOiBGaXJzdCB0aW1lIHRoYXQgY2xpZW50IGFza3MgdXNlciBmb3IgcGVybWlzc2lvbnNcbiAgICBPUlkgSHlkcmEtPj5Db25zZW50IFByb3ZpZGVyOiBSZWRpcmVjdHMgZW5kIHVzZXIgd2l0aCBjb25zZW50IGNoYWxsZW5nZVxuICAgIENvbnNlbnQgUHJvdmlkZXItLT5PUlkgSHlkcmE6IEZldGNoZXMgY29uc2VudCBpbmZvICh3aGljaCB1c2VyLCB3aGF0IGFwcCwgd2hhdCBzY29wZXMpXG4gICAgQ29uc2VudCBQcm92aWRlci0tPj5Db25zZW50IFByb3ZpZGVyOiBBc2tzIGZvciBlbmQgdXNlcidzIHBlcm1pc3Npb24gdG8gZ3JhbnQgYXBwbGljYXRpb24gYWNjZXNzXG4gICAgQ29uc2VudCBQcm92aWRlci0tPk9SWSBIeWRyYTogVHJhbnNtaXRzIGNvbnNlbnQgcmVzdWx0IGFuZCByZWNlaXZlcyByZWRpcmVjdCB1cmwgd2l0aCBjb25zZW50IHZlcmlmaWVyXG4gICAgQ29uc2VudCBQcm92aWRlci0-Pk9SWSBIeWRyYTogUmVkaXJlY3RzIHRvIHJlZGlyZWN0IHVybCB3aXRoIGNvbnNlbnQgdmVyaWZpZXJcbiAgICBPUlkgSHlkcmEtLT4-T1JZIEh5ZHJhOiBWZXJpZmllcyBncmFudFxuICAgIE9SWSBIeWRyYS0-Pk9BdXRoMiBDbGllbnQ6IFRyYW5zbWl0cyBhdXRob3JpemF0aW9uIGNvZGUvdG9rZW4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9fQ](../images/login-consent-flow.png)
+
+### Implementing a Login & Consent Provider
+
+You should now have a high-level idea of how the login and consent providers work. Let's get into the details of it.
+
+#### OAuth 2.0 Authorize Code Flow
+
+Before anything happens, the OAuth 2.0 Authorize Code Flow is initiated by an OAuth 2.0 Client. This usually works by
+generating a URL in the form of `https://hydra/oauth2/auth?client_id=1234&scope=foo+bar&response_type=code&...`. Then,
+the OAuth 2.0 Client points the end user's user agent to that URL.
+
+Next, the user agent (browser) opens that URL.
+
+#### User Login
+
+As the user agent hits the URL, ORY Hydra checks if a session cookie is set containing information about a previously
+successful login. Additionally, parameters such as `prompt` and `max_age` are evaluated and processed.
+
+Next, the user will be redirect to the Login Provider which was set using the `OAUTH2_LOGIN_PROVIDER` environment
+variable. For example, the user is redirected to `https://login-provider/login?login_challenge=1234` if `OAUTH2_LOGIN_PROVIDER=https://login-provider/login`.
+This redirection happens *always* and regardless of whether the user has a valid login session or if the user needs
+to authenticate.
+
+The service which handles requests to `https://login-provider/login` must first fetch information on the authentication
+request using a REST API call. Please be aware that for reasons of brevity, the following code snippets are pseudo-code.
+For a fully working example, check out our reference [User Login & Consent Provider implementation](https://github.com/ory/hydra-login-consent-node).
+
+```
+// This is node-js pseudo code and will not work if you copy it 1:1
+
+challenge = req.url.query.login_challenge;
+
+fetch('https://hydra/oauth2/auth/requests/login/challenge' + challenge).
+    then(function (response) {
+        // ...
+    })
+```
+
+The server response is a JSON object with the following keys:
+
+```
+{
+    // Skip, if true, let's us know that ORY Hydra has successfully authenticated the user and we should not show any UI
+    "skip": true|false,
+
+    // The user-id of the already authenticated user - only set if skip is true
+    "subject": "user-id",
+
+    // The OAuth 2.0 client that initiated the request
+    "client": {"id": "...", ...},
+
+    // The initial OAuth 2.0 request url
+    "request_url": "https://hydra/oauth2/auth?client_id=1234&scope=foo+bar&response_type=code&...",
+
+    // The OAuth 2.0 Scope requested by the client,
+    "requested_scope": ["foo", "bar"],
+
+    // Information on the OpenID Connect request - only required to process if your UI should support these values.
+    "oidc_context": {"ui_locales": [...], ...}
+}
+```
+
+Depending of whether or not `skip` is true, you will prompt the user to log in by showing him/her a username/password form,
+or by using some other proof of identity.
+
+If `skip` is true, you can accept the login request directly by making a REST call. You will make the same call
+
+```
+// This is node-js pseudo code and will not work if you copy it 1:1
+
+const body = {
+    // This is the user ID of the user that authenticated. If `skip` is true, this must be the `subject`
+    // value from the `fetch('https://hydra/oauth2/auth/requests/login/challenge' + challenge)` response.
+    subject: "...",
+
+    // If remember is set to true, then the authentication session will be persisted in the user's browser by ORY Hydra. This will set the `skip` flag to true in future requests that are coming from this user. This value has no effect if `skip` was true.
+    remember: true|false,
+
+    // The time (in seconds) that the cookie should be valid for. Only has an effect if `remember` is true.
+    remember_for: 3600,
+
+    // This value is specified by OpenID connect and optional - it tells OpenID Connect which level of authentication the user performed - for example 2FA or using some biometric data. The concrete values are up to you here.
+    acr: ".."
+}
+
+fetch('https://hydra/oauth2/auth/requests/login/challenge' + challenge + '/accept', {
+    method: 'PUT',
+    body: JSON.stringify(body),
+    headers: { 'Content-Type': 'application/json' }
+}).
+    then(function (response) {
+        // The response will contain a `redirect_to` key which contains the URL where the user's user agent must be redirected to next.
+        res.redirect(response.redirect_to);
+    })
+```
+
+You may also choose to deny the login request. This is possible regardless of the `skip` value.
+
+```
+// This is node-js pseudo code and will not work if you copy it 1:1
+
+const body = {
+    error: "...", // This is an error ID like `login_required` or `invalid_request`
+    error_description: "..." // This is a more detailed description of the error
+}
+
+fetch('https://hydra/oauth2/auth/requests/login/challenge' + challenge + '/reject', {
+    method: 'PUT',
+    body: JSON.stringify(body),
+    headers: { 'Content-Type': 'application/json' }
+}).
+    then(function (response) {
+        // The response will contain a `redirect_to` key which contains the URL where the user's user agent must be redirected to next.
+        res.redirect(response.redirect_to);
+    })
+```
+
+#### User Consent
+
+Now that we know who the user is, we must ask the user if he/she wants to grant the requested permissions to the OAuth 2.0 Client.
+To do so, we check if the user has previously granted that exact OAuth 2.0 Client the requested permissions. If the user
+has never granted any permissions to the client, or the client requires new permissions not previously granted, the user
+must visually confirm the request.
+
+This works very similar to the User Login Flow.
+First, the user will be redirect to the Consent Provider which was set using the `OAUTH2_CONSENT_PROVIDER` environment
+variable. For example, the user is redirected to `https://consent-provider/consent?consent_challenge=1234` if `OAUTH2_CONSENT_PROVIDER=https://consent-provider/consent`.
+This redirection happens *always* and regardless of whether the user has a valid login session or if the user needs
+to authorize the application or not.
+
+The service which handles requests to `https://consent-provider/consent` must first fetch information on the consent
+request using a REST API call. Please be aware that for reasons of brevity, the following code snippets are pseudo-code.
+For a fully working example, check out our reference [User Login & Consent Provider implementation](https://github.com/ory/hydra-login-consent-node).
+
+```
+// This is node-js pseudo code and will not work if you copy it 1:1
+
+challenge = req.url.query.consent_challenge;
+
+fetch('https://hydra/oauth2/auth/requests/consent/challenge' + challenge).
+    then(function (response) {
+        // ...
+    })
+```
+
+The server response is a JSON object with the following keys:
+
+```
+{
+    // Skip, if true, let's us know that the client has previously been granted the requested permissions (scope) by the end-user
+    "skip": true|false,
+
+    // The user-id of the user that will grant (or deny) the request
+    "subject": "user-id",
+
+    // The OAuth 2.0 client that initiated the request
+    "client": {"id": "...", ...},
+
+    // The initial OAuth 2.0 request url
+    "request_url": "https://hydra/oauth2/auth?client_id=1234&scope=foo+bar&response_type=code&...",
+
+    // The OAuth 2.0 Scope requested by the client,
+    "requested_scope": ["foo", "bar"],
+
+    // Information on the OpenID Connect request - only required to process if your UI should support these values.
+    "oidc_context": {"ui_locales": [...], ...}
+}
+```
+
+If skip is true, you should not show any user interface to the user. Instead, you should accept (or deny) the consent request.
+Typically, you will accept the request unless you have a very good reason to deny it (e.g. the OAuth 2.0 Client is banned).
+
+If skip is false and you show the consent screen, you should use the `requested_scope` array to display a list of permissions
+which the user must grant (e.g. using a checkbox). Some people choose to always skip this step if the OAuth 2.0 Client
+is a first-party client - meaning that the client is used by you or your developers in an internal application.
+
+Assuming the user accepts the consent request, the code looks very familiar to the User Login Flow.
+
+```
+// This is node-js pseudo code and will not work if you copy it 1:1
+
+const body = {
+    // A list of permissions the user granted to the OAuth 2.0 Client. This can be fewer permissions that initially requested, but are rarely more or other permissions than requested.
+    granted_scope: ["foo", "bar"],
+
+    // If remember is set to true, then the consent response will be remembered for future requests. This will set the `skip` flag to true in future requests that are coming from this user for the granted permissions and that particular client. This value has no effect if `skip` was true.
+    remember: true|false,
+
+    // The time (in seconds) that the cookie should be valid for. Only has an effect if `remember` is true.
+    remember_for: 3600,
+
+    // The session allows you to set additional data in the access and ID tokens.
+    session: {
+        // Sets session data for the access and refresh token, as well as any future tokens issued by the
+        // refresh grant. Keep in mind that this data will be available to anyone performing OAuth 2.0 Challenge Introspection.
+        // If only your services can perform OAuth 2.0 Challenge Introspection, this is usually fine. But if third parties
+        // can access that endpoint as well, sensitive data from the session might be exposed to them. Use with care!
+        access_token: { ... },
+
+        // Sets session data for the OpenID Connect ID token. Keep in mind that the session'id payloads are readable
+        // by anyone that has access to the ID Challenge. Use with care!
+        id_token: { ... },
+    }
+}
+
+fetch('https://hydra/oauth2/auth/requests/consent/challenge' + challenge + '/accept', {
+    method: 'PUT',
+    body: JSON.stringify(body),
+    headers: { 'Content-Type': 'application/json' }
+}).
+    then(function (response) {
+        // The response will contain a `redirect_to` key which contains the URL where the user's user agent must be redirected to next.
+        res.redirect(response.redirect_to);
+    })
+```
+
+You may also choose to deny the consent request. This is possible regardless of the `skip` value.
+
+```
+// This is node-js pseudo code and will not work if you copy it 1:1
+
+const body = {
+    // This is an error ID like `consent_required` or `invalid_request`
+    error: "...",
+
+    // This is a more detailed description of the error
+    error_description: "..."
+}
+
+fetch('https://hydra/oauth2/auth/requests/consent/challenge' + challenge + '/reject', {
+    method: 'PUT',
+    body: JSON.stringify(body),
+    headers: { 'Content-Type': 'application/json' }
+}).
+    then(function (response) {
+        // The response will contain a `redirect_to` key which contains the URL where the user's user agent must be redirected to next.
+        res.redirect(response.redirect_to);
+    })
+```
+
+Once the user agent is redirected back, the OAuth 2.0 flow will be finalized.
 
 ## OAuth 2.0 Scope
 
