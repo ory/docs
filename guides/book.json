@@ -3,11 +3,10 @@
   "gitbook": ">=3.2.3",
   "plugins": [
     "edit-link",
-    "summary",
     "etoc",
     "ga",
     "sitemap-basepath",
-    "versions"
+    "versions-ory"
   ],
   "pluginsConfig": {
     "edit-link": {
@@ -32,8 +31,7 @@
       "options": [
         {
           "value": "https://www.ory.sh/docs/guides/latest",
-          "text": "latest",
-          "selected": true
+          "text": "latest"
         },
         {
           "value": "https://www.ory.sh/docs/guides/v0.11.12",
