@@ -23,14 +23,14 @@
 ## ORY Oathkeeper (wip)
 
 * [Introduction](oathkeeper/README.md)
-  * [Quickstart](oathkeeper/1-Quickstart/0-README.md)
-  * [Installing ORY Oathkeeper](oathkeeper/1-Quickstart/1-INSTALLATION.md)
-  * [Running ORY Oathkeeper](oathkeeper/1-Quickstart/2-EXECUTION.md)
-  * [Concepts](oathkeeper/2-Concepts/0-README.md)
-  * [Terminology](oathkeeper/2-Concepts/1-TERMINOLOGY.md)
-  * [Rules](oathkeeper/2-Concepts/2-RULES.md)
-  * [Deployment](oathkeeper/3-Deyploment/0-README.md)
-  * [Security](oathkeeper/4-Security/0-README.md)
+  * [Quickstart](oathkeeper/1-quickstart/README.md)
+    * [Installing ORY Oathkeeper](oathkeeper/1-quickstart/1-INSTALLATION.md)
+    * [Running ORY Oathkeeper](oathkeeper/1-quickstart/2-EXECUTION.md)
+  * [Concepts](oathkeeper/2-concepts/README.md)
+    * [Terminology](oathkeeper/2-concepts/1-TERMINOLOGY.md)
+    * [Rules](oathkeeper/2-concepts/2-RULES.md)
+  * [Deployment](oathkeeper/3-deyploment/README.md)
+  * [Security](oathkeeper/4-security/README.md)
 
 ## ORY Keto (wip)
 

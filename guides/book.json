@@ -42,11 +42,15 @@
       "options": [
         {
           "value": "https://www.ory.sh/docs/guides/latest",
-          "text": "latest"
+          "text": "latest (stable)"
         },
         {
           "value": "https://www.ory.sh/docs/guides/v0.11.12",
           "text": "0.11.12"
+        },
+        {
+          "value": "https://www.ory.sh/docs/guides/master",
+          "text": "master (unstable)"
         }
       ]
     }
