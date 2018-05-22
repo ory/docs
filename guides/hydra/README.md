@@ -1,28 +1,29 @@
-<h1 align="center" style="margin-bottom: 8px">
-    <img alt="Hydra - cloud native access control" src="./images/logo-essential.png">
-</h1>
-
-<h4 style="margin: 0 20% 1.275em" align="center">
-Hydra is a runnable server implementation of the <a href="https://tools.ietf.org/html/rfc6749">OAuth 2.0 authorization framework</a>
-and the <a href="http://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0</a>.
-</h4>
-
-This is the developer guide, you might be looking for the [GitHub Repository](http://github.com/ory/hydra), the
-[HTTP REST API Documentation](http://www.ory.sh/docs/api/hydra) or
-the [Language-Level API Documentation](https://godoc.org/github.com/ory/hydra) instead.
-
-<hr>
-
 # Introduction
 
 Welcome to the Hydra documentation. This documentation will
 
-1. teach you what OAuth2 and OpenID Connect are and how Hydra fits in the picture.
-2. help you run a Hydra installation on your system using Docker.
-3. teach you how to install, configure, run and use Hydra.
-3. teach you how to hack and contribute back to Hydra.
+1. teach you what OAuth2 and OpenID Connect are and how ORY Hydra fits in the picture.
+2. help you run a ORY Hydra installation on your system using Docker.
+3. teach you how to install, configure, run and use ORY Hydra.
 
 Let us begin with the first part, understanding what OAuth2 and OpenID Connect are.
+
+## What is ORY Hydra?
+
+ORY Hydra is an OAuth 2.0 and OpenID Connect Provider. As such, it is capable of issuing access, refresh, and ID Tokens.
+Contrary to other projects out there, ORY Hydra does not offer user management (login, logout, profile management,
+registration) but instead uses a redirection-based flow and REST requests to delegate user authentication (login) to
+a service which you implement and control. This allows you to build a user management that works for you, with the frontend
+technology that you like, and authentication mechanisms required by your use case (e.g. token-based 2FA, SMS 2FA).
+
+As such, ORY Hydra is the most flexible OAuth 2.0 and OpenID Connect provider out there and gives you great freedom
+in implementing your business logic, and still getting all the benefits from OAuth 2.0 and OpenID Connect.
+
+Additional to the OAuth 2.0 functionality, ORY Hydra offers a safe storage for cryptographic keys (e.g. for signing JSON Web Tokens)
+and is capable of managing OAuth 2.0 Clients.
+
+ORY Hydra is OpenID Connect certified (pending) and implements all the requirements stated by the OpenID Foundation. As such,
+it correctly mplements the different OAuth 2.0 and OpenID Connect flows as intended by the IETF and OpenID Foundation.
 
 ## Introduction to OAuth 2.0 and OpenID Connect
 
@@ -34,6 +35,9 @@ to read the following articles:
 * [DigitalOcean: An Introduction to OAuth 2](https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2)
 * [Aaron Parecki: OAuth2 Simplified](https://aaronparecki.com/2012/07/29/2/oauth2-simplified)
 * [Zapier: Chapter 5: Authentication, Part 2](https://zapier.com/learn/apis/chapter-5-authentication-part-2/)
+
+Please be aware that we do not aim to explain OAuth 2.0 in great detail. We assume that you have some knowledge
+of the flows and strongly encourage you to refresh your knowledge with the articles listed above.
 
 ### What is OAuth 2.0?
 
