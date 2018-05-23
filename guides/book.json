@@ -15,7 +15,7 @@
       "parts": {
         "README.md": "Overview",
         "hydra/**/*.md": "ORY Hydra",
-        "oathkeeper/**/*.md": "ORY Oathkeeper (wip)",
+        "oathkeeper/**/*.md": "ORY Oathkeeper",
         "keto/**/*.md": "ORY Keto (wip)",
         "telemetry/*.md": "Telemetry"
       }
