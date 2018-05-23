@@ -1,5 +1,7 @@
 # Deployment
 
+**THIS SECTION IS OUTDATED AND TBD**
+
 <!-- toc -->
 
 ORY Oathkeeper is developed as a native cloud application. As such, it is completely stateless, does not require
