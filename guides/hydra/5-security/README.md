@@ -100,13 +100,3 @@ Hydra supports two concepts of authorization. One is called Token Introspection 
 by the IETF ( [https://tools.ietf.org/html/rfc7662](https://tools.ietf.org/html/rfc7662) ). It is primarily
 targeted at third-party services and is usually used by a programmatic API. It can be used by first-party
 services too. The sole purpose of this endpoint is to check whether an access token is valid or not.
-
-The second endpoint is called the Warden. The Warden is a powerful endpoint primarily targeted at
-internal services. It embeds Ladon and exposes it via an HTTP API. Ladon is a popular Access Control
-library for Go ( [https://github.com/ory/ladon](https://github.com/ory/ladon) ) that uses policies similar
-to AWS IAM. Requests can be checked for authorization either based on an access tokens, or by specifying the subject.
-  
-The Ladon documentation is located at [https://github.com/ory/ladon/blob/master/README.md](https://github.com/ory/ladon/blob/master/README.md)
-and further explanation can be given upon request. Within Hydra, Ladon is used to protect various resources, like
-the JWK API. An example policy for reading public/private keys from the JWK API can be found
-[here](https://github.com/ory/hydra/blob/master/docs/access-control/policies/everyone-can-read-public-keys.json).

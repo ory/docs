@@ -4,7 +4,7 @@ This guide aims to help setting up a production system with ORY Hydra.
 
 <!-- toc -->
 
-## ORY Hydra behind a reverse proxy
+## ORY Hydra behind an API Gateway
 
 Although ORY Hydra implements all Go best practices around running public-facing production http servers, we discourage running
 ORY Hydra facing the public net directly. We strongly recommend running ORY Hydra behind an API gateway or a load balancer.

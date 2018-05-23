@@ -6,17 +6,17 @@ and OpenID Foundation.
 This section explains how to connect your existing user management (user login, registration, logout, ...) with ORY Hydra
 in order to become an OAuth 2.0 and OpenID Connect provider like Google, Dropbox, or Facebook.
 
-Please be aware that you must know how OAuth 2.0 and OpenID Connect work. This documentation will not teach you how to
-use these specifications work.
+Please be aware that you must know how OAuth 2.0 and OpenID Connect work. This documentation will not teach you how
+these protocols work.
 
 <!-- toc -->
 
 ## Glossary
 
-Before we get into the gritty details of how everything works, let's get some terminologies out of the way. You will
+Before we get into the gritty details of how everything fits together, let's get some terminologies out of the way. You will
 find these terminologies scattered across the OAuth2 and OpenID Connect ecosystem.
 
-We decided, for this guide, to use simpler, easier to use terminologies like, for example, *user* instead of *resource owner*.
+We decided, for this guide, to use simpler and easier to use terminologies like, for example, *user* instead of *resource owner*.
 If you are familiar with OAuth2 details, you will find it easier to navigate these docs if you have read the glossary.
 
 1. The **resource owner** is the user who authorizes an application to access their account. The application's access to
@@ -28,44 +28,48 @@ endpoints such as `/oauth2/auth` or `/oauth2/token`. In our case, this is **ORY 
 are owned by a resource owner (user) mentioned above.
 3. The **OAuth 2.0 Client** is the *application* that wants access to a resource owner's resources (a.k.a. get write access to a user's images).
 Such a client can ask the authorization server to issue an access token on a resource owner's behalf. Typically, the authorization server
-will ask the user if he/she "is ok with" giving away e.g. write access to the personal images to that application.
+will ask the user if he/she "is ok with" giving that application e.g. write access to personal images.
 4. The **Identity Provider** is a service ("application"/"website") with a login interface. An identity provider typically
-allows users to register as well and might also have an administrative interface in order to manage the identities ("users").
-5. **User Agent** is usually a browser, for example the browser of a user agent.
+allows users to register as well and might also have an administrative interface in order to manage the identities (delete user, ban user, create user, ...).
+5. **User Agent** is usually a browser.
 6. **OpenID Connect** is a protocol built on top of OAuth 2.0 which is capable of federating authentication.
 
-A typical OAuth 2.0 flow looks as followed:
+A typical OAuth 2.0 flow looks as follows:
 
-1. A developer registers an OAuth 2.0 Client at the Authorization Server (ORY Hydra)
-2. The client is used to obtain information on behalf of a user.
-3. The client asks the user to authorize the client to access information/data on his/her behalf.
-4. The client redirects the user to the Authorization Server.
-5. The Authorization Server confirms the user's identity and asks the user to grant the access request.
-6. The Authorization Server issues tokens that the client uses to access resources on the user's behalf.
+1. A developer registers an OAuth 2.0 Client at the Authorization Server (ORY Hydra) with the intention of obtaining information on behalf of a user.
+2. The application UI asks the user to authorize the application to access information/data on his/her behalf.
+3. The user is redirected to the Authorization Server.
+4. The Authorization Server confirms the user's identity and asks the user to grant the OAuth 2.0 Client certain permissions.
+5. The Authorization Server issues tokens that the OAuth 2.0 client uses to access resources on the user's behalf.
 
 ## Authenticating Users and Requesting Consent
 
-As you probably already know by now, ORY Hydra does not come with any type of user management (login, registration, ...).
+As you already know by now, ORY Hydra does not come with any type of user management (login, registration, ...).
 Instead, it relies on the so-called User Login and Consent Flow. This flow describes a series of redirects where the user's
-user agent is redirect to your Login Provider and, once the user is authenticated, to the Consent Provider:
+user agent is redirect to your Login Provider and, once the user is authenticated, to the Consent Provider. The Login
+and Consent provider is implemented by you in a programming language of your choice. You could write, for example, a
+NodeJS app that handles HTTP requests to `/login` and `/consent` and it would thus be your Login & Consent provider.
+
+The flow itself works as follows:
 
 1. The OAuth 2.0 Client initiates an Authorize Code, Hybrid, or Implicit flow. The user's user agent is redirect to
 `http://hydra/oauth2/auth?client_id=...&...`.
-2. ORY Hydra, if unable to authenticate the user using a previous login session, redirects the user's user agent to the Login Provider
+2. ORY Hydra, if unable to authenticate the user (= no session cookie exists), redirects the user's user agent to the Login Provider
 URL. The application "sitting" at that URL is implemented by you and typically shows a login user interface ("Please enter
 your username and password"). The URL the user is redirect to looks similar to `http://login-service/login?login_challenge=1234...`.
 3. The Login Provider, once the user has successfully logged in, tells ORY Hydra some information about who the user is (e.g. the user's ID)
-and also that the login attempt was succesful. This is done using a REST request which includes another redirect URL
+and also that the login attempt was successful. This is done using a REST request which includes another redirect URL
 along the lines of `http://hydra/oauth2/auth?client_id=...&...&login_verifier=4321`.
-4. Once the user's user agent follows the redirect and lands back at ORY Hydra. Next, ORY Hydra redirects the user's user
+4. The user's user agent follows the redirect and lands back at ORY Hydra. Next, ORY Hydra redirects the user's user
 agent to the Consent Provider, hosted at - for example - `http://consent-service/consent?consent_challenge=4567...`
 5. The Consent Provider shows a user interface which asks the user if he/she would like to grant the OAuth 2.0 Client
-the requested permissions ("OAuth 2.0 Scope"). You've probably seen this screen around, which is usually along the lines of:
+the requested permissions ("OAuth 2.0 Scope"). You've probably seen this screen around, which is usually something similar to:
 *"Would you like to grant Facebook Image Backup access to all your private and public images?"*.
 6. The Consent Provider makes another REST request to ORY Hydra to let it know which permissions the user authorized, and
 if the user authorized the request at all. The user can usually choose to not grant an application any access to his/her
-personal data. In the response of that REST request, another URL is included along the lines of `http://hydra/oauth2/auth?client_id=...&...&consent_verifier=7654...`.
-7. Now, the user has successfully authenticated and authorized (or not) the application. Next, ORY Hydra will
+personal data. In the response of that REST request, a redirect URL is included along the lines of `http://hydra/oauth2/auth?client_id=...&...&consent_verifier=7654...`.
+7. The user's user agent follows that redirect.
+7. Now, the user has successfully authenticated and authorized the application. Next, ORY Hydra will
 run some checks and if everything works out, issue access, refresh, and ID tokens.
 
 This flow allows you to take full control of the behaviour of your login system (e.g. 2FA, passwordless, ...) and
@@ -94,7 +98,7 @@ Next, the user agent (browser) opens that URL.
 #### User Login
 
 As the user agent hits the URL, ORY Hydra checks if a session cookie is set containing information about a previously
-successful login. Additionally, parameters such as `prompt` and `max_age` are evaluated and processed.
+successful login. Additionally, parameters such as `id_token_hint`, `prompt`, and `max_age` are evaluated and processed.
 
 Next, the user will be redirect to the Login Provider which was set using the `OAUTH2_LOGIN_PROVIDER` environment
 variable. For example, the user is redirected to `https://login-provider/login?login_challenge=1234` if `OAUTH2_LOGIN_PROVIDER=https://login-provider/login`.
@@ -105,15 +109,21 @@ The service which handles requests to `https://login-provider/login` must first 
 request using a REST API call. Please be aware that for reasons of brevity, the following code snippets are pseudo-code.
 For a fully working example, check out our reference [User Login & Consent Provider implementation](https://github.com/ory/hydra-login-consent-node).
 
+The endpoint handler at `/login` **must not remember previous sessions**. This task is solved by ORY Hydra. If the
+REST API call tells you to show the login ui, you **must show it**. If the REST API tells you to not show the login ui,
+**you must not show it**. Again, **do not implement any type of session here**.
+
 ```
 // This is node-js pseudo code and will not work if you copy it 1:1
 
-challenge = req.url.query.login_challenge;
+router.get('/login', function (req, res, next) {
+    challenge = req.url.query.login_challenge;
 
-fetch('https://hydra/oauth2/auth/requests/login/challenge' + challenge).
-    then(function (response) {
-        // ...
-    })
+    fetch('https://hydra/oauth2/auth/requests/login/challenge' + challenge).
+        then(function (response) {
+            // ...
+        })
+})
 ```
 
 The server response is a JSON object with the following keys:
@@ -140,17 +150,28 @@ The server response is a JSON object with the following keys:
 }
 ```
 
+For a full documentation on all available keys, please head over to the [API documentation](https://www.ory.sh/docs/api/hydra/)
+(make sure to select the right API version).
+
 Depending of whether or not `skip` is true, you will prompt the user to log in by showing him/her a username/password form,
 or by using some other proof of identity.
 
-If `skip` is true, you can accept the login request directly by making a REST call. You will make the same call
+If `skip` is true, you **should not** show a user interface but accept the login request directly by making a REST call.
+You can use this step to update some internal count of how often a user logged in, or do some other custom business logic.
+But again, do not show the user interface.
+
+To accept the login request, do something along the lines of:
 
 ```
 // This is node-js pseudo code and will not work if you copy it 1:1
 
 const body = {
     // This is the user ID of the user that authenticated. If `skip` is true, this must be the `subject`
-    // value from the `fetch('https://hydra/oauth2/auth/requests/login/challenge' + challenge)` response.
+    // value from the `fetch('https://hydra/oauth2/auth/requests/login/challenge' + challenge)` response:
+    //
+    // subject = response.subject
+    //
+    // Otherwise, this can be a value of your choosing:
     subject: "...",
 
     // If remember is set to true, then the authentication session will be persisted in the user's browser by ORY Hydra. This will set the `skip` flag to true in future requests that are coming from this user. This value has no effect if `skip` was true.

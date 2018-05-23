@@ -6,7 +6,7 @@ User Login & Consent Provider reference implementation.
 <!-- toc -->
 
 The goal of this section is to familiarize you with the specifics of setting up ORY Hydra in your environment.
-Before starting with this section, please check out the [tutorial](../0-tutorial/0-README.md). It will teach you the most important flows
+Before starting with this section, please check out the [tutorial](../1-tutorial). It will teach you the most important flows
 and settings for Hydra.
 
 This guide will:

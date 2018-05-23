@@ -1,12 +1,13 @@
 ## Overview
 
-* [Documentation](README.md)
+* [ORY Developer Guide](README.md)
 
 ## ORY Hydra
 
 * [Introduction](hydra/README.md)
   * [5 Minute Tutorial](hydra/1-tutorial/README.md)
   * [Dependencies & Environment](hydra/2-environment/README.md)
+    * [Securing ORY Hydra](hydra/2-environment/1-securing-ory-hydra.md)
   * [Concepts and Theory](hydra/3-overview/README.md)
     * [OAuth 2.0 & OpenID Connect](hydra/3-overview/1-oauth2.md)
     * [JSON Web Keys (JWK)](hydra/3-overview/2-jwk.md)

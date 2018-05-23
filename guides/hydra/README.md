@@ -12,7 +12,7 @@ Let us begin with the first part, understanding what OAuth2 and OpenID Connect a
 
 ORY Hydra is an OAuth 2.0 and OpenID Connect Provider. As such, it is capable of issuing access, refresh, and ID Tokens.
 Contrary to other projects out there, ORY Hydra does not offer user management (login, logout, profile management,
-registration) but instead uses a redirection-based flow and REST requests to delegate user authentication (login) to
+registration) but instead uses a redirection-based flow and a REST API to delegate user authentication (login) to
 a service which you implement and control. This allows you to build a user management that works for you, with the frontend
 technology that you like, and authentication mechanisms required by your use case (e.g. token-based 2FA, SMS 2FA).
 
@@ -23,12 +23,12 @@ Additional to the OAuth 2.0 functionality, ORY Hydra offers a safe storage for c
 and is capable of managing OAuth 2.0 Clients.
 
 ORY Hydra is OpenID Connect certified (pending) and implements all the requirements stated by the OpenID Foundation. As such,
-it correctly mplements the different OAuth 2.0 and OpenID Connect flows as intended by the IETF and OpenID Foundation.
+it correctly implements the different OAuth 2.0 and OpenID Connect flows as intended by the IETF and OpenID Foundation.
 
 ## Introduction to OAuth 2.0 and OpenID Connect
 
 This section will give you some ideas of what OAuth 2.0 and OpenID Connect 1.0 are for. If you
-already know what OAuth2 and OpenID Connect are and how they works, you can skip to the next [Section](#introduction-to-hydra).
+already know what OAuth2 and OpenID Connect are and how they work, you can skip to the next [Section](#introduction-to-hydra).
 This section will not explain how the various flows of OAuth2 work and how they look like. We strongly recommend
 to read the following articles:
 
@@ -126,7 +126,7 @@ There are different work flows for OpenID Connect 1.0, we recommend checking out
 Hydra is a server implementation of the OAuth 2.0 authorization framework and the OpenID Connect Core 1.0. Existing OAuth2
 implementations usually ship as libraries or SDKs such as [node-oauth2-server](https://github.com/oauthjs/node-oauth2-server)
 or [fosite](https://github.com/ory/fosite/issues), or as fully featured identity solutions with user
-management and user interfaces, such as [Dex](https://github.com/coreos/dex) or [Okta](https://www.okta.com/).
+management and user interfaces, such as [Keycloak](https://www.keycloak.org/) or [Okta](https://www.okta.com/).
 
 Implementing and using OAuth2 without understanding the whole specification is challenging and prone to errors, even when
 SDKs are being used. The primary goal of Hydra is to make OAuth 2.0 and OpenID Connect 1.0 less painful to set up and easier to use.
@@ -178,29 +178,27 @@ explains how one would use Hydra in a new one as well. So let's look at a use ca
 
 Let's assume we are running a ToDo List App (todo24.com). ToDo24 has a login endpoint (todo24.com/login).
 The login endpoint is written in node and uses MongoDB to store user information (email + password + settings). Of course,
-todo24 has other services as well: list management (todo24.com/lists/manage: close, create, move), item management (todo24.com/lists/items/manage: mark solved, add), and so on.
-You are using cookies to see which user is performing the request.
+todo24 has other services as well: list management (todo24.com/lists/manage: close, create, move),
+item management (todo24.com/lists/items/manage: mark solved, add), and so on. You are using cookie-based sessions to see which
+user is performing the request.
 
 Now you decide to use OAuth2 on top of your current infrastructure. There are many reasons to do this:
-* You want to open up your APIs to third-party developers. Their apps will be using OAuth2 Access Tokens to access a user's to do list.
-* You want a mobile client. Because you can not store secrets on devices (they can be reverse engineered and stolen), you use OAuth2 Access Tokens instead.
+* You want to open your APIs to third-party developers. Their apps will be using OAuth2 Access Tokens to access a user's to do list.
+* You want more client applications, for example browser app (SPA), mobile app, car, ...
 * You have Cross Origin Requests. Making cookies work with Cross Origin Requests weakens or even disables important anti-CSRF measures.
-* You want to write an in-browser client. This is the same case as in a mobile client (you can't store secrets in a browser).
 
 These are only a couple of reasons to use OAuth2. You might decide to use OAuth2 as your single source of authorization, thus maintaining
 only one authorization protocol and being able to open up to third party devs in no time. With OpenID Connect, you are able to delegate authentication as well as authorization!
 
 Your decision is final. You want to use OAuth2 and you want Hydra to do the job. You install Hydra in your cluster using docker.
 Next, you set up some exemplary OAuth2 clients. Clients can act on their own, but most of the time they need to access a user's todo lists.
-To do so, the client initiates an OAuth2 request. This is where [Hydra's authentication flow](https://ory-am.gitbooks.io/hydra/content/oauth2.html#authentication-flow) comes in to play.
+To do so, the client initiates an OAuth2 request. This is where the [user login & consent flow](https://www.ory.sh/docs/guides/master/hydra/3-overview/1-oauth2) comes into play.
 Before Hydra can issue an access token, we need to know WHICH user is giving consent. To do so, Hydra redirects the user agent (e.g. browser, mobile device)
-to the login endpoint alongside with a challenge that contains an expiry time and other information. The login endpoint (todo24.com/login) authenticates the
-user as usual, e.g. by username & password, session cookie or other means. Upon successful authentication, the login endpoint asks for the user's consent:
-*"Do you want to grant MyCoolAnalyticsApp read & write access to all your todo lists? [Yes] [No]"*. Once the user clicks *Yes* and gives consent,
-the login endpoint redirects back to hydra and appends something called a *consent token*. The consent token is a cryptographically signed
-string that contains information about the user, specifically the user's unique id. Hydra validates the signature's trustworthiness
-and issues an OAuth2 access token and optionally a refresh or OpenID token.
+to the login endpoint alongside with a challenge that contains important request information. The login endpoint (todo24.com/login) authenticates the
+user as usual, e.g. by username & password, session cookie or other means. Upon successful authentication, the login endpoint
+redirects the user back to ORY Hydra. Next, ORY Hydra needs the user's consent for which the user agent is redirected to the consent endpoint (todo24.com/consent)
+where the user is asked for consent: *"Do you want to grant MyCoolAnalyticsApp read & write access to all your todo lists? [Yes] [No]"*. Once the user clicks *Yes* and gives consent,
+the consent endpoint redirects back to ORY Hydra which then validates the request and finally issues the access, refresh, and ID tokens.
 
-Every time a request containing an access token hits a resource server (todo24.com/lists/manage), you make a request to Hydra asking who the token's
-subject (the user who authorized the client to create a token on its behalf) is and whether the token is valid or not. You may optionally
-ask if the token has permission to perform a certain action.
+You can validate the access tokens which are sent to your API directly at ORY Hydra, or use an Identity & Access Proxy
+like ORY Oathkeeper to do it for you.
