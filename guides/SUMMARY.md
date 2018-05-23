@@ -21,17 +21,14 @@
     * [PHP SDK](hydra/7-sdk/3-php.md)
   * [FAQ](hydra/8-faq/README.md)
 
-## ORY Oathkeeper (wip)
+## ORY Oathkeeper
 
 * [Introduction](oathkeeper/README.md)
-  * [Quickstart](oathkeeper/1-quickstart/README.md)
-    * [Installing ORY Oathkeeper](oathkeeper/1-quickstart/1-INSTALLATION.md)
-    * [Running ORY Oathkeeper](oathkeeper/1-quickstart/2-EXECUTION.md)
-  * [Concepts](oathkeeper/2-concepts/README.md)
-    * [Terminology](oathkeeper/2-concepts/1-TERMINOLOGY.md)
-    * [Rules](oathkeeper/2-concepts/2-RULES.md)
-  * [Deployment](oathkeeper/3-deyploment/README.md)
-  * [Security](oathkeeper/4-security/README.md)
+  * [Quickstart](oathkeeper/1-overview/README.md)
+    * [Access Rules](oathkeeper/1-overview/1-rules.md)
+    * [Installing ORY Oathkeeper](oathkeeper/1-overview/2-installation.md)
+    * [Configuring and Running ORY Oathkeeper](oathkeeper/1-overview/3-configuration.md)
+    * [Deployment](oathkeeper/1-overview/4-deployment.md)
 
 ## ORY Keto (wip)
 
