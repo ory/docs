@@ -1,7 +1,5 @@
 # Configuring and Running ORY Oathkeeper
 
-**THIS SECTION IS OUTDATED AND TBD**
-
 <!-- toc -->
 
 ORY Oathkeeper has two servers that run on separate ports:
@@ -23,13 +21,12 @@ For more information [go here](https://github.com/ory/hydra/issues/377).
 ORY Oathkeeper supports various authentication, authorization, and credential strategies. Depending on what strategies
 you want to use, you will have to configure more services (e.g. ORY Hydra or ORY Keto). In this tutorial, we will
 set up ORY Oathkeeper without any of the other services. Please refer to the [authenticator, authorizer, and credentials
-issuer documentation](./2-rules) to see what you need to configure in order to get the strategies you need.
+issuer documentation](./1-rules) to see what you need to configure in order to get the strategies you need.
 
 This guide will:
 
 1. Download and run a PostgreSQL container in Docker.
 2. Download and run ORY Oathkeeper using Docker.
-
 
 ## Create a Network
 
@@ -86,6 +83,7 @@ $ docker run -d \
   --network oathkeeperguide \
   -p 4456:4456 \
   -e DATABASE_URL=$DATABASE_URL \
+  oryd/oathkeeper:unstable \
   serve api
 
 # And the proxy server too - take not that we need to link the proxy serve with the API server!
@@ -94,6 +92,7 @@ $ docker run -d \
   --network oathkeeperguide \
   -p 4455:4455 \
   -e OATHKEEPER_API_URL=http://ory-oathkeeper-example--oathkeeper-api:4456/ \
+  oryd/oathkeeper:unstable \
   serve proxy
 ```
 
@@ -107,7 +106,7 @@ $ docker logs ory-oathkeeper-example--oathkeeper-proxy
 
 ### Creating your first access rule
 
-**TBD**
+**Sorry, this section is still work in progress.**
 
 1. Create the rule using `oathkeeper rules import` - need to figure out how to add the file to docker to make this work.
 2. Have a rule that works immediately, e.g. protect an Oathkeeper API URL using the Oathkeeper proxy
