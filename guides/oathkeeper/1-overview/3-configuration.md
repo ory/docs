@@ -63,14 +63,14 @@ and create a user `oathkeeper` with password `secret`.
 $ export DATABASE_URL=postgres://oathkeeper:secret@ory-oathkeeper-example--postgres:5432/oathkeeper?sslmode=disable
 
 # This pulls the latest image from Docker Hub
-$ docker pull oryd/oathkeeper:unstable
+$ docker pull oryd/oathkeeper:v1.0.0-beta.1
 
 # ORY Oathkeeper does not do magic, it requires conscious decisions, for example running SQL migrations which is required
 # when installing a new version of ORY Oathkeeper, or upgrading an existing installation.
 # It is the equivalent to `oathkeeper migrate sql postgres://oathkeeper:secret@ory-oathkeeper-example--postgres:5432/oathkeeper?sslmode=disable`
 $ docker run -it --rm \
   --network oathkeeperguide \
-  oryd/oathkeeper:unstable \
+  oryd/oathkeeper:v1.0.0-beta.1 \
   migrate sql $DATABASE_URL
 
 Applying `client` SQL migrations...
@@ -83,7 +83,7 @@ $ docker run -d \
   --network oathkeeperguide \
   -p 4456:4456 \
   -e DATABASE_URL=$DATABASE_URL \
-  oryd/oathkeeper:unstable \
+  oryd/oathkeeper:v1.0.0-beta.1 \
   serve api
 
 # And the proxy server too - take not that we need to link the proxy serve with the API server!
@@ -92,7 +92,7 @@ $ docker run -d \
   --network oathkeeperguide \
   -p 4455:4455 \
   -e OATHKEEPER_API_URL=http://ory-oathkeeper-example--oathkeeper-api:4456/ \
-  oryd/oathkeeper:unstable \
+  oryd/oathkeeper:v1.0.0-beta.1 \
   serve proxy
 ```
 

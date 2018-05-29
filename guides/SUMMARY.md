@@ -33,8 +33,14 @@
 ## ORY Keto (wip)
 
 * [Introduction](keto/README.md)
-  * [Access Control](keto/1-overview/3-access-control.md)
-  * [Access Control Policies](keto/1-overview/copy-pasta.md)
+  * [Quickstart](keto/1-overview/README.md)
+    * [Access Control Policies](keto/1-overview/1-policies.md)
+    * [Access Control: The Warden API](keto/1-overview/2-warden.md)
+    * [Roles](keto/1-overview/3-roles.md)
+    * [Best Practices](keto/1-overview/4-best-practices.md)
+    * [Conditions and Context](keto/1-overview/5-conditions.md)
+    * [Installing ORY Keto](keto/1-overview/6-installation.md)
+    * [Configuring and Running ORY Keto](keto/1-overview/7-configuration.md)
 
 ## Telemetry
 
