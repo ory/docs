@@ -29,8 +29,8 @@ jobs:
       - run: "VERSION=${CIRCLE_TAG:-master}; cp -R ./build/guides/* ../ory-am/docs/guides/$VERSION/"
       - run: "VERSION=${CIRCLE_TAG:-master}; cp -R ./apis/* ../ory-am/docs/apis/$VERSION/"
 
-      - run: 'if [ -z ${CIRCLE_TAG+x} ]; then echo "Skipping push to guides latest"; else (rm -rf ../ory-am/docs/guides/latest; cp -R ./build/guides/* ../ory-am/docs/guides/latest); fi'
-      - run: 'if [ -z ${CIRCLE_TAG+x} ]; then echo "Skipping push to apis latest"; else (rm -rf rm -rf ../ory-am/docs/apis/latest; cp -R ./build/apis/* ../ory-am/docs/apis/latest); fi'
+      - run: 'if [ -z ${CIRCLE_TAG+x} ]; then echo "Skipping push to guides latest"; else (rm -rf ../ory-am/docs/guides/latest; mkdir -p ../ory-am/docs/guides/latest; cp -R ./build/guides/* ../ory-am/docs/guides/latest); fi'
+      - run: 'if [ -z ${CIRCLE_TAG+x} ]; then echo "Skipping push to apis latest"; else (rm -rf ../ory-am/docs/apis/latest; mkdir -p ../ory-am/docs/apis/latest; cp -R ./build/apis/* ../ory-am/docs/apis/latest); fi'
 
       - run: "VERSION=${CIRCLE_TAG:-master}; cp -R ./build/guides/* ../ory-am/docs/guides/$VERSION/"
       - run: "VERSION=${CIRCLE_TAG:-master}; cp -R ./apis/* ../ory-am/docs/apis/$VERSION/"
