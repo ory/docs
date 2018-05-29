@@ -14,7 +14,7 @@ set up.
 ```
 $ git clone https://github.com/ory/hydra.git
 $ cd hydra
-$ git checkout tags/v1.0.0-beta.1
+$ git checkout tags/v1.0.0-beta.2
 $ docker-compose -p hydra up --build
 Starting hydra_mysqld_1
 Starting hydra_postgresd_1
