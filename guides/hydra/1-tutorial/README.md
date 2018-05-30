@@ -1,7 +1,5 @@
 # 5 Minute Tutorial
 
-<!-- toc -->
-
 To get started quickly, we provide a Docker Compose based example for setting up ORY Hydra, a PostgreSQL instance
 and an exemplary user login & consent app. You need to have the latest Docker as well as Docker Compose version installed.
 
@@ -52,8 +50,9 @@ $ docker exec -it hydra_hydra_1 \
 
 UDYMha9TwsMBejEvKfnDOXkhgkLsnmUNYVQDklT5bD8.ZNpuNRC85erbIYDjPqhMwTinlvQmNTk_UvttcLQxFJY
 
-# Let's perform token introspection on that token. Make sure to copy the token from above, and not the dummy value.
-$ docker exec -e TOKEN=$token -it hydra_hydra_1 \
+# Let's perform token introspection on that token. Make sure to copy the token you just got and not the dummy value.
+
+$ docker exec -it hydra_hydra_1 \
     hydra token introspect \
     --endpoint http://localhost:4444 \
     --client-id my-client \
