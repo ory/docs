@@ -179,24 +179,25 @@ Available Commands:
 
 #### Build from Source
 
-If you wish to compile ORY Hydra yourself, you need to install and set up [Go 1.8+](https://golang.org/) and add `$GOPATH/bin`
-to your `$PATH`. To do so, run the following commands in a shell (bash, sh, cmd.exe, ...):
+If you wish to compile ORY Hydra yourself, you need to install and set up [Go 1.10+](https://golang.org/) and add `$GOPATH/bin`
+to your `$PATH` as well as [golang/dep](http://github.com/golang/dep).
+
+The following commands will check out the latest release tag of ORY Hydra and compile it and set up flags so that `hydra version`
+works as expected. Please note that this will only work with a linux shell like bash or sh.
 
 ```
-$ go get -d -u github.com/ory/hydra
-$ curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-$ cd $GOPATH/src/github.com/ory/hydra
-$ dep ensure --vendor-only
-$ go install github.com/ory/hydra
-$ hydra
+```
+go get -d -u github.com/ory/hydra
+cd $(go env GOPATH)/src/github.com/ory/hydra
+HYDRA_LATEST=$(git describe --abbrev=0 --tags)
+git checkout $HYDRA_LATEST
+dep ensure -vendor-only
+go install \
+    -ldflags "-X github.com/ory/hydra/cmd.Version=$HYDRA_LATEST -X github.com/ory/hydra/cmd.BuildTime=`TZ=UTC date -u '+%Y-%m-%dT%H:%M:%SZ'` -X github.com/ory/hydra/cmd.GitHash=`git rev-parse HEAD`" \
+    github.com/ory/hydra
+git checkout master
+hydra help
 
-Hydra is a cloud native high throughput OAuth2 and OpenID Connect provider
-
-Usage:
-  hydra [command]
-
-Available Commands:
-  clients     Manage OAuth2 clients
 ...
 ```
 
