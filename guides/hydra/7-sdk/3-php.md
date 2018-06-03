@@ -24,7 +24,7 @@ use an existing one that has been preconfigured for use with Hydra. Here we use 
 client that has had this work done for us.
 
 ```sh
-composer require tulip/oauth2-hydra
+composer require ory/oauth2-hydra
 ```
 
 ```php
