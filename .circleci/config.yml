@@ -46,13 +46,13 @@ jobs:
       - run: git config --global user.email "hi@ory.am"
       - run: git config --global user.name "ORY Continuous Integration"
       - run:
-        shell: /bin/sh
-        command: |+
-            cat ./guides/book.json | sed 's/[[:space:]]\+\"text\": \"latest (stable)\"/          \"text\": \"latest (stable)\"\
-                    },\
-                    {\
-                      \"value\": \"https:\/\/www.ory.sh\/docs\/guides\/'"${CIRCLE_TAG}"'\",\
-                      \"text\": \"'"${CIRCLE_TAG}"'\"/' | echo > ./guides/book.json
+          shell: /bin/sh
+          command: |+
+              cat ./guides/book.json | sed 's/[[:space:]]\+\"text\": \"latest (stable)\"/          \"text\": \"latest (stable)\"\
+                      },\
+                      {\
+                        \"value\": \"https:\/\/www.ory.sh\/docs\/guides\/'"${CIRCLE_TAG}"'\",\
+                        \"text\": \"'"${CIRCLE_TAG}"'\"/' | echo > ./guides/book.json
       - run: cat ./guides/book.json
       - run: cat ./guides/package.json
 #      - run: git commit -a -m "Updates book.json to version $[CIRCLE_TAG}"
@@ -62,15 +62,23 @@ jobs:
 
 workflows:
   version: 2
-  "publish":
+  "publish-master":
     jobs:
       - publish:
           filters:
             branches:
               only: master
-            tags:
-              only: /.*/
+  "publish-tag":
+    jobs:
       - tag:
           filters:
             branches:
               only: tag2
+      - publish:
+          requires:
+            - tag
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /.*/
