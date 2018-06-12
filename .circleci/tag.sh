@@ -2,6 +2,9 @@
 
 cd "$( dirname "${BASH_SOURCE[0]}" )/../guides"
 
+foo=$(cat book.json)
+echo $foo
+
 contents=$(cat book.json | sed 's/[[:space:]]\+\"text\": \"latest (stable)\"/          \"text\": \"latest (stable)\"\
         },\
         {\
