@@ -73,8 +73,10 @@ workflows:
               only: /.*/
       - tag:
 #         This avoids race conditions (as both publish-tag and publish-master push to the website):
-#          requires:
-#            - publish
+          requires:
+            - publish
           filters:
             branches:
-              only: tag2
+              ignore: /.*/
+            tags:
+              only: /.*/
