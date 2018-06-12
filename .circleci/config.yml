@@ -37,6 +37,24 @@ jobs:
 
       - run: "(VERSION=${CIRCLE_TAG:-master}; cd ../ory-am && git add -A && git commit -a -m \"docs: Updates documentation version $VERSION\" && git push origin) || exit 0"
 
+  tag:
+    docker:
+      - image: circleci/node:9-browsers
+    working_directory: /home/circleci/docs
+    steps:
+      - checkout
+      - run: git config --global user.email "hi@ory.am"
+      - run: git config --global user.name "ORY Continuous Integration"
+      - run: |+
+          cat ./guides/book.json | sed 's/[[:space:]]\+\"text\": \"latest (stable)\"/          \"text\": \"latest (stable)\"\
+                  },\
+                  {\
+                    \"value\": \"https:\/\/www.ory.sh\/docs\/guides\/'"${CIRCLE_TAG}"'\",\
+                    \"text\": \"'"${CIRCLE_TAG}"'\"/' > ./guides/book.json
+      - run: cat ./guides/book.json
+#      - run: git commit -a -m "Updates book.json to version $[CIRCLE_TAG}" -- ./guides/book.json
+#      - run: git push origin tag2
+
 workflows:
   version: 2
   "publish":
@@ -47,3 +65,7 @@ workflows:
               only: master
             tags:
               only: /.*/
+      - tag:
+          filters:
+            branches:
+              only: tag2
