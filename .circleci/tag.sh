@@ -6,4 +6,18 @@ cat book.json | sed 's/[[:space:]]\+\"text\": \"latest (stable)\"/          \"te
         },\
         {\
           \"value\": \"https:\/\/www.ory.sh\/docs\/guides\/'"${CIRCLE_TAG}"'\",\
+          \"text\": \"'"${CIRCLE_TAG}"'\"/'
+
+foo=cat book.json | sed 's/[[:space:]]\+\"text\": \"latest (stable)\"/          \"text\": \"latest (stable)\"\
+        },\
+        {\
+          \"value\": \"https:\/\/www.ory.sh\/docs\/guides\/'"${CIRCLE_TAG}"'\",\
+          \"text\": \"'"${CIRCLE_TAG}"'\"/'
+
+echo $foo
+
+cat book.json | sed 's/[[:space:]]\+\"text\": \"latest (stable)\"/          \"text\": \"latest (stable)\"\
+        },\
+        {\
+          \"value\": \"https:\/\/www.ory.sh\/docs\/guides\/'"${CIRCLE_TAG}"'\",\
           \"text\": \"'"${CIRCLE_TAG}"'\"/' > book.json
