@@ -46,13 +46,13 @@ jobs:
       - run: git config --global user.email "hi@ory.am"
       - run: git config --global user.name "ORY Continuous Integration"
       - run:
-          shell: /bin/sh
+          shell: /bin/bash
           command: |+
-              cat ./guides/book.json | sed 's/[[:space:]]\+\"text\": \"latest (stable)\"/          \"text\": \"latest (stable)\"\
-                      },\
-                      {\
-                        \"value\": \"https:\/\/www.ory.sh\/docs\/guides\/'"${CIRCLE_TAG}"'\",\
-                        \"text\": \"'"${CIRCLE_TAG}"'\"/' | echo > ./guides/book.json
+            cat ./guides/book.json | sed 's/[[:space:]]\+\"text\": \"latest (stable)\"/          \"text\": \"latest (stable)\"\
+                    },\
+                    {\
+                      \"value\": \"https:\/\/www.ory.sh\/docs\/guides\/'"${CIRCLE_TAG}"'\",\
+                      \"text\": \"'"${CIRCLE_TAG}"'\"/' | echo > ./guides/book.json
       - run: cat ./guides/book.json
       - run: cat ./guides/package.json
 #      - run: git commit -a -m "Updates book.json to version $[CIRCLE_TAG}"
@@ -70,15 +70,16 @@ workflows:
               only: master
   "publish-tag":
     jobs:
-      - tag:
-          filters:
-            branches:
-              only: tag2
       - publish:
-          requires:
-            - tag
           filters:
             branches:
               ignore: /.*/
             tags:
               only: /.*/
+      - tag:
+#         This avoids race conditions:
+#          requires:
+#            - publish
+          filters:
+            branches:
+              only: tag2
