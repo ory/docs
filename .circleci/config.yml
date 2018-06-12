@@ -47,7 +47,7 @@ jobs:
       - run: git config --global user.name "ORY Continuous Integration"
       - run:
           shell: /bin/bash
-          command: ./circleci/tag.sh
+          command: ./.circleci/tag.sh
       - run: cat ./guides/book.json
       - run: cat ./guides/package.json
 #      - run: git commit -a -m "Updates book.json to version $[CIRCLE_TAG}"
