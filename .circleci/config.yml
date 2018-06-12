@@ -52,7 +52,7 @@ jobs:
                     },\
                     {\
                       \"value\": \"https:\/\/www.ory.sh\/docs\/guides\/'"${CIRCLE_TAG}"'\",\
-                      \"text\": \"'"${CIRCLE_TAG}"'\"/' | echo > ./guides/book.json
+                      \"text\": \"'"${CIRCLE_TAG}"'\"/' > ./guides/book.json
       - run: cat ./guides/book.json
       - run: cat ./guides/package.json
 #      - run: git commit -a -m "Updates book.json to version $[CIRCLE_TAG}"
@@ -77,7 +77,7 @@ workflows:
             tags:
               only: /.*/
       - tag:
-#         This avoids race conditions:
+#         This avoids race conditions (as both publish-tag and publish-master push to the website):
 #          requires:
 #            - publish
           filters:
