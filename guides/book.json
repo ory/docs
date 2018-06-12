@@ -16,7 +16,7 @@
         "README.md": "Overview",
         "hydra/**/*.md": "ORY Hydra",
         "oathkeeper/**/*.md": "ORY Oathkeeper",
-        "keto/**/*.md": "ORY Keto (wip)",
+        "keto/**/*.md": "ORY Keto",
         "telemetry/*.md": "Telemetry"
       }
     },
