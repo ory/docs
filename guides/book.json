@@ -45,6 +45,10 @@
           "text": "latest (stable)"
         },
         {
+          "value": "https://www.ory.sh/docs/guides/0.0.0-tr.1",
+          "text": "0.0.0-tr.1"
+        },
+        {
           "value": "https://www.ory.sh/docs/guides/v1.0.0-beta.2",
           "text": "v1.0.0-beta.2"
         },
