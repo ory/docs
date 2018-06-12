@@ -47,12 +47,7 @@ jobs:
       - run: git config --global user.name "ORY Continuous Integration"
       - run:
           shell: /bin/bash
-          command: |+
-            cat ./guides/book.json | sed 's/[[:space:]]\+\"text\": \"latest (stable)\"/          \"text\": \"latest (stable)\"\
-                    },\
-                    {\
-                      \"value\": \"https:\/\/www.ory.sh\/docs\/guides\/'"${CIRCLE_TAG}"'\",\
-                      \"text\": \"'"${CIRCLE_TAG}"'\"/' > ./guides/book.json
+          command: ./circleci/tag.sh
       - run: cat ./guides/book.json
       - run: cat ./guides/package.json
 #      - run: git commit -a -m "Updates book.json to version $[CIRCLE_TAG}"
