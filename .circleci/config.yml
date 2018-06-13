@@ -12,6 +12,8 @@ jobs:
       - VERSION: latest
     steps:
       - checkout
+      - run: >
+          if [ -z ${CIRCLE_TAG+x} ]; then echo "Skipping tagging because not a tag"; else find ./guides/ -name "*.md" -type f -print0 | xargs -0 sed -i 's/'$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1))'/'${CIRCLE_TAG}'/g'; fi
       - run: yarn install
       - run: yarn build
       - run: git config --global user.email "hi@ory.am"
@@ -50,7 +52,9 @@ jobs:
           command: ./.circleci/tag.sh
       - run: cat ./guides/book.json
       - run: cat ./guides/package.json
-      - run: "git commit -a -m \"Updates book.json to version ${CIRCLE_TAG}\""
+      - run: >
+          find ./guides/ -name "*.md" -type f -print0 | xargs -0 sed -i 's/'$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1))'/'${CIRCLE_TAG}'/g'
+      - run: "git commit -a -m \"Updates guides to version ${CIRCLE_TAG}\""
       - run: git remote rm origin
       - run: git remote add origin https://arekkas:$GITHUB_TOKEN@github.com/ory/docs.git
       - run: git push origin HEAD:master
