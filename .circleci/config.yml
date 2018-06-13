@@ -13,7 +13,7 @@ jobs:
     steps:
       - checkout
       - run: >
-          if [ -z ${CIRCLE_TAG+x} ]; then find ./guides/ -name "*.md" -type f -print0 | xargs -0 sed -i 's/'$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1))'/'${CIRCLE_TAG}'/g'; fi
+          if [ -z ${CIRCLE_TAG+x} ]; then echo "Skipping tagging because not a tag"; else find ./guides/ -name "*.md" -type f -print0 | xargs -0 sed -i 's/'$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1))'/'${CIRCLE_TAG}'/g'; fi
       - run: yarn install
       - run: yarn build
       - run: git config --global user.email "hi@ory.am"
