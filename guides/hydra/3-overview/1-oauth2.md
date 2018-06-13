@@ -100,8 +100,8 @@ Next, the user agent (browser) opens that URL.
 As the user agent hits the URL, ORY Hydra checks if a session cookie is set containing information about a previously
 successful login. Additionally, parameters such as `id_token_hint`, `prompt`, and `max_age` are evaluated and processed.
 
-Next, the user will be redirect to the Login Provider which was set using the `OAUTH2_LOGIN_PROVIDER` environment
-variable. For example, the user is redirected to `https://login-provider/login?login_challenge=1234` if `OAUTH2_LOGIN_PROVIDER=https://login-provider/login`.
+Next, the user will be redirect to the Login Provider which was set using the `OAUTH2_LOGIN_URL` environment
+variable. For example, the user is redirected to `https://login-provider/login?login_challenge=1234` if `OAUTH2_LOGIN_URL=https://login-provider/login`.
 This redirection happens *always* and regardless of whether the user has a valid login session or if the user needs
 to authenticate.
 
