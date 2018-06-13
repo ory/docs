@@ -46,6 +46,11 @@
     * [Installing ORY Keto](keto/1-overview/6-installation.md)
     * [Configuring and Running ORY Keto](keto/1-overview/7-configuration.md)
 
+## Performance Benchmarks
+
+* [Performance Benchmarks](performance/README.md)
+  * [ORY Hydra Performance Benchmarks](performance/1-hydra.md)
+
 ## Telemetry
 
 * [Telemetry](telemetry/README.md)

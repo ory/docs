@@ -18,6 +18,7 @@
         "hydra/**/*.md": "ORY Hydra",
         "oathkeeper/**/*.md": "ORY Oathkeeper",
         "keto/**/*.md": "ORY Keto",
+        "performance/*.md": "Performance Benchmarks",
         "telemetry/*.md": "Telemetry"
       }
     },
