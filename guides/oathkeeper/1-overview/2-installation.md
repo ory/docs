@@ -24,9 +24,14 @@ To install ORY Oathkeeper from source, you need to have Go 1.10+ installed as we
 Then, run:
 
 ```
-$ go get -d -u github.com/ory/oathkeeper
-$ cd $GOPATH/src/github.com/ory/oathkeeper
-$ dep ensure -vendor-only
-$ go install .
-$ oathkeeper help
+go get -d -u github.com/ory/oathkeeper
+cd $(go env GOPATH)/src/github.com/ory/oathkeeper
+OATHKEEPER_LATEST=$(git describe --abbrev=0 --tags)
+git checkout $OATHKEEPER_LATEST
+dep ensure -vendor-only
+go install \
+    -ldflags "-X github.com/ory/oathkeeper/cmd.Version=$OATHKEEPER_LATEST -X github.com/ory/oathkeeper/cmd.BuildTime=`TZ=UTC date -u '+%Y-%m-%dT%H:%M:%SZ'` -X github.com/ory/oathkeeper/cmd.GitHash=`git rev-parse HEAD`" \
+    github.com/ory/oathkeeper
+git checkout master
+oathkeeper help
 ```

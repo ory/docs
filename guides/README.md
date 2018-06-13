@@ -16,7 +16,7 @@ next sections.
 ## The ORY Ecosystem
 
 Almost every application has the concept of users and permissions. An anonymous user, for example, is allowed to
-read blog posts while certain authenticated users is allowed to write blog posts. While this is the basis for most
+read blog posts while certain authenticated users are allowed to write blog posts. While this is the basis for most
 applications out there, access control becomes increasingly complex as an application grows. What started out with
 a user's username and password now shifted to machine-2-machine interaction, third party developers accessing your
 user's data, and maybe even a micro service system architecture.
@@ -56,5 +56,8 @@ to modify that blog post.
 If you were to use the full ORY Ecosystem, it would probably look something like this. Keep in mind that any component
 shown here can be replaced or removed, depending on your use case.
 
-Now you know what this ecosystem has to offer you. Choose which services you need and read the developer guide by
+Now you know what this ecosystem has to offer you. To get some more information on the services, read the developer guide by
 selecting the software of your choice from the navigation on the left!
+
+
+Contact us at [hi@ory.sh](hi@ory.sh) if you need consulting with your specific project.

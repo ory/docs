@@ -318,7 +318,8 @@ This authorizer uses the ORY Keto Warden API to perform sophisticated access con
 Please familiarize yourself with the ORY Keto project before you set up this authorizer.
 
 To configure this authorizer, you must set the environment variable `AUTHORIZER_KETO_WARDEN_KETO_URL` to ORY Keto's URL,
-for example `AUTHORIZER_KETO_WARDEN_KETO_URL=http://keto/`.
+for example `AUTHORIZER_KETO_WARDEN_KETO_URL=http://keto/`. **If this environment variable is not set, then this authorizer
+will be disabled.**
 
 This authorizer has two configuration options, `required_action` and `required_resource`:
 
@@ -399,7 +400,7 @@ credential type. All your backend has to do is understand, for example, the `X-U
 This credentials issuer does not transform the HTTP request and simply forwards the headers as-is. This is useful
 if you don't want to replace, for example, `Authorization: basic` with `X-User: <subject-id>`.
 
-#### Example
+##### Example
 
 ```
 {
@@ -424,7 +425,7 @@ if you don't want to replace, for example, `Authorization: basic` with `X-User: 
 #### `id_token`
 
 This credentials issuer takes the authentication information (e.g. subject ID) and transforms it to a signed JSON Web Token,
-and more specifically to an OpenID Connect ID Token. You backend can verify the token by fetching the public key
+and more specifically to an OpenID Connect ID Token. You backend can verify the token by fetching the (public) key
 from the `/.well-known/jwks.json` endpoint.
 
 Let's say a request is made to a resource protected by ORY Oathkeeper:
@@ -492,22 +493,50 @@ The ID Token Claims are as follows:
     from 1970-01-01T0:0:0Z as measured in UTC until the date/time.
 * `jti`: A cryptographically strong random identifier to ensure the ID Token's uniqueness.
 
-This credentials issuer is dependent on ORY Hydra's JSON Web Key API. We are working on implementing a version that
-does not rely directly on ORY Hydra. For now, you will need to run ORY Hydra to get this credentials issuer working.
-To configure it, set the following environment variables:
+This credentials issuer implements several token signing algorithms, specifically:
+
+- `HS256`: This algorithm uses a HMAC-SHA256 with a shared secret as opposed to private/public keys. This strategy
+is not encouraged for production.
+- `ORY-HYDRA`: This algorithm uses ORY Hydra's JWK management API to generate private/public RSA keypair. This strategy
+is encouraged for use in production.
+
+You can set the strategy using the `CREDENTIALS_ISSUER_ID_TOKEN_ALGORITHM` environment variable. There also two more environment variables which modify
+the behaviour of this strategy:
+
+* `CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN`: The lifespan of the ID Token which defaults to 10 minutes. Example:
+    `CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN=1s` (1 second), `CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN=1m` (1 minute),
+    `CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN=1h` (1 hour), `CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN=1d` (1 day)
+* `CREDENTIALS_ISSUER_ID_TOKEN_ISSUER`: Who issued the token - this will be the value of the `iss` claim in the
+    ID Token.
+
+##### Token Signing Algorithms
+
+###### `HS256`
+
+The HS256 algorithm is the default one. This algorithm requires you to set the secret to be used for signing the ID Token.
+Be aware that anyone in possession of this secret - also anyone having access to the `./well-known/jwks.json` URL
+will be able to forge ID Tokens that will be accepted by your backends. We recommend using this strategy primarily
+for development purposes.
+
+**Do not use this strategy in production unless you know what you are doing.** If you do use this in production, make sure
+that **noone** (except the services validating the tokens) have access to the `./well-known/jwks.json` URL.
+
+Use must use the `CREDENTIALS_ISSUER_ID_TOKEN_HS256_SECRET` environment variable to set the secret.
+
+###### `ORY-HYDRA`
+
+This ID Token signing algorithm uses ORY Hydra's JSON Web Key API to generate, store, and fetch a RSA public/private keypair.
+When using this algorithm, you have the following environment variables available:
 
 * Required
     * `CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_URL`: The URL where ORY Hydra is located.
 * Optional
-    * `CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN`: The lifespan of the ID Token which defaults to 10 minutes. Example:
-    `CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN=1s` (1 second), `CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN=1m` (1 minute),
-     `CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN=1h` (1 hour), `CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN=1d` (1 day)
-    * `CREDENTIALS_ISSUER_ID_TOKEN_ISSUER`: Who issued the token - this will be the value of the `iss` claim in the
-    ID Token.
     * `CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_JWK_SET_ID`: The ID to be used to create & fetch the JSON Web Key from ORY Hydra.
     Defaults to `oathkeeper:id-token`.
     * `CREDENTIALS_ISSUER_ID_TOKEN_JWK_REFRESH_INTERVAL`: ORY Oathkeeper stores JSON Web Keys for ID Token signing in memory.
     This value sets the refresh interval. Default is 5 minutes.
+
+##### Access Rule Configuration
 
 Additionally, this credentials issuer allows you to specify the audience of the ID token per access rule. Setting
 the audience is optional:
@@ -521,7 +550,7 @@ the audience is optional:
 }
 ```
 
-#### Example
+##### Example
 
 ```
 {

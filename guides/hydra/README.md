@@ -107,12 +107,6 @@ OpenID Connect implements authentication as an extension to the OAuth 2.0 author
 
 Source [OpenID Connect Core 1.0](openid.net/specs/openid-connect-core-1_0.html)
 
-
-**OpenID Connect 1.0** is a simple identity layer on top of the OAuth 2.0 protocol.
-It allows Clients to verify the identity of the End-User based on the authentication performed
-by an Authorization Server, as well as to obtain basic profile information about the End-User in an
-interoperable and REST-like manner.
-
 OpenID Connect allows clients of all types, including Web-based, mobile, and JavaScript clients,
 to request and receive information about authenticated sessions and end-users. The specification
 suite is extensible, allowing participants to use optional features such as encryption of identity data,
@@ -125,7 +119,7 @@ There are different work flows for OpenID Connect 1.0, we recommend checking out
 
 Hydra is a server implementation of the OAuth 2.0 authorization framework and the OpenID Connect Core 1.0. Existing OAuth2
 implementations usually ship as libraries or SDKs such as [node-oauth2-server](https://github.com/oauthjs/node-oauth2-server)
-or [fosite](https://github.com/ory/fosite/issues), or as fully featured identity solutions with user
+or [fosite](https://github.com/ory/fosite), or as fully featured identity solutions with user
 management and user interfaces, such as [Keycloak](https://www.keycloak.org/) or [Okta](https://www.okta.com/).
 
 Implementing and using OAuth2 without understanding the whole specification is challenging and prone to errors, even when
@@ -162,10 +156,8 @@ the right fit for you.
 
 1. If you want to allow third-party developers accessing your APIs now or in the future, Hydra is the perfect fit. This is what an OAuth2 Provider does.
 2. If you want to become a Identity Provider, like Google, Facebook or Microsoft, OpenID Connect and thus Hydra is a perfect fit.
-3. Running an OAuth2 Provider works great with browser, mobile and wearable apps, as you can avoid storing user
-credentials on the device, phone or wearable and revoke access tokens, and thus access privileges, at any time. Adding
-OAuth2 complexity to your environment when you never plan to do (1),
-might not be worth it. Our advice: write a pros/cons list.
+3. Running an OAuth2 Provider works great with browser, mobile and wearable apps, as you can avoid storing access
+credentials on the device, phone or wearable and revoke access tokens, and thus access privileges, at any time.
 4. If you have a lot of services and want to limit automated access (think: cronjobs) for those services,
 OAuth2 might make sense for you. Example: The comment service is not allowed to read user passwords when fetching
 the latest user profile updates.

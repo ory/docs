@@ -78,20 +78,28 @@ Applying `client` SQL migrations...
 Migration successful!
 
 # Next, let's run the API server!
+#
+# Please make sure to use your own secret.
 $ docker run -d \
   --name ory-oathkeeper-example--oathkeeper-api \
   --network oathkeeperguide \
   -p 4456:4456 \
   -e DATABASE_URL=$DATABASE_URL \
+  -e PORT=4456 \
+  -e CREDENTIALS_ISSUER_ID_TOKEN_HS256_SECRET=changemechangemechangemechangemedo \
   oryd/oathkeeper:v1.0.0-beta.2 \
   serve api
 
 # And the proxy server too - take not that we need to link the proxy serve with the API server!
+#
+# Please make sure to use your own secret.
 $ docker run -d \
   --name ory-oathkeeper-example--oathkeeper-proxy \
   --network oathkeeperguide \
   -p 4455:4455 \
   -e OATHKEEPER_API_URL=http://ory-oathkeeper-example--oathkeeper-api:4456/ \
+  -e PORT=4455 \
+  -e CREDENTIALS_ISSUER_ID_TOKEN_HS256_SECRET=changemechangemechangemechangeme \
   oryd/oathkeeper:v1.0.0-beta.2 \
   serve proxy
 ```
