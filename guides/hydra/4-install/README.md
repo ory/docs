@@ -207,14 +207,14 @@ The Login Provider and Consent Provider can be two separate web services. We pro
 combines both features in one app. Here, we will use deploy that app using Docker.
 
 ```
-$ docker pull oryd/hydra-login-consent-node:latest
+$ docker pull oryd/hydra-login-consent-node:v1.0.0-beta.3
 $ docker run -d \
   --name ory-hydra-example--consent \
   -p 9020:3000 \
   --network hydraguide \
   -e HYDRA_URL=https://ory-hydra-example--hydra:4444 \
   -e NODE_TLS_REJECT_UNAUTHORIZED=0 \
-  oryd/hydra-login-consent-node:latest
+  oryd/hydra-login-consent-node:v1.0.0-beta.3
 
 # Let's check if it's running ok:
 $ docker logs ory-hydra-example--consent
