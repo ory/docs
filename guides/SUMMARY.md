@@ -2,6 +2,10 @@
 
 * [ORY Developer Guide](README.md)
 
+## updating
+
+* [Performing Software Updates](updating/README.md)
+
 ## ORY Hydra
 
 * [Introduction](hydra/README.md)
@@ -30,7 +34,7 @@
     * [Configuring and Running ORY Oathkeeper](oathkeeper/1-overview/3-configuration.md)
     * [Deployment](oathkeeper/1-overview/4-deployment.md)
 
-## ORY Keto (wip)
+## ORY Keto
 
 * [Introduction](keto/README.md)
   * [Quickstart](keto/1-overview/README.md)
