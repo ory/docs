@@ -13,7 +13,7 @@ Let us begin with the first part, understanding what OAuth2 and OpenID Connect a
 ORY Hydra is an OAuth 2.0 and OpenID Connect Provider. As such, it is capable of issuing access, refresh, and ID Tokens.
 Contrary to other projects out there, ORY Hydra does not offer user management (login, logout, profile management,
 registration) but instead uses a redirection-based flow and a REST API to delegate user authentication (login) to
-a service which you implement and control. This allows you to build a user management that works for you, with the frontend
+a service which you implement and control. You can use [ORY Hive](link) for user management, but it's up to you. This allows you to build a user management that works for you, with the frontend
 technology that you like, and authentication mechanisms required by your use case (e.g. token-based 2FA, SMS 2FA).
 
 As such, ORY Hydra is the most flexible OAuth 2.0 and OpenID Connect provider out there and gives you great freedom
@@ -79,8 +79,8 @@ Source: [IETF RFC 6749](https://tools.ietf.org/html/rfc6749)
 ### OAuth 2.0 Example
 
 An end-user (resource owner) can grant a printing
-service (client) access to her protected photos stored at a photo-
-sharing service (resource server), without sharing her username and
+service (client) access to her protected photos stored at a photo-sharing
+service (resource server), without sharing her username and
 password with the printing service.  Instead, she authenticates
 directly with a server trusted by the photo-sharing service
 (authorization server), which issues the printing service delegation-
@@ -107,12 +107,6 @@ OpenID Connect implements authentication as an extension to the OAuth 2.0 author
 
 Source [OpenID Connect Core 1.0](openid.net/specs/openid-connect-core-1_0.html)
 
-
-**OpenID Connect 1.0** is a simple identity layer on top of the OAuth 2.0 protocol.
-It allows Clients to verify the identity of the End-User based on the authentication performed
-by an Authorization Server, as well as to obtain basic profile information about the End-User in an
-interoperable and REST-like manner.
-
 OpenID Connect allows clients of all types, including Web-based, mobile, and JavaScript clients,
 to request and receive information about authenticated sessions and end-users. The specification
 suite is extensible, allowing participants to use optional features such as encryption of identity data,
@@ -125,7 +119,7 @@ There are different work flows for OpenID Connect 1.0, we recommend checking out
 
 Hydra is a server implementation of the OAuth 2.0 authorization framework and the OpenID Connect Core 1.0. Existing OAuth2
 implementations usually ship as libraries or SDKs such as [node-oauth2-server](https://github.com/oauthjs/node-oauth2-server)
-or [fosite](https://github.com/ory/fosite/issues), or as fully featured identity solutions with user
+or [fosite](https://github.com/ory/fosite), or as fully featured identity solutions with user
 management and user interfaces, such as [Keycloak](https://www.keycloak.org/) or [Okta](https://www.okta.com/).
 
 Implementing and using OAuth2 without understanding the whole specification is challenging and prone to errors, even when
@@ -163,12 +157,13 @@ the right fit for you.
 1. If you want to allow third-party developers accessing your APIs now or in the future, Hydra is the perfect fit. This is what an OAuth2 Provider does.
 2. If you want to become a Identity Provider, like Google, Facebook or Microsoft, OpenID Connect and thus Hydra is a perfect fit.
 3. Running an OAuth2 Provider works great with browser, mobile and wearable apps, as you can avoid storing user
-credentials on the device, phone or wearable and revoke access tokens, and thus access privileges, at any time. Adding
-OAuth2 complexity to your environment when you never plan to do (1),
-might not be worth it. Our advice: write a pros/cons list.
+credentials on the device, phone or wearable and revoke access tokens, and thus access privileges, at any time.
 4. If you have a lot of services and want to limit automated access (think: cronjobs) for those services,
 OAuth2 might make sense for you. Example: The comment service is not allowed to read user passwords when fetching
 the latest user profile updates.
+
+Adding OAuth2 complexity to your environment when you never plan to do (1),
+might not be worth it. Our advice: write a pros/cons list.
 
 # OAuth 2.0 Case Study
 
@@ -189,7 +184,6 @@ Now you decide to use OAuth2 on top of your current infrastructure. There are ma
 
 These are only a couple of reasons to use OAuth2. You might decide to use OAuth2 as your single source of authorization, thus maintaining
 only one authorization protocol and being able to open up to third party devs in no time. With OpenID Connect, you are able to delegate authentication as well as authorization!
-
 Your decision is final. You want to use OAuth2 and you want Hydra to do the job. You install Hydra in your cluster using docker.
 Next, you set up some exemplary OAuth2 clients. Clients can act on their own, but most of the time they need to access a user's todo lists.
 To do so, the client initiates an OAuth2 request. This is where the [user login & consent flow](https://www.ory.sh/docs/guides/master/hydra/3-overview/1-oauth2) comes into play.
