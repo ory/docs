@@ -54,14 +54,14 @@ and create a user `keto` with password `secret`.
 $ export DATABASE_URL=postgres://keto:secret@ory-keto-example--postgres:5432/keto?sslmode=disable
 
 # This pulls the latest image from Docker Hub
-$ docker pull oryd/keto:v1.0.0-beta.3
+$ docker pull oryd/keto:v1.0.0-beta.4
 
 # ORY Keto does not do magic, it requires conscious decisions, for example running SQL migrations which is required
 # when installing a new version of ORY Keto, or upgrading an existing installation.
 # It is the equivalent to `keto migrate sql postgres://keto:secret@ory-keto-example--postgres:5432/keto?sslmode=disable`
 $ docker run -it --rm \
   --network ketoguide \
-  oryd/keto:v1.0.0-beta.3 \
+  oryd/keto:v1.0.0-beta.4 \
   migrate sql $DATABASE_URL
 
 Applying `client` SQL migrations...
@@ -74,7 +74,7 @@ $ docker run -d \
   --network ketoguide \
   -p 4466:4466 \
   -e DATABASE_URL=$DATABASE_URL \
-  oryd/keto:v1.0.0-beta.3 \
+  oryd/keto:v1.0.0-beta.4 \
   serve
 ```
 
@@ -92,7 +92,7 @@ You can now create your first policy:
 ```
 $ docker run -it --rm \
   --network ketoguide \
-  oryd/keto:v1.0.0-beta.3 \
+  oryd/keto:v1.0.0-beta.4 \
   policies create --endpoint http://ory-keto-example--keto:4466/ \
     --id example-policy \
     --allow \
@@ -106,7 +106,7 @@ List all existing policies:
 ```
 $ docker run -it --rm \
   --network ketoguide \
-  oryd/keto:v1.0.0-beta.3 \
+  oryd/keto:v1.0.0-beta.4 \
     --endpoint http://ory-keto-example--keto:4466/ \
     policies get example-policy
 ```
@@ -116,7 +116,7 @@ And make some Warden requests:
 ```
 $ docker run -it --rm \
   --network ketoguide \
-  oryd/keto:v1.0.0-beta.3 \
+  oryd/keto:v1.0.0-beta.4 \
   warden authorize subject --endpoint http://ory-keto-example--keto:4466/ \
       --action delete \
       --subject alice \
