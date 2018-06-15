@@ -282,7 +282,7 @@ Assuming the user accepts the consent request, the code looks very familiar to t
 
 const body = {
     // A list of permissions the user granted to the OAuth 2.0 Client. This can be fewer permissions that initially requested, but are rarely more or other permissions than requested.
-    granted_scope: ["foo", "bar"],
+    grant_scope: ["foo", "bar"],
 
     // If remember is set to true, then the consent response will be remembered for future requests. This will set the `skip` flag to true in future requests that are coming from this user for the granted permissions and that particular client. This value has no effect if `skip` was true.
     remember: true|false,
