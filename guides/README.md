@@ -2,6 +2,10 @@
 
 Welcome to the ORY Developer Guide!
 
+<!-- toc -->
+
+---
+
 We provide an open source ecosystem of services with clear boundaries that solve authentication and authorization:
 
 - ORY Hydra is an OAuth 2.0 and OpenID Connect provider.
@@ -59,5 +63,9 @@ shown here can be replaced or removed, depending on your use case.
 Now you know what this ecosystem has to offer you. To get some more information on the services, read the developer guide by
 selecting the software of your choice from the navigation on the left!
 
-
 Contact us at [hi@ory.sh](hi@ory.sh) if you need consulting with your specific project.
+
+## Examples
+
+The [ory/examples](https://github.com/ory/examples) repository contains numerous examples of setting up these services
+individually, and together. Check them out to get a real-world view of this ecosystem!
