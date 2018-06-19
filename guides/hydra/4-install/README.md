@@ -117,6 +117,12 @@ that handles requests at that URL in the next sections.
 * `-e OAUTH2_LOGIN_URL=http://localhost:9020/login` this sets the URL of the login provider **(required)**. We will set up the service
 that handles requests at that URL in the next sections.
 
+Note: In this example we did not define a value for the optional setting `OAUTH2_ERROR_URL`. This URL can be used 
+to provide an endpoint which will receive error messages from ORY Hydra that should be displayed 
+to the end user. The URL receives `error` and `error_description` parameters. If this value is not set, 
+Hydra uses the fallback endpoint `/oauth2/fallbacks/error` and displays a default error message. In order to obtain 
+a uniform UI, you might want to include such an endpoint in your login or consent provider.
+
 To confirm that the instance is running properly, [open the health check](https://localhost:9000/health/status). If asked,
 accept the self signed certificate in your browser. You should simply see `ok`.
 
