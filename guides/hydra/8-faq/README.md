@@ -4,6 +4,30 @@ This file keeps track of questions and discussions from Gitter and general help 
 
 <!-- toc -->
 
+## How do I scale ORY Hydra?
+
+ORY Hydra is implemented according to [12factor.net](https://12factor.net/) principles. Therefore, scaling ORY Hydra
+is as simple as, for example, `docker-compose scale hydra=10`.
+
+No special set-up or third-party services (etcd, rabbitmq, ...) are needed to get this working. Keep in mind that the
+bottleneck will be your database. There are however plenty of options available to scale SQL databases and make them
+highly available.
+
+There never have been any reported issues regarding scalability, and ORY Hydra deployments handle millions of requests
+per day.
+
+## How can I rotate OpenID Connect signing keys?
+
+You can rotate OpenID Connect signing keys easily with the ORY Hydra cli:
+
+```sh
+$ hydra keys create hydra.openid.id-token -a RS256 --endpoint http://your-hydra-instance
+```
+
+This will generate to new keys (public, private) in the `hydra.openid.id-token` set. ORY Hydra uses the newest key
+in the key set to sign the ID Token. We strongly encourage you to not remove the old keys immediately as there might still be old
+OpenID Connect ID Tokens around that need the older public key for verification.
+
 ## How can I control SQL connection limits?
 
 You can configure SQL connection limits by appending parameters `max_conns`, `max_idle_conns`, or `max_conn_lifetime`
@@ -13,7 +37,9 @@ to the DSN: `postgres://foo:bar@host:port/database?max_conns=12`.
 
 The following is a copy of the original [comment on GitHub](https://github.com/ory/hydra/pull/297#issuecomment-294282671):
 
-I took a long time for this issue, primarily because I felt very uncomfortable implementing it. The ROCP grant is something from the "dark ages" of OAuth2 and there are suitable replacements for mobile clients, such as public oauth2 clients, which are supported by Hydra: https://tools.ietf.org/html/draft-ietf-oauth-native-apps-09
+I took a long time for this issue, primarily because I felt very uncomfortable implementing it. The ROCP grant is
+something from the "dark ages" of OAuth2 and there are suitable replacements for mobile clients, such as public oauth2
+clients, which are supported by Hydra: https://tools.ietf.org/html/draft-ietf-oauth-native-apps-09
 
 The OAuth2 Thread Model explicitly states that the ROPC grant is commonly used in legacy/migration scenarios, and
 
@@ -42,7 +68,7 @@ The OAuth2 Thread Model explicitly states that the ROPC grant is commonly used i
 
 Thus, I decided to not implement the ROPC grant in Hydra. Over time, I will add documentation how to deal with mobile scenarios and similar.
 
-## Should I use OAuth2 tokens for authentication?
+## Should I use OAuth2 access tokens for authentication?
 
 OAuth2 tokens are like money. It allows you to buy stuff, but the cashier does not really care if the money is
 yours or if you stole it, as long as it's valid money. Depending on what you understand as authentication, this is a yes and no answer:
@@ -68,7 +94,7 @@ prior back ups.
 2. Running a production system with a user that has right such as ALTER TABLE is a security anti-pattern.
 
 Thus, to initialize the database schemas, it is required to run `hydra migrate sql driver://user:password@host:port/db` before running
-`hydra host`.
+`hydra serve`.
 
 ## What does the installation process look like?
 
@@ -98,7 +124,7 @@ ENTRYPOINT /go/bin/hydra migrate sql $DATABASE_URL
 and run it in your infrastructure once.
 
 Additionally, *but not recommended*, it is possible to override the entry point of the ORY Hydra Docker image using CLI flag
-`--entrypoint "hydra migrate sql $DATABASE_URL; hydra host"` or with `entrypoint: hydra migrate sql $DATABASE_URL; hydra host`
+`--entrypoint "hydra migrate sql $DATABASE_URL; hydra serve"` or with `entrypoint: hydra migrate sql $DATABASE_URL; hydra serve`
 set in your docker compose config.
 
 ## Can I set the log level to warn, error, debug, ...?
@@ -114,7 +140,7 @@ Yes, you can do so by setting the environment variable `LOG_LEVEL=<level>`. Ther
 
 ## How can I import TLS certificates?
 
-You can import TLS certificates when running `hydra host`. This can be done by setting the following environment variables:
+You can import TLS certificates when running `hydra serve`. This can be done by setting the following environment variables:
 
 **Read from file**
 - `HTTPS_TLS_CERT_PATH`: The path to the TLS certificate (pem encoded).
@@ -133,11 +159,11 @@ Or by specifying the following flags:
 
 ## Is there an HTTP API Documentation?
 
-Yes, it is available at [Apiary](http://docs.hydra13.apiary.io/).
+Yes, it is available at [on our website](https://www.ory.sh/docs).
 
 ## How can I disable HTTPS for testing?
 
-You can do so by running `hydra host --dangerous-force-http`.
+You can do so by running `hydra serve --dangerous-force-http`.
 
 ## MySQL gives `unsupported Scan, storing driver.Value type []uint8 into type *time.Time`
 
@@ -146,7 +172,7 @@ An error occurred while running the migrations: Could not apply ladon SQL migrat
 is this a known bug ? or any specific mysql version which is required (running 5.7) ?
 
 ```
-$ hydra help host
+$ hydra help serve
 ...
    - MySQL: If DATABASE_URL is a DSN starting with mysql:// MySQL will be used as storage backend.
         Example: DATABASE_URL=mysql://user:password@tcp(host:123)/database?parseTime=true
