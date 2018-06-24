@@ -424,9 +424,9 @@ if you don't want to replace, for example, `Authorization: basic` with `X-User: 
 
 #### `id_token`
 
-This credentials issuer takes the authentication information (e.g. subject ID) and transforms it to a signed JSON Web Token,
-and more specifically to an OpenID Connect ID Token. You backend can verify the token by fetching the (public) key
-from the `/.well-known/jwks.json` endpoint.
+This credentials issuer takes the authentication information (e.g. subject ID) and transforms it to a signed JSON Web Token.
+The claims of the JSON Web Token are equal to the ones from the ID Token issued by OpenID Connect flows.
+You backend can verify the token by fetching the (public) key from the `/.well-known/jwks.json` endpoint.
 
 Let's say a request is made to a resource protected by ORY Oathkeeper:
 
