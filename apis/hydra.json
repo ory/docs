@@ -1029,7 +1029,7 @@
         "tags": [
           "oAuth2"
         ],
-        "summary": "Reject an logout request",
+        "summary": "Reject a login request",
         "operationId": "rejectLoginRequest",
         "parameters": [
           {
