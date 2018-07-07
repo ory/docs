@@ -341,6 +341,25 @@ fetch('https://hydra/oauth2/auth/requests/consent/challenge' + challenge + '/rej
 
 Once the user agent is redirected back, the OAuth 2.0 flow will be finalized.
 
+### Revoking consent and login sessions
+
+#### Login
+
+You can revoke login sessions. Revoking a login session will remove all of the user's cookies at ORY Hydra and will require
+the user to re-authenticate when performing the next OAuth 2.0 Authorize Code Flow. Be aware that this option will
+remove all cookies from all devices.
+
+Revoking the login sessions of a user is as easy as sending `DELETE to `/oauth2/auth/sessions/login/{user}`.
+
+#### Consent
+
+You can revoke a user's consent either on a per application basis or for all applications. Revoking the consent will
+automatically revoke all related access and refresh tokens.
+
+Revoking all consent sessions of a user is as easy as sending `DELETE to `/oauth2/auth/sessions/consent/{user}`.
+
+Revoking the consent sessions of a user for a specific client is as easy as sending `DELETE to `/oauth2/auth/sessions/consent/{user}/{client}`.
+
 ## OAuth 2.0 Scope
 
 The scope of an OAuth 2.0 scope defines the permission the token was granted by the user. For example, a specific
