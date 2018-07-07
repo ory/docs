@@ -56,7 +56,12 @@ ORY Hydra is available on [Docker Hub](https://hub.docker.com/r/oryd/hydra/).
 ```
 # The system secret can only be set against a fresh database. Key rotation is currently not supported. This
 # secret is used to encrypt the database and needs to be set to the same value every time the process (re-)starts.
-$ export SYSTEM_SECRET=this_needs_to_be_the_same_always_and_also_very_$3cuR3-._
+# You can use /dev/urandom to generate a secret. But make sure that the secret must be the same anytime you define it.
+# You could, for example, store the value somewhere.
+$ export SYSTEM_SECRET=$(export LC_CTYPE=C; cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+#
+# Alternatively you can obviously just set a secret:
+# $ export SYSTEM_SECRET=this_needs_to_be_the_same_always_and_also_very_$3cuR3-._
 
 # The database url points us at the postgres instance. This could also be an ephermal in-memory database (`export DATABASE_URL=memory`)
 # or a MySQL URI.
