@@ -575,6 +575,136 @@ the audience is optional:
 }
 ```
 
+## Reference
+
+This section summarizes all handlers mentioned above in a readable manner.
+
+### Authenticators
+
+#### `noop`
+
+```json
+{
+    "handler": "noop"
+}
+```
+
+The `noop` handler does not have any configuration options in the access rule nor as environment variables.
+
+#### `noop`
+
+```json
+{
+    "handler": "anonymous"
+}
+```
+
+The `anonymous` handler does not have any configuration options in the access rule. You can configure the
+anonymous ID using the `AUTHENTICATOR_ANONYMOUS_USERNAME` environment variable.
+
+#### `oauth2_client_credentials`
+
+```
+{
+    "handler": "oauth2_client_credentials",
+    "config": {
+        "required_scope": ["scope-a", "scope-b"]
+    }
+}
+```
+
+The `oauth2_client_credentials` handler has the `required_scope` configuration option which sets the scope that is
+required for the request to be allowed. If the OAuth 2.0 Client is not allowed to request said scope, the request will be
+denied.
+
+You can set the endpoint for the OAUth 2.0 Client Credentials flow using the `AUTHENTICATOR_OAUTH2_CLIENT_CREDENTIALS_TOKEN_URL`
+environment variable.
+
+#### `oauth2_introspection`
+
+```json
+{
+    "handler": "oauth2_introspection",
+    "config": {
+        "required_scope": ["scope-a", "scope-b"]
+    }
+}
+```
+
+The `oauth2_introspection` handler has the `required_scope` configuration option which sets the scope that is
+required for the request to be allowed. If the OAuth 2.0 Access Token was not granted on of those permissions (scope),
+the request will be denied.
+
+For a list of environment variables please [look here](#oauth2introspection).
+
+### Authorizers
+
+#### `allow`
+
+```json
+{
+    "handler": "allow"
+}
+```
+
+The `allow` handler does not have any configuration options in the access rule nor as environment variables.
+
+#### `deny`
+
+```json
+{
+    "handler": "deny"
+}
+```
+
+The `deny` handler does not have any configuration options in the access rule nor as environment variables.
+
+#### `keto_warden`
+
+```json
+{
+    "handler": "keto_warden",
+    "config": {
+        "required_action": "..."
+        "required_resource": "..."
+    }
+}
+```
+
+The `keto_warden` handler has to configuration options (`required_action`, `required_resource`). Both of them are
+strings and support variable expansion using the match URL's regular expression.
+
+To enable this handler, the `AUTHORIZER_KETO_WARDEN_KETO_URL` environment variable must be set and must point to
+the URL where ORY Keto is hosted.
+
+### Credentials Issuers
+
+#### `noop`
+
+```json
+{
+    "handler": "noop"
+}
+```
+
+The `noop` handler does not have any configuration options in the access rule nor as environment variables.
+
+#### `id_token`
+
+```json
+{
+   "handler": "id_token",
+   "config": {
+       "aud": ["audience-1", "audience-2"]
+   }
+}
+```
+
+The `id_token` handler allows the configuration of the `aud` (audience) claim. This enables you to scope the validity
+of the ID Token to a specific set of APIs/servers/services.
+
+For a list of environment variables please [look here](#idtoken).
+
 ## Rule Management
 
 ### Rules REST API
