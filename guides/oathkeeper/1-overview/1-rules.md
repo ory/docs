@@ -28,8 +28,11 @@ An ORY Oathkeeper Access Rule has the following layout:
 ```
 
 In this case, if a request to `http://my-app/some-route` is made (this is where ORY Oathkeeper will listen to), then
-the rule with ID `some-id` will be executed. If the request is authorized successfully, it will be forwarded to
-the upstream URL.
+the rule with ID `some-id` will be executed. Then:
+
+* If the request hits the ORY Oathkeeper proxy (`oathkeeper serve proxy`): The request will be forwarded to the upstream URL.
+* If the request hits the ORY Oathkeeper judge (`oathkeeper serve api` -> `/judge/some-route`): The server will respond with
+status code 200 if the request is valid and any other status code if not.
 
 The `match.url` value is capable of parsing regular expressions. Value `http://my-app/some-route` will only
 match this exact URL, not `http://my-app/some-route/foo`, `http://my-app/some-ROUTE`, nor `https://my-app/some-route`.
@@ -394,6 +397,8 @@ A credentials issuer translates the credentials from incoming requests to creden
 For example, the `Authorization: basic` header might be transformed to `X-User: <subject-id>`. This allows you to
 write backends that do not care if the original request was an anonymous one, an OAuth 2.0 Access Token, or some other
 credential type. All your backend has to do is understand, for example, the `X-User:`.
+
+If you access ORY Oathkeeper using the judge endpoint, the header will be included in the HTTP response.
 
 #### `noop`
 
