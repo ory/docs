@@ -119,7 +119,7 @@ REST API call tells you to show the login ui, you **must show it**. If the REST 
 router.get('/login', function (req, res, next) {
     challenge = req.url.query.login_challenge;
 
-    fetch('https://hydra/oauth2/auth/requests/login/challenge' + challenge).
+    fetch('https://hydra/oauth2/auth/requests/login/' + challenge).
         then(function (response) {
             // ...
         })
@@ -167,7 +167,7 @@ To accept the login request, do something along the lines of:
 
 const body = {
     // This is the user ID of the user that authenticated. If `skip` is true, this must be the `subject`
-    // value from the `fetch('https://hydra/oauth2/auth/requests/login/challenge' + challenge)` response:
+    // value from the `fetch('https://hydra/oauth2/auth/requests/login/' + challenge)` response:
     //
     // subject = response.subject
     //
@@ -184,7 +184,7 @@ const body = {
     acr: ".."
 }
 
-fetch('https://hydra/oauth2/auth/requests/login/challenge' + challenge + '/accept', {
+fetch('https://hydra/oauth2/auth/requests/login/' + challenge + '/accept', {
     method: 'PUT',
     body: JSON.stringify(body),
     headers: { 'Content-Type': 'application/json' }
@@ -205,7 +205,7 @@ const body = {
     error_description: "..." // This is a more detailed description of the error
 }
 
-fetch('https://hydra/oauth2/auth/requests/login/challenge' + challenge + '/reject', {
+fetch('https://hydra/oauth2/auth/requests/login/' + challenge + '/reject', {
     method: 'PUT',
     body: JSON.stringify(body),
     headers: { 'Content-Type': 'application/json' }
@@ -238,7 +238,7 @@ For a fully working example, check out our reference [User Login & Consent Provi
 
 challenge = req.url.query.consent_challenge;
 
-fetch('https://hydra/oauth2/auth/requests/consent/challenge' + challenge).
+fetch('https://hydra/oauth2/auth/requests/consent/' + challenge).
     then(function (response) {
         // ...
     })
@@ -304,7 +304,7 @@ const body = {
     }
 }
 
-fetch('https://hydra/oauth2/auth/requests/consent/challenge' + challenge + '/accept', {
+fetch('https://hydra/oauth2/auth/requests/consent/' + challenge + '/accept', {
     method: 'PUT',
     body: JSON.stringify(body),
     headers: { 'Content-Type': 'application/json' }
@@ -328,7 +328,7 @@ const body = {
     error_description: "..."
 }
 
-fetch('https://hydra/oauth2/auth/requests/consent/challenge' + challenge + '/reject', {
+fetch('https://hydra/oauth2/auth/requests/consent/' + challenge + '/reject', {
     method: 'PUT',
     body: JSON.stringify(body),
     headers: { 'Content-Type': 'application/json' }
