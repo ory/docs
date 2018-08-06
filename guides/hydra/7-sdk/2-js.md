@@ -18,7 +18,7 @@ npm install --save ory-hydra-sdk
 const Hydra = require('ory-hydra-sdk')
 
 // Set this to Hydra's URL
-Hydra.ApiClient.instance.basePath = 'http://localhost:4444'
+Hydra.ApiClient.instance.basePath = 'http://localhost:4445'
 
 ```
 

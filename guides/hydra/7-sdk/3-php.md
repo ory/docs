@@ -34,7 +34,7 @@ composer require ory/oauth2-hydra
 $provider = new \Hydra\OAuth2\Provider\OAuth2([
     'clientId' => 'admin',
     'clientSecret' => 'demo-password',
-    'domain' => 'http://localhost:4444',
+    'domain' => 'http://localhost:4445',
 ]);
 
 try {
@@ -57,7 +57,7 @@ Using `$accessToken` from the above steps, you may now use the Hydra SDK:
 
 ```php
 $config = new \Hydra\SDK\Configuration();
-$config->setHost('http://localhost:4444');
+$config->setHost('http://localhost:4445');
 // Use true in production!
 $config->setSSLVerification(false);
 $config->setAccessToken($accessToken);

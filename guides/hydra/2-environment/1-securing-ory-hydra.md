@@ -1,41 +1,34 @@
 # Securing ORY Hydra
 
-Most endpoints in ORY Hydra do not have any type of access control. Requests to endpoints like `/oauth2/auth/requests/login/{challenge}`
-can be done with a simple GET request (e.g. via CURL) and do not impose any type of access control.
+ORY Hydra exposes serves APIs via two ports:
 
-**This implies that you have to take care of securing these endpoints.** If you fail to do so, any hacker anywhere in the world
-will be able to gain privileged, unauthorized, access to your application.
+- Public port (default 4444)
+- Administrative port (default 4445)
 
-There are several ways to do it, but all involve an API Gateway:
+The public port can and should be exposed to public internet traffic. That port handles requests to:
 
-* Hide the endpoints from the public internet and expose them only to your private network.
-* Protect the endpoints with an API Key only you know.
-* Protect the endpoints with HTTP Basic Auth and client/secret combinations only you know.
-* Protect the endpoints with ORY Oathkeeper.
+* `./well-known/jwks.json`
+* `./well-known/openid-configuration`
+* `/oauth2/auth`
+* `/oauth2/token`
+* `/oauth2/revoke`
+* `/oauth2/fallbacks/consent`
+* `/oauth2/fallbacks/error`
+* `/userinfo`
 
-You can find exemplary configurations for some of those scenarios [here](https://github.com/ory/examples). We implore
-you to protect the following APIs:
+The administrative port should not be exposed to public internet traffic. If you want to expose certain endpoints, such as the `/clients` endpoint for
+OpenID Connect Dynamic Client Registry, you can do so but you need to properly secure these endpoints with an API Gateway or Authorization Proxy.
+Administrative endpoints include:
 
-* Creating, updating, fetching, listing OAuth 2.0 Clients.
-* Flushing expired OAuth 2.0 Tokens.
-* Getting the ORY Hydra version, health status, and prometheus metrics.
-* Managing (create, update, delete, get, list, ...) JSON Web Keys.
-* Login and Consent Request management.
+* All `/clients` endpoints.
+* All `/jwks` endpoints.
+* All `/health`, `/metrics`, `/version` endpoints.
+* All `/oauth2/auth/requests` endpoints.
+* Endpoint `/oauth2/introspect`.
+* Endpoint `/oauth2/flush`.
 
-You might also want to protect the OAuth 2.0 Token Introspection endpoint if you do not want the outside world to be able
-to see if a token is valid. It's probably also a good idea to have some type of rate limiting here to prevent brute-force
-attacks.
+None of the administrative endpoints have any built-in access control. You can do simple `curl` or Postman requests to talk to them.
 
-There are some endpoints however which do have access restriction or must not have any type access restriction
-as mandated by the OAuth 2.0 Specification:
-
-* These endpoints do not need any access control restrictions per OAuth 2.0 or OpenID Connect specification:
-  * `/oauth2/auth`
-  * `/.well-known/jwks.json`
-  * `/.well-known/openid-configuration`
-* These endpoints already implement access control restrictions as mandated by the OAuth 2.0 or OpenID Connect specification:
-  * `/oauth2/token`
-  * `/oauth2/revoke`
-  * `/userinfo`
-
-If you require dedicated help with this, consider asking us for [consultancy](mailto:hi@ory.sh).
+We generally advise to run ORY Hydra with `hydra serve all` which listens on both ports in one process. If you wish to have more granular control over
+each endpoint's settings (e.g. CORS), you can run `hydra serve admin` and `hydra serve public` separately. Please be aware that the `memory` backend
+will not work in this mode.

@@ -5,6 +5,10 @@ Unfortunately, `swagger-codegen` has serious breaking changes in the generated c
 we do not make backwards compatibility promises with regards to the generated SDKs. We hope to improve this process
 in the future.
 
+We encourage you to not use the SDKs (due to mediocre code quality) but to implement the simple REST calls yourself instead. Most calls can be handled with one-liners in many languages. In JavaScript you can create a client with: `fetch('http://hydra/clients', { method: 'POST', headers: {"Content-Type": "application/json"}, body: JSON.encode({ client_id: 'foo', client_secret: 'bar' }) }).then(r => r.JSON())`.
+
+If you want to use the SDK despite its caveats (mediocre code quality, potential breaking changes), you will find more information here:
+
 * [Golang](./1-go.md)
 * [JavaScript](./2-js.md)
 * [PHP](./3-php.md)
