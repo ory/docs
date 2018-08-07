@@ -1,8 +1,12 @@
-# ORY Hydra in Production
+# Advanced Topics
 
 This guide aims to help setting up a production system with ORY Hydra.
 
 <!-- toc -->
+
+## Mobile Authorization
+
+We have an [excellent blog post](https://www.ory.sh/oauth2-for-mobile-app-spa-browser) on this topic. Read it now!
 
 ## OAuth 2.0
 
