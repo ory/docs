@@ -8,6 +8,10 @@ This guide aims to help setting up a production system with ORY Hydra.
 
 We have an [excellent blog post](https://www.ory.sh/oauth2-for-mobile-app-spa-browser) on this topic. Read it now!
 
+## Key Rotation
+
+
+
 ## OAuth 2.0
 
 ### JSON Web Tokens
@@ -24,6 +28,88 @@ Be aware that only access tokens are formatted as JSON Web Tokens. Refresh token
 By performing OAuth 2.0 Token Introspection you can check if the token is still valid. If a token is revoked or otherwise
 blacklisted, the OAuth 2.0 Token Introspection will return `{ "active": false }`. This is useful when you do not want
 to rely only on the token's expiry.
+
+### OAuth 2.0 Client Authentication with RSA private/public keypairs
+
+ORY Hydra supports OAuth 2.0 Client Authentication with RSA private/public keypairs. This authentication method
+replaces the classic HTTP Basic Authorization and HTTP POST Authorization schemes. Instead of sending the `client_id`
+and `client_secret`, you authenticate the client with a signed JSON Web Token.
+
+To enable this feature for a specific OAuth 2.0 Client, you must set `token_endpoint_auth_method` to `private_key_jwt`
+and register the public key of the RSA signing key either using the `jwks_uri` or `jwks` fields of the client.
+
+When authenticating the client at the token endpoint, you generate and sign (with the RSA private key) a JSON Web Token
+with the following claims:
+
+* `iss`: REQUIRED. Issuer. This MUST contain the client_id of the OAuth Client.
+* `sub`: REQUIRED. Subject. This MUST contain the client_id of the OAuth Client.
+* `aud`: REQUIRED. Audience. The aud (audience) Claim. Value that identifies the Authorization Server (ORY Hydra) as an
+intended audience. The Authorization Server MUST verify that it is an intended audience for the token.
+The Audience SHOULD be the URL of the Authorization Server's Token Endpoint.
+* `jti`: REQUIRED. JWT ID. A unique identifier for the token, which can be used to prevent reuse of the token.
+These tokens MUST only be used once, unless conditions for reuse were negotiated between the parties; any such
+negotiation is beyond the scope of this specification.
+* `exp`: REQUIRED. Expiration time on or after which the ID Token MUST NOT be accepted for processing.
+* `iat`: OPTIONAL. Time at which the JWT was issued.
+
+When making a request to the `/oauth2/token` endpoint, you include `client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer`
+and `client_assertion=<signed-jwt>` in the request body:
+
+```
+POST /oauth2/token HTTP/1.1
+Host: my-hydra.com
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=authorization_code&
+code=i1WsRn1uB1&
+client_id=s6BhdRkqt3&
+client_assertion_type=
+urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer&
+client_assertion=PHNhbWxwOl ... ZT
+```
+
+Here's what a client with a `jwks` looks like:
+
+```
+{
+    "client_id": "client-jwks",
+    "jwks": {
+        "keys": [
+            {
+                "kty": "RSA",
+                "n": "jL7h5wc-yeMUsHGJHc0xe9SbTdaLKXMHvcIHQck20Ji7SvrHPdTDQTvZtTDS_wJYbeShcCrliHvbJRSZhtEe0mPJpyWg3O_HkKy6_SyHepLK-_BR7HfcXYB6pVJCG3BW-lVMY7gl5sULFA74kNZH50h8hdmyWC9JgOHn0n3YLdaxSWlhctuwNPSwqwzY4qtN7_CZub81SXWpKiwj4UpyB10b8rM8qn35FS1hfsaFCVi0gQpd4vFDgFyqqpmiwq8oMr8RZ2mf0NMKCP3RXnMhy9Yq8O7lgG2t6g1g9noWbzZDUZNc54tv4WGFJ_rJZRz0jE_GR6v5sdqsDTdjFquPlQ",
+                "e": "AQAB"
+            }
+        ]
+    },
+    "token_endpoint_auth_method": "private_key_jwt"
+}
+```
+
+And with `jwks_uri`:
+
+```
+{
+    "client_id": "client-jwks-uri",
+    "jwks_uri": "http://path-to-my-public/keys.json",
+    "token_endpoint_auth_method": "private_key_jwt"
+}
+```
+
+The `jwks_uri` must return a JSON object containing the public keys associated with the OAuth 2.0 Client:
+
+```
+{
+    "keys": [
+        {
+            "kty": "RSA",
+            "n": "jL7h5wc-yeMUsHGJHc0xe9SbTdaLKXMHvcIHQck20Ji7SvrHPdTDQTvZtTDS_wJYbeShcCrliHvbJRSZhtEe0mPJpyWg3O_HkKy6_SyHepLK-_BR7HfcXYB6pVJCG3BW-lVMY7gl5sULFA74kNZH50h8hdmyWC9JgOHn0n3YLdaxSWlhctuwNPSwqwzY4qtN7_CZub81SXWpKiwj4UpyB10b8rM8qn35FS1hfsaFCVi0gQpd4vFDgFyqqpmiwq8oMr8RZ2mf0NMKCP3RXnMhy9Yq8O7lgG2t6g1g9noWbzZDUZNc54tv4WGFJ_rJZRz0jE_GR6v5sdqsDTdjFquPlQ",
+            "e": "AQAB"
+        }
+    ]
+}
+```
+
 
 ## OpenID Connect
 
