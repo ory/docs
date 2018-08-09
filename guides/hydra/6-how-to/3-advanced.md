@@ -4,13 +4,49 @@ This guide aims to help setting up a production system with ORY Hydra.
 
 <!-- toc -->
 
-## Mobile Authorization
+## Mobile & Browser (SPA) Authorization
 
 We have an [excellent blog post](https://www.ory.sh/oauth2-for-mobile-app-spa-browser) on this topic. Read it now!
 
-## Key Rotation
+### Creating a public OAuth 2.0 Client
 
+You can create a public OAuth 2.0 Client (e.g. for the authorize code + PKCE or implicit flow) with the CLI
 
+```
+hydra clients create --endpoint http://ory-hydra-admin-api --token-endpoint-auth-method none
+```
+
+or by setting in the HTTP API JSON body when POSTing to `/clients`:
+
+```
+{
+    "client_id": "...",
+    "token_endpoint_auth_method": "none"
+}
+```
+
+Be aware that when making requests to `/oauth2/token` with a public OAuth 2.0 Client, you can not authenticate with the
+HTTP Basic Authorization but must include the `client_id` in the POST body.
+
+## Key rotation
+
+Key rotation is simple with ORY Hydra. You can rotate OpenID Connect ID Token and OAuth 2.0 Access Tokens (JSON Web Token)
+keys with one simple command.
+
+ORY Hydra takes the latest key from the key store to sign JSON Web Tokens. All public keys will be shown at
+`http://ory-hydra-public-api/.well-known/jwks.json`.
+
+### OpenID Connect ID Token
+
+```
+hydra keys create --endpoint=http://ory-hydra-admin-api/ hydra.openid.id-token -a RS256
+```
+
+### OAuth 2.0 Access Tokens (JSON Web Token)
+
+```
+hydra keys create --endpoint=http://ory-hydra-admin-api/ hydra.jwt.access-token -a RS256
+```
 
 ## OAuth 2.0
 
@@ -28,6 +64,11 @@ Be aware that only access tokens are formatted as JSON Web Tokens. Refresh token
 By performing OAuth 2.0 Token Introspection you can check if the token is still valid. If a token is revoked or otherwise
 blacklisted, the OAuth 2.0 Token Introspection will return `{ "active": false }`. This is useful when you do not want
 to rely only on the token's expiry.
+
+#### JSON Web Token Validation
+
+You can validate JSON Web Tokens issued by ORY Hydra by pointing your `jwt` library (e.g. [node-jwks-rsa](https://github.com/auth0/node-jwks-rsa))
+to `http://ory-hydra-public-api/.well-known/jwks.json`. All necessary keys are available there.
 
 ### OAuth 2.0 Client Authentication with RSA private/public keypairs
 
@@ -109,7 +150,6 @@ The `jwks_uri` must return a JSON object containing the public keys associated w
     ]
 }
 ```
-
 
 ## OpenID Connect
 
