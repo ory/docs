@@ -381,7 +381,7 @@ Assuming a request to `http://my-api/api/users/1234/foobar` was made, the config
     },
     "authenticators": [/* ... */],
     "authorizer": {
-        "handler": "deny",
+        "handler": "keto_warden",
         "config": {
             "required_action": "my:action:$1",
             "required_resource": "my:resource:$2:foo:$1"
