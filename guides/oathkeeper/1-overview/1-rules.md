@@ -92,7 +92,7 @@ credentials will be consulted and other authenticators will be ignored:
 ```
 
 If handler `a` is able to handle the provided credentials, then handler `b` and `c` will be ignored. If handler `a`
-can not handle the provided credentials but handler `b` can, then handler `a` and `b` will be ignored. Handling
+can not handle the provided credentials but handler `b` can, then handler `a` and `c` will be ignored. Handling
 the provided credentials means that the authenticator knows how to handle, for example, the `Authorization: basic` header.
 It does not mean that the credentials are valid! If a handler encounters invalid credentials, then other handlers will be ignored too.
 
