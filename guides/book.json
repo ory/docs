@@ -47,6 +47,10 @@
           "text": "latest (stable)"
         },
         {
+          "value": "https://www.ory.sh/docs/guides/v1.0.0-beta.8",
+          "text": "v1.0.0-beta.8"
+        },
+        {
           "value": "https://www.ory.sh/docs/guides/v1.0.0-beta.7",
           "text": "v1.0.0-beta.7"
         },
