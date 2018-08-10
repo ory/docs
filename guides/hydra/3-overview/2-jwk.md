@@ -51,5 +51,5 @@ The [REST API Documentation](https://www.ory.sh/docs/api/hydra/) will give you d
 
 Hydra generates a couple of JSON Web Keys in order to operate correctly:
 
-* `http://localhost:4444/keys/hydra.openid.id-token`: A RSA public/private key pair for signing and validating OpenID Connect ID Tokens.
-* `http://localhost:4444/keys/https-tls`: A RSA public/private key pair and a certificate for signing HTTP over TLS.
+* `http://localhost:4445/keys/hydra.openid.id-token`: A RSA public/private key pair for signing and validating OpenID Connect ID Tokens.
+* `http://localhost:4445/keys/https-tls`: A RSA public/private key pair and a certificate for signing HTTP over TLS.

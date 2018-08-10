@@ -1,8 +1,44 @@
-# ORY Hydra in production
+# ORY Hydra in Production
 
-This guide aims to help setting up a production system with ORY Hydra.
+This page aims to help you setting up a production system with ORY Hydra.
 
 <!-- toc -->
+
+## Configuration
+
+All configuration of ORY Hydra is currently done via environment variables. Setting environment variables works
+differently on each system, so we collected some to help you get started.
+
+### Linux / OSX
+
+```
+$ export MY_ENV_VAR=foo
+$ hydra ...
+# or
+$ MY_ENV_VAR=foo hydra ...
+```
+
+### Windows
+
+#### Command Prompt
+
+```
+$ set MY_ENV_VAR=foo
+$ hydra ...
+```
+
+#### Powershell
+
+```
+$ $env:MY_ENV_VAR="foo"
+$ hydra ...
+```
+
+### Docker
+
+```
+$ docker run -e MY_ENV_VAR=foo oryd/hydra:...
+```
 
 ## ORY Hydra behind an API Gateway
 
@@ -19,8 +55,12 @@ last mile security using TLS, and trust your network to properly handle internal
 for `HTTPS_ALLOW_TERMINATION_FROM` in `hydra help host`.
 
 With TLS termination enabled, ORY Hydra discards all requests unless:
+
 * The request is coming from a trusted IP address set by `HTTPS_ALLOW_TERMINATION_FROM` and the header `X-Forwarded-Proto` is set to `https`.
 * The request goes to `/health/status` which does not require TLS termination and that is used to check the health of an instance.
+
+If you are unable to properly set up TLS Termination, you may want to set the `--dangerous-force-http` flag. But please be
+aware that we discourage you from doing so and that you should know what you're doing.
 
 ### Routing
 

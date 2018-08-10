@@ -18,7 +18,7 @@ The Go SDK is auto generated from swagger but contains some helpers, such as `Ne
 import "github.com/ory/hydra/sdk/go/hydra"
 
 sdk, err := hydra.NewSDK(&hydra.Configuration{
-    EndpointURL:  "https://hydra.localhost:4444",
+    EndpointURL:  "https://hydra.localhost:4445",
 })
 ```
 

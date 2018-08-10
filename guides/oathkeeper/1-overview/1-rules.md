@@ -594,7 +594,8 @@ This section summarizes all handlers mentioned above in a readable manner.
 }
 ```
 
-The `noop` handler does not have any configuration options in the access rule nor as environment variables.
+The `noop` handler does not have any configuration options in the access rule nor as environment variables. It is very
+similar to the `anonymous` handler but does not set a subject ID.
 
 #### `noop`
 
