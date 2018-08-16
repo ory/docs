@@ -580,6 +580,56 @@ the audience is optional:
 }
 ```
 
+#### `cookies`
+
+This credentials issuer will transform the request, allowing you to pass the credentials to the upstream application via
+the cookies.
+
+The cookies are specified via the `cookies` field of the credentials issuers `config` field. The keys are the cookie name
+and the values are a string which will be parsed by the Go [`text/template`](https://golang.org/pkg/text/template/) package
+for value substitution, receiving the [AuthenticationSession](https://github.com/ory/oathkeeper/blob/92c09fb28552949cd034ed5555c87dfda91407a3/proxy/authenticator.go#L19) struct:
+
+```go
+type AuthenticationSession struct {
+    Subject string
+    Extra   map[string]interface{}
+}
+```
+
+Note that the `AuthenticationSession` struct has a field name `Extra` which is a `map[string]interface{}`, which receives
+varying introspection data from the authentication process. Because the contents of `Extra` are so variable, nested and
+potentially non-existent values need special handling by the `text/template` parser, and a `print` FuncMap function has
+been provided to ensure the non-existent map values will simply return an empty string, rather than `<no value>`.
+
+If you find that your cookies contain the string `<no value>` then you have most likely omitted the `print` function, and
+it is recommended you use it for all values out of an abundance of caution and for consistency.
+
+##### Example
+
+```json
+{
+    "id": "some-id",
+    "upstream": {
+        "url": "http://my-backend-service"
+    },
+    "match": {
+        "url": "http://my-app/api/<.*>",
+        "methods": ["GET"]
+    },
+    "authenticators": [/* ... */],
+    "authorizer": {/* ... */}
+    "credentials_issuer" {
+        "handler": "cookies",
+        "config": {
+            "cookies": {
+                "user": "{{ print .Subject }}",
+                "some-arbitrary-data": "{{ print .Extra.some.arbitrary.data }}"
+            }
+        }
+    }
+}
+```
+
 ## Reference
 
 This section summarizes all handlers mentioned above in a readable manner.
@@ -710,6 +760,21 @@ The `id_token` handler allows the configuration of the `aud` (audience) claim. T
 of the ID Token to a specific set of APIs/servers/services.
 
 For a list of environment variables please [look here](#idtoken).
+
+#### `cookies`
+
+```json
+{
+  "handler": "cookies",
+  "config": {
+      "cookies": {
+          "user": "{{ print .Subject }}"
+      }
+  }
+}
+```
+
+The `cookies` handler allows the transformation of the request to include authentication data in the cookies.
 
 ## Rule Management
 
