@@ -4,6 +4,11 @@ ORY Hydra tries to solve all of OAuth 2.0 and OpenID Connect uses. There are, ho
 
 <!-- toc -->
 
+## MySQL <= 5.6 / MariaDB
+
+ORY Hydra has issues with MySQL <= 5.6 (but not MySQL 5.7+) and certain MariaDB versions. Read more about this [here](https://github.com/ory/hydra/issues/377).
+Our recommendation is to use MySQL 5.7+ or PostgreSQL.
+
 ## Resource Owner Password Credentials Grant Type (ROCP)
 
 ORY Hydra does not and will not implement the Resource Owner Password Credentials Grant Type. Read on for context.
@@ -53,3 +58,8 @@ want to upgrade from OAuth (1.0) to OAuth 2.0.
 
 There are a ton of good reasons why this is a bad flow, they are summarized in
 [this excellent blog article as well](https://www.scottbrady91.com/OAuth/Why-the-Resource-Owner-Password-Credentials-Grant-Type-is-not-Authentication-nor-Suitable-for-Modern-Applications).
+
+### What about Auth0, Okta, ...?
+
+Auth0, Okta, Stormpath started early with OAuth 2.0 SaaS and adopted the ROPC grant too. They since deprecated these
+old flows but still have them active as existing apps rely on them.
