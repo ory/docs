@@ -211,12 +211,13 @@ It then uses OAuth 2.0 Token Introspection to check if the token is valid and if
 This authenticator is a bit more complex to set up. You have to define the following environment variables:
 
 * Required
+    * `AUTHENTICATOR_OAUTH2_INTROSPECTION_URL`: The OAuth 2.0 Token Introspection URL.
+* In cases where the OAuth 2.0 Introspection Endpoint is protected and requires an OAuth 2.0 Access Token, you can configure
+ORY Oathkeeper to authorize before making requests to that endpoint with the following, optional, settings:
     * `AUTHENTICATOR_OAUTH2_INTROSPECTION_CLIENT_ID`: The OAuth 2.0 Client ID the client that performs the OAuth 2.0 Token Introspection. The OAuth 2.0 Token Introspection
     endpoint is typically protected and requires a valid OAuth 2.0 Client in order to check if a token is valid or not.
     * `AUTHENTICATOR_OAUTH2_INTROSPECTION_CLIENT_SECRET`: The OAuth 2.0 Client Secret of the client that performs the OAuth 2.0 Token Introspection.
     * `AUTHENTICATOR_OAUTH2_INTROSPECTION_TOKEN_URL`: The OAuth 2.0 Token URL.
-    * `AUTHENTICATOR_OAUTH2_INTROSPECTION_INTROSPECT_URL`: The OAuth 2.0 Token Introspection URL.
-* Optional
     * `AUTHENTICATOR_OAUTH2_INTROSPECTION_SCOPE`: If the OAuth 2.0 Token Introspection endpoint requires a certain OAuth 2.0 Scope
     in order to be accessed, you can set it using this environment variable. Use commas to define more than one OAuth 2.0 Scope.
     Example: `AUTHENTICATOR_OAUTH2_INTROSPECTION_SCOPE=scope-a,scope-b`
@@ -595,12 +596,18 @@ This ID Token signing algorithm uses ORY Hydra's JSON Web Key API to generate, s
 When using this algorithm, you have the following environment variables available:
 
 * Required
-    * `CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_URL`: The URL where ORY Hydra is located.
+    * `CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_ADMIN_URL`: The URL where the ORY Hydra Admin API is located.
 * Optional
     * `CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_JWK_SET_ID`: The ID to be used to create & fetch the JSON Web Key from ORY Hydra.
     Defaults to `oathkeeper:id-token`.
     * `CREDENTIALS_ISSUER_ID_TOKEN_JWK_REFRESH_INTERVAL`: ORY Oathkeeper stores JSON Web Keys for ID Token signing in memory.
     This value sets the refresh interval. Default is 5 minutes.
+* If this endpoint is protected using OAuth 2.0 Access Tokens, you can configure ORY Oathkeeper to authorize before
+calling this endpoint. To do so, configure the following, optional settings:
+    * CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_CLIENT_ID:  The ID of the OAuth 2.0 Client.
+    * CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_CLIENT_SECRET: The secret of the OAuth 2.0 Client.
+    * CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_CLIENT_SCOPES: The OAuth 2.0 Scope the client should request.
+    * CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_PUBLIC_URL: The public URL where endpoint /oauth2/token is located.
 
 ##### Access Rule Configuration
 
