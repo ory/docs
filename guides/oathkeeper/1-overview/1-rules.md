@@ -220,6 +220,8 @@ This authenticator is a bit more complex to set up. You have to define the follo
     * `AUTHENTICATOR_OAUTH2_INTROSPECTION_SCOPE`: If the OAuth 2.0 Token Introspection endpoint requires a certain OAuth 2.0 Scope
     in order to be accessed, you can set it using this environment variable. Use commas to define more than one OAuth 2.0 Scope.
     Example: `AUTHENTICATOR_OAUTH2_INTROSPECTION_SCOPE=scope-a,scope-b`
+    * `AUTHENTICATOR_OAUTH2_INTROSPECTION_SCOPE_STRATEGY`: The strategy to be used to validate the scope claim. Strategies `HIERARCHIC`, `EXACT`,
+    `WILDCARD`, `NONE` are supported. Defaults to `EXACT`. For more information on scope strategies, click [here](#scope-strategies)-
 
 
 ##### Example
@@ -243,6 +245,65 @@ and if that token was granted OAuth 2.0 Scope `scope-a` and `scope-b`:
         "handler": "oauth2_introspection",
         "config": {
             "required_scope": ["scope-a", "scope-b"]
+        }
+    }],
+    /* ... */
+}
+```
+
+#### `jwt`
+
+The `jwt` authenticator handles requests that have an Bearer Token in the Authorization Header (`Authorization: bearer <token>`).
+It assumes that the token is a JSON Web Token and tries to verify the signature of it.
+
+* Required
+    * `AUTHENTICATOR_JWT_JWKS_URL`: The URL where ORY Oathkeeper can retrieve JSON Web Keys from for validating
+    the JSON Web Token. Usually something like `https://my-keys.com/.well-known/jwks.json`. The response
+    of that endpoint must return a [JSON Web Key Set (JWKS)](https://auth0.com/docs/jwks).
+* Optional
+    * `AUTHENTICATOR_JWT_SCOPE_STRATEGY`: The strategy to be used to validate the scope claim. Strategies `HIERARCHIC`, `EXACT`,
+    `WILDCARD`, `NONE` are supported. Defaults to `EXACT`. For more information on scope strategies, click [here](#scope-strategies)-
+
+##### Example
+
+The following rule allows requests to `GET http://my-app/some-route` if valid a JSON Web Token was provided
+and if that token has scope `scope-a` and `scope-b`, audience `aud-1` and was issued by `iss-1`. All configuration
+items are optional and ignored if left out.
+
+```
+{
+    "id": "some-id",
+    "upstream": {
+        "url": "http://my-backend-service"
+    },
+    "match": {
+        "url": "http://my-app/some-route",
+        "methods": [
+            "GET"
+        ]
+    },
+    "authenticators": [{
+        "handler": "jwt",
+        "config": {
+            "required_scope": ["scope-a", "scope-b"],
+            "require_audience": ["scope-a", "scope-b"],
+            "trusted_issuers": ["scope-a", "scope-b"],
+        }
+    }],
+    /* ... */
+}
+```
+
+Per default, this authenticator accepts JSON Web Tokens signed with the `RS256` algorithm only. You can change that
+by whitelisting the algorithms to be allowed. All common JWT singing algorihtms (except `none`) are supported:
+
+```
+{
+    /* ... */
+    "authenticators": [{
+        "handler": "jwt",
+        "config": {
+            "allowed_algorithms": ["RS256", "HS256", "RS512", "ES256"]
         }
     }],
     /* ... */
@@ -681,166 +742,15 @@ it is recommended you use it for all values out of an abundance of caution and f
 }
 ```
 
-## Reference
+## Scope Strategies
 
-This section summarizes all handlers mentioned above in a readable manner.
+The following scope strategies are supported:
 
-### Authenticators
-
-#### `noop`
-
-```json
-{
-    "handler": "noop"
-}
-```
-
-The `noop` handler does not have any configuration options in the access rule nor as environment variables. It is very
-similar to the `anonymous` handler but does not set a subject ID.
-
-#### `noop`
-
-```json
-{
-    "handler": "anonymous"
-}
-```
-
-The `anonymous` handler does not have any configuration options in the access rule. You can configure the
-anonymous ID using the `AUTHENTICATOR_ANONYMOUS_USERNAME` environment variable.
-
-#### `oauth2_client_credentials`
-
-```
-{
-    "handler": "oauth2_client_credentials",
-    "config": {
-        "required_scope": ["scope-a", "scope-b"]
-    }
-}
-```
-
-The `oauth2_client_credentials` handler has the `required_scope` configuration option which sets the scope that is
-required for the request to be allowed. If the OAuth 2.0 Client is not allowed to request said scope, the request will be
-denied.
-
-You can set the endpoint for the OAUth 2.0 Client Credentials flow using the `AUTHENTICATOR_OAUTH2_CLIENT_CREDENTIALS_TOKEN_URL`
-environment variable.
-
-#### `oauth2_introspection`
-
-```json
-{
-    "handler": "oauth2_introspection",
-    "config": {
-        "required_scope": ["scope-a", "scope-b"]
-    }
-}
-```
-
-The `oauth2_introspection` handler has the `required_scope` configuration option which sets the scope that is
-required for the request to be allowed. If the OAuth 2.0 Access Token was not granted on of those permissions (scope),
-the request will be denied.
-
-For a list of environment variables please [look here](#oauth2introspection).
-
-### Authorizers
-
-#### `allow`
-
-```json
-{
-    "handler": "allow"
-}
-```
-
-The `allow` handler does not have any configuration options in the access rule nor as environment variables.
-
-#### `deny`
-
-```json
-{
-    "handler": "deny"
-}
-```
-
-The `deny` handler does not have any configuration options in the access rule nor as environment variables.
-
-#### `keto_warden`
-
-```json
-{
-    "handler": "keto_warden",
-    "config": {
-        "required_action": "..."
-        "required_resource": "..."
-    }
-}
-```
-
-The `keto_warden` handler has to configuration options (`required_action`, `required_resource`). Both of them are
-strings and support variable expansion using the match URL's regular expression.
-
-To enable this handler, the `AUTHORIZER_KETO_WARDEN_KETO_URL` environment variable must be set and must point to
-the URL where ORY Keto is hosted.
-
-### Credentials Issuers
-
-#### `noop`
-
-```json
-{
-    "handler": "noop"
-}
-```
-
-The `noop` handler does not have any configuration options in the access rule nor as environment variables.
-
-#### `id_token`
-
-```json
-{
-   "handler": "id_token",
-   "config": {
-       "aud": ["audience-1", "audience-2"]
-   }
-}
-```
-
-The `id_token` handler allows the configuration of the `aud` (audience) claim. This enables you to scope the validity
-of the ID Token to a specific set of APIs/servers/services.
-
-For a list of environment variables please [look here](#idtoken).
-
-#### `headers`
-
-```json
-{
-    "handler": "headers",
-    "config": {
-        "headers": {
-            "X-User": "{{ print .Subject }}"
-        }
-    }
-}
-```
-
-The `headers` handler allows the transformation of the request to include authentication data in the HTTP headers.
-
-#### `cookies`
-
-```json
-{
-  "handler": "cookies",
-  "config": {
-      "cookies": {
-          "user": "{{ print .Subject }}"
-      }
-  }
-}
-```
-
-The `cookies` handler allows the transformation of the request to include authentication data in the cookies.
+* `HIERARCHIC`: Scope `foo` matches `foo`, `foo.bar`, `foo.baz` but not `bar`
+* `WILDCARD`: Scope `foo.*` matches `foo`, `foo.bar`, `foo.baz` but not `bar`. Scope `foo` matches `foo` but not `foo.bar` nor `bar`
+* `EXACT`: Scope `foo` matches `foo` but not `bar` nor `foo.bar`
+* `NONE`: Scope validation is disabled completely. It is expected that the upstream logic (e.g. OAuth 2.0 Token Introspection) handles scope validation
+properly. If no upstream logic (e.g. JWT) exists, an error will be thrown if the scope is to be validated.
 
 ## Rule Management
 
