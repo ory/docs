@@ -98,7 +98,7 @@ $ docker exec -it hydra_hydra_1 \
 ```
 
 The next command starts a server that serves an example web application. The application will perform the OAuth 2.0
-Authorization Code Flow using ORY Hydra. The web server runs on [http://127.0.0.1:5555)(http://127.0.0.1:5555).
+Authorization Code Flow using ORY Hydra. The web server runs on [http://127.0.0.1:5555](http://127.0.0.1:5555).
 
 ```
 $ docker exec -it hydra_hydra_1 \
