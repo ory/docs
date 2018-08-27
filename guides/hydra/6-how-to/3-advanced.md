@@ -178,3 +178,18 @@ Each OAuth 2.0 Client has a configuration field `subject_type`. The value of tha
 
 While ORY Hydra handles `sub` obfuscation out of the box, you may also override this value with your own obfuscated
 `sub` value by setting `force_subject_identifier` when accepting the login challenge in your user login app.
+
+## System Secret Rotation
+
+We advise to rotate the system secret from time to time. The system secret is used to sign and validate OAuth 2.0 Access
+and Refresh Tokens and to encrypt JSON Web Keys in the store. If you use the JWT strategy for OAuth 2.0 Access Tokens,
+the system secret has no effect on these.
+
+To rotate the system secret (only possible with SQL at the moment), follow this guide:
+
+1. Shutdown all ORY Hydra instances
+2. Run `OLD_SYSTEM_SECRET=foo NEW_SYSTEM_SECRET=bar hydra migrate secret db://url/...`
+3. Decide if access/refresh tokens signed with the old key should still be valid.
+  * If yes, set `ROTATED_SYSTEM_SECRET` to the old secret before starting `hydra serve ...`, and `SYSTEM_SECRET` to the new one.
+  * If not, set only `SYSTEM_SECRET` to the new secret before running `hydra serve ...`.
+4. Restart ORY Hydra instances.
