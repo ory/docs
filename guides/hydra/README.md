@@ -135,17 +135,16 @@ Hydra incorporates best practices in the area of the web service technology:
 1. Hydra ships as a single binary for all popular platforms including Linux, OSX and Windows, without any additional
 dependencies. For further simplicity, Hydra is available as a [Docker Image](https://hub.docker.com/r/oryd/hydra/).
 2. Hydra is built security first: architecture and work flows are designed to neutralize various common (OWASP TOP TEN)
-and uncommon attack vectors. [Learn more](https://ory-am.gitbooks.io/hydra/content/basics/security.html).
+and uncommon attack vectors. [Learn more](https://www.ory.sh/docs/guides/master/hydra/5-security/).
 3. Hydra has a low CPU and memory footprint, short start up times and a CLI with developers in mind.
-4. Additionally, Hydra is capable of sophisticated access control, suitable for distributed systems or large organization. [Learn more](https://ory-am.gitbooks.io/hydra/content/access-control.html).
-5. Hydra scales effortlessly up and down on every platform imaginable, including Heroku, Cloud Foundry, Docker,
+4. Hydra scales effortlessly up and down on every platform imaginable, including Heroku, Cloud Foundry, Docker,
 Google Container Engine and many more.
 
 Hydra has a limitations too:
 
 1. Hydra is not something that manages user accounts. Hydra does not offer user registration, password reset, user
 login, sending confirmation emails. This is what the *Identity Provider* is responsible for.
-The communication between Hydra and the Identity Provider is called [*Consent Flow*](https://ory-am.gitbooks.io/hydra/content/oauth2/consent.html).
+The communication between Hydra and the Identity Provider is called [*Login and Consent Flow*](https://www.ory.sh/docs/guides/master/hydra/3-overview/1-oauth2#implementing-a-login--consent-provider).
 2. If you are building a simple service for 50-100 registered users, OAuth2 and Hydra will probably be too sophisticated.
 3. Hydra will not support the OAuth2 resource owner password credentials flow. This flow is legacy, discouraged,
 and insecure.
