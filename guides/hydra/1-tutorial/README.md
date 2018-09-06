@@ -97,6 +97,9 @@ $ docker exec -it hydra_hydra_1 \
     --callbacks http://127.0.0.1:5555/callback
 ```
 
+Note that you need to add `--token-endpoint-auth-method none` if your clients are public (such as SPA apps and native apps) because the public clients could not provide client secret.
+
+
 The next command starts a server that serves an example web application. The application will perform the OAuth 2.0
 Authorization Code Flow using ORY Hydra. The web server runs on [http://127.0.0.1:5555](http://127.0.0.1:5555).
 
