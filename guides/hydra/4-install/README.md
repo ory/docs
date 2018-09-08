@@ -115,7 +115,7 @@ Let's dive into the various settings:
 
 * `--network hydraguide` connects this instance to the network and makes it possible to connect to the PostgreSQL database.
 * `-p 9000:4444` exposes ORY Hydra's public API on `https://localhost:9000/`.
-* `-p 9001:4444` exposes ORY Hydra's administrative API on `https://localhost:9001/`.
+* `-p 9001:4445` exposes ORY Hydra's administrative API on `https://localhost:9001/`.
 * `-e SYSTEM_SECRET=$SYSTEM_SECRET` sets the system secret environment variable **(required)**.
 * `-e DATABASE_URL=$DATABASE_URL` sets the database url environment variable **(required)**.
 * `-e OAUTH2_ISSUER_URL=https://localhost:9000/` this value must be set to the publicly available URL of ORY Hydra **(required)**.
