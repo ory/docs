@@ -205,7 +205,13 @@ has been provided and if that client is allowed to request scope `scope-a` and `
 
 #### `oauth2_introspection`
 
-The `oauth2_introspection` authenticator handles requests that have an Bearer Token in the Authorization Header (`Authorization: bearer <token>`).
+The `oauth2_introspection` authenticator handles requests that have a Bearer Token as described by RFC6750:
+this token is preferably located in the Authorization Header (`Authorization: bearer <token>`), but may also
+be specified as a query parameter (`?access_token=<token>`) or a form parameter (in urlencoded or multipart forms).
+
+In addition, Oathkeeper optionaly supports tokens stored as cookie values (see example with cookies below), for applications
+using cookies as a store for credentials (e.g. httpOnly, secure cookies).
+
 It then uses OAuth 2.0 Token Introspection to check if the token is valid and if the token was granted the requested scope.
 
 This authenticator is a bit more complex to set up. You have to define the following environment variables:
@@ -252,9 +258,60 @@ and if that token was granted OAuth 2.0 Scope `scope-a` and `scope-b`:
 }
 ```
 
+Example with cookie support (default is to support a base64 json cookie value, with key "access_token")
+
+```
+{
+    "id": "some-id",
+    "upstream": {
+        "url": "http://my-backend-service"
+    },
+    "match": {
+        "url": "http://my-app/some-route",
+        "methods": [
+            "GET"
+        ]
+    },
+    "authenticators": [{
+        "handler": "oauth2_introspection",
+        "config": {
+            "required_scope": ["scope-a", "scope-b"]
+            "cookies": {
+                "_cookieWithDefaults": {
+                },
+                "_session": {
+                    "value_format": "rawstd-base64-json",
+                    "token_key": "access_token"
+                },
+                "_alternate": {
+                    "value_format": "rawurl-base64-json",
+                    "token_key": "token"
+                },
+            }
+        }
+    }],
+    /* ... */
+}
+```
+
+> Note on configuration for cookies support
+>
+> Values supported are JSON base64 encoded. Supported encodings: "rawstd-base64-json" (default), "rawurl-base64-json".
+> The "token_key" configuration tells which key stores the token. Defaults to "access_token".
+>
+> If the token is present as header, query or form parameter, the cookie value will be ignored.
+>
+> Several cookie names may be specified.
+
 #### `jwt`
 
-The `jwt` authenticator handles requests that have an Bearer Token in the Authorization Header (`Authorization: bearer <token>`).
+The `jwt` authenticator handles requests that have a Bearer Token as described by RFC6750:
+this token is preferably located in the Authorization Header (`Authorization: bearer <token>`), but may also
+be specified as a query parameter (`?access_token=<token>`) or a form parameter (in urlencoded or multipart forms).
+
+In addition, Oathkeeper optionaly supports tokens stored as cookie values (see example with cookies below), for applications
+using cookies as a store for credentials (e.g. httpOnly, secure cookies).
+
 It assumes that the token is a JSON Web Token and tries to verify the signature of it.
 
 * Required
@@ -311,6 +368,41 @@ by whitelisting the algorithms to be allowed. All common JWT singing algorihtms 
 }
 ```
 
+Example with cookie support (default is to support a base64 json cookie value, with key "access_token")
+
+```
+{
+    "id": "some-id",
+    "upstream": {
+        "url": "http://my-backend-service"
+    },
+    "match": {
+        "url": "http://my-app/some-route",
+        "methods": [
+            "GET"
+        ]
+    },
+    "authenticators": [{
+        "handler": "jwt",
+        "config": {
+            "required_scope": ["scope-a", "scope-b"],
+            "require_audience": ["scope-a", "scope-b"],
+            "trusted_issuers": ["scope-a", "scope-b"],
+            "cookies": {
+                "_session": {
+                    "value_format": "rawstd-base64-json",
+                    "token_key": "access_token"
+                },
+                "_alternate": {
+                    "value_format": "rawurl-base64-json",
+                    "token_key": "token"
+                },
+            }
+        }
+    }],
+    /* ... */
+}
+```
 ### Authorizers
 
 The authorizer takes the subject returned from the authenticator and checks if that subject is allowed to perform
