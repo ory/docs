@@ -386,14 +386,15 @@ To configure this authorizer, you must set the environment variable `AUTHORIZER_
 for example `AUTHORIZER_KETO_WARDEN_KETO_URL=http://keto/`. **If this environment variable is not set, then this authorizer
 will be disabled.**
 
-This authorizer has two configuration options, `required_action` and `required_resource`:
+This authorizer has three configuration options, `required_action`, `required_resource` and `subject`:
 
 ```
 "authorizer": {
     "handler": "keto_warden",
     "config": {
-        "required_action": "..."
-        "required_resource": "..."
+        "required_action": "...",
+        "required_resource": "...",
+        "subject": "..."
     }
 }
 ```
@@ -427,6 +428,28 @@ Assuming a request to `http://my-api/api/users/1234/foobar` was made, the config
 }
 ```
 
+The `subject` field configures what subject is passed on to keto warden.
+The `subject` value is a string which will be parsed by the Go [`text/template`](https://golang.org/pkg/text/template/)
+package for value substitution, receiving the [`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/92c09fb28552949cd034ed5555c87dfda91407a3/proxy/authenticator.go#L19)
+struct:
+
+```go
+type AuthenticationSession struct {
+    Subject string
+    Extra   map[string]interface{}
+}
+```
+
+If `subject` is not specified it will default to `AuthenticationSession.Subject`.
+
+Note that the `AuthenticationSession` struct has a field named `Extra` which is a `map[string]interface{}`, which receives
+varying introspection data from the authentication process. Because the contents of `Extra` are so variable, nested and
+potentially non-existent values need special handling by the `text/template` parser, and a `print` FuncMap function has
+been provided to ensure that non-existent map values will simply return an empty string, rather than `<no value>`.
+
+If you find that your headers contain the string `<no value>` then you have most likely omitted the `print` function, and
+it is recommended you use it for all values out of an abundance of caution and for consistency.
+
 #### Example
 
 ```
@@ -447,11 +470,13 @@ Assuming a request to `http://my-api/api/users/1234/foobar` was made, the config
         "config": {
             "required_action": "my:action:$1",
             "required_resource": "my:resource:$2:foo:$1"
+            "subject": "{{ .Extra.email }}"
         }
     }
     /* ... */
 }
 ```
+
 
 ### Credentials Issuers
 
