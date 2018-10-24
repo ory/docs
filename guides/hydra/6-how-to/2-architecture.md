@@ -20,12 +20,12 @@ A high-level overview of the interaction between a client, ORY Hydra (Authorizat
   API->>Client: Response`](./images/basic-oauth2-system.png)
 
 Most of what is explained here can also be seen as real-life examples in the [ory/examples](https://github.com/ory/examples)
-repoistory!
+repository!
 
 ### Interacting with OAuth 2.0
 
 **Please, do not write your own code to interact with OAuth 2.0**. Use open source & battle-tested libraries instead. Here are some
-examples.:
+examples:
 
 * NodeJS
   * [passport](http://www.passportjs.org/)
