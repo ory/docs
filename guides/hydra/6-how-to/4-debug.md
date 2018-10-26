@@ -110,7 +110,7 @@ scheme, you must set `"token_endpoint_auth_method": "client_secret_post"`. You c
 
 ### What is this?
 
-Configuring Distributed Tracing (DT) will enable to you obtain a visualization of the call paths that take place in order to process a request made to Hydra. It's yet another tool that you can use to aid you in profiling, debugging and ultimately understanding your deployment of Hydra better. Hydra currently supports the following tracing options:
+Configuring Distributed Tracing (DT) will enable you to obtain a visualization of the call paths that take place in order to process a request made to Hydra. It's yet another tool that you can use to aid you in profiling, debugging and ultimately understanding your deployment of Hydra better. Hydra currently supports the following tracing options:
 
 - Tracing backend(s): Jaeger - _Note: adding support for other [opentracing compliant backends](https://opentracing.io/docs/supported-tracers) is planned. To aid in priority, please [create an issue](https://github.com/ory/hydra/issues) with your feature request._
 - Following existing traces: If you have deployed Hydra behind a proxy that has initiated a trace, Hydra will attempt to join that trace by examining the request headers for tracing context.
@@ -152,7 +152,8 @@ The [provided docker-compose file](https://github.com/ory/hydra/blob/master/dock
 - TRACING_PROVIDER
 - TRACING_PROVIDER_JAEGER_SAMPLING_SERVER_URL
 - TRACING_PROVIDER_JAEGER_LOCAL_AGENT_ADDRESS
-- TRACING_OMIT_SQL_ARGUMENTS_FROM_SPANS
+- TRACING_PROVIDER_JAEGER_SAMPLING_TYPE
+- TRACING_PROVIDER_JAEGER_SAMPLING_VALUE
 ```
 
 **Uncomment the Jaeger service definition:**
