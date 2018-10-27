@@ -1,18 +1,14 @@
-# Configuring and Running ORY Keto
+# Configuration
 
-ORY Keto supports two types of storage adapters:
+As all other ORY services, ORY Keto is implemented according to 12factor principles and completely stateless. To store
+state, ORY Keto supports two types of storage adapters:
 
 * In-memory: This adapter does not work with more than one instance ("cluster") and any state is lost after restarting the instance.
 * SQL: This adapter works with more than one instance and state is not lost after restarts.
 
 The SQL adapter supports two DBMS: PostgreSQL 9.6+ and MySQL 5.7+. Please note that
-older MySQL versions have issues with the database schema.
-For more information [go here](https://github.com/ory/hydra/issues/377).
-
-ORY Keto supports various authentication strategies. Depending on what strategies
-you want to use, you will have to configure more services (e.g. ORY Hydra). In this tutorial, we will
-set up ORY Keto without any of the other services. Please refer to the [warden chapter](./2-warden)
-to see how to configure each authentication strategy.
+older MySQL versions may have issues with the database schema. We recommend working with PostgreSQL as migrations will be
+faster.
 
 This guide will:
 
@@ -54,15 +50,16 @@ and create a user `keto` with password `secret`.
 $ export DATABASE_URL=postgres://keto:secret@ory-keto-example--postgres:5432/keto?sslmode=disable
 
 # This pulls the latest image from Docker Hub
-$ docker pull oryd/keto:v1.0.0-beta.5
+$ docker pull oryd/keto:unstable
 
 # ORY Keto does not do magic, it requires conscious decisions, for example running SQL migrations which is required
 # when installing a new version of ORY Keto, or upgrading an existing installation.
-# It is the equivalent to `keto migrate sql postgres://keto:secret@ory-keto-example--postgres:5432/keto?sslmode=disable`
+# It is the equivalent to `DATABASE_URL=postgres://keto:secret@ory-keto-example--postgres:5432/keto?sslmode=disable keto migrate sql`
 $ docker run -it --rm \
   --network ketoguide \
-  oryd/keto:v1.0.0-beta.5 \
-  migrate sql $DATABASE_URL
+  -e DATABASE_URL=$DATABASE_URL \
+  oryd/keto:unstable \
+  migrate sql -e
 
 Applying `client` SQL migrations...
 [...]
@@ -74,7 +71,7 @@ $ docker run -d \
   --network ketoguide \
   -p 4466:4466 \
   -e DATABASE_URL=$DATABASE_URL \
-  oryd/keto:v1.0.0-beta.5 \
+  oryd/keto:unstable \
   serve
 ```
 
@@ -85,50 +82,72 @@ any errors or issues before going to the next steps:
 $ docker logs ory-keto-example--keto
 ```
 
-## Running CLI Commands
+You should see one line showing where the server is running:
 
-You can now create your first policy:
+```
+time="2018-10-27T11:48:56Z" level=info msg="Listening on http://localhost:4466"
+```
+
+## Working with the CLI
+
+Let's examine how we can work with the CLI to manage ORY Keto. We will use the ORY Access Control Policy Engine (`/engines/acp/ory`)
+with the `exact` matcher and define policies and check if certain users are allowed to do certain things. Let's create
+the first policy:
+
+```
+$ mkdir policies
+
+$ cat > policies/example-policy.json <<EOL
+[{
+    "id": "example-policy",
+    "subjects": ["alice"],
+    "resources": ["blog_posts:my-first-blog-post"],
+    "actions": ["delete"],
+    "effect": "allow"
+}]
+EOL
+
+$ docker run -it --rm \
+  --network ketoguide \
+  -v $(pwd)/policies:/policies \
+  -e KETO_URL=http://ory-keto-example--keto:4466/ \
+  oryd/keto:unstable \
+  engines acp ory policies import exact /policies/example-policy.json
+```
+
+Check if the policy has been created:
 
 ```
 $ docker run -it --rm \
   --network ketoguide \
-  oryd/keto:v1.0.0-beta.5 \
-  policies create --endpoint http://ory-keto-example--keto:4466/ \
-    --id example-policy \
-    --allow \
-    -a delete \
-    -s alice \
-    -r "blog_posts:my-first-blog-post"
+  -e KETO_URL=http://ory-keto-example--keto:4466/ \
+  oryd/keto:unstable \
+  engines acp ory policies get exact example-policy
+{
+  "actions": [
+    "delete"
+  ],
+...
 ```
 
-List all existing policies:
-
-```
-$ docker run -it --rm \
-  --network ketoguide \
-  oryd/keto:v1.0.0-beta.5 \
-    --endpoint http://ory-keto-example--keto:4466/ \
-    policies get example-policy
-```
-
-And make some Warden requests:
+And check if certain users are allowed to do things:
 
 ```
 $ docker run -it --rm \
   --network ketoguide \
-  oryd/keto:v1.0.0-beta.5 \
-  warden authorize subject --endpoint http://ory-keto-example--keto:4466/ \
-      --action delete \
-      --subject alice \
-      --resource "blog_posts:my-first-blog-post"
+  -e KETO_URL=http://ory-keto-example--keto:4466/ \
+  oryd/keto:unstable \
+  engines acp ory allowed exact alice blog_posts:my-first-blog-post delete
+{
+        "allowed": true
+}
+
+$ docker run -it --rm \
+  --network ketoguide \
+  -e KETO_URL=http://ory-keto-example--keto:4466/ \
+  oryd/keto:unstable \
+  engines acp ory allowed exact bob blog_posts:my-first-blog-post delete
+{
+        "allowed": false
+}
 ```
-
-## Securing ORY Keto
-
-Similar to other services in our ecosystem, ORY Keto has no native access control. This means that any request
-made to e.g. `/policies` or `/warden/...` is considered authenticated and thus executed. However, these endpoints
-are very sensitive as they define who is allowed to do what in your system.
-
-Please use an API Gateway or a similar mechanism to protect these endpoints. How you protect them, is up to you.
-
-If you require dedicated help with this, consider asking us for [consultancy](mailto:hi@ory.sh).

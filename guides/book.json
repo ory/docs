@@ -13,8 +13,7 @@
   "pluginsConfig": {
     "auto-summary": {
       "parts": {
-        "README.md": "Overview",
-        "updating/*.md": "updating",
+        "ecosystem/*.md": "Ecosystem",
         "hydra/**/*.md": "ORY Hydra",
         "oathkeeper/**/*.md": "ORY Oathkeeper",
         "keto/**/*.md": "ORY Keto",
