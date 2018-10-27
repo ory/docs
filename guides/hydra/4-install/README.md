@@ -310,7 +310,7 @@ If your browser does not open automatically, navigate to:
 open the link, as prompted, in your browser, and follow the steps shown there. You might encounter a screen like the following
 one:
 
-![Insecure connection](../images/insecure-connection.jpg)
+![Insecure connection](../images/insecure-connection.png)
 
 This happens because we run ORY Hydra with a self-signed TLS certificate. In production deployments, you would probably
 use a certificate signed by a trusted CA and not see this screen.
