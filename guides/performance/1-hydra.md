@@ -31,44 +31,44 @@ This section contains various benchmarks against OAuth 2.0 endpoints
 ```
 
 Summary:
-  Total:	0.4999 secs
-  Slowest:	0.0266 secs
+  Total:	0.8399 secs
+  Slowest:	0.0508 secs
   Fastest:	0.0001 secs
-  Average:	0.0048 secs
-  Requests/sec:	20004.2575
+  Average:	0.0078 secs
+  Requests/sec:	11905.8060
   
   Total data:	1550000 bytes
   Size/request:	155 bytes
 
 Response time histogram:
   0.000 [1]	|
-  0.003 [3377]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-  0.005 [1831]	|■■■■■■■■■■■■■■■■■■■■■■
-  0.008 [2922]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-  0.011 [1506]	|■■■■■■■■■■■■■■■■■■
-  0.013 [253]	|■■■
-  0.016 [48]	|■
-  0.019 [18]	|
-  0.021 [14]	|
-  0.024 [10]	|
-  0.027 [20]	|
+  0.005 [4008]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+  0.010 [3616]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+  0.015 [1082]	|■■■■■■■■■■■
+  0.020 [592]	|■■■■■■
+  0.025 [264]	|■■■
+  0.031 [268]	|■■■
+  0.036 [87]	|■
+  0.041 [47]	|
+  0.046 [20]	|
+  0.051 [15]	|
 
 
 Latency distribution:
-  10% in 0.0001 secs
-  25% in 0.0005 secs
-  50% in 0.0051 secs
-  75% in 0.0076 secs
-  90% in 0.0091 secs
-  95% in 0.0101 secs
-  99% in 0.0136 secs
+  10% in 0.0002 secs
+  25% in 0.0021 secs
+  50% in 0.0068 secs
+  75% in 0.0099 secs
+  90% in 0.0175 secs
+  95% in 0.0239 secs
+  99% in 0.0338 secs
 
 Details (average, fastest, slowest):
-  DNS+dialup:	0.0000 secs, 0.0001 secs, 0.0266 secs
-  DNS-lookup:	0.0000 secs, 0.0000 secs, 0.0087 secs
-  req write:	0.0000 secs, 0.0000 secs, 0.0078 secs
-  resp wait:	0.0046 secs, 0.0001 secs, 0.0163 secs
-  resp read:	0.0000 secs, 0.0000 secs, 0.0066 secs
+  DNS+dialup:	0.0001 secs, 0.0001 secs, 0.0508 secs
+  DNS-lookup:	0.0000 secs, 0.0000 secs, 0.0132 secs
+  req write:	0.0001 secs, 0.0000 secs, 0.0200 secs
+  resp wait:	0.0073 secs, 0.0001 secs, 0.0450 secs
+  resp read:	0.0002 secs, 0.0000 secs, 0.0202 secs
 
 Status code distribution:
   [200]	10000 responses
@@ -84,44 +84,44 @@ This endpoint uses [BCrypt](#bcrypt).
 ```
 
 Summary:
-  Total:	18.5771 secs
-  Slowest:	0.8948 secs
-  Fastest:	0.0166 secs
-  Average:	0.1794 secs
-  Requests/sec:	538.2957
+  Total:	18.6267 secs
+  Slowest:	0.6793 secs
+  Fastest:	0.0168 secs
+  Average:	0.1799 secs
+  Requests/sec:	536.8636
   
   Total data:	1570000 bytes
   Size/request:	157 bytes
 
 Response time histogram:
   0.017 [1]	|
-  0.104 [2360]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■
-  0.192 [3456]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-  0.280 [2501]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-  0.368 [1076]	|■■■■■■■■■■■■
-  0.456 [464]	|■■■■■
-  0.544 [117]	|■
-  0.631 [20]	|
-  0.719 [1]	|
-  0.807 [3]	|
-  0.895 [1]	|
+  0.083 [1362]	|■■■■■■■■■■■■■■■■■■
+  0.149 [2682]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+  0.216 [3084]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+  0.282 [1446]	|■■■■■■■■■■■■■■■■■■■
+  0.348 [890]	|■■■■■■■■■■■■
+  0.414 [363]	|■■■■■
+  0.481 [72]	|■
+  0.547 [70]	|■
+  0.613 [24]	|
+  0.679 [6]	|
 
 
 Latency distribution:
-  10% in 0.0814 secs
-  25% in 0.1062 secs
-  50% in 0.1824 secs
-  75% in 0.2137 secs
-  90% in 0.3019 secs
-  95% in 0.3817 secs
-  99% in 0.4800 secs
+  10% in 0.0731 secs
+  25% in 0.1081 secs
+  50% in 0.1790 secs
+  75% in 0.2279 secs
+  90% in 0.2991 secs
+  95% in 0.3621 secs
+  99% in 0.4807 secs
 
 Details (average, fastest, slowest):
-  DNS+dialup:	0.0000 secs, 0.0166 secs, 0.8948 secs
-  DNS-lookup:	0.0000 secs, 0.0000 secs, 0.0046 secs
-  req write:	0.0001 secs, 0.0000 secs, 0.0729 secs
-  resp wait:	0.1789 secs, 0.0165 secs, 0.8947 secs
-  resp read:	0.0003 secs, 0.0000 secs, 0.0821 secs
+  DNS+dialup:	0.0003 secs, 0.0168 secs, 0.6793 secs
+  DNS-lookup:	0.0000 secs, 0.0000 secs, 0.0263 secs
+  req write:	0.0002 secs, 0.0000 secs, 0.0631 secs
+  resp wait:	0.1786 secs, 0.0168 secs, 0.6792 secs
+  resp read:	0.0004 secs, 0.0000 secs, 0.1653 secs
 
 Status code distribution:
   [200]	10000 responses
@@ -146,44 +146,44 @@ This test is currently disabled due to issues with /dev/urandom being inaccessib
 ```
 
 Summary:
-  Total:	0.5424 secs
-  Slowest:	0.0445 secs
+  Total:	0.5363 secs
+  Slowest:	0.0295 secs
   Fastest:	0.0001 secs
-  Average:	0.0050 secs
-  Requests/sec:	18435.0347
+  Average:	0.0051 secs
+  Requests/sec:	18646.9262
   
   Total data:	4370000 bytes
   Size/request:	437 bytes
 
 Response time histogram:
   0.000 [1]	|
-  0.005 [5758]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-  0.009 [2216]	|■■■■■■■■■■■■■■■
-  0.013 [1202]	|■■■■■■■■
-  0.018 [425]	|■■■
-  0.022 [132]	|■
-  0.027 [84]	|■
-  0.031 [23]	|
-  0.036 [59]	|
-  0.040 [75]	|■
-  0.045 [25]	|
+  0.003 [4497]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+  0.006 [1724]	|■■■■■■■■■■■■■■■
+  0.009 [1523]	|■■■■■■■■■■■■■■
+  0.012 [1198]	|■■■■■■■■■■■
+  0.015 [496]	|■■■■
+  0.018 [259]	|■■
+  0.021 [180]	|■■
+  0.024 [101]	|■
+  0.027 [14]	|
+  0.030 [7]	|
 
 
 Latency distribution:
-  10% in 0.0001 secs
-  25% in 0.0002 secs
-  50% in 0.0030 secs
-  75% in 0.0076 secs
-  90% in 0.0123 secs
-  95% in 0.0165 secs
-  99% in 0.0357 secs
+  10% in 0.0002 secs
+  25% in 0.0003 secs
+  50% in 0.0041 secs
+  75% in 0.0084 secs
+  90% in 0.0121 secs
+  95% in 0.0155 secs
+  99% in 0.0209 secs
 
 Details (average, fastest, slowest):
-  DNS+dialup:	0.0001 secs, 0.0001 secs, 0.0445 secs
-  DNS-lookup:	0.0001 secs, 0.0000 secs, 0.0208 secs
-  req write:	0.0001 secs, 0.0000 secs, 0.0208 secs
-  resp wait:	0.0043 secs, 0.0000 secs, 0.0445 secs
-  resp read:	0.0004 secs, 0.0000 secs, 0.0202 secs
+  DNS+dialup:	0.0000 secs, 0.0001 secs, 0.0295 secs
+  DNS-lookup:	0.0000 secs, 0.0000 secs, 0.0121 secs
+  req write:	0.0001 secs, 0.0000 secs, 0.0103 secs
+  resp wait:	0.0044 secs, 0.0001 secs, 0.0295 secs
+  resp read:	0.0004 secs, 0.0000 secs, 0.0113 secs
 
 Status code distribution:
   [200]	10000 responses
@@ -197,44 +197,44 @@ Status code distribution:
 ```
 
 Summary:
-  Total:	0.4928 secs
-  Slowest:	0.0341 secs
+  Total:	0.4474 secs
+  Slowest:	0.0299 secs
   Fastest:	0.0001 secs
-  Average:	0.0046 secs
-  Requests/sec:	20291.2906
+  Average:	0.0041 secs
+  Requests/sec:	22352.7162
   
   Total data:	4350000 bytes
   Size/request:	435 bytes
 
 Response time histogram:
   0.000 [1]	|
-  0.003 [5205]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-  0.007 [1984]	|■■■■■■■■■■■■■■■
-  0.010 [1410]	|■■■■■■■■■■■
-  0.014 [815]	|■■■■■■
-  0.017 [321]	|■■
-  0.020 [135]	|■
-  0.024 [43]	|
-  0.027 [35]	|
-  0.031 [37]	|
-  0.034 [14]	|
+  0.003 [5053]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+  0.006 [1847]	|■■■■■■■■■■■■■■■
+  0.009 [1580]	|■■■■■■■■■■■■■
+  0.012 [936]	|■■■■■■■
+  0.015 [356]	|■■■
+  0.018 [141]	|■
+  0.021 [55]	|
+  0.024 [17]	|
+  0.027 [9]	|
+  0.030 [5]	|
 
 
 Latency distribution:
   10% in 0.0001 secs
   25% in 0.0002 secs
   50% in 0.0029 secs
-  75% in 0.0075 secs
-  90% in 0.0116 secs
-  95% in 0.0141 secs
-  99% in 0.0218 secs
+  75% in 0.0071 secs
+  90% in 0.0104 secs
+  95% in 0.0125 secs
+  99% in 0.0174 secs
 
 Details (average, fastest, slowest):
-  DNS+dialup:	0.0000 secs, 0.0001 secs, 0.0341 secs
-  DNS-lookup:	0.0000 secs, 0.0000 secs, 0.0135 secs
-  req write:	0.0001 secs, 0.0000 secs, 0.0120 secs
-  resp wait:	0.0038 secs, 0.0000 secs, 0.0314 secs
-  resp read:	0.0005 secs, 0.0000 secs, 0.0161 secs
+  DNS+dialup:	0.0001 secs, 0.0001 secs, 0.0299 secs
+  DNS-lookup:	0.0000 secs, 0.0000 secs, 0.0105 secs
+  req write:	0.0001 secs, 0.0000 secs, 0.0101 secs
+  resp wait:	0.0038 secs, 0.0000 secs, 0.0253 secs
+  resp read:	0.0002 secs, 0.0000 secs, 0.0102 secs
 
 Status code distribution:
   [200]	10000 responses
