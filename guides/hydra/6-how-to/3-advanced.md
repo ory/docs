@@ -50,15 +50,99 @@ hydra keys create --endpoint=http://ory-hydra-admin-api/ hydra.jwt.access-token 
 
 ## OAuth 2.0
 
+### Audience
+
+There are two types of audience concept in the context of OAuth 2.0 and OpenID Connect:
+
+1. OAuth 2.0: Access and Refresh Tokens are "internal-facing". The `aud` claim of an OAuth 2.0 Access and Refresh token
+defines at which *endpoints* the token can be used.
+2. OpenID Connect: The ID Token is "external-facing". The `aud` claim of an OpenID Connect ID Token defines which
+*clients* should accept it.
+
+While modifying the audience of an ID Token is not desirable, specifying the audience of an OAuth 2.0 Access Token is.
+This is not defined as an IETF Standard but is considered good practice in certain environments.
+
+For this reason, Hydra allows you to control the aud claim of the access token. To do so, you must specify the intended
+audiences in the OAuth 2.0 Client's metadata on a per-client basis:
+
+
+```
+{
+    "client_id": "...",
+    "audience": ["https://api.my-cloud.com/user", "https://some-tenant.my-cloud.com/"]
+}
+```
+
+The audience is a list of case-sensitive URLs. **URLs must not contain whitespaces**.
+
+#### OAuth 2.0 Authorization Code, Implicit, Hybrid Flows
+
+When performing an OAuth 2.0 authorize code, implicit, or hybrid flow, you can request audiences at the `/oauth2/auth`
+endpoint `https://my-hydra.com/oauth2/auth?client_id=...&scope=...&audience=https%3A%2F%2Fapi.my-cloud.com%2Fuser+https%3A%2F%2Fsome-tenant.my-cloud.com%2F`
+which requests audiences `https://api.my-cloud.com/user` and `https://some-tenant.my-cloud.com/`.
+
+The `audience` query parameter may contain multiple strings separated by a url-encoded space (`+` or `%20`). The
+audience values themselves must also be url encoded. The values will be validated against the whitelisted
+audiences defined in the OAuth 2.0 Client:
+
+* An OAuth 2.0 Client with the allowed audience `https://api.my-cloud/user` is allowed to request audience values `https://api.my-cloud/user`
+`https://api.my-cloud/user/1234` but not `https://api.my-cloud/not-user` nor `https://something-else/`.
+
+The requested audience from the query parameter is then part of the login and consent request payload as field `requested_access_token_audience`.
+You can then alter the audience using `grant_audience.access_token` when accepting the consent request:
+
+```
+hydra.acceptConsentRequest(challenge, {
+  // ORY Hydra checks if requested audiences are allowed by the client, so we can simply echo this.
+  grant_audience: {
+    access_token: response.requested_access_token_audience,
+    // or, for example:
+    // access_token: ["https://api.my-cloud/not-user"]
+  },
+
+  // ... remember: false
+  // ...
+})
+```
+
+When introspecting the OAuth 2.0 Access Token, the response payload will include the audience:
+
+```
+{
+  "active": true,
+  // ...
+  "audience": ["https://api.my-cloud/user", "https://api.my-cloud/user/1234"]
+}
+```
+
+#### OAuth 2.0 Client Credentials Grant
+
+When performing the client credentials grant, the audience parameter from the POST body of the `/oauth2/token` is
+decoded and validated according to the same rules of the previous section, except for the login and consent part which
+does not exist for this flow.
+
 ### JSON Web Tokens
 
-ORY Hydra supports JSON Web Tokens as Access Tokens. We *discourage you from using this feature for multiple reasons:*
+ORY Hydra supports issuing OAuth 2.0 Access Tokens as JSON Web Tokens. Using JSON Web Tokens as Access Tokens is **a bad idea and nobody
+serious, including Google, uses them in this place**. JSON Web Tokens are obviously not bad per se, but in the context
+of OAuth 2.0 Access Tokens they are an inferior tool for the job. Here are all the reasons why we *discourage you from
+using this feature:*
 
-1. It is very new and has not been battle-tested.
-2. We believe that JSON Web Tokens can lead to poor security practices.
+1. OAuth 2.0 Access Tokens are "internal". They (often) contain internal/private session data such as a user's email
+or contact address, subscription status, and other potentially sensitive information. The user (often) did not
+consent to giving out this data and the OpenID Connect ID Token, which explicitly governs access to this data, should
+be the only place where OAuth 2.0 Clients get access to this information.
+2. OAuth 2.0 Access Tokens may contain information on the permission or access control system. This information
+should be treated as confidential information. Exposing it gives attackers one more source of knowledge about your system.
 3. Using this feature disables other features, like the pairwise Subject Identifier Algorithm.
+4. This feature is new and has not been battle-tested.
 
-If you still want to use this strategy you can do so by setting environment variable `OAUTH2_ACCESS_TOKEN_STRATEGY=jwt`.
+If you are looking for stateless authorization at your APIs, that is a valid use case. Our recommendation however is
+to rely on opaque OAuth 2.0 Access Tokens and convert them to JSON Web Tokens at your API Gateway, for example by
+using [ORY Oathkeeper](https://github.com/ory/oathkeeper).
+
+If you still want to use this strategy despite all these warnings,
+you can do so by setting environment variable `OAUTH2_ACCESS_TOKEN_STRATEGY=jwt`.
 
 Be aware that only access tokens are formatted as JSON Web Tokens. Refresh tokens are not impacted by this strategy.
 By performing OAuth 2.0 Token Introspection you can check if the token is still valid. If a token is revoked or otherwise
