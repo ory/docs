@@ -175,19 +175,6 @@ Hey there , I am getting this error when I try request an access token "The requ
 
 > follow the steps in the readme https://github.com/ory/hydra#building-from-source
 
-## Is JWT supported?
-
-> Mufid @mufid 03:29  
-> Could Hydra's Access Token be a JWT? So that my resource server does not need to call Introspection API for each request.
-
-> Mufid @mufid 03:39  
-Yes, the access token looks like JWT, but i am unable to decode it. Here is my example token form Hydra: LpxuGoqWy7lYp9N0Cea8mEGR6IHhyr37jxZXRHqSjRM.nU-jMnAJ7dUKQPjWF4QBEL9OQWVU8zj_ElhrT-FQrWw (JWT Tokens should have 2 dots (3 segments), so this is not a valid JWT)
-
-> Mufid @mufid 03:56  
-*form --> from, typo, sorry.
-> Aeneas @arekkas 11:50  
-@mufid JWT is not supported at the moment, we might add it, but not as part of the hydra community edition
-
 ## Refreshing tokens
 
 > Kareem Diaa @kimooz 15:48  
