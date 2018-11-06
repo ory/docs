@@ -2,6 +2,9 @@
 
 This file keeps track of questions and discussions from Gitter and general help with various issues.
 
+**Please be aware that some things noted here might be highly outdated. If you find an outdated section, please
+create a PR which removes or updates it!**
+
 <!-- toc -->
 
 ## How can I control SQL connection limits?
