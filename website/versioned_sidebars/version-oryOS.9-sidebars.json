@@ -1,0 +1,100 @@
+{
+  "version-oryOS.9-docs": {
+    "Welcome": [
+      "version-oryOS.9-index"
+    ],
+    "Ecosystem": [
+      "version-oryOS.9-ecosystem/ecosystem-overview",
+      "version-oryOS.9-ecosystem/ecosystem-cloud-native",
+      "version-oryOS.9-ecosystem/ecosystem-versioning",
+      "version-oryOS.9-ecosystem/ecosystem-upgrading",
+      "version-oryOS.9-ecosystem/ecosystem-examples",
+      "version-oryOS.9-ecosystem/ecosystem-community",
+      "version-oryOS.9-ecosystem/ecosystem-sqa"
+    ],
+    "ORY Hydra": [
+      "version-oryOS.9-hydra/hydra-index",
+      {
+        "type": "subcategory",
+        "label": "Getting Started",
+        "ids": [
+          "version-oryOS.9-hydra/hydra-5min-tutorial"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Guides",
+        "ids": [
+          "version-oryOS.9-hydra/hydra-oauth2",
+          "version-oryOS.9-hydra/hydra-jwks",
+          "version-oryOS.9-hydra/hydra-configure-deploy",
+          "version-oryOS.9-hydra/hydra-advanced",
+          "version-oryOS.9-hydra/hydra-debugging",
+          "version-oryOS.9-hydra/hydra-production",
+          "version-oryOS.9-hydra/hydra-integration"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "SDK",
+        "ids": [
+          "version-oryOS.9-hydra/sdk/hydra-sdk-index",
+          "version-oryOS.9-hydra/sdk/hydra-sdk-api",
+          "version-oryOS.9-hydra/sdk/hydra-sdk-go",
+          "version-oryOS.9-hydra/sdk/hydra-sdk-js"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Further Reading",
+        "ids": [
+          "version-oryOS.9-hydra/hydra-limitations",
+          "version-oryOS.9-hydra/hydra-dependencies-environment",
+          "version-oryOS.9-hydra/hydra-security-architecture",
+          "version-oryOS.9-hydra/hydra-faq",
+          "version-oryOS.9-hydra/hydra-appendix"
+        ]
+      }
+    ],
+    "ORY Oathkeeper": [
+      "version-oryOS.9-oathkeeper/oathkeeper-index",
+      {
+        "type": "subcategory",
+        "label": "Guides",
+        "ids": [
+          "version-oryOS.9-oathkeeper/oathkeeper-api-access-rules",
+          "version-oryOS.9-oathkeeper/oathkeeper-configure-deploy",
+          "version-oryOS.9-oathkeeper/oathkeeper-control-flow"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "SDK",
+        "ids": [
+          "version-oryOS.9-oathkeeper/sdk/oathkeeper-sdk-api"
+        ]
+      }
+    ],
+    "ORY Keto": [
+      "version-oryOS.9-keto/keto-index",
+      "version-oryOS.9-keto/1-overview/keto-overview-1-policies",
+      "version-oryOS.9-keto/1-overview/keto-overview-2-warden",
+      "version-oryOS.9-keto/1-overview/keto-overview-3-roles",
+      "version-oryOS.9-keto/1-overview/keto-overview-4-best-practices",
+      "version-oryOS.9-keto/1-overview/keto-overview-5-conditions",
+      "version-oryOS.9-keto/1-overview/keto-overview-6-installation",
+      "version-oryOS.9-keto/1-overview/keto-overview-7-configuration",
+      {
+        "type": "subcategory",
+        "label": "SDK",
+        "ids": [
+          "version-oryOS.9-keto/sdk/keto-sdk-api"
+        ]
+      }
+    ],
+    "Performance": [
+      "version-oryOS.9-performance/performance-index",
+      "version-oryOS.9-performance/performance-hydra"
+    ]
+  }
+}

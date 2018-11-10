@@ -1,0 +1,759 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "ORY Oathkeeper is a reverse proxy that checks the HTTP Authorization for validity against a set of rules. This service uses Hydra to validate access tokens and policies.",
+    "title": "ORY Oathkeeper",
+    "contact": {
+      "name": "ORY",
+      "url": "https://www.ory.am",
+      "email": "hi@ory.am"
+    },
+    "version": "Latest"
+  },
+  "basePath": "/",
+  "paths": {
+    "/.well-known/jwks.json": {
+      "get": {
+        "description": "This endpoint returns public keys for validating the ID tokens issued by ORY Oathkeeper.",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "summary": "Returns well known keys",
+        "operationId": "getWellKnown",
+        "responses": {
+          "200": {
+            "description": "jsonWebKeySet",
+            "schema": {
+              "$ref": "#/definitions/jsonWebKeySet"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/genericError"
+          },
+          "403": {
+            "$ref": "#/responses/genericError"
+          }
+        }
+      }
+    },
+    "/health/alive": {
+      "get": {
+        "description": "This endpoint returns a 200 status code when the HTTP server is up running.\nThis status does currently not include checks whether the database connection is working.\nThis endpoint does not require the `X-Forwarded-Proto` header when TLS termination is set.\n\nBe aware that if you are running multiple nodes of ORY Oathkeeper, the health status will never refer to the cluster state, only to a single instance.",
+        "tags": [
+          "health"
+        ],
+        "summary": "Check the Alive Status",
+        "operationId": "isInstanceAlive",
+        "responses": {
+          "200": {
+            "description": "healthStatus",
+            "schema": {
+              "$ref": "#/definitions/healthStatus"
+            }
+          },
+          "500": {
+            "$ref": "#/responses/genericError"
+          }
+        }
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "description": "This endpoint returns a 200 status code when the HTTP server is up running and the environment dependencies (e.g.\nthe database) are responsive as well.\n\nThis status does currently not include checks whether the database connection is working.\nThis endpoint does not require the `X-Forwarded-Proto` header when TLS termination is set.\n\nBe aware that if you are running multiple nodes of ORY Oathkeeper, the health status will never refer to the cluster state, only to a single instance.",
+        "tags": [
+          "health"
+        ],
+        "summary": "Check the Readiness Status",
+        "operationId": "isInstanceReady",
+        "responses": {
+          "200": {
+            "description": "healthStatus",
+            "schema": {
+              "$ref": "#/definitions/healthStatus"
+            }
+          },
+          "503": {
+            "description": "healthNotReadyStatus",
+            "schema": {
+              "$ref": "#/definitions/healthNotReadyStatus"
+            }
+          }
+        }
+      }
+    },
+    "/judge": {
+      "get": {
+        "description": "This endpoint mirrors the proxy capability of ORY Oathkeeper's proxy functionality but instead of forwarding the\nrequest to the upstream server, returns 200 (request should be allowed), 401 (unauthorized), or 403 (forbidden)\nstatus codes. This endpoint can be used to integrate with other API Proxies like Ambassador, Kong, Envoy, and many more.",
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "judge"
+        ],
+        "summary": "Judge if a request should be allowed or not",
+        "operationId": "judge",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/emptyResponse"
+          },
+          "401": {
+            "$ref": "#/responses/genericError"
+          },
+          "403": {
+            "$ref": "#/responses/genericError"
+          },
+          "404": {
+            "$ref": "#/responses/genericError"
+          },
+          "500": {
+            "$ref": "#/responses/genericError"
+          }
+        }
+      }
+    },
+    "/rules": {
+      "get": {
+        "description": "This method returns an array of all rules that are stored in the backend. This is useful if you want to get a full\nview of what rules you have currently in place.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "rule"
+        ],
+        "summary": "List all rules",
+        "operationId": "listRules",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Limit",
+            "description": "The maximum amount of rules returned.",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Offset",
+            "description": "The offset from where to start looking.",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/rules"
+          },
+          "401": {
+            "$ref": "#/responses/genericError"
+          },
+          "403": {
+            "$ref": "#/responses/genericError"
+          },
+          "500": {
+            "$ref": "#/responses/genericError"
+          }
+        }
+      },
+      "post": {
+        "description": "This method allows creation of rules. If a rule id exists, you will receive an error.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "rule"
+        ],
+        "summary": "Create a rule",
+        "operationId": "createRule",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/rule"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "$ref": "#/responses/rule"
+          },
+          "401": {
+            "$ref": "#/responses/genericError"
+          },
+          "403": {
+            "$ref": "#/responses/genericError"
+          },
+          "500": {
+            "$ref": "#/responses/genericError"
+          }
+        }
+      }
+    },
+    "/rules/{id}": {
+      "get": {
+        "description": "Use this method to retrieve a rule from the storage. If it does not exist you will receive a 404 error.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "rule"
+        ],
+        "summary": "Retrieve a rule",
+        "operationId": "getRule",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/rule"
+          },
+          "401": {
+            "$ref": "#/responses/genericError"
+          },
+          "403": {
+            "$ref": "#/responses/genericError"
+          },
+          "404": {
+            "$ref": "#/responses/genericError"
+          },
+          "500": {
+            "$ref": "#/responses/genericError"
+          }
+        }
+      },
+      "put": {
+        "description": "Use this method to update a rule. Keep in mind that you need to send the full rule payload as this endpoint does\nnot support patching.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "rule"
+        ],
+        "summary": "Update a rule",
+        "operationId": "updateRule",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/rule"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/rule"
+          },
+          "401": {
+            "$ref": "#/responses/genericError"
+          },
+          "403": {
+            "$ref": "#/responses/genericError"
+          },
+          "404": {
+            "$ref": "#/responses/genericError"
+          },
+          "500": {
+            "$ref": "#/responses/genericError"
+          }
+        }
+      },
+      "delete": {
+        "description": "Use this endpoint to delete a rule.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "rule"
+        ],
+        "summary": "Delete a rule",
+        "operationId": "deleteRule",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "$ref": "#/responses/emptyResponse"
+          },
+          "401": {
+            "$ref": "#/responses/genericError"
+          },
+          "403": {
+            "$ref": "#/responses/genericError"
+          },
+          "404": {
+            "$ref": "#/responses/genericError"
+          },
+          "500": {
+            "$ref": "#/responses/genericError"
+          }
+        }
+      }
+    },
+    "/version": {
+      "get": {
+        "description": "This endpoint returns the version as `{ \"version\": \"VERSION\" }`. The version is only correct with the prebuilt binary and not custom builds.",
+        "tags": [
+          "version"
+        ],
+        "summary": "Get the version of Oathkeeper",
+        "operationId": "getVersion",
+        "responses": {
+          "200": {
+            "description": "version",
+            "schema": {
+              "$ref": "#/definitions/version"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Upstream": {
+      "type": "object",
+      "properties": {
+        "preserve_host": {
+          "description": "PreserveHost, if false (the default), tells ORY Oathkeeper to set the upstream request's Host header to the\nhostname of the API's upstream's URL. Setting this flag to true instructs ORY Oathkeeper not to do so.",
+          "type": "boolean",
+          "x-go-name": "PreserveHost"
+        },
+        "strip_path": {
+          "description": "StripPath if set, replaces the provided path prefix when forwarding the requested URL to the upstream URL.",
+          "type": "string",
+          "x-go-name": "StripPath"
+        },
+        "url": {
+          "description": "URL is the URL the request will be proxied to.",
+          "type": "string",
+          "x-go-name": "URL"
+        }
+      },
+      "x-go-package": "github.com/ory/oathkeeper/rule"
+    },
+    "healthNotReadyStatus": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "description": "Errors contains a list of errors that caused the not ready status.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "x-go-name": "Errors"
+        }
+      },
+      "x-go-name": "swaggerNotReadyStatus",
+      "x-go-package": "github.com/ory/oathkeeper/health"
+    },
+    "healthStatus": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "description": "Status always contains \"ok\".",
+          "type": "string",
+          "x-go-name": "Status"
+        }
+      },
+      "x-go-name": "swaggerHealthStatus",
+      "x-go-package": "github.com/ory/oathkeeper/health"
+    },
+    "jsonWebKey": {
+      "type": "object",
+      "properties": {
+        "alg": {
+          "description": "The \"alg\" (algorithm) parameter identifies the algorithm intended for\nuse with the key.  The values used should either be registered in the\nIANA \"JSON Web Signature and Encryption Algorithms\" registry\nestablished by [JWA] or be a value that contains a Collision-\nResistant Name.",
+          "type": "string",
+          "x-go-name": "Alg"
+        },
+        "crv": {
+          "type": "string",
+          "x-go-name": "Crv"
+        },
+        "d": {
+          "type": "string",
+          "x-go-name": "D"
+        },
+        "dp": {
+          "type": "string",
+          "x-go-name": "Dp"
+        },
+        "dq": {
+          "type": "string",
+          "x-go-name": "Dq"
+        },
+        "e": {
+          "type": "string",
+          "x-go-name": "E"
+        },
+        "k": {
+          "type": "string",
+          "x-go-name": "K"
+        },
+        "kid": {
+          "description": "The \"kid\" (key ID) parameter is used to match a specific key.  This\nis used, for instance, to choose among a set of keys within a JWK Set\nduring key rollover.  The structure of the \"kid\" value is\nunspecified.  When \"kid\" values are used within a JWK Set, different\nkeys within the JWK Set SHOULD use distinct \"kid\" values.  (One\nexample in which different keys might use the same \"kid\" value is if\nthey have different \"kty\" (key type) values but are considered to be\nequivalent alternatives by the application using them.)  The \"kid\"\nvalue is a case-sensitive string.",
+          "type": "string",
+          "x-go-name": "Kid"
+        },
+        "kty": {
+          "description": "The \"kty\" (key type) parameter identifies the cryptographic algorithm\nfamily used with the key, such as \"RSA\" or \"EC\". \"kty\" values should\neither be registered in the IANA \"JSON Web Key Types\" registry\nestablished by [JWA] or be a value that contains a Collision-\nResistant Name.  The \"kty\" value is a case-sensitive string.",
+          "type": "string",
+          "x-go-name": "Kty"
+        },
+        "n": {
+          "type": "string",
+          "x-go-name": "N"
+        },
+        "p": {
+          "type": "string",
+          "x-go-name": "P"
+        },
+        "q": {
+          "type": "string",
+          "x-go-name": "Q"
+        },
+        "qi": {
+          "type": "string",
+          "x-go-name": "Qi"
+        },
+        "use": {
+          "description": "The \"use\" (public key use) parameter identifies the intended use of\nthe public key. The \"use\" parameter is employed to indicate whether\na public key is used for encrypting data or verifying the signature\non data. Values are commonly \"sig\" (signature) or \"enc\" (encryption).",
+          "type": "string",
+          "x-go-name": "Use"
+        },
+        "x": {
+          "type": "string",
+          "x-go-name": "X"
+        },
+        "x5c": {
+          "description": "The \"x5c\" (X.509 certificate chain) parameter contains a chain of one\nor more PKIX certificates [RFC5280].  The certificate chain is\nrepresented as a JSON array of certificate value strings.  Each\nstring in the array is a base64-encoded (Section 4 of [RFC4648] --\nnot base64url-encoded) DER [ITU.X690.1994] PKIX certificate value.\nThe PKIX certificate containing the key value MUST be the first\ncertificate.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "X5c"
+        },
+        "y": {
+          "type": "string",
+          "x-go-name": "Y"
+        }
+      },
+      "x-go-name": "swaggerJSONWebKey",
+      "x-go-package": "github.com/ory/oathkeeper/rsakey"
+    },
+    "jsonWebKeySet": {
+      "type": "object",
+      "properties": {
+        "keys": {
+          "description": "The value of the \"keys\" parameter is an array of JWK values.  By\ndefault, the order of the JWK values within the array does not imply\nan order of preference among them, although applications of JWK Sets\ncan choose to assign a meaning to the order for their purposes, if\ndesired.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/jsonWebKey"
+          },
+          "x-go-name": "Keys"
+        }
+      },
+      "x-go-name": "swaggerJSONWebKeySet",
+      "x-go-package": "github.com/ory/oathkeeper/rsakey"
+    },
+    "rule": {
+      "type": "object",
+      "title": "swaggerRule is a single rule that will get checked on every HTTP request.",
+      "properties": {
+        "authenticators": {
+          "description": "Authenticators is a list of authentication handlers that will try and authenticate the provided credentials.\nAuthenticators are checked iteratively from index 0 to n and if the first authenticator to return a positive\nresult will be the one used.\n\nIf you want the rule to first check a specific authenticator  before \"falling back\" to others, have that authenticator\nas the first item in the array.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ruleHandler"
+          },
+          "x-go-name": "Authenticators"
+        },
+        "authorizer": {
+          "$ref": "#/definitions/ruleHandler"
+        },
+        "credentials_issuer": {
+          "$ref": "#/definitions/ruleHandler"
+        },
+        "description": {
+          "description": "Description is a human readable description of this rule.",
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "id": {
+          "description": "ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you.\nYou will need this ID later on to update or delete the rule.",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "match": {
+          "$ref": "#/definitions/ruleMatch"
+        },
+        "upstream": {
+          "$ref": "#/definitions/Upstream"
+        }
+      },
+      "x-go-name": "swaggerRule",
+      "x-go-package": "github.com/ory/oathkeeper/rule"
+    },
+    "ruleHandler": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "description": "Config contains the configuration for the handler. Please read the user\nguide for a complete list of each handler's available settings.",
+          "type": "string",
+          "x-go-name": "Config"
+        },
+        "handler": {
+          "description": "Handler identifies the implementation which will be used to handle this specific request. Please read the user\nguide for a complete list of available handlers.",
+          "type": "string",
+          "x-go-name": "Handler"
+        }
+      },
+      "x-go-name": "swaggerRuleHandler",
+      "x-go-package": "github.com/ory/oathkeeper/rule"
+    },
+    "ruleMatch": {
+      "type": "object",
+      "properties": {
+        "methods": {
+          "description": "An array of HTTP methods (e.g. GET, POST, PUT, DELETE, ...). When ORY Oathkeeper searches for rules\nto decide what to do with an incoming request to the proxy server, it compares the HTTP method of the incoming\nrequest with the HTTP methods of each rules. If a match is found, the rule is considered a partial match.\nIf the matchesUrl field is satisfied as well, the rule is considered a full match.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Methods"
+        },
+        "url": {
+          "description": "This field represents the URL pattern this rule matches. When ORY Oathkeeper searches for rules\nto decide what to do with an incoming request to the proxy server, it compares the full request URL\n(e.g. https://mydomain.com/api/resource) without query parameters of the incoming\nrequest with this field. If a match is found, the rule is considered a partial match.\nIf the matchesMethods field is satisfied as well, the rule is considered a full match.\n\nYou can use regular expressions in this field to match more than one url. Regular expressions are encapsulated in\nbrackets \u003c and \u003e. The following example matches all paths of the domain `mydomain.com`: `https://mydomain.com/\u003c.*\u003e`.",
+          "type": "string",
+          "x-go-name": "URL"
+        }
+      },
+      "x-go-name": "swaggerRuleMatch",
+      "x-go-package": "github.com/ory/oathkeeper/rule"
+    },
+    "swaggerCreateRuleParameters": {
+      "type": "object",
+      "properties": {
+        "Body": {
+          "$ref": "#/definitions/rule"
+        }
+      },
+      "x-go-package": "github.com/ory/oathkeeper/rule"
+    },
+    "swaggerGetRuleParameters": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "description": "in: path",
+          "type": "string",
+          "x-go-name": "ID"
+        }
+      },
+      "x-go-package": "github.com/ory/oathkeeper/rule"
+    },
+    "swaggerListRulesParameters": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "description": "The maximum amount of rules returned.\nin: query",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Limit"
+        },
+        "offset": {
+          "description": "The offset from where to start looking.\nin: query",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Offset"
+        }
+      },
+      "x-go-package": "github.com/ory/oathkeeper/rule"
+    },
+    "swaggerRuleResponse": {
+      "description": "A rule",
+      "type": "object",
+      "properties": {
+        "Body": {
+          "$ref": "#/definitions/rule"
+        }
+      },
+      "x-go-package": "github.com/ory/oathkeeper/rule"
+    },
+    "swaggerRulesResponse": {
+      "description": "A list of rules",
+      "type": "object",
+      "properties": {
+        "Body": {
+          "description": "in: body\ntype: array",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/rule"
+          }
+        }
+      },
+      "x-go-package": "github.com/ory/oathkeeper/rule"
+    },
+    "swaggerUpdateRuleParameters": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "Body": {
+          "$ref": "#/definitions/rule"
+        },
+        "id": {
+          "description": "in: path",
+          "type": "string",
+          "x-go-name": "ID"
+        }
+      },
+      "x-go-package": "github.com/ory/oathkeeper/rule"
+    },
+    "version": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string",
+          "x-go-name": "Version"
+        }
+      },
+      "x-go-name": "swaggerVersion",
+      "x-go-package": "github.com/ory/oathkeeper/health"
+    }
+  },
+  "responses": {
+    "emptyResponse": {
+      "description": "An empty response"
+    },
+    "genericError": {
+      "description": "The standard error format",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Code"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            },
+            "x-go-name": "Details"
+          },
+          "message": {
+            "type": "string",
+            "x-go-name": "Message"
+          },
+          "reason": {
+            "type": "string",
+            "x-go-name": "Reason"
+          },
+          "request": {
+            "type": "string",
+            "x-go-name": "Request"
+          },
+          "status": {
+            "type": "string",
+            "x-go-name": "Status"
+          }
+        }
+      }
+    },
+    "rule": {
+      "description": "A rule",
+      "schema": {
+        "$ref": "#/definitions/rule"
+      }
+    },
+    "rules": {
+      "description": "A list of rules",
+      "schema": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/rule"
+        }
+      }
+    }
+  },
+  "x-forwarded-proto": "string",
+  "x-request-id": "string"
+}

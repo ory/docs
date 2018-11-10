@@ -1,0 +1,152 @@
+html {
+  //font-size: 16px;
+  //line-height: 1.8rem;
+  //letter-spacing: 1px;
+
+  //font-family: Rubik, sans-serif;
+}
+
+h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  //letter-spacing: 1px;
+}
+
+h2 {
+  //line-height: 3rem;
+  //font-size: 2rem;
+  color: #14193D;
+
+  //padding-top: 3rem;
+  //padding-bottom: .75rem;
+}
+
+h3 {
+  //font-size: 1.25rem;
+  //padding-top: 1.5rem;
+  //padding-bottom: 1rem;
+  color: #14193D;
+  //line-height: 1.875rem;
+}
+
+h4 {
+  color: #2C2B59;
+  //font-size: 1.25rem;
+  //padding-top: 1.5rem;
+  //padding-bottom: 1rem;
+  //line-height: 1.875rem;
+}
+
+h5 {
+  //font-size: 1rem;
+  //padding-top: 1rem;
+  //padding-bottom: 1rem;
+  //line-height: 1.8rem;
+}
+
+p {
+  color: #2C2B59;
+  //line-height: 1.8rem;
+  //margin-top: 0;
+  //margin-bottom: 1rem;
+}
+
+ul, ol {
+  // padding: 16px 0;
+}
+
+ul li, ol li {
+  color: #2C2B59;
+  // line-height: 2.25rem;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+.au-link-list {
+  font-size:16px;
+  font-size:1rem;
+  line-height:1.5;
+  display:block;
+  list-style-type:none
+}
+.au-body .au-link-list {
+  margin:0;
+  padding:4px 0;
+  padding:.25rem 0
+}
+.au-link-list>li {
+  display:block;
+  margin:4px;
+  margin:.25rem
+}
+.au-link-list.au-link-list--inline,.au-link-list.au-link-list--inline>li {
+  display:inline-block
+}
+
+.tabs {
+  margin-top: 1rem;
+  border-top: 1px solid #cfcfcf;
+}
+
+.tabs > .tabs-nav > ul.nav-tabs {
+  margin: 0 0 -0.25rem 0;
+  padding: 0;
+}
+
+.tabs .tabs-nav {
+  border-bottom: 4px solid #e0e0e0;
+  border-bottom: 0.25rem solid #e0e0e0;
+  width: 100%;
+}
+
+.tabs .tab-panel:focus {
+  outline: none;
+}
+
+.tabs .au-link-list {
+  margin-bottom: -4px;
+  margin-bottom: -0.25rem;
+  padding: 0;
+}
+
+.tabs .au-link-list > li.nav-item {
+  margin: 0;
+  padding: 0;
+}
+
+.tabs .au-link-list > li > a {
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.14286;
+  padding: 12px 16px 12px;
+  padding: 0.75rem 1rem 0.75rem;
+  border-bottom: 4px solid #e0e0e0;
+  border-bottom: 0.25rem solid #e0e0e0;
+  text-decoration: none;
+  display: block;
+}
+
+.tabs .au-link-list > li > a.active {
+  border-bottom: 4px solid #007099;
+  border-bottom: 0.25rem solid #007099;
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane--active,
+.tab-pane.active {
+  display: block;
+}
+
+.tab-pane > pre {
+  white-space: pre-wrap;
+}
+
+.tab-pane > pre > code {
+  margin-top: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
