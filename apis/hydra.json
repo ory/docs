@@ -12,15 +12,24 @@
   ],
   "swagger": "2.0",
   "info": {
-    "description": "Welcome to the ORY Hydra HTTP API documentation. You will find documentation for all HTTP APIs here.",
-    "title": "ORY Hydra",
-    "version": "latest"
+    "description": "Welcome to the ORY Hydra HTTP API documentation. You will find documentation for all HTTP APIs here. Keep in mind that this document reflects the latest branch, always. Support for versioned documentation is coming in the future.",
+    "title": "ORY Hydra - Cloud Native OAuth 2.0 and OpenID Connect Server",
+    "contact": {
+      "name": "ORY",
+      "url": "https://www.ory.sh",
+      "email": "hi@ory.am"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://github.com/ory/hydra/blob/master/LICENSE"
+    },
+    "version": "Latest"
   },
   "basePath": "/",
   "paths": {
     "/.well-known/jwks.json": {
       "get": {
-        "description": "This endpoint returns JSON Web Keys to be used as public keys for verifying OpenID Connect ID Tokens and,\nif enabled, OAuth 2.0 JWT Access Tokens. This endpoint can be used with client libraries like\n[node-jwks-rsa](https://github.com/auth0/node-jwks-rsa) among others.",
+        "description": "Returns metadata for discovering important JSON Web Keys. Currently, this endpoint returns the public key for verifying OpenID Connect ID Tokens.\n\nA JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key. A JWK Set is a JSON data structure that represents a set of JWKs. A JSON Web Key is identified by its set and key id. ORY Hydra uses this functionality to store cryptographic keys used for TLS and JSON Web Tokens (such as OpenID Connect ID tokens), and allows storing user-defined keys as well.",
         "consumes": [
           "application/json"
         ],
@@ -32,9 +41,9 @@
           "https"
         ],
         "tags": [
-          "public"
+          "oAuth2"
         ],
-        "summary": "JSON Web Keys Discovery",
+        "summary": "Get Well-Known JSON Web Keys",
         "operationId": "wellKnown",
         "responses": {
           "200": {
@@ -43,11 +52,14 @@
               "$ref": "#/definitions/JSONWebKeySet"
             }
           },
+          "401": {
+            "$ref": "#/responses/genericError"
+          },
+          "403": {
+            "$ref": "#/responses/genericError"
+          },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -63,10 +75,10 @@
           "https"
         ],
         "tags": [
-          "public"
+          "oAuth2"
         ],
-        "summary": "OpenID Connect Discovery",
-        "operationId": "discoverOpenIDConfiguration",
+        "summary": "Server well known configuration",
+        "operationId": "getWellKnown",
         "responses": {
           "200": {
             "description": "wellKnown",
@@ -75,16 +87,10 @@
             }
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -103,7 +109,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "oAuth2"
         ],
         "summary": "List OAuth 2.0 Clients",
         "operationId": "listOAuth2Clients",
@@ -130,22 +136,13 @@
             "$ref": "#/responses/oAuth2ClientList"
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "403": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       },
@@ -162,7 +159,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "oAuth2"
         ],
         "summary": "Create an OAuth 2.0 client",
         "operationId": "createOAuth2Client",
@@ -184,22 +181,13 @@
             }
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "403": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -218,7 +206,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "oAuth2"
         ],
         "summary": "Get an OAuth 2.0 Client.",
         "operationId": "getOAuth2Client",
@@ -241,22 +229,13 @@
             }
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "403": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       },
@@ -273,7 +252,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "oAuth2"
         ],
         "summary": "Update an OAuth 2.0 Client",
         "operationId": "updateOAuth2Client",
@@ -302,22 +281,13 @@
             }
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "403": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       },
@@ -334,7 +304,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "oAuth2"
         ],
         "summary": "Deletes an OAuth 2.0 Client",
         "operationId": "deleteOAuth2Client",
@@ -354,22 +324,13 @@
             "$ref": "#/responses/emptyResponse"
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "403": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -393,10 +354,7 @@
             }
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -442,7 +400,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "jsonWebKey"
         ],
         "summary": "Retrieve a JSON Web Key Set",
         "operationId": "getJsonWebKeySet",
@@ -464,22 +422,13 @@
             }
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "403": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       },
@@ -496,7 +445,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "jsonWebKey"
         ],
         "summary": "Update a JSON Web Key Set",
         "operationId": "updateJsonWebKeySet",
@@ -525,22 +474,13 @@
             }
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "403": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       },
@@ -557,7 +497,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "jsonWebKey"
         ],
         "summary": "Generate a new JSON Web Key",
         "operationId": "createJsonWebKeySet",
@@ -586,22 +526,13 @@
             }
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "403": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       },
@@ -618,7 +549,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "jsonWebKey"
         ],
         "summary": "Delete a JSON Web Key Set",
         "operationId": "deleteJsonWebKeySet",
@@ -637,29 +568,20 @@
             "$ref": "#/responses/emptyResponse"
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "403": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
     },
     "/keys/{set}/{kid}": {
       "get": {
-        "description": "This endpoint returns a singular JSON Web Key, identified by the set and the specific key ID (kid).",
+        "description": "This endpoint can be used to retrieve JWKs stored in ORY Hydra.\n\nA JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key. A JWK Set is a JSON data structure that represents a set of JWKs. A JSON Web Key is identified by its set and key id. ORY Hydra uses this functionality to store cryptographic keys used for TLS and JSON Web Tokens (such as OpenID Connect ID tokens), and allows storing user-defined keys as well.",
         "consumes": [
           "application/json"
         ],
@@ -671,9 +593,9 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "jsonWebKey"
         ],
-        "summary": "Fetch a JSON Web Key",
+        "summary": "Retrieve a JSON Web Key",
         "operationId": "getJsonWebKey",
         "parameters": [
           {
@@ -700,17 +622,14 @@
               "$ref": "#/definitions/JSONWebKeySet"
             }
           },
-          "404": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+          "401": {
+            "$ref": "#/responses/genericError"
+          },
+          "403": {
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       },
@@ -727,7 +646,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "jsonWebKey"
         ],
         "summary": "Update a JSON Web Key",
         "operationId": "updateJsonWebKey",
@@ -764,22 +683,13 @@
             }
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "403": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       },
@@ -796,7 +706,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "jsonWebKey"
         ],
         "summary": "Delete a JSON Web Key",
         "operationId": "deleteJsonWebKey",
@@ -823,22 +733,13 @@
             "$ref": "#/responses/emptyResponse"
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "403": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -854,7 +755,7 @@
           "https"
         ],
         "tags": [
-          "public"
+          "oAuth2"
         ],
         "summary": "The OAuth 2.0 authorize endpoint",
         "operationId": "oauthAuth",
@@ -863,16 +764,10 @@
             "$ref": "#/responses/emptyResponse"
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -891,7 +786,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "oAuth2"
         ],
         "summary": "Get consent request information",
         "operationId": "getConsentRequest",
@@ -912,22 +807,13 @@
             }
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "409": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -946,7 +832,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "oAuth2"
         ],
         "summary": "Accept an consent request",
         "operationId": "acceptConsentRequest",
@@ -974,16 +860,10 @@
             }
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -1002,7 +882,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "oAuth2"
         ],
         "summary": "Reject an consent request",
         "operationId": "rejectConsentRequest",
@@ -1030,16 +910,10 @@
             }
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -1058,7 +932,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "oAuth2"
         ],
         "summary": "Get an login request",
         "operationId": "getLoginRequest",
@@ -1079,22 +953,13 @@
             }
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "409": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -1113,7 +978,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "oAuth2"
         ],
         "summary": "Accept an login request",
         "operationId": "acceptLoginRequest",
@@ -1141,16 +1006,10 @@
             }
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -1169,7 +1028,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "oAuth2"
         ],
         "summary": "Reject a login request",
         "operationId": "rejectLoginRequest",
@@ -1197,16 +1056,10 @@
             }
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -1225,7 +1078,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "oAuth2"
         ],
         "summary": "Lists all consent sessions of a user",
         "operationId": "listUserConsentSessions",
@@ -1243,22 +1096,13 @@
             "$ref": "#/responses/handledConsentRequestList"
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "403": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       },
@@ -1275,7 +1119,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "oAuth2"
         ],
         "summary": "Revokes all previous consent sessions of a user",
         "operationId": "revokeAllUserConsentSessions",
@@ -1293,16 +1137,10 @@
             "$ref": "#/responses/emptyResponse"
           },
           "404": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -1321,7 +1159,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "oAuth2"
         ],
         "summary": "Revokes consent sessions of a user for a specific OAuth 2.0 Client",
         "operationId": "revokeUserClientConsentSessions",
@@ -1346,16 +1184,10 @@
             "$ref": "#/responses/emptyResponse"
           },
           "404": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -1371,7 +1203,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "oAuth2"
         ],
         "summary": "Logs user out by deleting the session cookie",
         "operationId": "revokeUserLoginCookie",
@@ -1380,16 +1212,10 @@
             "$ref": "#/responses/emptyResponse"
           },
           "404": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -1408,7 +1234,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "oAuth2"
         ],
         "summary": "Invalidates a user's authentication session",
         "operationId": "revokeAuthenticationSession",
@@ -1426,16 +1252,10 @@
             "$ref": "#/responses/emptyResponse"
           },
           "404": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -1451,7 +1271,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "oAuth2"
         ],
         "summary": "Flush Expired OAuth2 Access Tokens",
         "operationId": "flushInactiveOAuth2Tokens",
@@ -1469,16 +1289,10 @@
             "$ref": "#/responses/emptyResponse"
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -1505,7 +1319,7 @@
           "https"
         ],
         "tags": [
-          "admin"
+          "oAuth2"
         ],
         "summary": "Introspect OAuth2 tokens",
         "operationId": "introspectOAuth2Token",
@@ -1534,16 +1348,10 @@
             }
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -1567,7 +1375,7 @@
           "https"
         ],
         "tags": [
-          "public"
+          "oAuth2"
         ],
         "summary": "Revoke OAuth2 tokens",
         "operationId": "revokeOAuth2Token",
@@ -1585,16 +1393,10 @@
             "$ref": "#/responses/emptyResponse"
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -1621,7 +1423,7 @@
           "https"
         ],
         "tags": [
-          "public"
+          "oAuth2"
         ],
         "summary": "The OAuth 2.0 token endpoint",
         "operationId": "oauthToken",
@@ -1633,16 +1435,10 @@
             }
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -1663,7 +1459,7 @@
           "https"
         ],
         "tags": [
-          "public"
+          "oAuth2"
         ],
         "summary": "OpenID Connect Userinfo",
         "operationId": "userinfo",
@@ -1675,16 +1471,10 @@
             }
           },
           "401": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           },
           "500": {
-            "description": "genericError",
-            "schema": {
-              "$ref": "#/definitions/genericError"
-            }
+            "$ref": "#/responses/genericError"
           }
         }
       }
@@ -1730,91 +1520,70 @@
     },
     "JSONWebKey": {
       "type": "object",
-      "required": [
-        "use",
-        "kty",
-        "kid",
-        "alg"
-      ],
       "properties": {
         "alg": {
           "description": "The \"alg\" (algorithm) parameter identifies the algorithm intended for\nuse with the key.  The values used should either be registered in the\nIANA \"JSON Web Signature and Encryption Algorithms\" registry\nestablished by [JWA] or be a value that contains a Collision-\nResistant Name.",
           "type": "string",
-          "x-go-name": "Alg",
-          "example": "RS256"
+          "x-go-name": "Alg"
         },
         "crv": {
           "type": "string",
-          "x-go-name": "Crv",
-          "example": "P-256"
+          "x-go-name": "Crv"
         },
         "d": {
           "type": "string",
-          "x-go-name": "D",
-          "example": "T_N8I-6He3M8a7X1vWt6TGIx4xB_GP3Mb4SsZSA4v-orvJzzRiQhLlRR81naWYxfQAYt5isDI6_C2L9bdWo4FFPjGQFvNoRX-_sBJyBI_rl-TBgsZYoUlAj3J92WmY2inbA-PwyJfsaIIDceYBC-eX-xiCu6qMqkZi3MwQAFL6bMdPEM0z4JBcwFT3VdiWAIRUuACWQwrXMq672x7fMuaIaHi7XDGgt1ith23CLfaREmJku9PQcchbt_uEY-hqrFY6ntTtS4paWWQj86xLL94S-Tf6v6xkL918PfLSOTq6XCzxvlFwzBJqApnAhbwqLjpPhgUG04EDRrqrSBc5Y1BLevn6Ip5h1AhessBp3wLkQgz_roeckt-ybvzKTjESMuagnpqLvOT7Y9veIug2MwPJZI2VjczRc1vzMs25XrFQ8DpUy-bNdp89TmvAXwctUMiJdgHloJw23Cv03gIUAkDnsTqZmkpbIf-crpgNKFmQP_EDKoe8p_PXZZgfbRri3NoEVGP7Mk6yEu8LjJhClhZaBNjuWw2-KlBfOA3g79mhfBnkInee5KO9mGR50qPk1V-MorUYNTFMZIm0kFE6eYVWFBwJHLKYhHU34DoiK1VP-svZpC2uAMFNA_UJEwM9CQ2b8qe4-5e9aywMvwcuArRkAB5mBIfOaOJao3mfukKAE"
+          "x-go-name": "D"
         },
         "dp": {
           "type": "string",
-          "x-go-name": "Dp",
-          "example": "G4sPXkc6Ya9y8oJW9_ILj4xuppu0lzi_H7VTkS8xj5SdX3coE0oimYwxIi2emTAue0UOa5dpgFGyBJ4c8tQ2VF402XRugKDTP8akYhFo5tAA77Qe_NmtuYZc3C3m3I24G2GvR5sSDxUyAN2zq8Lfn9EUms6rY3Ob8YeiKkTiBj0"
+          "x-go-name": "Dp"
         },
         "dq": {
           "type": "string",
-          "x-go-name": "Dq",
-          "example": "s9lAH9fggBsoFR8Oac2R_E2gw282rT2kGOAhvIllETE1efrA6huUUvMfBcMpn8lqeW6vzznYY5SSQF7pMdC_agI3nG8Ibp1BUb0JUiraRNqUfLhcQb_d9GF4Dh7e74WbRsobRonujTYN1xCaP6TO61jvWrX-L18txXw494Q_cgk"
+          "x-go-name": "Dq"
         },
         "e": {
           "type": "string",
-          "x-go-name": "E",
-          "example": "AQAB"
+          "x-go-name": "E"
         },
         "k": {
           "type": "string",
-          "x-go-name": "K",
-          "example": "GawgguFyGrWKav7AX4VKUg"
+          "x-go-name": "K"
         },
         "kid": {
           "description": "The \"kid\" (key ID) parameter is used to match a specific key.  This\nis used, for instance, to choose among a set of keys within a JWK Set\nduring key rollover.  The structure of the \"kid\" value is\nunspecified.  When \"kid\" values are used within a JWK Set, different\nkeys within the JWK Set SHOULD use distinct \"kid\" values.  (One\nexample in which different keys might use the same \"kid\" value is if\nthey have different \"kty\" (key type) values but are considered to be\nequivalent alternatives by the application using them.)  The \"kid\"\nvalue is a case-sensitive string.",
           "type": "string",
-          "x-go-name": "Kid",
-          "example": "1603dfe0af8f4596"
+          "x-go-name": "Kid"
         },
         "kty": {
           "description": "The \"kty\" (key type) parameter identifies the cryptographic algorithm\nfamily used with the key, such as \"RSA\" or \"EC\". \"kty\" values should\neither be registered in the IANA \"JSON Web Key Types\" registry\nestablished by [JWA] or be a value that contains a Collision-\nResistant Name.  The \"kty\" value is a case-sensitive string.",
           "type": "string",
-          "x-go-name": "Kty",
-          "example": "RSA"
+          "x-go-name": "Kty"
         },
         "n": {
           "type": "string",
-          "x-go-name": "N",
-          "example": "vTqrxUyQPl_20aqf5kXHwDZrel-KovIp8s7ewJod2EXHl8tWlRB3_Rem34KwBfqlKQGp1nqah-51H4Jzruqe0cFP58hPEIt6WqrvnmJCXxnNuIB53iX_uUUXXHDHBeaPCSRoNJzNysjoJ30TIUsKBiirhBa7f235PXbKiHducLevV6PcKxJ5cY8zO286qJLBWSPm-OIevwqsIsSIH44Qtm9sioFikhkbLwoqwWORGAY0nl6XvVOlhADdLjBSqSAeT1FPuCDCnXwzCDR8N9IFB_IjdStFkC-rVt2K5BYfPd0c3yFp_vHR15eRd0zJ8XQ7woBC8Vnsac6Et1pKS59pX6256DPWu8UDdEOolKAPgcd_g2NpA76cAaF_jcT80j9KrEzw8Tv0nJBGesuCjPNjGs_KzdkWTUXt23Hn9QJsdc1MZuaW0iqXBepHYfYoqNelzVte117t4BwVp0kUM6we0IqyXClaZgOI8S-WDBw2_Ovdm8e5NmhYAblEVoygcX8Y46oH6bKiaCQfKCFDMcRgChme7AoE1yZZYsPbaG_3IjPrC4LBMHQw8rM9dWjJ8ImjicvZ1pAm0dx-KHCP3y5PVKrxBDf1zSOsBRkOSjB8TPODnJMz6-jd5hTtZxpZPwPoIdCanTZ3ZD6uRBpTmDwtpRGm63UQs1m5FWPwb0T2IF0"
+          "x-go-name": "N"
         },
         "p": {
           "type": "string",
-          "x-go-name": "P",
-          "example": "6NbkXwDWUhi-eR55Cgbf27FkQDDWIamOaDr0rj1q0f1fFEz1W5A_09YvG09Fiv1AO2-D8Rl8gS1Vkz2i0zCSqnyy8A025XOcRviOMK7nIxE4OH_PEsko8dtIrb3TmE2hUXvCkmzw9EsTF1LQBOGC6iusLTXepIC1x9ukCKFZQvdgtEObQ5kzd9Nhq-cdqmSeMVLoxPLd1blviVT9Vm8-y12CtYpeJHOaIDtVPLlBhJiBoPKWg3vxSm4XxIliNOefqegIlsmTIa3MpS6WWlCK3yHhat0Q-rRxDxdyiVdG_wzJvp0Iw_2wms7pe-PgNPYvUWH9JphWP5K38YqEBiJFXQ"
+          "x-go-name": "P"
         },
         "q": {
           "type": "string",
-          "x-go-name": "Q",
-          "example": "0A1FmpOWR91_RAWpqreWSavNaZb9nXeKiBo0DQGBz32DbqKqQ8S4aBJmbRhJcctjCLjain-ivut477tAUMmzJwVJDDq2MZFwC9Q-4VYZmFU4HJityQuSzHYe64RjN-E_NQ02TWhG3QGW6roq6c57c99rrUsETwJJiwS8M5p15Miuz53DaOjv-uqqFAFfywN5WkxHbraBcjHtMiQuyQbQqkCFh-oanHkwYNeytsNhTu2mQmwR5DR2roZ2nPiFjC6nsdk-A7E3S3wMzYYFw7jvbWWoYWo9vB40_MY2Y0FYQSqcDzcBIcq_0tnnasf3VW4Fdx6m80RzOb2Fsnln7vKXAQ"
+          "x-go-name": "Q"
         },
         "qi": {
           "type": "string",
-          "x-go-name": "Qi",
-          "example": "GyM_p6JrXySiz1toFgKbWV-JdI3jQ4ypu9rbMWx3rQJBfmt0FoYzgUIZEVFEcOqwemRN81zoDAaa-Bk0KWNGDjJHZDdDmFhW3AN7lI-puxk_mHZGJ11rxyR8O55XLSe3SPmRfKwZI6yU24ZxvQKFYItdldUKGzO6Ia6zTKhAVRU"
+          "x-go-name": "Qi"
         },
         "use": {
-          "description": "Use (\"public key use\") identifies the intended use of\nthe public key. The \"use\" parameter is employed to indicate whether\na public key is used for encrypting data or verifying the signature\non data. Values are commonly \"sig\" (signature) or \"enc\" (encryption).",
+          "description": "The \"use\" (public key use) parameter identifies the intended use of\nthe public key. The \"use\" parameter is employed to indicate whether\na public key is used for encrypting data or verifying the signature\non data. Values are commonly \"sig\" (signature) or \"enc\" (encryption).",
           "type": "string",
-          "x-go-name": "Use",
-          "example": "sig"
+          "x-go-name": "Use"
         },
         "x": {
           "type": "string",
-          "x-go-name": "X",
-          "example": "f83OJ3D2xF1Bg8vub9tLe1gHMzV76e8Tus9uPHvRVEU"
+          "x-go-name": "X"
         },
         "x5c": {
           "description": "The \"x5c\" (X.509 certificate chain) parameter contains a chain of one\nor more PKIX certificates [RFC5280].  The certificate chain is\nrepresented as a JSON array of certificate value strings.  Each\nstring in the array is a base64-encoded (Section 4 of [RFC4648] --\nnot base64url-encoded) DER [ITU.X690.1994] PKIX certificate value.\nThe PKIX certificate containing the key value MUST be the first\ncertificate.",
@@ -1826,8 +1595,7 @@
         },
         "y": {
           "type": "string",
-          "x-go-name": "Y",
-          "example": "x_FEzRu9m36HLN_tue659LNpXW6pCyStikYjKIWI5a0"
+          "x-go-name": "Y"
         }
       },
       "x-go-name": "swaggerJSONWebKey",
@@ -1887,6 +1655,16 @@
         }
       },
       "x-go-package": "github.com/ory/hydra/consent"
+    },
+    "RawMessage": {
+      "description": "It implements Marshaler and Unmarshaler and can\nbe used to delay JSON decoding or precompute a JSON encoding.",
+      "type": "array",
+      "title": "RawMessage is a raw encoded JSON value.",
+      "items": {
+        "type": "integer",
+        "format": "uint8"
+      },
+      "x-go-package": "encoding/json"
     },
     "acceptConsentRequest": {
       "type": "object",
@@ -1977,11 +1755,6 @@
       "type": "object",
       "title": "Contains information on an ongoing consent request.",
       "properties": {
-        "acr": {
-          "description": "ACR represents the Authentication AuthorizationContext Class Reference value for this authentication session. You can use it\nto express that, for example, a user authenticated using two factor authentication.",
-          "type": "string",
-          "x-go-name": "ACR"
-        },
         "challenge": {
           "description": "Challenge is the identifier (\"authorization challenge\") of the consent authorization request. It is used to\nidentify the session.",
           "type": "string",
@@ -2062,11 +1835,6 @@
       "x-go-name": "ConsentRequestSessionData",
       "x-go-package": "github.com/ory/hydra/consent"
     },
-    "emptyResponse": {
-      "description": "Empty responses are sent when, for example, resources are deleted. The HTTP status code for empty responses is\ntypically 201.",
-      "type": "object",
-      "x-go-package": "github.com/ory/hydra"
-    },
     "flushInactiveOAuth2TokensRequest": {
       "type": "object",
       "properties": {
@@ -2079,42 +1847,6 @@
       },
       "x-go-name": "FlushInactiveOAuth2TokensRequest",
       "x-go-package": "github.com/ory/hydra/oauth2"
-    },
-    "genericError": {
-      "description": "Error responses are sent when an error (e.g. unauthorized, bad request, ...) occurred.",
-      "type": "object",
-      "title": "Error response",
-      "required": [
-        "error"
-      ],
-      "properties": {
-        "error": {
-          "description": "Name is the error name.",
-          "type": "string",
-          "x-go-name": "Name",
-          "example": "The requested resource could not be found"
-        },
-        "error_code": {
-          "description": "Code represents the error status code (404, 403, 401, ...).",
-          "type": "integer",
-          "format": "int64",
-          "x-go-name": "Code",
-          "example": 404
-        },
-        "error_debug": {
-          "description": "Debug contains debug information. This is usually not available and has to be enabled.",
-          "type": "string",
-          "x-go-name": "Debug",
-          "example": "The database adapter was unable to find the element"
-        },
-        "error_hint": {
-          "description": "Hint contains further information on the nature of the error.",
-          "type": "string",
-          "x-go-name": "Hint",
-          "example": "Object with ID 12345 does not exist"
-        }
-      },
-      "x-go-package": "github.com/ory/hydra"
     },
     "healthNotReadyStatus": {
       "type": "object",
@@ -2142,6 +1874,19 @@
       },
       "x-go-name": "swaggerHealthStatus",
       "x-go-package": "github.com/ory/x/healthx"
+    },
+    "joseWebKeySetRequest": {
+      "type": "object",
+      "properties": {
+        "keys": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RawMessage"
+          },
+          "x-go-name": "Keys"
+        }
+      },
+      "x-go-package": "github.com/ory/hydra/jwk"
     },
     "jsonWebKeySetGeneratorRequest": {
       "type": "object",
@@ -2824,9 +2569,7 @@
       "x-go-package": "github.com/ory/x/healthx"
     },
     "wellKnown": {
-      "description": "It includes links to several endpoints (e.g. /oauth2/token) and exposes information on supported signature algorithms\namong others.",
       "type": "object",
-      "title": "WellKnown represents important OpenID Connect discovery metadata",
       "required": [
         "issuer",
         "authorization_endpoint",
@@ -2840,8 +2583,7 @@
         "authorization_endpoint": {
           "description": "URL of the OP's OAuth 2.0 Authorization Endpoint.",
           "type": "string",
-          "x-go-name": "AuthURL",
-          "example": "https://playground.ory.sh/ory-hydra/public/oauth2/auth"
+          "x-go-name": "AuthURL"
         },
         "claims_parameter_supported": {
           "description": "Boolean value specifying whether the OP supports use of the claims parameter, with true indicating support.",
@@ -2875,20 +2617,17 @@
         "issuer": {
           "description": "URL using the https scheme with no query or fragment component that the OP asserts as its IssuerURL Identifier.\nIf IssuerURL discovery is supported , this value MUST be identical to the issuer value returned\nby WebFinger. This also MUST be identical to the iss Claim value in ID Tokens issued from this IssuerURL.",
           "type": "string",
-          "x-go-name": "Issuer",
-          "example": "https://playground.ory.sh/ory-hydra/public/"
+          "x-go-name": "Issuer"
         },
         "jwks_uri": {
           "description": "URL of the OP's JSON Web Key Set [JWK] document. This contains the signing key(s) the RP uses to validate\nsignatures from the OP. The JWK Set MAY also contain the Server's encryption key(s), which are used by RPs\nto encrypt requests to the Server. When both signing and encryption keys are made available, a use (Key Use)\nparameter value is REQUIRED for all keys in the referenced JWK Set to indicate each key's intended usage.\nAlthough some algorithms allow the same key to be used for both signatures and encryption, doing so is\nNOT RECOMMENDED, as it is less secure. The JWK x5c parameter MAY be used to provide X.509 representations of\nkeys provided. When used, the bare key values MUST still be present and MUST match those in the certificate.",
           "type": "string",
-          "x-go-name": "JWKsURI",
-          "example": "https://playground.ory.sh/ory-hydra/public/.well-known/jwks.json"
+          "x-go-name": "JWKsURI"
         },
         "registration_endpoint": {
           "description": "URL of the OP's Dynamic Client Registration Endpoint.",
           "type": "string",
-          "x-go-name": "RegistrationEndpoint",
-          "example": "https://playground.ory.sh/ory-hydra/admin/client"
+          "x-go-name": "RegistrationEndpoint"
         },
         "request_parameter_supported": {
           "description": "Boolean value specifying whether the OP supports use of the request parameter, with true indicating support.",
@@ -2935,14 +2674,12 @@
           "items": {
             "type": "string"
           },
-          "x-go-name": "SubjectTypes",
-          "example": "public, pairwise"
+          "x-go-name": "SubjectTypes"
         },
         "token_endpoint": {
           "description": "URL of the OP's OAuth 2.0 Token Endpoint",
           "type": "string",
-          "x-go-name": "TokenURL",
-          "example": "https://playground.ory.sh/ory-hydra/public/oauth2/token"
+          "x-go-name": "TokenURL"
         },
         "token_endpoint_auth_methods_supported": {
           "description": "JSON array containing a list of Client Authentication methods supported by this Token Endpoint. The options are\nclient_secret_post, client_secret_basic, client_secret_jwt, and private_key_jwt, as described in Section 9 of OpenID Connect Core 1.0",
@@ -2972,7 +2709,33 @@
   },
   "responses": {
     "emptyResponse": {
-      "description": "Empty responses are sent when, for example, resources are deleted. The HTTP status code for empty responses is\ntypically 201."
+      "description": "An empty response"
+    },
+    "genericError": {
+      "description": "The standard error format",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "x-go-name": "Name"
+          },
+          "error_code": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Code"
+          },
+          "error_debug": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Debug"
+          },
+          "error_hint": {
+            "type": "string",
+            "x-go-name": "Hint"
+          }
+        }
+      }
     },
     "handledConsentRequestList": {
       "description": "A list of handled consent requests.",
@@ -3000,8 +2763,8 @@
     "oauth2": {
       "type": "oauth2",
       "flow": "accessCode",
-      "authorizationUrl": "/oauth2/auth",
-      "tokenUrl": "/oauth2/token",
+      "authorizationUrl": "https://your-hydra-instance.com/oauth2/auth",
+      "tokenUrl": "https://your-hydra-instance.com/oauth2/token",
       "scopes": {
         "offline": "A scope required when requesting refresh tokens",
         "openid": "Request an OpenID Connect ID Token"
