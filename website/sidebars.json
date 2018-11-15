@@ -9,7 +9,6 @@
       "ecosystem/ecosystem-versioning",
       "ecosystem/ecosystem-upgrading",
       "ecosystem/ecosystem-examples",
-      "ecosystem/ecosystem-community",
       "ecosystem/ecosystem-sqa"
     ],
     "ORY Hydra": [

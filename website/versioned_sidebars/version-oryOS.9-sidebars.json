@@ -9,7 +9,6 @@
       "version-oryOS.9-ecosystem/ecosystem-versioning",
       "version-oryOS.9-ecosystem/ecosystem-upgrading",
       "version-oryOS.9-ecosystem/ecosystem-examples",
-      "version-oryOS.9-ecosystem/ecosystem-community",
       "version-oryOS.9-ecosystem/ecosystem-sqa"
     ],
     "ORY Hydra": [
