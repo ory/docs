@@ -1,0 +1,55 @@
+{
+  "docs": {
+    "Welcome": [
+      "index"
+    ],
+    "Ecosystem": [
+      "ecosystem/overview",
+      "ecosystem/cloud-native",
+      "ecosystem/versioning",
+      "ecosystem/upgrading",
+      "ecosystem/telemetry",
+      "ecosystem/examples"
+    ],
+    "Products": [
+      {
+        "type": "subcategory",
+        "label": "ORY Hydra",
+        "items": [
+          "hydra/index",
+          {
+            "type": "subcategory",
+            "label": "Getting Started",
+            "items": [
+              "hydra/5min-tutorial",
+              "hydra/limitations"
+            ]
+          },
+          {
+            "type": "subcategory",
+            "label": "Guides",
+            "items": [
+              "hydra/oauth2",
+              "hydra/jwks",
+              "hydra/install-full",
+              "hydra/advanced",
+              "hydra/debugging",
+              "hydra/production",
+              "hydra/integration"
+            ]
+          },
+          {
+            "type": "subcategory",
+            "label": "Secondary",
+            "items": [
+              "hydra/dependencies-environment",
+              "hydra/security-architecture",
+              "hydra/faq",
+              "hydra/appendix"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

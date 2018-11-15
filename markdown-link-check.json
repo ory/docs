@@ -1,0 +1,32 @@
+{
+  "ignorePatterns": [
+    {"pattern": "^(https|http)://mydomain.com"},
+    {"pattern": "^(https|http)://mydomain/"},
+    {"pattern": "^http://hydra"},
+    {"pattern": "^(http|https)://localhost"},
+    {"pattern": "^(http|https)://127.0.0.1"},
+    {"pattern": "^/oauth2/auth"},
+    {"pattern": "^/oauth2/token"}
+  ],
+  "replacementPatterns": [
+    {
+      "pattern": "../images/docs",
+      "replacement": "../website/static/images/docs"
+    },
+    {
+      "pattern": "../../images/docs",
+      "replacement": "../../website/static/images/docs"
+    },
+    {
+      "pattern": "../../../images/docs",
+      "replacement": "../../../website/static/images/docs"
+    }
+  ],
+  "httpHeaders": [
+    {
+      "urls": [
+        "https://example.com"
+      ]
+    }
+  ]
+}

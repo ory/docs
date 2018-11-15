@@ -5,82 +5,36 @@ version: 2
 jobs:
   publish:
     docker:
-      - image: circleci/node:9-browsers
+      - image: circleci/node:11.1
     working_directory: /home/circleci/docs
-    environment:
-      - GITBOOK_DIR: /home/circleci/docs/.gitbook
-      - VERSION: latest
     steps:
       - checkout
-      - run: >
-          if [ -z ${CIRCLE_TAG+x} ]; then echo "Skipping tagging because not a tag"; else find ./guides/ -name "*.md" -type f -print0 | xargs -0 sed -i 's/'$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1))'/'${CIRCLE_TAG}'/g'; fi
-      - run: yarn install
-      - run: yarn build
-      - run: git config --global user.email "hi@ory.am"
+      - run: cd website; npm ci
+      - run: git config --global user.email "hi@ory.sh"
       - run: git config --global user.name "ORY Continuous Integration"
       - run: "git clone https://arekkas:$DOCS_TOKEN_PUSH@github.com/ory/ory-am.git ../ory-am"
+      - run: cd website; npm run api
+      - run: cd website; npm build
+      - run: rm -rf ../ory-am/docs/
+      - run: cp -R ./website/build/docs/* ../ory-am/docs/
 
-      - run: "VERSION=${CIRCLE_TAG:-master}; mkdir -p ../ory-am/docs/guides/$VERSION/ || exit 0"
-      - run: "VERSION=${CIRCLE_TAG:-master}; mkdir -p ../ory-am/docs/apis/$VERSION/ || exit 0"
-
-      - run: "VERSION=${CIRCLE_TAG:-master}; rm -rf ../ory-am/docs/guides/$VERSION/* || exit 0"
-      - run: "VERSION=${CIRCLE_TAG:-master}; rm -rf ../ory-am/docs/apis/$VERSION/* || exit 0"
-
-      - run: "cp -R ./build/faq/* ../ory-am/docs/faq/"
-
-      - run: "VERSION=${CIRCLE_TAG:-master}; cp -R ./build/guides/* ../ory-am/docs/guides/$VERSION/"
-      - run: "VERSION=${CIRCLE_TAG:-master}; cp -R ./apis/* ../ory-am/docs/apis/$VERSION/"
-
-      - run: 'if [ -z ${CIRCLE_TAG+x} ]; then echo "Skipping push to guides latest"; else (rm -rf ../ory-am/docs/guides/latest; mkdir -p ../ory-am/docs/guides/latest; cp -R ./build/guides/* ../ory-am/docs/guides/latest); fi'
-      - run: 'if [ -z ${CIRCLE_TAG+x} ]; then echo "Skipping push to apis latest"; else (rm -rf ../ory-am/docs/apis/latest; mkdir -p ../ory-am/docs/apis/latest; cp -R ./apis/* ../ory-am/docs/apis/latest); fi'
-
-      - run: "VERSION=${CIRCLE_TAG:-master}; cp -R ./build/guides/* ../ory-am/docs/guides/$VERSION/"
-      - run: "VERSION=${CIRCLE_TAG:-master}; cp -R ./apis/* ../ory-am/docs/apis/$VERSION/"
-
-      - run: "(VERSION=${CIRCLE_TAG:-master}; cd ../ory-am && git add -A && git commit -a -m \"docs: Updates documentation version $VERSION\" && git push origin) || exit 0"
-
-  tag:
+  test:
     docker:
-      - image: circleci/node:9-browsers
+      - image: circleci/node:11.1
     working_directory: /home/circleci/docs
     steps:
       - checkout
-      - run: git config --global user.email "hi@ory.am"
-      - run: git config --global user.name "ORY Continuous Integration"
-      - run:
-          shell: /bin/bash
-          command: ./.circleci/tag.sh
-      - run: cat ./guides/book.json
-      - run: cat ./guides/package.json
-      - run: >
-          find ./guides/ -name "*.md" -type f -print0 | xargs -0 sed -i 's/'$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1))'/'${CIRCLE_TAG}'/g'
-      - run: "git commit -a -m \"Updates guides to version ${CIRCLE_TAG}\""
-      - run: git remote rm origin
-      - run: git remote add origin https://arekkas:$GITHUB_TOKEN@github.com/ory/docs.git
-      - run: git push origin HEAD:master
+      - run: cd website; npm ci
+      - run: ./scripts/test-links.sh
 
 workflows:
   version: 2
-  "publish-master":
+  publish:
     jobs:
+      - test
       - publish:
+          requires:
+            - test
           filters:
             branches:
               only: master
-  "publish-tag":
-    jobs:
-      - publish:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /.*/
-      - tag:
-#         This avoids race conditions (as both publish-tag and publish-master push to the website):
-          requires:
-            - publish
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /.*/

@@ -1,0 +1,32 @@
+{
+  "scripts": {
+    "examples": "docusaurus-examples",
+    "start": "docusaurus-start",
+    "build": "docusaurus-build",
+    "publish-gh-pages": "docusaurus-publish",
+    "write-translations": "docusaurus-write-translations",
+    "version": "docusaurus-version",
+    "rename-version": "docusaurus-rename-version",
+    "api": "npm-run-all swagger:generate:* swagger:cleanup:*",
+    "serve": "serve -p 9009 ./build",
+    "swagger:generate:hydra": "widdershins -u ../.widdershins/templates -e ../.widdershins/config.json ../apis/hydra.json -o ../docs/hydra/sdk/api.md",
+    "swagger:generate:oathkeeper": "widdershins -u ../.widdershins/templates -e ../.widdershins/config.json ../apis/oathkeeper.json -o ../docs/oathkeeper/sdk/api.md",
+    "swagger:generate:keto": "widdershins -u ../.widdershins/templates -e ../.widdershins/config.json ../apis/keto.json -o ../docs/keto/sdk/api.md",
+    "swagger:cleanup:hydra": "node fix-api.js ../docs/hydra/sdk/api.md hydra-sdk",
+    "swagger:cleanup:oathkeeper": "node fix-api.js ../docs/oathkeeper/sdk/api.md oathkeeper-sdk",
+    "swagger:cleanup:keto": "node fix-api.js ../docs/keto/sdk/api.md keto-sdk"
+  },
+  "devDependencies": {
+    "docusaurus": "^1.5.1",
+    "file": "^0.2.2",
+    "markdown-link-check": "^3.7.2",
+    "npm-run-all": "^4.1.3",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
+    "walkdir": "0.0.12",
+    "widdershins": "3.6.5"
+  },
+  "dependencies": {
+    "serve": "^10.1.1"
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "docs": {
+    "Welcome": [
+      "index"
+    ],
+    "Ecosystem": [
+      "ecosystem/ecosystem-overview",
+      "ecosystem/ecosystem-cloud-native",
+      "ecosystem/ecosystem-versioning",
+      "ecosystem/ecosystem-upgrading",
+      "ecosystem/ecosystem-examples",
+      "ecosystem/ecosystem-community",
+      "ecosystem/ecosystem-sqa"
+    ],
+    "ORY Hydra": [
+      "hydra/hydra-index",
+      {
+        "type": "subcategory",
+        "label": "Getting Started",
+        "ids": [
+          "hydra/hydra-5min-tutorial"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Guides",
+        "ids": [
+          "hydra/hydra-oauth2",
+          "hydra/hydra-jwks",
+          "hydra/hydra-configure-deploy",
+          "hydra/hydra-advanced",
+          "hydra/hydra-debugging",
+          "hydra/hydra-production",
+          "hydra/hydra-integration"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "SDK",
+        "ids": [
+          "hydra/sdk/hydra-sdk-index",
+          "hydra/sdk/hydra-sdk-api",
+          "hydra/sdk/hydra-sdk-go",
+          "hydra/sdk/hydra-sdk-js"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Further Reading",
+        "ids": [
+          "hydra/hydra-limitations",
+          "hydra/hydra-dependencies-environment",
+          "hydra/hydra-security-architecture",
+          "hydra/hydra-faq",
+          "hydra/hydra-appendix"
+        ]
+      }
+    ],
+    "ORY Oathkeeper": [
+      "oathkeeper/oathkeeper-index",
+      {
+        "type": "subcategory",
+        "label": "Guides",
+        "ids": [
+          "oathkeeper/oathkeeper-api-access-rules",
+          "oathkeeper/oathkeeper-configure-deploy",
+          "oathkeeper/oathkeeper-control-flow"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "SDK",
+        "ids": [
+          "oathkeeper/sdk/oathkeeper-sdk-api"
+        ]
+      }
+    ],
+    "ORY Keto": [
+      "keto/keto-index",
+      "keto/1-overview/keto-overview-1-policies",
+      "keto/1-overview/keto-overview-2-warden",
+      "keto/1-overview/keto-overview-3-roles",
+      "keto/1-overview/keto-overview-4-best-practices",
+      "keto/1-overview/keto-overview-5-conditions",
+      "keto/1-overview/keto-overview-6-installation",
+      "keto/1-overview/keto-overview-7-configuration",
+      {
+        "type": "subcategory",
+        "label": "SDK",
+        "ids": [
+          "keto/sdk/keto-sdk-api"
+        ]
+      }
+    ],
+    "Performance": [
+      "performance/performance-index",
+      "performance/performance-hydra"
+    ]
+  }
+}
