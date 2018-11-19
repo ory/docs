@@ -116,6 +116,8 @@ const siteConfig = {
     // },
   },
 
+  gaTrackingId: 'UA-71865250-1'
+
   // You may provide arbitrary config keys to be used as needed by your
   // template. For example, if you need your repo's URL...
   //   repoUrl: 'https://github.com/facebook/test-site',
