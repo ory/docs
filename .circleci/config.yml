@@ -17,6 +17,7 @@ jobs:
       - run: cd website; npm run build
       - run: rm -rf ../ory-am/docs/*
       - run: cp -R ./website/build/docs/* ../ory-am/docs/
+      - run: cd ../ory-am && git add -A && git commit -a -m \"docs: Bump to $CIRCLE_SHA1\" && git push origin) || exit 0
 
   test:
     docker:
