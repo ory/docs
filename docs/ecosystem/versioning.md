@@ -3,6 +3,11 @@ id: ecosystem-versioning
 title: Software Versions
 ---
 
+> Running security-critical open source technology in a self-service format requires vigilance. We make your life easier
+by announcing important software updates via the
+[ORY Security Newsletter](https://ory.us10.list-manage.com/subscribe?u=ffb1a878e4ec6c0ed312a3480&id=f605a41b53). Never miss
+an update and **[sign up now to important release updates!](https://ory.us10.list-manage.com/subscribe?u=ffb1a878e4ec6c0ed312a3480&id=f605a41b53)**
+
 The ORY ecosystem consists of multiple services versioned using [semantic versioning](https://semver.org). This section
 explains how we define service versions and what they mean.
 

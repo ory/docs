@@ -4,6 +4,11 @@ title: Software Updates
 original_id: ecosystem-upgrading
 ---
 
+> Running security-critical open source technology in a self-service format requires vigilance. We make your life easier
+by announcing important software updates via the
+[ORY Security Newsletter](https://ory.us10.list-manage.com/subscribe?u=ffb1a878e4ec6c0ed312a3480&id=f605a41b53). Never miss
+an update and **[sign up now to important release updates!](https://ory.us10.list-manage.com/subscribe?u=ffb1a878e4ec6c0ed312a3480&id=f605a41b53)**
+
 Good software improves over time. If it wouldn't, you shouldn't use it. Unfortunately, some of these improvements
 have breaking changes. We know that breaking changes are annoying so we want to make upgrading as painless as possible.
 

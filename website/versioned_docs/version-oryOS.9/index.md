@@ -4,6 +4,11 @@ title: ORY Developer Documentation
 original_id: index
 ---
 
+> Running security-critical open source technology in a self-service format requires vigilance. We make your life easier
+by announcing important software updates via the
+[ORY Security Newsletter](https://ory.us10.list-manage.com/subscribe?u=ffb1a878e4ec6c0ed312a3480&id=f605a41b53). Never miss
+an update and **[sign up now to important release updates!](https://ory.us10.list-manage.com/subscribe?u=ffb1a878e4ec6c0ed312a3480&id=f605a41b53)**
+
 ## GitHub
 
 You can find our open source projects on GitHub:
