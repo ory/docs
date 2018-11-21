@@ -15,7 +15,7 @@ set up.
 ```
 $ git clone https://github.com/ory/hydra.git
 $ cd hydra
-$ git checkout tags/v1.0.0-rc.1+oryOS.9
+$ git checkout tags/v1.0.0-rc.2+oryOS.9
 
 $ docker-compose -p hydra up --build
 Starting hydra_mysqld_1
@@ -46,7 +46,7 @@ Ok, let's continue by creating a new OAuth 2.0 Client.
 
 ```
 # Creates a new OAuth 2.0 client
-$ docker exec -it `docker ps -f name=hydra_hydra_1 -q`` \
+$ docker exec -it `docker ps -f name=hydra_hydra_1 -q` \
     hydra clients create \
     --endpoint http://localhost:4445 \
     --id my-client \

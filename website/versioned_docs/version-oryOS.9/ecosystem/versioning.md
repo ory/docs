@@ -56,7 +56,7 @@ This compatibility matrix shows which versions are compatible with one another.
 
 | Software version | ORY Hydra                            | ORY Keto                             | ORY Oathkeeper                 |
 | ---------------- | ------------------------------------ | ------------------------------------ | ------------------------------ |
-| `oryOS.9`        | `v1.0.0-beta.9`, `v1.0.0-rc.1+oryOS.9`                      | `v0.1.9-sandbox+oryOS.9`             | `v0.13.9+oryOS.9`              |
+| `oryOS.9`        | `v1.0.0-beta.9`, `v1.0.0-rc.2+oryOS.9`                      | `v0.1.9-sandbox+oryOS.9`             | `v0.13.9+oryOS.9`              |
 
 ### Docker Hub and NPM
 
@@ -77,7 +77,7 @@ itself, `+oryOS` is not available in npm packages at all.
 
 | oryOS         | ORY Hydra                 | ORY Keto                 | ORY Oathkeeper         |
 | ------------- | ------------------------  | ------------------------ | ---------------------- |
-| `oryOS.9`     | `v1.0.0-beta.9`, `v1.0.0-rc.1+oryOS.9`           | `v0.1.9-sandbox+oryOS.9` | `v0.13.9+oryOS.9`      |
+| `oryOS.9`     | `v1.0.0-beta.9`, `v1.0.0-rc.2+oryOS.9`           | `v0.1.9-sandbox+oryOS.9` | `v0.13.9+oryOS.9`      |
 | `oryOS.8`     | `v1.0.0-beta.8`           | `v0.1.8-sandbox+oryOS.8` | `v0.13.8+oryOS.8`      |
 | `oryOS.7`     | `v1.0.0-beta.7`           | `v0.1.7-sandbox+oryOS.7` | `v0.13.7+oryOS.7`      |
 | `oryOS.6`     | `v1.0.0-beta.6`           | `v0.1.6-sandbox+oryOS.6` | `v0.13.6+oryOS.6`      |
@@ -123,10 +123,10 @@ changed.
 
 #### ORY Hydra
 
-No changes to the versioning will be made. The next release will remain `v1.0.0-rc.1+oryOS.10`.
+No changes to the versioning will be made. The next release will remain `v1.0.0-rc.2+oryOS.9`.
 
 Going forward, the npm package `ory-hydra-sdk` will no longer be continued. Instead, new versions will be pushed to
-`@oryd/hydra`. Version `v1.0.0-beta.9` will be the last available version at `ory-hydra-sdk`. Version `v1.0.0-rc.1+oryOS.10`
+`@oryd/hydra`. Version `v1.0.0-beta.9` will be the last available version at `ory-hydra-sdk`. Version `v1.0.0-rc.2+oryOS.9`
 will be the first version available at `@oryd/hydra`.
 
 ##### Version Matrix
@@ -134,7 +134,7 @@ will be the first version available at `@oryd/hydra`.
 | Old version     | Re-released as                    | NPM                           | Docker Hub                        |
 | --------------- | --------------------------------- | ----------------------------- | --------------------------------- |
 | `v1.0.0-beta.9` | -                                 | `ory-hydra-sdk:v1.0.0-beta.9` | `oryd/hydra:v1.0.0-beta.9`        |
-| -               | `v1.0.0-rc.1+oryOS.10` (example)  | `@oryd/hydra:v1.0.0-rc.1`     | `oryd/hydra:v1.0.0-rc.1_oryOS.10` |
+| -               | `v1.0.0-rc.2+oryOS.9` (example)   | `@oryd/hydra:v1.0.0-rc.2`     | `oryd/hydra:v1.0.0-rc.2_oryOS.9`  |
 
 #### ORY Oathkeeper
 
