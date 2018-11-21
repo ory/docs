@@ -15,7 +15,7 @@ set up.
 ```
 $ git clone https://github.com/ory/hydra.git
 $ cd hydra
-$ git checkout tags/v1.0.0-beta.8
+$ git checkout tags/v1.0.0-rc.1+oryOS.9
 
 $ docker-compose -p hydra up --build
 Starting hydra_mysqld_1
@@ -25,29 +25,28 @@ Starting hydra_hydra_1
 [...]
 ```
 
-
 Everything should running now! Let's confirm that everything is working by creating our first OAuth 2.0 Client.
 The following commands will use Docker wizardry. You can obviously install the ORY Hydra CLI locally and avoid using
-Docker here. If you do use the CLI locally, you can omit `docker exec -it hydra_hydra_1 \` completely.
+Docker here. If you do use the CLI locally, you can omit ``docker exec -it `docker ps -f name=hydra_hydra_1 -q` `` completely.
 
 You will notice that two ports are being used. Port `4444` and port `4445`. The former is for request to ORY Hydra's public
 endpoints. The latter to its administrative endpoints. For more information on this, head over to
-[Exposing Administrative and Public API Endpoints](production.md). If you want to run ORY Hydra admin and
+[Exposing Administrative and Public API Endpoints](./hydra/production.md). If you want to run ORY Hydra admin and
 public services in two separate containers, run
 
 ```
-$ docker-compose -p hydra -f docker-compose-twoc.yml up --build
+$ docker-compose -p hydra -f docker-compose.yml up --build
 ```
 
 Please be aware that you will not be able to run the hydra CLI from within docker if you
 use the docker-compose-twoc.yml file. Instead, you must install the CLI locally and
-omit `docker exec -it hydra_hydra_1 \` from your commands.
+omit ``docker exec -it `docker ps -f name=hydra_hydra_1 -q` `` from your commands.
 
 Ok, let's continue by creating a new OAuth 2.0 Client.
 
 ```
 # Creates a new OAuth 2.0 client
-$ docker exec -it hydra_hydra_1 \
+$ docker exec -it `docker ps -f name=hydra_hydra_1 -q`` \
     hydra clients create \
     --endpoint http://localhost:4445 \
     --id my-client \
@@ -58,7 +57,7 @@ OAuth2 client id: hydra-my-client
 OAuth2 client secret: secret
 
 # Let's perform the client credentials grant.
-$ docker exec -it hydra_hydra_1 \
+$ docker exec -it `docker ps -f name=hydra_hydra_1 -q` \
     hydra token client \
     --endpoint http://localhost:4444 \
     --client-id my-client \
@@ -67,7 +66,7 @@ $ docker exec -it hydra_hydra_1 \
 UDYMha9TwsMBejEvKfnDOXkhgkLsnmUNYVQDklT5bD8.ZNpuNRC85erbIYDjPqhMwTinlvQmNTk_UvttcLQxFJY
 
 # Let's perform token introspection on that token. Make sure to copy the token you just got and not the dummy value.
-$ docker exec -it hydra_hydra_1 \
+$ docker exec -it `docker ps -f name=hydra_hydra_1 -q` \
     hydra token introspect \
     --endpoint http://localhost:4445 \
     --client-id my-client \
@@ -89,7 +88,7 @@ Next, we will perform the OAuth 2.0 Authorization Code Grant. For that, we must 
 of performing that grant:
 
 ```
-$ docker exec -it hydra_hydra_1 \
+$ docker exec -it `docker ps -f name=hydra_hydra_1 -q` \
     hydra clients create \
     --endpoint http://localhost:4445 \
     --id auth-code-client \
@@ -107,7 +106,7 @@ The next command starts a server that serves an example web application. The app
 Authorization Code Flow using ORY Hydra. The web server runs on [http://127.0.0.1:5555](http://127.0.0.1:5555).
 
 ```
-$ docker exec -it hydra_hydra_1 \
+$ docker exec -it `docker ps -f name=hydra_hydra_1 -q` \
     hydra token user \
     --client-id auth-code-client \
     --client-secret secret \

@@ -131,7 +131,7 @@ The policy decision point (the one checking if something is allowed or not) appl
 #### Pattern Matching with Regular Expressions
 
 ORY Keto allows you to apply pattern matching with regular expressions as well. Depending on how you name your subjects,
-resources, and actions (for more on that topic go to the [Best Practices](./4-best-practices.md) section), you can apply
+resources, and actions (for more on that topic go to the [Best Practices](./keto/4-best-practices.md) section), you can apply
 pattern matching using regular expressions.
 
 ```json
@@ -181,5 +181,5 @@ the subject is also the owner of the resource:
 }
 ```
 
-What conditions you can use and how you use is documented [here](./5-conditions.md). Since that requires knowledge of the Warden API
-works, let's look at that first in the [next chapter](./2-warden.md).
+What conditions you can use and how you use is documented [here](./keto/5-conditions.md). Since that requires knowledge of the Warden API
+works, let's look at that first in the [next chapter](./keto/2-warden.md).

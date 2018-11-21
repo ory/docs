@@ -56,7 +56,7 @@ This compatibility matrix shows which versions are compatible with one another.
 
 | Software version | ORY Hydra                            | ORY Keto                             | ORY Oathkeeper                 |
 | ---------------- | ------------------------------------ | ------------------------------------ | ------------------------------ |
-| `oryOS.9`        | `v1.0.0-beta.9`                      | `v0.1.9-sandbox+oryOS.9`             | `v0.13.9+oryOS.9`              |
+| `oryOS.9`        | `v1.0.0-beta.9`, `v1.0.0-rc.1+oryOS.9`                      | `v0.1.9-sandbox+oryOS.9`             | `v0.13.9+oryOS.9`              |
 
 ### Docker Hub and NPM
 
@@ -77,7 +77,7 @@ itself, `+oryOS` is not available in npm packages at all.
 
 | oryOS         | ORY Hydra                 | ORY Keto                 | ORY Oathkeeper         |
 | ------------- | ------------------------  | ------------------------ | ---------------------- |
-| `oryOS.9`     | `v1.0.0-beta.9`           | `v0.1.9-sandbox+oryOS.9` | `v0.13.9+oryOS.9`      |
+| `oryOS.9`     | `v1.0.0-beta.9`, `v1.0.0-rc.1+oryOS.9`           | `v0.1.9-sandbox+oryOS.9` | `v0.13.9+oryOS.9`      |
 | `oryOS.8`     | `v1.0.0-beta.8`           | `v0.1.8-sandbox+oryOS.8` | `v0.13.8+oryOS.8`      |
 | `oryOS.7`     | `v1.0.0-beta.7`           | `v0.1.7-sandbox+oryOS.7` | `v0.13.7+oryOS.7`      |
 | `oryOS.6`     | `v1.0.0-beta.6`           | `v0.1.6-sandbox+oryOS.6` | `v0.13.6+oryOS.6`      |
@@ -215,6 +215,8 @@ format `v0.1.x-sandbox+oryOS.x`.
 
 #### ORY Docs
 
+> If you are looking for the old developer guide, [click here](https://www.ory.sh/docs/deprecated/latest/).
+
 The documentation got a major overhaul. We completely deprecated GitBook, which is no longer being
 developed, and moved to [Docusaurus](https://docusaurus.io/). Additionally, the API documentation is
 now integrated in Docusaurus using [widdershins](https://github.com/Mermade/widdershins) with custom templates, and no
@@ -229,7 +231,7 @@ This means that the following versions will be documented in the new docs:
 * ORY Keto `v0.1.9-sandbox+oryOS.9`
 
 If you need to look up documentation on older versions (in the old format), you will be able to do so
-[here](https://www.ory.sh/docs/deprecated). This documentation will be available for a reasonable amount of time and you will receive
+[here](https://www.ory.sh/docs/deprecated/latest/). This documentation will be available for a reasonable amount of time and you will receive
 a notice with ample time if we shut that down. You can view the legacy REST API Documentation by browsing to the
 [hosted swagger ui](https://petstore.swagger.io/) and entering, for example,
 `https://raw.githubusercontent.com/ory/keto/v1.0.0-beta.8/docs/api.swagger.json` in the top bar.
@@ -246,4 +248,4 @@ will have those versions. This will prevent potential future conflicts.
 
 #### Conflict Resolution
 
-If you need help with these changes or want us to handle these updates for you, [write us now](mailto:hi@ory.sh].
+If you need help with these changes or want us to handle these updates for you, [write us now](mailto:hi@ory.sh).

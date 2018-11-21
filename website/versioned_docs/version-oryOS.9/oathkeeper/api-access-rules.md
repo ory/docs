@@ -267,6 +267,11 @@ It assumes that the token is a JSON Web Token and tries to verify the signature 
     * `AUTHENTICATOR_JWT_SCOPE_STRATEGY`: The strategy to be used to validate the scope claim. Strategies `HIERARCHIC`, `EXACT`,
     `WILDCARD`, `NONE` are supported. Defaults to `EXACT`. For more information on scope strategies, click [here](#scope-strategies)-
 
+The following claims can be checked (all case sensitive):
+* `iss`: A string with Issuer Identifier.
+* `aud`: Either a string (single Audience) or an array of strings.
+* `scope`: An array of scope strings or space-delimited string of scopes.
+
 ##### Example
 
 The following rule allows requests to `GET http://my-app/some-route` if valid a JSON Web Token was provided
