@@ -227,7 +227,7 @@ $ docker run -d \
   --network hydraguide \
   -e HYDRA_URL=https://ory-hydra-example--hydra:4445 \
   -e NODE_TLS_REJECT_UNAUTHORIZED=0 \
-  oryd/hydra-login-consent-node:v1.0.0-rc.2_oryOS.9
+  oryd/hydra-login-consent-node:v1.0.0-rc.2
 
 # Let's check if it's running ok:
 $ docker logs ory-hydra-example--consent
