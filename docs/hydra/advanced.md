@@ -1,5 +1,5 @@
 ---
-id: hydra-advanced
+advanced
 title: Advanced Topics
 ---
 

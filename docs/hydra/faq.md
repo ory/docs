@@ -1,5 +1,5 @@
 ---
-id: hydra-faq
+faq
 title: FAQ
 ---
 

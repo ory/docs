@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-keto-overview-3-roles
+id: version-oryOS.9-keto/1-overview/roles
 title: Roles
-original_id: keto-overview-3-roles
+original_id: keto/1-overview/roles
 ---
 
 ORY Keto supports the concept of roles (like in RBAC). This feature allows you to group together a number of subjects

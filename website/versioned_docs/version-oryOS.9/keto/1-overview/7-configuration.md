@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-keto-overview-7-configuration
+id: version-oryOS.9-keto/1-overview/configuration
 title: Configuring and Running ORY Keto
-original_id: keto-overview-7-configuration
+original_id: keto/1-overview/configuration
 ---
 #
 

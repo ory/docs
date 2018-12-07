@@ -1,7 +1,8 @@
 ---
-id: version-oryOS.9-ecosystem-sustainability
+sustainability: 
 title: Sustainability
-original_id: ecosystem-sustainability
+id: version-oryOS.9-ecosystem/sustainability
+original_id: ecosystem/sustainability
 ---
 
 ORY builds a sustainable infrastructure. To guarantee sustainability, the following aspects are core principles:

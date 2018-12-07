@@ -1,5 +1,5 @@
 ---
-id: keto-overview-7-configuration
+id: configuration
 title: Configuring and Running ORY Keto
 ---
 #

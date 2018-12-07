@@ -1,5 +1,5 @@
 ---
-id: hydra-sdk-go
+id: go
 title: Go
 ---
 
@@ -32,7 +32,7 @@ import "github.com/ory/hydra/sdk/go/hydra"
 sdk, err := hydra.NewSDK(&hydra.Configuration{
     AdminURL:  "https://hydra.localhost:4445",
     PublicURL:  "https://hydra.localhost:4444",
-    Clientid: hydra-sdk-"...",
+    Clientid: "...",
     ClientSecret: "...",
     Scopes: []string{"..."},
 })

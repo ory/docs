@@ -1,5 +1,5 @@
 ---
-id: performance-index
+index
 title: Introduction
 ---
 

@@ -1,7 +1,8 @@
 ---
-id: version-oryOS.9-hydra-dependencies-environment
+dependencies-environment: 
 title: Dependencies & Environment
-original_id: hydra-dependencies-environment
+id: version-oryOS.9-hydra/dependencies-environment
+original_id: hydra/dependencies-environment
 ---
 
 ORY Hydra is built cloud native and implements [12factor](https://www.12factor.net/) principles. The Docker Image is 5 MB light

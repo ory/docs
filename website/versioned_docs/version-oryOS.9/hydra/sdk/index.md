@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-hydra-sdk-index
+id: version-oryOS.9-hydra/sdk/index
 title: Overview
-original_id: hydra-sdk-index
+original_id: hydra/sdk/index
 ---
 
 All SDKs are use automated code generation provided by [`swagger-codegen`](https://github.com/swagger-api/swagger-codegen).

@@ -1,5 +1,5 @@
 ---
-id: oathkeeper-configure-deploy
+configure-deploy
 title: Configure and Deploy
 ---
 

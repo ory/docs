@@ -1,5 +1,5 @@
 ---
-id: oathkeeper-index
+index
 title: Introduction
 ---
 

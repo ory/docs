@@ -1,5 +1,5 @@
 ---
-id: keto-overview-2-warden
+id: warden
 title: Warden API
 ---
 

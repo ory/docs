@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-keto-next-engines-acp-aws
+id: version-oryOS.9-keto/next/engines/keto-next-engines-acp-aws
 title: AWS IAM Policies
-original_id: keto-next-engines-acp-aws
+original_id: keto/next/engines/keto-next-engines-acp-aws
 ---
 
 Read more about [AWS IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html).

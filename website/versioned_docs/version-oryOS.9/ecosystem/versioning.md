@@ -1,7 +1,8 @@
 ---
-id: version-oryOS.9-ecosystem-versioning
+versioning: 
 title: Software Versions
-original_id: ecosystem-versioning
+id: version-oryOS.9-ecosystem/versioning
+original_id: ecosystem/versioning
 ---
 
 > Running security-critical open source technology in a self-service format requires vigilance. We make your life easier

@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-hydra-sdk-go
+id: version-oryOS.9-hydra/sdk/go
 title: Go
-original_id: hydra-sdk-go
+original_id: hydra/sdk/go
 ---
 
 To install the Go SDK, run:
@@ -33,7 +33,7 @@ import "github.com/ory/hydra/sdk/go/hydra"
 sdk, err := hydra.NewSDK(&hydra.Configuration{
     AdminURL:  "https://hydra.localhost:4445",
     PublicURL:  "https://hydra.localhost:4444",
-    Clientid: hydra-sdk-"...",
+    Clientid: "...",
     ClientSecret: "...",
     Scopes: []string{"..."},
 })

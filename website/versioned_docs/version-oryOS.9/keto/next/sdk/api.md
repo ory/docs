@@ -1,7 +1,7 @@
 ---
 title: REST API
-id: version-oryOS.9-keto-next-sdk-api
-original_id: keto-next-sdk-api
+id: version-oryOS.9-keto/next/sdk/keto-next-sdk-api
+original_id: keto/next/sdk/keto-next-sdk-api
 ---
 
 

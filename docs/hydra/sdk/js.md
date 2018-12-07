@@ -1,5 +1,5 @@
 ---
-id: hydra-sdk-js
+id: js
 title: JavaScript
 ---
 

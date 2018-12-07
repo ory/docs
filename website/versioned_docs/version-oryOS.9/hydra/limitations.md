@@ -1,7 +1,8 @@
 ---
-id: version-oryOS.9-hydra-limitations
+limitations: 
 title: Limitations
-original_id: hydra-limitations
+id: version-oryOS.9-hydra/limitations
+original_id: hydra/limitations
 ---
 
 # Limitations

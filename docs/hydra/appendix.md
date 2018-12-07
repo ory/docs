@@ -1,5 +1,5 @@
 ---
-id: hydra-appendix
+appendix
 title: Appendix
 ---
 

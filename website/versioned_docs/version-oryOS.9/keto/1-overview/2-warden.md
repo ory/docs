@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-keto-overview-2-warden
+id: version-oryOS.9-keto/1-overview/warden
 title: Warden API
-original_id: keto-overview-2-warden
+original_id: keto/1-overview/warden
 ---
 
 So far you learned how Access Control Policies work and how they are different from RBAC and ACL. Now, you will learn

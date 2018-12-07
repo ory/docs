@@ -1,7 +1,8 @@
 ---
-id: version-oryOS.9-oathkeeper-index
+index: 
 title: Introduction
-original_id: oathkeeper-index
+id: version-oryOS.9-oathkeeper/index
+original_id: oathkeeper/index
 ---
 
 Welcome to the ORY Oathkeeper documentation!

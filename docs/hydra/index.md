@@ -1,5 +1,5 @@
 ---
-id: hydra-index
+index
 title: Introduction
 ---
 

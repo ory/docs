@@ -1,5 +1,5 @@
 ---
-id: hydra-sdk-index
+id: index
 title: Overview
 ---
 

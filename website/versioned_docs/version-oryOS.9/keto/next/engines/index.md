@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-keto-next-engines-index
+id: version-oryOS.9-keto/next/engines/keto-next-engines-index
 title: Introduction
-original_id: keto-next-engines-index
+original_id: keto/next/engines/keto-next-engines-index
 ---
 
 Whatever your system looks like, you probably have a concept of permissions which models who is allowed to do what ("access control").

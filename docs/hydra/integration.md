@@ -1,5 +1,5 @@
 ---
-id: hydra-integration
+integration
 title: Integration
 ---
 

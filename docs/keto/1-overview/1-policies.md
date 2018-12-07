@@ -1,5 +1,5 @@
 ---
-id: keto-overview-1-policies
+id: policies
 title: Access Control Policies
 ---
 

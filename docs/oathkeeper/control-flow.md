@@ -1,5 +1,5 @@
 ---
-id: oathkeeper-control-flow
+control-flow
 title: Control Flow
 ---
 

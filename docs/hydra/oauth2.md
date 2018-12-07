@@ -1,5 +1,5 @@
 ---
-id: hydra-oauth2
+oauth2
 title: OAuth 2.0 & Open ID Connect
 ---
 

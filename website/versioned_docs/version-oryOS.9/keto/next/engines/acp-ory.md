@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-keto-next-engines-acp-ory
+id: version-oryOS.9-keto/next/engines/keto-next-engines-acp-ory
 title: ORY Access Control Policies
-original_id: keto-next-engines-acp-ory
+original_id: keto/next/engines/keto-next-engines-acp-ory
 ---
 
 At ORY, we use an Access Control Policy DSL modeled after AWS IAM Policies. These policies define an `effect`,

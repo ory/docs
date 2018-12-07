@@ -1,5 +1,5 @@
 ---
-id: hydra-configure-deploy
+configure-deploy
 title: Configure and Deploy
 ---
 
@@ -261,7 +261,7 @@ $ docker run --rm -it \
     --scope openid,offline,photos.read \
     --callbacks http://127.0.0.1:9010/callback
 
-Client id: hydra-facebook-photo-backup
+Client facebook-photo-backup
 Client Secret: some-secret
 ```
 

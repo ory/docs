@@ -1,5 +1,5 @@
 ---
-id: ecosystem-sustainability
+sustainability
 title: Sustainability
 ---
 

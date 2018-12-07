@@ -1,5 +1,5 @@
 ---
-id: ecosystem-cloud-native
+cloud-native
 title: Cloud Native Architecture
 ---
 

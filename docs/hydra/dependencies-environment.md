@@ -1,5 +1,5 @@
 ---
-id: hydra-dependencies-environment
+dependencies-environment
 title: Dependencies & Environment
 ---
 

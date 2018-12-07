@@ -1,7 +1,8 @@
 ---
-id: version-oryOS.9-hydra-integration
+integration: 
 title: Integration
-original_id: hydra-integration
+id: version-oryOS.9-hydra/integration
+original_id: hydra/integration
 ---
 
 This article explains how you to integrate ORY Hydra in your system.

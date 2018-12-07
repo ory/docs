@@ -1,7 +1,8 @@
 ---
-id: version-oryOS.9-oathkeeper-configure-deploy
+configure-deploy: 
 title: Configure and Deploy
-original_id: oathkeeper-configure-deploy
+id: version-oryOS.9-oathkeeper/configure-deploy
+original_id: oathkeeper/configure-deploy
 ---
 
 ORY Oathkeeper has two servers that run on separate ports:

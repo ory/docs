@@ -1,5 +1,5 @@
 ---
-id: performance-hydra
+hydra
 title: ORY Hydra
 ---
 

@@ -1,5 +1,5 @@
 ---
-id: hydra-security-architecture
+security-architecture
 title: Security Architecture
 ---
 

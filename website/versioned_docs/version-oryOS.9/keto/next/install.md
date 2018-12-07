@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-keto-next-install
+id: version-oryOS.9-keto/next/keto-next-install
 title: Install
-original_id: keto-next-install
+original_id: keto/next/keto-next-install
 ---
 
 You can install ORY Keto by downloading the [binaries](https://github.com/ory/keto/releases), by using

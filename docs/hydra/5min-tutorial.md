@@ -1,5 +1,5 @@
 ---
-id: hydra-5min-tutorial
+5min-tutorial
 title: 5 Minute Tutorial
 ---
 
@@ -53,7 +53,7 @@ $ docker exec -it `docker ps -f name=hydra_hydra_1 -q` \
     --secret secret \
     -g client_credentials
 
-OAuth2 client id: hydra-my-client
+OAuth2 client my-client
 OAuth2 client secret: secret
 
 # Let's perform the client credentials grant.

@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-keto-overview-5-conditions
+id: version-oryOS.9-keto/1-overview/conditions
 title: Conditions & Context
-original_id: keto-overview-5-conditions
+original_id: keto/1-overview/conditions
 ---
 
 <!-- toc -->

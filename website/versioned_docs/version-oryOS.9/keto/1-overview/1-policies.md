@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-keto-overview-1-policies
+id: version-oryOS.9-keto/1-overview/policies
 title: Access Control Policies
-original_id: keto-overview-1-policies
+original_id: keto/1-overview/policies
 ---
 
 ## Overview

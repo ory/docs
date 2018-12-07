@@ -1,7 +1,8 @@
 ---
-id: version-oryOS.9-performance-index
+index: 
 title: Introduction
-original_id: performance-index
+id: version-oryOS.9-performance/index
+original_id: performance/index
 ---
 
 Our ecosystem is not another over-hyped, oversold technology stack. Our technology is truly built with 12 factor principles

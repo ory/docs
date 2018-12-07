@@ -1,7 +1,8 @@
 ---
-id: version-oryOS.9-ecosystem-cloud-native
+cloud-native: 
 title: Cloud Native Architecture
-original_id: ecosystem-cloud-native
+id: version-oryOS.9-ecosystem/cloud-native
+original_id: ecosystem/cloud-native
 ---
 
 All ORY technology is built cloud native and follows [12factor.net](https://www.12factor.net) principles.

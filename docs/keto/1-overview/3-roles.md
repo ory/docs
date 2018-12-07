@@ -1,5 +1,5 @@
 ---
-id: keto-overview-3-roles
+id: roles
 title: Roles
 ---
 

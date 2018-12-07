@@ -1,5 +1,5 @@
 ---
-id: hydra-jwks
+jwks
 title: JSON Web Key Sets
 ---
 

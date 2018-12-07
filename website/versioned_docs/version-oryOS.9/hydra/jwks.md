@@ -1,7 +1,8 @@
 ---
-id: version-oryOS.9-hydra-jwks
+jwks: 
 title: JSON Web Key Sets
-original_id: hydra-jwks
+id: version-oryOS.9-hydra/jwks
+original_id: hydra/jwks
 ---
 
 A JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key and is

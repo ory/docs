@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-keto-next-engines-rbac
+id: version-oryOS.9-keto/next/engines/keto-next-engines-rbac
 title: Role Based Access Control (RBAC)
-original_id: keto-next-engines-rbac
+original_id: keto/next/engines/keto-next-engines-rbac
 ---
 
 [Role Based Access Control (RBAC)](https://en.wikipedia.org/wiki/Role-based_access_control) maps subjects to roles

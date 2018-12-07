@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-keto-next-configure-deploy
+id: version-oryOS.9-keto/next/keto-next-configure-deploy
 title: Configure and Deploy
-original_id: keto-next-configure-deploy
+original_id: keto/next/keto-next-configure-deploy
 ---
 
 As all other ORY services, ORY Keto is implemented according to 12factor principles and completely stateless. To store

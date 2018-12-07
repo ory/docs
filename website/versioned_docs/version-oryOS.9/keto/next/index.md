@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-keto-next-index
+id: version-oryOS.9-keto/next/keto-next-index
 title: Introduction
-original_id: keto-next-index
+original_id: keto/next/keto-next-index
 ---
 
 ORY Keto is an permission server that implements best practice access control mechanisms. If you came looking for

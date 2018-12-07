@@ -1,7 +1,8 @@
 ---
-id: version-oryOS.9-hydra-production
+production: 
 title: Production
-original_id: hydra-production
+id: version-oryOS.9-hydra/production
+original_id: hydra/production
 ---
 
 This document summarizes things you will find useful when going to production.

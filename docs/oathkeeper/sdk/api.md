@@ -1,6 +1,6 @@
 ---
 title: REST API
-id: oathkeeper-sdk-api
+id: api
 ---
 
 

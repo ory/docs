@@ -1,5 +1,5 @@
 ---
-id: ecosystem-overview
+overview
 title: Overview
 ---
 

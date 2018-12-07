@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-keto-next-secure
+id: version-oryOS.9-keto/next/keto-next-secure
 title: Secure
-original_id: keto-next-secure
+original_id: keto/next/keto-next-secure
 ---
 
 Similar to other services in our ecosystem, ORY Keto has no integrated access control in it's APIs. This means that any request

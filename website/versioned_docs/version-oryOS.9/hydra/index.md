@@ -1,7 +1,8 @@
 ---
-id: version-oryOS.9-hydra-index
+index: 
 title: Introduction
-original_id: hydra-index
+id: version-oryOS.9-hydra/index
+original_id: hydra/index
 ---
 
 Welcome to the Hydra documentation. This documentation will

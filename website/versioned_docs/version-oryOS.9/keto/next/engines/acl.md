@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-keto-next-engines-acl
+id: version-oryOS.9-keto/next/engines/keto-next-engines-acl
 title: Access Control Lists (ACL)
-original_id: keto-next-engines-acl
+original_id: keto/next/engines/keto-next-engines-acl
 ---
 
 An [Access Control List (ACL)](https://en.wikipedia.org/wiki/Access_control_list) is a matrix of users and permissions:
