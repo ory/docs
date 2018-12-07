@@ -1,6 +1,6 @@
 ---
-title: REST API
 id: api
+title: REST API
 ---
 
 

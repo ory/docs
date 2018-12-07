@@ -1,5 +1,5 @@
 ---
-control-flow
+id: control-flow
 title: Control Flow
 ---
 

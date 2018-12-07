@@ -1,5 +1,5 @@
 ---
-sqa
+id: id: id: sqa
 title: Software Quality Assurance
 ---
 

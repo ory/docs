@@ -1,5 +1,5 @@
 ---
-security-architecture
+id: security-architecture
 title: Security Architecture
 ---
 

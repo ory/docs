@@ -1,5 +1,5 @@
 ---
-api-access-rules
+id: api-access-rules
 title: API Access Rules
 ---
 

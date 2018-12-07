@@ -1,5 +1,5 @@
 ---
-appendix
+id: appendix
 title: Appendix
 ---
 

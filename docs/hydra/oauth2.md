@@ -1,5 +1,5 @@
 ---
-oauth2
+id: oauth2
 title: OAuth 2.0 & Open ID Connect
 ---
 

@@ -1,5 +1,5 @@
 ---
-hydra
+id: hydra
 title: ORY Hydra
 ---
 

@@ -1,5 +1,5 @@
 ---
-configure-deploy
+id: configure-deploy
 title: Configure and Deploy
 ---
 

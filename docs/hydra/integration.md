@@ -1,5 +1,5 @@
 ---
-integration
+id: integration
 title: Integration
 ---
 

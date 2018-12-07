@@ -1,5 +1,5 @@
 ---
-limitations
+id: limitations
 title: Limitations
 ---
 

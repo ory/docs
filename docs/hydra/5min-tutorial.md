@@ -1,5 +1,5 @@
 ---
-5min-tutorial
+id: 5min-tutorial
 title: 5 Minute Tutorial
 ---
 

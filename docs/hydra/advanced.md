@@ -1,5 +1,5 @@
 ---
-advanced
+id: advanced
 title: Advanced Topics
 ---
 

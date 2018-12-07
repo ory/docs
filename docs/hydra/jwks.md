@@ -1,5 +1,5 @@
 ---
-jwks
+id: jwks
 title: JSON Web Key Sets
 ---
 
@@ -8,7 +8,7 @@ specified at [IETF RFC7517](https://tools.ietf.org/html/rfc7517). If you've hear
 
 ```
 -----BEGIN ENCRYPTED PRIVATE KEY-----
-MIIFDjBABgkqhkiG9w0BBQ0wMzAbBgkqhkiG9w0BBQwwDg
+id: MIIFDjBABgkqhkiG9w0BBQ0wMzAbBgkqhkiG9w0BBQwwDg
 MBQGCCqGSIb3DQMHBAgD1kGN4ZslJgSCBMi1xk9jhlPxPc
 9g73NQbtqZwI+9X5OhpSg/2ALxlCCjbqvzgSu8gfFZ4yo+
 A .... MANY LINES LIKE THAT ....
