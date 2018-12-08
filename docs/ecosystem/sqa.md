@@ -1,5 +1,5 @@
 ---
-id: ecosystem-sqa
+id: sqa
 title: Software Quality Assurance
 ---
 

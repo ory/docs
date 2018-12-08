@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-hydra-advanced
+id: version-oryOS.9-advanced
 title: Advanced Topics
-original_id: hydra-advanced
+original_id: advanced
 ---
 
 This guide aims to help setting up a production system with ORY Hydra.

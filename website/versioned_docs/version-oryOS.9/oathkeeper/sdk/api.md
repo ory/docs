@@ -1,7 +1,7 @@
 ---
 title: REST API
-id: version-oryOS.9-oathkeeper-sdk-api
-original_id: oathkeeper-sdk-api
+id: version-oryOS.9-api
+original_id: api
 ---
 
 

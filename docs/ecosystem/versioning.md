@@ -1,5 +1,5 @@
 ---
-id: ecosystem-versioning
+id: versioning
 title: Software Versions
 ---
 

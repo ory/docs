@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-oathkeeper-api-access-rules
+id: version-oryOS.9-api-access-rules
 title: API Access Rules
-original_id: oathkeeper-api-access-rules
+original_id: api-access-rules
 ---
 
 ORY Oathkeeper decides whether or not access should be allowed with Access Rules. Access Rules can be managed using the
@@ -636,7 +636,7 @@ When using this algorithm, you have the following environment variables availabl
     This value sets the refresh interval. Default is 5 minutes.
 * If this endpoint is protected using OAuth 2.0 Access Tokens, you can configure ORY Oathkeeper to authorize before
 calling this endpoint. To do so, configure the following, optional settings:
-    * CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_CLIENT_id: oathkeeper- The ID of the OAuth 2.0 Client.
+    * CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_CLIENT_ The ID of the OAuth 2.0 Client.
     * CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_CLIENT_SECRET: The secret of the OAuth 2.0 Client.
     * CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_CLIENT_SCOPES: The OAuth 2.0 Scope the client should request.
     * CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_PUBLIC_URL: The public URL where endpoint /oauth2/token is located.

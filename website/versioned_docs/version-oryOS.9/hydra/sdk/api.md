@@ -1,7 +1,7 @@
 ---
+id: version-oryOS.9-api
 title: REST API
-id: version-oryOS.9-hydra-sdk-api
-original_id: hydra-sdk-api
+original_id: api
 ---
 
 

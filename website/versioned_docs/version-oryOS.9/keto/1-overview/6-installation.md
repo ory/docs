@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-keto-overview-6-installation
+id: version-oryOS.9-installation
 title: Installing ORY Keto
-original_id: keto-overview-6-installation
+original_id: installation
 ---
 
 <!-- toc -->

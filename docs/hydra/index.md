@@ -1,5 +1,5 @@
 ---
-id: hydra-index
+id: index
 title: Introduction
 ---
 
@@ -147,7 +147,7 @@ Hydra has a limitations too:
 
 1. Hydra is not something that manages user accounts. Hydra does not offer user registration, password reset, user
 login, sending confirmation emails. This is what the *Identity Provider* is responsible for.
-The communication between Hydra and the Identity Provider is called [*Login and Consent Flow*](./hydra/oauth2.md).
+The communication between Hydra and the Identity Provider is called [*Login and Consent Flow*](hydra/oauth2.md).
 2. If you are building a simple service for 50-100 registered users, OAuth2 and Hydra will probably be too sophisticated.
 3. Hydra will not support the OAuth2 resource owner password credentials flow. This flow is legacy, discouraged,
 and insecure.
@@ -186,7 +186,7 @@ only one authorization protocol and being able to open up to third party devs in
 
 Your decision is final. You want to use OAuth2 and you want Hydra to do the job. You install Hydra in your cluster using docker.
 Next, you set up some exemplary OAuth2 clients. Clients can act on their own, but most of the time they need to access a user's todo lists.
-To do so, the client initiates an OAuth2 request. This is where the [user login & consent flow](./hydra/oauth2.md) comes into play.
+To do so, the client initiates an OAuth2 request. This is where the [user login & consent flow](hydra/oauth2.md) comes into play.
 Before Hydra can issue an access token, we need to know WHICH user is giving consent. To do so, Hydra redirects the user agent (e.g. browser, mobile device)
 to the login endpoint alongside with a challenge that contains important request information. The login endpoint (todo24.com/login) authenticates the
 user as usual, e.g. by username & password, session cookie or other means. Upon successful authentication, the login endpoint

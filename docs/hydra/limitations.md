@@ -1,5 +1,5 @@
 ---
-id: hydra-limitations
+id: limitations
 title: Limitations
 ---
 

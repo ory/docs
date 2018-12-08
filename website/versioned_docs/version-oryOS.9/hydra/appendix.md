@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-hydra-appendix
+id: version-oryOS.9-appendix
 title: Appendix
-original_id: hydra-appendix
+original_id: appendix
 ---
 
 ## `hydra serve`

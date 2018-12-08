@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-hydra-faq
+id: version-oryOS.9-faq
 title: FAQ
-original_id: hydra-faq
+original_id: faq
 ---
 
 This file keeps track of questions and discussions from Gitter and general help with various issues.

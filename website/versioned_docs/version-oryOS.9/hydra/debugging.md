@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-hydra-debugging
+id: version-oryOS.9-debugging
 title: Debugging
-original_id: hydra-debugging
+original_id: debugging
 ---
 
 Spec-compliant OAuth 2.0 and OpenID Connect is hard. Let's take a look how to resolve certain issues.

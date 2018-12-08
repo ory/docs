@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-hydra-security-architecture
+id: version-oryOS.9-security-architecture
 title: Security Architecture
-original_id: hydra-security-architecture
+original_id: security-architecture
 ---
 
 Hydra is built with tough security in mind.

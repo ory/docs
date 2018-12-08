@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-keto-index
+id: version-oryOS.9-index
 title: Introduction
-original_id: keto-index
+original_id: index
 ---
 
 Welcome to the ORY Keto documentation!

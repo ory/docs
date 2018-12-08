@@ -26,9 +26,9 @@ While this developer guide focuses on explaining concepts,
 the concrete REST APIs are documented using swagger and
 can be viewed here:
 
-* [ORY Hydra](./hydra/sdk/api.md)
-* [ORY Oathkeeper](./oathkeeper/sdk/api.md)
-* [ORY Keto](./keto/sdk/api.md)
+* [ORY Hydra](hydra/sdk/api.md)
+* [ORY Oathkeeper](oathkeeper/sdk/api.md)
+* [ORY Keto](keto/sdk/api.md)
 
 ## SDK Docs
 

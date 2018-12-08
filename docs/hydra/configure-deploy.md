@@ -1,5 +1,5 @@
 ---
-id: hydra-configure-deploy
+id: configure-deploy
 title: Configure and Deploy
 ---
 
@@ -7,7 +7,7 @@ The goal of this chapter is to introduce you to a fully functional set up that i
 User Login & Consent Provider reference implementation.
 
 The goal of this section is to familiarize you with the specifics of setting up ORY Hydra in your environment.
-Before starting with this section, please check out the [tutorial](./hydra/5min-tutorial.md). It will teach you the most important flows
+Before starting with this section, please check out the [tutorial](hydra/5min-tutorial.md). It will teach you the most important flows
 and settings for Hydra.
 
 This guide will:
@@ -261,7 +261,7 @@ $ docker run --rm -it \
     --scope openid,offline,photos.read \
     --callbacks http://127.0.0.1:9010/callback
 
-Client id: hydra-facebook-photo-backup
+Client facebook-photo-backup
 Client Secret: some-secret
 ```
 

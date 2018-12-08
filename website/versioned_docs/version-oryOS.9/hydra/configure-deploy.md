@@ -1,14 +1,14 @@
 ---
-id: version-oryOS.9-hydra-configure-deploy
+id: version-oryOS.9-configure-deploy
 title: Configure and Deploy
-original_id: hydra-configure-deploy
+original_id: configure-deploy
 ---
 
 The goal of this chapter is to introduce you to a fully functional set up that includes ORY Hydra as well as our
 User Login & Consent Provider reference implementation.
 
 The goal of this section is to familiarize you with the specifics of setting up ORY Hydra in your environment.
-Before starting with this section, please check out the [tutorial](./hydra/5min-tutorial.md). It will teach you the most important flows
+Before starting with this section, please check out the [tutorial](hydra/5min-tutorial.md). It will teach you the most important flows
 and settings for Hydra.
 
 This guide will:
@@ -126,10 +126,10 @@ that handles requests at that URL in the next sections.
 * `-e OAUTH2_LOGIN_URL=http://localhost:9020/login` this sets the URL of the login provider **(required)**. We will set up the service
 that handles requests at that URL in the next sections.
 
-Note: In this example we did not define a value for the optional setting `OAUTH2_ERROR_URL`. This URL can be used
-to provide an endpoint which will receive error messages from ORY Hydra that should be displayed
-to the end user. The URL receives `error` and `error_description` parameters. If this value is not set,
-Hydra uses the fallback endpoint `/oauth2/fallbacks/error` and displays a default error message. In order to obtain
+Note: In this example we did not define a value for the optional setting `OAUTH2_ERROR_URL`. This URL can be used 
+to provide an endpoint which will receive error messages from ORY Hydra that should be displayed 
+to the end user. The URL receives `error` and `error_description` parameters. If this value is not set, 
+Hydra uses the fallback endpoint `/oauth2/fallbacks/error` and displays a default error message. In order to obtain 
 a uniform UI, you might want to include such an endpoint in your login or consent provider.
 
 To confirm that the instance is running properly, [open the health check](https://localhost:9001/health/status). If asked,
@@ -262,7 +262,7 @@ $ docker run --rm -it \
     --scope openid,offline,photos.read \
     --callbacks http://127.0.0.1:9010/callback
 
-Client id: hydra-facebook-photo-backup
+Client facebook-photo-backup
 Client Secret: some-secret
 ```
 

@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-ecosystem-examples
+id: version-oryOS.9-examples
 title: Learn By Example
-original_id: ecosystem-examples
+original_id: examples
 ---
 
 Learning by example is a good way to get started, but **it does not replace** studying the docs.

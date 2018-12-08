@@ -1,6 +1,6 @@
 ---
 title: REST API
-id: keto-sdk-api
+id: api
 ---
 
 

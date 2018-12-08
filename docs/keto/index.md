@@ -1,5 +1,5 @@
 ---
-id: keto-index
+id: index
 title: Introduction
 ---
 

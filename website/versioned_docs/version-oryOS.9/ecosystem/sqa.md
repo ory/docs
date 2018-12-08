@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-ecosystem-sqa
+id: version-oryOS.9-sqa
 title: Software Quality Assurance
-original_id: ecosystem-sqa
+original_id: sqa
 ---
 
 Our goal is to provide you with the fastest and most reliable open source services. To achieve this goal, we collect

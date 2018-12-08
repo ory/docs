@@ -1,5 +1,5 @@
 ---
-id: keto-overview-6-installation
+id: installation
 title: Installing ORY Keto
 ---
 

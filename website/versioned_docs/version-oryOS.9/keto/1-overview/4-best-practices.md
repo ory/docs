@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-keto-overview-4-best-practices
+id: version-oryOS.9-best-practices
 title: Best Practices
-original_id: keto-overview-4-best-practices
+original_id: best-practices
 ---
 
 This sections gives an overview of best practices for access control policies

@@ -1,5 +1,5 @@
 ---
-id: hydra-production
+id: production
 title: Production
 ---
 

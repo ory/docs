@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-oathkeeper-control-flow
+id: version-oryOS.9-control-flow
 title: Control Flow
-original_id: oathkeeper-control-flow
+original_id: control-flow
 ---
 
 ORY Oathkeeper has two methods of answering access requests: proxy and rest.

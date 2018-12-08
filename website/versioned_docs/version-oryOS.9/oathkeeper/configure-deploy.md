@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-oathkeeper-configure-deploy
+id: version-oryOS.9-configure-deploy
 title: Configure and Deploy
-original_id: oathkeeper-configure-deploy
+original_id: configure-deploy
 ---
 
 ORY Oathkeeper has two servers that run on separate ports:
@@ -23,7 +23,7 @@ For more information [go here](https://github.com/ory/hydra/issues/377).
 ORY Oathkeeper supports various authentication, authorization, and credential strategies. Depending on what strategies
 you want to use, you will have to configure more services (e.g. ORY Hydra or ORY Keto). In this tutorial, we will
 set up ORY Oathkeeper without any of the other services. Please refer to the [authenticator, authorizer, and credentials
-issuer documentation](./api-access-rules.md) to see what you need to configure in order to get the strategies you need.
+issuer documentation](oathkeeper/api-access-rules.md) to see what you need to configure in order to get the strategies you need.
 
 This guide will:
 

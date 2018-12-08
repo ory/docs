@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-hydra-jwks
+id: version-oryOS.9-jwks
 title: JSON Web Key Sets
-original_id: hydra-jwks
+original_id: jwks
 ---
 
 A JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key and is
@@ -9,7 +9,7 @@ specified at [IETF RFC7517](https://tools.ietf.org/html/rfc7517). If you've hear
 
 ```
 -----BEGIN ENCRYPTED PRIVATE KEY-----
-MIIFDjBABgkqhkiG9w0BBQ0wMzAbBgkqhkiG9w0BBQwwDg
+id: MIIFDjBABgkqhkiG9w0BBQ0wMzAbBgkqhkiG9w0BBQwwDg
 MBQGCCqGSIb3DQMHBAgD1kGN4ZslJgSCBMi1xk9jhlPxPc
 9g73NQbtqZwI+9X5OhpSg/2ALxlCCjbqvzgSu8gfFZ4yo+
 A .... MANY LINES LIKE THAT ....

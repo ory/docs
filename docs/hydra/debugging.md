@@ -1,5 +1,5 @@
 ---
-id: hydra-debugging
+id: debugging
 title: Debugging
 ---
 

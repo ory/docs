@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-hydra-oauth2
+id: version-oryOS.9-oauth2
 title: OAuth 2.0 & Open ID Connect
-original_id: hydra-oauth2
+original_id: oauth2
 ---
 
 Please read this chapter carefully, it is imperative to getting started and grasping all the concepts quickly. The

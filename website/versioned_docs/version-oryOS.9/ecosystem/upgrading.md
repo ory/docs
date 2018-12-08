@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-ecosystem-upgrading
+id: version-oryOS.9-upgrading
 title: Software Updates
-original_id: ecosystem-upgrading
+original_id: upgrading
 ---
 
 > Running security-critical open source technology in a self-service format requires vigilance. We make your life easier

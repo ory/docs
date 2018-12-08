@@ -1,5 +1,5 @@
 ---
-id: ecosystem-examples
+id: examples
 title: Learn By Example
 ---
 

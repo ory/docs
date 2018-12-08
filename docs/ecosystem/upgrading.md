@@ -1,5 +1,5 @@
 ---
-id: ecosystem-upgrading
+id: upgrading
 title: Software Updates
 ---
 

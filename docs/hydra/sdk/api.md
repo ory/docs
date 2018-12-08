@@ -1,6 +1,6 @@
 ---
+id: api
 title: REST API
-id: hydra-sdk-api
 ---
 
 

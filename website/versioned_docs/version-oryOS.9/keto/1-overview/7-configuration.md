@@ -1,7 +1,7 @@
 ---
-id: version-oryOS.9-keto-overview-7-configuration
+id: version-oryOS.9-configuration
 title: Configuring and Running ORY Keto
-original_id: keto-overview-7-configuration
+original_id: configuration
 ---
 #
 
@@ -16,7 +16,7 @@ For more information [go here](https://github.com/ory/hydra/issues/377).
 
 ORY Keto supports various authentication strategies. Depending on what strategies
 you want to use, you will have to configure more services (e.g. ORY Hydra). In this tutorial, we will
-set up ORY Keto without any of the other services. Please refer to the [warden chapter](./keto/2-warden.md)
+set up ORY Keto without any of the other services. Please refer to the [warden chapter](keto/2-warden.md)
 to see how to configure each authentication strategy.
 
 This guide will:

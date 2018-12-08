@@ -1,5 +1,5 @@
 ---
-id: keto-overview-4-best-practices
+id: best-practices
 title: Best Practices
 ---
 
