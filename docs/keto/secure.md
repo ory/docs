@@ -1,5 +1,5 @@
 ---
-id: keto-next-secure
+id: secure
 title: Secure
 ---
 

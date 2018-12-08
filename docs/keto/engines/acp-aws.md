@@ -1,5 +1,5 @@
 ---
-id: keto-next-engines-acp-aws
+id: acp-aws
 title: AWS IAM Policies
 ---
 

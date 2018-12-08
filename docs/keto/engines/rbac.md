@@ -1,5 +1,5 @@
 ---
-id: keto-next-engines-rbac
+id: rbac
 title: Role Based Access Control (RBAC)
 ---
 

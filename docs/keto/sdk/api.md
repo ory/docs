@@ -3477,10 +3477,10 @@ Status Code **500**
     "string"
   ],
   "client_id": "string",
-  "exp": "2018-11-15T08:23:48Z",
-  "iat": "2018-11-15T08:23:48Z",
+  "exp": "2018-11-12T10:44:13Z",
+  "iat": "2018-11-12T10:44:13Z",
   "iss": "string",
-  "nbf": "2018-11-15T08:23:48Z",
+  "nbf": "2018-11-12T10:44:13Z",
   "scope": "string",
   "session": {
     "property1": {},
@@ -4447,10 +4447,10 @@ p JSON.parse(result)
     "string"
   ],
   "client_id": "string",
-  "exp": "2018-11-15T08:23:48Z",
-  "iat": "2018-11-15T08:23:48Z",
+  "exp": "2018-11-12T10:44:13Z",
+  "iat": "2018-11-12T10:44:13Z",
   "iss": "string",
-  "nbf": "2018-11-15T08:23:48Z",
+  "nbf": "2018-11-12T10:44:13Z",
   "scope": "string",
   "session": {
     "property1": {},
@@ -4979,10 +4979,10 @@ user or some other sort of role.*
     "string"
   ],
   "client_id": "string",
-  "exp": "2018-11-15T08:23:48Z",
-  "iat": "2018-11-15T08:23:48Z",
+  "exp": "2018-11-12T10:44:13Z",
+  "iat": "2018-11-12T10:44:13Z",
   "iss": "string",
-  "nbf": "2018-11-15T08:23:48Z",
+  "nbf": "2018-11-12T10:44:13Z",
   "scope": "string",
   "session": {
     "property1": {},
