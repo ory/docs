@@ -67,7 +67,7 @@ CORE CONTROLS
 	Example: LOG_FORMAT="json"
 
 - DISABLE_TELEMETRY: Set to "1" to disable telemetry collection and sharing - for more information please
-	visit https://ory.gitbooks.io/hydra/content/telemetry.html
+	visit https://www.ory.sh/docs/ecosystem/sqa
 	Example: DISABLE_TELEMETRY="1"
 
 - RESOURCE_NAME_PREFIX: Allows the alternation of the "rn:hydra:" prefix in all resource names declared by ORY Hydra.
@@ -284,7 +284,7 @@ Available Commands:
 
 Flags:
       --dangerous-force-http   Disable HTTP/2 over TLS (HTTPS) and serve HTTP instead. Never use this in production.
-      --disable-telemetry      Disable anonymized telemetry reports - for more information please visit https://www.ory.sh/docs/guides/telemetry
+      --disable-telemetry      Disable anonymized telemetry reports - for more information please visit https://www.ory.sh/docs/ecosystem/sqa
   -h, --help                   help for serve
 
 Global Flags:
