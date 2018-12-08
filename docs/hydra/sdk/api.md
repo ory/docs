@@ -1,6 +1,6 @@
 ---
-id: api
 title: REST API
+id: api
 ---
 
 
@@ -6733,7 +6733,7 @@ automatically when performing the refresh flow.
 
 ```json
 {
-  "notAfter": "2018-11-15T08:23:46Z"
+  "notAfter": "2018-12-08T12:06:30Z"
 }
 ```
 
@@ -6829,7 +6829,7 @@ func main() {
 ```nodejs
 const fetch = require('node-fetch');
 const input = '{
-  "notAfter": "2018-11-15T08:23:46Z"
+  "notAfter": "2018-12-08T12:06:30Z"
 }';
 const headers = {
   'Content-Type': 'application/json',  'Accept': 'application/json'
@@ -7683,7 +7683,7 @@ p JSON.parse(result)
 
 ```json
 {
-  "AuthenticatedAt": "2018-11-15T08:23:46Z",
+  "AuthenticatedAt": "2018-12-08T12:06:30Z",
   "ID": "string",
   "Subject": "string"
 }
@@ -8189,7 +8189,7 @@ typically 201.*
 
 ```json
 {
-  "notAfter": "2018-11-15T08:23:46Z"
+  "notAfter": "2018-12-08T12:06:30Z"
 }
 
 ```
@@ -8660,7 +8660,7 @@ typically 201.*
 ```json
 {
   "Body": {
-    "notAfter": "2018-11-15T08:23:46Z"
+    "notAfter": "2018-12-08T12:06:30Z"
   }
 }
 

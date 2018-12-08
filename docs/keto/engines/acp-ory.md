@@ -1,5 +1,5 @@
 ---
-id: keto-next-engines-acp-ory
+id: acp-ory
 title: ORY Access Control Policies
 ---
 
@@ -60,6 +60,8 @@ two strings are exactly the same. Assuming a policy defines `{"subjects": ["alic
 it will match exactly subjects `alice` and `boB`.
 
 ### URN
+
+> This feature will be available soon, see https://github.com/ory/keto/issues/66
 
 ORY Keto supports matching URNs with glob pattern matching. Policy
 

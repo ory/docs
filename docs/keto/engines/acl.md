@@ -1,5 +1,5 @@
 ---
-id: keto-next-engines-acl
+id: acl
 title: Access Control Lists (ACL)
 ---
 

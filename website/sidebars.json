@@ -75,14 +75,27 @@
       }
     ],
     "ORY Keto": [
-      "keto/keto-index",
-      "keto/1-overview/policies",
-      "keto/1-overview/warden",
-      "keto/1-overview/roles",
-      "keto/1-overview/best-practices",
-      "keto/1-overview/conditions",
-      "keto/1-overview/installation",
-      "keto/1-overview/configuration",
+      "keto/index",
+      {
+        "type": "subcategory",
+        "label": "Guides",
+        "ids": [
+          "keto/install",
+          "keto/configure-deploy",
+          "keto/secure"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Access Control Engines",
+        "ids": [
+          "keto/engines/index",
+          "keto/engines/acl",
+          "keto/engines/rbac",
+          "keto/engines/acp-ory",
+          "keto/engines/acp-aws"
+        ]
+      },
       {
         "type": "subcategory",
         "label": "SDK",

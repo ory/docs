@@ -1,5 +1,5 @@
 ---
-id: keto-next-engines-index
+id: index
 title: Introduction
 ---
 
