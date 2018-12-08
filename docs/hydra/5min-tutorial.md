@@ -31,7 +31,7 @@ Docker here. If you do use the CLI locally, you can omit ``docker exec -it `dock
 
 You will notice that two ports are being used. Port `4444` and port `4445`. The former is for request to ORY Hydra's public
 endpoints. The latter to its administrative endpoints. For more information on this, head over to
-[Exposing Administrative and Public API Endpoints](./hydra/production.md). If you want to run ORY Hydra admin and
+[Exposing Administrative and Public API Endpoints](hydra/production.md). If you want to run ORY Hydra admin and
 public services in two separate containers, run
 
 ```

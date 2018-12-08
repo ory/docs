@@ -1,5 +1,5 @@
 ---
-id: id: id: sustainability
+id: sustainability
 title: Sustainability
 ---
 

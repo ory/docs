@@ -1,5 +1,5 @@
 ---
-id: id: id: upgrading
+id: upgrading
 title: Software Updates
 ---
 

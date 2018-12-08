@@ -1,5 +1,5 @@
 ---
-id: id: id: cloud-native
+id: cloud-native
 title: Cloud Native Architecture
 ---
 

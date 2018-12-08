@@ -1,5 +1,5 @@
 ---
-id: id: id: versioning
+id: versioning
 title: Software Versions
 ---
 

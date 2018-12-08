@@ -1,5 +1,5 @@
 ---
-id: id: id: examples
+id: examples
 title: Learn By Example
 ---
 
