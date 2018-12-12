@@ -55,7 +55,7 @@ This compatibility matrix shows which versions are compatible with one another.
 
 | Software version | ORY Hydra                            | ORY Keto                             | ORY Oathkeeper                 |
 | ---------------- | ------------------------------------ | ------------------------------------ | ------------------------------ |
-| `oryOS.9`        | `v1.0.0-beta.9`, `v1.0.0-rc.2+oryOS.9`, `v1.0.0-rc.3+oryOS.9`                      | `v0.1.9-sandbox+oryOS.9`             | `v0.13.9+oryOS.9`              |
+| `oryOS.9`        | `v1.0.0-beta.9`, `v1.0.0-rc.2+oryOS.9`, `v1.0.0-rc.3+oryOS.9`, `v1.0.0-rc.4+oryOS.9`                      | `v0.1.9-sandbox+oryOS.9`             | `v0.13.9+oryOS.9`              |
 
 ### Docker Hub and NPM
 
@@ -76,7 +76,7 @@ itself, `+oryOS` is not available in npm packages at all.
 
 | oryOS         | ORY Hydra                 | ORY Keto                 | ORY Oathkeeper         |
 | ------------- | ------------------------  | ------------------------ | ---------------------- |
-| `oryOS.9`     | `v1.0.0-beta.9`, `v1.0.0-rc.2+oryOS.9`, `v1.0.0-rc.3+oryOS.9`           | `v0.1.9-sandbox+oryOS.9` | `v0.13.9+oryOS.9`      |
+| `oryOS.9`     | `v1.0.0-beta.9`, `v1.0.0-rc.2+oryOS.9`, `v1.0.0-rc.3+oryOS.9`, `v1.0.0-rc.4+oryOS.9`           | `v0.1.9-sandbox+oryOS.9` | `v0.13.9+oryOS.9`      |
 | `oryOS.8`     | `v1.0.0-beta.8`           | `v0.1.8-sandbox+oryOS.8` | `v0.13.8+oryOS.8`      |
 | `oryOS.7`     | `v1.0.0-beta.7`           | `v0.1.7-sandbox+oryOS.7` | `v0.13.7+oryOS.7`      |
 | `oryOS.6`     | `v1.0.0-beta.6`           | `v0.1.6-sandbox+oryOS.6` | `v0.13.6+oryOS.6`      |
