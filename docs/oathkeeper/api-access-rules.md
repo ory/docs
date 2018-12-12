@@ -383,29 +383,30 @@ This authorizer denies every request.
 }
 ```
 
-#### `keto_warden`
+#### `keto_engine_acp_ory`
 
-This authorizer uses the ORY Keto Warden API to perform sophisticated access control with access control policies.
+This authorizer uses the ORY Keto API to perform access control using ORY-flavored Access Control Policies.
 Please familiarize yourself with the ORY Keto project before you set up this authorizer.
 
-To configure this authorizer, you must set the environment variable `AUTHORIZER_KETO_WARDEN_KETO_URL` to ORY Keto's URL,
-for example `AUTHORIZER_KETO_WARDEN_KETO_URL=http://keto/`. **If this environment variable is not set, then this authorizer
+To configure this authorizer, you must set the environment variable `AUTHORIZER_KETO_URL` to ORY Keto's URL,
+for example `AUTHORIZER_KETO_URL=http://keto/`. **If this environment variable is not set, then this authorizer
 will be disabled.**
 
-This authorizer has three configuration options, `required_action`, `required_resource` and `subject`:
+This authorizer has four configuration options, `required_action`, `required_resource`, `subject`, and `flavor`:
 
 ```
 "authorizer": {
-    "handler": "keto_warden",
+    "handler": "keto_engine_acp_ory",
     "config": {
         "required_action": "...",
         "required_resource": "...",
-        "subject": "..."
+        "subject": "...",
+        "flavor": "..."
     }
 }
 ```
 
-These configuration options support variable expansion. Let's say you have the following match configuration:
+All configuration options except `flavor` support variable expansion. Let's say you have the following match configuration:
 
 ```
 "match": {
@@ -434,8 +435,7 @@ Assuming a request to `http://my-api/api/users/1234/foobar` was made, the config
 }
 ```
 
-The `subject` field configures what subject is passed on to keto warden.
-The `subject` value is a string which will be parsed by the Go [`text/template`](https://golang.org/pkg/text/template/)
+The `subject` field configures what subject is passed on to the ORY Keto endpoint. The `subject` value is a string which will be parsed by the Go [`text/template`](https://golang.org/pkg/text/template/)
 package for value substitution, receiving the [`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/92c09fb28552949cd034ed5555c87dfda91407a3/proxy/authenticator.go#L19)
 struct:
 
@@ -472,17 +472,17 @@ it is recommended you use it for all values out of an abundance of caution and f
     },
     "authenticators": [/* ... */],
     "authorizer": {
-        "handler": "keto_warden",
+        "handler": "keto_engine_acp_ory",
         "config": {
             "required_action": "my:action:$1",
             "required_resource": "my:resource:$2:foo:$1"
-            "subject": "{{ .Extra.email }}"
+            "subject": "{{ .Extra.email }}",
+            "flavor": "exact"
         }
     }
     /* ... */
 }
 ```
-
 
 ### Credentials Issuers
 
