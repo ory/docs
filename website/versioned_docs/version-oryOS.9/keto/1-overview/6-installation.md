@@ -16,6 +16,8 @@ The recommended way to install and run ORY Keto is via docker:
 
 ```sh
 $ docker run oryd/keto:<version> help
+# Minimal server:
+$ docker run --rm -e "DATABASE_URL=memory" -d --name my-keto -p 4466:4466 oryd/keto serve
 ```
 
 ## Binaries
@@ -33,4 +35,6 @@ $ cd $GOPATH/src/github.com/ory/keto
 $ dep ensure -vendor-only
 $ go install .
 $ keto help
+# Minimal server:
+$ DATABASE_URL=memory keto serve
 ```
