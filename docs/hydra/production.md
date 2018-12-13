@@ -74,7 +74,7 @@ without any prefix (in this case `hydra/`). If you use the Mashape Kong API gate
 
 ## Exposing Administrative and Public API Endpoints
 
-ORY Hydra exposes serves APIs via two ports:
+ORY Hydra serves APIs via two ports:
 
 - Public port (default 4444)
 - Administrative port (default 4445)
@@ -106,3 +106,15 @@ None of the administrative endpoints have any built-in access control. You can d
 We generally advise to run ORY Hydra with `hydra serve all` which listens on both ports in one process. If you wish to have more granular control over
 each endpoint's settings (e.g. CORS), you can run `hydra serve admin` and `hydra serve public` separately. Please be aware that the `memory` backend
 will not work in this mode.
+
+### Binding to different interfaces or UNIX sockets
+
+ORY Hydra will bind public and administrative APIs ports to all interfaces.
+
+The interfaces or UNIX sockets used may be specified via environment variables `PUBLIC_HOST` and `ADMIN_HOST`.
+Interfaces may be specified as TCP address or as UNIX socket (giving the absolute path to the socket file prefixed by `unix:`) like:
+
+- `PUBLIC_HOST=127.0.0.1`
+- `ADMIN_HOST="unix:/var/run/hydra/admin_socket"`
+
+ORY Hydra will try to create the socket file during startup and the socket will be writeable by the user running ORY Hydra.
