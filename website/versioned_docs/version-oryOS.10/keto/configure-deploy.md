@@ -1,6 +1,7 @@
 ---
-id: configure-deploy
+id: version-oryOS.10-configure-deploy
 title: Configure and Deploy
+original_id: configure-deploy
 ---
 
 As all other ORY services, ORY Keto is implemented according to 12factor principles and completely stateless. To store
