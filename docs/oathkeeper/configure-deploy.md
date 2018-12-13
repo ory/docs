@@ -102,14 +102,14 @@ and create a user `oathkeeper` with password `secret`.
 $ export DATABASE_URL=postgres://oathkeeper:secret@ory-oathkeeper-example--postgres:5432/oathkeeper?sslmode=disable
 
 # This pulls the latest image from Docker Hub
-$ docker pull oryd/oathkeeper:v0.14.1_oryOS.10
+$ docker pull oryd/oathkeeper:v0.14.2_oryOS.10
 
 # ORY Oathkeeper does not do magic, it requires conscious decisions, for example running SQL migrations which is required
 # when installing a new version of ORY Oathkeeper, or upgrading an existing installation.
 # It is the equivalent to `oathkeeper migrate sql postgres://oathkeeper:secret@ory-oathkeeper-example--postgres:5432/oathkeeper?sslmode=disable`
 $ docker run -it --rm \
   --network oathkeeperguide \
-  oryd/oathkeeper:v0.14.1_oryOS.10 \
+  oryd/oathkeeper:v0.14.2_oryOS.10 \
   migrate sql $DATABASE_URL
 
 Applying `client` SQL migrations...
@@ -126,7 +126,7 @@ $ docker run -d \
   -e DATABASE_URL=$DATABASE_URL \
   -e PORT=4456 \
   -e CREDENTIALS_ISSUER_ID_TOKEN_HS256_SECRET=changemechangemechangemechangemedo \
-  oryd/oathkeeper:v0.14.1_oryOS.10 \
+  oryd/oathkeeper:v0.14.2_oryOS.10 \
   serve api
 
 # And the proxy server too - take not that we need to link the proxy serve with the API server!
@@ -139,7 +139,7 @@ $ docker run -d \
   -e OATHKEEPER_API_URL=http://ory-oathkeeper-example--oathkeeper-api:4456/ \
   -e PORT=4455 \
   -e CREDENTIALS_ISSUER_ID_TOKEN_HS256_SECRET=changemechangemechangemechangeme \
-  oryd/oathkeeper:v0.14.1_oryOS.10 \
+  oryd/oathkeeper:v0.14.2_oryOS.10 \
   serve proxy
 ```
 
