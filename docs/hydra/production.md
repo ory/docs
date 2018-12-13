@@ -95,7 +95,7 @@ OpenID Connect Dynamic Client Registry, you can do so but you need to properly s
 Administrative endpoints include:
 
 * All `/clients` endpoints.
-* All `/jwks` endpoints.
+* All `/keys` endpoints.
 * All `/health`, `/metrics`, `/version` endpoints.
 * All `/oauth2/auth/requests` endpoints.
 * Endpoint `/oauth2/introspect`.
