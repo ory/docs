@@ -498,7 +498,7 @@ will return `{ "allowed": false }` while this request
 }
 ```
 
-will return `{ "allowed": false }`.
+will return `{ "allowed": true }`.
 
 ## Implementation Status
 
