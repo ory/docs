@@ -26,6 +26,7 @@ or modifies the core technology. This is a list of those.
   * [Golang Consent App SDK](https://github.com/janekolszak/idp)
   * [Kubernetes Helm Chart](https://github.com/kubernetes/charts/pull/1022)
   * [ORY Hydra Middleware for Gin (Go)](https://github.com/janekolszak/gin-hydra)
+  * [Python login/consent provider example](https://github.com/westphahl/hydra-login-consent-python)
 
 
 Want your own content here? Create a PR!
