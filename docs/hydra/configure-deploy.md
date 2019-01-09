@@ -224,7 +224,7 @@ $ docker run -d \
   --name ory-hydra-example--consent \
   -p 9020:3000 \
   --network hydraguide \
-  -e HYDRA_URL=https://ory-hydra-example--hydra:4445 \
+  -e HYDRA_ADMIN_URL=https://ory-hydra-example--hydra:4445 \
   -e NODE_TLS_REJECT_UNAUTHORIZED=0 \
   oryd/hydra-login-consent-node:v1.0.0-rc.6
 
@@ -235,7 +235,7 @@ $ docker logs ory-hydra-example--consent
 Let's take a look at the arguments:
 * `-p 9020:3000` exposes this service at port 9020. If you remember, that's the port of the `OAUTH2_CONSENT_URL` and `OAUTH2_LOGIN_URL` value
 from the ORY Hydra docker container (`OAUTH2_CONSENT_URL=http://localhost:9020/consent`, `OAUTH2_LOGIN_URL=http://localhost:9020/login`).
-* `HYDRA_URL=http://hydra:4445` point to the ORY Hydra Administrative API.
+* `HYDRA_ADMIN_URL=http://hydra:4445` point to the ORY Hydra Administrative API.
 * `NODE_TLS_REJECT_UNAUTHORIZED=0` disables TLS verification, because we are using self-signed certificates.
 
 ## Perform OAuth 2.0 Flow
@@ -273,7 +273,7 @@ Let's dive into some of the arguments:
 OAuth 2.0 flows.
 * `--response-types token,code,id_token` allows us to receive authorize codes, access and refresh tokens, and
 OpenID Connect ID Tokens.
-* `--scope openid,offline,fotos.read` allows the client to request various permissions:
+* `--scope openid,offline,photos.read` allows the client to request various permissions:
   * `openid` allows the client to perform the OpenID Connect flow and request an OpenID Connect ID Token.
   * `offline` allows the client to request a refresh token. Because we want to continuously backup photos, the app must be
   able to refresh expired access tokens. This scope allows that.
