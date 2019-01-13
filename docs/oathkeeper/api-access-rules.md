@@ -514,7 +514,7 @@ if you don't want to replace, for example, `Authorization: basic` with `X-User: 
     },
     "authenticators": [/* ... */],
     "authorizer": {/* ... */ }
-    "credentials_issuer" {
+    "credentials_issuer": {
         "handler": "noop"
     }
 }
