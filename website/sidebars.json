@@ -105,6 +105,10 @@
         ]
       }
     ],
+    "ORY Hive": [
+      "hive/index",
+      "hive/architecture"
+    ],
     "Performance": [
       "performance/index",
       "performance/hydra"
