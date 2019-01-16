@@ -39,11 +39,48 @@ a unique user identifier (username, email, phone number) and a password.
 
 #### API
 
-**Login Page UI**
+Login Page UI:
+
 ```
 GET /authn/request
 
 Location: https://login-ui/?challenge=...
+```
+
+Methods:
+
+```
+{
+	"name": "password"
+	"type": "form",
+	"action":  "https://url/challenge",
+	"fields": [
+		{
+			"name": "username",
+			"type": "text"
+		},
+		{
+			"name": "phone_number",
+			"type": "tel",
+			"pattern": "[0-9]{3}-[0-9]{3}-[0-9]{4}"
+		},
+		{
+			"name": "email",
+			"type": "email"
+		},
+		{
+			"name": "csrf_token",
+			"type": "hidden",
+			"value": "....",
+			"required": true
+		},
+		{
+			"name": "password",
+			"type": "password",
+			"required": true
+		}
+	]
+}
 ```
 
 #### MFA
