@@ -486,7 +486,7 @@ it is recommended you use it for all values out of an abundance of caution and f
 
 ### Credentials Issuers
 
-A credentials issuer translates the credentials from incoming requests to credentials that you backend understands.
+A credentials issuer translates the credentials from incoming requests to credentials that your backend understands.
 For example, the `Authorization: basic` header might be transformed to `X-User: <subject-id>`. This allows you to
 write backends that do not care if the original request was an anonymous one, an OAuth 2.0 Access Token, or some other
 credential type. All your backend has to do is understand, for example, the `X-User:`.
@@ -523,7 +523,7 @@ if you don't want to replace, for example, `Authorization: basic` with `X-User: 
 #### `id_token`
 
 This credentials issuer takes the authentication information (e.g. subject ID) and transforms it to a signed JSON Web Token,
-and more specifically to an OpenID Connect ID Token. You backend can verify the token by fetching the (public) key
+and more specifically to an OpenID Connect ID Token. Your backend can verify the token by fetching the (public) key
 from the `/.well-known/jwks.json` endpoint.
 
 Let's say a request is made to a resource protected by ORY Oathkeeper:
