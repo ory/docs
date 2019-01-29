@@ -11,7 +11,7 @@ article with ID `my-first-blog-post` (`resource`). This is very similar to how A
 {
     "subjects": ["alice"],
     "resources": ["blog_posts:my-first-blog-post"],
-    "actions": ["delete"]
+    "actions": ["delete"],
     "effect": "allow"
 }
 ```
@@ -23,7 +23,7 @@ and also more actions or resources, if we want to:
 {
     "subjects": ["alice", "bob"],
     "resources": ["blog_posts:my-first-blog-post", "blog_posts:2", "blog_posts:3"],
-    "actions": ["delete", "create", "read", "modify"]
+    "actions": ["delete", "create", "read", "modify"],
     "effect": "allow"
 }
 ```
@@ -38,7 +38,7 @@ The first difference is that we can explicitly deny access:
 {
     "subjects": ["peter"],
     "resources": ["blog_posts:my-first-blog-post", "blog_posts:2", "blog_posts:3"],
-    "actions": ["delete", "create", "read", "modify"]
+    "actions": ["delete", "create", "read", "modify"],
     "effect": "deny"
 }
 ```
@@ -65,10 +65,10 @@ ORY Keto supports matching URNs with glob pattern matching. Policy
 
 ```json
 {
-    "subjects": ["users:*"]
+    "subjects": ["users:*"],
     "actions": ["get", "create"],
-    "resources": ["resources:articles:*", "resources:{accounts,profiles}:*"]
-    "effect": "allow",
+    "resources": ["resources:articles:*", "resources:{accounts,profiles}:*"],
+    "effect": "allow"
 }
 ```
 
@@ -116,7 +116,7 @@ The next example will allow all subjects with prefix `user:` to read (`actions:r
 {
     "subjects": ["users:<.*>"],
     "resources": ["resources:blog_posts:<[0-9]+>"],
-    "actions": ["actions:read"]
+    "actions": ["actions:read"],
     "effect": "allow"
 }
 ```
@@ -462,7 +462,7 @@ Assuming the following policies:
 {
     "subjects": ["bob"],
     "resources": ["blog_posts:my-first-blog-post"],
-    "actions": ["create"]
+    "actions": ["create"],
     "effect": "allow"
 }
 ```
@@ -471,7 +471,7 @@ Assuming the following policies:
 {
     "subjects": ["admin"],
     "resources": ["blog_posts:my-first-blog-post"],
-    "actions": ["delete"]
+    "actions": ["delete"],
     "effect": "allow"
 }
 ```
