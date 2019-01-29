@@ -51,7 +51,7 @@ Use this endpoint to check if a request is allowed or not.
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex" and "exact".|
+|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".|
 |body|body|[oryAccessControlPolicyAllowedInput](#schemaoryaccesscontrolpolicyallowedinput)|false|none|
 
 #### Responses
@@ -256,7 +256,7 @@ List ORY Access Control Policies
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex" and "exact"|
+|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact"|
 |limit|query|integer(int64)|false|The maximum amount of policies returned.|
 |offset|query|integer(int64)|false|The offset from where to start looking.|
 
@@ -510,7 +510,7 @@ Upsert an ORY Access Control Policy
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex" and "exact".|
+|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".|
 |body|body|[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)|false|none|
 
 #### Responses
@@ -743,7 +743,7 @@ Get an ORY Access Control Policy
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex" and "exact".|
+|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".|
 |id|path|string|true|The ID of the ORY Access Control Policy Role.|
 
 #### Responses
@@ -966,7 +966,7 @@ Delete an ORY Access Control Policy
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex" and "exact".|
+|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".|
 |id|path|string|true|The ID of the ORY Access Control Policy Role.|
 
 #### Responses
@@ -1170,7 +1170,7 @@ as subject in the OACP.
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex" and "exact"|
+|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact"|
 |limit|query|integer(int64)|false|The maximum amount of policies returned.|
 |offset|query|integer(int64)|false|The offset from where to start looking.|
 
@@ -1390,7 +1390,7 @@ as subject in the OACP.
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex" and "exact".|
+|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".|
 |body|body|[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)|false|none|
 
 #### Responses
@@ -1596,7 +1596,7 @@ as subject in the OACP.
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex" and "exact".|
+|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".|
 |id|path|string|true|The ID of the ORY Access Control Policy Role.|
 
 #### Responses
@@ -1806,7 +1806,7 @@ as subject in the OACP.
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex" and "exact".|
+|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".|
 |id|path|string|true|The ID of the ORY Access Control Policy Role.|
 
 #### Responses
@@ -2021,7 +2021,7 @@ as subject in the OACP.
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex" and "exact".|
+|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".|
 |id|path|string|true|The ID of the ORY Access Control Policy Role.|
 |body|body|[addOryAccessControlPolicyRoleMembersBody](#schemaaddoryaccesscontrolpolicyrolemembersbody)|false|none|
 
@@ -2238,7 +2238,7 @@ as subject in the OACP.
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex" and "exact".|
+|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".|
 |id|path|string|true|The ID of the ORY Access Control Policy Role.|
 |body|body|[removeOryAccessControlPolicyRoleMembersBody](#schemaremoveoryaccesscontrolpolicyrolemembersbody)|false|none|
 
@@ -3066,7 +3066,7 @@ p JSON.parse(result)
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |Body|[addOryAccessControlPolicyRoleMembersBody](#schemaaddoryaccesscontrolpolicyrolemembersbody)|false|none|none|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex" and "exact".  in: path|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
 |id|string|true|none|The ID of the ORY Access Control Policy Role.  in: path|
 
 <a id="tocSaddoryaccesscontrolpolicyrolemembersbody">addOryAccessControlPolicyRoleMembersBody</a>
@@ -3126,7 +3126,7 @@ p JSON.parse(result)
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex" and "exact".  in: path|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
 |id|string|true|none|The ID of the ORY Access Control Policy Role.  in: path|
 
 <a id="tocSdeleteoryaccesscontrolpolicyrole">deleteOryAccessControlPolicyRole</a>
@@ -3146,7 +3146,7 @@ p JSON.parse(result)
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex" and "exact".  in: path|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
 |id|string|true|none|The ID of the ORY Access Control Policy Role. in: path|
 
 <a id="tocSdooryaccesscontrolpoliciesallow">doOryAccessControlPoliciesAllow</a>
@@ -3175,7 +3175,7 @@ p JSON.parse(result)
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |Body|[oryAccessControlPolicyAllowedInput](#schemaoryaccesscontrolpolicyallowedinput)|false|none|none|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex" and "exact".  in: path|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
 
 <a id="tocSgetoryaccesscontrolpolicy">getOryAccessControlPolicy</a>
 #### getOryAccessControlPolicy
@@ -3194,7 +3194,7 @@ p JSON.parse(result)
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex" and "exact".  in: path|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
 |id|string|true|none|The ID of the ORY Access Control Policy Role.  in: path|
 
 <a id="tocSgetoryaccesscontrolpolicyrole">getOryAccessControlPolicyRole</a>
@@ -3214,7 +3214,7 @@ p JSON.parse(result)
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex" and "exact".  in: path|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
 |id|string|true|none|The ID of the ORY Access Control Policy Role.  in: path|
 
 <a id="tocShealthnotreadystatus">healthNotReadyStatus</a>
@@ -3275,7 +3275,7 @@ p JSON.parse(result)
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex" and "exact"  in: path|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact"  in: path|
 |limit|integer(int64)|false|none|The maximum amount of policies returned.  in: query|
 |offset|integer(int64)|false|none|The offset from where to start looking.  in: query|
 
@@ -3297,7 +3297,7 @@ p JSON.parse(result)
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex" and "exact"  in: path|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact"  in: path|
 |limit|integer(int64)|false|none|The maximum amount of policies returned.  in: query|
 |offset|integer(int64)|false|none|The offset from where to start looking.  in: query|
 
@@ -3488,7 +3488,7 @@ user or some other sort of role.*
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |Body|[removeOryAccessControlPolicyRoleMembersBody](#schemaremoveoryaccesscontrolpolicyrolemembersbody)|false|none|none|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex" and "exact".  in: path|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
 |id|string|true|none|The ID of the ORY Access Control Policy Role.  in: path|
 
 <a id="tocSremoveoryaccesscontrolpolicyrolemembersbody">removeOryAccessControlPolicyRoleMembersBody</a>
@@ -3548,7 +3548,7 @@ user or some other sort of role.*
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |Body|[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)|false|none|none|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex" and "exact".  in: path|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
 
 <a id="tocSupsertoryaccesscontrolpolicyrole">upsertOryAccessControlPolicyRole</a>
 #### upsertOryAccessControlPolicyRole
@@ -3573,7 +3573,7 @@ user or some other sort of role.*
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |Body|[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)|false|none|Role represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role.|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex" and "exact".  in: path|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
 
 <a id="tocSversion">version</a>
 #### version

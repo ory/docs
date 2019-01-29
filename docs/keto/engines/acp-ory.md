@@ -59,9 +59,7 @@ The easiest pattern matching strategy is the case sensitive equality check. This
 two strings are exactly the same. Assuming a policy defines `{"subjects": ["alice", "boB"] }`, then
 it will match exactly subjects `alice` and `boB`.
 
-### URN
-
-> This feature will be available soon, see https://github.com/ory/keto/issues/66
+### Glob Pattern Matching
 
 ORY Keto supports matching URNs with glob pattern matching. Policy
 
@@ -88,7 +86,7 @@ The `:` is always understood as a delimiter. The following syntax is supported b
 
 * Single symbol wildcard `?at` matches `cat` and `bat` but not `at`.
 * Wildcard `foo:*:bar` matches `foo:baz:bar` and `foo:zab:bar` but not `foo:bar` nor `foo:baz:baz:bar`
-* Super wildcard `foo:**:bar` matches `foo:baz:baz:bar` and `foo:baz:bar` but not `foo:bar`
+* Super wildcard `foo:**:bar` matches `foo:baz:baz:bar`, `foo:baz:bar`, and `foo:bar`, but not `foobar` or `foo:baz`
 * Character list `[cb]at` matches `cat` and `bat` but not `mat` nor `at`.
 * Negated character list `[!cb]at` matches `tat` and `mat` but not `cat` nor `bat`.
 * Ranged character list `[a-c]at` `cat` and `bat` but not `mat` nor `at`.
@@ -129,7 +127,7 @@ Different pattern matching strategies have different computational complexity, c
 an approach is important:
 
 - Case Sensitive Equality: No computational overhead.
-- URN: Little computational overhead.
+- Glob Pattern Matching: Little computational overhead.
 - Regex: Considerable computational overhead.
 
 ## Conditions
@@ -503,8 +501,7 @@ will return `{ "allowed": true }`.
 
 ## Implementation Status
 
-ORY Access Control Policies (regex, equality) are first-class citizens. We are working on adding
-the urn strategy in the close future.
+ORY Access Control Policies (regex, glob, equality) are first-class citizens.
 
 ## Best Practices
 
