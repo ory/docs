@@ -56,17 +56,8 @@ Methods:
 	"action":  "https://url/challenge",
 	"fields": [
 		{
-			"name": "username",
+			"name": "identity",
 			"type": "text"
-		},
-		{
-			"name": "phone_number",
-			"type": "tel",
-			"pattern": "[0-9]{3}-[0-9]{3}-[0-9]{4}"
-		},
-		{
-			"name": "email",
-			"type": "email"
 		},
 		{
 			"name": "csrf_token",
