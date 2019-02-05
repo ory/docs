@@ -150,3 +150,7 @@ pre {
   border-radius: 0;
   box-shadow: none;
 }
+
+.navigationSlider .slidingNav ul li a {
+  color: white;
+}
