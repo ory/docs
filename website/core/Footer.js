@@ -37,8 +37,8 @@ class Footer extends React.Component {
     return (
       <footer className="nav-footer" id="footer">
         <section className="copyright">{this.props.config.copyright}</section>
-        <div id="codefund"><!-- fallback content --></div>
-        <script src="https://codefund.io/properties/140/funder.js" async="async"></script>
+        <div id="codefund" />
+        <script src="https://codefund.io/properties/140/funder.js" async="async" />
         <script dangerouslySetInnerHTML={{ __html: script }} />
       </footer>
     );
