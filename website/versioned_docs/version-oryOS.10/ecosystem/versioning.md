@@ -68,13 +68,13 @@ This compatibility matrix shows which versions are compatible with one another.
 
 ### Docker Hub and NPM
 
-[Docker doryOS not allow `+` in version tags](https://github.com/moby/moby/issues/16304) and
+[Docker does not allow `+` in version tags](https://github.com/moby/moby/issues/16304) and
 [Docker is not fully semver compatible](https://github.com/docker/distribution/pull/1202#issuecomment-161075954).
 
 As we still want to provide you with a way of checking if you have the right docker image, the `+` symbol will be
 replaced by `_`. For example, ORY Hydra `v1.2.3+oryOS.123` is available on Docker as `v1.2.3_oryOS.123`.
 
-NPM also doryOS not support `+` in version tags. Since npm modules are only required for interacting with the service
+NPM also does not support `+` in version tags. Since npm modules are only required for interacting with the service
 itself, `+oryOS` is not available in npm packages at all.
 
 | Example version        | Docker Hub                             | NPM               |
