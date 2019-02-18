@@ -293,7 +293,7 @@ items are optional and ignored if left out.
         "handler": "jwt",
         "config": {
             "required_scope": ["scope-a", "scope-b"],
-            "require_audience": ["aud-1"],
+            "target_audience": ["aud-1"],
             "trusted_issuers": ["iss-1"],
         }
     }],
