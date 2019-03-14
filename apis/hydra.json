@@ -1981,7 +1981,8 @@
         "subject": {
           "description": "Subject is the user ID of the end-user that authenticated.",
           "type": "string",
-          "x-go-name": "Subject"
+          "x-go-name": "Subject",
+          "required": true
         }
       },
       "x-go-name": "HandledAuthenticationRequest",
