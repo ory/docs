@@ -15,7 +15,7 @@ set up.
 ```
 $ git clone https://github.com/ory/hydra.git
 $ cd hydra
-$ git checkout tags/v1.0.0-rc.2+oryOS.9
+$ git checkout tags/v1.0.0-rc.7+oryOS.10
 
 $ docker-compose up --build
 Starting hydra_mysqld_1

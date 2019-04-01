@@ -1,6 +1,6 @@
 ---
 id: integration
-title: Integration
+title: Consuming OAuth 2.0
 ---
 
 This article explains how you to integrate ORY Hydra in your system.
@@ -19,7 +19,7 @@ A high-level overview of the interaction between a client, ORY Hydra (Authorizat
   ORY Hydra->>Client: Access Token
   Client->>API: Request with Access Token
   API->ORY Hydra: Validates Access Token
-  API->>Client: Response`](../../images/docs/hydra/basic-oauth2-system.png)
+  API->>Client: Response`](/images/docs/hydra/basic-oauth2-system.png)
 
 Most of what is explained here can also be seen as real-life examples in the [ory/examples](https://github.com/ory/examples)
 repository!

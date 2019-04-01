@@ -18,7 +18,7 @@ log line for a client that requested a redirect URL that did not match the white
   cause of the error most likely in there.
   2. You are maybe in the wrong URL. Make sure the host and port and path is correct. This happens often, especially
   when you're just starting out and experimenting
-3. Set environment variable `OAUTH2_SHARE_ERROR_DEBUG=true`. Do not do this in production, it is possible, though unlikely,
+3. Set environment variable `OAUTH2_EXPOSE_INTERNAL_ERRORS=true`. Do not do this in production, it is possible, though unlikely,
 that important data leaks with this. If set to true, ORY Hydra will set the `error_debug` query parameter if debug
 information is available.
 4. If you're just starting out and experimenting your docker set up does not work at all:
@@ -179,7 +179,7 @@ which you have exposed on port `16686` at http://localhost:16686/search. You can
 
 As an example, here is a trace created by making a bad request to the `POST /clients` endpoint:
 
-![Sample Trace](../../images/docs/hydra/sample_trace.png)
+![Sample Trace](/images/docs/hydra/sample_trace.png)
 
 At a glance, you are able to see that:
 

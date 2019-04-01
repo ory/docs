@@ -33,23 +33,62 @@ HTTP Basic Authorization but must include the `client_id` in the POST body.
 
 ## Key rotation
 
-Key rotation is simple with ORY Hydra. You can rotate OpenID Connect ID Token and OAuth 2.0 Access Tokens (JSON Web Token)
-keys with one simple command.
+There are two types of key rotation:
+
+- Rotation of JSON Web Token Signing Keys
+- Rotation of HMAC Token Signing and Database and Cookie Encryption Keys
+
+### Rotation of JSON Web Token Signing Keys
+
+JSON Web Token Signing Key rotation is simple with ORY Hydra. You can rotate OpenID Connect ID Token and OAuth 2.0
+Access Tokens, when using the JSON Web Token strategy, keys with one simple command.
 
 ORY Hydra takes the latest key from the key store to sign JSON Web Tokens. All public keys will be shown at
 `http://ory-hydra-public-api/.well-known/jwks.json`.
 
-### OpenID Connect ID Token
+#### OpenID Connect ID Token
 
 ```
 hydra keys create --endpoint=http://ory-hydra-admin-api/ hydra.openid.id-token -a RS256
 ```
 
-### OAuth 2.0 Access Tokens (JSON Web Token)
+#### OAuth 2.0 Access Tokens (JSON Web Token)
+
+> This will only work when using the JWT access token strategy. Otherwise, this will have no effect.
 
 ```
 hydra keys create --endpoint=http://ory-hydra-admin-api/ hydra.jwt.access-token -a RS256
 ```
+
+### Rotation of HMAC Token Signing and Database and Cookie Encryption Keys
+
+Rotating database encryption keys is done by prepending the new encryption key to the respective configuration value.
+Assuming configuration
+
+```yaml
+secrets:
+  cookie:
+    - the-old-cookie-encryption-key
+  system:
+    - the-old-system-encryption-key
+```
+
+one would add the new keys as follows
+
+```yaml
+secrets:
+  cookie:
+    - the-new-cookie-encryption-key # the new key must be the first entry
+    - the-old-cookie-encryption-key
+  system:
+    - the-new-system-encryption-key # the new key must be the first entry
+    - the-old-system-encryption-key
+```
+
+> It is very important that the new key is the first entry in the list as only the first key is used for encryption while
+all keys from the list are used for decryption. Please note that existing data will not be automatically re-encrypted
+using the new key. Only new data will be signed and encrypted using the new key. It is therefore imperative that the old key is added
+to the list, unless you want to also invalidate all data that was signed or encrypted using the old key.
 
 ## OAuth 2.0
 
@@ -145,7 +184,12 @@ to rely on opaque OAuth 2.0 Access Tokens and convert them to JSON Web Tokens at
 using [ORY Oathkeeper](https://github.com/ory/oathkeeper).
 
 If you still want to use this strategy despite all these warnings,
-you can do so by setting environment variable `OAUTH2_ACCESS_TOKEN_STRATEGY=jwt`.
+you can do so by setting:
+ 
+```yaml
+strategies:
+  access_token: jwt
+```
 
 Be aware that only access tokens are formatted as JSON Web Tokens. Refresh tokens are not impacted by this strategy.
 By performing OAuth 2.0 Token Introspection you can check if the token is still valid. If a token is revoked or otherwise
@@ -248,35 +292,33 @@ Hydra supports two [Subject Identifier Algorithms](http://openid.net/specs/openi
 * `pairwise`: This provides a different `sub` value to each Client, so as not to enable Clients to
 correlate the End-User's activities without permission.
 
-You can enable either one or both algorithms using the `OIDC_SUBJECT_TYPES_SUPPORTED` environment variable:
+You can enable either one or both algorithms using the following configuration layout:
+```yaml
+oidc:
+  subject_identifiers:
+    enabled:
+      - public
+      - pairwise
+```
 
-* `export IDC_SUBJECT_TYPES_SUPPORTED=public` (default)
-* `export IDC_SUBJECT_TYPES_SUPPORTED=pairwise`
-* `export IDC_SUBJECT_TYPES_SUPPORTED=public,pairwise`
+When `pairwise` is enabled, you must also set `oidc.subject_identifiers.pairwise.salt`. The salt
+is used to obfuscate the `sub` value:
 
-If `pairwise` is enabled, you must also set the environment variable `OIDC_SUBJECT_TYPE_PAIRWISE_SALT`. The salt
-is used to obfuscate the `sub` value.
+```yaml
+oidc:
+  subject_identifiers:
+    enabled:
+      - public
+      - pairwise
+    pairwise:
+      salt: some-salt
+```
 
 **This value should not be changed once set in production. Changing it will cause all client applications
 to receive new user IDs from ORY Hydra which will lead to serious complications with authentication on their side!**
 
 Each OAuth 2.0 Client has a configuration field `subject_type`. The value of that `subject_type` is either `public` or
-`pairwise`. If the mode is enabled by `IDC_SUBJECT_TYPES_SUPPORTED`, then ORY Hydra will choose the right strategy automatically.
+`pairwise`. If the identifier algorithm is enabled, ORY Hydra will choose the right strategy automatically.
 
 While ORY Hydra handles `sub` obfuscation out of the box, you may also override this value with your own obfuscated
 `sub` value by setting `force_subject_identifier` when accepting the login challenge in your user login app.
-
-## System Secret Rotation
-
-We advise to rotate the system secret from time to time. The system secret is used to sign and validate OAuth 2.0 Access
-and Refresh Tokens and to encrypt JSON Web Keys in the store. If you use the JWT strategy for OAuth 2.0 Access Tokens,
-the system secret has no effect on these.
-
-To rotate the system secret (only possible with SQL at the moment), follow this guide:
-
-1. Shutdown all ORY Hydra instances
-2. Run `OLD_SYSTEM_SECRET=foo NEW_SYSTEM_SECRET=bar hydra migrate secret db://url/...`
-3. Decide if access/refresh tokens signed with the old key should still be valid.
-  * If yes, set `ROTATED_SYSTEM_SECRET` to the old secret before starting `hydra serve ...`, and `SYSTEM_SECRET` to the new one.
-  * If not, set only `SYSTEM_SECRET` to the new secret before running `hydra serve ...`.
-4. Restart ORY Hydra instances.

@@ -1,6 +1,6 @@
 ---
 id: configure-deploy
-title: Configure and Deploy
+title: Detailed Installation, Deployment and Configuration Instructions
 ---
 
 The goal of this chapter is to introduce you to a fully functional set up that includes ORY Hydra as well as our
@@ -59,21 +59,21 @@ ORY Hydra is available on [Docker Hub](https://hub.docker.com/r/oryd/hydra/).
 # secret is used to encrypt the database and needs to be set to the same value every time the process (re-)starts.
 # You can use /dev/urandom to generate a secret. But make sure that the secret must be the same anytime you define it.
 # You could, for example, store the value somewhere.
-$ export SYSTEM_SECRET=$(export LC_CTYPE=C; cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+$ export SECRETS_SYSTEM=$(export LC_CTYPE=C; cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 #
 # Alternatively you can obviously just set a secret:
-# $ export SYSTEM_SECRET=this_needs_to_be_the_same_always_and_also_very_$3cuR3-._
+# $ export SECRETS_SYSTEM=this_needs_to_be_the_same_always_and_also_very_$3cuR3-._
 
-# The database url points us at the postgres instance. This could also be an ephermal in-memory database (`export DATABASE_URL=memory`)
+# The database url points us at the postgres instance. This could also be an ephermal in-memory database (`export DSN=memory`)
 # or a MySQL URI.
-$ export DATABASE_URL=postgres://hydra:secret@ory-hydra-example--postgres:5432/hydra?sslmode=disable
+$ export DSN=postgres://hydra:secret@ory-hydra-example--postgres:5432/hydra?sslmode=disable
 
 # Before starting, let's pull the latest ORY Hydra tag from docker.
-$ docker pull oryd/hydra:v1.0.0-rc.6_oryOS.10
+$ docker pull oryd/hydra:v1.0.0-rc.7_oryOS.10
 
 # This command will show you all the environment variables that you can set. Read this carefully.
 # It is the equivalent to `hydra help serve`.
-$ docker run -it --rm --entrypoint hydra oryd/hydra:v1.0.0-rc.6_oryOS.10 help serve
+$ docker run -it --rm --entrypoint hydra oryd/hydra:v1.0.0-rc.7_oryOS.10 help serve
 
 Starts all HTTP/2 APIs and connects to a database backend.
 [...]
@@ -83,8 +83,8 @@ Starts all HTTP/2 APIs and connects to a database backend.
 # It is the equivalent to `hydra migrate sql postgres://hydra:secret@ory-hydra-example--postgres:5432/hydra?sslmode=disable`
 $ docker run -it --rm \
   --network hydraguide \
-  oryd/hydra:v1.0.0-rc.6_oryOS.10 \
-  migrate sql $DATABASE_URL
+  oryd/hydra:v1.0.0-rc.7_oryOS.10 \
+  migrate sql $DSN
 
 Applying `client` SQL migrations...
 [...]
@@ -96,12 +96,12 @@ $ docker run -d \
   --network hydraguide \
   -p 9000:4444 \
   -p 9001:4445 \
-  -e SYSTEM_SECRET=$SYSTEM_SECRET \
-  -e DATABASE_URL=$DATABASE_URL \
-  -e OAUTH2_ISSUER_URL=https://localhost:9000/ \
-  -e OAUTH2_CONSENT_URL=http://localhost:9020/consent \
-  -e OAUTH2_LOGIN_URL=http://localhost:9020/login \
-  oryd/hydra:v1.0.0-rc.6_oryOS.10 serve all
+  -e SECRETS_SYSTEM=$SECRETS_SYSTEM \
+  -e DSN=$DSN \
+  -e URLS_SELF_ISSUER=https://localhost:9000/ \
+  -e URLS_CONSENT_UI=http://localhost:9020/consent \
+  -e URLS_LOGIN_UI=http://localhost:9020/login \
+  oryd/hydra:v1.0.0-rc.7_oryOS.10 serve all
 
 # And check if it's running:
 $ docker logs ory-hydra-example--hydra
@@ -117,12 +117,12 @@ Let's dive into the various settings:
 * `--network hydraguide` connects this instance to the network and makes it possible to connect to the PostgreSQL database.
 * `-p 9000:4444` exposes ORY Hydra's public API on `https://localhost:9000/`.
 * `-p 9001:4445` exposes ORY Hydra's administrative API on `https://localhost:9001/`.
-* `-e SYSTEM_SECRET=$SYSTEM_SECRET` sets the system secret environment variable **(required)**.
-* `-e DATABASE_URL=$DATABASE_URL` sets the database url environment variable **(required)**.
-* `-e OAUTH2_ISSUER_URL=https://localhost:9000/` this value must be set to the publicly available URL of ORY Hydra **(required)**.
-* `-e OAUTH2_CONSENT_URL=http://localhost:9020/consent` this sets the URL of the consent provider **(required)**. We will set up the service
+* `-e SECRETS_SYSTEM=$SECRETS_SYSTEM` sets the system secret environment variable **(required)**.
+* `-e DSN=$DSN` sets the database url environment variable **(required)**.
+* `-e URLS_SELF_ISSUER=https://localhost:9000/` this value must be set to the publicly available URL of ORY Hydra **(required)**.
+* `-e URLS_CONSENT_UI=http://localhost:9020/consent` this sets the URL of the consent provider **(required)**. We will set up the service
 that handles requests at that URL in the next sections.
-* `-e OAUTH2_LOGIN_URL=http://localhost:9020/login` this sets the URL of the login provider **(required)**. We will set up the service
+* `-e URLS_LOGIN_UI=http://localhost:9020/login` this sets the URL of the login provider **(required)**. We will set up the service
 that handles requests at that URL in the next sections.
 
 Note: In this example we did not define a value for the optional setting `OAUTH2_ERROR_URL`. This URL can be used 
@@ -156,7 +156,7 @@ ORY Hydra can be managed using the Hydra Command Line Interface (CLI), which is 
 see the available commands, run:
 
 ```
-$ docker run --rm -it --entrypoint hydra oryd/hydra:v1.0.0-rc.6_oryOS.10 help
+$ docker run --rm -it --entrypoint hydra oryd/hydra:v1.0.0-rc.7_oryOS.10 help
 Hydra is a cloud native high throughput OAuth2 and OpenID Connect provider
 
 Usage:
@@ -219,22 +219,22 @@ The Login Provider and Consent Provider can be two separate web services. We pro
 combines both features in one app. Here, we will use deploy that app using Docker.
 
 ```
-$ docker pull oryd/hydra-login-consent-node:v1.0.0-rc.6
+$ docker pull oryd/hydra-login-consent-node:v1.0.0-rc.7
 $ docker run -d \
   --name ory-hydra-example--consent \
   -p 9020:3000 \
   --network hydraguide \
   -e HYDRA_ADMIN_URL=https://ory-hydra-example--hydra:4445 \
   -e NODE_TLS_REJECT_UNAUTHORIZED=0 \
-  oryd/hydra-login-consent-node:v1.0.0-rc.6
+  oryd/hydra-login-consent-node:v1.0.0-rc.7
 
 # Let's check if it's running ok:
 $ docker logs ory-hydra-example--consent
 ```
 
 Let's take a look at the arguments:
-* `-p 9020:3000` exposes this service at port 9020. If you remember, that's the port of the `OAUTH2_CONSENT_URL` and `OAUTH2_LOGIN_URL` value
-from the ORY Hydra docker container (`OAUTH2_CONSENT_URL=http://localhost:9020/consent`, `OAUTH2_LOGIN_URL=http://localhost:9020/login`).
+* `-p 9020:3000` exposes this service at port 9020. If you remember, that's the port of the `URLS_CONSENT_UI` and `URLS_LOGIN_UI` value
+from the ORY Hydra docker container (`URLS_CONSENT_UI=http://localhost:9020/consent`, `URLS_LOGIN_UI=http://localhost:9020/login`).
 * `HYDRA_ADMIN_URL=http://hydra:4445` point to the ORY Hydra Administrative API.
 * `NODE_TLS_REJECT_UNAUTHORIZED=0` disables TLS verification, because we are using self-signed certificates.
 
@@ -252,7 +252,7 @@ We have to specify which OAuth 2.0 Grant Types, OAuth 2.0 Scope, OAuth 2.0 Respo
 $ docker run --rm -it \
   -e HYDRA_ADMIN_URL=https://ory-hydra-example--hydra:4445 \
   --network hydraguide \
-  oryd/hydra:v1.0.0-rc.6_oryOS.10 \
+  oryd/hydra:v1.0.0-rc.7_oryOS.10 \
   clients create --skip-tls-verify \
     --id facebook-photo-backup \
     --secret some-secret \
@@ -290,7 +290,7 @@ same thing happens with this command:
 $ docker run --rm -it \
   --network hydraguide \
   -p 9010:9010 \
-  oryd/hydra:v1.0.0-rc.6_oryOS.10 \
+  oryd/hydra:v1.0.0-rc.7_oryOS.10 \
   token user --skip-tls-verify \
     --port 9010 \
     --auth-url https://localhost:9000/oauth2/auth \
@@ -309,7 +309,7 @@ If your browser does not open automatically, navigate to:
 open the link, as prompted, in your browser, and follow the steps shown there. You might encounter a screen like the following
 one:
 
-![Insecure connection](../../images/docs/hydra/insecure-connection.png)
+![Insecure connection](/images/docs/hydra/insecure-connection.png)
 
 This happens because we run ORY Hydra with a self-signed TLS certificate. In production deployments, you would probably
 use a certificate signed by a trusted CA and not see this screen.
@@ -319,4 +319,4 @@ but it's always possible to proceed.
 
 When completed, you should land at a screen that looks like this one:
 
-![OAuth 2.0 result](../../images/docs/hydra/install-result.png)
+![OAuth 2.0 result](/images/docs/hydra/install-result.png)

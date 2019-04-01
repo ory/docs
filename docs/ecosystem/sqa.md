@@ -10,7 +10,7 @@ identify potential issues.
 
 We are committed to full transparency on what data we transmit why and how. The source code of the telemetry package
 is completely open source and located [here](https://github.com/ory/x/blob/master/metricsx). If you do not wish to help
-us improve our products by sharing telemetry data, it is possible to [turn off this feature](#disabling-telemetry).
+us improve our products by sharing telemetry data, it is possible to [opt out of this feature](#opt-out).
 
 ## Data Processing
 
@@ -48,12 +48,16 @@ we improved the release process and introduced a release newsletter. Use of vuln
 4. A heavy uptake in usage of ORY Keto showed us that we need to provide certain migration tools for an update that
 introduces breaking changes. We were under the impression that the service was only used in test environments.
 
-## Disabling Telemetry
+## Opt Out
 
-You can opt out of telemetry reports with the `--disable-telemetry` flag and also by
-setting environment variable `DISABLE_TELEMETRY=1`.
+You can opt out of software quality assurance features (telemetry)
 
-Disabling telemetry does not have any downsides, except for us not being able to improve the product.
+- by providing the `--sqa-opt-out` flag.
+- by setting environment variable `SQA_OPT_OUT=true`.
+- by setting the yaml configuration key (if supported) `sqa.opt_out=true`.
+
+Disabling telemetry does not have any downsides, except for us not being able to improve the product. Note that ORY
+always sends minimal ping with version information once on start up.
 
 ## Data Privacy
 
