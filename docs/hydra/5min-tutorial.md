@@ -12,18 +12,32 @@ Next, clone (`git clone https://github.com/ory/hydra.git`), [download](https://g
 or use `go get -d github.com/ory/hydra` - if you have Go (1.10+) installed on you system - to download the Docker Compose
 set up.
 
+Finally, run the ``5min-tutorial.sh`` helper script to start the needed containers. 
+
 ```
 $ git clone https://github.com/ory/hydra.git
 $ cd hydra
 $ git checkout tags/v1.0.0-rc.7+oryOS.10
 
-$ docker-compose up --build
+$ ./scripts/5min-tutorial.sh
 Starting hydra_mysqld_1
 Starting hydra_postgresd_1
 Starting hydra_hydra_1
 
 [...]
 ```
+
+The helper script ``5min-tutorial.sh`` creates and starts all the needed containers for you. It has a few configurable
+parameters depending on your needs.
+
+It defaults to: ``DB=postgres``, ``TRACING=false`` and ``TWOC=false``, but this can be changed acording to your needs, eg:
+
+```
+$ DB=mysql TRACING=true ./script/5min-tutorial.sh
+```
+
+The above command would start the containers using mysql instead of postgres and activating tracing capabilities. 
+If you need more details on this, you could examine the ``scripts/5-min-tutorial.sh`` and ``docker-compose*.yml`` files.
 
 Everything should running now! Let's confirm that everything is working by creating our first OAuth 2.0 Client.
 The following commands will use Docker wizardry. You can obviously install the ORY Hydra CLI locally and avoid using
@@ -35,11 +49,11 @@ endpoints. The latter to its administrative endpoints. For more information on t
 public services in two separate containers, run
 
 ```
-$ docker-compose up --build
+$ TWOC=true ./scripts/5min-tutorial.sh
 ```
 
 Please be aware that you will not be able to run the hydra CLI from within docker if you
-use the docker-compose-twoc.yml file. Instead, you must install the CLI locally and
+use the ``TWOC=true`` option. Instead, you must install the CLI locally and
 omit ``docker-compose exec hydra`` from your commands.
 
 Ok, let's continue by creating a new OAuth 2.0 Client.
