@@ -4,63 +4,62 @@ title: 5 Minute Tutorial
 ---
 
 To get started quickly, we provide a Docker Compose based example for setting up ORY Hydra, a PostgreSQL instance
-and an exemplary user login & consent app. You need to have the latest Docker as well as Docker Compose version installed.
+and an exemplary User Login & Consent App. You need to have the latest Docker as well as Docker Compose version installed.
 
 <img src="../../images/docs/hydra/oauth2-flow.gif" alt="OAuth2 Flow">
 
 Next, clone (`git clone https://github.com/ory/hydra.git`), [download](https://github.com/ory-am/hydra/archive/master.zip),
-or use `go get -d github.com/ory/hydra` - if you have Go (1.10+) installed on you system - to download the Docker Compose
+or use `go get -d github.com/ory/hydra` - if you have Go (1.12+) installed on you system - to download the Docker Compose
 set up.
 
-Finally, run the ``5min-tutorial.sh`` helper script to start the needed containers. 
+Finally, run `docker-compose` to start the needed containers. 
 
 ```
 $ git clone https://github.com/ory/hydra.git
 $ cd hydra
-$ git checkout tags/v1.0.0-rc.7+oryOS.10
 
-$ ./scripts/5min-tutorial.sh
-Starting hydra_mysqld_1
+$ docker-compose -f quickstart.yml \
+    -f quickstart-postgres.yml \
+    up --build
 Starting hydra_postgresd_1
 Starting hydra_hydra_1
-
 [...]
 ```
 
-The helper script ``5min-tutorial.sh`` creates and starts all the needed containers for you. It has a few configurable
-parameters depending on your needs.
-
-It defaults to: ``DB=postgres``, ``TRACING=false`` and ``TWOC=false``, but this can be changed acording to your needs, eg:
+The command above will set up a base ORY Hydra configuration and attach it to a PostgreSQL database backend.
+You may also use MySQL as a database backend by running the following command instead:
 
 ```
-$ DB=mysql TRACING=true ./script/5min-tutorial.sh
+$ docker-compose -f quickstart.yml \
+    -f quickstart-mysql.yml \
+    up --build
 ```
 
 The above command would start the containers using mysql instead of postgres and activating tracing capabilities. 
 If you need more details on this, you could examine the ``scripts/5-min-tutorial.sh`` and ``docker-compose*.yml`` files.
 
+You may also extend the command above to enable distributed tracing (Tracing UI will be exposed at [http://localhost:16686/search](localhost:16686/search)):
+
+```
+$ docker-compose -f quickstart.yml \
+    -f quickstart-postgres.yml \
+    -f quickstart-tracing.yml \
+    up --build
+```
+
 Everything should running now! Let's confirm that everything is working by creating our first OAuth 2.0 Client.
 The following commands will use Docker wizardry. You can obviously install the ORY Hydra CLI locally and avoid using
-Docker here. If you do use the CLI locally, you can omit ``docker-compose exec hydra`` completely.
+Docker here. If you do use the CLI locally, you can omit `docker-compose -f quickstart.yml exec /hydra` completely.
 
 You will notice that two ports are being used. Port `4444` and port `4445`. The former is for request to ORY Hydra's public
 endpoints. The latter to its administrative endpoints. For more information on this, head over to
-[Exposing Administrative and Public API Endpoints](hydra/production.md). If you want to run ORY Hydra admin and
-public services in two separate containers, run
-
-```
-$ TWOC=true ./scripts/5min-tutorial.sh
-```
-
-Please be aware that you will not be able to run the hydra CLI from within docker if you
-use the ``TWOC=true`` option. Instead, you must install the CLI locally and
-omit ``docker-compose exec hydra`` from your commands.
+[Exposing Administrative and Public API Endpoints](hydra/production.md).
 
 Ok, let's continue by creating a new OAuth 2.0 Client.
 
 ```
 # Creates a new OAuth 2.0 client
-$ docker-compose exec hydra \
+$ docker-compose -f quickstart.yml exec hydra \
     hydra clients create \
     --endpoint http://localhost:4445 \
     --id my-client \
@@ -71,7 +70,7 @@ OAuth2 client my-client
 OAuth2 client secret: secret
 
 # Let's perform the client credentials grant.
-$ docker-compose exec hydra \
+$ docker-compose -f quickstart.yml exec hydra \
     hydra token client \
     --endpoint http://localhost:4444 \
     --client-id my-client \
@@ -80,7 +79,7 @@ $ docker-compose exec hydra \
 UDYMha9TwsMBejEvKfnDOXkhgkLsnmUNYVQDklT5bD8.ZNpuNRC85erbIYDjPqhMwTinlvQmNTk_UvttcLQxFJY
 
 # Let's perform token introspection on that token. Make sure to copy the token you just got and not the dummy value.
-$ docker-compose exec hydra \
+$ docker-compose -f quickstart.yml exec hydra \
     hydra token introspect \
     --endpoint http://localhost:4445 \
     --client-id my-client \
@@ -102,7 +101,7 @@ Next, we will perform the OAuth 2.0 Authorization Code Grant. For that, we must 
 of performing that grant:
 
 ```
-$ docker-compose exec hydra \
+$ docker-compose -f quickstart.yml exec hydra \
     hydra clients create \
     --endpoint http://localhost:4445 \
     --id auth-code-client \
@@ -120,7 +119,7 @@ The next command starts a server that serves an example web application. The app
 Authorization Code Flow using ORY Hydra. The web server runs on [http://127.0.0.1:5555](http://127.0.0.1:5555).
 
 ```
-$ docker-compose exec hydra \
+$ docker-compose -f quickstart.yml exec hydra \
     hydra token user \
     --client-id auth-code-client \
     --client-secret secret \
