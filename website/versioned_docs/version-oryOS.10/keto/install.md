@@ -29,7 +29,8 @@ To install ORY Keto from source, you need to have Go 1.11+ installed, and run:
 ```
 $ go get -d -u github.com/ory/keto
 $ cd $(go env GOPATH)/src/github.com/ory/keto
-$ make install-stable
+$ make init
+$ make install-stable # or make install if you want the latest changes
 $ $(go env GOPATH)/bin/keto help
 # Minimal server:
 $ DATABASE_URL=memory $(go env GOPATH)/bin/keto serve

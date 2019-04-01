@@ -18,7 +18,7 @@ from the moderator one.
 Let's come back to alice, bob, peter, and blog posts and the matrix from the ACL example, but this time we define
 roles "reader", "author", "admin" and model the ACL example using (H)RBAC:
 
-![(H)RBAC Example](../../../../images/docs/keto/rbac.png).
+![(H)RBAC Example](/images/docs/keto/rbac.png).
 
 As you can see, `admin` inherits from `author`, which inherits from `reader`. Only `alice` (or rather `admin`) can delete blog posts,
 whereas `author` can create and modify blog posts. We assign the roles to our subjects `bob`, `peter`, `alice` and

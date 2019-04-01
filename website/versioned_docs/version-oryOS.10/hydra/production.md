@@ -1,46 +1,10 @@
 ---
 id: version-oryOS.10-production
-title: Production
+title: Preparing for Production
 original_id: production
 ---
 
 This document summarizes things you will find useful when going to production.
-
-## Configuration
-
-All configuration of ORY Hydra is currently done via environment variables. Setting environment variables works
-differently on each system, so we collected some to help you get started.
-
-### Linux / OSX
-
-```
-$ export MY_ENV_VAR=foo
-$ hydra ...
-# or
-$ MY_ENV_VAR=foo hydra ...
-```
-
-### Windows
-
-#### Command Prompt
-
-```
-$ set MY_ENV_VAR=foo
-$ hydra ...
-```
-
-#### Powershell
-
-```
-$ $env:MY_ENV_VAR="foo"
-$ hydra ...
-```
-
-### Docker
-
-```
-$ docker run -e MY_ENV_VAR=foo oryd/hydra:...
-```
 
 ## ORY Hydra behind an API Gateway
 
@@ -53,13 +17,21 @@ provider (e.g. AWS CA) for last mile security.
 
 You may also choose to set Hydra to HTTPS mode without actually accepting TLS connections. In that case,
 all Hydra URLs are prefixed with `https://`, but the server is actually accepting http. This makes sense if you don't want
-last mile security using TLS, and trust your network to properly handle internal traffic. To use this setting, check
-for `HTTPS_ALLOW_TERMINATION_FROM` in `hydra help host`.
+last mile security using TLS, and trust your network to properly handle internal traffic:
+
+```yaml
+serve:
+  tls:
+    allow_termination_from:
+      - 127.0.0.1/32
+```
 
 With TLS termination enabled, ORY Hydra discards all requests unless:
 
-* The request is coming from a trusted IP address set by `HTTPS_ALLOW_TERMINATION_FROM` and the header `X-Forwarded-Proto` is set to `https`.
-* The request goes to `/health/status` which does not require TLS termination and that is used to check the health of an instance.
+* The request is coming from a trusted IP address set by `serve.tls.allow_termination_from` and the header `X-Forwarded-Proto` is set to `https`.
+* The request goes to `/health/alive`, `/health/ready` which does not require TLS termination and that is used to check the health of an instance.
+
+When TLS Termination is enabled, you do not need to provide a TLS Certificate and Private Key.
 
 If you are unable to properly set up TLS Termination, you may want to set the `--dangerous-force-http` flag. But please be
 aware that we discourage you from doing so and that you should know what you're doing.
@@ -104,9 +76,8 @@ Administrative endpoints include:
 
 None of the administrative endpoints have any built-in access control. You can do simple `curl` or Postman requests to talk to them.
 
-We generally advise to run ORY Hydra with `hydra serve all` which listens on both ports in one process. If you wish to have more granular control over
-each endpoint's settings (e.g. CORS), you can run `hydra serve admin` and `hydra serve public` separately. Please be aware that the `memory` backend
-will not work in this mode.
+We generally advise to run ORY Hydra with `hydra serve all` which listens on both ports in one process. Please be aware
+that the `memory` backend will not work in this mode.
 
 ### Binding to different interfaces or UNIX sockets
 
