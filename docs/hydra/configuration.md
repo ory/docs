@@ -311,12 +311,12 @@ urls:
     public: https://localhost:4444/
 
   # Sets the login ui endpoint of the User Login & Consent flow. Defaults to an internal fallback URL.
-  login_ui: https://my-login.app/login
+  login: https://my-login.app/login
   # Sets the consent ui endpoint of the User Login & Consent flow. Defaults to an internal fallback URL.
-  consent_ui: https://my-consent.app/consent
+  consent: https://my-consent.app/consent
   # Sets the error ui endpoint. The error ui will be shown when an OAuth2 error occurs that which can not be sent back
   # to the client. Defaults to an internal fallback URL.
-  error_ui: https://my-error.app/error
+  error: https://my-error.app/error
   # When a user agent requests to remove the authentication session, it will be redirected to this url afterwards.
   post_logout_redirect: https://my-example.app/logout-successful
 

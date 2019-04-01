@@ -100,8 +100,8 @@ $ docker run -d \
   -e SECRETS_SYSTEM=$SECRETS_SYSTEM \
   -e DSN=$DSN \
   -e URLS_SELF_ISSUER=https://localhost:9000/ \
-  -e URLS_CONSENT_UI=http://localhost:9020/consent \
-  -e URLS_LOGIN_UI=http://localhost:9020/login \
+  -e URLS_CONSENT=http://localhost:9020/consent \
+  -e URLS_LOGIN=http://localhost:9020/login \
   oryd/hydra:v1.0.0-rc.7_oryOS.10 serve all
 
 # And check if it's running:
@@ -121,9 +121,9 @@ Let's dive into the various settings:
 * `-e SECRETS_SYSTEM=$SECRETS_SYSTEM` sets the system secret environment variable **(required)**.
 * `-e DSN=$DSN` sets the database url environment variable **(required)**.
 * `-e URLS_SELF_ISSUER=https://localhost:9000/` this value must be set to the publicly available URL of ORY Hydra **(required)**.
-* `-e URLS_CONSENT_UI=http://localhost:9020/consent` this sets the URL of the consent provider **(required)**. We will set up the service
+* `-e URLS_CONSENT=http://localhost:9020/consent` this sets the URL of the consent provider **(required)**. We will set up the service
 that handles requests at that URL in the next sections.
-* `-e URLS_LOGIN_UI=http://localhost:9020/login` this sets the URL of the login provider **(required)**. We will set up the service
+* `-e URLS_LOGIN=http://localhost:9020/login` this sets the URL of the login provider **(required)**. We will set up the service
 that handles requests at that URL in the next sections.
 
 Note: In this example we did not define a value for the optional setting `OAUTH2_ERROR_URL`. This URL can be used 
@@ -234,8 +234,8 @@ $ docker logs ory-hydra-example--consent
 ```
 
 Let's take a look at the arguments:
-* `-p 9020:3000` exposes this service at port 9020. If you remember, that's the port of the `URLS_CONSENT_UI` and `URLS_LOGIN_UI` value
-from the ORY Hydra docker container (`URLS_CONSENT_UI=http://localhost:9020/consent`, `URLS_LOGIN_UI=http://localhost:9020/login`).
+* `-p 9020:3000` exposes this service at port 9020. If you remember, that's the port of the `URLS_CONSENT` and `URLS_LOGIN` value
+from the ORY Hydra docker container (`URLS_CONSENT=http://localhost:9020/consent`, `URLS_LOGIN=http://localhost:9020/login`).
 * `HYDRA_ADMIN_URL=http://hydra:4445` point to the ORY Hydra Administrative API.
 * `NODE_TLS_REJECT_UNAUTHORIZED=0` disables TLS verification, because we are using self-signed certificates.
 
