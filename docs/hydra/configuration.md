@@ -3,7 +3,7 @@ id: configuration
 title: Configuration
 ---
 
-```
+```yaml
 # ORY Hydra Configuration
 #
 #
