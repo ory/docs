@@ -4,7 +4,7 @@ title: Configuration
 original_id: configuration
 ---
 
-```
+```yaml
 # ORY Hydra Configuration
 #
 #
@@ -311,11 +311,11 @@ urls:
     # to the issuer value. If left unspecified, it falls back to the issuer value.
     public: https://localhost:4444/
 
-  # Sets the login ui endpoint of the User Login & Consent flow. Defaults to an internal fallback URL.
+  # Sets the login endpoint of the User Login & Consent flow. Defaults to an internal fallback URL.
   login: https://my-login.app/login
-  # Sets the consent ui endpoint of the User Login & Consent flow. Defaults to an internal fallback URL.
+  # Sets the consent endpoint of the User Login & Consent flow. Defaults to an internal fallback URL.
   consent: https://my-consent.app/consent
-  # Sets the error ui endpoint. The error ui will be shown when an OAuth2 error occurs that which can not be sent back
+  # Sets the error endpoint. The error ui will be shown when an OAuth2 error occurs that which can not be sent back
   # to the client. Defaults to an internal fallback URL.
   error: https://my-error.app/error
   # When a user agent requests to remove the authentication session, it will be redirected to this url afterwards.
@@ -412,3 +412,4 @@ tracing:
         # The address of jaeger-agent's HTTP sampling server
         server_url: http://localhost:5778/sampling
 ```
+
