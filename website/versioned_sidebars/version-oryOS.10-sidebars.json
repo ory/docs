@@ -26,11 +26,12 @@
         "label": "Guides",
         "ids": [
           "version-oryOS.10-hydra/oauth2",
-          "version-oryOS.10-hydra/jwks",
           "version-oryOS.10-hydra/configure-deploy",
-          "version-oryOS.10-hydra/advanced",
-          "version-oryOS.10-hydra/debugging",
+          "version-oryOS.10-hydra/dependencies-environment",
           "version-oryOS.10-hydra/production",
+          "version-oryOS.10-hydra/configuration",
+          "version-oryOS.10-hydra/debugging",
+          "version-oryOS.10-hydra/advanced",
           "version-oryOS.10-hydra/integration"
         ]
       },
@@ -49,10 +50,9 @@
         "label": "Further Reading",
         "ids": [
           "version-oryOS.10-hydra/limitations",
-          "version-oryOS.10-hydra/dependencies-environment",
+          "version-oryOS.10-hydra/jwks",
           "version-oryOS.10-hydra/security-architecture",
-          "version-oryOS.10-hydra/faq",
-          "version-oryOS.10-hydra/appendix"
+          "version-oryOS.10-hydra/faq"
         ]
       }
     ],

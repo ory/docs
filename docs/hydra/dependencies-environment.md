@@ -1,6 +1,6 @@
 ---
 id: dependencies-environment
-title: Dependencies & Environment
+title: Database Setup and Configuration
 ---
 
 ORY Hydra is built cloud native and implements [12factor](https://www.12factor.net/) principles. The Docker Image is 5 MB light
@@ -63,3 +63,19 @@ not specified means wait indefinitely.
 * `sslkey` - Key file location. The file must contain PEM encoded data.
 * `sslrootcert` - The location of the root certificate file. The file
 must contain PEM encoded data.
+
+## Plugin
+
+It is possible to implement your own DBAL using Go Plugins.
+
+> We strongly discourage you from implementing your own DBAL. Special knowledge is required and internal
+interfaces will break without notice and migration guides. This can lead to serious security issues and vulnerabilites.
+USE AT YOUR OWN RISK.
+
+Your plugin must implement interface `github.com/ory/hydra/driver.Registry`. You can load the plugin as follows:
+
+```yaml
+dsn: plugin:///path/to/file.so
+```
+
+We strongly discourage you from using this feature.

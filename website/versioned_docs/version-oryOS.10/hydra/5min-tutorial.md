@@ -1,6 +1,7 @@
 ---
-id: 5min-tutorial
+id: version-oryOS.10-5min-tutorial
 title: 5 Minute Tutorial
+original_id: 5min-tutorial
 ---
 
 To get started quickly, we provide a Docker Compose based example for setting up ORY Hydra, a PostgreSQL instance

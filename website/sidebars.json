@@ -26,11 +26,12 @@
         "label": "Guides",
         "ids": [
           "hydra/oauth2",
-          "hydra/jwks",
           "hydra/configure-deploy",
-          "hydra/advanced",
-          "hydra/debugging",
+          "hydra/dependencies-environment",
           "hydra/production",
+          "hydra/configuration",
+          "hydra/debugging",
+          "hydra/advanced",
           "hydra/integration"
         ]
       },
@@ -49,10 +50,9 @@
         "label": "Further Reading",
         "ids": [
           "hydra/limitations",
-          "hydra/dependencies-environment",
+          "hydra/jwks",
           "hydra/security-architecture",
-          "hydra/faq",
-          "hydra/appendix"
+          "hydra/faq"
         ]
       }
     ],

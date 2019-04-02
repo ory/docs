@@ -555,7 +555,7 @@ the ORY Oathkeeper API process. You will learn more about the difference between
 
 The related flow diagram looks like this:
 
-![ID Token Transformation](../../images/docs/oathkeeper/id_token.svg)
+![ID Token Transformation](/images/docs/oathkeeper/id_token.svg)
 
 Let's say the `oauth2_client_credentials` authenticator successfully authenticated the credentials `client-id:client-secret`.
 This credentials issuer will craft an ID Token (JWT) with the following exemplary claims:

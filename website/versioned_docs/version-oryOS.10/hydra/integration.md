@@ -1,6 +1,7 @@
 ---
-id: integration
+id: version-oryOS.10-integration
 title: Consuming OAuth 2.0
+original_id: integration
 ---
 
 This article explains how you to integrate ORY Hydra in your system.

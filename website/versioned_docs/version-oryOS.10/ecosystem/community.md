@@ -28,6 +28,6 @@ or modifies the core technology. This is a list of those.
   * [Kubernetes Helm Chart](https://github.com/kubernetes/charts/pull/1022)
   * [ORY Hydra Middleware for Gin (Go)](https://github.com/janekolszak/gin-hydra)
   * [Python login/consent provider example](https://github.com/westphahl/hydra-login-consent-python)
-
+  * [Golang login/consent provider and Ory stack example](https://github.com/piensa/logico)
 
 Want your own content here? Create a PR!

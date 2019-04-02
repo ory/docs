@@ -1,6 +1,7 @@
 ---
-id: oauth2
+id: version-oryOS.10-oauth2
 title: Integrating with (existing) User Management
+original_id: oauth2
 ---
 
 Please read this chapter carefully, it is imperative to getting started and grasping all the concepts quickly. The

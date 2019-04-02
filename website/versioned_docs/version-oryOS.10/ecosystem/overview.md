@@ -1,6 +1,7 @@
 ---
-id: overview
+id: version-oryOS.10-overview
 title: Overview
+original_id: overview
 ---
 
 We provide an open source ecosystem of services with clear boundaries that solve authentication and authorization:

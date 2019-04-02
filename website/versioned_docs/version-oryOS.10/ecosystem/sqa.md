@@ -1,6 +1,7 @@
 ---
-id: sqa
+id: version-oryOS.10-sqa
 title: Software Quality Assurance
+original_id: sqa
 ---
 
 Our goal is to provide you with the fastest and most reliable open source services. To achieve this goal, we collect

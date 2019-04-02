@@ -294,7 +294,7 @@ items are optional and ignored if left out.
         "handler": "jwt",
         "config": {
             "required_scope": ["scope-a", "scope-b"],
-            "require_audience": ["aud-1"],
+            "target_audience": ["aud-1"],
             "trusted_issuers": ["iss-1"],
         }
     }],
@@ -515,7 +515,7 @@ if you don't want to replace, for example, `Authorization: basic` with `X-User: 
     },
     "authenticators": [/* ... */],
     "authorizer": {/* ... */ }
-    "credentials_issuer" {
+    "credentials_issuer": {
         "handler": "noop"
     }
 }
@@ -556,7 +556,7 @@ the ORY Oathkeeper API process. You will learn more about the difference between
 
 The related flow diagram looks like this:
 
-![ID Token Transformation](../../images/docs/oathkeeper/id_token.svg)
+![ID Token Transformation](/images/docs/oathkeeper/id_token.svg)
 
 Let's say the `oauth2_client_credentials` authenticator successfully authenticated the credentials `client-id:client-secret`.
 This credentials issuer will craft an ID Token (JWT) with the following exemplary claims:

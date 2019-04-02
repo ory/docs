@@ -1,6 +1,7 @@
 ---
-id: debugging
+id: version-oryOS.10-debugging
 title: Debugging
+original_id: debugging
 ---
 
 Spec-compliant OAuth 2.0 and OpenID Connect is hard. Let's take a look how to resolve certain issues.
