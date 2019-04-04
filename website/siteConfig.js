@@ -45,7 +45,7 @@ const siteConfig = {
   headerLinks: [
     {href: "/", label: 'Home'},
     {href: "/blog", label: 'Blog'},
-    {href: "https://comunity.ory.sh", label: 'Forum'},
+    {href: "https://community.ory.sh", label: 'Forum'},
     {href: "/chat", label: 'Chat'},
     {doc: "index", label: 'Docs'},
     {href: "https://github.com/ory/", label: 'GitHub'},
