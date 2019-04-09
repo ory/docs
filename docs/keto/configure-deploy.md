@@ -48,19 +48,19 @@ and create a user `keto` with password `secret`.
 ## Run the ORY Keto Service
 
 ```
-# The database url points us at the postgres instance. This could also be an ephermal in-memory database (`export DATABASE_URL=memory`)
+# The database url points us at the postgres instance. This could also be an ephermal in-memory database (`export DSN=memory`)
 # or a MySQL URI.
-$ export DATABASE_URL=postgres://keto:secret@ory-keto-example--postgres:5432/keto?sslmode=disable
+$ export DSN=postgres://keto:secret@ory-keto-example--postgres:5432/keto?sslmode=disable
 
 # This pulls the latest image from Docker Hub
 $ docker pull oryd/keto:v0.2.2-sandbox_oryOS.10
 
 # ORY Keto does not do magic, it requires conscious decisions, for example running SQL migrations which is required
 # when installing a new version of ORY Keto, or upgrading an existing installation.
-# It is the equivalent to `DATABASE_URL=postgres://keto:secret@ory-keto-example--postgres:5432/keto?sslmode=disable keto migrate sql`
+# It is the equivalent to `DSN=postgres://keto:secret@ory-keto-example--postgres:5432/keto?sslmode=disable keto migrate sql`
 $ docker run -it --rm \
   --network ketoguide \
-  -e DATABASE_URL=$DATABASE_URL \
+  -e DSN=$DSN \
   oryd/keto:v0.2.2-sandbox_oryOS.10 \
   migrate sql -e
 
@@ -73,7 +73,7 @@ $ docker run -d \
   --name ory-keto-example--keto \
   --network ketoguide \
   -p 4466:4466 \
-  -e DATABASE_URL=$DATABASE_URL \
+  -e DSN=$DSN \
   oryd/keto:v0.2.2-sandbox_oryOS.10 \
   serve
 ```

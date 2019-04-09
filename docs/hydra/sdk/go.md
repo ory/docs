@@ -6,65 +6,113 @@ title: Go
 To install the Go SDK, run:
 
 ```
-go get -u -d github.com/ory/hydra/sdk/go/hydra
+go get -u -d github.com/ory/hydra/sdk/go/...
 ```
 
-### Configuration
+## Configuration
 
-The Go SDK is auto generated from swagger but contains some helpers, such as `NewSDK`:
+We use code generation to generate our SDKs. The Go SDK is generated using
+[`go-swagger`](http://goswagger.io). The SDK is easily set up:
 
 ```go
-import "github.com/ory/hydra/sdk/go/hydra"
+import "github.com/ory/hydra/sdk/go/hydra/client"
 
-sdk, err := hydra.NewSDK(&hydra.Configuration{
-    AdminURL:  "https://hydra.localhost:4445",
-})
-```
-
-#### With OAuth 2.0
-
-If you want to send an OAuth 2.0 Access Token while accessing ORY Hydra's Admin API (e.g. because you protect it using
-ORY Oathkeeper), you can configure the SDK to do that:
-
-```go
-import "github.com/ory/hydra/sdk/go/hydra"
-
-sdk, err := hydra.NewSDK(&hydra.Configuration{
-    AdminURL:  "https://hydra.localhost:4445",
-    PublicURL:  "https://hydra.localhost:4444",
-    Clientid: "...",
-    ClientSecret: "...",
-    Scopes: []string{"..."},
-})
-```
-
-### API Usage
-
-APIs usually have three return values. Please check for errors as well as status codes!
-
-```go
-client, response, error := sdk.CreateClient(swagger.Client{ /* .... payload .... */})
-if err != nil {
-    // This usually indicates a network error.
-} else if response.StatusCode != http.StatusCreated {
-    // If the status code is not 2xx, something went wrong on the application level (e.g. wrong credentials, database offline, ...)
-}
-
-fmt.Printf("Client created: %+v", client)
-```
-
-In rare cases, methods have only two return values. This happens when the REST API returns `204 No Content`:
-
-```
-response, err := sdk.DeleteClient("client-id")
-if err != nil {
-    // This usually indicates a network error.
-} else if response.StatusCode != http.StatusNoContent {
-    // If the status code is not 2xx, something went wrong on the application level (e.g. wrong credentials, database offline, ...)
+func main() {
+    adminURL := url.Parse("https://hydra.localhost:4445")
+    admin := hydra.NewHTTPClientWithConfig(nil, &client.TransportConfig{Schemes: []string{adminURL.Scheme}, Host: adminURL.Host, BasePath: adminURL.Path})
+    
+    // admin.Admin.CreateOAuth2Client(...
+    
+    publicURL := url.Parse("https://hydra.localhost:4444")
+    public := hydra.NewHTTPClientWithConfig(nil, &client.TransportConfig{Schemes: []string{publicURL.Scheme}, Host: publicURL.Host, BasePath: publicURL.Path})
+    
+    // public.Public.RevokeOAuth2Token(...
 }
 ```
 
-### API Docs
+> Be aware that endpoints /oauth2/auth and /oauth2/token MUST NOT be consumed using this SDK. Use [golang.org/x/oauth2](https://godoc.org/golang.org/x/oauth2)
+instead.
 
-API docs are available [here](https://github.com/ory/hydra/blob/master/sdk/go/hydra/swagger/README.md).
-Please note that those docs are generated and may introduce bugs if code examples are used 1:1.
+## Making requests
+
+Making requests is straight forward:
+
+```go
+import "github.com/ory/hydra/sdk/go/hydra/client"
+
+func main() {
+    adminURL := url.Parse("https://hydra.localhost:4445")
+    admin := hydra.NewHTTPClientWithConfig(nil, &client.TransportConfig{Schemes: []string{adminURL.Scheme}, Host: adminURL.Host, BasePath: adminURL.Path})
+    
+    // It is important to create the parameters using `New...`, otherwise requests will fail!
+    result, err := c.Admin.CreateOAuth2Client(
+        admin.NewCreateOAuth2ClientParams().WithBody(&models.Client{
+        ClientID: "scoped",
+    }))
+    if err != nil {
+        // err is not nil when the request failed (usually a 404, 401, 409 error)
+        // You can distinguish the errors by type-asserting err, for example:
+        switch e := err.(type) {
+        case (*admin.CreateOAuth2ClientConflict):
+            // do something...
+        }
+    }
+    
+    // if err is nil, then result is set. The result payload/body can be retrieved using result.Payload.
+    fmt.Printf("Got client: %+v", result.Payload)
+}
+```
+
+## With Authorization
+
+Some endpoints require e.g. Basic Authorization:
+
+```go
+import "github.com/ory/hydra/sdk/go/hydra/client"
+import httptransport "github.com/go-openapi/runtime/client"
+
+func main() {
+    publicURL := url.Parse("https://hydra.localhost:4444")
+    public := hydra.NewHTTPClientWithConfig(nil, &client.TransportConfig{Schemes: []string{publicURL.Scheme}, Host: publicURL.Host, BasePath: publicURL.Path})
+    
+    _, err := client.Public.RevokeOAuth2Token(
+        public.NewRevokeOAuth2TokenParams().WithToken(c.token),
+        httptransport.BasicAuth("my-client", "foobar"),
+    )
+}
+```
+
+For more information on Authorization, check the [go-swagger documentation](https://goswagger.io/generate/client.html#authentication).
+
+### On every request
+
+You may want to protect ORY Hydra using e.g. OAuth2 Access Tokens. In that case, you can enhance the SDK by using
+the OAuth2 Client:
+
+```go
+import "github.com/ory/hydra/sdk/go/hydra/client"
+import httptransport "github.com/go-openapi/runtime/client"
+import "golang.org/x/oauth2/clientcredentials"
+
+func main() {
+    publicURL := url.Parse("https://hydra.localhost:4444")
+ 	ht := httptransport.NewWithClient(
+ 		publicURL.Host,
+ 		publicURL.Path,
+ 		[]string{publicURL.Scheme},
+ 		clientcredentials.Config{
+ 			TokenURL:"http://hydra.localhost:4444/oauth2/token",
+ 			ClientID:"my-client",
+ 			ClientSecret:"my-secret",
+ 			Scopes:[]string{"scope-a", "scope-b"},
+ 		}.Client(context.Background()),
+ 	)
+
+    public := hydra.New(ht, nil)
+    
+    _, err := client.Public.RevokeOAuth2Token(
+        public.NewRevokeOAuth2TokenParams().WithToken(c.token),
+        httptransport.BasicAuth("my-client", "foobar"),
+    )
+}
+```

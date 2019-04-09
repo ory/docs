@@ -3,34 +3,77 @@ id: install
 title: Install
 ---
 
-You can install ORY Keto by downloading the [binaries](https://github.com/ory/keto/releases), by using
-the precompiled Docker Image available at [Docker Hub](https://hub.docker.com/r/oryd/keto/), or by
-compiling the code yourself.
+Installing ORY Keto on any system is straight forward. We provide pre-built binaries, Docker Images and support
+various package managers.
 
-## Docker Hub
+## Docker
 
-The recommended way to install and run ORY Keto is via docker:
+We recommend using Docker to run ORY Keto:
 
-```sh
-$ docker run oryd/keto:<version> help
-# Minimal server:
-$ docker run --rm -e "DATABASE_URL=memory" -d --name my-keto -p 4466:4466 oryd/keto serve
+```shell
+$ docker pull oryd/keto
+$ docker run --rm -it oryd/keto help
 ```
 
-## Binaries
+## macOS
 
-If you download the binaries, make sure to add them to your path (e.g. `/usr/bin`). Then, run `keto help`
+You can install ORY Keto using [homebrew](https://brew.sh/) on macOS:
 
-## From Source
-
-To install ORY Keto from source, you need to have Go 1.11+ installed, and run:
-
+```shell
+$ brew tap ory/keto
+$ brew install ory/keto/keto
+$ keto help
 ```
+
+## Linux
+
+On linux, you can use `curl | bash` to fetch the latest stable binary using:
+
+```shell
+$ curl https://raw.githubusercontent.com/ory/ory/master/install.sh | bash -s -- -b .
+$ ./keto help
+```
+
+You may want to move ORY Keto to your `$PATH`:
+
+```shell
+$ sudo mv ./keto /usr/local/bin/
+$ keto help
+```
+
+## Windows
+
+You can install ORY Keto using [scoop](https://scoop.sh) on Windows:
+
+```shell
+> scoop bucket add ory-keto https://github.com/ory/scoop-keto.git
+> scoop install keto
+> keto help
+```
+
+## Download Binaries
+
+The client and server **binaries are downloadable at the [releases tab](https://github.com/ory/keto/releases)**.
+There is currently no installer available. You have to add the Keto binary to the PATH environment variable yourself or put
+the binary in a location that is already in your `$PATH` (e.g. `/usr/local/bin`, ...).
+
+Once installed, you should be able to run:
+
+```shell
+$ keto help
+```
+
+## Building from Source
+
+If you wish to compile ORY Keto yourself, you need to install and set up [Go 1.12+](https://golang.org/) and add `$GOPATH/bin`
+to your `$PATH`.
+
+The following commands will check out the latest release tag of ORY Keto and compile it and set up flags so that `keto version`
+works as expected. Please note that this will only work with a linux shell like bash or sh.
+
+```shell
 $ go get -d -u github.com/ory/keto
 $ cd $(go env GOPATH)/src/github.com/ory/keto
-$ make init
-$ make install-stable # or make install if you want the latest changes
+$ GO111MODULE=on make install-stable
 $ $(go env GOPATH)/bin/keto help
-# Minimal server:
-$ DATABASE_URL=memory $(go env GOPATH)/bin/keto serve
 ```

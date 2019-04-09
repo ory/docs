@@ -7,6 +7,7 @@
       "ecosystem/overview",
       "ecosystem/cloud-native",
       "ecosystem/versioning",
+      "ecosystem/persistence",
       "ecosystem/upgrading",
       "ecosystem/examples",
       "ecosystem/community",
@@ -14,6 +15,7 @@
     ],
     "ORY Hydra": [
       "hydra/index",
+      "hydra/install",
       {
         "type": "subcategory",
         "label": "Getting Started",
@@ -58,6 +60,7 @@
     ],
     "ORY Oathkeeper": [
       "oathkeeper/index",
+      "oathkeeper/install",
       {
         "type": "subcategory",
         "label": "Guides",
@@ -77,12 +80,13 @@
     ],
     "ORY Keto": [
       "keto/index",
+      "keto/install",
       {
         "type": "subcategory",
         "label": "Guides",
         "ids": [
-          "keto/install",
           "keto/configure-deploy",
+          "keto/configuration",
           "keto/secure"
         ]
       },
