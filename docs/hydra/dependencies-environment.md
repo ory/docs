@@ -39,12 +39,16 @@ Both MySQL and PostgreSQL adapters support the following settings. You can modif
 
 #### MySQL
 
+DSN Layout: `postgres://user:pw@host:port/database?someSetting=value&foo=bar`.
+
 On top of the settings above, MySQL supports additional settings:
 
-* `sql_notes`, if set to `false`, ignores MySQL notices. If left empty or set to `true`, they will be treated as warnings. Example `mysql://user:pw@host:port/database?sql_notes=false`.
+* `sql_notes`, if set to `false`, ignores MySQL notices. If left empty or set to `true`, they will be treated as warnings. Example `mysql://user:pw@tcp(host:port)/database?sql_notes=false`.
 * `sql_mode` sets the server-side strict mode. Read more about possible values [here](https://dev.mysql.com/doc/refman/5.7/en/sql-mode.html).
 
 #### PostgreSQL
+
+DSN Layout: `mysql://user:pw@tcp(host:port)/database?someSetting=value&foo=bar`.
 
 On top of the settings above, PostgreSQL supports additional settings:
 
