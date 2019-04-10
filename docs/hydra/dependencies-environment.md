@@ -39,7 +39,7 @@ Both MySQL and PostgreSQL adapters support the following settings. You can modif
 
 #### MySQL
 
-DSN Layout: `postgres://user:pw@host:port/database?someSetting=value&foo=bar`.
+> DSN Layout: `mysql://user:pw@tcp(host:port)/database?someSetting=value&foo=bar`.
 
 On top of the settings above, MySQL supports additional settings:
 
@@ -48,7 +48,7 @@ On top of the settings above, MySQL supports additional settings:
 
 #### PostgreSQL
 
-DSN Layout: `mysql://user:pw@tcp(host:port)/database?someSetting=value&foo=bar`.
+> DSN Layout: `postgres://user:pw@host:port/database?someSetting=value&foo=bar`.
 
 On top of the settings above, PostgreSQL supports additional settings:
 
