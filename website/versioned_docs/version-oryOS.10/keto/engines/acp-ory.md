@@ -319,7 +319,7 @@ Checks if the value passed in the access request's context matches the regular e
     "someKeyName": {
       "type": "StringMatchCondition",
       "options": {
-        "equals": "regex-pattern-here.+"
+        "matches": "regex-pattern-here.+"
       }
     }
   }
