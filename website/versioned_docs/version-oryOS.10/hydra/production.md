@@ -54,8 +54,8 @@ ORY Hydra serves APIs via two ports:
 
 The public port can and should be exposed to public internet traffic. That port handles requests to:
 
-* `./well-known/jwks.json`
-* `./well-known/openid-configuration`
+* `/.well-known/jwks.json`
+* `/.well-known/openid-configuration`
 * `/oauth2/auth`
 * `/oauth2/token`
 * `/oauth2/revoke`
