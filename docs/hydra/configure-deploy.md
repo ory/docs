@@ -30,7 +30,7 @@ we recommend to stick to Docker.
 
 ### Using Docker
 
-To run ORY Hydra using Docker, use the [`oryd/hydra` repository](https://cloud.docker.com/u/oryd/repository/docker/oryd/hydra):
+To run ORY Hydra using Docker, use the [`oryd/hydra` repository](https://cloud.docker.com/repository/docker/oryd/hydra):
 
 ```shell
 $ docker run --rm -it --entrypoint hydra oryd/hydra:v1.0.0-rc.9 help
