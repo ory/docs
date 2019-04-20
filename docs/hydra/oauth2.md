@@ -336,7 +336,8 @@ const body = {
         access_token: { ... },
 
         // Sets session data for the OpenID Connect ID token. Keep in mind that the session'id payloads are readable
-        // by anyone that has access to the ID Challenge. Use with care!
+        // by anyone that has access to the ID Challenge. Use with care! Any information added here will be mirrored at
+        // the `/userinfo` endpoint.
         id_token: { ... },
     }
 }
@@ -386,20 +387,22 @@ You can revoke login sessions. Revoking a login session will remove all of the u
 the user to re-authenticate when performing the next OAuth 2.0 Authorize Code Flow. Be aware that this option will
 remove all cookies from all devices.
 
-Revoking the login sessions of a user is as easy as sending `DELETE to `/oauth2/auth/sessions/login/{user}`.
+Revoking the login sessions of a user is as easy as sending `DELETE to `/oauth2/auth/sessions/login?subject={subject}`.
 
 #### Consent
 
 You can revoke a user's consent either on a per application basis or for all applications. Revoking the consent will
 automatically revoke all related access and refresh tokens.
 
-Revoking all consent sessions of a user is as easy as sending `DELETE to `/oauth2/auth/sessions/consent/{user}`.
+Revoking all consent sessions of a user is as easy as sending `DELETE to `/oauth2/auth/sessions/consent?subject={subject}`.
 
-Revoking the consent sessions of a user for a specific client is as easy as sending `DELETE to `/oauth2/auth/sessions/consent/{user}/{client}`.
+Revoking the consent sessions of a user for a specific client is as easy as sending `DELETE to `/oauth2/auth/sessions/consent?subject={subject}&client={client}`.
 
-## OAuth 2.0 Scope
+## OAuth 2.0
 
-The scope of an OAuth 2.0 scope defines the permission the token was granted by the user. For example, a specific
+### OAuth 2.0 Scope
+
+The scope of an OAuth 2.0 scope defines the permission the token was granted by the end-user. For example, a specific
 token might be allowed to access public pictures, but not private ones. The granted permissions are established during
 the consent screen.
 
@@ -408,7 +411,63 @@ Additionally, ORY Hydra has pre-defined OAuth 2.0 Scope values:
 * `offline` and `offline_access`: Include this scope if you wish to receive a refresh token
 * `openid`: Include this scope if you wish to perform an OpenID Connect request.
 
-## OAuth2 Token Introspection
+> A OAuth 2.0 Scope **is not a permission**:
+>
+> * A permission allows an actor to perform a certain action in a system: *Bob is allowed to delete his own photos*.
+> * OAuth 2.0 Scope implies that an end-user granted certain privileges to a client: *Bob allowed the OAuth 2.0 Client
+to delete all users*.
+>
+> The OAuth 2.0 Scope can be granted without the end-user actually having the right permissions. In the examples above,
+> Bob granted an OAuth 2.0 Client the permission ("scope") to delete all users in his name. However, since Bob is not an administrator,
+> that permission ("access control") is not actually granted to Bob. Therefore any request by the OAuth 2.0 Client that
+> tries to delete users on behalf of Bob should fail.
+
+### OAuth 2.0 Refresh Tokens
+
+OAuth 2.0 Refresh Tokens are issued only when an Authorize Code Flow (`response_type=code`) or an
+OpenID Connect Hybrid Flow with an Authorize Code Response Type (`response_type=code+...`)  is executed.
+OAuth 2.0 Refresh Tokens are not returned for Implicit or Client Credentials grants:
+
+* Capable of issuing an OAuth 2.0 Refresh Token:
+ * https://ory-hydra.example/oauth2/auth?response_type=code&...
+ * https://ory-hydra.example/oauth2/auth?response_type=code+token&...
+ * https://ory-hydra.example/oauth2/auth?response_type=code+token+id_token&...
+ * https://ory-hydra.example/oauth2/auth?response_type=code+id_token&...
+* Will not issue an OAuth 2.0 Refresh Token
+ * https://ory-hydra.example/oauth2/auth?response_type=token&...
+ * https://ory-hydra.example/oauth2/auth?response_type=token+id_token&...
+ * https://ory-hydra.example/oauth2/auth?response_type=token+id_token&...
+ * https://ory-hydra.example/oauth2/token?grant_type=client_redentials&...
+
+Additionally, each OAuth 2.0 Client that wants to request an OAuth 2.0 Refresh Token must be allowed to request scope
+`offline_access`. When performing an OAuth 2.0 Authorize Code Flow, the `offline_access` value must be included in the
+requested OAuth 2.0 Scope:
+
+```
+https://authorization-server.com/auth
+ &scope=offline_access
+ ?response_type=code
+ &client_id=...
+ &redirect_uri=...
+ &state=...
+```
+
+When accepting the consent request, `offline_access` must be in the list of `grant_scope`:
+
+```
+fetch('https://hydra/oauth2/auth/requests/consent/accept?challenge=' + encodeURIComponent(challenge), {
+    method: 'PUT',
+    body: JSON.stringify(body),
+    headers: { 'Content-Type': 'application/json' }
+}).
+const body = {
+    grant_scope: ["offline_access"],
+}
+```
+
+Refresh Token Lifespan can be set using configuration key `ttl.refresh_token`. If set to -1, Refresh Tokens never expire.
+
+### OAuth 2.0 Token Introspection
 
 OAuth2 Token Introspection is an [IETF](https://tools.ietf.org/html/rfc7662) standard.
 It defines a method for a protected resource to query
@@ -421,9 +480,110 @@ to the protected resource.
 You can find more details on this endpoint in the [ORY Hydra API Docs](https://www.ory.sh/docs/). You can also use
 the CLI command `hydra token introspect <token>`.
 
-## OAuth 2.0 Clients
+### OAuth 2.0 Clients
 
-You can manage *OAuth 2.0 clients* using the cli or the HTTP REST API.
+You can manage *OAuth 2.0 clients* using the cli or the HTTP REST API:
 
 * **CLI:** `hydra help clients`
-* **REST:** Read the [API Docs](https://www.ory.sh/docs)
+* **REST:** Read the [API Docs](https://www.ory.sh/docs/hydra/sdk/api)
+
+#### Examples
+
+This section provides a few examples to get you started with the most-used OAuth 2.0 Clients:
+
+##### Authorize Code Flow with Refresh Token
+
+The following command creates an OAuth 2.0 Client capable of executing the Authorize Code Flow, requesting ID and Refresh
+Tokens and performing the OAuth 2.0 Refresh Grant:
+
+```sh
+hydra clients create \
+    --endpoint http://ory-hydra:4445 \
+    --id client-id \
+    --secret client-secret \
+    --grant-types authorization_code,refresh_token \
+    --response-types code \
+    --scope openid,offline \
+    --callbacks http://my-app.com/callback,http://my-other-app.com/callback
+```
+
+The OAuth 2.0 Client will be allowed to use values `http://my-app.com/callback` and `http://my-other-app.com/callback`
+as `redirect_url`. It is expected that the OAuth 2.0 Client sends its credentials using HTTP Basic Authorization.
+If you wish to send credentials in the POST Body, add the following flag to the command above:
+
+```
+    --token-endpoint-auth-method client_secret_post \
+```
+
+##### Client Credentials Flow
+
+A client only capable of performing the Client Credentials Flow can be created as follows:
+
+```
+hydra clients create \
+    --endpoint http://ory-hydra:4445 \
+    --id my-client \
+    --secret secret \
+    -g client_credentials
+```
+
+## OpenID Connect
+
+### Userinfo
+
+The `/userinfo` endpoint returns information on a user given an access token. Since ORY Hydra does is agnostic to
+any end-user data, the `/userinfo` endpoint returns only minimal information per default:
+
+```
+GET https://ory-hydra:4444/userinfo
+Authorization: bearer access-token.xxxx
+
+{
+ "acr": "oauth2",
+ "sub": "xxx@xxx.com"
+}
+```
+
+Any information set to the key `session.id_token` during accepting the consent request will also be included here.
+
+```js
+
+// This is node-js pseudo code and will not work if you copy it 1:1
+
+const body = {
+    // grant_scope: ["foo", "bar"],
+    // ...
+    session: {
+        id_token: {
+            "foo": "bar"
+        },
+    }
+}
+
+fetch('https://hydra/oauth2/auth/requests/consent/' + challenge + '/accept', {
+    method: 'PUT',
+    body: JSON.stringify(body),
+    headers: { 'Content-Type': 'application/json' }
+}).
+    // then(function (response) {
+```
+
+Making the `/userinfo` call with a token issued by this consent request, one would receive:
+
+```
+GET https://ory-hydra:4444/userinfo
+Authorization: bearer new-access-token.xxxx
+
+{
+ "acr": "oauth2",
+ "sub": "xxx@xxx.com",
+ "foo": "bar"
+}
+```
+
+You should only include data that has been authorized by the end-user through an OAuth 2.0 Scope. If an OAuth 2.0
+Client, for example, requests the `phone` scope and the end-user authorizes that scope, the phone number should
+be added to `session.id_token`.
+
+> Be aware that the `/userinfo` endpoint is public. Its contents are thus as publicly visible as those of ID Tokens.
+> It is therefore imperative to **not expose sensitive information without end-user consent.**
