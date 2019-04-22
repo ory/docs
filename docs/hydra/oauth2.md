@@ -508,6 +508,89 @@ fetch('https://hydra/oauth2/auth/requests/logout/reject?' + querystring.stringif
 If the logout request was granted and the user agent redirected back to ORY Hydra, all OpenID Connect Front-/Back-channel
 logout flows (if set) will be performed and the user will be redirect back to his/her final destination.
 
+#### [OpenID Connect Front-Channel Logout 1.0](https://openid.net/specs/openid-connect-frontchannel-1_0.html)
+
+In summary ([read the spec](https://openid.net/specs/openid-connect-frontchannel-1_0.html)) this feature allows
+an OAuth 2.0 Client to register fields `frontchannel_logout_uri` and `frontchannel_logout_session_required`.
+
+If `frontchannel_logout_uri` is set to a valid URL (the host, port, path must all match those of one of the Redirect URIs),
+ORY Hydra will redirect the user-agent (typically browser) to that URL after a logout occurred. This allows
+the OAuth 2.0 Client Application to log out the end-user in its own system as well - for example by deleting a Cookie
+or otherwise invalidating the user session.
+
+ORY Hydra always appends query parameters values `iss` and `sid` to the Front-Channel Logout URI, for example:
+
+```
+https://rp.example.org/frontchannel_logout
+  ?iss=https://server.example.com
+  &sid=08a5019c-17e1-4977-8f42-65a12843ea02
+```
+
+Each OpenID Connect ID Token is issued with a `sid` claim that will match the `sid` value from the Front-Channel Logout
+URI.
+
+ORY Hydra will automatically execute the required HTTP Redirects to make this work. No extra work is required.
+
+#### [OpenID Connect Back-Channel Logout 1.0](https://openid.net/specs/openid-connect-backchannel-1_0.html)
+
+In summary ([read the spec](https://openid.net/specs/openid-connect-backchannel-1_0.html)) this feature allows
+an OAuth 2.0 Client to register fields `backchannel_logout_uri` and `backchannel_logout_session_required`.
+
+If `backchannel_logout_uri` is set to a valid URL, a HTTP Post request with Content-Type `application/x-www-form-urlencoded`
+and a `logout_token` will be made to that URL when a end-user logs out. The `logout_token` is a JWT signed with the same
+key that is used to sign OpenID Connect ID Tokens. You should thus validate the `logout_token` using the ID Token Public
+Key (can be fetched from `/.well-known/jwks.json`). The `logout_token` contains the following claims:
+
+* `iss` - Issuer Identifier, as specified in Section 2 of [OpenID.Core].
+* `aud` - Audience(s), as specified in Section 2 of [OpenID.Core].
+* `iat` - Issued at time, as specified in Section 2 of [OpenID.Core].
+* `jti` - Unique identifier for the token, as specified in Section 9 of [OpenID.Core].
+* `events` - Claim whose value is a JSON object containing the member name http://schemas.openid.net/event/backchannel-logout. This declares that the JWT is a Logout Token. The corresponding member value MUST be a JSON object and SHOULD be the empty JSON object {}.
+* `sid` - Session ID - String identifier for a Session. This represents a Session of a User Agent or device for a logged-in End-User at an RP. Different sid values are used to identify distinct sessions at an OP. The sid value need only be unique in the context of a particular issuer. Its contents are opaque to the RP. Its syntax is the same as an OAuth 2.0 Client Identifier.
+
+```
+{
+  "iss": "https://server.example.com",
+  "aud": "s6BhdRkqt3",
+  "iat": 1471566154,
+  "jti": "bWJq",
+  "sid": "08a5019c-17e1-4977-8f42-65a12843ea02",
+  "events": {
+     "http://schemas.openid.net/event/backchannel-logout": {}
+   }
+}
+```
+
+An exemplary Back-Channel Logout Request looks as follows:
+
+```
+POST /backchannel_logout HTTP/1.1
+Host: rp.example.org
+Content-Type: application/x-www-form-urlencoded
+
+logout_token=eyJhbGci ... .eyJpc3Mi ... .T3BlbklE ...
+```
+
+The Logout Token must be validated as follows:
+
+* Validate the Logout Token signature in the same way that an ID Token signature is validated, with the following refinements.
+* Validate the iss, aud, and iat Claims in the same way they are validated in ID Tokens.
+* Verify that the Logout Token contains a sid Claim.
+* Verify that the Logout Token contains an events Claim whose value is JSON object containing the member name http://schemas.openid.net/event/backchannel-logout.
+* Verify that the Logout Token does not contain a nonce Claim.
+* Optionally verify that another Logout Token with the same jti value has not been recently received.
+
+The endpoint then returns a HTTP 200 OK response. Cache-Control headers should be set to:
+
+```
+Cache-Control: no-cache, no-store
+Pragma: no-cache
+```
+
+Because the OpenID Connect Back-Channel Logout Flow is not executed using the user-agent (e.g. Browser) but from ORY Hydra
+directly, the session cookie of the end-user will not be available to the OAuth 2.0 Client and the session has to be
+invalidated by some other means (e.g. by blacklisting the session ID).
+
 ### Revoking consent and login sessions
 
 #### Login
