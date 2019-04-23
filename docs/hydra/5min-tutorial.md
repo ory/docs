@@ -9,7 +9,7 @@ and an exemplary User Login & Consent App. You need to have the latest Docker as
 <img src="../../website/static/images/docs/hydra/oauth2-flow.gif" alt="OAuth2 Flow">
 
 Next, clone (`git clone https://github.com/ory/hydra.git`), [download](https://github.com/ory-am/hydra/archive/master.zip),
-or use `go get -d github.com/ory/hydra` - if you have Go (1.12+) installed on you system - to download the Docker Compose
+or use `go get -d github.com/ory/hydra` - if you have Go (1.12+) installed on your system - to download the Docker Compose
 set up.
 
 Finally, run `docker-compose` to start the needed containers. 
@@ -47,7 +47,7 @@ $ docker-compose -f quickstart.yml \
     up --build
 ```
 
-Everything should running now! Let's confirm that everything is working by creating our first OAuth 2.0 Client.
+Everything should be running now! Let's confirm that everything is working by creating our first OAuth 2.0 Client.
 The following commands will use Docker wizardry. You can obviously install the ORY Hydra CLI locally and avoid using
 Docker here. If you do use the CLI locally, you can omit `docker-compose -f quickstart.yml exec /hydra` completely.
 
@@ -140,7 +140,7 @@ see at least an access token in the response. If you granted the `offline` scope
 If you granted the `openid` scope, you will get an ID Token as well.
 
 Great! You installed hydra, connected the CLI, created a client and completed two authentication flows!
-Before you continue, clean up this set up in order to avoid conflicts with other tutorials form this guide:
+Before you continue, clean up this set up in order to avoid conflicts with other tutorials from this guide:
 
 ```
 $ docker-compose kill
