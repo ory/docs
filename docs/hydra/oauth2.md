@@ -6,6 +6,16 @@ title: Integrating with (existing) User Management
 Please read this chapter carefully, it is imperative to getting started and grasping all the concepts quickly. The
 next sections will give you an overview of this chapter and explain some concepts. Do not skip the chapters. Seriously! :)
 
+## OAuth 2.0 and OpenID Connect
+
+### Introduction
+
+While the following is a lengthy video, we highly recommend watching it if you are new to OAuth 2.0 and OpenID Connect!
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/996OiexHze0" frameborder="0" allowfullscreen></iframe>
+
+### ORY Hydra does not manage Users
+
 The first important concept to understand is that ORY Hydra is an OAuth 2.0 Authorization and OpenID Connect Server.
 Some mistake these capabilities for systems that store user data and log you in. This is not the case. Instead, such a
 server is responsible for "translating" user credentials (typically username and password) to OAuth 2.0 Access and Refresh Tokens
@@ -20,6 +30,10 @@ It can be a new app or your existing login system. On a high level, these provid
 - The login provider is responsible for authenticating the user ("login") by validating his or her credentials (e.g. username + password).
 - The consent provider is responsible for allowing the OAuth 2.0 application to get a token on the user's behalf ("Do you want
 to allow foobar-app access to all your personal messages and images?".
+
+### Common Misconceptions
+
+#### OAuth 2.0 Scope != Permission
 
 A second important concept is the OAuth 2.0 Scope.
 
@@ -48,7 +62,7 @@ in order to become an OAuth 2.0 and OpenID Connect provider like Google, Dropbox
 Again, please be aware that you must know how OAuth 2.0 and OpenID Connect work. This documentation will not teach you how
 these protocols work.
 
-## Glossary
+### Glossary
 
 Before we get into the gritty details of how everything fits together, let's get some terminologies out of the way. You will
 find these terminologies scattered across the OAuth2 and OpenID Connect ecosystem.
