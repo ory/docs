@@ -545,7 +545,7 @@ hydra clients create \
 
 ### Userinfo
 
-The `/userinfo` endpoint returns information on a user given an access token. Since ORY Hydra does is agnostic to
+The `/userinfo` endpoint returns information on a user given an access token. Since ORY Hydra is agnostic to
 any end-user data, the `/userinfo` endpoint returns only minimal information per default:
 
 ```
@@ -582,7 +582,7 @@ fetch('https://hydra/oauth2/auth/requests/consent/' + challenge + '/accept', {
     // then(function (response) {
 ```
 
-Making the `/userinfo` call with a token issued by this consent request, one would receive:
+By making the `/userinfo` call with a token issued by this consent request, one would receive:
 
 ```
 GET https://ory-hydra:4444/userinfo

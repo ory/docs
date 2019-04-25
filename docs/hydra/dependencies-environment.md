@@ -73,7 +73,7 @@ must contain PEM encoded data.
 It is possible to implement your own DBAL using Go Plugins.
 
 > We strongly discourage you from implementing your own DBAL. Special knowledge is required and internal
-interfaces will break without notice and migration guides. This can lead to serious security issues and vulnerabilites.
+interfaces will break without notice and migration guides. This can lead to serious security issues and vulnerabilities.
 USE AT YOUR OWN RISK.
 
 Your plugin must implement interface `github.com/ory/hydra/driver.Registry`. You can load the plugin as follows:

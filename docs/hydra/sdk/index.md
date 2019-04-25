@@ -3,7 +3,7 @@ id: index
 title: Overview
 ---
 
-All SDKs are use automated code generation provided by [`swagger-codegen`](https://github.com/swagger-api/swagger-codegen).
+All SDKs use automated code generation provided by [`swagger-codegen`](https://github.com/swagger-api/swagger-codegen).
 Unfortunately, `swagger-codegen` has serious breaking changes in the generated code when upgrading versions. Therefore,
 we do not make backwards compatibility promises with regards to the generated SDKs. We hope to improve this process
 in the future.
