@@ -6,6 +6,7 @@
     "Ecosystem": [
       "ecosystem/overview",
       "ecosystem/cloud-native",
+      "ecosystem/usage",
       "ecosystem/versioning",
       "ecosystem/upgrading",
       "ecosystem/examples",

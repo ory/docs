@@ -4,4 +4,15 @@
 
 This repository contains the documentation (HTTP API Reference, User Guides, FAQ) for all ORY products. Changes, when merged or pushed to master, are directly deployed to the website.
 
+To view the docs go to **[www.ory.sh/docs/next](https://www.ory.sh/docs/next)**.
+
 To make changes, simply modify the markdown files.
+
+## Releasing a new version
+
+The ORY Documentation is versioned according to `oryOS.X` version semantics. To (re-)release a version run:
+ 
+```
+$ cd website
+$ npm run release oryOS.
+```
