@@ -7,8 +7,6 @@ title: Limitations
 
 ORY Hydra tries to solve all of OAuth 2.0 and OpenID Connect uses. There are, however, some limitations.
 
-<!-- toc -->
-
 ## MySQL <= 5.6 / MariaDB
 
 ORY Hydra has issues with MySQL <= 5.6 (but not MySQL 5.7+) and certain MariaDB versions. Read more about this [here](https://github.com/ory/hydra/issues/377).

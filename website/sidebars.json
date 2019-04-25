@@ -24,35 +24,42 @@
       },
       {
         "type": "subcategory",
-        "label": "Guides",
+        "label": "Core Concepts",
         "ids": [
-          "hydra/oauth2",
-          "hydra/configure-deploy",
+          "hydra/oauth2-openid-connect",
+          "hydra/user-management",
           "hydra/dependencies-environment",
-          "hydra/production",
-          "hydra/configuration",
-          "hydra/debugging",
-          "hydra/advanced",
-          "hydra/integration"
+          "hydra/limitations",
+          "hydra/jwks",
+          "hydra/security-architecture"
         ]
       },
       {
         "type": "subcategory",
-        "label": "SDK",
+        "label": "Guides",
+        "ids": [
+          "hydra/configure-deploy",
+          "hydra/production",
+          "hydra/debugging",
+          "hydra/advanced"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "SDKs",
         "ids": [
           "hydra/sdk/index",
-          "hydra/sdk/api",
           "hydra/sdk/go",
           "hydra/sdk/js"
         ]
       },
       {
         "type": "subcategory",
-        "label": "Further Reading",
+        "label": "References",
         "ids": [
-          "hydra/limitations",
-          "hydra/jwks",
-          "hydra/security-architecture",
+          "hydra/configuration",
+          "hydra/sdk/api",
+          "hydra/changelog",
           "hydra/faq"
         ]
       }
