@@ -143,7 +143,7 @@ and uncommon attack vectors. [Learn more](https://www.ory.sh/docs/guides/master/
 4. Hydra scales effortlessly up and down on every platform imaginable, including Heroku, Cloud Foundry, Docker,
 Google Container Engine and many more.
 
-Hydra has a limitations too:
+Hydra has a few limitations too:
 
 1. Hydra is not something that manages user accounts. Hydra does not offer user registration, password reset, user
 login, sending confirmation emails. This is what the *Identity Provider* is responsible for.
