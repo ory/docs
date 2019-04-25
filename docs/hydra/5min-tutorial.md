@@ -6,7 +6,7 @@ title: 5 Minute Tutorial
 To get started quickly, we provide a Docker Compose based example for setting up ORY Hydra, a PostgreSQL instance
 and an exemplary User Login & Consent App. You need to have the latest Docker as well as Docker Compose version installed.
 
-<img src="/website/static/images/docs/hydra/oauth2-flow.gif" alt="OAuth2 Flow">
+<img src="/images/docs/hydra/oauth2-flow.gif" alt="OAuth2 Flow">
 
 Next, clone (`git clone https://github.com/ory/hydra.git`), [download](https://github.com/ory-am/hydra/archive/master.zip),
 or use `go get -d github.com/ory/hydra` - if you have Go (1.12+) installed on your system - to download the Docker Compose
