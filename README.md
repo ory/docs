@@ -8,6 +8,10 @@ To view the docs go to **[www.ory.sh/docs/next](https://www.ory.sh/docs/next)**.
 
 To make changes, simply modify the markdown files.
 
+## Caveats
+
+When editing markdown files, bear in mind that all the resources under `/website/static/*` are hosted at `/*`. So `/website/static/images/blah.svg` becomes `/images/bhah.svg` and so on. _(even if it looks broken on Github markdown preview)_
+
 ## Releasing a new version
 
 The ORY Documentation is versioned according to `oryOS.X` version semantics. To (re-)release a version run:
