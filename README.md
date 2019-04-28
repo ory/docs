@@ -10,7 +10,7 @@ To make changes, simply modify the markdown files.
 
 ## Caveats
 
-When editing markdown files, bear in mind that all the resources under `/website/static/*` are hosted at `/*`. So `/website/static/images/blah.svg` becomes `/images/bhah.svg` and so on. _(even if it looks broken on Github markdown preview)_
+When editing markdown files, bear in mind that all the resources under `/website/static/*` are hosted at `/*`. So `/website/static/images/blah.svg` becomes `/images/blah.svg` and so on. _(even if it looks broken on Github markdown preview)_
 
 ## Releasing a new version
 
