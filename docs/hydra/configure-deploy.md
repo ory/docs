@@ -172,11 +172,11 @@ Starts all HTTP/2 APIs and connects to a database backend.
 
 # ORY Hydra does not do magic, it requires conscious decisions, for example running SQL migrations which is required
 # when installing a new version of ORY Hydra, or upgrading an existing installation.
-# It is the equivalent to `hydra migrate sql postgres://hydra:secret@ory-hydra-example--postgres:5432/hydra?sslmode=disable`
+# It is the equivalent to `hydra migrate sql --yes postgres://hydra:secret@ory-hydra-example--postgres:5432/hydra?sslmode=disable`
 $ docker run -it --rm \
   --network hydraguide \
   oryd/hydra:v1.0.0-rc.9 \
-  migrate sql $DSN
+  migrate sql --yes $DSN
 
 Applying `client` SQL migrations...
 [...]

@@ -96,15 +96,15 @@ image
 
 **Dockerfile**
 ```
-FROM oryd/hydra:tag
+FROM oryd/hydra:<tag>
 
-ENTRYPOINT /go/bin/hydra migrate sql $DATABASE_URL
+ENTRYPOINT hydra migrate sql --yes $DATABASE_URL
 ```
 
 and run it in your infrastructure once.
 
 Additionally, *but not recommended*, it is possible to override the entry point of the ORY Hydra Docker image using CLI flag
-`--entrypoint "hydra migrate sql $DATABASE_URL; hydra host"` or with `entrypoint: hydra migrate sql $DATABASE_URL; hydra host`
+`--entrypoint "hydra migrate sql --yes $DATABASE_URL; hydra host"` or with `entrypoint: hydra migrate sql $DATABASE_URL; hydra host`
 set in your docker compose config.
 
 ## Can I set the log level to warn, error, debug, ...?
