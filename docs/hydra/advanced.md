@@ -322,3 +322,60 @@ Each OAuth 2.0 Client has a configuration field `subject_type`. The value of tha
 
 While ORY Hydra handles `sub` obfuscation out of the box, you may also override this value with your own obfuscated
 `sub` value by setting `force_subject_identifier` when accepting the login challenge in your user login app.
+
+## CORS
+
+Both ORY Hydra's Admin and Public endpoints support CORS. For detailed information, head over to the exemplary [config file](https://github.com/ory/hydra/blob/master/docs/config.yaml).
+
+For CORS to work properly, we encourage to set the following values:
+
+```yaml
+serve:
+  admin:
+    cors:
+      enabled: true
+      allowed_origins:
+        - https://example.com
+        - https://*.example.com
+      allowed_methods:
+        - POST
+        - GET
+        - PUT
+        - PATCH
+        - DELETE
+      allowed_headers:
+        - Authorization
+      exposed_headers:
+        - Content-Type
+  public:
+    cors:
+      enabled: true
+      allowed_origins:
+        - https://example.com
+        - https://*.example.com
+      allowed_methods:
+        - POST
+        - GET
+        - PUT
+        - PATCH
+        - DELETE
+      allowed_headers:
+        - Authorization
+      exposed_headers:
+        - Content-Type
+```
+
+Keep in mind that the OAuth 2.0 Authorization Endpoint (`/oauth2/auth`) does not expose CORS by design. This endpoint
+should never be consumed in a CORS-fashion. Some endpoints (`/oauth2/token`, `/userinfo`, `/oauth2/revoke`) additionally
+include URLs listed in field `allowed_cors_origins` of the OAuth 2.0 Client that is making the request. For example,
+OAuth 2.0 Client
+
+```
+{
+    "client_id": "foo",
+    "allowed_cors_origins": ["https://foo-bar.com/"]
+}
+```
+
+is allowed to make CORS request to `/oauth2/token` from origin `https://foo-bar.com/` even if that origin is not listed
+in `public.cors.allowed_origins`.
