@@ -53,7 +53,8 @@ This compatibility matrix shows which versions are compatible with one another.
 
 | oryOS         | Documentation | ORY Hydra                 | ORY Keto                 | ORY Oathkeeper         |
 | ------------- | ------------- | ------------------------  | ------------------------ | ---------------------- |
-| `oryOS.10`    | `oryOS.10`    | `v1.0.0-rc.5+oryOS.10`, `v1.0.0-rc.6+oryOS.10`, `v1.0.0-rc.7+oryOS.10`, `v1.0.0-rc.8+oryOS.10` , `v1.0.0-rc.9+oryOS.10` | `v0.2.2-sandbox+oryOS.10`| `v0.14.2+oryOS.10`     |
+| `oryOS.11`    | `oryOS.11`    | `v1.0.0-rc.10+oryOS.11`   | `v0.3.0-sandbox+oryOS.11`| `v0.15.0+oryOS.11`     |
+| `oryOS.10`    | `oryOS.10`    | `v1.0.0-rc.5+oryOS.10`, `v1.0.0-rc.6+oryOS.10`, `v1.0.0-rc.7+oryOS.10`, `v1.0.0-rc.8+oryOS.10`, `v1.0.0-rc.9+oryOS.10` | `v0.2.2-sandbox+oryOS.10`| `v0.14.2+oryOS.10`     |
 | `oryOS.9`     | `oryOS.9`     | `v1.0.0-beta.9`, `v1.0.0-rc.2+oryOS.9`, `v1.0.0-rc.3+oryOS.9`, `v1.0.0-rc.4+oryOS.9`           | `v0.1.9-sandbox+oryOS.9` | `v0.13.9+oryOS.9`      |
 | `oryOS.8`     |               | `v1.0.0-beta.8`           | `v0.1.8-sandbox+oryOS.8` | `v0.13.8+oryOS.8`      |
 | `oryOS.7`     |               | `v1.0.0-beta.7`           | `v0.1.7-sandbox+oryOS.7` | `v0.13.7+oryOS.7`      |
@@ -76,9 +77,11 @@ replaced by `_`. For example, ORY Hydra `v1.2.3+oryOS.123` is available on Docke
 NPM also does not support `+` in version tags. Since npm modules are only required for interacting with the service
 itself, `+oryOS` is not available in npm packages at all.
 
-| Example version        | Docker Hub                             | NPM               |
-| ---------------------- | -------------------------------------- | ----------------- |
-| `v1.2.3-rc1+oryOS.123` | `v1.2.3-rc1_oryOS.123`                 | `v1.2.3-rc1`      |
+The same limitation applies to Go Modules (see [issue](https://github.com/golang/go/issues/31713)).
+
+| Example version        | Git Tag       | Docker Hub     | NPM               |
+| ---------------------- | --------------|----------------| ----------------- |
+| `v1.2.3-rc1+oryOS.123` | `v1.2.3-rc1`  | `v1.2.3-rc1`   | `v1.2.3-rc1`      |
 
 ## November 2018 Change
 

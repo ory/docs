@@ -1,6 +1,6 @@
 ---
 id: install
-title: Install
+title: Installation
 ---
 
 Installing ORY Hydra on any system is straight forward. We provide pre-built binaries, Docker Images and support

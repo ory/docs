@@ -1,6 +1,6 @@
 ---
 id: index
-title: Introduction
+title: Introduction to ORY Hydra, OAuth 2.0, and OpenID Connect
 ---
 
 Welcome to the Hydra documentation. This documentation will
@@ -41,6 +41,10 @@ to read the following articles:
 
 Please be aware that we do not aim to explain OAuth 2.0 in great detail. We assume that you have some knowledge
 of the flows and strongly encourage you to refresh your knowledge with the articles listed above.
+
+We highly recommend watching the following video:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/996OiexHze0" frameborder="0" allowfullscreen></iframe>
 
 ### What is OAuth 2.0?
 

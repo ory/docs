@@ -8,10 +8,6 @@ next sections will give you an overview of this chapter and explain some concept
 
 ## OAuth 2.0 and OpenID Connect
 
-### Introduction
-
-While the following is a lengthy video, we highly recommend watching it if you are new to OAuth 2.0 and OpenID Connect!
-
 <iframe width="560" height="315" src="https://www.youtube.com/embed/996OiexHze0" frameborder="0" allowfullscreen></iframe>
 
 ### ORY Hydra does not manage Users
