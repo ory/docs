@@ -40,7 +40,7 @@
       },
       {
         "type": "subcategory",
-        "label": "SDK",
+        "label": "API & SDKs",
         "ids": [
           "hydra/sdk/index",
           "hydra/sdk/api",
@@ -73,7 +73,7 @@
       },
       {
         "type": "subcategory",
-        "label": "SDK",
+        "label": "API & SDKs",
         "ids": [
           "oathkeeper/sdk/api"
         ]
@@ -104,7 +104,7 @@
       },
       {
         "type": "subcategory",
-        "label": "SDK",
+        "label": "API & SDKs",
         "ids": [
           "keto/sdk/api"
         ]
