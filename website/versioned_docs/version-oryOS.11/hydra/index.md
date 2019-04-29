@@ -1,6 +1,7 @@
 ---
-id: index
+id: version-oryOS.11-index
 title: Introduction to ORY Hydra, OAuth 2.0, and OpenID Connect
+original_id: index
 ---
 
 Welcome to the Hydra documentation. This documentation will

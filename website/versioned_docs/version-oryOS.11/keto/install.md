@@ -1,6 +1,7 @@
 ---
-id: install
+id: version-oryOS.11-install
 title: Installation
+original_id: install
 ---
 
 Installing ORY Keto on any system is straight forward. We provide pre-built binaries, Docker Images and support

@@ -1,6 +1,7 @@
 ---
-id: go
+id: version-oryOS.11-go
 title: Go
+original_id: go
 ---
 
 To install the Go SDK, run:

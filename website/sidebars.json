@@ -8,6 +8,7 @@
       "ecosystem/cloud-native",
       "ecosystem/usage",
       "ecosystem/versioning",
+      "ecosystem/persistence",
       "ecosystem/upgrading",
       "ecosystem/examples",
       "ecosystem/community",
@@ -15,6 +16,7 @@
     ],
     "ORY Hydra": [
       "hydra/index",
+      "hydra/install",
       {
         "type": "subcategory",
         "label": "Getting Started",
@@ -38,7 +40,7 @@
       },
       {
         "type": "subcategory",
-        "label": "SDK",
+        "label": "API & SDKs",
         "ids": [
           "hydra/sdk/index",
           "hydra/sdk/api",
@@ -59,6 +61,7 @@
     ],
     "ORY Oathkeeper": [
       "oathkeeper/index",
+      "oathkeeper/install",
       {
         "type": "subcategory",
         "label": "Guides",
@@ -70,7 +73,7 @@
       },
       {
         "type": "subcategory",
-        "label": "SDK",
+        "label": "API & SDKs",
         "ids": [
           "oathkeeper/sdk/api"
         ]
@@ -78,12 +81,13 @@
     ],
     "ORY Keto": [
       "keto/index",
+      "keto/install",
       {
         "type": "subcategory",
         "label": "Guides",
         "ids": [
-          "keto/install",
           "keto/configure-deploy",
+          "keto/configuration",
           "keto/secure"
         ]
       },
@@ -100,7 +104,7 @@
       },
       {
         "type": "subcategory",
-        "label": "SDK",
+        "label": "API & SDKs",
         "ids": [
           "keto/sdk/api"
         ]

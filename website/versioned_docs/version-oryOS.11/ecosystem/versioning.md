@@ -1,6 +1,7 @@
 ---
-id: versioning
+id: version-oryOS.11-versioning
 title: Software Versions
+original_id: versioning
 ---
 
 > Running security-critical open source technology in a self-service format requires vigilance. We make your life easier
