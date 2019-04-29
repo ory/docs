@@ -39,12 +39,16 @@ Both MySQL and PostgreSQL adapters support the following settings. You can modif
 
 #### MySQL
 
+> DSN Layout: `mysql://user:pw@tcp(host:port)/database?someSetting=value&foo=bar`.
+
 On top of the settings above, MySQL supports additional settings:
 
-* `sql_notes`, if set to `false`, ignores MySQL notices. If left empty or set to `true`, they will be treated as warnings. Example `mysql://user:pw@host:port/database?sql_notes=false`.
+* `sql_notes`, if set to `false`, ignores MySQL notices. If left empty or set to `true`, they will be treated as warnings. Example `mysql://user:pw@tcp(host:port)/database?sql_notes=false`.
 * `sql_mode` sets the server-side strict mode. Read more about possible values [here](https://dev.mysql.com/doc/refman/5.7/en/sql-mode.html).
 
 #### PostgreSQL
+
+> DSN Layout: `postgres://user:pw@host:port/database?someSetting=value&foo=bar`.
 
 On top of the settings above, PostgreSQL supports additional settings:
 
@@ -69,7 +73,7 @@ must contain PEM encoded data.
 It is possible to implement your own DBAL using Go Plugins.
 
 > We strongly discourage you from implementing your own DBAL. Special knowledge is required and internal
-interfaces will break without notice and migration guides. This can lead to serious security issues and vulnerabilites.
+interfaces will break without notice and migration guides. This can lead to serious security issues and vulnerabilities.
 USE AT YOUR OWN RISK.
 
 Your plugin must implement interface `github.com/ory/hydra/driver.Registry`. You can load the plugin as follows:

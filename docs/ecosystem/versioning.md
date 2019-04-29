@@ -53,7 +53,7 @@ This compatibility matrix shows which versions are compatible with one another.
 
 | oryOS         | Documentation | ORY Hydra                 | ORY Keto                 | ORY Oathkeeper         |
 | ------------- | ------------- | ------------------------  | ------------------------ | ---------------------- |
-| `oryOS.10`    | `oryOS.10`    | `v1.0.0-rc.5+oryOS.10`, `v1.0.0-rc.6+oryOS.10`, `v1.0.0-rc.7+oryOS.10`, `v1.0.0-rc.8+oryOS.10` | `v0.2.2-sandbox+oryOS.10`| `v0.14.2+oryOS.10`     |
+| `oryOS.10`    | `oryOS.10`    | `v1.0.0-rc.5+oryOS.10`, `v1.0.0-rc.6+oryOS.10`, `v1.0.0-rc.7+oryOS.10`, `v1.0.0-rc.8+oryOS.10` , `v1.0.0-rc.9+oryOS.10` | `v0.2.2-sandbox+oryOS.10`| `v0.14.2+oryOS.10`     |
 | `oryOS.9`     | `oryOS.9`     | `v1.0.0-beta.9`, `v1.0.0-rc.2+oryOS.9`, `v1.0.0-rc.3+oryOS.9`, `v1.0.0-rc.4+oryOS.9`           | `v0.1.9-sandbox+oryOS.9` | `v0.13.9+oryOS.9`      |
 | `oryOS.8`     |               | `v1.0.0-beta.8`           | `v0.1.8-sandbox+oryOS.8` | `v0.13.8+oryOS.8`      |
 | `oryOS.7`     |               | `v1.0.0-beta.7`           | `v0.1.7-sandbox+oryOS.7` | `v0.13.7+oryOS.7`      |

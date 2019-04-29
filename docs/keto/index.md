@@ -18,7 +18,7 @@ ORY Keto provides various access control engines:
   * ORY-flavored Access Control Policies with exact, glob, and regexp matching strategies
 * Available soon:
   * [Access Control Lists](https://en.wikipedia.org/wiki/Access_control_list)
-  * [Role Based Access Control](https://de.wikipedia.org/wiki/Role_Based_Access_Control)
+  * [Role-based Access Control](https://en.wikipedia.org/wiki/Role-based_access_control)
   * Role Based Access Control with Context (Google/Kubernetes-flavored)
   * Amazon Web Services Identity & Access Management Policies (AWS IAM Policies)
 
