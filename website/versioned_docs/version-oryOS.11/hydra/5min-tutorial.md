@@ -39,7 +39,7 @@ $ docker-compose -f quickstart.yml \
 The above command would start the containers using mysql instead of postgres and activating tracing capabilities. 
 If you need more details on this, you could examine the ``scripts/5-min-tutorial.sh`` and ``docker-compose*.yml`` files.
 
-You may also extend the command above to enable distributed tracing (Tracing UI will be exposed at [http://localhost:16686/search](localhost:16686/search)):
+You may also extend the command above to enable distributed tracing (Tracing UI will be exposed at [http://127.0.0.1:16686/search](127.0.0.1:16686/search)):
 
 ```
 $ docker-compose -f quickstart.yml \
@@ -62,7 +62,7 @@ Ok, let's continue by creating a new OAuth 2.0 Client.
 # Creates a new OAuth 2.0 client
 $ docker-compose -f quickstart.yml exec hydra \
     hydra clients create \
-    --endpoint http://localhost:4445 \
+    --endpoint http://127.0.0.1:4445/ \
     --id my-client \
     --secret secret \
     -g client_credentials
@@ -73,7 +73,7 @@ OAuth2 client secret: secret
 # Let's perform the client credentials grant.
 $ docker-compose -f quickstart.yml exec hydra \
     hydra token client \
-    --endpoint http://localhost:4444 \
+    --endpoint http://127.0.0.1:4444/ \
     --client-id my-client \
     --client-secret secret
 
@@ -82,7 +82,7 @@ UDYMha9TwsMBejEvKfnDOXkhgkLsnmUNYVQDklT5bD8.ZNpuNRC85erbIYDjPqhMwTinlvQmNTk_Uvtt
 # Let's perform token introspection on that token. Make sure to copy the token you just got and not the dummy value.
 $ docker-compose -f quickstart.yml exec hydra \
     hydra token introspect \
-    --endpoint http://localhost:4445 \
+    --endpoint http://127.0.0.1:4445/ \
     --client-id my-client \
     --client-secret secret \
     UDYMha9TwsMBejEvKfnDOXkhgkLsnmUNYVQDklT5bD8.ZNpuNRC85erbIYDjPqhMwTinlvQmNTk_UvttcLQxFJY
@@ -92,7 +92,7 @@ $ docker-compose -f quickstart.yml exec hydra \
         "client_id": "my-client",
         "exp": 1527078658,
         "iat": 1527075058,
-        "iss": "http://localhost:4444",
+        "iss": "http://127.0.0.1:4444/",
         "sub": "my-client",
         "token_type": "access_token"
 }
@@ -104,7 +104,7 @@ of performing that grant:
 ```
 $ docker-compose -f quickstart.yml exec hydra \
     hydra clients create \
-    --endpoint http://localhost:4445 \
+    --endpoint http://127.0.0.1:4445 \
     --id auth-code-client \
     --secret secret \
     --grant-types authorization_code,refresh_token \
@@ -124,7 +124,7 @@ $ docker-compose -f quickstart.yml exec hydra \
     hydra token user \
     --client-id auth-code-client \
     --client-secret secret \
-    --endpoint http://localhost:4444/ \
+    --endpoint http://127.0.0.1:4444/ \
     --port 5555 \
     --scope openid,offline
 
