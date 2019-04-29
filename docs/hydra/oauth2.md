@@ -170,7 +170,10 @@ REST API call tells you to show the login ui, you **must show it**. If the REST 
 router.get('/login', function (req, res, next) {
     challenge = req.url.query.login_challenge;
 
-    fetch('https://hydra/oauth2/auth/requests/login/' + challenge).
+    fetch('https://hydra/oauth2/auth/requests/login?' + querystring.stringify({ login_challenge: challenge })).
+        then(function (response) {
+            return response.json()
+        }).
         then(function (response) {
             // ...
         })
@@ -197,7 +200,12 @@ The server response is a JSON object with the following keys:
     "requested_scope": ["foo", "bar"],
 
     // Information on the OpenID Connect request - only required to process if your UI should support these values.
-    "oidc_context": {"ui_locales": [...], ...}
+    "oidc_context": {"ui_locales": [...], ...},
+
+	// Context is an optional object which can hold arbitrary data. The data will be made available when fetching the
+	// consent request under the "context" field. This is useful in scenarios where login and consent endpoints share
+	// data.
+    "context": {...}
 }
 ```
 
@@ -218,7 +226,7 @@ To accept the login request, do something along the lines of:
 
 const body = {
     // This is the user ID of the user that authenticated. If `skip` is true, this must be the `subject`
-    // value from the `fetch('https://hydra/oauth2/auth/requests/login/' + challenge)` response:
+    // value from the `fetch('https://hydra/oauth2/auth/requests/login?' + querystring.stringify({ login_challenge: challenge }))` response:
     //
     // subject = response.subject
     //
@@ -235,11 +243,14 @@ const body = {
     acr: ".."
 }
 
-fetch('https://hydra/oauth2/auth/requests/login/' + challenge + '/accept', {
+fetch('https://hydra/oauth2/auth/requests/login/accept?' + querystring.stringify({ login_challenge: challenge }), {
     method: 'PUT',
     body: JSON.stringify(body),
     headers: { 'Content-Type': 'application/json' }
 }).
+    then(function (response) {
+        return response.json()
+    }).
     then(function (response) {
         // The response will contain a `redirect_to` key which contains the URL where the user's user agent must be redirected to next.
         res.redirect(response.redirect_to);
@@ -256,11 +267,14 @@ const body = {
     error_description: "..." // This is a more detailed description of the error
 }
 
-fetch('https://hydra/oauth2/auth/requests/login/' + challenge + '/reject', {
+fetch('https://hydra/oauth2/auth/requests/login/reject?' + querystring.stringify({ login_challenge: challenge }), {
     method: 'PUT',
     body: JSON.stringify(body),
     headers: { 'Content-Type': 'application/json' }
 }).
+    then(function (response) {
+        return response.json()
+    }).
     then(function (response) {
         // The response will contain a `redirect_to` key which contains the URL where the user's user agent must be redirected to next.
         res.redirect(response.redirect_to);
@@ -282,14 +296,17 @@ to authorize the application or not.
 
 The service which handles requests to `https://consent-provider/consent` must first fetch information on the consent
 request using a REST API call. Please be aware that for reasons of brevity, the following code snippets are pseudo-code.
-For a fully working example, check out our reference [User Login & Consent Provider implementation](https://github.com/ory/hydra-login-consent-node).
+For a fully working example, check out our reference [User Login, Logout & Consent Provider implementation](https://github.com/ory/hydra-login-consent-node).
 
 ```
 // This is node-js pseudo code and will not work if you copy it 1:1
 
 challenge = req.url.query.consent_challenge;
 
-fetch('https://hydra/oauth2/auth/requests/consent/' + challenge).
+fetch('https://hydra/oauth2/auth/requests/consent?' + querystring.stringify({ consent_challenge: challenge })).
+    then(function (response) {
+        return response.json()
+    }).
     then(function (response) {
         // ...
     })
@@ -315,7 +332,10 @@ The server response is a JSON object with the following keys:
     "requested_scope": ["foo", "bar"],
 
     // Information on the OpenID Connect request - only required to process if your UI should support these values.
-    "oidc_context": {"ui_locales": [...], ...}
+    "oidc_context": {"ui_locales": [...], ...},
+
+    // Contains arbitrary information set by the login endpoint or is empty if not set.
+    "context": {...}
 }
 ```
 
@@ -356,11 +376,14 @@ const body = {
     }
 }
 
-fetch('https://hydra/oauth2/auth/requests/consent/' + challenge + '/accept', {
+fetch('https://hydra/oauth2/auth/requests/consent/accept?' + querystring.stringify({ consent_challenge: challenge }), {
     method: 'PUT',
     body: JSON.stringify(body),
     headers: { 'Content-Type': 'application/json' }
 }).
+    then(function (response) {
+        return response.json()
+    }).
     then(function (response) {
         // The response will contain a `redirect_to` key which contains the URL where the user's user agent must be redirected to next.
         res.redirect(response.redirect_to);
@@ -380,11 +403,14 @@ const body = {
     error_description: "..."
 }
 
-fetch('https://hydra/oauth2/auth/requests/consent/' + challenge + '/reject', {
+fetch('https://hydra/oauth2/auth/requests/consent/reject?' + querystring.stringify({ consent_challenge: challenge }), {
     method: 'PUT',
     body: JSON.stringify(body),
     headers: { 'Content-Type': 'application/json' }
 }).
+    then(function (response) {
+        return response.json()
+    }).
     then(function (response) {
         // The response will contain a `redirect_to` key which contains the URL where the user's user agent must be redirected to next.
         res.redirect(response.redirect_to);
@@ -392,6 +418,192 @@ fetch('https://hydra/oauth2/auth/requests/consent/' + challenge + '/reject', {
 ```
 
 Once the user agent is redirected back, the OAuth 2.0 flow will be finalized.
+
+### Logout
+
+ORY Hydra supports:
+
+- [OpenID Connect Front-Channel Logout 1.0](https://openid.net/specs/openid-connect-frontchannel-1_0.html)
+- [OpenID Connect Back-Channel Logout 1.0](https://openid.net/specs/openid-connect-backchannel-1_0.html)
+
+A log out request may be initiated by a RP (Relying Party, alias for OAuth 2.0 Client) or by calling the logout endpoint without
+any parameters. In both cases, the high level flow looks as follows:
+
+1. A user-agent (browser) requests the logout endpoint (`/oauth2/sessions/logout`). If the request is done on behalf
+of a RP:
+  - The URL query MUST contain an ID Token issued by ORY Hydra as the `id_token_hint`: `/oauth2/sessions/logout?id_token_hint=...`
+  - The URL query MAY contain key `post_logout_redirect_uri` indicating where the user agent should be redirected after
+    the logout completed successfully. Each OAuth 2.0 Client can whitelist a list of URIs that can be used as the value
+    using the `post_logout_redirect_uris` metadata field: `/oauth2/sessions/logout?id_token_hint=...&post_logout_redirect_uri=https://i-must-be-whitelisted/`
+  - If `post_logout_redirect_uri` is set, the URL query SHOULD contain a `state` value. On successful redirection, this state value
+    will be appended to the `post_logout_redirect_uri`. The functionality is equal to the `state` parameter when performing OAuth2
+    flows.
+2. The user-agent is redirected to the logout provider URL (configuration item `urls.logout`) and contains a challenge: `https://my-logout-provider/logout?challenge=...`
+3. The logout provider uses the `challenge` query parameter to fetch metadata about the request. The logout provider
+may choose to show a UI where the user has to accept the logout request. Alternatively, the logout provider MAY choose to
+silently accept the logout request.
+4. To accept the logout request, the logout provider makes a `PUT` call to `/oauth2/auth/requests/logout/accept?challenge=...`. No request body is required.
+5. The response contains a `redirect_to` value where the logout provider redirects the user back to.
+6. ORY Hydra performs OpenID Connect Front- and Back-Channel logout.
+7. The user agent is being redirected to a specified redirect URL. This may either be the default redirect URL set by `urls.post_logout_redirect` or
+   to the value specified by query parameter `post_logout_redirect_uri`.
+
+![https://mermaidjs.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgVXNlciBBZ2VudC0-Pk9SWSBIeWRyYTogQ2FsbHMgbG9nb3V0IGVuZHBvaW50XG4gICAgT1JZIEh5ZHJhLS0-Pk9SWSBIeWRyYTogVmFsaWRhdGVzIGxvZ291dCBlbmRwb2ludFxuICAgIE9SWSBIeWRyYS0-PkxvZ291dCBQcm92aWRlcjogUmVkaXJlY3RzIGVuZCB1c2VyIHdpdGggbG9nb3V0IGNoYWxsZW5nZVxuICAgIExvZ291dCBQcm92aWRlci0tPk9SWSBIeWRyYTogRmV0Y2hlcyBsb2dvdXQgcmVxdWVzdCBpbmZvXG4gICAgTG9nb3V0IFByb3ZpZGVyLS0-PkxvZ291dCBQcm92aWRlcjogQWNxdWlyZXMgdXNlciBjb25zZW50IGZvciBsb2dvdXQgKG9wdGlvbmFsKVxuICAgIExvZ291dCBQcm92aWRlci0tPk9SWSBIeWRyYTogSW5mb3JtcyB0aGF0IGxvZ291dCByZXF1ZXN0IGlzIGdyYW50ZWRcbiAgICBMb2dvdXQgUHJvdmlkZXItPj5PUlkgSHlkcmE6IFJlZGlyZWN0cyBlbmQgdXNlciB0byByZWRpcmVjdCB1cmwgd2l0aCBsb2dpbiB2ZXJpZmllclxuICAgIE9SWSBIeWRyYS0tPj5PUlkgSHlkcmE6IFBlcmZvcm1zIGxvZ291dCByb3V0aW5lc1xuICAgIE9SWSBIeWRyYS0tPlVzZXIgQWdlbnQ6IFJlZGlyZWN0cyB0byBzcGVjaWZpZWQgcmVkaXJlY3QgdXJsIiwibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQifX0](/images/docs/hydra/logout-flow.png))
+
+This endpoint does not remove any Access/Refresh Tokens.
+
+#### Logout Provider Example (NodeJS Pseudo-code)
+
+Following step 1 from the flow above, the user-agent is redirected to the logout provider
+(e.g. `https://my-logout-provider/logout?challenge=...`). Next, the logout provider fetches information about the logout
+request:
+
+```node
+// This is node-js pseudo code and will not work if you copy it 1:1
+
+challenge = req.url.query.logout_challenge;
+
+fetch('https://hydra/oauth2/auth/requests/logout?' + querystring.stringify({ logout_challenge: challenge })).
+    then(function (response) {
+        return response.json()
+    }).
+    then(function (response) {
+        // ...
+    })
+```
+
+The server response is a JSON object with the following keys:
+
+```
+{
+    // The user for whom the logout was request.
+    "subject": "user-id",
+
+    // The login session ID that was requested to log out.
+    "sid": "abc..",
+
+    // The original request URL.
+    "request_url": "https://hydra/oauth2/sessions/logout?id_token_hint=...",
+
+    // True if the request was initiated by a Reyling Party (RP) / OAuth 2.0 Client. False otherwise.
+    "rp_initiated": true|false
+}
+```
+
+Next, the logout provider should decide if the end-user should perform a UI action such as confirming the logout request.
+It is RECOMMENDED to request logout confirmation from the end-user when `rp_initiated` is set to true.
+
+When the logout provider decides to accept the logout request, the flow is completed as follows:
+
+```node
+fetch('https://hydra/oauth2/auth/requests/logout/accept?' + querystring.stringify({ logout_challenge: challenge }), {
+    method: 'PUT',
+}).
+    then(function (response) {
+        return response.json()
+    }).
+    then(function (response) {
+        // The response will contain a `redirect_to` key which contains the URL where the user's user agent must be redirected to next.
+        res.redirect(response.redirect_to);
+    })
+```
+
+You can also reject a logout request (e.g. if the user chose to not log out):
+
+```node
+fetch('https://hydra/oauth2/auth/requests/logout/reject?' + querystring.stringify({ logout_challenge: challenge }), {
+    method: 'PUT',
+}).
+    then(function (response) {
+        // Now you can do whatever you want - redirect the user back to your home page or whatever comes to mind.
+    })
+```
+
+If the logout request was granted and the user agent redirected back to ORY Hydra, all OpenID Connect Front-/Back-channel
+logout flows (if set) will be performed and the user will be redirect back to his/her final destination.
+
+#### [OpenID Connect Front-Channel Logout 1.0](https://openid.net/specs/openid-connect-frontchannel-1_0.html)
+
+In summary ([read the spec](https://openid.net/specs/openid-connect-frontchannel-1_0.html)) this feature allows
+an OAuth 2.0 Client to register fields `frontchannel_logout_uri` and `frontchannel_logout_session_required`.
+
+If `frontchannel_logout_uri` is set to a valid URL (the host, port, path must all match those of one of the Redirect URIs),
+ORY Hydra will redirect the user-agent (typically browser) to that URL after a logout occurred. This allows
+the OAuth 2.0 Client Application to log out the end-user in its own system as well - for example by deleting a Cookie
+or otherwise invalidating the user session.
+
+ORY Hydra always appends query parameters values `iss` and `sid` to the Front-Channel Logout URI, for example:
+
+```
+https://rp.example.org/frontchannel_logout
+  ?iss=https://server.example.com
+  &sid=08a5019c-17e1-4977-8f42-65a12843ea02
+```
+
+Each OpenID Connect ID Token is issued with a `sid` claim that will match the `sid` value from the Front-Channel Logout
+URI.
+
+ORY Hydra will automatically execute the required HTTP Redirects to make this work. No extra work is required.
+
+#### [OpenID Connect Back-Channel Logout 1.0](https://openid.net/specs/openid-connect-backchannel-1_0.html)
+
+In summary ([read the spec](https://openid.net/specs/openid-connect-backchannel-1_0.html)) this feature allows
+an OAuth 2.0 Client to register fields `backchannel_logout_uri` and `backchannel_logout_session_required`.
+
+If `backchannel_logout_uri` is set to a valid URL, a HTTP Post request with Content-Type `application/x-www-form-urlencoded`
+and a `logout_token` will be made to that URL when a end-user logs out. The `logout_token` is a JWT signed with the same
+key that is used to sign OpenID Connect ID Tokens. You should thus validate the `logout_token` using the ID Token Public
+Key (can be fetched from `/.well-known/jwks.json`). The `logout_token` contains the following claims:
+
+* `iss` - Issuer Identifier, as specified in Section 2 of [OpenID.Core].
+* `aud` - Audience(s), as specified in Section 2 of [OpenID.Core].
+* `iat` - Issued at time, as specified in Section 2 of [OpenID.Core].
+* `jti` - Unique identifier for the token, as specified in Section 9 of [OpenID.Core].
+* `events` - Claim whose value is a JSON object containing the member name http://schemas.openid.net/event/backchannel-logout. This declares that the JWT is a Logout Token. The corresponding member value MUST be a JSON object and SHOULD be the empty JSON object {}.
+* `sid` - Session ID - String identifier for a Session. This represents a Session of a User Agent or device for a logged-in End-User at an RP. Different sid values are used to identify distinct sessions at an OP. The sid value need only be unique in the context of a particular issuer. Its contents are opaque to the RP. Its syntax is the same as an OAuth 2.0 Client Identifier.
+
+```
+{
+  "iss": "https://server.example.com",
+  "aud": "s6BhdRkqt3",
+  "iat": 1471566154,
+  "jti": "bWJq",
+  "sid": "08a5019c-17e1-4977-8f42-65a12843ea02",
+  "events": {
+     "http://schemas.openid.net/event/backchannel-logout": {}
+   }
+}
+```
+
+An exemplary Back-Channel Logout Request looks as follows:
+
+```
+POST /backchannel_logout HTTP/1.1
+Host: rp.example.org
+Content-Type: application/x-www-form-urlencoded
+
+logout_token=eyJhbGci ... .eyJpc3Mi ... .T3BlbklE ...
+```
+
+The Logout Token must be validated as follows:
+
+* Validate the Logout Token signature in the same way that an ID Token signature is validated, with the following refinements.
+* Validate the iss, aud, and iat Claims in the same way they are validated in ID Tokens.
+* Verify that the Logout Token contains a sid Claim.
+* Verify that the Logout Token contains an events Claim whose value is JSON object containing the member name http://schemas.openid.net/event/backchannel-logout.
+* Verify that the Logout Token does not contain a nonce Claim.
+* Optionally verify that another Logout Token with the same jti value has not been recently received.
+
+The endpoint then returns a HTTP 200 OK response. Cache-Control headers should be set to:
+
+```
+Cache-Control: no-cache, no-store
+Pragma: no-cache
+```
+
+Because the OpenID Connect Back-Channel Logout Flow is not executed using the user-agent (e.g. Browser) but from ORY Hydra
+directly, the session cookie of the end-user will not be available to the OAuth 2.0 Client and the session has to be
+invalidated by some other means (e.g. by blacklisting the session ID).
 
 ### Revoking consent and login sessions
 
@@ -403,6 +615,8 @@ remove all cookies from all devices.
 
 Revoking the login sessions of a user is as easy as sending `DELETE to `/oauth2/auth/sessions/login?subject={subject}`.
 
+This endpoint is not compatible with OpenID Connect Front-/Backchannel logout and does not revoke any tokens.
+
 #### Consent
 
 You can revoke a user's consent either on a per application basis or for all applications. Revoking the consent will
@@ -410,7 +624,8 @@ automatically revoke all related access and refresh tokens.
 
 Revoking all consent sessions of a user is as easy as sending `DELETE to `/oauth2/auth/sessions/consent?subject={subject}`.
 
-Revoking the consent sessions of a user for a specific client is as easy as sending `DELETE to `/oauth2/auth/sessions/consent?subject={subject}&client={client}`.
+Revoking the consent sessions of a user for a specific client is as easy as sending
+`DELETE to `/oauth2/auth/sessions/consent?subject={subject}&client={client}`.
 
 ## OAuth 2.0
 
@@ -422,7 +637,7 @@ the consent screen.
 
 Additionally, ORY Hydra has pre-defined OAuth 2.0 Scope values:
 
-* `offline` and `offline_access`: Include this scope if you wish to receive a refresh token
+* `offline_access`: Include this scope if you wish to receive a refresh token
 * `openid`: Include this scope if you wish to perform an OpenID Connect request.
 
 > A OAuth 2.0 Scope **is not a permission**:
@@ -522,12 +737,18 @@ hydra clients create \
 ```
 
 The OAuth 2.0 Client will be allowed to use values `http://my-app.com/callback` and `http://my-other-app.com/callback`
-as `redirect_url`. It is expected that the OAuth 2.0 Client sends its credentials using HTTP Basic Authorization.
+as `redirect_url`.
+
+> It is expected that the OAuth 2.0 Client sends its credentials using HTTP Basic Authorization.
+
 If you wish to send credentials in the POST Body, add the following flag to the command above:
 
 ```
     --token-endpoint-auth-method client_secret_post \
 ```
+
+The same can be achieved by setting `"token_endpoint_auth_method": "client_secret_post"` in the the request body of
+`POST /clients` and `PUT /clients/<id>`.
 
 ##### Client Credentials Flow
 
