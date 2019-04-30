@@ -5,6 +5,8 @@ title: Data Storage and Persistence
 
 All ORY products support storing data in memory and in relational databases (PostgreSQL, MySQL).
 
+ORY Hydra additionally supports CockroachDB, but still beta, use it at your own risk!
+
 ## In-memory (ephemeral)
 
 Storing data in-memory helps you get started quickly without worrying about setting up a database first. Keep in mind
@@ -14,7 +16,9 @@ Using in-memory storage is usually achieved by setting configuration key `dsn` t
 
 ## SQL (persistent)
 
-All ORY products support PostgreSQL and MySQL as first-class citizens.
+All ORY products support PostgreSQL and MySQL as first-class citizens. 
+
+ORY Hydra additionally supports CockroachDB, but still beta, use it at your own risk!
 
 ### PostgreSQL
 
@@ -75,3 +79,26 @@ Additionally, the following DSN parameters are supported:
   ("ms", "s", "m", "h"), such as "30s", "0.5m" or "1m30s".
 		  
 To set such a parameter, append it to the DSN query, for example: `mysql://user:password@tcp(host:123)/database?parseTime=true&writeTimeout=123s`
+
+### CockroachDB (beta)
+
+If configuration key `dsn` (Data Source Name) is prefixed with `cockroach://`, then CockroachDB will be used as storage
+backend. An exemplary configuration would look like this: `DSN=cockroach://user:password@host:123/database`
+
+Additionally, the following DSN parameters are supported:
+
+* `sslmode` (string): Whether or not to use SSL (default is require)
+  * `disable` - No SSL
+  * `require` - Always SSL (skip verification)
+  * `verify-ca` - Always SSL (verify that the certificate presented by the
+    `server` was signed by a trusted CA)
+  * `verify-full` - Always SSL (verify that the certification presented by
+    the server was signed by a trusted CA and the server host name
+    matches the one in the certificate)
+* `application_name` (string): An initial value for the application_name session variable.
+* `sslcert` (string): Cert file location. The file must contain PEM encoded data.
+* `sslkey` (string): Key file location. The file must contain PEM encoded data.
+* `sslrootcert` (string): The location of the root certificate file. The file
+  must contain PEM encoded data.
+
+To set such a parameter, append it to the DSN query, for example: `cockroach://user:password@host:123/database?sslmode=verify-full`
