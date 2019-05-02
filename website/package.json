@@ -7,7 +7,7 @@
     "write-translations": "docusaurus-write-translations",
     "version:clear": "node rerelease.js",
     "version:docusaurus": "docusaurus-version",
-    "release": "npm-run-all \"version:clear {1}\" \"version:docusaurus {1}\" --",
+    "release": "npm-run-all api \"version:clear {1}\" \"version:docusaurus {1}\" --",
     "rename-version": "docusaurus-rename-version",
     "api": "npm-run-all swagger:generate:* swagger:cleanup:*",
     "serve": "serve -p 9009 ./build",

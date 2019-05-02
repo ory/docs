@@ -256,10 +256,15 @@ flow at https://openid.net/specs/openid-connect-discovery-1_0.html
 ```json
 {
   "authorization_endpoint": "https://playground.ory.sh/ory-hydra/public/oauth2/auth",
+  "backchannel_logout_session_supported": true,
+  "backchannel_logout_supported": true,
   "claims_parameter_supported": true,
   "claims_supported": [
     "string"
   ],
+  "end_session_endpoint": "string",
+  "frontchannel_logout_session_supported": true,
+  "frontchannel_logout_supported": true,
   "grant_types_supported": [
     "string"
   ],
@@ -278,6 +283,7 @@ flow at https://openid.net/specs/openid-connect-discovery-1_0.html
   "response_types_supported": [
     "string"
   ],
+  "revocation_endpoint": "string",
   "scopes_supported": [
     "string"
   ],
@@ -609,6 +615,151 @@ p JSON.parse(result)
 </div>
 </div>
 
+<a id="opIddisconnectUser"></a>
+
+### OpenID Connect Front-Backchannel enabled Logout
+
+```
+GET /oauth2/disconnect HTTP/1.1
+
+```
+
+This endpoint initiates and completes user logout at ORY Hydra and initiates OpenID Connect Front-/Back-channel logout:
+
+https://openid.net/specs/openid-connect-frontchannel-1_0.html
+https://openid.net/specs/openid-connect-backchannel-1_0.html
+
+#### Responses
+
+<a id="openid-connect-front-backchannel-enabled-logout-responses"></a>
+##### Overview
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|302|[Found](https://tools.ietf.org/html/rfc7231#section-6.4.3)|Empty responses are sent when, for example, resources are deleted. The HTTP status code for empty responses is
+typically 201.|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+#### Code samples
+
+<div class="tabs" id="tab-disconnectUser">
+<nav class="tabs-nav">
+<ul class="nav nav-tabs au-link-list au-link-list--inline">
+<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-disconnectUser-shell">Shell</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-disconnectUser-go">Go</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-disconnectUser-node">Node.js</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-disconnectUser-java">Java</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-disconnectUser-python">Python</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-disconnectUser-ruby">Ruby</a></li>
+</ul>
+</nav>
+<div class="tab-content">
+<div class="tab-pane active" role="tabpanel" id="tab-disconnectUser-shell">
+
+```shell
+curl -X GET /oauth2/disconnect
+
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-disconnectUser-go">
+
+```go
+package main
+
+import (
+    "bytes"
+    "net/http"
+)
+
+func main() {
+
+    var body []byte
+    // body = ...
+
+    req, err := http.NewRequest("GET", "/oauth2/disconnect", bytes.NewBuffer(body))
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-disconnectUser-node">
+
+```nodejs
+const fetch = require('node-fetch');
+
+fetch('/oauth2/disconnect', {
+  method: 'GET'
+})
+.then(r => r.json())
+.then((body) => {
+    console.log(body)
+})
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-disconnectUser-java">
+
+```java
+// This sample needs improvement.
+URL obj = new URL("/oauth2/disconnect");
+
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+
+int responseCode = con.getResponseCode();
+
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream())
+);
+
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+
+System.out.println(response.toString());
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-disconnectUser-python">
+
+```python
+import requests
+
+r = requests.get(
+  '/oauth2/disconnect',
+  params={)
+
+print r.json()
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-disconnectUser-ruby">
+
+```ruby
+require 'rest-client'
+require 'json'
+
+result = RestClient.get '/oauth2/disconnect',
+  params: {}
+
+p JSON.parse(result)
+```
+
+</div>
+</div>
+</div>
+
 <a id="opIdrevokeOAuth2Token"></a>
 
 ### Revoke OAuth2 tokens
@@ -622,7 +773,8 @@ Accept: application/json
 
 Revoking a token (both access and refresh) means that the tokens will be invalid. A revoked access token can no
 longer be used to make access requests, and a revoked refresh token can no longer be used to refresh an access token.
-Revoking a refresh token also invalidates the access token that was created with it.
+Revoking a refresh token also invalidates the access token that was created with it. A token may only be revoked by
+the client the token was generated for.
 
 #### Request body
 
@@ -809,20 +961,46 @@ p JSON.parse(result)
 </div>
 </div>
 
-<a id="opIdoauthToken"></a>
+<a id="opIdoauth2Token"></a>
 
 ### The OAuth 2.0 token endpoint
 
 ```
 POST /oauth2/token HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
 Accept: application/json
 
 ```
 
-This endpoint is not documented here because you should never use your own implementation to perform OAuth2 flows.
-OAuth2 is a very popular protocol and a library for your programming language will exists.
+The client makes a request to the token endpoint by sending the
+following parameters using the "application/x-www-form-urlencoded" HTTP
+request entity-body.
 
-To learn more about this flow please refer to the specification: https://tools.ietf.org/html/rfc6749
+> Do not implement a client for this endpoint yourself. Use a library. There are many libraries
+> available for any programming language. You can find a list of libraries here: https://oauth.net/code/
+>
+> Do not the the Hydra SDK does not implement this endpoint properly. Use one of the libraries listed above!
+
+#### Request body
+
+```yaml
+grant_type: string
+code: string
+redirect_uri: string
+client_id: string
+
+```
+
+<a id="the-oauth-2.0-token-endpoint-parameters"></a>
+##### Parameters
+
+|Parameter|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object|false|none|
+|» grant_type|body|string|true|none|
+|» code|body|string|false|none|
+|» redirect_uri|body|string|false|none|
+|» client_id|body|string|false|none|
 
 #### Responses
 
@@ -831,7 +1009,7 @@ To learn more about this flow please refer to the specification: https://tools.i
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|oauthTokenResponse|[oauthTokenResponse](#schemaoauthtokenresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|oauth2TokenResponse|[oauth2TokenResponse](#schemaoauth2tokenresponse)|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|genericError|[genericError](#schemagenericerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
 
@@ -842,11 +1020,9 @@ To learn more about this flow please refer to the specification: https://tools.i
 ```json
 {
   "access_token": "string",
-  "expires_in": 0,
-  "id_token": 0,
-  "refresh_token": "string",
-  "scope": 0,
-  "token_type": "string"
+  "client_id": "string",
+  "code": "string",
+  "redirect_uri": "string"
 }
 ```
 
@@ -857,27 +1033,27 @@ basic, oauth2
 
 #### Code samples
 
-<div class="tabs" id="tab-oauthToken">
+<div class="tabs" id="tab-oauth2Token">
 <nav class="tabs-nav">
 <ul class="nav nav-tabs au-link-list au-link-list--inline">
-<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-oauthToken-shell">Shell</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-oauthToken-go">Go</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-oauthToken-node">Node.js</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-oauthToken-java">Java</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-oauthToken-python">Python</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-oauthToken-ruby">Ruby</a></li>
+<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-oauth2Token-shell">Shell</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-oauth2Token-go">Go</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-oauth2Token-node">Node.js</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-oauth2Token-java">Java</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-oauth2Token-python">Python</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-oauth2Token-ruby">Ruby</a></li>
 </ul>
 </nav>
 <div class="tab-content">
-<div class="tab-pane active" role="tabpanel" id="tab-oauthToken-shell">
+<div class="tab-pane active" role="tabpanel" id="tab-oauth2Token-shell">
 
 ```shell
 curl -X POST /oauth2/token \
-  -H 'Accept: application/json'
+  -H 'Content-Type: application/x-www-form-urlencoded' \  -H 'Accept: application/json'
 ```
 
 </div>
-<div class="tab-pane" role="tabpanel"  id="tab-oauthToken-go">
+<div class="tab-pane" role="tabpanel"  id="tab-oauth2Token-go">
 
 ```go
 package main
@@ -889,6 +1065,7 @@ import (
 
 func main() {
     headers := map[string][]string{ 
+        "Content-Type": []string{"application/x-www-form-urlencoded"},
         "Accept": []string{"application/json"},
     }
 
@@ -905,17 +1082,23 @@ func main() {
 ```
 
 </div>
-<div class="tab-pane" role="tabpanel"  id="tab-oauthToken-node">
+<div class="tab-pane" role="tabpanel"  id="tab-oauth2Token-node">
 
 ```nodejs
 const fetch = require('node-fetch');
-
+const input = '{
+  "grant_type": "string",
+  "code": "string",
+  "redirect_uri": "string",
+  "client_id": "string"
+}';
 const headers = {
-  'Accept': 'application/json'
+  'Content-Type': 'application/x-www-form-urlencoded',  'Accept': 'application/json'
 }
 
 fetch('/oauth2/token', {
   method: 'POST',
+  body: input,
   headers
 })
 .then(r => r.json())
@@ -925,7 +1108,7 @@ fetch('/oauth2/token', {
 ```
 
 </div>
-<div class="tab-pane" role="tabpanel"  id="tab-oauthToken-java">
+<div class="tab-pane" role="tabpanel"  id="tab-oauth2Token-java">
 
 ```java
 // This sample needs improvement.
@@ -951,12 +1134,13 @@ System.out.println(response.toString());
 ```
 
 </div>
-<div class="tab-pane" role="tabpanel"  id="tab-oauthToken-python">
+<div class="tab-pane" role="tabpanel"  id="tab-oauth2Token-python">
 
 ```python
 import requests
 
 headers = {
+  'Content-Type': 'application/x-www-form-urlencoded',
   'Accept': 'application/json'
 }
 
@@ -969,13 +1153,14 @@ print r.json()
 ```
 
 </div>
-<div class="tab-pane" role="tabpanel"  id="tab-oauthToken-ruby">
+<div class="tab-pane" role="tabpanel"  id="tab-oauth2Token-ruby">
 
 ```ruby
 require 'rest-client'
 require 'json'
 
 headers = {
+  'Content-Type' => 'application/x-www-form-urlencoded',
   'Accept' => 'application/json'
 }
 
@@ -1199,6 +1384,8 @@ Accept: application/json
 This endpoint lists all clients in the database, and never returns client secrets.
 
 OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usually, OAuth 2.0 clients are generated for applications which want to consume your OAuth 2.0 or OpenID Connect capabilities. To manage ORY Hydra, you will need an OAuth 2.0 Client as well. Make sure that this endpoint is well protected and only callable by first-party components.
+The "Link" header is also included in successful responses, which contains one or more links for pagination, formatted like so: '<https://hydra-url/admin/clients?limit={limit}&offset={offset}>; rel="{page}"', where page is one of the following applicable pages: 'first', 'next', 'last', and 'previous'.
+Multiple links can be included in this header, and will be separated by a comma.
 
 <a id="list-oauth-2.0-clients-parameters"></a>
 ##### Parameters
@@ -1216,8 +1403,6 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A list of clients.|Inline|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|genericError|[genericError](#schemagenericerror)|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|genericError|[genericError](#schemagenericerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
 
 <a id="list-oauth-2.0-clients-responseschema"></a>
@@ -1231,12 +1416,17 @@ Status Code **200**
 |» Client represents an OAuth 2.0 Client.|[oAuth2Client](#schemaoauth2client)|false|none|none|
 |»» allowed_cors_origins|[string]|false|none|AllowedCORSOrigins are one or more URLs (scheme://host[:port]) which are allowed to make CORS requests to the /oauth/token endpoint. If this array is empty, the sever's CORS origin configuration (`CORS_ALLOWED_ORIGINS`) will be used instead. If this array is set, the allowed origins are appended to the server's CORS origin configuration. Be aware that environment variable `CORS_ENABLED` MUST be set to `true` for this to work.|
 |»» audience|[string]|false|none|Audience is a whitelist defining the audiences this client is allowed to request tokens for. An audience limits the applicability of an OAuth 2.0 Access Token to, for example, certain API endpoints. The value is a list of URLs. URLs MUST NOT contain whitespaces.|
+|»» backchannel_logout_session_required|boolean|false|none|Boolean value specifying whether the RP requires that a sid (session ID) Claim be included in the Logout Token to identify the RP session with the OP when the backchannel_logout_uri is used. If omitted, the default value is false.|
+|»» backchannel_logout_uri|string|false|none|RP URL that will cause the RP to log itself out when sent a Logout Token by the OP.|
 |»» client_id|string|false|none|ClientID  is the id for this client.|
 |»» client_name|string|false|none|Name is the human-readable string name of the client to be presented to the end-user during authorization.|
 |»» client_secret|string|false|none|Secret is the client's secret. The secret will be included in the create request as cleartext, and then never again. The secret is stored using BCrypt so it is impossible to recover it. Tell your users that they need to write the secret down as it will not be made available again.|
-|»» client_secret_expires_at|integer(int64)|false|none|SecretExpiresAt is an integer holding the time at which the client secret will expire or 0 if it will not expire. The time is represented as the number of seconds from 1970-01-01T00:00:00Z as measured in UTC until the date/time of expiration.|
+|»» client_secret_expires_at|integer(int64)|false|none|SecretExpiresAt is an integer holding the time at which the client secret will expire or 0 if it will not expire. The time is represented as the number of seconds from 1970-01-01T00:00:00Z as measured in UTC until the date/time of expiration.  This feature is currently not supported and it's value will always be set to 0.|
 |»» client_uri|string|false|none|ClientURI is an URL string of a web page providing information about the client. If present, the server SHOULD display this URL to the end-user in a clickable fashion.|
 |»» contacts|[string]|false|none|Contacts is a array of strings representing ways to contact people responsible for this client, typically email addresses.|
+|»» created_at|string(date-time)|false|none|CreatedAt returns the timestamp of the client's creation.|
+|»» frontchannel_logout_session_required|boolean|false|none|Boolean value specifying whether the RP requires that iss (issuer) and sid (session ID) query parameters be included to identify the RP session with the OP when the frontchannel_logout_uri is used. If omitted, the default value is false.|
+|»» frontchannel_logout_uri|string|false|none|RP URL that will cause the RP to log itself out when rendered in an iframe by the OP. An iss (issuer) query parameter and a sid (session ID) query parameter MAY be included by the OP to enable the RP to validate the request and to determine which of the potentially multiple sessions is to be logged out; if either is included, both MUST be.|
 |»» grant_types|[string]|false|none|GrantTypes is an array of grant types the client is allowed to use.|
 |»» jwks|[JSONWebKeySet](#schemajsonwebkeyset)|false|none|none|
 |»»» keys|[[JSONWebKey](#schemajsonwebkey)]|false|none|The value of the "keys" parameter is an array of JWK values.  By default, the order of the JWK values within the array does not imply an order of preference among them, although applications of JWK Sets can choose to assign a meaning to the order for their purposes, if desired.|
@@ -1261,6 +1451,7 @@ Status Code **200**
 |»»» logo_uri|string|false|none|LogoURI is an URL string that references a logo for the client.|
 |»»» owner|string|false|none|Owner is a string identifying the owner of the OAuth 2.0 Client.|
 |»»» policy_uri|string|false|none|PolicyURI is a URL string that points to a human-readable privacy policy document that describes how the deployment organization collects, uses, retains, and discloses personal data.|
+|»»» post_logout_redirect_uris|[string]|false|none|Array of URLs supplied by the RP to which it MAY request that the End-User's User Agent be redirected using the post_logout_redirect_uri parameter after a logout has been performed.|
 |»»» redirect_uris|[string]|false|none|RedirectURIs is an array of allowed redirect urls for the client, for example http://mydomain/oauth/callback .|
 |»»» request_object_signing_alg|string|false|none|JWS [JWS] alg algorithm [JWA] that MUST be used for signing Request Objects sent to the OP. All Request Objects from this Client MUST be rejected, if not signed with this algorithm.|
 |»»» request_uris|[string]|false|none|Array of request_uri values that are pre-registered by the RP for use at the OP. Servers MAY cache the contents of the files referenced by these URIs and not retrieve them at the time they are used in a request. OPs can require that request_uri values used be pre-registered with the require_request_uri_registration discovery parameter.|
@@ -1270,6 +1461,7 @@ Status Code **200**
 |»»» subject_type|string|false|none|SubjectType requested for responses to this Client. The subject_types_supported Discovery parameter contains a list of the supported subject_type values for this server. Valid types include `pairwise` and `public`.|
 |»»» token_endpoint_auth_method|string|false|none|Requested Client Authentication method for the Token Endpoint. The options are client_secret_post, client_secret_basic, private_key_jwt, and none.|
 |»»» tos_uri|string|false|none|TermsOfServiceURI is a URL string that points to a human-readable terms of service document for the client that describes a contractual relationship between the end-user and the client that the end-user accepts when authorizing the client.|
+|»»» updated_at|string(date-time)|false|none|UpdatedAt returns the timestamp of the last update.|
 |»»» userinfo_signed_response_alg|string|false|none|JWS alg algorithm [JWA] REQUIRED for signing UserInfo Responses. If this is specified, the response will be JWT [JWT] serialized, and signed using JWS. The default, if omitted, is for the UserInfo Response to return the Claims as a UTF-8 encoded JSON object using the application/json content-type.|
 
 ##### Examples
@@ -1285,6 +1477,8 @@ Status Code **200**
     "audience": [
       "string"
     ],
+    "backchannel_logout_session_required": true,
+    "backchannel_logout_uri": "string",
     "client_id": "string",
     "client_name": "string",
     "client_secret": "string",
@@ -1293,6 +1487,9 @@ Status Code **200**
     "contacts": [
       "string"
     ],
+    "created_at": "2019-05-02T10:06:14Z",
+    "frontchannel_logout_session_required": true,
+    "frontchannel_logout_uri": "string",
     "grant_types": [
       "string"
     ],
@@ -1325,6 +1522,9 @@ Status Code **200**
     "logo_uri": "string",
     "owner": "string",
     "policy_uri": "string",
+    "post_logout_redirect_uris": [
+      "string"
+    ],
     "redirect_uris": [
       "string"
     ],
@@ -1340,6 +1540,7 @@ Status Code **200**
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
+    "updated_at": "2019-05-02T10:06:14Z",
     "userinfo_signed_response_alg": "string"
   }
 ]
@@ -1508,6 +1709,8 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
   "audience": [
     "string"
   ],
+  "backchannel_logout_session_required": true,
+  "backchannel_logout_uri": "string",
   "client_id": "string",
   "client_name": "string",
   "client_secret": "string",
@@ -1516,6 +1719,9 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
   "contacts": [
     "string"
   ],
+  "created_at": "2019-05-02T10:06:14Z",
+  "frontchannel_logout_session_required": true,
+  "frontchannel_logout_uri": "string",
   "grant_types": [
     "string"
   ],
@@ -1548,6 +1754,9 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
   "logo_uri": "string",
   "owner": "string",
   "policy_uri": "string",
+  "post_logout_redirect_uris": [
+    "string"
+  ],
   "redirect_uris": [
     "string"
   ],
@@ -1563,6 +1772,7 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
+  "updated_at": "2019-05-02T10:06:14Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -1581,14 +1791,13 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|oAuth2Client|[oAuth2Client](#schemaoauth2client)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|genericError|[genericError](#schemagenericerror)|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|genericError|[genericError](#schemagenericerror)|
+|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|oAuth2Client|[oAuth2Client](#schemaoauth2client)|
+|409|[Conflict](https://tools.ietf.org/html/rfc7231#section-6.5.8)|genericError|[genericError](#schemagenericerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
 
 ##### Examples
 
-###### 200 response
+###### 201 response
 
 ```json
 {
@@ -1598,6 +1807,8 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
   "audience": [
     "string"
   ],
+  "backchannel_logout_session_required": true,
+  "backchannel_logout_uri": "string",
   "client_id": "string",
   "client_name": "string",
   "client_secret": "string",
@@ -1606,6 +1817,9 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
   "contacts": [
     "string"
   ],
+  "created_at": "2019-05-02T10:06:14Z",
+  "frontchannel_logout_session_required": true,
+  "frontchannel_logout_uri": "string",
   "grant_types": [
     "string"
   ],
@@ -1638,6 +1852,9 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
   "logo_uri": "string",
   "owner": "string",
   "policy_uri": "string",
+  "post_logout_redirect_uris": [
+    "string"
+  ],
   "redirect_uris": [
     "string"
   ],
@@ -1653,6 +1870,7 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
+  "updated_at": "2019-05-02T10:06:14Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -1723,6 +1941,8 @@ const input = '{
   "audience": [
     "string"
   ],
+  "backchannel_logout_session_required": true,
+  "backchannel_logout_uri": "string",
   "client_id": "string",
   "client_name": "string",
   "client_secret": "string",
@@ -1731,6 +1951,9 @@ const input = '{
   "contacts": [
     "string"
   ],
+  "created_at": "2019-05-02T10:06:14Z",
+  "frontchannel_logout_session_required": true,
+  "frontchannel_logout_uri": "string",
   "grant_types": [
     "string"
   ],
@@ -1763,6 +1986,9 @@ const input = '{
   "logo_uri": "string",
   "owner": "string",
   "policy_uri": "string",
+  "post_logout_redirect_uris": [
+    "string"
+  ],
   "redirect_uris": [
     "string"
   ],
@@ -1778,6 +2004,7 @@ const input = '{
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
+  "updated_at": "2019-05-02T10:06:14Z",
   "userinfo_signed_response_alg": "string"
 }';
 const headers = {
@@ -1891,8 +2118,7 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|oAuth2Client|[oAuth2Client](#schemaoauth2client)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|genericError|[genericError](#schemagenericerror)|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|genericError|[genericError](#schemagenericerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|genericError|[genericError](#schemagenericerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
 
 ##### Examples
@@ -1907,6 +2133,8 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
   "audience": [
     "string"
   ],
+  "backchannel_logout_session_required": true,
+  "backchannel_logout_uri": "string",
   "client_id": "string",
   "client_name": "string",
   "client_secret": "string",
@@ -1915,6 +2143,9 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
   "contacts": [
     "string"
   ],
+  "created_at": "2019-05-02T10:06:14Z",
+  "frontchannel_logout_session_required": true,
+  "frontchannel_logout_uri": "string",
   "grant_types": [
     "string"
   ],
@@ -1947,6 +2178,9 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
   "logo_uri": "string",
   "owner": "string",
   "policy_uri": "string",
+  "post_logout_redirect_uris": [
+    "string"
+  ],
   "redirect_uris": [
     "string"
   ],
@@ -1962,6 +2196,7 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
+  "updated_at": "2019-05-02T10:06:14Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2129,6 +2364,8 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
   "audience": [
     "string"
   ],
+  "backchannel_logout_session_required": true,
+  "backchannel_logout_uri": "string",
   "client_id": "string",
   "client_name": "string",
   "client_secret": "string",
@@ -2137,6 +2374,9 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
   "contacts": [
     "string"
   ],
+  "created_at": "2019-05-02T10:06:14Z",
+  "frontchannel_logout_session_required": true,
+  "frontchannel_logout_uri": "string",
   "grant_types": [
     "string"
   ],
@@ -2169,6 +2409,9 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
   "logo_uri": "string",
   "owner": "string",
   "policy_uri": "string",
+  "post_logout_redirect_uris": [
+    "string"
+  ],
   "redirect_uris": [
     "string"
   ],
@@ -2184,6 +2427,7 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
+  "updated_at": "2019-05-02T10:06:14Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2204,8 +2448,6 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|oAuth2Client|[oAuth2Client](#schemaoauth2client)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|genericError|[genericError](#schemagenericerror)|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|genericError|[genericError](#schemagenericerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
 
 ##### Examples
@@ -2220,6 +2462,8 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
   "audience": [
     "string"
   ],
+  "backchannel_logout_session_required": true,
+  "backchannel_logout_uri": "string",
   "client_id": "string",
   "client_name": "string",
   "client_secret": "string",
@@ -2228,6 +2472,9 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
   "contacts": [
     "string"
   ],
+  "created_at": "2019-05-02T10:06:14Z",
+  "frontchannel_logout_session_required": true,
+  "frontchannel_logout_uri": "string",
   "grant_types": [
     "string"
   ],
@@ -2260,6 +2507,9 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
   "logo_uri": "string",
   "owner": "string",
   "policy_uri": "string",
+  "post_logout_redirect_uris": [
+    "string"
+  ],
   "redirect_uris": [
     "string"
   ],
@@ -2275,6 +2525,7 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
+  "updated_at": "2019-05-02T10:06:14Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2345,6 +2596,8 @@ const input = '{
   "audience": [
     "string"
   ],
+  "backchannel_logout_session_required": true,
+  "backchannel_logout_uri": "string",
   "client_id": "string",
   "client_name": "string",
   "client_secret": "string",
@@ -2353,6 +2606,9 @@ const input = '{
   "contacts": [
     "string"
   ],
+  "created_at": "2019-05-02T10:06:14Z",
+  "frontchannel_logout_session_required": true,
+  "frontchannel_logout_uri": "string",
   "grant_types": [
     "string"
   ],
@@ -2385,6 +2641,9 @@ const input = '{
   "logo_uri": "string",
   "owner": "string",
   "policy_uri": "string",
+  "post_logout_redirect_uris": [
+    "string"
+  ],
   "redirect_uris": [
     "string"
   ],
@@ -2400,6 +2659,7 @@ const input = '{
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
+  "updated_at": "2019-05-02T10:06:14Z",
   "userinfo_signed_response_alg": "string"
 }';
 const headers = {
@@ -2514,13 +2774,12 @@ OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usuall
 |---|---|---|---|
 |204|[No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)|Empty responses are sent when, for example, resources are deleted. The HTTP status code for empty responses is
 typically 201.|None|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|genericError|[genericError](#schemagenericerror)|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|genericError|[genericError](#schemagenericerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|genericError|[genericError](#schemagenericerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
 
 ##### Examples
 
-###### 401 response
+###### 404 response
 
 ```json
 {
@@ -3175,14 +3434,14 @@ A JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that 
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|JSONWebKeySet|[JSONWebKeySet](#schemajsonwebkeyset)|
+|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|JSONWebKeySet|[JSONWebKeySet](#schemajsonwebkeyset)|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|genericError|[genericError](#schemagenericerror)|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|genericError|[genericError](#schemagenericerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
 
 ##### Examples
 
-###### 200 response
+###### 201 response
 
 ```json
 {
@@ -4187,20 +4446,20 @@ p JSON.parse(result)
 ### Get consent request information
 
 ```
-GET /oauth2/auth/requests/consent/{challenge} HTTP/1.1
+GET /oauth2/auth/requests/consent?consent_challenge=string HTTP/1.1
 Accept: application/json
 
 ```
 
 When an authorization code, hybrid, or implicit OAuth 2.0 Flow is initiated, ORY Hydra asks the login provider
-to authenticate the user and then tell ORY Hydra now about it. If the user authenticated, he/she must now be asked if
-the OAuth 2.0 Client which initiated the flow should be allowed to access the resources on the user's behalf.
+to authenticate the subject and then tell ORY Hydra now about it. If the subject authenticated, he/she must now be asked if
+the OAuth 2.0 Client which initiated the flow should be allowed to access the resources on the subject's behalf.
 
-The consent provider which handles this request and is a web app implemented and hosted by you. It shows a user interface which asks the user to
+The consent provider which handles this request and is a web app implemented and hosted by you. It shows a subject interface which asks the subject to
 grant or deny the client access to the requested scope ("Application my-dropbox-app wants write access to all your private files").
 
-The consent challenge is appended to the consent provider's URL to which the user's user-agent (browser) is redirected to. The consent
-provider uses that challenge to fetch information on the OAuth2 request and then tells ORY Hydra if the user accepted
+The consent challenge is appended to the consent provider's URL to which the subject's user-agent (browser) is redirected to. The consent
+provider uses that challenge to fetch information on the OAuth2 request and then tells ORY Hydra if the subject accepted
 or rejected the request.
 
 <a id="get-consent-request-information-parameters"></a>
@@ -4208,7 +4467,7 @@ or rejected the request.
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|challenge|path|string|true|none|
+|consent_challenge|query|string|true|none|
 
 #### Responses
 
@@ -4218,7 +4477,7 @@ or rejected the request.
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|consentRequest|[consentRequest](#schemaconsentrequest)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|genericError|[genericError](#schemagenericerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|genericError|[genericError](#schemagenericerror)|
 |409|[Conflict](https://tools.ietf.org/html/rfc7231#section-6.5.8)|genericError|[genericError](#schemagenericerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
 
@@ -4237,6 +4496,8 @@ or rejected the request.
     "audience": [
       "string"
     ],
+    "backchannel_logout_session_required": true,
+    "backchannel_logout_uri": "string",
     "client_id": "string",
     "client_name": "string",
     "client_secret": "string",
@@ -4245,6 +4506,9 @@ or rejected the request.
     "contacts": [
       "string"
     ],
+    "created_at": "2019-05-02T10:06:14Z",
+    "frontchannel_logout_session_required": true,
+    "frontchannel_logout_uri": "string",
     "grant_types": [
       "string"
     ],
@@ -4277,6 +4541,9 @@ or rejected the request.
     "logo_uri": "string",
     "owner": "string",
     "policy_uri": "string",
+    "post_logout_redirect_uris": [
+      "string"
+    ],
     "redirect_uris": [
       "string"
     ],
@@ -4292,7 +4559,12 @@ or rejected the request.
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
+    "updated_at": "2019-05-02T10:06:14Z",
     "userinfo_signed_response_alg": "string"
+  },
+  "context": {
+    "property1": {},
+    "property2": {}
   },
   "login_challenge": "string",
   "login_session_id": "string",
@@ -4343,7 +4615,7 @@ This operation does not require authentication
 <div class="tab-pane active" role="tabpanel" id="tab-getConsentRequest-shell">
 
 ```shell
-curl -X GET /oauth2/auth/requests/consent/{challenge} \
+curl -X GET /oauth2/auth/requests/consent?consent_challenge=string \
   -H 'Accept: application/json'
 ```
 
@@ -4366,7 +4638,7 @@ func main() {
     var body []byte
     // body = ...
 
-    req, err := http.NewRequest("GET", "/oauth2/auth/requests/consent/{challenge}", bytes.NewBuffer(body))
+    req, err := http.NewRequest("GET", "/oauth2/auth/requests/consent", bytes.NewBuffer(body))
     req.Header = headers
 
     client := &http.Client{}
@@ -4385,7 +4657,7 @@ const headers = {
   'Accept': 'application/json'
 }
 
-fetch('/oauth2/auth/requests/consent/{challenge}', {
+fetch('/oauth2/auth/requests/consent?consent_challenge=string', {
   method: 'GET',
   headers
 })
@@ -4400,7 +4672,7 @@ fetch('/oauth2/auth/requests/consent/{challenge}', {
 
 ```java
 // This sample needs improvement.
-URL obj = new URL("/oauth2/auth/requests/consent/{challenge}");
+URL obj = new URL("/oauth2/auth/requests/consent?consent_challenge=string");
 
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
@@ -4432,8 +4704,9 @@ headers = {
 }
 
 r = requests.get(
-  '/oauth2/auth/requests/consent/{challenge}',
-  params={},
+  '/oauth2/auth/requests/consent',
+  params={
+    'consent_challenge': 'string'},
   headers = headers)
 
 print r.json()
@@ -4450,8 +4723,9 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.get '/oauth2/auth/requests/consent/{challenge}',
-  params: {}, headers: headers
+result = RestClient.get '/oauth2/auth/requests/consent',
+  params: {
+    'consent_challenge' => 'string'}, headers: headers
 
 p JSON.parse(result)
 ```
@@ -4465,24 +4739,24 @@ p JSON.parse(result)
 ### Accept an consent request
 
 ```
-PUT /oauth2/auth/requests/consent/{challenge}/accept HTTP/1.1
+PUT /oauth2/auth/requests/consent/accept?consent_challenge=string HTTP/1.1
 Content-Type: application/json
 Accept: application/json
 
 ```
 
 When an authorization code, hybrid, or implicit OAuth 2.0 Flow is initiated, ORY Hydra asks the login provider
-to authenticate the user and then tell ORY Hydra now about it. If the user authenticated, he/she must now be asked if
-the OAuth 2.0 Client which initiated the flow should be allowed to access the resources on the user's behalf.
+to authenticate the subject and then tell ORY Hydra now about it. If the subject authenticated, he/she must now be asked if
+the OAuth 2.0 Client which initiated the flow should be allowed to access the resources on the subject's behalf.
 
-The consent provider which handles this request and is a web app implemented and hosted by you. It shows a user interface which asks the user to
+The consent provider which handles this request and is a web app implemented and hosted by you. It shows a subject interface which asks the subject to
 grant or deny the client access to the requested scope ("Application my-dropbox-app wants write access to all your private files").
 
-The consent challenge is appended to the consent provider's URL to which the user's user-agent (browser) is redirected to. The consent
-provider uses that challenge to fetch information on the OAuth2 request and then tells ORY Hydra if the user accepted
+The consent challenge is appended to the consent provider's URL to which the subject's user-agent (browser) is redirected to. The consent
+provider uses that challenge to fetch information on the OAuth2 request and then tells ORY Hydra if the subject accepted
 or rejected the request.
 
-This endpoint tells ORY Hydra that the user has authorized the OAuth 2.0 client to access resources on his/her behalf.
+This endpoint tells ORY Hydra that the subject has authorized the OAuth 2.0 client to access resources on his/her behalf.
 The consent provider includes additional information, such as session data for access and ID tokens, and if the
 consent request should be used as basis for future requests.
 
@@ -4518,7 +4792,7 @@ The response contains a redirect URL which the consent provider should redirect 
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|challenge|path|string|true|none|
+|consent_challenge|query|string|true|none|
 |body|body|[acceptConsentRequest](#schemaacceptconsentrequest)|false|none|
 
 #### Responses
@@ -4529,7 +4803,7 @@ The response contains a redirect URL which the consent provider should redirect 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|completedRequest|[completedRequest](#schemacompletedrequest)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|genericError|[genericError](#schemagenericerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|genericError|[genericError](#schemagenericerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
 
 ##### Examples
@@ -4563,7 +4837,7 @@ This operation does not require authentication
 <div class="tab-pane active" role="tabpanel" id="tab-acceptConsentRequest-shell">
 
 ```shell
-curl -X PUT /oauth2/auth/requests/consent/{challenge}/accept \
+curl -X PUT /oauth2/auth/requests/consent/accept?consent_challenge=string \
   -H 'Content-Type: application/json' \  -H 'Accept: application/json'
 ```
 
@@ -4587,7 +4861,7 @@ func main() {
     var body []byte
     // body = ...
 
-    req, err := http.NewRequest("PUT", "/oauth2/auth/requests/consent/{challenge}/accept", bytes.NewBuffer(body))
+    req, err := http.NewRequest("PUT", "/oauth2/auth/requests/consent/accept", bytes.NewBuffer(body))
     req.Header = headers
 
     client := &http.Client{}
@@ -4625,7 +4899,7 @@ const headers = {
   'Content-Type': 'application/json',  'Accept': 'application/json'
 }
 
-fetch('/oauth2/auth/requests/consent/{challenge}/accept', {
+fetch('/oauth2/auth/requests/consent/accept?consent_challenge=string', {
   method: 'PUT',
   body: input,
   headers
@@ -4641,7 +4915,7 @@ fetch('/oauth2/auth/requests/consent/{challenge}/accept', {
 
 ```java
 // This sample needs improvement.
-URL obj = new URL("/oauth2/auth/requests/consent/{challenge}/accept");
+URL obj = new URL("/oauth2/auth/requests/consent/accept?consent_challenge=string");
 
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
@@ -4674,8 +4948,9 @@ headers = {
 }
 
 r = requests.put(
-  '/oauth2/auth/requests/consent/{challenge}/accept',
-  params={},
+  '/oauth2/auth/requests/consent/accept',
+  params={
+    'consent_challenge': 'string'},
   headers = headers)
 
 print r.json()
@@ -4693,8 +4968,9 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.put '/oauth2/auth/requests/consent/{challenge}/accept',
-  params: {}, headers: headers
+result = RestClient.put '/oauth2/auth/requests/consent/accept',
+  params: {
+    'consent_challenge' => 'string'}, headers: headers
 
 p JSON.parse(result)
 ```
@@ -4708,24 +4984,24 @@ p JSON.parse(result)
 ### Reject an consent request
 
 ```
-PUT /oauth2/auth/requests/consent/{challenge}/reject HTTP/1.1
+PUT /oauth2/auth/requests/consent/reject?consent_challenge=string HTTP/1.1
 Content-Type: application/json
 Accept: application/json
 
 ```
 
 When an authorization code, hybrid, or implicit OAuth 2.0 Flow is initiated, ORY Hydra asks the login provider
-to authenticate the user and then tell ORY Hydra now about it. If the user authenticated, he/she must now be asked if
-the OAuth 2.0 Client which initiated the flow should be allowed to access the resources on the user's behalf.
+to authenticate the subject and then tell ORY Hydra now about it. If the subject authenticated, he/she must now be asked if
+the OAuth 2.0 Client which initiated the flow should be allowed to access the resources on the subject's behalf.
 
-The consent provider which handles this request and is a web app implemented and hosted by you. It shows a user interface which asks the user to
+The consent provider which handles this request and is a web app implemented and hosted by you. It shows a subject interface which asks the subject to
 grant or deny the client access to the requested scope ("Application my-dropbox-app wants write access to all your private files").
 
-The consent challenge is appended to the consent provider's URL to which the user's user-agent (browser) is redirected to. The consent
-provider uses that challenge to fetch information on the OAuth2 request and then tells ORY Hydra if the user accepted
+The consent challenge is appended to the consent provider's URL to which the subject's user-agent (browser) is redirected to. The consent
+provider uses that challenge to fetch information on the OAuth2 request and then tells ORY Hydra if the subject accepted
 or rejected the request.
 
-This endpoint tells ORY Hydra that the user has not authorized the OAuth 2.0 client to access resources on his/her behalf.
+This endpoint tells ORY Hydra that the subject has not authorized the OAuth 2.0 client to access resources on his/her behalf.
 The consent provider must include a reason why the consent was not granted.
 
 The response contains a redirect URL which the consent provider should redirect the user-agent to.
@@ -4747,7 +5023,7 @@ The response contains a redirect URL which the consent provider should redirect 
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|challenge|path|string|true|none|
+|consent_challenge|query|string|true|none|
 |body|body|[rejectRequest](#schemarejectrequest)|false|none|
 
 #### Responses
@@ -4758,7 +5034,7 @@ The response contains a redirect URL which the consent provider should redirect 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|completedRequest|[completedRequest](#schemacompletedrequest)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|genericError|[genericError](#schemagenericerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|genericError|[genericError](#schemagenericerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
 
 ##### Examples
@@ -4792,7 +5068,7 @@ This operation does not require authentication
 <div class="tab-pane active" role="tabpanel" id="tab-rejectConsentRequest-shell">
 
 ```shell
-curl -X PUT /oauth2/auth/requests/consent/{challenge}/reject \
+curl -X PUT /oauth2/auth/requests/consent/reject?consent_challenge=string \
   -H 'Content-Type: application/json' \  -H 'Accept: application/json'
 ```
 
@@ -4816,7 +5092,7 @@ func main() {
     var body []byte
     // body = ...
 
-    req, err := http.NewRequest("PUT", "/oauth2/auth/requests/consent/{challenge}/reject", bytes.NewBuffer(body))
+    req, err := http.NewRequest("PUT", "/oauth2/auth/requests/consent/reject", bytes.NewBuffer(body))
     req.Header = headers
 
     client := &http.Client{}
@@ -4841,7 +5117,7 @@ const headers = {
   'Content-Type': 'application/json',  'Accept': 'application/json'
 }
 
-fetch('/oauth2/auth/requests/consent/{challenge}/reject', {
+fetch('/oauth2/auth/requests/consent/reject?consent_challenge=string', {
   method: 'PUT',
   body: input,
   headers
@@ -4857,7 +5133,7 @@ fetch('/oauth2/auth/requests/consent/{challenge}/reject', {
 
 ```java
 // This sample needs improvement.
-URL obj = new URL("/oauth2/auth/requests/consent/{challenge}/reject");
+URL obj = new URL("/oauth2/auth/requests/consent/reject?consent_challenge=string");
 
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
@@ -4890,8 +5166,9 @@ headers = {
 }
 
 r = requests.put(
-  '/oauth2/auth/requests/consent/{challenge}/reject',
-  params={},
+  '/oauth2/auth/requests/consent/reject',
+  params={
+    'consent_challenge': 'string'},
   headers = headers)
 
 print r.json()
@@ -4909,8 +5186,9 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.put '/oauth2/auth/requests/consent/{challenge}/reject',
-  params: {}, headers: headers
+result = RestClient.put '/oauth2/auth/requests/consent/reject',
+  params: {
+    'consent_challenge' => 'string'}, headers: headers
 
 p JSON.parse(result)
 ```
@@ -4924,17 +5202,17 @@ p JSON.parse(result)
 ### Get an login request
 
 ```
-GET /oauth2/auth/requests/login/{challenge} HTTP/1.1
+GET /oauth2/auth/requests/login?login_challenge=string HTTP/1.1
 Accept: application/json
 
 ```
 
 When an authorization code, hybrid, or implicit OAuth 2.0 Flow is initiated, ORY Hydra asks the login provider
-(sometimes called "identity provider") to authenticate the user and then tell ORY Hydra now about it. The login
-provider is an web-app you write and host, and it must be able to authenticate ("show the user a login screen")
-a user (in OAuth2 the proper name for user is "resource owner").
+(sometimes called "identity provider") to authenticate the subject and then tell ORY Hydra now about it. The login
+provider is an web-app you write and host, and it must be able to authenticate ("show the subject a login screen")
+a subject (in OAuth2 the proper name for subject is "resource owner").
 
-The authentication challenge is appended to the login provider URL to which the user's user-agent (browser) is redirected to. The login
+The authentication challenge is appended to the login provider URL to which the subject's user-agent (browser) is redirected to. The login
 provider uses that challenge to fetch information on the OAuth2 request and then accept or reject the requested authentication process.
 
 <a id="get-an-login-request-parameters"></a>
@@ -4942,7 +5220,7 @@ provider uses that challenge to fetch information on the OAuth2 request and then
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|challenge|path|string|true|none|
+|login_challenge|query|string|true|none|
 
 #### Responses
 
@@ -4952,7 +5230,8 @@ provider uses that challenge to fetch information on the OAuth2 request and then
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|loginRequest|[loginRequest](#schemaloginrequest)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|genericError|[genericError](#schemagenericerror)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|genericError|[genericError](#schemagenericerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|genericError|[genericError](#schemagenericerror)|
 |409|[Conflict](https://tools.ietf.org/html/rfc7231#section-6.5.8)|genericError|[genericError](#schemagenericerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
 
@@ -4970,6 +5249,8 @@ provider uses that challenge to fetch information on the OAuth2 request and then
     "audience": [
       "string"
     ],
+    "backchannel_logout_session_required": true,
+    "backchannel_logout_uri": "string",
     "client_id": "string",
     "client_name": "string",
     "client_secret": "string",
@@ -4978,6 +5259,9 @@ provider uses that challenge to fetch information on the OAuth2 request and then
     "contacts": [
       "string"
     ],
+    "created_at": "2019-05-02T10:06:14Z",
+    "frontchannel_logout_session_required": true,
+    "frontchannel_logout_uri": "string",
     "grant_types": [
       "string"
     ],
@@ -5010,6 +5294,9 @@ provider uses that challenge to fetch information on the OAuth2 request and then
     "logo_uri": "string",
     "owner": "string",
     "policy_uri": "string",
+    "post_logout_redirect_uris": [
+      "string"
+    ],
     "redirect_uris": [
       "string"
     ],
@@ -5025,6 +5312,7 @@ provider uses that challenge to fetch information on the OAuth2 request and then
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
+    "updated_at": "2019-05-02T10:06:14Z",
     "userinfo_signed_response_alg": "string"
   },
   "oidc_context": {
@@ -5075,7 +5363,7 @@ This operation does not require authentication
 <div class="tab-pane active" role="tabpanel" id="tab-getLoginRequest-shell">
 
 ```shell
-curl -X GET /oauth2/auth/requests/login/{challenge} \
+curl -X GET /oauth2/auth/requests/login?login_challenge=string \
   -H 'Accept: application/json'
 ```
 
@@ -5098,7 +5386,7 @@ func main() {
     var body []byte
     // body = ...
 
-    req, err := http.NewRequest("GET", "/oauth2/auth/requests/login/{challenge}", bytes.NewBuffer(body))
+    req, err := http.NewRequest("GET", "/oauth2/auth/requests/login", bytes.NewBuffer(body))
     req.Header = headers
 
     client := &http.Client{}
@@ -5117,7 +5405,7 @@ const headers = {
   'Accept': 'application/json'
 }
 
-fetch('/oauth2/auth/requests/login/{challenge}', {
+fetch('/oauth2/auth/requests/login?login_challenge=string', {
   method: 'GET',
   headers
 })
@@ -5132,7 +5420,7 @@ fetch('/oauth2/auth/requests/login/{challenge}', {
 
 ```java
 // This sample needs improvement.
-URL obj = new URL("/oauth2/auth/requests/login/{challenge}");
+URL obj = new URL("/oauth2/auth/requests/login?login_challenge=string");
 
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
@@ -5164,8 +5452,9 @@ headers = {
 }
 
 r = requests.get(
-  '/oauth2/auth/requests/login/{challenge}',
-  params={},
+  '/oauth2/auth/requests/login',
+  params={
+    'login_challenge': 'string'},
   headers = headers)
 
 print r.json()
@@ -5182,8 +5471,9 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.get '/oauth2/auth/requests/login/{challenge}',
-  params: {}, headers: headers
+result = RestClient.get '/oauth2/auth/requests/login',
+  params: {
+    'login_challenge' => 'string'}, headers: headers
 
 p JSON.parse(result)
 ```
@@ -5197,22 +5487,22 @@ p JSON.parse(result)
 ### Accept an login request
 
 ```
-PUT /oauth2/auth/requests/login/{challenge}/accept HTTP/1.1
+PUT /oauth2/auth/requests/login/accept?login_challenge=string HTTP/1.1
 Content-Type: application/json
 Accept: application/json
 
 ```
 
 When an authorization code, hybrid, or implicit OAuth 2.0 Flow is initiated, ORY Hydra asks the login provider
-(sometimes called "identity provider") to authenticate the user and then tell ORY Hydra now about it. The login
-provider is an web-app you write and host, and it must be able to authenticate ("show the user a login screen")
-a user (in OAuth2 the proper name for user is "resource owner").
+(sometimes called "identity provider") to authenticate the subject and then tell ORY Hydra now about it. The login
+provider is an web-app you write and host, and it must be able to authenticate ("show the subject a login screen")
+a subject (in OAuth2 the proper name for subject is "resource owner").
 
-The authentication challenge is appended to the login provider URL to which the user's user-agent (browser) is redirected to. The login
+The authentication challenge is appended to the login provider URL to which the subject's user-agent (browser) is redirected to. The login
 provider uses that challenge to fetch information on the OAuth2 request and then accept or reject the requested authentication process.
 
-This endpoint tells ORY Hydra that the user has successfully authenticated and includes additional information such as
-the user's ID and if ORY Hydra should remember the user's user agent for future authentication attempts by setting
+This endpoint tells ORY Hydra that the subject has successfully authenticated and includes additional information such as
+the subject's ID and if ORY Hydra should remember the subject's subject agent for future authentication attempts by setting
 a cookie.
 
 The response contains a redirect URL which the login provider should redirect the user-agent to.
@@ -5222,6 +5512,10 @@ The response contains a redirect URL which the login provider should redirect th
 ```json
 {
   "acr": "string",
+  "context": {
+    "property1": {},
+    "property2": {}
+  },
   "force_subject_identifier": "string",
   "remember": true,
   "remember_for": 0,
@@ -5234,7 +5528,7 @@ The response contains a redirect URL which the login provider should redirect th
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|challenge|path|string|true|none|
+|login_challenge|query|string|true|none|
 |body|body|[acceptLoginRequest](#schemaacceptloginrequest)|false|none|
 
 #### Responses
@@ -5246,6 +5540,7 @@ The response contains a redirect URL which the login provider should redirect th
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|completedRequest|[completedRequest](#schemacompletedrequest)|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|genericError|[genericError](#schemagenericerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|genericError|[genericError](#schemagenericerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
 
 ##### Examples
@@ -5279,7 +5574,7 @@ This operation does not require authentication
 <div class="tab-pane active" role="tabpanel" id="tab-acceptLoginRequest-shell">
 
 ```shell
-curl -X PUT /oauth2/auth/requests/login/{challenge}/accept \
+curl -X PUT /oauth2/auth/requests/login/accept?login_challenge=string \
   -H 'Content-Type: application/json' \  -H 'Accept: application/json'
 ```
 
@@ -5303,7 +5598,7 @@ func main() {
     var body []byte
     // body = ...
 
-    req, err := http.NewRequest("PUT", "/oauth2/auth/requests/login/{challenge}/accept", bytes.NewBuffer(body))
+    req, err := http.NewRequest("PUT", "/oauth2/auth/requests/login/accept", bytes.NewBuffer(body))
     req.Header = headers
 
     client := &http.Client{}
@@ -5319,6 +5614,10 @@ func main() {
 const fetch = require('node-fetch');
 const input = '{
   "acr": "string",
+  "context": {
+    "property1": {},
+    "property2": {}
+  },
   "force_subject_identifier": "string",
   "remember": true,
   "remember_for": 0,
@@ -5328,7 +5627,7 @@ const headers = {
   'Content-Type': 'application/json',  'Accept': 'application/json'
 }
 
-fetch('/oauth2/auth/requests/login/{challenge}/accept', {
+fetch('/oauth2/auth/requests/login/accept?login_challenge=string', {
   method: 'PUT',
   body: input,
   headers
@@ -5344,7 +5643,7 @@ fetch('/oauth2/auth/requests/login/{challenge}/accept', {
 
 ```java
 // This sample needs improvement.
-URL obj = new URL("/oauth2/auth/requests/login/{challenge}/accept");
+URL obj = new URL("/oauth2/auth/requests/login/accept?login_challenge=string");
 
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
@@ -5377,8 +5676,9 @@ headers = {
 }
 
 r = requests.put(
-  '/oauth2/auth/requests/login/{challenge}/accept',
-  params={},
+  '/oauth2/auth/requests/login/accept',
+  params={
+    'login_challenge': 'string'},
   headers = headers)
 
 print r.json()
@@ -5396,8 +5696,9 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.put '/oauth2/auth/requests/login/{challenge}/accept',
-  params: {}, headers: headers
+result = RestClient.put '/oauth2/auth/requests/login/accept',
+  params: {
+    'login_challenge' => 'string'}, headers: headers
 
 p JSON.parse(result)
 ```
@@ -5411,21 +5712,21 @@ p JSON.parse(result)
 ### Reject a login request
 
 ```
-PUT /oauth2/auth/requests/login/{challenge}/reject HTTP/1.1
+PUT /oauth2/auth/requests/login/reject?login_challenge=string HTTP/1.1
 Content-Type: application/json
 Accept: application/json
 
 ```
 
 When an authorization code, hybrid, or implicit OAuth 2.0 Flow is initiated, ORY Hydra asks the login provider
-(sometimes called "identity provider") to authenticate the user and then tell ORY Hydra now about it. The login
-provider is an web-app you write and host, and it must be able to authenticate ("show the user a login screen")
-a user (in OAuth2 the proper name for user is "resource owner").
+(sometimes called "identity provider") to authenticate the subject and then tell ORY Hydra now about it. The login
+provider is an web-app you write and host, and it must be able to authenticate ("show the subject a login screen")
+a subject (in OAuth2 the proper name for subject is "resource owner").
 
-The authentication challenge is appended to the login provider URL to which the user's user-agent (browser) is redirected to. The login
+The authentication challenge is appended to the login provider URL to which the subject's user-agent (browser) is redirected to. The login
 provider uses that challenge to fetch information on the OAuth2 request and then accept or reject the requested authentication process.
 
-This endpoint tells ORY Hydra that the user has not authenticated and includes a reason why the authentication
+This endpoint tells ORY Hydra that the subject has not authenticated and includes a reason why the authentication
 was be denied.
 
 The response contains a redirect URL which the login provider should redirect the user-agent to.
@@ -5447,7 +5748,7 @@ The response contains a redirect URL which the login provider should redirect th
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|challenge|path|string|true|none|
+|login_challenge|query|string|true|none|
 |body|body|[rejectRequest](#schemarejectrequest)|false|none|
 
 #### Responses
@@ -5459,6 +5760,7 @@ The response contains a redirect URL which the login provider should redirect th
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|completedRequest|[completedRequest](#schemacompletedrequest)|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|genericError|[genericError](#schemagenericerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|genericError|[genericError](#schemagenericerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
 
 ##### Examples
@@ -5492,7 +5794,7 @@ This operation does not require authentication
 <div class="tab-pane active" role="tabpanel" id="tab-rejectLoginRequest-shell">
 
 ```shell
-curl -X PUT /oauth2/auth/requests/login/{challenge}/reject \
+curl -X PUT /oauth2/auth/requests/login/reject?login_challenge=string \
   -H 'Content-Type: application/json' \  -H 'Accept: application/json'
 ```
 
@@ -5516,7 +5818,7 @@ func main() {
     var body []byte
     // body = ...
 
-    req, err := http.NewRequest("PUT", "/oauth2/auth/requests/login/{challenge}/reject", bytes.NewBuffer(body))
+    req, err := http.NewRequest("PUT", "/oauth2/auth/requests/login/reject", bytes.NewBuffer(body))
     req.Header = headers
 
     client := &http.Client{}
@@ -5541,7 +5843,7 @@ const headers = {
   'Content-Type': 'application/json',  'Accept': 'application/json'
 }
 
-fetch('/oauth2/auth/requests/login/{challenge}/reject', {
+fetch('/oauth2/auth/requests/login/reject?login_challenge=string', {
   method: 'PUT',
   body: input,
   headers
@@ -5557,7 +5859,7 @@ fetch('/oauth2/auth/requests/login/{challenge}/reject', {
 
 ```java
 // This sample needs improvement.
-URL obj = new URL("/oauth2/auth/requests/login/{challenge}/reject");
+URL obj = new URL("/oauth2/auth/requests/login/reject?login_challenge=string");
 
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
@@ -5590,8 +5892,9 @@ headers = {
 }
 
 r = requests.put(
-  '/oauth2/auth/requests/login/{challenge}/reject',
-  params={},
+  '/oauth2/auth/requests/login/reject',
+  params={
+    'login_challenge': 'string'},
   headers = headers)
 
 print r.json()
@@ -5609,8 +5912,9 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.put '/oauth2/auth/requests/login/{challenge}/reject',
-  params: {}, headers: headers
+result = RestClient.put '/oauth2/auth/requests/login/reject',
+  params: {
+    'login_challenge' => 'string'}, headers: headers
 
 p JSON.parse(result)
 ```
@@ -5619,57 +5923,650 @@ p JSON.parse(result)
 </div>
 </div>
 
-<a id="opIdlistUserConsentSessions"></a>
+<a id="opIdgetLogoutRequest"></a>
 
-### Lists all consent sessions of a user
+### Get a logout request
 
 ```
-GET /oauth2/auth/sessions/consent/{user} HTTP/1.1
+GET /oauth2/auth/requests/logout?logout_challenge=string HTTP/1.1
 Accept: application/json
 
 ```
 
-This endpoint lists all user's granted consent sessions, including client and granted scope
+Use this endpoint to fetch a logout request.
 
-<a id="lists-all-consent-sessions-of-a-user-parameters"></a>
+<a id="get-a-logout-request-parameters"></a>
 ##### Parameters
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|user|path|string|true|none|
+|logout_challenge|query|string|true|none|
 
 #### Responses
 
-<a id="lists-all-consent-sessions-of-a-user-responses"></a>
+<a id="get-a-logout-request-responses"></a>
 ##### Overview
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A list of handled consent requests.|Inline|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|genericError|[genericError](#schemagenericerror)|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|genericError|[genericError](#schemagenericerror)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|logoutRequest|[logoutRequest](#schemalogoutrequest)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|genericError|[genericError](#schemagenericerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
 
-<a id="lists-all-consent-sessions-of-a-user-responseschema"></a>
+##### Examples
+
+###### 200 response
+
+```json
+{
+  "request_url": "string",
+  "rp_initiated": true,
+  "sid": "string",
+  "subject": "string"
+}
+```
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+#### Code samples
+
+<div class="tabs" id="tab-getLogoutRequest">
+<nav class="tabs-nav">
+<ul class="nav nav-tabs au-link-list au-link-list--inline">
+<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-getLogoutRequest-shell">Shell</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getLogoutRequest-go">Go</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getLogoutRequest-node">Node.js</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getLogoutRequest-java">Java</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getLogoutRequest-python">Python</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getLogoutRequest-ruby">Ruby</a></li>
+</ul>
+</nav>
+<div class="tab-content">
+<div class="tab-pane active" role="tabpanel" id="tab-getLogoutRequest-shell">
+
+```shell
+curl -X GET /oauth2/auth/requests/logout?logout_challenge=string \
+  -H 'Accept: application/json'
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-getLogoutRequest-go">
+
+```go
+package main
+
+import (
+    "bytes"
+    "net/http"
+)
+
+func main() {
+    headers := map[string][]string{ 
+        "Accept": []string{"application/json"},
+    }
+
+    var body []byte
+    // body = ...
+
+    req, err := http.NewRequest("GET", "/oauth2/auth/requests/logout", bytes.NewBuffer(body))
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-getLogoutRequest-node">
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept': 'application/json'
+}
+
+fetch('/oauth2/auth/requests/logout?logout_challenge=string', {
+  method: 'GET',
+  headers
+})
+.then(r => r.json())
+.then((body) => {
+    console.log(body)
+})
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-getLogoutRequest-java">
+
+```java
+// This sample needs improvement.
+URL obj = new URL("/oauth2/auth/requests/logout?logout_challenge=string");
+
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+
+int responseCode = con.getResponseCode();
+
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream())
+);
+
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+
+System.out.println(response.toString());
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-getLogoutRequest-python">
+
+```python
+import requests
+
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get(
+  '/oauth2/auth/requests/logout',
+  params={
+    'logout_challenge': 'string'},
+  headers = headers)
+
+print r.json()
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-getLogoutRequest-ruby">
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.get '/oauth2/auth/requests/logout',
+  params: {
+    'logout_challenge' => 'string'}, headers: headers
+
+p JSON.parse(result)
+```
+
+</div>
+</div>
+</div>
+
+<a id="opIdacceptLogoutRequest"></a>
+
+### Accept a logout request
+
+```
+PUT /oauth2/auth/requests/logout/accept?logout_challenge=string HTTP/1.1
+Accept: application/json
+
+```
+
+When a user or an application requests ORY Hydra to log out a user, this endpoint is used to confirm that logout request.
+No body is required.
+
+The response contains a redirect URL which the consent provider should redirect the user-agent to.
+
+<a id="accept-a-logout-request-parameters"></a>
+##### Parameters
+
+|Parameter|In|Type|Required|Description|
+|---|---|---|---|---|
+|logout_challenge|query|string|true|none|
+
+#### Responses
+
+<a id="accept-a-logout-request-responses"></a>
+##### Overview
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|completedRequest|[completedRequest](#schemacompletedrequest)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|genericError|[genericError](#schemagenericerror)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
+
+##### Examples
+
+###### 200 response
+
+```json
+{
+  "redirect_to": "string"
+}
+```
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+#### Code samples
+
+<div class="tabs" id="tab-acceptLogoutRequest">
+<nav class="tabs-nav">
+<ul class="nav nav-tabs au-link-list au-link-list--inline">
+<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-acceptLogoutRequest-shell">Shell</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-acceptLogoutRequest-go">Go</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-acceptLogoutRequest-node">Node.js</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-acceptLogoutRequest-java">Java</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-acceptLogoutRequest-python">Python</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-acceptLogoutRequest-ruby">Ruby</a></li>
+</ul>
+</nav>
+<div class="tab-content">
+<div class="tab-pane active" role="tabpanel" id="tab-acceptLogoutRequest-shell">
+
+```shell
+curl -X PUT /oauth2/auth/requests/logout/accept?logout_challenge=string \
+  -H 'Accept: application/json'
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-acceptLogoutRequest-go">
+
+```go
+package main
+
+import (
+    "bytes"
+    "net/http"
+)
+
+func main() {
+    headers := map[string][]string{ 
+        "Accept": []string{"application/json"},
+    }
+
+    var body []byte
+    // body = ...
+
+    req, err := http.NewRequest("PUT", "/oauth2/auth/requests/logout/accept", bytes.NewBuffer(body))
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-acceptLogoutRequest-node">
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept': 'application/json'
+}
+
+fetch('/oauth2/auth/requests/logout/accept?logout_challenge=string', {
+  method: 'PUT',
+  headers
+})
+.then(r => r.json())
+.then((body) => {
+    console.log(body)
+})
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-acceptLogoutRequest-java">
+
+```java
+// This sample needs improvement.
+URL obj = new URL("/oauth2/auth/requests/logout/accept?logout_challenge=string");
+
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("PUT");
+
+int responseCode = con.getResponseCode();
+
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream())
+);
+
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+
+System.out.println(response.toString());
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-acceptLogoutRequest-python">
+
+```python
+import requests
+
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.put(
+  '/oauth2/auth/requests/logout/accept',
+  params={
+    'logout_challenge': 'string'},
+  headers = headers)
+
+print r.json()
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-acceptLogoutRequest-ruby">
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.put '/oauth2/auth/requests/logout/accept',
+  params: {
+    'logout_challenge' => 'string'}, headers: headers
+
+p JSON.parse(result)
+```
+
+</div>
+</div>
+</div>
+
+<a id="opIdrejectLogoutRequest"></a>
+
+### Reject a logout request
+
+```
+PUT /oauth2/auth/requests/logout/reject?logout_challenge=string HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+```
+
+When a user or an application requests ORY Hydra to log out a user, this endpoint is used to deny that logout request.
+No body is required.
+
+The response is empty as the logout provider has to chose what action to perform next.
+
+#### Request body
+
+```json
+{
+  "error": "string",
+  "error_debug": "string",
+  "error_description": "string",
+  "error_hint": "string",
+  "status_code": 0
+}
+```
+
+```yaml
+error: string
+error_debug: string
+error_description: string
+error_hint: string
+status_code: 0
+
+```
+
+<a id="reject-a-logout-request-parameters"></a>
+##### Parameters
+
+|Parameter|In|Type|Required|Description|
+|---|---|---|---|---|
+|logout_challenge|query|string|true|none|
+|body|body|[rejectRequest](#schemarejectrequest)|false|none|
+
+#### Responses
+
+<a id="reject-a-logout-request-responses"></a>
+##### Overview
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|204|[No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)|Empty responses are sent when, for example, resources are deleted. The HTTP status code for empty responses is
+typically 201.|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|genericError|[genericError](#schemagenericerror)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
+
+##### Examples
+
+###### 404 response
+
+```json
+{
+  "error": "The requested resource could not be found",
+  "error_code": 404,
+  "error_debug": "The database adapter was unable to find the element",
+  "error_hint": "Object with ID 12345 does not exist"
+}
+```
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+#### Code samples
+
+<div class="tabs" id="tab-rejectLogoutRequest">
+<nav class="tabs-nav">
+<ul class="nav nav-tabs au-link-list au-link-list--inline">
+<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-rejectLogoutRequest-shell">Shell</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-rejectLogoutRequest-go">Go</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-rejectLogoutRequest-node">Node.js</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-rejectLogoutRequest-java">Java</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-rejectLogoutRequest-python">Python</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-rejectLogoutRequest-ruby">Ruby</a></li>
+</ul>
+</nav>
+<div class="tab-content">
+<div class="tab-pane active" role="tabpanel" id="tab-rejectLogoutRequest-shell">
+
+```shell
+curl -X PUT /oauth2/auth/requests/logout/reject?logout_challenge=string \
+  -H 'Content-Type: application/json' \  -H 'Accept: application/json'
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-rejectLogoutRequest-go">
+
+```go
+package main
+
+import (
+    "bytes"
+    "net/http"
+)
+
+func main() {
+    headers := map[string][]string{ 
+        "Content-Type": []string{"application/json"},
+        "Accept": []string{"application/json"},
+    }
+
+    var body []byte
+    // body = ...
+
+    req, err := http.NewRequest("PUT", "/oauth2/auth/requests/logout/reject", bytes.NewBuffer(body))
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-rejectLogoutRequest-node">
+
+```nodejs
+const fetch = require('node-fetch');
+const input = '{
+  "error": "string",
+  "error_debug": "string",
+  "error_description": "string",
+  "error_hint": "string",
+  "status_code": 0
+}';
+const headers = {
+  'Content-Type': 'application/json',  'Accept': 'application/json'
+}
+
+fetch('/oauth2/auth/requests/logout/reject?logout_challenge=string', {
+  method: 'PUT',
+  body: input,
+  headers
+})
+.then(r => r.json())
+.then((body) => {
+    console.log(body)
+})
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-rejectLogoutRequest-java">
+
+```java
+// This sample needs improvement.
+URL obj = new URL("/oauth2/auth/requests/logout/reject?logout_challenge=string");
+
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("PUT");
+
+int responseCode = con.getResponseCode();
+
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream())
+);
+
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+
+System.out.println(response.toString());
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-rejectLogoutRequest-python">
+
+```python
+import requests
+
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+}
+
+r = requests.put(
+  '/oauth2/auth/requests/logout/reject',
+  params={
+    'logout_challenge': 'string'},
+  headers = headers)
+
+print r.json()
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-rejectLogoutRequest-ruby">
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json',
+  'Accept' => 'application/json'
+}
+
+result = RestClient.put '/oauth2/auth/requests/logout/reject',
+  params: {
+    'logout_challenge' => 'string'}, headers: headers
+
+p JSON.parse(result)
+```
+
+</div>
+</div>
+</div>
+
+<a id="opIdlistSubjectConsentSessions"></a>
+
+### Lists all consent sessions of a subject
+
+```
+GET /oauth2/auth/sessions/consent?subject=string HTTP/1.1
+Accept: application/json
+
+```
+
+This endpoint lists all subject's granted consent sessions, including client and granted scope.
+The "Link" header is also included in successful responses, which contains one or more links for pagination, formatted like so: '<https://hydra-url/admin/oauth2/auth/sessions/consent?subject={user}&limit={limit}&offset={offset}>; rel="{page}"', where page is one of the following applicable pages: 'first', 'next', 'last', and 'previous'.
+Multiple links can be included in this header, and will be separated by a comma.
+
+<a id="lists-all-consent-sessions-of-a-subject-parameters"></a>
+##### Parameters
+
+|Parameter|In|Type|Required|Description|
+|---|---|---|---|---|
+|subject|query|string|true|none|
+
+#### Responses
+
+<a id="lists-all-consent-sessions-of-a-subject-responses"></a>
+##### Overview
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A list of used consent requests.|Inline|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|genericError|[genericError](#schemagenericerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|genericError|[genericError](#schemagenericerror)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
+
+<a id="lists-all-consent-sessions-of-a-subject-responseschema"></a>
 ##### Response Schema</h3>
 
 Status Code **200**
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|[[PreviousConsentSession](#schemapreviousconsentsession)]|false|none|[The response used to return handled consent requests same as HandledAuthenticationRequest, just with consent_request exposed as json]|
+|*anonymous*|[[PreviousConsentSession](#schemapreviousconsentsession)]|false|none|[The response used to return used consent requests same as HandledLoginRequest, just with consent_request exposed as json]|
 |» consent_request|[consentRequest](#schemaconsentrequest)|false|none|none|
 |»» acr|string|false|none|ACR represents the Authentication AuthorizationContext Class Reference value for this authentication session. You can use it to express that, for example, a user authenticated using two factor authentication.|
 |»» challenge|string|false|none|Challenge is the identifier ("authorization challenge") of the consent authorization request. It is used to identify the session.|
 |»» client|[oAuth2Client](#schemaoauth2client)|false|none|none|
 |»»» allowed_cors_origins|[string]|false|none|AllowedCORSOrigins are one or more URLs (scheme://host[:port]) which are allowed to make CORS requests to the /oauth/token endpoint. If this array is empty, the sever's CORS origin configuration (`CORS_ALLOWED_ORIGINS`) will be used instead. If this array is set, the allowed origins are appended to the server's CORS origin configuration. Be aware that environment variable `CORS_ENABLED` MUST be set to `true` for this to work.|
 |»»» audience|[string]|false|none|Audience is a whitelist defining the audiences this client is allowed to request tokens for. An audience limits the applicability of an OAuth 2.0 Access Token to, for example, certain API endpoints. The value is a list of URLs. URLs MUST NOT contain whitespaces.|
+|»»» backchannel_logout_session_required|boolean|false|none|Boolean value specifying whether the RP requires that a sid (session ID) Claim be included in the Logout Token to identify the RP session with the OP when the backchannel_logout_uri is used. If omitted, the default value is false.|
+|»»» backchannel_logout_uri|string|false|none|RP URL that will cause the RP to log itself out when sent a Logout Token by the OP.|
 |»»» client_id|string|false|none|ClientID  is the id for this client.|
 |»»» client_name|string|false|none|Name is the human-readable string name of the client to be presented to the end-user during authorization.|
 |»»» client_secret|string|false|none|Secret is the client's secret. The secret will be included in the create request as cleartext, and then never again. The secret is stored using BCrypt so it is impossible to recover it. Tell your users that they need to write the secret down as it will not be made available again.|
-|»»» client_secret_expires_at|integer(int64)|false|none|SecretExpiresAt is an integer holding the time at which the client secret will expire or 0 if it will not expire. The time is represented as the number of seconds from 1970-01-01T00:00:00Z as measured in UTC until the date/time of expiration.|
+|»»» client_secret_expires_at|integer(int64)|false|none|SecretExpiresAt is an integer holding the time at which the client secret will expire or 0 if it will not expire. The time is represented as the number of seconds from 1970-01-01T00:00:00Z as measured in UTC until the date/time of expiration.  This feature is currently not supported and it's value will always be set to 0.|
 |»»» client_uri|string|false|none|ClientURI is an URL string of a web page providing information about the client. If present, the server SHOULD display this URL to the end-user in a clickable fashion.|
 |»»» contacts|[string]|false|none|Contacts is a array of strings representing ways to contact people responsible for this client, typically email addresses.|
+|»»» created_at|string(date-time)|false|none|CreatedAt returns the timestamp of the client's creation.|
+|»»» frontchannel_logout_session_required|boolean|false|none|Boolean value specifying whether the RP requires that iss (issuer) and sid (session ID) query parameters be included to identify the RP session with the OP when the frontchannel_logout_uri is used. If omitted, the default value is false.|
+|»»» frontchannel_logout_uri|string|false|none|RP URL that will cause the RP to log itself out when rendered in an iframe by the OP. An iss (issuer) query parameter and a sid (session ID) query parameter MAY be included by the OP to enable the RP to validate the request and to determine which of the potentially multiple sessions is to be logged out; if either is included, both MUST be.|
 |»»» grant_types|[string]|false|none|GrantTypes is an array of grant types the client is allowed to use.|
 |»»» jwks|[JSONWebKeySet](#schemajsonwebkeyset)|false|none|none|
 |»»»» keys|[[JSONWebKey](#schemajsonwebkey)]|false|none|The value of the "keys" parameter is an array of JWK values.  By default, the order of the JWK values within the array does not imply an order of preference among them, although applications of JWK Sets can choose to assign a meaning to the order for their purposes, if desired.|
@@ -5694,6 +6591,7 @@ Status Code **200**
 |»»»» logo_uri|string|false|none|LogoURI is an URL string that references a logo for the client.|
 |»»»» owner|string|false|none|Owner is a string identifying the owner of the OAuth 2.0 Client.|
 |»»»» policy_uri|string|false|none|PolicyURI is a URL string that points to a human-readable privacy policy document that describes how the deployment organization collects, uses, retains, and discloses personal data.|
+|»»»» post_logout_redirect_uris|[string]|false|none|Array of URLs supplied by the RP to which it MAY request that the End-User's User Agent be redirected using the post_logout_redirect_uri parameter after a logout has been performed.|
 |»»»» redirect_uris|[string]|false|none|RedirectURIs is an array of allowed redirect urls for the client, for example http://mydomain/oauth/callback .|
 |»»»» request_object_signing_alg|string|false|none|JWS [JWS] alg algorithm [JWA] that MUST be used for signing Request Objects sent to the OP. All Request Objects from this Client MUST be rejected, if not signed with this algorithm.|
 |»»»» request_uris|[string]|false|none|Array of request_uri values that are pre-registered by the RP for use at the OP. Servers MAY cache the contents of the files referenced by these URIs and not retrieve them at the time they are used in a request. OPs can require that request_uri values used be pre-registered with the require_request_uri_registration discovery parameter.|
@@ -5703,9 +6601,12 @@ Status Code **200**
 |»»»» subject_type|string|false|none|SubjectType requested for responses to this Client. The subject_types_supported Discovery parameter contains a list of the supported subject_type values for this server. Valid types include `pairwise` and `public`.|
 |»»»» token_endpoint_auth_method|string|false|none|Requested Client Authentication method for the Token Endpoint. The options are client_secret_post, client_secret_basic, private_key_jwt, and none.|
 |»»»» tos_uri|string|false|none|TermsOfServiceURI is a URL string that points to a human-readable terms of service document for the client that describes a contractual relationship between the end-user and the client that the end-user accepts when authorizing the client.|
+|»»»» updated_at|string(date-time)|false|none|UpdatedAt returns the timestamp of the last update.|
 |»»»» userinfo_signed_response_alg|string|false|none|JWS alg algorithm [JWA] REQUIRED for signing UserInfo Responses. If this is specified, the response will be JWT [JWT] serialized, and signed using JWS. The default, if omitted, is for the UserInfo Response to return the Claims as a UTF-8 encoded JSON object using the application/json content-type.|
+|»»» context|object|false|none|Context contains arbitrary information set by the login endpoint or is empty if not set.|
+|»»»» **additionalProperties**|object|false|none|none|
 |»»» login_challenge|string|false|none|LoginChallenge is the login challenge this consent challenge belongs to. It can be used to associate a login and consent request in the login & consent app.|
-|»»» login_session_id|string|false|none|LoginSessionID is the authentication session ID. It is set if the browser had a valid authentication session at ORY Hydra during the login flow. It can be used to associate consecutive login requests by a certain user.|
+|»»» login_session_id|string|false|none|LoginSessionID is the login session ID. If the user-agent reuses a login session (via cookie / remember flag) this ID will remain the same. If the user-agent did not have an existing authentication session (e.g. remember is false) this will be a new random value. This value is used as the "sid" parameter in the ID Token and in OIDC Front-/Back- channel logout. It's value can generally be used to associate consecutive login requests by a certain user.|
 |»»» oidc_context|[openIDConnectContext](#schemaopenidconnectcontext)|false|none|none|
 |»»»» acr_values|[string]|false|none|ACRValues is the Authentication AuthorizationContext Class Reference requested in the OAuth 2.0 Authorization request. It is a parameter defined by OpenID Connect and expresses which level of authentication (e.g. 2FA) is required.  OpenID Connect defines it as follows: > Requested Authentication AuthorizationContext Class Reference values. Space-separated string that specifies the acr values that the Authorization Server is being requested to use for processing this Authentication Request, with the values appearing in order of preference. The Authentication AuthorizationContext Class satisfied by the authentication performed is returned as the acr Claim Value, as specified in Section 2. The acr Claim is requested as a Voluntary Claim by this parameter.|
 |»»»» display|string|false|none|Display is a string value that specifies how the Authorization Server displays the authentication and consent user interface pages to the End-User. The defined values are: page: The Authorization Server SHOULD display the authentication and consent UI consistent with a full User Agent page view. If the display parameter is not specified, this is the default display mode. popup: The Authorization Server SHOULD display the authentication and consent UI consistent with a popup User Agent window. The popup User Agent window should be of an appropriate size for a login-focused dialog and should not obscure the entire window that it is popping up over. touch: The Authorization Server SHOULD display the authentication and consent UI consistent with a device that leverages a touch interface. wap: The Authorization Server SHOULD display the authentication and consent UI consistent with a "feature phone" type display.  The Authorization Server MAY also attempt to detect the capabilities of the User Agent and present an appropriate display.|
@@ -5745,6 +6646,8 @@ Status Code **200**
         "audience": [
           "string"
         ],
+        "backchannel_logout_session_required": true,
+        "backchannel_logout_uri": "string",
         "client_id": "string",
         "client_name": "string",
         "client_secret": "string",
@@ -5753,6 +6656,9 @@ Status Code **200**
         "contacts": [
           "string"
         ],
+        "created_at": "2019-05-02T10:06:14Z",
+        "frontchannel_logout_session_required": true,
+        "frontchannel_logout_uri": "string",
         "grant_types": [
           "string"
         ],
@@ -5785,6 +6691,9 @@ Status Code **200**
         "logo_uri": "string",
         "owner": "string",
         "policy_uri": "string",
+        "post_logout_redirect_uris": [
+          "string"
+        ],
         "redirect_uris": [
           "string"
         ],
@@ -5800,7 +6709,12 @@ Status Code **200**
         "subject_type": "string",
         "token_endpoint_auth_method": "string",
         "tos_uri": "string",
+        "updated_at": "2019-05-02T10:06:14Z",
         "userinfo_signed_response_alg": "string"
+      },
+      "context": {
+        "property1": {},
+        "property2": {}
       },
       "login_challenge": "string",
       "login_session_id": "string",
@@ -5856,27 +6770,27 @@ This operation does not require authentication
 
 #### Code samples
 
-<div class="tabs" id="tab-listUserConsentSessions">
+<div class="tabs" id="tab-listSubjectConsentSessions">
 <nav class="tabs-nav">
 <ul class="nav nav-tabs au-link-list au-link-list--inline">
-<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-listUserConsentSessions-shell">Shell</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-listUserConsentSessions-go">Go</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-listUserConsentSessions-node">Node.js</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-listUserConsentSessions-java">Java</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-listUserConsentSessions-python">Python</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-listUserConsentSessions-ruby">Ruby</a></li>
+<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-listSubjectConsentSessions-shell">Shell</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-listSubjectConsentSessions-go">Go</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-listSubjectConsentSessions-node">Node.js</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-listSubjectConsentSessions-java">Java</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-listSubjectConsentSessions-python">Python</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-listSubjectConsentSessions-ruby">Ruby</a></li>
 </ul>
 </nav>
 <div class="tab-content">
-<div class="tab-pane active" role="tabpanel" id="tab-listUserConsentSessions-shell">
+<div class="tab-pane active" role="tabpanel" id="tab-listSubjectConsentSessions-shell">
 
 ```shell
-curl -X GET /oauth2/auth/sessions/consent/{user} \
+curl -X GET /oauth2/auth/sessions/consent?subject=string \
   -H 'Accept: application/json'
 ```
 
 </div>
-<div class="tab-pane" role="tabpanel"  id="tab-listUserConsentSessions-go">
+<div class="tab-pane" role="tabpanel"  id="tab-listSubjectConsentSessions-go">
 
 ```go
 package main
@@ -5894,7 +6808,7 @@ func main() {
     var body []byte
     // body = ...
 
-    req, err := http.NewRequest("GET", "/oauth2/auth/sessions/consent/{user}", bytes.NewBuffer(body))
+    req, err := http.NewRequest("GET", "/oauth2/auth/sessions/consent", bytes.NewBuffer(body))
     req.Header = headers
 
     client := &http.Client{}
@@ -5904,7 +6818,7 @@ func main() {
 ```
 
 </div>
-<div class="tab-pane" role="tabpanel"  id="tab-listUserConsentSessions-node">
+<div class="tab-pane" role="tabpanel"  id="tab-listSubjectConsentSessions-node">
 
 ```nodejs
 const fetch = require('node-fetch');
@@ -5913,7 +6827,7 @@ const headers = {
   'Accept': 'application/json'
 }
 
-fetch('/oauth2/auth/sessions/consent/{user}', {
+fetch('/oauth2/auth/sessions/consent?subject=string', {
   method: 'GET',
   headers
 })
@@ -5924,11 +6838,11 @@ fetch('/oauth2/auth/sessions/consent/{user}', {
 ```
 
 </div>
-<div class="tab-pane" role="tabpanel"  id="tab-listUserConsentSessions-java">
+<div class="tab-pane" role="tabpanel"  id="tab-listSubjectConsentSessions-java">
 
 ```java
 // This sample needs improvement.
-URL obj = new URL("/oauth2/auth/sessions/consent/{user}");
+URL obj = new URL("/oauth2/auth/sessions/consent?subject=string");
 
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
@@ -5950,7 +6864,7 @@ System.out.println(response.toString());
 ```
 
 </div>
-<div class="tab-pane" role="tabpanel"  id="tab-listUserConsentSessions-python">
+<div class="tab-pane" role="tabpanel"  id="tab-listSubjectConsentSessions-python">
 
 ```python
 import requests
@@ -5960,15 +6874,16 @@ headers = {
 }
 
 r = requests.get(
-  '/oauth2/auth/sessions/consent/{user}',
-  params={},
+  '/oauth2/auth/sessions/consent',
+  params={
+    'subject': 'string'},
   headers = headers)
 
 print r.json()
 ```
 
 </div>
-<div class="tab-pane" role="tabpanel"  id="tab-listUserConsentSessions-ruby">
+<div class="tab-pane" role="tabpanel"  id="tab-listSubjectConsentSessions-ruby">
 
 ```ruby
 require 'rest-client'
@@ -5978,8 +6893,9 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.get '/oauth2/auth/sessions/consent/{user}',
-  params: {}, headers: headers
+result = RestClient.get '/oauth2/auth/sessions/consent',
+  params: {
+    'subject' => 'string'}, headers: headers
 
 p JSON.parse(result)
 ```
@@ -5988,224 +6904,43 @@ p JSON.parse(result)
 </div>
 </div>
 
-<a id="opIdrevokeAllUserConsentSessions"></a>
+<a id="opIdrevokeConsentSessions"></a>
 
-### Revokes all previous consent sessions of a user
+### Revokes consent sessions of a subject for a specific OAuth 2.0 Client
 
 ```
-DELETE /oauth2/auth/sessions/consent/{user} HTTP/1.1
+DELETE /oauth2/auth/sessions/consent?subject=string HTTP/1.1
 Accept: application/json
 
 ```
 
-This endpoint revokes a user's granted consent sessions and invalidates all associated OAuth 2.0 Access Tokens.
-
-<a id="revokes-all-previous-consent-sessions-of-a-user-parameters"></a>
-##### Parameters
-
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|user|path|string|true|none|
-
-#### Responses
-
-<a id="revokes-all-previous-consent-sessions-of-a-user-responses"></a>
-##### Overview
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|204|[No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)|Empty responses are sent when, for example, resources are deleted. The HTTP status code for empty responses is
-typically 201.|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|genericError|[genericError](#schemagenericerror)|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
-
-##### Examples
-
-###### 404 response
-
-```json
-{
-  "error": "The requested resource could not be found",
-  "error_code": 404,
-  "error_debug": "The database adapter was unable to find the element",
-  "error_hint": "Object with ID 12345 does not exist"
-}
-```
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-
-#### Code samples
-
-<div class="tabs" id="tab-revokeAllUserConsentSessions">
-<nav class="tabs-nav">
-<ul class="nav nav-tabs au-link-list au-link-list--inline">
-<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-revokeAllUserConsentSessions-shell">Shell</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-revokeAllUserConsentSessions-go">Go</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-revokeAllUserConsentSessions-node">Node.js</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-revokeAllUserConsentSessions-java">Java</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-revokeAllUserConsentSessions-python">Python</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-revokeAllUserConsentSessions-ruby">Ruby</a></li>
-</ul>
-</nav>
-<div class="tab-content">
-<div class="tab-pane active" role="tabpanel" id="tab-revokeAllUserConsentSessions-shell">
-
-```shell
-curl -X DELETE /oauth2/auth/sessions/consent/{user} \
-  -H 'Accept: application/json'
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-revokeAllUserConsentSessions-go">
-
-```go
-package main
-
-import (
-    "bytes"
-    "net/http"
-)
-
-func main() {
-    headers := map[string][]string{ 
-        "Accept": []string{"application/json"},
-    }
-
-    var body []byte
-    // body = ...
-
-    req, err := http.NewRequest("DELETE", "/oauth2/auth/sessions/consent/{user}", bytes.NewBuffer(body))
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-revokeAllUserConsentSessions-node">
-
-```nodejs
-const fetch = require('node-fetch');
-
-const headers = {
-  'Accept': 'application/json'
-}
-
-fetch('/oauth2/auth/sessions/consent/{user}', {
-  method: 'DELETE',
-  headers
-})
-.then(r => r.json())
-.then((body) => {
-    console.log(body)
-})
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-revokeAllUserConsentSessions-java">
-
-```java
-// This sample needs improvement.
-URL obj = new URL("/oauth2/auth/sessions/consent/{user}");
-
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("DELETE");
-
-int responseCode = con.getResponseCode();
-
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream())
-);
-
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-
-System.out.println(response.toString());
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-revokeAllUserConsentSessions-python">
-
-```python
-import requests
-
-headers = {
-  'Accept': 'application/json'
-}
-
-r = requests.delete(
-  '/oauth2/auth/sessions/consent/{user}',
-  params={},
-  headers = headers)
-
-print r.json()
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-revokeAllUserConsentSessions-ruby">
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => 'application/json'
-}
-
-result = RestClient.delete '/oauth2/auth/sessions/consent/{user}',
-  params: {}, headers: headers
-
-p JSON.parse(result)
-```
-
-</div>
-</div>
-</div>
-
-<a id="opIdrevokeUserClientConsentSessions"></a>
-
-### Revokes consent sessions of a user for a specific OAuth 2.0 Client
-
-```
-DELETE /oauth2/auth/sessions/consent/{user}/{client} HTTP/1.1
-Accept: application/json
-
-```
-
-This endpoint revokes a user's granted consent sessions for a specific OAuth 2.0 Client and invalidates all
+This endpoint revokes a subject's granted consent sessions for a specific OAuth 2.0 Client and invalidates all
 associated OAuth 2.0 Access Tokens.
 
-<a id="revokes-consent-sessions-of-a-user-for-a-specific-oauth-2.0-client-parameters"></a>
+<a id="revokes-consent-sessions-of-a-subject-for-a-specific-oauth-2.0-client-parameters"></a>
 ##### Parameters
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|user|path|string|true|none|
-|client|path|string|true|none|
+|subject|query|string|true|The subject (Subject) who's consent sessions should be deleted.|
+|client|query|string|false|If set, deletes only those consent sessions by the Subject that have been granted to the specified OAuth 2.0 Client ID|
 
 #### Responses
 
-<a id="revokes-consent-sessions-of-a-user-for-a-specific-oauth-2.0-client-responses"></a>
+<a id="revokes-consent-sessions-of-a-subject-for-a-specific-oauth-2.0-client-responses"></a>
 ##### Overview
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |204|[No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)|Empty responses are sent when, for example, resources are deleted. The HTTP status code for empty responses is
 typically 201.|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|genericError|[genericError](#schemagenericerror)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|genericError|[genericError](#schemagenericerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
 
 ##### Examples
 
-###### 404 response
+###### 400 response
 
 ```json
 {
@@ -6222,27 +6957,27 @@ This operation does not require authentication
 
 #### Code samples
 
-<div class="tabs" id="tab-revokeUserClientConsentSessions">
+<div class="tabs" id="tab-revokeConsentSessions">
 <nav class="tabs-nav">
 <ul class="nav nav-tabs au-link-list au-link-list--inline">
-<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-revokeUserClientConsentSessions-shell">Shell</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-revokeUserClientConsentSessions-go">Go</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-revokeUserClientConsentSessions-node">Node.js</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-revokeUserClientConsentSessions-java">Java</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-revokeUserClientConsentSessions-python">Python</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-revokeUserClientConsentSessions-ruby">Ruby</a></li>
+<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-revokeConsentSessions-shell">Shell</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-revokeConsentSessions-go">Go</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-revokeConsentSessions-node">Node.js</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-revokeConsentSessions-java">Java</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-revokeConsentSessions-python">Python</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-revokeConsentSessions-ruby">Ruby</a></li>
 </ul>
 </nav>
 <div class="tab-content">
-<div class="tab-pane active" role="tabpanel" id="tab-revokeUserClientConsentSessions-shell">
+<div class="tab-pane active" role="tabpanel" id="tab-revokeConsentSessions-shell">
 
 ```shell
-curl -X DELETE /oauth2/auth/sessions/consent/{user}/{client} \
+curl -X DELETE /oauth2/auth/sessions/consent?subject=string \
   -H 'Accept: application/json'
 ```
 
 </div>
-<div class="tab-pane" role="tabpanel"  id="tab-revokeUserClientConsentSessions-go">
+<div class="tab-pane" role="tabpanel"  id="tab-revokeConsentSessions-go">
 
 ```go
 package main
@@ -6260,7 +6995,7 @@ func main() {
     var body []byte
     // body = ...
 
-    req, err := http.NewRequest("DELETE", "/oauth2/auth/sessions/consent/{user}/{client}", bytes.NewBuffer(body))
+    req, err := http.NewRequest("DELETE", "/oauth2/auth/sessions/consent", bytes.NewBuffer(body))
     req.Header = headers
 
     client := &http.Client{}
@@ -6270,7 +7005,7 @@ func main() {
 ```
 
 </div>
-<div class="tab-pane" role="tabpanel"  id="tab-revokeUserClientConsentSessions-node">
+<div class="tab-pane" role="tabpanel"  id="tab-revokeConsentSessions-node">
 
 ```nodejs
 const fetch = require('node-fetch');
@@ -6279,7 +7014,7 @@ const headers = {
   'Accept': 'application/json'
 }
 
-fetch('/oauth2/auth/sessions/consent/{user}/{client}', {
+fetch('/oauth2/auth/sessions/consent?subject=string', {
   method: 'DELETE',
   headers
 })
@@ -6290,11 +7025,11 @@ fetch('/oauth2/auth/sessions/consent/{user}/{client}', {
 ```
 
 </div>
-<div class="tab-pane" role="tabpanel"  id="tab-revokeUserClientConsentSessions-java">
+<div class="tab-pane" role="tabpanel"  id="tab-revokeConsentSessions-java">
 
 ```java
 // This sample needs improvement.
-URL obj = new URL("/oauth2/auth/sessions/consent/{user}/{client}");
+URL obj = new URL("/oauth2/auth/sessions/consent?subject=string");
 
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("DELETE");
@@ -6316,7 +7051,7 @@ System.out.println(response.toString());
 ```
 
 </div>
-<div class="tab-pane" role="tabpanel"  id="tab-revokeUserClientConsentSessions-python">
+<div class="tab-pane" role="tabpanel"  id="tab-revokeConsentSessions-python">
 
 ```python
 import requests
@@ -6326,15 +7061,16 @@ headers = {
 }
 
 r = requests.delete(
-  '/oauth2/auth/sessions/consent/{user}/{client}',
-  params={},
+  '/oauth2/auth/sessions/consent',
+  params={
+    'subject': 'string'},
   headers = headers)
 
 print r.json()
 ```
 
 </div>
-<div class="tab-pane" role="tabpanel"  id="tab-revokeUserClientConsentSessions-ruby">
+<div class="tab-pane" role="tabpanel"  id="tab-revokeConsentSessions-ruby">
 
 ```ruby
 require 'rest-client'
@@ -6344,185 +7080,9 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.delete '/oauth2/auth/sessions/consent/{user}/{client}',
-  params: {}, headers: headers
-
-p JSON.parse(result)
-```
-
-</div>
-</div>
-</div>
-
-<a id="opIdrevokeUserLoginCookie"></a>
-
-### Logs user out by deleting the session cookie
-
-```
-GET /oauth2/auth/sessions/login/revoke HTTP/1.1
-Accept: application/json
-
-```
-
-This endpoint deletes ths user's login session cookie and redirects the browser to the url
-listed in `LOGOUT_REDIRECT_URL` environment variable. This endpoint does not work as an API but has to
-be called from the user's browser.
-
-#### Responses
-
-<a id="logs-user-out-by-deleting-the-session-cookie-responses"></a>
-##### Overview
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|302|[Found](https://tools.ietf.org/html/rfc7231#section-6.4.3)|Empty responses are sent when, for example, resources are deleted. The HTTP status code for empty responses is
-typically 201.|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|genericError|[genericError](#schemagenericerror)|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
-
-##### Examples
-
-###### 404 response
-
-```json
-{
-  "error": "The requested resource could not be found",
-  "error_code": 404,
-  "error_debug": "The database adapter was unable to find the element",
-  "error_hint": "Object with ID 12345 does not exist"
-}
-```
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-
-#### Code samples
-
-<div class="tabs" id="tab-revokeUserLoginCookie">
-<nav class="tabs-nav">
-<ul class="nav nav-tabs au-link-list au-link-list--inline">
-<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-revokeUserLoginCookie-shell">Shell</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-revokeUserLoginCookie-go">Go</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-revokeUserLoginCookie-node">Node.js</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-revokeUserLoginCookie-java">Java</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-revokeUserLoginCookie-python">Python</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-revokeUserLoginCookie-ruby">Ruby</a></li>
-</ul>
-</nav>
-<div class="tab-content">
-<div class="tab-pane active" role="tabpanel" id="tab-revokeUserLoginCookie-shell">
-
-```shell
-curl -X GET /oauth2/auth/sessions/login/revoke \
-  -H 'Accept: application/json'
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-revokeUserLoginCookie-go">
-
-```go
-package main
-
-import (
-    "bytes"
-    "net/http"
-)
-
-func main() {
-    headers := map[string][]string{ 
-        "Accept": []string{"application/json"},
-    }
-
-    var body []byte
-    // body = ...
-
-    req, err := http.NewRequest("GET", "/oauth2/auth/sessions/login/revoke", bytes.NewBuffer(body))
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-revokeUserLoginCookie-node">
-
-```nodejs
-const fetch = require('node-fetch');
-
-const headers = {
-  'Accept': 'application/json'
-}
-
-fetch('/oauth2/auth/sessions/login/revoke', {
-  method: 'GET',
-  headers
-})
-.then(r => r.json())
-.then((body) => {
-    console.log(body)
-})
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-revokeUserLoginCookie-java">
-
-```java
-// This sample needs improvement.
-URL obj = new URL("/oauth2/auth/sessions/login/revoke");
-
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-
-int responseCode = con.getResponseCode();
-
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream())
-);
-
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-
-System.out.println(response.toString());
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-revokeUserLoginCookie-python">
-
-```python
-import requests
-
-headers = {
-  'Accept': 'application/json'
-}
-
-r = requests.get(
-  '/oauth2/auth/sessions/login/revoke',
-  params={},
-  headers = headers)
-
-print r.json()
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-revokeUserLoginCookie-ruby">
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => 'application/json'
-}
-
-result = RestClient.get '/oauth2/auth/sessions/login/revoke',
-  params: {}, headers: headers
+result = RestClient.delete '/oauth2/auth/sessions/consent',
+  params: {
+    'subject' => 'string'}, headers: headers
 
 p JSON.parse(result)
 ```
@@ -6533,39 +7093,43 @@ p JSON.parse(result)
 
 <a id="opIdrevokeAuthenticationSession"></a>
 
-### Invalidates a user's authentication session
+### Invalidates all login sessions of a certain user
+Invalidates a subject's authentication session
 
 ```
-DELETE /oauth2/auth/sessions/login/{user} HTTP/1.1
+DELETE /oauth2/auth/sessions/login?subject=string HTTP/1.1
 Accept: application/json
 
 ```
 
-This endpoint invalidates a user's authentication session. After revoking the authentication session, the user
+This endpoint invalidates a subject's authentication session. After revoking the authentication session, the subject
 has to re-authenticate at ORY Hydra. This endpoint does not invalidate any tokens.
 
-<a id="invalidates-a-user's-authentication-session-parameters"></a>
+<a id="invalidates-all-login-sessions-of-a-certain-user
+invalidates-a-subject's-authentication-session-parameters"></a>
 ##### Parameters
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|user|path|string|true|none|
+|subject|query|string|true|none|
 
 #### Responses
 
-<a id="invalidates-a-user's-authentication-session-responses"></a>
+<a id="invalidates-all-login-sessions-of-a-certain-user
+invalidates-a-subject's-authentication-session-responses"></a>
 ##### Overview
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |204|[No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)|Empty responses are sent when, for example, resources are deleted. The HTTP status code for empty responses is
 typically 201.|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|genericError|[genericError](#schemagenericerror)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|genericError|[genericError](#schemagenericerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
 
 ##### Examples
 
-###### 404 response
+###### 400 response
 
 ```json
 {
@@ -6597,7 +7161,7 @@ This operation does not require authentication
 <div class="tab-pane active" role="tabpanel" id="tab-revokeAuthenticationSession-shell">
 
 ```shell
-curl -X DELETE /oauth2/auth/sessions/login/{user} \
+curl -X DELETE /oauth2/auth/sessions/login?subject=string \
   -H 'Accept: application/json'
 ```
 
@@ -6620,7 +7184,7 @@ func main() {
     var body []byte
     // body = ...
 
-    req, err := http.NewRequest("DELETE", "/oauth2/auth/sessions/login/{user}", bytes.NewBuffer(body))
+    req, err := http.NewRequest("DELETE", "/oauth2/auth/sessions/login", bytes.NewBuffer(body))
     req.Header = headers
 
     client := &http.Client{}
@@ -6639,7 +7203,7 @@ const headers = {
   'Accept': 'application/json'
 }
 
-fetch('/oauth2/auth/sessions/login/{user}', {
+fetch('/oauth2/auth/sessions/login?subject=string', {
   method: 'DELETE',
   headers
 })
@@ -6654,7 +7218,7 @@ fetch('/oauth2/auth/sessions/login/{user}', {
 
 ```java
 // This sample needs improvement.
-URL obj = new URL("/oauth2/auth/sessions/login/{user}");
+URL obj = new URL("/oauth2/auth/sessions/login?subject=string");
 
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("DELETE");
@@ -6686,8 +7250,9 @@ headers = {
 }
 
 r = requests.delete(
-  '/oauth2/auth/sessions/login/{user}',
-  params={},
+  '/oauth2/auth/sessions/login',
+  params={
+    'subject': 'string'},
   headers = headers)
 
 print r.json()
@@ -6704,8 +7269,9 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.delete '/oauth2/auth/sessions/login/{user}',
-  params: {}, headers: headers
+result = RestClient.delete '/oauth2/auth/sessions/login',
+  params: {
+    'subject' => 'string'}, headers: headers
 
 p JSON.parse(result)
 ```
@@ -6733,7 +7299,7 @@ automatically when performing the refresh flow.
 
 ```json
 {
-  "notAfter": "2018-12-08T12:06:30Z"
+  "notAfter": "2019-05-02T10:06:14Z"
 }
 ```
 
@@ -6829,7 +7395,7 @@ func main() {
 ```nodejs
 const fetch = require('node-fetch');
 const input = '{
-  "notAfter": "2018-12-08T12:06:30Z"
+  "notAfter": "2019-05-02T10:06:14Z"
 }';
 const headers = {
   'Content-Type': 'application/json',  'Accept': 'application/json'
@@ -6949,8 +7515,8 @@ scope: string
 
 **» token**: The string value of the token. For access tokens, this
 is the "access_token" value returned from the token endpoint
-defined in OAuth 2.0 [RFC6749], Section 5.1.
-This endpoint DOES NOT accept refresh tokens for validation.
+defined in OAuth 2.0. For refresh tokens, this is the "refresh_token"
+value returned.
 
 **» scope**: An optional, space separated list of required scopes. If the access token was not granted one of the
 scopes, the result of active will be false.
@@ -7676,28 +8242,6 @@ p JSON.parse(result)
 
 ## Schemas
 
-<a id="tocSauthenticationsession">AuthenticationSession</a>
-#### AuthenticationSession
-
-<a id="schemaauthenticationsession"></a>
-
-```json
-{
-  "AuthenticatedAt": "2018-12-08T12:06:30Z",
-  "ID": "string",
-  "Subject": "string"
-}
-
-```
-
-#### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|AuthenticatedAt|string(date-time)|false|none|none|
-|ID|string|false|none|none|
-|Subject|string|false|none|none|
-
 <a id="tocSjsonwebkey">JSONWebKey</a>
 #### JSONWebKey
 
@@ -7807,6 +8351,8 @@ p JSON.parse(result)
       "audience": [
         "string"
       ],
+      "backchannel_logout_session_required": true,
+      "backchannel_logout_uri": "string",
       "client_id": "string",
       "client_name": "string",
       "client_secret": "string",
@@ -7815,6 +8361,9 @@ p JSON.parse(result)
       "contacts": [
         "string"
       ],
+      "created_at": "2019-05-02T10:06:14Z",
+      "frontchannel_logout_session_required": true,
+      "frontchannel_logout_uri": "string",
       "grant_types": [
         "string"
       ],
@@ -7847,6 +8396,9 @@ p JSON.parse(result)
       "logo_uri": "string",
       "owner": "string",
       "policy_uri": "string",
+      "post_logout_redirect_uris": [
+        "string"
+      ],
       "redirect_uris": [
         "string"
       ],
@@ -7862,7 +8414,12 @@ p JSON.parse(result)
       "subject_type": "string",
       "token_endpoint_auth_method": "string",
       "tos_uri": "string",
+      "updated_at": "2019-05-02T10:06:14Z",
       "userinfo_signed_response_alg": "string"
+    },
+    "context": {
+      "property1": {},
+      "property2": {}
     },
     "login_challenge": "string",
     "login_session_id": "string",
@@ -7912,8 +8469,8 @@ p JSON.parse(result)
 
 ```
 
-*The response used to return handled consent requests
-same as HandledAuthenticationRequest, just with consent_request exposed as json*
+*The response used to return used consent requests
+same as HandledLoginRequest, just with consent_request exposed as json*
 
 #### Properties
 
@@ -7975,6 +8532,10 @@ same as HandledAuthenticationRequest, just with consent_request exposed as json*
 ```json
 {
   "acr": "string",
+  "context": {
+    "property1": {},
+    "property2": {}
+  },
   "force_subject_identifier": "string",
   "remember": true,
   "remember_for": 0,
@@ -7983,17 +8544,19 @@ same as HandledAuthenticationRequest, just with consent_request exposed as json*
 
 ```
 
-*The request payload used to accept a login request.*
+*HandledLoginRequest is the request payload used to accept a login request.*
 
 #### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |acr|string|false|none|ACR sets the Authentication AuthorizationContext Class Reference value for this authentication session. You can use it to express that, for example, a user authenticated using two factor authentication.|
+|context|object|false|none|Context is an optional object which can hold arbitrary data. The data will be made available when fetching the consent request under the "context" field. This is useful in scenarios where login and consent endpoints share data.|
+|» **additionalProperties**|object|false|none|none|
 |force_subject_identifier|string|false|none|ForceSubjectIdentifier forces the "pairwise" user ID of the end-user that authenticated. The "pairwise" user ID refers to the (Pairwise Identifier Algorithm)[http://openid.net/specs/openid-connect-core-1_0.html#PairwiseAlg] of the OpenID Connect specification. It allows you to set an obfuscated subject ("user") identifier that is unique to the client.  Please note that this changes the user ID on endpoint /userinfo and sub claim of the ID Token. It does not change the sub claim in the OAuth 2.0 Introspection.  Per default, ORY Hydra handles this value with its own algorithm. In case you want to set this yourself you can use this field. Please note that setting this field has no effect if `pairwise` is not configured in ORY Hydra or the OAuth 2.0 Client does not expect a pairwise identifier (set via `subject_type` key in the client's configuration).  Please also be aware that ORY Hydra is unable to properly compute this value during authentication. This implies that you have to compute this value on every authentication process (probably depending on the client ID or some other unique value).  If you fail to compute the proper value, then authentication processes which have id_token_hint set might fail.|
 |remember|boolean|false|none|Remember, if set to true, tells ORY Hydra to remember this user by telling the user agent (browser) to store a cookie with authentication data. If the same user performs another OAuth 2.0 Authorization Request, he/she will not be asked to log in again.|
 |remember_for|integer(int64)|false|none|RememberFor sets how long the authentication should be remembered for in seconds. If set to `0`, the authorization will be remembered indefinitely.|
-|subject|string|false|none|Subject is the user ID of the end-user that authenticated.|
+|subject|string|true|none|Subject is the user ID of the end-user that authenticated.|
 
 <a id="tocScompletedrequest">completedRequest</a>
 #### completedRequest
@@ -8031,6 +8594,8 @@ same as HandledAuthenticationRequest, just with consent_request exposed as json*
     "audience": [
       "string"
     ],
+    "backchannel_logout_session_required": true,
+    "backchannel_logout_uri": "string",
     "client_id": "string",
     "client_name": "string",
     "client_secret": "string",
@@ -8039,6 +8604,9 @@ same as HandledAuthenticationRequest, just with consent_request exposed as json*
     "contacts": [
       "string"
     ],
+    "created_at": "2019-05-02T10:06:14Z",
+    "frontchannel_logout_session_required": true,
+    "frontchannel_logout_uri": "string",
     "grant_types": [
       "string"
     ],
@@ -8071,6 +8639,9 @@ same as HandledAuthenticationRequest, just with consent_request exposed as json*
     "logo_uri": "string",
     "owner": "string",
     "policy_uri": "string",
+    "post_logout_redirect_uris": [
+      "string"
+    ],
     "redirect_uris": [
       "string"
     ],
@@ -8086,7 +8657,12 @@ same as HandledAuthenticationRequest, just with consent_request exposed as json*
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
+    "updated_at": "2019-05-02T10:06:14Z",
     "userinfo_signed_response_alg": "string"
+  },
+  "context": {
+    "property1": {},
+    "property2": {}
   },
   "login_challenge": "string",
   "login_session_id": "string",
@@ -8126,8 +8702,10 @@ same as HandledAuthenticationRequest, just with consent_request exposed as json*
 |acr|string|false|none|ACR represents the Authentication AuthorizationContext Class Reference value for this authentication session. You can use it to express that, for example, a user authenticated using two factor authentication.|
 |challenge|string|false|none|Challenge is the identifier ("authorization challenge") of the consent authorization request. It is used to identify the session.|
 |client|[oAuth2Client](#schemaoauth2client)|false|none|none|
+|context|object|false|none|Context contains arbitrary information set by the login endpoint or is empty if not set.|
+|» **additionalProperties**|object|false|none|none|
 |login_challenge|string|false|none|LoginChallenge is the login challenge this consent challenge belongs to. It can be used to associate a login and consent request in the login & consent app.|
-|login_session_id|string|false|none|LoginSessionID is the authentication session ID. It is set if the browser had a valid authentication session at ORY Hydra during the login flow. It can be used to associate consecutive login requests by a certain user.|
+|login_session_id|string|false|none|LoginSessionID is the login session ID. If the user-agent reuses a login session (via cookie / remember flag) this ID will remain the same. If the user-agent did not have an existing authentication session (e.g. remember is false) this will be a new random value. This value is used as the "sid" parameter in the ID Token and in OIDC Front-/Back- channel logout. It's value can generally be used to associate consecutive login requests by a certain user.|
 |oidc_context|[openIDConnectContext](#schemaopenidconnectcontext)|false|none|none|
 |request_url|string|false|none|RequestURL is the original OAuth 2.0 Authorization URL requested by the OAuth 2.0 client. It is the URL which initiates the OAuth 2.0 Authorization Code or OAuth 2.0 Implicit flow. This URL is typically not needed, but might come in handy if you want to deal with additional request parameters.|
 |requested_access_token_audience|[string]|false|none|RequestedScope contains the access token audience as requested by the OAuth 2.0 Client.|
@@ -8189,7 +8767,7 @@ typically 201.*
 
 ```json
 {
-  "notAfter": "2018-12-08T12:06:30Z"
+  "notAfter": "2019-05-02T10:06:14Z"
 }
 
 ```
@@ -8303,6 +8881,8 @@ typically 201.*
     "audience": [
       "string"
     ],
+    "backchannel_logout_session_required": true,
+    "backchannel_logout_uri": "string",
     "client_id": "string",
     "client_name": "string",
     "client_secret": "string",
@@ -8311,6 +8891,9 @@ typically 201.*
     "contacts": [
       "string"
     ],
+    "created_at": "2019-05-02T10:06:14Z",
+    "frontchannel_logout_session_required": true,
+    "frontchannel_logout_uri": "string",
     "grant_types": [
       "string"
     ],
@@ -8343,6 +8926,9 @@ typically 201.*
     "logo_uri": "string",
     "owner": "string",
     "policy_uri": "string",
+    "post_logout_redirect_uris": [
+      "string"
+    ],
     "redirect_uris": [
       "string"
     ],
@@ -8358,6 +8944,7 @@ typically 201.*
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
+    "updated_at": "2019-05-02T10:06:14Z",
     "userinfo_signed_response_alg": "string"
   },
   "oidc_context": {
@@ -8394,15 +8981,41 @@ typically 201.*
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|challenge|string|false|none|Challenge is the identifier ("authentication challenge") of the consent authentication request. It is used to identify the session.|
+|challenge|string|false|none|Challenge is the identifier ("login challenge") of the login request. It is used to identify the session.|
 |client|[oAuth2Client](#schemaoauth2client)|false|none|none|
 |oidc_context|[openIDConnectContext](#schemaopenidconnectcontext)|false|none|none|
 |request_url|string|false|none|RequestURL is the original OAuth 2.0 Authorization URL requested by the OAuth 2.0 client. It is the URL which initiates the OAuth 2.0 Authorization Code or OAuth 2.0 Implicit flow. This URL is typically not needed, but might come in handy if you want to deal with additional request parameters.|
 |requested_access_token_audience|[string]|false|none|RequestedScope contains the access token audience as requested by the OAuth 2.0 Client.|
 |requested_scope|[string]|false|none|RequestedScope contains the OAuth 2.0 Scope requested by the OAuth 2.0 Client.|
-|session_id|string|false|none|SessionID is the authentication session ID. It is set if the browser had a valid authentication session at ORY Hydra during the login flow. It can be used to associate consecutive login requests by a certain user.|
+|session_id|string|false|none|SessionID is the login session ID. If the user-agent reuses a login session (via cookie / remember flag) this ID will remain the same. If the user-agent did not have an existing authentication session (e.g. remember is false) this will be a new random value. This value is used as the "sid" parameter in the ID Token and in OIDC Front-/Back- channel logout. It's value can generally be used to associate consecutive login requests by a certain user.|
 |skip|boolean|false|none|Skip, if true, implies that the client has requested the same scopes from the same user previously. If true, you can skip asking the user to grant the requested scopes, and simply forward the user to the redirect URL.  This feature allows you to update / set session information.|
 |subject|string|false|none|Subject is the user ID of the end-user that authenticated. Now, that end user needs to grant or deny the scope requested by the OAuth 2.0 client. If this value is set and `skip` is true, you MUST include this subject type when accepting the login request, or the request will fail.|
+
+<a id="tocSlogoutrequest">logoutRequest</a>
+#### logoutRequest
+
+<a id="schemalogoutrequest"></a>
+
+```json
+{
+  "request_url": "string",
+  "rp_initiated": true,
+  "sid": "string",
+  "subject": "string"
+}
+
+```
+
+*Contains information about an ongoing logout request.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|request_url|string|false|none|RequestURL is the original Logout URL requested.|
+|rp_initiated|boolean|false|none|RPInitiated is set to true if the request was initiated by a Relying Party (RP), also known as an OAuth 2.0 Client.|
+|sid|string|false|none|SessionID is the login session ID that was requested to log out.|
+|subject|string|false|none|Subject is the user for whom the logout was request.|
 
 <a id="tocSoauth2client">oAuth2Client</a>
 #### oAuth2Client
@@ -8417,6 +9030,8 @@ typically 201.*
   "audience": [
     "string"
   ],
+  "backchannel_logout_session_required": true,
+  "backchannel_logout_uri": "string",
   "client_id": "string",
   "client_name": "string",
   "client_secret": "string",
@@ -8425,6 +9040,9 @@ typically 201.*
   "contacts": [
     "string"
   ],
+  "created_at": "2019-05-02T10:06:14Z",
+  "frontchannel_logout_session_required": true,
+  "frontchannel_logout_uri": "string",
   "grant_types": [
     "string"
   ],
@@ -8457,6 +9075,9 @@ typically 201.*
   "logo_uri": "string",
   "owner": "string",
   "policy_uri": "string",
+  "post_logout_redirect_uris": [
+    "string"
+  ],
   "redirect_uris": [
     "string"
   ],
@@ -8472,6 +9093,7 @@ typically 201.*
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
+  "updated_at": "2019-05-02T10:06:14Z",
   "userinfo_signed_response_alg": "string"
 }
 
@@ -8485,18 +9107,24 @@ typically 201.*
 |---|---|---|---|---|
 |allowed_cors_origins|[string]|false|none|AllowedCORSOrigins are one or more URLs (scheme://host[:port]) which are allowed to make CORS requests to the /oauth/token endpoint. If this array is empty, the sever's CORS origin configuration (`CORS_ALLOWED_ORIGINS`) will be used instead. If this array is set, the allowed origins are appended to the server's CORS origin configuration. Be aware that environment variable `CORS_ENABLED` MUST be set to `true` for this to work.|
 |audience|[string]|false|none|Audience is a whitelist defining the audiences this client is allowed to request tokens for. An audience limits the applicability of an OAuth 2.0 Access Token to, for example, certain API endpoints. The value is a list of URLs. URLs MUST NOT contain whitespaces.|
+|backchannel_logout_session_required|boolean|false|none|Boolean value specifying whether the RP requires that a sid (session ID) Claim be included in the Logout Token to identify the RP session with the OP when the backchannel_logout_uri is used. If omitted, the default value is false.|
+|backchannel_logout_uri|string|false|none|RP URL that will cause the RP to log itself out when sent a Logout Token by the OP.|
 |client_id|string|false|none|ClientID  is the id for this client.|
 |client_name|string|false|none|Name is the human-readable string name of the client to be presented to the end-user during authorization.|
 |client_secret|string|false|none|Secret is the client's secret. The secret will be included in the create request as cleartext, and then never again. The secret is stored using BCrypt so it is impossible to recover it. Tell your users that they need to write the secret down as it will not be made available again.|
-|client_secret_expires_at|integer(int64)|false|none|SecretExpiresAt is an integer holding the time at which the client secret will expire or 0 if it will not expire. The time is represented as the number of seconds from 1970-01-01T00:00:00Z as measured in UTC until the date/time of expiration.|
+|client_secret_expires_at|integer(int64)|false|none|SecretExpiresAt is an integer holding the time at which the client secret will expire or 0 if it will not expire. The time is represented as the number of seconds from 1970-01-01T00:00:00Z as measured in UTC until the date/time of expiration.  This feature is currently not supported and it's value will always be set to 0.|
 |client_uri|string|false|none|ClientURI is an URL string of a web page providing information about the client. If present, the server SHOULD display this URL to the end-user in a clickable fashion.|
 |contacts|[string]|false|none|Contacts is a array of strings representing ways to contact people responsible for this client, typically email addresses.|
+|created_at|string(date-time)|false|none|CreatedAt returns the timestamp of the client's creation.|
+|frontchannel_logout_session_required|boolean|false|none|Boolean value specifying whether the RP requires that iss (issuer) and sid (session ID) query parameters be included to identify the RP session with the OP when the frontchannel_logout_uri is used. If omitted, the default value is false.|
+|frontchannel_logout_uri|string|false|none|RP URL that will cause the RP to log itself out when rendered in an iframe by the OP. An iss (issuer) query parameter and a sid (session ID) query parameter MAY be included by the OP to enable the RP to validate the request and to determine which of the potentially multiple sessions is to be logged out; if either is included, both MUST be.|
 |grant_types|[string]|false|none|GrantTypes is an array of grant types the client is allowed to use.|
 |jwks|[JSONWebKeySet](#schemajsonwebkeyset)|false|none|none|
 |jwks_uri|string|false|none|URL for the Client's JSON Web Key Set [JWK] document. If the Client signs requests to the Server, it contains the signing key(s) the Server uses to validate signatures from the Client. The JWK Set MAY also contain the Client's encryption keys(s), which are used by the Server to encrypt responses to the Client. When both signing and encryption keys are made available, a use (Key Use) parameter value is REQUIRED for all keys in the referenced JWK Set to indicate each key's intended usage. Although some algorithms allow the same key to be used for both signatures and encryption, doing so is NOT RECOMMENDED, as it is less secure. The JWK x5c parameter MAY be used to provide X.509 representations of keys provided. When used, the bare key values MUST still be present and MUST match those in the certificate.|
 |logo_uri|string|false|none|LogoURI is an URL string that references a logo for the client.|
 |owner|string|false|none|Owner is a string identifying the owner of the OAuth 2.0 Client.|
 |policy_uri|string|false|none|PolicyURI is a URL string that points to a human-readable privacy policy document that describes how the deployment organization collects, uses, retains, and discloses personal data.|
+|post_logout_redirect_uris|[string]|false|none|Array of URLs supplied by the RP to which it MAY request that the End-User's User Agent be redirected using the post_logout_redirect_uri parameter after a logout has been performed.|
 |redirect_uris|[string]|false|none|RedirectURIs is an array of allowed redirect urls for the client, for example http://mydomain/oauth/callback .|
 |request_object_signing_alg|string|false|none|JWS [JWS] alg algorithm [JWA] that MUST be used for signing Request Objects sent to the OP. All Request Objects from this Client MUST be rejected, if not signed with this algorithm.|
 |request_uris|[string]|false|none|Array of request_uri values that are pre-registered by the RP for use at the OP. Servers MAY cache the contents of the files referenced by these URIs and not retrieve them at the time they are used in a request. OPs can require that request_uri values used be pre-registered with the require_request_uri_registration discovery parameter.|
@@ -8506,6 +9134,7 @@ typically 201.*
 |subject_type|string|false|none|SubjectType requested for responses to this Client. The subject_types_supported Discovery parameter contains a list of the supported subject_type values for this server. Valid types include `pairwise` and `public`.|
 |token_endpoint_auth_method|string|false|none|Requested Client Authentication method for the Token Endpoint. The options are client_secret_post, client_secret_basic, private_key_jwt, and none.|
 |tos_uri|string|false|none|TermsOfServiceURI is a URL string that points to a human-readable terms of service document for the client that describes a contractual relationship between the end-user and the client that the end-user accepts when authorizing the client.|
+|updated_at|string(date-time)|false|none|UpdatedAt returns the timestamp of the last update.|
 |userinfo_signed_response_alg|string|false|none|JWS alg algorithm [JWA] REQUIRED for signing UserInfo Responses. If this is specified, the response will be JWT [JWT] serialized, and signed using JWS. The default, if omitted, is for the UserInfo Response to return the Claims as a UTF-8 encoded JSON object using the application/json content-type.|
 
 <a id="tocSoauth2tokenintrospection">oAuth2TokenIntrospection</a>
@@ -8557,6 +9186,32 @@ typically 201.*
 |sub|string|false|none|Subject of the token, as defined in JWT [RFC7519]. Usually a machine-readable identifier of the resource owner who authorized this token.|
 |token_type|string|false|none|TokenType is the introspected token's type, for example `access_token` or `refresh_token`.|
 |username|string|false|none|Username is a human-readable identifier for the resource owner who authorized this token.|
+
+<a id="tocSoauth2tokenresponse">oauth2TokenResponse</a>
+#### oauth2TokenResponse
+
+<a id="schemaoauth2tokenresponse"></a>
+
+```json
+{
+  "access_token": "string",
+  "client_id": "string",
+  "code": "string",
+  "redirect_uri": "string"
+}
+
+```
+
+*The Access Token Response*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|access_token|string|false|none|none|
+|client_id|string|false|none|none|
+|code|string|false|none|none|
+|redirect_uri|string|false|none|none|
 
 <a id="tocSoauthtokenresponse">oauthTokenResponse</a>
 #### oauthTokenResponse
@@ -8660,7 +9315,7 @@ typically 201.*
 ```json
 {
   "Body": {
-    "notAfter": "2018-12-08T12:06:30Z"
+    "notAfter": "2019-05-02T10:06:14Z"
   }
 }
 
@@ -8838,7 +9493,7 @@ typically 201.*
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |scope|string|false|none|An optional, space separated list of required scopes. If the access token was not granted one of the scopes, the result of active will be false.  in: formData|
-|token|string|true|none|The string value of the token. For access tokens, this is the "access_token" value returned from the token endpoint defined in OAuth 2.0 [RFC6749], Section 5.1. This endpoint DOES NOT accept refresh tokens for validation.|
+|token|string|true|none|The string value of the token. For access tokens, this is the "access_token" value returned from the token endpoint defined in OAuth 2.0. For refresh tokens, this is the "refresh_token" value returned.|
 
 <a id="tocSswaggerrevokeoauth2tokenparameters">swaggerRevokeOAuth2TokenParameters</a>
 #### swaggerRevokeOAuth2TokenParameters
@@ -8857,6 +9512,30 @@ typically 201.*
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |token|string|true|none|in: formData|
+
+<a id="tocSswaggeroauth2tokenparameters">swaggeroauth2TokenParameters</a>
+#### swaggeroauth2TokenParameters
+
+<a id="schemaswaggeroauth2tokenparameters"></a>
+
+```json
+{
+  "client_id": "string",
+  "code": "string",
+  "grant_type": "string",
+  "redirect_uri": "string"
+}
+
+```
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|client_id|string|false|none|in: formData|
+|code|string|false|none|in: formData|
+|grant_type|string|true|none|in: formData|
+|redirect_uri|string|false|none|in: formData|
 
 <a id="tocSuserinforesponse">userinfoResponse</a>
 #### userinfoResponse
@@ -8940,10 +9619,15 @@ typically 201.*
 ```json
 {
   "authorization_endpoint": "https://playground.ory.sh/ory-hydra/public/oauth2/auth",
+  "backchannel_logout_session_supported": true,
+  "backchannel_logout_supported": true,
   "claims_parameter_supported": true,
   "claims_supported": [
     "string"
   ],
+  "end_session_endpoint": "string",
+  "frontchannel_logout_session_supported": true,
+  "frontchannel_logout_supported": true,
   "grant_types_supported": [
     "string"
   ],
@@ -8962,6 +9646,7 @@ typically 201.*
   "response_types_supported": [
     "string"
   ],
+  "revocation_endpoint": "string",
   "scopes_supported": [
     "string"
   ],
@@ -8985,8 +9670,13 @@ typically 201.*
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |authorization_endpoint|string|true|none|URL of the OP's OAuth 2.0 Authorization Endpoint.|
+|backchannel_logout_session_supported|boolean|false|none|Boolean value specifying whether the OP can pass a sid (session ID) Claim in the Logout Token to identify the RP session with the OP. If supported, the sid Claim is also included in ID Tokens issued by the OP|
+|backchannel_logout_supported|boolean|false|none|Boolean value specifying whether the OP supports back-channel logout, with true indicating support.|
 |claims_parameter_supported|boolean|false|none|Boolean value specifying whether the OP supports use of the claims parameter, with true indicating support.|
 |claims_supported|[string]|false|none|JSON array containing a list of the Claim Names of the Claims that the OpenID Provider MAY be able to supply values for. Note that for privacy or other reasons, this might not be an exhaustive list.|
+|end_session_endpoint|string|false|none|URL at the OP to which an RP can perform a redirect to request that the End-User be logged out at the OP.|
+|frontchannel_logout_session_supported|boolean|false|none|Boolean value specifying whether the OP can pass iss (issuer) and sid (session ID) query parameters to identify the RP session with the OP when the frontchannel_logout_uri is used. If supported, the sid Claim is also included in ID Tokens issued by the OP.|
+|frontchannel_logout_supported|boolean|false|none|Boolean value specifying whether the OP supports HTTP-based logout, with true indicating support.|
 |grant_types_supported|[string]|false|none|JSON array containing a list of the OAuth 2.0 Grant Type values that this OP supports.|
 |id_token_signing_alg_values_supported|[string]|true|none|JSON array containing a list of the JWS signing algorithms (alg values) supported by the OP for the ID Token to encode the Claims in a JWT.|
 |issuer|string|true|none|URL using the https scheme with no query or fragment component that the OP asserts as its IssuerURL Identifier. If IssuerURL discovery is supported , this value MUST be identical to the issuer value returned by WebFinger. This also MUST be identical to the iss Claim value in ID Tokens issued from this IssuerURL.|
@@ -8997,6 +9687,7 @@ typically 201.*
 |require_request_uri_registration|boolean|false|none|Boolean value specifying whether the OP requires any request_uri values used to be pre-registered using the request_uris registration parameter.|
 |response_modes_supported|[string]|false|none|JSON array containing a list of the OAuth 2.0 response_mode values that this OP supports.|
 |response_types_supported|[string]|true|none|JSON array containing a list of the OAuth 2.0 response_type values that this OP supports. Dynamic OpenID Providers MUST support the code, id_token, and the token id_token Response Type values.|
+|revocation_endpoint|string|false|none|URL of the authorization server's OAuth 2.0 revocation endpoint.|
 |scopes_supported|[string]|false|none|SON array containing a list of the OAuth 2.0 [RFC6749] scope values that this server supports. The server MUST support the openid scope value. Servers MAY choose not to advertise some supported scope values even when this parameter is used|
 |subject_types_supported|[string]|true|none|JSON array containing a list of the Subject Identifier types that this OP supports. Valid types include pairwise and public.|
 |token_endpoint|string|true|none|URL of the OP's OAuth 2.0 Token Endpoint|

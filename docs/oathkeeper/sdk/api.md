@@ -892,7 +892,7 @@ Status Code **200**
 |*anonymous*|[[rule](#schemarule)]|false|none|none|
 |» swaggerRule is a single rule that will get checked on every HTTP request.|[rule](#schemarule)|false|none|none|
 |»» authenticators|[[ruleHandler](#schemarulehandler)]|false|none|Authenticators is a list of authentication handlers that will try and authenticate the provided credentials. Authenticators are checked iteratively from index 0 to n and if the first authenticator to return a positive result will be the one used.  If you want the rule to first check a specific authenticator  before "falling back" to others, have that authenticator as the first item in the array.|
-|»»» config|string|false|none|Config contains the configuration for the handler. Please read the user guide for a complete list of each handler's available settings.|
+|»»» config|object|false|none|Config contains the configuration for the handler. Please read the user guide for a complete list of each handler's available settings.|
 |»»» handler|string|false|none|Handler identifies the implementation which will be used to handle this specific request. Please read the user guide for a complete list of available handlers.|
 |»» authorizer|[ruleHandler](#schemarulehandler)|false|none|none|
 |»» credentials_issuer|[ruleHandler](#schemarulehandler)|false|none|none|
@@ -901,7 +901,7 @@ Status Code **200**
 |»» match|[ruleMatch](#schemarulematch)|false|none|none|
 |»»» methods|[string]|false|none|An array of HTTP methods (e.g. GET, POST, PUT, DELETE, ...). When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the HTTP method of the incoming request with the HTTP methods of each rules. If a match is found, the rule is considered a partial match. If the matchesUrl field is satisfied as well, the rule is considered a full match.|
 |»»» url|string|false|none|This field represents the URL pattern this rule matches. When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the full request URL (e.g. https://mydomain.com/api/resource) without query parameters of the incoming request with this field. If a match is found, the rule is considered a partial match. If the matchesMethods field is satisfied as well, the rule is considered a full match.  You can use regular expressions in this field to match more than one url. Regular expressions are encapsulated in brackets < and >. The following example matches all paths of the domain `mydomain.com`: `https://mydomain.com/<.*>`.|
-|»» upstream|[Upstream](#schemaupstream)|false|none|none|
+|»» upstream|[Upstream](#schemaupstream)|false|none|Upstream Upstream upstream|
 |»»» preserve_host|boolean|false|none|PreserveHost, if false (the default), tells ORY Oathkeeper to set the upstream request's Host header to the hostname of the API's upstream's URL. Setting this flag to true instructs ORY Oathkeeper not to do so.|
 |»»» strip_path|string|false|none|StripPath if set, replaces the provided path prefix when forwarding the requested URL to the upstream URL.|
 |»»» url|string|false|none|URL is the URL the request will be proxied to.|
@@ -951,16 +951,16 @@ Status Code **500**
   {
     "authenticators": [
       {
-        "config": "string",
+        "config": {},
         "handler": "string"
       }
     ],
     "authorizer": {
-      "config": "string",
+      "config": {},
       "handler": "string"
     },
     "credentials_issuer": {
-      "config": "string",
+      "config": {},
       "handler": "string"
     },
     "description": "string",
@@ -1137,16 +1137,16 @@ This method allows creation of rules. If a rule id exists, you will receive an e
 {
   "authenticators": [
     {
-      "config": "string",
+      "config": {},
       "handler": "string"
     }
   ],
   "authorizer": {
-    "config": "string",
+    "config": {},
     "handler": "string"
   },
   "credentials_issuer": {
-    "config": "string",
+    "config": {},
     "handler": "string"
   },
   "description": "string",
@@ -1231,16 +1231,16 @@ Status Code **500**
 {
   "authenticators": [
     {
-      "config": "string",
+      "config": {},
       "handler": "string"
     }
   ],
   "authorizer": {
-    "config": "string",
+    "config": {},
     "handler": "string"
   },
   "credentials_issuer": {
-    "config": "string",
+    "config": {},
     "handler": "string"
   },
   "description": "string",
@@ -1321,16 +1321,16 @@ const fetch = require('node-fetch');
 const input = '{
   "authenticators": [
     {
-      "config": "string",
+      "config": {},
       "handler": "string"
     }
   ],
   "authorizer": {
-    "config": "string",
+    "config": {},
     "handler": "string"
   },
   "credentials_issuer": {
-    "config": "string",
+    "config": {},
     "handler": "string"
   },
   "description": "string",
@@ -1520,16 +1520,16 @@ Status Code **500**
 {
   "authenticators": [
     {
-      "config": "string",
+      "config": {},
       "handler": "string"
     }
   ],
   "authorizer": {
-    "config": "string",
+    "config": {},
     "handler": "string"
   },
   "credentials_issuer": {
-    "config": "string",
+    "config": {},
     "handler": "string"
   },
   "description": "string",
@@ -1706,16 +1706,16 @@ not support patching.
 {
   "authenticators": [
     {
-      "config": "string",
+      "config": {},
       "handler": "string"
     }
   ],
   "authorizer": {
-    "config": "string",
+    "config": {},
     "handler": "string"
   },
   "credentials_issuer": {
-    "config": "string",
+    "config": {},
     "handler": "string"
   },
   "description": "string",
@@ -1814,16 +1814,16 @@ Status Code **500**
 {
   "authenticators": [
     {
-      "config": "string",
+      "config": {},
       "handler": "string"
     }
   ],
   "authorizer": {
-    "config": "string",
+    "config": {},
     "handler": "string"
   },
   "credentials_issuer": {
-    "config": "string",
+    "config": {},
     "handler": "string"
   },
   "description": "string",
@@ -1904,16 +1904,16 @@ const fetch = require('node-fetch');
 const input = '{
   "authenticators": [
     {
-      "config": "string",
+      "config": {},
       "handler": "string"
     }
   ],
   "authorizer": {
-    "config": "string",
+    "config": {},
     "handler": "string"
   },
   "credentials_issuer": {
-    "config": "string",
+    "config": {},
     "handler": "string"
   },
   "description": "string",
@@ -2427,6 +2427,2432 @@ p JSON.parse(result)
 
 ## Schemas
 
+<a id="tocScreaterulecreated">CreateRuleCreated</a>
+#### CreateRuleCreated
+
+<a id="schemacreaterulecreated"></a>
+
+```json
+{
+  "Payload": {
+    "authenticators": [
+      {
+        "config": [
+          0
+        ],
+        "handler": "string"
+      }
+    ],
+    "authorizer": {
+      "config": [
+        0
+      ],
+      "handler": "string"
+    },
+    "credentials_issuer": {
+      "config": [
+        0
+      ],
+      "handler": "string"
+    },
+    "description": "string",
+    "id": "string",
+    "match": {
+      "methods": [
+        "string"
+      ],
+      "url": "string"
+    },
+    "upstream": {
+      "preserve_host": true,
+      "strip_path": "string",
+      "url": "string"
+    }
+  }
+}
+
+```
+
+*CreateRuleCreated CreateRuleCreated handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[swaggerRule](#schemaswaggerrule)|false|none|none|
+
+<a id="tocScreateruleforbidden">CreateRuleForbidden</a>
+#### CreateRuleForbidden
+
+<a id="schemacreateruleforbidden"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*CreateRuleForbidden CreateRuleForbidden handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[CreateRuleForbiddenBody](#schemacreateruleforbiddenbody)|false|none|CreateRuleForbiddenBody CreateRuleForbiddenBody create rule forbidden body|
+
+<a id="tocScreateruleforbiddenbody">CreateRuleForbiddenBody</a>
+#### CreateRuleForbiddenBody
+
+<a id="schemacreateruleforbiddenbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*CreateRuleForbiddenBody CreateRuleForbiddenBody create rule forbidden body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocScreateruleinternalservererror">CreateRuleInternalServerError</a>
+#### CreateRuleInternalServerError
+
+<a id="schemacreateruleinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*CreateRuleInternalServerError CreateRuleInternalServerError handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[CreateRuleInternalServerErrorBody](#schemacreateruleinternalservererrorbody)|false|none|CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody create rule internal server error body|
+
+<a id="tocScreateruleinternalservererrorbody">CreateRuleInternalServerErrorBody</a>
+#### CreateRuleInternalServerErrorBody
+
+<a id="schemacreateruleinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody create rule internal server error body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocScreaterulereader">CreateRuleReader</a>
+#### CreateRuleReader
+
+<a id="schemacreaterulereader"></a>
+
+```json
+{}
+
+```
+
+*CreateRuleReader CreateRuleReader is a Reader for the CreateRule structure.*
+
+#### Properties
+
+*None*
+
+<a id="tocScreateruleunauthorized">CreateRuleUnauthorized</a>
+#### CreateRuleUnauthorized
+
+<a id="schemacreateruleunauthorized"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*CreateRuleUnauthorized CreateRuleUnauthorized handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[CreateRuleUnauthorizedBody](#schemacreateruleunauthorizedbody)|false|none|CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody create rule unauthorized body|
+
+<a id="tocScreateruleunauthorizedbody">CreateRuleUnauthorizedBody</a>
+#### CreateRuleUnauthorizedBody
+
+<a id="schemacreateruleunauthorizedbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody create rule unauthorized body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSdeleteruleforbidden">DeleteRuleForbidden</a>
+#### DeleteRuleForbidden
+
+<a id="schemadeleteruleforbidden"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*DeleteRuleForbidden DeleteRuleForbidden handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[DeleteRuleForbiddenBody](#schemadeleteruleforbiddenbody)|false|none|DeleteRuleForbiddenBody DeleteRuleForbiddenBody delete rule forbidden body|
+
+<a id="tocSdeleteruleforbiddenbody">DeleteRuleForbiddenBody</a>
+#### DeleteRuleForbiddenBody
+
+<a id="schemadeleteruleforbiddenbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*DeleteRuleForbiddenBody DeleteRuleForbiddenBody delete rule forbidden body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSdeleteruleinternalservererror">DeleteRuleInternalServerError</a>
+#### DeleteRuleInternalServerError
+
+<a id="schemadeleteruleinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*DeleteRuleInternalServerError DeleteRuleInternalServerError handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[DeleteRuleInternalServerErrorBody](#schemadeleteruleinternalservererrorbody)|false|none|DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody delete rule internal server error body|
+
+<a id="tocSdeleteruleinternalservererrorbody">DeleteRuleInternalServerErrorBody</a>
+#### DeleteRuleInternalServerErrorBody
+
+<a id="schemadeleteruleinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody delete rule internal server error body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSdeleterulenocontent">DeleteRuleNoContent</a>
+#### DeleteRuleNoContent
+
+<a id="schemadeleterulenocontent"></a>
+
+```json
+{}
+
+```
+
+*DeleteRuleNoContent DeleteRuleNoContent handles this case with default header values.*
+
+#### Properties
+
+*None*
+
+<a id="tocSdeleterulenotfound">DeleteRuleNotFound</a>
+#### DeleteRuleNotFound
+
+<a id="schemadeleterulenotfound"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*DeleteRuleNotFound DeleteRuleNotFound handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[DeleteRuleNotFoundBody](#schemadeleterulenotfoundbody)|false|none|DeleteRuleNotFoundBody DeleteRuleNotFoundBody delete rule not found body|
+
+<a id="tocSdeleterulenotfoundbody">DeleteRuleNotFoundBody</a>
+#### DeleteRuleNotFoundBody
+
+<a id="schemadeleterulenotfoundbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*DeleteRuleNotFoundBody DeleteRuleNotFoundBody delete rule not found body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSdeleterulereader">DeleteRuleReader</a>
+#### DeleteRuleReader
+
+<a id="schemadeleterulereader"></a>
+
+```json
+{}
+
+```
+
+*DeleteRuleReader DeleteRuleReader is a Reader for the DeleteRule structure.*
+
+#### Properties
+
+*None*
+
+<a id="tocSdeleteruleunauthorized">DeleteRuleUnauthorized</a>
+#### DeleteRuleUnauthorized
+
+<a id="schemadeleteruleunauthorized"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*DeleteRuleUnauthorized DeleteRuleUnauthorized handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[DeleteRuleUnauthorizedBody](#schemadeleteruleunauthorizedbody)|false|none|DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody delete rule unauthorized body|
+
+<a id="tocSdeleteruleunauthorizedbody">DeleteRuleUnauthorizedBody</a>
+#### DeleteRuleUnauthorizedBody
+
+<a id="schemadeleteruleunauthorizedbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody delete rule unauthorized body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSgetruleforbidden">GetRuleForbidden</a>
+#### GetRuleForbidden
+
+<a id="schemagetruleforbidden"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*GetRuleForbidden GetRuleForbidden handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[GetRuleForbiddenBody](#schemagetruleforbiddenbody)|false|none|GetRuleForbiddenBody GetRuleForbiddenBody get rule forbidden body|
+
+<a id="tocSgetruleforbiddenbody">GetRuleForbiddenBody</a>
+#### GetRuleForbiddenBody
+
+<a id="schemagetruleforbiddenbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*GetRuleForbiddenBody GetRuleForbiddenBody get rule forbidden body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSgetruleinternalservererror">GetRuleInternalServerError</a>
+#### GetRuleInternalServerError
+
+<a id="schemagetruleinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*GetRuleInternalServerError GetRuleInternalServerError handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[GetRuleInternalServerErrorBody](#schemagetruleinternalservererrorbody)|false|none|GetRuleInternalServerErrorBody GetRuleInternalServerErrorBody get rule internal server error body|
+
+<a id="tocSgetruleinternalservererrorbody">GetRuleInternalServerErrorBody</a>
+#### GetRuleInternalServerErrorBody
+
+<a id="schemagetruleinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*GetRuleInternalServerErrorBody GetRuleInternalServerErrorBody get rule internal server error body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSgetrulenotfound">GetRuleNotFound</a>
+#### GetRuleNotFound
+
+<a id="schemagetrulenotfound"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*GetRuleNotFound GetRuleNotFound handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[GetRuleNotFoundBody](#schemagetrulenotfoundbody)|false|none|GetRuleNotFoundBody GetRuleNotFoundBody get rule not found body|
+
+<a id="tocSgetrulenotfoundbody">GetRuleNotFoundBody</a>
+#### GetRuleNotFoundBody
+
+<a id="schemagetrulenotfoundbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*GetRuleNotFoundBody GetRuleNotFoundBody get rule not found body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSgetruleok">GetRuleOK</a>
+#### GetRuleOK
+
+<a id="schemagetruleok"></a>
+
+```json
+{
+  "Payload": {
+    "authenticators": [
+      {
+        "config": [
+          0
+        ],
+        "handler": "string"
+      }
+    ],
+    "authorizer": {
+      "config": [
+        0
+      ],
+      "handler": "string"
+    },
+    "credentials_issuer": {
+      "config": [
+        0
+      ],
+      "handler": "string"
+    },
+    "description": "string",
+    "id": "string",
+    "match": {
+      "methods": [
+        "string"
+      ],
+      "url": "string"
+    },
+    "upstream": {
+      "preserve_host": true,
+      "strip_path": "string",
+      "url": "string"
+    }
+  }
+}
+
+```
+
+*GetRuleOK GetRuleOK handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[swaggerRule](#schemaswaggerrule)|false|none|none|
+
+<a id="tocSgetrulereader">GetRuleReader</a>
+#### GetRuleReader
+
+<a id="schemagetrulereader"></a>
+
+```json
+{}
+
+```
+
+*GetRuleReader GetRuleReader is a Reader for the GetRule structure.*
+
+#### Properties
+
+*None*
+
+<a id="tocSgetruleunauthorized">GetRuleUnauthorized</a>
+#### GetRuleUnauthorized
+
+<a id="schemagetruleunauthorized"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*GetRuleUnauthorized GetRuleUnauthorized handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[GetRuleUnauthorizedBody](#schemagetruleunauthorizedbody)|false|none|GetRuleUnauthorizedBody GetRuleUnauthorizedBody get rule unauthorized body|
+
+<a id="tocSgetruleunauthorizedbody">GetRuleUnauthorizedBody</a>
+#### GetRuleUnauthorizedBody
+
+<a id="schemagetruleunauthorizedbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*GetRuleUnauthorizedBody GetRuleUnauthorizedBody get rule unauthorized body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSgetwellknownforbidden">GetWellKnownForbidden</a>
+#### GetWellKnownForbidden
+
+<a id="schemagetwellknownforbidden"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*GetWellKnownForbidden GetWellKnownForbidden handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[GetWellKnownForbiddenBody](#schemagetwellknownforbiddenbody)|false|none|GetWellKnownForbiddenBody GetWellKnownForbiddenBody get well known forbidden body|
+
+<a id="tocSgetwellknownforbiddenbody">GetWellKnownForbiddenBody</a>
+#### GetWellKnownForbiddenBody
+
+<a id="schemagetwellknownforbiddenbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*GetWellKnownForbiddenBody GetWellKnownForbiddenBody get well known forbidden body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSgetwellknownok">GetWellKnownOK</a>
+#### GetWellKnownOK
+
+<a id="schemagetwellknownok"></a>
+
+```json
+{
+  "Payload": {
+    "keys": [
+      {
+        "alg": "string",
+        "crv": "string",
+        "d": "string",
+        "dp": "string",
+        "dq": "string",
+        "e": "string",
+        "k": "string",
+        "kid": "string",
+        "kty": "string",
+        "n": "string",
+        "p": "string",
+        "q": "string",
+        "qi": "string",
+        "use": "string",
+        "x": "string",
+        "x5c": [
+          "string"
+        ],
+        "y": "string"
+      }
+    ]
+  }
+}
+
+```
+
+*GetWellKnownOK GetWellKnownOK handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[swaggerJSONWebKeySet](#schemaswaggerjsonwebkeyset)|false|none|SwaggerJSONWebKeySet swagger JSON web key set|
+
+<a id="tocSgetwellknownreader">GetWellKnownReader</a>
+#### GetWellKnownReader
+
+<a id="schemagetwellknownreader"></a>
+
+```json
+{}
+
+```
+
+*GetWellKnownReader GetWellKnownReader is a Reader for the GetWellKnown structure.*
+
+#### Properties
+
+*None*
+
+<a id="tocSgetwellknownunauthorized">GetWellKnownUnauthorized</a>
+#### GetWellKnownUnauthorized
+
+<a id="schemagetwellknownunauthorized"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*GetWellKnownUnauthorized GetWellKnownUnauthorized handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[GetWellKnownUnauthorizedBody](#schemagetwellknownunauthorizedbody)|false|none|GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody get well known unauthorized body|
+
+<a id="tocSgetwellknownunauthorizedbody">GetWellKnownUnauthorizedBody</a>
+#### GetWellKnownUnauthorizedBody
+
+<a id="schemagetwellknownunauthorizedbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody get well known unauthorized body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSisinstancealiveinternalservererror">IsInstanceAliveInternalServerError</a>
+#### IsInstanceAliveInternalServerError
+
+<a id="schemaisinstancealiveinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*IsInstanceAliveInternalServerError handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[IsInstanceAliveInternalServerErrorBody](#schemaisinstancealiveinternalservererrorbody)|false|none|IsInstanceAliveInternalServerErrorBody is instance alive internal server error body|
+
+<a id="tocSisinstancealiveinternalservererrorbody">IsInstanceAliveInternalServerErrorBody</a>
+#### IsInstanceAliveInternalServerErrorBody
+
+<a id="schemaisinstancealiveinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*IsInstanceAliveInternalServerErrorBody is instance alive internal server error body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSisinstancealiveok">IsInstanceAliveOK</a>
+#### IsInstanceAliveOK
+
+<a id="schemaisinstancealiveok"></a>
+
+```json
+{
+  "Payload": {
+    "status": "string"
+  }
+}
+
+```
+
+*IsInstanceAliveOK handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[swaggerHealthStatus](#schemaswaggerhealthstatus)|false|none|SwaggerHealthStatus swagger health status|
+
+<a id="tocSisinstancealivereader">IsInstanceAliveReader</a>
+#### IsInstanceAliveReader
+
+<a id="schemaisinstancealivereader"></a>
+
+```json
+{}
+
+```
+
+*IsInstanceAliveReader is a Reader for the IsInstanceAlive structure.*
+
+#### Properties
+
+*None*
+
+<a id="tocSjudgeforbidden">JudgeForbidden</a>
+#### JudgeForbidden
+
+<a id="schemajudgeforbidden"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*JudgeForbidden handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[JudgeForbiddenBody](#schemajudgeforbiddenbody)|false|none|JudgeForbiddenBody judge forbidden body|
+
+<a id="tocSjudgeforbiddenbody">JudgeForbiddenBody</a>
+#### JudgeForbiddenBody
+
+<a id="schemajudgeforbiddenbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*JudgeForbiddenBody judge forbidden body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSjudgeinternalservererror">JudgeInternalServerError</a>
+#### JudgeInternalServerError
+
+<a id="schemajudgeinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*JudgeInternalServerError handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[JudgeInternalServerErrorBody](#schemajudgeinternalservererrorbody)|false|none|JudgeInternalServerErrorBody judge internal server error body|
+
+<a id="tocSjudgeinternalservererrorbody">JudgeInternalServerErrorBody</a>
+#### JudgeInternalServerErrorBody
+
+<a id="schemajudgeinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*JudgeInternalServerErrorBody judge internal server error body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSjudgenotfound">JudgeNotFound</a>
+#### JudgeNotFound
+
+<a id="schemajudgenotfound"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*JudgeNotFound handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[JudgeNotFoundBody](#schemajudgenotfoundbody)|false|none|JudgeNotFoundBody judge not found body|
+
+<a id="tocSjudgenotfoundbody">JudgeNotFoundBody</a>
+#### JudgeNotFoundBody
+
+<a id="schemajudgenotfoundbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*JudgeNotFoundBody judge not found body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSjudgeok">JudgeOK</a>
+#### JudgeOK
+
+<a id="schemajudgeok"></a>
+
+```json
+{}
+
+```
+
+*JudgeOK handles this case with default header values.*
+
+#### Properties
+
+*None*
+
+<a id="tocSjudgereader">JudgeReader</a>
+#### JudgeReader
+
+<a id="schemajudgereader"></a>
+
+```json
+{}
+
+```
+
+*JudgeReader is a Reader for the Judge structure.*
+
+#### Properties
+
+*None*
+
+<a id="tocSjudgeunauthorized">JudgeUnauthorized</a>
+#### JudgeUnauthorized
+
+<a id="schemajudgeunauthorized"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*JudgeUnauthorized handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[JudgeUnauthorizedBody](#schemajudgeunauthorizedbody)|false|none|JudgeUnauthorizedBody judge unauthorized body|
+
+<a id="tocSjudgeunauthorizedbody">JudgeUnauthorizedBody</a>
+#### JudgeUnauthorizedBody
+
+<a id="schemajudgeunauthorizedbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*JudgeUnauthorizedBody judge unauthorized body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSlistrulesforbidden">ListRulesForbidden</a>
+#### ListRulesForbidden
+
+<a id="schemalistrulesforbidden"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*ListRulesForbidden ListRulesForbidden handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[ListRulesForbiddenBody](#schemalistrulesforbiddenbody)|false|none|ListRulesForbiddenBody ListRulesForbiddenBody list rules forbidden body|
+
+<a id="tocSlistrulesforbiddenbody">ListRulesForbiddenBody</a>
+#### ListRulesForbiddenBody
+
+<a id="schemalistrulesforbiddenbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*ListRulesForbiddenBody ListRulesForbiddenBody list rules forbidden body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSlistrulesinternalservererror">ListRulesInternalServerError</a>
+#### ListRulesInternalServerError
+
+<a id="schemalistrulesinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*ListRulesInternalServerError ListRulesInternalServerError handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[ListRulesInternalServerErrorBody](#schemalistrulesinternalservererrorbody)|false|none|ListRulesInternalServerErrorBody ListRulesInternalServerErrorBody list rules internal server error body|
+
+<a id="tocSlistrulesinternalservererrorbody">ListRulesInternalServerErrorBody</a>
+#### ListRulesInternalServerErrorBody
+
+<a id="schemalistrulesinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*ListRulesInternalServerErrorBody ListRulesInternalServerErrorBody list rules internal server error body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSlistrulesok">ListRulesOK</a>
+#### ListRulesOK
+
+<a id="schemalistrulesok"></a>
+
+```json
+{
+  "Payload": [
+    {
+      "authenticators": [
+        {
+          "config": [
+            0
+          ],
+          "handler": "string"
+        }
+      ],
+      "authorizer": {
+        "config": [
+          0
+        ],
+        "handler": "string"
+      },
+      "credentials_issuer": {
+        "config": [
+          0
+        ],
+        "handler": "string"
+      },
+      "description": "string",
+      "id": "string",
+      "match": {
+        "methods": [
+          "string"
+        ],
+        "url": "string"
+      },
+      "upstream": {
+        "preserve_host": true,
+        "strip_path": "string",
+        "url": "string"
+      }
+    }
+  ]
+}
+
+```
+
+*ListRulesOK ListRulesOK handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[[swaggerRule](#schemaswaggerrule)]|false|none|payload|
+
+<a id="tocSlistrulesreader">ListRulesReader</a>
+#### ListRulesReader
+
+<a id="schemalistrulesreader"></a>
+
+```json
+{}
+
+```
+
+*ListRulesReader ListRulesReader is a Reader for the ListRules structure.*
+
+#### Properties
+
+*None*
+
+<a id="tocSlistrulesunauthorized">ListRulesUnauthorized</a>
+#### ListRulesUnauthorized
+
+<a id="schemalistrulesunauthorized"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*ListRulesUnauthorized ListRulesUnauthorized handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[ListRulesUnauthorizedBody](#schemalistrulesunauthorizedbody)|false|none|ListRulesUnauthorizedBody ListRulesUnauthorizedBody list rules unauthorized body|
+
+<a id="tocSlistrulesunauthorizedbody">ListRulesUnauthorizedBody</a>
+#### ListRulesUnauthorizedBody
+
+<a id="schemalistrulesunauthorizedbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*ListRulesUnauthorizedBody ListRulesUnauthorizedBody list rules unauthorized body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSrawmessage">RawMessage</a>
+#### RawMessage
+
+<a id="schemarawmessage"></a>
+
+```json
+[
+  0
+]
+
+```
+
+*RawMessage RawMessage is a raw encoded JSON value.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|RawMessage RawMessage is a raw encoded JSON value.|[integer]|false|none|It implements Marshaler and Unmarshaler and can be used to delay JSON decoding or precompute a JSON encoding.|
+
+<a id="tocSswaggercreateruleparameters">SwaggerCreateRuleParameters</a>
+#### SwaggerCreateRuleParameters
+
+<a id="schemaswaggercreateruleparameters"></a>
+
+```json
+{
+  "Body": {
+    "authenticators": [
+      {
+        "config": [
+          0
+        ],
+        "handler": "string"
+      }
+    ],
+    "authorizer": {
+      "config": [
+        0
+      ],
+      "handler": "string"
+    },
+    "credentials_issuer": {
+      "config": [
+        0
+      ],
+      "handler": "string"
+    },
+    "description": "string",
+    "id": "string",
+    "match": {
+      "methods": [
+        "string"
+      ],
+      "url": "string"
+    },
+    "upstream": {
+      "preserve_host": true,
+      "strip_path": "string",
+      "url": "string"
+    }
+  }
+}
+
+```
+
+*SwaggerCreateRuleParameters swagger create rule parameters*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Body|[swaggerRule](#schemaswaggerrule)|false|none|none|
+
+<a id="tocSswaggergetruleparameters">SwaggerGetRuleParameters</a>
+#### SwaggerGetRuleParameters
+
+<a id="schemaswaggergetruleparameters"></a>
+
+```json
+{
+  "id": "string"
+}
+
+```
+
+*SwaggerGetRuleParameters swagger get rule parameters*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|string|true|none|in: path|
+
+<a id="tocSswaggerlistrulesparameters">SwaggerListRulesParameters</a>
+#### SwaggerListRulesParameters
+
+<a id="schemaswaggerlistrulesparameters"></a>
+
+```json
+{
+  "limit": 0,
+  "offset": 0
+}
+
+```
+
+*SwaggerListRulesParameters swagger list rules parameters*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|limit|integer(int64)|false|none|The maximum amount of rules returned. in: query|
+|offset|integer(int64)|false|none|The offset from where to start looking. in: query|
+
+<a id="tocSswaggerruleresponse">SwaggerRuleResponse</a>
+#### SwaggerRuleResponse
+
+<a id="schemaswaggerruleresponse"></a>
+
+```json
+{
+  "Body": {
+    "authenticators": [
+      {
+        "config": [
+          0
+        ],
+        "handler": "string"
+      }
+    ],
+    "authorizer": {
+      "config": [
+        0
+      ],
+      "handler": "string"
+    },
+    "credentials_issuer": {
+      "config": [
+        0
+      ],
+      "handler": "string"
+    },
+    "description": "string",
+    "id": "string",
+    "match": {
+      "methods": [
+        "string"
+      ],
+      "url": "string"
+    },
+    "upstream": {
+      "preserve_host": true,
+      "strip_path": "string",
+      "url": "string"
+    }
+  }
+}
+
+```
+
+*SwaggerRuleResponse A rule*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Body|[swaggerRule](#schemaswaggerrule)|false|none|none|
+
+<a id="tocSswaggerrulesresponse">SwaggerRulesResponse</a>
+#### SwaggerRulesResponse
+
+<a id="schemaswaggerrulesresponse"></a>
+
+```json
+{
+  "Body": [
+    {
+      "authenticators": [
+        {
+          "config": [
+            0
+          ],
+          "handler": "string"
+        }
+      ],
+      "authorizer": {
+        "config": [
+          0
+        ],
+        "handler": "string"
+      },
+      "credentials_issuer": {
+        "config": [
+          0
+        ],
+        "handler": "string"
+      },
+      "description": "string",
+      "id": "string",
+      "match": {
+        "methods": [
+          "string"
+        ],
+        "url": "string"
+      },
+      "upstream": {
+        "preserve_host": true,
+        "strip_path": "string",
+        "url": "string"
+      }
+    }
+  ]
+}
+
+```
+
+*SwaggerRulesResponse A list of rules*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Body|[[swaggerRule](#schemaswaggerrule)]|false|none|in: body type: array|
+
+<a id="tocSswaggerupdateruleparameters">SwaggerUpdateRuleParameters</a>
+#### SwaggerUpdateRuleParameters
+
+<a id="schemaswaggerupdateruleparameters"></a>
+
+```json
+{
+  "Body": {
+    "authenticators": [
+      {
+        "config": [
+          0
+        ],
+        "handler": "string"
+      }
+    ],
+    "authorizer": {
+      "config": [
+        0
+      ],
+      "handler": "string"
+    },
+    "credentials_issuer": {
+      "config": [
+        0
+      ],
+      "handler": "string"
+    },
+    "description": "string",
+    "id": "string",
+    "match": {
+      "methods": [
+        "string"
+      ],
+      "url": "string"
+    },
+    "upstream": {
+      "preserve_host": true,
+      "strip_path": "string",
+      "url": "string"
+    }
+  },
+  "id": "string"
+}
+
+```
+
+*SwaggerUpdateRuleParameters swagger update rule parameters*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Body|[swaggerRule](#schemaswaggerrule)|false|none|none|
+|id|string|true|none|in: path|
+
+<a id="tocSupdateruleforbidden">UpdateRuleForbidden</a>
+#### UpdateRuleForbidden
+
+<a id="schemaupdateruleforbidden"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*UpdateRuleForbidden UpdateRuleForbidden handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[UpdateRuleForbiddenBody](#schemaupdateruleforbiddenbody)|false|none|UpdateRuleForbiddenBody UpdateRuleForbiddenBody update rule forbidden body|
+
+<a id="tocSupdateruleforbiddenbody">UpdateRuleForbiddenBody</a>
+#### UpdateRuleForbiddenBody
+
+<a id="schemaupdateruleforbiddenbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*UpdateRuleForbiddenBody UpdateRuleForbiddenBody update rule forbidden body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSupdateruleinternalservererror">UpdateRuleInternalServerError</a>
+#### UpdateRuleInternalServerError
+
+<a id="schemaupdateruleinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*UpdateRuleInternalServerError UpdateRuleInternalServerError handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[UpdateRuleInternalServerErrorBody](#schemaupdateruleinternalservererrorbody)|false|none|UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody update rule internal server error body|
+
+<a id="tocSupdateruleinternalservererrorbody">UpdateRuleInternalServerErrorBody</a>
+#### UpdateRuleInternalServerErrorBody
+
+<a id="schemaupdateruleinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody update rule internal server error body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSupdaterulenotfound">UpdateRuleNotFound</a>
+#### UpdateRuleNotFound
+
+<a id="schemaupdaterulenotfound"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*UpdateRuleNotFound UpdateRuleNotFound handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[UpdateRuleNotFoundBody](#schemaupdaterulenotfoundbody)|false|none|UpdateRuleNotFoundBody UpdateRuleNotFoundBody update rule not found body|
+
+<a id="tocSupdaterulenotfoundbody">UpdateRuleNotFoundBody</a>
+#### UpdateRuleNotFoundBody
+
+<a id="schemaupdaterulenotfoundbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*UpdateRuleNotFoundBody UpdateRuleNotFoundBody update rule not found body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSupdateruleok">UpdateRuleOK</a>
+#### UpdateRuleOK
+
+<a id="schemaupdateruleok"></a>
+
+```json
+{
+  "Payload": {
+    "authenticators": [
+      {
+        "config": [
+          0
+        ],
+        "handler": "string"
+      }
+    ],
+    "authorizer": {
+      "config": [
+        0
+      ],
+      "handler": "string"
+    },
+    "credentials_issuer": {
+      "config": [
+        0
+      ],
+      "handler": "string"
+    },
+    "description": "string",
+    "id": "string",
+    "match": {
+      "methods": [
+        "string"
+      ],
+      "url": "string"
+    },
+    "upstream": {
+      "preserve_host": true,
+      "strip_path": "string",
+      "url": "string"
+    }
+  }
+}
+
+```
+
+*UpdateRuleOK UpdateRuleOK handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[swaggerRule](#schemaswaggerrule)|false|none|none|
+
+<a id="tocSupdaterulereader">UpdateRuleReader</a>
+#### UpdateRuleReader
+
+<a id="schemaupdaterulereader"></a>
+
+```json
+{}
+
+```
+
+*UpdateRuleReader UpdateRuleReader is a Reader for the UpdateRule structure.*
+
+#### Properties
+
+*None*
+
+<a id="tocSupdateruleunauthorized">UpdateRuleUnauthorized</a>
+#### UpdateRuleUnauthorized
+
+<a id="schemaupdateruleunauthorized"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*UpdateRuleUnauthorized UpdateRuleUnauthorized handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[UpdateRuleUnauthorizedBody](#schemaupdateruleunauthorizedbody)|false|none|UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody update rule unauthorized body|
+
+<a id="tocSupdateruleunauthorizedbody">UpdateRuleUnauthorizedBody</a>
+#### UpdateRuleUnauthorizedBody
+
+<a id="schemaupdateruleunauthorizedbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody update rule unauthorized body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
 <a id="tocSupstream">Upstream</a>
 #### Upstream
 
@@ -2440,6 +4866,8 @@ p JSON.parse(result)
 }
 
 ```
+
+*Upstream Upstream upstream*
 
 #### Properties
 
@@ -2590,16 +5018,16 @@ p JSON.parse(result)
 {
   "authenticators": [
     {
-      "config": "string",
+      "config": {},
       "handler": "string"
     }
   ],
   "authorizer": {
-    "config": "string",
+    "config": {},
     "handler": "string"
   },
   "credentials_issuer": {
-    "config": "string",
+    "config": {},
     "handler": "string"
   },
   "description": "string",
@@ -2631,7 +5059,7 @@ p JSON.parse(result)
 |description|string|false|none|Description is a human readable description of this rule.|
 |id|string|false|none|ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.|
 |match|[ruleMatch](#schemarulematch)|false|none|none|
-|upstream|[Upstream](#schemaupstream)|false|none|none|
+|upstream|[Upstream](#schemaupstream)|false|none|Upstream Upstream upstream|
 
 <a id="tocSrulehandler">ruleHandler</a>
 #### ruleHandler
@@ -2640,7 +5068,7 @@ p JSON.parse(result)
 
 ```json
 {
-  "config": "string",
+  "config": {},
   "handler": "string"
 }
 
@@ -2650,7 +5078,7 @@ p JSON.parse(result)
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|config|string|false|none|Config contains the configuration for the handler. Please read the user guide for a complete list of each handler's available settings.|
+|config|object|false|none|Config contains the configuration for the handler. Please read the user guide for a complete list of each handler's available settings.|
 |handler|string|false|none|Handler identifies the implementation which will be used to handle this specific request. Please read the user guide for a complete list of available handlers.|
 
 <a id="tocSrulematch">ruleMatch</a>
@@ -2685,16 +5113,16 @@ p JSON.parse(result)
   "Body": {
     "authenticators": [
       {
-        "config": "string",
+        "config": {},
         "handler": "string"
       }
     ],
     "authorizer": {
-      "config": "string",
+      "config": {},
       "handler": "string"
     },
     "credentials_issuer": {
-      "config": "string",
+      "config": {},
       "handler": "string"
     },
     "description": "string",
@@ -2739,6 +5167,122 @@ p JSON.parse(result)
 |---|---|---|---|---|
 |id|string|true|none|in: path|
 
+<a id="tocSswaggerhealthstatus">swaggerHealthStatus</a>
+#### swaggerHealthStatus
+
+<a id="schemaswaggerhealthstatus"></a>
+
+```json
+{
+  "status": "string"
+}
+
+```
+
+*SwaggerHealthStatus swagger health status*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|status|string|false|none|Status always contains "ok".|
+
+<a id="tocSswaggerjsonwebkey">swaggerJSONWebKey</a>
+#### swaggerJSONWebKey
+
+<a id="schemaswaggerjsonwebkey"></a>
+
+```json
+{
+  "alg": "string",
+  "crv": "string",
+  "d": "string",
+  "dp": "string",
+  "dq": "string",
+  "e": "string",
+  "k": "string",
+  "kid": "string",
+  "kty": "string",
+  "n": "string",
+  "p": "string",
+  "q": "string",
+  "qi": "string",
+  "use": "string",
+  "x": "string",
+  "x5c": [
+    "string"
+  ],
+  "y": "string"
+}
+
+```
+
+*SwaggerJSONWebKey swagger JSON web key*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|alg|string|false|none|The "alg" (algorithm) parameter identifies the algorithm intended for use with the key.  The values used should either be registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by [JWA] or be a value that contains a Collision- Resistant Name.|
+|crv|string|false|none|crv|
+|d|string|false|none|d|
+|dp|string|false|none|dp|
+|dq|string|false|none|dq|
+|e|string|false|none|e|
+|k|string|false|none|k|
+|kid|string|false|none|The "kid" (key ID) parameter is used to match a specific key.  This is used, for instance, to choose among a set of keys within a JWK Set during key rollover.  The structure of the "kid" value is unspecified.  When "kid" values are used within a JWK Set, different keys within the JWK Set SHOULD use distinct "kid" values.  (One example in which different keys might use the same "kid" value is if they have different "kty" (key type) values but are considered to be equivalent alternatives by the application using them.)  The "kid" value is a case-sensitive string.|
+|kty|string|false|none|The "kty" (key type) parameter identifies the cryptographic algorithm family used with the key, such as "RSA" or "EC". "kty" values should either be registered in the IANA "JSON Web Key Types" registry established by [JWA] or be a value that contains a Collision- Resistant Name.  The "kty" value is a case-sensitive string.|
+|n|string|false|none|n|
+|p|string|false|none|p|
+|q|string|false|none|q|
+|qi|string|false|none|qi|
+|use|string|false|none|The "use" (public key use) parameter identifies the intended use of the public key. The "use" parameter is employed to indicate whether a public key is used for encrypting data or verifying the signature on data. Values are commonly "sig" (signature) or "enc" (encryption).|
+|x|string|false|none|x|
+|x5c|[string]|false|none|The "x5c" (X.509 certificate chain) parameter contains a chain of one or more PKIX certificates [RFC5280].  The certificate chain is represented as a JSON array of certificate value strings.  Each string in the array is a base64-encoded (Section 4 of [RFC4648] -- not base64url-encoded) DER [ITU.X690.1994] PKIX certificate value. The PKIX certificate containing the key value MUST be the first certificate.|
+|y|string|false|none|y|
+
+<a id="tocSswaggerjsonwebkeyset">swaggerJSONWebKeySet</a>
+#### swaggerJSONWebKeySet
+
+<a id="schemaswaggerjsonwebkeyset"></a>
+
+```json
+{
+  "keys": [
+    {
+      "alg": "string",
+      "crv": "string",
+      "d": "string",
+      "dp": "string",
+      "dq": "string",
+      "e": "string",
+      "k": "string",
+      "kid": "string",
+      "kty": "string",
+      "n": "string",
+      "p": "string",
+      "q": "string",
+      "qi": "string",
+      "use": "string",
+      "x": "string",
+      "x5c": [
+        "string"
+      ],
+      "y": "string"
+    }
+  ]
+}
+
+```
+
+*SwaggerJSONWebKeySet swagger JSON web key set*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|keys|[[swaggerJSONWebKey](#schemaswaggerjsonwebkey)]|false|none|The value of the "keys" parameter is an array of JWK values.  By default, the order of the JWK values within the array does not imply an order of preference among them, although applications of JWK Sets can choose to assign a meaning to the order for their purposes, if desired.|
+
 <a id="tocSswaggerlistrulesparameters">swaggerListRulesParameters</a>
 #### swaggerListRulesParameters
 
@@ -2759,6 +5303,136 @@ p JSON.parse(result)
 |limit|integer(int64)|false|none|The maximum amount of rules returned. in: query|
 |offset|integer(int64)|false|none|The offset from where to start looking. in: query|
 
+<a id="tocSswaggernotreadystatus">swaggerNotReadyStatus</a>
+#### swaggerNotReadyStatus
+
+<a id="schemaswaggernotreadystatus"></a>
+
+```json
+{
+  "errors": {
+    "property1": "string",
+    "property2": "string"
+  }
+}
+
+```
+
+*SwaggerNotReadyStatus swagger not ready status*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|errors|object|false|none|Errors contains a list of errors that caused the not ready status.|
+|» **additionalProperties**|string|false|none|none|
+
+<a id="tocSswaggerrule">swaggerRule</a>
+#### swaggerRule
+
+<a id="schemaswaggerrule"></a>
+
+```json
+{
+  "authenticators": [
+    {
+      "config": [
+        0
+      ],
+      "handler": "string"
+    }
+  ],
+  "authorizer": {
+    "config": [
+      0
+    ],
+    "handler": "string"
+  },
+  "credentials_issuer": {
+    "config": [
+      0
+    ],
+    "handler": "string"
+  },
+  "description": "string",
+  "id": "string",
+  "match": {
+    "methods": [
+      "string"
+    ],
+    "url": "string"
+  },
+  "upstream": {
+    "preserve_host": true,
+    "strip_path": "string",
+    "url": "string"
+  }
+}
+
+```
+
+*SwaggerRule swaggerRule is a single rule that will get checked on every HTTP request.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|authenticators|[[swaggerRuleHandler](#schemaswaggerrulehandler)]|false|none|Authenticators is a list of authentication handlers that will try and authenticate the provided credentials. Authenticators are checked iteratively from index 0 to n and if the first authenticator to return a positive result will be the one used.  If you want the rule to first check a specific authenticator  before "falling back" to others, have that authenticator as the first item in the array.|
+|authorizer|[swaggerRuleHandler](#schemaswaggerrulehandler)|false|none|SwaggerRuleHandler swagger rule handler|
+|credentials_issuer|[swaggerRuleHandler](#schemaswaggerrulehandler)|false|none|SwaggerRuleHandler swagger rule handler|
+|description|string|false|none|Description is a human readable description of this rule.|
+|id|string|false|none|ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.|
+|match|[swaggerRuleMatch](#schemaswaggerrulematch)|false|none|SwaggerRuleMatch swagger rule match|
+|upstream|[Upstream](#schemaupstream)|false|none|Upstream Upstream upstream|
+
+<a id="tocSswaggerrulehandler">swaggerRuleHandler</a>
+#### swaggerRuleHandler
+
+<a id="schemaswaggerrulehandler"></a>
+
+```json
+{
+  "config": [
+    0
+  ],
+  "handler": "string"
+}
+
+```
+
+*SwaggerRuleHandler swagger rule handler*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|config|[RawMessage](#schemarawmessage)|false|none|It implements Marshaler and Unmarshaler and can be used to delay JSON decoding or precompute a JSON encoding.|
+|handler|string|false|none|Handler identifies the implementation which will be used to handle this specific request. Please read the user guide for a complete list of available handlers.|
+
+<a id="tocSswaggerrulematch">swaggerRuleMatch</a>
+#### swaggerRuleMatch
+
+<a id="schemaswaggerrulematch"></a>
+
+```json
+{
+  "methods": [
+    "string"
+  ],
+  "url": "string"
+}
+
+```
+
+*SwaggerRuleMatch swagger rule match*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|methods|[string]|false|none|An array of HTTP methods (e.g. GET, POST, PUT, DELETE, ...). When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the HTTP method of the incoming request with the HTTP methods of each rules. If a match is found, the rule is considered a partial match. If the matchesUrl field is satisfied as well, the rule is considered a full match.|
+|url|string|false|none|This field represents the URL pattern this rule matches. When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the full request URL (e.g. https://mydomain.com/api/resource) without query parameters of the incoming request with this field. If a match is found, the rule is considered a partial match. If the matchesMethods field is satisfied as well, the rule is considered a full match.  You can use regular expressions in this field to match more than one url. Regular expressions are encapsulated in brackets < and >. The following example matches all paths of the domain `mydomain.com`: `https://mydomain.com/<.*>`.|
+
 <a id="tocSswaggerruleresponse">swaggerRuleResponse</a>
 #### swaggerRuleResponse
 
@@ -2769,16 +5443,16 @@ p JSON.parse(result)
   "Body": {
     "authenticators": [
       {
-        "config": "string",
+        "config": {},
         "handler": "string"
       }
     ],
     "authorizer": {
-      "config": "string",
+      "config": {},
       "handler": "string"
     },
     "credentials_issuer": {
-      "config": "string",
+      "config": {},
       "handler": "string"
     },
     "description": "string",
@@ -2818,16 +5492,16 @@ p JSON.parse(result)
     {
       "authenticators": [
         {
-          "config": "string",
+          "config": {},
           "handler": "string"
         }
       ],
       "authorizer": {
-        "config": "string",
+        "config": {},
         "handler": "string"
       },
       "credentials_issuer": {
-        "config": "string",
+        "config": {},
         "handler": "string"
       },
       "description": "string",
@@ -2867,16 +5541,16 @@ p JSON.parse(result)
   "Body": {
     "authenticators": [
       {
-        "config": "string",
+        "config": {},
         "handler": "string"
       }
     ],
     "authorizer": {
-      "config": "string",
+      "config": {},
       "handler": "string"
     },
     "credentials_issuer": {
-      "config": "string",
+      "config": {},
       "handler": "string"
     },
     "description": "string",
@@ -2904,6 +5578,26 @@ p JSON.parse(result)
 |---|---|---|---|---|
 |Body|[rule](#schemarule)|false|none|none|
 |id|string|true|none|in: path|
+
+<a id="tocSswaggerversion">swaggerVersion</a>
+#### swaggerVersion
+
+<a id="schemaswaggerversion"></a>
+
+```json
+{
+  "version": "string"
+}
+
+```
+
+*SwaggerVersion swagger version*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|version|string|false|none|version|
 
 <a id="tocSversion">version</a>
 #### version

@@ -5,7 +5,7 @@ id: api
 
 
 
-Package main ORY Keto
+A cloud native access control server providing best-practice patterns (RBAC, ABAC, ACL, AWS IAM Policies, Kubernetes Roles, ...) via REST APIs.
 
 > You are viewing a REST API documentation. This documentation is auto-generated from a swagger specification which
 itself is generated from annotations in the source files of the project. It is possible that this documentation includes
@@ -16,7 +16,7 @@ markdown files directly (as they are generated) but raise an issue on the projec
 will improve over time with your help! If you have ideas how to improve this part of the documentation, feel free to
 share them in a [GitHub issue](https://github.com/ory/docs/issues/new) any time.
 
-<a id="api-engines"></a>
+<a id="ory-keto-engines"></a>
 ## engines
 
 <a id="opIddoOryAccessControlPoliciesAllow"></a>
@@ -30,7 +30,9 @@ Accept: application/json
 
 ```
 
-Use this endpoint to check if a request is allowed or not.
+Use this endpoint to check if a request is allowed or not. If the request is allowed, a 200 response with
+`{"allowed":"true"}` will be sent. If the request is denied, a 403 response with `{"allowed":"false"}` will
+be sent instead.
 
 #### Request body
 
@@ -62,6 +64,7 @@ Use this endpoint to check if a request is allowed or not.
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|authorizationResult|[authorizationResult](#schemaauthorizationresult)|
+|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|authorizationResult|[authorizationResult](#schemaauthorizationresult)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
 
 <a id="check-if-a-request-is-allowed-responseschema"></a>
@@ -278,9 +281,9 @@ Status Code **200**
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |*anonymous*|[[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)]|false|none|none|
-|» Policy specifies an ORY Access Policy document.|[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)|false|none|none|
+|» oryAccessControlPolicy specifies an ORY Access Policy document.|[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)|false|none|none|
 |»» actions|[string]|false|none|Actions is an array representing all the actions this ORY Access Policy applies to.|
-|»» conditions|[object]|false|none|Conditions represents an array of conditions under which this ORY Access Policy is active.|
+|»» conditions|object|false|none|Conditions represents a keyed object of conditions under which this ORY Access Policy is active.|
 |»»» **additionalProperties**|object|false|none|none|
 |»» description|string|false|none|Description is an optional, human-readable description.|
 |»» effect|string|false|none|Effect is the effect of this ORY Access Policy. It can be "allow" or "deny".|
@@ -310,12 +313,10 @@ Status Code **500**
     "actions": [
       "string"
     ],
-    "conditions": [
-      {
-        "property1": {},
-        "property2": {}
-      }
-    ],
+    "conditions": {
+      "property1": {},
+      "property2": {}
+    },
     "description": "string",
     "effect": "string",
     "id": "string",
@@ -487,12 +488,10 @@ Upsert an ORY Access Control Policy
   "actions": [
     "string"
   ],
-  "conditions": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
+  "conditions": {
+    "property1": {},
+    "property2": {}
+  },
   "description": "string",
   "effect": "string",
   "id": "string",
@@ -547,12 +546,10 @@ Status Code **500**
   "actions": [
     "string"
   ],
-  "conditions": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
+  "conditions": {
+    "property1": {},
+    "property2": {}
+  },
   "description": "string",
   "effect": "string",
   "id": "string",
@@ -628,12 +625,10 @@ const input = '{
   "actions": [
     "string"
   ],
-  "conditions": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
+  "conditions": {
+    "property1": {},
+    "property2": {}
+  },
   "description": "string",
   "effect": "string",
   "id": "string",
@@ -793,12 +788,10 @@ Status Code **500**
   "actions": [
     "string"
   ],
-  "conditions": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
+  "conditions": {
+    "property1": {},
+    "property2": {}
+  },
   "description": "string",
   "effect": "string",
   "id": "string",
@@ -976,7 +969,7 @@ Delete an ORY Access Control Policy
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|An empty response|None|
+|204|[No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)|An empty response|None|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
 
 <a id="deleteoryaccesscontrolpolicy-responseschema"></a>
@@ -1191,7 +1184,7 @@ Status Code **200**
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|[[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)]|false|none|[Role represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role.]|
+|*anonymous*|[[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)]|false|none|[oryAccessControlPolicyRole represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role.]|
 |» id|string|false|none|ID is the role's unique id.|
 |» members|[string]|false|none|Members is who belongs to the role.|
 
@@ -1816,7 +1809,7 @@ as subject in the OACP.
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|An empty response|None|
+|204|[No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)|An empty response|None|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
 
 <a id="delete-an-ory-access-control-policy-role-responseschema"></a>
@@ -2214,24 +2207,13 @@ p JSON.parse(result)
 ### Remove a member from an ORY Access Control Policy Role
 
 ```
-DELETE /engines/acp/ory/{flavor}/roles/{id}/members HTTP/1.1
-Content-Type: application/json
+DELETE /engines/acp/ory/{flavor}/roles/{id}/members/{member} HTTP/1.1
 Accept: application/json
 
 ```
 
 Roles group several subjects into one. Rules can be assigned to ORY Access Control Policy (OACP) by using the Role ID
 as subject in the OACP.
-
-#### Request body
-
-```json
-{
-  "members": [
-    "string"
-  ]
-}
-```
 
 <a id="remove-a-member-from-an-ory-access-control-policy-role-parameters"></a>
 ##### Parameters
@@ -2240,7 +2222,7 @@ as subject in the OACP.
 |---|---|---|---|---|
 |flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".|
 |id|path|string|true|The ID of the ORY Access Control Policy Role.|
-|body|body|[removeOryAccessControlPolicyRoleMembersBody](#schemaremoveoryaccesscontrolpolicyrolemembersbody)|false|none|
+|member|path|string|true|The member to be removed.|
 
 #### Responses
 
@@ -2308,8 +2290,8 @@ This operation does not require authentication
 <div class="tab-pane active" role="tabpanel" id="tab-removeOryAccessControlPolicyRoleMembers-shell">
 
 ```shell
-curl -X DELETE /engines/acp/ory/{flavor}/roles/{id}/members \
-  -H 'Content-Type: application/json' \  -H 'Accept: application/json'
+curl -X DELETE /engines/acp/ory/{flavor}/roles/{id}/members/{member} \
+  -H 'Accept: application/json'
 ```
 
 </div>
@@ -2325,14 +2307,13 @@ import (
 
 func main() {
     headers := map[string][]string{ 
-        "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
     }
 
     var body []byte
     // body = ...
 
-    req, err := http.NewRequest("DELETE", "/engines/acp/ory/{flavor}/roles/{id}/members", bytes.NewBuffer(body))
+    req, err := http.NewRequest("DELETE", "/engines/acp/ory/{flavor}/roles/{id}/members/{member}", bytes.NewBuffer(body))
     req.Header = headers
 
     client := &http.Client{}
@@ -2346,18 +2327,13 @@ func main() {
 
 ```nodejs
 const fetch = require('node-fetch');
-const input = '{
-  "members": [
-    "string"
-  ]
-}';
+
 const headers = {
-  'Content-Type': 'application/json',  'Accept': 'application/json'
+  'Accept': 'application/json'
 }
 
-fetch('/engines/acp/ory/{flavor}/roles/{id}/members', {
+fetch('/engines/acp/ory/{flavor}/roles/{id}/members/{member}', {
   method: 'DELETE',
-  body: input,
   headers
 })
 .then(r => r.json())
@@ -2371,7 +2347,7 @@ fetch('/engines/acp/ory/{flavor}/roles/{id}/members', {
 
 ```java
 // This sample needs improvement.
-URL obj = new URL("/engines/acp/ory/{flavor}/roles/{id}/members");
+URL obj = new URL("/engines/acp/ory/{flavor}/roles/{id}/members/{member}");
 
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("DELETE");
@@ -2399,12 +2375,11 @@ System.out.println(response.toString());
 import requests
 
 headers = {
-  'Content-Type': 'application/json',
   'Accept': 'application/json'
 }
 
 r = requests.delete(
-  '/engines/acp/ory/{flavor}/roles/{id}/members',
+  '/engines/acp/ory/{flavor}/roles/{id}/members/{member}',
   params={},
   headers = headers)
 
@@ -2419,11 +2394,10 @@ require 'rest-client'
 require 'json'
 
 headers = {
-  'Content-Type' => 'application/json',
   'Accept' => 'application/json'
 }
 
-result = RestClient.delete '/engines/acp/ory/{flavor}/roles/{id}/members',
+result = RestClient.delete '/engines/acp/ory/{flavor}/roles/{id}/members/{member}',
   params: {}, headers: headers
 
 p JSON.parse(result)
@@ -2433,7 +2407,7 @@ p JSON.parse(result)
 </div>
 </div>
 
-<a id="api-health"></a>
+<a id="ory-keto-health"></a>
 ## health
 
 <a id="opIdisInstanceAlive"></a>
@@ -2805,7 +2779,7 @@ p JSON.parse(result)
 </div>
 </div>
 
-<a id="api-version"></a>
+<a id="ory-keto-version"></a>
 ## version
 
 <a id="opIdgetVersion"></a>
@@ -2985,6 +2959,185 @@ p JSON.parse(result)
 
 ## Schemas
 
+<a id="tocSaddoryaccesscontrolpolicyrolemembers">AddOryAccessControlPolicyRoleMembers</a>
+#### AddOryAccessControlPolicyRoleMembers
+
+<a id="schemaaddoryaccesscontrolpolicyrolemembers"></a>
+
+```json
+{
+  "Body": {
+    "members": [
+      "string"
+    ]
+  },
+  "flavor": "string",
+  "id": "string"
+}
+
+```
+
+*AddOryAccessControlPolicyRoleMembers add ory access control policy role members*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Body|[AddOryAccessControlPolicyRoleMembersBody](#schemaaddoryaccesscontrolpolicyrolemembersbody)|false|none|AddOryAccessControlPolicyRoleMembersBody add ory access control policy role members body|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
+|id|string|true|none|The ID of the ORY Access Control Policy Role.  in: path|
+
+<a id="tocSaddoryaccesscontrolpolicyrolemembersbody">AddOryAccessControlPolicyRoleMembersBody</a>
+#### AddOryAccessControlPolicyRoleMembersBody
+
+<a id="schemaaddoryaccesscontrolpolicyrolemembersbody"></a>
+
+```json
+{
+  "members": [
+    "string"
+  ]
+}
+
+```
+
+*AddOryAccessControlPolicyRoleMembersBody add ory access control policy role members body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|members|[string]|false|none|The members to be added.|
+
+<a id="tocSaddoryaccesscontrolpolicyrolemembersinternalservererror">AddOryAccessControlPolicyRoleMembersInternalServerError</a>
+#### AddOryAccessControlPolicyRoleMembersInternalServerError
+
+<a id="schemaaddoryaccesscontrolpolicyrolemembersinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*AddOryAccessControlPolicyRoleMembersInternalServerError handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[AddOryAccessControlPolicyRoleMembersInternalServerErrorBody](#schemaaddoryaccesscontrolpolicyrolemembersinternalservererrorbody)|false|none|AddOryAccessControlPolicyRoleMembersInternalServerErrorBody add ory access control policy role members internal server error body|
+
+<a id="tocSaddoryaccesscontrolpolicyrolemembersinternalservererrorbody">AddOryAccessControlPolicyRoleMembersInternalServerErrorBody</a>
+#### AddOryAccessControlPolicyRoleMembersInternalServerErrorBody
+
+<a id="schemaaddoryaccesscontrolpolicyrolemembersinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*AddOryAccessControlPolicyRoleMembersInternalServerErrorBody add ory access control policy role members internal server error body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSaddoryaccesscontrolpolicyrolemembersok">AddOryAccessControlPolicyRoleMembersOK</a>
+#### AddOryAccessControlPolicyRoleMembersOK
+
+<a id="schemaaddoryaccesscontrolpolicyrolemembersok"></a>
+
+```json
+{
+  "Payload": {
+    "id": "string",
+    "members": [
+      "string"
+    ]
+  }
+}
+
+```
+
+*AddOryAccessControlPolicyRoleMembersOK handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[OryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)|false|none|OryAccessControlPolicyRole oryAccessControlPolicyRole represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role.|
+
+<a id="tocSaddoryaccesscontrolpolicyrolemembersreader">AddOryAccessControlPolicyRoleMembersReader</a>
+#### AddOryAccessControlPolicyRoleMembersReader
+
+<a id="schemaaddoryaccesscontrolpolicyrolemembersreader"></a>
+
+```json
+{}
+
+```
+
+*AddOryAccessControlPolicyRoleMembersReader is a Reader for the AddOryAccessControlPolicyRoleMembers structure.*
+
+#### Properties
+
+*None*
+
+<a id="tocSauthorizationresult">AuthorizationResult</a>
+#### AuthorizationResult
+
+<a id="schemaauthorizationresult"></a>
+
+```json
+{
+  "allowed": true
+}
+
+```
+
+*AuthorizationResult AuthorizationResult AuthorizationResult is the result of an access control decision. It contains the decision outcome.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|allowed|boolean|true|none|Allowed is true if the request should be allowed and false otherwise.|
+
 <a id="tocScontext">Context</a>
 #### Context
 
@@ -2998,11 +3151,1339 @@ p JSON.parse(result)
 
 ```
 
+*Context Context Context Context Context Context Context Context context*
+
 #### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |**additionalProperties**|object|false|none|none|
+
+<a id="tocSdeleteoryaccesscontrolpolicy">DeleteOryAccessControlPolicy</a>
+#### DeleteOryAccessControlPolicy
+
+<a id="schemadeleteoryaccesscontrolpolicy"></a>
+
+```json
+{
+  "flavor": "string",
+  "id": "string"
+}
+
+```
+
+*DeleteOryAccessControlPolicy delete ory access control policy*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
+|id|string|true|none|The ID of the ORY Access Control Policy Role.  in: path|
+
+<a id="tocSdeleteoryaccesscontrolpolicycreated">DeleteOryAccessControlPolicyCreated</a>
+#### DeleteOryAccessControlPolicyCreated
+
+<a id="schemadeleteoryaccesscontrolpolicycreated"></a>
+
+```json
+{}
+
+```
+
+*DeleteOryAccessControlPolicyCreated DeleteOryAccessControlPolicyCreated DeleteOryAccessControlPolicyCreated DeleteOryAccessControlPolicyCreated handles this case with default header values.*
+
+#### Properties
+
+*None*
+
+<a id="tocSdeleteoryaccesscontrolpolicyinternalservererror">DeleteOryAccessControlPolicyInternalServerError</a>
+#### DeleteOryAccessControlPolicyInternalServerError
+
+<a id="schemadeleteoryaccesscontrolpolicyinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*DeleteOryAccessControlPolicyInternalServerError handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[DeleteOryAccessControlPolicyInternalServerErrorBody](#schemadeleteoryaccesscontrolpolicyinternalservererrorbody)|false|none|DeleteOryAccessControlPolicyInternalServerErrorBody delete ory access control policy internal server error body|
+
+<a id="tocSdeleteoryaccesscontrolpolicyinternalservererrorbody">DeleteOryAccessControlPolicyInternalServerErrorBody</a>
+#### DeleteOryAccessControlPolicyInternalServerErrorBody
+
+<a id="schemadeleteoryaccesscontrolpolicyinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*DeleteOryAccessControlPolicyInternalServerErrorBody delete ory access control policy internal server error body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSdeleteoryaccesscontrolpolicynocontent">DeleteOryAccessControlPolicyNoContent</a>
+#### DeleteOryAccessControlPolicyNoContent
+
+<a id="schemadeleteoryaccesscontrolpolicynocontent"></a>
+
+```json
+{}
+
+```
+
+*DeleteOryAccessControlPolicyNoContent handles this case with default header values.*
+
+#### Properties
+
+*None*
+
+<a id="tocSdeleteoryaccesscontrolpolicyreader">DeleteOryAccessControlPolicyReader</a>
+#### DeleteOryAccessControlPolicyReader
+
+<a id="schemadeleteoryaccesscontrolpolicyreader"></a>
+
+```json
+{}
+
+```
+
+*DeleteOryAccessControlPolicyReader is a Reader for the DeleteOryAccessControlPolicy structure.*
+
+#### Properties
+
+*None*
+
+<a id="tocSdeleteoryaccesscontrolpolicyrole">DeleteOryAccessControlPolicyRole</a>
+#### DeleteOryAccessControlPolicyRole
+
+<a id="schemadeleteoryaccesscontrolpolicyrole"></a>
+
+```json
+{
+  "flavor": "string",
+  "id": "string"
+}
+
+```
+
+*DeleteOryAccessControlPolicyRole delete ory access control policy role*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
+|id|string|true|none|The ID of the ORY Access Control Policy Role. in: path|
+
+<a id="tocSdeleteoryaccesscontrolpolicyrolecreated">DeleteOryAccessControlPolicyRoleCreated</a>
+#### DeleteOryAccessControlPolicyRoleCreated
+
+<a id="schemadeleteoryaccesscontrolpolicyrolecreated"></a>
+
+```json
+{}
+
+```
+
+*DeleteOryAccessControlPolicyRoleCreated DeleteOryAccessControlPolicyRoleCreated DeleteOryAccessControlPolicyRoleCreated DeleteOryAccessControlPolicyRoleCreated handles this case with default header values.*
+
+#### Properties
+
+*None*
+
+<a id="tocSdeleteoryaccesscontrolpolicyroleinternalservererror">DeleteOryAccessControlPolicyRoleInternalServerError</a>
+#### DeleteOryAccessControlPolicyRoleInternalServerError
+
+<a id="schemadeleteoryaccesscontrolpolicyroleinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*DeleteOryAccessControlPolicyRoleInternalServerError handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[DeleteOryAccessControlPolicyRoleInternalServerErrorBody](#schemadeleteoryaccesscontrolpolicyroleinternalservererrorbody)|false|none|DeleteOryAccessControlPolicyRoleInternalServerErrorBody delete ory access control policy role internal server error body|
+
+<a id="tocSdeleteoryaccesscontrolpolicyroleinternalservererrorbody">DeleteOryAccessControlPolicyRoleInternalServerErrorBody</a>
+#### DeleteOryAccessControlPolicyRoleInternalServerErrorBody
+
+<a id="schemadeleteoryaccesscontrolpolicyroleinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*DeleteOryAccessControlPolicyRoleInternalServerErrorBody delete ory access control policy role internal server error body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSdeleteoryaccesscontrolpolicyrolenocontent">DeleteOryAccessControlPolicyRoleNoContent</a>
+#### DeleteOryAccessControlPolicyRoleNoContent
+
+<a id="schemadeleteoryaccesscontrolpolicyrolenocontent"></a>
+
+```json
+{}
+
+```
+
+*DeleteOryAccessControlPolicyRoleNoContent handles this case with default header values.*
+
+#### Properties
+
+*None*
+
+<a id="tocSdeleteoryaccesscontrolpolicyrolereader">DeleteOryAccessControlPolicyRoleReader</a>
+#### DeleteOryAccessControlPolicyRoleReader
+
+<a id="schemadeleteoryaccesscontrolpolicyrolereader"></a>
+
+```json
+{}
+
+```
+
+*DeleteOryAccessControlPolicyRoleReader is a Reader for the DeleteOryAccessControlPolicyRole structure.*
+
+#### Properties
+
+*None*
+
+<a id="tocSdooryaccesscontrolpoliciesallow">DoOryAccessControlPoliciesAllow</a>
+#### DoOryAccessControlPoliciesAllow
+
+<a id="schemadooryaccesscontrolpoliciesallow"></a>
+
+```json
+{
+  "Body": {
+    "action": "string",
+    "context": {
+      "property1": {},
+      "property2": {}
+    },
+    "resource": "string",
+    "subject": "string"
+  },
+  "flavor": "string"
+}
+
+```
+
+*DoOryAccessControlPoliciesAllow do ory access control policies allow*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Body|[Input](#schemainput)|false|none|none|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
+
+<a id="tocSdooryaccesscontrolpoliciesallowforbidden">DoOryAccessControlPoliciesAllowForbidden</a>
+#### DoOryAccessControlPoliciesAllowForbidden
+
+<a id="schemadooryaccesscontrolpoliciesallowforbidden"></a>
+
+```json
+{
+  "Payload": {
+    "allowed": true
+  }
+}
+
+```
+
+*DoOryAccessControlPoliciesAllowForbidden handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[AuthorizationResult](#schemaauthorizationresult)|false|none|none|
+
+<a id="tocSdooryaccesscontrolpoliciesallowinternalservererror">DoOryAccessControlPoliciesAllowInternalServerError</a>
+#### DoOryAccessControlPoliciesAllowInternalServerError
+
+<a id="schemadooryaccesscontrolpoliciesallowinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*DoOryAccessControlPoliciesAllowInternalServerError handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[DoOryAccessControlPoliciesAllowInternalServerErrorBody](#schemadooryaccesscontrolpoliciesallowinternalservererrorbody)|false|none|DoOryAccessControlPoliciesAllowInternalServerErrorBody do ory access control policies allow internal server error body|
+
+<a id="tocSdooryaccesscontrolpoliciesallowinternalservererrorbody">DoOryAccessControlPoliciesAllowInternalServerErrorBody</a>
+#### DoOryAccessControlPoliciesAllowInternalServerErrorBody
+
+<a id="schemadooryaccesscontrolpoliciesallowinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*DoOryAccessControlPoliciesAllowInternalServerErrorBody do ory access control policies allow internal server error body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSdooryaccesscontrolpoliciesallowok">DoOryAccessControlPoliciesAllowOK</a>
+#### DoOryAccessControlPoliciesAllowOK
+
+<a id="schemadooryaccesscontrolpoliciesallowok"></a>
+
+```json
+{
+  "Payload": {
+    "allowed": true
+  }
+}
+
+```
+
+*DoOryAccessControlPoliciesAllowOK handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[AuthorizationResult](#schemaauthorizationresult)|false|none|none|
+
+<a id="tocSdooryaccesscontrolpoliciesallowreader">DoOryAccessControlPoliciesAllowReader</a>
+#### DoOryAccessControlPoliciesAllowReader
+
+<a id="schemadooryaccesscontrolpoliciesallowreader"></a>
+
+```json
+{}
+
+```
+
+*DoOryAccessControlPoliciesAllowReader is a Reader for the DoOryAccessControlPoliciesAllow structure.*
+
+#### Properties
+
+*None*
+
+<a id="tocSgetoryaccesscontrolpolicy">GetOryAccessControlPolicy</a>
+#### GetOryAccessControlPolicy
+
+<a id="schemagetoryaccesscontrolpolicy"></a>
+
+```json
+{
+  "flavor": "string",
+  "id": "string"
+}
+
+```
+
+*GetOryAccessControlPolicy get ory access control policy*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
+|id|string|true|none|The ID of the ORY Access Control Policy Role.  in: path|
+
+<a id="tocSgetoryaccesscontrolpolicyinternalservererror">GetOryAccessControlPolicyInternalServerError</a>
+#### GetOryAccessControlPolicyInternalServerError
+
+<a id="schemagetoryaccesscontrolpolicyinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*GetOryAccessControlPolicyInternalServerError handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[GetOryAccessControlPolicyInternalServerErrorBody](#schemagetoryaccesscontrolpolicyinternalservererrorbody)|false|none|GetOryAccessControlPolicyInternalServerErrorBody get ory access control policy internal server error body|
+
+<a id="tocSgetoryaccesscontrolpolicyinternalservererrorbody">GetOryAccessControlPolicyInternalServerErrorBody</a>
+#### GetOryAccessControlPolicyInternalServerErrorBody
+
+<a id="schemagetoryaccesscontrolpolicyinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*GetOryAccessControlPolicyInternalServerErrorBody get ory access control policy internal server error body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSgetoryaccesscontrolpolicynotfound">GetOryAccessControlPolicyNotFound</a>
+#### GetOryAccessControlPolicyNotFound
+
+<a id="schemagetoryaccesscontrolpolicynotfound"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*GetOryAccessControlPolicyNotFound handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[GetOryAccessControlPolicyNotFoundBody](#schemagetoryaccesscontrolpolicynotfoundbody)|false|none|GetOryAccessControlPolicyNotFoundBody get ory access control policy not found body|
+
+<a id="tocSgetoryaccesscontrolpolicynotfoundbody">GetOryAccessControlPolicyNotFoundBody</a>
+#### GetOryAccessControlPolicyNotFoundBody
+
+<a id="schemagetoryaccesscontrolpolicynotfoundbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*GetOryAccessControlPolicyNotFoundBody get ory access control policy not found body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSgetoryaccesscontrolpolicyok">GetOryAccessControlPolicyOK</a>
+#### GetOryAccessControlPolicyOK
+
+<a id="schemagetoryaccesscontrolpolicyok"></a>
+
+```json
+{
+  "Payload": {
+    "actions": [
+      "string"
+    ],
+    "conditions": {
+      "property1": {},
+      "property2": {}
+    },
+    "description": "string",
+    "effect": "string",
+    "id": "string",
+    "resources": [
+      "string"
+    ],
+    "subjects": [
+      "string"
+    ]
+  }
+}
+
+```
+
+*GetOryAccessControlPolicyOK handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)|false|none|none|
+
+<a id="tocSgetoryaccesscontrolpolicyreader">GetOryAccessControlPolicyReader</a>
+#### GetOryAccessControlPolicyReader
+
+<a id="schemagetoryaccesscontrolpolicyreader"></a>
+
+```json
+{}
+
+```
+
+*GetOryAccessControlPolicyReader is a Reader for the GetOryAccessControlPolicy structure.*
+
+#### Properties
+
+*None*
+
+<a id="tocSgetoryaccesscontrolpolicyrole">GetOryAccessControlPolicyRole</a>
+#### GetOryAccessControlPolicyRole
+
+<a id="schemagetoryaccesscontrolpolicyrole"></a>
+
+```json
+{
+  "flavor": "string",
+  "id": "string"
+}
+
+```
+
+*GetOryAccessControlPolicyRole get ory access control policy role*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
+|id|string|true|none|The ID of the ORY Access Control Policy Role.  in: path|
+
+<a id="tocSgetoryaccesscontrolpolicyroleinternalservererror">GetOryAccessControlPolicyRoleInternalServerError</a>
+#### GetOryAccessControlPolicyRoleInternalServerError
+
+<a id="schemagetoryaccesscontrolpolicyroleinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*GetOryAccessControlPolicyRoleInternalServerError handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[GetOryAccessControlPolicyRoleInternalServerErrorBody](#schemagetoryaccesscontrolpolicyroleinternalservererrorbody)|false|none|GetOryAccessControlPolicyRoleInternalServerErrorBody get ory access control policy role internal server error body|
+
+<a id="tocSgetoryaccesscontrolpolicyroleinternalservererrorbody">GetOryAccessControlPolicyRoleInternalServerErrorBody</a>
+#### GetOryAccessControlPolicyRoleInternalServerErrorBody
+
+<a id="schemagetoryaccesscontrolpolicyroleinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*GetOryAccessControlPolicyRoleInternalServerErrorBody get ory access control policy role internal server error body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSgetoryaccesscontrolpolicyrolenotfound">GetOryAccessControlPolicyRoleNotFound</a>
+#### GetOryAccessControlPolicyRoleNotFound
+
+<a id="schemagetoryaccesscontrolpolicyrolenotfound"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*GetOryAccessControlPolicyRoleNotFound handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[GetOryAccessControlPolicyRoleNotFoundBody](#schemagetoryaccesscontrolpolicyrolenotfoundbody)|false|none|GetOryAccessControlPolicyRoleNotFoundBody get ory access control policy role not found body|
+
+<a id="tocSgetoryaccesscontrolpolicyrolenotfoundbody">GetOryAccessControlPolicyRoleNotFoundBody</a>
+#### GetOryAccessControlPolicyRoleNotFoundBody
+
+<a id="schemagetoryaccesscontrolpolicyrolenotfoundbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*GetOryAccessControlPolicyRoleNotFoundBody get ory access control policy role not found body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSgetoryaccesscontrolpolicyroleok">GetOryAccessControlPolicyRoleOK</a>
+#### GetOryAccessControlPolicyRoleOK
+
+<a id="schemagetoryaccesscontrolpolicyroleok"></a>
+
+```json
+{
+  "Payload": {
+    "id": "string",
+    "members": [
+      "string"
+    ]
+  }
+}
+
+```
+
+*GetOryAccessControlPolicyRoleOK handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[OryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)|false|none|OryAccessControlPolicyRole oryAccessControlPolicyRole represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role.|
+
+<a id="tocSgetoryaccesscontrolpolicyrolereader">GetOryAccessControlPolicyRoleReader</a>
+#### GetOryAccessControlPolicyRoleReader
+
+<a id="schemagetoryaccesscontrolpolicyrolereader"></a>
+
+```json
+{}
+
+```
+
+*GetOryAccessControlPolicyRoleReader is a Reader for the GetOryAccessControlPolicyRole structure.*
+
+#### Properties
+
+*None*
+
+<a id="tocSinput">Input</a>
+#### Input
+
+<a id="schemainput"></a>
+
+```json
+{
+  "action": "string",
+  "context": {
+    "property1": {},
+    "property2": {}
+  },
+  "resource": "string",
+  "subject": "string"
+}
+
+```
+
+*Input Input Input for checking if a request is allowed or not.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|action|string|false|none|Action is the action that is requested on the resource.|
+|context|object|false|none|Context is the request's environmental context.|
+|» **additionalProperties**|object|false|none|none|
+|resource|string|false|none|Resource is the resource that access is requested to.|
+|subject|string|false|none|Subject is the subject that is requesting access.|
+
+<a id="tocSisinstancealiveinternalservererror">IsInstanceAliveInternalServerError</a>
+#### IsInstanceAliveInternalServerError
+
+<a id="schemaisinstancealiveinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*IsInstanceAliveInternalServerError handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[IsInstanceAliveInternalServerErrorBody](#schemaisinstancealiveinternalservererrorbody)|false|none|IsInstanceAliveInternalServerErrorBody is instance alive internal server error body|
+
+<a id="tocSisinstancealiveinternalservererrorbody">IsInstanceAliveInternalServerErrorBody</a>
+#### IsInstanceAliveInternalServerErrorBody
+
+<a id="schemaisinstancealiveinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*IsInstanceAliveInternalServerErrorBody is instance alive internal server error body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSisinstancealiveok">IsInstanceAliveOK</a>
+#### IsInstanceAliveOK
+
+<a id="schemaisinstancealiveok"></a>
+
+```json
+{
+  "Payload": {
+    "status": "string"
+  }
+}
+
+```
+
+*IsInstanceAliveOK handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[swaggerHealthStatus](#schemaswaggerhealthstatus)|false|none|SwaggerHealthStatus swagger health status|
+
+<a id="tocSisinstancealivereader">IsInstanceAliveReader</a>
+#### IsInstanceAliveReader
+
+<a id="schemaisinstancealivereader"></a>
+
+```json
+{}
+
+```
+
+*IsInstanceAliveReader is a Reader for the IsInstanceAlive structure.*
+
+#### Properties
+
+*None*
+
+<a id="tocSlistoryaccesscontrolpolicies">ListOryAccessControlPolicies</a>
+#### ListOryAccessControlPolicies
+
+<a id="schemalistoryaccesscontrolpolicies"></a>
+
+```json
+{
+  "flavor": "string",
+  "limit": 0,
+  "offset": 0
+}
+
+```
+
+*ListOryAccessControlPolicies list ory access control policies*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact"  in: path|
+|limit|integer(int64)|false|none|The maximum amount of policies returned.  in: query|
+|offset|integer(int64)|false|none|The offset from where to start looking.  in: query|
+
+<a id="tocSlistoryaccesscontrolpoliciesinternalservererror">ListOryAccessControlPoliciesInternalServerError</a>
+#### ListOryAccessControlPoliciesInternalServerError
+
+<a id="schemalistoryaccesscontrolpoliciesinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*ListOryAccessControlPoliciesInternalServerError handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[ListOryAccessControlPoliciesInternalServerErrorBody](#schemalistoryaccesscontrolpoliciesinternalservererrorbody)|false|none|ListOryAccessControlPoliciesInternalServerErrorBody list ory access control policies internal server error body|
+
+<a id="tocSlistoryaccesscontrolpoliciesinternalservererrorbody">ListOryAccessControlPoliciesInternalServerErrorBody</a>
+#### ListOryAccessControlPoliciesInternalServerErrorBody
+
+<a id="schemalistoryaccesscontrolpoliciesinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*ListOryAccessControlPoliciesInternalServerErrorBody list ory access control policies internal server error body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSlistoryaccesscontrolpoliciesok">ListOryAccessControlPoliciesOK</a>
+#### ListOryAccessControlPoliciesOK
+
+<a id="schemalistoryaccesscontrolpoliciesok"></a>
+
+```json
+{
+  "Payload": [
+    {
+      "actions": [
+        "string"
+      ],
+      "conditions": {
+        "property1": {},
+        "property2": {}
+      },
+      "description": "string",
+      "effect": "string",
+      "id": "string",
+      "resources": [
+        "string"
+      ],
+      "subjects": [
+        "string"
+      ]
+    }
+  ]
+}
+
+```
+
+*ListOryAccessControlPoliciesOK handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)]|false|none|payload|
+
+<a id="tocSlistoryaccesscontrolpoliciesreader">ListOryAccessControlPoliciesReader</a>
+#### ListOryAccessControlPoliciesReader
+
+<a id="schemalistoryaccesscontrolpoliciesreader"></a>
+
+```json
+{}
+
+```
+
+*ListOryAccessControlPoliciesReader is a Reader for the ListOryAccessControlPolicies structure.*
+
+#### Properties
+
+*None*
+
+<a id="tocSlistoryaccesscontrolpolicyroles">ListOryAccessControlPolicyRoles</a>
+#### ListOryAccessControlPolicyRoles
+
+<a id="schemalistoryaccesscontrolpolicyroles"></a>
+
+```json
+{
+  "flavor": "string",
+  "limit": 0,
+  "offset": 0
+}
+
+```
+
+*ListOryAccessControlPolicyRoles list ory access control policy roles*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact"  in: path|
+|limit|integer(int64)|false|none|The maximum amount of policies returned.  in: query|
+|offset|integer(int64)|false|none|The offset from where to start looking.  in: query|
+
+<a id="tocSlistoryaccesscontrolpolicyrolesinternalservererror">ListOryAccessControlPolicyRolesInternalServerError</a>
+#### ListOryAccessControlPolicyRolesInternalServerError
+
+<a id="schemalistoryaccesscontrolpolicyrolesinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*ListOryAccessControlPolicyRolesInternalServerError handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[ListOryAccessControlPolicyRolesInternalServerErrorBody](#schemalistoryaccesscontrolpolicyrolesinternalservererrorbody)|false|none|ListOryAccessControlPolicyRolesInternalServerErrorBody list ory access control policy roles internal server error body|
+
+<a id="tocSlistoryaccesscontrolpolicyrolesinternalservererrorbody">ListOryAccessControlPolicyRolesInternalServerErrorBody</a>
+#### ListOryAccessControlPolicyRolesInternalServerErrorBody
+
+<a id="schemalistoryaccesscontrolpolicyrolesinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*ListOryAccessControlPolicyRolesInternalServerErrorBody list ory access control policy roles internal server error body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSlistoryaccesscontrolpolicyrolesok">ListOryAccessControlPolicyRolesOK</a>
+#### ListOryAccessControlPolicyRolesOK
+
+<a id="schemalistoryaccesscontrolpolicyrolesok"></a>
+
+```json
+{
+  "Payload": [
+    {
+      "id": "string",
+      "members": [
+        "string"
+      ]
+    }
+  ]
+}
+
+```
+
+*ListOryAccessControlPolicyRolesOK handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[[OryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)]|false|none|payload|
+
+<a id="tocSlistoryaccesscontrolpolicyrolesreader">ListOryAccessControlPolicyRolesReader</a>
+#### ListOryAccessControlPolicyRolesReader
+
+<a id="schemalistoryaccesscontrolpolicyrolesreader"></a>
+
+```json
+{}
+
+```
+
+*ListOryAccessControlPolicyRolesReader is a Reader for the ListOryAccessControlPolicyRoles structure.*
+
+#### Properties
+
+*None*
+
+<a id="tocSoryaccesscontrolpolicies">OryAccessControlPolicies</a>
+#### OryAccessControlPolicies
+
+<a id="schemaoryaccesscontrolpolicies"></a>
+
+```json
+{
+  "Body": [
+    {
+      "actions": [
+        "string"
+      ],
+      "conditions": {
+        "property1": {},
+        "property2": {}
+      },
+      "description": "string",
+      "effect": "string",
+      "id": "string",
+      "resources": [
+        "string"
+      ],
+      "subjects": [
+        "string"
+      ]
+    }
+  ]
+}
+
+```
+
+*OryAccessControlPolicies Policies is an array of policies.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Body|[[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)]|false|none|The request body.  in: body type: array|
+
+<a id="tocSoryaccesscontrolpolicyrole">OryAccessControlPolicyRole</a>
+#### OryAccessControlPolicyRole
+
+<a id="schemaoryaccesscontrolpolicyrole"></a>
+
+```json
+{
+  "id": "string",
+  "members": [
+    "string"
+  ]
+}
+
+```
+
+*OryAccessControlPolicyRole oryAccessControlPolicyRole represents a group of users that share the same role. A role could be an administrator, a moderator, a regular
+user or some other sort of role.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|string|false|none|ID is the role's unique id.|
+|members|[string]|false|none|Members is who belongs to the role.|
 
 <a id="tocSpolicies">Policies</a>
 #### Policies
@@ -3015,12 +4496,10 @@ p JSON.parse(result)
     "actions": [
       "string"
     ],
-    "conditions": [
-      {
-        "property1": {},
-        "property2": {}
-      }
-    ],
+    "conditions": {
+      "property1": {},
+      "property2": {}
+    },
     "description": "string",
     "effect": "string",
     "id": "string",
@@ -3035,13 +4514,525 @@ p JSON.parse(result)
 
 ```
 
-*Policies is an array of policies.*
+*Policies Policies Policies Policies is an array of policies.*
 
 #### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|Policies is an array of policies.|[[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)]|false|none|none|
+|Policies Policies Policies Policies is an array of policies.|[[Policy](#schemapolicy)]|false|none|none|
+
+<a id="tocSpolicy">Policy</a>
+#### Policy
+
+<a id="schemapolicy"></a>
+
+```json
+{
+  "actions": [
+    "string"
+  ],
+  "conditions": {
+    "property1": {},
+    "property2": {}
+  },
+  "description": "string",
+  "effect": "string",
+  "id": "string",
+  "resources": [
+    "string"
+  ],
+  "subjects": [
+    "string"
+  ]
+}
+
+```
+
+*Policy Policy Policy Policy specifies an ORY Access Policy document.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|actions|[string]|false|none|Actions is an array representing all the actions this ORY Access Policy applies to.|
+|conditions|object|false|none|Conditions represents a keyed object of conditions under which this ORY Access Policy is active.|
+|» **additionalProperties**|object|false|none|none|
+|description|string|false|none|Description is an optional, human-readable description.|
+|effect|string|false|none|Effect is the effect of this ORY Access Policy. It can be "allow" or "deny".|
+|id|string|false|none|ID is the unique identifier of the ORY Access Policy. It is used to query, update, and remove the ORY Access Policy.|
+|resources|[string]|false|none|Resources is an array representing all the resources this ORY Access Policy applies to.|
+|subjects|[string]|false|none|Subjects is an array representing all the subjects this ORY Access Policy applies to.|
+
+<a id="tocSremoveoryaccesscontrolpolicyrolemembers">RemoveOryAccessControlPolicyRoleMembers</a>
+#### RemoveOryAccessControlPolicyRoleMembers
+
+<a id="schemaremoveoryaccesscontrolpolicyrolemembers"></a>
+
+```json
+{
+  "flavor": "string",
+  "id": "string",
+  "member": "string"
+}
+
+```
+
+*RemoveOryAccessControlPolicyRoleMembers remove ory access control policy role members*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
+|id|string|true|none|The ID of the ORY Access Control Policy Role.  in: path|
+|member|string|true|none|The member to be removed.  in: path|
+
+<a id="tocSremoveoryaccesscontrolpolicyrolememberscreated">RemoveOryAccessControlPolicyRoleMembersCreated</a>
+#### RemoveOryAccessControlPolicyRoleMembersCreated
+
+<a id="schemaremoveoryaccesscontrolpolicyrolememberscreated"></a>
+
+```json
+{}
+
+```
+
+*RemoveOryAccessControlPolicyRoleMembersCreated handles this case with default header values.*
+
+#### Properties
+
+*None*
+
+<a id="tocSremoveoryaccesscontrolpolicyrolemembersinternalservererror">RemoveOryAccessControlPolicyRoleMembersInternalServerError</a>
+#### RemoveOryAccessControlPolicyRoleMembersInternalServerError
+
+<a id="schemaremoveoryaccesscontrolpolicyrolemembersinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*RemoveOryAccessControlPolicyRoleMembersInternalServerError handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[RemoveOryAccessControlPolicyRoleMembersInternalServerErrorBody](#schemaremoveoryaccesscontrolpolicyrolemembersinternalservererrorbody)|false|none|RemoveOryAccessControlPolicyRoleMembersInternalServerErrorBody remove ory access control policy role members internal server error body|
+
+<a id="tocSremoveoryaccesscontrolpolicyrolemembersinternalservererrorbody">RemoveOryAccessControlPolicyRoleMembersInternalServerErrorBody</a>
+#### RemoveOryAccessControlPolicyRoleMembersInternalServerErrorBody
+
+<a id="schemaremoveoryaccesscontrolpolicyrolemembersinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*RemoveOryAccessControlPolicyRoleMembersInternalServerErrorBody remove ory access control policy role members internal server error body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSremoveoryaccesscontrolpolicyrolemembersreader">RemoveOryAccessControlPolicyRoleMembersReader</a>
+#### RemoveOryAccessControlPolicyRoleMembersReader
+
+<a id="schemaremoveoryaccesscontrolpolicyrolemembersreader"></a>
+
+```json
+{}
+
+```
+
+*RemoveOryAccessControlPolicyRoleMembersReader is a Reader for the RemoveOryAccessControlPolicyRoleMembers structure.*
+
+#### Properties
+
+*None*
+
+<a id="tocSrole">Role</a>
+#### Role
+
+<a id="schemarole"></a>
+
+```json
+{
+  "id": "string",
+  "members": [
+    "string"
+  ]
+}
+
+```
+
+*Role Role Role Role Role Role represents a group of users that share the same role. A role could be an administrator, a moderator, a regular
+user or some other sort of role.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|string|false|none|ID is the role's unique id.|
+|members|[string]|false|none|Members is who belongs to the role.|
+
+<a id="tocSroles">Roles</a>
+#### Roles
+
+<a id="schemaroles"></a>
+
+```json
+[
+  {
+    "id": "string",
+    "members": [
+      "string"
+    ]
+  }
+]
+
+```
+
+*Roles Roles Roles A list of roles.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Roles Roles Roles A list of roles.|[[Role](#schemarole)]|false|none|[Role Role Role Role Role Role represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role.]|
+
+<a id="tocSupsertoryaccesscontrolpolicy">UpsertOryAccessControlPolicy</a>
+#### UpsertOryAccessControlPolicy
+
+<a id="schemaupsertoryaccesscontrolpolicy"></a>
+
+```json
+{
+  "Body": {
+    "actions": [
+      "string"
+    ],
+    "conditions": {
+      "property1": {},
+      "property2": {}
+    },
+    "description": "string",
+    "effect": "string",
+    "id": "string",
+    "resources": [
+      "string"
+    ],
+    "subjects": [
+      "string"
+    ]
+  },
+  "flavor": "string"
+}
+
+```
+
+*UpsertOryAccessControlPolicy upsert ory access control policy*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Body|[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)|false|none|none|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
+
+<a id="tocSupsertoryaccesscontrolpolicyinternalservererror">UpsertOryAccessControlPolicyInternalServerError</a>
+#### UpsertOryAccessControlPolicyInternalServerError
+
+<a id="schemaupsertoryaccesscontrolpolicyinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*UpsertOryAccessControlPolicyInternalServerError handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[UpsertOryAccessControlPolicyInternalServerErrorBody](#schemaupsertoryaccesscontrolpolicyinternalservererrorbody)|false|none|UpsertOryAccessControlPolicyInternalServerErrorBody upsert ory access control policy internal server error body|
+
+<a id="tocSupsertoryaccesscontrolpolicyinternalservererrorbody">UpsertOryAccessControlPolicyInternalServerErrorBody</a>
+#### UpsertOryAccessControlPolicyInternalServerErrorBody
+
+<a id="schemaupsertoryaccesscontrolpolicyinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*UpsertOryAccessControlPolicyInternalServerErrorBody upsert ory access control policy internal server error body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSupsertoryaccesscontrolpolicyok">UpsertOryAccessControlPolicyOK</a>
+#### UpsertOryAccessControlPolicyOK
+
+<a id="schemaupsertoryaccesscontrolpolicyok"></a>
+
+```json
+{
+  "Payload": {
+    "actions": [
+      "string"
+    ],
+    "conditions": {
+      "property1": {},
+      "property2": {}
+    },
+    "description": "string",
+    "effect": "string",
+    "id": "string",
+    "resources": [
+      "string"
+    ],
+    "subjects": [
+      "string"
+    ]
+  }
+}
+
+```
+
+*UpsertOryAccessControlPolicyOK handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)|false|none|none|
+
+<a id="tocSupsertoryaccesscontrolpolicyreader">UpsertOryAccessControlPolicyReader</a>
+#### UpsertOryAccessControlPolicyReader
+
+<a id="schemaupsertoryaccesscontrolpolicyreader"></a>
+
+```json
+{}
+
+```
+
+*UpsertOryAccessControlPolicyReader is a Reader for the UpsertOryAccessControlPolicy structure.*
+
+#### Properties
+
+*None*
+
+<a id="tocSupsertoryaccesscontrolpolicyrole">UpsertOryAccessControlPolicyRole</a>
+#### UpsertOryAccessControlPolicyRole
+
+<a id="schemaupsertoryaccesscontrolpolicyrole"></a>
+
+```json
+{
+  "Body": {
+    "id": "string",
+    "members": [
+      "string"
+    ]
+  },
+  "flavor": "string"
+}
+
+```
+
+*UpsertOryAccessControlPolicyRole upsert ory access control policy role*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Body|[OryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)|false|none|OryAccessControlPolicyRole oryAccessControlPolicyRole represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role.|
+|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
+
+<a id="tocSupsertoryaccesscontrolpolicyroleinternalservererror">UpsertOryAccessControlPolicyRoleInternalServerError</a>
+#### UpsertOryAccessControlPolicyRoleInternalServerError
+
+<a id="schemaupsertoryaccesscontrolpolicyroleinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+
+```
+
+*UpsertOryAccessControlPolicyRoleInternalServerError handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[UpsertOryAccessControlPolicyRoleInternalServerErrorBody](#schemaupsertoryaccesscontrolpolicyroleinternalservererrorbody)|false|none|UpsertOryAccessControlPolicyRoleInternalServerErrorBody upsert ory access control policy role internal server error body|
+
+<a id="tocSupsertoryaccesscontrolpolicyroleinternalservererrorbody">UpsertOryAccessControlPolicyRoleInternalServerErrorBody</a>
+#### UpsertOryAccessControlPolicyRoleInternalServerErrorBody
+
+<a id="schemaupsertoryaccesscontrolpolicyroleinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+
+```
+
+*UpsertOryAccessControlPolicyRoleInternalServerErrorBody upsert ory access control policy role internal server error body*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer(int64)|false|none|code|
+|details|[object]|false|none|details|
+|» **additionalProperties**|object|false|none|none|
+|message|string|false|none|message|
+|reason|string|false|none|reason|
+|request|string|false|none|request|
+|status|string|false|none|status|
+
+<a id="tocSupsertoryaccesscontrolpolicyroleok">UpsertOryAccessControlPolicyRoleOK</a>
+#### UpsertOryAccessControlPolicyRoleOK
+
+<a id="schemaupsertoryaccesscontrolpolicyroleok"></a>
+
+```json
+{
+  "Payload": {
+    "id": "string",
+    "members": [
+      "string"
+    ]
+  }
+}
+
+```
+
+*UpsertOryAccessControlPolicyRoleOK handles this case with default header values.*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|Payload|[OryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)|false|none|OryAccessControlPolicyRole oryAccessControlPolicyRole represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role.|
+
+<a id="tocSupsertoryaccesscontrolpolicyrolereader">UpsertOryAccessControlPolicyRoleReader</a>
+#### UpsertOryAccessControlPolicyRoleReader
+
+<a id="schemaupsertoryaccesscontrolpolicyrolereader"></a>
+
+```json
+{}
+
+```
+
+*UpsertOryAccessControlPolicyRoleReader is a Reader for the UpsertOryAccessControlPolicyRole structure.*
+
+#### Properties
+
+*None*
 
 <a id="tocSaddoryaccesscontrolpolicyrolemembers">addOryAccessControlPolicyRoleMembers</a>
 #### addOryAccessControlPolicyRoleMembers
@@ -3107,7 +5098,7 @@ p JSON.parse(result)
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|allowed|boolean|false|none|Allowed is true if the request should be allowed and false otherwise.|
+|allowed|boolean|true|none|Allowed is true if the request should be allowed and false otherwise.|
 
 <a id="tocSdeleteoryaccesscontrolpolicy">deleteOryAccessControlPolicy</a>
 #### deleteOryAccessControlPolicy
@@ -3313,12 +5304,10 @@ p JSON.parse(result)
       "actions": [
         "string"
       ],
-      "conditions": [
-        {
-          "property1": {},
-          "property2": {}
-        }
-      ],
+      "conditions": {
+        "property1": {},
+        "property2": {}
+      },
       "description": "string",
       "effect": "string",
       "id": "string",
@@ -3340,7 +5329,7 @@ p JSON.parse(result)
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|Body|[[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)]|false|none|in: body|
+|Body|[[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)]|false|none|The request body.  in: body type: array|
 
 <a id="tocSoryaccesscontrolpolicy">oryAccessControlPolicy</a>
 #### oryAccessControlPolicy
@@ -3352,12 +5341,10 @@ p JSON.parse(result)
   "actions": [
     "string"
   ],
-  "conditions": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
+  "conditions": {
+    "property1": {},
+    "property2": {}
+  },
   "description": "string",
   "effect": "string",
   "id": "string",
@@ -3371,14 +5358,14 @@ p JSON.parse(result)
 
 ```
 
-*Policy specifies an ORY Access Policy document.*
+*oryAccessControlPolicy specifies an ORY Access Policy document.*
 
 #### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |actions|[string]|false|none|Actions is an array representing all the actions this ORY Access Policy applies to.|
-|conditions|[object]|false|none|Conditions represents an array of conditions under which this ORY Access Policy is active.|
+|conditions|object|false|none|Conditions represents a keyed object of conditions under which this ORY Access Policy is active.|
 |» **additionalProperties**|object|false|none|none|
 |description|string|false|none|Description is an optional, human-readable description.|
 |effect|string|false|none|Effect is the effect of this ORY Access Policy. It can be "allow" or "deny".|
@@ -3403,6 +5390,8 @@ p JSON.parse(result)
 }
 
 ```
+
+*Input for checking if a request is allowed or not.*
 
 #### Properties
 
@@ -3429,7 +5418,7 @@ p JSON.parse(result)
 
 ```
 
-*Role represents a group of users that share the same role. A role could be an administrator, a moderator, a regular
+*oryAccessControlPolicyRole represents a group of users that share the same role. A role could be an administrator, a moderator, a regular
 user or some other sort of role.*
 
 #### Properties
@@ -3445,25 +5434,26 @@ user or some other sort of role.*
 <a id="schemaoryaccesscontrolpolicyroles"></a>
 
 ```json
-[
-  {
-    "id": "string",
-    "members": [
-      "string"
-    ]
-  }
-]
+{
+  "Body": [
+    {
+      "id": "string",
+      "members": [
+        "string"
+      ]
+    }
+  ]
+}
 
 ```
 
-*A list of roles.*
+*Roles is an array of roles.*
 
 #### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|A list of roles.|[[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)]|false|none|[Role represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role.]|
-|Body|[[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)]|false|none|in: body|
+|Body|[[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)]|false|none|The request body.  in: body type: array|
 
 <a id="tocSremoveoryaccesscontrolpolicyrolemembers">removeOryAccessControlPolicyRoleMembers</a>
 #### removeOryAccessControlPolicyRoleMembers
@@ -3472,13 +5462,9 @@ user or some other sort of role.*
 
 ```json
 {
-  "Body": {
-    "members": [
-      "string"
-    ]
-  },
   "flavor": "string",
-  "id": "string"
+  "id": "string",
+  "member": "string"
 }
 
 ```
@@ -3487,29 +5473,73 @@ user or some other sort of role.*
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|Body|[removeOryAccessControlPolicyRoleMembersBody](#schemaremoveoryaccesscontrolpolicyrolemembersbody)|false|none|none|
 |flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
 |id|string|true|none|The ID of the ORY Access Control Policy Role.  in: path|
+|member|string|true|none|The member to be removed.  in: path|
 
-<a id="tocSremoveoryaccesscontrolpolicyrolemembersbody">removeOryAccessControlPolicyRoleMembersBody</a>
-#### removeOryAccessControlPolicyRoleMembersBody
+<a id="tocSswaggerhealthstatus">swaggerHealthStatus</a>
+#### swaggerHealthStatus
 
-<a id="schemaremoveoryaccesscontrolpolicyrolemembersbody"></a>
+<a id="schemaswaggerhealthstatus"></a>
 
 ```json
 {
-  "members": [
-    "string"
-  ]
+  "status": "string"
 }
 
 ```
+
+*SwaggerHealthStatus swagger health status*
 
 #### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|members|[string]|false|none|The members to be removed.|
+|status|string|false|none|Status always contains "ok".|
+
+<a id="tocSswaggernotreadystatus">swaggerNotReadyStatus</a>
+#### swaggerNotReadyStatus
+
+<a id="schemaswaggernotreadystatus"></a>
+
+```json
+{
+  "errors": {
+    "property1": "string",
+    "property2": "string"
+  }
+}
+
+```
+
+*SwaggerNotReadyStatus swagger not ready status*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|errors|object|false|none|Errors contains a list of errors that caused the not ready status.|
+|» **additionalProperties**|string|false|none|none|
+
+<a id="tocSswaggerversion">swaggerVersion</a>
+#### swaggerVersion
+
+<a id="schemaswaggerversion"></a>
+
+```json
+{
+  "version": "string"
+}
+
+```
+
+*SwaggerVersion swagger version*
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|version|string|false|none|Version is the service's version.|
 
 <a id="tocSupsertoryaccesscontrolpolicy">upsertOryAccessControlPolicy</a>
 #### upsertOryAccessControlPolicy
@@ -3522,12 +5552,10 @@ user or some other sort of role.*
     "actions": [
       "string"
     ],
-    "conditions": [
-      {
-        "property1": {},
-        "property2": {}
-      }
-    ],
+    "conditions": {
+      "property1": {},
+      "property2": {}
+    },
     "description": "string",
     "effect": "string",
     "id": "string",
@@ -3572,7 +5600,7 @@ user or some other sort of role.*
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|Body|[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)|false|none|Role represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role.|
+|Body|[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)|false|none|oryAccessControlPolicyRole represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role.|
 |flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
 
 <a id="tocSversion">version</a>
