@@ -30,7 +30,7 @@ $ oathkeeper help
 On linux, you can use `curl | bash` to fetch the latest stable binary using:
 
 ```shell
-$ curl https://raw.githubusercontent.com/ory/ory/master/install.sh | bash -s -- -b .
+$ curl https://raw.githubusercontent.com/ory/oathkeeper/master/install.sh | bash -s -- -b .
 $ ./oathkeeper help
 ```
 

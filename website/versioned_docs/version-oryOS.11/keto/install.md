@@ -31,7 +31,7 @@ $ keto help
 On linux, you can use `curl | bash` to fetch the latest stable binary using:
 
 ```shell
-$ curl https://raw.githubusercontent.com/ory/ory/master/install.sh | bash -s -- -b .
+$ curl https://raw.githubusercontent.com/ory/keto/master/install.sh | bash -s -- -b .
 $ ./keto help
 ```
 
