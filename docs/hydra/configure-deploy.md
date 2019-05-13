@@ -131,7 +131,7 @@ to the end user. The URL receives `error` and `error_description` parameters. If
 Hydra uses the fallback endpoint `/oauth2/fallbacks/error` and displays a default error message. In order to obtain 
 a uniform UI, you might want to include such an endpoint in your login or consent provider.
 
-To confirm that the instance is running properly, [open the health check](https://localhost:9001/health/status). If asked,
+To confirm that the instance is running properly, [open the health check](https://localhost:9001/health/ready). If asked,
 accept the self signed certificate in your browser. You should simply see `ok`.
 
 On start up, ORY Hydra is initializing some values. Let's take a look at the logs:
