@@ -26,13 +26,19 @@
       },
       {
         "type": "subcategory",
-        "label": "Guides",
+        "label": "Core Concepts",
         "ids": [
           "hydra/oauth2",
+          "hydra/configuration"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Guides",
+        "ids": [
           "hydra/configure-deploy",
           "hydra/dependencies-environment",
           "hydra/production",
-          "hydra/configuration",
           "hydra/debugging",
           "hydra/advanced",
           "hydra/integration"
@@ -64,11 +70,22 @@
       "oathkeeper/install",
       {
         "type": "subcategory",
-        "label": "Guides",
+        "label": "Core Concepts",
         "ids": [
           "oathkeeper/api-access-rules",
-          "oathkeeper/configure-deploy",
-          "oathkeeper/control-flow"
+          "oathkeeper/pipeline/authn",
+          "oathkeeper/pipeline/authz",
+          "oathkeeper/pipeline/mutator",
+          "oathkeeper/proxy",
+          "oathkeeper/judge"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Guides",
+        "ids": [
+          "oathkeeper/configuration",
+          "oathkeeper/configure-deploy"
         ]
       },
       {
