@@ -20,9 +20,9 @@ function Versions(props) {
   const latestVersion = versions[0];
   const repoUrl = `https://github.com/${siteConfig.organizationName}/${
     siteConfig.projectName
-    }`;
+  }`;
   // const language = 'en'
-  const language = ''
+  const language = '';
   return (
     <div className="docMainWrapper wrapper">
       <Container className="mainContainer versionsContainer">
@@ -33,71 +33,66 @@ function Versions(props) {
               <p>
                 Software releases and versions follow the {}
                 <a
-                  href={`${siteConfig.baseUrl}docs/${
-                    language
-                    }ecosystem/versioning`}>
+                  href={`${
+                    siteConfig.baseUrl
+                  }docs/${language}ecosystem/versioning`}
+                >
                   ORY Versioning Framework
-                </a>. Please read it now if you have not already, it will save you a lot of time.
+                </a>
+                . Please read it now if you have not already, it will save you a
+                lot of time.
               </p>
             </blockquote>
-
           </header>
           <h3 id="latest">Current version (Stable)</h3>
           <p>Latest version.</p>
           <table className="versions">
             <tbody>
-            <tr>
-              <th>{latestVersion}</th>
-              <td>
-                <a
-                  href={`${siteConfig.baseUrl}docs/${
-                    language
-                    }index`}>
-                  Documentation
-                </a>
-              </td>
-            </tr>
+              <tr>
+                <th>{latestVersion}</th>
+                <td>
+                  <a href={`${siteConfig.baseUrl}docs/${language}index`}>
+                    Documentation
+                  </a>
+                </td>
+              </tr>
             </tbody>
           </table>
           <h3 id="rc">Latest Version</h3>
           Here you can find the latest documentation and unreleased code.
           <table className="versions">
             <tbody>
-            <tr>
-              <th>master</th>
-              <td>
-                <a
-                  href={`${siteConfig.baseUrl}docs/${
-                    language
-                    }next/index`}>
-                  Documentation
-                </a>
-              </td>
-            </tr>
+              <tr>
+                <th>master</th>
+                <td>
+                  <a href={`${siteConfig.baseUrl}docs/${language}next/index`}>
+                    Documentation
+                  </a>
+                </td>
+              </tr>
             </tbody>
           </table>
           <h3 id="archive">Past Versions</h3>
-          <p>
-            Here you can find documentation for previous versions.
-          </p>
+          <p>Here you can find documentation for previous versions.</p>
           <table className="versions">
             <tbody>
-            {versions.map(
-              version =>
-                version !== latestVersion && (
-                  <tr key={version}>
-                    <th>{version}</th>
-                    <td>
-                      <a
-                        href={`${siteConfig.baseUrl}docs/${
-                          language
-                          }${version}/index`}>
-                        Documentation
-                      </a>
-                    </td>
-                  </tr>
-                ),
-            )}
+              {versions.map(
+                version =>
+                  version !== latestVersion && (
+                    <tr key={version}>
+                      <th>{version}</th>
+                      <td>
+                        <a
+                          href={`${
+                            siteConfig.baseUrl
+                          }docs/${language}${version}/index`}
+                        >
+                          Documentation
+                        </a>
+                      </td>
+                    </tr>
+                  )
+              )}
             </tbody>
           </table>
           <p>

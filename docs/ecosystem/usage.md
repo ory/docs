@@ -3,20 +3,25 @@ id: usage
 title: API Usage
 ---
 
-This chapter contains generally applicable information on API usage. When using Ory services, one can expect a consistent experience when interacting with REST APIs.
+This chapter contains generally applicable information on API usage. When using
+Ory services, one can expect a consistent experience when interacting with REST
+APIs.
 
 ## Pagination
 
-On REST endpoints that are explicitly labeled as such, pagination information is available through the `Link` HTTP header.
+On REST endpoints that are explicitly labeled as such, pagination information is
+available through the `Link` HTTP header.
 
-The `Link` header contains a comma-delimited list of links to the following pages (where applicable):
+The `Link` header contains a comma-delimited list of links to the following
+pages (where applicable):
 
-* First
-* Next
-* Previous (prev)
-* Last
+- First
+- Next
+- Previous (prev)
+- Last
 
-Pages are created based on the values of `limit` and `offset` provided in the querystring, where `limit` is the page size, and `offset` is the current item.
+Pages are created based on the values of `limit` and `offset` provided in the
+querystring, where `limit` is the page size, and `offset` is the current item.
 
 In most scenarios, the `offset` should be a multiple of the `limit`.
 
@@ -27,12 +32,12 @@ Example:
 > Host: localhost:4445
 > User-Agent: curl/7.64.1
 > Accept: */*
-> 
+>
 < HTTP/1.1 200 OK
 < Content-Type: application/json
 < Link: <hydra-admin/clients?limit=5&offset=0>; rel="first",</clients?limit=5&offset=15>; rel="next",</clients?limit=5&offset=5>; rel="prev",</clients?limit=5&offset=20>; rel="last"
 < Date: Mon, 22 Apr 2019 23:34:29 GMT
 < Transfer-Encoding: chunked
-< 
+<
 [...]
 ```

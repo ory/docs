@@ -1,13 +1,13 @@
-const fs = require('fs')
-const file = process.argv[2]
-
+const fs = require('fs');
+const file = process.argv[2];
 
 fs.readFile(file, (err, b) => {
   if (err) {
-    throw err
+    throw err;
   }
 
-  const t = b.toString()
+  const t = b
+    .toString()
     .replace(/^title:(.*)/im, 'title: REST API\nid: api') // improve title, add docusaurus id
     .replace(/^language_tabs:.*\n/im, '') // not supported by docusaurus
     .replace(/^toc_footers.*\n/im, '') // not supported by docusaurus
@@ -28,11 +28,11 @@ fs.readFile(file, (err, b) => {
     // .replace(/^<h3 id="[0-9a-zA-Z0-9\-_.]+-responses">Responses<\/h3>$/gim, '#### Summary',-1)
     // .replace(/^> Example responses/gim, '### Responses',-1)
     // .replace(/^> Body parameter/gim, '### Request body',-1)
-    .replace(/^> ([0-9]+) Response$/gim, '###### $1 response', -1)
+    .replace(/^> ([0-9]+) Response$/gim, '###### $1 response', -1);
 
-  fs.writeFile(file, t, (err) => {
+  fs.writeFile(file, t, err => {
     if (err) {
-      throw err
+      throw err;
     }
   });
 });

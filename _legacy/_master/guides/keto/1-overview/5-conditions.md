@@ -4,19 +4,22 @@
 
 ## Overview
 
-Conditions are defined in policies. Contexts are defined in access control requests. Conditions use contexts and decide
-if a policy is responsible for handling the access request at hand.
+Conditions are defined in policies. Contexts are defined in access control
+requests. Conditions use contexts and decide if a policy is responsible for
+handling the access request at hand.
 
-Conditions are functions returning true or false given a context. Because conditions implement logic,
-they must be programmed. ORY Keto uses conditions defined in [ORY Ladon](https://github.com/ory/ladon/#conditions).
-Adding new condition handlers must be done through creating a pull request in the ORY Ladon repository.
+Conditions are functions returning true or false given a context. Because
+conditions implement logic, they must be programmed. ORY Keto uses conditions
+defined in [ORY Ladon](https://github.com/ory/ladon/#conditions). Adding new
+condition handlers must be done through creating a pull request in the ORY Ladon
+repository.
 
 A condition has always the same JSON format:
 
 ```json
 {
   "subjects": ["..."],
-  "actions" : ["..."],
+  "actions": ["..."],
   "effect": "allow",
   "resources": ["..."],
   "conditions": {
@@ -30,13 +33,13 @@ A condition has always the same JSON format:
 }
 ```
 
-The context in the access request made to ORY Keto's Warden API must match the specified key in the condition
-in order to be evaluated by the condition logic:
+The context in the access request made to ORY Keto's Warden API must match the
+specified key in the condition in order to be evaluated by the condition logic:
 
 ```json
 {
   "subject": "...",
-  "action" : "...",
+  "action": "...",
   "resource": "...",
   "context": {
     "this-key-will-be-matched-with-the-context": { "foo": "bar" }
@@ -46,13 +49,14 @@ in order to be evaluated by the condition logic:
 
 ### CIDR Condition
 
-The CIDR condition matches CIDR IP Ranges. An exemplary policy definition could look as follows.
+The CIDR condition matches CIDR IP Ranges. An exemplary policy definition could
+look as follows.
 
 ```json
 {
   "description": "One policy to rule them all.",
   "subjects": ["users:maria"],
-  "actions" : ["delete", "create", "update"],
+  "actions": ["delete", "create", "update"],
   "effect": "allow",
   "resources": ["resources:articles:<.*>"],
   "conditions": {
@@ -71,7 +75,7 @@ The following access request would be allowed.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "remoteIPAddress": "192.168.0.5"
@@ -79,12 +83,13 @@ The following access request would be allowed.
 }
 ```
 
-The next access request would be denied as the condition is not fulfilled and thus no policy is matched.
+The next access request would be denied as the condition is not fulfilled and
+thus no policy is matched.
 
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "remoteIPAddress": "255.255.0.0"
@@ -92,12 +97,13 @@ The next access request would be denied as the condition is not fulfilled and th
 }
 ```
 
-The next access request would also be denied as the context is not using the key `remoteIPAddress` but instead `someOtherKey`.
+The next access request would also be denied as the context is not using the key
+`remoteIPAddress` but instead `someOtherKey`.
 
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someOtherKey": "192.168.0.5"
@@ -107,13 +113,14 @@ The next access request would also be denied as the context is not using the key
 
 ### String Equal Condition
 
-Checks if the value passed in the access request's context is identical with the string that was given initially.
+Checks if the value passed in the access request's context is identical with the
+string that was given initially.
 
 ```json
 {
   "description": "One policy to rule them all.",
   "subjects": ["users:maria"],
-  "actions" : ["delete", "create", "update"],
+  "actions": ["delete", "create", "update"],
   "effect": "allow",
   "resources": ["resources:articles:<.*>"],
   "conditions": {
@@ -132,7 +139,7 @@ The following access request would be allowed.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someKeyName": "the-value-should-be-this"
@@ -145,7 +152,7 @@ The following access request would be denied.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someKeyName": "this-is-a-different-value"
@@ -155,13 +162,14 @@ The following access request would be denied.
 
 ### String Match Condition
 
-Checks if the value passed in the access request's context matches the regular expression that was given initially.
+Checks if the value passed in the access request's context matches the regular
+expression that was given initially.
 
 ```json
 {
   "description": "One policy to rule them all.",
   "subjects": ["users:maria"],
-  "actions" : ["delete", "create", "update"],
+  "actions": ["delete", "create", "update"],
   "effect": "allow",
   "resources": ["resources:articles:<.*>"],
   "conditions": {
@@ -180,7 +188,7 @@ The following access request would be allowed.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someKeyName": "regex-pattern-here-matches"
@@ -193,7 +201,7 @@ The following access request would be denied.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someKeyName": "regex-pattern-here"
@@ -203,13 +211,14 @@ The following access request would be denied.
 
 ### Subject Condition
 
-Checks if the access request's subject is identical with the string specified in the context.
+Checks if the access request's subject is identical with the string specified in
+the context.
 
 ```json
 {
   "description": "One policy to rule them all.",
   "subjects": ["users:maria"],
-  "actions" : ["delete", "create", "update"],
+  "actions": ["delete", "create", "update"],
   "effect": "allow",
   "resources": ["resources:articles:<.*>"],
   "conditions": {
@@ -226,7 +235,7 @@ The following access request would be allowed.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "owner": "users:maria"
@@ -239,7 +248,7 @@ The following access request would be denied.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "owner": "another-user"
@@ -247,17 +256,19 @@ The following access request would be denied.
 }
 ```
 
-This condition makes more sense when being used with access tokens where the subject is extracted from the token.
+This condition makes more sense when being used with access tokens where the
+subject is extracted from the token.
 
 ### String Pairs Equal Condition
 
-Checks if the value passed in the access request's context contains two-element arrays and that both elements in each pair are equal.
+Checks if the value passed in the access request's context contains two-element
+arrays and that both elements in each pair are equal.
 
 ```json
 {
   "description": "One policy to rule them all.",
   "subjects": ["users:maria"],
-  "actions" : ["delete", "create", "update"],
+  "actions": ["delete", "create", "update"],
   "effect": "allow",
   "resources": ["resources:articles:<.*>"],
   "conditions": {
@@ -274,7 +285,7 @@ The following access request would be allowed.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someKey": [
@@ -290,7 +301,7 @@ The following access request would be denied.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someKey": [

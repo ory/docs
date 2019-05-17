@@ -10,7 +10,8 @@ This article explains how you to integrate ORY Hydra in your system.
 
 ## Overview
 
-A high-level overview of the interaction between a client, ORY Hydra (Authorization Server) and an API looks as follows:
+A high-level overview of the interaction between a client, ORY Hydra
+(Authorization Server) and an API looks as follows:
 
 ![`sequenceDiagram
   participant Client
@@ -22,30 +23,31 @@ A high-level overview of the interaction between a client, ORY Hydra (Authorizat
   API->ORY Hydra: Validates Access Token
   API->>Client: Response`](/images/docs/hydra/basic-oauth2-system.png)
 
-Most of what is explained here can also be seen as real-life examples in the [ory/examples](https://github.com/ory/examples)
-repository!
+Most of what is explained here can also be seen as real-life examples in the
+[ory/examples](https://github.com/ory/examples) repository!
 
 ### Interacting with OAuth 2.0
 
-**Please, do not write your own code to interact with OAuth 2.0**. Use open source & battle-tested libraries instead. Here are some
-examples:
+**Please, do not write your own code to interact with OAuth 2.0**. Use open
+source & battle-tested libraries instead. Here are some examples:
 
-* NodeJS
-  * [passport](http://www.passportjs.org/)
-  * [simple-oauth2](https://github.com/lelylan/simple-oauth2)
-* Golang
-  * [golang/oauth2](https://github.com/golang/oauth2) **recommended*
-* PHP
-  * [oauth2-client](https://github.com/thephpleague/oauth2-client)
-* Java
-  * [Sprint Security OAuth](https://spring.io/projects/spring-security-oauth)
+- NodeJS
+  - [passport](http://www.passportjs.org/)
+  - [simple-oauth2](https://github.com/lelylan/simple-oauth2)
+- Golang
+  - [golang/oauth2](https://github.com/golang/oauth2) \*_recommended_
+- PHP
+  - [oauth2-client](https://github.com/thephpleague/oauth2-client)
+- Java
+  - [Sprint Security OAuth](https://spring.io/projects/spring-security-oauth)
 
 For a full list of client libraries go [here](https://oauth.net/code/).
 
 ### Validating OAuth 2.0 Access Tokens
 
-The best and easiest way to validate OAuth 2.0 Access Tokens is by performing OAuth 2.0 Token Introspection. You can
-do this with the CLI `hydra token introspect <token>`.
+The best and easiest way to validate OAuth 2.0 Access Tokens is by performing
+OAuth 2.0 Token Introspection. You can do this with the CLI
+`hydra token introspect <token>`.
 
 #### NodeJS
 

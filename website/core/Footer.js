@@ -25,7 +25,7 @@ const script = `(function () {
       return false
     });
   });
-})();`
+})();`;
 
 // <link
 //   href="https://fonts.googleapis.com/css?family=Rubik:300,400,500"
@@ -38,7 +38,10 @@ class Footer extends React.Component {
       <footer className="nav-footer" id="footer">
         <section className="copyright">{this.props.config.copyright}</section>
         <div id="codefund" />
-        <script src="https://codefund.io/properties/140/funder.js" async="async" />
+        <script
+          src="https://codefund.io/properties/140/funder.js"
+          async="async"
+        />
         <script dangerouslySetInnerHTML={{ __html: script }} />
       </footer>
     );

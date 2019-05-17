@@ -6,9 +6,10 @@ original_id: installation
 
 <!-- toc -->
 
-You can install ORY Keto by downloading the [binaries](https://github.com/ory/keto/releases), by using
-the precompiled Docker Image available at [Docker Hub](https://hub.docker.com/r/oryd/keto/), or by
-compiling the code yourself.
+You can install ORY Keto by downloading the
+[binaries](https://github.com/ory/keto/releases), by using the precompiled
+Docker Image available at [Docker Hub](https://hub.docker.com/r/oryd/keto/), or
+by compiling the code yourself.
 
 ## Docker Hub
 
@@ -22,12 +23,13 @@ $ docker run --rm -e "DATABASE_URL=memory" -d --name my-keto -p 4466:4466 oryd/k
 
 ## Binaries
 
-If you download the binaries, make sure to add them to your path (e.g. `/usr/bin`). Then, run `keto help`
+If you download the binaries, make sure to add them to your path (e.g.
+`/usr/bin`). Then, run `keto help`
 
 ## From Source
 
-To install ORY Keto from source, you need to have Go 1.10+ installed as well as [go/dep](https://golang.github.io/dep/).
-Then, run:
+To install ORY Keto from source, you need to have Go 1.10+ installed as well as
+[go/dep](https://golang.github.io/dep/). Then, run:
 
 ```
 $ go get -d -u github.com/ory/keto

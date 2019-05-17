@@ -2,9 +2,10 @@
 
 <!-- toc -->
 
-You can install ORY Keto by downloading the [binaries](https://github.com/ory/keto/releases), by using
-the precompiled Docker Image available at [Docker Hub](https://hub.docker.com/r/oryd/keto/), or by
-compiling the code yourself.
+You can install ORY Keto by downloading the
+[binaries](https://github.com/ory/keto/releases), by using the precompiled
+Docker Image available at [Docker Hub](https://hub.docker.com/r/oryd/keto/), or
+by compiling the code yourself.
 
 ## Docker Hub
 
@@ -16,7 +17,8 @@ $ docker run oryd/keto:<version> help
 
 ## Binaries
 
-If you download the binaries, make sure to add them to your path (e.g. `/usr/bin`). Then, run `keto help`
+If you download the binaries, make sure to add them to your path (e.g.
+`/usr/bin`). Then, run `keto help`
 
 ## From Source
 

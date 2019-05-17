@@ -23,7 +23,8 @@
 const siteConfig = {
   title: 'ORY Documentation', // Title for your website.
 
-  tagline: 'Open Source OAuth2 and OpenID Connect Access Control &amp; API Security',
+  tagline:
+    'Open Source OAuth2 and OpenID Connect Access Control &amp; API Security',
 
   url: 'https://www.ory.sh', // Your website URL
   baseUrl: '/', // Base URL for your project */
@@ -43,12 +44,12 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    {href: "/", label: 'Home'},
-    {href: "/blog", label: 'Blog'},
-    {href: "https://community.ory.sh", label: 'Forum'},
-    {href: "/chat", label: 'Chat'},
-    {doc: "index", label: 'Docs'},
-    {href: "https://github.com/ory/", label: 'GitHub'},
+    { href: '/', label: 'Home' },
+    { href: '/blog', label: 'Blog' },
+    { href: 'https://community.ory.sh', label: 'Forum' },
+    { href: '/chat', label: 'Chat' },
+    { doc: 'index', label: 'Docs' },
+    { href: 'https://github.com/ory/', label: 'GitHub' },
   ],
 
   // If you have users set above, you add it here:
@@ -116,7 +117,7 @@ const siteConfig = {
     // },
   },
 
-  gaTrackingId: 'UA-71865250-1'
+  gaTrackingId: 'UA-71865250-1',
 
   // You may provide arbitrary config keys to be used as needed by your
   // template. For example, if you need your repo's URL...

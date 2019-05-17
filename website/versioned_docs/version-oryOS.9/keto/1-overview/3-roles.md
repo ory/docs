@@ -4,9 +4,10 @@ title: Roles
 original_id: roles
 ---
 
-ORY Keto supports the concept of roles (like in RBAC). This feature allows you to group together a number of subjects
-under the same role. Whenever making a request to the Warden API, it will check the role's of a subject (if there are any)
-and use them when looking up Access Control Policies.
+ORY Keto supports the concept of roles (like in RBAC). This feature allows you
+to group together a number of subjects under the same role. Whenever making a
+request to the Warden API, it will check the role's of a subject (if there are
+any) and use them when looking up Access Control Policies.
 
 Assuming the following policies:
 
@@ -28,8 +29,9 @@ Assuming the following policies:
 }
 ```
 
-As you can see, `bob` is allowed to create resource `blog_posts:my-first-blog-post` and `admin` is allowed to delete it.
-Warden request
+As you can see, `bob` is allowed to create resource
+`blog_posts:my-first-blog-post` and `admin` is allowed to delete it. Warden
+request
 
 ```
 {
@@ -49,8 +51,8 @@ will return `{ "allowed": false }` while Warden request
 }
 ```
 
-will return `{ "allowed": true }`. If we add `bob` to role `admin` using the [Role API](https://www.ory.sh/docs/api/keto)
-or the CLI:
+will return `{ "allowed": true }`. If we add `bob` to role `admin` using the
+[Role API](https://www.ory.sh/docs/api/keto) or the CLI:
 
 ```
 $ keto roles create admin \
@@ -72,4 +74,5 @@ and redo the same Warden request
 
 the response will return `{ "allowed": true }` as well.
 
-Currently, we do not support hierarchy in roles but we might add that at a later stage.
+Currently, we do not support hierarchy in roles but we might add that at a later
+stage.
