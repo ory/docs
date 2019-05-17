@@ -14,6 +14,28 @@ ORY Hydra tries to solve all of OAuth 2.0 and OpenID Connect uses. There are, ho
 ORY Hydra has issues with MySQL <= 5.6 (but not MySQL 5.7+) and certain MariaDB versions. Read more about this [here](https://github.com/ory/hydra/issues/377).
 Our recommendation is to use MySQL 5.7+ or PostgreSQL.
 
+## OAuth 2.0 Client Secret Length
+
+OAuth 2.0 Client Secrets are hashed using BCrypt. BCrypt has, by design, an upper limit of 56 bytes and any extra bytes
+will be ignored:
+
+```
+$ hydra clients create --id long-secret \
+	--secret 525348e77144a9cee9a7471a8b67c50ea85b9e3eb377a3c1a3a23db88f9150eefe76e6a339fdbc62b817595f53d72549d9ebe36438f8c2619846b963e9f43a94 \
+	--endpoint http://localhost:4445 \
+	--token-endpoint-auth-method client_secret_post \
+	--grant-types client_credentials
+
+$ hydra token client --client-id long-secret \
+	--client-secret 525348e77144a9cee9a7471a8b67c50ea85b9e3eb377a3c1a3a23db88f9150eefe76e6a3 \
+	--endpoint http://localhost:4444
+```
+
+For more information on this topic we recommend reading:
+
+* https://security.stackexchange.com/questions/39849/does-bcrypt-have-a-maximum-password-length
+* https://security.stackexchange.com/questions/6623/pre-hash-password-before-applying-bcrypt-to-avoid-restricting-password-length
+
 ## Resource Owner Password Credentials Grant Type (ROCP)
 
 ORY Hydra does not and will not implement the Resource Owner Password Credentials Grant Type. Read on for context.
