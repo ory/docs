@@ -2,8 +2,9 @@
 
 <!-- toc -->
 
-**Please note that this section is not updated to ORY Hydra 1.0.0 but reflects the old API. If you know PHP, please
-provide documentation on how to get started with the PHP SDK.**
+**Please note that this section is not updated to ORY Hydra 1.0.0 but reflects
+the old API. If you know PHP, please provide documentation on how to get started
+with the PHP SDK.**
 
 ### Installation
 
@@ -13,15 +14,17 @@ Installation is best done using [composer](https://getcomposer.org/)
 composer require ory/hydra-sdk
 ```
 
-If your project doesn't already make use of composer, you will need to include the resulting `vendor/autoload.php` file.
+If your project doesn't already make use of composer, you will need to include
+the resulting `vendor/autoload.php` file.
 
 ### Configuration
 
 #### OAuth2 configuration
 
-We need OAuth2 capabilities in order to make authorized API calls. You can either write your own OAuth2 mechanism or
-use an existing one that has been preconfigured for use with Hydra. Here we use a modified version of the league OAuth2
-client that has had this work done for us.
+We need OAuth2 capabilities in order to make authorized API calls. You can
+either write your own OAuth2 mechanism or use an existing one that has been
+preconfigured for use with Hydra. Here we use a modified version of the league
+OAuth2 client that has had this work done for us.
 
 ```sh
 composer require ory/oauth2-hydra
@@ -68,9 +71,12 @@ $hydraApiClient = new \Hydra\SDK\ApiClient($config);
 
 ### API Usage
 
-There are several APIs made available, see [the full API docs](https://github.com/ory/hydra/blob/master/sdk/php/swagger/README.md) for a list of clients and methods.
+There are several APIs made available, see
+[the full API docs](https://github.com/ory/hydra/blob/master/sdk/php/swagger/README.md)
+for a list of clients and methods.
 
-For this example, lets use the OAuth2Api to get a list of clients and use the `$hydraApiClient` from above:
+For this example, lets use the OAuth2Api to get a list of clients and use the
+`$hydraApiClient` from above:
 
 ```php
 $hydraOAuth2Api = new \Hydra\SDK\Api\OAuth2Api($hydraApiClient);

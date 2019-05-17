@@ -1,13 +1,15 @@
 # 5 Minute Tutorial
 
-To get started quickly, we provide a Docker Compose based example for setting up ORY Hydra, a PostgreSQL instance
-and an exemplary user login & consent app. You need to have the latest Docker as well as Docker Compose version installed.
+To get started quickly, we provide a Docker Compose based example for setting up
+ORY Hydra, a PostgreSQL instance and an exemplary user login & consent app. You
+need to have the latest Docker as well as Docker Compose version installed.
 
 <img src="../images/oauth2-flow.gif" alt="OAuth2 Flow">
 
-Next, clone (`git clone https://github.com/ory/hydra.git`), [download](https://github.com/ory-am/hydra/archive/master.zip),
-or use `go get -d github.com/ory/hydra` - if you have Go (1.10+) installed on you system - to download the Docker Compose
-set up.
+Next, clone (`git clone https://github.com/ory/hydra.git`),
+[download](https://github.com/ory-am/hydra/archive/master.zip), or use
+`go get -d github.com/ory/hydra` - if you have Go (1.10+) installed on you
+system - to download the Docker Compose set up.
 
 ```
 $ git clone https://github.com/ory/hydra.git
@@ -22,23 +24,25 @@ Starting hydra_hydra_1
 [...]
 ```
 
+Everything should running now! Let's confirm that everything is working by
+creating our first OAuth 2.0 Client. The following commands will use Docker
+wizardry. You can obviously install the ORY Hydra CLI locally and avoid using
+Docker here. If you do use the CLI locally, you can omit
+`docker exec -it hydra_hydra_1 \` completely.
 
-Everything should running now! Let's confirm that everything is working by creating our first OAuth 2.0 Client.
-The following commands will use Docker wizardry. You can obviously install the ORY Hydra CLI locally and avoid using
-Docker here. If you do use the CLI locally, you can omit `docker exec -it hydra_hydra_1 \` completely.
-
-You will notice that two ports are being used. Port `4444` and port `4445`. The former is for request to ORY Hydra's public
-endpoints. The latter to its administrative endpoints. For more information on this, head over to
-[Securing ORY Hydra](../2-environment/securing-ory-hydra.md). If you want to run ORY Hydra admin and
-public services in two separate containers, run
+You will notice that two ports are being used. Port `4444` and port `4445`. The
+former is for request to ORY Hydra's public endpoints. The latter to its
+administrative endpoints. For more information on this, head over to
+[Securing ORY Hydra](../2-environment/securing-ory-hydra.md). If you want to run
+ORY Hydra admin and public services in two separate containers, run
 
 ```
 $ docker-compose -p hydra -f docker-compose-twoc.yml up --build
 ```
 
-Please be aware that you will not be able to run the hydra CLI from within docker if you
-use the docker-compose-twoc.yml file. Instead, you must install the CLI locally and
-omit `docker exec -it hydra_hydra_1 \` from your commands.
+Please be aware that you will not be able to run the hydra CLI from within
+docker if you use the docker-compose-twoc.yml file. Instead, you must install
+the CLI locally and omit `docker exec -it hydra_hydra_1 \` from your commands.
 
 Ok, let's continue by creating a new OAuth 2.0 Client.
 
@@ -82,8 +86,8 @@ $ docker exec -it hydra_hydra_1 \
 }
 ```
 
-Next, we will perform the OAuth 2.0 Authorization Code Grant. For that, we must first create a client that is capable
-of performing that grant:
+Next, we will perform the OAuth 2.0 Authorization Code Grant. For that, we must
+first create a client that is capable of performing that grant:
 
 ```
 $ docker exec -it hydra_hydra_1 \
@@ -97,11 +101,13 @@ $ docker exec -it hydra_hydra_1 \
     --callbacks http://127.0.0.1:5555/callback
 ```
 
-Note that you need to add `--token-endpoint-auth-method none` if your clients are public (such as SPA apps and native apps) because the public clients could not provide client secret.
+Note that you need to add `--token-endpoint-auth-method none` if your clients
+are public (such as SPA apps and native apps) because the public clients could
+not provide client secret.
 
-
-The next command starts a server that serves an example web application. The application will perform the OAuth 2.0
-Authorization Code Flow using ORY Hydra. The web server runs on [http://127.0.0.1:5555](http://127.0.0.1:5555).
+The next command starts a server that serves an example web application. The
+application will perform the OAuth 2.0 Authorization Code Flow using ORY Hydra.
+The web server runs on [http://127.0.0.1:5555](http://127.0.0.1:5555).
 
 ```
 $ docker exec -it hydra_hydra_1 \
@@ -120,12 +126,14 @@ If your browser does not open automatically, navigate to:
         http://127.0.0.1:5555/
 ```
 
-Open the URL [http://127.0.0.1:5555/](http://127.0.0.1:5555/), log in, and authorize the application. Next, you should
-see at least an access token in the response. If you granted the `offline` scope, you will also see a refresh token.
+Open the URL [http://127.0.0.1:5555/](http://127.0.0.1:5555/), log in, and
+authorize the application. Next, you should see at least an access token in the
+response. If you granted the `offline` scope, you will also see a refresh token.
 If you granted the `openid` scope, you will get an ID Token as well.
 
-Great! You installed hydra, connected the CLI, created a client and completed two authentication flows!
-Before you continue, clean up this set up in order to avoid conflicts with other tutorials form this guide:
+Great! You installed hydra, connected the CLI, created a client and completed
+two authentication flows! Before you continue, clean up this set up in order to
+avoid conflicts with other tutorials form this guide:
 
 ```
 $ docker-compose kill

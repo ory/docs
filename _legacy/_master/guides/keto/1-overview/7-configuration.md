@@ -2,17 +2,20 @@
 
 ORY Keto supports two types of storage adapters:
 
-* In-memory: This adapter does not work with more than one instance ("cluster") and any state is lost after restarting the instance.
-* SQL: This adapter works with more than one instance and state is not lost after restarts.
+- In-memory: This adapter does not work with more than one instance ("cluster")
+  and any state is lost after restarting the instance.
+- SQL: This adapter works with more than one instance and state is not lost
+  after restarts.
 
-The SQL adapter supports two DBMS: PostgreSQL 9.6+ and MySQL 5.7+. Please note that
-older MySQL versions have issues with the database schema.
-For more information [go here](https://github.com/ory/hydra/issues/377).
+The SQL adapter supports two DBMS: PostgreSQL 9.6+ and MySQL 5.7+. Please note
+that older MySQL versions have issues with the database schema. For more
+information [go here](https://github.com/ory/hydra/issues/377).
 
-ORY Keto supports various authentication strategies. Depending on what strategies
-you want to use, you will have to configure more services (e.g. ORY Hydra). In this tutorial, we will
-set up ORY Keto without any of the other services. Please refer to the [warden chapter](./2-warden)
-to see how to configure each authentication strategy.
+ORY Keto supports various authentication strategies. Depending on what
+strategies you want to use, you will have to configure more services (e.g. ORY
+Hydra). In this tutorial, we will set up ORY Keto without any of the other
+services. Please refer to the [warden chapter](./2-warden) to see how to
+configure each authentication strategy.
 
 This guide will:
 
@@ -21,8 +24,8 @@ This guide will:
 
 ## Create a Network
 
-Before we can start, a network must be created which we will attach all our Docker containers to. That way, the containers
-can talk to one another.
+Before we can start, a network must be created which we will attach all our
+Docker containers to. That way, the containers can talk to one another.
 
 ```
 $ docker network create ketoguide
@@ -30,8 +33,9 @@ $ docker network create ketoguide
 
 ## Start the PostgreSQL Container
 
-For the purpose of this tutorial, we will use PostgreSQL as a database. As you probably already know, don't run databases in Docker in production!
-For the sake of this tutorial however, let's use Docker to quickly deploy the database.
+For the purpose of this tutorial, we will use PostgreSQL as a database. As you
+probably already know, don't run databases in Docker in production! For the sake
+of this tutorial however, let's use Docker to quickly deploy the database.
 
 ```
 $ docker run \
@@ -43,8 +47,9 @@ $ docker run \
   -d postgres:9.6
 ```
 
-This command wil start a postgres instance with name `ory-keto-example--postgres`, set up a database called `keto`
-and create a user `keto` with password `secret`.
+This command wil start a postgres instance with name
+`ory-keto-example--postgres`, set up a database called `keto` and create a user
+`keto` with password `secret`.
 
 ## Run the ORY Keto Service
 
@@ -125,10 +130,13 @@ $ docker run -it --rm \
 
 ## Securing ORY Keto
 
-Similar to other services in our ecosystem, ORY Keto has no native access control. This means that any request
-made to e.g. `/policies` or `/warden/...` is considered authenticated and thus executed. However, these endpoints
-are very sensitive as they define who is allowed to do what in your system.
+Similar to other services in our ecosystem, ORY Keto has no native access
+control. This means that any request made to e.g. `/policies` or `/warden/...`
+is considered authenticated and thus executed. However, these endpoints are very
+sensitive as they define who is allowed to do what in your system.
 
-Please use an API Gateway or a similar mechanism to protect these endpoints. How you protect them, is up to you.
+Please use an API Gateway or a similar mechanism to protect these endpoints. How
+you protect them, is up to you.
 
-If you require dedicated help with this, consider asking us for [consultancy](mailto:hi@ory.sh).
+If you require dedicated help with this, consider asking us for
+[consultancy](mailto:hi@ory.sh).
