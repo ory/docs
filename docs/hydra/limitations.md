@@ -31,6 +31,11 @@ $ hydra token client --client-id long-secret \
 	--endpoint http://localhost:4444
 ```
 
+For more information on this topic we recommend reading:
+
+* https://security.stackexchange.com/questions/39849/does-bcrypt-have-a-maximum-password-length
+* https://security.stackexchange.com/questions/6623/pre-hash-password-before-applying-bcrypt-to-avoid-restricting-password-length
+
 ## Resource Owner Password Credentials Grant Type (ROCP)
 
 ORY Hydra does not and will not implement the Resource Owner Password Credentials Grant Type. Read on for context.
