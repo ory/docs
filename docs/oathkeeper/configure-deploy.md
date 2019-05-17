@@ -3,159 +3,285 @@ id: configure-deploy
 title: Configure and Deploy
 ---
 
-ORY Oathkeeper has two servers that run on separate ports:
+The ORY Oathkeeper HTTP serve process `oathkeeper serve` opens two ports exposing the
 
-* The api server: This server is responsible for exposing the management REST API.
-* The proxy server: This server is responsible for evaluating access requests and forwarding them to the backend.
+* [reverse proxy](index.md#reverse-proxy)
+* REST API which serves the [Access Control Decision API](index.md#access-control-decision-api) as well as other
+API endpoints such as health checks, JSON Web Key Sets, and a list of available rules.
 
-For detailed documentation on the two servers, run `oathkeeper help serve api` and `oathkeeper help serve proxy`.
+For this guide we are using Docker. ORY Oathkeeper however can be [installed in a variety of ways](install.md).
 
-ORY Oathkeeper supports two types of storage adapters:
+## Configure
 
-* In-memory: This adapter does not work with more than one instance ("cluster") and any state is lost after restarting the instance.
-* SQL: This adapter works with more than one instance and state is not lost after restarts.
+ORY Oathkeeper can be configured via the filesystem as well as environment variables. For more information on
+mapping the keys to environment variables please head over to the [configuration chapter](configuration.md).
 
-The SQL adapter supports two DBMS: PostgreSQL 9.6+ and MySQL 5.7+. Please note that
-older MySQL versions have issues with the database schema.
-For more information [go here](https://github.com/ory/hydra/issues/377).
+First, create an empty directory and `cd` into it:
 
-ORY Oathkeeper supports various authentication, authorization, and credential strategies. Depending on what strategies
-you want to use, you will have to configure more services (e.g. ORY Hydra or ORY Keto). In this tutorial, we will
-set up ORY Oathkeeper without any of the other services. Please refer to the [authenticator, authorizer, and credentials
-issuer documentation](oathkeeper/api-access-rules.md) to see what you need to configure in order to get the strategies you need.
+```shell
+$ mkdir oathkeeper-demo
+$ cd oathkeeper-demo
+```
 
-This guide will:
+Create a file called `config.yaml` with the following content:
 
-1. Download and run a PostgreSQL container in Docker.
-2. Download and run ORY Oathkeeper using Docker.
+```shell
+$ cat << EOF > config.yaml
+serve:
+  proxy:
+    port: 4455 # run the proxy at port 4455
+  api:
+    port: 4456 # run the api at port 4456
 
-## Installation
+access_rules:
+  repositories:
+    - file:///rules.json
 
-You can install ORY Oathkeeper by downloading the [binaries](https://github.com/ory/oathkeeper/releases), by using
-the precompiled Docker Image available at [Docker Hub](https://hub.docker.com/r/oryd/oathkeeper/), or by
-compiling the code yourself.
+mutators:
+  header:
+    enabled: true
+  noop:
+    enabled: true
+  id_token:
+    enabled: true
+    issuer_url: http://localhost:4455/
+    jwks_url: file:///jwks.json
 
-### Docker Hub
+authorizers:
+  allow:
+    enabled: true
+  deny:
+    enabled: true
 
-The recommended way to install and run ORY Oathkeeper is via docker:
+authenticators:
+  anonymous:
+    enabled: true
+    subject: guest
+EOF
+```
+
+This configuration file will run the proxy at port 4455, the api at port 4456, and enable the anonymous authenticator,
+the allow and deny authorizers, and the noop and id_token mutators.
+
+### Access Rules
+
+We will be using [httpbin.org](https://httpbin.org) as the upstream server. The service echoes incoming HTTP Requests
+and is perfect for seeing how ORY Oathkeeper works. Let's define three rules:
+
+1. An access rule that allowing anonymous access to `https://httpbin.org/anything/cookie` and using the `cookie` mutator.
+2. An access rule denying every access to `https://httpbin.org/anything/deny`.
+2. An access rule allowing anonymous access to `https://httpbin.org/anything/id_token` and using the `id_token` mutator.
+
+```shell
+$ cat << EOF > rules.json
+[
+  {
+    "id": "allow-anonymous-with-header-mutator",
+    "upstream": {
+      "url": "https://httpbin.org/anything/header"
+    },
+    "match": {
+      "url": "http://<127.0.0.1|localhost>:4455/anything/header",
+      "methods": [
+        "GET"
+      ]
+    },
+    "authenticators": [
+      {
+        "handler": "anonymous"
+      }
+    ],
+    "authorizer": {
+      "handler": "allow"
+    },
+    "mutator": {
+      "handler": "header",
+      "config": {
+        "headers": {
+          "X-User": "{{ print .Subject }}"
+        }
+      }
+    }
+  },
+  {
+    "id": "deny-anonymous",
+    "upstream": {
+      "url": "https://httpbin.org/anything/deny"
+    },
+    "match": {
+      "url": "http://<127.0.0.1|localhost>:4455/anything/deny",
+      "methods": [
+        "GET"
+      ]
+    },
+    "authenticators": [
+      {
+        "handler": "anonymous"
+      }
+    ],
+    "authorizer": {
+      "handler": "deny"
+    },
+    "mutator": {
+      "handler": "noop"
+    }
+  },
+  {
+    "id": "allow-anonymous-with-id-token-mutator",
+    "upstream": {
+      "url": "https://httpbin.org/anything/id_token"
+    },
+    "match": {
+      "url": "http://<127.0.0.1|localhost>:4455/anything/id_token",
+      "methods": [
+        "GET"
+      ]
+    },
+    "authenticators": [
+      {
+        "handler": "anonymous"
+      }
+    ],
+    "authorizer": {
+      "handler": "allow"
+    },
+    "mutator": {
+      "handler": "id_token"
+    }
+  }
+]
+EOF
+```
+
+### Cryptographic Keys
+
+The `id_token` mutator creates a signed JSON Web Token. For that to work, a public/private key is required. Luckily,
+ORY Oathkeeper can assist you in creating such keys. All common JWT algorithms are supported (RS256, ES256, HS256, ...).
+
+Before continuing with that step we need to pull the latest version of ORY Oathkeeper from Docker Hub:
 
 ```sh
-$ docker run oryd/oathkeeper:<version> help
+$ docker pull oryd/oathkeeper:latest
 ```
 
-### Without Docker
+Now let's generate a key for the RS256 algorithm that will be used by the id_token mutator:
 
-#### Binaries
-
-If you [download the binaries](https://github.com/ory/oathkeeper/releases), make sure
-to add them to your path (e.g. `/usr/bin`). Then, run `oathkeeper help`
-
-#### From Source
-
-To install ORY Oathkeeper from source, you need to have Go 1.11+ installed.
-Then, run:
-
-```
-go get -d -u github.com/ory/oathkeeper
-cd $(go env GOPATH)/src/github.com/ory/oathkeeper
-OATHKEEPER_LATEST=$(git describe --abbrev=0 --tags)
-git checkout $OATHKEEPER_LATEST
-GO111MODULE=on go install \
-    -ldflags "-X github.com/ory/oathkeeper/cmd.Version=$OATHKEEPER_LATEST -X github.com/ory/oathkeeper/cmd.BuildTime=`TZ=UTC date -u '+%Y-%m-%dT%H:%M:%SZ'` -X github.com/ory/oathkeeper/cmd.GitHash=`git rev-parse HEAD`" \
-    github.com/ory/oathkeeper
-git checkout master
-oathkeeper help
+```sh
+$ docker run oryd/oathkeeper:latest credentials generate --alg RS256 > jwks.json
 ```
 
-## Create a Network
+### Dockerfile
 
-Before we can start, a network must be created which we will attach all our Docker containers to. That way, the containers
-can talk to one another.
+Next we will be creating a custom Docker Image that adds these configuration files to the image:
 
-```
-$ docker network create oathkeeperguide
-```
+```shell
+$ cat << EOF > Dockerfile
+FROM oryd/oathkeeper:latest
 
-## Start the PostgreSQL Container
-
-For the purpose of this tutorial, we will use PostgreSQL as a database. As you probably already know, don't run databases in Docker in production!
-For the sake of this tutorial however, let's use Docker to quickly deploy the database.
-
-```
-$ docker run \
-  --network oathkeeperguide \
-  --name ory-oathkeeper-example--postgres \
-  -e POSTGRES_USER=oathkeeper \
-  -e POSTGRES_PASSWORD=secret \
-  -e POSTGRES_DB=oathkeeper \
-  -d postgres:9.6
+ADD config.yaml /config.yaml
+ADD rules.json /rules.json
+ADD jwks.json /jwks.json
+EOF
 ```
 
-This command wil start a postgres instance with name `ory-oathkeeper-example--postgres`, set up a database called `oathkeeper`
-and create a user `oathkeeper` with password `secret`.
+It would also be possible to mount the directory instead, but adding these definitions to the Dockerfile itself and
+making the build process a part  of your CI pipeline is considered good practice!
 
-## Run the ORY Oathkeeper API Proxy
+## Build & Run
+
+Before building the Docker Image, we need to make sure that the local ORY Oathkeeper Docker Image is on the most recent
+version:
+
+```sh
+$ docker pull oryd/oathkeeper:latest
+```
+
+Next we will build our custom Docker Image
+
+```sh
+$ docker build -t ory-oathkeeper-demo .
+```
+
+and run it
 
 ```
-# The database url points us at the postgres instance. This could also be an ephermal in-memory database (`export DATABASE_URL=memory`)
-# or a MySQL URI.
-$ export DATABASE_URL=postgres://oathkeeper:secret@ory-oathkeeper-example--postgres:5432/oathkeeper?sslmode=disable
-
-# This pulls the latest image from Docker Hub
-$ docker pull oryd/oathkeeper:v0.15.1
-
-# ORY Oathkeeper does not do magic, it requires conscious decisions, for example running SQL migrations which is required
-# when installing a new version of ORY Oathkeeper, or upgrading an existing installation.
-# It is the equivalent to `oathkeeper migrate sql postgres://oathkeeper:secret@ory-oathkeeper-example--postgres:5432/oathkeeper?sslmode=disable`
-$ docker run -it --rm \
-  --network oathkeeperguide \
-  oryd/oathkeeper:v0.15.1 \
-  migrate sql $DATABASE_URL
-
-Applying `client` SQL migrations...
-[...]
-Migration successful!
-
-# Next, let's run the API server!
-#
-# Please make sure to use your own secret.
-$ docker run -d \
-  --name ory-oathkeeper-example--oathkeeper-api \
-  --network oathkeeperguide \
-  -p 4456:4456 \
-  -e DATABASE_URL=$DATABASE_URL \
-  -e PORT=4456 \
-  -e CREDENTIALS_ISSUER_ID_TOKEN_HS256_SECRET=changemechangemechangemechangemedo \
-  oryd/oathkeeper:v0.15.1 \
-  serve api
-
-# And the proxy server too - take not that we need to link the proxy serve with the API server!
-#
-# Please make sure to use your own secret.
-$ docker run -d \
-  --name ory-oathkeeper-example--oathkeeper-proxy \
-  --network oathkeeperguide \
+$ docker run --rm \
+  --name ory-oathkeeper-demo \
   -p 4455:4455 \
-  -e OATHKEEPER_API_URL=http://ory-oathkeeper-example--oathkeeper-api:4456/ \
-  -e PORT=4455 \
-  -e CREDENTIALS_ISSUER_ID_TOKEN_HS256_SECRET=changemechangemechangemechangeme \
-  oryd/oathkeeper:v0.15.1 \
-  serve proxy
+  -p 4456:4456 \
+  ory-oathkeeper-demo \
+  --config /config.yaml \
+  serve
 ```
 
-Great, both the API and the proxy server are running now! Make sure to check the logs and see if there were
-any errors or issues before going to the next steps:
+Let's open a new terminal and check if it is alive:
 
 ```
-$ docker logs ory-oathkeeper-example--oathkeeper-api
-$ docker logs ory-oathkeeper-example--oathkeeper-proxy
+$ curl http://127.0.0.1:4456/health/alive
+{"status":"ok"}
+
+$ curl http://127.0.0.1:4456/health/ready
+{"status":"ok"}
 ```
 
-### Creating your first access rule
+Let's also check if the rules have been imported properly:
 
-**Sorry, this section is still work in progress.**
+```
+$ curl http://127.0.0.1:4456/rules
+[{"id":"allow-anonymous-with-header-mutator","description":"","match":{"methods":["GET"],...
+```
 
-1. Create the rule using `oathkeeper rules import` - need to figure out how to add the file to docker to make this work.
-2. Have a rule that works immediately, e.g. protect an Oathkeeper API URL using the Oathkeeper proxy
-3. Have two CURL requests where one fails and one passes. Explain why that happens
-4. Clean up
+
+## Authorizing Requests
+
+Everything is up and running and configured! Let's make some requests:
+
+```
+$ curl -X GET http://127.0.0.1:4455/anything/header
+{
+  "args": {}, 
+  "data": "", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip", 
+    "Host": "httpbin.org", 
+    "User-Agent": "curl/7.54.0", 
+    "X-User": "guest"
+  }, 
+  "json": null, 
+  "method": "GET", 
+  "origin": "172.17.0.1, 82.135.11.242, 172.17.0.1", 
+  "url": "https://httpbin.org/anything/header/anything/header"
+}
+
+$ curl -X GET http://127.0.0.1:4455/anything/deny
+{
+  "error": {
+    "code": 403,
+    "status": "Forbidden",
+    "message": "Access credentials are not sufficient to access this resource"
+  }
+}
+
+$ curl -X GET http://127.0.0.1:4455/anything/id_token
+{
+  "args": {}, 
+  "data": "", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip", 
+    "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjU3N2E2NWE0LTUzM2YtNDFhYi1hODI2LTgxNDliMDM2NDQ0MyIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTgwMTg1MTcsImlhdCI6MTU1ODAxODQ1NywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo0NDU1LyIsImp0aSI6IjExNmRiNzhmLTQyMjEtNDU2ZC05OWIzLTY4NGJkMWVjYThjZSIsIm5iZiI6MTU1ODAxODQ1Nywic3ViIjoiZ3Vlc3QifQ.2VKW-oYtzkFGRPgK3sb4iRlObDSzW8PyHzgNiQubppFSlp0bzJLl4Rnt56orJndPqIa7hwsm8YIskf-Wp-FA1piv-aG_XljkUjgilKr3cncMXDP15yDRwZj8g0iVKEhnugQsw_zWf5gMU2YBev2Eyv4xciJxbhrKCat-X8xNT9SvAbwpY-VxQdu_rnpu1GKCA54DyIX6r-Qh5bQPrrT7NvIupA7jJQ23qq83m4C1cQfBgzlhm7dcCuPqKunYKRsc7NZuER3lT6TjkhsF1qhf7o7BZmCnhz6VuH8L8TwMZS8IJWKSjJd8dEKKwxwPkNXOcZO8A3hIO8SZx4Yd7jrONA", 
+    "Host": "httpbin.org", 
+    "User-Agent": "curl/7.54.0"
+  }, 
+  "json": null, 
+  "method": "GET", 
+  "origin": "172.17.0.1, 82.135.11.242, 172.17.0.1", 
+  "url": "https://httpbin.org/anything/id_token/anything/id_token"
+}
+```
+

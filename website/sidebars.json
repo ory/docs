@@ -75,9 +75,7 @@
           "oathkeeper/api-access-rules",
           "oathkeeper/pipeline/authn",
           "oathkeeper/pipeline/authz",
-          "oathkeeper/pipeline/mutator",
-          "oathkeeper/proxy",
-          "oathkeeper/judge"
+          "oathkeeper/pipeline/mutator"
         ]
       },
       {
@@ -85,7 +83,8 @@
         "label": "Guides",
         "ids": [
           "oathkeeper/configuration",
-          "oathkeeper/configure-deploy"
+          "oathkeeper/configure-deploy",
+          "oathkeeper/credentials"
         ]
       },
       {
