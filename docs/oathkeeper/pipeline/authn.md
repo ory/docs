@@ -535,10 +535,13 @@ missing, wrong algorithm):
 
 ### Scope
 
-JSON Web Tokens can be scoped. However, that feature is not standardized and several claims that represent the token scope
-have been seen in the wild: `scp`, `scope`, `scopes`. Additionally, the claim value can be a string (`"scope-a"`), a space-delimited string (`"scope-a scope-b"`) or
-a JSON string array (`["scope-a", "scope-b"]`). Because of this ambiguity, all of those claims are checked and parsed and will
-be available as `scp` (string array) in the authentication session (`.Extra["scp"]`).
+JSON Web Tokens can be scoped. However, that feature is not standardized and
+several claims that represent the token scope have been seen in the wild: `scp`,
+`scope`, `scopes`. Additionally, the claim value can be a string (`"scope-a"`),
+a space-delimited string (`"scope-a scope-b"`) or a JSON string array
+(`["scope-a", "scope-b"]`). Because of this ambiguity, all of those claims are
+checked and parsed and will be available as `scp` (string array) in the
+authentication session (`.Extra["scp"]`).
 
 ### Example
 
