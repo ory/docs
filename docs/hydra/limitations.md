@@ -16,8 +16,7 @@ Our recommendation is to use MySQL 5.7+ or PostgreSQL.
 
 ## OAuth 2.0 Client Secret Length
 
-OAuth 2.0 Client Secrets are hashed using BCrypt. BCrypt has, by design, an upper limit of 56 bytes and any extra bytes
-will be ignored:
+OAuth 2.0 Client Secrets are hashed using BCrypt. BCrypt has, by design, an maximum password length. The Golang BCrypt library has a maximum password length of 73 bytes. Any password longer will be "truncated":
 
 ```
 $ hydra clients create --id long-secret \
