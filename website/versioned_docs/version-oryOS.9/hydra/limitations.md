@@ -6,22 +6,26 @@ original_id: limitations
 
 # Limitations
 
-ORY Hydra tries to solve all of OAuth 2.0 and OpenID Connect uses. There are, however, some limitations.
+ORY Hydra tries to solve all of OAuth 2.0 and OpenID Connect uses. There are,
+however, some limitations.
 
 <!-- toc -->
 
 ## MySQL <= 5.6 / MariaDB
 
-ORY Hydra has issues with MySQL <= 5.6 (but not MySQL 5.7+) and certain MariaDB versions. Read more about this [here](https://github.com/ory/hydra/issues/377).
+ORY Hydra has issues with MySQL <= 5.6 (but not MySQL 5.7+) and certain MariaDB
+versions. Read more about this [here](https://github.com/ory/hydra/issues/377).
 Our recommendation is to use MySQL 5.7+ or PostgreSQL.
 
 ## Resource Owner Password Credentials Grant Type (ROCP)
 
-ORY Hydra does not and will not implement the Resource Owner Password Credentials Grant Type. Read on for context.
+ORY Hydra does not and will not implement the Resource Owner Password
+Credentials Grant Type. Read on for context.
 
 ### Overview
 
-This grant type allows OAuth 2.0 Clients to exchange user credentials (username, password) for an access token.
+This grant type allows OAuth 2.0 Clients to exchange user credentials (username,
+password) for an access token.
 
 **Request:**
 
@@ -51,21 +55,25 @@ Pragma: no-cache
 }
 ```
 
-You might think that this is the perfect grant type for your first-party application. This grant type is most commonly
-used in mobile authentication for first-party apps. If you plan on doing this, stop right now and read
+You might think that this is the perfect grant type for your first-party
+application. This grant type is most commonly used in mobile authentication for
+first-party apps. If you plan on doing this, stop right now and read
 [this blog article](https://www.ory.sh/oauth2-for-mobile-app-spa-browser).
 
 ### Legacy & Bad Security
 
-The ROCP grant type is discouraged by developers, professionals, and the IETF itself. It was originally added because
-big legacy corporations (not dropping any names, but they are part of the IETF consortium) did not want to migrate their authentication
-infrastructure to the modern web but instead do what they've been doing all along "but OAuth 2.0" and for systems that
-want to upgrade from OAuth (1.0) to OAuth 2.0.
+The ROCP grant type is discouraged by developers, professionals, and the IETF
+itself. It was originally added because big legacy corporations (not dropping
+any names, but they are part of the IETF consortium) did not want to migrate
+their authentication infrastructure to the modern web but instead do what
+they've been doing all along "but OAuth 2.0" and for systems that want to
+upgrade from OAuth (1.0) to OAuth 2.0.
 
 There are a ton of good reasons why this is a bad flow, they are summarized in
 [this excellent blog article as well](https://www.scottbrady91.com/OAuth/Why-the-Resource-Owner-Password-Credentials-Grant-Type-is-not-Authentication-nor-Suitable-for-Modern-Applications).
 
 ### What about Auth0, Okta, ...?
 
-Auth0, Okta, Stormpath started early with OAuth 2.0 SaaS and adopted the ROPC grant too. They since deprecated these
-old flows but still have them active as existing apps rely on them.
+Auth0, Okta, Stormpath started early with OAuth 2.0 SaaS and adopted the ROPC
+grant too. They since deprecated these old flows but still have them active as
+existing apps rely on them.

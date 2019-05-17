@@ -5,24 +5,31 @@ title: Configure and Deploy
 
 ORY Oathkeeper has two servers that run on separate ports:
 
-* The api server: This server is responsible for exposing the management REST API.
-* The proxy server: This server is responsible for evaluating access requests and forwarding them to the backend.
+- The api server: This server is responsible for exposing the management REST
+  API.
+- The proxy server: This server is responsible for evaluating access requests
+  and forwarding them to the backend.
 
-For detailed documentation on the two servers, run `oathkeeper help serve api` and `oathkeeper help serve proxy`.
+For detailed documentation on the two servers, run `oathkeeper help serve api`
+and `oathkeeper help serve proxy`.
 
 ORY Oathkeeper supports two types of storage adapters:
 
-* In-memory: This adapter does not work with more than one instance ("cluster") and any state is lost after restarting the instance.
-* SQL: This adapter works with more than one instance and state is not lost after restarts.
+- In-memory: This adapter does not work with more than one instance ("cluster")
+  and any state is lost after restarting the instance.
+- SQL: This adapter works with more than one instance and state is not lost
+  after restarts.
 
-The SQL adapter supports two DBMS: PostgreSQL 9.6+ and MySQL 5.7+. Please note that
-older MySQL versions have issues with the database schema.
-For more information [go here](https://github.com/ory/hydra/issues/377).
+The SQL adapter supports two DBMS: PostgreSQL 9.6+ and MySQL 5.7+. Please note
+that older MySQL versions have issues with the database schema. For more
+information [go here](https://github.com/ory/hydra/issues/377).
 
-ORY Oathkeeper supports various authentication, authorization, and credential strategies. Depending on what strategies
-you want to use, you will have to configure more services (e.g. ORY Hydra or ORY Keto). In this tutorial, we will
-set up ORY Oathkeeper without any of the other services. Please refer to the [authenticator, authorizer, and credentials
-issuer documentation](oathkeeper/api-access-rules.md) to see what you need to configure in order to get the strategies you need.
+ORY Oathkeeper supports various authentication, authorization, and credential
+strategies. Depending on what strategies you want to use, you will have to
+configure more services (e.g. ORY Hydra or ORY Keto). In this tutorial, we will
+set up ORY Oathkeeper without any of the other services. Please refer to the
+[authenticator, authorizer, and credentials issuer documentation](oathkeeper/api-access-rules.md)
+to see what you need to configure in order to get the strategies you need.
 
 This guide will:
 
@@ -31,9 +38,11 @@ This guide will:
 
 ## Installation
 
-You can install ORY Oathkeeper by downloading the [binaries](https://github.com/ory/oathkeeper/releases), by using
-the precompiled Docker Image available at [Docker Hub](https://hub.docker.com/r/oryd/oathkeeper/), or by
-compiling the code yourself.
+You can install ORY Oathkeeper by downloading the
+[binaries](https://github.com/ory/oathkeeper/releases), by using the precompiled
+Docker Image available at
+[Docker Hub](https://hub.docker.com/r/oryd/oathkeeper/), or by compiling the
+code yourself.
 
 ### Docker Hub
 
@@ -47,8 +56,8 @@ $ docker run oryd/oathkeeper:<version> help
 
 #### Binaries
 
-If you [download the binaries](https://github.com/ory/oathkeeper/releases), make sure
-to add them to your path (e.g. `/usr/bin`). Then, run `oathkeeper help`
+If you [download the binaries](https://github.com/ory/oathkeeper/releases), make
+sure to add them to your path (e.g. `/usr/bin`). Then, run `oathkeeper help`
 
 #### From Source
 
@@ -69,8 +78,8 @@ oathkeeper help
 
 ## Create a Network
 
-Before we can start, a network must be created which we will attach all our Docker containers to. That way, the containers
-can talk to one another.
+Before we can start, a network must be created which we will attach all our
+Docker containers to. That way, the containers can talk to one another.
 
 ```
 $ docker network create oathkeeperguide
@@ -78,8 +87,9 @@ $ docker network create oathkeeperguide
 
 ## Start the PostgreSQL Container
 
-For the purpose of this tutorial, we will use PostgreSQL as a database. As you probably already know, don't run databases in Docker in production!
-For the sake of this tutorial however, let's use Docker to quickly deploy the database.
+For the purpose of this tutorial, we will use PostgreSQL as a database. As you
+probably already know, don't run databases in Docker in production! For the sake
+of this tutorial however, let's use Docker to quickly deploy the database.
 
 ```
 $ docker run \
@@ -91,8 +101,9 @@ $ docker run \
   -d postgres:9.6
 ```
 
-This command wil start a postgres instance with name `ory-oathkeeper-example--postgres`, set up a database called `oathkeeper`
-and create a user `oathkeeper` with password `secret`.
+This command wil start a postgres instance with name
+`ory-oathkeeper-example--postgres`, set up a database called `oathkeeper` and
+create a user `oathkeeper` with password `secret`.
 
 ## Run the ORY Oathkeeper API Proxy
 
@@ -143,8 +154,8 @@ $ docker run -d \
   serve proxy
 ```
 
-Great, both the API and the proxy server are running now! Make sure to check the logs and see if there were
-any errors or issues before going to the next steps:
+Great, both the API and the proxy server are running now! Make sure to check the
+logs and see if there were any errors or issues before going to the next steps:
 
 ```
 $ docker logs ory-oathkeeper-example--oathkeeper-api
@@ -155,7 +166,10 @@ $ docker logs ory-oathkeeper-example--oathkeeper-proxy
 
 **Sorry, this section is still work in progress.**
 
-1. Create the rule using `oathkeeper rules import` - need to figure out how to add the file to docker to make this work.
-2. Have a rule that works immediately, e.g. protect an Oathkeeper API URL using the Oathkeeper proxy
-3. Have two CURL requests where one fails and one passes. Explain why that happens
+1. Create the rule using `oathkeeper rules import` - need to figure out how to
+   add the file to docker to make this work.
+2. Have a rule that works immediately, e.g. protect an Oathkeeper API URL using
+   the Oathkeeper proxy
+3. Have two CURL requests where one fails and one passes. Explain why that
+   happens
 4. Clean up

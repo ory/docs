@@ -1,14 +1,17 @@
 # Configuration
 
-As all other ORY services, ORY Keto is implemented according to 12factor principles and completely stateless. To store
-state, ORY Keto supports two types of storage adapters:
+As all other ORY services, ORY Keto is implemented according to 12factor
+principles and completely stateless. To store state, ORY Keto supports two types
+of storage adapters:
 
-* In-memory: This adapter does not work with more than one instance ("cluster") and any state is lost after restarting the instance.
-* SQL: This adapter works with more than one instance and state is not lost after restarts.
+- In-memory: This adapter does not work with more than one instance ("cluster")
+  and any state is lost after restarting the instance.
+- SQL: This adapter works with more than one instance and state is not lost
+  after restarts.
 
-The SQL adapter supports two DBMS: PostgreSQL 9.6+ and MySQL 5.7+. Please note that
-older MySQL versions may have issues with the database schema. We recommend working with PostgreSQL as migrations will be
-faster.
+The SQL adapter supports two DBMS: PostgreSQL 9.6+ and MySQL 5.7+. Please note
+that older MySQL versions may have issues with the database schema. We recommend
+working with PostgreSQL as migrations will be faster.
 
 This guide will:
 
@@ -17,8 +20,8 @@ This guide will:
 
 ## Create a Network
 
-Before we can start, a network must be created which we will attach all our Docker containers to. That way, the containers
-can talk to one another.
+Before we can start, a network must be created which we will attach all our
+Docker containers to. That way, the containers can talk to one another.
 
 ```
 $ docker network create ketoguide
@@ -26,8 +29,9 @@ $ docker network create ketoguide
 
 ## Start the PostgreSQL Container
 
-For the purpose of this tutorial, we will use PostgreSQL as a database. As you probably already know, don't run databases in Docker in production!
-For the sake of this tutorial however, let's use Docker to quickly deploy the database.
+For the purpose of this tutorial, we will use PostgreSQL as a database. As you
+probably already know, don't run databases in Docker in production! For the sake
+of this tutorial however, let's use Docker to quickly deploy the database.
 
 ```
 $ docker run \
@@ -39,8 +43,9 @@ $ docker run \
   -d postgres:9.6
 ```
 
-This command wil start a postgres instance with name `ory-keto-example--postgres`, set up a database called `keto`
-and create a user `keto` with password `secret`.
+This command wil start a postgres instance with name
+`ory-keto-example--postgres`, set up a database called `keto` and create a user
+`keto` with password `secret`.
 
 ## Run the ORY Keto Service
 
@@ -90,9 +95,10 @@ time="2018-10-27T11:48:56Z" level=info msg="Listening on http://localhost:4466"
 
 ## Working with the CLI
 
-Let's examine how we can work with the CLI to manage ORY Keto. We will use the ORY Access Control Policy Engine (`/engines/acp/ory`)
-with the `exact` matcher and define policies and check if certain users are allowed to do certain things. Let's create
-the first policy:
+Let's examine how we can work with the CLI to manage ORY Keto. We will use the
+ORY Access Control Policy Engine (`/engines/acp/ory`) with the `exact` matcher
+and define policies and check if certain users are allowed to do certain things.
+Let's create the first policy:
 
 ```
 $ mkdir policies

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd website
+npm run format
+npm run api

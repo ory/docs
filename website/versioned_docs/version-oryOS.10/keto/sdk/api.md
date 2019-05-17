@@ -4,20 +4,22 @@ id: version-oryOS.10-api
 original_id: api
 ---
 
-
-
 Package main ORY Keto
 
-> You are viewing a REST API documentation. This documentation is auto-generated from a swagger specification which
-itself is generated from annotations in the source files of the project. It is possible that this documentation includes
-bugs and that code samples are incomplete or wrong.
+> You are viewing a REST API documentation. This documentation is auto-generated
+> from a swagger specification which itself is generated from annotations in the
+> source files of the project. It is possible that this documentation includes
+> bugs and that code samples are incomplete or wrong.
 >
 > If you find issues in the respective documentation, please do not edit the
-markdown files directly (as they are generated) but raise an issue on the project's GitHub instead. This documentation
-will improve over time with your help! If you have ideas how to improve this part of the documentation, feel free to
-share them in a [GitHub issue](https://github.com/ory/docs/issues/new) any time.
+> markdown files directly (as they are generated) but raise an issue on the
+> project's GitHub instead. This documentation will improve over time with your
+> help! If you have ideas how to improve this part of the documentation, feel
+> free to share them in a [GitHub issue](https://github.com/ory/docs/issues/new)
+> any time.
 
 <a id="api-engines"></a>
+
 ## engines
 
 <a id="opIddoOryAccessControlPoliciesAllow"></a>
@@ -48,37 +50,40 @@ Use this endpoint to check if a request is allowed or not.
 ```
 
 <a id="check-if-a-request-is-allowed-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".|
-|body|body|[oryAccessControlPolicyAllowedInput](#schemaoryaccesscontrolpolicyallowedinput)|false|none|
+| Parameter | In   | Type                                                                            | Required | Description                                                                |
+| --------- | ---- | ------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------------------- |
+| flavor    | path | string                                                                          | true     | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". |
+| body      | body | [oryAccessControlPolicyAllowedInput](#schemaoryaccesscontrolpolicyallowedinput) | false    | none                                                                       |
 
 #### Responses
 
 <a id="check-if-a-request-is-allowed-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|authorizationResult|[authorizationResult](#schemaauthorizationresult)|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema                                            |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------------------------------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | authorizationResult       | [authorizationResult](#schemaauthorizationresult) |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline                                            |
 
 <a id="check-if-a-request-is-allowed-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -127,7 +132,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
     }
@@ -253,53 +258,56 @@ Accept: application/json
 List ORY Access Control Policies
 
 <a id="listoryaccesscontrolpolicies-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact"|
-|limit|query|integer(int64)|false|The maximum amount of policies returned.|
-|offset|query|integer(int64)|false|The offset from where to start looking.|
+| Parameter | In    | Type           | Required | Description                                                               |
+| --------- | ----- | -------------- | -------- | ------------------------------------------------------------------------- |
+| flavor    | path  | string         | true     | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact" |
+| limit     | query | integer(int64) | false    | The maximum amount of policies returned.                                  |
+| offset    | query | integer(int64) | false    | The offset from where to start looking.                                   |
 
 #### Responses
 
 <a id="listoryaccesscontrolpolicies-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Policies is an array of policies.|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description                       | Schema |
+| ------ | -------------------------------------------------------------------------- | --------------------------------- | ------ |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | Policies is an array of policies. | Inline |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format         | Inline |
 
 <a id="listoryaccesscontrolpolicies-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **200**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)]|false|none|none|
-|» Policy specifies an ORY Access Policy document.|[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)|false|none|none|
-|»» actions|[string]|false|none|Actions is an array representing all the actions this ORY Access Policy applies to.|
-|»» conditions|[object]|false|none|Conditions represents an array of conditions under which this ORY Access Policy is active.|
-|»»» **additionalProperties**|object|false|none|none|
-|»» description|string|false|none|Description is an optional, human-readable description.|
-|»» effect|string|false|none|Effect is the effect of this ORY Access Policy. It can be "allow" or "deny".|
-|»» id|string|false|none|ID is the unique identifier of the ORY Access Policy. It is used to query, update, and remove the ORY Access Policy.|
-|»» resources|[string]|false|none|Resources is an array representing all the resources this ORY Access Policy applies to.|
-|»» subjects|[string]|false|none|Subjects is an array representing all the subjects this ORY Access Policy applies to.|
+| Name                                              | Type                                                      | Required | Restrictions | Description                                                                                                          |
+| ------------------------------------------------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------- |
+| _anonymous_                                       | [[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)] | false    | none         | none                                                                                                                 |
+| » Policy specifies an ORY Access Policy document. | [oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)   | false    | none         | none                                                                                                                 |
+| »» actions                                        | [string]                                                  | false    | none         | Actions is an array representing all the actions this ORY Access Policy applies to.                                  |
+| »» conditions                                     | [object]                                                  | false    | none         | Conditions represents an array of conditions under which this ORY Access Policy is active.                           |
+| »»» **additionalProperties**                      | object                                                    | false    | none         | none                                                                                                                 |
+| »» description                                    | string                                                    | false    | none         | Description is an optional, human-readable description.                                                              |
+| »» effect                                         | string                                                    | false    | none         | Effect is the effect of this ORY Access Policy. It can be "allow" or "deny".                                         |
+| »» id                                             | string                                                    | false    | none         | ID is the unique identifier of the ORY Access Policy. It is used to query, update, and remove the ORY Access Policy. |
+| »» resources                                      | [string]                                                  | false    | none         | Resources is an array representing all the resources this ORY Access Policy applies to.                              |
+| »» subjects                                       | [string]                                                  | false    | none         | Subjects is an array representing all the subjects this ORY Access Policy applies to.                                |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -308,9 +316,7 @@ Status Code **500**
 ```json
 [
   {
-    "actions": [
-      "string"
-    ],
+    "actions": ["string"],
     "conditions": [
       {
         "property1": {},
@@ -320,12 +326,8 @@ Status Code **500**
     "description": "string",
     "effect": "string",
     "id": "string",
-    "resources": [
-      "string"
-    ],
-    "subjects": [
-      "string"
-    ]
+    "resources": ["string"],
+    "subjects": ["string"]
   }
 ]
 ```
@@ -367,7 +369,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -485,9 +487,7 @@ Upsert an ORY Access Control Policy
 
 ```json
 {
-  "actions": [
-    "string"
-  ],
+  "actions": ["string"],
   "conditions": [
     {
       "property1": {},
@@ -497,47 +497,46 @@ Upsert an ORY Access Control Policy
   "description": "string",
   "effect": "string",
   "id": "string",
-  "resources": [
-    "string"
-  ],
-  "subjects": [
-    "string"
-  ]
+  "resources": ["string"],
+  "subjects": ["string"]
 }
 ```
 
 <a id="upsertoryaccesscontrolpolicy-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".|
-|body|body|[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)|false|none|
+| Parameter | In   | Type                                                    | Required | Description                                                                |
+| --------- | ---- | ------------------------------------------------------- | -------- | -------------------------------------------------------------------------- |
+| flavor    | path | string                                                  | true     | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". |
+| body      | body | [oryAccessControlPolicy](#schemaoryaccesscontrolpolicy) | false    | none                                                                       |
 
 #### Responses
 
 <a id="upsertoryaccesscontrolpolicy-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|oryAccessControlPolicy|[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema                                                  |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------------------------------------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | oryAccessControlPolicy    | [oryAccessControlPolicy](#schemaoryaccesscontrolpolicy) |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline                                                  |
 
 <a id="upsertoryaccesscontrolpolicy-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -545,9 +544,7 @@ Status Code **500**
 
 ```json
 {
-  "actions": [
-    "string"
-  ],
+  "actions": ["string"],
   "conditions": [
     {
       "property1": {},
@@ -557,12 +554,8 @@ Status Code **500**
   "description": "string",
   "effect": "string",
   "id": "string",
-  "resources": [
-    "string"
-  ],
-  "subjects": [
-    "string"
-  ]
+  "resources": ["string"],
+  "subjects": ["string"]
 }
 ```
 
@@ -603,7 +596,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
     }
@@ -740,50 +733,53 @@ Accept: application/json
 Get an ORY Access Control Policy
 
 <a id="getoryaccesscontrolpolicy-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".|
-|id|path|string|true|The ID of the ORY Access Control Policy Role.|
+| Parameter | In   | Type   | Required | Description                                                                |
+| --------- | ---- | ------ | -------- | -------------------------------------------------------------------------- |
+| flavor    | path | string | true     | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". |
+| id        | path | string | true     | The ID of the ORY Access Control Policy Role.                              |
 
 #### Responses
 
 <a id="getoryaccesscontrolpolicy-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|oryAccessControlPolicy|[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema                                                  |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------------------------------------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | oryAccessControlPolicy    | [oryAccessControlPolicy](#schemaoryaccesscontrolpolicy) |
+| 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)             | The standard error format | Inline                                                  |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline                                                  |
 
 <a id="getoryaccesscontrolpolicy-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **404**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -791,9 +787,7 @@ Status Code **500**
 
 ```json
 {
-  "actions": [
-    "string"
-  ],
+  "actions": ["string"],
   "conditions": [
     {
       "property1": {},
@@ -803,12 +797,8 @@ Status Code **500**
   "description": "string",
   "effect": "string",
   "id": "string",
-  "resources": [
-    "string"
-  ],
-  "subjects": [
-    "string"
-  ]
+  "resources": ["string"],
+  "subjects": ["string"]
 }
 ```
 
@@ -849,7 +839,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -963,37 +953,40 @@ Accept: application/json
 Delete an ORY Access Control Policy
 
 <a id="deleteoryaccesscontrolpolicy-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".|
-|id|path|string|true|The ID of the ORY Access Control Policy Role.|
+| Parameter | In   | Type   | Required | Description                                                                |
+| --------- | ---- | ------ | -------- | -------------------------------------------------------------------------- |
+| flavor    | path | string | true     | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". |
+| id        | path | string | true     | The ID of the ORY Access Control Policy Role.                              |
 
 #### Responses
 
 <a id="deleteoryaccesscontrolpolicy-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|An empty response|None|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------ |
+| 201    | [Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)               | An empty response         | None   |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline |
 
 <a id="deleteoryaccesscontrolpolicy-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -1052,7 +1045,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -1163,50 +1156,53 @@ Accept: application/json
 
 ```
 
-Roles group several subjects into one. Rules can be assigned to ORY Access Control Policy (OACP) by using the Role ID
-as subject in the OACP.
+Roles group several subjects into one. Rules can be assigned to ORY Access
+Control Policy (OACP) by using the Role ID as subject in the OACP.
 
 <a id="list-ory-access-control-policy-roles-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact"|
-|limit|query|integer(int64)|false|The maximum amount of policies returned.|
-|offset|query|integer(int64)|false|The offset from where to start looking.|
+| Parameter | In    | Type           | Required | Description                                                               |
+| --------- | ----- | -------------- | -------- | ------------------------------------------------------------------------- |
+| flavor    | path  | string         | true     | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact" |
+| limit     | query | integer(int64) | false    | The maximum amount of policies returned.                                  |
+| offset    | query | integer(int64) | false    | The offset from where to start looking.                                   |
 
 #### Responses
 
 <a id="list-ory-access-control-policy-roles-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Roles is an array of roles.|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description                 | Schema |
+| ------ | -------------------------------------------------------------------------- | --------------------------- | ------ |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | Roles is an array of roles. | Inline |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format   | Inline |
 
 <a id="list-ory-access-control-policy-roles-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **200**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)]|false|none|[Role represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role.]|
-|» id|string|false|none|ID is the role's unique id.|
-|» members|[string]|false|none|Members is who belongs to the role.|
+| Name        | Type                                                              | Required | Restrictions | Description                                                                                                                                            |
+| ----------- | ----------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| _anonymous_ | [[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)] | false    | none         | [Role represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role.] |
+| » id        | string                                                            | false    | none         | ID is the role's unique id.                                                                                                                            |
+| » members   | [string]                                                          | false    | none         | Members is who belongs to the role.                                                                                                                    |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -1216,9 +1212,7 @@ Status Code **500**
 [
   {
     "id": "string",
-    "members": [
-      "string"
-    ]
+    "members": ["string"]
   }
 ]
 ```
@@ -1260,7 +1254,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -1372,52 +1366,53 @@ Accept: application/json
 
 ```
 
-Roles group several subjects into one. Rules can be assigned to ORY Access Control Policy (OACP) by using the Role ID
-as subject in the OACP.
+Roles group several subjects into one. Rules can be assigned to ORY Access
+Control Policy (OACP) by using the Role ID as subject in the OACP.
 
 #### Request body
 
 ```json
 {
   "id": "string",
-  "members": [
-    "string"
-  ]
+  "members": ["string"]
 }
 ```
 
 <a id="upsert-an-ory-access-control-policy-role-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".|
-|body|body|[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)|false|none|
+| Parameter | In   | Type                                                            | Required | Description                                                                |
+| --------- | ---- | --------------------------------------------------------------- | -------- | -------------------------------------------------------------------------- |
+| flavor    | path | string                                                          | true     | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". |
+| body      | body | [oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole) | false    | none                                                                       |
 
 #### Responses
 
 <a id="upsert-an-ory-access-control-policy-role-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|oryAccessControlPolicyRole|[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description                | Schema                                                          |
+| ------ | -------------------------------------------------------------------------- | -------------------------- | --------------------------------------------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | oryAccessControlPolicyRole | [oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole) |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format  | Inline                                                          |
 
 <a id="upsert-an-ory-access-control-policy-role-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -1426,9 +1421,7 @@ Status Code **500**
 ```json
 {
   "id": "string",
-  "members": [
-    "string"
-  ]
+  "members": ["string"]
 }
 ```
 
@@ -1469,7 +1462,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
     }
@@ -1589,54 +1582,57 @@ Accept: application/json
 
 ```
 
-Roles group several subjects into one. Rules can be assigned to ORY Access Control Policy (OACP) by using the Role ID
-as subject in the OACP.
+Roles group several subjects into one. Rules can be assigned to ORY Access
+Control Policy (OACP) by using the Role ID as subject in the OACP.
 
 <a id="get-an-ory-access-control-policy-role-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".|
-|id|path|string|true|The ID of the ORY Access Control Policy Role.|
+| Parameter | In   | Type   | Required | Description                                                                |
+| --------- | ---- | ------ | -------- | -------------------------------------------------------------------------- |
+| flavor    | path | string | true     | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". |
+| id        | path | string | true     | The ID of the ORY Access Control Policy Role.                              |
 
 #### Responses
 
 <a id="get-an-ory-access-control-policy-role-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|oryAccessControlPolicyRole|[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description                | Schema                                                          |
+| ------ | -------------------------------------------------------------------------- | -------------------------- | --------------------------------------------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | oryAccessControlPolicyRole | [oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole) |
+| 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)             | The standard error format  | Inline                                                          |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format  | Inline                                                          |
 
 <a id="get-an-ory-access-control-policy-role-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **404**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -1645,9 +1641,7 @@ Status Code **500**
 ```json
 {
   "id": "string",
-  "members": [
-    "string"
-  ]
+  "members": ["string"]
 }
 ```
 
@@ -1688,7 +1682,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -1799,41 +1793,44 @@ Accept: application/json
 
 ```
 
-Roles group several subjects into one. Rules can be assigned to ORY Access Control Policy (OACP) by using the Role ID
-as subject in the OACP.
+Roles group several subjects into one. Rules can be assigned to ORY Access
+Control Policy (OACP) by using the Role ID as subject in the OACP.
 
 <a id="delete-an-ory-access-control-policy-role-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".|
-|id|path|string|true|The ID of the ORY Access Control Policy Role.|
+| Parameter | In   | Type   | Required | Description                                                                |
+| --------- | ---- | ------ | -------- | -------------------------------------------------------------------------- |
+| flavor    | path | string | true     | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". |
+| id        | path | string | true     | The ID of the ORY Access Control Policy Role.                              |
 
 #### Responses
 
 <a id="delete-an-ory-access-control-policy-role-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|An empty response|None|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------ |
+| 201    | [Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)               | An empty response         | None   |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline |
 
 <a id="delete-an-ory-access-control-policy-role-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -1892,7 +1889,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -2004,52 +2001,53 @@ Accept: application/json
 
 ```
 
-Roles group several subjects into one. Rules can be assigned to ORY Access Control Policy (OACP) by using the Role ID
-as subject in the OACP.
+Roles group several subjects into one. Rules can be assigned to ORY Access
+Control Policy (OACP) by using the Role ID as subject in the OACP.
 
 #### Request body
 
 ```json
 {
-  "members": [
-    "string"
-  ]
+  "members": ["string"]
 }
 ```
 
 <a id="add-a-member-to-an-ory-access-control-policy-role-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".|
-|id|path|string|true|The ID of the ORY Access Control Policy Role.|
-|body|body|[addOryAccessControlPolicyRoleMembersBody](#schemaaddoryaccesscontrolpolicyrolemembersbody)|false|none|
+| Parameter | In   | Type                                                                                        | Required | Description                                                                |
+| --------- | ---- | ------------------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------------------- |
+| flavor    | path | string                                                                                      | true     | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". |
+| id        | path | string                                                                                      | true     | The ID of the ORY Access Control Policy Role.                              |
+| body      | body | [addOryAccessControlPolicyRoleMembersBody](#schemaaddoryaccesscontrolpolicyrolemembersbody) | false    | none                                                                       |
 
 #### Responses
 
 <a id="add-a-member-to-an-ory-access-control-policy-role-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|oryAccessControlPolicyRole|[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description                | Schema                                                          |
+| ------ | -------------------------------------------------------------------------- | -------------------------- | --------------------------------------------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | oryAccessControlPolicyRole | [oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole) |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format  | Inline                                                          |
 
 <a id="add-a-member-to-an-ory-access-control-policy-role-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -2058,9 +2056,7 @@ Status Code **500**
 ```json
 {
   "id": "string",
-  "members": [
-    "string"
-  ]
+  "members": ["string"]
 }
 ```
 
@@ -2101,7 +2097,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
     }
@@ -2221,52 +2217,53 @@ Accept: application/json
 
 ```
 
-Roles group several subjects into one. Rules can be assigned to ORY Access Control Policy (OACP) by using the Role ID
-as subject in the OACP.
+Roles group several subjects into one. Rules can be assigned to ORY Access
+Control Policy (OACP) by using the Role ID as subject in the OACP.
 
 #### Request body
 
 ```json
 {
-  "members": [
-    "string"
-  ]
+  "members": ["string"]
 }
 ```
 
 <a id="remove-a-member-from-an-ory-access-control-policy-role-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|flavor|path|string|true|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".|
-|id|path|string|true|The ID of the ORY Access Control Policy Role.|
-|body|body|[removeOryAccessControlPolicyRoleMembersBody](#schemaremoveoryaccesscontrolpolicyrolemembersbody)|false|none|
+| Parameter | In   | Type                                                                                              | Required | Description                                                                |
+| --------- | ---- | ------------------------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------------------- |
+| flavor    | path | string                                                                                            | true     | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". |
+| id        | path | string                                                                                            | true     | The ID of the ORY Access Control Policy Role.                              |
+| body      | body | [removeOryAccessControlPolicyRoleMembersBody](#schemaremoveoryaccesscontrolpolicyrolemembersbody) | false    | none                                                                       |
 
 #### Responses
 
 <a id="remove-a-member-from-an-ory-access-control-policy-role-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|An empty response|None|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------ |
+| 201    | [Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)               | An empty response         | None   |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline |
 
 <a id="remove-a-member-from-an-ory-access-control-policy-role-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -2325,7 +2322,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
     }
@@ -2435,6 +2432,7 @@ p JSON.parse(result)
 </div>
 
 <a id="api-health"></a>
+
 ## health
 
 <a id="opIdisInstanceAlive"></a>
@@ -2447,39 +2445,42 @@ Accept: application/json
 
 ```
 
-This endpoint returns a 200 status code when the HTTP server is up running.
-This status does currently not include checks whether the database connection is working.
+This endpoint returns a 200 status code when the HTTP server is up running. This
+status does currently not include checks whether the database connection is
+working.
 
 If the service supports TLS Edge Termination, this endpoint does not require the
 `X-Forwarded-Proto` header to be set.
 
-Be aware that if you are running multiple nodes of this service, the health status will never
-refer to the cluster state, only to a single instance.
+Be aware that if you are running multiple nodes of this service, the health
+status will never refer to the cluster state, only to a single instance.
 
 #### Responses
 
 <a id="check-alive-status-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|healthStatus|[healthStatus](#schemahealthstatus)|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema                              |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ----------------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | healthStatus              | [healthStatus](#schemahealthstatus) |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline                              |
 
 <a id="check-alive-status-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -2528,7 +2529,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -2639,24 +2640,25 @@ Accept: application/json
 
 ```
 
-This endpoint returns a 200 status code when the HTTP server is up running and the environment dependencies (e.g.
-the database) are responsive as well.
+This endpoint returns a 200 status code when the HTTP server is up running and
+the environment dependencies (e.g. the database) are responsive as well.
 
 If the service supports TLS Edge Termination, this endpoint does not require the
 `X-Forwarded-Proto` header to be set.
 
-Be aware that if you are running multiple nodes of this service, the health status will never
-refer to the cluster state, only to a single instance.
+Be aware that if you are running multiple nodes of this service, the health
+status will never refer to the cluster state, only to a single instance.
 
 #### Responses
 
 <a id="check-readiness-status-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|healthStatus|[healthStatus](#schemahealthstatus)|
-|503|[Service Unavailable](https://tools.ietf.org/html/rfc7231#section-6.6.4)|healthNotReadyStatus|[healthNotReadyStatus](#schemahealthnotreadystatus)|
+| Status | Meaning                                                                  | Description          | Schema                                              |
+| ------ | ------------------------------------------------------------------------ | -------------------- | --------------------------------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                  | healthStatus         | [healthStatus](#schemahealthstatus)                 |
+| 503    | [Service Unavailable](https://tools.ietf.org/html/rfc7231#section-6.6.4) | healthNotReadyStatus | [healthNotReadyStatus](#schemahealthnotreadystatus) |
 
 ##### Examples
 
@@ -2705,7 +2707,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -2807,6 +2809,7 @@ p JSON.parse(result)
 </div>
 
 <a id="api-version"></a>
+
 ## version
 
 <a id="opIdgetVersion"></a>
@@ -2819,22 +2822,24 @@ Accept: application/json
 
 ```
 
-This endpoint returns the service version typically notated using semantic versioning.
+This endpoint returns the service version typically notated using semantic
+versioning.
 
 If the service supports TLS Edge Termination, this endpoint does not require the
 `X-Forwarded-Proto` header to be set.
 
-Be aware that if you are running multiple nodes of this service, the health status will never
-refer to the cluster state, only to a single instance.
+Be aware that if you are running multiple nodes of this service, the health
+status will never refer to the cluster state, only to a single instance.
 
 #### Responses
 
 <a id="get-service-version-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|version|[version](#schemaversion)|
+| Status | Meaning                                                 | Description | Schema                    |
+| ------ | ------------------------------------------------------- | ----------- | ------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | version     | [version](#schemaversion) |
 
 ##### Examples
 
@@ -2883,7 +2888,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -2987,6 +2992,7 @@ p JSON.parse(result)
 ## Schemas
 
 <a id="tocScontext">Context</a>
+
 #### Context
 
 <a id="schemacontext"></a>
@@ -2996,16 +3002,16 @@ p JSON.parse(result)
   "property1": {},
   "property2": {}
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|**additionalProperties**|object|false|none|none|
+| Name                     | Type   | Required | Restrictions | Description |
+| ------------------------ | ------ | -------- | ------------ | ----------- |
+| **additionalProperties** | object | false    | none         | none        |
 
 <a id="tocSpolicies">Policies</a>
+
 #### Policies
 
 <a id="schemapolicies"></a>
@@ -3013,9 +3019,7 @@ p JSON.parse(result)
 ```json
 [
   {
-    "actions": [
-      "string"
-    ],
+    "actions": ["string"],
     "conditions": [
       {
         "property1": {},
@@ -3025,26 +3029,22 @@ p JSON.parse(result)
     "description": "string",
     "effect": "string",
     "id": "string",
-    "resources": [
-      "string"
-    ],
-    "subjects": [
-      "string"
-    ]
+    "resources": ["string"],
+    "subjects": ["string"]
   }
 ]
-
 ```
 
-*Policies is an array of policies.*
+_Policies is an array of policies._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Policies is an array of policies.|[[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)]|false|none|none|
+| Name                              | Type                                                      | Required | Restrictions | Description |
+| --------------------------------- | --------------------------------------------------------- | -------- | ------------ | ----------- |
+| Policies is an array of policies. | [[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)] | false    | none         | none        |
 
 <a id="tocSaddoryaccesscontrolpolicyrolemembers">addOryAccessControlPolicyRoleMembers</a>
+
 #### addOryAccessControlPolicyRoleMembers
 
 <a id="schemaaddoryaccesscontrolpolicyrolemembers"></a>
@@ -3052,45 +3052,41 @@ p JSON.parse(result)
 ```json
 {
   "Body": {
-    "members": [
-      "string"
-    ]
+    "members": ["string"]
   },
   "flavor": "string",
   "id": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Body|[addOryAccessControlPolicyRoleMembersBody](#schemaaddoryaccesscontrolpolicyrolemembersbody)|false|none|none|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
-|id|string|true|none|The ID of the ORY Access Control Policy Role.  in: path|
+| Name   | Type                                                                                        | Required | Restrictions | Description                                                                         |
+| ------ | ------------------------------------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------- |
+| Body   | [addOryAccessControlPolicyRoleMembersBody](#schemaaddoryaccesscontrolpolicyrolemembersbody) | false    | none         | none                                                                                |
+| flavor | string                                                                                      | true     | none         | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". in: path |
+| id     | string                                                                                      | true     | none         | The ID of the ORY Access Control Policy Role. in: path                              |
 
 <a id="tocSaddoryaccesscontrolpolicyrolemembersbody">addOryAccessControlPolicyRoleMembersBody</a>
+
 #### addOryAccessControlPolicyRoleMembersBody
 
 <a id="schemaaddoryaccesscontrolpolicyrolemembersbody"></a>
 
 ```json
 {
-  "members": [
-    "string"
-  ]
+  "members": ["string"]
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|members|[string]|false|none|The members to be added.|
+| Name    | Type     | Required | Restrictions | Description              |
+| ------- | -------- | -------- | ------------ | ------------------------ |
+| members | [string] | false    | none         | The members to be added. |
 
 <a id="tocSauthorizationresult">authorizationResult</a>
+
 #### authorizationResult
 
 <a id="schemaauthorizationresult"></a>
@@ -3099,18 +3095,19 @@ p JSON.parse(result)
 {
   "allowed": true
 }
-
 ```
 
-*AuthorizationResult is the result of an access control decision. It contains the decision outcome.*
+_AuthorizationResult is the result of an access control decision. It contains
+the decision outcome._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|allowed|boolean|false|none|Allowed is true if the request should be allowed and false otherwise.|
+| Name    | Type    | Required | Restrictions | Description                                                           |
+| ------- | ------- | -------- | ------------ | --------------------------------------------------------------------- |
+| allowed | boolean | false    | none         | Allowed is true if the request should be allowed and false otherwise. |
 
 <a id="tocSdeleteoryaccesscontrolpolicy">deleteOryAccessControlPolicy</a>
+
 #### deleteOryAccessControlPolicy
 
 <a id="schemadeleteoryaccesscontrolpolicy"></a>
@@ -3120,17 +3117,17 @@ p JSON.parse(result)
   "flavor": "string",
   "id": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
-|id|string|true|none|The ID of the ORY Access Control Policy Role.  in: path|
+| Name   | Type   | Required | Restrictions | Description                                                                         |
+| ------ | ------ | -------- | ------------ | ----------------------------------------------------------------------------------- |
+| flavor | string | true     | none         | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". in: path |
+| id     | string | true     | none         | The ID of the ORY Access Control Policy Role. in: path                              |
 
 <a id="tocSdeleteoryaccesscontrolpolicyrole">deleteOryAccessControlPolicyRole</a>
+
 #### deleteOryAccessControlPolicyRole
 
 <a id="schemadeleteoryaccesscontrolpolicyrole"></a>
@@ -3140,17 +3137,17 @@ p JSON.parse(result)
   "flavor": "string",
   "id": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
-|id|string|true|none|The ID of the ORY Access Control Policy Role. in: path|
+| Name   | Type   | Required | Restrictions | Description                                                                         |
+| ------ | ------ | -------- | ------------ | ----------------------------------------------------------------------------------- |
+| flavor | string | true     | none         | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". in: path |
+| id     | string | true     | none         | The ID of the ORY Access Control Policy Role. in: path                              |
 
 <a id="tocSdooryaccesscontrolpoliciesallow">doOryAccessControlPoliciesAllow</a>
+
 #### doOryAccessControlPoliciesAllow
 
 <a id="schemadooryaccesscontrolpoliciesallow"></a>
@@ -3168,17 +3165,17 @@ p JSON.parse(result)
   },
   "flavor": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Body|[oryAccessControlPolicyAllowedInput](#schemaoryaccesscontrolpolicyallowedinput)|false|none|none|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
+| Name   | Type                                                                            | Required | Restrictions | Description                                                                         |
+| ------ | ------------------------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------- |
+| Body   | [oryAccessControlPolicyAllowedInput](#schemaoryaccesscontrolpolicyallowedinput) | false    | none         | none                                                                                |
+| flavor | string                                                                          | true     | none         | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". in: path |
 
 <a id="tocSgetoryaccesscontrolpolicy">getOryAccessControlPolicy</a>
+
 #### getOryAccessControlPolicy
 
 <a id="schemagetoryaccesscontrolpolicy"></a>
@@ -3188,17 +3185,17 @@ p JSON.parse(result)
   "flavor": "string",
   "id": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
-|id|string|true|none|The ID of the ORY Access Control Policy Role.  in: path|
+| Name   | Type   | Required | Restrictions | Description                                                                         |
+| ------ | ------ | -------- | ------------ | ----------------------------------------------------------------------------------- |
+| flavor | string | true     | none         | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". in: path |
+| id     | string | true     | none         | The ID of the ORY Access Control Policy Role. in: path                              |
 
 <a id="tocSgetoryaccesscontrolpolicyrole">getOryAccessControlPolicyRole</a>
+
 #### getOryAccessControlPolicyRole
 
 <a id="schemagetoryaccesscontrolpolicyrole"></a>
@@ -3208,17 +3205,17 @@ p JSON.parse(result)
   "flavor": "string",
   "id": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
-|id|string|true|none|The ID of the ORY Access Control Policy Role.  in: path|
+| Name   | Type   | Required | Restrictions | Description                                                                         |
+| ------ | ------ | -------- | ------------ | ----------------------------------------------------------------------------------- |
+| flavor | string | true     | none         | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". in: path |
+| id     | string | true     | none         | The ID of the ORY Access Control Policy Role. in: path                              |
 
 <a id="tocShealthnotreadystatus">healthNotReadyStatus</a>
+
 #### healthNotReadyStatus
 
 <a id="schemahealthnotreadystatus"></a>
@@ -3230,17 +3227,17 @@ p JSON.parse(result)
     "property2": "string"
   }
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|errors|object|false|none|Errors contains a list of errors that caused the not ready status.|
-|» **additionalProperties**|string|false|none|none|
+| Name                       | Type   | Required | Restrictions | Description                                                        |
+| -------------------------- | ------ | -------- | ------------ | ------------------------------------------------------------------ |
+| errors                     | object | false    | none         | Errors contains a list of errors that caused the not ready status. |
+| » **additionalProperties** | string | false    | none         | none                                                               |
 
 <a id="tocShealthstatus">healthStatus</a>
+
 #### healthStatus
 
 <a id="schemahealthstatus"></a>
@@ -3249,16 +3246,16 @@ p JSON.parse(result)
 {
   "status": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|status|string|false|none|Status always contains "ok".|
+| Name   | Type   | Required | Restrictions | Description                  |
+| ------ | ------ | -------- | ------------ | ---------------------------- |
+| status | string | false    | none         | Status always contains "ok". |
 
 <a id="tocSlistoryaccesscontrolpolicies">listOryAccessControlPolicies</a>
+
 #### listOryAccessControlPolicies
 
 <a id="schemalistoryaccesscontrolpolicies"></a>
@@ -3269,18 +3266,18 @@ p JSON.parse(result)
   "limit": 0,
   "offset": 0
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact"  in: path|
-|limit|integer(int64)|false|none|The maximum amount of policies returned.  in: query|
-|offset|integer(int64)|false|none|The offset from where to start looking.  in: query|
+| Name   | Type           | Required | Restrictions | Description                                                                        |
+| ------ | -------------- | -------- | ------------ | ---------------------------------------------------------------------------------- |
+| flavor | string         | true     | none         | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact" in: path |
+| limit  | integer(int64) | false    | none         | The maximum amount of policies returned. in: query                                 |
+| offset | integer(int64) | false    | none         | The offset from where to start looking. in: query                                  |
 
 <a id="tocSlistoryaccesscontrolpolicyroles">listOryAccessControlPolicyRoles</a>
+
 #### listOryAccessControlPolicyRoles
 
 <a id="schemalistoryaccesscontrolpolicyroles"></a>
@@ -3291,18 +3288,18 @@ p JSON.parse(result)
   "limit": 0,
   "offset": 0
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact"  in: path|
-|limit|integer(int64)|false|none|The maximum amount of policies returned.  in: query|
-|offset|integer(int64)|false|none|The offset from where to start looking.  in: query|
+| Name   | Type           | Required | Restrictions | Description                                                                        |
+| ------ | -------------- | -------- | ------------ | ---------------------------------------------------------------------------------- |
+| flavor | string         | true     | none         | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact" in: path |
+| limit  | integer(int64) | false    | none         | The maximum amount of policies returned. in: query                                 |
+| offset | integer(int64) | false    | none         | The offset from where to start looking. in: query                                  |
 
 <a id="tocSoryaccesscontrolpolicies">oryAccessControlPolicies</a>
+
 #### oryAccessControlPolicies
 
 <a id="schemaoryaccesscontrolpolicies"></a>
@@ -3311,9 +3308,7 @@ p JSON.parse(result)
 {
   "Body": [
     {
-      "actions": [
-        "string"
-      ],
+      "actions": ["string"],
       "conditions": [
         {
           "property1": {},
@@ -3323,36 +3318,30 @@ p JSON.parse(result)
       "description": "string",
       "effect": "string",
       "id": "string",
-      "resources": [
-        "string"
-      ],
-      "subjects": [
-        "string"
-      ]
+      "resources": ["string"],
+      "subjects": ["string"]
     }
   ]
 }
-
 ```
 
-*Policies is an array of policies.*
+_Policies is an array of policies._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Body|[[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)]|false|none|in: body|
+| Name | Type                                                      | Required | Restrictions | Description |
+| ---- | --------------------------------------------------------- | -------- | ------------ | ----------- |
+| Body | [[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)] | false    | none         | in: body    |
 
 <a id="tocSoryaccesscontrolpolicy">oryAccessControlPolicy</a>
+
 #### oryAccessControlPolicy
 
 <a id="schemaoryaccesscontrolpolicy"></a>
 
 ```json
 {
-  "actions": [
-    "string"
-  ],
+  "actions": ["string"],
   "conditions": [
     {
       "property1": {},
@@ -3362,32 +3351,28 @@ p JSON.parse(result)
   "description": "string",
   "effect": "string",
   "id": "string",
-  "resources": [
-    "string"
-  ],
-  "subjects": [
-    "string"
-  ]
+  "resources": ["string"],
+  "subjects": ["string"]
 }
-
 ```
 
-*Policy specifies an ORY Access Policy document.*
+_Policy specifies an ORY Access Policy document._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|actions|[string]|false|none|Actions is an array representing all the actions this ORY Access Policy applies to.|
-|conditions|[object]|false|none|Conditions represents an array of conditions under which this ORY Access Policy is active.|
-|» **additionalProperties**|object|false|none|none|
-|description|string|false|none|Description is an optional, human-readable description.|
-|effect|string|false|none|Effect is the effect of this ORY Access Policy. It can be "allow" or "deny".|
-|id|string|false|none|ID is the unique identifier of the ORY Access Policy. It is used to query, update, and remove the ORY Access Policy.|
-|resources|[string]|false|none|Resources is an array representing all the resources this ORY Access Policy applies to.|
-|subjects|[string]|false|none|Subjects is an array representing all the subjects this ORY Access Policy applies to.|
+| Name                       | Type     | Required | Restrictions | Description                                                                                                          |
+| -------------------------- | -------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------- |
+| actions                    | [string] | false    | none         | Actions is an array representing all the actions this ORY Access Policy applies to.                                  |
+| conditions                 | [object] | false    | none         | Conditions represents an array of conditions under which this ORY Access Policy is active.                           |
+| » **additionalProperties** | object   | false    | none         | none                                                                                                                 |
+| description                | string   | false    | none         | Description is an optional, human-readable description.                                                              |
+| effect                     | string   | false    | none         | Effect is the effect of this ORY Access Policy. It can be "allow" or "deny".                                         |
+| id                         | string   | false    | none         | ID is the unique identifier of the ORY Access Policy. It is used to query, update, and remove the ORY Access Policy. |
+| resources                  | [string] | false    | none         | Resources is an array representing all the resources this ORY Access Policy applies to.                              |
+| subjects                   | [string] | false    | none         | Subjects is an array representing all the subjects this ORY Access Policy applies to.                                |
 
 <a id="tocSoryaccesscontrolpolicyallowedinput">oryAccessControlPolicyAllowedInput</a>
+
 #### oryAccessControlPolicyAllowedInput
 
 <a id="schemaoryaccesscontrolpolicyallowedinput"></a>
@@ -3402,20 +3387,20 @@ p JSON.parse(result)
   "resource": "string",
   "subject": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|action|string|false|none|Action is the action that is requested on the resource.|
-|context|object|false|none|Context is the request's environmental context.|
-|» **additionalProperties**|object|false|none|none|
-|resource|string|false|none|Resource is the resource that access is requested to.|
-|subject|string|false|none|Subject is the subject that is requesting access.|
+| Name                       | Type   | Required | Restrictions | Description                                             |
+| -------------------------- | ------ | -------- | ------------ | ------------------------------------------------------- |
+| action                     | string | false    | none         | Action is the action that is requested on the resource. |
+| context                    | object | false    | none         | Context is the request's environmental context.         |
+| » **additionalProperties** | object | false    | none         | none                                                    |
+| resource                   | string | false    | none         | Resource is the resource that access is requested to.   |
+| subject                    | string | false    | none         | Subject is the subject that is requesting access.       |
 
 <a id="tocSoryaccesscontrolpolicyrole">oryAccessControlPolicyRole</a>
+
 #### oryAccessControlPolicyRole
 
 <a id="schemaoryaccesscontrolpolicyrole"></a>
@@ -3423,24 +3408,22 @@ p JSON.parse(result)
 ```json
 {
   "id": "string",
-  "members": [
-    "string"
-  ]
+  "members": ["string"]
 }
-
 ```
 
-*Role represents a group of users that share the same role. A role could be an administrator, a moderator, a regular
-user or some other sort of role.*
+_Role represents a group of users that share the same role. A role could be an
+administrator, a moderator, a regular user or some other sort of role._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|id|string|false|none|ID is the role's unique id.|
-|members|[string]|false|none|Members is who belongs to the role.|
+| Name    | Type     | Required | Restrictions | Description                         |
+| ------- | -------- | -------- | ------------ | ----------------------------------- |
+| id      | string   | false    | none         | ID is the role's unique id.         |
+| members | [string] | false    | none         | Members is who belongs to the role. |
 
 <a id="tocSoryaccesscontrolpolicyroles">oryAccessControlPolicyRoles</a>
+
 #### oryAccessControlPolicyRoles
 
 <a id="schemaoryaccesscontrolpolicyroles"></a>
@@ -3449,24 +3432,22 @@ user or some other sort of role.*
 [
   {
     "id": "string",
-    "members": [
-      "string"
-    ]
+    "members": ["string"]
   }
 ]
-
 ```
 
-*A list of roles.*
+_A list of roles._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|A list of roles.|[[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)]|false|none|[Role represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role.]|
-|Body|[[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)]|false|none|in: body|
+| Name             | Type                                                              | Required | Restrictions | Description                                                                                                                                            |
+| ---------------- | ----------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| A list of roles. | [[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)] | false    | none         | [Role represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role.] |
+| Body             | [[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)] | false    | none         | in: body                                                                                                                                               |
 
 <a id="tocSremoveoryaccesscontrolpolicyrolemembers">removeOryAccessControlPolicyRoleMembers</a>
+
 #### removeOryAccessControlPolicyRoleMembers
 
 <a id="schemaremoveoryaccesscontrolpolicyrolemembers"></a>
@@ -3474,45 +3455,41 @@ user or some other sort of role.*
 ```json
 {
   "Body": {
-    "members": [
-      "string"
-    ]
+    "members": ["string"]
   },
   "flavor": "string",
   "id": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Body|[removeOryAccessControlPolicyRoleMembersBody](#schemaremoveoryaccesscontrolpolicyrolemembersbody)|false|none|none|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
-|id|string|true|none|The ID of the ORY Access Control Policy Role.  in: path|
+| Name   | Type                                                                                              | Required | Restrictions | Description                                                                         |
+| ------ | ------------------------------------------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------- |
+| Body   | [removeOryAccessControlPolicyRoleMembersBody](#schemaremoveoryaccesscontrolpolicyrolemembersbody) | false    | none         | none                                                                                |
+| flavor | string                                                                                            | true     | none         | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". in: path |
+| id     | string                                                                                            | true     | none         | The ID of the ORY Access Control Policy Role. in: path                              |
 
 <a id="tocSremoveoryaccesscontrolpolicyrolemembersbody">removeOryAccessControlPolicyRoleMembersBody</a>
+
 #### removeOryAccessControlPolicyRoleMembersBody
 
 <a id="schemaremoveoryaccesscontrolpolicyrolemembersbody"></a>
 
 ```json
 {
-  "members": [
-    "string"
-  ]
+  "members": ["string"]
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|members|[string]|false|none|The members to be removed.|
+| Name    | Type     | Required | Restrictions | Description                |
+| ------- | -------- | -------- | ------------ | -------------------------- |
+| members | [string] | false    | none         | The members to be removed. |
 
 <a id="tocSupsertoryaccesscontrolpolicy">upsertOryAccessControlPolicy</a>
+
 #### upsertOryAccessControlPolicy
 
 <a id="schemaupsertoryaccesscontrolpolicy"></a>
@@ -3520,9 +3497,7 @@ user or some other sort of role.*
 ```json
 {
   "Body": {
-    "actions": [
-      "string"
-    ],
+    "actions": ["string"],
     "conditions": [
       {
         "property1": {},
@@ -3532,26 +3507,22 @@ user or some other sort of role.*
     "description": "string",
     "effect": "string",
     "id": "string",
-    "resources": [
-      "string"
-    ],
-    "subjects": [
-      "string"
-    ]
+    "resources": ["string"],
+    "subjects": ["string"]
   },
   "flavor": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Body|[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)|false|none|none|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
+| Name   | Type                                                    | Required | Restrictions | Description                                                                         |
+| ------ | ------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------- |
+| Body   | [oryAccessControlPolicy](#schemaoryaccesscontrolpolicy) | false    | none         | none                                                                                |
+| flavor | string                                                  | true     | none         | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". in: path |
 
 <a id="tocSupsertoryaccesscontrolpolicyrole">upsertOryAccessControlPolicyRole</a>
+
 #### upsertOryAccessControlPolicyRole
 
 <a id="schemaupsertoryaccesscontrolpolicyrole"></a>
@@ -3560,23 +3531,21 @@ user or some other sort of role.*
 {
   "Body": {
     "id": "string",
-    "members": [
-      "string"
-    ]
+    "members": ["string"]
   },
   "flavor": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Body|[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)|false|none|Role represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role.|
-|flavor|string|true|none|The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact".  in: path|
+| Name   | Type                                                            | Required | Restrictions | Description                                                                                                                                          |
+| ------ | --------------------------------------------------------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Body   | [oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole) | false    | none         | Role represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role. |
+| flavor | string                                                          | true     | none         | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". in: path                                                                  |
 
 <a id="tocSversion">version</a>
+
 #### version
 
 <a id="schemaversion"></a>
@@ -3585,12 +3554,10 @@ user or some other sort of role.*
 {
   "version": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|version|string|false|none|Version is the service's version.|
-
+| Name    | Type   | Required | Restrictions | Description                       |
+| ------- | ------ | -------- | ------------ | --------------------------------- |
+| version | string | false    | none         | Version is the service's version. |
