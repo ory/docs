@@ -635,9 +635,9 @@ When using this algorithm, you have the following environment variables availabl
 - If this endpoint is protected using OAuth 2.0 Access Tokens, you can configure ORY Oathkeeper to authorize before
   calling this endpoint. To do so, configure the following, optional settings:
   _ CREDENTIALS*ISSUER_ID_TOKEN_HYDRA_CLIENT* The ID of the OAuth 2.0 Client.
-  _ CREDENTIALS*ISSUER_ID_TOKEN_HYDRA_CLIENT_SECRET: The secret of the OAuth 2.0 Client.
-  * CREDENTIALS*ISSUER_ID_TOKEN_HYDRA_CLIENT_SCOPES: The OAuth 2.0 Scope the client should request.
-  * CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_PUBLIC_URL: The public URL where endpoint /oauth2/token is located.
+  _ CREDENTIALS\*ISSUER_ID_TOKEN_HYDRA_CLIENT_SECRET: The secret of the OAuth 2.0 Client.
+  - CREDENTIALS\*ISSUER_ID_TOKEN_HYDRA_CLIENT_SCOPES: The OAuth 2.0 Scope the client should request.
+  - CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_PUBLIC_URL: The public URL where endpoint /oauth2/token is located.
 
 ##### Access Rule Configuration
 
