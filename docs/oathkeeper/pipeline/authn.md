@@ -3,18 +3,21 @@ id: authn
 title: Authenticators
 ---
 
-An authenticator is responsible for authenticating request credentials. ORY Oathkeeper supports different authenticators
-and we will add more as the project progresses.
+An authenticator is responsible for authenticating request credentials. ORY
+Oathkeeper supports different authenticators and we will add more as the project
+progresses.
 
-An authenticator inspects the HTTP request (e.g. the HTTP Authorization Header) and executes some business logic that
-returns true (for authentication ok) or false (for authentication invalid) as well as a subject ("user"). The subject is
-typically the "user" that made the request, but it could also be a machine (if you have machine-2-machine interaction) or
-something different.
+An authenticator inspects the HTTP request (e.g. the HTTP Authorization Header)
+and executes some business logic that returns true (for authentication ok) or
+false (for authentication invalid) as well as a subject ("user"). The subject is
+typically the "user" that made the request, but it could also be a machine (if
+you have machine-2-machine interaction) or something different.
 
 Each authenticator has two keys:
 
-* `handler` (string, required): Defines the handler (e.g. `noop`) to be used.
-* `config` (object, optional): Configures the handler. Configuration keys vary per handler.
+- `handler` (string, required): Defines the handler (e.g. `noop`) to be used.
+- `config` (object, optional): Configures the handler. Configuration keys vary
+  per handler.
 
 **Example**
 
@@ -29,8 +32,9 @@ Each authenticator has two keys:
 }
 ```
 
-You can define more than one authenticator in the Access Rule. The first authenticator that is able to handle the
-credentials will be consulted and other authenticators will be ignored:
+You can define more than one authenticator in the Access Rule. The first
+authenticator that is able to handle the credentials will be consulted and other
+authenticators will be ignored:
 
 ```json
 {
@@ -48,19 +52,24 @@ credentials will be consulted and other authenticators will be ignored:
 }
 ```
 
-If handler `a` is able to handle the provided credentials, then handler `b` and `c` will be ignored. If handler `a`
-can not handle the provided credentials but handler `b` can, then handler `a` and `c` will be ignored. Handling
-the provided credentials means that the authenticator knows how to handle, for example, the `Authorization: basic` header.
-It does not mean that the credentials are valid! If a handler encounters invalid credentials, then other handlers will be ignored too.
+If handler `a` is able to handle the provided credentials, then handler `b` and
+`c` will be ignored. If handler `a` can not handle the provided credentials but
+handler `b` can, then handler `a` and `c` will be ignored. Handling the provided
+credentials means that the authenticator knows how to handle, for example, the
+`Authorization: basic` header. It does not mean that the credentials are valid!
+If a handler encounters invalid credentials, then other handlers will be ignored
+too.
 
 ## `noop`
 
-The `noop` handler tells ORY Oathkeeper to bypass authentication, authorization, and mutator. This implies
-that no authorization will be executed and no credentials will be issued. It's basically a pass-all authenticator
-that allows any request to be forwarded to the upstream URL.
+The `noop` handler tells ORY Oathkeeper to bypass authentication, authorization,
+and mutator. This implies that no authorization will be executed and no
+credentials will be issued. It's basically a pass-all authenticator that allows
+any request to be forwarded to the upstream URL.
 
-> Using this handler is basically an allow-all configuration. It makes sense when the upstream handles access control
-itself or does not need any type of access control.
+> Using this handler is basically an allow-all configuration. It makes sense
+> when the upstream handles access control itself or does not need any type of
+> access control.
 
 ### Global Configuration
 
@@ -102,7 +111,8 @@ The request has been allowed!
 
 ## `unauthorized`
 
-The `unauthorized` handler tells ORY Oathkeeper to reject all requests as unauthorized.
+The `unauthorized` handler tells ORY Oathkeeper to reject all requests as
+unauthorized.
 
 ### Global Configuration
 
@@ -143,8 +153,8 @@ HTTP/1.0 401 Unauthorized
 
 ## `anonymous`
 
-The `anonymous` authenticator checks whether or not an `Authorization` header is set. If not, it will set the subject
-to `anonymous`.
+The `anonymous` authenticator checks whether or not an `Authorization` header is
+set. If not, it will set the subject to `anonymous`.
 
 ### Global Configuration
 
@@ -162,9 +172,10 @@ authenticators:
 
 ### Example
 
-The following rule allows all requests to `GET http://my-app/some-route` and sets the subject name to the value
-of the environment variable `AUTHENTICATOR_ANONYMOUS_USERNAME`, as long as no `Authorization` header is set in the
-HTTP request:
+The following rule allows all requests to `GET http://my-app/some-route` and
+sets the subject name to the value of the environment variable
+`AUTHENTICATOR_ANONYMOUS_USERNAME`, as long as no `Authorization` header is set
+in the HTTP request:
 
 ```shell
 $ cat ./rules.json
@@ -201,18 +212,21 @@ authenticator is enabled for this URL.
 
 ## `oauth2_client_credentials`
 
-This `oauth2_client_credentials` uses the username and password from HTTP Basic Authorization
-(`Authorization: Basic base64(<username:password>)` to perform the OAuth 2.0 Client Credentials grant in order to detect
-if the provided credentials are valid.
+This `oauth2_client_credentials` uses the username and password from HTTP Basic
+Authorization (`Authorization: Basic base64(<username:password>)` to perform the
+OAuth 2.0 Client Credentials grant in order to detect if the provided
+credentials are valid.
 
-This authenticator will use the username from the HTTP Basic Authorization header as the subject for this request.
+This authenticator will use the username from the HTTP Basic Authorization
+header as the subject for this request.
 
 > If you are unfamiliar with OAuth 2.0 Introspection we recommend
-[reading this guide](https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/).
+> [reading this guide](https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/).
 
 ### Global Configuration
 
-You can en-/disable the authenticator and must also configure how to validate the OAuth 2.0 Client Credentials:
+You can en-/disable the authenticator and must also configure how to validate
+the OAuth 2.0 Client Credentials:
 
 ```yaml
 authenticators:
@@ -226,9 +240,9 @@ authenticators:
 
 ### Per-Rule Configuration
 
-This authenticator has one configuration option which is `required_scope`. This option sets what scope is
-required by the URL and when making performing OAuth 2.0 Client Credentials request, the scope will be included
-in the request:
+This authenticator has one configuration option which is `required_scope`. This
+option sets what scope is required by the URL and when making performing OAuth
+2.0 Client Credentials request, the scope will be included in the request:
 
 ```json
 {
@@ -281,34 +295,37 @@ HTTP/1.0 200 OK
 The request has been allowed! The subject is: "peter"
 ```
 
-In the background, a request to the OAuth 2.0 Token Endpoint (value of `authenticators.oauth2_client_credentials.token_url`)
-will be made, using the OAuth 2.0 Client Credentials Grant:
+In the background, a request to the OAuth 2.0 Token Endpoint (value of
+`authenticators.oauth2_client_credentials.token_url`) will be made, using the
+OAuth 2.0 Client Credentials Grant:
 
 ```
 POST /oauth2/token HTTP/1.1
 Host: authorization-server.com
- 
+
 grant_type=client_credentials
 &client_id=peter
 &client_secret=somesecret
 &scope=scope-a+scope-b
 ```
 
-If the request succeeds, the credentials are considered valid and if the request fails, the credentials are considered
-invalid.
+If the request succeeds, the credentials are considered valid and if the request
+fails, the credentials are considered invalid.
 
 ## `oauth2_introspection`
 
-The `oauth2_introspection` authenticator handles requests that have an Bearer Token in the Authorization Header
-(`Authorization: bearer <token>`). It then uses OAuth 2.0 Token Introspection to check if the token is valid and if
-the token was granted the requested scope.
+The `oauth2_introspection` authenticator handles requests that have an Bearer
+Token in the Authorization Header (`Authorization: bearer <token>`). It then
+uses OAuth 2.0 Token Introspection to check if the token is valid and if the
+token was granted the requested scope.
 
 > If you are unfamiliar with OAuth 2.0 Introspection we recommend
-[reading this guide](https://www.oauth.com/oauth2-servers/token-introspection-endpoint/).
+> [reading this guide](https://www.oauth.com/oauth2-servers/token-introspection-endpoint/).
 
 ### Global Configuration
 
-You can en-/disable the authenticator and must also configure how to validate the OAuth 2.0 Client Credentials:
+You can en-/disable the authenticator and must also configure how to validate
+the OAuth 2.0 Client Credentials:
 
 ```yaml
 authenticators:
@@ -346,9 +363,9 @@ authenticators:
 
 ### Per-Rule Configuration
 
-This authenticator has one configuration option which is `required_scope`. This option sets what scope is
-required by the URL and when making performing OAuth 2.0 Client Credentials request, the scope will be included
-in the request:
+This authenticator has one configuration option which is `required_scope`. This
+option sets what scope is required by the URL and when making performing OAuth
+2.0 Client Credentials request, the scope will be included in the request:
 
 ```json
 {
@@ -401,8 +418,10 @@ HTTP/1.0 200 OK
 The request has been allowed! The subject is: "peter"
 ```
 
-In the background, this handler will make a request to the OAuth 2.0 Token Endpoint (configuration value
-`authenticators.oauth2_introspection.introspection_url`) to check if the Bearer Token is valid:
+In the background, this handler will make a request to the OAuth 2.0 Token
+Endpoint (configuration value
+`authenticators.oauth2_introspection.introspection_url`) to check if the Bearer
+Token is valid:
 
 ```
 POST /oauth2/introspect HTTP/1.1
@@ -410,7 +429,8 @@ POST /oauth2/introspect HTTP/1.1
 token=valid.access.token.from.peter
 ```
 
-If pre-authorization is enabled, that request will include an Authorization Header:
+If pre-authorization is enabled, that request will include an Authorization
+Header:
 
 ```
 POST /oauth2/introspect HTTP/1.1
@@ -419,17 +439,20 @@ Authorization: Bearer token-received-by-performing-pre-authorization
 token=valid.access.token.from.peter
 ```
 
-The Token is considered valid if the Introspection response is HTTP 200 OK and includes `{"active":true}` in the
-response payload. The subject is extracted from the `username` field.
+The Token is considered valid if the Introspection response is HTTP 200 OK and
+includes `{"active":true}` in the response payload. The subject is extracted
+from the `username` field.
 
 ## `jwt`
 
-The `jwt` authenticator handles requests that have an Bearer Token in the Authorization Header (`Authorization: bearer <token>`).
-It assumes that the token is a JSON Web Token and tries to verify the signature of it.
+The `jwt` authenticator handles requests that have an Bearer Token in the
+Authorization Header (`Authorization: bearer <token>`). It assumes that the
+token is a JSON Web Token and tries to verify the signature of it.
 
 ### Global Configuration
 
-You can en-/disable the authenticator and must also configure how to validate the OAuth 2.0 Client Credentials:
+You can en-/disable the authenticator and must also configure how to validate
+the OAuth 2.0 Client Credentials:
 
 ```yaml
 authenticators:
@@ -452,30 +475,38 @@ authenticators:
 
 ### Per-Rule Configuration
 
-This handler can be configured to check the scope, audience, and issuer of the JSON Web Token. It is also possible
-to whitelist specific signing algorithms:
+This handler can be configured to check the scope, audience, and issuer of the
+JSON Web Token. It is also possible to whitelist specific signing algorithms:
 
-* If `trusted_issuers` ([]string) is set, the JWT must contain a value for claim `iss` that matches *exactly* (case-sensitive) one
-    of the values of `trusted_issuers`.  If no values are configured, the issuer will be ignored.
-* If `target_audience` ([]string) is set, the JWT must contain all values (exact, case-sensitive) in the claim `aud`. If
-    no values are configured, the audience will be ignored.
-* Value `allowed_algorithms` ([]string) sets what signing algorithms are allowed. Defaults to `RS256`.
-* Value `required_scope` ([]string) validates the scope of the JWT. It will checks for claims `scp`, `scope`, `scopes`
-    in the JWT when validating the scope as that claim is not standardized.
+- If `trusted_issuers` ([]string) is set, the JWT must contain a value for claim
+  `iss` that matches _exactly_ (case-sensitive) one of the values of
+  `trusted_issuers`. If no values are configured, the issuer will be ignored.
+- If `target_audience` ([]string) is set, the JWT must contain all values
+  (exact, case-sensitive) in the claim `aud`. If no values are configured, the
+  audience will be ignored.
+- Value `allowed_algorithms` ([]string) sets what signing algorithms are
+  allowed. Defaults to `RS256`.
+- Value `required_scope` ([]string) validates the scope of the JWT. It will
+  checks for claims `scp`, `scope`, `scopes` in the JWT when validating the
+  scope as that claim is not standardized.
 
 ```json
 {
   "handler": "jwt",
   "config": {
     "required_scope": ["scope-a", "scope-b"],
-    "target_audience": ["https://my-service.com/api/users", "https://my-service.com/api/devices"],
+    "target_audience": [
+      "https://my-service.com/api/users",
+      "https://my-service.com/api/devices"
+    ],
     "trusted_issuers": ["https://my-issuer.com/"],
     "allowed_algorithms": ["RS256", "RS256"]
   }
 }
 ```
 
-That exemplary Access Rule consider the following (decoded) JSON Web Token as valid:
+That exemplary Access Rule consider the following (decoded) JSON Web Token as
+valid:
 
 ```
 {
@@ -488,7 +519,8 @@ That exemplary Access Rule consider the following (decoded) JSON Web Token as va
 }
 ```
 
-And this token as invalid (audience is missing, issuer is not matching, scope is missing, wrong algorithm):
+And this token as invalid (audience is missing, issuer is not matching, scope is
+missing, wrong algorithm):
 
 ```
 {
@@ -545,6 +577,7 @@ HTTP/1.0 200 OK
 The request has been allowed! The subject is: "peter"
 ```
 
-In the background, this handler will fetch all JSON Web Key Sets provided by configuration key
-`authenticators.jwt.jwks_urls` and use those keys to verify the signature. If the signature can not be verified
-by any of those keys, the JWT is considered invalid.
+In the background, this handler will fetch all JSON Web Key Sets provided by
+configuration key `authenticators.jwt.jwks_urls` and use those keys to verify
+the signature. If the signature can not be verified by any of those keys, the
+JWT is considered invalid.

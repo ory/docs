@@ -895,7 +895,7 @@ Status Code **200**
 |»»» config|object|false|none|Config contains the configuration for the handler. Please read the user guide for a complete list of each handler's available settings.|
 |»»» handler|string|false|none|Handler identifies the implementation which will be used to handle this specific request. Please read the user guide for a complete list of available handlers.|
 |»» authorizer|[ruleHandler](#schemarulehandler)|false|none|none|
-|»» mutator|[ruleHandler](#schemarulehandler)|false|none|none|
+|»» credentials_issuer|[ruleHandler](#schemarulehandler)|false|none|none|
 |»» description|string|false|none|Description is a human readable description of this rule.|
 |»» id|string|false|none|ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.|
 |»» match|[ruleMatch](#schemarulematch)|false|none|none|
@@ -959,7 +959,7 @@ Status Code **500**
       "config": {},
       "handler": "string"
     },
-    "mutator": {
+    "credentials_issuer": {
       "config": {},
       "handler": "string"
     },
@@ -1145,7 +1145,7 @@ This method allows creation of rules. If a rule id exists, you will receive an e
     "config": {},
     "handler": "string"
   },
-  "mutator": {
+  "credentials_issuer": {
     "config": {},
     "handler": "string"
   },
@@ -1239,7 +1239,7 @@ Status Code **500**
     "config": {},
     "handler": "string"
   },
-  "mutator": {
+  "credentials_issuer": {
     "config": {},
     "handler": "string"
   },
@@ -1329,7 +1329,7 @@ const input = '{
     "config": {},
     "handler": "string"
   },
-  "mutator": {
+  "credentials_issuer": {
     "config": {},
     "handler": "string"
   },
@@ -1528,7 +1528,7 @@ Status Code **500**
     "config": {},
     "handler": "string"
   },
-  "mutator": {
+  "credentials_issuer": {
     "config": {},
     "handler": "string"
   },
@@ -1714,7 +1714,7 @@ not support patching.
     "config": {},
     "handler": "string"
   },
-  "mutator": {
+  "credentials_issuer": {
     "config": {},
     "handler": "string"
   },
@@ -1822,7 +1822,7 @@ Status Code **500**
     "config": {},
     "handler": "string"
   },
-  "mutator": {
+  "credentials_issuer": {
     "config": {},
     "handler": "string"
   },
@@ -1912,7 +1912,7 @@ const input = '{
     "config": {},
     "handler": "string"
   },
-  "mutator": {
+  "credentials_issuer": {
     "config": {},
     "handler": "string"
   },
@@ -2449,7 +2449,7 @@ p JSON.parse(result)
       ],
       "handler": "string"
     },
-    "mutator": {
+    "credentials_issuer": {
       "config": [
         0
       ],
@@ -3231,7 +3231,7 @@ p JSON.parse(result)
       ],
       "handler": "string"
     },
-    "mutator": {
+    "credentials_issuer": {
       "config": [
         0
       ],
@@ -4112,7 +4112,7 @@ p JSON.parse(result)
         ],
         "handler": "string"
       },
-      "mutator": {
+      "credentials_issuer": {
         "config": [
           0
         ],
@@ -4271,7 +4271,7 @@ p JSON.parse(result)
       ],
       "handler": "string"
     },
-    "mutator": {
+    "credentials_issuer": {
       "config": [
         0
       ],
@@ -4367,7 +4367,7 @@ p JSON.parse(result)
       ],
       "handler": "string"
     },
-    "mutator": {
+    "credentials_issuer": {
       "config": [
         0
       ],
@@ -4422,7 +4422,7 @@ p JSON.parse(result)
         ],
         "handler": "string"
       },
-      "mutator": {
+      "credentials_issuer": {
         "config": [
           0
         ],
@@ -4477,7 +4477,7 @@ p JSON.parse(result)
       ],
       "handler": "string"
     },
-    "mutator": {
+    "credentials_issuer": {
       "config": [
         0
       ],
@@ -4737,7 +4737,7 @@ p JSON.parse(result)
       ],
       "handler": "string"
     },
-    "mutator": {
+    "credentials_issuer": {
       "config": [
         0
       ],
@@ -5026,7 +5026,7 @@ p JSON.parse(result)
     "config": {},
     "handler": "string"
   },
-  "mutator": {
+  "credentials_issuer": {
     "config": {},
     "handler": "string"
   },
@@ -5055,7 +5055,7 @@ p JSON.parse(result)
 |---|---|---|---|---|
 |authenticators|[[ruleHandler](#schemarulehandler)]|false|none|Authenticators is a list of authentication handlers that will try and authenticate the provided credentials. Authenticators are checked iteratively from index 0 to n and if the first authenticator to return a positive result will be the one used.  If you want the rule to first check a specific authenticator  before "falling back" to others, have that authenticator as the first item in the array.|
 |authorizer|[ruleHandler](#schemarulehandler)|false|none|none|
-|mutator|[ruleHandler](#schemarulehandler)|false|none|none|
+|credentials_issuer|[ruleHandler](#schemarulehandler)|false|none|none|
 |description|string|false|none|Description is a human readable description of this rule.|
 |id|string|false|none|ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.|
 |match|[ruleMatch](#schemarulematch)|false|none|none|
@@ -5121,7 +5121,7 @@ p JSON.parse(result)
       "config": {},
       "handler": "string"
     },
-    "mutator": {
+    "credentials_issuer": {
       "config": {},
       "handler": "string"
     },
@@ -5348,7 +5348,7 @@ p JSON.parse(result)
     ],
     "handler": "string"
   },
-  "mutator": {
+  "credentials_issuer": {
     "config": [
       0
     ],
@@ -5379,7 +5379,7 @@ p JSON.parse(result)
 |---|---|---|---|---|
 |authenticators|[[swaggerRuleHandler](#schemaswaggerrulehandler)]|false|none|Authenticators is a list of authentication handlers that will try and authenticate the provided credentials. Authenticators are checked iteratively from index 0 to n and if the first authenticator to return a positive result will be the one used.  If you want the rule to first check a specific authenticator  before "falling back" to others, have that authenticator as the first item in the array.|
 |authorizer|[swaggerRuleHandler](#schemaswaggerrulehandler)|false|none|SwaggerRuleHandler swagger rule handler|
-|mutator|[swaggerRuleHandler](#schemaswaggerrulehandler)|false|none|SwaggerRuleHandler swagger rule handler|
+|credentials_issuer|[swaggerRuleHandler](#schemaswaggerrulehandler)|false|none|SwaggerRuleHandler swagger rule handler|
 |description|string|false|none|Description is a human readable description of this rule.|
 |id|string|false|none|ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.|
 |match|[swaggerRuleMatch](#schemaswaggerrulematch)|false|none|SwaggerRuleMatch swagger rule match|
@@ -5451,7 +5451,7 @@ p JSON.parse(result)
       "config": {},
       "handler": "string"
     },
-    "mutator": {
+    "credentials_issuer": {
       "config": {},
       "handler": "string"
     },
@@ -5500,7 +5500,7 @@ p JSON.parse(result)
         "config": {},
         "handler": "string"
       },
-      "mutator": {
+      "credentials_issuer": {
         "config": {},
         "handler": "string"
       },
@@ -5549,7 +5549,7 @@ p JSON.parse(result)
       "config": {},
       "handler": "string"
     },
-    "mutator": {
+    "credentials_issuer": {
       "config": {},
       "handler": "string"
     },

@@ -3,16 +3,18 @@ id: authz
 title: Authorizers
 ---
 
-An authorizer is responsible for authorizing a subject. ORY Oathkeeper supports different authorizers
-and we will add more as the project progresses.
+An authorizer is responsible for authorizing a subject. ORY Oathkeeper supports
+different authorizers and we will add more as the project progresses.
 
-Conceptually, an authorizer makes sure that a subject ("user") has the right permissions. For example, a specific
-endpoint might only be accessible to subjects ("users") from group "admin". The authorizer handles that logic.
+Conceptually, an authorizer makes sure that a subject ("user") has the right
+permissions. For example, a specific endpoint might only be accessible to
+subjects ("users") from group "admin". The authorizer handles that logic.
 
 Each authorizer has two keys:
 
-* `handler` (string, required): Defines the handler (e.g. `noop`) to be used.
-* `config` (object, optional): Configures the handler. Configuration keys vary per handler.
+- `handler` (string, required): Defines the handler (e.g. `noop`) to be used.
+- `config` (object, optional): Configures the handler. Configuration keys vary
+  per handler.
 
 **Example**
 
@@ -71,7 +73,8 @@ The request has been allowed!
 
 ## `deny`
 
-This authorizer consideres every action unauthorized ("forbidden" / "disallowed").
+This authorizer consideres every action unauthorized ("forbidden" /
+"disallowed").
 
 ### Global Configuration
 
@@ -113,8 +116,9 @@ The request is forbidden!
 
 ## `keto_engine_acp_ory`
 
-This authorizer uses the ORY Keto API to perform access control using ORY-flavored Access Control Policies.
-Please familiarize yourself with the ORY Keto project before you set up this authorizer.
+This authorizer uses the ORY Keto API to perform access control using
+ORY-flavored Access Control Policies. Please familiarize yourself with the ORY
+Keto project before you set up this authorizer.
 
 ### Global Configuration
 
@@ -130,7 +134,8 @@ authorizers:
 
 ### Per-Rule Configuration
 
-This authorizer has four configuration options, `required_action`, `required_resource`, `subject`, and `flavor`:
+This authorizer has four configuration options, `required_action`,
+`required_resource`, `subject`, and `flavor`:
 
 ```json
 {
@@ -144,7 +149,8 @@ This authorizer has four configuration options, `required_action`, `required_res
 }
 ```
 
-All configuration options except `flavor` support variable expansion. Let's say you have the following match configuration:
+All configuration options except `flavor` support variable expansion. Let's say
+you have the following match configuration:
 
 ```json
 {
@@ -155,9 +161,10 @@ All configuration options except `flavor` support variable expansion. Let's say 
 }
 ```
 
-Here, you have two regular expressions, `<[0-9]+>` and `<[a-zA-Z]+>`. You can reference the values matched by the
-regular expression with `$1` and `$2` (and more generally `$n`) and they will be substituted before making the request
-to ORY Keto:
+Here, you have two regular expressions, `<[0-9]+>` and `<[a-zA-Z]+>`. You can
+reference the values matched by the regular expression with `$1` and `$2` (and
+more generally `$n`) and they will be substituted before making the request to
+ORY Keto:
 
 ```json
 {
@@ -169,7 +176,9 @@ to ORY Keto:
 }
 ```
 
-Assuming a request to `http://my-api/api/users/1234/foobar` was made, the config from above would expand to:
+Assuming a request to `http://my-api/api/users/1234/foobar` was made, the config
+from above would expand to:
+
 ```json
 {
   "handler": "keto_engine_acp_ory",
@@ -180,9 +189,11 @@ Assuming a request to `http://my-api/api/users/1234/foobar` was made, the config
 }
 ```
 
-The `subject` field configures what subject is passed on to the ORY Keto endpoint. The `subject` value is a
-string which will be parsed by the Go [`text/template`](https://golang.org/pkg/text/template/)
-package for value substitution, receiving the [`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/92c09fb28552949cd034ed5555c87dfda91407a3/proxy/authenticator.go#L19)
+The `subject` field configures what subject is passed on to the ORY Keto
+endpoint. The `subject` value is a string which will be parsed by the Go
+[`text/template`](https://golang.org/pkg/text/template/) package for value
+substitution, receiving the
+[`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/92c09fb28552949cd034ed5555c87dfda91407a3/proxy/authenticator.go#L19)
 struct:
 
 ```go
@@ -192,15 +203,20 @@ type AuthenticationSession struct {
 }
 ```
 
-If `subject` is not specified it will default to `AuthenticationSession.Subject`.
+If `subject` is not specified it will default to
+`AuthenticationSession.Subject`.
 
-Note that the `AuthenticationSession` struct has a field named `Extra` which is a `map[string]interface{}`, which receives
-varying introspection data from the authentication process. Because the contents of `Extra` are so variable, nested and
-potentially non-existent values need special handling by the `text/template` parser, and a `print` FuncMap function has
-been provided to ensure that non-existent map values will simply return an empty string, rather than `<no value>`.
+Note that the `AuthenticationSession` struct has a field named `Extra` which is
+a `map[string]interface{}`, which receives varying introspection data from the
+authentication process. Because the contents of `Extra` are so variable, nested
+and potentially non-existent values need special handling by the `text/template`
+parser, and a `print` FuncMap function has been provided to ensure that
+non-existent map values will simply return an empty string, rather than
+`<no value>`.
 
-If you find that your headers contain the string `<no value>` then you have most likely omitted the `print` function, and
-it is recommended you use it for all values out of an abundance of caution and for consistency.
+If you find that your headers contain the string `<no value>` then you have most
+likely omitted the `print` function, and it is recommended you use it for all
+values out of an abundance of caution and for consistency.
 
 ### Example
 

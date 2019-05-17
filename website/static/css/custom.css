@@ -6,7 +6,11 @@ html {
   //font-family: Rubik, sans-serif;
 }
 
-h2, h3, h4, h5, h6 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 400;
   //letter-spacing: 1px;
 }
@@ -14,7 +18,7 @@ h2, h3, h4, h5, h6 {
 h2 {
   //line-height: 3rem;
   //font-size: 2rem;
-  color: #14193D;
+  color: #14193d;
 
   //padding-top: 3rem;
   //padding-bottom: .75rem;
@@ -24,12 +28,12 @@ h3 {
   //font-size: 1.25rem;
   //padding-top: 1.5rem;
   //padding-bottom: 1rem;
-  color: #14193D;
+  color: #14193d;
   //line-height: 1.875rem;
 }
 
 h4 {
-  color: #2C2B59;
+  color: #2c2b59;
   //font-size: 1.25rem;
   //padding-top: 1.5rem;
   //padding-bottom: 1rem;
@@ -44,18 +48,20 @@ h5 {
 }
 
 p {
-  color: #2C2B59;
+  color: #2c2b59;
   //line-height: 1.8rem;
   //margin-top: 0;
   //margin-bottom: 1rem;
 }
 
-ul, ol {
+ul,
+ol {
   // padding: 16px 0;
 }
 
-ul li, ol li {
-  color: #2C2B59;
+ul li,
+ol li {
+  color: #2c2b59;
   // line-height: 2.25rem;
 }
 
@@ -64,24 +70,25 @@ pre {
 }
 
 .au-link-list {
-  font-size:16px;
-  font-size:1rem;
-  line-height:1.5;
-  display:block;
-  list-style-type:none
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.5;
+  display: block;
+  list-style-type: none;
 }
 .au-body .au-link-list {
-  margin:0;
-  padding:4px 0;
-  padding:.25rem 0
+  margin: 0;
+  padding: 4px 0;
+  padding: 0.25rem 0;
 }
-.au-link-list>li {
-  display:block;
-  margin:4px;
-  margin:.25rem
+.au-link-list > li {
+  display: block;
+  margin: 4px;
+  margin: 0.25rem;
 }
-.au-link-list.au-link-list--inline,.au-link-list.au-link-list--inline>li {
-  display:inline-block
+.au-link-list.au-link-list--inline,
+.au-link-list.au-link-list--inline > li {
+  display: inline-block;
 }
 
 .tabs {
