@@ -11,7 +11,7 @@ We provide an open source ecosystem of services with clear boundaries that solve
 - ORY Hydra is an OAuth 2.0 and OpenID Connect provider.
 - ORY Oathkeeper is an Identity and Access Proxy.
 - ORY Keto is an access control server.
-- *TBA is an identity management server.*
+- _TBA is an identity management server._
 
 Each service works standalone but you can also combine them to get the full feature set. If you've never heard of an Identity & Access Proxy
 before, or you want to learn more about the individual services and how they play together, stick with us through the

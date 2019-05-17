@@ -17,7 +17,7 @@ Try to solve your access control definitions with a few generalized policies, an
 ## URNs
 
 > “There are only two hard things in Computer Science: cache invalidation and naming things.”
--- Phil Karlton
+> -- Phil Karlton
 
 URN naming is as hard as naming API endpoints. Thankfully, by doing the latter, the former is usually solved as well.
 We will explore further best practices in the following sections.
@@ -26,25 +26,25 @@ We will explore further best practices in the following sections.
 
 A rule of thumb is to prefix resource names with a domain that represents the organization creating the software.
 
-* **Do not:** `<some-id>`
-* **Do:** `<organizaion-id>:<some-id>`
+- **Do not:** `<some-id>`
+- **Do:** `<organizaion-id>:<some-id>`
 
 ## Scope Actions, Resources and Subjects
 
 It is wise to scope actions, resources, and subjects in order to prevent name collisions:
 
-* **Do not:** `myorg.com:<subject-id>`, `myorg.com:<resource-id>`, `myorg.com:<action-id>`
-* **Do:** `myorg.com:subjects:<subject-id>`, `myorg.com:resources:<resource-id>`, `myorg.com:actions:<action-id>`
-* **Do:** `subjects:myorg.com:<subject-id>`, `resources:myorg.com:<resource-id>`, `actions:myorg.com:<action-id>`
+- **Do not:** `myorg.com:<subject-id>`, `myorg.com:<resource-id>`, `myorg.com:<action-id>`
+- **Do:** `myorg.com:subjects:<subject-id>`, `myorg.com:resources:<resource-id>`, `myorg.com:actions:<action-id>`
+- **Do:** `subjects:myorg.com:<subject-id>`, `resources:myorg.com:<resource-id>`, `actions:myorg.com:<action-id>`
 
 ## Multi-Tenant Systems
 
 Multi-tenant systems typically have resources which should not be access by other tenants in the system. This can be
 achieved by adding the tenant id to the URN:
 
-* **Do:** `resources:myorg.com:tenants:<tenant-id>:<resource-id>`
+- **Do:** `resources:myorg.com:tenants:<tenant-id>:<resource-id>`
 
 In some environments, it is common to have organizations and projects belonging to those organizations. Here, the
 following URN semantics can be used:
 
-* **Do:** `resources:myorg.com:organizations:<organization-id>:projects:<project-id>:<resource-id>`
+- **Do:** `resources:myorg.com:organizations:<organization-id>:projects:<project-id>:<resource-id>`

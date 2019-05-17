@@ -36,7 +36,6 @@ and you have the following rule defined (which allows this request)
 
 then the request will be forwarded by ORY Oathkeeper as follows:
 
-
 ```
 GET /my-service/whatever HTTP/1.1
 Host: my-backend-service:4455
@@ -76,7 +75,6 @@ and you have the following rule defined (which allows this request)
 ```
 
 then this endpoint will directly respond with HTTP Status Code 200:
-
 
 ```
 HTTP/1.1 200 OK

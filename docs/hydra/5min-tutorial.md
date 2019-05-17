@@ -12,7 +12,7 @@ Next, clone (`git clone https://github.com/ory/hydra.git`), [download](https://g
 or use `go get -d github.com/ory/hydra` - if you have Go (1.12+) installed on your system - to download the Docker Compose
 set up.
 
-Finally, run `docker-compose` to start the needed containers. 
+Finally, run `docker-compose` to start the needed containers.
 
 ```
 $ git clone https://github.com/ory/hydra.git
@@ -35,8 +35,8 @@ $ docker-compose -f quickstart.yml \
     up --build
 ```
 
-The above command would start the containers using mysql instead of postgres and activating tracing capabilities. 
-If you need more details on this, you could examine the ``scripts/5-min-tutorial.sh`` and ``docker-compose*.yml`` files.
+The above command would start the containers using mysql instead of postgres and activating tracing capabilities.
+If you need more details on this, you could examine the `scripts/5-min-tutorial.sh` and `docker-compose*.yml` files.
 
 You may also extend the command above to enable distributed tracing (Tracing UI will be exposed at [http://127.0.0.1:16686/search](127.0.0.1:16686/search)):
 
@@ -113,7 +113,6 @@ $ docker-compose -f quickstart.yml exec hydra \
 ```
 
 Note that you need to add `--token-endpoint-auth-method none` if your clients are public (such as SPA apps and native apps) because the public clients could not provide client secret.
-
 
 The next command starts a server that serves an example web application. The application will perform the OAuth 2.0
 Authorization Code Flow using ORY Hydra. The web server runs on [http://127.0.0.1:5555](http://127.0.0.1:5555).

@@ -9,30 +9,30 @@ Hydra is built with tough security in mind.
 Hydra is an implementation of the security-first Fosite OAuth 2.0 SDK
 ([https://github.com/ory/fosite](https://github.com/ory/fosite)). Fosite respects
 the [OAuth 2.0 Threat Model and Security Considerations](https://tools.ietf.org/html/rfc6819#section-5.1.5.3) by
-the IETF, specifically:  
+the IETF, specifically:
 
-- No Cleartext Storage of Credentials 
-- Encryption of Credentials 
-- Use Short Expiration Time 
-- Limit Number of Usages or One-Time Usage 
-- Bind Token to Client id 
-- Automatic Revocation of Derived Tokens If Abuse Is Detected 
-- Binding of Refresh Token to "client_id" 
-- Refresh Token Rotation 
-- Revocation of Refresh Tokens 
-- Validate Pre-Registered "redirect_uri" 
-- Binding of Authorization "code" to "client_id" 
-- Binding of Authorization "code" to "redirect_uri" 
-- Opaque access tokens 
-- Opaque refresh tokens 
-- Ensure Confidentiality of Requests 
-- Use of Asymmetric Cryptography 
-- Enforcing random states: Without a random-looking state or OpenID Connect nonce the request will fail. 
+- No Cleartext Storage of Credentials
+- Encryption of Credentials
+- Use Short Expiration Time
+- Limit Number of Usages or One-Time Usage
+- Bind Token to Client id
+- Automatic Revocation of Derived Tokens If Abuse Is Detected
+- Binding of Refresh Token to "client_id"
+- Refresh Token Rotation
+- Revocation of Refresh Tokens
+- Validate Pre-Registered "redirect_uri"
+- Binding of Authorization "code" to "client_id"
+- Binding of Authorization "code" to "redirect_uri"
+- Opaque access tokens
+- Opaque refresh tokens
+- Ensure Confidentiality of Requests
+- Use of Asymmetric Cryptography
+- Enforcing random states: Without a random-looking state or OpenID Connect nonce the request will fail.
 
 Additionally these safeguards are implemented:
 
 - Advanced Token Validation: Tokens are laid out as &lt;key&gt;.&lt;signature&gt; where &lt;signature&gt;
-is created using HMAC-SHA256 using a global secret.
+  is created using HMAC-SHA256 using a global secret.
 
 ### Advanced Token Validation (Datastore Security)
 
@@ -59,9 +59,9 @@ nonces are used, there is risk of repeats. This means that you risk collisions w
 documents authenticated with GCM. Because AES-GCM is only used to encrypt data at rest, this is might
 only impose a problem if
 
-1. more than 2^32 documents are stored using AES-GCM 
-2. an attacker gains access to the datastore where &gt; 2^32 documents are stored 
-3. the attacker is able to exploit repeats, for example by authenticating malicious documents 
+1. more than 2^32 documents are stored using AES-GCM
+2. an attacker gains access to the datastore where &gt; 2^32 documents are stored
+3. the attacker is able to exploit repeats, for example by authenticating malicious documents
 
 ### RS256
 

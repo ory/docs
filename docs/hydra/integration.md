@@ -29,15 +29,15 @@ repository!
 **Please, do not write your own code to interact with OAuth 2.0**. Use open source & battle-tested libraries instead. Here are some
 examples:
 
-* NodeJS
-  * [passport](http://www.passportjs.org/)
-  * [simple-oauth2](https://github.com/lelylan/simple-oauth2)
-* Golang
-  * [golang/oauth2](https://github.com/golang/oauth2) **recommended*
-* PHP
-  * [oauth2-client](https://github.com/thephpleague/oauth2-client)
-* Java
-  * [Sprint Security OAuth](https://spring.io/projects/spring-security-oauth)
+- NodeJS
+  - [passport](http://www.passportjs.org/)
+  - [simple-oauth2](https://github.com/lelylan/simple-oauth2)
+- Golang
+  - [golang/oauth2](https://github.com/golang/oauth2) \*_recommended_
+- PHP
+  - [oauth2-client](https://github.com/thephpleague/oauth2-client)
+- Java
+  - [Sprint Security OAuth](https://spring.io/projects/spring-security-oauth)
 
 For a full list of client libraries go [here](https://oauth.net/code/).
 

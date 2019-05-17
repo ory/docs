@@ -28,8 +28,8 @@ serve:
 
 With TLS termination enabled, ORY Hydra discards all requests unless:
 
-* The request is coming from a trusted IP address set by `serve.tls.allow_termination_from` and the header `X-Forwarded-Proto` is set to `https`.
-* The request goes to `/health/alive`, `/health/ready` which does not require TLS termination and that is used to check the health of an instance.
+- The request is coming from a trusted IP address set by `serve.tls.allow_termination_from` and the header `X-Forwarded-Proto` is set to `https`.
+- The request goes to `/health/alive`, `/health/ready` which does not require TLS termination and that is used to check the health of an instance.
 
 When TLS Termination is enabled, you do not need to provide a TLS Certificate and Private Key.
 
@@ -54,25 +54,25 @@ ORY Hydra serves APIs via two ports:
 
 The public port can and should be exposed to public internet traffic. That port handles requests to:
 
-* `/.well-known/jwks.json`
-* `/.well-known/openid-configuration`
-* `/oauth2/auth`
-* `/oauth2/token`
-* `/oauth2/revoke`
-* `/oauth2/fallbacks/consent`
-* `/oauth2/fallbacks/error`
-* `/userinfo`
+- `/.well-known/jwks.json`
+- `/.well-known/openid-configuration`
+- `/oauth2/auth`
+- `/oauth2/token`
+- `/oauth2/revoke`
+- `/oauth2/fallbacks/consent`
+- `/oauth2/fallbacks/error`
+- `/userinfo`
 
 The administrative port should not be exposed to public internet traffic. If you want to expose certain endpoints, such as the `/clients` endpoint for
 OpenID Connect Dynamic Client Registry, you can do so but you need to properly secure these endpoints with an API Gateway or Authorization Proxy.
 Administrative endpoints include:
 
-* All `/clients` endpoints.
-* All `/keys` endpoints.
-* All `/health`, `/metrics`, `/version` endpoints.
-* All `/oauth2/auth/requests` endpoints.
-* Endpoint `/oauth2/introspect`.
-* Endpoint `/oauth2/flush`.
+- All `/clients` endpoints.
+- All `/keys` endpoints.
+- All `/health`, `/metrics`, `/version` endpoints.
+- All `/oauth2/auth/requests` endpoints.
+- Endpoint `/oauth2/introspect`.
+- Endpoint `/oauth2/flush`.
 
 None of the administrative endpoints have any built-in access control. You can do simple `curl` or Postman requests to talk to them.
 

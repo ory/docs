@@ -4,20 +4,19 @@ id: version-oryOS.9-api
 original_id: api
 ---
 
-
-
 Package main ORY Keto
 
 > You are viewing a REST API documentation. This documentation is auto-generated from a swagger specification which
-itself is generated from annotations in the source files of the project. It is possible that this documentation includes
-bugs and that code samples are incomplete or wrong.
+> itself is generated from annotations in the source files of the project. It is possible that this documentation includes
+> bugs and that code samples are incomplete or wrong.
 >
 > If you find issues in the respective documentation, please do not edit the
-markdown files directly (as they are generated) but raise an issue on the project's GitHub instead. This documentation
-will improve over time with your help! If you have ideas how to improve this part of the documentation, feel free to
-share them in a [GitHub issue](https://github.com/ory/docs/issues/new) any time.
+> markdown files directly (as they are generated) but raise an issue on the project's GitHub instead. This documentation
+> will improve over time with your help! If you have ideas how to improve this part of the documentation, feel free to
+> share them in a [GitHub issue](https://github.com/ory/docs/issues/new) any time.
 
 <a id="api-health"></a>
+
 ## health
 
 <a id="opIdisInstanceAlive"></a>
@@ -39,27 +38,29 @@ Be aware that if you are running multiple nodes of ORY Keto, the health status w
 #### Responses
 
 <a id="check-the-alive-status-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|healthStatus|[healthStatus](#schemahealthstatus)|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema                              |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ----------------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | healthStatus              | [healthStatus](#schemahealthstatus) |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline                              |
 
 <a id="check-the-alive-status-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -108,7 +109,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -230,12 +231,13 @@ Be aware that if you are running multiple nodes of ORY Keto, the health status w
 #### Responses
 
 <a id="check-the-readiness-status-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|healthStatus|[healthStatus](#schemahealthstatus)|
-|503|[Service Unavailable](https://tools.ietf.org/html/rfc7231#section-6.6.4)|healthNotReadyStatus|[healthNotReadyStatus](#schemahealthnotreadystatus)|
+| Status | Meaning                                                                  | Description          | Schema                                              |
+| ------ | ------------------------------------------------------------------------ | -------------------- | --------------------------------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                  | healthStatus         | [healthStatus](#schemahealthstatus)                 |
+| 503    | [Service Unavailable](https://tools.ietf.org/html/rfc7231#section-6.6.4) | healthNotReadyStatus | [healthNotReadyStatus](#schemahealthnotreadystatus) |
 
 ##### Examples
 
@@ -284,7 +286,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -386,6 +388,7 @@ p JSON.parse(result)
 </div>
 
 <a id="api-policy"></a>
+
 ## policy
 
 <a id="opIdlistPolicies"></a>
@@ -401,80 +404,83 @@ Accept: application/json
 List Access Control Policies
 
 <a id="listpolicies-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|offset|query|integer(int64)|false|The offset from where to start looking.|
-|limit|query|integer(int64)|false|The maximum amount of policies returned.|
+| Parameter | In    | Type           | Required | Description                              |
+| --------- | ----- | -------------- | -------- | ---------------------------------------- |
+| offset    | query | integer(int64) | false    | The offset from where to start looking.  |
+| limit     | query | integer(int64) | false    | The maximum amount of policies returned. |
 
 #### Responses
 
 <a id="listpolicies-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A policy|Inline|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------ |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | A policy                  | Inline |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline |
 
 <a id="listpolicies-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **200**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[[policy](#schemapolicy)]|false|none|none|
-|» actions|[string]|false|none|Actions impacted by the policy.|
-|» conditions|object|false|none|Conditions under which the policy is active.|
-|»» **additionalProperties**|object|false|none|none|
-|»»» options|object|false|none|none|
-|»»»» **additionalProperties**|object|false|none|none|
-|»»» type|string|false|none|none|
-|»» description|string|false|none|Description of the policy.|
-|»» effect|string|false|none|Effect of the policy|
-|»» id|string|false|none|ID of the policy.|
-|»» resources|[string]|false|none|Resources impacted by the policy.|
-|»» subjects|[string]|false|none|Subjects impacted by the policy.|
+| Name                          | Type                      | Required | Restrictions | Description                                  |
+| ----------------------------- | ------------------------- | -------- | ------------ | -------------------------------------------- |
+| _anonymous_                   | [[policy](#schemapolicy)] | false    | none         | none                                         |
+| » actions                     | [string]                  | false    | none         | Actions impacted by the policy.              |
+| » conditions                  | object                    | false    | none         | Conditions under which the policy is active. |
+| »» **additionalProperties**   | object                    | false    | none         | none                                         |
+| »»» options                   | object                    | false    | none         | none                                         |
+| »»»» **additionalProperties** | object                    | false    | none         | none                                         |
+| »»» type                      | string                    | false    | none         | none                                         |
+| »» description                | string                    | false    | none         | Description of the policy.                   |
+| »» effect                     | string                    | false    | none         | Effect of the policy                         |
+| »» id                         | string                    | false    | none         | ID of the policy.                            |
+| »» resources                  | [string]                  | false    | none         | Resources impacted by the policy.            |
+| »» subjects                   | [string]                  | false    | none         | Subjects impacted by the policy.             |
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -483,9 +489,7 @@ Status Code **500**
 ```json
 [
   {
-    "actions": [
-      "string"
-    ],
+    "actions": ["string"],
     "conditions": {
       "property1": {
         "options": {
@@ -505,12 +509,8 @@ Status Code **500**
     "description": "string",
     "effect": "string",
     "id": "string",
-    "resources": [
-      "string"
-    ],
-    "subjects": [
-      "string"
-    ]
+    "resources": ["string"],
+    "subjects": ["string"]
   }
 ]
 ```
@@ -552,7 +552,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -670,9 +670,7 @@ Create an Access Control Policy
 
 ```json
 {
-  "actions": [
-    "string"
-  ],
+  "actions": ["string"],
   "conditions": {
     "property1": {
       "options": {
@@ -692,72 +690,71 @@ Create an Access Control Policy
   "description": "string",
   "effect": "string",
   "id": "string",
-  "resources": [
-    "string"
-  ],
-  "subjects": [
-    "string"
-  ]
+  "resources": ["string"],
+  "subjects": ["string"]
 }
 ```
 
 <a id="createpolicy-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[policy](#schemapolicy)|false|none|
+| Parameter | In   | Type                    | Required | Description |
+| --------- | ---- | ----------------------- | -------- | ----------- |
+| body      | body | [policy](#schemapolicy) | false    | none        |
 
 #### Responses
 
 <a id="createpolicy-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|policy|[policy](#schemapolicy)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema                  |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ----------------------- |
+| 201    | [Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)               | policy                    | [policy](#schemapolicy) |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline                  |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline                  |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline                  |
 
 <a id="createpolicy-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -765,9 +762,7 @@ Status Code **500**
 
 ```json
 {
-  "actions": [
-    "string"
-  ],
+  "actions": ["string"],
   "conditions": {
     "property1": {
       "options": {
@@ -787,12 +782,8 @@ Status Code **500**
   "description": "string",
   "effect": "string",
   "id": "string",
-  "resources": [
-    "string"
-  ],
-  "subjects": [
-    "string"
-  ]
+  "resources": ["string"],
+  "subjects": ["string"]
 }
 ```
 
@@ -833,7 +824,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
     }
@@ -980,62 +971,65 @@ Accept: application/json
 Get an Access Control Policy
 
 <a id="getpolicy-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|id|path|string|true|The id of the policy.|
+| Parameter | In   | Type   | Required | Description           |
+| --------- | ---- | ------ | -------- | --------------------- |
+| id        | path | string | true     | The id of the policy. |
 
 #### Responses
 
 <a id="getpolicy-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|policy|[policy](#schemapolicy)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema                  |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ----------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | policy                    | [policy](#schemapolicy) |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline                  |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline                  |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline                  |
 
 <a id="getpolicy-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -1043,9 +1037,7 @@ Status Code **500**
 
 ```json
 {
-  "actions": [
-    "string"
-  ],
+  "actions": ["string"],
   "conditions": {
     "property1": {
       "options": {
@@ -1065,12 +1057,8 @@ Status Code **500**
   "description": "string",
   "effect": "string",
   "id": "string",
-  "resources": [
-    "string"
-  ],
-  "subjects": [
-    "string"
-  ]
+  "resources": ["string"],
+  "subjects": ["string"]
 }
 ```
 
@@ -1111,7 +1099,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -1229,9 +1217,7 @@ Update an Access Control Policy
 
 ```json
 {
-  "actions": [
-    "string"
-  ],
+  "actions": ["string"],
   "conditions": {
     "property1": {
       "options": {
@@ -1251,73 +1237,72 @@ Update an Access Control Policy
   "description": "string",
   "effect": "string",
   "id": "string",
-  "resources": [
-    "string"
-  ],
-  "subjects": [
-    "string"
-  ]
+  "resources": ["string"],
+  "subjects": ["string"]
 }
 ```
 
 <a id="updatepolicy-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|id|path|string|true|The id of the policy.|
-|body|body|[policy](#schemapolicy)|false|none|
+| Parameter | In   | Type                    | Required | Description           |
+| --------- | ---- | ----------------------- | -------- | --------------------- |
+| id        | path | string                  | true     | The id of the policy. |
+| body      | body | [policy](#schemapolicy) | false    | none                  |
 
 #### Responses
 
 <a id="updatepolicy-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|policy|[policy](#schemapolicy)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema                  |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ----------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | policy                    | [policy](#schemapolicy) |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline                  |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline                  |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline                  |
 
 <a id="updatepolicy-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -1325,9 +1310,7 @@ Status Code **500**
 
 ```json
 {
-  "actions": [
-    "string"
-  ],
+  "actions": ["string"],
   "conditions": {
     "property1": {
       "options": {
@@ -1347,12 +1330,8 @@ Status Code **500**
   "description": "string",
   "effect": "string",
   "id": "string",
-  "resources": [
-    "string"
-  ],
-  "subjects": [
-    "string"
-  ]
+  "resources": ["string"],
+  "subjects": ["string"]
 }
 ```
 
@@ -1393,7 +1372,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
     }
@@ -1540,62 +1519,65 @@ Accept: application/json
 Delete an Access Control Policy
 
 <a id="deletepolicy-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|id|path|string|true|The id of the policy.|
+| Parameter | In   | Type   | Required | Description           |
+| --------- | ---- | ------ | -------- | --------------------- |
+| id        | path | string | true     | The id of the policy. |
 
 #### Responses
 
 <a id="deletepolicy-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|204|[No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)|An empty response|None|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------ |
+| 204    | [No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)            | An empty response         | None   |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline |
 
 <a id="deletepolicy-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -1654,7 +1636,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -1756,6 +1738,7 @@ p JSON.parse(result)
 </div>
 
 <a id="api-role"></a>
+
 ## role
 
 <a id="opIdlistRoles"></a>
@@ -1774,72 +1757,75 @@ user or some other sort of role.
 This endpoint allows you to retrieve all roles that are stored in the system.
 
 <a id="list-all-roles-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|member|query|string|false|The id of the member to look up.|
-|limit|query|integer(int64)|false|The maximum amount of policies returned.|
-|offset|query|integer(int64)|false|The offset from where to start looking.|
+| Parameter | In    | Type           | Required | Description                              |
+| --------- | ----- | -------------- | -------- | ---------------------------------------- |
+| member    | query | string         | false    | The id of the member to look up.         |
+| limit     | query | integer(int64) | false    | The maximum amount of policies returned. |
+| offset    | query | integer(int64) | false    | The offset from where to start looking.  |
 
 #### Responses
 
 <a id="list-all-roles-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A list of roles the member is belonging to|Inline|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description                                | Schema |
+| ------ | -------------------------------------------------------------------------- | ------------------------------------------ | ------ |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | A list of roles the member is belonging to | Inline |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format                  | Inline |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format                  | Inline |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format                  | Inline |
 
 <a id="list-all-roles-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **200**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[[role](#schemarole)]|false|none|[Role represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role.]|
-|» id|string|false|none|ID is the role's unique id.|
-|» members|[string]|false|none|Members is who belongs to the role.|
+| Name        | Type                  | Required | Restrictions | Description                                                                                                                                            |
+| ----------- | --------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| _anonymous_ | [[role](#schemarole)] | false    | none         | [Role represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role.] |
+| » id        | string                | false    | none         | ID is the role's unique id.                                                                                                                            |
+| » members   | [string]              | false    | none         | Members is who belongs to the role.                                                                                                                    |
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -1849,9 +1835,7 @@ Status Code **500**
 [
   {
     "id": "string",
-    "members": [
-      "string"
-    ]
+    "members": ["string"]
   }
 ]
 ```
@@ -1893,7 +1877,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -2015,69 +1999,70 @@ This endpoint allows you to create a new role. You may define members as well bu
 ```json
 {
   "id": "string",
-  "members": [
-    "string"
-  ]
+  "members": ["string"]
 }
 ```
 
 <a id="create-a-role-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[role](#schemarole)|false|none|
+| Parameter | In   | Type                | Required | Description |
+| --------- | ---- | ------------------- | -------- | ----------- |
+| body      | body | [role](#schemarole) | false    | none        |
 
 #### Responses
 
 <a id="create-a-role-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|role|[role](#schemarole)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema              |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------------------- |
+| 201    | [Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)               | role                      | [role](#schemarole) |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline              |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline              |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline              |
 
 <a id="create-a-role-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -2086,9 +2071,7 @@ Status Code **500**
 ```json
 {
   "id": "string",
-  "members": [
-    "string"
-  ]
+  "members": ["string"]
 }
 ```
 
@@ -2129,7 +2112,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
     }
@@ -2255,62 +2238,65 @@ user or some other sort of role.
 This endpoint allows you to delete an existing role. You have to know the role's ID.
 
 <a id="get-a-role-by-its-id-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|id|path|string|true|The id of the role to look up.|
+| Parameter | In   | Type   | Required | Description                    |
+| --------- | ---- | ------ | -------- | ------------------------------ |
+| id        | path | string | true     | The id of the role to look up. |
 
 #### Responses
 
 <a id="get-a-role-by-its-id-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|204|[No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)|An empty response|None|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------ |
+| 204    | [No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)            | An empty response         | None   |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline |
 
 <a id="get-a-role-by-its-id-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -2369,7 +2355,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -2473,6 +2459,7 @@ p JSON.parse(result)
 <a id="opIdsetRole"></a>
 
 ### A Role represents a group of users that share the same role and thus permissions. A role could be an administrator, a moderator, a regular
+
 user or some other sort of role.
 
 ```
@@ -2487,54 +2474,56 @@ This endpoint allows you to overwrite a role. You have to know the role's ID.
 
 <a id="a-role-represents-a-group-of-users-that-share-the-same-role-and-thus-permissions.-a-role-could-be-an-administrator,-a-moderator,-a-regular
 user-or-some-other-sort-of-role.-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|204|[No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)|An empty response|None|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------ |
+| 204    | [No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)            | An empty response         | None   |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline |
 
 <a id="a-role-represents-a-group-of-users-that-share-the-same-role-and-thus-permissions.-a-role-could-be-an-administrator,-a-moderator,-a-regular
 user-or-some-other-sort-of-role.-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -2593,7 +2582,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -2714,70 +2703,71 @@ This endpoint allows you to add members (users, applications, ...) to a specific
 
 ```json
 {
-  "members": [
-    "string"
-  ]
+  "members": ["string"]
 }
 ```
 
 <a id="add-members-to-a-role-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|id|path|string|true|The id of the role to modify.|
-|body|body|[roleMembers](#schemarolemembers)|false|none|
+| Parameter | In   | Type                              | Required | Description                   |
+| --------- | ---- | --------------------------------- | -------- | ----------------------------- |
+| id        | path | string                            | true     | The id of the role to modify. |
+| body      | body | [roleMembers](#schemarolemembers) | false    | none                          |
 
 #### Responses
 
 <a id="add-members-to-a-role-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|204|[No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)|An empty response|None|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------ |
+| 204    | [No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)            | An empty response         | None   |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline |
 
 <a id="add-members-to-a-role-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -2836,7 +2826,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
     }
@@ -2965,70 +2955,71 @@ This endpoint allows you to remove members (users, applications, ...) from a spe
 
 ```json
 {
-  "members": [
-    "string"
-  ]
+  "members": ["string"]
 }
 ```
 
 <a id="remove-members-from-a-role-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|id|path|string|true|The id of the role to modify.|
-|body|body|[roleMembers](#schemarolemembers)|false|none|
+| Parameter | In   | Type                              | Required | Description                   |
+| --------- | ---- | --------------------------------- | -------- | ----------------------------- |
+| id        | path | string                            | true     | The id of the role to modify. |
+| body      | body | [roleMembers](#schemarolemembers) | false    | none                          |
 
 #### Responses
 
 <a id="remove-members-from-a-role-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|204|[No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)|An empty response|None|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------ |
+| 204    | [No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)            | An empty response         | None   |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline |
 
 <a id="remove-members-from-a-role-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -3087,7 +3078,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
     }
@@ -3197,6 +3188,7 @@ p JSON.parse(result)
 </div>
 
 <a id="api-version"></a>
+
 ## version
 
 <a id="opIdgetVersion"></a>
@@ -3214,11 +3206,12 @@ This endpoint returns the version as `{ "version": "VERSION" }`. The version is 
 #### Responses
 
 <a id="get-the-version-of-keto-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|version|[version](#schemaversion)|
+| Status | Meaning                                                 | Description | Schema                    |
+| ------ | ------------------------------------------------------- | ----------- | ------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | version     | [version](#schemaversion) |
 
 ##### Examples
 
@@ -3267,7 +3260,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -3369,6 +3362,7 @@ p JSON.parse(result)
 </div>
 
 <a id="api-warden"></a>
+
 ## warden
 
 <a id="opIdisOAuth2AccessTokenAuthorized"></a>
@@ -3402,70 +3396,71 @@ response as well.
     "property2": {}
   },
   "resource": "string",
-  "scope": [
-    "string"
-  ],
+  "scope": ["string"],
   "token": "string"
 }
 ```
 
 <a id="check-if-an-oauth-2.0-access-token-is-authorized-to-access-a-resource-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[wardenOAuth2AccessTokenAuthorizationRequest](#schemawardenoauth2accesstokenauthorizationrequest)|false|none|
+| Parameter | In   | Type                                                                                              | Required | Description |
+| --------- | ---- | ------------------------------------------------------------------------------------------------- | -------- | ----------- |
+| body      | body | [wardenOAuth2AccessTokenAuthorizationRequest](#schemawardenoauth2accesstokenauthorizationrequest) | false    | none        |
 
 #### Responses
 
 <a id="check-if-an-oauth-2.0-access-token-is-authorized-to-access-a-resource-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|wardenOAuth2AccessTokenAuthorizationResponse|[wardenOAuth2AccessTokenAuthorizationResponse](#schemawardenoauth2accesstokenauthorizationresponse)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description                                  | Schema                                                                                              |
+| ------ | -------------------------------------------------------------------------- | -------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | wardenOAuth2AccessTokenAuthorizationResponse | [wardenOAuth2AccessTokenAuthorizationResponse](#schemawardenoauth2accesstokenauthorizationresponse) |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format                    | Inline                                                                                              |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format                    | Inline                                                                                              |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format                    | Inline                                                                                              |
 
 <a id="check-if-an-oauth-2.0-access-token-is-authorized-to-access-a-resource-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -3474,9 +3469,7 @@ Status Code **500**
 ```json
 {
   "allowed": true,
-  "aud": [
-    "string"
-  ],
+  "aud": ["string"],
   "client_id": "string",
   "exp": "2018-11-15T08:23:48Z",
   "iat": "2018-11-15T08:23:48Z",
@@ -3529,7 +3522,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
     }
@@ -3671,69 +3664,70 @@ an action on a resource. This endpoint requires a client id, a client secret, a 
     "property2": {}
   },
   "resource": "string",
-  "scope": [
-    "string"
-  ]
+  "scope": ["string"]
 }
 ```
 
 <a id="check-if-an-oauth-2.0-client-is-authorized-to-access-a-resource-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[wardenOAuth2ClientAuthorizationRequest](#schemawardenoauth2clientauthorizationrequest)|false|none|
+| Parameter | In   | Type                                                                                    | Required | Description |
+| --------- | ---- | --------------------------------------------------------------------------------------- | -------- | ----------- |
+| body      | body | [wardenOAuth2ClientAuthorizationRequest](#schemawardenoauth2clientauthorizationrequest) | false    | none        |
 
 #### Responses
 
 <a id="check-if-an-oauth-2.0-client-is-authorized-to-access-a-resource-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|wardenOAuth2ClientAuthorizationResponse|[wardenOAuth2ClientAuthorizationResponse](#schemawardenoauth2clientauthorizationresponse)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description                             | Schema                                                                                    |
+| ------ | -------------------------------------------------------------------------- | --------------------------------------- | ----------------------------------------------------------------------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | wardenOAuth2ClientAuthorizationResponse | [wardenOAuth2ClientAuthorizationResponse](#schemawardenoauth2clientauthorizationresponse) |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format               | Inline                                                                                    |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format               | Inline                                                                                    |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format               | Inline                                                                                    |
 
 <a id="check-if-an-oauth-2.0-client-is-authorized-to-access-a-resource-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -3783,7 +3777,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
     }
@@ -3928,62 +3922,65 @@ Checks if a subject (e.g. user ID, API key, ...) is allowed to perform a certain
 ```
 
 <a id="check-if-a-subject-is-authorized-to-access-a-resource-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[WardenSubjectAuthorizationRequest](#schemawardensubjectauthorizationrequest)|false|none|
+| Parameter | In   | Type                                                                          | Required | Description |
+| --------- | ---- | ----------------------------------------------------------------------------- | -------- | ----------- |
+| body      | body | [WardenSubjectAuthorizationRequest](#schemawardensubjectauthorizationrequest) | false    | none        |
 
 #### Responses
 
 <a id="check-if-a-subject-is-authorized-to-access-a-resource-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|wardenSubjectAuthorizationResponse|[wardenSubjectAuthorizationResponse](#schemawardensubjectauthorizationresponse)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description                        | Schema                                                                          |
+| ------ | -------------------------------------------------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | wardenSubjectAuthorizationResponse | [wardenSubjectAuthorizationResponse](#schemawardensubjectauthorizationresponse) |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format          | Inline                                                                          |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format          | Inline                                                                          |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format          | Inline                                                                          |
 
 <a id="check-if-a-subject-is-authorized-to-access-a-resource-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -4033,7 +4030,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
     }
@@ -4149,6 +4146,7 @@ p JSON.parse(result)
 ## Schemas
 
 <a id="tocSauthenticationoauth2clientcredentialsrequest">AuthenticationOAuth2ClientCredentialsRequest</a>
+
 #### AuthenticationOAuth2ClientCredentialsRequest
 
 <a id="schemaauthenticationoauth2clientcredentialsrequest"></a>
@@ -4157,74 +4155,70 @@ p JSON.parse(result)
 {
   "client_id": "string",
   "client_secret": "string",
-  "scope": [
-    "string"
-  ]
+  "scope": ["string"]
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|client_id|string|false|none|Token is the token to introspect.|
-|client_secret|string|false|none|none|
-|scope|[string]|false|none|Scope is an array of scopes that are required.|
+| Name          | Type     | Required | Restrictions | Description                                    |
+| ------------- | -------- | -------- | ------------ | ---------------------------------------------- |
+| client_id     | string   | false    | none         | Token is the token to introspect.              |
+| client_secret | string   | false    | none         | none                                           |
+| scope         | [string] | false    | none         | Scope is an array of scopes that are required. |
 
 <a id="tocSauthenticationoauth2introspectionrequest">AuthenticationOAuth2IntrospectionRequest</a>
+
 #### AuthenticationOAuth2IntrospectionRequest
 
 <a id="schemaauthenticationoauth2introspectionrequest"></a>
 
 ```json
 {
-  "scope": [
-    "string"
-  ],
+  "scope": ["string"],
   "token": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|scope|[string]|false|none|Scope is an array of scopes that are required.|
-|token|string|false|none|Token is the token to introspect.|
+| Name  | Type     | Required | Restrictions | Description                                    |
+| ----- | -------- | -------- | ------------ | ---------------------------------------------- |
+| scope | [string] | false    | none         | Scope is an array of scopes that are required. |
+| token | string   | false    | none         | Token is the token to introspect.              |
 
 <a id="tocSauthenticator">Authenticator</a>
+
 #### Authenticator
 
 <a id="schemaauthenticator"></a>
 
 ```json
 {}
-
 ```
 
 #### Properties
 
-*None*
+_None_
 
 <a id="tocSfirewall">Firewall</a>
+
 #### Firewall
 
 <a id="schemafirewall"></a>
 
 ```json
 {}
-
 ```
 
-*Firewall offers various validation strategies for access tokens.*
+_Firewall offers various validation strategies for access tokens._
 
 #### Properties
 
-*None*
+_None_
 
 <a id="tocShandler">Handler</a>
+
 #### Handler
 
 <a id="schemahandler"></a>
@@ -4234,17 +4228,17 @@ p JSON.parse(result)
   "H": {},
   "Manager": {}
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|H|[Writer](#schemawriter)|false|none|Writer is a helper to write arbitrary data to a ResponseWriter|
-|Manager|[Manager](#schemamanager)|false|none|none|
+| Name    | Type                      | Required | Restrictions | Description                                                    |
+| ------- | ------------------------- | -------- | ------------ | -------------------------------------------------------------- |
+| H       | [Writer](#schemawriter)   | false    | none         | Writer is a helper to write arbitrary data to a ResponseWriter |
+| Manager | [Manager](#schemamanager) | false    | none         | none                                                           |
 
 <a id="tocSintrospectionresponse">IntrospectionResponse</a>
+
 #### IntrospectionResponse
 
 <a id="schemaintrospectionresponse"></a>
@@ -4252,9 +4246,7 @@ p JSON.parse(result)
 ```json
 {
   "active": true,
-  "aud": [
-    "string"
-  ],
+  "aud": ["string"],
   "client_id": "string",
   "exp": 0,
   "ext": {
@@ -4269,70 +4261,70 @@ p JSON.parse(result)
   "token_type": "string",
   "username": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|active|boolean|false|none|none|
-|aud|[string]|false|none|none|
-|client_id|string|false|none|none|
-|exp|integer(int64)|false|none|none|
-|ext|object|false|none|Session represents arbitrary session data.|
-|» **additionalProperties**|object|false|none|none|
-|iat|integer(int64)|false|none|none|
-|iss|string|false|none|none|
-|nbf|integer(int64)|false|none|none|
-|scope|string|false|none|none|
-|sub|string|false|none|Here, it's sub|
-|token_type|string|false|none|none|
-|username|string|false|none|none|
+| Name                       | Type           | Required | Restrictions | Description                                |
+| -------------------------- | -------------- | -------- | ------------ | ------------------------------------------ |
+| active                     | boolean        | false    | none         | none                                       |
+| aud                        | [string]       | false    | none         | none                                       |
+| client_id                  | string         | false    | none         | none                                       |
+| exp                        | integer(int64) | false    | none         | none                                       |
+| ext                        | object         | false    | none         | Session represents arbitrary session data. |
+| » **additionalProperties** | object         | false    | none         | none                                       |
+| iat                        | integer(int64) | false    | none         | none                                       |
+| iss                        | string         | false    | none         | none                                       |
+| nbf                        | integer(int64) | false    | none         | none                                       |
+| scope                      | string         | false    | none         | none                                       |
+| sub                        | string         | false    | none         | Here, it's sub                             |
+| token_type                 | string         | false    | none         | none                                       |
+| username                   | string         | false    | none         | none                                       |
 
 <a id="tocSmanager">Manager</a>
+
 #### Manager
 
 <a id="schemamanager"></a>
 
 ```json
 {}
-
 ```
 
 #### Properties
 
-*None*
+_None_
 
 <a id="tocSoauth2clientcredentialsauthentication">OAuth2ClientCredentialsAuthentication</a>
+
 #### OAuth2ClientCredentialsAuthentication
 
 <a id="schemaoauth2clientcredentialsauthentication"></a>
 
 ```json
 {}
-
 ```
 
 #### Properties
 
-*None*
+_None_
 
 <a id="tocSoauth2introspectionauthentication">OAuth2IntrospectionAuthentication</a>
+
 #### OAuth2IntrospectionAuthentication
 
 <a id="schemaoauth2introspectionauthentication"></a>
 
 ```json
 {}
-
 ```
 
 #### Properties
 
-*None*
+_None_
 
 <a id="tocSsession">Session</a>
+
 #### Session
 
 <a id="schemasession"></a>
@@ -4341,16 +4333,16 @@ p JSON.parse(result)
 {
   "GetSubject": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|GetSubject|string|false|none|none|
+| Name       | Type   | Required | Restrictions | Description |
+| ---------- | ------ | -------- | ------------ | ----------- |
+| GetSubject | string | false    | none         | none        |
 
 <a id="tocSwardensubjectauthorizationrequest">WardenSubjectAuthorizationRequest</a>
+
 #### WardenSubjectAuthorizationRequest
 
 <a id="schemawardensubjectauthorizationrequest"></a>
@@ -4365,38 +4357,38 @@ p JSON.parse(result)
   "resource": "string",
   "subject": "string"
 }
-
 ```
 
-*AccessRequest is the warden's request object.*
+_AccessRequest is the warden's request object._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|action|string|false|none|Action is the action that is requested on the resource.|
-|context|object|false|none|Context is the request's environmental context.|
-|» **additionalProperties**|object|false|none|none|
-|resource|string|false|none|Resource is the resource that access is requested to.|
-|subject|string|false|none|Subejct is the subject that is requesting access.|
+| Name                       | Type   | Required | Restrictions | Description                                             |
+| -------------------------- | ------ | -------- | ------------ | ------------------------------------------------------- |
+| action                     | string | false    | none         | Action is the action that is requested on the resource. |
+| context                    | object | false    | none         | Context is the request's environmental context.         |
+| » **additionalProperties** | object | false    | none         | none                                                    |
+| resource                   | string | false    | none         | Resource is the resource that access is requested to.   |
+| subject                    | string | false    | none         | Subejct is the subject that is requesting access.       |
 
 <a id="tocSwriter">Writer</a>
+
 #### Writer
 
 <a id="schemawriter"></a>
 
 ```json
 {}
-
 ```
 
-*Writer is a helper to write arbitrary data to a ResponseWriter*
+_Writer is a helper to write arbitrary data to a ResponseWriter_
 
 #### Properties
 
-*None*
+_None_
 
 <a id="tocSauthenticationdefaultsession">authenticationDefaultSession</a>
+
 #### authenticationDefaultSession
 
 <a id="schemaauthenticationdefaultsession"></a>
@@ -4406,17 +4398,17 @@ p JSON.parse(result)
   "allowed": true,
   "sub": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|allowed|boolean|false|none|Allowed is true if the request is allowed and false otherwise.|
-|sub|string|false|none|Subject is the identity that authorized issuing the token, for example a user or an OAuth2 app. This is usually a uuid but you can choose a urn or some other id too.|
+| Name    | Type    | Required | Restrictions | Description                                                                                                                                                           |
+| ------- | ------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| allowed | boolean | false    | none         | Allowed is true if the request is allowed and false otherwise.                                                                                                        |
+| sub     | string  | false    | none         | Subject is the identity that authorized issuing the token, for example a user or an OAuth2 app. This is usually a uuid but you can choose a urn or some other id too. |
 
 <a id="tocSauthenticationoauth2clientcredentialssession">authenticationOAuth2ClientCredentialsSession</a>
+
 #### authenticationOAuth2ClientCredentialsSession
 
 <a id="schemaauthenticationoauth2clientcredentialssession"></a>
@@ -4426,17 +4418,17 @@ p JSON.parse(result)
   "allowed": true,
   "sub": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|allowed|boolean|false|none|Allowed is true if the request is allowed and false otherwise.|
-|sub|string|false|none|Subject is the identity that authorized issuing the token, for example a user or an OAuth2 app. This is usually a uuid but you can choose a urn or some other id too.|
+| Name    | Type    | Required | Restrictions | Description                                                                                                                                                           |
+| ------- | ------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| allowed | boolean | false    | none         | Allowed is true if the request is allowed and false otherwise.                                                                                                        |
+| sub     | string  | false    | none         | Subject is the identity that authorized issuing the token, for example a user or an OAuth2 app. This is usually a uuid but you can choose a urn or some other id too. |
 
 <a id="tocSauthenticationoauth2session">authenticationOAuth2Session</a>
+
 #### authenticationOAuth2Session
 
 <a id="schemaauthenticationoauth2session"></a>
@@ -4444,9 +4436,7 @@ p JSON.parse(result)
 ```json
 {
   "allowed": true,
-  "aud": [
-    "string"
-  ],
+  "aud": ["string"],
   "client_id": "string",
   "exp": "2018-11-15T08:23:48Z",
   "iat": "2018-11-15T08:23:48Z",
@@ -4460,27 +4450,27 @@ p JSON.parse(result)
   "sub": "string",
   "username": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|allowed|boolean|false|none|Allowed is true if the request is allowed and false otherwise.|
-|aud|[string]|false|none|none|
-|client_id|string|false|none|ClientID is the id of the OAuth2 client that requested the token.|
-|exp|string(date-time)|false|none|ExpiresAt is the expiry timestamp.|
-|iat|string(date-time)|false|none|IssuedAt is the token creation time stamp.|
-|iss|string|false|none|Issuer is the id of the issuer, typically an hydra instance.|
-|nbf|string(date-time)|false|none|none|
-|scope|string|false|none|GrantedScopes is a list of scopes that the subject authorized when asked for consent.|
-|session|object|false|none|Session represents arbitrary session data.|
-|» **additionalProperties**|object|false|none|none|
-|sub|string|false|none|Subject is the identity that authorized issuing the token, for example a user or an OAuth2 app. This is usually a uuid but you can choose a urn or some other id too.|
-|username|string|false|none|none|
+| Name                       | Type              | Required | Restrictions | Description                                                                                                                                                           |
+| -------------------------- | ----------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| allowed                    | boolean           | false    | none         | Allowed is true if the request is allowed and false otherwise.                                                                                                        |
+| aud                        | [string]          | false    | none         | none                                                                                                                                                                  |
+| client_id                  | string            | false    | none         | ClientID is the id of the OAuth2 client that requested the token.                                                                                                     |
+| exp                        | string(date-time) | false    | none         | ExpiresAt is the expiry timestamp.                                                                                                                                    |
+| iat                        | string(date-time) | false    | none         | IssuedAt is the token creation time stamp.                                                                                                                            |
+| iss                        | string            | false    | none         | Issuer is the id of the issuer, typically an hydra instance.                                                                                                          |
+| nbf                        | string(date-time) | false    | none         | none                                                                                                                                                                  |
+| scope                      | string            | false    | none         | GrantedScopes is a list of scopes that the subject authorized when asked for consent.                                                                                 |
+| session                    | object            | false    | none         | Session represents arbitrary session data.                                                                                                                            |
+| » **additionalProperties** | object            | false    | none         | none                                                                                                                                                                  |
+| sub                        | string            | false    | none         | Subject is the identity that authorized issuing the token, for example a user or an OAuth2 app. This is usually a uuid but you can choose a urn or some other id too. |
+| username                   | string            | false    | none         | none                                                                                                                                                                  |
 
 <a id="tocShealthnotreadystatus">healthNotReadyStatus</a>
+
 #### healthNotReadyStatus
 
 <a id="schemahealthnotreadystatus"></a>
@@ -4492,17 +4482,17 @@ p JSON.parse(result)
     "property2": "string"
   }
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|errors|object|false|none|Errors contains a list of errors that caused the not ready status.|
-|» **additionalProperties**|string|false|none|none|
+| Name                       | Type   | Required | Restrictions | Description                                                        |
+| -------------------------- | ------ | -------- | ------------ | ------------------------------------------------------------------ |
+| errors                     | object | false    | none         | Errors contains a list of errors that caused the not ready status. |
+| » **additionalProperties** | string | false    | none         | none                                                               |
 
 <a id="tocShealthstatus">healthStatus</a>
+
 #### healthStatus
 
 <a id="schemahealthstatus"></a>
@@ -4511,25 +4501,23 @@ p JSON.parse(result)
 {
   "status": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|status|string|false|none|Status always contains "ok".|
+| Name   | Type   | Required | Restrictions | Description                  |
+| ------ | ------ | -------- | ------------ | ---------------------------- |
+| status | string | false    | none         | Status always contains "ok". |
 
 <a id="tocSpolicy">policy</a>
+
 #### policy
 
 <a id="schemapolicy"></a>
 
 ```json
 {
-  "actions": [
-    "string"
-  ],
+  "actions": ["string"],
   "conditions": {
     "property1": {
       "options": {
@@ -4549,33 +4537,29 @@ p JSON.parse(result)
   "description": "string",
   "effect": "string",
   "id": "string",
-  "resources": [
-    "string"
-  ],
-  "subjects": [
-    "string"
-  ]
+  "resources": ["string"],
+  "subjects": ["string"]
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|actions|[string]|false|none|Actions impacted by the policy.|
-|conditions|object|false|none|Conditions under which the policy is active.|
-|» **additionalProperties**|object|false|none|none|
-|»» options|object|false|none|none|
-|»»» **additionalProperties**|object|false|none|none|
-|»» type|string|false|none|none|
-|» description|string|false|none|Description of the policy.|
-|» effect|string|false|none|Effect of the policy|
-|» id|string|false|none|ID of the policy.|
-|» resources|[string]|false|none|Resources impacted by the policy.|
-|» subjects|[string]|false|none|Subjects impacted by the policy.|
+| Name                         | Type     | Required | Restrictions | Description                                  |
+| ---------------------------- | -------- | -------- | ------------ | -------------------------------------------- |
+| actions                      | [string] | false    | none         | Actions impacted by the policy.              |
+| conditions                   | object   | false    | none         | Conditions under which the policy is active. |
+| » **additionalProperties**   | object   | false    | none         | none                                         |
+| »» options                   | object   | false    | none         | none                                         |
+| »»» **additionalProperties** | object   | false    | none         | none                                         |
+| »» type                      | string   | false    | none         | none                                         |
+| » description                | string   | false    | none         | Description of the policy.                   |
+| » effect                     | string   | false    | none         | Effect of the policy                         |
+| » id                         | string   | false    | none         | ID of the policy.                            |
+| » resources                  | [string] | false    | none         | Resources impacted by the policy.            |
+| » subjects                   | [string] | false    | none         | Subjects impacted by the policy.             |
 
 <a id="tocSrole">role</a>
+
 #### role
 
 <a id="schemarole"></a>
@@ -4583,44 +4567,40 @@ p JSON.parse(result)
 ```json
 {
   "id": "string",
-  "members": [
-    "string"
-  ]
+  "members": ["string"]
 }
-
 ```
 
-*Role represents a group of users that share the same role. A role could be an administrator, a moderator, a regular
-user or some other sort of role.*
+_Role represents a group of users that share the same role. A role could be an administrator, a moderator, a regular
+user or some other sort of role._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|id|string|false|none|ID is the role's unique id.|
-|members|[string]|false|none|Members is who belongs to the role.|
+| Name    | Type     | Required | Restrictions | Description                         |
+| ------- | -------- | -------- | ------------ | ----------------------------------- |
+| id      | string   | false    | none         | ID is the role's unique id.         |
+| members | [string] | false    | none         | Members is who belongs to the role. |
 
 <a id="tocSrolemembers">roleMembers</a>
+
 #### roleMembers
 
 <a id="schemarolemembers"></a>
 
 ```json
 {
-  "members": [
-    "string"
-  ]
+  "members": ["string"]
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|members|[string]|false|none|none|
+| Name    | Type     | Required | Restrictions | Description |
+| ------- | -------- | -------- | ------------ | ----------- |
+| members | [string] | false    | none         | none        |
 
 <a id="tocSswaggercreatepolicyparameters">swaggerCreatePolicyParameters</a>
+
 #### swaggerCreatePolicyParameters
 
 <a id="schemaswaggercreatepolicyparameters"></a>
@@ -4628,9 +4608,7 @@ user or some other sort of role.*
 ```json
 {
   "Body": {
-    "actions": [
-      "string"
-    ],
+    "actions": ["string"],
     "conditions": {
       "property1": {
         "options": {
@@ -4650,24 +4628,20 @@ user or some other sort of role.*
     "description": "string",
     "effect": "string",
     "id": "string",
-    "resources": [
-      "string"
-    ],
-    "subjects": [
-      "string"
-    ]
+    "resources": ["string"],
+    "subjects": ["string"]
   }
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Body|[policy](#schemapolicy)|false|none|none|
+| Name | Type                    | Required | Restrictions | Description |
+| ---- | ----------------------- | -------- | ------------ | ----------- |
+| Body | [policy](#schemapolicy) | false    | none         | none        |
 
 <a id="tocSswaggerdoeswardenallowaccessrequestparameters">swaggerDoesWardenAllowAccessRequestParameters</a>
+
 #### swaggerDoesWardenAllowAccessRequestParameters
 
 <a id="schemaswaggerdoeswardenallowaccessrequestparameters"></a>
@@ -4684,16 +4658,16 @@ user or some other sort of role.*
     "subject": "string"
   }
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Body|[WardenSubjectAuthorizationRequest](#schemawardensubjectauthorizationrequest)|false|none|none|
+| Name | Type                                                                          | Required | Restrictions | Description |
+| ---- | ----------------------------------------------------------------------------- | -------- | ------------ | ----------- |
+| Body | [WardenSubjectAuthorizationRequest](#schemawardensubjectauthorizationrequest) | false    | none         | none        |
 
 <a id="tocSswaggerdoeswardenallowclientrequestparameters">swaggerDoesWardenAllowClientRequestParameters</a>
+
 #### swaggerDoesWardenAllowClientRequestParameters
 
 <a id="schemaswaggerdoeswardenallowclientrequestparameters"></a>
@@ -4709,21 +4683,19 @@ user or some other sort of role.*
       "property2": {}
     },
     "resource": "string",
-    "scope": [
-      "string"
-    ]
+    "scope": ["string"]
   }
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Body|[wardenOAuth2ClientAuthorizationRequest](#schemawardenoauth2clientauthorizationrequest)|false|none|none|
+| Name | Type                                                                                    | Required | Restrictions | Description |
+| ---- | --------------------------------------------------------------------------------------- | -------- | ------------ | ----------- |
+| Body | [wardenOAuth2ClientAuthorizationRequest](#schemawardenoauth2clientauthorizationrequest) | false    | none         | none        |
 
 <a id="tocSswaggerdoeswardenallowtokenaccessrequestparameters">swaggerDoesWardenAllowTokenAccessRequestParameters</a>
+
 #### swaggerDoesWardenAllowTokenAccessRequestParameters
 
 <a id="schemaswaggerdoeswardenallowtokenaccessrequestparameters"></a>
@@ -4737,22 +4709,20 @@ user or some other sort of role.*
       "property2": {}
     },
     "resource": "string",
-    "scope": [
-      "string"
-    ],
+    "scope": ["string"],
     "token": "string"
   }
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Body|[wardenOAuth2AccessTokenAuthorizationRequest](#schemawardenoauth2accesstokenauthorizationrequest)|false|none|none|
+| Name | Type                                                                                              | Required | Restrictions | Description |
+| ---- | ------------------------------------------------------------------------------------------------- | -------- | ------------ | ----------- |
+| Body | [wardenOAuth2AccessTokenAuthorizationRequest](#schemawardenoauth2accesstokenauthorizationrequest) | false    | none         | none        |
 
 <a id="tocSswaggergetpolicyparameters">swaggerGetPolicyParameters</a>
+
 #### swaggerGetPolicyParameters
 
 <a id="schemaswaggergetpolicyparameters"></a>
@@ -4761,16 +4731,16 @@ user or some other sort of role.*
 {
   "id": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|id|string|false|none|The id of the policy. in: path|
+| Name | Type   | Required | Restrictions | Description                    |
+| ---- | ------ | -------- | ------------ | ------------------------------ |
+| id   | string | false    | none         | The id of the policy. in: path |
 
 <a id="tocSswaggerlistpolicyparameters">swaggerListPolicyParameters</a>
+
 #### swaggerListPolicyParameters
 
 <a id="schemaswaggerlistpolicyparameters"></a>
@@ -4780,17 +4750,17 @@ user or some other sort of role.*
   "limit": 0,
   "offset": 0
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|limit|integer(int64)|false|none|The maximum amount of policies returned. in: query|
-|offset|integer(int64)|false|none|The offset from where to start looking. in: query|
+| Name   | Type           | Required | Restrictions | Description                                        |
+| ------ | -------------- | -------- | ------------ | -------------------------------------------------- |
+| limit  | integer(int64) | false    | none         | The maximum amount of policies returned. in: query |
+| offset | integer(int64) | false    | none         | The offset from where to start looking. in: query  |
 
 <a id="tocSswaggerlistpolicyresponse">swaggerListPolicyResponse</a>
+
 #### swaggerListPolicyResponse
 
 <a id="schemaswaggerlistpolicyresponse"></a>
@@ -4799,9 +4769,7 @@ user or some other sort of role.*
 {
   "Body": [
     {
-      "actions": [
-        "string"
-      ],
+      "actions": ["string"],
       "conditions": {
         "property1": {
           "options": {
@@ -4821,27 +4789,23 @@ user or some other sort of role.*
       "description": "string",
       "effect": "string",
       "id": "string",
-      "resources": [
-        "string"
-      ],
-      "subjects": [
-        "string"
-      ]
+      "resources": ["string"],
+      "subjects": ["string"]
     }
   ]
 }
-
 ```
 
-*A policy*
+_A policy_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Body|[[policy](#schemapolicy)]|false|none|in: body type: array|
+| Name | Type                      | Required | Restrictions | Description          |
+| ---- | ------------------------- | -------- | ------------ | -------------------- |
+| Body | [[policy](#schemapolicy)] | false    | none         | in: body type: array |
 
 <a id="tocSswaggerupdatepolicyparameters">swaggerUpdatePolicyParameters</a>
+
 #### swaggerUpdatePolicyParameters
 
 <a id="schemaswaggerupdatepolicyparameters"></a>
@@ -4849,9 +4813,7 @@ user or some other sort of role.*
 ```json
 {
   "Body": {
-    "actions": [
-      "string"
-    ],
+    "actions": ["string"],
     "conditions": {
       "property1": {
         "options": {
@@ -4871,26 +4833,22 @@ user or some other sort of role.*
     "description": "string",
     "effect": "string",
     "id": "string",
-    "resources": [
-      "string"
-    ],
-    "subjects": [
-      "string"
-    ]
+    "resources": ["string"],
+    "subjects": ["string"]
   },
   "id": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Body|[policy](#schemapolicy)|false|none|none|
-|id|string|false|none|The id of the policy. in: path|
+| Name | Type                    | Required | Restrictions | Description                    |
+| ---- | ----------------------- | -------- | ------------ | ------------------------------ |
+| Body | [policy](#schemapolicy) | false    | none         | none                           |
+| id   | string                  | false    | none         | The id of the policy. in: path |
 
 <a id="tocSswaggerwardenbaserequest">swaggerWardenBaseRequest</a>
+
 #### swaggerWardenBaseRequest
 
 <a id="schemaswaggerwardenbaserequest"></a>
@@ -4904,21 +4862,21 @@ user or some other sort of role.*
   },
   "resource": "string"
 }
-
 ```
 
-*swager:model authorizedBaseRequest*
+_swager:model authorizedBaseRequest_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|action|string|false|none|Action is the action that is requested on the resource.|
-|context|object|false|none|Context is the request's environmental context.|
-|» **additionalProperties**|object|false|none|none|
-|resource|string|false|none|Resource is the resource that access is requested to.|
+| Name                       | Type   | Required | Restrictions | Description                                             |
+| -------------------------- | ------ | -------- | ------------ | ------------------------------------------------------- |
+| action                     | string | false    | none         | Action is the action that is requested on the resource. |
+| context                    | object | false    | none         | Context is the request's environmental context.         |
+| » **additionalProperties** | object | false    | none         | none                                                    |
+| resource                   | string | false    | none         | Resource is the resource that access is requested to.   |
 
 <a id="tocSversion">version</a>
+
 #### version
 
 <a id="schemaversion"></a>
@@ -4927,16 +4885,16 @@ user or some other sort of role.*
 {
   "version": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|version|string|false|none|none|
+| Name    | Type   | Required | Restrictions | Description |
+| ------- | ------ | -------- | ------------ | ----------- |
+| version | string | false    | none         | none        |
 
 <a id="tocSwardenoauth2accesstokenauthorizationrequest">wardenOAuth2AccessTokenAuthorizationRequest</a>
+
 #### wardenOAuth2AccessTokenAuthorizationRequest
 
 <a id="schemawardenoauth2accesstokenauthorizationrequest"></a>
@@ -4949,26 +4907,24 @@ user or some other sort of role.*
     "property2": {}
   },
   "resource": "string",
-  "scope": [
-    "string"
-  ],
+  "scope": ["string"],
   "token": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|action|string|false|none|Action is the action that is requested on the resource.|
-|context|object|false|none|Context is the request's environmental context.|
-|» **additionalProperties**|object|false|none|none|
-|resource|string|false|none|Resource is the resource that access is requested to.|
-|scope|[string]|false|none|Scope is an array of scopes that are required.|
-|token|string|false|none|Token is the token to introspect.|
+| Name                       | Type     | Required | Restrictions | Description                                             |
+| -------------------------- | -------- | -------- | ------------ | ------------------------------------------------------- |
+| action                     | string   | false    | none         | Action is the action that is requested on the resource. |
+| context                    | object   | false    | none         | Context is the request's environmental context.         |
+| » **additionalProperties** | object   | false    | none         | none                                                    |
+| resource                   | string   | false    | none         | Resource is the resource that access is requested to.   |
+| scope                      | [string] | false    | none         | Scope is an array of scopes that are required.          |
+| token                      | string   | false    | none         | Token is the token to introspect.                       |
 
 <a id="tocSwardenoauth2accesstokenauthorizationresponse">wardenOAuth2AccessTokenAuthorizationResponse</a>
+
 #### wardenOAuth2AccessTokenAuthorizationResponse
 
 <a id="schemawardenoauth2accesstokenauthorizationresponse"></a>
@@ -4976,9 +4932,7 @@ user or some other sort of role.*
 ```json
 {
   "allowed": true,
-  "aud": [
-    "string"
-  ],
+  "aud": ["string"],
   "client_id": "string",
   "exp": "2018-11-15T08:23:48Z",
   "iat": "2018-11-15T08:23:48Z",
@@ -4992,27 +4946,27 @@ user or some other sort of role.*
   "sub": "string",
   "username": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|allowed|boolean|false|none|Allowed is true if the request is allowed and false otherwise.|
-|aud|[string]|false|none|none|
-|client_id|string|false|none|ClientID is the id of the OAuth2 client that requested the token.|
-|exp|string(date-time)|false|none|ExpiresAt is the expiry timestamp.|
-|iat|string(date-time)|false|none|IssuedAt is the token creation time stamp.|
-|iss|string|false|none|Issuer is the id of the issuer, typically an hydra instance.|
-|nbf|string(date-time)|false|none|none|
-|scope|string|false|none|GrantedScopes is a list of scopes that the subject authorized when asked for consent.|
-|session|object|false|none|Session represents arbitrary session data.|
-|» **additionalProperties**|object|false|none|none|
-|sub|string|false|none|Subject is the identity that authorized issuing the token, for example a user or an OAuth2 app. This is usually a uuid but you can choose a urn or some other id too.|
-|username|string|false|none|none|
+| Name                       | Type              | Required | Restrictions | Description                                                                                                                                                           |
+| -------------------------- | ----------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| allowed                    | boolean           | false    | none         | Allowed is true if the request is allowed and false otherwise.                                                                                                        |
+| aud                        | [string]          | false    | none         | none                                                                                                                                                                  |
+| client_id                  | string            | false    | none         | ClientID is the id of the OAuth2 client that requested the token.                                                                                                     |
+| exp                        | string(date-time) | false    | none         | ExpiresAt is the expiry timestamp.                                                                                                                                    |
+| iat                        | string(date-time) | false    | none         | IssuedAt is the token creation time stamp.                                                                                                                            |
+| iss                        | string            | false    | none         | Issuer is the id of the issuer, typically an hydra instance.                                                                                                          |
+| nbf                        | string(date-time) | false    | none         | none                                                                                                                                                                  |
+| scope                      | string            | false    | none         | GrantedScopes is a list of scopes that the subject authorized when asked for consent.                                                                                 |
+| session                    | object            | false    | none         | Session represents arbitrary session data.                                                                                                                            |
+| » **additionalProperties** | object            | false    | none         | none                                                                                                                                                                  |
+| sub                        | string            | false    | none         | Subject is the identity that authorized issuing the token, for example a user or an OAuth2 app. This is usually a uuid but you can choose a urn or some other id too. |
+| username                   | string            | false    | none         | none                                                                                                                                                                  |
 
 <a id="tocSwardenoauth2clientauthorizationrequest">wardenOAuth2ClientAuthorizationRequest</a>
+
 #### wardenOAuth2ClientAuthorizationRequest
 
 <a id="schemawardenoauth2clientauthorizationrequest"></a>
@@ -5027,26 +4981,24 @@ user or some other sort of role.*
     "property2": {}
   },
   "resource": "string",
-  "scope": [
-    "string"
-  ]
+  "scope": ["string"]
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|action|string|false|none|Action is the action that is requested on the resource.|
-|client_id|string|false|none|Token is the token to introspect.|
-|client_secret|string|false|none|none|
-|context|object|false|none|Context is the request's environmental context.|
-|» **additionalProperties**|object|false|none|none|
-|resource|string|false|none|Resource is the resource that access is requested to.|
-|scope|[string]|false|none|Scope is an array of scopes that are required.|
+| Name                       | Type     | Required | Restrictions | Description                                             |
+| -------------------------- | -------- | -------- | ------------ | ------------------------------------------------------- |
+| action                     | string   | false    | none         | Action is the action that is requested on the resource. |
+| client_id                  | string   | false    | none         | Token is the token to introspect.                       |
+| client_secret              | string   | false    | none         | none                                                    |
+| context                    | object   | false    | none         | Context is the request's environmental context.         |
+| » **additionalProperties** | object   | false    | none         | none                                                    |
+| resource                   | string   | false    | none         | Resource is the resource that access is requested to.   |
+| scope                      | [string] | false    | none         | Scope is an array of scopes that are required.          |
 
 <a id="tocSwardenoauth2clientauthorizationresponse">wardenOAuth2ClientAuthorizationResponse</a>
+
 #### wardenOAuth2ClientAuthorizationResponse
 
 <a id="schemawardenoauth2clientauthorizationresponse"></a>
@@ -5056,17 +5008,17 @@ user or some other sort of role.*
   "allowed": true,
   "sub": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|allowed|boolean|false|none|Allowed is true if the request is allowed and false otherwise.|
-|sub|string|false|none|Subject is the identity that authorized issuing the token, for example a user or an OAuth2 app. This is usually a uuid but you can choose a urn or some other id too.|
+| Name    | Type    | Required | Restrictions | Description                                                                                                                                                           |
+| ------- | ------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| allowed | boolean | false    | none         | Allowed is true if the request is allowed and false otherwise.                                                                                                        |
+| sub     | string  | false    | none         | Subject is the identity that authorized issuing the token, for example a user or an OAuth2 app. This is usually a uuid but you can choose a urn or some other id too. |
 
 <a id="tocSwardensubjectauthorizationresponse">wardenSubjectAuthorizationResponse</a>
+
 #### wardenSubjectAuthorizationResponse
 
 <a id="schemawardensubjectauthorizationresponse"></a>
@@ -5076,13 +5028,11 @@ user or some other sort of role.*
   "allowed": true,
   "sub": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|allowed|boolean|false|none|Allowed is true if the request is allowed and false otherwise.|
-|sub|string|false|none|Subject is the identity that authorized issuing the token, for example a user or an OAuth2 app. This is usually a uuid but you can choose a urn or some other id too.|
-
+| Name    | Type    | Required | Restrictions | Description                                                                                                                                                           |
+| ------- | ------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| allowed | boolean | false    | none         | Allowed is true if the request is allowed and false otherwise.                                                                                                        |
+| sub     | string  | false    | none         | Subject is the identity that authorized issuing the token, for example a user or an OAuth2 app. This is usually a uuid but you can choose a urn or some other id too. |

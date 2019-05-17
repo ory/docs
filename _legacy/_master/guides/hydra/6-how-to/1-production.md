@@ -56,8 +56,8 @@ for `HTTPS_ALLOW_TERMINATION_FROM` in `hydra help host`.
 
 With TLS termination enabled, ORY Hydra discards all requests unless:
 
-* The request is coming from a trusted IP address set by `HTTPS_ALLOW_TERMINATION_FROM` and the header `X-Forwarded-Proto` is set to `https`.
-* The request goes to `/health/status` which does not require TLS termination and that is used to check the health of an instance.
+- The request is coming from a trusted IP address set by `HTTPS_ALLOW_TERMINATION_FROM` and the header `X-Forwarded-Proto` is set to `https`.
+- The request goes to `/health/status` which does not require TLS termination and that is used to check the health of an instance.
 
 If you are unable to properly set up TLS Termination, you may want to set the `--dangerous-force-http` flag. But please be
 aware that we discourage you from doing so and that you should know what you're doing.

@@ -36,9 +36,9 @@ already know what OAuth2 and OpenID Connect are and how they work, you can skip 
 This section will not explain how the various flows of OAuth2 work and how they look like. We strongly recommend
 to read the following articles:
 
-* [DigitalOcean: An Introduction to OAuth 2](https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2)
-* [Aaron Parecki: OAuth2 Simplified](https://aaronparecki.com/2012/07/29/2/oauth2-simplified)
-* [Zapier: Chapter 5: Authentication, Part 2](https://zapier.com/learn/apis/chapter-5-authentication-part-2/)
+- [DigitalOcean: An Introduction to OAuth 2](https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2)
+- [Aaron Parecki: OAuth2 Simplified](https://aaronparecki.com/2012/07/29/2/oauth2-simplified)
+- [Zapier: Chapter 5: Authentication, Part 2](https://zapier.com/learn/apis/chapter-5-authentication-part-2/)
 
 Please be aware that we do not aim to explain OAuth 2.0 in great detail. We assume that you have some knowledge
 of the flows and strongly encourage you to refresh your knowledge with the articles listed above.
@@ -66,16 +66,16 @@ the third party. This creates several problems and limitations.
 
 OAuth addresses these issues by introducing an authorization layer
 and separating the role of the client from that of the resource
-owner.  In OAuth, the client requests access to resources controlled
+owner. In OAuth, the client requests access to resources controlled
 by the resource owner and hosted by the resource server, and is
 issued a different set of credentials than those of the resource
 owner.
 
 Instead of using the resource owner's credentials to access protected
 resources, the client obtains an access token -- a string denoting a
-specific scope, lifetime, and other access attributes.  Access tokens
+specific scope, lifetime, and other access attributes. Access tokens
 are issued to third-party clients by an authorization server with the
-approval of the resource owner.  The client uses the access token to
+approval of the resource owner. The client uses the access token to
 access the protected resources hosted by the resource server.
 
 Source: [IETF RFC 6749](https://tools.ietf.org/html/rfc6749)
@@ -85,7 +85,7 @@ Source: [IETF RFC 6749](https://tools.ietf.org/html/rfc6749)
 An end-user (resource owner) can grant a printing
 service (client) access to her protected photos stored at a photo-
 sharing service (resource server), without sharing her username and
-password with the printing service.  Instead, she authenticates
+password with the printing service. Instead, she authenticates
 directly with a server trusted by the photo-sharing service
 (authorization server), which issues the printing service delegation-
 specific credentials (access token).
@@ -137,21 +137,21 @@ to verify user consent allowing you to use Hydra with any authentication endpoin
 Hydra incorporates best practices in the area of the web service technology:
 
 1. Hydra ships as a single binary for all popular platforms including Linux, OSX and Windows, without any additional
-dependencies. For further simplicity, Hydra is available as a [Docker Image](https://hub.docker.com/r/oryd/hydra/).
+   dependencies. For further simplicity, Hydra is available as a [Docker Image](https://hub.docker.com/r/oryd/hydra/).
 2. Hydra is built security first: architecture and work flows are designed to neutralize various common (OWASP TOP TEN)
-and uncommon attack vectors. [Learn more](https://www.ory.sh/docs/guides/master/hydra/5-security/).
+   and uncommon attack vectors. [Learn more](https://www.ory.sh/docs/guides/master/hydra/5-security/).
 3. Hydra has a low CPU and memory footprint, short start up times and a CLI with developers in mind.
 4. Hydra scales effortlessly up and down on every platform imaginable, including Heroku, Cloud Foundry, Docker,
-Google Container Engine and many more.
+   Google Container Engine and many more.
 
 Hydra has a limitations too:
 
 1. Hydra is not something that manages user accounts. Hydra does not offer user registration, password reset, user
-login, sending confirmation emails. This is what the *Identity Provider* is responsible for.
-The communication between Hydra and the Identity Provider is called [*Login and Consent Flow*](hydra/oauth2.md).
+   login, sending confirmation emails. This is what the _Identity Provider_ is responsible for.
+   The communication between Hydra and the Identity Provider is called [_Login and Consent Flow_](hydra/oauth2.md).
 2. If you are building a simple service for 50-100 registered users, OAuth2 and Hydra will probably be too sophisticated.
 3. Hydra will not support the OAuth2 resource owner password credentials flow. This flow is legacy, discouraged,
-and insecure.
+   and insecure.
 
 OAuth2 is used in many areas, for various purposes and supported by all well known programming languages, but it is important
 to understand what the vision of OAuth2 is. This non-exclusive list might help you decide, if OAuth 2.0 and Hydra are
@@ -160,10 +160,10 @@ the right fit for you.
 1. If you want to allow third-party developers accessing your APIs now or in the future, Hydra is the perfect fit. This is what an OAuth2 Provider does.
 2. If you want to become a Identity Provider, like Google, Facebook or Microsoft, OpenID Connect and thus Hydra is a perfect fit.
 3. Running an OAuth2 Provider works great with browser, mobile and wearable apps, as you can avoid storing access
-credentials on the device, phone or wearable and revoke access tokens, and thus access privileges, at any time.
+   credentials on the device, phone or wearable and revoke access tokens, and thus access privileges, at any time.
 4. If you have a lot of services and want to limit automated access (think: cronjobs) for those services,
-OAuth2 might make sense for you. Example: The comment service is not allowed to read user passwords when fetching
-the latest user profile updates.
+   OAuth2 might make sense for you. Example: The comment service is not allowed to read user passwords when fetching
+   the latest user profile updates.
 
 # OAuth 2.0 Case Study
 
@@ -178,9 +178,10 @@ item management (todo24.com/lists/items/manage: mark solved, add), and so on. Yo
 user is performing the request.
 
 Now you decide to use OAuth2 on top of your current infrastructure. There are many reasons to do this:
-* You want to open your APIs to third-party developers. Their apps will be using OAuth2 Access Tokens to access a user's to do list.
-* You want more client applications, for example browser app (SPA), mobile app, car, ...
-* You have Cross Origin Requests. Making cookies work with Cross Origin Requests weakens or even disables important anti-CSRF measures.
+
+- You want to open your APIs to third-party developers. Their apps will be using OAuth2 Access Tokens to access a user's to do list.
+- You want more client applications, for example browser app (SPA), mobile app, car, ...
+- You have Cross Origin Requests. Making cookies work with Cross Origin Requests weakens or even disables important anti-CSRF measures.
 
 These are only a couple of reasons to use OAuth2. You might decide to use OAuth2 as your single source of authorization, thus maintaining
 only one authorization protocol and being able to open up to third party devs in no time. With OpenID Connect, you are able to delegate authentication as well as authorization!
@@ -192,7 +193,7 @@ Before Hydra can issue an access token, we need to know WHICH user is giving con
 to the login endpoint alongside with a challenge that contains important request information. The login endpoint (todo24.com/login) authenticates the
 user as usual, e.g. by username & password, session cookie or other means. Upon successful authentication, the login endpoint
 redirects the user back to ORY Hydra. Next, ORY Hydra needs the user's consent for which the user agent is redirected to the consent endpoint (todo24.com/consent)
-where the user is asked for consent: *"Do you want to grant MyCoolAnalyticsApp read & write access to all your todo lists? [Yes] [No]"*. Once the user clicks *Yes* and gives consent,
+where the user is asked for consent: _"Do you want to grant MyCoolAnalyticsApp read & write access to all your todo lists? [Yes][no]"_. Once the user clicks _Yes_ and gives consent,
 the consent endpoint redirects back to ORY Hydra which then validates the request and finally issues the access, refresh, and ID tokens.
 
 You can validate the access tokens which are sent to your API directly at ORY Hydra, or use an Identity & Access Proxy

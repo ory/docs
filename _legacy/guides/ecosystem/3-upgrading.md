@@ -5,9 +5,9 @@ have breaking changes. We know that breaking changes are annoying so we want to 
 
 We document detailed changelogs and upgrade guides for this very reason:
 
-* ORY Hydra: [upgrade guide](https://github.com/ory/hydra/blob/master/UPGRADE.md), [changelog](https://github.com/ory/hydra/blob/master/CHANGELOG.md)
-* ORY Oathkeeper: [upgrade guide](https://github.com/ory/oathkeeper/blob/master/UPGRADE.md), [changelog](https://github.com/ory/oathkeeper/blob/master/CHANGELOG.md)
-* ORY Keto: [upgrade guide](https://github.com/ory/keto/blob/master/UPGRADE.md), [changelog](https://github.com/ory/keto/blob/master/CHANGELOG.md)
+- ORY Hydra: [upgrade guide](https://github.com/ory/hydra/blob/master/UPGRADE.md), [changelog](https://github.com/ory/hydra/blob/master/CHANGELOG.md)
+- ORY Oathkeeper: [upgrade guide](https://github.com/ory/oathkeeper/blob/master/UPGRADE.md), [changelog](https://github.com/ory/oathkeeper/blob/master/CHANGELOG.md)
+- ORY Keto: [upgrade guide](https://github.com/ory/keto/blob/master/UPGRADE.md), [changelog](https://github.com/ory/keto/blob/master/CHANGELOG.md)
 
 Before upgrading to a newer version, please make sure to check with these documents first.
 

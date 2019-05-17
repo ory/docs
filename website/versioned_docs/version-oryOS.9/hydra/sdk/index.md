@@ -13,13 +13,13 @@ Before you check out the SDKs, head over to the [REST API](hydra/sdk/api.md) doc
 programming languages for each REST endpoint.
 
 > The SDKs do not provide a good API for dealing with OAuth 2.0 Flows (e.g. Authorize Code Flow, Refresh Flow, ...).
-But there are tons of [libraries available for consuming OAuth 2.0](https://oauth.net/code/). Do not write your
-own OAuth 2.0 Library!
+> But there are tons of [libraries available for consuming OAuth 2.0](https://oauth.net/code/). Do not write your
+> own OAuth 2.0 Library!
 
 If you want to use the SDK despite its caveats (mediocre code quality, potential breaking changes), you will find more information here:
 
-* [Golang](hydra/sdk/go.md)
-* [JavaScript](hydra/sdk/js.md)
+- [Golang](hydra/sdk/go.md)
+- [JavaScript](hydra/sdk/js.md)
 
 Missing your programming language? [Create an issue](https://github.com/ory/hydra/issues) and help us build,
 test and publish the SDK for your programming language!

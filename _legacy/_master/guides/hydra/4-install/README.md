@@ -113,21 +113,21 @@ time="2017-06-29T21:26:34Z" level=info msg="Setting up http server on :4444"
 
 Let's dive into the various settings:
 
-* `--network hydraguide` connects this instance to the network and makes it possible to connect to the PostgreSQL database.
-* `-p 9000:4444` exposes ORY Hydra's public API on `https://localhost:9000/`.
-* `-p 9001:4445` exposes ORY Hydra's administrative API on `https://localhost:9001/`.
-* `-e SYSTEM_SECRET=$SYSTEM_SECRET` sets the system secret environment variable **(required)**.
-* `-e DATABASE_URL=$DATABASE_URL` sets the database url environment variable **(required)**.
-* `-e OAUTH2_ISSUER_URL=https://localhost:9000/` this value must be set to the publicly available URL of ORY Hydra **(required)**.
-* `-e OAUTH2_CONSENT_URL=http://localhost:9020/consent` this sets the URL of the consent provider **(required)**. We will set up the service
-that handles requests at that URL in the next sections.
-* `-e OAUTH2_LOGIN_URL=http://localhost:9020/login` this sets the URL of the login provider **(required)**. We will set up the service
-that handles requests at that URL in the next sections.
+- `--network hydraguide` connects this instance to the network and makes it possible to connect to the PostgreSQL database.
+- `-p 9000:4444` exposes ORY Hydra's public API on `https://localhost:9000/`.
+- `-p 9001:4445` exposes ORY Hydra's administrative API on `https://localhost:9001/`.
+- `-e SYSTEM_SECRET=$SYSTEM_SECRET` sets the system secret environment variable **(required)**.
+- `-e DATABASE_URL=$DATABASE_URL` sets the database url environment variable **(required)**.
+- `-e OAUTH2_ISSUER_URL=https://localhost:9000/` this value must be set to the publicly available URL of ORY Hydra **(required)**.
+- `-e OAUTH2_CONSENT_URL=http://localhost:9020/consent` this sets the URL of the consent provider **(required)**. We will set up the service
+  that handles requests at that URL in the next sections.
+- `-e OAUTH2_LOGIN_URL=http://localhost:9020/login` this sets the URL of the login provider **(required)**. We will set up the service
+  that handles requests at that URL in the next sections.
 
-Note: In this example we did not define a value for the optional setting `OAUTH2_ERROR_URL`. This URL can be used 
-to provide an endpoint which will receive error messages from ORY Hydra that should be displayed 
-to the end user. The URL receives `error` and `error_description` parameters. If this value is not set, 
-Hydra uses the fallback endpoint `/oauth2/fallbacks/error` and displays a default error message. In order to obtain 
+Note: In this example we did not define a value for the optional setting `OAUTH2_ERROR_URL`. This URL can be used
+to provide an endpoint which will receive error messages from ORY Hydra that should be displayed
+to the end user. The URL receives `error` and `error_description` parameters. If this value is not set,
+Hydra uses the fallback endpoint `/oauth2/fallbacks/error` and displays a default error message. In order to obtain
 a uniform UI, you might want to include such an endpoint in your login or consent provider.
 
 To confirm that the instance is running properly, [open the health check](https://localhost:9001/health/status). If asked,
@@ -147,9 +147,9 @@ time="2017-06-30T09:06:41Z" level=info msg="Setting up http server on :4444"
 As you can see, the following steps are performed when running ORY Hydra against a fresh database:
 
 1. If no system secret was given (in our case we provided one), a random one is generated and emitted to the logs.
-Note this down, otherwise you won't be able to restart Hydra.
+   Note this down, otherwise you won't be able to restart Hydra.
 2. Cryptographic keys are generated for the OpenID Connect ID Token, the consent challenge and response, and TLS encryption
-using a self-signed certificate, which is why we need to run all commands using `--skip-tls-verify`.
+   using a self-signed certificate, which is why we need to run all commands using `--skip-tls-verify`.
 
 ORY Hydra can be managed using the Hydra Command Line Interface (CLI), which is using ORY Hydra's REST APIs. To
 see the available commands, run:
@@ -199,7 +199,9 @@ The following commands will check out the latest release tag of ORY Hydra and co
 works as expected. Please note that this will only work with a linux shell like bash or sh.
 
 ```
+
 ```
+
 go get -d -u github.com/ory/hydra
 cd $(go env GOPATH)/src/github.com/ory/hydra
 HYDRA_LATEST=$(git describe --abbrev=0 --tags)
@@ -207,11 +209,12 @@ git checkout $HYDRA_LATEST
 dep ensure -vendor-only
 go install \
     -ldflags "-X github.com/ory/hydra/cmd.Version=$HYDRA_LATEST -X github.com/ory/hydra/cmd.BuildTime=`TZ=UTC date -u '+%Y-%m-%dT%H:%M:%SZ'` -X github.com/ory/hydra/cmd.GitHash=`git rev-parse HEAD`" \
-    github.com/ory/hydra
+ github.com/ory/hydra
 git checkout master
 hydra help
 
 ...
+
 ```
 
 ### Setting up the Login & Consent Provider
@@ -220,17 +223,20 @@ The Login Provider and Consent Provider can be two separate web services. We pro
 combines both features in one app. Here, we will use deploy that app using Docker.
 
 ```
+
 $ docker pull oryd/hydra-login-consent-node:v1.0.0-beta.8
 $ docker run -d \
-  --name ory-hydra-example--consent \
-  -p 9020:3000 \
-  --network hydraguide \
-  -e HYDRA_URL=https://ory-hydra-example--hydra:4445 \
-  -e NODE_TLS_REJECT_UNAUTHORIZED=0 \
-  oryd/hydra-login-consent-node:v1.0.0-beta.8
+ --name ory-hydra-example--consent \
+ -p 9020:3000 \
+ --network hydraguide \
+ -e HYDRA_URL=https://ory-hydra-example--hydra:4445 \
+ -e NODE_TLS_REJECT_UNAUTHORIZED=0 \
+ oryd/hydra-login-consent-node:v1.0.0-beta.8
 
 # Let's check if it's running ok:
-$ docker logs ory-hydra-example--consent
+
+\$ docker logs ory-hydra-example--consent
+
 ```
 
 Let's take a look at the arguments:
@@ -250,20 +256,22 @@ Before we go ahead, the OAuth 2.0 Client that performs the request has to be set
 We have to specify which OAuth 2.0 Grant Types, OAuth 2.0 Scope, OAuth 2.0 Response Types, and Callback URLs the client may request:
 
 ```
-$ docker run --rm -it \
-  -e HYDRA_ADMIN_URL=https://ory-hydra-example--hydra:4445 \
-  --network hydraguide \
-  oryd/hydra:v1.0.0-beta.8 \
-  clients create --skip-tls-verify \
-    --id facebook-photo-backup \
-    --secret some-secret \
-    --grant-types authorization_code,refresh_token,client_credentials,implicit \
-    --response-types token,code,id_token \
-    --scope openid,offline,photos.read \
-    --callbacks http://127.0.0.1:9010/callback
+
+\$ docker run --rm -it \
+ -e HYDRA_ADMIN_URL=https://ory-hydra-example--hydra:4445 \
+ --network hydraguide \
+ oryd/hydra:v1.0.0-beta.8 \
+ clients create --skip-tls-verify \
+ --id facebook-photo-backup \
+ --secret some-secret \
+ --grant-types authorization_code,refresh_token,client_credentials,implicit \
+ --response-types token,code,id_token \
+ --scope openid,offline,photos.read \
+ --callbacks http://127.0.0.1:9010/callback
 
 Client ID: facebook-photo-backup
 Client Secret: some-secret
+
 ```
 
 Let's dive into some of the arguments:
@@ -288,23 +296,25 @@ an auth code url, redirecting the browser to it, and then exchanging the authori
 same thing happens with this command:
 
 ```
-$ docker run --rm -it \
-  --network hydraguide \
-  -p 9010:9010 \
-  oryd/hydra:v1.0.0-beta.8 \
-  token user --skip-tls-verify \
-    --port 9010 \
-    --auth-url https://localhost:9000/oauth2/auth \
-    --token-url https://ory-hydra-example--hydra:4444/oauth2/token \
-    --client-id facebook-photo-backup \
-    --client-secret some-secret \
-    --scope openid,offline,photos.read
+
+\$ docker run --rm -it \
+ --network hydraguide \
+ -p 9010:9010 \
+ oryd/hydra:v1.0.0-beta.8 \
+ token user --skip-tls-verify \
+ --port 9010 \
+ --auth-url https://localhost:9000/oauth2/auth \
+ --token-url https://ory-hydra-example--hydra:4444/oauth2/token \
+ --client-id facebook-photo-backup \
+ --client-secret some-secret \
+ --scope openid,offline,photos.read
 
 Setting up callback listener on http://localhost:9010/callback
 Press ctrl + c on Linux / Windows or cmd + c on OSX to end the process.
 If your browser does not open automatically, navigate to:
 
         https://localhost:9010/
+
 ```
 
 open the link, as prompted, in your browser, and follow the steps shown there. You might encounter a screen like the following
@@ -321,3 +331,4 @@ but it's always possible to proceed.
 When completed, you should land at a screen that looks like this one:
 
 ![OAuth 2.0 result](../images/install-result.png)
+```

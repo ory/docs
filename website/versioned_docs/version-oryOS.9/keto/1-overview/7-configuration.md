@@ -3,12 +3,13 @@ id: version-oryOS.9-configuration
 title: Configuring and Running ORY Keto
 original_id: configuration
 ---
+
 #
 
 ORY Keto supports two types of storage adapters:
 
-* In-memory: This adapter does not work with more than one instance ("cluster") and any state is lost after restarting the instance.
-* SQL: This adapter works with more than one instance and state is not lost after restarts.
+- In-memory: This adapter does not work with more than one instance ("cluster") and any state is lost after restarting the instance.
+- SQL: This adapter works with more than one instance and state is not lost after restarts.
 
 The SQL adapter supports two DBMS: PostgreSQL 9.6+ and MySQL 5.7+. Please note that
 older MySQL versions have issues with the database schema.

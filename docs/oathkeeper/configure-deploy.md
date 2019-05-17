@@ -5,15 +5,15 @@ title: Configure and Deploy
 
 ORY Oathkeeper has two servers that run on separate ports:
 
-* The api server: This server is responsible for exposing the management REST API.
-* The proxy server: This server is responsible for evaluating access requests and forwarding them to the backend.
+- The api server: This server is responsible for exposing the management REST API.
+- The proxy server: This server is responsible for evaluating access requests and forwarding them to the backend.
 
 For detailed documentation on the two servers, run `oathkeeper help serve api` and `oathkeeper help serve proxy`.
 
 ORY Oathkeeper supports two types of storage adapters:
 
-* In-memory: This adapter does not work with more than one instance ("cluster") and any state is lost after restarting the instance.
-* SQL: This adapter works with more than one instance and state is not lost after restarts.
+- In-memory: This adapter does not work with more than one instance ("cluster") and any state is lost after restarting the instance.
+- SQL: This adapter works with more than one instance and state is not lost after restarts.
 
 The SQL adapter supports two DBMS: PostgreSQL 9.6+ and MySQL 5.7+. Please note that
 older MySQL versions have issues with the database schema.

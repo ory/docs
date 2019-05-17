@@ -115,21 +115,21 @@ time="2017-06-29T21:26:34Z" level=info msg="Setting up http server on :4444"
 
 Let's dive into the various settings:
 
-* `--network hydraguide` connects this instance to the network and makes it possible to connect to the PostgreSQL database.
-* `-p 9000:4444` exposes ORY Hydra's public API on `https://localhost:9000/`.
-* `-p 9001:4445` exposes ORY Hydra's administrative API on `https://localhost:9001/`.
-* `-e SYSTEM_SECRET=$SYSTEM_SECRET` sets the system secret environment variable **(required)**.
-* `-e DATABASE_URL=$DATABASE_URL` sets the database url environment variable **(required)**.
-* `-e OAUTH2_ISSUER_URL=https://localhost:9000/` this value must be set to the publicly available URL of ORY Hydra **(required)**.
-* `-e OAUTH2_CONSENT_URL=http://localhost:9020/consent` this sets the URL of the consent provider **(required)**. We will set up the service
-that handles requests at that URL in the next sections.
-* `-e OAUTH2_LOGIN_URL=http://localhost:9020/login` this sets the URL of the login provider **(required)**. We will set up the service
-that handles requests at that URL in the next sections.
+- `--network hydraguide` connects this instance to the network and makes it possible to connect to the PostgreSQL database.
+- `-p 9000:4444` exposes ORY Hydra's public API on `https://localhost:9000/`.
+- `-p 9001:4445` exposes ORY Hydra's administrative API on `https://localhost:9001/`.
+- `-e SYSTEM_SECRET=$SYSTEM_SECRET` sets the system secret environment variable **(required)**.
+- `-e DATABASE_URL=$DATABASE_URL` sets the database url environment variable **(required)**.
+- `-e OAUTH2_ISSUER_URL=https://localhost:9000/` this value must be set to the publicly available URL of ORY Hydra **(required)**.
+- `-e OAUTH2_CONSENT_URL=http://localhost:9020/consent` this sets the URL of the consent provider **(required)**. We will set up the service
+  that handles requests at that URL in the next sections.
+- `-e OAUTH2_LOGIN_URL=http://localhost:9020/login` this sets the URL of the login provider **(required)**. We will set up the service
+  that handles requests at that URL in the next sections.
 
-Note: In this example we did not define a value for the optional setting `OAUTH2_ERROR_URL`. This URL can be used 
-to provide an endpoint which will receive error messages from ORY Hydra that should be displayed 
-to the end user. The URL receives `error` and `error_description` parameters. If this value is not set, 
-Hydra uses the fallback endpoint `/oauth2/fallbacks/error` and displays a default error message. In order to obtain 
+Note: In this example we did not define a value for the optional setting `OAUTH2_ERROR_URL`. This URL can be used
+to provide an endpoint which will receive error messages from ORY Hydra that should be displayed
+to the end user. The URL receives `error` and `error_description` parameters. If this value is not set,
+Hydra uses the fallback endpoint `/oauth2/fallbacks/error` and displays a default error message. In order to obtain
 a uniform UI, you might want to include such an endpoint in your login or consent provider.
 
 To confirm that the instance is running properly, [open the health check](https://localhost:9001/health/status). If asked,
@@ -149,9 +149,9 @@ time="2017-06-30T09:06:41Z" level=info msg="Setting up http server on :4444"
 As you can see, the following steps are performed when running ORY Hydra against a fresh database:
 
 1. If no system secret was given (in our case we provided one), a random one is generated and emitted to the logs.
-Note this down, otherwise you won't be able to restart Hydra.
+   Note this down, otherwise you won't be able to restart Hydra.
 2. Cryptographic keys are generated for the OpenID Connect ID Token, the consent challenge and response, and TLS encryption
-using a self-signed certificate, which is why we need to run all commands using `--skip-tls-verify`.
+   using a self-signed certificate, which is why we need to run all commands using `--skip-tls-verify`.
 
 ORY Hydra can be managed using the Hydra Command Line Interface (CLI), which is using ORY Hydra's REST APIs. To
 see the available commands, run:
@@ -234,10 +234,11 @@ $ docker logs ory-hydra-example--consent
 ```
 
 Let's take a look at the arguments:
-* `-p 9020:3000` exposes this service at port 9020. If you remember, that's the port of the `OAUTH2_CONSENT_URL` and `OAUTH2_LOGIN_URL` value
-from the ORY Hydra docker container (`OAUTH2_CONSENT_URL=http://localhost:9020/consent`, `OAUTH2_LOGIN_URL=http://localhost:9020/login`).
-* `HYDRA_URL=http://hydra:4445` point to the ORY Hydra Administrative API.
-* `NODE_TLS_REJECT_UNAUTHORIZED=0` disables TLS verification, because we are using self-signed certificates.
+
+- `-p 9020:3000` exposes this service at port 9020. If you remember, that's the port of the `OAUTH2_CONSENT_URL` and `OAUTH2_LOGIN_URL` value
+  from the ORY Hydra docker container (`OAUTH2_CONSENT_URL=http://localhost:9020/consent`, `OAUTH2_LOGIN_URL=http://localhost:9020/login`).
+- `HYDRA_URL=http://hydra:4445` point to the ORY Hydra Administrative API.
+- `NODE_TLS_REJECT_UNAUTHORIZED=0` disables TLS verification, because we are using self-signed certificates.
 
 ## Perform OAuth 2.0 Flow
 
@@ -267,20 +268,21 @@ Client Secret: some-secret
 ```
 
 Let's dive into some of the arguments:
-* `--skip-tls-verify` is supported by all management commands (create/delete/update/... OAuth 2.0 Client, JSON Web Key, ...)
-    and tells the CLI to trust any certificate authority - even self-signed ones. We need this flag because the server
-    uses a self-signed certificate. In production deployments, you would use a certificate signed by a trusted CA.
-* `--grant-types authorize_code,refresh_token,client_credentials,implicit` we want to be able to perform all of these
-OAuth 2.0 flows.
-* `--response-types token,code,id_token` allows us to receive authorize codes, access and refresh tokens, and
-OpenID Connect ID Tokens.
-* `--scope openid,offline,fotos.read` allows the client to request various permissions:
-  * `openid` allows the client to perform the OpenID Connect flow and request an OpenID Connect ID Token.
-  * `offline` allows the client to request a refresh token. Because we want to continuously backup photos, the app must be
-  able to refresh expired access tokens. This scope allows that.
-  * `photos.read` this is an imaginary scope that is not handled by ORY Hydra but serves the purpose of making it clear that
-  we could request read access to a user's photos. You can obviously omit this scope or use your own scope.
-* `--callbacks http://localhost:9010/callback` allows the client to request this redirect uri.
+
+- `--skip-tls-verify` is supported by all management commands (create/delete/update/... OAuth 2.0 Client, JSON Web Key, ...)
+  and tells the CLI to trust any certificate authority - even self-signed ones. We need this flag because the server
+  uses a self-signed certificate. In production deployments, you would use a certificate signed by a trusted CA.
+- `--grant-types authorize_code,refresh_token,client_credentials,implicit` we want to be able to perform all of these
+  OAuth 2.0 flows.
+- `--response-types token,code,id_token` allows us to receive authorize codes, access and refresh tokens, and
+  OpenID Connect ID Tokens.
+- `--scope openid,offline,fotos.read` allows the client to request various permissions:
+  - `openid` allows the client to perform the OpenID Connect flow and request an OpenID Connect ID Token.
+  - `offline` allows the client to request a refresh token. Because we want to continuously backup photos, the app must be
+    able to refresh expired access tokens. This scope allows that.
+  - `photos.read` this is an imaginary scope that is not handled by ORY Hydra but serves the purpose of making it clear that
+    we could request read access to a user's photos. You can obviously omit this scope or use your own scope.
+- `--callbacks http://localhost:9010/callback` allows the client to request this redirect uri.
 
 Perfect, let's perform an exemplary OAuth 2.0 Authorize Code Flow! To make this easy, the ORY Hydra CLI provides
 a helper command called `hydra token user`. Just imagine this being, for example, passport.js that is generating

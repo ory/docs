@@ -58,8 +58,8 @@ for `HTTPS_ALLOW_TERMINATION_FROM` in `hydra help host`.
 
 With TLS termination enabled, ORY Hydra discards all requests unless:
 
-* The request is coming from a trusted IP address set by `HTTPS_ALLOW_TERMINATION_FROM` and the header `X-Forwarded-Proto` is set to `https`.
-* The request goes to `/health/status` which does not require TLS termination and that is used to check the health of an instance.
+- The request is coming from a trusted IP address set by `HTTPS_ALLOW_TERMINATION_FROM` and the header `X-Forwarded-Proto` is set to `https`.
+- The request goes to `/health/status` which does not require TLS termination and that is used to check the health of an instance.
 
 If you are unable to properly set up TLS Termination, you may want to set the `--dangerous-force-http` flag. But please be
 aware that we discourage you from doing so and that you should know what you're doing.
@@ -82,25 +82,25 @@ ORY Hydra exposes serves APIs via two ports:
 
 The public port can and should be exposed to public internet traffic. That port handles requests to:
 
-* `./well-known/jwks.json`
-* `./well-known/openid-configuration`
-* `/oauth2/auth`
-* `/oauth2/token`
-* `/oauth2/revoke`
-* `/oauth2/fallbacks/consent`
-* `/oauth2/fallbacks/error`
-* `/userinfo`
+- `./well-known/jwks.json`
+- `./well-known/openid-configuration`
+- `/oauth2/auth`
+- `/oauth2/token`
+- `/oauth2/revoke`
+- `/oauth2/fallbacks/consent`
+- `/oauth2/fallbacks/error`
+- `/userinfo`
 
 The administrative port should not be exposed to public internet traffic. If you want to expose certain endpoints, such as the `/clients` endpoint for
 OpenID Connect Dynamic Client Registry, you can do so but you need to properly secure these endpoints with an API Gateway or Authorization Proxy.
 Administrative endpoints include:
 
-* All `/clients` endpoints.
-* All `/jwks` endpoints.
-* All `/health`, `/metrics`, `/version` endpoints.
-* All `/oauth2/auth/requests` endpoints.
-* Endpoint `/oauth2/introspect`.
-* Endpoint `/oauth2/flush`.
+- All `/clients` endpoints.
+- All `/jwks` endpoints.
+- All `/health`, `/metrics`, `/version` endpoints.
+- All `/oauth2/auth/requests` endpoints.
+- Endpoint `/oauth2/introspect`.
+- Endpoint `/oauth2/flush`.
 
 None of the administrative endpoints have any built-in access control. You can do simple `curl` or Postman requests to talk to them.
 

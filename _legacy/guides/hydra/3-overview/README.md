@@ -18,7 +18,7 @@ It can be a new app or your existing login system. On a high level, these provid
 
 - The login provider is responsible for authenticating the user ("login") by validating his or her credentials (e.g. username + password).
 - The consent provider is responsible for allowing the OAuth 2.0 application to get a token on the user's behalf ("Do you want
-to allow foobar-app access to all your personal messages and images?".
+  to allow foobar-app access to all your personal messages and images?".
 
 A second important concept is the OAuth 2.0 Scope.
 

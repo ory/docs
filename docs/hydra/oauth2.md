@@ -25,7 +25,7 @@ It can be a new app or your existing login system. On a high level, these provid
 
 - The login provider is responsible for authenticating the user ("login") by validating his or her credentials (e.g. username + password).
 - The consent provider is responsible for allowing the OAuth 2.0 application to get a token on the user's behalf ("Do you want
-to allow foobar-app access to all your personal messages and images?".
+  to allow foobar-app access to all your personal messages and images?".
 
 ### Common Misconceptions
 
@@ -63,23 +63,23 @@ these protocols work.
 Before we get into the gritty details of how everything fits together, let's get some terminologies out of the way. You will
 find these terminologies scattered across the OAuth2 and OpenID Connect ecosystem.
 
-We decided, for this guide, to use simpler and easier to use terminologies like, for example, *user* instead of *resource owner*.
+We decided, for this guide, to use simpler and easier to use terminologies like, for example, _user_ instead of _resource owner_.
 If you are familiar with OAuth2 details, you will find it easier to navigate these docs if you have read the glossary.
 
 1. The **resource owner** is the user who authorizes an application to access their account. The application's access to
-the user's account is limited to the "scope" of the authorization granted (e.g. read or write access). We will refer to
-the resource owner as a *user* or *end user* on this page.
+   the user's account is limited to the "scope" of the authorization granted (e.g. read or write access). We will refer to
+   the resource owner as a _user_ or _end user_ on this page.
 2. The **OAuth 2.0 Authorization Server** implements the OAuth 2.0 protocol (and optionally OpenID Connect) and serves
-endpoints such as `/oauth2/auth` or `/oauth2/token`. In our case, this is **ORY Hydra**.
+   endpoints such as `/oauth2/auth` or `/oauth2/token`. In our case, this is **ORY Hydra**.
 3. The **resource provider** is a service that - well - provides resources. These resources (e.g. a blog article, printer, todo list)
-are owned by a resource owner (user) mentioned above.
-3. The **OAuth 2.0 Client** is the *application* that wants access to a resource owner's resources (a.k.a. get write access to a user's images).
-Such a client can ask the authorization server to issue an access token on a resource owner's behalf. Typically, the authorization server
-will ask the user if he/she "is ok with" giving that application e.g. write access to personal images.
-4. The **Identity Provider** is a service ("application"/"website") with a login interface. An identity provider typically
-allows users to register as well and might also have an administrative interface in order to manage the identities (delete user, ban user, create user, ...).
-5. **User Agent** is usually a browser.
-6. **OpenID Connect** is a protocol built on top of OAuth 2.0 which is capable of federating authentication.
+   are owned by a resource owner (user) mentioned above.
+4. The **OAuth 2.0 Client** is the _application_ that wants access to a resource owner's resources (a.k.a. get write access to a user's images).
+   Such a client can ask the authorization server to issue an access token on a resource owner's behalf. Typically, the authorization server
+   will ask the user if he/she "is ok with" giving that application e.g. write access to personal images.
+5. The **Identity Provider** is a service ("application"/"website") with a login interface. An identity provider typically
+   allows users to register as well and might also have an administrative interface in order to manage the identities (delete user, ban user, create user, ...).
+6. **User Agent** is usually a browser.
+7. **OpenID Connect** is a protocol built on top of OAuth 2.0 which is capable of federating authentication.
 
 A typical OAuth 2.0 flow looks as follows:
 
@@ -100,24 +100,24 @@ NodeJS app that handles HTTP requests to `/login` and `/consent` and it would th
 The flow itself works as follows:
 
 1. The OAuth 2.0 Client initiates an Authorize Code, Hybrid, or Implicit flow. The user's user agent is redirect to
-`http://hydra/oauth2/auth?client_id=...&...`.
+   `http://hydra/oauth2/auth?client_id=...&...`.
 2. ORY Hydra, if unable to authenticate the user (= no session cookie exists), redirects the user's user agent to the Login Provider
-URL. The application "sitting" at that URL is implemented by you and typically shows a login user interface ("Please enter
-your username and password"). The URL the user is redirect to looks similar to `http://login-service/login?login_challenge=1234...`.
+   URL. The application "sitting" at that URL is implemented by you and typically shows a login user interface ("Please enter
+   your username and password"). The URL the user is redirect to looks similar to `http://login-service/login?login_challenge=1234...`.
 3. The Login Provider, once the user has successfully logged in, tells ORY Hydra some information about who the user is (e.g. the user's ID)
-and also that the login attempt was successful. This is done using a REST request which includes another redirect URL
-along the lines of `http://hydra/oauth2/auth?client_id=...&...&login_verifier=4321`.
+   and also that the login attempt was successful. This is done using a REST request which includes another redirect URL
+   along the lines of `http://hydra/oauth2/auth?client_id=...&...&login_verifier=4321`.
 4. The user's user agent follows the redirect and lands back at ORY Hydra. Next, ORY Hydra redirects the user's user
-agent to the Consent Provider, hosted at - for example - `http://consent-service/consent?consent_challenge=4567...`
+   agent to the Consent Provider, hosted at - for example - `http://consent-service/consent?consent_challenge=4567...`
 5. The Consent Provider shows a user interface which asks the user if he/she would like to grant the OAuth 2.0 Client
-the requested permissions ("OAuth 2.0 Scope"). You've probably seen this screen around, which is usually something similar to:
-*"Would you like to grant Facebook Image Backup access to all your private and public images?"*.
+   the requested permissions ("OAuth 2.0 Scope"). You've probably seen this screen around, which is usually something similar to:
+   _"Would you like to grant Facebook Image Backup access to all your private and public images?"_.
 6. The Consent Provider makes another REST request to ORY Hydra to let it know which permissions the user authorized, and
-if the user authorized the request at all. The user can usually choose to not grant an application any access to his/her
-personal data. In the response of that REST request, a redirect URL is included along the lines of `http://hydra/oauth2/auth?client_id=...&...&consent_verifier=7654...`.
+   if the user authorized the request at all. The user can usually choose to not grant an application any access to his/her
+   personal data. In the response of that REST request, a redirect URL is included along the lines of `http://hydra/oauth2/auth?client_id=...&...&consent_verifier=7654...`.
 7. The user's user agent follows that redirect.
-7. Now, the user has successfully authenticated and authorized the application. Next, ORY Hydra will
-run some checks and if everything works out, issue access, refresh, and ID tokens.
+8. Now, the user has successfully authenticated and authorized the application. Next, ORY Hydra will
+   run some checks and if everything works out, issue access, refresh, and ID tokens.
 
 This flow allows you to take full control of the behaviour of your login system (e.g. 2FA, passwordless, ...) and
 consent screen. A well-documented reference implementation for both the Login and [Consent Provider is available on GitHub](https://github.com/ory/hydra-login-consent-node).
@@ -149,7 +149,7 @@ successful login. Additionally, parameters such as `id_token_hint`, `prompt`, an
 
 Next, the user will be redirect to the Login Provider which was set using the `OAUTH2_LOGIN_URL` environment
 variable. For example, the user is redirected to `https://login-provider/login?login_challenge=1234` if `OAUTH2_LOGIN_URL=https://login-provider/login`.
-This redirection happens *always* and regardless of whether the user has a valid login session or if the user needs
+This redirection happens _always_ and regardless of whether the user has a valid login session or if the user needs
 to authenticate.
 
 The service which handles requests to `https://login-provider/login` must first fetch information on the authentication
@@ -287,7 +287,7 @@ must visually confirm the request.
 This works very similar to the User Login Flow.
 First, the user will be redirect to the Consent Provider which was set using the `OAUTH2_CONSENT_PROVIDER` environment
 variable. For example, the user is redirected to `https://consent-provider/consent?consent_challenge=1234` if `OAUTH2_CONSENT_PROVIDER=https://consent-provider/consent`.
-This redirection happens *always* and regardless of whether the user has a valid login session or if the user needs
+This redirection happens _always_ and regardless of whether the user has a valid login session or if the user needs
 to authorize the application or not.
 
 The service which handles requests to `https://consent-provider/consent` must first fetch information on the consent
@@ -426,18 +426,20 @@ A log out request may be initiated by a RP (Relying Party, alias for OAuth 2.0 C
 any parameters. In both cases, the high level flow looks as follows:
 
 1. A user-agent (browser) requests the logout endpoint (`/oauth2/sessions/logout`). If the request is done on behalf
-of a RP:
-  - The URL query MUST contain an ID Token issued by ORY Hydra as the `id_token_hint`: `/oauth2/sessions/logout?id_token_hint=...`
-  - The URL query MAY contain key `post_logout_redirect_uri` indicating where the user agent should be redirected after
-    the logout completed successfully. Each OAuth 2.0 Client can whitelist a list of URIs that can be used as the value
-    using the `post_logout_redirect_uris` metadata field: `/oauth2/sessions/logout?id_token_hint=...&post_logout_redirect_uri=https://i-must-be-whitelisted/`
-  - If `post_logout_redirect_uri` is set, the URL query SHOULD contain a `state` value. On successful redirection, this state value
-    will be appended to the `post_logout_redirect_uri`. The functionality is equal to the `state` parameter when performing OAuth2
-    flows.
+   of a RP:
+
+- The URL query MUST contain an ID Token issued by ORY Hydra as the `id_token_hint`: `/oauth2/sessions/logout?id_token_hint=...`
+- The URL query MAY contain key `post_logout_redirect_uri` indicating where the user agent should be redirected after
+  the logout completed successfully. Each OAuth 2.0 Client can whitelist a list of URIs that can be used as the value
+  using the `post_logout_redirect_uris` metadata field: `/oauth2/sessions/logout?id_token_hint=...&post_logout_redirect_uri=https://i-must-be-whitelisted/`
+- If `post_logout_redirect_uri` is set, the URL query SHOULD contain a `state` value. On successful redirection, this state value
+  will be appended to the `post_logout_redirect_uri`. The functionality is equal to the `state` parameter when performing OAuth2
+  flows.
+
 2. The user-agent is redirected to the logout provider URL (configuration item `urls.logout`) and contains a challenge: `https://my-logout-provider/logout?challenge=...`
 3. The logout provider uses the `challenge` query parameter to fetch metadata about the request. The logout provider
-may choose to show a UI where the user has to accept the logout request. Alternatively, the logout provider MAY choose to
-silently accept the logout request.
+   may choose to show a UI where the user has to accept the logout request. Alternatively, the logout provider MAY choose to
+   silently accept the logout request.
 4. To accept the logout request, the logout provider makes a `PUT` call to `/oauth2/auth/requests/logout/accept?challenge=...`. No request body is required.
 5. The response contains a `redirect_to` value where the logout provider redirects the user back to.
 6. ORY Hydra performs OpenID Connect Front- and Back-Channel logout.
@@ -459,13 +461,16 @@ request:
 
 challenge = req.url.query.logout_challenge;
 
-fetch('https://hydra/oauth2/auth/requests/logout?' + querystring.stringify({ logout_challenge: challenge })).
-    then(function (response) {
-        return response.json()
-    }).
-    then(function (response) {
-        // ...
-    })
+fetch(
+  "https://hydra/oauth2/auth/requests/logout?" +
+    querystring.stringify({ logout_challenge: challenge })
+)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(response) {
+    // ...
+  });
 ```
 
 The server response is a JSON object with the following keys:
@@ -492,27 +497,34 @@ It is RECOMMENDED to request logout confirmation from the end-user when `rp_init
 When the logout provider decides to accept the logout request, the flow is completed as follows:
 
 ```node
-fetch('https://hydra/oauth2/auth/requests/logout/accept?' + querystring.stringify({ logout_challenge: challenge }), {
-    method: 'PUT',
-}).
-    then(function (response) {
-        return response.json()
-    }).
-    then(function (response) {
-        // The response will contain a `redirect_to` key which contains the URL where the user's user agent must be redirected to next.
-        res.redirect(response.redirect_to);
-    })
+fetch(
+  "https://hydra/oauth2/auth/requests/logout/accept?" +
+    querystring.stringify({ logout_challenge: challenge }),
+  {
+    method: "PUT"
+  }
+)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(response) {
+    // The response will contain a `redirect_to` key which contains the URL where the user's user agent must be redirected to next.
+    res.redirect(response.redirect_to);
+  });
 ```
 
 You can also reject a logout request (e.g. if the user chose to not log out):
 
 ```node
-fetch('https://hydra/oauth2/auth/requests/logout/reject?' + querystring.stringify({ logout_challenge: challenge }), {
-    method: 'PUT',
-}).
-    then(function (response) {
-        // Now you can do whatever you want - redirect the user back to your home page or whatever comes to mind.
-    })
+fetch(
+  "https://hydra/oauth2/auth/requests/logout/reject?" +
+    querystring.stringify({ logout_challenge: challenge }),
+  {
+    method: "PUT"
+  }
+).then(function(response) {
+  // Now you can do whatever you want - redirect the user back to your home page or whatever comes to mind.
+});
 ```
 
 If the logout request was granted and the user agent redirected back to ORY Hydra, all OpenID Connect Front-/Back-channel
@@ -551,12 +563,12 @@ and a `logout_token` will be made to that URL when a end-user logs out. The `log
 key that is used to sign OpenID Connect ID Tokens. You should thus validate the `logout_token` using the ID Token Public
 Key (can be fetched from `/.well-known/jwks.json`). The `logout_token` contains the following claims:
 
-* `iss` - Issuer Identifier, as specified in Section 2 of [OpenID.Core].
-* `aud` - Audience(s), as specified in Section 2 of [OpenID.Core].
-* `iat` - Issued at time, as specified in Section 2 of [OpenID.Core].
-* `jti` - Unique identifier for the token, as specified in Section 9 of [OpenID.Core].
-* `events` - Claim whose value is a JSON object containing the member name http://schemas.openid.net/event/backchannel-logout. This declares that the JWT is a Logout Token. The corresponding member value MUST be a JSON object and SHOULD be the empty JSON object {}.
-* `sid` - Session ID - String identifier for a Session. This represents a Session of a User Agent or device for a logged-in End-User at an RP. Different sid values are used to identify distinct sessions at an OP. The sid value need only be unique in the context of a particular issuer. Its contents are opaque to the RP. Its syntax is the same as an OAuth 2.0 Client Identifier.
+- `iss` - Issuer Identifier, as specified in Section 2 of [OpenID.Core].
+- `aud` - Audience(s), as specified in Section 2 of [OpenID.Core].
+- `iat` - Issued at time, as specified in Section 2 of [OpenID.Core].
+- `jti` - Unique identifier for the token, as specified in Section 9 of [OpenID.Core].
+- `events` - Claim whose value is a JSON object containing the member name http://schemas.openid.net/event/backchannel-logout. This declares that the JWT is a Logout Token. The corresponding member value MUST be a JSON object and SHOULD be the empty JSON object {}.
+- `sid` - Session ID - String identifier for a Session. This represents a Session of a User Agent or device for a logged-in End-User at an RP. Different sid values are used to identify distinct sessions at an OP. The sid value need only be unique in the context of a particular issuer. Its contents are opaque to the RP. Its syntax is the same as an OAuth 2.0 Client Identifier.
 
 ```
 {
@@ -583,12 +595,12 @@ logout_token=eyJhbGci ... .eyJpc3Mi ... .T3BlbklE ...
 
 The Logout Token must be validated as follows:
 
-* Validate the Logout Token signature in the same way that an ID Token signature is validated, with the following refinements.
-* Validate the iss, aud, and iat Claims in the same way they are validated in ID Tokens.
-* Verify that the Logout Token contains a sid Claim.
-* Verify that the Logout Token contains an events Claim whose value is JSON object containing the member name http://schemas.openid.net/event/backchannel-logout.
-* Verify that the Logout Token does not contain a nonce Claim.
-* Optionally verify that another Logout Token with the same jti value has not been recently received.
+- Validate the Logout Token signature in the same way that an ID Token signature is validated, with the following refinements.
+- Validate the iss, aud, and iat Claims in the same way they are validated in ID Tokens.
+- Verify that the Logout Token contains a sid Claim.
+- Verify that the Logout Token contains an events Claim whose value is JSON object containing the member name http://schemas.openid.net/event/backchannel-logout.
+- Verify that the Logout Token does not contain a nonce Claim.
+- Optionally verify that another Logout Token with the same jti value has not been recently received.
 
 The endpoint then returns a HTTP 200 OK response. Cache-Control headers should be set to:
 
@@ -609,7 +621,7 @@ You can revoke login sessions. Revoking a login session will remove all of the u
 the user to re-authenticate when performing the next OAuth 2.0 Authorize Code Flow. Be aware that this option will
 remove all cookies from all devices.
 
-Revoking the login sessions of a user is as easy as sending `DELETE to `/oauth2/auth/sessions/login?subject={subject}`.
+Revoking the login sessions of a user is as easy as sending `DELETE to`/oauth2/auth/sessions/login?subject={subject}`.
 
 This endpoint is not compatible with OpenID Connect Front-/Backchannel logout and does not revoke any tokens.
 
@@ -618,10 +630,10 @@ This endpoint is not compatible with OpenID Connect Front-/Backchannel logout an
 You can revoke a user's consent either on a per application basis or for all applications. Revoking the consent will
 automatically revoke all related access and refresh tokens.
 
-Revoking all consent sessions of a user is as easy as sending `DELETE to `/oauth2/auth/sessions/consent?subject={subject}`.
+Revoking all consent sessions of a user is as easy as sending `DELETE to`/oauth2/auth/sessions/consent?subject={subject}`.
 
 Revoking the consent sessions of a user for a specific client is as easy as sending
-`DELETE to `/oauth2/auth/sessions/consent?subject={subject}&client={client}`.
+`DELETE to`/oauth2/auth/sessions/consent?subject={subject}&client={client}`.
 
 ## OAuth 2.0
 
@@ -633,14 +645,14 @@ the consent screen.
 
 Additionally, ORY Hydra has pre-defined OAuth 2.0 Scope values:
 
-* `offline_access`: Include this scope if you wish to receive a refresh token
-* `openid`: Include this scope if you wish to perform an OpenID Connect request.
+- `offline_access`: Include this scope if you wish to receive a refresh token
+- `openid`: Include this scope if you wish to perform an OpenID Connect request.
 
 > A OAuth 2.0 Scope **is not a permission**:
 >
-> * A permission allows an actor to perform a certain action in a system: *Bob is allowed to delete his own photos*.
-> * OAuth 2.0 Scope implies that an end-user granted certain privileges to a client: *Bob allowed the OAuth 2.0 Client
-to delete all users*.
+> - A permission allows an actor to perform a certain action in a system: _Bob is allowed to delete his own photos_.
+> - OAuth 2.0 Scope implies that an end-user granted certain privileges to a client: _Bob allowed the OAuth 2.0 Client
+>   to delete all users_.
 >
 > The OAuth 2.0 Scope can be granted without the end-user actually having the right permissions. In the examples above,
 > Bob granted an OAuth 2.0 Client the permission ("scope") to delete all users in his name. However, since Bob is not an administrator,
@@ -650,19 +662,19 @@ to delete all users*.
 ### OAuth 2.0 Refresh Tokens
 
 OAuth 2.0 Refresh Tokens are issued only when an Authorize Code Flow (`response_type=code`) or an
-OpenID Connect Hybrid Flow with an Authorize Code Response Type (`response_type=code+...`)  is executed.
+OpenID Connect Hybrid Flow with an Authorize Code Response Type (`response_type=code+...`) is executed.
 OAuth 2.0 Refresh Tokens are not returned for Implicit or Client Credentials grants:
 
-* Capable of issuing an OAuth 2.0 Refresh Token:
- * https://ory-hydra.example/oauth2/auth?response_type=code&...
- * https://ory-hydra.example/oauth2/auth?response_type=code+token&...
- * https://ory-hydra.example/oauth2/auth?response_type=code+token+id_token&...
- * https://ory-hydra.example/oauth2/auth?response_type=code+id_token&...
-* Will not issue an OAuth 2.0 Refresh Token
- * https://ory-hydra.example/oauth2/auth?response_type=token&...
- * https://ory-hydra.example/oauth2/auth?response_type=token+id_token&...
- * https://ory-hydra.example/oauth2/auth?response_type=token+id_token&...
- * https://ory-hydra.example/oauth2/token?grant_type=client_redentials&...
+- Capable of issuing an OAuth 2.0 Refresh Token:
+- https://ory-hydra.example/oauth2/auth?response_type=code&...
+- https://ory-hydra.example/oauth2/auth?response_type=code+token&...
+- https://ory-hydra.example/oauth2/auth?response_type=code+token+id_token&...
+- https://ory-hydra.example/oauth2/auth?response_type=code+id_token&...
+- Will not issue an OAuth 2.0 Refresh Token
+- https://ory-hydra.example/oauth2/auth?response_type=token&...
+- https://ory-hydra.example/oauth2/auth?response_type=token+id_token&...
+- https://ory-hydra.example/oauth2/auth?response_type=token+id_token&...
+- https://ory-hydra.example/oauth2/token?grant_type=client_redentials&...
 
 Additionally, each OAuth 2.0 Client that wants to request an OAuth 2.0 Refresh Token must be allowed to request scope
 `offline_access`. When performing an OAuth 2.0 Authorize Code Flow, the `offline_access` value must be included in the
@@ -707,10 +719,10 @@ the CLI command `hydra token introspect <token>`.
 
 ### OAuth 2.0 Clients
 
-You can manage *OAuth 2.0 clients* using the cli or the HTTP REST API:
+You can manage _OAuth 2.0 clients_ using the cli or the HTTP REST API:
 
-* **CLI:** `hydra help clients`
-* **REST:** Read the [API Docs](https://www.ory.sh/docs/hydra/sdk/api)
+- **CLI:** `hydra help clients`
+- **REST:** Read the [API Docs](https://www.ory.sh/docs/hydra/sdk/api)
 
 #### Examples
 

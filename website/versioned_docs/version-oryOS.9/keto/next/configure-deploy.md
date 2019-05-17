@@ -7,8 +7,8 @@ original_id: keto-next-configure-deploy
 As all other ORY services, ORY Keto is implemented according to 12factor principles and completely stateless. To store
 state, ORY Keto supports two types of storage adapters:
 
-* In-memory: This adapter does not work with more than one instance ("cluster") and any state is lost after restarting the instance.
-* SQL: This adapter works with more than one instance and state is not lost after restarts.
+- In-memory: This adapter does not work with more than one instance ("cluster") and any state is lost after restarting the instance.
+- SQL: This adapter works with more than one instance and state is not lost after restarts.
 
 The SQL adapter supports two DBMS: PostgreSQL 9.6+ and MySQL 5.7+. Please note that
 older MySQL versions may have issues with the database schema. We recommend working with PostgreSQL as migrations will be

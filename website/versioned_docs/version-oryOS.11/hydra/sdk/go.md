@@ -21,18 +21,18 @@ import "github.com/ory/hydra/sdk/go/hydra/client"
 func main() {
     adminURL := url.Parse("https://hydra.localhost:4445")
     admin := hydra.NewHTTPClientWithConfig(nil, &client.TransportConfig{Schemes: []string{adminURL.Scheme}, Host: adminURL.Host, BasePath: adminURL.Path})
-    
+
     // admin.Admin.CreateOAuth2Client(...
-    
+
     publicURL := url.Parse("https://hydra.localhost:4444")
     public := hydra.NewHTTPClientWithConfig(nil, &client.TransportConfig{Schemes: []string{publicURL.Scheme}, Host: publicURL.Host, BasePath: publicURL.Path})
-    
+
     // public.Public.RevokeOAuth2Token(...
 }
 ```
 
 > Be aware that endpoints /oauth2/auth and /oauth2/token MUST NOT be consumed using this SDK. Use [golang.org/x/oauth2](https://godoc.org/golang.org/x/oauth2)
-instead.
+> instead.
 
 ## Making requests
 
@@ -44,7 +44,7 @@ import "github.com/ory/hydra/sdk/go/hydra/client"
 func main() {
     adminURL := url.Parse("https://hydra.localhost:4445")
     admin := hydra.NewHTTPClientWithConfig(nil, &client.TransportConfig{Schemes: []string{adminURL.Scheme}, Host: adminURL.Host, BasePath: adminURL.Path})
-    
+
     // It is important to create the parameters using `New...`, otherwise requests will fail!
     result, err := c.Admin.CreateOAuth2Client(
         admin.NewCreateOAuth2ClientParams().WithBody(&models.Client{
@@ -58,7 +58,7 @@ func main() {
             // do something...
         }
     }
-    
+
     // if err is nil, then result is set. The result payload/body can be retrieved using result.Payload.
     fmt.Printf("Got client: %+v", result.Payload)
 }
@@ -75,7 +75,7 @@ import httptransport "github.com/go-openapi/runtime/client"
 func main() {
     publicURL := url.Parse("https://hydra.localhost:4444")
     public := hydra.NewHTTPClientWithConfig(nil, &client.TransportConfig{Schemes: []string{publicURL.Scheme}, Host: publicURL.Host, BasePath: publicURL.Path})
-    
+
     _, err := client.Public.RevokeOAuth2Token(
         public.NewRevokeOAuth2TokenParams().WithToken(c.token),
         httptransport.BasicAuth("my-client", "foobar"),
@@ -110,7 +110,7 @@ func main() {
  	)
 
     public := hydra.New(ht, nil)
-    
+
     _, err := client.Public.RevokeOAuth2Token(
         public.NewRevokeOAuth2TokenParams().WithToken(c.token),
         httptransport.BasicAuth("my-client", "foobar"),

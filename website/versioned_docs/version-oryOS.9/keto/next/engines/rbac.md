@@ -32,16 +32,18 @@ That's the case when you're trying to express ownership (e.g. `bob` can modify b
 have attributes (e.g. `bob` works in department `blog`), or multi-tenant environments.
 
 **Benefits:**
-* Reduces management complexity where many identities share the same permissions.
-* Makes management even easier with role hierarchy.
-* Is well established and easily understood by many developers as it is a de-facto standard for web applications.
+
+- Reduces management complexity where many identities share the same permissions.
+- Makes management even easier with role hierarchy.
+- Is well established and easily understood by many developers as it is a de-facto standard for web applications.
 
 **Shortcomings:**
-* Has no concept of context:
-  * There is no concept of ownership: *Dan is the author of article "Hi World" and is thus allowed to update it*.
-  * There is no concept of environment: *Dan is allowed to access accounting services when the request comes from IP 10.0.0.3*.
-  * There is no concept of tenants: *Dan is allowed to access resources on the "dan's test" tenant*.
-  * ...
+
+- Has no concept of context:
+  - There is no concept of ownership: _Dan is the author of article "Hi World" and is thus allowed to update it_.
+  - There is no concept of environment: _Dan is allowed to access accounting services when the request comes from IP 10.0.0.3_.
+  - There is no concept of tenants: _Dan is allowed to access resources on the "dan's test" tenant_.
+  - ...
 
 **Implementation status:** (Hierarchical) Role Based Access Control is currently not implemented but will be first-class citizens in the future.
 To bump this in priority, [click here](https://github.com/ory/keto/issues/60).

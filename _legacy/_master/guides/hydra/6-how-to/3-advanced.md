@@ -52,7 +52,7 @@ hydra keys create --endpoint=http://ory-hydra-admin-api/ hydra.jwt.access-token 
 
 ### JSON Web Tokens
 
-ORY Hydra supports JSON Web Tokens as Access Tokens. We *discourage you from using this feature for multiple reasons:*
+ORY Hydra supports JSON Web Tokens as Access Tokens. We _discourage you from using this feature for multiple reasons:_
 
 1. It is very new and has not been battle-tested.
 2. We believe that JSON Web Tokens can lead to poor security practices.
@@ -82,16 +82,16 @@ and register the public key of the RSA signing key either using the `jwks_uri` o
 When authenticating the client at the token endpoint, you generate and sign (with the RSA private key) a JSON Web Token
 with the following claims:
 
-* `iss`: REQUIRED. Issuer. This MUST contain the client_id of the OAuth Client.
-* `sub`: REQUIRED. Subject. This MUST contain the client_id of the OAuth Client.
-* `aud`: REQUIRED. Audience. The aud (audience) Claim. Value that identifies the Authorization Server (ORY Hydra) as an
-intended audience. The Authorization Server MUST verify that it is an intended audience for the token.
-The Audience SHOULD be the URL of the Authorization Server's Token Endpoint.
-* `jti`: REQUIRED. JWT ID. A unique identifier for the token, which can be used to prevent reuse of the token.
-These tokens MUST only be used once, unless conditions for reuse were negotiated between the parties; any such
-negotiation is beyond the scope of this specification.
-* `exp`: REQUIRED. Expiration time on or after which the ID Token MUST NOT be accepted for processing.
-* `iat`: OPTIONAL. Time at which the JWT was issued.
+- `iss`: REQUIRED. Issuer. This MUST contain the client_id of the OAuth Client.
+- `sub`: REQUIRED. Subject. This MUST contain the client_id of the OAuth Client.
+- `aud`: REQUIRED. Audience. The aud (audience) Claim. Value that identifies the Authorization Server (ORY Hydra) as an
+  intended audience. The Authorization Server MUST verify that it is an intended audience for the token.
+  The Audience SHOULD be the URL of the Authorization Server's Token Endpoint.
+- `jti`: REQUIRED. JWT ID. A unique identifier for the token, which can be used to prevent reuse of the token.
+  These tokens MUST only be used once, unless conditions for reuse were negotiated between the parties; any such
+  negotiation is beyond the scope of this specification.
+- `exp`: REQUIRED. Expiration time on or after which the ID Token MUST NOT be accepted for processing.
+- `iat`: OPTIONAL. Time at which the JWT was issued.
 
 When making a request to the `/oauth2/token` endpoint, you include `client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer`
 and `client_assertion=<signed-jwt>` in the request body:
@@ -157,15 +157,15 @@ The `jwks_uri` must return a JSON object containing the public keys associated w
 
 Hydra supports two [Subject Identifier Algorithms](http://openid.net/specs/openid-connect-core-1_0.html#SubjectIDTypes):
 
-* `public`: This provides the same `sub` (subject) value to all Clients (default).
-* `pairwise`: This provides a different `sub` value to each Client, so as not to enable Clients to
-correlate the End-User's activities without permission.
+- `public`: This provides the same `sub` (subject) value to all Clients (default).
+- `pairwise`: This provides a different `sub` value to each Client, so as not to enable Clients to
+  correlate the End-User's activities without permission.
 
 You can enable either one or both algorithms using the `OIDC_SUBJECT_TYPES_SUPPORTED` environment variable:
 
-* `export IDC_SUBJECT_TYPES_SUPPORTED=public` (default)
-* `export IDC_SUBJECT_TYPES_SUPPORTED=pairwise`
-* `export IDC_SUBJECT_TYPES_SUPPORTED=public,pairwise`
+- `export IDC_SUBJECT_TYPES_SUPPORTED=public` (default)
+- `export IDC_SUBJECT_TYPES_SUPPORTED=pairwise`
+- `export IDC_SUBJECT_TYPES_SUPPORTED=public,pairwise`
 
 If `pairwise` is enabled, you must also set the environment variable `OIDC_SUBJECT_TYPE_PAIRWISE_SALT`. The salt
 is used to obfuscate the `sub` value.
@@ -190,6 +190,8 @@ To rotate the system secret (only possible with SQL at the moment), follow this 
 1. Shutdown all ORY Hydra instances
 2. Run `OLD_SYSTEM_SECRET=foo NEW_SYSTEM_SECRET=bar hydra migrate secret db://url/...`
 3. Decide if access/refresh tokens signed with the old key should still be valid.
-  * If yes, set `ROTATED_SYSTEM_SECRET` to the old secret before starting `hydra serve ...`, and `SYSTEM_SECRET` to the new one.
-  * If not, set only `SYSTEM_SECRET` to the new secret before running `hydra serve ...`.
+
+- If yes, set `ROTATED_SYSTEM_SECRET` to the old secret before starting `hydra serve ...`, and `SYSTEM_SECRET` to the new one.
+- If not, set only `SYSTEM_SECRET` to the new secret before running `hydra serve ...`.
+
 4. Restart ORY Hydra instances.

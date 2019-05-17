@@ -31,9 +31,9 @@ An ORY Oathkeeper Access Rule has the following layout:
 In this case, if a request to `http://my-app/some-route` is made (this is where ORY Oathkeeper will listen to), then
 the rule with ID `some-id` will be executed. Then:
 
-* If the request hits the ORY Oathkeeper proxy (`oathkeeper serve proxy`): The request will be forwarded to the upstream URL.
-* If the request hits the ORY Oathkeeper judge (`oathkeeper serve api` -> `/judge/some-route`): The server will respond with
-status code 200 if the request is valid and any other status code if not.
+- If the request hits the ORY Oathkeeper proxy (`oathkeeper serve proxy`): The request will be forwarded to the upstream URL.
+- If the request hits the ORY Oathkeeper judge (`oathkeeper serve api` -> `/judge/some-route`): The server will respond with
+  status code 200 if the request is valid and any other status code if not.
 
 The `match.url` value is capable of parsing regular expressions. Value `http://my-app/some-route` will only
 match this exact URL, not `http://my-app/some-route/foo`, `http://my-app/some-ROUTE`, nor `https://my-app/some-route`.
@@ -96,7 +96,6 @@ If handler `a` is able to handle the provided credentials, then handler `b` and 
 can not handle the provided credentials but handler `b` can, then handler `a` and `c` will be ignored. Handling
 the provided credentials means that the authenticator knows how to handle, for example, the `Authorization: basic` header.
 It does not mean that the credentials are valid! If a handler encounters invalid credentials, then other handlers will be ignored too.
-
 
 Let's take a look at the different supported authenticators!
 
@@ -211,20 +210,18 @@ It then uses OAuth 2.0 Token Introspection to check if the token is valid and if
 
 This authenticator is a bit more complex to set up. You have to define the following environment variables:
 
-* Required
-    * `AUTHENTICATOR_OAUTH2_INTROSPECTION_URL`: The OAuth 2.0 Token Introspection URL.
-* In cases where the OAuth 2.0 Introspection Endpoint is protected and requires an OAuth 2.0 Access Token, you can configure
-ORY Oathkeeper to authorize before making requests to that endpoint with the following, optional, settings:
-    * `AUTHENTICATOR_OAUTH2_INTROSPECTION_CLIENT_ID`: The OAuth 2.0 Client ID the client that performs the OAuth 2.0 Token Introspection. The OAuth 2.0 Token Introspection
-    endpoint is typically protected and requires a valid OAuth 2.0 Client in order to check if a token is valid or not.
-    * `AUTHENTICATOR_OAUTH2_INTROSPECTION_CLIENT_SECRET`: The OAuth 2.0 Client Secret of the client that performs the OAuth 2.0 Token Introspection.
-    * `AUTHENTICATOR_OAUTH2_INTROSPECTION_TOKEN_URL`: The OAuth 2.0 Token URL.
-    * `AUTHENTICATOR_OAUTH2_INTROSPECTION_SCOPE`: If the OAuth 2.0 Token Introspection endpoint requires a certain OAuth 2.0 Scope
-    in order to be accessed, you can set it using this environment variable. Use commas to define more than one OAuth 2.0 Scope.
-    Example: `AUTHENTICATOR_OAUTH2_INTROSPECTION_SCOPE=scope-a,scope-b`
-    * `AUTHENTICATOR_OAUTH2_INTROSPECTION_SCOPE_STRATEGY`: The strategy to be used to validate the scope claim. Strategies `HIERARCHIC`, `EXACT`,
-    `WILDCARD`, `NONE` are supported. Defaults to `EXACT`. For more information on scope strategies, click [here](#scope-strategies)-
-
+- Required
+  - `AUTHENTICATOR_OAUTH2_INTROSPECTION_URL`: The OAuth 2.0 Token Introspection URL.
+- In cases where the OAuth 2.0 Introspection Endpoint is protected and requires an OAuth 2.0 Access Token, you can configure
+  ORY Oathkeeper to authorize before making requests to that endpoint with the following, optional, settings:
+  _ `AUTHENTICATOR_OAUTH2_INTROSPECTION_CLIENT_ID`: The OAuth 2.0 Client ID the client that performs the OAuth 2.0 Token Introspection. The OAuth 2.0 Token Introspection
+  endpoint is typically protected and requires a valid OAuth 2.0 Client in order to check if a token is valid or not.
+  _ `AUTHENTICATOR_OAUTH2_INTROSPECTION_CLIENT_SECRET`: The OAuth 2.0 Client Secret of the client that performs the OAuth 2.0 Token Introspection.
+  _ `AUTHENTICATOR_OAUTH2_INTROSPECTION_TOKEN_URL`: The OAuth 2.0 Token URL.
+  _ `AUTHENTICATOR_OAUTH2_INTROSPECTION_SCOPE`: If the OAuth 2.0 Token Introspection endpoint requires a certain OAuth 2.0 Scope
+  in order to be accessed, you can set it using this environment variable. Use commas to define more than one OAuth 2.0 Scope.
+  Example: `AUTHENTICATOR_OAUTH2_INTROSPECTION_SCOPE=scope-a,scope-b` \* `AUTHENTICATOR_OAUTH2_INTROSPECTION_SCOPE_STRATEGY`: The strategy to be used to validate the scope claim. Strategies `HIERARCHIC`, `EXACT`,
+  `WILDCARD`, `NONE` are supported. Defaults to `EXACT`. For more information on scope strategies, click [here](#scope-strategies)-
 
 ##### Example
 
@@ -258,18 +255,19 @@ and if that token was granted OAuth 2.0 Scope `scope-a` and `scope-b`:
 The `jwt` authenticator handles requests that have an Bearer Token in the Authorization Header (`Authorization: bearer <token>`).
 It assumes that the token is a JSON Web Token and tries to verify the signature of it.
 
-* Required
-    * `AUTHENTICATOR_JWT_JWKS_URL`: The URL where ORY Oathkeeper can retrieve JSON Web Keys from for validating
+- Required
+  - `AUTHENTICATOR_JWT_JWKS_URL`: The URL where ORY Oathkeeper can retrieve JSON Web Keys from for validating
     the JSON Web Token. Usually something like `https://my-keys.com/.well-known/jwks.json`. The response
     of that endpoint must return a [JSON Web Key Set (JWKS)](https://auth0.com/docs/jwks).
-* Optional
-    * `AUTHENTICATOR_JWT_SCOPE_STRATEGY`: The strategy to be used to validate the scope claim. Strategies `HIERARCHIC`, `EXACT`,
+- Optional
+  - `AUTHENTICATOR_JWT_SCOPE_STRATEGY`: The strategy to be used to validate the scope claim. Strategies `HIERARCHIC`, `EXACT`,
     `WILDCARD`, `NONE` are supported. Defaults to `EXACT`. For more information on scope strategies, click [here](#scope-strategies)-
 
 The following claims can be checked (all case sensitive):
-* `iss`: A string with Issuer Identifier.
-* `aud`: Either a string (single Audience) or an array of strings.
-* `scope`: An array of scope strings or space-delimited string of scopes.
+
+- `iss`: A string with Issuer Identifier.
+- `aud`: Either a string (single Audience) or an array of strings.
+- `scope`: An array of scope strings or space-delimited string of scopes.
 
 ##### Example
 
@@ -573,39 +571,39 @@ This credentials issuer will craft an ID Token (JWT) with the following exemplar
 
 The ID Token Claims are as follows:
 
-* `iss`: Issuer Identifier for the Issuer of the response. The iss value is a case sensitive URL using the https scheme
-    that contains scheme, host, and optionally, port number and path components and no query or fragment components.
-    Typically, this is the URL of ORY Oathkeeper, for example: `https://oathkeeper.myapi.com`.
-* `sub`: Subject Identifier. A locally unique and never reassigned identifier within the Issuer for the End-User, which
-    is intended to be consumed by the Client, e.g., 24400320 or AItOawmwtWwcT0k51BayewNvutrJUqsvl6qs7A4. It must not
-    exceed 255 ASCII characters in length. The sub value is a case sensitive string. The End-User might also
-    be an OAuth 2.0 Client, given that the access token was granted using the OAuth 2.0 Client Credentials flow.
-* `aud`: Audience(s) that this ID Token is intended for. It MUST contain the OAuth 2.0 client_id of the Relying Party
-    as an audience value. It MAY also contain identifiers for other audiences. In the general case, the aud value is an
-    array of case sensitive strings.
-* `exp`: Expiration time on or after which the ID Token MUST NOT be accepted for processing. The processing of this
-    parameter requires that the current date/time MUST be before the expiration date/time listed in the value.
-    Its value is a JSON number representing the number of seconds from 1970-01-01T0:0:0Z as measured in UTC until the
-    date/time. See RFC 3339 [RFC3339] for details regarding date/times in general and UTC in particular.
-* `iat`: Time at which the JWT was issued. Its value is a JSON number representing the number of seconds
-    from 1970-01-01T0:0:0Z as measured in UTC until the date/time.
-* `jti`: A cryptographically strong random identifier to ensure the ID Token's uniqueness.
+- `iss`: Issuer Identifier for the Issuer of the response. The iss value is a case sensitive URL using the https scheme
+  that contains scheme, host, and optionally, port number and path components and no query or fragment components.
+  Typically, this is the URL of ORY Oathkeeper, for example: `https://oathkeeper.myapi.com`.
+- `sub`: Subject Identifier. A locally unique and never reassigned identifier within the Issuer for the End-User, which
+  is intended to be consumed by the Client, e.g., 24400320 or AItOawmwtWwcT0k51BayewNvutrJUqsvl6qs7A4. It must not
+  exceed 255 ASCII characters in length. The sub value is a case sensitive string. The End-User might also
+  be an OAuth 2.0 Client, given that the access token was granted using the OAuth 2.0 Client Credentials flow.
+- `aud`: Audience(s) that this ID Token is intended for. It MUST contain the OAuth 2.0 client_id of the Relying Party
+  as an audience value. It MAY also contain identifiers for other audiences. In the general case, the aud value is an
+  array of case sensitive strings.
+- `exp`: Expiration time on or after which the ID Token MUST NOT be accepted for processing. The processing of this
+  parameter requires that the current date/time MUST be before the expiration date/time listed in the value.
+  Its value is a JSON number representing the number of seconds from 1970-01-01T0:0:0Z as measured in UTC until the
+  date/time. See RFC 3339 [RFC3339] for details regarding date/times in general and UTC in particular.
+- `iat`: Time at which the JWT was issued. Its value is a JSON number representing the number of seconds
+  from 1970-01-01T0:0:0Z as measured in UTC until the date/time.
+- `jti`: A cryptographically strong random identifier to ensure the ID Token's uniqueness.
 
 This credentials issuer implements several token signing algorithms, specifically:
 
 - `HS256`: This algorithm uses a HMAC-SHA256 with a shared secret as opposed to private/public keys. This strategy
-is not encouraged for production.
+  is not encouraged for production.
 - `ORY-HYDRA`: This algorithm uses ORY Hydra's JWK management API to generate private/public RSA keypair. This strategy
-is encouraged for use in production.
+  is encouraged for use in production.
 
 You can set the strategy using the `CREDENTIALS_ISSUER_ID_TOKEN_ALGORITHM` environment variable. There also two more environment variables which modify
 the behaviour of this strategy:
 
-* `CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN`: The lifespan of the ID Token which defaults to 10 minutes. Example:
-    `CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN=1s` (1 second), `CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN=1m` (1 minute),
-    `CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN=1h` (1 hour), `CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN=1d` (1 day)
-* `CREDENTIALS_ISSUER_ID_TOKEN_ISSUER`: Who issued the token - this will be the value of the `iss` claim in the
-    ID Token.
+- `CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN`: The lifespan of the ID Token which defaults to 10 minutes. Example:
+  `CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN=1s` (1 second), `CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN=1m` (1 minute),
+  `CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN=1h` (1 hour), `CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN=1d` (1 day)
+- `CREDENTIALS_ISSUER_ID_TOKEN_ISSUER`: Who issued the token - this will be the value of the `iss` claim in the
+  ID Token.
 
 ##### Token Signing Algorithms
 
@@ -626,19 +624,19 @@ Use must use the `CREDENTIALS_ISSUER_ID_TOKEN_HS256_SECRET` environment variable
 This ID Token signing algorithm uses ORY Hydra's JSON Web Key API to generate, store, and fetch a RSA public/private keypair.
 When using this algorithm, you have the following environment variables available:
 
-* Required
-    * `CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_ADMIN_URL`: The URL where the ORY Hydra Admin API is located.
-* Optional
-    * `CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_JWK_SET_ID`: The ID to be used to create & fetch the JSON Web Key from ORY Hydra.
+- Required
+  - `CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_ADMIN_URL`: The URL where the ORY Hydra Admin API is located.
+- Optional
+  - `CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_JWK_SET_ID`: The ID to be used to create & fetch the JSON Web Key from ORY Hydra.
     Defaults to `oathkeeper:id-token`.
-    * `CREDENTIALS_ISSUER_ID_TOKEN_JWK_REFRESH_INTERVAL`: ORY Oathkeeper stores JSON Web Keys for ID Token signing in memory.
+  - `CREDENTIALS_ISSUER_ID_TOKEN_JWK_REFRESH_INTERVAL`: ORY Oathkeeper stores JSON Web Keys for ID Token signing in memory.
     This value sets the refresh interval. Default is 5 minutes.
-* If this endpoint is protected using OAuth 2.0 Access Tokens, you can configure ORY Oathkeeper to authorize before
-calling this endpoint. To do so, configure the following, optional settings:
-    * CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_CLIENT_ The ID of the OAuth 2.0 Client.
-    * CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_CLIENT_SECRET: The secret of the OAuth 2.0 Client.
-    * CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_CLIENT_SCOPES: The OAuth 2.0 Scope the client should request.
-    * CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_PUBLIC_URL: The public URL where endpoint /oauth2/token is located.
+- If this endpoint is protected using OAuth 2.0 Access Tokens, you can configure ORY Oathkeeper to authorize before
+  calling this endpoint. To do so, configure the following, optional settings:
+  _ CREDENTIALS*ISSUER_ID_TOKEN_HYDRA_CLIENT* The ID of the OAuth 2.0 Client.
+  _ CREDENTIALS\*ISSUER_ID_TOKEN_HYDRA_CLIENT_SECRET: The secret of the OAuth 2.0 Client.
+  - CREDENTIALS\*ISSUER_ID_TOKEN_HYDRA_CLIENT_SCOPES: The OAuth 2.0 Scope the client should request.
+  - CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_PUBLIC_URL: The public URL where endpoint /oauth2/token is located.
 
 ##### Access Rule Configuration
 
@@ -784,11 +782,11 @@ it is recommended you use it for all values out of an abundance of caution and f
 
 The following scope strategies are supported:
 
-* `HIERARCHIC`: Scope `foo` matches `foo`, `foo.bar`, `foo.baz` but not `bar`
-* `WILDCARD`: Scope `foo.*` matches `foo`, `foo.bar`, `foo.baz` but not `bar`. Scope `foo` matches `foo` but not `foo.bar` nor `bar`
-* `EXACT`: Scope `foo` matches `foo` but not `bar` nor `foo.bar`
-* `NONE`: Scope validation is disabled completely. It is expected that the upstream logic (e.g. OAuth 2.0 Token Introspection) handles scope validation
-properly. If no upstream logic (e.g. JWT) exists, an error will be thrown if the scope is to be validated.
+- `HIERARCHIC`: Scope `foo` matches `foo`, `foo.bar`, `foo.baz` but not `bar`
+- `WILDCARD`: Scope `foo.*` matches `foo`, `foo.bar`, `foo.baz` but not `bar`. Scope `foo` matches `foo` but not `foo.bar` nor `bar`
+- `EXACT`: Scope `foo` matches `foo` but not `bar` nor `foo.bar`
+- `NONE`: Scope validation is disabled completely. It is expected that the upstream logic (e.g. OAuth 2.0 Token Introspection) handles scope validation
+  properly. If no upstream logic (e.g. JWT) exists, an error will be thrown if the scope is to be validated.
 
 ## Rule Management
 

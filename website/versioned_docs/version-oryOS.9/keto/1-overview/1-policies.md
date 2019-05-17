@@ -32,7 +32,7 @@ nuances of each respective approach.
 An [Access Control List (ACL)](https://en.wikipedia.org/wiki/Access_control_list) is a matrix of users and permissions:
 
 |       | blog_post.create | blog_post.delete | blog_post.modify | blog_post.read |
-|-------|------------------|------------------|------------------|----------------|
+| ----- | ---------------- | ---------------- | ---------------- | -------------- |
 | alice | yes              | yes              | yes              | yes            |
 | bob   | no               | no               | no               | yes            |
 | peter | yes              | no               | yes              | yes            |
@@ -43,11 +43,11 @@ In the example above, `alice` has the permission to create a blog post `(blog_po
 Similarly, you can create a matrix of resources (e.g. blog articles) and each user's permissions
 (`c` for `create`, `m` for `modify`, ...) with regards to that resource:
 
-|       	| blog_post.1 	| blog_post.2 	| blog_post.3 	| blog_post.4 	|
-|-------	|-------------	|-------------	|-------------	|-------------	|
-| alice 	| c,r,m,d     	| c,r,m,d     	| c,r,m,d     	| c,r,m,d     	|
-| bob   	| r           	| r           	| r           	| r           	|
-| peter 	| c,r,m,d     	| r           	| c,r,m,d     	| r           	|
+|       | blog_post.1 | blog_post.2 | blog_post.3 | blog_post.4 |
+| ----- | ----------- | ----------- | ----------- | ----------- |
+| alice | c,r,m,d     | c,r,m,d     | c,r,m,d     | c,r,m,d     |
+| bob   | r           | r           | r           | r           |
+| peter | c,r,m,d     | r           | c,r,m,d     | r           |
 
 ACLs are common in filesystems (`chmod` / `chown`) and in applications with few subjects. However, the matrix becomes
 unreadable and unmanagable if you have thousands or even millions of subjects. Therefore, ACLs are rarely used in
@@ -137,7 +137,7 @@ pattern matching using regular expressions.
 
 ```json
 {
-    "subjects": ["users:<.*>"]
+  "subjects": ["users:<.*>"]
 }
 ```
 
@@ -168,7 +168,7 @@ the subject is also the owner of the resource:
 {
   "description": "One policy to rule them all.",
   "subjects": ["users:maria"],
-  "actions" : ["delete", "create", "update"],
+  "actions": ["delete", "create", "update"],
   "effect": "allow",
   "resources": ["resources:articles:<.*>"],
   "conditions": {

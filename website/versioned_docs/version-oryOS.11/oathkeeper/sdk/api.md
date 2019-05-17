@@ -4,20 +4,19 @@ id: version-oryOS.11-api
 original_id: api
 ---
 
-
-
 ORY Oathkeeper is a reverse proxy that checks the HTTP Authorization for validity against a set of rules. This service uses Hydra to validate access tokens and policies.
 
 > You are viewing a REST API documentation. This documentation is auto-generated from a swagger specification which
-itself is generated from annotations in the source files of the project. It is possible that this documentation includes
-bugs and that code samples are incomplete or wrong.
+> itself is generated from annotations in the source files of the project. It is possible that this documentation includes
+> bugs and that code samples are incomplete or wrong.
 >
 > If you find issues in the respective documentation, please do not edit the
-markdown files directly (as they are generated) but raise an issue on the project's GitHub instead. This documentation
-will improve over time with your help! If you have ideas how to improve this part of the documentation, feel free to
-share them in a [GitHub issue](https://github.com/ory/docs/issues/new) any time.
+> markdown files directly (as they are generated) but raise an issue on the project's GitHub instead. This documentation
+> will improve over time with your help! If you have ideas how to improve this part of the documentation, feel free to
+> share them in a [GitHub issue](https://github.com/ory/docs/issues/new) any time.
 
 <a id="ory-oathkeeper-default"></a>
+
 ## Default
 
 <a id="opIdgetWellKnown"></a>
@@ -35,40 +34,42 @@ This endpoint returns public keys for validating the ID tokens issued by ORY Oat
 #### Responses
 
 <a id="returns-well-known-keys-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|jsonWebKeySet|[jsonWebKeySet](#schemajsonwebkeyset)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
+| Status | Meaning                                                         | Description               | Schema                                |
+| ------ | --------------------------------------------------------------- | ------------------------- | ------------------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)         | jsonWebKeySet             | [jsonWebKeySet](#schemajsonwebkeyset) |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1) | The standard error format | Inline                                |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)  | The standard error format | Inline                                |
 
 <a id="returns-well-known-keys-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -93,9 +94,7 @@ Status Code **403**
       "qi": "string",
       "use": "string",
       "x": "string",
-      "x5c": [
-        "string"
-      ],
+      "x5c": ["string"],
       "y": "string"
     }
   ]
@@ -139,7 +138,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -241,6 +240,7 @@ p JSON.parse(result)
 </div>
 
 <a id="ory-oathkeeper-health"></a>
+
 ## health
 
 <a id="opIdisInstanceAlive"></a>
@@ -262,27 +262,29 @@ Be aware that if you are running multiple nodes of ORY Oathkeeper, the health st
 #### Responses
 
 <a id="check-the-alive-status-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|healthStatus|[healthStatus](#schemahealthstatus)|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema                              |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ----------------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | healthStatus              | [healthStatus](#schemahealthstatus) |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline                              |
 
 <a id="check-the-alive-status-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -331,7 +333,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -453,12 +455,13 @@ Be aware that if you are running multiple nodes of ORY Oathkeeper, the health st
 #### Responses
 
 <a id="check-the-readiness-status-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|healthStatus|[healthStatus](#schemahealthstatus)|
-|503|[Service Unavailable](https://tools.ietf.org/html/rfc7231#section-6.6.4)|healthNotReadyStatus|[healthNotReadyStatus](#schemahealthnotreadystatus)|
+| Status | Meaning                                                                  | Description          | Schema                                              |
+| ------ | ------------------------------------------------------------------------ | -------------------- | --------------------------------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                  | healthStatus         | [healthStatus](#schemahealthstatus)                 |
+| 503    | [Service Unavailable](https://tools.ietf.org/html/rfc7231#section-6.6.4) | healthNotReadyStatus | [healthNotReadyStatus](#schemahealthnotreadystatus) |
 
 ##### Examples
 
@@ -507,7 +510,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -609,6 +612,7 @@ p JSON.parse(result)
 </div>
 
 <a id="ory-oathkeeper-judge"></a>
+
 ## judge
 
 <a id="opIdjudge"></a>
@@ -628,66 +632,68 @@ status codes. This endpoint can be used to integrate with other API Proxies like
 #### Responses
 
 <a id="judge-if-a-request-should-be-allowed-or-not-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|An empty response|None|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------ |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | An empty response         | None   |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline |
+| 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)             | The standard error format | Inline |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline |
 
 <a id="judge-if-a-request-should-be-allowed-or-not-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **404**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -746,7 +752,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -848,6 +854,7 @@ p JSON.parse(result)
 </div>
 
 <a id="ory-oathkeeper-rule"></a>
+
 ## rule
 
 <a id="opIdlistRules"></a>
@@ -864,84 +871,87 @@ This method returns an array of all rules that are stored in the backend. This i
 view of what rules you have currently in place.
 
 <a id="list-all-rules-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|limit|query|integer(int64)|false|The maximum amount of rules returned.|
-|offset|query|integer(int64)|false|The offset from where to start looking.|
+| Parameter | In    | Type           | Required | Description                             |
+| --------- | ----- | -------------- | -------- | --------------------------------------- |
+| limit     | query | integer(int64) | false    | The maximum amount of rules returned.   |
+| offset    | query | integer(int64) | false    | The offset from where to start looking. |
 
 #### Responses
 
 <a id="list-all-rules-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A list of rules|Inline|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------ |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | A list of rules           | Inline |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline |
 
 <a id="list-all-rules-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **200**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[[rule](#schemarule)]|false|none|none|
-|» swaggerRule is a single rule that will get checked on every HTTP request.|[rule](#schemarule)|false|none|none|
-|»» authenticators|[[ruleHandler](#schemarulehandler)]|false|none|Authenticators is a list of authentication handlers that will try and authenticate the provided credentials. Authenticators are checked iteratively from index 0 to n and if the first authenticator to return a positive result will be the one used.  If you want the rule to first check a specific authenticator  before "falling back" to others, have that authenticator as the first item in the array.|
-|»»» config|object|false|none|Config contains the configuration for the handler. Please read the user guide for a complete list of each handler's available settings.|
-|»»» handler|string|false|none|Handler identifies the implementation which will be used to handle this specific request. Please read the user guide for a complete list of available handlers.|
-|»» authorizer|[ruleHandler](#schemarulehandler)|false|none|none|
-|»» credentials_issuer|[ruleHandler](#schemarulehandler)|false|none|none|
-|»» description|string|false|none|Description is a human readable description of this rule.|
-|»» id|string|false|none|ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.|
-|»» match|[ruleMatch](#schemarulematch)|false|none|none|
-|»»» methods|[string]|false|none|An array of HTTP methods (e.g. GET, POST, PUT, DELETE, ...). When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the HTTP method of the incoming request with the HTTP methods of each rules. If a match is found, the rule is considered a partial match. If the matchesUrl field is satisfied as well, the rule is considered a full match.|
-|»»» url|string|false|none|This field represents the URL pattern this rule matches. When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the full request URL (e.g. https://mydomain.com/api/resource) without query parameters of the incoming request with this field. If a match is found, the rule is considered a partial match. If the matchesMethods field is satisfied as well, the rule is considered a full match.  You can use regular expressions in this field to match more than one url. Regular expressions are encapsulated in brackets < and >. The following example matches all paths of the domain `mydomain.com`: `https://mydomain.com/<.*>`.|
-|»» upstream|[Upstream](#schemaupstream)|false|none|Upstream Upstream upstream|
-|»»» preserve_host|boolean|false|none|PreserveHost, if false (the default), tells ORY Oathkeeper to set the upstream request's Host header to the hostname of the API's upstream's URL. Setting this flag to true instructs ORY Oathkeeper not to do so.|
-|»»» strip_path|string|false|none|StripPath if set, replaces the provided path prefix when forwarding the requested URL to the upstream URL.|
-|»»» url|string|false|none|URL is the URL the request will be proxied to.|
+| Name                                                                        | Type                                | Required | Restrictions | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| --------------------------------------------------------------------------- | ----------------------------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| _anonymous_                                                                 | [[rule](#schemarule)]               | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| » swaggerRule is a single rule that will get checked on every HTTP request. | [rule](#schemarule)                 | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| »» authenticators                                                           | [[ruleHandler](#schemarulehandler)] | false    | none         | Authenticators is a list of authentication handlers that will try and authenticate the provided credentials. Authenticators are checked iteratively from index 0 to n and if the first authenticator to return a positive result will be the one used. If you want the rule to first check a specific authenticator before "falling back" to others, have that authenticator as the first item in the array.                                                                                                                                                                                                                                                                                              |
+| »»» config                                                                  | object                              | false    | none         | Config contains the configuration for the handler. Please read the user guide for a complete list of each handler's available settings.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| »»» handler                                                                 | string                              | false    | none         | Handler identifies the implementation which will be used to handle this specific request. Please read the user guide for a complete list of available handlers.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| »» authorizer                                                               | [ruleHandler](#schemarulehandler)   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| »» credentials_issuer                                                       | [ruleHandler](#schemarulehandler)   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| »» description                                                              | string                              | false    | none         | Description is a human readable description of this rule.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| »» id                                                                       | string                              | false    | none         | ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| »» match                                                                    | [ruleMatch](#schemarulematch)       | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| »»» methods                                                                 | [string]                            | false    | none         | An array of HTTP methods (e.g. GET, POST, PUT, DELETE, ...). When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the HTTP method of the incoming request with the HTTP methods of each rules. If a match is found, the rule is considered a partial match. If the matchesUrl field is satisfied as well, the rule is considered a full match.                                                                                                                                                                                                                                                                                           |
+| »»» url                                                                     | string                              | false    | none         | This field represents the URL pattern this rule matches. When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the full request URL (e.g. https://mydomain.com/api/resource) without query parameters of the incoming request with this field. If a match is found, the rule is considered a partial match. If the matchesMethods field is satisfied as well, the rule is considered a full match. You can use regular expressions in this field to match more than one url. Regular expressions are encapsulated in brackets < and >. The following example matches all paths of the domain `mydomain.com`: `https://mydomain.com/<.*>`. |
+| »» upstream                                                                 | [Upstream](#schemaupstream)         | false    | none         | Upstream Upstream upstream                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| »»» preserve_host                                                           | boolean                             | false    | none         | PreserveHost, if false (the default), tells ORY Oathkeeper to set the upstream request's Host header to the hostname of the API's upstream's URL. Setting this flag to true instructs ORY Oathkeeper not to do so.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| »»» strip_path                                                              | string                              | false    | none         | StripPath if set, replaces the provided path prefix when forwarding the requested URL to the upstream URL.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| »»» url                                                                     | string                              | false    | none         | URL is the URL the request will be proxied to.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -967,9 +977,7 @@ Status Code **500**
     "description": "string",
     "id": "string",
     "match": {
-      "methods": [
-        "string"
-      ],
+      "methods": ["string"],
       "url": "string"
     },
     "upstream": {
@@ -1018,7 +1026,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -1153,9 +1161,7 @@ This method allows creation of rules. If a rule id exists, you will receive an e
   "description": "string",
   "id": "string",
   "match": {
-    "methods": [
-      "string"
-    ],
+    "methods": ["string"],
     "url": "string"
   },
   "upstream": {
@@ -1167,62 +1173,65 @@ This method allows creation of rules. If a rule id exists, you will receive an e
 ```
 
 <a id="create-a-rule-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[rule](#schemarule)|false|none|
+| Parameter | In   | Type                | Required | Description |
+| --------- | ---- | ------------------- | -------- | ----------- |
+| body      | body | [rule](#schemarule) | false    | none        |
 
 #### Responses
 
 <a id="create-a-rule-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|A rule|[rule](#schemarule)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema              |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------------------- |
+| 201    | [Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)               | A rule                    | [rule](#schemarule) |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline              |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline              |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline              |
 
 <a id="create-a-rule-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -1247,9 +1256,7 @@ Status Code **500**
   "description": "string",
   "id": "string",
   "match": {
-    "methods": [
-      "string"
-    ],
+    "methods": ["string"],
     "url": "string"
   },
   "upstream": {
@@ -1297,7 +1304,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
     }
@@ -1443,75 +1450,78 @@ Accept: application/json
 Use this method to retrieve a rule from the storage. If it does not exist you will receive a 404 error.
 
 <a id="retrieve-a-rule-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|id|path|string|true|none|
+| Parameter | In   | Type   | Required | Description |
+| --------- | ---- | ------ | -------- | ----------- |
+| id        | path | string | true     | none        |
 
 #### Responses
 
 <a id="retrieve-a-rule-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A rule|[rule](#schemarule)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema              |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | A rule                    | [rule](#schemarule) |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline              |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline              |
+| 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)             | The standard error format | Inline              |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline              |
 
 <a id="retrieve-a-rule-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **404**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -1536,9 +1546,7 @@ Status Code **500**
   "description": "string",
   "id": "string",
   "match": {
-    "methods": [
-      "string"
-    ],
+    "methods": ["string"],
     "url": "string"
   },
   "upstream": {
@@ -1586,7 +1594,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -1722,9 +1730,7 @@ not support patching.
   "description": "string",
   "id": "string",
   "match": {
-    "methods": [
-      "string"
-    ],
+    "methods": ["string"],
     "url": "string"
   },
   "upstream": {
@@ -1736,76 +1742,79 @@ not support patching.
 ```
 
 <a id="update-a-rule-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|id|path|string|true|none|
-|body|body|[rule](#schemarule)|false|none|
+| Parameter | In   | Type                | Required | Description |
+| --------- | ---- | ------------------- | -------- | ----------- |
+| id        | path | string              | true     | none        |
+| body      | body | [rule](#schemarule) | false    | none        |
 
 #### Responses
 
 <a id="update-a-rule-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A rule|[rule](#schemarule)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema              |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | A rule                    | [rule](#schemarule) |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline              |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline              |
+| 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)             | The standard error format | Inline              |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline              |
 
 <a id="update-a-rule-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **404**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -1830,9 +1839,7 @@ Status Code **500**
   "description": "string",
   "id": "string",
   "match": {
-    "methods": [
-      "string"
-    ],
+    "methods": ["string"],
     "url": "string"
   },
   "upstream": {
@@ -1880,7 +1887,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
     }
@@ -2026,75 +2033,78 @@ Accept: application/json
 Use this endpoint to delete a rule.
 
 <a id="delete-a-rule-parameters"></a>
+
 ##### Parameters
 
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|id|path|string|true|none|
+| Parameter | In   | Type   | Required | Description |
+| --------- | ---- | ------ | -------- | ----------- |
+| id        | path | string | true     | none        |
 
 #### Responses
 
 <a id="delete-a-rule-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|204|[No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)|An empty response|None|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The standard error format|Inline|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|The standard error format|Inline|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The standard error format|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|The standard error format|Inline|
+| Status | Meaning                                                                    | Description               | Schema |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------ |
+| 204    | [No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)            | An empty response         | None   |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline |
+| 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)             | The standard error format | Inline |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline |
 
 <a id="delete-a-rule-responseschema"></a>
+
 ##### Response Schema</h3>
 
 Status Code **401**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **403**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **404**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» code|integer(int64)|false|none|none|
-|» details|[object]|false|none|none|
-|»» **additionalProperties**|object|false|none|none|
-|» message|string|false|none|none|
-|» reason|string|false|none|none|
-|» request|string|false|none|none|
-|» status|string|false|none|none|
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
 
 ##### Examples
 
@@ -2153,7 +2163,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -2255,6 +2265,7 @@ p JSON.parse(result)
 </div>
 
 <a id="ory-oathkeeper-version"></a>
+
 ## version
 
 <a id="opIdgetVersion"></a>
@@ -2272,11 +2283,12 @@ This endpoint returns the version as `{ "version": "VERSION" }`. The version is 
 #### Responses
 
 <a id="get-the-version-of-oathkeeper-responses"></a>
+
 ##### Overview
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|version|[version](#schemaversion)|
+| Status | Meaning                                                 | Description | Schema                    |
+| ------ | ------------------------------------------------------- | ----------- | ------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | version     | [version](#schemaversion) |
 
 ##### Examples
 
@@ -2325,7 +2337,7 @@ import (
 )
 
 func main() {
-    headers := map[string][]string{ 
+    headers := map[string][]string{
         "Accept": []string{"application/json"},
     }
 
@@ -2429,6 +2441,7 @@ p JSON.parse(result)
 ## Schemas
 
 <a id="tocScreaterulecreated">CreateRuleCreated</a>
+
 #### CreateRuleCreated
 
 <a id="schemacreaterulecreated"></a>
@@ -2438,30 +2451,22 @@ p JSON.parse(result)
   "Payload": {
     "authenticators": [
       {
-        "config": [
-          0
-        ],
+        "config": [0],
         "handler": "string"
       }
     ],
     "authorizer": {
-      "config": [
-        0
-      ],
+      "config": [0],
       "handler": "string"
     },
     "credentials_issuer": {
-      "config": [
-        0
-      ],
+      "config": [0],
       "handler": "string"
     },
     "description": "string",
     "id": "string",
     "match": {
-      "methods": [
-        "string"
-      ],
+      "methods": ["string"],
       "url": "string"
     },
     "upstream": {
@@ -2471,18 +2476,18 @@ p JSON.parse(result)
     }
   }
 }
-
 ```
 
-*CreateRuleCreated CreateRuleCreated handles this case with default header values.*
+_CreateRuleCreated CreateRuleCreated handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[swaggerRule](#schemaswaggerrule)|false|none|none|
+| Name    | Type                              | Required | Restrictions | Description |
+| ------- | --------------------------------- | -------- | ------------ | ----------- |
+| Payload | [swaggerRule](#schemaswaggerrule) | false    | none         | none        |
 
 <a id="tocScreateruleforbidden">CreateRuleForbidden</a>
+
 #### CreateRuleForbidden
 
 <a id="schemacreateruleforbidden"></a>
@@ -2503,18 +2508,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*CreateRuleForbidden CreateRuleForbidden handles this case with default header values.*
+_CreateRuleForbidden CreateRuleForbidden handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[CreateRuleForbiddenBody](#schemacreateruleforbiddenbody)|false|none|CreateRuleForbiddenBody CreateRuleForbiddenBody create rule forbidden body|
+| Name    | Type                                                      | Required | Restrictions | Description                                                                |
+| ------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------- |
+| Payload | [CreateRuleForbiddenBody](#schemacreateruleforbiddenbody) | false    | none         | CreateRuleForbiddenBody CreateRuleForbiddenBody create rule forbidden body |
 
 <a id="tocScreateruleforbiddenbody">CreateRuleForbiddenBody</a>
+
 #### CreateRuleForbiddenBody
 
 <a id="schemacreateruleforbiddenbody"></a>
@@ -2533,24 +2538,24 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*CreateRuleForbiddenBody CreateRuleForbiddenBody create rule forbidden body*
+_CreateRuleForbiddenBody CreateRuleForbiddenBody create rule forbidden body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocScreateruleinternalservererror">CreateRuleInternalServerError</a>
+
 #### CreateRuleInternalServerError
 
 <a id="schemacreateruleinternalservererror"></a>
@@ -2571,18 +2576,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*CreateRuleInternalServerError CreateRuleInternalServerError handles this case with default header values.*
+_CreateRuleInternalServerError CreateRuleInternalServerError handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[CreateRuleInternalServerErrorBody](#schemacreateruleinternalservererrorbody)|false|none|CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody create rule internal server error body|
+| Name    | Type                                                                          | Required | Restrictions | Description                                                                                                |
+| ------- | ----------------------------------------------------------------------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------- |
+| Payload | [CreateRuleInternalServerErrorBody](#schemacreateruleinternalservererrorbody) | false    | none         | CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody create rule internal server error body |
 
 <a id="tocScreateruleinternalservererrorbody">CreateRuleInternalServerErrorBody</a>
+
 #### CreateRuleInternalServerErrorBody
 
 <a id="schemacreateruleinternalservererrorbody"></a>
@@ -2601,40 +2606,40 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody create rule internal server error body*
+_CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody create rule internal server error body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocScreaterulereader">CreateRuleReader</a>
+
 #### CreateRuleReader
 
 <a id="schemacreaterulereader"></a>
 
 ```json
 {}
-
 ```
 
-*CreateRuleReader CreateRuleReader is a Reader for the CreateRule structure.*
+_CreateRuleReader CreateRuleReader is a Reader for the CreateRule structure._
 
 #### Properties
 
-*None*
+_None_
 
 <a id="tocScreateruleunauthorized">CreateRuleUnauthorized</a>
+
 #### CreateRuleUnauthorized
 
 <a id="schemacreateruleunauthorized"></a>
@@ -2655,18 +2660,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*CreateRuleUnauthorized CreateRuleUnauthorized handles this case with default header values.*
+_CreateRuleUnauthorized CreateRuleUnauthorized handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[CreateRuleUnauthorizedBody](#schemacreateruleunauthorizedbody)|false|none|CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody create rule unauthorized body|
+| Name    | Type                                                            | Required | Restrictions | Description                                                                         |
+| ------- | --------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------- |
+| Payload | [CreateRuleUnauthorizedBody](#schemacreateruleunauthorizedbody) | false    | none         | CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody create rule unauthorized body |
 
 <a id="tocScreateruleunauthorizedbody">CreateRuleUnauthorizedBody</a>
+
 #### CreateRuleUnauthorizedBody
 
 <a id="schemacreateruleunauthorizedbody"></a>
@@ -2685,24 +2690,24 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody create rule unauthorized body*
+_CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody create rule unauthorized body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSdeleteruleforbidden">DeleteRuleForbidden</a>
+
 #### DeleteRuleForbidden
 
 <a id="schemadeleteruleforbidden"></a>
@@ -2723,18 +2728,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*DeleteRuleForbidden DeleteRuleForbidden handles this case with default header values.*
+_DeleteRuleForbidden DeleteRuleForbidden handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[DeleteRuleForbiddenBody](#schemadeleteruleforbiddenbody)|false|none|DeleteRuleForbiddenBody DeleteRuleForbiddenBody delete rule forbidden body|
+| Name    | Type                                                      | Required | Restrictions | Description                                                                |
+| ------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------- |
+| Payload | [DeleteRuleForbiddenBody](#schemadeleteruleforbiddenbody) | false    | none         | DeleteRuleForbiddenBody DeleteRuleForbiddenBody delete rule forbidden body |
 
 <a id="tocSdeleteruleforbiddenbody">DeleteRuleForbiddenBody</a>
+
 #### DeleteRuleForbiddenBody
 
 <a id="schemadeleteruleforbiddenbody"></a>
@@ -2753,24 +2758,24 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*DeleteRuleForbiddenBody DeleteRuleForbiddenBody delete rule forbidden body*
+_DeleteRuleForbiddenBody DeleteRuleForbiddenBody delete rule forbidden body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSdeleteruleinternalservererror">DeleteRuleInternalServerError</a>
+
 #### DeleteRuleInternalServerError
 
 <a id="schemadeleteruleinternalservererror"></a>
@@ -2791,18 +2796,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*DeleteRuleInternalServerError DeleteRuleInternalServerError handles this case with default header values.*
+_DeleteRuleInternalServerError DeleteRuleInternalServerError handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[DeleteRuleInternalServerErrorBody](#schemadeleteruleinternalservererrorbody)|false|none|DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody delete rule internal server error body|
+| Name    | Type                                                                          | Required | Restrictions | Description                                                                                                |
+| ------- | ----------------------------------------------------------------------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------- |
+| Payload | [DeleteRuleInternalServerErrorBody](#schemadeleteruleinternalservererrorbody) | false    | none         | DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody delete rule internal server error body |
 
 <a id="tocSdeleteruleinternalservererrorbody">DeleteRuleInternalServerErrorBody</a>
+
 #### DeleteRuleInternalServerErrorBody
 
 <a id="schemadeleteruleinternalservererrorbody"></a>
@@ -2821,40 +2826,40 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody delete rule internal server error body*
+_DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody delete rule internal server error body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSdeleterulenocontent">DeleteRuleNoContent</a>
+
 #### DeleteRuleNoContent
 
 <a id="schemadeleterulenocontent"></a>
 
 ```json
 {}
-
 ```
 
-*DeleteRuleNoContent DeleteRuleNoContent handles this case with default header values.*
+_DeleteRuleNoContent DeleteRuleNoContent handles this case with default header values._
 
 #### Properties
 
-*None*
+_None_
 
 <a id="tocSdeleterulenotfound">DeleteRuleNotFound</a>
+
 #### DeleteRuleNotFound
 
 <a id="schemadeleterulenotfound"></a>
@@ -2875,18 +2880,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*DeleteRuleNotFound DeleteRuleNotFound handles this case with default header values.*
+_DeleteRuleNotFound DeleteRuleNotFound handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[DeleteRuleNotFoundBody](#schemadeleterulenotfoundbody)|false|none|DeleteRuleNotFoundBody DeleteRuleNotFoundBody delete rule not found body|
+| Name    | Type                                                    | Required | Restrictions | Description                                                              |
+| ------- | ------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------ |
+| Payload | [DeleteRuleNotFoundBody](#schemadeleterulenotfoundbody) | false    | none         | DeleteRuleNotFoundBody DeleteRuleNotFoundBody delete rule not found body |
 
 <a id="tocSdeleterulenotfoundbody">DeleteRuleNotFoundBody</a>
+
 #### DeleteRuleNotFoundBody
 
 <a id="schemadeleterulenotfoundbody"></a>
@@ -2905,40 +2910,40 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*DeleteRuleNotFoundBody DeleteRuleNotFoundBody delete rule not found body*
+_DeleteRuleNotFoundBody DeleteRuleNotFoundBody delete rule not found body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSdeleterulereader">DeleteRuleReader</a>
+
 #### DeleteRuleReader
 
 <a id="schemadeleterulereader"></a>
 
 ```json
 {}
-
 ```
 
-*DeleteRuleReader DeleteRuleReader is a Reader for the DeleteRule structure.*
+_DeleteRuleReader DeleteRuleReader is a Reader for the DeleteRule structure._
 
 #### Properties
 
-*None*
+_None_
 
 <a id="tocSdeleteruleunauthorized">DeleteRuleUnauthorized</a>
+
 #### DeleteRuleUnauthorized
 
 <a id="schemadeleteruleunauthorized"></a>
@@ -2959,18 +2964,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*DeleteRuleUnauthorized DeleteRuleUnauthorized handles this case with default header values.*
+_DeleteRuleUnauthorized DeleteRuleUnauthorized handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[DeleteRuleUnauthorizedBody](#schemadeleteruleunauthorizedbody)|false|none|DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody delete rule unauthorized body|
+| Name    | Type                                                            | Required | Restrictions | Description                                                                         |
+| ------- | --------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------- |
+| Payload | [DeleteRuleUnauthorizedBody](#schemadeleteruleunauthorizedbody) | false    | none         | DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody delete rule unauthorized body |
 
 <a id="tocSdeleteruleunauthorizedbody">DeleteRuleUnauthorizedBody</a>
+
 #### DeleteRuleUnauthorizedBody
 
 <a id="schemadeleteruleunauthorizedbody"></a>
@@ -2989,24 +2994,24 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody delete rule unauthorized body*
+_DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody delete rule unauthorized body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSgetruleforbidden">GetRuleForbidden</a>
+
 #### GetRuleForbidden
 
 <a id="schemagetruleforbidden"></a>
@@ -3027,18 +3032,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*GetRuleForbidden GetRuleForbidden handles this case with default header values.*
+_GetRuleForbidden GetRuleForbidden handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[GetRuleForbiddenBody](#schemagetruleforbiddenbody)|false|none|GetRuleForbiddenBody GetRuleForbiddenBody get rule forbidden body|
+| Name    | Type                                                | Required | Restrictions | Description                                                       |
+| ------- | --------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------- |
+| Payload | [GetRuleForbiddenBody](#schemagetruleforbiddenbody) | false    | none         | GetRuleForbiddenBody GetRuleForbiddenBody get rule forbidden body |
 
 <a id="tocSgetruleforbiddenbody">GetRuleForbiddenBody</a>
+
 #### GetRuleForbiddenBody
 
 <a id="schemagetruleforbiddenbody"></a>
@@ -3057,24 +3062,24 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*GetRuleForbiddenBody GetRuleForbiddenBody get rule forbidden body*
+_GetRuleForbiddenBody GetRuleForbiddenBody get rule forbidden body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSgetruleinternalservererror">GetRuleInternalServerError</a>
+
 #### GetRuleInternalServerError
 
 <a id="schemagetruleinternalservererror"></a>
@@ -3095,18 +3100,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*GetRuleInternalServerError GetRuleInternalServerError handles this case with default header values.*
+_GetRuleInternalServerError GetRuleInternalServerError handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[GetRuleInternalServerErrorBody](#schemagetruleinternalservererrorbody)|false|none|GetRuleInternalServerErrorBody GetRuleInternalServerErrorBody get rule internal server error body|
+| Name    | Type                                                                    | Required | Restrictions | Description                                                                                       |
+| ------- | ----------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------- |
+| Payload | [GetRuleInternalServerErrorBody](#schemagetruleinternalservererrorbody) | false    | none         | GetRuleInternalServerErrorBody GetRuleInternalServerErrorBody get rule internal server error body |
 
 <a id="tocSgetruleinternalservererrorbody">GetRuleInternalServerErrorBody</a>
+
 #### GetRuleInternalServerErrorBody
 
 <a id="schemagetruleinternalservererrorbody"></a>
@@ -3125,24 +3130,24 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*GetRuleInternalServerErrorBody GetRuleInternalServerErrorBody get rule internal server error body*
+_GetRuleInternalServerErrorBody GetRuleInternalServerErrorBody get rule internal server error body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSgetrulenotfound">GetRuleNotFound</a>
+
 #### GetRuleNotFound
 
 <a id="schemagetrulenotfound"></a>
@@ -3163,18 +3168,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*GetRuleNotFound GetRuleNotFound handles this case with default header values.*
+_GetRuleNotFound GetRuleNotFound handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[GetRuleNotFoundBody](#schemagetrulenotfoundbody)|false|none|GetRuleNotFoundBody GetRuleNotFoundBody get rule not found body|
+| Name    | Type                                              | Required | Restrictions | Description                                                     |
+| ------- | ------------------------------------------------- | -------- | ------------ | --------------------------------------------------------------- |
+| Payload | [GetRuleNotFoundBody](#schemagetrulenotfoundbody) | false    | none         | GetRuleNotFoundBody GetRuleNotFoundBody get rule not found body |
 
 <a id="tocSgetrulenotfoundbody">GetRuleNotFoundBody</a>
+
 #### GetRuleNotFoundBody
 
 <a id="schemagetrulenotfoundbody"></a>
@@ -3193,24 +3198,24 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*GetRuleNotFoundBody GetRuleNotFoundBody get rule not found body*
+_GetRuleNotFoundBody GetRuleNotFoundBody get rule not found body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSgetruleok">GetRuleOK</a>
+
 #### GetRuleOK
 
 <a id="schemagetruleok"></a>
@@ -3220,30 +3225,22 @@ p JSON.parse(result)
   "Payload": {
     "authenticators": [
       {
-        "config": [
-          0
-        ],
+        "config": [0],
         "handler": "string"
       }
     ],
     "authorizer": {
-      "config": [
-        0
-      ],
+      "config": [0],
       "handler": "string"
     },
     "credentials_issuer": {
-      "config": [
-        0
-      ],
+      "config": [0],
       "handler": "string"
     },
     "description": "string",
     "id": "string",
     "match": {
-      "methods": [
-        "string"
-      ],
+      "methods": ["string"],
       "url": "string"
     },
     "upstream": {
@@ -3253,34 +3250,34 @@ p JSON.parse(result)
     }
   }
 }
-
 ```
 
-*GetRuleOK GetRuleOK handles this case with default header values.*
+_GetRuleOK GetRuleOK handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[swaggerRule](#schemaswaggerrule)|false|none|none|
+| Name    | Type                              | Required | Restrictions | Description |
+| ------- | --------------------------------- | -------- | ------------ | ----------- |
+| Payload | [swaggerRule](#schemaswaggerrule) | false    | none         | none        |
 
 <a id="tocSgetrulereader">GetRuleReader</a>
+
 #### GetRuleReader
 
 <a id="schemagetrulereader"></a>
 
 ```json
 {}
-
 ```
 
-*GetRuleReader GetRuleReader is a Reader for the GetRule structure.*
+_GetRuleReader GetRuleReader is a Reader for the GetRule structure._
 
 #### Properties
 
-*None*
+_None_
 
 <a id="tocSgetruleunauthorized">GetRuleUnauthorized</a>
+
 #### GetRuleUnauthorized
 
 <a id="schemagetruleunauthorized"></a>
@@ -3301,18 +3298,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*GetRuleUnauthorized GetRuleUnauthorized handles this case with default header values.*
+_GetRuleUnauthorized GetRuleUnauthorized handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[GetRuleUnauthorizedBody](#schemagetruleunauthorizedbody)|false|none|GetRuleUnauthorizedBody GetRuleUnauthorizedBody get rule unauthorized body|
+| Name    | Type                                                      | Required | Restrictions | Description                                                                |
+| ------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------- |
+| Payload | [GetRuleUnauthorizedBody](#schemagetruleunauthorizedbody) | false    | none         | GetRuleUnauthorizedBody GetRuleUnauthorizedBody get rule unauthorized body |
 
 <a id="tocSgetruleunauthorizedbody">GetRuleUnauthorizedBody</a>
+
 #### GetRuleUnauthorizedBody
 
 <a id="schemagetruleunauthorizedbody"></a>
@@ -3331,24 +3328,24 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*GetRuleUnauthorizedBody GetRuleUnauthorizedBody get rule unauthorized body*
+_GetRuleUnauthorizedBody GetRuleUnauthorizedBody get rule unauthorized body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSgetwellknownforbidden">GetWellKnownForbidden</a>
+
 #### GetWellKnownForbidden
 
 <a id="schemagetwellknownforbidden"></a>
@@ -3369,18 +3366,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*GetWellKnownForbidden GetWellKnownForbidden handles this case with default header values.*
+_GetWellKnownForbidden GetWellKnownForbidden handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[GetWellKnownForbiddenBody](#schemagetwellknownforbiddenbody)|false|none|GetWellKnownForbiddenBody GetWellKnownForbiddenBody get well known forbidden body|
+| Name    | Type                                                          | Required | Restrictions | Description                                                                       |
+| ------- | ------------------------------------------------------------- | -------- | ------------ | --------------------------------------------------------------------------------- |
+| Payload | [GetWellKnownForbiddenBody](#schemagetwellknownforbiddenbody) | false    | none         | GetWellKnownForbiddenBody GetWellKnownForbiddenBody get well known forbidden body |
 
 <a id="tocSgetwellknownforbiddenbody">GetWellKnownForbiddenBody</a>
+
 #### GetWellKnownForbiddenBody
 
 <a id="schemagetwellknownforbiddenbody"></a>
@@ -3399,24 +3396,24 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*GetWellKnownForbiddenBody GetWellKnownForbiddenBody get well known forbidden body*
+_GetWellKnownForbiddenBody GetWellKnownForbiddenBody get well known forbidden body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSgetwellknownok">GetWellKnownOK</a>
+
 #### GetWellKnownOK
 
 <a id="schemagetwellknownok"></a>
@@ -3441,42 +3438,40 @@ p JSON.parse(result)
         "qi": "string",
         "use": "string",
         "x": "string",
-        "x5c": [
-          "string"
-        ],
+        "x5c": ["string"],
         "y": "string"
       }
     ]
   }
 }
-
 ```
 
-*GetWellKnownOK GetWellKnownOK handles this case with default header values.*
+_GetWellKnownOK GetWellKnownOK handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[swaggerJSONWebKeySet](#schemaswaggerjsonwebkeyset)|false|none|SwaggerJSONWebKeySet swagger JSON web key set|
+| Name    | Type                                                | Required | Restrictions | Description                                   |
+| ------- | --------------------------------------------------- | -------- | ------------ | --------------------------------------------- |
+| Payload | [swaggerJSONWebKeySet](#schemaswaggerjsonwebkeyset) | false    | none         | SwaggerJSONWebKeySet swagger JSON web key set |
 
 <a id="tocSgetwellknownreader">GetWellKnownReader</a>
+
 #### GetWellKnownReader
 
 <a id="schemagetwellknownreader"></a>
 
 ```json
 {}
-
 ```
 
-*GetWellKnownReader GetWellKnownReader is a Reader for the GetWellKnown structure.*
+_GetWellKnownReader GetWellKnownReader is a Reader for the GetWellKnown structure._
 
 #### Properties
 
-*None*
+_None_
 
 <a id="tocSgetwellknownunauthorized">GetWellKnownUnauthorized</a>
+
 #### GetWellKnownUnauthorized
 
 <a id="schemagetwellknownunauthorized"></a>
@@ -3497,18 +3492,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*GetWellKnownUnauthorized GetWellKnownUnauthorized handles this case with default header values.*
+_GetWellKnownUnauthorized GetWellKnownUnauthorized handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[GetWellKnownUnauthorizedBody](#schemagetwellknownunauthorizedbody)|false|none|GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody get well known unauthorized body|
+| Name    | Type                                                                | Required | Restrictions | Description                                                                                |
+| ------- | ------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------ |
+| Payload | [GetWellKnownUnauthorizedBody](#schemagetwellknownunauthorizedbody) | false    | none         | GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody get well known unauthorized body |
 
 <a id="tocSgetwellknownunauthorizedbody">GetWellKnownUnauthorizedBody</a>
+
 #### GetWellKnownUnauthorizedBody
 
 <a id="schemagetwellknownunauthorizedbody"></a>
@@ -3527,24 +3522,24 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody get well known unauthorized body*
+_GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody get well known unauthorized body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSisinstancealiveinternalservererror">IsInstanceAliveInternalServerError</a>
+
 #### IsInstanceAliveInternalServerError
 
 <a id="schemaisinstancealiveinternalservererror"></a>
@@ -3565,18 +3560,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*IsInstanceAliveInternalServerError handles this case with default header values.*
+_IsInstanceAliveInternalServerError handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[IsInstanceAliveInternalServerErrorBody](#schemaisinstancealiveinternalservererrorbody)|false|none|IsInstanceAliveInternalServerErrorBody is instance alive internal server error body|
+| Name    | Type                                                                                    | Required | Restrictions | Description                                                                         |
+| ------- | --------------------------------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------- |
+| Payload | [IsInstanceAliveInternalServerErrorBody](#schemaisinstancealiveinternalservererrorbody) | false    | none         | IsInstanceAliveInternalServerErrorBody is instance alive internal server error body |
 
 <a id="tocSisinstancealiveinternalservererrorbody">IsInstanceAliveInternalServerErrorBody</a>
+
 #### IsInstanceAliveInternalServerErrorBody
 
 <a id="schemaisinstancealiveinternalservererrorbody"></a>
@@ -3595,24 +3590,24 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*IsInstanceAliveInternalServerErrorBody is instance alive internal server error body*
+_IsInstanceAliveInternalServerErrorBody is instance alive internal server error body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSisinstancealiveok">IsInstanceAliveOK</a>
+
 #### IsInstanceAliveOK
 
 <a id="schemaisinstancealiveok"></a>
@@ -3623,34 +3618,34 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*IsInstanceAliveOK handles this case with default header values.*
+_IsInstanceAliveOK handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[swaggerHealthStatus](#schemaswaggerhealthstatus)|false|none|SwaggerHealthStatus swagger health status|
+| Name    | Type                                              | Required | Restrictions | Description                               |
+| ------- | ------------------------------------------------- | -------- | ------------ | ----------------------------------------- |
+| Payload | [swaggerHealthStatus](#schemaswaggerhealthstatus) | false    | none         | SwaggerHealthStatus swagger health status |
 
 <a id="tocSisinstancealivereader">IsInstanceAliveReader</a>
+
 #### IsInstanceAliveReader
 
 <a id="schemaisinstancealivereader"></a>
 
 ```json
 {}
-
 ```
 
-*IsInstanceAliveReader is a Reader for the IsInstanceAlive structure.*
+_IsInstanceAliveReader is a Reader for the IsInstanceAlive structure._
 
 #### Properties
 
-*None*
+_None_
 
 <a id="tocSjudgeforbidden">JudgeForbidden</a>
+
 #### JudgeForbidden
 
 <a id="schemajudgeforbidden"></a>
@@ -3671,18 +3666,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*JudgeForbidden handles this case with default header values.*
+_JudgeForbidden handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[JudgeForbiddenBody](#schemajudgeforbiddenbody)|false|none|JudgeForbiddenBody judge forbidden body|
+| Name    | Type                                            | Required | Restrictions | Description                             |
+| ------- | ----------------------------------------------- | -------- | ------------ | --------------------------------------- |
+| Payload | [JudgeForbiddenBody](#schemajudgeforbiddenbody) | false    | none         | JudgeForbiddenBody judge forbidden body |
 
 <a id="tocSjudgeforbiddenbody">JudgeForbiddenBody</a>
+
 #### JudgeForbiddenBody
 
 <a id="schemajudgeforbiddenbody"></a>
@@ -3701,24 +3696,24 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*JudgeForbiddenBody judge forbidden body*
+_JudgeForbiddenBody judge forbidden body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSjudgeinternalservererror">JudgeInternalServerError</a>
+
 #### JudgeInternalServerError
 
 <a id="schemajudgeinternalservererror"></a>
@@ -3739,18 +3734,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*JudgeInternalServerError handles this case with default header values.*
+_JudgeInternalServerError handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[JudgeInternalServerErrorBody](#schemajudgeinternalservererrorbody)|false|none|JudgeInternalServerErrorBody judge internal server error body|
+| Name    | Type                                                                | Required | Restrictions | Description                                                   |
+| ------- | ------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------- |
+| Payload | [JudgeInternalServerErrorBody](#schemajudgeinternalservererrorbody) | false    | none         | JudgeInternalServerErrorBody judge internal server error body |
 
 <a id="tocSjudgeinternalservererrorbody">JudgeInternalServerErrorBody</a>
+
 #### JudgeInternalServerErrorBody
 
 <a id="schemajudgeinternalservererrorbody"></a>
@@ -3769,24 +3764,24 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*JudgeInternalServerErrorBody judge internal server error body*
+_JudgeInternalServerErrorBody judge internal server error body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSjudgenotfound">JudgeNotFound</a>
+
 #### JudgeNotFound
 
 <a id="schemajudgenotfound"></a>
@@ -3807,18 +3802,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*JudgeNotFound handles this case with default header values.*
+_JudgeNotFound handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[JudgeNotFoundBody](#schemajudgenotfoundbody)|false|none|JudgeNotFoundBody judge not found body|
+| Name    | Type                                          | Required | Restrictions | Description                            |
+| ------- | --------------------------------------------- | -------- | ------------ | -------------------------------------- |
+| Payload | [JudgeNotFoundBody](#schemajudgenotfoundbody) | false    | none         | JudgeNotFoundBody judge not found body |
 
 <a id="tocSjudgenotfoundbody">JudgeNotFoundBody</a>
+
 #### JudgeNotFoundBody
 
 <a id="schemajudgenotfoundbody"></a>
@@ -3837,56 +3832,56 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*JudgeNotFoundBody judge not found body*
+_JudgeNotFoundBody judge not found body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSjudgeok">JudgeOK</a>
+
 #### JudgeOK
 
 <a id="schemajudgeok"></a>
 
 ```json
 {}
-
 ```
 
-*JudgeOK handles this case with default header values.*
+_JudgeOK handles this case with default header values._
 
 #### Properties
 
-*None*
+_None_
 
 <a id="tocSjudgereader">JudgeReader</a>
+
 #### JudgeReader
 
 <a id="schemajudgereader"></a>
 
 ```json
 {}
-
 ```
 
-*JudgeReader is a Reader for the Judge structure.*
+_JudgeReader is a Reader for the Judge structure._
 
 #### Properties
 
-*None*
+_None_
 
 <a id="tocSjudgeunauthorized">JudgeUnauthorized</a>
+
 #### JudgeUnauthorized
 
 <a id="schemajudgeunauthorized"></a>
@@ -3907,18 +3902,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*JudgeUnauthorized handles this case with default header values.*
+_JudgeUnauthorized handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[JudgeUnauthorizedBody](#schemajudgeunauthorizedbody)|false|none|JudgeUnauthorizedBody judge unauthorized body|
+| Name    | Type                                                  | Required | Restrictions | Description                                   |
+| ------- | ----------------------------------------------------- | -------- | ------------ | --------------------------------------------- |
+| Payload | [JudgeUnauthorizedBody](#schemajudgeunauthorizedbody) | false    | none         | JudgeUnauthorizedBody judge unauthorized body |
 
 <a id="tocSjudgeunauthorizedbody">JudgeUnauthorizedBody</a>
+
 #### JudgeUnauthorizedBody
 
 <a id="schemajudgeunauthorizedbody"></a>
@@ -3937,24 +3932,24 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*JudgeUnauthorizedBody judge unauthorized body*
+_JudgeUnauthorizedBody judge unauthorized body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSlistrulesforbidden">ListRulesForbidden</a>
+
 #### ListRulesForbidden
 
 <a id="schemalistrulesforbidden"></a>
@@ -3975,18 +3970,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*ListRulesForbidden ListRulesForbidden handles this case with default header values.*
+_ListRulesForbidden ListRulesForbidden handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[ListRulesForbiddenBody](#schemalistrulesforbiddenbody)|false|none|ListRulesForbiddenBody ListRulesForbiddenBody list rules forbidden body|
+| Name    | Type                                                    | Required | Restrictions | Description                                                             |
+| ------- | ------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------- |
+| Payload | [ListRulesForbiddenBody](#schemalistrulesforbiddenbody) | false    | none         | ListRulesForbiddenBody ListRulesForbiddenBody list rules forbidden body |
 
 <a id="tocSlistrulesforbiddenbody">ListRulesForbiddenBody</a>
+
 #### ListRulesForbiddenBody
 
 <a id="schemalistrulesforbiddenbody"></a>
@@ -4005,24 +4000,24 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*ListRulesForbiddenBody ListRulesForbiddenBody list rules forbidden body*
+_ListRulesForbiddenBody ListRulesForbiddenBody list rules forbidden body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSlistrulesinternalservererror">ListRulesInternalServerError</a>
+
 #### ListRulesInternalServerError
 
 <a id="schemalistrulesinternalservererror"></a>
@@ -4043,18 +4038,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*ListRulesInternalServerError ListRulesInternalServerError handles this case with default header values.*
+_ListRulesInternalServerError ListRulesInternalServerError handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[ListRulesInternalServerErrorBody](#schemalistrulesinternalservererrorbody)|false|none|ListRulesInternalServerErrorBody ListRulesInternalServerErrorBody list rules internal server error body|
+| Name    | Type                                                                        | Required | Restrictions | Description                                                                                             |
+| ------- | --------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------- |
+| Payload | [ListRulesInternalServerErrorBody](#schemalistrulesinternalservererrorbody) | false    | none         | ListRulesInternalServerErrorBody ListRulesInternalServerErrorBody list rules internal server error body |
 
 <a id="tocSlistrulesinternalservererrorbody">ListRulesInternalServerErrorBody</a>
+
 #### ListRulesInternalServerErrorBody
 
 <a id="schemalistrulesinternalservererrorbody"></a>
@@ -4073,24 +4068,24 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*ListRulesInternalServerErrorBody ListRulesInternalServerErrorBody list rules internal server error body*
+_ListRulesInternalServerErrorBody ListRulesInternalServerErrorBody list rules internal server error body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSlistrulesok">ListRulesOK</a>
+
 #### ListRulesOK
 
 <a id="schemalistrulesok"></a>
@@ -4101,30 +4096,22 @@ p JSON.parse(result)
     {
       "authenticators": [
         {
-          "config": [
-            0
-          ],
+          "config": [0],
           "handler": "string"
         }
       ],
       "authorizer": {
-        "config": [
-          0
-        ],
+        "config": [0],
         "handler": "string"
       },
       "credentials_issuer": {
-        "config": [
-          0
-        ],
+        "config": [0],
         "handler": "string"
       },
       "description": "string",
       "id": "string",
       "match": {
-        "methods": [
-          "string"
-        ],
+        "methods": ["string"],
         "url": "string"
       },
       "upstream": {
@@ -4135,34 +4122,34 @@ p JSON.parse(result)
     }
   ]
 }
-
 ```
 
-*ListRulesOK ListRulesOK handles this case with default header values.*
+_ListRulesOK ListRulesOK handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[[swaggerRule](#schemaswaggerrule)]|false|none|payload|
+| Name    | Type                                | Required | Restrictions | Description |
+| ------- | ----------------------------------- | -------- | ------------ | ----------- |
+| Payload | [[swaggerRule](#schemaswaggerrule)] | false    | none         | payload     |
 
 <a id="tocSlistrulesreader">ListRulesReader</a>
+
 #### ListRulesReader
 
 <a id="schemalistrulesreader"></a>
 
 ```json
 {}
-
 ```
 
-*ListRulesReader ListRulesReader is a Reader for the ListRules structure.*
+_ListRulesReader ListRulesReader is a Reader for the ListRules structure._
 
 #### Properties
 
-*None*
+_None_
 
 <a id="tocSlistrulesunauthorized">ListRulesUnauthorized</a>
+
 #### ListRulesUnauthorized
 
 <a id="schemalistrulesunauthorized"></a>
@@ -4183,18 +4170,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*ListRulesUnauthorized ListRulesUnauthorized handles this case with default header values.*
+_ListRulesUnauthorized ListRulesUnauthorized handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[ListRulesUnauthorizedBody](#schemalistrulesunauthorizedbody)|false|none|ListRulesUnauthorizedBody ListRulesUnauthorizedBody list rules unauthorized body|
+| Name    | Type                                                          | Required | Restrictions | Description                                                                      |
+| ------- | ------------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------- |
+| Payload | [ListRulesUnauthorizedBody](#schemalistrulesunauthorizedbody) | false    | none         | ListRulesUnauthorizedBody ListRulesUnauthorizedBody list rules unauthorized body |
 
 <a id="tocSlistrulesunauthorizedbody">ListRulesUnauthorizedBody</a>
+
 #### ListRulesUnauthorizedBody
 
 <a id="schemalistrulesunauthorizedbody"></a>
@@ -4213,44 +4200,42 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*ListRulesUnauthorizedBody ListRulesUnauthorizedBody list rules unauthorized body*
+_ListRulesUnauthorizedBody ListRulesUnauthorizedBody list rules unauthorized body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSrawmessage">RawMessage</a>
+
 #### RawMessage
 
 <a id="schemarawmessage"></a>
 
 ```json
-[
-  0
-]
-
+[0]
 ```
 
-*RawMessage RawMessage is a raw encoded JSON value.*
+_RawMessage RawMessage is a raw encoded JSON value._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|RawMessage RawMessage is a raw encoded JSON value.|[integer]|false|none|It implements Marshaler and Unmarshaler and can be used to delay JSON decoding or precompute a JSON encoding.|
+| Name                                               | Type      | Required | Restrictions | Description                                                                                                   |
+| -------------------------------------------------- | --------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------- |
+| RawMessage RawMessage is a raw encoded JSON value. | [integer] | false    | none         | It implements Marshaler and Unmarshaler and can be used to delay JSON decoding or precompute a JSON encoding. |
 
 <a id="tocSswaggercreateruleparameters">SwaggerCreateRuleParameters</a>
+
 #### SwaggerCreateRuleParameters
 
 <a id="schemaswaggercreateruleparameters"></a>
@@ -4260,30 +4245,22 @@ p JSON.parse(result)
   "Body": {
     "authenticators": [
       {
-        "config": [
-          0
-        ],
+        "config": [0],
         "handler": "string"
       }
     ],
     "authorizer": {
-      "config": [
-        0
-      ],
+      "config": [0],
       "handler": "string"
     },
     "credentials_issuer": {
-      "config": [
-        0
-      ],
+      "config": [0],
       "handler": "string"
     },
     "description": "string",
     "id": "string",
     "match": {
-      "methods": [
-        "string"
-      ],
+      "methods": ["string"],
       "url": "string"
     },
     "upstream": {
@@ -4293,18 +4270,18 @@ p JSON.parse(result)
     }
   }
 }
-
 ```
 
-*SwaggerCreateRuleParameters swagger create rule parameters*
+_SwaggerCreateRuleParameters swagger create rule parameters_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Body|[swaggerRule](#schemaswaggerrule)|false|none|none|
+| Name | Type                              | Required | Restrictions | Description |
+| ---- | --------------------------------- | -------- | ------------ | ----------- |
+| Body | [swaggerRule](#schemaswaggerrule) | false    | none         | none        |
 
 <a id="tocSswaggergetruleparameters">SwaggerGetRuleParameters</a>
+
 #### SwaggerGetRuleParameters
 
 <a id="schemaswaggergetruleparameters"></a>
@@ -4313,18 +4290,18 @@ p JSON.parse(result)
 {
   "id": "string"
 }
-
 ```
 
-*SwaggerGetRuleParameters swagger get rule parameters*
+_SwaggerGetRuleParameters swagger get rule parameters_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|id|string|true|none|in: path|
+| Name | Type   | Required | Restrictions | Description |
+| ---- | ------ | -------- | ------------ | ----------- |
+| id   | string | true     | none         | in: path    |
 
 <a id="tocSswaggerlistrulesparameters">SwaggerListRulesParameters</a>
+
 #### SwaggerListRulesParameters
 
 <a id="schemaswaggerlistrulesparameters"></a>
@@ -4334,19 +4311,19 @@ p JSON.parse(result)
   "limit": 0,
   "offset": 0
 }
-
 ```
 
-*SwaggerListRulesParameters swagger list rules parameters*
+_SwaggerListRulesParameters swagger list rules parameters_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|limit|integer(int64)|false|none|The maximum amount of rules returned. in: query|
-|offset|integer(int64)|false|none|The offset from where to start looking. in: query|
+| Name   | Type           | Required | Restrictions | Description                                       |
+| ------ | -------------- | -------- | ------------ | ------------------------------------------------- |
+| limit  | integer(int64) | false    | none         | The maximum amount of rules returned. in: query   |
+| offset | integer(int64) | false    | none         | The offset from where to start looking. in: query |
 
 <a id="tocSswaggerruleresponse">SwaggerRuleResponse</a>
+
 #### SwaggerRuleResponse
 
 <a id="schemaswaggerruleresponse"></a>
@@ -4356,30 +4333,22 @@ p JSON.parse(result)
   "Body": {
     "authenticators": [
       {
-        "config": [
-          0
-        ],
+        "config": [0],
         "handler": "string"
       }
     ],
     "authorizer": {
-      "config": [
-        0
-      ],
+      "config": [0],
       "handler": "string"
     },
     "credentials_issuer": {
-      "config": [
-        0
-      ],
+      "config": [0],
       "handler": "string"
     },
     "description": "string",
     "id": "string",
     "match": {
-      "methods": [
-        "string"
-      ],
+      "methods": ["string"],
       "url": "string"
     },
     "upstream": {
@@ -4389,18 +4358,18 @@ p JSON.parse(result)
     }
   }
 }
-
 ```
 
-*SwaggerRuleResponse A rule*
+_SwaggerRuleResponse A rule_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Body|[swaggerRule](#schemaswaggerrule)|false|none|none|
+| Name | Type                              | Required | Restrictions | Description |
+| ---- | --------------------------------- | -------- | ------------ | ----------- |
+| Body | [swaggerRule](#schemaswaggerrule) | false    | none         | none        |
 
 <a id="tocSswaggerrulesresponse">SwaggerRulesResponse</a>
+
 #### SwaggerRulesResponse
 
 <a id="schemaswaggerrulesresponse"></a>
@@ -4411,30 +4380,22 @@ p JSON.parse(result)
     {
       "authenticators": [
         {
-          "config": [
-            0
-          ],
+          "config": [0],
           "handler": "string"
         }
       ],
       "authorizer": {
-        "config": [
-          0
-        ],
+        "config": [0],
         "handler": "string"
       },
       "credentials_issuer": {
-        "config": [
-          0
-        ],
+        "config": [0],
         "handler": "string"
       },
       "description": "string",
       "id": "string",
       "match": {
-        "methods": [
-          "string"
-        ],
+        "methods": ["string"],
         "url": "string"
       },
       "upstream": {
@@ -4445,18 +4406,18 @@ p JSON.parse(result)
     }
   ]
 }
-
 ```
 
-*SwaggerRulesResponse A list of rules*
+_SwaggerRulesResponse A list of rules_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Body|[[swaggerRule](#schemaswaggerrule)]|false|none|in: body type: array|
+| Name | Type                                | Required | Restrictions | Description          |
+| ---- | ----------------------------------- | -------- | ------------ | -------------------- |
+| Body | [[swaggerRule](#schemaswaggerrule)] | false    | none         | in: body type: array |
 
 <a id="tocSswaggerupdateruleparameters">SwaggerUpdateRuleParameters</a>
+
 #### SwaggerUpdateRuleParameters
 
 <a id="schemaswaggerupdateruleparameters"></a>
@@ -4466,30 +4427,22 @@ p JSON.parse(result)
   "Body": {
     "authenticators": [
       {
-        "config": [
-          0
-        ],
+        "config": [0],
         "handler": "string"
       }
     ],
     "authorizer": {
-      "config": [
-        0
-      ],
+      "config": [0],
       "handler": "string"
     },
     "credentials_issuer": {
-      "config": [
-        0
-      ],
+      "config": [0],
       "handler": "string"
     },
     "description": "string",
     "id": "string",
     "match": {
-      "methods": [
-        "string"
-      ],
+      "methods": ["string"],
       "url": "string"
     },
     "upstream": {
@@ -4500,19 +4453,19 @@ p JSON.parse(result)
   },
   "id": "string"
 }
-
 ```
 
-*SwaggerUpdateRuleParameters swagger update rule parameters*
+_SwaggerUpdateRuleParameters swagger update rule parameters_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Body|[swaggerRule](#schemaswaggerrule)|false|none|none|
-|id|string|true|none|in: path|
+| Name | Type                              | Required | Restrictions | Description |
+| ---- | --------------------------------- | -------- | ------------ | ----------- |
+| Body | [swaggerRule](#schemaswaggerrule) | false    | none         | none        |
+| id   | string                            | true     | none         | in: path    |
 
 <a id="tocSupdateruleforbidden">UpdateRuleForbidden</a>
+
 #### UpdateRuleForbidden
 
 <a id="schemaupdateruleforbidden"></a>
@@ -4533,18 +4486,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*UpdateRuleForbidden UpdateRuleForbidden handles this case with default header values.*
+_UpdateRuleForbidden UpdateRuleForbidden handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[UpdateRuleForbiddenBody](#schemaupdateruleforbiddenbody)|false|none|UpdateRuleForbiddenBody UpdateRuleForbiddenBody update rule forbidden body|
+| Name    | Type                                                      | Required | Restrictions | Description                                                                |
+| ------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------- |
+| Payload | [UpdateRuleForbiddenBody](#schemaupdateruleforbiddenbody) | false    | none         | UpdateRuleForbiddenBody UpdateRuleForbiddenBody update rule forbidden body |
 
 <a id="tocSupdateruleforbiddenbody">UpdateRuleForbiddenBody</a>
+
 #### UpdateRuleForbiddenBody
 
 <a id="schemaupdateruleforbiddenbody"></a>
@@ -4563,24 +4516,24 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*UpdateRuleForbiddenBody UpdateRuleForbiddenBody update rule forbidden body*
+_UpdateRuleForbiddenBody UpdateRuleForbiddenBody update rule forbidden body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSupdateruleinternalservererror">UpdateRuleInternalServerError</a>
+
 #### UpdateRuleInternalServerError
 
 <a id="schemaupdateruleinternalservererror"></a>
@@ -4601,18 +4554,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*UpdateRuleInternalServerError UpdateRuleInternalServerError handles this case with default header values.*
+_UpdateRuleInternalServerError UpdateRuleInternalServerError handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[UpdateRuleInternalServerErrorBody](#schemaupdateruleinternalservererrorbody)|false|none|UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody update rule internal server error body|
+| Name    | Type                                                                          | Required | Restrictions | Description                                                                                                |
+| ------- | ----------------------------------------------------------------------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------- |
+| Payload | [UpdateRuleInternalServerErrorBody](#schemaupdateruleinternalservererrorbody) | false    | none         | UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody update rule internal server error body |
 
 <a id="tocSupdateruleinternalservererrorbody">UpdateRuleInternalServerErrorBody</a>
+
 #### UpdateRuleInternalServerErrorBody
 
 <a id="schemaupdateruleinternalservererrorbody"></a>
@@ -4631,24 +4584,24 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody update rule internal server error body*
+_UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody update rule internal server error body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSupdaterulenotfound">UpdateRuleNotFound</a>
+
 #### UpdateRuleNotFound
 
 <a id="schemaupdaterulenotfound"></a>
@@ -4669,18 +4622,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*UpdateRuleNotFound UpdateRuleNotFound handles this case with default header values.*
+_UpdateRuleNotFound UpdateRuleNotFound handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[UpdateRuleNotFoundBody](#schemaupdaterulenotfoundbody)|false|none|UpdateRuleNotFoundBody UpdateRuleNotFoundBody update rule not found body|
+| Name    | Type                                                    | Required | Restrictions | Description                                                              |
+| ------- | ------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------ |
+| Payload | [UpdateRuleNotFoundBody](#schemaupdaterulenotfoundbody) | false    | none         | UpdateRuleNotFoundBody UpdateRuleNotFoundBody update rule not found body |
 
 <a id="tocSupdaterulenotfoundbody">UpdateRuleNotFoundBody</a>
+
 #### UpdateRuleNotFoundBody
 
 <a id="schemaupdaterulenotfoundbody"></a>
@@ -4699,24 +4652,24 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*UpdateRuleNotFoundBody UpdateRuleNotFoundBody update rule not found body*
+_UpdateRuleNotFoundBody UpdateRuleNotFoundBody update rule not found body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSupdateruleok">UpdateRuleOK</a>
+
 #### UpdateRuleOK
 
 <a id="schemaupdateruleok"></a>
@@ -4726,30 +4679,22 @@ p JSON.parse(result)
   "Payload": {
     "authenticators": [
       {
-        "config": [
-          0
-        ],
+        "config": [0],
         "handler": "string"
       }
     ],
     "authorizer": {
-      "config": [
-        0
-      ],
+      "config": [0],
       "handler": "string"
     },
     "credentials_issuer": {
-      "config": [
-        0
-      ],
+      "config": [0],
       "handler": "string"
     },
     "description": "string",
     "id": "string",
     "match": {
-      "methods": [
-        "string"
-      ],
+      "methods": ["string"],
       "url": "string"
     },
     "upstream": {
@@ -4759,34 +4704,34 @@ p JSON.parse(result)
     }
   }
 }
-
 ```
 
-*UpdateRuleOK UpdateRuleOK handles this case with default header values.*
+_UpdateRuleOK UpdateRuleOK handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[swaggerRule](#schemaswaggerrule)|false|none|none|
+| Name    | Type                              | Required | Restrictions | Description |
+| ------- | --------------------------------- | -------- | ------------ | ----------- |
+| Payload | [swaggerRule](#schemaswaggerrule) | false    | none         | none        |
 
 <a id="tocSupdaterulereader">UpdateRuleReader</a>
+
 #### UpdateRuleReader
 
 <a id="schemaupdaterulereader"></a>
 
 ```json
 {}
-
 ```
 
-*UpdateRuleReader UpdateRuleReader is a Reader for the UpdateRule structure.*
+_UpdateRuleReader UpdateRuleReader is a Reader for the UpdateRule structure._
 
 #### Properties
 
-*None*
+_None_
 
 <a id="tocSupdateruleunauthorized">UpdateRuleUnauthorized</a>
+
 #### UpdateRuleUnauthorized
 
 <a id="schemaupdateruleunauthorized"></a>
@@ -4807,18 +4752,18 @@ p JSON.parse(result)
     "status": "string"
   }
 }
-
 ```
 
-*UpdateRuleUnauthorized UpdateRuleUnauthorized handles this case with default header values.*
+_UpdateRuleUnauthorized UpdateRuleUnauthorized handles this case with default header values._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Payload|[UpdateRuleUnauthorizedBody](#schemaupdateruleunauthorizedbody)|false|none|UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody update rule unauthorized body|
+| Name    | Type                                                            | Required | Restrictions | Description                                                                         |
+| ------- | --------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------- |
+| Payload | [UpdateRuleUnauthorizedBody](#schemaupdateruleunauthorizedbody) | false    | none         | UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody update rule unauthorized body |
 
 <a id="tocSupdateruleunauthorizedbody">UpdateRuleUnauthorizedBody</a>
+
 #### UpdateRuleUnauthorizedBody
 
 <a id="schemaupdateruleunauthorizedbody"></a>
@@ -4837,24 +4782,24 @@ p JSON.parse(result)
   "request": "string",
   "status": "string"
 }
-
 ```
 
-*UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody update rule unauthorized body*
+_UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody update rule unauthorized body_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer(int64)|false|none|code|
-|details|[object]|false|none|details|
-|» **additionalProperties**|object|false|none|none|
-|message|string|false|none|message|
-|reason|string|false|none|reason|
-|request|string|false|none|request|
-|status|string|false|none|status|
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
 
 <a id="tocSupstream">Upstream</a>
+
 #### Upstream
 
 <a id="schemaupstream"></a>
@@ -4865,20 +4810,20 @@ p JSON.parse(result)
   "strip_path": "string",
   "url": "string"
 }
-
 ```
 
-*Upstream Upstream upstream*
+_Upstream Upstream upstream_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|preserve_host|boolean|false|none|PreserveHost, if false (the default), tells ORY Oathkeeper to set the upstream request's Host header to the hostname of the API's upstream's URL. Setting this flag to true instructs ORY Oathkeeper not to do so.|
-|strip_path|string|false|none|StripPath if set, replaces the provided path prefix when forwarding the requested URL to the upstream URL.|
-|url|string|false|none|URL is the URL the request will be proxied to.|
+| Name          | Type    | Required | Restrictions | Description                                                                                                                                                                                                        |
+| ------------- | ------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| preserve_host | boolean | false    | none         | PreserveHost, if false (the default), tells ORY Oathkeeper to set the upstream request's Host header to the hostname of the API's upstream's URL. Setting this flag to true instructs ORY Oathkeeper not to do so. |
+| strip_path    | string  | false    | none         | StripPath if set, replaces the provided path prefix when forwarding the requested URL to the upstream URL.                                                                                                         |
+| url           | string  | false    | none         | URL is the URL the request will be proxied to.                                                                                                                                                                     |
 
 <a id="tocShealthnotreadystatus">healthNotReadyStatus</a>
+
 #### healthNotReadyStatus
 
 <a id="schemahealthnotreadystatus"></a>
@@ -4890,17 +4835,17 @@ p JSON.parse(result)
     "property2": "string"
   }
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|errors|object|false|none|Errors contains a list of errors that caused the not ready status.|
-|» **additionalProperties**|string|false|none|none|
+| Name                       | Type   | Required | Restrictions | Description                                                        |
+| -------------------------- | ------ | -------- | ------------ | ------------------------------------------------------------------ |
+| errors                     | object | false    | none         | Errors contains a list of errors that caused the not ready status. |
+| » **additionalProperties** | string | false    | none         | none                                                               |
 
 <a id="tocShealthstatus">healthStatus</a>
+
 #### healthStatus
 
 <a id="schemahealthstatus"></a>
@@ -4909,16 +4854,16 @@ p JSON.parse(result)
 {
   "status": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|status|string|false|none|Status always contains "ok".|
+| Name   | Type   | Required | Restrictions | Description                  |
+| ------ | ------ | -------- | ------------ | ---------------------------- |
+| status | string | false    | none         | Status always contains "ok". |
 
 <a id="tocSjsonwebkey">jsonWebKey</a>
+
 #### jsonWebKey
 
 <a id="schemajsonwebkey"></a>
@@ -4940,37 +4885,35 @@ p JSON.parse(result)
   "qi": "string",
   "use": "string",
   "x": "string",
-  "x5c": [
-    "string"
-  ],
+  "x5c": ["string"],
   "y": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|alg|string|false|none|The "alg" (algorithm) parameter identifies the algorithm intended for use with the key.  The values used should either be registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by [JWA] or be a value that contains a Collision- Resistant Name.|
-|crv|string|false|none|none|
-|d|string|false|none|none|
-|dp|string|false|none|none|
-|dq|string|false|none|none|
-|e|string|false|none|none|
-|k|string|false|none|none|
-|kid|string|false|none|The "kid" (key ID) parameter is used to match a specific key.  This is used, for instance, to choose among a set of keys within a JWK Set during key rollover.  The structure of the "kid" value is unspecified.  When "kid" values are used within a JWK Set, different keys within the JWK Set SHOULD use distinct "kid" values.  (One example in which different keys might use the same "kid" value is if they have different "kty" (key type) values but are considered to be equivalent alternatives by the application using them.)  The "kid" value is a case-sensitive string.|
-|kty|string|false|none|The "kty" (key type) parameter identifies the cryptographic algorithm family used with the key, such as "RSA" or "EC". "kty" values should either be registered in the IANA "JSON Web Key Types" registry established by [JWA] or be a value that contains a Collision- Resistant Name.  The "kty" value is a case-sensitive string.|
-|n|string|false|none|none|
-|p|string|false|none|none|
-|q|string|false|none|none|
-|qi|string|false|none|none|
-|use|string|false|none|The "use" (public key use) parameter identifies the intended use of the public key. The "use" parameter is employed to indicate whether a public key is used for encrypting data or verifying the signature on data. Values are commonly "sig" (signature) or "enc" (encryption).|
-|x|string|false|none|none|
-|x5c|[string]|false|none|The "x5c" (X.509 certificate chain) parameter contains a chain of one or more PKIX certificates [RFC5280].  The certificate chain is represented as a JSON array of certificate value strings.  Each string in the array is a base64-encoded (Section 4 of [RFC4648] -- not base64url-encoded) DER [ITU.X690.1994] PKIX certificate value. The PKIX certificate containing the key value MUST be the first certificate.|
-|y|string|false|none|none|
+| Name | Type     | Required | Restrictions | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ---- | -------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| alg  | string   | false    | none         | The "alg" (algorithm) parameter identifies the algorithm intended for use with the key. The values used should either be registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by [JWA] or be a value that contains a Collision- Resistant Name.                                                                                                                                                                                                                                                                                              |
+| crv  | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| d    | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| dp   | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| dq   | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| e    | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| k    | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| kid  | string   | false    | none         | The "kid" (key ID) parameter is used to match a specific key. This is used, for instance, to choose among a set of keys within a JWK Set during key rollover. The structure of the "kid" value is unspecified. When "kid" values are used within a JWK Set, different keys within the JWK Set SHOULD use distinct "kid" values. (One example in which different keys might use the same "kid" value is if they have different "kty" (key type) values but are considered to be equivalent alternatives by the application using them.) The "kid" value is a case-sensitive string. |
+| kty  | string   | false    | none         | The "kty" (key type) parameter identifies the cryptographic algorithm family used with the key, such as "RSA" or "EC". "kty" values should either be registered in the IANA "JSON Web Key Types" registry established by [JWA] or be a value that contains a Collision- Resistant Name. The "kty" value is a case-sensitive string.                                                                                                                                                                                                                                                |
+| n    | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| p    | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| q    | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| qi   | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| use  | string   | false    | none         | The "use" (public key use) parameter identifies the intended use of the public key. The "use" parameter is employed to indicate whether a public key is used for encrypting data or verifying the signature on data. Values are commonly "sig" (signature) or "enc" (encryption).                                                                                                                                                                                                                                                                                                  |
+| x    | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| x5c  | [string] | false    | none         | The "x5c" (X.509 certificate chain) parameter contains a chain of one or more PKIX certificates [RFC5280]. The certificate chain is represented as a JSON array of certificate value strings. Each string in the array is a base64-encoded (Section 4 of [RFC4648] -- not base64url-encoded) DER [ITU.X690.1994] PKIX certificate value. The PKIX certificate containing the key value MUST be the first certificate.                                                                                                                                                              |
+| y    | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 
 <a id="tocSjsonwebkeyset">jsonWebKeySet</a>
+
 #### jsonWebKeySet
 
 <a id="schemajsonwebkeyset"></a>
@@ -4994,23 +4937,21 @@ p JSON.parse(result)
       "qi": "string",
       "use": "string",
       "x": "string",
-      "x5c": [
-        "string"
-      ],
+      "x5c": ["string"],
       "y": "string"
     }
   ]
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|keys|[[jsonWebKey](#schemajsonwebkey)]|false|none|The value of the "keys" parameter is an array of JWK values.  By default, the order of the JWK values within the array does not imply an order of preference among them, although applications of JWK Sets can choose to assign a meaning to the order for their purposes, if desired.|
+| Name | Type                              | Required | Restrictions | Description                                                                                                                                                                                                                                                                           |
+| ---- | --------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| keys | [[jsonWebKey](#schemajsonwebkey)] | false    | none         | The value of the "keys" parameter is an array of JWK values. By default, the order of the JWK values within the array does not imply an order of preference among them, although applications of JWK Sets can choose to assign a meaning to the order for their purposes, if desired. |
 
 <a id="tocSrule">rule</a>
+
 #### rule
 
 <a id="schemarule"></a>
@@ -5034,9 +4975,7 @@ p JSON.parse(result)
   "description": "string",
   "id": "string",
   "match": {
-    "methods": [
-      "string"
-    ],
+    "methods": ["string"],
     "url": "string"
   },
   "upstream": {
@@ -5045,24 +4984,24 @@ p JSON.parse(result)
     "url": "string"
   }
 }
-
 ```
 
-*swaggerRule is a single rule that will get checked on every HTTP request.*
+_swaggerRule is a single rule that will get checked on every HTTP request._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|authenticators|[[ruleHandler](#schemarulehandler)]|false|none|Authenticators is a list of authentication handlers that will try and authenticate the provided credentials. Authenticators are checked iteratively from index 0 to n and if the first authenticator to return a positive result will be the one used.  If you want the rule to first check a specific authenticator  before "falling back" to others, have that authenticator as the first item in the array.|
-|authorizer|[ruleHandler](#schemarulehandler)|false|none|none|
-|credentials_issuer|[ruleHandler](#schemarulehandler)|false|none|none|
-|description|string|false|none|Description is a human readable description of this rule.|
-|id|string|false|none|ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.|
-|match|[ruleMatch](#schemarulematch)|false|none|none|
-|upstream|[Upstream](#schemaupstream)|false|none|Upstream Upstream upstream|
+| Name               | Type                                | Required | Restrictions | Description                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ------------------ | ----------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| authenticators     | [[ruleHandler](#schemarulehandler)] | false    | none         | Authenticators is a list of authentication handlers that will try and authenticate the provided credentials. Authenticators are checked iteratively from index 0 to n and if the first authenticator to return a positive result will be the one used. If you want the rule to first check a specific authenticator before "falling back" to others, have that authenticator as the first item in the array. |
+| authorizer         | [ruleHandler](#schemarulehandler)   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                         |
+| credentials_issuer | [ruleHandler](#schemarulehandler)   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                         |
+| description        | string                              | false    | none         | Description is a human readable description of this rule.                                                                                                                                                                                                                                                                                                                                                    |
+| id                 | string                              | false    | none         | ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.                                                                                                                                                                                                                                  |
+| match              | [ruleMatch](#schemarulematch)       | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                         |
+| upstream           | [Upstream](#schemaupstream)         | false    | none         | Upstream Upstream upstream                                                                                                                                                                                                                                                                                                                                                                                   |
 
 <a id="tocSrulehandler">ruleHandler</a>
+
 #### ruleHandler
 
 <a id="schemarulehandler"></a>
@@ -5072,39 +5011,37 @@ p JSON.parse(result)
   "config": {},
   "handler": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|config|object|false|none|Config contains the configuration for the handler. Please read the user guide for a complete list of each handler's available settings.|
-|handler|string|false|none|Handler identifies the implementation which will be used to handle this specific request. Please read the user guide for a complete list of available handlers.|
+| Name    | Type   | Required | Restrictions | Description                                                                                                                                                     |
+| ------- | ------ | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| config  | object | false    | none         | Config contains the configuration for the handler. Please read the user guide for a complete list of each handler's available settings.                         |
+| handler | string | false    | none         | Handler identifies the implementation which will be used to handle this specific request. Please read the user guide for a complete list of available handlers. |
 
 <a id="tocSrulematch">ruleMatch</a>
+
 #### ruleMatch
 
 <a id="schemarulematch"></a>
 
 ```json
 {
-  "methods": [
-    "string"
-  ],
+  "methods": ["string"],
   "url": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|methods|[string]|false|none|An array of HTTP methods (e.g. GET, POST, PUT, DELETE, ...). When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the HTTP method of the incoming request with the HTTP methods of each rules. If a match is found, the rule is considered a partial match. If the matchesUrl field is satisfied as well, the rule is considered a full match.|
-|url|string|false|none|This field represents the URL pattern this rule matches. When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the full request URL (e.g. https://mydomain.com/api/resource) without query parameters of the incoming request with this field. If a match is found, the rule is considered a partial match. If the matchesMethods field is satisfied as well, the rule is considered a full match.  You can use regular expressions in this field to match more than one url. Regular expressions are encapsulated in brackets < and >. The following example matches all paths of the domain `mydomain.com`: `https://mydomain.com/<.*>`.|
+| Name    | Type     | Required | Restrictions | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ------- | -------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| methods | [string] | false    | none         | An array of HTTP methods (e.g. GET, POST, PUT, DELETE, ...). When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the HTTP method of the incoming request with the HTTP methods of each rules. If a match is found, the rule is considered a partial match. If the matchesUrl field is satisfied as well, the rule is considered a full match.                                                                                                                                                                                                                                                                                           |
+| url     | string   | false    | none         | This field represents the URL pattern this rule matches. When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the full request URL (e.g. https://mydomain.com/api/resource) without query parameters of the incoming request with this field. If a match is found, the rule is considered a partial match. If the matchesMethods field is satisfied as well, the rule is considered a full match. You can use regular expressions in this field to match more than one url. Regular expressions are encapsulated in brackets < and >. The following example matches all paths of the domain `mydomain.com`: `https://mydomain.com/<.*>`. |
 
 <a id="tocSswaggercreateruleparameters">swaggerCreateRuleParameters</a>
+
 #### swaggerCreateRuleParameters
 
 <a id="schemaswaggercreateruleparameters"></a>
@@ -5129,9 +5066,7 @@ p JSON.parse(result)
     "description": "string",
     "id": "string",
     "match": {
-      "methods": [
-        "string"
-      ],
+      "methods": ["string"],
       "url": "string"
     },
     "upstream": {
@@ -5141,16 +5076,16 @@ p JSON.parse(result)
     }
   }
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Body|[rule](#schemarule)|false|none|none|
+| Name | Type                | Required | Restrictions | Description |
+| ---- | ------------------- | -------- | ------------ | ----------- |
+| Body | [rule](#schemarule) | false    | none         | none        |
 
 <a id="tocSswaggergetruleparameters">swaggerGetRuleParameters</a>
+
 #### swaggerGetRuleParameters
 
 <a id="schemaswaggergetruleparameters"></a>
@@ -5159,16 +5094,16 @@ p JSON.parse(result)
 {
   "id": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|id|string|true|none|in: path|
+| Name | Type   | Required | Restrictions | Description |
+| ---- | ------ | -------- | ------------ | ----------- |
+| id   | string | true     | none         | in: path    |
 
 <a id="tocSswaggerhealthstatus">swaggerHealthStatus</a>
+
 #### swaggerHealthStatus
 
 <a id="schemaswaggerhealthstatus"></a>
@@ -5177,18 +5112,18 @@ p JSON.parse(result)
 {
   "status": "string"
 }
-
 ```
 
-*SwaggerHealthStatus swagger health status*
+_SwaggerHealthStatus swagger health status_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|status|string|false|none|Status always contains "ok".|
+| Name   | Type   | Required | Restrictions | Description                  |
+| ------ | ------ | -------- | ------------ | ---------------------------- |
+| status | string | false    | none         | Status always contains "ok". |
 
 <a id="tocSswaggerjsonwebkey">swaggerJSONWebKey</a>
+
 #### swaggerJSONWebKey
 
 <a id="schemaswaggerjsonwebkey"></a>
@@ -5210,39 +5145,37 @@ p JSON.parse(result)
   "qi": "string",
   "use": "string",
   "x": "string",
-  "x5c": [
-    "string"
-  ],
+  "x5c": ["string"],
   "y": "string"
 }
-
 ```
 
-*SwaggerJSONWebKey swagger JSON web key*
+_SwaggerJSONWebKey swagger JSON web key_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|alg|string|false|none|The "alg" (algorithm) parameter identifies the algorithm intended for use with the key.  The values used should either be registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by [JWA] or be a value that contains a Collision- Resistant Name.|
-|crv|string|false|none|crv|
-|d|string|false|none|d|
-|dp|string|false|none|dp|
-|dq|string|false|none|dq|
-|e|string|false|none|e|
-|k|string|false|none|k|
-|kid|string|false|none|The "kid" (key ID) parameter is used to match a specific key.  This is used, for instance, to choose among a set of keys within a JWK Set during key rollover.  The structure of the "kid" value is unspecified.  When "kid" values are used within a JWK Set, different keys within the JWK Set SHOULD use distinct "kid" values.  (One example in which different keys might use the same "kid" value is if they have different "kty" (key type) values but are considered to be equivalent alternatives by the application using them.)  The "kid" value is a case-sensitive string.|
-|kty|string|false|none|The "kty" (key type) parameter identifies the cryptographic algorithm family used with the key, such as "RSA" or "EC". "kty" values should either be registered in the IANA "JSON Web Key Types" registry established by [JWA] or be a value that contains a Collision- Resistant Name.  The "kty" value is a case-sensitive string.|
-|n|string|false|none|n|
-|p|string|false|none|p|
-|q|string|false|none|q|
-|qi|string|false|none|qi|
-|use|string|false|none|The "use" (public key use) parameter identifies the intended use of the public key. The "use" parameter is employed to indicate whether a public key is used for encrypting data or verifying the signature on data. Values are commonly "sig" (signature) or "enc" (encryption).|
-|x|string|false|none|x|
-|x5c|[string]|false|none|The "x5c" (X.509 certificate chain) parameter contains a chain of one or more PKIX certificates [RFC5280].  The certificate chain is represented as a JSON array of certificate value strings.  Each string in the array is a base64-encoded (Section 4 of [RFC4648] -- not base64url-encoded) DER [ITU.X690.1994] PKIX certificate value. The PKIX certificate containing the key value MUST be the first certificate.|
-|y|string|false|none|y|
+| Name | Type     | Required | Restrictions | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ---- | -------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| alg  | string   | false    | none         | The "alg" (algorithm) parameter identifies the algorithm intended for use with the key. The values used should either be registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by [JWA] or be a value that contains a Collision- Resistant Name.                                                                                                                                                                                                                                                                                              |
+| crv  | string   | false    | none         | crv                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| d    | string   | false    | none         | d                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| dp   | string   | false    | none         | dp                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| dq   | string   | false    | none         | dq                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| e    | string   | false    | none         | e                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| k    | string   | false    | none         | k                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| kid  | string   | false    | none         | The "kid" (key ID) parameter is used to match a specific key. This is used, for instance, to choose among a set of keys within a JWK Set during key rollover. The structure of the "kid" value is unspecified. When "kid" values are used within a JWK Set, different keys within the JWK Set SHOULD use distinct "kid" values. (One example in which different keys might use the same "kid" value is if they have different "kty" (key type) values but are considered to be equivalent alternatives by the application using them.) The "kid" value is a case-sensitive string. |
+| kty  | string   | false    | none         | The "kty" (key type) parameter identifies the cryptographic algorithm family used with the key, such as "RSA" or "EC". "kty" values should either be registered in the IANA "JSON Web Key Types" registry established by [JWA] or be a value that contains a Collision- Resistant Name. The "kty" value is a case-sensitive string.                                                                                                                                                                                                                                                |
+| n    | string   | false    | none         | n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| p    | string   | false    | none         | p                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| q    | string   | false    | none         | q                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| qi   | string   | false    | none         | qi                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| use  | string   | false    | none         | The "use" (public key use) parameter identifies the intended use of the public key. The "use" parameter is employed to indicate whether a public key is used for encrypting data or verifying the signature on data. Values are commonly "sig" (signature) or "enc" (encryption).                                                                                                                                                                                                                                                                                                  |
+| x    | string   | false    | none         | x                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| x5c  | [string] | false    | none         | The "x5c" (X.509 certificate chain) parameter contains a chain of one or more PKIX certificates [RFC5280]. The certificate chain is represented as a JSON array of certificate value strings. Each string in the array is a base64-encoded (Section 4 of [RFC4648] -- not base64url-encoded) DER [ITU.X690.1994] PKIX certificate value. The PKIX certificate containing the key value MUST be the first certificate.                                                                                                                                                              |
+| y    | string   | false    | none         | y                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 
 <a id="tocSswaggerjsonwebkeyset">swaggerJSONWebKeySet</a>
+
 #### swaggerJSONWebKeySet
 
 <a id="schemaswaggerjsonwebkeyset"></a>
@@ -5266,25 +5199,23 @@ p JSON.parse(result)
       "qi": "string",
       "use": "string",
       "x": "string",
-      "x5c": [
-        "string"
-      ],
+      "x5c": ["string"],
       "y": "string"
     }
   ]
 }
-
 ```
 
-*SwaggerJSONWebKeySet swagger JSON web key set*
+_SwaggerJSONWebKeySet swagger JSON web key set_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|keys|[[swaggerJSONWebKey](#schemaswaggerjsonwebkey)]|false|none|The value of the "keys" parameter is an array of JWK values.  By default, the order of the JWK values within the array does not imply an order of preference among them, although applications of JWK Sets can choose to assign a meaning to the order for their purposes, if desired.|
+| Name | Type                                            | Required | Restrictions | Description                                                                                                                                                                                                                                                                           |
+| ---- | ----------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| keys | [[swaggerJSONWebKey](#schemaswaggerjsonwebkey)] | false    | none         | The value of the "keys" parameter is an array of JWK values. By default, the order of the JWK values within the array does not imply an order of preference among them, although applications of JWK Sets can choose to assign a meaning to the order for their purposes, if desired. |
 
 <a id="tocSswaggerlistrulesparameters">swaggerListRulesParameters</a>
+
 #### swaggerListRulesParameters
 
 <a id="schemaswaggerlistrulesparameters"></a>
@@ -5294,17 +5225,17 @@ p JSON.parse(result)
   "limit": 0,
   "offset": 0
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|limit|integer(int64)|false|none|The maximum amount of rules returned. in: query|
-|offset|integer(int64)|false|none|The offset from where to start looking. in: query|
+| Name   | Type           | Required | Restrictions | Description                                       |
+| ------ | -------------- | -------- | ------------ | ------------------------------------------------- |
+| limit  | integer(int64) | false    | none         | The maximum amount of rules returned. in: query   |
+| offset | integer(int64) | false    | none         | The offset from where to start looking. in: query |
 
 <a id="tocSswaggernotreadystatus">swaggerNotReadyStatus</a>
+
 #### swaggerNotReadyStatus
 
 <a id="schemaswaggernotreadystatus"></a>
@@ -5316,19 +5247,19 @@ p JSON.parse(result)
     "property2": "string"
   }
 }
-
 ```
 
-*SwaggerNotReadyStatus swagger not ready status*
+_SwaggerNotReadyStatus swagger not ready status_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|errors|object|false|none|Errors contains a list of errors that caused the not ready status.|
-|» **additionalProperties**|string|false|none|none|
+| Name                       | Type   | Required | Restrictions | Description                                                        |
+| -------------------------- | ------ | -------- | ------------ | ------------------------------------------------------------------ |
+| errors                     | object | false    | none         | Errors contains a list of errors that caused the not ready status. |
+| » **additionalProperties** | string | false    | none         | none                                                               |
 
 <a id="tocSswaggerrule">swaggerRule</a>
+
 #### swaggerRule
 
 <a id="schemaswaggerrule"></a>
@@ -5337,30 +5268,22 @@ p JSON.parse(result)
 {
   "authenticators": [
     {
-      "config": [
-        0
-      ],
+      "config": [0],
       "handler": "string"
     }
   ],
   "authorizer": {
-    "config": [
-      0
-    ],
+    "config": [0],
     "handler": "string"
   },
   "credentials_issuer": {
-    "config": [
-      0
-    ],
+    "config": [0],
     "handler": "string"
   },
   "description": "string",
   "id": "string",
   "match": {
-    "methods": [
-      "string"
-    ],
+    "methods": ["string"],
     "url": "string"
   },
   "upstream": {
@@ -5369,72 +5292,68 @@ p JSON.parse(result)
     "url": "string"
   }
 }
-
 ```
 
-*SwaggerRule swaggerRule is a single rule that will get checked on every HTTP request.*
+_SwaggerRule swaggerRule is a single rule that will get checked on every HTTP request._
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|authenticators|[[swaggerRuleHandler](#schemaswaggerrulehandler)]|false|none|Authenticators is a list of authentication handlers that will try and authenticate the provided credentials. Authenticators are checked iteratively from index 0 to n and if the first authenticator to return a positive result will be the one used.  If you want the rule to first check a specific authenticator  before "falling back" to others, have that authenticator as the first item in the array.|
-|authorizer|[swaggerRuleHandler](#schemaswaggerrulehandler)|false|none|SwaggerRuleHandler swagger rule handler|
-|credentials_issuer|[swaggerRuleHandler](#schemaswaggerrulehandler)|false|none|SwaggerRuleHandler swagger rule handler|
-|description|string|false|none|Description is a human readable description of this rule.|
-|id|string|false|none|ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.|
-|match|[swaggerRuleMatch](#schemaswaggerrulematch)|false|none|SwaggerRuleMatch swagger rule match|
-|upstream|[Upstream](#schemaupstream)|false|none|Upstream Upstream upstream|
+| Name               | Type                                              | Required | Restrictions | Description                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ------------------ | ------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| authenticators     | [[swaggerRuleHandler](#schemaswaggerrulehandler)] | false    | none         | Authenticators is a list of authentication handlers that will try and authenticate the provided credentials. Authenticators are checked iteratively from index 0 to n and if the first authenticator to return a positive result will be the one used. If you want the rule to first check a specific authenticator before "falling back" to others, have that authenticator as the first item in the array. |
+| authorizer         | [swaggerRuleHandler](#schemaswaggerrulehandler)   | false    | none         | SwaggerRuleHandler swagger rule handler                                                                                                                                                                                                                                                                                                                                                                      |
+| credentials_issuer | [swaggerRuleHandler](#schemaswaggerrulehandler)   | false    | none         | SwaggerRuleHandler swagger rule handler                                                                                                                                                                                                                                                                                                                                                                      |
+| description        | string                                            | false    | none         | Description is a human readable description of this rule.                                                                                                                                                                                                                                                                                                                                                    |
+| id                 | string                                            | false    | none         | ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.                                                                                                                                                                                                                                  |
+| match              | [swaggerRuleMatch](#schemaswaggerrulematch)       | false    | none         | SwaggerRuleMatch swagger rule match                                                                                                                                                                                                                                                                                                                                                                          |
+| upstream           | [Upstream](#schemaupstream)                       | false    | none         | Upstream Upstream upstream                                                                                                                                                                                                                                                                                                                                                                                   |
 
 <a id="tocSswaggerrulehandler">swaggerRuleHandler</a>
+
 #### swaggerRuleHandler
 
 <a id="schemaswaggerrulehandler"></a>
 
 ```json
 {
-  "config": [
-    0
-  ],
+  "config": [0],
   "handler": "string"
 }
-
 ```
 
-*SwaggerRuleHandler swagger rule handler*
+_SwaggerRuleHandler swagger rule handler_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|config|[RawMessage](#schemarawmessage)|false|none|It implements Marshaler and Unmarshaler and can be used to delay JSON decoding or precompute a JSON encoding.|
-|handler|string|false|none|Handler identifies the implementation which will be used to handle this specific request. Please read the user guide for a complete list of available handlers.|
+| Name    | Type                            | Required | Restrictions | Description                                                                                                                                                     |
+| ------- | ------------------------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| config  | [RawMessage](#schemarawmessage) | false    | none         | It implements Marshaler and Unmarshaler and can be used to delay JSON decoding or precompute a JSON encoding.                                                   |
+| handler | string                          | false    | none         | Handler identifies the implementation which will be used to handle this specific request. Please read the user guide for a complete list of available handlers. |
 
 <a id="tocSswaggerrulematch">swaggerRuleMatch</a>
+
 #### swaggerRuleMatch
 
 <a id="schemaswaggerrulematch"></a>
 
 ```json
 {
-  "methods": [
-    "string"
-  ],
+  "methods": ["string"],
   "url": "string"
 }
-
 ```
 
-*SwaggerRuleMatch swagger rule match*
+_SwaggerRuleMatch swagger rule match_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|methods|[string]|false|none|An array of HTTP methods (e.g. GET, POST, PUT, DELETE, ...). When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the HTTP method of the incoming request with the HTTP methods of each rules. If a match is found, the rule is considered a partial match. If the matchesUrl field is satisfied as well, the rule is considered a full match.|
-|url|string|false|none|This field represents the URL pattern this rule matches. When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the full request URL (e.g. https://mydomain.com/api/resource) without query parameters of the incoming request with this field. If a match is found, the rule is considered a partial match. If the matchesMethods field is satisfied as well, the rule is considered a full match.  You can use regular expressions in this field to match more than one url. Regular expressions are encapsulated in brackets < and >. The following example matches all paths of the domain `mydomain.com`: `https://mydomain.com/<.*>`.|
+| Name    | Type     | Required | Restrictions | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ------- | -------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| methods | [string] | false    | none         | An array of HTTP methods (e.g. GET, POST, PUT, DELETE, ...). When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the HTTP method of the incoming request with the HTTP methods of each rules. If a match is found, the rule is considered a partial match. If the matchesUrl field is satisfied as well, the rule is considered a full match.                                                                                                                                                                                                                                                                                           |
+| url     | string   | false    | none         | This field represents the URL pattern this rule matches. When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the full request URL (e.g. https://mydomain.com/api/resource) without query parameters of the incoming request with this field. If a match is found, the rule is considered a partial match. If the matchesMethods field is satisfied as well, the rule is considered a full match. You can use regular expressions in this field to match more than one url. Regular expressions are encapsulated in brackets < and >. The following example matches all paths of the domain `mydomain.com`: `https://mydomain.com/<.*>`. |
 
 <a id="tocSswaggerruleresponse">swaggerRuleResponse</a>
+
 #### swaggerRuleResponse
 
 <a id="schemaswaggerruleresponse"></a>
@@ -5459,9 +5378,7 @@ p JSON.parse(result)
     "description": "string",
     "id": "string",
     "match": {
-      "methods": [
-        "string"
-      ],
+      "methods": ["string"],
       "url": "string"
     },
     "upstream": {
@@ -5471,18 +5388,18 @@ p JSON.parse(result)
     }
   }
 }
-
 ```
 
-*A rule*
+_A rule_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Body|[rule](#schemarule)|false|none|none|
+| Name | Type                | Required | Restrictions | Description |
+| ---- | ------------------- | -------- | ------------ | ----------- |
+| Body | [rule](#schemarule) | false    | none         | none        |
 
 <a id="tocSswaggerrulesresponse">swaggerRulesResponse</a>
+
 #### swaggerRulesResponse
 
 <a id="schemaswaggerrulesresponse"></a>
@@ -5508,9 +5425,7 @@ p JSON.parse(result)
       "description": "string",
       "id": "string",
       "match": {
-        "methods": [
-          "string"
-        ],
+        "methods": ["string"],
         "url": "string"
       },
       "upstream": {
@@ -5521,18 +5436,18 @@ p JSON.parse(result)
     }
   ]
 }
-
 ```
 
-*A list of rules*
+_A list of rules_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Body|[[rule](#schemarule)]|false|none|in: body type: array|
+| Name | Type                  | Required | Restrictions | Description          |
+| ---- | --------------------- | -------- | ------------ | -------------------- |
+| Body | [[rule](#schemarule)] | false    | none         | in: body type: array |
 
 <a id="tocSswaggerupdateruleparameters">swaggerUpdateRuleParameters</a>
+
 #### swaggerUpdateRuleParameters
 
 <a id="schemaswaggerupdateruleparameters"></a>
@@ -5557,9 +5472,7 @@ p JSON.parse(result)
     "description": "string",
     "id": "string",
     "match": {
-      "methods": [
-        "string"
-      ],
+      "methods": ["string"],
       "url": "string"
     },
     "upstream": {
@@ -5570,17 +5483,17 @@ p JSON.parse(result)
   },
   "id": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Body|[rule](#schemarule)|false|none|none|
-|id|string|true|none|in: path|
+| Name | Type                | Required | Restrictions | Description |
+| ---- | ------------------- | -------- | ------------ | ----------- |
+| Body | [rule](#schemarule) | false    | none         | none        |
+| id   | string              | true     | none         | in: path    |
 
 <a id="tocSswaggerversion">swaggerVersion</a>
+
 #### swaggerVersion
 
 <a id="schemaswaggerversion"></a>
@@ -5589,18 +5502,18 @@ p JSON.parse(result)
 {
   "version": "string"
 }
-
 ```
 
-*SwaggerVersion swagger version*
+_SwaggerVersion swagger version_
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|version|string|false|none|version|
+| Name    | Type   | Required | Restrictions | Description |
+| ------- | ------ | -------- | ------------ | ----------- |
+| version | string | false    | none         | version     |
 
 <a id="tocSversion">version</a>
+
 #### version
 
 <a id="schemaversion"></a>
@@ -5609,12 +5522,10 @@ p JSON.parse(result)
 {
   "version": "string"
 }
-
 ```
 
 #### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|version|string|false|none|none|
-
+| Name    | Type   | Required | Restrictions | Description |
+| ------- | ------ | -------- | ------------ | ----------- |
+| version | string | false    | none         | none        |

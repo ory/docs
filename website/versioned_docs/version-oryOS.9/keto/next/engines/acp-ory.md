@@ -77,22 +77,22 @@ for example will match the following inputs:
 
 ```json
 {
-    "subject": "users:maria",
-    "action": "get",
-    "resource": "resources:profiles:foo"
+  "subject": "users:maria",
+  "action": "get",
+  "resource": "resources:profiles:foo"
 }
 ```
 
 The `:` is always understood as a delimiter. The following syntax is supported by this strategy:
 
-* Single symbol wildcard `?at` matches `cat` and `bat` but not `at`.
-* Wildcard `foo:*:bar` matches `foo:baz:bar` and `foo:zab:bar` but not `foo:bar` nor `foo:baz:baz:bar`
-* Super wildcard `foo:**:bar` matches `foo:baz:baz:bar` and `foo:baz:bar` but not `foo:bar`
-* Character list `[cb]at` matches `cat` and `bat` but not `mat` nor `at`.
-* Negated character list `[!cb]at` matches `tat` and `mat` but not `cat` nor `bat`.
-* Ranged character list `[a-c]at` `cat` and `bat` but not `mat` nor `at`.
-* Negated ranged character list `[!a-c]at` matches `mat` and `tat` but not `cat` nor `bat`.
-* Alternatives list `{cat,bat,[mt]at}` matches `cat`, `bat`, `mat`, `tat` but nothing else.
+- Single symbol wildcard `?at` matches `cat` and `bat` but not `at`.
+- Wildcard `foo:*:bar` matches `foo:baz:bar` and `foo:zab:bar` but not `foo:bar` nor `foo:baz:baz:bar`
+- Super wildcard `foo:**:bar` matches `foo:baz:baz:bar` and `foo:baz:bar` but not `foo:bar`
+- Character list `[cb]at` matches `cat` and `bat` but not `mat` nor `at`.
+- Negated character list `[!cb]at` matches `tat` and `mat` but not `cat` nor `bat`.
+- Ranged character list `[a-c]at` `cat` and `bat` but not `mat` nor `at`.
+- Negated ranged character list `[!a-c]at` matches `mat` and `tat` but not `cat` nor `bat`.
+- Alternatives list `{cat,bat,[mt]at}` matches `cat`, `bat`, `mat`, `tat` but nothing else.
 
 ### Regular Expressions
 
@@ -102,7 +102,7 @@ pattern matching using regular expressions.
 
 ```json
 {
-    "subjects": ["users:<.*>"]
+  "subjects": ["users:<.*>"]
 }
 ```
 
@@ -142,7 +142,7 @@ the subject is also the owner of the resource:
 {
   "description": "One policy to rule them all.",
   "subjects": ["users:maria"],
-  "actions" : ["delete", "create", "update"],
+  "actions": ["delete", "create", "update"],
   "effect": "allow",
   "resources": ["resources:articles:<.*>"],
   "conditions": {
@@ -167,7 +167,7 @@ A condition has always the same JSON format:
 ```json
 {
   "subjects": ["..."],
-  "actions" : ["..."],
+  "actions": ["..."],
   "effect": "allow",
   "resources": ["..."],
   "conditions": {
@@ -187,7 +187,7 @@ in order to be evaluated by the condition logic:
 ```json
 {
   "subject": "...",
-  "action" : "...",
+  "action": "...",
   "resource": "...",
   "context": {
     "this-key-will-be-matched-with-the-context": { "foo": "bar" }
@@ -203,7 +203,7 @@ The CIDR condition matches CIDR IP Ranges. An exemplary policy definition could 
 {
   "description": "One policy to rule them all.",
   "subjects": ["users:maria"],
-  "actions" : ["delete", "create", "update"],
+  "actions": ["delete", "create", "update"],
   "effect": "allow",
   "resources": ["resources:articles:<.*>"],
   "conditions": {
@@ -222,7 +222,7 @@ The following access request would be allowed.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "remoteIPAddress": "192.168.0.5"
@@ -235,7 +235,7 @@ The next access request would be denied as the condition is not fulfilled and th
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "remoteIPAddress": "255.255.0.0"
@@ -248,7 +248,7 @@ The next access request would also be denied as the context is not using the key
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someOtherKey": "192.168.0.5"
@@ -264,7 +264,7 @@ Checks if the value passed in the access request's context is identical with the
 {
   "description": "One policy to rule them all.",
   "subjects": ["users:maria"],
-  "actions" : ["delete", "create", "update"],
+  "actions": ["delete", "create", "update"],
   "effect": "allow",
   "resources": ["resources:articles:<.*>"],
   "conditions": {
@@ -283,7 +283,7 @@ The following access request would be allowed.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someKeyName": "the-value-should-be-this"
@@ -296,7 +296,7 @@ The following access request would be denied.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someKeyName": "this-is-a-different-value"
@@ -312,7 +312,7 @@ Checks if the value passed in the access request's context matches the regular e
 {
   "description": "One policy to rule them all.",
   "subjects": ["users:maria"],
-  "actions" : ["delete", "create", "update"],
+  "actions": ["delete", "create", "update"],
   "effect": "allow",
   "resources": ["resources:articles:<.*>"],
   "conditions": {
@@ -331,7 +331,7 @@ The following access request would be allowed.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someKeyName": "regex-pattern-here-matches"
@@ -344,7 +344,7 @@ The following access request would be denied.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someKeyName": "regex-pattern-here"
@@ -360,7 +360,7 @@ Checks if the access request's subject is identical with the string specified in
 {
   "description": "One policy to rule them all.",
   "subjects": ["users:maria"],
-  "actions" : ["delete", "create", "update"],
+  "actions": ["delete", "create", "update"],
   "effect": "allow",
   "resources": ["resources:articles:<.*>"],
   "conditions": {
@@ -377,7 +377,7 @@ The following access request would be allowed.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "owner": "users:maria"
@@ -390,7 +390,7 @@ The following access request would be denied.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "owner": "another-user"
@@ -408,7 +408,7 @@ Checks if the value passed in the access request's context contains two-element 
 {
   "description": "One policy to rule them all.",
   "subjects": ["users:maria"],
-  "actions" : ["delete", "create", "update"],
+  "actions": ["delete", "create", "update"],
   "effect": "allow",
   "resources": ["resources:articles:<.*>"],
   "conditions": {
@@ -425,7 +425,7 @@ The following access request would be allowed.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someKey": [
@@ -441,7 +441,7 @@ The following access request would be denied.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someKey": [
@@ -513,7 +513,7 @@ we developed over the years at ORY.
 ### URNs
 
 > “There are only two hard things in Computer Science: cache invalidation and naming things.”
--- Phil Karlton
+> -- Phil Karlton
 
 URN naming is as hard as naming API endpoints. Thankfully, by doing the latter, the former is usually solved as well.
 We will explore further best practices in the following sections.
@@ -522,25 +522,25 @@ We will explore further best practices in the following sections.
 
 A rule of thumb is to prefix resource names with a domain that represents the organization creating the software.
 
-* **Do not:** `<some-id>`
-* **Do:** `<organizaion-id>:<some-id>`
+- **Do not:** `<some-id>`
+- **Do:** `<organizaion-id>:<some-id>`
 
 ### Scope Actions, Resources and Subjects
 
 It is wise to scope actions, resources, and subjects in order to prevent name collisions:
 
-* **Do not:** `myorg.com:<subject-id>`, `myorg.com:<resource-id>`, `myorg.com:<action-id>`
-* **Do:** `myorg.com:subjects:<subject-id>`, `myorg.com:resources:<resource-id>`, `myorg.com:actions:<action-id>`
-* **Do:** `subjects:myorg.com:<subject-id>`, `resources:myorg.com:<resource-id>`, `actions:myorg.com:<action-id>`
+- **Do not:** `myorg.com:<subject-id>`, `myorg.com:<resource-id>`, `myorg.com:<action-id>`
+- **Do:** `myorg.com:subjects:<subject-id>`, `myorg.com:resources:<resource-id>`, `myorg.com:actions:<action-id>`
+- **Do:** `subjects:myorg.com:<subject-id>`, `resources:myorg.com:<resource-id>`, `actions:myorg.com:<action-id>`
 
 ### Multi-Tenant Systems
 
 Multi-tenant systems typically have resources which should not be access by other tenants in the system. This can be
 achieved by adding the tenant id to the URN:
 
-* **Do:** `resources:myorg.com:tenants:<tenant-id>:<resource-id>`
+- **Do:** `resources:myorg.com:tenants:<tenant-id>:<resource-id>`
 
 In some environments, it is common to have organizations and projects belonging to those organizations. Here, the
 following URN semantics can be used:
 
-* **Do:** `resources:myorg.com:organizations:<organization-id>:projects:<project-id>:<resource-id>`
+- **Do:** `resources:myorg.com:organizations:<organization-id>:projects:<project-id>:<resource-id>`

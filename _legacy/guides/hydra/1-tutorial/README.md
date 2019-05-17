@@ -22,7 +22,6 @@ Starting hydra_hydra_1
 [...]
 ```
 
-
 Everything should running now! Let's confirm that everything is working by creating our first OAuth 2.0 Client.
 The following commands will use Docker wizardry. You can obviously install the ORY Hydra CLI locally and avoid using
 Docker here. If you do use the CLI locally, you can omit `docker exec -it hydra_hydra_1 \` completely.
@@ -98,7 +97,6 @@ $ docker exec -it hydra_hydra_1 \
 ```
 
 Note that you need to add `--token-endpoint-auth-method none` if your clients are public (such as SPA apps and native apps) because the public clients could not provide client secret.
-
 
 The next command starts a server that serves an example web application. The application will perform the OAuth 2.0
 Authorization Code Flow using ORY Hydra. The web server runs on [http://127.0.0.1:5555](http://127.0.0.1:5555).

@@ -16,7 +16,7 @@ A condition has always the same JSON format:
 ```json
 {
   "subjects": ["..."],
-  "actions" : ["..."],
+  "actions": ["..."],
   "effect": "allow",
   "resources": ["..."],
   "conditions": {
@@ -36,7 +36,7 @@ in order to be evaluated by the condition logic:
 ```json
 {
   "subject": "...",
-  "action" : "...",
+  "action": "...",
   "resource": "...",
   "context": {
     "this-key-will-be-matched-with-the-context": { "foo": "bar" }
@@ -52,7 +52,7 @@ The CIDR condition matches CIDR IP Ranges. An exemplary policy definition could 
 {
   "description": "One policy to rule them all.",
   "subjects": ["users:maria"],
-  "actions" : ["delete", "create", "update"],
+  "actions": ["delete", "create", "update"],
   "effect": "allow",
   "resources": ["resources:articles:<.*>"],
   "conditions": {
@@ -71,7 +71,7 @@ The following access request would be allowed.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "remoteIPAddress": "192.168.0.5"
@@ -84,7 +84,7 @@ The next access request would be denied as the condition is not fulfilled and th
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "remoteIPAddress": "255.255.0.0"
@@ -97,7 +97,7 @@ The next access request would also be denied as the context is not using the key
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someOtherKey": "192.168.0.5"
@@ -113,7 +113,7 @@ Checks if the value passed in the access request's context is identical with the
 {
   "description": "One policy to rule them all.",
   "subjects": ["users:maria"],
-  "actions" : ["delete", "create", "update"],
+  "actions": ["delete", "create", "update"],
   "effect": "allow",
   "resources": ["resources:articles:<.*>"],
   "conditions": {
@@ -132,7 +132,7 @@ The following access request would be allowed.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someKeyName": "the-value-should-be-this"
@@ -145,7 +145,7 @@ The following access request would be denied.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someKeyName": "this-is-a-different-value"
@@ -161,7 +161,7 @@ Checks if the value passed in the access request's context matches the regular e
 {
   "description": "One policy to rule them all.",
   "subjects": ["users:maria"],
-  "actions" : ["delete", "create", "update"],
+  "actions": ["delete", "create", "update"],
   "effect": "allow",
   "resources": ["resources:articles:<.*>"],
   "conditions": {
@@ -180,7 +180,7 @@ The following access request would be allowed.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someKeyName": "regex-pattern-here-matches"
@@ -193,7 +193,7 @@ The following access request would be denied.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someKeyName": "regex-pattern-here"
@@ -209,7 +209,7 @@ Checks if the access request's subject is identical with the string specified in
 {
   "description": "One policy to rule them all.",
   "subjects": ["users:maria"],
-  "actions" : ["delete", "create", "update"],
+  "actions": ["delete", "create", "update"],
   "effect": "allow",
   "resources": ["resources:articles:<.*>"],
   "conditions": {
@@ -226,7 +226,7 @@ The following access request would be allowed.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "owner": "users:maria"
@@ -239,7 +239,7 @@ The following access request would be denied.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "owner": "another-user"
@@ -257,7 +257,7 @@ Checks if the value passed in the access request's context contains two-element 
 {
   "description": "One policy to rule them all.",
   "subjects": ["users:maria"],
-  "actions" : ["delete", "create", "update"],
+  "actions": ["delete", "create", "update"],
   "effect": "allow",
   "resources": ["resources:articles:<.*>"],
   "conditions": {
@@ -274,7 +274,7 @@ The following access request would be allowed.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someKey": [
@@ -290,7 +290,7 @@ The following access request would be denied.
 ```json
 {
   "subject": "users:maria",
-  "action" : "delete",
+  "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
     "someKey": [

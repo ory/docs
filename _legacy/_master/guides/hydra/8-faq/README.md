@@ -17,26 +17,26 @@ I took a long time for this issue, primarily because I felt very uncomfortable i
 
 The OAuth2 Thread Model explicitly states that the ROPC grant is commonly used in legacy/migration scenarios, and
 
->   This grant type has higher
-   risk because it maintains the UID/password anti-pattern.
-   Additionally, because the user does not have control over the
-   authorization process, clients using this grant type are not limited   by scope but instead have potentially the same capabilities as the
-   user themselves.  As there is no authorization step, the ability to
-   offer token revocation is bypassed.
+> This grant type has higher
+> risk because it maintains the UID/password anti-pattern.
+> Additionally, because the user does not have control over the
+> authorization process, clients using this grant type are not limited by scope but instead have potentially the same capabilities as the
+> user themselves. As there is no authorization step, the ability to
+> offer token revocation is bypassed.
 
 > Because passwords are often used for more than 1 service, this
-   anti-pattern may also put at risk whatever else is accessible with
-   the supplied credential.  Additionally, any easily derived equivalent
-   (e.g., joe@example.com and joe@example.net) might easily allow
-   someone to guess that the same password can be used elsewhere.
+> anti-pattern may also put at risk whatever else is accessible with
+> the supplied credential. Additionally, any easily derived equivalent
+> (e.g., joe@example.com and joe@example.net) might easily allow
+> someone to guess that the same password can be used elsewhere.
 
->    Impact: The resource server can only differentiate scope based on the
-   access token being associated with a particular client.  The client
-   could also acquire long-lived tokens and pass them up to an
-   attacker's web service for further abuse.  The client, eavesdroppers,
-   or endpoints could eavesdrop the user id and password.
+> Impact: The resource server can only differentiate scope based on the
+> access token being associated with a particular client. The client
+> could also acquire long-lived tokens and pass them up to an
+> attacker's web service for further abuse. The client, eavesdroppers,
+> or endpoints could eavesdrop the user id and password.
 
->    o  Except for migration reasons, minimize use of this grant type.
+> o Except for migration reasons, minimize use of this grant type.
 
 - [source](https://tools.ietf.org/html/rfc6819#section-4.4.3)
 
@@ -47,10 +47,10 @@ Thus, I decided to not implement the ROPC grant in Hydra. Over time, I will add 
 OAuth2 tokens are like money. It allows you to buy stuff, but the cashier does not really care if the money is
 yours or if you stole it, as long as it's valid money. Depending on what you understand as authentication, this is a yes and no answer:
 
-* **Yes:** You can use access tokens to find out which user ("subject") is performing an action in a resource provider (blog article service, shopping basket, ...).
-Coming back to the money example: *You*, the subject, receives a cappuccino from the vendor (resource provider) in exchange for money (access token).
-* **No:** Never use access tokens for logging people in, for example `http://myapp.com/login?access_token=...`.
-Coming back to the money example: The police officer ("authentication server") will not accept money ("access token") as a proof of identity ("it's really you"). Unless he is corrupt ("vulnerable"), of course.
+- **Yes:** You can use access tokens to find out which user ("subject") is performing an action in a resource provider (blog article service, shopping basket, ...).
+  Coming back to the money example: _You_, the subject, receives a cappuccino from the vendor (resource provider) in exchange for money (access token).
+- **No:** Never use access tokens for logging people in, for example `http://myapp.com/login?access_token=...`.
+  Coming back to the money example: The police officer ("authentication server") will not accept money ("access token") as a proof of identity ("it's really you"). Unless he is corrupt ("vulnerable"), of course.
 
 In the second example ("authentication server"), you must use OpenID Connect ID Tokens.
 
@@ -64,7 +64,7 @@ Since ORY Hydra 0.8.0, migrations are no longer run automatically on boot. This 
 because:
 
 1. Although SQL migrations are tested, migrating schemas can cause data loss and should only be done consciously with
-prior back ups.
+   prior back ups.
 2. Running a production system with a user that has right such as ALTER TABLE is a security anti-pattern.
 
 Thus, to initialize the database schemas, it is required to run `hydra migrate sql driver://user:password@host:port/db` before running
@@ -79,8 +79,8 @@ Thus, to initialize the database schemas, it is required to run `hydra migrate s
 1. Make sure a database update is required by checking the release notes.
 2. Make a back up of the database.
 3. Run the migration script on a host close to the database (e.g. a virtual machine with access to the SQL instance).
-Schemas are usually backwards compatible, so instances running previous versions of ORY Hydra should keep working fine.
-If backwards compatibility is not given, this will be addressed in the patch notes.
+   Schemas are usually backwards compatible, so instances running previous versions of ORY Hydra should keep working fine.
+   If backwards compatibility is not given, this will be addressed in the patch notes.
 4. Upgrade all ORY Hydra instances.
 
 ## How can I do this in docker?
@@ -89,6 +89,7 @@ Many deployments of ORY Hydra use Docker. Although several options are available
 image
 
 **Dockerfile**
+
 ```
 FROM oryd/hydra:tag
 
@@ -97,7 +98,7 @@ ENTRYPOINT /go/bin/hydra migrate sql $DATABASE_URL
 
 and run it in your infrastructure once.
 
-Additionally, *but not recommended*, it is possible to override the entry point of the ORY Hydra Docker image using CLI flag
+Additionally, _but not recommended_, it is possible to override the entry point of the ORY Hydra Docker image using CLI flag
 `--entrypoint "hydra migrate sql $DATABASE_URL; hydra host"` or with `entrypoint: hydra migrate sql $DATABASE_URL; hydra host`
 set in your docker compose config.
 
@@ -105,22 +106,24 @@ set in your docker compose config.
 
 Yes, you can do so by setting the environment variable `LOG_LEVEL=<level>`. There are various levels supported:
 
-* debug
-* info
-* warn
-* error
-* fatal
-* panic
+- debug
+- info
+- warn
+- error
+- fatal
+- panic
 
 ## How can I import TLS certificates?
 
 You can import TLS certificates when running `hydra host`. This can be done by setting the following environment variables:
 
 **Read from file**
+
 - `HTTPS_TLS_CERT_PATH`: The path to the TLS certificate (pem encoded).
 - `HTTPS_TLS_KEY_PATH`: The path to the TLS private key (pem encoded).
 
 **Embedded**
+
 - `HTTPS_TLS_CERT`: A pem encoded TLS certificate passed as string. Can be used instead of TLS_CERT_PATH.
 - `HTTPS_TLS_KEY`: A pem encoded TLS key passed as string. Can be used instead of TLS_KEY_PATH.
 
@@ -142,8 +145,8 @@ You can do so by running `hydra host --dangerous-force-http`.
 ## MySQL gives `unsupported Scan, storing driver.Value type []uint8 into type *time.Time`
 
 > did a quick test to get mysql running, but run into migrate sql issue - seems mysql related
-An error occurred while running the migrations: Could not apply ladon SQL migrations: Could not migrate sql schema, applied 0 migrations: sql: Scan error on column index 0: unsupported Scan, storing driver.Value type []uint8 into type *time.Time
-is this a known bug ? or any specific mysql version which is required (running 5.7) ?
+> An error occurred while running the migrations: Could not apply ladon SQL migrations: Could not migrate sql schema, applied 0 migrations: sql: Scan error on column index 0: unsupported Scan, storing driver.Value type []uint8 into type \*time.Time
+> is this a known bug ? or any specific mysql version which is required (running 5.7) ?
 
 ```
 $ hydra help host
@@ -164,10 +167,10 @@ Check the logs using `docker logs <container-id>`.
 > Hey there , I am getting this error when I try request an access token "The request used a security parameter (e.g., anti-replay, anti-csrf) with insufficient entropy (minimum of 8 characters)"
 
 > Kareem Diaa @kimooz Jun 07 16:41  
-Hey there , I am getting this error when I try request an access token "The request used a security parameter (e.g., anti-replay, anti-csrf) with insufficient entropy (minimum of 8 characters)"
+> Hey there , I am getting this error when I try request an access token "The request used a security parameter (e.g., anti-replay, anti-csrf) with insufficient entropy (minimum of 8 characters)"
 
 > Aeneas @arekkas Jun 07 16:41  
-@kimooz make sure state and nonce are set in your auth code url (http://hydra/oauth2/auth?client_id=...&nonce=THIS_NEEDS_TO_BE_SET&state=THIS_ALSO_NEEDS_TO_BE_SET
+> @kimooz make sure state and nonce are set in your auth code url (http://hydra/oauth2/auth?client_id=...&nonce=THIS_NEEDS_TO_BE_SET&state=THIS_ALSO_NEEDS_TO_BE_SET
 
 ## I get compile errors!
 
@@ -181,21 +184,21 @@ Hey there , I am getting this error when I try request an access token "The requ
 > Could Hydra's Access Token be a JWT? So that my resource server does not need to call Introspection API for each request.
 
 > Mufid @mufid 03:39  
-Yes, the access token looks like JWT, but i am unable to decode it. Here is my example token form Hydra: LpxuGoqWy7lYp9N0Cea8mEGR6IHhyr37jxZXRHqSjRM.nU-jMnAJ7dUKQPjWF4QBEL9OQWVU8zj_ElhrT-FQrWw (JWT Tokens should have 2 dots (3 segments), so this is not a valid JWT)
+> Yes, the access token looks like JWT, but i am unable to decode it. Here is my example token form Hydra: LpxuGoqWy7lYp9N0Cea8mEGR6IHhyr37jxZXRHqSjRM.nU-jMnAJ7dUKQPjWF4QBEL9OQWVU8zj_ElhrT-FQrWw (JWT Tokens should have 2 dots (3 segments), so this is not a valid JWT)
 
 > Mufid @mufid 03:56  
-*form --> from, typo, sorry.
+> \*form --> from, typo, sorry.
 > Aeneas @arekkas 11:50  
-@mufid JWT is not supported at the moment, we might add it, but not as part of the hydra community edition
+> @mufid JWT is not supported at the moment, we might add it, but not as part of the hydra community edition
 
 ## Refreshing tokens
 
 > Kareem Diaa @kimooz 15:48  
-One last question  if you don't mind
-from your experience do you think that saving the user access token in a session and validating it from the client on ever refresh does that make sense or not?
-using the introspect endpoint
+> One last question if you don't mind
+> from your experience do you think that saving the user access token in a session and validating it from the client on ever refresh does that make sense or not?
+> using the introspect endpoint
 
 > Aeneas @arekkas 15:51  
-nah, simply write your http calls in a way that if a 401 or 403 occurrs, the token is refreshed
-that's the easiest
-and cleanest
+> nah, simply write your http calls in a way that if a 401 or 403 occurrs, the token is refreshed
+> that's the easiest
+> and cleanest

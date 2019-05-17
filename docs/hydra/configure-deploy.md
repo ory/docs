@@ -69,11 +69,11 @@ $ export SECRETS_SYSTEM=$(export LC_CTYPE=C; cat /dev/urandom | tr -dc 'a-zA-Z0-
 $ export DSN=postgres://hydra:secret@ory-hydra-example--postgres:5432/hydra?sslmode=disable
 
 # Before starting, let's pull the latest ORY Hydra tag from docker.
-$ docker pull oryd/hydra:v1.0.0-rc.11
+$ docker pull oryd/hydra:latest
 
 # This command will show you all the environment variables that you can set. Read this carefully.
 # It is the equivalent to `hydra help serve`.
-$ docker run -it --rm --entrypoint hydra oryd/hydra:v1.0.0-rc.11 help serve
+$ docker run -it --rm --entrypoint hydra oryd/hydra:latest help serve
 
 Starts all HTTP/2 APIs and connects to a database backend.
 [...]
@@ -83,7 +83,7 @@ Starts all HTTP/2 APIs and connects to a database backend.
 # It is the equivalent to `hydra migrate sql --yes postgres://hydra:secret@ory-hydra-example--postgres:5432/hydra?sslmode=disable`
 $ docker run -it --rm \
   --network hydraguide \
-  oryd/hydra:v1.0.0-rc.11 \
+  oryd/hydra:latest \
   migrate sql --yes $DSN
 
 Applying `client` SQL migrations...
@@ -101,7 +101,7 @@ $ docker run -d \
   -e URLS_SELF_ISSUER=https://localhost:9000/ \
   -e URLS_CONSENT=http://localhost:9020/consent \
   -e URLS_LOGIN=http://localhost:9020/login \
-  oryd/hydra:v1.0.0-rc.11 serve all
+  oryd/hydra:latest serve all
 
 # And check if it's running:
 $ docker logs ory-hydra-example--hydra
@@ -114,21 +114,21 @@ time="2017-06-29T21:26:34Z" level=info msg="Setting up http server on :4444"
 
 Let's dive into the various settings:
 
-* `--network hydraguide` connects this instance to the network and makes it possible to connect to the PostgreSQL database.
-* `-p 9000:4444` exposes ORY Hydra's public API on `https://localhost:9000/`.
-* `-p 9001:4445` exposes ORY Hydra's administrative API on `https://localhost:9001/`.
-* `-e SECRETS_SYSTEM=$SECRETS_SYSTEM` sets the system secret environment variable **(required)**.
-* `-e DSN=$DSN` sets the database url environment variable **(required)**.
-* `-e URLS_SELF_ISSUER=https://localhost:9000/` this value must be set to the publicly available URL of ORY Hydra **(required)**.
-* `-e URLS_CONSENT=http://localhost:9020/consent` this sets the URL of the consent provider **(required)**. We will set up the service
-that handles requests at that URL in the next sections.
-* `-e URLS_LOGIN=http://localhost:9020/login` this sets the URL of the login provider **(required)**. We will set up the service
-that handles requests at that URL in the next sections.
+- `--network hydraguide` connects this instance to the network and makes it possible to connect to the PostgreSQL database.
+- `-p 9000:4444` exposes ORY Hydra's public API on `https://localhost:9000/`.
+- `-p 9001:4445` exposes ORY Hydra's administrative API on `https://localhost:9001/`.
+- `-e SECRETS_SYSTEM=$SECRETS_SYSTEM` sets the system secret environment variable **(required)**.
+- `-e DSN=$DSN` sets the database url environment variable **(required)**.
+- `-e URLS_SELF_ISSUER=https://localhost:9000/` this value must be set to the publicly available URL of ORY Hydra **(required)**.
+- `-e URLS_CONSENT=http://localhost:9020/consent` this sets the URL of the consent provider **(required)**. We will set up the service
+  that handles requests at that URL in the next sections.
+- `-e URLS_LOGIN=http://localhost:9020/login` this sets the URL of the login provider **(required)**. We will set up the service
+  that handles requests at that URL in the next sections.
 
-Note: In this example we did not define a value for the optional setting `OAUTH2_ERROR_URL`. This URL can be used 
-to provide an endpoint which will receive error messages from ORY Hydra that should be displayed 
-to the end user. The URL receives `error` and `error_description` parameters. If this value is not set, 
-Hydra uses the fallback endpoint `/oauth2/fallbacks/error` and displays a default error message. In order to obtain 
+Note: In this example we did not define a value for the optional setting `OAUTH2_ERROR_URL`. This URL can be used
+to provide an endpoint which will receive error messages from ORY Hydra that should be displayed
+to the end user. The URL receives `error` and `error_description` parameters. If this value is not set,
+Hydra uses the fallback endpoint `/oauth2/fallbacks/error` and displays a default error message. In order to obtain
 a uniform UI, you might want to include such an endpoint in your login or consent provider.
 
 To confirm that the instance is running properly, [open the health check](https://localhost:9001/health/ready). If asked,
@@ -148,15 +148,15 @@ time="2017-06-30T09:06:41Z" level=info msg="Setting up http server on :4444"
 As you can see, the following steps are performed when running ORY Hydra against a fresh database:
 
 1. If no system secret was given (in our case we provided one), a random one is generated and emitted to the logs.
-Note this down, otherwise you won't be able to restart Hydra.
+   Note this down, otherwise you won't be able to restart Hydra.
 2. Cryptographic keys are generated for the OpenID Connect ID Token, the consent challenge and response, and TLS encryption
-using a self-signed certificate, which is why we need to run all commands using `--skip-tls-verify`.
+   using a self-signed certificate, which is why we need to run all commands using `--skip-tls-verify`.
 
 ORY Hydra can be managed using the Hydra Command Line Interface (CLI), which is using ORY Hydra's REST APIs. To
 see the available commands, run:
 
 ```shell
-$ docker run --rm -it --entrypoint hydra oryd/hydra:v1.0.0-rc.11 help
+$ docker run --rm -it --entrypoint hydra oryd/hydra:latest help
 Hydra is a cloud native high throughput OAuth2 and OpenID Connect provider
 
 Usage:
@@ -171,24 +171,25 @@ The Login Provider and Consent Provider can be two separate web services. We pro
 combines both features in one app. Here, we will use deploy that app using Docker.
 
 ```shell
-$ docker pull oryd/hydra-login-consent-node:v1.0.0-rc.11
+$ docker pull oryd/hydra-login-consent-node:latest
 $ docker run -d \
   --name ory-hydra-example--consent \
   -p 9020:3000 \
   --network hydraguide \
   -e HYDRA_ADMIN_URL=https://ory-hydra-example--hydra:4445 \
   -e NODE_TLS_REJECT_UNAUTHORIZED=0 \
-  oryd/hydra-login-consent-node:v1.0.0-rc.11
+  oryd/hydra-login-consent-node:latest
 
 # Let's check if it's running ok:
 $ docker logs ory-hydra-example--consent
 ```
 
 Let's take a look at the arguments:
-* `-p 9020:3000` exposes this service at port 9020. If you remember, that's the port of the `URLS_CONSENT` and `URLS_LOGIN` value
-from the ORY Hydra docker container (`URLS_CONSENT=http://localhost:9020/consent`, `URLS_LOGIN=http://localhost:9020/login`).
-* `HYDRA_ADMIN_URL=http://hydra:4445` point to the ORY Hydra Administrative API.
-* `NODE_TLS_REJECT_UNAUTHORIZED=0` disables TLS verification, because we are using self-signed certificates.
+
+- `-p 9020:3000` exposes this service at port 9020. If you remember, that's the port of the `URLS_CONSENT` and `URLS_LOGIN` value
+  from the ORY Hydra docker container (`URLS_CONSENT=http://localhost:9020/consent`, `URLS_LOGIN=http://localhost:9020/login`).
+- `HYDRA_ADMIN_URL=http://hydra:4445` point to the ORY Hydra Administrative API.
+- `NODE_TLS_REJECT_UNAUTHORIZED=0` disables TLS verification, because we are using self-signed certificates.
 
 ## Perform OAuth 2.0 Flow
 
@@ -204,7 +205,7 @@ We have to specify which OAuth 2.0 Grant Types, OAuth 2.0 Scope, OAuth 2.0 Respo
 $ docker run --rm -it \
   -e HYDRA_ADMIN_URL=https://ory-hydra-example--hydra:4445 \
   --network hydraguide \
-  oryd/hydra:v1.0.0-rc.11 \
+  oryd/hydra:latest \
   clients create --skip-tls-verify \
     --id facebook-photo-backup \
     --secret some-secret \
@@ -218,20 +219,21 @@ Client Secret: some-secret
 ```
 
 Let's dive into some of the arguments:
-* `--skip-tls-verify` is supported by all management commands (create/delete/update/... OAuth 2.0 Client, JSON Web Key, ...)
-    and tells the CLI to trust any certificate authority - even self-signed ones. We need this flag because the server
-    uses a self-signed certificate. In production deployments, you would use a certificate signed by a trusted CA.
-* `--grant-types authorize_code,refresh_token,client_credentials,implicit` we want to be able to perform all of these
-OAuth 2.0 flows.
-* `--response-types token,code,id_token` allows us to receive authorize codes, access and refresh tokens, and
-OpenID Connect ID Tokens.
-* `--scope openid,offline,photos.read` allows the client to request various permissions:
-  * `openid` allows the client to perform the OpenID Connect flow and request an OpenID Connect ID Token.
-  * `offline` allows the client to request a refresh token. Because we want to continuously backup photos, the app must be
-  able to refresh expired access tokens. This scope allows that.
-  * `photos.read` this is an imaginary scope that is not handled by ORY Hydra but serves the purpose of making it clear that
-  we could request read access to a user's photos. You can obviously omit this scope or use your own scope.
-* `--callbacks http://localhost:9010/callback` allows the client to request this redirect uri.
+
+- `--skip-tls-verify` is supported by all management commands (create/delete/update/... OAuth 2.0 Client, JSON Web Key, ...)
+  and tells the CLI to trust any certificate authority - even self-signed ones. We need this flag because the server
+  uses a self-signed certificate. In production deployments, you would use a certificate signed by a trusted CA.
+- `--grant-types authorize_code,refresh_token,client_credentials,implicit` we want to be able to perform all of these
+  OAuth 2.0 flows.
+- `--response-types token,code,id_token` allows us to receive authorize codes, access and refresh tokens, and
+  OpenID Connect ID Tokens.
+- `--scope openid,offline,photos.read` allows the client to request various permissions:
+  - `openid` allows the client to perform the OpenID Connect flow and request an OpenID Connect ID Token.
+  - `offline` allows the client to request a refresh token. Because we want to continuously backup photos, the app must be
+    able to refresh expired access tokens. This scope allows that.
+  - `photos.read` this is an imaginary scope that is not handled by ORY Hydra but serves the purpose of making it clear that
+    we could request read access to a user's photos. You can obviously omit this scope or use your own scope.
+- `--callbacks http://localhost:9010/callback` allows the client to request this redirect uri.
 
 Perfect, let's perform an exemplary OAuth 2.0 Authorize Code Flow! To make this easy, the ORY Hydra CLI provides
 a helper command called `hydra token user`. Just imagine this being, for example, passport.js that is generating
@@ -242,7 +244,7 @@ same thing happens with this command:
 $ docker run --rm -it \
   --network hydraguide \
   -p 9010:9010 \
-  oryd/hydra:v1.0.0-rc.11 \
+  oryd/hydra:latest \
   token user --skip-tls-verify \
     --port 9010 \
     --auth-url https://localhost:9000/oauth2/auth \

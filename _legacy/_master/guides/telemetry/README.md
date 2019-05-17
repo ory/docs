@@ -14,15 +14,16 @@ measures to protect your privacy:
 
 1. We only transmit information on how often endpoints are requested, how fast they respond and what HTTP status code was sent.
 2. We filter out any query parameters, headers, response and request bodies and path parameters. A full list of transmitted
-URL paths is listed in section [Request telemetry](#request-telemetry).
-4. **We are unable to see or store the IP address of your host**, as the
-[IP is set to `0.0.0.0`](https://github.com/ory/hydra/tree/master/metrics/middleware.go) when transmitting data to our metrics aggregator.
-5. We do not transmit any environment information from the host, except:
-  * Operating system id (windows, linux, osx)
-  * The target architecture (amd64, darwin, ...)
-  * Number of CPUs available
-  * Build time, hash and version of ORY Hydra
-  * Memory consumption of ORY Hydra's process
+   URL paths is listed in section [Request telemetry](#request-telemetry).
+3. **We are unable to see or store the IP address of your host**, as the
+   [IP is set to `0.0.0.0`](https://github.com/ory/hydra/tree/master/metrics/middleware.go) when transmitting data to our metrics aggregator.
+4. We do not transmit any environment information from the host, except:
+
+- Operating system id (windows, linux, osx)
+- The target architecture (amd64, darwin, ...)
+- Number of CPUs available
+- Build time, hash and version of ORY Hydra
+- Memory consumption of ORY Hydra's process
 
 The information is stored in an aggregated format without any personally identifiable information.
 
@@ -35,21 +36,21 @@ when we are confident that the instance is not a test instance (e.g. one of the 
 
 We collect the following system metrics:
 
-* `goarch`: The target architecture of the ORY Hydra binary.
-* `goos`: The target system of the ORY Hydra binary.
-* `numCpu`: The number of CPUs available.
-* `runtimeVersion`: The go version used to create the binary.
-* `version`: The version of this binary.
-* `hash`: The git hash of this binary.
-* `buildTime`: The build time of this binary.
+- `goarch`: The target architecture of the ORY Hydra binary.
+- `goos`: The target system of the ORY Hydra binary.
+- `numCpu`: The number of CPUs available.
+- `runtimeVersion`: The go version used to create the binary.
+- `version`: The version of this binary.
+- `hash`: The git hash of this binary.
+- `buildTime`: The build time of this binary.
 
 ## Request telemetry
 
 The ip addresses of both host and client are anonymized to `0.0.0.0`. Any identifiable information in the URL path and query is hashed with
 sha256 using a randomly assigned uuid v4 salt:
 
-* `/clients/foo` with salt `ABCDEFGH` becomes `/clients/sha256("foo|ABCDEFGH")`: `/clients/0301424a80469ad03a208de925563a97ec6ab2f9dc7a2ad71b2ded85a7f7a7af`
-* `/policies?owner=foo` with salt `ABCDEFGH` becomes `/policies?owner=sha256("foo|ABCDEFGH")`: `/policies?owner=0301424a80469ad03a208de925563a97ec6ab2f9dc7a2ad71b2ded85a7f7a7af`).
+- `/clients/foo` with salt `ABCDEFGH` becomes `/clients/sha256("foo|ABCDEFGH")`: `/clients/0301424a80469ad03a208de925563a97ec6ab2f9dc7a2ad71b2ded85a7f7a7af`
+- `/policies?owner=foo` with salt `ABCDEFGH` becomes `/policies?owner=sha256("foo|ABCDEFGH")`: `/policies?owner=0301424a80469ad03a208de925563a97ec6ab2f9dc7a2ad71b2ded85a7f7a7af`).
 
 ## Code
 
@@ -62,6 +63,7 @@ Once the data was transmitted to [Segment.com](http://segment.com/) it is aggreg
 We analyze the data with the following goals:
 
 1. Be able to say how many production deployments exist.
+
 - Understand which features are used and how.
 - Understand how much throughput deployments handle.
 - Evaluate how frequently specific features (e.g. policies) are used.

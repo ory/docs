@@ -9,19 +9,19 @@ Spec-compliant OAuth 2.0 and OpenID Connect is hard. Let's take a look how to re
 There are three things you can do to quickly debug any issue:
 
 1. Check the logs. ORY Hydra has extensive logging and you will find the issue most likely in the logs. Here is an example
-log line for a client that requested a redirect URL that did not match the whitelisted redirect URLS: `time="2018-08-07T16:01:16Z" level=error msg="An error occurred" description="The request is missing a required parameter, includes an invalid parameter value, includes a parameter more than once, or is otherwise malformed" error=invalid_request hint="The \"redirect_uri\" parameter does not match any of the OAuth 2.0 Client's pre-registered redirect urls."`
+   log line for a client that requested a redirect URL that did not match the whitelisted redirect URLS: `time="2018-08-07T16:01:16Z" level=error msg="An error occurred" description="The request is missing a required parameter, includes an invalid parameter value, includes a parameter more than once, or is otherwise malformed" error=invalid_request hint="The \"redirect_uri\" parameter does not match any of the OAuth 2.0 Client's pre-registered redirect urls."`
 2. Check the URL because of two reasons:
-  1. ORY Hydra sends `error_hint`, `error`, `error_description`, `error_debug` in the URL. You will find the
-  cause of the error most likely in there.
-  2. You are maybe in the wrong URL. Make sure the host and port and path is correct. This happens often, especially
-  when you're just starting out and experimenting
-3. Set environment variable `OAUTH2_SHARE_ERROR_DEBUG=true`. Do not do this in production, it is possible, though unlikely,
-that important data leaks with this. If set to true, ORY Hydra will set the `error_debug` query parameter if debug
-information is available.
-4. If you're just starting out and experimenting your docker set up does not work at all:
-  1. Stop all containers
-  2. Remove them (unless you have something important running)
-  3. Retry. **This can help a lot if you are new to this!**
+3. ORY Hydra sends `error_hint`, `error`, `error_description`, `error_debug` in the URL. You will find the
+   cause of the error most likely in there.
+4. You are maybe in the wrong URL. Make sure the host and port and path is correct. This happens often, especially
+   when you're just starting out and experimenting
+5. Set environment variable `OAUTH2_SHARE_ERROR_DEBUG=true`. Do not do this in production, it is possible, though unlikely,
+   that important data leaks with this. If set to true, ORY Hydra will set the `error_debug` query parameter if debug
+   information is available.
+6. If you're just starting out and experimenting your docker set up does not work at all:
+7. Stop all containers
+8. Remove them (unless you have something important running)
+9. Retry. **This can help a lot if you are new to this!**
 
 ## OAuth 2.0 Authorize Code Flow fails
 
@@ -86,8 +86,8 @@ Here you see that `http://my-url/callback` is not in the list, which is why the 
 
 There are multiple ways of authenticating OAuth 2.0 Clients at the `/oauth2/token`:
 
-* HTTP Basic Authorization (`client_secret_basic`) - the OAuth 2.0 Client ID and secret are sent in the HTTP Header (`Authorization: basic ....`)
-* HTTP Body (`client_secret_post`) - the OAuth 2.0 Client ID and secret are sent in the POST body (`Content-Type: application/x-www-form-urlencoded`)
+- HTTP Basic Authorization (`client_secret_basic`) - the OAuth 2.0 Client ID and secret are sent in the HTTP Header (`Authorization: basic ....`)
+- HTTP Body (`client_secret_post`) - the OAuth 2.0 Client ID and secret are sent in the POST body (`Content-Type: application/x-www-form-urlencoded`)
 
 Both are valid schemes. But the OAuth 2.0 Client has to be configured to allow either of the one. Per default, the OAuth 2.0
 Client allows HTTP Basic Authorization only. You can check which method is allowed:
@@ -126,12 +126,8 @@ In DT speak, a trace is comprised of one or more spans which are logical units o
 
 Hydra currently creates the following spans:
 
-- Top level span (_named after the request path_) for the requested endpoint. Span tags:
-	- http method
-	- http status code
-	- error IFF status code >= 400
-- Child span will be created if bcrypt (_e.g. when the token endpoint is called_) is called. Span tags:
-	- bcrypt work factor
+- Top level span (_named after the request path_) for the requested endpoint. Span tags: - http method - http status code - error IFF status code >= 400
+- Child span will be created if bcrypt (_e.g. when the token endpoint is called_) is called. Span tags: - bcrypt work factor
 - All SQL database interactions. Spans/tags will vary depending on the database driver used.
 
 This is still evolving and subject to change as tracing support continues to expand in Hydra. If you see something that is missing/wrong, please create an issue.
@@ -186,7 +182,7 @@ At a glance, you are able to see that:
 - The hash comparison to validate the client's credentials took a whopping 70ms. Bcrypt is expensive!
 - The various database operations performed
 
-*Note: in order to see spans around database interactions, you must be using a SQL backend (i.e. MySQL or Postgres).*
+_Note: in order to see spans around database interactions, you must be using a SQL backend (i.e. MySQL or Postgres)._
 
 ### Tracing configurations
 

@@ -30,3 +30,4 @@ If you want to use the SDK despite its caveats (mediocre code quality, potential
 * [PHP](./3-php.md)
 
 Missing your programming language? [Create an issue](https://github.com/ory/hydra/issues) and help us build, test and publish the SDK for your programming language!
+```

@@ -80,11 +80,11 @@ ORY Keto supports different authentication methods at the Warden API. So far, we
 which does not authenticate at all but simply takes the value of `subject` key in the request body. Currently supported
 authenticators are:
 
-* `/warden/subjects/authorize`: The subject ("plaintext") authenticator we already used.
-* `/warden/oauth2/access-tokens/authorize`: Validates OAuth 2.0 Access Token using the OAuth 2.0 Token Introspection
-standard to resolve Access Tokens to subjects.
-* `/warden/oauth2/clients/authorize`: Validates OAuth 2.0 Client Credentials using the OAuth 2.0 Client Credentials
-Grant to authenticate OAuth 2.0 Clients.
+- `/warden/subjects/authorize`: The subject ("plaintext") authenticator we already used.
+- `/warden/oauth2/access-tokens/authorize`: Validates OAuth 2.0 Access Token using the OAuth 2.0 Token Introspection
+  standard to resolve Access Tokens to subjects.
+- `/warden/oauth2/clients/authorize`: Validates OAuth 2.0 Client Credentials using the OAuth 2.0 Client Credentials
+  Grant to authenticate OAuth 2.0 Clients.
 
 We intend on adding more authenticators such as JSON Web Tokens, SAML Assertions, and others in time.
 
@@ -138,21 +138,21 @@ is valid) and also the subject `alice`. So this authenticator looks for a policy
 
 You can configure this authenticator using the following environment variables:
 
-* `AUTHENTICATOR_OAUTH2_INTROSPECTION_URL`: The URL of the OAuth 2.0 Introspection Endpoint (usually `/oauth2/introspection`).
-* `AUTHENTICATOR_OAUTH2_INTROSPECTION_SCOPE_STRATEGY`: Since you can include a `scope` in the request body, ORY Keto
-allows you to configure a OAuth 2.0 strategy that defines how to compare OAuth 2.0 Scope:
-  * `hierarchic`: Scope `foo` matches `foo`, `foo.bar`, `foo.baz` but not `bar`
-  * `wildcard`: Scope `foo.*` matches `foo`, `foo.bar`, `foo.baz` but not `bar`. Scope `foo` matches `foo` but not `foo.bar` nor `bar`
-  * `exact`: Scope `foo` matches `foo` but not `bar` nor `foo.bar`
-* In cases where the OAuth 2.0 Introspection endpoint is protected using OAuth 2.0 Access Tokens, you can configure ORY Keto to
-authorize before calling this endpoint with the following configuration:
-  * `AUTHENTICATOR_OAUTH2_INTROSPECTION_CLIENT_ID`: The OAuth 2.0 Client ID that should be used to make the OAuth 2.0
-  Introspection request.
-  * `AUTHENTICATOR_OAUTH2_INTROSPECTION_CLIENT_SECRET`: The OAuth 2.0 Client Secret that should be used to make the OAuth 2.0
-  Introspection request.
-  * `AUTHENTICATOR_OAUTH2_INTROSPECTION_TOKEN_URL`: The URL of the OAuth 2.0 Token Endpoint (usually `/oauth2/token`).
-  * `AUTHENTICATOR_OAUTH2_INTROSPECTION_SCOPE`: If an OAuth 2.0 Scope is required to access the introspection URL, add that here.
-  You can define a list using the comma delimiter: `AUTHENTICATOR_OAUTH2_INTROSPECTION_SCOPE=scope-a,scope-b`.
+- `AUTHENTICATOR_OAUTH2_INTROSPECTION_URL`: The URL of the OAuth 2.0 Introspection Endpoint (usually `/oauth2/introspection`).
+- `AUTHENTICATOR_OAUTH2_INTROSPECTION_SCOPE_STRATEGY`: Since you can include a `scope` in the request body, ORY Keto
+  allows you to configure a OAuth 2.0 strategy that defines how to compare OAuth 2.0 Scope:
+  - `hierarchic`: Scope `foo` matches `foo`, `foo.bar`, `foo.baz` but not `bar`
+  - `wildcard`: Scope `foo.*` matches `foo`, `foo.bar`, `foo.baz` but not `bar`. Scope `foo` matches `foo` but not `foo.bar` nor `bar`
+  - `exact`: Scope `foo` matches `foo` but not `bar` nor `foo.bar`
+- In cases where the OAuth 2.0 Introspection endpoint is protected using OAuth 2.0 Access Tokens, you can configure ORY Keto to
+  authorize before calling this endpoint with the following configuration:
+  - `AUTHENTICATOR_OAUTH2_INTROSPECTION_CLIENT_ID`: The OAuth 2.0 Client ID that should be used to make the OAuth 2.0
+    Introspection request.
+  - `AUTHENTICATOR_OAUTH2_INTROSPECTION_CLIENT_SECRET`: The OAuth 2.0 Client Secret that should be used to make the OAuth 2.0
+    Introspection request.
+  - `AUTHENTICATOR_OAUTH2_INTROSPECTION_TOKEN_URL`: The URL of the OAuth 2.0 Token Endpoint (usually `/oauth2/token`).
+  - `AUTHENTICATOR_OAUTH2_INTROSPECTION_SCOPE`: If an OAuth 2.0 Scope is required to access the introspection URL, add that here.
+    You can define a list using the comma delimiter: `AUTHENTICATOR_OAUTH2_INTROSPECTION_SCOPE=scope-a,scope-b`.
 
 ### OAuth 2.0 Client Credentials Authenticator
 
@@ -185,4 +185,4 @@ Client ID is used as subject when querying for ACPs:
 
 This endpoint needs only one environment variable:
 
-* `AUTHENTICATOR_OAUTH2_CLIENT_CREDENTIALS_TOKEN_URL`: The URL of the OAuth 2.0 Token Endpoint (usually `/oauth2/token`).
+- `AUTHENTICATOR_OAUTH2_CLIENT_CREDENTIALS_TOKEN_URL`: The URL of the OAuth 2.0 Token Endpoint (usually `/oauth2/token`).
