@@ -67,20 +67,20 @@ meticulously described in each project's `UPGRADE.md` as well as `HISTORY.md`.
 
 This compatibility matrix shows which versions are compatible with one another.
 
-| oryOS      | Documentation | ORY Hydra                                                                 | ORY Keto                                             | ORY Oathkeeper                  |
-| ---------- | ------------- | ------------------------------------------------------------------------- | ---------------------------------------------------- | ------------------------------- |
-| `oryOS.11` | `oryOS.11`    | `v1.0.0-rc.10`, `v1.0.0-rc.11`, `v1.0.0-rc.12`                            | `v0.3.0-sandbox`, `v0.3.1-sandbox`, `v0.3.1-sandbox` | `v0.15.0`, `v0.15.1`, `v0.15.2` |
-| `oryOS.10` | `oryOS.10`    | `v1.0.0-rc.5`, `v1.0.0-rc.6`, `v1.0.0-rc.7`, `v1.0.0-rc.8`, `v1.0.0-rc.9` | `v0.2.2-sandbox`                                     | `v0.14.2`                       |
-| `oryOS.9`  | `oryOS.9`     | `v1.0.0-beta.9`, `v1.0.0-rc.2`, `v1.0.0-rc.3`, `v1.0.0-rc.4`              | `v0.1.9-sandbox`                                     | `v0.13.9`                       |
-| `oryOS.8`  |               | `v1.0.0-beta.8`                                                           | `v0.1.8-sandbox`                                     | `v0.13.8`                       |
-| `oryOS.7`  |               | `v1.0.0-beta.7`                                                           | `v0.1.7-sandbox`                                     | `v0.13.7`                       |
-| `oryOS.6`  |               | `v1.0.0-beta.6`                                                           | `v0.1.6-sandbox`                                     | `v0.13.6`                       |
-| `oryOS.5`  |               | `v1.0.0-beta.5`                                                           | `v0.1.5-sandbox`                                     | `v0.13.5`                       |
-| `oryOS.4`  |               | `v1.0.0-beta.4`                                                           | `v0.1.4-sandbox`                                     | `v0.13.4`                       |
-| `oryOS.3`  |               | `v1.0.0-beta.3`                                                           | `v0.1.3-sandbox`                                     | `v0.13.3`                       |
-| `oryOS.2`  |               | `v1.0.0-beta.2`                                                           | `v0.1.2-sandbox`                                     | `v0.13.2`                       |
-| `oryOS.1`  |               | `v1.0.0-beta.1`                                                           | `v0.1.1-sandbox`                                     | `v0.13.1`                       |
-| `oryOS.1`  |               | `v1.0.0-beta.1`                                                           | `v0.1.1-sandbox`                                     | `v0.13.1`                       |
+| oryOS      | Documentation | ORY Hydra                                                                 | ORY Keto                                                               | ORY Oathkeeper                             |
+| ---------- | ------------- | ------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------ |
+| `oryOS.11` | `oryOS.11`    | `v1.0.0-rc.10`, `v1.0.0-rc.11`, `v1.0.0-rc.12`, `v1.0.0-rc.12`            | `v0.3.0-sandbox`, `v0.3.1-sandbox`, `v0.3.1-sandbox`, `v0.3.1-sandbox` | `v0.15.0`, `v0.15.1`, `v0.15.2`, `v0.15.2` |
+| `oryOS.10` | `oryOS.10`    | `v1.0.0-rc.5`, `v1.0.0-rc.6`, `v1.0.0-rc.7`, `v1.0.0-rc.8`, `v1.0.0-rc.9` | `v0.2.2-sandbox`                                                       | `v0.14.2`                                  |
+| `oryOS.9`  | `oryOS.9`     | `v1.0.0-beta.9`, `v1.0.0-rc.2`, `v1.0.0-rc.3`, `v1.0.0-rc.4`              | `v0.1.9-sandbox`                                                       | `v0.13.9`                                  |
+| `oryOS.8`  |               | `v1.0.0-beta.8`                                                           | `v0.1.8-sandbox`                                                       | `v0.13.8`                                  |
+| `oryOS.7`  |               | `v1.0.0-beta.7`                                                           | `v0.1.7-sandbox`                                                       | `v0.13.7`                                  |
+| `oryOS.6`  |               | `v1.0.0-beta.6`                                                           | `v0.1.6-sandbox`                                                       | `v0.13.6`                                  |
+| `oryOS.5`  |               | `v1.0.0-beta.5`                                                           | `v0.1.5-sandbox`                                                       | `v0.13.5`                                  |
+| `oryOS.4`  |               | `v1.0.0-beta.4`                                                           | `v0.1.4-sandbox`                                                       | `v0.13.4`                                  |
+| `oryOS.3`  |               | `v1.0.0-beta.3`                                                           | `v0.1.3-sandbox`                                                       | `v0.13.3`                                  |
+| `oryOS.2`  |               | `v1.0.0-beta.2`                                                           | `v0.1.2-sandbox`                                                       | `v0.13.2`                                  |
+| `oryOS.1`  |               | `v1.0.0-beta.1`                                                           | `v0.1.1-sandbox`                                                       | `v0.13.1`                                  |
+| `oryOS.1`  |               | `v1.0.0-beta.1`                                                           | `v0.1.1-sandbox`                                                       | `v0.13.1`                                  |
 
 ### Docker Hub and NPM
 
