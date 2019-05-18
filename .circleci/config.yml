@@ -36,7 +36,7 @@ workflows:
   version: 2
   publish:
     jobs:
-      - test
+      - test:
         filters:
           tags:
             only: /.*/
