@@ -19,12 +19,22 @@ markdown preview)_
 
 ## Releasing a new version
 
+### CI
+
+To release a new (or updated) version of the ORY Documentation, simply create a
+new git tag in the format of `v0.0.X+oryOS.Z`.
+
+**Warning:** This will also update all Docker Image tags to the latest available
+release (on GitHub)!
+
+### Manual
+
 The ORY Documentation is versioned according to `oryOS.X` version semantics. To
 (re-)release a version run:
 
 ```
-$ cd website
-$ npm run release oryOS.
+$ export CIRCLE_TAG=vA.B.C+oryOS.D
+$ cd website; npm run release
 ```
 
 ## Development

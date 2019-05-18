@@ -57,9 +57,6 @@ This command wil start a postgres instance with name
 # or a MySQL URI.
 $ export DSN=postgres://keto:secret@ory-keto-example--postgres:5432/keto?sslmode=disable
 
-# This pulls the latest image from Docker Hub
-$ docker pull oryd/keto:v0.3.1-sandbox
-
 # ORY Keto does not do magic, it requires conscious decisions, for example running SQL migrations which is required
 # when installing a new version of ORY Keto, or upgrading an existing installation.
 # It is the equivalent to `DSN=postgres://keto:secret@ory-keto-example--postgres:5432/keto?sslmode=disable keto migrate sql`
