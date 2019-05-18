@@ -24,6 +24,8 @@ markdown preview)_
 To release a new (or updated) version of the ORY Documentation, simply create a
 new git tag in the format of `v0.0.X+oryOS.Z`.
 
+**Warning:** This will also update all Docker Image tags to the latest available release (on GitHub)!
+
 ### Manual
 
 The ORY Documentation is versioned according to `oryOS.X` version semantics. To
