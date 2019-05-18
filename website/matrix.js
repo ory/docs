@@ -53,10 +53,9 @@ const versions = ({ index, lines }, { hydra, keto, oathkeeper }) => {
               .map(v => v.trim())
               .filter(p => p.length > 0),
             '`' + versions[index] + '`',
-          ]
+          ].filter(onlyUnique)
         : column
     )
-    .filter(onlyUnique)
     .map(inner => inner.join(', '));
 
   const os = '`' + oryOS + '`';
