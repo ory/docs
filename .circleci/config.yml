@@ -15,7 +15,7 @@ jobs:
       - run: "git clone https://aeneasr:$DOCS_TOKEN_PUSH@github.com/ory/ory-am.git ../ory-am"
       - run: cd website; npm run release $(echo $CIRCLE_TAG | cut -d '+' -f2)
       - run: cd website; npm run format
-      - run: "git commit -a -m 'Update files to match release $CIRCLE_TAG'"
+      - run: "git commit -a -m \"Update files to match release $CIRCLE_TAG\""
       - run: "git remote add authn https://aeneasr:$DOCS_TOKEN_PUSH@github.com/ory/docs.git"
       - run: "git push authn HEAD:master"
       - run: cd website; npm run build
