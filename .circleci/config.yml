@@ -37,9 +37,11 @@ workflows:
   publish:
     jobs:
       - test:
-        filters:
-          tags:
-            only: /.*/
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              only: /.*/
       - publish:
           requires:
             - test
