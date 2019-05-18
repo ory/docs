@@ -118,7 +118,7 @@ $ export DATABASE_URL=postgres://oathkeeper:secret@ory-oathkeeper-example--postg
 # It is the equivalent to `oathkeeper migrate sql postgres://oathkeeper:secret@ory-oathkeeper-example--postgres:5432/oathkeeper?sslmode=disable`
 $ docker run -it --rm \
   --network oathkeeperguide \
-  oryd/oathkeeper:v0.15.2 \
+  oryd/oathkeeper:v0.15.1 \
   migrate sql $DATABASE_URL
 
 Applying `client` SQL migrations...
@@ -135,7 +135,7 @@ $ docker run -d \
   -e DATABASE_URL=$DATABASE_URL \
   -e PORT=4456 \
   -e CREDENTIALS_ISSUER_ID_TOKEN_HS256_SECRET=changemechangemechangemechangemedo \
-  oryd/oathkeeper:v0.15.2 \
+  oryd/oathkeeper:v0.15.1 \
   serve api
 
 # And the proxy server too - take not that we need to link the proxy serve with the API server!
@@ -148,7 +148,7 @@ $ docker run -d \
   -e OATHKEEPER_API_URL=http://ory-oathkeeper-example--oathkeeper-api:4456/ \
   -e PORT=4455 \
   -e CREDENTIALS_ISSUER_ID_TOKEN_HS256_SECRET=changemechangemechangemechangeme \
-  oryd/oathkeeper:v0.15.2 \
+  oryd/oathkeeper:v0.15.1 \
   serve proxy
 ```
 

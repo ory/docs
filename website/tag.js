@@ -4,7 +4,11 @@ const fetch = require('node-fetch');
 const services = ['hydra', 'keto', 'oathkeeper'];
 
 services.forEach(service => {
-  fetch(`https://api.github.com/repos/ory/${service}/releases`)
+  fetch(
+    `https://aeneasr:${
+      process.env.GITHUB_TOKEN
+    }@api.github.com/repos/ory/${service}/releases`
+  )
     .then(res => res.json())
     .then(releases => {
       const next = releases[0].tag_name;
