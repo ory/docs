@@ -11,9 +11,9 @@ services.forEach(service => {
       const prev = releases[1].tag_name;
 
       const path = `../docs/${service}/configure-deploy.md`;
-      return replace(path, content => content.replace(new RegExp(prev, 'g'), next)).then(() =>
-        Promise.resolve({ prev, next })
-      );
+      return replace(path, content =>
+        content.replace(new RegExp(prev, 'g'), next)
+      ).then(() => Promise.resolve({ prev, next }));
     })
     .then(({ prev, next }) => {
       console.log(

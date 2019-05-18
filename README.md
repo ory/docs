@@ -21,8 +21,8 @@ markdown preview)_
 
 ### CI
 
-To release a new (or updated) version of the ORY Documentation, simply create a new git tag in the format of
-`v0.0.X+oryOS.Z`.
+To release a new (or updated) version of the ORY Documentation, simply create a
+new git tag in the format of `v0.0.X+oryOS.Z`.
 
 ### Manual
 
