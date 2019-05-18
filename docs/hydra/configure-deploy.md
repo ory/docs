@@ -26,17 +26,6 @@ not required for running ORY Hydra, we recommend using it for this tutorial as
 it will greatly reduce the complexity of setting up a database on your system
 without virtualization, installing Go, and compiling ORY Hydra.
 
-## Pull Images
-
-First, we want to use the most recent stable version available. To ensure that, let's pull the `latest` tag from Docker Hub:
-
-> If you skip this step, you might be using an outdated version depending on your existing Docker Cache.
-
-```shell
-$ docker pull oryd/hydra:latest
-$ docker pull oryd/hydra-login-consent-node:latest
-```
-
 ## Create a Network
 
 Before we can start, a network must be created which we will attach all our
@@ -87,11 +76,11 @@ $ export SECRETS_SYSTEM=$(export LC_CTYPE=C; cat /dev/urandom | tr -dc 'a-zA-Z0-
 $ export DSN=postgres://hydra:secret@ory-hydra-example--postgres:5432/hydra?sslmode=disable
 
 # Before starting, let's pull the latest ORY Hydra tag from docker.
-$ docker pull oryd/hydra:latest
+$ docker pull oryd/hydra:v1.0.0-rc.11
 
 # This command will show you all the environment variables that you can set. Read this carefully.
 # It is the equivalent to `hydra help serve`.
-$ docker run -it --rm --entrypoint hydra oryd/hydra:latest help serve
+$ docker run -it --rm --entrypoint hydra oryd/hydra:v1.0.0-rc.11 help serve
 
 Starts all HTTP/2 APIs and connects to a database backend.
 [...]
@@ -101,7 +90,7 @@ Starts all HTTP/2 APIs and connects to a database backend.
 # It is the equivalent to `hydra migrate sql --yes postgres://hydra:secret@ory-hydra-example--postgres:5432/hydra?sslmode=disable`
 $ docker run -it --rm \
   --network hydraguide \
-  oryd/hydra:latest \
+  oryd/hydra:v1.0.0-rc.11 \
   migrate sql --yes $DSN
 
 Applying `client` SQL migrations...
@@ -119,7 +108,7 @@ $ docker run -d \
   -e URLS_SELF_ISSUER=https://localhost:9000/ \
   -e URLS_CONSENT=http://localhost:9020/consent \
   -e URLS_LOGIN=http://localhost:9020/login \
-  oryd/hydra:latest serve all
+  oryd/hydra:v1.0.0-rc.11 serve all
 
 # And check if it's running:
 $ docker logs ory-hydra-example--hydra
@@ -187,7 +176,7 @@ ORY Hydra can be managed using the Hydra Command Line Interface (CLI), which is
 using ORY Hydra's REST APIs. To see the available commands, run:
 
 ```shell
-$ docker run --rm -it --entrypoint hydra oryd/hydra:latest help
+$ docker run --rm -it --entrypoint hydra oryd/hydra:v1.0.0-rc.11 help
 Hydra is a cloud native high throughput OAuth2 and OpenID Connect provider
 
 Usage:
@@ -205,14 +194,14 @@ which combines both features in one app. Here, we will use deploy that app using
 Docker.
 
 ```shell
-$ docker pull oryd/hydra-login-consent-node:latest
+$ docker pull oryd/hydra-login-consent-node:v1.0.0-rc.11
 $ docker run -d \
   --name ory-hydra-example--consent \
   -p 9020:3000 \
   --network hydraguide \
   -e HYDRA_ADMIN_URL=https://ory-hydra-example--hydra:4445 \
   -e NODE_TLS_REJECT_UNAUTHORIZED=0 \
-  oryd/hydra-login-consent-node:latest
+  oryd/hydra-login-consent-node:v1.0.0-rc.11
 
 # Let's check if it's running ok:
 $ docker logs ory-hydra-example--consent
@@ -246,7 +235,7 @@ URLs the client may request:
 $ docker run --rm -it \
   -e HYDRA_ADMIN_URL=https://ory-hydra-example--hydra:4445 \
   --network hydraguide \
-  oryd/hydra:latest \
+  oryd/hydra:v1.0.0-rc.11 \
   clients create --skip-tls-verify \
     --id facebook-photo-backup \
     --secret some-secret \
@@ -293,7 +282,7 @@ for an access token. The same thing happens with this command:
 $ docker run --rm -it \
   --network hydraguide \
   -p 9010:9010 \
-  oryd/hydra:latest \
+  oryd/hydra:v1.0.0-rc.11 \
   token user --skip-tls-verify \
     --port 9010 \
     --auth-url https://localhost:9000/oauth2/auth \
