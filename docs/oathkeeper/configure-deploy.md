@@ -167,8 +167,8 @@ EOF
 The `id_token` mutator creates a signed JSON Web Token. For that to work, a
 public/private key is required. Luckily, ORY Oathkeeper can assist you in
 creating such keys. All common JWT algorithms are supported (RS256, ES256,
-HS256, ...). Let's generate a key for the RS256 algorithm that will be used by the
-id_token mutator:
+HS256, ...). Let's generate a key for the RS256 algorithm that will be used by
+the id_token mutator:
 
 ```sh
 $ docker run oryd/oathkeeper:v0.16.0-beta.1 credentials generate --alg RS256 > jwks.json
