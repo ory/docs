@@ -167,20 +167,11 @@ EOF
 The `id_token` mutator creates a signed JSON Web Token. For that to work, a
 public/private key is required. Luckily, ORY Oathkeeper can assist you in
 creating such keys. All common JWT algorithms are supported (RS256, ES256,
-HS256, ...).
-
-Before continuing with that step we need to pull the latest version of ORY
-Oathkeeper from Docker Hub:
-
-```sh
-$ docker pull oryd/oathkeeper:latest
-```
-
-Now let's generate a key for the RS256 algorithm that will be used by the
+HS256, ...). Let's generate a key for the RS256 algorithm that will be used by the
 id_token mutator:
 
 ```sh
-$ docker run oryd/oathkeeper:latest credentials generate --alg RS256 > jwks.json
+$ docker run oryd/oathkeeper:v0.16.0-beta.1 credentials generate --alg RS256 > jwks.json
 ```
 
 ### Dockerfile
@@ -190,7 +181,7 @@ files to the image:
 
 ```shell
 $ cat << EOF > Dockerfile
-FROM oryd/oathkeeper:latest
+FROM oryd/oathkeeper:v0.16.0-beta.1
 
 ADD config.yaml /config.yaml
 ADD rules.json /rules.json
@@ -208,7 +199,7 @@ Before building the Docker Image, we need to make sure that the local ORY
 Oathkeeper Docker Image is on the most recent version:
 
 ```sh
-$ docker pull oryd/oathkeeper:latest
+$ docker pull oryd/oathkeeper:v0.16.0-beta.1
 ```
 
 Next we will build our custom Docker Image
