@@ -113,9 +113,6 @@ create a user `oathkeeper` with password `secret`.
 # or a MySQL URI.
 $ export DATABASE_URL=postgres://oathkeeper:secret@ory-oathkeeper-example--postgres:5432/oathkeeper?sslmode=disable
 
-# This pulls the latest image from Docker Hub
-$ docker pull oryd/oathkeeper:v0.15.1
-
 # ORY Oathkeeper does not do magic, it requires conscious decisions, for example running SQL migrations which is required
 # when installing a new version of ORY Oathkeeper, or upgrading an existing installation.
 # It is the equivalent to `oathkeeper migrate sql postgres://oathkeeper:secret@ory-oathkeeper-example--postgres:5432/oathkeeper?sslmode=disable`

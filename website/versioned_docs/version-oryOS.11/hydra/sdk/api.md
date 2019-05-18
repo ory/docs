@@ -607,153 +607,6 @@ p JSON.parse(result)
 </div>
 </div>
 
-<a id="opIddisconnectUser"></a>
-
-### OpenID Connect Front-Backchannel enabled Logout
-
-```
-GET /oauth2/disconnect HTTP/1.1
-
-```
-
-This endpoint initiates and completes user logout at ORY Hydra and initiates
-OpenID Connect Front-/Back-channel logout:
-
-https://openid.net/specs/openid-connect-frontchannel-1_0.html
-https://openid.net/specs/openid-connect-backchannel-1_0.html
-
-#### Responses
-
-<a id="openid-connect-front-backchannel-enabled-logout-responses"></a>
-
-##### Overview
-
-| Status         | Meaning                                                    | Description                                                                                                    | Schema |
-| -------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ------ |
-| 302            | [Found](https://tools.ietf.org/html/rfc7231#section-6.4.3) | Empty responses are sent when, for example, resources are deleted. The HTTP status code for empty responses is |
-| typically 201. | None                                                       |
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-
-#### Code samples
-
-<div class="tabs" id="tab-disconnectUser">
-<nav class="tabs-nav">
-<ul class="nav nav-tabs au-link-list au-link-list--inline">
-<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-disconnectUser-shell">Shell</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-disconnectUser-go">Go</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-disconnectUser-node">Node.js</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-disconnectUser-java">Java</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-disconnectUser-python">Python</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-disconnectUser-ruby">Ruby</a></li>
-</ul>
-</nav>
-<div class="tab-content">
-<div class="tab-pane active" role="tabpanel" id="tab-disconnectUser-shell">
-
-```shell
-curl -X GET /oauth2/disconnect
-
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-disconnectUser-go">
-
-```go
-package main
-
-import (
-    "bytes"
-    "net/http"
-)
-
-func main() {
-
-    var body []byte
-    // body = ...
-
-    req, err := http.NewRequest("GET", "/oauth2/disconnect", bytes.NewBuffer(body))
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-disconnectUser-node">
-
-```nodejs
-const fetch = require('node-fetch');
-
-fetch('/oauth2/disconnect', {
-  method: 'GET'
-})
-.then(r => r.json())
-.then((body) => {
-    console.log(body)
-})
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-disconnectUser-java">
-
-```java
-// This sample needs improvement.
-URL obj = new URL("/oauth2/disconnect");
-
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-
-int responseCode = con.getResponseCode();
-
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream())
-);
-
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-
-System.out.println(response.toString());
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-disconnectUser-python">
-
-```python
-import requests
-
-r = requests.get(
-  '/oauth2/disconnect',
-  params={)
-
-print r.json()
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-disconnectUser-ruby">
-
-```ruby
-require 'rest-client'
-require 'json'
-
-result = RestClient.get '/oauth2/disconnect',
-  params: {}
-
-p JSON.parse(result)
-```
-
-</div>
-</div>
-</div>
-
 <a id="opIdrevokeOAuth2Token"></a>
 
 ### Revoke OAuth2 tokens
@@ -949,6 +802,153 @@ headers = {
 
 result = RestClient.post '/oauth2/revoke',
   params: {}, headers: headers
+
+p JSON.parse(result)
+```
+
+</div>
+</div>
+</div>
+
+<a id="opIddisconnectUser"></a>
+
+### OpenID Connect Front-Backchannel enabled Logout
+
+```
+GET /oauth2/sessions/logout HTTP/1.1
+
+```
+
+This endpoint initiates and completes user logout at ORY Hydra and initiates
+OpenID Connect Front-/Back-channel logout:
+
+https://openid.net/specs/openid-connect-frontchannel-1_0.html
+https://openid.net/specs/openid-connect-backchannel-1_0.html
+
+#### Responses
+
+<a id="openid-connect-front-backchannel-enabled-logout-responses"></a>
+
+##### Overview
+
+| Status         | Meaning                                                    | Description                                                                                                    | Schema |
+| -------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ------ |
+| 302            | [Found](https://tools.ietf.org/html/rfc7231#section-6.4.3) | Empty responses are sent when, for example, resources are deleted. The HTTP status code for empty responses is |
+| typically 201. | None                                                       |
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+#### Code samples
+
+<div class="tabs" id="tab-disconnectUser">
+<nav class="tabs-nav">
+<ul class="nav nav-tabs au-link-list au-link-list--inline">
+<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-disconnectUser-shell">Shell</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-disconnectUser-go">Go</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-disconnectUser-node">Node.js</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-disconnectUser-java">Java</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-disconnectUser-python">Python</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-disconnectUser-ruby">Ruby</a></li>
+</ul>
+</nav>
+<div class="tab-content">
+<div class="tab-pane active" role="tabpanel" id="tab-disconnectUser-shell">
+
+```shell
+curl -X GET /oauth2/sessions/logout
+
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-disconnectUser-go">
+
+```go
+package main
+
+import (
+    "bytes"
+    "net/http"
+)
+
+func main() {
+
+    var body []byte
+    // body = ...
+
+    req, err := http.NewRequest("GET", "/oauth2/sessions/logout", bytes.NewBuffer(body))
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-disconnectUser-node">
+
+```nodejs
+const fetch = require('node-fetch');
+
+fetch('/oauth2/sessions/logout', {
+  method: 'GET'
+})
+.then(r => r.json())
+.then((body) => {
+    console.log(body)
+})
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-disconnectUser-java">
+
+```java
+// This sample needs improvement.
+URL obj = new URL("/oauth2/sessions/logout");
+
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+
+int responseCode = con.getResponseCode();
+
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream())
+);
+
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+
+System.out.println(response.toString());
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-disconnectUser-python">
+
+```python
+import requests
+
+r = requests.get(
+  '/oauth2/sessions/logout',
+  params={)
+
+print r.json()
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-disconnectUser-ruby">
+
+```ruby
+require 'rest-client'
+require 'json'
+
+result = RestClient.get '/oauth2/sessions/logout',
+  params: {}
 
 p JSON.parse(result)
 ```
@@ -1495,7 +1495,7 @@ Status Code **200**
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-05-02T13:51:17Z",
+    "created_at": "2019-05-18T14:58:22Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -1536,7 +1536,7 @@ Status Code **200**
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-05-02T13:51:17Z",
+    "updated_at": "2019-05-18T14:58:22Z",
     "userinfo_signed_response_alg": "string"
   }
 ]
@@ -1716,7 +1716,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-05-02T13:51:17Z",
+  "created_at": "2019-05-18T14:58:22Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -1757,7 +1757,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-05-02T13:51:17Z",
+  "updated_at": "2019-05-18T14:58:22Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -1779,6 +1779,7 @@ and only callable by first-party components.
 | Status | Meaning                                                                    | Description  | Schema                              |
 | ------ | -------------------------------------------------------------------------- | ------------ | ----------------------------------- |
 | 201    | [Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)               | oAuth2Client | [oAuth2Client](#schemaoauth2client) |
+| 400    | [Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)           | genericError | [genericError](#schemagenericerror) |
 | 409    | [Conflict](https://tools.ietf.org/html/rfc7231#section-6.5.8)              | genericError | [genericError](#schemagenericerror) |
 | 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | genericError | [genericError](#schemagenericerror) |
 
@@ -1798,7 +1799,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-05-02T13:51:17Z",
+  "created_at": "2019-05-18T14:58:22Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -1839,7 +1840,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-05-02T13:51:17Z",
+  "updated_at": "2019-05-18T14:58:22Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -1920,7 +1921,7 @@ const input = '{
   "contacts": [
     "string"
   ],
-  "created_at": "2019-05-02T13:51:17Z",
+  "created_at": "2019-05-18T14:58:22Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": [
@@ -1973,7 +1974,7 @@ const input = '{
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-05-02T13:51:17Z",
+  "updated_at": "2019-05-18T14:58:22Z",
   "userinfo_signed_response_alg": "string"
 }';
 const headers = {
@@ -2112,7 +2113,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-05-02T13:51:17Z",
+  "created_at": "2019-05-18T14:58:22Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2153,7 +2154,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-05-02T13:51:17Z",
+  "updated_at": "2019-05-18T14:58:22Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2331,7 +2332,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-05-02T13:51:17Z",
+  "created_at": "2019-05-18T14:58:22Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2372,7 +2373,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-05-02T13:51:17Z",
+  "updated_at": "2019-05-18T14:58:22Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2413,7 +2414,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-05-02T13:51:17Z",
+  "created_at": "2019-05-18T14:58:22Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2454,7 +2455,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-05-02T13:51:17Z",
+  "updated_at": "2019-05-18T14:58:22Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2535,7 +2536,7 @@ const input = '{
   "contacts": [
     "string"
   ],
-  "created_at": "2019-05-02T13:51:17Z",
+  "created_at": "2019-05-18T14:58:22Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": [
@@ -2588,7 +2589,7 @@ const input = '{
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-05-02T13:51:17Z",
+  "updated_at": "2019-05-18T14:58:22Z",
   "userinfo_signed_response_alg": "string"
 }';
 const headers = {
@@ -4479,7 +4480,7 @@ the subject accepted or rejected the request.
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-05-02T13:51:17Z",
+    "created_at": "2019-05-18T14:58:22Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -4520,7 +4521,7 @@ the subject accepted or rejected the request.
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-05-02T13:51:17Z",
+    "updated_at": "2019-05-18T14:58:22Z",
     "userinfo_signed_response_alg": "string"
   },
   "context": {
@@ -5226,7 +5227,7 @@ the requested authentication process.
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-05-02T13:51:17Z",
+    "created_at": "2019-05-18T14:58:22Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -5267,7 +5268,7 @@ the requested authentication process.
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-05-02T13:51:17Z",
+    "updated_at": "2019-05-18T14:58:22Z",
     "userinfo_signed_response_alg": "string"
   },
   "oidc_context": {
@@ -6626,7 +6627,7 @@ Status Code **200**
         "client_secret_expires_at": 0,
         "client_uri": "string",
         "contacts": ["string"],
-        "created_at": "2019-05-02T13:51:17Z",
+        "created_at": "2019-05-18T14:58:22Z",
         "frontchannel_logout_session_required": true,
         "frontchannel_logout_uri": "string",
         "grant_types": ["string"],
@@ -6667,7 +6668,7 @@ Status Code **200**
         "subject_type": "string",
         "token_endpoint_auth_method": "string",
         "tos_uri": "string",
-        "updated_at": "2019-05-02T13:51:17Z",
+        "updated_at": "2019-05-18T14:58:22Z",
         "userinfo_signed_response_alg": "string"
       },
       "context": {
@@ -7053,7 +7054,8 @@ Accept: application/json
 
 This endpoint invalidates a subject's authentication session. After revoking the
 authentication session, the subject has to re-authenticate at ORY Hydra. This
-endpoint does not invalidate any tokens.
+endpoint does not invalidate any tokens and does not work with OpenID Connect
+Front- or Back-channel logout.
 
 <a id="invalidates-all-login-sessions-of-a-certain-user
 invalidates-a-subject's-authentication-session-parameters"></a>
@@ -7252,7 +7254,7 @@ deleted automatically when performing the refresh flow.
 
 ```json
 {
-  "notAfter": "2019-05-02T13:51:17Z"
+  "notAfter": "2019-05-18T14:58:22Z"
 }
 ```
 
@@ -7350,7 +7352,7 @@ func main() {
 ```nodejs
 const fetch = require('node-fetch');
 const input = '{
-  "notAfter": "2019-05-02T13:51:17Z"
+  "notAfter": "2019-05-18T14:58:22Z"
 }';
 const headers = {
   'Content-Type': 'application/json',  'Accept': 'application/json'
@@ -8314,7 +8316,7 @@ p JSON.parse(result)
       "client_secret_expires_at": 0,
       "client_uri": "string",
       "contacts": ["string"],
-      "created_at": "2019-05-02T13:51:17Z",
+      "created_at": "2019-05-18T14:58:22Z",
       "frontchannel_logout_session_required": true,
       "frontchannel_logout_uri": "string",
       "grant_types": ["string"],
@@ -8355,7 +8357,7 @@ p JSON.parse(result)
       "subject_type": "string",
       "token_endpoint_auth_method": "string",
       "tos_uri": "string",
-      "updated_at": "2019-05-02T13:51:17Z",
+      "updated_at": "2019-05-18T14:58:22Z",
       "userinfo_signed_response_alg": "string"
     },
     "context": {
@@ -8524,7 +8526,7 @@ request._
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-05-02T13:51:17Z",
+    "created_at": "2019-05-18T14:58:22Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -8565,7 +8567,7 @@ request._
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-05-02T13:51:17Z",
+    "updated_at": "2019-05-18T14:58:22Z",
     "userinfo_signed_response_alg": "string"
   },
   "context": {
@@ -8667,7 +8669,7 @@ _None_
 
 ```json
 {
-  "notAfter": "2019-05-02T13:51:17Z"
+  "notAfter": "2019-05-18T14:58:22Z"
 }
 ```
 
@@ -8785,7 +8787,7 @@ _Error response_
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-05-02T13:51:17Z",
+    "created_at": "2019-05-18T14:58:22Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -8826,7 +8828,7 @@ _Error response_
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-05-02T13:51:17Z",
+    "updated_at": "2019-05-18T14:58:22Z",
     "userinfo_signed_response_alg": "string"
   },
   "oidc_context": {
@@ -8908,7 +8910,7 @@ _Contains information about an ongoing logout request._
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-05-02T13:51:17Z",
+  "created_at": "2019-05-18T14:58:22Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -8949,7 +8951,7 @@ _Contains information about an ongoing logout request._
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-05-02T13:51:17Z",
+  "updated_at": "2019-05-18T14:58:22Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -9166,7 +9168,7 @@ _The request payload used to accept a login or consent request._
 ```json
 {
   "Body": {
-    "notAfter": "2019-05-02T13:51:17Z"
+    "notAfter": "2019-05-18T14:58:22Z"
   }
 }
 ```

@@ -284,44 +284,44 @@ client_assertion=PHNhbWxwOl ... ZT
 
 Here's what a client with a `jwks` looks like:
 
-```
+```json
 {
-    "client_id": "client-jwks",
-    "jwks": {
-        "keys": [
-            {
-                "kty": "RSA",
-                "n": "jL7h5wc-yeMUsHGJHc0xe9SbTdaLKXMHvcIHQck20Ji7SvrHPdTDQTvZtTDS_wJYbeShcCrliHvbJRSZhtEe0mPJpyWg3O_HkKy6_SyHepLK-_BR7HfcXYB6pVJCG3BW-lVMY7gl5sULFA74kNZH50h8hdmyWC9JgOHn0n3YLdaxSWlhctuwNPSwqwzY4qtN7_CZub81SXWpKiwj4UpyB10b8rM8qn35FS1hfsaFCVi0gQpd4vFDgFyqqpmiwq8oMr8RZ2mf0NMKCP3RXnMhy9Yq8O7lgG2t6g1g9noWbzZDUZNc54tv4WGFJ_rJZRz0jE_GR6v5sdqsDTdjFquPlQ",
-                "e": "AQAB"
-            }
-        ]
-    },
-    "token_endpoint_auth_method": "private_key_jwt"
+  "client_id": "client-jwks",
+  "jwks": {
+    "keys": [
+      {
+        "kty": "RSA",
+        "n": "jL7h5wc-yeMUsHGJHc0xe9SbTdaLKXMHvcIHQck20Ji7SvrHPdTDQTvZtTDS_wJYbeShcCrliHvbJRSZhtEe0mPJpyWg3O_HkKy6_SyHepLK-_BR7HfcXYB6pVJCG3BW-lVMY7gl5sULFA74kNZH50h8hdmyWC9JgOHn0n3YLdaxSWlhctuwNPSwqwzY4qtN7_CZub81SXWpKiwj4UpyB10b8rM8qn35FS1hfsaFCVi0gQpd4vFDgFyqqpmiwq8oMr8RZ2mf0NMKCP3RXnMhy9Yq8O7lgG2t6g1g9noWbzZDUZNc54tv4WGFJ_rJZRz0jE_GR6v5sdqsDTdjFquPlQ",
+        "e": "AQAB"
+      }
+    ]
+  },
+  "token_endpoint_auth_method": "private_key_jwt"
 }
 ```
 
 And with `jwks_uri`:
 
-```
+```json
 {
-    "client_id": "client-jwks-uri",
-    "jwks_uri": "http://path-to-my-public/keys.json",
-    "token_endpoint_auth_method": "private_key_jwt"
+  "client_id": "client-jwks-uri",
+  "jwks_uri": "http://path-to-my-public/keys.json",
+  "token_endpoint_auth_method": "private_key_jwt"
 }
 ```
 
 The `jwks_uri` must return a JSON object containing the public keys associated
 with the OAuth 2.0 Client:
 
-```
+```json
 {
-    "keys": [
-        {
-            "kty": "RSA",
-            "n": "jL7h5wc-yeMUsHGJHc0xe9SbTdaLKXMHvcIHQck20Ji7SvrHPdTDQTvZtTDS_wJYbeShcCrliHvbJRSZhtEe0mPJpyWg3O_HkKy6_SyHepLK-_BR7HfcXYB6pVJCG3BW-lVMY7gl5sULFA74kNZH50h8hdmyWC9JgOHn0n3YLdaxSWlhctuwNPSwqwzY4qtN7_CZub81SXWpKiwj4UpyB10b8rM8qn35FS1hfsaFCVi0gQpd4vFDgFyqqpmiwq8oMr8RZ2mf0NMKCP3RXnMhy9Yq8O7lgG2t6g1g9noWbzZDUZNc54tv4WGFJ_rJZRz0jE_GR6v5sdqsDTdjFquPlQ",
-            "e": "AQAB"
-        }
-    ]
+  "keys": [
+    {
+      "kty": "RSA",
+      "n": "jL7h5wc-yeMUsHGJHc0xe9SbTdaLKXMHvcIHQck20Ji7SvrHPdTDQTvZtTDS_wJYbeShcCrliHvbJRSZhtEe0mPJpyWg3O_HkKy6_SyHepLK-_BR7HfcXYB6pVJCG3BW-lVMY7gl5sULFA74kNZH50h8hdmyWC9JgOHn0n3YLdaxSWlhctuwNPSwqwzY4qtN7_CZub81SXWpKiwj4UpyB10b8rM8qn35FS1hfsaFCVi0gQpd4vFDgFyqqpmiwq8oMr8RZ2mf0NMKCP3RXnMhy9Yq8O7lgG2t6g1g9noWbzZDUZNc54tv4WGFJ_rJZRz0jE_GR6v5sdqsDTdjFquPlQ",
+      "e": "AQAB"
+    }
+  ]
 }
 ```
 
@@ -425,10 +425,10 @@ Some endpoints (`/oauth2/token`, `/userinfo`, `/oauth2/revoke`) additionally
 include URLs listed in field `allowed_cors_origins` of the OAuth 2.0 Client that
 is making the request. For example, OAuth 2.0 Client
 
-```
+```json
 {
-    "client_id": "foo",
-    "allowed_cors_origins": ["https://foo-bar.com/"]
+  "client_id": "foo",
+  "allowed_cors_origins": ["https://foo-bar.com/"]
 }
 ```
 
