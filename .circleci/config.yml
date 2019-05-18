@@ -14,6 +14,7 @@ jobs:
       - run: git config --global user.name "ORY Continuous Integration"
       - run: "git clone https://arekkas:$DOCS_TOKEN_PUSH@github.com/ory/ory-am.git ../ory-am"
       - run: cd website; npm run api
+      - run: cd website; npm run release $(echo $CIRCLE_TAG | cut -d '+' -f2)
       - run: cd website; npm run build
       - run: rm -rf ../ory-am/docs/*
       - run: cp -R ./website/build/docs/* ../ory-am/docs/
@@ -37,5 +38,5 @@ workflows:
           requires:
             - test
           filters:
-            branches:
-              only: master
+            tags:
+              only: /.*/
