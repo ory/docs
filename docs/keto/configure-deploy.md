@@ -63,7 +63,7 @@ $ export DSN=postgres://keto:secret@ory-keto-example--postgres:5432/keto?sslmode
 $ docker run -it --rm \
   --network ketoguide \
   -e DSN=$DSN \
-  oryd/keto:v0.3.1-sandbox \
+  oryd/keto:v0.3.3-sandbox \
   migrate sql -e
 
 Applying `client` SQL migrations...
@@ -76,7 +76,7 @@ $ docker run -d \
   --network ketoguide \
   -p 4466:4466 \
   -e DSN=$DSN \
-  oryd/keto:v0.3.1-sandbox \
+  oryd/keto:v0.3.3-sandbox \
   serve
 ```
 
@@ -117,7 +117,7 @@ $ docker run -it --rm \
   --network ketoguide \
   -v $(pwd)/policies:/policies \
   -e KETO_URL=http://ory-keto-example--keto:4466/ \
-  oryd/keto:v0.3.1-sandbox \
+  oryd/keto:v0.3.3-sandbox \
   engines acp ory policies import exact /policies/example-policy.json
 ```
 
@@ -127,7 +127,7 @@ Check if the policy has been created:
 $ docker run -it --rm \
   --network ketoguide \
   -e KETO_URL=http://ory-keto-example--keto:4466/ \
-  oryd/keto:v0.3.1-sandbox \
+  oryd/keto:v0.3.3-sandbox \
   engines acp ory policies get exact example-policy
 {
   "actions": [
@@ -142,7 +142,7 @@ And check if certain users are allowed to do things:
 $ docker run -it --rm \
   --network ketoguide \
   -e KETO_URL=http://ory-keto-example--keto:4466/ \
-  oryd/keto:v0.3.1-sandbox \
+  oryd/keto:v0.3.3-sandbox \
   engines acp ory allowed exact alice blog_posts:my-first-blog-post delete
 {
         "allowed": true
@@ -151,7 +151,7 @@ $ docker run -it --rm \
 $ docker run -it --rm \
   --network ketoguide \
   -e KETO_URL=http://ory-keto-example--keto:4466/ \
-  oryd/keto:v0.3.1-sandbox \
+  oryd/keto:v0.3.3-sandbox \
   engines acp ory allowed exact bob blog_posts:my-first-blog-post delete
 {
         "allowed": false
