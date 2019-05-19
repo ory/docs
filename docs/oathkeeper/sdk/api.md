@@ -19,13 +19,13 @@ tokens and policies.
 > free to share them in a [GitHub issue](https://github.com/ory/docs/issues/new)
 > any time.
 
-<a id="ory-oathkeeper-default"></a>
+<a id="ory-oathkeeper-api"></a>
 
-## Default
+## api
 
-<a id="opIdgetWellKnown"></a>
+<a id="opIdgetWellKnownJSONWebKeys"></a>
 
-### Returns well known keys
+### Lists cryptographic keys
 
 ```
 GET /.well-known/jwks.json HTTP/1.1
@@ -33,38 +33,25 @@ Accept: application/json
 
 ```
 
-This endpoint returns public keys for validating the ID tokens issued by ORY
-Oathkeeper.
+This endpoint returns cryptographic keys that are required to, for example,
+verify signatures of ID Tokens.
 
 #### Responses
 
-<a id="returns-well-known-keys-responses"></a>
+<a id="lists-cryptographic-keys-responses"></a>
 
 ##### Overview
 
-| Status | Meaning                                                         | Description               | Schema                                |
-| ------ | --------------------------------------------------------------- | ------------------------- | ------------------------------------- |
-| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)         | jsonWebKeySet             | [jsonWebKeySet](#schemajsonwebkeyset) |
-| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1) | The standard error format | Inline                                |
-| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)  | The standard error format | Inline                                |
+| Status | Meaning                                                                    | Description               | Schema                                |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------------------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | jsonWebKeySet             | [jsonWebKeySet](#schemajsonwebkeyset) |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline                                |
 
-<a id="returns-well-known-keys-responseschema"></a>
+<a id="lists-cryptographic-keys-responseschema"></a>
 
 ##### Response Schema</h3>
 
-Status Code **401**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-Status Code **403**
+Status Code **500**
 
 | Name                        | Type           | Required | Restrictions | Description |
 | --------------------------- | -------------- | -------- | ------------ | ----------- |
@@ -112,19 +99,19 @@ This operation does not require authentication
 
 #### Code samples
 
-<div class="tabs" id="tab-getWellKnown">
+<div class="tabs" id="tab-getWellKnownJSONWebKeys">
 <nav class="tabs-nav">
 <ul class="nav nav-tabs au-link-list au-link-list--inline">
-<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-getWellKnown-shell">Shell</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getWellKnown-go">Go</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getWellKnown-node">Node.js</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getWellKnown-java">Java</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getWellKnown-python">Python</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getWellKnown-ruby">Ruby</a></li>
+<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-getWellKnownJSONWebKeys-shell">Shell</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getWellKnownJSONWebKeys-go">Go</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getWellKnownJSONWebKeys-node">Node.js</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getWellKnownJSONWebKeys-java">Java</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getWellKnownJSONWebKeys-python">Python</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getWellKnownJSONWebKeys-ruby">Ruby</a></li>
 </ul>
 </nav>
 <div class="tab-content">
-<div class="tab-pane active" role="tabpanel" id="tab-getWellKnown-shell">
+<div class="tab-pane active" role="tabpanel" id="tab-getWellKnownJSONWebKeys-shell">
 
 ```shell
 curl -X GET /.well-known/jwks.json \
@@ -132,7 +119,7 @@ curl -X GET /.well-known/jwks.json \
 ```
 
 </div>
-<div class="tab-pane" role="tabpanel"  id="tab-getWellKnown-go">
+<div class="tab-pane" role="tabpanel"  id="tab-getWellKnownJSONWebKeys-go">
 
 ```go
 package main
@@ -160,7 +147,7 @@ func main() {
 ```
 
 </div>
-<div class="tab-pane" role="tabpanel"  id="tab-getWellKnown-node">
+<div class="tab-pane" role="tabpanel"  id="tab-getWellKnownJSONWebKeys-node">
 
 ```nodejs
 const fetch = require('node-fetch');
@@ -180,7 +167,7 @@ fetch('/.well-known/jwks.json', {
 ```
 
 </div>
-<div class="tab-pane" role="tabpanel"  id="tab-getWellKnown-java">
+<div class="tab-pane" role="tabpanel"  id="tab-getWellKnownJSONWebKeys-java">
 
 ```java
 // This sample needs improvement.
@@ -206,7 +193,7 @@ System.out.println(response.toString());
 ```
 
 </div>
-<div class="tab-pane" role="tabpanel"  id="tab-getWellKnown-python">
+<div class="tab-pane" role="tabpanel"  id="tab-getWellKnownJSONWebKeys-python">
 
 ```python
 import requests
@@ -224,7 +211,7 @@ print r.json()
 ```
 
 </div>
-<div class="tab-pane" role="tabpanel"  id="tab-getWellKnown-ruby">
+<div class="tab-pane" role="tabpanel"  id="tab-getWellKnownJSONWebKeys-ruby">
 
 ```ruby
 require 'rest-client'
@@ -244,13 +231,9 @@ p JSON.parse(result)
 </div>
 </div>
 
-<a id="ory-oathkeeper-health"></a>
-
-## health
-
 <a id="opIdisInstanceAlive"></a>
 
-### Check the Alive Status
+### Check alive status
 
 ```
 GET /health/alive HTTP/1.1
@@ -260,15 +243,17 @@ Accept: application/json
 
 This endpoint returns a 200 status code when the HTTP server is up running. This
 status does currently not include checks whether the database connection is
-working. This endpoint does not require the `X-Forwarded-Proto` header when TLS
-termination is set.
+working.
 
-Be aware that if you are running multiple nodes of ORY Oathkeeper, the health
+If the service supports TLS Edge Termination, this endpoint does not require the
+`X-Forwarded-Proto` header to be set.
+
+Be aware that if you are running multiple nodes of this service, the health
 status will never refer to the cluster state, only to a single instance.
 
 #### Responses
 
-<a id="check-the-alive-status-responses"></a>
+<a id="check-alive-status-responses"></a>
 
 ##### Overview
 
@@ -277,7 +262,7 @@ status will never refer to the cluster state, only to a single instance.
 | 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | healthStatus              | [healthStatus](#schemahealthstatus) |
 | 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline                              |
 
-<a id="check-the-alive-status-responseschema"></a>
+<a id="check-alive-status-responseschema"></a>
 
 ##### Response Schema</h3>
 
@@ -443,7 +428,7 @@ p JSON.parse(result)
 
 <a id="opIdisInstanceReady"></a>
 
-### Check the Readiness Status
+### Check readiness status
 
 ```
 GET /health/ready HTTP/1.1
@@ -454,16 +439,15 @@ Accept: application/json
 This endpoint returns a 200 status code when the HTTP server is up running and
 the environment dependencies (e.g. the database) are responsive as well.
 
-This status does currently not include checks whether the database connection is
-working. This endpoint does not require the `X-Forwarded-Proto` header when TLS
-termination is set.
+If the service supports TLS Edge Termination, this endpoint does not require the
+`X-Forwarded-Proto` header to be set.
 
-Be aware that if you are running multiple nodes of ORY Oathkeeper, the health
+Be aware that if you are running multiple nodes of this service, the health
 status will never refer to the cluster state, only to a single instance.
 
 #### Responses
 
-<a id="check-the-readiness-status-responses"></a>
+<a id="check-readiness-status-responses"></a>
 
 ##### Overview
 
@@ -611,6 +595,661 @@ headers = {
 }
 
 result = RestClient.get '/health/ready',
+  params: {}, headers: headers
+
+p JSON.parse(result)
+```
+
+</div>
+</div>
+</div>
+
+<a id="opIdlistRules"></a>
+
+### List all rules
+
+```
+GET /rules HTTP/1.1
+Accept: application/json
+
+```
+
+This method returns an array of all rules that are stored in the backend. This
+is useful if you want to get a full view of what rules you have currently in
+place.
+
+<a id="list-all-rules-parameters"></a>
+
+##### Parameters
+
+| Parameter | In    | Type           | Required | Description                             |
+| --------- | ----- | -------------- | -------- | --------------------------------------- |
+| limit     | query | integer(int64) | false    | The maximum amount of rules returned.   |
+| offset    | query | integer(int64) | false    | The offset from where to start looking. |
+
+#### Responses
+
+<a id="list-all-rules-responses"></a>
+
+##### Overview
+
+| Status | Meaning                                                                    | Description               | Schema |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------ |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | A list of rules           | Inline |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline |
+
+<a id="list-all-rules-responseschema"></a>
+
+##### Response Schema</h3>
+
+Status Code **200**
+
+| Name                                                                        | Type                                | Required | Restrictions | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| --------------------------------------------------------------------------- | ----------------------------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| _anonymous_                                                                 | [[rule](#schemarule)]               | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| » swaggerRule is a single rule that will get checked on every HTTP request. | [rule](#schemarule)                 | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| »» authenticators                                                           | [[ruleHandler](#schemarulehandler)] | false    | none         | Authenticators is a list of authentication handlers that will try and authenticate the provided credentials. Authenticators are checked iteratively from index 0 to n and if the first authenticator to return a positive result will be the one used. If you want the rule to first check a specific authenticator before "falling back" to others, have that authenticator as the first item in the array.                                                                                                                                                                                                                                                                                              |
+| »»» config                                                                  | object                              | false    | none         | Config contains the configuration for the handler. Please read the user guide for a complete list of each handler's available settings.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| »»» handler                                                                 | string                              | false    | none         | Handler identifies the implementation which will be used to handle this specific request. Please read the user guide for a complete list of available handlers.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| »» authorizer                                                               | [ruleHandler](#schemarulehandler)   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| »» description                                                              | string                              | false    | none         | Description is a human readable description of this rule.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| »» id                                                                       | string                              | false    | none         | ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| »» match                                                                    | [ruleMatch](#schemarulematch)       | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| »»» methods                                                                 | [string]                            | false    | none         | An array of HTTP methods (e.g. GET, POST, PUT, DELETE, ...). When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the HTTP method of the incoming request with the HTTP methods of each rules. If a match is found, the rule is considered a partial match. If the matchesUrl field is satisfied as well, the rule is considered a full match.                                                                                                                                                                                                                                                                                           |
+| »»» url                                                                     | string                              | false    | none         | This field represents the URL pattern this rule matches. When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the full request URL (e.g. https://mydomain.com/api/resource) without query parameters of the incoming request with this field. If a match is found, the rule is considered a partial match. If the matchesMethods field is satisfied as well, the rule is considered a full match. You can use regular expressions in this field to match more than one url. Regular expressions are encapsulated in brackets < and >. The following example matches all paths of the domain `mydomain.com`: `https://mydomain.com/<.*>`. |
+| »» mutator                                                                  | [ruleHandler](#schemarulehandler)   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| »» upstream                                                                 | [Upstream](#schemaupstream)         | false    | none         | Upstream Upstream Upstream Upstream upstream                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| »»» preserve_host                                                           | boolean                             | false    | none         | PreserveHost, if false (the default), tells ORY Oathkeeper to set the upstream request's Host header to the hostname of the API's upstream's URL. Setting this flag to true instructs ORY Oathkeeper not to do so.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| »»» strip_path                                                              | string                              | false    | none         | StripPath if set, replaces the provided path prefix when forwarding the requested URL to the upstream URL.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| »»» url                                                                     | string                              | false    | none         | URL is the URL the request will be proxied to.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+
+Status Code **500**
+
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
+
+##### Examples
+
+###### 200 response
+
+```json
+[
+  {
+    "authenticators": [
+      {
+        "config": {},
+        "handler": "string"
+      }
+    ],
+    "authorizer": {
+      "config": {},
+      "handler": "string"
+    },
+    "description": "string",
+    "id": "string",
+    "match": {
+      "methods": ["string"],
+      "url": "string"
+    },
+    "mutator": {
+      "config": {},
+      "handler": "string"
+    },
+    "upstream": {
+      "preserve_host": true,
+      "strip_path": "string",
+      "url": "string"
+    }
+  }
+]
+```
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+#### Code samples
+
+<div class="tabs" id="tab-listRules">
+<nav class="tabs-nav">
+<ul class="nav nav-tabs au-link-list au-link-list--inline">
+<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-listRules-shell">Shell</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-listRules-go">Go</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-listRules-node">Node.js</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-listRules-java">Java</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-listRules-python">Python</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-listRules-ruby">Ruby</a></li>
+</ul>
+</nav>
+<div class="tab-content">
+<div class="tab-pane active" role="tabpanel" id="tab-listRules-shell">
+
+```shell
+curl -X GET /rules \
+  -H 'Accept: application/json'
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-listRules-go">
+
+```go
+package main
+
+import (
+    "bytes"
+    "net/http"
+)
+
+func main() {
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    var body []byte
+    // body = ...
+
+    req, err := http.NewRequest("GET", "/rules", bytes.NewBuffer(body))
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-listRules-node">
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept': 'application/json'
+}
+
+fetch('/rules', {
+  method: 'GET',
+  headers
+})
+.then(r => r.json())
+.then((body) => {
+    console.log(body)
+})
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-listRules-java">
+
+```java
+// This sample needs improvement.
+URL obj = new URL("/rules");
+
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+
+int responseCode = con.getResponseCode();
+
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream())
+);
+
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+
+System.out.println(response.toString());
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-listRules-python">
+
+```python
+import requests
+
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get(
+  '/rules',
+  params={},
+  headers = headers)
+
+print r.json()
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-listRules-ruby">
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.get '/rules',
+  params: {}, headers: headers
+
+p JSON.parse(result)
+```
+
+</div>
+</div>
+</div>
+
+<a id="opIdgetRule"></a>
+
+### Retrieve a rule
+
+```
+GET /rules/{id} HTTP/1.1
+Accept: application/json
+
+```
+
+Use this method to retrieve a rule from the storage. If it does not exist you
+will receive a 404 error.
+
+<a id="retrieve-a-rule-parameters"></a>
+
+##### Parameters
+
+| Parameter | In   | Type   | Required | Description |
+| --------- | ---- | ------ | -------- | ----------- |
+| id        | path | string | true     | none        |
+
+#### Responses
+
+<a id="retrieve-a-rule-responses"></a>
+
+##### Overview
+
+| Status | Meaning                                                                    | Description               | Schema              |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | A rule                    | [rule](#schemarule) |
+| 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)             | The standard error format | Inline              |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline              |
+
+<a id="retrieve-a-rule-responseschema"></a>
+
+##### Response Schema</h3>
+
+Status Code **404**
+
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
+
+Status Code **500**
+
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
+
+##### Examples
+
+###### 200 response
+
+```json
+{
+  "authenticators": [
+    {
+      "config": {},
+      "handler": "string"
+    }
+  ],
+  "authorizer": {
+    "config": {},
+    "handler": "string"
+  },
+  "description": "string",
+  "id": "string",
+  "match": {
+    "methods": ["string"],
+    "url": "string"
+  },
+  "mutator": {
+    "config": {},
+    "handler": "string"
+  },
+  "upstream": {
+    "preserve_host": true,
+    "strip_path": "string",
+    "url": "string"
+  }
+}
+```
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+#### Code samples
+
+<div class="tabs" id="tab-getRule">
+<nav class="tabs-nav">
+<ul class="nav nav-tabs au-link-list au-link-list--inline">
+<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-getRule-shell">Shell</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getRule-go">Go</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getRule-node">Node.js</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getRule-java">Java</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getRule-python">Python</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getRule-ruby">Ruby</a></li>
+</ul>
+</nav>
+<div class="tab-content">
+<div class="tab-pane active" role="tabpanel" id="tab-getRule-shell">
+
+```shell
+curl -X GET /rules/{id} \
+  -H 'Accept: application/json'
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-getRule-go">
+
+```go
+package main
+
+import (
+    "bytes"
+    "net/http"
+)
+
+func main() {
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    var body []byte
+    // body = ...
+
+    req, err := http.NewRequest("GET", "/rules/{id}", bytes.NewBuffer(body))
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-getRule-node">
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept': 'application/json'
+}
+
+fetch('/rules/{id}', {
+  method: 'GET',
+  headers
+})
+.then(r => r.json())
+.then((body) => {
+    console.log(body)
+})
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-getRule-java">
+
+```java
+// This sample needs improvement.
+URL obj = new URL("/rules/{id}");
+
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+
+int responseCode = con.getResponseCode();
+
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream())
+);
+
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+
+System.out.println(response.toString());
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-getRule-python">
+
+```python
+import requests
+
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get(
+  '/rules/{id}',
+  params={},
+  headers = headers)
+
+print r.json()
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-getRule-ruby">
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.get '/rules/{id}',
+  params: {}, headers: headers
+
+p JSON.parse(result)
+```
+
+</div>
+</div>
+</div>
+
+<a id="opIdgetVersion"></a>
+
+### Get service version
+
+```
+GET /version HTTP/1.1
+Accept: application/json
+
+```
+
+This endpoint returns the service version typically notated using semantic
+versioning.
+
+If the service supports TLS Edge Termination, this endpoint does not require the
+`X-Forwarded-Proto` header to be set.
+
+Be aware that if you are running multiple nodes of this service, the health
+status will never refer to the cluster state, only to a single instance.
+
+#### Responses
+
+<a id="get-service-version-responses"></a>
+
+##### Overview
+
+| Status | Meaning                                                 | Description | Schema                    |
+| ------ | ------------------------------------------------------- | ----------- | ------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | version     | [version](#schemaversion) |
+
+##### Examples
+
+###### 200 response
+
+```json
+{
+  "version": "string"
+}
+```
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+#### Code samples
+
+<div class="tabs" id="tab-getVersion">
+<nav class="tabs-nav">
+<ul class="nav nav-tabs au-link-list au-link-list--inline">
+<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-getVersion-shell">Shell</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getVersion-go">Go</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getVersion-node">Node.js</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getVersion-java">Java</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getVersion-python">Python</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getVersion-ruby">Ruby</a></li>
+</ul>
+</nav>
+<div class="tab-content">
+<div class="tab-pane active" role="tabpanel" id="tab-getVersion-shell">
+
+```shell
+curl -X GET /version \
+  -H 'Accept: application/json'
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-getVersion-go">
+
+```go
+package main
+
+import (
+    "bytes"
+    "net/http"
+)
+
+func main() {
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    var body []byte
+    // body = ...
+
+    req, err := http.NewRequest("GET", "/version", bytes.NewBuffer(body))
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-getVersion-node">
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept': 'application/json'
+}
+
+fetch('/version', {
+  method: 'GET',
+  headers
+})
+.then(r => r.json())
+.then((body) => {
+    console.log(body)
+})
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-getVersion-java">
+
+```java
+// This sample needs improvement.
+URL obj = new URL("/version");
+
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+
+int responseCode = con.getResponseCode();
+
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream())
+);
+
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+
+System.out.println(response.toString());
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-getVersion-python">
+
+```python
+import requests
+
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get(
+  '/version',
+  params={},
+  headers = headers)
+
+print r.json()
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-getVersion-ruby">
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.get '/version',
   params: {}, headers: headers
 
 p JSON.parse(result)
@@ -864,1595 +1503,6 @@ p JSON.parse(result)
 </div>
 </div>
 
-<a id="ory-oathkeeper-rule"></a>
-
-## rule
-
-<a id="opIdlistRules"></a>
-
-### List all rules
-
-```
-GET /rules HTTP/1.1
-Accept: application/json
-
-```
-
-This method returns an array of all rules that are stored in the backend. This
-is useful if you want to get a full view of what rules you have currently in
-place.
-
-<a id="list-all-rules-parameters"></a>
-
-##### Parameters
-
-| Parameter | In    | Type           | Required | Description                             |
-| --------- | ----- | -------------- | -------- | --------------------------------------- |
-| limit     | query | integer(int64) | false    | The maximum amount of rules returned.   |
-| offset    | query | integer(int64) | false    | The offset from where to start looking. |
-
-#### Responses
-
-<a id="list-all-rules-responses"></a>
-
-##### Overview
-
-| Status | Meaning                                                                    | Description               | Schema |
-| ------ | -------------------------------------------------------------------------- | ------------------------- | ------ |
-| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | A list of rules           | Inline |
-| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline |
-| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline |
-| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline |
-
-<a id="list-all-rules-responseschema"></a>
-
-##### Response Schema</h3>
-
-Status Code **200**
-
-| Name                                                                        | Type                                | Required | Restrictions | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| --------------------------------------------------------------------------- | ----------------------------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| _anonymous_                                                                 | [[rule](#schemarule)]               | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| » swaggerRule is a single rule that will get checked on every HTTP request. | [rule](#schemarule)                 | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| »» authenticators                                                           | [[ruleHandler](#schemarulehandler)] | false    | none         | Authenticators is a list of authentication handlers that will try and authenticate the provided credentials. Authenticators are checked iteratively from index 0 to n and if the first authenticator to return a positive result will be the one used. If you want the rule to first check a specific authenticator before "falling back" to others, have that authenticator as the first item in the array.                                                                                                                                                                                                                                                                                              |
-| »»» config                                                                  | object                              | false    | none         | Config contains the configuration for the handler. Please read the user guide for a complete list of each handler's available settings.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| »»» handler                                                                 | string                              | false    | none         | Handler identifies the implementation which will be used to handle this specific request. Please read the user guide for a complete list of available handlers.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| »» authorizer                                                               | [ruleHandler](#schemarulehandler)   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| »» credentials_issuer                                                       | [ruleHandler](#schemarulehandler)   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| »» description                                                              | string                              | false    | none         | Description is a human readable description of this rule.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| »» id                                                                       | string                              | false    | none         | ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| »» match                                                                    | [ruleMatch](#schemarulematch)       | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| »»» methods                                                                 | [string]                            | false    | none         | An array of HTTP methods (e.g. GET, POST, PUT, DELETE, ...). When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the HTTP method of the incoming request with the HTTP methods of each rules. If a match is found, the rule is considered a partial match. If the matchesUrl field is satisfied as well, the rule is considered a full match.                                                                                                                                                                                                                                                                                           |
-| »»» url                                                                     | string                              | false    | none         | This field represents the URL pattern this rule matches. When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the full request URL (e.g. https://mydomain.com/api/resource) without query parameters of the incoming request with this field. If a match is found, the rule is considered a partial match. If the matchesMethods field is satisfied as well, the rule is considered a full match. You can use regular expressions in this field to match more than one url. Regular expressions are encapsulated in brackets < and >. The following example matches all paths of the domain `mydomain.com`: `https://mydomain.com/<.*>`. |
-| »» upstream                                                                 | [Upstream](#schemaupstream)         | false    | none         | Upstream Upstream upstream                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| »»» preserve_host                                                           | boolean                             | false    | none         | PreserveHost, if false (the default), tells ORY Oathkeeper to set the upstream request's Host header to the hostname of the API's upstream's URL. Setting this flag to true instructs ORY Oathkeeper not to do so.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| »»» strip_path                                                              | string                              | false    | none         | StripPath if set, replaces the provided path prefix when forwarding the requested URL to the upstream URL.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| »»» url                                                                     | string                              | false    | none         | URL is the URL the request will be proxied to.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-
-Status Code **401**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-Status Code **403**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-Status Code **500**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-##### Examples
-
-###### 200 response
-
-```json
-[
-  {
-    "authenticators": [
-      {
-        "config": {},
-        "handler": "string"
-      }
-    ],
-    "authorizer": {
-      "config": {},
-      "handler": "string"
-    },
-    "credentials_issuer": {
-      "config": {},
-      "handler": "string"
-    },
-    "description": "string",
-    "id": "string",
-    "match": {
-      "methods": ["string"],
-      "url": "string"
-    },
-    "upstream": {
-      "preserve_host": true,
-      "strip_path": "string",
-      "url": "string"
-    }
-  }
-]
-```
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-
-#### Code samples
-
-<div class="tabs" id="tab-listRules">
-<nav class="tabs-nav">
-<ul class="nav nav-tabs au-link-list au-link-list--inline">
-<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-listRules-shell">Shell</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-listRules-go">Go</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-listRules-node">Node.js</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-listRules-java">Java</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-listRules-python">Python</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-listRules-ruby">Ruby</a></li>
-</ul>
-</nav>
-<div class="tab-content">
-<div class="tab-pane active" role="tabpanel" id="tab-listRules-shell">
-
-```shell
-curl -X GET /rules \
-  -H 'Accept: application/json'
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-listRules-go">
-
-```go
-package main
-
-import (
-    "bytes"
-    "net/http"
-)
-
-func main() {
-    headers := map[string][]string{
-        "Accept": []string{"application/json"},
-    }
-
-    var body []byte
-    // body = ...
-
-    req, err := http.NewRequest("GET", "/rules", bytes.NewBuffer(body))
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-listRules-node">
-
-```nodejs
-const fetch = require('node-fetch');
-
-const headers = {
-  'Accept': 'application/json'
-}
-
-fetch('/rules', {
-  method: 'GET',
-  headers
-})
-.then(r => r.json())
-.then((body) => {
-    console.log(body)
-})
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-listRules-java">
-
-```java
-// This sample needs improvement.
-URL obj = new URL("/rules");
-
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-
-int responseCode = con.getResponseCode();
-
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream())
-);
-
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-
-System.out.println(response.toString());
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-listRules-python">
-
-```python
-import requests
-
-headers = {
-  'Accept': 'application/json'
-}
-
-r = requests.get(
-  '/rules',
-  params={},
-  headers = headers)
-
-print r.json()
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-listRules-ruby">
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => 'application/json'
-}
-
-result = RestClient.get '/rules',
-  params: {}, headers: headers
-
-p JSON.parse(result)
-```
-
-</div>
-</div>
-</div>
-
-<a id="opIdcreateRule"></a>
-
-### Create a rule
-
-```
-POST /rules HTTP/1.1
-Content-Type: application/json
-Accept: application/json
-
-```
-
-This method allows creation of rules. If a rule id exists, you will receive an
-error.
-
-#### Request body
-
-```json
-{
-  "authenticators": [
-    {
-      "config": {},
-      "handler": "string"
-    }
-  ],
-  "authorizer": {
-    "config": {},
-    "handler": "string"
-  },
-  "credentials_issuer": {
-    "config": {},
-    "handler": "string"
-  },
-  "description": "string",
-  "id": "string",
-  "match": {
-    "methods": ["string"],
-    "url": "string"
-  },
-  "upstream": {
-    "preserve_host": true,
-    "strip_path": "string",
-    "url": "string"
-  }
-}
-```
-
-<a id="create-a-rule-parameters"></a>
-
-##### Parameters
-
-| Parameter | In   | Type                | Required | Description |
-| --------- | ---- | ------------------- | -------- | ----------- |
-| body      | body | [rule](#schemarule) | false    | none        |
-
-#### Responses
-
-<a id="create-a-rule-responses"></a>
-
-##### Overview
-
-| Status | Meaning                                                                    | Description               | Schema              |
-| ------ | -------------------------------------------------------------------------- | ------------------------- | ------------------- |
-| 201    | [Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)               | A rule                    | [rule](#schemarule) |
-| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline              |
-| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline              |
-| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline              |
-
-<a id="create-a-rule-responseschema"></a>
-
-##### Response Schema</h3>
-
-Status Code **401**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-Status Code **403**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-Status Code **500**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-##### Examples
-
-###### 201 response
-
-```json
-{
-  "authenticators": [
-    {
-      "config": {},
-      "handler": "string"
-    }
-  ],
-  "authorizer": {
-    "config": {},
-    "handler": "string"
-  },
-  "credentials_issuer": {
-    "config": {},
-    "handler": "string"
-  },
-  "description": "string",
-  "id": "string",
-  "match": {
-    "methods": ["string"],
-    "url": "string"
-  },
-  "upstream": {
-    "preserve_host": true,
-    "strip_path": "string",
-    "url": "string"
-  }
-}
-```
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-
-#### Code samples
-
-<div class="tabs" id="tab-createRule">
-<nav class="tabs-nav">
-<ul class="nav nav-tabs au-link-list au-link-list--inline">
-<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-createRule-shell">Shell</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-createRule-go">Go</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-createRule-node">Node.js</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-createRule-java">Java</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-createRule-python">Python</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-createRule-ruby">Ruby</a></li>
-</ul>
-</nav>
-<div class="tab-content">
-<div class="tab-pane active" role="tabpanel" id="tab-createRule-shell">
-
-```shell
-curl -X POST /rules \
-  -H 'Content-Type: application/json' \  -H 'Accept: application/json'
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-createRule-go">
-
-```go
-package main
-
-import (
-    "bytes"
-    "net/http"
-)
-
-func main() {
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        "Accept": []string{"application/json"},
-    }
-
-    var body []byte
-    // body = ...
-
-    req, err := http.NewRequest("POST", "/rules", bytes.NewBuffer(body))
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-createRule-node">
-
-```nodejs
-const fetch = require('node-fetch');
-const input = '{
-  "authenticators": [
-    {
-      "config": {},
-      "handler": "string"
-    }
-  ],
-  "authorizer": {
-    "config": {},
-    "handler": "string"
-  },
-  "credentials_issuer": {
-    "config": {},
-    "handler": "string"
-  },
-  "description": "string",
-  "id": "string",
-  "match": {
-    "methods": [
-      "string"
-    ],
-    "url": "string"
-  },
-  "upstream": {
-    "preserve_host": true,
-    "strip_path": "string",
-    "url": "string"
-  }
-}';
-const headers = {
-  'Content-Type': 'application/json',  'Accept': 'application/json'
-}
-
-fetch('/rules', {
-  method: 'POST',
-  body: input,
-  headers
-})
-.then(r => r.json())
-.then((body) => {
-    console.log(body)
-})
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-createRule-java">
-
-```java
-// This sample needs improvement.
-URL obj = new URL("/rules");
-
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-
-int responseCode = con.getResponseCode();
-
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream())
-);
-
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-
-System.out.println(response.toString());
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-createRule-python">
-
-```python
-import requests
-
-headers = {
-  'Content-Type': 'application/json',
-  'Accept': 'application/json'
-}
-
-r = requests.post(
-  '/rules',
-  params={},
-  headers = headers)
-
-print r.json()
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-createRule-ruby">
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Content-Type' => 'application/json',
-  'Accept' => 'application/json'
-}
-
-result = RestClient.post '/rules',
-  params: {}, headers: headers
-
-p JSON.parse(result)
-```
-
-</div>
-</div>
-</div>
-
-<a id="opIdgetRule"></a>
-
-### Retrieve a rule
-
-```
-GET /rules/{id} HTTP/1.1
-Accept: application/json
-
-```
-
-Use this method to retrieve a rule from the storage. If it does not exist you
-will receive a 404 error.
-
-<a id="retrieve-a-rule-parameters"></a>
-
-##### Parameters
-
-| Parameter | In   | Type   | Required | Description |
-| --------- | ---- | ------ | -------- | ----------- |
-| id        | path | string | true     | none        |
-
-#### Responses
-
-<a id="retrieve-a-rule-responses"></a>
-
-##### Overview
-
-| Status | Meaning                                                                    | Description               | Schema              |
-| ------ | -------------------------------------------------------------------------- | ------------------------- | ------------------- |
-| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | A rule                    | [rule](#schemarule) |
-| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline              |
-| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline              |
-| 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)             | The standard error format | Inline              |
-| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline              |
-
-<a id="retrieve-a-rule-responseschema"></a>
-
-##### Response Schema</h3>
-
-Status Code **401**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-Status Code **403**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-Status Code **404**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-Status Code **500**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-##### Examples
-
-###### 200 response
-
-```json
-{
-  "authenticators": [
-    {
-      "config": {},
-      "handler": "string"
-    }
-  ],
-  "authorizer": {
-    "config": {},
-    "handler": "string"
-  },
-  "credentials_issuer": {
-    "config": {},
-    "handler": "string"
-  },
-  "description": "string",
-  "id": "string",
-  "match": {
-    "methods": ["string"],
-    "url": "string"
-  },
-  "upstream": {
-    "preserve_host": true,
-    "strip_path": "string",
-    "url": "string"
-  }
-}
-```
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-
-#### Code samples
-
-<div class="tabs" id="tab-getRule">
-<nav class="tabs-nav">
-<ul class="nav nav-tabs au-link-list au-link-list--inline">
-<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-getRule-shell">Shell</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getRule-go">Go</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getRule-node">Node.js</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getRule-java">Java</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getRule-python">Python</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getRule-ruby">Ruby</a></li>
-</ul>
-</nav>
-<div class="tab-content">
-<div class="tab-pane active" role="tabpanel" id="tab-getRule-shell">
-
-```shell
-curl -X GET /rules/{id} \
-  -H 'Accept: application/json'
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-getRule-go">
-
-```go
-package main
-
-import (
-    "bytes"
-    "net/http"
-)
-
-func main() {
-    headers := map[string][]string{
-        "Accept": []string{"application/json"},
-    }
-
-    var body []byte
-    // body = ...
-
-    req, err := http.NewRequest("GET", "/rules/{id}", bytes.NewBuffer(body))
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-getRule-node">
-
-```nodejs
-const fetch = require('node-fetch');
-
-const headers = {
-  'Accept': 'application/json'
-}
-
-fetch('/rules/{id}', {
-  method: 'GET',
-  headers
-})
-.then(r => r.json())
-.then((body) => {
-    console.log(body)
-})
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-getRule-java">
-
-```java
-// This sample needs improvement.
-URL obj = new URL("/rules/{id}");
-
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-
-int responseCode = con.getResponseCode();
-
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream())
-);
-
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-
-System.out.println(response.toString());
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-getRule-python">
-
-```python
-import requests
-
-headers = {
-  'Accept': 'application/json'
-}
-
-r = requests.get(
-  '/rules/{id}',
-  params={},
-  headers = headers)
-
-print r.json()
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-getRule-ruby">
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => 'application/json'
-}
-
-result = RestClient.get '/rules/{id}',
-  params: {}, headers: headers
-
-p JSON.parse(result)
-```
-
-</div>
-</div>
-</div>
-
-<a id="opIdupdateRule"></a>
-
-### Update a rule
-
-```
-PUT /rules/{id} HTTP/1.1
-Content-Type: application/json
-Accept: application/json
-
-```
-
-Use this method to update a rule. Keep in mind that you need to send the full
-rule payload as this endpoint does not support patching.
-
-#### Request body
-
-```json
-{
-  "authenticators": [
-    {
-      "config": {},
-      "handler": "string"
-    }
-  ],
-  "authorizer": {
-    "config": {},
-    "handler": "string"
-  },
-  "credentials_issuer": {
-    "config": {},
-    "handler": "string"
-  },
-  "description": "string",
-  "id": "string",
-  "match": {
-    "methods": ["string"],
-    "url": "string"
-  },
-  "upstream": {
-    "preserve_host": true,
-    "strip_path": "string",
-    "url": "string"
-  }
-}
-```
-
-<a id="update-a-rule-parameters"></a>
-
-##### Parameters
-
-| Parameter | In   | Type                | Required | Description |
-| --------- | ---- | ------------------- | -------- | ----------- |
-| id        | path | string              | true     | none        |
-| body      | body | [rule](#schemarule) | false    | none        |
-
-#### Responses
-
-<a id="update-a-rule-responses"></a>
-
-##### Overview
-
-| Status | Meaning                                                                    | Description               | Schema              |
-| ------ | -------------------------------------------------------------------------- | ------------------------- | ------------------- |
-| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | A rule                    | [rule](#schemarule) |
-| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline              |
-| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline              |
-| 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)             | The standard error format | Inline              |
-| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline              |
-
-<a id="update-a-rule-responseschema"></a>
-
-##### Response Schema</h3>
-
-Status Code **401**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-Status Code **403**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-Status Code **404**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-Status Code **500**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-##### Examples
-
-###### 200 response
-
-```json
-{
-  "authenticators": [
-    {
-      "config": {},
-      "handler": "string"
-    }
-  ],
-  "authorizer": {
-    "config": {},
-    "handler": "string"
-  },
-  "credentials_issuer": {
-    "config": {},
-    "handler": "string"
-  },
-  "description": "string",
-  "id": "string",
-  "match": {
-    "methods": ["string"],
-    "url": "string"
-  },
-  "upstream": {
-    "preserve_host": true,
-    "strip_path": "string",
-    "url": "string"
-  }
-}
-```
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-
-#### Code samples
-
-<div class="tabs" id="tab-updateRule">
-<nav class="tabs-nav">
-<ul class="nav nav-tabs au-link-list au-link-list--inline">
-<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-updateRule-shell">Shell</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-updateRule-go">Go</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-updateRule-node">Node.js</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-updateRule-java">Java</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-updateRule-python">Python</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-updateRule-ruby">Ruby</a></li>
-</ul>
-</nav>
-<div class="tab-content">
-<div class="tab-pane active" role="tabpanel" id="tab-updateRule-shell">
-
-```shell
-curl -X PUT /rules/{id} \
-  -H 'Content-Type: application/json' \  -H 'Accept: application/json'
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-updateRule-go">
-
-```go
-package main
-
-import (
-    "bytes"
-    "net/http"
-)
-
-func main() {
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        "Accept": []string{"application/json"},
-    }
-
-    var body []byte
-    // body = ...
-
-    req, err := http.NewRequest("PUT", "/rules/{id}", bytes.NewBuffer(body))
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-updateRule-node">
-
-```nodejs
-const fetch = require('node-fetch');
-const input = '{
-  "authenticators": [
-    {
-      "config": {},
-      "handler": "string"
-    }
-  ],
-  "authorizer": {
-    "config": {},
-    "handler": "string"
-  },
-  "credentials_issuer": {
-    "config": {},
-    "handler": "string"
-  },
-  "description": "string",
-  "id": "string",
-  "match": {
-    "methods": [
-      "string"
-    ],
-    "url": "string"
-  },
-  "upstream": {
-    "preserve_host": true,
-    "strip_path": "string",
-    "url": "string"
-  }
-}';
-const headers = {
-  'Content-Type': 'application/json',  'Accept': 'application/json'
-}
-
-fetch('/rules/{id}', {
-  method: 'PUT',
-  body: input,
-  headers
-})
-.then(r => r.json())
-.then((body) => {
-    console.log(body)
-})
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-updateRule-java">
-
-```java
-// This sample needs improvement.
-URL obj = new URL("/rules/{id}");
-
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("PUT");
-
-int responseCode = con.getResponseCode();
-
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream())
-);
-
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-
-System.out.println(response.toString());
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-updateRule-python">
-
-```python
-import requests
-
-headers = {
-  'Content-Type': 'application/json',
-  'Accept': 'application/json'
-}
-
-r = requests.put(
-  '/rules/{id}',
-  params={},
-  headers = headers)
-
-print r.json()
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-updateRule-ruby">
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Content-Type' => 'application/json',
-  'Accept' => 'application/json'
-}
-
-result = RestClient.put '/rules/{id}',
-  params: {}, headers: headers
-
-p JSON.parse(result)
-```
-
-</div>
-</div>
-</div>
-
-<a id="opIddeleteRule"></a>
-
-### Delete a rule
-
-```
-DELETE /rules/{id} HTTP/1.1
-Accept: application/json
-
-```
-
-Use this endpoint to delete a rule.
-
-<a id="delete-a-rule-parameters"></a>
-
-##### Parameters
-
-| Parameter | In   | Type   | Required | Description |
-| --------- | ---- | ------ | -------- | ----------- |
-| id        | path | string | true     | none        |
-
-#### Responses
-
-<a id="delete-a-rule-responses"></a>
-
-##### Overview
-
-| Status | Meaning                                                                    | Description               | Schema |
-| ------ | -------------------------------------------------------------------------- | ------------------------- | ------ |
-| 204    | [No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)            | An empty response         | None   |
-| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline |
-| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline |
-| 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)             | The standard error format | Inline |
-| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline |
-
-<a id="delete-a-rule-responseschema"></a>
-
-##### Response Schema</h3>
-
-Status Code **401**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-Status Code **403**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-Status Code **404**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-Status Code **500**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-##### Examples
-
-###### 401 response
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-
-#### Code samples
-
-<div class="tabs" id="tab-deleteRule">
-<nav class="tabs-nav">
-<ul class="nav nav-tabs au-link-list au-link-list--inline">
-<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-deleteRule-shell">Shell</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-deleteRule-go">Go</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-deleteRule-node">Node.js</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-deleteRule-java">Java</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-deleteRule-python">Python</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-deleteRule-ruby">Ruby</a></li>
-</ul>
-</nav>
-<div class="tab-content">
-<div class="tab-pane active" role="tabpanel" id="tab-deleteRule-shell">
-
-```shell
-curl -X DELETE /rules/{id} \
-  -H 'Accept: application/json'
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-deleteRule-go">
-
-```go
-package main
-
-import (
-    "bytes"
-    "net/http"
-)
-
-func main() {
-    headers := map[string][]string{
-        "Accept": []string{"application/json"},
-    }
-
-    var body []byte
-    // body = ...
-
-    req, err := http.NewRequest("DELETE", "/rules/{id}", bytes.NewBuffer(body))
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-deleteRule-node">
-
-```nodejs
-const fetch = require('node-fetch');
-
-const headers = {
-  'Accept': 'application/json'
-}
-
-fetch('/rules/{id}', {
-  method: 'DELETE',
-  headers
-})
-.then(r => r.json())
-.then((body) => {
-    console.log(body)
-})
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-deleteRule-java">
-
-```java
-// This sample needs improvement.
-URL obj = new URL("/rules/{id}");
-
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("DELETE");
-
-int responseCode = con.getResponseCode();
-
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream())
-);
-
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-
-System.out.println(response.toString());
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-deleteRule-python">
-
-```python
-import requests
-
-headers = {
-  'Accept': 'application/json'
-}
-
-r = requests.delete(
-  '/rules/{id}',
-  params={},
-  headers = headers)
-
-print r.json()
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-deleteRule-ruby">
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => 'application/json'
-}
-
-result = RestClient.delete '/rules/{id}',
-  params: {}, headers: headers
-
-p JSON.parse(result)
-```
-
-</div>
-</div>
-</div>
-
-<a id="ory-oathkeeper-version"></a>
-
-## version
-
-<a id="opIdgetVersion"></a>
-
-### Get the version of Oathkeeper
-
-```
-GET /version HTTP/1.1
-Accept: application/json
-
-```
-
-This endpoint returns the version as `{ "version": "VERSION" }`. The version is
-only correct with the prebuilt binary and not custom builds.
-
-#### Responses
-
-<a id="get-the-version-of-oathkeeper-responses"></a>
-
-##### Overview
-
-| Status | Meaning                                                 | Description | Schema                    |
-| ------ | ------------------------------------------------------- | ----------- | ------------------------- |
-| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | version     | [version](#schemaversion) |
-
-##### Examples
-
-###### 200 response
-
-```json
-{
-  "version": "string"
-}
-```
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-
-#### Code samples
-
-<div class="tabs" id="tab-getVersion">
-<nav class="tabs-nav">
-<ul class="nav nav-tabs au-link-list au-link-list--inline">
-<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-getVersion-shell">Shell</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getVersion-go">Go</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getVersion-node">Node.js</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getVersion-java">Java</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getVersion-python">Python</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-getVersion-ruby">Ruby</a></li>
-</ul>
-</nav>
-<div class="tab-content">
-<div class="tab-pane active" role="tabpanel" id="tab-getVersion-shell">
-
-```shell
-curl -X GET /version \
-  -H 'Accept: application/json'
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-getVersion-go">
-
-```go
-package main
-
-import (
-    "bytes"
-    "net/http"
-)
-
-func main() {
-    headers := map[string][]string{
-        "Accept": []string{"application/json"},
-    }
-
-    var body []byte
-    // body = ...
-
-    req, err := http.NewRequest("GET", "/version", bytes.NewBuffer(body))
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-getVersion-node">
-
-```nodejs
-const fetch = require('node-fetch');
-
-const headers = {
-  'Accept': 'application/json'
-}
-
-fetch('/version', {
-  method: 'GET',
-  headers
-})
-.then(r => r.json())
-.then((body) => {
-    console.log(body)
-})
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-getVersion-java">
-
-```java
-// This sample needs improvement.
-URL obj = new URL("/version");
-
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-
-int responseCode = con.getResponseCode();
-
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream())
-);
-
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-
-System.out.println(response.toString());
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-getVersion-python">
-
-```python
-import requests
-
-headers = {
-  'Accept': 'application/json'
-}
-
-r = requests.get(
-  '/version',
-  params={},
-  headers = headers)
-
-print r.json()
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-getVersion-ruby">
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => 'application/json'
-}
-
-result = RestClient.get '/version',
-  params: {}, headers: headers
-
-p JSON.parse(result)
-```
-
-</div>
-</div>
-</div>
-
 ## Schemas
 
 <a id="tocScreaterulecreated">CreateRuleCreated</a>
@@ -2466,16 +1516,12 @@ p JSON.parse(result)
   "Payload": {
     "authenticators": [
       {
-        "config": [0],
+        "config": {},
         "handler": "string"
       }
     ],
     "authorizer": {
-      "config": [0],
-      "handler": "string"
-    },
-    "credentials_issuer": {
-      "config": [0],
+      "config": {},
       "handler": "string"
     },
     "description": "string",
@@ -2483,6 +1529,10 @@ p JSON.parse(result)
     "match": {
       "methods": ["string"],
       "url": "string"
+    },
+    "transformer": {
+      "config": {},
+      "handler": "string"
     },
     "upstream": {
       "preserve_host": true,
@@ -2493,8 +1543,8 @@ p JSON.parse(result)
 }
 ```
 
-_CreateRuleCreated CreateRuleCreated handles this case with default header
-values._
+_CreateRuleCreated CreateRuleCreated CreateRuleCreated CreateRuleCreated handles
+this case with default header values._
 
 #### Properties
 
@@ -2526,14 +1576,14 @@ values._
 }
 ```
 
-_CreateRuleForbidden CreateRuleForbidden handles this case with default header
-values._
+_CreateRuleForbidden CreateRuleForbidden CreateRuleForbidden CreateRuleForbidden
+handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                      | Required | Restrictions | Description                                                                |
-| ------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------- |
-| Payload | [CreateRuleForbiddenBody](#schemacreateruleforbiddenbody) | false    | none         | CreateRuleForbiddenBody CreateRuleForbiddenBody create rule forbidden body |
+| Name    | Type                                                      | Required | Restrictions | Description                                                                                                                |
+| ------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [CreateRuleForbiddenBody](#schemacreateruleforbiddenbody) | false    | none         | CreateRuleForbiddenBody CreateRuleForbiddenBody CreateRuleForbiddenBody CreateRuleForbiddenBody create rule forbidden body |
 
 <a id="tocScreateruleforbiddenbody">CreateRuleForbiddenBody</a>
 
@@ -2557,7 +1607,8 @@ values._
 }
 ```
 
-_CreateRuleForbiddenBody CreateRuleForbiddenBody create rule forbidden body_
+_CreateRuleForbiddenBody CreateRuleForbiddenBody CreateRuleForbiddenBody
+CreateRuleForbiddenBody create rule forbidden body_
 
 #### Properties
 
@@ -2595,14 +1646,15 @@ _CreateRuleForbiddenBody CreateRuleForbiddenBody create rule forbidden body_
 }
 ```
 
-_CreateRuleInternalServerError CreateRuleInternalServerError handles this case
+_CreateRuleInternalServerError CreateRuleInternalServerError
+CreateRuleInternalServerError CreateRuleInternalServerError handles this case
 with default header values._
 
 #### Properties
 
-| Name    | Type                                                                          | Required | Restrictions | Description                                                                                                |
-| ------- | ----------------------------------------------------------------------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------- |
-| Payload | [CreateRuleInternalServerErrorBody](#schemacreateruleinternalservererrorbody) | false    | none         | CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody create rule internal server error body |
+| Name    | Type                                                                          | Required | Restrictions | Description                                                                                                                                                                    |
+| ------- | ----------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Payload | [CreateRuleInternalServerErrorBody](#schemacreateruleinternalservererrorbody) | false    | none         | CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody create rule internal server error body |
 
 <a id="tocScreateruleinternalservererrorbody">CreateRuleInternalServerErrorBody</a>
 
@@ -2626,7 +1678,8 @@ with default header values._
 }
 ```
 
-_CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody create rule
+_CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody
+CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody create rule
 internal server error body_
 
 #### Properties
@@ -2651,7 +1704,8 @@ internal server error body_
 {}
 ```
 
-_CreateRuleReader CreateRuleReader is a Reader for the CreateRule structure._
+_CreateRuleReader CreateRuleReader CreateRuleReader CreateRuleReader is a Reader
+for the CreateRule structure._
 
 #### Properties
 
@@ -2681,14 +1735,14 @@ _None_
 }
 ```
 
-_CreateRuleUnauthorized CreateRuleUnauthorized handles this case with default
-header values._
+_CreateRuleUnauthorized CreateRuleUnauthorized CreateRuleUnauthorized
+CreateRuleUnauthorized handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                            | Required | Restrictions | Description                                                                         |
-| ------- | --------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------- |
-| Payload | [CreateRuleUnauthorizedBody](#schemacreateruleunauthorizedbody) | false    | none         | CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody create rule unauthorized body |
+| Name    | Type                                                            | Required | Restrictions | Description                                                                                                                               |
+| ------- | --------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [CreateRuleUnauthorizedBody](#schemacreateruleunauthorizedbody) | false    | none         | CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody create rule unauthorized body |
 
 <a id="tocScreateruleunauthorizedbody">CreateRuleUnauthorizedBody</a>
 
@@ -2712,7 +1766,8 @@ header values._
 }
 ```
 
-_CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody create rule unauthorized
+_CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody
+CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody create rule unauthorized
 body_
 
 #### Properties
@@ -2751,14 +1806,14 @@ body_
 }
 ```
 
-_DeleteRuleForbidden DeleteRuleForbidden handles this case with default header
-values._
+_DeleteRuleForbidden DeleteRuleForbidden DeleteRuleForbidden DeleteRuleForbidden
+handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                      | Required | Restrictions | Description                                                                |
-| ------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------- |
-| Payload | [DeleteRuleForbiddenBody](#schemadeleteruleforbiddenbody) | false    | none         | DeleteRuleForbiddenBody DeleteRuleForbiddenBody delete rule forbidden body |
+| Name    | Type                                                      | Required | Restrictions | Description                                                                                                                |
+| ------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [DeleteRuleForbiddenBody](#schemadeleteruleforbiddenbody) | false    | none         | DeleteRuleForbiddenBody DeleteRuleForbiddenBody DeleteRuleForbiddenBody DeleteRuleForbiddenBody delete rule forbidden body |
 
 <a id="tocSdeleteruleforbiddenbody">DeleteRuleForbiddenBody</a>
 
@@ -2782,7 +1837,8 @@ values._
 }
 ```
 
-_DeleteRuleForbiddenBody DeleteRuleForbiddenBody delete rule forbidden body_
+_DeleteRuleForbiddenBody DeleteRuleForbiddenBody DeleteRuleForbiddenBody
+DeleteRuleForbiddenBody delete rule forbidden body_
 
 #### Properties
 
@@ -2820,14 +1876,15 @@ _DeleteRuleForbiddenBody DeleteRuleForbiddenBody delete rule forbidden body_
 }
 ```
 
-_DeleteRuleInternalServerError DeleteRuleInternalServerError handles this case
+_DeleteRuleInternalServerError DeleteRuleInternalServerError
+DeleteRuleInternalServerError DeleteRuleInternalServerError handles this case
 with default header values._
 
 #### Properties
 
-| Name    | Type                                                                          | Required | Restrictions | Description                                                                                                |
-| ------- | ----------------------------------------------------------------------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------- |
-| Payload | [DeleteRuleInternalServerErrorBody](#schemadeleteruleinternalservererrorbody) | false    | none         | DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody delete rule internal server error body |
+| Name    | Type                                                                          | Required | Restrictions | Description                                                                                                                                                                    |
+| ------- | ----------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Payload | [DeleteRuleInternalServerErrorBody](#schemadeleteruleinternalservererrorbody) | false    | none         | DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody delete rule internal server error body |
 
 <a id="tocSdeleteruleinternalservererrorbody">DeleteRuleInternalServerErrorBody</a>
 
@@ -2851,7 +1908,8 @@ with default header values._
 }
 ```
 
-_DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody delete rule
+_DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody
+DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody delete rule
 internal server error body_
 
 #### Properties
@@ -2876,8 +1934,8 @@ internal server error body_
 {}
 ```
 
-_DeleteRuleNoContent DeleteRuleNoContent handles this case with default header
-values._
+_DeleteRuleNoContent DeleteRuleNoContent DeleteRuleNoContent DeleteRuleNoContent
+handles this case with default header values._
 
 #### Properties
 
@@ -2907,14 +1965,14 @@ _None_
 }
 ```
 
-_DeleteRuleNotFound DeleteRuleNotFound handles this case with default header
-values._
+_DeleteRuleNotFound DeleteRuleNotFound DeleteRuleNotFound DeleteRuleNotFound
+handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                    | Required | Restrictions | Description                                                              |
-| ------- | ------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------ |
-| Payload | [DeleteRuleNotFoundBody](#schemadeleterulenotfoundbody) | false    | none         | DeleteRuleNotFoundBody DeleteRuleNotFoundBody delete rule not found body |
+| Name    | Type                                                    | Required | Restrictions | Description                                                                                                            |
+| ------- | ------------------------------------------------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| Payload | [DeleteRuleNotFoundBody](#schemadeleterulenotfoundbody) | false    | none         | DeleteRuleNotFoundBody DeleteRuleNotFoundBody DeleteRuleNotFoundBody DeleteRuleNotFoundBody delete rule not found body |
 
 <a id="tocSdeleterulenotfoundbody">DeleteRuleNotFoundBody</a>
 
@@ -2938,7 +1996,8 @@ values._
 }
 ```
 
-_DeleteRuleNotFoundBody DeleteRuleNotFoundBody delete rule not found body_
+_DeleteRuleNotFoundBody DeleteRuleNotFoundBody DeleteRuleNotFoundBody
+DeleteRuleNotFoundBody delete rule not found body_
 
 #### Properties
 
@@ -2962,7 +2021,8 @@ _DeleteRuleNotFoundBody DeleteRuleNotFoundBody delete rule not found body_
 {}
 ```
 
-_DeleteRuleReader DeleteRuleReader is a Reader for the DeleteRule structure._
+_DeleteRuleReader DeleteRuleReader DeleteRuleReader DeleteRuleReader is a Reader
+for the DeleteRule structure._
 
 #### Properties
 
@@ -2992,14 +2052,14 @@ _None_
 }
 ```
 
-_DeleteRuleUnauthorized DeleteRuleUnauthorized handles this case with default
-header values._
+_DeleteRuleUnauthorized DeleteRuleUnauthorized DeleteRuleUnauthorized
+DeleteRuleUnauthorized handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                            | Required | Restrictions | Description                                                                         |
-| ------- | --------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------- |
-| Payload | [DeleteRuleUnauthorizedBody](#schemadeleteruleunauthorizedbody) | false    | none         | DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody delete rule unauthorized body |
+| Name    | Type                                                            | Required | Restrictions | Description                                                                                                                               |
+| ------- | --------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [DeleteRuleUnauthorizedBody](#schemadeleteruleunauthorizedbody) | false    | none         | DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody delete rule unauthorized body |
 
 <a id="tocSdeleteruleunauthorizedbody">DeleteRuleUnauthorizedBody</a>
 
@@ -3023,7 +2083,8 @@ header values._
 }
 ```
 
-_DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody delete rule unauthorized
+_DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody
+DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody delete rule unauthorized
 body_
 
 #### Properties
@@ -3062,14 +2123,14 @@ body_
 }
 ```
 
-_GetRuleForbidden GetRuleForbidden handles this case with default header
-values._
+_GetRuleForbidden GetRuleForbidden GetRuleForbidden GetRuleForbidden handles
+this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                | Required | Restrictions | Description                                                       |
-| ------- | --------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------- |
-| Payload | [GetRuleForbiddenBody](#schemagetruleforbiddenbody) | false    | none         | GetRuleForbiddenBody GetRuleForbiddenBody get rule forbidden body |
+| Name    | Type                                                | Required | Restrictions | Description                                                                                                 |
+| ------- | --------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------- |
+| Payload | [GetRuleForbiddenBody](#schemagetruleforbiddenbody) | false    | none         | GetRuleForbiddenBody GetRuleForbiddenBody GetRuleForbiddenBody GetRuleForbiddenBody get rule forbidden body |
 
 <a id="tocSgetruleforbiddenbody">GetRuleForbiddenBody</a>
 
@@ -3093,7 +2154,8 @@ values._
 }
 ```
 
-_GetRuleForbiddenBody GetRuleForbiddenBody get rule forbidden body_
+_GetRuleForbiddenBody GetRuleForbiddenBody GetRuleForbiddenBody
+GetRuleForbiddenBody get rule forbidden body_
 
 #### Properties
 
@@ -3131,14 +2193,15 @@ _GetRuleForbiddenBody GetRuleForbiddenBody get rule forbidden body_
 }
 ```
 
-_GetRuleInternalServerError GetRuleInternalServerError handles this case with
+_GetRuleInternalServerError GetRuleInternalServerError
+GetRuleInternalServerError GetRuleInternalServerError handles this case with
 default header values._
 
 #### Properties
 
-| Name    | Type                                                                    | Required | Restrictions | Description                                                                                       |
-| ------- | ----------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------- |
-| Payload | [GetRuleInternalServerErrorBody](#schemagetruleinternalservererrorbody) | false    | none         | GetRuleInternalServerErrorBody GetRuleInternalServerErrorBody get rule internal server error body |
+| Name    | Type                                                                    | Required | Restrictions | Description                                                                                                                                                     |
+| ------- | ----------------------------------------------------------------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [GetRuleInternalServerErrorBody](#schemagetruleinternalservererrorbody) | false    | none         | GetRuleInternalServerErrorBody GetRuleInternalServerErrorBody GetRuleInternalServerErrorBody GetRuleInternalServerErrorBody get rule internal server error body |
 
 <a id="tocSgetruleinternalservererrorbody">GetRuleInternalServerErrorBody</a>
 
@@ -3162,7 +2225,8 @@ default header values._
 }
 ```
 
-_GetRuleInternalServerErrorBody GetRuleInternalServerErrorBody get rule internal
+_GetRuleInternalServerErrorBody GetRuleInternalServerErrorBody
+GetRuleInternalServerErrorBody GetRuleInternalServerErrorBody get rule internal
 server error body_
 
 #### Properties
@@ -3201,13 +2265,14 @@ server error body_
 }
 ```
 
-_GetRuleNotFound GetRuleNotFound handles this case with default header values._
+_GetRuleNotFound GetRuleNotFound GetRuleNotFound GetRuleNotFound handles this
+case with default header values._
 
 #### Properties
 
-| Name    | Type                                              | Required | Restrictions | Description                                                     |
-| ------- | ------------------------------------------------- | -------- | ------------ | --------------------------------------------------------------- |
-| Payload | [GetRuleNotFoundBody](#schemagetrulenotfoundbody) | false    | none         | GetRuleNotFoundBody GetRuleNotFoundBody get rule not found body |
+| Name    | Type                                              | Required | Restrictions | Description                                                                                             |
+| ------- | ------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------- |
+| Payload | [GetRuleNotFoundBody](#schemagetrulenotfoundbody) | false    | none         | GetRuleNotFoundBody GetRuleNotFoundBody GetRuleNotFoundBody GetRuleNotFoundBody get rule not found body |
 
 <a id="tocSgetrulenotfoundbody">GetRuleNotFoundBody</a>
 
@@ -3231,7 +2296,8 @@ _GetRuleNotFound GetRuleNotFound handles this case with default header values._
 }
 ```
 
-_GetRuleNotFoundBody GetRuleNotFoundBody get rule not found body_
+_GetRuleNotFoundBody GetRuleNotFoundBody GetRuleNotFoundBody GetRuleNotFoundBody
+get rule not found body_
 
 #### Properties
 
@@ -3256,16 +2322,12 @@ _GetRuleNotFoundBody GetRuleNotFoundBody get rule not found body_
   "Payload": {
     "authenticators": [
       {
-        "config": [0],
+        "config": {},
         "handler": "string"
       }
     ],
     "authorizer": {
-      "config": [0],
-      "handler": "string"
-    },
-    "credentials_issuer": {
-      "config": [0],
+      "config": {},
       "handler": "string"
     },
     "description": "string",
@@ -3273,6 +2335,10 @@ _GetRuleNotFoundBody GetRuleNotFoundBody get rule not found body_
     "match": {
       "methods": ["string"],
       "url": "string"
+    },
+    "transformer": {
+      "config": {},
+      "handler": "string"
     },
     "upstream": {
       "preserve_host": true,
@@ -3283,7 +2349,8 @@ _GetRuleNotFoundBody GetRuleNotFoundBody get rule not found body_
 }
 ```
 
-_GetRuleOK GetRuleOK handles this case with default header values._
+_GetRuleOK GetRuleOK GetRuleOK GetRuleOK handles this case with default header
+values._
 
 #### Properties
 
@@ -3301,7 +2368,8 @@ _GetRuleOK GetRuleOK handles this case with default header values._
 {}
 ```
 
-_GetRuleReader GetRuleReader is a Reader for the GetRule structure._
+_GetRuleReader GetRuleReader GetRuleReader GetRuleReader is a Reader for the
+GetRule structure._
 
 #### Properties
 
@@ -3331,14 +2399,14 @@ _None_
 }
 ```
 
-_GetRuleUnauthorized GetRuleUnauthorized handles this case with default header
-values._
+_GetRuleUnauthorized GetRuleUnauthorized GetRuleUnauthorized GetRuleUnauthorized
+handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                      | Required | Restrictions | Description                                                                |
-| ------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------- |
-| Payload | [GetRuleUnauthorizedBody](#schemagetruleunauthorizedbody) | false    | none         | GetRuleUnauthorizedBody GetRuleUnauthorizedBody get rule unauthorized body |
+| Name    | Type                                                      | Required | Restrictions | Description                                                                                                                |
+| ------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [GetRuleUnauthorizedBody](#schemagetruleunauthorizedbody) | false    | none         | GetRuleUnauthorizedBody GetRuleUnauthorizedBody GetRuleUnauthorizedBody GetRuleUnauthorizedBody get rule unauthorized body |
 
 <a id="tocSgetruleunauthorizedbody">GetRuleUnauthorizedBody</a>
 
@@ -3362,7 +2430,8 @@ values._
 }
 ```
 
-_GetRuleUnauthorizedBody GetRuleUnauthorizedBody get rule unauthorized body_
+_GetRuleUnauthorizedBody GetRuleUnauthorizedBody GetRuleUnauthorizedBody
+GetRuleUnauthorizedBody get rule unauthorized body_
 
 #### Properties
 
@@ -3400,14 +2469,14 @@ _GetRuleUnauthorizedBody GetRuleUnauthorizedBody get rule unauthorized body_
 }
 ```
 
-_GetWellKnownForbidden GetWellKnownForbidden handles this case with default
-header values._
+_GetWellKnownForbidden GetWellKnownForbidden GetWellKnownForbidden
+GetWellKnownForbidden handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                          | Required | Restrictions | Description                                                                       |
-| ------- | ------------------------------------------------------------- | -------- | ------------ | --------------------------------------------------------------------------------- |
-| Payload | [GetWellKnownForbiddenBody](#schemagetwellknownforbiddenbody) | false    | none         | GetWellKnownForbiddenBody GetWellKnownForbiddenBody get well known forbidden body |
+| Name    | Type                                                          | Required | Restrictions | Description                                                                                                                           |
+| ------- | ------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [GetWellKnownForbiddenBody](#schemagetwellknownforbiddenbody) | false    | none         | GetWellKnownForbiddenBody GetWellKnownForbiddenBody GetWellKnownForbiddenBody GetWellKnownForbiddenBody get well known forbidden body |
 
 <a id="tocSgetwellknownforbiddenbody">GetWellKnownForbiddenBody</a>
 
@@ -3431,8 +2500,8 @@ header values._
 }
 ```
 
-_GetWellKnownForbiddenBody GetWellKnownForbiddenBody get well known forbidden
-body_
+_GetWellKnownForbiddenBody GetWellKnownForbiddenBody GetWellKnownForbiddenBody
+GetWellKnownForbiddenBody get well known forbidden body_
 
 #### Properties
 
@@ -3445,6 +2514,135 @@ body_
 | reason                     | string         | false    | none         | reason      |
 | request                    | string         | false    | none         | request     |
 | status                     | string         | false    | none         | status      |
+
+<a id="tocSgetwellknownjsonwebkeysinternalservererror">GetWellKnownJSONWebKeysInternalServerError</a>
+
+#### GetWellKnownJSONWebKeysInternalServerError
+
+<a id="schemagetwellknownjsonwebkeysinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+```
+
+_GetWellKnownJSONWebKeysInternalServerError handles this case with default
+header values._
+
+#### Properties
+
+| Name    | Type                                                                                                    | Required | Restrictions | Description                                                                                            |
+| ------- | ------------------------------------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------ |
+| Payload | [GetWellKnownJSONWebKeysInternalServerErrorBody](#schemagetwellknownjsonwebkeysinternalservererrorbody) | false    | none         | GetWellKnownJSONWebKeysInternalServerErrorBody get well known JSON web keys internal server error body |
+
+<a id="tocSgetwellknownjsonwebkeysinternalservererrorbody">GetWellKnownJSONWebKeysInternalServerErrorBody</a>
+
+#### GetWellKnownJSONWebKeysInternalServerErrorBody
+
+<a id="schemagetwellknownjsonwebkeysinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+```
+
+_GetWellKnownJSONWebKeysInternalServerErrorBody get well known JSON web keys
+internal server error body_
+
+#### Properties
+
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
+
+<a id="tocSgetwellknownjsonwebkeysok">GetWellKnownJSONWebKeysOK</a>
+
+#### GetWellKnownJSONWebKeysOK
+
+<a id="schemagetwellknownjsonwebkeysok"></a>
+
+```json
+{
+  "Payload": {
+    "keys": [
+      {
+        "alg": "string",
+        "crv": "string",
+        "d": "string",
+        "dp": "string",
+        "dq": "string",
+        "e": "string",
+        "k": "string",
+        "kid": "string",
+        "kty": "string",
+        "n": "string",
+        "p": "string",
+        "q": "string",
+        "qi": "string",
+        "use": "string",
+        "x": "string",
+        "x5c": ["string"],
+        "y": "string"
+      }
+    ]
+  }
+}
+```
+
+_GetWellKnownJSONWebKeysOK handles this case with default header values._
+
+#### Properties
+
+| Name    | Type                                                | Required | Restrictions | Description                                   |
+| ------- | --------------------------------------------------- | -------- | ------------ | --------------------------------------------- |
+| Payload | [swaggerJSONWebKeySet](#schemaswaggerjsonwebkeyset) | false    | none         | SwaggerJSONWebKeySet swagger JSON web key set |
+
+<a id="tocSgetwellknownjsonwebkeysreader">GetWellKnownJSONWebKeysReader</a>
+
+#### GetWellKnownJSONWebKeysReader
+
+<a id="schemagetwellknownjsonwebkeysreader"></a>
+
+```json
+{}
+```
+
+_GetWellKnownJSONWebKeysReader is a Reader for the GetWellKnownJSONWebKeys
+structure._
+
+#### Properties
+
+_None_
 
 <a id="tocSgetwellknownok">GetWellKnownOK</a>
 
@@ -3480,7 +2678,8 @@ body_
 }
 ```
 
-_GetWellKnownOK GetWellKnownOK handles this case with default header values._
+_GetWellKnownOK GetWellKnownOK GetWellKnownOK GetWellKnownOK handles this case
+with default header values._
 
 #### Properties
 
@@ -3498,8 +2697,8 @@ _GetWellKnownOK GetWellKnownOK handles this case with default header values._
 {}
 ```
 
-_GetWellKnownReader GetWellKnownReader is a Reader for the GetWellKnown
-structure._
+_GetWellKnownReader GetWellKnownReader GetWellKnownReader GetWellKnownReader is
+a Reader for the GetWellKnown structure._
 
 #### Properties
 
@@ -3529,14 +2728,14 @@ _None_
 }
 ```
 
-_GetWellKnownUnauthorized GetWellKnownUnauthorized handles this case with
-default header values._
+_GetWellKnownUnauthorized GetWellKnownUnauthorized GetWellKnownUnauthorized
+GetWellKnownUnauthorized handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                                | Required | Restrictions | Description                                                                                |
-| ------- | ------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------ |
-| Payload | [GetWellKnownUnauthorizedBody](#schemagetwellknownunauthorizedbody) | false    | none         | GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody get well known unauthorized body |
+| Name    | Type                                                                | Required | Restrictions | Description                                                                                                                                          |
+| ------- | ------------------------------------------------------------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [GetWellKnownUnauthorizedBody](#schemagetwellknownunauthorizedbody) | false    | none         | GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody get well known unauthorized body |
 
 <a id="tocSgetwellknownunauthorizedbody">GetWellKnownUnauthorizedBody</a>
 
@@ -3560,7 +2759,8 @@ default header values._
 }
 ```
 
-_GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody get well known
+_GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody
+GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody get well known
 unauthorized body_
 
 #### Properties
@@ -3599,14 +2799,15 @@ unauthorized body_
 }
 ```
 
-_IsInstanceAliveInternalServerError handles this case with default header
+_IsInstanceAliveInternalServerError IsInstanceAliveInternalServerError
+IsInstanceAliveInternalServerError handles this case with default header
 values._
 
 #### Properties
 
-| Name    | Type                                                                                    | Required | Restrictions | Description                                                                         |
-| ------- | --------------------------------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------- |
-| Payload | [IsInstanceAliveInternalServerErrorBody](#schemaisinstancealiveinternalservererrorbody) | false    | none         | IsInstanceAliveInternalServerErrorBody is instance alive internal server error body |
+| Name    | Type                                                                                    | Required | Restrictions | Description                                                                                                                                                       |
+| ------- | --------------------------------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [IsInstanceAliveInternalServerErrorBody](#schemaisinstancealiveinternalservererrorbody) | false    | none         | IsInstanceAliveInternalServerErrorBody IsInstanceAliveInternalServerErrorBody IsInstanceAliveInternalServerErrorBody is instance alive internal server error body |
 
 <a id="tocSisinstancealiveinternalservererrorbody">IsInstanceAliveInternalServerErrorBody</a>
 
@@ -3630,7 +2831,8 @@ values._
 }
 ```
 
-_IsInstanceAliveInternalServerErrorBody is instance alive internal server error
+_IsInstanceAliveInternalServerErrorBody IsInstanceAliveInternalServerErrorBody
+IsInstanceAliveInternalServerErrorBody is instance alive internal server error
 body_
 
 #### Properties
@@ -3659,7 +2861,8 @@ body_
 }
 ```
 
-_IsInstanceAliveOK handles this case with default header values._
+_IsInstanceAliveOK IsInstanceAliveOK IsInstanceAliveOK handles this case with
+default header values._
 
 #### Properties
 
@@ -3677,7 +2880,8 @@ _IsInstanceAliveOK handles this case with default header values._
 {}
 ```
 
-_IsInstanceAliveReader is a Reader for the IsInstanceAlive structure._
+_IsInstanceAliveReader IsInstanceAliveReader IsInstanceAliveReader is a Reader
+for the IsInstanceAlive structure._
 
 #### Properties
 
@@ -3707,13 +2911,14 @@ _None_
 }
 ```
 
-_JudgeForbidden handles this case with default header values._
+_JudgeForbidden JudgeForbidden JudgeForbidden handles this case with default
+header values._
 
 #### Properties
 
-| Name    | Type                                            | Required | Restrictions | Description                             |
-| ------- | ----------------------------------------------- | -------- | ------------ | --------------------------------------- |
-| Payload | [JudgeForbiddenBody](#schemajudgeforbiddenbody) | false    | none         | JudgeForbiddenBody judge forbidden body |
+| Name    | Type                                            | Required | Restrictions | Description                                                                   |
+| ------- | ----------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------- |
+| Payload | [JudgeForbiddenBody](#schemajudgeforbiddenbody) | false    | none         | JudgeForbiddenBody JudgeForbiddenBody JudgeForbiddenBody judge forbidden body |
 
 <a id="tocSjudgeforbiddenbody">JudgeForbiddenBody</a>
 
@@ -3737,7 +2942,7 @@ _JudgeForbidden handles this case with default header values._
 }
 ```
 
-_JudgeForbiddenBody judge forbidden body_
+_JudgeForbiddenBody JudgeForbiddenBody JudgeForbiddenBody judge forbidden body_
 
 #### Properties
 
@@ -3775,13 +2980,14 @@ _JudgeForbiddenBody judge forbidden body_
 }
 ```
 
-_JudgeInternalServerError handles this case with default header values._
+_JudgeInternalServerError JudgeInternalServerError JudgeInternalServerError
+handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                                | Required | Restrictions | Description                                                   |
-| ------- | ------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------- |
-| Payload | [JudgeInternalServerErrorBody](#schemajudgeinternalservererrorbody) | false    | none         | JudgeInternalServerErrorBody judge internal server error body |
+| Name    | Type                                                                | Required | Restrictions | Description                                                                                                             |
+| ------- | ------------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| Payload | [JudgeInternalServerErrorBody](#schemajudgeinternalservererrorbody) | false    | none         | JudgeInternalServerErrorBody JudgeInternalServerErrorBody JudgeInternalServerErrorBody judge internal server error body |
 
 <a id="tocSjudgeinternalservererrorbody">JudgeInternalServerErrorBody</a>
 
@@ -3805,7 +3011,8 @@ _JudgeInternalServerError handles this case with default header values._
 }
 ```
 
-_JudgeInternalServerErrorBody judge internal server error body_
+_JudgeInternalServerErrorBody JudgeInternalServerErrorBody
+JudgeInternalServerErrorBody judge internal server error body_
 
 #### Properties
 
@@ -3843,13 +3050,14 @@ _JudgeInternalServerErrorBody judge internal server error body_
 }
 ```
 
-_JudgeNotFound handles this case with default header values._
+_JudgeNotFound JudgeNotFound JudgeNotFound handles this case with default header
+values._
 
 #### Properties
 
-| Name    | Type                                          | Required | Restrictions | Description                            |
-| ------- | --------------------------------------------- | -------- | ------------ | -------------------------------------- |
-| Payload | [JudgeNotFoundBody](#schemajudgenotfoundbody) | false    | none         | JudgeNotFoundBody judge not found body |
+| Name    | Type                                          | Required | Restrictions | Description                                                                |
+| ------- | --------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------- |
+| Payload | [JudgeNotFoundBody](#schemajudgenotfoundbody) | false    | none         | JudgeNotFoundBody JudgeNotFoundBody JudgeNotFoundBody judge not found body |
 
 <a id="tocSjudgenotfoundbody">JudgeNotFoundBody</a>
 
@@ -3873,7 +3081,7 @@ _JudgeNotFound handles this case with default header values._
 }
 ```
 
-_JudgeNotFoundBody judge not found body_
+_JudgeNotFoundBody JudgeNotFoundBody JudgeNotFoundBody judge not found body_
 
 #### Properties
 
@@ -3897,7 +3105,7 @@ _JudgeNotFoundBody judge not found body_
 {}
 ```
 
-_JudgeOK handles this case with default header values._
+_JudgeOK JudgeOK JudgeOK handles this case with default header values._
 
 #### Properties
 
@@ -3913,7 +3121,7 @@ _None_
 {}
 ```
 
-_JudgeReader is a Reader for the Judge structure._
+_JudgeReader JudgeReader JudgeReader is a Reader for the Judge structure._
 
 #### Properties
 
@@ -3943,13 +3151,14 @@ _None_
 }
 ```
 
-_JudgeUnauthorized handles this case with default header values._
+_JudgeUnauthorized JudgeUnauthorized JudgeUnauthorized handles this case with
+default header values._
 
 #### Properties
 
-| Name    | Type                                                  | Required | Restrictions | Description                                   |
-| ------- | ----------------------------------------------------- | -------- | ------------ | --------------------------------------------- |
-| Payload | [JudgeUnauthorizedBody](#schemajudgeunauthorizedbody) | false    | none         | JudgeUnauthorizedBody judge unauthorized body |
+| Name    | Type                                                  | Required | Restrictions | Description                                                                               |
+| ------- | ----------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------- |
+| Payload | [JudgeUnauthorizedBody](#schemajudgeunauthorizedbody) | false    | none         | JudgeUnauthorizedBody JudgeUnauthorizedBody JudgeUnauthorizedBody judge unauthorized body |
 
 <a id="tocSjudgeunauthorizedbody">JudgeUnauthorizedBody</a>
 
@@ -3973,7 +3182,8 @@ _JudgeUnauthorized handles this case with default header values._
 }
 ```
 
-_JudgeUnauthorizedBody judge unauthorized body_
+_JudgeUnauthorizedBody JudgeUnauthorizedBody JudgeUnauthorizedBody judge
+unauthorized body_
 
 #### Properties
 
@@ -4011,14 +3221,14 @@ _JudgeUnauthorizedBody judge unauthorized body_
 }
 ```
 
-_ListRulesForbidden ListRulesForbidden handles this case with default header
-values._
+_ListRulesForbidden ListRulesForbidden ListRulesForbidden ListRulesForbidden
+handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                    | Required | Restrictions | Description                                                             |
-| ------- | ------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------- |
-| Payload | [ListRulesForbiddenBody](#schemalistrulesforbiddenbody) | false    | none         | ListRulesForbiddenBody ListRulesForbiddenBody list rules forbidden body |
+| Name    | Type                                                    | Required | Restrictions | Description                                                                                                           |
+| ------- | ------------------------------------------------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------- |
+| Payload | [ListRulesForbiddenBody](#schemalistrulesforbiddenbody) | false    | none         | ListRulesForbiddenBody ListRulesForbiddenBody ListRulesForbiddenBody ListRulesForbiddenBody list rules forbidden body |
 
 <a id="tocSlistrulesforbiddenbody">ListRulesForbiddenBody</a>
 
@@ -4042,7 +3252,8 @@ values._
 }
 ```
 
-_ListRulesForbiddenBody ListRulesForbiddenBody list rules forbidden body_
+_ListRulesForbiddenBody ListRulesForbiddenBody ListRulesForbiddenBody
+ListRulesForbiddenBody list rules forbidden body_
 
 #### Properties
 
@@ -4080,14 +3291,15 @@ _ListRulesForbiddenBody ListRulesForbiddenBody list rules forbidden body_
 }
 ```
 
-_ListRulesInternalServerError ListRulesInternalServerError handles this case
-with default header values._
+_ListRulesInternalServerError ListRulesInternalServerError
+ListRulesInternalServerError ListRulesInternalServerError handles this case with
+default header values._
 
 #### Properties
 
-| Name    | Type                                                                        | Required | Restrictions | Description                                                                                             |
-| ------- | --------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------- |
-| Payload | [ListRulesInternalServerErrorBody](#schemalistrulesinternalservererrorbody) | false    | none         | ListRulesInternalServerErrorBody ListRulesInternalServerErrorBody list rules internal server error body |
+| Name    | Type                                                                        | Required | Restrictions | Description                                                                                                                                                               |
+| ------- | --------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [ListRulesInternalServerErrorBody](#schemalistrulesinternalservererrorbody) | false    | none         | ListRulesInternalServerErrorBody ListRulesInternalServerErrorBody ListRulesInternalServerErrorBody ListRulesInternalServerErrorBody list rules internal server error body |
 
 <a id="tocSlistrulesinternalservererrorbody">ListRulesInternalServerErrorBody</a>
 
@@ -4111,7 +3323,8 @@ with default header values._
 }
 ```
 
-_ListRulesInternalServerErrorBody ListRulesInternalServerErrorBody list rules
+_ListRulesInternalServerErrorBody ListRulesInternalServerErrorBody
+ListRulesInternalServerErrorBody ListRulesInternalServerErrorBody list rules
 internal server error body_
 
 #### Properties
@@ -4138,16 +3351,12 @@ internal server error body_
     {
       "authenticators": [
         {
-          "config": [0],
+          "config": {},
           "handler": "string"
         }
       ],
       "authorizer": {
-        "config": [0],
-        "handler": "string"
-      },
-      "credentials_issuer": {
-        "config": [0],
+        "config": {},
         "handler": "string"
       },
       "description": "string",
@@ -4155,6 +3364,10 @@ internal server error body_
       "match": {
         "methods": ["string"],
         "url": "string"
+      },
+      "transformer": {
+        "config": {},
+        "handler": "string"
       },
       "upstream": {
         "preserve_host": true,
@@ -4166,7 +3379,8 @@ internal server error body_
 }
 ```
 
-_ListRulesOK ListRulesOK handles this case with default header values._
+_ListRulesOK ListRulesOK ListRulesOK ListRulesOK handles this case with default
+header values._
 
 #### Properties
 
@@ -4184,7 +3398,8 @@ _ListRulesOK ListRulesOK handles this case with default header values._
 {}
 ```
 
-_ListRulesReader ListRulesReader is a Reader for the ListRules structure._
+_ListRulesReader ListRulesReader ListRulesReader ListRulesReader is a Reader for
+the ListRules structure._
 
 #### Properties
 
@@ -4214,14 +3429,14 @@ _None_
 }
 ```
 
-_ListRulesUnauthorized ListRulesUnauthorized handles this case with default
-header values._
+_ListRulesUnauthorized ListRulesUnauthorized ListRulesUnauthorized
+ListRulesUnauthorized handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                          | Required | Restrictions | Description                                                                      |
-| ------- | ------------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------- |
-| Payload | [ListRulesUnauthorizedBody](#schemalistrulesunauthorizedbody) | false    | none         | ListRulesUnauthorizedBody ListRulesUnauthorizedBody list rules unauthorized body |
+| Name    | Type                                                          | Required | Restrictions | Description                                                                                                                          |
+| ------- | ------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Payload | [ListRulesUnauthorizedBody](#schemalistrulesunauthorizedbody) | false    | none         | ListRulesUnauthorizedBody ListRulesUnauthorizedBody ListRulesUnauthorizedBody ListRulesUnauthorizedBody list rules unauthorized body |
 
 <a id="tocSlistrulesunauthorizedbody">ListRulesUnauthorizedBody</a>
 
@@ -4245,8 +3460,8 @@ header values._
 }
 ```
 
-_ListRulesUnauthorizedBody ListRulesUnauthorizedBody list rules unauthorized
-body_
+_ListRulesUnauthorizedBody ListRulesUnauthorizedBody ListRulesUnauthorizedBody
+ListRulesUnauthorizedBody list rules unauthorized body_
 
 #### Properties
 
@@ -4270,13 +3485,13 @@ body_
 [0]
 ```
 
-_RawMessage RawMessage is a raw encoded JSON value._
+_RawMessage RawMessage RawMessage RawMessage is a raw encoded JSON value._
 
 #### Properties
 
-| Name                                               | Type      | Required | Restrictions | Description                                                                                                   |
-| -------------------------------------------------- | --------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------- |
-| RawMessage RawMessage is a raw encoded JSON value. | [integer] | false    | none         | It implements Marshaler and Unmarshaler and can be used to delay JSON decoding or precompute a JSON encoding. |
+| Name                                                                     | Type      | Required | Restrictions | Description                                                                                                   |
+| ------------------------------------------------------------------------ | --------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------- |
+| RawMessage RawMessage RawMessage RawMessage is a raw encoded JSON value. | [integer] | false    | none         | It implements Marshaler and Unmarshaler and can be used to delay JSON decoding or precompute a JSON encoding. |
 
 <a id="tocSswaggercreateruleparameters">SwaggerCreateRuleParameters</a>
 
@@ -4289,16 +3504,12 @@ _RawMessage RawMessage is a raw encoded JSON value._
   "Body": {
     "authenticators": [
       {
-        "config": [0],
+        "config": {},
         "handler": "string"
       }
     ],
     "authorizer": {
-      "config": [0],
-      "handler": "string"
-    },
-    "credentials_issuer": {
-      "config": [0],
+      "config": {},
       "handler": "string"
     },
     "description": "string",
@@ -4306,6 +3517,10 @@ _RawMessage RawMessage is a raw encoded JSON value._
     "match": {
       "methods": ["string"],
       "url": "string"
+    },
+    "transformer": {
+      "config": {},
+      "handler": "string"
     },
     "upstream": {
       "preserve_host": true,
@@ -4316,7 +3531,8 @@ _RawMessage RawMessage is a raw encoded JSON value._
 }
 ```
 
-_SwaggerCreateRuleParameters swagger create rule parameters_
+_SwaggerCreateRuleParameters SwaggerCreateRuleParameters swagger create rule
+parameters_
 
 #### Properties
 
@@ -4336,7 +3552,7 @@ _SwaggerCreateRuleParameters swagger create rule parameters_
 }
 ```
 
-_SwaggerGetRuleParameters swagger get rule parameters_
+_SwaggerGetRuleParameters SwaggerGetRuleParameters swagger get rule parameters_
 
 #### Properties
 
@@ -4357,7 +3573,8 @@ _SwaggerGetRuleParameters swagger get rule parameters_
 }
 ```
 
-_SwaggerListRulesParameters swagger list rules parameters_
+_SwaggerListRulesParameters SwaggerListRulesParameters swagger list rules
+parameters_
 
 #### Properties
 
@@ -4377,16 +3594,12 @@ _SwaggerListRulesParameters swagger list rules parameters_
   "Body": {
     "authenticators": [
       {
-        "config": [0],
+        "config": {},
         "handler": "string"
       }
     ],
     "authorizer": {
-      "config": [0],
-      "handler": "string"
-    },
-    "credentials_issuer": {
-      "config": [0],
+      "config": {},
       "handler": "string"
     },
     "description": "string",
@@ -4394,6 +3607,10 @@ _SwaggerListRulesParameters swagger list rules parameters_
     "match": {
       "methods": ["string"],
       "url": "string"
+    },
+    "transformer": {
+      "config": {},
+      "handler": "string"
     },
     "upstream": {
       "preserve_host": true,
@@ -4404,7 +3621,7 @@ _SwaggerListRulesParameters swagger list rules parameters_
 }
 ```
 
-_SwaggerRuleResponse A rule_
+_SwaggerRuleResponse SwaggerRuleResponse A rule_
 
 #### Properties
 
@@ -4424,16 +3641,12 @@ _SwaggerRuleResponse A rule_
     {
       "authenticators": [
         {
-          "config": [0],
+          "config": {},
           "handler": "string"
         }
       ],
       "authorizer": {
-        "config": [0],
-        "handler": "string"
-      },
-      "credentials_issuer": {
-        "config": [0],
+        "config": {},
         "handler": "string"
       },
       "description": "string",
@@ -4441,6 +3654,10 @@ _SwaggerRuleResponse A rule_
       "match": {
         "methods": ["string"],
         "url": "string"
+      },
+      "transformer": {
+        "config": {},
+        "handler": "string"
       },
       "upstream": {
         "preserve_host": true,
@@ -4452,7 +3669,7 @@ _SwaggerRuleResponse A rule_
 }
 ```
 
-_SwaggerRulesResponse A list of rules_
+_SwaggerRulesResponse SwaggerRulesResponse A list of rules_
 
 #### Properties
 
@@ -4471,16 +3688,12 @@ _SwaggerRulesResponse A list of rules_
   "Body": {
     "authenticators": [
       {
-        "config": [0],
+        "config": {},
         "handler": "string"
       }
     ],
     "authorizer": {
-      "config": [0],
-      "handler": "string"
-    },
-    "credentials_issuer": {
-      "config": [0],
+      "config": {},
       "handler": "string"
     },
     "description": "string",
@@ -4488,6 +3701,10 @@ _SwaggerRulesResponse A list of rules_
     "match": {
       "methods": ["string"],
       "url": "string"
+    },
+    "transformer": {
+      "config": {},
+      "handler": "string"
     },
     "upstream": {
       "preserve_host": true,
@@ -4499,7 +3716,8 @@ _SwaggerRulesResponse A list of rules_
 }
 ```
 
-_SwaggerUpdateRuleParameters swagger update rule parameters_
+_SwaggerUpdateRuleParameters SwaggerUpdateRuleParameters swagger update rule
+parameters_
 
 #### Properties
 
@@ -4532,14 +3750,14 @@ _SwaggerUpdateRuleParameters swagger update rule parameters_
 }
 ```
 
-_UpdateRuleForbidden UpdateRuleForbidden handles this case with default header
-values._
+_UpdateRuleForbidden UpdateRuleForbidden UpdateRuleForbidden UpdateRuleForbidden
+handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                      | Required | Restrictions | Description                                                                |
-| ------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------- |
-| Payload | [UpdateRuleForbiddenBody](#schemaupdateruleforbiddenbody) | false    | none         | UpdateRuleForbiddenBody UpdateRuleForbiddenBody update rule forbidden body |
+| Name    | Type                                                      | Required | Restrictions | Description                                                                                                                |
+| ------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [UpdateRuleForbiddenBody](#schemaupdateruleforbiddenbody) | false    | none         | UpdateRuleForbiddenBody UpdateRuleForbiddenBody UpdateRuleForbiddenBody UpdateRuleForbiddenBody update rule forbidden body |
 
 <a id="tocSupdateruleforbiddenbody">UpdateRuleForbiddenBody</a>
 
@@ -4563,7 +3781,8 @@ values._
 }
 ```
 
-_UpdateRuleForbiddenBody UpdateRuleForbiddenBody update rule forbidden body_
+_UpdateRuleForbiddenBody UpdateRuleForbiddenBody UpdateRuleForbiddenBody
+UpdateRuleForbiddenBody update rule forbidden body_
 
 #### Properties
 
@@ -4601,14 +3820,15 @@ _UpdateRuleForbiddenBody UpdateRuleForbiddenBody update rule forbidden body_
 }
 ```
 
-_UpdateRuleInternalServerError UpdateRuleInternalServerError handles this case
+_UpdateRuleInternalServerError UpdateRuleInternalServerError
+UpdateRuleInternalServerError UpdateRuleInternalServerError handles this case
 with default header values._
 
 #### Properties
 
-| Name    | Type                                                                          | Required | Restrictions | Description                                                                                                |
-| ------- | ----------------------------------------------------------------------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------- |
-| Payload | [UpdateRuleInternalServerErrorBody](#schemaupdateruleinternalservererrorbody) | false    | none         | UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody update rule internal server error body |
+| Name    | Type                                                                          | Required | Restrictions | Description                                                                                                                                                                    |
+| ------- | ----------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Payload | [UpdateRuleInternalServerErrorBody](#schemaupdateruleinternalservererrorbody) | false    | none         | UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody update rule internal server error body |
 
 <a id="tocSupdateruleinternalservererrorbody">UpdateRuleInternalServerErrorBody</a>
 
@@ -4632,7 +3852,8 @@ with default header values._
 }
 ```
 
-_UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody update rule
+_UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody
+UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody update rule
 internal server error body_
 
 #### Properties
@@ -4671,14 +3892,14 @@ internal server error body_
 }
 ```
 
-_UpdateRuleNotFound UpdateRuleNotFound handles this case with default header
-values._
+_UpdateRuleNotFound UpdateRuleNotFound UpdateRuleNotFound UpdateRuleNotFound
+handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                    | Required | Restrictions | Description                                                              |
-| ------- | ------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------ |
-| Payload | [UpdateRuleNotFoundBody](#schemaupdaterulenotfoundbody) | false    | none         | UpdateRuleNotFoundBody UpdateRuleNotFoundBody update rule not found body |
+| Name    | Type                                                    | Required | Restrictions | Description                                                                                                            |
+| ------- | ------------------------------------------------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| Payload | [UpdateRuleNotFoundBody](#schemaupdaterulenotfoundbody) | false    | none         | UpdateRuleNotFoundBody UpdateRuleNotFoundBody UpdateRuleNotFoundBody UpdateRuleNotFoundBody update rule not found body |
 
 <a id="tocSupdaterulenotfoundbody">UpdateRuleNotFoundBody</a>
 
@@ -4702,7 +3923,8 @@ values._
 }
 ```
 
-_UpdateRuleNotFoundBody UpdateRuleNotFoundBody update rule not found body_
+_UpdateRuleNotFoundBody UpdateRuleNotFoundBody UpdateRuleNotFoundBody
+UpdateRuleNotFoundBody update rule not found body_
 
 #### Properties
 
@@ -4727,16 +3949,12 @@ _UpdateRuleNotFoundBody UpdateRuleNotFoundBody update rule not found body_
   "Payload": {
     "authenticators": [
       {
-        "config": [0],
+        "config": {},
         "handler": "string"
       }
     ],
     "authorizer": {
-      "config": [0],
-      "handler": "string"
-    },
-    "credentials_issuer": {
-      "config": [0],
+      "config": {},
       "handler": "string"
     },
     "description": "string",
@@ -4744,6 +3962,10 @@ _UpdateRuleNotFoundBody UpdateRuleNotFoundBody update rule not found body_
     "match": {
       "methods": ["string"],
       "url": "string"
+    },
+    "transformer": {
+      "config": {},
+      "handler": "string"
     },
     "upstream": {
       "preserve_host": true,
@@ -4754,7 +3976,8 @@ _UpdateRuleNotFoundBody UpdateRuleNotFoundBody update rule not found body_
 }
 ```
 
-_UpdateRuleOK UpdateRuleOK handles this case with default header values._
+_UpdateRuleOK UpdateRuleOK UpdateRuleOK UpdateRuleOK handles this case with
+default header values._
 
 #### Properties
 
@@ -4772,7 +3995,8 @@ _UpdateRuleOK UpdateRuleOK handles this case with default header values._
 {}
 ```
 
-_UpdateRuleReader UpdateRuleReader is a Reader for the UpdateRule structure._
+_UpdateRuleReader UpdateRuleReader UpdateRuleReader UpdateRuleReader is a Reader
+for the UpdateRule structure._
 
 #### Properties
 
@@ -4802,14 +4026,14 @@ _None_
 }
 ```
 
-_UpdateRuleUnauthorized UpdateRuleUnauthorized handles this case with default
-header values._
+_UpdateRuleUnauthorized UpdateRuleUnauthorized UpdateRuleUnauthorized
+UpdateRuleUnauthorized handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                            | Required | Restrictions | Description                                                                         |
-| ------- | --------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------- |
-| Payload | [UpdateRuleUnauthorizedBody](#schemaupdateruleunauthorizedbody) | false    | none         | UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody update rule unauthorized body |
+| Name    | Type                                                            | Required | Restrictions | Description                                                                                                                               |
+| ------- | --------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [UpdateRuleUnauthorizedBody](#schemaupdateruleunauthorizedbody) | false    | none         | UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody update rule unauthorized body |
 
 <a id="tocSupdateruleunauthorizedbody">UpdateRuleUnauthorizedBody</a>
 
@@ -4833,7 +4057,8 @@ header values._
 }
 ```
 
-_UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody update rule unauthorized
+_UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody
+UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody update rule unauthorized
 body_
 
 #### Properties
@@ -4862,7 +4087,7 @@ body_
 }
 ```
 
-_Upstream Upstream upstream_
+_Upstream Upstream Upstream Upstream upstream_
 
 #### Properties
 
@@ -5018,15 +4243,15 @@ _Upstream Upstream upstream_
     "config": {},
     "handler": "string"
   },
-  "credentials_issuer": {
-    "config": {},
-    "handler": "string"
-  },
   "description": "string",
   "id": "string",
   "match": {
     "methods": ["string"],
     "url": "string"
+  },
+  "mutator": {
+    "config": {},
+    "handler": "string"
   },
   "upstream": {
     "preserve_host": true,
@@ -5040,15 +4265,15 @@ _swaggerRule is a single rule that will get checked on every HTTP request._
 
 #### Properties
 
-| Name               | Type                                | Required | Restrictions | Description                                                                                                                                                                                                                                                                                                                                                                                                  |
-| ------------------ | ----------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| authenticators     | [[ruleHandler](#schemarulehandler)] | false    | none         | Authenticators is a list of authentication handlers that will try and authenticate the provided credentials. Authenticators are checked iteratively from index 0 to n and if the first authenticator to return a positive result will be the one used. If you want the rule to first check a specific authenticator before "falling back" to others, have that authenticator as the first item in the array. |
-| authorizer         | [ruleHandler](#schemarulehandler)   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                         |
-| credentials_issuer | [ruleHandler](#schemarulehandler)   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                         |
-| description        | string                              | false    | none         | Description is a human readable description of this rule.                                                                                                                                                                                                                                                                                                                                                    |
-| id                 | string                              | false    | none         | ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.                                                                                                                                                                                                                                  |
-| match              | [ruleMatch](#schemarulematch)       | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                         |
-| upstream           | [Upstream](#schemaupstream)         | false    | none         | Upstream Upstream upstream                                                                                                                                                                                                                                                                                                                                                                                   |
+| Name           | Type                                | Required | Restrictions | Description                                                                                                                                                                                                                                                                                                                                                                                                  |
+| -------------- | ----------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| authenticators | [[ruleHandler](#schemarulehandler)] | false    | none         | Authenticators is a list of authentication handlers that will try and authenticate the provided credentials. Authenticators are checked iteratively from index 0 to n and if the first authenticator to return a positive result will be the one used. If you want the rule to first check a specific authenticator before "falling back" to others, have that authenticator as the first item in the array. |
+| authorizer     | [ruleHandler](#schemarulehandler)   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                         |
+| description    | string                              | false    | none         | Description is a human readable description of this rule.                                                                                                                                                                                                                                                                                                                                                    |
+| id             | string                              | false    | none         | ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.                                                                                                                                                                                                                                  |
+| match          | [ruleMatch](#schemarulematch)       | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                         |
+| mutator        | [ruleHandler](#schemarulehandler)   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                         |
+| upstream       | [Upstream](#schemaupstream)         | false    | none         | Upstream Upstream Upstream Upstream upstream                                                                                                                                                                                                                                                                                                                                                                 |
 
 <a id="tocSrulehandler">ruleHandler</a>
 
@@ -5089,50 +4314,6 @@ _swaggerRule is a single rule that will get checked on every HTTP request._
 | ------- | -------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | methods | [string] | false    | none         | An array of HTTP methods (e.g. GET, POST, PUT, DELETE, ...). When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the HTTP method of the incoming request with the HTTP methods of each rules. If a match is found, the rule is considered a partial match. If the matchesUrl field is satisfied as well, the rule is considered a full match.                                                                                                                                                                                                                                                                                           |
 | url     | string   | false    | none         | This field represents the URL pattern this rule matches. When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the full request URL (e.g. https://mydomain.com/api/resource) without query parameters of the incoming request with this field. If a match is found, the rule is considered a partial match. If the matchesMethods field is satisfied as well, the rule is considered a full match. You can use regular expressions in this field to match more than one url. Regular expressions are encapsulated in brackets < and >. The following example matches all paths of the domain `mydomain.com`: `https://mydomain.com/<.*>`. |
-
-<a id="tocSswaggercreateruleparameters">swaggerCreateRuleParameters</a>
-
-#### swaggerCreateRuleParameters
-
-<a id="schemaswaggercreateruleparameters"></a>
-
-```json
-{
-  "Body": {
-    "authenticators": [
-      {
-        "config": {},
-        "handler": "string"
-      }
-    ],
-    "authorizer": {
-      "config": {},
-      "handler": "string"
-    },
-    "credentials_issuer": {
-      "config": {},
-      "handler": "string"
-    },
-    "description": "string",
-    "id": "string",
-    "match": {
-      "methods": ["string"],
-      "url": "string"
-    },
-    "upstream": {
-      "preserve_host": true,
-      "strip_path": "string",
-      "url": "string"
-    }
-  }
-}
-```
-
-#### Properties
-
-| Name | Type                | Required | Restrictions | Description |
-| ---- | ------------------- | -------- | ------------ | ----------- |
-| Body | [rule](#schemarule) | false    | none         | none        |
 
 <a id="tocSswaggergetruleparameters">swaggerGetRuleParameters</a>
 
@@ -5318,16 +4499,12 @@ _SwaggerNotReadyStatus swagger not ready status_
 {
   "authenticators": [
     {
-      "config": [0],
+      "config": {},
       "handler": "string"
     }
   ],
   "authorizer": {
-    "config": [0],
-    "handler": "string"
-  },
-  "credentials_issuer": {
-    "config": [0],
+    "config": {},
     "handler": "string"
   },
   "description": "string",
@@ -5335,6 +4512,10 @@ _SwaggerNotReadyStatus swagger not ready status_
   "match": {
     "methods": ["string"],
     "url": "string"
+  },
+  "transformer": {
+    "config": {},
+    "handler": "string"
   },
   "upstream": {
     "preserve_host": true,
@@ -5349,15 +4530,15 @@ request._
 
 #### Properties
 
-| Name               | Type                                              | Required | Restrictions | Description                                                                                                                                                                                                                                                                                                                                                                                                  |
-| ------------------ | ------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| authenticators     | [[swaggerRuleHandler](#schemaswaggerrulehandler)] | false    | none         | Authenticators is a list of authentication handlers that will try and authenticate the provided credentials. Authenticators are checked iteratively from index 0 to n and if the first authenticator to return a positive result will be the one used. If you want the rule to first check a specific authenticator before "falling back" to others, have that authenticator as the first item in the array. |
-| authorizer         | [swaggerRuleHandler](#schemaswaggerrulehandler)   | false    | none         | SwaggerRuleHandler swagger rule handler                                                                                                                                                                                                                                                                                                                                                                      |
-| credentials_issuer | [swaggerRuleHandler](#schemaswaggerrulehandler)   | false    | none         | SwaggerRuleHandler swagger rule handler                                                                                                                                                                                                                                                                                                                                                                      |
-| description        | string                                            | false    | none         | Description is a human readable description of this rule.                                                                                                                                                                                                                                                                                                                                                    |
-| id                 | string                                            | false    | none         | ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.                                                                                                                                                                                                                                  |
-| match              | [swaggerRuleMatch](#schemaswaggerrulematch)       | false    | none         | SwaggerRuleMatch swagger rule match                                                                                                                                                                                                                                                                                                                                                                          |
-| upstream           | [Upstream](#schemaupstream)                       | false    | none         | Upstream Upstream upstream                                                                                                                                                                                                                                                                                                                                                                                   |
+| Name           | Type                                              | Required | Restrictions | Description                                                                                                                                                                                                                                                                                                                                                                                                  |
+| -------------- | ------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| authenticators | [[swaggerRuleHandler](#schemaswaggerrulehandler)] | false    | none         | Authenticators is a list of authentication handlers that will try and authenticate the provided credentials. Authenticators are checked iteratively from index 0 to n and if the first authenticator to return a positive result will be the one used. If you want the rule to first check a specific authenticator before "falling back" to others, have that authenticator as the first item in the array. |
+| authorizer     | [swaggerRuleHandler](#schemaswaggerrulehandler)   | false    | none         | SwaggerRuleHandler swagger rule handler                                                                                                                                                                                                                                                                                                                                                                      |
+| description    | string                                            | false    | none         | Description is a human readable description of this rule.                                                                                                                                                                                                                                                                                                                                                    |
+| id             | string                                            | false    | none         | ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.                                                                                                                                                                                                                                  |
+| match          | [swaggerRuleMatch](#schemaswaggerrulematch)       | false    | none         | SwaggerRuleMatch swagger rule match                                                                                                                                                                                                                                                                                                                                                                          |
+| transformer    | [swaggerRuleHandler](#schemaswaggerrulehandler)   | false    | none         | SwaggerRuleHandler swagger rule handler                                                                                                                                                                                                                                                                                                                                                                      |
+| upstream       | [Upstream](#schemaupstream)                       | false    | none         | Upstream Upstream Upstream Upstream upstream                                                                                                                                                                                                                                                                                                                                                                 |
 
 <a id="tocSswaggerrulehandler">swaggerRuleHandler</a>
 
@@ -5367,7 +4548,7 @@ request._
 
 ```json
 {
-  "config": [0],
+  "config": {},
   "handler": "string"
 }
 ```
@@ -5376,10 +4557,10 @@ _SwaggerRuleHandler swagger rule handler_
 
 #### Properties
 
-| Name    | Type                            | Required | Restrictions | Description                                                                                                                                                     |
-| ------- | ------------------------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| config  | [RawMessage](#schemarawmessage) | false    | none         | It implements Marshaler and Unmarshaler and can be used to delay JSON decoding or precompute a JSON encoding.                                                   |
-| handler | string                          | false    | none         | Handler identifies the implementation which will be used to handle this specific request. Please read the user guide for a complete list of available handlers. |
+| Name    | Type   | Required | Restrictions | Description                                                                                                                                                     |
+| ------- | ------ | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| config  | object | false    | none         | Config contains the configuration for the handler. Please read the user guide for a complete list of each handler's available settings.                         |
+| handler | string | false    | none         | Handler identifies the implementation which will be used to handle this specific request. Please read the user guide for a complete list of available handlers. |
 
 <a id="tocSswaggerrulematch">swaggerRuleMatch</a>
 
@@ -5422,15 +4603,15 @@ _SwaggerRuleMatch swagger rule match_
       "config": {},
       "handler": "string"
     },
-    "credentials_issuer": {
-      "config": {},
-      "handler": "string"
-    },
     "description": "string",
     "id": "string",
     "match": {
       "methods": ["string"],
       "url": "string"
+    },
+    "mutator": {
+      "config": {},
+      "handler": "string"
     },
     "upstream": {
       "preserve_host": true,
@@ -5469,15 +4650,15 @@ _A rule_
         "config": {},
         "handler": "string"
       },
-      "credentials_issuer": {
-        "config": {},
-        "handler": "string"
-      },
       "description": "string",
       "id": "string",
       "match": {
         "methods": ["string"],
         "url": "string"
+      },
+      "mutator": {
+        "config": {},
+        "handler": "string"
       },
       "upstream": {
         "preserve_host": true,
@@ -5497,52 +4678,6 @@ _A list of rules_
 | ---- | --------------------- | -------- | ------------ | -------------------- |
 | Body | [[rule](#schemarule)] | false    | none         | in: body type: array |
 
-<a id="tocSswaggerupdateruleparameters">swaggerUpdateRuleParameters</a>
-
-#### swaggerUpdateRuleParameters
-
-<a id="schemaswaggerupdateruleparameters"></a>
-
-```json
-{
-  "Body": {
-    "authenticators": [
-      {
-        "config": {},
-        "handler": "string"
-      }
-    ],
-    "authorizer": {
-      "config": {},
-      "handler": "string"
-    },
-    "credentials_issuer": {
-      "config": {},
-      "handler": "string"
-    },
-    "description": "string",
-    "id": "string",
-    "match": {
-      "methods": ["string"],
-      "url": "string"
-    },
-    "upstream": {
-      "preserve_host": true,
-      "strip_path": "string",
-      "url": "string"
-    }
-  },
-  "id": "string"
-}
-```
-
-#### Properties
-
-| Name | Type                | Required | Restrictions | Description |
-| ---- | ------------------- | -------- | ------------ | ----------- |
-| Body | [rule](#schemarule) | false    | none         | none        |
-| id   | string              | true     | none         | in: path    |
-
 <a id="tocSswaggerversion">swaggerVersion</a>
 
 #### swaggerVersion
@@ -5559,9 +4694,9 @@ _SwaggerVersion swagger version_
 
 #### Properties
 
-| Name    | Type   | Required | Restrictions | Description |
-| ------- | ------ | -------- | ------------ | ----------- |
-| version | string | false    | none         | version     |
+| Name    | Type   | Required | Restrictions | Description                       |
+| ------- | ------ | -------- | ------------ | --------------------------------- |
+| version | string | false    | none         | Version is the service's version. |
 
 <a id="tocSversion">version</a>
 
@@ -5577,6 +4712,6 @@ _SwaggerVersion swagger version_
 
 #### Properties
 
-| Name    | Type   | Required | Restrictions | Description |
-| ------- | ------ | -------- | ------------ | ----------- |
-| version | string | false    | none         | none        |
+| Name    | Type   | Required | Restrictions | Description                       |
+| ------- | ------ | -------- | ------------ | --------------------------------- |
+| version | string | false    | none         | Version is the service's version. |
