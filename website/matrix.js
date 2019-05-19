@@ -1,8 +1,7 @@
 const fs = require('fs');
 const fetch = require('node-fetch');
-const oryOS = process.argv[2];
 
-const findLine = lines => {
+const findLine = (oryOS, lines) => {
   const oos = '| `' + oryOS + '`';
   let index = -1;
   let content = lines.find((line, k) => {
@@ -40,7 +39,7 @@ const findLine = lines => {
 
 const onlyUnique = (value, index, self) => self.indexOf(value) === index;
 
-const versions = ({ index, lines }, { hydra, keto, oathkeeper }) => {
+const versions = (oryOS, { index, lines }, { hydra, keto, oathkeeper }) => {
   const columns = lines[index].split('|'); // hydra:3, keto:4, oathkeeper:5
   const versions = [hydra, keto, oathkeeper]; // 3,4,5 index
   const updated = columns
@@ -54,9 +53,11 @@ const versions = ({ index, lines }, { hydra, keto, oathkeeper }) => {
               .filter(p => p.length > 0),
             '`' + versions[index] + '`',
           ].filter(onlyUnique)
-        : column
+        : column.split(',').filter(onlyUnique)
     )
-    .map(inner => inner.join(', '));
+    .map(inner => {
+      return inner.join(', ');
+    });
 
   const os = '`' + oryOS + '`';
 
@@ -65,35 +66,58 @@ const versions = ({ index, lines }, { hydra, keto, oathkeeper }) => {
 };
 
 const path = '../docs/ecosystem/versioning.md';
-const content = findLine(
-  fs
-    .readFileSync(path)
-    .toString()
-    .split('\n'),
-  '| `' + oryOS + '`'
-);
+const content = fs
+  .readFileSync(path)
+  .toString()
+  .split('\n');
 
 const services = ['hydra', 'keto', 'oathkeeper']; // this needs to match the order in the version.md file.
 Promise.all(
   services.map(service =>
     fetch(
-      `https://aeneasr:${
-        process.env.GITHUB_TOKEN
-      }@api.github.com/repos/ory/${service}/releases`
+      `https://${
+        process.env.GITHUB_TOKEN ? `aeneasr:${process.env.GITHUB_TOKEN}@` : ''
+      }api.github.com/repos/ory/${service}/releases`
     )
       .then(res => res.json())
-      .then(releases => Promise.resolve(releases[0].tag_name))
+      .then(releases => Promise.resolve(releases))
       .catch(err => {
         console.error(err);
         process.exit(1);
       })
   )
 ).then(serviceVersions => {
-  const lines = versions(content, {
-    hydra: serviceVersions[0],
-    keto: serviceVersions[1],
-    oathkeeper: serviceVersions[2],
-  });
+  let lines = content;
+
+  const hydra = serviceVersions[0];
+  hydra
+    .filter(({ name }) => name.indexOf('+') > -1)
+    .forEach(version => {
+      const oryOS = version.name.split('+')[1];
+      lines = versions(oryOS, findLine(oryOS, lines), {
+        hydra: version.name.split('+')[0],
+      });
+    });
+
+  const keto = serviceVersions[1];
+  keto
+    .filter(({ name }) => name.indexOf('+') > -1)
+    .forEach(version => {
+      const oryOS = version.name.split('+')[1];
+      lines = versions(oryOS, findLine(oryOS, lines), {
+        keto: version.name.split('+')[0],
+      });
+    });
+
+  const oathkeeper = serviceVersions[2];
+  oathkeeper
+    .filter(({ name }) => name.indexOf('+') > -1)
+    .forEach(version => {
+      const oryOS = version.name.split('+')[1];
+      lines = versions(oryOS, findLine(oryOS, lines), {
+        oathkeeper: version.name.split('+')[0],
+      });
+    });
 
   fs.writeFileSync(path, lines.join('\n'));
 });
