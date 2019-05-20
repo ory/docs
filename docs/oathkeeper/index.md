@@ -3,14 +3,16 @@ id: index
 title: Introduction
 ---
 
-ORY Oathkeeper authorizes incoming HTTP requests, either by being deployed as a
-reverse proxy in front of your upstream server (API, web server, ...) or as a
-Access Control Decision API alongside your API Gateway (Kong, Nginx, Envoy, AWS
-API Gateway, ...).
+ORY Oathkeeper authorizes incoming HTTP requests.
+It can be the Policy Enforcement Point in your cloud architecture, 
+i.e. a reverse proxy in front of your upstream API or web server 
+that forwards authorized requests and rejects unauthorized ones.
+If you want to use another API Gateway (Kong, Nginx, Envoy, AWS API Gateway, ...),
+Oathkeeper can also plug into that and act as its Policy Decision Point.
 
-The implemented problem domain and scope is called Zero-Trust Network
-Architecture, [BeyondCorp](https://www.beyondcorp.com), and Identity And Access
-Proxy (IAP).
+The implemented problem domain and scope is part of [attribute-based access control](https://en.wikipedia.org/wiki/Attribute-based_access_control), 
+sometimes also called Zero-Trust Network Architecture, [BeyondCorp](https://www.beyondcorp.com), 
+and Identity And Access Proxy (IAP).
 
 While ORY Oathkeeper works well with ORY Hydra and ORY Keto, ORY Oathkeeper can
 be used completely standalone and alongside other stacks with adjacent problem
@@ -37,7 +39,7 @@ files, JSON files, and environment variables.
 
 ## Operating Modes
 
-Command `oathkeeper serve` exposes two ports. One port serves the reverse proxy,
+Starting Oathkeeper via `oathkeeper serve` exposes two ports: One port serves the reverse proxy,
 the other ORY Oathkeeper's API.
 
 ### Reverse Proxy
@@ -47,7 +49,7 @@ defined in the rule, if the request is allowed. If the request is not allowed,
 ORY Oathkeeper does not forward the request and instead returns an error
 message.
 
-<a href="https://mermaidjs.github.io/mermaid-live-editor/#/view/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgcGFydGljaXBhbnQgQyBhcyBDbGllbnRcbiAgICBwYXJ0aWNpcGFudCBPIGFzIE9hdGhrZWVwZXIgUHJveHlcbiAgICBwYXJ0aWNpcGFudCBBIGFzIFByb3RlY3RlZCBTZXJ2ZXIvQVBJXG4gICAgQy0-Pk86IEhUVFAgUmVxdWVzdFxuICAgIE8tLT4-TzogQ2hlY2sgaWYgcmVxdWVzdCBpcyBhbGxvd2VkXG4gICAgYWx0IGlzIG5vdCBhbGxvd2VkXG4gICAgTy0-PkM6IFJldHVybiBIVFRQIEVycm9yIFxuICAgIGVsc2UgaXMgYWxsb3dlZFxuICAgIE8tPj5BOiBGb3J3YXJkIEhUVFAgUmVxdWVzdCBcbiAgICBBLT4-TzogUmV0dXJuIEhUVFAgUmVzcG9uc2VcbiAgICBPLT4-QzogUmV0dXJuIEhUVFAgUmVzcG9uc2VcbiAgICBlbmQiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9fQ">
+<a href="https://mermaidjs.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgcGFydGljaXBhbnQgQyBhcyBDbGllbnRcbiAgICBwYXJ0aWNpcGFudCBPIGFzIE9hdGhrZWVwZXIgUHJveHlcbiAgICBwYXJ0aWNpcGFudCBBIGFzIFByb3RlY3RlZCBTZXJ2ZXIvQVBJXG4gICAgQy0-Pk86IEhUVFAgUmVxdWVzdFxuICAgIE8tLT4-TzogQ2hlY2sgaWYgcmVxdWVzdCBpcyBhbGxvd2VkXG4gICAgYWx0IGlzIGFsbG93ZWRcbiAgICBPLT4-QzogUmV0dXJuIEhUVFAgRXJyb3IgXG4gICAgZWxzZSBpcyBub3QgYWxsb3dlZFxuICAgIE8tPj5BOiBGb3J3YXJkIEhUVFAgUmVxdWVzdCBcbiAgICBBLT4-TzogUmV0dXJuIEhUVFAgUmVzcG9uc2VcbiAgICBPLT4-QzogUmV0dXJuIEhUVFAgUmVzcG9uc2VcbiAgICBlbmQiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9fQ">
     <img src="/images/docs/oathkeeper/proxy.svg" alt="ORY Oathkeeper deployed as a Reverse Proxy" float="center">
 </a>
 
@@ -100,10 +102,10 @@ request to ORY Oathkeeper.
 
 ### Access Control Decision API
 
-The Access Control Decision API is exposed at `/decision` of the ORY Oathkeeper
-API port. It follows best-practices and works with most (if not all) modern API
-Gateways and Reverse Proxies. The endpoint matches every sub-path and HTTP
-Method:
+The ORY Oathkeeper Access Control Decision API follows best-practices and works with most (if not all) 
+modern API gateways and reverse proxies.
+To verify a request, send it to the `decision` endpoint.
+It matches every sub-path and HTTP Method:
 
 - `GET /decision/v1/api`
 - `PUT /decision/my/other/api`
@@ -175,25 +177,27 @@ X-User-ID: john.doe
 
 ## Decision Engine
 
-ORY Oathkeeper authorizes HTTP requests in four steps:
+The decision engine allows to configure how ORY Oathkeeper authorizes HTTP requests.
+Authorization happens in four steps, each of which can be configured:
 
-1. Access Rule Matching: HTTP method, path, and host of the incoming HTTP
-   request are matched against the Access Rules defined by you. If an Access
-   Rule matches the incoming request, its configuration is used for the next
-   steps. If no Access Rule matches, the request will be denied.
-2. Authentication: Access Rules can define several methods for validating
-   credentials included in the HTTP request (e.g. a Bearer Token, Basic
-   Authorization, or a Cookie). If the credentials are valid (authenticated),
-   their "internal" session state (e.g. user ID) will be used for the next
-   steps. If credentials are invalid, the request will be denied.
-3. Authorization: Access Rules can be configured to check for permissions. If,
-   for example, an API requires admin privileges, the authorizer will be
-   configured to check if the user ID (from step 2) has e.g. permission or role
-   "admin". Several authorizers are supported. If authorization is denied (e.g.
-   user does not have role "admin"), the request denied.
-4. Mutation: The Access Rule can be configured to add all the session data to
-   the HTTP request that will be forwarded to the upstream API. For example, the
-   mutator would add `X-User-ID: the-user-id` to the HTTP headers or generate a
+1. **Access Rule Matching:** 
+   Verifies that the HTTP method, path, and host of the incoming HTTP
+   request conform to your access rules. 
+   The request is denied if no access rules match.
+   The configuration of the matching access rule becomes the input for the next steps. 
+2. **Authentication:**
+   Oathkeeper can validate credentials via a variety of methods like Bearer Token, Basic Authorization, or cookie. 
+   Invalid credentials result in denial of the request.
+   The "internal" session state (e.g. user ID) of valid (authenticated) credentials becomes input for the next steps. 
+3. **Authorization:** 
+   Access Rules can check permissions. 
+   To secure, for example, an API that requires admin privileges, 
+   configure the authorizer to check if the user ID from step 2 has the "admin" permission or role. 
+   Oathkeeper supports a variety of authorizers. 
+   Failed authorization (e.g. user does not have role "admin") results denial of the request.
+4. **Mutation:**
+   The Access Rule can add session data to the HTTP request that it forwards to the upstream API. 
+   For example, the mutator could add `X-User-ID: the-user-id` to the HTTP headers or generate a
    JWT with session information and set it as
    `Authorization: Bearer the.jwt.token`.
 
