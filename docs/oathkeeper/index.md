@@ -12,7 +12,8 @@ Oathkeeper can also plug into that and act as its Policy Decision Point.
 
 The implemented problem domain and scope is part of [attribute-based access control](https://en.wikipedia.org/wiki/Attribute-based_access_control), 
 sometimes also called Zero-Trust Network
-Architecture, [BeyondCorp](https://www.beyondcorp.com), and Identity And Access Proxy (IAP).
+Architecture, [BeyondCorp](https://www.beyondcorp.com), and Identity And Access
+Proxy (IAP).
 
 While ORY Oathkeeper works well with ORY Hydra and ORY Keto, ORY Oathkeeper can
 be used completely standalone and alongside other stacks with adjacent problem
