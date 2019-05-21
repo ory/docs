@@ -14,25 +14,23 @@ The ORY ecosystem consists of multiple services versioned using
 [semantic versioning](https://semver.org). This section explains how we define
 service versions and what they mean.
 
-There are two types of services:
+There are three maturity levels for services:
 
-- **Graduated services** change rarely in a backwards incompatible fashion. A
-  service can be considered graduated if the major version is >= 1 - for
-  example: `v1.0.1`, `v2.2.2`. If a serious backwards incompatible change is
-  made, the major version jumps one up. Most, if not all, REST APIs will provide
+- **Graduated services** are mature, stable implementations of proven concepts. 
+  They rarely change in backwards incompatible ways. A
+  service is considered graduated if the major version is >= 1, e.g. `v1.0.1`, `v2.2.2`. 
+  Backwards incompatible changes are indicated by a bump of the major version number. 
+  Most, if not all, REST APIs will provide
   backwards compatible transformations that make it possible to interact with
-  the server using older API concepts.
-- **Incubating services** implement well defined concepts but do not provide
-  backwards compatible REST APIs yet. Incubating services are indicated by major
-  version numbers of `0` - for example: `v0.10.0`. There is a very low risk of
-  breaking backwards compatibility with regards to concepts and there will
-  always be upgrade guides.
-- **Sandbox services** may implement concepts, provide APIs and CLIs which are
-  not fully baked yet. It is possible that these services change in
-  unpredictable ways. These services are indicated by major version numbers of
-  `0` and the `sandbox` label - for example: `v0.10.0-sandbox`. We will provide
-  upgrade guides wherever possible and when adopters rely in production on that
-  particular service.
+  the server using older API versions.
+- **Incubating services** implement well defined but not fully matured concepts. 
+  Incubating services have a major
+  version number of `0`, e.g. `v0.10.0`. They have a higher (but overall moderate) probability for
+  larger changes that can break backwards compatibility, for which there are upgrade guides.
+- **Sandbox services** implement concepts, APIs and CLIs at the experimental stage and can change in
+  unpredictable ways. These services have a major version number of
+  `0` and the `sandbox` label, e.g. `v0.10.0-sandbox`. We will provide
+  upgrade guides wherever possible, especially when they are used in production already.
 
 To make deployment easier but stay compatible with semantic versioning, each
 service is equipped with a `oryOS` version number denoted by `+oryOS.X` where
