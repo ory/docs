@@ -5,10 +5,10 @@ title: Introduction
 
 ORY Oathkeeper authorizes incoming HTTP requests. It can be the Policy
 Enforcement Point in your cloud architecture, i.e. a reverse proxy in front of
-your upstream API or web server that forwards authorized requests and rejects
-unauthorized ones. If you want to use another API Gateway (Kong, Nginx, Envoy,
-AWS API Gateway, ...), Oathkeeper can also plug into that and act as its Policy
-Decision Point.
+your upstream API or web server that rejects unauthorized requests and forwards
+authorized ones to your server. If you want to use another API Gateway (Kong,
+Nginx, Envoy, AWS API Gateway, ...), Oathkeeper can also plug into that and act
+as its Policy Decision Point.
 
 The implemented problem domain and scope is called Zero-Trust Network
 Architecture, [BeyondCorp](https://www.beyondcorp.com), and Identity And Access
@@ -104,12 +104,12 @@ request to ORY Oathkeeper.
 
 The ORY Oathkeeper Access Control Decision API follows best-practices and works
 with most (if not all) modern API gateways and reverse proxies. To verify a
-request, send it to the `decision` endpoint. It matches every sub-path and HTTP
-Method:
+request, send it to the `decisions` endpoint of the Ory Authkeeper API port. It
+matches every sub-path and HTTP Method:
 
-- `GET /decision/v1/api`
-- `PUT /decision/my/other/api`
-- `DELETE /decision/users?foo=?bar`
+- `GET /decisions/v1/api`
+- `PUT /decisions/my/other/api`
+- `DELETE /decisions/users?foo=?bar`
 
 When matching a rule, the `/decision` prefix is stripped from the matching path.
 
