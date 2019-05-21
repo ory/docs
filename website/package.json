@@ -2,7 +2,7 @@
   "scripts": {
     "examples": "docusaurus-examples",
     "start": "docusaurus-start",
-    "build": "docusaurus-build",
+    "build": "docusaurus-build --skip-image-compression",
     "publish-gh-pages": "docusaurus-publish",
     "write-translations": "docusaurus-write-translations",
     "version:clear": "node rerelease.js",
@@ -24,7 +24,7 @@
     "swagger:cleanup:keto": "node fix-api.js ../docs/keto/sdk/api.md keto-sdk"
   },
   "devDependencies": {
-    "docusaurus": "^1.9.0",
+    "docusaurus": "^1.10.0",
     "event-stream": "^4.0.1",
     "file": "^0.2.2",
     "markdown-link-check": "^3.7.2",
