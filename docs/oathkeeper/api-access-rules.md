@@ -98,7 +98,7 @@ Access Rules have four principal keys:
   to the upstream server. When using ORY Oathkeeper's Decision API, it is
   expected that the API Gateway forwards the mutated HTTP Headers to the
   upstream server. For the full list of available mutators, click
-  [here](pipeline/mutators.md).
+  [here](pipeline/mutator.md).
 
 **Example**
 
