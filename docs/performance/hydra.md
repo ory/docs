@@ -45,8 +45,8 @@ Summary:
   Total:	2.4490 secs
   Slowest:	0.1388 secs
   Fastest:	0.0003 secs
-  Average:	0.0232 secs
-  Requests/sec:	4083.2677
+  Average:	0.0220 secs
+  Requests/sec:	4265.3079
 
   Total data:	1550000 bytes
   Size/request:	155 bytes
@@ -95,11 +95,11 @@ This endpoint uses [BCrypt](#bcrypt).
 ```
 
 Summary:
-  Total:	19.8644 secs
-  Slowest:	0.8079 secs
-  Fastest:	0.0172 secs
-  Average:	0.1921 secs
-  Requests/sec:	503.4124
+  Total:	19.9241 secs
+  Slowest:	0.8123 secs
+  Fastest:	0.0171 secs
+  Average:	0.1901 secs
+  Requests/sec:	501.9053
 
   Total data:	1570000 bytes
   Size/request:	157 bytes
@@ -161,8 +161,8 @@ Summary:
   Total:	0.4940 secs
   Slowest:	0.0332 secs
   Fastest:	0.0001 secs
-  Average:	0.0046 secs
-  Requests/sec:	20241.2621
+  Average:	0.0037 secs
+  Requests/sec:	24815.7713
 
   Total data:	4820000 bytes
   Size/request:	482 bytes
@@ -212,8 +212,8 @@ Summary:
   Total:	0.4220 secs
   Slowest:	0.0242 secs
   Fastest:	0.0001 secs
-  Average:	0.0039 secs
-  Requests/sec:	23699.1731
+  Average:	0.0035 secs
+  Requests/sec:	26457.0881
 
   Total data:	4800000 bytes
   Size/request:	480 bytes
