@@ -40,8 +40,8 @@ $ cd website; npm run release
 ## Development
 
 To automatically update and format the Markdown, Javascript, and REST API
-definitions in this repo everytime you commit a change on your local machine, please run the following
-command after `git clone`:
+definitions in this repo everytime you commit a change on your local machine,
+please run the following command after `git clone`:
 
 ```
 # On Linux/macOS:
