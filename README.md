@@ -51,8 +51,10 @@ $ ln -s ./hooks/pre-commit .git/hooks/pre-commit
 > copy hooks\pre-commit .\.git\hooks\pre-commit
 ```
 
-You can also run the formatter manually:
+You can also run the formatters manually:
 
 ```
-cd website ; npm run format
+cd website
+npm run api
+npm run format
 ```
