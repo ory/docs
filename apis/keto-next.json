@@ -1,14 +1,7 @@
 {
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
-  "schemes": [
-    "http",
-    "https"
-  ],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "schemes": ["http", "https"],
   "swagger": "2.0",
   "info": {
     "description": "Package main ORY Keto",
@@ -28,9 +21,7 @@
     "/health/alive": {
       "get": {
         "description": "This endpoint returns a 200 status code when the HTTP server is up running.\nThis status does currently not include checks whether the database connection is working.\nThis endpoint does not require the `X-Forwarded-Proto` header when TLS termination is set.\n\nBe aware that if you are running multiple nodes of ORY Keto, the health status will never refer to the cluster state, only to a single instance.",
-        "tags": [
-          "health"
-        ],
+        "tags": ["health"],
         "summary": "Check the Alive Status",
         "operationId": "isInstanceAlive",
         "responses": {
@@ -49,9 +40,7 @@
     "/health/ready": {
       "get": {
         "description": "This endpoint returns a 200 status code when the HTTP server is up running and the environment dependencies (e.g.\nthe database) are responsive as well.\n\nThis status does currently not include checks whether the database connection is working.\nThis endpoint does not require the `X-Forwarded-Proto` header when TLS termination is set.\n\nBe aware that if you are running multiple nodes of ORY Keto, the health status will never refer to the cluster state, only to a single instance.",
-        "tags": [
-          "health"
-        ],
+        "tags": ["health"],
         "summary": "Check the Readiness Status",
         "operationId": "isInstanceReady",
         "responses": {
@@ -73,19 +62,10 @@
     "/policies": {
       "get": {
         "description": "List Access Control Policies",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "schemes": [
-          "http",
-          "https"
-        ],
-        "tags": [
-          "policy"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "schemes": ["http", "https"],
+        "tags": ["policy"],
         "operationId": "listPolicies",
         "parameters": [
           {
@@ -122,19 +102,10 @@
       },
       "post": {
         "description": "Create an Access Control Policy",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "schemes": [
-          "http",
-          "https"
-        ],
-        "tags": [
-          "policy"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "schemes": ["http", "https"],
+        "tags": ["policy"],
         "operationId": "createPolicy",
         "parameters": [
           {
@@ -167,19 +138,10 @@
     "/policies/{id}": {
       "get": {
         "description": "Get an Access Control Policy",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "schemes": [
-          "http",
-          "https"
-        ],
-        "tags": [
-          "policy"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "schemes": ["http", "https"],
+        "tags": ["policy"],
         "operationId": "getPolicy",
         "parameters": [
           {
@@ -211,19 +173,10 @@
       },
       "put": {
         "description": "Update an Access Control Policy",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "schemes": [
-          "http",
-          "https"
-        ],
-        "tags": [
-          "policy"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "schemes": ["http", "https"],
+        "tags": ["policy"],
         "operationId": "updatePolicy",
         "parameters": [
           {
@@ -262,19 +215,10 @@
       },
       "delete": {
         "description": "Delete an Access Control Policy",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "schemes": [
-          "http",
-          "https"
-        ],
-        "tags": [
-          "policy"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "schemes": ["http", "https"],
+        "tags": ["policy"],
         "operationId": "deletePolicy",
         "parameters": [
           {
@@ -305,19 +249,10 @@
     "/roles": {
       "get": {
         "description": "A Role represents a group of users that share the same role and thus permissions. A role could be an administrator, a moderator, a regular\nuser or some other sort of role.\n\nThis endpoint allows you to retrieve all roles that are stored in the system.",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "schemes": [
-          "http",
-          "https"
-        ],
-        "tags": [
-          "role"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "schemes": ["http", "https"],
+        "tags": ["role"],
         "summary": "List all roles",
         "operationId": "listRoles",
         "parameters": [
@@ -362,19 +297,10 @@
       },
       "post": {
         "description": "A Role represents a group of users that share the same role and thus permissions. A role could be an administrator, a moderator, a regular\nuser or some other sort of role.\n\nThis endpoint allows you to create a new role. You may define members as well but you don't have to.",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "schemes": [
-          "http",
-          "https"
-        ],
-        "tags": [
-          "role"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "schemes": ["http", "https"],
+        "tags": ["role"],
         "summary": "Create a role",
         "operationId": "createRole",
         "parameters": [
@@ -408,19 +334,10 @@
     "/roles/{id}": {
       "get": {
         "description": "A Role represents a group of users that share the same role and thus permissions. A role could be an administrator, a moderator, a regular\nuser or some other sort of role.\n\nThis endpoint allows you to retrieve an existing role. You have to know the role's ID.",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "schemes": [
-          "http",
-          "https"
-        ],
-        "tags": [
-          "role"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "schemes": ["http", "https"],
+        "tags": ["role"],
         "summary": "Get a role by its ID",
         "operationId": "getRole",
         "parameters": [
@@ -453,19 +370,10 @@
       },
       "put": {
         "description": "This endpoint allows you to overwrite a role. You have to know the role's ID.",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "schemes": [
-          "http",
-          "https"
-        ],
-        "tags": [
-          "role"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "schemes": ["http", "https"],
+        "tags": ["role"],
         "summary": "A Role represents a group of users that share the same role and thus permissions. A role could be an administrator, a moderator, a regular\nuser or some other sort of role.",
         "operationId": "setRole",
         "responses": {
@@ -485,19 +393,10 @@
       },
       "delete": {
         "description": "A Role represents a group of users that share the same role and thus permissions. A role could be an administrator, a moderator, a regular\nuser or some other sort of role.\n\nThis endpoint allows you to delete an existing role. You have to know the role's ID.",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "schemes": [
-          "http",
-          "https"
-        ],
-        "tags": [
-          "role"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "schemes": ["http", "https"],
+        "tags": ["role"],
         "summary": "Get a role by its ID",
         "operationId": "deleteRole",
         "parameters": [
@@ -529,19 +428,10 @@
     "/roles/{id}/members": {
       "post": {
         "description": "A Role represents a group of users that share the same role and thus permissions. A role could be an administrator, a moderator, a regular\nuser or some other sort of role.\n\nThis endpoint allows you to add members (users, applications, ...) to a specific role. You have to know the role's ID.",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "schemes": [
-          "http",
-          "https"
-        ],
-        "tags": [
-          "role"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "schemes": ["http", "https"],
+        "tags": ["role"],
         "summary": "Add members to a role",
         "operationId": "addMembersToRole",
         "parameters": [
@@ -578,19 +468,10 @@
       },
       "delete": {
         "description": "A Role represents a group of users that share the same role and thus permissions. A role could be an administrator, a moderator, a regular\nuser or some other sort of role.\n\nThis endpoint allows you to remove members (users, applications, ...) from a specific role. You have to know the role's ID.",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "schemes": [
-          "http",
-          "https"
-        ],
-        "tags": [
-          "role"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "schemes": ["http", "https"],
+        "tags": ["role"],
         "summary": "Remove members from a role",
         "operationId": "removeMembersFromRole",
         "parameters": [
@@ -629,9 +510,7 @@
     "/version": {
       "get": {
         "description": "This endpoint returns the version as `{ \"version\": \"VERSION\" }`. The version is only correct with the prebuilt binary and not custom builds.",
-        "tags": [
-          "version"
-        ],
+        "tags": ["version"],
         "summary": "Get the version of Keto",
         "operationId": "getVersion",
         "responses": {
@@ -647,19 +526,10 @@
     "/warden/oauth2/access-tokens/authorize": {
       "post": {
         "description": "Checks if a token is valid and if the token subject is allowed to perform an action on a resource.\nThis endpoint requires a token, a scope, a resource name, an action name and a context.\n\n\nIf a token is expired/invalid, has not been granted the requested scope or the subject is not allowed to\nperform the action on the resource, this endpoint returns a 200 response with `{ \"allowed\": false }`.\n\n\nThis endpoint passes all data from the upstream OAuth 2.0 token introspection endpoint. If you use ORY Hydra as an\nupstream OAuth 2.0 provider, data set through the `accessTokenExtra` field in the consent flow will be included in this\nresponse as well.",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "schemes": [
-          "http",
-          "https"
-        ],
-        "tags": [
-          "warden"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "schemes": ["http", "https"],
+        "tags": ["warden"],
         "summary": "Check if an OAuth 2.0 access token is authorized to access a resource",
         "operationId": "isOAuth2AccessTokenAuthorized",
         "parameters": [
@@ -693,19 +563,10 @@
     "/warden/oauth2/clients/authorize": {
       "post": {
         "description": "Checks if an OAuth 2.0 Client provided the correct access credentials and and if the client is allowed to perform\nan action on a resource. This endpoint requires a client id, a client secret, a scope, a resource name, an action name and a context.",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "schemes": [
-          "http",
-          "https"
-        ],
-        "tags": [
-          "warden"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "schemes": ["http", "https"],
+        "tags": ["warden"],
         "summary": "Check if an OAuth 2.0 Client is authorized to access a resource",
         "operationId": "isOAuth2ClientAuthorized",
         "parameters": [
@@ -739,19 +600,10 @@
     "/warden/subjects/authorize": {
       "post": {
         "description": "Checks if a subject (e.g. user ID, API key, ...) is allowed to perform a certain action on a resource.",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "schemes": [
-          "http",
-          "https"
-        ],
-        "tags": [
-          "warden"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "schemes": ["http", "https"],
+        "tags": ["warden"],
         "summary": "Check if a subject is authorized to access a resource",
         "operationId": "isSubjectAuthorized",
         "parameters": [

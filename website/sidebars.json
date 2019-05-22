@@ -1,8 +1,6 @@
 {
   "docs": {
-    "Welcome": [
-      "index"
-    ],
+    "Welcome": ["index"],
     "Ecosystem": [
       "ecosystem/overview",
       "ecosystem/cloud-native",
@@ -20,17 +18,12 @@
       {
         "type": "subcategory",
         "label": "Getting Started",
-        "ids": [
-          "hydra/5min-tutorial"
-        ]
+        "ids": ["hydra/5min-tutorial"]
       },
       {
         "type": "subcategory",
         "label": "Core Concepts",
-        "ids": [
-          "hydra/oauth2",
-          "hydra/configuration"
-        ]
+        "ids": ["hydra/oauth2", "hydra/configuration"]
       },
       {
         "type": "subcategory",
@@ -90,9 +83,7 @@
       {
         "type": "subcategory",
         "label": "API & SDKs",
-        "ids": [
-          "oathkeeper/sdk/api"
-        ]
+        "ids": ["oathkeeper/sdk/api"]
       }
     ],
     "ORY Keto": [
@@ -101,11 +92,7 @@
       {
         "type": "subcategory",
         "label": "Guides",
-        "ids": [
-          "keto/configure-deploy",
-          "keto/configuration",
-          "keto/secure"
-        ]
+        "ids": ["keto/configure-deploy", "keto/configuration", "keto/secure"]
       },
       {
         "type": "subcategory",
@@ -121,14 +108,9 @@
       {
         "type": "subcategory",
         "label": "API & SDKs",
-        "ids": [
-          "keto/sdk/api"
-        ]
+        "ids": ["keto/sdk/api"]
       }
     ],
-    "Performance": [
-      "performance/index",
-      "performance/hydra"
-    ]
+    "Performance": ["performance/index", "performance/hydra"]
   }
 }
