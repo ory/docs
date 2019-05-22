@@ -39,7 +39,9 @@ $ cd website; npm run release
 
 ## Development
 
-To make development easier, run the following command after `git clone`:
+To automatically update and format the Markdown, Javascript, and REST API
+definitions in this repo everytime you commit a change, please run the following
+command after `git clone`:
 
 ```
 # On Linux/macOS:
@@ -49,6 +51,8 @@ $ ln -s ./hooks/pre-commit .git/hooks/pre-commit
 > copy hooks\pre-commit .\.git\hooks\pre-commit
 ```
 
-This will ensure that the markdown, javascript source files
-(`cd website; npm run format`), and REST API (`cd website; npm run api`)
-definitions are updated when you commit a change.
+You can also run the formatter manually:
+
+```
+cd website ; npm run format
+```
