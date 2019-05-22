@@ -8,7 +8,7 @@ All ORY technology is built cloud native and follows
 
 ## 12 Factor Concepts
 
-The following is a collection of core concepts to ORY's technological ideology.
+The following is a collection of core concepts to ORY's technological philosophy.
 They are summaries of the [12factor principles](https://www.12factor.net)
 written by Adam Wiggins.
 
