@@ -1,12 +1,12 @@
 {
   "ignorePatterns": [
-    {"pattern": "^(https|http)://mydomain.com"},
-    {"pattern": "^(https|http)://mydomain/"},
-    {"pattern": "^http://hydra"},
-    {"pattern": "^(http|https)://localhost"},
-    {"pattern": "^(http|https)://127.0.0.1"},
-    {"pattern": "^/oauth2/auth"},
-    {"pattern": "^/oauth2/token"}
+    { "pattern": "^(https|http)://mydomain.com" },
+    { "pattern": "^(https|http)://mydomain/" },
+    { "pattern": "^http://hydra" },
+    { "pattern": "^(http|https)://localhost" },
+    { "pattern": "^(http|https)://127.0.0.1" },
+    { "pattern": "^/oauth2/auth" },
+    { "pattern": "^/oauth2/token" }
   ],
   "replacementPatterns": [
     {
@@ -24,9 +24,7 @@
   ],
   "httpHeaders": [
     {
-      "urls": [
-        "https://example.com"
-      ]
+      "urls": ["https://example.com"]
     }
   ]
 }

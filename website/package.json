@@ -15,6 +15,7 @@
     "serve": "serve -p 9009 ./build",
     "format:markdown": "prettier --write \"{../docs/**,..}/*.md\"",
     "format:code": "prettier --write \"./**/*.{js,css,html}\"",
+    "format:json": "prettier --write '../**/*.json' '!../_legacy/**'",
     "format": "npm-run-all -p format:*",
     "swagger:generate:hydra": "widdershins -u ../.widdershins/templates -e ../.widdershins/config.json ../apis/hydra.json -o ../docs/hydra/sdk/api.md",
     "swagger:generate:oathkeeper": "widdershins -u ../.widdershins/templates -e ../.widdershins/config.json ../apis/oathkeeper.json -o ../docs/oathkeeper/sdk/api.md",
