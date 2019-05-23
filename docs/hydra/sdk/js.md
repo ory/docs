@@ -18,10 +18,10 @@ npm install --save ory-hydra-sdk
 #### Basic configuration
 
 ```js
-const Hydra = require("ory-hydra-sdk");
+const Hydra = require('ory-hydra-sdk');
 
 // Set this to Hydra's URL
-Hydra.ApiClient.instance.basePath = "http://localhost:4445";
+Hydra.ApiClient.instance.basePath = 'http://localhost:4445';
 ```
 
 ### API Usage
@@ -37,9 +37,9 @@ hydra.listOAuth2Clients((error, data, response) => {
   } else if (response.statusCode < 200 || response.statusCode >= 400) {
     // an application error occurred.
     throw new Error(
-      "Consent endpoint gave status code " +
+      'Consent endpoint gave status code ' +
         response.statusCode +
-        ", but status code 200 was expected."
+        ', but status code 200 was expected.'
     );
   }
 
