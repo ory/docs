@@ -1,8 +1,6 @@
 {
   "version-oryOS.11-docs": {
-    "Welcome": [
-      "version-oryOS.11-index"
-    ],
+    "Welcome": ["version-oryOS.11-index"],
     "Ecosystem": [
       "version-oryOS.11-ecosystem/overview",
       "version-oryOS.11-ecosystem/cloud-native",
@@ -20,9 +18,7 @@
       {
         "type": "subcategory",
         "label": "Getting Started",
-        "ids": [
-          "version-oryOS.11-hydra/5min-tutorial"
-        ]
+        "ids": ["version-oryOS.11-hydra/5min-tutorial"]
       },
       {
         "type": "subcategory",
@@ -74,9 +70,7 @@
       {
         "type": "subcategory",
         "label": "API & SDKs",
-        "ids": [
-          "version-oryOS.11-oathkeeper/sdk/api"
-        ]
+        "ids": ["version-oryOS.11-oathkeeper/sdk/api"]
       }
     ],
     "ORY Keto": [
@@ -105,9 +99,7 @@
       {
         "type": "subcategory",
         "label": "API & SDKs",
-        "ids": [
-          "version-oryOS.11-keto/sdk/api"
-        ]
+        "ids": ["version-oryOS.11-keto/sdk/api"]
       }
     ],
     "Performance": [
