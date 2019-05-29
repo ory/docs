@@ -10,7 +10,7 @@ You can configure ORY Keto via a config file or environment variables.
 ## Environment Variables
 
 You can provide all configuration settings using environment variables.
-Environment variables always override values from the configuration file. 
+Environment variables always override values from the configuration file.
 
 Set an environment variable on Linux / OSX:
 
@@ -45,11 +45,12 @@ Calling Docker with environment variables set:
 $ docker run -e MY_ENV_VAR=foo oryd/keto:...
 ```
 
-To provide nested configuration settings as environment variables, format them in screaming snake case:
-`serve.public.port.something_else` becomes `SERVE_PUBLIC_PORT_SOMETHING_ELSE`.
+To provide nested configuration settings as environment variables, format them
+in screaming snake case: `serve.public.port.something_else` becomes
+`SERVE_PUBLIC_PORT_SOMETHING_ELSE`.
 
-To provide multiple values for a key, separate them with a comma.
-Assuming we have this configuration setting:
+To provide multiple values for a key, separate them with a comma. Assuming we
+have this configuration setting:
 
 ```yml
 secrets:
@@ -59,29 +60,28 @@ secrets:
     - this-is-another-old-secret
 ```
 
-Here is how we would provide these configuration values on the command line.
-On Linux/macOS: 
+Here is how we would provide these configuration values on the command line. On
+Linux/macOS:
 
 ```
 $ export SECRETS_SYSTEM=this-is-the-primary-secret,this-is-an-old-secret,this-is-another-old-secret
 ```
 
-On Windows: 
+On Windows:
 
 ```
 > set SECRETS_SYSTEM=this-is-the-primary-secret,this-is-an-old-secret,this-is-another-old-secret
 ```
 
-
 ## Configuration file
 
-The default config file path is `~/.keto.yaml`,
-you can override it by calling Keto via `-c path/to/config.yaml`.
+The default config file path is `~/.keto.yaml`, you can override it by calling
+Keto via `-c path/to/config.yaml`.
 
 ```yaml
 # !!WARNING!!
-# This configuration file is for documentation purposes only. 
-# Do not use it in production. As all configuration items are enabled, 
+# This configuration file is for documentation purposes only.
+# Do not use it in production. As all configuration items are enabled,
 # it will not work out of the box either.
 #
 #
@@ -160,56 +160,74 @@ serve:
       base64: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tXG5NSUlEWlRDQ0FrMmdBd0lCQWdJRVY1eE90REFOQmdr...
 ```
 
-`dsn` sets the data source name. This is the backend where ORY Keto persists data.
-Setting it to `memory` stores data in memory.
+`dsn` sets the data source name. This is the backend where ORY Keto persists
+data. Setting it to `memory` stores data in memory.
 
 ## SQL databases
+
 #
+
 # ORY Keto supports popular SQL databases. For more detailed configuration information go to:
+
 # https://www.ory.sh/docs/keto/dependencies-environment#sql
+
 #
+
 ### PostgreSQL (recommended)
+
 #
+
 # If dsn is starting with postgres:// PostgreSQL will be used as storage backend:
+
 # dsn: dsn=postgres://user:password@host:123/database
+
 #
+
 ### MySQL database
+
 #
+
 # If dsn is starting with mysql:// MySQL will be used as storage backend:
+
 # dsn: mysql://user:password@tcp(host:123)/database
+
 dsn: memory
+
 # dsn: dsn=postgres://user:password@host:123/database
+
 # dsn: mysql://user:password@tcp(host:123)/database
 
 # Enables profiling if set. Use "cpu" to enable cpu profiling and "mem" to enable memory profiling. For more details
+
 # on profiling, head over to: https://blog.golang.org/profiling-go-programs
+
 profiling: cpu
+
 # profiling: mem
 
 # ORY Keto supports distributed tracing.
+
 tracing:
-  # Set this to the tracing backend you wish to use. Currently supports jaeger. If omitted or empty, tracing will
-  # be disabled.
-  provider: jaeger
-  # Specifies the service name to use on the tracer.
-  service_name: ORY Keto
-  providers:
-    # Configures the jaeger tracing backend.
-    jaeger:
-      # The address of the jaeger-agent where spans should be sent to
-      local_agent_address: 127.0.0.1:6831
-      sampling:
-        # The type of the sampler you want to use. Supports:
-        # - const
-        # - probabilistic
-        # - ratelimiting
-        type: const
-        # The value passed to the sampler type that has been configured.
-        # Supported values: This is dependant on the sampling strategy used:
-        # - const: 0 or 1 (all or nothing)
-        # - rateLimiting: a constant rate (e.g. setting this to 3 will sample requests with the rate of 3 traces per second)
-        # - probabilistic: a value between 0..1
-        value: 1.0
-        # The address of jaeger-agent's HTTP sampling server
-        server_url: http://localhost:5778/sampling
+
+# Set this to the tracing backend you wish to use. Currently supports jaeger. If omitted or empty, tracing will
+
+# be disabled.
+
+provider: jaeger
+
+# Specifies the service name to use on the tracer.
+
+service_name: ORY Keto providers: # Configures the jaeger tracing backend.
+jaeger: # The address of the jaeger-agent where spans should be sent to
+local_agent_address: 127.0.0.1:6831 sampling: # The type of the sampler you want
+to use. Supports: # - const # - probabilistic # - ratelimiting type: const # The
+value passed to the sampler type that has been configured. # Supported values:
+This is dependant on the sampling strategy used: # - const: 0 or 1 (all or
+nothing) # - rateLimiting: a constant rate (e.g. setting this to 3 will sample
+requests with the rate of 3 traces per second) # - probabilistic: a value
+between 0..1 value: 1.0 # The address of jaeger-agent's HTTP sampling server
+server_url: http://localhost:5778/sampling
+
+```
+
 ```
