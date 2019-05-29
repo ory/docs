@@ -70,9 +70,9 @@ $ keto help
 If you wish to compile ORY Keto yourself, you need to install and set up
 [Go 1.12+](https://golang.org/) and add `$GOPATH/bin` to your `$PATH`.
 
-The following commands check out the latest release tag of ORY Keto,
-compile it, and set up flags so that `keto version` works as expected. Please
-note that this will only work with a Linux shell like bash or sh.
+The following commands check out the latest release tag of ORY Keto, compile it,
+and set up flags so that `keto version` works as expected. Please note that this
+will only work with a Linux shell like bash or sh.
 
 ```shell
 $ go get -d -u github.com/ory/keto
