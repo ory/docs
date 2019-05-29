@@ -3,13 +3,13 @@ id: configure-deploy
 title: Configure and Deploy
 ---
 
-As all other ORY services, ORY Keto is implemented according to 12factor
-principles and completely stateless. To store state, ORY Keto supports two types
-of storage adapters:
+Like all other ORY services, ORY Keto is implemented following [12factor
+principles](https://12factor.net) and completely stateless. 
+To store state, ORY Keto supports two types of storage adapters:
 
-- In-memory: This adapter does not work with more than one instance ("cluster")
+- **in-memory:** This adapter does not work with more than one instance ("cluster")
   and any state is lost after restarting the instance.
-- SQL: This adapter works with more than one instance and state is not lost
+- **SQL:** This adapter works with more than one instance and state persists
   after restarts.
 
 The SQL adapter supports two DBMS: PostgreSQL 9.6+ and MySQL 5.7+. Please note
@@ -23,8 +23,8 @@ This guide will:
 
 ## Create a Network
 
-Before we can start, a network must be created which we will attach all our
-Docker containers to. That way, the containers can talk to one another.
+As a first step, we create a network to which we connect all our
+Docker containers. This enables the containers to communicate with each other.
 
 ```
 $ docker network create ketoguide
@@ -53,13 +53,16 @@ This command wil start a postgres instance with name
 ## Run the ORY Keto Service
 
 ```
-# The database url points us at the postgres instance. This could also be an ephermal in-memory database (`export DSN=memory`)
+# The database url points us at the postgres instance. 
+# This could also be an ephermal in-memory database (`export DSN=memory`)
 # or a MySQL URI.
 $ export DSN=postgres://keto:secret@ory-keto-example--postgres:5432/keto?sslmode=disable
 
-# ORY Keto does not do magic, it requires conscious decisions, for example running SQL migrations which is required
-# when installing a new version of ORY Keto, or upgrading an existing installation.
-# It is the equivalent to `DSN=postgres://keto:secret@ory-keto-example--postgres:5432/keto?sslmode=disable keto migrate sql`
+# ORY Keto does not do magic, it requires conscious decisions.
+# An example is running SQL migrations when setting up a new installation of ORY Keto
+# or upgrading an existing one.
+# This is equivalent to: 
+# DSN=postgres://keto:secret@ory-keto-example--postgres:5432/keto?sslmode=disable keto migrate sql`
 $ docker run -it --rm \
   --network ketoguide \
   -e DSN=$DSN \
@@ -70,7 +73,7 @@ Applying `client` SQL migrations...
 [...]
 Migration successful!
 
-# Next, let's run the server!
+# Let's run the server!
 $ docker run -d \
   --name ory-keto-example--keto \
   --network ketoguide \
@@ -80,8 +83,8 @@ $ docker run -d \
   serve
 ```
 
-Great, the server running now! Make sure to check the logs and see if there were
-any errors or issues before going to the next steps:
+Great, the server is running now! Make sure to check the logs and see if there were
+any errors or issues before moving on to the next step:
 
 ```
 $ docker logs ory-keto-example--keto
@@ -95,10 +98,10 @@ time="2018-10-27T11:48:56Z" level=info msg="Listening on http://localhost:4466"
 
 ## Working with the CLI
 
-Let's examine how we can work with the CLI to manage ORY Keto. We will use the
-ORY Access Control Policy Engine (`/engines/acp/ory`) with the `exact` matcher
-and define policies and check if certain users are allowed to do certain things.
-Let's create the first policy:
+Let's explore managing ORY Keto via the CLI. We will use the
+ORY Access Control Policy Engine (`/engines/acp/ory`) with the `exact` matcher,
+define policies, and check if particular users are allowed to do certain things.
+Let's create our first policy:
 
 ```
 $ mkdir policies
@@ -136,7 +139,7 @@ $ docker run -it --rm \
 ...
 ```
 
-And check if certain users are allowed to do things:
+Check if Alice is allowed to delete the blog post:
 
 ```
 $ docker run -it --rm \
@@ -147,7 +150,11 @@ $ docker run -it --rm \
 {
         "allowed": true
 }
+```
 
+Other users like Bob can not delete it:
+
+```
 $ docker run -it --rm \
   --network ketoguide \
   -e KETO_URL=http://ory-keto-example--keto:4466/ \
