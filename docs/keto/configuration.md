@@ -78,7 +78,7 @@ On Windows:
 The default config file path is `~/.keto.yaml`, you can override it by calling
 Keto via `-c path/to/config.yaml`.
 
-```yaml
+````yaml
 ---
 id: configuration
 title: Configuration
@@ -219,4 +219,4 @@ tracing:
         value: 1.0
         # The address of jaeger-agent's HTTP sampling server
         server_url: http://localhost:5778/sampling
-```
+````
