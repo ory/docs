@@ -190,6 +190,7 @@ serve:
       # If set to true, adds additional log output to debug server side CORS issues. Defaults to false.
       debug: true
 
+
   # tls configures HTTPS (HTTP over TLS). If configured, the server automatically supports HTTP/2.
   tls:
     # key configures the private key (pem encoded)
@@ -293,6 +294,7 @@ oidc:
 
   # dynamic_client_registration configures OpenID Connect Dynamic Client Registration (exposed as admin endpoints /clients/...)
   dynamic_client_registration:
+
     # The OpenID Connect Dynamic Client Registration specification has no concept of whitelisting OAuth 2.0 Scope. If you
     # want to expose Dynamic Client Registration, you should set the default scope enabled for newly registered clients.
     # Keep in mind that users can overwrite this default by setting the "scope" key in the registration payload,
@@ -304,6 +306,7 @@ oidc:
 
 urls:
   self:
+
     # This value will be used as the "issuer" in access and ID tokens. It must be
     # specified and using HTTPS protocol, unless --dangerous-force-http is set. This should typically be equal
     # to the public value.
@@ -362,7 +365,7 @@ oauth2:
 
 # The secrets section configures secrets used for encryption and signing of several systems. All secrets can be rotated,
 # for more information on this topic navigate to:
-# -> https://www.ory.sh/docs/hydra/advanced#system-secret-rotation
+# -> https://www.ory.sh/docs/hydra/advanced#rotation-of-hmac-token-signing-and-database-and-cookie-encryption-keys
 secrets:
   # The system secret must be at least 16 characters long. If none is provided, one will be generated. They key
   #	is used to encrypt sensitive data using AES-GCM (256 bit) and validate HMAC signatures.
@@ -382,6 +385,7 @@ secrets:
     - this-is-the-primary-secret
     - this-is-an-old-secret
     - this-is-another-old-secret
+
 
 # Enables profiling if set. Use "cpu" to enable cpu profiling and "mem" to enable memory profiling. For more details
 # on profiling, head over to: https://blog.golang.org/profiling-go-programs
@@ -415,3 +419,4 @@ tracing:
         # The address of jaeger-agent's HTTP sampling server
         server_url: http://localhost:5778/sampling
 ```
+
