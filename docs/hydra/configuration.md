@@ -139,6 +139,11 @@ serve:
       # If set to true, adds additional log output to debug server side CORS issues. Defaults to false.
       debug: true
 
+    # Access Log configuration for public server.
+    access_log:
+      # Disable access log for health endpoints.
+      disable_for_health: false
+
   # admin controls the admin daemon serving admin API endpoints like /jwk, /client, ...
   admin:
     # The port to listen on. Defaults to 4445
@@ -189,6 +194,11 @@ serve:
 
       # If set to true, adds additional log output to debug server side CORS issues. Defaults to false.
       debug: true
+
+    # Access Log configuration for admin server.
+    access_log:
+      # Disable access log for health endpoints.
+      disable_for_health: false
 
   # tls configures HTTPS (HTTP over TLS). If configured, the server automatically supports HTTP/2.
   tls:
@@ -293,6 +303,7 @@ oidc:
 
   # dynamic_client_registration configures OpenID Connect Dynamic Client Registration (exposed as admin endpoints /clients/...)
   dynamic_client_registration:
+
     # The OpenID Connect Dynamic Client Registration specification has no concept of whitelisting OAuth 2.0 Scope. If you
     # want to expose Dynamic Client Registration, you should set the default scope enabled for newly registered clients.
     # Keep in mind that users can overwrite this default by setting the "scope" key in the registration payload,
@@ -304,6 +315,7 @@ oidc:
 
 urls:
   self:
+
     # This value will be used as the "issuer" in access and ID tokens. It must be
     # specified and using HTTPS protocol, unless --dangerous-force-http is set. This should typically be equal
     # to the public value.
@@ -383,6 +395,7 @@ secrets:
     - this-is-an-old-secret
     - this-is-another-old-secret
 
+
 # Enables profiling if set. Use "cpu" to enable cpu profiling and "mem" to enable memory profiling. For more details
 # on profiling, head over to: https://blog.golang.org/profiling-go-programs
 profiling: cpu
@@ -415,3 +428,4 @@ tracing:
         # The address of jaeger-agent's HTTP sampling server
         server_url: http://localhost:5778/sampling
 ```
+
