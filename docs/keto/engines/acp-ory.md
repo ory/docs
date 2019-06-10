@@ -4,10 +4,10 @@ title: ORY Access Control Policies
 ---
 
 At ORY, we use an Access Control Policy DSL modeled after AWS IAM Policies.
-These policies define an `effect`, `subject`, `action`, and `resource`. For
-example, `alice` (subject aka identity aka user) is `allowed` (effect) to
-`delete` (action) blog article with ID `my-first-blog-post` (`resource`). This
-is very similar to how ACLs work:
+These policies define `effects` for `subjects` who perform `actions` on
+`resources`. For example, `Alice` (subject aka identity aka user) is `allowed`
+(effect) to `delete` (action) blog article with ID `my-first-blog-post`
+(`resource`). This is very similar to how ACLs work:
 
 ```json
 {
@@ -18,7 +18,7 @@ is very similar to how ACLs work:
 }
 ```
 
-The policy above allows `alice` to `delete` `blog_posts:my-first-blog-post`. We
+The policy above allows `Alice` to `delete` `blog_posts:my-first-blog-post`. We
 could apply this policy to more subjects and also more actions or resources, if
 we want to:
 
@@ -57,11 +57,11 @@ The first difference is that we can explicitly deny access:
 The policy decision point (the one checking if something is allowed or not)
 applies the following rule set when deciding if something is allowed or not:
 
-1. If at least one policy for a given subject, action, and resource matches, and
-   the effect is `deny`, the request is always denied.
-2. If no policy matches with effect `deny`, but at least one policy with effect
+1. If a policy for a given subject, action, and resource matches, and the effect
+   is `deny`, the request is always denied.
+2. If no policy with effect `deny` matches, and at least one policy with effect
    `allow`, the request is allowed.
-3. If no policy matches at all, the request is denied.
+3. If no policies match at all, the request is denied.
 
 ## Pattern Matching Strategies
 
@@ -97,29 +97,28 @@ for example will match the following inputs:
 }
 ```
 
-The `:` is always understood as a delimiter. The following syntax is supported
-by this strategy:
+The `:` is a delimiter in ORY Access Control Policies. Other supported syntax
+is:
 
-- Single symbol wildcard `?at` matches `cat` and `bat` but not `at`.
-- Wildcard `foo:*:bar` matches `foo:baz:bar` and `foo:zab:bar` but not `foo:bar`
-  nor `foo:baz:baz:bar`
-- Super wildcard `foo:**:bar` matches `foo:baz:baz:bar`, `foo:baz:bar`, and
+- **single symbol wildcard:** `?at` matches `cat` and `bat` but not `at`
+- **wildcard:** `foo:*:bar` matches `foo:baz:bar` and `foo:zab:bar` but not
+  `foo:bar` nor `foo:baz:baz:bar`
+- **super wildcard:** `foo:**:bar` matches `foo:baz:baz:bar`, `foo:baz:bar`, and
   `foo:bar`, but not `foobar` or `foo:baz`
-- Character list `[cb]at` matches `cat` and `bat` but not `mat` nor `at`.
-- Negated character list `[!cb]at` matches `tat` and `mat` but not `cat` nor
-  `bat`.
-- Ranged character list `[a-c]at` `cat` and `bat` but not `mat` nor `at`.
-- Negated ranged character list `[!a-c]at` matches `mat` and `tat` but not `cat`
+- **character list:** `[cb]at` matches `cat` and `bat` but not `mat` nor `at`.
+- **negated character list:** `[!cb]at` matches `tat` and `mat` but not `cat`
   nor `bat`.
-- Alternatives list `{cat,bat,[mt]at}` matches `cat`, `bat`, `mat`, `tat` but
-  nothing else.
+- **ranged character list:** `[a-c]at` `cat` and `bat` but not `mat` nor `at`.
+- **negated ranged character list:** `[!a-c]at` matches `mat` and `tat` but not
+  `cat` nor `bat`.
+- **alternatives list:** `{cat,bat,[mt]at}` matches `cat`, `bat`, `mat`, `tat`
+  and nothing else.
 
 ### Regular Expressions
 
-ORY Keto allows you to apply pattern matching with regular expressions as well.
-Depending on how you name your subjects, resources, and actions (for more on
-that topic go to the [Best Practices](#best-practices) section), you can apply
-pattern matching using regular expressions.
+ORY Keto also allows pattern matching with regular expressions. This depend on
+how you name your subjects, resources, and actions. More on that topic in the
+[Best Practices](#best-practices) section.
 
 ```json
 {
@@ -127,10 +126,10 @@ pattern matching using regular expressions.
 }
 ```
 
-In the example above, the (incomplete) policy would match every subject that is
-prefixed with `users:`, so for example `users:alice`, `users:bob`. In ORY Ladon
-/ ORY Keto, regular expressions are delimited with `<` and `>`. For example,
-`"users:.*"` is not a valid regular expression, just a simple string.
+In this example, the (incomplete) policy would match every subject that is
+prefixed with `users:`, so for example `users:alice`, `users:bob`. ORY Ladon and
+ORY Keto delimit regular expressions with `<` and `>`. For example, `"users:.*"`
+is not a valid regular expression, just a simple string.
 
 The next example will allow all subjects with prefix `user:` to read
 (`actions:read`) all resources that match `resources:blog_posts:<[0-9]+>` (e.g.
@@ -147,24 +146,24 @@ The next example will allow all subjects with prefix `user:` to read
 
 ### Computational Overhead
 
-Different pattern matching strategies have different computational complexity,
-considering performance when choosing an approach is important:
+Some pattern matching strategies can introduce computational complexity.
+Considering performance when choosing an approach:
 
-- Case Sensitive Equality: No computational overhead.
-- Glob Pattern Matching: Little computational overhead.
-- Regex: Considerable computational overhead.
+- Case sensitive equality: no computational overhead
+- Glob pattern matching: little computational overhead
+- Regex: considerable computational overhead
 
 ## Conditions
 
-Conditions are another powerful concept. So far, we covered that an ORY ACP
-applies to a list of `subjects`, `resources`, and `actions`. Conditions narrow
-down the use cases in which a certain ACP applies. A condition may, for example,
-mandate that the IP Address of the client making the request has to match e.g.
-`192.168.0.0/16` or that the subject is also the owner of the resource:
+So far, we covered that an ORY ACP applies to a list of `subjects`, `resources`,
+and `actions`. Conditions narrow down the use cases in which a certain ACP
+applies. A condition may, for example, mandate that the IP Address of the client
+making the request has to match `192.168.0.0/16` or that the subject is also the
+owner of the resource. Here is an example for the former condition:
 
 ```json
 {
-  "description": "One policy to rule them all.",
+  "description": "One policy to rule them all",
   "subjects": ["users:maria"],
   "actions": ["delete", "create", "update"],
   "effect": "allow",
@@ -180,15 +179,9 @@ mandate that the IP Address of the client making the request has to match e.g.
 }
 ```
 
-Conditions are defined in policies. Context is defined when asking if someone is
-allowed to do something (access control). Conditions use contexts and decide if
-a policy is responsible for handling the access request at hand.
-
-Conditions are functions returning true or false given a context. Because
-conditions implement logic, they must be programmed. ORY Keto provides several
-conditions out of the box, which can be improved or extended at any time.
-
-A condition has always the same JSON format:
+Conditions are a part of policies. They determine if a policy can decide the
+current access request in the current context. Context is the larger environment
+in which the access request happens. A condition has this JSON format:
 
 ```json
 {
@@ -198,7 +191,7 @@ A condition has always the same JSON format:
   "resources": ["..."],
   "conditions": {
     "this-key-will-be-matched-with-the-context": {
-      "type": "SomeConditionType",
+      "type": "TheConditionType",
       "options": {
         "some": "configuration options set by the condition type"
       }
@@ -207,24 +200,15 @@ A condition has always the same JSON format:
 }
 ```
 
-The context in the access request made to the ORY ACP Allowed API must match the
-specified key in the condition in order to be evaluated by the condition logic:
-
-```json
-{
-  "subject": "...",
-  "action": "...",
-  "resource": "...",
-  "context": {
-    "this-key-will-be-matched-with-the-context": { "foo": "bar" }
-  }
-}
-```
+Conditions are functions returning true or false given a context. Because
+conditions implement logic, they must be programmed. ORY Keto provides the
+following commonly used conditions out of the box. You can improve or extend
+them.
 
 ### CIDR Condition
 
-The CIDR condition matches CIDR IP Ranges. An exemplary policy definition could
-look as follows.
+The CIDR condition matches CIDR IP Ranges. An possible policy definition could
+look as follows:
 
 ```json
 {
@@ -258,7 +242,7 @@ The following access request would be allowed.
 ```
 
 The next access request would be denied as the condition is not fulfilled and
-thus no policy is matched.
+thus no policy matches.
 
 ```json
 {
@@ -287,8 +271,8 @@ The next access request would also be denied as the context is not using the key
 
 ##### String Equal Condition
 
-Checks if the value passed in the access request's context is identical with the
-string that was given initially.
+This condition matches if the value passed in the access request's context is
+identical with the string defined in the condition.
 
 ```json
 {
@@ -298,10 +282,10 @@ string that was given initially.
   "effect": "allow",
   "resources": ["resources:articles:<.*>"],
   "conditions": {
-    "someKeyName": {
+    "myKey": {
       "type": "StringEqualCondition",
       "options": {
-        "equals": "the-value-should-be-this"
+        "equals": "expected-value"
       }
     }
   }
@@ -316,7 +300,7 @@ The following access request would be allowed.
   "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
-    "someKeyName": "the-value-should-be-this"
+    "myKey": "expected-value"
   }
 }
 ```
@@ -329,15 +313,15 @@ The following access request would be denied.
   "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
-    "someKeyName": "this-is-a-different-value"
+    "meKey": "another-value"
   }
 }
 ```
 
 ### String Match Condition
 
-Checks if the value passed in the access request's context matches the regular
-expression that was given initially.
+This condition applies when the value passed in the access request's context
+matches the regular expression in the condition.
 
 ```json
 {
@@ -350,7 +334,7 @@ expression that was given initially.
     "someKeyName": {
       "type": "StringMatchCondition",
       "options": {
-        "matches": "regex-pattern-here.+"
+        "matches": "foo.+"
       }
     }
   }
@@ -365,7 +349,7 @@ The following access request would be allowed.
   "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
-    "someKeyName": "regex-pattern-here-matches"
+    "someKeyName": "foo-bar"
   }
 }
 ```
@@ -378,15 +362,15 @@ The following access request would be denied.
   "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
-    "someKeyName": "regex-pattern-here"
+    "someKeyName": "bar"
   }
 }
 ```
 
 ### Subject Condition
 
-Checks if the access request's subject is identical with the string specified in
-the context.
+This condition matches when the access request's subject is identical with the
+string specified in the condition.
 
 ```json
 {
@@ -430,13 +414,13 @@ The following access request would be denied.
 }
 ```
 
-This condition makes more sense when being used with access tokens where the
+This condition makes the most sense when being used with access tokens where the
 subject is extracted from the token.
 
 ### String Pairs Equal Condition
 
-Checks if the value passed in the access request's context contains two-element
-arrays and that both elements in each pair are equal.
+This condition matches when the value passed in the access request's context
+contains two-element arrays and both elements in each pair are equal.
 
 ```json
 {
@@ -462,10 +446,7 @@ The following access request would be allowed.
   "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
-    "someKey": [
-      ["some-arbitrary-pair-value", "some-arbitrary-pair-value"],
-      ["some-other-arbitrary-pair-value", "some-other-arbitrary-pair-value"]
-    ]
+    "someKey": [["foo", "foo"], ["bar", "bar"]]
   }
 }
 ```
@@ -478,19 +459,17 @@ The following access request would be denied.
   "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
-    "someKey": [
-      ["some-arbitrary-pair-value", "some-other-arbitrary-pair-value"]
-    ]
+    "someKey": [["foo", "bar"]]
   }
 }
 ```
 
 ## Roles
 
-ORY ACPs support a role concept, similar to RBAC. This feature allows you to
-group together a number of subjects under the same role. Whenever making a
-request to the Allowed API, it will check the roles of a subject (if there are
-any) and use them when looking up the `subjects` field.
+Similar to RBAC, ORY ACPs support the concept of roles. This feature allows
+grouping a number of subjects under the same role. Whenever making a request to
+the Allowed API, it will check the roles of a subject (if there are any) and use
+them when looking up the `subjects` field.
 
 Assuming the following policies:
 
@@ -547,25 +526,23 @@ developed over the years at ORY.
 
 ### URNs
 
-> “There are only two hard things in Computer Science: cache invalidation and
-> naming things.” -- Phil Karlton
+> “There are only two hard things in Computer Science: cache invalidation,
+> naming things, and off-by-one errors.” -- Phil Karlton
 
-URN naming is as hard as naming API endpoints. Thankfully, by doing the latter,
-the former is usually solved as well. We will explore further best practices in
-the following sections.
+URN naming is as hard as naming API endpoints. Thankfully, doing the latter
+typically provides a solution for the former as well.
 
 ### Scope the Organization Name
 
-A rule of thumb is to prefix resource names with a domain that represents the
-organization creating the software.
+It is good security practice is to prefix resource names with a domain that
+represents the organization creating the software.
 
-- **Do not:** `<some-id>`
-- **Do:** `<organizaion-id>:<some-id>`
+- **Do not:** `my-resource`
+- **Do:** `myorg.com:my-resource`
 
 ### Scope Actions, Resources and Subjects
 
-It is wise to scope actions, resources, and subjects in order to prevent name
-collisions:
+Provide a scope for actions, resources, and subjects to prevent name collisions:
 
 - **Do not:** `myorg.com:<subject-id>`, `myorg.com:<resource-id>`,
   `myorg.com:<action-id>`
@@ -576,14 +553,14 @@ collisions:
 
 ### Multi-Tenant Systems
 
-Multi-tenant systems typically have resources which should not be access by
+Multi-tenant systems typically have resources which should not be accessed by
 other tenants in the system. This can be achieved by adding the tenant id to the
 URN:
 
 - **Do:** `resources:myorg.com:tenants:<tenant-id>:<resource-id>`
 
-In some environments, it is common to have organizations and projects belonging
-to those organizations. Here, the following URN semantics can be used:
+Some environments have organizations and projects belonging to those
+organizations. The following URN semantics can be used in these situations:
 
 - **Do:**
   `resources:myorg.com:organizations:<organization-id>:projects:<project-id>:<resource-id>`
