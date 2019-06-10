@@ -9,7 +9,7 @@ with battle-tested, best practice access control concepts. Please not that ORY
 Keto doesn't support all access control mechanisms while in "sandbox" mode.
 
 This chapter introduces the most widely used Access Control Policies. Before we
-do that, let's go over some basics.
+do that, let's cover some of the basics.
 
 Every app that has users usually assigns permissions to these users ("Bob and
 Alice are allowed to write blog posts"). There are various established best

@@ -147,7 +147,7 @@ The next example will allow all subjects with prefix `user:` to read
 ### Computational Overhead
 
 Some pattern matching strategies can introduce computational complexity.
-Considering performance when choosing an approach:
+Consider the performance implications when choosing an approach:
 
 - Case sensitive equality: no computational overhead
 - Glob pattern matching: little computational overhead
@@ -191,7 +191,7 @@ in which the access request happens. A condition has this JSON format:
   "resources": ["..."],
   "conditions": {
     "this-key-will-be-matched-with-the-context": {
-      "type": "TheConditionType",
+      "type": "SomeConditionType",
       "options": {
         "some": "configuration options set by the condition type"
       }
@@ -207,8 +207,8 @@ them.
 
 ### CIDR Condition
 
-The CIDR condition matches CIDR IP Ranges. An possible policy definition could
-look as follows:
+The CIDR condition matches CIDR IP Ranges. A possible policy definition could
+look like this:
 
 ```json
 {
@@ -414,8 +414,8 @@ The following access request would be denied.
 }
 ```
 
-This condition makes the most sense when being used with access tokens where the
-subject is extracted from the token.
+This condition makes sense together with access tokens, where the subject is
+extracted from the token.
 
 ### String Pairs Equal Condition
 
