@@ -212,8 +212,8 @@ Summary:
   Total:	0.3707 secs
   Slowest:	0.0375 secs
   Fastest:	0.0001 secs
-  Average:	0.0035 secs
-  Requests/sec:	26457.0881
+  Average:	0.0034 secs
+  Requests/sec:	26975.7159
 
   Total data:	4800000 bytes
   Size/request:	480 bytes
