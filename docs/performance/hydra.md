@@ -45,13 +45,8 @@ Summary:
   Total:	2.2695 secs
   Slowest:	0.1378 secs
   Fastest:	0.0003 secs
-<<<<<<< HEAD
   Average:	0.0213 secs
   Requests/sec:	4406.2398
-=======
-  Average:	0.0220 secs
-  Requests/sec:	4265.3079
->>>>>>> Prettify docs/performance/hydra.md
 
   Total data:	1550000 bytes
   Size/request:	155 bytes
@@ -100,19 +95,11 @@ This endpoint uses [BCrypt](#bcrypt).
 ```
 
 Summary:
-<<<<<<< HEAD
   Total:	20.0454 secs
   Slowest:	1.0162 secs
   Fastest:	0.0170 secs
   Average:	0.1912 secs
   Requests/sec:	498.8683
-=======
-  Total:	19.9241 secs
-  Slowest:	0.8123 secs
-  Fastest:	0.0171 secs
-  Average:	0.1901 secs
-  Requests/sec:	501.9053
->>>>>>> Prettify docs/performance/hydra.md
 
   Total data:	1570000 bytes
   Size/request:	157 bytes
@@ -174,13 +161,8 @@ Summary:
   Total:	0.3650 secs
   Slowest:	0.0280 secs
   Fastest:	0.0001 secs
-<<<<<<< HEAD
   Average:	0.0034 secs
   Requests/sec:	27395.2745
-=======
-  Average:	0.0037 secs
-  Requests/sec:	24815.7713
->>>>>>> Prettify docs/performance/hydra.md
 
   Total data:	4820000 bytes
   Size/request:	482 bytes
