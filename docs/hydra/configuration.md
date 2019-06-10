@@ -139,6 +139,11 @@ serve:
       # If set to true, adds additional log output to debug server side CORS issues. Defaults to false.
       debug: true
 
+    # Access Log configuration for public server.
+    access_log:
+      # Disable access log for health endpoints.
+      disable_for_health: false
+
   # admin controls the admin daemon serving admin API endpoints like /jwk, /client, ...
   admin:
     # The port to listen on. Defaults to 4445
@@ -189,6 +194,11 @@ serve:
 
       # If set to true, adds additional log output to debug server side CORS issues. Defaults to false.
       debug: true
+
+    # Access Log configuration for admin server.
+    access_log:
+      # Disable access log for health endpoints.
+      disable_for_health: false
 
   # tls configures HTTPS (HTTP over TLS). If configured, the server automatically supports HTTP/2.
   tls:
@@ -362,7 +372,7 @@ oauth2:
 
 # The secrets section configures secrets used for encryption and signing of several systems. All secrets can be rotated,
 # for more information on this topic navigate to:
-# -> https://www.ory.sh/docs/hydra/advanced#system-secret-rotation
+# -> https://www.ory.sh/docs/hydra/advanced#rotation-of-hmac-token-signing-and-database-and-cookie-encryption-keys
 secrets:
   # The system secret must be at least 16 characters long. If none is provided, one will be generated. They key
   #	is used to encrypt sensitive data using AES-GCM (256 bit) and validate HMAC signatures.
