@@ -6,23 +6,20 @@ title: Role Based Access Control (RBAC)
 [Role Based Access Control (RBAC)](https://en.wikipedia.org/wiki/Role-based_access_control)
 maps subjects to roles and roles to permissions. The goal of (H)RBAC is to make
 permission management convenient by grouping subjects in roles and assigning
-permissions roles. This type of access control is very common in web
-applications, where you often encounter roles such as "administrator",
-"moderator", and so on.
+permissions roles. This type of access control is common in web applications
+where one often encounters roles such as "administrator", "moderator", and so
+on.
 
-What's common in RBAC is that roles can inherit permissions from one another.
-This concept is called **HRBAC or Hierarchical Role Based Access Control**. The
-role administrator, for example, could inherit all permissions from role
-moderator. This further decreases management complexity as, instead of adding
-all permissions to administrator or assigning a user to both moderator and
-administrator roles, you simply point the administrator role to inherit from the
-moderator one.
+In **Hierarchical Role Based Access Control (HRBAC)** roles can inherit
+permissions from other roles. The "administrator" role, for example, could
+inherit all permissions from the "moderator" role. This reduces duplication and
+management complexity around defining privileges.
 
-Let's come back to alice, bob, peter, and blog posts and the matrix from the ACL
+Let's come back to Alice, Bob, Peter, and blog posts and the matrix from the ACL
 example, but this time we define roles "reader", "author", "admin" and model the
 ACL example using (H)RBAC:
 
-![(H)RBAC Example](/images/docs/keto/rbac.png).
+![(H)RBAC Example](/images/docs/keto/rbac.png)
 
 As you can see, `admin` inherits from `author`, which inherits from `reader`.
 Only `alice` (or rather `admin`) can delete blog posts, whereas `author` can
@@ -51,14 +48,13 @@ multi-tenant environments.
 **Shortcomings:**
 
 - Has no concept of context:
-  - There is no concept of ownership: _Dan is the author of article "Hi World"
-    and is thus allowed to update it_.
+  - There is no concept of ownership: _Dan is the author of article "Hello
+    World" and is thus allowed to update it_.
   - There is no concept of environment: _Dan is allowed to access accounting
     services when the request comes from IP 10.0.0.3_.
   - There is no concept of tenants: _Dan is allowed to access resources on the
     "dan's test" tenant_.
-  - ...
 
 **Implementation status:** (Hierarchical) Role Based Access Control is currently
 not implemented but will be first-class citizens in the future. To bump this in
-priority, [click here](https://github.com/ory/keto/issues/60).
+priority, upvote [this GitHub issue](https://github.com/ory/keto/issues/60).

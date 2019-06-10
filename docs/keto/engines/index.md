@@ -1,24 +1,18 @@
 ---
 id: index
-title: Introduction
+title: Access Controle Engines - Introduction
 ---
 
 Whatever your system looks like, you probably have a concept of permissions
-which models who is allowed to do what ("access control"). ORY Keto provides you
-with battle-tested, best practice access control concepts.
+which models who is allowed to do what (access control). ORY Keto provides you
+with battle-tested, best practice access control concepts. Please not that ORY
+Keto doesn't support all access control mechanisms while in "sandbox" mode.
 
-This page will show the different concepts that have emerged as best practices
-and which are being used widely in software today.
+This chapter introduces the most widely used Access Control Policies. Before we
+do that, let's go over some basics.
 
-While ORY Keto is in "sandbox" mode, not all access control mechanisms are
-supported. We will shine light on them anyways.
-
-Before we take a look at Access Control Policies in detail, let's get some of
-the basics figured out. Every app that has users usually assigns permissions to
-these users ("Bob, Alice are allowed to write blog posts"). There are various
-established practices for assigning one or more permissions to one or more
-users.
-
-In the context of access control, you'll often encounter **users**,
-**identities** or **subjects**. They usually include users, robots, cronjobs,
-services, ... .
+Every app that has users usually assigns permissions to these users ("Bob and
+Alice are allowed to write blog posts"). There are various established best
+practices for assigning one or more permissions to one or more users. In the
+context of access control, you'll often encounter **users**, **identities** or
+**subjects**. They typically include users, robots, cronjobs, services, etc.
