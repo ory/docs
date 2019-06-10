@@ -7,7 +7,7 @@ At ORY, we use an Access Control Policy DSL modeled after AWS IAM Policies.
 These policies define `effects` for `subjects` who perform `actions` on
 `resources`. For example, `Alice` (subject aka identity aka user) is `allowed`
 (effect) to `delete` (action) blog article with ID `my-first-blog-post`
-(`resource`). This is very similar to how ACLs work:
+(`resource`). This is comparable to how ACLs work:
 
 ```json
 {
