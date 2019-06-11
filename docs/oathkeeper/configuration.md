@@ -52,15 +52,15 @@ title: Configuration
 #     something_else: foobar
 #
 # Key `something_else` can be set as an environment variable by uppercasing it's path:
-#   `serve.public.port.something_else` -> `SERVE.PUBLIC.PORT.SOMETHING_ELSE`
+#   `serve.public.port.somethihng_else` -> `SERVE.PUBLIC.PORT.SOMETHING_ELSE`
 # and replacing `.` with `_`:
-#   `serve.public.port.something_else` -> `SERVE_PUBLIC_PORT_SOMETHING_ELSE`
+#   `serve.public.port.somethihng_else` -> `SERVE_PUBLIC_PORT_SOMETHING_ELSE`
 #
 # Environment variables always override values from the configuration file. Here are some more examples:
 #
 # Configuration key | Environment variable |
 # ------------------|----------------------|
-# dsn               | DSN                  |
+# profiling         | PROFILING            |
 # serve.admin.host  | SERVE_ADMIN_HOST     |
 # ------------------|----------------------|
 #
@@ -347,6 +347,7 @@ authorizers:
     # REQUIRED IF ENABLED - The base URL of ORY Keto, typically something like http(s)://<host>[:<port>]/
     base_url: http://my-keto/
 
+
 # All mutators can be configured under this configuration key
 mutators:
   # Configures the cookie mutator
@@ -379,3 +380,4 @@ mutators:
     # Set enabled to true if the mutator should be enabled and false to disable the mutator. Defaults to false.
     enabled: true
 ```
+
