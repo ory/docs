@@ -67,7 +67,7 @@ This compatibility matrix shows which versions are compatible with one another.
 
 | oryOS      | Documentation | ORY Hydra                                                                 | ORY Keto                                                               | ORY Oathkeeper                     |
 | ---------- | ------------- | ------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------- |
-| `oryOS.12` | `oryOS.12`    | `v1.0.0-rc.14`                                                            | `v0.3.3-sandbox`                                                       | `v0.16.0-beta.3`, `v0.16.0-beta.4` |
+| `oryOS.12` | `oryOS.12`    | `v1.0.0-rc.14`, `v1.0.0-rc.15`                                            | `v0.3.3-sandbox`                                                       | `v0.16.0-beta.3`, `v0.16.0-beta.4` |
 | `oryOS.11` | `oryOS.11`    | `v1.0.0-rc.10`, `v1.0.0-rc.11`, `v1.0.0-rc.12`                            | `v0.3.0-sandbox`, `v0.3.1-sandbox`                                     | `v0.15.0`, `v0.15.1`, `v0.15.2`    |
 | `oryOS.10` | `oryOS.10`    | `v1.0.0-rc.5`, `v1.0.0-rc.6`, `v1.0.0-rc.7`, `v1.0.0-rc.8`, `v1.0.0-rc.9` | `v0.2.2-sandbox`, `v0.2.3-sandbox`, `v0.2.1-sandbox`, `v0.2.0-sandbox` | `v0.14.2`, `v0.14.1`, `v0.14.0`    |
 | `oryOS.9`  | `oryOS.9`     | `v1.0.0-beta.9`, `v1.0.0-rc.2`, `v1.0.0-rc.3`, `v1.0.0-rc.4`              | `v0.1.9-sandbox`                                                       | `v0.13.9`                          |
