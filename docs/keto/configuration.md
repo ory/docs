@@ -3,82 +3,90 @@ id: configuration
 title: Configuration
 ---
 
-```yaml
 # ORY Keto Configuration
-#
-#
+
+You can configure ORY Keto via a config file or environment variables.
+
+## Environment Variables
+
+You can provide all configuration settings using environment variables.
+Environment variables always override values from the configuration file.
+
+Set an environment variable on Linux / OSX:
+
+```
+$ export MY_ENV_VAR=foo
+$ keto ...
+```
+
+or alternatively:
+
+```
+$ MY_ENV_VAR=foo keto ...
+```
+
+On the Windows command prompt:
+
+```
+> set MY_ENV_VAR=foo
+> keto ...
+```
+
+In the Windows Powershell:
+
+```
+> $env:MY_ENV_VAR="foo"
+> keto ...
+```
+
+Calling Docker with environment variables set:
+
+```
+$ docker run -e MY_ENV_VAR=foo oryd/keto:...
+```
+
+To provide nested configuration settings as environment variables, format them
+in screaming snake case: `serve.public.port.something_else` becomes
+`SERVE_PUBLIC_PORT_SOMETHING_ELSE`.
+
+To provide multiple values for a key, separate them with a comma. Assuming we
+have this configuration setting:
+
+```yml
+secrets:
+  system:
+    - this-is-the-primary-secret
+    - this-is-an-old-secret
+    - this-is-another-old-secret
+```
+
+Here is how we would provide these configuration values on the command line. On
+Linux/macOS:
+
+```
+$ export SECRETS_SYSTEM=this-is-the-primary-secret,this-is-an-old-secret,this-is-another-old-secret
+```
+
+On Windows:
+
+```
+> set SECRETS_SYSTEM=this-is-the-primary-secret,this-is-an-old-secret,this-is-another-old-secret
+```
+
+## Configuration file
+
+The default config file path is `~/.keto.yaml`, you can override it by calling
+Keto via `-c path/to/config.yaml`.
+
+```yaml
+---
+id: configuration
+title: Configuration
+---
 # !!WARNING!!
 # This configuration file is for documentation purposes only. Do not use it in production. As all configuration items
 # are enabled, it will not work out of the box either.
 #
-#
-# ORY Keto can be configured using a configuration file and passing the file location using `-c path/to/config.yaml`.
-# Per default, ORY Keto will look up and load file ~/.keto.yaml. All configuration keys can be set using environment
-# variables as well.
-#
-# Setting environment variables is easy:
-#
-## Linux / OSX
-#
-# $ export MY_ENV_VAR=foo
-# $ keto ...
-#
-# alternatively:
-#
-# $ MY_ENV_VAR=foo keto ...
-#
-## Windows
-#
-### Command Prompt
-#
-# > set MY_ENV_VAR=foo
-# > keto ...
-#
-### Powershell
-#
-# > $env:MY_ENV_VAR="foo"
-# > keto ...
-#
-## Docker
-#
-# $ docker run -e MY_ENV_VAR=foo oryd/keto:...
-#
-#
-# Assuming the following configuration layout:
-#
-# serve:
-#   public:
-#     port: 4444
-#     something_else: foobar
-#
-# Key `something_else` can be set as an environment variable by uppercasing it's path:
-#   `serve.public.port.somethihng_else` -> `SERVE.PUBLIC.PORT.SOMETHING_ELSE`
-# and replacing `.` with `_`:
-#   `serve.public.port.somethihng_else` -> `SERVE_PUBLIC_PORT_SOMETHING_ELSE`
-#
-# Environment variables always override values from the configuration file. Here are some more examples:
-#
-# Configuration key | Environment variable |
-# ------------------|----------------------|
-# dsn               | DSN                  |
-# serve.admin.host  | SERVE_ADMIN_HOST     |
-# ------------------|----------------------|
-#
-#
-# List items such as
-#
-# secrets:
-#   system:
-#     - this-is-the-primary-secret
-#     - this-is-an-old-secret
-#     - this-is-another-old-secret
-#
-# must be separated using `,` when using environment variables. The environment variable equivalent to the code section#
-# above is:
-#
-# Linux/macOS: $ export SECRETS_SYSTEM=this-is-the-primary-secret,this-is-an-old-secret,this-is-another-old-secret
-# Windows: > set SECRETS_SYSTEM=this-is-the-primary-secret,this-is-an-old-secret,this-is-another-old-secret
-
 # log configures the logger
 log:
   # Sets the log level, supports "panic", "fatal", "error", "warn", "info" and "debug". Defaults to "info".
