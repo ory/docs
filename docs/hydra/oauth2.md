@@ -396,7 +396,7 @@ The server response is a JSON object with the following keys:
 
     // The OAuth 2.0 Scope requested by the client.
     "requested_scope": ["foo", "bar"],
-    
+
     // Contains the access token audience as requested by the OAuth 2.0 Client.
     requested_access_token_audience: ["foo", "bar"]
 
@@ -777,9 +777,9 @@ Additionally, ORY Hydra has pre-defined OAuth 2.0 Scope values:
 - `offline_access`: Include this scope if you wish to receive a refresh token
 - `openid`: Include this scope if you wish to perform an OpenID Connect request.
 
-When performing an OAuth 2.0 Flow where the end-user is involved (e.g. Implicit or
-Authorize Code), the granted OAuth 2.0 Scope must be set when accepting the consent
-using the `grant_scope` key.
+When performing an OAuth 2.0 Flow where the end-user is involved (e.g. Implicit
+or Authorize Code), the granted OAuth 2.0 Scope must be set when accepting the
+consent using the `grant_scope` key.
 
 > A OAuth 2.0 Scope **is not a permission**:
 >
@@ -797,18 +797,18 @@ using the `grant_scope` key.
 
 ### OAuth 2.0 Access Token Audience
 
-The Audience of an Access Token refers to the Resource Servers that this token is
-intended for. The audience usually refers to one or more URLs such as
+The Audience of an Access Token refers to the Resource Servers that this token
+is intended for. The audience usually refers to one or more URLs such as
 
-* `https://api.mydomain.com/blog/posts`
-* `https://api.mydomain.com/users`
+- `https://api.mydomain.com/blog/posts`
+- `https://api.mydomain.com/users`
 
 but may also refer to a subset of resources:
 
-* `https://api.mydomain.com/tenants/foo/users`
+- `https://api.mydomain.com/tenants/foo/users`
 
-When performing an OAuth 2.0 Flow where the end-user is involved (e.g. Implicit or
-Authorize Code), the granted audience must be set when accepting the consent
+When performing an OAuth 2.0 Flow where the end-user is involved (e.g. Implicit
+or Authorize Code), the granted audience must be set when accepting the consent
 using the `grant_access_token_audience` key. In most cases, it is ok to grant
 the audience without user-interaction.
 
