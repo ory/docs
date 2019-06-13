@@ -3,35 +3,27 @@ id: hydra
 title: ORY Hydra
 ---
 
-In this document you will find benchmark results for different endpoints of ORY
-Hydra. All benchmarks are executed using
-[rakyll/hey](https://github.com/rakyll/hey). Please note that these benchmarks
-run against the in-memory storage adapter of ORY Hydra. These benchmarks
-represent what performance you would get with a zero-overhead database
-implementation.
+In this document you will find benchmark results for different endpoints of ORY Hydra. All benchmarks are executed
+using [rakyll/hey](https://github.com/rakyll/hey). Please note that these benchmarks run against the in-memory storage
+adapter of ORY Hydra. These benchmarks represent what performance you would get with a zero-overhead database implementation.
 
-We do not include benchmarks against databases (e.g. MySQL, PostgreSQL or
-CockroachDB) as the performance greatly differs between deployments (e.g.
-request latency, database configuration) and tweaking individual things may
-greatly improve performance. We believe, for that reason, that benchmark results
-for these database adapters are difficult to generalize and potentially
+We do not include benchmarks against databases (e.g. MySQL, PostgreSQL or CockroachDB) as the performance greatly differs between
+deployments (e.g. request latency, database configuration) and tweaking individual things may greatly improve performance.
+We believe, for that reason, that benchmark results for these database adapters are difficult to generalize and potentially
 deceiving. They are thus not included.
 
-This file is updated on every push to master. It thus represents the benchmark
-data for the latest version.
+This file is updated on every push to master. It thus represents the benchmark data for the latest version.
 
-All benchmarks run 10.000 requests in total, with 100 concurrent requests. All
-benchmarks run on Circle-CI with a
+All benchmarks run 10.000 requests in total, with 100 concurrent requests. All benchmarks run on Circle-CI with a
 ["2 CPU cores and 4GB RAM"](https://support.circleci.com/hc/en-us/articles/360000489307-Why-do-my-tests-take-longer-to-run-on-CircleCI-than-locally-)
 configuration.
 
 ## BCrypt
 
-ORY Hydra uses BCrypt to obfuscate secrets of OAuth 2.0 Clients. When using
-flows such as the OAuth 2.0 Client Credentials Grant, ORY Hydra validates the
-client credentials using BCrypt which causes (by design) CPU load. CPU load and
-performance depend on the BCrypt cost which can be set using the environment
-variable `BCRYPT_COST`. For these benchmarks, we have set `BCRYPT_COST=8`.
+ORY Hydra uses BCrypt to obfuscate secrets of OAuth 2.0 Clients. When using flows such as the OAuth 2.0 Client Credentials
+Grant, ORY Hydra validates the client credentials using BCrypt which causes (by design) CPU load. CPU load and performance
+depend on the BCrypt cost which can be set using the environment variable `BCRYPT_COST`. For these benchmarks,
+we have set `BCRYPT_COST=8`.
 
 ## OAuth 2.0
 
@@ -42,44 +34,44 @@ This section contains various benchmarks against OAuth 2.0 endpoints
 ```
 
 Summary:
-  Total:	3.0566 secs
-  Slowest:	0.1317 secs
+  Total:	2.0312 secs
+  Slowest:	0.1638 secs
   Fastest:	0.0003 secs
-  Average:	0.0293 secs
-  Requests/sec:	3271.5625
-
+  Average:	0.0189 secs
+  Requests/sec:	4923.2315
+  
   Total data:	1550000 bytes
   Size/request:	155 bytes
 
 Response time histogram:
   0.000 [1]	|
-  0.013 [3414]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-  0.027 [1628]	|■■■■■■■■■■■■■■■■■■■
-  0.040 [1443]	|■■■■■■■■■■■■■■■■■
-  0.053 [1632]	|■■■■■■■■■■■■■■■■■■■
-  0.066 [1154]	|■■■■■■■■■■■■■■
-  0.079 [471]	|■■■■■■
-  0.092 [171]	|■■
-  0.105 [62]	|■
-  0.119 [16]	|
-  0.132 [8]	|
+  0.017 [6030]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+  0.033 [1766]	|■■■■■■■■■■■■
+  0.049 [1022]	|■■■■■■■
+  0.066 [587]	|■■■■
+  0.082 [328]	|■■
+  0.098 [164]	|■
+  0.115 [62]	|
+  0.131 [29]	|
+  0.147 [8]	|
+  0.164 [3]	|
 
 
 Latency distribution:
-  10% in 0.0008 secs
-  25% in 0.0063 secs
-  50% in 0.0262 secs
-  75% in 0.0483 secs
-  90% in 0.0624 secs
-  95% in 0.0707 secs
-  99% in 0.0899 secs
+  10% in 0.0005 secs
+  25% in 0.0007 secs
+  50% in 0.0094 secs
+  75% in 0.0293 secs
+  90% in 0.0543 secs
+  95% in 0.0702 secs
+  99% in 0.0985 secs
 
 Details (average, fastest, slowest):
-  DNS+dialup:	0.0000 secs, 0.0003 secs, 0.1317 secs
-  DNS-lookup:	0.0000 secs, 0.0000 secs, 0.0047 secs
-  req write:	0.0000 secs, 0.0000 secs, 0.0047 secs
-  resp wait:	0.0292 secs, 0.0003 secs, 0.1316 secs
-  resp read:	0.0000 secs, 0.0000 secs, 0.0020 secs
+  DNS+dialup:	0.0000 secs, 0.0003 secs, 0.1638 secs
+  DNS-lookup:	0.0000 secs, 0.0000 secs, 0.0026 secs
+  req write:	0.0000 secs, 0.0000 secs, 0.0060 secs
+  resp wait:	0.0188 secs, 0.0002 secs, 0.1638 secs
+  resp read:	0.0000 secs, 0.0000 secs, 0.0064 secs
 
 Status code distribution:
   [200]	10000 responses
@@ -95,44 +87,44 @@ This endpoint uses [BCrypt](#bcrypt).
 ```
 
 Summary:
-  Total:	19.9552 secs
-  Slowest:	0.8940 secs
-  Fastest:	0.0174 secs
-  Average:	0.1904 secs
-  Requests/sec:	501.1232
-
+  Total:	19.8793 secs
+  Slowest:	0.9998 secs
+  Fastest:	0.0170 secs
+  Average:	0.1900 secs
+  Requests/sec:	503.0368
+  
   Total data:	1570000 bytes
   Size/request:	157 bytes
 
 Response time histogram:
   0.017 [1]	|
-  0.105 [3519]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-  0.193 [2178]	|■■■■■■■■■■■■■■■■■■■■■■■■■
-  0.280 [1795]	|■■■■■■■■■■■■■■■■■■■■
-  0.368 [1312]	|■■■■■■■■■■■■■■■
-  0.456 [681]	|■■■■■■■■
-  0.543 [291]	|■■■
-  0.631 [127]	|■
-  0.719 [67]	|■
-  0.806 [21]	|
-  0.894 [8]	|
+  0.115 [4091]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+  0.214 [2703]	|■■■■■■■■■■■■■■■■■■■■■■■■■■
+  0.312 [1720]	|■■■■■■■■■■■■■■■■■
+  0.410 [880]	|■■■■■■■■■
+  0.508 [367]	|■■■■
+  0.607 [162]	|■■
+  0.705 [55]	|■
+  0.803 [18]	|
+  0.902 [2]	|
+  1.000 [1]	|
 
 
 Latency distribution:
-  10% in 0.0257 secs
-  25% in 0.0840 secs
-  50% in 0.1710 secs
-  75% in 0.2807 secs
-  90% in 0.3870 secs
-  95% in 0.4635 secs
-  99% in 0.6270 secs
+  10% in 0.0304 secs
+  25% in 0.0930 secs
+  50% in 0.1802 secs
+  75% in 0.2783 secs
+  90% in 0.3842 secs
+  95% in 0.4354 secs
+  99% in 0.5994 secs
 
 Details (average, fastest, slowest):
-  DNS+dialup:	0.0000 secs, 0.0174 secs, 0.8940 secs
-  DNS-lookup:	0.0000 secs, 0.0000 secs, 0.0043 secs
-  req write:	0.0000 secs, 0.0000 secs, 0.0072 secs
-  resp wait:	0.1902 secs, 0.0173 secs, 0.8940 secs
-  resp read:	0.0001 secs, 0.0000 secs, 0.0572 secs
+  DNS+dialup:	0.0000 secs, 0.0170 secs, 0.9998 secs
+  DNS-lookup:	0.0000 secs, 0.0000 secs, 0.0056 secs
+  req write:	0.0001 secs, 0.0000 secs, 0.0695 secs
+  resp wait:	0.1896 secs, 0.0170 secs, 0.9317 secs
+  resp read:	0.0002 secs, 0.0000 secs, 0.0726 secs
 
 Status code distribution:
   [200]	10000 responses
@@ -145,9 +137,8 @@ Status code distribution:
 
 ### Creating OAuth 2.0 Clients
 
-This endpoint uses [BCrypt](#bcrypt) and generates IDs and secrets by reading
-from which negatively impacts performance. Performance will be better if IDs and
-secrets are set in the request as opposed to generated by ORY Hydra.
+This endpoint uses [BCrypt](#bcrypt) and generates IDs and secrets by reading from  which negatively impacts
+performance. Performance will be better if IDs and secrets are set in the request as opposed to generated by ORY Hydra.
 
 ```
 This test is currently disabled due to issues with /dev/urandom being inaccessible in the CI.
@@ -158,44 +149,44 @@ This test is currently disabled due to issues with /dev/urandom being inaccessib
 ```
 
 Summary:
-  Total:	0.5323 secs
-  Slowest:	0.0262 secs
+  Total:	0.3952 secs
+  Slowest:	0.0238 secs
   Fastest:	0.0001 secs
-  Average:	0.0050 secs
-  Requests/sec:	18787.5973
-
+  Average:	0.0037 secs
+  Requests/sec:	25303.6700
+  
   Total data:	4820000 bytes
   Size/request:	482 bytes
 
 Response time histogram:
   0.000 [1]	|
-  0.003 [4411]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-  0.005 [853]	|■■■■■■■■
-  0.008 [1845]	|■■■■■■■■■■■■■■■■■
-  0.011 [1489]	|■■■■■■■■■■■■■■
-  0.013 [841]	|■■■■■■■■
-  0.016 [328]	|■■■
-  0.018 [166]	|■■
-  0.021 [38]	|
-  0.024 [19]	|
-  0.026 [9]	|
+  0.002 [5239]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+  0.005 [1068]	|■■■■■■■■
+  0.007 [1550]	|■■■■■■■■■■■■
+  0.010 [1083]	|■■■■■■■■
+  0.012 [708]	|■■■■■
+  0.014 [227]	|■■
+  0.017 [83]	|■
+  0.019 [30]	|
+  0.021 [7]	|
+  0.024 [4]	|
 
 
 Latency distribution:
   10% in 0.0001 secs
   25% in 0.0002 secs
-  50% in 0.0048 secs
-  75% in 0.0086 secs
-  90% in 0.0114 secs
-  95% in 0.0134 secs
-  99% in 0.0178 secs
+  50% in 0.0017 secs
+  75% in 0.0063 secs
+  90% in 0.0097 secs
+  95% in 0.0111 secs
+  99% in 0.0148 secs
 
 Details (average, fastest, slowest):
-  DNS+dialup:	0.0000 secs, 0.0001 secs, 0.0262 secs
-  DNS-lookup:	0.0000 secs, 0.0000 secs, 0.0111 secs
-  req write:	0.0000 secs, 0.0000 secs, 0.0120 secs
-  resp wait:	0.0047 secs, 0.0001 secs, 0.0259 secs
-  resp read:	0.0001 secs, 0.0000 secs, 0.0133 secs
+  DNS+dialup:	0.0000 secs, 0.0001 secs, 0.0238 secs
+  DNS-lookup:	0.0000 secs, 0.0000 secs, 0.0040 secs
+  req write:	0.0001 secs, 0.0000 secs, 0.0055 secs
+  resp wait:	0.0035 secs, 0.0001 secs, 0.0238 secs
+  resp read:	0.0001 secs, 0.0000 secs, 0.0073 secs
 
 Status code distribution:
   [200]	10000 responses
@@ -209,44 +200,44 @@ Status code distribution:
 ```
 
 Summary:
-  Total:	0.4621 secs
-  Slowest:	0.0320 secs
+  Total:	0.3731 secs
+  Slowest:	0.0211 secs
   Fastest:	0.0001 secs
-  Average:	0.0043 secs
-  Requests/sec:	21641.6160
-
+  Average:	0.0035 secs
+  Requests/sec:	26804.9015
+  
   Total data:	4800000 bytes
   Size/request:	480 bytes
 
 Response time histogram:
   0.000 [1]	|
-  0.003 [4714]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-  0.006 [2068]	|■■■■■■■■■■■■■■■■■■
-  0.010 [2033]	|■■■■■■■■■■■■■■■■■
-  0.013 [847]	|■■■■■■■
-  0.016 [220]	|■■
-  0.019 [61]	|■
-  0.022 [11]	|
-  0.026 [28]	|
-  0.029 [11]	|
-  0.032 [6]	|
+  0.002 [5142]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+  0.004 [1125]	|■■■■■■■■■
+  0.006 [1481]	|■■■■■■■■■■■■
+  0.008 [1099]	|■■■■■■■■■
+  0.011 [607]	|■■■■■
+  0.013 [340]	|■■■
+  0.015 [112]	|■
+  0.017 [46]	|
+  0.019 [17]	|
+  0.021 [30]	|
 
 
 Latency distribution:
   10% in 0.0001 secs
   25% in 0.0002 secs
-  50% in 0.0038 secs
-  75% in 0.0075 secs
-  90% in 0.0100 secs
-  95% in 0.0116 secs
-  99% in 0.0165 secs
+  50% in 0.0018 secs
+  75% in 0.0060 secs
+  90% in 0.0089 secs
+  95% in 0.0108 secs
+  99% in 0.0147 secs
 
 Details (average, fastest, slowest):
-  DNS+dialup:	0.0000 secs, 0.0001 secs, 0.0320 secs
-  DNS-lookup:	0.0000 secs, 0.0000 secs, 0.0210 secs
-  req write:	0.0001 secs, 0.0000 secs, 0.0206 secs
-  resp wait:	0.0040 secs, 0.0000 secs, 0.0207 secs
-  resp read:	0.0001 secs, 0.0000 secs, 0.0137 secs
+  DNS+dialup:	0.0000 secs, 0.0001 secs, 0.0211 secs
+  DNS-lookup:	0.0000 secs, 0.0000 secs, 0.0083 secs
+  req write:	0.0001 secs, 0.0000 secs, 0.0136 secs
+  resp wait:	0.0032 secs, 0.0000 secs, 0.0211 secs
+  resp read:	0.0001 secs, 0.0000 secs, 0.0131 secs
 
 Status code distribution:
   [200]	10000 responses
