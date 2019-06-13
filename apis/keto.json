@@ -1,7 +1,14 @@
 {
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
-  "schemes": ["http", "https"],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
   "swagger": "2.0",
   "info": {
     "description": "A cloud native access control server providing best-practice patterns (RBAC, ABAC, ACL, AWS IAM Policies, Kubernetes Roles, ...) via REST APIs.",
@@ -22,10 +29,19 @@
     "/engines/acp/ory/{flavor}/allowed": {
       "post": {
         "description": "Use this endpoint to check if a request is allowed or not. If the request is allowed, a 200 response with\n`{\"allowed\":\"true\"}` will be sent. If the request is denied, a 403 response with `{\"allowed\":\"false\"}` will\nbe sent instead.",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "schemes": ["http", "https"],
-        "tags": ["engines"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "engines"
+        ],
         "summary": "Check if a request is allowed",
         "operationId": "doOryAccessControlPoliciesAllow",
         "parameters": [
@@ -67,9 +83,16 @@
     "/engines/acp/ory/{flavor}/policies": {
       "get": {
         "description": "List ORY Access Control Policies",
-        "produces": ["application/json"],
-        "schemes": ["http", "https"],
-        "tags": ["engines"],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "engines"
+        ],
         "operationId": "listOryAccessControlPolicies",
         "parameters": [
           {
@@ -108,10 +131,19 @@
       },
       "put": {
         "description": "Upsert an ORY Access Control Policy",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "schemes": ["http", "https"],
-        "tags": ["engines"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "engines"
+        ],
         "operationId": "upsertOryAccessControlPolicy",
         "parameters": [
           {
@@ -146,9 +178,16 @@
     "/engines/acp/ory/{flavor}/policies/{id}": {
       "get": {
         "description": "Get an ORY Access Control Policy",
-        "produces": ["application/json"],
-        "schemes": ["http", "https"],
-        "tags": ["engines"],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "engines"
+        ],
         "operationId": "getOryAccessControlPolicy",
         "parameters": [
           {
@@ -185,9 +224,16 @@
       },
       "delete": {
         "description": "Delete an ORY Access Control Policy",
-        "produces": ["application/json"],
-        "schemes": ["http", "https"],
-        "tags": ["engines"],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "engines"
+        ],
         "operationId": "deleteOryAccessControlPolicy",
         "parameters": [
           {
@@ -220,9 +266,16 @@
     "/engines/acp/ory/{flavor}/roles": {
       "get": {
         "description": "Roles group several subjects into one. Rules can be assigned to ORY Access Control Policy (OACP) by using the Role ID\nas subject in the OACP.",
-        "produces": ["application/json"],
-        "schemes": ["http", "https"],
-        "tags": ["engines"],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "engines"
+        ],
         "summary": "List ORY Access Control Policy Roles",
         "operationId": "listOryAccessControlPolicyRoles",
         "parameters": [
@@ -262,10 +315,19 @@
       },
       "put": {
         "description": "Roles group several subjects into one. Rules can be assigned to ORY Access Control Policy (OACP) by using the Role ID\nas subject in the OACP.",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "schemes": ["http", "https"],
-        "tags": ["engines"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "engines"
+        ],
         "summary": "Upsert an ORY Access Control Policy Role",
         "operationId": "upsertOryAccessControlPolicyRole",
         "parameters": [
@@ -301,9 +363,16 @@
     "/engines/acp/ory/{flavor}/roles/{id}": {
       "get": {
         "description": "Roles group several subjects into one. Rules can be assigned to ORY Access Control Policy (OACP) by using the Role ID\nas subject in the OACP.",
-        "produces": ["application/json"],
-        "schemes": ["http", "https"],
-        "tags": ["engines"],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "engines"
+        ],
         "summary": "Get an ORY Access Control Policy Role",
         "operationId": "getOryAccessControlPolicyRole",
         "parameters": [
@@ -341,9 +410,16 @@
       },
       "delete": {
         "description": "Roles group several subjects into one. Rules can be assigned to ORY Access Control Policy (OACP) by using the Role ID\nas subject in the OACP.",
-        "produces": ["application/json"],
-        "schemes": ["http", "https"],
-        "tags": ["engines"],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "engines"
+        ],
         "summary": "Delete an ORY Access Control Policy Role",
         "operationId": "deleteOryAccessControlPolicyRole",
         "parameters": [
@@ -377,10 +453,19 @@
     "/engines/acp/ory/{flavor}/roles/{id}/members": {
       "put": {
         "description": "Roles group several subjects into one. Rules can be assigned to ORY Access Control Policy (OACP) by using the Role ID\nas subject in the OACP.",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "schemes": ["http", "https"],
-        "tags": ["engines"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "engines"
+        ],
         "summary": "Add a member to an ORY Access Control Policy Role",
         "operationId": "addOryAccessControlPolicyRoleMembers",
         "parameters": [
@@ -424,10 +509,19 @@
     "/engines/acp/ory/{flavor}/roles/{id}/members/{member}": {
       "delete": {
         "description": "Roles group several subjects into one. Rules can be assigned to ORY Access Control Policy (OACP) by using the Role ID\nas subject in the OACP.",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "schemes": ["http", "https"],
-        "tags": ["engines"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "engines"
+        ],
         "summary": "Remove a member from an ORY Access Control Policy Role",
         "operationId": "removeOryAccessControlPolicyRoleMembers",
         "parameters": [
@@ -469,8 +563,12 @@
     "/health/alive": {
       "get": {
         "description": "This endpoint returns a 200 status code when the HTTP server is up running.\nThis status does currently not include checks whether the database connection is working.\n\nIf the service supports TLS Edge Termination, this endpoint does not require the\n`X-Forwarded-Proto` header to be set.\n\nBe aware that if you are running multiple nodes of this service, the health status will never\nrefer to the cluster state, only to a single instance.",
-        "produces": ["application/json"],
-        "tags": ["health"],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "health"
+        ],
         "summary": "Check alive status",
         "operationId": "isInstanceAlive",
         "responses": {
@@ -489,8 +587,12 @@
     "/health/ready": {
       "get": {
         "description": "This endpoint returns a 200 status code when the HTTP server is up running and the environment dependencies (e.g.\nthe database) are responsive as well.\n\nIf the service supports TLS Edge Termination, this endpoint does not require the\n`X-Forwarded-Proto` header to be set.\n\nBe aware that if you are running multiple nodes of this service, the health status will never\nrefer to the cluster state, only to a single instance.",
-        "produces": ["application/json"],
-        "tags": ["health"],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "health"
+        ],
         "summary": "Check readiness status",
         "operationId": "isInstanceReady",
         "responses": {
@@ -512,8 +614,12 @@
     "/version": {
       "get": {
         "description": "This endpoint returns the service version typically notated using semantic versioning.\n\nIf the service supports TLS Edge Termination, this endpoint does not require the\n`X-Forwarded-Proto` header to be set.\n\nBe aware that if you are running multiple nodes of this service, the health status will never\nrefer to the cluster state, only to a single instance.",
-        "produces": ["application/json"],
-        "tags": ["version"],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "version"
+        ],
         "summary": "Get service version",
         "operationId": "getVersion",
         "responses": {
@@ -531,7 +637,10 @@
     "AddOryAccessControlPolicyRoleMembers": {
       "description": "AddOryAccessControlPolicyRoleMembers add ory access control policy role members",
       "type": "object",
-      "required": ["flavor", "id"],
+      "required": [
+        "flavor",
+        "id"
+      ],
       "properties": {
         "Body": {
           "$ref": "#/definitions/AddOryAccessControlPolicyRoleMembersBody"
@@ -638,7 +747,9 @@
     "AuthorizationResult": {
       "type": "object",
       "title": "AuthorizationResult AuthorizationResult AuthorizationResult is the result of an access control decision. It contains the decision outcome.",
-      "required": ["allowed"],
+      "required": [
+        "allowed"
+      ],
       "properties": {
         "allowed": {
           "description": "Allowed is true if the request should be allowed and false otherwise.",
@@ -659,7 +770,10 @@
     "DeleteOryAccessControlPolicy": {
       "description": "DeleteOryAccessControlPolicy delete ory access control policy",
       "type": "object",
-      "required": ["flavor", "id"],
+      "required": [
+        "flavor",
+        "id"
+      ],
       "properties": {
         "flavor": {
           "description": "The ORY Access Control Policy flavor. Can be \"regex\", \"glob\", and \"exact\".\n\nin: path",
@@ -749,7 +863,10 @@
     "DeleteOryAccessControlPolicyRole": {
       "description": "DeleteOryAccessControlPolicyRole delete ory access control policy role",
       "type": "object",
-      "required": ["flavor", "id"],
+      "required": [
+        "flavor",
+        "id"
+      ],
       "properties": {
         "flavor": {
           "description": "The ORY Access Control Policy flavor. Can be \"regex\", \"glob\", and \"exact\".\n\nin: path",
@@ -839,7 +956,9 @@
     "DoOryAccessControlPoliciesAllow": {
       "description": "DoOryAccessControlPoliciesAllow do ory access control policies allow",
       "type": "object",
-      "required": ["flavor"],
+      "required": [
+        "flavor"
+      ],
       "properties": {
         "Body": {
           "$ref": "#/definitions/Input"
@@ -937,7 +1056,10 @@
     "GetOryAccessControlPolicy": {
       "description": "GetOryAccessControlPolicy get ory access control policy",
       "type": "object",
-      "required": ["flavor", "id"],
+      "required": [
+        "flavor",
+        "id"
+      ],
       "properties": {
         "flavor": {
           "description": "The ORY Access Control Policy flavor. Can be \"regex\", \"glob\", and \"exact\".\n\nin: path",
@@ -1081,7 +1203,10 @@
     "GetOryAccessControlPolicyRole": {
       "description": "GetOryAccessControlPolicyRole get ory access control policy role",
       "type": "object",
-      "required": ["flavor", "id"],
+      "required": [
+        "flavor",
+        "id"
+      ],
       "properties": {
         "flavor": {
           "description": "The ORY Access Control Policy flavor. Can be \"regex\", \"glob\", and \"exact\".\n\nin: path",
@@ -1326,7 +1451,9 @@
     "ListOryAccessControlPolicies": {
       "description": "ListOryAccessControlPolicies list ory access control policies",
       "type": "object",
-      "required": ["flavor"],
+      "required": [
+        "flavor"
+      ],
       "properties": {
         "flavor": {
           "description": "The ORY Access Control Policy flavor. Can be \"regex\", \"glob\", and \"exact\"\n\nin: path",
@@ -1426,7 +1553,9 @@
     "ListOryAccessControlPolicyRoles": {
       "description": "ListOryAccessControlPolicyRoles list ory access control policy roles",
       "type": "object",
-      "required": ["flavor"],
+      "required": [
+        "flavor"
+      ],
       "properties": {
         "flavor": {
           "description": "The ORY Access Control Policy flavor. Can be \"regex\", \"glob\", and \"exact\"\n\nin: path",
@@ -1622,7 +1751,11 @@
     "RemoveOryAccessControlPolicyRoleMembers": {
       "description": "RemoveOryAccessControlPolicyRoleMembers remove ory access control policy role members",
       "type": "object",
-      "required": ["flavor", "id", "member"],
+      "required": [
+        "flavor",
+        "id",
+        "member"
+      ],
       "properties": {
         "flavor": {
           "description": "The ORY Access Control Policy flavor. Can be \"regex\", \"glob\", and \"exact\".\n\nin: path",
@@ -1739,7 +1872,9 @@
     "UpsertOryAccessControlPolicy": {
       "description": "UpsertOryAccessControlPolicy upsert ory access control policy",
       "type": "object",
-      "required": ["flavor"],
+      "required": [
+        "flavor"
+      ],
       "properties": {
         "Body": {
           "$ref": "#/definitions/oryAccessControlPolicy"
@@ -1826,7 +1961,9 @@
     "UpsertOryAccessControlPolicyRole": {
       "description": "UpsertOryAccessControlPolicyRole upsert ory access control policy role",
       "type": "object",
-      "required": ["flavor"],
+      "required": [
+        "flavor"
+      ],
       "properties": {
         "Body": {
           "$ref": "#/definitions/OryAccessControlPolicyRole"
@@ -1912,7 +2049,10 @@
     },
     "addOryAccessControlPolicyRoleMembers": {
       "type": "object",
-      "required": ["flavor", "id"],
+      "required": [
+        "flavor",
+        "id"
+      ],
       "properties": {
         "Body": {
           "$ref": "#/definitions/addOryAccessControlPolicyRoleMembersBody"
@@ -1947,7 +2087,9 @@
     "authorizationResult": {
       "type": "object",
       "title": "AuthorizationResult is the result of an access control decision. It contains the decision outcome.",
-      "required": ["allowed"],
+      "required": [
+        "allowed"
+      ],
       "properties": {
         "allowed": {
           "description": "Allowed is true if the request should be allowed and false otherwise.",
@@ -1960,7 +2102,10 @@
     },
     "deleteOryAccessControlPolicy": {
       "type": "object",
-      "required": ["flavor", "id"],
+      "required": [
+        "flavor",
+        "id"
+      ],
       "properties": {
         "flavor": {
           "description": "The ORY Access Control Policy flavor. Can be \"regex\", \"glob\", and \"exact\".\n\nin: path",
@@ -1977,7 +2122,10 @@
     },
     "deleteOryAccessControlPolicyRole": {
       "type": "object",
-      "required": ["flavor", "id"],
+      "required": [
+        "flavor",
+        "id"
+      ],
       "properties": {
         "flavor": {
           "description": "The ORY Access Control Policy flavor. Can be \"regex\", \"glob\", and \"exact\".\n\nin: path",
@@ -1994,7 +2142,9 @@
     },
     "doOryAccessControlPoliciesAllow": {
       "type": "object",
-      "required": ["flavor"],
+      "required": [
+        "flavor"
+      ],
       "properties": {
         "Body": {
           "$ref": "#/definitions/oryAccessControlPolicyAllowedInput"
@@ -2009,7 +2159,10 @@
     },
     "getOryAccessControlPolicy": {
       "type": "object",
-      "required": ["flavor", "id"],
+      "required": [
+        "flavor",
+        "id"
+      ],
       "properties": {
         "flavor": {
           "description": "The ORY Access Control Policy flavor. Can be \"regex\", \"glob\", and \"exact\".\n\nin: path",
@@ -2026,7 +2179,10 @@
     },
     "getOryAccessControlPolicyRole": {
       "type": "object",
-      "required": ["flavor", "id"],
+      "required": [
+        "flavor",
+        "id"
+      ],
       "properties": {
         "flavor": {
           "description": "The ORY Access Control Policy flavor. Can be \"regex\", \"glob\", and \"exact\".\n\nin: path",
@@ -2070,7 +2226,9 @@
     },
     "listOryAccessControlPolicies": {
       "type": "object",
-      "required": ["flavor"],
+      "required": [
+        "flavor"
+      ],
       "properties": {
         "flavor": {
           "description": "The ORY Access Control Policy flavor. Can be \"regex\", \"glob\", and \"exact\"\n\nin: path",
@@ -2094,7 +2252,9 @@
     },
     "listOryAccessControlPolicyRoles": {
       "type": "object",
-      "required": ["flavor"],
+      "required": [
+        "flavor"
+      ],
       "properties": {
         "flavor": {
           "description": "The ORY Access Control Policy flavor. Can be \"regex\", \"glob\", and \"exact\"\n\nin: path",
@@ -2252,7 +2412,11 @@
     },
     "removeOryAccessControlPolicyRoleMembers": {
       "type": "object",
-      "required": ["flavor", "id", "member"],
+      "required": [
+        "flavor",
+        "id",
+        "member"
+      ],
       "properties": {
         "flavor": {
           "description": "The ORY Access Control Policy flavor. Can be \"regex\", \"glob\", and \"exact\".\n\nin: path",
@@ -2316,7 +2480,9 @@
     },
     "upsertOryAccessControlPolicy": {
       "type": "object",
-      "required": ["flavor"],
+      "required": [
+        "flavor"
+      ],
       "properties": {
         "Body": {
           "$ref": "#/definitions/oryAccessControlPolicy"
@@ -2331,7 +2497,9 @@
     },
     "upsertOryAccessControlPolicyRole": {
       "type": "object",
-      "required": ["flavor"],
+      "required": [
+        "flavor"
+      ],
       "properties": {
         "Body": {
           "$ref": "#/definitions/oryAccessControlPolicyRole"
