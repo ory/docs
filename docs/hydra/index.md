@@ -16,46 +16,42 @@ are.
 ## What is ORY Hydra?
 
 ORY Hydra is an OAuth 2.0 and OpenID Connect Provider. As such, it is capable of
-issuing access, refresh, and ID Tokens. Contrary to other projects out there,
-ORY Hydra does not offer user management (login, logout, profile management,
-registration) but instead uses a redirection-based flow and a REST API to
-delegate user authentication (login) to a service which you implement and
-control. This allows you to build a user management that works for you, with the
-frontend technology that you like, and authentication mechanisms required by
-your use case (e.g. token-based 2FA, SMS 2FA).
+issuing access, refresh, and ID Tokens. Unlike other OAuth 2.0 implementations,
+ORY Hydra does not offer built-in user management (login, logout, profile
+management, registration). Instead, it allows you to implement user management
+and login your way, in your technology stack, with authentication mechanisms
+required by your use case (token-based 2FA, SMS 2FA, etc).
 
-As such, ORY Hydra is the most flexible OAuth 2.0 and OpenID Connect provider
-out there and gives you great freedom in implementing your business logic, and
-still getting all the benefits from OAuth 2.0 and OpenID Connect.
+This support of third-party user management makes ORY Hydra the most flexible
+OAuth 2.0 and OpenID Connect provider. It gives you freedom to implement your
+business logic, and still getting all the benefits from OAuth 2.0 and OpenID
+Connect.
 
-Additional to the OAuth 2.0 functionality, ORY Hydra offers a safe storage for
-cryptographic keys (e.g. for signing JSON Web Tokens) and is capable of managing
+In addition to the OAuth 2.0 functionality, ORY Hydra offers a safe storage for
+cryptographic keys (used for example to sign JSON Web Tokens) and can manage
 OAuth 2.0 Clients.
 
 ORY Hydra is OpenID Connect certified (pending) and implements all the
-requirements stated by the OpenID Foundation. As such, it correctly implements
-the different OAuth 2.0 and OpenID Connect flows as intended by the IETF and
-OpenID Foundation.
+requirements stated by the OpenID Foundation. In particular, it correctly
+implements the various OAuth 2.0 and OpenID Connect flows specified by the IETF
+and OpenID Foundation.
 
 ## Introduction to OAuth 2.0 and OpenID Connect
 
-This section will give you some ideas of what OAuth 2.0 and OpenID Connect 1.0
-are for. If you already know what OAuth2 and OpenID Connect are and how they
-work, you can skip to the next [Section](#introduction-to-hydra). This section
-will not explain how the various flows of OAuth2 work and how they look like. We
-strongly recommend to read the following articles:
+This section describes on a high level what OAuth 2.0 and OpenID Connect 1.0 are
+for and how they work. If you are already familiar with this, please skip to the
+[introduction to Hydra](#introduction-to-hydra).
+
+The following video gives a good introduction:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/996OiexHze0" frameborder="0" allowfullscreen></iframe>
+
+More details about the various OAuth2 flows can be found in the following
+articles:
 
 - [DigitalOcean: An Introduction to OAuth 2](https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2)
 - [Aaron Parecki: OAuth2 Simplified](https://aaronparecki.com/2012/07/29/2/oauth2-simplified)
 - [Zapier: Chapter 5: Authentication, Part 2](https://zapier.com/learn/apis/chapter-5-authentication-part-2/)
-
-Please be aware that we do not aim to explain OAuth 2.0 in great detail. We
-assume that you have some knowledge of the flows and strongly encourage you to
-refresh your knowledge with the articles listed above.
-
-We highly recommend watching the following video:
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/996OiexHze0" frameborder="0" allowfullscreen></iframe>
 
 ### What is OAuth 2.0?
 
