@@ -44,5 +44,5 @@ subjects.
   system like RBAC.
 
 **Implementation status:** Access Control Lists are currently not implemented
-but will be first-class citizens in the future. To bump this in priority,
-[click here](https://github.com/ory/keto/issues/61).
+but will be first-class citizens in the future. To bump this in priority, please
+upvote [this GitHub ticket](https://github.com/ory/keto/issues/61).

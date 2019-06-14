@@ -61,4 +61,5 @@ multi-tenant environments.
 
 **Implementation status:** (Hierarchical) Role Based Access Control is currently
 not implemented but will be first-class citizens in the future. To bump this in
-priority, [click here](https://github.com/ory/keto/issues/60).
+priority, please upvote
+[this GitHub ticket](https://github.com/ory/keto/issues/60).
