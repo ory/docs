@@ -210,6 +210,75 @@ The request is not authorized because credentials have been provided but only th
 authenticator is enabled for this URL.
 ```
 
+## `cookie_session`
+
+The `cookie_session` authenticator will forward the request method, path and
+headers to a session store. If the session store returns `200 OK` and body
+`{ "subject": "...", "extra": {} }` then the authenticator will set the subject
+appropriately.
+
+### Global Configuration
+
+You can en-/disable the authenticator and also set the anonymous subject:
+
+```yaml
+authenticators:
+  cookie_session:
+    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+    enabled: true
+
+    # REQUIRED IF ENABLED - The session store to forward request method/path/headers to for validation
+    check_session_url: https://session-store-host
+
+    # Optionally set a list of cookie names to look for in incoming requests.
+    # If unset, all requests are forwarded.
+    # If set, only requests that have at least one of the set cookies will be forwarded, others will be passed to the next authenticator
+    only:
+      - sessionid
+```
+
+### Example
+
+```shell
+$ cat ./config.yml
+authenticators:
+  cookie_session:
+    enabled: true
+    check_session_url: https://session-checker
+    only:
+      - sessid
+
+$ cat ./rules.json
+
+[{
+  "id": "some-id",
+  "upstream": {
+    "url": "http://my-backend-service"
+  },
+  "match": {
+    "url": "http://my-app/some-route",
+    "methods": [
+      "GET"
+    ]
+  },
+  "authenticators": [{
+    "handler": "cookie_session"
+  }],
+  "authorizer": { "handler": "allow" },
+  "mutator": { "handler": "noop" }
+}]
+
+$ curl -X GET -b sessid=abc http://my-app/some-route
+
+HTTP/1.0 200 OK
+The request has been allowed! The subject is: "peter"
+
+$ curl -X GET -b sessid=def http://my-app/some-route
+
+HTTP/1.0 401 Status Unauthorized
+The request is not authorized because the provided credentials are invalid.
+```
+
 ## `oauth2_client_credentials`
 
 This `oauth2_client_credentials` uses the username and password from HTTP Basic
