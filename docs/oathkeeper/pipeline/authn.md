@@ -240,14 +240,6 @@ authenticators:
 ### Example
 
 ```shell
-$ cat ./config.yml
-authenticators:
-  cookie_session:
-    enabled: true
-    check_session_url: https://session-checker
-    only:
-      - sessid
-
 $ cat ./rules.json
 
 [{
@@ -268,12 +260,12 @@ $ cat ./rules.json
   "mutator": { "handler": "noop" }
 }]
 
-$ curl -X GET -b sessid=abc http://my-app/some-route
+$ curl -X GET -b sessionid=abc http://my-app/some-route
 
 HTTP/1.0 200 OK
 The request has been allowed! The subject is: "peter"
 
-$ curl -X GET -b sessid=def http://my-app/some-route
+$ curl -X GET -b sessionid=def http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
 The request is not authorized because the provided credentials are invalid.
