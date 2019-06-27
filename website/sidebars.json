@@ -4,12 +4,13 @@
     "Ecosystem": [
       "ecosystem/overview",
       "ecosystem/cloud-native",
-      "ecosystem/usage",
+      "ecosystem/kubernetes",
       "ecosystem/versioning",
       "ecosystem/persistence",
       "ecosystem/upgrading",
       "ecosystem/examples",
       "ecosystem/community",
+      "ecosystem/usage",
       "ecosystem/sqa"
     ],
     "ORY Hydra": [
