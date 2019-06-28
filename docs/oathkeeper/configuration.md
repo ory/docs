@@ -261,6 +261,20 @@ authenticators:
     # Sets the anonymous username. Defaults to "anonymous". Common names include "guest", "anon", "anonymous", "unknown".
     subject: anonymous
 
+  # Configures the cookie session authenticator
+  cookie_session:
+    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+    enabled: true
+
+    # Sets the origin to proxy requests to. If the response is a 200 with body `{ "subject": "...", "extra": {} }`
+    # The request will pass the subject through successfully, otherwise it will be marked as unauthorized
+    check_session_url: https://session-store-host
+
+    # Sets a list of possible cookies to look for on incoming requests, and will fallthrough to the next authenticator if
+    # none of the passed cookies are set on the request
+    only:
+      - sessionid
+
   # Configures the jwt authenticator
   jwt:
     # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
@@ -347,6 +361,7 @@ authorizers:
     # REQUIRED IF ENABLED - The base URL of ORY Keto, typically something like http(s)://<host>[:<port>]/
     base_url: http://my-keto/
 
+
 # All mutators can be configured under this configuration key
 mutators:
   # Configures the cookie mutator
@@ -379,3 +394,4 @@ mutators:
     # Set enabled to true if the mutator should be enabled and false to disable the mutator. Defaults to false.
     enabled: true
 ```
+
