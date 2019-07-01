@@ -31,8 +31,8 @@ or by setting the equivalent environment variable:
 $ export ACCESS_RULES_REPOSITORIES='file://path/to/rules.json,https://path-to-my-rules/rules.json,inline://W3siaWQiOiJmb28tcnVsZSIsImF1dGhlbnRpY2F0b3JzIjpbXX1d'
 ```
 
-The repository (file, inline, remote) must be formatted either as a JSON or a YAML array
-containing the access rules:
+The repository (file, inline, remote) must be formatted either as a JSON or a
+YAML array containing the access rules:
 
 ```shell
 $ cat ./rules.json
@@ -141,10 +141,10 @@ upstream:
 match:
   url: http://my-app/some-route/<.*>
   methods:
-  - GET
-  - POST
+    - GET
+    - POST
 authenticators:
-- handler: noop
+  - handler: noop
 authorizer:
   hander: allow
 mutator:
