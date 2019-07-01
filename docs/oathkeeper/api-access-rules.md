@@ -12,13 +12,13 @@ in the configuration file (`oathkeeper -c ./path/to/config.yml ...`)
 # Configures Access Rules
 access_rules:
   # Locations (list of URLs) where access rules should be fetched from on boot.
-  # It is expected that the documents at those locations return a JSON Array containing ORY Oathkeeper Access Rules.
+  # It is expected that the documents at those locations return a JSON or YAML Array containing ORY Oathkeeper Access Rules.
   repositories:
     # If the URL Scheme is `file://`, the access rules (an array of access rules is expected) will be
     # fetched from the local file system.
     - file://path/to/rules.json
     # If the URL Scheme is `inline://`, the access rules (an array of access rules is expected)
-    # are expected to be a base64 encoded (with padding!) JSON string (base64_encode(`[{"id":"foo-rule","authenticators":[....]}]`)):
+    # are expected to be a base64 encoded (with padding!) JSON/YAML string (base64_encode(`[{"id":"foo-rule","authenticators":[....]}]`)):
     - inline://W3siaWQiOiJmb28tcnVsZSIsImF1dGhlbnRpY2F0b3JzIjpbXX1d
     # If the URL Scheme is `http://` or `https://`, the access rules (an array of access rules is expected) will be
     # fetched from the provided HTTP(s) location.
@@ -31,7 +31,7 @@ or by setting the equivalent environment variable:
 $ export ACCESS_RULES_REPOSITORIES='file://path/to/rules.json,https://path-to-my-rules/rules.json,inline://W3siaWQiOiJmb28tcnVsZSIsImF1dGhlbnRpY2F0b3JzIjpbXX1d'
 ```
 
-The repository (file, inline, remote) must be formatted as a JSON Array
+The repository (file, inline, remote) must be formatted either as a JSON or a YAML array
 containing the access rules:
 
 ```shell
@@ -41,6 +41,14 @@ $ cat ./rules.json
 },{
     "id": "my-second-rule"
 }]
+
+$ cat ./rules.yaml
+- id: my-first-rule
+  authenticators:
+    - handler: noop
+- id: my-second-rule
+  authorizer:
+    handler: allow
 ```
 
 ## Access Rule Format
@@ -100,7 +108,9 @@ Access Rules have four principal keys:
   upstream server. For the full list of available mutators, click
   [here](pipeline/mutator.md).
 
-**Example**
+**Examples**
+
+Rule in JSON format:
 
 ```json
 {
@@ -118,6 +128,27 @@ Access Rules have four principal keys:
   "authorizer": { "handler": "allow" },
   "mutator": { "handler": "noop" }
 }
+```
+
+Rule in YAML format:
+
+```yaml
+id: some-id
+upstream:
+  url: http://my-backend-service
+  preserve_host: true
+  strip_path: /api/v1
+match:
+  url: http://my-app/some-route/<.*>
+  methods:
+  - GET
+  - POST
+authenticators:
+- handler: noop
+authorizer:
+  hander: allow
+mutator:
+  handler: noop
 ```
 
 ## Scoped Credentials
