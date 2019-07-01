@@ -239,13 +239,13 @@ serve:
 # Configures Access Rules
 access_rules:
   # Locations (list of URLs) where access rules should be fetched from on boot.
-  # It is expected that the documents at those locations return a JSON Array containing ORY Oathkeeper Access Rules.
+  # It is expected that the documents at those locations return a JSON or YAML Array containing ORY Oathkeeper Access Rules.
   repositories:
     # If the URL Scheme is `file://`, the access rules (an array of access rules is expected) will be
     # fetched from the local file system.
     - file://path/to/rules.json
     # If the URL Scheme is `inline://`, the access rules (an array of access rules is expected)
-    # are expected to be a base64 encoded (with padding!) JSON string (base64_encode(`[{"id":"foo-rule","authenticators":[....]}]`)):
+    # are expected to be a base64 encoded (with padding!) JSON/YAML string (base64_encode(`[{"id":"foo-rule","authenticators":[....]}]`)):
     - inline://W3siaWQiOiJmb28tcnVsZSIsImF1dGhlbnRpY2F0b3JzIjpbXX1d
     # If the URL Scheme is `http://` or `https://`, the access rules (an array of access rules is expected) will be
     # fetched from the provided HTTP(s) location.
@@ -361,6 +361,7 @@ authorizers:
     # REQUIRED IF ENABLED - The base URL of ORY Keto, typically something like http(s)://<host>[:<port>]/
     base_url: http://my-keto/
 
+
 # All mutators can be configured under this configuration key
 mutators:
   # Configures the cookie mutator
@@ -393,3 +394,4 @@ mutators:
     # Set enabled to true if the mutator should be enabled and false to disable the mutator. Defaults to false.
     enabled: true
 ```
+
