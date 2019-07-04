@@ -37,7 +37,7 @@ see when you need to run this command. Always create a backup before running
 `hydra migrate sql`!
 
 Running SQL migrations in Docker is very easy, check out the
-[docker-compose](https://github.com/ory/hydra/blob/master/docker-compose.yml)
+[docker-compose](https://github.com/ory/hydra/blob/master/quickstart-postgres.yml)
 example to see how we did it!
 
 ### Configuration
