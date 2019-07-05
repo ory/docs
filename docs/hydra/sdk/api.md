@@ -4762,6 +4762,7 @@ the user-agent to.
 | ------ | -------------------------------------------------------------------------- | ---------------- | ------------------------------------------- |
 | 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | completedRequest | [completedRequest](#schemacompletedrequest) |
 | 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)             | genericError     | [genericError](#schemagenericerror)         |
+| 409    | [Conflict](https://tools.ietf.org/html/rfc7231#section-6.5.8)              | genericError     | [genericError](#schemagenericerror)         |
 | 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | genericError     | [genericError](#schemagenericerror)         |
 
 ##### Examples
@@ -5496,6 +5497,7 @@ the user-agent to.
 | 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | completedRequest | [completedRequest](#schemacompletedrequest) |
 | 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | genericError     | [genericError](#schemagenericerror)         |
 | 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)             | genericError     | [genericError](#schemagenericerror)         |
+| 409    | [Conflict](https://tools.ietf.org/html/rfc7231#section-6.5.8)              | genericError     | [genericError](#schemagenericerror)         |
 | 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | genericError     | [genericError](#schemagenericerror)         |
 
 ##### Examples
