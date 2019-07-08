@@ -24,9 +24,12 @@ all HTTP APIs here.
   authorizationCode
   - OAuth 2.0 Authorization URL = [/oauth2/auth](/oauth2/auth)
   - OAuth 2.0 Token URL = [/oauth2/token](/oauth2/token)
-  - OAuth 2.0 Scope |Scope|Scope Description| |---|---| |offline|A scope
-    required when requesting refresh tokens| |openid|Request an OpenID Connect
-    ID Token|
+  - OAuth 2.0 Scope  
+  
+  |Scope|Scope Description| 
+  |---|---| 
+  |offline|A scope required when requesting refresh tokens|
+  |openid|Request an OpenID Connect ID Token|
 
 <a id="ory-hydra-public-endpoints"></a>
 
