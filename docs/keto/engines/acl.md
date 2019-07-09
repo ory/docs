@@ -40,7 +40,7 @@ ACLs are common in applications with few subjects like filesystems (`chmod` /
 
 - As the number of identities and resources grows over time, the matrix becomes
   large and hard to maintain.
-- If many identities have the some permissions, choose a system like RBAC.
+- If many identities have the same permissions, choose a system like RBAC.
 
 **Implementation status:** Access Control Lists are currently not implemented
 but will be first-class citizens in the future. To bump this in priority, upvote
