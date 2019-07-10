@@ -5,7 +5,7 @@ title: Access Controle Engines - Introduction
 
 Whatever your system looks like, you probably have a concept of permissions
 which models who is allowed to do what (access control). ORY Keto provides you
-with battle-tested, best practice access control concepts. Please not that ORY
+with battle-tested, best practice access control concepts. Please note that ORY
 Keto doesn't support all access control mechanisms while in "sandbox" mode.
 
 This chapter introduces the most widely used Access Control Policies. Before we
