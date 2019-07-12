@@ -38,7 +38,7 @@ source & battle-tested libraries instead. Here are some examples:
 - PHP
   - [oauth2-client](https://github.com/thephpleague/oauth2-client)
 - Java
-  - [Sprint Security OAuth](https://spring.io/projects/spring-security-oauth)
+  - [Spring Security OAuth](https://spring.io/projects/spring-security-oauth)
 
 For a full list of client libraries go [here](https://oauth.net/code/).
 

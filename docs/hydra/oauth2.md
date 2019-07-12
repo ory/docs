@@ -394,8 +394,11 @@ The server response is a JSON object with the following keys:
     // The initial OAuth 2.0 request url
     "request_url": "https://hydra/oauth2/auth?client_id=1234&scope=foo+bar&response_type=code&...",
 
-    // The OAuth 2.0 Scope requested by the client,
+    // The OAuth 2.0 Scope requested by the client.
     "requested_scope": ["foo", "bar"],
+
+    // Contains the access token audience as requested by the OAuth 2.0 Client.
+    requested_access_token_audience: ["foo", "bar"]
 
     // Information on the OpenID Connect request - only required to process if your UI should support these values.
     "oidc_context": {"ui_locales": [...], ...},
@@ -425,6 +428,9 @@ the User Login Flow.
 const body = {
     // A list of permissions the user granted to the OAuth 2.0 Client. This can be fewer permissions that initially requested, but are rarely more or other permissions than requested.
     grant_scope: ["foo", "bar"],
+
+	// Sets the audience the user authorized the client to use. Should be a subset of `requested_access_token_audience`.
+	grant_access_token_audience: ["foo", "bar"],
 
     // If remember is set to true, then the consent response will be remembered for future requests. This will set the `skip` flag to true in future requests that are coming from this user for the granted permissions and that particular client. This value has no effect if `skip` was true.
     remember: true|false,
@@ -771,6 +777,10 @@ Additionally, ORY Hydra has pre-defined OAuth 2.0 Scope values:
 - `offline_access`: Include this scope if you wish to receive a refresh token
 - `openid`: Include this scope if you wish to perform an OpenID Connect request.
 
+When performing an OAuth 2.0 Flow where the end-user is involved (e.g. Implicit
+or Authorize Code), the granted OAuth 2.0 Scope must be set when accepting the
+consent using the `grant_scope` key.
+
 > A OAuth 2.0 Scope **is not a permission**:
 >
 > - A permission allows an actor to perform a certain action in a system: _Bob
@@ -784,6 +794,23 @@ Additionally, ORY Hydra has pre-defined OAuth 2.0 Scope values:
 > not an administrator, that permission ("access control") is not actually
 > granted to Bob. Therefore any request by the OAuth 2.0 Client that tries to
 > delete users on behalf of Bob should fail.
+
+### OAuth 2.0 Access Token Audience
+
+The Audience of an Access Token refers to the Resource Servers that this token
+is intended for. The audience usually refers to one or more URLs such as
+
+- `https://api.mydomain.com/blog/posts`
+- `https://api.mydomain.com/users`
+
+but may also refer to a subset of resources:
+
+- `https://api.mydomain.com/tenants/foo/users`
+
+When performing an OAuth 2.0 Flow where the end-user is involved (e.g. Implicit
+or Authorize Code), the granted audience must be set when accepting the consent
+using the `grant_access_token_audience` key. In most cases, it is ok to grant
+the audience without user-interaction.
 
 ### OAuth 2.0 Refresh Tokens
 

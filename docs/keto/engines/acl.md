@@ -9,16 +9,16 @@ is a matrix of users and permissions:
 
 |       | blog_post.create | blog_post.delete | blog_post.modify | blog_post.read |
 | ----- | ---------------- | ---------------- | ---------------- | -------------- |
-| alice | yes              | yes              | yes              | yes            |
-| bob   | no               | no               | no               | yes            |
-| peter | yes              | no               | yes              | yes            |
+| Alice | yes              | yes              | yes              | yes            |
+| Bob   | no               | no               | no               | yes            |
+| Peter | yes              | no               | yes              | yes            |
 
-In the example above, `alice` has the permission to create a blog post
-`(blog_post.create)` while bob des not. All three (alice, bob, peter) can read
+In the example above, Alice has the permission to create a blog post
+`(blog_post.create)` while Bob does not. All three (Alice, Bob, Peter) can read
 blog posts.
 
-Similarly, you can create a matrix of resources (e.g. blog articles) and each
-user's permissions (`c` for `create`, `m` for `modify`, ...) with regards to
+Similarly, you could create a matrix of resources (e.g. blog articles) and each
+user's permissions (`c` for `create`, `m` for `modify`, etc) with regards to
 that resource:
 
 |       | blog_post.1 | blog_post.2 | blog_post.3 | blog_post.4 |
@@ -27,8 +27,8 @@ that resource:
 | bob   | r           | r           | r           | r           |
 | peter | c,r,m,d     | r           | c,r,m,d     | r           |
 
-ACLs are common in filesystems (`chmod` / `chown`) and in applications with few
-subjects.
+ACLs are common in applications with few subjects like filesystems (`chmod` /
+`chown`).
 
 **Benefits:**
 
@@ -38,11 +38,10 @@ subjects.
 
 **Shortcomings:**
 
-- As more identities and resources are added, the matrix grows larger and larger
-  and becomes harder to maintain.
-- If you have many identities that are allowed to do the same thing, choose a
-  system like RBAC.
+- As the number of identities and resources grows over time, the matrix becomes
+  large and hard to maintain.
+- If many identities have the some permissions, choose a system like RBAC.
 
 **Implementation status:** Access Control Lists are currently not implemented
-but will be first-class citizens in the future. To bump this in priority,
-[click here](https://github.com/ory/keto/issues/61).
+but will be first-class citizens in the future. To bump this in priority, upvote
+[this issue](https://github.com/ory/keto/issues/61).

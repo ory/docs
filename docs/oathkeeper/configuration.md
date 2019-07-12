@@ -60,7 +60,7 @@ title: Configuration
 #
 # Configuration key | Environment variable |
 # ------------------|----------------------|
-# dsn               | DSN                  |
+# profiling         | PROFILING            |
 # serve.admin.host  | SERVE_ADMIN_HOST     |
 # ------------------|----------------------|
 #
