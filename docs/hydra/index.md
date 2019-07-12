@@ -42,100 +42,70 @@ This section describes on a high level what OAuth 2.0 and OpenID Connect 1.0 are
 for and how they work. If you are already familiar with this, please skip to the
 [introduction to Hydra](#introduction-to-hydra).
 
-The following video gives a good introduction:
+### What is OAuth 2.0?
+
+[The OAuth 2.0 authorization framework](https://tools.ietf.org/html/rfc6749) is
+specified in [IETF RFC 6749](https://tools.ietf.org/html/rfc6749). OAuth 2.0
+enables a third-party application to obtain limited access to resources on an
+HTTP server on behalf of the owner of those resources.
+
+Why is this important? Without OAuth 2.0, a resource owner who wants to share
+resources in their account with a third party would have to share their
+credentials with that third party. As an example, let's say you (a resource
+owner) have some photos (resources) stored on a social network (the resource
+server). Now you want to print them using a third-party printing service. Before
+OAuth 2.0 existed, you would have to enter your social network password into the
+printing service so that it can access and print your photos. Sharing secret
+passwords with third parties is obviously very problematic.
+
+OAuth addresses this problem by introducing:
+
+- the distinction between resource ownership and resource access for clients
+- the ability to define fine-grained access privileges (called OAuth scopes)
+  instead of full account access for third parties
+- an authorization layer and workflow that allows resource owners to grant
+  particular clients particular types of access to particular resources.
+
+With OAuth, clients can request access to resources on a server, and the owner
+of these resources can grant the requested access together with dedicated
+credentials. In our example, you could grant the printing service read-only
+access to your photos (only your photos, not your friend list) on the social
+network. These credentials come in the form of an access token -- a string
+denoting a specific scope, lifetime, and other access attributes. The client
+(printing service) can use this access token to request the protected resources
+(your photos) from the resource server (the social network).
+
+### What is OpenID Connect 1.0?
+
+OAuth 2.0 is a complex protocol for authorizing access to resources. If all you
+need is authentication, OpenID Connect 1.0 enables clients to verify the
+identity of the end user based on the authentication performed by an
+Authorization Server and obtain basic profile information in an interoperable
+and REST-like manner.
+
+OpenID Connect allows clients of all types, including web and mobile, to receive
+information about authenticated sessions and end users. The specification is
+extensible, allowing participants to add encryption of identity data, discovery
+of OpenID Providers, and session management as needed.
+
+There are different work flows for OpenID Connect 1.0. We recommend checking out
+the OpenID Connect sandbox at [openidconnect.net](https://openidconnect.net/).
+
+A more detailed introduction of both OAuth 2.0 and OpenID Connect is available
+in the following video:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/996OiexHze0" frameborder="0" allowfullscreen></iframe>
 
-More details about the various OAuth2 flows can be found in the following
-articles:
+More details about the various OAuth2 flows can be found in these articles:
 
 - [DigitalOcean: An Introduction to OAuth 2](https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2)
 - [Aaron Parecki: OAuth2 Simplified](https://aaronparecki.com/2012/07/29/2/oauth2-simplified)
 - [Zapier: Chapter 5: Authentication, Part 2](https://zapier.com/learn/apis/chapter-5-authentication-part-2/)
 
-### What is OAuth 2.0?
-
-[The OAuth 2.0 authorization framework](https://tools.ietf.org/html/rfc6749) is
-a memo in the [Request for Comments](https://www.ietf.org/rfc.html) document
-series published by the IETF Internet Engineering Task Force (IETF). Memos in
-the Requests for Comments (RFC) document series contain technical and
-organizational notes about the Internet. They cover many aspects of computer
-networking, including protocols, procedures, programs, and concepts [...].
-
-The OAuth 2.0 authorization framework enables a third-party application to
-obtain limited access to an HTTP service, either on behalf of a resource owner
-by orchestrating an approval interaction between the resource owner and the HTTP
-service, or by allowing the third-party application to obtain access on its own
-behalf.
-
-In the traditional client-server authentication model, the client requests an
-access-restricted resource (protected resource) on the server by authenticating
-with the server using the resource owner's credentials. In order to provide
-third-party applications access to restricted resources, the resource owner
-shares its credentials with the third party. This creates several problems and
-limitations.
-
-OAuth addresses these issues by introducing an authorization layer and
-separating the role of the client from that of the resource owner. In OAuth, the
-client requests access to resources controlled by the resource owner and hosted
-by the resource server, and is issued a different set of credentials than those
-of the resource owner.
-
-Instead of using the resource owner's credentials to access protected resources,
-the client obtains an access token -- a string denoting a specific scope,
-lifetime, and other access attributes. Access tokens are issued to third-party
-clients by an authorization server with the approval of the resource owner. The
-client uses the access token to access the protected resources hosted by the
-resource server.
-
-Source: [IETF RFC 6749](https://tools.ietf.org/html/rfc6749)
-
-### OAuth 2.0 Example
-
-An end-user (resource owner) can grant a printing service (client) access to her
-protected photos stored at a photo- sharing service (resource server), without
-sharing her username and password with the printing service. Instead, she
-authenticates directly with a server trusted by the photo-sharing service
-(authorization server), which issues the printing service delegation- specific
-credentials (access token).
-
-Source: [IETF RFC 6749](https://tools.ietf.org/html/rfc6749)
-
-### What is OpenID Connect 1.0?
-
-OpenID Connect 1.0 is a simple identity layer on top of the OAuth 2.0 protocol.
-It enables Clients to verify the identity of the End-User based on the
-authentication performed by an Authorization Server, as well as to obtain basic
-profile information about the End-User in an interoperable and REST-like manner.
-
-As background, the OAuth 2.0 Authorization Framework and OAuth 2.0 Bearer Token
-Usage specifications provide a general framework for third-party applications to
-obtain and use limited access to HTTP resources. They define mechanisms to
-obtain and use Access Tokens to access resources but do not define standard
-methods to provide identity information. Notably, without profiling OAuth 2.0,
-it is incapable of providing information about the authentication of an
-End-User.
-
-OpenID Connect implements authentication as an extension to the OAuth 2.0
-authorization process.
-
-Source
-[OpenID Connect Core 1.0](http://openid.net/specs/openid-connect-core-1_0.html)
-
-OpenID Connect allows clients of all types, including Web-based, mobile, and
-JavaScript clients, to request and receive information about authenticated
-sessions and end-users. The specification suite is extensible, allowing
-participants to use optional features such as encryption of identity data,
-discovery of OpenID Providers, and session management, when it makes sense for
-them.
-
-There are different work flows for OpenID Connect 1.0, we recommend checking out
-the OpenID Connect sandbox at [openidconnect.net](https://openidconnect.net/).
-
 ## Introduction to Hydra
 
 Hydra is a server implementation of the OAuth 2.0 authorization framework and
-the OpenID Connect Core 1.0. Existing OAuth2 implementations usually ship as
+OpenID Connect Core 1.0. Existing OAuth 2.0 implementations usually ship as
 libraries or SDKs such as
 [node-oauth2-server](https://github.com/oauthjs/node-oauth2-server) or
 [fosite](https://github.com/ory/fosite), or as fully featured identity solutions
@@ -143,18 +113,19 @@ with user management and user interfaces, such as
 [Keycloak](https://www.keycloak.org/) or [Okta](https://www.okta.com/).
 
 Implementing and using OAuth2 without understanding the whole specification is
-challenging and prone to errors, even when SDKs are being used. The primary goal
-of Hydra is to make OAuth 2.0 and OpenID Connect 1.0 less painful to set up and
-easier to use.
+challenging and prone to errors, even when using SDKs. The primary goal of Hydra
+is to make OAuth 2.0 and OpenID Connect 1.0 less painful to set up and easier to
+use.
 
 Hydra implements the flows described in OAuth2 and OpenID Connect 1.0 without
 forcing you to use a "Hydra User Management" or some template engine or a
-predefined front-end. Instead it relies on HTTP redirection and cryptographic
-methods to verify user consent allowing you to use Hydra with any authentication
-endpoint, be it [authboss](https://github.com/go-authboss/authboss),
-[auth0.com](https://auth0.com/) or your proprietary PHP authentication.
+predefined front-end. Instead, it relies on HTTP redirection and cryptographic
+methods to verify user consent, allowing you to use Hydra with any
+authentication endpoint like
+[authboss](https://github.com/go-authboss/authboss),
+[auth0.com](https://auth0.com/), or your proprietary PHP authentication.
 
-Hydra incorporates best practices in the area of the web service technology:
+Hydra incorporates many best practices:
 
 1. Hydra ships as a single binary for all popular platforms including Linux, OSX
    and Windows, without any additional dependencies. For further simplicity,
@@ -162,10 +133,10 @@ Hydra incorporates best practices in the area of the web service technology:
 2. Hydra is built security first: architecture and work flows are designed to
    neutralize various common (OWASP TOP TEN) and uncommon attack vectors.
    [Learn more](https://www.ory.sh/docs/guides/master/hydra/5-security/).
-3. Hydra has a low CPU and memory footprint, short start up times and a CLI with
-   developers in mind.
-4. Hydra scales effortlessly up and down on every platform imaginable, including
-   Heroku, Cloud Foundry, Docker, Google Container Engine and many more.
+3. Hydra has a low CPU and memory footprint, short start-up time, and a
+   developer-friendly CLI.
+4. Hydra scales effortlessly up and down on many platforms including Heroku,
+   Cloud Foundry, Docker, Google Container Engine etc.
 
 Hydra has a few limitations too:
 
@@ -174,75 +145,73 @@ Hydra has a few limitations too:
    is what the _Identity Provider_ is responsible for. The communication between
    Hydra and the Identity Provider is called
    [_Login and Consent Flow_](hydra/oauth2.md).
-2. If you are building a simple service for 50-100 registered users, OAuth2 and
-   Hydra will probably be too sophisticated.
-3. Hydra will not support the OAuth2 resource owner password credentials flow.
-   This flow is legacy, discouraged, and insecure.
+2. If you are building a simple service for 50-100 registered users, OAuth 2.0
+   and Hydra will probably be too sophisticated.
+3. Hydra will not support the OAuth 2.0 Resource Owner Password Credentials
+   flow. This flow is legacy, discouraged, and insecure.
 
-OAuth2 is used in many areas, for various purposes and supported by all well
-known programming languages, but it is important to understand what the vision
-of OAuth2 is. This non-exclusive list might help you decide, if OAuth 2.0 and
-Hydra are the right fit for you.
+OAuth 2.0 is used in many areas, for various purposes and supported by all well
+known programming languages. It is, however, important to understand the vision
+for OAuth 2.0. This non-exclusive list might help you decide if OAuth 2.0 and
+Hydra are the right fit for you:
 
 1. If you want to allow third-party developers accessing your APIs now or in the
    future, Hydra is the perfect fit. This is what an OAuth2 Provider does.
-2. If you want to become a Identity Provider, like Google, Facebook or
+2. If you want to become a Identity Provider like Google, Facebook, or
    Microsoft, OpenID Connect and thus Hydra is a perfect fit.
 3. Running an OAuth2 Provider works great with browser, mobile and wearable
-   apps, as you can avoid storing access credentials on the device, phone or
-   wearable and revoke access tokens, and thus access privileges, at any time.
-4. If you have a lot of services and want to limit automated access (think:
-   cronjobs) for those services, OAuth2 might make sense for you. Example: The
-   comment service is not allowed to read user passwords when fetching the
-   latest user profile updates.
+   apps, as you can avoid storing passwords on the device, phone or wearable and
+   revoke access tokens at any time.
+4. If you have a lot of services and want to limit full access for those
+   services, OAuth 2.0 might make sense for you. Example: The comment service is
+   only allowed to fetch user profile updates but not allowed to read user
+   passwords.
 
-# OAuth 2.0 Case Study
+## OAuth 2.0 Case Study
 
-OAuth2 and OpenID Connect are tricky to understand. It is important to
-understand that OAuth2 is a delegation protocol. It makes sense to use Hydra in
-new and existing projects. A use case covering an existing project explains how
-one would use Hydra in a new one as well. So let's look at a use case!
+OAuth2 and OpenID Connect are tricky to understand. It is important to keep in
+mind that OAuth2 is a delegation protocol. Let's look at a use case to
+understand how Hydra makes sense in new and existing projects.
 
-Let's assume we are running a ToDo List App (todo24.com). ToDo24 has a login
-endpoint (todo24.com/login). The login endpoint is written in node and uses
-MongoDB to store user information (email + password + settings). Of course,
-todo24 has other services as well: list management (todo24.com/lists/manage:
-close, create, move), item management (todo24.com/lists/items/manage: mark
-solved, add), and so on. You are using cookie-based sessions to see which user
-is performing the request.
+Let's assume we are running todo24.com, a ToDo list app. ToDo24 has a login
+endpoint (todo24.com/login). The login endpoint is written in Node.JS and uses
+MongoDB to store user information (email + password + user profile). Of course,
+ToDo24 has other services as well: list management (todo24.com/lists: create,
+rename, close lists), item management (todo24.com/lists/{list-id}/items: add or
+mark an item as solved), and so on. You are using cookie-based user sessions.
 
 Now you decide to use OAuth2 on top of your current infrastructure. There are
 many reasons to do this:
 
 - You want to open your APIs to third-party developers. Their apps will be using
-  OAuth2 Access Tokens to access a user's to do list.
-- You want more client applications, for example browser app (SPA), mobile app,
-  car, ...
-- You have Cross Origin Requests. Making cookies work with Cross Origin Requests
+  OAuth2 Access Tokens to access your users todo lists.
+- You want to build more client applications like a web app, mobile app,
+  chat-bot, etc.
+- You have cross-origin requests. Making cookies work with cross-origin requests
   weakens or even disables important anti-CSRF measures.
 
 These are only a couple of reasons to use OAuth2. You might decide to use OAuth2
-as your single source of authorization, thus maintaining only one authorization
-protocol and being able to open up to third party devs in no time. With OpenID
-Connect, you are able to delegate authentication as well as authorization!
+as your only authorization workflow, thus minimizing maintainance overhead while
+always being able to support third party applications. With OpenID Connect, you
+can delegate authentication as well!
 
-Your decision is final. You want to use OAuth2 and you want Hydra to do the job.
-You install Hydra in your cluster using docker. Next, you set up some exemplary
-OAuth2 clients. Clients can act on their own, but most of the time they need to
-access a user's todo lists. To do so, the client initiates an OAuth2 request.
-This is where the [user login & consent flow](hydra/oauth2.md) comes into play.
-Before Hydra can issue an access token, we need to know WHICH user is giving
-consent. To do so, Hydra redirects the user agent (e.g. browser, mobile device)
-to the login endpoint alongside with a challenge that contains important request
-information. The login endpoint (todo24.com/login) authenticates the user as
-usual, e.g. by username & password, session cookie or other means. Upon
-successful authentication, the login endpoint redirects the user back to ORY
-Hydra. Next, ORY Hydra needs the user's consent for which the user agent is
-redirected to the consent endpoint (todo24.com/consent) where the user is asked
-for consent: _"Do you want to grant MyCoolAnalyticsApp read & write access to
-all your todo lists? [Yes][no]"_. Once the user clicks _Yes_ and gives consent,
-the consent endpoint redirects back to ORY Hydra which then validates the
-request and finally issues the access, refresh, and ID tokens.
+So you decide to implement OAuth2 and use ORY Hydra to do the job. You run Hydra
+by adding its Docker image to your cluster. Next, you set up some exemplary
+OAuth2 clients. These clients need to access a user's todo lists. To do so, the
+client initiates an OAuth2 request. This is where Hydra's
+[user login & consent flow](hydra/oauth2.md) comes into play. Before Hydra can
+issue an access token, we need to know which user is giving consent. To
+determine this, Hydra redirects the user agent (browser, mobile device) to
+ToDo24's login endpoint alongside with a challenge that contains important
+request information. The login endpoint (todo24.com/login) authenticates the
+user as usual, for example by username & password, session cookie or other
+means. Upon successful authentication, the login endpoint redirects the user
+back to ORY Hydra. Next, ORY Hydra needs the user's consent. It redirects the
+user agent to the consent endpoint (todo24.com/consent) where the user is asked
+something like _"Do you want to grant MyAnalyticsApp read access to your todo
+lists? [Yes][no]"_. Once the user gives consent by clicking _Yes_, the consent
+endpoint redirects back to ORY Hydra. Hydra validates the request and finally
+issues the access, refresh, and ID tokens.
 
 You can validate the access tokens which are sent to your API directly at ORY
 Hydra, or use an Identity & Access Proxy like ORY Oathkeeper to do it for you.
