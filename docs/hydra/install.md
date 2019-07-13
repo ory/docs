@@ -53,11 +53,11 @@ You can install ORY Hydra using [scoop](https://scoop.sh) on Windows:
 
 ## Download Binaries
 
-The client and server **binaries are downloadable at the
-[releases tab](https://github.com/ory/hydra/releases)**. There is currently no
-installer available. You have to add the Hydra binary to the PATH environment
-variable yourself or put the binary in a location that is already in your
-`$PATH` (e.g. `/usr/local/bin`, ...).
+You can download the client and server binaries on
+[Github releases](https://github.com/ory/hydra/releases). There is currently no
+installer available. You have to add the Hydra binary to the PATH in your
+environment yourself, for example by putting it into `/usr/local/bin` or
+something comparable.
 
 Once installed, you should be able to run:
 
@@ -70,9 +70,9 @@ $ hydra help
 If you wish to compile ORY Hydra yourself, you need to install and set up
 [Go 1.12+](https://golang.org/) and add `$GOPATH/bin` to your `$PATH`.
 
-The following commands will check out the latest release tag of ORY Hydra and
-compile it and set up flags so that `hydra version` works as expected. Please
-note that this will only work with a linux shell like bash or sh.
+The following commands will check out the latest release tag of ORY Hydra,
+compile it, and set up flags so that `hydra version` works as expected. Please
+note that this will only work in a Bash-like shell.
 
 ```shell
 $ go get -d -u github.com/ory/hydra
