@@ -24,7 +24,7 @@ required by your use case (token-based 2FA, SMS 2FA, etc).
 
 This support of third-party user management makes ORY Hydra the most flexible
 OAuth 2.0 and OpenID Connect provider. It gives you freedom to implement your
-business logic while getting all the benefits from OAuth 2.0 and OpenID Connect.
+business logic while getting all the benefits of OAuth 2.0 and OpenID Connect.
 
 In addition to the OAuth 2.0 functionality, ORY Hydra offers a safe storage for
 cryptographic keys (used for example to sign JSON Web Tokens) and can manage

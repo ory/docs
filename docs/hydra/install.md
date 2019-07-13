@@ -53,10 +53,10 @@ You can install ORY Hydra using [scoop](https://scoop.sh) on Windows:
 
 ## Download Binaries
 
-You can download the client and server binaries on
-[Github releases](https://github.com/ory/hydra/releases). There is currently no
-installer available. You have to add the Hydra binary to the PATH in your
-environment yourself, for example by putting it into `/usr/local/bin` or
+You can download the client and server binaries on our
+[Github releases](https://github.com/ory/hydra/releases) page. There is
+currently no installer available. You have to add the Hydra binary to the PATH
+in your environment yourself, for example by putting it into `/usr/local/bin` or
 something comparable.
 
 Once installed, you should be able to run:
