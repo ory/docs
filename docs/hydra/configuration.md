@@ -12,7 +12,7 @@ title: Configuration
 # are enabled, it will not work out of the box either.
 #
 #
-# ORY Hydra can be configured using a configuration file and passing the file location using `-c path/to/config.yaml`.
+# ORY Hydra can be configured using a configuration file and passing the file location using `--config path/to/config.yaml`.
 # Per default, ORY Hydra will look up and load file ~/.hydra.yaml. All configuration keys can be set using environment
 # variables as well.
 #
@@ -410,6 +410,8 @@ tracing:
     jaeger:
       # The address of the jaeger-agent where spans should be sent to
       local_agent_address: 127.0.0.1:6831
+      # The tracing header format
+      propagation: jaeger
       sampling:
         # The type of the sampler you want to use. Supports:
         # - const

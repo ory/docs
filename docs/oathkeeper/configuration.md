@@ -60,7 +60,7 @@ title: Configuration
 #
 # Configuration key | Environment variable |
 # ------------------|----------------------|
-# dsn               | DSN                  |
+# profiling         | PROFILING            |
 # serve.admin.host  | SERVE_ADMIN_HOST     |
 # ------------------|----------------------|
 #
@@ -239,13 +239,13 @@ serve:
 # Configures Access Rules
 access_rules:
   # Locations (list of URLs) where access rules should be fetched from on boot.
-  # It is expected that the documents at those locations return a JSON Array containing ORY Oathkeeper Access Rules.
+  # It is expected that the documents at those locations return a JSON or YAML Array containing ORY Oathkeeper Access Rules.
   repositories:
     # If the URL Scheme is `file://`, the access rules (an array of access rules is expected) will be
     # fetched from the local file system.
     - file://path/to/rules.json
     # If the URL Scheme is `inline://`, the access rules (an array of access rules is expected)
-    # are expected to be a base64 encoded (with padding!) JSON string (base64_encode(`[{"id":"foo-rule","authenticators":[....]}]`)):
+    # are expected to be a base64 encoded (with padding!) JSON/YAML string (base64_encode(`[{"id":"foo-rule","authenticators":[....]}]`)):
     - inline://W3siaWQiOiJmb28tcnVsZSIsImF1dGhlbnRpY2F0b3JzIjpbXX1d
     # If the URL Scheme is `http://` or `https://`, the access rules (an array of access rules is expected) will be
     # fetched from the provided HTTP(s) location.
@@ -260,6 +260,20 @@ authenticators:
 
     # Sets the anonymous username. Defaults to "anonymous". Common names include "guest", "anon", "anonymous", "unknown".
     subject: anonymous
+
+  # Configures the cookie session authenticator
+  cookie_session:
+    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+    enabled: true
+
+    # Sets the origin to proxy requests to. If the response is a 200 with body `{ "subject": "...", "extra": {} }`
+    # The request will pass the subject through successfully, otherwise it will be marked as unauthorized
+    check_session_url: https://session-store-host
+
+    # Sets a list of possible cookies to look for on incoming requests, and will fallthrough to the next authenticator if
+    # none of the passed cookies are set on the request
+    only:
+      - sessionid
 
   # Configures the jwt authenticator
   jwt:
