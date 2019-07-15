@@ -5,23 +5,20 @@ title: ORY Hydra
 
 In this document you will find benchmark results for different endpoints of ORY
 Hydra. All benchmarks are executed using
-[rakyll/hey](https://github.com/rakyll/hey). Please note that these benchmarks
-run against the in-memory storage adapter of ORY Hydra. These benchmarks
-represent what performance you would get with a zero-overhead database
-implementation.
+[rakyll/hey](https://github.com/rakyll/hey).
 
-We do not include benchmarks against databases (e.g. MySQL, PostgreSQL or
-CockroachDB) as the performance greatly differs between deployments (e.g.
-request latency, database configuration) and tweaking individual things may
-greatly improve performance. We believe, for that reason, that benchmark results
-for these database adapters are difficult to generalize and potentially
-deceiving. They are thus not included.
+Please note that these benchmarks run against the in-memory storage adapter of
+ORY Hydra and thereby indicate what performance you would get with a
+zero-overhead database implementation. We do not include benchmarks against
+databases like MySQL, PostgreSQL, or CockroachDB. Their performance can differ
+greatly in various deployments, resulting in test metrics that are difficult to
+generalize and potentially deceiving.
 
-This file is updated on every push to master. It thus represents the benchmark
-data for the latest version.
+This file is automatically updated on every push to master. It represents the
+benchmark data for the latest version.
 
-All benchmarks run 10.000 requests in total, with 100 concurrent requests. All
-benchmarks run on Circle-CI with a
+Benchmarks run 10.000 requests in total, with 100 concurrent requests. They run
+on Circle-CI with a
 ["2 CPU cores and 4GB RAM"](https://support.circleci.com/hc/en-us/articles/360000489307-Why-do-my-tests-take-longer-to-run-on-CircleCI-than-locally-)
 configuration.
 
@@ -31,7 +28,7 @@ ORY Hydra uses BCrypt to obfuscate secrets of OAuth 2.0 Clients. When using
 flows such as the OAuth 2.0 Client Credentials Grant, ORY Hydra validates the
 client credentials using BCrypt which causes (by design) CPU load. CPU load and
 performance depend on the BCrypt cost which can be set using the environment
-variable `BCRYPT_COST`. For these benchmarks, we have set `BCRYPT_COST=8`.
+variable `BCRYPT_COST`. These benchmarks set `BCRYPT_COST=8`.
 
 ## OAuth 2.0
 

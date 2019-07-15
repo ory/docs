@@ -43,5 +43,5 @@ ACLs are common in applications with few subjects like filesystems (`chmod` /
 - If many identities have the same permissions, choose a system like RBAC.
 
 **Implementation status:** Access Control Lists are currently not implemented
-but will be first-class citizens in the future. To bump this in priority, upvote
-[this issue](https://github.com/ory/keto/issues/61).
+but will be first-class citizens in the future. To bump this in priority, please
+upvote [this GitHub ticket](https://github.com/ory/keto/issues/61).
