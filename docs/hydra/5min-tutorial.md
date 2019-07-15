@@ -9,11 +9,10 @@ need to have the latest Docker as well as Docker Compose version installed.
 
 <img src="/images/docs/hydra/oauth2-flow.gif" alt="OAuth2 Flow">
 
-Next, clone (`git clone https://github.com/ory/hydra.git`),
-[download](https://github.com/ory-am/hydra/archive/master.zip), or use
-`go get -d github.com/ory/hydra` - if you have Go (1.12+) installed on your
-system - to download the Docker Compose set up.
-
+Next, download the Docker Compose set up by running
+`git clone https://github.com/ory/hydra.git` or `go get -d github.com/ory/hydra`
+(if you have Go 1.12+ installed) or downloading the
+[Hydra source code](https://github.com/ory-am/hydra/archive/master.zip).
 Finally, run `docker-compose` to start the needed containers.
 
 ```
@@ -38,12 +37,12 @@ $ docker-compose -f quickstart.yml \
     up --build
 ```
 
-The above command would start the containers using mysql instead of postgres and
-activating tracing capabilities. If you need more details on this, you could
-examine the `scripts/5-min-tutorial.sh` and `docker-compose*.yml` files.
+The above command starts the containers using MySQL instead of PostgreSQL and
+activates tracing capabilities. If you need more details on this, please examine
+the `scripts/5-min-tutorial.sh` and `docker-compose*.yml` files.
 
-You may also extend the command above to enable distributed tracing (Tracing UI
-will be exposed at [http://127.0.0.1:16686/search](127.0.0.1:16686/search)):
+You may also extend the command above to enable distributed tracing. The tracing
+UI is exposed at [http://127.0.0.1:16686/search](127.0.0.1:16686/search):
 
 ```
 $ docker-compose -f quickstart.yml \
@@ -52,11 +51,10 @@ $ docker-compose -f quickstart.yml \
     up --build
 ```
 
-Everything should be running now! Let's confirm that everything is working by
-creating our first OAuth 2.0 Client. The following commands will use Docker
-wizardry. You can obviously install the ORY Hydra CLI locally and avoid using
-Docker here. If you do use the CLI locally, you can omit
-`docker-compose -f quickstart.yml exec /hydra` completely.
+Let's confirm that everything is working by creating our first OAuth 2.0 Client.
+The following commands will use Docker wizardry. You can obviously install the
+ORY Hydra CLI locally and avoid using Docker here. If you do use the CLI
+locally, you can omit `docker-compose -f quickstart.yml exec /hydra` completely.
 
 You will notice that two ports are being used. Port `4444` and port `4445`. The
 former is for request to ORY Hydra's public endpoints. The latter to its
