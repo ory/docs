@@ -13,10 +13,19 @@ title: Configuration
 #
 #
 # ORY Oathkeeper can be configured using a configuration file and passing the file location using `-c path/to/config.yaml`.
-# Per default, ORY Oathkeeper will look up and load file ~/.oathkeeper.yaml. All configuration keys can be set using environment
-# variables as well.
+# Per default, ORY Oathkeeper will look up and load file ~/.oathkeeper.yaml.
 #
-# Setting environment variables is easy:
+# When loading configuration files, ORY Oathkeeper will automatically watch for any changes in the configuration file.
+# All configuration keys with exception of:
+#
+# - `serve.*`
+# - `log.*`
+# - `profiling`
+#
+# can be reloaded. If a change to one of the exception keys is detected, ORY Oathkeeper will exit with a non-zero exit code
+# in hopes of being restarted by e.g. Docker or Kubernetes in order to properly reload the config.
+#
+# All configuration keys can be set using environment variables as well. Setting environment variables is easy:
 #
 ## Linux / OSX
 #
@@ -361,6 +370,7 @@ authorizers:
     # REQUIRED IF ENABLED - The base URL of ORY Keto, typically something like http(s)://<host>[:<port>]/
     base_url: http://my-keto/
 
+
 # All mutators can be configured under this configuration key
 mutators:
   # Configures the cookie mutator
@@ -393,3 +403,4 @@ mutators:
     # Set enabled to true if the mutator should be enabled and false to disable the mutator. Defaults to false.
     enabled: true
 ```
+
