@@ -6,6 +6,94 @@ title: Cloud Native Architecture
 All ORY technology is built cloud native and follows
 [12factor.net](https://www.12factor.net) principles.
 
+```
+# ORY Oathkeeper Configuration
+#
+#
+# !!WARNING!!
+# This configuration file is for documentation purposes only. Do not use it in production. As all configuration items
+# are enabled, it will not work out of the box either.
+#
+#
+# ORY Oathkeeper can be configured using a configuration file and passing the file location using `-c path/to/config.yaml`.
+# Per default, ORY Oathkeeper will look up and load file ~/.oathkeeper.yaml.
+#
+# When loading configuration files, ORY Oathkeeper will automatically watch for any changes in the configuration file.
+# All configuration keys with exception of:
+#
+# - `serve.*`
+# - `log.*`
+# - `profiling`
+#
+# can be reloaded. If a change to one of the exception keys is detected, ORY Oathkeeper will exit with a non-zero exit code
+# in hopes of being restarted by e.g. Docker or Kubernetes in order to properly reload the config.
+#
+# All configuration keys can be set using environment variables as well. Setting environment variables is easy:
+#
+## Linux / OSX
+#
+# $ export MY_ENV_VAR=foo
+# $ oathkeeper ...
+#
+# alternatively:
+#
+# $ MY_ENV_VAR=foo oathkeeper ...
+#
+## Windows
+#
+### Command Prompt
+#
+# > set MY_ENV_VAR=foo
+# > oathkeeper ...
+#
+### Powershell
+#
+# > $env:MY_ENV_VAR="foo"
+# > oathkeeper ...
+#
+## Docker
+#
+# $ docker run -e MY_ENV_VAR=foo oryd/oathkeeper:...
+#
+#
+# Assuming the following configuration layout:
+#
+# serve:
+#   public:
+#     port: 4444
+#     something_else: foobar
+#
+# Key `something_else` can be set as an environment variable by uppercasing it's path:
+#   `serve.public.port.somethihng_else` -> `SERVE.PUBLIC.PORT.SOMETHING_ELSE`
+# and replacing `.` with `_`:
+#   `serve.public.port.somethihng_else` -> `SERVE_PUBLIC_PORT_SOMETHING_ELSE`
+#
+# Environment variables always override values from the configuration file. Here are some more examples:
+#
+# Configuration key | Environment variable |
+# ------------------|----------------------|
+# profiling         | PROFILING            |
+# serve.admin.host  | SERVE_ADMIN_HOST     |
+# ------------------|----------------------|
+#
+#
+# List items such as
+#
+# secrets:
+#   system:
+#     - this-is-the-primary-secret
+#     - this-is-an-old-secret
+#     - this-is-another-old-secret
+#
+# must be separated using `,` when using environment variables. The environment variable equivalent to the code section#
+# above is:
+#
+# Linux/macOS: $ export SECRETS_SYSTEM=this-is-the-primary-secret,this-is-an-old-secret,this-is-another-old-secret
+# Windows: > set SECRETS_SYSTEM=this-is-the-primary-secret,this-is-an-old-secret,this-is-another-old-secret
+
+
+```
+
 ## 12 Factor Concepts
 
 The following is a collection of core concepts to ORY's technological
