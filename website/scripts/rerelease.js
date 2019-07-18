@@ -1,5 +1,5 @@
 const name = process.argv[2];
-const p = require('./versions.json');
+const p = require('../versions.json');
 const fs = require('fs');
 
 fs.writeFile(
