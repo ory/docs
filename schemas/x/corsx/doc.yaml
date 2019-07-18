@@ -1,0 +1,126 @@
+## Cross Origin Resource Sharing (CORS)
+#
+# Configure Cross Origin Resource Sharing (CORS) using the following options.
+cors:
+
+  ## Enable CORS ##
+  #
+  # If set to true, CORS will be enabled and preflight-requests (OPTION) will be answered.
+  #
+  # Default: false
+  #
+  # Environment Variable Equivalent:
+  # - Linux/macOS: `export ${ENVPREFIX}_CORS_ENBALED=true`
+  # - Windows Command Line: `set ${ENVPREFIX}_CORS_ENBALED=true`
+  enabled: true
+
+  ## Allowed Origins
+  #
+  # A list of origins a cross-domain request can be executed from. If the special *
+  # value is present in the list, all origins will be allowed. An origin may contain a wildcard
+  # (*) to replace 0 or more characters (i.e.: http://*.domain.com). Usage of wildcards
+  # implies a small performance penality. Only one wildcard can be used per origin.
+  #
+  # Default:
+  # - *
+  #
+  # Environment Variable Equivalent:
+  # - Linux/macOS: `export ${ENVPREFIX}_CORS_ALLOWED_ORIGINS=https://example.com,https://*.example.com`
+  # - Windows Command Line: `set ${ENVPREFIX}_CORS_ALLOWED_ORIGINS=https://example.com,https://*.example.com`
+  allowed_origins:
+    - https://example.com
+    - https://*.example.com
+
+  ## Allowed HTTP Methods ##
+  #
+  # A list of methods the client is allowed to use with cross-domain requests.
+  #
+  # Default:
+  # - GET
+  # - POST
+  # - PUT
+  # - PATCH
+  # - DELETE
+  #
+  # Allowed values:
+  # - GET
+  # - HEAD
+  # - POST
+  # - PUT
+  # - DELETE
+  # - CONNECT
+  # - TRACE
+  # - PATCH
+  #
+  # Environment Variable Equivalent:
+  # - Linux/macOS: `export ${ENVPREFIX}_CORS_ALLOWED_METHODS=GET,POST,PUT,DELETE`
+  # - Windows Command Line: `set ${ENVPREFIX}_CORS_ALLOWED_METHODS=GET,POST,PUT,DELETE`
+  allowed_methods:
+    - POST
+    - GET
+    - PUT
+    - PATCH
+    - DELETE
+
+  ## Allowed Request HTTP Headers ##
+  #
+  # A list of non simple headers the client is allowed to use with cross-domain requests.
+  #
+  # Default:
+  # - Authorization
+  # - Content-Type
+  #
+  # Environment Variable Equivalent:
+  # - Linux/macOS: `export ${ENVPREFIX}_CORS_ALLOWED_HEADERS=Authorization,Content-Type,Cookie`
+  # - Windows Command Line: `set ${ENVPREFIX}_CORS_ALLOWED_HEADERS=Authorization,Content-Type,Cookie`
+  allowed_headers:
+    - Authorization
+    - Content-Type
+    - Cookie
+
+  ## Allowed Response HTTP Headers ##
+  # Indicates which headers are safe to expose to the API of a CORS API specification
+  #
+  # Default:
+  # - Content-Type
+  #
+  # Environment Variable Equivalent:
+  # - Linux/macOS: `export ${ENVPREFIX}_CORS_EXPOSED_HEADERS=Authorization,Set-Cookie`
+  # - Windows Command Line: `set ${ENVPREFIX}_CORS_EXPOSED_HEADERS=Authorization,Set-Cookie`
+  exposed_headers:
+    - Content-Type
+    - Set-Cookie
+
+  ## Allow HTTP Credentials ##
+  #
+  # Indicates whether the request can include user credentials like cookies, HTTP authentication or client side SSL certificates."
+  #
+  # Default: false
+  #
+  # Environment Variable Equivalent:
+  # - Linux/macOS: `export ${ENVPREFIX}_CORS_ALLOW_CREDENTIALS=true`
+  # - Windows Command Line: `set ${ENVPREFIX}_CORS_ALLOW_CREDENTIALS=true`
+  allow_credentials: true
+
+  ## Maximum Age ##
+  #
+  # Indicates how long (in seconds) the results of a preflight request can be cached.
+  # The default is 0 which stands for no max age.
+  #
+  # Default: false
+  #
+  # Environment Variable Equivalent:
+  # - Linux/macOS: `export ${ENVPREFIX}_CORS_MAX_AGE=10`
+  # - Windows Command Line: `set ${ENVPREFIX}_CORS_MAX_AGE=10`
+  max_age: 10
+
+  ## Enable Debugging ##
+  #
+  # Set to true to debug server side CORS issues.
+  #
+  # Default: false
+  #
+  # Environment Variable Equivalent:
+  # - Linux/macOS: `export ${ENVPREFIX}_CORS_DEBUG=true`
+  # - Windows Command Line: `set ${ENVPREFIX}_CORS_DEBUG=true`
+  debug: true

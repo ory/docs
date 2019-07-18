@@ -1,0 +1,46 @@
+## HTTPS ##
+#
+# Configure HTTP over TLS (HTTPS). All options can also be set using environment variables
+# by replacing dots (`.`) with underscores (`_`) and uppercasing the key. For example,
+# `some.prefix.tls.key.path` becomes `export SOME_PREFIX_TLS_KEY_PATH`.
+# if all keys are left undefined, TLS will be disabled.
+tls:
+
+  ## Private Key (PEM) ##
+  key:
+    # Path to PEM-encoded Key File ##
+    #
+    # Environment Variable Equivalent:
+    # - Linux/macOS: `export ${ENVPREFIX}_TLS_KEY_PATH=./path/to/key.pem`
+    # - Windows Command Line: `set ${ENVPREFIX}_TLS_KEY_PATH=./path/to/key.pem`
+    path: ./path/to/key.pem
+
+    ## Base64 Encoded Inline ##
+    #
+    # The base64 string of the PEM-encoded file content.
+    # Can be generated using for example `base64 -i path/to/file.pem`.
+    #
+    # Environment Variable Equivalent:
+    # - Linux/macOS: `export ${ENVPREFIX}_TLS_KEY_BASE64=LS0tLS1CRUdJTiBFTkNSWVBURUQgUFJJVkFURSBLRVktLS0tLVxuTUlJRkRqQkFCZ2txaGtpRzl3MEJCUTB3...`
+    # - Windows Command Line: `set ${ENVPREFIX}_TLS_KEY_BASE64=LS0tLS1CRUdJTiBFTkNSWVBURUQgUFJJVkFURSBLRVktLS0tLVxuTUlJRkRqQkFCZ2txaGtpRzl3MEJCUTB3...`
+    base64: LS0tLS1CRUdJTiBFTkNSWVBURUQgUFJJVkFURSBLRVktLS0tLVxuTUlJRkRqQkFCZ2txaGtpRzl3MEJCUTB3...
+
+  ## TLS Certificate (PEM) ##
+  #
+  cert:
+    ## Path to PEM-encoded Key File ##
+    #
+    # Environment Variable Equivalent:
+    # - Linux/macOS: `export ${ENVPREFIX}_TLS_CERT_PATH=./path/to/cert.pem`
+    # - Windows Command Line: `set ${ENVPREFIX}_TLS_CERT_PATH=./path/to/cert.pem`
+    path: /path/to/cert.pem
+
+    ## Base64 Encoded Inline ##
+    #
+    # The base64 string of the PEM-encoded file content.
+    # Can be generated using for example `base64 -i path/to/file.pem`.
+    #
+    # Environment Variable Equivalent:
+    # - Linux/macOS: `export ${ENVPREFIX}_TLS_CERT_BASE64=LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tXG5NSUlEWlRDQ0FrMmdBd0lCQWdJRVY1eE90REFOQmdr...`
+    # - Windows Command Line: `set ${ENVPREFIX}_TLS_CERT_BASE64=LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tXG5NSUlEWlRDQ0FrMmdBd0lCQWdJRVY1eE90REFOQmdr...`
+    base64: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tXG5NSUlEWlRDQ0FrMmdBd0lCQWdJRVY1eE90REFOQmdr...
