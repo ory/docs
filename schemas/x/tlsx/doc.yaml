@@ -5,7 +5,6 @@
 # `some.prefix.tls.key.path` becomes `export SOME_PREFIX_TLS_KEY_PATH`.
 # if all keys are left undefined, TLS will be disabled.
 tls:
-
   ## Private Key (PEM) ##
   key:
     # Path to PEM-encoded Key File ##
