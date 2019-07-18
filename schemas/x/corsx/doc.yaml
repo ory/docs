@@ -2,6 +2,7 @@
 #
 # Configure Cross Origin Resource Sharing (CORS) using the following options.
 cors:
+
   ## Enable CORS ##
   #
   # If set to true, CORS will be enabled and preflight-requests (OPTION) will be answered.
@@ -9,8 +10,8 @@ cors:
   # Default: false
   #
   # Environment Variable Equivalent:
-  # - Linux/macOS: `export ${ENVPREFIX}_CORS_ENBALED=true`
-  # - Windows Command Line: `set ${ENVPREFIX}_CORS_ENBALED=true`
+  # - Linux/macOS: `export ${ENVPREFIX}CORS_ENBALED=true`
+  # - Windows Command Line: `set ${ENVPREFIX}CORS_ENBALED=true`
   enabled: true
 
   ## Allowed Origins
@@ -24,8 +25,8 @@ cors:
   # - *
   #
   # Environment Variable Equivalent:
-  # - Linux/macOS: `export ${ENVPREFIX}_CORS_ALLOWED_ORIGINS=https://example.com,https://*.example.com`
-  # - Windows Command Line: `set ${ENVPREFIX}_CORS_ALLOWED_ORIGINS=https://example.com,https://*.example.com`
+  # - Linux/macOS: `export ${ENVPREFIX}CORS_ALLOWED_ORIGINS=https://example.com,https://*.example.com`
+  # - Windows Command Line: `set ${ENVPREFIX}CORS_ALLOWED_ORIGINS=https://example.com,https://*.example.com`
   allowed_origins:
     - https://example.com
     - https://*.example.com
@@ -52,8 +53,8 @@ cors:
   # - PATCH
   #
   # Environment Variable Equivalent:
-  # - Linux/macOS: `export ${ENVPREFIX}_CORS_ALLOWED_METHODS=GET,POST,PUT,DELETE`
-  # - Windows Command Line: `set ${ENVPREFIX}_CORS_ALLOWED_METHODS=GET,POST,PUT,DELETE`
+  # - Linux/macOS: `export ${ENVPREFIX}CORS_ALLOWED_METHODS=GET,POST,PUT,DELETE`
+  # - Windows Command Line: `set ${ENVPREFIX}CORS_ALLOWED_METHODS=GET,POST,PUT,DELETE`
   allowed_methods:
     - POST
     - GET
@@ -70,8 +71,8 @@ cors:
   # - Content-Type
   #
   # Environment Variable Equivalent:
-  # - Linux/macOS: `export ${ENVPREFIX}_CORS_ALLOWED_HEADERS=Authorization,Content-Type,Cookie`
-  # - Windows Command Line: `set ${ENVPREFIX}_CORS_ALLOWED_HEADERS=Authorization,Content-Type,Cookie`
+  # - Linux/macOS: `export ${ENVPREFIX}CORS_ALLOWED_HEADERS=Authorization,Content-Type,Cookie`
+  # - Windows Command Line: `set ${ENVPREFIX}CORS_ALLOWED_HEADERS=Authorization,Content-Type,Cookie`
   allowed_headers:
     - Authorization
     - Content-Type
@@ -84,8 +85,8 @@ cors:
   # - Content-Type
   #
   # Environment Variable Equivalent:
-  # - Linux/macOS: `export ${ENVPREFIX}_CORS_EXPOSED_HEADERS=Authorization,Set-Cookie`
-  # - Windows Command Line: `set ${ENVPREFIX}_CORS_EXPOSED_HEADERS=Authorization,Set-Cookie`
+  # - Linux/macOS: `export ${ENVPREFIX}CORS_EXPOSED_HEADERS=Authorization,Set-Cookie`
+  # - Windows Command Line: `set ${ENVPREFIX}CORS_EXPOSED_HEADERS=Authorization,Set-Cookie`
   exposed_headers:
     - Content-Type
     - Set-Cookie
@@ -97,8 +98,8 @@ cors:
   # Default: false
   #
   # Environment Variable Equivalent:
-  # - Linux/macOS: `export ${ENVPREFIX}_CORS_ALLOW_CREDENTIALS=true`
-  # - Windows Command Line: `set ${ENVPREFIX}_CORS_ALLOW_CREDENTIALS=true`
+  # - Linux/macOS: `export ${ENVPREFIX}CORS_ALLOW_CREDENTIALS=true`
+  # - Windows Command Line: `set ${ENVPREFIX}CORS_ALLOW_CREDENTIALS=true`
   allow_credentials: true
 
   ## Maximum Age ##
@@ -109,8 +110,8 @@ cors:
   # Default: false
   #
   # Environment Variable Equivalent:
-  # - Linux/macOS: `export ${ENVPREFIX}_CORS_MAX_AGE=10`
-  # - Windows Command Line: `set ${ENVPREFIX}_CORS_MAX_AGE=10`
+  # - Linux/macOS: `export ${ENVPREFIX}CORS_MAX_AGE=10`
+  # - Windows Command Line: `set ${ENVPREFIX}CORS_MAX_AGE=10`
   max_age: 10
 
   ## Enable Debugging ##
@@ -120,6 +121,6 @@ cors:
   # Default: false
   #
   # Environment Variable Equivalent:
-  # - Linux/macOS: `export ${ENVPREFIX}_CORS_DEBUG=true`
-  # - Windows Command Line: `set ${ENVPREFIX}_CORS_DEBUG=true`
+  # - Linux/macOS: `export ${ENVPREFIX}CORS_DEBUG=true`
+  # - Windows Command Line: `set ${ENVPREFIX}CORS_DEBUG=true`
   debug: true
