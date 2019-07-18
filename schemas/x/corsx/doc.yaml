@@ -2,6 +2,7 @@
 #
 # Configure Cross Origin Resource Sharing (CORS) using the following options.
 cors:
+
   ## Enable CORS ##
   #
   # If set to true, CORS will be enabled and preflight-requests (OPTION) will be answered.
