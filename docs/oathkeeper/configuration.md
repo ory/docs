@@ -56,7 +56,7 @@ serve:
     # - Windows Command Line (CMD):
     #    > set SERVE_API_HOST=<value>
     #
-    host: 127.0.0.1
+    host: ''
 
     ## Cross Origin Resource Sharing (CORS) ##
     #
@@ -94,7 +94,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_API_CORS_ALLOWED_ORIGINS=<value>
       #
-      allowed_origins: https://*.foo.example.com
+      allowed_origins: https://example.com
 
       ## Allowed HTTP Methods ##
       #
@@ -285,11 +285,11 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_TIMEOUT_WRITE=<value>
       #
-      write: 120s
+      write: 5h
 
       ## HTTP Idle Timeout ##
       #
-      # The maximum amount of time to wait for any action of a request session, reading data or writing the response.
+      #  The maximum amount of time to wait for any action of a request session, reading data or writing the response.
       #
       # Default value: 120s
       #
@@ -304,7 +304,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_TIMEOUT_IDLE=<value>
       #
-      idle: 5m
+      idle: 5h
 
     ## Cross Origin Resource Sharing (CORS) ##
     #
@@ -342,8 +342,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_CORS_ALLOWED_ORIGINS=<value>
       #
-      allowed_origins:
-        - '*'
+      allowed_origins: https://*.foo.example.com
 
       ## Allowed HTTP Methods ##
       #
@@ -537,7 +536,7 @@ authenticators:
     # - Windows Command Line (CMD):
     #    > set AUTHENTICATORS_NOOP_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
   ## Unauthorized ##
   #
@@ -567,7 +566,7 @@ authenticators:
     # - Windows Command Line (CMD):
     #    > set AUTHENTICATORS_COOKIE_SESSION_ENABLED=<value>
     #
-    enabled: false
+    enabled: true
 
     ## Session Check URL ##
     #
@@ -597,8 +596,8 @@ authenticators:
     #    > set AUTHENTICATORS_COOKIE_SESSION_ONLY=<value>
     #
     only:
-      - eius
-      - eiusmod id in do voluptate
+      - minim ex sit fugiat laborum
+      - mollit cupidatat laborum
 
   ## JSON Web Token (jwt) ##
   #
@@ -632,7 +631,7 @@ authenticators:
     # - Windows Command Line (CMD):
     #    > set AUTHENTICATORS_JWT_JWKS_URLS=<value>
     #
-    jwks_urls: https://my-other-website.com/.well-known/jwks.json
+    jwks_urls: https://my-website.com/.well-known/jwks.json
 
     ## Scope Strategy ##
     #
@@ -753,7 +752,7 @@ authenticators:
       # - Windows Command Line (CMD):
       #    > set AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_CLIENT_ID=<value>
       #
-      client_id: ipsum nisi dolore
+      client_id: labore commodo laboris
 
       ## OAuth 2.0 Client Secret ##
       #
@@ -767,7 +766,7 @@ authenticators:
       # - Windows Command Line (CMD):
       #    > set AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_CLIENT_SECRET=<value>
       #
-      client_secret: deserunt ut
+      client_secret: sit consectetur
 
       ## OAuth 2.0 Token URL ##
       #
@@ -781,7 +780,7 @@ authenticators:
       # - Windows Command Line (CMD):
       #    > set AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_TOKEN_URL=<value>
       #
-      token_url: http://hiqaHLphtqZOVS.dgNFMDl6i.TLVb1LKErCTjZPjKmTQJ1
+      token_url: http://HqCbZNZGP.gmVWDsl4ISwqdf,X6MDJczvLXGPgCW-54Z66rLBCLwnHeLcOKgeko0XrB4v
 
       ## OAuth 2.0 Scope ##
       #
@@ -817,7 +816,7 @@ authorizers:
     # - Windows Command Line (CMD):
     #    > set AUTHORIZERS_ALLOW_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
   ## Deny ##
   #
@@ -884,7 +883,7 @@ mutators:
     # - Windows Command Line (CMD):
     #    > set MUTATORS_NOOP_ENABLED=<value>
     #
-    enabled: false
+    enabled: true
 
   ## HTTP Cookie ##
   #
@@ -914,7 +913,7 @@ mutators:
     # - Windows Command Line (CMD):
     #    > set MUTATORS_HEADER_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
   ## ID Token (JSON Web Token) ##
   #
@@ -929,7 +928,7 @@ mutators:
     # - Windows Command Line (CMD):
     #    > set MUTATORS_ID_TOKEN_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
     ## Issuer URL ##
     #
@@ -943,7 +942,7 @@ mutators:
     # - Windows Command Line (CMD):
     #    > set MUTATORS_ID_TOKEN_ISSUER_URL=<value>
     #
-    issuer_url: https://aIhZuUXhwbgDDkRrAOWoetBhhpR.vxmqeopvBHV,cNy
+    issuer_url: http://xFkjVJEPTaIzNlfkMFXAUFBX.pnrY--mIe1RxVU.BJcGaqrKbc
 
     ## JSON Web Key URL ##
     #
@@ -962,7 +961,7 @@ mutators:
     # - Windows Command Line (CMD):
     #    > set MUTATORS_ID_TOKEN_JWKS_URL=<value>
     #
-    jwks_url: file://../from/this/relative/location.json
+    jwks_url: https://fetch-keys/from/this/location.json
 
     ## Expire After ##
     #

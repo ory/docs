@@ -3,21 +3,20 @@ title: REST API
 id: api
 ---
 
-ORY Keto is a cloud native access control server providing best-practice
-patterns (RBAC, ABAC, ACL, AWS IAM Policies, Kubernetes Roles, ...) via REST
-APIs.
+A cloud native access control server providing best-practice patterns (RBAC,
+ABAC, ACL, AWS IAM Policies, Kubernetes Roles, ...) via REST APIs.
 
-> You are viewing REST API documentation. This documentation is auto-generated
+> You are viewing a REST API documentation. This documentation is auto-generated
 > from a swagger specification which itself is generated from annotations in the
-> source code of the project. It is possible that this documentation includes
+> source files of the project. It is possible that this documentation includes
 > bugs and that code samples are incomplete or wrong.
 >
 > If you find issues in the respective documentation, please do not edit the
-> Markdown files directly (as they are generated) but raise an issue on the
-> project's GitHub presence instead. This documentation will improve over time
-> with your help! If you have ideas how to improve this part of the
-> documentation, feel free to share them in a
-> [GitHub issue](https://github.com/ory/docs/issues/new) any time.
+> markdown files directly (as they are generated) but raise an issue on the
+> project's GitHub instead. This documentation will improve over time with your
+> help! If you have ideas how to improve this part of the documentation, feel
+> free to share them in a [GitHub issue](https://github.com/ory/docs/issues/new)
+> any time.
 
 <a id="ory-keto-engines"></a>
 

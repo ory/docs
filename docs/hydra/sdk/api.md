@@ -1494,7 +1494,7 @@ Status Code **200**
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-06-27T10:28:42Z",
+    "created_at": "2019-07-18T15:43:49Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -1535,7 +1535,7 @@ Status Code **200**
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-06-27T10:28:42Z",
+    "updated_at": "2019-07-18T15:43:49Z",
     "userinfo_signed_response_alg": "string"
   }
 ]
@@ -1715,7 +1715,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-06-27T10:28:42Z",
+  "created_at": "2019-07-18T15:43:49Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -1756,7 +1756,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-06-27T10:28:42Z",
+  "updated_at": "2019-07-18T15:43:49Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -1798,7 +1798,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-06-27T10:28:42Z",
+  "created_at": "2019-07-18T15:43:49Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -1839,7 +1839,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-06-27T10:28:42Z",
+  "updated_at": "2019-07-18T15:43:49Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -1920,7 +1920,7 @@ const input = '{
   "contacts": [
     "string"
   ],
-  "created_at": "2019-06-27T10:28:42Z",
+  "created_at": "2019-07-18T15:43:49Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": [
@@ -1973,7 +1973,7 @@ const input = '{
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-06-27T10:28:42Z",
+  "updated_at": "2019-07-18T15:43:49Z",
   "userinfo_signed_response_alg": "string"
 }';
 const headers = {
@@ -2112,7 +2112,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-06-27T10:28:42Z",
+  "created_at": "2019-07-18T15:43:49Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2153,7 +2153,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-06-27T10:28:42Z",
+  "updated_at": "2019-07-18T15:43:49Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2331,7 +2331,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-06-27T10:28:42Z",
+  "created_at": "2019-07-18T15:43:49Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2372,7 +2372,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-06-27T10:28:42Z",
+  "updated_at": "2019-07-18T15:43:49Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2413,7 +2413,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-06-27T10:28:42Z",
+  "created_at": "2019-07-18T15:43:49Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2454,7 +2454,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-06-27T10:28:42Z",
+  "updated_at": "2019-07-18T15:43:49Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2535,7 +2535,7 @@ const input = '{
   "contacts": [
     "string"
   ],
-  "created_at": "2019-06-27T10:28:42Z",
+  "created_at": "2019-07-18T15:43:49Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": [
@@ -2588,7 +2588,7 @@ const input = '{
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-06-27T10:28:42Z",
+  "updated_at": "2019-07-18T15:43:49Z",
   "userinfo_signed_response_alg": "string"
 }';
 const headers = {
@@ -4479,7 +4479,7 @@ the subject accepted or rejected the request.
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-06-27T10:28:42Z",
+    "created_at": "2019-07-18T15:43:49Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -4520,7 +4520,7 @@ the subject accepted or rejected the request.
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-06-27T10:28:42Z",
+    "updated_at": "2019-07-18T15:43:49Z",
     "userinfo_signed_response_alg": "string"
   },
   "context": {
@@ -5226,7 +5226,7 @@ the requested authentication process.
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-06-27T10:28:42Z",
+    "created_at": "2019-07-18T15:43:49Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -5267,7 +5267,7 @@ the requested authentication process.
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-06-27T10:28:42Z",
+    "updated_at": "2019-07-18T15:43:49Z",
     "userinfo_signed_response_alg": "string"
   },
   "oidc_context": {
@@ -6626,7 +6626,7 @@ Status Code **200**
         "client_secret_expires_at": 0,
         "client_uri": "string",
         "contacts": ["string"],
-        "created_at": "2019-06-27T10:28:42Z",
+        "created_at": "2019-07-18T15:43:49Z",
         "frontchannel_logout_session_required": true,
         "frontchannel_logout_uri": "string",
         "grant_types": ["string"],
@@ -6667,7 +6667,7 @@ Status Code **200**
         "subject_type": "string",
         "token_endpoint_auth_method": "string",
         "tos_uri": "string",
-        "updated_at": "2019-06-27T10:28:42Z",
+        "updated_at": "2019-07-18T15:43:49Z",
         "userinfo_signed_response_alg": "string"
       },
       "context": {
@@ -7253,7 +7253,7 @@ deleted automatically when performing the refresh flow.
 
 ```json
 {
-  "notAfter": "2019-06-27T10:28:42Z"
+  "notAfter": "2019-07-18T15:43:49Z"
 }
 ```
 
@@ -7351,7 +7351,7 @@ func main() {
 ```nodejs
 const fetch = require('node-fetch');
 const input = '{
-  "notAfter": "2019-06-27T10:28:42Z"
+  "notAfter": "2019-07-18T15:43:49Z"
 }';
 const headers = {
   'Content-Type': 'application/json',  'Accept': 'application/json'
@@ -8315,7 +8315,7 @@ p JSON.parse(result)
       "client_secret_expires_at": 0,
       "client_uri": "string",
       "contacts": ["string"],
-      "created_at": "2019-06-27T10:28:42Z",
+      "created_at": "2019-07-18T15:43:49Z",
       "frontchannel_logout_session_required": true,
       "frontchannel_logout_uri": "string",
       "grant_types": ["string"],
@@ -8356,7 +8356,7 @@ p JSON.parse(result)
       "subject_type": "string",
       "token_endpoint_auth_method": "string",
       "tos_uri": "string",
-      "updated_at": "2019-06-27T10:28:42Z",
+      "updated_at": "2019-07-18T15:43:49Z",
       "userinfo_signed_response_alg": "string"
     },
     "context": {
@@ -8525,7 +8525,7 @@ request._
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-06-27T10:28:42Z",
+    "created_at": "2019-07-18T15:43:49Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -8566,7 +8566,7 @@ request._
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-06-27T10:28:42Z",
+    "updated_at": "2019-07-18T15:43:49Z",
     "userinfo_signed_response_alg": "string"
   },
   "context": {
@@ -8668,7 +8668,7 @@ _None_
 
 ```json
 {
-  "notAfter": "2019-06-27T10:28:42Z"
+  "notAfter": "2019-07-18T15:43:49Z"
 }
 ```
 
@@ -8786,7 +8786,7 @@ _Error response_
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-06-27T10:28:42Z",
+    "created_at": "2019-07-18T15:43:49Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -8827,7 +8827,7 @@ _Error response_
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-06-27T10:28:42Z",
+    "updated_at": "2019-07-18T15:43:49Z",
     "userinfo_signed_response_alg": "string"
   },
   "oidc_context": {
@@ -8909,7 +8909,7 @@ _Contains information about an ongoing logout request._
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-06-27T10:28:42Z",
+  "created_at": "2019-07-18T15:43:49Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -8950,7 +8950,7 @@ _Contains information about an ongoing logout request._
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-06-27T10:28:42Z",
+  "updated_at": "2019-07-18T15:43:49Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -9167,7 +9167,7 @@ _The request payload used to accept a login or consent request._
 ```json
 {
   "Body": {
-    "notAfter": "2019-06-27T10:28:42Z"
+    "notAfter": "2019-07-18T15:43:49Z"
   }
 }
 ```
