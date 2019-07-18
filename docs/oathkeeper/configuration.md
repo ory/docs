@@ -1,406 +1,1059 @@
+
 ---
 id: configuration
 title: Configuration
 ---
 
-```yaml
-# ORY Oathkeeper Configuration
-#
-#
-# !!WARNING!!
-# This configuration file is for documentation purposes only. Do not use it in production. As all configuration items
-# are enabled, it will not work out of the box either.
-#
-#
-# ORY Oathkeeper can be configured using a configuration file and passing the file location using `-c path/to/config.yaml`.
-# Per default, ORY Oathkeeper will look up and load file ~/.oathkeeper.yaml.
-#
-# When loading configuration files, ORY Oathkeeper will automatically watch for any changes in the configuration file.
-# All configuration keys with exception of:
-#
-# - `serve.*`
-# - `log.*`
-# - `profiling`
-#
-# can be reloaded. If a change to one of the exception keys is detected, ORY Oathkeeper will exit with a non-zero exit code
-# in hopes of being restarted by e.g. Docker or Kubernetes in order to properly reload the config.
-#
-# All configuration keys can be set using environment variables as well. Setting environment variables is easy:
-#
-## Linux / OSX
-#
-# $ export MY_ENV_VAR=foo
-# $ oathkeeper ...
-#
-# alternatively:
-#
-# $ MY_ENV_VAR=foo oathkeeper ...
-#
-## Windows
-#
-### Command Prompt
-#
-# > set MY_ENV_VAR=foo
-# > oathkeeper ...
-#
-### Powershell
-#
-# > $env:MY_ENV_VAR="foo"
-# > oathkeeper ...
-#
-## Docker
-#
-# $ docker run -e MY_ENV_VAR=foo oryd/oathkeeper:...
-#
-#
-# Assuming the following configuration layout:
-#
-# serve:
-#   public:
-#     port: 4444
-#     something_else: foobar
-#
-# Key `something_else` can be set as an environment variable by uppercasing it's path:
-#   `serve.public.port.somethihng_else` -> `SERVE.PUBLIC.PORT.SOMETHING_ELSE`
-# and replacing `.` with `_`:
-#   `serve.public.port.somethihng_else` -> `SERVE_PUBLIC_PORT_SOMETHING_ELSE`
-#
-# Environment variables always override values from the configuration file. Here are some more examples:
-#
-# Configuration key | Environment variable |
-# ------------------|----------------------|
-# profiling         | PROFILING            |
-# serve.admin.host  | SERVE_ADMIN_HOST     |
-# ------------------|----------------------|
-#
-#
-# List items such as
-#
-# secrets:
-#   system:
-#     - this-is-the-primary-secret
-#     - this-is-an-old-secret
-#     - this-is-another-old-secret
-#
-# must be separated using `,` when using environment variables. The environment variable equivalent to the code section#
-# above is:
-#
-# Linux/macOS: $ export SECRETS_SYSTEM=this-is-the-primary-secret,this-is-an-old-secret,this-is-another-old-secret
-# Windows: > set SECRETS_SYSTEM=this-is-the-primary-secret,this-is-an-old-secret,this-is-another-old-secret
+<!-- THIS FILE IS BEING AUTO-GENERATED. DO NOT MODIFY IT AS ALL CHANGES WILL BE OVERWRITTEN.
+OPEN AN ISSUE IF YOU WOULD LIKE TO MAKE ADJUSTMENTS HERE AND MAINTAINERS WILL HELP YOU LOCATE THE RIGHT
+FILE -->
 
-# log configures the logger
-log:
-  # Sets the log level, supports "panic", "fatal", "error", "warn", "info" and "debug". Defaults to "info".
-  level: info
-  # Sets the log format. Leave it undefined for text based log format, or set to "json" for JSON formatting.
-  format: json
+If file `$HOME/.oathkeeper.yaml` exists, it will be used as a configuration file which supports all
+configuration settings listed below.
 
-# Enables profiling if set. Use "cpu" to enable cpu profiling and "mem" to enable memory profiling. For more details
-# on profiling, head over to: https://blog.golang.org/profiling-go-programs
-profiling: cpu
-# profiling: mem
+You can load the config file from another source using the `-c path/to/config.yaml` or `--config path/to/config.yaml`
+flag: `oathkeeper --config path/to/config.yaml`.
 
-# serve controls the configuration for the http(s) daemon(s).
+Config files can be formatted as JSON, YAML and TOML. Some configuration values support reloading without server restart.
+All configuration values can be set using environment variables, as documented below.
+
+```yaml    
+## ORY Oathkeeper Configuration
+#
+
+
+## HTTP(s) ##
+#
 serve:
-  # public controls the public daemon serving public API endpoints like /oauth2/auth, /oauth2/token, /.well-known/jwks.json
-  proxy:
-    # The port to listen on. Defaults to 4444
-    port: 4455
-    # The interface or unix socket ORY Oathkeeper should listen and handle public API requests on.
-    # Leave empty to listen on all interfaces.
-    host: localhost # leave this out or empty to listen on all devices which is the default
-
-    # Controls timeout
-    timeout:
-      # The maximum duration for reading the entire request, including the body.
-      # Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h". Defaults to 5s.
-      read: 5s
-      # The maximum duration before timing out writes of the response.
-      #	Increase this parameter to prevent unexpected closing a client connection if an upstream request is executing more than 10 seconds.
-      #	Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h". Defaults ot 10s.
-      write: 10s
-      # The maximum amount of time to wait for any action of a request session, reading data or writing the response.
-      #	Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h". Defaults ot 120s.
-      idle: 120s
-
-    # cors configures Cross Origin Resource Sharing for public endpoints.
-    cors:
-      # set enabled to true to enable CORS. Defaults to false.
-      enabled: true
-      # allowed_origins is a list of origins (comma separated values) a cross-domain request can be executed from.
-      # If the special * value is present in the list, all origins will be allowed. An origin may contain a wildcard (*)
-      # to replace 0 or more characters (i.e.: http://*.domain.com). Only one wildcard can be used per origin.
-      #
-      # If empty or undefined, this defaults to `*`, allowing CORS from every domain (if cors.enabled: true).
-      allowed_origins:
-        - https://example.com
-        - https://*.example.com
-      # allowed_methods is list of HTTP methods the user agent is allowed to use with cross-domain
-      # requests. Defaults to the methods listed.
-      allowed_methods:
-        - POST
-        - GET
-        - PUT
-        - PATCH
-        - DELETE
-
-      # A list of non simple headers the client is allowed to use with cross-domain requests. Defaults to the listed values.
-      allowed_headers:
-        - Authorization
-        - Content-Type
-
-      # Sets which headers (comma separated values) are safe to expose to the API of a CORS API specification. Defaults to the listed values.
-      exposed_headers:
-        - Content-Type
-
-      # Sets whether the request can include user credentials like cookies, HTTP authentication
-      # or client side SSL certificates. Defaults to true.
-      allow_credentials: true
-
-      # Sets how long (in seconds) the results of a preflight request can be cached. If set to 0, every request
-      # is preceded by a preflight request. Defaults to 0.
-      max_age: 10
-
-      # If set to true, adds additional log output to debug server side CORS issues. Defaults to false.
-      debug: true
-
-    # tls configures HTTPS (HTTP over TLS). If configured, the server automatically supports HTTP/2.
-    tls:
-      # key configures the private key (pem encoded)
-      key:
-        # The key can either be loaded from a file:
-        path: /path/to/key.pem
-        # Or from a base64 encoded (without padding) string:
-        base64: LS0tLS1CRUdJTiBFTkNSWVBURUQgUFJJVkFURSBLRVktLS0tLVxuTUlJRkRqQkFCZ2txaGtpRzl3MEJCUTB3...
-
-      # cert configures the TLS certificate (PEM encoded)
-      cert:
-        # The cert can either be loaded from a file:
-        path: /path/to/cert.pem
-        # Or from a base64 encoded (without padding) string:
-        base64: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tXG5NSUlEWlRDQ0FrMmdBd0lCQWdJRVY1eE90REFOQmdr...
-
-  # api controls the api daemon serving REST API endpoints like /rules, /judge, ...
+  
+  ## HTTP REST API ##
+  #
   api:
-    # The port to listen on. Defaults to 4445
+    
+    ## Port ##
+    #
+    # The port to listen on.
+    #
+    # Default value: 4456
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export SERVE_API_PORT=<value>
+    # - Windows Command Line (CMD):
+    #    > set SERVE_API_PORT=<value>
+    #
     port: 4456
-    # The interface or unix socket ORY Oathkeeper should listen and handle administrative API requests on.
-    # Leave empty to listen on all interfaces.
-    host: localhost # leave this out or empty to listen on all devices which is the default
 
-    # cors configures Cross Origin Resource Sharing for admin endpoints.
+    ## Host ##
+    #
+    # The network interface to listen on.
+    #
+    # Examples:
+    # - localhost
+    # - 127.0.0.1
+    # 
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export SERVE_API_HOST=<value>
+    # - Windows Command Line (CMD):
+    #    > set SERVE_API_HOST=<value>
+    #
+    host: 127.0.0.1
+
+    ## Cross Origin Resource Sharing (CORS) ##
+    #
+    # Configure [Cross Origin Resource Sharing (CORS)](http://www.w3.org/TR/cors/) using the following options.
+    #
     cors:
-      # set enabled to true to enable CORS. Defaults to false.
-      enabled: true
-      # allowed_origins is a list of origins (comma separated values) a cross-domain request can be executed from.
-      # If the special * value is present in the list, all origins will be allowed. An origin may contain a wildcard (*)
-      # to replace 0 or more characters (i.e.: http://*.domain.com). Only one wildcard can be used per origin.
+      
+      ## Enable CORS ##
       #
-      # If empty or undefined, this defaults to `*`, allowing CORS from every domain (if cors.enabled: true).
-      allowed_origins:
-        - https://example.com
-        - https://*.example.com
-      # allowed_methods is list of HTTP methods the user agent is allowed to use with cross-domain
-      # requests. Defaults to GET and POST.
+      # If set to true, CORS will be enabled and preflight-requests (OPTION) will be answered.
+      #
+      # Default value: false
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_API_CORS_ENABLED=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_API_CORS_ENABLED=<value>
+      #
+      enabled: false
+
+      ## Allowed Origins ##
+      #
+      # A list of origins a cross-domain request can be executed from. If the special * value is present in the list, all origins will be allowed. An origin may contain a wildcard (*) to replace 0 or more characters (i.e.: http://*.domain.com). Usage of wildcards implies a small performance penality. Only one wildcard can be used per origin.
+      #
+      # Default value: *
+      #
+      # Examples:
+      # - https://example.com
+      # - https://*.example.com
+      # - https://*.foo.example.com
+      # 
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_API_CORS_ALLOWED_ORIGINS=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_API_CORS_ALLOWED_ORIGINS=<value>
+      #
+      allowed_origins: https://*.foo.example.com
+
+      ## Allowed HTTP Methods ##
+      #
+      # A list of methods the client is allowed to use with cross-domain requests.
+      #
+      # Default value: GET,POST,PUT,PATCH,DELETE
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_API_CORS_ALLOWED_METHODS=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_API_CORS_ALLOWED_METHODS=<value>
+      #
       allowed_methods:
-        - POST
         - GET
+        - POST
         - PUT
         - PATCH
         - DELETE
 
-      # A list of non simple headers the client is allowed to use with cross-domain requests. Defaults to the listed values.
+      ## Allowed Request HTTP Headers ##
+      #
+      # A list of non simple headers the client is allowed to use with cross-domain requests.
+      #
+      # Default value: Authorization,Content-Type
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_API_CORS_ALLOWED_HEADERS=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_API_CORS_ALLOWED_HEADERS=<value>
+      #
       allowed_headers:
         - Authorization
         - Content-Type
 
-      # Sets which headers (comma separated values) are safe to expose to the API of a CORS API specification. Defaults to the listed values.
+      ## Allowed Response HTTP Headers ##
+      #
+      # Indicates which headers are safe to expose to the API of a CORS API specification
+      #
+      # Default value: Content-Type
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_API_CORS_EXPOSED_HEADERS=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_API_CORS_EXPOSED_HEADERS=<value>
+      #
       exposed_headers:
         - Content-Type
 
-      # Sets whether the request can include user credentials like cookies, HTTP authentication
-      # or client side SSL certificates.
-      allow_credentials: true
+      ## Allow HTTP Credentials ##
+      #
+      # Indicates whether the request can include user credentials like cookies, HTTP authentication or client side SSL certificates.
+      #
+      # Default value: false
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_API_CORS_ALLOW_CREDENTIALS=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_API_CORS_ALLOW_CREDENTIALS=<value>
+      #
+      allow_credentials: false
 
-      # Sets how long (in seconds) the results of a preflight request can be cached. If set to 0, every request
-      # is preceded by a preflight request. Defaults to 0.
-      max_age: 10
+      ## Maximum Age ##
+      #
+      # Indicates how long (in seconds) the results of a preflight request can be cached. The default is 0 which stands for no max age.
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_API_CORS_MAX_AGE=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_API_CORS_MAX_AGE=<value>
+      #
+      max_age: 0
 
-      # If set to true, adds additional log output to debug server side CORS issues. Defaults to false.
-      debug: true
+      ## Enable Debugging ##
+      #
+      # Set to true to debug server side CORS issues.
+      #
+      # Default value: false
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_API_CORS_DEBUG=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_API_CORS_DEBUG=<value>
+      #
+      debug: false
 
-    # tls configures HTTPS (HTTP over TLS). If configured, the server automatically supports HTTP/2.
+    ## HTTPS ##
+    #
+    # Configure HTTP over TLS (HTTPS). All options can also be set using environment variables by replacing dots (`.`) with underscores (`_`) and uppercasing the key. For example, `some.prefix.tls.key.path` becomes `export SOME_PREFIX_TLS_KEY_PATH`. If all keys are left undefined, TLS will be disabled.
+    #
     tls:
-      # key configures the private key (pem encoded)
-      key:
-        # The key can either be loaded from a file:
-        path: /path/to/key.pem
-        # Or from a base64 encoded (without padding) string:
-        base64: LS0tLS1CRUdJTiBFTkNSWVBURUQgUFJJVkFURSBLRVktLS0tLVxuTUlJRkRqQkFCZ2txaGtpRzl3MEJCUTB3...
+      
+      ## Private Key (PEM) ##
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_API_TLS_KEY=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_API_TLS_KEY=<value>
+      #
+      key: {}
 
-      # cert configures the TLS certificate (PEM encoded)
-      cert:
-        # The cert can either be loaded from a file:
-        path: /path/to/cert.pem
-        # Or from a base64 encoded (without padding) string:
-        base64: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tXG5NSUlEWlRDQ0FrMmdBd0lCQWdJRVY1eE90REFOQmdr...
+      ## TLS Certificate (PEM) ##
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_API_TLS_CERT=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_API_TLS_CERT=<value>
+      #
+      cert: {}
 
-# Configures Access Rules
+  ## HTTP Reverse Proxy ##
+  #
+  proxy:
+    
+    ## Port ##
+    #
+    # The port to listen on.
+    #
+    # Default value: 4455
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export SERVE_PROXY_PORT=<value>
+    # - Windows Command Line (CMD):
+    #    > set SERVE_PROXY_PORT=<value>
+    #
+    port: 4455
+
+    ## Host ##
+    #
+    # The network interface to listen on. Leave empty to listen on all interfaces.
+    #
+    # Examples:
+    # - localhost
+    # - 127.0.0.1
+    # 
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export SERVE_PROXY_HOST=<value>
+    # - Windows Command Line (CMD):
+    #    > set SERVE_PROXY_HOST=<value>
+    #
+    host: ""
+
+    ## HTTP Timeouts ##
+    #
+    # Control the reverse proxy's HTTP timeouts.
+    #
+    timeout:
+      
+      ## HTTP Read Timeout ##
+      #
+      # The maximum duration for reading the entire request, including the body.
+      #
+      # Default value: 5s
+      #
+      # Examples:
+      # - 5s
+      # - 5m
+      # - 5h
+      # 
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_PROXY_TIMEOUT_READ=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_PROXY_TIMEOUT_READ=<value>
+      #
+      read: 5h
+
+      ## HTTP Write Timeout ##
+      #
+      # The maximum duration before timing out writes of the response. Increase this parameter to prevent unexpected closing a client connection if an upstream request is responding slowly.
+      #
+      # Default value: 120s
+      #
+      # Examples:
+      # - 5s
+      # - 5m
+      # - 5h
+      # 
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_PROXY_TIMEOUT_WRITE=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_PROXY_TIMEOUT_WRITE=<value>
+      #
+      write: 120s
+
+      ## HTTP Idle Timeout ##
+      #
+      # The maximum amount of time to wait for any action of a request session, reading data or writing the response.
+      #
+      # Default value: 120s
+      #
+      # Examples:
+      # - 5s
+      # - 5m
+      # - 5h
+      # 
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_PROXY_TIMEOUT_IDLE=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_PROXY_TIMEOUT_IDLE=<value>
+      #
+      idle: 5m
+
+    ## Cross Origin Resource Sharing (CORS) ##
+    #
+    # Configure [Cross Origin Resource Sharing (CORS)](http://www.w3.org/TR/cors/) using the following options.
+    #
+    cors:
+      
+      ## Enable CORS ##
+      #
+      # If set to true, CORS will be enabled and preflight-requests (OPTION) will be answered.
+      #
+      # Default value: false
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_PROXY_CORS_ENABLED=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_PROXY_CORS_ENABLED=<value>
+      #
+      enabled: false
+
+      ## Allowed Origins ##
+      #
+      # A list of origins a cross-domain request can be executed from. If the special * value is present in the list, all origins will be allowed. An origin may contain a wildcard (*) to replace 0 or more characters (i.e.: http://*.domain.com). Usage of wildcards implies a small performance penality. Only one wildcard can be used per origin.
+      #
+      # Default value: *
+      #
+      # Examples:
+      # - https://example.com
+      # - https://*.example.com
+      # - https://*.foo.example.com
+      # 
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_PROXY_CORS_ALLOWED_ORIGINS=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_PROXY_CORS_ALLOWED_ORIGINS=<value>
+      #
+      allowed_origins:
+        - "*"
+
+      ## Allowed HTTP Methods ##
+      #
+      # A list of methods the client is allowed to use with cross-domain requests.
+      #
+      # Default value: GET,POST,PUT,PATCH,DELETE
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_PROXY_CORS_ALLOWED_METHODS=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_PROXY_CORS_ALLOWED_METHODS=<value>
+      #
+      allowed_methods:
+        - GET
+        - POST
+        - PUT
+        - PATCH
+        - DELETE
+
+      ## Allowed Request HTTP Headers ##
+      #
+      # A list of non simple headers the client is allowed to use with cross-domain requests.
+      #
+      # Default value: Authorization,Content-Type
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_PROXY_CORS_ALLOWED_HEADERS=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_PROXY_CORS_ALLOWED_HEADERS=<value>
+      #
+      allowed_headers:
+        - Authorization
+        - Content-Type
+
+      ## Allowed Response HTTP Headers ##
+      #
+      # Indicates which headers are safe to expose to the API of a CORS API specification
+      #
+      # Default value: Content-Type
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_PROXY_CORS_EXPOSED_HEADERS=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_PROXY_CORS_EXPOSED_HEADERS=<value>
+      #
+      exposed_headers:
+        - Content-Type
+
+      ## Allow HTTP Credentials ##
+      #
+      # Indicates whether the request can include user credentials like cookies, HTTP authentication or client side SSL certificates.
+      #
+      # Default value: false
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_PROXY_CORS_ALLOW_CREDENTIALS=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_PROXY_CORS_ALLOW_CREDENTIALS=<value>
+      #
+      allow_credentials: false
+
+      ## Maximum Age ##
+      #
+      # Indicates how long (in seconds) the results of a preflight request can be cached. The default is 0 which stands for no max age.
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_PROXY_CORS_MAX_AGE=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_PROXY_CORS_MAX_AGE=<value>
+      #
+      max_age: 0
+
+      ## Enable Debugging ##
+      #
+      # Set to true to debug server side CORS issues.
+      #
+      # Default value: false
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_PROXY_CORS_DEBUG=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_PROXY_CORS_DEBUG=<value>
+      #
+      debug: false
+
+    ## HTTPS ##
+    #
+    # Configure HTTP over TLS (HTTPS). All options can also be set using environment variables by replacing dots (`.`) with underscores (`_`) and uppercasing the key. For example, `some.prefix.tls.key.path` becomes `export SOME_PREFIX_TLS_KEY_PATH`. If all keys are left undefined, TLS will be disabled.
+    #
+    tls:
+      
+      ## Private Key (PEM) ##
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_PROXY_TLS_KEY=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_PROXY_TLS_KEY=<value>
+      #
+      key: {}
+
+      ## TLS Certificate (PEM) ##
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_PROXY_TLS_CERT=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_PROXY_TLS_CERT=<value>
+      #
+      cert: {}
+
+## Access Rules ##
+#
+# Configure access rules. All sub-keys support configuration reloading without restarting.
+#
 access_rules:
-  # Locations (list of URLs) where access rules should be fetched from on boot.
-  # It is expected that the documents at those locations return a JSON or YAML Array containing ORY Oathkeeper Access Rules.
-  repositories:
-    # If the URL Scheme is `file://`, the access rules (an array of access rules is expected) will be
-    # fetched from the local file system.
-    - file://path/to/rules.json
-    # If the URL Scheme is `inline://`, the access rules (an array of access rules is expected)
-    # are expected to be a base64 encoded (with padding!) JSON/YAML string (base64_encode(`[{"id":"foo-rule","authenticators":[....]}]`)):
-    - inline://W3siaWQiOiJmb28tcnVsZSIsImF1dGhlbnRpY2F0b3JzIjpbXX1d
-    # If the URL Scheme is `http://` or `https://`, the access rules (an array of access rules is expected) will be
-    # fetched from the provided HTTP(s) location.
-    - https://path-to-my-rules/rules.json
+  
+  ## Repositories ##
+  #
+  # Locations (list of URLs) where access rules should be fetched from on boot. It is expected that the documents at those locations return a JSON or YAML Array containing ORY Oathkeeper Access Rules:
+  # 
+  # - If the URL Scheme is `file://`, the access rules (an array of access rules is expected) will be fetched from the local file system.
+  # - If the URL Scheme is `inline://`, the access rules (an array of access rules is expected) are expected to be a base64 encoded (with padding!) JSON/YAML string (base64_encode(`[{"id":"foo-rule","authenticators":[....]}]`)).
+  # - If the URL Scheme is `http://` or `https://`, the access rules (an array of access rules is expected) will be fetched from the provided HTTP(s) location.
+  #
+  # Examples:
+  # - '["file://path/to/rules.json","inline://W3siaWQiOiJmb28tcnVsZSIsImF1dGhlbnRpY2F0b3JzIjpbXX1d","https://path-to-my-rules/rules.json"]'
+  # 
+  # Set this value using environment variables on
+  # - Linux/macOS:
+  #    $ export ACCESS_RULES_REPOSITORIES=<value>
+  # - Windows Command Line (CMD):
+  #    > set ACCESS_RULES_REPOSITORIES=<value>
+  #
+  repositories: '["file://path/to/rules.json","inline://W3siaWQiOiJmb28tcnVsZSIsImF1dGhlbnRpY2F0b3JzIjpbXX1d","https://path-to-my-rules/rules.json"]'
 
-# All authenticators can be configured under this configuration key
+## Authenticators ##
+#
+# For more information on authenticators head over to: https://www.ory.sh/docs/oathkeeper/pipeline/authn
+#
 authenticators:
-  # Configures the anonymous authenticator
+  
+  ## Anonymous ##
+  #
+  # The [`anonymous` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#anonymous).
+  #
   anonymous:
-    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+    
+    ## Enabled ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_ANONYMOUS_ENABLED=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_ANONYMOUS_ENABLED=<value>
+    #
     enabled: true
 
-    # Sets the anonymous username. Defaults to "anonymous". Common names include "guest", "anon", "anonymous", "unknown".
+    ## Anonymous Subject ##
+    #
+    # Sets the anonymous username.
+    #
+    # Default value: anonymous
+    #
+    # Examples:
+    # - guest
+    # - anon
+    # - anonymous
+    # - unknown
+    # 
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_ANONYMOUS_SUBJECT=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_ANONYMOUS_SUBJECT=<value>
+    #
     subject: anonymous
 
-  # Configures the cookie session authenticator
-  cookie_session:
-    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+  ## No Operation (noop) ##
+  #
+  # The [`noop` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#noop).
+  #
+  noop:
+    
+    ## Enabled ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_NOOP_ENABLED=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_NOOP_ENABLED=<value>
+    #
     enabled: true
 
-    # Sets the origin to proxy requests to. If the response is a 200 with body `{ "subject": "...", "extra": {} }`
-    # The request will pass the subject through successfully, otherwise it will be marked as unauthorized
+  ## Unauthorized ##
+  #
+  # The [`unauthorized` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#unauthorized).
+  #
+  unauthorized:
+    
+    ## Enabled ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_UNAUTHORIZED_ENABLED=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_UNAUTHORIZED_ENABLED=<value>
+    #
+    enabled: true
+
+  ## Cookie Session ##
+  #
+  # The [`cookie_session` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#cookie_session).
+  #
+  cookie_session:
+    
+    ## Enabled ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_COOKIE_SESSION_ENABLED=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_COOKIE_SESSION_ENABLED=<value>
+    #
+    enabled: false
+
+    ## Session Check URL ##
+    #
+    # The origin to proxy requests to. If the response is a 200 with body `{ "subject": "...", "extra": {} }`. The request will pass the subject through successfully, otherwise it will be marked as unauthorized.
+    # 
+    # >If this authenticator is enabled, this value is required.
+    #
+    # Examples:
+    # - https://session-store-host
+    # 
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_COOKIE_SESSION_CHECK_SESSION_URL=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_COOKIE_SESSION_CHECK_SESSION_URL=<value>
+    #
     check_session_url: https://session-store-host
 
-    # Sets a list of possible cookies to look for on incoming requests, and will fallthrough to the next authenticator if
-    # none of the passed cookies are set on the request
+    ## Only Cookies ##
+    #
+    # A list of possible cookies to look for on incoming requests, and will fallthrough to the next authenticator if none of the passed cookies are set on the request.
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_COOKIE_SESSION_ONLY=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_COOKIE_SESSION_ONLY=<value>
+    #
     only:
-      - sessionid
+      - eius
+      - eiusmod id in do voluptate
 
-  # Configures the jwt authenticator
+  ## JSON Web Token (jwt) ##
+  #
+  # The [`jwt` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#jwt).
+  #
   jwt:
-    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+    
+    ## Enabled ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_JWT_ENABLED=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_JWT_ENABLED=<value>
+    #
     enabled: true
 
-    # REQUIRED IF ENABLED - The URL where ORY Oathkeeper can retrieve JSON Web Keys from for validating the JSON Web
-    # Token. Usually something like "https://my-keys.com/.well-known/jwks.json". The response of that endpoint must
-    # return a JSON Web Key Set (JWKS).
-    jwks_urls:
-      - https://my-website.com/.well-known/jwks.json
-      - https://my-other-website.com/.well-known/jwks.json
-      - file://path/to/local/jwks.json
+    ## JSON Web Key URLs ##
+    #
+    # URLs where ORY Oathkeeper can retrieve JSON Web Keys from for validating the JSON Web Token. Usually something like "https://my-keys.com/.well-known/jwks.json". The response of that endpoint must return a JSON Web Key Set (JWKS).
+    # 
+    # >If this authenticator is enabled, this value is required.
+    #
+    # Examples:
+    # - https://my-website.com/.well-known/jwks.json
+    # - https://my-other-website.com/.well-known/jwks.json
+    # - file://path/to/local/jwks.json
+    # 
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_JWT_JWKS_URLS=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_JWT_JWKS_URLS=<value>
+    #
+    jwks_urls: https://my-other-website.com/.well-known/jwks.json
 
-    # Sets the strategy to be used to validate/match the scope. Supports "hierarchic", "exact", "wildcard", "none". Defaults
-    # to "none".
+    ## Scope Strategy ##
+    #
+    # Sets the strategy validation algorithm.
+    #
+    # Default value: none
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_JWT_SCOPE_STRATEGY=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_JWT_SCOPE_STRATEGY=<value>
+    #
     scope_strategy: none
 
-  # Configures the noop authenticator
-  noop:
-    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
-    enabled: true
-
-  # Configures the oauth2_client_credentials authenticator
+  ## OAuth 2.0 Client Credentials ##
+  #
+  # The [`oauth2_client_credentials` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#oauth2_client_credentials).
+  #
   oauth2_client_credentials:
-    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+    
+    ## Enabled ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_OAUTH2_CLIENT_CREDENTIALS_ENABLED=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_OAUTH2_CLIENT_CREDENTIALS_ENABLED=<value>
+    #
     enabled: true
 
-    # REQUIRED IF ENABLED - The OAuth 2.0 Token Endpoint that will be used to validate the client credentials.
+    ## token_url ##
+    #
+    # The OAuth 2.0 Token Endpoint that will be used to validate the client credentials.
+    # 
+    # >If this authenticator is enabled, this value is required.
+    #
+    # Examples:
+    # - https://my-website.com/oauth2/token
+    # 
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_OAUTH2_CLIENT_CREDENTIALS_TOKEN_URL=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_OAUTH2_CLIENT_CREDENTIALS_TOKEN_URL=<value>
+    #
     token_url: https://my-website.com/oauth2/token
 
-  # Configures the oauth2_introspection authenticator
+  ## OAuth 2.0 Token Introspection ##
+  #
+  # The [`oauth2_introspection` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#oauth2_introspection).
+  #
   oauth2_introspection:
-    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+    
+    ## Enabled ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_OAUTH2_INTROSPECTION_ENABLED=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_OAUTH2_INTROSPECTION_ENABLED=<value>
+    #
     enabled: true
 
-    # REQUIRED IF ENABLED - The OAuth 2.0 Token Introspection endpoint.
+    ## OAuth 2.0 Introspection URL ##
+    #
+    # The OAuth 2.0 Token Introspection endpoint URL.
+    # 
+    # >If this authenticator is enabled, this value is required.
+    #
+    # Examples:
+    # - https://my-website.com/oauth2/introspection
+    # 
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_OAUTH2_INTROSPECTION_INTROSPECTION_URL=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_OAUTH2_INTROSPECTION_INTROSPECTION_URL=<value>
+    #
     introspection_url: https://my-website.com/oauth2/introspection
 
-    # Sets the strategy to be used to validate/match the token scope. Supports "hierarchic", "exact", "wildcard", "none". Defaults
-    # to "none".
-    scope_strategy: exact
+    ## Scope Strategy ##
+    #
+    # Sets the strategy validation algorithm.
+    #
+    # Default value: none
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_OAUTH2_INTROSPECTION_SCOPE_STRATEGY=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_OAUTH2_INTROSPECTION_SCOPE_STRATEGY=<value>
+    #
+    scope_strategy: none
 
-    # Enable pre-authorization in cases where the OAuth 2.0 Token Introspection endpoint is protected by OAuth 2.0 Bearer
-    # Tokens that can be retrieved using the OAuth 2.0 Client Credentials grant.
+    ## Pre-Authorization ##
+    #
+    # Enable pre-authorization in cases where the OAuth 2.0 Token Introspection endpoint is protected by OAuth 2.0 Bearer Tokens that can be retrieved using the OAuth 2.0 Client Credentials grant.
+    #
     pre_authorization:
-      # Enable pre-authorization. Defaults to false.
-      enabled: true
+      
+      ## Enabled ##
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_ENABLED=<value>
+      # - Windows Command Line (CMD):
+      #    > set AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_ENABLED=<value>
+      #
+      enabled: false
 
-      # REQUIRED IF ENABLED - The OAuth 2.0 Client ID to be used for the OAuth 2.0 Client Credentials Grant.
-      client_id: some_id
+      ## OAuth 2.0 Client ID ##
+      #
+      # The OAuth 2.0 Client ID to be used for the OAuth 2.0 Client Credentials Grant.
+      # 
+      # >If pre-authorization is enabled, this value is required.
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_CLIENT_ID=<value>
+      # - Windows Command Line (CMD):
+      #    > set AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_CLIENT_ID=<value>
+      #
+      client_id: ipsum nisi dolore
 
-      # REQUIRED IF ENABLED - The OAuth 2.0 Client Secret to be used for the OAuth 2.0 Client Credentials Grant.
-      client_secret: some_secret
+      ## OAuth 2.0 Client Secret ##
+      #
+      # The OAuth 2.0 Client Secret to be used for the OAuth 2.0 Client Credentials Grant.
+      # 
+      # >If pre-authorization is enabled, this value is required.
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_CLIENT_SECRET=<value>
+      # - Windows Command Line (CMD):
+      #    > set AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_CLIENT_SECRET=<value>
+      #
+      client_secret: deserunt ut
 
-      # REQUIRED IF ENABLED - The OAuth 2.0 Scope to be requested during the OAuth 2.0 Client Credentials Grant.
+      ## OAuth 2.0 Token URL ##
+      #
+      # The OAuth 2.0 Token Endpoint where the OAuth 2.0 Client Credentials Grant will be performed.
+      # 
+      # >If pre-authorization is enabled, this value is required.
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_TOKEN_URL=<value>
+      # - Windows Command Line (CMD):
+      #    > set AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_TOKEN_URL=<value>
+      #
+      token_url: http://hiqaHLphtqZOVS.dgNFMDl6i.TLVb1LKErCTjZPjKmTQJ1
+
+      ## OAuth 2.0 Scope ##
+      #
+      # The OAuth 2.0 Scope to be requested during the OAuth 2.0 Client Credentials Grant.
+      #
+      # Examples:
+      # - - '["foo", "bar"]'
+      # 
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_SCOPE=<value>
+      # - Windows Command Line (CMD):
+      #    > set AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_SCOPE=<value>
+      #
       scope:
-        - foo
-        - bar
+        - '["foo", "bar"]'
 
-      # REQUIRED IF ENABLED - The OAuth 2.0 Token Endpoint where the OAuth 2.0 Client Credentials Grant will be performed.
-      token_url: https://my-website.com/oauth2/token
-
-  # Configures the unauthorized authenticator
-  unauthorized:
-    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
-    enabled: true
-
-# All authorizers can be configured under this configuration key
+## Authorizers ##
+#
+# For more information on authorizers head over to: https://www.ory.sh/docs/oathkeeper/pipeline/authz
+#
 authorizers:
-  # Configures the allow authorizer
+  
+  ## Allow ##
+  #
+  # The [`allow` authorizer](https://www.ory.sh/docs/oathkeeper/pipeline/authz#allow).
+  #
   allow:
-    # Set enabled to true if the authorizer should be enabled and false to disable the authorizer. Defaults to false.
+    
+    ## Enabled ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHORIZERS_ALLOW_ENABLED=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHORIZERS_ALLOW_ENABLED=<value>
+    #
     enabled: true
 
-  # Configures the deny authorizer
+  ## Deny ##
+  #
+  # The [`deny` authorizer](https://www.ory.sh/docs/oathkeeper/pipeline/authz#allow).
+  #
   deny:
-    # Set enabled to true if the authorizer should be enabled and false to disable the authorizer. Defaults to false.
-    enabled: true
+    
+    ## Enabled ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHORIZERS_DENY_ENABLED=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHORIZERS_DENY_ENABLED=<value>
+    #
+    enabled: false
 
-  # Configures the keto_engine_acp_ory authorizer
+  ## ORY Keto Access Control Policies Engine ##
+  #
+  # The [`keto_engine_acp_ory` authorizer](https://www.ory.sh/docs/oathkeeper/pipeline/authz#keto_engine_acp_ory).
+  #
   keto_engine_acp_ory:
-    # Set enabled to true if the authorizer should be enabled and false to disable the authorizer. Defaults to false.
-    enabled: true
-    # REQUIRED IF ENABLED - The base URL of ORY Keto, typically something like http(s)://<host>[:<port>]/
+    
+    ## Enabled ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHORIZERS_KETO_ENGINE_ACP_ORY_ENABLED=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHORIZERS_KETO_ENGINE_ACP_ORY_ENABLED=<value>
+    #
+    enabled: false
+
+    ## Base URL ##
+    #
+    # The base URL of ORY Keto.
+    # 
+    # >If this authorizer is enabled, this value is required.
+    #
+    # Examples:
+    # - http://my-keto/
+    # 
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHORIZERS_KETO_ENGINE_ACP_ORY_BASE_URL=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHORIZERS_KETO_ENGINE_ACP_ORY_BASE_URL=<value>
+    #
     base_url: http://my-keto/
 
-
-# All mutators can be configured under this configuration key
+## Mutators ##
+#
+# For more information on mutators head over to: https://www.ory.sh/docs/oathkeeper/pipeline/mutator
+#
 mutators:
-  # Configures the cookie mutator
-  cookie:
-    # Set enabled to true if the mutator should be enabled and false to disable the mutator. Defaults to false.
-    enabled: true
-
-  # Configures the header mutator
-  header:
-    # Set enabled to true if the mutator should be enabled and false to disable the mutator. Defaults to false.
-    enabled: true
-
-  # Configures the id_token mutator
-  id_token:
-    # Set enabled to true if the mutator should be enabled and false to disable the mutator. Defaults to false.
-    enabled: true
-    # REQUIRED IF ENABLED - Sets the "iss" value of the ID Token.
-    issuer_url: https://my-oathkeeper/
-    # REQUIRED IF ENABLED - Sets the URL where keys should be fetched from. Supports remote locations (http, https) as
-    # well as local filesystem paths.
-    jwks_url: https://fetch-keys/from/this/location.json
-    # jwks_url: file:///from/this/absolute/location.json
-    # jwks_url: file://../from/this/relative/location.json
-
-    # Sets the time-to-live of the ID token. Defaults to one minute. Valid time units are: s (second), m (minute), h (hour).
-    ttl: 60s
-
-  # Configures the noop mutator
+  
+  ## No Operation (noop) ##
+  #
+  # The [`noop` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#noop).
+  #
   noop:
-    # Set enabled to true if the mutator should be enabled and false to disable the mutator. Defaults to false.
+    
+    ## Enabled ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export MUTATORS_NOOP_ENABLED=<value>
+    # - Windows Command Line (CMD):
+    #    > set MUTATORS_NOOP_ENABLED=<value>
+    #
+    enabled: false
+
+  ## HTTP Cookie ##
+  #
+  # The [`cookie` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#cookie).
+  #
+  cookie:
+    
+    ## Enabled ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export MUTATORS_COOKIE_ENABLED=<value>
+    # - Windows Command Line (CMD):
+    #    > set MUTATORS_COOKIE_ENABLED=<value>
+    #
+    enabled: false
+
+  ## HTTP Header ##
+  #
+  # The [`header` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#header).
+  #
+  header:
+    
+    ## Enabled ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export MUTATORS_HEADER_ENABLED=<value>
+    # - Windows Command Line (CMD):
+    #    > set MUTATORS_HEADER_ENABLED=<value>
+    #
     enabled: true
-```
+
+  ## ID Token (JSON Web Token) ##
+  #
+  # The [`header` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#header).
+  #
+  id_token:
+    
+    ## Enabled ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export MUTATORS_ID_TOKEN_ENABLED=<value>
+    # - Windows Command Line (CMD):
+    #    > set MUTATORS_ID_TOKEN_ENABLED=<value>
+    #
+    enabled: true
+
+    ## Issuer URL ##
+    #
+    # Sets the "iss" value of the ID Token.
+    # 
+    # >If this mutator is enabled, this value is required.
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export MUTATORS_ID_TOKEN_ISSUER_URL=<value>
+    # - Windows Command Line (CMD):
+    #    > set MUTATORS_ID_TOKEN_ISSUER_URL=<value>
+    #
+    issuer_url: https://aIhZuUXhwbgDDkRrAOWoetBhhpR.vxmqeopvBHV,cNy
+
+    ## JSON Web Key URL ##
+    #
+    # Sets the URL where keys should be fetched from. Supports remote locations (http, https) as well as local filesystem paths.
+    # 
+    # >If this mutator is enabled, this value is required.
+    #
+    # Examples:
+    # - https://fetch-keys/from/this/location.json
+    # - file:///from/this/absolute/location.json
+    # - file://../from/this/relative/location.json
+    # 
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export MUTATORS_ID_TOKEN_JWKS_URL=<value>
+    # - Windows Command Line (CMD):
+    #    > set MUTATORS_ID_TOKEN_JWKS_URL=<value>
+    #
+    jwks_url: file://../from/this/relative/location.json
+
+    ## Expire After ##
+    #
+    # Sets the time-to-live of the JSON Web Token.
+    #
+    # Default value: 1m
+    #
+    # Examples:
+    # - 1h
+    # - 1m
+    # - 30s
+    # 
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export MUTATORS_ID_TOKEN_TTL=<value>
+    # - Windows Command Line (CMD):
+    #    > set MUTATORS_ID_TOKEN_TTL=<value>
+    #
+    ttl: 1m
+
+## Log ##
+#
+# Configure logging using the following options. Logging will always be sent to stdout and stderr.
+#
+log:
+  
+  ## Level ##
+  #
+  # Debug enables stack traces on errors. Can also be set using environment variable LOG_LEVEL.
+  #
+  # Default value: info
+  #
+  # Set this value using environment variables on
+  # - Linux/macOS:
+  #    $ export LOG_LEVEL=<value>
+  # - Windows Command Line (CMD):
+  #    > set LOG_LEVEL=<value>
+  #
+  level: info
+
+  ## Format ##
+  #
+  # The log format can either be text or JSON.
+  #
+  # Default value: text
+  #
+  # Set this value using environment variables on
+  # - Linux/macOS:
+  #    $ export LOG_FORMAT=<value>
+  # - Windows Command Line (CMD):
+  #    > set LOG_FORMAT=<value>
+  #
+  format: text
+
+## Profiling ##
+#
+# Enables CPU or memory profiling if set. For more details on profiling Go programs read [Profiling Go Programs](https://blog.golang.org/profiling-go-programs).
+#
+# Set this value using environment variables on
+# - Linux/macOS:
+#    $ export PROFILING=<value>
+# - Windows Command Line (CMD):
+#    > set PROFILING=<value>
+#
+profiling: cpu
+
 
