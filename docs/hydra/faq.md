@@ -233,3 +233,9 @@ Check the logs using `docker logs <container-id>`.
 > Aeneas @arekkas 15:51  
 > nah, simply write your http calls in a way that if a 401 or 403 occurrs, the
 > token is refreshed that's the easiest and cleanest
+
+## Hydra won't remember my login
+
+Hydra only keeps track of the session if you set the `remember_me` parameter in the `accept login request`.
+Otherwise the login challenge will always instruct you to show the login formular.
+
