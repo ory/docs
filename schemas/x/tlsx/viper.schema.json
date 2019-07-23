@@ -6,45 +6,40 @@
   "type": "object",
   "additionalProperties": false,
   "definitions": {
-    "path": {
-      "title": "Path to PEM-encoded Fle",
-      "type": "string",
-      "examples": ["path/to/file.pem"]
-    },
-    "base64": {
-      "title": "Base64 Encoded",
-      "description": "The base64 string of the PEM-encoded file content. Can be generated using for example `base64 -i path/to/file.pem`.",
-      "type": "string",
-      "examples": [
-        "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tXG5NSUlEWlRDQ0FrMmdBd0lCQWdJRVY1eE90REFOQmdr..."
-      ]
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "title": "Path to PEM-encoded Fle",
+          "type": "string",
+          "examples": [
+            "path/to/file.pem"
+          ]
+        },
+        "base64": {
+          "title": "Base64 Encoded Inline",
+          "description": "The base64 string of the PEM-encoded file content. Can be generated using for example `base64 -i path/to/file.pem`.",
+          "type": "string",
+          "examples": [
+            "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tXG5NSUlEWlRDQ0FrMmdBd0lCQWdJRVY1eE90REFOQmdr..."
+          ]
+        }
+      }
     }
   },
   "properties": {
     "key": {
       "title": "Private Key (PEM)",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "path": {
-          "$ref": "#/definitions/path"
-        },
-        "base64": {
-          "$ref": "#/definitions/base64"
-        }
-      }
+      "allOf": [{
+        "$ref": "#/definitions/source"
+      }]
     },
     "cert": {
       "title": "TLS Certificate (PEM)",
-      "additionalProperties": false,
-      "properties": {
-        "path": {
-          "$ref": "#/definitions/path"
-        },
-        "base64": {
-          "$ref": "#/definitions/base64"
-        }
-      }
+      "allOf": [{
+        "$ref": "#/definitions/source"
+      }]
     }
   }
 }
