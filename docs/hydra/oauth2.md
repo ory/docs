@@ -1,69 +1,129 @@
 ---
 id: oauth2
-title: Integrating with (existing) User Management
+title: OAuth 2.0 and OpenID Connect
+sidebar_label: OAuth 2.0
 ---
 
-Please read this chapter carefully, it is imperative to getting started and
-grasping all the concepts quickly. The next sections will give you an overview
-of this chapter and explain some concepts. Do not skip the chapters. Seriously!
-:)
+This section describes on a high level what OAuth 2.0 and OpenID Connect 1.0 are
+for and how they work.
 
-## OAuth 2.0 and OpenID Connect
+### OAuth 2.0
+
+[The OAuth 2.0 authorization framework](https://tools.ietf.org/html/rfc6749) is
+specified in [IETF RFC 6749](https://tools.ietf.org/html/rfc6749). OAuth 2.0
+enables a third-party application to obtain limited access to resources on an
+HTTP server on behalf of the owner of those resources.
+
+Why is this important? Without OAuth 2.0, a resource owner who wants to share
+resources in their account with a third party would have to share their
+credentials with that third party. As an example, let's say you (a resource
+owner) have some photos (resources) stored on a social network (the resource
+server). Now you want to print them using a third-party printing service. Before
+OAuth 2.0 existed, you would have to enter your social network password into the
+printing service so that it can access and print your photos. Sharing secret
+passwords with third parties is obviously very problematic.
+
+OAuth addresses this problem by introducing:
+
+- the distinction between resource ownership and resource access for clients
+- the ability to define fine-grained access privileges (called OAuth scopes)
+  instead of full account access for third parties
+- an authorization layer and workflow that allows resource owners to grant
+  particular clients particular types of access to particular resources.
+
+With OAuth, clients can request access to resources on a server, and the owner
+of these resources can grant the requested access together with dedicated
+credentials. In our example, you could grant the printing service read-only
+access to your photos (only your photos, not your friend list) on the social
+network. These credentials come in the form of an access token -- a string
+denoting a specific scope, lifetime, and other access attributes. The client
+(printing service) can use this access token to request the protected resources
+(your photos) from the resource server (the social network).
+
+### What is OpenID Connect 1.0?
+
+OAuth 2.0 is a complex protocol for authorizing access to resources. If all you
+need is authentication, OpenID Connect 1.0 enables clients to verify the
+identity of the end user based on the authentication performed by an
+Authorization Server and obtain basic profile information in an interoperable
+and REST-like manner.
+
+OpenID Connect allows clients of all types, including web and mobile, to receive
+information about authenticated sessions and end users. The specification is
+extensible, allowing participants to add encryption of identity data, discovery
+of OpenID Providers, and session management as needed.
+
+There are different work flows for OpenID Connect 1.0. We recommend checking out
+the OpenID Connect sandbox at [openidconnect.net](https://openidconnect.net/).
+
+A more detailed introduction of both OAuth 2.0 and OpenID Connect is available
+in the following video:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/996OiexHze0" frameborder="0" allowfullscreen></iframe>
 
-### ORY Hydra does not manage Users
+More details about the various OAuth2 flows can be found in these articles:
+
+- [DigitalOcean: An Introduction to OAuth 2](https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2)
+- [Aaron Parecki: OAuth2 Simplified](https://aaronparecki.com/2012/07/29/2/oauth2-simplified)
+- [Zapier: Chapter 5: Authentication, Part 2](https://zapier.com/learn/apis/chapter-5-authentication-part-2/)
+
+1. ORY Hydra does not manage user accounts. Your application does that. Hydra
+   exposes an OAuth 2.0 and OpenID Connect endpoint for the user accounts of
+   your application.
+2. OAuth Scopes are not access permissions to resources. They entitle an
+   external application to act in the name of a user on a particular type of
+   resource.
+
+## OAuth 2.0 and OpenID Connect
+
+(TODO: move this somewhere else)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/996OiexHze0" frameborder="0" allowfullscreen></iframe>
+
+### ORY Hydra does not manage users
 
 The first important concept to understand is that ORY Hydra is an OAuth 2.0
-Authorization and OpenID Connect Server. Some mistake these capabilities for
-systems that store user data and log you in. This is not the case. Instead, such
-a server is responsible for "translating" user credentials (typically username
-and password) to OAuth 2.0 Access and Refresh Tokens as well as OpenID Connect
-ID Tokens. It's basically like you storing cookies with session data, but more
-flexible and it also works for third party applications.
+Authorization and OpenID Connect Server and not a user account management
+system. It does not store user data (user profiles, usernames, passwords), or
+logs your users in. What it does is translating user credentials (username and
+password) to OAuth 2.0 Access and Refresh Tokens as well as OpenID Connect ID
+Tokens, which third parties can use to access your APIs in the name of your
+users.
 
-ORY Hydra does not store user profiles, usernames, passwords. This capability is
-up to you. ORY Hydra uses something we call a **User Login and Consent Flow**.
-This flow uses HTTP redirects to forward any incoming authorization request
-("Please give me an access token.") to the **Login Provider** and the **Consent
-Provider**. These applications are something you implement. It can be a new app
-or your existing login system. On a high level, these providers can be
-summarized as:
+ORY Hydra uses a **User Login and Consent Flow** to include third-party user
+management into the OAuth 2.0 and OpenID Connect authorization flow. An incoming
+authorization request is redirected to:
 
-- The login provider is responsible for authenticating the user ("login") by
-  validating his or her credentials (e.g. username + password).
-- The consent provider is responsible for allowing the OAuth 2.0 application to
-  get a token on the user's behalf ("Do you want to allow foobar-app access to
-  all your personal messages and images?".
+1. the **Login Provider**: authenticates the user by validating his or her
+   credentials (login)
+2. the **Consent Provider**: allows to select the OAuth 2.0 scopes that should
+   be granted to the requesting application ("Do you want to allow foobar-app
+   access to all your personal messages and images?")
 
-### Common Misconceptions
+You provide URLs for these two apps to ORY Hydra. They can be custom
+implementations or your existing login system.
 
-#### OAuth 2.0 Scope != Permission
+### OAuth 2.0 Scope != Permission
 
-A second important concept is the OAuth 2.0 Scope.
+A second important concept is the OAuth 2.0 Scope. Many people confuse OAuth 2.0
+Scope with internal Access Control like for example Role Based Access Control
+(RBAC) or Access Control Lists (ACL). Both concepts cover different aspects of
+access control.
 
-Often, developers confuse OAuth 2.0 Scope with regular Access Control. OAuth 2.0
-Scope and, for example, Role Based Access Control (RBAC) or Access Control Lists
-(ACL) cover different aspects of access control.
+Internal access control (RBAC, ACL, etc) decides what a user can do in your
+system. An administrator might be allowed to modify everything. A regular user
+might only be allowed to read their own messages.
 
-Your internal access control will tell you what a user can do in your system. An
-administrator might modify everything, a regular user might only be allowed to
-read personal messages. The OAuth 2.0 Scope does not represent what a resource
-owner ("user") is able to do in a system or not. They do not express things like
-administrative rights.
+OAuth 2.0 Scopes, on the other hand, describe what a user allowed an external
+application (OAuth 2.0 client) to do on his/her behalf. For example, an access
+token might grant the external application to see a user's pictures, but not
+upload new pictures on his/her behalf (which we assume a user could do herself).
 
-The OAuth 2.0 Scope expresses what a user allowed an OAuth 2.0 Client (read:
-"access token") to do on his/her behalf. For example, an access token might be
-allowed to see a user's pictures, but not upload new pictures on his/her behalf.
-The user him/herself however is generally allowed to view and upload pictures.
-**The OAuth 2.0 Scope do not express a user's permissions.** They express what
-an OAuth 2.0 Client may do on the user's behalf - independently of whether or
-not the user is actually allowed to do that. For example, the user could lie and
-say that the client is allowed to access some protected resource which he does
-not have access to ("Read all classified documents", but he is not allowed to
-view any classified documents).
-
-This concludes the overview of the two most important pieces of ORY Hydra.
+In an extreme case, the user could lie and grant an external application OAuth
+scopes that he himself doesn't have permission to ("read all classified
+documents"). The OAuth Access Token with those scopes wouldn't help the external
+application read those documents because it can only act in the name of the
+user, and that user doesn't have these access privileges.
 
 To recap, ORY Hydra's primary feature is implementing the OAuth 2.0 and OpenID
 Connect spec, as well as related specs by the IETF and OpenID Foundation.
@@ -75,45 +135,36 @@ and OpenID Connect provider like Google, Dropbox, or Facebook.
 Again, please be aware that you must know how OAuth 2.0 and OpenID Connect work.
 This documentation will not teach you how these protocols work.
 
-### Glossary
+### Terminology
 
-Before we get into the gritty details of how everything fits together, let's get
-some terminologies out of the way. You will find these terminologies scattered
-across the OAuth2 and OpenID Connect ecosystem.
+To read more natural, this guide uses simpler terminologies like _user_ instead
+of _resource owner_. Here is a full list of terms.
 
-We decided, for this guide, to use simpler and easier to use terminologies like,
-for example, _user_ instead of _resource owner_. If you are familiar with OAuth2
-details, you will find it easier to navigate these docs if you have read the
-glossary.
-
-1. The **resource owner** is the user who authorizes an application to access
-   their account. The application's access to the user's account is limited to
-   the "scope" of the authorization granted (e.g. read or write access). We will
-   refer to the resource owner as a _user_ or _end user_ on this page.
+1. A **resource owner** is the user account who authorizes an external
+   application to access their account. This access is limited (scoped) to
+   particular actions (the granted "scopes" like read photos or write messages).
+   This guide refers to resource owners as _users_ or _end users_.
 2. The **OAuth 2.0 Authorization Server** implements the OAuth 2.0 protocol (and
-   optionally OpenID Connect) and serves endpoints such as `/oauth2/auth` or
-   `/oauth2/token`. In our case, this is **ORY Hydra**.
-3. The **resource provider** is a service that - well - provides resources.
-   These resources (e.g. a blog article, printer, todo list) are owned by a
+   optionally OpenID Connect). In our case, this is **ORY Hydra**.
+3. The **resource provider** is the service that hosts (provides) the resources.
+   These resources (e.g. blog articles, printers, todo lists) are owned by a
    resource owner (user) mentioned above.
-4. The **OAuth 2.0 Client** is the _application_ that wants access to a resource
-   owner's resources (a.k.a. get write access to a user's images). Such a client
-   can ask the authorization server to issue an access token on a resource
-   owner's behalf. Typically, the authorization server will ask the user if
-   he/she "is ok with" giving that application e.g. write access to personal
-   images.
-5. The **Identity Provider** is a service ("application"/"website") with a login
-   interface. An identity provider typically allows users to register as well
-   and might also have an administrative interface in order to manage the
-   identities (delete user, ban user, create user, ...).
+4. The **OAuth 2.0 Client** is the _external application_ that wants to access a
+   resource owner's resources (read a user's images). To do that, it asks the
+   OAuth 2.0 Authorization Server for an access token in a resource owner's
+   behalf. The authorization server will ask the user if he/she "is ok with"
+   giving that external application e.g. write access to personal images.
+5. The **Identity Provider** is a service that allows users to register
+   accounts, log in, etc.
 6. **User Agent** is usually a browser.
-7. **OpenID Connect** is a protocol built on top of OAuth 2.0 which is capable
-   of federating authentication.
+7. **OpenID Connect** is a protocol built on top of OAuth 2.0 for just
+   authentication (instead of authorizing access to resources).
 
 A typical OAuth 2.0 flow looks as follows:
 
-1. A developer registers an OAuth 2.0 Client at the Authorization Server (ORY
-   Hydra) with the intention of obtaining information on behalf of a user.
+1. A developer registers an OAuth 2.0 Client (external application with the
+   Authorization Server (ORY Hydra) the intention to obtain information on
+   behalf of a user.
 2. The application UI asks the user to authorize the application to access
    information/data on his/her behalf.
 3. The user is redirected to the Authorization Server.

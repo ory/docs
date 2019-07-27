@@ -13,6 +13,8 @@
     ],
     "ORY Hydra": [
       "hydra/index",
+      "hydra/oauth2",
+      "hydra/case-study",
       {
         "type": "subcategory",
         "label": "Getting Started",
