@@ -14,18 +14,15 @@ that enable third-parties to access your APIs in the name of your users.
 One of ORY Hydra's biggest advantages is that unlike other OAuth 2.0
 implementations, it implements the OAuth and OpenID Connect standard without
 forcing you to use a "Hydra User Management" (login, logout, profile management,
-registration), a particular template engine, or a predefined front-end. Instead,
-ORY Hydra relies on HTTP redirection and cryptographic methods to verify user
-consent, allowing you to implement user management and login your way, in your
-technology stack, with authentication mechanisms required by your use case
-(token-based 2FA, SMS 2FA, etc), or with many authentication endpoints like
-[authboss](https://github.com/go-authboss/authboss) or
-[auth0.com](https://auth0.com/).
+registration), a particular template engine, or a predefined front-end.
 
-This support of third-party user management makes ORY Hydra the most flexible
-OAuth 2.0 and OpenID Connect provider. It gives you freedom to implement your
-business logic in any way while getting all the benefits of OAuth 2.0 and OpenID
-Connect.
+This allows you to implement user management and login your way, in your
+technology stack, with authentication mechanisms required by your use case
+(token-based 2FA, SMS 2FA, etc). You can of course use existing solutions like
+[authboss](https://github.com/go-authboss/authboss) or
+[auth0.com](https://auth0.com/). It provides you all the benefits of OAuth 2.0
+and OpenID Connect while being minimally invasive to your your business logic
+and technology stack.
 
 ## Cryptographic Key Storage
 
