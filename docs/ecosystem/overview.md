@@ -28,8 +28,7 @@ Our products solve the simplest use case and give you the ability to instantly
 ready the system for more complex scenarios without painful and slow upgrade
 processes.
 
-The first service, which is to be announced soon, focuses on identity
-management. Instead of re-writing login, logout, activation emails, 2fa, and
+The above-mentioned _identity management server_ is to be announced soon. Instead of re-writing login, logout, activation emails, 2fa, and
 worring about GDPR, you spin up a docker image and write a simple UI for it in
 the language or framework of your choice.
 
