@@ -22,11 +22,15 @@ all HTTP APIs here.
 
 - HTTP Authentication, scheme: basic - OAuth 2.0 Authorization. - Flow:
   authorizationCode
+
   - OAuth 2.0 Authorization URL = [/oauth2/auth](/oauth2/auth)
   - OAuth 2.0 Token URL = [/oauth2/token](/oauth2/token)
-  - OAuth 2.0 Scope |Scope|Scope Description| |---|---| |offline|A scope
-    required when requesting refresh tokens| |openid|Request an OpenID Connect
-    ID Token|
+  - OAuth 2.0 Scope
+
+    | Scope   | Scope Description                               |
+    | ------- | ----------------------------------------------- |
+    | offline | A scope required when requesting refresh tokens |
+    | openid  | Request an OpenID Connect ID Token              |
 
 <a id="ory-hydra-public-endpoints"></a>
 
@@ -461,10 +465,10 @@ https://tools.ietf.org/html/rfc6749
 
 ```json
 {
+  "debug": "The database adapter was unable to find the element",
   "error": "The requested resource could not be found",
-  "error_code": 404,
-  "error_debug": "The database adapter was unable to find the element",
-  "error_hint": "Object with ID 12345 does not exist"
+  "error_description": "Object with ID 12345 does not exist",
+  "status_code": 404
 }
 ```
 
@@ -657,10 +661,10 @@ token: string
 
 ```json
 {
+  "debug": "The database adapter was unable to find the element",
   "error": "The requested resource could not be found",
-  "error_code": 404,
-  "error_debug": "The database adapter was unable to find the element",
-  "error_hint": "Object with ID 12345 does not exist"
+  "error_description": "Object with ID 12345 does not exist",
+  "status_code": 404
 }
 ```
 
@@ -1494,7 +1498,7 @@ Status Code **200**
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-07-18T15:43:49Z",
+    "created_at": "2019-07-22T09:29:59Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -1535,7 +1539,7 @@ Status Code **200**
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-07-18T15:43:49Z",
+    "updated_at": "2019-07-22T09:29:59Z",
     "userinfo_signed_response_alg": "string"
   }
 ]
@@ -1715,7 +1719,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-07-18T15:43:49Z",
+  "created_at": "2019-07-22T09:29:59Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -1756,7 +1760,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-07-18T15:43:49Z",
+  "updated_at": "2019-07-22T09:29:59Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -1798,7 +1802,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-07-18T15:43:49Z",
+  "created_at": "2019-07-22T09:29:59Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -1839,7 +1843,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-07-18T15:43:49Z",
+  "updated_at": "2019-07-22T09:29:59Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -1920,7 +1924,7 @@ const input = '{
   "contacts": [
     "string"
   ],
-  "created_at": "2019-07-18T15:43:49Z",
+  "created_at": "2019-07-22T09:29:59Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": [
@@ -1973,7 +1977,7 @@ const input = '{
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-07-18T15:43:49Z",
+  "updated_at": "2019-07-22T09:29:59Z",
   "userinfo_signed_response_alg": "string"
 }';
 const headers = {
@@ -2112,7 +2116,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-07-18T15:43:49Z",
+  "created_at": "2019-07-22T09:29:59Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2153,7 +2157,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-07-18T15:43:49Z",
+  "updated_at": "2019-07-22T09:29:59Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2331,7 +2335,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-07-18T15:43:49Z",
+  "created_at": "2019-07-22T09:29:59Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2372,7 +2376,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-07-18T15:43:49Z",
+  "updated_at": "2019-07-22T09:29:59Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2413,7 +2417,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-07-18T15:43:49Z",
+  "created_at": "2019-07-22T09:29:59Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2454,7 +2458,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-07-18T15:43:49Z",
+  "updated_at": "2019-07-22T09:29:59Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2535,7 +2539,7 @@ const input = '{
   "contacts": [
     "string"
   ],
-  "created_at": "2019-07-18T15:43:49Z",
+  "created_at": "2019-07-22T09:29:59Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": [
@@ -2588,7 +2592,7 @@ const input = '{
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-07-18T15:43:49Z",
+  "updated_at": "2019-07-22T09:29:59Z",
   "userinfo_signed_response_alg": "string"
 }';
 const headers = {
@@ -2718,10 +2722,10 @@ and only callable by first-party components.
 
 ```json
 {
+  "debug": "The database adapter was unable to find the element",
   "error": "The requested resource could not be found",
-  "error_code": 404,
-  "error_debug": "The database adapter was unable to find the element",
-  "error_hint": "Object with ID 12345 does not exist"
+  "error_description": "Object with ID 12345 does not exist",
+  "status_code": 404
 }
 ```
 
@@ -3617,10 +3621,10 @@ user-defined keys as well.
 
 ```json
 {
+  "debug": "The database adapter was unable to find the element",
   "error": "The requested resource could not be found",
-  "error_code": 404,
-  "error_debug": "The database adapter was unable to find the element",
-  "error_hint": "Object with ID 12345 does not exist"
+  "error_description": "Object with ID 12345 does not exist",
+  "status_code": 404
 }
 ```
 
@@ -4268,10 +4272,10 @@ user-defined keys as well.
 
 ```json
 {
+  "debug": "The database adapter was unable to find the element",
   "error": "The requested resource could not be found",
-  "error_code": 404,
-  "error_debug": "The database adapter was unable to find the element",
-  "error_hint": "Object with ID 12345 does not exist"
+  "error_description": "Object with ID 12345 does not exist",
+  "status_code": 404
 }
 ```
 
@@ -4479,7 +4483,7 @@ the subject accepted or rejected the request.
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-07-18T15:43:49Z",
+    "created_at": "2019-07-22T09:29:59Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -4520,7 +4524,7 @@ the subject accepted or rejected the request.
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-07-18T15:43:49Z",
+    "updated_at": "2019-07-22T09:29:59Z",
     "userinfo_signed_response_alg": "string"
   },
   "context": {
@@ -5226,7 +5230,7 @@ the requested authentication process.
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-07-18T15:43:49Z",
+    "created_at": "2019-07-22T09:29:59Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -5267,7 +5271,7 @@ the requested authentication process.
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-07-18T15:43:49Z",
+    "updated_at": "2019-07-22T09:29:59Z",
     "userinfo_signed_response_alg": "string"
   },
   "oidc_context": {
@@ -6321,10 +6325,10 @@ status_code: 0
 
 ```json
 {
+  "debug": "The database adapter was unable to find the element",
   "error": "The requested resource could not be found",
-  "error_code": 404,
-  "error_debug": "The database adapter was unable to find the element",
-  "error_hint": "Object with ID 12345 does not exist"
+  "error_description": "Object with ID 12345 does not exist",
+  "status_code": 404
 }
 ```
 
@@ -6626,7 +6630,7 @@ Status Code **200**
         "client_secret_expires_at": 0,
         "client_uri": "string",
         "contacts": ["string"],
-        "created_at": "2019-07-18T15:43:49Z",
+        "created_at": "2019-07-22T09:29:59Z",
         "frontchannel_logout_session_required": true,
         "frontchannel_logout_uri": "string",
         "grant_types": ["string"],
@@ -6667,7 +6671,7 @@ Status Code **200**
         "subject_type": "string",
         "token_endpoint_auth_method": "string",
         "tos_uri": "string",
-        "updated_at": "2019-07-18T15:43:49Z",
+        "updated_at": "2019-07-22T09:29:59Z",
         "userinfo_signed_response_alg": "string"
       },
       "context": {
@@ -6892,10 +6896,10 @@ This endpoint revokes a subject's granted consent sessions for a specific OAuth
 
 ```json
 {
+  "debug": "The database adapter was unable to find the element",
   "error": "The requested resource could not be found",
-  "error_code": 404,
-  "error_debug": "The database adapter was unable to find the element",
-  "error_hint": "Object with ID 12345 does not exist"
+  "error_description": "Object with ID 12345 does not exist",
+  "status_code": 404
 }
 ```
 
@@ -7086,10 +7090,10 @@ invalidates-a-subject's-authentication-session-responses"></a>
 
 ```json
 {
+  "debug": "The database adapter was unable to find the element",
   "error": "The requested resource could not be found",
-  "error_code": 404,
-  "error_debug": "The database adapter was unable to find the element",
-  "error_hint": "Object with ID 12345 does not exist"
+  "error_description": "Object with ID 12345 does not exist",
+  "status_code": 404
 }
 ```
 
@@ -7253,7 +7257,7 @@ deleted automatically when performing the refresh flow.
 
 ```json
 {
-  "notAfter": "2019-07-18T15:43:49Z"
+  "notAfter": "2019-07-22T09:29:59Z"
 }
 ```
 
@@ -7284,10 +7288,10 @@ deleted automatically when performing the refresh flow.
 
 ```json
 {
+  "debug": "The database adapter was unable to find the element",
   "error": "The requested resource could not be found",
-  "error_code": 404,
-  "error_debug": "The database adapter was unable to find the element",
-  "error_hint": "Object with ID 12345 does not exist"
+  "error_description": "Object with ID 12345 does not exist",
+  "status_code": 404
 }
 ```
 
@@ -7351,7 +7355,7 @@ func main() {
 ```nodejs
 const fetch = require('node-fetch');
 const input = '{
-  "notAfter": "2019-07-18T15:43:49Z"
+  "notAfter": "2019-07-22T09:29:59Z"
 }';
 const headers = {
   'Content-Type': 'application/json',  'Accept': 'application/json'
@@ -8315,7 +8319,7 @@ p JSON.parse(result)
       "client_secret_expires_at": 0,
       "client_uri": "string",
       "contacts": ["string"],
-      "created_at": "2019-07-18T15:43:49Z",
+      "created_at": "2019-07-22T09:29:59Z",
       "frontchannel_logout_session_required": true,
       "frontchannel_logout_uri": "string",
       "grant_types": ["string"],
@@ -8356,7 +8360,7 @@ p JSON.parse(result)
       "subject_type": "string",
       "token_endpoint_auth_method": "string",
       "tos_uri": "string",
-      "updated_at": "2019-07-18T15:43:49Z",
+      "updated_at": "2019-07-22T09:29:59Z",
       "userinfo_signed_response_alg": "string"
     },
     "context": {
@@ -8525,7 +8529,7 @@ request._
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-07-18T15:43:49Z",
+    "created_at": "2019-07-22T09:29:59Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -8566,7 +8570,7 @@ request._
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-07-18T15:43:49Z",
+    "updated_at": "2019-07-22T09:29:59Z",
     "userinfo_signed_response_alg": "string"
   },
   "context": {
@@ -8668,7 +8672,7 @@ _None_
 
 ```json
 {
-  "notAfter": "2019-07-18T15:43:49Z"
+  "notAfter": "2019-07-22T09:29:59Z"
 }
 ```
 
@@ -8686,10 +8690,10 @@ _None_
 
 ```json
 {
+  "debug": "The database adapter was unable to find the element",
   "error": "The requested resource could not be found",
-  "error_code": 404,
-  "error_debug": "The database adapter was unable to find the element",
-  "error_hint": "Object with ID 12345 does not exist"
+  "error_description": "Object with ID 12345 does not exist",
+  "status_code": 404
 }
 ```
 
@@ -8697,12 +8701,12 @@ _Error response_
 
 #### Properties
 
-| Name        | Type           | Required | Restrictions | Description                                                                            |
-| ----------- | -------------- | -------- | ------------ | -------------------------------------------------------------------------------------- |
-| error       | string         | true     | none         | Name is the error name.                                                                |
-| error_code  | integer(int64) | false    | none         | Code represents the error status code (404, 403, 401, ...).                            |
-| error_debug | string         | false    | none         | Debug contains debug information. This is usually not available and has to be enabled. |
-| error_hint  | string         | false    | none         | Hint contains further information on the nature of the error.                          |
+| Name              | Type           | Required | Restrictions | Description                                                                            |
+| ----------------- | -------------- | -------- | ------------ | -------------------------------------------------------------------------------------- |
+| debug             | string         | false    | none         | Debug contains debug information. This is usually not available and has to be enabled. |
+| error             | string         | true     | none         | Name is the error name.                                                                |
+| error_description | string         | false    | none         | Description contains further information on the nature of the error.                   |
+| status_code       | integer(int64) | false    | none         | Code represents the error status code (404, 403, 401, ...).                            |
 
 <a id="tocShealthnotreadystatus">healthNotReadyStatus</a>
 
@@ -8786,7 +8790,7 @@ _Error response_
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-07-18T15:43:49Z",
+    "created_at": "2019-07-22T09:29:59Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -8827,7 +8831,7 @@ _Error response_
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-07-18T15:43:49Z",
+    "updated_at": "2019-07-22T09:29:59Z",
     "userinfo_signed_response_alg": "string"
   },
   "oidc_context": {
@@ -8909,7 +8913,7 @@ _Contains information about an ongoing logout request._
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-07-18T15:43:49Z",
+  "created_at": "2019-07-22T09:29:59Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -8950,7 +8954,7 @@ _Contains information about an ongoing logout request._
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-07-18T15:43:49Z",
+  "updated_at": "2019-07-22T09:29:59Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -9167,7 +9171,7 @@ _The request payload used to accept a login or consent request._
 ```json
 {
   "Body": {
-    "notAfter": "2019-07-18T15:43:49Z"
+    "notAfter": "2019-07-22T09:29:59Z"
   }
 }
 ```
