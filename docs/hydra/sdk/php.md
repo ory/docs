@@ -20,19 +20,18 @@ composer require ory/hydra-sdk
 
 require_once __DIR__ . "/vendor/autoload.php";
 
-use HydraSDK\ApiClient;
 use HydraSDK\Configuration;
 use HydraSDK\Api\AdminApi;
 use HydraSDK\Api\PublicApi;
 
 $config = new Configuration();
 // Configure Admin API
-$adminConfig = $config->getDefaultConfiguration()->setHost("http://localhost:4445");
-$adminApi = new AdminApi(new ApiClient($adminConfig));
+$config->getDefaultConfiguration()->setHost("http://localhost:4445");
+$adminApi = new AdminApi();
 
 // Configure Public API
-$publicConfig = $config->getDefaultConfiguration()->setHost("http://localhost:4444");
-$publicApi = new PublicApi(new ApiClient($publicConfig));
+$config->getDefaultConfiguration()->setHost("http://localhost:4444");
+$publicApi = new PublicApi();
 ```
 
 ### API Usage
@@ -41,7 +40,6 @@ $publicApi = new PublicApi(new ApiClient($publicConfig));
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-use HydraSDK\ApiClient;
 use HydraSDK\Configuration;
 use HydraSDK\Api\AdminApi;
 use HydraSDK\Api\PublicApi;
@@ -49,12 +47,12 @@ use HydraSDK\Api\PublicApi;
 try {
   $config = new Configuration();
   // Configure Admin API
-  $adminConfig = $config->getDefaultConfiguration()->setHost("http://localhost:4445");
-  $adminApi = new AdminApi(new ApiClient($adminConfig));
+  $config->getDefaultConfiguration()->setHost("http://localhost:4445");
+  $adminApi = new AdminApi();
   
   // Configure Public API
-  $publicConfig = $config->getDefaultConfiguration()->setHost("http://localhost:4444");
-  $publicApi = new PublicApi(new ApiClient($publicConfig));
+  $config->getDefaultConfiguration()->setHost("http://localhost:4444");
+  $publicApi = new PublicApi();
   
   // List OAuth2 Clients (Admin API)
   $clients = $adminAPI->listOAuth2Clients();
