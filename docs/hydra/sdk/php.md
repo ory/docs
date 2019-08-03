@@ -22,7 +22,13 @@ require_once __DIR__ . "/vendor/autoload.php";
 
 use HydraSDK\Configuration;
 
-Configuration()::setHost("http://hydra");
+// Configure Admin API
+$adminConfig = $config->getDefaultConfiguration()->setHost("http://localhost:4445");
+$adminApi = new AdminApi(new ApiClient($adminConfig));
+
+// Configure Public API
+$publicConfig = $config->getDefaultConfiguration()->setHost("http://localhost:4444");
+$publicApi = new PublicApi(new ApiClient($publicConfig));
 ```
 
 ### API Usage
@@ -31,19 +37,30 @@ Configuration()::setHost("http://hydra");
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+use HydraSDK\ApiClient;
+use HydraSDK\Configuration;
 use HydraSDK\Api\AdminApi;
-
-$adminAPI = new AdminApi();
-$limit = 250; // The maximum number of clients to return
-$offset = 500; // Where to start looking for clients
+use HydraSDK\Api\PublicApi;
 
 try {
-  $adminConfig = new Configuration();
-  $adminConfig->getDefaultConfiguration()->setHost("https://localhost:4445");
-  $clients = $adminAPI->listOAuth2Clients($limit, $offset);
-  print_r($clients); // List of OAuth2 clients.
+  $config = new Configuration();
+  // Configure Admin API
+  $adminConfig = $config->getDefaultConfiguration()->setHost("http://localhost:4445");
+  $adminApi = new AdminApi(new ApiClient($adminConfig));
+  
+  // Configure Public API
+  $publicConfig = $config->getDefaultConfiguration()->setHost("http://localhost:4444");
+  $publicApi = new PublicApi(new ApiClient($publicConfig));
+  
+  // List OAuth2 Clients (Admin API)
+  $clients = $adminAPI->listOAuth2Clients();
+  print_r($clients);
+  
+  // Discover OpenID Connect Configuration (Public API)
+  $connect = $publicApi->discoverOpenIDConfiguration();
+  print_r($connect);
 } catch (ApiException $e) {
-  echo 'Exception when calling AdminApi->listOAuth2Clients: ', $e->getMessage(), PHP_EOL;
+  echo 'Exception occurred: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```
