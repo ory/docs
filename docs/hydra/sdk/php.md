@@ -42,6 +42,7 @@ $publicApi = new PublicApi();
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+use HydraSDK\ApiException;
 use HydraSDK\Configuration;
 use HydraSDK\Api\AdminApi;
 use HydraSDK\Api\PublicApi;
