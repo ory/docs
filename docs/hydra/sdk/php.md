@@ -15,6 +15,8 @@ composer require ory/hydra-sdk
 
 #### Basic configuration
 
+Below is a basic configuration that demonstrates how to set the admin and public host. Please note that you need to set the host everytime you want to switch between the admin and public host.
+
 ```php
 <?php
 
@@ -50,13 +52,13 @@ try {
   $config->getDefaultConfiguration()->setHost("http://localhost:4445");
   $adminApi = new AdminApi();
   
+  // List OAuth2 Clients (Admin API)
+  $clients = $adminApi->listOAuth2Clients();
+  print_r($clients);
+  
   // Configure Public API
   $config->getDefaultConfiguration()->setHost("http://localhost:4444");
   $publicApi = new PublicApi();
-  
-  // List OAuth2 Clients (Admin API)
-  $clients = $adminAPI->listOAuth2Clients();
-  print_r($clients);
   
   // Discover OpenID Connect Configuration (Public API)
   $connect = $publicApi->discoverOpenIDConfiguration();
