@@ -38,6 +38,8 @@ $limit = 250; // The maximum number of clients to return
 $offset = 500; // Where to start looking for clients
 
 try {
+  $adminConfig = new Configuration();
+  $adminConfig->getDefaultConfiguration()->setHost("https://localhost:4445");
   $clients = $adminAPI->listOAuth2Clients($limit, $offset);
   print_r($clients); // List of OAuth2 clients.
 } catch (ApiException $e) {
