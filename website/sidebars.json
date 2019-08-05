@@ -45,7 +45,8 @@
           "hydra/sdk/index",
           "hydra/sdk/api",
           "hydra/sdk/go",
-          "hydra/sdk/js"
+          "hydra/sdk/js",
+          "hydra/sdk/php"
         ]
       },
       {
