@@ -155,7 +155,7 @@ mutator:
 
 Some credentials are scoped. For example, OAuth 2.0 Access Tokens usually are
 scoped ("OAuth 2.0 Scope"). Scope validation depends on the meaning of the
-scope. Therefore, wherever ORY Oathkepeer validates a scope, these scope
+scope. Therefore, wherever ORY Oathkeeper validates a scope, these scope
 strategies are supported:
 
 - `hierarchic`: Scope `foo` matches `foo`, `foo.bar`, `foo.baz` but not `bar`

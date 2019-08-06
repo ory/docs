@@ -49,7 +49,7 @@ more than one service from the ORY ecosystem. Let's look at some examples:
 It is possible that a number of releases are versioned with the same `oryOS.x`
 version metadata:
 
-- ORY Hdyra `v1.0.1+oryOS.10`, `v1.0.2+oryOS.10` is guaranteed compatible with
+- ORY Hydra `v1.0.1+oryOS.10`, `v1.0.2+oryOS.10` is guaranteed compatible with
   ORY Oathkeeper `v0.15.5+oryOS.10`, `v1.16.0+oryOS.10` and ORY Keto
   `v0.1.1+oryOS.10`, `v0.1.2+oryOS.10`.
 

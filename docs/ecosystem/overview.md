@@ -29,7 +29,7 @@ ready the system for more complex scenarios without painful and slow upgrade
 processes.
 
 The above-mentioned _identity management server_ is to be announced soon.
-Instead of re-writing login, logout, activation emails, 2fa, and worring about
+Instead of re-writing login, logout, activation emails, 2fa, and worrying about
 GDPR, you spin up a docker image and write a simple UI for it in the language or
 framework of your choice.
 

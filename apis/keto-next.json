@@ -808,7 +808,7 @@
           "x-go-name": "Resource"
         },
         "subject": {
-          "description": "Subejct is the subject that is requesting access.",
+          "description": "Subject is the subject that is requesting access.",
           "type": "string",
           "x-go-name": "Subject"
         }
@@ -1146,7 +1146,7 @@
       "x-go-package": "github.com/ory/keto/policy"
     },
     "swaggerWardenBaseRequest": {
-      "description": "swager:model authorizedBaseRequest",
+      "description": "swagger:model authorizedBaseRequest",
       "type": "object",
       "properties": {
         "action": {
