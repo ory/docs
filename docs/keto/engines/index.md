@@ -1,6 +1,6 @@
 ---
 id: index
-title: Access Controle Engines - Introduction
+title: Access Control Engines - Introduction
 ---
 
 Whatever your system looks like, you probably have a concept of permissions

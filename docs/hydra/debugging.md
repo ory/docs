@@ -170,7 +170,7 @@ issue.
 ### Alright, how can I set this up locally?
 
 The
-[provided docker-compose file](https://github.com/ory/hydra/blob/master/docker-compose.yml)
+[provided docker-compose file](https://github.com/ory/hydra/blob/master/quickstart-tracing.yml)
 in the project repository has tracing configuration w/ jaeger added which you
 can use to play around with. Simply uncomment the configurations associated with
 tracing as so:

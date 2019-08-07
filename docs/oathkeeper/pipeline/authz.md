@@ -31,7 +31,7 @@ It is not possible to configure more than one authorizer per Access Rule.
 
 ## `allow`
 
-This authorizer consideres every action authorized.
+This authorizer considers every action authorized.
 
 ### Global Configuration
 
@@ -73,7 +73,7 @@ The request has been allowed!
 
 ## `deny`
 
-This authorizer consideres every action unauthorized ("forbidden" /
+This authorizer considers every action unauthorized ("forbidden" /
 "disallowed").
 
 ### Global Configuration
