@@ -12,7 +12,7 @@ We recommend using Docker to run ORY Hydra:
 
 ```shell
 $ docker pull oryd/hydra
-$ docker run --rm -it oryd/hydra help
+$ docker run --rm -it oryd/hydra --help
 ```
 
 ## macOS
@@ -22,7 +22,7 @@ You can install ORY Hydra using [homebrew](https://brew.sh/) on macOS:
 ```shell
 $ brew tap ory/hydra
 $ brew install ory/hydra/hydra
-$ hydra help
+$ hydra --help
 ```
 
 ## Linux
@@ -31,14 +31,14 @@ On linux, you can use `curl | bash` to fetch the latest stable binary using:
 
 ```shell
 $ curl https://raw.githubusercontent.com/ory/hydra/master/install.sh | bash -s -- -b .
-$ ./hydra help
+$ ./hydra --help
 ```
 
 You may want to move ORY Hydra to your `$PATH`:
 
 ```shell
 $ sudo mv ./hydra /usr/local/bin/
-$ hydra help
+$ hydra --help
 ```
 
 ## Windows
@@ -48,7 +48,7 @@ You can install ORY Hydra using [scoop](https://scoop.sh) on Windows:
 ```shell
 > scoop bucket add ory-hydra https://github.com/ory/scoop-hydra.git
 > scoop install hydra
-> hydra help
+> hydra --help
 ```
 
 ## Download Binaries
@@ -62,7 +62,7 @@ something comparable.
 Once installed, you should be able to run:
 
 ```shell
-$ hydra help
+$ hydra --help
 ```
 
 ## Building from Source
@@ -78,5 +78,5 @@ note that this will only work in a Bash-like shell.
 $ go get -d -u github.com/ory/hydra
 $ cd $(go env GOPATH)/src/github.com/ory/hydra
 $ GO111MODULE=on make install-stable
-$ $(go env GOPATH)/bin/hydra help
+$ $(go env GOPATH)/bin/hydra --help
 ```
