@@ -83,9 +83,11 @@ and you have the following rule defined (which allows this request)
   "authorizer": {
     "handler": "allow"
   },
-  "mutator": {
-    "handler": "noop"
-  }
+  "mutators": [
+    {
+      "handler": "noop"
+    }
+  ]
 }
 ```
 
@@ -145,9 +147,11 @@ and you have the following rule defined (which allows this request)
   "authorizer": {
     "handler": "allow"
   },
-  "mutator": {
-    "handler": "noop"
-  }
+  "mutators": [
+    {
+      "handler": "noop"
+    }
+  ]
 }
 ```
 

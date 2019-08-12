@@ -62,7 +62,7 @@ $ cat ./rules.json
   },
   "authenticators": [{ "handler": "anonymous" }],
   "authorizer": { "handler": "allow" },
-  "mutator": { "handler": "noop" }
+  "mutators": [{ "handler": "noop" }]
 }]
 
 $ curl -X GET http://my-app/some-route
@@ -105,7 +105,7 @@ $ cat ./rules.json
   },
   "authenticators": [{ "handler": "anonymous" }],
   "authorizer": { "handler": "deny" },
-  "mutator": { "handler": "noop" }
+  "mutators": [{ "handler": "noop" }]
 }]
 
 $ curl -X GET http://my-app/some-route
@@ -248,8 +248,10 @@ $ cat ./rules.json
       "flavor": "exact"
     }
   }
-  "mutator": {
-    "handler": "noop"
-  }
+  "mutators": [
+    {
+      "handler": "noop"
+    }
+  ]
 }]
 ```

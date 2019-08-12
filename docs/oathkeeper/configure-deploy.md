@@ -103,14 +103,16 @@ $ cat << EOF > rules.json
     "authorizer": {
       "handler": "allow"
     },
-    "mutator": {
-      "handler": "header",
-      "config": {
-        "headers": {
-          "X-User": "{{ print .Subject }}"
+    "mutators": [
+      {
+        "handler": "header",
+        "config": {
+          "headers": {
+            "X-User": "{{ print .Subject }}"
+          }
         }
       }
-    }
+    ]
   },
   {
     "id": "deny-anonymous",
@@ -131,9 +133,11 @@ $ cat << EOF > rules.json
     "authorizer": {
       "handler": "deny"
     },
-    "mutator": {
-      "handler": "noop"
-    }
+    "mutators": [
+      {
+        "handler": "noop"
+      }
+    ]
   },
   {
     "id": "allow-anonymous-with-id-token-mutator",
@@ -154,9 +158,11 @@ $ cat << EOF > rules.json
     "authorizer": {
       "handler": "allow"
     },
-    "mutator": {
-      "handler": "id_token"
-    }
+    "mutators": [
+      {
+        "handler": "id_token"
+      }
+    ]
   }
 ]
 EOF
