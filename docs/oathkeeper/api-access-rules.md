@@ -101,12 +101,12 @@ Access Rules have four principal keys:
   For example, you could check if the subject ("user") is part of the "admin"
   group or if he/she has permission to perform that action. For the full list of
   available authorizers, click [here](pipeline/authz.md).
-- `mutators`: A list of mutation handlers that transform the HTTP request before forwarding it. A common use case
-  is generating a new set of credentials (e.g. JWT) which then will be forwarded
-  to the upstream server. When using ORY Oathkeeper's Decision API, it is
-  expected that the API Gateway forwards the mutated HTTP Headers to the
-  upstream server. For the full list of available mutators, click
-  [here](pipeline/mutator.md).
+- `mutators`: A list of mutation handlers that transform the HTTP request before
+  forwarding it. A common use case is generating a new set of credentials (e.g.
+  JWT) which then will be forwarded to the upstream server. When using ORY
+  Oathkeeper's Decision API, it is expected that the API Gateway forwards the
+  mutated HTTP Headers to the upstream server. For the full list of available
+  mutators, click [here](pipeline/mutator.md).
 
 **Examples**
 
