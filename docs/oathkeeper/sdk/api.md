@@ -657,9 +657,9 @@ Status Code **200**
 | »» match                                                                    | [ruleMatch](#schemarulematch)       | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | »»» methods                                                                 | [string]                            | false    | none         | An array of HTTP methods (e.g. GET, POST, PUT, DELETE, ...). When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the HTTP method of the incoming request with the HTTP methods of each rules. If a match is found, the rule is considered a partial match. If the matchesUrl field is satisfied as well, the rule is considered a full match.                                                                                                                                                                                                                                                                                           |
 | »»» url                                                                     | string                              | false    | none         | This field represents the URL pattern this rule matches. When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the full request URL (e.g. https://mydomain.com/api/resource) without query parameters of the incoming request with this field. If a match is found, the rule is considered a partial match. If the matchesMethods field is satisfied as well, the rule is considered a full match. You can use regular expressions in this field to match more than one url. Regular expressions are encapsulated in brackets < and >. The following example matches all paths of the domain `mydomain.com`: `https://mydomain.com/<.*>`. |
-| »» mutator                                                                  | [ruleHandler](#schemarulehandler)   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| »» mutators                                                                 | [[ruleHandler](#schemarulehandler)] | false    | none         | Mutators is a list of mutation handlers that transform the HTTP request. A common use case is generating a new set of credentials (e.g. JWT) which then will be forwarded to the upstream server. Mutations are performed iteratively from index 0 to n and should all succeed in order for the HTTP request to be forwarded.                                                                                                           |
 | »» upstream                                                                 | [Upstream](#schemaupstream)         | false    | none         | Upstream Upstream Upstream Upstream upstream                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| »»» preserve_host                                                           | boolean                             | false    | none         | PreserveHost, if false (the default), tells ORY Oathkeeper to set the upstream request's Host header to the hostname of the API's upstream's URL. Setting this flag to true instructs ORY Oathkeeper not to do so.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| »»» preserve_host                                                           | boolean                             | false    | none         | PreserveHost, if false (the default), tells ORY Oathkeeper to set the upstream request's Host header to the hostname of the API's upstream's URL. Setting this flag to true instructs ORY Oathkeeper not to do so.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | »»» strip_path                                                              | string                              | false    | none         | StripPath if set, replaces the provided path prefix when forwarding the requested URL to the upstream URL.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | »»» url                                                                     | string                              | false    | none         | URL is the URL the request will be proxied to.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 
@@ -698,10 +698,12 @@ Status Code **500**
       "methods": ["string"],
       "url": "string"
     },
-    "mutator": {
-      "config": {},
-      "handler": "string"
-    },
+    "mutators": [
+      {
+        "config": {},
+        "handler": "string"
+      }
+    ],
     "upstream": {
       "preserve_host": true,
       "strip_path": "string",
@@ -932,10 +934,12 @@ Status Code **500**
     "methods": ["string"],
     "url": "string"
   },
-  "mutator": {
-    "config": {},
-    "handler": "string"
-  },
+  "mutators": [
+    {
+      "config": {},
+      "handler": "string"
+    }
+  ],
   "upstream": {
     "preserve_host": true,
     "strip_path": "string",
@@ -4249,10 +4253,12 @@ _Upstream Upstream Upstream Upstream upstream_
     "methods": ["string"],
     "url": "string"
   },
-  "mutator": {
-    "config": {},
-    "handler": "string"
-  },
+  "mutators": [
+    {
+      "config": {},
+      "handler": "string"
+    }
+  ],
   "upstream": {
     "preserve_host": true,
     "strip_path": "string",
@@ -4272,7 +4278,7 @@ _swaggerRule is a single rule that will get checked on every HTTP request._
 | description    | string                              | false    | none         | Description is a human readable description of this rule.                                                                                                                                                                                                                                                                                                                                                    |
 | id             | string                              | false    | none         | ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.                                                                                                                                                                                                                                  |
 | match          | [ruleMatch](#schemarulematch)       | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                         |
-| mutator        | [ruleHandler](#schemarulehandler)   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                         |
+| mutators       | [[ruleHandler](#schemarulehandler)] | false    | none         | Mutators is a list of mutation handlers that transform the HTTP request. A common use case is generating a new set of credentials (e.g. JWT) which then will be forwarded to the upstream server. Mutations are performed iteratively from index 0 to n and should all succeed in order for the HTTP request to be forwarded.                                                                                                                                                                                                                                                                                                                                               |
 | upstream       | [Upstream](#schemaupstream)         | false    | none         | Upstream Upstream Upstream Upstream upstream                                                                                                                                                                                                                                                                                                                                                                 |
 
 <a id="tocSrulehandler">ruleHandler</a>
@@ -4609,10 +4615,12 @@ _SwaggerRuleMatch swagger rule match_
       "methods": ["string"],
       "url": "string"
     },
-    "mutator": {
-      "config": {},
-      "handler": "string"
-    },
+    "mutators": [
+      {
+        "config": {},
+        "handler": "string"
+      }
+    ],
     "upstream": {
       "preserve_host": true,
       "strip_path": "string",
@@ -4656,10 +4664,12 @@ _A rule_
         "methods": ["string"],
         "url": "string"
       },
-      "mutator": {
-        "config": {},
-        "handler": "string"
-      },
+      "mutators": [
+        {
+          "config": {},
+          "handler": "string"
+        }
+      ],
       "upstream": {
         "preserve_host": true,
         "strip_path": "string",

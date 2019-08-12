@@ -63,7 +63,7 @@ too.
 ## `noop`
 
 The `noop` handler tells ORY Oathkeeper to bypass authentication, authorization,
-and mutator. This implies that no authorization will be executed and no
+and mutation. This implies that no authorization will be executed and no
 credentials will be issued. It's basically a pass-all authenticator that allows
 any request to be forwarded to the upstream URL.
 
@@ -195,7 +195,7 @@ $ cat ./rules.json
     "handler": "anonymous"
   }],
   "authorizer": { "handler": "allow" },
-  "mutator": { "handler": "noop" }
+  "mutators": [{ "handler": "noop" }]
 }]
 
 $ curl -X GET http://my-app/some-route
@@ -257,7 +257,7 @@ $ cat ./rules.json
     "handler": "cookie_session"
   }],
   "authorizer": { "handler": "allow" },
-  "mutator": { "handler": "noop" }
+  "mutators": [{ "handler": "noop" }]
 }]
 
 $ curl -X GET -b sessionid=abc http://my-app/some-route
@@ -337,7 +337,7 @@ $ cat ./rules.json
     }
   }],
   "authorizer": { "handler": "allow" },
-  "mutator": { "handler": "noop" }
+  "mutators": [{ "handler": "noop" }]
 }]
 
 $ curl -X GET http://my-app/some-route
@@ -460,7 +460,7 @@ $ cat ./rules.json
     }
   }],
   "authorizer": { "handler": "allow" },
-  "mutator": { "handler": "noop" }
+  "mutators": [{ "handler": "noop" }]
 }]
 
 $ curl -X GET http://my-app/some-route
@@ -629,7 +629,7 @@ $ cat ./rules.json
     }
   }],
   "authorizer": { "handler": "allow" },
-  "mutator": { "handler": "noop" }
+  "mutators": [{ "handler": "noop" }]
 }]
 
 $ curl -X GET http://my-app/some-route

@@ -2027,8 +2027,13 @@
         "match": {
           "$ref": "#/definitions/ruleMatch"
         },
-        "mutator": {
-          "$ref": "#/definitions/ruleHandler"
+        "mutators": {
+          "description": "Mutators is a list of mutation handlers that transform the HTTP request. A common use case is generating a new set of credentials (e.g. JWT) which then will be forwarded to the upstream server. Mutations are performed iteratively from index 0 to n and should all succeed in order for the HTTP request to be forwarded.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ruleHandler"
+          },
+          "x-go-name": "Mutators"
         },
         "upstream": {
           "$ref": "#/definitions/Upstream"

@@ -53,9 +53,11 @@ $ cat ./rules.json
   "authorizer": {
     "handler": "allow"
   },
-  "mutator": {
-    "handler": "noop"
-  }
+  "mutators": [
+    {
+      "handler": "noop"
+    }
+  ]
 }
 
 $ curl -X GET http://my-app/some-route
@@ -218,15 +220,17 @@ $ cat ./rules.json
   "authorizer": {
     "handler": "allow"
   },
-  "mutator": {
-    "handler": "id_token",
-    "config": {
-      "aud": [
-        "audience-1",
-        "audience-2"
-      ]
+  "mutators": [
+    {
+      "handler": "id_token",
+      "config": {
+        "aud": [
+          "audience-1",
+          "audience-2"
+        ]
+      }
     }
-  }
+  ]  
 }
 ```
 
@@ -295,15 +299,17 @@ values out of an abundance of caution and for consistency.
   "authorizer": {
     "handler": "allow"
   },
-  "mutator": {
-    "handler": "headers",
-    "config": {
-      "headers": {
-        "X-User": "{{ print .Subject }}",
-        "X-Some-Arbitrary-Data": "{{ print .Extra.some.arbitrary.data }}"
+  "mutators": [
+    {
+      "handler": "headers",
+      "config": {
+        "headers": {
+          "X-User": "{{ print .Subject }}",
+          "X-Some-Arbitrary-Data": "{{ print .Extra.some.arbitrary.data }}"
+        }
       }
     }
-  }
+  ]
 }
 ```
 
@@ -371,14 +377,16 @@ values out of an abundance of caution and for consistency.
   "authorizer": {
     "handler": "allow"
   },
-  "mutator": {
-    "handler": "cookies",
-    "config": {
-      "cookies": {
-        "user": "{{ print .Subject }}",
-        "some-arbitrary-data": "{{ print .Extra.some.arbitrary.data }}"
+  "mutators": [
+    {
+      "handler": "cookies",
+      "config": {
+        "cookies": {
+          "user": "{{ print .Subject }}",
+          "some-arbitrary-data": "{{ print .Extra.some.arbitrary.data }}"
+        }
       }
     }
-  }
+  ]
 }
 ```
