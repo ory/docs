@@ -442,14 +442,13 @@ retries policy. Both settings are optional.
       "url": "http://my-backend-api",
       "authn": {
         "basic": {
-          // `Authorization: Basic <credentials>` header, where <credentials> are base64 encoded username+password pair, will be sent along with the request
           "username": "someUserName",
           "password": "50m3P455w0rd"
         }
       },
       "retry": {
-        "number": 5, // try to retry five times (default: 3)
-        "delayInMilliseconds": 1000 // wait for 1s between each retry (default: 100)
+        "number": 5,
+        "delayInMilliseconds": 1000
       }
     }
   }
