@@ -412,7 +412,7 @@ struct in body, which is:
 
 As a response the mutator expects similiar JSON object, but with `extra` or
 `headers` fields modified. The AuthenticationSession from this object replaces
-the original one and is being passed to the next mutator, where it can be used
+the original one and is passed to the next mutator, where it can be used
 to e.g. set a particular cookie to the value received from an API.
 
 In contrary to other mutators it does not transform the HTTP request.
