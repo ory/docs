@@ -411,7 +411,7 @@ struct in body, which is:
 ```
 
 As a response the mutator expects similiar JSON object, but with `extra` or
-`header` fields modified. 
+`header` fields modified.
 
 Example request/response payload:
 
@@ -427,11 +427,12 @@ Example request/response payload:
 }
 ```
 
-The AuthenticationSession from this object replaces
-the original one and is passed to the next mutator, where it can be used
-to e.g. set a particular cookie to the value received from an API.
+The AuthenticationSession from this object replaces the original one and is
+passed to the next mutator, where it can be used to e.g. set a particular cookie
+to the value received from an API.
 
-Setting `extra` field does not transform the HTTP request, whereas headers set in the `header` field will be added to the final request headers.
+Setting `extra` field does not transform the HTTP request, whereas headers set
+in the `header` field will be added to the final request headers.
 
 ### Global Configuration
 
