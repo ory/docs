@@ -456,7 +456,7 @@ retries policy. Both settings are optional.
   "config": {
     "api": {
       "url": "http://my-backend-api",
-      "authn": {
+      "auth": {
         "basic": {
           "username": "someUserName",
           "password": "50m3P455w0rd"
