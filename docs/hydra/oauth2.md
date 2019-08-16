@@ -138,11 +138,11 @@ The flow itself works as follows:
 1. The OAuth 2.0 Client initiates an Authorize Code, Hybrid, or Implicit flow.
    The user's user agent is redirected to
    `http://hydra/oauth2/auth?client_id=...&...`.
-2. ORY Hydra, if unable to authenticate the user (meaning no session cookie exists),
-   redirects the user's user agent to the Login Provider URL. The application
-   "sitting" at that URL is implemented by you and typically shows a login user
-   interface ("Please enter your username and password"). The URL the user is
-   redirected to looks similar to
+2. ORY Hydra, if unable to authenticate the user (meaning no session cookie
+   exists), redirects the user's user agent to the Login Provider URL. The
+   application "sitting" at that URL is implemented by you and typically shows a
+   login user interface ("Please enter your username and password"). The URL the
+   user is redirected to looks similar to
    `http://login-service/login?login_challenge=1234...`.
 3. The Login Provider, once the user has successfully logged in, tells ORY Hydra
    some information about who the user is (e.g. the user's ID) and also that the
@@ -350,10 +350,10 @@ permissions. If the user has never granted any permissions to the client, or the
 client requires new permissions not previously granted, the user must visually
 confirm the request.
 
-This works very similar to the User Login Flow. First, the user will be redirected
-to the Consent Provider which was set using the `OAUTH2_CONSENT_PROVIDER`
-environment variable. For example, the user is redirected to
-`https://consent-provider/consent?consent_challenge=1234` if
+This works very similar to the User Login Flow. First, the user will be
+redirected to the Consent Provider which was set using the
+`OAUTH2_CONSENT_PROVIDER` environment variable. For example, the user is
+redirected to `https://consent-provider/consent?consent_challenge=1234` if
 `OAUTH2_CONSENT_PROVIDER=https://consent-provider/consent`. This redirection
 happens _always_ and regardless of whether the user has a valid login session or
 if the user needs to authorize the application or not.
