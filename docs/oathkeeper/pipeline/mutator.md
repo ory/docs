@@ -26,7 +26,7 @@ This handler is not configurable except from dis-/enabling:
 ```yaml
 mutators:
   noop:
-    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+    # Set enabled to true if the mutator should be enabled and false to disable the mutator. Defaults to false.
     enabled: true
 ```
 
@@ -247,7 +247,7 @@ This handler is not configurable except from dis-/enabling:
 ```yaml
 mutators:
   header:
-    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+    # Set enabled to true if the mutator should be enabled and false to disable the mutator. Defaults to false.
     enabled: true
 ```
 
@@ -257,13 +257,14 @@ The headers are specified via the `headers` field of the mutator's `config`
 field. The keys are the header name and the values are a string which will be
 parsed by the Go [`text/template`](https://golang.org/pkg/text/template/)
 package for value substitution, receiving the
-[`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/92c09fb28552949cd034ed5555c87dfda91407a3/proxy/authenticator.go#L19)
+[`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/d21179dd25543662075be402f6e24e1ee20d2754/pipeline/authn/authenticator.go#L26)
 struct:
 
 ```go
 type AuthenticationSession struct {
     Subject string
     Extra   map[string]interface{}
+    Header  http.Header
 }
 ```
 
@@ -301,7 +302,7 @@ values out of an abundance of caution and for consistency.
   },
   "mutators": [
     {
-      "handler": "headers",
+      "handler": "header",
       "config": {
         "headers": {
           "X-User": "{{ print .Subject }}",
@@ -325,7 +326,7 @@ This handler is not configurable except from dis-/enabling:
 ```yaml
 mutators:
   cookie:
-    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+    # Set enabled to true if the mutator should be enabled and false to disable the mutator. Defaults to false.
     enabled: true
 ```
 
@@ -335,13 +336,14 @@ The cookies are specified via the `cookies` field of the mutators `config`
 field. The keys are the cookie name and the values are a string which will be
 parsed by the Go [`text/template`](https://golang.org/pkg/text/template/)
 package for value substitution, receiving the
-[AuthenticationSession](https://github.com/ory/oathkeeper/blob/92c09fb28552949cd034ed5555c87dfda91407a3/proxy/authenticator.go#L19)
+[AuthenticationSession](https://github.com/ory/oathkeeper/blob/d21179dd25543662075be402f6e24e1ee20d2754/pipeline/authn/authenticator.go#L26)
 struct:
 
 ```go
 type AuthenticationSession struct {
     Subject string
     Extra   map[string]interface{}
+    Header  http.Header
 }
 ```
 
@@ -379,11 +381,130 @@ values out of an abundance of caution and for consistency.
   },
   "mutators": [
     {
-      "handler": "cookies",
+      "handler": "cookie",
       "config": {
         "cookies": {
           "user": "{{ print .Subject }}",
           "some-arbitrary-data": "{{ print .Extra.some.arbitrary.data }}"
+        }
+      }
+    }
+  ]
+}
+```
+
+## `hydrator`
+
+This mutator allows for fetching additional data from external APIs, which can
+be then used by other mutators. It works by making an upstream HTTP call to an
+API specified in the **Per-Rule Configuration** section below. The request is a
+POST request and it contains JSON representation of
+[AuthenticationSession](https://github.com/ory/oathkeeper/blob/d21179dd25543662075be402f6e24e1ee20d2754/pipeline/authn/authenticator.go#L26)
+struct in body, which is:
+
+```json
+{
+  "subject": String,
+  "extra": Object,
+  "header": Object
+}
+```
+
+As a response the mutator expects similiar JSON object, but with `extra` or
+`header` fields modified. 
+
+Example request/response payload:
+
+```json
+{
+  "subject": "anonymous",
+  "extra": {
+    "foo": "bar"
+  },
+  "header": {
+    "foo": ["bar1", "bar2"]
+  }
+}
+```
+
+The AuthenticationSession from this object replaces
+the original one and is passed to the next mutator, where it can be used
+to e.g. set a particular cookie to the value received from an API.
+
+Setting `extra` field does not transform the HTTP request, whereas headers set in the `header` field will be added to the final request headers.
+
+### Global Configuration
+
+This handler is not configurable except from dis-/enabling:
+
+```yaml
+mutators:
+  hydrator:
+    # Set enabled to true if the mutator should be enabled and false to disable the mutator. Defaults to false.
+    enabled: true
+```
+
+### Per-Rule Configuration
+
+This mutator requires you to specify the URL of an external API per access rule.
+Additionally it offers setting basic authentication credentials or custom
+retries policy. Both settings are optional.
+
+```json
+{
+  "handler": "hydrator",
+  "config": {
+    "api": {
+      "url": "http://my-backend-api",
+      "auth": {
+        "basic": {
+          "username": "someUserName",
+          "password": "50m3P455w0rd"
+        }
+      },
+      "retry": {
+        "number": 5,
+        "delayInMilliseconds": 1000
+      }
+    }
+  }
+}
+```
+
+##### Example
+
+```json
+{
+  "id": "some-id",
+  "upstream": {
+    "url": "http://my-backend-service"
+  },
+  "match": {
+    "url": "http://my-app/api/<.*>",
+    "methods": ["GET"]
+  },
+  "authenticators": [
+    {
+      "handler": "anonymous"
+    }
+  ],
+  "authorizer": {
+    "handler": "allow"
+  },
+  "mutators": [
+    {
+      "handler": "hydrator",
+      "config": {
+        "api": {
+          "url": "http://my-backend-api"
+        }
+      }
+    },
+    {
+      "handler": "cookie",
+      "config": {
+        "cookies": {
+          "some-arbitrary-data": "{{ print .Extra.cookie }}"
         }
       }
     }
