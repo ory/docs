@@ -136,13 +136,13 @@ and it would thus be your Login & Consent provider.
 The flow itself works as follows:
 
 1. The OAuth 2.0 Client initiates an Authorize Code, Hybrid, or Implicit flow.
-   The user's user agent is redirect to
+   The user's user agent is redirected to
    `http://hydra/oauth2/auth?client_id=...&...`.
-2. ORY Hydra, if unable to authenticate the user (= no session cookie exists),
-   redirects the user's user agent to the Login Provider URL. The application
-   "sitting" at that URL is implemented by you and typically shows a login user
-   interface ("Please enter your username and password"). The URL the user is
-   redirect to looks similar to
+2. ORY Hydra, if unable to authenticate the user (meaning no session cookie
+   exists), redirects the user's user agent to the Login Provider URL. The
+   application "sitting" at that URL is implemented by you and typically shows a
+   login user interface ("Please enter your username and password"). The URL the
+   user is redirected to looks similar to
    `http://login-service/login?login_challenge=1234...`.
 3. The Login Provider, once the user has successfully logged in, tells ORY Hydra
    some information about who the user is (e.g. the user's ID) and also that the
@@ -170,8 +170,8 @@ The flow itself works as follows:
 
 This flow allows you to take full control of the behaviour of your login system
 (e.g. 2FA, passwordless, ...) and consent screen. A well-documented reference
-implementation for both the Login and
-[Consent Provider is available on GitHub](https://github.com/ory/hydra-login-consent-node).
+implementation for both the Login and Consent Provider is
+[available on GitHub](https://github.com/ory/hydra-login-consent-node).
 
 ### The flow from a user's point of view
 
@@ -350,10 +350,10 @@ permissions. If the user has never granted any permissions to the client, or the
 client requires new permissions not previously granted, the user must visually
 confirm the request.
 
-This works very similar to the User Login Flow. First, the user will be redirect
-to the Consent Provider which was set using the `OAUTH2_CONSENT_PROVIDER`
-environment variable. For example, the user is redirected to
-`https://consent-provider/consent?consent_challenge=1234` if
+This works very similar to the User Login Flow. First, the user will be
+redirected to the Consent Provider which was set using the
+`OAUTH2_CONSENT_PROVIDER` environment variable. For example, the user is
+redirected to `https://consent-provider/consent?consent_challenge=1234` if
 `OAUTH2_CONSENT_PROVIDER=https://consent-provider/consent`. This redirection
 happens _always_ and regardless of whether the user has a valid login session or
 if the user needs to authorize the application or not.
@@ -819,12 +819,15 @@ OAuth 2.0 Refresh Tokens are issued only when an Authorize Code Flow
 Response Type (`response_type=code+...`) is executed. OAuth 2.0 Refresh Tokens
 are not returned for Implicit or Client Credentials grants:
 
-- Capable of issuing an OAuth 2.0 Refresh Token:
+Capable of issuing an OAuth 2.0 Refresh Token:
+
 - https://ory-hydra.example/oauth2/auth?response_type=code&...
 - https://ory-hydra.example/oauth2/auth?response_type=code+token&...
 - https://ory-hydra.example/oauth2/auth?response_type=code+token+id_token&...
 - https://ory-hydra.example/oauth2/auth?response_type=code+id_token&...
-- Will not issue an OAuth 2.0 Refresh Token
+
+Will not issue an OAuth 2.0 Refresh Token:
+
 - https://ory-hydra.example/oauth2/auth?response_type=token&...
 - https://ory-hydra.example/oauth2/auth?response_type=token+id_token&...
 - https://ory-hydra.example/oauth2/token?grant_type=client_redentials&...
@@ -916,7 +919,7 @@ command above:
 ```
 
 The same can be achieved by setting
-`"token_endpoint_auth_method": "client_secret_post"` in the the request body of
+`"token_endpoint_auth_method": "client_secret_post"` in the request body of
 `POST /clients` and `PUT /clients/<id>`.
 
 ##### Client Credentials Flow
