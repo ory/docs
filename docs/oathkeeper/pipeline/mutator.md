@@ -185,11 +185,9 @@ The first private key found in the JSON Web Key Set defined by
 
 ### Per-Rule Configuration
 
-Additionally, this mutator allows you to: 
-  
-- Specify custom claims via the `claims` field of the mutator's
-`config` field. The keys represent names of claims and the values are strings which
-will be parsed by the Go [text/template](https://golang.org/pkg/text/template/)
+Additionally, this mutator allows you to specify custom claims, like the audience of ID tokens,
+via the `claims` field of the mutator's `config` field. The keys represent names of claims and the values
+are arbitrary data structures which will be parsed by the Go [text/template](https://golang.org/pkg/text/template/)
 package for value substitution, receiving the
 [AuthenticationSession](https://github.com/ory/oathkeeper/blob/92c09fb28552949cd034ed5555c87dfda91407a3/proxy/authenticator.go#L19)
 struct:
@@ -214,16 +212,14 @@ If you find that your claims contain the string `<no value>` then you have most
 likely omitted the `print` function, and it is recommended you use it for all
 values out of an abundance of caution and for consistency.
 
-- Specify the audience of the ID token per access rule
-
-Both audience and claims are optional:
+Custom claims are optional:
 
 ```json
 {
   "handler": "id_token",
   "config": {
-    "aud": ["https://my-backend-service/some/endpoint"],
     "claims": {
+      "aud": ["https://my-backend-service/some/endpoint"],
       "def": "{{ print .Extra.some.arbitrary.data }}"
     }
   }
