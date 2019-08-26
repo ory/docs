@@ -185,10 +185,12 @@ The first private key found in the JSON Web Key Set defined by
 
 ### Per-Rule Configuration
 
-Additionally, this mutator allows you to specify custom claims, like the audience of ID tokens,
-via the `claims` field of the mutator's `config` field. The keys represent names of claims and the values
-are arbitrary data structures which will be parsed by the Go [text/template](https://golang.org/pkg/text/template/)
-package for value substitution, receiving the
+Additionally, this mutator allows you to specify custom claims, like the
+audience of ID tokens, via the `claims` field of the mutator's `config` field.
+The keys represent names of claims and the values are arbitrary data structures
+which will be parsed by the Go
+[text/template](https://golang.org/pkg/text/template/) package for value
+substitution, receiving the
 [AuthenticationSession](https://github.com/ory/oathkeeper/blob/92c09fb28552949cd034ed5555c87dfda91407a3/proxy/authenticator.go#L19)
 struct:
 
@@ -204,9 +206,9 @@ Note that the `AuthenticationSession` struct has a field named `Extra` which is
 a `map[string]interface{}`, which receives varying introspection data from the
 authentication process. Because the contents of `Extra` are so variable, nested
 and potentially non-existent values need special handling by the `text/template`
-parser, and a `print` FuncMap function has been provided to ensure
-that non-existent map values will simply return an empty string, rather
-than `<no value>`.
+parser, and a `print` FuncMap function has been provided to ensure that
+non-existent map values will simply return an empty string, rather than
+`<no value>`.
 
 If you find that your claims contain the string `<no value>` then you have most
 likely omitted the `print` function, and it is recommended you use it for all
@@ -380,8 +382,8 @@ type AuthenticationSession struct {
 }
 ```
 
-Note that the `AuthenticationSession` struct has a field named `Extra` which is a
-`map[string]interface{}`, which receives varying introspection data from the
+Note that the `AuthenticationSession` struct has a field named `Extra` which is
+a `map[string]interface{}`, which receives varying introspection data from the
 authentication process. Because the contents of `Extra` are so variable, nested
 and potentially non-existent values need special handling by the `text/template`
 parser, and a `print` FuncMap function has been provided to ensure that
