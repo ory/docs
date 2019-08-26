@@ -214,19 +214,24 @@ If you find that your claims contain the string `<no value>` then you have most
 likely omitted the `print` function, and it is recommended you use it for all
 values out of an abundance of caution and for consistency.
 
-Custom claims are optional:
+The claims configuration expects a string which is expected to be valid JSON.
+The string can contain [Golang Template](https://golang.org/pkg/text/template/)
+instructions allowing you to programmatically generate the claims string:
 
 ```json
 {
   "handler": "id_token",
   "config": {
-    "claims": {
-      "aud": ["https://my-backend-service/some/endpoint"],
-      "def": "{{ print .Extra.some.arbitrary.data }}"
-    }
+    "claims": "{\"aud\": [\"https://my-backend-service/some/endpoint\"],\"def\": \"{{ print .Extra.some.arbitrary.data }}\"}"
   }
 }
 ```
+
+This also supports [sprig](http://masterminds.github.io/sprig/) template helpers
+for more advanced functionality.
+
+Please keep in mind that certain keys (such as the `sub`) claim **can not** be
+overwritten!
 
 ### Example
 
@@ -259,10 +264,7 @@ $ cat ./rules.json
           "audience-1",
           "audience-2"
         ],
-        "claims": {
-          "abc": "{{ print .Subject }}",
-          "def": "{{ print .Extra.some.arbitrary.data }}"
-        }
+        "claims": "{\"abc\": \"{{ print .Subject }}\",\"def\": \"{{ print .Extra.some.arbitrary.data }}\"}"
       }
     }
   ]
