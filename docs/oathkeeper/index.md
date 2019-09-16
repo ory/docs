@@ -22,7 +22,7 @@ API works with
 - [Ambassador](https://github.com/datawire/ambassador) via
   [auth service](https://www.getambassador.io/reference/services/auth-service)
 - [Envoy](https://www.envoyproxy.io) via the
-  [External Authorization HTTP Filter](https://www.envoyproxy.io/docs/envoy/latest/configuration/http_filters/ext_authz_filter#config-http-filters-ext-authz)
+  [External Authorization HTTP Filter](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/security/ext_authz_filter.html)
 - AWS API Gateway via
   [Custom Authorizers](https://aws.amazon.com/de/blogs/compute/introducing-custom-authorizers-in-amazon-api-gateway/)
 - [Nginx](https://www.nginx.com) via
