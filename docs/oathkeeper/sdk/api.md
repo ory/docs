@@ -7,17 +7,17 @@ ORY Oathkeeper is a reverse proxy that checks the HTTP Authorization for
 validity against a set of rules. This service uses Hydra to validate access
 tokens and policies.
 
-> You are viewing a REST API documentation. This documentation is auto-generated
+> You are viewing REST API documentation. This documentation is auto-generated
 > from a swagger specification which itself is generated from annotations in the
-> source files of the project. It is possible that this documentation includes
+> source code of the project. It is possible that this documentation includes
 > bugs and that code samples are incomplete or wrong.
 >
 > If you find issues in the respective documentation, please do not edit the
-> markdown files directly (as they are generated) but raise an issue on the
-> project's GitHub instead. This documentation will improve over time with your
-> help! If you have ideas how to improve this part of the documentation, feel
-> free to share them in a [GitHub issue](https://github.com/ory/docs/issues/new)
-> any time.
+> Markdown files directly (as they are generated) but raise an issue on the
+> project's GitHub presence instead. This documentation will improve over time
+> with your help! If you have ideas how to improve this part of the
+> documentation, feel free to share them in a
+> [GitHub issue](https://github.com/ory/docs/issues/new) any time.
 
 <a id="ory-oathkeeper-api"></a>
 
@@ -222,6 +222,249 @@ headers = {
 }
 
 result = RestClient.get '/.well-known/jwks.json',
+  params: {}, headers: headers
+
+p JSON.parse(result)
+```
+
+</div>
+</div>
+</div>
+
+<a id="opIddecisions"></a>
+
+### Access Control Decision API
+
+```
+GET /decisions HTTP/1.1
+Accept: application/json
+
+```
+
+> This endpoint works with all HTTP Methods (GET, POST, PUT, ...) and matches
+> every path prefixed with /decision.
+
+This endpoint mirrors the proxy capability of ORY Oathkeeper's proxy
+functionality but instead of forwarding the request to the upstream server,
+returns 200 (request should be allowed), 401 (unauthorized), or 403 (forbidden)
+status codes. This endpoint can be used to integrate with other API Proxies like
+Ambassador, Kong, Envoy, and many more.
+
+#### Responses
+
+<a id="access-control-decision-api-responses"></a>
+
+##### Overview
+
+| Status | Meaning                                                                    | Description               | Schema |
+| ------ | -------------------------------------------------------------------------- | ------------------------- | ------ |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | An empty response         | None   |
+| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline |
+| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline |
+| 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)             | The standard error format | Inline |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline |
+
+<a id="access-control-decision-api-responseschema"></a>
+
+##### Response Schema</h3>
+
+Status Code **401**
+
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
+
+Status Code **403**
+
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
+
+Status Code **404**
+
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
+
+Status Code **500**
+
+| Name                        | Type           | Required | Restrictions | Description |
+| --------------------------- | -------------- | -------- | ------------ | ----------- |
+| » code                      | integer(int64) | false    | none         | none        |
+| » details                   | [object]       | false    | none         | none        |
+| »» **additionalProperties** | object         | false    | none         | none        |
+| » message                   | string         | false    | none         | none        |
+| » reason                    | string         | false    | none         | none        |
+| » request                   | string         | false    | none         | none        |
+| » status                    | string         | false    | none         | none        |
+
+##### Examples
+
+###### 401 response
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+```
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+#### Code samples
+
+<div class="tabs" id="tab-decisions">
+<nav class="tabs-nav">
+<ul class="nav nav-tabs au-link-list au-link-list--inline">
+<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-decisions-shell">Shell</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-decisions-go">Go</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-decisions-node">Node.js</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-decisions-java">Java</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-decisions-python">Python</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-decisions-ruby">Ruby</a></li>
+</ul>
+</nav>
+<div class="tab-content">
+<div class="tab-pane active" role="tabpanel" id="tab-decisions-shell">
+
+```shell
+curl -X GET /decisions \
+  -H 'Accept: application/json'
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-decisions-go">
+
+```go
+package main
+
+import (
+    "bytes"
+    "net/http"
+)
+
+func main() {
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    var body []byte
+    // body = ...
+
+    req, err := http.NewRequest("GET", "/decisions", bytes.NewBuffer(body))
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-decisions-node">
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept': 'application/json'
+}
+
+fetch('/decisions', {
+  method: 'GET',
+  headers
+})
+.then(r => r.json())
+.then((body) => {
+    console.log(body)
+})
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-decisions-java">
+
+```java
+// This sample needs improvement.
+URL obj = new URL("/decisions");
+
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+
+int responseCode = con.getResponseCode();
+
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream())
+);
+
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+
+System.out.println(response.toString());
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-decisions-python">
+
+```python
+import requests
+
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get(
+  '/decisions',
+  params={},
+  headers = headers)
+
+print r.json()
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-decisions-ruby">
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.get '/decisions',
   params: {}, headers: headers
 
 p JSON.parse(result)
@@ -658,7 +901,7 @@ Status Code **200**
 | »»» methods                                                                 | [string]                            | false    | none         | An array of HTTP methods (e.g. GET, POST, PUT, DELETE, ...). When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the HTTP method of the incoming request with the HTTP methods of each rules. If a match is found, the rule is considered a partial match. If the matchesUrl field is satisfied as well, the rule is considered a full match.                                                                                                                                                                                                                                                                                           |
 | »»» url                                                                     | string                              | false    | none         | This field represents the URL pattern this rule matches. When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the full request URL (e.g. https://mydomain.com/api/resource) without query parameters of the incoming request with this field. If a match is found, the rule is considered a partial match. If the matchesMethods field is satisfied as well, the rule is considered a full match. You can use regular expressions in this field to match more than one url. Regular expressions are encapsulated in brackets < and >. The following example matches all paths of the domain `mydomain.com`: `https://mydomain.com/<.*>`. |
 | »» mutators                                                                 | [[ruleHandler](#schemarulehandler)] | false    | none         | Mutators is a list of mutation handlers that transform the HTTP request. A common use case is generating a new set of credentials (e.g. JWT) which then will be forwarded to the upstream server. Mutations are performed iteratively from index 0 to n and should all succeed in order for the HTTP request to be forwarded.                                                                                                                                                                                                                                                                                                                                                                             |
-| »» upstream                                                                 | [Upstream](#schemaupstream)         | false    | none         | Upstream Upstream Upstream Upstream upstream                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| »» upstream                                                                 | [Upstream](#schemaupstream)         | false    | none         | Upstream Upstream Upstream Upstream Upstream Upstream Upstream upstream                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | »»» preserve_host                                                           | boolean                             | false    | none         | PreserveHost, if false (the default), tells ORY Oathkeeper to set the upstream request's Host header to the hostname of the API's upstream's URL. Setting this flag to true instructs ORY Oathkeeper not to do so.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | »»» strip_path                                                              | string                              | false    | none         | StripPath if set, replaces the provided path prefix when forwarding the requested URL to the upstream URL.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | »»» url                                                                     | string                              | false    | none         | URL is the URL the request will be proxied to.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
@@ -1263,250 +1506,6 @@ p JSON.parse(result)
 </div>
 </div>
 
-<a id="ory-oathkeeper-judge"></a>
-
-## judge
-
-<a id="opIdjudge"></a>
-
-### Judge if a request should be allowed or not
-
-```
-GET /judge HTTP/1.1
-Accept: application/json
-
-```
-
-This endpoint mirrors the proxy capability of ORY Oathkeeper's proxy
-functionality but instead of forwarding the request to the upstream server,
-returns 200 (request should be allowed), 401 (unauthorized), or 403 (forbidden)
-status codes. This endpoint can be used to integrate with other API Proxies like
-Ambassador, Kong, Envoy, and many more.
-
-#### Responses
-
-<a id="judge-if-a-request-should-be-allowed-or-not-responses"></a>
-
-##### Overview
-
-| Status | Meaning                                                                    | Description               | Schema |
-| ------ | -------------------------------------------------------------------------- | ------------------------- | ------ |
-| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | An empty response         | None   |
-| 401    | [Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)            | The standard error format | Inline |
-| 403    | [Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)             | The standard error format | Inline |
-| 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)             | The standard error format | Inline |
-| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | The standard error format | Inline |
-
-<a id="judge-if-a-request-should-be-allowed-or-not-responseschema"></a>
-
-##### Response Schema</h3>
-
-Status Code **401**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-Status Code **403**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-Status Code **404**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-Status Code **500**
-
-| Name                        | Type           | Required | Restrictions | Description |
-| --------------------------- | -------------- | -------- | ------------ | ----------- |
-| » code                      | integer(int64) | false    | none         | none        |
-| » details                   | [object]       | false    | none         | none        |
-| »» **additionalProperties** | object         | false    | none         | none        |
-| » message                   | string         | false    | none         | none        |
-| » reason                    | string         | false    | none         | none        |
-| » request                   | string         | false    | none         | none        |
-| » status                    | string         | false    | none         | none        |
-
-##### Examples
-
-###### 401 response
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-
-#### Code samples
-
-<div class="tabs" id="tab-judge">
-<nav class="tabs-nav">
-<ul class="nav nav-tabs au-link-list au-link-list--inline">
-<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-judge-shell">Shell</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-judge-go">Go</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-judge-node">Node.js</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-judge-java">Java</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-judge-python">Python</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-judge-ruby">Ruby</a></li>
-</ul>
-</nav>
-<div class="tab-content">
-<div class="tab-pane active" role="tabpanel" id="tab-judge-shell">
-
-```shell
-curl -X GET /judge \
-  -H 'Accept: application/json'
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-judge-go">
-
-```go
-package main
-
-import (
-    "bytes"
-    "net/http"
-)
-
-func main() {
-    headers := map[string][]string{
-        "Accept": []string{"application/json"},
-    }
-
-    var body []byte
-    // body = ...
-
-    req, err := http.NewRequest("GET", "/judge", bytes.NewBuffer(body))
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-judge-node">
-
-```nodejs
-const fetch = require('node-fetch');
-
-const headers = {
-  'Accept': 'application/json'
-}
-
-fetch('/judge', {
-  method: 'GET',
-  headers
-})
-.then(r => r.json())
-.then((body) => {
-    console.log(body)
-})
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-judge-java">
-
-```java
-// This sample needs improvement.
-URL obj = new URL("/judge");
-
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-
-int responseCode = con.getResponseCode();
-
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream())
-);
-
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-
-System.out.println(response.toString());
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-judge-python">
-
-```python
-import requests
-
-headers = {
-  'Accept': 'application/json'
-}
-
-r = requests.get(
-  '/judge',
-  params={},
-  headers = headers)
-
-print r.json()
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-judge-ruby">
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => 'application/json'
-}
-
-result = RestClient.get '/judge',
-  params: {}, headers: headers
-
-p JSON.parse(result)
-```
-
-</div>
-</div>
-</div>
-
 ## Schemas
 
 <a id="tocScreaterulecreated">CreateRuleCreated</a>
@@ -1534,10 +1533,12 @@ p JSON.parse(result)
       "methods": ["string"],
       "url": "string"
     },
-    "transformer": {
-      "config": {},
-      "handler": "string"
-    },
+    "mutators": [
+      {
+        "config": {},
+        "handler": "string"
+      }
+    ],
     "upstream": {
       "preserve_host": true,
       "strip_path": "string",
@@ -1547,8 +1548,9 @@ p JSON.parse(result)
 }
 ```
 
-_CreateRuleCreated CreateRuleCreated CreateRuleCreated CreateRuleCreated handles
-this case with default header values._
+_CreateRuleCreated CreateRuleCreated CreateRuleCreated CreateRuleCreated
+CreateRuleCreated CreateRuleCreated CreateRuleCreated handles this case with
+default header values._
 
 #### Properties
 
@@ -1581,13 +1583,14 @@ this case with default header values._
 ```
 
 _CreateRuleForbidden CreateRuleForbidden CreateRuleForbidden CreateRuleForbidden
-handles this case with default header values._
+CreateRuleForbidden CreateRuleForbidden CreateRuleForbidden handles this case
+with default header values._
 
 #### Properties
 
-| Name    | Type                                                      | Required | Restrictions | Description                                                                                                                |
-| ------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------- |
-| Payload | [CreateRuleForbiddenBody](#schemacreateruleforbiddenbody) | false    | none         | CreateRuleForbiddenBody CreateRuleForbiddenBody CreateRuleForbiddenBody CreateRuleForbiddenBody create rule forbidden body |
+| Name    | Type                                                      | Required | Restrictions | Description                                                                                                                                                                                        |
+| ------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [CreateRuleForbiddenBody](#schemacreateruleforbiddenbody) | false    | none         | CreateRuleForbiddenBody CreateRuleForbiddenBody CreateRuleForbiddenBody CreateRuleForbiddenBody CreateRuleForbiddenBody CreateRuleForbiddenBody CreateRuleForbiddenBody create rule forbidden body |
 
 <a id="tocScreateruleforbiddenbody">CreateRuleForbiddenBody</a>
 
@@ -1612,6 +1615,7 @@ handles this case with default header values._
 ```
 
 _CreateRuleForbiddenBody CreateRuleForbiddenBody CreateRuleForbiddenBody
+CreateRuleForbiddenBody CreateRuleForbiddenBody CreateRuleForbiddenBody
 CreateRuleForbiddenBody create rule forbidden body_
 
 #### Properties
@@ -1651,14 +1655,15 @@ CreateRuleForbiddenBody create rule forbidden body_
 ```
 
 _CreateRuleInternalServerError CreateRuleInternalServerError
-CreateRuleInternalServerError CreateRuleInternalServerError handles this case
-with default header values._
+CreateRuleInternalServerError CreateRuleInternalServerError
+CreateRuleInternalServerError CreateRuleInternalServerError
+CreateRuleInternalServerError handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                                          | Required | Restrictions | Description                                                                                                                                                                    |
-| ------- | ----------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Payload | [CreateRuleInternalServerErrorBody](#schemacreateruleinternalservererrorbody) | false    | none         | CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody create rule internal server error body |
+| Name    | Type                                                                          | Required | Restrictions | Description                                                                                                                                                                                                                                                                          |
+| ------- | ----------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Payload | [CreateRuleInternalServerErrorBody](#schemacreateruleinternalservererrorbody) | false    | none         | CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody create rule internal server error body |
 
 <a id="tocScreateruleinternalservererrorbody">CreateRuleInternalServerErrorBody</a>
 
@@ -1683,8 +1688,9 @@ with default header values._
 ```
 
 _CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody
-CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody create rule
-internal server error body_
+CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody
+CreateRuleInternalServerErrorBody CreateRuleInternalServerErrorBody
+CreateRuleInternalServerErrorBody create rule internal server error body_
 
 #### Properties
 
@@ -1708,8 +1714,9 @@ internal server error body_
 {}
 ```
 
-_CreateRuleReader CreateRuleReader CreateRuleReader CreateRuleReader is a Reader
-for the CreateRule structure._
+_CreateRuleReader CreateRuleReader CreateRuleReader CreateRuleReader
+CreateRuleReader CreateRuleReader CreateRuleReader is a Reader for the
+CreateRule structure._
 
 #### Properties
 
@@ -1740,13 +1747,14 @@ _None_
 ```
 
 _CreateRuleUnauthorized CreateRuleUnauthorized CreateRuleUnauthorized
+CreateRuleUnauthorized CreateRuleUnauthorized CreateRuleUnauthorized
 CreateRuleUnauthorized handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                            | Required | Restrictions | Description                                                                                                                               |
-| ------- | --------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Payload | [CreateRuleUnauthorizedBody](#schemacreateruleunauthorizedbody) | false    | none         | CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody create rule unauthorized body |
+| Name    | Type                                                            | Required | Restrictions | Description                                                                                                                                                                                                                |
+| ------- | --------------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [CreateRuleUnauthorizedBody](#schemacreateruleunauthorizedbody) | false    | none         | CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody create rule unauthorized body |
 
 <a id="tocScreateruleunauthorizedbody">CreateRuleUnauthorizedBody</a>
 
@@ -1771,7 +1779,318 @@ CreateRuleUnauthorized handles this case with default header values._
 ```
 
 _CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody
+CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody
 CreateRuleUnauthorizedBody CreateRuleUnauthorizedBody create rule unauthorized
+body_
+
+#### Properties
+
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
+
+<a id="tocSdecisionsforbidden">DecisionsForbidden</a>
+
+#### DecisionsForbidden
+
+<a id="schemadecisionsforbidden"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+```
+
+_DecisionsForbidden DecisionsForbidden handles this case with default header
+values._
+
+#### Properties
+
+| Name    | Type                                                    | Required | Restrictions | Description                                                            |
+| ------- | ------------------------------------------------------- | -------- | ------------ | ---------------------------------------------------------------------- |
+| Payload | [DecisionsForbiddenBody](#schemadecisionsforbiddenbody) | false    | none         | DecisionsForbiddenBody DecisionsForbiddenBody decisions forbidden body |
+
+<a id="tocSdecisionsforbiddenbody">DecisionsForbiddenBody</a>
+
+#### DecisionsForbiddenBody
+
+<a id="schemadecisionsforbiddenbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+```
+
+_DecisionsForbiddenBody DecisionsForbiddenBody decisions forbidden body_
+
+#### Properties
+
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
+
+<a id="tocSdecisionsinternalservererror">DecisionsInternalServerError</a>
+
+#### DecisionsInternalServerError
+
+<a id="schemadecisionsinternalservererror"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+```
+
+_DecisionsInternalServerError DecisionsInternalServerError handles this case
+with default header values._
+
+#### Properties
+
+| Name    | Type                                                                        | Required | Restrictions | Description                                                                                            |
+| ------- | --------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------ |
+| Payload | [DecisionsInternalServerErrorBody](#schemadecisionsinternalservererrorbody) | false    | none         | DecisionsInternalServerErrorBody DecisionsInternalServerErrorBody decisions internal server error body |
+
+<a id="tocSdecisionsinternalservererrorbody">DecisionsInternalServerErrorBody</a>
+
+#### DecisionsInternalServerErrorBody
+
+<a id="schemadecisionsinternalservererrorbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+```
+
+_DecisionsInternalServerErrorBody DecisionsInternalServerErrorBody decisions
+internal server error body_
+
+#### Properties
+
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
+
+<a id="tocSdecisionsnotfound">DecisionsNotFound</a>
+
+#### DecisionsNotFound
+
+<a id="schemadecisionsnotfound"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+```
+
+_DecisionsNotFound DecisionsNotFound handles this case with default header
+values._
+
+#### Properties
+
+| Name    | Type                                                  | Required | Restrictions | Description                                                          |
+| ------- | ----------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------- |
+| Payload | [DecisionsNotFoundBody](#schemadecisionsnotfoundbody) | false    | none         | DecisionsNotFoundBody DecisionsNotFoundBody decisions not found body |
+
+<a id="tocSdecisionsnotfoundbody">DecisionsNotFoundBody</a>
+
+#### DecisionsNotFoundBody
+
+<a id="schemadecisionsnotfoundbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+```
+
+_DecisionsNotFoundBody DecisionsNotFoundBody decisions not found body_
+
+#### Properties
+
+| Name                       | Type           | Required | Restrictions | Description |
+| -------------------------- | -------------- | -------- | ------------ | ----------- |
+| code                       | integer(int64) | false    | none         | code        |
+| details                    | [object]       | false    | none         | details     |
+| » **additionalProperties** | object         | false    | none         | none        |
+| message                    | string         | false    | none         | message     |
+| reason                     | string         | false    | none         | reason      |
+| request                    | string         | false    | none         | request     |
+| status                     | string         | false    | none         | status      |
+
+<a id="tocSdecisionsok">DecisionsOK</a>
+
+#### DecisionsOK
+
+<a id="schemadecisionsok"></a>
+
+```json
+{}
+```
+
+_DecisionsOK DecisionsOK handles this case with default header values._
+
+#### Properties
+
+_None_
+
+<a id="tocSdecisionsreader">DecisionsReader</a>
+
+#### DecisionsReader
+
+<a id="schemadecisionsreader"></a>
+
+```json
+{}
+```
+
+_DecisionsReader DecisionsReader is a Reader for the Decisions structure._
+
+#### Properties
+
+_None_
+
+<a id="tocSdecisionsunauthorized">DecisionsUnauthorized</a>
+
+#### DecisionsUnauthorized
+
+<a id="schemadecisionsunauthorized"></a>
+
+```json
+{
+  "Payload": {
+    "code": 0,
+    "details": [
+      {
+        "property1": {},
+        "property2": {}
+      }
+    ],
+    "message": "string",
+    "reason": "string",
+    "request": "string",
+    "status": "string"
+  }
+}
+```
+
+_DecisionsUnauthorized DecisionsUnauthorized handles this case with default
+header values._
+
+#### Properties
+
+| Name    | Type                                                          | Required | Restrictions | Description                                                                     |
+| ------- | ------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------- |
+| Payload | [DecisionsUnauthorizedBody](#schemadecisionsunauthorizedbody) | false    | none         | DecisionsUnauthorizedBody DecisionsUnauthorizedBody decisions unauthorized body |
+
+<a id="tocSdecisionsunauthorizedbody">DecisionsUnauthorizedBody</a>
+
+#### DecisionsUnauthorizedBody
+
+<a id="schemadecisionsunauthorizedbody"></a>
+
+```json
+{
+  "code": 0,
+  "details": [
+    {
+      "property1": {},
+      "property2": {}
+    }
+  ],
+  "message": "string",
+  "reason": "string",
+  "request": "string",
+  "status": "string"
+}
+```
+
+_DecisionsUnauthorizedBody DecisionsUnauthorizedBody decisions unauthorized
 body_
 
 #### Properties
@@ -1811,13 +2130,14 @@ body_
 ```
 
 _DeleteRuleForbidden DeleteRuleForbidden DeleteRuleForbidden DeleteRuleForbidden
-handles this case with default header values._
+DeleteRuleForbidden DeleteRuleForbidden DeleteRuleForbidden handles this case
+with default header values._
 
 #### Properties
 
-| Name    | Type                                                      | Required | Restrictions | Description                                                                                                                |
-| ------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------- |
-| Payload | [DeleteRuleForbiddenBody](#schemadeleteruleforbiddenbody) | false    | none         | DeleteRuleForbiddenBody DeleteRuleForbiddenBody DeleteRuleForbiddenBody DeleteRuleForbiddenBody delete rule forbidden body |
+| Name    | Type                                                      | Required | Restrictions | Description                                                                                                                                                                                        |
+| ------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [DeleteRuleForbiddenBody](#schemadeleteruleforbiddenbody) | false    | none         | DeleteRuleForbiddenBody DeleteRuleForbiddenBody DeleteRuleForbiddenBody DeleteRuleForbiddenBody DeleteRuleForbiddenBody DeleteRuleForbiddenBody DeleteRuleForbiddenBody delete rule forbidden body |
 
 <a id="tocSdeleteruleforbiddenbody">DeleteRuleForbiddenBody</a>
 
@@ -1842,6 +2162,7 @@ handles this case with default header values._
 ```
 
 _DeleteRuleForbiddenBody DeleteRuleForbiddenBody DeleteRuleForbiddenBody
+DeleteRuleForbiddenBody DeleteRuleForbiddenBody DeleteRuleForbiddenBody
 DeleteRuleForbiddenBody delete rule forbidden body_
 
 #### Properties
@@ -1881,14 +2202,15 @@ DeleteRuleForbiddenBody delete rule forbidden body_
 ```
 
 _DeleteRuleInternalServerError DeleteRuleInternalServerError
-DeleteRuleInternalServerError DeleteRuleInternalServerError handles this case
-with default header values._
+DeleteRuleInternalServerError DeleteRuleInternalServerError
+DeleteRuleInternalServerError DeleteRuleInternalServerError
+DeleteRuleInternalServerError handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                                          | Required | Restrictions | Description                                                                                                                                                                    |
-| ------- | ----------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Payload | [DeleteRuleInternalServerErrorBody](#schemadeleteruleinternalservererrorbody) | false    | none         | DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody delete rule internal server error body |
+| Name    | Type                                                                          | Required | Restrictions | Description                                                                                                                                                                                                                                                                          |
+| ------- | ----------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Payload | [DeleteRuleInternalServerErrorBody](#schemadeleteruleinternalservererrorbody) | false    | none         | DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody delete rule internal server error body |
 
 <a id="tocSdeleteruleinternalservererrorbody">DeleteRuleInternalServerErrorBody</a>
 
@@ -1913,8 +2235,9 @@ with default header values._
 ```
 
 _DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody
-DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody delete rule
-internal server error body_
+DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody
+DeleteRuleInternalServerErrorBody DeleteRuleInternalServerErrorBody
+DeleteRuleInternalServerErrorBody delete rule internal server error body_
 
 #### Properties
 
@@ -1939,7 +2262,8 @@ internal server error body_
 ```
 
 _DeleteRuleNoContent DeleteRuleNoContent DeleteRuleNoContent DeleteRuleNoContent
-handles this case with default header values._
+DeleteRuleNoContent DeleteRuleNoContent DeleteRuleNoContent handles this case
+with default header values._
 
 #### Properties
 
@@ -1970,13 +2294,14 @@ _None_
 ```
 
 _DeleteRuleNotFound DeleteRuleNotFound DeleteRuleNotFound DeleteRuleNotFound
-handles this case with default header values._
+DeleteRuleNotFound DeleteRuleNotFound DeleteRuleNotFound handles this case with
+default header values._
 
 #### Properties
 
-| Name    | Type                                                    | Required | Restrictions | Description                                                                                                            |
-| ------- | ------------------------------------------------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| Payload | [DeleteRuleNotFoundBody](#schemadeleterulenotfoundbody) | false    | none         | DeleteRuleNotFoundBody DeleteRuleNotFoundBody DeleteRuleNotFoundBody DeleteRuleNotFoundBody delete rule not found body |
+| Name    | Type                                                    | Required | Restrictions | Description                                                                                                                                                                                 |
+| ------- | ------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [DeleteRuleNotFoundBody](#schemadeleterulenotfoundbody) | false    | none         | DeleteRuleNotFoundBody DeleteRuleNotFoundBody DeleteRuleNotFoundBody DeleteRuleNotFoundBody DeleteRuleNotFoundBody DeleteRuleNotFoundBody DeleteRuleNotFoundBody delete rule not found body |
 
 <a id="tocSdeleterulenotfoundbody">DeleteRuleNotFoundBody</a>
 
@@ -2001,6 +2326,7 @@ handles this case with default header values._
 ```
 
 _DeleteRuleNotFoundBody DeleteRuleNotFoundBody DeleteRuleNotFoundBody
+DeleteRuleNotFoundBody DeleteRuleNotFoundBody DeleteRuleNotFoundBody
 DeleteRuleNotFoundBody delete rule not found body_
 
 #### Properties
@@ -2025,8 +2351,9 @@ DeleteRuleNotFoundBody delete rule not found body_
 {}
 ```
 
-_DeleteRuleReader DeleteRuleReader DeleteRuleReader DeleteRuleReader is a Reader
-for the DeleteRule structure._
+_DeleteRuleReader DeleteRuleReader DeleteRuleReader DeleteRuleReader
+DeleteRuleReader DeleteRuleReader DeleteRuleReader is a Reader for the
+DeleteRule structure._
 
 #### Properties
 
@@ -2057,13 +2384,14 @@ _None_
 ```
 
 _DeleteRuleUnauthorized DeleteRuleUnauthorized DeleteRuleUnauthorized
+DeleteRuleUnauthorized DeleteRuleUnauthorized DeleteRuleUnauthorized
 DeleteRuleUnauthorized handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                            | Required | Restrictions | Description                                                                                                                               |
-| ------- | --------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Payload | [DeleteRuleUnauthorizedBody](#schemadeleteruleunauthorizedbody) | false    | none         | DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody delete rule unauthorized body |
+| Name    | Type                                                            | Required | Restrictions | Description                                                                                                                                                                                                                |
+| ------- | --------------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [DeleteRuleUnauthorizedBody](#schemadeleteruleunauthorizedbody) | false    | none         | DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody delete rule unauthorized body |
 
 <a id="tocSdeleteruleunauthorizedbody">DeleteRuleUnauthorizedBody</a>
 
@@ -2088,6 +2416,7 @@ DeleteRuleUnauthorized handles this case with default header values._
 ```
 
 _DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody
+DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody
 DeleteRuleUnauthorizedBody DeleteRuleUnauthorizedBody delete rule unauthorized
 body_
 
@@ -2127,14 +2456,15 @@ body_
 }
 ```
 
-_GetRuleForbidden GetRuleForbidden GetRuleForbidden GetRuleForbidden handles
-this case with default header values._
+_GetRuleForbidden GetRuleForbidden GetRuleForbidden GetRuleForbidden
+GetRuleForbidden GetRuleForbidden GetRuleForbidden handles this case with
+default header values._
 
 #### Properties
 
-| Name    | Type                                                | Required | Restrictions | Description                                                                                                 |
-| ------- | --------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------- |
-| Payload | [GetRuleForbiddenBody](#schemagetruleforbiddenbody) | false    | none         | GetRuleForbiddenBody GetRuleForbiddenBody GetRuleForbiddenBody GetRuleForbiddenBody get rule forbidden body |
+| Name    | Type                                                | Required | Restrictions | Description                                                                                                                                                                |
+| ------- | --------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [GetRuleForbiddenBody](#schemagetruleforbiddenbody) | false    | none         | GetRuleForbiddenBody GetRuleForbiddenBody GetRuleForbiddenBody GetRuleForbiddenBody GetRuleForbiddenBody GetRuleForbiddenBody GetRuleForbiddenBody get rule forbidden body |
 
 <a id="tocSgetruleforbiddenbody">GetRuleForbiddenBody</a>
 
@@ -2159,6 +2489,7 @@ this case with default header values._
 ```
 
 _GetRuleForbiddenBody GetRuleForbiddenBody GetRuleForbiddenBody
+GetRuleForbiddenBody GetRuleForbiddenBody GetRuleForbiddenBody
 GetRuleForbiddenBody get rule forbidden body_
 
 #### Properties
@@ -2197,15 +2528,14 @@ GetRuleForbiddenBody get rule forbidden body_
 }
 ```
 
-_GetRuleInternalServerError GetRuleInternalServerError
-GetRuleInternalServerError GetRuleInternalServerError handles this case with
+_GetRuleInternalServerError GetRuleInternalServerError handles this case with
 default header values._
 
 #### Properties
 
-| Name    | Type                                                                    | Required | Restrictions | Description                                                                                                                                                     |
-| ------- | ----------------------------------------------------------------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Payload | [GetRuleInternalServerErrorBody](#schemagetruleinternalservererrorbody) | false    | none         | GetRuleInternalServerErrorBody GetRuleInternalServerErrorBody GetRuleInternalServerErrorBody GetRuleInternalServerErrorBody get rule internal server error body |
+| Name    | Type                                                                    | Required | Restrictions | Description                                                                                       |
+| ------- | ----------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------- |
+| Payload | [GetRuleInternalServerErrorBody](#schemagetruleinternalservererrorbody) | false    | none         | GetRuleInternalServerErrorBody GetRuleInternalServerErrorBody get rule internal server error body |
 
 <a id="tocSgetruleinternalservererrorbody">GetRuleInternalServerErrorBody</a>
 
@@ -2229,8 +2559,7 @@ default header values._
 }
 ```
 
-_GetRuleInternalServerErrorBody GetRuleInternalServerErrorBody
-GetRuleInternalServerErrorBody GetRuleInternalServerErrorBody get rule internal
+_GetRuleInternalServerErrorBody GetRuleInternalServerErrorBody get rule internal
 server error body_
 
 #### Properties
@@ -2269,14 +2598,13 @@ server error body_
 }
 ```
 
-_GetRuleNotFound GetRuleNotFound GetRuleNotFound GetRuleNotFound handles this
-case with default header values._
+_GetRuleNotFound GetRuleNotFound handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                              | Required | Restrictions | Description                                                                                             |
-| ------- | ------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------- |
-| Payload | [GetRuleNotFoundBody](#schemagetrulenotfoundbody) | false    | none         | GetRuleNotFoundBody GetRuleNotFoundBody GetRuleNotFoundBody GetRuleNotFoundBody get rule not found body |
+| Name    | Type                                              | Required | Restrictions | Description                                                     |
+| ------- | ------------------------------------------------- | -------- | ------------ | --------------------------------------------------------------- |
+| Payload | [GetRuleNotFoundBody](#schemagetrulenotfoundbody) | false    | none         | GetRuleNotFoundBody GetRuleNotFoundBody get rule not found body |
 
 <a id="tocSgetrulenotfoundbody">GetRuleNotFoundBody</a>
 
@@ -2300,8 +2628,7 @@ case with default header values._
 }
 ```
 
-_GetRuleNotFoundBody GetRuleNotFoundBody GetRuleNotFoundBody GetRuleNotFoundBody
-get rule not found body_
+_GetRuleNotFoundBody GetRuleNotFoundBody get rule not found body_
 
 #### Properties
 
@@ -2340,10 +2667,12 @@ get rule not found body_
       "methods": ["string"],
       "url": "string"
     },
-    "transformer": {
-      "config": {},
-      "handler": "string"
-    },
+    "mutators": [
+      {
+        "config": {},
+        "handler": "string"
+      }
+    ],
     "upstream": {
       "preserve_host": true,
       "strip_path": "string",
@@ -2353,8 +2682,7 @@ get rule not found body_
 }
 ```
 
-_GetRuleOK GetRuleOK GetRuleOK GetRuleOK handles this case with default header
-values._
+_GetRuleOK GetRuleOK handles this case with default header values._
 
 #### Properties
 
@@ -2372,8 +2700,7 @@ values._
 {}
 ```
 
-_GetRuleReader GetRuleReader GetRuleReader GetRuleReader is a Reader for the
-GetRule structure._
+_GetRuleReader GetRuleReader is a Reader for the GetRule structure._
 
 #### Properties
 
@@ -2404,13 +2731,14 @@ _None_
 ```
 
 _GetRuleUnauthorized GetRuleUnauthorized GetRuleUnauthorized GetRuleUnauthorized
-handles this case with default header values._
+GetRuleUnauthorized GetRuleUnauthorized GetRuleUnauthorized handles this case
+with default header values._
 
 #### Properties
 
-| Name    | Type                                                      | Required | Restrictions | Description                                                                                                                |
-| ------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------- |
-| Payload | [GetRuleUnauthorizedBody](#schemagetruleunauthorizedbody) | false    | none         | GetRuleUnauthorizedBody GetRuleUnauthorizedBody GetRuleUnauthorizedBody GetRuleUnauthorizedBody get rule unauthorized body |
+| Name    | Type                                                      | Required | Restrictions | Description                                                                                                                                                                                        |
+| ------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [GetRuleUnauthorizedBody](#schemagetruleunauthorizedbody) | false    | none         | GetRuleUnauthorizedBody GetRuleUnauthorizedBody GetRuleUnauthorizedBody GetRuleUnauthorizedBody GetRuleUnauthorizedBody GetRuleUnauthorizedBody GetRuleUnauthorizedBody get rule unauthorized body |
 
 <a id="tocSgetruleunauthorizedbody">GetRuleUnauthorizedBody</a>
 
@@ -2435,6 +2763,7 @@ handles this case with default header values._
 ```
 
 _GetRuleUnauthorizedBody GetRuleUnauthorizedBody GetRuleUnauthorizedBody
+GetRuleUnauthorizedBody GetRuleUnauthorizedBody GetRuleUnauthorizedBody
 GetRuleUnauthorizedBody get rule unauthorized body_
 
 #### Properties
@@ -2474,13 +2803,14 @@ GetRuleUnauthorizedBody get rule unauthorized body_
 ```
 
 _GetWellKnownForbidden GetWellKnownForbidden GetWellKnownForbidden
+GetWellKnownForbidden GetWellKnownForbidden GetWellKnownForbidden
 GetWellKnownForbidden handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                          | Required | Restrictions | Description                                                                                                                           |
-| ------- | ------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
-| Payload | [GetWellKnownForbiddenBody](#schemagetwellknownforbiddenbody) | false    | none         | GetWellKnownForbiddenBody GetWellKnownForbiddenBody GetWellKnownForbiddenBody GetWellKnownForbiddenBody get well known forbidden body |
+| Name    | Type                                                          | Required | Restrictions | Description                                                                                                                                                                                                         |
+| ------- | ------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [GetWellKnownForbiddenBody](#schemagetwellknownforbiddenbody) | false    | none         | GetWellKnownForbiddenBody GetWellKnownForbiddenBody GetWellKnownForbiddenBody GetWellKnownForbiddenBody GetWellKnownForbiddenBody GetWellKnownForbiddenBody GetWellKnownForbiddenBody get well known forbidden body |
 
 <a id="tocSgetwellknownforbiddenbody">GetWellKnownForbiddenBody</a>
 
@@ -2505,6 +2835,7 @@ GetWellKnownForbidden handles this case with default header values._
 ```
 
 _GetWellKnownForbiddenBody GetWellKnownForbiddenBody GetWellKnownForbiddenBody
+GetWellKnownForbiddenBody GetWellKnownForbiddenBody GetWellKnownForbiddenBody
 GetWellKnownForbiddenBody get well known forbidden body_
 
 #### Properties
@@ -2543,14 +2874,15 @@ GetWellKnownForbiddenBody get well known forbidden body_
 }
 ```
 
-_GetWellKnownJSONWebKeysInternalServerError handles this case with default
-header values._
+_GetWellKnownJSONWebKeysInternalServerError
+GetWellKnownJSONWebKeysInternalServerError handles this case with default header
+values._
 
 #### Properties
 
-| Name    | Type                                                                                                    | Required | Restrictions | Description                                                                                            |
-| ------- | ------------------------------------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------ |
-| Payload | [GetWellKnownJSONWebKeysInternalServerErrorBody](#schemagetwellknownjsonwebkeysinternalservererrorbody) | false    | none         | GetWellKnownJSONWebKeysInternalServerErrorBody get well known JSON web keys internal server error body |
+| Name    | Type                                                                                                    | Required | Restrictions | Description                                                                                                                                           |
+| ------- | ------------------------------------------------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [GetWellKnownJSONWebKeysInternalServerErrorBody](#schemagetwellknownjsonwebkeysinternalservererrorbody) | false    | none         | GetWellKnownJSONWebKeysInternalServerErrorBody GetWellKnownJSONWebKeysInternalServerErrorBody get well known JSON web keys internal server error body |
 
 <a id="tocSgetwellknownjsonwebkeysinternalservererrorbody">GetWellKnownJSONWebKeysInternalServerErrorBody</a>
 
@@ -2574,7 +2906,8 @@ header values._
 }
 ```
 
-_GetWellKnownJSONWebKeysInternalServerErrorBody get well known JSON web keys
+_GetWellKnownJSONWebKeysInternalServerErrorBody
+GetWellKnownJSONWebKeysInternalServerErrorBody get well known JSON web keys
 internal server error body_
 
 #### Properties
@@ -2623,7 +2956,8 @@ internal server error body_
 }
 ```
 
-_GetWellKnownJSONWebKeysOK handles this case with default header values._
+_GetWellKnownJSONWebKeysOK GetWellKnownJSONWebKeysOK handles this case with
+default header values._
 
 #### Properties
 
@@ -2641,8 +2975,8 @@ _GetWellKnownJSONWebKeysOK handles this case with default header values._
 {}
 ```
 
-_GetWellKnownJSONWebKeysReader is a Reader for the GetWellKnownJSONWebKeys
-structure._
+_GetWellKnownJSONWebKeysReader GetWellKnownJSONWebKeysReader is a Reader for the
+GetWellKnownJSONWebKeys structure._
 
 #### Properties
 
@@ -2682,8 +3016,8 @@ _None_
 }
 ```
 
-_GetWellKnownOK GetWellKnownOK GetWellKnownOK GetWellKnownOK handles this case
-with default header values._
+_GetWellKnownOK GetWellKnownOK GetWellKnownOK GetWellKnownOK GetWellKnownOK
+GetWellKnownOK GetWellKnownOK handles this case with default header values._
 
 #### Properties
 
@@ -2701,8 +3035,9 @@ with default header values._
 {}
 ```
 
-_GetWellKnownReader GetWellKnownReader GetWellKnownReader GetWellKnownReader is
-a Reader for the GetWellKnown structure._
+_GetWellKnownReader GetWellKnownReader GetWellKnownReader GetWellKnownReader
+GetWellKnownReader GetWellKnownReader GetWellKnownReader is a Reader for the
+GetWellKnown structure._
 
 #### Properties
 
@@ -2733,13 +3068,14 @@ _None_
 ```
 
 _GetWellKnownUnauthorized GetWellKnownUnauthorized GetWellKnownUnauthorized
+GetWellKnownUnauthorized GetWellKnownUnauthorized GetWellKnownUnauthorized
 GetWellKnownUnauthorized handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                                | Required | Restrictions | Description                                                                                                                                          |
-| ------- | ------------------------------------------------------------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Payload | [GetWellKnownUnauthorizedBody](#schemagetwellknownunauthorizedbody) | false    | none         | GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody get well known unauthorized body |
+| Name    | Type                                                                | Required | Restrictions | Description                                                                                                                                                                                                                                 |
+| ------- | ------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [GetWellKnownUnauthorizedBody](#schemagetwellknownunauthorizedbody) | false    | none         | GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody get well known unauthorized body |
 
 <a id="tocSgetwellknownunauthorizedbody">GetWellKnownUnauthorizedBody</a>
 
@@ -2764,8 +3100,9 @@ GetWellKnownUnauthorized handles this case with default header values._
 ```
 
 _GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody
-GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody get well known
-unauthorized body_
+GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody
+GetWellKnownUnauthorizedBody GetWellKnownUnauthorizedBody
+GetWellKnownUnauthorizedBody get well known unauthorized body_
 
 #### Properties
 
@@ -2803,15 +3140,14 @@ unauthorized body_
 }
 ```
 
-_IsInstanceAliveInternalServerError IsInstanceAliveInternalServerError
-IsInstanceAliveInternalServerError handles this case with default header
-values._
+_IsInstanceAliveInternalServerError IsInstanceAliveInternalServerError handles
+this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                                                    | Required | Restrictions | Description                                                                                                                                                       |
-| ------- | --------------------------------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Payload | [IsInstanceAliveInternalServerErrorBody](#schemaisinstancealiveinternalservererrorbody) | false    | none         | IsInstanceAliveInternalServerErrorBody IsInstanceAliveInternalServerErrorBody IsInstanceAliveInternalServerErrorBody is instance alive internal server error body |
+| Name    | Type                                                                                    | Required | Restrictions | Description                                                                                                                |
+| ------- | --------------------------------------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [IsInstanceAliveInternalServerErrorBody](#schemaisinstancealiveinternalservererrorbody) | false    | none         | IsInstanceAliveInternalServerErrorBody IsInstanceAliveInternalServerErrorBody is instance alive internal server error body |
 
 <a id="tocSisinstancealiveinternalservererrorbody">IsInstanceAliveInternalServerErrorBody</a>
 
@@ -2836,8 +3172,7 @@ values._
 ```
 
 _IsInstanceAliveInternalServerErrorBody IsInstanceAliveInternalServerErrorBody
-IsInstanceAliveInternalServerErrorBody is instance alive internal server error
-body_
+is instance alive internal server error body_
 
 #### Properties
 
@@ -2865,8 +3200,8 @@ body_
 }
 ```
 
-_IsInstanceAliveOK IsInstanceAliveOK IsInstanceAliveOK handles this case with
-default header values._
+_IsInstanceAliveOK IsInstanceAliveOK handles this case with default header
+values._
 
 #### Properties
 
@@ -2884,8 +3219,8 @@ default header values._
 {}
 ```
 
-_IsInstanceAliveReader IsInstanceAliveReader IsInstanceAliveReader is a Reader
-for the IsInstanceAlive structure._
+_IsInstanceAliveReader IsInstanceAliveReader is a Reader for the IsInstanceAlive
+structure._
 
 #### Properties
 
@@ -3226,13 +3561,14 @@ unauthorized body_
 ```
 
 _ListRulesForbidden ListRulesForbidden ListRulesForbidden ListRulesForbidden
-handles this case with default header values._
+ListRulesForbidden ListRulesForbidden ListRulesForbidden handles this case with
+default header values._
 
 #### Properties
 
-| Name    | Type                                                    | Required | Restrictions | Description                                                                                                           |
-| ------- | ------------------------------------------------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------- |
-| Payload | [ListRulesForbiddenBody](#schemalistrulesforbiddenbody) | false    | none         | ListRulesForbiddenBody ListRulesForbiddenBody ListRulesForbiddenBody ListRulesForbiddenBody list rules forbidden body |
+| Name    | Type                                                    | Required | Restrictions | Description                                                                                                                                                                                |
+| ------- | ------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Payload | [ListRulesForbiddenBody](#schemalistrulesforbiddenbody) | false    | none         | ListRulesForbiddenBody ListRulesForbiddenBody ListRulesForbiddenBody ListRulesForbiddenBody ListRulesForbiddenBody ListRulesForbiddenBody ListRulesForbiddenBody list rules forbidden body |
 
 <a id="tocSlistrulesforbiddenbody">ListRulesForbiddenBody</a>
 
@@ -3257,6 +3593,7 @@ handles this case with default header values._
 ```
 
 _ListRulesForbiddenBody ListRulesForbiddenBody ListRulesForbiddenBody
+ListRulesForbiddenBody ListRulesForbiddenBody ListRulesForbiddenBody
 ListRulesForbiddenBody list rules forbidden body_
 
 #### Properties
@@ -3295,15 +3632,14 @@ ListRulesForbiddenBody list rules forbidden body_
 }
 ```
 
-_ListRulesInternalServerError ListRulesInternalServerError
-ListRulesInternalServerError ListRulesInternalServerError handles this case with
-default header values._
+_ListRulesInternalServerError ListRulesInternalServerError handles this case
+with default header values._
 
 #### Properties
 
-| Name    | Type                                                                        | Required | Restrictions | Description                                                                                                                                                               |
-| ------- | --------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Payload | [ListRulesInternalServerErrorBody](#schemalistrulesinternalservererrorbody) | false    | none         | ListRulesInternalServerErrorBody ListRulesInternalServerErrorBody ListRulesInternalServerErrorBody ListRulesInternalServerErrorBody list rules internal server error body |
+| Name    | Type                                                                        | Required | Restrictions | Description                                                                                             |
+| ------- | --------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------- |
+| Payload | [ListRulesInternalServerErrorBody](#schemalistrulesinternalservererrorbody) | false    | none         | ListRulesInternalServerErrorBody ListRulesInternalServerErrorBody list rules internal server error body |
 
 <a id="tocSlistrulesinternalservererrorbody">ListRulesInternalServerErrorBody</a>
 
@@ -3327,8 +3663,7 @@ default header values._
 }
 ```
 
-_ListRulesInternalServerErrorBody ListRulesInternalServerErrorBody
-ListRulesInternalServerErrorBody ListRulesInternalServerErrorBody list rules
+_ListRulesInternalServerErrorBody ListRulesInternalServerErrorBody list rules
 internal server error body_
 
 #### Properties
@@ -3369,10 +3704,12 @@ internal server error body_
         "methods": ["string"],
         "url": "string"
       },
-      "transformer": {
-        "config": {},
-        "handler": "string"
-      },
+      "mutators": [
+        {
+          "config": {},
+          "handler": "string"
+        }
+      ],
       "upstream": {
         "preserve_host": true,
         "strip_path": "string",
@@ -3383,8 +3720,7 @@ internal server error body_
 }
 ```
 
-_ListRulesOK ListRulesOK ListRulesOK ListRulesOK handles this case with default
-header values._
+_ListRulesOK ListRulesOK handles this case with default header values._
 
 #### Properties
 
@@ -3402,8 +3738,7 @@ header values._
 {}
 ```
 
-_ListRulesReader ListRulesReader ListRulesReader ListRulesReader is a Reader for
-the ListRules structure._
+_ListRulesReader ListRulesReader is a Reader for the ListRules structure._
 
 #### Properties
 
@@ -3434,13 +3769,14 @@ _None_
 ```
 
 _ListRulesUnauthorized ListRulesUnauthorized ListRulesUnauthorized
+ListRulesUnauthorized ListRulesUnauthorized ListRulesUnauthorized
 ListRulesUnauthorized handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                          | Required | Restrictions | Description                                                                                                                          |
-| ------- | ------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
-| Payload | [ListRulesUnauthorizedBody](#schemalistrulesunauthorizedbody) | false    | none         | ListRulesUnauthorizedBody ListRulesUnauthorizedBody ListRulesUnauthorizedBody ListRulesUnauthorizedBody list rules unauthorized body |
+| Name    | Type                                                          | Required | Restrictions | Description                                                                                                                                                                                                        |
+| ------- | ------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Payload | [ListRulesUnauthorizedBody](#schemalistrulesunauthorizedbody) | false    | none         | ListRulesUnauthorizedBody ListRulesUnauthorizedBody ListRulesUnauthorizedBody ListRulesUnauthorizedBody ListRulesUnauthorizedBody ListRulesUnauthorizedBody ListRulesUnauthorizedBody list rules unauthorized body |
 
 <a id="tocSlistrulesunauthorizedbody">ListRulesUnauthorizedBody</a>
 
@@ -3465,6 +3801,7 @@ ListRulesUnauthorized handles this case with default header values._
 ```
 
 _ListRulesUnauthorizedBody ListRulesUnauthorizedBody ListRulesUnauthorizedBody
+ListRulesUnauthorizedBody ListRulesUnauthorizedBody ListRulesUnauthorizedBody
 ListRulesUnauthorizedBody list rules unauthorized body_
 
 #### Properties
@@ -3489,13 +3826,14 @@ ListRulesUnauthorizedBody list rules unauthorized body_
 [0]
 ```
 
-_RawMessage RawMessage RawMessage RawMessage is a raw encoded JSON value._
+_RawMessage RawMessage RawMessage RawMessage RawMessage RawMessage RawMessage is
+a raw encoded JSON value._
 
 #### Properties
 
-| Name                                                                     | Type      | Required | Restrictions | Description                                                                                                   |
-| ------------------------------------------------------------------------ | --------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------- |
-| RawMessage RawMessage RawMessage RawMessage is a raw encoded JSON value. | [integer] | false    | none         | It implements Marshaler and Unmarshaler and can be used to delay JSON decoding or precompute a JSON encoding. |
+| Name                                                                                                      | Type      | Required | Restrictions | Description                                                                                                   |
+| --------------------------------------------------------------------------------------------------------- | --------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------- |
+| RawMessage RawMessage RawMessage RawMessage RawMessage RawMessage RawMessage is a raw encoded JSON value. | [integer] | false    | none         | It implements Marshaler and Unmarshaler and can be used to delay JSON decoding or precompute a JSON encoding. |
 
 <a id="tocSswaggercreateruleparameters">SwaggerCreateRuleParameters</a>
 
@@ -3522,100 +3860,12 @@ _RawMessage RawMessage RawMessage RawMessage is a raw encoded JSON value._
       "methods": ["string"],
       "url": "string"
     },
-    "transformer": {
-      "config": {},
-      "handler": "string"
-    },
-    "upstream": {
-      "preserve_host": true,
-      "strip_path": "string",
-      "url": "string"
-    }
-  }
-}
-```
-
-_SwaggerCreateRuleParameters SwaggerCreateRuleParameters swagger create rule
-parameters_
-
-#### Properties
-
-| Name | Type                              | Required | Restrictions | Description |
-| ---- | --------------------------------- | -------- | ------------ | ----------- |
-| Body | [swaggerRule](#schemaswaggerrule) | false    | none         | none        |
-
-<a id="tocSswaggergetruleparameters">SwaggerGetRuleParameters</a>
-
-#### SwaggerGetRuleParameters
-
-<a id="schemaswaggergetruleparameters"></a>
-
-```json
-{
-  "id": "string"
-}
-```
-
-_SwaggerGetRuleParameters SwaggerGetRuleParameters swagger get rule parameters_
-
-#### Properties
-
-| Name | Type   | Required | Restrictions | Description |
-| ---- | ------ | -------- | ------------ | ----------- |
-| id   | string | true     | none         | in: path    |
-
-<a id="tocSswaggerlistrulesparameters">SwaggerListRulesParameters</a>
-
-#### SwaggerListRulesParameters
-
-<a id="schemaswaggerlistrulesparameters"></a>
-
-```json
-{
-  "limit": 0,
-  "offset": 0
-}
-```
-
-_SwaggerListRulesParameters SwaggerListRulesParameters swagger list rules
-parameters_
-
-#### Properties
-
-| Name   | Type           | Required | Restrictions | Description                                       |
-| ------ | -------------- | -------- | ------------ | ------------------------------------------------- |
-| limit  | integer(int64) | false    | none         | The maximum amount of rules returned. in: query   |
-| offset | integer(int64) | false    | none         | The offset from where to start looking. in: query |
-
-<a id="tocSswaggerruleresponse">SwaggerRuleResponse</a>
-
-#### SwaggerRuleResponse
-
-<a id="schemaswaggerruleresponse"></a>
-
-```json
-{
-  "Body": {
-    "authenticators": [
+    "mutators": [
       {
         "config": {},
         "handler": "string"
       }
     ],
-    "authorizer": {
-      "config": {},
-      "handler": "string"
-    },
-    "description": "string",
-    "id": "string",
-    "match": {
-      "methods": ["string"],
-      "url": "string"
-    },
-    "transformer": {
-      "config": {},
-      "handler": "string"
-    },
     "upstream": {
       "preserve_host": true,
       "strip_path": "string",
@@ -3625,61 +3875,15 @@ parameters_
 }
 ```
 
-_SwaggerRuleResponse SwaggerRuleResponse A rule_
+_SwaggerCreateRuleParameters SwaggerCreateRuleParameters
+SwaggerCreateRuleParameters SwaggerCreateRuleParameters
+SwaggerCreateRuleParameters swagger create rule parameters_
 
 #### Properties
 
 | Name | Type                              | Required | Restrictions | Description |
 | ---- | --------------------------------- | -------- | ------------ | ----------- |
 | Body | [swaggerRule](#schemaswaggerrule) | false    | none         | none        |
-
-<a id="tocSswaggerrulesresponse">SwaggerRulesResponse</a>
-
-#### SwaggerRulesResponse
-
-<a id="schemaswaggerrulesresponse"></a>
-
-```json
-{
-  "Body": [
-    {
-      "authenticators": [
-        {
-          "config": {},
-          "handler": "string"
-        }
-      ],
-      "authorizer": {
-        "config": {},
-        "handler": "string"
-      },
-      "description": "string",
-      "id": "string",
-      "match": {
-        "methods": ["string"],
-        "url": "string"
-      },
-      "transformer": {
-        "config": {},
-        "handler": "string"
-      },
-      "upstream": {
-        "preserve_host": true,
-        "strip_path": "string",
-        "url": "string"
-      }
-    }
-  ]
-}
-```
-
-_SwaggerRulesResponse SwaggerRulesResponse A list of rules_
-
-#### Properties
-
-| Name | Type                                | Required | Restrictions | Description          |
-| ---- | ----------------------------------- | -------- | ------------ | -------------------- |
-| Body | [[swaggerRule](#schemaswaggerrule)] | false    | none         | in: body type: array |
 
 <a id="tocSswaggerupdateruleparameters">SwaggerUpdateRuleParameters</a>
 
@@ -3706,10 +3910,12 @@ _SwaggerRulesResponse SwaggerRulesResponse A list of rules_
       "methods": ["string"],
       "url": "string"
     },
-    "transformer": {
-      "config": {},
-      "handler": "string"
-    },
+    "mutators": [
+      {
+        "config": {},
+        "handler": "string"
+      }
+    ],
     "upstream": {
       "preserve_host": true,
       "strip_path": "string",
@@ -3720,8 +3926,9 @@ _SwaggerRulesResponse SwaggerRulesResponse A list of rules_
 }
 ```
 
-_SwaggerUpdateRuleParameters SwaggerUpdateRuleParameters swagger update rule
-parameters_
+_SwaggerUpdateRuleParameters SwaggerUpdateRuleParameters
+SwaggerUpdateRuleParameters SwaggerUpdateRuleParameters
+SwaggerUpdateRuleParameters swagger update rule parameters_
 
 #### Properties
 
@@ -3755,13 +3962,14 @@ parameters_
 ```
 
 _UpdateRuleForbidden UpdateRuleForbidden UpdateRuleForbidden UpdateRuleForbidden
-handles this case with default header values._
+UpdateRuleForbidden UpdateRuleForbidden UpdateRuleForbidden handles this case
+with default header values._
 
 #### Properties
 
-| Name    | Type                                                      | Required | Restrictions | Description                                                                                                                |
-| ------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------- |
-| Payload | [UpdateRuleForbiddenBody](#schemaupdateruleforbiddenbody) | false    | none         | UpdateRuleForbiddenBody UpdateRuleForbiddenBody UpdateRuleForbiddenBody UpdateRuleForbiddenBody update rule forbidden body |
+| Name    | Type                                                      | Required | Restrictions | Description                                                                                                                                                                                        |
+| ------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [UpdateRuleForbiddenBody](#schemaupdateruleforbiddenbody) | false    | none         | UpdateRuleForbiddenBody UpdateRuleForbiddenBody UpdateRuleForbiddenBody UpdateRuleForbiddenBody UpdateRuleForbiddenBody UpdateRuleForbiddenBody UpdateRuleForbiddenBody update rule forbidden body |
 
 <a id="tocSupdateruleforbiddenbody">UpdateRuleForbiddenBody</a>
 
@@ -3786,6 +3994,7 @@ handles this case with default header values._
 ```
 
 _UpdateRuleForbiddenBody UpdateRuleForbiddenBody UpdateRuleForbiddenBody
+UpdateRuleForbiddenBody UpdateRuleForbiddenBody UpdateRuleForbiddenBody
 UpdateRuleForbiddenBody update rule forbidden body_
 
 #### Properties
@@ -3825,14 +4034,15 @@ UpdateRuleForbiddenBody update rule forbidden body_
 ```
 
 _UpdateRuleInternalServerError UpdateRuleInternalServerError
-UpdateRuleInternalServerError UpdateRuleInternalServerError handles this case
-with default header values._
+UpdateRuleInternalServerError UpdateRuleInternalServerError
+UpdateRuleInternalServerError UpdateRuleInternalServerError
+UpdateRuleInternalServerError handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                                          | Required | Restrictions | Description                                                                                                                                                                    |
-| ------- | ----------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Payload | [UpdateRuleInternalServerErrorBody](#schemaupdateruleinternalservererrorbody) | false    | none         | UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody update rule internal server error body |
+| Name    | Type                                                                          | Required | Restrictions | Description                                                                                                                                                                                                                                                                          |
+| ------- | ----------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Payload | [UpdateRuleInternalServerErrorBody](#schemaupdateruleinternalservererrorbody) | false    | none         | UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody update rule internal server error body |
 
 <a id="tocSupdateruleinternalservererrorbody">UpdateRuleInternalServerErrorBody</a>
 
@@ -3857,8 +4067,9 @@ with default header values._
 ```
 
 _UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody
-UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody update rule
-internal server error body_
+UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody
+UpdateRuleInternalServerErrorBody UpdateRuleInternalServerErrorBody
+UpdateRuleInternalServerErrorBody update rule internal server error body_
 
 #### Properties
 
@@ -3897,13 +4108,14 @@ internal server error body_
 ```
 
 _UpdateRuleNotFound UpdateRuleNotFound UpdateRuleNotFound UpdateRuleNotFound
-handles this case with default header values._
+UpdateRuleNotFound UpdateRuleNotFound UpdateRuleNotFound handles this case with
+default header values._
 
 #### Properties
 
-| Name    | Type                                                    | Required | Restrictions | Description                                                                                                            |
-| ------- | ------------------------------------------------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| Payload | [UpdateRuleNotFoundBody](#schemaupdaterulenotfoundbody) | false    | none         | UpdateRuleNotFoundBody UpdateRuleNotFoundBody UpdateRuleNotFoundBody UpdateRuleNotFoundBody update rule not found body |
+| Name    | Type                                                    | Required | Restrictions | Description                                                                                                                                                                                 |
+| ------- | ------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [UpdateRuleNotFoundBody](#schemaupdaterulenotfoundbody) | false    | none         | UpdateRuleNotFoundBody UpdateRuleNotFoundBody UpdateRuleNotFoundBody UpdateRuleNotFoundBody UpdateRuleNotFoundBody UpdateRuleNotFoundBody UpdateRuleNotFoundBody update rule not found body |
 
 <a id="tocSupdaterulenotfoundbody">UpdateRuleNotFoundBody</a>
 
@@ -3928,6 +4140,7 @@ handles this case with default header values._
 ```
 
 _UpdateRuleNotFoundBody UpdateRuleNotFoundBody UpdateRuleNotFoundBody
+UpdateRuleNotFoundBody UpdateRuleNotFoundBody UpdateRuleNotFoundBody
 UpdateRuleNotFoundBody update rule not found body_
 
 #### Properties
@@ -3967,10 +4180,12 @@ UpdateRuleNotFoundBody update rule not found body_
       "methods": ["string"],
       "url": "string"
     },
-    "transformer": {
-      "config": {},
-      "handler": "string"
-    },
+    "mutators": [
+      {
+        "config": {},
+        "handler": "string"
+      }
+    ],
     "upstream": {
       "preserve_host": true,
       "strip_path": "string",
@@ -3980,8 +4195,8 @@ UpdateRuleNotFoundBody update rule not found body_
 }
 ```
 
-_UpdateRuleOK UpdateRuleOK UpdateRuleOK UpdateRuleOK handles this case with
-default header values._
+_UpdateRuleOK UpdateRuleOK UpdateRuleOK UpdateRuleOK UpdateRuleOK UpdateRuleOK
+UpdateRuleOK handles this case with default header values._
 
 #### Properties
 
@@ -3999,8 +4214,9 @@ default header values._
 {}
 ```
 
-_UpdateRuleReader UpdateRuleReader UpdateRuleReader UpdateRuleReader is a Reader
-for the UpdateRule structure._
+_UpdateRuleReader UpdateRuleReader UpdateRuleReader UpdateRuleReader
+UpdateRuleReader UpdateRuleReader UpdateRuleReader is a Reader for the
+UpdateRule structure._
 
 #### Properties
 
@@ -4031,13 +4247,14 @@ _None_
 ```
 
 _UpdateRuleUnauthorized UpdateRuleUnauthorized UpdateRuleUnauthorized
+UpdateRuleUnauthorized UpdateRuleUnauthorized UpdateRuleUnauthorized
 UpdateRuleUnauthorized handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                            | Required | Restrictions | Description                                                                                                                               |
-| ------- | --------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Payload | [UpdateRuleUnauthorizedBody](#schemaupdateruleunauthorizedbody) | false    | none         | UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody update rule unauthorized body |
+| Name    | Type                                                            | Required | Restrictions | Description                                                                                                                                                                                                                |
+| ------- | --------------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [UpdateRuleUnauthorizedBody](#schemaupdateruleunauthorizedbody) | false    | none         | UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody update rule unauthorized body |
 
 <a id="tocSupdateruleunauthorizedbody">UpdateRuleUnauthorizedBody</a>
 
@@ -4062,6 +4279,7 @@ UpdateRuleUnauthorized handles this case with default header values._
 ```
 
 _UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody
+UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody
 UpdateRuleUnauthorizedBody UpdateRuleUnauthorizedBody update rule unauthorized
 body_
 
@@ -4091,7 +4309,7 @@ body_
 }
 ```
 
-_Upstream Upstream Upstream Upstream upstream_
+_Upstream Upstream Upstream Upstream Upstream Upstream Upstream upstream_
 
 #### Properties
 
@@ -4279,7 +4497,7 @@ _swaggerRule is a single rule that will get checked on every HTTP request._
 | id             | string                              | false    | none         | ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.                                                                                                                                                                                                                                  |
 | match          | [ruleMatch](#schemarulematch)       | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                         |
 | mutators       | [[ruleHandler](#schemarulehandler)] | false    | none         | Mutators is a list of mutation handlers that transform the HTTP request. A common use case is generating a new set of credentials (e.g. JWT) which then will be forwarded to the upstream server. Mutations are performed iteratively from index 0 to n and should all succeed in order for the HTTP request to be forwarded.                                                                                |
-| upstream       | [Upstream](#schemaupstream)         | false    | none         | Upstream Upstream Upstream Upstream upstream                                                                                                                                                                                                                                                                                                                                                                 |
+| upstream       | [Upstream](#schemaupstream)         | false    | none         | Upstream Upstream Upstream Upstream Upstream Upstream Upstream upstream                                                                                                                                                                                                                                                                                                                                      |
 
 <a id="tocSrulehandler">ruleHandler</a>
 
@@ -4332,6 +4550,8 @@ _swaggerRule is a single rule that will get checked on every HTTP request._
   "id": "string"
 }
 ```
+
+_SwaggerGetRuleParameters swagger get rule parameters_
 
 #### Properties
 
@@ -4464,6 +4684,8 @@ _SwaggerJSONWebKeySet swagger JSON web key set_
 }
 ```
 
+_SwaggerListRulesParameters swagger list rules parameters_
+
 #### Properties
 
 | Name   | Type           | Required | Restrictions | Description                                       |
@@ -4519,10 +4741,12 @@ _SwaggerNotReadyStatus swagger not ready status_
     "methods": ["string"],
     "url": "string"
   },
-  "transformer": {
-    "config": {},
-    "handler": "string"
-  },
+  "mutators": [
+    {
+      "config": {},
+      "handler": "string"
+    }
+  ],
   "upstream": {
     "preserve_host": true,
     "strip_path": "string",
@@ -4543,8 +4767,8 @@ request._
 | description    | string                                            | false    | none         | Description is a human readable description of this rule.                                                                                                                                                                                                                                                                                                                                                    |
 | id             | string                                            | false    | none         | ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.                                                                                                                                                                                                                                  |
 | match          | [swaggerRuleMatch](#schemaswaggerrulematch)       | false    | none         | SwaggerRuleMatch swagger rule match                                                                                                                                                                                                                                                                                                                                                                          |
-| transformer    | [swaggerRuleHandler](#schemaswaggerrulehandler)   | false    | none         | SwaggerRuleHandler swagger rule handler                                                                                                                                                                                                                                                                                                                                                                      |
-| upstream       | [Upstream](#schemaupstream)                       | false    | none         | Upstream Upstream Upstream Upstream upstream                                                                                                                                                                                                                                                                                                                                                                 |
+| mutators       | [[swaggerRuleHandler](#schemaswaggerrulehandler)] | false    | none         | Mutators is a list of mutation handlers that transform the HTTP request. A common use case is generating a new set of credentials (e.g. JWT) which then will be forwarded to the upstream server. Mutations are performed iteratively from index 0 to n and should all succeed in order for the HTTP request to be forwarded.                                                                                |
+| upstream       | [Upstream](#schemaupstream)                       | false    | none         | Upstream Upstream Upstream Upstream Upstream Upstream Upstream upstream                                                                                                                                                                                                                                                                                                                                      |
 
 <a id="tocSswaggerrulehandler">swaggerRuleHandler</a>
 
@@ -4630,13 +4854,13 @@ _SwaggerRuleMatch swagger rule match_
 }
 ```
 
-_A rule_
+_SwaggerRuleResponse A rule_
 
 #### Properties
 
-| Name | Type                | Required | Restrictions | Description |
-| ---- | ------------------- | -------- | ------------ | ----------- |
-| Body | [rule](#schemarule) | false    | none         | none        |
+| Name | Type                              | Required | Restrictions | Description |
+| ---- | --------------------------------- | -------- | ------------ | ----------- |
+| Body | [swaggerRule](#schemaswaggerrule) | false    | none         | none        |
 
 <a id="tocSswaggerrulesresponse">swaggerRulesResponse</a>
 
@@ -4680,13 +4904,13 @@ _A rule_
 }
 ```
 
-_A list of rules_
+_SwaggerRulesResponse A list of rules_
 
 #### Properties
 
-| Name | Type                  | Required | Restrictions | Description          |
-| ---- | --------------------- | -------- | ------------ | -------------------- |
-| Body | [[rule](#schemarule)] | false    | none         | in: body type: array |
+| Name | Type                                | Required | Restrictions | Description          |
+| ---- | ----------------------------------- | -------- | ------------ | -------------------- |
+| Body | [[swaggerRule](#schemaswaggerrule)] | false    | none         | in: body type: array |
 
 <a id="tocSswaggerversion">swaggerVersion</a>
 

@@ -56,7 +56,7 @@ serve:
     # - Windows Command Line (CMD):
     #    > set SERVE_API_HOST=<value>
     #
-    host: ''
+    host: localhost
 
     ## Cross Origin Resource Sharing (CORS) ##
     #
@@ -243,7 +243,7 @@ serve:
     # - Windows Command Line (CMD):
     #    > set SERVE_PROXY_HOST=<value>
     #
-    host: ''
+    host: localhost
 
     ## HTTP Timeouts ##
     #
@@ -267,7 +267,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_TIMEOUT_READ=<value>
       #
-      read: 5m
+      read: 5s
 
       ## HTTP Write Timeout ##
       #
@@ -286,7 +286,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_TIMEOUT_WRITE=<value>
       #
-      write: 120s
+      write: 5h
 
       ## HTTP Idle Timeout ##
       #
@@ -305,7 +305,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_TIMEOUT_IDLE=<value>
       #
-      idle: 120s
+      idle: 5h
 
     ## Cross Origin Resource Sharing (CORS) ##
     #
@@ -343,7 +343,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_CORS_ALLOWED_ORIGINS=<value>
       #
-      allowed_origins: https://*.foo.example.com
+      allowed_origins: https://example.com
 
       ## Allowed HTTP Methods ##
       #
@@ -652,7 +652,7 @@ authenticators:
     # - Windows Command Line (CMD):
     #    > set AUTHENTICATORS_COOKIE_SESSION_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
   ## JSON Web Token (jwt) ##
   #
@@ -682,7 +682,7 @@ authenticators:
     # - Windows Command Line (CMD):
     #    > set AUTHENTICATORS_OAUTH2_CLIENT_CREDENTIALS_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
   ## OAuth 2.0 Token Introspection ##
   #
@@ -887,7 +887,7 @@ mutators:
     # - Windows Command Line (CMD):
     #    > set MUTATORS_COOKIE_ENABLED=<value>
     #
-    enabled: false
+    enabled: true
 
   ## HTTP Header ##
   #
@@ -977,5 +977,5 @@ log:
 # - Windows Command Line (CMD):
 #    > set PROFILING=<value>
 #
-profiling: mem
+profiling: cpu
 ```

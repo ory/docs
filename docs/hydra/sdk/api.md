@@ -6,17 +6,17 @@ id: api
 Welcome to the ORY Hydra HTTP API documentation. You will find documentation for
 all HTTP APIs here.
 
-> You are viewing a REST API documentation. This documentation is auto-generated
+> You are viewing REST API documentation. This documentation is auto-generated
 > from a swagger specification which itself is generated from annotations in the
-> source files of the project. It is possible that this documentation includes
+> source code of the project. It is possible that this documentation includes
 > bugs and that code samples are incomplete or wrong.
 >
 > If you find issues in the respective documentation, please do not edit the
-> markdown files directly (as they are generated) but raise an issue on the
-> project's GitHub instead. This documentation will improve over time with your
-> help! If you have ideas how to improve this part of the documentation, feel
-> free to share them in a [GitHub issue](https://github.com/ory/docs/issues/new)
-> any time.
+> Markdown files directly (as they are generated) but raise an issue on the
+> project's GitHub presence instead. This documentation will improve over time
+> with your help! If you have ideas how to improve this part of the
+> documentation, feel free to share them in a
+> [GitHub issue](https://github.com/ory/docs/issues/new) any time.
 
 ## Authentication
 
@@ -27,10 +27,11 @@ all HTTP APIs here.
   - OAuth 2.0 Token URL = [/oauth2/token](/oauth2/token)
   - OAuth 2.0 Scope
 
-    | Scope   | Scope Description                               |
-    | ------- | ----------------------------------------------- |
-    | offline | A scope required when requesting refresh tokens |
-    | openid  | Request an OpenID Connect ID Token              |
+    | Scope          | Scope Description                                                     |
+    | -------------- | --------------------------------------------------------------------- |
+    | offline        | A scope required when requesting refresh tokens (alias for `offline`) |
+    | offline_access | A scope required when requesting refresh tokens                       |
+    | openid         | Request an OpenID Connect ID Token                                    |
 
 <a id="ory-hydra-public-endpoints"></a>
 
@@ -243,7 +244,11 @@ Accept: application/json
 The well known endpoint an be used to retrieve information for OpenID Connect
 clients. We encourage you to not roll your own OpenID Connect client but to use
 an OpenID Connect client library instead. You can learn more on this flow at
-https://openid.net/specs/openid-connect-discovery-1_0.html
+https://openid.net/specs/openid-connect-discovery-1_0.html .
+
+Popular libraries for OpenID Connect clients include oidc-client-js
+(JavaScript), go-oidc (Golang), and others. For a full list of clients go here:
+https://openid.net/developers/certified/
 
 #### Responses
 
@@ -420,6 +425,184 @@ headers = {
 }
 
 result = RestClient.get '/.well-known/openid-configuration',
+  params: {}, headers: headers
+
+p JSON.parse(result)
+```
+
+</div>
+</div>
+</div>
+
+<a id="opIdisInstanceReady"></a>
+
+### Check readiness status
+
+```
+GET /health/ready HTTP/1.1
+Accept: application/json
+
+```
+
+This endpoint returns a 200 status code when the HTTP server is up running and
+the environment dependencies (e.g. the database) are responsive as well.
+
+If the service supports TLS Edge Termination, this endpoint does not require the
+`X-Forwarded-Proto` header to be set.
+
+Be aware that if you are running multiple nodes of this service, the health
+status will never refer to the cluster state, only to a single instance.
+
+#### Responses
+
+<a id="check-readiness-status-responses"></a>
+
+##### Overview
+
+| Status | Meaning                                                                  | Description          | Schema                                              |
+| ------ | ------------------------------------------------------------------------ | -------------------- | --------------------------------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                  | healthStatus         | [healthStatus](#schemahealthstatus)                 |
+| 503    | [Service Unavailable](https://tools.ietf.org/html/rfc7231#section-6.6.4) | healthNotReadyStatus | [healthNotReadyStatus](#schemahealthnotreadystatus) |
+
+##### Examples
+
+###### 200 response
+
+```json
+{
+  "status": "string"
+}
+```
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+#### Code samples
+
+<div class="tabs" id="tab-isInstanceReady">
+<nav class="tabs-nav">
+<ul class="nav nav-tabs au-link-list au-link-list--inline">
+<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-isInstanceReady-shell">Shell</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-isInstanceReady-go">Go</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-isInstanceReady-node">Node.js</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-isInstanceReady-java">Java</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-isInstanceReady-python">Python</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-isInstanceReady-ruby">Ruby</a></li>
+</ul>
+</nav>
+<div class="tab-content">
+<div class="tab-pane active" role="tabpanel" id="tab-isInstanceReady-shell">
+
+```shell
+curl -X GET /health/ready \
+  -H 'Accept: application/json'
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-isInstanceReady-go">
+
+```go
+package main
+
+import (
+    "bytes"
+    "net/http"
+)
+
+func main() {
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    var body []byte
+    // body = ...
+
+    req, err := http.NewRequest("GET", "/health/ready", bytes.NewBuffer(body))
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-isInstanceReady-node">
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept': 'application/json'
+}
+
+fetch('/health/ready', {
+  method: 'GET',
+  headers
+})
+.then(r => r.json())
+.then((body) => {
+    console.log(body)
+})
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-isInstanceReady-java">
+
+```java
+// This sample needs improvement.
+URL obj = new URL("/health/ready");
+
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+
+int responseCode = con.getResponseCode();
+
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream())
+);
+
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+
+System.out.println(response.toString());
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-isInstanceReady-python">
+
+```python
+import requests
+
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get(
+  '/health/ready',
+  params={},
+  headers = headers)
+
+print r.json()
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-isInstanceReady-ruby">
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.get '/health/ready',
   params: {}, headers: headers
 
 p JSON.parse(result)
@@ -1022,9 +1205,9 @@ client_id: string
 ```json
 {
   "access_token": "string",
-  "client_id": "string",
-  "code": "string",
-  "redirect_uri": "string"
+  "expires_in": 0,
+  "refresh_token": "string",
+  "token_type": "string"
 }
 ```
 
@@ -1187,8 +1370,10 @@ Accept: application/json
 ```
 
 This endpoint returns the payload of the ID Token, including the idTokenExtra
-values, of the provided OAuth 2.0 access token. The endpoint implements
-http://openid.net/specs/openid-connect-core-1_0.html#UserInfo .
+values, of the provided OAuth 2.0 Access Token.
+
+For more information please
+[refer to the spec](http://openid.net/specs/openid-connect-core-1_0.html#UserInfo).
 
 #### Responses
 
@@ -1498,7 +1683,7 @@ Status Code **200**
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-07-22T09:29:59Z",
+    "created_at": "2019-09-23T15:52:20Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -1539,7 +1724,7 @@ Status Code **200**
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-07-22T09:29:59Z",
+    "updated_at": "2019-09-23T15:52:20Z",
     "userinfo_signed_response_alg": "string"
   }
 ]
@@ -1719,7 +1904,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-07-22T09:29:59Z",
+  "created_at": "2019-09-23T15:52:20Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -1760,7 +1945,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-07-22T09:29:59Z",
+  "updated_at": "2019-09-23T15:52:20Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -1802,7 +1987,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-07-22T09:29:59Z",
+  "created_at": "2019-09-23T15:52:20Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -1843,7 +2028,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-07-22T09:29:59Z",
+  "updated_at": "2019-09-23T15:52:20Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -1924,7 +2109,7 @@ const input = '{
   "contacts": [
     "string"
   ],
-  "created_at": "2019-07-22T09:29:59Z",
+  "created_at": "2019-09-23T15:52:20Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": [
@@ -1977,7 +2162,7 @@ const input = '{
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-07-22T09:29:59Z",
+  "updated_at": "2019-09-23T15:52:20Z",
   "userinfo_signed_response_alg": "string"
 }';
 const headers = {
@@ -2116,7 +2301,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-07-22T09:29:59Z",
+  "created_at": "2019-09-23T15:52:20Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2157,7 +2342,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-07-22T09:29:59Z",
+  "updated_at": "2019-09-23T15:52:20Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2335,7 +2520,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-07-22T09:29:59Z",
+  "created_at": "2019-09-23T15:52:20Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2376,7 +2561,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-07-22T09:29:59Z",
+  "updated_at": "2019-09-23T15:52:20Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2417,7 +2602,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-07-22T09:29:59Z",
+  "created_at": "2019-09-23T15:52:20Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2458,7 +2643,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-07-22T09:29:59Z",
+  "updated_at": "2019-09-23T15:52:20Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2539,7 +2724,7 @@ const input = '{
   "contacts": [
     "string"
   ],
-  "created_at": "2019-07-22T09:29:59Z",
+  "created_at": "2019-09-23T15:52:20Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": [
@@ -2592,7 +2777,7 @@ const input = '{
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-07-22T09:29:59Z",
+  "updated_at": "2019-09-23T15:52:20Z",
   "userinfo_signed_response_alg": "string"
 }';
 const headers = {
@@ -2858,6 +3043,185 @@ headers = {
 }
 
 result = RestClient.delete '/clients/{id}',
+  params: {}, headers: headers
+
+p JSON.parse(result)
+```
+
+</div>
+</div>
+</div>
+
+<a id="opIdisInstanceAlive"></a>
+
+### Check alive status
+
+```
+GET /health/alive HTTP/1.1
+Accept: application/json
+
+```
+
+This endpoint returns a 200 status code when the HTTP server is up running. This
+status does currently not include checks whether the database connection is
+working.
+
+If the service supports TLS Edge Termination, this endpoint does not require the
+`X-Forwarded-Proto` header to be set.
+
+Be aware that if you are running multiple nodes of this service, the health
+status will never refer to the cluster state, only to a single instance.
+
+#### Responses
+
+<a id="check-alive-status-responses"></a>
+
+##### Overview
+
+| Status | Meaning                                                                    | Description  | Schema                              |
+| ------ | -------------------------------------------------------------------------- | ------------ | ----------------------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | healthStatus | [healthStatus](#schemahealthstatus) |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | genericError | [genericError](#schemagenericerror) |
+
+##### Examples
+
+###### 200 response
+
+```json
+{
+  "status": "string"
+}
+```
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+#### Code samples
+
+<div class="tabs" id="tab-isInstanceAlive">
+<nav class="tabs-nav">
+<ul class="nav nav-tabs au-link-list au-link-list--inline">
+<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-isInstanceAlive-shell">Shell</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-isInstanceAlive-go">Go</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-isInstanceAlive-node">Node.js</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-isInstanceAlive-java">Java</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-isInstanceAlive-python">Python</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-isInstanceAlive-ruby">Ruby</a></li>
+</ul>
+</nav>
+<div class="tab-content">
+<div class="tab-pane active" role="tabpanel" id="tab-isInstanceAlive-shell">
+
+```shell
+curl -X GET /health/alive \
+  -H 'Accept: application/json'
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-isInstanceAlive-go">
+
+```go
+package main
+
+import (
+    "bytes"
+    "net/http"
+)
+
+func main() {
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    var body []byte
+    // body = ...
+
+    req, err := http.NewRequest("GET", "/health/alive", bytes.NewBuffer(body))
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-isInstanceAlive-node">
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept': 'application/json'
+}
+
+fetch('/health/alive', {
+  method: 'GET',
+  headers
+})
+.then(r => r.json())
+.then((body) => {
+    console.log(body)
+})
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-isInstanceAlive-java">
+
+```java
+// This sample needs improvement.
+URL obj = new URL("/health/alive");
+
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+
+int responseCode = con.getResponseCode();
+
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream())
+);
+
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+
+System.out.println(response.toString());
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-isInstanceAlive-python">
+
+```python
+import requests
+
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get(
+  '/health/alive',
+  params={},
+  headers = headers)
+
+print r.json()
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-isInstanceAlive-ruby">
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.get '/health/alive',
   params: {}, headers: headers
 
 p JSON.parse(result)
@@ -4417,6 +4781,157 @@ p JSON.parse(result)
 </div>
 </div>
 
+<a id="opIdprometheus"></a>
+
+### Get snapshot metrics from the Hydra service. If you're using k8s, you can then add annotations to
+
+your deployment like so:
+
+```
+GET /metrics/prometheus HTTP/1.1
+
+```
+
+```
+metadata:
+annotations:
+prometheus.io/port: "4445"
+prometheus.io/path: "/metrics/prometheus"
+```
+
+#### Responses
+
+<a id="get-snapshot-metrics-from-the-hydra-service.-if-you're-using-k8s,-you-can-then-add-annotations-to
+your-deployment-like-so:-responses"></a>
+
+##### Overview
+
+| Status         | Meaning                                                 | Description                                                                                                    | Schema |
+| -------------- | ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ------ |
+| 200            | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Empty responses are sent when, for example, resources are deleted. The HTTP status code for empty responses is |
+| typically 201. | None                                                    |
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+#### Code samples
+
+<div class="tabs" id="tab-prometheus">
+<nav class="tabs-nav">
+<ul class="nav nav-tabs au-link-list au-link-list--inline">
+<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-prometheus-shell">Shell</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-prometheus-go">Go</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-prometheus-node">Node.js</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-prometheus-java">Java</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-prometheus-python">Python</a></li>
+<li class="nav-item"><a class="nav-link" role="tab" href="#tab-prometheus-ruby">Ruby</a></li>
+</ul>
+</nav>
+<div class="tab-content">
+<div class="tab-pane active" role="tabpanel" id="tab-prometheus-shell">
+
+```shell
+curl -X GET /metrics/prometheus
+
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-prometheus-go">
+
+```go
+package main
+
+import (
+    "bytes"
+    "net/http"
+)
+
+func main() {
+
+    var body []byte
+    // body = ...
+
+    req, err := http.NewRequest("GET", "/metrics/prometheus", bytes.NewBuffer(body))
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-prometheus-node">
+
+```nodejs
+const fetch = require('node-fetch');
+
+fetch('/metrics/prometheus', {
+  method: 'GET'
+})
+.then(r => r.json())
+.then((body) => {
+    console.log(body)
+})
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-prometheus-java">
+
+```java
+// This sample needs improvement.
+URL obj = new URL("/metrics/prometheus");
+
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+
+int responseCode = con.getResponseCode();
+
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream())
+);
+
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+
+System.out.println(response.toString());
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-prometheus-python">
+
+```python
+import requests
+
+r = requests.get(
+  '/metrics/prometheus',
+  params={)
+
+print r.json()
+```
+
+</div>
+<div class="tab-pane" role="tabpanel"  id="tab-prometheus-ruby">
+
+```ruby
+require 'rest-client'
+require 'json'
+
+result = RestClient.get '/metrics/prometheus',
+  params: {}
+
+p JSON.parse(result)
+```
+
+</div>
+</div>
+</div>
+
 <a id="opIdgetConsentRequest"></a>
 
 ### Get consent request information
@@ -4483,7 +4998,7 @@ the subject accepted or rejected the request.
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-07-22T09:29:59Z",
+    "created_at": "2019-09-23T15:52:20Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -4524,7 +5039,7 @@ the subject accepted or rejected the request.
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-07-22T09:29:59Z",
+    "updated_at": "2019-09-23T15:52:20Z",
     "userinfo_signed_response_alg": "string"
   },
   "context": {
@@ -5230,7 +5745,7 @@ the requested authentication process.
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-07-22T09:29:59Z",
+    "created_at": "2019-09-23T15:52:20Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -5271,7 +5786,7 @@ the requested authentication process.
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-07-22T09:29:59Z",
+    "updated_at": "2019-09-23T15:52:20Z",
     "userinfo_signed_response_alg": "string"
   },
   "oidc_context": {
@@ -6630,7 +7145,7 @@ Status Code **200**
         "client_secret_expires_at": 0,
         "client_uri": "string",
         "contacts": ["string"],
-        "created_at": "2019-07-22T09:29:59Z",
+        "created_at": "2019-09-23T15:52:20Z",
         "frontchannel_logout_session_required": true,
         "frontchannel_logout_uri": "string",
         "grant_types": ["string"],
@@ -6671,7 +7186,7 @@ Status Code **200**
         "subject_type": "string",
         "token_endpoint_auth_method": "string",
         "tos_uri": "string",
-        "updated_at": "2019-07-22T09:29:59Z",
+        "updated_at": "2019-09-23T15:52:20Z",
         "userinfo_signed_response_alg": "string"
       },
       "context": {
@@ -7257,7 +7772,7 @@ deleted automatically when performing the refresh flow.
 
 ```json
 {
-  "notAfter": "2019-07-22T09:29:59Z"
+  "notAfter": "2019-09-23T15:52:20Z"
 }
 ```
 
@@ -7355,7 +7870,7 @@ func main() {
 ```nodejs
 const fetch = require('node-fetch');
 const input = '{
-  "notAfter": "2019-07-22T09:29:59Z"
+  "notAfter": "2019-09-23T15:52:20Z"
 }';
 const headers = {
   'Content-Type': 'application/json',  'Accept': 'application/json'
@@ -7455,6 +7970,9 @@ is active or not. An active token is neither expired nor revoked. If a token is
 active, additional information on the token will be included. You can set
 additional data for a token by setting `accessTokenExtra` during the consent
 flow.
+
+For more information
+[read this blog post](https://www.oauth.com/oauth2-servers/token-introspection-endpoint/).
 
 #### Request body
 
@@ -7664,371 +8182,6 @@ p JSON.parse(result)
 </div>
 </div>
 </div>
-
-<a id="ory-hydra-health"></a>
-
-## health
-
-<a id="opIdisInstanceAlive"></a>
-
-### Check alive status
-
-```
-GET /health/alive HTTP/1.1
-Accept: application/json
-
-```
-
-This endpoint returns a 200 status code when the HTTP server is up running. This
-status does currently not include checks whether the database connection is
-working.
-
-If the service supports TLS Edge Termination, this endpoint does not require the
-`X-Forwarded-Proto` header to be set.
-
-Be aware that if you are running multiple nodes of this service, the health
-status will never refer to the cluster state, only to a single instance.
-
-#### Responses
-
-<a id="check-alive-status-responses"></a>
-
-##### Overview
-
-| Status | Meaning                                                                    | Description  | Schema                              |
-| ------ | -------------------------------------------------------------------------- | ------------ | ----------------------------------- |
-| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | healthStatus | [healthStatus](#schemahealthstatus) |
-| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | genericError | [genericError](#schemagenericerror) |
-
-##### Examples
-
-###### 200 response
-
-```json
-{
-  "status": "string"
-}
-```
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-
-#### Code samples
-
-<div class="tabs" id="tab-isInstanceAlive">
-<nav class="tabs-nav">
-<ul class="nav nav-tabs au-link-list au-link-list--inline">
-<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-isInstanceAlive-shell">Shell</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-isInstanceAlive-go">Go</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-isInstanceAlive-node">Node.js</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-isInstanceAlive-java">Java</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-isInstanceAlive-python">Python</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-isInstanceAlive-ruby">Ruby</a></li>
-</ul>
-</nav>
-<div class="tab-content">
-<div class="tab-pane active" role="tabpanel" id="tab-isInstanceAlive-shell">
-
-```shell
-curl -X GET /health/alive \
-  -H 'Accept: application/json'
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-isInstanceAlive-go">
-
-```go
-package main
-
-import (
-    "bytes"
-    "net/http"
-)
-
-func main() {
-    headers := map[string][]string{
-        "Accept": []string{"application/json"},
-    }
-
-    var body []byte
-    // body = ...
-
-    req, err := http.NewRequest("GET", "/health/alive", bytes.NewBuffer(body))
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-isInstanceAlive-node">
-
-```nodejs
-const fetch = require('node-fetch');
-
-const headers = {
-  'Accept': 'application/json'
-}
-
-fetch('/health/alive', {
-  method: 'GET',
-  headers
-})
-.then(r => r.json())
-.then((body) => {
-    console.log(body)
-})
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-isInstanceAlive-java">
-
-```java
-// This sample needs improvement.
-URL obj = new URL("/health/alive");
-
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-
-int responseCode = con.getResponseCode();
-
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream())
-);
-
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-
-System.out.println(response.toString());
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-isInstanceAlive-python">
-
-```python
-import requests
-
-headers = {
-  'Accept': 'application/json'
-}
-
-r = requests.get(
-  '/health/alive',
-  params={},
-  headers = headers)
-
-print r.json()
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-isInstanceAlive-ruby">
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => 'application/json'
-}
-
-result = RestClient.get '/health/alive',
-  params: {}, headers: headers
-
-p JSON.parse(result)
-```
-
-</div>
-</div>
-</div>
-
-<a id="opIdisInstanceReady"></a>
-
-### Check readiness status
-
-```
-GET /health/ready HTTP/1.1
-Accept: application/json
-
-```
-
-This endpoint returns a 200 status code when the HTTP server is up running and
-the environment dependencies (e.g. the database) are responsive as well.
-
-If the service supports TLS Edge Termination, this endpoint does not require the
-`X-Forwarded-Proto` header to be set.
-
-Be aware that if you are running multiple nodes of this service, the health
-status will never refer to the cluster state, only to a single instance.
-
-#### Responses
-
-<a id="check-readiness-status-responses"></a>
-
-##### Overview
-
-| Status | Meaning                                                                  | Description          | Schema                                              |
-| ------ | ------------------------------------------------------------------------ | -------------------- | --------------------------------------------------- |
-| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                  | healthStatus         | [healthStatus](#schemahealthstatus)                 |
-| 503    | [Service Unavailable](https://tools.ietf.org/html/rfc7231#section-6.6.4) | healthNotReadyStatus | [healthNotReadyStatus](#schemahealthnotreadystatus) |
-
-##### Examples
-
-###### 200 response
-
-```json
-{
-  "status": "string"
-}
-```
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-
-#### Code samples
-
-<div class="tabs" id="tab-isInstanceReady">
-<nav class="tabs-nav">
-<ul class="nav nav-tabs au-link-list au-link-list--inline">
-<li class="nav-item"><a class="nav-link active" role="tab" href="#tab-isInstanceReady-shell">Shell</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-isInstanceReady-go">Go</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-isInstanceReady-node">Node.js</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-isInstanceReady-java">Java</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-isInstanceReady-python">Python</a></li>
-<li class="nav-item"><a class="nav-link" role="tab" href="#tab-isInstanceReady-ruby">Ruby</a></li>
-</ul>
-</nav>
-<div class="tab-content">
-<div class="tab-pane active" role="tabpanel" id="tab-isInstanceReady-shell">
-
-```shell
-curl -X GET /health/ready \
-  -H 'Accept: application/json'
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-isInstanceReady-go">
-
-```go
-package main
-
-import (
-    "bytes"
-    "net/http"
-)
-
-func main() {
-    headers := map[string][]string{
-        "Accept": []string{"application/json"},
-    }
-
-    var body []byte
-    // body = ...
-
-    req, err := http.NewRequest("GET", "/health/ready", bytes.NewBuffer(body))
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-isInstanceReady-node">
-
-```nodejs
-const fetch = require('node-fetch');
-
-const headers = {
-  'Accept': 'application/json'
-}
-
-fetch('/health/ready', {
-  method: 'GET',
-  headers
-})
-.then(r => r.json())
-.then((body) => {
-    console.log(body)
-})
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-isInstanceReady-java">
-
-```java
-// This sample needs improvement.
-URL obj = new URL("/health/ready");
-
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-
-int responseCode = con.getResponseCode();
-
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream())
-);
-
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-
-System.out.println(response.toString());
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-isInstanceReady-python">
-
-```python
-import requests
-
-headers = {
-  'Accept': 'application/json'
-}
-
-r = requests.get(
-  '/health/ready',
-  params={},
-  headers = headers)
-
-print r.json()
-```
-
-</div>
-<div class="tab-pane" role="tabpanel"  id="tab-isInstanceReady-ruby">
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => 'application/json'
-}
-
-result = RestClient.get '/health/ready',
-  params: {}, headers: headers
-
-p JSON.parse(result)
-```
-
-</div>
-</div>
-</div>
-
-<a id="ory-hydra-version"></a>
-
-## version
 
 <a id="opIdgetVersion"></a>
 
@@ -8319,7 +8472,7 @@ p JSON.parse(result)
       "client_secret_expires_at": 0,
       "client_uri": "string",
       "contacts": ["string"],
-      "created_at": "2019-07-22T09:29:59Z",
+      "created_at": "2019-09-23T15:52:20Z",
       "frontchannel_logout_session_required": true,
       "frontchannel_logout_uri": "string",
       "grant_types": ["string"],
@@ -8360,7 +8513,7 @@ p JSON.parse(result)
       "subject_type": "string",
       "token_endpoint_auth_method": "string",
       "tos_uri": "string",
-      "updated_at": "2019-07-22T09:29:59Z",
+      "updated_at": "2019-09-23T15:52:20Z",
       "userinfo_signed_response_alg": "string"
     },
     "context": {
@@ -8529,7 +8682,7 @@ request._
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-07-22T09:29:59Z",
+    "created_at": "2019-09-23T15:52:20Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -8570,7 +8723,7 @@ request._
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-07-22T09:29:59Z",
+    "updated_at": "2019-09-23T15:52:20Z",
     "userinfo_signed_response_alg": "string"
   },
   "context": {
@@ -8647,23 +8800,6 @@ _Used to pass session data to a consent request._
 | id_token                   | object | false    | none         | IDToken sets session data for the OpenID Connect ID token. Keep in mind that the session'id payloads are readable by anyone that has access to the ID Challenge. Use with care!                                                                                                                                                                                                                                                                            |
 | » **additionalProperties** | object | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 
-<a id="tocSemptyresponse">emptyResponse</a>
-
-#### emptyResponse
-
-<a id="schemaemptyresponse"></a>
-
-```json
-{}
-```
-
-_Empty responses are sent when, for example, resources are deleted. The HTTP
-status code for empty responses is typically 201._
-
-#### Properties
-
-_None_
-
 <a id="tocSflushinactiveoauth2tokensrequest">flushInactiveOAuth2TokensRequest</a>
 
 #### flushInactiveOAuth2TokensRequest
@@ -8672,7 +8808,7 @@ _None_
 
 ```json
 {
-  "notAfter": "2019-07-22T09:29:59Z"
+  "notAfter": "2019-09-23T15:52:20Z"
 }
 ```
 
@@ -8790,7 +8926,7 @@ _Error response_
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-07-22T09:29:59Z",
+    "created_at": "2019-09-23T15:52:20Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -8831,7 +8967,7 @@ _Error response_
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-07-22T09:29:59Z",
+    "updated_at": "2019-09-23T15:52:20Z",
     "userinfo_signed_response_alg": "string"
   },
   "oidc_context": {
@@ -8913,7 +9049,7 @@ _Contains information about an ongoing logout request._
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-07-22T09:29:59Z",
+  "created_at": "2019-09-23T15:52:20Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -8954,7 +9090,7 @@ _Contains information about an ongoing logout request._
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-07-22T09:29:59Z",
+  "updated_at": "2019-09-23T15:52:20Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -9055,9 +9191,9 @@ _Introspection contains an access token's session data as specified by IETF RFC
 ```json
 {
   "access_token": "string",
-  "client_id": "string",
-  "code": "string",
-  "redirect_uri": "string"
+  "expires_in": 0,
+  "refresh_token": "string",
+  "token_type": "string"
 }
 ```
 
@@ -9065,12 +9201,12 @@ _The Access Token Response_
 
 #### Properties
 
-| Name         | Type   | Required | Restrictions | Description |
-| ------------ | ------ | -------- | ------------ | ----------- |
-| access_token | string | false    | none         | none        |
-| client_id    | string | false    | none         | none        |
-| code         | string | false    | none         | none        |
-| redirect_uri | string | false    | none         | none        |
+| Name          | Type           | Required | Restrictions | Description |
+| ------------- | -------------- | -------- | ------------ | ----------- |
+| access_token  | string         | false    | none         | none        |
+| expires_in    | integer(int64) | false    | none         | none        |
+| refresh_token | string         | false    | none         | none        |
+| token_type    | string         | false    | none         | none        |
 
 <a id="tocSoauthtokenresponse">oauthTokenResponse</a>
 
@@ -9161,232 +9297,6 @@ _The request payload used to accept a login or consent request._
 | error_description | string         | false    | none         | none        |
 | error_hint        | string         | false    | none         | none        |
 | status_code       | integer(int64) | false    | none         | none        |
-
-<a id="tocSswaggerflushinactiveaccesstokens">swaggerFlushInactiveAccessTokens</a>
-
-#### swaggerFlushInactiveAccessTokens
-
-<a id="schemaswaggerflushinactiveaccesstokens"></a>
-
-```json
-{
-  "Body": {
-    "notAfter": "2019-07-22T09:29:59Z"
-  }
-}
-```
-
-#### Properties
-
-| Name | Type                                                                        | Required | Restrictions | Description |
-| ---- | --------------------------------------------------------------------------- | -------- | ------------ | ----------- |
-| Body | [flushInactiveOAuth2TokensRequest](#schemaflushinactiveoauth2tokensrequest) | false    | none         | none        |
-
-<a id="tocSswaggerjsonwebkeyquery">swaggerJsonWebKeyQuery</a>
-
-#### swaggerJsonWebKeyQuery
-
-<a id="schemaswaggerjsonwebkeyquery"></a>
-
-```json
-{
-  "kid": "string",
-  "set": "string"
-}
-```
-
-#### Properties
-
-| Name | Type   | Required | Restrictions | Description                         |
-| ---- | ------ | -------- | ------------ | ----------------------------------- |
-| kid  | string | true     | none         | The kid of the desired key in: path |
-| set  | string | true     | none         | The set in: path                    |
-
-<a id="tocSswaggerjwkcreateset">swaggerJwkCreateSet</a>
-
-#### swaggerJwkCreateSet
-
-<a id="schemaswaggerjwkcreateset"></a>
-
-```json
-{
-  "Body": {
-    "alg": "string",
-    "kid": "string",
-    "use": "string"
-  },
-  "set": "string"
-}
-```
-
-#### Properties
-
-| Name | Type                                                                  | Required | Restrictions | Description      |
-| ---- | --------------------------------------------------------------------- | -------- | ------------ | ---------------- |
-| Body | [jsonWebKeySetGeneratorRequest](#schemajsonwebkeysetgeneratorrequest) | false    | none         | none             |
-| set  | string                                                                | true     | none         | The set in: path |
-
-<a id="tocSswaggerjwksetquery">swaggerJwkSetQuery</a>
-
-#### swaggerJwkSetQuery
-
-<a id="schemaswaggerjwksetquery"></a>
-
-```json
-{
-  "set": "string"
-}
-```
-
-#### Properties
-
-| Name | Type   | Required | Restrictions | Description      |
-| ---- | ------ | -------- | ------------ | ---------------- |
-| set  | string | true     | none         | The set in: path |
-
-<a id="tocSswaggerjwkupdateset">swaggerJwkUpdateSet</a>
-
-#### swaggerJwkUpdateSet
-
-<a id="schemaswaggerjwkupdateset"></a>
-
-```json
-{
-  "Body": {
-    "keys": [
-      {
-        "alg": "RS256",
-        "crv": "P-256",
-        "d": "T_N8I-6He3M8a7X1vWt6TGIx4xB_GP3Mb4SsZSA4v-orvJzzRiQhLlRR81naWYxfQAYt5isDI6_C2L9bdWo4FFPjGQFvNoRX-_sBJyBI_rl-TBgsZYoUlAj3J92WmY2inbA-PwyJfsaIIDceYBC-eX-xiCu6qMqkZi3MwQAFL6bMdPEM0z4JBcwFT3VdiWAIRUuACWQwrXMq672x7fMuaIaHi7XDGgt1ith23CLfaREmJku9PQcchbt_uEY-hqrFY6ntTtS4paWWQj86xLL94S-Tf6v6xkL918PfLSOTq6XCzxvlFwzBJqApnAhbwqLjpPhgUG04EDRrqrSBc5Y1BLevn6Ip5h1AhessBp3wLkQgz_roeckt-ybvzKTjESMuagnpqLvOT7Y9veIug2MwPJZI2VjczRc1vzMs25XrFQ8DpUy-bNdp89TmvAXwctUMiJdgHloJw23Cv03gIUAkDnsTqZmkpbIf-crpgNKFmQP_EDKoe8p_PXZZgfbRri3NoEVGP7Mk6yEu8LjJhClhZaBNjuWw2-KlBfOA3g79mhfBnkInee5KO9mGR50qPk1V-MorUYNTFMZIm0kFE6eYVWFBwJHLKYhHU34DoiK1VP-svZpC2uAMFNA_UJEwM9CQ2b8qe4-5e9aywMvwcuArRkAB5mBIfOaOJao3mfukKAE",
-        "dp": "G4sPXkc6Ya9y8oJW9_ILj4xuppu0lzi_H7VTkS8xj5SdX3coE0oimYwxIi2emTAue0UOa5dpgFGyBJ4c8tQ2VF402XRugKDTP8akYhFo5tAA77Qe_NmtuYZc3C3m3I24G2GvR5sSDxUyAN2zq8Lfn9EUms6rY3Ob8YeiKkTiBj0",
-        "dq": "s9lAH9fggBsoFR8Oac2R_E2gw282rT2kGOAhvIllETE1efrA6huUUvMfBcMpn8lqeW6vzznYY5SSQF7pMdC_agI3nG8Ibp1BUb0JUiraRNqUfLhcQb_d9GF4Dh7e74WbRsobRonujTYN1xCaP6TO61jvWrX-L18txXw494Q_cgk",
-        "e": "AQAB",
-        "k": "GawgguFyGrWKav7AX4VKUg",
-        "kid": "1603dfe0af8f4596",
-        "kty": "RSA",
-        "n": "vTqrxUyQPl_20aqf5kXHwDZrel-KovIp8s7ewJod2EXHl8tWlRB3_Rem34KwBfqlKQGp1nqah-51H4Jzruqe0cFP58hPEIt6WqrvnmJCXxnNuIB53iX_uUUXXHDHBeaPCSRoNJzNysjoJ30TIUsKBiirhBa7f235PXbKiHducLevV6PcKxJ5cY8zO286qJLBWSPm-OIevwqsIsSIH44Qtm9sioFikhkbLwoqwWORGAY0nl6XvVOlhADdLjBSqSAeT1FPuCDCnXwzCDR8N9IFB_IjdStFkC-rVt2K5BYfPd0c3yFp_vHR15eRd0zJ8XQ7woBC8Vnsac6Et1pKS59pX6256DPWu8UDdEOolKAPgcd_g2NpA76cAaF_jcT80j9KrEzw8Tv0nJBGesuCjPNjGs_KzdkWTUXt23Hn9QJsdc1MZuaW0iqXBepHYfYoqNelzVte117t4BwVp0kUM6we0IqyXClaZgOI8S-WDBw2_Ovdm8e5NmhYAblEVoygcX8Y46oH6bKiaCQfKCFDMcRgChme7AoE1yZZYsPbaG_3IjPrC4LBMHQw8rM9dWjJ8ImjicvZ1pAm0dx-KHCP3y5PVKrxBDf1zSOsBRkOSjB8TPODnJMz6-jd5hTtZxpZPwPoIdCanTZ3ZD6uRBpTmDwtpRGm63UQs1m5FWPwb0T2IF0",
-        "p": "6NbkXwDWUhi-eR55Cgbf27FkQDDWIamOaDr0rj1q0f1fFEz1W5A_09YvG09Fiv1AO2-D8Rl8gS1Vkz2i0zCSqnyy8A025XOcRviOMK7nIxE4OH_PEsko8dtIrb3TmE2hUXvCkmzw9EsTF1LQBOGC6iusLTXepIC1x9ukCKFZQvdgtEObQ5kzd9Nhq-cdqmSeMVLoxPLd1blviVT9Vm8-y12CtYpeJHOaIDtVPLlBhJiBoPKWg3vxSm4XxIliNOefqegIlsmTIa3MpS6WWlCK3yHhat0Q-rRxDxdyiVdG_wzJvp0Iw_2wms7pe-PgNPYvUWH9JphWP5K38YqEBiJFXQ",
-        "q": "0A1FmpOWR91_RAWpqreWSavNaZb9nXeKiBo0DQGBz32DbqKqQ8S4aBJmbRhJcctjCLjain-ivut477tAUMmzJwVJDDq2MZFwC9Q-4VYZmFU4HJityQuSzHYe64RjN-E_NQ02TWhG3QGW6roq6c57c99rrUsETwJJiwS8M5p15Miuz53DaOjv-uqqFAFfywN5WkxHbraBcjHtMiQuyQbQqkCFh-oanHkwYNeytsNhTu2mQmwR5DR2roZ2nPiFjC6nsdk-A7E3S3wMzYYFw7jvbWWoYWo9vB40_MY2Y0FYQSqcDzcBIcq_0tnnasf3VW4Fdx6m80RzOb2Fsnln7vKXAQ",
-        "qi": "GyM_p6JrXySiz1toFgKbWV-JdI3jQ4ypu9rbMWx3rQJBfmt0FoYzgUIZEVFEcOqwemRN81zoDAaa-Bk0KWNGDjJHZDdDmFhW3AN7lI-puxk_mHZGJ11rxyR8O55XLSe3SPmRfKwZI6yU24ZxvQKFYItdldUKGzO6Ia6zTKhAVRU",
-        "use": "sig",
-        "x": "f83OJ3D2xF1Bg8vub9tLe1gHMzV76e8Tus9uPHvRVEU",
-        "x5c": ["string"],
-        "y": "x_FEzRu9m36HLN_tue659LNpXW6pCyStikYjKIWI5a0"
-      }
-    ]
-  },
-  "set": "string"
-}
-```
-
-#### Properties
-
-| Name | Type                                  | Required | Restrictions | Description      |
-| ---- | ------------------------------------- | -------- | ------------ | ---------------- |
-| Body | [JSONWebKeySet](#schemajsonwebkeyset) | false    | none         | none             |
-| set  | string                                | true     | none         | The set in: path |
-
-<a id="tocSswaggerjwkupdatesetkey">swaggerJwkUpdateSetKey</a>
-
-#### swaggerJwkUpdateSetKey
-
-<a id="schemaswaggerjwkupdatesetkey"></a>
-
-```json
-{
-  "Body": {
-    "alg": "RS256",
-    "crv": "P-256",
-    "d": "T_N8I-6He3M8a7X1vWt6TGIx4xB_GP3Mb4SsZSA4v-orvJzzRiQhLlRR81naWYxfQAYt5isDI6_C2L9bdWo4FFPjGQFvNoRX-_sBJyBI_rl-TBgsZYoUlAj3J92WmY2inbA-PwyJfsaIIDceYBC-eX-xiCu6qMqkZi3MwQAFL6bMdPEM0z4JBcwFT3VdiWAIRUuACWQwrXMq672x7fMuaIaHi7XDGgt1ith23CLfaREmJku9PQcchbt_uEY-hqrFY6ntTtS4paWWQj86xLL94S-Tf6v6xkL918PfLSOTq6XCzxvlFwzBJqApnAhbwqLjpPhgUG04EDRrqrSBc5Y1BLevn6Ip5h1AhessBp3wLkQgz_roeckt-ybvzKTjESMuagnpqLvOT7Y9veIug2MwPJZI2VjczRc1vzMs25XrFQ8DpUy-bNdp89TmvAXwctUMiJdgHloJw23Cv03gIUAkDnsTqZmkpbIf-crpgNKFmQP_EDKoe8p_PXZZgfbRri3NoEVGP7Mk6yEu8LjJhClhZaBNjuWw2-KlBfOA3g79mhfBnkInee5KO9mGR50qPk1V-MorUYNTFMZIm0kFE6eYVWFBwJHLKYhHU34DoiK1VP-svZpC2uAMFNA_UJEwM9CQ2b8qe4-5e9aywMvwcuArRkAB5mBIfOaOJao3mfukKAE",
-    "dp": "G4sPXkc6Ya9y8oJW9_ILj4xuppu0lzi_H7VTkS8xj5SdX3coE0oimYwxIi2emTAue0UOa5dpgFGyBJ4c8tQ2VF402XRugKDTP8akYhFo5tAA77Qe_NmtuYZc3C3m3I24G2GvR5sSDxUyAN2zq8Lfn9EUms6rY3Ob8YeiKkTiBj0",
-    "dq": "s9lAH9fggBsoFR8Oac2R_E2gw282rT2kGOAhvIllETE1efrA6huUUvMfBcMpn8lqeW6vzznYY5SSQF7pMdC_agI3nG8Ibp1BUb0JUiraRNqUfLhcQb_d9GF4Dh7e74WbRsobRonujTYN1xCaP6TO61jvWrX-L18txXw494Q_cgk",
-    "e": "AQAB",
-    "k": "GawgguFyGrWKav7AX4VKUg",
-    "kid": "1603dfe0af8f4596",
-    "kty": "RSA",
-    "n": "vTqrxUyQPl_20aqf5kXHwDZrel-KovIp8s7ewJod2EXHl8tWlRB3_Rem34KwBfqlKQGp1nqah-51H4Jzruqe0cFP58hPEIt6WqrvnmJCXxnNuIB53iX_uUUXXHDHBeaPCSRoNJzNysjoJ30TIUsKBiirhBa7f235PXbKiHducLevV6PcKxJ5cY8zO286qJLBWSPm-OIevwqsIsSIH44Qtm9sioFikhkbLwoqwWORGAY0nl6XvVOlhADdLjBSqSAeT1FPuCDCnXwzCDR8N9IFB_IjdStFkC-rVt2K5BYfPd0c3yFp_vHR15eRd0zJ8XQ7woBC8Vnsac6Et1pKS59pX6256DPWu8UDdEOolKAPgcd_g2NpA76cAaF_jcT80j9KrEzw8Tv0nJBGesuCjPNjGs_KzdkWTUXt23Hn9QJsdc1MZuaW0iqXBepHYfYoqNelzVte117t4BwVp0kUM6we0IqyXClaZgOI8S-WDBw2_Ovdm8e5NmhYAblEVoygcX8Y46oH6bKiaCQfKCFDMcRgChme7AoE1yZZYsPbaG_3IjPrC4LBMHQw8rM9dWjJ8ImjicvZ1pAm0dx-KHCP3y5PVKrxBDf1zSOsBRkOSjB8TPODnJMz6-jd5hTtZxpZPwPoIdCanTZ3ZD6uRBpTmDwtpRGm63UQs1m5FWPwb0T2IF0",
-    "p": "6NbkXwDWUhi-eR55Cgbf27FkQDDWIamOaDr0rj1q0f1fFEz1W5A_09YvG09Fiv1AO2-D8Rl8gS1Vkz2i0zCSqnyy8A025XOcRviOMK7nIxE4OH_PEsko8dtIrb3TmE2hUXvCkmzw9EsTF1LQBOGC6iusLTXepIC1x9ukCKFZQvdgtEObQ5kzd9Nhq-cdqmSeMVLoxPLd1blviVT9Vm8-y12CtYpeJHOaIDtVPLlBhJiBoPKWg3vxSm4XxIliNOefqegIlsmTIa3MpS6WWlCK3yHhat0Q-rRxDxdyiVdG_wzJvp0Iw_2wms7pe-PgNPYvUWH9JphWP5K38YqEBiJFXQ",
-    "q": "0A1FmpOWR91_RAWpqreWSavNaZb9nXeKiBo0DQGBz32DbqKqQ8S4aBJmbRhJcctjCLjain-ivut477tAUMmzJwVJDDq2MZFwC9Q-4VYZmFU4HJityQuSzHYe64RjN-E_NQ02TWhG3QGW6roq6c57c99rrUsETwJJiwS8M5p15Miuz53DaOjv-uqqFAFfywN5WkxHbraBcjHtMiQuyQbQqkCFh-oanHkwYNeytsNhTu2mQmwR5DR2roZ2nPiFjC6nsdk-A7E3S3wMzYYFw7jvbWWoYWo9vB40_MY2Y0FYQSqcDzcBIcq_0tnnasf3VW4Fdx6m80RzOb2Fsnln7vKXAQ",
-    "qi": "GyM_p6JrXySiz1toFgKbWV-JdI3jQ4ypu9rbMWx3rQJBfmt0FoYzgUIZEVFEcOqwemRN81zoDAaa-Bk0KWNGDjJHZDdDmFhW3AN7lI-puxk_mHZGJ11rxyR8O55XLSe3SPmRfKwZI6yU24ZxvQKFYItdldUKGzO6Ia6zTKhAVRU",
-    "use": "sig",
-    "x": "f83OJ3D2xF1Bg8vub9tLe1gHMzV76e8Tus9uPHvRVEU",
-    "x5c": ["string"],
-    "y": "x_FEzRu9m36HLN_tue659LNpXW6pCyStikYjKIWI5a0"
-  },
-  "kid": "string",
-  "set": "string"
-}
-```
-
-#### Properties
-
-| Name | Type                            | Required | Restrictions | Description                         |
-| ---- | ------------------------------- | -------- | ------------ | ----------------------------------- |
-| Body | [JSONWebKey](#schemajsonwebkey) | false    | none         | none                                |
-| kid  | string                          | true     | none         | The kid of the desired key in: path |
-| set  | string                          | true     | none         | The set in: path                    |
-
-<a id="tocSswaggeroauthintrospectionrequest">swaggerOAuthIntrospectionRequest</a>
-
-#### swaggerOAuthIntrospectionRequest
-
-<a id="schemaswaggeroauthintrospectionrequest"></a>
-
-```json
-{
-  "scope": "string",
-  "token": "string"
-}
-```
-
-#### Properties
-
-| Name  | Type   | Required | Restrictions | Description                                                                                                                                                                                               |
-| ----- | ------ | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| scope | string | false    | none         | An optional, space separated list of required scopes. If the access token was not granted one of the scopes, the result of active will be false. in: formData                                             |
-| token | string | true     | none         | The string value of the token. For access tokens, this is the "access_token" value returned from the token endpoint defined in OAuth 2.0. For refresh tokens, this is the "refresh_token" value returned. |
-
-<a id="tocSswaggerrevokeoauth2tokenparameters">swaggerRevokeOAuth2TokenParameters</a>
-
-#### swaggerRevokeOAuth2TokenParameters
-
-<a id="schemaswaggerrevokeoauth2tokenparameters"></a>
-
-```json
-{
-  "token": "string"
-}
-```
-
-#### Properties
-
-| Name  | Type   | Required | Restrictions | Description  |
-| ----- | ------ | -------- | ------------ | ------------ |
-| token | string | true     | none         | in: formData |
-
-<a id="tocSswaggeroauth2tokenparameters">swaggeroauth2TokenParameters</a>
-
-#### swaggeroauth2TokenParameters
-
-<a id="schemaswaggeroauth2tokenparameters"></a>
-
-```json
-{
-  "client_id": "string",
-  "code": "string",
-  "grant_type": "string",
-  "redirect_uri": "string"
-}
-```
-
-#### Properties
-
-| Name         | Type   | Required | Restrictions | Description  |
-| ------------ | ------ | -------- | ------------ | ------------ |
-| client_id    | string | false    | none         | in: formData |
-| code         | string | false    | none         | in: formData |
-| grant_type   | string | true     | none         | in: formData |
-| redirect_uri | string | false    | none         | in: formData |
 
 <a id="tocSuserinforesponse">userinfoResponse</a>
 

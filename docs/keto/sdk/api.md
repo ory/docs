@@ -6,17 +6,17 @@ id: api
 A cloud native access control server providing best-practice patterns (RBAC,
 ABAC, ACL, AWS IAM Policies, Kubernetes Roles, ...) via REST APIs.
 
-> You are viewing a REST API documentation. This documentation is auto-generated
+> You are viewing REST API documentation. This documentation is auto-generated
 > from a swagger specification which itself is generated from annotations in the
-> source files of the project. It is possible that this documentation includes
+> source code of the project. It is possible that this documentation includes
 > bugs and that code samples are incomplete or wrong.
 >
 > If you find issues in the respective documentation, please do not edit the
-> markdown files directly (as they are generated) but raise an issue on the
-> project's GitHub instead. This documentation will improve over time with your
-> help! If you have ideas how to improve this part of the documentation, feel
-> free to share them in a [GitHub issue](https://github.com/ory/docs/issues/new)
-> any time.
+> Markdown files directly (as they are generated) but raise an issue on the
+> project's GitHub presence instead. This documentation will improve over time
+> with your help! If you have ideas how to improve this part of the
+> documentation, feel free to share them in a
+> [GitHub issue](https://github.com/ory/docs/issues/new) any time.
 
 <a id="ory-keto-engines"></a>
 
@@ -269,6 +269,9 @@ List ORY Access Control Policies
 | flavor    | path  | string         | true     | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact" |
 | limit     | query | integer(int64) | false    | The maximum amount of policies returned.                                  |
 | offset    | query | integer(int64) | false    | The offset from where to start looking.                                   |
+| subject   | query | string         | false    | The subject for whom the policies are to be listed.                       |
+| resource  | query | string         | false    | The resource for which the policies are to be listed.                     |
+| action    | query | string         | false    | The action for which policies are to be listed.                           |
 
 #### Responses
 
@@ -1161,6 +1164,7 @@ Control Policy (OACP) by using the Role ID as subject in the OACP.
 | flavor    | path  | string         | true     | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact" |
 | limit     | query | integer(int64) | false    | The maximum amount of policies returned.                                  |
 | offset    | query | integer(int64) | false    | The offset from where to start looking.                                   |
+| member    | query | string         | false    | The member for which the roles are to be listed.                          |
 
 #### Responses
 
@@ -2983,16 +2987,16 @@ p JSON.parse(result)
 }
 ```
 
-_AddOryAccessControlPolicyRoleMembers add ory access control policy role
-members_
+_AddOryAccessControlPolicyRoleMembers AddOryAccessControlPolicyRoleMembers
+AddOryAccessControlPolicyRoleMembers add ory access control policy role members_
 
 #### Properties
 
-| Name   | Type                                                                                        | Required | Restrictions | Description                                                                              |
-| ------ | ------------------------------------------------------------------------------------------- | -------- | ------------ | ---------------------------------------------------------------------------------------- |
-| Body   | [AddOryAccessControlPolicyRoleMembersBody](#schemaaddoryaccesscontrolpolicyrolemembersbody) | false    | none         | AddOryAccessControlPolicyRoleMembersBody add ory access control policy role members body |
-| flavor | string                                                                                      | true     | none         | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". in: path      |
-| id     | string                                                                                      | true     | none         | The ID of the ORY Access Control Policy Role. in: path                                   |
+| Name   | Type                                                                                        | Required | Restrictions | Description                                                                                                                       |
+| ------ | ------------------------------------------------------------------------------------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------- |
+| Body   | [AddOryAccessControlPolicyRoleMembersBody](#schemaaddoryaccesscontrolpolicyrolemembersbody) | false    | none         | AddOryAccessControlPolicyRoleMembersBody AddOryAccessControlPolicyRoleMembersBody add ory access control policy role members body |
+| flavor | string                                                                                      | true     | none         | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". in: path                                               |
+| id     | string                                                                                      | true     | none         | The ID of the ORY Access Control Policy Role. in: path                                                                            |
 
 <a id="tocSaddoryaccesscontrolpolicyrolemembersbody">AddOryAccessControlPolicyRoleMembersBody</a>
 
@@ -3006,7 +3010,8 @@ members_
 }
 ```
 
-_AddOryAccessControlPolicyRoleMembersBody add ory access control policy role
+_AddOryAccessControlPolicyRoleMembersBody
+AddOryAccessControlPolicyRoleMembersBody add ory access control policy role
 members body_
 
 #### Properties
@@ -3039,7 +3044,8 @@ members body_
 }
 ```
 
-_AddOryAccessControlPolicyRoleMembersInternalServerError handles this case with
+_AddOryAccessControlPolicyRoleMembersInternalServerError
+AddOryAccessControlPolicyRoleMembersInternalServerError handles this case with
 default header values._
 
 #### Properties
@@ -3100,14 +3106,14 @@ control policy role members internal server error body_
 }
 ```
 
-_AddOryAccessControlPolicyRoleMembersOK handles this case with default header
-values._
+_AddOryAccessControlPolicyRoleMembersOK AddOryAccessControlPolicyRoleMembersOK
+handles this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                            | Required | Restrictions | Description                                                                                                                                                                                           |
-| ------- | --------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Payload | [OryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole) | false    | none         | OryAccessControlPolicyRole oryAccessControlPolicyRole represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role. |
+| Name    | Type                                                            | Required | Restrictions | Description                                                                                                                                                                |
+| ------- | --------------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole) | false    | none         | oryAccessControlPolicyRole represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role. |
 
 <a id="tocSaddoryaccesscontrolpolicyrolemembersreader">AddOryAccessControlPolicyRoleMembersReader</a>
 
@@ -3119,7 +3125,9 @@ values._
 {}
 ```
 
-_AddOryAccessControlPolicyRoleMembersReader is a Reader for the
+_AddOryAccessControlPolicyRoleMembersReader
+AddOryAccessControlPolicyRoleMembersReader
+AddOryAccessControlPolicyRoleMembersReader is a Reader for the
 AddOryAccessControlPolicyRoleMembers structure._
 
 #### Properties
@@ -3160,7 +3168,8 @@ access control decision. It contains the decision outcome._
 }
 ```
 
-_Context Context Context Context Context Context Context Context context_
+_Context Context Context Context Context Context Context Context Context
+context_
 
 #### Properties
 
@@ -3181,7 +3190,8 @@ _Context Context Context Context Context Context Context Context context_
 }
 ```
 
-_DeleteOryAccessControlPolicy delete ory access control policy_
+_DeleteOryAccessControlPolicy DeleteOryAccessControlPolicy delete ory access
+control policy_
 
 #### Properties
 
@@ -3201,8 +3211,9 @@ _DeleteOryAccessControlPolicy delete ory access control policy_
 ```
 
 _DeleteOryAccessControlPolicyCreated DeleteOryAccessControlPolicyCreated
-DeleteOryAccessControlPolicyCreated DeleteOryAccessControlPolicyCreated handles
-this case with default header values._
+DeleteOryAccessControlPolicyCreated DeleteOryAccessControlPolicyCreated
+DeleteOryAccessControlPolicyCreated handles this case with default header
+values._
 
 #### Properties
 
@@ -3232,14 +3243,17 @@ _None_
 }
 ```
 
-_DeleteOryAccessControlPolicyInternalServerError handles this case with default
+_DeleteOryAccessControlPolicyInternalServerError
+DeleteOryAccessControlPolicyInternalServerError
+DeleteOryAccessControlPolicyInternalServerError
+DeleteOryAccessControlPolicyInternalServerError handles this case with default
 header values._
 
 #### Properties
 
-| Name    | Type                                                                                                              | Required | Restrictions | Description                                                                                                     |
-| ------- | ----------------------------------------------------------------------------------------------------------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------- |
-| Payload | [DeleteOryAccessControlPolicyInternalServerErrorBody](#schemadeleteoryaccesscontrolpolicyinternalservererrorbody) | false    | none         | DeleteOryAccessControlPolicyInternalServerErrorBody delete ory access control policy internal server error body |
+| Name    | Type                                                                                                              | Required | Restrictions | Description                                                                                                                                                         |
+| ------- | ----------------------------------------------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [DeleteOryAccessControlPolicyInternalServerErrorBody](#schemadeleteoryaccesscontrolpolicyinternalservererrorbody) | false    | none         | DeleteOryAccessControlPolicyInternalServerErrorBody DeleteOryAccessControlPolicyInternalServerErrorBody delete ory access control policy internal server error body |
 
 <a id="tocSdeleteoryaccesscontrolpolicyinternalservererrorbody">DeleteOryAccessControlPolicyInternalServerErrorBody</a>
 
@@ -3263,7 +3277,8 @@ header values._
 }
 ```
 
-_DeleteOryAccessControlPolicyInternalServerErrorBody delete ory access control
+_DeleteOryAccessControlPolicyInternalServerErrorBody
+DeleteOryAccessControlPolicyInternalServerErrorBody delete ory access control
 policy internal server error body_
 
 #### Properties
@@ -3288,7 +3303,8 @@ policy internal server error body_
 {}
 ```
 
-_DeleteOryAccessControlPolicyNoContent handles this case with default header
+_DeleteOryAccessControlPolicyNoContent DeleteOryAccessControlPolicyNoContent
+DeleteOryAccessControlPolicyNoContent handles this case with default header
 values._
 
 #### Properties
@@ -3305,7 +3321,8 @@ _None_
 {}
 ```
 
-_DeleteOryAccessControlPolicyReader is a Reader for the
+_DeleteOryAccessControlPolicyReader DeleteOryAccessControlPolicyReader
+DeleteOryAccessControlPolicyReader is a Reader for the
 DeleteOryAccessControlPolicy structure._
 
 #### Properties
@@ -3325,7 +3342,8 @@ _None_
 }
 ```
 
-_DeleteOryAccessControlPolicyRole delete ory access control policy role_
+_DeleteOryAccessControlPolicyRole DeleteOryAccessControlPolicyRole
+DeleteOryAccessControlPolicyRole delete ory access control policy role_
 
 #### Properties
 
@@ -3346,7 +3364,9 @@ _DeleteOryAccessControlPolicyRole delete ory access control policy role_
 
 _DeleteOryAccessControlPolicyRoleCreated DeleteOryAccessControlPolicyRoleCreated
 DeleteOryAccessControlPolicyRoleCreated DeleteOryAccessControlPolicyRoleCreated
-handles this case with default header values._
+DeleteOryAccessControlPolicyRoleCreated DeleteOryAccessControlPolicyRoleCreated
+DeleteOryAccessControlPolicyRoleCreated handles this case with default header
+values._
 
 #### Properties
 
@@ -3376,7 +3396,8 @@ _None_
 }
 ```
 
-_DeleteOryAccessControlPolicyRoleInternalServerError handles this case with
+_DeleteOryAccessControlPolicyRoleInternalServerError
+DeleteOryAccessControlPolicyRoleInternalServerError handles this case with
 default header values._
 
 #### Properties
@@ -3432,7 +3453,8 @@ control policy role internal server error body_
 {}
 ```
 
-_DeleteOryAccessControlPolicyRoleNoContent handles this case with default header
+_DeleteOryAccessControlPolicyRoleNoContent
+DeleteOryAccessControlPolicyRoleNoContent handles this case with default header
 values._
 
 #### Properties
@@ -3449,8 +3471,9 @@ _None_
 {}
 ```
 
-_DeleteOryAccessControlPolicyRoleReader is a Reader for the
-DeleteOryAccessControlPolicyRole structure._
+_DeleteOryAccessControlPolicyRoleReader DeleteOryAccessControlPolicyRoleReader
+DeleteOryAccessControlPolicyRoleReader DeleteOryAccessControlPolicyRoleReader is
+a Reader for the DeleteOryAccessControlPolicyRole structure._
 
 #### Properties
 
@@ -3477,14 +3500,15 @@ _None_
 }
 ```
 
-_DoOryAccessControlPoliciesAllow do ory access control policies allow_
+_DoOryAccessControlPoliciesAllow DoOryAccessControlPoliciesAllow do ory access
+control policies allow_
 
 #### Properties
 
-| Name   | Type                  | Required | Restrictions | Description                                                                         |
-| ------ | --------------------- | -------- | ------------ | ----------------------------------------------------------------------------------- |
-| Body   | [Input](#schemainput) | false    | none         | none                                                                                |
-| flavor | string                | true     | none         | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". in: path |
+| Name   | Type                                                                            | Required | Restrictions | Description                                                                         |
+| ------ | ------------------------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------- |
+| Body   | [OryAccessControlPolicyAllowedInput](#schemaoryaccesscontrolpolicyallowedinput) | false    | none         | none                                                                                |
+| flavor | string                                                                          | true     | none         | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". in: path |
 
 <a id="tocSdooryaccesscontrolpoliciesallowforbidden">DoOryAccessControlPoliciesAllowForbidden</a>
 
@@ -3500,7 +3524,9 @@ _DoOryAccessControlPoliciesAllow do ory access control policies allow_
 }
 ```
 
-_DoOryAccessControlPoliciesAllowForbidden handles this case with default header
+_DoOryAccessControlPoliciesAllowForbidden
+DoOryAccessControlPoliciesAllowForbidden
+DoOryAccessControlPoliciesAllowForbidden handles this case with default header
 values._
 
 #### Properties
@@ -3533,14 +3559,16 @@ values._
 }
 ```
 
-_DoOryAccessControlPoliciesAllowInternalServerError handles this case with
+_DoOryAccessControlPoliciesAllowInternalServerError
+DoOryAccessControlPoliciesAllowInternalServerError
+DoOryAccessControlPoliciesAllowInternalServerError handles this case with
 default header values._
 
 #### Properties
 
-| Name    | Type                                                                                                                    | Required | Restrictions | Description                                                                                                            |
-| ------- | ----------------------------------------------------------------------------------------------------------------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| Payload | [DoOryAccessControlPoliciesAllowInternalServerErrorBody](#schemadooryaccesscontrolpoliciesallowinternalservererrorbody) | false    | none         | DoOryAccessControlPoliciesAllowInternalServerErrorBody do ory access control policies allow internal server error body |
+| Name    | Type                                                                                                                    | Required | Restrictions | Description                                                                                                                                                                   |
+| ------- | ----------------------------------------------------------------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [DoOryAccessControlPoliciesAllowInternalServerErrorBody](#schemadooryaccesscontrolpoliciesallowinternalservererrorbody) | false    | none         | DoOryAccessControlPoliciesAllowInternalServerErrorBody DoOryAccessControlPoliciesAllowInternalServerErrorBody do ory access control policies allow internal server error body |
 
 <a id="tocSdooryaccesscontrolpoliciesallowinternalservererrorbody">DoOryAccessControlPoliciesAllowInternalServerErrorBody</a>
 
@@ -3564,7 +3592,8 @@ default header values._
 }
 ```
 
-_DoOryAccessControlPoliciesAllowInternalServerErrorBody do ory access control
+_DoOryAccessControlPoliciesAllowInternalServerErrorBody
+DoOryAccessControlPoliciesAllowInternalServerErrorBody do ory access control
 policies allow internal server error body_
 
 #### Properties
@@ -3593,8 +3622,8 @@ policies allow internal server error body_
 }
 ```
 
-_DoOryAccessControlPoliciesAllowOK handles this case with default header
-values._
+_DoOryAccessControlPoliciesAllowOK DoOryAccessControlPoliciesAllowOK handles
+this case with default header values._
 
 #### Properties
 
@@ -3612,8 +3641,8 @@ values._
 {}
 ```
 
-_DoOryAccessControlPoliciesAllowReader is a Reader for the
-DoOryAccessControlPoliciesAllow structure._
+_DoOryAccessControlPoliciesAllowReader DoOryAccessControlPoliciesAllowReader is
+a Reader for the DoOryAccessControlPoliciesAllow structure._
 
 #### Properties
 
@@ -3632,7 +3661,8 @@ _None_
 }
 ```
 
-_GetOryAccessControlPolicy get ory access control policy_
+_GetOryAccessControlPolicy GetOryAccessControlPolicy get ory access control
+policy_
 
 #### Properties
 
@@ -3665,14 +3695,17 @@ _GetOryAccessControlPolicy get ory access control policy_
 }
 ```
 
-_GetOryAccessControlPolicyInternalServerError handles this case with default
+_GetOryAccessControlPolicyInternalServerError
+GetOryAccessControlPolicyInternalServerError
+GetOryAccessControlPolicyInternalServerError
+GetOryAccessControlPolicyInternalServerError handles this case with default
 header values._
 
 #### Properties
 
-| Name    | Type                                                                                                        | Required | Restrictions | Description                                                                                               |
-| ------- | ----------------------------------------------------------------------------------------------------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------- |
-| Payload | [GetOryAccessControlPolicyInternalServerErrorBody](#schemagetoryaccesscontrolpolicyinternalservererrorbody) | false    | none         | GetOryAccessControlPolicyInternalServerErrorBody get ory access control policy internal server error body |
+| Name    | Type                                                                                                        | Required | Restrictions | Description                                                                                                                                                |
+| ------- | ----------------------------------------------------------------------------------------------------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [GetOryAccessControlPolicyInternalServerErrorBody](#schemagetoryaccesscontrolpolicyinternalservererrorbody) | false    | none         | GetOryAccessControlPolicyInternalServerErrorBody GetOryAccessControlPolicyInternalServerErrorBody get ory access control policy internal server error body |
 
 <a id="tocSgetoryaccesscontrolpolicyinternalservererrorbody">GetOryAccessControlPolicyInternalServerErrorBody</a>
 
@@ -3696,7 +3729,8 @@ header values._
 }
 ```
 
-_GetOryAccessControlPolicyInternalServerErrorBody get ory access control policy
+_GetOryAccessControlPolicyInternalServerErrorBody
+GetOryAccessControlPolicyInternalServerErrorBody get ory access control policy
 internal server error body_
 
 #### Properties
@@ -3735,14 +3769,14 @@ internal server error body_
 }
 ```
 
-_GetOryAccessControlPolicyNotFound handles this case with default header
-values._
+_GetOryAccessControlPolicyNotFound GetOryAccessControlPolicyNotFound handles
+this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                                                  | Required | Restrictions | Description                                                                        |
-| ------- | ------------------------------------------------------------------------------------- | -------- | ------------ | ---------------------------------------------------------------------------------- |
-| Payload | [GetOryAccessControlPolicyNotFoundBody](#schemagetoryaccesscontrolpolicynotfoundbody) | false    | none         | GetOryAccessControlPolicyNotFoundBody get ory access control policy not found body |
+| Name    | Type                                                                                  | Required | Restrictions | Description                                                                                                              |
+| ------- | ------------------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| Payload | [GetOryAccessControlPolicyNotFoundBody](#schemagetoryaccesscontrolpolicynotfoundbody) | false    | none         | GetOryAccessControlPolicyNotFoundBody GetOryAccessControlPolicyNotFoundBody get ory access control policy not found body |
 
 <a id="tocSgetoryaccesscontrolpolicynotfoundbody">GetOryAccessControlPolicyNotFoundBody</a>
 
@@ -3766,8 +3800,8 @@ values._
 }
 ```
 
-_GetOryAccessControlPolicyNotFoundBody get ory access control policy not found
-body_
+_GetOryAccessControlPolicyNotFoundBody GetOryAccessControlPolicyNotFoundBody get
+ory access control policy not found body_
 
 #### Properties
 
@@ -3804,13 +3838,14 @@ body_
 }
 ```
 
-_GetOryAccessControlPolicyOK handles this case with default header values._
+_GetOryAccessControlPolicyOK GetOryAccessControlPolicyOK
+GetOryAccessControlPolicyOK handles this case with default header values._
 
 #### Properties
 
 | Name    | Type                                                    | Required | Restrictions | Description |
 | ------- | ------------------------------------------------------- | -------- | ------------ | ----------- |
-| Payload | [oryAccessControlPolicy](#schemaoryaccesscontrolpolicy) | false    | none         | none        |
+| Payload | [OryAccessControlPolicy](#schemaoryaccesscontrolpolicy) | false    | none         | none        |
 
 <a id="tocSgetoryaccesscontrolpolicyreader">GetOryAccessControlPolicyReader</a>
 
@@ -3822,8 +3857,9 @@ _GetOryAccessControlPolicyOK handles this case with default header values._
 {}
 ```
 
-_GetOryAccessControlPolicyReader is a Reader for the GetOryAccessControlPolicy
-structure._
+_GetOryAccessControlPolicyReader GetOryAccessControlPolicyReader
+GetOryAccessControlPolicyReader GetOryAccessControlPolicyReader is a Reader for
+the GetOryAccessControlPolicy structure._
 
 #### Properties
 
@@ -3842,7 +3878,8 @@ _None_
 }
 ```
 
-_GetOryAccessControlPolicyRole get ory access control policy role_
+_GetOryAccessControlPolicyRole GetOryAccessControlPolicyRole
+GetOryAccessControlPolicyRole get ory access control policy role_
 
 #### Properties
 
@@ -3875,7 +3912,8 @@ _GetOryAccessControlPolicyRole get ory access control policy role_
 }
 ```
 
-_GetOryAccessControlPolicyRoleInternalServerError handles this case with default
+_GetOryAccessControlPolicyRoleInternalServerError
+GetOryAccessControlPolicyRoleInternalServerError handles this case with default
 header values._
 
 #### Properties
@@ -3945,14 +3983,15 @@ policy role internal server error body_
 }
 ```
 
-_GetOryAccessControlPolicyRoleNotFound handles this case with default header
+_GetOryAccessControlPolicyRoleNotFound GetOryAccessControlPolicyRoleNotFound
+GetOryAccessControlPolicyRoleNotFound handles this case with default header
 values._
 
 #### Properties
 
-| Name    | Type                                                                                          | Required | Restrictions | Description                                                                                 |
-| ------- | --------------------------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------- |
-| Payload | [GetOryAccessControlPolicyRoleNotFoundBody](#schemagetoryaccesscontrolpolicyrolenotfoundbody) | false    | none         | GetOryAccessControlPolicyRoleNotFoundBody get ory access control policy role not found body |
+| Name    | Type                                                                                          | Required | Restrictions | Description                                                                                                                                                                     |
+| ------- | --------------------------------------------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [GetOryAccessControlPolicyRoleNotFoundBody](#schemagetoryaccesscontrolpolicyrolenotfoundbody) | false    | none         | GetOryAccessControlPolicyRoleNotFoundBody GetOryAccessControlPolicyRoleNotFoundBody GetOryAccessControlPolicyRoleNotFoundBody get ory access control policy role not found body |
 
 <a id="tocSgetoryaccesscontrolpolicyrolenotfoundbody">GetOryAccessControlPolicyRoleNotFoundBody</a>
 
@@ -3976,8 +4015,10 @@ values._
 }
 ```
 
-_GetOryAccessControlPolicyRoleNotFoundBody get ory access control policy role
-not found body_
+_GetOryAccessControlPolicyRoleNotFoundBody
+GetOryAccessControlPolicyRoleNotFoundBody
+GetOryAccessControlPolicyRoleNotFoundBody get ory access control policy role not
+found body_
 
 #### Properties
 
@@ -4006,13 +4047,14 @@ not found body_
 }
 ```
 
-_GetOryAccessControlPolicyRoleOK handles this case with default header values._
+_GetOryAccessControlPolicyRoleOK GetOryAccessControlPolicyRoleOK handles this
+case with default header values._
 
 #### Properties
 
-| Name    | Type                                                            | Required | Restrictions | Description                                                                                                                                                                                           |
-| ------- | --------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Payload | [OryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole) | false    | none         | OryAccessControlPolicyRole oryAccessControlPolicyRole represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role. |
+| Name    | Type                                                            | Required | Restrictions | Description                                                                                                                                                                |
+| ------- | --------------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole) | false    | none         | oryAccessControlPolicyRole represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role. |
 
 <a id="tocSgetoryaccesscontrolpolicyrolereader">GetOryAccessControlPolicyRoleReader</a>
 
@@ -4024,7 +4066,8 @@ _GetOryAccessControlPolicyRoleOK handles this case with default header values._
 {}
 ```
 
-_GetOryAccessControlPolicyRoleReader is a Reader for the
+_GetOryAccessControlPolicyRoleReader GetOryAccessControlPolicyRoleReader
+GetOryAccessControlPolicyRoleReader is a Reader for the
 GetOryAccessControlPolicyRole structure._
 
 #### Properties
@@ -4049,7 +4092,7 @@ _None_
 }
 ```
 
-_Input Input Input for checking if a request is allowed or not._
+_Input Input Input Input Input for checking if a request is allowed or not._
 
 #### Properties
 
@@ -4085,8 +4128,8 @@ _Input Input Input for checking if a request is allowed or not._
 }
 ```
 
-_IsInstanceAliveInternalServerError handles this case with default header
-values._
+_IsInstanceAliveInternalServerError IsInstanceAliveInternalServerError handles
+this case with default header values._
 
 #### Properties
 
@@ -4145,7 +4188,8 @@ body_
 }
 ```
 
-_IsInstanceAliveOK handles this case with default header values._
+_IsInstanceAliveOK IsInstanceAliveOK IsInstanceAliveOK handles this case with
+default header values._
 
 #### Properties
 
@@ -4163,7 +4207,8 @@ _IsInstanceAliveOK handles this case with default header values._
 {}
 ```
 
-_IsInstanceAliveReader is a Reader for the IsInstanceAlive structure._
+_IsInstanceAliveReader IsInstanceAliveReader IsInstanceAliveReader
+IsInstanceAliveReader is a Reader for the IsInstanceAlive structure._
 
 #### Properties
 
@@ -4183,7 +4228,8 @@ _None_
 }
 ```
 
-_ListOryAccessControlPolicies list ory access control policies_
+_ListOryAccessControlPolicies ListOryAccessControlPolicies
+ListOryAccessControlPolicies list ory access control policies_
 
 #### Properties
 
@@ -4217,14 +4263,16 @@ _ListOryAccessControlPolicies list ory access control policies_
 }
 ```
 
-_ListOryAccessControlPoliciesInternalServerError handles this case with default
+_ListOryAccessControlPoliciesInternalServerError
+ListOryAccessControlPoliciesInternalServerError
+ListOryAccessControlPoliciesInternalServerError handles this case with default
 header values._
 
 #### Properties
 
-| Name    | Type                                                                                                              | Required | Restrictions | Description                                                                                                     |
-| ------- | ----------------------------------------------------------------------------------------------------------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------- |
-| Payload | [ListOryAccessControlPoliciesInternalServerErrorBody](#schemalistoryaccesscontrolpoliciesinternalservererrorbody) | false    | none         | ListOryAccessControlPoliciesInternalServerErrorBody list ory access control policies internal server error body |
+| Name    | Type                                                                                                              | Required | Restrictions | Description                                                                                                                                                                                                                                                                 |
+| ------- | ----------------------------------------------------------------------------------------------------------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [ListOryAccessControlPoliciesInternalServerErrorBody](#schemalistoryaccesscontrolpoliciesinternalservererrorbody) | false    | none         | ListOryAccessControlPoliciesInternalServerErrorBody ListOryAccessControlPoliciesInternalServerErrorBody ListOryAccessControlPoliciesInternalServerErrorBody ListOryAccessControlPoliciesInternalServerErrorBody list ory access control policies internal server error body |
 
 <a id="tocSlistoryaccesscontrolpoliciesinternalservererrorbody">ListOryAccessControlPoliciesInternalServerErrorBody</a>
 
@@ -4248,7 +4296,10 @@ header values._
 }
 ```
 
-_ListOryAccessControlPoliciesInternalServerErrorBody list ory access control
+_ListOryAccessControlPoliciesInternalServerErrorBody
+ListOryAccessControlPoliciesInternalServerErrorBody
+ListOryAccessControlPoliciesInternalServerErrorBody
+ListOryAccessControlPoliciesInternalServerErrorBody list ory access control
 policies internal server error body_
 
 #### Properties
@@ -4288,13 +4339,14 @@ policies internal server error body_
 }
 ```
 
-_ListOryAccessControlPoliciesOK handles this case with default header values._
+_ListOryAccessControlPoliciesOK ListOryAccessControlPoliciesOK handles this case
+with default header values._
 
 #### Properties
 
 | Name    | Type                                                      | Required | Restrictions | Description |
 | ------- | --------------------------------------------------------- | -------- | ------------ | ----------- |
-| Payload | [[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)] | false    | none         | payload     |
+| Payload | [[OryAccessControlPolicy](#schemaoryaccesscontrolpolicy)] | false    | none         | payload     |
 
 <a id="tocSlistoryaccesscontrolpoliciesreader">ListOryAccessControlPoliciesReader</a>
 
@@ -4306,7 +4358,8 @@ _ListOryAccessControlPoliciesOK handles this case with default header values._
 {}
 ```
 
-_ListOryAccessControlPoliciesReader is a Reader for the
+_ListOryAccessControlPoliciesReader ListOryAccessControlPoliciesReader
+ListOryAccessControlPoliciesReader is a Reader for the
 ListOryAccessControlPolicies structure._
 
 #### Properties
@@ -4327,7 +4380,8 @@ _None_
 }
 ```
 
-_ListOryAccessControlPolicyRoles list ory access control policy roles_
+_ListOryAccessControlPolicyRoles ListOryAccessControlPolicyRoles list ory access
+control policy roles_
 
 #### Properties
 
@@ -4361,14 +4415,16 @@ _ListOryAccessControlPolicyRoles list ory access control policy roles_
 }
 ```
 
-_ListOryAccessControlPolicyRolesInternalServerError handles this case with
+_ListOryAccessControlPolicyRolesInternalServerError
+ListOryAccessControlPolicyRolesInternalServerError
+ListOryAccessControlPolicyRolesInternalServerError handles this case with
 default header values._
 
 #### Properties
 
-| Name    | Type                                                                                                                    | Required | Restrictions | Description                                                                                                            |
-| ------- | ----------------------------------------------------------------------------------------------------------------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| Payload | [ListOryAccessControlPolicyRolesInternalServerErrorBody](#schemalistoryaccesscontrolpolicyrolesinternalservererrorbody) | false    | none         | ListOryAccessControlPolicyRolesInternalServerErrorBody list ory access control policy roles internal server error body |
+| Name    | Type                                                                                                                    | Required | Restrictions | Description                                                                                                                                                                   |
+| ------- | ----------------------------------------------------------------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [ListOryAccessControlPolicyRolesInternalServerErrorBody](#schemalistoryaccesscontrolpolicyrolesinternalservererrorbody) | false    | none         | ListOryAccessControlPolicyRolesInternalServerErrorBody ListOryAccessControlPolicyRolesInternalServerErrorBody list ory access control policy roles internal server error body |
 
 <a id="tocSlistoryaccesscontrolpolicyrolesinternalservererrorbody">ListOryAccessControlPolicyRolesInternalServerErrorBody</a>
 
@@ -4392,7 +4448,8 @@ default header values._
 }
 ```
 
-_ListOryAccessControlPolicyRolesInternalServerErrorBody list ory access control
+_ListOryAccessControlPolicyRolesInternalServerErrorBody
+ListOryAccessControlPolicyRolesInternalServerErrorBody list ory access control
 policy roles internal server error body_
 
 #### Properties
@@ -4424,14 +4481,14 @@ policy roles internal server error body_
 }
 ```
 
-_ListOryAccessControlPolicyRolesOK handles this case with default header
-values._
+_ListOryAccessControlPolicyRolesOK ListOryAccessControlPolicyRolesOK handles
+this case with default header values._
 
 #### Properties
 
 | Name    | Type                                                              | Required | Restrictions | Description |
 | ------- | ----------------------------------------------------------------- | -------- | ------------ | ----------- |
-| Payload | [[OryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)] | false    | none         | payload     |
+| Payload | [[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)] | false    | none         | payload     |
 
 <a id="tocSlistoryaccesscontrolpolicyrolesreader">ListOryAccessControlPolicyRolesReader</a>
 
@@ -4443,7 +4500,8 @@ values._
 {}
 ```
 
-_ListOryAccessControlPolicyRolesReader is a Reader for the
+_ListOryAccessControlPolicyRolesReader ListOryAccessControlPolicyRolesReader
+ListOryAccessControlPolicyRolesReader is a Reader for the
 ListOryAccessControlPolicyRoles structure._
 
 #### Properties
@@ -4475,13 +4533,83 @@ _None_
 }
 ```
 
-_OryAccessControlPolicies Policies is an array of policies._
+_OryAccessControlPolicies OryAccessControlPolicies OryAccessControlPolicies
+Policies is an array of policies._
 
 #### Properties
 
 | Name | Type                                                      | Required | Restrictions | Description                            |
 | ---- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------- |
-| Body | [[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)] | false    | none         | The request body. in: body type: array |
+| Body | [[OryAccessControlPolicy](#schemaoryaccesscontrolpolicy)] | false    | none         | The request body. in: body type: array |
+
+<a id="tocSoryaccesscontrolpolicy">OryAccessControlPolicy</a>
+
+#### OryAccessControlPolicy
+
+<a id="schemaoryaccesscontrolpolicy"></a>
+
+```json
+{
+  "actions": ["string"],
+  "conditions": {
+    "property1": {},
+    "property2": {}
+  },
+  "description": "string",
+  "effect": "string",
+  "id": "string",
+  "resources": ["string"],
+  "subjects": ["string"]
+}
+```
+
+_OryAccessControlPolicy OryAccessControlPolicy oryAccessControlPolicy specifies
+an ORY Access Policy document._
+
+#### Properties
+
+| Name                       | Type     | Required | Restrictions | Description                                                                                                          |
+| -------------------------- | -------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------- |
+| actions                    | [string] | false    | none         | Actions is an array representing all the actions this ORY Access Policy applies to.                                  |
+| conditions                 | object   | false    | none         | Conditions represents a keyed object of conditions under which this ORY Access Policy is active.                     |
+| » **additionalProperties** | object   | false    | none         | none                                                                                                                 |
+| description                | string   | false    | none         | Description is an optional, human-readable description.                                                              |
+| effect                     | string   | false    | none         | Effect is the effect of this ORY Access Policy. It can be "allow" or "deny".                                         |
+| id                         | string   | false    | none         | ID is the unique identifier of the ORY Access Policy. It is used to query, update, and remove the ORY Access Policy. |
+| resources                  | [string] | false    | none         | Resources is an array representing all the resources this ORY Access Policy applies to.                              |
+| subjects                   | [string] | false    | none         | Subjects is an array representing all the subjects this ORY Access Policy applies to.                                |
+
+<a id="tocSoryaccesscontrolpolicyallowedinput">OryAccessControlPolicyAllowedInput</a>
+
+#### OryAccessControlPolicyAllowedInput
+
+<a id="schemaoryaccesscontrolpolicyallowedinput"></a>
+
+```json
+{
+  "action": "string",
+  "context": {
+    "property1": {},
+    "property2": {}
+  },
+  "resource": "string",
+  "subject": "string"
+}
+```
+
+_OryAccessControlPolicyAllowedInput OryAccessControlPolicyAllowedInput
+OryAccessControlPolicyAllowedInput Input for checking if a request is allowed or
+not._
+
+#### Properties
+
+| Name                       | Type   | Required | Restrictions | Description                                             |
+| -------------------------- | ------ | -------- | ------------ | ------------------------------------------------------- |
+| action                     | string | false    | none         | Action is the action that is requested on the resource. |
+| context                    | object | false    | none         | Context is the request's environmental context.         |
+| » **additionalProperties** | object | false    | none         | none                                                    |
+| resource                   | string | false    | none         | Resource is the resource that access is requested to.   |
+| subject                    | string | false    | none         | Subject is the subject that is requesting access.       |
 
 <a id="tocSoryaccesscontrolpolicyrole">OryAccessControlPolicyRole</a>
 
@@ -4496,7 +4624,8 @@ _OryAccessControlPolicies Policies is an array of policies._
 }
 ```
 
-_OryAccessControlPolicyRole oryAccessControlPolicyRole represents a group of
+_OryAccessControlPolicyRole OryAccessControlPolicyRole
+OryAccessControlPolicyRole oryAccessControlPolicyRole represents a group of
 users that share the same role. A role could be an administrator, a moderator, a
 regular user or some other sort of role._
 
@@ -4506,6 +4635,32 @@ regular user or some other sort of role._
 | ------- | -------- | -------- | ------------ | ----------------------------------- |
 | id      | string   | false    | none         | ID is the role's unique id.         |
 | members | [string] | false    | none         | Members is who belongs to the role. |
+
+<a id="tocSoryaccesscontrolpolicyroles">OryAccessControlPolicyRoles</a>
+
+#### OryAccessControlPolicyRoles
+
+<a id="schemaoryaccesscontrolpolicyroles"></a>
+
+```json
+{
+  "Body": [
+    {
+      "id": "string",
+      "members": ["string"]
+    }
+  ]
+}
+```
+
+_OryAccessControlPolicyRoles OryAccessControlPolicyRoles Roles is an array of
+roles._
+
+#### Properties
+
+| Name | Type                                                              | Required | Restrictions | Description                            |
+| ---- | ----------------------------------------------------------------- | -------- | ------------ | -------------------------------------- |
+| Body | [[OryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)] | false    | none         | The request body. in: body type: array |
 
 <a id="tocSpolicies">Policies</a>
 
@@ -4530,13 +4685,13 @@ regular user or some other sort of role._
 ]
 ```
 
-_Policies Policies Policies Policies is an array of policies._
+_Policies Policies Policies Policies Policies is an array of policies._
 
 #### Properties
 
-| Name                                                         | Type                      | Required | Restrictions | Description |
-| ------------------------------------------------------------ | ------------------------- | -------- | ------------ | ----------- |
-| Policies Policies Policies Policies is an array of policies. | [[Policy](#schemapolicy)] | false    | none         | none        |
+| Name                                                                  | Type                      | Required | Restrictions | Description |
+| --------------------------------------------------------------------- | ------------------------- | -------- | ------------ | ----------- |
+| Policies Policies Policies Policies Policies is an array of policies. | [[Policy](#schemapolicy)] | false    | none         | none        |
 
 <a id="tocSpolicy">Policy</a>
 
@@ -4559,7 +4714,8 @@ _Policies Policies Policies Policies is an array of policies._
 }
 ```
 
-_Policy Policy Policy Policy specifies an ORY Access Policy document._
+_Policy Policy Policy Policy Policy Policy Policy specifies an ORY Access Policy
+document._
 
 #### Properties
 
@@ -4588,7 +4744,8 @@ _Policy Policy Policy Policy specifies an ORY Access Policy document._
 }
 ```
 
-_RemoveOryAccessControlPolicyRoleMembers remove ory access control policy role
+_RemoveOryAccessControlPolicyRoleMembers RemoveOryAccessControlPolicyRoleMembers
+RemoveOryAccessControlPolicyRoleMembers remove ory access control policy role
 members_
 
 #### Properties
@@ -4609,7 +4766,10 @@ members_
 {}
 ```
 
-_RemoveOryAccessControlPolicyRoleMembersCreated handles this case with default
+_RemoveOryAccessControlPolicyRoleMembersCreated
+RemoveOryAccessControlPolicyRoleMembersCreated
+RemoveOryAccessControlPolicyRoleMembersCreated
+RemoveOryAccessControlPolicyRoleMembersCreated handles this case with default
 header values._
 
 #### Properties
@@ -4640,7 +4800,10 @@ _None_
 }
 ```
 
-_RemoveOryAccessControlPolicyRoleMembersInternalServerError handles this case
+_RemoveOryAccessControlPolicyRoleMembersInternalServerError
+RemoveOryAccessControlPolicyRoleMembersInternalServerError
+RemoveOryAccessControlPolicyRoleMembersInternalServerError
+RemoveOryAccessControlPolicyRoleMembersInternalServerError handles this case
 with default header values._
 
 #### Properties
@@ -4696,7 +4859,8 @@ access control policy role members internal server error body_
 {}
 ```
 
-_RemoveOryAccessControlPolicyRoleMembersReader is a Reader for the
+_RemoveOryAccessControlPolicyRoleMembersReader
+RemoveOryAccessControlPolicyRoleMembersReader is a Reader for the
 RemoveOryAccessControlPolicyRoleMembers structure._
 
 #### Properties
@@ -4716,9 +4880,9 @@ _None_
 }
 ```
 
-_Role Role Role Role Role Role represents a group of users that share the same
-role. A role could be an administrator, a moderator, a regular user or some
-other sort of role._
+_Role Role Role Role Role Role Role Role Role represents a group of users that
+share the same role. A role could be an administrator, a moderator, a regular
+user or some other sort of role._
 
 #### Properties
 
@@ -4742,13 +4906,13 @@ other sort of role._
 ]
 ```
 
-_Roles Roles Roles A list of roles._
+_Roles Roles Roles Roles A list of roles._
 
 #### Properties
 
-| Name                               | Type                  | Required | Restrictions | Description                                                                                                                                                                     |
-| ---------------------------------- | --------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Roles Roles Roles A list of roles. | [[Role](#schemarole)] | false    | none         | [Role Role Role Role Role Role represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role.] |
+| Name                                     | Type                  | Required | Restrictions | Description                                                                                                                                                                                    |
+| ---------------------------------------- | --------------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Roles Roles Roles Roles A list of roles. | [[Role](#schemarole)] | false    | none         | [Role Role Role Role Role Role Role Role Role represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role.] |
 
 <a id="tocSupsertoryaccesscontrolpolicy">UpsertOryAccessControlPolicy</a>
 
@@ -4774,13 +4938,14 @@ _Roles Roles Roles A list of roles._
 }
 ```
 
-_UpsertOryAccessControlPolicy upsert ory access control policy_
+_UpsertOryAccessControlPolicy UpsertOryAccessControlPolicy upsert ory access
+control policy_
 
 #### Properties
 
 | Name   | Type                                                    | Required | Restrictions | Description                                                                         |
 | ------ | ------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------- |
-| Body   | [oryAccessControlPolicy](#schemaoryaccesscontrolpolicy) | false    | none         | none                                                                                |
+| Body   | [OryAccessControlPolicy](#schemaoryaccesscontrolpolicy) | false    | none         | none                                                                                |
 | flavor | string                                                  | true     | none         | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". in: path |
 
 <a id="tocSupsertoryaccesscontrolpolicyinternalservererror">UpsertOryAccessControlPolicyInternalServerError</a>
@@ -4807,14 +4972,16 @@ _UpsertOryAccessControlPolicy upsert ory access control policy_
 }
 ```
 
-_UpsertOryAccessControlPolicyInternalServerError handles this case with default
+_UpsertOryAccessControlPolicyInternalServerError
+UpsertOryAccessControlPolicyInternalServerError
+UpsertOryAccessControlPolicyInternalServerError handles this case with default
 header values._
 
 #### Properties
 
-| Name    | Type                                                                                                              | Required | Restrictions | Description                                                                                                     |
-| ------- | ----------------------------------------------------------------------------------------------------------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------- |
-| Payload | [UpsertOryAccessControlPolicyInternalServerErrorBody](#schemaupsertoryaccesscontrolpolicyinternalservererrorbody) | false    | none         | UpsertOryAccessControlPolicyInternalServerErrorBody upsert ory access control policy internal server error body |
+| Name    | Type                                                                                                              | Required | Restrictions | Description                                                                                                                                                                                                             |
+| ------- | ----------------------------------------------------------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [UpsertOryAccessControlPolicyInternalServerErrorBody](#schemaupsertoryaccesscontrolpolicyinternalservererrorbody) | false    | none         | UpsertOryAccessControlPolicyInternalServerErrorBody UpsertOryAccessControlPolicyInternalServerErrorBody UpsertOryAccessControlPolicyInternalServerErrorBody upsert ory access control policy internal server error body |
 
 <a id="tocSupsertoryaccesscontrolpolicyinternalservererrorbody">UpsertOryAccessControlPolicyInternalServerErrorBody</a>
 
@@ -4838,7 +5005,9 @@ header values._
 }
 ```
 
-_UpsertOryAccessControlPolicyInternalServerErrorBody upsert ory access control
+_UpsertOryAccessControlPolicyInternalServerErrorBody
+UpsertOryAccessControlPolicyInternalServerErrorBody
+UpsertOryAccessControlPolicyInternalServerErrorBody upsert ory access control
 policy internal server error body_
 
 #### Properties
@@ -4876,13 +5045,15 @@ policy internal server error body_
 }
 ```
 
-_UpsertOryAccessControlPolicyOK handles this case with default header values._
+_UpsertOryAccessControlPolicyOK UpsertOryAccessControlPolicyOK
+UpsertOryAccessControlPolicyOK UpsertOryAccessControlPolicyOK handles this case
+with default header values._
 
 #### Properties
 
 | Name    | Type                                                    | Required | Restrictions | Description |
 | ------- | ------------------------------------------------------- | -------- | ------------ | ----------- |
-| Payload | [oryAccessControlPolicy](#schemaoryaccesscontrolpolicy) | false    | none         | none        |
+| Payload | [OryAccessControlPolicy](#schemaoryaccesscontrolpolicy) | false    | none         | none        |
 
 <a id="tocSupsertoryaccesscontrolpolicyreader">UpsertOryAccessControlPolicyReader</a>
 
@@ -4894,7 +5065,8 @@ _UpsertOryAccessControlPolicyOK handles this case with default header values._
 {}
 ```
 
-_UpsertOryAccessControlPolicyReader is a Reader for the
+_UpsertOryAccessControlPolicyReader UpsertOryAccessControlPolicyReader
+UpsertOryAccessControlPolicyReader is a Reader for the
 UpsertOryAccessControlPolicy structure._
 
 #### Properties
@@ -4917,14 +5089,15 @@ _None_
 }
 ```
 
-_UpsertOryAccessControlPolicyRole upsert ory access control policy role_
+_UpsertOryAccessControlPolicyRole UpsertOryAccessControlPolicyRole upsert ory
+access control policy role_
 
 #### Properties
 
-| Name   | Type                                                            | Required | Restrictions | Description                                                                                                                                                                                           |
-| ------ | --------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Body   | [OryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole) | false    | none         | OryAccessControlPolicyRole oryAccessControlPolicyRole represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role. |
-| flavor | string                                                          | true     | none         | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". in: path                                                                                                                   |
+| Name   | Type                                                            | Required | Restrictions | Description                                                                                                                                                                                                                                                 |
+| ------ | --------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Body   | [OryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole) | false    | none         | OryAccessControlPolicyRole OryAccessControlPolicyRole OryAccessControlPolicyRole oryAccessControlPolicyRole represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role. |
+| flavor | string                                                          | true     | none         | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". in: path                                                                                                                                                                         |
 
 <a id="tocSupsertoryaccesscontrolpolicyroleinternalservererror">UpsertOryAccessControlPolicyRoleInternalServerError</a>
 
@@ -4950,7 +5123,9 @@ _UpsertOryAccessControlPolicyRole upsert ory access control policy role_
 }
 ```
 
-_UpsertOryAccessControlPolicyRoleInternalServerError handles this case with
+_UpsertOryAccessControlPolicyRoleInternalServerError
+UpsertOryAccessControlPolicyRoleInternalServerError
+UpsertOryAccessControlPolicyRoleInternalServerError handles this case with
 default header values._
 
 #### Properties
@@ -5011,14 +5186,14 @@ control policy role internal server error body_
 }
 ```
 
-_UpsertOryAccessControlPolicyRoleOK handles this case with default header
-values._
+_UpsertOryAccessControlPolicyRoleOK UpsertOryAccessControlPolicyRoleOK handles
+this case with default header values._
 
 #### Properties
 
-| Name    | Type                                                            | Required | Restrictions | Description                                                                                                                                                                                           |
-| ------- | --------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Payload | [OryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole) | false    | none         | OryAccessControlPolicyRole oryAccessControlPolicyRole represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role. |
+| Name    | Type                                                            | Required | Restrictions | Description                                                                                                                                                                |
+| ------- | --------------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Payload | [oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole) | false    | none         | oryAccessControlPolicyRole represents a group of users that share the same role. A role could be an administrator, a moderator, a regular user or some other sort of role. |
 
 <a id="tocSupsertoryaccesscontrolpolicyrolereader">UpsertOryAccessControlPolicyRoleReader</a>
 
@@ -5030,7 +5205,8 @@ values._
 {}
 ```
 
-_UpsertOryAccessControlPolicyRoleReader is a Reader for the
+_UpsertOryAccessControlPolicyRoleReader UpsertOryAccessControlPolicyRoleReader
+UpsertOryAccessControlPolicyRoleReader is a Reader for the
 UpsertOryAccessControlPolicyRole structure._
 
 #### Properties
@@ -5052,6 +5228,9 @@ _None_
   "id": "string"
 }
 ```
+
+_AddOryAccessControlPolicyRoleMembers add ory access control policy role
+members_
 
 #### Properties
 
@@ -5113,6 +5292,8 @@ the decision outcome._
 }
 ```
 
+_DeleteOryAccessControlPolicy delete ory access control policy_
+
 #### Properties
 
 | Name   | Type   | Required | Restrictions | Description                                                                         |
@@ -5132,6 +5313,8 @@ the decision outcome._
   "id": "string"
 }
 ```
+
+_DeleteOryAccessControlPolicyRole delete ory access control policy role_
 
 #### Properties
 
@@ -5161,6 +5344,8 @@ the decision outcome._
 }
 ```
 
+_DoOryAccessControlPoliciesAllow do ory access control policies allow_
+
 #### Properties
 
 | Name   | Type                                                                            | Required | Restrictions | Description                                                                         |
@@ -5181,6 +5366,8 @@ the decision outcome._
 }
 ```
 
+_GetOryAccessControlPolicy get ory access control policy_
+
 #### Properties
 
 | Name   | Type   | Required | Restrictions | Description                                                                         |
@@ -5200,6 +5387,8 @@ the decision outcome._
   "id": "string"
 }
 ```
+
+_GetOryAccessControlPolicyRole get ory access control policy role_
 
 #### Properties
 
@@ -5262,6 +5451,8 @@ the decision outcome._
 }
 ```
 
+_ListOryAccessControlPolicies list ory access control policies_
+
 #### Properties
 
 | Name   | Type           | Required | Restrictions | Description                                                                        |
@@ -5283,6 +5474,8 @@ the decision outcome._
   "offset": 0
 }
 ```
+
+_ListOryAccessControlPolicyRoles list ory access control policy roles_
 
 #### Properties
 
@@ -5317,13 +5510,13 @@ the decision outcome._
 }
 ```
 
-_Policies is an array of policies._
+_OryAccessControlPolicies Policies is an array of policies._
 
 #### Properties
 
 | Name | Type                                                      | Required | Restrictions | Description                            |
 | ---- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------- |
-| Body | [[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)] | false    | none         | The request body. in: body type: array |
+| Body | [[OryAccessControlPolicy](#schemaoryaccesscontrolpolicy)] | false    | none         | The request body. in: body type: array |
 
 <a id="tocSoryaccesscontrolpolicy">oryAccessControlPolicy</a>
 
@@ -5415,31 +5608,6 @@ other sort of role._
 | id      | string   | false    | none         | ID is the role's unique id.         |
 | members | [string] | false    | none         | Members is who belongs to the role. |
 
-<a id="tocSoryaccesscontrolpolicyroles">oryAccessControlPolicyRoles</a>
-
-#### oryAccessControlPolicyRoles
-
-<a id="schemaoryaccesscontrolpolicyroles"></a>
-
-```json
-{
-  "Body": [
-    {
-      "id": "string",
-      "members": ["string"]
-    }
-  ]
-}
-```
-
-_Roles is an array of roles._
-
-#### Properties
-
-| Name | Type                                                              | Required | Restrictions | Description                            |
-| ---- | ----------------------------------------------------------------- | -------- | ------------ | -------------------------------------- |
-| Body | [[oryAccessControlPolicyRole](#schemaoryaccesscontrolpolicyrole)] | false    | none         | The request body. in: body type: array |
-
 <a id="tocSremoveoryaccesscontrolpolicyrolemembers">removeOryAccessControlPolicyRoleMembers</a>
 
 #### removeOryAccessControlPolicyRoleMembers
@@ -5453,6 +5621,9 @@ _Roles is an array of roles._
   "member": "string"
 }
 ```
+
+_RemoveOryAccessControlPolicyRoleMembers remove ory access control policy role
+members_
 
 #### Properties
 
@@ -5550,11 +5721,13 @@ _SwaggerVersion swagger version_
 }
 ```
 
+_UpsertOryAccessControlPolicy upsert ory access control policy_
+
 #### Properties
 
 | Name   | Type                                                    | Required | Restrictions | Description                                                                         |
 | ------ | ------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------- |
-| Body   | [oryAccessControlPolicy](#schemaoryaccesscontrolpolicy) | false    | none         | none                                                                                |
+| Body   | [OryAccessControlPolicy](#schemaoryaccesscontrolpolicy) | false    | none         | none                                                                                |
 | flavor | string                                                  | true     | none         | The ORY Access Control Policy flavor. Can be "regex", "glob", and "exact". in: path |
 
 <a id="tocSupsertoryaccesscontrolpolicyrole">upsertOryAccessControlPolicyRole</a>
@@ -5572,6 +5745,8 @@ _SwaggerVersion swagger version_
   "flavor": "string"
 }
 ```
+
+_UpsertOryAccessControlPolicyRole upsert ory access control policy role_
 
 #### Properties
 
