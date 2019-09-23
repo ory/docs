@@ -151,6 +151,39 @@ mutators:
   - handler: noop
 ```
 
+## Handler configuration
+
+Handlers (Authenticators, Mutators, Authorizers) sometimes require some configuration. The configuration can be defined
+globally as well as per Access Rule. The configuration from the Access Rule is overrides values from the global configuration.
+
+**oathkeeper.yml**
+```yaml
+authenticators:
+  anonymous:
+    enabled: true
+    config:
+      subject: anon
+```
+
+**rule.json**
+```json
+{
+  "id": "some-id",
+  "upstream": {
+    "url": "http://my-backend-service",
+    "preserve_host": true,
+    "strip_path": "/api/v1"
+  },
+  "match": {
+    "url": "http://my-app/some-route/<.*>",
+    "methods": ["GET", "POST"]
+  },
+  "authenticators": [{ "handler": "anonymous", "config": {"subject": "anon"} }],
+  "authorizer": { "handler": "allow" },
+  "mutators": [{ "handler": "noop" }]
+}
+```
+
 ## Scoped Credentials
 
 Some credentials are scoped. For example, OAuth 2.0 Access Tokens usually are

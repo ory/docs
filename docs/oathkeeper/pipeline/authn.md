@@ -17,7 +17,8 @@ Each authenticator has two keys:
 
 - `handler` (string, required): Defines the handler (e.g. `noop`) to be used.
 - `config` (object, optional): Configures the handler. Configuration keys vary
-  per handler.
+  per handler. The configuration can be defined in the global configuration file,
+  or per access rule.
 
 **Example**
 
@@ -71,18 +72,21 @@ any request to be forwarded to the upstream URL.
 > when the upstream handles access control itself or does not need any type of
 > access control.
 
-### Global Configuration
+### Configuration
 
-This handler is not configurable except from dis-/enabling:
+This handler is not configurable.
+
+To enable this handler, set:
 
 ```yaml
+# Global configuration file oathkeeper.yml
 authenticators:
   noop:
     # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
     enabled: true
 ```
 
-### Example
+### Access Rule Example
 
 ```sh
 $ cat ./rules.json
@@ -114,19 +118,22 @@ The request has been allowed!
 The `unauthorized` handler tells ORY Oathkeeper to reject all requests as
 unauthorized.
 
-### Global Configuration
+### Configuration
 
-This handler is not configurable except from dis-/enabling:
+This handler is not configurable.
+
+To enable this handler, set:
 
 ```yaml
-authenticators:
-  unauthorized:
+# Global configuration file oathkeeper.yml
+unauthorized:
+  noop:
     # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
     enabled: true
 ```
 
-### Example
 
+###  Access Rule Example
 ```sh
 $ cat ./rules.json
 
@@ -156,25 +163,37 @@ HTTP/1.0 401 Unauthorized
 The `anonymous` authenticator checks whether or not an `Authorization` header is
 set. If not, it will set the subject to `anonymous`.
 
-### Global Configuration
+### Configuration
 
-You can en-/disable the authenticator and also set the anonymous subject:
+- `subject` (string, optional) - Sets the anonymous username. Defaults to "anonymous".
+Common names include "guest", "anon", "anonymous", "unknown".
 
 ```yaml
+# Global configuration file oathkeeper.yml
 authenticators:
   anonymous:
     # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
     enabled: true
 
-    # Sets the anonymous username. Defaults to "anonymous". Common names include "guest", "anon", "anonymous", "unknown".
-    subject: anonymous
+    config:
+      subject: guest
 ```
 
-### Example
+```yaml
+# Some Access Rule: access-rule-1.yaml
+id: access-rule-1
+# match: ...
+# upstream: ...
+authenticators:
+  - handler: anonymous
+    config:
+      subject: guest
+```
+
+###  Access Rule Example
 
 The following rule allows all requests to `GET http://my-app/some-route` and
-sets the subject name to the value of the environment variable
-`AUTHENTICATOR_ANONYMOUS_USERNAME`, as long as no `Authorization` header is set
+sets the subject name to the anonymous username, as long as no `Authorization` header is set
 in the HTTP request:
 
 ```shell
@@ -217,27 +236,37 @@ headers to a session store. If the session store returns `200 OK` and body
 `{ "subject": "...", "extra": {} }` then the authenticator will set the subject
 appropriately.
 
-### Global Configuration
+### Configuration
 
-You can en-/disable the authenticator and also set the anonymous subject:
+- `check_session_url` (string, required) - The session store to forward request method/path/headers to for validation.
+- `only` ([]string, optional) - If set, only requests that have at least one of the set cookies will be forwarded, others will be passed to the next authenticator.
+If unset, all requests are forwarded.
 
 ```yaml
+# Global configuration file oathkeeper.yml
 authenticators:
   cookie_session:
     # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
     enabled: true
 
-    # REQUIRED IF ENABLED - The session store to forward request method/path/headers to for validation
-    check_session_url: https://session-store-host
-
-    # Optionally set a list of cookie names to look for in incoming requests.
-    # If unset, all requests are forwarded.
-    # If set, only requests that have at least one of the set cookies will be forwarded, others will be passed to the next authenticator
-    only:
-      - sessionid
+    config:
+      check_session_url:  https://session-store-host
 ```
 
-### Example
+```yaml
+# Some Access Rule: access-rule-1.yaml
+id: access-rule-1
+# match: ...
+# upstream: ...
+authenticators:
+  - handler: cookie_session
+    config:
+      check_session_url: https://session-store-host
+      only:
+        - sessionid
+```
+
+###  Access Rule Example
 
 ```shell
 $ cat ./rules.json
@@ -284,37 +313,35 @@ header as the subject for this request.
 > If you are unfamiliar with OAuth 2.0 Introspection we recommend
 > [reading this guide](https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/).
 
-### Global Configuration
+### Configuration
 
-You can en-/disable the authenticator and must also configure how to validate
-the OAuth 2.0 Client Credentials:
+- `token_url` (string, required) - The OAuth 2.0 Token Endpoint that will be used to validate the client credentials.
+- `required_scope` ([]string, optional) - Sets what scope is required by the URL and when making performing OAuth
+                                           2.0 Client Credentials request, the scope will be included in the request:
 
 ```yaml
+# Global configuration file oathkeeper.yml
 authenticators:
   oauth2_client_credentials:
     # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
     enabled: true
 
-    # REQUIRED IF ENABLED - The OAuth 2.0 Token Endpoint that will be used to validate the client credentials.
-    token_url: https://my-website.com/oauth2/token
+    config:
+      token_url: https://my-website.com/oauth2/token
 ```
 
-### Per-Rule Configuration
-
-This authenticator has one configuration option which is `required_scope`. This
-option sets what scope is required by the URL and when making performing OAuth
-2.0 Client Credentials request, the scope will be included in the request:
-
-```json
-{
-  "handler": "oauth2_client_credentials",
-  "config": {
-    "required_scope": ["scope-a", "scope-b"]
-  }
-}
+```yaml
+# Some Access Rule: access-rule-1.yaml
+id: access-rule-1
+# match: ...
+# upstream: ...
+authenticators:
+  - handler: oauth2_client_credentials
+    config:
+      token_url: https://my-website.com/oauth2/token
 ```
 
-### Example
+### Access Rule Example
 
 ```shell
 $ cat ./rules.json
@@ -383,61 +410,66 @@ token was granted the requested scope.
 > If you are unfamiliar with OAuth 2.0 Introspection we recommend
 > [reading this guide](https://www.oauth.com/oauth2-servers/token-introspection-endpoint/).
 
-### Global Configuration
+### Configuration
 
-You can en-/disable the authenticator and must also configure how to validate
-the OAuth 2.0 Client Credentials:
+- `introspection_url` (string, required) - The OAuth 2.0 Token Introspection endpoint.
+- `scope_strategy` (string, optional) - Sets the strategy to be used to validate/match the token scope. Supports "hierarchic", "exact", "wildcard", "none". Defaults
+                                             to "none".
+- `required_scope` ([]string, optional) - Sets what scope is required by the URL and when making performing OAuth
+                                          2.0 Client Credentials request, the scope will be included in the request
+- `pre_authorization` (object, optional) - Enable pre-authorization in cases where the OAuth 2.0 Token Introspection endpoint is protected by OAuth 2.0 Bearer
+                                                Tokens that can be retrieved using the OAuth 2.0 Client Credentials grant.
+  - `enabled` (bool, optional) - Enable pre-authorization. Defaults to false.
+  - `client_id` (string, required if enabled) - The OAuth 2.0 Client ID to be used for the OAuth 2.0 Client Credentials Grant.
+  - `client_secret` (string, required if enabled) - The OAuth 2.0 Client Secret to be used for the OAuth 2.0 Client Credentials Grant.
+  - `token_url` (string, required if enabled) - The OAuth 2.0 Scope to be requested during the OAuth 2.0 Client Credentials Grant.
+  - `scope` ([]string, optional) - The OAuth 2.0 Token Endpoint where the OAuth 2.0 Client Credentials Grant will be performed.
 
 ```yaml
+# Global configuration file oathkeeper.yml
 authenticators:
   oauth2_introspection:
     # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
     enabled: true
 
-    # REQUIRED IF ENABLED - The OAuth 2.0 Token Introspection endpoint.
-    introspection_url: https://my-website.com/oauth2/introspection
-
-    # Sets the strategy to be used to validate/match the token scope. Supports "hierarchic", "exact", "wildcard", "none". Defaults
-    # to "none".
-    scope_strategy: exact
-
-    # Enable pre-authorization in cases where the OAuth 2.0 Token Introspection endpoint is protected by OAuth 2.0 Bearer
-    # Tokens that can be retrieved using the OAuth 2.0 Client Credentials grant.
-    pre_authorization:
-      # Enable pre-authorization. Defaults to false.
-      enabled: true
-
-      # REQUIRED IF ENABLED - The OAuth 2.0 Client ID to be used for the OAuth 2.0 Client Credentials Grant.
-      client_id: some_id
-
-      # REQUIRED IF ENABLED - The OAuth 2.0 Client Secret to be used for the OAuth 2.0 Client Credentials Grant.
-      client_secret: some_secret
-
-      # REQUIRED IF ENABLED - The OAuth 2.0 Scope to be requested during the OAuth 2.0 Client Credentials Grant.
-      scope:
-        - foo
-        - bar
-
-      # REQUIRED IF ENABLED - The OAuth 2.0 Token Endpoint where the OAuth 2.0 Client Credentials Grant will be performed.
-      token_url: https://my-website.com/oauth2/token
+    config:
+      introspection_url: https://my-website.com/oauth2/introspection
+      scope_strategy: exact
+      required_scope:
+        - photo
+        - profile
+      pre_authorization:
+        enabled: true
+        client_id: some_id
+        client_secret: some_secret
+        scope:
+          - introspect
+        token_url: https://my-website.com/oauth2/token
 ```
 
-### Per-Rule Configuration
-
-This authenticator has one configuration option which is `required_scope`. This
-option sets what scope is required by the URL and when making performing OAuth
-2.0 Client Credentials request, the scope will be included in the request:
-
-```json
-{
-  "handler": "oauth2_introspection",
-  "config": {
-    "required_scope": ["scope-a", "scope-b"]
-  }
-}
+```yaml
+# Some Access Rule: access-rule-1.yaml
+id: access-rule-1
+# match: ...
+# upstream: ...
+authenticators:
+  - handler: oauth2_introspection
+    config:
+      introspection_url: https://my-website.com/oauth2/introspection
+      scope_strategy: exact
+      required_scope:
+        - photo
+        - profile
+      pre_authorization:
+        enabled: true
+        client_id: some_id
+        client_secret: some_secret
+        scope:
+          - introspect
+        token_url: https://my-website.com/oauth2/token
 ```
 
-### Example
+### Access Rule Example
 
 ```shell
 $ cat ./rules.json
@@ -510,35 +542,13 @@ The `jwt` authenticator handles requests that have an Bearer Token in the
 Authorization Header (`Authorization: bearer <token>`). It assumes that the
 token is a JSON Web Token and tries to verify the signature of it.
 
-### Global Configuration
+### Configuration
 
-You can en-/disable the authenticator and must also configure how to validate
-the OAuth 2.0 Client Credentials:
-
-```yaml
-authenticators:
-  jwt:
-    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
-    enabled: true
-
-    # REQUIRED IF ENABLED - The URL where ORY Oathkeeper can retrieve JSON Web Keys from for validating the JSON Web
-    # Token. Usually something like "https://my-keys.com/.well-known/jwks.json". The response of that endpoint must
-    # return a JSON Web Key Set (JWKS).
-    jwks_urls:
-      - https://my-website.com/.well-known/jwks.json
-      - https://my-other-website.com/.well-known/jwks.json
-      - file://path/to/local/jwks.json
-
-    # Sets the strategy to be used to validate/match the scope. Supports "hierarchic", "exact", "wildcard", "none". Defaults
-    # to "none".
-    scope_strategy: none
-```
-
-### Per-Rule Configuration
-
-This handler can be configured to check the scope, audience, and issuer of the
-JSON Web Token. It is also possible to whitelist specific signing algorithms:
-
+- `jwks_urls` ([]string, required) - The URLs where ORY Oathkeeper can retrieve JSON Web Keys from for validating the JSON Web
+                                         Token. Usually something like `https://my-keys.com/.well-known/jwks.json`. The response of that endpoint must
+                                         return a JSON Web Key Set (JWKS).
+- `scope_strategy` (string, optional) - Sets the strategy to be used to validate/match the scope. Supports "hierarchic", "exact", "wildcard", "none". Defaults
+                                             to "none".
 - If `trusted_issuers` ([]string) is set, the JWT must contain a value for claim
   `iss` that matches _exactly_ (case-sensitive) one of the values of
   `trusted_issuers`. If no values are configured, the issuer will be ignored.
@@ -549,7 +559,58 @@ JSON Web Token. It is also possible to whitelist specific signing algorithms:
   allowed. Defaults to `RS256`.
 - Value `required_scope` ([]string) validates the scope of the JWT. It will
   checks for claims `scp`, `scope`, `scopes` in the JWT when validating the
-  scope as that claim is not standardized.
+  scope as that claim is not standardized.                                             
+                                             
+```yaml
+# Global configuration file oathkeeper.yml
+authenticators:
+  jwt:
+    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+    enabled: true
+
+    config:
+      jwks_urls:
+        - https://my-website.com/.well-known/jwks.json
+        - https://my-other-website.com/.well-known/jwks.json
+        - file://path/to/local/jwks.json
+      scope_strategy: none
+      required_scope:
+        - scope-a
+        - scope-b
+      target_audience:
+        - https://my-service.com/api/users
+        - https://my-service.com/api/devices
+      trusted_issuers: https://my-issuer.com/
+      allowed_algorithms: 
+      - RS256
+```
+
+```yaml
+# Some Access Rule: access-rule-1.yaml
+id: access-rule-1
+# match: ...
+# upstream: ...
+authenticators:
+  - handler: jwt
+    config:
+      jwks_urls:
+        - https://my-website.com/.well-known/jwks.json
+        - https://my-other-website.com/.well-known/jwks.json
+        - file://path/to/local/jwks.json
+      scope_strategy: none
+      required_scope:
+        - scope-a
+        - scope-b
+      target_audience:
+        - https://my-service.com/api/users
+        - https://my-service.com/api/devices
+      trusted_issuers: https://my-issuer.com/
+      allowed_algorithms: 
+      - RS256
+```
+
+
+#### Validation example
 
 ```json
 {
@@ -604,7 +665,7 @@ a space-delimited string (`"scope-a scope-b"`) or a JSON string array
 checked and parsed and will be available as `scp` (string array) in the
 authentication session (`.Extra["scp"]`).
 
-### Example
+### Access Rule Example
 
 ```shell
 $ cat ./rules.json
