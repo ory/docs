@@ -574,8 +574,7 @@ token is a JSON Web Token and tries to verify the signature of it.
   allowed. Defaults to `RS256`.
 - Value `required_scope` ([]string) validates the scope of the JWT. It will
   checks for claims `scp`, `scope`, `scopes` in the JWT when validating the
-  scope as that claim is not standardized.  
-
+  scope as that claim is not standardized.
 
 ```yaml
 # Global configuration file oathkeeper.yml
