@@ -164,9 +164,13 @@ The ID Token Claims are as follows:
 ### Configuration
 
 - `issuer_url` (string, required) - Sets the "iss" value of the ID Token.
-- `jwks_url` (string, required) - Sets the URL where keys should be fetched from. Supports remote locations (http, https) as well as local filesystem paths.
-- `ttl` (string, optional) - Sets the time-to-live of the ID token. Defaults to one minute. Valid time units are: s (second), m (minute), h (hour).
-- `claims` (string, optional) - Allows you to customize the ID Token claims and support Go Templates. For more information, check section [Claims](#claims)
+- `jwks_url` (string, required) - Sets the URL where keys should be fetched
+  from. Supports remote locations (http, https) as well as local filesystem
+  paths.
+- `ttl` (string, optional) - Sets the time-to-live of the ID token. Defaults to
+  one minute. Valid time units are: s (second), m (minute), h (hour).
+- `claims` (string, optional) - Allows you to customize the ID Token claims and
+  support Go Templates. For more information, check section [Claims](#claims)
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -180,7 +184,9 @@ mutators:
       # jwks_url: file:///from/this/absolute/location.json
       # jwks_url: file://../from/this/relative/location.json
       ttl: 60s
-      claims: "{\"aud\": [\"https://my-backend-service/some/endpoint\"],\"def\": \"{{ print .Extra.some.arbitrary.data }}\"}"
+      claims:
+        '{"aud": ["https://my-backend-service/some/endpoint"],"def": "{{ print
+        .Extra.some.arbitrary.data }}"}'
 ```
 
 ```yaml
@@ -196,7 +202,9 @@ mutators:
       # jwks_url: file:///from/this/absolute/location.json
       # jwks_url: file://../from/this/relative/location.json
       ttl: 60s
-      claims: "{\"aud\": [\"https://my-backend-service/some/endpoint\"],\"def\": \"{{ print .Extra.some.arbitrary.data }}\"}"
+      claims:
+        '{"aud": ["https://my-backend-service/some/endpoint"],"def": "{{ print
+        .Extra.some.arbitrary.data }}"}'
 ```
 
 The first private key found in the JSON Web Key Set defined by
@@ -212,12 +220,11 @@ The first private key found in the JSON Web Key Set defined by
 
 #### Claims
 
-This mutator allows you to specify custom claims, like the
-audience of ID tokens, via the `claims` field of the mutator's `config` field.
-The keys represent names of claims and the values are arbitrary data structures
-which will be parsed by the Go
-[text/template](https://golang.org/pkg/text/template/) package for value
-substitution, receiving the
+This mutator allows you to specify custom claims, like the audience of ID
+tokens, via the `claims` field of the mutator's `config` field. The keys
+represent names of claims and the values are arbitrary data structures which
+will be parsed by the Go [text/template](https://golang.org/pkg/text/template/)
+package for value substitution, receiving the
 [AuthenticationSession](https://github.com/ory/oathkeeper/blob/92c09fb28552949cd034ed5555c87dfda91407a3/proxy/authenticator.go#L19)
 struct:
 
@@ -306,8 +313,9 @@ the upstream application via the headers. This will augment, for example,
 
 ### Configuration
 
-- `headers` (object (`string: string`), required) - A keyed object (`string:string`) representing the headers
-to be added to this request, see section [headers](#headers).
+- `headers` (object (`string: string`), required) - A keyed object
+  (`string:string`) representing the headers to be added to this request, see
+  section [headers](#headers).
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -404,8 +412,9 @@ the upstream application via the cookies.
 
 ### Configuration
 
-- `cookies` (object (`string: string`), required) - A keyed object (`string:string`) representing the cookies
-to be added to this request, see section [cookies](#cookies).
+- `cookies` (object (`string: string`), required) - A keyed object
+  (`string:string`) representing the cookies to be added to this request, see
+  section [cookies](#cookies).
 
 ```yaml
 # Global configuration file oathkeeper.yml
