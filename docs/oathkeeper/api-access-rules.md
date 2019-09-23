@@ -153,10 +153,13 @@ mutators:
 
 ## Handler configuration
 
-Handlers (Authenticators, Mutators, Authorizers) sometimes require some configuration. The configuration can be defined
-globally as well as per Access Rule. The configuration from the Access Rule is overrides values from the global configuration.
+Handlers (Authenticators, Mutators, Authorizers) sometimes require some
+configuration. The configuration can be defined globally as well as per Access
+Rule. The configuration from the Access Rule is overrides values from the global
+configuration.
 
 **oathkeeper.yml**
+
 ```yaml
 authenticators:
   anonymous:
@@ -166,6 +169,7 @@ authenticators:
 ```
 
 **rule.json**
+
 ```json
 {
   "id": "some-id",
@@ -178,7 +182,9 @@ authenticators:
     "url": "http://my-app/some-route/<.*>",
     "methods": ["GET", "POST"]
   },
-  "authenticators": [{ "handler": "anonymous", "config": {"subject": "anon"} }],
+  "authenticators": [
+    { "handler": "anonymous", "config": { "subject": "anon" } }
+  ],
   "authorizer": { "handler": "allow" },
   "mutators": [{ "handler": "noop" }]
 }
