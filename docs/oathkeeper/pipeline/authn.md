@@ -17,8 +17,8 @@ Each authenticator has two keys:
 
 - `handler` (string, required): Defines the handler (e.g. `noop`) to be used.
 - `config` (object, optional): Configures the handler. Configuration keys vary
-  per handler. The configuration can be defined in the global configuration file,
-  or per access rule.
+  per handler. The configuration can be defined in the global configuration
+  file, or per access rule.
 
 **Example**
 
@@ -132,8 +132,8 @@ unauthorized:
     enabled: true
 ```
 
+### Access Rule Example
 
-###  Access Rule Example
 ```sh
 $ cat ./rules.json
 
@@ -165,8 +165,8 @@ set. If not, it will set the subject to `anonymous`.
 
 ### Configuration
 
-- `subject` (string, optional) - Sets the anonymous username. Defaults to "anonymous".
-Common names include "guest", "anon", "anonymous", "unknown".
+- `subject` (string, optional) - Sets the anonymous username. Defaults to
+  "anonymous". Common names include "guest", "anon", "anonymous", "unknown".
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -190,11 +190,11 @@ authenticators:
       subject: guest
 ```
 
-###  Access Rule Example
+### Access Rule Example
 
 The following rule allows all requests to `GET http://my-app/some-route` and
-sets the subject name to the anonymous username, as long as no `Authorization` header is set
-in the HTTP request:
+sets the subject name to the anonymous username, as long as no `Authorization`
+header is set in the HTTP request:
 
 ```shell
 $ cat ./rules.json
@@ -238,9 +238,11 @@ appropriately.
 
 ### Configuration
 
-- `check_session_url` (string, required) - The session store to forward request method/path/headers to for validation.
-- `only` ([]string, optional) - If set, only requests that have at least one of the set cookies will be forwarded, others will be passed to the next authenticator.
-If unset, all requests are forwarded.
+- `check_session_url` (string, required) - The session store to forward request
+  method/path/headers to for validation.
+- `only` ([]string, optional) - If set, only requests that have at least one of
+  the set cookies will be forwarded, others will be passed to the next
+  authenticator. If unset, all requests are forwarded.
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -250,7 +252,7 @@ authenticators:
     enabled: true
 
     config:
-      check_session_url:  https://session-store-host
+      check_session_url: https://session-store-host
 ```
 
 ```yaml
@@ -266,7 +268,7 @@ authenticators:
         - sessionid
 ```
 
-###  Access Rule Example
+### Access Rule Example
 
 ```shell
 $ cat ./rules.json
@@ -315,9 +317,11 @@ header as the subject for this request.
 
 ### Configuration
 
-- `token_url` (string, required) - The OAuth 2.0 Token Endpoint that will be used to validate the client credentials.
-- `required_scope` ([]string, optional) - Sets what scope is required by the URL and when making performing OAuth
-                                           2.0 Client Credentials request, the scope will be included in the request:
+- `token_url` (string, required) - The OAuth 2.0 Token Endpoint that will be
+  used to validate the client credentials.
+- `required_scope` ([]string, optional) - Sets what scope is required by the URL
+  and when making performing OAuth 2.0 Client Credentials request, the scope
+  will be included in the request:
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -412,18 +416,27 @@ token was granted the requested scope.
 
 ### Configuration
 
-- `introspection_url` (string, required) - The OAuth 2.0 Token Introspection endpoint.
-- `scope_strategy` (string, optional) - Sets the strategy to be used to validate/match the token scope. Supports "hierarchic", "exact", "wildcard", "none". Defaults
-                                             to "none".
-- `required_scope` ([]string, optional) - Sets what scope is required by the URL and when making performing OAuth
-                                          2.0 Client Credentials request, the scope will be included in the request
-- `pre_authorization` (object, optional) - Enable pre-authorization in cases where the OAuth 2.0 Token Introspection endpoint is protected by OAuth 2.0 Bearer
-                                                Tokens that can be retrieved using the OAuth 2.0 Client Credentials grant.
+- `introspection_url` (string, required) - The OAuth 2.0 Token Introspection
+  endpoint.
+- `scope_strategy` (string, optional) - Sets the strategy to be used to
+  validate/match the token scope. Supports "hierarchic", "exact", "wildcard",
+  "none". Defaults to "none".
+- `required_scope` ([]string, optional) - Sets what scope is required by the URL
+  and when making performing OAuth 2.0 Client Credentials request, the scope
+  will be included in the request
+- `pre_authorization` (object, optional) - Enable pre-authorization in cases
+  where the OAuth 2.0 Token Introspection endpoint is protected by OAuth 2.0
+  Bearer Tokens that can be retrieved using the OAuth 2.0 Client Credentials
+  grant.
   - `enabled` (bool, optional) - Enable pre-authorization. Defaults to false.
-  - `client_id` (string, required if enabled) - The OAuth 2.0 Client ID to be used for the OAuth 2.0 Client Credentials Grant.
-  - `client_secret` (string, required if enabled) - The OAuth 2.0 Client Secret to be used for the OAuth 2.0 Client Credentials Grant.
-  - `token_url` (string, required if enabled) - The OAuth 2.0 Scope to be requested during the OAuth 2.0 Client Credentials Grant.
-  - `scope` ([]string, optional) - The OAuth 2.0 Token Endpoint where the OAuth 2.0 Client Credentials Grant will be performed.
+  - `client_id` (string, required if enabled) - The OAuth 2.0 Client ID to be
+    used for the OAuth 2.0 Client Credentials Grant.
+  - `client_secret` (string, required if enabled) - The OAuth 2.0 Client Secret
+    to be used for the OAuth 2.0 Client Credentials Grant.
+  - `token_url` (string, required if enabled) - The OAuth 2.0 Scope to be
+    requested during the OAuth 2.0 Client Credentials Grant.
+  - `scope` ([]string, optional) - The OAuth 2.0 Token Endpoint where the OAuth
+    2.0 Client Credentials Grant will be performed.
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -544,11 +557,13 @@ token is a JSON Web Token and tries to verify the signature of it.
 
 ### Configuration
 
-- `jwks_urls` ([]string, required) - The URLs where ORY Oathkeeper can retrieve JSON Web Keys from for validating the JSON Web
-                                         Token. Usually something like `https://my-keys.com/.well-known/jwks.json`. The response of that endpoint must
-                                         return a JSON Web Key Set (JWKS).
-- `scope_strategy` (string, optional) - Sets the strategy to be used to validate/match the scope. Supports "hierarchic", "exact", "wildcard", "none". Defaults
-                                             to "none".
+- `jwks_urls` ([]string, required) - The URLs where ORY Oathkeeper can retrieve
+  JSON Web Keys from for validating the JSON Web Token. Usually something like
+  `https://my-keys.com/.well-known/jwks.json`. The response of that endpoint
+  must return a JSON Web Key Set (JWKS).
+- `scope_strategy` (string, optional) - Sets the strategy to be used to
+  validate/match the scope. Supports "hierarchic", "exact", "wildcard", "none".
+  Defaults to "none".
 - If `trusted_issuers` ([]string) is set, the JWT must contain a value for claim
   `iss` that matches _exactly_ (case-sensitive) one of the values of
   `trusted_issuers`. If no values are configured, the issuer will be ignored.
@@ -559,8 +574,9 @@ token is a JSON Web Token and tries to verify the signature of it.
   allowed. Defaults to `RS256`.
 - Value `required_scope` ([]string) validates the scope of the JWT. It will
   checks for claims `scp`, `scope`, `scopes` in the JWT when validating the
-  scope as that claim is not standardized.                                             
-                                             
+  scope as that claim is not standardized.  
+
+
 ```yaml
 # Global configuration file oathkeeper.yml
 authenticators:
@@ -581,8 +597,8 @@ authenticators:
         - https://my-service.com/api/users
         - https://my-service.com/api/devices
       trusted_issuers: https://my-issuer.com/
-      allowed_algorithms: 
-      - RS256
+      allowed_algorithms:
+        - RS256
 ```
 
 ```yaml
@@ -605,10 +621,9 @@ authenticators:
         - https://my-service.com/api/users
         - https://my-service.com/api/devices
       trusted_issuers: https://my-issuer.com/
-      allowed_algorithms: 
-      - RS256
+      allowed_algorithms:
+        - RS256
 ```
-
 
 #### Validation example
 
