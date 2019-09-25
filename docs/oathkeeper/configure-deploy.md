@@ -45,12 +45,17 @@ access_rules:
 mutators:
   header:
     enabled: true
+    config:
+      headers:
+        X-User: "{{ print .Subject }}"
+        X-Some-Arbitrary-Data: "{{ print .Extra.some.arbitrary.data }}"   
   noop:
     enabled: true
   id_token:
     enabled: true
-    issuer_url: http://localhost:4455/
-    jwks_url: file:///jwks.json
+    config:
+      issuer_url: http://localhost:4455/
+      jwks_url: file:///jwks.json
 
 authorizers:
   allow:
