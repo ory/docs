@@ -48,7 +48,7 @@ mutators:
     config:
       headers:
         X-User: "{{ print .Subject }}"
-        X-Some-Arbitrary-Data: "{{ print .Extra.some.arbitrary.data }}"   
+        X-Some-Arbitrary-Data: "{{ print .Extra.some.arbitrary.data }}"
   noop:
     enabled: true
   id_token:
