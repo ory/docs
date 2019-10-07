@@ -8037,10 +8037,6 @@ token was not granted one of the scopes, the result of active will be false.
 }
 ```
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-basic, oauth2
-</aside>
 
 #### Code samples
 
