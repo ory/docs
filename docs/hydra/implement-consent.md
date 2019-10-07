@@ -1,12 +1,12 @@
 ---
 id: implementing-consent
-title: Implementing a Login & Consent Provider
-sidebar_label: Implementing consent apps
+title: Implementing Login & Consent UI
+sidebar_label: login and consent UI
 ---
 
 Let's build a simple consent app.
 
-#### OAuth 2.0 Authorize Code Flow
+### OAuth 2.0 Authorize Code Flow
 
 Before anything happens, the OAuth 2.0 Authorize Code Flow is initiated by an
 OAuth 2.0 Client. This usually works by generating a URL in the form of
@@ -15,7 +15,7 @@ Then, the OAuth 2.0 Client points the end user's user agent to that URL.
 
 Next, the user agent (browser) opens that URL.
 
-#### User Login
+### User Login
 
 As the user agent hits the URL, ORY Hydra checks if a session cookie is set
 containing information about a previously successful login. Additionally,
@@ -161,7 +161,7 @@ fetch('https://hydra/oauth2/auth/requests/login/reject?' + querystring.stringify
     })
 ```
 
-#### User Consent
+### User Consent
 
 Now that we know who the user is, we must ask the user if he/she wants to grant
 the requested permissions to the OAuth 2.0 Client. To do so, we check if the
@@ -364,7 +364,7 @@ the high level flow looks as follows:
 
 This endpoint does not remove any Access/Refresh Tokens.
 
-#### Logout Provider Example (NodeJS Pseudo-code)
+### Logout Provider Example (NodeJS Pseudo-code)
 
 Following step 1 from the flow above, the user-agent is redirected to the logout
 provider (e.g. `https://my-logout-provider/logout?challenge=...`). Next, the
@@ -447,7 +447,7 @@ If the logout request was granted and the user agent redirected back to ORY
 Hydra, all OpenID Connect Front-/Back-channel logout flows (if set) will be
 performed and the user will be redirect back to his/her final destination.
 
-#### [OpenID Connect Front-Channel Logout 1.0](https://openid.net/specs/openid-connect-frontchannel-1_0.html)
+### [OpenID Connect Front-Channel Logout 1.0](https://openid.net/specs/openid-connect-frontchannel-1_0.html)
 
 In summary
 ([read the spec](https://openid.net/specs/openid-connect-frontchannel-1_0.html))
@@ -476,7 +476,7 @@ Each OpenID Connect ID Token is issued with a `sid` claim that will match the
 ORY Hydra will automatically execute the required HTTP Redirects to make this
 work. No extra work is required.
 
-#### [OpenID Connect Back-Channel Logout 1.0](https://openid.net/specs/openid-connect-backchannel-1_0.html)
+### [OpenID Connect Back-Channel Logout 1.0](https://openid.net/specs/openid-connect-backchannel-1_0.html)
 
 In summary
 ([read the spec](https://openid.net/specs/openid-connect-backchannel-1_0.html))
@@ -555,9 +555,9 @@ user-agent (e.g. Browser) but from ORY Hydra directly, the session cookie of the
 end-user will not be available to the OAuth 2.0 Client and the session has to be
 invalidated by some other means (e.g. by blacklisting the session ID).
 
-### Revoking consent and login sessions
+## Revoking consent and login sessions
 
-#### Login
+### Login
 
 You can revoke login sessions. Revoking a login session will remove all of the
 user's cookies at ORY Hydra and will require the user to re-authenticate when
@@ -570,7 +570,7 @@ Revoking the login sessions of a user is as easy as sending
 This endpoint is not compatible with OpenID Connect Front-/Backchannel logout
 and does not revoke any tokens.
 
-#### Consent
+### Consent
 
 You can revoke a user's consent either on a per application basis or for all
 applications. Revoking the consent will automatically revoke all related access
@@ -700,12 +700,12 @@ You can manage _OAuth 2.0 clients_ using the cli or the HTTP REST API:
 - **CLI:** `hydra help clients`
 - **REST:** Read the [API Docs](https://www.ory.sh/docs/hydra/sdk/api)
 
-#### Examples
+## Examples
 
 This section provides a few examples to get you started with the most-used OAuth
 2.0 Clients:
 
-##### Authorize Code Flow with Refresh Token
+### Authorize Code Flow with Refresh Token
 
 The following command creates an OAuth 2.0 Client capable of executing the
 Authorize Code Flow, requesting ID and Refresh Tokens and performing the OAuth
@@ -739,7 +739,7 @@ The same can be achieved by setting
 `"token_endpoint_auth_method": "client_secret_post"` in the the request body of
 `POST /clients` and `PUT /clients/<id>`.
 
-##### Client Credentials Flow
+### Client Credentials Flow
 
 A client only capable of performing the Client Credentials Flow can be created
 as follows:
