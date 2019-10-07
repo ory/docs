@@ -45,12 +45,17 @@ access_rules:
 mutators:
   header:
     enabled: true
+    config:
+      headers:
+        X-User: "{{ print .Subject }}"
+        X-Some-Arbitrary-Data: "{{ print .Extra.some.arbitrary.data }}"
   noop:
     enabled: true
   id_token:
     enabled: true
-    issuer_url: http://localhost:4455/
-    jwks_url: file:///jwks.json
+    config:
+      issuer_url: http://localhost:4455/
+      jwks_url: file:///jwks.json
 
 authorizers:
   allow:
@@ -103,14 +108,16 @@ $ cat << EOF > rules.json
     "authorizer": {
       "handler": "allow"
     },
-    "mutator": {
-      "handler": "header",
-      "config": {
-        "headers": {
-          "X-User": "{{ print .Subject }}"
+    "mutators": [
+      {
+        "handler": "header",
+        "config": {
+          "headers": {
+            "X-User": "{{ print .Subject }}"
+          }
         }
       }
-    }
+    ]
   },
   {
     "id": "deny-anonymous",
@@ -131,9 +138,11 @@ $ cat << EOF > rules.json
     "authorizer": {
       "handler": "deny"
     },
-    "mutator": {
-      "handler": "noop"
-    }
+    "mutators": [
+      {
+        "handler": "noop"
+      }
+    ]
   },
   {
     "id": "allow-anonymous-with-id-token-mutator",
@@ -154,9 +163,11 @@ $ cat << EOF > rules.json
     "authorizer": {
       "handler": "allow"
     },
-    "mutator": {
-      "handler": "id_token"
-    }
+    "mutators": [
+      {
+        "handler": "id_token"
+      }
+    ]
   }
 ]
 EOF
@@ -171,7 +182,7 @@ HS256, ...). Let's generate a key for the RS256 algorithm that will be used by
 the id_token mutator:
 
 ```sh
-$ docker run oryd/oathkeeper:v0.16.0-beta.5 credentials generate --alg RS256 > jwks.json
+$ docker run oryd/oathkeeper:v0.19.0-beta.1 credentials generate --alg RS256 > jwks.json
 ```
 
 ### Dockerfile
@@ -181,7 +192,7 @@ files to the image:
 
 ```shell
 $ cat << EOF > Dockerfile
-FROM oryd/oathkeeper:v0.16.0-beta.5
+FROM oryd/oathkeeper:v0.19.0-beta.1
 
 ADD config.yaml /config.yaml
 ADD rules.json /rules.json
@@ -199,7 +210,7 @@ Before building the Docker Image, we need to make sure that the local ORY
 Oathkeeper Docker Image is on the most recent version:
 
 ```sh
-$ docker pull oryd/oathkeeper:v0.16.0-beta.5
+$ docker pull oryd/oathkeeper:v0.19.0-beta.1
 ```
 
 Next we will build our custom Docker Image

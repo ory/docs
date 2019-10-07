@@ -33,18 +33,21 @@ It is not possible to configure more than one authorizer per Access Rule.
 
 This authorizer considers every action authorized.
 
-### Global Configuration
+### Configuration
 
-This handler is not configurable except from dis-/enabling:
+This handler is not configurable.
+
+To enable this handler, set:
 
 ```yaml
+# Global configuration file oathkeeper.yml
 authorizers:
   allow:
     # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
     enabled: true
 ```
 
-### Example
+### Access Rule Example
 
 ```sh
 $ cat ./rules.json
@@ -62,7 +65,7 @@ $ cat ./rules.json
   },
   "authenticators": [{ "handler": "anonymous" }],
   "authorizer": { "handler": "allow" },
-  "mutator": { "handler": "noop" }
+  "mutators": [{ "handler": "noop" }]
 }]
 
 $ curl -X GET http://my-app/some-route
@@ -76,18 +79,21 @@ The request has been allowed!
 This authorizer considers every action unauthorized ("forbidden" /
 "disallowed").
 
-### Global Configuration
+### Configuration
 
-This handler is not configurable except from dis-/enabling:
+This handler is not configurable.
+
+To enable this handler, set:
 
 ```yaml
+# Global configuration file oathkeeper.yml
 authorizers:
   deny:
     # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
     enabled: true
 ```
 
-### Example
+### Access Rule Example
 
 ```sh
 $ cat ./rules.json
@@ -105,7 +111,7 @@ $ cat ./rules.json
   },
   "authenticators": [{ "handler": "anonymous" }],
   "authorizer": { "handler": "deny" },
-  "mutator": { "handler": "noop" }
+  "mutators": [{ "handler": "noop" }]
 }]
 
 $ curl -X GET http://my-app/some-route
@@ -120,19 +126,16 @@ This authorizer uses the ORY Keto API to perform access control using
 ORY-flavored Access Control Policies. Please familiarize yourself with the ORY
 Keto project before you set up this authorizer.
 
-### Global Configuration
+### Configuration
 
-```yaml
-authorizers:
-  keto_engine_acp_ory:
-    # Set enabled to true if the authorizer should be enabled and false to disable the authorizer. Defaults to false.
-    enabled: true
+- `base_url` (string, required) - The base URL of ORY Keto, typically something
+  like http(s)://<host>[:<port>]/
+- `required_action` (string, required) - See section below.
+- `required_resource` (string, required) - See section below.
+- `subject` (string, optional) - See section below.
+- `flavor` (string, optional) - See section below.
 
-    # REQUIRED IF ENABLED - The base URL of ORY Keto, typically something like http(s)://<host>[:<port>]/
-    base_url: http://my-keto/
-```
-
-### Per-Rule Configuration
+#### Resource, Action, Subject
 
 This authorizer has four configuration options, `required_action`,
 `required_resource`, `subject`, and `flavor`:
@@ -218,7 +221,39 @@ If you find that your headers contain the string `<no value>` then you have most
 likely omitted the `print` function, and it is recommended you use it for all
 values out of an abundance of caution and for consistency.
 
-### Example
+#### Example
+
+```yaml
+# Global configuration file oathkeeper.yml
+authorizers:
+  keto_engine_acp_ory:
+    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+    enabled: true
+
+    config:
+      base_url: http://my-keto/
+      required_action: ...
+      required_resource: ...
+      subject: ...
+      flavor: ...
+```
+
+```yaml
+# Some Access Rule: access-rule-1.yaml
+id: access-rule-1
+# match: ...
+# upstream: ...
+authorizers:
+  - handler: keto_engine_acp_ory
+    config:
+      base_url: http://my-keto/
+      required_action: ...
+      required_resource: ...
+      subject: ...
+      flavor: ...
+```
+
+### Access Rule Example
 
 ```shell
 $ cat ./rules.json
@@ -248,8 +283,10 @@ $ cat ./rules.json
       "flavor": "exact"
     }
   }
-  "mutator": {
-    "handler": "noop"
-  }
+  "mutators": [
+    {
+      "handler": "noop"
+    }
+  ]
 }]
 ```

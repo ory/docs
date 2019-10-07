@@ -32,5 +32,6 @@ This is a list of those.
   - [ORY Hydra Middleware for Gin (Go)](https://github.com/janekolszak/gin-hydra)
   - [Python login/consent provider example](https://github.com/westphahl/hydra-login-consent-python)
   - [Golang login/consent provider and Ory stack example](https://github.com/piensa/logico)
+  - [Golang login/consent provider using Authboss user/password authentication](https://github.com/nbycomp/login-consent)
 
 Want your own content here? Create a PR!

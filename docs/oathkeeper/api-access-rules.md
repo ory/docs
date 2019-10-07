@@ -101,12 +101,12 @@ Access Rules have four principal keys:
   For example, you could check if the subject ("user") is part of the "admin"
   group or if he/she has permission to perform that action. For the full list of
   available authorizers, click [here](pipeline/authz.md).
-- `mutator`: Transform the HTTP request before forwarding it. A common use case
-  is generating a new set of credentials (e.g. JWT) which then will be forwarded
-  to the upstream server. When using ORY Oathkeeper's Decision API, it is
-  expected that the API Gateway forwards the mutated HTTP Headers to the
-  upstream server. For the full list of available mutators, click
-  [here](pipeline/mutator.md).
+- `mutators`: A list of mutation handlers that transform the HTTP request before
+  forwarding it. A common use case is generating a new set of credentials (e.g.
+  JWT) which then will be forwarded to the upstream server. When using ORY
+  Oathkeeper's Decision API, it is expected that the API Gateway forwards the
+  mutated HTTP Headers to the upstream server. For the full list of available
+  mutators, click [here](pipeline/mutator.md).
 
 **Examples**
 
@@ -126,7 +126,7 @@ Rule in JSON format:
   },
   "authenticators": [{ "handler": "noop" }],
   "authorizer": { "handler": "allow" },
-  "mutator": { "handler": "noop" }
+  "mutators": [{ "handler": "noop" }]
 }
 ```
 
@@ -147,8 +147,47 @@ authenticators:
   - handler: noop
 authorizer:
   hander: allow
-mutator:
-  handler: noop
+mutators:
+  - handler: noop
+```
+
+## Handler configuration
+
+Handlers (Authenticators, Mutators, Authorizers) sometimes require some
+configuration. The configuration can be defined globally as well as per Access
+Rule. The configuration from the Access Rule is overrides values from the global
+configuration.
+
+**oathkeeper.yml**
+
+```yaml
+authenticators:
+  anonymous:
+    enabled: true
+    config:
+      subject: anon
+```
+
+**rule.json**
+
+```json
+{
+  "id": "some-id",
+  "upstream": {
+    "url": "http://my-backend-service",
+    "preserve_host": true,
+    "strip_path": "/api/v1"
+  },
+  "match": {
+    "url": "http://my-app/some-route/<.*>",
+    "methods": ["GET", "POST"]
+  },
+  "authenticators": [
+    { "handler": "anonymous", "config": { "subject": "anon" } }
+  ],
+  "authorizer": { "handler": "allow" },
+  "mutators": [{ "handler": "noop" }]
+}
 ```
 
 ## Scoped Credentials

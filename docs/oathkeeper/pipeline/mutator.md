@@ -19,18 +19,26 @@ This mutator does not transform the HTTP request and simply forwards the headers
 as-is. This is useful if you don't want to replace, for example,
 `Authorization: basic` with `X-User: <subject-id>`.
 
-### Global Configuration
-
-This handler is not configurable except from dis-/enabling:
+### Configuration
 
 ```yaml
+# Global configuration file oathkeeper.yml
 mutators:
   noop:
     # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
     enabled: true
 ```
 
-### Example
+```yaml
+# Some Access Rule: access-rule-1.yaml
+id: access-rule-1
+# match: ...
+# upstream: ...
+mutators:
+  - handler: noop
+```
+
+### Access Rule Example
 
 ```shell
 $ cat ./rules.json
@@ -53,9 +61,11 @@ $ cat ./rules.json
   "authorizer": {
     "handler": "allow"
   },
-  "mutator": {
-    "handler": "noop"
-  }
+  "mutators": [
+    {
+      "handler": "noop"
+    }
+  ]
 }
 
 $ curl -X GET http://my-app/some-route
@@ -151,23 +161,50 @@ The ID Token Claims are as follows:
 
 ### Global Configuration
 
+### Configuration
+
+- `issuer_url` (string, required) - Sets the "iss" value of the ID Token.
+- `jwks_url` (string, required) - Sets the URL where keys should be fetched
+  from. Supports remote locations (http, https) as well as local filesystem
+  paths.
+- `ttl` (string, optional) - Sets the time-to-live of the ID token. Defaults to
+  one minute. Valid time units are: s (second), m (minute), h (hour).
+- `claims` (string, optional) - Allows you to customize the ID Token claims and
+  support Go Templates. For more information, check section [Claims](#claims)
+
 ```yaml
+# Global configuration file oathkeeper.yml
 mutators:
   id_token:
-    # Set enabled to true if the mutator should be enabled and false to disable the mutator. Defaults to false.
+    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
     enabled: true
+    config:
+      issuer_url: https://my-oathkeeper/
+      jwks_url: https://fetch-keys/from/this/location.json
+      # jwks_url: file:///from/this/absolute/location.json
+      # jwks_url: file://../from/this/relative/location.json
+      ttl: 60s
+      claims:
+        '{"aud": ["https://my-backend-service/some/endpoint"],"def": "{{ print
+        .Extra.some.arbitrary.data }}"}'
+```
 
-    # REQUIRED IF ENABLED - Sets the "iss" value of the ID Token.
-    issuer_url: https://my-oathkeeper/
-
-    # REQUIRED IF ENABLED - Sets the URL where keys should be fetched from. Supports remote locations (http, https) as
-    # well as local filesystem paths.
-    jwks_url: https://fetch-keys/from/this/location.json
-    # jwks_url: file:///from/this/absolute/location.json
-    # jwks_url: file://../from/this/relative/location.json
-
-    # Sets the time-to-live of the ID token. Defaults to one minute. Valid time units are: s (second), m (minute), h (hour).
-    ttl: 60s
+```yaml
+# Some Access Rule: access-rule-1.yaml
+id: access-rule-1
+# match: ...
+# upstream: ...
+mutators:
+  - handler: id_token
+    config:
+      issuer_url: https://my-oathkeeper/
+      jwks_url: https://fetch-keys/from/this/location.json
+      # jwks_url: file:///from/this/absolute/location.json
+      # jwks_url: file://../from/this/relative/location.json
+      ttl: 60s
+      claims:
+        '{"aud": ["https://my-backend-service/some/endpoint"],"def": "{{ print
+        .Extra.some.arbitrary.data }}"}'
 ```
 
 The first private key found in the JSON Web Key Set defined by
@@ -181,21 +218,56 @@ The first private key found in the JSON Web Key Set defined by
   ...), that key will be used. The related public key will be broadcasted at
   `/.well-known/jwks.json`.
 
-### Per-Rule Configuration
+#### Claims
 
-Additionally, this mutator allows you to specify the audience of the ID token
-per access rule. Setting the audience is optional:
+This mutator allows you to specify custom claims, like the audience of ID
+tokens, via the `claims` field of the mutator's `config` field. The keys
+represent names of claims and the values are arbitrary data structures which
+will be parsed by the Go [text/template](https://golang.org/pkg/text/template/)
+package for value substitution, receiving the
+[AuthenticationSession](https://github.com/ory/oathkeeper/blob/92c09fb28552949cd034ed5555c87dfda91407a3/proxy/authenticator.go#L19)
+struct:
+
+```go
+type AuthenticationSession struct {
+	Subject string
+	Extra   map[string]interface{}
+	Header  http.Header
+}
+```
+
+Note that the `AuthenticationSession` struct has a field named `Extra` which is
+a `map[string]interface{}`, which receives varying introspection data from the
+authentication process. Because the contents of `Extra` are so variable, nested
+and potentially non-existent values need special handling by the `text/template`
+parser, and a `print` FuncMap function has been provided to ensure that
+non-existent map values will simply return an empty string, rather than
+`<no value>`.
+
+If you find that your claims contain the string `<no value>` then you have most
+likely omitted the `print` function, and it is recommended you use it for all
+values out of an abundance of caution and for consistency.
+
+The claims configuration expects a string which is expected to be valid JSON.
+The string can contain [Golang Template](https://golang.org/pkg/text/template/)
+instructions allowing you to programmatically generate the claims string:
 
 ```json
 {
   "handler": "id_token",
   "config": {
-    "aud": ["https://my-backend-service/some/endpoint"]
+    "claims": "{\"aud\": [\"https://my-backend-service/some/endpoint\"],\"def\": \"{{ print .Extra.some.arbitrary.data }}\"}"
   }
 }
 ```
 
-### Example
+This also supports [sprig](http://masterminds.github.io/sprig/) template helpers
+for more advanced functionality.
+
+Please keep in mind that certain keys (such as the `sub`) claim **can not** be
+overwritten!
+
+### Access Rule Example
 
 ```shell
 $ cat ./rules.json
@@ -218,15 +290,18 @@ $ cat ./rules.json
   "authorizer": {
     "handler": "allow"
   },
-  "mutator": {
-    "handler": "id_token",
-    "config": {
-      "aud": [
-        "audience-1",
-        "audience-2"
-      ]
+  "mutators": [
+    {
+      "handler": "id_token",
+      "config": {
+        "aud": [
+          "audience-1",
+          "audience-2"
+        ],
+        "claims": "{\"abc\": \"{{ print .Subject }}\",\"def\": \"{{ print .Extra.some.arbitrary.data }}\"}"
+      }
     }
-  }
+  ]
 }
 ```
 
@@ -236,30 +311,51 @@ This mutator will transform the request, allowing you to pass the credentials to
 the upstream application via the headers. This will augment, for example,
 `Authorization: basic` with `X-User: <subject-id>`.
 
-### Global Configuration
+### Configuration
 
-This handler is not configurable except from dis-/enabling:
+- `headers` (object (`string: string`), required) - A keyed object
+  (`string:string`) representing the headers to be added to this request, see
+  section [headers](#headers).
 
 ```yaml
+# Global configuration file oathkeeper.yml
 mutators:
   header:
     # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
     enabled: true
+    config:
+      headers:
+        X-User: "{{ print .Subject }}",
+        X-Some-Arbitrary-Data: "{{ print .Extra.some.arbitrary.data }}"
 ```
 
-### Per-Rule Configuration
+```yaml
+# Some Access Rule: access-rule-1.yaml
+id: access-rule-1
+# match: ...
+# upstream: ...
+mutators:
+  - handler: header
+    config:
+      headers:
+        X-User: "{{ print .Subject }}",
+        X-Some-Arbitrary-Data: "{{ print .Extra.some.arbitrary.data }}"
+```
+
+#### Headers
 
 The headers are specified via the `headers` field of the mutator's `config`
 field. The keys are the header name and the values are a string which will be
 parsed by the Go [`text/template`](https://golang.org/pkg/text/template/)
 package for value substitution, receiving the
-[`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/92c09fb28552949cd034ed5555c87dfda91407a3/proxy/authenticator.go#L19)
+[`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/d21179dd25543662075be402f6e24e1ee20d2754/pipeline/authn/authenticator.go#L26)
 struct:
 
 ```go
 type AuthenticationSession struct {
     Subject string
     Extra   map[string]interface{}
+    Header  http.Header
 }
 ```
 
@@ -275,7 +371,7 @@ If you find that your headers contain the string `<no value>` then you have most
 likely omitted the `print` function, and it is recommended you use it for all
 values out of an abundance of caution and for consistency.
 
-### Example
+### Access Rule Example
 
 ```json
 {
@@ -295,15 +391,17 @@ values out of an abundance of caution and for consistency.
   "authorizer": {
     "handler": "allow"
   },
-  "mutator": {
-    "handler": "headers",
-    "config": {
-      "headers": {
-        "X-User": "{{ print .Subject }}",
-        "X-Some-Arbitrary-Data": "{{ print .Extra.some.arbitrary.data }}"
+  "mutators": [
+    {
+      "handler": "header",
+      "config": {
+        "headers": {
+          "X-User": "{{ print .Subject }}",
+          "X-Some-Arbitrary-Data": "{{ print .Extra.some.arbitrary.data }}"
+        }
       }
     }
-  }
+  ]
 }
 ```
 
@@ -312,38 +410,59 @@ values out of an abundance of caution and for consistency.
 This mutator will transform the request, allowing you to pass the credentials to
 the upstream application via the cookies.
 
-### Global Configuration
+### Configuration
 
-This handler is not configurable except from dis-/enabling:
+- `cookies` (object (`string: string`), required) - A keyed object
+  (`string:string`) representing the cookies to be added to this request, see
+  section [cookies](#cookies).
 
 ```yaml
+# Global configuration file oathkeeper.yml
 mutators:
   cookie:
     # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
     enabled: true
+    config:
+      cookies:
+        user: "{{ print .Subject }}",
+        some-arbitrary-data: "{{ print .Extra.some.arbitrary.data }}"
 ```
 
-### Per-Rule Configuration
+```yaml
+# Some Access Rule: access-rule-1.yaml
+id: access-rule-1
+# match: ...
+# upstream: ...
+mutators:
+  - handler: cookie
+    config:
+      cookies:
+        user: "{{ print .Subject }}",
+        some-arbitrary-data: "{{ print .Extra.some.arbitrary.data }}"
+```
+
+### Cookies
 
 The cookies are specified via the `cookies` field of the mutators `config`
 field. The keys are the cookie name and the values are a string which will be
 parsed by the Go [`text/template`](https://golang.org/pkg/text/template/)
 package for value substitution, receiving the
-[AuthenticationSession](https://github.com/ory/oathkeeper/blob/92c09fb28552949cd034ed5555c87dfda91407a3/proxy/authenticator.go#L19)
+[AuthenticationSession](https://github.com/ory/oathkeeper/blob/d21179dd25543662075be402f6e24e1ee20d2754/pipeline/authn/authenticator.go#L26)
 struct:
 
 ```go
 type AuthenticationSession struct {
     Subject string
     Extra   map[string]interface{}
+    Header  http.Header
 }
 ```
 
-Note that the `AuthenticationSession` struct has a field name `Extra` which is a
-`map[string]interface{}`, which receives varying introspection data from the
+Note that the `AuthenticationSession` struct has a field named `Extra` which is
+a `map[string]interface{}`, which receives varying introspection data from the
 authentication process. Because the contents of `Extra` are so variable, nested
 and potentially non-existent values need special handling by the `text/template`
-parser, and a `print` FuncMap function has been provided to ensure the
+parser, and a `print` FuncMap function has been provided to ensure that
 non-existent map values will simply return an empty string, rather than
 `<no value>`.
 
@@ -371,14 +490,141 @@ values out of an abundance of caution and for consistency.
   "authorizer": {
     "handler": "allow"
   },
-  "mutator": {
-    "handler": "cookies",
-    "config": {
-      "cookies": {
-        "user": "{{ print .Subject }}",
-        "some-arbitrary-data": "{{ print .Extra.some.arbitrary.data }}"
+  "mutators": [
+    {
+      "handler": "cookie",
+      "config": {
+        "cookies": {
+          "user": "{{ print .Subject }}",
+          "some-arbitrary-data": "{{ print .Extra.some.arbitrary.data }}"
+        }
       }
     }
+  ]
+}
+```
+
+## `hydrator`
+
+This mutator allows for fetching additional data from external APIs, which can
+be then used by other mutators. It works by making an upstream HTTP call to an
+API specified in the **Per-Rule Configuration** section below. The request is a
+POST request and it contains JSON representation of
+[AuthenticationSession](https://github.com/ory/oathkeeper/blob/d21179dd25543662075be402f6e24e1ee20d2754/pipeline/authn/authenticator.go#L26)
+struct in body, which is:
+
+```json
+{
+  "subject": String,
+  "extra": Object,
+  "header": Object
+}
+```
+
+As a response the mutator expects similiar JSON object, but with `extra` or
+`header` fields modified.
+
+Example request/response payload:
+
+```json
+{
+  "subject": "anonymous",
+  "extra": {
+    "foo": "bar"
+  },
+  "header": {
+    "foo": ["bar1", "bar2"]
   }
+}
+```
+
+The AuthenticationSession from this object replaces the original one and is
+passed to the next mutator, where it can be used to e.g. set a particular cookie
+to the value received from an API.
+
+Setting `extra` field does not transform the HTTP request, whereas headers set
+in the `header` field will be added to the final request headers.
+
+### Configuration
+
+- `api.url` (string - required) - The API URL.
+- `api.auth.basic.*` (optional) - Enables HTTP Basic Authorization.
+- `api.auth.retry.*` (optional) - Configures the retry logic.
+
+```yaml
+# Global configuration file oathkeeper.yml
+mutators:
+  hydrator:
+    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+    enabled: true
+    config:
+      api:
+        url: http://my-backend-api
+        auth:
+          basic:
+            username: someUserName
+            password: 50m3P455w0rd
+        retry:
+          number_of_retries: 5
+          delay_in_milliseconds: 1000
+```
+
+```yaml
+# Some Access Rule: access-rule-1.yaml
+id: access-rule-1
+# match: ...
+# upstream: ...
+mutators:
+  - handler: hydrator
+    config:
+      api:
+        url: http://my-backend-api
+        auth:
+          basic:
+            username: someUserName
+            password: 50m3P455w0rd
+        retry:
+          number_of_retries: 5
+          delay_in_milliseconds: 1000
+```
+
+### Access Rule Example
+
+```json
+{
+  "id": "some-id",
+  "upstream": {
+    "url": "http://my-backend-service"
+  },
+  "match": {
+    "url": "http://my-app/api/<.*>",
+    "methods": ["GET"]
+  },
+  "authenticators": [
+    {
+      "handler": "anonymous"
+    }
+  ],
+  "authorizer": {
+    "handler": "allow"
+  },
+  "mutators": [
+    {
+      "handler": "hydrator",
+      "config": {
+        "api": {
+          "url": "http://my-backend-api"
+        }
+      }
+    },
+    {
+      "handler": "cookie",
+      "config": {
+        "cookies": {
+          "some-arbitrary-data": "{{ print .Extra.cookie }}"
+        }
+      }
+    }
+  ]
 }
 ```

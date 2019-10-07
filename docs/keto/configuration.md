@@ -52,9 +52,9 @@ title: Configuration
 #     something_else: foobar
 #
 # Key `something_else` can be set as an environment variable by uppercasing it's path:
-#   `serve.public.port.something_else` -> `SERVE.PUBLIC.PORT.SOMETHING_ELSE`
+#   `serve.public.port.somethihng_else` -> `SERVE.PUBLIC.PORT.SOMETHING_ELSE`
 # and replacing `.` with `_`:
-#   `serve.public.port.something_else` -> `SERVE_PUBLIC_PORT_SOMETHING_ELSE`
+#   `serve.public.port.somethihng_else` -> `SERVE_PUBLIC_PORT_SOMETHING_ELSE`
 #
 # Environment variables always override values from the configuration file. Here are some more examples:
 #

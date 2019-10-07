@@ -56,7 +56,7 @@ serve:
     # - Windows Command Line (CMD):
     #    > set SERVE_API_HOST=<value>
     #
-    host: ''
+    host: localhost
 
     ## Cross Origin Resource Sharing (CORS) ##
     #
@@ -79,7 +79,7 @@ serve:
 
       ## Allowed Origins ##
       #
-      # A list of origins a cross-domain request can be executed from. If the special * value is present in the list, all origins will be allowed. An origin may contain a wildcard (*) to replace 0 or more characters (i.e.: http://*.domain.com). Usage of wildcards implies a small performance penalty. Only one wildcard can be used per origin.
+      # A list of origins a cross-domain request can be executed from. If the special * value is present in the list, all origins will be allowed. An origin may contain a wildcard (*) to replace 0 or more characters (i.e.: http://*.domain.com). Usage of wildcards implies a small performance penality. Only one wildcard can be used per origin.
       #
       # Default value: *
       #
@@ -242,7 +242,7 @@ serve:
     # - Windows Command Line (CMD):
     #    > set SERVE_PROXY_HOST=<value>
     #
-    host: ''
+    host: localhost
 
     ## HTTP Timeouts ##
     #
@@ -266,7 +266,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_TIMEOUT_READ=<value>
       #
-      read: 5h
+      read: 5m
 
       ## HTTP Write Timeout ##
       #
@@ -285,7 +285,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_TIMEOUT_WRITE=<value>
       #
-      write: 5h
+      write: 5s
 
       ## HTTP Idle Timeout ##
       #
@@ -327,7 +327,7 @@ serve:
 
       ## Allowed Origins ##
       #
-      # A list of origins a cross-domain request can be executed from. If the special * value is present in the list, all origins will be allowed. An origin may contain a wildcard (*) to replace 0 or more characters (i.e.: http://*.domain.com). Usage of wildcards implies a small performance penalty. Only one wildcard can be used per origin.
+      # A list of origins a cross-domain request can be executed from. If the special * value is present in the list, all origins will be allowed. An origin may contain a wildcard (*) to replace 0 or more characters (i.e.: http://*.domain.com). Usage of wildcards implies a small performance penality. Only one wildcard can be used per origin.
       #
       # Default value: *
       #
@@ -342,7 +342,8 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_CORS_ALLOWED_ORIGINS=<value>
       #
-      allowed_origins: https://*.foo.example.com
+      allowed_origins:
+        - '*'
 
       ## Allowed HTTP Methods ##
       #
@@ -493,72 +494,157 @@ authenticators:
   # The [`anonymous` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#anonymous).
   #
   anonymous:
-    ## Enabled ##
+    ## title ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
-    #    $ export AUTHENTICATORS_ANONYMOUS_ENABLED=<value>
+    #    $ export AUTHENTICATORS_ANONYMOUS_TITLE=<value>
     # - Windows Command Line (CMD):
-    #    > set AUTHENTICATORS_ANONYMOUS_ENABLED=<value>
+    #    > set AUTHENTICATORS_ANONYMOUS_TITLE=<value>
     #
-    enabled: true
+    title: Anonymous
 
-    ## Anonymous Subject ##
-    #
-    # Sets the anonymous username.
-    #
-    # Default value: anonymous
-    #
-    # Examples:
-    # - guest
-    # - anon
-    # - anonymous
-    # - unknown
+    ## description ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
-    #    $ export AUTHENTICATORS_ANONYMOUS_SUBJECT=<value>
+    #    $ export AUTHENTICATORS_ANONYMOUS_DESCRIPTION=<value>
     # - Windows Command Line (CMD):
-    #    > set AUTHENTICATORS_ANONYMOUS_SUBJECT=<value>
+    #    > set AUTHENTICATORS_ANONYMOUS_DESCRIPTION=<value>
     #
-    subject: anonymous
+    description:
+      The [`anonymous`
+      authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#anonymous).
+
+    ## enabled ##
+    #
+    enabled:
+      ## enabled ##
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export AUTHENTICATORS_ANONYMOUS_ENABLED_ENABLED=<value>
+      # - Windows Command Line (CMD):
+      #    > set AUTHENTICATORS_ANONYMOUS_ENABLED_ENABLED=<value>
+      #
+      enabled: false
+
+    ## config ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_ANONYMOUS_CONFIG=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_ANONYMOUS_CONFIG=<value>
+    #
+    config: {}
 
   ## No Operation (noop) ##
   #
   # The [`noop` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#noop).
   #
   noop:
-    ## Enabled ##
+    ## title ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
-    #    $ export AUTHENTICATORS_NOOP_ENABLED=<value>
+    #    $ export AUTHENTICATORS_NOOP_TITLE=<value>
     # - Windows Command Line (CMD):
-    #    > set AUTHENTICATORS_NOOP_ENABLED=<value>
+    #    > set AUTHENTICATORS_NOOP_TITLE=<value>
     #
-    enabled: false
+    title: No Operation (noop)
+
+    ## description ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_NOOP_DESCRIPTION=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_NOOP_DESCRIPTION=<value>
+    #
+    description:
+      The [`noop`
+      authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#noop).
+
+    ## enabled ##
+    #
+    enabled:
+      ## enabled ##
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export AUTHENTICATORS_NOOP_ENABLED_ENABLED=<value>
+      # - Windows Command Line (CMD):
+      #    > set AUTHENTICATORS_NOOP_ENABLED_ENABLED=<value>
+      #
+      enabled: false
+
+    ## config ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_NOOP_CONFIG=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_NOOP_CONFIG=<value>
+    #
+    config: {}
 
   ## Unauthorized ##
   #
   # The [`unauthorized` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#unauthorized).
   #
   unauthorized:
-    ## Enabled ##
+    ## title ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
-    #    $ export AUTHENTICATORS_UNAUTHORIZED_ENABLED=<value>
+    #    $ export AUTHENTICATORS_UNAUTHORIZED_TITLE=<value>
     # - Windows Command Line (CMD):
-    #    > set AUTHENTICATORS_UNAUTHORIZED_ENABLED=<value>
+    #    > set AUTHENTICATORS_UNAUTHORIZED_TITLE=<value>
     #
-    enabled: true
+    title: Unauthorized
+
+    ## description ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_UNAUTHORIZED_DESCRIPTION=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_UNAUTHORIZED_DESCRIPTION=<value>
+    #
+    description:
+      The [`unauthorized`
+      authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#unauthorized).
+
+    ## enabled ##
+    #
+    enabled:
+      ## enabled ##
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export AUTHENTICATORS_UNAUTHORIZED_ENABLED_ENABLED=<value>
+      # - Windows Command Line (CMD):
+      #    > set AUTHENTICATORS_UNAUTHORIZED_ENABLED_ENABLED=<value>
+      #
+      enabled: false
+
+    ## config ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_UNAUTHORIZED_CONFIG=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_UNAUTHORIZED_CONFIG=<value>
+    #
+    config: {}
 
   ## Cookie Session ##
   #
   # The [`cookie_session` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#cookie_session).
   #
   cookie_session:
-    ## Enabled ##
+    ## enabled ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
@@ -568,43 +654,12 @@ authenticators:
     #
     enabled: true
 
-    ## Session Check URL ##
-    #
-    # The origin to proxy requests to. If the response is a 200 with body `{ "subject": "...", "extra": {} }`. The request will pass the subject through successfully, otherwise it will be marked as unauthorized.
-    #
-    # >If this authenticator is enabled, this value is required.
-    #
-    # Examples:
-    # - https://session-store-host
-    #
-    # Set this value using environment variables on
-    # - Linux/macOS:
-    #    $ export AUTHENTICATORS_COOKIE_SESSION_CHECK_SESSION_URL=<value>
-    # - Windows Command Line (CMD):
-    #    > set AUTHENTICATORS_COOKIE_SESSION_CHECK_SESSION_URL=<value>
-    #
-    check_session_url: https://session-store-host
-
-    ## Only Cookies ##
-    #
-    # A list of possible cookies to look for on incoming requests, and will fallthrough to the next authenticator if none of the passed cookies are set on the request.
-    #
-    # Set this value using environment variables on
-    # - Linux/macOS:
-    #    $ export AUTHENTICATORS_COOKIE_SESSION_ONLY=<value>
-    # - Windows Command Line (CMD):
-    #    > set AUTHENTICATORS_COOKIE_SESSION_ONLY=<value>
-    #
-    only:
-      - minim ex sit fugiat laborum
-      - mollit cupidatat laborum
-
   ## JSON Web Token (jwt) ##
   #
   # The [`jwt` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#jwt).
   #
   jwt:
-    ## Enabled ##
+    ## enabled ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
@@ -612,47 +667,14 @@ authenticators:
     # - Windows Command Line (CMD):
     #    > set AUTHENTICATORS_JWT_ENABLED=<value>
     #
-    enabled: true
-
-    ## JSON Web Key URLs ##
-    #
-    # URLs where ORY Oathkeeper can retrieve JSON Web Keys from for validating the JSON Web Token. Usually something like "https://my-keys.com/.well-known/jwks.json". The response of that endpoint must return a JSON Web Key Set (JWKS).
-    #
-    # >If this authenticator is enabled, this value is required.
-    #
-    # Examples:
-    # - https://my-website.com/.well-known/jwks.json
-    # - https://my-other-website.com/.well-known/jwks.json
-    # - file://path/to/local/jwks.json
-    #
-    # Set this value using environment variables on
-    # - Linux/macOS:
-    #    $ export AUTHENTICATORS_JWT_JWKS_URLS=<value>
-    # - Windows Command Line (CMD):
-    #    > set AUTHENTICATORS_JWT_JWKS_URLS=<value>
-    #
-    jwks_urls: https://my-website.com/.well-known/jwks.json
-
-    ## Scope Strategy ##
-    #
-    # Sets the strategy validation algorithm.
-    #
-    # Default value: none
-    #
-    # Set this value using environment variables on
-    # - Linux/macOS:
-    #    $ export AUTHENTICATORS_JWT_SCOPE_STRATEGY=<value>
-    # - Windows Command Line (CMD):
-    #    > set AUTHENTICATORS_JWT_SCOPE_STRATEGY=<value>
-    #
-    scope_strategy: none
+    enabled: false
 
   ## OAuth 2.0 Client Credentials ##
   #
   # The [`oauth2_client_credentials` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#oauth2_client_credentials).
   #
   oauth2_client_credentials:
-    ## Enabled ##
+    ## enabled ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
@@ -660,31 +682,14 @@ authenticators:
     # - Windows Command Line (CMD):
     #    > set AUTHENTICATORS_OAUTH2_CLIENT_CREDENTIALS_ENABLED=<value>
     #
-    enabled: true
-
-    ## token_url ##
-    #
-    # The OAuth 2.0 Token Endpoint that will be used to validate the client credentials.
-    #
-    # >If this authenticator is enabled, this value is required.
-    #
-    # Examples:
-    # - https://my-website.com/oauth2/token
-    #
-    # Set this value using environment variables on
-    # - Linux/macOS:
-    #    $ export AUTHENTICATORS_OAUTH2_CLIENT_CREDENTIALS_TOKEN_URL=<value>
-    # - Windows Command Line (CMD):
-    #    > set AUTHENTICATORS_OAUTH2_CLIENT_CREDENTIALS_TOKEN_URL=<value>
-    #
-    token_url: https://my-website.com/oauth2/token
+    enabled: false
 
   ## OAuth 2.0 Token Introspection ##
   #
   # The [`oauth2_introspection` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#oauth2_introspection).
   #
   oauth2_introspection:
-    ## Enabled ##
+    ## enabled ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
@@ -692,111 +697,7 @@ authenticators:
     # - Windows Command Line (CMD):
     #    > set AUTHENTICATORS_OAUTH2_INTROSPECTION_ENABLED=<value>
     #
-    enabled: true
-
-    ## OAuth 2.0 Introspection URL ##
-    #
-    # The OAuth 2.0 Token Introspection endpoint URL.
-    #
-    # >If this authenticator is enabled, this value is required.
-    #
-    # Examples:
-    # - https://my-website.com/oauth2/introspection
-    #
-    # Set this value using environment variables on
-    # - Linux/macOS:
-    #    $ export AUTHENTICATORS_OAUTH2_INTROSPECTION_INTROSPECTION_URL=<value>
-    # - Windows Command Line (CMD):
-    #    > set AUTHENTICATORS_OAUTH2_INTROSPECTION_INTROSPECTION_URL=<value>
-    #
-    introspection_url: https://my-website.com/oauth2/introspection
-
-    ## Scope Strategy ##
-    #
-    # Sets the strategy validation algorithm.
-    #
-    # Default value: none
-    #
-    # Set this value using environment variables on
-    # - Linux/macOS:
-    #    $ export AUTHENTICATORS_OAUTH2_INTROSPECTION_SCOPE_STRATEGY=<value>
-    # - Windows Command Line (CMD):
-    #    > set AUTHENTICATORS_OAUTH2_INTROSPECTION_SCOPE_STRATEGY=<value>
-    #
-    scope_strategy: none
-
-    ## Pre-Authorization ##
-    #
-    # Enable pre-authorization in cases where the OAuth 2.0 Token Introspection endpoint is protected by OAuth 2.0 Bearer Tokens that can be retrieved using the OAuth 2.0 Client Credentials grant.
-    #
-    pre_authorization:
-      ## Enabled ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_ENABLED=<value>
-      # - Windows Command Line (CMD):
-      #    > set AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_ENABLED=<value>
-      #
-      enabled: false
-
-      ## OAuth 2.0 Client ID ##
-      #
-      # The OAuth 2.0 Client ID to be used for the OAuth 2.0 Client Credentials Grant.
-      #
-      # >If pre-authorization is enabled, this value is required.
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_CLIENT_ID=<value>
-      # - Windows Command Line (CMD):
-      #    > set AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_CLIENT_ID=<value>
-      #
-      client_id: labore commodo laboris
-
-      ## OAuth 2.0 Client Secret ##
-      #
-      # The OAuth 2.0 Client Secret to be used for the OAuth 2.0 Client Credentials Grant.
-      #
-      # >If pre-authorization is enabled, this value is required.
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_CLIENT_SECRET=<value>
-      # - Windows Command Line (CMD):
-      #    > set AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_CLIENT_SECRET=<value>
-      #
-      client_secret: sit consectetur
-
-      ## OAuth 2.0 Token URL ##
-      #
-      # The OAuth 2.0 Token Endpoint where the OAuth 2.0 Client Credentials Grant will be performed.
-      #
-      # >If pre-authorization is enabled, this value is required.
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_TOKEN_URL=<value>
-      # - Windows Command Line (CMD):
-      #    > set AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_TOKEN_URL=<value>
-      #
-      token_url: http://HqCbZNZGP.gmVWDsl4ISwqdf,X6MDJczvLXGPgCW-54Z66rLBCLwnHeLcOKgeko0XrB4v
-
-      ## OAuth 2.0 Scope ##
-      #
-      # The OAuth 2.0 Scope to be requested during the OAuth 2.0 Client Credentials Grant.
-      #
-      # Examples:
-      # - - '["foo", "bar"]'
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_SCOPE=<value>
-      # - Windows Command Line (CMD):
-      #    > set AUTHENTICATORS_OAUTH2_INTROSPECTION_PRE_AUTHORIZATION_SCOPE=<value>
-      #
-      scope:
-        - '["foo", "bar"]'
+    enabled: false
 
 ## Authorizers ##
 #
@@ -808,37 +709,107 @@ authorizers:
   # The [`allow` authorizer](https://www.ory.sh/docs/oathkeeper/pipeline/authz#allow).
   #
   allow:
-    ## Enabled ##
+    ## title ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
-    #    $ export AUTHORIZERS_ALLOW_ENABLED=<value>
+    #    $ export AUTHORIZERS_ALLOW_TITLE=<value>
     # - Windows Command Line (CMD):
-    #    > set AUTHORIZERS_ALLOW_ENABLED=<value>
+    #    > set AUTHORIZERS_ALLOW_TITLE=<value>
     #
-    enabled: false
+    title: Allow
+
+    ## description ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHORIZERS_ALLOW_DESCRIPTION=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHORIZERS_ALLOW_DESCRIPTION=<value>
+    #
+    description:
+      The [`allow`
+      authorizer](https://www.ory.sh/docs/oathkeeper/pipeline/authz#allow).
+
+    ## enabled ##
+    #
+    enabled:
+      ## enabled ##
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export AUTHORIZERS_ALLOW_ENABLED_ENABLED=<value>
+      # - Windows Command Line (CMD):
+      #    > set AUTHORIZERS_ALLOW_ENABLED_ENABLED=<value>
+      #
+      enabled: false
+
+    ## config ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHORIZERS_ALLOW_CONFIG=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHORIZERS_ALLOW_CONFIG=<value>
+    #
+    config: {}
 
   ## Deny ##
   #
   # The [`deny` authorizer](https://www.ory.sh/docs/oathkeeper/pipeline/authz#allow).
   #
   deny:
-    ## Enabled ##
+    ## title ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
-    #    $ export AUTHORIZERS_DENY_ENABLED=<value>
+    #    $ export AUTHORIZERS_DENY_TITLE=<value>
     # - Windows Command Line (CMD):
-    #    > set AUTHORIZERS_DENY_ENABLED=<value>
+    #    > set AUTHORIZERS_DENY_TITLE=<value>
     #
-    enabled: false
+    title: Deny
+
+    ## description ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHORIZERS_DENY_DESCRIPTION=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHORIZERS_DENY_DESCRIPTION=<value>
+    #
+    description:
+      The [`deny`
+      authorizer](https://www.ory.sh/docs/oathkeeper/pipeline/authz#allow).
+
+    ## enabled ##
+    #
+    enabled:
+      ## enabled ##
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export AUTHORIZERS_DENY_ENABLED_ENABLED=<value>
+      # - Windows Command Line (CMD):
+      #    > set AUTHORIZERS_DENY_ENABLED_ENABLED=<value>
+      #
+      enabled: false
+
+    ## config ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHORIZERS_DENY_CONFIG=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHORIZERS_DENY_CONFIG=<value>
+    #
+    config: {}
 
   ## ORY Keto Access Control Policies Engine ##
   #
   # The [`keto_engine_acp_ory` authorizer](https://www.ory.sh/docs/oathkeeper/pipeline/authz#keto_engine_acp_ory).
   #
   keto_engine_acp_ory:
-    ## Enabled ##
+    ## enabled ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
@@ -846,24 +817,7 @@ authorizers:
     # - Windows Command Line (CMD):
     #    > set AUTHORIZERS_KETO_ENGINE_ACP_ORY_ENABLED=<value>
     #
-    enabled: false
-
-    ## Base URL ##
-    #
-    # The base URL of ORY Keto.
-    #
-    # >If this authorizer is enabled, this value is required.
-    #
-    # Examples:
-    # - http://my-keto/
-    #
-    # Set this value using environment variables on
-    # - Linux/macOS:
-    #    $ export AUTHORIZERS_KETO_ENGINE_ACP_ORY_BASE_URL=<value>
-    # - Windows Command Line (CMD):
-    #    > set AUTHORIZERS_KETO_ENGINE_ACP_ORY_BASE_URL=<value>
-    #
-    base_url: http://my-keto/
+    enabled: true
 
 ## Mutators ##
 #
@@ -875,22 +829,57 @@ mutators:
   # The [`noop` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#noop).
   #
   noop:
-    ## Enabled ##
+    ## title ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
-    #    $ export MUTATORS_NOOP_ENABLED=<value>
+    #    $ export MUTATORS_NOOP_TITLE=<value>
     # - Windows Command Line (CMD):
-    #    > set MUTATORS_NOOP_ENABLED=<value>
+    #    > set MUTATORS_NOOP_TITLE=<value>
     #
-    enabled: true
+    title: No Operation (noop)
+
+    ## description ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export MUTATORS_NOOP_DESCRIPTION=<value>
+    # - Windows Command Line (CMD):
+    #    > set MUTATORS_NOOP_DESCRIPTION=<value>
+    #
+    description:
+      The [`noop`
+      mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#noop).
+
+    ## enabled ##
+    #
+    enabled:
+      ## enabled ##
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export MUTATORS_NOOP_ENABLED_ENABLED=<value>
+      # - Windows Command Line (CMD):
+      #    > set MUTATORS_NOOP_ENABLED_ENABLED=<value>
+      #
+      enabled: false
+
+    ## config ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export MUTATORS_NOOP_CONFIG=<value>
+    # - Windows Command Line (CMD):
+    #    > set MUTATORS_NOOP_CONFIG=<value>
+    #
+    config: {}
 
   ## HTTP Cookie ##
   #
   # The [`cookie` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#cookie).
   #
   cookie:
-    ## Enabled ##
+    ## enabled ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
@@ -905,7 +894,7 @@ mutators:
   # The [`header` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#header).
   #
   header:
-    ## Enabled ##
+    ## enabled ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
@@ -915,12 +904,27 @@ mutators:
     #
     enabled: false
 
+  ## Hydrator ##
+  #
+  # The [`hydrator` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#hydrator).
+  #
+  hydrator:
+    ## enabled ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export MUTATORS_HYDRATOR_ENABLED=<value>
+    # - Windows Command Line (CMD):
+    #    > set MUTATORS_HYDRATOR_ENABLED=<value>
+    #
+    enabled: true
+
   ## ID Token (JSON Web Token) ##
   #
-  # The [`header` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#header).
+  # The [`id_token` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#id_token).
   #
   id_token:
-    ## Enabled ##
+    ## enabled ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
@@ -929,58 +933,6 @@ mutators:
     #    > set MUTATORS_ID_TOKEN_ENABLED=<value>
     #
     enabled: false
-
-    ## Issuer URL ##
-    #
-    # Sets the "iss" value of the ID Token.
-    #
-    # >If this mutator is enabled, this value is required.
-    #
-    # Set this value using environment variables on
-    # - Linux/macOS:
-    #    $ export MUTATORS_ID_TOKEN_ISSUER_URL=<value>
-    # - Windows Command Line (CMD):
-    #    > set MUTATORS_ID_TOKEN_ISSUER_URL=<value>
-    #
-    issuer_url: http://xFkjVJEPTaIzNlfkMFXAUFBX.pnrY--mIe1RxVU.BJcGaqrKbc
-
-    ## JSON Web Key URL ##
-    #
-    # Sets the URL where keys should be fetched from. Supports remote locations (http, https) as well as local filesystem paths.
-    #
-    # >If this mutator is enabled, this value is required.
-    #
-    # Examples:
-    # - https://fetch-keys/from/this/location.json
-    # - file:///from/this/absolute/location.json
-    # - file://../from/this/relative/location.json
-    #
-    # Set this value using environment variables on
-    # - Linux/macOS:
-    #    $ export MUTATORS_ID_TOKEN_JWKS_URL=<value>
-    # - Windows Command Line (CMD):
-    #    > set MUTATORS_ID_TOKEN_JWKS_URL=<value>
-    #
-    jwks_url: https://fetch-keys/from/this/location.json
-
-    ## Expire After ##
-    #
-    # Sets the time-to-live of the JSON Web Token.
-    #
-    # Default value: 1m
-    #
-    # Examples:
-    # - 1h
-    # - 1m
-    # - 30s
-    #
-    # Set this value using environment variables on
-    # - Linux/macOS:
-    #    $ export MUTATORS_ID_TOKEN_TTL=<value>
-    # - Windows Command Line (CMD):
-    #    > set MUTATORS_ID_TOKEN_TTL=<value>
-    #
-    ttl: 1m
 
 ## Log ##
 #

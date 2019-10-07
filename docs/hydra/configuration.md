@@ -251,10 +251,10 @@ serve:
 ### CockroachDB
 #
 # If dsn is starting with cockroach:// CockroachDB will be used as storage backend:
-# dsn: dsn=cockroach://user:password@host:123/database
+# dsn: cockroach://user:password@host:123/database
 #
 dsn: memory
-# dsn: dsn=postgres://user:password@host:123/database
+# dsn: postgres://user:password@host:123/database
 # dsn: mysql://user:password@tcp(host:123)/database
 
 # webfinger configures ./well-known/ settings
@@ -369,6 +369,9 @@ oauth2:
       # Sets the BCrypt cost. Minimum value is 4 and default value is 10. The higher the value, the more CPU time is being
       # used to generate hashes.
       cost: 10
+  pkce:
+    # Set this to true if you want PKCE to be enforced for all clients.
+    enforced: false
 
 # The secrets section configures secrets used for encryption and signing of several systems. All secrets can be rotated,
 # for more information on this topic navigate to:

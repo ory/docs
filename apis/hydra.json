@@ -37,7 +37,7 @@
     },
     "/.well-known/openid-configuration": {
       "get": {
-        "description": "The well known endpoint an be used to retrieve information for OpenID Connect clients. We encourage you to not roll\nyour own OpenID Connect client but to use an OpenID Connect client library instead. You can learn more on this\nflow at https://openid.net/specs/openid-connect-discovery-1_0.html",
+        "description": "The well known endpoint an be used to retrieve information for OpenID Connect clients. We encourage you to not roll\nyour own OpenID Connect client but to use an OpenID Connect client library instead. You can learn more on this\nflow at https://openid.net/specs/openid-connect-discovery-1_0.html .\n\nPopular libraries for OpenID Connect clients include oidc-client-js (JavaScript), go-oidc (Golang), and others.\nFor a full list of clients go here: https://openid.net/developers/certified/",
         "produces": ["application/json"],
         "schemes": ["http", "https"],
         "tags": ["public"],
@@ -273,7 +273,7 @@
       "get": {
         "description": "This endpoint returns a 200 status code when the HTTP server is up running.\nThis status does currently not include checks whether the database connection is working.\n\nIf the service supports TLS Edge Termination, this endpoint does not require the\n`X-Forwarded-Proto` header to be set.\n\nBe aware that if you are running multiple nodes of this service, the health status will never\nrefer to the cluster state, only to a single instance.",
         "produces": ["application/json"],
-        "tags": ["health"],
+        "tags": ["admin"],
         "summary": "Check alive status",
         "operationId": "isInstanceAlive",
         "responses": {
@@ -296,7 +296,7 @@
       "get": {
         "description": "This endpoint returns a 200 status code when the HTTP server is up running and the environment dependencies (e.g.\nthe database) are responsive as well.\n\nIf the service supports TLS Edge Termination, this endpoint does not require the\n`X-Forwarded-Proto` header to be set.\n\nBe aware that if you are running multiple nodes of this service, the health status will never\nrefer to the cluster state, only to a single instance.",
         "produces": ["application/json"],
-        "tags": ["health"],
+        "tags": ["public"],
         "summary": "Check readiness status",
         "operationId": "isInstanceReady",
         "responses": {
@@ -663,6 +663,20 @@
             "schema": {
               "$ref": "#/definitions/genericError"
             }
+          }
+        }
+      }
+    },
+    "/metrics/prometheus": {
+      "get": {
+        "description": "```\nmetadata:\nannotations:\nprometheus.io/port: \"4445\"\nprometheus.io/path: \"/metrics/prometheus\"\n```",
+        "produces": ["plain/text"],
+        "tags": ["admin"],
+        "summary": "Get snapshot metrics from the Hydra service. If you're using k8s, you can then add annotations to\nyour deployment like so:",
+        "operationId": "prometheus",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/emptyResponse"
           }
         }
       }
@@ -1294,7 +1308,7 @@
             "oauth2": []
           }
         ],
-        "description": "The introspection endpoint allows to check if a token (both refresh and access) is active or not. An active token\nis neither expired nor revoked. If a token is active, additional information on the token will be included. You can\nset additional data for a token by setting `accessTokenExtra` during the consent flow.",
+        "description": "The introspection endpoint allows to check if a token (both refresh and access) is active or not. An active token\nis neither expired nor revoked. If a token is active, additional information on the token will be included. You can\nset additional data for a token by setting `accessTokenExtra` during the consent flow.\n\nFor more information [read this blog post](https://www.oauth.com/oauth2-servers/token-introspection-endpoint/).",
         "consumes": ["application/x-www-form-urlencoded"],
         "produces": ["application/json"],
         "schemes": ["http", "https"],
@@ -1471,7 +1485,7 @@
             "oauth2": []
           }
         ],
-        "description": "This endpoint returns the payload of the ID Token, including the idTokenExtra values, of the provided OAuth 2.0 access token.\nThe endpoint implements http://openid.net/specs/openid-connect-core-1_0.html#UserInfo .",
+        "description": "This endpoint returns the payload of the ID Token, including the idTokenExtra values, of\nthe provided OAuth 2.0 Access Token.\n\nFor more information please [refer to the spec](http://openid.net/specs/openid-connect-core-1_0.html#UserInfo).",
         "produces": ["application/json"],
         "schemes": ["http", "https"],
         "tags": ["public"],
@@ -1503,7 +1517,7 @@
       "get": {
         "description": "This endpoint returns the service version typically notated using semantic versioning.\n\nIf the service supports TLS Edge Termination, this endpoint does not require the\n`X-Forwarded-Proto` header to be set.\n\nBe aware that if you are running multiple nodes of this service, the health status will never\nrefer to the cluster state, only to a single instance.",
         "produces": ["application/json"],
-        "tags": ["version"],
+        "tags": ["admin"],
         "summary": "Get service version",
         "operationId": "getVersion",
         "responses": {
@@ -1740,7 +1754,7 @@
           "x-go-name": "Remember"
         },
         "remember_for": {
-          "description": "RememberFor sets how long the authentication should be remembered for in seconds. If set to `0`, the\nauthorization will be remembered indefinitely.",
+          "description": "RememberFor sets how long the authentication should be remembered for in seconds. If set to `0`, the\nauthorization will be remembered for the duration of the browser session (using a session cookie).",
           "type": "integer",
           "format": "int64",
           "x-go-name": "RememberFor"
@@ -1864,11 +1878,6 @@
       "x-go-name": "ConsentRequestSessionData",
       "x-go-package": "github.com/ory/hydra/consent"
     },
-    "emptyResponse": {
-      "description": "Empty responses are sent when, for example, resources are deleted. The HTTP status code for empty responses is\ntypically 201.",
-      "type": "object",
-      "x-go-package": "github.com/ory/hydra"
-    },
     "flushInactiveOAuth2TokensRequest": {
       "type": "object",
       "properties": {
@@ -1929,7 +1938,7 @@
         }
       },
       "x-go-name": "swaggerNotReadyStatus",
-      "x-go-package": "github.com/ory/hydra/vendor/github.com/ory/x/healthx"
+      "x-go-package": "github.com/ory/x/healthx"
     },
     "healthStatus": {
       "type": "object",
@@ -1941,7 +1950,7 @@
         }
       },
       "x-go-name": "swaggerHealthStatus",
-      "x-go-package": "github.com/ory/hydra/vendor/github.com/ory/x/healthx"
+      "x-go-package": "github.com/ory/x/healthx"
     },
     "jsonWebKeySetGeneratorRequest": {
       "type": "object",
@@ -2332,17 +2341,18 @@
           "type": "string",
           "x-go-name": "AccessToken"
         },
-        "client_id": {
+        "expires_in": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ExpiresIn"
+        },
+        "refresh_token": {
           "type": "string",
           "x-go-name": "RefreshToken"
         },
-        "code": {
+        "token_type": {
           "type": "string",
           "x-go-name": "TokenType"
-        },
-        "redirect_uri": {
-          "type": "string",
-          "x-go-name": "ExpiresIn"
         }
       },
       "x-go-name": "swaggeroauth2TokenResponse",
@@ -2460,150 +2470,6 @@
       "x-go-name": "RequestDeniedError",
       "x-go-package": "github.com/ory/hydra/consent"
     },
-    "swaggerFlushInactiveAccessTokens": {
-      "type": "object",
-      "properties": {
-        "Body": {
-          "$ref": "#/definitions/flushInactiveOAuth2TokensRequest"
-        }
-      },
-      "x-go-package": "github.com/ory/hydra/oauth2"
-    },
-    "swaggerJsonWebKeyQuery": {
-      "type": "object",
-      "required": ["kid", "set"],
-      "properties": {
-        "kid": {
-          "description": "The kid of the desired key\nin: path",
-          "type": "string",
-          "x-go-name": "KID"
-        },
-        "set": {
-          "description": "The set\nin: path",
-          "type": "string",
-          "x-go-name": "Set"
-        }
-      },
-      "x-go-package": "github.com/ory/hydra/jwk"
-    },
-    "swaggerJwkCreateSet": {
-      "type": "object",
-      "required": ["set"],
-      "properties": {
-        "Body": {
-          "$ref": "#/definitions/jsonWebKeySetGeneratorRequest"
-        },
-        "set": {
-          "description": "The set\nin: path",
-          "type": "string",
-          "x-go-name": "Set"
-        }
-      },
-      "x-go-package": "github.com/ory/hydra/jwk"
-    },
-    "swaggerJwkSetQuery": {
-      "type": "object",
-      "required": ["set"],
-      "properties": {
-        "set": {
-          "description": "The set\nin: path",
-          "type": "string",
-          "x-go-name": "Set"
-        }
-      },
-      "x-go-package": "github.com/ory/hydra/jwk"
-    },
-    "swaggerJwkUpdateSet": {
-      "type": "object",
-      "required": ["set"],
-      "properties": {
-        "Body": {
-          "$ref": "#/definitions/JSONWebKeySet"
-        },
-        "set": {
-          "description": "The set\nin: path",
-          "type": "string",
-          "x-go-name": "Set"
-        }
-      },
-      "x-go-package": "github.com/ory/hydra/jwk"
-    },
-    "swaggerJwkUpdateSetKey": {
-      "type": "object",
-      "required": ["kid", "set"],
-      "properties": {
-        "Body": {
-          "$ref": "#/definitions/JSONWebKey"
-        },
-        "kid": {
-          "description": "The kid of the desired key\nin: path",
-          "type": "string",
-          "x-go-name": "KID"
-        },
-        "set": {
-          "description": "The set\nin: path",
-          "type": "string",
-          "x-go-name": "Set"
-        }
-      },
-      "x-go-package": "github.com/ory/hydra/jwk"
-    },
-    "swaggerOAuthIntrospectionRequest": {
-      "type": "object",
-      "required": ["token"],
-      "properties": {
-        "scope": {
-          "description": "An optional, space separated list of required scopes. If the access token was not granted one of the\nscopes, the result of active will be false.\n\nin: formData",
-          "type": "string",
-          "x-go-name": "Scope"
-        },
-        "token": {
-          "description": "The string value of the token. For access tokens, this\nis the \"access_token\" value returned from the token endpoint\ndefined in OAuth 2.0. For refresh tokens, this is the \"refresh_token\"\nvalue returned.",
-          "type": "string",
-          "x-go-name": "Token"
-        }
-      },
-      "x-go-package": "github.com/ory/hydra/oauth2"
-    },
-    "swaggerRevokeOAuth2TokenParameters": {
-      "type": "object",
-      "required": ["token"],
-      "properties": {
-        "token": {
-          "description": "in: formData",
-          "type": "string",
-          "x-go-name": "Token"
-        }
-      },
-      "x-go-package": "github.com/ory/hydra/oauth2"
-    },
-    "swaggeroauth2TokenParameters": {
-      "type": "object",
-      "required": ["grant_type"],
-      "properties": {
-        "client_id": {
-          "description": "in: formData",
-          "type": "string",
-          "x-go-name": "ClientID"
-        },
-        "code": {
-          "description": "in: formData",
-          "type": "string",
-          "x-go-name": "Code"
-        },
-        "grant_type": {
-          "description": "in: formData",
-          "type": "string",
-          "x-go-name": "GrantType"
-        },
-        "redirect_uri": {
-          "description": "in: formData",
-          "type": "string",
-          "x-go-name": "RedirectURI"
-        }
-      },
-      "x-go-package": "github.com/ory/hydra/oauth2"
-    },
     "userinfoResponse": {
       "description": "The userinfo response",
       "type": "object",
@@ -2718,7 +2584,7 @@
         }
       },
       "x-go-name": "swaggerVersion",
-      "x-go-package": "github.com/ory/hydra/vendor/github.com/ory/x/healthx"
+      "x-go-package": "github.com/ory/x/healthx"
     },
     "wellKnown": {
       "description": "It includes links to several endpoints (e.g. /oauth2/token) and exposes information on supported signature algorithms\namong others.",
@@ -2930,7 +2796,8 @@
       "authorizationUrl": "/oauth2/auth",
       "tokenUrl": "/oauth2/token",
       "scopes": {
-        "offline": "A scope required when requesting refresh tokens",
+        "offline": "A scope required when requesting refresh tokens (alias for `offline`)",
+        "offline_access": "A scope required when requesting refresh tokens",
         "openid": "Request an OpenID Connect ID Token"
       }
     }
