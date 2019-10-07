@@ -595,7 +595,8 @@ authenticators:
       target_audience:
         - https://my-service.com/api/users
         - https://my-service.com/api/devices
-      trusted_issuers: https://my-issuer.com/
+      trusted_issuers:
+        - https://my-issuer.com/
       allowed_algorithms:
         - RS256
 ```
@@ -619,7 +620,8 @@ authenticators:
       target_audience:
         - https://my-service.com/api/users
         - https://my-service.com/api/devices
-      trusted_issuers: https://my-issuer.com/
+      trusted_issuers:
+        - https://my-issuer.com/
       allowed_algorithms:
         - RS256
 ```
