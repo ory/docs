@@ -191,30 +191,33 @@ not exist for this flow.
 ORY Hydra issues opaque OAuth 2.0 Access Tokens per default for the following
 reasons:
 
-1. **OAuth 2.0 Access Tokens represent internal state but are public knowledge:** An Access Token often
-   contains internal data (e.g. session data) or other sensitive data (e.g.
-   user roles and permissions) and is sometimes used as a means of transporting
-   system-relevant information in a stateless manner. Therefore, making
-   these tokens transparent (by using JSON Web Tokens as Access Tokens) comes
-   with risk of exposing this information accidentally, and with the downside
-   of not storing this information in the OAuth 2.0 Access Token at all.
+1. **OAuth 2.0 Access Tokens represent internal state but are public
+   knowledge:** An Access Token often contains internal data (e.g. session data)
+   or other sensitive data (e.g. user roles and permissions) and is sometimes
+   used as a means of transporting system-relevant information in a stateless
+   manner. Therefore, making these tokens transparent (by using JSON Web Tokens
+   as Access Tokens) comes with risk of exposing this information accidentally,
+   and with the downside of not storing this information in the OAuth 2.0 Access
+   Token at all.
 2. **JSON Web Tokens can not hold secrets:** Unless encrypted, JSON Web Tokens
    can be read by everyone, including 3rd Parties. Therefore, they can not keep
    secrets. This point is similar to (1), but it is important to stress this.
 3. **Access Tokens as JSON Web Tokens can not be revoked:** Well, you can revoke
-   them, but they will be considered valid until the "expiry" of the token is reached.
-   Unless, of course, you have a blacklist or check with Hydra if the token was revoked,
-   which however defeats the purpose of using JSON Web Tokens in the first place.
-4. **Certain OpenID Connect features will not work** when using JSON Web Tokens as Access Tokens,
-such as the pariwise subject identifier algorithm.
-5. **There is a better solution: Use [ORY Oathkeeper](https://github.com/ory/oathkeeper)!**
-   ORY Oathkeeper is a proxy you deploy in front of your services. It will "convert" ORY Hydra's
-   opaque Access Tokens into JSON Web Tokens for your backend services. This allows
-   your services to work without additional REST Calls while solving all previous points.
-   **We really recommend this option if you want JWTs!**
+   them, but they will be considered valid until the "expiry" of the token is
+   reached. Unless, of course, you have a blacklist or check with Hydra if the
+   token was revoked, which however defeats the purpose of using JSON Web Tokens
+   in the first place.
+4. **Certain OpenID Connect features will not work** when using JSON Web Tokens
+   as Access Tokens, such as the pariwise subject identifier algorithm.
+5. **There is a better solution: Use
+   [ORY Oathkeeper](https://github.com/ory/oathkeeper)!** ORY Oathkeeper is a
+   proxy you deploy in front of your services. It will "convert" ORY Hydra's
+   opaque Access Tokens into JSON Web Tokens for your backend services. This
+   allows your services to work without additional REST Calls while solving all
+   previous points. **We really recommend this option if you want JWTs!**
 
-If you are not convinced that ORY Oathkeeper is the right tool for the job,
-you can still enable JSON Web Tokens in ORY Hydra by setting:
+If you are not convinced that ORY Oathkeeper is the right tool for the job, you
+can still enable JSON Web Tokens in ORY Hydra by setting:
 
 ```yaml
 strategies:
