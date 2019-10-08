@@ -34,16 +34,17 @@ There are three things you can do to quickly debug any issue:
 
 ## OpenID Connect ID Token missing
 
-If you expect an OAuth 2.0 ID Token but are not receiving one, this can
-have multiple reasons:
+If you expect an OAuth 2.0 ID Token but are not receiving one, this can have
+multiple reasons:
 
 1. You are using the `client_credentials` grant which can not return an ID
    token.
-2. You forgot to request the `id_token` when calling
-   `/oauth2/auth`.
-3. You consent app did not send `granted_scope: ["openid"]` or when accepting the consent request.
-4. The OAuth 2.0 Client making the request is not allowed to request the scope `openid`.  
-  
+2. You forgot to request the `id_token` when calling `/oauth2/auth`.
+3. You consent app did not send `granted_scope: ["openid"]` or when accepting
+   the consent request.
+4. The OAuth 2.0 Client making the request is not allowed to request the scope
+   `openid`.
+
 ## OAuth 2.0 Refresh Token is missing
 
 If you expect an OAuth 2.0 Refresh Token but are not receiving one, this can
@@ -57,7 +58,8 @@ have multiple reasons:
    `/oauth2/auth`.
 4. You consent app did not send `granted_scope: ["offline"]` or
    `granted_scope: ["offline_access"]` when accepting the consent request.
-5. The OAuth 2.0 Client making the request is not allowed to request the scope `openid`.  
+5. The OAuth 2.0 Client making the request is not allowed to request the scope
+   `openid`.
 
 ## OAuth 2.0 Authorize Code Flow fails
 
