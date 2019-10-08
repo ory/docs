@@ -407,10 +407,10 @@ fails, the credentials are considered invalid.
 ## `oauth2_introspection`
 
 The `oauth2_introspection` authenticator handles requests that have an Bearer
-Token in the Authorization Header (`Authorization: bearer <token>`) or in a 
-different header or query parameter specified in configuration. It then
-uses OAuth 2.0 Token Introspection to check if the token is valid and if the
-token was granted the requested scope.
+Token in the Authorization Header (`Authorization: bearer <token>`) or in a
+different header or query parameter specified in configuration. It then uses
+OAuth 2.0 Token Introspection to check if the token is valid and if the token
+was granted the requested scope.
 
 > If you are unfamiliar with OAuth 2.0 Introspection we recommend
 > [reading this guide](https://www.oauth.com/oauth2-servers/token-introspection-endpoint/).
@@ -438,15 +438,16 @@ token was granted the requested scope.
     requested during the OAuth 2.0 Client Credentials Grant.
   - `scope` ([]string, optional) - The OAuth 2.0 Token Endpoint where the OAuth
     2.0 Client Credentials Grant will be performed.
-- `token_from` (object, optional) - The location of the bearer token. If not 
-  configured, the token will be received from a default location - 'Authorization' 
-  header. One and only one location (header or query) must be specified.
-  - `header` (string, required, one of) - The header (case insensitive) that must 
-  contain a Bearer token for request authentication. It can't be set along with 
-  query_parameter.
-  - `query_parameter` (string, required, one of) - The query parameter (case sensitive) 
-  that must contain a Bearer token for request authentication. It can't be set along 
-  with header.
+- `token_from` (object, optional) - The location of the bearer token. If not
+  configured, the token will be received from a default location -
+  'Authorization' header. One and only one location (header or query) must be
+  specified.
+  - `header` (string, required, one of) - The header (case insensitive) that
+    must contain a Bearer token for request authentication. It can't be set
+    along with query_parameter.
+  - `query_parameter` (string, required, one of) - The query parameter (case
+    sensitive) that must contain a Bearer token for request authentication. It
+    can't be set along with header.
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -570,9 +571,9 @@ from the `username` field.
 ## `jwt`
 
 The `jwt` authenticator handles requests that have an Bearer Token in the
-Authorization Header (`Authorization: bearer <token>`) or in a different 
-header or query parameter specified in configuration. It assumes that the
-token is a JSON Web Token and tries to verify the signature of it.
+Authorization Header (`Authorization: bearer <token>`) or in a different header
+or query parameter specified in configuration. It assumes that the token is a
+JSON Web Token and tries to verify the signature of it.
 
 ### Configuration
 
@@ -594,15 +595,16 @@ token is a JSON Web Token and tries to verify the signature of it.
 - Value `required_scope` ([]string) validates the scope of the JWT. It will
   checks for claims `scp`, `scope`, `scopes` in the JWT when validating the
   scope as that claim is not standardized.
-- `token_from` (object, optional) - The location of the bearer token. If not 
-  configured, the token will be received from a default location - 'Authorization' 
-  header. One and only one location (header or query) must be specified.
-  - `header` (string, required, one of) - The header (case insensitive) that must 
-  contain a Bearer token for request authentication. It can't be set along with 
-  query_parameter.
-  - `query_parameter` (string, required, one of) - The query parameter (case sensitive) 
-  that must contain a Bearer token for request authentication. It can't be set along 
-  with header.
+- `token_from` (object, optional) - The location of the bearer token. If not
+  configured, the token will be received from a default location -
+  'Authorization' header. One and only one location (header or query) must be
+  specified.
+  - `header` (string, required, one of) - The header (case insensitive) that
+    must contain a Bearer token for request authentication. It can't be set
+    along with query_parameter.
+  - `query_parameter` (string, required, one of) - The query parameter (case
+    sensitive) that must contain a Bearer token for request authentication. It
+    can't be set along with header.
 
 ```yaml
 # Global configuration file oathkeeper.yml
