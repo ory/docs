@@ -15,13 +15,19 @@
     ],
     "ORY Hydra": [
       "hydra/index",
-      "hydra/oauth2",
-      "hydra/login-consent-flow",
-      "hydra/case-study",
       {
         "type": "subcategory",
-        "label": "Getting Started",
-        "ids": ["hydra/5min-tutorial", "hydra/implementing-consent"]
+        "label": "Concepts",
+        "ids": ["hydra/oauth2", "hydra/login-consent-flow"]
+      },
+      {
+        "type": "subcategory",
+        "label": "Integrating Hydra into your stack",
+        "ids": [
+          "hydra/5min-tutorial",
+          "hydra/implementing-consent",
+          "hydra/case-study"
+        ]
       },
       {
         "type": "subcategory",

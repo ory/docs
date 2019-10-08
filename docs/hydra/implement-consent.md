@@ -1,10 +1,11 @@
 ---
 id: implementing-consent
 title: Implementing Login & Consent UI
-sidebar_label: login and consent UI
+sidebar_label: Login and Consent UI
 ---
 
-Let's build a simple consent app.
+Let's build a simple consent app that can be used as part of the Hydra's
+[Login and consent workflow](login-consent-flow).
 
 ### OAuth 2.0 Authorize Code Flow
 
