@@ -200,13 +200,13 @@ ADD jwks.json /jwks.json
 EOF
 ```
 
-We are doing this for demonstration purposes only. In a production environment you
-would separate these configuration values from the build artifact itself.
-In Kuberentes, it would make most sense to provide the JSON Web Keys as
-a Kubernetes Secret mounted as in a directory, for example.
+We are doing this for demonstration purposes only. In a production environment
+you would separate these configuration values from the build artifact itself. In
+Kuberentes, it would make most sense to provide the JSON Web Keys as a
+Kubernetes Secret mounted as in a directory, for example.
 
-We encourage you to check out our [helm charts](https://k8s.ory.sh/helm/)
-which apply these best practices.
+We encourage you to check out our [helm charts](https://k8s.ory.sh/helm/) which
+apply these best practices.
 
 ## Build & Run
 
