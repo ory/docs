@@ -32,6 +32,15 @@ There are three things you can do to quickly debug any issue:
    2. Remove them (unless you have something important running)
    3. Retry. **This can help a lot if you are new to this!**
 
+## OAuth 2.0 Refresh Token is missing
+
+If you expect an OAuth 2.0 Refresh Token but are not receiving one, this can have multiple reasons:
+
+1. You are using an implicit or hybrid flow. These flows never return a refresh token!
+2. You are using the `client_credentials` grant which can not return a refresh token.
+3. You forgot to request the `offline` or `offline_access` scope when calling `/oauth2/auth`.
+4. You consent app did not send `granted_scope: ["offline"]` or  `granted_scope: ["offline_access"]` when accepting the consent request.
+
 ## OAuth 2.0 Authorize Code Flow fails
 
 The most likely cause is misconfiguration, summarized in the next sections.
