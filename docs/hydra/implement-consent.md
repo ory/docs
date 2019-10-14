@@ -1,214 +1,13 @@
 ---
-id: oauth2
-title: OAuth 2.0 and OpenID Connect
-sidebar_label: OAuth 2.0
+id: implementing-consent
+title: Implementing Login & Consent UI
+sidebar_label: Login and Consent UI
 ---
 
-This section describes on a high level what OAuth 2.0 and OpenID Connect 1.0 are
-for and how they work.
+Let's build a simple consent app that can be used as part of the Hydra's
+[Login and consent workflow](login-consent-flow).
 
-### OAuth 2.0
-
-[The OAuth 2.0 authorization framework](https://tools.ietf.org/html/rfc6749) is
-specified in [IETF RFC 6749](https://tools.ietf.org/html/rfc6749). OAuth 2.0
-enables a third-party application to obtain limited access to resources on an
-HTTP server on behalf of the owner of those resources.
-
-Why is this important? Without OAuth 2.0, a resource owner who wants to share
-resources in their account with a third party would have to share their
-credentials with that third party. As an example, let's say you (a resource
-owner) have some photos (resources) stored on a social network (the resource
-server). Now you want to print them using a third-party printing service. Before
-OAuth 2.0 existed, you would have to enter your social network password into the
-printing service so that it can access and print your photos. Sharing secret
-passwords with third parties is obviously very problematic.
-
-OAuth addresses this problem by introducing:
-
-- the distinction between resource ownership and resource access for clients
-- the ability to define fine-grained access privileges (called OAuth scopes)
-  instead of full account access for third parties
-- an authorization layer and workflow that allows resource owners to grant
-  particular clients particular types of access to particular resources.
-
-With OAuth, clients can request access to resources on a server, and the owner
-of these resources can grant the requested access together with dedicated
-credentials. In our example, you could grant the printing service read-only
-access to your photos (only your photos, not your friend list) on the social
-network. These credentials come in the form of an access token -- a string
-denoting a specific scope, lifetime, and other access attributes. The client
-(printing service) can use this access token to request the protected resources
-(your photos) from the resource server (the social network).
-
-### What is OpenID Connect 1.0?
-
-OAuth 2.0 is a complex protocol for authorizing access to resources. If all you
-need is authentication, OpenID Connect 1.0 enables clients to verify the
-identity of the end user based on the authentication performed by an
-Authorization Server and obtain basic profile information in an interoperable
-and REST-like manner.
-
-OpenID Connect allows clients of all types, including web and mobile, to receive
-information about authenticated sessions and end users. The specification is
-extensible, allowing participants to add encryption of identity data, discovery
-of OpenID Providers, and session management as needed.
-
-There are different work flows for OpenID Connect 1.0. We recommend checking out
-the OpenID Connect sandbox at [openidconnect.net](https://openidconnect.net/).
-
-A more detailed introduction of both OAuth 2.0 and OpenID Connect is available
-in the following video:
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/996OiexHze0" frameborder="0" allowfullscreen></iframe>
-
-More details about the various OAuth2 flows can be found in these articles:
-
-- [DigitalOcean: An Introduction to OAuth 2](https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2)
-- [Aaron Parecki: OAuth2 Simplified](https://aaronparecki.com/2012/07/29/2/oauth2-simplified)
-- [Zapier: Chapter 5: Authentication, Part 2](https://zapier.com/learn/apis/chapter-5-authentication-part-2/)
-
-1. ORY Hydra does not manage user accounts. Your application does that. Hydra
-   exposes an OAuth 2.0 and OpenID Connect endpoint for the user accounts of
-   your application.
-2. OAuth Scopes are not access permissions to resources. They entitle an
-   external application to act in the name of a user on a particular type of
-   resource.
-
-### OAuth 2.0 Scope != Permission
-
-A second important concept is the OAuth 2.0 Scope. Many people confuse OAuth 2.0
-Scope with internal Access Control like for example Role Based Access Control
-(RBAC) or Access Control Lists (ACL). Both concepts cover different aspects of
-access control.
-
-Internal access control (RBAC, ACL, etc) decides what a user can do in your
-system. An administrator might be allowed to modify everything. A regular user
-might only be allowed to read their own messages.
-
-OAuth 2.0 Scopes, on the other hand, describe what a user allowed an external
-application (OAuth 2.0 client) to do on his/her behalf. For example, an access
-token might grant the external application to see a user's pictures, but not
-upload new pictures on his/her behalf (which we assume a user could do herself).
-
-In an extreme case, the user could lie and grant an external application OAuth
-scopes that he himself doesn't have permission to ("read all classified
-documents"). The OAuth Access Token with those scopes wouldn't help the external
-application read those documents because it can only act in the name of the
-user, and that user doesn't have these access privileges.
-
-To recap, ORY Hydra's primary feature is implementing the OAuth 2.0 and OpenID
-Connect spec, as well as related specs by the IETF and OpenID Foundation.
-
-The next sections explain how to connect your existing user management (user
-login, registration, logout, ...) with ORY Hydra in order to become an OAuth 2.0
-and OpenID Connect provider like Google, Dropbox, or Facebook.
-
-Again, please be aware that you must know how OAuth 2.0 and OpenID Connect work.
-This documentation will not teach you how these protocols work.
-
-### Terminology
-
-To read more natural, this guide uses simpler terminologies like _user_ instead
-of _resource owner_. Here is a full list of terms.
-
-1. A **resource owner** is the user account who authorizes an external
-   application to access their account. This access is limited (scoped) to
-   particular actions (the granted "scopes" like read photos or write messages).
-   This guide refers to resource owners as _users_ or _end users_.
-2. The **OAuth 2.0 Authorization Server** implements the OAuth 2.0 protocol (and
-   optionally OpenID Connect). In our case, this is **ORY Hydra**.
-3. The **resource provider** is the service that hosts (provides) the resources.
-   These resources (e.g. blog articles, printers, todo lists) are owned by a
-   resource owner (user) mentioned above.
-4. The **OAuth 2.0 Client** is the _external application_ that wants to access a
-   resource owner's resources (read a user's images). To do that, it asks the
-   OAuth 2.0 Authorization Server for an access token in a resource owner's
-   behalf. The authorization server will ask the user if he/she "is ok with"
-   giving that external application e.g. write access to personal images.
-5. The **Identity Provider** is a service that allows users to register
-   accounts, log in, etc.
-6. **User Agent** is usually a browser.
-7. **OpenID Connect** is a protocol built on top of OAuth 2.0 for just
-   authentication (instead of authorizing access to resources).
-
-A typical OAuth 2.0 flow looks as follows:
-
-1. A developer registers an OAuth 2.0 Client (external application with the
-   Authorization Server (ORY Hydra) the intention to obtain information on
-   behalf of a user.
-2. The application UI asks the user to authorize the application to access
-   information/data on his/her behalf.
-3. The user is redirected to the Authorization Server.
-4. The Authorization Server confirms the user's identity and asks the user to
-   grant the OAuth 2.0 Client certain permissions.
-5. The Authorization Server issues tokens that the OAuth 2.0 client uses to
-   access resources on the user's behalf.
-
-## Authenticating Users and Requesting Consent
-
-As you already know by now, ORY Hydra does not come with any type of user
-management (login, registration, ...). Instead, it relies on the so-called User
-Login and Consent Flow. This flow describes a series of redirects where the
-user's user agent is redirect to your Login Provider and, once the user is
-authenticated, to the Consent Provider. The Login and Consent provider is
-implemented by you in a programming language of your choice. You could write,
-for example, a NodeJS app that handles HTTP requests to `/login` and `/consent`
-and it would thus be your Login & Consent provider.
-
-The flow itself works as follows:
-
-1. The OAuth 2.0 Client initiates an Authorize Code, Hybrid, or Implicit flow.
-   The user's user agent is redirected to
-   `http://hydra/oauth2/auth?client_id=...&...`.
-2. ORY Hydra, if unable to authenticate the user (meaning no session cookie
-   exists), redirects the user's user agent to the Login Provider URL. The
-   application "sitting" at that URL is implemented by you and typically shows a
-   login user interface ("Please enter your username and password"). The URL the
-   user is redirected to looks similar to
-   `http://login-service/login?login_challenge=1234...`.
-3. The Login Provider, once the user has successfully logged in, tells ORY Hydra
-   some information about who the user is (e.g. the user's ID) and also that the
-   login attempt was successful. This is done using a REST request which
-   includes another redirect URL along the lines of
-   `http://hydra/oauth2/auth?client_id=...&...&login_verifier=4321`.
-4. The user's user agent follows the redirect and lands back at ORY Hydra. Next,
-   ORY Hydra redirects the user's user agent to the Consent Provider, hosted
-   at - for example - `http://consent-service/consent?consent_challenge=4567...`
-5. The Consent Provider shows a user interface which asks the user if he/she
-   would like to grant the OAuth 2.0 Client the requested permissions ("OAuth
-   2.0 Scope"). You've probably seen this screen around, which is usually
-   something similar to: _"Would you like to grant Facebook Image Backup access
-   to all your private and public images?"_.
-6. The Consent Provider makes another REST request to ORY Hydra to let it know
-   which permissions the user authorized, and if the user authorized the request
-   at all. The user can usually choose to not grant an application any access to
-   his/her personal data. In the response of that REST request, a redirect URL
-   is included along the lines of
-   `http://hydra/oauth2/auth?client_id=...&...&consent_verifier=7654...`.
-7. The user's user agent follows that redirect.
-8. Now, the user has successfully authenticated and authorized the application.
-   Next, ORY Hydra will run some checks and if everything works out, issue
-   access, refresh, and ID tokens.
-
-This flow allows you to take full control of the behaviour of your login system
-(e.g. 2FA, passwordless, ...) and consent screen. A well-documented reference
-implementation for both the Login and Consent Provider is
-[available on GitHub](https://github.com/ory/hydra-login-consent-node).
-
-### The flow from a user's point of view
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/txUmfORzu8Y" frameborder="0" allowfullscreen></iframe>
-
-### The flow from a network perspective
-
-![https://mermaidjs.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgT0F1dGgyIENsaWVudC0-Pk9SWSBIeWRyYTogSW5pdGlhdGVzIE9BdXRoMiBBdXRob3JpemUgQ29kZSBvciBJbXBsaWNpdCBGbG93XG4gICAgT1JZIEh5ZHJhLS0-Pk9SWSBIeWRyYTogTm8gZW5kIHVzZXIgc2Vzc2lvbiBhdmFpbGFibGUgKG5vdCBhdXRoZW50aWNhdGVkKVxuICAgIE9SWSBIeWRyYS0-PkxvZ2luIFByb3ZpZGVyOiBSZWRpcmVjdHMgZW5kIHVzZXIgd2l0aCBsb2dpbiBjaGFsbGVuZ2VcbiAgICBMb2dpbiBQcm92aWRlci0tPk9SWSBIeWRyYTogRmV0Y2hlcyBsb2dpbiBpbmZvXG4gICAgTG9naW4gUHJvdmlkZXItLT4-TG9naW4gUHJvdmlkZXI6IEF1dGhlbnRpY2F0ZXMgdXNlciB3aXRoIGNyZWRlbnRpYWxzXG4gICAgTG9naW4gUHJvdmlkZXItLT5PUlkgSHlkcmE6IFRyYW5zbWl0cyBsb2dpbiBpbmZvIGFuZCByZWNlaXZlcyByZWRpcmVjdCB1cmwgd2l0aCBsb2dpbiB2ZXJpZmllclxuICAgIExvZ2luIFByb3ZpZGVyLT4-T1JZIEh5ZHJhOiBSZWRpcmVjdHMgZW5kIHVzZXIgdG8gcmVkaXJlY3QgdXJsIHdpdGggbG9naW4gdmVyaWZpZXJcbiAgICBPUlkgSHlkcmEtLT4-T1JZIEh5ZHJhOiBGaXJzdCB0aW1lIHRoYXQgY2xpZW50IGFza3MgdXNlciBmb3IgcGVybWlzc2lvbnNcbiAgICBPUlkgSHlkcmEtPj5Db25zZW50IFByb3ZpZGVyOiBSZWRpcmVjdHMgZW5kIHVzZXIgd2l0aCBjb25zZW50IGNoYWxsZW5nZVxuICAgIENvbnNlbnQgUHJvdmlkZXItLT5PUlkgSHlkcmE6IEZldGNoZXMgY29uc2VudCBpbmZvICh3aGljaCB1c2VyLCB3aGF0IGFwcCwgd2hhdCBzY29wZXMpXG4gICAgQ29uc2VudCBQcm92aWRlci0tPj5Db25zZW50IFByb3ZpZGVyOiBBc2tzIGZvciBlbmQgdXNlcidzIHBlcm1pc3Npb24gdG8gZ3JhbnQgYXBwbGljYXRpb24gYWNjZXNzXG4gICAgQ29uc2VudCBQcm92aWRlci0tPk9SWSBIeWRyYTogVHJhbnNtaXRzIGNvbnNlbnQgcmVzdWx0IGFuZCByZWNlaXZlcyByZWRpcmVjdCB1cmwgd2l0aCBjb25zZW50IHZlcmlmaWVyXG4gICAgQ29uc2VudCBQcm92aWRlci0-Pk9SWSBIeWRyYTogUmVkaXJlY3RzIHRvIHJlZGlyZWN0IHVybCB3aXRoIGNvbnNlbnQgdmVyaWZpZXJcbiAgICBPUlkgSHlkcmEtLT4-T1JZIEh5ZHJhOiBWZXJpZmllcyBncmFudFxuICAgIE9SWSBIeWRyYS0-Pk9BdXRoMiBDbGllbnQ6IFRyYW5zbWl0cyBhdXRob3JpemF0aW9uIGNvZGUvdG9rZW4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9fQ](/images/docs/hydra/login-consent-flow.png)
-
-### Implementing a Login & Consent Provider
-
-You should now have a high-level idea of how the login and consent providers
-work. Let's get into the details of it.
-
-#### OAuth 2.0 Authorize Code Flow
+### OAuth 2.0 Authorize Code Flow
 
 Before anything happens, the OAuth 2.0 Authorize Code Flow is initiated by an
 OAuth 2.0 Client. This usually works by generating a URL in the form of
@@ -217,7 +16,7 @@ Then, the OAuth 2.0 Client points the end user's user agent to that URL.
 
 Next, the user agent (browser) opens that URL.
 
-#### User Login
+### User Login
 
 As the user agent hits the URL, ORY Hydra checks if a session cookie is set
 containing information about a previously successful login. Additionally,
@@ -363,7 +162,7 @@ fetch('https://hydra/oauth2/auth/requests/login/reject?' + querystring.stringify
     })
 ```
 
-#### User Consent
+### User Consent
 
 Now that we know who the user is, we must ask the user if he/she wants to grant
 the requested permissions to the OAuth 2.0 Client. To do so, we check if the
@@ -372,10 +171,10 @@ permissions. If the user has never granted any permissions to the client, or the
 client requires new permissions not previously granted, the user must visually
 confirm the request.
 
-This works very similar to the User Login Flow. First, the user will be
-redirected to the Consent Provider which was set using the
-`OAUTH2_CONSENT_PROVIDER` environment variable. For example, the user is
-redirected to `https://consent-provider/consent?consent_challenge=1234` if
+This works very similar to the User Login Flow. First, the user will be redirect
+to the Consent Provider which was set using the `OAUTH2_CONSENT_PROVIDER`
+environment variable. For example, the user is redirected to
+`https://consent-provider/consent?consent_challenge=1234` if
 `OAUTH2_CONSENT_PROVIDER=https://consent-provider/consent`. This redirection
 happens _always_ and regardless of whether the user has a valid login session or
 if the user needs to authorize the application or not.
@@ -562,11 +361,11 @@ the high level flow looks as follows:
    either be the default redirect URL set by `urls.post_logout_redirect` or to
    the value specified by query parameter `post_logout_redirect_uri`.
 
-![https://mermaidjs.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgVXNlciBBZ2VudC0-Pk9SWSBIeWRyYTogQ2FsbHMgbG9nb3V0IGVuZHBvaW50XG4gICAgT1JZIEh5ZHJhLS0-Pk9SWSBIeWRyYTogVmFsaWRhdGVzIGxvZ291dCBlbmRwb2ludFxuICAgIE9SWSBIeWRyYS0-PkxvZ291dCBQcm92aWRlcjogUmVkaXJlY3RzIGVuZCB1c2VyIHdpdGggbG9nb3V0IGNoYWxsZW5nZVxuICAgIExvZ291dCBQcm92aWRlci0tPk9SWSBIeWRyYTogRmV0Y2hlcyBsb2dvdXQgcmVxdWVzdCBpbmZvXG4gICAgTG9nb3V0IFByb3ZpZGVyLS0-PkxvZ291dCBQcm92aWRlcjogQWNxdWlyZXMgdXNlciBjb25zZW50IGZvciBsb2dvdXQgKG9wdGlvbmFsKVxuICAgIExvZ291dCBQcm92aWRlci0tPk9SWSBIeWRyYTogSW5mb3JtcyB0aGF0IGxvZ291dCByZXF1ZXN0IGlzIGdyYW50ZWRcbiAgICBMb2dvdXQgUHJvdmlkZXItPj5PUlkgSHlkcmE6IFJlZGlyZWN0cyBlbmQgdXNlciB0byByZWRpcmVjdCB1cmwgd2l0aCBsb2dvdXQgY2hhbGxlbmdlXG4gICAgT1JZIEh5ZHJhLS0-Pk9SWSBIeWRyYTogUGVyZm9ybXMgbG9nb3V0IHJvdXRpbmVzXG4gICAgT1JZIEh5ZHJhLS0-VXNlciBBZ2VudDogUmVkaXJlY3RzIHRvIHNwZWNpZmllZCByZWRpcmVjdCB1cmwiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9fQ](/images/docs/hydra/logout-flow.png)
+![https://mermaidjs.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgVXNlciBBZ2VudC0-Pk9SWSBIeWRyYTogQ2FsbHMgbG9nb3V0IGVuZHBvaW50XG4gICAgT1JZIEh5ZHJhLS0-Pk9SWSBIeWRyYTogVmFsaWRhdGVzIGxvZ291dCBlbmRwb2ludFxuICAgIE9SWSBIeWRyYS0-PkxvZ291dCBQcm92aWRlcjogUmVkaXJlY3RzIGVuZCB1c2VyIHdpdGggbG9nb3V0IGNoYWxsZW5nZVxuICAgIExvZ291dCBQcm92aWRlci0tPk9SWSBIeWRyYTogRmV0Y2hlcyBsb2dvdXQgcmVxdWVzdCBpbmZvXG4gICAgTG9nb3V0IFByb3ZpZGVyLS0-PkxvZ291dCBQcm92aWRlcjogQWNxdWlyZXMgdXNlciBjb25zZW50IGZvciBsb2dvdXQgKG9wdGlvbmFsKVxuICAgIExvZ291dCBQcm92aWRlci0tPk9SWSBIeWRyYTogSW5mb3JtcyB0aGF0IGxvZ291dCByZXF1ZXN0IGlzIGdyYW50ZWRcbiAgICBMb2dvdXQgUHJvdmlkZXItPj5PUlkgSHlkcmE6IFJlZGlyZWN0cyBlbmQgdXNlciB0byByZWRpcmVjdCB1cmwgd2l0aCBsb2dvdXQgY2hhbGxlbmdlXG4gICAgT1JZIEh5ZHJhLS0-Pk9SWSBIeWRyYTogUGVyZm9ybXMgbG9nb3V0IHJvdXRpbmVzXG4gICAgT1JZIEh5ZHJhLS0-VXNlciBBZ2VudDogUmVkaXJlY3RzIHRvIHNwZWNpZmllZCByZWRpcmVjdCB1cmwiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9fQ](/images/docs/hydra/logout-flow.png))
 
 This endpoint does not remove any Access/Refresh Tokens.
 
-#### Logout Provider Example (NodeJS Pseudo-code)
+### Logout Provider Example (NodeJS Pseudo-code)
 
 Following step 1 from the flow above, the user-agent is redirected to the logout
 provider (e.g. `https://my-logout-provider/logout?challenge=...`). Next, the
@@ -649,7 +448,7 @@ If the logout request was granted and the user agent redirected back to ORY
 Hydra, all OpenID Connect Front-/Back-channel logout flows (if set) will be
 performed and the user will be redirect back to his/her final destination.
 
-#### [OpenID Connect Front-Channel Logout 1.0](https://openid.net/specs/openid-connect-frontchannel-1_0.html)
+### [OpenID Connect Front-Channel Logout 1.0](https://openid.net/specs/openid-connect-frontchannel-1_0.html)
 
 In summary
 ([read the spec](https://openid.net/specs/openid-connect-frontchannel-1_0.html))
@@ -678,7 +477,7 @@ Each OpenID Connect ID Token is issued with a `sid` claim that will match the
 ORY Hydra will automatically execute the required HTTP Redirects to make this
 work. No extra work is required.
 
-#### [OpenID Connect Back-Channel Logout 1.0](https://openid.net/specs/openid-connect-backchannel-1_0.html)
+### [OpenID Connect Back-Channel Logout 1.0](https://openid.net/specs/openid-connect-backchannel-1_0.html)
 
 In summary
 ([read the spec](https://openid.net/specs/openid-connect-backchannel-1_0.html))
@@ -757,9 +556,9 @@ user-agent (e.g. Browser) but from ORY Hydra directly, the session cookie of the
 end-user will not be available to the OAuth 2.0 Client and the session has to be
 invalidated by some other means (e.g. by blacklisting the session ID).
 
-### Revoking consent and login sessions
+## Revoking consent and login sessions
 
-#### Login
+### Login
 
 You can revoke login sessions. Revoking a login session will remove all of the
 user's cookies at ORY Hydra and will require the user to re-authenticate when
@@ -772,7 +571,7 @@ Revoking the login sessions of a user is as easy as sending
 This endpoint is not compatible with OpenID Connect Front-/Backchannel logout
 and does not revoke any tokens.
 
-#### Consent
+### Consent
 
 You can revoke a user's consent either on a per application basis or for all
 applications. Revoking the consent will automatically revoke all related access
@@ -841,15 +640,12 @@ OAuth 2.0 Refresh Tokens are issued only when an Authorize Code Flow
 Response Type (`response_type=code+...`) is executed. OAuth 2.0 Refresh Tokens
 are not returned for Implicit or Client Credentials grants:
 
-Capable of issuing an OAuth 2.0 Refresh Token:
-
+- Capable of issuing an OAuth 2.0 Refresh Token:
 - https://ory-hydra.example/oauth2/auth?response_type=code&...
 - https://ory-hydra.example/oauth2/auth?response_type=code+token&...
 - https://ory-hydra.example/oauth2/auth?response_type=code+token+id_token&...
 - https://ory-hydra.example/oauth2/auth?response_type=code+id_token&...
-
-Will not issue an OAuth 2.0 Refresh Token:
-
+- Will not issue an OAuth 2.0 Refresh Token
 - https://ory-hydra.example/oauth2/auth?response_type=token&...
 - https://ory-hydra.example/oauth2/auth?response_type=token+id_token&...
 - https://ory-hydra.example/oauth2/token?grant_type=client_redentials&...
@@ -905,12 +701,12 @@ You can manage _OAuth 2.0 clients_ using the cli or the HTTP REST API:
 - **CLI:** `hydra help clients`
 - **REST:** Read the [API Docs](https://www.ory.sh/docs/hydra/sdk/api)
 
-#### Examples
+## Examples
 
 This section provides a few examples to get you started with the most-used OAuth
 2.0 Clients:
 
-##### Authorize Code Flow with Refresh Token
+### Authorize Code Flow with Refresh Token
 
 The following command creates an OAuth 2.0 Client capable of executing the
 Authorize Code Flow, requesting ID and Refresh Tokens and performing the OAuth
@@ -941,10 +737,10 @@ command above:
 ```
 
 The same can be achieved by setting
-`"token_endpoint_auth_method": "client_secret_post"` in the request body of
+`"token_endpoint_auth_method": "client_secret_post"` in the the request body of
 `POST /clients` and `PUT /clients/<id>`.
 
-##### Client Credentials Flow
+### Client Credentials Flow
 
 A client only capable of performing the Client Credentials Flow can be created
 as follows:

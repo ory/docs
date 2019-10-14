@@ -15,22 +15,26 @@
     ],
     "ORY Hydra": [
       "hydra/index",
-      "hydra/install",
       {
         "type": "subcategory",
-        "label": "Getting Started",
-        "ids": ["hydra/5min-tutorial"]
+        "label": "Concepts",
+        "ids": ["hydra/oauth2", "hydra/login-consent-flow"]
       },
       {
         "type": "subcategory",
-        "label": "Core Concepts",
-        "ids": ["hydra/oauth2", "hydra/configuration"]
+        "label": "Integrating Hydra into your stack",
+        "ids": [
+          "hydra/5min-tutorial",
+          "hydra/implementing-consent",
+          "hydra/case-study"
+        ]
       },
       {
         "type": "subcategory",
         "label": "Guides",
         "ids": [
           "hydra/configure-deploy",
+          "hydra/configuration",
           "hydra/dependencies-environment",
           "hydra/production",
           "hydra/debugging",

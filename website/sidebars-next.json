@@ -13,10 +13,13 @@
     ],
     "ORY Hydra": [
       "hydra/index",
+      "hydra/oauth2",
+      "hydra/login-consent-flow",
+      "hydra/case-study",
       {
         "type": "subcategory",
         "label": "Getting Started",
-        "ids": ["hydra/5min-tutorial"]
+        "ids": ["hydra/5min-tutorial", "hydra/implementing-consent"]
       },
       {
         "type": "subcategory",
