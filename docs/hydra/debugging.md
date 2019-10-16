@@ -39,7 +39,13 @@ multiple reasons:
 
 1. You are using the `client_credentials` grant which can not return an ID
    token.
-2. You forgot to request the `openid` scope when calling `/oauth2/auth?response_type=code` (Authorize Code Flow - correct would be `/oauth2/auth?response_type=code&scope=openid`) or the `id_token` response type when calling `/oauth2/auth?response_type=token` (Implicit/Hybrid flow - correct would be `/oauth2/auth?response_type=token+id_token&scope=openid` or any other combination such as `response_type=id_token`, `response_type=token+code+id_token`).
+2. You forgot to request the `openid` scope when calling
+   `/oauth2/auth?response_type=code` (Authorize Code Flow - correct would be
+   `/oauth2/auth?response_type=code&scope=openid`) or the `id_token` response
+   type when calling `/oauth2/auth?response_type=token` (Implicit/Hybrid flow -
+   correct would be `/oauth2/auth?response_type=token+id_token&scope=openid` or
+   any other combination such as `response_type=id_token`,
+   `response_type=token+code+id_token`).
 3. You consent app did not send `granted_scope: ["openid"]` or when accepting
    the consent request.
 4. The OAuth 2.0 Client making the request is not allowed to request the scope
