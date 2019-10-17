@@ -35,7 +35,7 @@ summarized as:
   validating his or her credentials (e.g. username + password).
 - The consent provider is responsible for allowing the OAuth 2.0 application to
   get a token on the user's behalf ("Do you want to allow foobar-app access to
-  all your personal messages and images?".
+  all your personal messages and images?").
 
 ### Common Misconceptions
 
