@@ -1683,7 +1683,7 @@ Status Code **200**
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-09-25T10:38:36Z",
+    "created_at": "2019-10-17T14:15:13Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -1724,7 +1724,7 @@ Status Code **200**
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-09-25T10:38:36Z",
+    "updated_at": "2019-10-17T14:15:13Z",
     "userinfo_signed_response_alg": "string"
   }
 ]
@@ -1904,7 +1904,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-09-25T10:38:36Z",
+  "created_at": "2019-10-17T14:15:13Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -1945,7 +1945,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-09-25T10:38:36Z",
+  "updated_at": "2019-10-17T14:15:13Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -1987,7 +1987,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-09-25T10:38:36Z",
+  "created_at": "2019-10-17T14:15:13Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2028,7 +2028,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-09-25T10:38:36Z",
+  "updated_at": "2019-10-17T14:15:13Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2109,7 +2109,7 @@ const input = '{
   "contacts": [
     "string"
   ],
-  "created_at": "2019-09-25T10:38:36Z",
+  "created_at": "2019-10-17T14:15:13Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": [
@@ -2162,7 +2162,7 @@ const input = '{
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-09-25T10:38:36Z",
+  "updated_at": "2019-10-17T14:15:13Z",
   "userinfo_signed_response_alg": "string"
 }';
 const headers = {
@@ -2301,7 +2301,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-09-25T10:38:36Z",
+  "created_at": "2019-10-17T14:15:13Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2342,7 +2342,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-09-25T10:38:36Z",
+  "updated_at": "2019-10-17T14:15:13Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2520,7 +2520,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-09-25T10:38:36Z",
+  "created_at": "2019-10-17T14:15:13Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2561,7 +2561,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-09-25T10:38:36Z",
+  "updated_at": "2019-10-17T14:15:13Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2602,7 +2602,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-09-25T10:38:36Z",
+  "created_at": "2019-10-17T14:15:13Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2643,7 +2643,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-09-25T10:38:36Z",
+  "updated_at": "2019-10-17T14:15:13Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2724,7 +2724,7 @@ const input = '{
   "contacts": [
     "string"
   ],
-  "created_at": "2019-09-25T10:38:36Z",
+  "created_at": "2019-10-17T14:15:13Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": [
@@ -2777,7 +2777,7 @@ const input = '{
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-09-25T10:38:36Z",
+  "updated_at": "2019-10-17T14:15:13Z",
   "userinfo_signed_response_alg": "string"
 }';
 const headers = {
@@ -4998,7 +4998,7 @@ the subject accepted or rejected the request.
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-09-25T10:38:36Z",
+    "created_at": "2019-10-17T14:15:13Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -5039,7 +5039,7 @@ the subject accepted or rejected the request.
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-09-25T10:38:36Z",
+    "updated_at": "2019-10-17T14:15:13Z",
     "userinfo_signed_response_alg": "string"
   },
   "context": {
@@ -5745,7 +5745,7 @@ the requested authentication process.
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-09-25T10:38:36Z",
+    "created_at": "2019-10-17T14:15:13Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -5786,7 +5786,7 @@ the requested authentication process.
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-09-25T10:38:36Z",
+    "updated_at": "2019-10-17T14:15:13Z",
     "userinfo_signed_response_alg": "string"
   },
   "oidc_context": {
@@ -7145,7 +7145,7 @@ Status Code **200**
         "client_secret_expires_at": 0,
         "client_uri": "string",
         "contacts": ["string"],
-        "created_at": "2019-09-25T10:38:36Z",
+        "created_at": "2019-10-17T14:15:13Z",
         "frontchannel_logout_session_required": true,
         "frontchannel_logout_uri": "string",
         "grant_types": ["string"],
@@ -7186,7 +7186,7 @@ Status Code **200**
         "subject_type": "string",
         "token_endpoint_auth_method": "string",
         "tos_uri": "string",
-        "updated_at": "2019-09-25T10:38:36Z",
+        "updated_at": "2019-10-17T14:15:13Z",
         "userinfo_signed_response_alg": "string"
       },
       "context": {
@@ -7772,7 +7772,7 @@ deleted automatically when performing the refresh flow.
 
 ```json
 {
-  "notAfter": "2019-09-25T10:38:36Z"
+  "notAfter": "2019-10-17T14:15:13Z"
 }
 ```
 
@@ -7870,7 +7870,7 @@ func main() {
 ```nodejs
 const fetch = require('node-fetch');
 const input = '{
-  "notAfter": "2019-09-25T10:38:36Z"
+  "notAfter": "2019-10-17T14:15:13Z"
 }';
 const headers = {
   'Content-Type': 'application/json',  'Accept': 'application/json'
@@ -8472,7 +8472,7 @@ p JSON.parse(result)
       "client_secret_expires_at": 0,
       "client_uri": "string",
       "contacts": ["string"],
-      "created_at": "2019-09-25T10:38:36Z",
+      "created_at": "2019-10-17T14:15:13Z",
       "frontchannel_logout_session_required": true,
       "frontchannel_logout_uri": "string",
       "grant_types": ["string"],
@@ -8513,7 +8513,7 @@ p JSON.parse(result)
       "subject_type": "string",
       "token_endpoint_auth_method": "string",
       "tos_uri": "string",
-      "updated_at": "2019-09-25T10:38:36Z",
+      "updated_at": "2019-10-17T14:15:13Z",
       "userinfo_signed_response_alg": "string"
     },
     "context": {
@@ -8637,7 +8637,7 @@ _HandledLoginRequest is the request payload used to accept a login request._
 | » **additionalProperties** | object         | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | force_subject_identifier   | string         | false    | none         | ForceSubjectIdentifier forces the "pairwise" user ID of the end-user that authenticated. The "pairwise" user ID refers to the (Pairwise Identifier Algorithm)[http://openid.net/specs/openid-connect-core-1_0.html#PairwiseAlg] of the OpenID Connect specification. It allows you to set an obfuscated subject ("user") identifier that is unique to the client. Please note that this changes the user ID on endpoint /userinfo and sub claim of the ID Token. It does not change the sub claim in the OAuth 2.0 Introspection. Per default, ORY Hydra handles this value with its own algorithm. In case you want to set this yourself you can use this field. Please note that setting this field has no effect if `pairwise` is not configured in ORY Hydra or the OAuth 2.0 Client does not expect a pairwise identifier (set via `subject_type` key in the client's configuration). Please also be aware that ORY Hydra is unable to properly compute this value during authentication. This implies that you have to compute this value on every authentication process (probably depending on the client ID or some other unique value). If you fail to compute the proper value, then authentication processes which have id_token_hint set might fail. |
 | remember                   | boolean        | false    | none         | Remember, if set to true, tells ORY Hydra to remember this user by telling the user agent (browser) to store a cookie with authentication data. If the same user performs another OAuth 2.0 Authorization Request, he/she will not be asked to log in again.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| remember_for               | integer(int64) | false    | none         | RememberFor sets how long the authentication should be remembered for in seconds. If set to `0`, the authorization will be remembered indefinitely.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| remember_for               | integer(int64) | false    | none         | RememberFor sets how long the authentication should be remembered for in seconds. If set to `0`, the authorization will be remembered for the duration of the browser session (using a session cookie).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | subject                    | string         | true     | none         | Subject is the user ID of the end-user that authenticated.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 
 <a id="tocScompletedrequest">completedRequest</a>
@@ -8682,7 +8682,7 @@ request._
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-09-25T10:38:36Z",
+    "created_at": "2019-10-17T14:15:13Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -8723,7 +8723,7 @@ request._
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-09-25T10:38:36Z",
+    "updated_at": "2019-10-17T14:15:13Z",
     "userinfo_signed_response_alg": "string"
   },
   "context": {
@@ -8808,7 +8808,7 @@ _Used to pass session data to a consent request._
 
 ```json
 {
-  "notAfter": "2019-09-25T10:38:36Z"
+  "notAfter": "2019-10-17T14:15:13Z"
 }
 ```
 
@@ -8926,7 +8926,7 @@ _Error response_
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-09-25T10:38:36Z",
+    "created_at": "2019-10-17T14:15:13Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -8967,7 +8967,7 @@ _Error response_
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-09-25T10:38:36Z",
+    "updated_at": "2019-10-17T14:15:13Z",
     "userinfo_signed_response_alg": "string"
   },
   "oidc_context": {
@@ -9049,7 +9049,7 @@ _Contains information about an ongoing logout request._
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-09-25T10:38:36Z",
+  "created_at": "2019-10-17T14:15:13Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -9090,7 +9090,7 @@ _Contains information about an ongoing logout request._
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-09-25T10:38:36Z",
+  "updated_at": "2019-10-17T14:15:13Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
