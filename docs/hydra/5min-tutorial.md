@@ -102,6 +102,30 @@ $ docker-compose -f quickstart.yml exec hydra \
     --client-id my-client \
     --client-secret secret
 
+UDYMha9TwsMBejEvKfnDOXkhgkLsnmUNYVQDklT5bD8.ZNpuNRC85erbIYDjPqhMwTinlvQmNTk_UvttcLQxFJY
+```
+
+Let's perform token introspection on that token. Make sure to copy the token you
+just got and not the dummy value.
+
+```
+$ docker-compose -f quickstart.yml exec hydra \
+    hydra token introspect \
+    --endpoint http://127.0.0.1:4445/ \
+    --client-id my-client \
+    --client-secret secret \
+
+UDYMha9TwsMBejEvKfnDOXkhgkLsnmUNYVQDklT5bD8.ZNpuNRC85erbIYDjPqhMwTinlvQmNTk_UvttcLQxFJY
+
+{
+    "active": true,
+    "client_id": "my-client",
+    "exp": 1527078658,
+    "iat": 1527075058,
+    "iss": "http://127.0.0.1:4444/",
+    "sub": "my-client",
+    "token_type": "access_token"
+}
 ```
 
 Next, we will perform the OAuth 2.0 Authorization Code Grant. For that, we must
