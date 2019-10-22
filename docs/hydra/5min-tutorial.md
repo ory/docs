@@ -86,7 +86,8 @@ $ docker-compose -f quickstart.yml exec hydra \
     -g client_credentials
 ```
 
-If you get an error message about a config file not being found, you can ignore it for now:
+If you get an error message about a config file not being found, you can ignore
+it for now:
 
 ```
 Config file not found because "Config File ".hydra" Not Found in "[/]""
