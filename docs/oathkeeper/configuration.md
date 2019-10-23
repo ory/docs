@@ -42,7 +42,7 @@ serve:
     # - Windows Command Line (CMD):
     #    > set SERVE_API_PORT=<value>
     #
-    port: 29566234.761885554
+    port: 77959618.50271049
 
     ## Host ##
     #
@@ -78,7 +78,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_API_CORS_ENABLED=<value>
       #
-      enabled: true
+      enabled: false
 
       ## Allowed Origins ##
       #
@@ -97,8 +97,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_API_CORS_ALLOWED_ORIGINS=<value>
       #
-      allowed_origins:
-        - "*"
+      allowed_origins: https://*.foo.example.com
 
       ## Allowed HTTP Methods ##
       #
@@ -113,11 +112,9 @@ serve:
       #    > set SERVE_API_CORS_ALLOWED_METHODS=<value>
       #
       allowed_methods:
-        - DELETE
-        - TRACE
-        - CONNECT
-        - HEAD
         - PATCH
+        - DELETE
+        - POST
 
       ## Allowed Request HTTP Headers ##
       #
@@ -132,11 +129,8 @@ serve:
       #    > set SERVE_API_CORS_ALLOWED_HEADERS=<value>
       #
       allowed_headers:
-        - "veniam cupidatat "
-        - commodo in deserunt
-        - dolor
-        - qui ipsum id volu
-        - ad aliqua aute cillum velit
+        - eiusmod laborum veniam Duis velit
+        - irure veniam
 
       ## Allowed Response HTTP Headers ##
       #
@@ -151,9 +145,10 @@ serve:
       #    > set SERVE_API_CORS_EXPOSED_HEADERS=<value>
       #
       exposed_headers:
-        - non occaecat fugiat ut in
-        - velit pariatur esse anim
-        - elit sunt
+        - laborum fugiat
+        - ut pariatur occaecat elit ex
+        - dolore sit
+        - qui aute ea
 
       ## Allow HTTP Credentials ##
       #
@@ -179,7 +174,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_API_CORS_MAX_AGE=<value>
       #
-      max_age: 46219066.23279917
+      max_age: 46977106.16793859
 
       ## Enable Debugging ##
       #
@@ -193,7 +188,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_API_CORS_DEBUG=<value>
       #
-      debug: false
+      debug: true
 
     ## HTTPS ##
     #
@@ -265,7 +260,7 @@ serve:
     # - Windows Command Line (CMD):
     #    > set SERVE_PROXY_PORT=<value>
     #
-    port: 43425581.47559878
+    port: -24809600.98596689
 
     ## Host ##
     #
@@ -281,7 +276,7 @@ serve:
     # - Windows Command Line (CMD):
     #    > set SERVE_PROXY_HOST=<value>
     #
-    host: ""
+    host: 127.0.0.1
 
     ## HTTP Timeouts ##
     #
@@ -306,7 +301,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_TIMEOUT_READ=<value>
       #
-      read: 5m
+      read: 5h
 
       ## HTTP Write Timeout ##
       #
@@ -325,7 +320,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_TIMEOUT_WRITE=<value>
       #
-      write: 120s
+      write: 5s
 
       ## HTTP Idle Timeout ##
       #
@@ -344,7 +339,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_TIMEOUT_IDLE=<value>
       #
-      idle: 5m
+      idle: 120s
 
     ## Cross Origin Resource Sharing (CORS) ##
     #
@@ -364,7 +359,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_CORS_ENABLED=<value>
       #
-      enabled: false
+      enabled: true
 
       ## Allowed Origins ##
       #
@@ -383,7 +378,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_CORS_ALLOWED_ORIGINS=<value>
       #
-      allowed_origins: https://*.foo.example.com
+      allowed_origins: https://example.com
 
       ## Allowed HTTP Methods ##
       #
@@ -398,11 +393,8 @@ serve:
       #    > set SERVE_PROXY_CORS_ALLOWED_METHODS=<value>
       #
       allowed_methods:
-        - TRACE
-        - POST
-        - CONNECT
         - GET
-        - HEAD
+        - PATCH
 
       ## Allowed Request HTTP Headers ##
       #
@@ -417,10 +409,8 @@ serve:
       #    > set SERVE_PROXY_CORS_ALLOWED_HEADERS=<value>
       #
       allowed_headers:
-        - exercitation in sunt esse voluptate
-        - aliqua elit pariatur consectetur
-        - Duis mollit consequat
-        - cupidatat consequat fugiat
+        - consequat id dolore cillum
+        - qui labore reprehenderit
 
       ## Allowed Response HTTP Headers ##
       #
@@ -435,9 +425,11 @@ serve:
       #    > set SERVE_PROXY_CORS_EXPOSED_HEADERS=<value>
       #
       exposed_headers:
-        - Lorem ea aliquip ex
-        - consectetur esse cillum proident
-        - officia Excepteur et aute veniam
+        - culpa ut
+        - cillum eu adipisicing dolor
+        - "aute nisi "
+        - occaecat irure l
+        - Ut ullamco ea tempor
 
       ## Allow HTTP Credentials ##
       #
@@ -463,7 +455,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_CORS_MAX_AGE=<value>
       #
-      max_age: -15360909.664412543
+      max_age: 77243898.60889363
 
       ## Enable Debugging ##
       #
@@ -477,7 +469,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_CORS_DEBUG=<value>
       #
-      debug: true
+      debug: false
 
     ## HTTPS ##
     #
@@ -611,7 +603,7 @@ authenticators:
       # - Windows Command Line (CMD):
       #    > set AUTHENTICATORS_ANONYMOUS_CONFIG_SUBJECT=<value>
       #
-      subject: unknown
+      subject: anon
 
   ## No Operation (noop) ##
   #
@@ -634,7 +626,7 @@ authenticators:
     # - Windows Command Line (CMD):
     #    > set AUTHENTICATORS_NOOP_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
   ## Unauthorized ##
   #
@@ -665,32 +657,6 @@ authenticators:
   #
   cookie_session:
     
-    ## config ##
-    #
-    config:
-      
-      ## check_session_url ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export AUTHENTICATORS_COOKIE_SESSION_CONFIG_CHECK_SESSION_URL=<value>
-      # - Windows Command Line (CMD):
-      #    > set AUTHENTICATORS_COOKIE_SESSION_CONFIG_CHECK_SESSION_URL=<value>
-      #
-      check_session_url: https://session-store-host
-
-      ## only ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export AUTHENTICATORS_COOKIE_SESSION_CONFIG_ONLY=<value>
-      # - Windows Command Line (CMD):
-      #    > set AUTHENTICATORS_COOKIE_SESSION_CONFIG_ONLY=<value>
-      #
-      only:
-        - Duis qui in
-        - nostrud
-
     ## enabled ##
     #
     # Set this value using environment variables on
@@ -707,95 +673,6 @@ authenticators:
   #
   jwt:
     
-    ## config ##
-    #
-    config:
-      
-      ## required_scope ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export AUTHENTICATORS_JWT_CONFIG_REQUIRED_SCOPE=<value>
-      # - Windows Command Line (CMD):
-      #    > set AUTHENTICATORS_JWT_CONFIG_REQUIRED_SCOPE=<value>
-      #
-      required_scope:
-        - consectetur
-        - sit non aute ad
-
-      ## target_audience ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export AUTHENTICATORS_JWT_CONFIG_TARGET_AUDIENCE=<value>
-      # - Windows Command Line (CMD):
-      #    > set AUTHENTICATORS_JWT_CONFIG_TARGET_AUDIENCE=<value>
-      #
-      target_audience:
-        - cillum dolore
-        - consequat qui
-        - cillum
-        - in minim ullamco culpa
-        - cillum nulla id
-
-      ## trusted_issuers ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export AUTHENTICATORS_JWT_CONFIG_TRUSTED_ISSUERS=<value>
-      # - Windows Command Line (CMD):
-      #    > set AUTHENTICATORS_JWT_CONFIG_TRUSTED_ISSUERS=<value>
-      #
-      trusted_issuers:
-        - Duis anim in in
-
-      ## allowed_algorithms ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export AUTHENTICATORS_JWT_CONFIG_ALLOWED_ALGORITHMS=<value>
-      # - Windows Command Line (CMD):
-      #    > set AUTHENTICATORS_JWT_CONFIG_ALLOWED_ALGORITHMS=<value>
-      #
-      allowed_algorithms:
-        - non ex aliqua esse Duis
-        - sunt
-        - nostrud adipisicing
-
-      ## jwks_urls ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export AUTHENTICATORS_JWT_CONFIG_JWKS_URLS=<value>
-      # - Windows Command Line (CMD):
-      #    > set AUTHENTICATORS_JWT_CONFIG_JWKS_URLS=<value>
-      #
-      jwks_urls: file://path/to/local/jwks.json
-
-      ## scope_strategy ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export AUTHENTICATORS_JWT_CONFIG_SCOPE_STRATEGY=<value>
-      # - Windows Command Line (CMD):
-      #    > set AUTHENTICATORS_JWT_CONFIG_SCOPE_STRATEGY=<value>
-      #
-      scope_strategy: none
-
-      ## token_from ##
-      #
-      token_from:
-        
-        ## query_parameter ##
-        #
-        # Set this value using environment variables on
-        # - Linux/macOS:
-        #    $ export AUTHENTICATORS_JWT_CONFIG_TOKEN_FROM_QUERY_PARAMETER=<value>
-        # - Windows Command Line (CMD):
-        #    > set AUTHENTICATORS_JWT_CONFIG_TOKEN_FROM_QUERY_PARAMETER=<value>
-        #
-        query_parameter: nisi officia ea quis
-
     ## enabled ##
     #
     # Set this value using environment variables on
@@ -812,6 +689,32 @@ authenticators:
   #
   oauth2_client_credentials:
     
+    ## config ##
+    #
+    config:
+      
+      ## token_url ##
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export AUTHENTICATORS_OAUTH2_CLIENT_CREDENTIALS_CONFIG_TOKEN_URL=<value>
+      # - Windows Command Line (CMD):
+      #    > set AUTHENTICATORS_OAUTH2_CLIENT_CREDENTIALS_CONFIG_TOKEN_URL=<value>
+      #
+      token_url: https://my-website.com/oauth2/token
+
+      ## required_scope ##
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export AUTHENTICATORS_OAUTH2_CLIENT_CREDENTIALS_CONFIG_REQUIRED_SCOPE=<value>
+      # - Windows Command Line (CMD):
+      #    > set AUTHENTICATORS_OAUTH2_CLIENT_CREDENTIALS_CONFIG_REQUIRED_SCOPE=<value>
+      #
+      required_scope:
+        - quis velit a
+        - Ut incididunt sunt
+
     ## enabled ##
     #
     # Set this value using environment variables on
@@ -918,7 +821,7 @@ authorizers:
       # - Windows Command Line (CMD):
       #    > set AUTHORIZERS_KETO_ENGINE_ACP_ORY_CONFIG_REQUIRED_ACTION=<value>
       #
-      required_action: irure do
+      required_action: veniam dolor laborum nulla
 
       ## required_resource ##
       #
@@ -928,7 +831,7 @@ authorizers:
       # - Windows Command Line (CMD):
       #    > set AUTHORIZERS_KETO_ENGINE_ACP_ORY_CONFIG_REQUIRED_RESOURCE=<value>
       #
-      required_resource: proident cillum Duis
+      required_resource: ad veniam eiusmod
 
       ## subject ##
       #
@@ -938,7 +841,7 @@ authorizers:
       # - Windows Command Line (CMD):
       #    > set AUTHORIZERS_KETO_ENGINE_ACP_ORY_CONFIG_SUBJECT=<value>
       #
-      subject: dolore amet
+      subject: adipisicing in laboris non deserunt
 
       ## flavor ##
       #
@@ -948,7 +851,7 @@ authorizers:
       # - Windows Command Line (CMD):
       #    > set AUTHORIZERS_KETO_ENGINE_ACP_ORY_CONFIG_FLAVOR=<value>
       #
-      flavor: culpa irure
+      flavor: q
 
     ## enabled ##
     #
@@ -987,7 +890,7 @@ mutators:
     # - Windows Command Line (CMD):
     #    > set MUTATORS_NOOP_ENABLED=<value>
     #
-    enabled: false
+    enabled: true
 
   ## HTTP Cookie ##
   #
@@ -995,6 +898,44 @@ mutators:
   #
   cookie:
     
+    ## config ##
+    #
+    config:
+      
+      ## cookies ##
+      #
+      cookies:
+        
+        ## do7f$ ##
+        #
+        # Set this value using environment variables on
+        # - Linux/macOS:
+        #    $ export MUTATORS_COOKIE_CONFIG_COOKIES_DO7F$=<value>
+        # - Windows Command Line (CMD):
+        #    > set MUTATORS_COOKIE_CONFIG_COOKIES_DO7F$=<value>
+        #
+        do7f$: sed
+
+        ## ex_8e7 ##
+        #
+        # Set this value using environment variables on
+        # - Linux/macOS:
+        #    $ export MUTATORS_COOKIE_CONFIG_COOKIES_EX_8E7=<value>
+        # - Windows Command Line (CMD):
+        #    > set MUTATORS_COOKIE_CONFIG_COOKIES_EX_8E7=<value>
+        #
+        ex_8e7: veniam
+
+        ## voluptate_ef$ ##
+        #
+        # Set this value using environment variables on
+        # - Linux/macOS:
+        #    $ export MUTATORS_COOKIE_CONFIG_COOKIES_VOLUPTATE_EF$=<value>
+        # - Windows Command Line (CMD):
+        #    > set MUTATORS_COOKIE_CONFIG_COOKIES_VOLUPTATE_EF$=<value>
+        #
+        voluptate_ef$: irure ea eiusmod
+
     ## enabled ##
     #
     # Set this value using environment variables on
@@ -1003,7 +944,7 @@ mutators:
     # - Windows Command Line (CMD):
     #    > set MUTATORS_COOKIE_ENABLED=<value>
     #
-    enabled: false
+    enabled: true
 
   ## HTTP Header ##
   #
@@ -1019,25 +960,15 @@ mutators:
       #
       headers:
         
-        ## proident_d27 ##
+        ## Duisc$ ##
         #
         # Set this value using environment variables on
         # - Linux/macOS:
-        #    $ export MUTATORS_HEADER_CONFIG_HEADERS_PROIDENT_D27=<value>
+        #    $ export MUTATORS_HEADER_CONFIG_HEADERS_DUISC$=<value>
         # - Windows Command Line (CMD):
-        #    > set MUTATORS_HEADER_CONFIG_HEADERS_PROIDENT_D27=<value>
+        #    > set MUTATORS_HEADER_CONFIG_HEADERS_DUISC$=<value>
         #
-        proident_d27: nulla ut Ut ex Lorem
-
-        ## esse_3_ ##
-        #
-        # Set this value using environment variables on
-        # - Linux/macOS:
-        #    $ export MUTATORS_HEADER_CONFIG_HEADERS_ESSE_3_=<value>
-        # - Windows Command Line (CMD):
-        #    > set MUTATORS_HEADER_CONFIG_HEADERS_ESSE_3_=<value>
-        #
-        esse_3_: veniam exercitation
+        Duisc$: proident nisi sed do
 
     ## enabled ##
     #
@@ -1071,7 +1002,7 @@ mutators:
         # - Windows Command Line (CMD):
         #    > set MUTATORS_HYDRATOR_CONFIG_API_URL=<value>
         #
-        url: https://rwGcvZsSUACLXg.njiIo-jRyrw4DCIy4EFQJVF2o9NdE48Md..fwqHn3H
+        url: http://JptfcfBNWVTKOz.aaghvnhbHKpdsRcKiycBAe6+NO9nySqDL11aWnzRgarYApuSBnIMyRUjk7dm4R
 
         ## auth ##
         #
@@ -1089,7 +1020,7 @@ mutators:
             # - Windows Command Line (CMD):
             #    > set MUTATORS_HYDRATOR_CONFIG_API_AUTH_BASIC_USERNAME=<value>
             #
-            username: dolor veniam deserunt esse
+            username: ad
 
             ## password ##
             #
@@ -1099,7 +1030,7 @@ mutators:
             # - Windows Command Line (CMD):
             #    > set MUTATORS_HYDRATOR_CONFIG_API_AUTH_BASIC_PASSWORD=<value>
             #
-            password: quis
+            password: ex dolor
 
         ## retry ##
         #
@@ -1113,7 +1044,7 @@ mutators:
           # - Windows Command Line (CMD):
           #    > set MUTATORS_HYDRATOR_CONFIG_API_RETRY_NUMBER_OF_RETRIES=<value>
           #
-          number_of_retries: 56830683.72417221
+          number_of_retries: 53889532.24748765
 
           ## delay_in_milliseconds ##
           #
@@ -1123,7 +1054,7 @@ mutators:
           # - Windows Command Line (CMD):
           #    > set MUTATORS_HYDRATOR_CONFIG_API_RETRY_DELAY_IN_MILLISECONDS=<value>
           #
-          delay_in_milliseconds: 81544814.50789545
+          delay_in_milliseconds: 50629358.73984868
 
     ## enabled ##
     #
@@ -1153,7 +1084,7 @@ mutators:
       # - Windows Command Line (CMD):
       #    > set MUTATORS_ID_TOKEN_CONFIG_JWKS_URL=<value>
       #
-      jwks_url: file://../from/this/relative/location.json
+      jwks_url: file:///from/this/absolute/location.json
 
       ## issuer_url ##
       #
@@ -1163,7 +1094,7 @@ mutators:
       # - Windows Command Line (CMD):
       #    > set MUTATORS_ID_TOKEN_CONFIG_ISSUER_URL=<value>
       #
-      issuer_url: aute
+      issuer_url: veniam fugiat culpa enim
 
       ## claims ##
       #
@@ -1173,7 +1104,7 @@ mutators:
       # - Windows Command Line (CMD):
       #    > set MUTATORS_ID_TOKEN_CONFIG_CLAIMS=<value>
       #
-      claims: ut
+      claims: qui esse dol
 
       ## ttl ##
       #
@@ -1227,7 +1158,7 @@ log:
   # - Windows Command Line (CMD):
   #    > set LOG_FORMAT=<value>
   #
-  format: json
+  format: text
 
 ## Profiling ##
 #
@@ -1239,6 +1170,6 @@ log:
 # - Windows Command Line (CMD):
 #    > set PROFILING=<value>
 #
-profiling: cpu
+profiling: mem
 
 

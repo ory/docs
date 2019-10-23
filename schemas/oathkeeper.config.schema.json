@@ -4,18 +4,6 @@
   "title": "ORY Oathkeeper Configuration",
   "type": "object",
   "definitions": {
-    "scopeStrategy": {
-      "title": "Scope Strategy",
-      "type": "string",
-      "enum": [
-        "hierarchic",
-        "exact",
-        "wildcard",
-        "none"
-      ],
-      "default": "none",
-      "description": "Sets the strategy validation algorithm."
-    },
     "tlsxSource": {
       "type": "object",
       "additionalProperties": false,
@@ -329,6 +317,7 @@
           "title": "Anonymous",
           "description": "The [`anonymous` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#anonymous).",
           "type": "object",
+          "additionalProperties": false,
           "properties": {
             "enabled": {
               "$ref": "#/definitions/handlerSwitch"
@@ -359,6 +348,7 @@
           "title": "No Operation (noop)",
           "description": "The [`noop` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#noop).",
           "type": "object",
+          "additionalProperties": false,
           "properties": {
             "enabled": {
               "$ref": "#/definitions/handlerSwitch"
@@ -369,6 +359,7 @@
           "title": "Unauthorized",
           "description": "The [`unauthorized` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#unauthorized).",
           "type": "object",
+          "additionalProperties": false,
           "properties": {
             "enabled": {
               "$ref": "#/definitions/handlerSwitch"
@@ -379,6 +370,7 @@
           "title": "Cookie Session",
           "description": "The [`cookie_session` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#cookie_session).",
           "type": "object",
+          "additionalProperties": false,
           "anyOf": [
             {
               "properties": {
@@ -401,7 +393,33 @@
                   "default": false
                 },
                 "config": {
-                  "$ref": "https://raw.githubusercontent.com/ory/oathkeeper/master/.schemas/authenticators.cookie_session.schema.json#"
+                  "type": "object",
+                  "title": "Cookie Session Authenticator Configuration",
+                  "description": "This section is optional when the authenticator is disabled.",
+                  "properties": {
+                    "check_session_url": {
+                      "title": "Session Check URL",
+                      "type": "string",
+                      "format": "uri",
+                      "description": "The origin to proxy requests to. If the response is a 200 with body `{ \"subject\": \"...\", \"extra\": {} }`. The request will pass the subject through successfully, otherwise it will be marked as unauthorized.\n\n>If this authenticator is enabled, this value is required.",
+                      "examples": [
+                        "https://session-store-host"
+                      ]
+                    },
+                    "only": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "additionalItems": false
+                      },
+                      "title": "Only Cookies",
+                      "description": "A list of possible cookies to look for on incoming requests, and will fallthrough to the next authenticator if none of the passed cookies are set on the request."
+                    }
+                  },
+                  "required": [
+                    "check_session_url"
+                  ],
+                  "additionalProperties": false
                 }
               },
               "required": [
@@ -414,6 +432,7 @@
           "title": "JSON Web Token (jwt)",
           "description": "The [`jwt` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#jwt).",
           "type": "object",
+          "additionalProperties": false,
           "anyOf": [
             {
               "properties": {
@@ -488,7 +507,7 @@
                     "token_from": {
                       "title": "Token From",
                       "description": "The location of the token.\n If not configured, the token will be received from a default location - 'Authorization' header.\n One and only one location (header or query) must be specified.",
-                      "anyOf": [
+                      "oneOf": [
                         {
                           "type": "object",
                           "required": [
@@ -531,6 +550,7 @@
           "title": "OAuth 2.0 Client Credentials",
           "description": "The [`oauth2_client_credentials` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#oauth2_client_credentials).",
           "type": "object",
+          "additionalProperties": false,
           "anyOf": [
             {
               "properties": {
@@ -631,9 +651,10 @@
                     "pre_authorization": {
                       "title": "Pre-Authorization",
                       "description": "Enable pre-authorization in cases where the OAuth 2.0 Token Introspection endpoint is protected by OAuth 2.0 Bearer Tokens that can be retrieved using the OAuth 2.0 Client Credentials grant.",
-                      "anyOf": [
+                      "type": "object",
+                      "additionalProperties": false,
+                      "oneOf": [
                         {
-                          "type": "object",
                           "properties": {
                             "enabled": {
                               "title": "Enabled",
@@ -643,8 +664,6 @@
                           }
                         },
                         {
-                          "type": "object",
-                          "additionalProperties": false,
                           "required": [
                             "client_id",
                             "client_secret",
@@ -654,7 +673,6 @@
                             "enabled": {
                               "title": "Enabled",
                               "const": true,
-                              "default": false,
                               "default": false
                             },
                             "client_id": {
@@ -717,9 +735,9 @@
                     "token_from": {
                       "title": "Token From",
                       "description": "The location of the token.\n If not configured, the token will be received from a default location - 'Authorization' header.\n One and only one location (header or query) must be specified.",
-                      "anyOf": [
+                      "type": "object",
+                      "oneOf": [
                         {
-                          "type": "object",
                           "required": [
                             "header"
                           ],
@@ -732,7 +750,6 @@
                           }
                         },
                         {
-                          "type": "object",
                           "required": [
                             "query_parameter"
                           ],
@@ -781,6 +798,7 @@
           "title": "Deny",
           "description": "The [`deny` authorizer](https://www.ory.sh/docs/oathkeeper/pipeline/authz#allow).",
           "type": "object",
+          "additionalProperties": false,
           "properties": {
             "enabled": {
               "$ref": "#/definitions/handlerSwitch"
@@ -791,6 +809,7 @@
           "title": "ORY Keto Access Control Policies Engine",
           "description": "The [`keto_engine_acp_ory` authorizer](https://www.ory.sh/docs/oathkeeper/pipeline/authz#keto_engine_acp_ory).",
           "type": "object",
+          "additionalProperties": false,
           "anyOf": [
             {
               "properties": {
@@ -865,6 +884,7 @@
           "title": "No Operation (noop)",
           "description": "The [`noop` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#noop).",
           "type": "object",
+          "additionalProperties": false,
           "properties": {
             "enabled": {
               "$ref": "#/definitions/handlerSwitch"
@@ -875,6 +895,7 @@
           "title": "HTTP Cookie",
           "description": "The [`cookie` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#cookie).",
           "type": "object",
+          "additionalProperties": false,
           "anyOf": [
             {
               "properties": {
@@ -892,7 +913,6 @@
                   "title": "Enabled",
                   "description": "En-/disables this component.",
                   "const": true,
-                  "default": false,
                   "default": false
                 },
                 "config": {
@@ -923,6 +943,7 @@
           "title": "HTTP Header",
           "description": "The [`header` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#header).",
           "type": "object",
+          "additionalProperties": false,
           "anyOf": [
             {
               "properties": {
@@ -972,6 +993,7 @@
           "title": "Hydrator",
           "description": "The [`hydrator` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#hydrator).",
           "type": "object",
+          "additionalProperties": false,
           "anyOf": [
             {
               "properties": {
@@ -1066,13 +1088,17 @@
           "title": "ID Token (JSON Web Token)",
           "description": "The [`id_token` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#id_token).",
           "type": "object",
-          "oneOf": [
+          "additionalProperties": false,
+          "anyOf": [
             {
               "properties": {
                 "enabled": {
                   "title": "Enabled",
                   "description": "En-/disables this component.",
-                  "const": false
+                  "const": false,
+                  "examples": [
+                    true
+                  ]
                 }
               }
             },
@@ -1081,7 +1107,8 @@
                 "enabled": {
                   "title": "Enabled",
                   "description": "En-/disables this component.",
-                  "const": true
+                  "const": true,
+                  "default": false
                 },
                 "config": {
                   "type": "object",
