@@ -266,7 +266,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_TIMEOUT_READ=<value>
       #
-      read: 5s
+      read: 5h
 
       ## HTTP Write Timeout ##
       #
@@ -285,7 +285,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_TIMEOUT_WRITE=<value>
       #
-      write: 5m
+      write: 120s
 
       ## HTTP Idle Timeout ##
       #
@@ -304,7 +304,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_TIMEOUT_IDLE=<value>
       #
-      idle: 5h
+      idle: 5m
 
     ## Cross Origin Resource Sharing (CORS) ##
     #
@@ -342,8 +342,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_CORS_ALLOWED_ORIGINS=<value>
       #
-      allowed_origins:
-        - '*'
+      allowed_origins: https://example.com
 
       ## Allowed HTTP Methods ##
       #
@@ -652,7 +651,7 @@ authenticators:
     # - Windows Command Line (CMD):
     #    > set AUTHENTICATORS_COOKIE_SESSION_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
   ## JSON Web Token (jwt) ##
   #
@@ -682,7 +681,7 @@ authenticators:
     # - Windows Command Line (CMD):
     #    > set AUTHENTICATORS_OAUTH2_CLIENT_CREDENTIALS_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
   ## OAuth 2.0 Token Introspection ##
   #
@@ -817,7 +816,7 @@ authorizers:
     # - Windows Command Line (CMD):
     #    > set AUTHORIZERS_KETO_ENGINE_ACP_ORY_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
 ## Mutators ##
 #
@@ -887,7 +886,7 @@ mutators:
     # - Windows Command Line (CMD):
     #    > set MUTATORS_COOKIE_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
   ## HTTP Header ##
   #
@@ -902,7 +901,7 @@ mutators:
     # - Windows Command Line (CMD):
     #    > set MUTATORS_HEADER_ENABLED=<value>
     #
-    enabled: false
+    enabled: true
 
   ## Hydrator ##
   #
@@ -977,5 +976,5 @@ log:
 # - Windows Command Line (CMD):
 #    > set PROFILING=<value>
 #
-profiling: cpu
+profiling: mem
 ```

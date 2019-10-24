@@ -1170,6 +1170,7 @@ entity-body.
 ```yaml
 grant_type: string
 code: string
+refresh_token: string
 redirect_uri: string
 client_id: string
 ```
@@ -1178,13 +1179,14 @@ client_id: string
 
 ##### Parameters
 
-| Parameter      | In   | Type   | Required | Description |
-| -------------- | ---- | ------ | -------- | ----------- |
-| body           | body | object | false    | none        |
-| » grant_type   | body | string | true     | none        |
-| » code         | body | string | false    | none        |
-| » redirect_uri | body | string | false    | none        |
-| » client_id    | body | string | false    | none        |
+| Parameter       | In   | Type   | Required | Description |
+| --------------- | ---- | ------ | -------- | ----------- |
+| body            | body | object | false    | none        |
+| » grant_type    | body | string | true     | none        |
+| » code          | body | string | false    | none        |
+| » refresh_token | body | string | false    | none        |
+| » redirect_uri  | body | string | false    | none        |
+| » client_id     | body | string | false    | none        |
 
 #### Responses
 
@@ -1206,7 +1208,9 @@ client_id: string
 {
   "access_token": "string",
   "expires_in": 0,
+  "id_token": "string",
   "refresh_token": "string",
+  "scope": "string",
   "token_type": "string"
 }
 ```
@@ -1274,6 +1278,7 @@ const fetch = require('node-fetch');
 const input = '{
   "grant_type": "string",
   "code": "string",
+  "refresh_token": "string",
   "redirect_uri": "string",
   "client_id": "string"
 }';
@@ -1651,6 +1656,8 @@ Status Code **200**
 | »»»» y                                   | string                                | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | »»» jwks_uri                             | string                                | false    | none         | URL for the Client's JSON Web Key Set [JWK] document. If the Client signs requests to the Server, it contains the signing key(s) the Server uses to validate signatures from the Client. The JWK Set MAY also contain the Client's encryption keys(s), which are used by the Server to encrypt responses to the Client. When both signing and encryption keys are made available, a use (Key Use) parameter value is REQUIRED for all keys in the referenced JWK Set to indicate each key's intended usage. Although some algorithms allow the same key to be used for both signatures and encryption, doing so is NOT RECOMMENDED, as it is less secure. The JWK x5c parameter MAY be used to provide X.509 representations of keys provided. When used, the bare key values MUST still be present and MUST match those in the certificate. |
 | »»» logo_uri                             | string                                | false    | none         | LogoURI is an URL string that references a logo for the client.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| »»» metadata                             | object                                | false    | none         | Metadata is arbitrary data.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| »»»» **additionalProperties**            | object                                | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | »»» owner                                | string                                | false    | none         | Owner is a string identifying the owner of the OAuth 2.0 Client.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | »»» policy_uri                           | string                                | false    | none         | PolicyURI is a URL string that points to a human-readable privacy policy document that describes how the deployment organization collects, uses, retains, and discloses personal data.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | »»» post_logout_redirect_uris            | [string]                              | false    | none         | Array of URLs supplied by the RP to which it MAY request that the End-User's User Agent be redirected using the post_logout_redirect_uri parameter after a logout has been performed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
@@ -1683,7 +1690,7 @@ Status Code **200**
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-10-17T14:15:13Z",
+    "created_at": "2019-10-24T15:58:25Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -1712,6 +1719,10 @@ Status Code **200**
     },
     "jwks_uri": "string",
     "logo_uri": "string",
+    "metadata": {
+      "property1": {},
+      "property2": {}
+    },
     "owner": "string",
     "policy_uri": "string",
     "post_logout_redirect_uris": ["string"],
@@ -1724,7 +1735,7 @@ Status Code **200**
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-10-17T14:15:13Z",
+    "updated_at": "2019-10-24T15:58:25Z",
     "userinfo_signed_response_alg": "string"
   }
 ]
@@ -1904,7 +1915,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-10-17T14:15:13Z",
+  "created_at": "2019-10-24T15:58:25Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -1933,6 +1944,10 @@ and only callable by first-party components.
   },
   "jwks_uri": "string",
   "logo_uri": "string",
+  "metadata": {
+    "property1": {},
+    "property2": {}
+  },
   "owner": "string",
   "policy_uri": "string",
   "post_logout_redirect_uris": ["string"],
@@ -1945,7 +1960,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-10-17T14:15:13Z",
+  "updated_at": "2019-10-24T15:58:25Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -1987,7 +2002,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-10-17T14:15:13Z",
+  "created_at": "2019-10-24T15:58:25Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2016,6 +2031,10 @@ and only callable by first-party components.
   },
   "jwks_uri": "string",
   "logo_uri": "string",
+  "metadata": {
+    "property1": {},
+    "property2": {}
+  },
   "owner": "string",
   "policy_uri": "string",
   "post_logout_redirect_uris": ["string"],
@@ -2028,7 +2047,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-10-17T14:15:13Z",
+  "updated_at": "2019-10-24T15:58:25Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2109,7 +2128,7 @@ const input = '{
   "contacts": [
     "string"
   ],
-  "created_at": "2019-10-17T14:15:13Z",
+  "created_at": "2019-10-24T15:58:25Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": [
@@ -2142,6 +2161,10 @@ const input = '{
   },
   "jwks_uri": "string",
   "logo_uri": "string",
+  "metadata": {
+    "property1": {},
+    "property2": {}
+  },
   "owner": "string",
   "policy_uri": "string",
   "post_logout_redirect_uris": [
@@ -2162,7 +2185,7 @@ const input = '{
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-10-17T14:15:13Z",
+  "updated_at": "2019-10-24T15:58:25Z",
   "userinfo_signed_response_alg": "string"
 }';
 const headers = {
@@ -2301,7 +2324,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-10-17T14:15:13Z",
+  "created_at": "2019-10-24T15:58:25Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2330,6 +2353,10 @@ and only callable by first-party components.
   },
   "jwks_uri": "string",
   "logo_uri": "string",
+  "metadata": {
+    "property1": {},
+    "property2": {}
+  },
   "owner": "string",
   "policy_uri": "string",
   "post_logout_redirect_uris": ["string"],
@@ -2342,7 +2369,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-10-17T14:15:13Z",
+  "updated_at": "2019-10-24T15:58:25Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2520,7 +2547,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-10-17T14:15:13Z",
+  "created_at": "2019-10-24T15:58:25Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2549,6 +2576,10 @@ and only callable by first-party components.
   },
   "jwks_uri": "string",
   "logo_uri": "string",
+  "metadata": {
+    "property1": {},
+    "property2": {}
+  },
   "owner": "string",
   "policy_uri": "string",
   "post_logout_redirect_uris": ["string"],
@@ -2561,7 +2592,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-10-17T14:15:13Z",
+  "updated_at": "2019-10-24T15:58:25Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2602,7 +2633,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-10-17T14:15:13Z",
+  "created_at": "2019-10-24T15:58:25Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2631,6 +2662,10 @@ and only callable by first-party components.
   },
   "jwks_uri": "string",
   "logo_uri": "string",
+  "metadata": {
+    "property1": {},
+    "property2": {}
+  },
   "owner": "string",
   "policy_uri": "string",
   "post_logout_redirect_uris": ["string"],
@@ -2643,7 +2678,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-10-17T14:15:13Z",
+  "updated_at": "2019-10-24T15:58:25Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2724,7 +2759,7 @@ const input = '{
   "contacts": [
     "string"
   ],
-  "created_at": "2019-10-17T14:15:13Z",
+  "created_at": "2019-10-24T15:58:25Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": [
@@ -2757,6 +2792,10 @@ const input = '{
   },
   "jwks_uri": "string",
   "logo_uri": "string",
+  "metadata": {
+    "property1": {},
+    "property2": {}
+  },
   "owner": "string",
   "policy_uri": "string",
   "post_logout_redirect_uris": [
@@ -2777,7 +2816,7 @@ const input = '{
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-10-17T14:15:13Z",
+  "updated_at": "2019-10-24T15:58:25Z",
   "userinfo_signed_response_alg": "string"
 }';
 const headers = {
@@ -4998,7 +5037,7 @@ the subject accepted or rejected the request.
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-10-17T14:15:13Z",
+    "created_at": "2019-10-24T15:58:25Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -5027,6 +5066,10 @@ the subject accepted or rejected the request.
     },
     "jwks_uri": "string",
     "logo_uri": "string",
+    "metadata": {
+      "property1": {},
+      "property2": {}
+    },
     "owner": "string",
     "policy_uri": "string",
     "post_logout_redirect_uris": ["string"],
@@ -5039,7 +5082,7 @@ the subject accepted or rejected the request.
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-10-17T14:15:13Z",
+    "updated_at": "2019-10-24T15:58:25Z",
     "userinfo_signed_response_alg": "string"
   },
   "context": {
@@ -5745,7 +5788,7 @@ the requested authentication process.
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-10-17T14:15:13Z",
+    "created_at": "2019-10-24T15:58:25Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -5774,6 +5817,10 @@ the requested authentication process.
     },
     "jwks_uri": "string",
     "logo_uri": "string",
+    "metadata": {
+      "property1": {},
+      "property2": {}
+    },
     "owner": "string",
     "policy_uri": "string",
     "post_logout_redirect_uris": ["string"],
@@ -5786,7 +5833,7 @@ the requested authentication process.
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-10-17T14:15:13Z",
+    "updated_at": "2019-10-24T15:58:25Z",
     "userinfo_signed_response_alg": "string"
   },
   "oidc_context": {
@@ -7084,6 +7131,8 @@ Status Code **200**
 | »»»»» y                                  | string                                                    | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | »»»» jwks_uri                            | string                                                    | false    | none         | URL for the Client's JSON Web Key Set [JWK] document. If the Client signs requests to the Server, it contains the signing key(s) the Server uses to validate signatures from the Client. The JWK Set MAY also contain the Client's encryption keys(s), which are used by the Server to encrypt responses to the Client. When both signing and encryption keys are made available, a use (Key Use) parameter value is REQUIRED for all keys in the referenced JWK Set to indicate each key's intended usage. Although some algorithms allow the same key to be used for both signatures and encryption, doing so is NOT RECOMMENDED, as it is less secure. The JWK x5c parameter MAY be used to provide X.509 representations of keys provided. When used, the bare key values MUST still be present and MUST match those in the certificate.                                                                                                                                                                                                                                         |
 | »»»» logo_uri                            | string                                                    | false    | none         | LogoURI is an URL string that references a logo for the client.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| »»»» metadata                            | object                                                    | false    | none         | Metadata is arbitrary data.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| »»»»» **additionalProperties**           | object                                                    | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | »»»» owner                               | string                                                    | false    | none         | Owner is a string identifying the owner of the OAuth 2.0 Client.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | »»»» policy_uri                          | string                                                    | false    | none         | PolicyURI is a URL string that points to a human-readable privacy policy document that describes how the deployment organization collects, uses, retains, and discloses personal data.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | »»»» post_logout_redirect_uris           | [string]                                                  | false    | none         | Array of URLs supplied by the RP to which it MAY request that the End-User's User Agent be redirected using the post_logout_redirect_uri parameter after a logout has been performed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
@@ -7145,7 +7194,7 @@ Status Code **200**
         "client_secret_expires_at": 0,
         "client_uri": "string",
         "contacts": ["string"],
-        "created_at": "2019-10-17T14:15:13Z",
+        "created_at": "2019-10-24T15:58:25Z",
         "frontchannel_logout_session_required": true,
         "frontchannel_logout_uri": "string",
         "grant_types": ["string"],
@@ -7174,6 +7223,10 @@ Status Code **200**
         },
         "jwks_uri": "string",
         "logo_uri": "string",
+        "metadata": {
+          "property1": {},
+          "property2": {}
+        },
         "owner": "string",
         "policy_uri": "string",
         "post_logout_redirect_uris": ["string"],
@@ -7186,7 +7239,7 @@ Status Code **200**
         "subject_type": "string",
         "token_endpoint_auth_method": "string",
         "tos_uri": "string",
-        "updated_at": "2019-10-17T14:15:13Z",
+        "updated_at": "2019-10-24T15:58:25Z",
         "userinfo_signed_response_alg": "string"
       },
       "context": {
@@ -7772,7 +7825,7 @@ deleted automatically when performing the refresh flow.
 
 ```json
 {
-  "notAfter": "2019-10-17T14:15:13Z"
+  "notAfter": "2019-10-24T15:58:25Z"
 }
 ```
 
@@ -7870,7 +7923,7 @@ func main() {
 ```nodejs
 const fetch = require('node-fetch');
 const input = '{
-  "notAfter": "2019-10-17T14:15:13Z"
+  "notAfter": "2019-10-24T15:58:25Z"
 }';
 const headers = {
   'Content-Type': 'application/json',  'Accept': 'application/json'
@@ -8444,6 +8497,8 @@ p JSON.parse(result)
 }
 ```
 
+_JSONWebKeySet represents a JWK Set object._
+
 #### Properties
 
 | Name | Type                              | Required | Restrictions | Description                                                                                                                                                                                                                                                                           |
@@ -8472,7 +8527,7 @@ p JSON.parse(result)
       "client_secret_expires_at": 0,
       "client_uri": "string",
       "contacts": ["string"],
-      "created_at": "2019-10-17T14:15:13Z",
+      "created_at": "2019-10-24T15:58:25Z",
       "frontchannel_logout_session_required": true,
       "frontchannel_logout_uri": "string",
       "grant_types": ["string"],
@@ -8501,6 +8556,10 @@ p JSON.parse(result)
       },
       "jwks_uri": "string",
       "logo_uri": "string",
+      "metadata": {
+        "property1": {},
+        "property2": {}
+      },
       "owner": "string",
       "policy_uri": "string",
       "post_logout_redirect_uris": ["string"],
@@ -8513,7 +8572,7 @@ p JSON.parse(result)
       "subject_type": "string",
       "token_endpoint_auth_method": "string",
       "tos_uri": "string",
-      "updated_at": "2019-10-17T14:15:13Z",
+      "updated_at": "2019-10-24T15:58:25Z",
       "userinfo_signed_response_alg": "string"
     },
     "context": {
@@ -8682,7 +8741,7 @@ request._
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-10-17T14:15:13Z",
+    "created_at": "2019-10-24T15:58:25Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -8711,6 +8770,10 @@ request._
     },
     "jwks_uri": "string",
     "logo_uri": "string",
+    "metadata": {
+      "property1": {},
+      "property2": {}
+    },
     "owner": "string",
     "policy_uri": "string",
     "post_logout_redirect_uris": ["string"],
@@ -8723,7 +8786,7 @@ request._
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-10-17T14:15:13Z",
+    "updated_at": "2019-10-24T15:58:25Z",
     "userinfo_signed_response_alg": "string"
   },
   "context": {
@@ -8808,7 +8871,7 @@ _Used to pass session data to a consent request._
 
 ```json
 {
-  "notAfter": "2019-10-17T14:15:13Z"
+  "notAfter": "2019-10-24T15:58:25Z"
 }
 ```
 
@@ -8926,7 +8989,7 @@ _Error response_
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-10-17T14:15:13Z",
+    "created_at": "2019-10-24T15:58:25Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -8955,6 +9018,10 @@ _Error response_
     },
     "jwks_uri": "string",
     "logo_uri": "string",
+    "metadata": {
+      "property1": {},
+      "property2": {}
+    },
     "owner": "string",
     "policy_uri": "string",
     "post_logout_redirect_uris": ["string"],
@@ -8967,7 +9034,7 @@ _Error response_
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-10-17T14:15:13Z",
+    "updated_at": "2019-10-24T15:58:25Z",
     "userinfo_signed_response_alg": "string"
   },
   "oidc_context": {
@@ -9049,7 +9116,7 @@ _Contains information about an ongoing logout request._
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-10-17T14:15:13Z",
+  "created_at": "2019-10-24T15:58:25Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -9078,6 +9145,10 @@ _Contains information about an ongoing logout request._
   },
   "jwks_uri": "string",
   "logo_uri": "string",
+  "metadata": {
+    "property1": {},
+    "property2": {}
+  },
   "owner": "string",
   "policy_uri": "string",
   "post_logout_redirect_uris": ["string"],
@@ -9090,7 +9161,7 @@ _Contains information about an ongoing logout request._
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-10-17T14:15:13Z",
+  "updated_at": "2019-10-24T15:58:25Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -9118,6 +9189,8 @@ _Client represents an OAuth 2.0 Client._
 | jwks                                 | [JSONWebKeySet](#schemajsonwebkeyset) | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | jwks_uri                             | string                                | false    | none         | URL for the Client's JSON Web Key Set [JWK] document. If the Client signs requests to the Server, it contains the signing key(s) the Server uses to validate signatures from the Client. The JWK Set MAY also contain the Client's encryption keys(s), which are used by the Server to encrypt responses to the Client. When both signing and encryption keys are made available, a use (Key Use) parameter value is REQUIRED for all keys in the referenced JWK Set to indicate each key's intended usage. Although some algorithms allow the same key to be used for both signatures and encryption, doing so is NOT RECOMMENDED, as it is less secure. The JWK x5c parameter MAY be used to provide X.509 representations of keys provided. When used, the bare key values MUST still be present and MUST match those in the certificate. |
 | logo_uri                             | string                                | false    | none         | LogoURI is an URL string that references a logo for the client.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| metadata                             | object                                | false    | none         | Metadata is arbitrary data.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| » **additionalProperties**           | object                                | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | owner                                | string                                | false    | none         | Owner is a string identifying the owner of the OAuth 2.0 Client.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | policy_uri                           | string                                | false    | none         | PolicyURI is a URL string that points to a human-readable privacy policy document that describes how the deployment organization collects, uses, retains, and discloses personal data.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | post_logout_redirect_uris            | [string]                              | false    | none         | Array of URLs supplied by the RP to which it MAY request that the End-User's User Agent be redirected using the post_logout_redirect_uri parameter after a logout has been performed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
@@ -9192,7 +9265,9 @@ _Introspection contains an access token's session data as specified by IETF RFC
 {
   "access_token": "string",
   "expires_in": 0,
+  "id_token": "string",
   "refresh_token": "string",
+  "scope": "string",
   "token_type": "string"
 }
 ```
@@ -9205,7 +9280,9 @@ _The Access Token Response_
 | ------------- | -------------- | -------- | ------------ | ----------- |
 | access_token  | string         | false    | none         | none        |
 | expires_in    | integer(int64) | false    | none         | none        |
+| id_token      | string         | false    | none         | none        |
 | refresh_token | string         | false    | none         | none        |
+| scope         | string         | false    | none         | none        |
 | token_type    | string         | false    | none         | none        |
 
 <a id="tocSoauthtokenresponse">oauthTokenResponse</a>
