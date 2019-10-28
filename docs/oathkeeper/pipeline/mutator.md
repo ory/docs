@@ -563,10 +563,10 @@ mutators:
         auth:
           basic:
             username: someUserName
-            password: 50m3P455w0rd
+            password: somePassword
         retry:
-          number_of_retries: 5
-          delay_in_milliseconds: 1000
+          give_up_after: 2s
+          max_delay: 100ms
 ```
 
 ```yaml
@@ -582,10 +582,10 @@ mutators:
         auth:
           basic:
             username: someUserName
-            password: 50m3P455w0rd
+            password: somePassword
         retry:
-          number_of_retries: 5
-          delay_in_milliseconds: 1000
+          give_up_after: 2s
+          max_delay: 100ms
 ```
 
 ### Access Rule Example
