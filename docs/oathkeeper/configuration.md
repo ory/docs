@@ -40,7 +40,7 @@ serve:
     # - Windows Command Line (CMD):
     #    > set SERVE_API_PORT=<value>
     #
-    port: 77959618.50271049
+    port: 4456
 
     ## Host ##
     #
@@ -94,7 +94,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_API_CORS_ALLOWED_ORIGINS=<value>
       #
-      allowed_origins: https://*.foo.example.com
+      allowed_origins: https://*.example.com
 
       ## Allowed HTTP Methods ##
       #
@@ -109,9 +109,11 @@ serve:
       #    > set SERVE_API_CORS_ALLOWED_METHODS=<value>
       #
       allowed_methods:
+        - GET
+        - POST
+        - PUT
         - PATCH
         - DELETE
-        - POST
 
       ## Allowed Request HTTP Headers ##
       #
@@ -126,8 +128,8 @@ serve:
       #    > set SERVE_API_CORS_ALLOWED_HEADERS=<value>
       #
       allowed_headers:
-        - eiusmod laborum veniam Duis velit
-        - irure veniam
+        - Authorization
+        - Content-Type
 
       ## Allowed Response HTTP Headers ##
       #
@@ -142,10 +144,7 @@ serve:
       #    > set SERVE_API_CORS_EXPOSED_HEADERS=<value>
       #
       exposed_headers:
-        - laborum fugiat
-        - ut pariatur occaecat elit ex
-        - dolore sit
-        - qui aute ea
+        - Content-Type
 
       ## Allow HTTP Credentials ##
       #
@@ -171,7 +170,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_API_CORS_MAX_AGE=<value>
       #
-      max_age: 46977106.16793859
+      max_age: 0
 
       ## Enable Debugging ##
       #
@@ -185,7 +184,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_API_CORS_DEBUG=<value>
       #
-      debug: true
+      debug: false
 
     ## HTTPS ##
     #
@@ -194,49 +193,23 @@ serve:
     tls:
       ## Private Key (PEM) ##
       #
-      key:
-        ## path ##
-        #
-        # Set this value using environment variables on
-        # - Linux/macOS:
-        #    $ export SERVE_API_TLS_KEY_PATH=<value>
-        # - Windows Command Line (CMD):
-        #    > set SERVE_API_TLS_KEY_PATH=<value>
-        #
-        path: path/to/file.pem
-
-        ## base64 ##
-        #
-        # Set this value using environment variables on
-        # - Linux/macOS:
-        #    $ export SERVE_API_TLS_KEY_BASE64=<value>
-        # - Windows Command Line (CMD):
-        #    > set SERVE_API_TLS_KEY_BASE64=<value>
-        #
-        base64: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tXG5NSUlEWlRDQ0FrMmdBd0lCQWdJRVY1eE90REFOQmdr...
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_API_TLS_KEY=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_API_TLS_KEY=<value>
+      #
+      key: {}
 
       ## TLS Certificate (PEM) ##
       #
-      cert:
-        ## path ##
-        #
-        # Set this value using environment variables on
-        # - Linux/macOS:
-        #    $ export SERVE_API_TLS_CERT_PATH=<value>
-        # - Windows Command Line (CMD):
-        #    > set SERVE_API_TLS_CERT_PATH=<value>
-        #
-        path: path/to/file.pem
-
-        ## base64 ##
-        #
-        # Set this value using environment variables on
-        # - Linux/macOS:
-        #    $ export SERVE_API_TLS_CERT_BASE64=<value>
-        # - Windows Command Line (CMD):
-        #    > set SERVE_API_TLS_CERT_BASE64=<value>
-        #
-        base64: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tXG5NSUlEWlRDQ0FrMmdBd0lCQWdJRVY1eE90REFOQmdr...
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_API_TLS_CERT=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_API_TLS_CERT=<value>
+      #
+      cert: {}
 
   ## HTTP Reverse Proxy ##
   #
@@ -253,7 +226,7 @@ serve:
     # - Windows Command Line (CMD):
     #    > set SERVE_PROXY_PORT=<value>
     #
-    port: -24809600.98596689
+    port: 4455
 
     ## Host ##
     #
@@ -269,7 +242,7 @@ serve:
     # - Windows Command Line (CMD):
     #    > set SERVE_PROXY_HOST=<value>
     #
-    host: 127.0.0.1
+    host: ''
 
     ## HTTP Timeouts ##
     #
@@ -312,7 +285,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_TIMEOUT_WRITE=<value>
       #
-      write: 5s
+      write: 120s
 
       ## HTTP Idle Timeout ##
       #
@@ -331,7 +304,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_TIMEOUT_IDLE=<value>
       #
-      idle: 120s
+      idle: 5m
 
     ## Cross Origin Resource Sharing (CORS) ##
     #
@@ -350,7 +323,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_CORS_ENABLED=<value>
       #
-      enabled: true
+      enabled: false
 
       ## Allowed Origins ##
       #
@@ -385,7 +358,10 @@ serve:
       #
       allowed_methods:
         - GET
+        - POST
+        - PUT
         - PATCH
+        - DELETE
 
       ## Allowed Request HTTP Headers ##
       #
@@ -400,8 +376,8 @@ serve:
       #    > set SERVE_PROXY_CORS_ALLOWED_HEADERS=<value>
       #
       allowed_headers:
-        - consequat id dolore cillum
-        - qui labore reprehenderit
+        - Authorization
+        - Content-Type
 
       ## Allowed Response HTTP Headers ##
       #
@@ -416,11 +392,7 @@ serve:
       #    > set SERVE_PROXY_CORS_EXPOSED_HEADERS=<value>
       #
       exposed_headers:
-        - culpa ut
-        - cillum eu adipisicing dolor
-        - 'aute nisi '
-        - occaecat irure l
-        - Ut ullamco ea tempor
+        - Content-Type
 
       ## Allow HTTP Credentials ##
       #
@@ -446,7 +418,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_CORS_MAX_AGE=<value>
       #
-      max_age: 77243898.60889363
+      max_age: 0
 
       ## Enable Debugging ##
       #
@@ -469,49 +441,23 @@ serve:
     tls:
       ## Private Key (PEM) ##
       #
-      key:
-        ## path ##
-        #
-        # Set this value using environment variables on
-        # - Linux/macOS:
-        #    $ export SERVE_PROXY_TLS_KEY_PATH=<value>
-        # - Windows Command Line (CMD):
-        #    > set SERVE_PROXY_TLS_KEY_PATH=<value>
-        #
-        path: path/to/file.pem
-
-        ## base64 ##
-        #
-        # Set this value using environment variables on
-        # - Linux/macOS:
-        #    $ export SERVE_PROXY_TLS_KEY_BASE64=<value>
-        # - Windows Command Line (CMD):
-        #    > set SERVE_PROXY_TLS_KEY_BASE64=<value>
-        #
-        base64: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tXG5NSUlEWlRDQ0FrMmdBd0lCQWdJRVY1eE90REFOQmdr...
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_PROXY_TLS_KEY=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_PROXY_TLS_KEY=<value>
+      #
+      key: {}
 
       ## TLS Certificate (PEM) ##
       #
-      cert:
-        ## path ##
-        #
-        # Set this value using environment variables on
-        # - Linux/macOS:
-        #    $ export SERVE_PROXY_TLS_CERT_PATH=<value>
-        # - Windows Command Line (CMD):
-        #    > set SERVE_PROXY_TLS_CERT_PATH=<value>
-        #
-        path: path/to/file.pem
-
-        ## base64 ##
-        #
-        # Set this value using environment variables on
-        # - Linux/macOS:
-        #    $ export SERVE_PROXY_TLS_CERT_BASE64=<value>
-        # - Windows Command Line (CMD):
-        #    > set SERVE_PROXY_TLS_CERT_BASE64=<value>
-        #
-        base64: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tXG5NSUlEWlRDQ0FrMmdBd0lCQWdJRVY1eE90REFOQmdr...
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export SERVE_PROXY_TLS_CERT=<value>
+      # - Windows Command Line (CMD):
+      #    > set SERVE_PROXY_TLS_CERT=<value>
+      #
+      cert: {}
 
 ## Access Rules ##
 #
@@ -547,91 +493,150 @@ authenticators:
   # The [`anonymous` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#anonymous).
   #
   anonymous:
-    ## Enabled ##
-    #
-    # En-/disables this component.
-    #
-    # Default value: false
-    #
-    # Examples:
-    # - true
+    ## title ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
-    #    $ export AUTHENTICATORS_ANONYMOUS_ENABLED=<value>
+    #    $ export AUTHENTICATORS_ANONYMOUS_TITLE=<value>
     # - Windows Command Line (CMD):
-    #    > set AUTHENTICATORS_ANONYMOUS_ENABLED=<value>
+    #    > set AUTHENTICATORS_ANONYMOUS_TITLE=<value>
     #
-    enabled: true
+    title: Anonymous
 
-    ## Anonymous Authenticator Configuration ##
+    ## description ##
     #
-    # This section is optional when the authenticator is disabled.
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_ANONYMOUS_DESCRIPTION=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_ANONYMOUS_DESCRIPTION=<value>
     #
-    config:
-      ## Anonymous Subject ##
-      #
-      # Sets the anonymous username.
-      #
-      # Default value: anonymous
-      #
-      # Examples:
-      # - guest
-      # - anon
-      # - anonymous
-      # - unknown
+    description:
+      The [`anonymous`
+      authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#anonymous).
+
+    ## enabled ##
+    #
+    enabled:
+      ## enabled ##
       #
       # Set this value using environment variables on
       # - Linux/macOS:
-      #    $ export AUTHENTICATORS_ANONYMOUS_CONFIG_SUBJECT=<value>
+      #    $ export AUTHENTICATORS_ANONYMOUS_ENABLED_ENABLED=<value>
       # - Windows Command Line (CMD):
-      #    > set AUTHENTICATORS_ANONYMOUS_CONFIG_SUBJECT=<value>
+      #    > set AUTHENTICATORS_ANONYMOUS_ENABLED_ENABLED=<value>
       #
-      subject: anon
+      enabled: false
+
+    ## config ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_ANONYMOUS_CONFIG=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_ANONYMOUS_CONFIG=<value>
+    #
+    config: {}
 
   ## No Operation (noop) ##
   #
   # The [`noop` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#noop).
   #
   noop:
-    ## Enabled ##
-    #
-    # En-/disables this component.
-    #
-    # Default value: false
-    #
-    # Examples:
-    # - true
+    ## title ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
-    #    $ export AUTHENTICATORS_NOOP_ENABLED=<value>
+    #    $ export AUTHENTICATORS_NOOP_TITLE=<value>
     # - Windows Command Line (CMD):
-    #    > set AUTHENTICATORS_NOOP_ENABLED=<value>
+    #    > set AUTHENTICATORS_NOOP_TITLE=<value>
     #
-    enabled: false
+    title: No Operation (noop)
+
+    ## description ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_NOOP_DESCRIPTION=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_NOOP_DESCRIPTION=<value>
+    #
+    description:
+      The [`noop`
+      authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#noop).
+
+    ## enabled ##
+    #
+    enabled:
+      ## enabled ##
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export AUTHENTICATORS_NOOP_ENABLED_ENABLED=<value>
+      # - Windows Command Line (CMD):
+      #    > set AUTHENTICATORS_NOOP_ENABLED_ENABLED=<value>
+      #
+      enabled: false
+
+    ## config ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_NOOP_CONFIG=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_NOOP_CONFIG=<value>
+    #
+    config: {}
 
   ## Unauthorized ##
   #
   # The [`unauthorized` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#unauthorized).
   #
   unauthorized:
-    ## Enabled ##
-    #
-    # En-/disables this component.
-    #
-    # Default value: false
-    #
-    # Examples:
-    # - true
+    ## title ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
-    #    $ export AUTHENTICATORS_UNAUTHORIZED_ENABLED=<value>
+    #    $ export AUTHENTICATORS_UNAUTHORIZED_TITLE=<value>
     # - Windows Command Line (CMD):
-    #    > set AUTHENTICATORS_UNAUTHORIZED_ENABLED=<value>
+    #    > set AUTHENTICATORS_UNAUTHORIZED_TITLE=<value>
     #
-    enabled: true
+    title: Unauthorized
+
+    ## description ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_UNAUTHORIZED_DESCRIPTION=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_UNAUTHORIZED_DESCRIPTION=<value>
+    #
+    description:
+      The [`unauthorized`
+      authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#unauthorized).
+
+    ## enabled ##
+    #
+    enabled:
+      ## enabled ##
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export AUTHENTICATORS_UNAUTHORIZED_ENABLED_ENABLED=<value>
+      # - Windows Command Line (CMD):
+      #    > set AUTHENTICATORS_UNAUTHORIZED_ENABLED_ENABLED=<value>
+      #
+      enabled: false
+
+    ## config ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHENTICATORS_UNAUTHORIZED_CONFIG=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHENTICATORS_UNAUTHORIZED_CONFIG=<value>
+    #
+    config: {}
 
   ## Cookie Session ##
   #
@@ -646,7 +651,7 @@ authenticators:
     # - Windows Command Line (CMD):
     #    > set AUTHENTICATORS_COOKIE_SESSION_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
   ## JSON Web Token (jwt) ##
   #
@@ -661,38 +666,13 @@ authenticators:
     # - Windows Command Line (CMD):
     #    > set AUTHENTICATORS_JWT_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
   ## OAuth 2.0 Client Credentials ##
   #
   # The [`oauth2_client_credentials` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#oauth2_client_credentials).
   #
   oauth2_client_credentials:
-    ## config ##
-    #
-    config:
-      ## token_url ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export AUTHENTICATORS_OAUTH2_CLIENT_CREDENTIALS_CONFIG_TOKEN_URL=<value>
-      # - Windows Command Line (CMD):
-      #    > set AUTHENTICATORS_OAUTH2_CLIENT_CREDENTIALS_CONFIG_TOKEN_URL=<value>
-      #
-      token_url: https://my-website.com/oauth2/token
-
-      ## required_scope ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export AUTHENTICATORS_OAUTH2_CLIENT_CREDENTIALS_CONFIG_REQUIRED_SCOPE=<value>
-      # - Windows Command Line (CMD):
-      #    > set AUTHENTICATORS_OAUTH2_CLIENT_CREDENTIALS_CONFIG_REQUIRED_SCOPE=<value>
-      #
-      required_scope:
-        - quis velit a
-        - Ut incididunt sunt
-
     ## enabled ##
     #
     # Set this value using environment variables on
@@ -701,7 +681,7 @@ authenticators:
     # - Windows Command Line (CMD):
     #    > set AUTHENTICATORS_OAUTH2_CLIENT_CREDENTIALS_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
   ## OAuth 2.0 Token Introspection ##
   #
@@ -728,103 +708,106 @@ authorizers:
   # The [`allow` authorizer](https://www.ory.sh/docs/oathkeeper/pipeline/authz#allow).
   #
   allow:
-    ## Enabled ##
-    #
-    # En-/disables this component.
-    #
-    # Default value: false
-    #
-    # Examples:
-    # - true
+    ## title ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
-    #    $ export AUTHORIZERS_ALLOW_ENABLED=<value>
+    #    $ export AUTHORIZERS_ALLOW_TITLE=<value>
     # - Windows Command Line (CMD):
-    #    > set AUTHORIZERS_ALLOW_ENABLED=<value>
+    #    > set AUTHORIZERS_ALLOW_TITLE=<value>
     #
-    enabled: true
+    title: Allow
+
+    ## description ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHORIZERS_ALLOW_DESCRIPTION=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHORIZERS_ALLOW_DESCRIPTION=<value>
+    #
+    description:
+      The [`allow`
+      authorizer](https://www.ory.sh/docs/oathkeeper/pipeline/authz#allow).
+
+    ## enabled ##
+    #
+    enabled:
+      ## enabled ##
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export AUTHORIZERS_ALLOW_ENABLED_ENABLED=<value>
+      # - Windows Command Line (CMD):
+      #    > set AUTHORIZERS_ALLOW_ENABLED_ENABLED=<value>
+      #
+      enabled: false
+
+    ## config ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHORIZERS_ALLOW_CONFIG=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHORIZERS_ALLOW_CONFIG=<value>
+    #
+    config: {}
 
   ## Deny ##
   #
   # The [`deny` authorizer](https://www.ory.sh/docs/oathkeeper/pipeline/authz#allow).
   #
   deny:
-    ## Enabled ##
-    #
-    # En-/disables this component.
-    #
-    # Default value: false
-    #
-    # Examples:
-    # - true
+    ## title ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
-    #    $ export AUTHORIZERS_DENY_ENABLED=<value>
+    #    $ export AUTHORIZERS_DENY_TITLE=<value>
     # - Windows Command Line (CMD):
-    #    > set AUTHORIZERS_DENY_ENABLED=<value>
+    #    > set AUTHORIZERS_DENY_TITLE=<value>
     #
-    enabled: true
+    title: Deny
+
+    ## description ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHORIZERS_DENY_DESCRIPTION=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHORIZERS_DENY_DESCRIPTION=<value>
+    #
+    description:
+      The [`deny`
+      authorizer](https://www.ory.sh/docs/oathkeeper/pipeline/authz#allow).
+
+    ## enabled ##
+    #
+    enabled:
+      ## enabled ##
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export AUTHORIZERS_DENY_ENABLED_ENABLED=<value>
+      # - Windows Command Line (CMD):
+      #    > set AUTHORIZERS_DENY_ENABLED_ENABLED=<value>
+      #
+      enabled: false
+
+    ## config ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export AUTHORIZERS_DENY_CONFIG=<value>
+    # - Windows Command Line (CMD):
+    #    > set AUTHORIZERS_DENY_CONFIG=<value>
+    #
+    config: {}
 
   ## ORY Keto Access Control Policies Engine ##
   #
   # The [`keto_engine_acp_ory` authorizer](https://www.ory.sh/docs/oathkeeper/pipeline/authz#keto_engine_acp_ory).
   #
   keto_engine_acp_ory:
-    ## config ##
-    #
-    config:
-      ## base_url ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export AUTHORIZERS_KETO_ENGINE_ACP_ORY_CONFIG_BASE_URL=<value>
-      # - Windows Command Line (CMD):
-      #    > set AUTHORIZERS_KETO_ENGINE_ACP_ORY_CONFIG_BASE_URL=<value>
-      #
-      base_url: http://my-keto/
-
-      ## required_action ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export AUTHORIZERS_KETO_ENGINE_ACP_ORY_CONFIG_REQUIRED_ACTION=<value>
-      # - Windows Command Line (CMD):
-      #    > set AUTHORIZERS_KETO_ENGINE_ACP_ORY_CONFIG_REQUIRED_ACTION=<value>
-      #
-      required_action: veniam dolor laborum nulla
-
-      ## required_resource ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export AUTHORIZERS_KETO_ENGINE_ACP_ORY_CONFIG_REQUIRED_RESOURCE=<value>
-      # - Windows Command Line (CMD):
-      #    > set AUTHORIZERS_KETO_ENGINE_ACP_ORY_CONFIG_REQUIRED_RESOURCE=<value>
-      #
-      required_resource: ad veniam eiusmod
-
-      ## subject ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export AUTHORIZERS_KETO_ENGINE_ACP_ORY_CONFIG_SUBJECT=<value>
-      # - Windows Command Line (CMD):
-      #    > set AUTHORIZERS_KETO_ENGINE_ACP_ORY_CONFIG_SUBJECT=<value>
-      #
-      subject: adipisicing in laboris non deserunt
-
-      ## flavor ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export AUTHORIZERS_KETO_ENGINE_ACP_ORY_CONFIG_FLAVOR=<value>
-      # - Windows Command Line (CMD):
-      #    > set AUTHORIZERS_KETO_ENGINE_ACP_ORY_CONFIG_FLAVOR=<value>
-      #
-      flavor: q
-
     ## enabled ##
     #
     # Set this value using environment variables on
@@ -833,7 +816,7 @@ authorizers:
     # - Windows Command Line (CMD):
     #    > set AUTHORIZERS_KETO_ENGINE_ACP_ORY_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
 ## Mutators ##
 #
@@ -845,64 +828,56 @@ mutators:
   # The [`noop` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#noop).
   #
   noop:
-    ## Enabled ##
-    #
-    # En-/disables this component.
-    #
-    # Default value: false
-    #
-    # Examples:
-    # - true
+    ## title ##
     #
     # Set this value using environment variables on
     # - Linux/macOS:
-    #    $ export MUTATORS_NOOP_ENABLED=<value>
+    #    $ export MUTATORS_NOOP_TITLE=<value>
     # - Windows Command Line (CMD):
-    #    > set MUTATORS_NOOP_ENABLED=<value>
+    #    > set MUTATORS_NOOP_TITLE=<value>
     #
-    enabled: true
+    title: No Operation (noop)
+
+    ## description ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export MUTATORS_NOOP_DESCRIPTION=<value>
+    # - Windows Command Line (CMD):
+    #    > set MUTATORS_NOOP_DESCRIPTION=<value>
+    #
+    description:
+      The [`noop`
+      mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#noop).
+
+    ## enabled ##
+    #
+    enabled:
+      ## enabled ##
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export MUTATORS_NOOP_ENABLED_ENABLED=<value>
+      # - Windows Command Line (CMD):
+      #    > set MUTATORS_NOOP_ENABLED_ENABLED=<value>
+      #
+      enabled: false
+
+    ## config ##
+    #
+    # Set this value using environment variables on
+    # - Linux/macOS:
+    #    $ export MUTATORS_NOOP_CONFIG=<value>
+    # - Windows Command Line (CMD):
+    #    > set MUTATORS_NOOP_CONFIG=<value>
+    #
+    config: {}
 
   ## HTTP Cookie ##
   #
   # The [`cookie` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#cookie).
   #
   cookie:
-    ## config ##
-    #
-    config:
-      ## cookies ##
-      #
-      cookies:
-        ## do7f$ ##
-        #
-        # Set this value using environment variables on
-        # - Linux/macOS:
-        #    $ export MUTATORS_COOKIE_CONFIG_COOKIES_DO7F$=<value>
-        # - Windows Command Line (CMD):
-        #    > set MUTATORS_COOKIE_CONFIG_COOKIES_DO7F$=<value>
-        #
-        do7f$: sed
-
-        ## ex_8e7 ##
-        #
-        # Set this value using environment variables on
-        # - Linux/macOS:
-        #    $ export MUTATORS_COOKIE_CONFIG_COOKIES_EX_8E7=<value>
-        # - Windows Command Line (CMD):
-        #    > set MUTATORS_COOKIE_CONFIG_COOKIES_EX_8E7=<value>
-        #
-        ex_8e7: veniam
-
-        ## voluptate_ef$ ##
-        #
-        # Set this value using environment variables on
-        # - Linux/macOS:
-        #    $ export MUTATORS_COOKIE_CONFIG_COOKIES_VOLUPTATE_EF$=<value>
-        # - Windows Command Line (CMD):
-        #    > set MUTATORS_COOKIE_CONFIG_COOKIES_VOLUPTATE_EF$=<value>
-        #
-        voluptate_ef$: irure ea eiusmod
-
     ## enabled ##
     #
     # Set this value using environment variables on
@@ -911,29 +886,13 @@ mutators:
     # - Windows Command Line (CMD):
     #    > set MUTATORS_COOKIE_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
   ## HTTP Header ##
   #
   # The [`header` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#header).
   #
   header:
-    ## config ##
-    #
-    config:
-      ## headers ##
-      #
-      headers:
-        ## Duisc$ ##
-        #
-        # Set this value using environment variables on
-        # - Linux/macOS:
-        #    $ export MUTATORS_HEADER_CONFIG_HEADERS_DUISC$=<value>
-        # - Windows Command Line (CMD):
-        #    > set MUTATORS_HEADER_CONFIG_HEADERS_DUISC$=<value>
-        #
-        Duisc$: proident nisi sed do
-
     ## enabled ##
     #
     # Set this value using environment variables on
@@ -949,71 +908,6 @@ mutators:
   # The [`hydrator` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#hydrator).
   #
   hydrator:
-    ## config ##
-    #
-    config:
-      ## api ##
-      #
-      api:
-        ## url ##
-        #
-        # Set this value using environment variables on
-        # - Linux/macOS:
-        #    $ export MUTATORS_HYDRATOR_CONFIG_API_URL=<value>
-        # - Windows Command Line (CMD):
-        #    > set MUTATORS_HYDRATOR_CONFIG_API_URL=<value>
-        #
-        url: http://JptfcfBNWVTKOz.aaghvnhbHKpdsRcKiycBAe6+NO9nySqDL11aWnzRgarYApuSBnIMyRUjk7dm4R
-
-        ## auth ##
-        #
-        auth:
-          ## basic ##
-          #
-          basic:
-            ## username ##
-            #
-            # Set this value using environment variables on
-            # - Linux/macOS:
-            #    $ export MUTATORS_HYDRATOR_CONFIG_API_AUTH_BASIC_USERNAME=<value>
-            # - Windows Command Line (CMD):
-            #    > set MUTATORS_HYDRATOR_CONFIG_API_AUTH_BASIC_USERNAME=<value>
-            #
-            username: ad
-
-            ## password ##
-            #
-            # Set this value using environment variables on
-            # - Linux/macOS:
-            #    $ export MUTATORS_HYDRATOR_CONFIG_API_AUTH_BASIC_PASSWORD=<value>
-            # - Windows Command Line (CMD):
-            #    > set MUTATORS_HYDRATOR_CONFIG_API_AUTH_BASIC_PASSWORD=<value>
-            #
-            password: ex dolor
-
-        ## retry ##
-        #
-        retry:
-          ## number_of_retries ##
-          #
-          # Set this value using environment variables on
-          # - Linux/macOS:
-          #    $ export MUTATORS_HYDRATOR_CONFIG_API_RETRY_NUMBER_OF_RETRIES=<value>
-          # - Windows Command Line (CMD):
-          #    > set MUTATORS_HYDRATOR_CONFIG_API_RETRY_NUMBER_OF_RETRIES=<value>
-          #
-          number_of_retries: 53889532.24748765
-
-          ## delay_in_milliseconds ##
-          #
-          # Set this value using environment variables on
-          # - Linux/macOS:
-          #    $ export MUTATORS_HYDRATOR_CONFIG_API_RETRY_DELAY_IN_MILLISECONDS=<value>
-          # - Windows Command Line (CMD):
-          #    > set MUTATORS_HYDRATOR_CONFIG_API_RETRY_DELAY_IN_MILLISECONDS=<value>
-          #
-          delay_in_milliseconds: 50629358.73984868
-
     ## enabled ##
     #
     # Set this value using environment variables on
@@ -1022,56 +916,13 @@ mutators:
     # - Windows Command Line (CMD):
     #    > set MUTATORS_HYDRATOR_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
   ## ID Token (JSON Web Token) ##
   #
   # The [`id_token` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#id_token).
   #
   id_token:
-    ## config ##
-    #
-    config:
-      ## jwks_url ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export MUTATORS_ID_TOKEN_CONFIG_JWKS_URL=<value>
-      # - Windows Command Line (CMD):
-      #    > set MUTATORS_ID_TOKEN_CONFIG_JWKS_URL=<value>
-      #
-      jwks_url: file:///from/this/absolute/location.json
-
-      ## issuer_url ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export MUTATORS_ID_TOKEN_CONFIG_ISSUER_URL=<value>
-      # - Windows Command Line (CMD):
-      #    > set MUTATORS_ID_TOKEN_CONFIG_ISSUER_URL=<value>
-      #
-      issuer_url: veniam fugiat culpa enim
-
-      ## claims ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export MUTATORS_ID_TOKEN_CONFIG_CLAIMS=<value>
-      # - Windows Command Line (CMD):
-      #    > set MUTATORS_ID_TOKEN_CONFIG_CLAIMS=<value>
-      #
-      claims: qui esse dol
-
-      ## ttl ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export MUTATORS_ID_TOKEN_CONFIG_TTL=<value>
-      # - Windows Command Line (CMD):
-      #    > set MUTATORS_ID_TOKEN_CONFIG_TTL=<value>
-      #
-      ttl: 1m
-
     ## enabled ##
     #
     # Set this value using environment variables on
@@ -1080,7 +931,7 @@ mutators:
     # - Windows Command Line (CMD):
     #    > set MUTATORS_ID_TOKEN_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
 ## Log ##
 #
@@ -1099,7 +950,7 @@ log:
   # - Windows Command Line (CMD):
   #    > set LOG_LEVEL=<value>
   #
-  level: fatal
+  level: info
 
   ## Format ##
   #
