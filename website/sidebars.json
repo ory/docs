@@ -13,6 +13,35 @@
       "ecosystem/usage",
       "ecosystem/sqa"
     ],
+    "ORY Kratos": [
+      "kratos/index",
+      {
+        "type": "subcategory",
+        "label": "Concepts",
+        "ids": ["kratos/concepts"]
+      },
+      {
+        "type": "subcategory",
+        "label": "Integrating ORY Kratos",
+        "ids": ["kratos/identities", "kratos/registration", "kratos/login", "kratos/social-sign-in", "kratos/integration"]
+      },
+      {
+        "type": "subcategory",
+        "label": "Guides",
+        "ids": [
+          "kratos/configure-deploy"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Reference",
+        "ids": [
+          "kratos/configuration",
+          "kratos/sdk/index",
+          "kratos/sdk/api"
+        ]
+      }
+    ],
     "ORY Hydra": [
       "hydra/index",
       {
