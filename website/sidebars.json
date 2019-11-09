@@ -18,25 +18,41 @@
       {
         "type": "subcategory",
         "label": "Concepts",
-        "ids": ["kratos/concepts"]
+        "ids": [
+          "kratos/concepts/index",
+          "kratos/concepts/ui",
+          "kratos/concepts/json-schema",
+          "kratos/concepts/identity",
+          "kratos/concepts/credentials",
+          "kratos/concepts/security"
+        ]
       },
       {
         "type": "subcategory",
-        "label": "Integrating ORY Kratos",
-        "ids": ["kratos/identities", "kratos/registration", "kratos/login", "kratos/social-sign-in", "kratos/integration"]
+        "label": "Self Service Features",
+        "ids": [
+          "kratos/selfservice/index",
+          "kratos/selfservice/registration",
+          "kratos/selfservice/login",
+          "kratos/selfservice/session",
+          "kratos/selfservice/profile",
+          "kratos/selfservice/recovery"
+
+        ]
       },
       {
         "type": "subcategory",
         "label": "Guides",
         "ids": [
-          "kratos/configure-deploy"
+          "kratos/configure-deploy",
+          "kratos/integration"
         ]
       },
       {
         "type": "subcategory",
         "label": "Reference",
         "ids": [
-          "kratos/configuration",
+          "kratos/reference/configuration",
           "kratos/sdk/index",
           "kratos/sdk/api"
         ]
