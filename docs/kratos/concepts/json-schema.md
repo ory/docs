@@ -3,50 +3,65 @@ id: index
 title: Overview
 ---
 
-[JSON Schema](https://json-schema.org) is a vocabulary that allows you to annotate and validate JSON documents.
-It is a IETF (Internet and Engineering Task Force) public standard and is similar to a XML DTD but
-suited for JSON payloads.
+[JSON Schema](https://json-schema.org) is a vocabulary that allows you to
+annotate and validate JSON documents. It is a IETF (Internet and Engineering
+Task Force) public standard and is similar to a XML DTD but suited for JSON
+payloads.
 
-We rely on JSON Schema heavily internally, from configuration validation to generating OpenAPI Spec to writing documentation.
-By using ORY Kratos, you will be exposed to JSON Schema as it is used for defining Identity data models and other things.
+We rely on JSON Schema heavily internally, from configuration validation to
+generating OpenAPI Spec to writing documentation. By using ORY Kratos, you will
+be exposed to JSON Schema as it is used for defining Identity data models and
+other things.
 
-To learn more about JSON Schema, head over to: [json-schema.org/learn/](https://json-schema.org/learn/)
+To learn more about JSON Schema, head over to:
+[json-schema.org/learn/](https://json-schema.org/learn/)
 
 ## JSON Path Syntax
 
-In some cases you can define a JSON Path. We use [`tidwall/gjson`](https://github.com/tidwall/gjson#path-syntax) for this.
-A GJSON Path is a text string syntax that describes a search pattern for quickly retreiving values from a JSON payload.
+In some cases you can define a JSON Path. We use
+[`tidwall/gjson`](https://github.com/tidwall/gjson#path-syntax) for this. A
+GJSON Path is a text string syntax that describes a search pattern for quickly
+retreiving values from a JSON payload.
 
-The definitive implemenation is [github.com/tidwall/gjson](https://github.com/tidwall/gjson).  
-Use the [GJSON Playground](https://gjson.dev) to experiment with the syntax online.
+The definitive implemenation is
+[github.com/tidwall/gjson](https://github.com/tidwall/gjson).  
+Use the [GJSON Playground](https://gjson.dev) to experiment with the syntax
+online.
 
 ### Reading
 
 #### Path structure
 
-A GJSON Path is intended to be easily expressed as a series of components seperated by a `.` character. 
+A GJSON Path is intended to be easily expressed as a series of components
+seperated by a `.` character.
 
-Along with `.` character, there are a few more that have special meaning, including `|`, `#`, `@`, `\`, `*`, and `?`.
+Along with `.` character, there are a few more that have special meaning,
+including `|`, `#`, `@`, `\`, `*`, and `?`.
 
 Given this JSON
 
 ```json
 {
-  "name": {"first": "Tom", "last": "Anderson"},
-  "age":37,
-  "children": ["Sara","Alex","Jack"],
+  "name": { "first": "Tom", "last": "Anderson" },
+  "age": 37,
+  "children": ["Sara", "Alex", "Jack"],
   "fav.movie": "Deer Hunter",
   "friends": [
-    {"first": "Dale", "last": "Murphy", "age": 44, "nets": ["ig", "fb", "tw"]},
-    {"first": "Roger", "last": "Craig", "age": 68, "nets": ["fb", "tw"]},
-    {"first": "Jane", "last": "Murphy", "age": 47, "nets": ["ig", "tw"]}
+    {
+      "first": "Dale",
+      "last": "Murphy",
+      "age": 44,
+      "nets": ["ig", "fb", "tw"]
+    },
+    { "first": "Roger", "last": "Craig", "age": 68, "nets": ["fb", "tw"] },
+    { "first": "Jane", "last": "Murphy", "age": 47, "nets": ["ig", "tw"] }
   ]
 }
 ```
 
 The following GJSON Paths evaluate to the accompanying values.
 
-##### Basic 
+##### Basic
 
 In many cases you'll just want to retreive values by object name or array index.
 
@@ -63,8 +78,8 @@ friends.1.first        "Roger"
 
 ##### Wildcards
 
-A key may contain the special wildcard characters `*` and `?`. 
-The `*` will match on any zero+ characters, and `?` matches on any one character.
+A key may contain the special wildcard characters `*` and `?`. The `*` will
+match on any zero+ characters, and `?` matches on any one character.
 
 ```go
 child*.2               "Jack"
@@ -73,7 +88,7 @@ c?ildren.0             "Sara"
 
 ##### Escape character
 
-Special purpose characters, such as `.`, `*`, and `?` can be escaped with `\`. 
+Special purpose characters, such as `.`, `*`, and `?` can be escaped with `\`.
 
 ```go
 fav\.movie             "Deer Hunter"
@@ -92,9 +107,10 @@ friends.#.age         [44,68,47]
 
 ##### Queries
 
-You can also query an array for the first match by  using `#(...)`, or find all matches with `#(...)#`. 
-Queries support the `==`, `!=`, `<`, `<=`, `>`, `>=` comparison operators, 
-and the simple pattern matching `%` (like) and `!%` (not like) operators.
+You can also query an array for the first match by using `#(...)`, or find all
+matches with `#(...)#`. Queries support the `==`, `!=`, `<`, `<=`, `>`, `>=`
+comparison operators, and the simple pattern matching `%` (like) and `!%` (not
+like) operators.
 
 ```go
 friends.#(last=="Murphy").first     "Dale"
@@ -104,7 +120,8 @@ friends.#(first%"D*").last          "Murphy"
 friends.#(first!%"D*").last         "Craig"
 ```
 
-To query for a non-object value in an array, you can forgo the string to the right of the operator.
+To query for a non-object value in an array, you can forgo the string to the
+right of the operator.
 
 ```go
 children.#(!%"*a*")                 "Alex"
@@ -117,16 +134,17 @@ Nested queries are allowed.
 friends.#(nets.#(=="fb"))#.first  >> ["Dale","Roger"]
 ```
 
-*Please note that prior to v1.3.0, queries used the `#[...]` brackets. This was
-changed in v1.3.0 as to avoid confusion with the new [multipath](#multipaths) 
+_Please note that prior to v1.3.0, queries used the `#[...]` brackets. This was
+changed in v1.3.0 as to avoid confusion with the new [multipath](#multipaths)
 syntax. For backwards compatibility, `#[...]` will continue to work until the
-next major release.*
+next major release._
 
 ##### Dot vs Pipe
 
-The `.` is standard separator, but it's also possible to use a `|`. 
-In most cases they both end up returning the same results.
-The cases where`|` differs from `.` is when it's used after the `#` for [Arrays](#arrays) and [Queries](#queries). 
+The `.` is standard separator, but it's also possible to use a `|`. In most
+cases they both end up returning the same results. The cases where`|` differs
+from `.` is when it's used after the `#` for [Arrays](#arrays) and
+[Queries](#queries).
 
 Here are some examples
 
@@ -151,23 +169,27 @@ Let's break down a few of these.
 The path `friends.#(last="Murphy")#` all by itself results in
 
 ```json
-[{"first": "Dale", "last": "Murphy", "age": 44},{"first": "Jane", "last": "Murphy", "age": 47}]
+[
+  { "first": "Dale", "last": "Murphy", "age": 44 },
+  { "first": "Jane", "last": "Murphy", "age": 47 }
+]
 ```
 
-The `.first` suffix will process the `first` path on each array element *before* returning the results. Which becomes
+The `.first` suffix will process the `first` path on each array element _before_
+returning the results. Which becomes
 
 ```json
-["Dale","Jane"]
+["Dale", "Jane"]
 ```
 
-But the `|first` suffix actually processes the `first` path *after* the previous result. 
-Since the previous result is an array, not an object, it's not possible to process 
-because `first` does not exist.
+But the `|first` suffix actually processes the `first` path _after_ the previous
+result. Since the previous result is an array, not an object, it's not possible
+to process because `first` does not exist.
 
 Yet, `|0` suffix returns
 
 ```json
-{"first": "Dale", "last": "Murphy", "age": 44}
+{ "first": "Dale", "last": "Murphy", "age": 44 }
 ```
 
 Because `0` is the first index of the previous result.
@@ -176,7 +198,8 @@ Because `0` is the first index of the previous result.
 
 A modifier is a path component that performs custom processing on the JSON.
 
-For example, using the built-in `@reverse` modifier on the above JSON payload will reverse the `children` array:
+For example, using the built-in `@reverse` modifier on the above JSON payload
+will reverse the `children` array:
 
 ```go
 children.@reverse                   ["Jack","Alex","Sara"]
@@ -191,7 +214,8 @@ There are currently three built-in modifiers:
 
 ###### Modifier arguments
 
-A modifier may accept an optional argument. The argument can be a valid JSON payload or just characters.
+A modifier may accept an optional argument. The argument can be a valid JSON
+payload or just characters.
 
 For example, the `@pretty` modifier takes a json object as its argument.
 
@@ -203,40 +227,41 @@ Which makes the json pretty and orders all of its keys.
 
 ```json
 {
-  "age":37,
-  "children": ["Sara","Alex","Jack"],
+  "age": 37,
+  "children": ["Sara", "Alex", "Jack"],
   "fav.movie": "Deer Hunter",
   "friends": [
-    {"age": 44, "first": "Dale", "last": "Murphy"},
-    {"age": 68, "first": "Roger", "last": "Craig"},
-    {"age": 47, "first": "Jane", "last": "Murphy"}
+    { "age": 44, "first": "Dale", "last": "Murphy" },
+    { "age": 68, "first": "Roger", "last": "Craig" },
+    { "age": 47, "first": "Jane", "last": "Murphy" }
   ],
-  "name": {"first": "Tom", "last": "Anderson"}
+  "name": { "first": "Tom", "last": "Anderson" }
 }
 ```
 
-*The full list of `@pretty` options are `sortKeys`, `indent`, `prefix`, and `width`. 
-Please see [Pretty Options](https://github.com/tidwall/pretty#customized-output) for more information.*
+_The full list of `@pretty` options are `sortKeys`, `indent`, `prefix`, and
+`width`. Please see
+[Pretty Options](https://github.com/tidwall/pretty#customized-output) for more
+information._
 
 ##### Multipaths
 
-Starting with v1.3.0, GJSON added the ability to join multiple paths together
-to form new documents. Wrapping comma-separated paths between `{...}` or 
-`[...]` will result in a new array or object, respectively.
+Starting with v1.3.0, GJSON added the ability to join multiple paths together to
+form new documents. Wrapping comma-separated paths between `{...}` or `[...]`
+will result in a new array or object, respectively.
 
-For example, using the given multipath 
+For example, using the given multipath
 
 ```
 {name.first,age,"the_murphys":friends.#(last="Murphy")#.first}
 ```
 
-Here we selected the first name, age, and the first name for friends with the 
+Here we selected the first name, age, and the first name for friends with the
 last name "Murphy".
 
-You'll notice that an optional key can be provided, in this case 
-"the_murphys", to force assign a key to a value. Otherwise, the name of the 
-actual field will be used, in this case "first". If a name cannot be
-determined, then "_" is used.
+You'll notice that an optional key can be provided, in this case "the*murphys",
+to force assign a key to a value. Otherwise, the name of the actual field will
+be used, in this case "first". If a name cannot be determined, then "*" is used.
 
 This results in
 
@@ -246,22 +271,22 @@ This results in
 
 ### Writing
 
-
-A path is a series of keys separated by a dot.
-The dot and colon characters can be escaped with ``\``.
+A path is a series of keys separated by a dot. The dot and colon characters can
+be escaped with `\`.
 
 ```json
 {
-  "name": {"first": "Tom", "last": "Anderson"},
-  "age":37,
-  "children": ["Sara","Alex","Jack"],
+  "name": { "first": "Tom", "last": "Anderson" },
+  "age": 37,
+  "children": ["Sara", "Alex", "Jack"],
   "fav.movie": "Deer Hunter",
   "friends": [
-	{"first": "James", "last": "Murphy"},
-	{"first": "Roger", "last": "Craig"}
+    { "first": "James", "last": "Murphy" },
+    { "first": "Roger", "last": "Craig" }
   ]
 }
 ```
+
 ```
 "name.last"          >> "Anderson"
 "age"                >> 37
@@ -275,13 +300,14 @@ The `-1` key can be used to append a value to an existing array:
 "children.-1"  >> appends a new value to the end of the children array
 ```
 
-Normally number keys are used to modify arrays, but it's possible to force a numeric object key by using the colon character:
+Normally number keys are used to modify arrays, but it's possible to force a
+numeric object key by using the colon character:
 
 ```json
 {
-  "users":{
-    "2313":{"name":"Sara"},
-    "7839":{"name":"Andy"}
+  "users": {
+    "2313": { "name": "Sara" },
+    "7839": { "name": "Andy" }
   }
 }
 ```
