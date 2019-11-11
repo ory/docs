@@ -35,14 +35,16 @@ retrieve credentials. For more details check section
 
 #### Password Policy
 
-*This needs to be confirmed* - I believe Okta does not use HIBP to verify if passwords have been leaked or not? Their
-password policy allows (in regular Okta):
+_This needs to be confirmed_ - I believe Okta does not use HIBP to verify if
+passwords have been leaked or not? Their password policy allows (in regular
+Okta):
 
 - Password complexity: Bad - see NIST guidelines
 - Password expiration: Bad - see NIST guidelines
 - Password minimum age: Bad - see nist guidelines
 
-Okta developers: https://developer.okta.com/docs/reference/api/policy/#password-policy
+Okta developers:
+https://developer.okta.com/docs/reference/api/policy/#password-policy
 
 #### Password reset using security questions
 
