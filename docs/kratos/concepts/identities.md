@@ -627,8 +627,8 @@ selfservice:
               - user:email
 ```
 
-The following schema would take `email_primary` and `username` and project them into your
-identity model to `traits.email` and `traits.name`:
+The following schema would take `email_primary` and `username` and project them
+into your identity model to `traits.email` and `traits.name`:
 
 ```json
 {
