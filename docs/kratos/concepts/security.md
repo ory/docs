@@ -29,6 +29,17 @@ free to extend this list or create an issue if you feel we can improve on of our
 Okta exclusively uses OAuth2 and OpenID Connect as the only mechanism to retrieve credentials.
 For more details check section [Avoiding OAuth2 and OpenID Connect](#avoiding-oauth2-openid-connect) above.
 
+#### Password Policy
+
+*This needs to be confirmed* - I believe Okta does not use HIBP to verify if passwords have been leaked or not? Their
+password policy allows (in regular Okta):
+
+- Password complexity: Bad - see NIST guidelines
+- Password expiration: Bad - see NIST guidelines
+- Password minimum age: Bad - see nist guidelines
+
+Okta developers: https://developer.okta.com/docs/reference/api/policy/#password-policy
+
 #### Password reset using security questions
 
 Okta for developers uses ["security questions"](https://devforum.okta.com/t/forgot-password-flow-is-it-possible-to-skip-security-question/4928/1)
