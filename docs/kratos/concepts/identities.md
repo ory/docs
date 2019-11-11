@@ -627,7 +627,7 @@ selfservice:
               - user:email
 ```
 
-The following schema would take `email` and `name` and project them into your
+The following schema would take `email_primary` and `username` and project them into your
 identity model to `traits.email` and `traits.name`:
 
 ```json
@@ -636,7 +636,7 @@ identity model to `traits.email` and `traits.name`:
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "email": {
+    "email_primary": {
       "type": "string",
       "ory.sh/kratos": {
         "mappings": {
@@ -650,7 +650,7 @@ identity model to `traits.email` and `traits.name`:
         }
       }
     },
-    "name": {
+    "username": {
       "type": "string",
       "ory.sh/kratos": {
         "mappings": {
