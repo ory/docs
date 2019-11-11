@@ -13,9 +13,7 @@
         "path": {
           "title": "Path to PEM-encoded Fle",
           "type": "string",
-          "examples": [
-            "path/to/file.pem"
-          ]
+          "examples": ["path/to/file.pem"]
         },
         "base64": {
           "title": "Base64 Encoded Inline",
@@ -31,15 +29,19 @@
   "properties": {
     "key": {
       "title": "Private Key (PEM)",
-      "allOf": [{
-        "$ref": "#/definitions/source"
-      }]
+      "allOf": [
+        {
+          "$ref": "#/definitions/source"
+        }
+      ]
     },
     "cert": {
       "title": "TLS Certificate (PEM)",
-      "allOf": [{
-        "$ref": "#/definitions/source"
-      }]
+      "allOf": [
+        {
+          "$ref": "#/definitions/source"
+        }
+      ]
     }
   }
 }
