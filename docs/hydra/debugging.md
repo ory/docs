@@ -32,6 +32,33 @@ There are three things you can do to quickly debug any issue:
    2. Remove them (unless you have something important running)
    3. Retry. **This can help a lot if you are new to this!**
 
+## Logout is not working as expected
+
+Sometimes, calling `/oauth2/sessinos/logout` does not behave as expected, for example:
+
+- An error occurs.
+- You are being redirected directly to the post_logout_url instead of the logout UI.
+
+First of all, there are two types of logout requests - one is called "OP (OpenID Provider) Initiated"
+and one "RP (Relying Party) Initiated". The first flow MUST NEITHER contain the
+`id_token_hint`, nor a `state`, nor `post_logout_redirect_uri`.
+
+If no active authentication session is set at ORY Hydra, the browser will be redirected immediately
+to the system-wide configured post logout redirect URI.
+
+An active session may be missing because:
+
+- You are mixing up domain names (e.g. 127.0.0.1 and localhost - **this is a common mistake**)
+- You are running ORY Hydra behind a proxy that messes with Cookies
+- You are using a Browser with a very strict privacy policy which makes it difficult or impossible
+for ORY Hydra to properly set cookies. We've observed that the **Brave Browser** is very, very difficult here.
+
+If `id_token_hint` is set, you may define both `state` and `post_logout_redirect_uri`. The same problems
+can cause this flow to behave unexpectedly as listed above, with the only difference that now ORY Hydra
+knows who the user to be logged out is (from the `id_token_hint`) and if any Front-/Back-channel Logout
+is configured for that client, it will be executed even if there is no valid authentication session for
+that user in ORY Hydra.
+
 ## OpenID Connect ID Token missing
 
 If you expect an OAuth 2.0 ID Token but are not receiving one, this can have
