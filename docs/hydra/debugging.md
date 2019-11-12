@@ -34,6 +34,8 @@ There are three things you can do to quickly debug any issue:
 
 ## Logout is not working as expected
 
+
+
 Sometimes, calling `/oauth2/sessinos/logout` does not behave as expected, for
 example:
 
