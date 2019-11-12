@@ -320,33 +320,47 @@ Once the user agent is redirected back, the OAuth 2.0 flow will be finalized.
 
 ### User Logout
 
-ORY Hydra supports [OpenID Connect Front-Channel Logout 1.0](https://openid.net/specs/openid-connect-frontchannel-1_0.html)
-and [OpenID Connect Back-Channel Logout 1.0](https://openid.net/specs/openid-connect-backchannel-1_0.html) flows.
+ORY Hydra supports
+[OpenID Connect Front-Channel Logout 1.0](https://openid.net/specs/openid-connect-frontchannel-1_0.html)
+and
+[OpenID Connect Back-Channel Logout 1.0](https://openid.net/specs/openid-connect-backchannel-1_0.html)
+flows.
 
-A logout request may be initiated by the OpenID Provider (OP - **you**) or by the Relying Party (RP - the OAuth2 Client):
+A logout request may be initiated by the OpenID Provider (OP - **you**) or by
+the Relying Party (RP - the OAuth2 Client):
 
-- The OP-initiated flow does not need an `id_token_hint`, and it may neither define a `state` nor a `post_logout_url`.
-- The RP-initiated flow needs an `id_token_hint` and may optionally define `state` and `post_logout_url`.
+- The OP-initiated flow does not need an `id_token_hint`, and it may neither
+  define a `state` nor a `post_logout_url`.
+- The RP-initiated flow needs an `id_token_hint` and may optionally define
+  `state` and `post_logout_url`.
 
-Both requests follow the same pattern as user login and user consent. Before the logout is completed, the user is redirected
-to the **Logout UI** (similar to Login UI and Consent UI) to confirm the logout request.
+Both requests follow the same pattern as user login and user consent. Before the
+logout is completed, the user is redirected to the **Logout UI** (similar to
+Login UI and Consent UI) to confirm the logout request.
 
-There are several possible pathways for executing this flow, explained in the following diagram:
+There are several possible pathways for executing this flow, explained in the
+following diagram:
 
 ![https://mermaidjs.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoiZ3JhcGggVEQ7XG4gICAgSVtHRVQgL29hdXRoMi9zZXNzaW9uL2xvZ291dF0tLT58aGFzIGlkX3Rva2VuX2hpbnQqfFJQSVtSUC1pbml0aWF0ZWQgbG9nb3V0XTtcbiAgICBJW0dFVCAvb2F1dGgyL3Nlc3Npb24vbG9nb3V0XS0tPnxkb2VzIG5vdCBoYXZlIGlkX3Rva2VuX2hpbnQqfE9QSVtPUC1pbml0aWF0ZWQgbG9nb3V0XVxuT1BJLS0-fGhhcyBzdGF0ZSp8RVtFcnJvcl1cbk9QSS0tPnxoYXMgcG9zdF9sb2dvdXRfdXJpKnxFW0Vycm9yXVxuT1BJLS0-fGhhcyB2YWxpZCBzZXNzaW9uIGNvb2tpZXxMVUlbTG9nb3V0IFVJIHdpdGggP2xvZ291dF9jaGFsbGVuZ2U9Li4uXVxuT1BJLS0-fGhhcyBubyB2YWxpZCBzZXNpb24gY29va2llfEVuZFtSZXR1cm4gdG8gcG9zdF9sb2dvdXRfdXJsKioqXVxuUlBJLS0-fGhhcyBhY3RpdmUgc2Vzc2lvbioqKip8TFVJXG5SUEktLT58bm8gYWN0aXZlIHNlc3Npb24qKioqfFJQSTJcbkxVSS0tPnx2ZXJpZnkgbG9nb3V0IHJlcXVlc3R8TFVJXG5MVUktLT58cmVkaXJlY3Qgd2l0aCBsb2dvdXRfdmVyaWZpZXIqfFJQSTJbIC9vYXV0aDIvc2Vzc2lvbnMvbG9nb3V0P2xvZ291dF92ZXJpZmllcj0uLi5dXG5SUEkyLS0-fGV4ZWN1dGUgZnJvbnQvYmFja2NoYW5uZWwgbG9nb3V0LCByZXZva2UgY29va2llfFJQSTJcblJQSTItLT58UmVkaXJlY3QgdG98RW5kIiwibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQifX0](/images/docs/hydra/logout-decision.png)
 
 Legend:
 
-* `*`: This is a query parameter, for example `/oauth2/session/logout?id_token_hint=...`
-* `**` Here, an "active session" implies that there has been at least one login request completed with `remember: true`
-    for that user. If that's not the case, the system "does not know" what to do (because there has never been a session
-    issued that was remembered - hence it's not possible to forget it).
-* `***`: Here, the "valid session cookies" implies that the browser has a valid authentication cookie when calling `/oauth2/session/logout`.
-If you have problems at this step, check if there is a cookie `oauth2_authentication_session` for the domain ORY Hydra is running at.
-**Do not mix up IP (e.g. `127.0.0.1`, `192.168.1.1`) addresses and FQDNs (e.g. `localhost`, `google.com`).**
-* `****`: The `post_logout_redirect` defaults to the configuration value of `urls.post_logout_redirect`. If it's an RP-initiated
-flow and a `post_logout_url` was set and that URL is in the array of the OAuth2 Client's `urls.post_logout_redirect`,
-the browser will be redirected there instead.
+- `*`: This is a query parameter, for example
+  `/oauth2/session/logout?id_token_hint=...`
+- `**` Here, an "active session" implies that there has been at least one login
+  request completed with `remember: true` for that user. If that's not the case,
+  the system "does not know" what to do (because there has never been a session
+  issued that was remembered - hence it's not possible to forget it).
+- `***`: Here, the "valid session cookies" implies that the browser has a valid
+  authentication cookie when calling `/oauth2/session/logout`. If you have
+  problems at this step, check if there is a cookie
+  `oauth2_authentication_session` for the domain ORY Hydra is running at. **Do
+  not mix up IP (e.g. `127.0.0.1`, `192.168.1.1`) addresses and FQDNs (e.g.
+  `localhost`, `google.com`).**
+- `****`: The `post_logout_redirect` defaults to the configuration value of
+  `urls.post_logout_redirect`. If it's an RP-initiated flow and a
+  `post_logout_url` was set and that URL is in the array of the OAuth2 Client's
+  `urls.post_logout_redirect`, the browser will be redirected there instead.
 
 #### Flow Example
 
@@ -354,17 +368,17 @@ the browser will be redirected there instead.
 
 1. A user-agent (browser) requests the logout endpoint
    (`/oauth2/sessions/logout`). If the request is done on behalf of a RP:
-    - The URL query MUST contain an ID Token issued by ORY Hydra as the
-      `id_token_hint`: `/oauth2/sessions/logout?id_token_hint=...`
-    - The URL query MAY contain key `post_logout_redirect_uri` indicating where the
-      user agent should be redirected after the logout completed successfully. Each
-      OAuth 2.0 Client can whitelist a list of URIs that can be used as the value
-      using the ``post_logout_redirect_uris`` metadata field:
-      `/oauth2/sessions/logout?id_token_hint=...&post_logout_redirect_uri=https://i-must-be-whitelisted/`
-    - If `post_logout_redirect_uri` is set, the URL query SHOULD contain a `state`
-      value. On successful redirection, this state value will be appended to the
-      `post_logout_redirect_uri`. The functionality is equal to the `state`
-      parameter when performing OAuth2 flows.
+   - The URL query MUST contain an ID Token issued by ORY Hydra as the
+     `id_token_hint`: `/oauth2/sessions/logout?id_token_hint=...`
+   - The URL query MAY contain key `post_logout_redirect_uri` indicating where
+     the user agent should be redirected after the logout completed
+     successfully. Each OAuth 2.0 Client can whitelist a list of URIs that can
+     be used as the value using the `post_logout_redirect_uris` metadata field:
+     `/oauth2/sessions/logout?id_token_hint=...&post_logout_redirect_uri=https://i-must-be-whitelisted/`
+   - If `post_logout_redirect_uri` is set, the URL query SHOULD contain a
+     `state` value. On successful redirection, this state value will be appended
+     to the `post_logout_redirect_uri`. The functionality is equal to the
+     `state` parameter when performing OAuth2 flows.
 2. The user-agent is redirected to the logout provider URL (configuration item
    `urls.logout`) and contains a challenge:
    `https://my-logout-provider/logout?challenge=...`
