@@ -346,13 +346,13 @@ following diagram:
 Legend:
 
 - `*`: This is a query parameter, for example
-  `/oauth2/session/logout?id_token_hint=...`
+  `/oauth2/sessions/logout?id_token_hint=...`
 - `**` Here, an "active session" implies that there has been at least one login
   request completed with `remember: true` for that user. If that's not the case,
   the system "does not know" what to do (because there has never been a session
   issued that was remembered - hence it's not possible to forget it).
 - `***`: Here, the "valid session cookies" implies that the browser has a valid
-  authentication cookie when calling `/oauth2/session/logout`. If you have
+  authentication cookie when calling `/oauth2/sessions/logout`. If you have
   problems at this step, check if there is a cookie
   `oauth2_authentication_session` for the domain ORY Hydra is running at. **Do
   not mix up IP (e.g. `127.0.0.1`, `192.168.1.1`) addresses and FQDNs (e.g.

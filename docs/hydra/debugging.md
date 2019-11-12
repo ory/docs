@@ -34,7 +34,7 @@ There are three things you can do to quickly debug any issue:
 
 ## Logout is not working as expected
 
-Sometimes, calling `/oauth2/sessinos/logout` does not behave as expected, for
+Sometimes, calling `/oauth2/sessions/logout` does not behave as expected, for
 example:
 
 - An error occurs.
@@ -57,6 +57,11 @@ An active session may be missing because:
 - You are using a Browser with a very strict privacy policy which makes it
   difficult or impossible for ORY Hydra to properly set cookies. We've observed
   that the **Brave Browser** is very, very difficult here.
+- You did not set `remember: true` when accepting the login request
+
+**Before filing a bug report, make sure you actually have a cookie named
+`oauth2_authentication_session` for the URL ORY Hydra is running on, and
+especially for the domain that's in your `http://.../oauth2/sessions/logout`**
 
 If `id_token_hint` is set, you may define both `state` and
 `post_logout_redirect_uri`. The same problems can cause this flow to behave
