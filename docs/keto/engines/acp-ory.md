@@ -113,17 +113,17 @@ is:
   `cat` nor `bat`.
 - **alternatives list:** `{cat,bat,[mt]at}` matches `cat`, `bat`, `mat`, `tat`
   and nothing else.
-- **backslash:** `foo\\bar` matches `foo\bar` and nothing else. `foo\bar` matches
- `foobar` and nothing else. `foo\*bar` matches `foo*bar` and nothing else. Please note
- that when using JSON you need to double escape backslashes: `foo\\bar`
- becomes `{"...": "foo\\\\bar"}`.
-  
+- **backslash:** `foo\\bar` matches `foo\bar` and nothing else. `foo\bar`
+  matches `foobar` and nothing else. `foo\*bar` matches `foo*bar` and nothing
+  else. Please note that when using JSON you need to double escape backslashes:
+  `foo\\bar` becomes `{"...": "foo\\\\bar"}`.
+
 The pattern syntax is:
 
 ```
   pattern:
       { term }
-  
+
   term:
       `*`         matches any sequence of non-separator characters
       `**`        matches any sequence of characters
@@ -134,12 +134,12 @@ The pattern syntax is:
                   pattern alternatives
       c           matches character c (c != `*`, `**`, `?`, `\`, `[`, `{`, `}`)
       `\` c       matches character c
-  
+
   character-range:
       c           matches character c (c != `\\`, `-`, `]`)
       `\` c       matches character c
       lo `-` hi   matches character c for lo <= c <= hi
-  
+
   pattern-list:
       pattern { `,` pattern }
                   comma-separated (without spaces) patterns
