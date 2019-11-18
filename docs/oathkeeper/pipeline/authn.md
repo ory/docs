@@ -243,6 +243,9 @@ appropriately.
 - `only` ([]string, optional) - If set, only requests that have at least one of
   the set cookies will be forwarded, others will be passed to the next
   authenticator. If unset, all requests are forwarded.
+- `preserve_path` (boolean, optional) - If set, any path in
+  `check_session_url` will be preserved instead of replacing the path
+  with the path of the request being checked
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -266,6 +269,20 @@ authenticators:
       check_session_url: https://session-store-host
       only:
         - sessionid
+```
+
+```yaml
+# Some Access Rule Preserving Path: access-rule-2.yaml
+id: access-rule-2
+# match: ...
+# upstream: ...
+authenticators:
+  - handler: cookie_session
+    config:
+      check_session_url: https://session-store-host/check-session
+      only:
+        - sessionid
+      preserve_path: true
 ```
 
 ### Access Rule Example
