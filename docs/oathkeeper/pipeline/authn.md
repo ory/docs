@@ -243,9 +243,9 @@ appropriately.
 - `only` ([]string, optional) - If set, only requests that have at least one of
   the set cookies will be forwarded, others will be passed to the next
   authenticator. If unset, all requests are forwarded.
-- `preserve_path` (boolean, optional) - If set, any path in
-  `check_session_url` will be preserved instead of replacing the path
-  with the path of the request being checked
+- `preserve_path` (boolean, optional) - If set, any path in `check_session_url`
+  will be preserved instead of replacing the path with the path of the request
+  being checked
 
 ```yaml
 # Global configuration file oathkeeper.yml
