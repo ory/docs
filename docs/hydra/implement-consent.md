@@ -1,7 +1,7 @@
 ---
 id: implementing-consent
-title: Implementing Login & Consent UI
-sidebar_label: Login and Consent UI
+title: Implementing Login, Consent & Logout UI
+sidebar_label: Login, Consent & Logout
 ---
 
 Let's build a simple consent app that can be used as part of the Hydra's
@@ -318,7 +318,7 @@ fetch('https://hydra/oauth2/auth/requests/consent/reject?' + querystring.stringi
 
 Once the user agent is redirected back, the OAuth 2.0 flow will be finalized.
 
-### User Logout
+## User Logout
 
 ORY Hydra supports
 [OpenID Connect Front-Channel Logout 1.0](https://openid.net/specs/openid-connect-frontchannel-1_0.html)
@@ -362,7 +362,7 @@ Legend:
   `post_logout_url` was set and that URL is in the array of the OAuth2 Client's
   `urls.post_logout_redirect`, the browser will be redirected there instead.
 
-#### Flow Example
+### Logout Flow
 
 ![https://mermaidjs.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgVXNlciBBZ2VudC0-Pk9SWSBIeWRyYTogQ2FsbHMgbG9nb3V0IGVuZHBvaW50XG4gICAgT1JZIEh5ZHJhLS0-Pk9SWSBIeWRyYTogVmFsaWRhdGVzIGxvZ291dCBlbmRwb2ludFxuICAgIE9SWSBIeWRyYS0-PkxvZ291dCBQcm92aWRlcjogUmVkaXJlY3RzIGVuZCB1c2VyIHdpdGggbG9nb3V0IGNoYWxsZW5nZVxuICAgIExvZ291dCBQcm92aWRlci0tPk9SWSBIeWRyYTogRmV0Y2hlcyBsb2dvdXQgcmVxdWVzdCBpbmZvXG4gICAgTG9nb3V0IFByb3ZpZGVyLS0-PkxvZ291dCBQcm92aWRlcjogQWNxdWlyZXMgdXNlciBjb25zZW50IGZvciBsb2dvdXQgKG9wdGlvbmFsKVxuICAgIExvZ291dCBQcm92aWRlci0tPk9SWSBIeWRyYTogSW5mb3JtcyB0aGF0IGxvZ291dCByZXF1ZXN0IGlzIGdyYW50ZWRcbiAgICBMb2dvdXQgUHJvdmlkZXItPj5PUlkgSHlkcmE6IFJlZGlyZWN0cyBlbmQgdXNlciB0byByZWRpcmVjdCB1cmwgd2l0aCBsb2dvdXQgY2hhbGxlbmdlXG4gICAgT1JZIEh5ZHJhLS0-Pk9SWSBIeWRyYTogUGVyZm9ybXMgbG9nb3V0IHJvdXRpbmVzXG4gICAgT1JZIEh5ZHJhLS0-VXNlciBBZ2VudDogUmVkaXJlY3RzIHRvIHNwZWNpZmllZCByZWRpcmVjdCB1cmwiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9fQ](/images/docs/hydra/logout-flow.png)
 
@@ -396,7 +396,7 @@ Legend:
    either be the default redirect URL set by `urls.post_logout_redirect` or to
    the value specified by query parameter `post_logout_redirect_uri`.
 
-**git This endpoint does not remove any Access/Refresh Tokens.**
+**This endpoint does not remove any Access/Refresh Tokens.**
 
 #### Logout Provider Example (NodeJS Pseudo-code)
 
@@ -481,7 +481,7 @@ If the logout request was granted and the user agent redirected back to ORY
 Hydra, all OpenID Connect Front-/Back-channel logout flows (if set) will be
 performed and the user will be redirect back to his/her final destination.
 
-#### [OpenID Connect Front-Channel Logout 1.0](https://openid.net/specs/openid-connect-frontchannel-1_0.html)
+### [OpenID Connect Front-Channel Logout 1.0](https://openid.net/specs/openid-connect-frontchannel-1_0.html)
 
 In summary
 ([read the spec](https://openid.net/specs/openid-connect-frontchannel-1_0.html))
@@ -510,7 +510,7 @@ Each OpenID Connect ID Token is issued with a `sid` claim that will match the
 ORY Hydra will automatically execute the required HTTP Redirects to make this
 work. No extra work is required.
 
-#### [OpenID Connect Back-Channel Logout 1.0](https://openid.net/specs/openid-connect-backchannel-1_0.html)
+### [OpenID Connect Back-Channel Logout 1.0](https://openid.net/specs/openid-connect-backchannel-1_0.html)
 
 In summary
 ([read the spec](https://openid.net/specs/openid-connect-backchannel-1_0.html))
