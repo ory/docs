@@ -56,7 +56,7 @@ serve:
     # - Windows Command Line (CMD):
     #    > set SERVE_API_HOST=<value>
     #
-    host: ''
+    host: localhost
 
     ## Cross Origin Resource Sharing (CORS) ##
     #
@@ -94,7 +94,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_API_CORS_ALLOWED_ORIGINS=<value>
       #
-      allowed_origins: https://*.example.com
+      allowed_origins: https://example.com
 
       ## Allowed HTTP Methods ##
       #
@@ -268,7 +268,7 @@ serve:
     # - Windows Command Line (CMD):
     #    > set SERVE_PROXY_HOST=<value>
     #
-    host: localhost
+    host: 127.0.0.1
 
     ## HTTP Timeouts ##
     #
@@ -292,7 +292,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_TIMEOUT_READ=<value>
       #
-      read: 5m
+      read: 5h
 
       ## HTTP Write Timeout ##
       #
@@ -330,7 +330,7 @@ serve:
       # - Windows Command Line (CMD):
       #    > set SERVE_PROXY_TIMEOUT_IDLE=<value>
       #
-      idle: 5s
+      idle: 5h
 
     ## Cross Origin Resource Sharing (CORS) ##
     #
@@ -587,7 +587,7 @@ authenticators:
       # - Windows Command Line (CMD):
       #    > set AUTHENTICATORS_ANONYMOUS_CONFIG_SUBJECT=<value>
       #
-      subject: anonymous
+      subject: unknown
 
   ## No Operation (noop) ##
   #
@@ -631,7 +631,7 @@ authenticators:
     # - Windows Command Line (CMD):
     #    > set AUTHENTICATORS_UNAUTHORIZED_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
   ## Cookie Session ##
   #
@@ -653,7 +653,7 @@ authenticators:
     # - Windows Command Line (CMD):
     #    > set AUTHENTICATORS_COOKIE_SESSION_ENABLED=<value>
     #
-    enabled: false
+    enabled: true
 
   ## JSON Web Token (jwt) ##
   #
@@ -682,9 +682,9 @@ authenticators:
       #    > set AUTHENTICATORS_JWT_CONFIG_REQUIRED_SCOPE=<value>
       #
       required_scope:
-        - minim exercitation
-        - consectetur ut sunt id laborum
-        - id cupidatat do
+        - Excepteur Ut fugiat nulla esse
+        - nisi labore ut exercitation ut
+        - commodo pariatur dolor dolore
 
       ## target_audience ##
       #
@@ -695,7 +695,9 @@ authenticators:
       #    > set AUTHENTICATORS_JWT_CONFIG_TARGET_AUDIENCE=<value>
       #
       target_audience:
-        - anim dolor pariatur
+        - ullamco adipisicing aliqua
+        - incididunt
+        - elit dolore eu
 
       ## trusted_issuers ##
       #
@@ -706,7 +708,9 @@ authenticators:
       #    > set AUTHENTICATORS_JWT_CONFIG_TRUSTED_ISSUERS=<value>
       #
       trusted_issuers:
-        - esse
+        - quis ut Lorem minim
+        - occaecat
+        - consectetur deserunt quis eiusmod
 
       ## allowed_algorithms ##
       #
@@ -717,9 +721,10 @@ authenticators:
       #    > set AUTHENTICATORS_JWT_CONFIG_ALLOWED_ALGORITHMS=<value>
       #
       allowed_algorithms:
-        - in
-        - laboris ad in
-        - 'ipsum '
+        - 'voluptate '
+        - fugiat inc
+        - incididunt consequat
+        - fugiat reprehenderit Lorem Ut id
 
       ## scope_strategy ##
       #
@@ -742,7 +747,7 @@ authenticators:
         # - Windows Command Line (CMD):
         #    > set AUTHENTICATORS_JWT_CONFIG_TOKEN_FROM_HEADER=<value>
         #
-        header: aliqua
+        header: nulla id laboris reprehenderit
 
     ## Enabled ##
     #
@@ -781,7 +786,7 @@ authenticators:
     # - Windows Command Line (CMD):
     #    > set AUTHENTICATORS_OAUTH2_CLIENT_CREDENTIALS_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
   ## OAuth 2.0 Token Introspection ##
   #
@@ -803,7 +808,7 @@ authenticators:
     # - Windows Command Line (CMD):
     #    > set AUTHENTICATORS_OAUTH2_INTROSPECTION_ENABLED=<value>
     #
-    enabled: false
+    enabled: true
 
 ## Authorizers ##
 #
@@ -830,7 +835,7 @@ authorizers:
     # - Windows Command Line (CMD):
     #    > set AUTHORIZERS_ALLOW_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
   ## Deny ##
   #
@@ -852,7 +857,7 @@ authorizers:
     # - Windows Command Line (CMD):
     #    > set AUTHORIZERS_DENY_ENABLED=<value>
     #
-    enabled: false
+    enabled: true
 
   ## ORY Keto Access Control Policies Engine ##
   #
@@ -874,7 +879,7 @@ authorizers:
     # - Windows Command Line (CMD):
     #    > set AUTHORIZERS_KETO_ENGINE_ACP_ORY_ENABLED=<value>
     #
-    enabled: false
+    enabled: true
 
 ## Mutators ##
 #
@@ -901,26 +906,13 @@ mutators:
     # - Windows Command Line (CMD):
     #    > set MUTATORS_NOOP_ENABLED=<value>
     #
-    enabled: true
+    enabled: false
 
   ## HTTP Cookie ##
   #
   # The [`cookie` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#cookie).
   #
   cookie:
-    ## config ##
-    #
-    config:
-      ## cookies ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export MUTATORS_COOKIE_CONFIG_COOKIES=<value>
-      # - Windows Command Line (CMD):
-      #    > set MUTATORS_COOKIE_CONFIG_COOKIES=<value>
-      #
-      cookies: {}
-
     ## Enabled ##
     #
     # En-/disables this component.
@@ -936,26 +928,13 @@ mutators:
     # - Windows Command Line (CMD):
     #    > set MUTATORS_COOKIE_ENABLED=<value>
     #
-    enabled: false
+    enabled: true
 
   ## HTTP Header ##
   #
   # The [`header` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#header).
   #
   header:
-    ## config ##
-    #
-    config:
-      ## headers ##
-      #
-      # Set this value using environment variables on
-      # - Linux/macOS:
-      #    $ export MUTATORS_HEADER_CONFIG_HEADERS=<value>
-      # - Windows Command Line (CMD):
-      #    > set MUTATORS_HEADER_CONFIG_HEADERS=<value>
-      #
-      headers: {}
-
     ## Enabled ##
     #
     # En-/disables this component.
@@ -1011,7 +990,7 @@ mutators:
       # - Windows Command Line (CMD):
       #    > set MUTATORS_ID_TOKEN_CONFIG_JWKS_URL=<value>
       #
-      jwks_url: file://../from/this/relative/location.json
+      jwks_url: https://fetch-keys/from/this/location.json
 
       ## issuer_url ##
       #
@@ -1021,7 +1000,7 @@ mutators:
       # - Windows Command Line (CMD):
       #    > set MUTATORS_ID_TOKEN_CONFIG_ISSUER_URL=<value>
       #
-      issuer_url: ut eu sint fugiat ex
+      issuer_url: pariatur voluptate ut ut
 
       ## claims ##
       #
@@ -1031,7 +1010,7 @@ mutators:
       # - Windows Command Line (CMD):
       #    > set MUTATORS_ID_TOKEN_CONFIG_CLAIMS=<value>
       #
-      claims: commodo
+      claims: culpa occ
 
       ## ttl ##
       #
@@ -1058,7 +1037,7 @@ mutators:
     # - Windows Command Line (CMD):
     #    > set MUTATORS_ID_TOKEN_ENABLED=<value>
     #
-    enabled: false
+    enabled: true
 
 ## Log ##
 #
@@ -1103,5 +1082,5 @@ log:
 # - Windows Command Line (CMD):
 #    > set PROFILING=<value>
 #
-profiling: mem
+profiling: cpu
 ```
