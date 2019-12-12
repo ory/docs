@@ -68,7 +68,8 @@ authorizers:
 authenticators:
   anonymous:
     enabled: true
-    subject: guest
+    config:
+      subject: guest
 EOF
 ```
 
