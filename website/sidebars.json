@@ -14,30 +14,50 @@
       "ecosystem/sqa"
     ],
     "ORY Kratos": [
-      "kratos/index",
+      {
+        "type": "subcategory",
+        "label": "Introduction",
+        "ids": [
+          "kratos/index",
+          "kratos/introduction/navigating-docs",
+          "kratos/introduction/comparison"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Get Started",
+        "ids": [
+          "kratos/get-started/security-model",
+          "kratos/get-started/run-demo"
+        ]
+      },
       {
         "type": "subcategory",
         "label": "Concepts",
         "ids": [
-          "kratos/concepts/index",
           "kratos/concepts/ui",
           "kratos/concepts/json-schema",
           "kratos/concepts/identity",
           "kratos/concepts/credentials",
+          "kratos/concepts/email-sms",
           "kratos/concepts/security"
         ]
       },
       {
         "type": "subcategory",
-        "label": "Self Service Features",
+        "label": "Self Service Flows",
         "ids": [
-          "kratos/selfservice/index",
-          "kratos/selfservice/registration",
-          "kratos/selfservice/login",
-          "kratos/selfservice/session",
-          "kratos/selfservice/profile",
-          "kratos/selfservice/recovery"
-
+          "kratos/self-service/flows/login",
+          "kratos/self-service/flows/registration",
+          "kratos/self-service/flows/password-reset-account-recovery",
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Credentials",
+        "ids": [
+          "kratos/credentials/username-email-password",
+          "kratos/selfservice/openid-connect-oauth2-oidc"
         ]
       },
       {
