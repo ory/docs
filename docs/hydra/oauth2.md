@@ -894,6 +894,10 @@ determine meta-information about this token. OAuth 2.0 deployments can use this
 method to convey information about the authorization context of the token from
 the authorization server to the protected resource.
 
+The usage of an access token or client credentials is required to access the
+endpoint. ORY Hydra will however accept any valid token or valid credentials as
+there is no built-in access control.
+
 You can find more details on this endpoint in the
 [ORY Hydra API Docs](https://www.ory.sh/docs/). You can also use the CLI command
 `hydra token introspect <token>`.

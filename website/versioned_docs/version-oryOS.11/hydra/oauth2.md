@@ -35,7 +35,7 @@ summarized as:
   validating his or her credentials (e.g. username + password).
 - The consent provider is responsible for allowing the OAuth 2.0 application to
   get a token on the user's behalf ("Do you want to allow foobar-app access to
-  all your personal messages and images?".
+  all your personal messages and images?").
 
 ### Common Misconceptions
 
@@ -551,7 +551,7 @@ logout provider fetches information about the logout request:
 challenge = req.url.query.logout_challenge;
 
 fetch(
-  "https://hydra/oauth2/auth/requests/logout?" +
+  'https://hydra/oauth2/auth/requests/logout?' +
     querystring.stringify({ logout_challenge: challenge })
 )
   .then(function(response) {
@@ -589,10 +589,10 @@ completed as follows:
 
 ```node
 fetch(
-  "https://hydra/oauth2/auth/requests/logout/accept?" +
+  'https://hydra/oauth2/auth/requests/logout/accept?' +
     querystring.stringify({ logout_challenge: challenge }),
   {
-    method: "PUT"
+    method: 'PUT',
   }
 )
   .then(function(response) {
@@ -608,10 +608,10 @@ You can also reject a logout request (e.g. if the user chose to not log out):
 
 ```node
 fetch(
-  "https://hydra/oauth2/auth/requests/logout/reject?" +
+  'https://hydra/oauth2/auth/requests/logout/reject?' +
     querystring.stringify({ logout_challenge: challenge }),
   {
-    method: "PUT"
+    method: 'PUT',
   }
 ).then(function(response) {
   // Now you can do whatever you want - redirect the user back to your home page or whatever comes to mind.
