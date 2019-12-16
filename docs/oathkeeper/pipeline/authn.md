@@ -243,6 +243,9 @@ appropriately.
 - `only` ([]string, optional) - If set, only requests that have at least one of
   the set cookies will be forwarded, others will be passed to the next
   authenticator. If unset, all requests are forwarded.
+- `preserve_path` (boolean, optional) - If set, any path in `check_session_url`
+  will be preserved instead of replacing the path with the path of the request
+  being checked
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -266,6 +269,20 @@ authenticators:
       check_session_url: https://session-store-host
       only:
         - sessionid
+```
+
+```yaml
+# Some Access Rule Preserving Path: access-rule-2.yaml
+id: access-rule-2
+# match: ...
+# upstream: ...
+authenticators:
+  - handler: cookie_session
+    config:
+      check_session_url: https://session-store-host/check-session
+      only:
+        - sessionid
+      preserve_path: true
 ```
 
 ### Access Rule Example
@@ -440,14 +457,19 @@ was granted the requested scope.
     2.0 Client Credentials Grant will be performed.
 - `token_from` (object, optional) - The location of the bearer token. If not
   configured, the token will be received from a default location -
-  'Authorization' header. One and only one location (header or query) must be
-  specified.
+  'Authorization' header. One and only one location (header, query, or cookie)
+  must be specified.
   - `header` (string, required, one of) - The header (case insensitive) that
     must contain a Bearer token for request authentication. It can't be set
-    along with query_parameter.
+    along with `query_parameter` or `cookie`.
   - `query_parameter` (string, required, one of) - The query parameter (case
     sensitive) that must contain a Bearer token for request authentication. It
-    can't be set along with header.
+    can't be set along with `header` or `cookie`.
+  - `cookie` (string, required, one of) - The cookie (case sensitive) that must
+    contain a Bearer token for request authentication. It can't be set along
+    with `header` or `query_parameter`
+- `introspection_request_headers` (object, optional) - Additional headers to add
+  to the introspection request
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -473,6 +495,10 @@ authenticators:
         header: Custom-Authorization-Header
         # or
         # query_parameter: auth-token
+        # or
+        # cookie: auth-token
+      introspection_request_headers:
+        x-forwarded-proto: https
 ```
 
 ```yaml
@@ -499,6 +525,11 @@ authenticators:
         query_parameter: auth-token
         # or
         # header: Custom-Authorization-Header
+        # or
+        # cookie: auth-token
+      introspection_request_headers:
+        x-forwarded-proto: https
+        x-foo: bar
 ```
 
 ### Access Rule Example

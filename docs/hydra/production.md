@@ -91,8 +91,8 @@ None of the administrative endpoints have any built-in access control. You can
 do simple `curl` or Postman requests to talk to them.
 
 The Token Introspection endpoint requires authentication. But since there is no
-access control, any valid authentication enables the endpoint to be used. If
-you need to access this endpoint in production, you should configure your API
+access control, any valid authentication enables the endpoint to be used. If you
+need to access this endpoint in production, you should configure your API
 Gateway or Application Proxy to restrict which clients have access to the
 endpoint.
 

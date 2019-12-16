@@ -186,6 +186,11 @@
           },
           "title": "Only Cookies",
           "description": "A list of possible cookies to look for on incoming requests, and will fallthrough to the next authenticator if none of the passed cookies are set on the request."
+        },
+        "preserve_path": {
+          "title": "Preserve Path",
+          "type": "boolean",
+          "description": "When set to true, any path specified in `check_session_url` will be preserved instead of overwriting the path with the path from the original request"
         }
       },
       "required": ["check_session_url"],
@@ -415,6 +420,11 @@
             "type": "string"
           }
         },
+        "introspection_request_headers": {
+          "title": "Introspection Request Headers",
+          "description": "Additional headers to be added to the introspection request.",
+          "type": "object"
+        },
         "token_from": {
           "title": "Token From",
           "description": "The location of the token.\n If not configured, the token will be received from a default location - 'Authorization' header.\n One and only one location (header or query) must be specified.",
@@ -426,7 +436,7 @@
                 "header": {
                   "title": "Header",
                   "type": "string",
-                  "description": "The header (case insensitive) that must contain a token for request authentication.\n It can't be set along with query_parameter."
+                  "description": "The header (case insensitive) that must contain a token for request authentication.\n It can't be set along with query_parameter or cookie."
                 }
               }
             },
@@ -436,7 +446,17 @@
                 "query_parameter": {
                   "title": "Query Parameter",
                   "type": "string",
-                  "description": "The query parameter (case sensitive) that must contain a token for request authentication.\n It can't be set along with header."
+                  "description": "The query parameter (case sensitive) that must contain a token for request authentication.\n It can't be set along with header or cookie."
+                }
+              }
+            },
+            {
+              "required": ["cookie"],
+              "properties": {
+                "cookie": {
+                  "title": "Cookie",
+                  "type": "string",
+                  "description": "The cookie (case sensitive) that must contain a token for request authentication.\n It can't be set along with header or query_parameter."
                 }
               }
             }
@@ -541,15 +561,15 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "number_of_retries": {
-                  "type": "number",
-                  "minimum": 0,
-                  "default": 100
+                "give_up_after": {
+                  "type": "string",
+                  "default": "1s",
+                  "pattern": "^[0-9]+(ns|us|ms|s|m|h)$"
                 },
-                "delay_in_milliseconds": {
-                  "type": "number",
-                  "minimum": 0,
-                  "default": 3
+                "max_delay": {
+                  "type": "string",
+                  "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+                  "default": "100ms"
                 }
               }
             }
