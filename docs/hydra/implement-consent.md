@@ -599,7 +599,7 @@ performing the next OAuth 2.0 Authorize Code Flow. Be aware that this option
 will remove all cookies from all devices.
 
 Revoking the login sessions of a user is as easy as sending
-`DELETE to`/oauth2/auth/sessions/login?subject={subject}`.
+`DELETE` to`/oauth2/auth/sessions/login?subject={subject}`.
 
 This endpoint is not compatible with OpenID Connect Front-/Backchannel logout
 and does not revoke any tokens.
@@ -611,11 +611,11 @@ applications. Revoking the consent will automatically revoke all related access
 and refresh tokens.
 
 Revoking all consent sessions of a user is as easy as sending
-`DELETE to`/oauth2/auth/sessions/consent?subject={subject}`.
+`DELETE` to`/oauth2/auth/sessions/consent?subject={subject}`.
 
 Revoking the consent sessions of a user for a specific client is as easy as
 sending
-`DELETE to`/oauth2/auth/sessions/consent?subject={subject}&client={client}`.
+`DELETE` to`/oauth2/auth/sessions/consent?subject={subject}&client={client}`.
 
 ## OAuth 2.0
 
