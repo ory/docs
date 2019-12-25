@@ -1,4 +1,0 @@
----
-id: credentials
-title: Credentials
----

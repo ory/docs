@@ -1,5 +1,5 @@
 ---
-id: authz
+id: error
 title: Error Handlers
 ---
 
