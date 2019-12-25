@@ -19,8 +19,8 @@ const enhance = (schema, parents = []) => item => {
     ['properties', key],
   ].flat();
 
-  if (['title', 'description'].find((f) => path[path.length - 1] === f)) {
-    return
+  if (['title', 'description'].find(f => path[path.length - 1] === f)) {
+    return;
   }
 
   const comments = [`# ${pathOr(key, [...path, 'title'], schema)} ##`, ''];
@@ -89,12 +89,11 @@ new Promise((resolve, reject) => {
     const enableAll = o => {
       if (o.properties) {
         Object.keys(o.properties).forEach(key => {
-            if (key === "enable") {
-              o.properties[key] = true
-            }
-            enableAll(o.properties[key])
+          if (key === 'enable') {
+            o.properties[key] = true;
           }
-        );
+          enableAll(o.properties[key]);
+        });
       }
     };
 
@@ -102,10 +101,9 @@ new Promise((resolve, reject) => {
     enableAll(schema);
     if (schema.definitions) {
       Object.keys(schema.definitions).forEach(key => {
-          removeAdditionalProperties(schema.definitions[key])
-          enableAll(schema.definitions[key])
-        }
-      )
+        removeAdditionalProperties(schema.definitions[key]);
+        enableAll(schema.definitions[key]);
+      });
     }
 
     jsf.option({
@@ -113,7 +111,7 @@ new Promise((resolve, reject) => {
       useDefaultValue: false, // do not change this!!
       fixedProbabilities: true,
       alwaysFakeOptionals: true,
-    })
+    });
 
     const values = jsf.generate(schema);
     const doc = YAML.parseDocument(YAML.stringify(values));
