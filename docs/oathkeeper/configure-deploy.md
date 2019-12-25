@@ -185,7 +185,7 @@ HS256, ...). Let's generate a key for the RS256 algorithm that will be used by
 the id_token mutator:
 
 ```sh
-$ docker run oryd/oathkeeper:v0.32.1-beta.1 credentials generate --alg RS256 > jwks.json
+$ docker run oryd/oathkeeper:v0.33.1-beta.1 credentials generate --alg RS256 > jwks.json
 ```
 
 ### Dockerfile
@@ -195,7 +195,7 @@ files to the image:
 
 ```shell
 $ cat << EOF > Dockerfile
-FROM oryd/oathkeeper:v0.32.1-beta.1
+FROM oryd/oathkeeper:v0.33.1-beta.1
 
 ADD config.yaml /config.yaml
 ADD rules.json /rules.json
@@ -217,7 +217,7 @@ Before building the Docker Image, we need to make sure that the local ORY
 Oathkeeper Docker Image is on the most recent version:
 
 ```sh
-$ docker pull oryd/oathkeeper:v0.32.1-beta.1
+$ docker pull oryd/oathkeeper:v0.33.1-beta.1
 ```
 
 Next we will build our custom Docker Image
