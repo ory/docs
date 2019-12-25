@@ -26,7 +26,7 @@
     "swagger:cleanup:keto": "node scripts/fix-api.js ../docs/keto/sdk/api.md keto-sdk"
   },
   "devDependencies": {
-    "docusaurus": "^1.10.0",
+    "docusaurus": "^1.14.3",
     "event-stream": "^4.0.1",
     "file": "^0.2.2",
     "json-schema-faker": "git://github.com/json-schema-faker/json-schema-faker.git#master",
