@@ -477,10 +477,7 @@ The following access request would be allowed.
   "action": "delete",
   "resource": "resources:articles:12345",
   "context": {
-    "someKey": [
-      ["foo", "foo"],
-      ["bar", "bar"]
-    ]
+    "someKey": [["foo", "foo"], ["bar", "bar"]]
   }
 }
 ```
