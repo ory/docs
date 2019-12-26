@@ -171,8 +171,10 @@ Content-Length: 0
 Connection: Closed
 ```
 
-It is also possible to have this endpoint return other error responses such as the HTTP Status Found (HTTP Status Code `302`),
-depending configured on the error handling. Use this feature only if your Reverse Proxy supports these type of responses.
+It is also possible to have this endpoint return other error responses such as
+the HTTP Status Found (HTTP Status Code `302`), depending configured on the
+error handling. Use this feature only if your Reverse Proxy supports these type
+of responses.
 
 Depending on the mutator defined by the access rule, the HTTP Response might
 contain additional or mutated HTTP Headers:
@@ -205,9 +207,10 @@ requests. Authorization happens in four steps, each of which can be configured:
    it forwards to the upstream API. For example, the mutator could add
    `X-User-ID: the-user-id` to the HTTP headers or generate a JWT with session
    information and set it as `Authorization: Bearer the.jwt.token`.
-   
-Additionally, error handling can be configured. You may want to send an `application/json` response for API clients
-and a HTTP Redirect response for browsers with an end user.
+
+Additionally, error handling can be configured. You may want to send an
+`application/json` response for API clients and a HTTP Redirect response for
+browsers with an end user.
 
 <a href="https://mermaidjs.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoiZ3JhcGggVERcblxucihIVFRQIFJlcXVlc3QpIC0tPiBhcm0oQWNjZXNzIFJ1bGUgTWF0Y2hlcilcbmFybSAtLWZvdW5kIG1hdGNoaW5nIGFjY2VzcyBydWxlLS0-IGFuKEF1dGhlbnRpY2F0b3IpXG5hcm0gLS1kaWQgbm90IGZpbmQgYWNjZXNzIHJ1bGUtLT4gZWhcbmFuIC0tY3JlZGVudGlhbHMgaW4gcmVxdWVzdCBhcmUgdmFsaWQtLT5heihBdXRob3JpemVyKVxuYW4gLS1jcmVkZW50aWFscyBpbiByZXF1ZXN0IGFyZSBpbnZhbGlkLS0-IGVoXG5heiAtLXJlcXVlc3QgZG9lcyBub3QgaGF2ZSBwZXJtaXNzaW9uLS0-IGVoXG5heiAtLXJlcXVlc3QgaGFzIHBlcm1pc3Npb24tLT5tdChNdXRhdG9yKVxubXQtLXRyYW5zZm9ybSBodHRwIHJlcXVlc3QtLT5yZXMoRm9yd2FyZCBIVFRQIFJlcXVlc3QpXG5cbmVoKEVycm9yIEhhbmRsZXIpIC0tIGlmIGVycm9yIGhhbmRsZWQgYXMganNvbiAtLT4gZWhqc29uKEhUVFAgSlNPTiBFcnJvciByZXNwb25zZSlcbmVoKEVycm9yIEhhbmRsZXIpIC0tIGlmIGVycm9yIGhhbmRsZWQgYXMgcmVkaXJlY3QgLS0-IGVocmVkaXJlY3QoSFRUUCBSZWRpcmVjdCByZXNwb25zZSlcbmVoKEVycm9yIEhhbmRsZXIpIC0tIG90aGVycyAtLT4gZWhvdGhlcihFeGVjdXRlIGFueSBvdGhlciBlcnJvciBoYW5kbGluZyBsb2dpYy4uLikiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCIsInRoZW1lQ1NTIjoiLmxhYmVsIGZvcmVpZ25PYmplY3QgeyBvdmVyZmxvdzogdmlzaWJsZTsgZm9udC1zaXplOiAxM3B4IH0ifX0">
     <img src="/images/docs/oathkeeper/pipeline.png" alt="ORY Oathkeeper Pipeline">

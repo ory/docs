@@ -98,9 +98,10 @@ Oathkeeper works. Let's define three rules:
 
 1. An access rule that allowing anonymous access to
    `https://httpbin.org/anything/cookie` and using the `cookie` mutator.
-2. An access rule denying every access to `https://httpbin.org/anything/deny`. If the request header has `Accept: application/json`,
-   we will receive a JSON response. If however the accept header has `Accept: text/*`, a HTTP Redirect will
-   be sent (to `https://www.ory.sh/docs` as configured above).
+2. An access rule denying every access to `https://httpbin.org/anything/deny`.
+   If the request header has `Accept: application/json`, we will receive a JSON
+   response. If however the accept header has `Accept: text/*`, a HTTP Redirect
+   will be sent (to `https://www.ory.sh/docs` as configured above).
 3. An access rule allowing anonymous access to
    `https://httpbin.org/anything/id_token` and using the `id_token` mutator.
 
@@ -326,8 +327,8 @@ $ curl -X GET http://127.0.0.1:4455/anything/header
 
 # Make request and accept JSON (we get an error response)
 $ curl -H "Accept: application/json" -X GET http://127.0.0.1:4455/anything/deny
-{  
-  "error":{  
+{
+  "error":{
     "code":403,
     "status":"Forbidden",
     "message":"Access credentials are not sufficient to access this resource"
@@ -358,7 +359,7 @@ $ curl -X GET http://127.0.0.1:4455/anything/id_token
 }
 ```
 
-That's it! You can now clean up with:
+That's it! You can now clean up the demo using:
 
 ```
 $ docker rm -f ory-oathkeeper-demo

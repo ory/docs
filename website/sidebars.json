@@ -81,10 +81,7 @@
       {
         "type": "subcategory",
         "label": "Guides",
-        "ids": [
-          "oathkeeper/configuration",
-          "oathkeeper/configure-deploy"
-        ]
+        "ids": ["oathkeeper/configuration", "oathkeeper/configure-deploy"]
       },
       {
         "type": "subcategory",

@@ -107,10 +107,13 @@ Access Rules have four principal keys:
   Oathkeeper's Decision API, it is expected that the API Gateway forwards the
   mutated HTTP Headers to the upstream server. For the full list of available
   mutators, click [here](pipeline/mutator.md).
-- `errors`: A list of error handlers that are executed when any of the previous handlers (e.g. authentication) fail.
-Error handlers define what to do in case of an error, for example redirect the user to the login endpoint when a
-unauthorized (HTTP Status Code 401) error occurs. If left unspecified, errors will always be handled as JSON responses
-unless the global configuration key `errors.fallback` was changed. For more information on error handlers, click [here](pipeline/error.md).
+- `errors`: A list of error handlers that are executed when any of the previous
+  handlers (e.g. authentication) fail. Error handlers define what to do in case
+  of an error, for example redirect the user to the login endpoint when a
+  unauthorized (HTTP Status Code 401) error occurs. If left unspecified, errors
+  will always be handled as JSON responses unless the global configuration key
+  `errors.fallback` was changed. For more information on error handlers, click
+  [here](pipeline/error.md).
 
 **Examples**
 
