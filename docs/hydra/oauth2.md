@@ -133,7 +133,7 @@ of _resource owner_. Here is a full list of terms.
 
 A typical OAuth 2.0 flow looks as follows:
 
-1. A developer registers an OAuth 2.0 Client (external application with the
+1. A developer registers an OAuth 2.0 Client (external application) with the
    Authorization Server (ORY Hydra) the intention to obtain information on
    behalf of a user.
 2. The application UI asks the user to authorize the application to access
