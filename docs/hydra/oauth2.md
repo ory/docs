@@ -374,9 +374,9 @@ confirm the request.
 
 This works very similar to the User Login Flow. First, the user will be
 redirected to the Consent Provider which was set using the
-`OAUTH2_CONSENT_PROVIDER` environment variable. For example, the user is
+`URLS_CONSENT` environment variable. For example, the user is
 redirected to `https://consent-provider/consent?consent_challenge=1234` if
-`OAUTH2_CONSENT_PROVIDER=https://consent-provider/consent`. This redirection
+`URLS_CONSENT=https://consent-provider/consent`. This redirection
 happens _always_ and regardless of whether the user has a valid login session or
 if the user needs to authorize the application or not.
 
