@@ -225,9 +225,9 @@ parameters such as `id_token_hint`, `prompt`, and `max_age` are evaluated and
 processed.
 
 Next, the user will be redirect to the Login Provider which was set using the
-`OAUTH2_LOGIN_URL` environment variable. For example, the user is redirected to
+`URLS_LOGIN` environment variable. For example, the user is redirected to
 `https://login-provider/login?login_challenge=1234` if
-`OAUTH2_LOGIN_URL=https://login-provider/login`. This redirection happens
+`URLS_LOGIN=https://login-provider/login`. This redirection happens
 _always_ and regardless of whether the user has a valid login session or if the
 user needs to authenticate.
 
