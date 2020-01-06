@@ -227,9 +227,9 @@ processed.
 Next, the user will be redirect to the Login Provider which was set using the
 `URLS_LOGIN` environment variable. For example, the user is redirected to
 `https://login-provider/login?login_challenge=1234` if
-`URLS_LOGIN=https://login-provider/login`. This redirection happens
-_always_ and regardless of whether the user has a valid login session or if the
-user needs to authenticate.
+`URLS_LOGIN=https://login-provider/login`. This redirection happens _always_ and
+regardless of whether the user has a valid login session or if the user needs to
+authenticate.
 
 The service which handles requests to `https://login-provider/login` must first
 fetch information on the authentication request using a REST API call. Please be
@@ -373,12 +373,12 @@ client requires new permissions not previously granted, the user must visually
 confirm the request.
 
 This works very similar to the User Login Flow. First, the user will be
-redirected to the Consent Provider which was set using the
-`URLS_CONSENT` environment variable. For example, the user is
-redirected to `https://consent-provider/consent?consent_challenge=1234` if
-`URLS_CONSENT=https://consent-provider/consent`. This redirection
-happens _always_ and regardless of whether the user has a valid login session or
-if the user needs to authorize the application or not.
+redirected to the Consent Provider which was set using the `URLS_CONSENT`
+environment variable. For example, the user is redirected to
+`https://consent-provider/consent?consent_challenge=1234` if
+`URLS_CONSENT=https://consent-provider/consent`. This redirection happens
+_always_ and regardless of whether the user has a valid login session or if the
+user needs to authorize the application or not.
 
 The service which handles requests to `https://consent-provider/consent` must
 first fetch information on the consent request using a REST API call. Please be
