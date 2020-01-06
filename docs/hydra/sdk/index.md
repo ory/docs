@@ -22,6 +22,18 @@ each REST endpoint.
 If you want to use the SDK despite its caveats (mediocre code quality, potential
 breaking changes), you will find more information here:
 
+
+We publish our SDKs for popular languages in their respective package repositories:
+
+- [Python](https://pypi.org/project/ory-hydra-client/)
+- [PHP](https://packagist.org/packages/ory/hydra-client)
+- [Go](https://github.com/ory/hydra-client-go)
+- [NodeJS](https://www.npmjs.com/package/@oryd/hydra-client) (with TypeScript)
+- [Java](https://search.maven.org/artifact/sh.ory.hydra/hydra-client)
+- [Ruby](https://rubygems.org/gems/ory-hydra-client)
+
+We also provide more info for these SDKs:
+
 - [Golang](hydra/sdk/go.md)
 - [JavaScript](hydra/sdk/js.md)
 
