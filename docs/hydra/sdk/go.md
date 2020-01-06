@@ -6,7 +6,7 @@ title: Go
 To install the Go SDK, run:
 
 ```
-go get -u -d github.com/ory/hydra/sdk/go/...
+go get -u -d github.com/ory/hydra-client-go
 ```
 
 ## Configuration
@@ -15,7 +15,7 @@ We use code generation to generate our SDKs. The Go SDK is generated using
 [`go-swagger`](http://goswagger.io). The SDK is easily set up:
 
 ```go
-import "github.com/ory/hydra/sdk/go/hydra/client"
+import "github.com/ory/hydra-client-go/client"
 
 func main() {
     adminURL := url.Parse("https://hydra.localhost:4445")
@@ -39,7 +39,7 @@ func main() {
 Making requests is straight forward:
 
 ```go
-import "github.com/ory/hydra/sdk/go/hydra/client"
+import "github.com/ory/hydra-client-go/client"
 
 func main() {
     adminURL := url.Parse("https://hydra.localhost:4445")
@@ -69,7 +69,7 @@ func main() {
 Some endpoints require e.g. Basic Authorization:
 
 ```go
-import "github.com/ory/hydra/sdk/go/hydra/client"
+import "github.com/ory/hydra-client-go/client"
 import httptransport "github.com/go-openapi/runtime/client"
 
 func main() {
@@ -92,7 +92,7 @@ You may want to protect ORY Hydra using e.g. OAuth2 Access Tokens. In that case,
 you can enhance the SDK by using the OAuth2 Client:
 
 ```go
-import "github.com/ory/hydra/sdk/go/hydra/client"
+import "github.com/ory/hydra-client-go/client"
 import httptransport "github.com/go-openapi/runtime/client"
 import "golang.org/x/oauth2/clientcredentials"
 

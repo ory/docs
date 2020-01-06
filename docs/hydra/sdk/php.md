@@ -9,7 +9,7 @@ title: PHP
 To install the PHP SDK using [Composer](https://getcomposer.org), run:
 
 ```
-composer require ory/hydra-sdk
+composer require ory/hydra-client
 ```
 
 ### Configuration
