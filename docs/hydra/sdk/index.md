@@ -22,8 +22,8 @@ each REST endpoint.
 If you want to use the SDK despite its caveats (mediocre code quality, potential
 breaking changes), you will find more information here:
 
-
-We publish our SDKs for popular languages in their respective package repositories:
+We publish our SDKs for popular languages in their respective package
+repositories:
 
 - [Python](https://pypi.org/project/ory-hydra-client/)
 - [PHP](https://packagist.org/packages/ory/hydra-client)
