@@ -10,7 +10,7 @@ title: JavaScript
 To install the JavaScript SDK, run:
 
 ```
-npm install --save ory-hydra-sdk
+npm install --save @oryd/hydra-client
 ```
 
 ### Configuration
@@ -18,7 +18,7 @@ npm install --save ory-hydra-sdk
 #### Basic configuration
 
 ```js
-const Hydra = require('ory-hydra-sdk');
+const Hydra = require('@oryd/hydra-client');
 
 // Set this to Hydra's URL
 Hydra.ApiClient.instance.basePath = 'http://localhost:4445';
