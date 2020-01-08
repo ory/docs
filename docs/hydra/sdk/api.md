@@ -5251,7 +5251,7 @@ p JSON.parse(result)
 
 <a id="opIdacceptConsentRequest"></a>
 
-### Accept an consent request
+### Accept a consent request
 
 ```
 PUT /oauth2/auth/requests/consent/accept?consent_challenge=string HTTP/1.1
@@ -5501,7 +5501,7 @@ p JSON.parse(result)
 
 <a id="opIdrejectConsentRequest"></a>
 
-### Reject an consent request
+### Reject a consent request
 
 ```
 PUT /oauth2/auth/requests/consent/reject?consent_challenge=string HTTP/1.1
@@ -5728,7 +5728,7 @@ p JSON.parse(result)
 
 <a id="opIdgetLoginRequest"></a>
 
-### Get an login request
+### Get a login request
 
 ```
 GET /oauth2/auth/requests/login?login_challenge=string HTTP/1.1
@@ -5997,7 +5997,7 @@ p JSON.parse(result)
 
 <a id="opIdacceptLoginRequest"></a>
 
-### Accept an login request
+### Accept a login request
 
 ```
 PUT /oauth2/auth/requests/login/accept?login_challenge=string HTTP/1.1
