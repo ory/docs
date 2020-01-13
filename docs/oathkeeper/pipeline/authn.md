@@ -246,6 +246,8 @@ appropriately.
 - `preserve_path` (boolean, optional) - If set, any path in `check_session_url`
   will be preserved instead of replacing the path with the path of the request
   being checked
+- `extra_from` (string, optional - defaults to `extra`) - A [GJSON Path](https://github.com/tidwall/gjson/blob/master/SYNTAX.md)
+  pointing to the `extra` field. This defaults to `extra`, but it could also be `@this` (for the root element), `session.foo.bar` for `{ "subject": "...", "session": { "foo": {"bar": "whatever"} } }`, and so on.
 
 ```yaml
 # Global configuration file oathkeeper.yml
