@@ -1279,6 +1279,7 @@
       "x-go-package": "github.com/ory/keto/internal/httpclient/client/engines"
     },
     "addOryAccessControlPolicyRoleMembersBody": {
+      "description": "AddOryAccessControlPolicyRoleMembersBody AddOryAccessControlPolicyRoleMembersBody add ory access control policy role members body",
       "type": "object",
       "properties": {
         "members": {
@@ -1291,11 +1292,11 @@
         }
       },
       "x-go-name": "AddOryAccessControlPolicyRoleMembersBody",
-      "x-go-package": "github.com/ory/keto/engine/ladon"
+      "x-go-package": "github.com/ory/keto/internal/httpclient/models"
     },
     "authorizationResult": {
       "type": "object",
-      "title": "AuthorizationResult AuthorizationResult is the result of an access control decision. It contains the decision outcome.",
+      "title": "AuthorizationResult is the result of an access control decision. It contains the decision outcome.",
       "required": [
         "allowed"
       ],
@@ -1307,9 +1308,10 @@
         }
       },
       "x-go-name": "AuthorizationResult",
-      "x-go-package": "github.com/ory/keto/internal/httpclient/models"
+      "x-go-package": "github.com/ory/keto/engine"
     },
     "healthNotReadyStatus": {
+      "description": "HealthNotReadyStatus health not ready status",
       "type": "object",
       "properties": {
         "errors": {
@@ -1321,8 +1323,8 @@
           "x-go-name": "Errors"
         }
       },
-      "x-go-name": "swaggerNotReadyStatus",
-      "x-go-package": "github.com/ory/x/healthx"
+      "x-go-name": "HealthNotReadyStatus",
+      "x-go-package": "github.com/ory/keto/internal/httpclient/models"
     },
     "healthStatus": {
       "type": "object",
@@ -1338,7 +1340,7 @@
     },
     "oryAccessControlPolicy": {
       "type": "object",
-      "title": "OryAccessControlPolicy OryAccessControlPolicy OryAccessControlPolicy oryAccessControlPolicy specifies an ORY Access Policy document.",
+      "title": "oryAccessControlPolicy specifies an ORY Access Policy document.",
       "properties": {
         "actions": {
           "description": "Actions is an array representing all the actions this ORY Access Policy applies to.",
@@ -1389,11 +1391,11 @@
         }
       },
       "x-go-name": "OryAccessControlPolicy",
-      "x-go-package": "github.com/ory/keto/internal/httpclient/models"
+      "x-go-package": "github.com/ory/keto/engine/ladon"
     },
     "oryAccessControlPolicyAllowedInput": {
       "type": "object",
-      "title": "Input for checking if a request is allowed or not.",
+      "title": "OryAccessControlPolicyAllowedInput OryAccessControlPolicyAllowedInput Input for checking if a request is allowed or not.",
       "properties": {
         "action": {
           "description": "Action is the action that is requested on the resource.",
@@ -1420,10 +1422,10 @@
         }
       },
       "x-go-name": "OryAccessControlPolicyAllowedInput",
-      "x-go-package": "github.com/ory/keto/engine/ladon"
+      "x-go-package": "github.com/ory/keto/internal/httpclient/models"
     },
     "oryAccessControlPolicyRole": {
-      "description": "oryAccessControlPolicyRole represents a group of users that share the same role. A role could be an administrator, a moderator, a regular\nuser or some other sort of role.",
+      "description": "OryAccessControlPolicyRole oryAccessControlPolicyRole represents a group of users that share the same role. A role could be an administrator, a moderator, a regular\nuser or some other sort of role.",
       "type": "object",
       "properties": {
         "id": {
@@ -1441,10 +1443,10 @@
         }
       },
       "x-go-name": "OryAccessControlPolicyRole",
-      "x-go-package": "github.com/ory/keto/engine/ladon"
+      "x-go-package": "github.com/ory/keto/internal/httpclient/models"
     },
     "version": {
-      "description": "Version Version version",
+      "description": "Version version",
       "type": "object",
       "properties": {
         "version": {
