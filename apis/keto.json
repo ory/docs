@@ -1279,7 +1279,6 @@
       "x-go-package": "github.com/ory/keto/internal/httpclient/client/engines"
     },
     "addOryAccessControlPolicyRoleMembersBody": {
-      "description": "AddOryAccessControlPolicyRoleMembersBody AddOryAccessControlPolicyRoleMembersBody add ory access control policy role members body",
       "type": "object",
       "properties": {
         "members": {
@@ -1292,11 +1291,11 @@
         }
       },
       "x-go-name": "AddOryAccessControlPolicyRoleMembersBody",
-      "x-go-package": "github.com/ory/keto/internal/httpclient/models"
+      "x-go-package": "github.com/ory/keto/engine/ladon"
     },
     "authorizationResult": {
       "type": "object",
-      "title": "AuthorizationResult is the result of an access control decision. It contains the decision outcome.",
+      "title": "AuthorizationResult AuthorizationResult AuthorizationResult is the result of an access control decision. It contains the decision outcome.",
       "required": [
         "allowed"
       ],
@@ -1308,7 +1307,7 @@
         }
       },
       "x-go-name": "AuthorizationResult",
-      "x-go-package": "github.com/ory/keto/engine"
+      "x-go-package": "github.com/ory/keto/internal/httpclient/models"
     },
     "healthNotReadyStatus": {
       "description": "HealthNotReadyStatus health not ready status",
@@ -1395,7 +1394,7 @@
     },
     "oryAccessControlPolicyAllowedInput": {
       "type": "object",
-      "title": "OryAccessControlPolicyAllowedInput OryAccessControlPolicyAllowedInput Input for checking if a request is allowed or not.",
+      "title": "Input for checking if a request is allowed or not.",
       "properties": {
         "action": {
           "description": "Action is the action that is requested on the resource.",
@@ -1422,7 +1421,7 @@
         }
       },
       "x-go-name": "OryAccessControlPolicyAllowedInput",
-      "x-go-package": "github.com/ory/keto/internal/httpclient/models"
+      "x-go-package": "github.com/ory/keto/engine/ladon"
     },
     "oryAccessControlPolicyRole": {
       "description": "OryAccessControlPolicyRole oryAccessControlPolicyRole represents a group of users that share the same role. A role could be an administrator, a moderator, a regular\nuser or some other sort of role.",
