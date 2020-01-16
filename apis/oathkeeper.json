@@ -638,7 +638,7 @@
       "x-go-package": "github.com/ory/oathkeeper/internal/httpclient/client/api"
     },
     "Upstream": {
-      "description": "Upstream Upstream Upstream Upstream Upstream upstream",
+      "description": "Upstream Upstream Upstream Upstream Upstream Upstream upstream",
       "type": "object",
       "properties": {
         "preserve_host": {
@@ -660,7 +660,6 @@
       "x-go-package": "github.com/ory/oathkeeper/internal/httpclient/models"
     },
     "healthNotReadyStatus": {
-      "description": "HealthNotReadyStatus health not ready status",
       "type": "object",
       "properties": {
         "errors": {
@@ -672,10 +671,11 @@
           "x-go-name": "Errors"
         }
       },
-      "x-go-name": "HealthNotReadyStatus",
-      "x-go-package": "github.com/ory/oathkeeper/internal/httpclient/models"
+      "x-go-name": "swaggerNotReadyStatus",
+      "x-go-package": "github.com/ory/x/healthx"
     },
     "healthStatus": {
+      "description": "HealthStatus HealthStatus HealthStatus HealthStatus health status",
       "type": "object",
       "properties": {
         "status": {
@@ -684,11 +684,10 @@
           "x-go-name": "Status"
         }
       },
-      "x-go-name": "swaggerHealthStatus",
-      "x-go-package": "github.com/ory/x/healthx"
+      "x-go-name": "HealthStatus",
+      "x-go-package": "github.com/ory/oathkeeper/internal/httpclient/models"
     },
     "jsonWebKey": {
-      "description": "JSONWebKey json web key",
       "type": "object",
       "properties": {
         "alg": {
@@ -780,10 +779,11 @@
           "x-go-name": "Y"
         }
       },
-      "x-go-name": "JSONWebKey",
-      "x-go-package": "github.com/ory/oathkeeper/internal/httpclient/models"
+      "x-go-name": "swaggerJSONWebKey",
+      "x-go-package": "github.com/ory/oathkeeper/api"
     },
     "jsonWebKeySet": {
+      "description": "JSONWebKeySet json web key set",
       "type": "object",
       "properties": {
         "keys": {
@@ -795,12 +795,12 @@
           "x-go-name": "Keys"
         }
       },
-      "x-go-name": "swaggerJSONWebKeySet",
-      "x-go-package": "github.com/ory/oathkeeper/api"
+      "x-go-name": "JSONWebKeySet",
+      "x-go-package": "github.com/ory/oathkeeper/internal/httpclient/models"
     },
     "rule": {
       "type": "object",
-      "title": "Rule Rule swaggerRule is a single rule that will get checked on every HTTP request.",
+      "title": "swaggerRule is a single rule that will get checked on every HTTP request.",
       "properties": {
         "authenticators": {
           "description": "Authenticators is a list of authentication handlers that will try and authenticate the provided credentials.\nAuthenticators are checked iteratively from index 0 to n and if the first authenticator to return a positive\nresult will be the one used.\n\nIf you want the rule to first check a specific authenticator  before \"falling back\" to others, have that authenticator\nas the first item in the array.",
@@ -838,8 +838,8 @@
           "$ref": "#/definitions/Upstream"
         }
       },
-      "x-go-name": "Rule",
-      "x-go-package": "github.com/ory/oathkeeper/internal/httpclient/models"
+      "x-go-name": "swaggerRule",
+      "x-go-package": "github.com/ory/oathkeeper/api"
     },
     "ruleHandler": {
       "description": "RuleHandler rule handler",
@@ -881,7 +881,7 @@
       "x-go-package": "github.com/ory/oathkeeper/internal/httpclient/models"
     },
     "version": {
-      "description": "Version Version Version version",
+      "description": "Version Version Version Version version",
       "type": "object",
       "properties": {
         "version": {
