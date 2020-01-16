@@ -86,10 +86,7 @@
       {
         "type": "subcategory",
         "label": "API & SDKs",
-        "ids": [
-          "oathkeeper/sdk/index",
-          "oathkeeper/sdk/api"
-        ]
+        "ids": ["oathkeeper/sdk/index", "oathkeeper/sdk/api"]
       }
     ],
     "ORY Keto": [
@@ -114,10 +111,7 @@
       {
         "type": "subcategory",
         "label": "API & SDKs",
-        "ids": [
-          "keto/sdk/index",
-          "keto/sdk/api"
-        ]
+        "ids": ["keto/sdk/index", "keto/sdk/api"]
       }
     ],
     "Performance": ["performance/index", "performance/hydra"]
