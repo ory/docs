@@ -19,16 +19,7 @@
         "label": "Introduction",
         "ids": [
           "kratos/index",
-          "kratos/introduction/navigating-docs",
-          "kratos/introduction/comparison"
-        ]
-      },
-      {
-        "type": "subcategory",
-        "label": "Get Started",
-        "ids": [
-          "kratos/get-started/security-model",
-          "kratos/get-started/run-demo"
+          "kratos/quickstart"
         ]
       },
       {
@@ -49,7 +40,7 @@
         "ids": [
           "kratos/self-service/flows/login",
           "kratos/self-service/flows/registration",
-          "kratos/self-service/flows/password-reset-account-recovery",
+          "kratos/self-service/flows/password-reset-account-recovery"
         ]
       },
       {
