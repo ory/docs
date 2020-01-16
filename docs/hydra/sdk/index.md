@@ -4,8 +4,8 @@ title: Overview
 ---
 
 All SDKs use automated code generation provided by
-[`swagger-codegen`](https://github.com/swagger-api/swagger-codegen).
-Unfortunately, `swagger-codegen` has serious breaking changes in the generated
+[`openapi-generator`](https://github.com/OpenAPITools/openapi-generator).
+Unfortunately, `openapi-generator` has serious breaking changes in the generated
 code when upgrading versions. Therefore, we do not make backwards compatibility
 promises with regards to the generated SDKs. We hope to improve this process in
 the future.
@@ -18,9 +18,6 @@ each REST endpoint.
 > Authorize Code Flow, Refresh Flow, ...). But there are tons of
 > [libraries available for consuming OAuth 2.0](https://oauth.net/code/). Do not
 > write your own OAuth 2.0 Library!
-
-If you want to use the SDK despite its caveats (mediocre code quality, potential
-breaking changes), you will find more information here:
 
 We publish our SDKs for popular languages in their respective package
 repositories:
