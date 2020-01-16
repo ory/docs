@@ -27,11 +27,11 @@ all HTTP APIs here.
   - OAuth 2.0 Token URL = [/oauth2/token](/oauth2/token)
   - OAuth 2.0 Scope
 
-    | Scope          | Scope Description                                                     |
-    | -------------- | --------------------------------------------------------------------- |
-    | offline        | A scope required when requesting refresh tokens (alias for `offline`) |
-    | offline_access | A scope required when requesting refresh tokens                       |
-    | openid         | Request an OpenID Connect ID Token                                    |
+    | Scope          | Scope Description                                                            |
+    | -------------- | ---------------------------------------------------------------------------- |
+    | offline        | A scope required when requesting refresh tokens (alias for `offline_access`) |
+    | offline_access | A scope required when requesting refresh tokens                              |
+    | openid         | Request an OpenID Connect ID Token                                           |
 
 <a id="ory-hydra-public-endpoints"></a>
 
@@ -1162,7 +1162,7 @@ entity-body.
 > many libraries available for any programming language. You can find a list of
 > libraries here: https://oauth.net/code/
 >
-> Do not the the Hydra SDK does not implement this endpoint properly. Use one of
+> Do note that Hydra SDK does not implement this endpoint properly. Use one of
 > the libraries listed above!
 
 #### Request body
@@ -1635,7 +1635,7 @@ Status Code **200**
 | »» frontchannel_logout_session_required  | boolean                               | false    | none         | Boolean value specifying whether the RP requires that iss (issuer) and sid (session ID) query parameters be included to identify the RP session with the OP when the frontchannel_logout_uri is used. If omitted, the default value is false.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | »» frontchannel_logout_uri               | string                                | false    | none         | RP URL that will cause the RP to log itself out when rendered in an iframe by the OP. An iss (issuer) query parameter and a sid (session ID) query parameter MAY be included by the OP to enable the RP to validate the request and to determine which of the potentially multiple sessions is to be logged out; if either is included, both MUST be.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | »» grant_types                           | [string]                              | false    | none         | GrantTypes is an array of grant types the client is allowed to use.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| »» jwks                                  | [JSONWebKeySet](#schemajsonwebkeyset) | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| »» jwks                                  | [JSONWebKeySet](#schemajsonwebkeyset) | false    | none         | JSONWebKeySet JSONWebKeySet JSON web key set                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | »»» keys                                 | [[JSONWebKey](#schemajsonwebkey)]     | false    | none         | The value of the "keys" parameter is an array of JWK values. By default, the order of the JWK values within the array does not imply an order of preference among them, although applications of JWK Sets can choose to assign a meaning to the order for their purposes, if desired.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | »»»» alg                                 | string                                | true     | none         | The "alg" (algorithm) parameter identifies the algorithm intended for use with the key. The values used should either be registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by [JWA] or be a value that contains a Collision- Resistant Name.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | »»»» crv                                 | string                                | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
@@ -1657,7 +1657,6 @@ Status Code **200**
 | »»» jwks_uri                             | string                                | false    | none         | URL for the Client's JSON Web Key Set [JWK] document. If the Client signs requests to the Server, it contains the signing key(s) the Server uses to validate signatures from the Client. The JWK Set MAY also contain the Client's encryption keys(s), which are used by the Server to encrypt responses to the Client. When both signing and encryption keys are made available, a use (Key Use) parameter value is REQUIRED for all keys in the referenced JWK Set to indicate each key's intended usage. Although some algorithms allow the same key to be used for both signatures and encryption, doing so is NOT RECOMMENDED, as it is less secure. The JWK x5c parameter MAY be used to provide X.509 representations of keys provided. When used, the bare key values MUST still be present and MUST match those in the certificate. |
 | »»» logo_uri                             | string                                | false    | none         | LogoURI is an URL string that references a logo for the client.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | »»» metadata                             | object                                | false    | none         | Metadata is arbitrary data.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| »»»» **additionalProperties**            | object                                | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | »»» owner                                | string                                | false    | none         | Owner is a string identifying the owner of the OAuth 2.0 Client.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | »»» policy_uri                           | string                                | false    | none         | PolicyURI is a URL string that points to a human-readable privacy policy document that describes how the deployment organization collects, uses, retains, and discloses personal data.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | »»» post_logout_redirect_uris            | [string]                              | false    | none         | Array of URLs supplied by the RP to which it MAY request that the End-User's User Agent be redirected using the post_logout_redirect_uri parameter after a logout has been performed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
@@ -1690,7 +1689,7 @@ Status Code **200**
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-12-30T11:34:42Z",
+    "created_at": "2020-01-16T10:49:32Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -1719,10 +1718,7 @@ Status Code **200**
     },
     "jwks_uri": "string",
     "logo_uri": "string",
-    "metadata": {
-      "property1": {},
-      "property2": {}
-    },
+    "metadata": {},
     "owner": "string",
     "policy_uri": "string",
     "post_logout_redirect_uris": ["string"],
@@ -1735,7 +1731,7 @@ Status Code **200**
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-12-30T11:34:42Z",
+    "updated_at": "2020-01-16T10:49:32Z",
     "userinfo_signed_response_alg": "string"
   }
 ]
@@ -1915,7 +1911,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-12-30T11:34:42Z",
+  "created_at": "2020-01-16T10:49:32Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -1944,10 +1940,7 @@ and only callable by first-party components.
   },
   "jwks_uri": "string",
   "logo_uri": "string",
-  "metadata": {
-    "property1": {},
-    "property2": {}
-  },
+  "metadata": {},
   "owner": "string",
   "policy_uri": "string",
   "post_logout_redirect_uris": ["string"],
@@ -1960,7 +1953,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-12-30T11:34:42Z",
+  "updated_at": "2020-01-16T10:49:32Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2002,7 +1995,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-12-30T11:34:42Z",
+  "created_at": "2020-01-16T10:49:32Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2031,10 +2024,7 @@ and only callable by first-party components.
   },
   "jwks_uri": "string",
   "logo_uri": "string",
-  "metadata": {
-    "property1": {},
-    "property2": {}
-  },
+  "metadata": {},
   "owner": "string",
   "policy_uri": "string",
   "post_logout_redirect_uris": ["string"],
@@ -2047,7 +2037,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-12-30T11:34:42Z",
+  "updated_at": "2020-01-16T10:49:32Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2128,7 +2118,7 @@ const input = '{
   "contacts": [
     "string"
   ],
-  "created_at": "2019-12-30T11:34:42Z",
+  "created_at": "2020-01-16T10:49:32Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": [
@@ -2161,10 +2151,7 @@ const input = '{
   },
   "jwks_uri": "string",
   "logo_uri": "string",
-  "metadata": {
-    "property1": {},
-    "property2": {}
-  },
+  "metadata": {},
   "owner": "string",
   "policy_uri": "string",
   "post_logout_redirect_uris": [
@@ -2185,7 +2172,7 @@ const input = '{
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-12-30T11:34:42Z",
+  "updated_at": "2020-01-16T10:49:32Z",
   "userinfo_signed_response_alg": "string"
 }';
 const headers = {
@@ -2324,7 +2311,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-12-30T11:34:42Z",
+  "created_at": "2020-01-16T10:49:32Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2353,10 +2340,7 @@ and only callable by first-party components.
   },
   "jwks_uri": "string",
   "logo_uri": "string",
-  "metadata": {
-    "property1": {},
-    "property2": {}
-  },
+  "metadata": {},
   "owner": "string",
   "policy_uri": "string",
   "post_logout_redirect_uris": ["string"],
@@ -2369,7 +2353,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-12-30T11:34:42Z",
+  "updated_at": "2020-01-16T10:49:32Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2547,7 +2531,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-12-30T11:34:42Z",
+  "created_at": "2020-01-16T10:49:32Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2576,10 +2560,7 @@ and only callable by first-party components.
   },
   "jwks_uri": "string",
   "logo_uri": "string",
-  "metadata": {
-    "property1": {},
-    "property2": {}
-  },
+  "metadata": {},
   "owner": "string",
   "policy_uri": "string",
   "post_logout_redirect_uris": ["string"],
@@ -2592,7 +2573,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-12-30T11:34:42Z",
+  "updated_at": "2020-01-16T10:49:32Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2633,7 +2614,7 @@ and only callable by first-party components.
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-12-30T11:34:42Z",
+  "created_at": "2020-01-16T10:49:32Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -2662,10 +2643,7 @@ and only callable by first-party components.
   },
   "jwks_uri": "string",
   "logo_uri": "string",
-  "metadata": {
-    "property1": {},
-    "property2": {}
-  },
+  "metadata": {},
   "owner": "string",
   "policy_uri": "string",
   "post_logout_redirect_uris": ["string"],
@@ -2678,7 +2656,7 @@ and only callable by first-party components.
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-12-30T11:34:42Z",
+  "updated_at": "2020-01-16T10:49:32Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -2759,7 +2737,7 @@ const input = '{
   "contacts": [
     "string"
   ],
-  "created_at": "2019-12-30T11:34:42Z",
+  "created_at": "2020-01-16T10:49:32Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": [
@@ -2792,10 +2770,7 @@ const input = '{
   },
   "jwks_uri": "string",
   "logo_uri": "string",
-  "metadata": {
-    "property1": {},
-    "property2": {}
-  },
+  "metadata": {},
   "owner": "string",
   "policy_uri": "string",
   "post_logout_redirect_uris": [
@@ -2816,7 +2791,7 @@ const input = '{
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-12-30T11:34:42Z",
+  "updated_at": "2020-01-16T10:49:32Z",
   "userinfo_signed_response_alg": "string"
 }';
 const headers = {
@@ -5037,7 +5012,7 @@ the subject accepted or rejected the request.
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-12-30T11:34:42Z",
+    "created_at": "2020-01-16T10:49:32Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -5066,10 +5041,7 @@ the subject accepted or rejected the request.
     },
     "jwks_uri": "string",
     "logo_uri": "string",
-    "metadata": {
-      "property1": {},
-      "property2": {}
-    },
+    "metadata": {},
     "owner": "string",
     "policy_uri": "string",
     "post_logout_redirect_uris": ["string"],
@@ -5082,7 +5054,7 @@ the subject accepted or rejected the request.
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-12-30T11:34:42Z",
+    "updated_at": "2020-01-16T10:49:32Z",
     "userinfo_signed_response_alg": "string"
   },
   "context": {
@@ -5251,7 +5223,7 @@ p JSON.parse(result)
 
 <a id="opIdacceptConsentRequest"></a>
 
-### Accept an consent request
+### Accept a consent request
 
 ```
 PUT /oauth2/auth/requests/consent/accept?consent_challenge=string HTTP/1.1
@@ -5305,7 +5277,7 @@ the user-agent to.
 }
 ```
 
-<a id="accept-an-consent-request-parameters"></a>
+<a id="accept-a-consent-request-parameters"></a>
 
 ##### Parameters
 
@@ -5316,7 +5288,7 @@ the user-agent to.
 
 #### Responses
 
-<a id="accept-an-consent-request-responses"></a>
+<a id="accept-a-consent-request-responses"></a>
 
 ##### Overview
 
@@ -5501,7 +5473,7 @@ p JSON.parse(result)
 
 <a id="opIdrejectConsentRequest"></a>
 
-### Reject an consent request
+### Reject a consent request
 
 ```
 PUT /oauth2/auth/requests/consent/reject?consent_challenge=string HTTP/1.1
@@ -5545,7 +5517,7 @@ the user-agent to.
 }
 ```
 
-<a id="reject-an-consent-request-parameters"></a>
+<a id="reject-a-consent-request-parameters"></a>
 
 ##### Parameters
 
@@ -5556,7 +5528,7 @@ the user-agent to.
 
 #### Responses
 
-<a id="reject-an-consent-request-responses"></a>
+<a id="reject-a-consent-request-responses"></a>
 
 ##### Overview
 
@@ -5728,7 +5700,7 @@ p JSON.parse(result)
 
 <a id="opIdgetLoginRequest"></a>
 
-### Get an login request
+### Get a login request
 
 ```
 GET /oauth2/auth/requests/login?login_challenge=string HTTP/1.1
@@ -5748,7 +5720,7 @@ subject's user-agent (browser) is redirected to. The login provider uses that
 challenge to fetch information on the OAuth2 request and then accept or reject
 the requested authentication process.
 
-<a id="get-an-login-request-parameters"></a>
+<a id="get-a-login-request-parameters"></a>
 
 ##### Parameters
 
@@ -5758,7 +5730,7 @@ the requested authentication process.
 
 #### Responses
 
-<a id="get-an-login-request-responses"></a>
+<a id="get-a-login-request-responses"></a>
 
 ##### Overview
 
@@ -5788,7 +5760,7 @@ the requested authentication process.
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-12-30T11:34:42Z",
+    "created_at": "2020-01-16T10:49:32Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -5817,10 +5789,7 @@ the requested authentication process.
     },
     "jwks_uri": "string",
     "logo_uri": "string",
-    "metadata": {
-      "property1": {},
-      "property2": {}
-    },
+    "metadata": {},
     "owner": "string",
     "policy_uri": "string",
     "post_logout_redirect_uris": ["string"],
@@ -5833,7 +5802,7 @@ the requested authentication process.
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-12-30T11:34:42Z",
+    "updated_at": "2020-01-16T10:49:32Z",
     "userinfo_signed_response_alg": "string"
   },
   "oidc_context": {
@@ -5997,7 +5966,7 @@ p JSON.parse(result)
 
 <a id="opIdacceptLoginRequest"></a>
 
-### Accept an login request
+### Accept a login request
 
 ```
 PUT /oauth2/auth/requests/login/accept?login_challenge=string HTTP/1.1
@@ -6042,7 +6011,7 @@ the user-agent to.
 }
 ```
 
-<a id="accept-an-login-request-parameters"></a>
+<a id="accept-a-login-request-parameters"></a>
 
 ##### Parameters
 
@@ -6053,7 +6022,7 @@ the user-agent to.
 
 #### Responses
 
-<a id="accept-an-login-request-responses"></a>
+<a id="accept-a-login-request-responses"></a>
 
 ##### Overview
 
@@ -7091,7 +7060,7 @@ Status Code **200**
 
 | Name                                     | Type                                                      | Required | Restrictions | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | ---------------------------------------- | --------------------------------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| _anonymous_                              | [[PreviousConsentSession](#schemapreviousconsentsession)] | false    | none         | [The response used to return used consent requests same as HandledLoginRequest, just with consent_request exposed as json]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| _anonymous_                              | [[PreviousConsentSession](#schemapreviousconsentsession)] | false    | none         | [PreviousConsentSession PreviousConsentSession PreviousConsentSession PreviousConsentSession PreviousConsentSession PreviousConsentSession PreviousConsentSession PreviousConsentSession PreviousConsentSession PreviousConsentSession PreviousConsentSession The response used to return used consent requests same as HandledLoginRequest, just with consent_request exposed as json]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | » consent_request                        | [consentRequest](#schemaconsentrequest)                   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | »» acr                                   | string                                                    | false    | none         | ACR represents the Authentication AuthorizationContext Class Reference value for this authentication session. You can use it to express that, for example, a user authenticated using two factor authentication.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | »» challenge                             | string                                                    | false    | none         | Challenge is the identifier ("authorization challenge") of the consent authorization request. It is used to identify the session.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
@@ -7110,7 +7079,7 @@ Status Code **200**
 | »»» frontchannel_logout_session_required | boolean                                                   | false    | none         | Boolean value specifying whether the RP requires that iss (issuer) and sid (session ID) query parameters be included to identify the RP session with the OP when the frontchannel_logout_uri is used. If omitted, the default value is false.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | »»» frontchannel_logout_uri              | string                                                    | false    | none         | RP URL that will cause the RP to log itself out when rendered in an iframe by the OP. An iss (issuer) query parameter and a sid (session ID) query parameter MAY be included by the OP to enable the RP to validate the request and to determine which of the potentially multiple sessions is to be logged out; if either is included, both MUST be.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | »»» grant_types                          | [string]                                                  | false    | none         | GrantTypes is an array of grant types the client is allowed to use.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| »»» jwks                                 | [JSONWebKeySet](#schemajsonwebkeyset)                     | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| »»» jwks                                 | [JSONWebKeySet](#schemajsonwebkeyset)                     | false    | none         | JSONWebKeySet JSONWebKeySet JSON web key set                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | »»»» keys                                | [[JSONWebKey](#schemajsonwebkey)]                         | false    | none         | The value of the "keys" parameter is an array of JWK values. By default, the order of the JWK values within the array does not imply an order of preference among them, although applications of JWK Sets can choose to assign a meaning to the order for their purposes, if desired.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | »»»»» alg                                | string                                                    | true     | none         | The "alg" (algorithm) parameter identifies the algorithm intended for use with the key. The values used should either be registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by [JWA] or be a value that contains a Collision- Resistant Name.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | »»»»» crv                                | string                                                    | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
@@ -7132,7 +7101,6 @@ Status Code **200**
 | »»»» jwks_uri                            | string                                                    | false    | none         | URL for the Client's JSON Web Key Set [JWK] document. If the Client signs requests to the Server, it contains the signing key(s) the Server uses to validate signatures from the Client. The JWK Set MAY also contain the Client's encryption keys(s), which are used by the Server to encrypt responses to the Client. When both signing and encryption keys are made available, a use (Key Use) parameter value is REQUIRED for all keys in the referenced JWK Set to indicate each key's intended usage. Although some algorithms allow the same key to be used for both signatures and encryption, doing so is NOT RECOMMENDED, as it is less secure. The JWK x5c parameter MAY be used to provide X.509 representations of keys provided. When used, the bare key values MUST still be present and MUST match those in the certificate.                                                                                                                                                                                                                                         |
 | »»»» logo_uri                            | string                                                    | false    | none         | LogoURI is an URL string that references a logo for the client.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | »»»» metadata                            | object                                                    | false    | none         | Metadata is arbitrary data.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| »»»»» **additionalProperties**           | object                                                    | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | »»»» owner                               | string                                                    | false    | none         | Owner is a string identifying the owner of the OAuth 2.0 Client.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | »»»» policy_uri                          | string                                                    | false    | none         | PolicyURI is a URL string that points to a human-readable privacy policy document that describes how the deployment organization collects, uses, retains, and discloses personal data.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | »»»» post_logout_redirect_uris           | [string]                                                  | false    | none         | Array of URLs supplied by the RP to which it MAY request that the End-User's User Agent be redirected using the post_logout_redirect_uri parameter after a logout has been performed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
@@ -7194,7 +7162,7 @@ Status Code **200**
         "client_secret_expires_at": 0,
         "client_uri": "string",
         "contacts": ["string"],
-        "created_at": "2019-12-30T11:34:42Z",
+        "created_at": "2020-01-16T10:49:32Z",
         "frontchannel_logout_session_required": true,
         "frontchannel_logout_uri": "string",
         "grant_types": ["string"],
@@ -7223,10 +7191,7 @@ Status Code **200**
         },
         "jwks_uri": "string",
         "logo_uri": "string",
-        "metadata": {
-          "property1": {},
-          "property2": {}
-        },
+        "metadata": {},
         "owner": "string",
         "policy_uri": "string",
         "post_logout_redirect_uris": ["string"],
@@ -7239,7 +7204,7 @@ Status Code **200**
         "subject_type": "string",
         "token_endpoint_auth_method": "string",
         "tos_uri": "string",
-        "updated_at": "2019-12-30T11:34:42Z",
+        "updated_at": "2020-01-16T10:49:32Z",
         "userinfo_signed_response_alg": "string"
       },
       "context": {
@@ -7825,7 +7790,7 @@ deleted automatically when performing the refresh flow.
 
 ```json
 {
-  "notAfter": "2019-12-30T11:34:42Z"
+  "notAfter": "2020-01-16T10:49:32Z"
 }
 ```
 
@@ -7923,7 +7888,7 @@ func main() {
 ```nodejs
 const fetch = require('node-fetch');
 const input = '{
-  "notAfter": "2019-12-30T11:34:42Z"
+  "notAfter": "2020-01-16T10:49:32Z"
 }';
 const headers = {
   'Content-Type': 'application/json',  'Accept': 'application/json'
@@ -8252,9 +8217,6 @@ versioning.
 If the service supports TLS Edge Termination, this endpoint does not require the
 `X-Forwarded-Proto` header to be set.
 
-Be aware that if you are running multiple nodes of this service, the health
-status will never refer to the cluster state, only to a single instance.
-
 #### Responses
 
 <a id="get-service-version-responses"></a>
@@ -8415,6 +8377,27 @@ p JSON.parse(result)
 
 ## Schemas
 
+<a id="tocSdatetime">DateTime</a>
+
+#### DateTime
+
+<a id="schemadatetime"></a>
+
+```json
+"2020-01-16T10:49:32Z"
+```
+
+_DateTime is a time but it serializes to ISO8601 format with millis It knows how
+to read 3 different variations of a RFC3339 date time. Most APIs we encounter
+want either millisecond or second precision times. This just tries to make it
+worry-free._
+
+#### Properties
+
+| Name        | Type              | Required | Restrictions | Description                                                                                                                                                                                                                                             |
+| ----------- | ----------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| _anonymous_ | string(date-time) | false    | none         | DateTime is a time but it serializes to ISO8601 format with millis It knows how to read 3 different variations of a RFC3339 date time. Most APIs we encounter want either millisecond or second precision times. This just tries to make it worry-free. |
+
 <a id="tocSjsonwebkey">JSONWebKey</a>
 
 #### JSONWebKey
@@ -8497,7 +8480,7 @@ p JSON.parse(result)
 }
 ```
 
-_JSONWebKeySet represents a JWK Set object._
+_JSONWebKeySet JSONWebKeySet JSON web key set_
 
 #### Properties
 
@@ -8527,7 +8510,7 @@ _JSONWebKeySet represents a JWK Set object._
       "client_secret_expires_at": 0,
       "client_uri": "string",
       "contacts": ["string"],
-      "created_at": "2019-12-30T11:34:42Z",
+      "created_at": "2020-01-16T10:49:32Z",
       "frontchannel_logout_session_required": true,
       "frontchannel_logout_uri": "string",
       "grant_types": ["string"],
@@ -8556,10 +8539,7 @@ _JSONWebKeySet represents a JWK Set object._
       },
       "jwks_uri": "string",
       "logo_uri": "string",
-      "metadata": {
-        "property1": {},
-        "property2": {}
-      },
+      "metadata": {},
       "owner": "string",
       "policy_uri": "string",
       "post_logout_redirect_uris": ["string"],
@@ -8572,7 +8552,7 @@ _JSONWebKeySet represents a JWK Set object._
       "subject_type": "string",
       "token_endpoint_auth_method": "string",
       "tos_uri": "string",
-      "updated_at": "2019-12-30T11:34:42Z",
+      "updated_at": "2020-01-16T10:49:32Z",
       "userinfo_signed_response_alg": "string"
     },
     "context": {
@@ -8614,8 +8594,12 @@ _JSONWebKeySet represents a JWK Set object._
 }
 ```
 
-_The response used to return used consent requests same as HandledLoginRequest,
-just with consent_request exposed as json_
+_PreviousConsentSession PreviousConsentSession PreviousConsentSession
+PreviousConsentSession PreviousConsentSession PreviousConsentSession
+PreviousConsentSession PreviousConsentSession PreviousConsentSession
+PreviousConsentSession PreviousConsentSession The response used to return used
+consent requests same as HandledLoginRequest, just with consent_request exposed
+as json_
 
 #### Properties
 
@@ -8685,7 +8669,8 @@ _The request payload used to accept a consent request._
 }
 ```
 
-_HandledLoginRequest is the request payload used to accept a login request._
+_AcceptLoginRequest AcceptLoginRequest AcceptLoginRequest AcceptLoginRequest
+HandledLoginRequest is the request payload used to accept a login request._
 
 #### Properties
 
@@ -8711,8 +8696,8 @@ _HandledLoginRequest is the request payload used to accept a login request._
 }
 ```
 
-_The response payload sent when accepting or rejecting a login or consent
-request._
+_CompletedRequest The response payload sent when accepting or rejecting a login
+or consent request._
 
 #### Properties
 
@@ -8741,7 +8726,7 @@ request._
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-12-30T11:34:42Z",
+    "created_at": "2020-01-16T10:49:32Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -8770,10 +8755,7 @@ request._
     },
     "jwks_uri": "string",
     "logo_uri": "string",
-    "metadata": {
-      "property1": {},
-      "property2": {}
-    },
+    "metadata": {},
     "owner": "string",
     "policy_uri": "string",
     "post_logout_redirect_uris": ["string"],
@@ -8786,7 +8768,7 @@ request._
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-12-30T11:34:42Z",
+    "updated_at": "2020-01-16T10:49:32Z",
     "userinfo_signed_response_alg": "string"
   },
   "context": {
@@ -8852,7 +8834,9 @@ _Contains information on an ongoing consent request._
 }
 ```
 
-_Used to pass session data to a consent request._
+_ConsentRequestSession ConsentRequestSession ConsentRequestSession
+ConsentRequestSession ConsentRequestSession Used to pass session data to a
+consent request._
 
 #### Properties
 
@@ -8871,15 +8855,18 @@ _Used to pass session data to a consent request._
 
 ```json
 {
-  "notAfter": "2019-12-30T11:34:42Z"
+  "notAfter": "2020-01-16T10:49:32Z"
 }
 ```
 
+_FlushInactiveOAuth2TokensRequest FlushInactiveOAuth2TokensRequest flush
+inactive o auth2 tokens request_
+
 #### Properties
 
-| Name     | Type              | Required | Restrictions | Description                                                                                                                                          |
-| -------- | ----------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| notAfter | string(date-time) | false    | none         | NotAfter sets after which point tokens should not be flushed. This is useful when you want to keep a history of recently issued tokens for auditing. |
+| Name     | Type              | Required | Restrictions | Description                                                                                                                                                                              |
+| -------- | ----------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| notAfter | string(date-time) | false    | none         | NotAfter sets after which point tokens should not be flushed. This is useful when you want to keep a history of recently issued tokens for auditing. Format: date-time Format: date-time |
 
 <a id="tocSgenericerror">genericError</a>
 
@@ -8896,7 +8883,7 @@ _Used to pass session data to a consent request._
 }
 ```
 
-_Error response_
+_GenericError Error response_
 
 #### Properties
 
@@ -8961,6 +8948,9 @@ _Error response_
 }
 ```
 
+_JSONWebKeySetGeneratorRequest JSONWebKeySetGeneratorRequest json web key set
+generator request_
+
 #### Properties
 
 | Name | Type   | Required | Restrictions | Description                                                                                                                                                                                                                                            |
@@ -8989,7 +8979,7 @@ _Error response_
     "client_secret_expires_at": 0,
     "client_uri": "string",
     "contacts": ["string"],
-    "created_at": "2019-12-30T11:34:42Z",
+    "created_at": "2020-01-16T10:49:32Z",
     "frontchannel_logout_session_required": true,
     "frontchannel_logout_uri": "string",
     "grant_types": ["string"],
@@ -9018,10 +9008,7 @@ _Error response_
     },
     "jwks_uri": "string",
     "logo_uri": "string",
-    "metadata": {
-      "property1": {},
-      "property2": {}
-    },
+    "metadata": {},
     "owner": "string",
     "policy_uri": "string",
     "post_logout_redirect_uris": ["string"],
@@ -9034,7 +9021,7 @@ _Error response_
     "subject_type": "string",
     "token_endpoint_auth_method": "string",
     "tos_uri": "string",
-    "updated_at": "2019-12-30T11:34:42Z",
+    "updated_at": "2020-01-16T10:49:32Z",
     "userinfo_signed_response_alg": "string"
   },
   "oidc_context": {
@@ -9087,7 +9074,7 @@ _Contains information on an ongoing login request._
 }
 ```
 
-_Contains information about an ongoing logout request._
+_LogoutRequest Contains information about an ongoing logout request._
 
 #### Properties
 
@@ -9116,7 +9103,7 @@ _Contains information about an ongoing logout request._
   "client_secret_expires_at": 0,
   "client_uri": "string",
   "contacts": ["string"],
-  "created_at": "2019-12-30T11:34:42Z",
+  "created_at": "2020-01-16T10:49:32Z",
   "frontchannel_logout_session_required": true,
   "frontchannel_logout_uri": "string",
   "grant_types": ["string"],
@@ -9145,10 +9132,7 @@ _Contains information about an ongoing logout request._
   },
   "jwks_uri": "string",
   "logo_uri": "string",
-  "metadata": {
-    "property1": {},
-    "property2": {}
-  },
+  "metadata": {},
   "owner": "string",
   "policy_uri": "string",
   "post_logout_redirect_uris": ["string"],
@@ -9161,7 +9145,7 @@ _Contains information about an ongoing logout request._
   "subject_type": "string",
   "token_endpoint_auth_method": "string",
   "tos_uri": "string",
-  "updated_at": "2019-12-30T11:34:42Z",
+  "updated_at": "2020-01-16T10:49:32Z",
   "userinfo_signed_response_alg": "string"
 }
 ```
@@ -9186,11 +9170,10 @@ _Client represents an OAuth 2.0 Client._
 | frontchannel_logout_session_required | boolean                               | false    | none         | Boolean value specifying whether the RP requires that iss (issuer) and sid (session ID) query parameters be included to identify the RP session with the OP when the frontchannel_logout_uri is used. If omitted, the default value is false.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | frontchannel_logout_uri              | string                                | false    | none         | RP URL that will cause the RP to log itself out when rendered in an iframe by the OP. An iss (issuer) query parameter and a sid (session ID) query parameter MAY be included by the OP to enable the RP to validate the request and to determine which of the potentially multiple sessions is to be logged out; if either is included, both MUST be.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | grant_types                          | [string]                              | false    | none         | GrantTypes is an array of grant types the client is allowed to use.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| jwks                                 | [JSONWebKeySet](#schemajsonwebkeyset) | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| jwks                                 | [JSONWebKeySet](#schemajsonwebkeyset) | false    | none         | JSONWebKeySet JSONWebKeySet JSON web key set                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | jwks_uri                             | string                                | false    | none         | URL for the Client's JSON Web Key Set [JWK] document. If the Client signs requests to the Server, it contains the signing key(s) the Server uses to validate signatures from the Client. The JWK Set MAY also contain the Client's encryption keys(s), which are used by the Server to encrypt responses to the Client. When both signing and encryption keys are made available, a use (Key Use) parameter value is REQUIRED for all keys in the referenced JWK Set to indicate each key's intended usage. Although some algorithms allow the same key to be used for both signatures and encryption, doing so is NOT RECOMMENDED, as it is less secure. The JWK x5c parameter MAY be used to provide X.509 representations of keys provided. When used, the bare key values MUST still be present and MUST match those in the certificate. |
 | logo_uri                             | string                                | false    | none         | LogoURI is an URL string that references a logo for the client.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | metadata                             | object                                | false    | none         | Metadata is arbitrary data.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| » **additionalProperties**           | object                                | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | owner                                | string                                | false    | none         | Owner is a string identifying the owner of the OAuth 2.0 Client.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | policy_uri                           | string                                | false    | none         | PolicyURI is a URL string that points to a human-readable privacy policy document that describes how the deployment organization collects, uses, retains, and discloses personal data.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | post_logout_redirect_uris            | [string]                              | false    | none         | Array of URLs supplied by the RP to which it MAY request that the End-User's User Agent be redirected using the post_logout_redirect_uri parameter after a logout has been performed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
@@ -9272,18 +9255,19 @@ _Introspection contains an access token's session data as specified by IETF RFC
 }
 ```
 
-_The Access Token Response_
+_Oauth2TokenResponse Oauth2TokenResponse Oauth2TokenResponse The Access Token
+Response_
 
 #### Properties
 
-| Name          | Type           | Required | Restrictions | Description |
-| ------------- | -------------- | -------- | ------------ | ----------- |
-| access_token  | string         | false    | none         | none        |
-| expires_in    | integer(int64) | false    | none         | none        |
-| id_token      | string         | false    | none         | none        |
-| refresh_token | string         | false    | none         | none        |
-| scope         | string         | false    | none         | none        |
-| token_type    | string         | false    | none         | none        |
+| Name          | Type           | Required | Restrictions | Description   |
+| ------------- | -------------- | -------- | ------------ | ------------- |
+| access_token  | string         | false    | none         | access token  |
+| expires_in    | integer(int64) | false    | none         | expires in    |
+| id_token      | string         | false    | none         | id token      |
+| refresh_token | string         | false    | none         | refresh token |
+| scope         | string         | false    | none         | scope         |
+| token_type    | string         | false    | none         | token type    |
 
 <a id="tocSoauthtokenresponse">oauthTokenResponse</a>
 
@@ -9334,7 +9318,8 @@ _The token response_
 }
 ```
 
-_Contains optional information about the OpenID Connect request._
+_OpenIDConnectContext OpenIDConnectContext OpenIDConnectContext Contains
+optional information about the OpenID Connect request._
 
 #### Properties
 
@@ -9367,13 +9352,13 @@ _The request payload used to accept a login or consent request._
 
 #### Properties
 
-| Name              | Type           | Required | Restrictions | Description |
-| ----------------- | -------------- | -------- | ------------ | ----------- |
-| error             | string         | false    | none         | none        |
-| error_debug       | string         | false    | none         | none        |
-| error_description | string         | false    | none         | none        |
-| error_hint        | string         | false    | none         | none        |
-| status_code       | integer(int64) | false    | none         | none        |
+| Name              | Type           | Required | Restrictions | Description       |
+| ----------------- | -------------- | -------- | ------------ | ----------------- |
+| error             | string         | false    | none         | error             |
+| error_debug       | string         | false    | none         | error debug       |
+| error_description | string         | false    | none         | error description |
+| error_hint        | string         | false    | none         | error hint        |
+| status_code       | integer(int64) | false    | none         | status code       |
 
 <a id="tocSuserinforesponse">userinfoResponse</a>
 
@@ -9405,7 +9390,8 @@ _The request payload used to accept a login or consent request._
 }
 ```
 
-_The userinfo response_
+_UserinfoResponse UserinfoResponse UserinfoResponse UserinfoResponse The
+userinfo response_
 
 #### Properties
 
@@ -9485,7 +9471,8 @@ _The userinfo response_
 }
 ```
 
-_WellKnown represents important OpenID Connect discovery metadata_
+_WellKnown WellKnown WellKnown represents important OpenID Connect discovery
+metadata_
 
 #### Properties
 

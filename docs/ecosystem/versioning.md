@@ -42,38 +42,39 @@ meticulously described in each project's `UPGRADE.md` as well as `HISTORY.md`.
 
 There are three maturity levels for services:
 
-- **Graduated:** Mature, stable implementations of proven concepts.
-  They rarely change in backwards incompatible ways. A software is considered
-  graduated if the major version is >= 1, e.g. `v1.0.1`, `v2.2.2`. Backwards
-  incompatible changes are indicated by a bump of the major version number.
-  Most, if not all, REST APIs will provide backwards compatible transformations
-  that make it possible to interact with the server using older API versions.
+- **Graduated:** Mature, stable implementations of proven concepts. They rarely
+  change in backwards incompatible ways. A software is considered graduated if
+  the major version is >= 1, e.g. `v1.0.1`, `v2.2.2`. Backwards incompatible
+  changes are indicated by a bump of the major version number. Most, if not all,
+  REST APIs will provide backwards compatible transformations that make it
+  possible to interact with the server using older API versions.
 - **Incubating:** Implements well defined but not fully matured concepts.
-  Incubating software has a major version number of `0`, e.g. `v0.10.0`. You
-  may see a pre-release version such as `v0.10.0-beta.1`. Incubating software
-  has a higher (but overall moderate) probability for larger changes that can
-  break backwards compatibility, for which there are upgrade guides.
-- **Sandbox:** Implements concepts, APIs and CLIs at the experimental
-  stage and may change in unpredictable ways.
-  Sandbox software has a major version number of `0` with a `alpha` or `beta`
-  pre-release indicator, e.g. `v0.10.0-alpha.1`.
-  It is more likely that you'll encounter a version tag with a `alpha` pre-release version
-  We will provide upgrade guides wherever possible, especially when they are used in
-  production already.
-  
+  Incubating software has a major version number of `0`, e.g. `v0.10.0`. You may
+  see a pre-release version such as `v0.10.0-beta.1`. Incubating software has a
+  higher (but overall moderate) probability for larger changes that can break
+  backwards compatibility, for which there are upgrade guides.
+- **Sandbox:** Implements concepts, APIs and CLIs at the experimental stage and
+  may change in unpredictable ways. Sandbox software has a major version number
+  of `0` with a `alpha` or `beta` pre-release indicator, e.g. `v0.10.0-alpha.1`.
+  It is more likely that you'll encounter a version tag with a `alpha`
+  pre-release version We will provide upgrade guides wherever possible,
+  especially when they are used in production already.
+
 The following is a list of maturity level per project:
 
 - [ORY Hydra](https://github.com/ory/hydra) is a **graduated** project.
-- [ORY Oathkeeper](https://github.com/ory/oathkeeper) is a **incubating** project.
+- [ORY Oathkeeper](https://github.com/ory/oathkeeper) is a **incubating**
+  project.
 - [ORY Kratos](https://github.com/ory/kratos) is a **sandbox** project.
 - [ORY Keto](https://github.com/ory/keto) is a **sandbox** project.
-  
+
 ## Compatibility
 
 This compatibility matrix shows which versions are compatible with one another.
 
 | oryOS      | Documentation | ORY Hydra                                                                                                                                          | ORY Keto                                                               | ORY Oathkeeper                                                                                                                                                                                                                                             |
 | ---------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `oryOS.15` | `oryOS.15`    | `v1.2.1`, `v1.2.0`, `v1.2.0-alpha.3`, `v1.2.0-alpha.2`, `v1.2.0-alpha.1`                                                                           | `v0.4.2-alpha.1`, `v0.4.0-sandbox`, `v0.4.0-alpha.1`                   | `v0.35.1-beta.1`, `v0.35.0-alpha.1`                                                                                                                                                                                                                        |
 | `oryOS.14` | `oryOS.14`    | `v1.1.1`                                                                                                                                           | `v0.3.10-sandbox`, `v0.3.9-sandbox`, `v0.3.8-sandbox`                  | `v0.34.0-beta.1`                                                                                                                                                                                                                                           |
 | `oryOS.13` | `oryOS.13`    | `v1.1.0`                                                                                                                                           | `v0.3.8-sandbox`, `v0.3.7-sandbox`                                     | `v0.33.1-beta.1`, `v0.33.0-beta.1`                                                                                                                                                                                                                         |
 | `oryOS.12` | `oryOS.12`    | `v1.0.0-rc.14`, `v1.0.0-rc.15`, `v1.0.0`, `v1.0.0-rc.16`, `v1.0.3`, `v1.0.2`, `v1.0.1`, `v1.0.8`, `v1.0.7`, `v1.0.6`, `v1.0.5`, `v1.0.4`, `v1.0.9` | `v0.3.3-sandbox`, `v0.3.6-sandbox`, `v0.3.5-sandbox`                   | `v0.16.0-beta.3`, `v0.16.0-beta.4`, `v0.16.0-beta.5`, `v0.19.0-beta.1`, `v0.18.0-beta.1`, `v0.17.4-beta.1`, `v0.17.3-beta.1`, `v0.17.2-beta.1`, `v0.17.1-beta.1`, `v0.17.0-beta.1`, `v0.19.3-beta.1`, `v0.32.0-beta.1`, `v0.31.0-beta.1`, `v0.32.1-beta.1` |
@@ -92,19 +93,21 @@ This compatibility matrix shows which versions are compatible with one another.
 
 ### Package repository limitations
 
-Several package repositories such as [Docker Hub](https://github.com/moby/moby/issues/16304), NPM, and others
-do not allow build metadata in the version tag.
+Several package repositories such as
+[Docker Hub](https://github.com/moby/moby/issues/16304), NPM, and others do not
+allow build metadata in the version tag.
 
-Therefore, we generally strip the `oryOS` metadata from the versions published on package repositories (e.g. NPM, Ruby Gems,
-Packagist, Maven Central, Go ...).
+Therefore, we generally strip the `oryOS` metadata from the versions published
+on package repositories (e.g. NPM, Ruby Gems, Packagist, Maven Central, Go ...).
 
 ## Changelog
 
 ### January 2020 Change
 
-As of January 2020 (oryOS.15) we will no longer use `-sandbox` to indicate the sandbox stage.
-Instead, please check the [maturity](#maturity) section. We made this change because some
-package manager (e.g. Ruby Gems) do not allow the `-sandbox` suffix in the version.
+As of January 2020 (oryOS.15) we will no longer use `-sandbox` to indicate the
+sandbox stage. Instead, please check the [maturity](#maturity) section. We made
+this change because some package manager (e.g. Ruby Gems) do not allow the
+`-sandbox` suffix in the version.
 
 ### November 2018 Change
 
