@@ -1,6 +1,6 @@
 ---
 id: index
-title: Identity Infrastructure
+title: Overview
 ---
 
 ORY Kratos is a new archetype of software we call **Identity Infrastructure**. Traditional identity systems - sometimes

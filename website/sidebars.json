@@ -26,6 +26,7 @@
         "type": "subcategory",
         "label": "Concepts",
         "ids": [
+          "kratos/concepts/index",
           "kratos/concepts/ui",
           "kratos/concepts/json-schema",
           "kratos/concepts/identity",
