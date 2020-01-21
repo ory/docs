@@ -1,6 +1,6 @@
 ---
-id: sso
-title: Social Sign In
+id: openid-connect-social-sign-in-oauth2
+title: Social Sign In with OpenID Connect and OAuth2
 ---
 
 ## Sign In

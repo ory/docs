@@ -1,3 +1,8 @@
+---
+id: username-email-password
+title: Username or Email and Password
+---
+
 The `password` strategy implements the most-common used form of authentication and registration: An identifier (username,
 email, phone number, ...) and a password.
 

@@ -25,7 +25,7 @@
         "label": "Concepts",
         "ids": [
           "kratos/concepts/index",
-          "kratos/concepts/ui",
+          "kratos/concepts/ui-user-interface",
           "kratos/concepts/json-schema",
           "kratos/concepts/identity",
           "kratos/concepts/credentials",
@@ -38,9 +38,9 @@
         "label": "Self Service Flows",
         "ids": [
           "kratos/self-service/flows/index",
-          "kratos/self-service/flows/login",
-          "kratos/self-service/flows/registration",
-          "kratos/self-service/flows/profile",
+          "kratos/self-service/flows/user-login",
+          "kratos/self-service/flows/user-registration",
+          "kratos/self-service/flows/user-profile",
           "kratos/self-service/flows/password-reset-account-recovery"
         ]
       },
@@ -49,16 +49,16 @@
         "label": "Self Service Strategies",
         "ids": [
           "kratos/self-service/strategies/index",
-          "kratos/self-service/strategies/password",
-          "kratos/self-service/strategies/oidc"
+          "kratos/self-service/strategies/username-email-password",
+          "kratos/self-service/strategies/openid-connect-social-sign-in-oauth2"
         ]
       },
       {
         "type": "subcategory",
-        "label": "Self Service Hooks",
+        "label": "Self Service Workflows",
         "ids": [
-          "kratos/self-service/hooks/index",
-          "kratos/self-service/hooks/redirect"
+          "kratos/self-service/workflows/index",
+          "kratos/self-service/workflows/redirect"
         ]
       },
       {
@@ -68,6 +68,13 @@
           "kratos/reference/configuration",
           "kratos/sdk/index",
           "kratos/sdk/api"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Further Reading",
+        "ids": [
+          "kratos/further-reading/comparison"
         ]
       }
     ],

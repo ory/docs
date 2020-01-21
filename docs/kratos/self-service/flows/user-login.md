@@ -1,6 +1,6 @@
 ---
-id: login
-title: Login
+id: user-login
+title: User Login
 ---
 
 ORY Kratos supports two authentication flows:

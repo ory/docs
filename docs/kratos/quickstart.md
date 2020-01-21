@@ -16,7 +16,7 @@ This section gives you some context on what we want to achieve and what tools we
 about the network set up we picked for this guide.
 
 This quickstart guide operates on the assumption that we are writing a NodeJS app called **SecureApp**. This app
-is using nothing fancy - some ExpressJS and a bit of HTML Templating using Jade. We do want to use TypeScript but only
+is using nothing fancy - some ExpressJS and a bit of HTML Templating using Handlebars. We do want to use TypeScript but only
 because it's more readable - not because we're doing anything out of the ordinary!
 
 You could pick any technology here, of course. This works with Swift, ReactJS, or Angular (client side) as well as with PHP, Ruby, Python, Java
@@ -246,24 +246,30 @@ $ curl http://127.0.0.1:4433/auth/browser/requests/registration?request=<request
 
 Setting a password that doesn't violate these policies, we will be immediately redirected to the Dashboard:
 
+# NEEDS SCREENSHOT
+
 By using "logout" you will be redirected to the log in screen again an will be able to use the credentials just set up to log in!
 
 ### Understanding how Login and Registration works
 
-
+Head over to the [Self-Service Flows Chapter](./self-service/flows/index.md) for a in-depth explanation of how the individual
+flows work.
 
 #### Configuration Used
 
-You can find all configuration files for this quickstart guide in `./contrib/quickstart` and `./quickstart.yml`.
+You can find all configuration files for this quickstart guide in `./contrib/quickstart` and `./quickstart.yml`. To
+understand what each of those individual configuration files are doing, you must consult the other chapters of this
+documentation.
 
 In the future, this guide will support more use cases such as:
 
 - Activate account after sign up and before log in
 - Use GitHub to login in and sign up
+- Use PostgreSQL / MySQL instead of SQLite
 
 ## Cleaning up Docker
 
-You can further ex
+To clean everything up, you need to bring down the Docker Compose environment and remove all mounted volumes.
 
 ```shell script
 docker-compose -f quickstart.yml down -v

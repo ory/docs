@@ -1,6 +1,6 @@
 ---
-id: index
-title: Overview
+id: json-schema
+title: JSON Schema as a Configuration Source
 ---
 
 [JSON Schema](https://json-schema.org) is a vocabulary that allows you to

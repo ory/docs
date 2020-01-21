@@ -1,6 +1,6 @@
 ---
-id: registration
-title: Registration
+id: user-registration
+title: User Registration
 ---
 
 # Registration
