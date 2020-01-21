@@ -245,7 +245,16 @@ appropriately.
   authenticator. If unset, all requests are forwarded.
 - `preserve_path` (boolean, optional) - If set, any path in `check_session_url`
   will be preserved instead of replacing the path with the path of the request
-  being checked
+  being checked.
+- `extra_from` (string, optional - defaults to `extra`) - A
+  [GJSON Path](https://github.com/tidwall/gjson/blob/master/SYNTAX.md) pointing
+  to the `extra` field. This defaults to `extra`, but it could also be `@this`
+  (for the root element), `session.foo.bar` for
+  `{ "subject": "...", "session": { "foo": {"bar": "whatever"} } }`, and so on.
+- `subject_from` (string, optional - defaults to `subject`) - A
+  [GJSON Path](https://github.com/tidwall/gjson/blob/master/SYNTAX.md) pointing
+  to the `subject` field. This defaults to `subject`. Example: `identity.id` for
+  `{ "identity": { "id": "1234" } }`.
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -628,14 +637,17 @@ JSON Web Token and tries to verify the signature of it.
   scope as that claim is not standardized.
 - `token_from` (object, optional) - The location of the bearer token. If not
   configured, the token will be received from a default location -
-  'Authorization' header. One and only one location (header or query) must be
-  specified.
+  'Authorization' header. One and only one location (header, query, or cookie)
+  must be specified.
   - `header` (string, required, one of) - The header (case insensitive) that
     must contain a Bearer token for request authentication. It can't be set
-    along with query_parameter.
+    along with `query_parameter` or `cookie`.
   - `query_parameter` (string, required, one of) - The query parameter (case
     sensitive) that must contain a Bearer token for request authentication. It
-    can't be set along with header.
+    can't be set along with `header` or `cookie`.
+  - `cookie` (string, required, one of) - The cookie (case sensitive) that must
+    contain a Bearer token for request authentication. It can't be set along
+    with `header` or `query_parameter`
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -664,6 +676,8 @@ authenticators:
         header: Custom-Authorization-Header
         # or
         # query_parameter: auth-token
+        # or
+        # cookie: auth-token
 ```
 
 ```yaml
@@ -693,6 +707,8 @@ authenticators:
         query_parameter: auth-token
         # or
         # header: Custom-Authorization-Header
+        # or
+        # cookie: auth-token
 ```
 
 #### Validation example

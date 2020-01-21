@@ -18,9 +18,7 @@ const versions = require(`${CWD}/versions.json`);
 
 function Versions(props) {
   const latestVersion = versions[0];
-  const repoUrl = `https://github.com/${siteConfig.organizationName}/${
-    siteConfig.projectName
-  }`;
+  const repoUrl = `https://github.com/${siteConfig.organizationName}/${siteConfig.projectName}`;
   // const language = 'en'
   const language = '';
   return (
@@ -33,9 +31,7 @@ function Versions(props) {
               <p>
                 Software releases and versions follow the {}
                 <a
-                  href={`${
-                    siteConfig.baseUrl
-                  }docs/${language}ecosystem/versioning`}
+                  href={`${siteConfig.baseUrl}docs/${language}ecosystem/versioning`}
                 >
                   ORY Versioning Framework
                 </a>
@@ -83,9 +79,7 @@ function Versions(props) {
                       <th>{version}</th>
                       <td>
                         <a
-                          href={`${
-                            siteConfig.baseUrl
-                          }docs/${language}${version}/index`}
+                          href={`${siteConfig.baseUrl}docs/${language}${version}/index`}
                         >
                           Documentation
                         </a>

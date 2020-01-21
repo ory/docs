@@ -134,22 +134,19 @@
           "oathkeeper/api-access-rules",
           "oathkeeper/pipeline/authn",
           "oathkeeper/pipeline/authz",
-          "oathkeeper/pipeline/mutator"
+          "oathkeeper/pipeline/mutator",
+          "oathkeeper/pipeline/error"
         ]
       },
       {
         "type": "subcategory",
         "label": "Guides",
-        "ids": [
-          "oathkeeper/configuration",
-          "oathkeeper/configure-deploy",
-          "oathkeeper/credentials"
-        ]
+        "ids": ["oathkeeper/configuration", "oathkeeper/configure-deploy"]
       },
       {
         "type": "subcategory",
         "label": "API & SDKs",
-        "ids": ["oathkeeper/sdk/api"]
+        "ids": ["oathkeeper/sdk/index", "oathkeeper/sdk/api"]
       }
     ],
     "ORY Keto": [
@@ -174,7 +171,7 @@
       {
         "type": "subcategory",
         "label": "API & SDKs",
-        "ids": ["keto/sdk/api"]
+        "ids": ["keto/sdk/index", "keto/sdk/api"]
       }
     ],
     "Performance": ["performance/index", "performance/hydra"]

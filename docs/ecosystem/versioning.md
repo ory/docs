@@ -1,6 +1,6 @@
 ---
 id: versioning
-title: Software Versions
+title: Software Versions and Project Maturity
 ---
 
 > Running security-critical open source technology in a self-service format
@@ -14,35 +14,17 @@ The ORY ecosystem consists of multiple services versioned using
 [semantic versioning](https://semver.org). This section explains how we define
 service versions and what they mean.
 
-There are three maturity levels for services:
-
-- **Graduated services** are mature, stable implementations of proven concepts.
-  They rarely change in backwards incompatible ways. A service is considered
-  graduated if the major version is >= 1, e.g. `v1.0.1`, `v2.2.2`. Backwards
-  incompatible changes are indicated by a bump of the major version number.
-  Most, if not all, REST APIs will provide backwards compatible transformations
-  that make it possible to interact with the server using older API versions.
-- **Incubating services** implement well defined but not fully matured concepts.
-  Incubating services have a major version number of `0`, e.g. `v0.10.0`. They
-  have a higher (but overall moderate) probability for larger changes that can
-  break backwards compatibility, for which there are upgrade guides.
-- **Sandbox services** implement concepts, APIs and CLIs at the experimental
-  stage and can change in unpredictable ways. These services have a major
-  version number of `0` and the `sandbox` label, e.g. `v0.10.0-sandbox`. We will
-  provide upgrade guides wherever possible, especially when they are used in
-  production already.
-
 To make deployment easier but stay compatible with semantic versioning, each
 service is equipped with a `oryOS` version number denoted by `+oryOS.X` where
 `X` represents the "ecosystem" version. This is especially useful if you use
 more than one service from the ORY ecosystem. Let's look at some examples:
 
 - ORY Hydra `v1.0.1+oryOS.6` is best compatible with ORY Oathkeeper
-  `v0.13.1+oryOS.6` and ORY Keto `v0.5.1-sandbox+oryOS.6`.
+  `v0.13.1+oryOS.6` and ORY Keto `v0.5.1+oryOS.6`.
 - ORY Hydra `v1.0.2+oryOS.7` is best compatible with ORY Oathkeeper
-  `v0.13.2+oryOS.7` and ORY Keto `v0.6.0-sandbox+oryOS.7`.
+  `v0.13.2+oryOS.7` and ORY Keto `v0.6.0+oryOS.7`.
 - ORY Hydra `v1.0.3+oryOS.8` is probably not fully compatible with ORY
-  Oathkeeper `v0.13.1+oryOS.6` nor with ORY Keto `v0.5.1-sandbox+oryOS.6`.
+  Oathkeeper `v0.13.1+oryOS.6` nor with ORY Keto `v0.5.1+oryOS.6`.
 - ORY Hydra `v1.1.0+oryOS.9` is best compatible with ORY Oathkeeper
   `v1.1.0+oryOS.9` and ORY Keto `v1.1.0+oryOS.9`.
 
@@ -53,13 +35,38 @@ version metadata:
   ORY Oathkeeper `v0.15.5+oryOS.10`, `v1.16.0+oryOS.10` and ORY Keto
   `v0.1.1+oryOS.10`, `v0.1.2+oryOS.10`.
 
-> Each release - unless explicitly labeled as `-unstable` - is going through
-> extensive quality assurance and is considered secure and reliable enough to be
-> run in production. If you choose to go with an incubating or sandbox service,
-> it is likely that you will spend some time addressing breaking changes.
-
 We always provide ways to migrate breaking changes, and all breaking changes are
 meticulously described in each project's `UPGRADE.md` as well as `HISTORY.md`.
+
+## Maturity
+
+There are three maturity levels for services:
+
+- **Graduated:** Mature, stable implementations of proven concepts. They rarely
+  change in backwards incompatible ways. A software is considered graduated if
+  the major version is >= 1, e.g. `v1.0.1`, `v2.2.2`. Backwards incompatible
+  changes are indicated by a bump of the major version number. Most, if not all,
+  REST APIs will provide backwards compatible transformations that make it
+  possible to interact with the server using older API versions.
+- **Incubating:** Implements well defined but not fully matured concepts.
+  Incubating software has a major version number of `0`, e.g. `v0.10.0`. You may
+  see a pre-release version such as `v0.10.0-beta.1`. Incubating software has a
+  higher (but overall moderate) probability for larger changes that can break
+  backwards compatibility, for which there are upgrade guides.
+- **Sandbox:** Implements concepts, APIs and CLIs at the experimental stage and
+  may change in unpredictable ways. Sandbox software has a major version number
+  of `0` with a `alpha` or `beta` pre-release indicator, e.g. `v0.10.0-alpha.1`.
+  It is more likely that you'll encounter a version tag with a `alpha`
+  pre-release version We will provide upgrade guides wherever possible,
+  especially when they are used in production already.
+
+The following is a list of maturity level per project:
+
+- [ORY Hydra](https://github.com/ory/hydra) is a **graduated** project.
+- [ORY Oathkeeper](https://github.com/ory/oathkeeper) is a **incubating**
+  project.
+- [ORY Kratos](https://github.com/ory/kratos) is a **sandbox** project.
+- [ORY Keto](https://github.com/ory/keto) is a **sandbox** project.
 
 ## Compatibility
 
@@ -67,6 +74,9 @@ This compatibility matrix shows which versions are compatible with one another.
 
 | oryOS      | Documentation | ORY Hydra                                                                                                                                          | ORY Keto                                                               | ORY Oathkeeper                                                                                                                                                                                                                                             |
 | ---------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `oryOS.15` | `oryOS.15`    | `v1.2.1`, `v1.2.0`, `v1.2.0-alpha.3`, `v1.2.0-alpha.2`, `v1.2.0-alpha.1`                                                                           | `v0.4.2-alpha.1`, `v0.4.0-sandbox`, `v0.4.0-alpha.1`                   | `v0.35.1-beta.1`, `v0.35.0-alpha.1`                                                                                                                                                                                                                        |
+| `oryOS.14` | `oryOS.14`    | `v1.1.1`                                                                                                                                           | `v0.3.10-sandbox`, `v0.3.9-sandbox`, `v0.3.8-sandbox`                  | `v0.34.0-beta.1`                                                                                                                                                                                                                                           |
+| `oryOS.13` | `oryOS.13`    | `v1.1.0`                                                                                                                                           | `v0.3.8-sandbox`, `v0.3.7-sandbox`                                     | `v0.33.1-beta.1`, `v0.33.0-beta.1`                                                                                                                                                                                                                         |
 | `oryOS.12` | `oryOS.12`    | `v1.0.0-rc.14`, `v1.0.0-rc.15`, `v1.0.0`, `v1.0.0-rc.16`, `v1.0.3`, `v1.0.2`, `v1.0.1`, `v1.0.8`, `v1.0.7`, `v1.0.6`, `v1.0.5`, `v1.0.4`, `v1.0.9` | `v0.3.3-sandbox`, `v0.3.6-sandbox`, `v0.3.5-sandbox`                   | `v0.16.0-beta.3`, `v0.16.0-beta.4`, `v0.16.0-beta.5`, `v0.19.0-beta.1`, `v0.18.0-beta.1`, `v0.17.4-beta.1`, `v0.17.3-beta.1`, `v0.17.2-beta.1`, `v0.17.1-beta.1`, `v0.17.0-beta.1`, `v0.19.3-beta.1`, `v0.32.0-beta.1`, `v0.31.0-beta.1`, `v0.32.1-beta.1` |
 | `oryOS.11` | `oryOS.11`    | `v1.0.0-rc.10`, `v1.0.0-rc.11`, `v1.0.0-rc.12`                                                                                                     | `v0.3.0-sandbox`, `v0.3.1-sandbox`                                     | `v0.15.0`, `v0.15.1`, `v0.15.2`                                                                                                                                                                                                                            |
 | `oryOS.10` | `oryOS.10`    | `v1.0.0-rc.5`, `v1.0.0-rc.6`, `v1.0.0-rc.7`, `v1.0.0-rc.8`, `v1.0.0-rc.9`                                                                          | `v0.2.2-sandbox`, `v0.2.3-sandbox`, `v0.2.1-sandbox`, `v0.2.0-sandbox` | `v0.14.2`, `v0.14.1`, `v0.14.0`                                                                                                                                                                                                                            |
@@ -81,33 +91,30 @@ This compatibility matrix shows which versions are compatible with one another.
 | `oryOS.1`  | `oryOS.1`     | `v1.0.0-beta.1`                                                                                                                                    | `v0.1.1-sandbox`                                                       | `v0.13.1`                                                                                                                                                                                                                                                  |
 | `oryOS.1`  |               | `v1.0.0-beta.1`                                                                                                                                    | `v0.1.1-sandbox`                                                       | `v0.13.1`                                                                                                                                                                                                                                                  |
 
-### Docker Hub and NPM
+### Package repository limitations
 
-[Docker does not allow `+` in version tags](https://github.com/moby/moby/issues/16304)
-and
-[Docker is not fully semver compatible](https://github.com/docker/distribution/pull/1202#issuecomment-161075954).
+Several package repositories such as
+[Docker Hub](https://github.com/moby/moby/issues/16304), NPM, and others do not
+allow build metadata in the version tag.
 
-As we still want to provide you with a way of checking if you have the right
-docker image, the `+` symbol will be replaced by `_`. For example, ORY Hydra
-`v1.2.3+oryOS.123` is available on Docker as `v1.2.3_oryOS.123`.
+Therefore, we generally strip the `oryOS` metadata from the versions published
+on package repositories (e.g. NPM, Ruby Gems, Packagist, Maven Central, Go ...).
 
-NPM also does not support `+` in version tags. Since npm modules are only
-required for interacting with the service itself, `+oryOS` is not available in
-npm packages at all.
+## Changelog
 
-The same limitation applies to Go Modules (see
-[issue](https://github.com/golang/go/issues/31713)).
+### January 2020 Change
 
-| Example version         | Git Tag       | Docker Hub    | NPM           |
-| ----------------------- | ------------- | ------------- | ------------- |
-| `v1.2.3-rc.1+oryOS.123` | `v1.2.3-rc.1` | `v1.2.3-rc.1` | `v1.2.3-rc.1` |
+As of January 2020 (oryOS.15) we will no longer use `-sandbox` to indicate the
+sandbox stage. Instead, please check the [maturity](#maturity) section. We made
+this change because some package manager (e.g. Ruby Gems) do not allow the
+`-sandbox` suffix in the version.
 
-## November 2018 Change
+### November 2018 Change
 
 If you are an adopter of the ORY Keto ory ORY Oathkeeper prior to November 2018,
 this section is for you.
 
-### Why
+#### Why
 
 Before November 2018, ORY Keto and ORY Oathkeeper were available as versions
 `v1.0.0-beta.1` through `v1.0.0-beta.9`. We wanted to make versioning as easy as
@@ -139,12 +146,12 @@ Our plan to help developers understand which versions are compatible with one
 another backfired and instead we delayed releases and developers were confused
 as to the maturity of the individual services.
 
-### Upgrading
+#### Upgrading
 
 The new versioning framework was published in November 2018 at the top of this
 page. This is an overview of the things that changed.
 
-#### ORY Hydra
+##### ORY Hydra
 
 No changes to the versioning will be made. The next release will remain
 `v1.0.0-rc.2+oryOS.9`.
@@ -154,14 +161,14 @@ Instead, new versions will be pushed to `@oryd/hydra`. Version `v1.0.0-beta.9`
 will be the last available version at `ory-hydra-sdk`. Version
 `v1.0.0-rc.2+oryOS.9` will be the first version available at `@oryd/hydra`.
 
-##### Version Matrix
+###### Version Matrix
 
 | Old version     | Re-released as                  | NPM                           | Docker Hub                       |
 | --------------- | ------------------------------- | ----------------------------- | -------------------------------- |
 | `v1.0.0-beta.9` | -                               | `ory-hydra-sdk:v1.0.0-beta.9` | `oryd/hydra:v1.0.0-beta.9`       |
 | -               | `v1.0.0-rc.2+oryOS.9` (example) | `@oryd/hydra:v1.0.0-rc.2`     | `oryd/hydra:v1.0.0-rc.2_oryOS.9` |
 
-#### ORY Oathkeeper
+##### ORY Oathkeeper
 
 ORY Oathkeeper is a service in incubation phase. To comply with the new
 versioning framework, the following changes will be made:
@@ -190,7 +197,7 @@ versioning framework, the following changes will be made:
   The new npm package will only serve versions under the new format
   `v0.13.x+oryOS.x`.
 
-##### Version Matrix
+###### Version Matrix
 
 | Old version     | Re-released as                | NPM                                                                          | Docker Hub                                                                                 |
 | --------------- | ----------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
@@ -208,7 +215,7 @@ versioning framework, the following changes will be made:
 > No code or database changes will be required when moving from `v1.0.0-beta.x`
 > to `v0.13.x+oryOS.x`
 
-#### ORY Keto
+##### ORY Keto
 
 ORY Keto is a service in sandbox phase. To comply with the new versioning rules,
 the following changes will be made:
@@ -236,7 +243,7 @@ the following changes will be made:
   new npm package will only serve versions under the new format
   `v0.1.x-sandbox+oryOS.x`.
 
-##### Version Matrix
+###### Version Matrix
 
 | Old version     | Re-released as                       | NPM                                                                     | Docker Hub                                                                            |
 | --------------- | ------------------------------------ | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
@@ -254,7 +261,7 @@ the following changes will be made:
 > No code or database changes will be required when moving from `v1.0.0-beta.x`
 > to `v0.1.x-sandbox`
 
-#### ORY Docs
+##### ORY Docs
 
 > If you are looking for the old developer guide,
 > [click here](https://www.ory.sh/docs/deprecated/latest/).
@@ -284,19 +291,19 @@ REST API Documentation by browsing to the
 `https://raw.githubusercontent.com/ory/keto/v1.0.0-beta.8/docs/api.swagger.json`
 in the top bar.
 
-#### ORY Security Console
+##### ORY Security Console
 
 The ORY Security Console will be compatible with `oryOS.9`. While we work on
 implementing the new changes there you might see error messages regarding
 compatibility. You may ignore them for now.
 
-#### Outlook
+##### Outlook
 
 Versions `v1.0.0-beta.1` to `v1.0.0-beta.9` are blacklisted for ORY Oathkeeper
 and ORY Keto. No future release will have those versions. This will prevent
 potential future conflicts.
 
-#### Conflict Resolution
+##### Conflict Resolution
 
 If you need help with these changes or want us to handle these updates for you,
 [write us now](mailto:hi@ory.sh).

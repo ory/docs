@@ -1,5 +1,5 @@
 {
-  "$id": "https://raw.githubusercontent.com/ory/oathkeeper/v0.32.1-beta.1/.schemas/config.schema.json",
+  "$id": "https://raw.githubusercontent.com/ory/oathkeeper/v0.34.0-beta.1/.schemas/config.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ORY Oathkeeper Configuration",
   "type": "object",
@@ -11,7 +11,9 @@
         "path": {
           "title": "Path to PEM-encoded Fle",
           "type": "string",
-          "examples": ["path/to/file.pem"]
+          "examples": [
+            "path/to/file.pem"
+          ]
         },
         "base64": {
           "title": "Base64 Encoded Inline",
@@ -66,7 +68,9 @@
             "type": "string",
             "minLength": 1
           },
-          "default": ["*"],
+          "default": [
+            "*"
+          ],
           "uniqueItems": true,
           "examples": [
             "https://example.com",
@@ -92,7 +96,13 @@
             ]
           },
           "uniqueItems": true,
-          "default": ["GET", "POST", "PUT", "PATCH", "DELETE"]
+          "default": [
+            "GET",
+            "POST",
+            "PUT",
+            "PATCH",
+            "DELETE"
+          ]
         },
         "allowed_headers": {
           "description": "A list of non simple headers the client is allowed to use with cross-domain requests.",
@@ -103,7 +113,10 @@
           },
           "minLength": 1,
           "uniqueItems": true,
-          "default": ["Authorization", "Content-Type"]
+          "default": [
+            "Authorization",
+            "Content-Type"
+          ]
         },
         "exposed_headers": {
           "description": "Indicates which headers are safe to expose to the API of a CORS API specification",
@@ -114,7 +127,9 @@
           },
           "minLength": 1,
           "uniqueItems": true,
-          "default": ["Content-Type"]
+          "default": [
+            "Content-Type"
+          ]
         },
         "allow_credentials": {
           "type": "boolean",
@@ -141,15 +156,153 @@
       "title": "Enabled",
       "type": "boolean",
       "default": false,
-      "examples": [true],
+      "examples": [
+        true
+      ],
       "description": "En-/disables this component."
     },
     "scopeStrategy": {
       "title": "Scope Strategy",
       "type": "string",
-      "enum": ["hierarchic", "exact", "wildcard", "none"],
+      "enum": [
+        "hierarchic",
+        "exact",
+        "wildcard",
+        "none"
+      ],
       "default": "none",
       "description": "Sets the strategy validation algorithm."
+    },
+    "configErrorsRedirect": {
+      "type": "object",
+      "title": "HTTP Redirect Error Handler",
+      "description": "This section is optional when the error handler is disabled.",
+      "additionalProperties": false,
+      "required": [
+        "to"
+      ],
+      "properties": {
+        "to": {
+          "title": "Redirect to",
+          "description": "Set the redirect target. Must be a http/https URL.",
+          "type": "string",
+          "format": "uri"
+        },
+        "code": {
+          "title": "HTTP Redirect Status Code",
+          "description": "Defines the HTTP Redirect status code which can bei 301 (Moved Permanently) or 302 (Found).",
+          "type": "number",
+          "enum": [
+            301,
+            302
+          ],
+          "default": 302
+        },
+        "when": {
+          "$ref": "#/definitions/configErrorsWhen"
+        }
+      }
+    },
+    "configErrorsWhen": {
+      "title": "Error Handler Conditions",
+      "description": "Conditions set under which circumstances an error handler should be responsible for handling the request. If no conditions are given, the error handler will be responsible for all requests. Sections error and request are combined using AND.",
+      "type": "array",
+      "additionalItems": false,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "error": {
+            "title": "Error Type Conditions",
+            "description": "Defines which error this error handler should listen to. The list uses OR (e.g. when the error is not_found OR unauthorized). If left empty, all errors will be handled by this error handler.",
+            "type": "array",
+            "additionalItems": false,
+            "items": {
+              "type": "string",
+              "enum": [
+                "unauthorized",
+                "forbidden",
+                "internal_server_error",
+                "not_found"
+              ]
+            }
+          },
+          "request": {
+            "title": "HTTP Request Conditions",
+            "description": "Defines which HTTP Request conditions must be met for this error handler to be executed. If left empty, all HTTP requests will match. All subkeys (e.g. cidr, header.accept, header.content_type) are handled as AND.",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "cidr": {
+                "title": "Client IP CIDR Mask",
+                "description": "Defines one or more CIDR masks to match the client IP (remote address and X-Forwarded-For) against. If empty, all IPs will be matched. If more than one value, OR will be applied (e.g. 129.168.1.0/24 OR 188.177.0.0/16.",
+                "type": "array",
+                "additionalItems": false,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "header": {
+                "title": "HTTP Request Header Conditions",
+                "description": "Defines conditions the HTTP Request Header must full fill for this handler to match the request. Subkeys are matched with AND. If, for example, both content_type and accept are set, both requirements must be matched for the handler to be responsible.",
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "content_type": {
+                    "type": "array",
+                    "title": "HTTP Request Header Content Type Condition",
+                    "description": "Defines the HTTP Header Content-Type condition. If left empty, all content types match. If more than one element is defined, at least one has to match.",
+                    "additionalItems": false,
+                    "item": {
+                      "type": "string"
+                    }
+                  },
+                  "accept": {
+                    "type": "array",
+                    "title": "HTTP Request Header Accept Condition",
+                    "description": "Defines the HTTP Header Accept condition. If left empty, all accept values match. If more than one element is defined, at least one has to match.",
+                    "additionalItems": false,
+                    "item": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "configErrorsJSON": {
+      "type": "object",
+      "title": "JSON Error Handler",
+      "description": "This section is optional when the error handler is disabled.",
+      "additionalProperties": false,
+      "properties": {
+        "verbose": {
+          "type": "boolean"
+        },
+        "when": {
+          "$ref": "#/definitions/configErrorsWhen"
+        }
+      }
+    },
+    "configErrorsWWWAuthenticate": {
+      "type": "object",
+      "title": "WWW-Authenticate Error Handler",
+      "description": "This section is optional when the error handler is disabled.",
+      "additionalProperties": false,
+      "properties": {
+        "realm": {
+          "type": "string",
+          "title": "The WWW-Authenticate Realm",
+          "description": "This is a message that will be displayed by the browser. Most browsers show a message like \"The website says: <realm>\". Using a real message is thus more appropriate than a Realm identifier.",
+          "default": "Please authenticate."
+        },
+        "when": {
+          "$ref": "#/definitions/configErrorsWhen"
+        }
+      }
     },
     "configAuthenticatorsAnonymous": {
       "type": "object",
@@ -159,7 +312,12 @@
         "subject": {
           "type": "string",
           "title": "Anonymous Subject",
-          "examples": ["guest", "anon", "anonymous", "unknown"],
+          "examples": [
+            "guest",
+            "anon",
+            "anonymous",
+            "unknown"
+          ],
           "default": "anonymous",
           "description": "Sets the anonymous username."
         }
@@ -176,7 +334,9 @@
           "type": "string",
           "format": "uri",
           "description": "The origin to proxy requests to. If the response is a 200 with body `{ \"subject\": \"...\", \"extra\": {} }`. The request will pass the subject through successfully, otherwise it will be marked as unauthorized.\n\n>If this authenticator is enabled, this value is required.",
-          "examples": ["https://session-store-host"]
+          "examples": [
+            "https://session-store-host"
+          ]
         },
         "only": {
           "type": "array",
@@ -191,16 +351,32 @@
           "title": "Preserve Path",
           "type": "boolean",
           "description": "When set to true, any path specified in `check_session_url` will be preserved instead of overwriting the path with the path from the original request"
+        },
+        "extra_from": {
+          "title": "Extra JSON Path",
+          "description": "The `extra` field in the ORY Oathkeeper authentication session is set using this JSON Path. Defaults to `extra`, and could be `@this` (for the root element), `foo.bar` (for key foo.bar), or any other valid GJSON path. See [GSJON Syntax](https://github.com/tidwall/gjson/blob/master/SYNTAX.md) for reference.",
+          "type": "string",
+          "default": "extra"
+        },
+        "subject_from": {
+          "title": "Subject JSON Path",
+          "description": "The `subject` field in the ORY Oathkeeper authentication session is set using this JSON Path. Defaults to `subject`. See [GSJON Syntax](https://github.com/tidwall/gjson/blob/master/SYNTAX.md) for reference.",
+          "type": "string",
+          "default": "subject"
         }
       },
-      "required": ["check_session_url"],
+      "required": [
+        "check_session_url"
+      ],
       "additionalProperties": false
     },
     "configAuthenticatorsJwt": {
       "type": "object",
       "title": "JWT Authenticator Configuration",
       "description": "This section is optional when the authenticator is disabled.",
-      "required": ["jwks_urls"],
+      "required": [
+        "jwks_urls"
+      ],
       "properties": {
         "required_scope": {
           "type": "array",
@@ -252,24 +428,38 @@
           "description": "The location of the token.\n If not configured, the token will be received from a default location - 'Authorization' header.\n One and only one location (header or query) must be specified.",
           "oneOf": [
             {
+              "type": "null"
+            },
+            {
               "type": "object",
-              "required": ["header"],
+              "additionalProperties": false,
               "properties": {
                 "header": {
                   "title": "Header",
                   "type": "string",
-                  "description": "The header (case insensitive) that must contain a token for request authentication. It can't be set along with query_parameter."
+                  "description": "The header (case insensitive) that must contain a token for request authentication.\n It can't be set along with query_parameter or cookie."
                 }
               }
             },
             {
               "type": "object",
-              "required": ["query_parameter"],
+              "additionalProperties": false,
               "properties": {
                 "query_parameter": {
                   "title": "Query Parameter",
                   "type": "string",
-                  "description": "The query parameter (case sensitive) that must contain a token for request authentication. It can't be set along with header."
+                  "description": "The query parameter (case sensitive) that must contain a token for request authentication.\n It can't be set along with header or cookie."
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "cookie": {
+                  "title": "Cookie",
+                  "type": "string",
+                  "description": "The cookie (case sensitive) that must contain a token for request authentication.\n It can't be set along with header or query_parameter."
                 }
               }
             }
@@ -287,7 +477,9 @@
           "type": "string",
           "description": "The OAuth 2.0 Token Endpoint that will be used to validate the client credentials.\n\n>If this authenticator is enabled, this value is required.",
           "format": "uri",
-          "examples": ["https://my-website.com/oauth2/token"]
+          "examples": [
+            "https://my-website.com/oauth2/token"
+          ]
         },
         "required_scope": {
           "type": "array",
@@ -298,7 +490,9 @@
           }
         }
       },
-      "required": ["token_url"],
+      "required": [
+        "token_url"
+      ],
       "additionalProperties": false
     },
     "configAuthenticatorsOauth2Introspection": {
@@ -309,7 +503,9 @@
         "introspection_url": {
           "type": "string",
           "format": "uri",
-          "examples": ["https://my-website.com/oauth2/introspection"],
+          "examples": [
+            "https://my-website.com/oauth2/introspection"
+          ],
           "title": "OAuth 2.0 Introspection URL",
           "description": "The OAuth 2.0 Token Introspection endpoint URL.\n\n>If this authenticator is enabled, this value is required."
         },
@@ -350,7 +546,11 @@
               },
               "title": "OAuth 2.0 Scope",
               "description": "The OAuth 2.0 Scope to be requested during the OAuth 2.0 Client Credentials Grant.",
-              "examples": [["[\"foo\", \"bar\"]"]]
+              "examples": [
+                [
+                  "[\"foo\", \"bar\"]"
+                ]
+              ]
             }
           },
           "oneOf": [
@@ -362,7 +562,11 @@
               }
             },
             {
-              "required": ["client_id", "client_secret", "token_url"],
+              "required": [
+                "client_id",
+                "client_secret",
+                "token_url"
+              ],
               "properties": {
                 "enabled": {
                   "const": true
@@ -390,7 +594,11 @@
                   },
                   "title": "OAuth 2.0 Scope",
                   "description": "The OAuth 2.0 Scope to be requested during the OAuth 2.0 Client Credentials Grant.",
-                  "examples": [["[\"foo\", \"bar\"]"]]
+                  "examples": [
+                    [
+                      "[\"foo\", \"bar\"]"
+                    ]
+                  ]
                 }
               }
             }
@@ -428,10 +636,13 @@
         "token_from": {
           "title": "Token From",
           "description": "The location of the token.\n If not configured, the token will be received from a default location - 'Authorization' header.\n One and only one location (header or query) must be specified.",
-          "type": "object",
           "oneOf": [
             {
-              "required": ["header"],
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
               "properties": {
                 "header": {
                   "title": "Header",
@@ -441,7 +652,8 @@
               }
             },
             {
-              "required": ["query_parameter"],
+              "type": "object",
+              "additionalProperties": false,
               "properties": {
                 "query_parameter": {
                   "title": "Query Parameter",
@@ -451,7 +663,8 @@
               }
             },
             {
-              "required": ["cookie"],
+              "type": "object",
+              "additionalProperties": false,
               "properties": {
                 "cookie": {
                   "title": "Cookie",
@@ -463,7 +676,9 @@
           ]
         }
       },
-      "required": ["introspection_url"],
+      "required": [
+        "introspection_url"
+      ],
       "additionalProperties": false
     },
     "configAuthorizersKetoEngineAcpOry": {
@@ -476,7 +691,9 @@
           "type": "string",
           "format": "uri",
           "description": "The base URL of ORY Keto.\n\n>If this authorizer is enabled, this value is required.",
-          "examples": ["http://my-keto/"]
+          "examples": [
+            "http://my-keto/"
+          ]
         },
         "required_action": {
           "type": "string"
@@ -491,14 +708,20 @@
           "type": "string"
         }
       },
-      "required": ["base_url", "required_action", "required_resource"],
+      "required": [
+        "base_url",
+        "required_action",
+        "required_resource"
+      ],
       "additionalProperties": false
     },
     "configMutatorsCookie": {
       "type": "object",
       "title": "Cookie Mutator Configuration",
       "description": "This section is optional when the mutator is disabled.",
-      "required": ["cookies"],
+      "required": [
+        "cookies"
+      ],
       "properties": {
         "cookies": {
           "type": "object",
@@ -513,7 +736,9 @@
       "type": "object",
       "title": "Header Mutator Configuration",
       "description": "This section is optional when the mutator is disabled.",
-      "required": ["headers"],
+      "required": [
+        "headers"
+      ],
       "properties": {
         "headers": {
           "type": "object",
@@ -531,7 +756,9 @@
       "properties": {
         "api": {
           "additionalProperties": false,
-          "required": ["url"],
+          "required": [
+            "url"
+          ],
           "type": "object",
           "properties": {
             "url": {
@@ -543,7 +770,10 @@
               "additionalProperties": false,
               "properties": {
                 "basic": {
-                  "required": ["username", "password"],
+                  "required": [
+                    "username",
+                    "password"
+                  ],
                   "type": "object",
                   "additionalProperties": false,
                   "properties": {
@@ -576,14 +806,19 @@
           }
         }
       },
-      "required": ["api"],
+      "required": [
+        "api"
+      ],
       "additionalProperties": false
     },
     "configMutatorsIdToken": {
       "type": "object",
       "title": "ID Token Mutator Configuration",
       "description": "This section is optional when the mutator is disabled.",
-      "required": ["jwks_url", "issuer_url"],
+      "required": [
+        "jwks_url",
+        "issuer_url"
+      ],
       "properties": {
         "claims": {
           "type": "string"
@@ -610,7 +845,11 @@
           "description": "Sets the time-to-live of the JSON Web Token.",
           "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
           "default": "1m",
-          "examples": ["1h", "1m", "30s"]
+          "examples": [
+            "1h",
+            "1m",
+            "30s"
+          ]
         }
       },
       "additionalProperties": false
@@ -636,7 +875,10 @@
             "host": {
               "type": "string",
               "default": "",
-              "examples": ["localhost", "127.0.0.1"],
+              "examples": [
+                "localhost",
+                "127.0.0.1"
+              ],
               "title": "Host",
               "description": "The network interface to listen on."
             },
@@ -662,7 +904,10 @@
             "host": {
               "type": "string",
               "default": "",
-              "examples": ["localhost", "127.0.0.1"],
+              "examples": [
+                "localhost",
+                "127.0.0.1"
+              ],
               "title": "Host",
               "description": "The network interface to listen on. Leave empty to listen on all interfaces."
             },
@@ -678,7 +923,11 @@
                   "default": "5s",
                   "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
                   "description": "The maximum duration for reading the entire request, including the body.",
-                  "examples": ["5s", "5m", "5h"]
+                  "examples": [
+                    "5s",
+                    "5m",
+                    "5h"
+                  ]
                 },
                 "write": {
                   "title": "HTTP Write Timeout",
@@ -686,7 +935,11 @@
                   "default": "120s",
                   "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
                   "description": "The maximum duration before timing out writes of the response. Increase this parameter to prevent unexpected closing a client connection if an upstream request is responding slowly.",
-                  "examples": ["5s", "5m", "5h"]
+                  "examples": [
+                    "5s",
+                    "5m",
+                    "5h"
+                  ]
                 },
                 "idle": {
                   "title": "HTTP Idle Timeout",
@@ -694,7 +947,11 @@
                   "default": "120s",
                   "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
                   "description": " The maximum amount of time to wait for any action of a request session, reading data or writing the response.",
-                  "examples": ["5s", "5m", "5h"]
+                  "examples": [
+                    "5s",
+                    "5m",
+                    "5h"
+                  ]
                 }
               }
             },
@@ -718,7 +975,6 @@
           "title": "Repositories",
           "description": "Locations (list of URLs) where access rules should be fetched from on boot. It is expected that the documents at those locations return a JSON or YAML Array containing ORY Oathkeeper Access Rules:\n\n- If the URL Scheme is `file://`, the access rules (an array of access rules is expected) will be fetched from the local file system.\n- If the URL Scheme is `inline://`, the access rules (an array of access rules is expected) are expected to be a base64 encoded (with padding!) JSON/YAML string (base64_encode(`[{\"id\":\"foo-rule\",\"authenticators\":[....]}]`)).\n- If the URL Scheme is `http://` or `https://`, the access rules (an array of access rules is expected) will be fetched from the provided HTTP(s) location.",
           "type": "array",
-          "default": [],
           "items": {
             "type": "string",
             "format": "uri"
@@ -790,7 +1046,9 @@
                   "$ref": "#/definitions/configAuthenticatorsCookieSession"
                 }
               },
-              "required": ["config"]
+              "required": [
+                "config"
+              ]
             },
             {
               "properties": {
@@ -820,7 +1078,9 @@
                   "$ref": "#/definitions/configAuthenticatorsJwt"
                 }
               },
-              "required": ["config"]
+              "required": [
+                "config"
+              ]
             },
             {
               "properties": {
@@ -835,7 +1095,6 @@
           "title": "OAuth 2.0 Client Credentials",
           "description": "The [`oauth2_client_credentials` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#oauth2_client_credentials).",
           "type": "object",
-
           "properties": {
             "enabled": {
               "$ref": "#/definitions/handlerSwitch"
@@ -851,7 +1110,9 @@
                   "$ref": "#/definitions/configAuthenticatorsOauth2ClientCredentials"
                 }
               },
-              "required": ["config"]
+              "required": [
+                "config"
+              ]
             },
             {
               "properties": {
@@ -866,7 +1127,6 @@
           "title": "OAuth 2.0 Token Introspection",
           "description": "The [`oauth2_introspection` authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#oauth2_introspection).",
           "type": "object",
-
           "properties": {
             "enabled": {
               "$ref": "#/definitions/handlerSwitch"
@@ -882,7 +1142,9 @@
                   "$ref": "#/definitions/configAuthenticatorsOauth2Introspection"
                 }
               },
-              "required": ["config"]
+              "required": [
+                "config"
+              ]
             },
             {
               "properties": {
@@ -892,6 +1154,132 @@
               }
             }
           ]
+        }
+      }
+    },
+    "errors": {
+      "title": "Error Handling",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fallback": {
+          "title": "Error Handling Fallback",
+          "description": "This array defines how to handle errors when no \"when\" clause matches. If you have, for example, enabled redirect and json in your access rule, you could tell ORY Oathkeeper to try sending JSON if the request does not match the access rule definition",
+          "default": [
+            "json"
+          ],
+          "examples": [
+            "json",
+            "redirect"
+          ]
+        },
+        "handlers": {
+          "additionalProperties": false,
+          "title": "Individual Error Handler Configuration",
+          "type": "object",
+          "properties": {
+            "www_authenticate": {
+              "title": "HTTP WWW-Authenticate Handler",
+              "description": "Responds with the WWW-Authenticate HTTP Response",
+              "type": "object",
+              "properties": {
+                "enabled": {
+                  "$ref": "#/definitions/handlerSwitch"
+                }
+              },
+              "oneOf": [
+                {
+                  "properties": {
+                    "enabled": {
+                      "const": true
+                    },
+                    "config": {
+                      "$ref": "#/definitions/configErrorsWWWAuthenticate"
+                    }
+                  },
+                  "required": [
+                    "config"
+                  ]
+                },
+                {
+                  "properties": {
+                    "enabled": {
+                      "const": false
+                    }
+                  }
+                }
+              ]
+            },
+            "redirect": {
+              "title": "HTTP Redirect Error Handler",
+              "description": "Responds with a 301/302 HTTP redirect.",
+              "type": "object",
+              "properties": {
+                "enabled": {
+                  "$ref": "#/definitions/handlerSwitch"
+                }
+              },
+              "oneOf": [
+                {
+                  "properties": {
+                    "enabled": {
+                      "const": true
+                    },
+                    "config": {
+                      "$ref": "#/definitions/configErrorsRedirect"
+                    }
+                  },
+                  "required": [
+                    "config"
+                  ]
+                },
+                {
+                  "properties": {
+                    "enabled": {
+                      "const": false
+                    }
+                  }
+                }
+              ]
+            },
+            "json": {
+              "title": "JSON Error Handler",
+              "description": "Responds with a JSON error response",
+              "properties": {
+                "enabled": {
+                  "title": "Enabled",
+                  "type": "boolean",
+                  "default": true,
+                  "examples": [
+                    true
+                  ],
+                  "description": "En-/disables this component."
+                }
+              },
+              "oneOf": [
+                {
+                  "properties": {
+                    "enabled": {
+                      "const": true
+                    },
+                    "config": {
+                      "$ref": "#/definitions/configErrorsJSON"
+                    }
+                  },
+                  "required": [
+                    "config"
+                  ]
+                },
+                {
+                  "properties": {
+                    "enabled": {
+                      "const": false
+                    }
+                  }
+                }
+              ]
+            }
+          }
         }
       }
     },
@@ -942,7 +1330,9 @@
                   "$ref": "#/definitions/configAuthorizersKetoEngineAcpOry"
                 }
               },
-              "required": ["config"]
+              "required": [
+                "config"
+              ]
             },
             {
               "properties": {
@@ -976,7 +1366,6 @@
           "title": "HTTP Cookie",
           "description": "The [`cookie` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#cookie).",
           "type": "object",
-
           "properties": {
             "enabled": {
               "$ref": "#/definitions/handlerSwitch"
@@ -992,7 +1381,9 @@
                   "$ref": "#/definitions/configMutatorsCookie"
                 }
               },
-              "required": ["config"]
+              "required": [
+                "config"
+              ]
             },
             {
               "properties": {
@@ -1007,7 +1398,6 @@
           "title": "HTTP Header",
           "description": "The [`header` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#header).",
           "type": "object",
-
           "properties": {
             "enabled": {
               "$ref": "#/definitions/handlerSwitch"
@@ -1023,7 +1413,9 @@
                   "$ref": "#/definitions/configMutatorsHeader"
                 }
               },
-              "required": ["config"]
+              "required": [
+                "config"
+              ]
             },
             {
               "properties": {
@@ -1038,7 +1430,6 @@
           "title": "Hydrator",
           "description": "The [`hydrator` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#hydrator).",
           "type": "object",
-
           "properties": {
             "enabled": {
               "$ref": "#/definitions/handlerSwitch"
@@ -1054,7 +1445,9 @@
                   "$ref": "#/definitions/configMutatorsHydrator"
                 }
               },
-              "required": ["config"]
+              "required": [
+                "config"
+              ]
             },
             {
               "properties": {
@@ -1069,7 +1462,6 @@
           "title": "ID Token (JSON Web Token)",
           "description": "The [`id_token` mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#id_token).",
           "type": "object",
-
           "properties": {
             "enabled": {
               "$ref": "#/definitions/handlerSwitch"
@@ -1085,7 +1477,9 @@
                   "$ref": "#/definitions/configMutatorsIdToken"
                 }
               },
-              "required": ["config"]
+              "required": [
+                "config"
+              ]
             },
             {
               "properties": {
@@ -1106,14 +1500,24 @@
         "level": {
           "type": "string",
           "default": "info",
-          "enum": ["panic", "fatal", "error", "warn", "info", "debug"],
+          "enum": [
+            "panic",
+            "fatal",
+            "error",
+            "warn",
+            "info",
+            "debug"
+          ],
           "title": "Level",
           "description": "Debug enables stack traces on errors. Can also be set using environment variable LOG_LEVEL."
         },
         "format": {
           "type": "string",
           "default": "text",
-          "enum": ["text", "json"],
+          "enum": [
+            "text",
+            "json"
+          ],
           "title": "Format",
           "description": "The log format can either be text or JSON."
         }
@@ -1124,7 +1528,11 @@
       "title": "Profiling",
       "description": "Enables CPU or memory profiling if set. For more details on profiling Go programs read [Profiling Go Programs](https://blog.golang.org/profiling-go-programs).",
       "type": "string",
-      "enum": ["cpu", "mem", ""]
+      "enum": [
+        "cpu",
+        "mem",
+        ""
+      ]
     }
   },
   "required": [],

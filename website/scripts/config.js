@@ -19,7 +19,9 @@ const enhance = (schema, parents = []) => item => {
     ['properties', key],
   ].flat();
 
-  // console.log(path, pathOr(key, [...path], schema), item)
+  if (['title', 'description'].find(f => path[path.length - 1] === f)) {
+    return;
+  }
 
   const comments = [`# ${pathOr(key, [...path, 'title'], schema)} ##`, ''];
 
@@ -84,12 +86,32 @@ new Promise((resolve, reject) => {
       }
     };
 
+    const enableAll = o => {
+      if (o.properties) {
+        Object.keys(o.properties).forEach(key => {
+          if (key === 'enable') {
+            o.properties[key] = true;
+          }
+          enableAll(o.properties[key]);
+        });
+      }
+    };
+
     removeAdditionalProperties(schema);
+    enableAll(schema);
     if (schema.definitions) {
-      Object.keys(schema.definitions).forEach(key =>
-        removeAdditionalProperties(schema.definitions[key])
-      );
+      Object.keys(schema.definitions).forEach(key => {
+        removeAdditionalProperties(schema.definitions[key]);
+        enableAll(schema.definitions[key]);
+      });
     }
+
+    jsf.option({
+      useExamplesValue: true,
+      useDefaultValue: false, // do not change this!!
+      fixedProbabilities: true,
+      alwaysFakeOptionals: true,
+    });
 
     const values = jsf.generate(schema);
     const doc = YAML.parseDocument(YAML.stringify(values));
@@ -127,9 +149,7 @@ title: Configuration
 OPEN AN ISSUE IF YOU WOULD LIKE TO MAKE ADJUSTMENTS HERE AND MAINTAINERS WILL HELP YOU LOCATE THE RIGHT
 FILE -->
 
-If file \`$HOME/.${
-      process.argv[3]
-    }.yaml\` exists, it will be used as a configuration file which supports all
+If file \`$HOME/.${process.argv[3]}.yaml\` exists, it will be used as a configuration file which supports all
 configuration settings listed below.
 
 You can load the config file from another source using the \`-c path/to/config.yaml\` or \`--config path/to/config.yaml\`

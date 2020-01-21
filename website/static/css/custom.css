@@ -1,9 +1,4 @@
 html {
-  //font-size: 16px;
-  //line-height: 1.8rem;
-  //letter-spacing: 1px;
-
-  //font-family: Rubik, sans-serif;
 }
 
 h2,
@@ -12,57 +7,34 @@ h4,
 h5,
 h6 {
   font-weight: 400;
-  //letter-spacing: 1px;
 }
 
 h2 {
-  //line-height: 3rem;
-  //font-size: 2rem;
   color: #14193d;
-
-  //padding-top: 3rem;
-  //padding-bottom: .75rem;
 }
 
 h3 {
-  //font-size: 1.25rem;
-  //padding-top: 1.5rem;
-  //padding-bottom: 1rem;
   color: #14193d;
-  //line-height: 1.875rem;
 }
 
 h4 {
   color: #2c2b59;
-  //font-size: 1.25rem;
-  //padding-top: 1.5rem;
-  //padding-bottom: 1rem;
-  //line-height: 1.875rem;
 }
 
 h5 {
-  //font-size: 1rem;
-  //padding-top: 1rem;
-  //padding-bottom: 1rem;
-  //line-height: 1.8rem;
 }
 
 p {
   color: #2c2b59;
-  //line-height: 1.8rem;
-  //margin-top: 0;
-  //margin-bottom: 1rem;
 }
 
 ul,
 ol {
-  // padding: 16px 0;
 }
 
 ul li,
 ol li {
   color: #2c2b59;
-  // line-height: 2.25rem;
 }
 
 pre {

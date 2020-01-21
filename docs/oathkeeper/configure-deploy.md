@@ -42,6 +42,19 @@ access_rules:
   repositories:
     - file:///rules.json
 
+errors:
+  fallback:
+    - json
+  handlers:
+    json:
+      enabled: true
+      config:
+        verbose: true
+    redirect:
+      enabled: true
+      config:
+        to: https://www.ory.sh/docs
+
 mutators:
   header:
     enabled: true
@@ -86,6 +99,9 @@ Oathkeeper works. Let's define three rules:
 1. An access rule that allowing anonymous access to
    `https://httpbin.org/anything/cookie` and using the `cookie` mutator.
 2. An access rule denying every access to `https://httpbin.org/anything/deny`.
+   If the request header has `Accept: application/json`, we will receive a JSON
+   response. If however the accept header has `Accept: text/*`, a HTTP Redirect
+   will be sent (to `https://www.ory.sh/docs` as configured above).
 3. An access rule allowing anonymous access to
    `https://httpbin.org/anything/id_token` and using the `id_token` mutator.
 
@@ -145,6 +161,36 @@ $ cat << EOF > rules.json
       {
         "handler": "noop"
       }
+    ],
+    "errors": [
+      {
+        "handler": "json",
+        "config": {
+          "when": [
+            {
+              "request": {
+                "header": {
+                  "accept": ["application/json"]
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "handler": "redirect",
+        "config": {
+          "when": [
+            {
+              "request": {
+                "header": {
+                  "accept": ["text/*"]
+                }
+              }
+            }
+          ]
+        }
+      }
     ]
   },
   {
@@ -185,7 +231,7 @@ HS256, ...). Let's generate a key for the RS256 algorithm that will be used by
 the id_token mutator:
 
 ```sh
-$ docker run oryd/oathkeeper:v0.32.1-beta.1 credentials generate --alg RS256 > jwks.json
+$ docker run oryd/oathkeeper:v0.35.1-beta.1 credentials generate --alg RS256 > jwks.json
 ```
 
 ### Dockerfile
@@ -195,7 +241,7 @@ files to the image:
 
 ```shell
 $ cat << EOF > Dockerfile
-FROM oryd/oathkeeper:v0.32.1-beta.1
+FROM oryd/oathkeeper:v0.35.1-beta.1
 
 ADD config.yaml /config.yaml
 ADD rules.json /rules.json
@@ -217,7 +263,7 @@ Before building the Docker Image, we need to make sure that the local ORY
 Oathkeeper Docker Image is on the most recent version:
 
 ```sh
-$ docker pull oryd/oathkeeper:v0.32.1-beta.1
+$ docker pull oryd/oathkeeper:v0.35.1-beta.1
 ```
 
 Next we will build our custom Docker Image
@@ -279,14 +325,19 @@ $ curl -X GET http://127.0.0.1:4455/anything/header
   "url": "https://httpbin.org/anything/header/anything/header"
 }
 
-$ curl -X GET http://127.0.0.1:4455/anything/deny
+# Make request and accept JSON (we get an error response)
+$ curl -H "Accept: application/json" -X GET http://127.0.0.1:4455/anything/deny
 {
-  "error": {
-    "code": 403,
-    "status": "Forbidden",
-    "message": "Access credentials are not sufficient to access this resource"
+  "error":{
+    "code":403,
+    "status":"Forbidden",
+    "message":"Access credentials are not sufficient to access this resource"
   }
 }
+
+# Make request and accept text/* (we get a redirect response).
+$ curl -H "Accept: text/html" -X GET http://127.0.0.1:4455/anything/deny
+<a href="https://www.ory.sh/docs">Found</a>.
 
 $ curl -X GET http://127.0.0.1:4455/anything/id_token
 {
@@ -306,4 +357,12 @@ $ curl -X GET http://127.0.0.1:4455/anything/id_token
   "origin": "172.17.0.1, 82.135.11.242, 172.17.0.1",
   "url": "https://httpbin.org/anything/id_token/anything/id_token"
 }
+```
+
+That's it! You can now clean up the demo using:
+
+```
+$ docker rm -f ory-oathkeeper-demo
+$ docker rmi -f ory-oathkeeper-demo
+$ rm -rf oathkeeper-demo
 ```
