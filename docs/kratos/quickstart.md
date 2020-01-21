@@ -193,6 +193,8 @@ The network trace looks familiar by now:
 
 If we try to sign up using a password like `123456`, ORY Krato's password policy will complain:
 
+# NEED SCREENSHOT
+
 The error message is coming directly from ORY Krato's API:
 
 ```shell script
@@ -242,7 +244,26 @@ $ curl http://127.0.0.1:4433/auth/browser/requests/registration?request=<request
 }
 ```
 
+Setting a password that doesn't violate these policies, we will be immediately redirected to the Dashboard:
+
+By using "logout" you will be redirected to the log in screen again an will be able to use the credentials just set up to log in!
+
+### Understanding how Login and Registration works
+
+
+
+#### Configuration Used
+
+You can find all configuration files for this quickstart guide in `./contrib/quickstart` and `./quickstart.yml`.
+
+In the future, this guide will support more use cases such as:
+
+- Activate account after sign up and before log in
+- Use GitHub to login in and sign up
+
 ## Cleaning up Docker
+
+You can further ex
 
 ```shell script
 docker-compose -f quickstart.yml down -v

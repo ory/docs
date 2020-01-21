@@ -1,6 +1,6 @@
 ---
-id: self-service
-title: Self-Service
+id: registration
+title: Registration
 ---
 
 # Registration

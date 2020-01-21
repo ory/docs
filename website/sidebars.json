@@ -39,25 +39,28 @@
         "type": "subcategory",
         "label": "Self Service Flows",
         "ids": [
+          "kratos/self-service/flows/index",
           "kratos/self-service/flows/login",
           "kratos/self-service/flows/registration",
+          "kratos/self-service/flows/profile",
           "kratos/self-service/flows/password-reset-account-recovery"
         ]
       },
       {
         "type": "subcategory",
-        "label": "Credentials",
+        "label": "Self Service Strategies",
         "ids": [
-          "kratos/credentials/username-email-password",
-          "kratos/selfservice/openid-connect-oauth2-oidc"
+          "kratos/self-service/strategies/index",
+          "kratos/self-service/strategies/password",
+          "kratos/self-service/strategies/oidc"
         ]
       },
       {
         "type": "subcategory",
-        "label": "Guides",
+        "label": "Self Service Hooks",
         "ids": [
-          "kratos/configure-deploy",
-          "kratos/integration"
+          "kratos/self-service/hooks/index",
+          "kratos/self-service/hooks/redirect"
         ]
       },
       {

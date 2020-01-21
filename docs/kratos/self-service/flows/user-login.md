@@ -1,16 +1,16 @@
 ---
-id: architecture
-title: Architecture
+id: login
+title: Login
 ---
 
-ORY Hive supports two authentication flows:
+ORY Kratos supports two authentication flows:
 
 - Browser-based (easy): This flow works for all applications running on top of a
   browser. Websites, single-page apps, Cordova/Ionic, and so on.
 - API-based (advanced): This flow works for native applications like iOS,
   android, .NET.
 
-ORY Hive can act as an OAuth 2.0 Authorization Server or an OpenID Connect
+ORY Kratos can act as an OAuth 2.0 Authorization Server or an OpenID Connect
 Provider in combination with ORY Hydra. This is for advanced usecases where
 third party applications need access to first-party user data.
 
@@ -97,7 +97,7 @@ Authentication. A MFA flow looks as follows:
 
 ##### Error
 
-The Hive AuthN API does not render any views. Therefore, errors are reported to
+The Kratos AuthN API does not render any views. Therefore, errors are reported to
 a dedicated error URL.
 
 <a href="https://mermaidjs.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5wYXJ0aWNpcGFudCBVQSBhcyBVc2VyLUFnZW50IChCcm93c2VyKVxucGFydGljaXBhbnQgVUkgYXMgRXJyb3IgVUlcbnBhcnRpY2lwYW50IEhpUiBhcyBIaXZlIFJldmVyc2UgUHJveHlcbnBhcnRpY2lwYW50IEhpUCBhcyBIaXZlIEF1dGhuIEFQSVxucGFydGljaXBhbnQgQVBJIGFzIFByb3RlY3RlZCBFbmRwb2ludFxuXG5VQS0-PkhpUjogUmVxdWVzdCBwcm90ZWN0ZWQgcmVzb3VyY2Ugd2l0aG91dCBzZXNzaW9uIGNvb2tpZVxuSGlSLT4-VUE6IFJlZGlyZWN0IHRvIGF1dGhuIEFQSVxuVUEtPj5IaVA6IENyZWF0ZSBhdXRobiByZXF1ZXN0ICgvP2NoYWxsZW5nZT0uLi4pXG5IaVAtPj5VQTogUmVkaXJlY3QgdG8gbG9naW4gVUksIHNldCBDU1JGIGNvb2tpZVxuVUEtPj5VSTogUmVxdWVzdCBsb2dpbiBwYWdlXG5VSS0tPkhpUDogSW5pdGlhdGUgYXV0aG4gcmVxdWVzdFxuVUktPj5VQTogUmVuZGVyIHBhc3N3b3JkIGZvcm1cblVBLT4-SGlSOiBTZW5kIHBhc3N3b3JkIGNyZWRlbnRpYWxzXG5IaVItPj5IaVA6IEZvcndhcmQgcmVxdWVzdFxuSGlQLS0-SGlQOiBWYWxpZGF0ZSBjcmVkZW50aWFsc1xuSGlQLT4-VUE6IFJlZGlyZWN0IHRvIGxvZ2luIHBhZ2Ugd2l0aCBlcnJvciBjb250ZXh0OiAvP2Vycm9yPWtmOGRqYXZcblVBLT4-VUk6IFJlcXVlc3QgbG9naW4gcGFnZVxuVUktLT5IaVA6IFJlcXVlc3QgZXJyb3IgZGV0YWlsc1xuVUktPj5VQTogUmVuZGVyIGVycm9yIGRldGFpbHMiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9fQ">
@@ -126,9 +126,9 @@ sequenceDiagram
 
 participant U as Browser
 participant LP as Server-Side Login Page
-participant HRP as Hive Reverse Proxy
-participant HA as Hive Admin API
-participant HP as Hive Public API
+participant HRP as Kratos Reverse Proxy
+participant HA as Kratos Admin API
+participant HP as Kratos Public API
 participant SP as Protected Endpoint or Page
 
 U->>HRP: Request Page
@@ -160,9 +160,9 @@ sequenceDiagram
 participant U as Browser
 participant SPA as Browser App (React, ..)
 participant LP as SPA Login Page
-participant HRP as Hive Reverse Proxy
-participant HA as Hive Admin API
-participant HP as Hive Public API
+participant HRP as Kratos Reverse Proxy
+participant HA as Kratos Admin API
+participant HP as Kratos Public API
 participant SP as Protected Endpoint or Page
 
 U->>SPA: Request Page
@@ -192,11 +192,11 @@ HRP->>U: Respond with payload
 ## Login UI
 
 Applications running and rendering on the server-side, such as a PHP application
-which renders an HTML page, initiate an authentication session with the Hive API
+which renders an HTML page, initiate an authentication session with the Kratos API
 and render the resulting information as they see fit.
 
 To initiate the session, the server-side code handling the login page makes a
-request to the Hive API `POST https://hive.something/authentication/session` and
+request to the Kratos API `POST https://kratos.something/authentication/session` and
 receives the available authentication methods:
 
 ```
@@ -210,9 +210,9 @@ receives the available authentication methods:
         {
             "type": "password",
             "options": {
-                "email_url": "https://hive.something/authentication/session/password/email",
-                "phone_url": "https://hive.something/authentication/session/password/phone",
-                "username_url": "https://hive.something/authentication/session/password/username",
+                "email_url": "https://kratos.something/authentication/session/password/email",
+                "phone_url": "https://kratos.something/authentication/session/password/phone",
+                "username_url": "https://kratos.something/authentication/session/password/username",
             }
         },
         {

@@ -1,9 +1,9 @@
 ---
-id: identity
-title: Identity
+id: identity-user-model
+title: Identity and User Model
 ---
 
-An identity is the "who" of a software system. It can be a customer, an
+An identity ("user") is the "who" of a software system. It can be a customer, an
 employee, a user, a contractor, and even a programmatic identity such as an IoT
 device, an application, or some other type of "robot". Therefore, we always talk
 about Identities and Subjects as supposed to a "user". An identity has the
@@ -442,7 +442,7 @@ Assuming your traits schema is as follows:
 ```
 
 And an identity registers with the following JSON payload (more on registration
-in [Selfservice Registration](../selfservice/registration.md)):
+in [Selfservice Registration](../self-service/registration.md)):
 
 ```json
 {
