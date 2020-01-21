@@ -1,9 +1,9 @@
 ---
-id: usage
-title: API Usage
+id: api-design
+title: API Design
 ---
 
-This chapter contains generally applicable information on API usage. When using
+This chapter contains generally applicable information on API design. When using
 Ory services, one can expect a consistent experience when interacting with REST
 APIs.
 

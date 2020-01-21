@@ -2,15 +2,13 @@
   "docs": {
     "Welcome": ["index"],
     "Ecosystem": [
-      "ecosystem/overview",
-      "ecosystem/cloud-native",
-      "ecosystem/kubernetes",
+      "ecosystem/projects",
+      "ecosystem/software-architecture-philosophy",
+      "ecosystem/deployment",
       "ecosystem/versioning",
-      "ecosystem/persistence",
       "ecosystem/upgrading",
-      "ecosystem/examples",
+      "ecosystem/api-design",
       "ecosystem/community",
-      "ecosystem/usage",
       "ecosystem/sqa"
     ],
     "ORY Kratos": [
