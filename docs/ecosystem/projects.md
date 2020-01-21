@@ -1,6 +1,6 @@
 ---
-id: overview
-title: Overview
+id: projects
+title: Projects
 ---
 
 We provide an open source ecosystem of services with clear boundaries that solve
