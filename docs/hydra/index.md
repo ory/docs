@@ -21,7 +21,7 @@ technology stack, with authentication mechanisms required by your use case
 (token-based 2FA, SMS 2FA, etc). You can of course use existing solutions like
 [authboss](https://github.com/go-authboss/authboss) or
 [auth0.com](https://auth0.com/). It provides you all the benefits of OAuth 2.0
-and OpenID Connect while being minimally invasive to your your business logic
+and OpenID Connect while being minimally invasive to your business logic
 and technology stack.
 
 ## Cryptographic Key Storage
