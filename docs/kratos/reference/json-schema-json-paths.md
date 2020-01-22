@@ -13,8 +13,10 @@ generating OpenAPI Spec to writing documentation. By using ORY Kratos, you will
 be exposed to JSON Schema as it is used for defining Identity data models and
 other things.
 
-To learn more about JSON Schema, head over to:
-[json-schema.org/learn/](https://json-schema.org/learn/)
+To learn more about JSON Schema, head over to
+[json-schema.org/learn/](https://json-schema.org/learn/).
+
+We are currently using JSON Schema Draft7 but plan on migrating to a newer version in the future.
 
 ## JSON Path Syntax
 

@@ -30,7 +30,7 @@
     "swagger:cleanup:kratos": "node scripts/fix-api.js ../docs/kratos/sdk/api.md kratos-sdk"
   },
   "devDependencies": {
-    "docusaurus": "1.14.3",
+    "docusaurus": "1.14.4",
     "event-stream": "4.0.1",
     "file": "^0.2.2",
     "json-schema-faker": "git://github.com/json-schema-faker/json-schema-faker.git#master",

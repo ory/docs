@@ -3,11 +3,15 @@ id: identity-user-model
 title: Identity and User Model
 ---
 
-An identity ("user") is the "who" of a software system. It can be a customer, an
+An identity ("user", "user account", "account", "subject") is the "who" of a software system. It can be a customer, an
 employee, a user, a contractor, and even a programmatic identity such as an IoT
-device, an application, or some other type of "robot". Therefore, we always talk
-about Identities and Subjects as supposed to a "user". An identity has the
-following properties:
+device, an application, or some other type of "robot".
+
+Identities take different roles and we sometimes talk about "Account Recovery" or "User Account" because it's the common
+terminology, but within ORY Kratos this is always an Identity, and it always is being exposed as `identity` in the API
+Endpoints, request and response payloads.
+
+An identity has the following properties - we're using YAML for better readability but the payload is usually JSON:
 
 ```yaml
 # A universally unique ID that is generated when the identity is created and that cannot be changed or updated
@@ -34,9 +38,10 @@ credentials:
       - provider: facebook
         identifier: 83475891
 
-# This is a URL pointing at the identity's traits data model, which must be provided as a valid JSON Schema.
-# This is explained in more details in the "JSON Schema" chapter.
-traits_schema_url: http://foo.bar.com/person.schema.json
+# This is the JSON Schema ID used for validating the identities's traits.
+traits_schema_id: default
+# Could also be another schema:
+# traits_schema_id: customer
 
 # Traits represent information about the identity, such as the first or last name. The traits content is completely
 # up to you and will be validated using the JSON Schema at `traits_schema_url`.
@@ -50,7 +55,7 @@ traits:
   accepted_tos: true
 ```
 
-## Traits
+## Identity Traits and JSON Schemas
 
 An identity may have one or more traits. Traits can be modified by the identity
 itself (e.g. as part of the registration or profile update process) as well as
@@ -58,10 +63,12 @@ anyone having access to ORY Krato's Admin API.
 
 Traits can be used to tell ORY Kratos that a field has a particular meaning. For
 example, trait `email` is a good candidate for the field "Email + Password" when
-signing up or in.
+signing up or logging in.
 
-The traits model is defined by you using
-[JSON Schema](https://json-schema.org/learn/getting-started-step-by-step.html).
+Traits are validated using
+[JSON Schema](https://json-schema.org/learn/getting-started-step-by-step.html) and
+we've added a small extension ("Vocabulary") to the standard JSON Schema which allows you to tell
+ORY Kratos that a specific trait has additional meaning.
 
 Each identity can, theoretically, have a different Traits Schema, this can be
 useful if
@@ -84,8 +91,26 @@ You would use one JSON Schema per type of identity:
 - Grandfather Accounts: `http://mydomain.com/schemas/v2/customer.schema.json`
 - Service Accounts: `http://mydomain.com/schemas/service-account.schema.json`
 
+You define the JSON Schemas in your ORY Kratos configuration file:
+
+```yaml
+identity:
+  traits:
+    # This will be the default JSON Schema. If you leave `traits_schema_id` empty when creating an identity using the
+    # Admin API, or a user signs up using a selfservice flow, this schema will be used.
+    #
+    # This is a required configuration field!
+    default_schema_url: http://foo.bar.com/person.schema.json
+
+    # You can optionally define additional schemas here:
+    schemas:
+      # When creating an identity that uses this schema, you can set `traits_schema_id: customer` for that identity.
+      - id: customer
+        url:  http://foo.bar.com/customer.schema.json
+```
+
 ORY Kratos will ensure that each of these schemas is enforced when an identity's
-traits are created or updated. Your business logic obviously still needs to
+traits are created or updated. Your business logic must be able to
 understand the distinctions between these three identities, but this can easily
 be achieved with, for example, a switch statement:
 
@@ -93,16 +118,18 @@ be achieved with, for example, a switch statement:
 // This is an example program that can deal with all three identities
 // session := ...
 switch (session.Identity.TraitsSchemaURL) {
-    case "http://mydomain.com/schemas/v1/customer.schema.json":
+    case "":
+        fallthrough
+    case "default":
         // ...
-    case "http://mydomain.com/schemas/v2/customer.schema.json":
+    case "customer":
         // ...
-    case "http://mydomain.com/schemas/service-account.schema.json":
+    case "employee":
         // ...
 }
 ```
 
-### Special Keywords
+## JSON Schema Vocabulary Extensions
 
 As already explained, traits can be used to tell ORY Kratos that a particular
 field has a system-relevant meaning. That could include:
@@ -113,7 +140,55 @@ field has a system-relevant meaning. That could include:
 - The phone number for enabling SMS 2FA
 - ...
 
-Let's take the traits example from above:
+The ORY Kratos JSON Schema Vocabulary Extension can be used within a property:
+
+```json5
+{
+  "$id": "http://mydomain.com/schemas/v2/customer.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "A customer (v2)",
+  "type": "object",
+  "properties": {
+    "email": {
+      "title": "E-Mail",
+      "type": "string",
+      "format": "email",
+
+      // This tells ORY Kratos that the field should be used as the "username" for the username+password flow.
+      // It is an extension to the regular JSON Schema vocabulary.
+      "ory.sh/kratos": {
+        "credentials": {
+          "password": {
+            "identifier": true
+          }
+        }
+      },
+
+    }
+  }
+}
+```
+
+An overview of available configuration options follows in the next sections.
+
+### Identifier for Username and Password flows
+
+You can tell ORY Kratos that a field should be used as the *identifier* (username, email, phone number, ...) of the
+username and password registration and login flow:
+
+```json5
+{
+  "ory.sh/kratos": {
+    "credentials": {
+      "password": {
+        "identifier": true
+      }
+    }
+  }
+}
+```
+
+Looking at the traits from above
 
 ```yaml
 traits:
@@ -126,10 +201,9 @@ traits:
   accepted_tos: true
 ```
 
-Here we would like `email` to be allowed as the identifier (email) when logging
-in with a password. To do so, we define the following JSON Schema:
+and using a JSON Schema that uses the `email` field as the identifier for the password flow
 
-```json
+```json5
 {
   "$id": "http://mydomain.com/schemas/v2/customer.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
@@ -140,13 +214,16 @@ in with a password. To do so, we define the following JSON Schema:
       "title": "E-Mail",
       "type": "string",
       "format": "email",
+
+      // This tells ORY Kratos that the field should be used as the "username" for the username+password flow.
       "ory.sh/kratos": {
         "credentials": {
           "password": {
             "identifier": true
           }
         }
-      }
+      },
+
     },
     "name": {
       "type": "object",
@@ -171,501 +248,9 @@ in with a password. To do so, we define the following JSON Schema:
 }
 ```
 
-Taking a closer look at field `ory.sh/kratos` under `properties/email`, which is
-a custom keyword, we can see that this field is configured as a password
-identifier:
+you would tell ORY Kratos that `office@ory.sh` is the identity's identifier. The user would then provide `office@ory.sh`
+and his/her password to sign in.
 
-```json
-{
-  "ory.sh/kratos": {
-    "credentials": {
-      "password": {
-        "identifier": true
-      }
-    }
-  }
-}
-```
+For more information and examples head over to [Username and Password Credentials](credentials.md#username-and-password).
 
-What options are available and what effect they have will be explained in the
-next section.
-
-## Credentials
-
-As pointed out above, each identity has one or more credentials associated with
-it:
-
-```yaml
-credentials:
-  password:
-    id: password
-    identifiers:
-      - john.doe@acme.com
-      - johnd@ory.sh
-    config:
-      hashed_password: ...
-  oidc:
-    id: oidc
-    identifiers:
-      - google:j8kf7a3...
-      - facebook:83475891...
-    config:
-      - provider: google
-        identifier: j8kf7a3
-      - provider: facebook
-        identifier: 83475891
-```
-
-Credentials come in different types:
-
-- `password`: The classical "id + password" credential.
-- `oidc`: The "Log in with Google/Facebook/GitHub/..." credential.
-- we will support other credential types (X509 Certificates, Biometrics, ...) at
-  a later stage.
-
-Each credential - regardless of its type - has one or more identifiers attached
-to it. Each identifier is universally unique. Assuming we had one identity with
-credentials
-
-```yaml
-credentials:
-  password:
-    id: password
-    identifiers:
-      - john.doe@acme.com
-```
-
-and tried to create (or update) another identity with the same identifier
-(`john.doe@acme.com`), the system would reject the request with a 409 conflict
-state.
-
-While credentials must be unique per type, the can be duplicates amongst
-multiple types:
-
-```yaml
-# This is ok:
-credentials:
-  password:
-    id: password
-    identifiers:
-      - john.doe@acme.com
-  oidc:
-    id: oidc
-    identifiers:
-      - john.doe@acme.com
-```
-
-The same would apply if those were two separate identities:
-
-```yaml
-# Identity 1
-credentials:
-  password:
-    id: password
-    identifiers:
-      - john.doe@acme.com
----
-# Identity 2
-credentials:
-  oidc:
-    id: oidc
-    identifiers:
-      - john.doe@acme.com
-```
-
-### Password
-
-The `password` method is the most commonly used form of authentication, it
-requires an `identifier` and a `password` during registration and login.
-
-ORY Kratos hashes the password after registration, password reset, and password
-change using [Argon2](https://github.com/P-H-C/phc-winner-argon2), the winner of
-the Password Hashing Competition (PHC).
-
-#### Configuration
-
-Enabling this method is as easy as setting
-
-```yaml
-selfservice:
-  strategies:
-    password:
-      enabled: true
-```
-
-in your ORY Kratos configuration. You can configure the Argon2 hasher using the
-following options:
-
-```yaml
-hashers:
-  argon2:
-    parallelism: 1
-    memory: 131072 # 128MB
-    iterations: 3
-    salt_length: 16
-    key_length: 32
-```
-
-For a complete reference, defaults, description please check the
-[Configuration Reference](../reference/configuration.md).
-
-#### JSON Schema
-
-When processing an identity and its traits, the method will use the JSON Schema
-to extract one or more identifiers. Assuming you want your identities to sign up
-with an email address, and use that email address as a valid identifier during
-login, you can use a schema along the lines of:
-
-```json
-{
-  "$id": "https://example.com/example.json",
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Person",
-  "type": "object",
-  "properties": {
-    "email": {
-      "type": "string",
-      "format": "email",
-      "title": "E-Mail",
-      "ory.sh/kratos": {
-        "credentials": {
-          "password": {
-            "identifier": true
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-If you want a unique username instead, you could write the schema as follows:
-
-```json
-{
-  "$id": "https://example.com/example.json",
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Person",
-  "type": "object",
-  "properties": {
-    "username": {
-      "type": "string",
-      "title": "Username",
-      "ory.sh/kratos": {
-        "credentials": {
-          "password": {
-            "identifier": true
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-You are not limited to one identifier per identity. You could also combine both
-fields and support a use case of "username" and "email" as an identifier for
-login:
-
-```json
-{
-  "$id": "https://example.com/example.json",
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Person",
-  "type": "object",
-  "properties": {
-    "email": {
-      "type": "string",
-      "format": "email",
-      "title": "E-Mail",
-      "ory.sh/kratos": {
-        "credentials": {
-          "password": {
-            "identifier": true
-          }
-        }
-      }
-    },
-    "username": {
-      "type": "string",
-      "title": "Username",
-      "ory.sh/kratos": {
-        "credentials": {
-          "password": {
-            "identifier": true
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-#### Example
-
-Assuming your traits schema is as follows:
-
-```json
-{
-  "$id": "https://example.com/example.json",
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Person",
-  "type": "object",
-  "properties": {
-    "first_name": {
-      "type": "string"
-    },
-    "email": {
-      "type": "string",
-      "format": "email",
-      "ory.sh/kratos": {
-        "credentials": {
-          "password": {
-            "identifier": true
-          }
-        }
-      }
-    },
-    "username": {
-      "type": "string",
-      "ory.sh/kratos": {
-        "credentials": {
-          "password": {
-            "identifier": true
-          }
-        }
-      }
-    }
-  },
-  "additionalProperties": false
-}
-```
-
-And an identity registers with the following JSON payload (more on registration
-in [Selfservice Registration](../self-service/registration.md)):
-
-```json
-{
-  "traits": {
-    "first_name": "John Doe",
-    "email": "john.doe@example.org",
-    "username": "johndoe123"
-  },
-  "password": "my-secret-password"
-}
-```
-
-The `password` method would generate a credentials block as follows:
-
-```yaml
-credentials:
-  password:
-    id: password
-    identifiers:
-      - john.doe@example.org
-      - johndoe123
-    config:
-      hashed_password: ... # this would be `argon2(my-secret-password)`
-```
-
-Because credential identifiers need to be unique, no other identity can be
-created that has `johndoe123` or `john.doe@example.org` as their `email` or
-`username`.
-
-### OpenID Connect Provider
-
-The `oidc` method uses OpenID Connect, or OAuth2 where OpenID Connect is not
-supported, to authenticate identities using a third-party identity provider,
-such as Google, Microsoft, GitHub - or any other OAuth2 / OpenID Connect
-provider (for example [ORY Hydra](https://www.ory.sh/hydra)).
-
-#### Configuration
-
-You can configure multiple OAuth2 / OpenID Connect providers. First, enable the
-`oidc` method:
-
-```yaml
-selfservice:
-  strategies:
-    oidc:
-      enabled: true
-```
-
-Next, you need to configure the providers you want to use (e.g. GitHub). Each
-provider requires:
-
-```yaml
-id: github # The ID of the provider. DO NOT change this once this is in use.
-
-# The provider you would like to use. ORY Kratos comes with some predefined providers to make
-# life easier for you, but you can always opt for the "generic" provider, which works
-# with any Certified OpenID Connect Provider (Google, ORY Hydra, ...):
-provider: generic
-
-# Other supported providers are (more to come):
-#
-# provider: github
-# provider: google
-
-# The OAuth2 / OpenID Connect provider will provide you with a OAuth2 Client ID and Client Secret. You need
-# to set them here:
-client_id: ...
-client_secret: ...
-
-schema_url: http://mydomain.com/github.schema.json # See section "Schema"
-
-# What scope to request. Usually, this would be something like "profile" or "email".
-# Please check the documentation of the OAuth2 / OpenID Connect provider to see what's allowed here.
-scope:
-  - email
-
-# issuer_url is the OpenID Connect Server URL. You can leave this empty if `provider` is not set to `generic`.
-# If set, neither `auth_url` nor `token_url` are required.
-issuer_url: http://openid-connect-provider/
-
-# auth_url is the authorize url, typically something like: https://example.org/oauth2/auth
-# Should only be used when the OAuth2 / OpenID Connect server is not supporting OpenID Connect Discovery and when
-# `provider` is set to `generic`.
-auth_url: http://openid-connect-provider/oauth2/auth
-
-# token_url is the token url, typically something like: https://example.org/oauth2/token
-# Should only be used when the OAuth2 / OpenID Connect server is not supporting OpenID Connect Discovery and when
-# `provider` is set to `generic`.
-token_url: http://openid-connect-provider/oauth2/token
-```
-
-#### JSON Schema
-
-This strategy expects that you've set up your default JSON Schema for identity
-traits. There are no extra settings for that.
-
-You do however need to set up an additional JSON Schema for your provider. This
-is required because we need to transform profile data coming from, for example
-GitHub, to your identity model.
-
-Defining that JSON Schema also allows you to require certain information. If you
-ask the user to authorize the `photos` scope for example, you can configure the
-JSON Schema in such a way that `photos` must be part of the identity data or the
-flow will fail.
-
-You will also need to project data coming from the provider onto your own data
-model. You can express this using a JSON Path
-([learn more about the syntax](./json-schema.md)) in your JSON Schema. Let's
-assume you want to map field `username` from the provider to field `traits.name`
-in your identity:
-
-```yaml
-{
-  '$id': 'https://example.com/social.schema.json',
-  '$schema': 'http://json-schema.org/draft-07/schema#',
-  'type': 'object',
-  'properties':
-    {
-      'username':
-        {
-          'type': 'string',
-          'ory.sh/kratos':
-            { 'mappings': { 'identity': { 'traits': [{ 'path': 'name' }] } } },
-        },
-    },
-  'required': ['username'],
-}
-```
-
-If the OpenID Connect provider returns
-
-```json
-{
-  "sub": "123123123",
-  "username": "john.doe"
-}
-```
-
-for example (`sub` is the OpenID Connect field for the identity's ID), that
-would be transformed to identity:
-
-```yaml
-id: '9f425a8d-7efc-4768-8f23-7647a74fdf13'
-
-credentials:
-  oidc:
-    id: oidc
-    identifiers:
-      - example:123123123
-    config:
-      - provider: example
-        identifier: 123123123
-
-traits_schema_url: http://foo.bar.com/person.schema.json # This come from the default identity schema url.
-
-traits:
-  name: john.doe # This is extracted from `username` using
-```
-
-##### Example: GitHub
-
-Let's say you want to enable "Sign in with GitHub". All you have to do is:
-
-- Create a
-  [GitHub OAuth2 Client](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/)
-- Set the "Authorization callback URL" to:
-  `http://<domain-of-ory-kratos>:<public-port>/auth/browser/methods/oidc/callback/<provider-id>`
-
-```yaml
-selfservice:
-  strategies:
-    oidc:
-      enabled: true
-      config:
-        providers:
-          - id: github # this is `<provider-id>` in the Authorization callback URL
-            provider: github
-            client_id: .... # Replace this with the OAuth2 Client ID provided by GitHub
-            client_secret: .... # Replace this with the OAuth2 Client Secret provided by GitHub
-            schema_url: http://mydomain.com/github.schema.json # See section "Schema"
-            scope:
-              - user:email
-```
-
-The following schema would take `email_primary` and `username` and project them
-into your identity model to `traits.email` and `traits.name`:
-
-```json
-{
-  "$id": "http://mydomain.com/github.schema.json ",
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "type": "object",
-  "properties": {
-    "email_primary": {
-      "type": "string",
-      "ory.sh/kratos": {
-        "mappings": {
-          "identity": {
-            "traits": [
-              {
-                "path": "email"
-              }
-            ]
-          }
-        }
-      }
-    },
-    "username": {
-      "type": "string",
-      "ory.sh/kratos": {
-        "mappings": {
-          "identity": {
-            "traits": [
-              {
-                "path": "name"
-              }
-            ]
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-We will add more examples shortly!
+There are currently no other extensions supported for Identity Traits. Further fields will be added in future releases!

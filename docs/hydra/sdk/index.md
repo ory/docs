@@ -10,7 +10,7 @@ code when upgrading versions. Therefore, we do not make backwards compatibility
 promises with regards to the generated SDKs. We hope to improve this process in
 the future.
 
-Before you check out the SDKs, head over to the [REST API](hydra/sdk/api.md)
+Before you check out the SDKs, head over to the [REST API](api.md)
 documentation which includes code samples for common programming languages for
 each REST endpoint.
 

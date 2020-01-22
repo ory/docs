@@ -1,19 +1,20 @@
 ---
 id: email-sms
-title: Notifications via E-Mail and SMS
+title: Out-of-band communication via E-Mail and SMS
 ---
 
 ORY Kratos sends out-of-band messages via SMS or E-Mail. These messages are required for several use cases:
 
 - Sending an account activation email
 - Verifying an E-Mail Address or Mobile Phone Number via SMS
-- Sending a 2FA SMS
+- Preventing Account Enumeration Attacks
+- Sending a 2FA Codes
 - ...
 
 ## Sending E-Mails via SMTP
 
-To get ORY Kratos running, you must set up an SMTP server. This can be done in the configuration file using an absolute
-URL with the `smtp` schema:
+To get E-Mail delivery running with ORY Kratos, you must set up an SMTP server. This can be done in the
+configuration file using an absolute URL with the `smtp` schema:
 
 ```yaml
 courier:

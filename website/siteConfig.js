@@ -117,6 +117,10 @@ const siteConfig = {
     // },
   },
 
+  docsSideNavCollapsible: true,
+
+  onPageNavHeadings: {topLevel: ["h2"], sub: ["h3", "h4"]},
+
   gaTrackingId: 'UA-71865250-1',
 
   // You may provide arbitrary config keys to be used as needed by your
