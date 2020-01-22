@@ -21,19 +21,21 @@ via an API). While it is common - but bad practice - to use tokens for Single Pa
 browser), there is no real difference between these two approaches as both represent a set of credentials valid
 for a certain domain or a number of domains.
 
-So you may ask yourself: **Why the heck is everyone selling me OAuth2 and OpenID Connect?** Well, we have some assumptions
-(such as selling complexity as security, and selling black boxes/closed source with open standards) but let's stay on
-the positive side of things!
+So you may ask yourself: **Why the heck is everyone selling me OAuth2 and OpenID Connect?** Our assumptions are:
 
-In any case, we will dig deeper into why OAuth2 and OpenID Connect (or "protocols looking something like
-OAuth2 but actually not following spec" - looking at you AWS Cognito) are so popular amongst IaaS
-(Auth0, Okta, AWS Cognito, ...).
+- Some are trying to sell complexity as security (which is be pretty bad);
+- The nature of closed source does not allow for new, open and de-facto standards to emerge - therefore the next best
+thing most people agree on is used, even if it doesn't fit the use case 100%.
 
-A primary differentiator is that ORY Kratos is simple to use and does not sell complexity as security. To the contrary,
-**ORY Kratos is easy to use because that removes potential configuration and implementation errors.** We reduce attack
-surface by making things easy - not hard.
+We are tackling both assumptions with ORY Kratos:
+ 
+- Building an open source project which hopefully becomes a de-facto open standard in the future.
+We draw our inspiration from Kubernetes which took a similar path!
+- Making it as simple and easy as possible to integrate this critical security component in your stack without relying
+on complex flows and protocols.
 
-You can still consume OAuth2 and OpenID Connect with ORY Kratos, and you can become an OAuth2 and OpenID Connect Provider
+ALl of that doesn't mean that we hate OAuth2 or OpenID Connect or any other standards. In fact, you can still consume
+OAuth2 and OpenID Connect with ORY Kratos, and you can become an OAuth2 and OpenID Connect Provider
 by combining ORY Kratos with [ORY Hydra](http://github.com/ory/hydra) - but that's a topic for another time!
 
 We try to make things as easy as possible for you, the developer - implying that we take care designing, securing,
@@ -51,6 +53,10 @@ For a full comparison with other open and closed source systems, head over to th
 
 ### Full-stack Identity and Access Management (IAM)
 
+*Disclaimer: We decided to omit product and projects names from this section because we do not believe that it is
+the right place. However, all the problems we describe have been observed in real products and projects. If you're
+interested how ORY Kratos compares to other projects and products, head over to [Comparison](../further-reading/comparison.md)*
+
 Full-stack IAM is sold as a one-size-fits-all silver bullet. Want to use LDAP? *No problem!* Need OAuth 2.0 and OpenID
 Connect? *We support that!*
 
@@ -59,38 +65,30 @@ such as Java EE. They have rich feature sets that include
 
 - theming to customize the user experience, typically constrained to the anticipated theming use case;
 - HTML Template Engines specific to the language used, such Java Server Pages or [Apache FreeMarker™](https://www.keycloak.org/docs/latest/server_development/#html-templates);
-- plugin loaders and APIs to add custom logic or even custom API endpoints, specific to the language used by the project such as
-[Service Provider Interfaces](https://www.keycloak.org/docs/latest/server_development/#_extensions);
-- Load Balancers and other features you would not expect to see in a project that runs in the cloud.
+- plugin loaders and APIs to add custom logic or even custom API endpoints, specific to the language used by the project;
+- feature bloat such as integrated Load Balancers, Service Discovery, and other features you would not expect to see
+in a project that runs in a year 202x cloud architecture.
 
-But all big, full-stack software projects come with a cost:
+Full-stack software projects come with a cost:
 
-- the software becomes rather big in terms of disk
-(e.g. [~550MB for IBM/RedHat Keycloak](https://hub.docker.com/layers/jboss/keycloak/5.0.0/images/sha256-23bb12bf100c56369c77d6d2e6312b29c2f5fbea7793ff2ac250ccf645474a1a),
-[up to several GBs for the full Gluu Federation Suite](https://github.com/GluuFederation/community-edition-containers)), CPU, and Memory footprint;
+- the software has a large disk, CPU, and memory footprint;
 - while scaling and clustering (for High Availability) is certainly possible, it becomes more complex as inter-process-communication for caches
 and other features is required - using protocols such as [JGroups](http://jgroups.org/);
-- cold starting a process can take several minutes and have a negative impact on your availability guarantees.
+- getting started with pre-defined use cases is easy, but customization becomes gruesome the more you diverge from these.
 
-Unfortunately, these types of projects are typically the product of a company building their own IAM system and selling
-that or releasing it as Open Source. While the Open Source part is very noble, this approach comes with several draw-backs:
+Most full-stack projects we've seen are in-house solutions for IAM problems. Imagine Google releasing their IAM as
+an open source product. It's certainly great, and it covers a lot of ground, but it also comes with drawbacks:
 
 - Data models are very strict and specific to the company developing the product: 
     - You can either have a username or an email for login (but not both or unable to change it later);
-    - You may define additional attributes are stored as [unstructured data](https://auth0.com/docs/users/concepts/overview-user-metadata),
-        sometimes even as plain [key/value pairs](https://www.keycloak.org/docs/6.0/server_admin/#user-attributes).
+    - You may define additional attributes are stored as unstructured data,
+        sometimes even as plain key/value pairs.
 - Impossible or at least very complex build pipelines when using modern frontend frameworks like React or Angular in
     the HTML Rendering engine;
 - The user model stays the same, even if you want to differentiate between customers and employees in your system;
 - API consumption is usually an after-thought, because most flows are built around the user doing something in the browser.
 This leads to added complexity in your application as you need to deal with session management, cookie management, CSRF protection,
 and other mechanisms related to identity and security.
-
-That's enough criticism for today, so we won't go into the space of enterprise, proprietary full-stack IAM solutions
-that come with $100k+ installation fees, $500k+ recurring fees and no way of knowing what goes on under the hood (for now).
-
-For a more detailed and less opinionated comparison of the different projects and services, head over to the
-[Comparison Chapter](../further-reading/comparison.md).
 
 ### Identity as a Service (IDaaS)
 
@@ -197,7 +195,7 @@ implementation [github.com/ory/kratos-selfservice-ui-node](https://github.com/or
 
 For more details about each individual flow, head over to the [Self-Service Flows Chapter](../self-service/flows/index.md).
 
-### Define your own Data Model
+### Bring your own Identity Model(s)
 
 You may want to store more than one type of identity in your system:
 
@@ -205,3 +203,11 @@ You may want to store more than one type of identity in your system:
 - A employee that uses a unique username + password to log in, with a cost center attached to their profile.
 
 This is possible in ORY Kratos by using [JSON Schemas for Identity Traits](./identity-user-model.md)
+
+### Forget passport-js, oidc-client, ...
+
+You can certainly write your own middleware to protect your API and Web endpoints but why should you? ORY Kratos
+integrates natively with ORY Oathkeeper, our Reverse Proxy, and defining Access Rules is as easy as writing a few lines
+of JSON / JSON5 / YAML!
+
+If you haven't seen the [Quickstart](../quickstart.md), we highly recommend checking that out!

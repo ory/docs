@@ -26,7 +26,6 @@
         "ids": [
           "kratos/concepts/index",
           "kratos/concepts/ui-user-interface",
-          "kratos/concepts/json-schema",
           "kratos/concepts/identity",
           "kratos/concepts/credentials",
           "kratos/concepts/email-sms",
@@ -66,8 +65,15 @@
         "label": "Reference",
         "ids": [
           "kratos/reference/configuration",
-          "kratos/sdk/index",
+          "kratos/reference/json-schema-json-paths",
           "kratos/sdk/api"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "SDKs",
+        "ids": [
+          "kratos/sdk/index"
         ]
       },
       {
