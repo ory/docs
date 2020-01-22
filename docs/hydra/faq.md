@@ -239,3 +239,5 @@ Check the logs using `docker logs <container-id>`.
 Hydra only keeps track of the session if you set the `remember_me` parameter in
 the `accept login request`. Otherwise the login challenge will always instruct
 you to show the login UI.
+
+This is a test
