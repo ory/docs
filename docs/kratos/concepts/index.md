@@ -3,65 +3,51 @@ id: index
 title: Overview
 ---
 
-ORY Kratos is a new archetype of software we call **Identity Infrastructure Service**. Traditional identity systems - sometimes
+ORY Kratos is a new software archetype  **Identity Infrastructure Service**. Traditional identity systems - sometimes
 referred to as Identity and Access Management (IAM), Identity Management (IdM), Identity Provider (I(d)P),
-or IDaaS (Identity as a Service) - have several shortcomings which we'd like to explain before revealing what we have
-done differently in ORY Kratos and why.
+or IDaaS (Identity as a Service) - have shortcomings that highlight the main differences betweeen ORY Kratos and other systems.
 
-First of all, ORY Kratos solves identity on the network. It is not a on-device (think mobile phones) user database.
-When we talk about web applications and identity, there is always an exchange of credentials happening:
-
+ORY Kratos solves identity on the network. It is not a on-device, for instance mobile phones, user database.
+In Ory Kratos there is always an exchange of credentials. In the case of web applications and identity:
 - Username + Password -> Cookie, Token, ...
 - Email + Password -> Cookie, Token, ...
 - Passwordless login -> Cookie, Token, ...
 
-Regardless of your use case (mobile, browser, native application, ...) you either use a cookie (usually when accessing
-the application directly through the browser) or a token (when accessing the application using a programmatic client
-via an API). While it is common - but bad practice - to use tokens for Single Page Apps (apps running on the client-side
-browser), there is no real difference between these two approaches as both represent a set of credentials valid
+Even fo alternative use cases for example mobile, browser, or native application there is either a cookie, which accesses
+the application directly through the browser, or a token that accesses the application using a programmatic client
+via an API. While it is nowadays common - but bad practice - to use tokens for "Single Page Apps" or apps running on the client-side
+browser, there is no real difference between these two approaches as both represent a set of credentials valid
 for a certain domain or a number of domains.
 
-So you may ask yourself: **Why the heck is everyone selling me OAuth2 and OpenID Connect?** Our assumptions are:
+Still there is a vast solution set available for OAuth2 and OpenID Connect. The reasons for this would perhaps include the following:
 
-- Some are trying to sell complexity as security (which is be pretty bad);
-- The nature of closed source does not allow for new, open and de-facto standards to emerge - therefore the next best
-thing most people agree on is used, even if it doesn't fit the use case 100%.
+- Assumptions - companies offer complexity as security (In Ory's view pretty bad);
+- Assumption - the nature of closed source does not allow for new, open and de-facto standards to emerge and instead uses a consenus driven feature set, even if it doesn't fit the use case 100%.
 
-We are tackling both assumptions with ORY Kratos:
+ORY Kratos tackles both assumptions as follows:
  
-- Building an open source project which hopefully becomes a de-facto open standard in the future.
-We draw our inspiration from Kubernetes which took a similar path!
-- Making it as simple and easy as possible to integrate this critical security component in your stack without relying
+- With inspiration from the approach taken in the Kubernetes Project, Ory provides an open source project that hopefully becomes an open standard in the future.
+
+- Prioritise simplicity and ease of use for developers. Ory Kratos integrates critical security components without relying
 on complex flows and protocols.
 
-ALl of that doesn't mean that we hate OAuth2 or OpenID Connect or any other standards. In fact, you can still consume
-OAuth2 and OpenID Connect with ORY Kratos, and you can become an OAuth2 and OpenID Connect Provider
-by combining ORY Kratos with [ORY Hydra](http://github.com/ory/hydra) - but that's a topic for another time!
+Using Ory Kratos it is possible to consume
+OAuth2 and OpenID Connect, and/or create an OAuth2 and OpenID Connect Provider
+by combining ORY Kratos with [ORY Hydra](http://github.com/ory/hydra) .
 
-We try to make things as easy as possible for you, the developer - implying that we take care designing, securing,
-and testing critical network flows, system architectures, user flows, protocols, and business logic.
+With a primary developer audience, Ory designs, secures,
+and tests critical network flows, system architectures, user flows, protocols, and business logic.
 
-## Approaches to solving Identity
-
-Before going ahead let's look at the "Identity Landscape" of today. The disclaimer is probably obvious, but please take
-our findings and arguments as an opinion. We do have lots of experience in this space, but every system has its use case
-and place. We do want to bash other systems to gain competitive advantage, but it is important to understand what technology
-to use and what drawbacks (and upsides) you get.
-
-For a full comparison with other open and closed source systems, head over to the
-[Comparison Chapter](../further-reading/comparison.md).
+#Begin edits @tc
 
 ### Full-stack Identity and Access Management (IAM)
 
-*Disclaimer: We decided to omit product and projects names from this section because we do not believe that it is
+*Disclaimer: There are no product and projects names from this section because we do not believe that it is
 the right place. However, all the problems we describe have been observed in real products and projects. If you're
 interested how ORY Kratos compares to other projects and products, head over to [Comparison](../further-reading/comparison.md)*
 
-Full-stack IAM is sold as a one-size-fits-all silver bullet. Want to use LDAP? *No problem!* Need OAuth 2.0 and OpenID
-Connect? *We support that!*
-
-Because of their immense size and complexity, these full-stack solutions are typically written in an enterprise language
-such as Java EE. They have rich feature sets that include
+Full-stack IAM is sold as a one-size-fits-all solution. Due to size and complexity, these full-stack solutions are typically written in an enterprise programming language
+such as Java EE. They have rich feature sets that include:
 
 - theming to customize the user experience, typically constrained to the anticipated theming use case;
 - HTML Template Engines specific to the language used, such Java Server Pages or [Apache FreeMarker™](https://www.keycloak.org/docs/latest/server_development/#html-templates);
@@ -211,3 +197,18 @@ integrates natively with ORY Oathkeeper, our Reverse Proxy, and defining Access 
 of JSON / JSON5 / YAML!
 
 If you haven't seen the [Quickstart](../quickstart.md), we highly recommend checking that out!
+
+
+@aeneas
+<!--
+To be used in another place
+
+## Approaches to solving Identity
+
+Before going ahead let's look at the "Identity Landscape" of today. The disclaimer is probably obvious, but please take
+our findings and arguments as an opinion. We do have lots of experience in this space, but every system has its use case
+and place. We do want to bash other systems to gain competitive advantage, but it is important to understand what technology
+to use and what drawbacks (and upsides) you get.
+
+For a full comparison with other open and closed source systems, head over to the
+[Comparison Chapter](../further-reading/comparison.md).
