@@ -30,8 +30,8 @@ ORY Kratos supports several credential types:
 
 - `password`: The most common *identifier (username, email, ...) + password* credential.
 - `oidc`: The "Log in with Google/Facebook/GitHub/..." credential.
-- we will support other credential types (X509 Certificates, Biometrics, ...) at
-  a later stage.
+- Other credentials - support other credential types (X509 Certificates, Biometrics, ...) at
+  will be added a later stage.
 
 Each credential - regardless of its type - has one or more identifiers attached
 to it. Each identifier is universally unique. Assuming we had one identity with
@@ -439,7 +439,7 @@ selfservice:
               - user:email
 ```
 
-The following schema would take `email_primary` and `username` and project them
+The following schema would take `email_primary` and `username` and map them
 into your identity model to `traits.email` and `traits.name`:
 
 ```json
@@ -480,4 +480,4 @@ into your identity model to `traits.email` and `traits.name`:
 }
 ```
 
-We will add more examples shortly!
+More examples will soon follow.
