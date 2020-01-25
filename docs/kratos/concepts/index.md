@@ -38,170 +38,128 @@ by combining ORY Kratos with [ORY Hydra](http://github.com/ory/hydra) .
 With a primary developer audience, Ory designs, secures,
 and tests critical network flows, system architectures, user flows, protocols, and business logic.
 
-#Begin edits @tc
-
 ### Full-stack Identity and Access Management (IAM)
 
-*Disclaimer: There are no product and projects names from this section because we do not believe that it is
-the right place. However, all the problems we describe have been observed in real products and projects. If you're
-interested how ORY Kratos compares to other projects and products, head over to [Comparison](../further-reading/comparison.md)*
+*Disclaimer: There are neither product nor projects names in this section. This section's goal is to describe circumstances and problems that mostly stem from the community's experience. For information purposes, there is a preliminary comparision of ORY Kratos and other projects and products available at [Comparison](../further-reading/comparison.md)*.
 
-Full-stack IAM is sold as a one-size-fits-all solution. Due to size and complexity, these full-stack solutions are typically written in an enterprise programming language
-such as Java EE. They have rich feature sets that include:
+Full-stack IAM is usually sold as a one-size-fits-all solution. Due to size and complexity, these full-stack solutions are typically written in an enterprise class programming language
+such as Java EE. The full-stack products have rich feature sets that include:
 
-- theming to customize the user experience, typically constrained to the anticipated theming use case;
+- theming to customize the user experience, and to constrain  the anticipated theming use case;
 - HTML Template Engines specific to the language used, such Java Server Pages or [Apache FreeMarker™](https://www.keycloak.org/docs/latest/server_development/#html-templates);
-- plugin loaders and APIs to add custom logic or even custom API endpoints, specific to the language used by the project;
-- feature bloat such as integrated Load Balancers, Service Discovery, and other features you would not expect to see
-in a project that runs in a year 202x cloud architecture.
+- plugin loaders and APIs to add custom logic or even custom API endpoints, specific to the language used by the project; and
+- features such as integrated Load Balancers, Service Discovery, and other features designed prior to today's mature cloud architectures.
 
-Full-stack software projects come with a cost:
+Full-stack software projects come with some overhead:
 
 - the software has a large disk, CPU, and memory footprint;
-- while scaling and clustering (for High Availability) is certainly possible, it becomes more complex as inter-process-communication for caches
-and other features is required - using protocols such as [JGroups](http://jgroups.org/);
-- getting started with pre-defined use cases is easy, but customization becomes gruesome the more you diverge from these.
+- while scaling and clustering for High Availability is possible, it is complex since inter-process-communication for caches and other features is required for example using protocols such as [JGroups](http://jgroups.org/); and
+- starting off with pre-defined use cases is easy yet customization and application specific features require much more work. 
 
 Most full-stack projects we've seen are in-house solutions for IAM problems. Imagine Google releasing their IAM as
 an open source product. It's certainly great, and it covers a lot of ground, but it also comes with drawbacks:
 
-- Data models are very strict and specific to the company developing the product: 
-    - You can either have a username or an email for login (but not both or unable to change it later);
-    - You may define additional attributes are stored as unstructured data,
-        sometimes even as plain key/value pairs.
-- Impossible or at least very complex build pipelines when using modern frontend frameworks like React or Angular in
-    the HTML Rendering engine;
-- The user model stays the same, even if you want to differentiate between customers and employees in your system;
-- API consumption is usually an after-thought, because most flows are built around the user doing something in the browser.
-This leads to added complexity in your application as you need to deal with session management, cookie management, CSRF protection,
+- Strict data models specific to the company developing the product: 
+- Inflexible login process with either a username or an email for login, but not both or unable to change it later;
+- Any application specific additional attributes are stored as unstructured data, sometimes even as plain key/value pairs;
+- Complex build pipelines when using modern frontend frameworks like React or Angular in the HTML Rendering engine;
+- The user model stays the same, even if when differentiating between customers and employees in your system; and 
+- API consumption is usually an after-thought because most flows are built around the user doing something in the browser.
+All of the above leads to added complexity in application development and deployment due to session management, cookie management, CSRF protection,
 and other mechanisms related to identity and security.
 
 ### Identity as a Service (IDaaS)
 
-Several proprietary SaaS companies have established themselves over the past decade including Auth0 and Okta.
-AWS Cognito and GCP CICP (Cloud Identity for Customers and Partners - it's basically Firebase on the Google Cloud Platform)
-are the products provided by the big players.
+In today's market, with many proprietary SAAS companies offering Identity as a Service, it seems easy to make sign-on cumbersome for both developers and users. Even with delegated third party login processes such as "Login with Google," where OAuth2 and OpenID Connect are often the primary protocols, the challenge is making a secure and simple login without any extra overhead, in this case, for instance, Oauth2 and OpenID. 
 
-Because of the nature of their product, they act as a third-party login. It's like "Login with Google" but you can
-re-brand the "Google" part. Therefore, these systems typically choose OAuth2 and OpenID Connect as their primary
-protocol. It fits the use case - the user logs in on a different system than your own. But are OAuth2 and OpenID Connect
-really the best protocol at hand for this? Keep in mind that these protocols were designed for the "ACME Corp's Facebook
-Photo Backups" and "GitHub Continuous Integrations" of the world - not for first-party login!
+Ory's focus is on simplicity, user experience, and above all, using the right tools and technologies for the target application.
+Feedback from Ory's user community as well as the open source development efforts involved in Ory Hydra- OAuth2 and OpenID Connect server [ORY Hydra](https://github.com/ory/hydra), show that implementing OAuth2 or OpenID Connect is often frustrating and too complex. These technologies are not one size fits all, and not designed for every implementation scenario.
 
-If you've ever used OAuth2 or OpenID Connect you probably know that it's no free lunch. As the authors of the most popular
-OAuth2 and OpenID Connect server [ORY Hydra](https://github.com/ory/hydra) we know how frustrating this experience can
-be for developers.
 
-The main point you need to understand when dealing with OAuth2 and OpenID Connect is that they solve Federation - a problem
-where you authenticate someone or authorize access by using a system you (within your company or when consuming third parties)
-don't typically own. These protocols don't solve things like updating a user's profile, adding a secondary recovery email,
-solving 2FA, storing and managing sessions, solving global logout. All of that is your responsibility, the protocols
-simply offer a way to securely solve Federation over the Browser - they do not solve:
+The main point is that OAuth2 and OpenID Connect protocols solve identity federation. For instance, when the target application authenticates an identity or authorizes access by using a system, for instance within an enterprise  or company domain, or with another third party service, outside of the application's control. These protocols don't solve processes like updating a user's profile, adding a secondary recovery email, solving 2FA, storing and managing sessions, or solving global logout. These processes are  the developer's responsibility while the OAuth2 and OpenID Connect protocols simply offer a way to securely solve identity federation over the Browser - they do not solve:
 
-- Storage and management of all these tokens. Where do you store them? In the localStore? That makes them
-vulnerable to XSS attacks! In a cookie issued by an HTTP server? You need to implement that!
-- Managing and storing the user session. You need to create the cookie for the session, you need to delete that
-cookie when the user logs out, and you need to make sure that the cookie implements secure best practices.
-- You need to refresh tokens when they expire. That's easy for one request, but keeping those 15 concurrent
-requests in sync? That's really difficult!
+- Storage and management of all these tokens. These would often end up in the localStore making them vulnerable to XSS attacks. Or in a cookie issued by an HTTP server; an extra function that would need to be developed.
+- Managing and storing the user session. This would require the developer to create the cookie for the session, delete the cookie at logs out, and to make sure that the cookie implements best security practices.
+- Refresh expiring tokens. While this function is straightforward for one request, synchronising for example fifteen concurrent requests can be difficult.
 
-The list goes on. OAuth2 is hard. It has to be hard because the intended use case (again, "Facebook Photo Backups") is
-very specific and several mechanisms need to be in place to deal with malicious third parties. But user login is not that,
-and it does not have to be hard.
+The point is that OAuth2 is hard to use because the intended use cases, for instance, "Facebook Photo Backups") are very specific, and the proper security mechanisms need to be in place to deal with malicious third parties. Ory Kratos simplifies user login.
 
 ### Use a library
 
-There are terrific libraries out there for solving most of the hard parts around identity. In fact, they are very similar
-to how ORY Kratos was designed - the major difference being that ORY Kratos works for any programming language, not just
-e.g. Ruby.
+Due to the mulitude of programming laguages across front end, backend and core infrastructure, ORY Kratos embraced a polygot design. In other words Ory Kratos provides Software Development Kit (SDK) and libraries for the main programming languages.
 
-As your team scales, requirements change. Things need to scale (humans, servers, code), and you will slowly decouple
-the original project into smaller, more manageable chunks. And here's where it get's tricky. Maybe the library
-doesn't run on the newest version of your programming language. Maybe you decide to move away from the programming language
-or framework as a whole. But your identity system is so interlinked with all of the source code (middlewares, annotations,
-shared state, ...) - it becomes an absolute nightmare to decouple.
+As software development teams grow, product requirements change. In different parts of the development lifecycle, things, for instance humans, servers, and code, need to scale to size. Over time, the original product splits into smaller, more manageable chunks. The libraries chosen at the outset will need to run on the newest version of the programming language. Sometimes even the programming language or implementation framework are subject to change as a whole. Still, the identity system is often so interlinked with all of the source code, middlewares, annotations, shared state, etc., that it becomes an absolute nightmare to decouple.
 
 ### Roll your own
 
-You're very ambitious, we'll just leave you with some of the decisions we had to make:
+Starting from scratch is sometimes the only option to fulfill the product's architectural requirements.  In this case, the following are some of the main considerations and challenges faced in the Ory efforts:
 
-- How do you manage changing user models?
-- So do you use BCrypt, PBKDF2, Argon2, Scrypt, Argon2? Jesus, there's Argon2i, Argon2id, Argon2d now? And they
-have different versions too?? And what the heck is a "Salt length parameter" and what's the most secure setting?
-- If a user signs up via email, and later uses "Sign up with Google" that has the same email. What happens?
-- If a user that's already signed up hits "Sign up with Google" (and vice versa), what happens?
-- How do you prevent [account enumeration attacks](https://wiki.owasp.org/index.php/Testing_for_User_Enumeration_and_Guessable_User_Account_(OWASP-AT-002))?
-- How do you implement 2FA? What happens if the user looses access to his/her device? Do you use a fallback Phone Number for
-SMS? Or security codes?
-- Do you know all of the important rules around sending (activation, welcome, ...) emails that don't alert spam filters?
-- How do you notify Stripe when a new customer signs up?
-- ...
+- To manage changing user models;
+- To choose and use some encryption algorithms such as BCrypt, PBKDF2, Argon2, Scrypt, Argon2, Argon2i, Argon2id, Argon2d. There are many alternatives and most of the algorithms have numerous versions and parametrisation options for example "Salt length parameter." The multitude of options makes it hard to configure the most secure setting;
+- To consider and implement a wide range of processes and process variants for instance, the user signs up via email, and later uses "Sign up with Google" that has the same email address. Or, the user previously signed up using the email/password process or flow, and then signs up using "Sign up with Google" and vice versa. Even these fairly simple use cases warrant considerable development effort to correctly implement with some degree of user friendliness;
+- To prevent security threats for example  [account enumeration attacks](https://wiki.owasp.org/index.php/Testing_for_User_Enumeration_and_Guessable_User_Account_(OWASP-AT-002));
+- To implement two factor authentication (2FA), for instance when the user looses access to a registered and approved device, and there should be a fallback phone number for SMS or offline security codes;
+- To understand and use all of the important rules such as activation, welcome, etc., around sending emails that don't alert spam filters; and
+- To support a broad ecosystem of products and services for example in the event that a target application needs to notify Stripe when a new customer signs up.
 
-That list is really, really long but you get the gist.
+The list above is purposely kept short. There are very many things to consider when building Ory Kratos in concert with the other products Ory Keto, Ory Hydra, and Ory Oathkeeper. The list is really, really long.
 
 ## ORY Kratos
 
-You've made it! You should now have enough context to understand why we started ORY Kratos and why it's different and better.
-The decision if that's really the case is, of course, ultimately yours - but here's why we think it is!
+Considering all of the information above, there would be enough context to understand why and how ORY Kratos started, and why it's different from other more conventional approaches. Ory Kratos uses a new stack, is open source, and peer reviewed and developed in a broad community of experts.
 
 ### Solving a specific problem domain
 
-ORY Kratos solves a clearly defined problem domain:
+ORY Kratos addresses a clearly defined problem domain:
 
-- managing credentials (passwords, recovery email addresses, security questions, ...)
-- authentication (secure login, keeping track of sessions and devices, ...)
-- selfservice account management (update profile, add/update email addresses, changing passwords, ...)
-- account/identity administration (create, delete, update, import, get)
-- managing identity data (first name, last name, profile picture, birthday, ...)
+- managing credentials such as passwords, recovery email addresses, and  security questions;
+- authentication including secure login, keeping track of sessions and devices;
+- selfservice account management for example update profile, add/update email addresses, and changing passwords;
+- account/identity administration such as create, read, delete, update, import, and get; and
+- managing identity data for example first name, last name, profile picture, and birthday, etc.
 
-If you need OAuth2 or OpenID Connect, you can use one of our other projects [ORY Hydra](http://github.com/ory/hydra). If
-you need a permission system, you can use [ORY Keto](http://github.com/ory/keto).
-If you need a Reverse Proxy, use [ORY Oathkeeper](http://github.com/ory/oathkeeper)
+Ory has numerous products that support the protocols OAuth2 or OpenID Connect in [ORY Hydra](http://github.com/ory/hydra), a permission system in [ORY Keto](http://github.com/ory/keto), and a Reverse Proxy in [ORY Oathkeeper](http://github.com/ory/oathkeeper).
 
 ### Software Architecture
 
-You've probably seen our [Software Architecture and Philosophy](../../ecosystem/software-architecture-philosophy.md) document,
-but to re-iterate:
+ Ory's [Software Architecture and Philosophy](../../ecosystem/software-architecture-philosophy.md) document, explains the architectural beliefs and framework behind the Ory Products in particular:
 
-- ~15mb binary running on all operating systems without any system, library, or VM dependencies.
-- ~15mb docker image.
-- exactly one binary for the server and the cli.
-- works best on Kubernetes and provides fast and easy to use [Helm charts](https://github.com/ory/k8s).
-- easy horizontal scaling. No etcd or memcached or adjacent tool required.
+- Small runtime footprint with about five (5) MB binary running on all operating systems without any system, library, or VM dependencies;
+- Fully virtualised in a fifteen (15) MB Docker image;
+- Easy to manage with exactly one binary for the server and the cli;
+- Run-time orchestration using the latest Kubernetes providing fast and easy to use [Helm charts](https://github.com/ory/k8s); and
+- Horizontal scaling with no etcd key value store or memcached or adjacent tool required.
 
 ### Bring your own User Interface (Framework)
 
-We understand that most businesses have a unique interaction concept. Some companies need [progressive profiling](https://blog.hubspot.com/blog/tabid/6307/bid/34155/how-to-capture-more-and-better-lead-intel-with-progressive-profiling.aspx)
-and use a NodeJS app for that. Others want to capture everything in one go, using Client-Side JavaScript Framework like
-Angular or React. Others want an iOS-native registration and login experience.
-
-With ORY Kratos, we have defined flows that make it really easy for you to implement your custom user interface for
-login, registration, profile management, account reset, ... - and equally easy to get started by using our reference
+Ory's approach to user interface and user experience is to provide for an interaction concept with maximum flexibility and creativity. Some companies need [progressive profiling](https://blog.hubspot.com/blog/tabid/6307/bid/34155/how-to-capture-more-and-better-lead-intel-with-progressive-profiling.aspx)
+and build a NodeJS app. Other companies desire to capture everything in one go, using Client-Side JavaScript library such as 
+Angular or React. Some companies want an iOS-native registration and login experience. While Ory's cloud native headless API approach address many integration and UI issues, with ORY Kratos, predefined flows make it easy to implement a custom user interface for
+login, registration, profile management, account reset, etc. Furthermore, to make to very easy to get started there is a reference
 implementation [github.com/ory/kratos-selfservice-ui-node](https://github.com/ory/kratos-selfservice-ui-node).
 
-For more details about each individual flow, head over to the [Self-Service Flows Chapter](../self-service/flows/index.md).
+For more details about each individual flow, consult the [Self-Service Flows Chapter](../self-service/flows/index.md).
 
 ### Bring your own Identity Model(s)
 
-You may want to store more than one type of identity in your system:
+Sometimes it is necessary to store more than one type of identity in your system:
 
-- A customer that uses email + password to log in and needs to set his/her birthdate;
-- A employee that uses a unique username + password to log in, with a cost center attached to their profile.
+- A customer that uses email + password to login, and needs to set a birthdate; or
+- An employee that uses a unique username + password to login with a cost center attached to the profile.
 
-This is possible in ORY Kratos by using [JSON Schemas for Identity Traits](./identity-user-model.md)
+ORY Kratos implements both scenarios by using [JSON Schemas for Identity Traits](./identity-user-model.md)
 
 ### Forget passport-js, oidc-client, ...
 
-You can certainly write your own middleware to protect your API and Web endpoints but why should you? ORY Kratos
-integrates natively with ORY Oathkeeper, our Reverse Proxy, and defining Access Rules is as easy as writing a few lines
+While proprietary and bespoke middleware can protect APIs and Web endpoints, Ory Open Source provides a base solution for many use cases. For example, ORY Kratos integrates with ORY Oathkeeper, a Reverse Proxy solution. Defining Access Rules is as easy as writing a few lines
 of JSON / JSON5 / YAML!
 
-If you haven't seen the [Quickstart](../quickstart.md), we highly recommend checking that out!
+Please consult the Quick Start documentation [Quickstart](../quickstart.md), for further information.
 
 
 @aeneas
 <!--
-To be used in another place
+To text below can perhpas be used in another place
 
 ## Approaches to solving Identity
 
@@ -212,3 +170,13 @@ to use and what drawbacks (and upsides) you get.
 
 For a full comparison with other open and closed source systems, head over to the
 [Comparison Chapter](../further-reading/comparison.md).
+
+Several proprietary SaaS companies have established themselves over the past decade including Auth0 and Okta.
+AWS Cognito and GCP CICP (Cloud Identity for Customers and Partners - it's basically Firebase on the Google Cloud Platform)
+are the products provided by the big players.
+Because of the nature of their product, they act as a third-party login. It's like "Login with Google" but you can
+re-brand the "Google" part. Therefore, these systems typically choose OAuth2 and OpenID Connect as their primary
+protocol. It fits the use case - the user logs in on a different system than your own. But are OAuth2 and OpenID Connect
+really the best protocol at hand for this? Keep in mind that these protocols were designed for the "ACME Corp's Facebook
+Photo Backups" and "GitHub Continuous Integrations" of the world - not for first-party login!
+
