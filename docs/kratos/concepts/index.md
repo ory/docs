@@ -40,7 +40,7 @@ and tests critical network flows, system architectures, user flows, protocols, a
 
 ### Full-stack Identity and Access Management (IAM)
 
-*Disclaimer: There are neither product nor projects names in this section. This section's goal is to describe circumstances and problems that mostly stem from the community's experience. For information purposes, there is a preliminary comparision of ORY Kratos and other projects and products available at [Comparison](../further-reading/comparison.md)*.
+*Disclaimer: There are neither product nor project names in this section. This section's goal is to describe circumstances and problems that mostly stem from the community's experience. For information purposes, there is a preliminary comparision of ORY Kratos and other projects and products available at [Comparison](../further-reading/comparison.md)*.
 
 Full-stack IAM is usually sold as a one-size-fits-all solution. Due to size and complexity, these full-stack solutions are typically written in an enterprise class programming language
 such as Java EE. The full-stack products have rich feature sets that include:
@@ -179,4 +179,3 @@ re-brand the "Google" part. Therefore, these systems typically choose OAuth2 and
 protocol. It fits the use case - the user logs in on a different system than your own. But are OAuth2 and OpenID Connect
 really the best protocol at hand for this? Keep in mind that these protocols were designed for the "ACME Corp's Facebook
 Photo Backups" and "GitHub Continuous Integrations" of the world - not for first-party login!
-
