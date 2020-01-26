@@ -3,12 +3,12 @@ id: security
 title: Threat Models and Security Profiles
 ---
 
-Running an software that stores personal information exposes you and your company to risks. Analyzing who (threat agent)
-poses a threat, why (motivation) they pose a threat, your attack surface, the likelihood, and the impact are
-important aspects of a threat model.
+Running any software that stores personal information exposes the developer/company to risks. Analyzing which threat agents
+pose a risk, understanding the motivation, or why an agent is a threat, knowing the attack surface, the likelihood, and the impact are
+important all aspects of a threat model.
 
-This documentation can not substitute a thorough and serious threat model, but it will give you some guidelines to
-help you configure ORY Kratos in a way that makes it best suited for your risk assessment.
+This documentation can not substitute a thorough and serious threat model, yet it will provide some guidelines to
+help configure ORY Kratos in a way that makes it best suited for any risk assessment.
 
 > Please be aware that this chapter is still work in progress. Not all mitigation strategies have been implemented yet
 > in ORY Kratos!
