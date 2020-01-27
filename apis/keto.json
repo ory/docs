@@ -1295,7 +1295,7 @@
     },
     "authorizationResult": {
       "type": "object",
-      "title": "AuthorizationResult AuthorizationResult AuthorizationResult AuthorizationResult is the result of an access control decision. It contains the decision outcome.",
+      "title": "AuthorizationResult is the result of an access control decision. It contains the decision outcome.",
       "required": [
         "allowed"
       ],
@@ -1307,7 +1307,7 @@
         }
       },
       "x-go-name": "AuthorizationResult",
-      "x-go-package": "github.com/ory/keto/internal/httpclient/models"
+      "x-go-package": "github.com/ory/keto/engine"
     },
     "healthNotReadyStatus": {
       "description": "HealthNotReadyStatus health not ready status",
@@ -1326,6 +1326,7 @@
       "x-go-package": "github.com/ory/keto/internal/httpclient/models"
     },
     "healthStatus": {
+      "description": "HealthStatus health status",
       "type": "object",
       "properties": {
         "status": {
@@ -1334,12 +1335,12 @@
           "x-go-name": "Status"
         }
       },
-      "x-go-name": "swaggerHealthStatus",
-      "x-go-package": "github.com/ory/x/healthx"
+      "x-go-name": "HealthStatus",
+      "x-go-package": "github.com/ory/keto/internal/httpclient/models"
     },
     "oryAccessControlPolicy": {
       "type": "object",
-      "title": "oryAccessControlPolicy specifies an ORY Access Policy document.",
+      "title": "OryAccessControlPolicy oryAccessControlPolicy specifies an ORY Access Policy document.",
       "properties": {
         "actions": {
           "description": "Actions is an array representing all the actions this ORY Access Policy applies to.",
@@ -1390,11 +1391,11 @@
         }
       },
       "x-go-name": "OryAccessControlPolicy",
-      "x-go-package": "github.com/ory/keto/engine/ladon"
+      "x-go-package": "github.com/ory/keto/internal/httpclient/models"
     },
     "oryAccessControlPolicyAllowedInput": {
       "type": "object",
-      "title": "OryAccessControlPolicyAllowedInput Input for checking if a request is allowed or not.",
+      "title": "Input for checking if a request is allowed or not.",
       "properties": {
         "action": {
           "description": "Action is the action that is requested on the resource.",
@@ -1421,7 +1422,7 @@
         }
       },
       "x-go-name": "OryAccessControlPolicyAllowedInput",
-      "x-go-package": "github.com/ory/keto/internal/httpclient/models"
+      "x-go-package": "github.com/ory/keto/engine/ladon"
     },
     "oryAccessControlPolicyRole": {
       "description": "oryAccessControlPolicyRole represents a group of users that share the same role. A role could be an administrator, a moderator, a regular\nuser or some other sort of role.",
