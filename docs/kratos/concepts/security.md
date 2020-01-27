@@ -63,7 +63,18 @@ Will be addressed in a future release.
 
 ### Argon2
 
-Will be addressed in a future release.
+ORY Kratos uses Argon2 for password hashing. Argon2 is the official winner of the PHC 2017. You can tweak the Argon2
+configuration in your ORY Kratos configuration file:
+
+```yaml
+hashers:
+  argon2:
+    memory: 1048576
+    iterations: 2
+    parallelism: 4
+    salt_length: 16
+    key_length: 32
+```
 
 ## Digital Identity Guidelines
 

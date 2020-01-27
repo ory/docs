@@ -3,6 +3,9 @@ id: openid-connect-social-sign-in-oauth2
 title: Social Sign In with OpenID Connect and OAuth2
 ---
 
+> The OpenID Connect Strategy does already work but needs further documentation and code improvements. It
+> will be documented in an upcoming release of ORY Kratos.
+
 ## Sign In
 
 Sign In only works when an identity exists for that profile already.

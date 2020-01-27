@@ -38,8 +38,8 @@
         "label": "Self Service Flows",
         "ids": [
           "kratos/self-service/flows/index",
-          "kratos/self-service/flows/user-login",
-          "kratos/self-service/flows/user-registration",
+          "kratos/self-service/flows/user-login-user-registration",
+          "kratos/self-service/flows/user-logout",
           "kratos/self-service/flows/user-profile-management",
           "kratos/self-service/flows/password-reset-account-recovery",
           "kratos/self-service/flows/user-facing-errors"

@@ -28,11 +28,22 @@ selfservice:
 
 ### `session`
 
-The `session` job will send a `Set-Cookie` header which contains the session cookie:
+The `session` job will send a `Set-Cookie` header which contains the session cookie. To use it, you must first
+define one or more (for secret rotation) session secrets and then use it in one of the `after` work flows:
 
 ```yaml
+secrets:
+  session:
+    - something-super-secret # The first entry will be used to sign and verify session cookies
+
+    # All other entries will be used to verify session cookies that were signed before "something-super-secret" became
+    # the current signing secret.
+    - old-session-secret
+    - older-session-secret
+    - ancient-session-secret
+
 selfservice:
-  login:
+  registration:
     after:
       <strategy>:
         - job: session
@@ -103,9 +114,20 @@ selfservice:
 
 ### `session`
 
-The `session` job will send a `Set-Cookie` header which contains the session cookie:
+The `session` job will send a `Set-Cookie` header which contains the session cookie. To use it, you must first
+define one or more (for secret rotation) session secrets and then use it in one of the `after` work flows:
 
 ```yaml
+secrets:
+  session:
+    - something-super-secret # The first entry will be used to sign and verify session cookies
+
+    # All other entries will be used to verify session cookies that were signed before "something-super-secret" became
+    # the current signing secret.
+    - old-session-secret
+    - older-session-secret
+    - ancient-session-secret
+
 selfservice:
   registration:
     after:
