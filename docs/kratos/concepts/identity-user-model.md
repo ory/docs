@@ -111,17 +111,16 @@ distingush between these three identities.  The switch statement is used in this
 // This is an example program that can deal with all three identities
 // session := ...
 switch (session.Identity.TraitsSchemaURL) {
-    case "":
-        fallthrough
-    case "default":
-        // ...
     case "customer":
         // ...
     case "employee":
         // ...
+    case "default":
+        fallthrough
+    default:
+        // ...
 }
 ```
-@aeneas maybe add above default:
 
 ## JSON Schema Vocabulary Extensions
 
