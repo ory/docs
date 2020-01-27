@@ -3,14 +3,14 @@ id: user-login
 title: Login User Flow
 ---
 
-ORY Kratos supports two authentication flows:
+ORY Kratos supports two login flows:
 
 - Browser-based (easy): This flow works for all applications running on top of a
   browser. Websites, single-page apps, Cordova/Ionic, and so on.
 - API-based (advanced): This flow works for native applications like iOS (Swift),
   Android (Java), Microsoft (.NET), React Native, Electron, and others.
 
-## User Login for Browser Applications
+## Self-Service User Login for Browser Applications
 
 ORY Kratos supports browser applications that run on server-side (e.g. Java, NodeJS, PHP)
 as well as client-side (e.g. JQuery, ReactJS, AngularJS, ...).
@@ -57,12 +57,12 @@ In stark contrast to other Identity Systems, ORY Kratos does not render this HTM
 the HTML code in your application (e.g. NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme flexibility
 and customizability in your user interface flows and designs.
 
-Each User Login Strategy (e.g. [Username and Password](../strategies/username-email-password.md), [Social Sign In](../strategies/openid-connect-social-sign-in-oauth2.md), Passwordless, ...)
+Each Login User Flow Strategy (e.g. [Username and Password](../strategies/username-email-password.md), [Social Sign In](../strategies/openid-connect-social-sign-in-oauth2.md), Passwordless, ...)
 works a bit differently but they all boil down to the same abstract sequence:
 
-[![Abstract User Login Flow](https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gIHBhcnRpY2lwYW50IEIgYXMgQnJvd3NlclxuICBwYXJ0aWNpcGFudCBLIGFzIE9SWSBLcmF0b3NcbiAgcGFydGljaXBhbnQgQSBhcyBZb3VyIEFwcGxpY2F0aW9uXG5cblxuICBCLT4-SzogSW5pdGlhdGUgTG9naW5cbiAgSy0-PkI6IFJlZGlyZWN0cyB0byB5b3VyIEFwcGxpY2F0aW9uJ3MgL2xvZ2luIGVuZHBvaW50XG4gIEItPj5BOiBDYWxscyAvbG9naW5cbiAgQS0tPj5LOiBGZXRjaGVzIGRhdGEgdG8gcmVuZGVyIGZvcm1zIGV0Y1xuICBCLS0-PkE6IEZpbGxzIG91dCBmb3JtcywgY2xpY2tzIGUuZy4gXCJTdWJtaXQgTG9naW5cIlxuICBCLT4-SzogUE9TVHMgZGF0YSB0b1xuICBLLS0-Pks6IFByb2Nlc3NlcyBMb2dpbiBJbmZvXG5cbiAgYWx0IExvZ2luIGRhdGEgdmFsaWRcbiAgICBLLS0-PkI6IFNldHMgc2Vzc2lvbiBjb29raWVcbiAgICBLLT4-QjogUmVkaXJlY3RzIHRvIGUuZy4gRGFzaGJvYXJkXG4gIGVsc2UgTG9naW4gZGF0YSBpbnZhbGlkXG4gICAgSy0tPj5COiBSZWRpcmVjdHMgdG8geW91ciBBcHBsaWNhaXRvbidzIC9sb2dpbiBlbmRwb2ludFxuICAgIEItPj5BOiBDYWxscyAvbG9naW5cbiAgICBBLS0-Pks6IEZldGNoZXMgZGF0YSB0byByZW5kZXIgZm9ybSBmaWVsZHMgYW5kIGVycm9yc1xuICAgIEItLT4-QTogRmlsbHMgb3V0IGZvcm1zIGFnYWluLCBjb3JyZWN0cyBlcnJvcnNcbiAgICBCLT4-SzogUE9TVHMgZGF0YSBhZ2FpbiAtIGFuZCBzbyBvbi4uLlxuICBlbmRcbiIsIm1lcm1haWQiOnsidGhlbWUiOiJuZXV0cmFsIiwic2VxdWVuY2VEaWFncmFtIjp7ImRpYWdyYW1NYXJnaW5YIjoxNSwiZGlhZ3JhbU1hcmdpblkiOjE1LCJib3hUZXh0TWFyZ2luIjowLCJub3RlTWFyZ2luIjoxNSwibWVzc2FnZU1hcmdpbiI6NDUsIm1pcnJvckFjdG9ycyI6dHJ1ZX19fQ)](https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gIHBhcnRpY2lwYW50IEIgYXMgQnJvd3NlclxuICBwYXJ0aWNpcGFudCBLIGFzIE9SWSBLcmF0b3NcbiAgcGFydGljaXBhbnQgQSBhcyBZb3VyIEFwcGxpY2F0aW9uXG5cblxuICBCLT4-SzogSW5pdGlhdGUgTG9naW5cbiAgSy0-PkI6IFJlZGlyZWN0cyB0byB5b3VyIEFwcGxpY2F0aW9uJ3MgL2xvZ2luIGVuZHBvaW50XG4gIEItPj5BOiBDYWxscyAvbG9naW5cbiAgQS0tPj5LOiBGZXRjaGVzIGRhdGEgdG8gcmVuZGVyIGZvcm1zIGV0Y1xuICBCLS0-PkE6IEZpbGxzIG91dCBmb3JtcywgY2xpY2tzIGUuZy4gXCJTdWJtaXQgTG9naW5cIlxuICBCLT4-SzogUE9TVHMgZGF0YSB0b1xuICBLLS0-Pks6IFByb2Nlc3NlcyBMb2dpbiBJbmZvXG5cbiAgYWx0IExvZ2luIGRhdGEgdmFsaWRcbiAgICBLLS0-PkI6IFNldHMgc2Vzc2lvbiBjb29raWVcbiAgICBLLT4-QjogUmVkaXJlY3RzIHRvIGUuZy4gRGFzaGJvYXJkXG4gIGVsc2UgTG9naW4gZGF0YSBpbnZhbGlkXG4gICAgSy0tPj5COiBSZWRpcmVjdHMgdG8geW91ciBBcHBsaWNhaXRvbidzIC9sb2dpbiBlbmRwb2ludFxuICAgIEItPj5BOiBDYWxscyAvbG9naW5cbiAgICBBLS0-Pks6IEZldGNoZXMgZGF0YSB0byByZW5kZXIgZm9ybSBmaWVsZHMgYW5kIGVycm9yc1xuICAgIEItLT4-QTogRmlsbHMgb3V0IGZvcm1zIGFnYWluLCBjb3JyZWN0cyBlcnJvcnNcbiAgICBCLT4-SzogUE9TVHMgZGF0YSBhZ2FpbiAtIGFuZCBzbyBvbi4uLlxuICBlbmRcbiIsIm1lcm1haWQiOnsidGhlbWUiOiJuZXV0cmFsIiwic2VxdWVuY2VEaWFncmFtIjp7ImRpYWdyYW1NYXJnaW5YIjoxNSwiZGlhZ3JhbU1hcmdpblkiOjE1LCJib3hUZXh0TWFyZ2luIjowLCJub3RlTWFyZ2luIjoxNSwibWVzc2FnZU1hcmdpbiI6NDUsIm1pcnJvckFjdG9ycyI6dHJ1ZX19fQ)
+[![Abstract Login User Flow](https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gIHBhcnRpY2lwYW50IEIgYXMgQnJvd3NlclxuICBwYXJ0aWNpcGFudCBLIGFzIE9SWSBLcmF0b3NcbiAgcGFydGljaXBhbnQgQSBhcyBZb3VyIEFwcGxpY2F0aW9uXG5cblxuICBCLT4-SzogSW5pdGlhdGUgTG9naW5cbiAgSy0-PkI6IFJlZGlyZWN0cyB0byB5b3VyIEFwcGxpY2F0aW9uJ3MgL2xvZ2luIGVuZHBvaW50XG4gIEItPj5BOiBDYWxscyAvbG9naW5cbiAgQS0tPj5LOiBGZXRjaGVzIGRhdGEgdG8gcmVuZGVyIGZvcm1zIGV0Y1xuICBCLS0-PkE6IEZpbGxzIG91dCBmb3JtcywgY2xpY2tzIGUuZy4gXCJTdWJtaXQgTG9naW5cIlxuICBCLT4-SzogUE9TVHMgZGF0YSB0b1xuICBLLS0-Pks6IFByb2Nlc3NlcyBMb2dpbiBJbmZvXG5cbiAgYWx0IExvZ2luIGRhdGEgdmFsaWRcbiAgICBLLS0-PkI6IFNldHMgc2Vzc2lvbiBjb29raWVcbiAgICBLLT4-QjogUmVkaXJlY3RzIHRvIGUuZy4gRGFzaGJvYXJkXG4gIGVsc2UgTG9naW4gZGF0YSBpbnZhbGlkXG4gICAgSy0tPj5COiBSZWRpcmVjdHMgdG8geW91ciBBcHBsaWNhaXRvbidzIC9sb2dpbiBlbmRwb2ludFxuICAgIEItPj5BOiBDYWxscyAvbG9naW5cbiAgICBBLS0-Pks6IEZldGNoZXMgZGF0YSB0byByZW5kZXIgZm9ybSBmaWVsZHMgYW5kIGVycm9yc1xuICAgIEItLT4-QTogRmlsbHMgb3V0IGZvcm1zIGFnYWluLCBjb3JyZWN0cyBlcnJvcnNcbiAgICBCLT4-SzogUE9TVHMgZGF0YSBhZ2FpbiAtIGFuZCBzbyBvbi4uLlxuICBlbmRcbiIsIm1lcm1haWQiOnsidGhlbWUiOiJuZXV0cmFsIiwic2VxdWVuY2VEaWFncmFtIjp7ImRpYWdyYW1NYXJnaW5YIjoxNSwiZGlhZ3JhbU1hcmdpblkiOjE1LCJib3hUZXh0TWFyZ2luIjowLCJub3RlTWFyZ2luIjoxNSwibWVzc2FnZU1hcmdpbiI6NDUsIm1pcnJvckFjdG9ycyI6dHJ1ZX19fQ)](https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gIHBhcnRpY2lwYW50IEIgYXMgQnJvd3NlclxuICBwYXJ0aWNpcGFudCBLIGFzIE9SWSBLcmF0b3NcbiAgcGFydGljaXBhbnQgQSBhcyBZb3VyIEFwcGxpY2F0aW9uXG5cblxuICBCLT4-SzogSW5pdGlhdGUgTG9naW5cbiAgSy0-PkI6IFJlZGlyZWN0cyB0byB5b3VyIEFwcGxpY2F0aW9uJ3MgL2xvZ2luIGVuZHBvaW50XG4gIEItPj5BOiBDYWxscyAvbG9naW5cbiAgQS0tPj5LOiBGZXRjaGVzIGRhdGEgdG8gcmVuZGVyIGZvcm1zIGV0Y1xuICBCLS0-PkE6IEZpbGxzIG91dCBmb3JtcywgY2xpY2tzIGUuZy4gXCJTdWJtaXQgTG9naW5cIlxuICBCLT4-SzogUE9TVHMgZGF0YSB0b1xuICBLLS0-Pks6IFByb2Nlc3NlcyBMb2dpbiBJbmZvXG5cbiAgYWx0IExvZ2luIGRhdGEgdmFsaWRcbiAgICBLLS0-PkI6IFNldHMgc2Vzc2lvbiBjb29raWVcbiAgICBLLT4-QjogUmVkaXJlY3RzIHRvIGUuZy4gRGFzaGJvYXJkXG4gIGVsc2UgTG9naW4gZGF0YSBpbnZhbGlkXG4gICAgSy0tPj5COiBSZWRpcmVjdHMgdG8geW91ciBBcHBsaWNhaXRvbidzIC9sb2dpbiBlbmRwb2ludFxuICAgIEItPj5BOiBDYWxscyAvbG9naW5cbiAgICBBLS0-Pks6IEZldGNoZXMgZGF0YSB0byByZW5kZXIgZm9ybSBmaWVsZHMgYW5kIGVycm9yc1xuICAgIEItLT4-QTogRmlsbHMgb3V0IGZvcm1zIGFnYWluLCBjb3JyZWN0cyBlcnJvcnNcbiAgICBCLT4-SzogUE9TVHMgZGF0YSBhZ2FpbiAtIGFuZCBzbyBvbi4uLlxuICBlbmRcbiIsIm1lcm1haWQiOnsidGhlbWUiOiJuZXV0cmFsIiwic2VxdWVuY2VEaWFncmFtIjp7ImRpYWdyYW1NYXJnaW5YIjoxNSwiZGlhZ3JhbU1hcmdpblkiOjE1LCJib3hUZXh0TWFyZ2luIjowLCJub3RlTWFyZ2luIjoxNSwibWVzc2FnZU1hcmdpbiI6NDUsIm1pcnJvckFjdG9ycyI6dHJ1ZX19fQ)
 
-The exact data being fetched and the step *"Prcoesses Login Info"* depend, of course, on the actual User Login Strategy
+The exact data being fetched and the step *"Processes Login Info"* depend, of course, on the actual User Login Strategy
 being used. But it is important to understand that **"Your Application"** is responsible for rendering the actual Login HTML.
 You can of course implement one app for rendering all the Login, Registration, ... screens, and another app
 (think "Service Oriented Architecture", "Micro-Services" or "Service Mesh") is responsible for rendering your Dashboards,
@@ -104,7 +104,7 @@ to it.
 
 The Login User Flow has several steps:
 
-[![](https://mermaid.ink/img/eyJjb2RlIjoic3RhdGVEaWFncmFtXG4gIHMxOiBVc2VyIGJyb3dzZXMgYXBwXG4gIHMyOiBFeGVjdXRlIFwiQmVmb3JlIExvZ2luIFdvcmtmbG93KHMpXCJcbiAgczM6IExvZ2luIFVJIHJlbmRlcnMgXCJMb2dpbiBSZXF1ZXN0XCJcbiAgczQ6IEV4ZWN1dGUgXCJBZnRlciBMb2dpbiBXb3JrZmxvdyhzKVwiXG4gIHM1OiBVcGRhdGUgXCJMb2dpbiBSZXF1ZXN0XCIgd2l0aCBFcnJvciBDb250ZXh0KHMpXG4gIHM2OiBMb2dpbiBzdWNjZXNzZnVsXG5cblxuXG5cdFsqXSAtLT4gczFcbiAgczEgLS0-IHMyIDogVXNlciBjbGlja3MgbG9naW5cbiAgczIgLS0-IEVycm9yIDogQSBqb2IgZmFpbHNcbiAgczIgLS0-IHMzIDogVXNlciBpcyByZWRpcmVjdGVkIHRvIExvZ2luIFVJIFVSTFxuICBzMyAtLT4gczQgOiBVc2VyIHByb3ZpZGVzIHZhbGlkIGNyZWRlbnRpYWxzXG4gIHMzIC0tPiBzNSA6IFVzZXIgcHJvdmlkZXMgaW52YWxpZCBjcmVkZW50aWFsc1xuICBzNSAtLT4gczMgOiBVc2VyIGlzIHJlZGlyZWN0ZWQgdG8gTG9naW4gVUkgVVJMXG4gIHM0IC0tPiBFcnJvciA6IEEgam9iIGZhaWxzXG4gIHM0IC0tPiBzNlxuICBzNiAtLT4gWypdXG5cbiAgRXJyb3IgLS0-IFsqXVxuXG5cbiIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9)](https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic3RhdGVEaWFncmFtXG4gIHMxOiBVc2VyIGJyb3dzZXMgYXBwXG4gIHMyOiBFeGVjdXRlIFwiQmVmb3JlIExvZ2luIFdvcmtmbG93KHMpXCJcbiAgczM6IExvZ2luIFVJIHJlbmRlcnMgXCJMb2dpbiBSZXF1ZXN0XCJcbiAgczQ6IEV4ZWN1dGUgXCJBZnRlciBMb2dpbiBXb3JrZmxvdyhzKVwiXG4gIHM1OiBVcGRhdGUgXCJMb2dpbiBSZXF1ZXN0XCIgd2l0aCBFcnJvciBDb250ZXh0KHMpXG4gIHM2OiBMb2dpbiBzdWNjZXNzZnVsXG5cblxuXG5cdFsqXSAtLT4gczFcbiAgczEgLS0-IHMyIDogVXNlciBjbGlja3MgbG9naW5cbiAgczIgLS0-IEVycm9yIDogQSBqb2IgZmFpbHNcbiAgczIgLS0-IHMzIDogVXNlciBpcyByZWRpcmVjdGVkIHRvIExvZ2luIFVJIFVSTFxuICBzMyAtLT4gczQgOiBVc2VyIHByb3ZpZGVzIHZhbGlkIGNyZWRlbnRpYWxzXG4gIHMzIC0tPiBzNSA6IFVzZXIgcHJvdmlkZXMgaW52YWxpZCBjcmVkZW50aWFsc1xuICBzNSAtLT4gczMgOiBVc2VyIGlzIHJlZGlyZWN0ZWQgdG8gTG9naW4gVUkgVVJMXG4gIHM0IC0tPiBFcnJvciA6IEEgam9iIGZhaWxzXG4gIHM0IC0tPiBzNlxuICBzNiAtLT4gWypdXG5cbiAgRXJyb3IgLS0-IFsqXVxuXG5cbiIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9)
+[![User Login State Machine](https://mermaid.ink/img/eyJjb2RlIjoic3RhdGVEaWFncmFtXG4gIHMxOiBVc2VyIGJyb3dzZXMgYXBwXG4gIHMyOiBFeGVjdXRlIFwiQmVmb3JlIExvZ2luIFdvcmtmbG93KHMpXCJcbiAgczM6IExvZ2luIFVJIHJlbmRlcnMgXCJMb2dpbiBSZXF1ZXN0XCJcbiAgczQ6IEV4ZWN1dGUgXCJBZnRlciBMb2dpbiBXb3JrZmxvdyhzKVwiXG4gIHM1OiBVcGRhdGUgXCJMb2dpbiBSZXF1ZXN0XCIgd2l0aCBFcnJvciBDb250ZXh0KHMpXG4gIHM2OiBMb2dpbiBzdWNjZXNzZnVsXG5cblxuXG5cdFsqXSAtLT4gczFcbiAgczEgLS0-IHMyIDogVXNlciBjbGlja3MgXCJMb2cgaW5cIlxuICBzMiAtLT4gRXJyb3IgOiBBIGpvYiBmYWlsc1xuICBzMiAtLT4gczMgOiBVc2VyIGlzIHJlZGlyZWN0ZWQgdG8gTG9naW4gVUkgVVJMXG4gIHMzIC0tPiBzNCA6IFVzZXIgcHJvdmlkZXMgdmFsaWQgY3JlZGVudGlhbHNcbiAgczMgLS0-IHM1IDogVXNlciBwcm92aWRlcyBpbnZhbGlkIGNyZWRlbnRpYWxzXG4gIHM1IC0tPiBzMyA6IFVzZXIgaXMgcmVkaXJlY3RlZCB0byBMb2dpbiBVSSBVUkxcbiAgczQgLS0-IEVycm9yIDogQSBqb2IgZmFpbHNcbiAgczQgLS0-IHM2XG4gIHM2IC0tPiBbKl1cblxuICBFcnJvciAtLT4gWypdXG5cblxuIiwibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQifSwidXBkYXRlRWRpdG9yIjpmYWxzZX0)](https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic3RhdGVEaWFncmFtXG4gIHMxOiBVc2VyIGJyb3dzZXMgYXBwXG4gIHMyOiBFeGVjdXRlIFwiQmVmb3JlIExvZ2luIFdvcmtmbG93KHMpXCJcbiAgczM6IExvZ2luIFVJIHJlbmRlcnMgXCJMb2dpbiBSZXF1ZXN0XCJcbiAgczQ6IEV4ZWN1dGUgXCJBZnRlciBMb2dpbiBXb3JrZmxvdyhzKVwiXG4gIHM1OiBVcGRhdGUgXCJMb2dpbiBSZXF1ZXN0XCIgd2l0aCBFcnJvciBDb250ZXh0KHMpXG4gIHM2OiBMb2dpbiBzdWNjZXNzZnVsXG5cblxuXG5cdFsqXSAtLT4gczFcbiAgczEgLS0-IHMyIDogVXNlciBjbGlja3MgXCJMb2cgaW5cIlxuICBzMiAtLT4gRXJyb3IgOiBBIGpvYiBmYWlsc1xuICBzMiAtLT4gczMgOiBVc2VyIGlzIHJlZGlyZWN0ZWQgdG8gTG9naW4gVUkgVVJMXG4gIHMzIC0tPiBzNCA6IFVzZXIgcHJvdmlkZXMgdmFsaWQgY3JlZGVudGlhbHNcbiAgczMgLS0-IHM1IDogVXNlciBwcm92aWRlcyBpbnZhbGlkIGNyZWRlbnRpYWxzXG4gIHM1IC0tPiBzMyA6IFVzZXIgaXMgcmVkaXJlY3RlZCB0byBMb2dpbiBVSSBVUkxcbiAgczQgLS0-IEVycm9yIDogQSBqb2IgZmFpbHNcbiAgczQgLS0-IHM2XG4gIHM2IC0tPiBbKl1cblxuICBFcnJvciAtLT4gWypdXG5cblxuIiwibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQifSwidXBkYXRlRWRpdG9yIjpmYWxzZX0)
 
 1. The **Login User Flow** is initiated because a link was clicked or an action was performed that requires authentication (or authorization).
 1. ORY Kratos executes Jobs defined in the **Before Login Workflow**. If a failure occurs, the **Login User Flow** is aborted.
@@ -176,12 +176,49 @@ ORY Kratos validates the User's credentials (e.g. Username and Password, by perf
 Because Client-Side Browser Applications do not have access to ORY Kratos' Admin API, they must use the ORY Kratos Public
 API instead. The flow for a Client-Side Browser Application is almost the exact same as the one for Server-Side Applications,
 with the small difference that `https://example.org/.ory/kratos/public/auth/browser/requests/login?request=abcde`
-would be called via AJAX instead of making a request to `https://example.org/auth/browser/requests/login?request=abcde`.
+would be called via AJAX instead of making a request to `https://ory-kratos-admin.example-org.vpc/auth/browser/requests/login?request=abcde`.
 
 > To prevent brute force, guessing, session injection, and other attacks, it is required that cookies are working
 for this endpoint. The cookie set in the initial HTTP request made to `https://example.org/.ory/kratos/public/auth/browser/login` MUST
 > be set and available when calling this endpoint!
 
-## User Login for API Clients
+## Self-Service User Login for API Clients
 
 Will be addressed in a future release.
+
+## Executing Jobs before User Login
+
+ORY Kratos allows you to configure jobs that run before the Login Request is generated. This may be helpful
+if you'd like to restrict logins to IPs coming from your internal network or other logic.
+
+You can find available `before` jobs in [Self-Service Before Login Jobs](../workflows/jobs/before.md#user-login) and
+configure them using the ORY Kratos configuration file:
+
+```yaml
+selfservice:
+  login:
+    before:
+      - run: <job-name>
+        config:
+          # <job-config>
+```
+
+## Executing Jobs after User Login
+
+ORY Kratos allows you to configure jobs that run before the Login Request is generated. This may be helpful
+if you'd like to restrict logins to IPs coming from your internal network or other logic.
+
+
+You can find available `after` jobs in [Self-Service After Login Jobs](../workflows/jobs/after.md#user-login) and
+configure them using the ORY Kratos configuration file:
+
+```yaml
+selfservice:
+  after:
+    <strategy>:
+      - run: <job-name>
+        config:
+          # <job-config>
+```
+
+It's possible to define jobs running after login for each individual User Login Flow Strategy (e.g. `password`, `oidc`).

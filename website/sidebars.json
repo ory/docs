@@ -56,10 +56,10 @@
       },
       {
         "type": "subcategory",
-        "label": "Self Service Workflows",
+        "label": "Self Service Jobs and Workflows",
         "ids": [
-          "kratos/self-service/workflows/index",
-          "kratos/self-service/workflows/redirect"
+          "kratos/self-service/workflows/jobs/before",
+          "kratos/self-service/workflows/jobs/after"
         ]
       },
       {
