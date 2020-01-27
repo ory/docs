@@ -198,7 +198,7 @@ You may also mix usernames and passwords:
 > This will be addressed in a future release and
 > is tracked as [kratos#137](https://github.com/ory/kratos/issues/137).
 
-## Browser-based Flows
+## Browser Clients
 
 ### Registration
 
@@ -434,6 +434,10 @@ If the login form is filled out incorrectly, errors are included in the response
     }
 }
 ```
+
+## API Clients
+
+API-based login and registration using this strategy will be addressed in a future release of ORY Kratos.
 
 ## Security and Defenses
 

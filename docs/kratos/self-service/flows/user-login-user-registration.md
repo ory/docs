@@ -317,8 +317,6 @@ selfservice:
 
 It's possible to define jobs running after login for each individual User Login Flow Strategy (e.g. `password`, `oidc`).
 
-
-
 ## Executing Jobs before User Registration
 
 ORY Kratos allows you to configure jobs that run before the Registration Request is generated. This may be helpful
