@@ -29,6 +29,7 @@
           "kratos/concepts/identity-user-model",
           "kratos/concepts/credentials",
           "kratos/concepts/email-sms",
+          "kratos/concepts/federation",
           "kratos/concepts/security"
         ]
       },
@@ -39,8 +40,9 @@
           "kratos/self-service/flows/index",
           "kratos/self-service/flows/user-login",
           "kratos/self-service/flows/user-registration",
-          "kratos/self-service/flows/user-profile",
-          "kratos/self-service/flows/password-reset-account-recovery"
+          "kratos/self-service/flows/user-profile-management",
+          "kratos/self-service/flows/password-reset-account-recovery",
+          "kratos/self-service/flows/user-facing-errors"
         ]
       },
       {

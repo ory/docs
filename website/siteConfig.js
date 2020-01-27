@@ -119,7 +119,7 @@ const siteConfig = {
 
   docsSideNavCollapsible: true,
 
-  onPageNavHeadings: {topLevel: ["h2"], sub: ["h3", "h4"]},
+  onPageNavHeadings: {topLevel: ["h2"], sub: ["h3"]},
 
   gaTrackingId: 'UA-71865250-1',
 
