@@ -178,7 +178,7 @@ our SecureApp) then fetches data important for rendering the forms from ORY
 Krato's Admin API:
 
 ```shell script
-$ curl http://127.0.0.1:4433/auth/browser/requests/login?request=<request-id>
+$ curl http://127.0.0.1:4434/auth/browser/requests/login?request=<request-id>
 {
     "id": "27aa98bc-a074-418f-96fa-8b8146050209",
     "expires_at": "2020-01-20T21:10:12.7365393Z",
@@ -226,17 +226,17 @@ which initiates a flow similar to the one we just used:
 
 The network trace looks familiar by now:
 
-![Registration screen of your secured app](assets/images/kratos/secureapp-registration-ntrace.png)
+![Registration with network trace screen of your secured app](assets/images/kratos/secureapp-registration-ntrace.png)
 
 If we try to sign up using a password like `123456`, ORY Krato's password policy
 will complain:
 
-# NEED SCREENSHOT
+![Registration with network trace screen of your secured app](assets/images/kratos/secureapp-registration-pwpolicy.png)
 
 The error message is coming directly from ORY Krato's API:
 
 ```shell script
-$ curl http://127.0.0.1:4433/auth/browser/requests/registration?request=<request-id>
+$ curl http://127.0.0.1:4434/auth/browser/requests/registration?request=<request-id>
 {
     "id": "79349cbd-c785-476a-8db8-d0d71c5b003c",
     "expires_at": "2020-01-20T21:17:00.5077381Z",
@@ -285,7 +285,7 @@ $ curl http://127.0.0.1:4433/auth/browser/requests/registration?request=<request
 Setting a password that doesn't violate these policies, we will be immediately
 redirected to the Dashboard:
 
-# NEEDS SCREENSHOT
+![SecureApp Dashboard](assets/images/kratos/secureapp-dashboard.png)
 
 By using "logout" you will be redirected to the log in screen again an will be
 able to use the credentials just set up to log in!
