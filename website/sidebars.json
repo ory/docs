@@ -65,7 +65,7 @@
         "ids": [
           "kratos/reference/configuration",
           "kratos/reference/json-schema-json-paths",
-          "kratos/reference/HTML Forms",
+          "kratos/reference/html-forms",
           "kratos/sdk/api"
         ]
       },
