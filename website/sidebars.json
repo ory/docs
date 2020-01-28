@@ -11,6 +11,74 @@
       "ecosystem/community",
       "ecosystem/sqa"
     ],
+    "ORY Kratos": [
+      {
+        "type": "subcategory",
+        "label": "Introduction",
+        "ids": ["kratos/index", "kratos/quickstart"]
+      },
+      {
+        "type": "subcategory",
+        "label": "Concepts",
+        "ids": [
+          "kratos/concepts/index",
+          "kratos/concepts/ui-user-interface",
+          "kratos/concepts/identity-user-model",
+          "kratos/concepts/credentials",
+          "kratos/concepts/email-sms",
+          "kratos/concepts/federation",
+          "kratos/concepts/security"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Self Service Flows",
+        "ids": [
+          "kratos/self-service/flows/index",
+          "kratos/self-service/flows/user-login-user-registration",
+          "kratos/self-service/flows/user-logout",
+          "kratos/self-service/flows/user-profile-management",
+          "kratos/self-service/flows/password-reset-account-recovery",
+          "kratos/self-service/flows/user-facing-errors"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Self Service Strategies",
+        "ids": [
+          "kratos/self-service/strategies/index",
+          "kratos/self-service/strategies/username-email-password",
+          "kratos/self-service/strategies/openid-connect-social-sign-in-oauth2"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Self Service Jobs and Workflows",
+        "ids": [
+          "kratos/self-service/workflows/jobs/before",
+          "kratos/self-service/workflows/jobs/after"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Reference",
+        "ids": [
+          "kratos/reference/configuration",
+          "kratos/reference/json-schema-json-paths",
+          "kratos/sdk/api"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "SDKs",
+        "ids": ["kratos/sdk/index"]
+      },
+      {
+        "type": "subcategory",
+        "label": "Further Reading",
+        "ids": ["kratos/further-reading/comparison"]
+      }
+    ],
     "ORY Hydra": [
       "hydra/index",
       {

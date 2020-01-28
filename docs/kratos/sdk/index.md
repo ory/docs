@@ -17,13 +17,13 @@ endpoint.
 We publish our SDKs for popular languages in their respective package
 repositories:
 
-- [Python](https://pypi.org/project/ory-keto-client/)
-- [PHP](https://packagist.org/packages/ory/keto-client)
-- [Go](https://github.com/ory/keto-client-go)
-- [NodeJS](https://www.npmjs.com/package/@oryd/keto-client) (with TypeScript)
-- [Java](https://search.maven.org/artifact/sh.ory.keto/keto-client)
-- [Ruby](https://rubygems.org/gems/ory-keto-client)
+- [Python](https://pypi.org/project/ory-kratos-client/)
+- [PHP](https://packagist.org/packages/ory/kratos-client)
+- [Go](https://github.com/ory/kratos-client-go)
+- [NodeJS](https://www.npmjs.com/package/@oryd/kratos-client) (with TypeScript)
+- [Java](https://search.maven.org/artifact/sh.ory.kratos/kratos-client)
+- [Ruby](https://rubygems.org/gems/ory-kratos-client)
 
 Missing your programming language?
-[Create an issue](https://github.com/ory/keto/issues) and help us build, test
+[Create an issue](https://github.com/ory/kratos/issues) and help us build, test
 and publish the SDK for your programming language!
