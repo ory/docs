@@ -77,7 +77,7 @@ workflows:
             tags:
               ignore: /.*/
             branches:
-              ignore: /master/
+              only: /master/
       - publish-stable:
           requires:
             - test
