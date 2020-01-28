@@ -16,16 +16,19 @@ other things.
 To learn more about JSON Schema, head over to
 [json-schema.org/learn/](https://json-schema.org/learn/).
 
-We are currently using JSON Schema Draft7 but plan on migrating to a newer version in the future.
+We are currently using JSON Schema Draft7 but plan on migrating to a newer
+version in the future.
 
 ## JSON Path Syntax
 
 In some cases you can define a JSON Path. We use
-[`tidwall/gjson`](https://github.com/tidwall/gjson) for this. A
-GJSON Path is a text string syntax that describes a search pattern for quickly
-retrieving values from a JSON payload.
+[`tidwall/gjson`](https://github.com/tidwall/gjson) for this. A GJSON Path is a
+text string syntax that describes a search pattern for quickly retrieving values
+from a JSON payload.
 
 There are two types of JSON Paths:
 
-- Reading JSON using the [GJSON Syntax](https://github.com/tidwall/gjson/blob/master/SYNTAX.md);
-- Writing JSON using the [SJSON Syntax](https://github.com/tidwall/sjson#path-syntax).
+- Reading JSON using the
+  [GJSON Syntax](https://github.com/tidwall/gjson/blob/master/SYNTAX.md);
+- Writing JSON using the
+  [SJSON Syntax](https://github.com/tidwall/sjson#path-syntax).

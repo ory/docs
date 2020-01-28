@@ -28,10 +28,11 @@ credentials:
 
 ORY Kratos supports several credential types:
 
-- `password`: The most common *identifier (username, email, ...) + password* credential.
+- `password`: The most common _identifier (username, email, ...) + password_
+  credential.
 - `oidc`: The "Log in with Google/Facebook/GitHub/..." credential.
-- Other credentials - support other credential types (X509 Certificates, Biometrics, ...) at
-  will be added a later stage.
+- Other credentials - support other credential types (X509 Certificates,
+  Biometrics, ...) at will be added a later stage.
 
 Each credential - regardless of its type - has one or more identifiers attached
 to it. Each identifier is universally unique. Assuming we had one identity with
@@ -86,7 +87,8 @@ credentials:
 ## Username and Password
 
 The `password` method is the most commonly used form of authentication, it
-requires an `identifier` (username, email, phone number, ...) and a `password` during registration and login.
+requires an `identifier` (username, email, phone number, ...) and a `password`
+during registration and login.
 
 ORY Kratos hashes the password after registration, password reset, and password
 change using [Argon2](https://github.com/P-H-C/phc-winner-argon2), the winner of
@@ -119,7 +121,8 @@ hashers:
 For a complete reference, defaults, and description please check the
 [Configuration Reference](../reference/configuration.md).
 
-For a better understanding of security implications imposed by Argon2 Configuration, head over to [Argon2 Security](./security.md#argon2).
+For a better understanding of security implications imposed by Argon2
+Configuration, head over to [Argon2 Security](./security.md#argon2).
 
 ### JSON Schema
 
@@ -362,9 +365,9 @@ flow will fail.
 
 You will also need to project data coming from the provider onto your own data
 model. You can express this using a JSON Path
-([learn more about the syntax](../reference/json-schema-json-paths.md)) in your JSON Schema. Let's
-assume you want to map field `username` from the provider to field `traits.name`
-in your identity:
+([learn more about the syntax](../reference/json-schema-json-paths.md)) in your
+JSON Schema. Let's assume you want to map field `username` from the provider to
+field `traits.name` in your identity:
 
 ```yaml
 {
@@ -439,8 +442,8 @@ selfservice:
               - user:email
 ```
 
-The following schema would take `email_primary` and `username` and map them
-into your identity model to `traits.email` and `traits.name`:
+The following schema would take `email_primary` and `username` and map them into
+your identity model to `traits.email` and `traits.name`:
 
 ```json
 {

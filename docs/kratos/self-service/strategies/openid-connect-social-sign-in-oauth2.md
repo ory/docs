@@ -3,8 +3,9 @@ id: openid-connect-social-sign-in-oauth2
 title: Social Sign In with OpenID Connect and OAuth2
 ---
 
-> The OpenID Connect Strategy does already work but needs further documentation and code improvements. It
-> will be documented in an upcoming release of ORY Kratos.
+> The OpenID Connect Strategy does already work but needs further documentation
+> and code improvements. It will be documented in an upcoming release of ORY
+> Kratos.
 
 The Social Sign In Strategy enables you to use
 
@@ -18,25 +19,26 @@ The Social Sign In Strategy enables you to use
 
 as the Identity Provider.
 
-Because of the nature of this flow (a browser is required) it does not work 
+Because of the nature of this flow (a browser is required) it does not work
 
 ## Browser Clients
 
 ### Login
 
-Sign In only works when an identity exists for that profile already.
-If it does not exist, a registration flow will be performed instead.
+Sign In only works when an identity exists for that profile already. If it does
+not exist, a registration flow will be performed instead.
 
 ### Registration
 
 Sign Up on conflict with existing primary identifiers like email:
 
-* Sign Up is dis-allowed and the user is asked to instead log in and then
-    link his/her account instead.
+- Sign Up is dis-allowed and the user is asked to instead log in and then link
+  his/her account instead.
 
 ## API Clients
 
-API-based login and registration using this strategy will be addressed in a future release of ORY Kratos.
+API-based login and registration using this strategy will be addressed in a
+future release of ORY Kratos.
 
-Please be aware that OpenID Connect providers always require a Browser, with the exception of "Sign in with Apple"
-on recent iOS versions.
+Please be aware that OpenID Connect providers always require a Browser, with the
+exception of "Sign in with Apple" on recent iOS versions.

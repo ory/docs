@@ -15,10 +15,7 @@
       {
         "type": "subcategory",
         "label": "Introduction",
-        "ids": [
-          "kratos/index",
-          "kratos/quickstart"
-        ]
+        "ids": ["kratos/index", "kratos/quickstart"]
       },
       {
         "type": "subcategory",
@@ -74,16 +71,12 @@
       {
         "type": "subcategory",
         "label": "SDKs",
-        "ids": [
-          "kratos/sdk/index"
-        ]
+        "ids": ["kratos/sdk/index"]
       },
       {
         "type": "subcategory",
         "label": "Further Reading",
-        "ids": [
-          "kratos/further-reading/comparison"
-        ]
+        "ids": ["kratos/further-reading/comparison"]
       }
     ],
     "ORY Hydra": [

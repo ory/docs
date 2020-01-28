@@ -3,8 +3,8 @@ id: password-reset-account-recovery
 title: Account Recovery
 ---
 
-Account Recovery must be performed if access to an account needs to be recovered.
-Common use cases include:
+Account Recovery must be performed if access to an account needs to be
+recovered. Common use cases include:
 
 - "Forgot password" flows
 - "Lost MFA device" flows
