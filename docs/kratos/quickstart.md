@@ -78,7 +78,11 @@ git clone https://github.com/ory/kratos.git
 # or if you have git+ssh set up:
 #  git clone https://github.com/ory/kratos.git
 cd kratos
-git checkout v0.1.0-alpha.1
+make quickstart
+
+# or if you don't have make installed:
+docker pull oryd/kratos:latest
+docker pull oryd/kratos-selfservice-ui-node:latest
 docker-compose -f quickstart.yml up --build
 ```
 
@@ -101,7 +105,7 @@ mailhog_1                     | [APIv1] KEEPALIVE /api/v1/events
 > There are two important factors to get a fully functional system:
 >
 > - You need to make sure that ports `4435`, `4455`, `4456`, `4433`, `4434`,
->   `4436`
+>   `4436` >
 >   [are free](https://serverfault.com/questions/309052/check-if-port-is-open-or-closed-on-a-linux-server).
 > - Make sure to always use `127.0.0.1` as the hostname, never use `localhost`!
 >   This is important because browsers treat these two as separate domains and
