@@ -3,7 +3,30 @@
 # Check https://circleci.com/docs/2.0/language-go/ for more details
 version: 2
 jobs:
-  publish:
+  publish-next:
+    docker:
+      - image: circleci/node:11.1
+    working_directory: /home/circleci/docs
+    steps:
+      - checkout
+      - run: cd website; npm ci
+      - run: git config --global user.email "hi@ory.sh"
+      - run: git config --global user.name "ORY Continuous Integration"
+      - run:
+          'git clone https://aeneasr:$DOCS_TOKEN_PUSH@github.com/ory/web.git ../web'
+      - run: cd website; npm run format
+      - run:
+          'git commit -a -m "Update files to match release $CIRCLE_TAG" || true'
+      - run:
+          'git remote add authn https://aeneasr:$DOCS_TOKEN_PUSH@github.com/ory/docs.git'
+      - run: 'git push authn HEAD:master || true'
+      - run: cd website; npm run build
+      - run: rm -rf ../web/docs/*
+      - run: cp -R ./website/build/docs/* ../web/docs/
+      - run:
+          'cd ../web && git add -A && git commit -a -m "docs: Bump to $CIRCLE_SHA1" && git push origin || exit 0'
+
+  publish-stable:
     docker:
       - image: circleci/node:11.1
     working_directory: /home/circleci/docs
@@ -20,15 +43,13 @@ jobs:
       - run:
           'git commit -a -m "Update files to match release $CIRCLE_TAG" || true'
       - run:
-          'git remote add authn
-          https://aeneasr:$DOCS_TOKEN_PUSH@github.com/ory/docs.git'
+          'git remote add authn https://aeneasr:$DOCS_TOKEN_PUSH@github.com/ory/docs.git'
       - run: 'git push authn HEAD:master || true'
       - run: cd website; npm run build
       - run: rm -rf ../web/docs/*
       - run: cp -R ./website/build/docs/* ../web/docs/
       - run:
-          'cd ../web && git add -A && git commit -a -m "docs: Bump to
-          $CIRCLE_SHA1" && git push origin || exit 0'
+          'cd ../web && git add -A && git commit -a -m "docs: Bump to $CIRCLE_SHA1" && git push origin || exit 0'
 
   test:
     docker:
@@ -49,7 +70,15 @@ workflows:
               only: /.*/
             branches:
               only: /.*/
-      - publish:
+      - publish-next:
+          requires:
+            - test
+          filters:
+            tags:
+              ignore: /.*/
+            branches:
+              only: /master/
+      - publish-stable:
           requires:
             - test
           filters:
