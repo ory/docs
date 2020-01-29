@@ -15,7 +15,7 @@
       {
         "type": "subcategory",
         "label": "Introduction",
-        "ids": ["kratos/index", "kratos/quickstart"]
+        "ids": ["kratos/index", "kratos/quickstart", "kratos/install"]
       },
       {
         "type": "subcategory",
@@ -82,6 +82,7 @@
     ],
     "ORY Hydra": [
       "hydra/index",
+      "hydra/install",
       {
         "type": "subcategory",
         "label": "Concepts",
