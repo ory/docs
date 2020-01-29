@@ -54,8 +54,8 @@ You can install ORY Oathkeeper using [scoop](https://scoop.sh) on Windows:
 ## Download Binaries
 
 The client and server **binaries are downloadable at the
-[releases tab](https://github.com/ory/kratos/releases)**. There is currently
-no installer available. You have to add the Oathkeeper binary to the PATH
+[releases tab](https://github.com/ory/kratos/releases)**. There is currently no
+installer available. You have to add the Oathkeeper binary to the PATH
 environment variable yourself or put the binary in a location that is already in
 your `$PATH` (e.g. `/usr/local/bin`, ...).
 
