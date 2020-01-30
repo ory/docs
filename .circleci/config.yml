@@ -18,7 +18,7 @@ jobs:
           branch=$(date +%s)
           git checkout -b $branch
           git add -A
-          git commit -a -m "Update files to match release $CIRCLE_SHA1" --allow-empty
+          git commit -a -m "Build and format files from $CIRCLE_SHA1 [ci skip]" --allow-empty
           git push origin HEAD:master
       - run: |
           git clone git@github.com:ory/web.git ../web
@@ -41,7 +41,7 @@ jobs:
           branch=$(date +%s)
           git checkout -b $branch
           git add -A
-          git commit -a -m "Update files to match release $CIRCLE_TAG" --allow-empty
+          git commit -a -m "Build and format files from $CIRCLE_TAG [ci skip]" --allow-empty
           git push origin HEAD:master
       - run: |
           git clone git@github.com:ory/web.git ../web
