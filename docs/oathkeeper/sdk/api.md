@@ -521,14 +521,14 @@ Status Code **200**
 | »» authenticators                                                           | [[ruleHandler](#schemarulehandler)] | false    | none         | Authenticators is a list of authentication handlers that will try and authenticate the provided credentials. Authenticators are checked iteratively from index 0 to n and if the first authenticator to return a positive result will be the one used. If you want the rule to first check a specific authenticator before "falling back" to others, have that authenticator as the first item in the array.                                                                                                                                                                                                                                                                                              |
 | »»» config                                                                  | object                              | false    | none         | Config contains the configuration for the handler. Please read the user guide for a complete list of each handler's available settings.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | »»» handler                                                                 | string                              | false    | none         | Handler identifies the implementation which will be used to handle this specific request. Please read the user guide for a complete list of available handlers.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| »» authorizer                                                               | [ruleHandler](#schemarulehandler)   | false    | none         | RuleHandler rule handler                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| »» authorizer                                                               | [ruleHandler](#schemarulehandler)   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | »» description                                                              | string                              | false    | none         | Description is a human readable description of this rule.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | »» id                                                                       | string                              | false    | none         | ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| »» match                                                                    | [ruleMatch](#schemarulematch)       | false    | none         | RuleMatch rule match                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| »» match                                                                    | [ruleMatch](#schemarulematch)       | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | »»» methods                                                                 | [string]                            | false    | none         | An array of HTTP methods (e.g. GET, POST, PUT, DELETE, ...). When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the HTTP method of the incoming request with the HTTP methods of each rules. If a match is found, the rule is considered a partial match. If the matchesUrl field is satisfied as well, the rule is considered a full match.                                                                                                                                                                                                                                                                                           |
 | »»» url                                                                     | string                              | false    | none         | This field represents the URL pattern this rule matches. When ORY Oathkeeper searches for rules to decide what to do with an incoming request to the proxy server, it compares the full request URL (e.g. https://mydomain.com/api/resource) without query parameters of the incoming request with this field. If a match is found, the rule is considered a partial match. If the matchesMethods field is satisfied as well, the rule is considered a full match. You can use regular expressions in this field to match more than one url. Regular expressions are encapsulated in brackets < and >. The following example matches all paths of the domain `mydomain.com`: `https://mydomain.com/<.*>`. |
 | »» mutators                                                                 | [[ruleHandler](#schemarulehandler)] | false    | none         | Mutators is a list of mutation handlers that transform the HTTP request. A common use case is generating a new set of credentials (e.g. JWT) which then will be forwarded to the upstream server. Mutations are performed iteratively from index 0 to n and should all succeed in order for the HTTP request to be forwarded.                                                                                                                                                                                                                                                                                                                                                                             |
-| »» upstream                                                                 | [Upstream](#schemaupstream)         | false    | none         | Upstream Upstream Upstream Upstream Upstream Upstream upstream                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| »» upstream                                                                 | [Upstream](#schemaupstream)         | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | »»» preserve_host                                                           | boolean                             | false    | none         | PreserveHost, if false (the default), tells ORY Oathkeeper to set the upstream request's Host header to the hostname of the API's upstream's URL. Setting this flag to true instructs ORY Oathkeeper not to do so.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | »»» strip_path                                                              | string                              | false    | none         | StripPath if set, replaces the provided path prefix when forwarding the requested URL to the upstream URL.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | »»» url                                                                     | string                              | false    | none         | URL is the URL the request will be proxied to.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
@@ -1516,332 +1516,6 @@ p JSON.parse(result)
 
 ## Schemas
 
-<a id="tocSdecisionsforbiddenbody">DecisionsForbiddenBody</a>
-
-#### DecisionsForbiddenBody
-
-<a id="schemadecisionsforbiddenbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_DecisionsForbiddenBody decisions forbidden body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSdecisionsinternalservererrorbody">DecisionsInternalServerErrorBody</a>
-
-#### DecisionsInternalServerErrorBody
-
-<a id="schemadecisionsinternalservererrorbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_DecisionsInternalServerErrorBody decisions internal server error body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSdecisionsnotfoundbody">DecisionsNotFoundBody</a>
-
-#### DecisionsNotFoundBody
-
-<a id="schemadecisionsnotfoundbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_DecisionsNotFoundBody decisions not found body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSdecisionsunauthorizedbody">DecisionsUnauthorizedBody</a>
-
-#### DecisionsUnauthorizedBody
-
-<a id="schemadecisionsunauthorizedbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_DecisionsUnauthorizedBody decisions unauthorized body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSgetruleinternalservererrorbody">GetRuleInternalServerErrorBody</a>
-
-#### GetRuleInternalServerErrorBody
-
-<a id="schemagetruleinternalservererrorbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_GetRuleInternalServerErrorBody get rule internal server error body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSgetrulenotfoundbody">GetRuleNotFoundBody</a>
-
-#### GetRuleNotFoundBody
-
-<a id="schemagetrulenotfoundbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_GetRuleNotFoundBody get rule not found body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSgetwellknownjsonwebkeysinternalservererrorbody">GetWellKnownJSONWebKeysInternalServerErrorBody</a>
-
-#### GetWellKnownJSONWebKeysInternalServerErrorBody
-
-<a id="schemagetwellknownjsonwebkeysinternalservererrorbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_GetWellKnownJSONWebKeysInternalServerErrorBody get well known JSON web keys
-internal server error body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSisinstancealiveinternalservererrorbody">IsInstanceAliveInternalServerErrorBody</a>
-
-#### IsInstanceAliveInternalServerErrorBody
-
-<a id="schemaisinstancealiveinternalservererrorbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_IsInstanceAliveInternalServerErrorBody is instance alive internal server error
-body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSlistrulesinternalservererrorbody">ListRulesInternalServerErrorBody</a>
-
-#### ListRulesInternalServerErrorBody
-
-<a id="schemalistrulesinternalservererrorbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_ListRulesInternalServerErrorBody list rules internal server error body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
 <a id="tocSupstream">Upstream</a>
 
 #### Upstream
@@ -1855,8 +1529,6 @@ _ListRulesInternalServerErrorBody list rules internal server error body_
   "url": "string"
 }
 ```
-
-_Upstream Upstream Upstream Upstream Upstream Upstream upstream_
 
 #### Properties
 
@@ -1900,8 +1572,6 @@ _Upstream Upstream Upstream Upstream Upstream Upstream upstream_
 }
 ```
 
-_HealthStatus HealthStatus HealthStatus HealthStatus health status_
-
 #### Properties
 
 | Name   | Type   | Required | Restrictions | Description                  |
@@ -1941,22 +1611,22 @@ _HealthStatus HealthStatus HealthStatus HealthStatus health status_
 | Name | Type     | Required | Restrictions | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | ---- | -------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | alg  | string   | false    | none         | The "alg" (algorithm) parameter identifies the algorithm intended for use with the key. The values used should either be registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by [JWA] or be a value that contains a Collision- Resistant Name.                                                                                                                                                                                                                                                                                              |
-| crv  | string   | false    | none         | crv                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| d    | string   | false    | none         | d                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| dp   | string   | false    | none         | dp                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| dq   | string   | false    | none         | dq                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| e    | string   | false    | none         | e                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| k    | string   | false    | none         | k                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| crv  | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| d    | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| dp   | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| dq   | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| e    | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| k    | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | kid  | string   | false    | none         | The "kid" (key ID) parameter is used to match a specific key. This is used, for instance, to choose among a set of keys within a JWK Set during key rollover. The structure of the "kid" value is unspecified. When "kid" values are used within a JWK Set, different keys within the JWK Set SHOULD use distinct "kid" values. (One example in which different keys might use the same "kid" value is if they have different "kty" (key type) values but are considered to be equivalent alternatives by the application using them.) The "kid" value is a case-sensitive string. |
 | kty  | string   | false    | none         | The "kty" (key type) parameter identifies the cryptographic algorithm family used with the key, such as "RSA" or "EC". "kty" values should either be registered in the IANA "JSON Web Key Types" registry established by [JWA] or be a value that contains a Collision- Resistant Name. The "kty" value is a case-sensitive string.                                                                                                                                                                                                                                                |
-| n    | string   | false    | none         | n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| p    | string   | false    | none         | p                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| q    | string   | false    | none         | q                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| qi   | string   | false    | none         | qi                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| n    | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| p    | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| q    | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| qi   | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | use  | string   | false    | none         | The "use" (public key use) parameter identifies the intended use of the public key. The "use" parameter is employed to indicate whether a public key is used for encrypting data or verifying the signature on data. Values are commonly "sig" (signature) or "enc" (encryption).                                                                                                                                                                                                                                                                                                  |
-| x    | string   | false    | none         | x                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| x    | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | x5c  | [string] | false    | none         | The "x5c" (X.509 certificate chain) parameter contains a chain of one or more PKIX certificates [RFC5280]. The certificate chain is represented as a JSON array of certificate value strings. Each string in the array is a base64-encoded (Section 4 of [RFC4648] -- not base64url-encoded) DER [ITU.X690.1994] PKIX certificate value. The PKIX certificate containing the key value MUST be the first certificate.                                                                                                                                                              |
-| y    | string   | false    | none         | y                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| y    | string   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 
 <a id="tocSjsonwebkeyset">jsonWebKeySet</a>
 
@@ -1989,8 +1659,6 @@ _HealthStatus HealthStatus HealthStatus HealthStatus health status_
   ]
 }
 ```
-
-_JSONWebKeySet json web key set_
 
 #### Properties
 
@@ -2043,12 +1711,12 @@ _swaggerRule is a single rule that will get checked on every HTTP request._
 | Name           | Type                                | Required | Restrictions | Description                                                                                                                                                                                                                                                                                                                                                                                                  |
 | -------------- | ----------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | authenticators | [[ruleHandler](#schemarulehandler)] | false    | none         | Authenticators is a list of authentication handlers that will try and authenticate the provided credentials. Authenticators are checked iteratively from index 0 to n and if the first authenticator to return a positive result will be the one used. If you want the rule to first check a specific authenticator before "falling back" to others, have that authenticator as the first item in the array. |
-| authorizer     | [ruleHandler](#schemarulehandler)   | false    | none         | RuleHandler rule handler                                                                                                                                                                                                                                                                                                                                                                                     |
+| authorizer     | [ruleHandler](#schemarulehandler)   | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                         |
 | description    | string                              | false    | none         | Description is a human readable description of this rule.                                                                                                                                                                                                                                                                                                                                                    |
 | id             | string                              | false    | none         | ID is the unique id of the rule. It can be at most 190 characters long, but the layout of the ID is up to you. You will need this ID later on to update or delete the rule.                                                                                                                                                                                                                                  |
-| match          | [ruleMatch](#schemarulematch)       | false    | none         | RuleMatch rule match                                                                                                                                                                                                                                                                                                                                                                                         |
+| match          | [ruleMatch](#schemarulematch)       | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                         |
 | mutators       | [[ruleHandler](#schemarulehandler)] | false    | none         | Mutators is a list of mutation handlers that transform the HTTP request. A common use case is generating a new set of credentials (e.g. JWT) which then will be forwarded to the upstream server. Mutations are performed iteratively from index 0 to n and should all succeed in order for the HTTP request to be forwarded.                                                                                |
-| upstream       | [Upstream](#schemaupstream)         | false    | none         | Upstream Upstream Upstream Upstream Upstream Upstream upstream                                                                                                                                                                                                                                                                                                                                               |
+| upstream       | [Upstream](#schemaupstream)         | false    | none         | none                                                                                                                                                                                                                                                                                                                                                                                                         |
 
 <a id="tocSrulehandler">ruleHandler</a>
 
@@ -2062,8 +1730,6 @@ _swaggerRule is a single rule that will get checked on every HTTP request._
   "handler": "string"
 }
 ```
-
-_RuleHandler rule handler_
 
 #### Properties
 
@@ -2085,8 +1751,6 @@ _RuleHandler rule handler_
 }
 ```
 
-_RuleMatch rule match_
-
 #### Properties
 
 | Name    | Type     | Required | Restrictions | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
@@ -2105,8 +1769,6 @@ _RuleMatch rule match_
   "version": "string"
 }
 ```
-
-_Version Version Version Version version_
 
 #### Properties
 

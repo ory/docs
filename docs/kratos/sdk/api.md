@@ -424,9 +424,9 @@ https://www.ory.sh/docs/kratos/selfservice/login
 ```json
 {
   "active": "string",
-  "expires_at": "2020-01-21T10:46:39Z",
+  "expires_at": "2020-01-30T07:01:51Z",
   "id": "string",
-  "issued_at": "2020-01-21T10:46:39Z",
+  "issued_at": "2020-01-30T07:01:51Z",
   "methods": {
     "property1": {
       "config": {},
@@ -614,9 +614,9 @@ https://www.ory.sh/docs/kratos/selfservice/registration
 ```json
 {
   "active": "string",
-  "expires_at": "2020-01-21T10:46:39Z",
+  "expires_at": "2020-01-30T07:01:51Z",
   "id": "string",
-  "issued_at": "2020-01-21T10:46:39Z",
+  "issued_at": "2020-01-30T07:01:51Z",
   "methods": {
     "property1": {
       "config": {},
@@ -1188,7 +1188,7 @@ by the profile management UI.
 
 ```json
 {
-  "expires_at": "2020-01-21T10:46:39Z",
+  "expires_at": "2020-01-30T07:01:51Z",
   "form": {
     "action": "string",
     "errors": [
@@ -1196,19 +1196,8 @@ by the profile management UI.
         "message": "string"
       }
     ],
-    "fields": {
-      "property1": {
-        "errors": [
-          {
-            "message": "string"
-          }
-        ],
-        "name": "string",
-        "required": true,
-        "type": "string",
-        "value": {}
-      },
-      "property2": {
+    "fields": [
+      {
         "errors": [
           {
             "message": "string"
@@ -1219,7 +1208,7 @@ by the profile management UI.
         "type": "string",
         "value": {}
       }
-    },
+    ],
     "method": "string"
   },
   "id": "string",
@@ -1229,7 +1218,7 @@ by the profile management UI.
     "traits_schema_id": "string",
     "traits_schema_url": "string"
   },
-  "issued_at": "2020-01-21T10:46:39Z",
+  "issued_at": "2020-01-30T07:01:51Z",
   "request_url": "string",
   "update_successful": true
 }
@@ -1929,14 +1918,14 @@ p JSON.parse(result)
 "string"
 ```
 
-_CredentialsType CredentialsType represents several different credential types,
-like password credentials, passwordless credentials,_
+_CredentialsType represents several different credential types, like password
+credentials, passwordless credentials,_
 
 #### Properties
 
-| Name                                                                                                                                | Type   | Required | Restrictions | Description |
-| ----------------------------------------------------------------------------------------------------------------------------------- | ------ | -------- | ------------ | ----------- |
-| CredentialsType CredentialsType represents several different credential types, like password credentials, passwordless credentials, | string | false    | none         | and so on.  |
+| Name                                                                                                                | Type   | Required | Restrictions | Description |
+| ------------------------------------------------------------------------------------------------------------------- | ------ | -------- | ------------ | ----------- |
+| CredentialsType represents several different credential types, like password credentials, passwordless credentials, | string | false    | none         | and so on.  |
 
 <a id="tocSerror">Error</a>
 
@@ -1977,12 +1966,161 @@ _Identity identity_
 
 #### Properties
 
-| Name              | Type                    | Required | Restrictions | Description                                                                                      |
-| ----------------- | ----------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------ |
-| id                | [UUID](#schemauuid)     | true     | none         | none                                                                                             |
-| traits            | [Traits](#schematraits) | true     | none         | Traits traits                                                                                    |
-| traits_schema_id  | string                  | false    | none         | TraitsSchemaID is the JSON Schema to be used for validating the identity's traits.               |
-| traits_schema_url | string                  | false    | none         | TraitsSchemaURL is the kratos public endpoint where the identity's traits schema can be fetched. |
+| Name              | Type                    | Required | Restrictions | Description                                                                                                    |
+| ----------------- | ----------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------- |
+| id                | [UUID](#schemauuid)     | true     | none         | UUID UUID                                                                                                      |
+| traits            | [Traits](#schematraits) | true     | none         | Traits traits                                                                                                  |
+| traits_schema_id  | string                  | false    | none         | TraitsSchemaID is the ID of the JSON Schema to be used for validating the identity's traits.                   |
+| traits_schema_url | string                  | false    | none         | TraitsSchemaURL is the URL of the endpoint where the identity's traits schema can be fetched from. format: url |
+
+<a id="tocSloginrequestmethodconfigallof0">LoginRequestMethodConfigAllOf0</a>
+
+#### LoginRequestMethodConfigAllOf0
+
+<a id="schemaloginrequestmethodconfigallof0"></a>
+
+```json
+{}
+```
+
+_LoginRequestMethodConfigAllOf0 login request method config all of0_
+
+#### Properties
+
+_None_
+
+<a id="tocSloginrequestmethodconfigallof1">LoginRequestMethodConfigAllOf1</a>
+
+#### LoginRequestMethodConfigAllOf1
+
+<a id="schemaloginrequestmethodconfigallof1"></a>
+
+```json
+{}
+```
+
+_LoginRequestMethodConfigAllOf1 login request method config all of1_
+
+#### Properties
+
+_None_
+
+<a id="tocSloginrequestmethodconfigallof2">LoginRequestMethodConfigAllOf2</a>
+
+#### LoginRequestMethodConfigAllOf2
+
+<a id="schemaloginrequestmethodconfigallof2"></a>
+
+```json
+{}
+```
+
+_LoginRequestMethodConfigAllOf2 login request method config all of2_
+
+#### Properties
+
+_None_
+
+<a id="tocSloginrequestmethodconfigallof3">LoginRequestMethodConfigAllOf3</a>
+
+#### LoginRequestMethodConfigAllOf3
+
+<a id="schemaloginrequestmethodconfigallof3"></a>
+
+```json
+{}
+```
+
+_LoginRequestMethodConfigAllOf3 login request method config all of3_
+
+#### Properties
+
+_None_
+
+<a id="tocSregistrationrequestmethodconfigallof0">RegistrationRequestMethodConfigAllOf0</a>
+
+#### RegistrationRequestMethodConfigAllOf0
+
+<a id="schemaregistrationrequestmethodconfigallof0"></a>
+
+```json
+{}
+```
+
+_RegistrationRequestMethodConfigAllOf0 registration request method config all
+of0_
+
+#### Properties
+
+_None_
+
+<a id="tocSregistrationrequestmethodconfigallof1">RegistrationRequestMethodConfigAllOf1</a>
+
+#### RegistrationRequestMethodConfigAllOf1
+
+<a id="schemaregistrationrequestmethodconfigallof1"></a>
+
+```json
+{}
+```
+
+_RegistrationRequestMethodConfigAllOf1 registration request method config all
+of1_
+
+#### Properties
+
+_None_
+
+<a id="tocSregistrationrequestmethodconfigallof2">RegistrationRequestMethodConfigAllOf2</a>
+
+#### RegistrationRequestMethodConfigAllOf2
+
+<a id="schemaregistrationrequestmethodconfigallof2"></a>
+
+```json
+{}
+```
+
+_RegistrationRequestMethodConfigAllOf2 registration request method config all
+of2_
+
+#### Properties
+
+_None_
+
+<a id="tocSregistrationrequestmethodconfigallof3">RegistrationRequestMethodConfigAllOf3</a>
+
+#### RegistrationRequestMethodConfigAllOf3
+
+<a id="schemaregistrationrequestmethodconfigallof3"></a>
+
+```json
+{}
+```
+
+_RegistrationRequestMethodConfigAllOf3 registration request method config all
+of3_
+
+#### Properties
+
+_None_
+
+<a id="tocSregistrationrequestmethodconfigallof4">RegistrationRequestMethodConfigAllOf4</a>
+
+#### RegistrationRequestMethodConfigAllOf4
+
+<a id="schemaregistrationrequestmethodconfigallof4"></a>
+
+```json
+{}
+```
+
+_RegistrationRequestMethodConfigAllOf4 registration request method config all
+of4_
+
+#### Properties
+
+_None_
 
 <a id="tocStraits">Traits</a>
 
@@ -2010,11 +2148,13 @@ _None_
 "string"
 ```
 
+_UUID UUID_
+
 #### Properties
 
 | Name        | Type          | Required | Restrictions | Description |
 | ----------- | ------------- | -------- | ------------ | ----------- |
-| _anonymous_ | string(uuid4) | false    | none         | none        |
+| _anonymous_ | string(uuid4) | false    | none         | UUID UUID   |
 
 <a id="tocSform">form</a>
 
@@ -2030,19 +2170,8 @@ _None_
       "message": "string"
     }
   ],
-  "fields": {
-    "property1": {
-      "errors": [
-        {
-          "message": "string"
-        }
-      ],
-      "name": "string",
-      "required": true,
-      "type": "string",
-      "value": {}
-    },
-    "property2": {
+  "fields": [
+    {
       "errors": [
         {
           "message": "string"
@@ -2053,7 +2182,7 @@ _None_
       "type": "string",
       "value": {}
     }
-  },
+  ],
   "method": "string"
 }
 ```
@@ -2067,7 +2196,7 @@ JSON requests_
 | ------ | ------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------- |
 | action | string                          | false    | none         | Action should be used as the form action URL (<form action="{{ .Action }}" method="post">). |
 | errors | [[Error](#schemaerror)]         | false    | none         | Errors contains all form errors. These will be duplicates of the individual field errors.   |
-| fields | [formFields](#schemaformfields) | false    | none         | FormFields Fields contains multiple fields asdfasdf                                         |
+| fields | [formFields](#schemaformfields) | false    | none         | Fields contains multiple fields                                                             |
 | method | string                          | false    | none         | Method is the form method (e.g. POST)                                                       |
 
 <a id="tocSformfield">formField</a>
@@ -2098,9 +2227,9 @@ _Field represents a HTML Form Field_
 | -------- | ----------------------- | -------- | ------------ | ----------------------------------------------------------------------- |
 | errors   | [[Error](#schemaerror)] | false    | none         | Errors contains all validation errors this particular field has caused. |
 | name     | string                  | false    | none         | Name is the equivalent of <input name="{{.Name}}">                      |
-| required | boolean                 | false    | none         | Name is the equivalent of <input required="{{.Required}}">              |
-| type     | string                  | false    | none         | Name is the equivalent of <input type="{{.Type}}">                      |
-| value    | object                  | false    | none         | Name is the equivalent of <input value="{{.Value}}">                    |
+| required | boolean                 | false    | none         | Required is the equivalent of <input required="{{.Required}}">          |
+| type     | string                  | false    | none         | Type is the equivalent of <input type="{{.Type}}">                      |
+| value    | object                  | false    | none         | Value is the equivalent of <input value="{{.Value}}">                   |
 
 <a id="tocSformfields">formFields</a>
 
@@ -2109,19 +2238,8 @@ _Field represents a HTML Form Field_
 <a id="schemaformfields"></a>
 
 ```json
-{
-  "property1": {
-    "errors": [
-      {
-        "message": "string"
-      }
-    ],
-    "name": "string",
-    "required": true,
-    "type": "string",
-    "value": {}
-  },
-  "property2": {
+[
+  {
     "errors": [
       {
         "message": "string"
@@ -2132,16 +2250,16 @@ _Field represents a HTML Form Field_
     "type": "string",
     "value": {}
   }
-}
+]
 ```
 
-_FormFields Fields contains multiple fields asdfasdf_
+_Fields contains multiple fields_
 
 #### Properties
 
-| Name                     | Type                          | Required | Restrictions | Description                        |
-| ------------------------ | ----------------------------- | -------- | ------------ | ---------------------------------- |
-| **additionalProperties** | [formField](#schemaformfield) | false    | none         | Field represents a HTML Form Field |
+| Name        | Type                            | Required | Restrictions | Description                     |
+| ----------- | ------------------------------- | -------- | ------------ | ------------------------------- |
+| _anonymous_ | [[formField](#schemaformfield)] | false    | none         | Fields contains multiple fields |
 
 <a id="tocSgenericerror">genericError</a>
 
@@ -2184,6 +2302,8 @@ _Error response_
 }
 ```
 
+_HealthNotReadyStatus health not ready status_
+
 #### Properties
 
 | Name                       | Type   | Required | Restrictions | Description                                                        |
@@ -2203,6 +2323,8 @@ _Error response_
 }
 ```
 
+_HealthStatus health status_
+
 #### Properties
 
 | Name   | Type   | Required | Restrictions | Description                  |
@@ -2218,9 +2340,9 @@ _Error response_
 ```json
 {
   "active": "string",
-  "expires_at": "2020-01-21T10:46:39Z",
+  "expires_at": "2020-01-30T07:01:51Z",
   "id": "string",
-  "issued_at": "2020-01-21T10:46:39Z",
+  "issued_at": "2020-01-30T07:01:51Z",
   "methods": {
     "property1": {
       "config": {},
@@ -2235,16 +2357,14 @@ _Error response_
 }
 ```
 
-_LoginRequest login request_
-
 #### Properties
 
 | Name                       | Type                                            | Required | Restrictions | Description                                                                                                                                                                 |
 | -------------------------- | ----------------------------------------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | active                     | [CredentialsType](#schemacredentialstype)       | false    | none         | and so on.                                                                                                                                                                  |
-| expires_at                 | string(date-time)                               | false    | none         | ExpiresAt is the time (UTC) when the request expires. If the user still wishes to log in, a new request has to be initiated. Format: date-time                              |
-| id                         | [UUID](#schemauuid)                             | false    | none         | none                                                                                                                                                                        |
-| issued_at                  | string(date-time)                               | false    | none         | IssuedAt is the time (UTC) when the request occurred. Format: date-time                                                                                                     |
+| expires_at                 | string(date-time)                               | false    | none         | ExpiresAt is the time (UTC) when the request expires. If the user still wishes to log in, a new request has to be initiated.                                                |
+| id                         | [UUID](#schemauuid)                             | false    | none         | UUID UUID                                                                                                                                                                   |
+| issued_at                  | string(date-time)                               | false    | none         | IssuedAt is the time (UTC) when the request occurred.                                                                                                                       |
 | methods                    | object                                          | false    | none         | Methods contains context for all enabled login methods. If a login request has been processed, but for example the password is incorrect, this will contain error messages. |
 | » **additionalProperties** | [loginRequestMethod](#schemaloginrequestmethod) | false    | none         | none                                                                                                                                                                        |
 | request_url                | string                                          | false    | none         | RequestURL is the initial URL that was requested from ORY Kratos. It can be used to forward information contained in the URL's path or query for example.                   |
@@ -2264,10 +2384,10 @@ _LoginRequest login request_
 
 #### Properties
 
-| Name   | Type                                                        | Required | Restrictions | Description                                          |
-| ------ | ----------------------------------------------------------- | -------- | ------------ | ---------------------------------------------------- |
-| config | [loginRequestMethodConfig](#schemaloginrequestmethodconfig) | false    | none         | LoginRequestMethodConfig login request method config |
-| method | [CredentialsType](#schemacredentialstype)                   | false    | none         | and so on.                                           |
+| Name   | Type                                                        | Required | Restrictions | Description |
+| ------ | ----------------------------------------------------------- | -------- | ------------ | ----------- |
+| config | [loginRequestMethodConfig](#schemaloginrequestmethodconfig) | false    | none         | none        |
+| method | [CredentialsType](#schemacredentialstype)                   | false    | none         | and so on.  |
 
 <a id="tocSloginrequestmethodconfig">loginRequestMethodConfig</a>
 
@@ -2278,8 +2398,6 @@ _LoginRequest login request_
 ```json
 {}
 ```
-
-_LoginRequestMethodConfig login request method config_
 
 #### Properties
 
@@ -2307,6 +2425,80 @@ _and_
 | ----------- | ------ | -------- | ------------ | ----------- |
 | _anonymous_ | object | false    | none         | none        |
 
+<a id="tocSoidcstrategycredentialsconfig">oidcStrategyCredentialsConfig</a>
+
+#### oidcStrategyCredentialsConfig
+
+<a id="schemaoidcstrategycredentialsconfig"></a>
+
+```json
+{
+  "provider": "string",
+  "subject": "string"
+}
+```
+
+#### Properties
+
+| Name     | Type   | Required | Restrictions | Description |
+| -------- | ------ | -------- | ------------ | ----------- |
+| provider | string | false    | none         | none        |
+| subject  | string | false    | none         | none        |
+
+<a id="tocSoidcstrategyrequestmethod">oidcStrategyRequestMethod</a>
+
+#### oidcStrategyRequestMethod
+
+<a id="schemaoidcstrategyrequestmethod"></a>
+
+```json
+{
+  "action": "string",
+  "errors": [
+    {
+      "message": "string"
+    }
+  ],
+  "fields": [
+    {
+      "errors": [
+        {
+          "message": "string"
+        }
+      ],
+      "name": "string",
+      "required": true,
+      "type": "string",
+      "value": {}
+    }
+  ],
+  "method": "string",
+  "providers": [
+    {
+      "errors": [
+        {
+          "message": "string"
+        }
+      ],
+      "name": "string",
+      "required": true,
+      "type": "string",
+      "value": {}
+    }
+  ]
+}
+```
+
+#### Properties
+
+| Name      | Type                            | Required | Restrictions | Description                                                                                 |
+| --------- | ------------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------- |
+| action    | string                          | false    | none         | Action should be used as the form action URL (<form action="{{ .Action }}" method="post">). |
+| errors    | [[Error](#schemaerror)]         | false    | none         | Errors contains all form errors. These will be duplicates of the individual field errors.   |
+| fields    | [formFields](#schemaformfields) | false    | none         | Fields contains multiple fields                                                             |
+| method    | string                          | false    | none         | Method is the form method (e.g. POST)                                                       |
+| providers | [[formField](#schemaformfield)] | false    | none         | [Field represents a HTML Form Field]                                                        |
+
 <a id="tocSprofilemanagementrequest">profileManagementRequest</a>
 
 #### profileManagementRequest
@@ -2315,7 +2507,7 @@ _and_
 
 ```json
 {
-  "expires_at": "2020-01-21T10:46:39Z",
+  "expires_at": "2020-01-30T07:01:51Z",
   "form": {
     "action": "string",
     "errors": [
@@ -2323,19 +2515,8 @@ _and_
         "message": "string"
       }
     ],
-    "fields": {
-      "property1": {
-        "errors": [
-          {
-            "message": "string"
-          }
-        ],
-        "name": "string",
-        "required": true,
-        "type": "string",
-        "value": {}
-      },
-      "property2": {
+    "fields": [
+      {
         "errors": [
           {
             "message": "string"
@@ -2346,7 +2527,7 @@ _and_
         "type": "string",
         "value": {}
       }
-    },
+    ],
     "method": "string"
   },
   "id": "string",
@@ -2356,23 +2537,23 @@ _and_
     "traits_schema_id": "string",
     "traits_schema_url": "string"
   },
-  "issued_at": "2020-01-21T10:46:39Z",
+  "issued_at": "2020-01-30T07:01:51Z",
   "request_url": "string",
   "update_successful": true
 }
 ```
 
-_ProfileManagementRequest Request presents a profile management request_
+_Request presents a profile management request_
 
 #### Properties
 
 | Name              | Type                        | Required | Restrictions | Description                                                                                                                                                                                                                                                                                       |
 | ----------------- | --------------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| expires_at        | string(date-time)           | false    | none         | ExpiresAt is the time (UTC) when the request expires. If the user still wishes to update the profile, a new request has to be initiated. Format: date-time                                                                                                                                        |
+| expires_at        | string(date-time)           | false    | none         | ExpiresAt is the time (UTC) when the request expires. If the user still wishes to update the profile, a new request has to be initiated.                                                                                                                                                          |
 | form              | [form](#schemaform)         | false    | none         | HTMLForm represents a HTML Form. The container can work with both HTTP Form and JSON requests                                                                                                                                                                                                     |
-| id                | [UUID](#schemauuid)         | false    | none         | none                                                                                                                                                                                                                                                                                              |
+| id                | [UUID](#schemauuid)         | false    | none         | UUID UUID                                                                                                                                                                                                                                                                                         |
 | identity          | [Identity](#schemaidentity) | false    | none         | Identity identity                                                                                                                                                                                                                                                                                 |
-| issued_at         | string(date-time)           | false    | none         | IssuedAt is the time (UTC) when the request occurred. Format: date-time                                                                                                                                                                                                                           |
+| issued_at         | string(date-time)           | false    | none         | IssuedAt is the time (UTC) when the request occurred.                                                                                                                                                                                                                                             |
 | request_url       | string                      | false    | none         | RequestURL is the initial URL that was requested from ORY Kratos. It can be used to forward information contained in the URL's path or query for example.                                                                                                                                         |
 | update_successful | boolean                     | false    | none         | UpdateSuccessful, if true, indicates that the profile has been updated successfully with the provided data. Done will stay true when repeatedly checking. If set to true, done will revert back to false only when a request with invalid (e.g. "please use a valid phone number") data was sent. |
 
@@ -2385,9 +2566,9 @@ _ProfileManagementRequest Request presents a profile management request_
 ```json
 {
   "active": "string",
-  "expires_at": "2020-01-21T10:46:39Z",
+  "expires_at": "2020-01-30T07:01:51Z",
   "id": "string",
-  "issued_at": "2020-01-21T10:46:39Z",
+  "issued_at": "2020-01-30T07:01:51Z",
   "methods": {
     "property1": {
       "config": {},
@@ -2402,16 +2583,14 @@ _ProfileManagementRequest Request presents a profile management request_
 }
 ```
 
-_RegistrationRequest registration request_
-
 #### Properties
 
 | Name                       | Type                                                          | Required | Restrictions | Description                                                                                                                                                                               |
 | -------------------------- | ------------------------------------------------------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | active                     | [CredentialsType](#schemacredentialstype)                     | false    | none         | and so on.                                                                                                                                                                                |
-| expires_at                 | string(date-time)                                             | false    | none         | ExpiresAt is the time (UTC) when the request expires. If the user still wishes to log in, a new request has to be initiated. Format: date-time                                            |
-| id                         | [UUID](#schemauuid)                                           | false    | none         | none                                                                                                                                                                                      |
-| issued_at                  | string(date-time)                                             | false    | none         | IssuedAt is the time (UTC) when the request occurred. Format: date-time                                                                                                                   |
+| expires_at                 | string(date-time)                                             | false    | none         | ExpiresAt is the time (UTC) when the request expires. If the user still wishes to log in, a new request has to be initiated.                                                              |
+| id                         | [UUID](#schemauuid)                                           | false    | none         | UUID UUID                                                                                                                                                                                 |
+| issued_at                  | string(date-time)                                             | false    | none         | IssuedAt is the time (UTC) when the request occurred.                                                                                                                                     |
 | methods                    | object                                                        | false    | none         | Methods contains context for all enabled registration methods. If a registration request has been processed, but for example the password is incorrect, this will contain error messages. |
 | » **additionalProperties** | [registrationRequestMethod](#schemaregistrationrequestmethod) | false    | none         | RegistrationRequestMethod registration request method                                                                                                                                     |
 | request_url                | string                                                        | false    | none         | RequestURL is the initial URL that was requested from ORY Kratos. It can be used to forward information contained in the URL's path or query for example.                                 |
@@ -2491,6 +2670,8 @@ _and_
   "version": "string"
 }
 ```
+
+_Version version_
 
 #### Properties
 
