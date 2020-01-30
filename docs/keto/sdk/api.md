@@ -291,18 +291,18 @@ List ORY Access Control Policies
 
 Status Code **200**
 
-| Name                                                              | Type                                                      | Required | Restrictions | Description                                                                                                          |
-| ----------------------------------------------------------------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------- |
-| _anonymous_                                                       | [[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)] | false    | none         | none                                                                                                                 |
-| » oryAccessControlPolicy specifies an ORY Access Policy document. | [oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)   | false    | none         | none                                                                                                                 |
-| »» actions                                                        | [string]                                                  | false    | none         | Actions is an array representing all the actions this ORY Access Policy applies to.                                  |
-| »» conditions                                                     | object                                                    | false    | none         | Conditions represents a keyed object of conditions under which this ORY Access Policy is active.                     |
-| »»» **additionalProperties**                                      | object                                                    | false    | none         | none                                                                                                                 |
-| »» description                                                    | string                                                    | false    | none         | Description is an optional, human-readable description.                                                              |
-| »» effect                                                         | string                                                    | false    | none         | Effect is the effect of this ORY Access Policy. It can be "allow" or "deny".                                         |
-| »» id                                                             | string                                                    | false    | none         | ID is the unique identifier of the ORY Access Policy. It is used to query, update, and remove the ORY Access Policy. |
-| »» resources                                                      | [string]                                                  | false    | none         | Resources is an array representing all the resources this ORY Access Policy applies to.                              |
-| »» subjects                                                       | [string]                                                  | false    | none         | Subjects is an array representing all the subjects this ORY Access Policy applies to.                                |
+| Name                                                                                     | Type                                                      | Required | Restrictions | Description                                                                                                          |
+| ---------------------------------------------------------------------------------------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------- |
+| _anonymous_                                                                              | [[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)] | false    | none         | none                                                                                                                 |
+| » OryAccessControlPolicy oryAccessControlPolicy specifies an ORY Access Policy document. | [oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)   | false    | none         | none                                                                                                                 |
+| »» actions                                                                               | [string]                                                  | false    | none         | Actions is an array representing all the actions this ORY Access Policy applies to.                                  |
+| »» conditions                                                                            | object                                                    | false    | none         | Conditions represents a keyed object of conditions under which this ORY Access Policy is active.                     |
+| »»» **additionalProperties**                                                             | object                                                    | false    | none         | none                                                                                                                 |
+| »» description                                                                           | string                                                    | false    | none         | Description is an optional, human-readable description.                                                              |
+| »» effect                                                                                | string                                                    | false    | none         | Effect is the effect of this ORY Access Policy. It can be "allow" or "deny".                                         |
+| »» id                                                                                    | string                                                    | false    | none         | ID is the unique identifier of the ORY Access Policy. It is used to query, update, and remove the ORY Access Policy. |
+| »» resources                                                                             | [string]                                                  | false    | none         | Resources is an array representing all the resources this ORY Access Policy applies to.                              |
+| »» subjects                                                                              | [string]                                                  | false    | none         | Subjects is an array representing all the subjects this ORY Access Policy applies to.                                |
 
 Status Code **500**
 
@@ -3520,8 +3520,8 @@ control policy role internal server error body_
 }
 ```
 
-_AuthorizationResult AuthorizationResult AuthorizationResult AuthorizationResult
-is the result of an access control decision. It contains the decision outcome._
+_AuthorizationResult is the result of an access control decision. It contains
+the decision outcome._
 
 #### Properties
 
@@ -3565,6 +3565,8 @@ _HealthNotReadyStatus health not ready status_
 }
 ```
 
+_HealthStatus health status_
+
 #### Properties
 
 | Name   | Type   | Required | Restrictions | Description                  |
@@ -3592,7 +3594,8 @@ _HealthNotReadyStatus health not ready status_
 }
 ```
 
-_oryAccessControlPolicy specifies an ORY Access Policy document._
+_OryAccessControlPolicy oryAccessControlPolicy specifies an ORY Access Policy
+document._
 
 #### Properties
 
@@ -3625,8 +3628,7 @@ _oryAccessControlPolicy specifies an ORY Access Policy document._
 }
 ```
 
-_OryAccessControlPolicyAllowedInput Input for checking if a request is allowed
-or not._
+_Input for checking if a request is allowed or not._
 
 #### Properties
 
