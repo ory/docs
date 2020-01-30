@@ -1,8 +1,6 @@
 {
   "version-oryOS.15-docs": {
-    "Welcome": [
-      "version-oryOS.15-index"
-    ],
+    "Welcome": ["version-oryOS.15-index"],
     "Ecosystem": [
       "version-oryOS.15-ecosystem/projects",
       "version-oryOS.15-ecosystem/software-architecture-philosophy",
