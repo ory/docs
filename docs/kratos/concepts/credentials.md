@@ -257,7 +257,8 @@ Assuming your traits schema is as follows:
 ```
 
 And an identity registers with the following JSON payload (more on registration
-in [Selfservice Registration](../self-service/flows/user-login-user-registration.md)):
+in
+[Selfservice Registration](../self-service/flows/user-login-user-registration.md)):
 
 ```json
 {
