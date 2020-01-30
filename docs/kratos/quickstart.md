@@ -76,7 +76,7 @@ your system. No other dependencies are required. Let's clone ORY Kratos and run
 ```shell script
 git clone https://github.com/ory/kratos.git
 # or if you have git+ssh set up:
-#  git clone https://github.com/ory/kratos.git
+#  git clone git@github.com:ory/kratos.git
 cd kratos
 make quickstart
 
@@ -178,7 +178,7 @@ our SecureApp) then fetches data important for rendering the forms from ORY
 Krato's Admin API:
 
 ```shell script
-$ curl http://127.0.0.1:4434/auth/browser/requests/login?request=<request-id>
+$ curl http://127.0.0.1:4434/self-service/browser/flows/login?request=<request-id>
 {
     "id": "27aa98bc-a074-418f-96fa-8b8146050209",
     "expires_at": "2020-01-20T21:10:12.7365393Z",
@@ -190,24 +190,24 @@ $ curl http://127.0.0.1:4434/auth/browser/requests/login?request=<request-id>
             "config": {
                 "action": "http://127.0.0.1:4455/.ory/kratos/public/auth/browser/methods/password/login?request=27aa98bc-a074-418f-96fa-8b8146050209",
                 "method": "POST",
-                "fields": {
-                    "csrf_token": {
+                "fields": [
+                    {
                         "name": "csrf_token",
                         "type": "hidden",
                         "required": true,
                         "value": "Ii8iIEdnn12vVQ2vyz2YaHjmXMUK5eSQgw9pgENGxPjXi1PHC9gOG51x61o2GT9LGvC81ddvmNXYeLvlPxA04g=="
                     },
-                    "identifier": {
+                    {
                         "name": "identifier",
                         "type": "text",
                         "required": true
                     },
-                    "password": {
+                    {
                         "name": "password",
                         "type": "password",
                         "required": true
                     }
-                }
+                ]
             }
         }
     }
@@ -236,7 +236,7 @@ will complain:
 The error message is coming directly from ORY Krato's API:
 
 ```shell script
-$ curl http://127.0.0.1:4434/auth/browser/requests/registration?request=<request-id>
+$ curl http://127.0.0.1:4434/self-service/browser/flows/requests/registration?request=<request-id>
 {
     "id": "79349cbd-c785-476a-8db8-d0d71c5b003c",
     "expires_at": "2020-01-20T21:17:00.5077381Z",
@@ -248,34 +248,28 @@ $ curl http://127.0.0.1:4434/auth/browser/requests/registration?request=<request
             "config": {
                 "action": "http://127.0.0.1:4455/.ory/kratos/public/auth/browser/methods/password/registration?request=79349cbd-c785-476a-8db8-d0d71c5b003c",
                 "method": "POST",
-                "fields": {
-                    "csrf_token": {
+                "fields": [
+                    {
                         "name": "csrf_token",
                         "type": "hidden",
                         "required": true,
                         "value": "+ZQ8x5cVgdtt4xtPIRJXQPKMVU5c/S2Mj2MuudP32vsMME0g26oQnV/H/brcNvBjkJq1XoF3UcnUFPzcr6Eq4Q=="
                     },
-                    "password": {
+                    {
                         "name": "password",
                         "type": "password",
                         "required": true
                     },
-                    "request": {
-                        "name": "request",
-                        "type": "hidden",
-                        "required": true,
-                        "value": ""
-                    },
-                    "traits.email": {
+                    {
                         "name": "traits.email",
                         "type": "text",
                         "value": "hello@ory.sh"
                     },
-                    "traits.full_name": {
+                    {
                         "name": "traits.full_name",
                         "type": "text"
                     }
-                }
+                ]
             }
         }
     }
