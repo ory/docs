@@ -72,6 +72,7 @@ handles requests to:
 - `/oauth2/revoke`
 - `/oauth2/fallbacks/consent`
 - `/oauth2/fallbacks/error`
+- `/oauth2/sessions/logout`
 - `/userinfo`
 
 The administrative port should not be exposed to public internet traffic. If you
