@@ -37,6 +37,7 @@ jobs:
       - run: git config --global user.name "aeneasr"
       - run: cd website; npm run release $(echo $CIRCLE_TAG | cut -d '+' -f2)
       - run: cd website; npm run format
+      - run: cd website; npm run build
       - run: |
           branch=$(date +%s)
           git checkout -b $branch
