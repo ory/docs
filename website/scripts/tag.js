@@ -1,7 +1,7 @@
 const fs = require('fs');
 const fetch = require('node-fetch');
 
-const services = ['hydra', 'keto', 'oathkeeper', 'kratos'];
+const services = ['hydra', 'keto', 'oathkeeper'];
 
 services.forEach(service => {
   fetch(
