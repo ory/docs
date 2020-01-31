@@ -1,6 +1,7 @@
 ---
-id: versioning
+id: version-oryOS.16-versioning
 title: Software Versions and Project Maturity
+original_id: versioning
 ---
 
 > Running security-critical open source technology in a self-service format

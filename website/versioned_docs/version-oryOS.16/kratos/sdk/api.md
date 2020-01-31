@@ -1,6 +1,7 @@
 ---
 title: REST API
-id: api
+id: version-oryOS.16-api
+original_id: api
 ---
 
 Welcome to the ORY Kratos HTTP API documentation!
