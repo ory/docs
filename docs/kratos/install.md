@@ -3,8 +3,8 @@ id: install
 title: Installation
 ---
 
-Installing ORY Kratos on any system is straight forward. We provide
-pre-built binaries, Docker Images and support various package managers.
+Installing ORY Kratos on any system is straight forward. We provide pre-built
+binaries, Docker Images and support various package managers.
 
 ## Docker
 
@@ -55,9 +55,9 @@ You can install ORY Kratos using [scoop](https://scoop.sh) on Windows:
 
 The client and server **binaries are downloadable at the
 [releases tab](https://github.com/ory/kratos/releases)**. There is currently no
-installer available. You have to add the Kratos binary to the PATH
-environment variable yourself or put the binary in a location that is already in
-your `$PATH` (e.g. `/usr/local/bin`, ...).
+installer available. You have to add the Kratos binary to the PATH environment
+variable yourself or put the binary in a location that is already in your
+`$PATH` (e.g. `/usr/local/bin`, ...).
 
 Once installed, you should be able to run:
 
@@ -70,9 +70,9 @@ $ kratos help
 If you wish to compile ORY Kratos yourself, you need to install and set up
 [Go 1.12+](https://golang.org/) and add `$GOPATH/bin` to your `$PATH`.
 
-The following commands will check out the latest release tag of ORY Kratos
-and compile it and set up flags so that `kratos version` works as expected.
-Please note that this will only work with a linux shell like bash or sh.
+The following commands will check out the latest release tag of ORY Kratos and
+compile it and set up flags so that `kratos version` works as expected. Please
+note that this will only work with a linux shell like bash or sh.
 
 ```shell
 $ go get -d -u github.com/ory/kratos
