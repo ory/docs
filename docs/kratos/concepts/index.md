@@ -17,7 +17,7 @@ credentials. In the case of web applications and identity:
 - Email + Password -> Cookie, Token, ...
 - Passwordless login -> Cookie, Token, ...
 
-Even fo alternative use cases for example mobile, browser, or native application
+Even for alternative use cases for example mobile, browser, or native application
 there is either a cookie, which accesses the application directly through the
 browser, or a token that accesses the application using a programmatic client
 via an API. While it is nowadays common - but bad practice - to use tokens for
