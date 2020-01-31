@@ -111,8 +111,9 @@ mailhog_1                     | [APIv1] KEEPALIVE /api/v1/events
 >   This is important because browsers treat these two as separate domains and
 >   will therefore have issues with setting and using the right cookies.
 
-You might notice that no database is being used in this example. ORY Kratos supports SQLite, PostgreSQL, MySQL, and
-CockroachDB as database backends. For the quickstart, we're mounting a persistent volume to store the SQLite database
+You might notice that no database is being used in this example. ORY Kratos
+supports SQLite, PostgreSQL, MySQL, and CockroachDB as database backends. For
+the quickstart, we're mounting a persistent volume to store the SQLite database
 in. Future guides will explain how to set up a production system!
 
 #### Mitigating Docker Errors

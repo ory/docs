@@ -39,11 +39,15 @@ const findLine = (oryOS, lines) => {
 
 const onlyUnique = (value, index, self) => self.indexOf(value) === index;
 
-const versions = (oryOS, { index, lines }, { hydra, keto, oathkeeper, kratos }) => {
+const versions = (
+  oryOS,
+  { index, lines },
+  { hydra, keto, oathkeeper, kratos }
+) => {
   const columns = lines[index].split('|'); // hydra:3, keto:4, oathkeeper:5, kratos:6
   const versions = [hydra, keto, oathkeeper, kratos]; // 3,4,5,6 index
   const updated = columns
-    .slice(3, 6)
+    .slice(3, 7)
     .map((column, index) =>
       versions[index]
         ? [

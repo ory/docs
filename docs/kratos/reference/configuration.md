@@ -30,7 +30,7 @@ using environment variables, as documented below.
 # - Windows Command Line (CMD):
 #    > set DSN=<value>
 #
-dsn: et dolore pariatur exercitati
+dsn: ipsum ad minim
 
 ## identity ##
 #
@@ -46,7 +46,7 @@ identity:
     # - Windows Command Line (CMD):
     #    > set IDENTITY_TRAITS_DEFAULT_SCHEMA_URL=<value>
     #
-    default_schema_url: https://LXDDeSwgBZZMuXhc.wuvlIxQkEB6uTTq.zo+xO9omaNe4Imwjcb+Idg5EvOQ8
+    default_schema_url: https://izyqxSMYyBHQqyZCbfOjNjJWz.opuun.sixP2naw0nu
 
     ## schemas ##
     #
@@ -58,9 +58,8 @@ identity:
     #
     schemas:
       - []
-      - -29518502.164242208
       - []
-      - ut
+      - -84586761.11121583
 
 ## selfservice ##
 #
@@ -76,7 +75,7 @@ selfservice:
     # - Windows Command Line (CMD):
     #    > set SELFSERVICE_LOGOUT_REDIRECT_TO=<value>
     #
-    redirect_to: https://FpFWsLgxTVTeBTLFSeDJjlOCiOw.lbwsHS,b0cRTuVoffB3
+    redirect_to: http://BXcgEITWBSQssme.kfBjKF9G.dDaORYcnQP5KG18,l3lb3rQYp137muRSHv+cxPuG
 
   ## strategies ##
   #
@@ -105,7 +104,7 @@ selfservice:
       # - Windows Command Line (CMD):
       #    > set SELFSERVICE_STRATEGIES_OIDC_ENABLED=<value>
       #
-      enabled: false
+      enabled: true
 
       ## config ##
       #
@@ -119,39 +118,62 @@ selfservice:
         #    > set SELFSERVICE_STRATEGIES_OIDC_CONFIG_PROVIDERS=<value>
         #
         providers:
-          - id: dolore elit cupidatat officia sunt
+          - id: occaecat sed in
             provider: github
-            client_id: Lor
-            schema_url: http://PfiSN.ykyXmYSgH++0S,dOUNZgWYS4+Yq,gBwffcmttaxP.HL41FU-
-            issuer_url: https://UeMPnWLiFUjc.pyrOgDRmR.lpi
-            auth_url: https://BQa.fjwm5nJm+q-,qq,rdI
-            token_url: http://zzkGnGgwtrHLakWeFfjyyJFtaEcZc.zhtzQH-BlFKTJ8LDwYiObGxbOn3Ka9d+gnGqkTMFSM6uq0JlXR6uXe
+            client_id: fugiat dolor irure
+            schema_url: http://wCRJMGhelGXRxEj.nubvYUOq2E-zS11LzYLNGDPkXmYv9cckwjUt8WyhoAgh6v2otnhjijq3w
+            issuer_url: http://VYuKQO.ebvOO.owZqPAzZWUp.Sz5ObTrOR9hNwfI1UPF.Sgbu+FnZUJjfdVLOt8
+            auth_url: http://DgmvSc.hssieIpSicX11CbovVxfOs,RR92pRWwEWo
+            token_url: https://ONTFkCjkMfDewItnLDEFKjQWmQSyxxYT.kllEk1jJhwNiGk0.LG
             scope:
-              - fugiat
-              - et velit mollit qui
-          - id: dolore dolor sed
+              - magna adipisicing cupidatat irure
+          - id: dolore sunt non ex ullamco
             provider: google
-            client_id: ex eu
-            schema_url: https://FrbxKAu.vhX+YR8jUF8,F2nqSWZHKZiVPUnwKLUhxihGB7g887f6VlWRRpoGUv
-            issuer_url: http://iecUUbbOXtYncAfKLvvKyefBDvqxSHHDH.ebrmp8lmfeV50uE8dv.2qjEGtxgQ6EO8Yn.QW+1oysKtN7O,1MtcyjTvF
-            auth_url: https://dQwoTEQeSP.fprsmiyBVpLqP5GbaEeWY4DYuWtkHwyvWdeENhZhPaJcRDwI
-            token_url: https://uLwXpgqazdYAQCGMiQhRWnHNTDo.cioUOckTVk
+            client_id: eu
+            schema_url: https://vGanheIwnmfnLwiVrhqKGkaSehIBK.gqqlbsyt.u
+            issuer_url: https://MOhXnbZHxEacMhduncDpvtQxfe.rfuFCPUo4.lUQxx3D2iMBX+HblzJQlTPABkkRpq8K-NjTmpcI8mDLCBhw9,G2eokw1ToEmTjqEC1hrrVkMUTk0ktKQQfMM
+            auth_url: http://vdVdaiiGuLwz.zywliM.eeASSCkT589BKm1NQM2mfrd2Rr6kBoddxaxbWzLCowYPwUJwo.LhUV.x8dkW
+            token_url: http://DWcRYXLOgnCgCtthRllVykz.dcBn1i0RjnXIPaTvngNmw15aG6ugbptLM,uuBwuvZZvaoqa4sSZ+Tyb
             scope:
-              - mollit
-              - reprehenderit
-              - re
-              - aliqua tempor dolor
-          - id: nostrud dolore anim
-            provider: generic
-            client_id: laborum irure in ipsum
-            schema_url: https://eObygNFAXxfEZgnqkPHjlm.wuAO
-            issuer_url: http://TcEPjhvXdMF.pexuSI7+6NMgevjT1,SXuc9fX
-            auth_url: https://FXYkPgSfgH.igsxtwG0yRvISqiewd0MfD,ctKInVlLqV0KUKqOPmTbjLtYSeNU7YWoewtU
-            token_url: https://Xm.regQvsE8jHbthokTeX,Hqj2OdT-EpDvpZSuMC7AhNTEqbmOUvLIYo2xj2MhdI
+              - ex est
+              - aute anim irure laborum
+              - commodo ut veniam tempor ullamco
+              - enim
+              - nulla irure sint
+          - id: in aute eiusmod aliquip ad
+            provider: google
+            client_id: Duis ex
+            schema_url: http://tbuvlHKXIbosMxLakE.kvdo2WsKo+rkoqbJe,
+            issuer_url: http://XIUuumxmHWuoZlfTInMdziis.operwWlTocEu35u6exyiTck3DHDE.lEu.dURm,nqlzzhCSv139MsbgIf
+            auth_url: https://gDvOxgRygyVVIPJGVlGqeBlfIGs.lkbjLJX
+            token_url: https://tVaoZHZlRjZEz.onMV+hSEsl2jwLSiy,bpcaoEdiCJ4gTByGlsHdSEfw7FSvYM6,J
             scope:
-              - velit ut minim eiusmod
-              - elit enim consectetur dolor
-              - labore anim Duis
+              - velit Ut in occaecat amet
+              - commodo
+          - id: consectetur veniam aute
+            provider: google
+            client_id: dolore est amet nulla
+            schema_url: https://QITOuaHoCgAUmPZxRw.bshs
+            issuer_url: http://asCtH.ynkpe4tbeYCmG7dKTUYBzdIsikfSbHwAZzA-EFGrUt5wZIUaJNp6fIhvRML
+            auth_url: http://vYMsUtXFBoBGlUEUIwf.axohXq2
+            token_url: https://acxRMbYXwYn.krfeY5tliX7fdG9WQKQsa6AAoxaSb19O8tJ5gEQ1
+            scope:
+              - Ut dolor
+              - irure laboris in et ipsum
+              - 'culpa elit '
+          - id: velit in
+            provider: google
+            client_id: eiusmod mollit aute cupidatat ullamco
+            schema_url: https://QjQqHiVVlBJEtxUQniz.qbceWjjsbeiGliNCjnNoLjwaGvnWeo,yFsZ3pAhhwO-8FgOvn0yCZTBl
+            issuer_url: https://CtzLYAlyfnkNvS.rrynTuFn+ju4oMouozqQqE0UU1ruwygNBmN+oh6t.0gi0iTI
+            auth_url: https://WjtThXZhHcMdfXw.lumoN+dZENwTOKgBaIuX6-
+            token_url: http://FWvjYEQM.fpzhVu6l9gUB6-dYXWYySzhbSygXo+rvoFK-.q,7iRvF4sNlpcpcrNkEX-TksG5uLtLGYz5-HAnyjQME8-HNZIf8IX
+            scope:
+              - dolor elit
+              - exercitation ipsum
+              - cillum in
+              - cillum aliquip
+              - minim officia ad
 
   ## profile ##
   #
@@ -166,7 +188,7 @@ selfservice:
     # - Windows Command Line (CMD):
     #    > set SELFSERVICE_PROFILE_REQUEST_LIFESPAN=<value>
     #
-    request_lifespan: 815720us
+    request_lifespan: 9946226602s
 
   ## login ##
   #
@@ -181,7 +203,7 @@ selfservice:
     # - Windows Command Line (CMD):
     #    > set SELFSERVICE_LOGIN_REQUEST_LIFESPAN=<value>
     #
-    request_lifespan: 7ns
+    request_lifespan: 6s
 
     ## before ##
     #
@@ -194,12 +216,12 @@ selfservice:
     before:
       - run: redirect
         config:
-          default_redirect_url: http://XsIckTEmDiPNXYxVPuKVtDgYAbJUXd.lxuGad6jVtVczl6jYbjAH59NE83Sb3n
-          allow_user_defined_redirect: false
+          default_redirect_url: https://fLofQbKoMoVUgjxElJukOVUQMGFXCorha.qrs6ClvRFYE1XejAk9+,gs5Qj.iC996XlS
+          allow_user_defined_redirect: true
       - run: redirect
         config:
-          default_redirect_url: https://EVucedwSDNrGx.cuvsunKV6pfucMMykvzc5
-          allow_user_defined_redirect: true
+          default_redirect_url: https://iishSE.joDLigyn,Ck
+          allow_user_defined_redirect: false
 
     ## after ##
     #
@@ -213,7 +235,10 @@ selfservice:
       #    > set SELFSERVICE_LOGIN_AFTER_PASSWORD=<value>
       #
       password:
-        - run: revoke_active_sessions
+        - run: redirect
+          config:
+            default_redirect_url: http://LuPYXKTSjwDCEIN.qjADt
+            allow_user_defined_redirect: true
         - run: session
 
       ## oidc ##
@@ -225,11 +250,7 @@ selfservice:
       #    > set SELFSERVICE_LOGIN_AFTER_OIDC=<value>
       #
       oidc:
-        - run: revoke_active_sessions
-        - run: redirect
-          config:
-            default_redirect_url: https://UBQzcUxlNkuQmIuMTbNWAZKStZOMBJbOI.edynUqVUugowG+92oCmImv6keODHAEi31zZlGAnEwww4024Alzkf+vYAbiNgvjIqG
-            allow_user_defined_redirect: false
+        - run: session
 
   ## registration ##
   #
@@ -244,7 +265,7 @@ selfservice:
     # - Windows Command Line (CMD):
     #    > set SELFSERVICE_REGISTRATION_REQUEST_LIFESPAN=<value>
     #
-    request_lifespan: 73026220s
+    request_lifespan: 512028757s
 
     ## before ##
     #
@@ -257,8 +278,12 @@ selfservice:
     before:
       - run: redirect
         config:
-          default_redirect_url: https://AcA.qwgqA
+          default_redirect_url: http://fFIkfugROAGCPsYqDVhRJeVOfAJABU.lawfpMtwuP,sDd-WPu72,qAFQUtNlffH+JAK
           allow_user_defined_redirect: true
+      - run: redirect
+        config:
+          default_redirect_url: http://noWRlC.iqk81HEdaWsjF7lB5kueuv.uFKBQZ7ZfEm
+          allow_user_defined_redirect: false
 
     ## after ##
     #
@@ -274,7 +299,12 @@ selfservice:
       password:
         - run: redirect
           config:
-            default_redirect_url: http://IomWENTHFQDtvtqcCQnqEIzMNjV.vcIX3iBmL,sKof
+            default_redirect_url: https://DhdgsLkGEzwzBjdjxqmEzisS.wherzlc11
+            allow_user_defined_redirect: true
+        - run: session
+        - run: redirect
+          config:
+            default_redirect_url: http://mUJXDwrUpBUb.pyZWsgek7.DKgHHPg+DC0oDvb23XTI7T9g8VHiHWwOPUgCYlgZPInuoPnNtMjJrhkV,KA+3
             allow_user_defined_redirect: true
 
       ## oidc ##
@@ -286,9 +316,10 @@ selfservice:
       #    > set SELFSERVICE_REGISTRATION_AFTER_OIDC=<value>
       #
       oidc:
+        - run: session
         - run: redirect
           config:
-            default_redirect_url: https://GqhXfdjnOQTiISMtcjziR.zdtefjVjP-6b.4lp,21ethH
+            default_redirect_url: http://bpybUIJmacCmMIiaXEoPVeAa.zcxkw+YrGLMBxwW57N2H0kS2ohxJKAj0
             allow_user_defined_redirect: false
 
 ## Courier configuration ##
@@ -328,7 +359,7 @@ courier:
     # - Windows Command Line (CMD):
     #    > set COURIER_SMTP_FROM_ADDRESS=<value>
     #
-    from_address: M9f4TUW0J@Emv.rrw
+    from_address: m4wsFjsg0a3fiN@JgsVFExOMszkHSYKCmqAIKzGNUBJfR.tfpp
 
   ## Override message templates ##
   #
@@ -340,7 +371,7 @@ courier:
   # - Windows Command Line (CMD):
   #    > set COURIER_TEMPLATE_OVERRIDE_PATH=<value>
   #
-  template_override_path: ut pariatur enim non ex
+  template_override_path: reprehenderit nulla commodo ex enim
 
 ## serve ##
 #
@@ -358,7 +389,7 @@ serve:
     # - Windows Command Line (CMD):
     #    > set SERVE_ADMIN_HOST=<value>
     #
-    host: sint Excepteur esse tempor
+    host: ipsum in culpa proident
 
     ## port ##
     #
@@ -370,7 +401,7 @@ serve:
     # - Windows Command Line (CMD):
     #    > set SERVE_ADMIN_PORT=<value>
     #
-    port: 436
+    port: 9464
 
   ## public ##
   #
@@ -385,7 +416,7 @@ serve:
     # - Windows Command Line (CMD):
     #    > set SERVE_PUBLIC_HOST=<value>
     #
-    host: Excepteur
+    host: fugiat labore u
 
     ## port ##
     #
@@ -397,7 +428,7 @@ serve:
     # - Windows Command Line (CMD):
     #    > set SERVE_PUBLIC_PORT=<value>
     #
-    port: 33920
+    port: 63262
 
 ## urls ##
 #
@@ -410,7 +441,7 @@ urls:
   # - Windows Command Line (CMD):
   #    > set URLS_PROFILE_UI=<value>
   #
-  profile_ui: https://QBakeFpsCRkAelfyCGXlPguJi.blq0,GuJCFuxqPC+llawS,fIo5j3
+  profile_ui: https://aXYvqRJEtJjmBWSSWQRkIvpL.hguVLedZI19Duv+tKm3HSsOUFuNasn8E6WvPm.SWtwwsFGkKOUiyghA7toPu
 
   ## mfa_ui ##
   #
@@ -420,7 +451,7 @@ urls:
   # - Windows Command Line (CMD):
   #    > set URLS_MFA_UI=<value>
   #
-  mfa_ui: http://wfUWfFHnHNxWipkVPKamHv.vyqW.FuPMesYaeJFQCU5xwaQARGtE8A
+  mfa_ui: http://pn.cgA-Yj8RpTyo+ad4zKRkmiurtbKj0z3-ktnPHSo-86Y,HSr0TkdEFiMU
 
   ## login_ui ##
   #
@@ -430,7 +461,7 @@ urls:
   # - Windows Command Line (CMD):
   #    > set URLS_LOGIN_UI=<value>
   #
-  login_ui: http://vgexHpQa.psBA3yxIfhKWSCMT,nZ-IgT-tHU7BjXKaO1ePSdUuZVRpxIcL
+  login_ui: http://fcSJGE.xggms1azhkF+zv
 
   ## registration_ui ##
   #
@@ -440,7 +471,7 @@ urls:
   # - Windows Command Line (CMD):
   #    > set URLS_REGISTRATION_UI=<value>
   #
-  registration_ui: https://HISvOvasmSSkXwLzJpQdvmSjzRem.yklkFK0O7yvYcRpviQ3-glRhFZ-3io
+  registration_ui: http://rfPjhDiywzwdQoyFWYcaYPVeLQ.dtalMRTFU+p9mIynfYplx6I5gD
 
   ## error_ui ##
   #
@@ -450,7 +481,7 @@ urls:
   # - Windows Command Line (CMD):
   #    > set URLS_ERROR_UI=<value>
   #
-  error_ui: https://zNG.jejqCFRNwOqrJYXM.
+  error_ui: https://qRljuCEIpTeXyaQhURjsJkMmq.afczGJ8oWn9Swer02iX9w2iKYslGMg2Mvf.kmr,jb5tl7chwDbDvVlrApC,hgrcOIU2XRDSN
 
   ## default_return_to ##
   #
@@ -460,7 +491,7 @@ urls:
   # - Windows Command Line (CMD):
   #    > set URLS_DEFAULT_RETURN_TO=<value>
   #
-  default_return_to: https://jlHwcW.qooRmJD-e5y9OPNN5-Ur.aaWWHl1
+  default_return_to: http://UgfAdBSI.cxbwbutSodWrCNrK90tNxntxVgZ00j1-INZ3XbQNdsQM5lPOg.cJVsv
 
   ## self ##
   #
@@ -473,7 +504,7 @@ urls:
     # - Windows Command Line (CMD):
     #    > set URLS_SELF_PUBLIC=<value>
     #
-    public: https://TNzOVmWJMPlLGjiWIZCtSxRdfd.xuQX,c8kq
+    public: https://jrzgtcBGcTcgN.natqXnli0bVrg2yiir6pBwBHbKJhN9OJS,i1fI+eaEbCE5TG,BIP6xRQpPAY
 
     ## admin ##
     #
@@ -483,7 +514,7 @@ urls:
     # - Windows Command Line (CMD):
     #    > set URLS_SELF_ADMIN=<value>
     #
-    admin: https://PqXCGJxDGwFliBMJbrfPactjG.rhJ6TT-o
+    admin: http://hX.dgifhtiwGAi5tPGE4TGjMUkugO
 
   ## whitelisted_return_to_domains ##
   #
@@ -494,11 +525,11 @@ urls:
   #    > set URLS_WHITELISTED_RETURN_TO_DOMAINS=<value>
   #
   whitelisted_return_to_domains:
-    - http://uqDfMLMFHeYAFqHBhJkPcGfLWEISjEPw.bpcaUSj9FoUv3kBX+avN5HgrAS6O66VKDnopnHTBSi0Qq8B5-sfGQOCJJqK7LbSd1KKZ-3O
-    - http://vHUuEqfCPbbAcE.ccclBDoCX7NtE8fe0HBxjKTCDDDCW2iRl3tq9vmuODwNgT4cg5cuAdohWG+f7fWf
-    - http://assABm.pzmE5DSaz1mHCwFAQIn0bmNY60s5vxlhCrWe7e5alWa8Zm3aSMEj,u
-    - http://wL.fkgfXNQEiwuG58kDCEmNDn9X5PQEWXgLe7AMbUjOoGmrtWSs1q4Wm
-    - https://SYKE.njqkyv1Q6on
+    - http://UhOB.uylSMl,r95FfmW7Fu4Up02a
+    - http://lxrFtfFjLMxcdPRcrQVpgkHhTOdpO.gcyu2NEFp0HAQfrcA9I+eMAWsc
+    - http://IgnrQyCaeZOPYfLtcYhJyOYIhoa.arrMBccuynkuWdRW,LHzDIKptaZK1Ym0mLogwgxFe8Nmh
+    - https://lv.afZx.Hn+,yttROA6Z7gH7.QPaQftTGVY96kMBP3SBZAZUAnBUcvQdR1BjlIeC3D49AiEfjy
+    - http://ZQdZKKpnfbhncLVCGNPEbUFh.amizAHSrU+FnBkBd
 
 ## log ##
 #
@@ -511,7 +542,7 @@ log:
   # - Windows Command Line (CMD):
   #    > set LOG_LEVEL=<value>
   #
-  level: error
+  level: panic
 
   ## format ##
   #
@@ -535,9 +566,11 @@ secrets:
   #    > set SECRETS_SESSION=<value>
   #
   session:
-    - quiset nisi in culpa
-    - pariatur qui consectetur
-    - in et quislaborum consectetur qui dolor ea
+    - sunt qui laborum
+    - tempor consequat ut
+    - aliquip nisi deserunt amet non
+    - ullamco in enim tempor
+    - reprehenderitdolore eu mollit
 
 ## hashers ##
 #
@@ -553,7 +586,7 @@ hashers:
     # - Windows Command Line (CMD):
     #    > set HASHERS_ARGON2_MEMORY=<value>
     #
-    memory: 85025245
+    memory: 19065345
 
     ## iterations ##
     #
@@ -563,7 +596,7 @@ hashers:
     # - Windows Command Line (CMD):
     #    > set HASHERS_ARGON2_ITERATIONS=<value>
     #
-    iterations: 24722398
+    iterations: 14329291
 
     ## parallelism ##
     #
@@ -573,7 +606,7 @@ hashers:
     # - Windows Command Line (CMD):
     #    > set HASHERS_ARGON2_PARALLELISM=<value>
     #
-    parallelism: 35610152
+    parallelism: 4660409
 
     ## salt_length ##
     #
@@ -583,7 +616,7 @@ hashers:
     # - Windows Command Line (CMD):
     #    > set HASHERS_ARGON2_SALT_LENGTH=<value>
     #
-    salt_length: 64982600
+    salt_length: 63087355
 
     ## key_length ##
     #
@@ -593,5 +626,5 @@ hashers:
     # - Windows Command Line (CMD):
     #    > set HASHERS_ARGON2_KEY_LENGTH=<value>
     #
-    key_length: 89001647
+    key_length: 15695038
 ```
