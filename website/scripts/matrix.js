@@ -39,11 +39,15 @@ const findLine = (oryOS, lines) => {
 
 const onlyUnique = (value, index, self) => self.indexOf(value) === index;
 
-const versions = (oryOS, { index, lines }, { hydra, keto, oathkeeper }) => {
-  const columns = lines[index].split('|'); // hydra:3, keto:4, oathkeeper:5
-  const versions = [hydra, keto, oathkeeper]; // 3,4,5 index
+const versions = (
+  oryOS,
+  { index, lines },
+  { hydra, keto, oathkeeper, kratos }
+) => {
+  const columns = lines[index].split('|'); // hydra:3, keto:4, oathkeeper:5, kratos:6
+  const versions = [hydra, keto, oathkeeper, kratos]; // 3,4,5,6 index
   const updated = columns
-    .slice(3, 6)
+    .slice(3, 7)
     .map((column, index) =>
       versions[index]
         ? [
@@ -71,7 +75,7 @@ const content = fs
   .toString()
   .split('\n');
 
-const services = ['hydra', 'keto', 'oathkeeper']; // this needs to match the order in the version.md file.
+const services = ['hydra', 'keto', 'oathkeeper', 'kratos']; // this needs to match the order in the version.md file.
 Promise.all(
   services.map(service =>
     fetch(
@@ -116,6 +120,16 @@ Promise.all(
       const oryOS = version.name.split('+')[1];
       lines = versions(oryOS, findLine(oryOS, lines), {
         oathkeeper: version.name.split('+')[0],
+      });
+    });
+
+  const kratos = serviceVersions[3];
+  kratos
+    .filter(({ name }) => name.indexOf('+') > -1)
+    .forEach(version => {
+      const oryOS = version.name.split('+')[1];
+      lines = versions(oryOS, findLine(oryOS, lines), {
+        kratos: version.name.split('+')[0],
       });
     });
 

@@ -424,9 +424,9 @@ https://www.ory.sh/docs/kratos/selfservice/login
 ```json
 {
   "active": "string",
-  "expires_at": "2020-01-30T07:01:51Z",
+  "expires_at": "2020-01-31T14:03:08Z",
   "id": "string",
-  "issued_at": "2020-01-30T07:01:51Z",
+  "issued_at": "2020-01-31T14:03:08Z",
   "methods": {
     "property1": {
       "config": {},
@@ -614,9 +614,9 @@ https://www.ory.sh/docs/kratos/selfservice/registration
 ```json
 {
   "active": "string",
-  "expires_at": "2020-01-30T07:01:51Z",
+  "expires_at": "2020-01-31T14:03:08Z",
   "id": "string",
-  "issued_at": "2020-01-30T07:01:51Z",
+  "issued_at": "2020-01-31T14:03:08Z",
   "methods": {
     "property1": {
       "config": {},
@@ -1188,7 +1188,7 @@ by the profile management UI.
 
 ```json
 {
-  "expires_at": "2020-01-30T07:01:51Z",
+  "expires_at": "2020-01-31T14:03:08Z",
   "form": {
     "action": "string",
     "errors": [
@@ -1218,7 +1218,7 @@ by the profile management UI.
     "traits_schema_id": "string",
     "traits_schema_url": "string"
   },
-  "issued_at": "2020-01-30T07:01:51Z",
+  "issued_at": "2020-01-31T14:03:08Z",
   "request_url": "string",
   "update_successful": true
 }
@@ -2340,9 +2340,9 @@ _HealthStatus health status_
 ```json
 {
   "active": "string",
-  "expires_at": "2020-01-30T07:01:51Z",
+  "expires_at": "2020-01-31T14:03:08Z",
   "id": "string",
-  "issued_at": "2020-01-30T07:01:51Z",
+  "issued_at": "2020-01-31T14:03:08Z",
   "methods": {
     "property1": {
       "config": {},
@@ -2507,7 +2507,7 @@ _and_
 
 ```json
 {
-  "expires_at": "2020-01-30T07:01:51Z",
+  "expires_at": "2020-01-31T14:03:08Z",
   "form": {
     "action": "string",
     "errors": [
@@ -2537,7 +2537,7 @@ _and_
     "traits_schema_id": "string",
     "traits_schema_url": "string"
   },
-  "issued_at": "2020-01-30T07:01:51Z",
+  "issued_at": "2020-01-31T14:03:08Z",
   "request_url": "string",
   "update_successful": true
 }
@@ -2566,9 +2566,9 @@ _Request presents a profile management request_
 ```json
 {
   "active": "string",
-  "expires_at": "2020-01-30T07:01:51Z",
+  "expires_at": "2020-01-31T14:03:08Z",
   "id": "string",
-  "issued_at": "2020-01-30T07:01:51Z",
+  "issued_at": "2020-01-31T14:03:08Z",
   "methods": {
     "property1": {
       "config": {},
