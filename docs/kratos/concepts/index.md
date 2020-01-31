@@ -17,13 +17,13 @@ credentials. In the case of web applications and identity:
 - Email + Password -> Cookie, Token, ...
 - Passwordless login -> Cookie, Token, ...
 
-Even for alternative use cases for example mobile, browser, or native application
-there is either a cookie, which accesses the application directly through the
-browser, or a token that accesses the application using a programmatic client
-via an API. While it is nowadays common - but bad practice - to use tokens for
-"Single Page Apps" or apps running on the client-side browser, there is no real
-difference between these two approaches as both represent a set of credentials
-valid for a certain domain or a number of domains.
+Even for alternative use cases for example mobile, browser, or native
+application there is either a cookie, which accesses the application directly
+through the browser, or a token that accesses the application using a
+programmatic client via an API. While it is nowadays common - but bad practice -
+to use tokens for "Single Page Apps" or apps running on the client-side browser,
+there is no real difference between these two approaches as both represent a set
+of credentials valid for a certain domain or a number of domains.
 
 Still there is a vast solution set available for OAuth2 and OpenID Connect. The
 reasons for this would perhaps include the following:
