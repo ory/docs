@@ -1,6 +1,8 @@
 {
   "version-oryOS.16-docs": {
-    "Welcome": ["version-oryOS.16-index"],
+    "Welcome": [
+      "version-oryOS.16-index"
+    ],
     "Ecosystem": [
       "version-oryOS.16-ecosystem/projects",
       "version-oryOS.16-ecosystem/software-architecture-philosophy",
@@ -76,12 +78,16 @@
       {
         "type": "subcategory",
         "label": "SDKs",
-        "ids": ["version-oryOS.16-kratos/sdk/index"]
+        "ids": [
+          "version-oryOS.16-kratos/sdk/index"
+        ]
       },
       {
         "type": "subcategory",
         "label": "Further Reading",
-        "ids": ["version-oryOS.16-kratos/further-reading/comparison"]
+        "ids": [
+          "version-oryOS.16-kratos/further-reading/comparison"
+        ]
       }
     ],
     "ORY Hydra": [
