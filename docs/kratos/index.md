@@ -58,8 +58,8 @@ and can be run as a single, static binary on top of a, for example, raw Linux
 kernel. The binary and Docker Image is less than 20MB small.
 
 ORY Kratos scales horizontally without effort. The only external dependency is a
-RDBMS - we currently support only PostgreSQL. You will not need memcached, etcd,
-or any other system to scale ORY Kratos.
+RDBMS - we currently support SQLite, PostgreSQL, MySQL, CockroachDB. You will not
+need memcached, etcd, or any other system to scale ORY Kratos.
 
 We believe in strong separation of concerns, it is a guiding principle in the
 design of each ORY project. As such, we build software that solves specific
