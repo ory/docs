@@ -532,10 +532,10 @@ access_rules:
   #    > set ACCESS_RULES_REPOSITORIES=<value>
   #
   repositories: '["file://path/to/rules.json","inline://W3siaWQiOiJmb28tcnVsZSIsImF1dGhlbnRpY2F0b3JzIjpbXX1d","https://path-to-my-rules/rules.json"]'
-  
+
   ## Matching Strategy ##
-  # Determines a matching strategy for the access rules. Currently supported values are `glob` and `regexp`. 
-  # 
+  # Determines a matching strategy for the access rules. Currently supported values are `glob` and `regexp`.
+  #
   # Default value: "regexp"
   #
   # Set this value using enrinment variables on
@@ -544,7 +544,6 @@ access_rules:
   # - Windows Command Line (CMD):
   #    > set ACCESS_RULES_MATCHING_STRATEGY=<value>
   matching_strategy: glob
-  
 
 ## Authenticators ##
 #

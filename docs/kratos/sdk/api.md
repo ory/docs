@@ -2432,15 +2432,15 @@ This endpoint is useful for reverse proxies and API Gateways.
 
 ```json
 {
-  "authenticated_at": "2020-01-31T17:58:40Z",
-  "expires_at": "2020-01-31T17:58:40Z",
+  "authenticated_at": "2020-02-02T21:00:20Z",
+  "expires_at": "2020-02-02T21:00:20Z",
   "identity": {
     "id": "string",
     "traits": {},
     "traits_schema_id": "string",
     "traits_schema_url": "string"
   },
-  "issued_at": "2020-01-31T17:58:40Z",
+  "issued_at": "2020-02-02T21:00:20Z",
   "sid": "string"
 }
 ```
@@ -2643,9 +2643,9 @@ your application (e.g. `/login?request=abcde`).
 ```json
 {
   "active": "string",
-  "expires_at": "2020-01-31T17:58:40Z",
+  "expires_at": "2020-02-02T21:00:20Z",
   "id": "string",
-  "issued_at": "2020-01-31T17:58:40Z",
+  "issued_at": "2020-02-02T21:00:20Z",
   "methods": {
     "property1": {
       "config": {},
@@ -2852,7 +2852,7 @@ your application (e.g. `/login?request=abcde`).
 
 ```json
 {
-  "expires_at": "2020-01-31T17:58:40Z",
+  "expires_at": "2020-02-02T21:00:20Z",
   "form": {
     "action": "string",
     "errors": [
@@ -2884,7 +2884,7 @@ your application (e.g. `/login?request=abcde`).
     "traits_schema_id": "string",
     "traits_schema_url": "string"
   },
-  "issued_at": "2020-01-31T17:58:40Z",
+  "issued_at": "2020-02-02T21:00:20Z",
   "request_url": "string",
   "update_successful": true
 }
@@ -3086,9 +3086,9 @@ your application (e.g. `/registration?request=abcde`).
 ```json
 {
   "active": "string",
-  "expires_at": "2020-01-31T17:58:40Z",
+  "expires_at": "2020-02-02T21:00:20Z",
   "id": "string",
-  "issued_at": "2020-01-31T17:58:40Z",
+  "issued_at": "2020-02-02T21:00:20Z",
   "methods": {
     "property1": {
       "config": {},
@@ -3768,9 +3768,9 @@ _nolint:deadcode,unused_
 ```json
 {
   "active": "string",
-  "expires_at": "2020-01-31T17:58:40Z",
+  "expires_at": "2020-02-02T21:00:20Z",
   "id": "string",
-  "issued_at": "2020-01-31T17:58:40Z",
+  "issued_at": "2020-02-02T21:00:20Z",
   "methods": {
     "property1": {
       "config": {},
@@ -3861,7 +3861,7 @@ _and_
 
 ```json
 {
-  "expires_at": "2020-01-31T17:58:40Z",
+  "expires_at": "2020-02-02T21:00:20Z",
   "form": {
     "action": "string",
     "errors": [
@@ -3893,7 +3893,7 @@ _and_
     "traits_schema_id": "string",
     "traits_schema_url": "string"
   },
-  "issued_at": "2020-01-31T17:58:40Z",
+  "issued_at": "2020-02-02T21:00:20Z",
   "request_url": "string",
   "update_successful": true
 }
@@ -3922,9 +3922,9 @@ _Request presents a profile management request_
 ```json
 {
   "active": "string",
-  "expires_at": "2020-01-31T17:58:40Z",
+  "expires_at": "2020-02-02T21:00:20Z",
   "id": "string",
-  "issued_at": "2020-01-31T17:58:40Z",
+  "issued_at": "2020-02-02T21:00:20Z",
   "methods": {
     "property1": {
       "config": {},
@@ -4027,15 +4027,15 @@ _and_
 
 ```json
 {
-  "authenticated_at": "2020-01-31T17:58:40Z",
-  "expires_at": "2020-01-31T17:58:40Z",
+  "authenticated_at": "2020-02-02T21:00:20Z",
+  "expires_at": "2020-02-02T21:00:20Z",
   "identity": {
     "id": "string",
     "traits": {},
     "traits_schema_id": "string",
     "traits_schema_url": "string"
   },
-  "issued_at": "2020-01-31T17:58:40Z",
+  "issued_at": "2020-02-02T21:00:20Z",
   "sid": "string"
 }
 ```

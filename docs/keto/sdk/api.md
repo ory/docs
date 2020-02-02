@@ -291,18 +291,18 @@ List ORY Access Control Policies
 
 Status Code **200**
 
-| Name                                                              | Type                                                      | Required | Restrictions | Description                                                                                                          |
-| ----------------------------------------------------------------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------- |
-| _anonymous_                                                       | [[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)] | false    | none         | none                                                                                                                 |
-| » oryAccessControlPolicy specifies an ORY Access Policy document. | [oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)   | false    | none         | none                                                                                                                 |
-| »» actions                                                        | [string]                                                  | false    | none         | Actions is an array representing all the actions this ORY Access Policy applies to.                                  |
-| »» conditions                                                     | object                                                    | false    | none         | Conditions represents a keyed object of conditions under which this ORY Access Policy is active.                     |
-| »»» **additionalProperties**                                      | object                                                    | false    | none         | none                                                                                                                 |
-| »» description                                                    | string                                                    | false    | none         | Description is an optional, human-readable description.                                                              |
-| »» effect                                                         | string                                                    | false    | none         | Effect is the effect of this ORY Access Policy. It can be "allow" or "deny".                                         |
-| »» id                                                             | string                                                    | false    | none         | ID is the unique identifier of the ORY Access Policy. It is used to query, update, and remove the ORY Access Policy. |
-| »» resources                                                      | [string]                                                  | false    | none         | Resources is an array representing all the resources this ORY Access Policy applies to.                              |
-| »» subjects                                                       | [string]                                                  | false    | none         | Subjects is an array representing all the subjects this ORY Access Policy applies to.                                |
+| Name                                                                                     | Type                                                      | Required | Restrictions | Description                                                                                                          |
+| ---------------------------------------------------------------------------------------- | --------------------------------------------------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------- |
+| _anonymous_                                                                              | [[oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)] | false    | none         | none                                                                                                                 |
+| » OryAccessControlPolicy oryAccessControlPolicy specifies an ORY Access Policy document. | [oryAccessControlPolicy](#schemaoryaccesscontrolpolicy)   | false    | none         | none                                                                                                                 |
+| »» actions                                                                               | [string]                                                  | false    | none         | Actions is an array representing all the actions this ORY Access Policy applies to.                                  |
+| »» conditions                                                                            | object                                                    | false    | none         | Conditions represents a keyed object of conditions under which this ORY Access Policy is active.                     |
+| »»» **additionalProperties**                                                             | object                                                    | false    | none         | none                                                                                                                 |
+| »» description                                                                           | string                                                    | false    | none         | Description is an optional, human-readable description.                                                              |
+| »» effect                                                                                | string                                                    | false    | none         | Effect is the effect of this ORY Access Policy. It can be "allow" or "deny".                                         |
+| »» id                                                                                    | string                                                    | false    | none         | ID is the unique identifier of the ORY Access Policy. It is used to query, update, and remove the ORY Access Policy. |
+| »» resources                                                                             | [string]                                                  | false    | none         | Resources is an array representing all the resources this ORY Access Policy applies to.                              |
+| »» subjects                                                                              | [string]                                                  | false    | none         | Subjects is an array representing all the subjects this ORY Access Policy applies to.                                |
 
 Status Code **500**
 
@@ -2972,524 +2972,6 @@ p JSON.parse(result)
 
 ## Schemas
 
-<a id="tocSaddoryaccesscontrolpolicyrolemembersinternalservererrorbody">AddOryAccessControlPolicyRoleMembersInternalServerErrorBody</a>
-
-#### AddOryAccessControlPolicyRoleMembersInternalServerErrorBody
-
-<a id="schemaaddoryaccesscontrolpolicyrolemembersinternalservererrorbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_AddOryAccessControlPolicyRoleMembersInternalServerErrorBody add ory access
-control policy role members internal server error body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSdeleteoryaccesscontrolpolicyinternalservererrorbody">DeleteOryAccessControlPolicyInternalServerErrorBody</a>
-
-#### DeleteOryAccessControlPolicyInternalServerErrorBody
-
-<a id="schemadeleteoryaccesscontrolpolicyinternalservererrorbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_DeleteOryAccessControlPolicyInternalServerErrorBody delete ory access control
-policy internal server error body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSdeleteoryaccesscontrolpolicyroleinternalservererrorbody">DeleteOryAccessControlPolicyRoleInternalServerErrorBody</a>
-
-#### DeleteOryAccessControlPolicyRoleInternalServerErrorBody
-
-<a id="schemadeleteoryaccesscontrolpolicyroleinternalservererrorbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_DeleteOryAccessControlPolicyRoleInternalServerErrorBody delete ory access
-control policy role internal server error body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSdooryaccesscontrolpoliciesallowinternalservererrorbody">DoOryAccessControlPoliciesAllowInternalServerErrorBody</a>
-
-#### DoOryAccessControlPoliciesAllowInternalServerErrorBody
-
-<a id="schemadooryaccesscontrolpoliciesallowinternalservererrorbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_DoOryAccessControlPoliciesAllowInternalServerErrorBody do ory access control
-policies allow internal server error body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSgetoryaccesscontrolpolicyinternalservererrorbody">GetOryAccessControlPolicyInternalServerErrorBody</a>
-
-#### GetOryAccessControlPolicyInternalServerErrorBody
-
-<a id="schemagetoryaccesscontrolpolicyinternalservererrorbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_GetOryAccessControlPolicyInternalServerErrorBody get ory access control policy
-internal server error body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSgetoryaccesscontrolpolicynotfoundbody">GetOryAccessControlPolicyNotFoundBody</a>
-
-#### GetOryAccessControlPolicyNotFoundBody
-
-<a id="schemagetoryaccesscontrolpolicynotfoundbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_GetOryAccessControlPolicyNotFoundBody get ory access control policy not found
-body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSgetoryaccesscontrolpolicyroleinternalservererrorbody">GetOryAccessControlPolicyRoleInternalServerErrorBody</a>
-
-#### GetOryAccessControlPolicyRoleInternalServerErrorBody
-
-<a id="schemagetoryaccesscontrolpolicyroleinternalservererrorbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_GetOryAccessControlPolicyRoleInternalServerErrorBody get ory access control
-policy role internal server error body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSgetoryaccesscontrolpolicyrolenotfoundbody">GetOryAccessControlPolicyRoleNotFoundBody</a>
-
-#### GetOryAccessControlPolicyRoleNotFoundBody
-
-<a id="schemagetoryaccesscontrolpolicyrolenotfoundbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_GetOryAccessControlPolicyRoleNotFoundBody get ory access control policy role
-not found body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSisinstancealiveinternalservererrorbody">IsInstanceAliveInternalServerErrorBody</a>
-
-#### IsInstanceAliveInternalServerErrorBody
-
-<a id="schemaisinstancealiveinternalservererrorbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_IsInstanceAliveInternalServerErrorBody is instance alive internal server error
-body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSlistoryaccesscontrolpoliciesinternalservererrorbody">ListOryAccessControlPoliciesInternalServerErrorBody</a>
-
-#### ListOryAccessControlPoliciesInternalServerErrorBody
-
-<a id="schemalistoryaccesscontrolpoliciesinternalservererrorbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_ListOryAccessControlPoliciesInternalServerErrorBody list ory access control
-policies internal server error body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSlistoryaccesscontrolpolicyrolesinternalservererrorbody">ListOryAccessControlPolicyRolesInternalServerErrorBody</a>
-
-#### ListOryAccessControlPolicyRolesInternalServerErrorBody
-
-<a id="schemalistoryaccesscontrolpolicyrolesinternalservererrorbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_ListOryAccessControlPolicyRolesInternalServerErrorBody list ory access control
-policy roles internal server error body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSremoveoryaccesscontrolpolicyrolemembersinternalservererrorbody">RemoveOryAccessControlPolicyRoleMembersInternalServerErrorBody</a>
-
-#### RemoveOryAccessControlPolicyRoleMembersInternalServerErrorBody
-
-<a id="schemaremoveoryaccesscontrolpolicyrolemembersinternalservererrorbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_RemoveOryAccessControlPolicyRoleMembersInternalServerErrorBody remove ory
-access control policy role members internal server error body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSupsertoryaccesscontrolpolicyinternalservererrorbody">UpsertOryAccessControlPolicyInternalServerErrorBody</a>
-
-#### UpsertOryAccessControlPolicyInternalServerErrorBody
-
-<a id="schemaupsertoryaccesscontrolpolicyinternalservererrorbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_UpsertOryAccessControlPolicyInternalServerErrorBody upsert ory access control
-policy internal server error body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
-<a id="tocSupsertoryaccesscontrolpolicyroleinternalservererrorbody">UpsertOryAccessControlPolicyRoleInternalServerErrorBody</a>
-
-#### UpsertOryAccessControlPolicyRoleInternalServerErrorBody
-
-<a id="schemaupsertoryaccesscontrolpolicyroleinternalservererrorbody"></a>
-
-```json
-{
-  "code": 0,
-  "details": [
-    {
-      "property1": {},
-      "property2": {}
-    }
-  ],
-  "message": "string",
-  "reason": "string",
-  "request": "string",
-  "status": "string"
-}
-```
-
-_UpsertOryAccessControlPolicyRoleInternalServerErrorBody upsert ory access
-control policy role internal server error body_
-
-#### Properties
-
-| Name                       | Type           | Required | Restrictions | Description |
-| -------------------------- | -------------- | -------- | ------------ | ----------- |
-| code                       | integer(int64) | false    | none         | code        |
-| details                    | [object]       | false    | none         | details     |
-| » **additionalProperties** | object         | false    | none         | none        |
-| message                    | string         | false    | none         | message     |
-| reason                     | string         | false    | none         | reason      |
-| request                    | string         | false    | none         | request     |
-| status                     | string         | false    | none         | status      |
-
 <a id="tocSaddoryaccesscontrolpolicyrolemembersbody">addOryAccessControlPolicyRoleMembersBody</a>
 
 #### addOryAccessControlPolicyRoleMembersBody
@@ -3520,8 +3002,8 @@ control policy role internal server error body_
 }
 ```
 
-_AuthorizationResult is the result of an access control decision. It contains
-the decision outcome._
+_AuthorizationResult AuthorizationResult AuthorizationResult AuthorizationResult
+is the result of an access control decision. It contains the decision outcome._
 
 #### Properties
 
@@ -3544,6 +3026,8 @@ the decision outcome._
 }
 ```
 
+_HealthNotReadyStatus health not ready status_
+
 #### Properties
 
 | Name                       | Type   | Required | Restrictions | Description                                                        |
@@ -3562,8 +3046,6 @@ the decision outcome._
   "status": "string"
 }
 ```
-
-_HealthStatus health status_
 
 #### Properties
 
@@ -3592,7 +3074,8 @@ _HealthStatus health status_
 }
 ```
 
-_oryAccessControlPolicy specifies an ORY Access Policy document._
+_OryAccessControlPolicy oryAccessControlPolicy specifies an ORY Access Policy
+document._
 
 #### Properties
 
@@ -3625,8 +3108,7 @@ _oryAccessControlPolicy specifies an ORY Access Policy document._
 }
 ```
 
-_OryAccessControlPolicyAllowedInput Input for checking if a request is allowed
-or not._
+_Input for checking if a request is allowed or not._
 
 #### Properties
 
@@ -3673,8 +3155,6 @@ other sort of role._
   "version": "string"
 }
 ```
-
-_Version Version version_
 
 #### Properties
 
