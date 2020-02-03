@@ -25,12 +25,6 @@ deal with:
   addresses, linked social profiles using secure flows.
 - **Admin APIs**: Import, update, delete identities.
 
-Now, you might be thinking that this has been solves a thousand times - and
-you're right! Unfortunately, they have been solved by companies in bespoke
-software solutions, not open to the public and peer review. You will also find
-alternative open source solutions such as RedHat's KeyCloak and the Gluu Suite,
-but ORY Kratos is architected and integrated with quite differently.
-
 Identity is a hard problem and ORY Kratos solves it in a unique way. We value
 security, flexibility, and integration with cloud technology (such as
 Kubernetes) most:
