@@ -99,8 +99,8 @@ Assuming the Identity's Traits JSON Schema is defined as
 ```
 
 the resulting JSON Payload coming from
-`https://ory-kratos-admin.example-org.vpc/self-service/browser/flows/requests/profile?request=abcde` would
-look something along the lines of:
+`https://ory-kratos-admin.example-org.vpc/self-service/browser/flows/requests/profile?request=abcde`
+would look something along the lines of:
 
 ```json
 {
@@ -190,8 +190,8 @@ Because Client-Side Browser Applications do not have access to ORY Kratos' Admin
 API, they must use the ORY Kratos Public API instead. The flow for a Client-Side
 Browser Application is almost the exact same as the one for Server-Side
 Applications, with the small difference that
-`https://example.org/.ory/kratos/public/self-service/browser/flows/requests/profile?request=abcde` would
-be called via AJAX instead of making a request to
+`https://example.org/.ory/kratos/public/self-service/browser/flows/requests/profile?request=abcde`
+would be called via AJAX instead of making a request to
 `https://ory-kratos-admin.example-org.vpc/self-service/browser/flows/requests/profile?request=abcde`.
 
 > To prevent brute force, guessing, session injection, and other attacks, it is

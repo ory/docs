@@ -18,8 +18,8 @@ redirect the User's Browser to `https://example.org/errors?error=abcde`.
 
 The route matching `https://example.org/errors` uses the `error` URL Query
 parameter value `abcde` to make a request to ORY Kratos' Public or Admin API
-`https://kratos-<public|admin/self-service/errors?error=abcde`. The JSON Response contains a
-list of errors and their details, for example:
+`https://kratos-<public|admin/self-service/errors?error=abcde`. The JSON
+Response contains a list of errors and their details, for example:
 
 ```json
 [
