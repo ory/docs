@@ -41,16 +41,16 @@ The [Network Flows for Browsers](index.md#network-flows-for-browsers) works as
 follows for Profile Management:
 
 1. An initial HTTP Request is made to
-   `https://example.org/.ory/kratos/public/profiles`.
+   `https://example.org/.ory/kratos/public/self-service/browser/flows/profile`.
 2. ORY Kratos redirects the browser to the URL set in `urls.profile_ui` and
    appends the `request` URL Query Parameter (e.g.
    `https://example.org/profile?request=abcde`).
 3. The Endpoint at `/profile` makes a HTTP GET Request to
-   `https://ory-kratos-admin.example-org.vpc/profiles/requests?request=abcde`
+   `https://ory-kratos-admin.example-org.vpc/self-service/browser/flows/requests/profile?request=abcde`
    and fetches Profile Management Request JSON Payload that represent the
    individual fields that can be updated.
 4. The User updates the profile data and sends a HTTP POST request to
-   `https://example.org/.ory/kratos/public/profiles/requests?request=abcde`.
+   `https://example.org/.ory/kratos/public/self-service/browser/flows/profile/update?request=abcde`.
    - If the profile data is invalid, all validation errors will be collected and
      added to the Profile Management JSON Payload. The Browser is redirected to
      the `urls.profile_ui` URL (e.g.
@@ -99,7 +99,7 @@ Assuming the Identity's Traits JSON Schema is defined as
 ```
 
 the resulting JSON Payload coming from
-`https://ory-kratos-admin.example-org.vpc/profiles/requests?request=abcde` would
+`https://ory-kratos-admin.example-org.vpc/self-service/browser/flows/requests/profile?request=abcde` would
 look something along the lines of:
 
 ```json
@@ -190,9 +190,9 @@ Because Client-Side Browser Applications do not have access to ORY Kratos' Admin
 API, they must use the ORY Kratos Public API instead. The flow for a Client-Side
 Browser Application is almost the exact same as the one for Server-Side
 Applications, with the small difference that
-`https://example.org/.ory/kratos/public/profiles/requests?request=abcde` would
+`https://example.org/.ory/kratos/public/self-service/browser/flows/requests/profile?request=abcde` would
 be called via AJAX instead of making a request to
-`https://ory-kratos-admin.example-org.vpc/profiles/requests?request=abcde`.
+`https://ory-kratos-admin.example-org.vpc/self-service/browser/flows/requests/profile?request=abcde`.
 
 > To prevent brute force, guessing, session injection, and other attacks, it is
 > required that cookies are working for this endpoint. The cookie set in the
