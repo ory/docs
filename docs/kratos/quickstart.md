@@ -81,7 +81,7 @@ cd kratos
 make quickstart
 
 # or if you don't have make installed:
-docker pull oryd/kratos:latest
+docker pull oryd/kratos:latest-sqlite
 docker pull oryd/kratos-selfservice-ui-node:latest
 docker-compose -f quickstart.yml up --build --force-recreate
 ```
