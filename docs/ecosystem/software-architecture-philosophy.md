@@ -3,8 +3,7 @@ id: software-architecture-philosophy
 title: Software Architecture and Philosophy
 ---
 
-We build Ory on several guiding principles when it comes to our architecture
-design:
+ORY's architecture is designed along several guiding principles:
 
 - Minimal dependencies
 - Runs everywhere
@@ -15,7 +14,7 @@ Our architecture leans on [12factor.net principles](https://www.12factor.net)
 and is designed to run best on a Container Orchestration Systems such as
 Kubernetes, CloudFoundry, OpenShift, and similar projects. While it is possible
 to run the ORY stack on a RaspberryPI, the integration with the Docker and
-Container ecosystem is best supported.
+Container ecosystem is best documented and supported.
 
 ## Architecture Philosophy
 
