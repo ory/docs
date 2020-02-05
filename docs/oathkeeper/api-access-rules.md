@@ -82,8 +82,7 @@ Access Rules have four principal keys:
     matching strategy (glob or regexp) is defined in the global configuration
     file as `access_rules.matching_strategy`. This matcher ignores query
     parameters. Regular expressions (or glob patterns) are encapsulated in
-    brackets `<` and `>`.
-    Regular expressions examples:
+    brackets `<` and `>`. Regular expressions examples:
     - `https://mydomain.com/` matches `https://mydomain.com/` and does not match
       `https://mydomain.com/foo` or `https://mydomain.com`.
     - `<https|http>://mydomain.com/<.*>` matches:`https://mydomain.com/` or
@@ -94,8 +93,8 @@ Access Rules have four principal keys:
     - `http://mydomain.com/<(?!protected).*>` matches
       `http://mydomain.com/resource` and does not match
       `http://mydomain.com/protected`
-    [Glop](http://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm) patterns
-    examples:
+      [Glop](http://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm)
+      patterns examples:
     - `https://mydomain.com/<m?n>` matches `https://mydomain.com/man` and does
       not match `http://mydomain.com/foo`.
     - `https://mydomain.com/<{foo*,bar*}>` matches `https://mydomain.com/foo` or
