@@ -502,7 +502,7 @@ To prevent weak passwords ORY Kratos implements different measures. Users often
 choose passwords similar to their traits. To prevent this ORY Kratos ensures
 there is a sufficient
 [Levenshtein-Distance](https://en.wikipedia.org/wiki/Levenshtein_distance) (aka
-"Edit-Distance") between the identifier and the password. Also it makes sure
+"Edit-Distance") between the identifier and the password. It also makes sure
 that the identifier and password have a small enough longest common substring.
 
 Furthermore the `password` strategy comes with a build-in check against the
