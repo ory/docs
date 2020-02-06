@@ -446,5 +446,5 @@ with a mode you can use the `serve.cookies.same_site_mode` setting. Possible
 values are `Strict`, `Lax` or `None`.
 
 If you wish to embed requests to hydra on a third party site (for example an
-iframe that periodically polls to check session status) you will need to set
-the mode to `None`.
+iframe that periodically polls to check session status) you will need to set the
+mode to `None`.
