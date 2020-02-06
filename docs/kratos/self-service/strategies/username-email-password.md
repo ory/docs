@@ -493,6 +493,25 @@ CAPTCHA in the following scenarios:
 For integration guidelines, please check the individual flow's (registration,
 login, account recovery) integration documentation.
 
+### Password Validation
+
+> Further improvements are work in progress and are tracked on
+> [GitHub](https://github.com/ory/kratos/issues?q=is%3Aopen+label%3Amodule%3Ass%2Fpassword+)
+
+To prevent weak passwords ORY Kratos implements different measures. Users often
+choose passwords similar to their traits. To prevent this ORY Kratos ensures
+there is a sufficient
+[Levenshtein-Distance](https://en.wikipedia.org/wiki/Levenshtein_distance) (aka
+"Edit-Distance") between the identifier and the password. Also it makes sure
+that the identifier and password have a small enough longest common substring.
+
+Furthermore the `password` strategy comes with a build-in check against the
+["Have I been pwned"](https://haveibeenpwned.com) breach database. This way ORY
+Kratos makes sure your users cannot use passwords like "password", "123456" or
+any other commonly used one. To protect the value of the password the
+[range API](https://haveibeenpwned.com/API/v3#SearchingPwnedPasswordsByRange) is
+being used.
+
 ### Account Enumeration Defenses (work in progress)
 
 > This feature is a work in progress and is tracked as
