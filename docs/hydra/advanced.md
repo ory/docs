@@ -437,3 +437,14 @@ is making the request. For example, OAuth 2.0 Client
 is allowed to make CORS request to `/oauth2/token` from origin
 `https://foo-bar.com/` even if that origin is not listed in
 `public.cors.allowed_origins`.
+
+## Cookies
+
+By default, cookies sent by the Hydra Public endpoints are set without
+explicitly specifying a SameSite mode. If you wish for these cookies to be set
+with a mode you can use the `serve.cookies.same_site_mode` setting. Possible
+values are `Strict`, `Lax` or `None`.
+
+If you wish to embed requests to hydra on a third party site (for example an
+iframe that periodically polls to check session status) you will need to set
+the mode to `None`.
