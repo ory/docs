@@ -5,7 +5,7 @@ title: Roadmap
 
 ## ORY Roadmap
 
-If you would like a quick overview of whats coming next to ORY, you can do so at our github project page.  
+If you would like a quick overview of whats coming next to ORY, you can do so at our [GitHub Projects Board](https://github.com/orgs/ory/projects/8).  
 You can see what we are working on right now, what issues are prioritized and what progress has been made in the past.  
 [Follow this link for the complete Project Roadmap](https://github.com/orgs/ory/projects/8).
 
@@ -35,4 +35,3 @@ You can see what we are working on right now, what issues are prioritized and wh
 [ORY Oathkeeper Milestones](https://github.com/ory/oathkeeper/milestones)  
 [ORY Oathkeeper Pull Requests](https://github.com/ory/oathkeeper/pulls)  
 [ORY Oathkeeper Issues](https://github.com/ory/oathkeeper/issues)  
-
