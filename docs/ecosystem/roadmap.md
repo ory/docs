@@ -7,7 +7,6 @@ title: Roadmap
 
 If you would like a quick overview of whats coming next to ORY, you can do so at our [GitHub Projects Board](https://github.com/orgs/ory/projects/8).  
 You can see what we are working on right now, what issues are prioritized and what progress has been made in the past.  
-[Follow this link for the complete Project Roadmap](https://github.com/orgs/ory/projects/8).
 
 ## ORY Project Management Board
 
@@ -21,17 +20,17 @@ You can see what we are working on right now, what issues are prioritized and wh
 ## Individual Project Sections
 
 [ORY Kratos Milestones](https://github.com/ory/kratos/milestones)  
-[ORY Kratos Pull Requests](https://github.com/ory/kratos/pulls)  
-[ORY Kratos Issues](https://github.com/ory/kratos/issues)  
+[ORY Kratos Pull Requests](https://github.com/ory/kratos/pulls?q=is%3Aopen)  
+[ORY Kratos Issues](https://github.com/ory/kratos/issues?q=is%3Aopen)  
 
 [ORY Hydra Milestones](https://github.com/ory/hydra/milestones)  
-[ORY Hydra Pull Requests](https://github.com/ory/hydra/pulls)  
-[ORY Hydra Issues](https://github.com/ory/hydra/issues)  
+[ORY Hydra Pull Requests](https://github.com/ory/hydra/pulls?q=is%3Aopen)  
+[ORY Hydra Issues](https://github.com/ory/hydra/issues?q=is%3Aopen)  
 
 [ORY Keto Milestones](https://github.com/ory/keto/milestones)  
-[ORY Keto Pull Requests](https://github.com/ory/keto/pulls)  
-[ORY Keto Issues](https://github.com/ory/keto/issues)  
+[ORY Keto Pull Requests](https://github.com/ory/keto/pulls?q=is%3Aopen)  
+[ORY Keto Issues](https://github.com/ory/keto/issues?q=is%3Aopen)  
 
 [ORY Oathkeeper Milestones](https://github.com/ory/oathkeeper/milestones)  
-[ORY Oathkeeper Pull Requests](https://github.com/ory/oathkeeper/pulls)  
-[ORY Oathkeeper Issues](https://github.com/ory/oathkeeper/issues)  
+[ORY Oathkeeper Pull Requests](https://github.com/ory/oathkeeper/pulls?q=is%3Aopen)  
+[ORY Oathkeeper Issues](https://github.com/ory/oathkeeper/issues?q=is%3Aopen)  
