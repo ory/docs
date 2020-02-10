@@ -9,7 +9,7 @@ If you would like a quick overview of whats coming next to ORY, you can do so at
 You can see what we are working on right now, what issues are prioritized and what progress has been made in the past.  
 [Follow this link for the complete Project Roadmap](https://github.com/orgs/ory/projects/8).
 
-## Complete Roadmap Sections: 
+## ORY Project Management Board
 
 [To Do](https://github.com/orgs/ory/projects/8#column-6092768)  
 [Priority](https://github.com/orgs/ory/projects/8#column-7739379)  
