@@ -20,17 +20,12 @@ You can see what we are working on right now, what issues are prioritized and wh
 ## Individual Project Sections
 
 [ORY Kratos Milestones](https://github.com/ory/kratos/milestones)  
-[ORY Kratos Pull Requests](https://github.com/ory/kratos/pulls?q=is%3Aopen)  
-[ORY Kratos Issues](https://github.com/ory/kratos/issues?q=is%3Aopen)  
+[ORY Kratos Open Issues & Pull Requests](https://github.com/ory/kratos/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc)  
 
 [ORY Hydra Milestones](https://github.com/ory/hydra/milestones)  
-[ORY Hydra Pull Requests](https://github.com/ory/hydra/pulls?q=is%3Aopen)  
-[ORY Hydra Issues](https://github.com/ory/hydra/issues?q=is%3Aopen)  
-
+[ORY Hydra Open Issues & Pull Requests](https://github.com/ory/hydra/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc)  
 [ORY Keto Milestones](https://github.com/ory/keto/milestones)  
-[ORY Keto Pull Requests](https://github.com/ory/keto/pulls?q=is%3Aopen)  
-[ORY Keto Issues](https://github.com/ory/keto/issues?q=is%3Aopen)  
+[ORY Keto Open Issues & Pull Requests](https://github.com/ory/keto/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc)  
 
 [ORY Oathkeeper Milestones](https://github.com/ory/oathkeeper/milestones)  
-[ORY Oathkeeper Pull Requests](https://github.com/ory/oathkeeper/pulls?q=is%3Aopen)  
-[ORY Oathkeeper Issues](https://github.com/ory/oathkeeper/issues?q=is%3Aopen)  
+[ORY Oathkeeper Open Issues & Pull Requests](https://github.com/ory/oathkeeper/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc)  
