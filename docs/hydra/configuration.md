@@ -306,7 +306,6 @@ oidc:
 
   # dynamic_client_registration configures OpenID Connect Dynamic Client Registration (exposed as admin endpoints /clients/...)
   dynamic_client_registration:
-
     # The OpenID Connect Dynamic Client Registration specification has no concept of whitelisting OAuth 2.0 Scope. If you
     # want to expose Dynamic Client Registration, you should set the default scope enabled for newly registered clients.
     # Keep in mind that users can overwrite this default by setting the "scope" key in the registration payload,
@@ -318,7 +317,6 @@ oidc:
 
 urls:
   self:
-
     # This value will be used as the "issuer" in access and ID tokens. It must be
     # specified and using HTTPS protocol, unless --dangerous-force-http is set. This should typically be equal
     # to the public value.
@@ -401,7 +399,6 @@ secrets:
     - this-is-an-old-secret
     - this-is-another-old-secret
 
-
 # Enables profiling if set. Use "cpu" to enable cpu profiling and "mem" to enable memory profiling. For more details
 # on profiling, head over to: https://blog.golang.org/profiling-go-programs
 profiling: cpu
@@ -436,4 +433,3 @@ tracing:
         # The address of jaeger-agent's HTTP sampling server
         server_url: http://localhost:5778/sampling
 ```
-
