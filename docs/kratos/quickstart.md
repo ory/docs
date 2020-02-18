@@ -66,6 +66,9 @@ implement that yourself or choose the ORY Cloud offering (to be announced). In
 this quickstart, we will use ORY Kratos CLI (Command Line Interface) to interact
 with ORY Kratos' Administrative APIs.
 
+The quickstart also comes with [MailSlurper](https://mailslurper.com), a mock
+SMTP server the demo uses to show how e.g. email verification works.
+
 ### Clone ORY Kratos and run it in Docker
 
 To get this example working, you will need Git and
@@ -98,8 +101,6 @@ oathkeeper_1                  | {"level":"info","msg":"TLS has not been configur
 oathkeeper_1                  | {"level":"info","msg":"Listening on http://:4456","time":"2020-01-20T09:22:09Z"}
 oathkeeper_1                  | {"level":"info","msg":"TLS has not been configured for proxy, skipping","time":"2020-01-20T09:22:09Z"}
 oathkeeper_1                  | {"level":"info","msg":"Listening on http://:4455","time":"2020-01-20T09:22:09Z"}
-
-mailhog_1                     | [APIv1] KEEPALIVE /api/v1/events
 ```
 
 > There are two important factors to get a fully functional system:
@@ -141,7 +142,7 @@ To better understand how everything is wired, let's take a look at the network
 configuration. This assumes that you have at least some understanding of how
 Docker (Compose) Networks work:
 
-[![User Login and Registration Network Topology](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcblxuc3ViZ3JhcGggaG5bSG9zdCBOZXR3b3JrXVxuICAgIEJbQnJvd3Nlcl1cbiAgICBCLS0-fENhbiBhY2Nlc3MgVVJMcyB2aWEgMTI3LjAuMC4xOjQ0NTV8T0tQSE5cbiAgICBCLS0-fENhbiBhY2Nlc3MgVUkgdmlhIDEyNy4wLjAuMTo0NDM2fFNNVFBVSVxuICAgIE9LUEhOKFtSZXZlcnNlIFByb3h5IGV4cG9zZWQgYXQgOjQ0NTVdKVxuICAgIFNNVFBVSShbU01UUCBVSSBleHBvc2VkIGF0IDo0NDM2XSlcbmVuZFxuXG5zdWJncmFwaCBkbltcIkludGVybmFsIERvY2tlciBOZXR3b3JrIChpbnRyYW5ldClcIl1cbiAgICBPS1BITi0tPk9PXG4gICAgU01UUFVJLS0-U01UUFxuICAgIE9PLS0-fFByb3hpZXMgVVJMc3MgLy5vcnkva3JhdG9zL3B1YmxpYy8qIHRvfE9LXG4gICAgT08tLT58XCJQcm94aWVzIC9hdXRoL2xvZ2luLCAvYXV0aC9yZWdpc3RyYXRpb24sIC9kYXNoYm9hcmQsIC4uLiB0b1wifFNBXG4gICAgU0EtLT58VGFsa3MgdG98T0tcbiAgICBPSy0tPnxUYWxrcyB0b3xTTVRQXG4gICAgT08tLT58VmFsaWRhdGVzIGF1dGggc2Vzc2lvbnMgdXNpbmd8T0tcblxuICAgIE9LW09SWSBLcmF0b3NdXG4gICAgT09bXCJSZXZlcnNlIFByb3h5IChPUlkgT2F0aGtlZXBlcilcIl1cbiAgICBTQVtcIlNlY3VyZUFwcCAoT1JZIEtyYXRvcyBTZWxmU2VydmljZSBVSSBOb2RlIEV4YW1wbGUpXCJdXG4gICAgU01UUFtcIlNNVFAgU2VydmVyIChNYWlsSG9nKVwiXVxuZW5kXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoibmV1dHJhbCIsImZsb3djaGFydCI6eyJyYW5rU3BhY2luZyI6NjUsIm5vZGVTcGFjaW5nIjozMCwiY3VydmUiOiJiYXNpcyJ9fX0)](https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoiZ3JhcGggVERcblxuc3ViZ3JhcGggaG5bSG9zdCBOZXR3b3JrXVxuICAgIEJbQnJvd3Nlcl1cbiAgICBCLS0-fENhbiBhY2Nlc3MgVVJMcyB2aWEgMTI3LjAuMC4xOjQ0NTV8T0tQSE5cbiAgICBCLS0-fENhbiBhY2Nlc3MgVUkgdmlhIDEyNy4wLjAuMTo0NDM2fFNNVFBVSVxuICAgIE9LUEhOKFtSZXZlcnNlIFByb3h5IGV4cG9zZWQgYXQgOjQ0NTVdKVxuICAgIFNNVFBVSShbU01UUCBVSSBleHBvc2VkIGF0IDo0NDM2XSlcbmVuZFxuXG5zdWJncmFwaCBkbltcIkludGVybmFsIERvY2tlciBOZXR3b3JrIChpbnRyYW5ldClcIl1cbiAgICBPS1BITi0tPk9PXG4gICAgU01UUFVJLS0-U01UUFxuICAgIE9PLS0-fFByb3hpZXMgVVJMc3MgLy5vcnkva3JhdG9zL3B1YmxpYy8qIHRvfE9LXG4gICAgT08tLT58XCJQcm94aWVzIC9hdXRoL2xvZ2luLCAvYXV0aC9yZWdpc3RyYXRpb24sIC9kYXNoYm9hcmQsIC4uLiB0b1wifFNBXG4gICAgU0EtLT58VGFsa3MgdG98T0tcbiAgICBPSy0tPnxUYWxrcyB0b3xTTVRQXG4gICAgT08tLT58VmFsaWRhdGVzIGF1dGggc2Vzc2lvbnMgdXNpbmd8T0tcblxuICAgIE9LW09SWSBLcmF0b3NdXG4gICAgT09bXCJSZXZlcnNlIFByb3h5IChPUlkgT2F0aGtlZXBlcilcIl1cbiAgICBTQVtcIlNlY3VyZUFwcCAoT1JZIEtyYXRvcyBTZWxmU2VydmljZSBVSSBOb2RlIEV4YW1wbGUpXCJdXG4gICAgU01UUFtcIlNNVFAgU2VydmVyIChNYWlsSG9nKVwiXVxuZW5kXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoibmV1dHJhbCIsImZsb3djaGFydCI6eyJyYW5rU3BhY2luZyI6NjUsIm5vZGVTcGFjaW5nIjozMCwiY3VydmUiOiJiYXNpcyJ9fX0)
+[![User Login and Registration Network Topology](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcblxuc3ViZ3JhcGggaG5bSG9zdCBOZXR3b3JrXVxuICAgIEJbQnJvd3Nlcl1cbiAgICBCLS0-fENhbiBhY2Nlc3MgVVJMcyB2aWEgMTI3LjAuMC4xOjQ0NTV8T0tQSE5cbiAgICBCLS0-fENhbiBhY2Nlc3MgVUkgdmlhIDEyNy4wLjAuMTo0NDM2fFNNVFBVSVxuICAgIE9LUEhOKFtSZXZlcnNlIFByb3h5IGV4cG9zZWQgYXQgOjQ0NTVdKVxuICAgIFNNVFBVSShbTWFpbFNsdXJwZXIgVUkgZXhwb3NlZCBhdCA6NDQzNl0pXG5lbmRcblxuc3ViZ3JhcGggZG5bXCJJbnRlcm5hbCBEb2NrZXIgTmV0d29yayAoaW50cmFuZXQpXCJdXG4gICAgT0tQSE4tLT5PT1xuICAgIFNNVFBVSS0tPlNNVFBcbiAgICBPTy0tPnxQcm94aWVzIFVSTHNzIC8ub3J5L2tyYXRvcy9wdWJsaWMvKiB0b3xPS1xuICAgIE9PLS0-fFwiUHJveGllcyAvYXV0aC9sb2dpbiwgL2F1dGgvcmVnaXN0cmF0aW9uLCAvZGFzaGJvYXJkLCAuLi4gdG9cInxTQVxuICAgIFNBLS0-fFRhbGtzIHRvfE9LXG4gICAgT0stLT58U2VuZHMgbWFpbCB2aWF8U01UUFxuICAgIE9PLS0-fFZhbGlkYXRlcyBhdXRoIHNlc3Npb25zIHVzaW5nfE9LXG5cbiAgICBPS1tPUlkgS3JhdG9zXVxuICAgIE9PW1wiUmV2ZXJzZSBQcm94eSAoT1JZIE9hdGhrZWVwZXIpXCJdXG4gICAgU0FbXCJTZWN1cmVBcHAgKE9SWSBLcmF0b3MgU2VsZlNlcnZpY2UgVUkgTm9kZSBFeGFtcGxlKVwiXVxuICAgIFNNVFBbXCJTTVRQIFNlcnZlciAoTWFpbFNsdXJwZXIpXCJdXG5lbmRcbiIsIm1lcm1haWQiOnsidGhlbWUiOiJuZXV0cmFsIiwiZmxvd2NoYXJ0Ijp7InJhbmtTcGFjaW5nIjo2NSwibm9kZVNwYWNpbmciOjMwLCJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoiZ3JhcGggVERcblxuc3ViZ3JhcGggaG5bSG9zdCBOZXR3b3JrXVxuICAgIEJbQnJvd3Nlcl1cbiAgICBCLS0-fENhbiBhY2Nlc3MgVVJMcyB2aWEgMTI3LjAuMC4xOjQ0NTV8T0tQSE5cbiAgICBCLS0-fENhbiBhY2Nlc3MgVUkgdmlhIDEyNy4wLjAuMTo0NDM2fFNNVFBVSVxuICAgIE9LUEhOKFtSZXZlcnNlIFByb3h5IGV4cG9zZWQgYXQgOjQ0NTVdKVxuICAgIFNNVFBVSShbTWFpbFNsdXJwZXIgVUkgZXhwb3NlZCBhdCA6NDQzNl0pXG5lbmRcblxuc3ViZ3JhcGggZG5bXCJJbnRlcm5hbCBEb2NrZXIgTmV0d29yayAoaW50cmFuZXQpXCJdXG4gICAgT0tQSE4tLT5PT1xuICAgIFNNVFBVSS0tPlNNVFBcbiAgICBPTy0tPnxQcm94aWVzIFVSTHNzIC8ub3J5L2tyYXRvcy9wdWJsaWMvKiB0b3xPS1xuICAgIE9PLS0-fFwiUHJveGllcyAvYXV0aC9sb2dpbiwgL2F1dGgvcmVnaXN0cmF0aW9uLCAvZGFzaGJvYXJkLCAuLi4gdG9cInxTQVxuICAgIFNBLS0-fFRhbGtzIHRvfE9LXG4gICAgT0stLT58U2VuZHMgbWFpbCB2aWF8U01UUFxuICAgIE9PLS0-fFZhbGlkYXRlcyBhdXRoIHNlc3Npb25zIHVzaW5nfE9LXG5cbiAgICBPS1tPUlkgS3JhdG9zXVxuICAgIE9PW1wiUmV2ZXJzZSBQcm94eSAoT1JZIE9hdGhrZWVwZXIpXCJdXG4gICAgU0FbXCJTZWN1cmVBcHAgKE9SWSBLcmF0b3MgU2VsZlNlcnZpY2UgVUkgTm9kZSBFeGFtcGxlKVwiXVxuICAgIFNNVFBbXCJTTVRQIFNlcnZlciAoTWFpbFNsdXJwZXIpXCJdXG5lbmRcbiIsIm1lcm1haWQiOnsidGhlbWUiOiJuZXV0cmFsIiwiZmxvd2NoYXJ0Ijp7InJhbmtTcGFjaW5nIjo2NSwibm9kZVNwYWNpbmciOjMwLCJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
 
 As you can see, most requests are proxied through the Reverse Proxy
 ([ORY Oathkeeper](https://github.com/ory/oathkeeper)). The `quickstart.yml` file
@@ -294,6 +295,28 @@ able to use the credentials just set up to log in!
 Head over to the [Self-Service Flows Chapter](./self-service/flows/index.md) for
 a in-depth explanation of how the individual flows work.
 
+### Email Verification
+
+As you've signed up, an email was sent to the email address you used. Because
+the quickstart uses a fake SMTP server, the email did not arrive in your inbox.
+You can retrieve the email however by opening the MailSlurper UI at
+[127.0.0.1:4436](http://127.0.0.1:4436).
+
+You should see something like this:
+
+![User Email Verification](assets/images/kratos/mailslurper-quickstart.png)
+
+If not, hard refresh the tab or click on the home icon in the menu bar.
+
+Next, click the verification link. You will end up at the dashboard, with a
+verified E-Mail Address (check the `verified` and `verified_at` field in the
+JSON Payload):
+
+![SecureApp Dashboard](assets/images/kratos/secureapp-verified-dashboard.png)
+
+To re-request the verification email, fill out the form at
+[127.0.0.1:4455/verify](http://127.0.0.1:4455/verify).
+
 #### Configuration Used
 
 You can find all configuration files for this quickstart guide in
@@ -303,7 +326,6 @@ this documentation.
 
 In the future, this guide will support more use cases such as:
 
-- Activate account after sign up and before log in
 - Use GitHub to login in and sign up
 - Use PostgreSQL / MySQL instead of SQLite
 
