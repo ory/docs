@@ -9,8 +9,8 @@
       "ecosystem/upgrading",
       "ecosystem/api-design",
       "ecosystem/community",
-      "ecosystem/sqa",
-      "ecosystem/roadmap"
+      "ecosystem/roadmap",
+      "ecosystem/sqa"
     ],
     "ORY Kratos": [
       {
