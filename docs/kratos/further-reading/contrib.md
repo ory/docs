@@ -1,4 +1,5 @@
-This file is meant to collect community contributions (such as articles and how to's) which will later be merged into appropriate sections.
+This file is meant to collect community contributions (such as articles and how
+to's) which will later be merged into appropriate sections.
 
 <!--
 Here is an example of how such a community contribution could look like:
