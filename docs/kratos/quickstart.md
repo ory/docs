@@ -50,8 +50,8 @@ and of course:
 ## Setup
 
 As you might already know, ORY Kratos is API-only. It does not have a UI or HTML
-Templating Engine. We will implement all the user-facing UIs (dashboard,
-login, registration, ...) in our NodeJS SecureApp!
+Templating Engine. We will implement all the user-facing UIs (dashboard, login,
+registration, ...) in our NodeJS SecureApp!
 
 To ensure that no one can access the dashboard without prior authentication
 (login), we will use a reverse proxy
