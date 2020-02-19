@@ -1,6 +1,7 @@
 ---
-id: configure-deploy
+id: version-oryOS.17-configure-deploy
 title: Configure and Deploy
+original_id: configure-deploy
 ---
 
 Like all other ORY services, ORY Keto is implemented following
