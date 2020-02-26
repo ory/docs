@@ -648,13 +648,11 @@ Learn how identities work in
 
 ##### Overview
 
-| Status | Meaning                                                      | Description        | Schema |
-| ------ | ------------------------------------------------------------ | ------------------ | ------ |
-| 201    | [Created](https://tools.ietf.org/html/rfc7231#section-6.3.2) | A single identity. |
-
-nolint:deadcode,unused|[Identity](#schemaidentity)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|genericError|[genericError](#schemagenericerror)|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
+| Status | Meaning                                                                    | Description        | Schema                              |
+|--------|----------------------------------------------------------------------------|--------------------|-------------------------------------|
+| 201    | [Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)               | A single identity. | [Identity](#schemaidentity)         |
+| 400    | [Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)           | genericError       | [genericError](#schemagenericerror) |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | genericError       | [genericError](#schemagenericerror) |
 
 ##### Examples
 
