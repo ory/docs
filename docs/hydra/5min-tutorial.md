@@ -56,7 +56,7 @@ $ docker-compose -f quickstart.yml \
 Hydra provides an endpoint for Prometheus to scrape as a target. You can run the
 following command to start the needed containers, and status of Hydra is exposed
 at targets page in Prometheus
-[http://localhost:9090/tarets](http://localhost:9090/targets):
+[http://localhost:9090/targets](http://localhost:9090/targets):
 
 ```
 docker-compose -f quickstart.yml \
