@@ -13,6 +13,69 @@ for example, the `X-User:`.
 The Access Control Decision API will return the mutated result as the HTTP
 Response.
 
+## Use of session variables
+
+In all configurations supporting [Golang Template](https://golang.org/pkg/text/template/) 
+instructions, it's possible to use the 
+[`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/master/pipeline/authn/authenticator.go#L39) 
+struct content.
+
+```go
+type AuthenticationSession struct {
+	Subject      string
+	Extra        map[string]interface{}
+	Header       http.Header
+	MatchContext MatchContext
+}
+
+type MatchContext struct {
+	RegexpCaptureGroups []string
+	URL                 *url.URL
+}
+```
+
+### Example
+
+To use the subject extract to the token
+```json
+"config_field": "{{ print .subject }}"
+```
+
+To use an embedded value in the `Extra` map (most of the time, it's a JWT token claim)
+```json
+"config_field": "{{ print .Extra.some.arbitrary.data }}"
+```
+
+To use a Regex capture from the request URL  
+Note the usage of `printIndex` to print a value from the array
+```json
+"claims": "{\"aud\": \"{{ print .Extra.aud }}\", \"resource\": \"{{ printIndex .MatchContext.RegexpCaptureGroups 0 }}\""
+```
+
+To display a string array to JSON format, we can use the [fmt printf](https://golang.org/pkg/fmt/) function
+```json
+"claims": "{\"aud\": \"{{ print .Extra.aud }}\", \"scope\": {{ printf \"%+q\" .Extra.scp }}}"
+```
+
+Note that the `AuthenticationSession` struct has a field named `Extra` which is
+a `map[string]interface{}`, which receives varying introspection data from the
+authentication process. Because the contents of `Extra` are so variable, nested
+and potentially non-existent values need special handling by the `text/template`
+parser, and a `print` FuncMap function has been provided to ensure that
+non-existent map values will simply return an empty string, rather than
+`<no value>`.
+
+If you find that your field contain the string `<no value>` then you have most
+likely omitted the `print` function, and it is recommended you use it for all
+values out of an abundance of caution and for consistency.
+
+In the same way, a `printIndex` FuncMap function is provided to avoid _out of range_
+exception to access in a array. It can be useful for the regexp captures which
+depend of the request.
+
+This also supports [sprig](http://masterminds.github.io/sprig/) template helpers
+for more advanced functionality.
+
 ## `noop`
 
 This mutator does not transform the HTTP request and simply forwards the headers
@@ -224,33 +287,11 @@ This mutator allows you to specify custom claims, like the audience of ID
 tokens, via the `claims` field of the mutator's `config` field. The keys
 represent names of claims and the values are arbitrary data structures which
 will be parsed by the Go [text/template](https://golang.org/pkg/text/template/)
-package for value substitution, receiving the
-[AuthenticationSession](https://github.com/ory/oathkeeper/blob/92c09fb28552949cd034ed5555c87dfda91407a3/proxy/authenticator.go#L19)
-struct:
+package for value substitution, receiving the `AuthenticationSession` struct.
 
-```go
-type AuthenticationSession struct {
-	Subject string
-	Extra   map[string]interface{}
-	Header  http.Header
-}
-```
+For more details please check [Session variables](#use-of-session-variables)
 
-Note that the `AuthenticationSession` struct has a field named `Extra` which is
-a `map[string]interface{}`, which receives varying introspection data from the
-authentication process. Because the contents of `Extra` are so variable, nested
-and potentially non-existent values need special handling by the `text/template`
-parser, and a `print` FuncMap function has been provided to ensure that
-non-existent map values will simply return an empty string, rather than
-`<no value>`.
-
-If you find that your claims contain the string `<no value>` then you have most
-likely omitted the `print` function, and it is recommended you use it for all
-values out of an abundance of caution and for consistency.
-
-The claims configuration expects a string which is expected to be valid JSON.
-The string can contain [Golang Template](https://golang.org/pkg/text/template/)
-instructions allowing you to programmatically generate the claims string:
+The claims configuration expects a string which is expected to be valid JSON:
 
 ```json
 {
@@ -260,9 +301,6 @@ instructions allowing you to programmatically generate the claims string:
   }
 }
 ```
-
-This also supports [sprig](http://masterminds.github.io/sprig/) template helpers
-for more advanced functionality.
 
 Please keep in mind that certain keys (such as the `sub`) claim **can not** be
 overwritten!
@@ -347,29 +385,9 @@ mutators:
 The headers are specified via the `headers` field of the mutator's `config`
 field. The keys are the header name and the values are a string which will be
 parsed by the Go [`text/template`](https://golang.org/pkg/text/template/)
-package for value substitution, receiving the
-[`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/d21179dd25543662075be402f6e24e1ee20d2754/pipeline/authn/authenticator.go#L26)
-struct:
+package for value substitution, receiving the `AuthenticationSession` struct.
 
-```go
-type AuthenticationSession struct {
-    Subject string
-    Extra   map[string]interface{}
-    Header  http.Header
-}
-```
-
-Note that the `AuthenticationSession` struct has a field named `Extra` which is
-a `map[string]interface{}`, which receives varying introspection data from the
-authentication process. Because the contents of `Extra` are so variable, nested
-and potentially non-existent values need special handling by the `text/template`
-parser, and a `print` FuncMap function has been provided to ensure that
-non-existent map values will simply return an empty string, rather than
-`<no value>`.
-
-If you find that your headers contain the string `<no value>` then you have most
-likely omitted the `print` function, and it is recommended you use it for all
-values out of an abundance of caution and for consistency.
+For more details please check [Session variables](#use-of-session-variables)
 
 ### Access Rule Example
 
@@ -446,29 +464,9 @@ mutators:
 The cookies are specified via the `cookies` field of the mutators `config`
 field. The keys are the cookie name and the values are a string which will be
 parsed by the Go [`text/template`](https://golang.org/pkg/text/template/)
-package for value substitution, receiving the
-[AuthenticationSession](https://github.com/ory/oathkeeper/blob/d21179dd25543662075be402f6e24e1ee20d2754/pipeline/authn/authenticator.go#L26)
-struct:
+package for value substitution, receiving the `AuthenticationSession` struct.
 
-```go
-type AuthenticationSession struct {
-    Subject string
-    Extra   map[string]interface{}
-    Header  http.Header
-}
-```
-
-Note that the `AuthenticationSession` struct has a field named `Extra` which is
-a `map[string]interface{}`, which receives varying introspection data from the
-authentication process. Because the contents of `Extra` are so variable, nested
-and potentially non-existent values need special handling by the `text/template`
-parser, and a `print` FuncMap function has been provided to ensure that
-non-existent map values will simply return an empty string, rather than
-`<no value>`.
-
-If you find that your cookies contain the string `<no value>` then you have most
-likely omitted the `print` function, and it is recommended you use it for all
-values out of an abundance of caution and for consistency.
+For more details please check [Session variables](#use-of-session-variables)
 
 ##### Example
 
@@ -510,14 +508,18 @@ This mutator allows for fetching additional data from external APIs, which can
 be then used by other mutators. It works by making an upstream HTTP call to an
 API specified in the **Per-Rule Configuration** section below. The request is a
 POST request and it contains JSON representation of
-[AuthenticationSession](https://github.com/ory/oathkeeper/blob/d21179dd25543662075be402f6e24e1ee20d2754/pipeline/authn/authenticator.go#L26)
+[AuthenticationSession](https://github.com/ory/oathkeeper/blob/master/pipeline/authn/authenticator.go#L39)
 struct in body, which is:
 
 ```json
 {
   "subject": String,
   "extra": Object,
-  "header": Object
+  "header": Object,
+  "match_context": {
+    "regexp_capture_groups": Object,
+    "url": Object
+  }
 }
 ```
 
@@ -534,6 +536,10 @@ Example request/response payload:
   },
   "header": {
     "foo": ["bar1", "bar2"]
+  },
+  "match_context": {
+    "regexp_capture_groups": ["http", "foo"],
+    "url": "http://domain.com/foo"
   }
 }
 ```

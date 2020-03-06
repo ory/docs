@@ -223,3 +223,32 @@ strategies are supported:
 - `exact`: Scope `foo` matches `foo` but not `bar` nor `foo.bar`
 - `none`: Scope validation is disabled. If however a scope is configured to be
   validated, the request will fail with an error message.
+
+## Match strategy behavior
+
+With the **Regular expression** strategy, you can use the extracted groups in all
+handlers where the substitutions are supported by using the Go
+[`text/template`](https://golang.org/pkg/text/template/) package, receiving the 
+[AuthenticationSession](https://github.com/ory/oathkeeper/blob/master/pipeline/authn/authenticator.go#L39)
+struct:
+
+```go
+type AuthenticationSession struct {
+	Subject      string
+	Extra        map[string]interface{}
+	Header       http.Header
+	MatchContext MatchContext
+}
+
+type MatchContext struct {
+	RegexpCaptureGroups []string
+	URL                 *url.URL
+}
+```
+
+**Examples**
+
+If the match URL is `<https|http>://mydomain.com/<.*>` and the request is `http://mydomain.com/foo`,
+ the `MatchContext` field will contain  
+- `RegexpCaptureGroups`: ["http", "foo"]
+- `URL`: "http://mydomain.com/foo"
