@@ -153,8 +153,8 @@ This authorizer has four configuration options, `required_action`,
 ```
 
 All configuration options except `flavor` support Go
-[`text/template`](https://golang.org/pkg/text/template/). Let's say
-you have the following match configuration:
+[`text/template`](https://golang.org/pkg/text/template/). Let's say you have the
+following match configuration:
 
 ```json
 {
@@ -166,7 +166,8 @@ you have the following match configuration:
 ```
 
 Here, you have two regular expressions, `<[0-9]+>` and `<[a-zA-Z]+>`. You can
-reference the values matched by the regular expression using the `AuthenticationSession` struct:
+reference the values matched by the regular expression using the
+`AuthenticationSession` struct:
 
 ```json
 {
@@ -195,7 +196,8 @@ The `subject` field configures what subject is passed on to the ORY Keto
 endpoint. If `subject` is not specified it will default to
 `AuthenticationSession.Subject`.
 
-For more details about supported Go template substitution, see. [How to use session variables](mutator.md#use-of-session-variables)
+For more details about supported Go template substitution, see.
+[How to use session variables](mutator.md#use-of-session-variables)
 
 #### Example
 

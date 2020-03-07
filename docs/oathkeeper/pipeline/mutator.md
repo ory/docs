@@ -15,9 +15,10 @@ Response.
 
 ## Use of session variables
 
-In all configurations supporting [Golang Template](https://golang.org/pkg/text/template/) 
-instructions, it's possible to use the 
-[`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/master/pipeline/authn/authenticator.go#L39) 
+In all configurations supporting
+[Golang Template](https://golang.org/pkg/text/template/) instructions, it's
+possible to use the
+[`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/master/pipeline/authn/authenticator.go#L39)
 struct content.
 
 ```go
@@ -37,22 +38,28 @@ type MatchContext struct {
 ### Example
 
 To use the subject extract to the token
+
 ```json
 "config_field": "{{ print .subject }}"
 ```
 
-To use an embedded value in the `Extra` map (most of the time, it's a JWT token claim)
+To use an embedded value in the `Extra` map (most of the time, it's a JWT token
+claim)
+
 ```json
 "config_field": "{{ print .Extra.some.arbitrary.data }}"
 ```
 
 To use a Regex capture from the request URL  
 Note the usage of `printIndex` to print a value from the array
+
 ```json
 "claims": "{\"aud\": \"{{ print .Extra.aud }}\", \"resource\": \"{{ printIndex .MatchContext.RegexpCaptureGroups 0 }}\""
 ```
 
-To display a string array to JSON format, we can use the [fmt printf](https://golang.org/pkg/fmt/) function
+To display a string array to JSON format, we can use the
+[fmt printf](https://golang.org/pkg/fmt/) function
+
 ```json
 "claims": "{\"aud\": \"{{ print .Extra.aud }}\", \"scope\": {{ printf \"%+q\" .Extra.scp }}}"
 ```
@@ -69,9 +76,9 @@ If you find that your field contain the string `<no value>` then you have most
 likely omitted the `print` function, and it is recommended you use it for all
 values out of an abundance of caution and for consistency.
 
-In the same way, a `printIndex` FuncMap function is provided to avoid _out of range_
-exception to access in a array. It can be useful for the regexp captures which
-depend of the request.
+In the same way, a `printIndex` FuncMap function is provided to avoid _out of
+range_ exception to access in a array. It can be useful for the regexp captures
+which depend of the request.
 
 This also supports [sprig](http://masterminds.github.io/sprig/) template helpers
 for more advanced functionality.

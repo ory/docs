@@ -226,9 +226,9 @@ strategies are supported:
 
 ## Match strategy behavior
 
-With the **Regular expression** strategy, you can use the extracted groups in all
-handlers where the substitutions are supported by using the Go
-[`text/template`](https://golang.org/pkg/text/template/) package, receiving the 
+With the **Regular expression** strategy, you can use the extracted groups in
+all handlers where the substitutions are supported by using the Go
+[`text/template`](https://golang.org/pkg/text/template/) package, receiving the
 [AuthenticationSession](https://github.com/ory/oathkeeper/blob/master/pipeline/authn/authenticator.go#L39)
 struct:
 
@@ -248,7 +248,8 @@ type MatchContext struct {
 
 **Examples**
 
-If the match URL is `<https|http>://mydomain.com/<.*>` and the request is `http://mydomain.com/foo`,
- the `MatchContext` field will contain  
+If the match URL is `<https|http>://mydomain.com/<.*>` and the request is
+`http://mydomain.com/foo`, the `MatchContext` field will contain
+
 - `RegexpCaptureGroups`: ["http", "foo"]
 - `URL`: "http://mydomain.com/foo"
