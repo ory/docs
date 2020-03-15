@@ -46,9 +46,11 @@ $ cat ./rules.json
 
 $ cat ./rules.yaml
 - id: my-first-rule
+  version: v0.36.0-beta.4
   authenticators:
     - handler: noop
 - id: my-second-rule
+  version: v0.36.0-beta.4
   authorizer:
     handler: allow
 ```
@@ -58,6 +60,9 @@ $ cat ./rules.yaml
 Access Rules have four principal keys:
 
 - `id` (string): The unique ID of the Access Rule.
+- `version` (string): The version of ORY Oathkeeper this rule targets with out the `+oryOS.<x>` appendix.
+  ORY Oathkeeper is able to migrate access rules across versions. If left empty ORY Oathkeeper
+  will assume that the rule is using the same tag as the version that is running.
 - `upstream` (object): The location of the server where requests matching this
   rule should be forwarded to. This only needs to be set when using the ORY
   Oathkeeper Proxy as the Decision API does not forward the request to the
@@ -132,6 +137,7 @@ Rule in JSON format:
 ```json
 {
   "id": "some-id",
+  "version": "v0.36.0-beta.4",
   "upstream": {
     "url": "http://my-backend-service",
     "preserve_host": true,
@@ -152,6 +158,7 @@ Rule in YAML format:
 
 ```yaml
 id: some-id
+version: v0.36.0-beta.4
 upstream:
   url: http://my-backend-service
   preserve_host: true
