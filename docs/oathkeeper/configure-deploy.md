@@ -110,6 +110,7 @@ $ cat << EOF > rules.json
 [
   {
     "id": "allow-anonymous-with-header-mutator",
+    "version": "v0.36.0-beta.4",
     "upstream": {
       "url": "https://httpbin.org/anything/header"
     },
@@ -140,6 +141,7 @@ $ cat << EOF > rules.json
   },
   {
     "id": "deny-anonymous",
+    "version": "v0.36.0-beta.4",
     "upstream": {
       "url": "https://httpbin.org/anything/deny"
     },
@@ -195,6 +197,7 @@ $ cat << EOF > rules.json
   },
   {
     "id": "allow-anonymous-with-id-token-mutator",
+    "version": "v0.36.0-beta.4",
     "upstream": {
       "url": "https://httpbin.org/anything/id_token"
     },
