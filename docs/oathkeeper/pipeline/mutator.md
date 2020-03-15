@@ -13,76 +13,6 @@ for example, the `X-User:`.
 The Access Control Decision API will return the mutated result as the HTTP
 Response.
 
-## Use of session variables
-
-In all configurations supporting
-[Golang Template](https://golang.org/pkg/text/template/) instructions, it's
-possible to use the
-[`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/master/pipeline/authn/authenticator.go#L39)
-struct content.
-
-```go
-type AuthenticationSession struct {
-	Subject      string
-	Extra        map[string]interface{}
-	Header       http.Header
-	MatchContext MatchContext
-}
-
-type MatchContext struct {
-	RegexpCaptureGroups []string
-	URL                 *url.URL
-}
-```
-
-### Example
-
-To use the subject extract to the token
-
-```json
-"config_field": "{{ print .subject }}"
-```
-
-To use an embedded value in the `Extra` map (most of the time, it's a JWT token
-claim)
-
-```json
-"config_field": "{{ print .Extra.some.arbitrary.data }}"
-```
-
-To use a Regex capture from the request URL  
-Note the usage of `printIndex` to print a value from the array
-
-```json
-"claims": "{\"aud\": \"{{ print .Extra.aud }}\", \"resource\": \"{{ printIndex .MatchContext.RegexpCaptureGroups 0 }}\""
-```
-
-To display a string array to JSON format, we can use the
-[fmt printf](https://golang.org/pkg/fmt/) function
-
-```json
-"claims": "{\"aud\": \"{{ print .Extra.aud }}\", \"scope\": {{ printf \"%+q\" .Extra.scp }}}"
-```
-
-Note that the `AuthenticationSession` struct has a field named `Extra` which is
-a `map[string]interface{}`, which receives varying introspection data from the
-authentication process. Because the contents of `Extra` are so variable, nested
-and potentially non-existent values need special handling by the `text/template`
-parser, and a `print` FuncMap function has been provided to ensure that
-non-existent map values will simply return an empty string, rather than
-`<no value>`.
-
-If you find that your field contain the string `<no value>` then you have most
-likely omitted the `print` function, and it is recommended you use it for all
-values out of an abundance of caution and for consistency.
-
-In the same way, a `printIndex` FuncMap function is provided to avoid _out of
-range_ exception to access in a array. It can be useful for the regexp captures
-which depend of the request.
-
-This also supports [sprig](http://masterminds.github.io/sprig/) template helpers
-for more advanced functionality.
-
 ## `noop`
 
 This mutator does not transform the HTTP request and simply forwards the headers
@@ -183,7 +113,7 @@ The related flow diagram looks like this:
 
 <a href="https://mermaidjs.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgcGFydGljaXBhbnQgQyBhcyBDbGllbnRcbiAgICBwYXJ0aWNpcGFudCBPIGFzIE9hdGhrZWVwZXIgUHJveHlcbiAgICBwYXJ0aWNpcGFudCBBIGFzIFByb3RlY3RlZCBTZXJ2ZXIvQVBJXG4gICAgQy0-Pk86IEF1dGhvcml6YXRpb246IEJhc2ljIC4uLi5cbiAgICBPLS0-Pk86IFZhbGlkYXRlIGNyZWRlbnRpYWxzXG4gICAgTy0-PkE6IEF1dGhvcml6YXRpb246IEJlYXJlciBKLlcuVFxuICAgIEEtLT4-TzogRmV0Y2ggUHVibGljIEtleVxuICAgIEEtLT4-QTogVmFsaWRhdGUgSldUIiwibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQiLCJ0aGVtZUNTUyI6Ii5sYWJlbCBmb3JlaWduT2JqZWN0IHsgb3ZlcmZsb3c6IHZpc2libGU7IGZvbnQtc2l6ZTogMTNweCB9In19">
     <img alt="ID Token Transformation" src="/images/docs/oathkeeper/id_token.svg">
-<a/>
+</a>
 
 Let's say the `oauth2_client_credentials` authenticator successfully
 authenticated the credentials `client-id:client-secret`. This mutator will craft
@@ -296,7 +226,7 @@ represent names of claims and the values are arbitrary data structures which
 will be parsed by the Go [text/template](https://golang.org/pkg/text/template/)
 package for value substitution, receiving the `AuthenticationSession` struct.
 
-For more details please check [Session variables](#use-of-session-variables)
+For more details please check [Session variables](index.md#session)
 
 The claims configuration expects a string which is expected to be valid JSON:
 
@@ -394,7 +324,7 @@ field. The keys are the header name and the values are a string which will be
 parsed by the Go [`text/template`](https://golang.org/pkg/text/template/)
 package for value substitution, receiving the `AuthenticationSession` struct.
 
-For more details please check [Session variables](#use-of-session-variables)
+For more details please check [Session variables](index.md#session)
 
 ### Access Rule Example
 
@@ -473,7 +403,7 @@ field. The keys are the cookie name and the values are a string which will be
 parsed by the Go [`text/template`](https://golang.org/pkg/text/template/)
 package for value substitution, receiving the `AuthenticationSession` struct.
 
-For more details please check [Session variables](#use-of-session-variables)
+For more details please check [Session variables](index.md#session)
 
 ##### Example
 

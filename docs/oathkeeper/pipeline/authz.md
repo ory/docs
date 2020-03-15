@@ -197,7 +197,7 @@ endpoint. If `subject` is not specified it will default to
 `AuthenticationSession.Subject`.
 
 For more details about supported Go template substitution, see.
-[How to use session variables](mutator.md#use-of-session-variables)
+[How to use session variables](index.md#session)
 
 #### Example
 

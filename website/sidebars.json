@@ -142,6 +142,13 @@
         "label": "Core Concepts",
         "ids": [
           "oathkeeper/api-access-rules",
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Pipeline Handlers",
+        "ids": [
+          "oathkeeper/pipeline/index",
           "oathkeeper/pipeline/authn",
           "oathkeeper/pipeline/authz",
           "oathkeeper/pipeline/mutator",
