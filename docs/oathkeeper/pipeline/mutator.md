@@ -300,7 +300,7 @@ mutators:
     enabled: true
     config:
       headers:
-        X-User: "{{ print .Subject }}",
+        X-User: "{{ print .Subject }}"
         X-Some-Arbitrary-Data: "{{ print .Extra.some.arbitrary.data }}"
 ```
 
@@ -313,7 +313,7 @@ mutators:
   - handler: header
     config:
       headers:
-        X-User: "{{ print .Subject }}",
+        X-User: "{{ print .Subject }}"
         X-Some-Arbitrary-Data: "{{ print .Extra.some.arbitrary.data }}"
 ```
 
