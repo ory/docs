@@ -184,7 +184,7 @@ our SecureApp) then fetches data important for rendering the forms from ORY
 Krato's Admin API:
 
 ```shell script
-$ curl http://127.0.0.1:4434/self-service/browser/flows/login?request=<request-id>
+$ curl http://127.0.0.1:4434/self-service/browser/flows/requests/login?request=<request-id>
 {
     "id": "27aa98bc-a074-418f-96fa-8b8146050209",
     "expires_at": "2020-01-20T21:10:12.7365393Z",
