@@ -11,6 +11,14 @@ jsf.option({
   minItems: 1,
 });
 
+if (process.argv.length !== 5 || process.argv[1] === "help") {
+  console.error(`
+  usage:
+    node config.js path/to/some.schema.json serviceName depthOfOutputMD > path/to/output/file.md
+`)
+  return
+}
+
 const enhance = (schema, parents = []) => item => {
   const key = item.key.value;
 
@@ -139,8 +147,7 @@ new Promise((resolve, reject) => {
     });
   })
   .then(out => {
-    console.log(`
----
+    console.log(`---
 id: configuration
 title: Configuration
 ---
@@ -158,7 +165,10 @@ flag: \`${process.argv[3]} --config path/to/config.yaml\`.
 Config files can be formatted as JSON, YAML and TOML. Some configuration values support reloading without server restart.
 All configuration values can be set using environment variables, as documented below.
 
+To find out more about edge cases like setting string array values through environmental variables head to the
+[Configuring ORY services](${'../'.repeat(parseInt(process.argv[4] || "0"))}ecosystem/configuring) section.
+
 \`\`\`yaml    
 ${out.yaml}
-`);
+\`\`\``);
   });
