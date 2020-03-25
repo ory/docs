@@ -141,9 +141,7 @@
       {
         "type": "subcategory",
         "label": "Core Concepts",
-        "ids": [
-          "oathkeeper/api-access-rules"
-        ]
+        "ids": ["oathkeeper/api-access-rules"]
       },
       {
         "type": "subcategory",

@@ -7,22 +7,24 @@ title: Configuration
 OPEN AN ISSUE IF YOU WOULD LIKE TO MAKE ADJUSTMENTS HERE AND MAINTAINERS WILL HELP YOU LOCATE THE RIGHT
 FILE -->
 
-If file `$HOME/.kratos.yaml` exists, it will be used as a configuration file which supports all
-configuration settings listed below.
+If file `$HOME/.kratos.yaml` exists, it will be used as a configuration file
+which supports all configuration settings listed below.
 
-You can load the config file from another source using the `-c path/to/config.yaml` or `--config path/to/config.yaml`
-flag: `kratos --config path/to/config.yaml`.
+You can load the config file from another source using the
+`-c path/to/config.yaml` or `--config path/to/config.yaml` flag:
+`kratos --config path/to/config.yaml`.
 
-Config files can be formatted as JSON, YAML and TOML. Some configuration values support reloading without server restart.
-All configuration values can be set using environment variables, as documented below.
+Config files can be formatted as JSON, YAML and TOML. Some configuration values
+support reloading without server restart. All configuration values can be set
+using environment variables, as documented below.
 
-To find out more about edge cases like setting string array values through environmental variables head to the
+To find out more about edge cases like setting string array values through
+environmental variables head to the
 [Configuring ORY services](../../ecosystem/configuring) section.
 
-```yaml    
+```yaml
 ## ORY Kratos Configuration
 #
-
 
 ## dsn ##
 #
@@ -37,11 +39,9 @@ dsn: adipisicing quis magna
 ## identity ##
 #
 identity:
-  
   ## traits ##
   #
   traits:
-    
     ## default_schema_url ##
     #
     # Set this value using environment variables on
@@ -70,11 +70,9 @@ identity:
 ## selfservice ##
 #
 selfservice:
-  
   ## logout ##
   #
   logout:
-    
     ## redirect_to ##
     #
     # Set this value using environment variables on
@@ -88,11 +86,9 @@ selfservice:
   ## strategies ##
   #
   strategies:
-    
     ## password ##
     #
     password:
-      
       ## enabled ##
       #
       # Set this value using environment variables on
@@ -106,7 +102,6 @@ selfservice:
     ## oidc ##
     #
     oidc:
-      
       ## enabled ##
       #
       # Set this value using environment variables on
@@ -120,7 +115,6 @@ selfservice:
       ## config ##
       #
       config:
-        
         ## providers ##
         #
         # Set this value using environment variables on
@@ -185,7 +179,6 @@ selfservice:
   ## profile ##
   #
   profile:
-    
     ## request_lifespan ##
     #
     # Default value: 1h
@@ -201,7 +194,6 @@ selfservice:
   ## login ##
   #
   login:
-    
     ## request_lifespan ##
     #
     # Default value: 1h
@@ -239,7 +231,6 @@ selfservice:
     ## after ##
     #
     after:
-      
       ## password ##
       #
       # Set this value using environment variables on
@@ -281,7 +272,6 @@ selfservice:
   ## registration ##
   #
   registration:
-    
     ## request_lifespan ##
     #
     # Default value: 1h
@@ -311,7 +301,6 @@ selfservice:
     ## after ##
     #
     after:
-      
       ## password ##
       #
       # Set this value using environment variables on
@@ -363,20 +352,18 @@ selfservice:
 # The courier is responsible for sending and delivering messages over email, sms, and other means.
 #
 courier:
-  
   ## SMTP Configuration ##
   #
   # Configures outgoing emails using the SMTP protocol.
   #
   smtp:
-    
     ## SMTP connection string ##
     #
     # This URI will be used to connect to the SMTP server.
     #
     # Examples:
     # - smtps://foo:bar@my-mailserver:1234/
-    # 
+    #
     # Set this value using environment variables on
     # - Linux/macOS:
     #    $ export COURIER_SMTP_CONNECTION_URI=<value>
@@ -414,11 +401,9 @@ courier:
 ## serve ##
 #
 serve:
-  
   ## admin ##
   #
   admin:
-    
     ## host ##
     #
     # Default value: 0.0.0.0
@@ -446,7 +431,6 @@ serve:
   ## public ##
   #
   public:
-    
     ## host ##
     #
     # Default value: 0.0.0.0
@@ -474,7 +458,6 @@ serve:
 ## urls ##
 #
 urls:
-  
   ## profile_ui ##
   #
   # Set this value using environment variables on
@@ -538,7 +521,6 @@ urls:
   ## self ##
   #
   self:
-    
     ## public ##
     #
     # Set this value using environment variables on
@@ -574,7 +556,6 @@ urls:
 ## log ##
 #
 log:
-  
   ## level ##
   #
   # Set this value using environment variables on
@@ -598,7 +579,6 @@ log:
 ## secrets ##
 #
 secrets:
-  
   ## session ##
   #
   # Set this value using environment variables on
@@ -613,11 +593,9 @@ secrets:
 ## hashers ##
 #
 hashers:
-  
   ## argon2 ##
   #
   argon2:
-    
     ## memory ##
     #
     # Set this value using environment variables on
@@ -667,5 +645,4 @@ hashers:
     #    > set HASHERS_ARGON2_KEY_LENGTH=<value>
     #
     key_length: 48794105
-
 ```
