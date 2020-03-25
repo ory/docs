@@ -5,6 +5,7 @@
       "ecosystem/projects",
       "ecosystem/software-architecture-philosophy",
       "ecosystem/deployment",
+      "ecosystem/configuring",
       "ecosystem/versioning",
       "ecosystem/upgrading",
       "ecosystem/api-design",
@@ -140,9 +141,7 @@
       {
         "type": "subcategory",
         "label": "Core Concepts",
-        "ids": [
-          "oathkeeper/api-access-rules",
-        ]
+        "ids": ["oathkeeper/api-access-rules"]
       },
       {
         "type": "subcategory",

@@ -300,8 +300,8 @@ mutators:
     enabled: true
     config:
       headers:
-        X-User: "{{ print .Subject }}"
-        X-Some-Arbitrary-Data: "{{ print .Extra.some.arbitrary.data }}"
+        X-User: '{{ print .Subject }}'
+        X-Some-Arbitrary-Data: '{{ print .Extra.some.arbitrary.data }}'
 ```
 
 ```yaml
@@ -313,8 +313,8 @@ mutators:
   - handler: header
     config:
       headers:
-        X-User: "{{ print .Subject }}"
-        X-Some-Arbitrary-Data: "{{ print .Extra.some.arbitrary.data }}"
+        X-User: '{{ print .Subject }}'
+        X-Some-Arbitrary-Data: '{{ print .Extra.some.arbitrary.data }}'
 ```
 
 #### Headers

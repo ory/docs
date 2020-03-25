@@ -3,32 +3,37 @@ id: index
 title: Access Rule Pipeline
 ---
 
-Read more about the [principal components and execution pipeline of access rules](../api-access-rules.md) if you have not already. This
-chapter explains the different pipeline handlers available to you:
+Read more about the
+[principal components and execution pipeline of access rules](../api-access-rules.md)
+if you have not already. This chapter explains the different pipeline handlers
+available to you:
 
-- [Authentication handlers](authn.md) inspect HTTP requests (e.g. the HTTP Authorization Header)
-and execute some business logic that return true (for authentication ok) or
-false (for authentication invalid) as well as a subject ("user"). The subject is
-typically the "user" that made the request, but it could also be a machine (if
-you have machine-2-machine interaction) or something different.
-- [Authorization handlers](authz.md): ensure that a subject ("user") has the right
-permissions. For example, a specific endpoint might only be accessible to
-subjects ("users") from group "admin". The authorizer handles that logic.
-- [Mutation handlers](mutator.md): transforms the credentials from incoming requests to credentials that
-                                   your backend understands. For example, the `Authorization: basic` header might
-                                   be transformed to `X-User: <subject-id>`. This allows you to write backends that
-                                   do not care if the original request was an anonymous one, an OAuth 2.0 Access
-                                   Token, or some other credential type. All your backend has to do is understand,
-                                   for example, the `X-User:`.
-- [Error handlers](error.md): are responsible for executing logic after, for example,
-                              authentication or authorization failed. ORY Oathkeeper supports different error
-                              handlers and we will add more as the project progresses.
+- [Authentication handlers](authn.md) inspect HTTP requests (e.g. the HTTP
+  Authorization Header) and execute some business logic that return true (for
+  authentication ok) or false (for authentication invalid) as well as a subject
+  ("user"). The subject is typically the "user" that made the request, but it
+  could also be a machine (if you have machine-2-machine interaction) or
+  something different.
+- [Authorization handlers](authz.md): ensure that a subject ("user") has the
+  right permissions. For example, a specific endpoint might only be accessible
+  to subjects ("users") from group "admin". The authorizer handles that logic.
+- [Mutation handlers](mutator.md): transforms the credentials from incoming
+  requests to credentials that your backend understands. For example, the
+  `Authorization: basic` header might be transformed to `X-User: <subject-id>`.
+  This allows you to write backends that do not care if the original request was
+  an anonymous one, an OAuth 2.0 Access Token, or some other credential type.
+  All your backend has to do is understand, for example, the `X-User:`.
+- [Error handlers](error.md): are responsible for executing logic after, for
+  example, authentication or authorization failed. ORY Oathkeeper supports
+  different error handlers and we will add more as the project progresses.
 
 ## Templating
 
-Some handlers such as the [ID Token Mutator](mutator.md#id_token) support templating using
-[Golang Text Templates](https://golang.org/pkg/text/template/) ([examples](https://blog.gopheracademy.com/advent-2017/using-go-templates/)).
-The [sprig](http://masterminds.github.io/sprig/) is also supported, on top of these two functions:
+Some handlers such as the [ID Token Mutator](mutator.md#id_token) support
+templating using [Golang Text Templates](https://golang.org/pkg/text/template/)
+([examples](https://blog.gopheracademy.com/advent-2017/using-go-templates/)).
+The [sprig](http://masterminds.github.io/sprig/) is also supported, on top of
+these two functions:
 
 ```go
 var _ = template.FuncMap{
@@ -56,8 +61,7 @@ var _ = template.FuncMap{
 
 ## Session
 
-In all configurations supporting
-[templating](#templating) instructions, it's
+In all configurations supporting [templating](#templating) instructions, it's
 possible to use the
 [`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/master/pipeline/authn/authenticator.go#L39)
 struct content.
@@ -83,28 +87,32 @@ type MatchContext struct {
 To use the subject extract to the token
 
 ```json
-{"config_field": "{{ print .subject }}"}
+{ "config_field": "{{ print .subject }}" }
 ```
 
 To use an embedded value in the `Extra` map (most of the time, it's a JWT token
 claim)
 
 ```json
-{"config_field": "{{ print .Extra.some.arbitrary.data }}"}
+{ "config_field": "{{ print .Extra.some.arbitrary.data }}" }
 ```
 
 To use a Regex capture from the request URL  
 Note the usage of `printIndex` to print a value from the array
 
 ```json
-{"claims": "{\"aud\": \"{{ print .Extra.aud }}\", \"resource\": \"{{ printIndex .MatchContext.RegexpCaptureGroups 0 }}\""}
+{
+  "claims": "{\"aud\": \"{{ print .Extra.aud }}\", \"resource\": \"{{ printIndex .MatchContext.RegexpCaptureGroups 0 }}\""
+}
 ```
 
 To display a string array to JSON format, we can use the
 [fmt printf](https://golang.org/pkg/fmt/) function
 
 ```json
-{"claims": "{\"aud\": \"{{ print .Extra.aud }}\", \"scope\": {{ printf \"%+q\" .Extra.scp }}}"}
+{
+  "claims": "{\"aud\": \"{{ print .Extra.aud }}\", \"scope\": {{ printf \"%+q\" .Extra.scp }}}"
+}
 ```
 
 Note that the `AuthenticationSession` struct has a field named `Extra` which is
