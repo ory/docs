@@ -268,3 +268,88 @@ $ cat ./rules.json
   ]
 }]
 ```
+
+## `remote_json`
+
+This authorizer performs authorization using a remote authorizer. The authorizer
+makes an HTTP POST request to a remote endpoint with a JSON body. If the
+endpoint returns a 200 OK response code, the access is allowed, if it returns a
+403 Forbidden response code, the access is denied.
+
+### Configuration
+
+- `remote` (string, required) - The URL of the remote authorizer. The remote
+  authorizer is expected to return either 200 OK or 403 Forbidden to allow/deny
+  access.
+- `payload` (string, required) - The JSON payload of the request sent to the
+  remote authorizer. The string will be parsed by the Go
+  [`text/template`](https://golang.org/pkg/text/template/) package and applied
+  to an
+  [`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/master/pipeline/authn/authenticator.go#L40)
+  object. See [Session](index.md#session) for more details.
+
+#### Example
+
+```yaml
+# Global configuration file oathkeeper.yml
+authorizers:
+  remote_json:
+    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+    enabled: true
+
+    config:
+      remote: http://my-remote-authorizer/authorize
+      payload: |
+        {
+          "subject": "{{ print .Subject }}",
+          "resource": "{{ printIndex .MatchContext.RegexpCaptureGroups 0 }}"
+        }
+```
+
+```yaml
+# Some Access Rule: access-rule-1.yaml
+id: access-rule-1
+# match: ...
+# upstream: ...
+authorizers:
+  - handler: remote_json
+    config:
+      remote: http://my-remote-authorizer/authorize
+      payload: |
+        {
+          "subject": "{{ print .Subject }}",
+          "resource": "{{ printIndex .MatchContext.RegexpCaptureGroups 0 }}"
+        }
+```
+
+### Access Rule Example
+
+```shell
+{
+  "id": "some-id",
+  "upstream": {
+    "url": "http://my-backend-service"
+  },
+  "match": {
+    "url": "http://my-app/api/<.*>",
+    "methods": ["GET"]
+  },
+  "authenticators": [
+    {
+      "handler": "anonymous"
+    }
+  ],
+  "authorizer": {
+    "handler": "remote_json",
+    "config": {
+      "remote": "http://my-remote-authorizer/authorize",
+      "payload": "{\"subject\": \"{{ print .Subject }}\", \"resource\": \"{{ printIndex .MatchContext.RegexpCaptureGroups 0 }}\"}"
+    }
+  }
+  "mutators": [
+    {
+      "handler": "noop"
+    }
+  ]
+}
+```
