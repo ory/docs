@@ -31,6 +31,16 @@ template IDs are:
 - Unknown email address: `verify_invalid`
 - Known email address: `verify_valids`
 
+## Account Activation
+
+Using this feature implements the so-called "account activation" with the difference
+that ORY Kratos does not provide a feature that prevents sign in into accounts without
+verified addresses. The reason being that verification is proving that the user controls
+the given address, but it is not an authentication mechanism.
+
+You may however chose to limit what an identity without verified addresses is able to
+do in your application logic or API Gateways.
+
 ## Setting Email Verification
 
 You must define at least one Identity Traits field as a verification field. You
