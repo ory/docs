@@ -129,7 +129,7 @@ Keto project are located in (https://github.com/ory/keto) for consultation prior
 ### Configuration
 
 - `base_url` (string, required) - The base URL of ORY Keto, typically something
-  like https://hostname:port#
+  like https://hostname:port/
 - `required_action` (string, required) - See section below.
 - `required_resource` (string, required) - See section below.
 - `subject` (string, optional) - See section below.
