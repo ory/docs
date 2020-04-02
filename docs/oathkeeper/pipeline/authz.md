@@ -124,7 +124,7 @@ The request is forbidden!
 
 This authorizer uses the ORY Keto API to carry out access control using
 "ORY-flavored" Access Control Policies. The conventions used in the ORY
-Keto project are located in (https://github.com/ory/keto) for consultation prior to using this authorizer.
+Keto project are located on [GitHub ORY Keto](https://github.com/ory/keto) for consultation prior to using this authorizer.
 
 ### Configuration
 
