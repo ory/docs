@@ -3,18 +3,18 @@ id: authz
 title: Authorizers
 ---
 
-An authorizer is responsible for authorizing a subject. ORY Oathkeeper supports
-different authorizers and we will add more as the project progresses.
+An "authorizer" is responsible for properly permissioning a subject. ORY Oathkeeper supports
+different kinds of authorizers. The list of authorizers increases over time due to new features and requirements.
 
-Conceptually, an authorizer makes sure that a subject ("user") has the right
-permissions. For example, a specific endpoint might only be accessible to
-subjects ("users") from group "admin". The authorizer handles that logic.
+Authorizers assure that a subject, for instance a "user",  has the 
+permissions necessary to access or perform a particular service. For example, an authorizer can permit access to an endpoint or URL for specific
+subjects or "users" from a specific group "admin". The authorizer permits the subjects the desired access to the endpoint.
 
 Each authorizer has two keys:
 
-- `handler` (string, required): Defines the handler (e.g. `noop`) to be used.
-- `config` (object, optional): Configures the handler. Configuration keys vary
-  per handler.
+- `handler` (string, required): Defines the handler, e.g. `noop`, to be used.
+- `config` (object, optional): Configures the handler. Configuration keys can vary
+  for each handler.
 
 **Example**
 
@@ -27,23 +27,23 @@ Each authorizer has two keys:
 }
 ```
 
-It is not possible to configure more than one authorizer per Access Rule.
+There is a 1:1 mandatory relationship between an authoriser and an access rule. It is not possible to configure more than one authorizer per Access Rule.
 
-## `allow`
+## Authorizer `allow`
 
-This authorizer considers every action authorized.
+This authorizer permits every action allowed.
 
 ### Configuration
 
 This handler is not configurable.
 
-To enable this handler, set:
+To enable this handler, set as follows:
 
 ```yaml
 # Global configuration file oathkeeper.yml
 authorizers:
   allow:
-    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+   # Set enabled to "true" to enable the authenticator, and "false" to disable the authenticator. Defaults to "false".
     enabled: true
 ```
 
@@ -74,10 +74,10 @@ HTTP/1.0 200 Status OK
 The request has been allowed!
 ```
 
-## `deny`
+## Authorizer`deny`
 
-This authorizer considers every action unauthorized ("forbidden" /
-"disallowed").
+This authorizer considers every action unauthorized therefore "forbidden" or 
+"disallowed".
 
 ### Configuration
 
@@ -89,7 +89,7 @@ To enable this handler, set:
 # Global configuration file oathkeeper.yml
 authorizers:
   deny:
-    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+   # Set enabled to "true" to enable the authenticator, and "false" to disable the authenticator. Defaults to "false".
     enabled: true
 ```
 
@@ -120,16 +120,16 @@ HTTP/1.0 403 Forbidden
 The request is forbidden!
 ```
 
-## `keto_engine_acp_ory`
+## Authorizer `keto_engine_acp_ory`
 
-This authorizer uses the ORY Keto API to perform access control using
-ORY-flavored Access Control Policies. Please familiarize yourself with the ORY
-Keto project before you set up this authorizer.
+This authorizer uses the ORY Keto API to carry out access control using
+"ORY-flavored" Access Control Policies. The conventions used in the ORY
+Keto project are located on [GitHub ORY Keto](https://github.com/ory/keto) for consultation prior to using this authorizer.
 
 ### Configuration
 
 - `base_url` (string, required) - The base URL of ORY Keto, typically something
-  like http(s)://<host>[:<port>]/
+  like https://hostname:port/
 - `required_action` (string, required) - See section below.
 - `required_resource` (string, required) - See section below.
 - `subject` (string, optional) - See section below.
@@ -153,7 +153,7 @@ This authorizer has four configuration options, `required_action`,
 ```
 
 All configuration options except `flavor` support Go
-[`text/template`](https://golang.org/pkg/text/template/). Let's say you have the
+[`text/template`](https://golang.org/pkg/text/template/). For example in the
 following match configuration:
 
 ```json
@@ -165,8 +165,8 @@ following match configuration:
 }
 ```
 
-Here, you have two regular expressions, `<[0-9]+>` and `<[a-zA-Z]+>`. You can
-reference the values matched by the regular expression using the
+The following example shows how to reference the values matched by or resulting from the two regular expressions, `<[0-9]+>` and `<[a-zA-Z]+>`.
+using the
 `AuthenticationSession` struct:
 
 ```json
@@ -192,7 +192,7 @@ from above would expand to:
 }
 ```
 
-The `subject` field configures what subject is passed on to the ORY Keto
+The `subject` field configures the subject that passes to the ORY Keto
 endpoint. If `subject` is not specified it will default to
 `AuthenticationSession.Subject`.
 
@@ -205,7 +205,7 @@ For more details about supported Go template substitution, see.
 # Global configuration file oathkeeper.yml
 authorizers:
   keto_engine_acp_ory:
-    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+    # Set enabled to "true" to enable the authenticator, and "false" to disable the authenticator. Defaults to "false".
     enabled: true
 
     config:
@@ -272,16 +272,16 @@ $ cat ./rules.json
 ## `remote_json`
 
 This authorizer performs authorization using a remote authorizer. The authorizer
-makes an HTTP POST request to a remote endpoint with a JSON body. If the
-endpoint returns a 200 OK response code, the access is allowed, if it returns a
-403 Forbidden response code, the access is denied.
+makes a HTTP POST request to a remote endpoint with a JSON body. If the
+endpoint returns a "200 OK" response code, the access is allowed, if it returns a
+"403 Forbidden" response code, the access is denied.
 
 ### Configuration
 
-- `remote` (string, required) - The URL of the remote authorizer. The remote
-  authorizer is expected to return either 200 OK or 403 Forbidden to allow/deny
+- `remote` (string, required) - The remote authorizer's URL. The remote
+  authorizer is expected to return either "200 OK" or "403 Forbidden" to allow/deny
   access.
-- `payload` (string, required) - The JSON payload of the request sent to the
+- `payload` (string, required) - The request's JSON payload sent to the
   remote authorizer. The string will be parsed by the Go
   [`text/template`](https://golang.org/pkg/text/template/) package and applied
   to an
@@ -294,7 +294,7 @@ endpoint returns a 200 OK response code, the access is allowed, if it returns a
 # Global configuration file oathkeeper.yml
 authorizers:
   remote_json:
-    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+    # Set enabled to "true" to enable the authenticator, and "false" to disable the authenticator. Defaults to "false".
     enabled: true
 
     config:
