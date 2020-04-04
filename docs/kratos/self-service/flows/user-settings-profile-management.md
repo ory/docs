@@ -1,9 +1,9 @@
 ---
-id: user-profile-management
-title: Profile Management
+id: user-settings-profile-management
+title: User Settings and Profile Management
 ---
 
-ORY Kratos allows users to update their own profile information using two
+ORY Kratos allows users to update their own settings and profile information using two
 principal flows:
 
 - Browser-based (easy): This flow works for all applications running on top of a
@@ -15,6 +15,7 @@ This flow does not allow updates of security-sensitive information such as the
 password, fields associated with login (e.g. email), fields associated with
 account recovery (e.g. recovery email address). These fields must be updated
 using a separate flow which requires prior security checks.
+using a separate flow which requires prior security checks.
 
 The updated profile must be valid against the JSON Schema defined for its
 [Identity Traits](../../concepts/identity-user-model.md). If one or more fields
@@ -25,7 +26,7 @@ The only required configuration is setting the Profile UI URL in the
 
 ```yaml
 urls:
-  profile_ui: https://.../..
+  settings_ui: https://.../..
 ```
 
 ## Self-Service User Profile Management for Browser Applications
@@ -41,19 +42,19 @@ The [Network Flows for Browsers](index.md#network-flows-for-browsers) works as
 follows for Profile Management:
 
 1. An initial HTTP Request is made to
-   `https://example.org/.ory/kratos/public/self-service/browser/flows/profile`.
-2. ORY Kratos redirects the browser to the URL set in `urls.profile_ui` and
+   `https://example.org/.ory/kratos/public/self-service/browser/flows/settings`.
+2. ORY Kratos redirects the browser to the URL set in `urls.settings_ui` and
    appends the `request` URL Query Parameter (e.g.
-   `https://example.org/profile?request=abcde`).
-3. The Endpoint at `/profile` makes a HTTP GET Request to
-   `https://ory-kratos-admin.example-org.vpc/self-service/browser/flows/requests/profile?request=abcde`
+   `https://example.org/settings?request=abcde`).
+3. The Endpoint at `/settings` makes a HTTP GET Request to
+   `https://ory-kratos-admin.example-org.vpc/self-service/browser/flows/requests/settings?request=abcde`
    and fetches Profile Management Request JSON Payload that represent the
    individual fields that can be updated.
-4. The User updates the profile data and sends a HTTP POST request to
-   `https://example.org/.ory/kratos/public/self-service/browser/flows/profile/update?request=abcde`.
+4. The User updates the profile data and sends a HTTP POST request to, e.g., 
+   `https://example.org/.ory/kratos/public/self-service/browser/flows/settings/strategies/password?request=abcde`.
    - If the profile data is invalid, all validation errors will be collected and
      added to the Profile Management JSON Payload. The Browser is redirected to
-     the `urls.profile_ui` URL (e.g.
+     the `urls.settings_ui` URL (e.g.
      `https://example.org/profile?request=abcde`).
    - If the profile data is valid, the identity's traits are updated and the
      process is complete.
@@ -99,7 +100,7 @@ Assuming the Identity's Traits JSON Schema is defined as
 ```
 
 the resulting JSON Payload coming from
-`https://ory-kratos-admin.example-org.vpc/self-service/browser/flows/requests/profile?request=abcde`
+`https://ory-kratos-admin.example-org.vpc/self-service/browser/flows/requests/settings?request=abcde`
 would look something along the lines of:
 
 ```json
@@ -107,9 +108,9 @@ would look something along the lines of:
   "id": "48068b5d-3438-4d6f-9955-331b96c41762",
   "expires_at": "2020-01-27T23:03:58.5986947Z",
   "issued_at": "2020-01-27T22:03:58.5987099Z",
-  "request_url": "http://127.0.0.1:4455/profiles",
+  "request_url": "http://127.0.0.1:4455/settings",
   "form": {
-    "action": "https://example.org/.ory/kratos/public/profiles?48068b5d-3438-4d6f-9955-331b96c41762",
+    "action": "https://example.org/.ory/kratos/public/settings?48068b5d-3438-4d6f-9955-331b96c41762",
     "method": "POST",
     "fields": {
       "csrf_token": {
@@ -190,13 +191,13 @@ Because Client-Side Browser Applications do not have access to ORY Kratos' Admin
 API, they must use the ORY Kratos Public API instead. The flow for a Client-Side
 Browser Application is almost the exact same as the one for Server-Side
 Applications, with the small difference that
-`https://example.org/.ory/kratos/public/self-service/browser/flows/requests/profile?request=abcde`
+`https://example.org/.ory/kratos/public/self-service/browser/flows/requests/settings?request=abcde`
 would be called via AJAX instead of making a request to
-`https://ory-kratos-admin.example-org.vpc/self-service/browser/flows/requests/profile?request=abcde`.
+`https://ory-kratos-admin.example-org.vpc/self-service/browser/flows/requests/settings?request=abcde`.
 
 > To prevent brute force, guessing, session injection, and other attacks, it is
 > required that cookies are working for this endpoint. The cookie set in the
-> initial HTTP request made to `https://example.org/.ory/kratos/public/profiles`
+> initial HTTP request made to `https://example.org/.ory/kratos/public/settings`
 > MUST be set and available when calling this endpoint!
 
 ## Self-Service User Profile Management for API Clients
