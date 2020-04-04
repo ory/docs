@@ -20,7 +20,7 @@
 {{~}}
 {{? data.responseSchemas }}
 <a id="{{=data.operationUniqueSlug}}-responseschema"></a>
-##### Response Schema</h3>
+##### Response Schema
 {{~ data.responses :response}}
 {{? response.content && !response.$ref && !data.utils.isPrimitive(response.type)}}
 {{ var responseKey = Object.keys(response.content)[0]; }}
