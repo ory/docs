@@ -1,6 +1,7 @@
 ---
-id: configuration
+id: version-oryOS.18-configuration
 title: Configuration
+original_id: configuration
 ---
 
 <!-- THIS FILE IS BEING AUTO-GENERATED. DO NOT MODIFY IT AS ALL CHANGES WILL BE OVERWRITTEN.

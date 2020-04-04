@@ -1,6 +1,7 @@
 ---
-id: configure-deploy
+id: version-oryOS.18-configure-deploy
 title: Configure and Deploy
+original_id: configure-deploy
 ---
 
 The ORY Oathkeeper HTTP serve process `oathkeeper serve` opens two ports

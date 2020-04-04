@@ -1,6 +1,7 @@
 ---
 title: Installation and Setup
-id: configure-deploy
+id: version-oryOS.18-configure-deploy
+original_id: configure-deploy
 ---
 
 The goal of this chapter is to introduce you to a fully functional set up that

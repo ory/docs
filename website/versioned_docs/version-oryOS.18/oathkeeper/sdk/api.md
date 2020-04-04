@@ -1,6 +1,7 @@
 ---
 title: REST API
-id: api
+id: version-oryOS.18-api
+original_id: api
 ---
 
 ORY Oathkeeper is a reverse proxy that checks the HTTP Authorization for
