@@ -3,40 +3,9 @@ id: versioning
 title: Software Versions and Project Maturity
 ---
 
-> Running security-critical open source technology in a self-service format
-> requires vigilance. We make your life easier by announcing important software
-> updates via the
-> [ORY Security Newsletter](https://ory.us10.list-manage.com/subscribe?u=ffb1a878e4ec6c0ed312a3480&id=f605a41b53).
-> Never miss an update and
-> **[sign up now to important release updates!](https://ory.us10.list-manage.com/subscribe?u=ffb1a878e4ec6c0ed312a3480&id=f605a41b53)**
-
 The ORY ecosystem consists of multiple services versioned using
 [semantic versioning](https://semver.org). This section explains how we define
 service versions and what they mean.
-
-To make deployment easier but stay compatible with semantic versioning, each
-service is equipped with a `oryOS` version number denoted by `+oryOS.X` where
-`X` represents the "ecosystem" version. This is especially useful if you use
-more than one service from the ORY ecosystem. Let's look at some examples:
-
-- ORY Hydra `v1.0.1+oryOS.6` is best compatible with ORY Oathkeeper
-  `v0.13.1+oryOS.6` and ORY Keto `v0.5.1+oryOS.6`.
-- ORY Hydra `v1.0.2+oryOS.7` is best compatible with ORY Oathkeeper
-  `v0.13.2+oryOS.7` and ORY Keto `v0.6.0+oryOS.7`.
-- ORY Hydra `v1.0.3+oryOS.8` is probably not fully compatible with ORY
-  Oathkeeper `v0.13.1+oryOS.6` nor with ORY Keto `v0.5.1+oryOS.6`.
-- ORY Hydra `v1.1.0+oryOS.9` is best compatible with ORY Oathkeeper
-  `v1.1.0+oryOS.9` and ORY Keto `v1.1.0+oryOS.9`.
-
-It is possible that a number of releases are versioned with the same `oryOS.x`
-version metadata:
-
-- ORY Hydra `v1.0.1+oryOS.10`, `v1.0.2+oryOS.10` is guaranteed compatible with
-  ORY Oathkeeper `v0.15.5+oryOS.10`, `v1.16.0+oryOS.10` and ORY Keto
-  `v0.1.1+oryOS.10`, `v0.1.2+oryOS.10`.
-
-We always provide ways to migrate breaking changes, and all breaking changes are
-meticulously described in each project's `UPGRADE.md` as well as `HISTORY.md`.
 
 ## Maturity
 
@@ -67,6 +36,56 @@ The following is a list of maturity level per project:
   project.
 - [ORY Kratos](https://github.com/ory/kratos) is a **sandbox** project.
 - [ORY Keto](https://github.com/ory/keto) is a **sandbox** project.
+
+## Changelog
+
+### March 2020 Change
+
+As of March 2020, the `oryOS` semantics have been deprecated and will no longer
+be used.
+
+The `oryOS` versioning was introduced as a way to declare compatibility between
+the different projects. This was necessary as parts of ORY Hydra were split into
+new projects called ORY Keto and ORY Oathkeeper.
+
+As of today however, these projects are largely independent. Future versions
+of these projects will also include versioned APIs which renders the `oryOS`
+semantics unnecessary.
+
+If compatibility is an issue, it will be highlighted in the project's
+documentation.
+
+The next sections document the previous behavior and are kept for historical
+reasons.
+
+Old documentation links with `oryOS.<x>` in the URL are going to keep working
+in the foreseeable future.
+
+#### oryOS Semantics
+
+To make deployment easier but stay compatible with semantic versioning, each
+service is equipped with a `oryOS` version number denoted by `+oryOS.X` where
+`X` represents the "ecosystem" version. This is especially useful if you use
+more than one service from the ORY ecosystem. Let's look at some examples:
+
+- ORY Hydra `v1.0.1+oryOS.6` is best compatible with ORY Oathkeeper
+  `v0.13.1+oryOS.6` and ORY Keto `v0.5.1+oryOS.6`.
+- ORY Hydra `v1.0.2+oryOS.7` is best compatible with ORY Oathkeeper
+  `v0.13.2+oryOS.7` and ORY Keto `v0.6.0+oryOS.7`.
+- ORY Hydra `v1.0.3+oryOS.8` is probably not fully compatible with ORY
+  Oathkeeper `v0.13.1+oryOS.6` nor with ORY Keto `v0.5.1+oryOS.6`.
+- ORY Hydra `v1.1.0+oryOS.9` is best compatible with ORY Oathkeeper
+  `v1.1.0+oryOS.9` and ORY Keto `v1.1.0+oryOS.9`.
+
+It is possible that a number of releases are versioned with the same `oryOS.x`
+version metadata:
+
+- ORY Hydra `v1.0.1+oryOS.10`, `v1.0.2+oryOS.10` is guaranteed compatible with
+  ORY Oathkeeper `v0.15.5+oryOS.10`, `v1.16.0+oryOS.10` and ORY Keto
+  `v0.1.1+oryOS.10`, `v0.1.2+oryOS.10`.
+
+We always provide ways to migrate breaking changes, and all breaking changes are
+meticulously described in each project's `UPGRADE.md` as well as `HISTORY.md`.
 
 ## Compatibility
 
@@ -101,8 +120,6 @@ allow build metadata in the version tag.
 
 Therefore, we generally strip the `oryOS` metadata from the versions published
 on package repositories (e.g. NPM, Ruby Gems, Packagist, Maven Central, Go ...).
-
-## Changelog
 
 ### January 2020 Change
 
