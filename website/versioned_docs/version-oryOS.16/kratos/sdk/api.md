@@ -4,6 +4,9 @@ id: version-oryOS.16-api
 original_id: api
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 Welcome to the ORY Kratos HTTP API documentation!
 
 > You are viewing REST API documentation. This documentation is auto-generated

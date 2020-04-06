@@ -4,6 +4,9 @@ title: Introduction
 original_id: index
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ORY Oathkeeper authorizes incoming HTTP requests. It can be the Policy
 Enforcement Point in your cloud architecture, i.e. a reverse proxy in front of
 your upstream API or web server that rejects unauthorized requests and forwards

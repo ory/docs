@@ -4,6 +4,9 @@ title: Advanced Topics
 original_id: advanced
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 This guide aims to help setting up a production system with ORY Hydra.
 
 <!-- toc -->

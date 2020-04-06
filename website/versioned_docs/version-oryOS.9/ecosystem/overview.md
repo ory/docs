@@ -4,6 +4,9 @@ title: Overview
 original_id: overview
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 We provide an open source ecosystem of services with clear boundaries that solve
 authentication and authorization:
 

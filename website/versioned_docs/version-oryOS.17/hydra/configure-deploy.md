@@ -4,6 +4,9 @@ id: version-oryOS.17-configure-deploy
 original_id: configure-deploy
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 The goal of this chapter is to introduce you to a fully functional set up that
 includes ORY Hydra as well as our User Login & Consent Provider reference
 implementation.

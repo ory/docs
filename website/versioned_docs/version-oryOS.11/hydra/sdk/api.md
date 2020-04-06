@@ -4,6 +4,9 @@ id: version-oryOS.11-api
 original_id: api
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 Welcome to the ORY Hydra HTTP API documentation. You will find documentation for
 all HTTP APIs here.
 

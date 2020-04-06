@@ -4,6 +4,9 @@ title: Control Flow
 original_id: control-flow
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ORY Oathkeeper has two methods of answering access requests: proxy and rest.
 
 ## Proxy

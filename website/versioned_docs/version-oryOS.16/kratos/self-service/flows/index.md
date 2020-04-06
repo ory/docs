@@ -4,6 +4,9 @@ title: Overview
 original_id: index
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ORY Kratos allows end-users to sign up, log in, log out, update profile
 information, recover accounts, and perform other important account management
 tasks without third party involvement ("self-service").

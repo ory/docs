@@ -4,6 +4,9 @@ title: Overview
 original_id: index
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ORY Kratos is a new software archetype **Identity Infrastructure Service**.
 Traditional identity systems - sometimes referred to as Identity and Access
 Management (IAM), Identity Management (IdM), Identity Provider (I(d)P), or IDaaS

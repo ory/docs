@@ -4,6 +4,9 @@ title: Profile Management
 original_id: user-profile-management
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ORY Kratos allows users to update their own profile information using two
 principal flows:
 

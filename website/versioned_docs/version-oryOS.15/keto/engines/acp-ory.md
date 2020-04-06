@@ -4,6 +4,9 @@ title: ORY Access Control Policies
 original_id: acp-ory
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 At ORY, we use an Access Control Policy DSL modeled after AWS IAM Policies.
 These policies define `effects` for `subjects` who perform `actions` on
 `resources`. For example, `Alice` (subject aka identity aka user) is `allowed`

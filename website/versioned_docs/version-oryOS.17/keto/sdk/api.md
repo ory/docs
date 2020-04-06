@@ -4,6 +4,9 @@ id: version-oryOS.17-api
 original_id: api
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 Ory Keto is a cloud native access control server providing best-practice
 patterns (RBAC, ABAC, ACL, AWS IAM Policies, Kubernetes Roles, ...) via REST
 APIs.

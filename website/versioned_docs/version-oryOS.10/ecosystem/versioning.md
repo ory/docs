@@ -4,6 +4,9 @@ title: Software Versions
 original_id: versioning
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 > Running security-critical open source technology in a self-service format
 > requires vigilance. We make your life easier by announcing important software
 > updates via the

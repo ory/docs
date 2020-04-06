@@ -4,6 +4,9 @@ id: version-oryOS.10-api
 original_id: api
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 Package main ORY Keto
 
 > You are viewing a REST API documentation. This documentation is auto-generated

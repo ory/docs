@@ -4,6 +4,9 @@ title: Credentials
 original_id: credentials
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 Each identity has one or more credentials associated with it:
 
 ```yaml

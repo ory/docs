@@ -4,6 +4,9 @@ title: FAQ
 original_id: faq
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 This file keeps track of questions and discussions from Gitter and general help
 with various issues.
 

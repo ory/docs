@@ -4,6 +4,9 @@ title: Cloud Native Architecture
 original_id: cloud-native
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 All ORY technology is built cloud native and follows
 [12factor.net](https://www.12factor.net) principles.
 

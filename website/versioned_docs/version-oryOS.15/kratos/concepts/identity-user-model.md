@@ -4,6 +4,9 @@ title: Identity and User Model
 original_id: identity-user-model
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 An identity ("user", "user account", "account", "subject") is the "who" of a
 software system. It can be a customer, an employee, a user, a contractor, and
 even a programmatic identity such as an IoT device, an application, or some

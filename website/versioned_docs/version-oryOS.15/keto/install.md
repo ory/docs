@@ -4,6 +4,9 @@ title: Installation
 original_id: install
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 Installing ORY Keto on any system is straightforward. We provide pre-built
 binaries, Docker images, and support a number of package managers.
 

@@ -4,6 +4,9 @@ title: Integrating with (existing) User Management
 original_id: oauth2
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 Please read this chapter carefully, it is imperative to getting started and
 grasping all the concepts quickly. The next sections will give you an overview
 of this chapter and explain some concepts. Do not skip the chapters. Seriously!

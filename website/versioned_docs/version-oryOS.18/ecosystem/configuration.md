@@ -4,6 +4,9 @@ title: Configuring ORY services
 original_id: configuring
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ORY services share the same configuration system. This page documents the
 details and edge cases that apply to all ORY services.
 

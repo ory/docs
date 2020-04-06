@@ -4,6 +4,9 @@ title: API Usage
 original_id: usage
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 This chapter contains generally applicable information on API usage. When using
 Ory services, one can expect a consistent experience when interacting with REST
 APIs.

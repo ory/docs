@@ -4,6 +4,9 @@ title: Debugging
 original_id: debugging
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 Spec-compliant OAuth 2.0 and OpenID Connect is hard. Let's take a look how to
 resolve certain issues.
 

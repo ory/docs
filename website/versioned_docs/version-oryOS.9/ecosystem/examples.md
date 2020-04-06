@@ -4,6 +4,9 @@ title: Learn By Example
 original_id: examples
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 Learning by example is a good way to get started, but **it does not replace**
 studying the docs.
 

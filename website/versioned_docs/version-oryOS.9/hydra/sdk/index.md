@@ -4,6 +4,9 @@ title: Overview
 original_id: index
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 All SDKs are use automated code generation provided by
 [`swagger-codegen`](https://github.com/swagger-api/swagger-codegen).
 Unfortunately, `swagger-codegen` has serious breaking changes in the generated

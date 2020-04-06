@@ -4,6 +4,9 @@ title: Software Architecture and Philosophy
 original_id: software-architecture-philosophy
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 We build Ory on several guiding principles when it comes to our architecture
 design:
 

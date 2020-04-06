@@ -4,6 +4,9 @@ title: Quickstart
 original_id: quickstart
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ORY Kratos has several moving parts and getting everything right from the
 beginning can be challenging. This getting started guide will help you install
 ORY Kratos and some additional dependencies so that you can see how ORY Kratos

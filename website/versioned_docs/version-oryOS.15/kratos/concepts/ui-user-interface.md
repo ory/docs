@@ -4,6 +4,9 @@ title: User Interface
 original_id: ui-user-interface
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ORY Kratos has no user interface included. Instead, it defines HTTP flows and
 APIs that make it simple to write your own UI in a variety of languages and
 frameworks.

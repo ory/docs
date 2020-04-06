@@ -4,6 +4,9 @@ title: Deployment Fundamentals and Requirements
 original_id: deployment
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ## Integrates with Kubernetes
 
 ORY technology is cloud first and runs natively on Docker and Kubernetes and

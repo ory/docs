@@ -4,6 +4,9 @@ title: Configure and Deploy
 original_id: configure-deploy
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ORY Oathkeeper has two servers that run on separate ports:
 
 - The api server: This server is responsible for exposing the management REST

@@ -5,6 +5,9 @@ sidebar_label: Hydra workflow
 original_id: login-consent-flow
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ORY Hydra uses a **User Login and Consent Flow** to include third-party user
 management (implemented by you) into the OAuth 2.0 and OpenID Connect
 authorization flow. An incoming authorization request is redirected to:

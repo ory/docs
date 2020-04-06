@@ -4,6 +4,9 @@ title: API Access Rules
 original_id: api-access-rules
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ORY Oathkeeper reaches decisions to allow or deny access by applying Access
 Rules. Access Rules can be stored on the file system, set as an environment
 variable, or fetched from HTTP(s) remotes. These repositories can be configured

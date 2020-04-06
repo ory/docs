@@ -4,6 +4,9 @@ title: Authorizers
 original_id: authz
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 An authorizer is responsible for authorizing a subject. ORY Oathkeeper supports
 different authorizers and we will add more as the project progresses.
 

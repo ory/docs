@@ -4,6 +4,9 @@ title: OAuth 2.0 Case Study
 original_id: case-study
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 OAuth2 and OpenID Connect are tricky to understand. It is important to keep in
 mind that OAuth2 is a delegation protocol. Let's look at a use case to
 understand how Hydra makes sense in new and existing projects.

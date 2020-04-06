@@ -4,6 +4,9 @@ title: Data Storage and Persistence
 original_id: persistence
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 All ORY products support storing data in memory and in relational databases
 (PostgreSQL, MySQL).
 

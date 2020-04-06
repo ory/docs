@@ -4,6 +4,9 @@ title: Email and Phone Verification and Account Activation
 original_id: verify-email-account-activation
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ORY Kratos allows users to verify their out-of-band (email, telephone number,
 ...) communication channels. Verification can be initiated
 

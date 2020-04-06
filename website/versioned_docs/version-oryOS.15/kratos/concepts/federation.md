@@ -4,6 +4,9 @@ title: Federation
 original_id: federation
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ORY Kratos does not support federation features itself, but it integrates with
 projects like [ORY Hydra](https://www.ory.sh/hydra) that implement federation
 protocols.

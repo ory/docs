@@ -4,6 +4,9 @@ title: Social Sign In with OpenID Connect and OAuth2
 original_id: openid-connect-social-sign-in-oauth2
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 > The OpenID Connect Strategy does already work but needs further documentation
 > and code improvements. It will be documented in an upcoming release of ORY
 > Kratos.

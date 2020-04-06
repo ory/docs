@@ -4,6 +4,9 @@ title: Appendix
 original_id: appendix
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ## `hydra serve`
 
 ```

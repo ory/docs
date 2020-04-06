@@ -4,6 +4,9 @@ title: After Jobs
 original_id: after
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ## User Login
 
 Jobs running after successful user authentication can be defined per

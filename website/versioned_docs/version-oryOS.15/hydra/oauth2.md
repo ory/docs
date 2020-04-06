@@ -5,6 +5,9 @@ sidebar_label: OAuth 2.0
 original_id: oauth2
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 This section describes on a high level what OAuth 2.0 and OpenID Connect 1.0 are
 for and how they work.
 

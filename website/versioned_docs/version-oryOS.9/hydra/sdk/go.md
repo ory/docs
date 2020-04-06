@@ -4,6 +4,9 @@ title: Go
 original_id: go
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 To install the Go SDK, run:
 
 ```

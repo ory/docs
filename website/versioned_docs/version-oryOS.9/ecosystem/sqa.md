@@ -4,6 +4,9 @@ title: Software Quality Assurance
 original_id: sqa
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 Our goal is to provide you with the fastest and most reliable open source
 services. To achieve this goal, we collect metrics on endpoint performance and
 send a **fully anonymized** telemetry report ("anonymous usage statistics") to

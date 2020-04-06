@@ -4,6 +4,9 @@ title: Mutators
 original_id: mutator
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 A mutator transforms the credentials from incoming requests to credentials that
 your backend understands. For example, the `Authorization: basic` header might
 be transformed to `X-User: <subject-id>`. This allows you to write backends that

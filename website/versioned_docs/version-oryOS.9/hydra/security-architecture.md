@@ -4,6 +4,9 @@ title: Security Architecture
 original_id: security-architecture
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 Hydra is built with tough security in mind.
 
 <!-- toc -->

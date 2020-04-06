@@ -4,6 +4,9 @@ title: Role Based Access Control (RBAC)
 original_id: keto-next-engines-rbac
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 [Role Based Access Control (RBAC)](https://en.wikipedia.org/wiki/Role-based_access_control)
 maps subjects to roles and roles to permissions. The goal of (H)RBAC is to make
 permission management convenient by grouping subjects in roles and assigning

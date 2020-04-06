@@ -4,6 +4,9 @@ id: version-oryOS.15-api
 original_id: api
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ORY Oathkeeper is a reverse proxy that checks the HTTP Authorization for
 validity against a set of rules. This service uses Hydra to validate access
 tokens and policies.

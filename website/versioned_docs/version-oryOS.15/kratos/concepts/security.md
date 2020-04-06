@@ -4,6 +4,9 @@ title: Threat Models and Security Profiles
 original_id: security
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 Running any software that stores personal information exposes the
 developer/company to risks. Analyzing which threat agents pose a risk,
 understanding the possible motivations for an attack, or why an agent is a

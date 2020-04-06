@@ -4,6 +4,9 @@ title: Overview
 original_id: index
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 All SDKs use automated code generation provided by
 [`openapi-generator`](https://github.com/OpenAPITools/openapi-generator).
 Unfortunately, `openapi-generator` has serious breaking changes in the generated

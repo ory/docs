@@ -4,6 +4,9 @@ title: Introduction
 original_id: index
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 Our ecosystem is not another over-hyped, oversold technology stack. Our
 technology is truly built with 12 factor principles in mind, and the
 technology's performance metrics are as good as it gets.

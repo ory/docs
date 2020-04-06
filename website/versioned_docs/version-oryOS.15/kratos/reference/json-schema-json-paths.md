@@ -4,6 +4,9 @@ title: JSON Schema and JSON Paths
 original_id: json-schema-json-paths
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 [JSON Schema](https://json-schema.org) is a vocabulary that allows you to
 annotate and validate JSON documents. It is a IETF (Internet and Engineering
 Task Force) public standard and is similar to a XML DTD but suited for JSON

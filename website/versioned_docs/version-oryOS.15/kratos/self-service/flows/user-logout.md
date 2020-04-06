@@ -4,6 +4,9 @@ title: User Logout
 original_id: user-logout
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ORY Kratos supports two logout flows:
 
 - Browser-based (easy): This flow works for all applications running on top of a

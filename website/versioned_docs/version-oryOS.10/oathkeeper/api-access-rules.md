@@ -4,6 +4,9 @@ title: API Access Rules
 original_id: api-access-rules
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ORY Oathkeeper decides whether or not access should be allowed with Access
 Rules. Access Rules can be managed using the ORY Oathkeeper API.
 

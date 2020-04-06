@@ -4,6 +4,9 @@ title: Roles
 original_id: roles
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ORY Keto supports the concept of roles (like in RBAC). This feature allows you
 to group together a number of subjects under the same role. Whenever making a
 request to the Warden API, it will check the role's of a subject (if there are

@@ -4,6 +4,9 @@ title: Access Control Lists (ACL)
 original_id: keto-next-engines-acl
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 An
 [Access Control List (ACL)](https://en.wikipedia.org/wiki/Access_control_list)
 is a matrix of users and permissions:

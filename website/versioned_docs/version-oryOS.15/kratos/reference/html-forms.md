@@ -4,6 +4,9 @@ title: HTML Form Parser
 original_id: html-forms
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 If you're using HTML Forms to sign users up or update profiles, ORY Kratos needs
 to assert the type of each field, as HTML Form Field Values are untyped.
 

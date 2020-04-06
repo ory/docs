@@ -4,6 +4,9 @@ title: Roadmap
 original_id: roadmap
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ## ORY Roadmap
 
 If you would like a quick overview of whats coming next to ORY, you can do so at

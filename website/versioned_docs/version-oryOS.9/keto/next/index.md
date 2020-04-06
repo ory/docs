@@ -4,6 +4,9 @@ title: Introduction
 original_id: keto-next-index
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ORY Keto is an permission server that implements best practice access control
 mechanisms. If you came looking for the answer to the question:
 

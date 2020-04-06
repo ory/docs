@@ -4,6 +4,9 @@ title: Introduction to ORY Hydra, OAuth 2.0, and OpenID Connect
 original_id: index
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 Welcome to the Hydra documentation. This documentation will
 
 1. teach you what OAuth2 and OpenID Connect are and how ORY Hydra fits in the

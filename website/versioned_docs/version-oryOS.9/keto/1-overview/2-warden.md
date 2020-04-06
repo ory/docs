@@ -4,6 +4,9 @@ title: Warden API
 original_id: warden
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 So far you learned how Access Control Policies work and how they are different
 from RBAC and ACL. Now, you will learn how to use the Warden API to perform
 access control (decide if a request should be allowed or not).

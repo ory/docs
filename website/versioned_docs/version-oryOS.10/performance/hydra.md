@@ -4,6 +4,9 @@ title: ORY Hydra
 original_id: hydra
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 In this document you will find benchmark results for different endpoints of ORY
 Hydra. All benchmarks are executed using
 [rakyll/hey](https://github.com/rakyll/hey). Please note that these benchmarks

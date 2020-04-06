@@ -4,6 +4,9 @@ title: Installing ORY Keto
 original_id: installation
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 <!-- toc -->
 
 You can install ORY Keto by downloading the

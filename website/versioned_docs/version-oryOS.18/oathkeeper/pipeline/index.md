@@ -4,6 +4,9 @@ title: Access Rule Pipeline
 original_id: index
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 Read more about the
 [principal components and execution pipeline of access rules](../api-access-rules.md)
 if you have not already. This chapter explains the different pipeline handlers

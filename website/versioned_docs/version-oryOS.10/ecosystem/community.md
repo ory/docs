@@ -4,6 +4,9 @@ title: Community
 original_id: community
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ORY is possible because of a unique, experienced, and dedicated community.
 Sponsors, contributors, and adopters make this ecosystem possible and shape it
 in significant ways.

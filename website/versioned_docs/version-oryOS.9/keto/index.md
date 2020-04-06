@@ -4,6 +4,9 @@ title: Introduction
 original_id: index
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 Welcome to the ORY Keto documentation!
 
 ORY Keto is a service that stores permissions and can answer if an identity is

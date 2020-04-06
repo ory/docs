@@ -4,6 +4,9 @@ title: Best Practices
 original_id: best-practices
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 This sections gives an overview of best practices for access control policies we
 developed over the years at ORY.
 

@@ -4,6 +4,9 @@ title: Configure and Deploy
 original_id: configure-deploy
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 As all other ORY services, ORY Keto is implemented according to 12factor
 principles and completely stateless. To store state, ORY Keto supports two types
 of storage adapters:

@@ -4,6 +4,9 @@ title: Configuring and Running ORY Keto
 original_id: configuration
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 #
 
 ORY Keto supports two types of storage adapters:

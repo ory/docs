@@ -4,6 +4,9 @@ title: Out-of-band communication via E-Mail and SMS
 original_id: email-sms
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 ORY Kratos sends out-of-band messages via SMS or E-Mail. These messages are
 required for The following exemplary use cases require these messages:
 

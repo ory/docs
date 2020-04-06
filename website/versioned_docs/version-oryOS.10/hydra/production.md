@@ -4,6 +4,9 @@ title: Preparing for Production
 original_id: production
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 This document summarizes things you will find useful when going to production.
 
 ## ORY Hydra behind an API Gateway

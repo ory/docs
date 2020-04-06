@@ -4,6 +4,9 @@ title: Error Handlers
 original_id: error
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 A error handler is responsible for executing logic after, for example,
 authentication or authorization failed. ORY Oathkeeper supports different error
 handlers and we will add more as the project progresses.

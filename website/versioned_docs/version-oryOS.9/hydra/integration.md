@@ -4,6 +4,9 @@ title: Integration
 original_id: integration
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 This article explains how you to integrate ORY Hydra in your system.
 
 <!-- toc -->

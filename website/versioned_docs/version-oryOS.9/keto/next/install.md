@@ -4,6 +4,9 @@ title: Install
 original_id: keto-next-install
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 You can install ORY Keto by downloading the
 [binaries](https://github.com/ory/keto/releases), by using the precompiled
 Docker Image available at [Docker Hub](https://hub.docker.com/r/oryd/keto/), or

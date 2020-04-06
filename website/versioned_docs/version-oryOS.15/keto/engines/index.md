@@ -4,6 +4,9 @@ title: Access Control Engines - Introduction
 original_id: index
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 Whatever your system looks like, you probably have a concept of permissions
 which models who is allowed to do what (access control). ORY Keto provides you
 with battle-tested, best practice access control concepts. Please note that ORY

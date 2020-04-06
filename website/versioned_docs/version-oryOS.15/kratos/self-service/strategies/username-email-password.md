@@ -4,6 +4,9 @@ title: Username or Email and Password
 original_id: username-email-password
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 The `password` strategy implements the most-common used form of login and
 registration: An identifier (username, email, phone number, ...) and a password.
 

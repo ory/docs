@@ -4,6 +4,9 @@ title: Introduction
 original_id: index
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 Welcome to the ORY Oathkeeper documentation!
 
 ORY Oathkeeper is a reverse proxy which evaluates incoming HTTP requests based

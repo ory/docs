@@ -4,6 +4,9 @@ title: 5 Minute Tutorial
 original_id: 5min-tutorial
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 This tutorial walks you through a quick setup of ORY Hydra, a PostgreSQL
 instance and an exemplary User Login & Consent App based on Docker Compose. You
 need to have the latest [Docker](https://www.docker.com) and

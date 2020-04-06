@@ -5,6 +5,9 @@ sidebar_label: Login, Consent & Logout
 original_id: implementing-consent
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 Let's build a simple consent app that can be used as part of the Hydra's
 [Login and consent workflow](login-consent-flow).
 

@@ -4,6 +4,9 @@ title: JSON Web Key Sets
 original_id: jwks
 ---
 
+> You are viewing an outdated version of this documentation. Please head over
+> to [www.ory.sh/docs](https://www.ory.sh/docs) for a recent version!
+
 A JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that
 represents a cryptographic key and is specified at
 [IETF RFC7517](https://tools.ietf.org/html/rfc7517). If you've heard of PEM
