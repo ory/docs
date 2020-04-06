@@ -24,7 +24,7 @@ jobs:
       - run: |
           git clone git@github.com:ory/web.git ../web
           rm -rf ../web/generated/docs/ecosystem/* ../web/generated/docs/ecosystem/*
-          cp -R ./build/docs/* ../web/generated/docs/ecosystem/
+          cp -R ./build/* ../web/generated/docs/ecosystem/
           cd ../web && git add -A && git commit -a -m "docs: Bump to $CIRCLE_SHA1" --allow-empty && git push origin HEAD:master
 
 workflows:
