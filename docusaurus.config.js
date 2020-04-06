@@ -98,7 +98,7 @@ module.exports = {
         path: config.projectSlug === 'docusaurus-template' ? 'contrib/docs' : 'docs',
         sidebarPath: require.resolve('./contrib/sidebar.js'),
         editUrl:
-          `https://github.com/ory/docs/edit/master/docs`,
+          `https://github.com/ory/docs/edit/master`,
         routeBasePath: '',
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
