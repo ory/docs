@@ -48,8 +48,8 @@ The `oryOS` versioning was introduced as a way to declare compatibility between
 the different projects. This was necessary as parts of ORY Hydra were split into
 new projects called ORY Keto and ORY Oathkeeper.
 
-As of today however, these projects are largely independent. Future versions
-of these projects will also include versioned APIs which renders the `oryOS`
+As of today however, these projects are largely independent. Future versions of
+these projects will also include versioned APIs which renders the `oryOS`
 semantics unnecessary.
 
 If compatibility is an issue, it will be highlighted in the project's
@@ -58,8 +58,8 @@ documentation.
 The next sections document the previous behavior and are kept for historical
 reasons.
 
-Old documentation links with `oryOS.<x>` in the URL are going to keep working
-in the foreseeable future.
+Old documentation links with `oryOS.<x>` in the URL are going to keep working in
+the foreseeable future.
 
 #### oryOS Semantics
 
