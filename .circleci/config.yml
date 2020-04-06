@@ -32,8 +32,6 @@ workflows:
   publish:
     jobs:
       - publish:
-          requires:
-            - test
           filters:
             tags:
               ignore: /.*/
