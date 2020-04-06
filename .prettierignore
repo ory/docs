@@ -1,1 +1,6 @@
 build/
+website/build/
+schemas/
+apis/
+.widdershins/
+hooks/

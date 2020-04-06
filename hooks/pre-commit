@@ -1,4 +1,0 @@
-#!/bin/sh
-
-cd website
-npm run format

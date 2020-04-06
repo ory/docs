@@ -5,75 +5,33 @@ version: 2
 jobs:
   publish-next:
     docker:
-      - image: circleci/node:11.1
+      - image: circleci/node:13.12
     working_directory: /home/circleci/docs
     steps:
       - checkout
       - run: |
-          if [[ "$(git show -s --format=%B | head -n 1)" == "Build and format files from"* ]]; then
+          if [[ "$(git show -s --format=%B | head -n 1)" == "autogen"* ]]; then
             circleci-agent step halt
           fi
-      - run: cd website; npm ci
       - run: git config --global user.email "aeneas@ory.sh"
       - run: git config --global user.name "aeneasr"
-      - run: cd website; npm run build
-      - run: cd website; npm run format
+      - run: npm i
+      - run: npm run format
       - run: |
-          branch=$(date +%s)
-          git checkout -b $branch
           git add -A
-          git commit -a -m "Build and format files from $CIRCLE_SHA1" --allow-empty
-          git push origin HEAD:master
+          (git commit -a -m "autogen: build docs from $CIRCLE_SHA1" && git push origin HEAD:master) || true
+      - run: npm run build
       - run: |
           git clone git@github.com:ory/web.git ../web
-          rm -rf ../web/docs/*
-          cp -R ./website/build/docs/* ../web/docs/
+          rm -rf ../web/generated/docs/ecosystem/* ../web/generated/docs/ecosystem/*
+          cp -R ./build/docs/* ../web/generated/docs/ecosystem/
           cd ../web && git add -A && git commit -a -m "docs: Bump to $CIRCLE_SHA1" --allow-empty && git push origin HEAD:master
-
-  publish-stable:
-    docker:
-      - image: circleci/node:11.1
-    working_directory: /home/circleci/docs
-    steps:
-      - checkout
-      - run: cd website; npm ci
-      - run: git config --global user.email "aeneas@ory.sh"
-      - run: git config --global user.name "aeneasr"
-      - run: cd website; npm run release $(echo $CIRCLE_TAG | cut -d '+' -f2)
-      - run: cd website; npm run format
-      - run: cd website; npm run build
-      - run: |
-          branch=$(date +%s)
-          git checkout -b $branch
-          git add -A
-          git commit -a -m "Build and format files from $CIRCLE_TAG" --allow-empty
-          git push origin HEAD:master
-      - run: |
-          git clone git@github.com:ory/web.git ../web
-          rm -rf ../web/docs/*
-          cp -R ./website/build/docs/* ../web/docs/
-          cd ../web && git add -A && git commit -a -m "docs: Bump to $CIRCLE_TAG" --allow-empty && git push origin HEAD:master
-
-  test:
-    docker:
-      - image: circleci/node:11.1
-    working_directory: /home/circleci/docs
-    steps:
-      - checkout
-      - run: cd website; npm ci
-      - run: ./scripts/test-links.sh
 
 workflows:
   version: 2
   publish:
     jobs:
-      - test:
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              only: /.*/
-      - publish-next:
+      - publish:
           requires:
             - test
           filters:
@@ -81,11 +39,3 @@ workflows:
               ignore: /.*/
             branches:
               only: /master/
-      - publish-stable:
-          requires:
-            - test
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              ignore: /.*/

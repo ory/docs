@@ -1,2 +1,0 @@
-Welcome to the ORY FAQ. You will find frequently asked questions and their
-answers in this section.
