@@ -71,11 +71,12 @@ rules ("Access Control Policies"). And there's of course an endpoint that tells
 you if a certain set of credentials (e.g. an OAuth 2.0 Access Token) is allowed
 to modify that blog post.
 
-<img alt="The full ORY Ecosystem" src={useBaseUrl('img/docs/ory-ecosystem.png')}  />
+<img alt="The full ORY Ecosystem" src={useBaseUrl('img/docs/ory-ecosystem.png')}
+/>
 
-If you were to use the full ORY Ecosystem, it would probably look something like this. Keep
-in mind that any component shown here can be replaced or removed, depending on
-your use case.
+If you were to use the full ORY Ecosystem, it would probably look something like
+this. Keep in mind that any component shown here can be replaced or removed,
+depending on your use case.
 
 Now you know what this ecosystem has to offer you. To get some more information
 on the services, read the developer guide by selecting the software of your
