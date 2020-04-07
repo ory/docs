@@ -56,7 +56,7 @@ module.exports = {
       apiKey: '8463c6ece843b377565726bb4ed325b0',
       indexName: 'ory',
       algoliaOptions: {
-        facetFilters: ['tags:ecosystem','tags:cloud', 'tags:hydra', 'tags:keto', 'tags:oathkeeper', 'tags:kratos'],
+        facetFilters: [['tags:ecosystem','tags:cloud', 'tags:hydra', 'tags:keto', 'tags:oathkeeper', 'tags:kratos']],
       },
     },
     navbar: {
