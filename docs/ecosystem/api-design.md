@@ -44,7 +44,8 @@ Example:
 
 ## Date Format
 
-ORY's APIs use [rfc3339](https://tools.ietf.org/html/rfc3339) as the date format:
+ORY's APIs use [rfc3339](https://tools.ietf.org/html/rfc3339) as the date
+format:
 
 ```
 {
