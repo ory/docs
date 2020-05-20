@@ -6,6 +6,7 @@ module.exports = {
     "ecosystem/deployment",
     "ecosystem/configuring",
     "ecosystem/versioning",
+    "ecosystem/logging",
     "ecosystem/upgrading",
     "ecosystem/api-design",
     "ecosystem/community",
