@@ -41,3 +41,13 @@ Example:
 <
 [...]
 ```
+
+## Date Format
+
+ORY's APIs use [rfc3339](https://tools.ietf.org/html/rfc3339) as the date format:
+
+```
+{
+  "created_at": "2006-01-02T15:04:05Z07:00"
+}
+```
