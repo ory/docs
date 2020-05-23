@@ -118,8 +118,8 @@ We collect the following system metrics:
 ### Request telemetry
 
 The IP addresses of both host and client are anonymized to `0.0.0.0`. Any
-identifiable information in the URL path and query is hashed with SHA-256 using a
-randomly assigned UUID v4 salt:
+identifiable information in the URL path and query is hashed with SHA-256 using
+a randomly assigned UUID v4 salt:
 
 - `/clients/foo` with salt `ABCDEFGH` becomes `/clients/sha256("foo|ABCDEFGH")`:
   `/clients/0301424a80469ad03a208de925563a97ec6ab2f9dc7a2ad71b2ded85a7f7a7af`
