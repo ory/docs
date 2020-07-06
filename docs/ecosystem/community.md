@@ -7,8 +7,8 @@ ORY is possible because of a unique, experienced, and dedicated community.
 Sponsors, contributors, and adopters make this ecosystem possible and shape it
 in significant ways.
 
-Important community resources include [GitHub](), [Discord (chat)]() and
-[Discourse (forum)]().
+Important community resources include [GitHub](https://github.com/ory), [Slack (chat)](https://slack.ory.sh/) and
+[Discourse (forum)](https://community.ory.sh/).
 
 ## Community Projects
 
