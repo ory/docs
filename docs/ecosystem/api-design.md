@@ -36,11 +36,16 @@ Example:
 < HTTP/1.1 200 OK
 < Content-Type: application/json
 < Link: <hydra-admin/clients?limit=5&offset=0>; rel="first",</clients?limit=5&offset=15>; rel="next",</clients?limit=5&offset=5>; rel="prev",</clients?limit=5&offset=20>; rel="last"
+< X-Total-Count: 123
 < Date: Mon, 22 Apr 2019 23:34:29 GMT
 < Transfer-Encoding: chunked
 <
 [...]
 ```
+
+### Total Count
+
+You can get the total item count from the `X-Total-Count` HTTP Header.
 
 ## Date Format
 
