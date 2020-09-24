@@ -1,58 +1,57 @@
-const config = require('./contrib/config.js')
-const fs = require('fs')
-const admonitions = require('remark-admonitions')
+const config = require('./contrib/config.js');
+const fs = require('fs');
+const admonitions = require('remark-admonitions');
 
-const githubRepoName = config.projectSlug === 'ecosystem'
-  ? 'docs'
-  : config.projectSlug
+const githubRepoName =
+  config.projectSlug === 'ecosystem' ? 'docs' : config.projectSlug;
 
 const links = [
   {
-    to: "/",
+    to: '/',
     activeBasePath: `${config.projectSlug}/docs`,
     label: `Docs`,
-    position: 'left'
+    position: 'left',
   },
   {
     href: 'https://www.ory.sh/docs',
     label: 'Ecosystem',
-    position: 'left'
+    position: 'left',
   },
   {
     href: 'https://www.ory.sh/blog',
     label: 'Blog',
-    position: 'left'
+    position: 'left',
   },
   {
     href: 'https://community.ory.sh',
     label: 'Forum',
-    position: 'left'
+    position: 'left',
   },
   {
     href: 'https://www.ory.sh/chat',
     label: 'Chat',
-    position: 'left'
+    position: 'left',
   },
   {
     href: `https://github.com/ory/${githubRepoName}`,
     label: 'GitHub',
-    position: 'left'
-  }
-]
+    position: 'left',
+  },
+];
 
-let version = ['latest']
+let version = ['latest'];
 
 if (fs.existsSync('./versions.json')) {
-  version = require('./versions.json')
+  version = require('./versions.json');
   if (version && version.length > 0) {
     links.push({
       label: version[0],
       position: 'right',
-      to: 'versions'
-    })
+      to: 'versions',
+    });
   }
   if (version.length === 0) {
-    version = ['master']
+    version = ['master'];
   }
 }
 
@@ -67,22 +66,24 @@ module.exports = {
   themeConfig: {
     googleAnalytics: {
       trackingID: 'UA-71865250-1',
-      anonymizeIP: true
+      anonymizeIP: true,
     },
     algolia: {
       apiKey: '8463c6ece843b377565726bb4ed325b0',
       indexName: 'ory',
       algoliaOptions: {
-        facetFilters: [`tags:${config.projectSlug}`, `version:${version[0]}`]
-      }
+        facetFilters: [`tags:${config.projectSlug}`, `version:${version[0]}`],
+      },
     },
     navbar: {
       logo: {
         alt: config.projectName,
         src: `img/logo-${config.projectSlug}.svg`,
-        href: `https://www.ory.sh/${config.projectSlug === 'ecosystem' ? '' : config.projectSlug}`
+        href: `https://www.ory.sh/${
+          config.projectSlug === 'ecosystem' ? '' : config.projectSlug
+        }`,
       },
-      items: links
+      items: links,
     },
     footer: {
       style: 'dark',
@@ -93,20 +94,20 @@ module.exports = {
           items: [
             {
               label: 'Imprint',
-              href: 'https://www.ory.sh/imprint'
+              href: 'https://www.ory.sh/imprint',
             },
             {
               label: 'Privacy',
-              href: 'https://www.ory.sh/privacy'
+              href: 'https://www.ory.sh/privacy',
             },
             {
               label: 'Terms',
-              href: 'https://www.ory.sh/tos'
-            }
-          ]
-        }
-      ]
-    }
+              href: 'https://www.ory.sh/tos',
+            },
+          ],
+        },
+      ],
+    },
   },
   plugins: [
     [
@@ -122,12 +123,12 @@ module.exports = {
         homePageId: 'index',
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
-        remarkPlugins: [admonitions]
-      }
+        remarkPlugins: [admonitions],
+      },
     ],
     '@docusaurus/plugin-content-pages',
     '@docusaurus/plugin-google-analytics',
-    '@docusaurus/plugin-sitemap'
+    '@docusaurus/plugin-sitemap',
   ],
   themes: [
     [
@@ -136,9 +137,9 @@ module.exports = {
         customCss:
           config.projectSlug === 'docusaurus-template'
             ? require.resolve('./contrib/theme.css')
-            : require.resolve('./src/css/theme.css')
-      }
+            : require.resolve('./src/css/theme.css'),
+      },
     ],
-    '@docusaurus/theme-search-algolia'
-  ]
-}
+    '@docusaurus/theme-search-algolia',
+  ],
+};

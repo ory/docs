@@ -33,7 +33,7 @@ const script = `(function () {
   });
 })();`;
 
-function FooterLink({to, href, label, ...props}) {
+function FooterLink({ to, href, label, ...props }) {
   const toUrl = useBaseUrl(to);
   return (
     <Link
@@ -47,23 +47,24 @@ function FooterLink({to, href, label, ...props}) {
         : {
             to: toUrl,
           })}
-      {...props}>
+      {...props}
+    >
       {label}
     </Link>
   );
 }
 
-const FooterLogo = ({url, alt}) => (
+const FooterLogo = ({ url, alt }) => (
   <img className="footer__logo" alt={alt} src={url} />
 );
 
 function Footer() {
   const context = useDocusaurusContext();
-  const {siteConfig = {}} = context;
-  const {themeConfig = {}} = siteConfig;
-  const {footer} = themeConfig;
+  const { siteConfig = {} } = context;
+  const { themeConfig = {} } = siteConfig;
+  const { footer } = themeConfig;
 
-  const {copyright, links = [], logo = {}} = footer || {};
+  const { copyright, links = [], logo = {} } = footer || {};
   const logoUrl = useBaseUrl(logo.src);
 
   if (!footer) {
@@ -74,7 +75,8 @@ function Footer() {
     <footer
       className={classnames('footer', {
         'footer--dark': footer.style === 'dark',
-      })}>
+      })}
+    >
       <div className="container">
         {links && links.length > 0 && (
           <div className="row footer__links">
@@ -100,7 +102,7 @@ function Footer() {
                         <li key={item.href || item.to} className="footer__item">
                           <FooterLink {...item} />
                         </li>
-                      ),
+                      )
                     )}
                   </ul>
                 ) : null}
@@ -117,7 +119,8 @@ function Footer() {
                     href={logo.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={styles.footerLogoLink}>
+                    className={styles.footerLogoLink}
+                  >
                     <FooterLogo alt={logo.alt} url={logoUrl} />
                   </a>
                 ) : (
