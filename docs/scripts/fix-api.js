@@ -1,18 +1,18 @@
-const fs = require('fs');
+const fs = require('fs')
 
 if (process.argv.length !== 3 || process.argv[1] === 'help') {
   console.error(`
   usage:
     node fix-api.js path/to/file.md
-`);
-  process.exit(1);
+`)
+  process.exit(1)
 }
 
-const file = process.argv[2];
+const file = process.argv[2]
 
 fs.readFile(file, (err, b) => {
   if (err) {
-    throw err;
+    throw err
   }
 
   const t = b
@@ -32,17 +32,18 @@ fs.readFile(file, (err, b) => {
     // .replace(/<h2 id="toc([a-zA-Z0-9_\-]+)">([a-zA-Z0-9_\-]+)<\/h2>\n/gim, '## $2')
     // .replace(/<h1 id="ory-([a-zA-Z0-9_\-]+)">([a-zA-Z0-9_\-]+)<\/h2>\n/gim, '## $2')
     .replace(/\n\s*\n/g, '\n\n', -1)
+    .replace(/<br>/g, '<br/>', -1)
     .replace(/^-(\s.*)\n/gim, '-$1', -1)
     .replace(/\n\n---/gi, '\n---\n\n')
     // .replace(/\n\s*\n```/gi, '\n```')
     // .replace(/^<h3 id="[0-9a-zA-Z0-9\-_.]+-responses">Responses<\/h3>$/gim, '#### Summary',-1)
     // .replace(/^> Example responses/gim, '### Responses',-1)
     // .replace(/^> Body parameter/gim, '### Request body',-1)
-    .replace(/^> ([0-9]+) Response$/gim, '###### $1 response', -1);
+    .replace(/^> ([0-9]+) Response$/gim, '###### $1 response', -1)
 
   fs.writeFile(file, t, (err) => {
     if (err) {
-      throw err;
+      throw err
     }
-  });
-});
+  })
+})
