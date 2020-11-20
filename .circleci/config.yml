@@ -15,13 +15,14 @@ jobs:
           fi
       - run: git config --global user.email "aeneas@ory.sh"
       - run: git config --global user.name "aeneasr"
-      - run: npm i
-      - run: npm run format
       - run: |
+          cd docs
+          npm ci
+          npm run format
           git add -A
           (git commit -a -m "autogen: build docs from $CIRCLE_SHA1" && git push origin HEAD:master) || true
-      - run: npm run build
-      - run: |
+          npm run build
+
           git clone git@github.com:ory/web.git ../web
           rm -rf ../web/generated/docs/ecosystem/* ../web/generated/docs/ecosystem/*
           cp -R ./build/* ../web/generated/docs/ecosystem/
