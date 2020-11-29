@@ -5,21 +5,25 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
 
 export default (function () {
   if (!ExecutionEnvironment.canUseDOM) {
-    return null;
+    return null
   }
 
   return {
-    onRouteUpdate({location}) {
-      // Set page so that subsequent hits on this page are attributed
-      // to this page. This is recommended for Single-page Applications.
-      window.ga('set', 'page', location.pathname);
-      // Always refer to the variable on window in-case it gets
-      // overridden elsewhere.
-      window.ga('send', 'pageview');
-    },
-  };
-})();
+    onRouteUpdate({ location }) {
+      if (typeof window.gtag !== 'function') {
+        return
+      }
+
+      const pagePath = location
+        ? location.pathname + location.search + location.hash
+        : undefined
+      window.gtag('config', 'UA-71865250-1', {
+        page_path: pagePath
+      })
+    }
+  }
+})()
