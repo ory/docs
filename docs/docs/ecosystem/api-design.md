@@ -22,7 +22,7 @@ pages (where applicable):
 
 Pages are created based on the values of `limit` and `offset` provided in the
 querystring, where `limit` is the page size, and `offset` is the current item.
-The `limit` parameter always has an API specific upper bound to prevent DoS 
+The `limit` parameter always has an API specific upper bound to prevent DoS. 
 
 In most scenarios, the `offset` should be a multiple of the `limit`.
 
