@@ -3,9 +3,9 @@ id: contributing
 title: Contributing
 ---
 
-This document is a work in progress.  
+This document is a work in progress.
 We will be documenting the inner workings of the ORY GitHub ecosystem and
-project structures in here.  
+project structures in here.
 If you feel there is something missing or should be added, please open an issue
 in [ory/docs](https://github.com/ory/docs) or contact us on the
 [forum](https://community.ory.sh/) or [chat](https://www.ory.sh/chat).
@@ -263,3 +263,19 @@ import _ "github.com/my/dependency"
 You would do the same if the project uses dev tools such as `packr2`,
 `goimports`, `goreturns`, `swagutil`, ... as part of e.g. the Makefile or other
 scripts.
+
+## Development
+
+### DBAL gobuffalo/pop
+
+#### Table Names
+
+Please define custom table names for all table structs. Keep in mind that `TableName()` must
+be a value receiver, not a pointer receiver, for slices `[]Model` to work properly:
+
+```diff
+-func (m *Model) TableName(ctx context.Context) string {
++func (m Model) TableName(ctx context.Context) string {
+ 	return "foo"
+}
+```
