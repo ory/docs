@@ -30,10 +30,14 @@ Our products solve the simplest use case and give you the ability to instantly
 ready the system for more complex scenarios without painful and slow upgrade
 processes.
 
-The above-mentioned _identity management server_ is to be announced soon.
+The identity management server **ORY Kratos** enables you to implement login and
+registration in a secure and straightforward way.  
 Instead of re-writing login, logout, activation emails, 2fa, and worrying about
 GDPR, you spin up a docker image and write a simple UI for it in the language or
-framework of your choice.
+framework of your choice.  
+You have custom requirements for your users experience?  
+No problem, you can implement your own custom flows without hassle.  
+ 
 
 **ORY Hydra** enables you to become an OAuth 2.0 and OpenID Connect provider. If
 you're not writing a basic web app but something that has to work on different
