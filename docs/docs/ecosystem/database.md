@@ -102,6 +102,15 @@ Additionally, the following DSN parameters are supported:
 To set such a parameter, append it to the DSN query, for example:
 `mysql://user:password@tcp(host:123)/database?parseTime=true&writeTimeout=123s`
 
+### MariaDB
+
+Connections to MariaDB are possible by using a MySQL-style connection string and
+adding the argument `sql_mode=MYSQL40`:
+
+```
+mysql://user:pass@tcp(ipOfMariadb:3306)/database_name?sql_mode=MYSQL40
+```
+
 ### CockroachDB (beta)
 
 If configuration key `dsn` (Data Source Name) is prefixed with `cockroach://`,
