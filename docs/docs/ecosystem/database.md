@@ -105,7 +105,7 @@ To set such a parameter, append it to the DSN query, for example:
 ### MariaDB
 
 Connections to MariaDB are possible by using a MySQL-style connection string and
-adding the argument `sql_mode=MYSQL40`:
+adding the argument [`sql_mode=MYSQL40`](https://mariadb.com/kb/en/sql-mode/#setting-sql_mode):
 
 ```
 mysql://user:pass@tcp(ipOfMariadb:3306)/database_name?sql_mode=MYSQL40
