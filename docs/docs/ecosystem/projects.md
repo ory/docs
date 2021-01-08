@@ -30,14 +30,21 @@ Our products solve the simplest use case and give you the ability to instantly
 ready the system for more complex scenarios without painful and slow upgrade
 processes.
 
-The identity management server **ORY Kratos** enables you to implement login and
-registration in a secure and straightforward way.  
-Instead of re-writing login, logout, activation emails, 2fa, and worrying about
-GDPR, you spin up a docker image and write a simple UI for it in the language or
+The identity management server **ORY Kratos** enables you to implement user
+management, login and registration in a secure and straightforward way.  
+Don't rewrite every aspect of identity management yourself.  
+ORY Kratos implements all common flows such as login and logout, account
+activation, mfa/2fa, profile and session management, user facing errors and
+account recovery methods.  
+Just spin up a docker image and write a simple UI for it in the language or
 framework of your choice.  
+Don't worry about GDPR, adress verification or protecting your users data
+against common and frequently changing attack vectors.  
+ORY Kratos applies security standards established by experts (National Institute
+of Sciences NIST, Internet Engineering Task Force IETF, Microsoft Research,
+Google Research, Troy Hunt, ..), so you can concentrate on building.  
 You have custom requirements for your users experience?  
-No problem, you can implement your own custom flows without hassle.  
- 
+No problem, implement your own custom flows without hassle.
 
 **ORY Hydra** enables you to become an OAuth 2.0 and OpenID Connect provider. If
 you're not writing a basic web app but something that has to work on different
