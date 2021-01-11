@@ -30,23 +30,27 @@ Our products solve the simplest use case and give you the ability to instantly
 ready the system for more complex scenarios without painful and slow upgrade
 processes.
 
-The identity management server **ORY Kratos** enables you to implement user
-management, login and registration in a secure and straightforward way.  
-Don't rewrite every aspect of identity management yourself.  
+![ORY Kratos](https://raw.githubusercontent.com/ory/meta/master/static/logos/logo-kratos.svg)
+
+The identity management server ORY Kratos enables you to implement user
+management, login and registration in a secure and straightforward way.
+Don't rewrite every aspect of identity management yourself.
 ORY Kratos implements all common flows such as login and logout, account
 activation, mfa/2fa, profile and session management, user facing errors and
-account recovery methods.  
+account recovery methods.
 Just spin up a docker image and write a simple UI for it in the language or
-framework of your choice.  
+framework of your choice.
 Don't worry about GDPR, adress verification or protecting your users data
-against common and frequently changing attack vectors.  
+against common and frequently changing attack vectors.
 ORY Kratos applies security standards established by experts (National Institute
 of Sciences NIST, Internet Engineering Task Force IETF, Microsoft Research,
-Google Research, Troy Hunt, ..), so you can concentrate on building.  
-You have custom requirements for your users experience?  
+Google Research, Troy Hunt, ..), so you can concentrate on building.
+You have custom requirements for your users experience?
 No problem, implement your own custom flows without hassle.
 
-**ORY Hydra** enables you to become an OAuth 2.0 and OpenID Connect provider. If
+![ORY Hydra](https://raw.githubusercontent.com/ory/meta/master/static/logos/logo-hydra.svg)
+
+ORY Hydra enables you to become an OAuth 2.0 and OpenID Connect provider. If
 you're not writing a basic web app but something that has to work on different
 devices, that has machine-2-machine interaction, or enables third-party
 developers to use your API (and pay for it), then this is what you're looking
@@ -57,14 +61,18 @@ in a secure and OpenID Certified manner, access, refresh, and ID tokens. Of
 course, it's shipped as a 5MB Docker Image with almost no configuration
 required.
 
+![ORY Oathkeeper](https://raw.githubusercontent.com/ory/meta/master/static/logos/logo-oathkeeper.svg)
+
 Now that your users access your application through, for example, a
 React/Angular app and a REST api, you need a way to authenticate the user and to
 check if he/she has the necessary permissions (we call this "access control"
 from now on). One way would be, of course, to add these checks in your code.
-Another is to deploy the 5MB **ORY Oathkeeper** Docker Image, define access
+Another is to deploy the 5MB ORY Oathkeeper Docker Image, define access
 rules for your API endpoints (e.g. OAuth 2.0 Access Token + certain set of
 permissions, a valid JSON Web Token, a valid SAML assertion, ...) and put it -
 like a firewall - in front of your services.
+
+![ORY Keto](https://raw.githubusercontent.com/ory/meta/master/static/logos/logo-keto.svg)
 
 You might start out with a simple permission system. You've got different roles:
 anonymous users (not logged in), authenticated users (logged in), and
@@ -75,7 +83,7 @@ as Amazon Web Services or Google solve this using "Access Control Policies".
 These policies represent flexible rules and allow you to express complex access
 control scenarios. You could, of course, write your own system or spend a bit of
 time educating yourself about RBAC, ACL, ABAC, ACP - or (you probably already
-guessed it) - boot up the 5MB **ORY Keto** Docker Image. ORY Keto is able to
+guessed it) - boot up the 5MB ORY Keto Docker Image. ORY Keto is able to
 authenticate different types of credentials (e.g. OAuth 2.0 Access Tokens, SAML
 Assertions, JSON Web Tokens, ...) and allows you to define advanced permission
 rules ("Access Control Policies"). And there's of course an endpoint that tells
