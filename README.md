@@ -38,6 +38,18 @@ Install dependencies `npm install` Test build the documentation:
 To build the docs:  
 `npm run build `
 
+## Document Structure
+
+Add a meaningful title and an ID to the top of the document. 
+`id` needs to be separated with `-` and lowercase, `title` with space and Uppercase. 
+Example:
+```
+---
+id: documentation-id
+title: Documentation Title
+---
+```
+
 ## How to add links to other pages
 
 If you would add a link to an outside ressource, just go ahead.
@@ -50,3 +62,23 @@ For example `[XY Guide](./guide/XY.md)` rather than `[XY Guide](./guide/XY)`.
 This prevents broken links
 ([issue](https://github.com/ory/docusaurus-template/issues/38)) when you load
 the documentation from an outside link.
+
+## How to add code from Github
+
+Use [CodeFromRemote](https://github.com/ory/docusaurus-template/blob/master/src/theme/CodeFromRemote.js) to import code directly from Github. 
+
+Import at the beginning of your document like so:
+
+```
+---
+id: documentation id
+title: Documentation Title
+---
+
+import CodeFromRemote from '@theme/CodeFromRemote'
+```
+
+Then at the place you want the code to appear in the document add:
+
+`<CodeFromRemote src="https://github.com/$OWNER/$REPO/path/to/your.file" />`
+
