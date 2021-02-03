@@ -38,6 +38,24 @@ Install dependencies `npm install` Test build the documentation:
 To build the docs:  
 `npm run build `
 
+
+## Categories 
+
+Ory Documentations is structured into several main categories.  
+Each of those categories serves a specific purpose. 
+The purpose of each category is outline in short here, to help find the correct category for your documentation to live in.
+
+- Introduction
+    - The purpose of this category is to introduce the very `basics` of the project and give newcomers a easy way to start. Contains the most basic explanation of the project, an installation guide, a Quickstart/5-Minute Tutorial and Contribution Guidelines. 
+- Concepts 
+    - The purpose of this category is to give the reader a deep `understanding` of the ideas upon which the project is built. Content in this category has the form of a discursive explanation. The main goal is to `explain`. 
+- Guides 
+    - The purpose of this category is to solve a specific problem. It has the form of a `series of steps` towards a goal. It is aimed towards more experienced users, who are already familiar with the concepts and tools. 
+- Reference
+    - The purpose of this category is to provide detailed & in-depth description of the project . It has the form of a `austere and to the point explanation` and is rooted in code, most often these documents are built directly from code without editor interaction. It __does not__ give information on how to do specific things, but describes how to correctly use the APIs ect.
+- SDK
+    - Same as the above category but for SDKs, also containing simple guides for using SDKs.
+
 ## Document Structure
 
 Add a meaningful title and an ID to the top of the document. 
