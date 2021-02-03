@@ -80,5 +80,4 @@ import CodeFromRemote from '@theme/CodeFromRemote'
 
 Then at the place you want the code to appear in the document add:
 
-`<CodeFromRemote src="https://github.com/$OWNER/$REPO/path/to/your.file" />`
-
+`<CodeFromRemote src="https://github.com/$OWNER/$REPO/blob/$BRANCHNAME/path/to/your.file" />`
