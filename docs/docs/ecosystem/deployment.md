@@ -157,9 +157,10 @@ To set such a parameter, append it to the DSN query, for example:
 
 ## Prometheus
 
-ORY technology exposes an endpoint for snapshot Prometheus data. This endpoint is usually
-found at the administrative port for ORY Kratos, ORY Hydra under the `/metrics/prometheus` path.
-If you run the default configuration, it will be exposed at:
+ORY technology exposes an endpoint for snapshot Prometheus data. This endpoint
+is usually found at the administrative port for ORY Kratos, ORY Hydra under the
+`/metrics/prometheus` path. If you run the default configuration, it will be
+exposed at:
 
 - ORY Hydra: `http://<host>:4445/metrics/prometheus`
 - ORY Kratos: `http://<host>:4434/metrics/prometheus`
