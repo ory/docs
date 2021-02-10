@@ -20,8 +20,8 @@ This is a list of those.
 > Please note that these links are community supported and might be out of date
 > or unmaintained.
 
-
 - Open source software
+
   - [Ory Kratos Python Frontend](https://github.com/k9ert/ory-tinker/)
   - [Ory Kratos hydra-integration branch](https://github.com/ory/kratos-selfservice-ui-node/tree/hydra-integration-2021)
   - [PoC for OAuth2/OpenID Connect provider using ORY Hydra](https://git.dittberner.info/jan/hydra_oidc_poc)
@@ -37,6 +37,7 @@ This is a list of those.
   - [Golang login/consent provider using Authboss user/password authentication](https://github.com/nbycomp/login-consent)
 
 - Blog posts
+
   - [Ory Oathkeeper and Auth0](https://blog.commit.dev/articles/open-source-sundays-building-a-user-management-solution-using-ory-oathkeeper-and-auth0)
   - [API Access Control with Ambassador and ORY Oathkeeper](https://blog.getambassador.io/part-2-api-access-control-and-authentication-with-kubernetes-ambassador-and-ory-oathkeeper-q-a-127fa57f6332?utm_content=76739953&utm_medium=social&utm_source=twitter)
   - [OAuth2 with ORY Hydra and Vapor on iOS (1/2)](https://medium.com/12plus1/oauth2-with-ory-hydra-vapor-3-and-ios-12-ca0e61c28f5a)
@@ -46,4 +47,4 @@ This is a list of those.
 - Worthwhile threads
   - [Ory Kratos reverse proxy (Nginx) example](https://github.com/ory/kratos/discussions/1049)
   - [Ory Oathkeeper Istio best practices/reference configuration](https://github.com/ory/oathkeeper/issues/624)
-Want your own content here? Create a PR!
+    Want your own content here? Create a PR!
