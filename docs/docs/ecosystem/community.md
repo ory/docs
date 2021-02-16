@@ -49,7 +49,7 @@ This is a list of those.
   - [OAuth2 with Ory Hydra and Vapor on iOS (2/2)](https://medium.com/12plus1/oauth2-implementation-with-Ory-hydra-vapor-3-and-ios-12-d1fe688a5479)
   - [Creating an oauth2 custom lamda authorizer for use with Amazons (AWS) API Gateway using Hydra](https://blogs.edwardwilde.com/2017/01/12/creating-an-oauth2-custom-lamda-authorizer-for-use-with-amazons-aws-api-gateway-using-hydra/)
   - [CKAN Authentication](https://tech.datopian.com/authentication/#introduction)
-  
+
 - Worthwhile threads
 
   - [Ory Kratos reverse proxy (Nginx) example](https://github.com/Ory/kratos/discussions/1049)
