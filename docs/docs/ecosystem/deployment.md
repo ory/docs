@@ -18,7 +18,7 @@ All ORY products support storing data in memory and in relational databases
 ORY Hydra additionally supports CockroachDB, but still beta, use it at your own
 risk!
 
-## In-memory (ephemeral)
+### In-memory (ephemeral)
 
 Storing data in-memory helps you get started quickly without worrying about
 setting up a database first. Keep in mind that all data is ephemeral and will be
@@ -27,7 +27,7 @@ removed when the service is killed.
 Using in-memory storage is usually achieved by setting configuration key `dsn`
 to `memory`.
 
-## SQL (persistent)
+### SQL (persistent)
 
 All ORY products support PostgreSQL and MySQL as first-class citizens.
 
@@ -36,7 +36,7 @@ risk!
 
 ORY Kratos additionally supports SQLite.
 
-### SQLite
+##### SQLite
 
 If configuration key `dsn` (Data Source Name) is prefixed with `sqlite://`, then
 SQLite will be used as storage backend.
@@ -51,7 +51,7 @@ The following DSN parameters are required:
 For a list of all supported query parameters, head over to
 [github.com/mattn/go-sqlite3](https://github.com/mattn/go-sqlite3#connection-string).
 
-### PostgreSQL
+##### PostgreSQL
 
 If configuration key `dsn` (Data Source Name) is prefixed with `postgres://`,
 then PostgreSQL will be used as storage backend. An exemplary configuration
@@ -86,7 +86,7 @@ Additionally, the following DSN parameters are supported:
 To set such a parameter, append it to the DSN query, for example:
 `postgres://user:password@host:123/database?sslmode=verify-full`
 
-### MySQL
+##### MySQL
 
 If configuration key `dsn` (Data Source Name) is prefixed with `mysql://`, then
 MySQL will be used as storage backend. An exemplary configuration would look
@@ -128,7 +128,7 @@ Additionally, the following DSN parameters are supported:
 To set such a parameter, append it to the DSN query, for example:
 `mysql://user:password@tcp(host:123)/database?parseTime=true&writeTimeout=123s`
 
-### CockroachDB (beta)
+##### CockroachDB (beta)
 
 If configuration key `dsn` (Data Source Name) is prefixed with `cockroach://`,
 then CockroachDB will be used as storage backend. An exemplary configuration
@@ -154,3 +154,13 @@ Additionally, the following DSN parameters are supported:
 
 To set such a parameter, append it to the DSN query, for example:
 `cockroach://user:password@host:123/database?sslmode=verify-full`
+
+## Prometheus
+
+ORY technology exposes an endpoint for snapshot Prometheus data. This endpoint
+is usually found at the administrative port for ORY Kratos, ORY Hydra under the
+`/metrics/prometheus` path. If you run the default configuration, it will be
+exposed at:
+
+- ORY Hydra: `http://<host>:4445/metrics/prometheus`
+- ORY Kratos: `http://<host>:4434/metrics/prometheus`
