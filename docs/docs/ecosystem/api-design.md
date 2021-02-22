@@ -50,7 +50,7 @@ You can get the total item count from the `X-Total-Count` HTTP Header.
 
 ## Date Format
 
-ORY's APIs use [rfc3339](https://tools.ietf.org/html/rfc3339) as the date
+Ory's APIs use [rfc3339](https://tools.ietf.org/html/rfc3339) as the date
 format:
 
 ```
