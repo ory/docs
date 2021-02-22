@@ -29,5 +29,5 @@ what progress has been made in the past.
 [Ory Keto Milestones](https://github.com/ory/keto/milestones)  
 [Ory Keto Open Issues & Pull Requests](https://github.com/Ory/keto/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc)
 
-[Ory Oathkeeper Milestones](https://github.com/Ory/oathkeeper/milestones)  
+[Ory Oathkeeper Milestones](https://github.com/ory/oathkeeper/milestones)  
 [Ory Oathkeeper Open Issues & Pull Requests](https://github.com/Ory/oathkeeper/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc)
