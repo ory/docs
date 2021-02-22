@@ -129,7 +129,7 @@ a randomly assigned UUID v4 salt:
 
 ### Source Code
 
-The full code-base is [open source](https://github.com/Ory/metrics-middleware).
+The full code-base is [open source](https://github.com/ory/metrics-middleware).
 
 ### Data Example
 
