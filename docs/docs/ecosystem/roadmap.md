@@ -12,7 +12,7 @@ what progress has been made in the past.
 
 ## Ory Project Management Board
 
-[To Do](https://github.com/orgs/Ory/projects/8#column-6092768)  
+[To Do](https://github.com/orgs/ory/projects/8#column-6092768)  
 [Priority](https://github.com/orgs/Ory/projects/8#column-7739379)  
 [In Progress](https://github.com/orgs/Ory/projects/8#column-6092769)  
 [Review In Progress](https://github.com/orgs/Ory/projects/8#column-6092770)  
