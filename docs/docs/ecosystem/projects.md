@@ -26,7 +26,7 @@ application grows. What started out with a user's username and password now
 shifted to machine-2-machine interaction, third party developers accessing your
 user's data, and maybe even a micro service system architecture.
 
-Our products solve the simplest use case and give you the ability to instantly
+Our projects solve the simplest use case and give you the ability to instantly
 ready the system for more complex scenarios without painful and slow upgrade
 processes.
 

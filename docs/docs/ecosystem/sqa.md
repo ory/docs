@@ -12,14 +12,14 @@ stability of our open source service and identify potential issues.
 We are committed to full transparency on what data we transmit why and how. The
 source code of the telemetry package is completely open source and located
 [here](https://github.com/ory/x/blob/master/metricsx). If you do not wish to
-help us improve our products by sharing telemetry data, it is possible to
+help us improve our projects by sharing telemetry data, it is possible to
 [opt out of this feature](#opt-out).
 
 ## Data Processing
 
 We want to give you a thorough understanding why we collect this data, how we
 collect it, and what we do with it, as well as real-world examples of how this
-data improved a product.
+data improved a project.
 
 The data processing pipeline has the following steps:
 
@@ -46,7 +46,7 @@ We built this pipeline with the following goals in mind:
 The following real-world outcomes have been achieved using this data (excerpt):
 
 1. We were able to identify that ORY Hydra's Warden and Policy API were heavily
-   underused and decided to move these APIs to a different product (ORY Keto)
+   underused and decided to move these APIs to a different project (ORY Keto)
    which has been received very well by the community.
 2. A v1.0.0 beta released caused a heavy increase in response times for certain
    environments at one Consent API endpoint. We identified that a missing
@@ -68,7 +68,7 @@ You can opt out of software quality assurance features (telemetry)
 - by setting the yaml configuration key (if supported) `sqa.opt_out=true`.
 
 Disabling telemetry does not have any downsides, except for us not being able to
-improve the product. Note that ORY always sends minimal ping with version
+improve the project. Note that ORY always sends minimal ping with version
 information once on start up.
 
 ## Data Privacy

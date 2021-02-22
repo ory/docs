@@ -3,7 +3,7 @@ id: persistence
 title: Data Storage and Persistence
 ---
 
-All ORY products support storing data in memory and in relational databases
+All ORY projects support storing data in memory and in relational databases
 (PostgreSQL, MySQL).
 
 ORY Hydra additionally supports CockroachDB, but still beta, use it at your own
@@ -20,7 +20,7 @@ to `memory`.
 
 ## SQL (persistent)
 
-All ORY products support PostgreSQL and MySQL as first-class citizens.
+All ORY projects support PostgreSQL and MySQL as first-class citizens.
 
 ORY Hydra additionally supports CockroachDB, but still beta, use it at your own
 risk!
