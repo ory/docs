@@ -82,7 +82,7 @@ users. We are taking the following measures to protect your privacy:
    path parameters. A full list of transmitted URL paths is listed in section
    [Request telemetry](#request-telemetry).
 3. **We are unable to see or store the IP address of your host**, as the
-   [IP is set to `0.0.0.0`](https://github.com/Ory/x/blob/master/metricsx/middleware.go)
+   [IP is set to `0.0.0.0`](https://github.com/ory/x/blob/master/metricsx/middleware.go)
    when transmitting data to our metrics aggregator.
 4. We do not transmit any environment information from the host, except:
 
