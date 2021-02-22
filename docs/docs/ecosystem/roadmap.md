@@ -22,7 +22,7 @@ what progress has been made in the past.
 ## Individual Project Sections
 
 [Ory Kratos Milestones](https://github.com/Ory/kratos/milestones)  
-[Ory Kratos Open Issues & Pull Requests](https://github.com/Ory/kratos/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc)
+[Ory Kratos Open Issues & Pull Requests](https://github.com/ory/kratos/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc)
 
 [Ory Hydra Milestones](https://github.com/Ory/hydra/milestones)  
 [Ory Hydra Open Issues & Pull Requests](https://github.com/ory/hydra/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc)  
