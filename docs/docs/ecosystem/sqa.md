@@ -11,7 +11,7 @@ stability of our open source service and identify potential issues.
 
 We are committed to full transparency on what data we transmit why and how. The
 source code of the telemetry package is completely open source and located
-[here](https://github.com/Ory/x/blob/master/metricsx). If you do not wish to
+[here](https://github.com/ory/x/blob/master/metricsx). If you do not wish to
 help us improve our projects by sharing telemetry data, it is possible to
 [opt out of this feature](#opt-out).
 
