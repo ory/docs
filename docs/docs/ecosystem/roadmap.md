@@ -6,7 +6,7 @@ title: Roadmap
 ## Ory Roadmap
 
 If you would like a quick overview of whats coming next to Ory, you can do so at
-our [GitHub Projects Board](https://github.com/orgs/Ory/projects/8).  
+our [GitHub Projects Board](https://github.com/orgs/ory/projects/8).  
 You can see what we are working on right now, what issues are prioritized and
 what progress has been made in the past.
 
