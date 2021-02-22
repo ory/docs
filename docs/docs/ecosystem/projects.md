@@ -38,7 +38,7 @@ rewrite every aspect of identity management yourself. Ory Kratos implements all
 common flows such as login and logout, account activation, mfa/2fa, profile and
 session management, user facing errors and account recovery methods. Just spin
 up a docker image and write a simple UI for it in the language or framework of
-your choice. Don't worry about GDPR, adress verification or protecting your
+your choice. Don't worry about GDPR, address verification or protecting your
 users data against common and frequently changing attack vectors. Ory Kratos
 applies security standards established by experts (National Institute of
 Sciences NIST, Internet Engineering Task Force IETF, Microsoft Research, Google
