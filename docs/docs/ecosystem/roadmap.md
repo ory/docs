@@ -25,7 +25,7 @@ what progress has been made in the past.
 [Ory Kratos Open Issues & Pull Requests](https://github.com/Ory/kratos/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc)
 
 [Ory Hydra Milestones](https://github.com/Ory/hydra/milestones)  
-[Ory Hydra Open Issues & Pull Requests](https://github.com/Ory/hydra/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc)  
+[Ory Hydra Open Issues & Pull Requests](https://github.com/ory/hydra/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc)  
 [Ory Keto Milestones](https://github.com/ory/keto/milestones)  
 [Ory Keto Open Issues & Pull Requests](https://github.com/ory/keto/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc)
 
