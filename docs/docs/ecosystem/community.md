@@ -42,14 +42,13 @@ This is a list of those.
   - [OpenID Connect client for Angular](https://git.webmeisterei.com/minadmin/js-oidc)
 
 - Blog posts/articles
-
   - [Ory Oathkeeper and Auth0](https://blog.commit.dev/articles/open-source-sundays-building-a-user-management-solution-using-Ory-oathkeeper-and-auth0)
   - [API Access Control with Ambassador and Ory Oathkeeper](https://blog.getambassador.io/part-2-api-access-control-and-authentication-with-kubernetes-ambassador-and-Ory-oathkeeper-q-a-127fa57f6332?utm_content=76739953&utm_medium=social&utm_source=twitter)
   - [OAuth2 with Ory Hydra and Vapor on iOS (1/2)](https://medium.com/12plus1/oauth2-with-Ory-hydra-vapor-3-and-ios-12-ca0e61c28f5a)
   - [OAuth2 with Ory Hydra and Vapor on iOS (2/2)](https://medium.com/12plus1/oauth2-implementation-with-Ory-hydra-vapor-3-and-ios-12-d1fe688a5479)
   - [Creating an oauth2 custom lamda authorizer for use with Amazons (AWS) API Gateway using Hydra](https://blogs.edwardwilde.com/2017/01/12/creating-an-oauth2-custom-lamda-authorizer-for-use-with-amazons-aws-api-gateway-using-hydra/)
+  - [Practical Example of Implementing OAuth 2.0 Using ory/hydra](https://yusufs.medium.com/practical-example-of-implementing-oauth-2-0-using-ory-hydra-fbaa2765d94f)
   - [CKAN Authentication](https://tech.datopian.com/authentication/#introduction)
-
 - Worthwhile threads
 
   - [Ory Kratos reverse proxy (Nginx) example](https://github.com/Ory/kratos/discussions/1049)
