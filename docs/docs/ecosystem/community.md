@@ -27,9 +27,9 @@ This is a list of those.
 
 - Open source software
 
-  - [Ory Kratos Python Frontend](https://github.com/k9ert/Ory-tinker/)
   - [Ory Kratos "hydra-integration" branch](https://github.com/Ory/kratos-selfservice-ui-node/tree/hydra-integration-2021)
   - [WIP: Ory Hydra/ Ory Oathkeeper Zero Trust Reference "Hello World App"](https://github.com/JasonCubic/oathkeeper_hydra_reverse_proxy)
+  - [Ory Hydra Terraform provider](https://github.com/svrakitin/terraform-provider-hydra)
   - [Ory Hydra PoC for OAuth2/OpenID Connect provider](https://git.dittberner.info/jan/hydra_oidc_poc)
   - [Ory Hydra Identity Provider for over LDAP](https://github.com/i-core/werther)
   - [Ory Hydra Two-factor authentication login provider](https://github.com/epandurski/hydra_login2f)
