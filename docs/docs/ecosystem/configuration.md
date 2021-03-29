@@ -1,10 +1,10 @@
 ---
 id: configuring
-title: Configuring ORY services
+title: Configuring Ory services
 ---
 
-ORY services share the same configuration system. This page documents the
-details and edge cases that apply to all ORY services.
+Ory services share the same configuration system. This page documents the
+details and edge cases that apply to all Ory services.
 
 To find out more about configuring the individual services head to their
 corresponding sections.

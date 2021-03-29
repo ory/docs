@@ -12,21 +12,21 @@ stability of our open source service and identify potential issues.
 We are committed to full transparency on what data we transmit why and how. The
 source code of the telemetry package is completely open source and located
 [here](https://github.com/ory/x/blob/master/metricsx). If you do not wish to
-help us improve our products by sharing telemetry data, it is possible to
+help us improve our projects by sharing telemetry data, it is possible to
 [opt out of this feature](#opt-out).
 
 ## Data Processing
 
 We want to give you a thorough understanding why we collect this data, how we
 collect it, and what we do with it, as well as real-world examples of how this
-data improved a product.
+data improved a project.
 
 The data processing pipeline has the following steps:
 
 1. Telemetry data is collected at each service.
 2. Periodically this data is sent to the [segment.com](https://segment.com/)
    API.
-3. Segment forwards this data to a private AWS S3 Bucket owned by the ORY
+3. Segment forwards this data to a private AWS S3 Bucket owned by the Ory
    organization. The data is not shared with any other party.
 4. The AWS S3 Bucket(s) are periodically downloaded onto on of our on-premise
    servers.
@@ -45,8 +45,8 @@ We built this pipeline with the following goals in mind:
 
 The following real-world outcomes have been achieved using this data (excerpt):
 
-1. We were able to identify that ORY Hydra's Warden and Policy API were heavily
-   underused and decided to move these APIs to a different product (ORY Keto)
+1. We were able to identify that Ory Hydra's Warden and Policy API were heavily
+   underused and decided to move these APIs to a different project (Ory Keto)
    which has been received very well by the community.
 2. A v1.0.0 beta released caused a heavy increase in response times for certain
    environments at one Consent API endpoint. We identified that a missing
@@ -55,7 +55,7 @@ The following real-world outcomes have been achieved using this data (excerpt):
    critical security vulnerabilities. To resolve this, we improved the release
    process and introduced a release newsletter. Use of vulnerable versions has
    dropped by 20% since then.
-4. A heavy uptake in usage of ORY Keto showed us that we need to provide certain
+4. A heavy uptake in usage of Ory Keto showed us that we need to provide certain
    migration tools for an update that introduces breaking changes. We were under
    the impression that the service was only used in test environments.
 
@@ -68,7 +68,7 @@ You can opt out of software quality assurance features (telemetry)
 - by setting the yaml configuration key (if supported) `sqa.opt_out=true`.
 
 Disabling telemetry does not have any downsides, except for us not being able to
-improve the product. Note that ORY always sends minimal ping with version
+improve the project. Note that Ory always sends minimal ping with version
 information once on start up.
 
 ## Data Privacy
@@ -134,7 +134,7 @@ The full code-base is [open source](https://github.com/ory/metrics-middleware).
 ### Data Example
 
 The following code snippet represents two raw event types (`page` and
-`identify`) collected by a real ORY Hydra instance:
+`identify`) collected by a real Ory Hydra instance:
 
 ```json
 [
