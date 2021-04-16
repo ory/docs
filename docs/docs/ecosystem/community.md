@@ -40,6 +40,7 @@ This is a list of those.
   - [OpenID Connect client for Angular](https://git.webmeisterei.com/minadmin/js-oidc)
   - [Ory Hydra Golang Consent App SDK](https://github.com/janekolszak/idp)
   - [Ory Hydra Middleware for Gin (Go)](https://github.com/janekolszak/gin-hydra)
+  - [Hydra for GCP - WIP](https://github.com/someone1/hydra-gcp)
 
 - Blog posts/articles
 
