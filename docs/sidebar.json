@@ -1,22 +1,18 @@
 [
+  "index",
+  "ecosystem/projects",
   {
-    "Welcome": [
-      "index"
-    ]
-  }
-  {
-    "Ecosystem": [
-      "ecosystem/projects",
+    "Architecture": [
       "ecosystem/software-architecture-philosophy",
       "ecosystem/deployment",
       "ecosystem/configuring",
       "ecosystem/versioning",
       "ecosystem/upgrading",
       "ecosystem/api-design",
-      "ecosystem/community",
-      "ecosystem/roadmap",
-      "ecosystem/sqa",
-      "ecosystem/contributing"
+      "ecosystem/sqa"
     ]
-  }
+  },
+  "ecosystem/community",
+  "ecosystem/contributing",
+  "ecosystem/roadmap"
 ]
