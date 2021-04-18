@@ -11,7 +11,7 @@ service versions and what they mean.
 
 There are three maturity levels for services:
 
-- **Graduated:** Mature, stable implementations of proven concepts. They rarely
+- **Graduated:** Mature implementations of proven concepts. They rarely
   change in backwards incompatible ways. A software is considered graduated if
   the major version is >= 1, e.g. `v1.0.1`, `v2.2.2`. Backwards incompatible
   changes are indicated by a bump of the major version number. Most, if not all,
@@ -26,7 +26,7 @@ There are three maturity levels for services:
   may change in unpredictable ways. Sandbox software has a major version number
   of `0` with a `alpha` or `beta` pre-release indicator, e.g. `v0.10.0-alpha.1`.
   It is more likely that you'll encounter a version tag with a `alpha`
-  pre-release version We will provide upgrade guides wherever possible,
+  pre-release version. We will provide upgrade guides wherever possible,
   especially when they are used in production already.
 
 The following is a list of maturity level per project:
@@ -36,6 +36,14 @@ The following is a list of maturity level per project:
   project.
 - [ORY Kratos](https://github.com/ory/kratos) is a **sandbox** project.
 - [ORY Keto](https://github.com/ory/keto) is a **sandbox** project.
+
+:::info
+
+Ory only releases software that is stable and ready for production!  
+The sandbox/incubating stage does _not_ mean the product is not ready to be used.  
+It is an indicator of _how much_ the project will change in the future, including backwards incompatible changes.
+
+:::
 
 ## Changelog
 
