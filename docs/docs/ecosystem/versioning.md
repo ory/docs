@@ -11,12 +11,12 @@ service versions and what they mean.
 
 There are three maturity levels for services:
 
-- **Graduated:** Mature implementations of proven concepts. They rarely
-  change in backwards incompatible ways. A software is considered graduated if
-  the major version is >= 1, e.g. `v1.0.1`, `v2.2.2`. Backwards incompatible
-  changes are indicated by a bump of the major version number. Most, if not all,
-  REST APIs will provide backwards compatible transformations that make it
-  possible to interact with the server using older API versions.
+- **Graduated:** Mature implementations of proven concepts. They rarely change
+  in backwards incompatible ways. A software is considered graduated if the
+  major version is >= 1, e.g. `v1.0.1`, `v2.2.2`. Backwards incompatible changes
+  are indicated by a bump of the major version number. Most, if not all, REST
+  APIs will provide backwards compatible transformations that make it possible
+  to interact with the server using older API versions.
 - **Incubating:** Implements well defined but not fully matured concepts.
   Incubating software has a major version number of `0`, e.g. `v0.10.0`. You may
   see a pre-release version such as `v0.10.0-beta.1`. Incubating software has a
@@ -40,8 +40,10 @@ The following is a list of maturity level per project:
 :::info
 
 Ory only releases software that is stable and ready for production!  
-The sandbox/incubating stage does _not_ mean the product is not ready to be used.  
-It is an indicator of _how much_ the project will change in the future, including backwards incompatible changes.
+The sandbox/incubating stage does _not_ mean the product is not ready to be
+used.  
+It is an indicator of _how much_ the project will change in the future,
+including backwards incompatible changes.
 
 :::
 
