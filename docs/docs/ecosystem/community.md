@@ -27,6 +27,8 @@ This is a list of those.
 
 - Open source software
 
+  - [Reference ORY Docker Compose Setup ](https://github.com/radekg/ory-reference-compose) + [Article](https://gruchalski.com/posts/2021-04-10-ory-reference-docker-compose-and-thoughts-on-the-platform/)
+
   - [Ory Hydra Identity Provider for over LDAP](https://github.com/i-core/werther)
   - [Ory Kratos "hydra-integration" branch](https://github.com/Ory/kratos-selfservice-ui-node/tree/hydra-integration-2021)
   - [Ory Hydra PoC for OAuth2/OpenID Connect provider](https://git.dittberner.info/jan/hydra_oidc_poc)
@@ -44,6 +46,7 @@ This is a list of those.
 
 - Blog posts/articles
 
+  - [Looking at Zanzibar through ORY Keto](https://gruchalski.com/posts/2021-04-11-looking-at-zanzibar-through-ory-keto/)
   - [How to write an application that integrates Kratos in Go](https://stories.abletech.nz/integrating-third-party-provider-kratos-f5514b53af66)
   - [Ory Oathkeeper and Auth0](https://blog.commit.dev/articles/open-source-sundays-building-a-user-management-solution-using-Ory-oathkeeper-and-auth0)
   - [Practical Example of Implementing OAuth 2.0 Using ory/hydra](https://yusufs.medium.com/practical-example-of-implementing-oauth-2-0-using-ory-hydra-fbaa2765d94f)
