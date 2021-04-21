@@ -27,7 +27,7 @@ This is a list of those.
 
 - Open source software
 
-  - [Reference ORY Docker Compose Setup ](https://github.com/radekg/ory-reference-compose) + [Article](https://gruchalski.com/posts/2021-04-10-ory-reference-docker-compose-and-thoughts-on-the-platform/)
+  - [Reference ORY Docker Compose Setup](https://github.com/radekg/ory-reference-compose) + [Article](https://gruchalski.com/posts/2021-04-10-ory-reference-docker-compose-and-thoughts-on-the-platform/)
   - [Predefined dockertest based libraries for Hydra, Kratos, Keto integration tests](https://github.com/radekg/app-kit-orytest)
   - [Ory Hydra Identity Provider for over LDAP](https://github.com/i-core/werther)
   - [Ory Kratos "hydra-integration" branch](https://github.com/Ory/kratos-selfservice-ui-node/tree/hydra-integration-2021)
