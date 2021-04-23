@@ -4,17 +4,23 @@
       "index",
       "early-access",
       "ecosystem/community"
-    ],
+    ]
+  },
+  {
     "Concepts": [
       "concepts/project",
       "concepts/personal-access-token",
       "concepts/identity",
       "concepts/self-service",
       "concepts/session"
-    ],
+    ]
+  },
+  {
     "Guides": [
       "guides/ui"
-    ],
+    ]
+  },
+  {
     "Further Reading": [
       "ecosystem/api-design",
       "ecosystem/software-architecture-philosophy"
