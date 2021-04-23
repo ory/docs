@@ -1,18 +1,33 @@
 [
-  "index",
-  "ecosystem/projects",
   {
-    "Architecture": [
-      "ecosystem/software-architecture-philosophy",
-      "ecosystem/deployment",
-      "ecosystem/configuring",
-      "ecosystem/versioning",
-      "ecosystem/upgrading",
+    "Introduction": [
+      "index",
+      "early-access",
+      "ecosystem/community"
+    ],
+    "Concepts": [
+      "concepts/projects",
+      "concepts/personal-access-tokens",
+      "concepts/identities",
+      "concepts/flows",
+      "concepts/session"
+    ],
+    "Guides": [
+      "guides/ui"
+    ],
+    "Further Reading": [
       "ecosystem/api-design",
-      "ecosystem/sqa"
+      "ecosystem/software-architecture-philosophy"
     ]
   },
-  "ecosystem/community",
-  "ecosystem/contributing",
-  "ecosystem/roadmap"
+  {
+    "Open Source Ecosystem": [
+      "ecosystem/projects",
+      "ecosystem/versioning",
+      "ecosystem/configuring",
+      "ecosystem/upgrading",
+      "ecosystem/contributing",
+      "ecosystem/roadmap"
+    ]
+  }
 ]
