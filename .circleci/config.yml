@@ -25,8 +25,8 @@ jobs:
           npm run build
       - run: |
           git clone git@github.com:ory/web.git ../web
-          rm -rf ../web/generated/docs/ecosystem/* ../web/generated/docs/ecosystem/*
-          cp -R ./docs/build/* ../web/generated/docs/ecosystem/
+          rm -rf ../web/generated/docs/_docs/*
+          cp -R ./docs/build/* ../web/generated/docs/_docs/
           cd ../web
           git add -A
           git status

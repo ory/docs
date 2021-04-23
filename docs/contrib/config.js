@@ -15,7 +15,7 @@ let config = {
   ],
   updateConfig: {
     src: '.schema/config.schema.json',
-    dst: './docs/docs/reference/configuration.md'
+    dst: './docs/docs/reference/configuring.md'
   }
 }
 
