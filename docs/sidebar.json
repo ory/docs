@@ -6,10 +6,10 @@
       "ecosystem/community"
     ],
     "Concepts": [
-      "concepts/projects",
-      "concepts/personal-access-tokens",
-      "concepts/identities",
-      "concepts/flows",
+      "concepts/project",
+      "concepts/personal-access-token",
+      "concepts/identity",
+      "concepts/self-service",
       "concepts/session"
     ],
     "Guides": [
