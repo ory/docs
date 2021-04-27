@@ -27,6 +27,12 @@
     ]
   },
   {
+    "Reference": [
+      {
+        "Command Line Interface (CLI)": []
+      }
+  },
+  {
     "Open Source Overview": [
       "ecosystem/projects",
       "ecosystem/versioning",
