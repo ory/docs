@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## ory identities list
 
 List identities
@@ -38,5 +39,4 @@ ory identities list [&lt;page&gt; &lt;per-page&gt;] [flags]
 
 ### SEE ALSO
 
-* [ory identities](ory-identities)	 - Manage your identities
-
+- [ory identities](ory-identities) - Manage your identities
