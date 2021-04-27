@@ -1,10 +1,6 @@
 [
   {
-    "Introduction": [
-      "index",
-      "early-access",
-      "ecosystem/community"
-    ]
+    "Introduction": ["index", "early-access", "ecosystem/community"]
   },
   {
     "Concepts": [
@@ -16,9 +12,7 @@
     ]
   },
   {
-    "Guides": [
-      "guides/ui"
-    ]
+    "Guides": ["guides/ui"]
   },
   {
     "Further Reading": [
@@ -29,7 +23,15 @@
   {
     "Reference": [
       {
-        "Command Line Interface (CLI)": []
+        "Command Line Interface (CLI)": [
+          "cli/ory",
+          "cli/ory-identities",
+          "cli/ory-identities-delete",
+          "cli/ory-identities-get",
+          "cli/ory-identities-list",
+          "cli/ory-proxy",
+          "cli/ory-version"
+        ]
       }
     ]
   },
