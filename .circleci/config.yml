@@ -13,8 +13,9 @@ jobs:
           if [[ "$(git show -s --format=%B | head -n 1)" == "autogen"* ]]; then
             circleci-agent step halt
           fi
-      - run: git config --global user.email "aeneas@ory.sh"
-      - run: git config --global user.name "aeneasr"
+      - run: |
+          git config --global user.name "aeneasr"
+          git config --global user.email "3372410+aeneasr@users.noreply.github.com"
       - run: |
           cd docs
           npm ci
@@ -24,8 +25,8 @@ jobs:
           npm run build
       - run: |
           git clone git@github.com:ory/web.git ../web
-          rm -rf ../web/generated/docs/ecosystem/* ../web/generated/docs/ecosystem/*
-          cp -R ./docs/build/* ../web/generated/docs/ecosystem/
+          rm -rf ../web/generated/docs/docs/*
+          cp -R ./docs/build/* ../web/generated/docs/docs/
           cd ../web
           git add -A
           git status

@@ -1,22 +1,40 @@
 ---
 id: index
-title: ORY Developer Documentation
+title: Welcome to Ory
 slug: /
-sidebar_label: Introduction
+sidebar_label: Welcome
 ---
 
-:::tip
+Ory is a SaaS platform offering a variety of APIs and services.
 
-Running security-critical open source technology in a self-service format
-requires vigilance. We make your life easier by announcing important software
-updates via the
-[ORY Security Newsletter](https://ory.us10.list-manage.com/subscribe?u=ffb1a878e4ec6c0ed312a3480&id=f605a41b53).
-Never miss an update and
-**[sign up now to important release updates!](https://ory.us10.list-manage.com/subscribe?u=ffb1a878e4ec6c0ed312a3480&id=f605a41b53)**
+## Identity Management
 
-:::
+Our identity management, based on the open source
+[Ory Kratos](https://www.ory.sh/kratos) project implements everything related to
+identities (users):
 
-## GitHub
+- **Self-service** flows are everything users do on their own / without the help
+  of others:
+- Registration with passwords, social sign in, OpenID Connect, ...;
+- Login with passwords, social sign in, OpenID Connect, ...;
+- Updating the profile, email, changing the password, un/linking with Social
+  Sign In providers, ...;
+- Recovering the account by resetting the password;
+- Verifying email addresses, phone numbers, ...;
+- Multi-factor authentication flows and recovery processes;
+- **Administrative identity management** to get, create, update, delete
+  identities (users) and their data.
+- **Headless APIs and data models** allow you to fully customize identity models
+  (e.g. adding fields like first name, accept tos, shipping address, gender,
+  ...) and create your own login, registration, profile settings, recovery, and
+  verification screen using our easy to use SDKs and REST APIs.
+
+## Open Source
+
+Many of our building blocks are open source. Below you find a list of all open
+source resources. Also check out the sidebar for our open source documentation.
+
+### GitHub
 
 You can find our open source projects on GitHub:
 
@@ -28,7 +46,7 @@ You can find our open source projects on GitHub:
 - [ORY Ladon](https://github.com/ory/ladon)
 - [ORY Dockertest](https://github.com/ory/dockertest)
 
-## REST API Docs
+### REST API Docs
 
 While this developer guide focuses on explaining concepts, the concrete REST
 APIs are documented using swagger and can be viewed here:
@@ -38,7 +56,7 @@ APIs are documented using swagger and can be viewed here:
 - [ORY Oathkeeper](https://www.ory.sh/oathkeeper/docs/reference/api)
 - [ORY Keto](https://www.ory.sh/keto/docs/reference/api)
 
-## GoDoc
+### GoDoc
 
 GoDoc documents Go code and is available for our Go libraries:
 

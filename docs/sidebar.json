@@ -1,16 +1,48 @@
-{
-  "Welcome": ["index"],
-  "Ecosystem": [
-    "ecosystem/projects",
-    "ecosystem/software-architecture-philosophy",
-    "ecosystem/deployment",
-    "ecosystem/configuring",
-    "ecosystem/versioning",
-    "ecosystem/upgrading",
-    "ecosystem/api-design",
-    "ecosystem/community",
-    "ecosystem/roadmap",
-    "ecosystem/sqa",
-    "ecosystem/contributing"
-  ]
-}
+[
+  {
+    "Introduction": ["index", "early-access", "ecosystem/community"]
+  },
+  {
+    "Concepts": [
+      "concepts/project",
+      "concepts/personal-access-token",
+      "concepts/identity",
+      "concepts/self-service",
+      "concepts/session"
+    ]
+  },
+  {
+    "Guides": ["guides/ui"]
+  },
+  {
+    "Further Reading": [
+      "ecosystem/api-design",
+      "ecosystem/software-architecture-philosophy"
+    ]
+  },
+  {
+    "Reference": [
+      {
+        "Command Line Interface (CLI)": [
+          "cli/ory",
+          "cli/ory-identities",
+          "cli/ory-identities-delete",
+          "cli/ory-identities-get",
+          "cli/ory-identities-list",
+          "cli/ory-proxy",
+          "cli/ory-version"
+        ]
+      }
+    ]
+  },
+  {
+    "Open Source Overview": [
+      "ecosystem/projects",
+      "ecosystem/versioning",
+      "ecosystem/configuring",
+      "ecosystem/upgrading",
+      "ecosystem/contributing",
+      "ecosystem/roadmap"
+    ]
+  }
+]

@@ -279,3 +279,114 @@ Please define custom table names for all table structs. Keep in mind that
  	return "foo"
 }
 ```
+
+### SQL Migrations
+
+Ory uses a lightweight DBAL across all projects that require a database. This
+DBAL is typically stored in the `persistence/` directory. Since we only support
+SQL at the moment - there are no plans to add new databases and contributions
+will not be accepted due to maintenance effort - you will find the
+implementation in `persistence/sql`.
+
+:::info
+
+This section currently only applies to Ory Kratos and Ory Keto. Ory Hydra is
+currently using an approach that does not rely on fizz migrations. Please
+discuss with maintainers before making changes to Ory Hydra SQL schemata.
+
+:::
+
+In order to provide a process to upgrade SQL schemata, we use migrations. These
+migrations are generated using the
+[fizz language](https://github.com/gobuffalo/fizz) and then rendered to SQL
+using the Ory CLI.
+
+This is necessary because there are differences between the SQL "dialects" of
+SQLite (does not support certain `ALTER TABLE` statements for example),
+PostgreSQL, MySQL, and CockroachDB.
+
+To change the schema, create a new fizz template using:
+
+```
+# In the project root - e.g. /kratos
+$ make .bin/ory
+
+# If make .bin/ory fails use:
+# $ make .bin/cli
+#
+# and replace `.bin/ory` with `.bin/cli`.
+# We are working on streamlining this
+# across all repos.
+
+$ .bin/ory dev pop migration create persistence/sql/migrations/templates descriptive_change
+```
+
+This will create two new files:
+
+```
+$ ls -la persistence/sql/migrations/templates | tail -n 2
+-rw-r--r--   1 foobar  staff      0 Apr 28 17:25 20210428172500_descriptive_change.down.fizz
+-rw-r--r--   1 foobar  staff      0 Apr 28 17:25 20210428172500_descriptive_change.up.fizz
+```
+
+Add you fizz migrations there. The `up` file is for applying your schema
+changes, the `down` file for reverting them.
+
+Once your migrations are added, it is time to render them to SQL. Make sure that
+Docker is running and execute:
+
+```
+$ .bin/ory dev pop migration render persistence/sql/migrations/templates persistence/sql/migrations/sql
+```
+
+If you encounter errors you can also try running this with the `--replace`
+option but please let maintainers know that you used `--replace` in your PR:
+
+```
+$ .bin/ory dev pop migration render --replace persistence/sql/migrations/templates persistence/sql/migrations/sql
+```
+
+This will render your migrations to SQL files. Add them to git (`git add -A`)
+and commit them.
+
+Next, you need to update the migration tests. To do so, run the sync command:
+
+```
+$ .bin/ory dev pop migration sync persistence/sql/migrations/templates persistence/sql/migratest/testdata
+```
+
+This will add create a new SQL file:
+
+```
+$ ls -la  persistence/sql/migratest/testdata | tail -n 1
+-rw-r--r--   1 foobar  staff      0 Apr 28 17:28 20210428172500_testdata.sql
+```
+
+Add an `INSERT` or `UPDATE` or `DELETE` statement that reflects the changes you
+have made to the schema to the file. Let's say you added a new column
+`new_column` to table `bar`. In that case, write an `INSERT` statement that
+reflects this:
+
+```
+INSERT INTO bar (old_column, new_column) VALUES ('foo', 'bar');
+```
+
+Next, execute the tests:
+
+```
+$ cd persistence/sql/migratest
+$ go test -tags sqlite ./...
+```
+
+The tests will probably fail because the fixtures need to be updated. To update
+them, run:
+
+```
+$ cd persistence/sql/migratest
+$ go test -tags sqlite,refresh -short .
+```
+
+You might need to run the `go test` command two or three times before all
+fixtures have been updated.
+
+That's it! :)
