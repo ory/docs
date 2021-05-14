@@ -20,8 +20,8 @@ archived old [forum](https://community.Ory.sh/).
 
 Members of the Ory community have built technology, written blog posts, and
 published open source software that extends or modifies the core technology.
-This is not an exhaustive list.  
-  Want your own content here? Create a PR!
+This is not an exhaustive list.
+ Want your own content here? Create a PR!
 
 > Please note that this content is not actively maintained by the Ory team, is
 > written by the community and might be out of date, unmaintained or otherwise
@@ -99,17 +99,20 @@ is`http://127.0.0.1:4433/`).
 You may also have to configure query parameters or the JSON method body,
 depending on the API call.
 
-:::info  
-Storing tokens in Postman as environment variables could pose a security risk.
+:::info
+
+Do not store tokens in Postman as environment variables!  
 If you are signed in to the Postman application, it will automatically try to
-synchronize entities such as Collections and Environments with the Postman
-servers. This means that a token, which could allow someone else to gain access
-to your Management API, is leaving the privacy of your computer and being
-uploaded to Postman's servers.  
+synchronize Collections and Environments with the Postman servers. This means
+that a token, which could allow someone else access your APIs, is being uploaded
+to Postman's servers.  
+Postman has taken measures to ensure that tokens are encrypted and encourages
+users to store them in Environment Variables. Read more
+[here](https://www.postman.com/security).
+
 :::
 
 ### Worthwhile GitHub threads
 
 - [Ory Kratos reverse proxy (Nginx) example](https://github.com/Ory/kratos/discussions/1049)
 - [Ory Oathkeeper Istio best practices/reference configuration](https://github.com/Ory/oathkeeper/issues/624)
-
