@@ -9,20 +9,16 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory identities delete
 
 Delete identities by ID
 
 ### Synopsis
 
-This command deletes one or more identities by ID. To delete an identity by some
-selector, e.g. the recovery email address, use the list command in combination
-with jq.
+This command deletes one or more identities by ID. To delete an identity by some selector, e.g. the recovery email address, use the list command in combination with jq.
 
-We have to admit, this is not easy if you don&#39;t speak jq fluently. What
-about opening an issue and telling us what predefined selectors you want to
-have? https://github.com/ory/kratos/issues/new/choose
+We have to admit, this is not easy if you don&#39;t speak jq fluently. What about opening an issue and telling us what predefined selectors you want to have? https://github.com/ory/kratos/issues/new/choose
+
 
 ```
 ory identities delete &lt;id-0 [id-1 ...]&gt; [flags]
@@ -45,10 +41,11 @@ To delete the identity with the recovery email address &#34;foo@bar.com&#34;, ru
 ### Options inherited from parent commands
 
 ```
-      --endpoint string   Use a different endpoint. (default &#34;https://oryapis.com&#34;)
-  -p, --project string    Must be set to your Ory Cloud Project Slug. Alternatively set using the ORY_PROJECT_ID environmental variable.
+      --api-endpoint string   Use a different endpoint. (default &#34;https://oryapis.com&#34;)
+      --console-url string    Use a different URL. (default &#34;https://api.console.ory.sh&#34;)
 ```
 
 ### SEE ALSO
 
-- [ory identities](ory-identities) - Manage your identities
+* [ory identities](ory-identities)	 - Manage your identities
+
