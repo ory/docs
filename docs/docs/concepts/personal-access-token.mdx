@@ -3,4 +3,17 @@ id: personal-access-token
 title: Personal Access Tokens
 ---
 
-We are currently working on documentation for this feature.
+If you want to list,create, update or delete identities, manually create recovery links and generally use the Ory CLI to manage your project, you need to access the Ory administrative APIs.
+
+To access administrative APIs at Ory you need to authenticate as administrator. 
+
+Ory offers Personal Access Tokens to make this process easier for development, such as accessing the admin API from the command line or through scripts.
+
+These Personal Access Tokens are bound to a project, they do not work for other projects than the one they have been created for.
+Every member can create many, but not unlimited, personal access tokens. 
+
+When creating a token you must give it a description to help you remember what you created the token for.
+
+It helps to name the token after the function it performs or after the person that uses it, but the name can be freely chosen.
+
+To see detailed instructions how to create and use Personal Access Tokens, refer to the [Create Personal Access Tokens Guide](../guides/create-personal-access-tokens)

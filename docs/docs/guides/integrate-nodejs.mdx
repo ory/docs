@@ -5,7 +5,7 @@ title: Integrate with NodeJS
 
 This page describes how to integrate different types of NodeJS apps with Ory.
 Please have the [Ory CLI](./ory-cli-install-use.mdx) installed on your system as
-well as a [running Ory Project and a Personal Access Token](../get-started.mdx).
+well as a [running Ory Project](../get-started.mdx) and a [Personal Access Token](../guides/create-personal-access-token.mdx).
 
 ## ExpressJS with TypeScript
 
@@ -19,8 +19,7 @@ with two endpoints:
 
 :::note
 
-You can find this
-[example's source code on GitHub](https://github.com/ory/docs/tree/master/examples/typescript-express).
+You can find the [source code for this example on GitHub](https://github.com/ory/docs/tree/master/examples/typescript-express).
 
 :::
 
@@ -50,7 +49,7 @@ cd docs/examples/typescript-express
 npm i
 
 ## ATTENTION ##
-# Node, similar to FireFox, does not use the Operating System Certificate store.
+# Node, similar to Firefox, does not use the Operating System Certificate store.
 # To get the self-signed SSL certificates working, we need to disable TLS Verification.
 # NEVER, EVER do this in a live system.
 NODE_TLS_REJECT_UNAUTHORIZED=0 npm start
