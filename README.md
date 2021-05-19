@@ -99,3 +99,18 @@ import CodeFromRemote from '@theme/CodeFromRemote'
 Then at the place you want the code to appear in the document add:
 
 `<CodeFromRemote src="https://github.com/$OWNER/$REPO/blob/$BRANCHNAME/path/to/your.file" />`
+
+
+# CLI Docs
+
+## Fixing Ory CLI docs
+
+If you find an error in the Ory CLI documentation here are some pointer how to fix it: 
+
+The code that generates the CLi docs (for Kratos) comes from here:   
+https://github.com/ory/kratos/blob/master/cmd/clidoc/main.go
+
+`cmd/clidoc/main.go` is the general path for all Ory projects. 
+
+The command to generate the CLI docs can be found here:  
+https://github.com/ory/x/blob/master/clidoc/generate.go#L96
