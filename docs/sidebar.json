@@ -13,7 +13,8 @@
       "guides/ory-cli-install-use",
       "guides/integrate-nodejs",
       "guides/proxy",
-      "guides/bring-your-user-interface"
+      "guides/bring-your-user-interface",
+      "guides/create-personal-access-token"
     ]
   },
   {
