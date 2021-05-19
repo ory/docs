@@ -30,6 +30,7 @@
           "cli/ory-identities-get",
           "cli/ory-identities-list",
           "cli/ory-proxy",
+          "cli/ory-proxy-local",
           "cli/ory-version"
         ]
       }

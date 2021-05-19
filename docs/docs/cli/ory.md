@@ -23,6 +23,6 @@ The ORY CLI
 ### SEE ALSO
 
 - [ory identities](ory-identities) - Manage your identities
-- [ory proxy](ory-proxy) - Secure Endpoint Using the Ory Reverse Proxy
+- [ory proxy](ory-proxy) - Easily protect applications with the Ory Proxy
 - [ory version](ory-version) - Display this binary&#39;s version, build time,
   and git hash of this build
