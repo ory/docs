@@ -20,7 +20,9 @@ archived old [forum](https://community.ory.sh/).
 
 Members of the Ory community have built technology, written blog posts, and
 published open source software that extends or modifies the core technology.
-This is not an exhaustive list. Want your own content here? Create a PR!
+This is not an exhaustive list.
+Want your own content here? Create a PR!
+
 
 > Please note that this content is not actively maintained by the Ory team, is
 > written by the community and might be out of date, unmaintained or otherwise
