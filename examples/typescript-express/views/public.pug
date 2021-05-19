@@ -1,0 +1,20 @@
+html
+  head
+    title= "Ory ExpressJS Integration Example"
+  body
+    h1= "Ory ExpressJS Integration Example"
+    p
+      | This is an example for integrating Ory into your ExpressJS application.
+      | For more information on this app head over to the
+      a(href="https://www.ory.sh/docs/guides/integrate-nodejs")= " integrate Ory with TypeScript + ExpressJS guide."
+    p
+      | This app has two main endpoints:
+      ul
+        li
+          a(href="/public")
+            code /public
+          | &nbsp; - is available without an Ory Session;
+        li
+          a(href="/protected")
+            code /protected
+          | &nbsp; - is only available with an Ory Session. Can also only be called when accessed through the Ory Proxy!

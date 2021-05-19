@@ -3,10 +3,83 @@ id: identity
 title: Identity Data Model, Custom Fields
 ---
 
-While we are working on improving the Ory Cloud documentation, please head over
-to our open source documentation for a deep-dive on this topic:
+The Identity Model is a JSON Schema which describes your identity's (e.g. your
+customers / users / ...) fields. In Ory, every identity can have their own
+model, allowing you to separate between different customer types, user types
+(e.g. employees and customers). For technical information on identity models,
+check out the open source documentation:
 
-- https://www.ory.sh/kratos/docs/concepts/identity-data-model
-- https://www.ory.sh/kratos/docs/concepts/credentials
-- https://www.ory.sh/kratos/docs/concepts/credentials/username-email-password
-- https://www.ory.sh/kratos/docs/concepts/credentials/openid-connect-oidc-oauth2
+- [Identity Data
+  Model]https://www.ory.sh/kratos/docs/concepts/identity-data-model)
+- [Identity Credentials](https://www.ory.sh/kratos/docs/concepts/credentials)
+
+## Available Presets
+
+At the moment we support three basic Identity Model Presets.
+
+### Only Username
+
+This preset is useful for applications which do not require email addresses and
+a high degree of anonymity.
+
+:::note
+
+This preset disables account verification, account recovery, and account
+enumeration defenses! Do not use it in security sensitive environments.
+
+:::
+
+With this preset, every identity has exactly one trait - the `username` - which
+is used as the login identifier:
+
+```json5
+// Identity example
+{
+  id: '6e9d3d30-f93e-4630-901f-c2096953723d',
+  traits: {
+    username: 'some-username'
+  }
+}
+```
+
+### Only Email
+
+With this preset, identities have exactly one trait, the `email`. It is used as
+the login identifier, for email verification, and for account recovery:
+
+```json5
+// Identity example
+{
+  id: '6e9d3d30-f93e-4630-901f-c2096953723d',
+  traits: {
+    email: 'foo@bar.com'
+  }
+}
+```
+
+### Demo Profile
+
+:::warning
+
+This profile is EXPERIMENTAL and is encouraged to be used only in PoCs and
+demos. It will eventually be removed!
+
+:::
+
+The "Demo Profile" preset has - similar to the "Only Email" preset - an email
+field and additionally a first name, last name, and a checkbox.
+
+```json5
+// Identity example
+{
+  id: '6e9d3d30-f93e-4630-901f-c2096953723d',
+  traits: {
+    email: 'foo@bar.com',
+    name: {
+      first: 'Foo',
+      last: 'Bar'
+    },
+    newsletter: true
+  }
+}
+```
