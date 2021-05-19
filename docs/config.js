@@ -1,5 +1,5 @@
 module.exports = {
-  projectName: 'ORY Ecosystem',
+  projectName: 'Ory Ecosystem',
   projectSlug: 'docs',
   projectTagLine: '',
   baseUrl: '/docs/',

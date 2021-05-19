@@ -5,7 +5,7 @@ title: Deployment Fundamentals and Requirements
 
 ## Integrates with Kubernetes
 
-ORY technology is cloud first and runs natively on Docker and Kubernetes and
+Ory technology is cloud first and runs natively on Docker and Kubernetes and
 naturally supports Kubernetes Helm Charts. Head over to our
 [Kubernetes Helm Chart Repository](https://k8s.ory.sh/helm) for Charts and
 accompanying Documentation.
@@ -15,7 +15,7 @@ accompanying Documentation.
 All Ory projects support storing data in memory and in relational databases
 (PostgreSQL, MySQL).
 
-ORY Hydra additionally supports CockroachDB, but still beta, use it at your own
+Ory Hydra additionally supports CockroachDB, but still beta, use it at your own
 risk!
 
 ### In-memory (ephemeral)
@@ -31,10 +31,10 @@ to `memory`.
 
 All Ory projects support PostgreSQL and MySQL as first-class citizens.
 
-ORY Hydra additionally supports CockroachDB, but still beta, use it at your own
+Ory Hydra additionally supports CockroachDB, but still beta, use it at your own
 risk!
 
-ORY Kratos additionally supports SQLite.
+Ory Kratos additionally supports SQLite.
 
 ##### SQLite
 
@@ -157,10 +157,10 @@ To set such a parameter, append it to the DSN query, for example:
 
 ## Prometheus
 
-ORY technology exposes an endpoint for snapshot Prometheus data. This endpoint
-is usually found at the administrative port for ORY Kratos, ORY Hydra under the
+Ory technology exposes an endpoint for snapshot Prometheus data. This endpoint
+is usually found at the administrative port for Ory Kratos, Ory Hydra under the
 `/metrics/prometheus` path. If you run the default configuration, it will be
 exposed at:
 
-- ORY Hydra: `http://<host>:4445/metrics/prometheus`
-- ORY Kratos: `http://<host>:4434/metrics/prometheus`
+- Ory Hydra: `http://<host>:4445/metrics/prometheus`
+- Ory Kratos: `http://<host>:4434/metrics/prometheus`
