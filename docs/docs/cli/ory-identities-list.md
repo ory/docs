@@ -33,8 +33,8 @@ ory identities list [&lt;page&gt; &lt;per-page&gt;] [flags]
 ### Options inherited from parent commands
 
 ```
-      --endpoint string   Use a different endpoint. (default &#34;https://oryapis.com&#34;)
-  -p, --project string    Must be set to your Ory Cloud Project Slug. Alternatively set using the ORY_PROJECT_ID environmental variable.
+      --api-endpoint string   Use a different endpoint. (default &#34;https://oryapis.com&#34;)
+      --console-url string    Use a different URL. (default &#34;https://api.console.ory.sh&#34;)
 ```
 
 ### SEE ALSO
