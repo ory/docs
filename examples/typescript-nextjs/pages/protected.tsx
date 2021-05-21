@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import {useEffect, useState} from "react";
-import {ory, toFormikValues} from './helpers'
+import {ory} from './helpers'
 import {Session} from "@ory/client";
 import {useRouter} from "next/router";
 import {AxiosError} from "axios";
@@ -40,9 +40,11 @@ export default function Protected() {
 
         <p className={styles.description}>
           <a href="#" onClick={() => {
-            ory.initializeSelfServiceBrowserLogoutFlow().then(() => {
-              router.push('/login')
-            })
+            ory.initializeSelfServiceBrowserLogoutFlow()
+              .catch(() => Promise.resolve())
+              .then(() => {
+                router.push('/login')
+              })
           }}>Log out</a>
         </p>
 

@@ -49,8 +49,7 @@ export default function Registration() {
               })
             }}
           >
-
-            <OryForm ui={flow.ui} />
+            <OryForm ui={flow.ui}/>
           </Formik>
         )}
       </main>

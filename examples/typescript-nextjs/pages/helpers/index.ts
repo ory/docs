@@ -8,9 +8,8 @@ export const ory = new DefaultApi(new Configuration({
   // DO NOT include the Ory Access Token here!
 }))
 
-
 export const toFormikValues = (container: UiContainer) => {
-  const values: {[key: string]: any} = {}
+  const values: { [key: string]: any } = {}
   container.nodes.forEach((node) => {
     switch (node.type) {
       case 'input': {

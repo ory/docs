@@ -2,8 +2,8 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import {useEffect, useState} from "react";
 import {ory, toFormikValues} from './helpers'
-import {LoginFlow, RegistrationFlow, UiNodeInputAttributes} from "@ory/client";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import {LoginFlow} from "@ory/client";
+import {Formik} from "formik";
 import {AxiosError} from "axios";
 import {useRouter} from "next/router";
 import OryForm from './helpers/OryForm'
@@ -51,7 +51,7 @@ export default function Login() {
             }}
           >
 
-            <OryForm ui={flow.ui} />
+            <OryForm ui={flow.ui}/>
           </Formik>
         )}
       </main>
