@@ -6,7 +6,7 @@ title: Software Updates
 > Running security-critical open source technology in a self-service format
 > requires vigilance. We make your life easier by announcing important software
 > updates via the
-> [ORY Security Newsletter](https://ory.us10.list-manage.com/subscribe?u=ffb1a878e4ec6c0ed312a3480&id=f605a41b53).
+> [Ory Security Newsletter](https://ory.us10.list-manage.com/subscribe?u=ffb1a878e4ec6c0ed312a3480&id=f605a41b53).
 > Never miss an update and
 > **[sign up now to important release updates!](https://ory.us10.list-manage.com/subscribe?u=ffb1a878e4ec6c0ed312a3480&id=f605a41b53)**
 
@@ -17,13 +17,13 @@ possible.
 
 We document detailed changelogs and upgrade guides for this very reason:
 
-- ORY Hydra:
+- Ory Hydra:
   [upgrade guide](https://github.com/ory/hydra/blob/master/UPGRADE.md),
   [changelog](https://github.com/ory/hydra/blob/master/CHANGELOG.md)
-- ORY Oathkeeper:
+- Ory Oathkeeper:
   [upgrade guide](https://github.com/ory/oathkeeper/blob/master/UPGRADE.md),
   [changelog](https://github.com/ory/oathkeeper/blob/master/CHANGELOG.md)
-- ORY Keto: [upgrade guide](https://github.com/ory/keto/blob/master/UPGRADE.md),
+- Ory Keto: [upgrade guide](https://github.com/ory/keto/blob/master/UPGRADE.md),
   [changelog](https://github.com/ory/keto/blob/master/CHANGELOG.md)
 
 Before upgrading to a newer version, please make sure to check with these

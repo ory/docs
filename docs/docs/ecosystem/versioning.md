@@ -3,7 +3,7 @@ id: versioning
 title: Software Versions and Project Maturity
 ---
 
-The ORY ecosystem consists of multiple services versioned using
+The Ory ecosystem consists of multiple services versioned using
 [semantic versioning](https://semver.org). This section explains how we define
 service versions and what they mean.
 
@@ -31,11 +31,11 @@ There are three maturity levels for services:
 
 The following is a list of maturity level per project:
 
-- [ORY Hydra](https://github.com/ory/hydra) is a **graduated** project.
-- [ORY Oathkeeper](https://github.com/ory/oathkeeper) is a **incubating**
+- [Ory Hydra](https://github.com/ory/hydra) is a **graduated** project.
+- [Ory Oathkeeper](https://github.com/ory/oathkeeper) is a **incubating**
   project.
-- [ORY Kratos](https://github.com/ory/kratos) is a **sandbox** project.
-- [ORY Keto](https://github.com/ory/keto) is a **sandbox** project.
+- [Ory Kratos](https://github.com/ory/kratos) is a **sandbox** project.
+- [Ory Keto](https://github.com/ory/keto) is a **sandbox** project.
 
 :::info
 
@@ -55,8 +55,8 @@ As of March 2020, the `oryOS` semantics have been deprecated and will no longer
 be used.
 
 The `oryOS` versioning was introduced as a way to declare compatibility between
-the different projects. This was necessary as parts of ORY Hydra were split into
-new projects called ORY Keto and ORY Oathkeeper.
+the different projects. This was necessary as parts of Ory Hydra were split into
+new projects called Ory Keto and Ory Oathkeeper.
 
 As of today however, these projects are largely independent. Future versions of
 these projects will also include versioned APIs which renders the `oryOS`
@@ -76,22 +76,22 @@ the foreseeable future.
 To make deployment easier but stay compatible with semantic versioning, each
 service is equipped with a `oryOS` version number denoted by `+oryOS.X` where
 `X` represents the "ecosystem" version. This is especially useful if you use
-more than one service from the ORY ecosystem. Let's look at some examples:
+more than one service from the Ory ecosystem. Let's look at some examples:
 
-- ORY Hydra `v1.0.1+oryOS.6` is best compatible with ORY Oathkeeper
-  `v0.13.1+oryOS.6` and ORY Keto `v0.5.1+oryOS.6`.
-- ORY Hydra `v1.0.2+oryOS.7` is best compatible with ORY Oathkeeper
-  `v0.13.2+oryOS.7` and ORY Keto `v0.6.0+oryOS.7`.
-- ORY Hydra `v1.0.3+oryOS.8` is probably not fully compatible with ORY
-  Oathkeeper `v0.13.1+oryOS.6` nor with ORY Keto `v0.5.1+oryOS.6`.
-- ORY Hydra `v1.1.0+oryOS.9` is best compatible with ORY Oathkeeper
-  `v1.1.0+oryOS.9` and ORY Keto `v1.1.0+oryOS.9`.
+- Ory Hydra `v1.0.1+oryOS.6` is best compatible with Ory Oathkeeper
+  `v0.13.1+oryOS.6` and Ory Keto `v0.5.1+oryOS.6`.
+- Ory Hydra `v1.0.2+oryOS.7` is best compatible with Ory Oathkeeper
+  `v0.13.2+oryOS.7` and Ory Keto `v0.6.0+oryOS.7`.
+- Ory Hydra `v1.0.3+oryOS.8` is probably not fully compatible with Ory
+  Oathkeeper `v0.13.1+oryOS.6` nor with Ory Keto `v0.5.1+oryOS.6`.
+- Ory Hydra `v1.1.0+oryOS.9` is best compatible with Ory Oathkeeper
+  `v1.1.0+oryOS.9` and Ory Keto `v1.1.0+oryOS.9`.
 
 It is possible that a number of releases are versioned with the same `oryOS.x`
 version metadata:
 
-- ORY Hydra `v1.0.1+oryOS.10`, `v1.0.2+oryOS.10` is guaranteed compatible with
-  ORY Oathkeeper `v0.15.5+oryOS.10`, `v1.16.0+oryOS.10` and ORY Keto
+- Ory Hydra `v1.0.1+oryOS.10`, `v1.0.2+oryOS.10` is guaranteed compatible with
+  Ory Oathkeeper `v0.15.5+oryOS.10`, `v1.16.0+oryOS.10` and Ory Keto
   `v0.1.1+oryOS.10`, `v0.1.2+oryOS.10`.
 
 We always provide ways to migrate breaking changes, and all breaking changes are
@@ -101,7 +101,7 @@ meticulously described in each project's `UPGRADE.md` as well as `HISTORY.md`.
 
 This compatibility matrix shows which versions are compatible with one another.
 
-| oryOS      | Documentation | ORY Hydra                                                                                                                                          | ORY Keto                                                               | ORY Oathkeeper                                                                                                                                                                                                                                             | ORY Kratos                                                                                                                                                                                                                                                                                                         |
+| oryOS      | Documentation | Ory Hydra                                                                                                                                          | Ory Keto                                                               | Ory Oathkeeper                                                                                                                                                                                                                                             | Ory Kratos                                                                                                                                                                                                                                                                                                         |
 | ---------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `oryOS.18` | `oryOS.18`    | `v1.4.2`, `v1.4.1`, `v1.4.0`                                                                                                                       | `v0.5.3-alpha.1`, `v0.5.2-alpha.1`, `v0.5.1-alpha.1`, `v0.5.0-alpha.1` | `v0.37.1-beta.1`, `v0.37.0-beta.1`                                                                                                                                                                                                                         |                                                                                                                                                                                                                                                                                                                    |
 | `oryOS.17` | `oryOS.17`    | `v1.3.2`, `v1.3.1`, `v1.3.0`                                                                                                                       | `v0.4.4-alpha.1`, `v0.4.5-alpha.1`                                     | `v0.36.0-beta.4`, `v0.36.0-beta.3`, `v0.36.0-beta.2`, `v0.36.0-beta.1`                                                                                                                                                                                     | `v0.1.1-alpha.1`                                                                                                                                                                                                                                                                                                   |
@@ -140,19 +140,19 @@ this change because some package manager (e.g. Ruby Gems) do not allow the
 
 ### November 2018 Change
 
-If you are an adopter of the ORY Keto ory ORY Oathkeeper prior to November 2018,
+If you are an adopter of the Ory Keto or Ory Oathkeeper prior to November 2018,
 this section is for you.
 
 #### Why
 
-Before November 2018, ORY Keto and ORY Oathkeeper were available as versions
+Before November 2018, Ory Keto and Ory Oathkeeper were available as versions
 `v1.0.0-beta.1` through `v1.0.0-beta.9`. We wanted to make versioning as easy as
-possible across all services. For example, if you ran ORY Hydra `v1.2.3` and ORY
+possible across all services. For example, if you ran Ory Hydra `v1.2.3` and Ory
 Oathkeeper `v1.2.3` both versions would be guaranteed compatible.
 
 This turned out to be a bad decision because of multiple factors:
 
-1. As ORY Hydra was moving towards `v1.0.0`, ORY Oathkeeper and ORY Keto were
+1. As Ory Hydra was moving towards `v1.0.0`, Ory Oathkeeper and Ory Keto were
    still rather new projects and some of them required breaking changes to
    improve the value of the technology. But semantic versioning, which is a
    de-facto standard, has strong implications on breaking changes in software
@@ -161,12 +161,12 @@ This turned out to be a bad decision because of multiple factors:
    this would only add to confusion.
 2. While certain services matured rather quickly and the community was eagerly
    awaiting the next release, we had to hold back because of unfinished changes
-   to other projects. ORY Hydra `v1.0.0-rc.2` was put on delay because we wanted
+   to other projects. Ory Hydra `v1.0.0-rc.2` was put on delay because we wanted
    other systems to feel `v1`-ish, which required a lot of work, stress and
    caused delays. This lead to a misalignment between what the community wants
-   (ORY Hydra rc1) and what had to be added to the roadmap in order to comply
+   (Ory Hydra rc1) and what had to be added to the roadmap in order to comply
    with the versioning concept.
-3. We are working towards an open source identity management system (ORY Hive)
+3. We are working towards an open source identity management system (Ory Hive)
    which will stay in sandbox and incubation for a while due to its complexity.
    We definitely did not want to give the impression that early MVPs are `v1` or
    even `v2`.
@@ -180,7 +180,7 @@ as to the maturity of the individual services.
 The new versioning framework was published in November 2018 at the top of this
 page. This is an overview of the things that changed.
 
-##### ORY Hydra
+##### Ory Hydra
 
 No changes to the versioning will be made. The next release will remain
 `v1.0.0-rc.2+oryOS.9`.
@@ -197,9 +197,9 @@ will be the last available version at `ory-hydra-sdk`. Version
 | `v1.0.0-beta.9` | -                               | `ory-hydra-sdk:v1.0.0-beta.9` | `oryd/hydra:v1.0.0-beta.9`       |
 | -               | `v1.0.0-rc.2+oryOS.9` (example) | `@oryd/hydra:v1.0.0-rc.2`     | `oryd/hydra:v1.0.0-rc.2_oryOS.9` |
 
-##### ORY Oathkeeper
+##### Ory Oathkeeper
 
-ORY Oathkeeper is a service in incubation phase. To comply with the new
+Ory Oathkeeper is a service in incubation phase. To comply with the new
 versioning framework, the following changes will be made:
 
 - [GitHub Releases](https://github.com/ory/oathkeeper/releases) `v1.0.0-beta.1`
@@ -244,9 +244,9 @@ versioning framework, the following changes will be made:
 > No code or database changes will be required when moving from `v1.0.0-beta.x`
 > to `v0.13.x+oryOS.x`
 
-##### ORY Keto
+##### Ory Keto
 
-ORY Keto is a service in sandbox phase. To comply with the new versioning rules,
+Ory Keto is a service in sandbox phase. To comply with the new versioning rules,
 the following changes will be made:
 
 - [GitHub Releases](https://github.com/ory/keto/releases) `v1.0.0-beta.1` to
@@ -290,7 +290,7 @@ the following changes will be made:
 > No code or database changes will be required when moving from `v1.0.0-beta.x`
 > to `v0.1.x-sandbox`
 
-##### ORY Docs
+##### Ory Docs
 
 > If you are looking for the old developer guide,
 > [click here](https://www.ory.sh/docs/deprecated/latest/).
@@ -307,9 +307,9 @@ The new documentation will serve documentation the latest version (new version
 semantics) only, this will be `oryOS.9`. This means that the following versions
 will be documented in the new docs:
 
-- ORY Hydra `v1.0.0-beta.9`
-- ORY Oathkeeper `v0.13.9+oryOS.9`
-- ORY Keto `v0.1.9-sandbox+oryOS.9`
+- Ory Hydra `v1.0.0-beta.9`
+- Ory Oathkeeper `v0.13.9+oryOS.9`
+- Ory Keto `v0.1.9-sandbox+oryOS.9`
 
 If you need to look up documentation on older versions (in the old format), you
 will be able to do so [here](https://www.ory.sh/docs/deprecated/latest/). This
@@ -320,16 +320,16 @@ REST API Documentation by browsing to the
 `https://raw.githubusercontent.com/ory/keto/v1.0.0-beta.8/docs/api.swagger.json`
 in the top bar.
 
-##### ORY Security Console
+##### Ory Security Console
 
-The ORY Security Console will be compatible with `oryOS.9`. While we work on
+The Ory Security Console will be compatible with `oryOS.9`. While we work on
 implementing the new changes there you might see error messages regarding
 compatibility. You may ignore them for now.
 
 ##### Outlook
 
-Versions `v1.0.0-beta.1` to `v1.0.0-beta.9` are blacklisted for ORY Oathkeeper
-and ORY Keto. No future release will have those versions. This will prevent
+Versions `v1.0.0-beta.1` to `v1.0.0-beta.9` are blacklisted for Ory Oathkeeper
+and Ory Keto. No future release will have those versions. This will prevent
 potential future conflicts.
 
 ##### Conflict Resolution

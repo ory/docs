@@ -28,7 +28,7 @@ This is not an exhaustive list. Want your own content here? Create a PR!
 
 ### Open source software
 
-- [Reference ORY Docker Compose Setup ](https://github.com/radekg/ory-reference-compose) +
+- [Reference Ory Docker Compose Setup ](https://github.com/radekg/ory-reference-compose) +
   [Article](https://gruchalski.com/posts/2021-04-10-ory-reference-docker-compose-and-thoughts-on-the-platform/)
 - [Predefined dockertest based libraries for Hydra, Kratos, Keto integration tests](https://github.com/radekg/app-kit-orytest)
 - [Ory Kratos React Example - WIP](https://github.com/realStandal/kratos-react-example)
@@ -50,7 +50,7 @@ This is not an exhaustive list. Want your own content here? Create a PR!
 ### Blog posts/articles
 
 - [Open Source Authentication with Hydra and Kratos](https://blog.px.dev/open-source-auth/ossauth/)
-- [Looking at Zanzibar through ORY Keto](https://gruchalski.com/posts/2021-04-11-looking-at-zanzibar-through-ory-keto/)
+- [Looking at Zanzibar through Ory Keto](https://gruchalski.com/posts/2021-04-11-looking-at-zanzibar-through-ory-keto/)
 - [How to write an application that integrates Kratos in Go](https://stories.abletech.nz/integrating-third-party-provider-kratos-f5514b53af66)
 - [Ory Oathkeeper and Auth0](https://blog.commit.dev/articles/open-source-sundays-building-a-user-management-solution-using-ory-oathkeeper-and-auth0)
 - [Practical Example of Implementing OAuth 2.0 Using ory/hydra](https://yusufs.medium.com/practical-example-of-implementing-oauth-2-0-using-ory-hydra-fbaa2765d94f)
