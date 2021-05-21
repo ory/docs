@@ -1,0 +1,74 @@
+---
+id: ory-cli-install-use
+title: Install and Use the Ory CLI
+---
+
+Installing the Ory CLI on any system is straight forward. We provide prebuilt
+binaries, Docker images, and support various package managers.
+
+## Install on macOS
+
+You can install Ory CLI using [homebrew](https://brew.sh/) on macOS:
+
+```shell
+$ brew tap ory/ory
+$ brew install ory/ory/ory
+$ ory help
+```
+
+## Install Linux
+
+On linux, you can use `bash <(curl ...)` to fetch the latest stable binary
+using:
+
+```shell
+$ bash <(curl https://raw.githubusercontent.com/ory/cli/master/install.sh) -b .
+$ ./ory help
+```
+
+You may want to move the Ory CLI to your `$PATH`:
+
+```shell
+$ sudo mv ./ory /usr/local/bin/
+$ ory help
+```
+
+## Install on Windows
+
+You can install Ory CLI using [scoop](https://scoop.sh) on Windows:
+
+```shell
+> scoop bucket add ory-cli https://github.com/ory/scoop-ory.git
+> scoop install ory
+> ory help
+```
+
+## Download Binaries
+
+The client and server binaries are downloadable at the
+[releases tab](https://github.com/ory/cli/releases). There is currently no
+installer available. You have to add the Cli binary to the PATH environment
+variable yourself or put the binary in a location that is already in your
+`$PATH` (e.g. `/usr/local/bin`).
+
+Once installed, you should be able to run:
+
+```shell
+$ ory help
+```
+
+## Docker
+
+You may also use Docker to run the CLI:
+
+:::warn
+
+Using the Ory CLI in Docker means that some of the tools, such as the Ory Proxy,
+may not work!
+
+:::
+
+```shell
+$ docker pull oryd/ory
+$ docker run --rm -it oryd/ory help
+```

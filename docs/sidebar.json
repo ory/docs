@@ -1,6 +1,20 @@
 [
   {
-    "Introduction": ["index", "early-access", "ecosystem/community"]
+    "Introduction": [
+      "index",
+      "get-started",
+      "open-source",
+      "early-access",
+      "ecosystem/community"
+    ]
+  },
+  {
+    "Guides": [
+      "guides/ory-cli-install-use",
+      "guides/integrate-nodejs",
+      "guides/proxy",
+      "guides/bring-your-user-interface"
+    ]
   },
   {
     "Concepts": [
@@ -10,9 +24,6 @@
       "concepts/self-service",
       "concepts/session"
     ]
-  },
-  {
-    "Guides": ["guides/bring-your-user-interface"]
   },
   {
     "Further Reading": [
