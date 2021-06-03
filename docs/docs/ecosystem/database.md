@@ -39,6 +39,8 @@ Additionally, the following DSN parameters are supported:
   Defaults to the number of CPU cores.
 - `max_conn_lifetime` (duration): Sets the maximum amount of time ("ms", "s",
   "m", "h") a connection may be reused.
+- `max_conn_idle_time` (duration): Sets the maximum amount of time ("ms", "s",
+  "m", "h") a connection can be kept alive.
 - `sslmode` (string): Whether or not to use SSL (default is require)
   - `disable` - No SSL
   - `require` - Always SSL (skip verification)
@@ -74,6 +76,8 @@ Additionally, the following DSN parameters are supported:
   Defaults to the number of CPU cores.
 - `max_conn_lifetime` (duration): Sets the maximum amount of time ("ms", "s",
   "m", "h") a connection may be reused. Defaults to 0s (disabled).
+- `max_conn_idle_time` (duration): Sets the maximum amount of time ("ms", "s",
+  "m", "h") a connection can be kept alive.
 - `collation` (string): Sets the collation used for client-server interaction on
   connection. In contrast to charset, collation does not issue additional
   queries. If the specified collation is unavailable on the target server, the

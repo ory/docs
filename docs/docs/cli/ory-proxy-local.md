@@ -19,7 +19,7 @@ This command starts a reverse proxy which can be deployed in front of your appli
 
 To require login before accessing paths in your application, use the --protect-path-prefix flag:
 
-	$ ory proxy --port 4000 http://localhost:3000 --protect-path-prefix /members --protect-path-prefix /admin
+	$ ory local proxy --port 4000 http://localhost:3000 --protect-path-prefix /members --protect-path-prefix /admin
 
 The --protect-path-prefix flag is currently using a string prefix match. Future versions will
 include support for regular expressions and glob matching.
