@@ -22,7 +22,8 @@
       "concepts/project",
       "concepts/personal-access-token",
       "concepts/identity",
-      "concepts/self-service",
+      "concepts/self-service",      
+      "concepts/registration",
       "concepts/session"
     ]
   },
