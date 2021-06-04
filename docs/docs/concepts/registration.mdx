@@ -65,14 +65,12 @@ Ory offers two main methods of registrations:
 
 - `oidc` lets the end-user register using an existing account at a social sign in provider such as Google or Facebook.
 
-Currently only the `password` registration methods is supported. The `oidc` method will be added soon. 
+Currently only the `password` registration method is supported. The `oidc` method will be added soon.  
 Which method should be used will be configurable in the Ory Project Settings individually for each project.
-
-<!-- Check if we leave this in? -->
 
 ## Begin Registration Flow
 
-When the self service Registration Flow begins, Ory sets anti-CSRF tokens and runs pre-registration hooks.
+When the Self Service Registration Flow begins, Ory sets anti-CSRF tokens and runs pre-registration hooks.
 
 ### Registration for Browser Clients
 
@@ -87,18 +85,19 @@ The Registration Flow for Browser Clients uses HTTP redirects between the end-us
 To begin the registration flow, open the initialization
 endpoint in the Browser :
 
-<!-- The response needs to be updated? -->
+<!-- @UPDATE! The response needs to be updated! -->
 
 <CodeTabs items={initBrowserFlow} />
 
 The server answers with a HTTP 303 and redirects the end-user to the registration UI, appending
-the query parameter `?flow=<flow-id>`  (see the curl example) to the URL
-configured here:
+the query parameter `?flow=<flow-id>` to the URL
+
+For example: 
 
 ```yaml 
-registration:
-    # becomes http://127.0.0.1:4455/auth/registration?flow=df607aa1-d555-4b2a-b3e4-0f5a1d2fe6f3
-    ui_url: http://127.0.0.1:4455/auth/registration
+ui_url: http://$ORY_PROJECT_PUBLIC_API/self-service/registration
+--> http://$ORY_PROJECT_PUBLIC_API/self-service/registration?flow=df607aa1-d555-4b2a-b3e4-0f5a1d2fe6f3
+
 ```
 ### Registration for API Clients
 
@@ -123,7 +122,7 @@ The flow can can be summarized like so:
 To begin the API flow, the client calls the API-flow initialization
 endpoint and returns a JSON response:
 
-<!-- REST API Reference to be added? -->
+<!-- REST API Reference to be added! -->
 
 <CodeTabs items={initApiFlow} />
 
@@ -164,16 +163,16 @@ the response would look like so:
 
 ```shell script
 $ curl -H "Accept: application/json" -s \
-  'https://distracted-elion-yl0zho4q9i.projects.oryapis.com/api/kratos/public/self-service/registration/flows?id=a43dfd74-e80c-4e39-896e-1743f1fa3c67' | jq
+  'https://$ORY_PROJECT_SLUG/api/kratos/public/self-service/registration/flows?id=a43dfd74-e80c-4e39-896e-1743f1fa3c67' | jq
   
 {
   "id": "a43dfd74-e80c-4e39-896e-1743f1fa3c67",
   "type": "browser",
   "expires_at": "2021-06-01T22:13:17.977131Z",
   "issued_at": "2021-06-01T21:13:17.977131Z",
-  "request_url": "http://distracted-elion-yl0zho4q9i.projects.oryapis.com/self-service/registration/browser",
+  "request_url": "https://$ORY_PROJECT_SLUG/api/kratos/public/self-service/registration/browser",
   "ui": {
-    "action": "https://distracted-elion-yl0zho4q9i.projects.oryapis.com/api/kratos/public/self-service/registration?flow=a43dfd74-e80c-4e39-896e-1743f1fa3c67",
+    "action": "https://$ORY_PROJECT_SLUG/api/kratos/public/self-service/registration?flow=a43dfd74-e80c-4e39-896e-1743f1fa3c67",
     "method": "POST",
     "nodes": [
       {
@@ -319,7 +318,7 @@ How this looks exactly depends on your business logic, framework and of course t
 
 <RenderFlow flow="registration" />
 
-<!-- Remove imcomplete examples? -->
+<!-- Remove incomplete examples? -->
 
 
 ## Registration Form Validation
@@ -399,7 +398,7 @@ When the registration is completed successfully, Ory responds with a HTTP
 
 You can configure this in the Ory Projects Settings.
 
-<!-- Where? -->
+
 
 #### With Auto-Login on Registration
 
@@ -410,55 +409,59 @@ Cookie:
 ```
 HTTP/1.1 302 Found
 Cache-Control: 0
-Location: http://127.0.0.1:4455/
+Location: https://$ORY_PROJECT_SLUG/api/kratos/public
 Set-Cookie: csrf_token=b8OebRPTPr5ow23mA5gIZmFNLeuMbv8pZz1jT1Ex7ys=; Path=/; Domain=127.0.0.1; Max-Age=31536000; HttpOnly
-Set-Cookie: ory_kratos_session=MTU5OTE2ODc2N3xEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJR055VlROMGRteHhSakJrUzBkbmRUUjBlVFY1V0RCRWFVTnJXVmR6V25oaHx2DICsB6IMbaHSQwnYITUZqr7Qx7CxUlnaneJWH495wQ==; Path=/; Expires=Fri, 04 Sep 2020 21:32:47 GMT; Max-Age=86400; HttpOnly; SameSite=Lax
+Set-Cookie: ory_kratos_session=MTYyMjgyMjk1NHxEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJSGhJYmtaUk5VOUxPWEpTVERsTVlXMVpRWFZZYVVRMVJrbHROMDVuUW05bHwjas7DFWPYno-3WNlTR9RrPalTbKMt5eMIEajPptX2pQ== ; Path=/; Expires=Fri, 04 Sep 2020 21:32:47 GMT; Max-Age=86400; HttpOnly; SameSite=Lax
 Vary: Cookie
-Date: Thu, 03 Sep 2020 21:32:47 GMT
+Date: Thu, 05 Jun 2021 16:09:14 GMT
 Content-Length: 0
 ```
+<-- This part above is not quite right!
+
 
 Now, whenever the browser is making a request (with cookies) to the
-`http://127.0.0.1/sessions/whoami` endpoint, the session will be returned:
+`$ORY_PROJECT_SLUG/api/kratos/public/sessions/whoami` endpoint, the session will be returned:
 
 ```shell script
 curl -s -H "Cookie: ory_kratos_session=MTU5OTE2ODc2N3xEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJR055VlROMGRteHhSakJrUzBkbmRUUjBlVFY1V0RCRWFVTnJXVmR6V25oaHx2DICsB6IMbaHSQwnYITUZqr7Qx7CxUlnaneJWH495wQ==" \
-  http://127.0.0.1:4433/sessions/whoami | jq
+  $ORY_PROJECT_SLUG/api/kratos/public/sessions/whoami | jq
 
 {
-  "id": "ede90ce6-2420-435a-a745-3d8ab1a9636c",
+  "id": "65fb29ac-2b2a-46bc-9917-3170de736db7",
   "active": true,
-  "expires_at": "2020-09-04T21:32:47.5642404Z",
-  "authenticated_at": "2020-09-03T21:32:47.5881038Z",
-  "issued_at": "2020-09-03T21:32:47.5642688Z",
+  "expires_at": "2021-06-05T16:09:14.506915Z",
+  "authenticated_at": "2021-06-04T16:09:14.551912Z",
+  "issued_at": "2021-06-04T16:09:14.50694Z",
   "identity": {
-    "id": "d96e86d9-bc33-4aa5-b865-4ade8a3974b3",
+    "id": "670300e4-ea3d-4466-8dda-05758e14873a",
     "schema_id": "default",
-    "schema_url": "http://127.0.0.1:4433/schemas/default",
+    "schema_url": "$ORY_PROJECT_SLUG/api/kratos/public/schemas/default",
     "traits": {
-      "email": "foouser@ory.sh",
-      "name": {
-        "first": "foo",
-        "last": "user"
-      }
+      "email": "foouser@ory.sh"
     },
     "verifiable_addresses": [
       {
-        "id": "81bbdeae-6333-42f2-877e-26c78acb6ea5",
+        "id": "5d6a7034-328a-4a3d-ab65-12359619ada3",
         "value": "foouser@ory.sh",
         "verified": false,
         "via": "email",
-        "status": "pending",
-        "verified_at": null
+        "status": "sent",
+        "verified_at": null,
+        "created_at": "2021-06-04T16:09:14.477086Z",
+        "updated_at": "2021-06-04T16:09:14.477086Z"
       }
     ],
     "recovery_addresses": [
       {
-        "id": "596c1db4-ccaa-4f4e-9623-cb7e768026ad",
+        "id": "2d9b9669-e989-4109-9f92-d82e9b0e98d8",
         "value": "foouser@ory.sh",
-        "via": "email"
+        "via": "email",
+        "created_at": "2021-06-04T16:09:14.48149Z",
+        "updated_at": "2021-06-04T16:09:14.48149Z"
       }
-    ]
+    ],
+    "created_at": "2021-06-04T16:09:14.472103Z",
+    "updated_at": "2021-06-04T16:09:14.472103Z"
   }
 }
 ```
