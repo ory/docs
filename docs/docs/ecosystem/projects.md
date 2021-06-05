@@ -8,10 +8,10 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 We provide an open source ecosystem of services with clear boundaries that solve
 authentication and authorization:
 
+- Ory Kratos is an identity management server.
 - Ory Hydra is an OAuth 2.0 and OpenID Connect provider.
 - Ory Oathkeeper is an Identity and Access Proxy.
 - Ory Keto is an access control server.
-- Ory Kratos is an identity management server.
 
 Each service works standalone but you can also combine them to get the full
 feature set. If you've never heard of an Identity & Access Proxy before, or you
