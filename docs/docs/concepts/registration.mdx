@@ -146,7 +146,7 @@ first.
 
 :::
 
-When using the  `password` method, it will be part of the `methods` payload in the Registration Flow.
+When using the `password` method, it will be part of the `methods` payload in the Registration Flow.
 Ory uses the Identity Model defined in the Ory Project Settings to generate a list of form fields and add it to
 the Registration Flow.
 
@@ -347,7 +347,7 @@ $ curl -H "Accept: application/json" -s \
 
 ## Registration Flow Form Rendering
 
-The registration user interface is the page in your application (server, native app, single page app) that renders and displays the registration form to the end-user.
+The Registration User Interface is the page in your application (server, native app, single page app) that renders and displays the Registration Form to the end-user.
 
 Ory gives you the option to use a template for all self-service end-user interfaces.
 
@@ -359,11 +359,11 @@ This interface needs to be implemented in your application (e.g.
 NodeJS + ExpressJS, Java, PHP, ReactJS, ...), and also rendered there. 
 This enables you to customize your end-user experience and keep existing flows and designs. 
 
-The JSON response from the Registration Flow will be used to render the registration user interface.
+The JSON response from the Registration Flow will be used to render the Registration User Interface.
 How this looks exactly depends on your business logic, framework and of course the programming language.
 
-Ory Managed UI - Registration Screen:
-<img alt="Ory Managed UI" src={('./code/registration/images/browser.png')}/>
+Ory Managed UI - Registration User Interface:
+<img alt="Ory Managed UI Registration User Interface" src={('./code/registration/images/browser.png')}/>
 
 ## Registration Form Validation
 
