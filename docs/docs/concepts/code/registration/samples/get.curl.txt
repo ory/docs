@@ -1,14 +1,14 @@
 $ curl -H "Accept: application/json" -s \
-  'http://127.0.0.1:4434/self-service/registration/flows?id=388ae8da-4c44-4765-bfa8-669963d388f5' | jq
+  'https://$ORY_PROJECT_SLUG/api/kratos/public/self-service/registration/flows?id=388ae8da-4c44-4765-bfa8-669963d388f5' | jq
 
 {
-  "id": "388ae8da-4c44-4765-bfa8-669963d388f5",
+  "id": "a43dfd74-e80c-4e39-896e-1743f1fa3c67",
   "type": "browser",
-  "expires_at": "2021-04-28T09:29:23.713785401Z",
-  "issued_at": "2021-04-28T09:19:23.713785401Z",
-  "request_url": "http://127.0.0.1:4433/self-service/registration/browser",
+  "expires_at": "2021-06-01T22:13:17.977131Z",
+  "issued_at": "2021-06-01T21:13:17.977131Z",
+  "request_url": "https://$ORY_PROJECT_SLUG/api/kratos/public/self-service/registration/browser",
   "ui": {
-    "action": "http://127.0.0.1:4433/self-service/registration?flow=388ae8da-4c44-4765-bfa8-669963d388f5",
+    "action": "https://$ORY_PROJECT_SLUG/api/kratos/public/self-service/registration?flow=a43dfd74-e80c-4e39-896e-1743f1fa3c67",
     "method": "POST",
     "nodes": [
       {
@@ -17,7 +17,7 @@ $ curl -H "Accept: application/json" -s \
         "attributes": {
           "name": "csrf_token",
           "type": "hidden",
-          "value": "Z9pXCAGz2oK/9Ch8x4U1ehEAKHWVngQTPFDFTlYtbK8lWzXRyDBnl3neZGUIgW44ewDjb5niFdGGM5GERhu01g==",
+          "value": "dJHidyZw26lMZLYMfOcmzeJuMUTEIfuhBL3G11jjDy37LIpSO7ue3x1a2G/dCq0OYcZ63Byz+2/buDLGTzA3Yg==",
           "required": true,
           "disabled": false
         },
@@ -71,7 +71,7 @@ $ curl -H "Accept: application/json" -s \
         "meta": {
           "label": {
             "id": 1070002,
-            "text": "First Name",
+            "text": "First name",
             "type": "info"
           }
         }
@@ -88,7 +88,24 @@ $ curl -H "Accept: application/json" -s \
         "meta": {
           "label": {
             "id": 1070002,
-            "text": "Last Name",
+            "text": "Last name",
+            "type": "info"
+          }
+        }
+      },
+      {
+        "type": "input",
+        "group": "password",
+        "attributes": {
+          "name": "traits.newsletter",
+          "type": "checkbox",
+          "disabled": false
+        },
+        "messages": null,
+        "meta": {
+          "label": {
+            "id": 1070002,
+            "text": "Newsletter subscription",
             "type": "info"
           }
         }

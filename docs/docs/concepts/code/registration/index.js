@@ -4,16 +4,16 @@ export const getFlow = {
     language: 'shell',
     code: require('raw-loader!./samples/get.curl.txt').default
   },
-  js: {
-    label: 'JavaScript SDK',
-    language: 'js',
-    code: require('raw-loader!./samples/get.js.txt').default
-  },
-  go: {
-    label: 'Go SDK',
-    language: 'go',
-    code: require('raw-loader!./samples/get.go.txt').default
-  }
+  // js: {
+  //   label: 'JavaScript SDK',
+  //   language: 'js',
+  //   code: require('raw-loader!./samples/get.js.txt').default
+  // },
+  // go: {
+  //   label: 'Go SDK',
+  //   language: 'go',
+  //   code: require('raw-loader!./samples/get.go.txt').default
+  // }
 }
 
 export const initBrowserFlow = {
@@ -27,21 +27,21 @@ export const initBrowserFlow = {
     language: 'html',
     code: require('raw-loader!./samples/browser/init.html.txt').default
   },
-  jsx: {
-    label: 'ReactJS',
-    language: 'js',
-    code: require('raw-loader!./samples/browser/init.jsx.txt').default
-  },
-  node: {
-    label: 'ExpressJS',
-    language: 'html',
-    code: require('raw-loader!./samples/browser/init.js.txt').default
-  },
-  angular: {
-    label: 'Angular',
-    language: 'js',
-    code: require('raw-loader!./samples/browser/init.ng.html.txt').default
-  }
+  // jsx: {
+  //   label: 'ReactJS',
+  //   language: 'js',
+  //   code: require('raw-loader!./samples/browser/init.jsx.txt').default
+  // },
+  // node: {
+  //   label: 'ExpressJS',
+  //   language: 'html',
+  //   code: require('raw-loader!./samples/browser/init.js.txt').default
+  // },
+  // angular: {
+  //   label: 'Angular',
+  //   language: 'js',
+  //   code: require('raw-loader!./samples/browser/init.ng.html.txt').default
+  // }
 }
 
 export const initApiFlow = {
@@ -50,16 +50,16 @@ export const initApiFlow = {
     language: 'shell',
     code: require('raw-loader!./samples/api/init.curl.txt').default
   },
-  js: {
-    label: 'JavaScript',
-    language: 'js',
-    code: require('raw-loader!./samples/api/init.js.txt').default
-  },
-  go: {
-    label: 'Go',
-    language: 'go',
-    code: require('raw-loader!./samples/api/init.go.txt').default
-  }
+  // js: {
+  //   label: 'JavaScript',
+  //   language: 'js',
+  //   code: require('raw-loader!./samples/api/init.js.txt').default
+  // },
+  // go: {
+  //   label: 'Go',
+  //   language: 'go',
+  //   code: require('raw-loader!./samples/api/init.go.txt').default
+  // }
 }
 
 export const getFlowMethodPasswordWithErrors = {
