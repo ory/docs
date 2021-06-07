@@ -367,17 +367,17 @@ Ory Managed UI - Registration User Interface:
 
 ## Registration Form Validation
 
-The form payloads are then submitted to Ory which responds with:
+The Registration Form payloads are then submitted to Ory which responds with:
 
-- For Browser Clients: An `HTTP 302 Found` redirect to the registration UI for browser
+- For Browser Clients: An `HTTP 302 Found` redirect to the Registration UI for browser
   clients.
 - For API Clients: An `application/json` response for API Clients.
 
 ### Registration with Username/Email and Password
 
-To finish the registration process, the end-user fills out the form.
+To finish the Registration Flow, the end-user fills out the Registration Form.
 
-The form must include a field marked as the identifier in the Identity JSON
+The Registration Form must include a field marked as the identifier in the Identity JSON
 Schema, for example:
 
 ```diff
@@ -431,7 +431,7 @@ Registration Flow in the response payload as JSON.
 
 ## Successful Registration
 
-A successful registration looks different for Browser Clients and API Clients. 
+A successful registration is different for Browser Clients and API Clients. 
 You can choose wether the user will be signed in after registration, or if they have to go through the Login Flow after registration.
 You can toggle this option in the Authentication section of your Ory Project Settings.
 
@@ -440,7 +440,7 @@ prevent Account Enumeration Attacks. Do not enable sign in after registration, i
 
 ### Browser Clients
 
-When the registration is completed successfully, Ory responds with a HTTP
+When the Registration is completed successfully, Ory responds with a HTTP
 302 Redirect to the configured redirect URL.
 
 You can configure this in the Ory Projects Settings.
@@ -448,7 +448,8 @@ You can configure this in the Ory Projects Settings.
 #### With Automatic Sign In on Registration
 
 If automatic sign in after registration is enabled in the Ory Project Settings, a `Set-Cookie` HTTP Header is set
-alongside the HTTP 302 redirect which contains the Ory Login Session
+alongside the HTTP 302 redirect which contains the Ory Login Session.
+
 Cookie:
 
 ```
@@ -467,55 +468,59 @@ Now, whenever the browser is making a request (with cookies) to the
 `$ORY_PROJECT_SLUG/api/kratos/public/sessions/whoami` endpoint, the session will be returned:
 
 ```shell script
-curl -s -H "Cookie: ory_kratos_session=MTU5OTE2ODc2N3xEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJR055VlROMGRteHhSakJrUzBkbmRUUjBlVFY1V0RCRWFVTnJXVmR6V25oaHx2DICsB6IMbaHSQwnYITUZqr7Qx7CxUlnaneJWH495wQ==" \
-  $ORY_PROJECT_SLUG/api/kratos/public/sessions/whoami | jq
+curl -s -H "Cookie: ory_kratos_session=MTYyMzEwMDYxNHxEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJRkZKVUhCbVJEY3pWbWhETVRsUWVGZzJVV1UwVVhCV1kyUTFWVmRRZDNWMXxteOfMb2i6K04dgF8CBUJXREBqJWeelqflyya7PrF2xQ==" \
+  https://https://$ORY_PROJECT_SLUG/api/kratos/public/sessions/whoami | jq
 
 {
-  "id": "65fb29ac-2b2a-46bc-9917-3170de736db7",
+  "id": "21c0b8fd-2835-4c73-9f5e-d4381525e6bc",
   "active": true,
-  "expires_at": "2021-06-05T16:09:14.506915Z",
-  "authenticated_at": "2021-06-04T16:09:14.551912Z",
-  "issued_at": "2021-06-04T16:09:14.50694Z",
+  "expires_at": "2021-06-08T21:16:54.808916Z",
+  "authenticated_at": "2021-06-07T21:16:54.808916Z",
+  "issued_at": "2021-06-07T21:16:54.808943Z",
   "identity": {
-    "id": "670300e4-ea3d-4466-8dda-05758e14873a",
+    "id": "51b01e6d-6be5-4cbb-9b9b-527d21671422",
     "schema_id": "default",
-    "schema_url": "$ORY_PROJECT_SLUG/api/kratos/public/schemas/default",
+    "schema_url": "https://https://$ORY_PROJECT_SLUG/api/kratos/public/schemas/default",
     "traits": {
-      "email": "foouser@ory.sh"
+      "email": "foo@ory.sh",
+      "name": {
+        "first": "Foo",
+        "last": "Bar"
+      },
+      "newsletter": false
     },
     "verifiable_addresses": [
       {
-        "id": "5d6a7034-328a-4a3d-ab65-12359619ada3",
-        "value": "foouser@ory.sh",
+        "id": "e84838e9-5b48-4410-add8-e9b59735239f",
+        "value": "foo@ory.sh",
         "verified": false,
         "via": "email",
         "status": "sent",
         "verified_at": null,
-        "created_at": "2021-06-04T16:09:14.477086Z",
-        "updated_at": "2021-06-04T16:09:14.477086Z"
+        "created_at": "2021-06-07T21:16:44.944961Z",
+        "updated_at": "2021-06-07T21:16:44.944961Z"
       }
     ],
     "recovery_addresses": [
       {
-        "id": "2d9b9669-e989-4109-9f92-d82e9b0e98d8",
-        "value": "foouser@ory.sh",
+        "id": "3100768e-601c-4f60-bdb5-ad7dddbcc350",
+        "value": "foo@ory.sh",
         "via": "email",
-        "created_at": "2021-06-04T16:09:14.48149Z",
-        "updated_at": "2021-06-04T16:09:14.48149Z"
+        "created_at": "2021-06-07T21:16:44.951037Z",
+        "updated_at": "2021-06-07T21:16:44.951037Z"
       }
     ],
-    "created_at": "2021-06-04T16:09:14.472103Z",
-    "updated_at": "2021-06-04T16:09:14.472103Z"
+    "created_at": "2021-06-07T21:16:44.939873Z",
+    "updated_at": "2021-06-07T21:16:44.939873Z"
   }
 }
 ```
 
 ### API Clients
 
-For API Clients, the reponse is a JSON payload including the identity that is signed in:
+For API Clients, the reponse is a JSON payload including the identity that is signed in.
 
 #### With Automatic Sign In on Registration
-
 
 If automatic sign in after registration is enabled in the Ory Project Settings, the Ory Login Session and Ory Login Session Token are included in the response.
 
