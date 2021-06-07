@@ -1,0 +1,87 @@
+curl -H "Accept: application/json" -s \
+    'https://https://$ORY_PROJECT_SLUG/api/kratos/public/self-service/login/flows?id=f5bccc54-f00b-4f29-9f05-6ac589650f3e' | jq
+{
+  "id": "f5bccc54-f00b-4f29-9f05-6ac589650f3e",
+  "type": "browser",
+  "expires_at": "2021-06-07T21:56:57.057578Z",
+  "issued_at": "2021-06-07T20:56:57.057578Z",
+  "request_url": "http://https://$ORY_PROJECT_SLUG/self-service/login/browser",
+  "ui": {
+    "action": "https://https://$ORY_PROJECT_SLUG/api/kratos/public/self-service/login?flow=f5bccc54-f00b-4f29-9f05-6ac589650f3e",
+    "method": "POST",
+    "nodes": [
+      {
+        "type": "input",
+        "group": "default",
+        "attributes": {
+          "name": "csrf_token",
+          "type": "hidden",
+          "value": "NiEOSao/bLsQQZtcXNwIz3vOz7A4mUgevGqp7a8kRmzyB+UEgErefJmbUlANAIXYBefYvpOfl5MncBW5rVoEJg==",
+          "required": true,
+          "disabled": false
+        },
+        "messages": null,
+        "meta": {}
+      },
+      {
+        "type": "input",
+        "group": "password",
+        "attributes": {
+          "name": "password_identifier",
+          "type": "text",
+          "value": "",
+          "required": true,
+          "disabled": false
+        },
+        "messages": null,
+        "meta": {
+          "label": {
+            "id": 1070004,
+            "text": "ID",
+            "type": "info"
+          }
+        }
+      },
+      {
+        "type": "input",
+        "group": "password",
+        "attributes": {
+          "name": "password",
+          "type": "password",
+          "required": true,
+          "disabled": false
+        },
+        "messages": null,
+        "meta": {
+          "label": {
+            "id": 1070001,
+            "text": "Password",
+            "type": "info"
+          }
+        }
+      },
+      {
+        "type": "input",
+        "group": "password",
+        "attributes": {
+          "name": "method",
+          "type": "submit",
+          "value": "password",
+          "disabled": false
+        },
+        "messages": null,
+        "meta": {
+          "label": {
+            "id": 1010001,
+            "text": "Sign in",
+            "type": "info",
+            "context": {}
+          }
+        }
+      }
+    ]
+  },
+  "created_at": "2021-06-07T20:56:57.059057Z",
+  "updated_at": "2021-06-07T20:56:57.059057Z",
+  "forced": false
+}

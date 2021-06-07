@@ -1,0 +1,23 @@
+curl -s -v -X GET \
+  -H "Accept: text/html"  \
+  https://$ORY_PROJECT_SLUG/api/kratos/public/self-service/login/browser
+
+[...]
+> GET /api/kratos/public/self-service/login/browser HTTP/2
+> Host: $ORY_PROJECT_SLUG
+> User-Agent: curl/7.64.1
+> Accept: text/html
+>
+* Connection state changed (MAX_CONCURRENT_STREAMS == 128)!
+< HTTP/2 303
+< date: Mon, 07 Jun 2021 16:56:14 GMT
+< content-type: text/html; charset=utf-8
+< content-length: 137
+< location: https://$ORY_PROJECT_SLUG/hosted/login?flow=e592fa57-f3f9-4c33-9dc3-ce5c4dc70ae2
+< cache-control: private, no-cache, no-store, must-revalidate
+< set-cookie: aHR0cHM6Ly9zaWxseS1jaGVieXNoZXYteHpxdDV0ZHpyZy5wcm9qZWN0cy5vcnlhcGlzLmNvbS9hcGkva3JhdG9zL3B1YmxpYw_csrf_token=pn8ExFM86IyzznbzhGSA7/iMP4XOfZFkZeO4FDRSGq8=; Path=/api/kratos/public; Domain=$ORY_PROJECT_SLUG; Max-Age=31536000; HttpOnly; Secure; SameSite=None
+< vary: Origin
+< vary: Cookie
+< strict-transport-security: max-age=15724800; includeSubDomains
+<
+<a href="https://$ORY_PROJECT_SLUG/hosted/login?flow=e592fa57-f3f9-4c33-9dc3-ce5c4dc70ae2">See Other</a>.

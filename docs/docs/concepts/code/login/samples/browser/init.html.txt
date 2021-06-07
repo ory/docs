@@ -1,0 +1,11 @@
+<a href="http://$ORY_PROJECT_SLUG/api/kratos/public/self-service/login/browser">Log in</a>
+
+<!-- or -->
+
+<script>
+  const initLogin = () => {
+    window.location.href = 'http://$ORY_PROJECT_SLUG/api/kratos/public/self-service/login/browser'
+  }
+</script>
+
+<a onClick="initLogin">Sign in</a>

@@ -22,9 +22,10 @@
       "concepts/project",
       "concepts/personal-access-token",
       "concepts/identity",
+      "concepts/session",
       "concepts/self-service",      
-      "concepts/registration",
-      "concepts/session"
+      "concepts/registration",    
+      "concepts/user-login"
     ]
   },
   {

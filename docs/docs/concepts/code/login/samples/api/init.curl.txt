@@ -1,0 +1,89 @@
+$ curl -s -X GET \
+    -H "Accept: application/json"  \
+    http://$ORY_PROJECT_SLUG/self-service/login/api | jq
+
+{
+  "id": "3eb641d2-ae42-4f8d-8470-5dc285020622",
+  "type": "api",
+  "expires_at": "2021-06-07T18:09:15.193550439Z",
+  "issued_at": "2021-06-07T17:09:15.193550439Z",
+  "request_url": "https://$ORY_PROJECT_SLUG/self-service/login/api",
+  "ui": {
+    "action": "https://$ORY_PROJECT_SLUG/api/kratos/public/self-service/login?flow=3eb641d2-ae42-4f8d-8470-5dc285020622",
+    "method": "POST",
+    "nodes": [ 
+      {
+        "type": "input",
+        "group": "default",
+        "attributes": {
+          "name": "csrf_token",
+          "type": "hidden",
+          "value": "",
+          "required": true,
+          "disabled": false
+        },
+        "messages": null,
+        "meta": {}
+      },
+      {
+        "type": "input",
+        "group": "password",
+        "attributes": {
+          "name": "password_identifier",
+          "type": "text",
+          "value": "",
+          "required": true,
+          "disabled": false
+        },
+        "messages": null,
+        "meta": {
+          "label": {
+            "id": 1070004,
+            "text": "ID",
+            "type": "info"
+          }
+        }
+      },
+      {
+        "type": "input",
+        "group": "password",
+        "attributes": {
+          "name": "password",
+          "type": "password",
+          "required": true,
+          "disabled": false
+        },
+        "messages": null,
+        "meta": {
+          "label": {
+            "id": 1070001,
+            "text": "Password",
+            "type": "info"
+          }
+        }
+      },
+      {
+        "type": "input",
+        "group": "password",
+        "attributes": {
+          "name": "method",
+          "type": "submit",
+          "value": "password",
+          "disabled": false
+        },
+        "messages": null,
+        "meta": {
+          "label": {
+            "id": 1010001,
+            "text": "Sign in",
+            "type": "info",
+            "context": {}
+          }
+        }
+      }
+    ]
+  },
+  "created_at": "2021-06-07T17:09:15.195151Z",
+  "updated_at": "2021-06-07T17:09:15.195151Z",
+  "forced": false
+}
