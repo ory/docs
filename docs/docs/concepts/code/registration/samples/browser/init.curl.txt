@@ -2,3 +2,23 @@
 $ curl -s -v -X GET \
   -H "Accept: text/html"  \
   https://$ORY_PROJECT_SLUG/api/kratos/public/self-service/registration/browser
+
+[...]
+> GET /api/kratos/public/self-service/registration/browser HTTP/2
+> Host: $ORY_PROJECT_SLUG
+> User-Agent: curl/7.64.1
+> Accept: text/html
+>
+* Connection state changed (MAX_CONCURRENT_STREAMS == 128)!
+< HTTP/2 303
+< date: Tue, 01 Jun 2021 21:13:17 GMT
+< content-type: text/html; charset=utf-8
+< content-length: 145
+< location: https://$ORY_PROJECT_SLUG/hosted/registration?flow=a43dfd74-e80c-4e39-896e-1743f1fa3c67
+< cache-control: private, no-cache, no-store, must-revalidate
+< set-cookie: aHR0cHM6Ly9kaXN0cmFjdGVkLWVsaW9uLXlsMHpobzRxOWkucHJvamVjdHMub3J5YXBpcy5jb20vYXBpL2tyYXRvcy9wdWJsaWM_csrf_token=j71oJR3LRXZRPm5joe2Lw4OoS5jYkgDO3wX0ERfTOE8=; Path=/api/kratos/public; Domain=$ORY_PROJECT_SLUG; Max-Age=31536000; HttpOnly; Secure; SameSite=None
+< vary: Origin
+< vary: Cookie
+< strict-transport-security: max-age=15724800; includeSubDomains
+<
+<a href="https://$ORY_PROJECT_SLUG/hosted/registration?flow=a43dfd74-e80c-4e39-896e-1743f1fa3c67">See Other</a>.
