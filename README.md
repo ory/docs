@@ -38,6 +38,13 @@ Install dependencies `npm install` Test build the documentation:
 To build the docs:  
 `npm run build `
 
+## Formatting documentation
+
+All documentation (as well as any other files) must be formatted using [Ory's prettier styles](https://github.com/ory/prettier-styles)
+
+To format all for documentation relevant files simply run the following command from the repositories main directory:
+
+`cd docs; npm install; npm run format`
 
 ## Categories 
 
