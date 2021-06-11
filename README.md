@@ -44,7 +44,13 @@ All documentation (as well as any other files) must be formatted using [Ory's pr
 
 To format all for documentation relevant files simply run the following command from the repositories main directory:
 
-`cd docs; npm install; npm run format`
+```
+cd docs
+npm install
+npm run format
+git commit -a -m "styles: format"
+git push
+```
 
 ## Categories 
 
