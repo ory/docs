@@ -390,3 +390,100 @@ You might need to run the `go test` command two or three times before all
 fixtures have been updated.
 
 That's it! :)
+
+## OpenAPI Spec and Go Swagger
+
+We use [go-swagger](https://goswagger.io) to generate OpenAPI Spec from source
+code. Here you can find conventions we use across the code base.
+
+### Models
+
+Models should have a descriptive title, a body, and be camelCase. It is good
+practice to scope the model where needed.
+
+```go
+package some
+
+// Title
+//
+// A description with a trailing dot.
+//
+// swagger:model someSpecificModel
+type SpecificModel struct {}
+```
+
+### Routes
+
+Routes should use tags for versioning. If a route is accessible through a
+privileged port (e.g. admin) it should be prefixed with `admin`.
+
+```go
+// swagger:route POST /identities v0alpha1 adminCreateIdentity
+```
+
+Public endpoints do not need a prefix.
+
+```go
+// swagger:route POST /something-public v0alpha1 somethingPublic
+```
+
+#### Parameters
+
+Parameters for routes should have the same name as the route. If they have a
+body, you must not use an embedded struct and the struct's model name should be
+suffixed `Body`:
+
+```go
+
+// swagger:parameters adminCreateIdentity
+// nolint:deadcode,unused
+type adminCreateIdentity struct {
+	// in: body
+	Body adminCreateIdentityBody
+}
+
+// swagger:model adminCreateIdentityBody
+type adminCreateIdentityBody struct {
+	// SchemaID is the ID of the JSON Schema to be used for validating the identity's traits.
+	//
+	// required: true
+	SchemaID string `json:"schema_id"`
+
+	// Traits represent an identity's traits. The identity is able to create, modify, and delete traits
+	// in a self-service manner. The input will always be validated against the JSON Schema defined
+	// in `schema_url`.
+	//
+	// required: true
+	Traits json.RawMessage `json:"traits"`
+}
+
+// swagger:route POST /identities v0alpha1 adminCreateIdentity
+```
+
+#### Responses
+
+Where possible use models for responses.
+
+```
+// A list of identities.
+// swagger:model identityList
+// nolint:deadcode,unused
+type identityList []Identity
+
+// swagger:route GET /identities v0alpha0 adminListIdentities
+//
+// List Identities
+//
+// Lists all identities. Does not support search at the moment.
+//
+// Learn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).
+//
+//     Produces:
+//     - application/json
+//
+//     Schemes: http, https
+//
+//     Responses:
+//       200: identityList
+//       500: jsonError
+```
