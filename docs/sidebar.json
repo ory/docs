@@ -55,6 +55,7 @@
       "ecosystem/configuring",
       "ecosystem/upgrading",
       "ecosystem/contributing",
+      "ecosystem/sqa",
       "ecosystem/roadmap"
     ]
   }
