@@ -51,7 +51,10 @@
             "type": "string"
           }
         },
-        "required": ["IdentityToken", "Status"],
+        "required": [
+          "IdentityToken",
+          "Status"
+        ],
         "type": "object"
       },
       "ContainerChangeResponseItem": {
@@ -67,7 +70,10 @@
             "type": "string"
           }
         },
-        "required": ["Kind", "Path"],
+        "required": [
+          "Kind",
+          "Path"
+        ],
         "type": "object"
       },
       "ContainerCreateCreatedBody": {
@@ -85,7 +91,10 @@
             "type": "array"
           }
         },
-        "required": ["Id", "Warnings"],
+        "required": [
+          "Id",
+          "Warnings"
+        ],
         "type": "object"
       },
       "ContainerTopOKBody": {
@@ -109,7 +118,10 @@
             "type": "array"
           }
         },
-        "required": ["Processes", "Titles"],
+        "required": [
+          "Processes",
+          "Titles"
+        ],
         "type": "object"
       },
       "ContainerUpdateOKBody": {
@@ -123,7 +135,9 @@
             "type": "array"
           }
         },
-        "required": ["Warnings"],
+        "required": [
+          "Warnings"
+        ],
         "type": "object"
       },
       "ContainerWaitOKBody": {
@@ -138,7 +152,10 @@
             "type": "integer"
           }
         },
-        "required": ["Error", "StatusCode"],
+        "required": [
+          "Error",
+          "StatusCode"
+        ],
         "type": "object"
       },
       "ContainerWaitOKBodyError": {
@@ -162,7 +179,9 @@
             "$ref": "#/components/schemas/UUID"
           }
         },
-        "required": ["identity_id"],
+        "required": [
+          "identity_id"
+        ],
         "type": "object"
       },
       "CredentialsType": {
@@ -177,7 +196,9 @@
             "type": "string"
           }
         },
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "title": "ErrorResponse Represents an error.",
         "type": "object"
       },
@@ -195,7 +216,10 @@
             "type": "string"
           }
         },
-        "required": ["Data", "Name"],
+        "required": [
+          "Data",
+          "Name"
+        ],
         "title": "GraphDriverData Information about a container's graph driver.",
         "type": "object"
       },
@@ -211,7 +235,9 @@
             "type": "string"
           }
         },
-        "required": ["Id"],
+        "required": [
+          "Id"
+        ],
         "type": "object"
       },
       "ImageDeleteResponseItem": {
@@ -340,7 +366,12 @@
             "$ref": "#/components/schemas/PluginSettings"
           }
         },
-        "required": ["Config", "Enabled", "Name", "Settings"],
+        "required": [
+          "Config",
+          "Enabled",
+          "Name",
+          "Settings"
+        ],
         "type": "object"
       },
       "PluginConfig": {
@@ -457,7 +488,12 @@
             "type": "array"
           }
         },
-        "required": ["Description", "Name", "Settable", "Value"],
+        "required": [
+          "Description",
+          "Name",
+          "Settable",
+          "Value"
+        ],
         "type": "object"
       },
       "PluginConfigInterface": {
@@ -475,7 +511,10 @@
             "type": "array"
           }
         },
-        "required": ["Socket", "Types"],
+        "required": [
+          "Socket",
+          "Types"
+        ],
         "type": "object"
       },
       "PluginConfigLinux": {
@@ -500,7 +539,11 @@
             "type": "array"
           }
         },
-        "required": ["AllowAllDevices", "Capabilities", "Devices"],
+        "required": [
+          "AllowAllDevices",
+          "Capabilities",
+          "Devices"
+        ],
         "type": "object"
       },
       "PluginConfigNetwork": {
@@ -511,7 +554,9 @@
             "type": "string"
           }
         },
-        "required": ["Type"],
+        "required": [
+          "Type"
+        ],
         "type": "object"
       },
       "PluginConfigRootfs": {
@@ -570,7 +615,12 @@
             "type": "array"
           }
         },
-        "required": ["Description", "Name", "Path", "Settable"],
+        "required": [
+          "Description",
+          "Name",
+          "Path",
+          "Settable"
+        ],
         "type": "object"
       },
       "PluginEnv": {
@@ -596,7 +646,12 @@
             "type": "string"
           }
         },
-        "required": ["Description", "Name", "Settable", "Value"],
+        "required": [
+          "Description",
+          "Name",
+          "Settable",
+          "Value"
+        ],
         "type": "object"
       },
       "PluginInterfaceType": {
@@ -615,7 +670,11 @@
             "type": "string"
           }
         },
-        "required": ["Capability", "Prefix", "Version"],
+        "required": [
+          "Capability",
+          "Prefix",
+          "Version"
+        ],
         "type": "object"
       },
       "PluginMount": {
@@ -698,7 +757,12 @@
             "type": "array"
           }
         },
-        "required": ["Args", "Devices", "Env", "Mounts"],
+        "required": [
+          "Args",
+          "Devices",
+          "Env",
+          "Mounts"
+        ],
         "title": "PluginSettings Settings that can be modified by users.",
         "type": "object"
       },
@@ -724,7 +788,10 @@
             "type": "string"
           }
         },
-        "required": ["PrivatePort", "Type"],
+        "required": [
+          "PrivatePort",
+          "Type"
+        ],
         "type": "object"
       },
       "RecoveryAddress": {
@@ -749,7 +816,11 @@
             "$ref": "#/components/schemas/RecoveryAddressType"
           }
         },
-        "required": ["id", "value", "via"],
+        "required": [
+          "id",
+          "value",
+          "via"
+        ],
         "type": "object"
       },
       "RecoveryAddressType": {
@@ -850,7 +921,10 @@
             "type": "integer"
           }
         },
-        "required": ["RefCount", "Size"],
+        "required": [
+          "RefCount",
+          "Size"
+        ],
         "type": "object"
       },
       "createIdentity": {
@@ -864,7 +938,10 @@
             "type": "object"
           }
         },
-        "required": ["schema_id", "traits"],
+        "required": [
+          "schema_id",
+          "traits"
+        ],
         "type": "object"
       },
       "genericError": {
@@ -906,7 +983,9 @@
             "type": "string"
           }
         },
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "type": "object"
       },
       "healthNotReadyStatus": {
@@ -974,7 +1053,12 @@
             "x-omitempty": true
           }
         },
-        "required": ["id", "schema_id", "schema_url", "traits"],
+        "required": [
+          "id",
+          "schema_id",
+          "schema_url",
+          "traits"
+        ],
         "title": "Identity represents an Ory Kratos identity",
         "type": "object"
       },
@@ -1025,7 +1109,9 @@
             "$ref": "#/components/schemas/genericError"
           }
         },
-        "required": ["error"],
+        "required": [
+          "error"
+        ],
         "title": "JSON API Error Response",
         "type": "object"
       },
@@ -1099,7 +1185,9 @@
             "type": "string"
           }
         },
-        "required": ["session"],
+        "required": [
+          "session"
+        ],
         "type": "object"
       },
       "nullJsonRawMessage": {
@@ -1168,7 +1256,9 @@
             "type": "string"
           }
         },
-        "required": ["recovery_link"],
+        "required": [
+          "recovery_link"
+        ],
         "type": "object"
       },
       "registrationFlow": {
@@ -1200,7 +1290,13 @@
             "$ref": "#/components/schemas/uiContainer"
           }
         },
-        "required": ["id", "expires_at", "issued_at", "request_url", "ui"],
+        "required": [
+          "id",
+          "expires_at",
+          "issued_at",
+          "request_url",
+          "ui"
+        ],
         "type": "object"
       },
       "registrationViaApiResponse": {
@@ -1217,7 +1313,9 @@
             "type": "string"
           }
         },
-        "required": ["identity"],
+        "required": [
+          "identity"
+        ],
         "type": "object"
       },
       "revokeSession": {
@@ -1227,7 +1325,9 @@
             "type": "string"
           }
         },
-        "required": ["session_token"],
+        "required": [
+          "session_token"
+        ],
         "type": "object"
       },
       "selfServiceErrorContainer": {
@@ -1253,7 +1353,10 @@
             "type": "string"
           }
         },
-        "required": ["id", "errors"],
+        "required": [
+          "id",
+          "errors"
+        ],
         "type": "object"
       },
       "session": {
@@ -1355,7 +1458,11 @@
             "$ref": "#/components/schemas/uiNodes"
           }
         },
-        "required": ["action", "method", "nodes"],
+        "required": [
+          "action",
+          "method",
+          "nodes"
+        ],
         "type": "object"
       },
       "settingsViaApiResponse": {
@@ -1368,7 +1475,10 @@
             "$ref": "#/components/schemas/identity"
           }
         },
-        "required": ["flow", "identity"],
+        "required": [
+          "flow",
+          "identity"
+        ],
         "type": "object"
       },
       "submitSelfServiceBrowserSettingsOIDCFlowPayload": {
@@ -1461,7 +1571,9 @@
             "type": "object"
           }
         },
-        "required": ["method"],
+        "required": [
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceSettingsFlow": {
@@ -1489,7 +1601,9 @@
             "type": "string"
           }
         },
-        "required": ["password"],
+        "required": [
+          "password"
+        ],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowWithProfileMethod": {
@@ -1508,7 +1622,9 @@
             "type": "object"
           }
         },
-        "required": ["traits"],
+        "required": [
+          "traits"
+        ],
         "type": "object"
       },
       "submitSelfServiceVerificationFlowWithLinkMethod": {
@@ -1543,7 +1659,11 @@
             "$ref": "#/components/schemas/uiNodes"
           }
         },
-        "required": ["action", "method", "nodes"],
+        "required": [
+          "action",
+          "method",
+          "nodes"
+        ],
         "type": "object"
       },
       "uiNode": {
@@ -1565,7 +1685,13 @@
             "$ref": "#/components/schemas/uiNodeType"
           }
         },
-        "required": ["type", "group", "attributes", "messages", "meta"],
+        "required": [
+          "type",
+          "group",
+          "attributes",
+          "messages",
+          "meta"
+        ],
         "title": "Node represents a flow's nodes",
         "type": "object"
       },
@@ -1579,7 +1705,10 @@
             "$ref": "#/components/schemas/uiText"
           }
         },
-        "required": ["href", "title"],
+        "required": [
+          "href",
+          "title"
+        ],
         "title": "AnchorAttributes represents the attributes of an anchor node.",
         "type": "object"
       },
@@ -1610,7 +1739,9 @@
             "type": "string"
           }
         },
-        "required": ["src"],
+        "required": [
+          "src"
+        ],
         "title": "ImageAttributes represents the attributes of an image node.",
         "type": "object"
       },
@@ -1647,7 +1778,11 @@
             "nullable": true
           }
         },
-        "required": ["name", "type", "disabled"],
+        "required": [
+          "name",
+          "type",
+          "disabled"
+        ],
         "type": "object"
       },
       "uiNodeTextAttributes": {
@@ -1656,7 +1791,9 @@
             "$ref": "#/components/schemas/uiText"
           }
         },
-        "required": ["text"],
+        "required": [
+          "text"
+        ],
         "title": "TextAttributes represents the attributes of a text node.",
         "type": "object"
       },
@@ -1686,7 +1823,11 @@
             "$ref": "#/components/schemas/uiTextType"
           }
         },
-        "required": ["id", "text", "type"],
+        "required": [
+          "id",
+          "text",
+          "type"
+        ],
         "type": "object"
       },
       "uiTextType": {
@@ -1709,7 +1850,9 @@
             "type": "object"
           }
         },
-        "required": ["traits"],
+        "required": [
+          "traits"
+        ],
         "type": "object"
       },
       "verifiableIdentityAddress": {
@@ -1749,7 +1892,13 @@
             "$ref": "#/components/schemas/identityVerifiableAddressType"
           }
         },
-        "required": ["id", "value", "verified", "via", "status"],
+        "required": [
+          "id",
+          "value",
+          "verified",
+          "via",
+          "status"
+        ],
         "type": "object"
       },
       "verificationFlow": {
@@ -1786,7 +1935,12 @@
             "$ref": "#/components/schemas/uiContainer"
           }
         },
-        "required": ["id", "type", "ui", "state"],
+        "required": [
+          "id",
+          "type",
+          "ui",
+          "state"
+        ],
         "title": "A Verification Flow",
         "type": "object"
       },
@@ -1828,7 +1982,7 @@
     },
     "termsOfService": "/ptos",
     "title": "Ory APIs",
-    "version": "0207502ac3f96411d776e8f2d791b8775ab4d451"
+    "version": "e41a853fb0ffc252b1422330f9807c955673060b"
   },
   "openapi": "3.0.3",
   "paths": {
@@ -1847,7 +2001,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["status"],
+                  "required": [
+                    "status"
+                  ],
                   "type": "object"
                 }
               }
@@ -1888,7 +2044,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["status"],
+                  "required": [
+                    "status"
+                  ],
                   "type": "object"
                 }
               }
@@ -1908,7 +2066,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["errors"],
+                  "required": [
+                    "errors"
+                  ],
                   "type": "object"
                 }
               }
@@ -4123,7 +4283,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["version"],
+                  "required": [
+                    "version"
+                  ],
                   "type": "object"
                 }
               }
