@@ -1982,7 +1982,7 @@
     },
     "termsOfService": "/ptos",
     "title": "Ory APIs",
-    "version": "e41a853fb0ffc252b1422330f9807c955673060b"
+    "version": "325d43efbb7ce3057f60c70190f5948fabc3d4bc"
   },
   "openapi": "3.0.3",
   "paths": {
