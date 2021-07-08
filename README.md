@@ -111,8 +111,13 @@ import CodeFromRemote from '@theme/CodeFromRemote'
 
 Then at the place you want the code to appear in the document add:
 
-`<CodeFromRemote src="https://github.com/$OWNER/$REPO/blob/$BRANCHNAME/path/to/your.file" />`
-
+```
+<CodeFromRemote
+  lang="js" # the language of the code you want to add e.g. jsx,tsx,ts,go,yaml,yml,js,html,pug
+  link="https://github.com/ory/kratos-selfservice-ui-node/blob/master/src/middleware/simple.ts"
+  src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/src/middleware/simple.ts"
+/>
+```
 
 # CLI Docs
 
