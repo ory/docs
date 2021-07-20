@@ -3,7 +3,7 @@ id: roadmap
 title: Roadmap
 ---
 
-Ory is in active development.
+Ory is actively being developed. The [maturity of our software](./versioning.md) varies from product to product.
 
 Users are often asking when a particular feature will be implemented or when it
 can be expected to be available.
