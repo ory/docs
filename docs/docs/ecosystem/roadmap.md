@@ -16,7 +16,7 @@ the development of the Ory Cloud.
 ## Ory Roadmap
 
 If you are interested in a particular project, it is best to check out the
-[milestones and open issues & pull requests ](#Ory-GitHub-Milestones-Issues-and-Pull-Requests)
+[milestones and open issues & pull requests ](#Milestones-Issues-Pull-Requests)
 for that project.
 
 Please note that **our roadmap is subject to changes**. This means that
@@ -30,7 +30,7 @@ transparent as possible to facilitate collaboration, trust, and visibility.
 ## Feedback
 
 If you are a user of our Open Source offering and you have feedback, please do
-so in [GitHub Discussions](#Ory-GitHub-Discussions) or directly on the
+so in [GitHub Discussions](#Discussions) or directly on the
 [Community Slack](https://slack.ory.sh/).
 
 Please also vote on issues and discussions with a thumbs up. We will ask for
@@ -44,7 +44,7 @@ a full changelog in the main directory of every project (e.g.
 [ for Ory Kratos](https://github.com/ory/kratos/blob/master/CHANGELOG.md))
 
 If you happen to find a bug, please open an
-[issue](#Ory-GitHub-Milestones-Issues-and-Pull-Requests) in the relevant
+[issue](#Milestones-Issues-Pull-Requests) in the relevant
 repository. We appreciate it when you include steps for replication, version
 information, logs, and as much information as you think is helpful. This makes
 squashing that pesky bug much easier for us.
@@ -86,7 +86,7 @@ All collected money goes directly into open source development.
 - [Ory Oathkeeper Changelog](https://github.com/ory/oathkeeper/blob/master/CHANGELOG.md)
   / [Releases](https://github.com/ory/oathkeeper/releases)
 
-### Milestones, Issues and Pull Requests
+### Milestones, Issues, Pull Requests
 
 Ory Kratos: [Milestones](https://github.com/Ory/kratos/milestones) /
 [Open Issues & Pull Requests](https://github.com/ory/kratos/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc)
