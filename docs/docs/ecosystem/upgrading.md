@@ -6,9 +6,9 @@ title: Software Updates
 > Running security-critical open source technology in a self-service format
 > requires vigilance. We make your life easier by announcing important software
 > updates via the
-> [Ory Security Newsletter](https://ory.us10.list-manage.com/subscribe?u=ffb1a878e4ec6c0ed312a3480&id=f605a41b53).
+> [Ory Security Newsletter](http://eepurl.com/di390P).
 > Never miss an update and
-> **[sign up now to important release updates!](https://ory.us10.list-manage.com/subscribe?u=ffb1a878e4ec6c0ed312a3480&id=f605a41b53)**
+> **[sign up now to important release updates!](http://eepurl.com/di390P)**
 
 Good software improves over time. If it wouldn't, you shouldn't use it.
 Unfortunately, some of these improvements have breaking changes. We know that
@@ -17,6 +17,9 @@ possible.
 
 We document detailed changelogs and upgrade guides for this very reason:
 
+- Ory Kratos:
+  [upgrade guide](https://github.com/ory/kratos/blob/master/UPGRADE.md),
+  [changelog](https://github.com/ory/kratos/blob/master/CHANGELOG.md)
 - Ory Hydra:
   [upgrade guide](https://github.com/ory/hydra/blob/master/UPGRADE.md),
   [changelog](https://github.com/ory/hydra/blob/master/CHANGELOG.md)
