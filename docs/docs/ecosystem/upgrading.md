@@ -5,9 +5,8 @@ title: Software Updates
 
 > Running security-critical open source technology in a self-service format
 > requires vigilance. We make your life easier by announcing important software
-> updates via the
-> [Ory Security Newsletter](http://eepurl.com/di390P).
-> Never miss an update and
+> updates via the [Ory Security Newsletter](http://eepurl.com/di390P). Never
+> miss an update and
 > **[sign up now to important release updates!](http://eepurl.com/di390P)**
 
 Good software improves over time. If it wouldn't, you shouldn't use it.
