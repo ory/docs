@@ -1,7 +1,7 @@
 ---
-id: ory-proxy-local
-title: ory proxy local
-description: ory proxy local Develop an application locally and integrate it with Ory
+id: ory-proxy-production
+title: ory proxy production
+description: ory proxy production Run an application in production mode with Ory integration
 ---
 
 <!--
@@ -9,16 +9,24 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-## ory proxy local
+## ory proxy production
 
-Develop an application locally and integrate it with Ory
+Run an application in production mode with Ory integration
 
 ### Synopsis
 
-This command starts a reverse proxy which can be deployed in front of your application. This works best on local (your computer) environments, for example when developing a React, NodeJS, Java, PHP app.
+This command starts a reverse proxy which can be deployed in front of your application. This command works for remote environments,
+for example when deploying a React, NodeJS, Java, PHP, ... app to a server / the cloud.
 
-	$ ory proxy local --port 4000 \
-		http://localhost:3000
+	$ ory proxy remote --port 4000 \
+		http://localhost:3000 \
+		example.org
+
+If you want to expose the application / proxy at a specific port, append the port to the domain name:
+
+	$ ory proxy remote --port 4000 \
+		http://127.0.0.1:3000 \
+		example.org:8080
 
 
 If the request is not authenticated, the HTTP Authorization Header will be empty:
@@ -62,7 +70,7 @@ An example payload of the JSON Web Token is:
 
 
 ```
-ory proxy local [upstream] [flags]
+ory proxy production [upstream] [host] [flags]
 ```
 
 ### Options
@@ -70,9 +78,7 @@ ory proxy local [upstream] [flags]
 ```
       --api-endpoint string           Use a different endpoint. (default &#34;https://oryapis.com&#34;)
       --console-api-endpoint string   Use a different URL. (default &#34;https://api.console.ory.sh&#34;)
-      --dont-install-cert             If set will not try to add the HTTPS certificate to your certificate store.
-  -h, --help                          help for local
-      --no-open                       Do not open the browser when the proxy starts.
+  -h, --help                          help for production
       --port int                      The port the proxy should listen on. (default 4000)
 ```
 

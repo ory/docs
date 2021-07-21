@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory identities list
 
 List identities
@@ -33,10 +32,11 @@ ory identities list [&lt;page&gt; &lt;per-page&gt;] [flags]
 ### Options inherited from parent commands
 
 ```
-      --api-endpoint string   Use a different endpoint. (default &#34;https://oryapis.com&#34;)
-      --console-url string    Use a different URL. (default &#34;https://api.console.ory.sh&#34;)
+      --api-endpoint string           Use a different endpoint. (default &#34;https://oryapis.com&#34;)
+      --console-api-endpoint string   Use a different URL. (default &#34;https://api.console.ory.sh&#34;)
 ```
 
 ### SEE ALSO
 
-- [ory identities](ory-identities) - Manage your identities
+* [ory identities](ory-identities)	 - Manage your identities
+
