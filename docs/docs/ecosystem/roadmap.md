@@ -3,7 +3,8 @@ id: roadmap
 title: Roadmap
 ---
 
-Ory is actively being developed. The [maturity of our software](./versioning.md) varies from product to product.
+Ory is actively being developed. The [maturity of our software](./versioning.md)
+varies from product to product.
 
 Users are often asking when a particular feature will be implemented or when it
 can be expected to be available.
@@ -44,10 +45,10 @@ a full changelog in the main directory of every project (e.g.
 [ for Ory Kratos](https://github.com/ory/kratos/blob/master/CHANGELOG.md))
 
 If you happen to find a bug, please open an
-[issue](#Milestones-Issues-Pull-Requests) in the relevant
-repository. We appreciate it when you include steps for replication, version
-information, logs, and as much information as you think is helpful. This makes
-squashing that pesky bug much easier for us.
+[issue](#Milestones-Issues-Pull-Requests) in the relevant repository. We
+appreciate it when you include steps for replication, version information, logs,
+and as much information as you think is helpful. This makes squashing that pesky
+bug much easier for us.
 
 We prioritize bug fixes based on the impact of the issue, how many users are
 affected, estimated effort, and other factors.
