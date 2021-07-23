@@ -25,7 +25,7 @@ folder. ([Ory Hydra](https://github.com/ory/hydra/tree/master/docs/docs),
 [Ory Kratos](https://github.com/ory/kratos/tree/master/docs/docs),
 [Ory Oathkeeper](https://github.com/ory/oathkeeper/tree/master/docs/docs),
 [Ory Keto](https://github.com/ory/keto/tree/master/docs/docs))  
-If you make changes, please consider making the same changes in the lastest
+If you make changes, please consider making the same changes in the latest
 version of `/versioned_docs`
 
 To test the documentation locally:
