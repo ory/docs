@@ -55,8 +55,18 @@ affected, estimated effort, and other factors.
 
 ## I want that feature now, how can I make it happen?
 
-Generally, there are several things you can do to getting a feature implemented
-faster:
+First, you should check if an [issue](#Milestones-Issues-Pull-Requests) or a
+[discussion](#Discussions) for that feature already exists.
+
+If it does not exist, please open a [discussion](#Discussions) in the "Ideas"
+section and try to formulate as accurately as possible what you are trying to
+do, what you are expecting how it should work, as well as any technical details
+that are relevant. This helps others to understand your idea and maintainers
+will discuss the next steps with you.
+
+If it does exist, feel free to voice your support for that feature or open a
+road to implementation. Generally, there are several things you can do to
+getting a feature implemented faster:
 
 - Contribute
 
@@ -70,8 +80,9 @@ For more information please refer to the projects CONTRIBUTING.md (e.g. for
 - Support Ory
 
 If writing code yourself is not an option, you can consider becoming an Ory
-Sponsor on Open Collective or Patreon. This helps us to employ more maintainers
-and technical staff - increasing velocity in development, community,
+Sponsor on [Open Collective](https://opencollective.com/ory) or
+[Patreon](https://www.patreon.com/_ory). This helps us to employ more
+maintainers and technical staff - increasing velocity in development, community,
 interaction, and other areas!
 
 All collected money goes directly into open source development.
