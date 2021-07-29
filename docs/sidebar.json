@@ -1,17 +1,20 @@
 [
+  "index",
+  "get-started",
+  "early-access",
   {
-    "Introduction": [
-      "index",
-      "get-started",
-      "open-source",
-      "early-access",
-      "ecosystem/community"
+    "Start Building": [
+      "start-building",
+      "start-building/ory-cli-install-use",
+      "start-building/server-side-web-app",
+      "start-building/single-page-app-spa",
+      "start-building/native-mobile-app",
+      "start-building/deploy-auth-production",
+      "start-building/other-languages"
     ]
   },
   {
     "Guides": [
-      "guides/ory-cli-install-use",
-      "guides/integrate-nodejs",
       "guides/proxy",
       "guides/bring-your-user-interface",
       "guides/create-personal-access-token"
@@ -23,13 +26,8 @@
       "concepts/personal-access-token",
       "concepts/identity",
       "concepts/self-service",
-      "concepts/session"
-    ]
-  },
-  {
-    "Further Reading": [
-      "ecosystem/api-design",
-      "ecosystem/software-architecture-philosophy"
+      "concepts/session",
+      "ecosystem/api-design"
     ]
   },
   "reference/api",
@@ -51,14 +49,17 @@
     ]
   },
   {
-    "Open Source Overview": [
+    "Open Source": [
+      "open-source",
+      "ecosystem/community",
       "ecosystem/projects",
       "ecosystem/versioning",
       "ecosystem/configuring",
       "ecosystem/upgrading",
       "ecosystem/contributing",
       "ecosystem/sqa",
-      "ecosystem/roadmap"
+      "ecosystem/roadmap",
+      "ecosystem/software-architecture-philosophy"
     ]
   }
 ]

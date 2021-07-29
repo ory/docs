@@ -1,27 +1,17 @@
 {
-  "Developer Documentation": {
+  "Ory Cloud": {
     "$slug": "docs"
   },
-  "Open Source Documentation": [
-    {
-      "Ory Kratos": {
-        "$slug": "kratos"
-      }
-    },
-    {
-      "Ory Keto": {
-        "$slug": "keto"
-      }
-    },
-    {
-      "Ory Hydra": {
-        "$slug": "hydra"
-      }
-    },
-    {
-      "Ory Oathkeeper": {
-        "$slug": "oathkeeper"
-      }
-    }
-  ]
+  "Ory Kratos": {
+    "$slug": "kratos"
+  },
+  "Ory Keto": {
+    "$slug": "keto"
+  },
+  "Ory Hydra": {
+    "$slug": "hydra"
+  },
+  "Ory Oathkeeper": {
+    "$slug": "oathkeeper"
+  }
 }

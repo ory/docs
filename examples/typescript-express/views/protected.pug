@@ -4,6 +4,15 @@ html
   body
     h1= "This page needs a valid Ory Session!"
 
+    p
+      ul
+        li
+          a(href="/")
+            | Go back home
+        li
+          a(href= logoutUrl)
+            | Logout
+
     h2= "Ory Proxy JWT Payload"
     pre
       code= claims
