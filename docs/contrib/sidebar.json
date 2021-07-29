@@ -1,17 +1,22 @@
-{
-  "Ory Cloud": {
-    "$slug": "docs"
+[
+  {
+    "Open Source Ory Kratos": {
+      "$slug": "kratos"
+    }
   },
-  "Ory Kratos": {
-    "$slug": "kratos"
+  {
+    "Open Source Ory Keto": {
+      "$slug": "keto"
+    }
   },
-  "Ory Keto": {
-    "$slug": "keto"
+  {
+    "Open Source Ory Hydra": {
+      "$slug": "hydra"
+    }
   },
-  "Ory Hydra": {
-    "$slug": "hydra"
-  },
-  "Ory Oathkeeper": {
-    "$slug": "oathkeeper"
+  {
+    "Open Source Ory Oathkeeper": {
+      "$slug": "oathkeeper"
+    }
   }
-}
+]
