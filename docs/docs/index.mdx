@@ -1,32 +1,89 @@
 ---
 id: index
-title: Welcome to Ory
+title: Welcome to Ory!
 slug: /
 sidebar_label: Welcome
 ---
 
-Ory is a SaaS platform offering a variety of APIs and services built on top of a
-buzzing [open source ecosystem](./open-source.mdx).
+Ory is an open source ecosystem and a cloud offering authentication,
+authorization, access control, and delegation (OAuth2 & OpenID Connect) services
+and APIs:
 
-Ory offers services in four key areas of application security. Not all of these
-services are available right now. To learn more about roadmap and planned
-features head over to the [early access](./early-access.mdx) page.
+- [Ory Cloud](https://console.ory.sh) is a cloud service built on top of Ory
+  Open Source.
+- Ory Open Source offers scalable and hardened security software:
+  - [Ory Kratos](https://github.com/ory/kratos)
+  - [Ory Hydra](https://github.com/ory/hydra)
+  - [Ory Oathkeeper](https://github.com/ory/oathkeeper)
+  - [Ory Keto](https://github.com/ory/keto)
 
-## Identity Management
+Some parts of Ory are actively being developed. To learn more about roadmap and
+planned features head over to [early access](./early-access.mdx) and
+[project maturity](./ecosystem/versioning.md).
 
-Our identity management, based on the open source
-[Ory Kratos](https://www.ory.sh/kratos) project implements everything related to
-identities (users):
+## Why Ory is Different
+
+Ory differentiates from other vendors in the following key areas:
+
+- Our core services and APIs are developed and licensed under Apache 2.0,
+  allowing you to participate, collaborate, and understand the inner workings of
+  Ory.
+- You can bring your own UI, in the programming language of your choosing, with
+  the user experience that you like. We do not provide yet another.
+- From designing identity models using JSON Schema, to webhooks, to advanced
+  configuration options - Ory is the most customizable platform out there.
+- Ory spans the whole authentication and authorization universe with
+  well-designed products and APIs:
+  - Identity Management with session management, flows for login, registration,
+    account recovery & verification, mfa, and many more.
+  - Permission and Role Management.
+  - Delegation via OAuth2 and OpenID Connect.
+  - Zero Trust Networking.
+- Modern API design with partial support for gRPC.
+
+## Ory Cloud
+
+Ory Cloud is the commercial offering of Ory and is built on top of our popular
+open source software. Our goal with Ory Cloud is to offer a planet-scale,
+low-latency, resilient, and secure service that is easy to use and set up. Ory
+Cloud is currently in [early access](./early-access.mdx) and only available to
+Ory Insiders. You can become an Ory Insider by signing up at
+[console.ory.sh/](https://console.ory.sh) for an account, creating a project,
+and requesting an invite code.
+
+### Components
+
+The Ory Cloud uses a variety of components - some are based on open source
+projects and others are closed source.
+
+### Console
+
+The Ory Console is the management UI of the Ory Cloud. It offers capabilities
+such as showing and searching for identities, managing user sessions, gaining
+valuable insights in form of dashboards, and customization.
+
+### Managed UI
+
+The Managed UI implements screens such as login, registration, account recovery,
+account setting, account verification. This allows for fast adoption of Ory.
+
+Contrary to other vendors, Ory allows you to implement your own (login,
+registration, ...) UI by offering simple, headless APIs.
+
+### Identity & Session Services
+
+Ory Cloud incorporates the open source [Ory Kratos](https://www.ory.sh/kratos)
+project and offers:
 
 - **Self-service** flows are everything users do on their own / without the help
   of others:
-- Registration with passwords, social sign in, OpenID Connect, ...;
-- Login with passwords, social sign in, OpenID Connect, ...;
-- Updating the profile, email, changing the password, un/linking with Social
-  Sign In providers, ...;
-- Recovering the account by resetting the password;
-- Verifying email addresses, phone numbers, ...;
-- Multi-factor authentication flows and recovery processes;
+  - Registration with passwords, social sign in, OpenID Connect, ...
+  - Login with passwords, social sign in, OpenID Connect, ...
+  - Updating the profile, email, changing the password, un/linking with Social.
+    Sign In providers, ...
+  - Recovering the account by resetting the password.
+  - Verifying email addresses, phone numbers, ....
+  - Multi-factor authentication flows and recovery processes.
 - **Administrative identity management** to get, create, update, delete
   identities (users) and their data.
 - **Headless APIs and data models** allow you to fully customize identity models
@@ -34,37 +91,11 @@ identities (users):
   ...) and create your own login, registration, profile settings, recovery, and
   verification screen using our easy to use SDKs and REST APIs.
 
-## Open Source
+## Ory Open Source
 
-Many of our building blocks are open source. Below you find a list of all open
-source resources. Also check out the sidebar for our open source documentation.
+Ory is not another company offering integration libraries under open source
+licenses. Instead, all of our core systems are available as Apache 2.0 licensed
+software without enterprise or open core models.
 
-### GitHub
-
-You can find our open source projects on GitHub:
-
-- [Ory Kratos](https://github.com/ory/kratos)
-- [Ory Hydra](https://github.com/ory/hydra)
-- [Ory Oathkeeper](https://github.com/ory/oathkeeper)
-- [Ory Keto](https://github.com/ory/keto)
-- [Ory Fosite](https://github.com/ory/fosite)
-- [Ory Ladon](https://github.com/ory/ladon)
-- [Ory Dockertest](https://github.com/ory/dockertest)
-
-### REST API Docs
-
-While this developer guide focuses on explaining concepts, the concrete REST
-APIs are documented using swagger and can be viewed here:
-
-- [Ory Kratos](https://www.ory.sh/kratos/docs/reference/api)
-- [Ory Hydra](https://www.ory.sh/hydra/docs/reference/api)
-- [Ory Oathkeeper](https://www.ory.sh/oathkeeper/docs/reference/api)
-- [Ory Keto](https://www.ory.sh/keto/docs/reference/api)
-
-### GoDoc
-
-GoDoc documents Go code and is available for our Go libraries:
-
-- [Ory Fosite](https://godoc.org/github.com/ory/fosite)
-- [Ory Dockertest](https://godoc.org/github.com/ory/dockertest)
-- [Ory Ladon](https://godoc.org/github.com/ory/ladon)
+Head over to the [Ory Open Source Overview](./open-source.mdx) for an
+introduction.

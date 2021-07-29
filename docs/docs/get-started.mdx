@@ -1,22 +1,28 @@
 ---
 id: get-started
-title: Get Started
+title: Become an Ory Cloud Insider
 ---
 
-:::info
+Ory Cloud is currently in [early access](./early-access.mdx) and invite-only. To
+get access to Ory Cloud's full functionality you need to apply for the Ory Cloud
+Insider program. Ory Cloud Insiders
 
-Ory Open Source documentation has moved in the navigation on the left. Ory (the
-SaaS product) is currently only available to Ory Insiders and
-[haslimitations](./early-access.mdx).
+- have exclusive and unmetered access to Ory Cloud.
+- are invited to weekly meetings with Ory's core development team.
+- can influence the roadmap and priorities.
+- get exclusive Ory swag.
 
-:::
+The Ory Cloud Insider program is
+[priced at 99$ per month](https://www.ory.sh/pricing/). This price does not
+reflect the eventual price of using and running Ory as we aim to provide the
+most affordable platform out there!
 
-To get started, head over to [console.ory.sh](https://console.ory.sh) and sign
-up for an account.
+To apply for Ory Cloud Insiders, head over to
+[console.ory.sh](https://console.ory.sh) and sign up for an account.
 
 ![Sign up for Ory](./images/get-started/signup.png)
 
-## Create Project
+## Become an Ory Cloud Insider
 
 Once your account is set up, you will be greeted with your projects list.
 
@@ -24,12 +30,15 @@ Once your account is set up, you will be greeted with your projects list.
 
 Next, [create a project](https://console.ory.sh/projects/create). You will be
 prompted for an invite code. If you do not have an invite code but would like to
-become an Ory Insider, please click the "Contact Us" button. Once Ory is GA,
-this step will no longer be needed.
+become an Ory Cloud Insider, please click the "Contact Us" button. Once Ory is
+GA, this step will no longer be needed.
 
 ![Ory project creation requires invite code](./images/get-started/create-project-invite-code.png)
 
-Once entered, you will be greeted with the project creation screen.
+## Create your Ory Cloud Insider Project
+
+If you have supplied an invite code, you will be greeted with the project
+creation screen.
 
 ![Ory project creation screen](./images/get-started/project-create.png)
 
@@ -96,72 +105,7 @@ token.
 
 ![CreatePersonal Access Token](./images/get-started/pat-ready.png)
 
-## Install the Ory CLI
-
-The Ory CLI (Command-Line-Interface) makes integrating and interfacing with Ory
-easy! For a more in-depth look at the CLI head over to
-[install and use the Ory CLI](./guides/ory-cli-install-use.mdx)!
-
-### Install on macOS
-
-You can install the Ory CLI using [homebrew](https://brew.sh/) on macOS:
-
-```shell
-$ brew tap ory/ory
-$ brew install ory/ory/ory
-$ ory help
-```
-
-### Install on Linux
-
-On linux, you can use `bash <(curl ...)` to fetch the latest stable binary
-using:
-
-```shell
-$ bash <(curl https://raw.githubusercontent.com/ory/cli/master/install.sh) -b .
-$ ./ory help
-```
-
-You may want to move the Ory CLI to your `$PATH`:
-
-```shell
-$ sudo mv ./ory /usr/local/bin/
-$ ory help
-```
-
-### Install on Windows
-
-You can install Ory CLI using [scoop](https://scoop.sh) on Windows:
-
-```shell
-> scoop bucket add ory-cli https://github.com/ory/scoop-ory.git
-> scoop install ory
-> ory help
-```
-
 ## Integration
 
-Now it's time to choose your integration!
-
-import useBaseUrl from '@docusaurus/useBaseUrl'
-
-<table>
-  <thead>
-  <tr>
-    <th><img alt="Integrate Ory with NodeJS" width={100} src={useBaseUrl("img/nodejs.png")}/></th>
-    <th />
-  </tr>
-  </thead>
-  <tbody>
-  <td>
-
-[Integrate with ExpressJS](guides/integrate-nodejs.mdx)
-
-  </td>
-  <td>
-
-More integrations soon!
-
-  </td>
-  </tbody>
-</table>
+You created your first Ory Cloud Project! Now it's time to
+[start building](./start-building.mdx)!

@@ -1,36 +1,213 @@
 ---
 id: proxy
-title: No-Code with Ory Proxy
+title: Using the Ory Proxy
 ---
 
-The Ory Proxy (`ory proxy --help`) is a CLI command which allows for a basic
-no-code integration of Ory.
+The Ory Proxy is a powerful tool which authenticates users, converts session
+into a JSON Web Token, and ensures that cookies and URLs are properly
+configured.
+
+Using Ory Cloud without the Ory Proxy is currently not encouraged, unless you
+are writing a mobile application or are only interacting with Ory Cloud's Admin
+APIs.
+
+If you haven't already, please
+[install the Ory CLI](../start-building/ory-cli-install-use.mdx) on your
+development machine or server.
+
+## Concepts
+
+Before heading into the concrete examples, let's look at some of the Ory Proxy's
+concepts.
+
+### URL Structure
+
+The Ory Proxy mirrors Ory Cloud's APIs and UIs under the `/.ory` path. If you
+were to call, for example, the URL
+`https://<your-project-slug>.projects.oryapis.com/ui/login`, the equivalent
+proxied URL would be `https://<proxy-host>/.ory/ui/login`.
+
+The Ory Proxy has a few shorthand URLs which you can use to initiate
+self-service flows:
+
+- `/.ory/init/login` initiates the self-service login flow.
+- `/.ory/init/registration` initiates the self-service registration flow.
+- `/.ory/init/recovery` initiates the self-service recovery flow.
+- `/.ory/init/verification` initiates the self-service verification flow.
+- `/.ory/init/settings` initiates the self-service settings flow.
+
+If you redirect or link the user to one of those paths, the login, registration,
+... flow will be initiated:
+
+```html
+<a href="/.ory/init/login">Log in</a>
+```
+
+You can also append a `return_to` query parameter so that the user ends up at
+that URL. Please keep in mind that the domain MUST be an allow-listed URL in the
+Ory Cloud Project configuration!
+
+The return_to URL must include the protocol and domain! Relative URLs are not
+possible.
+
+```html
+<a href="/.ory/init/login?return_to=https://localhost:4000/my-url">Log in</a>
+```
+
+### Zero Trust
+
+The Ory Proxy translates any known Ory credentials (e.g. Ory Session Token or
+Ory Session Cookie) to a JSON Web Token. Assuming the user calls the Ory Proxy
+with a valid Ory Session Cookie
+
+```
+GET /some-path
+Host: localhost:4000
+Cookie: ory_session_jollyproskuriakovaxe98qw5t8g=MTYyNzU1OTgyNHxEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJR3RGU1d4dlUwOXVSR2w1UjJONmFVRlhaWEIxWVhCVlNHWlZOVTQxWWtGMnwhbFZh8BCCQ3tMemDczrB9-epefXl1E7whiChUt62LuA==
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36
+...
+```
+
+the Ory Proxy resolves that session and converts it to a JSON Web Token which is
+included in the HTTP Request's `Authorization` Header which is made to the
+"upstream" (the URL which the Ory Proxy is protecting). The session cookie will
+still be included in the request, in case that you need it to generate a logout
+URL for example.
+
+```
+GET /some-path
+Host: <your-application>:3000
+Authorization: eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Mjc1NjAxMjQsImlhdCI6MTYyNzU2MDA2NCwiaXNzIjoiaHR0cHM6Ly9qb2xseS1wcm9za3VyaWFrb3ZhLXhlOThxdzV0OGcucHJvamVjdHMub3J5YXBpcy5jb20iLCJqdGkiOiJlYWFlYzI0My0yY2IwLTQ2OGEtYmViZS0xYTAzNDkyNDJjZjAiLCJuYmYiOjE2Mjc1NjAwNjQsInNlc3Npb24iOnsiaWQiOiJiNzNkN2RjNC1mNTY1LTRmZWEtOTUxZS04YzIzZWUwNTc4M2YiLCJhY3RpdmUiOnRydWUsImV4cGlyZXNfYXQiOiIyMDIxLTA3LTMwVDEyOjAxOjAyLjk2NjYzWiIsImF1dGhlbnRpY2F0ZWRfYXQiOiIyMDIxLTA3LTI5VDEyOjAxOjAzLjAyNDM2NVoiLCJpc3N1ZWRfYXQiOiIyMDIxLTA3LTI5VDEyOjAxOjAyLjk2NjY1MloiLCJpZGVudGl0eSI6eyJpZCI6IjBmMGM5YmVjLTZiNjgtNDdmMy1iNjJiLTc3NTBmMDY1MzU5YyIsInNjaGVtYV9pZCI6ImRlZmF1bHQiLCJzY2hlbWFfdXJsIjoiaHR0cHM6Ly9qb2xseS1wcm9za3VyaWFrb3ZhLXhlOThxdzV0OGcucHJvamVjdHMub3J5YXBpcy5jb20vYXBpL2tyYXRvcy9wdWJsaWMvc2NoZW1hcy9kZWZhdWx0Iiwic3RhdGUiOiJhY3RpdmUiLCJzdGF0ZV9jaGFuZ2VkX2F0IjoiMjAyMS0wNy0yOVQxMjowMTowMi44NDQ0NzJaIiwidHJhaXRzIjp7ImVtYWlsIjoiZGV2K2RvY3NAb3J5LnNoIiwiZmlyc3RuYW1lIjoiT3J5IERvY3MiLCJ2ZWdldGVyaWFuIjp0cnVlfSwidmVyaWZpYWJsZV9hZGRyZXNzZXMiOlt7ImlkIjoiNjRiM2YyNzAtNzBmYy00OGI4LTg3MDQtODA4NWM3ODMzNjJiIiwidmFsdWUiOiJkZXYrZG9jc0Bvcnkuc2giLCJ2ZXJpZmllZCI6ZmFsc2UsInZpYSI6ImVtYWlsIiwic3RhdHVzIjoic2VudCIsInZlcmlmaWVkX2F0IjpudWxsLCJjcmVhdGVkX2F0IjoiMjAyMS0wNy0yOVQxMjowMTowMi44ODg1NjJaIiwidXBkYXRlZF9hdCI6IjIwMjEtMDctMjlUMTI6MDE6MDIuODg4NTYyWiJ9XSwicmVjb3ZlcnlfYWRkcmVzc2VzIjpbeyJpZCI6IjUyNmEyYjI1LTJiOWEtNDQ1Yi05ODJkLTk3ODYyZDliYmM5YiIsInZhbHVlIjoiZGV2K2RvY3NAb3J5LnNoIiwidmlhIjoiZW1haWwiLCJjcmVhdGVkX2F0IjoiMjAyMS0wNy0yOVQxMjowMTowMi44OTc0MDdaIiwidXBkYXRlZF9hdCI6IjIwMjEtMDctMjlUMTI6MDE6MDIuODk3NDA3WiJ9XSwiY3JlYXRlZF9hdCI6IjIwMjEtMDctMjlUMTI6MDE6MDIuODc3NDE3WiIsInVwZGF0ZWRfYXQiOiIyMDIxLTA3LTI5VDEyOjAxOjAyLjg3NzQxN1oifX0sInN1YiI6IjBmMGM5YmVjLTZiNjgtNDdmMy1iNjJiLTc3NTBmMDY1MzU5YyJ9.6vvdyNkNce39W8WPKwF5QUTOlBjF5VW6Xl3QzYHU9M1riiDVgQ4rK8XHEqcjhAQcis8EIbRm7K0UuLNGwKsKzQ",
+Cookie: ory_session_jollyproskuriakovaxe98qw5t8g=MTYyNzU1OTgyNHxEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJR3RGU1d4dlUwOXVSR2w1UjJONmFVRlhaWEIxWVhCVlNHWlZOVTQxWWtGMnwhbFZh8BCCQ3tMemDczrB9-epefXl1E7whiChUt62LuA==
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36
+...
+```
+
+We strongly encourage you to validate the JSON Web Token using the Ory Proxy's
+public key. The public key is available at `/.ory/proxy/jwks.json`:
+
+```
+$ curl -sk https://<proxy-host>/.ory/proxy/jwks.json | jq
+{
+  "keys": [
+    {
+      "use": "sig",
+      "kty": "EC",
+      "kid": "f8f2e6ff-0480-4343-9dee-0d2a463146dc",
+      "crv": "P-256",
+      "alg": "ES256",
+      "x": "Say2LSWvHxUnyxuW5lxsTFkKopZq402eH4YqcRiBgvA",
+      "y": "7XaYgYsW-Mjb5qIq47LxyaPHjPZfRHRnnfir8aqd9BU"
+    }
+  ]
+}
+```
+
+If you do now know how to validate a JSON Web Token, head over to the
+[Server-Side Web App](../start-building/server-side-web-app.mdx) documentation
+page.
+
+Using the public key, you can validate and decode the JSON Web Token, which
+includes all the session and identity information linked to the Ory Session
+Cookie:
+
+```json
+{
+  "exp": 1627560124,
+  "iat": 1627560064,
+  "iss": "https://<project-slug>.projects.oryapis.com",
+  "jti": "eaaec243-2cb0-468a-bebe-1a0349242cf0",
+  "nbf": 1627560064,
+  "session": {
+    "id": "b73d7dc4-f565-4fea-951e-8c23ee05783f",
+    "active": true,
+    "expires_at": "2021-07-30T12:01:02.96663Z",
+    "authenticated_at": "2021-07-29T12:01:03.024365Z",
+    "issued_at": "2021-07-29T12:01:02.966652Z",
+    "identity": {
+      "id": "0f0c9bec-6b68-47f3-b62b-7750f065359c",
+      "schema_id": "default",
+      "schema_url": "https://<project-slug>.projects.oryapis.com/api/kratos/public/schemas/default",
+      "state": "active",
+      "state_changed_at": "2021-07-29T12:01:02.844472Z",
+      "traits": {
+        "email": "dev+docs@ory.sh",
+        "firstname": "Ory Docs",
+        "vegeterian": true
+      },
+      "verifiable_addresses": [
+        {
+          "id": "64b3f270-70fc-48b8-8704-8085c783362b",
+          "value": "dev+docs@ory.sh",
+          "verified": false,
+          "via": "email",
+          "status": "sent",
+          "verified_at": null,
+          "created_at": "2021-07-29T12:01:02.888562Z",
+          "updated_at": "2021-07-29T12:01:02.888562Z"
+        }
+      ],
+      "recovery_addresses": [
+        {
+          "id": "526a2b25-2b9a-445b-982d-97862d9bbc9b",
+          "value": "dev+docs@ory.sh",
+          "via": "email",
+          "created_at": "2021-07-29T12:01:02.897407Z",
+          "updated_at": "2021-07-29T12:01:02.897407Z"
+        }
+      ],
+      "created_at": "2021-07-29T12:01:02.877417Z",
+      "updated_at": "2021-07-29T12:01:02.877417Z"
+    }
+  },
+  "sub": "0f0c9bec-6b68-47f3-b62b-7750f065359c"
+}
+```
+
+## Ory Proxy for Local Development
+
+The Ory Proxy works great on local machines (`localhost`). It is able to
+register SSL certificates in your operating system's credential store when
+starting up, allowing for an easy and secure way to start development.
+
+Assuming you are running, for example, a NodeJS app on port 3000, you would
+point the Ory Proxy to that URL:
+
+```
+export ORY_ACCESS_TOKEN=<your personal access token here>
+ory proxy local http://localhost:3000
+```
+
+For other CLI flags which, for example, disable the auto-opening of the URL in
+the browser, run `ory help proxy local` or head over to the
+[Ory Proxy Local Reference](../cli/ory-proxy-local.md).
+
+## Ory Proxy for Production / Remote Deployments
+
+The Ory Proxy is also capable of protecting remote and production environments.
+Alternatively you can also use
+[DNS CNAME](../start-building/deploy-auth-production.mdx).
+
+Using the Ory Proxy in production works similar to the local development flow,
+with a few differences:
+
+1. The Ory Proxy will not install any SSL certificates. You are responsible for
+   setting up HTTPS.
+2. You must specify the URL where the proxy is running.
+
+```
+export ORY_ACCESS_TOKEN=<your personal access token here>
+ory proxy local http://localhost:3000 https://my-domain.com
+```
 
 :::note
 
-Learn how to [install the Ory CLI](./ory-cli-install-use.mdx) on your
-development machine.
+Please be aware that the `return_to` feature is not fully implemented yet, as it
+is not possible to allow-list redirect domains. We are working on this feature
+and will be releasing it soon!
 
 :::
 
-## Local Development
-
-The Ory Proxy works great for local development. It does so by registering a SSL
-certificate in your operating system's credential store when starting up.
-
-:::warning
-
-FireFox uses its own certificate storage. If you encounter problems with FireFox
-[please raise an issue](https://github.com/ory/platform/issues/new).
-
-:::
-
-This is to ensure that all cookies work correctly in your development
-environment.
-
-A list of all available options can be found in the
-[Ory CLI Reference](../cli/ory.md).
-
-## Production Deployment
-
-The Ory Proxy is not yet available for production deployments.
+For other CLI flags which, for example, disable the auto-opening of the URL in
+the browser, run `ory help proxy production` or head over to the
+[Ory Proxy Production Reference](../cli/ory-proxy-local.md).

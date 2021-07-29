@@ -1,14 +1,24 @@
 ---
-id: integrate-nodejs
-title: Integrate with NodeJS
+id: server-side-web-app
+sidebar_title: Server-Side Web App
+title: Build a Server-Side Web App with Ory
 ---
 
-This page describes how to integrate different types of NodeJS apps with Ory.
-Please have the [Ory CLI](./ory-cli-install-use.mdx) installed on your system as
-well as a [running Ory Project](../get-started.mdx) and a
-[Personal Access Token](../guides/create-personal-access-token.mdx).
+Ory supports server-side web apps natively. To get building, pick the technology
+you are using:
 
-## ExpressJS with TypeScript
+- [NodeJS](#expressjs--nodejs) / [ExpressJS](#expressjs--nodejs)
+- [Golang](./other-languages.mdx)
+- [Java](./other-languages.mdx)
+- [PHP](./other-languages.mdx)
+- [Django](./other-languages.mdx)
+- [Other language / framework](./other-languages.mdx)
+
+Before you get started, please install the [Ory CLI](./ory-cli-install-use.mdx)
+on your system, and have a [running Ory Project](../get-started.mdx) and a
+[Personal Access Token](../guides/create-personal-access-token.mdx) ready.
+
+## ExpressJS / NodeJS
 
 This example uses NodeJS with TypeScript support and ExpressJS to set up an app
 with two endpoints:
@@ -27,16 +37,9 @@ You can find this
 
 To get started open a new terminal and set the environment variables:
 
-- `ORY_ACCESS_TOKEN`: Use a personal access token here;
-- `ORY_PROJECT_URL`: Use the Project URL which you can find on the "Services &
-  APIs" page of your project.
+- `ORY_ACCESS_TOKEN`: Use a personal access token here
 
 ```shell
-# IMPORTANT - The URL MUST NOT end with a trailing slash!
-export ORY_PROJECT_URL=...
-# e.g.
-# export ORY_PROJECT_URL=https://nostalgic-jemison-kj2qx0nhmk.projects.oryapis.com
-
 export ORY_ACCESS_TOKEN=...
 # e.g.
 # export ORY_ACCESS_TOKEN=2123l8jJhSIYQZvfasd53YoRvcseg1
@@ -50,11 +53,17 @@ git clone https://github.com/ory/docs.git
 cd docs/examples/typescript-express
 npm i
 
+export ORY_ACCESS_TOKEN=...
+# e.g.
+# export ORY_ACCESS_TOKEN=2123l8jJhSIYQZvfasd53YoRvcseg1
+
 ## ATTENTION ##
 # Node, similar to Firefox, does not use the Operating System Certificate store.
 # To get the self-signed SSL certificates working, we need to disable TLS Verification.
 # NEVER, EVER do this in a live system.
-NODE_TLS_REJECT_UNAUTHORIZED=0 npm start
+export NODE_TLS_REJECT_UNAUTHORIZED=0
+
+npm start
 ```
 
 Open another terminal and copy set the `ORY_ACCESS_TOKEN` env var to your
@@ -66,15 +75,12 @@ export ORY_ACCESS_TOKEN=...
 
 Next, run the Ory Proxy with
 
-- `--protect-path-prefix /protected`: only the path /protected needs a valid Ory
-  Session;
 - `--port 4000`: the port on which the proxy should listen on;
 - `http://localhost:8000/`: the host and port of the NodeJS app you are
   protecting.
 
 ```shell
-ory proxy local \
-  --protect-path-prefix /protected \
+Ory Proxy local \
   --port 4000 \
   http://localhost:8000/
 ```
@@ -94,7 +100,7 @@ cases, you must disable TLS verification. This is not an issue in production!
 
 To see what the app can do, open it at the original endpoints:
 
-- [localhost:8000/public](http://localhost:8000/public)
+- [localhost:8000/](http://localhost:8000/)
 - [localhost:8000/protected](http://localhost:8000/protected)
 
 The second URL `/protected` will greet you with an error because no Ory Session
@@ -109,7 +115,7 @@ signed in, the application will show information about the session:
 
 ![NodeJS route is not available without authentication](./integrate-nodejs/proxy-auth.png)
 
-### Code Integration
+### Code Examples
 
 import CodeFromRemote from '@theme/CodeFromRemote'
 
@@ -127,11 +133,43 @@ To get the app integrated with Ory, we use the following `npm` dependencies:
 
 Let's take a look at the annotated code!
 
+#### Root App
+
+All you need is a plain ExpressJS skeleton:
+
 <CodeFromRemote
   lang="js"
   link="https://github.com/ory/docs/blob/master/examples/typescript-express/src/index.ts"
   src="https://raw.githubusercontent.com/ory/docs/master/examples/typescript-express/src/index.ts"
 />
+
+#### Middleware
+
+The Ory Session Cookie is converted to a JSON Web Token by `Ory Proxy local`.
+The cryptographic key to verify the JSON Web Token is available at
+`https://<proxy>/.ory/proxy/.well-known`.
+
+If the JSON Web Token is not available, or not valid, we redirect to the login:
+
+<CodeFromRemote
+  lang="js"
+  link="https://github.com/ory/docs/blob/master/examples/typescript-express/src/middleware.ts"
+  src="https://raw.githubusercontent.com/ory/docs/master/examples/typescript-express/src/middleware.ts"
+/>
+
+#### Protected Page
+
+The protected page is doing a few extra things, such as fetching the identity
+from Ory Cloud's Administrative APIs, and also creates a logout URL for the
+user:
+
+<CodeFromRemote
+  lang="js"
+  link="https://github.com/ory/docs/blob/master/examples/typescript-express/src/routes/protected.ts"
+  src="https://raw.githubusercontent.com/ory/docs/master/examples/typescript-express/src/routes/protected.ts"
+/>
+
+### Conclusion
 
 Great! You've made it! Integrating Ory is easy and straight forward. There are
 many more things to come, and we are excited to have you on board!
