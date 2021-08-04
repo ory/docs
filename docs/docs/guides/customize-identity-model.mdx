@@ -28,11 +28,11 @@ example Identity Model.
 - Add or remove traits from the Identity Model as desired, more info in the
   [Customize Fields](#customize-fields) section.
 
-- When finished editign name your custom Identity Model. Input the name in the
+- When finished editing name your custom Identity Model. Input the name in the
   textbox between the checkbox and the schema.
 
 - Press `Enter` or hit the `Update` button to save it, once you have made your
-  changes. Currently it is not possible to edit an exisiting Identity Model, so
+  changes. Currently, it is not possible to edit an existing Identity Model, so
   make sure you are done before saving the Identity Model.
 
 You can specify a title for your custom Identity Model. The default is
@@ -97,7 +97,7 @@ username+password flow in the Ory Cloud. It also includes a method for
 [`recovery`](https://www.ory.sh/kratos/docs/self-service/flows/account-recovery#recovery-link-method)
 as well as
 [`verification`](https://www.ory.sh/kratos/docs/self-service/flows/verify-email-account-activation/#verification-link-method).
-Currently only the `email` method is available (recovery/verification via a link
+Currently, only the `email` method is available (recovery/verification via a link
 sent in an email).
 
 ```diff
@@ -204,7 +204,7 @@ To define certain traits as required, add them to the `required` array by name:
 The
 [`additionalProperties`](https://json-schema.org/understanding-json-schema/reference/object.html#additional-properties)
 keyword is used to control the handling of properties whose names are not listed
-in the properties keyword. This ususally should be set to false.
+in the properties keyword. This usually should be set to false.
 
 ```json
       "additionalProperties": false
@@ -216,7 +216,7 @@ The following Identity Model includes first/last and nickname, as well as number
 fields for the phone number and birthday. There are also two true/false fields
 for specifying the newsletter subscription and enterprise status.
 
-Please not that this is just a reference Identity Model, for practical uses it
+Please note that this is just a reference Identity Model, for practical uses it
 contains probably too many traits.
 
 ```json
