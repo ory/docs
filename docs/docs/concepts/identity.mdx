@@ -12,19 +12,22 @@ check out the open source documentation:
 - [Identity Data Model](https://www.ory.sh/kratos/docs/concepts/identity-data-model)
 - [Identity Credentials](https://www.ory.sh/kratos/docs/concepts/credentials)
 
+The Identity Model can either be one of the available presets or a
+[customized model](#custom-identity-model).
+
 ## Available Presets
 
-At the moment we support three basic Identity Model Presets.
+The Ory Cloud provides three basic Identity Model Presets.
 
 ### Only Username
 
-This preset is useful for applications which do not require email addresses and
-a high degree of anonymity.
+This preset is useful for applications that do not require email addresses and a
+high degree of anonymity.
 
 :::note
 
 This preset disables account verification, account recovery, and account
-enumeration defenses! Do not use it in security sensitive environments.
+enumeration defenses! Do not use it in security-sensitive environments.
 
 :::
 
@@ -82,3 +85,14 @@ field and additionally a first name, last name, and a checkbox.
   }
 }
 ```
+
+## Custom Identity Model
+
+Ory gives you the option to add custom fields to your identity model.
+
+You can define new traits for an identity, save the identity as template and
+switch between different identity models.
+
+For a hands-on guide on how to create a custom Identity Model, please head over
+to this document:
+[Customize Identity Model Guide](../guides/customize-identity-model.mdx).
