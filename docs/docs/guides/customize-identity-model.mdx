@@ -32,8 +32,7 @@ example Identity Model.
   textbox between the checkbox and the schema.
 
 - Press `Enter` or hit the `Update` button to save it, once you have made your
-  changes. Currently, it is not possible to edit an existing Identity Model, so
-  make sure you are done before saving the Identity Model.
+  changes. Currently, it is not possible to edit an existing Identity Model,Currently, it is not possible to edit an existing Identity Model on the same revision. The identity model can still be reused as a template for a following revision.
 
 You can specify a title for your custom Identity Model. The default is
 `"title": "Person",` but this can be changed to something that describes this
@@ -60,13 +59,14 @@ Each trait translates into a field on the user-facing frontend. For example the
 "username & password" preset defines two traits - username and password:
 
 ```json
-// username & password identity model
+// email & password identity model
     "traits": {
       "type": "object",
       "properties": {
-        "username": {
+        "email": {
           "type": "string",
-          "title": "Username",
+          "format": "email",
+          "title": "E-Mail",
           "ory.sh/kratos": {
             "credentials": {
               "password": {
@@ -83,30 +83,31 @@ Each trait translates into a field on the user-facing frontend. For example the
         }
       },
       "required": [
-        "username"
+        "email"
       ],
       "additionalProperties": false
     }
 ```
 
 This Identity Model translates into the following sign-up screen:
-![Username Password Identity Model](../images/identity-model/username-password.png)
+![Email Password Identity Model](../images/identity-model/email-password.png)
 
-The part highlighted below defines the identities `username` for the
-username+password flow in the Ory Cloud. It also includes a method for
+The part highlighted below defines the identities `email` for the
+email+password flow in the Ory Cloud. It also includes a method for
 [`recovery`](https://www.ory.sh/kratos/docs/self-service/flows/account-recovery#recovery-link-method)
 as well as
 [`verification`](https://www.ory.sh/kratos/docs/self-service/flows/verify-email-account-activation/#verification-link-method).
-Currently, only the `email` method is available (recovery/verification via a link
-sent in an email).
+Currently, only the `email` method is available (recovery/verification via a
+link sent in an email).
 
 ```diff
     "traits": {
       "type": "object",
       "properties": {
-+       "username": {
++       "email": {
 +         "type": "string",
-+         "title": "Username",
++         "format": "email",
++         "title": "E-Mail",
 +         "ory.sh/kratos": {
 +           "credentials": {
 +             "password": {
@@ -154,15 +155,15 @@ for example the GitHub Handle as `string` :
     }
 ```
 
-or a mobile phone number as `integer`:
+or a checkbox as `boolean`:
 
 ```json
 "traits": {
 "type": "object",
 "properties": {
-        "phone-number" : {
-            "type": "integer",
-            "title" : "Your Mobile Phone Number"
+        "newsletter": {
+          "type": "boolean",
+          "title": "Newsletter subscription"
         }
       }
     }
@@ -170,7 +171,7 @@ or a mobile phone number as `integer`:
 
 Possible values for the `type` are `string`, `number`, `integer`, `boolean`.
 
-Use `string` for text fields, `boolean` for true/false fields, `integer` or
+Use `string` for text fields, `boolean` for checkboxes fields, `integer` or
 `number` for integral or floating-point numbers. If you want to know more about
 these types, please refer to the
 [json-schema documentation](https://json-schema.org/understanding-json-schema/reference/type.html).
@@ -179,6 +180,16 @@ The `title` of each field is what the user as description or sample input. After
 adding the above examples the sign-up screen would look like so:
 
 ![Example Identity Model with GitHub and Phone Number Fields](../images/identity-model/example-identity0.png)
+
+### Changing existing Identity Models
+
+While it is currently not possible to directly edit existing Identity Models, you can make revisions.
+For example, an Identity Model named "Customer Type 1" exists and you would like to make changes to it:
+
+- Select the "Customer Type 1" Identity Model and hit `Customize Identity Schema`.
+- Make the necessary changes.
+- Enter a new name, e.g. "Customer Type 2".
+- Press `Enter` or `Update` to save it.
 
 ### Required traits
 
@@ -204,17 +215,17 @@ To define certain traits as required, add them to the `required` array by name:
 The
 [`additionalProperties`](https://json-schema.org/understanding-json-schema/reference/object.html#additional-properties)
 keyword is used to control the handling of properties whose names are not listed
-in the properties keyword. This usually should be set to false.
+in the properties keyword. This currently has no effect and should be set to false.
 
 ```json
       "additionalProperties": false
 ```
 
-## Example Identity Model
+## Reference Identity Model
 
 The following Identity Model includes first/last and nickname, as well as number
-fields for the phone number and birthday. There are also two true/false fields
-for specifying the newsletter subscription and enterprise status.
+fields for the users' age. There are also two true/false fields for specifying
+the newsletter subscription and enterprise status.
 
 Please note that this is just a reference Identity Model, for practical uses it
 contains probably too many traits.
@@ -263,15 +274,11 @@ contains probably too many traits.
             }
           }
         },
-        "mobile-number": {
+        "age": {
           "type": "integer",
-          "title": "Your Mobile Number"
+          "title": "How old are you?"
         },
-        "birthday": {
-          "type": "integer",
-          "title": "Your Birthday"
-        },
-        "country": {
+        "newsletter": {
           "type": "boolean",
           "title": "Newsletter subscription"
         },
@@ -289,7 +296,7 @@ contains probably too many traits.
 
 This is what the above Identity Model would look like on the sign-up screen:
 
-![Example Identity Model with many Fields](../images/identity-model/example-identity1.png)
+![Example Identity Model with many fields](../images/identity-model/example-identity1.png)
 
 ## Best Practices
 
