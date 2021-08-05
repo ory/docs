@@ -18,7 +18,7 @@
       "guides/proxy",
       "guides/bring-your-user-interface",
       "guides/create-personal-access-token",
-      "guides/customize-identity-model"
+      "guides/customize-identity-schema"
     ]
   },
   {
