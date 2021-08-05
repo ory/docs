@@ -61,7 +61,6 @@ Each trait translates into a field on the user-facing frontend. For example the
 "email & password" preset defines two traits - email and password:
 
 ```json5
-// email & password identity model
     "traits": {
       "type": "object",
       "properties": {
@@ -134,11 +133,14 @@ link sent in an email).
 
 To add traits to the Identity Model, add them inside the `traits "properties"`
 
-```json5
+```diff
 "traits": {
   "type": "object",
     "properties": {
-    // your identities traits go here
++      "customtrait": {
++        "type": "string",
++        "title": "Your Custom Trait Title"
++        }
        }
     }
 ```
