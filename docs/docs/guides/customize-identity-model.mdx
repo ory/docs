@@ -32,7 +32,9 @@ example Identity Model.
   textbox between the checkbox and the schema.
 
 - Press `Enter` or hit the `Update` button to save it, once you have made your
-  changes. Currently, it is not possible to edit an existing Identity Model on the same revision. The identity model can still be reused as a template for a following revision.
+  changes. Currently, it is not possible to edit an existing Identity Model on
+  the same revision. The identity model can still be reused as a template for a
+  following revision.
 
 You can specify a title for your custom Identity Model. The default is
 `"title": "Person",` but this can be changed to something that describes this
@@ -92,8 +94,8 @@ Each trait translates into a field on the user-facing frontend. For example the
 This Identity Model translates into the following sign-up screen:
 ![Email Password Identity Model](../images/identity-model/email-password.png)
 
-The part highlighted below defines the identities `email` for the
-email+password flow in the Ory Cloud. It also includes a method for
+The part highlighted below defines the identities `email` for the email+password
+flow in the Ory Cloud. It also includes a method for
 [`recovery`](https://www.ory.sh/kratos/docs/self-service/flows/account-recovery#recovery-link-method)
 as well as
 [`verification`](https://www.ory.sh/kratos/docs/self-service/flows/verify-email-account-activation/#verification-link-method).
@@ -183,11 +185,14 @@ adding the above examples the sign-up screen would look like so:
 
 ### Changing existing Identity Models
 
-While it is currently not possible to directly edit existing Identity Models, you can make revisions.
+While it is currently not possible to directly edit existing Identity Models,
+you can make revisions.
 
-For example, an Identity Model named "Customer Type 1" exists and you would like to make changes to it:
+For example, an Identity Model named "Customer Type 1" exists and you would like
+to make changes to it:
 
-- Select the "Customer Type 1" Identity Model and press `Customize Identity Schema`.
+- Select the "Customer Type 1" Identity Model and press
+  `Customize Identity Schema`.
 - Make the necessary changes.
 - Enter a new name, e.g. "Customer Type 2".
 - Press the `Enter` key or `Update` to save it.
@@ -197,7 +202,8 @@ For example, an Identity Model named "Customer Type 1" exists and you would like
 The
 [`additionalProperties`](https://json-schema.org/understanding-json-schema/reference/object.html#additional-properties)
 keyword is used to control the handling of properties whose names are not listed
-in the properties keyword. This currently has no effect and should be set to false.
+in the properties keyword. This currently has no effect and should be set to
+false.
 
 ```json
       "additionalProperties": false
