@@ -1,23 +1,23 @@
 ---
 id: identity
-title: Identity Data Model, Custom Fields
+title: Identity Schema, Custom Fields
 ---
 
-The Identity Model is a JSON Schema which describes your identity's (e.g. your
+The Identity Schema is a JSON Schema which describes your identity's (e.g. your
 customers / users / ...) fields. In Ory, every identity can have their own
 model, allowing you to separate between different customer types, user types
-(e.g. employees and customers). For technical information on Identity Models,
+(e.g. employees and customers). For technical information on Identity Schemas,
 check out the open source documentation:
 
 - [Identity Data Model](https://www.ory.sh/kratos/docs/concepts/identity-data-model)
 - [Identity Credentials](https://www.ory.sh/kratos/docs/concepts/credentials)
 
-The Identity Model can either be one of the available presets or a
+The Identity Schema can either be one of the available presets or a
 [customized model](#custom-identity-model).
 
 ## Available Presets
 
-Ory Cloud provides three basic Identity Model Presets.
+Ory Cloud provides three basic Identity Schema Presets.
 
 ### Only Username
 
@@ -86,13 +86,13 @@ field and additionally a first name, last name, and a checkbox.
 }
 ```
 
-## Custom Identity Model
+## Custom Identity Schema
 
-Ory gives you the option to add custom fields to your Identity Model.
+Ory gives you the option to add custom fields to your Identity Schema.
 
 You can define new traits for an identity, save the identity as a template and
-switch between different Identity Models.
+switch between different Identity Schemas.
 
-For a hands-on guide on how to create a custom Identity Model, please head over
+For a hands-on guide on how to create a custom Identity Schema, please head over
 to this document:
 [Customize Identity Schema Guide](../guides/customize-identity-schema.mdx).

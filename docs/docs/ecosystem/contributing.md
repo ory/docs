@@ -476,7 +476,7 @@ type identityList []Identity
 //
 // Lists all identities. Does not support search at the moment.
 //
-// Learn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).
+// Learn how identities work in [Ory Kratos' User And Identity Schema Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).
 //
 //     Produces:
 //     - application/json
