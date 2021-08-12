@@ -5,7 +5,7 @@ sidebar_label: Ory Insider Program
 ---
 
 Ory Cloud is currently in [early access](./early-access.mdx) and invite-only. To
-get access to Ory Cloud's full functionality you need to apply for the Ory Cloud
+get access to Ory Cloud's full functionality you need to apply for the Ory
 Insider program. Ory Insiders
 
 - have exclusive and unmetered access to Ory Cloud.
@@ -25,7 +25,7 @@ and sign up for an account.
 
 ## Become an Ory Insider
 
-Once your account is set up, you will be greeted with your projects list.
+Once your account is set up, you will be greeted with the Projects Overview.
 
 ![Empty Ory projects list](./images/get-started/project-list-empty.png)
 
@@ -38,75 +38,8 @@ is GA, this step will no longer be needed.
 
 ## Create your Ory Insider Project
 
-If you have supplied an invite code, you will be greeted with the project
+If you have supplied an invite code, you will be abke to access the project
 creation screen.
 
-![Ory project creation screen](./images/get-started/project-create.png)
-
-Enter a project name and leave the application URL empty for now.
-
-![Ory project creation screen](./images/get-started/project-create-details.png)
-
-The Identity Schema is a JSON Schema which describes your identity's (e.g. your
-customers / users / ...) fields. In Ory, every identity can have their own
-schema, allowing you to separate between different customer types, user types
-(e.g. employees and customers).
-
-[Learn more about the Identity Schema](concepts/identity.mdx) and the available
-profiles! For the quickstart, we will use the "Demo Profile" model.
-
-:::note
-
-The "Demo Profile" is a preset for technical demonstrations. Do not use it in
-real applications as we will eventually change or delete this profile.
-
-:::
-
-![Choose Identity Schema for Ory project](./images/get-started/project-create-identity-model.png)
-
-For demo applications, we recommend enabling sign in after registration.
-
-:::note
-
-Enable sign in after registration disables account enumeration defenses!
-
-:::
-
-![Enable "session after registration" for Ory project](./images/get-started/project-create-session-hook.png)
-
-Next, hit "create" and fill out the details on the check out page. Your project
-should come alive shortly after!
-
-![Created Ory project in the project list](./images/get-started/project-created.png)
-
-## Create Personal Access Token
-
-Personal Access Tokens are bound to a project. They are needed to access
-administrative APIs (e.g. deleting an identity, using the Ory CLI, ...).
-
-:::note
-
-Personal Access Tokens are an interim security mechanism. In the future, more
-secure mechanisms such as JWT Assertions and mTLS will be supported.
-
-:::
-
-Head over to the "Personal Access Token" page
-
-![Personal Access Token list](./images/get-started/pat-list.png)
-
-and click on the plus symbol to create a new token.
-
-![CreatePersonal Access Token](./images/get-started/pat-create.png)
-
-Once created, a dialog will appear on the bottom left containing your personal
-access token. Copy this into a password manager or another safe place. The token
-will never be displayed again! If you forget it, you will need to create a new
-token.
-
-![CreatePersonal Access Token](./images/get-started/pat-ready.png)
-
-## Integration
-
-You created your first Ory Cloud Project! Now it's time to
-[start building](./start-building.mdx)!
+For a step by step guide please visit the
+[Create Ory Cloud Project](./start-building/create-project.mdx) documentation.
