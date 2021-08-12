@@ -80,7 +80,7 @@ Next, run the Ory Proxy with
   protecting.
 
 ```shell
-Ory Proxy local \
+ory proxy local \
   --port 4000 \
   http://localhost:8000/
 ```
@@ -145,7 +145,7 @@ All you need is a plain ExpressJS skeleton:
 
 #### Middleware
 
-The Ory Session Cookie is converted to a JSON Web Token by `Ory Proxy local`.
+The Ory Session Cookie is converted to a JSON Web Token by `ory proxy local`.
 The cryptographic key to verify the JSON Web Token is available at
 `https://<proxy>/.ory/proxy/.well-known`.
 
