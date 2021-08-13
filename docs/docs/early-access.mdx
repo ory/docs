@@ -3,35 +3,76 @@ id: early-access
 title: Ory Cloud Roadmap
 ---
 
-Ory Cloud is currently in early access and invite-only. In our book, early
-access has the following implications:
+This document outlines our product development plans for Ory Cloud for the next
+quarters. Please note that our roadmap is subject to change therefore do not
+treat the information below as fixed. Our Product Development Team is actively
+working on the roadmap, triaging, and (re)prioritizing to deliver the best value
+for our customers.
 
-1. All services are secure and reliable;
-2. APIs and features marked as experimental are subject to change;
-3. Feature-parity with the open source has not yet been achieved;
+:::note
 
-## Limitations
+Ory Cloud is actively being developed and is currently in early access and
+invite-only.
 
-In particular, the following limitations apply for now:
-
-1. All data in the dashboard is synthetic.
-2. Personal Access Tokens are an interim solution for accessing our APIs. We
-   will be migrating to mTLS and OAuth2 flows where applicable in the future.
-3. The Ory Proxy is in pilot phase and does not yet support Let's Encrypt and
-   other advanced use cases.
-4. While our SRE team is working around the clock, we can currently not provide
-   SLAs or availability guarantees.
-5. Documentation is lacking.
-6. Advanced configuration of Ory Kratos is currently not possible.
+:::
 
 ## Roadmap
 
-We have several things on the roadmap for this year:
+Users are often asking when a particular feature will be implemented or when it
+can be expected to be available. This document provides our high level plans in
+a more time frame focus manner.
 
-1. Multi-Factor Authentication
-2. Offering Ory Keto
-3. Offering Ory Hydra
-4. Managed UI customizability
-5. Support configuration options from the open source
+We will also create Github Project Board in
+[Ory Cloud GitHub repository](https://github.com/ory/cloud) with issues and
+timeliness reflecting our plan presented down below. Issues will provide more
+detailed descriptions.
 
-This list will be expanded and maintained in the future.
+### Q3 2021
+
+- Enriching Ory Cloud Console capabilities
+  - Detailed view for identities
+  - SDK URLs for project overview
+- Configuration for redirection flows
+  - Post login and registration redirection
+  - Post settings,verification and recovery redirection
+
+### Q4 2021
+
+- Multi-Factor Authentication (MFA)
+  - Self-service in Ory Cloud Console
+- Extending identity management self-service capabilities
+  - Updating and deleting identities
+  - Recovering an identity with email code
+- Bring your own UI
+  - Self-service in Ory Cloud Console
+- Extending documentation
+  - Documenting all public APIs
+  - Refactoring examples with support for 2 to 3 programming languages
+    (Go,NodeJs,...)
+
+### Q1 2022
+
+- Ory Project membership
+  - Inviting users with a confirmation
+  - Removing members of Ory Project
+  - Assigning roles to members
+  - Updating member roles
+- Self-service for integration with Social Identity Providers
+  - Sign in with Google
+  - Sign in with Github
+  - Sign in with Facebook  
+- Session management
+  - Display active identity sessions in the project
+  - Revoke identity session
+- Extended Ory Project management capabilities
+  - Administrative dashboard
+  - Deactivating project
+  - Deleting project
+
+## Feedback
+
+We highly value feedback from Ory Cloud users as well as Open Source adopters.
+If you have feedback you would like to share, or you have not found a certain
+feature please use
+[GitHub Discussions](https://github.com/ory/cloud/discussions) or directly
+contact us on the [Ory Slack](https://slack.ory.sh/).
