@@ -28,6 +28,7 @@ This is not an exhaustive list. Want your own content here? Create a PR!
 
 ### Open source software
 
+- [Ory Kratos Rescript React UI SPA implementation](https://github.com/allancalix/kratos-ui) + [Bindings](https://github.com/allancalix/kratos-ui/blob/main/src/Bindings/Kratos.res)
 - [Ory Kratos Sveltekit example](https://github.com/drejohnson/sveltekit-kratos)
 - [Reference Ory Docker Compose Setup ](https://github.com/radekg/ory-reference-compose) +
   [Article](https://gruchalski.com/posts/2021-04-10-ory-reference-docker-compose-and-thoughts-on-the-platform/)
