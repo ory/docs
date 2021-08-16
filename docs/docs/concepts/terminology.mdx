@@ -1,0 +1,59 @@
+---
+id: terminology
+title: Terminology
+---
+
+# Terminology
+
+An overview of terminology used in the Ory Cloud documentation.  
+If you think a term is missing here, please [let us know](https://github.com/ory/docs/issues/new).
+
+## Basics
+
+#### Browser Client: 
+
+User side. A browser client refers to the Web browser in the user's machine or mobile device.
+
+#### API Client: 
+
+User side. A browser client refers to the Web browser in the user's machine or mobile device.
+
+## Flows
+
+#### Registration Flow: 
+
+The path that a user has to take in order to create an identity at your application.
+
+#### Login Flow: 
+
+The path that a user has to take in order to authenticate (i.e. prove they are a certain identity) at your application.
+
+## Ory Cloud specific Terms
+
+#### Ory Cloud Project: 
+
+A single deployment of Ory Cloud. Each project runs their own copy of the Ory services. Learn more about [Ory Cloud Projects](./project.mdx).
+
+#### Ory Cloud Project Settings: 
+
+The configuration for each individual Ory Project Cloud can be changed in the Ory Project Settings.
+
+#### Identity Schema: 
+
+The JSON Schema that defines an identity in an Ory Cloud Project. Learn more about [Identity Schemas](./identity.mdx).
+
+#### Ory Login Session: 
+
+A cookie or token stored in the users Browser or API Client. It represents a successful Login Flow and lets the user access the authenticated identity.
+
+#### Ory Project Slug: 
+
+The generic URL that is generated when a project is created, e.g. `https://suspicious-curran-y23rz7k2t.projects.oryapis.com`.
+
+#### Ory Project Public API: 
+
+The Ory Kratos endpoint for accessing your projects public API, it is composed like so: `https://$ORY_PROJECT_SLUG/api/kratos/public`.
+
+#### Ory Project Admin API: 
+
+The Ory Kratos endpoint for accessing your projects administrative API, it is composed like so: `https://$ORY_PROJECT_SLUG/api/kratos/admin`.

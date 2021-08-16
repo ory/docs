@@ -24,6 +24,7 @@
   {
     "Concepts": [
       "concepts/project",
+      "concepts/terminology",
       "concepts/personal-access-token",
       "concepts/identity",
       "concepts/self-service",
