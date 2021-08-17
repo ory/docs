@@ -4,8 +4,8 @@
   "early-access",
   {
     "Start Building": [
-      "start-building/create-project",
       "start-building",
+      "start-building/create-project",
       "start-building/ory-cli-install-use",
       "start-building/server-side-web-app",
       "start-building/single-page-app-spa",
