@@ -38,7 +38,27 @@ or mobile device.
 End-user side. A browser client refers to the Web browser in the user's machine
 or mobile device.
 
-## Flows
+#### Web App
+
+A web application is a server-side application that renders HTML, often written
+in PHP, Java, Go, ExpressJS, etc... Also called "server-side browser client",
+since most of the application logic is performed on the server-side.
+
+#### SPA
+
+A SPA is a "Single-Page-Application", a web application that dynamically
+rewrites the current web page with new data, often written in React, Angular,
+Next, etc... Also called "client-side browser client", since most of the
+application logic is performed in the end-users browser, so on the client-side.
+
+#### Native App
+
+A native application is built for a specific device platform e.g. iOs, Android,
+Windows, smartTV, etc. Also called "client without browser", since the end-user
+does not use a browser directly, all flows go directly through the native app
+UI.
+
+## Self-Service Flows
 
 #### Registration Flow
 
@@ -49,6 +69,11 @@ application.
 
 The path that a user has to take in order to authenticate (i.e. prove they are a
 certain identity) at your application.
+
+#### Recovery Flow
+
+The path that a user has to take in order to recover access to their account,
+e.g. through a verified email or other means.
 
 ## Ory Cloud specific Terms
 
@@ -87,3 +112,7 @@ like so: `https://$ORY_PROJECT_SLUG/api/kratos/public`.
 
 The Ory Kratos endpoint for accessing your project's administrative API, it is
 composed like so: `https://$ORY_PROJECT_SLUG/api/kratos/admin`.
+
+## Often Used Terminology
+
+The following are terms that are often used in different contexts
