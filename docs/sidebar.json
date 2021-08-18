@@ -29,7 +29,8 @@
       "concepts/identity",
       "concepts/self-service",
       "concepts/session",
-      "ecosystem/api-design"
+      "ecosystem/api-design",
+      "concepts/services-api"
     ]
   },
   "reference/api",
