@@ -75,7 +75,7 @@ like a firewall - in front of your services.
 You might start out with a simple permission system. You've got different roles:
 anonymous users (not logged in), authenticated users (logged in), and
 administrators. At some point however, the system gets more complex. You want to
-distinct permissions based on the user's organization, the access time (think
+distinguish permissions based on the user's organization, the access time (think
 time lock in banking), or the billing plan he/she's on. Big cloud providers such
 as Amazon Web Services or Google solve this using "Access Control Policies".
 These policies represent flexible rules and allow you to express complex access
