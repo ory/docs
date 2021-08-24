@@ -3,7 +3,45 @@ id: redirects
 title: Redirects and Flow Completion
 ---
 
-While we are working on improving the Ory Cloud documentation, please head over
-to our open source documentation for a deep-dive on this topic:
+Ory Cloud offers a few methods to integrate your own user interface (UI) such as utilising the SDK in Single Page Applications
+(ReactJs, Angular, VueJs etc.) or using redirects in Server Side Applications (NodeJs, PHP, Golang etc.).
+
+On this page of the documentation we will be covering Browser Redirects and how to configure it on the Ory Cloud console
+if you are interested in utilising the SDK for Single Page Applications, check out our [SDK](./services-api.mdx) documentation.
+
+For a deeper dive into the background of this setup, head over to our open source documentation:
 
 - https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion
+
+## Redirect Flows
+
+The Ory Cloud has a total of 6 flows, Login, Registration, Verification, Recovery, Settings and Logout which can be configured
+to redirect back to any url you specify. As an example you can redirect the user to your application home screen after a logout
+or to a specific url on a sub-domain for settings. On project creation the redirect flows are all set to the default
+Ory Cloud Managed UI.
+
+### Login and Registration
+
+The Login flow has three fields (all optional):
+1. `Default Redirect Url` domain or path
+2. An `After Password Redirect Url`
+3. An `After OIDC Redirect Url` (**currently not supported**)
+
+When setting the `Default Redirect Url` as a FQDN (fully qualified domain name) such as e.g. https://domain.example/login
+it will overwrite the `Global Redirect Url`. As a path it will replace the `Global Redirect Url` path, e.g. a path such as
+`/login` will alter https://somedomain.example/global/path to https://somedomain.example/login.
+
+On the sub-conditions such as `After Password` or `After OIDC` an FQDN can also be set or a path.
+In the case of a FQDN it will replace the closest relative starting with the Login/Registration `Default Redirect Url`
+and then the `Global Redirect Url`.
+
+### Settings
+
+The Settings flow has three fields (all optional):
+1. `Default Redirect Url` domain or path
+2. An `After Password Redirect Url`
+3. An `After Profile Redirect Url`
+
+### Verification, Recovery and Logout
+
+Each of these flows have only a single field, the `Default Redirect Url`.
