@@ -20,7 +20,10 @@
             "type": "object"
           }
         },
-        "required": ["traits", "state"],
+        "required": [
+          "traits",
+          "state"
+        ],
         "type": "object"
       },
       "AuthenticateOKBody": {
@@ -35,7 +38,10 @@
             "type": "string"
           }
         },
-        "required": ["IdentityToken", "Status"],
+        "required": [
+          "IdentityToken",
+          "Status"
+        ],
         "type": "object"
       },
       "ContainerChangeResponseItem": {
@@ -51,7 +57,10 @@
             "type": "string"
           }
         },
-        "required": ["Kind", "Path"],
+        "required": [
+          "Kind",
+          "Path"
+        ],
         "type": "object"
       },
       "ContainerCreateCreatedBody": {
@@ -69,7 +78,10 @@
             "type": "array"
           }
         },
-        "required": ["Id", "Warnings"],
+        "required": [
+          "Id",
+          "Warnings"
+        ],
         "type": "object"
       },
       "ContainerTopOKBody": {
@@ -93,7 +105,10 @@
             "type": "array"
           }
         },
-        "required": ["Processes", "Titles"],
+        "required": [
+          "Processes",
+          "Titles"
+        ],
         "type": "object"
       },
       "ContainerUpdateOKBody": {
@@ -107,7 +122,9 @@
             "type": "array"
           }
         },
-        "required": ["Warnings"],
+        "required": [
+          "Warnings"
+        ],
         "type": "object"
       },
       "ContainerWaitOKBody": {
@@ -122,7 +139,10 @@
             "type": "integer"
           }
         },
-        "required": ["Error", "StatusCode"],
+        "required": [
+          "Error",
+          "StatusCode"
+        ],
         "type": "object"
       },
       "ContainerWaitOKBodyError": {
@@ -135,11 +155,6 @@
         },
         "type": "object"
       },
-      "CredentialsType": {
-        "description": "and so on.",
-        "title": "CredentialsType  represents several different credential types, like password credentials, passwordless credentials,",
-        "type": "string"
-      },
       "ErrorResponse": {
         "properties": {
           "message": {
@@ -147,7 +162,9 @@
             "type": "string"
           }
         },
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "title": "ErrorResponse Represents an error.",
         "type": "object"
       },
@@ -165,7 +182,10 @@
             "type": "string"
           }
         },
-        "required": ["Data", "Name"],
+        "required": [
+          "Data",
+          "Name"
+        ],
         "title": "GraphDriverData Information about a container's graph driver.",
         "type": "object"
       },
@@ -181,7 +201,9 @@
             "type": "string"
           }
         },
-        "required": ["Id"],
+        "required": [
+          "Id"
+        ],
         "type": "object"
       },
       "ImageDeleteResponseItem": {
@@ -310,7 +332,12 @@
             "$ref": "#/components/schemas/PluginSettings"
           }
         },
-        "required": ["Config", "Enabled", "Name", "Settings"],
+        "required": [
+          "Config",
+          "Enabled",
+          "Name",
+          "Settings"
+        ],
         "type": "object"
       },
       "PluginConfig": {
@@ -427,7 +454,12 @@
             "type": "array"
           }
         },
-        "required": ["Description", "Name", "Settable", "Value"],
+        "required": [
+          "Description",
+          "Name",
+          "Settable",
+          "Value"
+        ],
         "type": "object"
       },
       "PluginConfigInterface": {
@@ -445,7 +477,10 @@
             "type": "array"
           }
         },
-        "required": ["Socket", "Types"],
+        "required": [
+          "Socket",
+          "Types"
+        ],
         "type": "object"
       },
       "PluginConfigLinux": {
@@ -470,7 +505,11 @@
             "type": "array"
           }
         },
-        "required": ["AllowAllDevices", "Capabilities", "Devices"],
+        "required": [
+          "AllowAllDevices",
+          "Capabilities",
+          "Devices"
+        ],
         "type": "object"
       },
       "PluginConfigNetwork": {
@@ -481,7 +520,9 @@
             "type": "string"
           }
         },
-        "required": ["Type"],
+        "required": [
+          "Type"
+        ],
         "type": "object"
       },
       "PluginConfigRootfs": {
@@ -540,7 +581,12 @@
             "type": "array"
           }
         },
-        "required": ["Description", "Name", "Path", "Settable"],
+        "required": [
+          "Description",
+          "Name",
+          "Path",
+          "Settable"
+        ],
         "type": "object"
       },
       "PluginEnv": {
@@ -566,7 +612,12 @@
             "type": "string"
           }
         },
-        "required": ["Description", "Name", "Settable", "Value"],
+        "required": [
+          "Description",
+          "Name",
+          "Settable",
+          "Value"
+        ],
         "type": "object"
       },
       "PluginInterfaceType": {
@@ -585,7 +636,11 @@
             "type": "string"
           }
         },
-        "required": ["Capability", "Prefix", "Version"],
+        "required": [
+          "Capability",
+          "Prefix",
+          "Version"
+        ],
         "type": "object"
       },
       "PluginMount": {
@@ -668,7 +723,12 @@
             "type": "array"
           }
         },
-        "required": ["Args", "Devices", "Env", "Mounts"],
+        "required": [
+          "Args",
+          "Devices",
+          "Env",
+          "Mounts"
+        ],
         "title": "PluginSettings Settings that can be modified by users.",
         "type": "object"
       },
@@ -694,7 +754,10 @@
             "type": "string"
           }
         },
-        "required": ["PrivatePort", "Type"],
+        "required": [
+          "PrivatePort",
+          "Type"
+        ],
         "type": "object"
       },
       "RecoveryAddress": {
@@ -719,7 +782,11 @@
             "$ref": "#/components/schemas/RecoveryAddressType"
           }
         },
-        "required": ["id", "value", "via"],
+        "required": [
+          "id",
+          "value",
+          "via"
+        ],
         "type": "object"
       },
       "RecoveryAddressType": {
@@ -812,7 +879,10 @@
             "type": "integer"
           }
         },
-        "required": ["RefCount", "Size"],
+        "required": [
+          "RefCount",
+          "Size"
+        ],
         "type": "object"
       },
       "adminCreateIdentityBody": {
@@ -826,7 +896,10 @@
             "type": "object"
           }
         },
-        "required": ["schema_id", "traits"],
+        "required": [
+          "schema_id",
+          "traits"
+        ],
         "type": "object"
       },
       "adminCreateSelfServiceRecoveryLinkBody": {
@@ -840,8 +913,21 @@
             "$ref": "#/components/schemas/UUID"
           }
         },
-        "required": ["identity_id"],
+        "required": [
+          "identity_id"
+        ],
         "type": "object"
+      },
+      "authenticatorAssuranceLevel": {
+        "description": "The authenticator assurance level can be one of \"aal1\", \"aal2\", or \"aal3\". A higher number means that it is harder\nfor an attacker to compromise the account.\n\nGenerally, \"aal1\" implies that one authentication factor was used while AAL2 implies that two factors (e.g.\npassword + TOTP) have been used.\n\nTo learn more about these levels please head over to: https://www.ory.sh/kratos/docs/concepts/credentials",
+        "enum": [
+          "aal0",
+          "aal1",
+          "aal2",
+          "aal3"
+        ],
+        "title": "Authenticator Assurance Level (AAL)",
+        "type": "string"
       },
       "genericError": {
         "properties": {
@@ -882,7 +968,9 @@
             "type": "string"
           }
         },
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "type": "object"
       },
       "healthNotReadyStatus": {
@@ -963,7 +1051,12 @@
             "x-omitempty": true
           }
         },
-        "required": ["id", "schema_id", "schema_url", "traits"],
+        "required": [
+          "id",
+          "schema_id",
+          "schema_url",
+          "traits"
+        ],
         "title": "Identity represents an Ory Kratos identity",
         "type": "object"
       },
@@ -986,7 +1079,7 @@
             "type": "array"
           },
           "type": {
-            "$ref": "#/components/schemas/CredentialsType"
+            "$ref": "#/components/schemas/identityCredentialsType"
           },
           "updated_at": {
             "description": "UpdatedAt is a helper struct field for gobuffalo.pop.",
@@ -995,6 +1088,16 @@
           }
         },
         "type": "object"
+      },
+      "identityCredentialsType": {
+        "description": "and so on.",
+        "enum": [
+          "password",
+          "totp",
+          "oidc"
+        ],
+        "title": "CredentialsType  represents several different credential types, like password credentials, passwordless credentials,",
+        "type": "string"
       },
       "identityList": {
         "items": {
@@ -1005,7 +1108,10 @@
       },
       "identityState": {
         "description": "The state can either be `active` or `inactive`.",
-        "enum": ["active", "inactive"],
+        "enum": [
+          "active",
+          "inactive"
+        ],
         "title": "An Identity's State",
         "type": "string"
       },
@@ -1027,7 +1133,9 @@
             "$ref": "#/components/schemas/genericError"
           }
         },
-        "required": ["error"],
+        "required": [
+          "error"
+        ],
         "title": "JSON API Error Response",
         "type": "object"
       },
@@ -1063,7 +1171,9 @@
             "type": "string"
           }
         },
-        "required": ["id"],
+        "required": [
+          "id"
+        ],
         "type": "object"
       },
       "selfServiceFlowType": {
@@ -1075,7 +1185,7 @@
         "description": "This object represents a login flow. A login flow is initiated at the \"Initiate Login API / Browser Flow\"\nendpoint by a client.\n\nOnce a login flow is completed successfully, a session cookie or session token will be issued.",
         "properties": {
           "active": {
-            "$ref": "#/components/schemas/CredentialsType"
+            "$ref": "#/components/schemas/identityCredentialsType"
           },
           "created_at": {
             "description": "CreatedAt is a helper struct field for gobuffalo.pop.",
@@ -1088,7 +1198,7 @@
             "type": "string"
           },
           "forced": {
-            "description": "Forced stores whether this login flow should enforce re-authentication.",
+            "description": "Refresh stores whether this login flow should enforce re-authentication.",
             "type": "boolean"
           },
           "id": {
@@ -1102,6 +1212,9 @@
           "request_url": {
             "description": "RequestURL is the initial URL that was requested from Ory Kratos. It can be used\nto forward information contained in the URL's path or query for example.",
             "type": "string"
+          },
+          "requested_aal": {
+            "$ref": "#/components/schemas/authenticatorAssuranceLevel"
           },
           "type": {
             "$ref": "#/components/schemas/selfServiceFlowType"
@@ -1182,7 +1295,11 @@
       },
       "selfServiceRecoveryFlowState": {
         "description": "The state represents the state of the recovery flow.\n\nchoose_method: ask the user to choose a method (e.g. recover account via email)\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the recovery challenge was passed.",
-        "enum": ["choose_method", "sent_email", "passed_challenge"],
+        "enum": [
+          "choose_method",
+          "sent_email",
+          "passed_challenge"
+        ],
         "title": "Recovery Flow State",
         "type": "string"
       },
@@ -1198,13 +1315,15 @@
             "type": "string"
           }
         },
-        "required": ["recovery_link"],
+        "required": [
+          "recovery_link"
+        ],
         "type": "object"
       },
       "selfServiceRegistrationFlow": {
         "properties": {
           "active": {
-            "$ref": "#/components/schemas/CredentialsType"
+            "$ref": "#/components/schemas/identityCredentialsType"
           },
           "expires_at": {
             "description": "ExpiresAt is the time (UTC) when the flow expires. If the user still wishes to log in,\na new flow has to be initiated.",
@@ -1230,7 +1349,13 @@
             "$ref": "#/components/schemas/uiContainer"
           }
         },
-        "required": ["id", "expires_at", "issued_at", "request_url", "ui"],
+        "required": [
+          "id",
+          "expires_at",
+          "issued_at",
+          "request_url",
+          "ui"
+        ],
         "type": "object"
       },
       "selfServiceSettingsFlow": {
@@ -1284,7 +1409,10 @@
       },
       "selfServiceSettingsFlowState": {
         "description": "show_form: No user data has been collected, or it is invalid, and thus the form should be shown.\nsuccess: Indicates that the settings flow has been updated successfully with the provided data.\nDone will stay true when repeatedly checking. If set to true, done will revert back to false only\nwhen a flow with invalid (e.g. \"please use a valid phone number\") data was sent.",
-        "enum": ["show_form", "success"],
+        "enum": [
+          "show_form",
+          "success"
+        ],
         "title": "State represents the state of this flow. It knows two states:",
         "type": "string"
       },
@@ -1322,13 +1450,22 @@
             "$ref": "#/components/schemas/uiContainer"
           }
         },
-        "required": ["id", "type", "ui", "state"],
+        "required": [
+          "id",
+          "type",
+          "ui",
+          "state"
+        ],
         "title": "A Verification Flow",
         "type": "object"
       },
       "selfServiceVerificationFlowState": {
         "description": "The state represents the state of the verification flow.\n\nchoose_method: ask the user to choose a method (e.g. recover account via email)\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the recovery challenge was passed.",
-        "enum": ["choose_method", "sent_email", "passed_challenge"],
+        "enum": [
+          "choose_method",
+          "sent_email",
+          "passed_challenge"
+        ],
         "title": "Verification Flow State",
         "type": "string"
       },
@@ -1336,13 +1473,19 @@
         "description": "A Session",
         "properties": {
           "active": {
-            "description": "Whether or not the session is active.",
+            "description": "Active state. If false the session is no longer active.",
             "type": "boolean"
           },
           "authenticated_at": {
-            "description": "The Session Authentication Timestamp\n\nWhen this session was authenticated at.",
+            "description": "The Session Authentication Timestamp\n\nWhen this session was authenticated at. If multi-factor authentication was used this\nis the time when the last factor was authenticated (e.g. the TOTP code challenge was completed).",
             "format": "date-time",
             "type": "string"
+          },
+          "authentication_methods": {
+            "$ref": "#/components/schemas/sessionAuthenticationMethods"
+          },
+          "authenticator_assurance_level": {
+            "$ref": "#/components/schemas/authenticatorAssuranceLevel"
           },
           "expires_at": {
             "description": "The Session Expiry\n\nWhen this session expires at.",
@@ -1356,12 +1499,54 @@
             "$ref": "#/components/schemas/identity"
           },
           "issued_at": {
-            "description": "The Session Issuance Timestamp\n\nWhen this session was authenticated at.",
+            "description": "The Session Issuance Timestamp\n\nWhen this session was issued at. Usually equal or close to `authenticated_at`.",
             "format": "date-time",
             "type": "string"
           }
         },
-        "required": ["id", "identity"],
+        "required": [
+          "id",
+          "identity"
+        ],
+        "type": "object"
+      },
+      "sessionAuthenticationMethod": {
+        "description": "A singular authenticator used during authentication / login.",
+        "properties": {
+          "completed_at": {
+            "description": "When the authentication challenge was completed.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "method": {
+            "enum": [
+              "link_recovery",
+              "password",
+              "totp",
+              "oidc"
+            ],
+            "title": "The method used",
+            "type": "string"
+          }
+        },
+        "title": "AuthenticationMethod identifies an authentication method",
+        "type": "object"
+      },
+      "sessionAuthenticationMethods": {
+        "description": "A list of authenticators which were used to authenticate the session.",
+        "items": {
+          "$ref": "#/components/schemas/sessionAuthenticationMethod"
+        },
+        "title": "List of (Used) AuthenticationMethods",
+        "type": "array"
+      },
+      "sessionDevice": {
+        "properties": {
+          "user_agent": {
+            "description": "UserAgent of this device",
+            "type": "string"
+          }
+        },
         "type": "object"
       },
       "settingsProfileFormConfig": {
@@ -1381,22 +1566,55 @@
             "$ref": "#/components/schemas/uiNodes"
           }
         },
-        "required": ["action", "method", "nodes"],
+        "required": [
+          "action",
+          "method",
+          "nodes"
+        ],
         "type": "object"
       },
       "submitSelfServiceLoginFlowBody": {
         "discriminator": {
           "mapping": {
             "oidc": "#/components/schemas/submitSelfServiceLoginFlowWithOidcMethodBody",
-            "password": "#/components/schemas/submitSelfServiceLoginFlowWithPasswordMethodBody"
+            "password": "#/components/schemas/submitSelfServiceLoginFlowWithPasswordMethodBody",
+            "totp": "#/components/schemas/submitSelfServiceLoginFlowWithTotpMethodBody"
           },
           "propertyName": "method"
         },
         "oneOf": [
           {
             "$ref": "#/components/schemas/submitSelfServiceLoginFlowWithPasswordMethodBody"
+          },
+          {
+            "$ref": "#/components/schemas/submitSelfServiceLoginFlowWithOidcMethodBody"
+          },
+          {
+            "$ref": "#/components/schemas/submitSelfServiceLoginFlowWithTotpMethodBody"
           }
         ]
+      },
+      "submitSelfServiceLoginFlowWithLookupSecretMethodBody": {
+        "properties": {
+          "csrf_token": {
+            "description": "Sending the anti-csrf token is only required for browser login flows.",
+            "type": "string"
+          },
+          "lookup_secret": {
+            "description": "The lookup secret.",
+            "type": "string"
+          },
+          "method": {
+            "description": "Method should be set to \"lookup_secret\" when logging in using the lookup_secret strategy.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "method",
+          "lookup_secret"
+        ],
+        "title": "submitSelfServiceLoginFlowWithLookupSecretMethodBody is used to decode the login form payload.",
+        "type": "object"
       },
       "submitSelfServiceLoginFlowWithOidcMethodBody": {
         "description": "SubmitSelfServiceLoginFlowWithOidcMethodBody is used to decode the login form payload\nwhen using the oidc method.",
@@ -1414,7 +1632,10 @@
             "type": "string"
           }
         },
-        "required": ["traits", "method"],
+        "required": [
+          "traits",
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceLoginFlowWithPasswordMethodBody": {
@@ -1425,7 +1646,11 @@
           },
           "method": {
             "description": "Method should be set to \"password\" when logging in using the identifier and password strategy.",
-            "enum": ["password", "oidc"],
+            "enum": [
+              "password",
+              "oidc",
+              "totp"
+            ],
             "type": "string"
           },
           "password": {
@@ -1437,8 +1662,55 @@
             "type": "string"
           }
         },
-        "required": ["method", "password", "password_identifier"],
+        "required": [
+          "method",
+          "password",
+          "password_identifier"
+        ],
         "title": "submitSelfServiceLoginFlowWithPasswordMethodBody is used to decode the login form payload.",
+        "type": "object"
+      },
+      "submitSelfServiceLoginFlowWithTotpMethodBody": {
+        "properties": {
+          "csrf_token": {
+            "description": "Sending the anti-csrf token is only required for browser login flows.",
+            "type": "string"
+          },
+          "method": {
+            "description": "Method should be set to \"totp\" when logging in using the TOTP strategy.",
+            "type": "string"
+          },
+          "totp_code": {
+            "description": "The TOTP code.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "method",
+          "totp_code"
+        ],
+        "title": "submitSelfServiceLoginFlowWithTotpMethodBody is used to decode the login form payload.",
+        "type": "object"
+      },
+      "submitSelfServiceLoginFlowWithWebAuthnMethodBody": {
+        "properties": {
+          "csrf_token": {
+            "description": "Sending the anti-csrf token is only required for browser login flows.",
+            "type": "string"
+          },
+          "method": {
+            "description": "Method should be set to \"webAuthn\" when logging in using the WebAuthn strategy.",
+            "type": "string"
+          },
+          "webauthn_login": {
+            "description": "Login a WebAuthn Security Key\n\nThis must contain the ID of the WebAuthN connection.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "method"
+        ],
+        "title": "submitSelfServiceLoginFlowWithWebAuthnMethodBody is used to decode the login form payload.",
         "type": "object"
       },
       "submitSelfServiceLogoutFlowWithoutBrowserBody": {
@@ -1449,7 +1721,9 @@
             "type": "string"
           }
         },
-        "required": ["session_token"],
+        "required": [
+          "session_token"
+        ],
         "type": "object"
       },
       "submitSelfServiceRecoveryFlowBody": {
@@ -1477,11 +1751,16 @@
           },
           "method": {
             "description": "Method supports `link` only right now.",
-            "enum": ["link"],
+            "enum": [
+              "link"
+            ],
             "type": "string"
           }
         },
-        "required": ["email", "method"],
+        "required": [
+          "email",
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceRegistrationFlowBody": {
@@ -1514,7 +1793,10 @@
             "type": "string"
           }
         },
-        "required": ["traits", "method"],
+        "required": [
+          "traits",
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceRegistrationFlowWithPasswordMethodBody": {
@@ -1526,7 +1808,10 @@
           },
           "method": {
             "description": "Method to use\n\nThis field must be set to `password` when using the password method.",
-            "enum": ["password", "oidc"],
+            "enum": [
+              "password",
+              "oidc"
+            ],
             "type": "string"
           },
           "password": {
@@ -1538,7 +1823,11 @@
             "type": "object"
           }
         },
-        "required": ["password", "traits", "method"],
+        "required": [
+          "password",
+          "traits",
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowBody": {
@@ -1546,7 +1835,8 @@
           "mapping": {
             "oidc": "#/components/schemas/submitSelfServiceSettingsFlowWithOidcMethodBody",
             "password": "#/components/schemas/submitSelfServiceSettingsFlowWithPasswordMethodBody",
-            "profile": "#/components/schemas/submitSelfServiceSettingsFlowWithProfileMethodBody"
+            "profile": "#/components/schemas/submitSelfServiceSettingsFlowWithProfileMethodBody",
+            "totp": "#/components/schemas/submitSelfServiceSettingsFlowWithTotpMethodBody"
           },
           "propertyName": "method"
         },
@@ -1556,8 +1846,42 @@
           },
           {
             "$ref": "#/components/schemas/submitSelfServiceSettingsFlowWithProfileMethodBody"
+          },
+          {
+            "$ref": "#/components/schemas/submitSelfServiceSettingsFlowWithOidcMethodBody"
+          },
+          {
+            "$ref": "#/components/schemas/submitSelfServiceSettingsFlowWithTotpMethodBody"
           }
         ]
+      },
+      "submitSelfServiceSettingsFlowWithLookupMethodBody": {
+        "properties": {
+          "csrf_token": {
+            "description": "CSRFToken is the anti-CSRF token",
+            "type": "string"
+          },
+          "lookup_secret_confirm": {
+            "description": "If set to true will save the regenerated lookup secrets",
+            "type": "boolean"
+          },
+          "lookup_secret_regenerate": {
+            "description": "If set to true will regenerate the lookup secrets",
+            "type": "boolean"
+          },
+          "lookup_secret_reveal": {
+            "description": "If set to true will reveal the lookup secrets",
+            "type": "boolean"
+          },
+          "method": {
+            "description": "Method\n\nShould be set to \"lookup\" when trying to add, update, or remove a lookup pairing.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "method"
+        ],
+        "type": "object"
       },
       "submitSelfServiceSettingsFlowWithOidcMethodBody": {
         "description": "nolint:deadcode,unused",
@@ -1579,7 +1903,9 @@
             "type": "string"
           }
         },
-        "required": ["method"],
+        "required": [
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowWithPasswordMethodBody": {
@@ -1590,7 +1916,12 @@
           },
           "method": {
             "description": "Method\n\nShould be set to password when trying to update a password.",
-            "enum": ["password", "profile", "oidc"],
+            "enum": [
+              "password",
+              "profile",
+              "oidc",
+              "totp"
+            ],
             "type": "string"
           },
           "password": {
@@ -1598,7 +1929,10 @@
             "type": "string"
           }
         },
-        "required": ["password", "method"],
+        "required": [
+          "password",
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowWithProfileMethodBody": {
@@ -1617,7 +1951,62 @@
             "type": "object"
           }
         },
-        "required": ["traits", "method"],
+        "required": [
+          "traits",
+          "method"
+        ],
+        "type": "object"
+      },
+      "submitSelfServiceSettingsFlowWithTotpMethodBody": {
+        "properties": {
+          "csrf_token": {
+            "description": "CSRFToken is the anti-CSRF token",
+            "type": "string"
+          },
+          "method": {
+            "description": "Method\n\nShould be set to \"totp\" when trying to add, update, or remove a totp pairing.",
+            "type": "string"
+          },
+          "totp_code": {
+            "description": "ValidationTOTP must contain a valid TOTP based on the",
+            "type": "string"
+          },
+          "totp_unlink": {
+            "description": "UnlinkTOTP if true will remove the TOTP pairing,\neffectively removing the credential. This can be used\nto set up a new TOTP device.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "method"
+        ],
+        "type": "object"
+      },
+      "submitSelfServiceSettingsFlowWithWebAuthnMethodBody": {
+        "properties": {
+          "csrf_token": {
+            "description": "CSRFToken is the anti-CSRF token",
+            "type": "string"
+          },
+          "method": {
+            "description": "Method\n\nShould be set to \"webauthn\" when trying to add, update, or remove a webAuthn pairing.",
+            "type": "string"
+          },
+          "webauthn_register": {
+            "description": "Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.",
+            "type": "string"
+          },
+          "webauthn_register_displayname": {
+            "description": "Name of the WebAuthn Security Key to be Added\n\nA human-readable name for the security key which will be added.",
+            "type": "string"
+          },
+          "webauthn_remove": {
+            "description": "Remove a WebAuthn Security Key\n\nThis must contain the ID of the WebAuthN connection.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceVerificationFlowBody": {
@@ -1646,11 +2035,16 @@
           },
           "method": {
             "description": "Method supports `link` only right now.",
-            "enum": ["link"],
+            "enum": [
+              "link"
+            ],
             "type": "string"
           }
         },
-        "required": ["email", "method"],
+        "required": [
+          "email",
+          "method"
+        ],
         "type": "object"
       },
       "successfulSelfServiceLoginWithoutBrowser": {
@@ -1664,7 +2058,9 @@
             "type": "string"
           }
         },
-        "required": ["session"],
+        "required": [
+          "session"
+        ],
         "type": "object"
       },
       "successfulSelfServiceRegistrationWithoutBrowser": {
@@ -1681,20 +2077,9 @@
             "type": "string"
           }
         },
-        "required": ["identity"],
-        "type": "object"
-      },
-      "successfulSelfServiceSettingsWithoutBrowser": {
-        "description": "The Response for Settings Flows via API",
-        "properties": {
-          "flow": {
-            "$ref": "#/components/schemas/selfServiceSettingsFlow"
-          },
-          "identity": {
-            "$ref": "#/components/schemas/identity"
-          }
-        },
-        "required": ["flow", "identity"],
+        "required": [
+          "identity"
+        ],
         "type": "object"
       },
       "uiContainer": {
@@ -1715,7 +2100,11 @@
             "$ref": "#/components/schemas/uiNodes"
           }
         },
-        "required": ["action", "method", "nodes"],
+        "required": [
+          "action",
+          "method",
+          "nodes"
+        ],
         "type": "object"
       },
       "uiNode": {
@@ -1737,7 +2126,13 @@
             "$ref": "#/components/schemas/uiNodeType"
           }
         },
-        "required": ["type", "group", "attributes", "messages", "meta"],
+        "required": [
+          "type",
+          "group",
+          "attributes",
+          "messages",
+          "meta"
+        ],
         "title": "Node represents a flow's nodes",
         "type": "object"
       },
@@ -1747,11 +2142,19 @@
             "description": "The link's href (destination) URL.\n\nformat: uri",
             "type": "string"
           },
+          "id": {
+            "description": "A unique identifier",
+            "type": "string"
+          },
           "title": {
             "$ref": "#/components/schemas/uiText"
           }
         },
-        "required": ["href", "title"],
+        "required": [
+          "href",
+          "title",
+          "id"
+        ],
         "title": "AnchorAttributes represents the attributes of an anchor node.",
         "type": "object"
       },
@@ -1777,12 +2180,29 @@
       },
       "uiNodeImageAttributes": {
         "properties": {
+          "height": {
+            "description": "Height of the image",
+            "format": "int64",
+            "type": "integer"
+          },
+          "id": {
+            "description": "A unique identifier",
+            "type": "string"
+          },
           "src": {
             "description": "The image's source URL.\n\nformat: uri",
             "type": "string"
+          },
+          "width": {
+            "description": "Width of the image",
+            "format": "int64",
+            "type": "integer"
           }
         },
-        "required": ["src"],
+        "required": [
+          "src",
+          "id"
+        ],
         "title": "ImageAttributes represents the attributes of an image node.",
         "type": "object"
       },
@@ -1803,6 +2223,10 @@
             "description": "The input's element name.",
             "type": "string"
           },
+          "onclick": {
+            "description": "OnClick may contain javascript which should be executed on click. This is primarily\nused for WebAuthn.",
+            "type": "string"
+          },
           "pattern": {
             "description": "The input's pattern.",
             "type": "string"
@@ -1819,16 +2243,27 @@
             "nullable": true
           }
         },
-        "required": ["name", "type", "disabled"],
+        "required": [
+          "name",
+          "type",
+          "disabled"
+        ],
         "type": "object"
       },
       "uiNodeTextAttributes": {
         "properties": {
+          "id": {
+            "description": "A unique identifier",
+            "type": "string"
+          },
           "text": {
             "$ref": "#/components/schemas/uiText"
           }
         },
-        "required": ["text"],
+        "required": [
+          "text",
+          "id"
+        ],
         "title": "TextAttributes represents the attributes of a text node.",
         "type": "object"
       },
@@ -1858,7 +2293,11 @@
             "$ref": "#/components/schemas/uiTextType"
           }
         },
-        "required": ["id", "text", "type"],
+        "required": [
+          "id",
+          "text",
+          "type"
+        ],
         "type": "object"
       },
       "uiTextType": {
@@ -1907,7 +2346,13 @@
             "$ref": "#/components/schemas/identityVerifiableAddressType"
           }
         },
-        "required": ["id", "value", "verified", "via", "status"],
+        "required": [
+          "id",
+          "value",
+          "verified",
+          "via",
+          "status"
+        ],
         "type": "object"
       },
       "version": {
@@ -1959,7 +2404,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["status"],
+                  "required": [
+                    "status"
+                  ],
                   "type": "object"
                 }
               }
@@ -1978,7 +2425,9 @@
           }
         },
         "summary": "Check HTTP Server Status",
-        "tags": ["metadata"]
+        "tags": [
+          "metadata"
+        ]
       }
     },
     "/api/kratos/public/health/ready": {
@@ -1996,7 +2445,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["status"],
+                  "required": [
+                    "status"
+                  ],
                   "type": "object"
                 }
               }
@@ -2016,7 +2467,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["errors"],
+                  "required": [
+                    "errors"
+                  ],
                   "type": "object"
                 }
               }
@@ -2025,7 +2478,9 @@
           }
         },
         "summary": "Check HTTP Server and Database Status",
-        "tags": ["metadata"]
+        "tags": [
+          "metadata"
+        ]
       }
     },
     "/api/kratos/admin/identities": {
@@ -2085,7 +2540,9 @@
           }
         ],
         "summary": "List Identities",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       },
       "post": {
         "description": "This endpoint creates an identity. It is NOT possible to set an identity's credentials (password, ...)\nusing this method! A way to achieve that will be introduced in the future.\n\nLearn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
@@ -2148,7 +2605,9 @@
           }
         ],
         "summary": "Create an Identity",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/admin/identities/{id}": {
@@ -2197,7 +2656,9 @@
           }
         ],
         "summary": "Delete an Identity",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       },
       "get": {
         "description": "Learn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
@@ -2251,7 +2712,9 @@
           }
         ],
         "summary": "Get an Identity",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       },
       "put": {
         "description": "This endpoint updates an identity. It is NOT possible to set an identity's credentials (password, ...)\nusing this method! A way to achieve that will be introduced in the future.\n\nThe full identity payload (except credentials) is expected. This endpoint does not support patching.\n\nLearn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
@@ -2335,7 +2798,9 @@
           }
         ],
         "summary": "Update an Identity",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/metrics/prometheus": {
@@ -2348,7 +2813,9 @@
           }
         },
         "summary": "Get snapshot metrics from the service. If you're using k8s, you can then add annotations to\nyour deployment like so:",
-        "tags": ["metadata"]
+        "tags": [
+          "metadata"
+        ]
       }
     },
     "/api/kratos/admin/recovery/link": {
@@ -2408,7 +2875,9 @@
           }
         },
         "summary": "Create a Recovery Link",
-        "tags": ["v0alpha1"],
+        "tags": [
+          "v0alpha2"
+        ],
         "security": [
           {
             "oryAccessToken": []
@@ -2463,7 +2932,9 @@
             "description": "jsonError"
           }
         },
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/errors": {
@@ -2524,7 +2995,9 @@
           }
         },
         "summary": "Get Self-Service Errors",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/login": {
@@ -2537,6 +3010,14 @@
             "in": "query",
             "name": "flow",
             "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "The Session Token of the Identity performing the settings flow.",
+            "in": "header",
+            "name": "X-Session-Token",
             "schema": {
               "type": "string"
             }
@@ -2593,7 +3074,9 @@
           }
         },
         "summary": "Submit a Login Flow",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/login/api": {
@@ -2607,6 +3090,22 @@
             "name": "refresh",
             "schema": {
               "type": "boolean"
+            }
+          },
+          {
+            "description": "Request a Specific AuthenticationMethod Assurance Level\n\nUse this parameter to upgrade an existing session's authenticator assurance level (AAL). This\nallows you to ask for multi-factor authentication. When an identity sign in using e.g. username+password,\nthe AAL is 1. If you wish to \"upgrade\" the session's security by asking the user to perform TOTP / WebAuth/ ...\nyou would set this to \"aal2\".",
+            "in": "query",
+            "name": "aal",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "The Session Token of the Identity performing the settings flow.",
+            "in": "header",
+            "name": "X-Session-Token",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -2643,7 +3142,9 @@
           }
         },
         "summary": "Initialize Login Flow for APIs, Services, Apps, ...",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/login/browser": {
@@ -2657,6 +3158,22 @@
             "name": "refresh",
             "schema": {
               "type": "boolean"
+            }
+          },
+          {
+            "description": "Request a Specific AuthenticationMethod Assurance Level\n\nUse this parameter to upgrade an existing session's authenticator assurance level (AAL). This\nallows you to ask for multi-factor authentication. When an identity sign in using e.g. username+password,\nthe AAL is 1. If you wish to \"upgrade\" the session's security by asking the user to perform TOTP / WebAuth/ ...\nyou would set this to \"aal2\".",
+            "in": "query",
+            "name": "aal",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "The Session Token of the Identity performing the settings flow.",
+            "in": "header",
+            "name": "X-Session-Token",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -2686,7 +3203,9 @@
           }
         },
         "summary": "Initialize Login Flow for Browsers",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/login/flows": {
@@ -2765,7 +3284,9 @@
           }
         },
         "summary": "Get Login Flow",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/logout": {
@@ -2801,7 +3322,9 @@
           }
         },
         "summary": "Complete Self-Service Logout",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/logout/api": {
@@ -2845,7 +3368,9 @@
           }
         },
         "summary": "Perform Logout for APIs, Services, Apps, ...",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/logout/browser": {
@@ -2895,7 +3420,9 @@
           }
         },
         "summary": "Create a Logout URL for Browsers",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/recovery": {
@@ -2972,7 +3499,9 @@
           }
         },
         "summary": "Complete Recovery Flow",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/recovery/api": {
@@ -3012,7 +3541,9 @@
           }
         },
         "summary": "Initialize Recovery Flow for APIs, Services, Apps, ...",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/recovery/browser": {
@@ -3055,7 +3586,9 @@
           }
         },
         "summary": "Initialize Recovery Flow for Browsers",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/recovery/flows": {
@@ -3124,7 +3657,9 @@
           }
         },
         "summary": "Get Recovery Flow",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/registration": {
@@ -3193,7 +3728,9 @@
           }
         },
         "summary": "Submit a Registration Flow",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/registration/api": {
@@ -3233,7 +3770,9 @@
           }
         },
         "summary": "Initialize Registration Flow for APIs, Services, Apps, ...",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/registration/browser": {
@@ -3266,7 +3805,9 @@
           }
         },
         "summary": "Initialize Registration Flow for Browsers",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/registration/flows": {
@@ -3345,12 +3886,14 @@
           }
         },
         "summary": "Get Registration Flow",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/settings": {
       "post": {
-        "description": "Use this endpoint to complete a settings flow by sending an identity's updated password. This endpoint\nbehaves differently for API and browser flows.\n\nAPI-initiated flows expect `application/json` to be sent in the body and respond with\nHTTP 200 and an application/json body with the session token on success;\nHTTP 302 redirect to a fresh settings flow if the original flow expired with the appropriate error messages set;\nHTTP 400 on form validation errors.\nHTTP 401 when the endpoint is called without a valid session token.\nHTTP 403 when `selfservice.flows.settings.privileged_session_max_age` was reached.\nImplies that the user needs to re-authenticate.\n\nBrowser flows without HTTP Header `Accept` or with `Accept: text/*` respond with\na HTTP 302 redirect to the post/after settings URL or the `return_to` value if it was set and if the flow succeeded;\na HTTP 302 redirect to the Settings UI URL with the flow ID containing the validation errors otherwise.\na HTTP 302 redirect to the login endpoint when `selfservice.flows.settings.privileged_session_max_age` was reached.\n\nBrowser flows with HTTP Header `Accept: application/json` respond with\nHTTP 200 and a application/json body with the signed in identity and a `Set-Cookie` header on success;\nHTTP 302 redirect to a fresh login flow if the original flow expired with the appropriate error messages set;\nHTTP 403 when the page is accessed without a session cookie.\nHTTP 400 on form validation errors.\n\nMore information can be found at [Ory Kratos User Settings \u0026 Profile Management Documentation](../self-service/flows/user-settings).",
+        "description": "Use this endpoint to complete a settings flow by sending an identity's updated password. This endpoint\nbehaves differently for API and browser flows.\n\nAPI-initiated flows expect `application/json` to be sent in the body and respond with\nHTTP 200 and an application/json body with the session token on success;\nHTTP 302 redirect to a fresh settings flow if the original flow expired with the appropriate error messages set;\nHTTP 400 on form validation errors.\nHTTP 401 when the endpoint is called without a valid session token.\nHTTP 403 when `selfservice.flows.settings.privileged_session_max_age` was reached or the session's AAL is too low.\nImplies that the user needs to re-authenticate.\n\nBrowser flows without HTTP Header `Accept` or with `Accept: text/*` respond with\na HTTP 302 redirect to the post/after settings URL or the `return_to` value if it was set and if the flow succeeded;\na HTTP 302 redirect to the Settings UI URL with the flow ID containing the validation errors otherwise.\na HTTP 302 redirect to the login endpoint when `selfservice.flows.settings.privileged_session_max_age` was reached or the session's AAL is too low.\n\nBrowser flows with HTTP Header `Accept: application/json` respond with\nHTTP 200 and a application/json body with the signed in identity and a `Set-Cookie` header on success;\nHTTP 302 redirect to a fresh login flow if the original flow expired with the appropriate error messages set;\nHTTP 403 when the page is accessed without a session cookie or the session's AAL is too low.\nHTTP 400 on form validation errors.\n\nDepending on your configuration this endpoint might return a 403 error if the session has a lower Authenticator\nAssurance Level (AAL) than is possible for the identity. This can happen if the identity has password + webauthn\ncredentials (which would result in AAL2) but the session has only AAL1. If this error occurs, ask the user\nto sign in with the second factor (happens automatically for server-side browser flows) or change the configuration.\n\nMore information can be found at [Ory Kratos User Settings \u0026 Profile Management Documentation](../self-service/flows/user-settings).",
         "operationId": "submitSelfServiceSettingsFlow",
         "parameters": [
           {
@@ -3391,11 +3934,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/successfulSelfServiceSettingsWithoutBrowser"
+                  "$ref": "#/components/schemas/selfServiceSettingsFlow"
                 }
               }
             },
-            "description": "successfulSelfServiceSettingsWithoutBrowser"
+            "description": "selfServiceSettingsFlow"
           },
           "302": {
             "$ref": "#/components/responses/emptyResponse"
@@ -3447,12 +3990,14 @@
           }
         ],
         "summary": "Complete Settings Flow",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/settings/api": {
       "get": {
-        "description": "This endpoint initiates a settings flow for API clients such as mobile devices, smart TVs, and so on.\nYou must provide a valid Ory Kratos Session Token for this endpoint to respond with HTTP 200 OK.\n\nTo fetch an existing settings flow call `/self-service/settings/flows?flow=\u003cflow_id\u003e`.\n\nYou MUST NOT use this endpoint in client-side (Single Page Apps, ReactJS, AngularJS) nor server-side (Java Server\nPages, NodeJS, PHP, Golang, ...) browser applications. Using this endpoint in these applications will make\nyou vulnerable to a variety of CSRF attacks.\n\nThis endpoint MUST ONLY be used in scenarios such as native mobile apps (React Native, Objective C, Swift, Java, ...).\n\nMore information can be found at [Ory Kratos User Settings \u0026 Profile Management Documentation](../self-service/flows/user-settings).",
+        "description": "This endpoint initiates a settings flow for API clients such as mobile devices, smart TVs, and so on.\nYou must provide a valid Ory Kratos Session Token for this endpoint to respond with HTTP 200 OK.\n\nTo fetch an existing settings flow call `/self-service/settings/flows?flow=\u003cflow_id\u003e`.\n\nYou MUST NOT use this endpoint in client-side (Single Page Apps, ReactJS, AngularJS) nor server-side (Java Server\nPages, NodeJS, PHP, Golang, ...) browser applications. Using this endpoint in these applications will make\nyou vulnerable to a variety of CSRF attacks.\n\nDepending on your configuration this endpoint might return a 403 error if the session has a lower Authenticator\nAssurance Level (AAL) than is possible for the identity. This can happen if the identity has password + webauthn\ncredentials (which would result in AAL2) but the session has only AAL1. If this error occurs, ask the user\nto sign in with the second factor or change the configuration.\n\nThis endpoint MUST ONLY be used in scenarios such as native mobile apps (React Native, Objective C, Swift, Java, ...).\n\nMore information can be found at [Ory Kratos User Settings \u0026 Profile Management Documentation](../self-service/flows/user-settings).",
         "operationId": "initializeSelfServiceSettingsFlowWithoutBrowser",
         "parameters": [
           {
@@ -3497,12 +4042,14 @@
           }
         },
         "summary": "Initialize Settings Flow for APIs, Services, Apps, ...",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/settings/browser": {
       "get": {
-        "description": "This endpoint initializes a browser-based user settings flow. Once initialized, the browser will be redirected to\n`selfservice.flows.settings.ui_url` with the flow ID set as the query parameter `?flow=`. If no valid\nOry Kratos Session Cookie is included in the request, a login flow will be initialized.\n\nIf this endpoint is opened as a link in the browser, it will be redirected to\n`selfservice.flows.settings.ui_url` with the flow ID set as the query parameter `?flow=`. If no valid user session\nwas set, the browser will be redirected to the login endpoint.\n\nIf this endpoint is called via an AJAX request, the response contains the settings flow without any redirects\nor a 403 forbidden error if no valid session was set.\n\nThis endpoint is NOT INTENDED for clients that do not have a browser (Chrome, Firefox, ...) as cookies are needed.\n\nMore information can be found at [Ory Kratos User Settings \u0026 Profile Management Documentation](../self-service/flows/user-settings).",
+        "description": "This endpoint initializes a browser-based user settings flow. Once initialized, the browser will be redirected to\n`selfservice.flows.settings.ui_url` with the flow ID set as the query parameter `?flow=`. If no valid\nOry Kratos Session Cookie is included in the request, a login flow will be initialized.\n\nIf this endpoint is opened as a link in the browser, it will be redirected to\n`selfservice.flows.settings.ui_url` with the flow ID set as the query parameter `?flow=`. If no valid user session\nwas set, the browser will be redirected to the login endpoint.\n\nIf this endpoint is called via an AJAX request, the response contains the settings flow without any redirects\nor a 403 forbidden error if no valid session was set.\n\nDepending on your configuration this endpoint might return a 403 error if the session has a lower Authenticator\nAssurance Level (AAL) than is possible for the identity. This can happen if the identity has password + webauthn\ncredentials (which would result in AAL2) but the session has only AAL1. If this error occurs, ask the user\nto sign in with the second factor (happens automatically for server-side browser flows) or change the configuration.\n\nThis endpoint is NOT INTENDED for clients that do not have a browser (Chrome, Firefox, ...) as cookies are needed.\n\nMore information can be found at [Ory Kratos User Settings \u0026 Profile Management Documentation](../self-service/flows/user-settings).",
         "operationId": "initializeSelfServiceSettingsFlowForBrowsers",
         "parameters": [
           {
@@ -3550,12 +4097,14 @@
           }
         },
         "summary": "Initialize Settings Flow for Browsers",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/settings/flows": {
       "get": {
-        "description": "When accessing this endpoint through Ory Kratos' Public API you must ensure that either the Ory Kratos Session Cookie\nor the Ory Kratos Session Token are set. The public endpoint does not return 404 status codes\nbut instead 403 or 500 to improve data privacy.\n\nYou can access this endpoint without credentials when using Ory Kratos' Admin API.\n\nMore information can be found at [Ory Kratos User Settings \u0026 Profile Management Documentation](../self-service/flows/user-settings).",
+        "description": "When accessing this endpoint through Ory Kratos' Public API you must ensure that either the Ory Kratos Session Cookie\nor the Ory Kratos Session Token are set. The public endpoint does not return 404 status codes\nbut instead 403 or 500 to improve data privacy.\n\nDepending on your configuration this endpoint might return a 403 error if the session has a lower Authenticator\nAssurance Level (AAL) than is possible for the identity. This can happen if the identity has password + webauthn\ncredentials (which would result in AAL2) but the session has only AAL1. If this error occurs, ask the user\nto sign in with the second factor or change the configuration.\n\nYou can access this endpoint without credentials when using Ory Kratos' Admin API.\n\nMore information can be found at [Ory Kratos User Settings \u0026 Profile Management Documentation](../self-service/flows/user-settings).",
         "operationId": "getSelfServiceSettingsFlow",
         "parameters": [
           {
@@ -3637,7 +4186,9 @@
           }
         },
         "summary": "Get Settings Flow",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/verification": {
@@ -3714,7 +4265,9 @@
           }
         },
         "summary": "Complete Verification Flow",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/verification/api": {
@@ -3754,7 +4307,9 @@
           }
         },
         "summary": "Initialize Verification Flow for APIs, Services, Apps, ...",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/verification/browser": {
@@ -3787,7 +4342,9 @@
           }
         },
         "summary": "Initialize Verification Flow for Browser Clients",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/verification/flows": {
@@ -3856,12 +4413,14 @@
           }
         },
         "summary": "Get Verification Flow",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/sessions/whoami": {
       "get": {
-        "description": "Uses the HTTP Headers in the GET request to determine (e.g. by using checking the cookies) who is authenticated.\nReturns a session object in the body or 401 if the credentials are invalid or no credentials were sent.\nAdditionally when the request it successful it adds the user ID to the 'X-Kratos-Authenticated-Identity-Id' header in the response.\n\nIf you call this endpoint from a server-side application, you must forward the HTTP Cookie Header to this endpoint:\n\n```js\npseudo-code example\nrouter.get('/protected-endpoint', async function (req, res) {\nconst session = await client.toSession(undefined, req.header('cookie'))\n\nconsole.log(session)\n})\n```\n\nWhen calling this endpoint from a non-browser application (e.g. mobile app) you must include the session token:\n\n```js\npseudo-code example\n...\nconst session = await client.toSession(\"the-session-token\")\n\nconsole.log(session)\n```\n\nThis endpoint is useful for:\n\nAJAX calls. Remember to send credentials and set up CORS correctly!\nReverse proxies and API Gateways\nServer-side calls - use the `X-Session-Token` header!\n\nThis endpoint authenticates users by checking\n\nif the `Cookie` HTTP header was set containing an Ory Kratos Session Cookie;\nif the `Authorization: bearer \u003cory-session-token\u003e` HTTP header was set with a valid Ory Kratos Session Token;\nif the `X-Session-Token` HTTP header was set with a valid Ory Kratos Session Token.\n\nIf none of these headers are set or the cooke or token are invalid, the endpoint returns a HTTP 401 status code.",
+        "description": "Uses the HTTP Headers in the GET request to determine (e.g. by using checking the cookies) who is authenticated.\nReturns a session object in the body or 401 if the credentials are invalid or no credentials were sent.\nAdditionally when the request it successful it adds the user ID to the 'X-Kratos-Authenticated-Identity-Id' header in the response.\n\nIf you call this endpoint from a server-side application, you must forward the HTTP Cookie Header to this endpoint:\n\n```js\npseudo-code example\nrouter.get('/protected-endpoint', async function (req, res) {\nconst session = await client.toSession(undefined, req.header('cookie'))\n\nconsole.log(session)\n})\n```\n\nWhen calling this endpoint from a non-browser application (e.g. mobile app) you must include the session token:\n\n```js\npseudo-code example\n...\nconst session = await client.toSession(\"the-session-token\")\n\nconsole.log(session)\n```\n\nDepending on your configuration this endpoint might return a 403 error if the session has a lower Authenticator\nAssurance Level (AAL) than is possible for the identity. This can happen if the identity has password + webauthn\ncredentials (which would result in AAL2) but the session has only AAL1. If this error occurs, ask the user\nto sign in with the second factor or change the configuration.\n\nThis endpoint is useful for:\n\nAJAX calls. Remember to send credentials and set up CORS correctly!\nReverse proxies and API Gateways\nServer-side calls - use the `X-Session-Token` header!\n\nThis endpoint authenticates users by checking\n\nif the `Cookie` HTTP header was set containing an Ory Kratos Session Cookie;\nif the `Authorization: bearer \u003cory-session-token\u003e` HTTP header was set with a valid Ory Kratos Session Token;\nif the `X-Session-Token` HTTP header was set with a valid Ory Kratos Session Token.\n\nIf none of these headers are set or the cooke or token are invalid, the endpoint returns a HTTP 401 status code.",
         "operationId": "toSession",
         "parameters": [
           {
@@ -3904,6 +4463,16 @@
             },
             "description": "jsonError"
           },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/jsonError"
+                }
+              }
+            },
+            "description": "jsonError"
+          },
           "500": {
             "content": {
               "application/json": {
@@ -3916,7 +4485,9 @@
           }
         },
         "summary": "Check Who the Current HTTP Session Belongs To",
-        "tags": ["v0alpha1"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/version": {
@@ -3934,7 +4505,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["version"],
+                  "required": [
+                    "version"
+                  ],
                   "type": "object"
                 }
               }
@@ -3943,7 +4516,9 @@
           }
         },
         "summary": "Return Running Software Version.",
-        "tags": ["metadata"]
+        "tags": [
+          "metadata"
+        ]
       }
     }
   },
