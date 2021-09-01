@@ -200,7 +200,9 @@ module.exports = {
           const sidebarItems = await defaultSidebarItemsGenerator(args);
           setProjectNav(sidebarItems, cloud)
           return [
-            ...sidebarItems,
+            { type: 'doc', id: 'early-access' },
+            { type: 'doc', id: 'sdk' },
+            // ...sidebarItems,
             // ...await getProjectNav(oathkeeper),
             // ...await defaultSidebarItemsGenerator(getProjectNav(args, 'oathkeeper')),
           ];
