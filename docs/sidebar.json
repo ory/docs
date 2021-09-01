@@ -17,7 +17,6 @@
   {
     "Guides": [
       "guides/proxy",
-      "guides/deploy-auth-production",
       "guides/bring-your-user-interface",
       "guides/create-personal-access-token",
       "guides/customize-identity-schema"
