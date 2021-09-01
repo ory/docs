@@ -1,6 +1,6 @@
 ---
 id: bring-your-user-interface
-title: Bring your own UI
+title: Bring Your Own UI
 ---
 
 Ory provides a "managed UI" for essential pages such as User Login, User
@@ -9,11 +9,57 @@ Verification, User Settings, and more. The Managed UI will be customizable in
 the future.
 
 Further, Ory is an API-first service. Implementing these pages in your language
-and framework of choice is easy and straight forward using our SDKs. This
-feature is **currently not available** for Ory and is in EXPERIMENTAL phase in
-Ory Open Source.
+and framework of choice is straightforward using our SDKs.
 
-We are planning on making these APIs and workflows accessible in Q3 2021. To
-learn more about "Bring your own UI" head over to our open source documentation:
+Unless you are building a [Native App](#native-apps), you will need to configure
+the endpoints where your UI pages for the individual flows (login, registration,
+...) are located.
 
-- https://www.ory.sh/kratos/docs/concepts/ui-user-interface
+![Customize UI Endpoints in the Ory Cloud Console](bring-your-user-interface/cloud-config.png)
+
+If you leave fields empty, the Ory cloud Managed UI will be used for that flow.
+
+Let's say you have an app hosted at `https://www.example.org` with a login
+screen at `https://www.example.org/login` but have no other screens implemented
+yet? Your configuration would look as follows:
+
+![Customize UI Endpoints in the Ory Cloud Console](bring-your-user-interface/login-ui.png)
+
+:::note
+
+If you are unsure how to set up your Ory Cloud Project to be connected to your
+domain (e.g. `example.org`), head over to
+[Get Ready for Production](../start-building/deploy-auth-production.mdx).
+
+:::
+
+All other flows (registration, settings, verification, recovery, error) would
+still use Ory Cloud's managed UI!
+
+## Development
+
+If you are developing locally, you can set the configuration to, for example,
+`https://localhost:1234/login`. To make this work, you will need to use the
+[Ory Proxy](./proxy.mdx) locally!
+
+## Native Apps
+
+Native Apps refer to applications that do not have a browser, such as React
+Native, Swift, Android SDK, and others.
+
+You can interface with Ory's Cloud APIs to build your own UI for native apps
+today. Behind the scenes, we are using Ory Kratos to provide the features around
+login, registration, recovery, verification, and account settings.
+
+To learn more, head over to the
+[Getting Started with React Native](../start-building/native-mobile-app.mdx#react-native)
+guide!
+
+## Technical Concepts and APIs
+
+Behind the scenes, Ory Cloud is powered by Open Source Ory Kratos. To learn more
+about the technical details of how the (login, registration, ...) flows work and
+what the API interactions look like, head over to:
+
+- [Ory Kratos User Interface](https://www.ory.sh/kratos/docs/concepts/ui-user-interface)
+- [Ory Kratos Self-Service Flows](https://www.ory.sh/kratos/docs/self-service)
