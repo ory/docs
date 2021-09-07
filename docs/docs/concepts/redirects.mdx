@@ -25,7 +25,7 @@ opens a sharable link to go to https://myapp.com/posts, however, this url
 requires the user to be signed in and thus redirects the user back to the login
 page. To return the user back to the original url we can append
 `?return_to=https://myapp.com/posts` to the specified Self-Service initialise
-flow url, e.g. Login Flow.
+flow url.
 
 The `Allow list` is used in this scenario to prevent Open Redirect Attacks by
 only allowing certain domains, or paths on a domain. As shown in this example
@@ -43,14 +43,14 @@ url you specify. As an example you can redirect the user to your application
 home screen after a logout or to a specific url on a sub-domain after a settings
 password update. On project creation the redirect flows are all set to the
 default Ory Cloud Managed UI. For more information on the Ory Managed UI, please
-see the [Managed User Interface](./managed-ui.mdx).
+see the [Managed User Interface](./managed-ui.mdx) documentation.
 
 :::info
 
-The `After Recovery` redirect is currently not supported. The current
+The `Post-Recovery` redirect is currently not supported. The current
 implementation always redirects the user to the Settings User Interface. After
 the user has updated their password or profile it redirects the user to the
-`After Settings` redirect.
+`Post-Settings` redirect.
 
 :::
 
@@ -59,20 +59,20 @@ the user has updated their password or profile it redirects the user to the
 The Login and Registration flows have three fields (all optional):
 
 1. `Default Redirect Url` domain or path
-2. An `After Password Redirect Url`
-3. An `After OIDC Redirect Url` (**currently not supported**)
+2. An `Post-Password Redirect Url`
+3. An `Post-OIDC Redirect Url` (**currently not supported**)
 
 And Settings has three fields (all optional):
 
 1. `Default Redirect Url` domain or path
-2. An `After Password Redirect Url`
-3. An `After Profile Redirect Url`
+2. An `Post-Password Redirect Url`
+3. An `Post-Profile Redirect Url`
 
 :::info
 
-Setting `After OIDC Url` redirects for Login and Registration are currently not
-supported since an Ory project cannot be setup to use OIDC yet. This will be
-supported in the future. For more information see the
+Setting `Post-OIDC` redirects for Login and Registration are currently not
+supported since an Ory Cloud project cannot be setup to use OIDC yet. This will
+be supported in the future. For more information see the
 [Ory Cloud Roadmap](../early-access.mdx).
 
 :::
@@ -83,7 +83,7 @@ such as e.g. https://domain.example/login it will overwrite the
 e.g. a path such as `/login` will alter https://somedomain.example/global/path
 to https://somedomain.example/login.
 
-On the sub-conditions such as `After Password` or `After OIDC` a FQDN or a path
+On the sub-conditions such as `Post-Password` or `Post-OIDC` a FQDN or a path
 can be set. In the case of a FQDN it will replace the closest relative starting
 with the Login/Registration `Default Redirect Url` and then the
 `Global Redirect Url`. With a path it will use the closest relative as the base
@@ -95,7 +95,7 @@ All the relative urls will be updated with their respective base url. As shown
 in the example below, the Login `Default Redirect Url` has been set to use a
 relative url and thus the base url will be the `Global Redirect Url`
 (https://myapp.com). This will then set the Login `Default Redirect Url` to
-https://myapp.com/after/login and the `After Password` to
+https://myapp.com/after/login and the `Post-Password` to
 https://myapp.com/after/login/password.
 
 ![Browser Redirects Url Management Transformed](../images/browser-redirects/browser-redirects-url-management-2.png)
@@ -104,10 +104,10 @@ https://myapp.com/after/login/password.
 
 :::warning
 
-As mentioned above, the `After Recovery` redirect is currently not supported and
+As mentioned above, the `Post-Recovery` redirect is currently not supported and
 will automatically redirect the user to the `Settings Ui` url. This implies that
-you should currently rely on the `After Settings` redirect url for
-`After Recovery` flows as well.
+you should currently rely on the `Post-Settings` redirect url for
+`Post-Recovery` flows as well.
 
 :::
 
