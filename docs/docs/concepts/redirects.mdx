@@ -6,8 +6,8 @@ title: Redirects and Flow Completion
 Ory Cloud offers a few methods to integrate your own user interface (UI) such as utilising the SDK in Single Page Applications
 (ReactJs, Angular, VueJs etc.) or using redirects in Server Side Applications (NodeJs, PHP, Golang etc.).
 
-On this page of the documentation we will be covering Browser Redirects and how to configure it on the Ory Cloud console
-if you are interested in utilising the SDK for Single Page Applications, check out our [SDK](./services-api.mdx) documentation.
+On this page of the documentation we will be covering Browser Redirects and how to configure it on the Ory Cloud console.
+If you are interested in utilising the SDK for Single Page Applications, check out our [SDK](./services-api.mdx) documentation.
 
 For a deeper dive into the background of this setup, head over to our open source documentation:
 
@@ -18,7 +18,12 @@ For a deeper dive into the background of this setup, head over to our open sourc
 The Ory Cloud has a total of 6 flows, Login, Registration, Verification, Recovery, Settings and Logout which can be configured
 to redirect back to any url you specify. As an example you can redirect the user to your application home screen after a logout
 or to a specific url on a sub-domain for settings. On project creation the redirect flows are all set to the default
-Ory Cloud Managed UI.
+Ory Cloud Managed UI. For more information on the Ory Managed UI, please see the [Managed User Interface](./managed-ui.mdx).
+
+:::info
+The `After Recovery` redirect is currently not supported. The current implementation always redirects the user to the
+Settings User Interface. After the user has updated their password or profile it redirects the user to the `After Settings` redirect.
+:::
 
 ### Login and Registration
 
@@ -27,13 +32,28 @@ The Login flow has three fields (all optional):
 2. An `After Password Redirect Url`
 3. An `After OIDC Redirect Url` (**currently not supported**)
 
+:::info
+Setting `After OIDC Url` redirects for Login and Registration are currently not supported since an Ory project cannot use OIDC yet.
+This will be supported in the future. For more information see the [Ory Cloud Roadmap](../early-access.mdx).
+:::
+
 When setting the `Default Redirect Url` as a FQDN (fully qualified domain name) such as e.g. https://domain.example/login
 it will overwrite the `Global Redirect Url`. As a path it will replace the `Global Redirect Url` path, e.g. a path such as
 `/login` will alter https://somedomain.example/global/path to https://somedomain.example/login.
 
-On the sub-conditions such as `After Password` or `After OIDC` an FQDN can also be set or a path.
+On the sub-conditions such as `After Password` or `After OIDC` a FQDN or a path can be set.
 In the case of a FQDN it will replace the closest relative starting with the Login/Registration `Default Redirect Url`
-and then the `Global Redirect Url`.
+and then the `Global Redirect Url`. With a path it will use the closest relative as the base url as described above with
+the `Default Redirect Url`.
+
+![Browser Redirects Url Management](../images/browser-redirects/browser-redirects-url-management.png)
+
+All the relative urls will be updated with their respective base url. As shown in the example below, the Login `Default Redirect Url`
+has been set to use a relative url and thus the base url will be the `Global Redirect Url` (https://myapp.com).
+This will then set the Login `Default Redirect Url` to https://myapp.com/after/login and the `After Password` to
+https://myapp.com/after/login/password.
+
+![Browser Redirects Url Management Transformed](../images/browser-redirects/browser-redirects-url-management-2.png)
 
 ### Settings
 
