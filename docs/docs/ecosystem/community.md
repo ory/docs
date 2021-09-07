@@ -28,6 +28,7 @@ This is not an exhaustive list. Want your own content here? Create a PR!
 
 ### Open source software
 
+- [Ory Kratos Next.js Self Service UI](https://github.com/Unbuttun/kratos-next)
 - [Ory Kratos Rescript React UI SPA implementation](https://github.com/allancalix/kratos-ui) +
   [Bindings](https://github.com/allancalix/kratos-ui/blob/main/src/Bindings/Kratos.res)
 - [Styx: Ory Kratos/Hydra Erlang Frontend UI](https://github.com/hrefhref/styx)

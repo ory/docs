@@ -182,7 +182,7 @@ For other CLI flags which, for example, disable the auto-opening of the URL in
 the browser, run `ory help proxy local` or head over to the
 [Ory Proxy Local Reference](../cli/ory-proxy-local.md).
 
-## Ory Proxy for Production / Remote Deployments
+## Ory Proxy for Production
 
 The Ory Proxy is also capable of protecting remote and production environments.
 Alternatively you can also use
@@ -200,17 +200,102 @@ export ORY_ACCESS_TOKEN=<your personal access token here>
 ory proxy production http://localhost:3000 https://my-domain.com
 ```
 
-:::note
-
-Please be aware that the `return_to` feature is not fully implemented yet, as it
-is not possible to allow-list redirect domains. We are working on this feature
-and will be releasing it soon!
-
-:::
-
 For other CLI flags which, for example, disable the auto-opening of the URL in
 the browser, run `ory help proxy production` or head over to the
 [Ory Proxy Production Reference](../cli/ory-proxy-local.md).
+
+### Running on a NodeJS PaaS (Vercel, Netlify, Gatsby Cloud, ...)
+
+If you deploy your application on a PaaS such as Vercel, Gatsby Cloud, or
+Netlify the best option is to install the Ory CLI using NPM
+(`npm i --save @ory/cli`) and run it as part of your NPM start script:
+
+```json
+{
+  "scripts": {
+    "start": "npm-run-all -p start:*",
+    "start:proxy": "ory proxy local --port $PORT http://127.0.0.1:3000 https://your-domain.com",
+    "start:server": "node your-entrypoint.js"
+  }
+}
+```
+
+Here we are assuming that your server is running on port 3000. If it is running
+on a different port, replace the port number in `http://127.0.0.1:3000`.
+
+Additionally we are assuming that your PaaS is exposing the port on which your
+app is running at the environment variable `PORT` and that it is actually
+executing `npm run start` and not just using static files!
+
+### Running on a VM
+
+If you are deploying on a VM, Virtual or Dedicated Server using the Ory Proxy is
+easy! Just run your application server and the proxy in parallel. Assuming you
+are using NodeJS to run your server on port 3000, and are exposing web traffic
+at port 8080, use:
+
+```
+ory proxy local --port 8080 http://127.0.0.1:3000 https://your-domain.com &
+
+# This should be your server command
+node your-entrypoint.js
+
+# Could also be something like:
+#   go run main.go
+#   php index.php
+#   ...
+```
+
+### Running in Docker
+
+One option is to add both the Ory Proxy and your service to a Docker container.
+
+:::warning
+
+Running two processes in one Docker Container is problematic as Docker will only
+watch the process running in the foreground. If the process in the background
+crashes, Docker will not be notified. To get a more stable system in place,
+please follow
+[Run multiple services in a container](https://docs.docker.com/config/containers/multi-service_container/).
+
+For simplicity we have chosen to run the Ory Proxy as a background task here!
+
+:::
+
+To run the Ory Proxy alongside your application, create a file called
+`entrypoint.sh` with a content along the lines of:
+
+```shell
+#!/bin/bash
+set -e
+
+# This assumes that your server is running on port 3000. If it is running on a different port,
+# change the `3000` to the port where your server is running at!
+ory proxy local --port 8080 http://127.0.0.1:3000 https://your-domain.com &
+
+# This should be your server command
+node your-entrypoint.js
+# Could also be something like:
+#   go run main.go
+#   php index.php
+#   ...
+```
+
+Then, add the script to your Dockerfile and run it:
+
+```Dockerfile
+# ...
+
+EXPOSE 8080
+
+COPY ./docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
+```
+
+### Kubernetes
+
+Adding a Helm Chart for the Ory Proxy is on the roadmap, which would allow
+running the Ory Proxy either as a Service, Ingress, or Side Car!
 
 ## Troubleshooting
 
