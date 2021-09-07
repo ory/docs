@@ -24,14 +24,16 @@
   },
   {
     "Concepts": [
-      "concepts/project",
       "concepts/terminology",
-      "concepts/personal-access-token",
+      "concepts/project",
+      "concepts/managed-ui",
       "concepts/identity",
+      "concepts/services-api",
+      "concepts/personal-access-token",
       "concepts/self-service",
+      "concepts/redirects",
       "concepts/session",
-      "ecosystem/api-design",
-      "concepts/services-api"
+      "ecosystem/api-design"
     ]
   },
   "reference/api",
