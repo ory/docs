@@ -45,15 +45,6 @@ password update. On project creation the redirect flows are all set to the
 default Ory Cloud Managed UI. For more information on the Ory Managed UI, please
 see the [Managed User Interface](./managed-ui.mdx) documentation.
 
-:::info
-
-The `Post-Recovery` redirect is currently not supported. The current
-implementation always redirects the user to the Settings User Interface. After
-the user has updated their password or profile it redirects the user to the
-`Post-Settings` redirect.
-
-:::
-
 ### Login, Registration and Settings
 
 The Login and Registration flows have three fields (all optional):
@@ -104,10 +95,10 @@ https://myapp.com/after/login/password.
 
 :::warning
 
-As mentioned above, the `Post-Recovery` redirect is currently not supported and
-will automatically redirect the user to the `Settings Ui` url. This implies that
-you should currently rely on the `Post-Settings` redirect url for
-`Post-Recovery` flows as well.
+The `Post-Recovery` redirect is currently not supported and will automatically
+redirect the user to the `Settings UI` url. This implies that you should
+currently rely on the `Post-Settings` redirect url for `Post-Recovery` flows as
+well.
 
 :::
 
