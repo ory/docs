@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@ory/client": "v0.0.1-alpha.8",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "formik": "^2.2.7",
     "next": "10.2.0",
     "react": "17.0.2",
