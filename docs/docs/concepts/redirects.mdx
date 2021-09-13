@@ -71,8 +71,8 @@ be supported in the future. For more information see the
 When setting the `Default Redirect Url` as a FQDN (fully qualified domain name)
 such as e.g. https://domain.example/login it will overwrite the
 `Global Redirect Url`. As a path it will replace the `Global Redirect Url` path,
-e.g. a path such as `/login` will alter https://somedomain.example/global/path
-to https://somedomain.example/login.
+e.g. a path such as `/login` will alter https://domain.example/global/path
+to https://domain.example/login.
 
 On the sub-conditions such as `Post-Password` or `Post-OIDC` a FQDN or a path
 can be set. In the case of a FQDN it will replace the closest relative starting
@@ -111,15 +111,17 @@ with the Login, Registration and Settings configurations, the
 ## Resetting/Updating Flows
 
 A redirect can easily be updated or reset by either changing the current
-redirects value or deleting the entry and clicking the "update" button. All the
+redirects value or deleting the entry and clicking the "Update" button. All the
 flows can be reset at once by pressing the "Reset Flows" button which will
 prompt a confirmation box. Resetting all flows will reset all the fields back to
-the default value which is the Ory Cloud
-[Managed User Interface](./managed-ui.mdx).
+the default value which is the Ory Cloud [Managed User Interface](./managed-ui.mdx).
+
+Once a flow has been reset or updated it will take effect immediately on **new** flows.
+Old flows that have not expired yet will not be updated.
 
 ![Browser Redirects Url Reset All](../images/browser-redirects/browser-redirects-reset-all.png)
 
-## Handling Error Messages
+## Troubleshooting Guide
 
 ### Allow List
 
