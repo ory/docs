@@ -72,6 +72,8 @@ ory proxy local [upstream] [flags]
       --console-api-endpoint string   Use a different URL. (default &#34;https://api.console.ory.sh&#34;)
       --dont-install-cert             If set will not try to add the HTTPS certificate to your certificate store.
   -h, --help                          help for local
+      --no-https                      Run the proxy without HTTPS. Useful if you have TLS termination or are handling HTTPS otherwise.
+      --no-jwt                        Do not create a JWT from the Ory Kratos Session. Useful if you need fast start up times of the Ory Proxy.
       --no-open                       Do not open the browser when the proxy starts.
       --port int                      The port the proxy should listen on. (default 4000)
 ```

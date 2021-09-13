@@ -79,6 +79,8 @@ ory proxy production [upstream] [host] [flags]
       --api-endpoint string           Use a different endpoint. (default &#34;https://oryapis.com&#34;)
       --console-api-endpoint string   Use a different URL. (default &#34;https://api.console.ory.sh&#34;)
   -h, --help                          help for production
+      --no-https                      Run the proxy without HTTPS. Useful if you have TLS termination or are handling HTTPS otherwise.
+      --no-jwt                        Do not create a JWT from the Ory Kratos Session. Useful if you need fast start up times of the Ory Proxy.
       --port int                      The port the proxy should listen on. (default 4000)
 ```
 
