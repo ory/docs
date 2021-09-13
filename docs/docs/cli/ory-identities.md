@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory identities
 
 Manage your identities
@@ -24,7 +23,8 @@ Manage your identities
 
 ### SEE ALSO
 
-- [ory](ory) - The ORY CLI
-- [ory identities delete](ory-identities-delete) - Delete identities by ID
-- [ory identities get](ory-identities-get) - Get one or more identities by ID
-- [ory identities list](ory-identities-list) - List identities
+* [ory](ory)	 - The ORY CLI
+* [ory identities delete](ory-identities-delete)	 - Delete identities by ID
+* [ory identities get](ory-identities-get)	 - Get one or more identities by ID
+* [ory identities list](ory-identities-list)	 - List identities
+
