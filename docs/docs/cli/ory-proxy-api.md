@@ -17,10 +17,10 @@ Proxy Ory&#39;s APIs.
 
 This command starts a proxy for Ory&#39;s APIs without reverse proxying anything else.
 
-	$ ory proxy api --port 4000
+	$ ory proxy api --port 4000 https://example.org
 
 ```
-ory proxy api [flags]
+ory proxy api [host] [flags]
 ```
 
 ### Options
