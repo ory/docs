@@ -9,17 +9,15 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory proxy api
 
 Proxy Ory&#39;s APIs.
 
 ### Synopsis
 
-This command starts a proxy for Ory&#39;s APIs without reverse proxying anything
-else.
+This command starts a proxy for Ory&#39;s APIs without reverse proxying anything else.
 
-    $ ory proxy api --port 4000 https://example.org
+	$ ory proxy api --port 4000 https://example.org
 
 ```
 ory proxy api [host] [flags]
@@ -37,4 +35,5 @@ ory proxy api [host] [flags]
 
 ### SEE ALSO
 
-- [ory proxy](ory-proxy) - Easily protect applications with the Ory Proxy
+* [ory proxy](ory-proxy)	 - Easily protect applications with the Ory Proxy
+
