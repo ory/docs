@@ -23,7 +23,7 @@ published open source software that extends or modifies the core technology.
 This is not an exhaustive list. Want your own content here? Create a PR!
 
 > Please note that this content is not actively maintained by the Ory team, is
-> written by the community and might be out of date, unmaintained or otherwise
+> written by the community and might be out of date, unmaintained, or otherwise
 > faulty.
 
 ### Code
@@ -77,7 +77,7 @@ This is not an exhaustive list. Want your own content here? Create a PR!
 - [API Access Control with Ambassador and Ory Oathkeeper](https://blog.getambassador.io/part-2-api-access-control-and-authentication-with-kubernetes-ambassador-and-ory-oathkeeper-q-a-127fa57f6332?utm_content=76739953&utm_medium=social&utm_source=twitter)
 - [OAuth 2.0 with Ory Hydra and Vapor on iOS (1/2)](https://medium.com/12plus1/oauth2-with-ory-hydra-vapor-3-and-ios-12-ca0e61c28f5a)
 - [OAuth 2.0 with Ory Hydra and Vapor on iOS (2/2)](https://medium.com/12plus1/oauth2-implementation-with-ory-hydra-vapor-3-and-ios-12-d1fe688a5479)
-- [Creating an OAuth 2.0 custom lamda authorizer for use with Amazons (AWS) API Gateway using Hydra](https://blogs.edwardwilde.com/2017/01/12/creating-an-oauth2-custom-lamda-authorizer-for-use-with-amazons-aws-api-gateway-using-hydra/)
+- [Creating an OAuth 2.0 custom lambda authorizer for use with Amazons (AWS) API Gateway using Hydra](https://blogs.edwardwilde.com/2017/01/12/creating-an-oauth2-custom-lamda-authorizer-for-use-with-amazons-aws-api-gateway-using-hydra/)
 - [CKAN Authentication](https://tech.datopian.com/authentication/#introduction)
 
 #### GitHub
@@ -91,7 +91,7 @@ This is not an exhaustive list. Want your own content here? Create a PR!
 > outdated. Please open an [issue](https://github.com/ory/docs/) if that is the
 > case.
 
-First you have to install the Postman App for Windows, Mac or Chrome. You can
+First, you have to install the Postman App for Windows, Mac, or Chrome. You can
 find it on the [Postman Apps](https://www.getpostman.com/apps) page.
 
 Visit the [Ory Postman Public Workspace](https://www.postman.com/ory-docs) and
@@ -106,15 +106,15 @@ you want to run below:
 
 [![Run Ory Oathkeeper in Postman](../../static/img/docs/postmanOathkeeper.svg)](https://app.getpostman.com/run-collection/12423954-8c811fa9-6666-499b-b5a6-71d059274dbf?action=collection%2Ffork&collection-url=entityId%3D12423954-8c811fa9-6666-499b-b5a6-71d059274dbf%26entityType%3Dcollection%26workspaceId%3Dba1e6798-1497-4918-a896-cac2f90d481b)
 
-Our API Collections built directly from the swagger specification (you can find
+Our API Collections are built directly from the swagger specification (you can find
 it at the path `/spec/api.json`) and are organized into folders that categorize
 the various API calls.
 
-For example, in the Ory Kratos collection you will find all calls related to
+For example, in the Ory Kratos collection, you will find all calls related to
 `identities` in the folder with the same name.
 
 To be able to work with the collection you need to set the `baseURl` variable.
-For example when running Ory Kratos as configured, the `baseURl` needs to be set
+For example, when running Ory Kratos as configured, the `baseURl` needs to be set
 to the public endpoint(in the
 [Quickstart](https://www.ory.sh/kratos/docs/quickstart) it
 is`http://127.0.0.1:4433/`).
@@ -127,7 +127,7 @@ depending on the API call.
 Do not store tokens in Postman as environment variables!  
 If you are signed in to the Postman application, it will automatically try to
 synchronize Collections and Environments with the Postman servers. This means
-that a token, which could allow someone else access your APIs, is being uploaded
+that a token, which could allow someone else access to your APIs, is being uploaded
 to Postman's servers.  
 Postman has taken measures to ensure that tokens are encrypted and encourages
 users to store them in Environment Variables. Read more
