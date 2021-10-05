@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## ory proxy
 
 Easily protect applications with the Ory Proxy
@@ -21,8 +22,9 @@ Easily protect applications with the Ory Proxy
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
-* [ory proxy api](ory-proxy-api)	 - Proxy Ory&#39;s APIs.
-* [ory proxy local](ory-proxy-local)	 - Develop an application locally and integrate it with Ory
-* [ory proxy production](ory-proxy-production)	 - Run an application in production mode with Ory integration
-
+- [ory](ory) - The ORY CLI
+- [ory proxy api](ory-proxy-api) - Proxy Ory&#39;s APIs.
+- [ory proxy local](ory-proxy-local) - Develop an application locally and
+  integrate it with Ory
+- [ory proxy production](ory-proxy-production) - Run an application in
+  production mode with Ory integration
