@@ -62,6 +62,7 @@
       "ecosystem/projects",
       "ecosystem/versioning",
       "ecosystem/configuring",
+      "ecosystem/deployment",
       "ecosystem/upgrading",
       "ecosystem/contributing",
       "ecosystem/sqa",
