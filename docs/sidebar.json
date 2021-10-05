@@ -64,6 +64,7 @@
       "ecosystem/configuring",
       "ecosystem/deployment",
       "ecosystem/upgrading",
+      "ecosystem/logging",
       "ecosystem/contributing",
       "ecosystem/sqa",
       "ecosystem/roadmap",
