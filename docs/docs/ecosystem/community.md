@@ -26,33 +26,46 @@ This is not an exhaustive list. Want your own content here? Create a PR!
 > written by the community and might be out of date, unmaintained or otherwise
 > faulty.
 
-### Open source software
+### Code
 
-- [Ory Kratos Next.js Self Service UI](https://github.com/Unbuttun/kratos-next)
-- [Ory Kratos Rescript React UI SPA implementation](https://github.com/allancalix/kratos-ui) +
+#### Frontend User Interfaces
+
+- [Ory Kratos Next.js self service UI](https://github.com/Unbuttun/kratos-next)
+- [Ory Kratos Rescript React UI SPA](https://github.com/allancalix/kratos-ui) +
   [Bindings](https://github.com/allancalix/kratos-ui/blob/main/src/Bindings/Kratos.res)
-- [Styx: Ory Kratos/Hydra Erlang Frontend UI](https://github.com/hrefhref/styx)
+- [Styx: Ory Kratos/Hydra Erlang frontend UI](https://github.com/hrefhref/styx)
+
+#### Examples
+
 - [Ory Kratos Sveltekit example](https://github.com/drejohnson/sveltekit-kratos)
 - [Reference Ory Docker Compose Setup ](https://github.com/radekg/ory-reference-compose) +
   [Article](https://gruchalski.com/posts/2021-04-10-ory-reference-docker-compose-and-thoughts-on-the-platform/)
-- [Predefined dockertest based libraries for Hydra, Kratos, Keto integration tests](https://github.com/radekg/app-kit-orytest)
-- [Ory Kratos React example - WIP](https://github.com/realStandal/kratos-react-example)
+- [Predefined dockertest libraries for Hydra, Kratos & Keto integration tests](https://github.com/radekg/app-kit-orytest)
+- [Ory Hydra PoC for OAuth 2.0/OIDC provider](https://git.dittberner.info/jan/hydra_oidc_poc)
+- [Ory Hydra Python login/consent provider example](https://github.com/westphahl/hydra-login-consent-python)
+
+#### Integrations
+
 - [Ory Hydra Identity Provider for over LDAP](https://github.com/i-core/werther)
 - [Ory Kratos "hydra-integration" branch](https://github.com/ory/kratos-selfservice-ui-node/tree/hydra-integration-2021)
-- [Ory Hydra PoC for OAuth2/OpenID Connect provider](https://git.dittberner.info/jan/hydra_oidc_poc)
+- [Ory Hydra Middleware for Gin (Go)](https://github.com/janekolszak/gin-hydra)
+
+#### Features
+
 - [Ory Hydra Two-factor authentication login provider](https://github.com/epandurski/hydra_login2f)
-- [Ory Hydra Kubernetes Helm Chart](https://github.com/kubernetes/charts/pull/1022)
+- [OpenID Connect client for Angular](https://git.webmeisterei.com/minadmin/js-oidc)
+- [Ory Hydra Identity Provider](https://github.com/janekolszak/idp)
+- [Golang login/consent provider and Ory stack example](https://github.com/piensa/logico)
+
+#### WIP & Archived
+
+- [Archived: Ory Hydra Golang login/consent provider using Authboss user/password authentication](https://github.com/nbycomp/login-consent)
+
+- [WIP: Ory Kratos React example](https://github.com/realStandal/kratos-react-example)
+- [WIP: Ory Hydra for GCP](https://github.com/someone1/hydra-gcp)
 - [WIP: Ory Hydra/ Ory Oathkeeper Zero Trust Reference "Hello World App"](https://github.com/JasonCubic/oathkeeper_hydra_reverse_proxy)
 
-- [Ory Hydra Python login/consent provider example](https://github.com/westphahl/hydra-login-consent-python)
-- [Ory Hydra Golang login/consent provider using Authboss user/password authentication](https://github.com/nbycomp/login-consent)
-- [Golang login/consent provider and Ory stack example](https://github.com/piensa/logico)
-- [OpenID Connect client for Angular](https://git.webmeisterei.com/minadmin/js-oidc)
-- [Ory Hydra Golang Consent App SDK](https://github.com/janekolszak/idp)
-- [Ory Hydra Middleware for Gin (Go)](https://github.com/janekolszak/gin-hydra)
-- [Ory Hydra for GCP - WIP](https://github.com/someone1/hydra-gcp)
-
-### Blog posts/articles
+### Articles & Tutorials
 
 - [Using Dockertest with Golang](https://bignerdranch.com/blog/using-dockertest-with-golang/)
 - [Open Source Authentication with Hydra and Kratos](https://blog.px.dev/open-source-auth/ossauth/)
@@ -62,10 +75,15 @@ This is not an exhaustive list. Want your own content here? Create a PR!
 - [Practical Example of Implementing OAuth 2.0 Using ory/hydra](https://yusufs.medium.com/practical-example-of-implementing-oauth-2-0-using-ory-hydra-fbaa2765d94f)
 
 - [API Access Control with Ambassador and Ory Oathkeeper](https://blog.getambassador.io/part-2-api-access-control-and-authentication-with-kubernetes-ambassador-and-ory-oathkeeper-q-a-127fa57f6332?utm_content=76739953&utm_medium=social&utm_source=twitter)
-- [OAuth2 with Ory Hydra and Vapor on iOS (1/2)](https://medium.com/12plus1/oauth2-with-ory-hydra-vapor-3-and-ios-12-ca0e61c28f5a)
-- [OAuth2 with Ory Hydra and Vapor on iOS (2/2)](https://medium.com/12plus1/oauth2-implementation-with-ory-hydra-vapor-3-and-ios-12-d1fe688a5479)
-- [Creating an oauth2 custom lamda authorizer for use with Amazons (AWS) API Gateway using Hydra](https://blogs.edwardwilde.com/2017/01/12/creating-an-oauth2-custom-lamda-authorizer-for-use-with-amazons-aws-api-gateway-using-hydra/)
+- [OAuth 2.0 with Ory Hydra and Vapor on iOS (1/2)](https://medium.com/12plus1/oauth2-with-ory-hydra-vapor-3-and-ios-12-ca0e61c28f5a)
+- [OAuth 2.0 with Ory Hydra and Vapor on iOS (2/2)](https://medium.com/12plus1/oauth2-implementation-with-ory-hydra-vapor-3-and-ios-12-d1fe688a5479)
+- [Creating an OAuth 2.0 custom lamda authorizer for use with Amazons (AWS) API Gateway using Hydra](https://blogs.edwardwilde.com/2017/01/12/creating-an-oauth2-custom-lamda-authorizer-for-use-with-amazons-aws-api-gateway-using-hydra/)
 - [CKAN Authentication](https://tech.datopian.com/authentication/#introduction)
+
+#### GitHub
+
+- [Ory Kratos reverse proxy (Nginx) example](https://github.com/ory/kratos/discussions/1049)
+- [Ory Oathkeeper Istio best practices/reference configuration](https://github.com/ory/oathkeeper/issues/624)
 
 ### Postman API Reference Collections
 
@@ -116,8 +134,3 @@ users to store them in Environment Variables. Read more
 [here](https://www.postman.com/security).
 
 :::
-
-### Worthwhile GitHub threads
-
-- [Ory Kratos reverse proxy (Nginx) example](https://github.com/ory/kratos/discussions/1049)
-- [Ory Oathkeeper Istio best practices/reference configuration](https://github.com/ory/oathkeeper/issues/624)
