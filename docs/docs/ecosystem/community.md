@@ -106,16 +106,16 @@ you want to run below:
 
 [![Run Ory Oathkeeper in Postman](../../static/img/docs/postmanOathkeeper.svg)](https://app.getpostman.com/run-collection/12423954-8c811fa9-6666-499b-b5a6-71d059274dbf?action=collection%2Ffork&collection-url=entityId%3D12423954-8c811fa9-6666-499b-b5a6-71d059274dbf%26entityType%3Dcollection%26workspaceId%3Dba1e6798-1497-4918-a896-cac2f90d481b)
 
-Our API Collections are built directly from the swagger specification (you can find
-it at the path `/spec/api.json`) and are organized into folders that categorize
-the various API calls.
+Our API Collections are built directly from the swagger specification (you can
+find it at the path `/spec/api.json`) and are organized into folders that
+categorize the various API calls.
 
 For example, in the Ory Kratos collection, you will find all calls related to
 `identities` in the folder with the same name.
 
 To be able to work with the collection you need to set the `baseURl` variable.
-For example, when running Ory Kratos as configured, the `baseURl` needs to be set
-to the public endpoint(in the
+For example, when running Ory Kratos as configured, the `baseURl` needs to be
+set to the public endpoint(in the
 [Quickstart](https://www.ory.sh/kratos/docs/quickstart) it
 is`http://127.0.0.1:4433/`).
 
@@ -127,8 +127,8 @@ depending on the API call.
 Do not store tokens in Postman as environment variables!  
 If you are signed in to the Postman application, it will automatically try to
 synchronize Collections and Environments with the Postman servers. This means
-that a token, which could allow someone else access to your APIs, is being uploaded
-to Postman's servers.  
+that a token, which could allow someone else access to your APIs, is being
+uploaded to Postman's servers.  
 Postman has taken measures to ensure that tokens are encrypted and encourages
 users to store them in Environment Variables. Read more
 [here](https://www.postman.com/security).
