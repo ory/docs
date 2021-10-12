@@ -17,7 +17,7 @@ the development of the Ory Cloud.
 ## Ory Roadmap
 
 If you are interested in a particular project, it is best to check out the
-[milestones and open issues & pull requests ](#Milestones-Issues-Pull-Requests)
+[milestones and open issues & pull requests ](#milestones-issues-pull-requests)
 for that project.
 
 Please note that **our roadmap is subject to changes**. This means that
@@ -31,7 +31,7 @@ transparent as possible to facilitate collaboration, trust, and visibility.
 ## Feedback
 
 If you are a user of our Open Source offering and you have feedback, please do
-so in [GitHub Discussions](#Discussions) or directly on the
+so in [GitHub Discussions](#discussions) or directly on the
 [Community Slack](https://slack.ory.sh/).
 
 Please also vote on issues and discussions with a thumbs up. We will ask for
@@ -45,7 +45,7 @@ a full changelog in the main directory of every project (e.g.
 [ for Ory Kratos](https://github.com/ory/kratos/blob/master/CHANGELOG.md))
 
 If you happen to find a bug, please open an
-[issue](#Milestones-Issues-Pull-Requests) in the relevant repository. We
+[issue](#milestones-issues-pull-requests) in the relevant repository. We
 appreciate it when you include steps for replication, version information, logs,
 and as much information as you think is helpful. This makes squashing that pesky
 bug much easier for us.
@@ -55,10 +55,10 @@ affected, estimated effort, and other factors.
 
 ## I want that feature now, how can I make it happen?
 
-First, you should check if an [issue](#Milestones-Issues-Pull-Requests) or a
-[discussion](#Discussions) for that feature already exists.
+First, you should check if an [issue](#milestones-issues-pull-requests) or a
+[discussion](#discussions) for that feature already exists.
 
-If it does not exist, please open a [discussion](#Discussions) in the "Ideas"
+If it does not exist, please open a [discussion](#discussions) in the "Ideas"
 section and try to formulate as accurately as possible what you are trying to
 do, what you are expecting how it should work, as well as any technical details
 that are relevant. This helps others to understand your idea and maintainers

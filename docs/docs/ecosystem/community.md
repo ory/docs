@@ -31,7 +31,7 @@ This is not an exhaustive list. Want your own content here? Create a PR!
 #### Frontend User Interfaces
 
 - [Ory Kratos Svelte Node self service](https://github.com/emrahcom/kratos-selfservice-svelte-node)
-- [Ory Kratos Next.js self service UI](https://github.com/Unbuttun/kratos-next)
+- [Ory Kratos Next.js self service UI](https://github.com/spa5k/kratos-next)
 - [Ory Kratos Rescript React UI SPA](https://github.com/allancalix/kratos-ui) +
   [Bindings](https://github.com/allancalix/kratos-ui/blob/main/src/Bindings/Kratos.res)
 - [Styx: Ory Kratos/Hydra Erlang frontend UI](https://github.com/hrefhref/styx)
