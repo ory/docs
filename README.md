@@ -29,7 +29,7 @@ If you make changes, please consider making the same changes in the latest
 version of `/versioned_docs`
 
 To test the documentation locally:
-0. Install NodeJS
+(Assuming you already installed NodeJS)
 
 1. Clone this repository.
 
