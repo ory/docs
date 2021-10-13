@@ -29,13 +29,19 @@ If you make changes, please consider making the same changes in the latest
 version of `/versioned_docs`
 
 To test the documentation locally:
+0. Install NodeJS
 
-Change into the `/docs` folder in your local git environment.
+1. Clone this repository.
 
-Install dependencies `npm install` Test build the documentation:  
-`npm start # test if everything works`
+3. Enter the `/docs` folder in your local git environment.
 
-To build the docs:  
+3. Install dependencies by running: 
+`npm install`.
+
+4. Run the Docs webserver and test the documentation by running:
+`npm start`
+
+5. Build the docs and verify by running:  
 `npm run build `
 
 ## Formatting documentation
