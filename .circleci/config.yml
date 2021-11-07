@@ -5,7 +5,7 @@ version: 2
 jobs:
   publish:
     docker:
-      - image: circleci/node:13.12
+      - image: circleci/node:14
     working_directory: /home/circleci/docs
     steps:
       - checkout
