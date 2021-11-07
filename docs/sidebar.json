@@ -42,14 +42,7 @@
       {
         "Command Line Interface (CLI)": [
           "cli/ory",
-          "cli/ory-identities",
-          "cli/ory-identities-delete",
-          "cli/ory-identities-get",
-          "cli/ory-identities-list",
           "cli/ory-proxy",
-          "cli/ory-proxy-api",
-          "cli/ory-proxy-local",
-          "cli/ory-proxy-production",
           "cli/ory-version"
         ]
       }
