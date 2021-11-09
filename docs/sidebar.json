@@ -3,47 +3,53 @@
   "get-started",
   "early-access",
   {
-    "Start Building": [
-      "start-building/create-project",
-      "start-building",
-      "start-building/ory-cli-install-use",
-      "start-building/server-side-web-app",
-      "start-building/single-page-app-spa",
-      "start-building/native-mobile-app",
-      "start-building/deploy-auth-production",
-      "start-building/other-languages"
-    ]
-  },
-  {
-    "Guides": [
-      "guides/proxy",
-      "guides/bring-your-user-interface",
-      "guides/create-personal-access-token",
-      "guides/customize-identity-schema"
-    ]
-  },
-  {
-    "Concepts": [
-      "concepts/terminology",
-      "concepts/project",
-      "concepts/managed-ui",
-      "concepts/identity",
-      "concepts/services-api",
-      "concepts/personal-access-token",
-      "concepts/self-service",
-      "concepts/redirects",
-      "concepts/session",
-      "ecosystem/api-design"
-    ]
-  },
-  "reference/api",
-  {
-    "Reference": [
+    "Ory Cloud": [
       {
-        "Command Line Interface (CLI)": [
-          "cli/ory",
-          "cli/ory-proxy",
-          "cli/ory-version"
+        "Start Building": [
+          "start-building/create-project",
+          "start-building",
+          "start-building/ory-cli-install-use",
+          "start-building/server-side-web-app",
+          "start-building/single-page-app-spa",
+          "start-building/native-mobile-app",
+          "start-building/deploy-auth-production",
+          "start-building/other-languages"
+        ]
+      },
+      {
+        "Guides": [
+          "guides/proxy",
+          "guides/bring-your-user-interface",
+          "guides/create-personal-access-token",
+          "guides/customize-identity-schema"
+        ]
+      },
+      {
+        "Concepts": [
+          "concepts/terminology",
+          "concepts/project",
+          "concepts/managed-ui",
+          "concepts/identity",
+          "concepts/services-api",
+          "concepts/personal-access-token",
+          "concepts/self-service",
+          "concepts/redirects",
+          "concepts/session",
+          "ecosystem/api-design",
+          "get-started",
+          "early-access"
+        ]
+      },
+      "reference/api",
+      {
+        "Reference": [
+          {
+            "Command Line Interface (CLI)": [
+              "cli/ory",
+              "cli/ory-proxy",
+              "cli/ory-version"
+            ]
+          }
         ]
       }
     ]
