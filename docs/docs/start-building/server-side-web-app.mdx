@@ -15,10 +15,8 @@ you are using:
 - [Other language / framework](./other-languages.mdx)
 
 Before you get started, please install the [Ory CLI](./ory-cli-install-use.mdx)
-on your system, and have a [running Ory Project](../get-started.mdx) and a
-[Personal Access Token](../guides/create-personal-access-token.mdx) ready.
-
-For more information on the Ory Cloud SDK and Services and please see the
+on your system, and have a [running Ory Project](../get-started.mdx) ready. For
+more information on the Ory Cloud SDK and Services and please see the
 [Services & APIs docs](../concepts/services-api.mdx).
 
 ## ExpressJS / NodeJS
@@ -38,14 +36,15 @@ You can find this
 
 :::
 
-To get started open a new terminal and set the environment variables:
-
-- `ORY_ACCESS_TOKEN`: Use a personal access token here
+To get started open a new terminal and set the `ORY_SDK_URL` environment
+variables. You can find the value on the
+[Services & APIs page](../concepts/services-api.mdx). If you do not have a
+project, use the playground!
 
 ```shell
-export ORY_ACCESS_TOKEN=...
-# e.g.
-# export ORY_ACCESS_TOKEN=2123l8jJhSIYQZvfasd53YoRvcseg1
+export ORY_SDK_URL=https://playground.projects.oryapis.com
+# or if you have a project:
+# export ORY_SDK_URL=https://<project>.projects.oryapis.com
 ```
 
 To get started, check out the example's source code, install the node packages,
@@ -55,25 +54,15 @@ and run the app:
 git clone https://github.com/ory/docs.git
 cd docs/examples/typescript-express
 npm i
-
-export ORY_ACCESS_TOKEN=...
-# e.g.
-# export ORY_ACCESS_TOKEN=2123l8jJhSIYQZvfasd53YoRvcseg1
-
-## ATTENTION ##
-# Node, similar to Firefox, does not use the Operating System Certificate store.
-# To get the self-signed SSL certificates working, we need to disable TLS Verification.
-# NEVER, EVER do this in a live system.
-export NODE_TLS_REJECT_UNAUTHORIZED=0
-
 npm start
 ```
 
-Open another terminal and copy set the `ORY_ACCESS_TOKEN` env var to your
-Personal Access Token:
+Open another terminal and again set up the `ORY_SDK_URL`:
 
 ```shell
-export ORY_ACCESS_TOKEN=...
+export ORY_SDK_URL=https://playground.projects.oryapis.com
+# or if you have a project:
+# export ORY_SDK_URL=https://<project>.projects.oryapis.com
 ```
 
 Next, run the Ory Proxy with
@@ -83,38 +72,19 @@ Next, run the Ory Proxy with
   protecting.
 
 ```shell
-ory proxy local	--port 4000	http://localhost:8000/
+ory proxy --port 4000 http://localhost:8000/
 ```
 
-Your operating system will prompt you for your administrative password. The Ory
-Proxy sets up a temporary SSL certificate in your operating system's certificate
-store to enable HTTPS integration.
-
-:::warning
-
-The registration of the self-signed SSL certificate works only in Chrome and
-Safari but not yet in Firefox. Also, programming languages like Golang, NodeJS,
-and others often do not respect the operating system certificate store. In those
-cases, you must disable TLS verification. This is not an issue in production!
-
-:::
-
-To see what the app can do, open it at the original endpoints:
-
-- [localhost:8000/](http://localhost:8000/)
-- [localhost:8000/protected](http://localhost:8000/protected)
-
-The second URL `/protected` will greet you with an error because no Ory Session
-is available.
+Great, let's open the app through the proxy
+[localhost:4000/](http://localhost:4000/) and click the second URL `/protected`.
+will greet you with an error because no Ory Session is available.
 
 ![NodeJS route is not available without authentication](./integrate-nodejs/proxy-unauth.png)
 
-However, if you open the URL through the proxy at
-[https://localhost:4000/protected](https://localhost:4000/protected), your
-browser will be redirected to a login screen! Once you created an account or
-signed in, the application will show information about the session:
+Once you created an account or signed in, the application will show information
+about the session:
 
-![NodeJS route is not available without authentication](./integrate-nodejs/proxy-auth.png)
+![ExpressJS app shows the user session](./integrate-nodejs/proxy-auth.png)
 
 ### Code Examples
 
@@ -122,9 +92,8 @@ import CodeFromRemote from '@theme/CodeFromRemote'
 
 To get the app integrated with Ory, we use the following `npm` dependencies:
 
-- [`@ory/client`](https://www.npmjs.com/package/@ory/client) contains the Ory
-  SDK. While not needed, the app includes an example of how to set up the SDK
-  and use it;
+- [`@ory/kratos-client`](https://www.npmjs.com/package/@ory/kratos-client)
+  contains the Ory Kratos SDK.
 - [`dotenv`](https://www.npmjs.com/package/dotenv) loads environment variables
   from a `.env` file;
 - [`express-jwt`](https://www.npmjs.com/package/express-jwt) is an express

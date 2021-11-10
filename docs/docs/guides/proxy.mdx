@@ -30,17 +30,21 @@ proxied URL would be `https://<proxy-host>/.ory/ui/login`.
 The Ory Proxy has a few shorthand URLs which you can use to initiate
 self-service flows:
 
-- `/.ory/init/login` initiates the self-service login flow.
-- `/.ory/init/registration` initiates the self-service registration flow.
-- `/.ory/init/recovery` initiates the self-service recovery flow.
-- `/.ory/init/verification` initiates the self-service verification flow.
-- `/.ory/init/settings` initiates the self-service settings flow.
+- `/.ory/self-service/login/browser` initiates the self-service login flow.
+- `/.ory/self-service/registration/browser` initiates the self-service
+  registration flow.
+- `/.ory/self-service/recovery/browser` initiates the self-service recovery
+  flow.
+- `/.ory/self-service/verification/browser` initiates the self-service
+  verification flow.
+- `/.ory/self-service/settings/browser` initiates the self-service settings
+  flow.
 
 If you redirect or link the user to one of those paths, the login, registration,
 ... flow will be initiated:
 
 ```html
-<a href="/.ory/init/login">Log in</a>
+<a href="/.ory/self-service/login/browser">Log in</a>
 ```
 
 You can also append a `return_to` query parameter so that the user ends up at
@@ -51,7 +55,10 @@ The return_to URL must include the protocol and domain! Relative URLs are not
 possible.
 
 ```html
-<a href="/.ory/init/login?return_to=https://localhost:4000/my-url">Log in</a>
+<a
+  href="/.ory/self-service/login/browser?return_to=https://localhost:4000/my-url"
+  >Log in</a
+>
 ```
 
 ### Zero Trust
@@ -166,12 +173,9 @@ Cookie:
 
 ## Ory Proxy for Local Development
 
-The Ory Proxy works great on local machines (`localhost`). It is able to
-register SSL certificates in your operating system's credential store when
-starting up, allowing for an easy and secure way to start development.
-
-Assuming you are running, for example, a NodeJS app on port 3000, you would
-point the Ory Proxy to that URL:
+The Ory Proxy works great on local machines (`localhost`). Assuming you are
+running, for example, a NodeJS app on port 3000, you would point the Ory Proxy
+to that URL:
 
 ```
 export ORY_ACCESS_TOKEN=<your personal access token here>
@@ -179,53 +183,25 @@ ory proxy local http://localhost:3000
 ```
 
 For other CLI flags which, for example, disable the auto-opening of the URL in
-the browser, run `ory help proxy local` or head over to the
-[Ory Proxy Local Reference](../cli/ory-proxy-local.md).
+the browser, run `ory help proxy` or head over to the
+[Ory Proxy Local Reference](../cli/ory-proxy.md).
 
 ## Ory Proxy for Production
 
 The Ory Proxy is also capable of protecting remote and production environments.
 Alternatively you can also use
-[DNS CNAME](../start-building/deploy-auth-production.mdx).
-
-Using the Ory Proxy in production works similar to the local development flow,
-with a few differences:
-
-1. The Ory Proxy will not install any SSL certificates. You are responsible for
-   setting up HTTPS.
-2. You must specify the URL where the proxy is running.
+[DNS CNAME](../start-building/deploy-auth-production.mdx). The only difference
+to running the proxy locally, is that you append the root URL where your app
+(via the Ory Proxy) is exposed at:
 
 ```
-export ORY_ACCESS_TOKEN=<your personal access token here>
-ory proxy production http://localhost:3000 https://my-domain.com
+export ORY_SDK_URL=https://<project>.projects.oryapis.com/
+ory proxy http://localhost:3000 https://my-domain.com
 ```
 
 For other CLI flags which, for example, disable the auto-opening of the URL in
-the browser, run `ory help proxy production` or head over to the
-[Ory Proxy Production Reference](../cli/ory-proxy-local.md).
-
-### Running on a NodeJS PaaS (Vercel, Netlify, Gatsby Cloud, ...)
-
-If you deploy your application on a PaaS such as Vercel, Gatsby Cloud, or
-Netlify the best option is to install the Ory CLI using NPM
-(`npm i --save @ory/cli`) and run it as part of your NPM start script:
-
-```json
-{
-  "scripts": {
-    "start": "npm-run-all -p start:*",
-    "start:proxy": "ory proxy local --port $PORT http://127.0.0.1:3000 https://your-domain.com",
-    "start:server": "node your-entrypoint.js"
-  }
-}
-```
-
-Here we are assuming that your server is running on port 3000. If it is running
-on a different port, replace the port number in `http://127.0.0.1:3000`.
-
-Additionally we are assuming that your PaaS is exposing the port on which your
-app is running at the environment variable `PORT` and that it is actually
-executing `npm run start` and not just using static files!
+the browser, run `ory help proxy` or head over to the
+[Ory Proxy Production Reference](../cli/ory-proxy.md).
 
 ### Running on a VM
 
@@ -235,7 +211,7 @@ are using NodeJS to run your server on port 3000, and are exposing web traffic
 at port 8080, use:
 
 ```
-ory proxy local --port 8080 http://127.0.0.1:3000 https://your-domain.com &
+ory proxy --port 8080 http://127.0.0.1:3000 https://your-domain.com &
 
 # This should be your server command
 node your-entrypoint.js
@@ -271,7 +247,7 @@ set -e
 
 # This assumes that your server is running on port 3000. If it is running on a different port,
 # change the `3000` to the port where your server is running at!
-ory proxy local --port 8080 http://127.0.0.1:3000 https://your-domain.com &
+ory proxy --port 8080 http://127.0.0.1:3000 https://your-domain.com &
 
 # This should be your server command
 node your-entrypoint.js
@@ -304,7 +280,7 @@ you are on the latest version.
 
 - For
   [brew (MacOs)](https://www.ory.sh/docs/start-building/ory-cli-install-use#install-on-macos)
-  use `brew upgrade ory`,
+  use `brew upgrade ory/tap/cli`,
 - For
   [scoop (Win)](https://www.ory.sh/docs/start-building/ory-cli-install-use#install-on-windows)
   use `scoop update ory`

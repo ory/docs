@@ -14,7 +14,7 @@ const jwtMiddleware = jwt({
 
     // This URL is provided by the Ory Proxy and contains the cryptographic keys
     // for validating the JSON Web Token.
-    jwksUri: 'https://localhost:4000/.ory/proxy/jwks.json'
+    jwksUri: 'http://localhost:4000/.ory/proxy/jwks.json'
   }),
   algorithms: ['ES256'],
 })
@@ -27,9 +27,9 @@ export const protect = function (req: Request, res: Response, next: NextFunction
       return next()
     }
 
-    // If the JWT middleware says we are not authorized, we redirect to the login!
+    // If the JWT middleware says we are not authorized, we show a page asking to sign in
     if (err.name === 'UnauthorizedError') {
-      res.redirect(303, '/.ory/init/login?return_to=' + req.url)
+      res.render('unauthorized')
       return
     }
 
