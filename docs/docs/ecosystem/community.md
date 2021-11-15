@@ -53,6 +53,7 @@ This is not an exhaustive list. Want your own content here? Create a PR!
 
 #### Features
 
+- [KetoToDot Ory Keto relation tuples to dot notation converter](https://github.com/psauvage0/ketodot)
 - [Ory Hydra Two-factor authentication login provider](https://github.com/epandurski/hydra_login2f)
 - [OpenID Connect client for Angular](https://git.webmeisterei.com/minadmin/js-oidc)
 - [Ory Hydra Identity Provider](https://github.com/janekolszak/idp)
