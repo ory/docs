@@ -61,11 +61,12 @@ This is not an exhaustive list. Want your own content here? Create a PR!
 
 #### WIP & Archived
 
-- [Archived: Ory Hydra Golang login/consent provider using Authboss user/password authentication](https://github.com/nbycomp/login-consent)
-
+- [WIP Ory Hydra/Kratos Integration in Go](https://github.com/atreya2011/go-kratos-test)
 - [WIP: Ory Kratos React example](https://github.com/realStandal/kratos-react-example)
 - [WIP: Ory Hydra for GCP](https://github.com/someone1/hydra-gcp)
 - [WIP: Ory Hydra/ Ory Oathkeeper Zero Trust Reference "Hello World App"](https://github.com/JasonCubic/oathkeeper_hydra_reverse_proxy)
+
+- [Archived: Ory Hydra Golang login/consent provider using Authboss user/password authentication](https://github.com/nbycomp/login-consent)
 
 ### Articles & Tutorials
 
