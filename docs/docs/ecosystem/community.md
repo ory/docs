@@ -70,7 +70,7 @@ This is not an exhaustive list. Want your own content here? Create a PR!
 
 ### Articles & Tutorials
 
-- [Integration tests in Golang with dockertest ](https://sergiocarracedo.es/integration-tests-in-golang-with-dockertest/)
+- [Integration tests in Golang with dockertest](https://sergiocarracedo.es/integration-tests-in-golang-with-dockertest/)
 - [Using Dockertest with Golang](https://bignerdranch.com/blog/using-dockertest-with-golang/)
 - [Open Source Authentication with Hydra and Kratos](https://blog.px.dev/open-source-auth/ossauth/)
 - [Looking at Zanzibar through Ory Keto](https://gruchalski.com/posts/2021-04-11-looking-at-zanzibar-through-ory-keto/)
