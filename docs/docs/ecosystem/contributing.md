@@ -3,9 +3,12 @@ id: contributing
 title: Contributing to Ory
 ---
 
-:::tip For an introduction to contributions please refer to the specific
-project, for example the
-[Contribution Guidelines for Ory Kratos](https://www.ory.sh/kratos/docs/contributing/)
+:::tip
+
+For an introduction to contributions please refer to the specific project, for
+example the
+[Contribution Guidelines for Ory Kratos](https://www.ory.sh/kratos/docs/contributing/).
+
 :::
 
 This document is a work in progress and documents the inner workings of the Ory
