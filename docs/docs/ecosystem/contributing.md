@@ -1,13 +1,15 @@
 ---
 id: contributing
-title: Contributing
+title: Contributing to Ory
 ---
 
-This document is a work in progress. We will be documenting the inner workings
-of the Ory GitHub ecosystem and project structures in here. If you feel there is
-something missing or should be added, please open an issue in
-[ory/docs](https://github.com/ory/docs) or contact us on the
-[forum](https://community.ory.sh/) or [chat](https://www.ory.sh/chat).
+:::tip
+For an introduction to contributions please refer to the specific project, for example the [Contribution Guidelines for Ory Kratos](https://www.ory.sh/kratos/docs/contributing/)
+:::
+
+This document is a work in progress and documents the inner workings
+of the Ory GitHub ecosystem and project structures, as well as providing more in-depth tips & guides to contributors. If you feel there is something missing or should be added, please open an issue in [ory/docs](https://github.com/ory/docs) or contact us on the [forum](https://community.ory.sh/) or [chat](https://www.ory.sh/chat).
+
 
 ## Releasing Software
 
@@ -487,3 +489,60 @@ type identityList []Identity
 //       200: identityList
 //       500: jsonError
 ```
+
+## IDE Tips
+
+### Goland 
+
+#### Tests 
+
+While running tests inside the IDE make sure you have the tag `-tags sqlite` in the "Go Tool Arguments". In the example screenshot we are looking at `login_test.go` and add it to the Run/Debug Configurations.
+
+![Go Tool Arguments Configuration Screenshot](../images/contributing/goland-config.png)
+
+### Jetbrains
+
+#### Debugging Tests 
+
+Jetbrains IDEs have an SQL debugger, that can open sqlite files. When debugging tests, you can set a bool flag to use an sqlite file instead of in-mem and then debug after the test failed.
+[Example](https://github.com/ory/keto/pull/638/files#diff-19d74043bd6f4fd4ffaf6dee2895a42da0a754b6135339343117614974ff6182R84):
+```go
+func GetSqlite(t testing.TB, mode sqliteMode) *DsnT {
+	dsn := &DsnT{
+		MigrateUp:   true,
+		MigrateDown: false,
+	}
+
+	switch mode {
+	case SQLiteMemory:
+		dsn.Name = "memory"
+		dsn.Conn = fmt.Sprintf("sqlite://file:%s?_fk=true&cache=shared&mode=memory", t.Name())
+	case SQLiteFile:
+		t.Cleanup(func() {
+			_ = os.Remove("TestDB.sqlite")
+		})
+		fallthrough
+	case SQLiteDebug:
+		dsn.Name = "sqlite"
+		dsn.Conn = "sqlite://file:TestDB.sqlite?_fk=true"
+	}
+
+	return dsn
+}
+```
+![Screenshot of Jetbrains SQL debugger, Fast!](../images/contributing/jetbrains-config.png)
+
+To transfer the above to Kratos:
+- Change the DSN to the following: `dsn.Conn = "sqlite://file:TestDB.sqlite?_fk=true"`.
+- `mode=memor`.
+- In case you have an sqlite file, migrators are not automatically applied. Run them manually first with the [CLI](https://www.ory.sh/kratos/docs/cli/kratos-migrate-sql).
+
+### VS Code
+
+#### Tests
+
+- Under Settings, search for `Go: Test Tags`. 
+- Click Edit in `settings.json`.
+![Screenshot of VSCode Search](../images/contributing/vscode-search.png)
+- Add the following KV to the `settings.json`: `"go.testTags": "sqlite",`.
+![Screenshot of VScode settings.json](../images/contributing/vscode-settings.png)
