@@ -1,6 +1,6 @@
 ---
-id: projects
-title: Products
+id: products
+title: Projects
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
