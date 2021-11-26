@@ -14,8 +14,15 @@ example the
 This document is a work in progress and documents the inner workings of the Ory
 GitHub ecosystem and project structures, as well as providing more in-depth tips
 & guides to contributors. If you feel there is something missing or should be
-added, please open an issue in [ory/docs](https://github.com/ory/docs) or contact us in the
-[Ory Chat](https://www.ory.sh/chat). We also offer discussions on GitHub for all major projects: [Ory Kratos](https://github.com/ory/kratos/discussions), [Ory Hydra](https://github.com/ory/hydra/discussions), [Ory Keto](https://github.com/ory/keto/discussions), [Ory Oathkeeper](https://github.com/ory/oathkeeper/discussions/), as well as one for all other Ory projects, events and content: [Ory Meta discussions](https://github.com/ory/meta/discussions). 
+added, please open an issue in [ory/docs](https://github.com/ory/docs) or
+contact us in the [Ory Chat](https://www.ory.sh/chat). We also offer discussions
+on GitHub for all major projects:
+[Ory Kratos](https://github.com/ory/kratos/discussions),
+[Ory Hydra](https://github.com/ory/hydra/discussions),
+[Ory Keto](https://github.com/ory/keto/discussions),
+[Ory Oathkeeper](https://github.com/ory/oathkeeper/discussions/), as well as one
+for all other Ory projects, events and content:
+[Ory Meta discussions](https://github.com/ory/meta/discussions).
 
 ## Releasing Software
 
