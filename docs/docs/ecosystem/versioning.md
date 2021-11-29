@@ -1,15 +1,15 @@
 ---
 id: versioning
-title: Software Versions and Project Maturity
+title: Software Versions
 ---
 
 The Ory ecosystem consists of multiple services versioned using
 [semantic versioning](https://semver.org). This section explains how we define
 service versions and what they mean.
 
-## Maturity
+## Development Stages
 
-There are three maturity levels for services:
+There are three main stages of development for services:
 
 - **Graduated:** Mature implementations of proven concepts. They rarely change
   in backwards incompatible ways. A software is considered graduated if the
