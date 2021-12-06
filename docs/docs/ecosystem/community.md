@@ -72,7 +72,7 @@ This is not an exhaustive list. Want your own content here? Create a PR!
 
 - [Open Source Authentication with Hydra and Kratos](https://blog.px.dev/open-source-auth/ossauth/)
 
-#### Ory Kratos 
+#### Ory Kratos
 
 - [How to write an application that integrates Kratos in Go](https://stories.abletech.nz/integrating-third-party-provider-kratos-f5514b53af66)
 - [Ory Kratos reverse proxy (Nginx) example](https://github.com/ory/kratos/discussions/1049)
