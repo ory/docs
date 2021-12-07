@@ -171,22 +171,23 @@ Cookie:
 }
 ```
 
-## Ory Proxy for Local Development
+## Local Development
+
+Before you start set the environment variable [`ORY_SDK_URL`](../concepts/terminology#ory-sdk-url). It can be found in the "API & Services" section of your Ory Cloud Console.
 
 The Ory Proxy works great on local machines (`localhost`). Assuming you are
 running, for example, a NodeJS app on port 3000, you would point the Ory Proxy
 to that URL:
 
 ```
-export ORY_ACCESS_TOKEN=<your personal access token here>
-ory proxy local http://localhost:3000
+export ORY_SDK_URL=https://<project>.projects.oryapis.com/
+ory proxy http://localhost:3000
 ```
 
-For other CLI flags which, for example, disable the auto-opening of the URL in
-the browser, run `ory help proxy` or head over to the
+For more information on other CLI flags run `ory help proxy` or head over to the
 [Ory Proxy Local Reference](../cli/ory-proxy.md).
 
-## Ory Proxy for Production
+## Production
 
 The Ory Proxy is also capable of protecting remote and production environments.
 Alternatively you can also use
