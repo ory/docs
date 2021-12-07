@@ -3,12 +3,11 @@ id: proxy
 title: Using Ory Proxy
 ---
 
-Ory Proxy is a powerful tool which authenticates users, converts session
-into a JSON Web Token, and ensures that cookies and URLs are properly
-configured.
+Ory Proxy is a powerful tool which authenticates users, converts session into a
+JSON Web Token, and ensures that cookies and URLs are properly configured.
 
-Using Ory Cloud without Ory Proxy is currently not encouraged, unless you
-are writing a mobile application or are only interacting with Ory Cloud's Admin
+Using Ory Cloud without Ory Proxy is currently not encouraged, unless you are
+writing a mobile application or are only interacting with Ory Cloud's Admin
 APIs.
 
 If you haven't already, please
@@ -22,13 +21,13 @@ concepts.
 
 ### URL Structure
 
-Ory Proxy mirrors Ory Cloud's APIs and UIs under the `/.ory` path. If you
-were to call, for example, the URL
+Ory Proxy mirrors Ory Cloud's APIs and UIs under the `/.ory` path. If you were
+to call, for example, the URL
 `https://<your-project-slug>.projects.oryapis.com/ui/login`, the equivalent
 proxied URL would be `https://<proxy-host>/.ory/ui/login`.
 
-Ory Proxy has a few shorthand URLs which you can use to initiate
-self-service flows:
+Ory Proxy has a few shorthand URLs which you can use to initiate self-service
+flows:
 
 - `/.ory/self-service/login/browser` initiates the self-service login flow.
 - `/.ory/self-service/registration/browser` initiates the self-service
@@ -63,9 +62,9 @@ possible.
 
 ### Zero Trust
 
-Ory Proxy translates any known Ory credentials (e.g. Ory Session Token or
-Ory Session Cookie) to a JSON Web Token. Assuming the user calls Ory Proxy
-with a valid Ory Session Cookie
+Ory Proxy translates any known Ory credentials (e.g. Ory Session Token or Ory
+Session Cookie) to a JSON Web Token. Assuming the user calls Ory Proxy with a
+valid Ory Session Cookie
 
 ```
 GET /some-path
@@ -173,11 +172,12 @@ Cookie:
 
 ## Local Development
 
-Before you start set the environment variable [`ORY_SDK_URL`](../concepts/terminology#ory-sdk-url). It can be found in the "API & Services" section of your Ory Cloud Console.
+Before you start set the environment variable
+[`ORY_SDK_URL`](../concepts/terminology#ory-sdk-url). It can be found in the
+"API & Services" section of your Ory Cloud Console.
 
-Ory Proxy works great on local machines (`localhost`). Assuming you are
-running, for example, a NodeJS app on port 3000, you would point Ory Proxy
-to that URL:
+Ory Proxy works great on local machines (`localhost`). Assuming you are running,
+for example, a NodeJS app on port 3000, you would point Ory Proxy to that URL:
 
 ```
 export ORY_SDK_URL=https://<project>.projects.oryapis.com/
@@ -271,13 +271,13 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 
 ### Kubernetes
 
-Adding a Helm Chart for Ory Proxy is on the roadmap, which would allow
-running Ory Proxy either as a Service, Ingress, or Side Car!
+Adding a Helm Chart for Ory Proxy is on the roadmap, which would allow running
+Ory Proxy either as a Service, Ingress, or Side Car!
 
 ## Troubleshooting
 
-If you run get an error while working with Ory Proxy or Ory CLI , make sure
-you are on the latest version.
+If you run get an error while working with Ory Proxy or Ory CLI , make sure you
+are on the latest version.
 
 - For
   [brew (MacOs)](https://www.ory.sh/docs/start-building/ory-cli-install-use#install-on-macos)
