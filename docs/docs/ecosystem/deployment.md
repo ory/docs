@@ -15,8 +15,7 @@ accompanying Documentation.
 All Ory projects support storing data in memory and in relational databases
 (PostgreSQL, MySQL).
 
-Ory Hydra additionally supports CockroachDB, but still beta, use it at your own
-risk!
+Ory Hydra additionally supports CockroachDB.
 
 ### In-memory (ephemeral)
 
@@ -31,8 +30,7 @@ to `memory`.
 
 All Ory projects support PostgreSQL and MySQL as first-class citizens.
 
-Ory Hydra additionally supports CockroachDB, but still beta, use it at your own
-risk!
+Ory Hydra additionally supports CockroachDB.
 
 Ory Kratos additionally supports SQLite.
 
@@ -132,7 +130,7 @@ Additionally, the following DSN parameters are supported:
 To set such a parameter, append it to the DSN query, for example:
 `mysql://user:password@tcp(host:123)/database?parseTime=true&writeTimeout=123s`
 
-##### CockroachDB (beta)
+##### CockroachDB
 
 If configuration key `dsn` (Data Source Name) is prefixed with `cockroach://`,
 then CockroachDB will be used as storage backend. An exemplary configuration
