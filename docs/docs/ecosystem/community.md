@@ -26,71 +26,85 @@ This is not an exhaustive list. Want your own content here? Create a PR!
 > written by the community and might be out of date, unmaintained, or otherwise
 > faulty.
 
-### Code
+### Ory Stack
 
-#### Frontend User Interfaces
+- [Starter for Svelte Kit and the Ory Stack](https://github.com/MicLeey/sveltekit-ory-starter)
+- [Reference Ory Docker Compose Setup ](https://github.com/radekg/ory-reference-compose) +
+  [Article](https://gruchalski.com/posts/2021-04-10-ory-reference-docker-compose-and-thoughts-on-the-platform/)
+- [WIP Ory Hydra/Kratos Integration in Go](https://github.com/atreya2011/go-kratos-test)
+- [Ory Kratos "hydra-integration" branch](https://github.com/ory/kratos-selfservice-ui-node/tree/hydra-integration-2021)
+- [Predefined dockertest libraries for Hydra, Kratos & Keto integration tests](https://github.com/radekg/app-kit-orytest)
+
+### Ory Kratos
 
 - [Ory Kratos Svelte Node self service](https://github.com/emrahcom/kratos-selfservice-svelte-node)
+- [Ory Kratos Sveltekit example](https://github.com/drejohnson/sveltekit-kratos)
 - [Ory Kratos Next.js self service UI](https://github.com/spa5k/kratos-next)
 - [Ory Kratos Rescript React UI SPA](https://github.com/allancalix/kratos-ui) +
   [Bindings](https://github.com/allancalix/kratos-ui/blob/main/src/Bindings/Kratos.res)
 - [Styx: Ory Kratos/Hydra Erlang frontend UI](https://github.com/hrefhref/styx)
 
-#### Examples
+### Ory Hydra
 
-- [Ory Kratos Sveltekit example](https://github.com/drejohnson/sveltekit-kratos)
-- [Reference Ory Docker Compose Setup ](https://github.com/radekg/ory-reference-compose) +
-  [Article](https://gruchalski.com/posts/2021-04-10-ory-reference-docker-compose-and-thoughts-on-the-platform/)
-- [Predefined dockertest libraries for Hydra, Kratos & Keto integration tests](https://github.com/radekg/app-kit-orytest)
+- [Ory Hydra Identity Provider for over LDAP](https://github.com/i-core/werther)
+- [Ory Hydra Middleware for Gin (Go)](https://github.com/janekolszak/gin-hydra)
+- [Ory Hydra Two-factor authentication login provider](https://github.com/epandurski/hydra_login2f)
+- [Ory Hydra Identity Provider](https://github.com/janekolszak/idp)
 - [Ory Hydra PoC for OAuth 2.0/OIDC provider](https://git.dittberner.info/jan/hydra_oidc_poc)
 - [Ory Hydra Python login/consent provider example](https://github.com/westphahl/hydra-login-consent-python)
 
-#### Integrations
-
-- [Ory Hydra Identity Provider for over LDAP](https://github.com/i-core/werther)
-- [Ory Kratos "hydra-integration" branch](https://github.com/ory/kratos-selfservice-ui-node/tree/hydra-integration-2021)
-- [Ory Hydra Middleware for Gin (Go)](https://github.com/janekolszak/gin-hydra)
-
-#### Features
+### Ory Keto
 
 - [KetoToDot Ory Keto relation tuples to dot notation converter](https://github.com/psauvage0/ketodot)
-- [Ory Hydra Two-factor authentication login provider](https://github.com/epandurski/hydra_login2f)
-- [OpenID Connect client for Angular](https://git.webmeisterei.com/minadmin/js-oidc)
-- [Ory Hydra Identity Provider](https://github.com/janekolszak/idp)
-- [Golang login/consent provider and Ory stack example](https://github.com/piensa/logico)
 
-#### WIP & Archived
+**Work In Progress & Archived/Outdated**
 
-- [WIP Ory Hydra/Kratos Integration in Go](https://github.com/atreya2011/go-kratos-test)
 - [WIP: Ory Kratos React example](https://github.com/realStandal/kratos-react-example)
 - [WIP: Ory Hydra for GCP](https://github.com/someone1/hydra-gcp)
 - [WIP: Ory Hydra/ Ory Oathkeeper Zero Trust Reference "Hello World App"](https://github.com/JasonCubic/oathkeeper_hydra_reverse_proxy)
+- [Golang login/consent provider and Ory stack example](https://github.com/piensa/logico)
+- [OpenID Connect client for Angular](https://git.webmeisterei.com/minadmin/js-oidc)
 - [Archived: Ory Hydra Golang login/consent provider using Authboss user/password authentication](https://github.com/nbycomp/login-consent)
 
-### Articles & Tutorials
+## Community Articles & Tutorials
 
-- [Integration tests in Golang with dockertest](https://sergiocarracedo.es/integration-tests-in-golang-with-dockertest/)
-- [Using Dockertest with Golang](https://bignerdranch.com/blog/using-dockertest-with-golang/)
+#### Ory Stack
+
 - [Open Source Authentication with Hydra and Kratos](https://blog.px.dev/open-source-auth/ossauth/)
-- [Looking at Zanzibar through Ory Keto](https://gruchalski.com/posts/2021-04-11-looking-at-zanzibar-through-ory-keto/)
+
+#### Ory Kratos
+
 - [How to write an application that integrates Kratos in Go](https://stories.abletech.nz/integrating-third-party-provider-kratos-f5514b53af66)
-- [Ory Oathkeeper and Auth0](https://blog.commit.dev/articles/open-source-sundays-building-a-user-management-solution-using-ory-oathkeeper-and-auth0)
+- [Ory Kratos reverse proxy (Nginx) example](https://github.com/ory/kratos/discussions/1049)
+
+#### Ory Hydra
+
 - [Practical Example of Implementing OAuth 2.0 Using ory/hydra](https://yusufs.medium.com/practical-example-of-implementing-oauth-2-0-using-ory-hydra-fbaa2765d94f)
-- [API Access Control with Ambassador and Ory Oathkeeper](https://blog.getambassador.io/part-2-api-access-control-and-authentication-with-kubernetes-ambassador-and-ory-oathkeeper-q-a-127fa57f6332?utm_content=76739953&utm_medium=social&utm_source=twitter)
 - OAuth 2.0 with Ory Hydra and Vapor on iOS:
   [Part 1](https://medium.com/12plus1/oauth2-with-ory-hydra-vapor-3-and-ios-12-ca0e61c28f5a),
   [Part 2](https://medium.com/12plus1/oauth2-implementation-with-ory-hydra-vapor-3-and-ios-12-a2e6684e5085),
   [Part 3](https://medium.com/12plus1/oauth2-implementation-with-ory-hydra-vapor-3-and-ios-12-356793a0edcb),
   [Part 4](https://medium.com/12plus1/oauth2-implementation-with-ory-hydra-vapor-3-and-ios-12-4b34fa67d6).
 - [Creating an OAuth 2.0 custom lambda authorizer for use with Amazons (AWS) API Gateway using Hydra](https://blogs.edwardwilde.com/2017/01/12/creating-an-oauth2-custom-lamda-authorizer-for-use-with-amazons-aws-api-gateway-using-hydra/)
-- [CKAN Authentication](https://tech.datopian.com/authentication/#introduction)
+- [Discussion on Access & Refresh Tokens](https://github.com/ory/hydra/issues/1529)
 
-#### GitHub
+#### Ory Keto
 
-- [Ory Kratos reverse proxy (Nginx) example](https://github.com/ory/kratos/discussions/1049)
+- [Looking at Zanzibar through Ory Keto](https://gruchalski.com/posts/2021-04-11-looking-at-zanzibar-through-ory-keto/)
+
+#### Ory Oathkeepeer
+
+- [User Managment using Ory Oathkeeper](https://blog.commit.dev/articles/open-source-sundays-building-a-user-management-solution-using-ory-oathkeeper-and-auth0)
+- [API Access Control with Ambassador and Ory Oathkeeper](https://blog.getambassador.io/part-2-api-access-control-and-authentication-with-kubernetes-ambassador-and-ory-oathkeeper-q-a-127fa57f6332?utm_content=76739953&utm_medium=social&utm_source=twitter)
 - [Ory Oathkeeper Istio best practices/reference configuration](https://github.com/ory/oathkeeper/issues/624)
 
-### Postman API Reference Collections
+#### Ory Dockertest
+
+- [Integration tests in Golang with dockertest](https://sergiocarracedo.es/integration-tests-in-golang-with-dockertest/)
+- [Go Package for better integration tests: Ory Dockertest](https://mariocarrion.com/2021/03/14/golang-package-testing-datastores-ory-dockertest.html)
+- [Using Dockertest with Golang](https://bignerdranch.com/blog/using-dockertest-with-golang/)
+
+## Postman API Reference Collections
 
 > Note that while we try to keep the collections up to date, they might be
 > outdated. Please open an [issue](https://github.com/ory/docs/) if that is the
