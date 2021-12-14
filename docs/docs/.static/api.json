@@ -20,10 +20,7 @@
             "type": "object"
           }
         },
-        "required": [
-          "traits",
-          "state"
-        ],
+        "required": ["traits", "state"],
         "type": "object"
       },
       "CustomHostnameStatus": {
@@ -75,9 +72,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "subscription_id"
-        ],
+        "required": ["subscription_id"],
         "type": "object"
       },
       "RecoveryAddress": {
@@ -102,11 +97,7 @@
             "$ref": "#/components/schemas/RecoveryAddressType"
           }
         },
-        "required": [
-          "id",
-          "value",
-          "via"
-        ],
+        "required": ["id", "value", "via"],
         "type": "object"
       },
       "RecoveryAddressType": {
@@ -196,10 +187,7 @@
             "type": "object"
           }
         },
-        "required": [
-          "schema_id",
-          "traits"
-        ],
+        "required": ["schema_id", "traits"],
         "type": "object"
       },
       "adminCreateSelfServiceRecoveryLinkBody": {
@@ -213,9 +201,7 @@
             "$ref": "#/components/schemas/UUID"
           }
         },
-        "required": [
-          "identity_id"
-        ],
+        "required": ["identity_id"],
         "type": "object"
       },
       "apiToken": {
@@ -239,11 +225,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "name",
-          "owner_id"
-        ],
+        "required": ["id", "name", "owner_id"],
         "type": "object"
       },
       "apiTokens": {
@@ -254,12 +236,7 @@
       },
       "authenticatorAssuranceLevel": {
         "description": "The authenticator assurance level can be one of \"aal1\", \"aal2\", or \"aal3\". A higher number means that it is harder\nfor an attacker to compromise the account.\n\nGenerally, \"aal1\" implies that one authentication factor was used while AAL2 implies that two factors (e.g.\npassword + TOTP) have been used.\n\nTo learn more about these levels please head over to: https://www.ory.sh/kratos/docs/concepts/credentials",
-        "enum": [
-          "aal0",
-          "aal1",
-          "aal2",
-          "aal3"
-        ],
+        "enum": ["aal0", "aal1", "aal2", "aal3"],
         "title": "Authenticator Assurance Level (AAL)",
         "type": "string"
       },
@@ -353,9 +330,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "message"
-        ],
+        "required": ["message"],
         "title": "ErrAALNotSatisfied is returned when an active session was found but the requested AAL is not satisfied.",
         "type": "object"
       },
@@ -419,9 +394,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "message"
-        ],
+        "required": ["message"],
         "title": "Error response",
         "type": "object"
       },
@@ -503,12 +476,7 @@
             "x-omitempty": true
           }
         },
-        "required": [
-          "id",
-          "schema_id",
-          "schema_url",
-          "traits"
-        ],
+        "required": ["id", "schema_id", "schema_url", "traits"],
         "title": "Identity represents an Ory Kratos identity",
         "type": "object"
       },
@@ -543,11 +511,7 @@
       },
       "identityCredentialsType": {
         "description": "and so on.",
-        "enum": [
-          "password",
-          "totp",
-          "oidc"
-        ],
+        "enum": ["password", "totp", "oidc"],
         "title": "CredentialsType  represents several different credential types, like password credentials, passwordless credentials,",
         "type": "string"
       },
@@ -572,10 +536,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "url",
-          "schema"
-        ],
+        "required": ["url", "schema"],
         "type": "object"
       },
       "identityPresets": {
@@ -614,12 +575,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "name",
-          "created_at",
-          "updated_at"
-        ],
+        "required": ["id", "name", "created_at", "updated_at"],
         "title": "Schema represents an Ory Kratos Identity Schema",
         "type": "object"
       },
@@ -651,10 +607,7 @@
       },
       "identityState": {
         "description": "The state can either be `active` or `inactive`.",
-        "enum": [
-          "active",
-          "inactive"
-        ],
+        "enum": ["active", "inactive"],
         "title": "An Identity's State",
         "type": "string"
       },
@@ -680,10 +633,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "Subject",
-          "ProjectSlug"
-        ],
+        "required": ["Subject", "ProjectSlug"],
         "type": "object"
       },
       "isOwnerForProjectBySlugPayload": {
@@ -701,10 +651,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "subject",
-          "project_slug"
-        ],
+        "required": ["subject", "project_slug"],
         "type": "object"
       },
       "jsonError": {
@@ -714,9 +661,7 @@
             "$ref": "#/components/schemas/genericError"
           }
         },
-        "required": [
-          "error"
-        ],
+        "required": ["error"],
         "title": "JSON API Error Response",
         "type": "object"
       },
@@ -777,10 +722,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "message",
-          "redirect_browser_to"
-        ],
+        "required": ["message", "redirect_browser_to"],
         "title": "Is sent when a privileged session is required to perform the settings update.",
         "type": "object"
       },
@@ -816,10 +758,7 @@
           },
           "state": {
             "description": "The state of the project.",
-            "enum": [
-              "running",
-              "halted"
-            ],
+            "enum": ["running", "halted"],
             "readOnly": true,
             "type": "string"
           },
@@ -857,11 +796,7 @@
             "$ref": "#/components/schemas/UUID"
           }
         },
-        "required": [
-          "id",
-          "host",
-          "project_id"
-        ],
+        "required": ["id", "host", "project_id"],
         "type": "object"
       },
       "projectLookupSecretConfig": {
@@ -1291,10 +1226,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "name",
-          "data"
-        ],
+        "required": ["name", "data"],
         "type": "object"
       },
       "selfServiceBrowserLocationChangeRequiredError": {
@@ -1344,9 +1276,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "message"
-        ],
+        "required": ["message"],
         "title": "Is sent when a flow requires a browser to change its location.",
         "type": "object"
       },
@@ -1369,9 +1299,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id"
-        ],
+        "required": ["id"],
         "type": "object"
       },
       "selfServiceFlowExpiredError": {
@@ -1424,9 +1352,7 @@
             "$ref": "#/components/schemas/UUID"
           }
         },
-        "required": [
-          "message"
-        ],
+        "required": ["message"],
         "type": "object"
       },
       "selfServiceFlowType": {
@@ -1507,10 +1433,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "logout_url",
-          "logout_token"
-        ],
+        "required": ["logout_url", "logout_token"],
         "type": "object"
       },
       "selfServiceRecoveryFlow": {
@@ -1564,11 +1487,7 @@
       },
       "selfServiceRecoveryFlowState": {
         "description": "The state represents the state of the recovery flow.\n\nchoose_method: ask the user to choose a method (e.g. recover account via email)\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the recovery challenge was passed.",
-        "enum": [
-          "choose_method",
-          "sent_email",
-          "passed_challenge"
-        ],
+        "enum": ["choose_method", "sent_email", "passed_challenge"],
         "title": "Recovery Flow State",
         "type": "string"
       },
@@ -1584,9 +1503,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "recovery_link"
-        ],
+        "required": ["recovery_link"],
         "type": "object"
       },
       "selfServiceRegistrationFlow": {
@@ -1622,13 +1539,7 @@
             "$ref": "#/components/schemas/uiContainer"
           }
         },
-        "required": [
-          "id",
-          "expires_at",
-          "issued_at",
-          "request_url",
-          "ui"
-        ],
+        "required": ["id", "expires_at", "issued_at", "request_url", "ui"],
         "type": "object"
       },
       "selfServiceSettingsFlow": {
@@ -1686,10 +1597,7 @@
       },
       "selfServiceSettingsFlowState": {
         "description": "show_form: No user data has been collected, or it is invalid, and thus the form should be shown.\nsuccess: Indicates that the settings flow has been updated successfully with the provided data.\nDone will stay true when repeatedly checking. If set to true, done will revert back to false only\nwhen a flow with invalid (e.g. \"please use a valid phone number\") data was sent.",
-        "enum": [
-          "show_form",
-          "success"
-        ],
+        "enum": ["show_form", "success"],
         "title": "State represents the state of this flow. It knows two states:",
         "type": "string"
       },
@@ -1731,22 +1639,13 @@
             "$ref": "#/components/schemas/uiContainer"
           }
         },
-        "required": [
-          "id",
-          "type",
-          "ui",
-          "state"
-        ],
+        "required": ["id", "type", "ui", "state"],
         "title": "A Verification Flow",
         "type": "object"
       },
       "selfServiceVerificationFlowState": {
         "description": "The state represents the state of the verification flow.\n\nchoose_method: ask the user to choose a method (e.g. recover account via email)\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the recovery challenge was passed.",
-        "enum": [
-          "choose_method",
-          "sent_email",
-          "passed_challenge"
-        ],
+        "enum": ["choose_method", "sent_email", "passed_challenge"],
         "title": "Verification Flow State",
         "type": "string"
       },
@@ -1785,10 +1684,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "identity"
-        ],
+        "required": ["id", "identity"],
         "type": "object"
       },
       "sessionAuthenticationMethod": {
@@ -1800,13 +1696,7 @@
             "type": "string"
           },
           "method": {
-            "enum": [
-              "link_recovery",
-              "password",
-              "totp",
-              "oidc",
-              "webauthn"
-            ],
+            "enum": ["link_recovery", "password", "totp", "oidc", "webauthn"],
             "title": "The method used",
             "type": "string"
           }
@@ -1848,11 +1738,7 @@
             "$ref": "#/components/schemas/uiNodes"
           }
         },
-        "required": [
-          "action",
-          "method",
-          "nodes"
-        ],
+        "required": ["action", "method", "nodes"],
         "type": "object"
       },
       "stripeCustomerResponse": {
@@ -1899,10 +1785,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "method",
-          "lookup_secret"
-        ],
+        "required": ["method", "lookup_secret"],
         "title": "submitSelfServiceLoginFlowWithLookupSecretMethodBody is used to decode the login form payload.",
         "type": "object"
       },
@@ -1926,10 +1809,7 @@
             "type": "object"
           }
         },
-        "required": [
-          "provider",
-          "method"
-        ],
+        "required": ["provider", "method"],
         "type": "object"
       },
       "submitSelfServiceLoginFlowWithPasswordMethodBody": {
@@ -1951,11 +1831,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "method",
-          "password",
-          "password_identifier"
-        ],
+        "required": ["method", "password", "password_identifier"],
         "title": "submitSelfServiceLoginFlowWithPasswordMethodBody is used to decode the login form payload.",
         "type": "object"
       },
@@ -1974,10 +1850,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "method",
-          "totp_code"
-        ],
+        "required": ["method", "totp_code"],
         "title": "submitSelfServiceLoginFlowWithTotpMethodBody is used to decode the login form payload.",
         "type": "object"
       },
@@ -1996,9 +1869,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "method"
-        ],
+        "required": ["method"],
         "title": "submitSelfServiceLoginFlowWithWebAuthnMethodBody is used to decode the login form payload.",
         "type": "object"
       },
@@ -2010,9 +1881,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "session_token"
-        ],
+        "required": ["session_token"],
         "type": "object"
       },
       "submitSelfServiceRecoveryFlowBody": {
@@ -2043,10 +1912,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "email",
-          "method"
-        ],
+        "required": ["email", "method"],
         "type": "object"
       },
       "submitSelfServiceRegistrationFlowBody": {
@@ -2086,10 +1952,7 @@
             "type": "object"
           }
         },
-        "required": [
-          "provider",
-          "method"
-        ],
+        "required": ["provider", "method"],
         "type": "object"
       },
       "submitSelfServiceRegistrationFlowWithPasswordMethodBody": {
@@ -2112,11 +1975,7 @@
             "type": "object"
           }
         },
-        "required": [
-          "password",
-          "traits",
-          "method"
-        ],
+        "required": ["password", "traits", "method"],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowBody": {
@@ -2174,9 +2033,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "method"
-        ],
+        "required": ["method"],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowWithOidcMethodBody": {
@@ -2203,9 +2060,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "method"
-        ],
+        "required": ["method"],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowWithPasswordMethodBody": {
@@ -2223,10 +2078,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "password",
-          "method"
-        ],
+        "required": ["password", "method"],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowWithProfileMethodBody": {
@@ -2245,10 +2097,7 @@
             "type": "object"
           }
         },
-        "required": [
-          "traits",
-          "method"
-        ],
+        "required": ["traits", "method"],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowWithTotpMethodBody": {
@@ -2270,9 +2119,7 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "method"
-        ],
+        "required": ["method"],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowWithWebAuthnMethodBody": {
@@ -2298,9 +2145,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "method"
-        ],
+        "required": ["method"],
         "type": "object"
       },
       "submitSelfServiceVerificationFlowBody": {
@@ -2332,10 +2177,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "email",
-          "method"
-        ],
+        "required": ["email", "method"],
         "type": "object"
       },
       "successfulSelfServiceLoginWithoutBrowser": {
@@ -2349,9 +2191,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "session"
-        ],
+        "required": ["session"],
         "type": "object"
       },
       "successfulSelfServiceRegistrationWithoutBrowser": {
@@ -2368,9 +2208,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "identity"
-        ],
+        "required": ["identity"],
         "type": "object"
       },
       "uiContainer": {
@@ -2391,11 +2229,7 @@
             "$ref": "#/components/schemas/uiNodes"
           }
         },
-        "required": [
-          "action",
-          "method",
-          "nodes"
-        ],
+        "required": ["action", "method", "nodes"],
         "type": "object"
       },
       "uiNode": {
@@ -2417,13 +2251,7 @@
             "$ref": "#/components/schemas/uiNodeType"
           }
         },
-        "required": [
-          "type",
-          "group",
-          "attributes",
-          "messages",
-          "meta"
-        ],
+        "required": ["type", "group", "attributes", "messages", "meta"],
         "title": "Node represents a flow's nodes",
         "type": "object"
       },
@@ -2444,12 +2272,7 @@
             "$ref": "#/components/schemas/uiText"
           }
         },
-        "required": [
-          "href",
-          "title",
-          "id",
-          "node_type"
-        ],
+        "required": ["href", "title", "id", "node_type"],
         "title": "AnchorAttributes represents the attributes of an anchor node.",
         "type": "object"
       },
@@ -2510,11 +2333,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "src",
-          "id",
-          "node_type"
-        ],
+        "required": ["src", "id", "node_type"],
         "title": "ImageAttributes represents the attributes of an image node.",
         "type": "object"
       },
@@ -2558,12 +2377,7 @@
             "nullable": true
           }
         },
-        "required": [
-          "name",
-          "type",
-          "disabled",
-          "node_type"
-        ],
+        "required": ["name", "type", "disabled", "node_type"],
         "type": "object"
       },
       "uiNodeMeta": {
@@ -2636,11 +2450,7 @@
             "$ref": "#/components/schemas/uiText"
           }
         },
-        "required": [
-          "text",
-          "id",
-          "node_type"
-        ],
+        "required": ["text", "id", "node_type"],
         "title": "TextAttributes represents the attributes of a text node.",
         "type": "object"
       },
@@ -2670,11 +2480,7 @@
             "$ref": "#/components/schemas/uiTextType"
           }
         },
-        "required": [
-          "id",
-          "text",
-          "type"
-        ],
+        "required": ["id", "text", "type"],
         "type": "object"
       },
       "uiTextType": {
@@ -2736,13 +2542,7 @@
             "$ref": "#/components/schemas/identityVerifiableAddressType"
           }
         },
-        "required": [
-          "id",
-          "value",
-          "verified",
-          "via",
-          "status"
-        ],
+        "required": ["id", "value", "verified", "via", "status"],
         "type": "object"
       },
       "version": {
@@ -2839,9 +2639,7 @@
           }
         ],
         "summary": "List Identities",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       },
       "post": {
         "description": "This endpoint creates an identity. It is NOT possible to set an identity's credentials (password, ...)\nusing this method! A way to achieve that will be introduced in the future.\n\nLearn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
@@ -2904,9 +2702,7 @@
           }
         ],
         "summary": "Create an Identity",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/admin/identities/{id}": {
@@ -2955,9 +2751,7 @@
           }
         ],
         "summary": "Delete an Identity",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       },
       "get": {
         "description": "Learn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
@@ -3022,9 +2816,7 @@
           }
         ],
         "summary": "Get an Identity",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       },
       "put": {
         "description": "This endpoint updates an identity. It is NOT possible to set an identity's credentials (password, ...)\nusing this method! A way to achieve that will be introduced in the future.\n\nThe full identity payload (except credentials) is expected. This endpoint does not support patching.\n\nLearn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
@@ -3108,9 +2900,7 @@
           }
         ],
         "summary": "Update an Identity",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/admin/identities/{id}/sessions": {
@@ -3179,9 +2969,7 @@
           }
         ],
         "summary": "Calling this endpoint irrecoverably and permanently deletes and invalidates all sessions that belong to the given Identity.",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/admin/recovery/link": {
@@ -3246,9 +3034,7 @@
           }
         ],
         "summary": "Create a Recovery Link",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/.well-known/ory/webauthn.js": {
@@ -3268,9 +3054,7 @@
           }
         },
         "summary": "Get WebAuthn JavaScript",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/health/alive": {
@@ -3288,9 +3072,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "status"
-                  ],
+                  "required": ["status"],
                   "type": "object"
                 }
               }
@@ -3309,9 +3091,7 @@
           }
         },
         "summary": "Check HTTP Server Status",
-        "tags": [
-          "metadata"
-        ]
+        "tags": ["metadata"]
       }
     },
     "/api/kratos/public/health/ready": {
@@ -3329,9 +3109,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "status"
-                  ],
+                  "required": ["status"],
                   "type": "object"
                 }
               }
@@ -3351,9 +3129,7 @@
                       "type": "object"
                     }
                   },
-                  "required": [
-                    "errors"
-                  ],
+                  "required": ["errors"],
                   "type": "object"
                 }
               }
@@ -3362,9 +3138,7 @@
           }
         },
         "summary": "Check HTTP Server and Database Status",
-        "tags": [
-          "metadata"
-        ]
+        "tags": ["metadata"]
       }
     },
     "/api/kratos/public/schemas": {
@@ -3418,9 +3192,7 @@
             "description": "jsonError"
           }
         },
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/schemas/{id}": {
@@ -3470,9 +3242,7 @@
             "description": "jsonError"
           }
         },
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/errors": {
@@ -3533,9 +3303,7 @@
           }
         },
         "summary": "Get Self-Service Errors",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/login": {
@@ -3622,9 +3390,7 @@
           }
         },
         "summary": "Submit a Login Flow",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/login/api": {
@@ -3690,9 +3456,7 @@
           }
         },
         "summary": "Initialize Login Flow for APIs, Services, Apps, ...",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/login/browser": {
@@ -3761,9 +3525,7 @@
           }
         },
         "summary": "Initialize Login Flow for Browsers",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/login/flows": {
@@ -3842,9 +3604,7 @@
           }
         },
         "summary": "Get Login Flow",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/logout": {
@@ -3888,9 +3648,7 @@
           }
         },
         "summary": "Complete Self-Service Logout",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/logout/api": {
@@ -3934,9 +3692,7 @@
           }
         },
         "summary": "Perform Logout for APIs, Services, Apps, ...",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/logout/browser": {
@@ -3986,9 +3742,7 @@
           }
         },
         "summary": "Create a Logout URL for Browsers",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/recovery": {
@@ -4065,9 +3819,7 @@
           }
         },
         "summary": "Complete Recovery Flow",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/recovery/api": {
@@ -4107,9 +3859,7 @@
           }
         },
         "summary": "Initialize Recovery Flow for APIs, Services, Apps, ...",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/recovery/browser": {
@@ -4162,9 +3912,7 @@
           }
         },
         "summary": "Initialize Recovery Flow for Browsers",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/recovery/flows": {
@@ -4233,9 +3981,7 @@
           }
         },
         "summary": "Get Recovery Flow",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/registration": {
@@ -4314,9 +4060,7 @@
           }
         },
         "summary": "Submit a Registration Flow",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/registration/api": {
@@ -4356,9 +4100,7 @@
           }
         },
         "summary": "Initialize Registration Flow for APIs, Services, Apps, ...",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/registration/browser": {
@@ -4401,9 +4143,7 @@
           }
         },
         "summary": "Initialize Registration Flow for Browsers",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/registration/flows": {
@@ -4482,9 +4222,7 @@
           }
         },
         "summary": "Get Registration Flow",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/settings": {
@@ -4596,9 +4334,7 @@
           }
         ],
         "summary": "Complete Settings Flow",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/settings/api": {
@@ -4648,9 +4384,7 @@
           }
         },
         "summary": "Initialize Settings Flow for APIs, Services, Apps, ...",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/settings/browser": {
@@ -4723,9 +4457,7 @@
           }
         },
         "summary": "Initialize Settings Flow for Browsers",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/settings/flows": {
@@ -4822,9 +4554,7 @@
           }
         },
         "summary": "Get Settings Flow",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/verification": {
@@ -4901,9 +4631,7 @@
           }
         },
         "summary": "Complete Verification Flow",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/verification/api": {
@@ -4943,9 +4671,7 @@
           }
         },
         "summary": "Initialize Verification Flow for APIs, Services, Apps, ...",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/verification/browser": {
@@ -4988,9 +4714,7 @@
           }
         },
         "summary": "Initialize Verification Flow for Browser Clients",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/self-service/verification/flows": {
@@ -5059,9 +4783,7 @@
           }
         },
         "summary": "Get Verification Flow",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/sessions/whoami": {
@@ -5131,9 +4853,7 @@
           }
         },
         "summary": "Check Who the Current HTTP Session Belongs To",
-        "tags": [
-          "v0alpha2"
-        ]
+        "tags": ["v0alpha2"]
       }
     },
     "/api/kratos/public/version": {
@@ -5151,9 +4871,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "version"
-                  ],
+                  "required": ["version"],
                   "type": "object"
                 }
               }
@@ -5162,9 +4880,7 @@
           }
         },
         "summary": "Return Running Software Version.",
-        "tags": [
-          "metadata"
-        ]
+        "tags": ["metadata"]
       }
     },
     "/backoffice/public/projects": {
@@ -5229,9 +4945,7 @@
           }
         ],
         "summary": "List All Projects",
-        "tags": [
-          "v0alpha0"
-        ]
+        "tags": ["v0alpha0"]
       },
       "post": {
         "description": "Creates a new project.",
@@ -5304,9 +5018,7 @@
           }
         ],
         "summary": "Create a Project",
-        "tags": [
-          "v0alpha0"
-        ]
+        "tags": ["v0alpha0"]
       }
     },
     "/backoffice/public/projects/{project_id}": {
@@ -5382,9 +5094,7 @@
           }
         ],
         "summary": "Get a Project",
-        "tags": [
-          "v0alpha0"
-        ]
+        "tags": ["v0alpha0"]
       },
       "put": {
         "description": "Creates a new configuration revision for a project.",
@@ -5468,9 +5178,7 @@
           }
         ],
         "summary": "Update a Project",
-        "tags": [
-          "v0alpha0"
-        ]
+        "tags": ["v0alpha0"]
       }
     }
   },
