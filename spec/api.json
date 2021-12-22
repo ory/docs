@@ -26,6 +26,24 @@
         ],
         "type": "object"
       },
+      "CreateSubscriptionPayload": {
+        "properties": {
+          "plan_or_price": {
+            "type": "string"
+          },
+          "provision_first_project": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "return_to": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "plan_or_price",
+          "provision_first_project"
+        ],
+        "type": "object"
+      },
       "CustomHostnameStatus": {
         "description": "CustomHostnameStatus is the enumeration of valid state values in the CustomHostnameSSL",
         "type": "string"
@@ -43,42 +61,26 @@
         "title": "JSONRawMessage represents a json.RawMessage that works well with JSON, SQL, and Swagger.",
         "type": "object"
       },
+      "NullPlan": {
+        "enum": [
+          "unknown",
+          "free",
+          "start_up_monthly",
+          "start_up_yearly",
+          "custom"
+        ],
+        "type": "string"
+      },
       "NullString": {
-        "description": "var s NullString\nerr := db.QueryRow(\"SELECT name FROM foo WHERE id=?\", id).Scan(\u0026s)\n...\nif s.Valid {\nuse s.String\n} else {\nNULL value\n}",
-        "properties": {
-          "String": {
-            "type": "string"
-          },
-          "Valid": {
-            "type": "boolean"
-          }
-        },
-        "title": "NullString represents a string that may be null.\nNullString implements the Scanner interface so\nit can be used as a scan destination:",
-        "type": "object"
+        "type": "string"
+      },
+      "NullTime": {
+        "format": "date-time",
+        "type": "string"
       },
       "NullUUID": {
-        "description": "NullUUID can be used with the standard sql package to represent a\nUUID value that can be NULL in the database.",
-        "properties": {
-          "UUID": {
-            "$ref": "#/components/schemas/UUID"
-          },
-          "Valid": {
-            "type": "boolean"
-          }
-        },
-        "type": "object"
-      },
-      "ProvisionProjectPayload": {
-        "properties": {
-          "subscription_id": {
-            "description": "The stripe subscription ID to use for provisioning the project.",
-            "type": "string"
-          }
-        },
-        "required": [
-          "subscription_id"
-        ],
-        "type": "object"
+        "format": "uuid4",
+        "type": "string"
       },
       "RecoveryAddress": {
         "properties": {
@@ -161,6 +163,9 @@
         },
         "type": "object"
       },
+      "String": {
+        "$ref": "#/components/schemas/NullString"
+      },
       "StringSlicePipeDelimiter": {
         "items": {
           "type": "string"
@@ -168,9 +173,40 @@
         "title": "StringSlicePipeDelimiter de/encodes the string slice to/from a SQL string.",
         "type": "array"
       },
+      "SubscriptionStatus": {
+        "title": "SubscriptionStatus is the list of allowed values for the subscription's status.",
+        "type": "string"
+      },
+      "Time": {
+        "description": "Time replaces sql.NullTime with an implementation\nthat supports proper JSON encoding/decoding.",
+        "properties": {
+          "Time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "Valid": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
       "UUID": {
         "format": "uuid4",
         "type": "string"
+      },
+      "UpdateSubscriptionPayload": {
+        "properties": {
+          "plan_or_price": {
+            "type": "string"
+          },
+          "return_to": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "plan_or_price"
+        ],
+        "type": "object"
       },
       "activeProject": {
         "description": "The Active Project ID",
@@ -802,9 +838,6 @@
           },
           "id": {
             "$ref": "#/components/schemas/UUID"
-          },
-          "ongoing_stripe_checkout_id": {
-            "$ref": "#/components/schemas/NullString"
           },
           "revisions": {
             "$ref": "#/components/schemas/projectRevisions"
@@ -2335,6 +2368,69 @@
         "required": [
           "email",
           "method"
+        ],
+        "type": "object"
+      },
+      "subscription": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "current_plan": {
+            "description": "The currently active plan of the subscription",
+            "enum": [
+              "unknown",
+              "free",
+              "start_up_monthly",
+              "start_up_yearly",
+              "custom"
+            ],
+            "readOnly": true,
+            "type": "string"
+          },
+          "customer_id": {
+            "description": "The ID of the stripe customer",
+            "readOnly": true,
+            "type": "string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "ongoing_stripe_checkout_id": {
+            "$ref": "#/components/schemas/String"
+          },
+          "payed_until": {
+            "description": "Until when the subscription is payed",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "plan_changes_at": {
+            "$ref": "#/components/schemas/Time"
+          },
+          "plan_changes_to": {
+            "$ref": "#/components/schemas/NullPlan"
+          },
+          "status": {
+            "$ref": "#/components/schemas/SubscriptionStatus"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "customer_id",
+          "status",
+          "payed_until",
+          "current_plan",
+          "plan_changes_to",
+          "created_at",
+          "updated_at"
         ],
         "type": "object"
       },
@@ -5247,7 +5343,7 @@
           "x-originalParamName": "Body"
         },
         "responses": {
-          "200": {
+          "201": {
             "content": {
               "application/json": {
                 "schema": {
