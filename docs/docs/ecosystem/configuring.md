@@ -3,29 +3,186 @@ id: configuring
 title: Configuring Ory services
 ---
 
-Ory services share the same configuration system. This page documents the
+All Ory services share the same configuration system. This page documents the
 details and edge cases that apply to all Ory services.
+
+:::info
+
+Please note that Ory Oathkeeper uses an old configuration library and does not
+yet respect everything explained in this document.
+
+:::
 
 To find out more about configuring the individual services head to their
 corresponding sections.
 
-## Setting configuration values via environmental variables and flags
+## Configuration Format
 
-### Booleans
+In Ory, configuration keys use underscores to separate words:
 
-Boolean values are parsed using
-[strconv.ParseBool](https://golang.org/pkg/strconv/#ParseBool).
+```yaml
+some_config: value
+# Not:
+# someConfig: value
+```
 
-### Numbers
+Often, configuration keys have sub-keys
 
-Parsing for all numeric types is done using
-[strconv.ParseFloat](https://golang.org/pkg/strconv/#ParseFloat).
+```yaml
+oauth2:
+  require_client_auth: true
+```
 
-### String/Numeric arrays
+or arrays:
 
-Configuration keys that require arrays expect comma separated lists as defined
-by the [csv package](https://golang.org/pkg/encoding/csv/). Numeric arrays will
-firstly be parsed to string arrays. Every item is then parsed to a number as
-described above.
+```yaml
+social_sign_in:
+  providers:
+    - provider: google
+```
 
-The whole csv string might be enclosed by square brackets.
+## Loading Configuration from Files
+
+Configuration can be loaded from the file system. Ory supports loading
+configuration from YAML
+
+```yaml
+some_config: value
+```
+
+and JSON files
+
+```json
+{
+  "some_config": "value"
+}
+```
+
+You can combine several configuration files by defining the `-c` or `--config`
+flag multiple times when calling the CLI command or when importing configuration
+files to Ory Cloud:
+
+```
+someCommand --config file/a.yml --config file/b.yml
+```
+
+The files are then merged in order. Here, `a.yml`'s values are overwritten by
+`b.yml`.
+
+:::info
+
+When merging configuration values, the configuration system will try its best to
+merge the keys. Please note that array values can will be overwritten!
+
+```yml
+--- # file A
+foo:
+  - id: bar
+--- # file B
+foo:
+  - id: baz
+--- # Result
+foo:
+  - id: baz
+```
+
+:::
+
+## Loading Configuration from Environment Variables
+
+In cases where you need to load secret values - this is usually the case when
+deploying Ory open source services yourself - you can use environment variables
+to override configuration values from files or CLI flags.
+
+It is possible to set _any_ configuration value from environment variables. To
+understand how this works, let's look at an example:
+
+```yaml
+some:
+  nested_key:
+    with_a_value: foo
+    and_array:
+      - id: foo
+      - id: bar
+```
+
+The above values can be set with using the following environment variables:
+
+```shell
+# Linux / macOS
+export SOME_NESTED_KEY_WITH_A_VALUE=foo
+export SOME_NESTED_KEY_AND_ARRAY_0_ID=foo
+export SOME_NESTED_KEY_AND_ARRAY_1_ID=bar
+
+# Windows CMD
+set SOME_NESTED_KEY_WITH_A_VALUE=foo
+set SOME_NESTED_KEY_AND_ARRAY_0_ID=foo
+set SOME_NESTED_KEY_AND_ARRAY_1_ID=bar
+
+# Windows Powershell
+$env:SOME_NESTED_KEY_WITH_A_VALUE = foo
+$env:SOME_NESTED_KEY_AND_ARRAY_0_ID = foo
+$env:SOME_NESTED_KEY_AND_ARRAY_1_ID = bar
+```
+
+As you can see, subkeys are separated with an underscore `_`. If a subkey is an
+array, you can reference the array item by using the array index (`0`, `1`). It
+is also possible to define a new array by using an array index that is not yet
+set:
+
+```shell
+export SOME_NESTED_KEY_AND_ARRAY_2_BAR=baz
+```
+
+The above would result in:
+
+```yaml
+some:
+  nested_key:
+    with_a_value: foo
+    and_array:
+      - id: foo
+      - bar: bar
+```
+
+It is also possible to use JSON strings to denote complex configuration keys:
+
+```shell
+# Linux / macOS
+export SOME_NESTED_KEY_AND_ARRAY='[{"id":"foo"},{"id":"bar"}]'
+# Windows CMD
+set SOME_NESTED_KEY_AND_ARRAY='[{"id":"foo"},{"id":"bar"}]'
+# Windows Powershell
+$env:SOME_NESTED_KEY_AND_ARRAY = '[{"id":"foo"},{"id":"bar"}]'
+```
+
+## Loading Configuration from CLI Flags
+
+When using the CLI, you can also set configuration values using CLI flags. This
+option however is very rare and you will usually find configuration files or
+environment variables to set configuration values. To find information about CLI
+flags, append the help flag (`-h`) to the command you wish to use.
+
+## Configuration Types
+
+Ory uses JSON Schemas to define the configuration layout. JSON Schema defines
+types, which means that Ory is able to guess the type and convert strings (e.g.
+when using environment variables) to the correct type! A boolean type is
+converted to `true` or `false` accordingly for:
+
+```bash
+export SOME_VAR=true
+export SOME_OTHER_VAR=false
+```
+
+The same applies to strings and numbers!
+
+## Configuration References
+
+All of Ory's services have a full configuration reference available. You can
+find them here:
+
+- [Ory Keto(https://www.ory.sh/docs/keto/reference/configuration)
+- [Ory Kratos(https://www.ory.sh/docs/kratos/reference/configuration)
+- [Ory Hydra(https://www.ory.sh/docs/hydra/reference/configuration)
+- [Ory Oathkeeper(https://www.ory.sh/docs/oathkeeper/reference/configuration)
