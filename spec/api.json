@@ -76,6 +76,7 @@
       },
       "NullTime": {
         "format": "date-time",
+        "nullable": true,
         "type": "string"
       },
       "NullUUID": {
@@ -178,17 +179,8 @@
         "type": "string"
       },
       "Time": {
-        "description": "Time replaces sql.NullTime with an implementation\nthat supports proper JSON encoding/decoding.",
-        "properties": {
-          "Time": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "Valid": {
-            "type": "boolean"
-          }
-        },
-        "type": "object"
+        "format": "date-time",
+        "type": "string"
       },
       "UUID": {
         "format": "uuid4",
@@ -2856,9 +2848,8 @@
     },
     "securitySchemes": {
       "oryAccessToken": {
-        "in": "header",
-        "name": "Authorization",
-        "type": "apiKey"
+        "scheme": "bearer",
+        "type": "http"
       }
     }
   },
