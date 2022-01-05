@@ -188,6 +188,7 @@ module.exports = {
       }
     ],
     '@docusaurus/plugin-content-pages',
+    require.resolve('./src/plugins/analytics'),
     require.resolve('./src/plugins/docusaurus-plugin-matamo'),
     '@docusaurus/plugin-sitemap'
   ],

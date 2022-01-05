@@ -12,18 +12,22 @@ export default (function () {
     return null
   }
 
+  const script = document.createElement('script')
+  script.onload = (evt) => console.info('/scripts.js loaded', evt)
+  script.src = '/scripts.js'
+  document.body.appendChild(script)
+  console.info('loading /scripts.js');
+  
   return {
-    onRouteUpdate({ location }) {
-      if (typeof window.gtag !== 'function') {
-        return
+    onRouteUpdate() {
+      console.info('onRouteUpdate', typeof window.initAnalytics);
+      if (
+        window
+        && typeof window.initAnalytics === 'function'
+        // && process.env.NODE_ENV === 'production'
+      ) {
+        window.initAnalytics()
       }
-
-      const pagePath = location
-        ? location.pathname + location.search + location.hash
-        : undefined
-      window.gtag('config', 'UA-71865250-1', {
-        page_path: pagePath
-      })
     }
   }
 })()
