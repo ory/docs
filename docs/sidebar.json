@@ -66,6 +66,7 @@
       "ecosystem/logging",
       "ecosystem/contributing",
       "ecosystem/sqa",
+      "ecosystem/bugbounty",
       "ecosystem/roadmap",
       "ecosystem/software-architecture-philosophy"
     ]
