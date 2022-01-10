@@ -3,6 +3,12 @@ id: security
 title: Security Policy
 ---
 
+:::caution Disclaimer
+
+We are currently in the process of setting up a disclosure platform. Until that process is done, we cannot payout bug bounties due to the administrative overhead. All disclosures that are made until the launch, will later be processed under the same conditions, but we cannot guarantee when that happens.
+
+:::
+
 As a security focused company, Ory appreciates and encourages any interest by
 security researches and white-hat hackers in the companies products. To support
 the global infosec community, we award the responsible disclosure of
