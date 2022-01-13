@@ -1,6 +1,6 @@
 ---
-id: bugbounty
-title: Bug Bounty Program
+id: security
+title: Security Policy
 ---
 
 As a security focused company, Ory appreciates and encourages any interest by
