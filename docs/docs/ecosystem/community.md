@@ -28,6 +28,7 @@ This is not an exhaustive list. Want your own content here? Create a PR!
 
 ### Ory Stack
 
+- [SSO and ACL example with Ory Stack in Kubernetes](https://github.com/pngouin/k8s-ory-example)
 - [Starter for Svelte Kit and the Ory Stack](https://github.com/MicLeey/sveltekit-ory-starter)
 - [Reference Ory Docker Compose Setup ](https://github.com/radekg/ory-reference-compose) +
   [Article](https://gruchalski.com/posts/2021-04-10-ory-reference-docker-compose-and-thoughts-on-the-platform/)
