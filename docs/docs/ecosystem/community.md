@@ -38,6 +38,7 @@ This is not an exhaustive list. Want your own content here? Create a PR!
 
 ### Ory Kratos
 
+- [Ory Kratos Quarkus, Kotlin, and Qute example](https://github.com/hbrammer/quarkus_kratos_example)
 - [Ory Kratos Svelte Node self service](https://github.com/emrahcom/kratos-selfservice-svelte-node)
 - [Ory Kratos Sveltekit example](https://github.com/drejohnson/sveltekit-kratos)
 - [Ory Kratos Next.js self service UI](https://github.com/spa5k/kratos-next)
@@ -75,6 +76,7 @@ This is not an exhaustive list. Want your own content here? Create a PR!
 
 #### Ory Kratos
 
+- [Building a Quarkus application with Ory Kratos](https://hauke.me/writing/2021-03-building-a-quarkus-application-with-ory-kratos/)
 - [How to write an application that integrates Kratos in Go](https://stories.abletech.nz/integrating-third-party-provider-kratos-f5514b53af66)
 - [Ory Kratos reverse proxy (Nginx) example](https://github.com/ory/kratos/discussions/1049)
 
