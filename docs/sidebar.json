@@ -50,6 +50,11 @@
           }
         ]
       },
+      {
+        "Debug": [
+          "debug/smtp-courier-1"
+        ]
+      },
       "cloud/developer",
       "cloud/cloud-roadmap"
     ]
