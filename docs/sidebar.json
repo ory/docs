@@ -35,6 +35,7 @@
           "concepts/self-service",
           "concepts/redirects",
           "concepts/session",
+          "concepts/email",
           "ecosystem/api-design"
         ]
       },
