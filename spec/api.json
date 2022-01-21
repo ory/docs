@@ -57,6 +57,28 @@
         "format": "int64",
         "type": "integer"
       },
+      "Identity": {
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "InvitePayload": {
+        "properties": {
+          "invitee_email": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "JSONRawMessage": {
         "title": "JSONRawMessage represents a json.RawMessage that works well with JSON, SQL, and Swagger.",
         "type": "object"
@@ -82,6 +104,22 @@
       "NullUUID": {
         "format": "uuid4",
         "type": "string"
+      },
+      "QuotaProjectMemberSeats": {
+        "properties": {
+          "project_id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "remaining_seats": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "total_seats": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "type": "object"
       },
       "RecoveryAddress": {
         "properties": {
@@ -909,6 +947,63 @@
         ],
         "type": "object"
       },
+      "projectInvite": {
+        "properties": {
+          "created_at": {
+            "description": "The Project's Revision Creation Date",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "invitee_email": {
+            "description": "The invitee's email",
+            "type": "string"
+          },
+          "invitee_id": {
+            "$ref": "#/components/schemas/NullUUID"
+          },
+          "owner_email": {
+            "description": "The invite owner's email\nUsually the project's owner email",
+            "type": "string"
+          },
+          "owner_id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "project_id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "status": {
+            "description": "The invite's status\nKeeps track of the invites status such as pending, accepted, declined, expired",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Last Time Project's Revision was Updated",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "project_id",
+          "owner_id",
+          "owner_email",
+          "invitee_email",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object"
+      },
+      "projectInvites": {
+        "items": {
+          "$ref": "#/components/schemas/projectInvite"
+        },
+        "type": "array"
+      },
       "projectLookupSecretConfig": {
         "properties": {
           "enabled": {
@@ -917,6 +1012,15 @@
           }
         },
         "type": "object"
+      },
+      "projectMember": {
+        "$ref": "#/components/schemas/Identity"
+      },
+      "projectMembers": {
+        "items": {
+          "$ref": "#/components/schemas/projectMember"
+        },
+        "type": "array"
       },
       "projectOidcConfig": {
         "properties": {
