@@ -3,14 +3,12 @@ id: project-invite-membership
 title: Project Invites and Membership
 ---
 
-Project collaborators can be added by the project `owner` through the project invite flow.
-The invite flow requires the user's email address to be entered and does not depend on the user having an Ory Cloud account.
-Ory Cloud will send them an invite link via the entered email, notifying them of the project they are
-invited to as well as who has invited them (your email as the project owner).
-
-:::note
-Invite Links expire after 6 hours and can only be used once.
-:::
+Project collaborators can be added by the project `owner` through the project
+invite flow. The invite flow requires the user's email address to be entered and
+does not depend on the user having an Ory Cloud account. Ory Cloud will send
+them an invite link via the entered email, notifying them of the project they
+are invited to as well as who has invited them (your email as the project
+owner).
 
 ## Link Validity
 
@@ -23,29 +21,42 @@ The invite can have many states, namely:
 - removed
 - cancelled
 
-The state of the invite can only change in certain ways depending on the actions of the subject (invited user), the actor (project owner)
-and the system. In the below state diagram the invite state starts out at `pending` and then goes on to be either `accepted`, `declined`, `expired` or `cancelled`.
-Only the subject can `accept` and `decline` the invite, while the actor can `cancel`, `remove` and `delete` and invite. The system can `expire` an invite.
+The state of the invite can only change in certain ways depending on the actions
+of the subject (invited user), the actor (project owner) and the system. In the
+below state diagram the invite state starts out at `pending` and then goes on to
+be either `accepted`, `declined`, `expired` or `cancelled`. Only the subject can
+`accept` and `decline` the invite, while the actor can `cancel`, `remove` and
+`delete` an invite. The system can `expire` an invite.
 
 [![](https://mermaid.ink/img/pako:eNqN0s1OxCAQB_BXIXM024vHHjzpE3i0HmZhumL4aKZDs2az7y6Usmo0sT0Q8uc3MKFcQEdD0MMsKPRo8cTou-VeDUHl7-XuVXXdg7JhsUI1q_M1nigYG06qVzEozYTFVNWWCkOtaRIy1c3p-E5atvS3NqSdDXs1nSfLK8ZRiBUqTSxogzKJUWz8ox-NQZNz7QjUEnkLK67jrZHalSP5WVGjalsbO-jX6Tswk4_L_7Ti2z0X3Sq_6TUql-DJ05G41MEBPLFHa_IjuJR9BpC3vD5An6eGRkxOBhjCNdM0mfyPn4zN20E_opvpAJgkPn8EDb1wooa2t7Sp6ydFEswT)](https://mermaid.live/edit/#pako:eNqN0s1OxCAQB_BXIXM024vHHjzpE3i0HmZhumL4aKZDs2az7y6Usmo0sT0Q8uc3MKFcQEdD0MMsKPRo8cTou-VeDUHl7-XuVXXdg7JhsUI1q_M1nigYG06qVzEozYTFVNWWCkOtaRIy1c3p-E5atvS3NqSdDXs1nSfLK8ZRiBUqTSxogzKJUWz8ox-NQZNz7QjUEnkLK67jrZHalSP5WVGjalsbO-jX6Tswk4_L_7Ti2z0X3Sq_6TUql-DJ05G41MEBPLFHa_IjuJR9BpC3vD5An6eGRkxOBhjCNdM0mfyPn4zN20E_opvpAJgkPn8EDb1wooa2t7Sp6ydFEswT)
 
+:::note
 
-## Invite user without an Ory Cloud account
+Invite Links expire after 6 hours and can only be used once.
 
-Ory Cloud supports inviting user's without an Ory Cloud account, however, some conditions need to meet.
-Once the user follows the invite link, they will be required to register an account. The email entered upon registration
-has to match the email specified in the invite.
-The invite also has to still be valid, this means the invite should not have expired or already been used.
+:::
 
+## Invite user
 
-## Invite user with Ory Cloud account
+### Without an Ory Cloud account
 
-The user can simply click on the link, sign in and accept the invite. Of course with the condition that the link
-is still valid.
+Ory Cloud supports inviting user's without an Ory Cloud account, however, some
+conditions need to be met. Once the user follows the invite link, they will be
+required to register an account. The email entered upon registration has to
+match the email specified in the invite, if they do not match, the user will
+need to change their email through the settings flow or recreate an account. The
+invite also has to still be valid, this means the invite should not have expired
+or been used.
+
+### With Ory Cloud account
+
+The user can simply click on the link, sign in and accept the invite. Of course
+with the condition that the link is still valid.
 
 ## Project Member Seats
 
-Each project, depending on the plan, has a set number of seats associated with it. The number of seats are used up by
-`pending` and `accepted` invites. Once the invite state changes to `expired`, `removed`, `declined` and `cancelled` the seat
-is freed up again. The reason for `pending` invites to take up seats are to prevent users from using up the seats
-on a first-come-first-serve basis.
+Each project, depending on the plan, has a set number of seats associated with
+it. The number of seats are used up by `pending` and `accepted` invites. Once
+the invite state changes to `expired`, `removed`, `declined` and `cancelled` the
+seat is freed up again. The reason for `pending` invites to take up seats are to
+prevent users from using up the seats on a first-come-first-serve basis.
