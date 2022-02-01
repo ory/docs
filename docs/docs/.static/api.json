@@ -20,7 +20,10 @@
             "type": "object"
           }
         },
-        "required": ["traits", "state"],
+        "required": [
+          "traits",
+          "state"
+        ],
         "type": "object"
       },
       "CreateSubscriptionPayload": {
@@ -35,7 +38,10 @@
             "type": "string"
           }
         },
-        "required": ["plan_or_price", "provision_first_project"],
+        "required": [
+          "plan_or_price",
+          "provision_first_project"
+        ],
         "type": "object"
       },
       "CustomHostnameStatus": {
@@ -76,6 +82,10 @@
       "JSONRawMessage": {
         "title": "JSONRawMessage represents a json.RawMessage that works well with JSON, SQL, and Swagger.",
         "type": "object"
+      },
+      "NullBool": {
+        "nullable": true,
+        "type": "boolean"
       },
       "NullPlan": {
         "enum": [
@@ -137,69 +147,24 @@
             "$ref": "#/components/schemas/RecoveryAddressType"
           }
         },
-        "required": ["id", "value", "via"],
+        "required": [
+          "id",
+          "value",
+          "via"
+        ],
         "type": "object"
       },
       "RecoveryAddressType": {
         "type": "string"
       },
-      "RedirectionConfig": {
-        "properties": {
-          "global": {
-            "$ref": "#/components/schemas/RedirectionField"
-          },
-          "login": {
-            "$ref": "#/components/schemas/RedirectionField"
-          },
-          "logout": {
-            "$ref": "#/components/schemas/RedirectionField"
-          },
-          "recovery": {
-            "$ref": "#/components/schemas/RedirectionField"
-          },
-          "registration": {
-            "$ref": "#/components/schemas/RedirectionField"
-          },
-          "settings": {
-            "$ref": "#/components/schemas/RedirectionField"
-          },
-          "url_allowlist": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "verification": {
-            "$ref": "#/components/schemas/RedirectionField"
-          }
-        },
-        "type": "object"
-      },
-      "RedirectionField": {
-        "properties": {
-          "main": {
-            "type": "string"
-          },
-          "oidc": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          },
-          "profile": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
       "String": {
         "$ref": "#/components/schemas/NullString"
       },
-      "StringSlicePipeDelimiter": {
+      "StringSliceJSONFormat": {
         "items": {
           "type": "string"
         },
-        "title": "StringSlicePipeDelimiter de/encodes the string slice to/from a SQL string.",
+        "title": "StringSliceJSONFormat represents []string{} which is encoded to/from JSON for SQL storage.",
         "type": "array"
       },
       "SubscriptionStatus": {
@@ -223,7 +188,21 @@
             "type": "string"
           }
         },
-        "required": ["plan_or_price"],
+        "required": [
+          "plan_or_price"
+        ],
+        "type": "object"
+      },
+      "Warning": {
+        "properties": {
+          "code": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
         "type": "object"
       },
       "activeProject": {
@@ -250,7 +229,10 @@
             "type": "object"
           }
         },
-        "required": ["schema_id", "traits"],
+        "required": [
+          "schema_id",
+          "traits"
+        ],
         "type": "object"
       },
       "adminCreateSelfServiceRecoveryLinkBody": {
@@ -264,7 +246,9 @@
             "$ref": "#/components/schemas/UUID"
           }
         },
-        "required": ["identity_id"],
+        "required": [
+          "identity_id"
+        ],
         "type": "object"
       },
       "apiToken": {
@@ -288,7 +272,11 @@
             "type": "string"
           }
         },
-        "required": ["id", "name", "owner_id"],
+        "required": [
+          "id",
+          "name",
+          "owner_id"
+        ],
         "type": "object"
       },
       "apiTokens": {
@@ -299,7 +287,12 @@
       },
       "authenticatorAssuranceLevel": {
         "description": "The authenticator assurance level can be one of \"aal1\", \"aal2\", or \"aal3\". A higher number means that it is harder\nfor an attacker to compromise the account.\n\nGenerally, \"aal1\" implies that one authentication factor was used while AAL2 implies that two factors (e.g.\npassword + TOTP) have been used.\n\nTo learn more about these levels please head over to: https://www.ory.sh/kratos/docs/concepts/credentials",
-        "enum": ["aal0", "aal1", "aal2", "aal3"],
+        "enum": [
+          "aal0",
+          "aal1",
+          "aal2",
+          "aal3"
+        ],
         "title": "Authenticator Assurance Level (AAL)",
         "type": "string"
       },
@@ -393,7 +386,9 @@
             "type": "string"
           }
         },
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "title": "ErrAALNotSatisfied is returned when an active session was found but the requested AAL is not satisfied.",
         "type": "object"
       },
@@ -457,7 +452,9 @@
             "type": "integer"
           }
         },
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "title": "Error response",
         "type": "object"
       },
@@ -539,7 +536,12 @@
             "x-omitempty": true
           }
         },
-        "required": ["id", "schema_id", "schema_url", "traits"],
+        "required": [
+          "id",
+          "schema_id",
+          "schema_url",
+          "traits"
+        ],
         "title": "Identity represents an Ory Kratos identity",
         "type": "object"
       },
@@ -574,7 +576,11 @@
       },
       "identityCredentialsType": {
         "description": "and so on.",
-        "enum": ["password", "totp", "oidc"],
+        "enum": [
+          "password",
+          "totp",
+          "oidc"
+        ],
         "title": "CredentialsType  represents several different credential types, like password credentials, passwordless credentials,",
         "type": "string"
       },
@@ -599,7 +605,10 @@
             "type": "string"
           }
         },
-        "required": ["url", "schema"],
+        "required": [
+          "url",
+          "schema"
+        ],
         "type": "object"
       },
       "identityPresets": {
@@ -611,6 +620,18 @@
       "identitySchema": {
         "description": "Together the name and identity uuid are a unique index constraint.\nThis prevents a user from having schemas with the same name.\nThis also allows schemas to have the same name across the system.",
         "properties": {
+          "blob_name": {
+            "description": "The gcs file name\n\nThis is a randomly generated name which is used to uniquely identify the file on the blob storage",
+            "type": "string"
+          },
+          "blob_url": {
+            "description": "The publicly accessible url of the schema",
+            "type": "string"
+          },
+          "content_hash": {
+            "description": "The Content Hash\n\nContains a hash of the schema's content.",
+            "type": "string"
+          },
           "created_at": {
             "description": "The Schema's Creation Date",
             "format": "date-time",
@@ -638,7 +659,14 @@
             "type": "string"
           }
         },
-        "required": ["id", "name", "created_at", "updated_at"],
+        "required": [
+          "id",
+          "name",
+          "blob_name",
+          "blob_url",
+          "created_at",
+          "updated_at"
+        ],
         "title": "Schema represents an Ory Kratos Identity Schema",
         "type": "object"
       },
@@ -670,7 +698,10 @@
       },
       "identityState": {
         "description": "The state can either be `active` or `inactive`.",
-        "enum": ["active", "inactive"],
+        "enum": [
+          "active",
+          "inactive"
+        ],
         "title": "An Identity's State",
         "type": "string"
       },
@@ -696,7 +727,10 @@
             "type": "string"
           }
         },
-        "required": ["Subject", "ProjectSlug"],
+        "required": [
+          "Subject",
+          "ProjectSlug"
+        ],
         "type": "object"
       },
       "isOwnerForProjectBySlugPayload": {
@@ -714,7 +748,10 @@
             "type": "string"
           }
         },
-        "required": ["subject", "project_slug"],
+        "required": [
+          "subject",
+          "project_slug"
+        ],
         "type": "object"
       },
       "jsonError": {
@@ -724,7 +761,9 @@
             "$ref": "#/components/schemas/genericError"
           }
         },
-        "required": ["error"],
+        "required": [
+          "error"
+        ],
         "title": "JSON API Error Response",
         "type": "object"
       },
@@ -785,8 +824,15 @@
             "type": "string"
           }
         },
-        "required": ["message", "redirect_browser_to"],
+        "required": [
+          "message",
+          "redirect_browser_to"
+        ],
         "title": "Is sent when a privileged session is required to perform the settings update.",
+        "type": "object"
+      },
+      "nullJsonRawMessage": {
+        "description": "NullJSONRawMessage represents a json.RawMessage that works well with JSON, SQL, and Swagger and is NULLable-",
         "type": "object"
       },
       "nullTime": {
@@ -825,6 +871,9 @@
           "current_revision": {
             "$ref": "#/components/schemas/projectRevision"
           },
+          "hosts": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
           "id": {
             "$ref": "#/components/schemas/UUID"
           },
@@ -838,7 +887,10 @@
           },
           "state": {
             "description": "The state of the project.",
-            "enum": ["running", "halted"],
+            "enum": [
+              "running",
+              "halted"
+            ],
             "readOnly": true,
             "type": "string"
           },
@@ -854,6 +906,7 @@
         },
         "required": [
           "id",
+          "hosts",
           "slug",
           "current_revision",
           "revisions",
@@ -876,7 +929,11 @@
             "$ref": "#/components/schemas/UUID"
           }
         },
-        "required": ["id", "host", "project_id"],
+        "required": [
+          "id",
+          "host",
+          "project_id"
+        ],
         "type": "object"
       },
       "projectInvite": {
@@ -936,15 +993,6 @@
         },
         "type": "array"
       },
-      "projectLookupSecretConfig": {
-        "properties": {
-          "enabled": {
-            "description": "Set to true to enable the WebAuthn authentication method.",
-            "type": "boolean"
-          }
-        },
-        "type": "object"
-      },
       "projectMember": {
         "$ref": "#/components/schemas/Identity"
       },
@@ -954,10 +1002,424 @@
         },
         "type": "array"
       },
-      "projectOidcConfig": {
+      "projectRevision": {
         "properties": {
+          "created_at": {
+            "description": "The Project's Revision Creation Date",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "kratos_cookies_same_site": {
+            "description": "Configures the Ory Kratos Cookie SameSite Attribute\n\nThis governs the \"cookies.same_site\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_smtp_connection_uri": {
+            "description": "Configures the Ory Kratos SMTP Connection URI\n\nThis governs the \"courier.smtp.connection_uri\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_smtp_from_address": {
+            "description": "Configures the Ory Kratos SMTP From Address\n\nThis governs the \"courier.smtp.from_address\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_smtp_from_name": {
+            "description": "Configures the Ory Kratos SMTP From Name\n\nThis governs the \"courier.smtp.from_name\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_smtp_headers": {
+            "$ref": "#/components/schemas/nullJsonRawMessage"
+          },
+          "kratos_identity_schemas": {
+            "$ref": "#/components/schemas/projectRevisionIdentitySchemas"
+          },
+          "kratos_secrets_cipher": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "kratos_secrets_cookie": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "kratos_secrets_default": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "kratos_selfservice_allowed_return_urls": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "kratos_selfservice_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Default Return URL\n\nThis governs the \"selfservice.allowed_return_urls\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_error_ui_url": {
+            "description": "Configures the Ory Kratos Error UI URL\n\nThis governs the \"selfservice.flows.error.ui_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_hooks": {
+            "$ref": "#/components/schemas/projectRevisionHooks"
+          },
+          "kratos_selfservice_flows_login_after_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Login Default Return URL\n\nThis governs the \"selfservice.flows.login.after.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_login_after_oidc_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Login After OIDC Default Return URL\n\nThis governs the \"selfservice.flows.login.after.oidc.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_login_after_password_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Login After Password Default Return URL\n\nThis governs the \"selfservice.flows.login.after.password.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_login_lifespan": {
+            "description": "Configures the Ory Kratos Login Lifespan\n\nThis governs the \"selfservice.flows.login.lifespan\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_login_ui_url": {
+            "description": "Configures the Ory Kratos Login UI URL\n\nThis governs the \"selfservice.flows.login.ui_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_logout_after_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Logout Default Return URL\n\nThis governs the \"selfservice.flows.logout.after.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_recovery_after_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Recovery Default Return URL\n\nThis governs the \"selfservice.flows.recovery.after.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_recovery_enabled": {
+            "description": "Configures the Ory Kratos Recovery Enabled Setting\n\nThis governs the \"selfservice.flows.recovery.enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_flows_recovery_lifespan": {
+            "description": "Configures the Ory Kratos Recovery Lifespan\n\nThis governs the \"selfservice.flows.recovery.lifespan\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_recovery_ui_url": {
+            "description": "Configures the Ory Kratos Recovery UI URL\n\nThis governs the \"selfservice.flows.recovery.ui_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_registration_after_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Registration Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_registration_after_oidc_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Registration After OIDC Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.oidc.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_registration_after_password_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Registration After Password Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.password.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_registration_lifespan": {
+            "description": "Configures the Ory Kratos Registration Lifespan\n\nThis governs the \"selfservice.flows.registration.lifespan\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_registration_ui_url": {
+            "description": "Configures the Ory Kratos Registration UI URL\n\nThis governs the \"selfservice.flows.registration.ui_url\" setting.0",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_settings_after_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Settings Default Return URL\n\nThis governs the \"selfservice.flows.settings.after.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_settings_after_password_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Settings Default Return URL After Updating Passwords\n\nThis governs the \"selfservice.flows.settings.after.password.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_settings_after_profile_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Settings Default Return URL After Updating Profiles\n\nThis governs the \"selfservice.flows.settings.after.profile.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_settings_lifespan": {
+            "description": "Configures the Ory Kratos Settings Lifespan\n\nThis governs the \"selfservice.flows.settings.lifespan\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_settings_privileged_session_max_age": {
+            "description": "Configures the Ory Kratos Settings Privileged Session Max Age\n\nThis governs the \"selfservice.flows.settings.privileged_session_max_age\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_settings_required_aal": {
+            "description": "Configures the Ory Kratos Settings Required AAL\n\nThis governs the \"selfservice.flows.settings.required_aal\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_settings_ui_url": {
+            "description": "Configures the Ory Kratos Settings UI URL\n\nThis governs the \"selfservice.flows.settings.ui_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_verification_after_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Verification Default Return URL\n\nThis governs the \"selfservice.flows.verification.after.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_verification_enabled": {
+            "description": "Configures the Ory Kratos Verification Enabled Setting\n\nThis governs the \"selfservice.flows.verification.enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_flows_verification_lifespan": {
+            "description": "Configures the Ory Kratos Verification Lifespan\n\nThis governs the \"selfservice.flows.verification.lifespan\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_verification_ui_url": {
+            "description": "Configures the Ory Kratos Verification UI URL\n\nThis governs the \"selfservice.flows.verification.ui_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_link_config_base_url": {
+            "description": "Configures the Base URL which Recovery, Verification, and Login Links Point to\n\nIt is recommended to leave this value empty. It will be appropriately configured to the best matching domain\n(e.g. when using custom domains) automatically.\n\nThis governs the \"selfservice.methods.link.config.base_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_link_config_lifespan": {
+            "description": "Configures whether Ory Kratos Link Method is enabled\n\nThis governs the \"selfservice.methods.link.config.lifespan\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_link_enabled": {
+            "$ref": "#/components/schemas/NullBool"
+          },
+          "kratos_selfservice_methods_lookup_secret_enabled": {
+            "$ref": "#/components/schemas/NullBool"
+          },
+          "kratos_selfservice_methods_oidc_config_providers": {
+            "$ref": "#/components/schemas/projectRevisionThirdPartyLoginProviders"
+          },
+          "kratos_selfservice_methods_oidc_enabled": {
+            "description": "Configures whether Ory Kratos Third Party / OpenID Connect Login is enabled\n\nThis governs the \"selfservice.methods.oidc.enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_password_config_haveibeenpwned_enabled": {
+            "$ref": "#/components/schemas/NullBool"
+          },
+          "kratos_selfservice_methods_password_config_ignore_network_errors": {
+            "$ref": "#/components/schemas/NullBool"
+          },
+          "kratos_selfservice_methods_password_config_max_breaches": {
+            "description": "Configures Ory Kratos Password Max Breaches Detection\n\nThis governs the \"selfservice.methods.password.enabled\" setting.",
+            "format": "int64",
+            "type": "integer"
+          },
+          "kratos_selfservice_methods_password_enabled": {
+            "$ref": "#/components/schemas/NullBool"
+          },
+          "kratos_selfservice_methods_profile_enabled": {
+            "$ref": "#/components/schemas/NullBool"
+          },
+          "kratos_selfservice_methods_totp_config_issuer": {
+            "description": "Configures Ory Kratos TOTP Issuer\n\nThis governs the \"selfservice.methods.totp.config.issuer\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_totp_enabled": {
+            "$ref": "#/components/schemas/NullBool"
+          },
+          "kratos_selfservice_methods_webauthn_config_rp_display_name": {
+            "description": "Configures the Ory Kratos Webauthn RP Display Name\n\nThis governs the \"selfservice.methods.webauthn.config.rp.display_name\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_webauthn_config_rp_icon": {
+            "description": "Configures the Ory Kratos Webauthn RP Icon\n\nThis governs the \"selfservice.methods.webauthn.config.rp.icon\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_webauthn_config_rp_id": {
+            "description": "Configures the Ory Kratos Webauthn RP ID\n\nThis governs the \"selfservice.methods.webauthn.config.rp.id\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_webauthn_config_rp_origin": {
+            "description": "Configures the Ory Kratos Webauthn RP Origin\n\nThis governs the \"selfservice.methods.webauthn.config.rp.origin\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_webauthn_enabled": {
+            "$ref": "#/components/schemas/NullBool"
+          },
+          "kratos_session_cookie_persistent": {
+            "$ref": "#/components/schemas/NullBool"
+          },
+          "kratos_session_cookie_same_site": {
+            "description": "Configures the Ory Kratos Session Cookie SameSite Attribute\n\nThis governs the \"session.cookie.same_site\" setting.",
+            "type": "string"
+          },
+          "kratos_session_lifespan": {
+            "description": "Configures the Ory Kratos Session Lifespan\n\nThis governs the \"session.lifespan\" setting.",
+            "type": "string"
+          },
+          "kratos_session_whoami_required_aal": {
+            "description": "Configures the Ory Kratos Session Whoami AAL requirement\n\nThis governs the \"session.whoami.required_aal\" setting.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The project's name.",
+            "type": "string"
+          },
+          "project_id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "updated_at": {
+            "description": "Last Time Project's Revision was Updated",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      },
+      "projectRevisionHook": {
+        "properties": {
+          "config_key": {
+            "description": "The Hooks Config Key",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "The Project's Revision Creation Date",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "hook": {
+            "description": "The Hook Type",
+            "type": "string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "project_revision_id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "updated_at": {
+            "description": "Last Time Project's Revision was Updated",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "web_hook_config_auth_api_key_in": {
+            "description": "Whether to send the API Key in the HTTP Header or as a HTTP Cookie",
+            "example": "header",
+            "type": "string"
+          },
+          "web_hook_config_auth_api_key_name": {
+            "description": "The name of the api key",
+            "example": "X-API-Key",
+            "type": "string"
+          },
+          "web_hook_config_auth_api_key_value": {
+            "description": "The value of the api key",
+            "example": "eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ",
+            "type": "string"
+          },
+          "web_hook_config_auth_basic_auth_password": {
+            "description": "The password to be sent in the HTTP Basic Auth Header",
+            "type": "string"
+          },
+          "web_hook_config_auth_basic_auth_user": {
+            "description": "The username to be sent in the HTTP Basic Auth Header",
+            "type": "string"
+          },
+          "web_hook_config_auth_type": {
+            "description": "HTTP Auth Method to use for the Web-Hook",
+            "type": "string"
+          },
+          "web_hook_config_body": {
+            "description": "URI pointing to the JsonNet template used for Web-Hook payload generation. Only used for those HTTP methods, which support HTTP body payloads.",
+            "example": "base64://ZnVuY3Rpb24oY3R4KSB7CiAgaWRlbnRpdHlfaWQ6IGlmIGN0eFsiaWRlbnRpdHkiXSAhPSBudWxsIHRoZW4gY3R4LmlkZW50aXR5LmlkLAp9=",
+            "type": "string"
+          },
+          "web_hook_config_method": {
+            "description": "The HTTP method to use (GET, POST, etc) for the Web-Hook",
+            "example": "POST",
+            "type": "string"
+          },
+          "web_hook_config_url": {
+            "description": "The URL the Web-Hook should call",
+            "example": "https://www.example.org/web-hook-listener",
+            "type": "string"
+          }
+        },
+        "required": [
+          "config_key",
+          "hook"
+        ],
+        "type": "object"
+      },
+      "projectRevisionHooks": {
+        "items": {
+          "$ref": "#/components/schemas/projectRevisionHook"
+        },
+        "type": "array"
+      },
+      "projectRevisionIdentitySchema": {
+        "properties": {
+          "created_at": {
+            "description": "The Project's Revision Creation Date",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "identity_schema": {
+            "$ref": "#/components/schemas/identitySchema"
+          },
+          "identity_schema_id": {
+            "$ref": "#/components/schemas/NullUUID"
+          },
+          "import_id": {
+            "description": "The imported (named) ID of the Identity Schema referenced in the Ory Kratos config.",
+            "type": "string"
+          },
+          "import_url": {
+            "description": "The ImportURL can be used to import an Identity Schema from a bse64 encoded string.\nIn the future, this key also support HTTPS and other sources!\n\nIf you import an Ory Kratos configuration, this would be akin to the `identity.schemas.#.url` key.\n\nThe configuration will always return the import URL when you fetch it from the API.",
+            "example": "base64://ey...",
+            "type": "string"
+          },
+          "is_default": {
+            "description": "If true sets the default schema for identities\n\nOnly one schema can ever be the default schema. If you\ntry to add two schemas with default to true, the\nrequest will fail.",
+            "type": "boolean"
+          },
+          "preset": {
+            "description": "Use a preset instead of a custom identity schema.",
+            "type": "string"
+          },
+          "project_revision_id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "updated_at": {
+            "description": "Last Time Project's Revision was Updated",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "projectRevisionIdentitySchemas": {
+        "items": {
+          "$ref": "#/components/schemas/projectRevisionIdentitySchema"
+        },
+        "type": "array"
+      },
+      "projectRevisionThirdPartyLoginProvider": {
+        "properties": {
+          "apple_private_key": {
+            "description": "Apple Private Key\n\nSign In with Apple Private Key needed for generating a JWT token for client secret",
+            "example": "-----BEGIN PRIVATE KEY----- ........ -----END PRIVATE KEY-----",
+            "type": "string"
+          },
+          "apple_private_key_id": {
+            "description": "Apple Private Key Identifier\n\nSign In with Apple Private Key Identifier needed for generating a JWT token for client secret",
+            "example": "UX56C66723",
+            "type": "string"
+          },
+          "apple_team_id": {
+            "description": "Apple Developer Team ID\n\nApple Developer Team ID needed for generating a JWT token for client secret",
+            "example": "KP76DQS54M",
+            "type": "string"
+          },
           "auth_url": {
             "description": "AuthURL is the authorize url, typically something like: https://example.org/oauth2/auth\nShould only be used when the OAuth2 / OpenID Connect server is not supporting OpenID Connect Discovery and when\n`provider` is set to `generic`.",
+            "example": "https://www.googleapis.com/oauth2/v2/auth",
+            "type": "string"
+          },
+          "azure_tenant": {
+            "description": "Tenant is the Azure AD Tenant to use for authentication, and must be set when `provider` is set to `microsoft`.\n\nCan be either `common`, `organizations`, `consumers` for a multitenant application or a specific tenant like\n`8eaef023-2b34-4da1-9baa-8bc8c9d6a490` or `contoso.onmicrosoft.com`.",
+            "example": "contoso.onmicrosoft.com",
             "type": "string"
           },
           "client_id": {
@@ -968,12 +1430,18 @@
             "description": "ClientSecret is the application's secret.",
             "type": "string"
           },
-          "id": {
-            "description": "ID is the provider's ID",
+          "created_at": {
+            "description": "The Project's Revision Creation Date",
+            "format": "date-time",
+            "readOnly": true,
             "type": "string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/UUID"
           },
           "issuer_url": {
             "description": "IssuerURL is the OpenID Connect Server URL. You can leave this empty if `provider` is not set to `generic`.\nIf set, neither `auth_url` nor `token_url` are required.",
+            "example": "https://accounts.google.com",
             "type": "string"
           },
           "label": {
@@ -984,302 +1452,43 @@
             "description": "Mapper specifies the JSONNet code snippet which uses the OpenID Connect Provider's data (e.g. GitHub or Google\nprofile information) to hydrate the identity's data.\n\nIt can be either a URL (file://, http(s)://, base64://) or an inline JSONNet code snippet.",
             "type": "string"
           },
+          "project_revision_id": {
+            "$ref": "#/components/schemas/UUID"
+          },
           "provider": {
-            "description": "Provider is either \"generic\" for a generic OAuth 2.0 / OpenID Connect Provider or one of:\ngeneric\ngoogle\ngithub\ngitlab\nmicrosoft\ndiscord\nslack\nfacebook\nvk\nyandex",
+            "description": "Provider is either \"generic\" for a generic OAuth 2.0 / OpenID Connect Provider or one of:\ngeneric\ngoogle\ngithub\ngitlab\nmicrosoft\ndiscord\nslack\nfacebook\nvk\nyandex\napple",
+            "example": "google",
+            "type": "string"
+          },
+          "provider_id": {
+            "description": "ID is the provider's ID",
             "type": "string"
           },
           "requested_claims": {
-            "description": "RequestedClaims string encoded json object that specifies claims and optionally their properties which should be\nincluded in the id_token or returned from the UserInfo Endpoint.\n\nMore information: https://openid.net/specs/openid-connect-core-1_0.html#ClaimsParameter",
-            "type": "object"
+            "$ref": "#/components/schemas/JSONRawMessage"
           },
           "scope": {
-            "description": "Scope specifies optional requested permissions.",
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "string": {
-            "type": "string"
-          },
-          "tenant": {
-            "description": "Tenant is the Azure AD Tenant to use for authentication, and must be set when `provider` is set to `microsoft`.\nCan be either `common`, `organizations`, `consumers` for a multitenant application or a specific tenant like\n`8eaef023-2b34-4da1-9baa-8bc8c9d6a490` or `contoso.onmicrosoft.com`.",
-            "type": "string"
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
           "token_url": {
-            "description": "TokenURL is the token url, typically something like: https://example.org/oauth2/token\nShould only be used when the OAuth2 / OpenID Connect server is not supporting OpenID Connect Discovery and when\n`provider` is set to `generic`.",
+            "description": "TokenURL is the token url, typically something like: https://example.org/oauth2/token\n\nShould only be used when the OAuth2 / OpenID Connect server is not supporting OpenID Connect Discovery and when\n`provider` is set to `generic`.",
+            "example": "https://www.googleapis.com/oauth2/v4/token",
             "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "projectOidcConfigs": {
-        "items": {
-          "$ref": "#/components/schemas/projectOidcConfig"
-        },
-        "type": "array"
-      },
-      "projectPasswordConfig": {
-        "properties": {
-          "enabled": {
-            "description": "Set to true to enable the password authentication method.",
-            "type": "boolean"
-          },
-          "revoke_active_sessions": {
-            "description": "Set to true to remove active sessions when the users logs in.",
-            "type": "boolean"
-          }
-        },
-        "type": "object"
-      },
-      "projectPatch": {
-        "properties": {
-          "api_url": {
-            "description": "URL of Project API\n\nIn the future will allow to override Kratos project URL.\nIf set, error is returned. If left empty our hosted URL is used",
-            "type": "string"
-          },
-          "application_url": {
-            "description": "URL where your application is available.\n\nYour users will be redirected to this URL when they successfully complete a login, logout, verification,\nrecovery, or registration flow. More fine-grained redirection patterns are available for the individual flows\n(login, registration, ...).\n\nIf left empty, our hosted URL will be used instead. It contains technical information on the\nidentities and is useful when developing a new project or trying out Ory Cloud.",
-            "type": "string"
-          },
-          "default_identity_schema_url": {
-            "description": "Default Identity Schema URL\n\nThis represents your Ory Kratos Default Identity Schema. It is your identity's default schema.\nThis allows setting custom fields such as \"address\", specifying whether you want to log in\nusing email or a username, and more. For more information on this topic, please check out\nthe identity documentation.\n\nIf KratosCustomSchemaID is also added to the payload, it will be preferred and replace\nthe value of DefaultIdentitySchemaURL set by the client.\n\nThe value of this field can be either any \"https://\" URL - for example a file hosted at GitHub,\nor a `preset://`-prefixed string.\n\nAvailable presets are:\n\npreset://email\npreset://username\npreset://basic\npreset://blank",
-            "type": "string"
-          },
-          "error_ui_url": {
-            "description": "Self-Service Error UI URL\n\nSets the UI URL for the error UI. If left empty, this will use Ory's hosted pages.",
-            "example": "https://example.org/error",
-            "type": "string"
-          },
-          "kratos_custom_schema_id": {
-            "description": "The Custom Schema ID\n\nThe custom schema ID is a preferred field over DefaultIdentitySchemaURL, meaning it will\noverride the DefaultIdentitySchemaURL with the custom schema's URL instead of accepting it\nfrom the client-side.\nOnce this field is set the given custom schema will be associated with this project.",
-            "type": "string"
-          },
-          "login_ui_url": {
-            "description": "Self-Service Login UI URL\n\nSets the UI URL for the login UI. If left empty, this will use Ory's hosted pages.",
-            "example": "https://example.org/login",
-            "type": "string"
-          },
-          "lookup_secret": {
-            "$ref": "#/components/schemas/projectLookupSecretConfig"
-          },
-          "name": {
-            "description": "The project name.\n\nHelps you identify your project.\n\nin: body",
-            "example": "ACME App",
-            "type": "string"
-          },
-          "password": {
-            "$ref": "#/components/schemas/projectPasswordConfig"
-          },
-          "recovery": {
-            "$ref": "#/components/schemas/projectRecoveryConfig"
-          },
-          "recovery_ui_url": {
-            "description": "Self-Service Login UI URL\n\nSets the UI URL for the recovery UI. If left empty, this will use Ory's hosted pages.",
-            "example": "https://example.org/recover",
-            "type": "string"
-          },
-          "redirection_config": {
-            "$ref": "#/components/schemas/RedirectionConfig"
-          },
-          "registration_ui_url": {
-            "description": "Self-Service Login UI URL\n\nSets the UI URL for the registration UI. If left empty, this will use Ory's hosted pages.",
-            "example": "https://example.org/signup",
-            "type": "string"
-          },
-          "session_after_sign_up": {
-            "description": "Issue Session after Sign Up\n\nIf set to true, users will receive a session after they successfully signed up. Enabling this option\nallows account enumeration during registration flows. Read more: https://www.ory.sh/kratos/docs/self-service/flows/user-registration#successful-registration",
-            "type": "boolean"
-          },
-          "session_soft_2fa": {
-            "description": "Enable Soft 2FA for Login Sessions",
-            "type": "boolean"
-          },
-          "settings_privileged_session_max_age_seconds": {
-            "description": "Duration in Seconds of how long a Session is Privileged\n\nDefines how long a session is considered privileged in seconds. If the session's authenticated_at is older than the value\nspecified here, the user needs to re-authenticate to perform certain actions (e.g. password change).",
-            "example": 900,
-            "format": "int64",
-            "type": "integer"
-          },
-          "settings_soft_2fa": {
-            "description": "Enable Soft 2FA for Self-Service Settings Flows",
-            "type": "boolean"
-          },
-          "settings_ui_url": {
-            "description": "Self-Service Settings UI URL\n\nSets the UI URL for the settings UI. If left empty, this will use Ory's hosted pages.",
-            "example": "https://example.org/settings",
-            "type": "string"
-          },
-          "totp": {
-            "$ref": "#/components/schemas/projectTotpConfig"
-          },
-          "verification": {
-            "$ref": "#/components/schemas/projectVerificationConfig"
-          },
-          "verification_ui_url": {
-            "description": "Self-Service Login UI URL\n\nSets the UI URL for the verification UI. If left empty, this will use Ory's hosted pages.",
-            "example": "https://example.org/verify",
-            "type": "string"
-          },
-          "webauthn": {
-            "$ref": "#/components/schemas/projectWebAuthnConfig"
-          }
-        },
-        "required": [
-          "session_after_sign_up",
-          "totp",
-          "webauthn",
-          "lookup_secret",
-          "password",
-          "recovery",
-          "verification",
-          "settings_privileged_session_max_age_seconds",
-          "session_soft_2fa",
-          "settings_soft_2fa",
-          "login_ui_url",
-          "verification_ui_url",
-          "recovery_ui_url",
-          "registration_ui_url",
-          "settings_ui_url",
-          "error_ui_url"
-        ],
-        "type": "object"
-      },
-      "projectRecoveryConfig": {
-        "properties": {
-          "enabled": {
-            "description": "Set to true to enable account recovery.",
-            "type": "boolean"
-          }
-        },
-        "type": "object"
-      },
-      "projectRevision": {
-        "properties": {
-          "api_url": {
-            "description": "The Project API URL\n\nThe URL where the Project's APIs are available.",
-            "type": "string"
-          },
-          "application_url": {
-            "description": "Your Application URL\n\nThe URL where your application is available.\nYour users will be redirected to this URL when they successfully complete a login, logout, verification,\nrecovery, or registration flow.\n\nMore fine-grained redirection patterns are available for the individual flows.",
-            "type": "string"
-          },
-          "created_at": {
-            "description": "The Project's Revision Creation Date",
-            "format": "date-time",
-            "readOnly": true,
-            "type": "string"
-          },
-          "default_identity_schema_url": {
-            "description": "Default Identity Schema URL\n\nThis represents your Ory Kratos Default Identity Schema. It is your identity's default schema.\nThis allows setting custom fields such as \"address\", specifying whether you want to log in\nusing email or a username, and more. For more information on this topic, please check out\nthe identity documentation.\n\nThe value of this field can be either any \"https://\" URL - for example a file hosted at GitHub,\nor a `preset://`-prefixed string. Available profiles are:\n\nprofile://email\nprofile://username",
-            "type": "string"
-          },
-          "error_ui_url": {
-            "description": "Self-Service Error UI URL\n\nSets the UI URL for the error UI. If left empty, this will use Ory's hosted pages.",
-            "type": "string"
-          },
-          "hosts": {
-            "$ref": "#/components/schemas/StringSlicePipeDelimiter"
-          },
-          "id": {
-            "$ref": "#/components/schemas/UUID"
-          },
-          "kratos_config_version": {
-            "description": "The Project's Kratos Config Version",
-            "readOnly": true,
-            "type": "string"
-          },
-          "kratos_custom_schema_id": {
-            "$ref": "#/components/schemas/NullUUID"
-          },
-          "login_ui_url": {
-            "description": "Self-Service Login UI URL\n\nSets the UI URL for the login UI. If left empty, this will use Ory's hosted pages.",
-            "type": "string"
-          },
-          "lookup_secret": {
-            "$ref": "#/components/schemas/projectLookupSecretConfig"
-          },
-          "name": {
-            "description": "The project's name.",
-            "type": "string"
-          },
-          "oidc_providers": {
-            "$ref": "#/components/schemas/projectOidcConfigs"
-          },
-          "password": {
-            "$ref": "#/components/schemas/projectPasswordConfig"
-          },
-          "project_id": {
-            "$ref": "#/components/schemas/UUID"
-          },
-          "recovery": {
-            "$ref": "#/components/schemas/projectRecoveryConfig"
-          },
-          "recovery_ui_url": {
-            "description": "Self-Service Login UI URL\n\nSets the UI URL for the recovery UI. If left empty, this will use Ory's hosted pages.",
-            "type": "string"
-          },
-          "redirection_config": {
-            "$ref": "#/components/schemas/RedirectionConfig"
-          },
-          "registration_ui_url": {
-            "description": "Self-Service Login UI URL\n\nSets the UI URL for the registration UI. If left empty, this will use Ory's hosted pages.",
-            "type": "string"
-          },
-          "session_after_sign_up": {
-            "description": "Issue Session after Sign Up\n\nIf set to true, users will receive a session after they successfully signed up. Enabling this option\nallows account enumeration during registration flows. Read more: https://www.ory.sh/kratos/docs/self-service/flows/user-registration#successful-registration",
-            "type": "boolean"
-          },
-          "session_soft_2fa": {
-            "description": "Enable Soft 2FA for Login Sessions",
-            "type": "boolean"
-          },
-          "settings_privileged_session_max_age_seconds": {
-            "description": "Duration in Seconds of how long a Session is Privileged\n\nDefines how long a session is considered privileged in seconds. If the session's authenticated_at is older than the value\nspecified here, the user needs to re-authenticate to perform certain actions (e.g. password change).",
-            "format": "int64",
-            "type": "integer"
-          },
-          "settings_soft_2fa": {
-            "description": "Enable Soft 2FA for Self-Service Settings Flows",
-            "type": "boolean"
-          },
-          "settings_ui_url": {
-            "description": "Self-Service Settings UI URL\n\nSets the UI URL for the settings UI. If left empty, this will use Ory's hosted pages.",
-            "type": "string"
-          },
-          "totp": {
-            "$ref": "#/components/schemas/projectTotpConfig"
           },
           "updated_at": {
             "description": "Last Time Project's Revision was Updated",
             "format": "date-time",
             "readOnly": true,
             "type": "string"
-          },
-          "verification": {
-            "$ref": "#/components/schemas/projectVerificationConfig"
-          },
-          "verification_ui_url": {
-            "description": "Self-Service Login UI URL\n\nSets the UI URL for the verification UI. If left empty, this will use Ory's hosted pages.",
-            "type": "string"
-          },
-          "webauthn": {
-            "$ref": "#/components/schemas/projectWebAuthnConfig"
           }
         },
-        "required": [
-          "id",
-          "name",
-          "hosts",
-          "application_url",
-          "api_url",
-          "default_identity_schema_url",
-          "session_after_sign_up",
-          "project_id",
-          "created_at",
-          "updated_at"
-        ],
         "type": "object"
+      },
+      "projectRevisionThirdPartyLoginProviders": {
+        "items": {
+          "$ref": "#/components/schemas/projectRevisionThirdPartyLoginProvider"
+        },
+        "type": "array"
       },
       "projectRevisions": {
         "items": {
@@ -1291,65 +1500,6 @@
         "properties": {
           "slug": {
             "description": "The Project Slug",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "projectTotpConfig": {
-        "properties": {
-          "enabled": {
-            "description": "Set to true to enable the TOTP authentication method.",
-            "type": "boolean"
-          },
-          "issuer": {
-            "description": "The issuer is the name which will appear in the Authenticator app.",
-            "example": "ory.sh",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "projectVerificationConfig": {
-        "properties": {
-          "enabled": {
-            "description": "Set to true to enable email / phone verification.",
-            "type": "boolean"
-          },
-          "require_verified_address": {
-            "description": "Set to true to only allow users with a verified address to sign in.",
-            "type": "boolean"
-          }
-        },
-        "type": "object"
-      },
-      "projectWebAuthnConfig": {
-        "properties": {
-          "enabled": {
-            "description": "Set to true to enable the WebAuthn authentication method.",
-            "type": "boolean"
-          },
-          "rp_display_name": {
-            "description": "The display name to show in the authenticator.",
-            "example": "Ory Corp",
-            "type": "string"
-          },
-          "rp_icon": {
-            "description": "A URL to an icon which might be shown in the authenticator.",
-            "example": "https://example.org/icon.png",
-            "format": "uri",
-            "type": "string"
-          },
-          "rp_id": {
-            "description": "This must be the hostname of the login page.",
-            "example": "example.org",
-            "format": "hostname",
-            "type": "string"
-          },
-          "rp_origin": {
-            "description": "This must be the scheme://hostname of the login page.",
-            "example": "https://example.org/",
-            "format": "uri",
             "type": "string"
           }
         },
@@ -1382,7 +1532,10 @@
             "type": "string"
           }
         },
-        "required": ["name", "data"],
+        "required": [
+          "name",
+          "data"
+        ],
         "type": "object"
       },
       "selfServiceBrowserLocationChangeRequiredError": {
@@ -1432,7 +1585,9 @@
             "type": "string"
           }
         },
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "title": "Is sent when a flow requires a browser to change its location.",
         "type": "object"
       },
@@ -1455,7 +1610,9 @@
             "type": "string"
           }
         },
-        "required": ["id"],
+        "required": [
+          "id"
+        ],
         "type": "object"
       },
       "selfServiceFlowExpiredError": {
@@ -1508,7 +1665,9 @@
             "$ref": "#/components/schemas/UUID"
           }
         },
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "type": "object"
       },
       "selfServiceFlowType": {
@@ -1589,7 +1748,10 @@
             "type": "string"
           }
         },
-        "required": ["logout_url", "logout_token"],
+        "required": [
+          "logout_url",
+          "logout_token"
+        ],
         "type": "object"
       },
       "selfServiceRecoveryFlow": {
@@ -1643,7 +1805,11 @@
       },
       "selfServiceRecoveryFlowState": {
         "description": "The state represents the state of the recovery flow.\n\nchoose_method: ask the user to choose a method (e.g. recover account via email)\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the recovery challenge was passed.",
-        "enum": ["choose_method", "sent_email", "passed_challenge"],
+        "enum": [
+          "choose_method",
+          "sent_email",
+          "passed_challenge"
+        ],
         "title": "Recovery Flow State",
         "type": "string"
       },
@@ -1659,7 +1825,9 @@
             "type": "string"
           }
         },
-        "required": ["recovery_link"],
+        "required": [
+          "recovery_link"
+        ],
         "type": "object"
       },
       "selfServiceRegistrationFlow": {
@@ -1695,7 +1863,13 @@
             "$ref": "#/components/schemas/uiContainer"
           }
         },
-        "required": ["id", "expires_at", "issued_at", "request_url", "ui"],
+        "required": [
+          "id",
+          "expires_at",
+          "issued_at",
+          "request_url",
+          "ui"
+        ],
         "type": "object"
       },
       "selfServiceSettingsFlow": {
@@ -1753,7 +1927,10 @@
       },
       "selfServiceSettingsFlowState": {
         "description": "show_form: No user data has been collected, or it is invalid, and thus the form should be shown.\nsuccess: Indicates that the settings flow has been updated successfully with the provided data.\nDone will stay true when repeatedly checking. If set to true, done will revert back to false only\nwhen a flow with invalid (e.g. \"please use a valid phone number\") data was sent.",
-        "enum": ["show_form", "success"],
+        "enum": [
+          "show_form",
+          "success"
+        ],
         "title": "State represents the state of this flow. It knows two states:",
         "type": "string"
       },
@@ -1795,13 +1972,22 @@
             "$ref": "#/components/schemas/uiContainer"
           }
         },
-        "required": ["id", "type", "ui", "state"],
+        "required": [
+          "id",
+          "type",
+          "ui",
+          "state"
+        ],
         "title": "A Verification Flow",
         "type": "object"
       },
       "selfServiceVerificationFlowState": {
         "description": "The state represents the state of the verification flow.\n\nchoose_method: ask the user to choose a method (e.g. recover account via email)\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the recovery challenge was passed.",
-        "enum": ["choose_method", "sent_email", "passed_challenge"],
+        "enum": [
+          "choose_method",
+          "sent_email",
+          "passed_challenge"
+        ],
         "title": "Verification Flow State",
         "type": "string"
       },
@@ -1840,7 +2026,10 @@
             "type": "string"
           }
         },
-        "required": ["id", "identity"],
+        "required": [
+          "id",
+          "identity"
+        ],
         "type": "object"
       },
       "sessionAuthenticationMethod": {
@@ -1852,7 +2041,13 @@
             "type": "string"
           },
           "method": {
-            "enum": ["link_recovery", "password", "totp", "oidc", "webauthn"],
+            "enum": [
+              "link_recovery",
+              "password",
+              "totp",
+              "oidc",
+              "webauthn"
+            ],
             "title": "The method used",
             "type": "string"
           }
@@ -1900,7 +2095,11 @@
             "$ref": "#/components/schemas/uiNodes"
           }
         },
-        "required": ["action", "method", "nodes"],
+        "required": [
+          "action",
+          "method",
+          "nodes"
+        ],
         "type": "object"
       },
       "stripeCustomerResponse": {
@@ -1947,7 +2146,10 @@
             "type": "string"
           }
         },
-        "required": ["method", "lookup_secret"],
+        "required": [
+          "method",
+          "lookup_secret"
+        ],
         "title": "submitSelfServiceLoginFlowWithLookupSecretMethodBody is used to decode the login form payload.",
         "type": "object"
       },
@@ -1971,7 +2173,10 @@
             "type": "object"
           }
         },
-        "required": ["provider", "method"],
+        "required": [
+          "provider",
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceLoginFlowWithPasswordMethodBody": {
@@ -1993,7 +2198,11 @@
             "type": "string"
           }
         },
-        "required": ["method", "password", "password_identifier"],
+        "required": [
+          "method",
+          "password",
+          "password_identifier"
+        ],
         "title": "submitSelfServiceLoginFlowWithPasswordMethodBody is used to decode the login form payload.",
         "type": "object"
       },
@@ -2012,7 +2221,10 @@
             "type": "string"
           }
         },
-        "required": ["method", "totp_code"],
+        "required": [
+          "method",
+          "totp_code"
+        ],
         "title": "submitSelfServiceLoginFlowWithTotpMethodBody is used to decode the login form payload.",
         "type": "object"
       },
@@ -2031,7 +2243,9 @@
             "type": "string"
           }
         },
-        "required": ["method"],
+        "required": [
+          "method"
+        ],
         "title": "submitSelfServiceLoginFlowWithWebAuthnMethodBody is used to decode the login form payload.",
         "type": "object"
       },
@@ -2043,7 +2257,9 @@
             "type": "string"
           }
         },
-        "required": ["session_token"],
+        "required": [
+          "session_token"
+        ],
         "type": "object"
       },
       "submitSelfServiceRecoveryFlowBody": {
@@ -2074,7 +2290,10 @@
             "type": "string"
           }
         },
-        "required": ["email", "method"],
+        "required": [
+          "email",
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceRegistrationFlowBody": {
@@ -2114,7 +2333,10 @@
             "type": "object"
           }
         },
-        "required": ["provider", "method"],
+        "required": [
+          "provider",
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceRegistrationFlowWithPasswordMethodBody": {
@@ -2137,7 +2359,11 @@
             "type": "object"
           }
         },
-        "required": ["password", "traits", "method"],
+        "required": [
+          "password",
+          "traits",
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowBody": {
@@ -2195,7 +2421,9 @@
             "type": "string"
           }
         },
-        "required": ["method"],
+        "required": [
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowWithOidcMethodBody": {
@@ -2222,7 +2450,9 @@
             "type": "string"
           }
         },
-        "required": ["method"],
+        "required": [
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowWithPasswordMethodBody": {
@@ -2240,7 +2470,10 @@
             "type": "string"
           }
         },
-        "required": ["password", "method"],
+        "required": [
+          "password",
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowWithProfileMethodBody": {
@@ -2259,7 +2492,10 @@
             "type": "object"
           }
         },
-        "required": ["traits", "method"],
+        "required": [
+          "traits",
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowWithTotpMethodBody": {
@@ -2281,7 +2517,9 @@
             "type": "boolean"
           }
         },
-        "required": ["method"],
+        "required": [
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowWithWebAuthnMethodBody": {
@@ -2307,7 +2545,9 @@
             "type": "string"
           }
         },
-        "required": ["method"],
+        "required": [
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceVerificationFlowBody": {
@@ -2339,7 +2579,10 @@
             "type": "string"
           }
         },
-        "required": ["email", "method"],
+        "required": [
+          "email",
+          "method"
+        ],
         "type": "object"
       },
       "subscription": {
@@ -2416,7 +2659,9 @@
             "type": "string"
           }
         },
-        "required": ["session"],
+        "required": [
+          "session"
+        ],
         "type": "object"
       },
       "successfulSelfServiceRegistrationWithoutBrowser": {
@@ -2433,7 +2678,24 @@
             "type": "string"
           }
         },
-        "required": ["identity"],
+        "required": [
+          "identity"
+        ],
+        "type": "object"
+      },
+      "successfulUpdateProjectConfig": {
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/project"
+          },
+          "warnings": {
+            "description": "Import Warnings\n\nNot all configuration items can be imported to Ory Cloud. For example,\nsetting the port does not make sense because Ory Cloud provides the runtime\nand networking.\n\nThis field contains warnings where configuration keys were found but can not\nbe imported. These keys will be ignored by Ory Cloud. This field will help\nyou understand why certain configuration keys might not be respected!",
+            "items": {
+              "$ref": "#/components/schemas/Warning"
+            },
+            "type": "array"
+          }
+        },
         "type": "object"
       },
       "uiContainer": {
@@ -2454,7 +2716,11 @@
             "$ref": "#/components/schemas/uiNodes"
           }
         },
-        "required": ["action", "method", "nodes"],
+        "required": [
+          "action",
+          "method",
+          "nodes"
+        ],
         "type": "object"
       },
       "uiNode": {
@@ -2476,7 +2742,13 @@
             "$ref": "#/components/schemas/uiNodeType"
           }
         },
-        "required": ["type", "group", "attributes", "messages", "meta"],
+        "required": [
+          "type",
+          "group",
+          "attributes",
+          "messages",
+          "meta"
+        ],
         "title": "Node represents a flow's nodes",
         "type": "object"
       },
@@ -2497,7 +2769,12 @@
             "$ref": "#/components/schemas/uiText"
           }
         },
-        "required": ["href", "title", "id", "node_type"],
+        "required": [
+          "href",
+          "title",
+          "id",
+          "node_type"
+        ],
         "title": "AnchorAttributes represents the attributes of an anchor node.",
         "type": "object"
       },
@@ -2558,7 +2835,11 @@
             "type": "integer"
           }
         },
-        "required": ["src", "id", "node_type"],
+        "required": [
+          "src",
+          "id",
+          "node_type"
+        ],
         "title": "ImageAttributes represents the attributes of an image node.",
         "type": "object"
       },
@@ -2602,7 +2883,12 @@
             "nullable": true
           }
         },
-        "required": ["name", "type", "disabled", "node_type"],
+        "required": [
+          "name",
+          "type",
+          "disabled",
+          "node_type"
+        ],
         "type": "object"
       },
       "uiNodeMeta": {
@@ -2680,7 +2966,11 @@
             "$ref": "#/components/schemas/uiText"
           }
         },
-        "required": ["text", "id", "node_type"],
+        "required": [
+          "text",
+          "id",
+          "node_type"
+        ],
         "title": "TextAttributes represents the attributes of a text node.",
         "type": "object"
       },
@@ -2710,7 +3000,11 @@
             "$ref": "#/components/schemas/uiTextType"
           }
         },
-        "required": ["id", "text", "type"],
+        "required": [
+          "id",
+          "text",
+          "type"
+        ],
         "type": "object"
       },
       "uiTextType": {
@@ -2733,6 +3027,18 @@
             "type": "string"
           }
         },
+        "type": "object"
+      },
+      "updateProjectConfigConfig": {
+        "properties": {
+          "identity": {
+            "description": "The Ory Kratos config to import",
+            "type": "object"
+          }
+        },
+        "required": [
+          "identity"
+        ],
         "type": "object"
       },
       "verifiableIdentityAddress": {
@@ -2772,7 +3078,13 @@
             "$ref": "#/components/schemas/identityVerifiableAddressType"
           }
         },
-        "required": ["id", "value", "verified", "via", "status"],
+        "required": [
+          "id",
+          "value",
+          "verified",
+          "via",
+          "status"
+        ],
         "type": "object"
       },
       "version": {
@@ -2868,7 +3180,9 @@
           }
         ],
         "summary": "List Identities",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       },
       "post": {
         "description": "This endpoint creates an identity. It is NOT possible to set an identity's credentials (password, ...)\nusing this method! A way to achieve that will be introduced in the future.\n\nLearn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
@@ -2931,7 +3245,9 @@
           }
         ],
         "summary": "Create an Identity",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/admin/identities/{id}": {
@@ -2980,7 +3296,9 @@
           }
         ],
         "summary": "Delete an Identity",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       },
       "get": {
         "description": "Learn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
@@ -3045,7 +3363,9 @@
           }
         ],
         "summary": "Get an Identity",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       },
       "put": {
         "description": "This endpoint updates an identity. It is NOT possible to set an identity's credentials (password, ...)\nusing this method! A way to achieve that will be introduced in the future.\n\nThe full identity payload (except credentials) is expected. This endpoint does not support patching.\n\nLearn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
@@ -3129,7 +3449,9 @@
           }
         ],
         "summary": "Update an Identity",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/admin/identities/{id}/sessions": {
@@ -3198,7 +3520,9 @@
           }
         ],
         "summary": "Calling this endpoint irrecoverably and permanently deletes and invalidates all sessions that belong to the given Identity.",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       },
       "get": {
         "description": "This endpoint is useful for:\n\nListing all sessions that belong to an Identity in an administrative context.",
@@ -3303,7 +3627,9 @@
           }
         ],
         "summary": "This endpoint returns all sessions that belong to the given Identity.",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/admin/recovery/link": {
@@ -3368,7 +3694,9 @@
           }
         ],
         "summary": "Create a Recovery Link",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/.well-known/ory/webauthn.js": {
@@ -3388,7 +3716,9 @@
           }
         },
         "summary": "Get WebAuthn JavaScript",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/health/alive": {
@@ -3406,7 +3736,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["status"],
+                  "required": [
+                    "status"
+                  ],
                   "type": "object"
                 }
               }
@@ -3425,7 +3757,9 @@
           }
         },
         "summary": "Check HTTP Server Status",
-        "tags": ["metadata"]
+        "tags": [
+          "metadata"
+        ]
       }
     },
     "/api/kratos/public/health/ready": {
@@ -3443,7 +3777,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["status"],
+                  "required": [
+                    "status"
+                  ],
                   "type": "object"
                 }
               }
@@ -3463,7 +3799,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["errors"],
+                  "required": [
+                    "errors"
+                  ],
                   "type": "object"
                 }
               }
@@ -3472,7 +3810,9 @@
           }
         },
         "summary": "Check HTTP Server and Database Status",
-        "tags": ["metadata"]
+        "tags": [
+          "metadata"
+        ]
       }
     },
     "/api/kratos/public/schemas": {
@@ -3526,7 +3866,9 @@
             "description": "jsonError"
           }
         },
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/schemas/{id}": {
@@ -3576,7 +3918,9 @@
             "description": "jsonError"
           }
         },
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/errors": {
@@ -3637,7 +3981,9 @@
           }
         },
         "summary": "Get Self-Service Errors",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/login": {
@@ -3724,7 +4070,9 @@
           }
         },
         "summary": "Submit a Login Flow",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/login/api": {
@@ -3790,7 +4138,9 @@
           }
         },
         "summary": "Initialize Login Flow for APIs, Services, Apps, ...",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/login/browser": {
@@ -3859,7 +4209,9 @@
           }
         },
         "summary": "Initialize Login Flow for Browsers",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/login/flows": {
@@ -3938,7 +4290,9 @@
           }
         },
         "summary": "Get Login Flow",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/logout": {
@@ -3982,7 +4336,9 @@
           }
         },
         "summary": "Complete Self-Service Logout",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/logout/api": {
@@ -4026,7 +4382,9 @@
           }
         },
         "summary": "Perform Logout for APIs, Services, Apps, ...",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/logout/browser": {
@@ -4076,7 +4434,9 @@
           }
         },
         "summary": "Create a Logout URL for Browsers",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/recovery": {
@@ -4153,7 +4513,9 @@
           }
         },
         "summary": "Complete Recovery Flow",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/recovery/api": {
@@ -4193,7 +4555,9 @@
           }
         },
         "summary": "Initialize Recovery Flow for APIs, Services, Apps, ...",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/recovery/browser": {
@@ -4246,7 +4610,9 @@
           }
         },
         "summary": "Initialize Recovery Flow for Browsers",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/recovery/flows": {
@@ -4315,7 +4681,9 @@
           }
         },
         "summary": "Get Recovery Flow",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/registration": {
@@ -4394,7 +4762,9 @@
           }
         },
         "summary": "Submit a Registration Flow",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/registration/api": {
@@ -4434,7 +4804,9 @@
           }
         },
         "summary": "Initialize Registration Flow for APIs, Services, Apps, ...",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/registration/browser": {
@@ -4477,7 +4849,9 @@
           }
         },
         "summary": "Initialize Registration Flow for Browsers",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/registration/flows": {
@@ -4556,7 +4930,9 @@
           }
         },
         "summary": "Get Registration Flow",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/settings": {
@@ -4668,7 +5044,9 @@
           }
         ],
         "summary": "Complete Settings Flow",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/settings/api": {
@@ -4718,7 +5096,9 @@
           }
         },
         "summary": "Initialize Settings Flow for APIs, Services, Apps, ...",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/settings/browser": {
@@ -4791,7 +5171,9 @@
           }
         },
         "summary": "Initialize Settings Flow for Browsers",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/settings/flows": {
@@ -4888,7 +5270,9 @@
           }
         },
         "summary": "Get Settings Flow",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/verification": {
@@ -4965,7 +5349,9 @@
           }
         },
         "summary": "Complete Verification Flow",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/verification/api": {
@@ -5005,7 +5391,9 @@
           }
         },
         "summary": "Initialize Verification Flow for APIs, Services, Apps, ...",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/verification/browser": {
@@ -5048,7 +5436,9 @@
           }
         },
         "summary": "Initialize Verification Flow for Browser Clients",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/self-service/verification/flows": {
@@ -5117,7 +5507,9 @@
           }
         },
         "summary": "Get Verification Flow",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/sessions": {
@@ -5195,7 +5587,9 @@
           }
         },
         "summary": "Calling this endpoint invalidates all except the current session that belong to the logged-in user.\nSession data are not deleted.",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       },
       "get": {
         "description": "This endpoint is useful for:\n\nDisplaying all other sessions that belong to the logged-in user",
@@ -5294,7 +5688,9 @@
           }
         },
         "summary": "This endpoints returns all other active sessions that belong to the logged-in user.\nThe current session can be retrieved by calling the `/sessions/whoami` endpoint.",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/sessions/whoami": {
@@ -5364,7 +5760,9 @@
           }
         },
         "summary": "Check Who the Current HTTP Session Belongs To",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/sessions/{id}": {
@@ -5418,7 +5816,9 @@
           }
         },
         "summary": "Calling this endpoint invalidates the specified session. The current session cannot be revoked.\nSession data are not deleted.",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/api/kratos/public/version": {
@@ -5436,7 +5836,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["version"],
+                  "required": [
+                    "version"
+                  ],
                   "type": "object"
                 }
               }
@@ -5445,7 +5847,9 @@
           }
         },
         "summary": "Return Running Software Version.",
-        "tags": ["metadata"]
+        "tags": [
+          "metadata"
+        ]
       }
     },
     "/backoffice/public/projects": {
@@ -5510,7 +5914,9 @@
           }
         ],
         "summary": "List All Projects",
-        "tags": ["v0alpha0"]
+        "tags": [
+          "v0alpha0"
+        ]
       },
       "post": {
         "description": "Creates a new project.",
@@ -5519,7 +5925,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/projectPatch"
+                "$ref": "#/components/schemas/projectRevision"
               }
             }
           },
@@ -5583,7 +5989,9 @@
           }
         ],
         "summary": "Create a Project",
-        "tags": ["v0alpha0"]
+        "tags": [
+          "v0alpha0"
+        ]
       }
     },
     "/backoffice/public/projects/{project_id}": {
@@ -5659,7 +6067,9 @@
           }
         ],
         "summary": "Get a Project",
-        "tags": ["v0alpha0"]
+        "tags": [
+          "v0alpha0"
+        ]
       },
       "put": {
         "description": "Creates a new configuration revision for a project.",
@@ -5679,7 +6089,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/projectPatch"
+                "$ref": "#/components/schemas/projectRevision"
               }
             }
           },
@@ -5743,7 +6153,9 @@
           }
         ],
         "summary": "Update a Project",
-        "tags": ["v0alpha0"]
+        "tags": [
+          "v0alpha0"
+        ]
       }
     }
   },
