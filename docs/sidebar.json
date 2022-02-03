@@ -28,6 +28,7 @@
         "Concepts": [
           "concepts/terminology",
           "concepts/project",
+          "concepts/project-invite-membership",
           "concepts/managed-ui",
           "concepts/identity",
           "concepts/services-api",
