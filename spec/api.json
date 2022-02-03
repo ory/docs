@@ -458,6 +458,12 @@
         "title": "Error response",
         "type": "object"
       },
+      "getProjectAccessResponse": {
+        "additionalProperties": {
+          "type": "boolean"
+        },
+        "type": "object"
+      },
       "healthNotReadyStatus": {
         "properties": {
           "errors": {
