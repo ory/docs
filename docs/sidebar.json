@@ -36,7 +36,8 @@
           "concepts/redirects",
           "concepts/session",
           "concepts/emails",
-          "ecosystem/api-design"
+          "ecosystem/api-design",
+          "concepts/password-policy"
         ]
       },
       "reference/api",
