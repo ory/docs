@@ -1,0 +1,86 @@
+---
+id: set-up-mfa
+title: Sign Up Multi-Factor Authentication
+---
+
+Ory supports multi-factor and two-factor authentication out of the box.
+Depending on the devices used, you might want to call this two-factor
+verification depending on which features you have enabled. Learn more about the
+distinction between two-factor authentication and two-factor verification in
+this excellent [1password](https://blog.1password.com/totp-for-1password-users/)
+blog post!
+
+There are four key components available in Ory with regard to multi-factor
+authentication.
+
+## Terminology
+
+Before we start let's establish the key terminology to make the following
+sections easier to understand!
+
+### Authenticator Assurance Level (AAL)
+
+The Authenticator Assurance Level (AAL) has two possible values:
+
+- `aal1`: Implies that the identity has completed only one authentication factor
+  (`password`, `oidc`).
+- `aal2`: Implies that the identity has completed the first (`password`, `oidc`)
+  and the second (`totp`, `lookup_secrets`, `webauthn`) authentication factor
+  (e.g.: `password` + `totp`, `oidc` + `webauthn`, ...). First authentication
+  factors can not be combined to gain `aal2` (e.g. `password` + `oidc` = `aal1`,
+  not `aal2`)!
+
+### Authentication Method Reference (AMR)
+
+The Authentication Method Reference (AMR) is an array of authentication methods
+that were used over the lifetime of an Ory Session. In an Ory Session, this will
+have the following layout:
+
+```json5 title="Example Ory Session JSON Payload"
+{
+  id: '6b51a3f2-6a2c-4557-90a8-4e23de7072aa',
+  active: true,
+  // ...
+  authenticator_assurance_level: 'aal2',
+  authentication_methods: [
+    {
+      method: 'password',
+      completed_at: '2021-10-14T09:37:53.872104Z'
+    },
+    {
+      method: 'lookup_secret',
+      completed_at: '2021-10-14T09:41:16.771859Z'
+    }
+  ]
+  // ...
+}
+```
+
+The methods can be one of `password`, `oidc`, `totp`, `webauthn`,
+`lookup_secrets`. A method can be included more than once, for example when the
+identity refreshes their Ory Session by re-authenticating with e.g. their
+password:
+
+```json5 title="Example Ory Session JSON Payload"
+{
+  id: '6b51a3f2-6a2c-4557-90a8-4e23de7072aa',
+  active: true,
+  // ...
+  authenticator_assurance_level: 'aal2',
+  authentication_methods: [
+    {
+      method: 'password',
+      completed_at: '2021-10-14T09:37:53.872104Z'
+    },
+    {
+      method: 'lookup_secret',
+      completed_at: '2021-10-14T09:41:16.771859Z'
+    },
+    {
+      method: 'password',
+      completed_at: '2021-10-14T12:00:00.134567Z'
+    }
+  ]
+  // ...
+}
+```
