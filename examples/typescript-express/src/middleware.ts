@@ -22,7 +22,7 @@ const jwtMiddleware = jwt({
 // A small wrapper which redirects to login if we are not authenticated.
 export const protect = function (req: Request, res: Response, next: NextFunction) {
   jwtMiddleware(req, res, (err?: any) => {
-    // If no error happened, we just call the next function
+    // If no error happened, we just call the _next function
     if (!err) {
       return next()
     }
