@@ -1,7 +1,7 @@
 # Documentation
 
 This repository contains meta-documentation for the
-[ORY Ecosystem](https://www.ory.sh/docs/ecosystem/projects/).  
+[ORY Ecosystem](https://www.ory.sh/docs/ecosystem/projects/).
 You can find the source files for each project's documentation here:
 
 - [Ory Kratos](https://github.com/ory/kratos/tree/master/docs)
@@ -19,12 +19,12 @@ Other Ory Projects documentation:
 
 Documentation for
 [the Ory Ecosystem](https://www.ory.sh/docs/ecosystem/projects/) lives in
-[ory/docs](https://github.com/ory/docs/tree/master/docs/docs/ecosystem).  
+[ory/docs](https://github.com/ory/docs/tree/master/docs/docs/ecosystem).
 Documentation for the individual projects live in their respective `docs`
 folder. ([Ory Hydra](https://github.com/ory/hydra/tree/master/docs/docs),
 [Ory Kratos](https://github.com/ory/kratos/tree/master/docs/docs),
 [Ory Oathkeeper](https://github.com/ory/oathkeeper/tree/master/docs/docs),
-[Ory Keto](https://github.com/ory/keto/tree/master/docs/docs))  
+[Ory Keto](https://github.com/ory/keto/tree/master/docs/docs))
 If you make changes, please consider making the same changes in the latest
 version of `/versioned_docs`
 
@@ -35,13 +35,13 @@ To test the documentation locally:
 
 3. Enter the `/docs` folder in your local git environment.
 
-3. Install dependencies by running: 
+3. Install dependencies by running:
 `npm install`.
 
 4. Run the Docs webserver and test the documentation by running:
 `npm start`
 
-5. Build the docs and verify by running:  
+5. Build the docs and verify by running:
 `npm run build `
 
 ## Formatting documentation
@@ -60,7 +60,7 @@ git push
 
 ## Categories
 
-Ory Documentations is structured into several main categories.  
+Ory Documentations is structured into several main categories.
 Each of those categories serves a specific purpose.
 The purpose of each category is outlined in short here, to help find the correct category for your documentation to live in.
 
@@ -131,10 +131,37 @@ Then at the place you want the code to appear in the document add:
 
 If you find an error in the Ory CLI documentation here are some pointers on how to fix it:
 
-The code that generates the CLI docs (for Kratos) comes from here:   
+The code that generates the CLI docs (for Kratos) comes from here:
 https://github.com/ory/kratos/blob/master/cmd/clidoc/main.go
 
 `cmd/clidoc/main.go` is the general path for all Ory projects.
 
-The command to generate the CLI docs can be found here:  
+The command to generate the CLI docs can be found here:
 https://github.com/ory/x/blob/master/clidoc/generate.go#L96
+
+## Develop
+
+To change the documentation locally, you need NodeJS installed. Next, install
+the dependencies:
+
+```
+$ npm install
+```
+
+### Develop
+
+```
+$ npm start
+```
+
+This command starts a local development server and open up a browser window.
+Most changes are reflected live without having to restart the server.
+
+### Build
+
+```
+$ npm build
+```
+
+This command generates static content into the `build` directory and can be
+served using any static contents hosting service.
