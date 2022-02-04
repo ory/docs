@@ -22,3 +22,5 @@ yarn-error.log*
 /tmp
 
 .idea/
+
+docs/build
