@@ -147,11 +147,10 @@ depending on the API call.
 
 :::info
 
-Do not store tokens in Postman as environment variables!
-If you are signed in to the Postman application, it will automatically try to
-synchronize Collections and Environments with the Postman servers. This means
-that a token, which could allow someone else access to your APIs, is being
-uploaded to Postman's servers.
+Do not store tokens in Postman as environment variables! If you are signed in to
+the Postman application, it will automatically try to synchronize Collections
+and Environments with the Postman servers. This means that a token, which could
+allow someone else access to your APIs, is being uploaded to Postman's servers.
 Postman has taken measures to ensure that tokens are encrypted and encourages
 users to store them in Environment Variables. Read more
 [here](https://www.postman.com/security).
