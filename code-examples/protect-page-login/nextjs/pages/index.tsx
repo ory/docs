@@ -1,4 +1,3 @@
-import type {NextPage} from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
@@ -15,7 +14,7 @@ const ory = new V0alpha2Api(new Configuration(edgeConfig))
 const getUserName = (identity: Identity) => identity.traits.email || identity.traits.username
 // highlight-end
 
-const Home: NextPage = () => {
+const Home = () => {
   const router = useRouter()
 
 // highlight-start
