@@ -4,16 +4,17 @@ title: Protect a Page with Login in Next.js
 sidebar_label: Next.js
 ---
 
-```mdx-code-block
-import CreateProject from '../_common/create-project.md';
+In this guide we will use Ory to add login "protection" to a page in Next.js.
 
-<CreateProject />
+```mdx-code-block
+import mp4 from './nextjs/screencast.mp4'
+import webm from './nextjs/screencast.webm'
+import VideoEmbed from '@site/src/components/VideoEmbed'
+
+<VideoEmbed mp4={mp4} webm={webm} />
 ```
 
-In this guide we will set up a Next.js application with a page that needs the
-user to sign up or sign in before they can view it.
-
-## Create the Next.js App
+## Create Next.js App
 
 First we create a new Next.js project and install
 
@@ -22,10 +23,11 @@ npx create-next-app@latest --typescript
 cd <your-project-directory>
 ```
 
-## Set Up Ory
+## Install Ory
 
-Ory uses Next.js' API routes features to provide an easy way to protect your
-app. Install Ory's JavaScript integratio helper and its SDK:
+Ory provides integration tools that quickly combine Ory with Next.js. Let's
+install Ory's SDK, used to make API calls to Ory, and Ory's Integration Tools
+for JavaScript frameworks:
 
 ```shell-session
 npm i --save @ory/integrations @ory/client
@@ -58,8 +60,8 @@ import homePage from '!!raw-loader!../../../../code-examples/protect-page-login/
 
 ## Run your Next.js App
 
-Great, that's it! Let's run your application. Do you have your Ory Project / Ory
-Kratos ready?
+Great, that's it! Let's run your application! Set up your environment variables
+to connect with Ory's APIs
 
 ```mdx-code-block
 import SdkEnvVar from '@site/src/components/SdkEnvVar'
@@ -67,13 +69,19 @@ import SdkEnvVar from '@site/src/components/SdkEnvVar'
 <SdkEnvVar />
 ```
 
-and open [http://localhost:3000](http://localhost:3000) in your browser. You are
-presented with Ory's Sign In page! Let's sign up your first user!
+and start the Next.js development server:
 
-```mdx-code-block
-import mp4 from './nextjs/screencast.mp4'
-import webm from './nextjs/screencast.webm'
-import VideoEmbed from '@site/src/components/VideoEmbed'
+```shell-session
+npm run dev
+```
 
-<VideoEmbed mp4={mp4} webm={webm} />
+Then open [http://localhost:3000](http://localhost:3000) in your browser. You
+are presented with Ory's Sign In page! Let's sign up your first user!
+
+## Go to Production
+
+Release your app bundled with Ory to production using:
+
+```shell-session
+npx vercel deploy --prod
 ```

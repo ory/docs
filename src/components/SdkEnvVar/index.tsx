@@ -9,7 +9,11 @@ export default function SdkEnvVar(props: any) {
   const target = url ? url : 'https://playground.projects.oryapis.com'
   const hint = url ? '' : `# This is a public Ory Cloud Project.
 # Don’t submit any personally identifiable information in requests made with this project.
-# Sign in to see your own Ory Cloud Project configuration embedded in code samples.
+# Sign up for Ory Cloud at
+#
+#   https://console.ory.sh/registration
+#
+# and create a free Ory Cloud Project to see your own configuration embedded in code samples!
 `
 
   return (<Tabs>

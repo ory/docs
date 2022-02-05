@@ -189,8 +189,11 @@ served using any static contents hosting service.
 
 ### Convert Videos
 
-When you record using Quicktime, a `.mov` file is recorded. Use the commands
-below to convert them to `mp4` and `webm`:
+When you
+[record your screen using Quicktime](https://support.apple.com/en-gb/guide/quicktime-player/qtp97b08e666/mac),
+a `.mov` file is recorded. **Please use 16:9 format when recording videos.**
+
+Once recoded, use the commands below to convert them to `mp4` and `webm`:
 
 ```shellsession
 file="example.mov"
@@ -199,7 +202,16 @@ ffmpeg -i $file -an -c:v libvpx-vp9 -vf scale=1024:-1 -crf 30 -b:v 0 "${file%.*}
 ffmpeg -i $file -vcodec h264 -vf scale=1024:-1 -an "${file%.*}".mp4
 ```
 
-Then use the following code to display the video:
+Next copy them next to the markdown file you are editing. Then use the following
+code to display the video:
+
+```mdx-code-block
+import mp4 from './example.mp4'
+import webm from './example.webm'
+import VideoEmbed from '@site/src/components/VideoEmbed'
+
+<VideoEmbed mp4={mp4} webm={webm} />
+```
 
 ### Import Code Examples from this Repository
 
