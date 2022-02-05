@@ -1,21 +1,79 @@
 ---
 id: next.js
 title: Protect a Page with Login in Next.js
-sidebar_title: Next.js
+sidebar_label: Next.js
 ---
 
-```jsx title="/src/components/HelloCodeTitle.js"
-function HelloCodeTitle(props) {
-  return <h1>Hello, {props.name}</h1>
-}
+```mdx-code-block
+import CreateProject from '../_common/create-project.md';
+
+<CreateProject />
 ```
 
-```mdx-code-block
-import CodeFromRemote from '@theme/CodeFromRemote'
+In this guide we will set up a Next.js application with a page that needs the
+user to sign up or sign in before they can view it.
 
-<CodeFromRemote
-  lang="js"
-  link="https://github.com/ory/docs/blob/master/examples/typescript-express/src/index.ts"
-  src="https://raw.githubusercontent.com/ory/docs/master/examples/typescript-express/src/index.ts"
-/>
+## Create the Next.js App
+
+First we create a new Next.js project and install
+
+```shell-session
+npx create-next-app@latest --typescript
+cd <your-project-directory>
+```
+
+## Set Up Ory
+
+Ory uses Next.js' API routes features to provide an easy way to protect your
+app. Install Ory's JavaScript integratio helper and its SDK:
+
+```shell-session
+npm i --save @ory/integrations @ory/client
+```
+
+and create a special route
+
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import apiRoute from '!!raw-loader!../../../../code-examples/protect-page-login/nextjs/pages/api/.ory/\[...paths\].ts'
+
+<CodeBlock language="tsx">{apiRoute}</CodeBlock>
+```
+
+This route connects your Next.js app with Ory's APIs and ensures that all
+cookies and credentials are set up correctly. Without it, your Next.js
+application will not be able to talk to Ory's APIs.
+
+## Require Login to Access the Home Page
+
+Next we add a session check to the default home page of the Next.js example
+application.The highlighted code is what we added to check whether the user is
+signed in, and redirect them to the login page if not:
+
+```mdx-code-block
+import homePage from '!!raw-loader!../../../../code-examples/protect-page-login/nextjs/pages/index.tsx'
+
+<CodeBlock language="tsx">{homePage}</CodeBlock>
+```
+
+## Run your Next.js App
+
+Great, that's it! Let's run your application. Do you have your Ory Project / Ory
+Kratos ready?
+
+```mdx-code-block
+import SdkEnvVar from '@site/src/components/SdkEnvVar'
+
+<SdkEnvVar />
+```
+
+and open [http://localhost:3000](http://localhost:3000) in your browser. You are
+presented with Ory's Sign In page! Let's sign up your first user!
+
+```mdx-code-block
+import mp4 from './nextjs/screencast.mp4'
+import webm from './nextjs/screencast.webm'
+import VideoEmbed from '@site/src/components/VideoEmbed'
+
+<VideoEmbed mp4={mp4} webm={webm} />
 ```

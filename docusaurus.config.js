@@ -1,11 +1,3 @@
-const fs = require('fs')
-
-const customCss = [require.resolve('./contrib/theme.css')]
-
-if (fs.existsSync('./src/css/theme.css')) {
-  customCss.push(require.resolve('./src/css/theme.css'))
-}
-
 const githubPrismTheme = require('prism-react-renderer/themes/github')
 
 const prismThemeLight = {
@@ -71,9 +63,14 @@ module.exports = {
   staticDirectories: ['src/static'],
   themeConfig: {
     prism: {
-      theme: prismThemeLight,
-      darkTheme: require('prism-react-renderer/themes/dracula'),
-      additionalLanguages: ['json5', 'pug', 'shell-session']
+      additionalLanguages: [
+        'powershell',
+        'json5',
+        'pug',
+        'shell-session',
+        'bash',
+        'tsx'
+      ]
     },
     announcementBar: {
       id: 'supportus',
@@ -168,7 +165,7 @@ module.exports = {
     [
       '@docusaurus/theme-classic',
       {
-        customCss: require.resolve('./src/css/theme.css')
+        customCss: [require.resolve('./src/css/theme.css')]
       }
     ],
     '@docusaurus/theme-search-algolia',
