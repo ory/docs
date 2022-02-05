@@ -57,20 +57,7 @@
         "format": "int64",
         "type": "integer"
       },
-      "Identity": {
-        "properties": {
-          "email": {
-            "type": "string"
-          },
-          "id": {
-            "$ref": "#/components/schemas/UUID"
-          },
-          "name": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
+      "Identity": {},
       "InvitePayload": {
         "properties": {
           "invitee_email": {
