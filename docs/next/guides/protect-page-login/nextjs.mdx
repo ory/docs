@@ -4,7 +4,13 @@ title: Protect a Page with Login in Next.js
 sidebar_label: Next.js
 ---
 
-In this guide we will use Ory to add login "protection" to a page in Next.js.
+In this guide, we set up a new [Next.js](https://nextjs.org/) application and
+protect its home page with a login page using Ory. It will also add features
+such as profile settings, registration, and more. You can use this guide with
+both Ory Cloud and by self-hosting Ory software.
+
+Before we start, let's take a look at what user flow you will implement with
+this guide.
 
 ```mdx-code-block
 import mp4 from './nextjs/screencast.mp4'
@@ -82,6 +88,8 @@ are presented with Ory's Sign In page! Let's sign up your first user!
 
 Release your app bundled with Ory to production using:
 
-```shell-session
-npx vercel deploy --prod
+```mdx-code-block
+import VercelDeploy from '@site/src/components/VercelDeploy'
+
+<VercelDeploy />
 ```
