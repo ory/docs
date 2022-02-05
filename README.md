@@ -31,13 +31,9 @@ changes, please consider making the same changes in the latest version of
 To test the documentation locally: (Assuming you already installed NodeJS)
 
 1. Clone this repository.
-
 2. Enter the `/docs` folder in your local git environment.
-
 3. Install dependencies by running: `npm install`.
-
 4. Run the Docs webserver and test the documentation by running: `npm start`
-
 5. Build the docs and verify by running: `npm run build `
 
 ## Formatting documentation
@@ -162,7 +158,7 @@ the dependencies:
 $ npm install
 ```
 
-### Develop
+## Develop
 
 ```
 $ npm start
@@ -179,3 +175,72 @@ $ npm build
 
 This command generates static content into the `build` directory and can be
 served using any static contents hosting service.
+
+### Test
+
+```
+$ make test
+```
+
+This command generates static content into the `build` directory and can be
+served using any static contents hosting service.
+
+## Guides
+
+### Convert Videos
+
+When you record using Quicktime, a `.mov` file is recorded. Use the commands
+below to convert them to `mp4` and `webm`:
+
+```shellsession
+file="example.mov"
+
+ffmpeg -i $file -an -c:v libvpx-vp9 -vf scale=1024:-1 -crf 30 -b:v 0 "${file%.*}".webm
+ffmpeg -i $file -vcodec h264 -vf scale=1024:-1 -an "${file%.*}".mp4
+```
+
+Then use the following code to display the video:
+
+### Import Code Examples from this Repository
+
+Use the same markdown in several places:
+
+````
+```mdx-code-block
+import exampleJs from '!!raw-loader!./code-example.jsx'
+import exampleGo from '!!raw-loader!./code-example.go'
+
+<CodeBlock className="language-jsx">{exampleJs}</CodeBlock>
+<CodeBlock className="language-go">{exampleGo}</CodeBlock>
+```
+````
+
+### Import Markdown
+
+Use the same markdown in several places:
+
+````
+```mdx-code-block
+import ExampleMarkdown from './_common/example.md'
+
+<ExampleMarkdown />
+```
+````
+
+### Write a Shell Example
+
+Use `shellsession`:
+
+````
+```shellsession
+npx create-next-app@latest --typescript
+npm i --save @ory/integrations
+```
+````
+
+Please do not prefixes with `$`
+
+```patch
+- $ command --arg # do not
++ command --arg # do
+```

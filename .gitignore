@@ -24,3 +24,5 @@ yarn-error.log*
 .idea/
 
 docs/build
+test-results/
+playwright-report/
