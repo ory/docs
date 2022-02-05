@@ -4,3 +4,4 @@ schemas/
 apis/
 .widdershins/
 hooks/
+.next
