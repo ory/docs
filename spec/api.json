@@ -2654,6 +2654,21 @@
         ],
         "type": "object"
       },
+      "successfulProjectConfigUpdate": {
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/project"
+          },
+          "warnings": {
+            "description": "Import Warnings\n\nNot all configuration items can be imported to Ory Cloud. For example,\nsetting the port does not make sense because Ory Cloud provides the runtime\nand networking.\n\nThis field contains warnings where configuration keys were found but can not\nbe imported. These keys will be ignored by Ory Cloud. This field will help\nyou understand why certain configuration keys might not be respected!",
+            "items": {
+              "$ref": "#/components/schemas/Warning"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
       "successfulSelfServiceLoginWithoutBrowser": {
         "description": "The Response for Login Flows via API",
         "properties": {
@@ -2687,21 +2702,6 @@
         "required": [
           "identity"
         ],
-        "type": "object"
-      },
-      "successfulUpdateProjectConfig": {
-        "properties": {
-          "project": {
-            "$ref": "#/components/schemas/project"
-          },
-          "warnings": {
-            "description": "Import Warnings\n\nNot all configuration items can be imported to Ory Cloud. For example,\nsetting the port does not make sense because Ory Cloud provides the runtime\nand networking.\n\nThis field contains warnings where configuration keys were found but can not\nbe imported. These keys will be ignored by Ory Cloud. This field will help\nyou understand why certain configuration keys might not be respected!",
-            "items": {
-              "$ref": "#/components/schemas/Warning"
-            },
-            "type": "array"
-          }
-        },
         "type": "object"
       },
       "uiContainer": {
@@ -6159,6 +6159,104 @@
           }
         ],
         "summary": "Update a Project",
+        "tags": [
+          "v0alpha0"
+        ]
+      }
+    },
+    "/backoffice/public/projects/{project_id}/configs": {
+      "put": {
+        "description": "This endpoints allows you to update the Ory Cloud Project configuration for\nindividual services (identity, permission, ...). The configuration is fully compatible\nwith the open source projects for the respective services (e.g. Ory Kratos for Identity, Ory Keto for Permissions).\n\nThis endpoint expects the `version` key to be set in the payload. If it is unset, it\nwill try to import the config as if it is from the most recent version.\n\nIf you have an older version of a configuration, you should set the version key in the payload!\n\nWhile this endpoint is able to process all configuration items related to features (e.g. password reset),\nit does not support operational configuration items (e.g. port, tracing, logging) otherwise available in the\nopen source.\n\nFor configuration items that can not be translated to Ory Cloud, this endpoint will return a list of warnings\nto help you understand which parts of your config could not be processed.\n\nBe aware that updating any service's configuration will completely override your current configuration for that\nservice!",
+        "operationId": "updateProjectConfig",
+        "parameters": [
+          {
+            "description": "Project ID\n\nThe project's ID.",
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateProjectConfigConfig"
+              }
+            }
+          },
+          "x-originalParamName": "Body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successfulProjectConfigUpdate"
+                }
+              }
+            },
+            "description": "successfulProjectConfigUpdate"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Update an Ory Cloud Project Configuration",
         "tags": [
           "v0alpha0"
         ]
