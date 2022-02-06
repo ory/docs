@@ -4,7 +4,7 @@ import {Configuration, Project, V0alpha0Api} from "@ory/client";
 const sdk = new V0alpha0Api(new Configuration({
   basePath: 'https://api.console.ory:8080',
   baseOptions: {
-    withCredentials: false,
+    withCredentials: true,
   }
 }))
 
