@@ -57,7 +57,6 @@
         "format": "int64",
         "type": "integer"
       },
-      "Identity": {},
       "InvitePayload": {
         "properties": {
           "invitee_email": {
@@ -282,6 +281,20 @@
         ],
         "title": "Authenticator Assurance Level (AAL)",
         "type": "string"
+      },
+      "cloudAccount": {
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "cnameSettings": {
         "properties": {
@@ -987,7 +1000,7 @@
         "type": "array"
       },
       "projectMember": {
-        "$ref": "#/components/schemas/Identity"
+        "$ref": "#/components/schemas/cloudAccount"
       },
       "projectMembers": {
         "items": {
