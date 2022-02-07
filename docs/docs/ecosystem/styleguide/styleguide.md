@@ -888,6 +888,36 @@ covered in the documentation, you should:
 Do not upload videos to the product repositories. [Link](#link-to-video) or
 [embed](#embed-videos) them instead.
 
+### Convert Videos
+
+When you
+[record your screen using Quicktime](https://support.apple.com/en-gb/guide/quicktime-player/qtp97b08e666/mac),
+a `.mov` file is recorded. When recording a video, please follow these rules:
+
+1. Please use 16:9 format with at least 1024 pixels wide. `ffmpeg` will scale it
+   to the right size.
+2. Please make sure that no history or auto-suggestions are visible.
+
+Once recoded, use the commands below to convert them to `mp4` and `webm`:
+
+```shellsession
+file="screencast.mov"
+
+ffmpeg -i $file -an -c:v libvpx-vp9 -vf scale=1024:-1 -crf 30 -b:v 0 "${file%.*}".webm
+ffmpeg -i $file -vcodec h264 -vf scale=1024:-1 -an "${file%.*}".mp4
+```
+
+Next copy them next to the markdown file you are editing. Then use the following
+code to display the video:
+
+```mdx-code-block
+import mp4 from './screencast.mp4'
+import webm from './screencast.webm'
+import VideoEmbed from '@site/src/components/VideoEmbed'
+
+<VideoEmbed mp4={mp4} webm={webm} />
+```
+
 ### Link to video
 
 To link out to a video, include a YouTube icon so that readers can scan the page
