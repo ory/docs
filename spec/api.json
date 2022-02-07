@@ -5858,6 +5858,110 @@
         ]
       }
     },
+    "/backoffice/public/console/projects/active": {
+      "get": {
+        "description": "Use this API to get your active project in the Ory Cloud Console UI.",
+        "operationId": "getActiveProject",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/activeProject"
+                }
+              }
+            },
+            "description": "activeProject"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Returns Your Active Ory Cloud Project",
+        "tags": [
+          "v0alpha0"
+        ]
+      },
+      "put": {
+        "description": "Use this API to set your active project in the Ory Cloud Console UI.",
+        "operationId": "setActiveProject",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "project_id": {
+                    "description": "Project ID\n\nThe Project ID you want to set active.\n\nformat: uuid",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "project_id"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "x-originalParamName": "Body"
+        },
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/emptyResponse"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Sets Your Active Project",
+        "tags": [
+          "v0alpha0"
+        ]
+      }
+    },
     "/backoffice/public/projects": {
       "get": {
         "description": "Lists all projects you have access to.",
@@ -6001,6 +6105,75 @@
       }
     },
     "/backoffice/public/projects/{project_id}": {
+      "delete": {
+        "description": "!! Use with extreme caution !!\n\nUsing this API endpoint you can purge (completely delete) a project and its data.\nThis action can not be undone and will delete ALL your data.\n\n!! Use with extreme caution !!",
+        "operationId": "purgeProject",
+        "parameters": [
+          {
+            "description": "Project ID\n\nThe project's ID.",
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/emptyResponse"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Irrecoverably Purge a Project",
+        "tags": [
+          "v0alpha0"
+        ]
+      },
       "get": {
         "description": "Get a projects you have access to by its ID.",
         "operationId": "getProject",
@@ -6257,6 +6430,154 @@
           }
         ],
         "summary": "Update an Ory Cloud Project Configuration",
+        "tags": [
+          "v0alpha0"
+        ]
+      }
+    },
+    "/backoffice/public/projects/{project_id}/members": {
+      "get": {
+        "description": "This endpoint requires the user to be a member of the project with the role `OWNER` or `DEVELOPER`.",
+        "operationId": "getProjectMembers",
+        "parameters": [
+          {
+            "description": "Project ID\n\nThe project's ID.",
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/projectMembers"
+                }
+              }
+            },
+            "description": "projectMembers"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "406": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Get all members associated with this project.",
+        "tags": [
+          "v0alpha0"
+        ]
+      }
+    },
+    "/backoffice/public/projects/{project_id}/members/{member_id}": {
+      "delete": {
+        "description": "This endpoint requires the user to be a member of the project with the role `OWNER`.",
+        "operationId": "removeProjectMember",
+        "parameters": [
+          {
+            "description": "Project ID\n\nThe project's ID.",
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Member ID",
+            "in": "path",
+            "name": "member_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/emptyResponse"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "406": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Remove a member associated with this project. This also sets their invite status to `REMOVED`.",
         "tags": [
           "v0alpha0"
         ]
