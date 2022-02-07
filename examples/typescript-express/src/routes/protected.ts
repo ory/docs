@@ -1,4 +1,4 @@
-import {Configuration, V0alpha2Api} from "@ory/client";
+import {Configuration, V0alpha2Api} from "@ory/kratos-client";
 import {NextFunction, Request, Response} from "express";
 
 // Initializes the Ory SDK
