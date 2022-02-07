@@ -74,15 +74,7 @@
       "ecosystem/sqa",
       "ecosystem/security",
       "ecosystem/roadmap",
-      "ecosystem/software-architecture-philosophy",
-      {
-        "Documentation Styleguide" : [
-          "styleguide/styleguide",
-          "styleguide/testing",
-          "styleguide/templates",
-          "styleguide/wordlist"
-        ]
-      }
+      "ecosystem/software-architecture-philosophy"
     ]
   }
 ]
