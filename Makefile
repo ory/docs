@@ -1,4 +1,4 @@
-SHELL=/bin/bash -o pipefail
+SHELL=/bin/bash -euo pipefail
 
 .PHONY: install
 install:
@@ -12,4 +12,3 @@ build-examples:
 .PHONY: test
 test: install build-examples
 		./src/scripts/test.sh
-
