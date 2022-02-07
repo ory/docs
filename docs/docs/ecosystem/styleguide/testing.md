@@ -4,11 +4,16 @@ title: Ory Documentation Testing
 sidebar_label: Documentation Testing
 ---
 
+## markdownlint
+
+>TODO
+https://github.com/DavidAnson/markdownlint
+
 ## Vale  
 
 ### How to use Vale
 
->NEEDS TO BE ADAPTED FOR DOCS
+>TODO
 
 [Link to Github Repository](https://github.com/errata-ai/vale)
 
@@ -21,24 +26,13 @@ The styles for your text - for example "Avoid future tense, use present instead"
 - Vocab
 This contains words you want to exclude from the spellcheck, for example product names or people names that come up a lot. 
 
-https://docs.errata.ai/
+Check the [documentation](https://docs.errata.ai/) for more advanced features. In the following I will give a short step-by-step guide that will be enough for basic usage.
 
-Check the documentation for more detailed information on all features. In the following I will give a short step-by-step guide that will be enough for basic usage.
-
-https://docs.gitlab.com/ee/development/documentation/testing.html#vale
-
-Installation on MacOs is straightforward: https://docs.errata.ai/vale/install
-
-`brew install vale`
-
-Check if Vale installed correctly.
-
-vale -h
-
-add a 
-.vale.ini 
-to your root, in my case (MacOS) this is my user folder,
-you can alternatively also add it to a folder/project individually if those require custom or different styles.
+[Gitlab Vale Documentation](https://docs.gitlab.com/ee/development/documentation/testing.html#vale
+)
+1. [Installation](https://docs.errata.ai/vale/install) on MacOs: `brew install vale`
+1. Check if Vale installed correctly: `vale -h`
+1 Add a `.vale.ini` to your root, you can also add it to a folder/project if it requires custom styles.
 
 ```ini
 StylesPath = vale/styles

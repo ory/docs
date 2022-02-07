@@ -9,7 +9,7 @@ This document defines the standards for Ory documentation, including grammar, fo
 
 In addition to this page, the following resources can help you craft and contribute to documentation:
 
-- [Recommended word list](wordlist.md)
+- Recommended word list
 - [Doc style and consistency testing](../testing.md)
 - [UI text guidelines](https://design.gitlab.com/content/error-messages/)
 - [Gitlab Handbook](https://about.gitlab.com/handbook/)
@@ -17,7 +17,7 @@ In addition to this page, the following resources can help you craft and contrib
 - [Google Developer Documentation Style Guide](https://developers.google.com/style)
 - Recent updates to this guide
 
-This guide is based on the [Gitlab Documentation Style Guide](https://docs.gitlab.com/ee/development/documentation/styleguide/).
+This document is based on the [Gitlab Documentation Style Guide](https://docs.gitlab.com/ee/development/documentation/styleguide/).
 
 ## Documentation is the single source of truth
 
@@ -36,10 +36,6 @@ helpful to others and, when properly explained, its benefits outweigh the risks.
 
 Ory adds all troubleshooting information to the documentation, no matter how
 unlikely a user is to encounter a situation.
-
-Ory Support maintains their own troubleshooting content
-in the Ory documentation.
->TODO
 
 ### The documentation includes all media types
 
@@ -71,7 +67,7 @@ There are also the following sub-types:
 - Troubleshooting
 	- Contains instructions on how to resolve issues with Ory services.
 
-Ory uses these [category type templates](./templates.md).
+Ory uses [category type templates](./templates.md).
 
 ### Link instead of repeating text
 
@@ -95,41 +91,6 @@ Hard-coded HTML is valid, although it's discouraged from being used. HTML is per
 
 Ory ensures that the Markdown used across all documentation is consistent, as
 well as easy to review and maintain by [testing documentation changes](../testing.md).
-<!--
-with [markdownlint](../testing.md#markdownlint). This lint test fails when any
-document has an issue with Markdown formatting that may cause the page to render
-incorrectly in Ory. It also fails when a document has
-non-standard Markdown (which may render correctly, but is not the current
-standard for Ory documentation).
-
-#### Markdown rule `MD044/proper-names` (capitalization)
-
-A rule that could cause confusion is `MD044/proper-names`, as it might not be
-immediately clear what caused markdownlint to fail, or how to correct the
-failure. This rule checks a list of known words, listed in the `.markdownlint.yml`
-file in each project, to verify proper use of capitalization and backticks.
-Words in backticks are ignored by markdownlint.
-
-In general, product names should follow the exact capitalization of the official
-names of the products, protocols, and so on.
-
-Some examples fail if incorrect capitalization is used:
-
-- MinIO (needs capital `IO`)
-- NGINX (needs all capitals)
-- runit (needs lowercase `r`)
-
-Additionally, commands, parameters, values, filenames, and so on must be
-included in backticks. For example:
-
-- "Change the `credentials` keyword in your `kratos.yml`..."
-  - `credentials` is a parameter, and `kratos.yml` is a file, so both need backticks.
-    Additionally, `kratos.yml` without backticks fails markdownlint because it
-    does not have capital G or L.
-- "Run `git clone` to clone a Git repository..."
-  - `git clone` is a command, so it must be lowercase, while Git is the product,
-    so it must have a capital G.
--->
 
 ## Language
 
@@ -347,8 +308,6 @@ website doesn't split words separated with
 indexing, and fails to create expected individual search terms. Tests that search
 for certain words separated by regular spaces can't find words separated by
 non-breaking spaces.
-
-Tested in [`lint-doc.sh`](https://github.com/ory/kratos/master/scripts/lint-doc.sh).
 
 ## Lists
 
@@ -622,10 +581,10 @@ search engine optimization (SEO), use the imperative, where possible.
 
 | Do                                    | Don't                                                       |
 |:--------------------------------------|:------------------------------------------------------------|
-| Configure GDK                         | Configuring GDK                                             |
+| Configure CORS                         | Configuring CORS                                             |
 | Ory Release and Maintenance Policy | This section covers the Ory Release and Maintenance Policy |
-| Backport to older releases            | Backporting to older releases                               |
-| Ory Pages examples                 | Examples                                                    |
+| Upgrade to older releases            | Upgrading to older releases                               |
+| Ory Kratos examples                 | Examples                                                    |
 
 For guidelines on capitalizing headings, see the section on [capitalization](#capitalization).
 
@@ -683,7 +642,7 @@ NOTE:
 documentation in separate projects (for example, linking to Omnibus documentation
 from Ory documentation), you must use absolute URLs.
 
-Do not use absolute URLs like `https://ory.sh/docs/ee/index.html` to
+Do not use absolute URLs like `https://ory.sh/docs/index/` to
 cross-link to other documentation in the same project. Use relative links to
 the file, like `../index.md`. (These are converted to HTML when the site is
 rendered.)
@@ -704,7 +663,7 @@ To link to internal documentation:
 - Use `../` to navigate to higher-level directories.
 - Don't prepend `./` to links to files or directories. To link to a file in the
   same directory or one of its sub-directories, use the syntax `path/to/file.md`.
-- Don't link relative to root. For example, `/ee/user/docs/index.md`.
+- Don't link relative to root. For example, `/user/docs/index.md`.
 
   Don't:
 
@@ -787,41 +746,21 @@ Guidance for each individual UI element is in [the word list](wordlist.md).
 
 To be consistent, use these templates when you write navigation steps in a task topic.
 
-To open project settings:
+To enable email verification:
 
 ```markdown
-1. On the top bar, select **Menu > Projects** and find your project.
-1. On the left sidebar, select **Settings > CI/CD**.
-1. Expand **General pipelines**.
-```
-
-To open group settings:
-
-```markdown
-1. On the top bar, select **Menu > Groups** and find your group.
-1. On the left sidebar, select **Settings > CI/CD**.
-1. Expand **General pipelines**.
-```
-
-To open the Admin Area:
-
-```markdown
-1. On the top bar, select **Menu > Admin**.
+1. In the left side menu, select **Customize > Email Verification**.
+1. In the main screen, click the **Enable Email/Phone Verification** modal.
+1. Click **Save** to save your changes.
 ```
 
 To select your avatar:
 
 ```markdown
-1. On the top bar, in the top right corner, select your avatar.
-```
-
-To save the selection in some dropdown lists:
-
-```markdown
-1. Go to your issue.
-1. On the right sidebar, in the **Iteration** section, select **Edit**.
-1. From the dropdown list, select the iteration to associate this issue with.
-1. Select any area outside the dropdown list.
+1. In the top right corner, select your avatar.
+1. Click **Settings** to open your account settings.
+1. Change your name and click **Save** to save your changes.
+1. You might be ask to log in again to confirm your identity.
 ```
 
 ### Optional steps
@@ -1016,10 +955,8 @@ documentation.
 | `asciidoc`              |                                                                              |
 | `dockerfile`            | Alias: `docker`.                                                             |
 | `elixir`                |                                                                              |
-| `erb`                   |                                                                              |
 | `golang`                | Alias: `go`.                                                                 |
 | `graphql`               |                                                                              |
-| `haml`                  |                                                                              |
 | `html`                  |                                                                              |
 | `ini`                   | For some simple configuration files that are not in TOML format.             |
 | `javascript`            | Alias `js`.                                                                  |
@@ -1323,3 +1260,17 @@ When a feature is deprecated, add `(DEPRECATED)` to the page title or to
 the heading of the section documenting the feature, immediately before
 the tier badge.
 
+## Wordlist
+
+
+Contents of `vale/Vocab/Ory/accept.txt`:
+
+```txt
+Ory
+Kratos
+Keto
+Hydra
+Oathkeeper
+Postgres
+CockroachDB
+```

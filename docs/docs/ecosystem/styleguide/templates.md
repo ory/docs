@@ -14,8 +14,8 @@ sidebar_label: Document Sidebar Label
 ---
 ```
 
-### Concepts Template
-### Guides Template
+### Guide Template
+### Concept Template
 ### Reference Template
 ### Introduction Template
 ### Troubleshooting Template
