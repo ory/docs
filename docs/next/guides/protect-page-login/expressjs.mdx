@@ -6,8 +6,8 @@ sidebar_label: NodeJS / ExpressJS
 
 ```mdx-code-block
 import Teaser from './_common/teaser.mdx'
-import mp4 from './nextjs/screencast.mp4'
-import webm from './nextjs/screencast.webm'
+import mp4 from './expressjs/screencast.mp4'
+import webm from './expressjs/screencast.webm'
 
 <Teaser
   framework={<a href="https://expressjs.com/">ExpressJS</a>}
@@ -15,20 +15,6 @@ import webm from './nextjs/screencast.webm'
   webm={webm}
 />
 ```
-
-In this guide, we set up a new [ExpressJS](https://expressjs.com) application
-and protect its home page with a login page using Ory. It will also add features
-such as profile settings, registration, and more. You can use this guide with
-both Ory Cloud and by self-hosting Ory software.
-
-This guide is for you if you:
-
-1. have [NodeJS](https://nodejs.org/en/) installed;
-2. want to use [ExpressJS](https://expressjs.com) to build an application;
-3. want to show your app only if the user is logged in.
-
-Before we start, let's take a look at what user flow you will implement with
-this guide.
 
 ## Create ExpressJS App
 
@@ -154,7 +140,9 @@ of yours. You can do this easily by
 With the custom domain set up, you do not need the Ory Proxy anymore and will
 use the configured custom domain in your SDK calls:
 
-```js {2,4-5}
+```js {2,4-7}
+var sdk = require('@ory/client')
+
 var ory = new sdk.V0alpha2Api(
   new sdk.Configuration({
     baseUrl: 'https://ory.example.org',
