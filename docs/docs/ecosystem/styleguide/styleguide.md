@@ -78,6 +78,18 @@ of truth and explain why it is important.
 
 All Ory documentation is written using [Markdown](https://en.wikipedia.org/wiki/Markdown).
 
+### Import Markdown
+
+Use the same markdown in several places:
+
+````
+```mdx-code-block
+import ExampleMarkdown from './_common/example.md'
+
+<ExampleMarkdown />
+```
+````
+
 ### HTML in Markdown
 
 Hard-coded HTML is valid, although it's discouraged from being used. HTML is permitted if:
@@ -864,7 +876,7 @@ If you use macOS and want all screenshots to be compressed automatically, read
 
 ## Videos
 
-Adding Ory YouTube video tutorials to the documentation is highly
+Adding Ory video tutorials to the documentation is highly
 encouraged, unless the video is outdated. Videos should not replace
 documentation, but complement or illustrate it. If content in a video is
 fundamental to a feature and its key use cases, but isn't adequately
@@ -944,6 +956,38 @@ To embed a video:
   Code or text for which no specific highlighting class is available.
   ```
   ````
+
+
+### Import example code from this repository
+
+Use the same example code in several places:
+
+````
+```mdx-code-block
+import exampleJs from '!!raw-loader!./code-example.jsx'
+import exampleGo from '!!raw-loader!./code-example.go'
+
+<CodeBlock className="language-jsx">{exampleJs}</CodeBlock>
+<CodeBlock className="language-go">{exampleGo}</CodeBlock>
+```
+````
+### Write a shell example
+
+Use `shellsession`:
+
+````
+```shellsession
+npx create-next-app@latest --typescript
+npm i --save @ory/integrations
+```
+````
+
+Please do not prefixes with `$`
+
+```patch
+- $ command --arg # do not
++ command --arg # do
+```
 
 Syntax highlighting is required for fenced code blocks added to the Ory
 documentation.
