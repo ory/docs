@@ -123,7 +123,84 @@ module.exports = {
         {
           type: 'category',
           label: 'Permissions & Access Control (Ory Keto)',
-          items: []
+          items: [
+            {
+              Introduction: [
+                'keto/index',
+                'keto/install',
+                'keto/implemented-planned-features',
+                'keto/performance',
+                'keto/quickstart'
+              ]
+            },
+            {
+              Concepts: [
+                'keto/concepts/relation-tuples',
+                'keto/concepts/namespaces',
+                'keto/concepts/objects',
+                'keto/concepts/subjects',
+                'keto/concepts/graph-of-relations',
+                'keto/concepts/api-overview',
+                'keto/concepts/internal-algorithms',
+                'keto/concepts/snaptokens-evaluation-consistency'
+              ]
+            },
+            {
+              Guides: [
+                'keto/secure',
+                'keto/guides/simple-access-check-guide',
+                'keto/guides/list-api-display-objects',
+                'keto/guides/expand-api-display-who-has-access',
+                'keto/guides/production',
+                'keto/guides/v0.7-migration',
+                'keto/guides/rbac',
+                'keto/guides/access-control-inheritance',
+                'keto/guides/access-control-list-design-best-practices'
+              ]
+            },
+            {
+              Examples: ['keto/examples/olymp-file-sharing']
+            },
+            {
+              Reference: [
+                'keto/reference/configuration',
+                'keto/reference/rest-api',
+                'keto/reference/proto-api',
+                {
+                  'Command Line Interface (CLI)': [
+                    'keto/cli/keto',
+                    'keto/cli/keto-check',
+                    'keto/cli/keto-expand',
+                    'keto/cli/keto-migrate',
+                    'keto/cli/keto-migrate-down',
+                    'keto/cli/keto-migrate-status',
+                    'keto/cli/keto-migrate-up',
+                    'keto/cli/keto-namespace',
+                    'keto/cli/keto-namespace-migrate',
+                    'keto/cli/keto-namespace-migrate-legacy',
+                    'keto/cli/keto-namespace-validate',
+                    'keto/cli/keto-relation-tuple',
+                    'keto/cli/keto-relation-tuple-create',
+                    'keto/cli/keto-relation-tuple-delete',
+                    'keto/cli/keto-relation-tuple-delete-all',
+                    'keto/cli/keto-relation-tuple-get',
+                    'keto/cli/keto-relation-tuple-parse',
+                    'keto/cli/keto-serve',
+                    'keto/cli/keto-status',
+                    'keto/cli/keto-version'
+                  ]
+                }
+              ]
+            },
+            {
+              SDKs: ['keto/sdk/index']
+            },
+            {
+              label: 'Changelog',
+              href: 'https://github.com/ory/keto/blob/master/CHANGELOG.md',
+              type: 'link'
+            }
+          ]
         },
         {
           type: 'category',
