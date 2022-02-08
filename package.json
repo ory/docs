@@ -27,7 +27,7 @@
     "@docusaurus/plugin-sitemap": "2.0.0-beta.15",
     "@docusaurus/theme-classic": "2.0.0-beta.15",
     "@docusaurus/theme-search-algolia": "2.0.0-beta.15",
-    "@ory/client": "0.0.1-alpha.73",
+    "@ory/client": "0.0.1-alpha.74",
     "@ory/integrations": "^0.2.2",
     "classnames": "2.3.1",
     "clsx": "^1.1.1",
