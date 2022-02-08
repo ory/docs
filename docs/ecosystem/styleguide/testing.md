@@ -14,6 +14,10 @@ We have tests:
 - To lint the words and structure of the documentation.
 - To check the validity of internal links within the documentation suite.
 
+## CI tests
+
+>TODO 
+
 ## Run tests locally
 
 Similar to previewing your changes locally](index.md#previewing-the-changes-live), you can also
@@ -26,11 +30,34 @@ run these tests on your local computer. This has the advantage of:
 
 To run tests locally, it's important to:
 
-- [Install the tools](#install-linters), and [keep them up to date](#update-linters).
-- Run [linters](#lint-checks), [documentation link tests](#documentation-link-tests), and
-  [UI link tests](#ui-link-tests) the same way they are run in CI/CD pipelines. It's important to use
+- [Install the tools](#install-linters), and keep them up to date.
+- Run linters and documentation link tests the same way they are run in CI/CD pipelines. It's important to use
   same configuration we use in CI/CD pipelines, which can be different than the default configuration
   of the tool.
+
+### Install linters
+
+At a minimum, install [markdownlint](#markdownlint) and [Vale](#vale) to match the checks run in
+build pipelines:
+
+1. Install [`vale`](https://github.com/errata-ai/vale/releases). For example, to install using
+   `brew` for macOS, run:
+
+   ```shell
+   brew install vale
+   ```
+
+1. Install `markdownlint-cli`:
+
+   ```shell
+   yarn global add markdownlint-cli
+   ```
+
+   We recommend installing the version of `markdownlint-cli`
+   [used (see `variables:` section)](https://gitlab.com/gitlab-org/gitlab-docs/-/blob/main/.gitlab-ci.yml) when building
+   the `image:docs-lint-markdown`.
+
+These tools can be [integrated with your code editor](#configure-editors).
 
 ## Local linters
 
@@ -57,10 +84,9 @@ Vale is a grammar, style and word usage linter. Vale’s configuration is stored
 `brew install vale`
 1. Check if Vale installed correctly.  
 `vale -h`
-1. Clone the [Ory Vale Styles and Vocab](https://github.com/vinckr/vale).  
-`git clone vinckr/vale`
-1. Add `.vale.ini` in your root or project folder. [Reference .vale.ini](https://raw.githubusercontent.com/vinckr/vale/main/.vale.ini)
-1. To check your document:  
+1. Copy the [Ory Vale Styles and Vocab](https://github.com/ory/docs/tests/vale).  
+1. Add `.vale.ini` in your root or project folder. [Reference .vale.ini](https://raw.githubusercontent.com/ory/docs/.vale.ini)
+1. Check the document:  
 `vale yourdocument.md` or `vale src/markdown/blog/some-blogpost.mdx`
 
 ### markdownlint
@@ -72,3 +98,5 @@ Vale is a grammar, style and word usage linter. Vale’s configuration is stored
 To ensure correct code formatting run prettier: 
 
 `npm run format`
+
+

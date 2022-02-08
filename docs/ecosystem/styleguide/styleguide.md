@@ -697,7 +697,7 @@ documentation from Ory documentation), you must use absolute URLs.
 
 Do not use absolute URLs like `https://ory.sh/docs/index/` to cross-link to
 other documentation in the same project. Use relative links to the file, like
-`../index.md`. (These are converted to HTML when the site is rendered.)
+`../index.md` or for files in the same folder `./index.md` (These are converted to HTML when the site is rendered.)
 
 Relative linking enables crosslinks to work:
 
@@ -740,7 +740,7 @@ To link to internal documentation:
   - `../../merge_requests/index.md`
   - `../../issues/tags.md`
   - `../../issues/tags.md#stages`
-  - `issues/tags.md`
+  - `./issues/tags.md`
 
 ### Links to external documentation
 
