@@ -127,6 +127,44 @@ module.exports = {
           ]
         }
       ]
+    },
+    {
+      type: 'category',
+      label: 'Zero Trust Proxy (Ory Oathkeeper)',
+      items: [
+          {
+            'Introduction': ['oathkeeper/index', 'oathkeeper/install', 'oathkeeper/contributing']
+          },
+          {
+            'Core Concepts': [
+              'oathkeeper/api-access-rules',
+              {
+                'type': 'category',
+                'label': 'Handlers',
+                'items': [
+                  'oathkeeper/pipeline',
+                  'oathkeeper/pipeline/authn',
+                  'oathkeeper/pipeline/authz',
+                  'oathkeeper/pipeline/mutator',
+                  'oathkeeper/pipeline/error'
+                ]
+              }
+            ]
+          },
+          {
+            'Guides': ['oathkeeper/configure-deploy']
+          },
+          'oathkeeper/reference/api',
+          {
+            'Reference': ['oathkeeper/reference/configuration']
+          },
+          {
+            'SDKs': ['oathkeeper/sdk']
+          },
+          {
+            'Development': ['oathkeeper/milestones']
+          }
+      ]
     }
   ]
 }
