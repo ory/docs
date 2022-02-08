@@ -4,96 +4,71 @@ title: Ory Documentation Testing
 sidebar_label: Documentation Testing
 ---
 
-## prettier
+# Documentation testing
 
-`npm run format`
+Ory documentation is stored in projects with code and treated like code. 
+We use automated processes to maintain the standards and quality of Ory documentation.
 
-## markdownlint
+We have tests:
+
+- To lint the words and structure of the documentation.
+- To check the validity of internal links within the documentation suite.
+
+## Run tests locally
+
+Similar to previewing your changes locally](index.md#previewing-the-changes-live), you can also
+run these tests on your local computer. This has the advantage of:
+
+- Speeding up the feedback loop. You can know of any problems with the changes in your branch
+  without waiting for a CI/CD pipeline to run.
+- Lowering costs. Running tests locally is cheaper than running tests on the cloud
+  infrastructure GitLab uses.
+
+To run tests locally, it's important to:
+
+- [Install the tools](#install-linters), and [keep them up to date](#update-linters).
+- Run [linters](#lint-checks), [documentation link tests](#documentation-link-tests), and
+  [UI link tests](#ui-link-tests) the same way they are run in CI/CD pipelines. It's important to use
+  same configuration we use in CI/CD pipelines, which can be different than the default configuration
+  of the tool.
+
+## Local linters
+
+To help adhere to the [documentation style guidelines](./styleguide.md), and improve the content
+added to documentation, [install documentation linters](#install-linters) and
+[integrate them with your code editor](#configure-editors).
+
+At Ory we use:
+
+- [markdownlint](#markdownlint)
+- [Vale](#vale)
+- [prettier](#prettier)
+
+### Vale
+
+Vale is a grammar, style and word usage linter. Vale’s configuration is stored in the .vale.ini file located in the root directory of a projects documentation. 
+
+- [Vale documentation](https://docs.errata.ai/)
+- [Gitlab Vale Documentation](https://docs.gitlab.com/ee/development/documentation/testing.html#vale)
+
+#### How to use Vale
+
+1. Download and install [Vale](https://github.com/errata-ai/vale).  
+`brew install vale`
+1. Check if Vale installed correctly.  
+`vale -h`
+1. Clone the [Ory Vale Styles and Vocab](https://github.com/vinckr/vale).  
+`git clone vinckr/vale`
+1. Add `.vale.ini` in your root or project folder. [Reference .vale.ini](https://raw.githubusercontent.com/vinckr/vale/main/.vale.ini)
+1. To check your document:  
+`vale yourdocument.md` or `vale src/markdown/blog/some-blogpost.mdx`
+
+### markdownlint
 
 > TODO https://github.com/DavidAnson/markdownlint
 
-## Vale
+### prettier
 
-### How to use Vale
+To ensure correct code formatting run prettier: 
 
-> TODO
-
-[Link to Github Repository](https://github.com/errata-ai/vale)
-
-You can install Vale locally and run it in your IDE, browser, text editor or via
-the CLI. I prefer running it through the CLI, as I just want to do a check once
-or twice before submitting my text. A continuous spell and style check is also
-possible. Vale contains two main components - or rather three:
-
-- the `vale.ini` Your main configuration file
-- Styles The styles for your text - for example "Avoid future tense, use present
-  instead" or "Avoid sentences longer than X words"
-- Vocab This contains words you want to exclude from the spellcheck, for example
-  product names or people names that come up a lot.
-
-Check the [documentation](https://docs.errata.ai/) for more advanced features.
-In the following I will give a short step-by-step guide that will be enough for
-basic usage.
-
-[Gitlab Vale Documentation](https://docs.gitlab.com/ee/development/documentation/testing.html#vale)
-
-1. [Installation](https://docs.errata.ai/vale/install) on MacOs:
-   `brew install vale`
-1. Check if Vale installed correctly: `vale -h` 1 Add a `.vale.ini` to your
-   root, you can also add it to a folder/project if it requires custom styles.
-
-```ini
-StylesPath = vale/styles
-
-Vocab = Blog
-
-[*.md]
-BasedOnStyles = Vale, write-good
-```
-
-Create a folder for your styles `mkdir -p vale/styles`
-
-In this folder we are going to put our styles, I started with the boilerplate
-styles: https://github.com/errata-ai/vale-boilerplate/tree/master/styles Then I
-added the gitlab docs styles
-https://gitlab.com/gitlab-org/gitlab/-/tree/master/doc/.vale/gitlab
-
-```diff
-- BasedOnStyles = Vale, write-good
-+ BasedOnStyles = Vale, write-good, gitlab
-```
-
-We are going to change the Vocab to our custom vocabulary `Ory`
-
-```diff
-- Vocab = Blog
-+ Vocab = Ory
-```
-
-Inside the Vocab should be a `acccept.txt` and `reject.txt`; if not create them.
-
-add the following to `acccept.txt`:
-
-```
-Ory
-Kratos
-Keto
-Hydra
-Oathkeeper
-```
-
-Now these unique names will be ignored by the spellcheck. One item per line.
-
-Finally add an alias for .mdx files, so they get treated like .md files.
-
-```diff
-+ [formats]
-+ mdx = md
-```
-
-Now you can run Vale like so:
-
-`vale yourdocument.md` or `vale vale src/markdown/blog/some-blogpost.mdx`
-
-You can also embedd Vale in your IDE, text editor or other tools, see the
-documentation for more information https://docs.errata.ai/
+`npm run format`
