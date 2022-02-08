@@ -1,5 +1,72 @@
 {
   "github": {
     "silent": true
-  }
+  },
+  "redirects": [
+    {
+      "source": "/oathkeeper/docs/:path*",
+      "destination": "/docs/oathkeeper/:path",
+      "permanent": false
+    },
+    {
+      "source": "/docs/oathkeeper/:version(v[0-9.]+)/:path*",
+      "destination": "/docs/oathkeeper/:path",
+      "permanent": false
+    },
+    {
+      "source": "/hydra/docs/:path*",
+      "destination": "/docs/hydra/:path",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/:version(v[0-9.]+)/:path*",
+      "destination": "/docs/hydra/:path",
+      "permanent": false
+    },
+    {
+      "source": "/keto/docs/:path*",
+      "destination": "/docs/keto/:path",
+      "permanent": false
+    },
+    {
+      "source": "/docs/keto/:version(v[0-9.]+)/:path*",
+      "destination": "/docs/keto/:path",
+      "permanent": false
+    },
+    {
+      "source": "/kratos/docs/:path*",
+      "destination": "/docs/kratos/:path",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/:version(v[0-9.]+)/:path*",
+      "destination": "/docs/kratos/:path",
+      "permanent": false
+    },
+    {
+      "source": "/docs/start-building/create-project",
+      "destination": "/docs/guides/console/create-project",
+      "permanent": false
+    },
+    {
+      "source": "/docs/start-building",
+      "destination": "/docs",
+      "permanent": false
+    },
+    {
+      "source": "/docs/start-building/ory-cli-install-use",
+      "destination": "/docs/guides/ory-cli-install-use",
+      "permanent": false
+    },
+    {
+      "source": "/docs/start-building/server-side-web-app",
+      "destination": "/docs/guides/protect-page-login",
+      "permanent": false
+    },
+    {
+      "source": "/oathkeeper/docs/milestones",
+      "destination": "/docs/oathkeeper",
+      "permanent": false
+    }
+  ]
 }

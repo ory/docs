@@ -513,7 +513,7 @@ While running tests inside the IDE make sure you have the tag `-tags sqlite` in
 the "Go Tool Arguments". In the example screenshot we are looking at
 `login_test.go` and add it to the Run/Debug Configurations.
 
-![Go Tool Arguments Configuration Screenshot](../images/contributing/goland-config.png)
+![Go Tool Arguments Configuration Screenshot](/images/contributing/goland-config.png)
 
 ### Jetbrains
 
@@ -549,7 +549,7 @@ func GetSqlite(t testing.TB, mode sqliteMode) *DsnT {
 }
 ```
 
-![Screenshot of Jetbrains SQL debugger, Fast!](../images/contributing/jetbrains-config.png)
+![Screenshot of Jetbrains SQL debugger, Fast!](/images/contributing/jetbrains-config.png)
 
 To transfer the above to Kratos:
 
@@ -566,6 +566,6 @@ To transfer the above to Kratos:
 
 - Under Settings, search for `Go: Test Tags`.
 - Click Edit in `settings.json`.
-  ![Screenshot of VSCode Search](../images/contributing/vscode-search.png)
+  ![Screenshot of VSCode Search](/images/contributing/vscode-search.png)
 - Add the following KV to the `settings.json`: `"go.testTags": "sqlite",`.
-  ![Screenshot of VScode settings.json](../images/contributing/vscode-settings.png)
+  ![Screenshot of VScode settings.json](/images/contributing/vscode-settings.png)

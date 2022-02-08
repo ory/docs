@@ -33,7 +33,7 @@ below the https://sub.domain.myapp.com/only/path needs to match perfectly for
 this sub-domain and path for it to be allowed. Other redirects using myapp.com
 will fail, however, for https://anotherapp.com will succeed on any path.
 
-![Browser Redirects Allow List](../images/browser-redirects/browser-redirects-allow-list.png)
+![Browser Redirects Allow List](/images/browser-redirects/browser-redirects-allow-list.png)
 
 ## Redirect Flows
 
@@ -80,7 +80,7 @@ with the Login/Registration `Default Redirect URL` and then the
 `Global Redirect URL`. With a path it will use the closest relative as the base
 URL as described above with the `Default Redirect URL`.
 
-![Browser Redirects Url Management](../images/browser-redirects/browser-redirects-url-management.png)
+![Browser Redirects Url Management](/images/browser-redirects/browser-redirects-url-management.png)
 
 All the relative URLs will be updated with their respective base URL. As shown
 in the example below, the Login `Default Redirect URL` has been set to use a
@@ -89,7 +89,7 @@ relative URL and thus the base URL will be the `Global Redirect URL`
 https://myapp.com/after/login and the `Post-Password` to
 https://myapp.com/after/login/password.
 
-![Browser Redirects URL Management Transformed](../images/browser-redirects/browser-redirects-url-management-2.png)
+![Browser Redirects URL Management Transformed](/images/browser-redirects/browser-redirects-url-management-2.png)
 
 ### Verification, Recovery and Logout
 
@@ -106,7 +106,7 @@ Each of these flows have only a single field, the `Default Redirect URL`. As
 with the Login, Registration and Settings configurations, the
 `Default Redirect URL` can be an FQDN or a path.
 
-![Browser Redirects URL Management Transformed](../images/browser-redirects/browser-redirects-url-management-3.png)
+![Browser Redirects URL Management Transformed](/images/browser-redirects/browser-redirects-url-management-3.png)
 
 ## Resetting/Updating Flows
 
@@ -120,7 +120,7 @@ the default value which is the Ory Cloud
 Once a flow has been reset or updated it will take effect immediately on **new**
 flows. Old flows that have not expired yet will not be updated.
 
-![Browser Redirects URL Reset All](../images/browser-redirects/browser-redirects-reset-all.png)
+![Browser Redirects URL Reset All](/images/browser-redirects/browser-redirects-reset-all.png)
 
 ## Troubleshooting Guide
 
@@ -128,14 +128,14 @@ flows. Old flows that have not expired yet will not be updated.
 
 The `Allow List` requires a valid URL to be set with a scheme (http or https).
 
-![Browser Redirects URL Error Message](../images/browser-redirects/browser-redirects-error-messages-1.png)
+![Browser Redirects URL Error Message](/images/browser-redirects/browser-redirects-error-messages-1.png)
 
 ### Post Flow
 
 Any of the Post-flow redirects require a valid URL with scheme (http or https)
 or path. An example of a valid URL is https://www.google.com.
 
-![Browser Redirects URL Error Message Flows](../images/browser-redirects/browser-redirects-error-messages-flows.png)
+![Browser Redirects URL Error Message Flows](/images/browser-redirects/browser-redirects-error-messages-flows.png)
 
 ### Domain Denied
 
@@ -143,4 +143,4 @@ URLs matching any of the denied URLs, such as the Ory domain will automatically
 be denied. This deny list can be extended in future to prevent any abuse on the
 Ory Cloud.
 
-![Browser Redirects URL Error Message](../images/browser-redirects/browser-redirects-error-messages-2.png)
+![Browser Redirects URL Error Message](/images/browser-redirects/browser-redirects-error-messages-2.png)

@@ -10,9 +10,8 @@ Using Ory Cloud without Ory Proxy is currently not encouraged, unless you are
 writing a mobile application or are only interacting with Ory Cloud's Admin
 APIs.
 
-If you haven't already, please
-[install the Ory CLI](../start-building/ory-cli-install-use.mdx) on your
-development machine or server.
+If you haven't already, please [install the Ory CLI](./ory-cli-install-use.mdx)
+on your development machine or server.
 
 ## Concepts
 
@@ -108,10 +107,6 @@ $ curl -sk https://<proxy-host>/.ory/proxy/jwks.json | jq
   ]
 }
 ```
-
-If you do now know how to validate a JSON Web Token, head over to the
-[Server-Side Web App](../start-building/server-side-web-app.mdx) documentation
-page.
 
 Using the public key, you can validate and decode the JSON Web Token, which
 includes all the session and identity information linked to the Ory Session
