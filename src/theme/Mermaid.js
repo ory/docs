@@ -10,7 +10,7 @@
 // `}/>
 
 import React, { useEffect, useState } from 'react'
-import mermaid from 'src/theme/Mermaid'
+import mermaid from 'mermaid'
 import styles from './mermaid.module.css'
 import cn from 'classnames'
 
