@@ -21,14 +21,14 @@ export default function SdkEnvVar(props: any) {
       <CodeBlock language="powershell">{`${hint}$Env:ORY_SDK_URL = "${url}"`}</CodeBlock>
     </TabItem>
     <TabItem value="self-hosted" label="Self-Hosted Ory Kratos">
-      <CodeBlock language="powershell">{`
-git clone --depth 1 --branch master https://github.com/ory/kratos.git
+      <p>Clone and run Ory Kratos locally</p>
+      <CodeBlock language="shell">{`git clone --depth 1 --branch master https://github.com/ory/kratos.git
 cd kratos
 git checkout master
 git pull -ff
-docker-compose -f quickstart.yml -f contrib/quickstart/kratos/cloud/quickstart.yml up --build --force-recreate -d
-
-export ORY_SDK_URL=http://localhost:4433`}</CodeBlock>
+docker-compose -f quickstart.yml -f contrib/quickstart/kratos/cloud/quickstart.yml up --build --force-recreate -d`}</CodeBlock>
+      <p>and set the environment variable to the exposed port:</p>
+      <CodeBlock language="shell">{`export ORY_SDK_URL=http://localhost:4433`}</CodeBlock>
     </TabItem>
   </Tabs>
   )
