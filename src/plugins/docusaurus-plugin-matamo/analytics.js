@@ -12,6 +12,7 @@ export default (function () {
     return null
   }
 
+  // Workaround until https://github.com/facebook/docusaurus/issues/3399 is fixed
   let lastLocation = window.location.pathname
   return {
     onRouteUpdate({ location }) {
