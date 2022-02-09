@@ -12,6 +12,8 @@ export default (function () {
     return null
   }
 
+  // Workaround until https://github.com/facebook/docusaurus/issues/3399 is fixed
+  let lastLocation = window.location.pathname
   return {
     onRouteUpdate({ location }) {
       if (typeof window.gtag !== 'function') {
@@ -21,6 +23,12 @@ export default (function () {
       const pagePath = location
         ? location.pathname + location.search + location.hash
         : undefined
+
+      if (lastLocation === location.pathname) {
+        return
+      }
+      lastLocation = location.pathname
+
       window.gtag('config', 'UA-71865250-1', {
         page_path: pagePath
       })
