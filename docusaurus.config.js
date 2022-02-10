@@ -74,7 +74,7 @@ module.exports = {
     },
     announcementBar: {
       id: 'supportus',
-      content: `Sign up for <a href="https://ory.us10.list-manage.com/subscribe?u=ffb1a878e4ec6c0ed312a3480&id=f605a41b53">important security announcements</a> and if you like the Ory's project give us some ⭐️ on <a target="_blank" rel="noopener noreferrer" href="https://github.com/ory">GitHub</a>!`
+      content: `Sign up for your <a href="https://console.ory.sh/registration?preferred_plan=start-up&utm_source=docs&utm_medium=banner&utm_campaign=top-banner-first900">Ory Start Up plan free for a year</a> by using <code>FIRST900</code> during the sign up!`
     },
     algolia: {
       appId: 'V2EFIWEJ25',
