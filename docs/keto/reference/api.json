@@ -712,7 +712,7 @@
         "type": "object"
       },
       "genericError": {
-        "description": "GenericError The standard error format",
+        "description": "The standard error format",
         "properties": {
           "code": {
             "description": "code",
@@ -757,7 +757,7 @@
         "required": [
           "allowed"
         ],
-        "title": "Represents the response for a check request.",
+        "title": "GetCheckResponse GetCheckResponse Represents the response for a check request.",
         "type": "object"
       },
       "getRelationTuplesResponse": {
@@ -777,7 +777,6 @@
         "type": "object"
       },
       "healthNotReadyStatus": {
-        "description": "HealthNotReadyStatus health not ready status",
         "properties": {
           "errors": {
             "additionalProperties": {
