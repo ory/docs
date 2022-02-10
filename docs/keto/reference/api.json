@@ -681,6 +681,7 @@
         "type": "string"
       },
       "expandTree": {
+        "description": "ExpandTree expand tree",
         "properties": {
           "children": {
             "description": "children",
@@ -697,11 +698,9 @@
             "$ref": "#/components/schemas/SubjectSet"
           },
           "type": {
+            "description": "type",
             "enum": [
-              "union",
-              "exclusion",
-              "intersection",
-              "leaf"
+              "[union exclusion intersection leaf]"
             ],
             "type": "string"
           }
@@ -757,7 +756,7 @@
         "required": [
           "allowed"
         ],
-        "title": "GetCheckResponse Represents the response for a check request.",
+        "title": "Represents the response for a check request.",
         "type": "object"
       },
       "getRelationTuplesResponse": {
@@ -777,7 +776,6 @@
         "type": "object"
       },
       "healthNotReadyStatus": {
-        "description": "HealthNotReadyStatus HealthNotReadyStatus health not ready status",
         "properties": {
           "errors": {
             "additionalProperties": {
@@ -800,11 +798,9 @@
         "type": "object"
       },
       "subject": {
-        "description": "Subject Subject Subject Subject Subject subject",
         "type": "object"
       },
       "version": {
-        "description": "Version Version version",
         "properties": {
           "version": {
             "description": "Version is the service's version.",
