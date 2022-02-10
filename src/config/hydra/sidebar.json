@@ -1,6 +1,11 @@
 [
   {
-    "Introduction": ["hydra/index", "hydra/5min-tutorial", "hydra/install", "hydra/contributing"]
+    "Introduction": [
+      "hydra/index",
+      "hydra/5min-tutorial",
+      "hydra/install",
+      "hydra/contributing"
+    ]
   },
   {
     "Concepts": [
@@ -19,7 +24,11 @@
       {
         "type": "category",
         "label": "Implementing the User Interface",
-        "items": ["hydra/guides/login", "hydra/guides/consent", "hydra/guides/logout"]
+        "items": [
+          "hydra/guides/login",
+          "hydra/guides/consent",
+          "hydra/guides/logout"
+        ]
       },
       {
         "type": "category",
@@ -84,6 +93,10 @@
     "Development": ["hydra/milestones"]
   },
   {
-    "Further Reading": ["hydra/case-study", "hydra/benchmark", "hydra/security-architecture"]
+    "Further Reading": [
+      "hydra/case-study",
+      "hydra/benchmark",
+      "hydra/security-architecture"
+    ]
   }
 ]
