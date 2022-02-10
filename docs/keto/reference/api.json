@@ -402,7 +402,11 @@
             "$ref": "#/components/schemas/SubjectSet"
           }
         },
-        "required": ["namespace", "object", "relation"],
+        "required": [
+          "namespace",
+          "object",
+          "relation"
+        ],
         "type": "object"
       },
       "IsInstanceAliveInternalServerErrorBody": {
@@ -444,7 +448,9 @@
         "properties": {
           "action": {
             "description": "action",
-            "enum": ["[[[[[[[[[insert delete]]]]]]]]]"],
+            "enum": [
+              "[[[[[[[[[insert delete]]]]]]]]]"
+            ],
             "type": "string"
           },
           "relation_tuple": {
@@ -663,7 +669,11 @@
             "type": "string"
           }
         },
-        "required": ["namespace", "object", "relation"],
+        "required": [
+          "namespace",
+          "object",
+          "relation"
+        ],
         "type": "object"
       },
       "UUID": {
@@ -671,6 +681,7 @@
         "type": "string"
       },
       "expandTree": {
+        "description": "ExpandTree ExpandTree expand tree",
         "properties": {
           "children": {
             "description": "children",
@@ -687,15 +698,20 @@
             "$ref": "#/components/schemas/SubjectSet"
           },
           "type": {
-            "enum": ["union", "exclusion", "intersection", "leaf"],
+            "description": "type",
+            "enum": [
+              "[[union exclusion intersection leaf]]"
+            ],
             "type": "string"
           }
         },
-        "required": ["type"],
+        "required": [
+          "type"
+        ],
         "type": "object"
       },
       "genericError": {
-        "description": "GenericError The standard error format",
+        "description": "The standard error format",
         "properties": {
           "code": {
             "description": "code",
@@ -737,12 +753,13 @@
             "type": "boolean"
           }
         },
-        "required": ["allowed"],
-        "title": "GetCheckResponse Represents the response for a check request.",
+        "required": [
+          "allowed"
+        ],
+        "title": "Represents the response for a check request.",
         "type": "object"
       },
       "getRelationTuplesResponse": {
-        "description": "GetRelationTuplesResponse get relation tuples response",
         "properties": {
           "next_page_token": {
             "description": "The opaque token to provide in a subsequent request\nto get the next page. It is the empty string iff this is\nthe last page.",
@@ -772,6 +789,7 @@
         "type": "object"
       },
       "healthStatus": {
+        "description": "HealthStatus HealthStatus health status",
         "properties": {
           "status": {
             "description": "Status always contains \"ok\".",
@@ -781,6 +799,7 @@
         "type": "object"
       },
       "subject": {
+        "description": "Subject subject",
         "type": "object"
       },
       "version": {
@@ -920,7 +939,9 @@
           }
         },
         "summary": "Check a relation tuple",
-        "tags": ["read"]
+        "tags": [
+          "read"
+        ]
       },
       "post": {
         "description": "To learn how relation tuples and the check works, head over to [the documentation](../concepts/relation-tuples.mdx).",
@@ -988,7 +1009,9 @@
           }
         },
         "summary": "Check a relation tuple",
-        "tags": ["read"]
+        "tags": [
+          "read"
+        ]
       }
     },
     "/expand": {
@@ -1075,7 +1098,9 @@
           }
         },
         "summary": "Expand a Relation Tuple",
-        "tags": ["read"]
+        "tags": [
+          "read"
+        ]
       }
     },
     "/health/alive": {
@@ -1093,7 +1118,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["status"],
+                  "required": [
+                    "status"
+                  ],
                   "type": "object"
                 }
               }
@@ -1112,7 +1139,9 @@
           }
         },
         "summary": "Check HTTP Server Status",
-        "tags": ["metadata"]
+        "tags": [
+          "metadata"
+        ]
       }
     },
     "/health/ready": {
@@ -1130,7 +1159,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["status"],
+                  "required": [
+                    "status"
+                  ],
                   "type": "object"
                 }
               }
@@ -1150,7 +1181,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["errors"],
+                  "required": [
+                    "errors"
+                  ],
                   "type": "object"
                 }
               }
@@ -1159,7 +1192,9 @@
           }
         },
         "summary": "Check HTTP Server and Database Status",
-        "tags": ["metadata"]
+        "tags": [
+          "metadata"
+        ]
       }
     },
     "/relation-tuples": {
@@ -1250,7 +1285,9 @@
           }
         },
         "summary": "Delete Relation Tuples",
-        "tags": ["write"]
+        "tags": [
+          "write"
+        ]
       },
       "get": {
         "description": "Get all relation tuples that match the query. Only the namespace field is required.",
@@ -1361,7 +1398,9 @@
           }
         },
         "summary": "Query relation tuples",
-        "tags": ["read"]
+        "tags": [
+          "read"
+        ]
       },
       "patch": {
         "description": "Use this endpoint to patch one or more relation tuples.",
@@ -1415,7 +1454,9 @@
           }
         },
         "summary": "Patch Multiple Relation Tuples",
-        "tags": ["write"]
+        "tags": [
+          "write"
+        ]
       },
       "put": {
         "description": "Use this endpoint to create a relation tuple.",
@@ -1463,7 +1504,9 @@
           }
         },
         "summary": "Create a Relation Tuple",
-        "tags": ["write"]
+        "tags": [
+          "write"
+        ]
       }
     },
     "/version": {
@@ -1481,7 +1524,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["version"],
+                  "required": [
+                    "version"
+                  ],
                   "type": "object"
                 }
               }
@@ -1490,7 +1535,9 @@
           }
         },
         "summary": "Return Running Software Version.",
-        "tags": ["metadata"]
+        "tags": [
+          "metadata"
+        ]
       }
     }
   }
