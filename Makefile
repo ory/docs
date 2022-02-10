@@ -1,5 +1,8 @@
 SHELL=/bin/bash -euo pipefail
 
+export GO111MODULE        := on
+export PATH               := .bin:${PATH}
+
 .PHONY: install
 install: code-examples/protect-page-login/nextjs/package-lock.json code-examples/protect-page-login/expressjs/package-lock.json package-lock.json
 		cd code-examples/protect-page-login/nextjs && npm i
