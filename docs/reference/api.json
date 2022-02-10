@@ -51,20 +51,6 @@
         "format": "int64",
         "type": "integer"
       },
-      "Identity": {
-        "properties": {
-          "email": {
-            "type": "string"
-          },
-          "id": {
-            "$ref": "#/components/schemas/UUID"
-          },
-          "name": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
       "InvitePayload": {
         "properties": {
           "invitee_email": {
@@ -269,6 +255,20 @@
         "enum": ["aal0", "aal1", "aal2", "aal3"],
         "title": "Authenticator Assurance Level (AAL)",
         "type": "string"
+      },
+      "cloudAccount": {
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "cnameSettings": {
         "properties": {
@@ -937,7 +937,7 @@
         "type": "array"
       },
       "projectMember": {
-        "$ref": "#/components/schemas/Identity"
+        "$ref": "#/components/schemas/cloudAccount"
       },
       "projectMembers": {
         "items": {
@@ -2493,6 +2493,21 @@
         ],
         "type": "object"
       },
+      "successfulProjectConfigUpdate": {
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/project"
+          },
+          "warnings": {
+            "description": "Import Warnings\n\nNot all configuration items can be imported to Ory Cloud. For example,\nsetting the port does not make sense because Ory Cloud provides the runtime\nand networking.\n\nThis field contains warnings where configuration keys were found but can not\nbe imported. These keys will be ignored by Ory Cloud. This field will help\nyou understand why certain configuration keys might not be respected!",
+            "items": {
+              "$ref": "#/components/schemas/Warning"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
       "successfulSelfServiceLoginWithoutBrowser": {
         "description": "The Response for Login Flows via API",
         "properties": {
@@ -2522,21 +2537,6 @@
           }
         },
         "required": ["identity"],
-        "type": "object"
-      },
-      "successfulUpdateProjectConfig": {
-        "properties": {
-          "project": {
-            "$ref": "#/components/schemas/project"
-          },
-          "warnings": {
-            "description": "Import Warnings\n\nNot all configuration items can be imported to Ory Cloud. For example,\nsetting the port does not make sense because Ory Cloud provides the runtime\nand networking.\n\nThis field contains warnings where configuration keys were found but can not\nbe imported. These keys will be ignored by Ory Cloud. This field will help\nyou understand why certain configuration keys might not be respected!",
-            "items": {
-              "$ref": "#/components/schemas/Warning"
-            },
-            "type": "array"
-          }
-        },
         "type": "object"
       },
       "uiContainer": {
@@ -5561,6 +5561,104 @@
         "tags": ["metadata"]
       }
     },
+    "/backoffice/public/console/projects/active": {
+      "get": {
+        "description": "Use this API to get your active project in the Ory Cloud Console UI.",
+        "operationId": "getActiveProject",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/activeProject"
+                }
+              }
+            },
+            "description": "activeProject"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Returns Your Active Ory Cloud Project",
+        "tags": ["v0alpha0"]
+      },
+      "put": {
+        "description": "Use this API to set your active project in the Ory Cloud Console UI.",
+        "operationId": "setActiveProject",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "project_id": {
+                    "description": "Project ID\n\nThe Project ID you want to set active.\n\nformat: uuid",
+                    "type": "string"
+                  }
+                },
+                "required": ["project_id"],
+                "type": "object"
+              }
+            }
+          },
+          "x-originalParamName": "Body"
+        },
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/emptyResponse"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Sets Your Active Project",
+        "tags": ["v0alpha0"]
+      }
+    },
     "/backoffice/public/projects": {
       "get": {
         "description": "Lists all projects you have access to.",
@@ -5700,6 +5798,73 @@
       }
     },
     "/backoffice/public/projects/{project_id}": {
+      "delete": {
+        "description": "!! Use with extreme caution !!\n\nUsing this API endpoint you can purge (completely delete) a project and its data.\nThis action can not be undone and will delete ALL your data.\n\n!! Use with extreme caution !!",
+        "operationId": "purgeProject",
+        "parameters": [
+          {
+            "description": "Project ID\n\nThe project's ID.",
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/emptyResponse"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Irrecoverably Purge a Project",
+        "tags": ["v0alpha0"]
+      },
       "get": {
         "description": "Get a projects you have access to by its ID.",
         "operationId": "getProject",
@@ -5856,6 +6021,246 @@
           }
         ],
         "summary": "Update a Project",
+        "tags": ["v0alpha0"]
+      }
+    },
+    "/backoffice/public/projects/{project_id}/configs": {
+      "put": {
+        "description": "This endpoints allows you to update the Ory Cloud Project configuration for\nindividual services (identity, permission, ...). The configuration is fully compatible\nwith the open source projects for the respective services (e.g. Ory Kratos for Identity, Ory Keto for Permissions).\n\nThis endpoint expects the `version` key to be set in the payload. If it is unset, it\nwill try to import the config as if it is from the most recent version.\n\nIf you have an older version of a configuration, you should set the version key in the payload!\n\nWhile this endpoint is able to process all configuration items related to features (e.g. password reset),\nit does not support operational configuration items (e.g. port, tracing, logging) otherwise available in the\nopen source.\n\nFor configuration items that can not be translated to Ory Cloud, this endpoint will return a list of warnings\nto help you understand which parts of your config could not be processed.\n\nBe aware that updating any service's configuration will completely override your current configuration for that\nservice!",
+        "operationId": "updateProjectConfig",
+        "parameters": [
+          {
+            "description": "Project ID\n\nThe project's ID.",
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateProjectConfigConfig"
+              }
+            }
+          },
+          "x-originalParamName": "Body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successfulProjectConfigUpdate"
+                }
+              }
+            },
+            "description": "successfulProjectConfigUpdate"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Update an Ory Cloud Project Configuration",
+        "tags": ["v0alpha0"]
+      }
+    },
+    "/backoffice/public/projects/{project_id}/members": {
+      "get": {
+        "description": "This endpoint requires the user to be a member of the project with the role `OWNER` or `DEVELOPER`.",
+        "operationId": "getProjectMembers",
+        "parameters": [
+          {
+            "description": "Project ID\n\nThe project's ID.",
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/projectMembers"
+                }
+              }
+            },
+            "description": "projectMembers"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "406": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Get all members associated with this project.",
+        "tags": ["v0alpha0"]
+      }
+    },
+    "/backoffice/public/projects/{project_id}/members/{member_id}": {
+      "delete": {
+        "description": "This endpoint requires the user to be a member of the project with the role `OWNER`.",
+        "operationId": "removeProjectMember",
+        "parameters": [
+          {
+            "description": "Project ID\n\nThe project's ID.",
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Member ID",
+            "in": "path",
+            "name": "member_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/emptyResponse"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "406": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Remove a member associated with this project. This also sets their invite status to `REMOVED`.",
         "tags": ["v0alpha0"]
       }
     }
