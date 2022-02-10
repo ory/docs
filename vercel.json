@@ -67,6 +67,11 @@
       "source": "/oathkeeper/docs/milestones",
       "destination": "/docs/oathkeeper",
       "permanent": false
+    },
+    {
+      "source": "/",
+      "destination": "/docs/",
+      "permanent": false
     }
   ]
 }
