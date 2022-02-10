@@ -29,6 +29,7 @@
     "@docusaurus/theme-search-algolia": "2.0.0-beta.15",
     "@ory/client": "0.0.1-alpha.74",
     "@ory/integrations": "^0.2.2",
+    "@rjsf/core": "^3.2.1",
     "classnames": "2.3.1",
     "clsx": "^1.1.1",
     "file-loader": "6.2.0",
