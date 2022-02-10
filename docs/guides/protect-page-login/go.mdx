@@ -1,0 +1,90 @@
+---
+id: go
+title: Protect a Page with Login in Golang
+sidebar_label: Golang Web application
+---
+
+```mdx-code-block
+import Teaser from './_common/teaser.mdx'
+import mp4 from './expressjs/screencast.mp4'
+import webm from './expressjs/screencast.webm'
+
+<Teaser
+  framework={<a href="https://expressjs.com/">ExpressJS</a>}
+  mp4={mp4}
+  webm={webm}
+/>
+```
+
+## Create Golang App
+
+First we create a new Golang project:
+
+```shell-session
+mkdir your-project
+cd your-project
+
+touch main.go
+go mod init github.com/<your-name>/your-project
+```
+
+## Install the Ory SDK
+
+To interact with Ory's APIs we install the Ory SDK:
+
+```shell-session
+go get -u github.com/ory/client-go
+```
+
+```mdx-code-block
+import OryCli from './_common/ory-cli.mdx'
+<OryCli />
+```
+
+
+## Create an HTTP Server
+
+This is a working example of a basic server which creates an Ory client, registers a new route for our Dashboard
+and makes use of a middleware to validate if the user is allowed to view the Dashboard.
+
+```mdx-code-block title="main.go"
+import mainGo from '!!raw-loader!../../../code-examples/protect-page-login/go/main.go'
+import CodeBlock from '@theme/CodeBlock'
+
+<CodeBlock language="go">{mainGo}</CodeBlock>
+```
+
+## Validate and Login
+
+Next we will create a middleware which will check with your Ory project if the user has a valid session.
+Notice here that we are taking the current `request` cookies and passing them along to the Ory client.
+
+If the session is not valid the request is redirected to the Ory project for login.
+At this point we have not set up any custom UI management and thus will be shown the Ory Managed UI login page.
+
+```mdx-code-block title="middleware.go"
+import middlewareGo from '!!raw-loader!../../../code-examples/protect-page-login/go/middleware.go'
+
+<CodeBlock language="go">{middlewareGo}</CodeBlock>
+```
+
+## The protected page
+
+For the last part we need to add the Dashboard (the page we would like to protect).
+Add a new handler called `dashboardHandler` which will render an HTML page with the session
+data.
+
+```mdx-code-block title="handler.go"
+import handlerGo from '!!raw-loader!../../../code-examples/protect-page-login/go/handler.go'
+
+<CodeBlock language="go">{handlerGo}</CodeBlock>
+```
+
+## Run the code
+
+Start your HTTP server and access the proxy URL
+
+```shell-session
+go run .
+```
+
