@@ -1,6 +1,5 @@
 ---
 id: index
-slug: /
 title: Introduction
 sidebar_label: Introduction
 ---

@@ -1,17 +1,17 @@
 [
   {
-    "Introduction": ["index", "5min-tutorial", "install", "contributing"]
+    "Introduction": ["hydra/index", "hydra/5min-tutorial", "hydra/install", "hydra/contributing"]
   },
   {
     "Concepts": [
-      "concepts/before-oauth2",
-      "concepts/oauth2",
-      "concepts/openid-connect-oidc",
-      "concepts/login",
-      "concepts/consent",
-      "concepts/logout",
-      "jwks",
-      "limitations"
+      "hydra/concepts/before-oauth2",
+      "hydra/concepts/oauth2",
+      "hydra/concepts/openid-connect-oidc",
+      "hydra/concepts/login",
+      "hydra/concepts/consent",
+      "hydra/concepts/logout",
+      "hydra/jwks",
+      "hydra/limitations"
     ]
   },
   {
@@ -19,103 +19,71 @@
       {
         "type": "category",
         "label": "Implementing the User Interface",
-        "items": ["guides/login", "guides/consent", "guides/logout"]
+        "items": ["hydra/guides/login", "hydra/guides/consent", "hydra/guides/logout"]
       },
       {
         "type": "category",
         "label": "Operations",
         "items": [
-          "configure-deploy",
-          "dependencies-environment",
-          "production",
-          "guides/tracing",
-          "guides/hsm-support",
-          "guides/secrets-key-rotation",
-          "guides/kubernetes-helm-chart",
-          "guides/ssl-https-tls",
-          "guides/cookies",
-          "guides/scaling-hydra",
-          "guides/cors",
-          "guides/gitlab",
-          "guides/migrating-from-mitreid",
-          "guides/merge-multiple-db-secrets"
+          "hydra/configure-deploy",
+          "hydra/dependencies-environment",
+          "hydra/production",
+          "hydra/guides/tracing",
+          "hydra/guides/hsm-support",
+          "hydra/guides/secrets-key-rotation",
+          "hydra/guides/kubernetes-helm-chart",
+          "hydra/guides/ssl-https-tls",
+          "hydra/guides/cookies",
+          "hydra/guides/scaling-hydra",
+          "hydra/guides/cors",
+          "hydra/guides/gitlab",
+          "hydra/guides/migrating-from-mitreid",
+          "hydra/guides/merge-multiple-db-secrets"
         ]
       },
       {
         "type": "category",
         "label": "OAuth2 & OpenID Connect",
         "items": [
-          "advanced",
-          "guides/openid-connect-dynamic-client-registration",
-          "guides/oauth2-clients",
-          "guides/oauth2-grant-type-jwt-bearer",
-          "guides/common-oauth2-openid-connect-flows",
-          "guides/using-oauth2",
-          "guides/token-expiration",
-          "guides/oauth2-token-introspection",
-          "guides/oauth2-public-spa-mobile"
+          "hydra/advanced",
+          "hydra/guides/openid-connect-dynamic-client-registration",
+          "hydra/guides/oauth2-clients",
+          "hydra/guides/oauth2-grant-type-jwt-bearer",
+          "hydra/guides/common-oauth2-openid-connect-flows",
+          "hydra/guides/using-oauth2",
+          "hydra/guides/token-expiration",
+          "hydra/guides/oauth2-token-introspection",
+          "hydra/guides/oauth2-public-spa-mobile"
         ]
       }
     ]
   },
-  "reference/api",
+  "hydra/reference/api",
   {
     "Reference": [
-      "reference/configuration",
+      "hydra/reference/configuration",
       {
-        "Command Line Interface (CLI)": [
-          "cli/hydra",
-          "cli/hydra-clients",
-          "cli/hydra-clients-create",
-          "cli/hydra-clients-delete",
-          "cli/hydra-clients-get",
-          "cli/hydra-clients-import",
-          "cli/hydra-clients-import",
-          "cli/hydra-clients-import",
-          "cli/hydra-clients-import",
-          "cli/hydra-clients-list",
-          "cli/hydra-clients-update",
-          "cli/hydra-janitor",
-          "cli/hydra-keys",
-          "cli/hydra-keys-create",
-          "cli/hydra-keys-delete",
-          "cli/hydra-keys-get",
-          "cli/hydra-keys-import",
-          "cli/hydra-migrate",
-          "cli/hydra-migrate-sql",
-          "cli/hydra-serve",
-          "cli/hydra-serve-admin",
-          "cli/hydra-serve-all",
-          "cli/hydra-serve-public",
-          "cli/hydra-token",
-          "cli/hydra-token-client",
-          "cli/hydra-token-delete",
-          "cli/hydra-token-flush",
-          "cli/hydra-token-introspect",
-          "cli/hydra-token-revoke",
-          "cli/hydra-token-user",
-          "cli/hydra-version"
-        ]
+        "Command Line Interface (CLI)": []
       }
     ]
   },
   {
     "Debug & Help": [
-      "debug",
-      "debug/csrf",
-      "debug/config",
-      "debug/token-endpoint-auth-method",
-      "debug/logout",
-      "faq"
+      "hydra/debug",
+      "hydra/debug/csrf",
+      "hydra/debug/config",
+      "hydra/debug/token-endpoint-auth-method",
+      "hydra/debug/logout",
+      "hydra/faq"
     ]
   },
   {
-    "SDKs": ["sdk", "sdk/go", "sdk/js", "sdk/php"]
+    "SDKs": ["hydra/sdk", "hydra/sdk/go", "hydra/sdk/js", "hydra/sdk/php"]
   },
   {
-    "Development": ["milestones"]
+    "Development": ["hydra/milestones"]
   },
   {
-    "Further Reading": ["case-study", "benchmark", "security-architecture"]
+    "Further Reading": ["hydra/case-study", "hydra/benchmark", "hydra/security-architecture"]
   }
 ]
