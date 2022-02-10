@@ -9,17 +9,7 @@
       "permanent": false
     },
     {
-      "source": "/docs/oathkeeper/:version((v([0-9\\.]+)|next))/:path*",
-      "destination": "/docs/oathkeeper/:path",
-      "permanent": false
-    },
-    {
       "source": "/hydra/docs/:path*",
-      "destination": "/docs/hydra/:path",
-      "permanent": false
-    },
-    {
-      "source": "/docs/hydra/:version((v([0-9\\.]+)|next))/:path*",
       "destination": "/docs/hydra/:path",
       "permanent": false
     },
@@ -29,17 +19,7 @@
       "permanent": false
     },
     {
-      "source": "/docs/keto/:version((v([0-9\\.]+)|next))/:path*",
-      "destination": "/docs/keto/:path",
-      "permanent": false
-    },
-    {
       "source": "/kratos/docs/:path*",
-      "destination": "/docs/kratos/:path",
-      "permanent": false
-    },
-    {
-      "source": "/docs/kratos/:version((v([0-9\\.]+)|next))/:path*",
       "destination": "/docs/kratos/:path",
       "permanent": false
     },
