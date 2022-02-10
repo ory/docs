@@ -254,10 +254,7 @@
             "host": {
               "type": "string",
               "default": "",
-              "examples": [
-                "localhost",
-                "127.0.0.1"
-              ],
+              "examples": ["localhost", "127.0.0.1"],
               "title": "Host",
               "description": "The network interface to listen on."
             },
