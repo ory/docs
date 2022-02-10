@@ -16,7 +16,7 @@ ory proxy --no-jwt --port 3002 http://localhost:4002/ &
 trap "exit" INT TERM ERR
 trap 'kill $(jobs -p)' EXIT
 
-npx wait-on -v \
+npx wait-on -v -t 300000 \
   tcp:127.0.0.1:3001 \
   tcp:127.0.0.1:3002 \
   tcp:127.0.0.1:4002
