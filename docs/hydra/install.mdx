@@ -8,47 +8,34 @@ binaries, Docker Images and support various package managers.
 
 ## Docker
 
-We recommend using Docker to run ORY Hydra:
+```mdx-code-block
+import Docker from '@site/src/components/Install/Docker'
 
-```shell
-$ docker pull oryd/hydra:v1.10.6
-$ docker run --rm -it oryd/hydra:v1.10.6 help
+<Docker repo="hydra" name="Ory Hydra" />
 ```
 
 ## macOS
 
-You can install ORY Hydra using [homebrew](https://brew.sh/) on macOS:
+```mdx-code-block
+import MacOS from '@site/src/components/Install/MacOS'
 
-```shell
-$ brew install ory/tap/hydra
-$ hydra help
+<MacOS repo="hydra" name="Ory Hydra" />
 ```
 
 ## Linux
 
-On linux, you can use `bash <(curl ...)` to fetch the latest stable binary
-using:
+```mdx-code-block
+import Linux from '@site/src/components/Install/Linux'
 
-```shell
-$ bash <(curl https://raw.githubusercontent.com/ory/meta/master/install.sh) -d -b . hydra v1.10.6
-$ ./hydra help
-```
-
-You may want to move ORY Hydra to your `$PATH`:
-
-```shell
-$ sudo mv ./hydra /usr/local/bin/
-$ hydra help
+<Linux repo="hydra" name="Ory Hydra" />
 ```
 
 ## Windows
 
-You can install ORY Hydra using [scoop](https://scoop.sh) on Windows:
+```mdx-code-block
+import Windows from '@site/src/components/Install/Windows'
 
-```shell
-> scoop bucket add ory https://github.com/ory/scoop.git
-> scoop install hydra
-> hydra help
+<Windows repo="hydra" name="Ory Hydra" />
 ```
 
 ## Kubernetes

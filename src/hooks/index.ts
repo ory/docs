@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Configuration, Project, V0alpha0Api } from '@ory/client'
+import { Octokit } from '@octokit/rest'
 
 const sdk = new V0alpha0Api(new Configuration({
   basePath: 'https://api.console.ory:8080',
@@ -12,16 +13,19 @@ export function getSdkUrl() {
   const [project, setProject] = useState<Project | undefined>()
 
   useEffect(() => {
-    sdk.getActiveProject().then(({ data }) => {
-      const active = data.project_id
-
-      return sdk.listProjects().then(({ data: projects }) => {
+    sdk.listProjects().then(({ data: projects }) => {
+      return sdk.getActiveProject().then(({ data }) => {
+        const active = data.project_id
         const found = projects.find(p => p.id === active)
         if (!found && projects.length > 0) {
           setProject(projects[0])
           return
         }
         setProject(found)
+        return
+      }).catch(() => {
+        // Fall back to the first project found
+        setProject(projects[0])
       })
     }).catch(() => {
       // do nothing
@@ -40,4 +44,30 @@ export function getSdkUrl() {
     hint,
     url: project ? 'https://' + project.slug + '.projects.oryapis.com' : 'https://playground.projects.oryapis.com'
   }
+}
+
+const octokit = new Octokit({})
+
+/**
+ * Returns the latest release for a repo.
+ *
+ * @param repo
+ */
+export function useLatestRelease(repo: string) {
+  const [release, setRelease] = useState<string>('<version-you-want>')
+
+  useEffect(() => {
+    octokit.repos.listReleases( {
+      owner: 'ory',
+      repo,
+      per_page: 100
+    }).then(({ data }) => {
+      const published = data.filter(({ draft, tag_name }) => !draft && !(tag_name).match(/pre.[0-9]+$/))
+      if (published.length > 0) {
+        setRelease(published[0].tag_name)
+      }
+    })
+  }, [repo])
+
+  return release
 }
