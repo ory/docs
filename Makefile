@@ -11,5 +11,9 @@ build-examples:
 		cd code-examples/protect-page-login/nextjs && npm run build;
 
 .PHONY: test
-test: install build-examples
+test: install build-examples .bin/ory
 		./src/scripts/test.sh
+
+.bin/ory: Makefile
+		bash <(curl https://raw.githubusercontent.com/ory/meta/master/install.sh) -d -b .bin ory v0.1.22
+		touch -a -m .bin/ory
