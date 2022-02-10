@@ -22,6 +22,7 @@ jobs:
       run: make test
     - uses: actions/upload-artifact@v2
       if: always()
+      timeout-minutes: 15
       with:
         name: playwright-report
         path: |
