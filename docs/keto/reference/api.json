@@ -712,7 +712,7 @@
         "type": "object"
       },
       "genericError": {
-        "description": "GenericError The standard error format",
+        "description": "The standard error format",
         "properties": {
           "code": {
             "description": "code",
@@ -761,6 +761,7 @@
         "type": "object"
       },
       "getRelationTuplesResponse": {
+        "description": "GetRelationTuplesResponse GetRelationTuplesResponse GetRelationTuplesResponse GetRelationTuplesResponse GetRelationTuplesResponse GetRelationTuplesResponse get relation tuples response",
         "properties": {
           "next_page_token": {
             "description": "The opaque token to provide in a subsequent request\nto get the next page. It is the empty string iff this is\nthe last page.",
@@ -777,7 +778,6 @@
         "type": "object"
       },
       "healthNotReadyStatus": {
-        "description": "HealthNotReadyStatus health not ready status",
         "properties": {
           "errors": {
             "additionalProperties": {
@@ -790,7 +790,6 @@
         "type": "object"
       },
       "healthStatus": {
-        "description": "HealthStatus HealthStatus health status",
         "properties": {
           "status": {
             "description": "Status always contains \"ok\".",
@@ -803,6 +802,7 @@
         "type": "object"
       },
       "version": {
+        "description": "Version version",
         "properties": {
           "version": {
             "description": "Version is the service's version.",
