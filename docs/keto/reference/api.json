@@ -756,7 +756,7 @@
         "required": [
           "allowed"
         ],
-        "title": "GetCheckResponse GetCheckResponse Represents the response for a check request.",
+        "title": "Represents the response for a check request.",
         "type": "object"
       },
       "getRelationTuplesResponse": {
@@ -777,7 +777,6 @@
         "type": "object"
       },
       "healthNotReadyStatus": {
-        "description": "HealthNotReadyStatus health not ready status",
         "properties": {
           "errors": {
             "additionalProperties": {
@@ -790,7 +789,6 @@
         "type": "object"
       },
       "healthStatus": {
-        "description": "HealthStatus HealthStatus health status",
         "properties": {
           "status": {
             "description": "Status always contains \"ok\".",
@@ -803,6 +801,7 @@
         "type": "object"
       },
       "version": {
+        "description": "Version version",
         "properties": {
           "version": {
             "description": "Version is the service's version.",
