@@ -711,7 +711,7 @@
         "type": "object"
       },
       "genericError": {
-        "description": "GenericError The standard error format",
+        "description": "The standard error format",
         "properties": {
           "code": {
             "description": "code",
@@ -756,7 +756,7 @@
         "required": [
           "allowed"
         ],
-        "title": "Represents the response for a check request.",
+        "title": "GetCheckResponse GetCheckResponse Represents the response for a check request.",
         "type": "object"
       },
       "getRelationTuplesResponse": {
@@ -789,6 +789,7 @@
         "type": "object"
       },
       "healthStatus": {
+        "description": "HealthStatus HealthStatus health status",
         "properties": {
           "status": {
             "description": "Status always contains \"ok\".",
@@ -798,6 +799,7 @@
         "type": "object"
       },
       "subject": {
+        "description": "Subject Subject Subject Subject subject",
         "type": "object"
       },
       "version": {
