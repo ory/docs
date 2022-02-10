@@ -91,9 +91,9 @@ This field is updated when:
 
 - The end-user authenticates with a second factor (e.g. TOTP)
 - The end-user refreshes their Ory Session using the
-  [`/self-service/login/browser`](../reference/api#operation/initializeSelfServiceLoginFlowForBrowsers)
+  [`/self-service/login/browser`](../reference/api.mdx#operation/initializeSelfServiceLoginFlowForBrowsers)
   or
-  [`/self-service/login/api`](../reference/api#operation/initializeSelfServiceLoginFlowWithoutBrowser)
+  [`/self-service/login/api`](../reference/api.mdx#operation/initializeSelfServiceLoginFlowWithoutBrowser)
   endpoint and setting `refresh` to `true`
 
 ## Ory Session Cookie
@@ -163,9 +163,9 @@ This flow is similar to
 ## Refreshing Sessions
 
 You can prompt the user to re-authenticate by interacting with the
-[`/self-service/login/browser`](../reference/api#operation/initializeSelfServiceLoginFlowForBrowsers)
+[`/self-service/login/browser`](../reference/api.mdx#operation/initializeSelfServiceLoginFlowForBrowsers)
 or
-[`/self-service/login/api`](../reference/api#operation/initializeSelfServiceLoginFlowWithoutBrowser)
+[`/self-service/login/api`](../reference/api.mdx#operation/initializeSelfServiceLoginFlowWithoutBrowser)
 API and setting the `refresh` parameter to true. Once the user has
 re-authenticated, the `authenticated_at` timestamp of the Ory Session will be
 set to the current time.

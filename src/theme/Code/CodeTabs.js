@@ -6,7 +6,6 @@ import CodeFromRemote from '@theme/CodeFromRemote'
 
 const FlowContent = ({ item }) => {
   if (item.code) {
-    console.warn(item.code, 'asfd')
     return (
       <CodeBlock className={`language-${item.language}`} children={item.code} />
     )

@@ -130,7 +130,7 @@ serve:
 
 Be aware that on the very first launch of the Hydra container(s), a worker
 process will perform certain first-time installation tasks, such as generating
-[JSON web keys](/hydra/docs/jwks) if they don't already exist.
+[JSON web keys](jwks.md) if they don't already exist.
 
 If you intend on running your production Hydra environment in a highly-available
 setup (for example, multiple concurrent containers behind a load-balancer), it's

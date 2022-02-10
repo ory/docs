@@ -10,7 +10,8 @@ more technical details.
 Generally upgrading Ory Kratos can be split into three main steps:
 
 - Make a backup.
-- [Install](../install.md) the new version (depending on how you run Ory Kratos).
+- [Install](../install.md) the new version (depending on how you run Ory
+  Kratos).
 - Run [`kratos migrate sql`](../cli/kratos-migrate-sql.md) to run the
   appropriate SQL queries.
 

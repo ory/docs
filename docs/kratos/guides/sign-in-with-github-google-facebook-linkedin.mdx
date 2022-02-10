@@ -1159,9 +1159,8 @@ following issue as well:
 
 ## How to skip Social Login Link-Up
 
-If multiple
-[registration methods](../self-service/flows/user-registration.mdx) are
-configured, users may be redirected to a social login provider to link the
+If multiple [registration methods](../self-service/flows/user-registration.mdx)
+are configured, users may be redirected to a social login provider to link the
 accounts after the email verification. To skip this link-up add the session hook
 after the registration method (e.g. `password`):
 
@@ -1181,9 +1180,9 @@ exchanges it for a session. For example:
 - Google sends back the OIDC `id_token` (if successfully authenticated).
 - Ory Kratos gets the user information from the `id_token` (specified in claims,
   default email, or username).
-- Ory Kratos checks the database if the identity exists:
-  :arrow_right: if yes, Ory Kratos returns a session token to the user.
-  :arrow_right: if no, the identity is created and it returns a session token.
+- Ory Kratos checks the database if the identity exists: :arrow_right: if yes,
+  Ory Kratos returns a session token to the user. :arrow_right: if no, the
+  identity is created and it returns a session token.
 - The `id_token` from Google is discarded upon completion of the flow.
 
 ## Log in through social providers if the identifiers match
