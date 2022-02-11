@@ -17,7 +17,8 @@
     "serve": "docusaurus serve",
     "format": "prettier --write ${npm_package_config_prettierTarget}",
     "format:check": "prettier --check ${npm_package_config_prettierTarget}",
-    "test": "playwright test"
+    "test": "playwright test",
+    "test:unit": "jest --passWithNoTests"
   },
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^9.0.9",
