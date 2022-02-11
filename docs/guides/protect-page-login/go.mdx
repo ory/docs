@@ -57,11 +57,11 @@ Ory's API endpoints on the domain of your application.
 
 [![Ory Proxy mirrors Ory's APIs](https://mermaid.ink/img/pako:eNptkMFKxEAMhl8l5GIXdm1BT3MQWlxEEBxWL8JchjbaYqcZMlO0bPfdna71sGBOP-H7EpIj1twQKvwQ61t4OpgBUlVZJfwVSDaw293ND_tXaGP0Ks97rm3fcojqtiiKGXT2LBNo4e9p8-vqs-I6EZYANkJ-zTLlM5T6cYGvwpLCBf3vgpvzgjJ741Gg9H41ykU4UPA8BJr1OuaiWeEWHYmzXZNOOy6IwdiSI4MqxcbKp0EznBI3-sZG2jddZEH1bvtAW7Rj5JdpqFFFGekPuu9sepNbqdMP2FdlPQ)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNptkMFKxEAMhl8l5GIXdm1BT3MQWlxEEBxWL8JchjbaYqcZMlO0bPfdna71sGBOP-H7EpIj1twQKvwQ61t4OpgBUlVZJfwVSDaw293ND_tXaGP0Ks97rm3fcojqtiiKGXT2LBNo4e9p8-vqs-I6EZYANkJ-zTLlM5T6cYGvwpLCBf3vgpvzgjJ741Gg9H41ykU4UPA8BJr1OuaiWeEWHYmzXZNOOy6IwdiSI4MqxcbKp0EznBI3-sZG2jddZEH1bvtAW7Rj5JdpqFFFGekPuu9sepNbqdMP2FdlPQ)
 
-
 ## Create an HTTP Server
 
-This is a working example of a basic server which creates an Ory client, registers a new route for our Dashboard
-and makes use of a middleware to validate if the user is allowed to view the Dashboard.
+This is a working example of a basic server which creates an Ory client,
+registers a new route for our Dashboard and makes use of a middleware to
+validate if the user is allowed to view the Dashboard.
 
 ```mdx-code-block title="main.go"
 import mainGo from '!!raw-loader!../../../code-examples/protect-page-login/go/main.go'
@@ -72,11 +72,13 @@ import CodeBlock from '@theme/CodeBlock'
 
 ## Validate and Login
 
-Next we will create a middleware which will check with your Ory project if the user has a valid session.
-Notice here that we are taking the current `request` cookies and passing them along to the Ory client.
+Next we will create a middleware which will check with your Ory project if the
+user has a valid session. Notice here that we are taking the current `request`
+cookies and passing them along to the Ory client.
 
-If the session is not valid the request is redirected to the Ory project for login.
-At this point we have not set up any custom UI management and thus will be shown the Ory Managed UI login page.
+If the session is not valid the request is redirected to the Ory project for
+login. At this point we have not set up any custom UI management and thus will
+be shown the Ory Managed UI login page.
 
 ```mdx-code-block title="middleware.go"
 import middlewareGo from '!!raw-loader!../../../code-examples/protect-page-login/go/middleware.go'
@@ -86,9 +88,9 @@ import middlewareGo from '!!raw-loader!../../../code-examples/protect-page-login
 
 ## The protected page
 
-For the last part we need to add the Dashboard (the page we would like to protect).
-Add a new handler called `dashboardHandler` which will render an HTML page with the session
-data.
+For the last part we need to add the Dashboard (the page we would like to
+protect). Add a new handler called `dashboardHandler` which will render an HTML
+page with the session data.
 
 ```mdx-code-block title="handler.go"
 import handlerGo from '!!raw-loader!../../../code-examples/protect-page-login/go/handler.go'
@@ -104,7 +106,6 @@ Start your HTTP server and access the proxy URL
 go run .
 ```
 
-
 ```mdx-code-block
 import SdkEnvVar from '@site/src/components/SdkEnvVar'
 
@@ -115,7 +116,9 @@ import SdkEnvVar from '@site/src/components/SdkEnvVar'
 ory proxy http://localhost:3000
 ```
 
-Then open [http://localhost:4000](http://localhost:4000) in your browser. You are presented with Ory's Sign In page! Let's click on sign up and create your first user!
+Then open [http://localhost:4000](http://localhost:4000) in your browser. You
+are presented with Ory's Sign In page! Let's click on sign up and create your
+first user!
 
 ## Go to Production
 
