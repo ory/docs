@@ -4,7 +4,6 @@ import { Resolver } from '@stoplight/json-ref-resolver'
 import axios from 'axios'
 import RefParser from '@apidevtools/json-schema-ref-parser'
 
-
 export default function ConfigEditor(props: { schema: any }) {
   const [schema, setSchema] = useState<any>()
 
@@ -22,10 +21,5 @@ export default function ConfigEditor(props: { schema: any }) {
     return null
   }
 
-  return (
-    <Form
-      schema={schema}
-      liveValidate={true}
-    />
-  )
+  return <Form schema={schema} liveValidate={true} />
 }

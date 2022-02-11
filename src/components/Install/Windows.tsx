@@ -1,13 +1,15 @@
 import React from 'react'
 import CodeBlock from '@theme/CodeBlock'
 
-export default function Windows(props: { repo: string, name: string }) {
+export default function Windows(props: { repo: string; name: string }) {
   const { repo, name } = props
-  return (<>
+  return (
+    <>
       <p>
-        Install {name} on Windows using Scoop using <a href={"https://scoop.sh/"}>Scoop</a> on macOS:
+        Install {name} on Windows using Scoop using{' '}
+        <a href={'https://scoop.sh/'}>Scoop</a> on macOS:
       </p>
-      <CodeBlock language='shell'>{`scoop bucket add ory https://github.com/ory/scoop.git
+      <CodeBlock language="shell">{`scoop bucket add ory https://github.com/ory/scoop.git
 scoop install ${repo}
 ${repo} help`}</CodeBlock>
     </>
