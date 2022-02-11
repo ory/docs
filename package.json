@@ -4,7 +4,7 @@
   "private": true,
   "prettier": "ory-prettier-styles",
   "config": {
-    "prettierTarget": "{code-examples/**,docs/**,docs/,scripts/,static/,contrib/,src/,src/**/,}*.{md,mdx,json,js,css,html}"
+    "prettierTarget": "{code-examples/**,docs/**,docs/,scripts/,static/,contrib/,src/,src/**/,}*.{md,mdx,json,js,css,html,ts,tsx}"
   },
   "scripts": {
     "gen": "npm-run-all gen:*",
@@ -27,6 +27,8 @@
     "@docusaurus/plugin-sitemap": "2.0.0-beta.15",
     "@docusaurus/theme-classic": "2.0.0-beta.15",
     "@docusaurus/theme-search-algolia": "2.0.0-beta.15",
+    "@octokit/graphql": "^4.8.0",
+    "@octokit/rest": "^18.12.0",
     "@ory/client": "0.0.1-alpha.74",
     "@ory/integrations": "^0.2.2",
     "@rjsf/core": "^3.2.1",
@@ -44,6 +46,7 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "redocusaurus": "0.6.0",
+    "semver": "^7.3.5",
     "sync-request": "6.1.0",
     "url-loader": "4.1.1"
   },
