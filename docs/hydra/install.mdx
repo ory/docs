@@ -3,72 +3,8 @@ id: install
 title: Installation
 ---
 
-Installing ORY Hydra on any system is straight forward. We provide pre-built
-binaries, Docker Images and support various package managers.
-
-## Docker
-
 ```mdx-code-block
-import Docker from '@site/src/components/Install/Docker'
+import Install from '../_common/install.mdx'
 
-<Docker repo="hydra" name="Ory Hydra" />
-```
-
-## macOS
-
-```mdx-code-block
-import MacOS from '@site/src/components/Install/MacOS'
-
-<MacOS repo="hydra" name="Ory Hydra" />
-```
-
-## Linux
-
-```mdx-code-block
-import Linux from '@site/src/components/Install/Linux'
-
-<Linux repo="hydra" name="Ory Hydra" />
-```
-
-## Windows
-
-```mdx-code-block
-import Windows from '@site/src/components/Install/Windows'
-
-<Windows repo="hydra" name="Ory Hydra" />
-```
-
-## Kubernetes
-
-Please head over to the [Kubernetes Helm Chart](guides/kubernetes-helm-chart)
-documentation.
-
-## Download Binaries
-
-You can download the client and server binaries on our
-[Github releases](https://github.com/ory/hydra/releases) page. There is
-currently no installer available. You have to add the Hydra binary to the PATH
-in your environment yourself, for example by putting it into `/usr/local/bin` or
-something comparable.
-
-Once installed, you should be able to run:
-
-```shell
-$ hydra help
-```
-
-## Building from Source
-
-If you wish to compile ORY Hydra yourself, you need to install and set up
-[Go 1.15+](https://golang.org/) and add `$GOPATH/bin` to your `$PATH`.
-
-The following commands will check out the latest release tag of ORY Hydra,
-compile it, and set up flags so that `hydra version` works as expected. Please
-note that this will only work in a Bash-like shell.
-
-```shell
-$ git clone https://github.com/ory/hydra.git
-$ cd hydra
-$ GO111MODULE=on make install-stable
-$ $(go env GOPATH)/bin/hydra help
+<Install repo="hydra" name="Ory Hydra" />
 ```
