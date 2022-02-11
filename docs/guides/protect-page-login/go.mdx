@@ -1,16 +1,16 @@
 ---
 id: go
 title: Protect a Page with Login in Golang
-sidebar_label: Golang Web application
+sidebar_label: Golang
 ---
 
 ```mdx-code-block
 import Teaser from './_common/teaser.mdx'
-import mp4 from './expressjs/screencast.mp4'
-import webm from './expressjs/screencast.webm'
+import mp4 from './golang/screencast.mp4'
+import webm from './golang/screencast.webm'
 
 <Teaser
-  framework={<a href="https://expressjs.com/">ExpressJS</a>}
+  framework={<a href="https://go.dev/">Golang</a>}
   mp4={mp4}
   webm={webm}
 />
@@ -36,10 +36,26 @@ To interact with Ory's APIs we install the Ory SDK:
 go get -u github.com/ory/client-go
 ```
 
-```mdx-code-block
-import OryCli from './_common/ory-cli.mdx'
-<OryCli />
-```
+### Why do I Need the Ory CLI?
+
+The Ory CLI includes useful functionality to manage your Ory Cloud Project. But
+that is not why we require it in this guide!
+
+Ory's philosophy is to make hard things easy for you. For this reason, Ory has
+deployed measures against all
+[OWASP Top 10](https://owasp.org/www-project-top-ten/) and implements the
+[OWASP Authentication Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html)
+along other mechanisms.
+
+Therefore, Ory manages Anti-CSRF Cookies as well as Ory Session Cookies for you.
+That however requires that Ory and your application run on the same domain!
+
+If your application runs on `http://localhost:3000` then Ory needs to be
+available on the hostname `localhost` as well (e.g. `http://localhost:3001`).
+That is why we need the Ory CLI, because it has a proxy included which mirrors
+Ory's API endpoints on the domain of your application.
+
+[![Ory Proxy mirrors Ory's APIs](https://mermaid.ink/img/pako:eNptkMFKxEAMhl8l5GIXdm1BT3MQWlxEEBxWL8JchjbaYqcZMlO0bPfdna71sGBOP-H7EpIj1twQKvwQ61t4OpgBUlVZJfwVSDaw293ND_tXaGP0Ks97rm3fcojqtiiKGXT2LBNo4e9p8-vqs-I6EZYANkJ-zTLlM5T6cYGvwpLCBf3vgpvzgjJ741Gg9H41ykU4UPA8BJr1OuaiWeEWHYmzXZNOOy6IwdiSI4MqxcbKp0EznBI3-sZG2jddZEH1bvtAW7Rj5JdpqFFFGekPuu9sepNbqdMP2FdlPQ)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNptkMFKxEAMhl8l5GIXdm1BT3MQWlxEEBxWL8JchjbaYqcZMlO0bPfdna71sGBOP-H7EpIj1twQKvwQ61t4OpgBUlVZJfwVSDaw293ND_tXaGP0Ks97rm3fcojqtiiKGXT2LBNo4e9p8-vqs-I6EZYANkJ-zTLlM5T6cYGvwpLCBf3vgpvzgjJ741Gg9H41ykU4UPA8BJr1OuaiWeEWHYmzXZNOOy6IwdiSI4MqxcbKp0EznBI3-sZG2jddZEH1bvtAW7Rj5JdpqFFFGekPuu9sepNbqdMP2FdlPQ)
 
 
 ## Create an HTTP Server
@@ -80,7 +96,7 @@ import handlerGo from '!!raw-loader!../../../code-examples/protect-page-login/go
 <CodeBlock language="go">{handlerGo}</CodeBlock>
 ```
 
-## Run the code
+## Run your Go App
 
 Start your HTTP server and access the proxy URL
 
@@ -88,3 +104,37 @@ Start your HTTP server and access the proxy URL
 go run .
 ```
 
+
+```mdx-code-block
+import SdkEnvVar from '@site/src/components/SdkEnvVar'
+
+<SdkEnvVar />
+```
+
+```shell-session
+ory proxy http://localhost:3000
+```
+
+Then open [http://localhost:4000](http://localhost:4000) in your browser. You are presented with Ory's Sign In page! Let's click on sign up and create your first user!
+
+## Go to Production
+
+Going to production with your app is possible in many ways. Whether you deploy
+it on Kubernetes, AWS, a VM, or a RaspberryPi is up to you. To get your app
+working with Ory it is important that Ory and your app are available under the
+same common domain (e.g. `https://ory.example.com` and
+`https://www.example.com`).
+
+The easiest way to connect Ory to your domain is to connect Ory to a subdomain
+of yours. You can do this easily by
+[adding a Custom Domain to your Cloud project](../custom-domains.mdx)!
+
+With the custom domain set up, you do not need the Ory Proxy anymore and will
+use the configured custom domain in your SDK calls:
+
+```go
+// register a new Ory client with the URL set to the Ory CLI Proxy
+	// we can also read the URL from the env or a config file
+	c := ory.NewConfiguration()
+	c.Servers = ory.ServerConfigurations{{URL: "https://ory.example.org"}}
+```

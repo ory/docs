@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"html/template"
 	"net/http"
 )
@@ -12,7 +13,12 @@ func (app *App) dashboardHandler() http.HandlerFunc {
 			http.Error(writer, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		err = tmpl.ExecuteTemplate(writer, "index.html", app.session)
+		session, err := json.Marshal(app.session)
+		if err != nil {
+			http.Error(writer, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		err = tmpl.ExecuteTemplate(writer, "index.html", string(session))
 		if err != nil {
 			http.Error(writer, err.Error(), http.StatusInternalServerError)
 			return
