@@ -192,6 +192,7 @@ module.exports = {
             {
               Reference: [
                 'hydra/reference/configuration',
+                'hydra/reference/configuration-editor',
                 {
                   'Command Line Interface (CLI)': [
                     {
@@ -276,6 +277,7 @@ module.exports = {
             {
               Reference: [
                 'keto/reference/configuration',
+                'keto/reference/configuration-editor',
                 'keto/reference/rest-api',
                 'keto/reference/proto-api',
                 {
@@ -387,6 +389,7 @@ module.exports = {
             {
               Reference: [
                 'kratos/reference/configuration',
+                'kratos/reference/configuration-editor',
                 'kratos/reference/json-schema-json-paths',
                 'kratos/reference/html-forms',
                 {
@@ -454,6 +457,7 @@ module.exports = {
             {
               Reference: [
                 'oathkeeper/reference/configuration',
+                'oathkeeper/reference/configuration-editor',
                 {
                   'Command Line Interface (CLI)': [
                     {
