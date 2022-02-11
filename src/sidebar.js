@@ -446,7 +446,7 @@ module.exports = {
               ]
             },
             {
-              Guides: ['oathkeeper/configure-deploy']
+              Guides: ['oathkeeper/configure-deploy', "oathkeeper/guides/traefik-proxy-integration"]
             },
             'oathkeeper/reference/api',
             {
