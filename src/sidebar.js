@@ -385,7 +385,7 @@ module.exports = {
                 'kratos/guides/password-policy'
               ]
             },
-            'reference/api',
+            'kratos/reference/api',
             {
               Reference: [
                 'kratos/reference/configuration',
