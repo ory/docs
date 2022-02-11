@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import Form from '@rjsf/core'
-import { Resolver } from '@stoplight/json-ref-resolver'
 import axios from 'axios'
 import RefParser from '@apidevtools/json-schema-ref-parser'
 
-export default function ConfigEditor(props: { schema: any }) {
+export default function ConfigEditor(props: { url: any }) {
   const [schema, setSchema] = useState<any>()
 
   useEffect(() => {
-    RefParser.dereference(props.schema, (err, api) => {
-      if (err) {
-        console.log(err)
-      } else {
-        setSchema(api)
-      }
+    axios.get(props.url).then((res) => {
+      RefParser.dereference(res.data, (err, api) => {
+        if (err) {
+          console.log(err)
+        } else {
+          setSchema(api)
+        }
+      })
     })
-  }, [schema])
+  }, [props.url])
 
   if (!schema) {
     return null
