@@ -13,8 +13,8 @@ cd code-examples/protect-page-login/expressjs && \
   PORT=4002 npm run start &
 ory proxy --no-jwt --port 3002 http://localhost:4002/ &
 
-cd code-examples/go && \
-  PORT=4003 go run . &
+cd code-examples/protect-page-login/go && \
+  PORT=4003 PROXY_PORT=3003 go run . &
 ory proxy --no-jwt --port 3003 http://localhost:4003/ &
 
 trap "exit" INT TERM ERR
