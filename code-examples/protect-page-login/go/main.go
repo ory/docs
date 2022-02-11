@@ -4,6 +4,7 @@ import (
 	"fmt"
 	ory "github.com/ory/client-go"
 	"net/http"
+	"os"
 )
 
 type App struct {
@@ -28,8 +29,12 @@ func main() {
 	// dashboard
 	mux.Handle("/", app.sessionMiddleware(app.dashboardHandler()))
 
-	fmt.Printf("Application launched and running on http://localhost:3000\n")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3000"
+	}
 
+	fmt.Printf("Application launched and running on http://127.0.0.1:%s\n", port)
 	// start the server
-	http.ListenAndServe(":3000", mux)
+	http.ListenAndServe(":"+port, mux)
 }
