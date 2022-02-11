@@ -24,7 +24,7 @@ First we create a new Golang project:
 mkdir your-project
 cd your-project
 
-touch main.go
+touch main.go dashboard.go handler.go middleware.go
 go mod init github.com/<your-name>/your-project
 ```
 
@@ -136,7 +136,7 @@ use the configured custom domain in your SDK calls:
 
 ```go
 // register a new Ory client with the URL set to the Ory CLI Proxy
-	// we can also read the URL from the env or a config file
-	c := ory.NewConfiguration()
-	c.Servers = ory.ServerConfigurations{{URL: "https://ory.example.org"}}
+// we can also read the URL from the env or a config file
+c := ory.NewConfiguration()
+c.Servers = ory.ServerConfigurations{{URL: "https://ory.example.org"}}
 ```
