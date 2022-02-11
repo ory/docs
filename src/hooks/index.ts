@@ -52,9 +52,10 @@ const octokit = new Octokit({})
  * Returns the latest release for a repo.
  *
  * @param repo
+ * @param fallback
  */
-export function useLatestRelease(repo: string) {
-  const [release, setRelease] = useState<string>('<version-you-want>')
+export function useLatestRelease(repo: string, fallback = '<version-you-want>') {
+  const [release, setRelease] = useState<string>(fallback)
 
   useEffect(() => {
     octokit.repos.listReleases( {
