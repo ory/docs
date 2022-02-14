@@ -261,17 +261,17 @@
       "permanent": false
     },
     {
-      "source": "/docs/kratos/self-service/flows/user-settings/:path*",
+      "source": "/docs/kratos/self-service/flows/user-settings/:path",
       "destination": "/docs/kratos/self-service/flows/user-settings",
       "permanent": false
     },
     {
-      "source": "/docs/kratos/self-service/flows/user-login-registration/:path*",
+      "source": "/docs/kratos/self-service/flows/user-login-registration/:path",
       "destination": "/docs/kratos/self-service/flows/user-login",
       "permanent": false
     },
     {
-      "source": "/docs/kratos/self-service/flows/account-recovery/:path*",
+      "source": "/docs/kratos/self-service/flows/account-recovery/:path",
       "destination": "/docs/kratos/self-service/flows/account-recovery",
       "permanent": false
     },
