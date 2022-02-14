@@ -18,7 +18,7 @@ jobs:
           styles: |
             https://github.com/errata-ai/Microsoft/releases/latest/download/Microsoft.zip
             https://github.com/errata-ai/write-good/releases/latest/download/write-good.zip
-          config: https://raw.githubusercontent.com/ory/docs/master/.vale.ini
+          config: https://raw.githubusercontent.com/ory/docs/e66b0701ef8c4d18c32d2488ac905cb54e23f581/docs/.vale.ini
 
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
