@@ -19,5 +19,6 @@ jobs:
       with:
         node-version: '14.x'
         cache: 'npm'
+    - run: npm install
     - name: Test Build
       run: npm run build

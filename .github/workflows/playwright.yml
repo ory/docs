@@ -22,6 +22,7 @@ jobs:
     - uses: actions/setup-go@v2
       with:
         go-version: '^1.17.6'
+    - run: npm install
     - name: Install Playwright
       run: npx playwright install --with-deps
     - name: Run Playwright tests
