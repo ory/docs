@@ -296,6 +296,11 @@
       "permanent": false
     },
     {
+      "source": "/docs/kratos/guides/kratos-video-tutorials",
+      "destination": "/docs/kratos/further-reading/kratos-video-tutorials",
+      "permanent": false
+    },
+    {
       "source": "/:path*/index",
       "destination": "/:path",
       "permanent": false
