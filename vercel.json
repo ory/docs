@@ -301,6 +301,11 @@
       "permanent": false
     },
     {
+      "source": "/docs/kratos/concepts/selfservice-flow-completion",
+      "destination": "/docs/kratos/concepts/browser-redirect-flow-completion",
+      "permanent": false
+    },
+    {
       "source": "/:path*/index",
       "destination": "/:path",
       "permanent": false
