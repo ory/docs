@@ -27,6 +27,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: |
-        npx vercel dev --listen 6000 --confirm --login ${{ secrets.VERCEL_TOKEN }} &
-        npx wait-on http-get://127.0.0.1:6000
+        npx vercel dev --listen 9000 --confirm --login ${{ secrets.VERCEL_TOKEN }} &
+        npx wait-on http-get://127.0.0.1:9000/docs -v -c waitOnConfig.json
         npm run test:unit

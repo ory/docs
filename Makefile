@@ -20,3 +20,9 @@ test: install build-examples .bin/ory
 .bin/ory: Makefile
 		bash <(curl https://raw.githubusercontent.com/ory/meta/master/install.sh) -d -b .bin ory v0.1.22
 		touch -a -m .bin/ory
+
+.PHONY: test-jest
+test-jest: Makefile install
+				npx vercel dev --listen 9000 --confirm &
+				npx wait-on https-get://127.0.0.1:9000/docs/ -v -c waitOnConfig.json
+				npm run test:unit
