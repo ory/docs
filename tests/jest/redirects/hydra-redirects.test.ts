@@ -1,11 +1,10 @@
 import { readSitemapXML, Sitemap, getLoc, getNewURL } from './utils'
 
-const sitemap: Sitemap = readSitemapXML('sitemap_keto.xml')
+const sitemap = readSitemapXML('sitemap_hydra.xml')
 
 describe('docs sitemap', () => {
-  it.each(sitemap.urlset.url
-    .map(({ loc }) => [loc, getNewURL(loc)]))('loc %s => %s', async (loc) => {
+  it.each(sitemap)('loc %s => %s', async (loc) => {
       const { status } = await getLoc(loc)
       expect(status).toBeLessThan(400)
-    }, 10000)
+    })
 })

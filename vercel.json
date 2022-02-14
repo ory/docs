@@ -2,10 +2,17 @@
   "github": {
     "silent": true
   },
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/oathkeeper/docs/:path*",
       "destination": "/docs/oathkeeper/:path",
+      "permanent": false
+    },
+    {
+      "source": "/oathkeeper/docs(|/)",
+      "destination": "/docs/oathkeeper",
       "permanent": false
     },
     {
@@ -14,18 +21,8 @@
       "permanent": false
     },
     {
-      "source": "/docs/hydra/:version(v[0-9\\.]+|next)/:path*",
-      "destination": "/docs/hydra/:path",
-      "permanent": false
-    },
-    {
-      "source": "/docs/keto/:version(v[0-9\\.]+|next)/:path*",
-      "destination": "/docs/keto/:path",
-      "permanent": false
-    },
-    {
-      "source": "/docs/kratos/:version(v[0-9\\.]+|next)/:path*",
-      "destination": "/docs/kratos/:path",
+      "source": "/docs/oathkeeper/:version(v[0-9\\.]+|next)",
+      "destination": "/docs/oathkeeper",
       "permanent": false
     },
     {
@@ -34,13 +31,58 @@
       "permanent": false
     },
     {
+      "source": "/hydra/docs(|/)",
+      "destination": "/docs/hydra",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/:version(v[0-9\\.]+|next)/:path*",
+      "destination": "/docs/hydra/:path",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/:version(v[0-9\\.]+|next)",
+      "destination": "/docs/hydra",
+      "permanent": false
+    },
+    {
       "source": "/keto/docs/:path*",
       "destination": "/docs/keto/:path",
       "permanent": false
     },
     {
+      "source": "/keto/docs(|/)",
+      "destination": "/docs/keto",
+      "permanent": false
+    },
+    {
+      "source": "/docs/keto/:version(v[0-9\\.]+|next)/:path*",
+      "destination": "/docs/keto/:path",
+      "permanent": false
+    },
+    {
+      "source": "/docs/keto/:version(v[0-9\\.]+|next)",
+      "destination": "/docs/keto",
+      "permanent": false
+    },
+    {
       "source": "/kratos/docs/:path*",
       "destination": "/docs/kratos/:path",
+      "permanent": false
+    },
+    {
+      "source": "/kratos/docs(|/)",
+      "destination": "/docs/kratos",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/:version(v[0-9\\.]+|next)/:path*",
+      "destination": "/docs/kratos/:path",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/:version(v[0-9\\.]+|next)",
+      "destination": "/docs/kratos",
       "permanent": false
     },
     {
@@ -64,13 +106,108 @@
       "permanent": false
     },
     {
-      "source": "/oathkeeper/docs/milestones",
+      "source": "/",
+      "destination": "/docs/",
+      "permanent": false
+    },
+    {
+      "source": "/:path*/index",
+      "destination": "/:path",
+      "permanent": false
+    },
+    {
+      "source": "/docs/http-api",
+      "destination": "/docs/reference/api",
+      "permanent": false
+    },
+    {
+      "source": "/docs/oathkeeper/http-api",
+      "destination": "/docs/oathkeeper/reference/api",
+      "permanent": false
+    },
+    {
+      "source": "/docs/keto/milestones",
+      "destination": "https://github.com/ory/keto/milestones",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/milestones",
+      "destination": "https://github.com/ory/kratos/milestones",
+      "permanent": false
+    },
+    {
+      "source": "/docs/oathkeeper/milestones",
+      "destination": "https://github.com/ory/oathkeeper/milestones",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/milestones",
+      "destination": "https://github.com/ory/hydra/milestones",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/(CHANGELOG|changelog)",
+      "destination": "https://github.com/ory/hydra/blob/master/CHANGELOG.md",
+      "permanent": false
+    },
+    {
+      "source": "/docs/keto/(CHANGELOG|changelog)",
+      "destination": "https://github.com/ory/keto/blob/master/CHANGELOG.md",
+      "permanent": false
+    },
+    {
+      "source": "/docs/oathkeeper/(CHANGELOG|changelog)",
+      "destination": "https://github.com/ory/oathkeeper/blob/master/CHANGELOG.md",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/(CHANGELOG|changelog)",
+      "destination": "https://github.com/ory/kratos/blob/master/CHANGELOG.md",
+      "permanent": false
+    },
+    {
+      "source": "/docs/versions",
+      "destination": "/docs",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/versions",
+      "destination": "/docs/hydra",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/versions",
+      "destination": "/docs/hydra",
+      "permanent": false
+    },
+    {
+      "source": "/docs/keto/versions",
+      "destination": "/docs/keto",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/versions",
+      "destination": "/docs/kratos",
+      "permanent": false
+    },
+    {
+      "source": "/docs/oathkeeper/versions",
       "destination": "/docs/oathkeeper",
       "permanent": false
     },
     {
-      "source": "/",
-      "destination": "/docs/",
+      "source": "/docs/keto/reference/api",
+      "destination": "/docs/keto/reference/rest-api",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/faq",
+      "destination": "/docs/kratos",
+      "permanent": false
+    },
+    {
+      "source": "/:path*/index",
+      "destination": "/:path",
       "permanent": false
     }
   ]

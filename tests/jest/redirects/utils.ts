@@ -1,15 +1,18 @@
-import https from 'https'
 import { readFileSync } from 'fs'
 import axios from 'axios'
-import { resolve, basename } from 'path'
+import { resolve } from 'path'
 import { XMLParser } from 'fast-xml-parser'
 
 const sitemapsDir = resolve(__dirname, '../sitemaps')
 
 const parser = new XMLParser()
 
+if (!process.env.TEST_HOST) {
+  throw new Error('TEST_HOST env variable is not set')
+}
+
 export const oldAddress = 'https://www.ory.sh/'
-export const newAddress = 'https://docs-omega-six.vercel.app/'
+export const newAddress = process.env.TEST_HOST.replace(/\/$/, '') +'/'
 
 export type Sitemap = {
   urlset: {
@@ -40,8 +43,11 @@ export const getLoc: GetLoc = async (url, replace = [oldAddress, newAddress]) =>
     ...res,
     original: url,
     destination: dest,
-    redirected: `${newAddress}${res.headers.location}`,
+    redirected: `${newAddress}${res.headers.location}`
   }
 }
 
-export const readSitemapXML = (filename: string) => parser.parse(readFileSync(resolve(sitemapsDir, filename), 'utf8'))
+const ignoreUrls = [
+]
+
+export const readSitemapXML = (filename: string) => parser.parse(readFileSync(resolve(sitemapsDir, filename), 'utf8')).urlset.url.map(({ loc }) => [loc, getNewURL(loc)])

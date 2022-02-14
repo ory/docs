@@ -29,4 +29,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npx jest tests/redirects
+    - run: npm run build
+    - run: |
+        host=$(npx vercel --confirm --login ${{ secrets.VERCEL_TOKEN }})
+        TEST_HOST=$host npm run test:unit
