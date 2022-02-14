@@ -21,6 +21,9 @@ jobs:
     - run: npm install
     - run: |
         mkdir -p .vercel
-        echo ${{ secrets.PROJECT_JSON }} | base64 -d > .vercel/project.json
         host=$(npx vercel --confirm --token ${{ secrets.VERCEL_TOKEN }})
         TEST_HOST=$host npm run test:unit
+      env:
+        VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }})
+        VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }})
+
