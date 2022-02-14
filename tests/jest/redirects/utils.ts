@@ -2,6 +2,10 @@ import { readFileSync } from 'fs'
 import axios from 'axios'
 import { resolve } from 'path'
 import { XMLParser } from 'fast-xml-parser'
+import axiosRetry from 'axios-retry';
+
+const client = axios.create({ baseURL: 'http://example.com' });
+axiosRetry(client, { retries: 3 });
 
 const sitemapsDir = resolve(__dirname, '../sitemaps')
 
@@ -38,11 +42,12 @@ export const getNewURL = (url: string, replace = [oldAddress, newAddress]): stri
 
 export const getLoc: GetLoc = async (url, replace = [oldAddress, newAddress]) => {
   const dest = getNewURL(url, replace)
-  const res = await axios.get(dest,
+  const res = await client.get(dest,
     {
       headers: {
         'Accept': 'text/html'
-      }
+      },
+      timeout: 5000
     })
   return {
     status: res.status,
@@ -54,7 +59,11 @@ export const getLoc: GetLoc = async (url, replace = [oldAddress, newAddress]) =>
 }
 
 const ignoreUrls = [
-  'https://www.ory.sh/docs/search'
+  'https://www.ory.sh/docs/search',
+  'https://www.ory.sh/oathkeeper/docs/search',
+  'https://www.ory.sh/keto/docs/search',
+  'https://www.ory.sh/kratos/docs/search',
+  'https://www.ory.sh/keto/docs/search',
 ]
 
 export const readSitemapXML = (filename: string) => parser.parse(readFileSync(resolve(sitemapsDir, filename), 'utf8')).urlset.url.filter(({ loc }) => ignoreUrls.indexOf(loc) === -1).map(({ loc }) => [loc, getNewURL(loc)])

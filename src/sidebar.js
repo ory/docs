@@ -137,7 +137,7 @@ module.exports = {
         },
         {
           Guides: [
-            'kratos/guides/2fa',
+            'kratos/guides/two-factor-authentication-2fa-mfa',
             'kratos/guides/sign-in-with-github-google-facebook-linkedin',
             'kratos/guides/login-session',
             'kratos/guides/configuring-cookies',
