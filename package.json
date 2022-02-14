@@ -41,6 +41,7 @@
     "json-loader": "^0.5.7",
     "json-schema-faker": "^0.5.0-rcv.41",
     "mermaid": "8.13.8",
+    "net": "^1.0.2",
     "node-fetch": "2.6.7",
     "ory-prettier-styles": "1.1.2",
     "parser-front-matter": "1.6.4",
@@ -55,6 +56,7 @@
     "remarkable": "2.0.1",
     "semver": "^7.3.5",
     "sync-request": "6.1.0",
+    "tls": "^0.0.1",
     "url-loader": "4.1.1"
   },
   "browserslist": {
