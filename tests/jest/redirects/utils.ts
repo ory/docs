@@ -47,7 +47,7 @@ export const getLoc: GetLoc = async (url, replace = [oldAddress, newAddress]) =>
       headers: {
         'Accept': 'text/html'
       },
-      timeout: 5000
+      timeout: 10000
     })
   return {
     status: res.status,
