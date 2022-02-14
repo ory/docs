@@ -2,26 +2,21 @@ name: Redirect checks
 
 on:
   workflow_dispatch:
-  # schedule:
-  # - cron: "0 2 * * 2,5"
-  # push:
-  #   branches: [ main ]
-  # pull_request:
-  #   branches: [ main ]
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version:
-          # - 12.x,
-          # - 14.x
-          - 16.x
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
+          - 14.x
+          -
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
