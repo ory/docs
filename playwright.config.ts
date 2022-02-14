@@ -7,7 +7,7 @@ import { devices } from '@playwright/test'
 const config: PlaywrightTestConfig = {
   testDir: './tests',
 
-  testIgnore: ['tests/**/*.test.ts'],
+  testIgnore: ['tests/playwright/**/*.test.ts'],
 
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,

@@ -9,7 +9,7 @@ const sitemapsDir = resolve(__dirname, '../sitemaps')
 const parser = new XMLParser()
 
 export const oldAddress = 'https://www.ory.sh/'
-export const newAddress = 'https://docs-omega-six.vercel.app/'
+export const newAddress = 'http://localhost:6000/'
 
 export type Sitemap = {
   urlset: {
@@ -45,3 +45,5 @@ export const getLoc: GetLoc = async (url, replace = [oldAddress, newAddress]) =>
 }
 
 export const readSitemapXML = (filename: string) => parser.parse(readFileSync(resolve(sitemapsDir, filename), 'utf8'))
+
+export const maxTimeout = 30000
