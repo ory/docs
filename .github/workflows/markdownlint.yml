@@ -1,7 +1,8 @@
 name: Lint Markdown with markdownlint
 on:
   push:
-    branches: [ main, master ]
+    branches:
+    - master
   pull_request:
     branches:
     - master
