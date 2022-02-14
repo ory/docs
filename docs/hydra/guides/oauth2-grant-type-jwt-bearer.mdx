@@ -60,7 +60,8 @@ Content-Type: application/json
   "issuer": "https://my-issuer.com",
 
   // The "sub" field of the access token to be created.
-  "subject": "alice@example.org",
+  // Let's say 7146dd0b-f243-43ba-815c-7a00216b4823 is the user ID of Alice:
+  "subject": "7146dd0b-f243-43ba-815c-7a00216b4823",
 
   // The allowed scope of the generated access token.
   "scope": ["read"],
@@ -81,7 +82,7 @@ Content-Type: application/json
 The above example would allow the following JWT Bearer
 
 ```
-eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL215LWlzc3Vlci5jb20iLCJzdWIiOiJhbGljZUBleGFtcGxlLm9yZyIsImF1ZCI6Imh0dHBzOi8vcHVibGljLmh5ZHJhLmNvbS9vYXV0aDIvdG9rZW4iLCJuYmYiOjEzMDA4MTU3ODAsImV4cCI6MTMwMDgxOTM4MH0.baBiLrVRRU1AKYvAn0X4eIeLvFfpe2wsoD3VTMtaYdbEW2-w-SFeGeEzl5B6sh612bfKkoeihhFVx2md7DP-Rl5asicJzeIhcPETzZbVSPxR1lFdOBwcIPG5N70aSJs2zSn3jnRIhpZf85YZOI8RbQ93Kxla741_4xruHbsNRFqIuWVhxk95BCCnoXzEd8vBTxd_GMn9VijUY_piLPMo-OifRF9pSjYo38aJmRW1tJzeFCMruc9X1W-2c-L_t3rV7zYBH3LlpDZfwyy3T5Pmqf6QKeq1N-MjLnIJcZGT89jqxLmqVFRvAiEyA6iMQXVxmENOnwylGPwuR8DewhWMqg
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL215LWlzc3Vlci5jb20iLCJzdWIiOiJhbGljZUBleGFtcGxlLm9yZyIsImF1ZCI6IjcxNDZkZDBiLWYyNDMtNDNiYS04MTVjLTdhMDAyMTZiNDgyMyIsIm5iZiI6MTMwMDgxNTc4MCwiZXhwIjoxMzAwODE5MzgwfQ.Dpn7zYEhaWxi7CLxr1c8Db2zxOJDzpu5QTZgeM6me68aGt7jgpKujunfx2FBhhuKY2oJmIAhXJWXplGH2NnbCGxNzx17Y4CPGJE9jLC2ZxprvV_5Cdmx5GkGcFjpOXsgBSonhmsyKkxYhS3C-mq4u2Tx9Zi494G2EbDH0L2BSuWYi411qm4LrIHQRdiFP9v34VH-5hU005bvrlGJBA9W-Eom4krFYtC4_Zgc7XY2mcChBw0AYz3A1B0_7ui95iDR-33D5tBAGRn6iGgnVBeR1GmZX5y4jz7Nht2lbPQkrCyLsoPxn2ZQPqvbOUKxdgsrhkcs0UGND8GsDwDzISuuAw
 ```
 
 which has the claims
@@ -89,7 +90,7 @@ which has the claims
 ```json5
 {
   iss: 'https://my-issuer.com',
-  sub: 'alice@example.org',
+  sub: '7146dd0b-f243-43ba-815c-7a00216b4823',
   aud: 'https://public.hydra.com/oauth2/token',
   nbf: 1300815780,
   exp: 1300819380
@@ -105,7 +106,7 @@ Content-Type: application/x-www-form-urlencoded
 
 grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer
 &scope=read
-&assertion=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL215LWlzc3Vlci5jb20iLCJzdWIiOiJhbGljZUBleGFtcGxlLm9yZyIsImF1ZCI6Imh0dHBzOi8vcHVibGljLmh5ZHJhLmNvbS9vYXV0aDIvdG9rZW4iLCJuYmYiOjEzMDA4MTU3ODAsImV4cCI6MTMwMDgxOTM4MH0.baBiLrVRRU1AKYvAn0X4eIeLvFfpe2wsoD3VTMtaYdbEW2-w-SFeGeEzl5B6sh612bfKkoeihhFVx2md7DP-Rl5asicJzeIhcPETzZbVSPxR1lFdOBwcIPG5N70aSJs2zSn3jnRIhpZf85YZOI8RbQ93Kxla741_4xruHbsNRFqIuWVhxk95BCCnoXzEd8vBTxd_GMn9VijUY_piLPMo-OifRF9pSjYo38aJmRW1tJzeFCMruc9X1W-2c-L_t3rV7zYBH3LlpDZfwyy3T5Pmqf6QKeq1N-MjLnIJcZGT89jqxLmqVFRvAiEyA6iMQXVxmENOnwylGPwuR8DewhWMqg
+&assertion=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL215LWlzc3Vlci5jb20iLCJzdWIiOiJhbGljZUBleGFtcGxlLm9yZyIsImF1ZCI6IjcxNDZkZDBiLWYyNDMtNDNiYS04MTVjLTdhMDAyMTZiNDgyMyIsIm5iZiI6MTMwMDgxNTc4MCwiZXhwIjoxMzAwODE5MzgwfQ.Dpn7zYEhaWxi7CLxr1c8Db2zxOJDzpu5QTZgeM6me68aGt7jgpKujunfx2FBhhuKY2oJmIAhXJWXplGH2NnbCGxNzx17Y4CPGJE9jLC2ZxprvV_5Cdmx5GkGcFjpOXsgBSonhmsyKkxYhS3C-mq4u2Tx9Zi494G2EbDH0L2BSuWYi411qm4LrIHQRdiFP9v34VH-5hU005bvrlGJBA9W-Eom4krFYtC4_Zgc7XY2mcChBw0AYz3A1B0_7ui95iDR-33D5tBAGRn6iGgnVBeR1GmZX5y4jz7Nht2lbPQkrCyLsoPxn2ZQPqvbOUKxdgsrhkcs0UGND8GsDwDzISuuAw
 ```
 
 with resulting access token claims:
@@ -113,7 +114,7 @@ with resulting access token claims:
 ```
 {
   "iss": "https://public.hydra.com/",
-  "sub": "alice@example.org",
+  "sub": "7146dd0b-f243-43ba-815c-7a00216b4823",
   "scp": ["read"],
   // ...
 }
