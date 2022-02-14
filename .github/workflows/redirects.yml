@@ -1,13 +1,10 @@
 name: Redirect checks
 
 on:
-  workflow_dispatch:
-  # schedule:
-  # - cron: "0 2 * * 2,5"
-  # push:
-  #   branches: [ main ]
-  # pull_request:
-  #   branches: [ main ]
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
 
 jobs:
   build:
@@ -29,4 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npx jest tests/redirects
+    - run: |
+        npx vercel dev --listen 6000 --confirm --login ${{ secrets.VERCEL_TOKEN }} &
+        npx wait-on http-get://127.0.0.1:6000
+        npm run test:unit
