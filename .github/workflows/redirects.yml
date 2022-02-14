@@ -20,7 +20,6 @@ jobs:
         cache: 'npm'
     - run: npm install
     - run: |
-        mkdir -p .vercel
         host=$(npx vercel --confirm --token ${{ secrets.VERCEL_TOKEN }})
         TEST_HOST=$host npm run test:unit
       env:
