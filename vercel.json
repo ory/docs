@@ -6,6 +6,16 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/docs/keto/v0.5/engines/:engine",
+      "destination": "https://github.com/ory/keto/blob/v0.7.0-alpha.1/docs/versioned_docs/version-v0.5/engines/:engine.md",
+      "permanent": false
+    },
+    {
+      "source": "/docs/keto/v0.5/configure-deploy",
+      "destination": "https://github.com/ory/keto/blob/v0.7.0-alpha.1/docs/versioned_docs/version-v0.5/configure-deploy.md",
+      "permanent": false
+    },
+    {
       "source": "/oathkeeper/docs/:path*",
       "destination": "/docs/oathkeeper/:path",
       "permanent": false
@@ -126,6 +136,41 @@
       "permanent": false
     },
     {
+      "source": "/docs/hydra/http-api",
+      "destination": "/docs/hydra/reference/api",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/integrate-golang",
+      "destination": "/docs/guides/protect-page-login/go",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/debugging",
+      "destination": "/docs/hydra/debug",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/implementing-consent",
+      "destination": "/docs/hydra/guides/consent",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/oauth2",
+      "destination": "/docs/hydra/concepts/oauth2",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/integration",
+      "destination": "/docs/hydra/guides/using-oauth2",
+      "permanent": false
+    },
+    {
+      "source": "/docs/keto/http-api",
+      "destination": "/docs/keto/reference/api",
+      "permanent": false
+    },
+    {
       "source": "/docs/keto/milestones",
       "destination": "https://github.com/ory/keto/milestones",
       "permanent": false
@@ -208,6 +253,36 @@
     {
       "source": "/:path*/index",
       "destination": "/:path",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/concepts/identity-data-model",
+      "destination": "/docs/kratos/concepts/identity-schema",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/self-service/flows/user-settings/:path*",
+      "destination": "/docs/kratos/self-service/flows/user-settings",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/self-service/flows/user-login-registration/:path*",
+      "destination": "/docs/kratos/self-service/flows/user-login",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/self-service/flows/account-recovery/:path*",
+      "destination": "/docs/kratos/self-service/flows/account-recovery",
+      "permanent": false
+    },
+    {
+      "source": "/docs/:project/search",
+      "destination": "/docs",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/concepts/authenticators/look-up-secrets",
+      "destination": "/docs/kratos/two-factor-authentication-2fa-mfa",
       "permanent": false
     }
   ]

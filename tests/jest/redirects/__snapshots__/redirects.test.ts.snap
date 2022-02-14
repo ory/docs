@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should ensure the regex is ok 1`] = `
+Array [
+  "/docs/hydra/v1.9/foo",
+  "v1.9",
+  "foo",
+]
+`;
+
+exports[`should ensure the regex is ok 2`] = `
+Array [
+  "/docs/hydra/v1.9/",
+  "v1.9",
+  undefined,
+]
+`;
+
+exports[`should ensure the regex is ok 3`] = `
+Array [
+  "/docs/hydra/v1.9",
+  "v1.9",
+  undefined,
+]
+`;

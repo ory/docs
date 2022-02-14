@@ -12,7 +12,7 @@ if (!process.env.TEST_HOST) {
 }
 
 export const oldAddress = 'https://www.ory.sh/'
-export const newAddress = process.env.TEST_HOST.replace(/\/$/, '') +'/'
+export const newAddress = process.env.TEST_HOST.replace(/\/$/, '') + '/'
 
 export type Sitemap = {
   urlset: {
@@ -38,9 +38,15 @@ export const getNewURL = (url: string, replace = [oldAddress, newAddress]): stri
 
 export const getLoc: GetLoc = async (url, replace = [oldAddress, newAddress]) => {
   const dest = getNewURL(url, replace)
-  const res = await axios.get(dest)
+  const res = await axios.get(dest,
+    {
+      headers: {
+        'Accept': 'text/html'
+      }
+    })
   return {
-    ...res,
+    status: res.status,
+    headers: res.headers,
     original: url,
     destination: dest,
     redirected: `${newAddress}${res.headers.location}`
@@ -48,6 +54,7 @@ export const getLoc: GetLoc = async (url, replace = [oldAddress, newAddress]) =>
 }
 
 const ignoreUrls = [
+  'https://www.ory.sh/docs/search'
 ]
 
-export const readSitemapXML = (filename: string) => parser.parse(readFileSync(resolve(sitemapsDir, filename), 'utf8')).urlset.url.map(({ loc }) => [loc, getNewURL(loc)])
+export const readSitemapXML = (filename: string) => parser.parse(readFileSync(resolve(sitemapsDir, filename), 'utf8')).urlset.url.filter(({ loc }) => ignoreUrls.indexOf(loc) === -1).map(({ loc }) => [loc, getNewURL(loc)])
