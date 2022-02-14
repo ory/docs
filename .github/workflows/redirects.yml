@@ -21,7 +21,7 @@ jobs:
     - run: npm install
     - run: npm run build
     - run: |
-        mkdir -P .vercel
+        mkdir -p .vercel
         echo ${{ secrets.PROJECT_JSON }} > .vercel/project.json
         host=$(npx vercel --confirm --token ${{ secrets.VERCEL_TOKEN }})
         TEST_HOST=$host npm run test:unit
