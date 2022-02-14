@@ -18,7 +18,7 @@
     "format": "prettier --write ${npm_package_config_prettierTarget}",
     "format:check": "prettier --check ${npm_package_config_prettierTarget}",
     "test": "playwright test",
-    "test:unit": "jest --passWithNoTests"
+    "test:unit": "jest tests/jest"
   },
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^9.0.9",

@@ -24,5 +24,5 @@ test: install build-examples .bin/ory
 .PHONY: test-jest
 test-jest: Makefile install
 				npx vercel dev --listen 9000 --confirm &
-				npx wait-on https-get://127.0.0.1:9000/docs/ -v -c waitOnConfig.json
+				npx wait-on http-get://127.0.0.1:9000/docs/ -l -c waitOnConfig.json
 				npm run test:unit
