@@ -64,6 +64,11 @@ const ignoreUrls = [
   'https://www.ory.sh/keto/docs/search',
   'https://www.ory.sh/kratos/docs/search',
   'https://www.ory.sh/keto/docs/search',
+  'https://www.ory.sh/kratos/docs/v0.1',
+  'https://www.ory.sh/kratos/docs/v0.2',
+  'https://www.ory.sh/kratos/docs/v0.4',
+  'https://www.ory.sh/kratos/docs/v0.6/concepts/authenticators/look-up-secrets',
+  'https://www.ory.sh/kratos/docs/v0.7/concepts/authenticators/look-up-secrets'
 ]
 
 export const readSitemapXML = (filename: string) => parser.parse(readFileSync(resolve(sitemapsDir, filename), 'utf8')).urlset.url.filter(({ loc }) => ignoreUrls.indexOf(loc) === -1).map(({ loc }) => [loc, getNewURL(loc)])

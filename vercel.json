@@ -141,6 +141,11 @@
       "permanent": false
     },
     {
+      "source": "/docs/kratos/http-api",
+      "destination": "/docs/kratos/reference/api",
+      "permanent": false
+    },
+    {
       "source": "/docs/guides/integrate-golang",
       "destination": "/docs/guides/protect-page-login/go",
       "permanent": false
@@ -246,6 +251,11 @@
       "permanent": false
     },
     {
+      "source": "/docs/kratos/sdk/api",
+      "destination": "/docs/kratos/reference/api",
+      "permanent": false
+    },
+    {
       "source": "/docs/kratos/faq",
       "destination": "/docs/kratos",
       "permanent": false
@@ -256,23 +266,28 @@
       "permanent": false
     },
     {
-      "source": "/docs/kratos/concepts/identity-data-model",
+      "source": "/docs/kratos/concepts/identity-(data|user)-model",
       "destination": "/docs/kratos/concepts/identity-schema",
       "permanent": false
     },
     {
-      "source": "/docs/kratos/self-service/flows/user-settings/:path",
+      "source": "/docs/kratos/self-service/flows/(user-settings|user-profile-management)/:path",
       "destination": "/docs/kratos/self-service/flows/user-settings",
       "permanent": false
     },
     {
-      "source": "/docs/kratos/self-service/flows/user-login-registration/:path",
+      "source": "/docs/kratos/self-service/flows/user-login-(user-|)registration/:path",
       "destination": "/docs/kratos/self-service/flows/user-login",
       "permanent": false
     },
     {
-      "source": "/docs/kratos/self-service/flows/account-recovery/:path",
+      "source": "/docs/kratos/self-service/flows/(password-reset-|)account-recovery/:path",
       "destination": "/docs/kratos/self-service/flows/account-recovery",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/self-service/(flows|strategies)",
+      "destination": "/docs/kratos/self-service",
       "permanent": false
     },
     {
@@ -282,7 +297,7 @@
     },
     {
       "source": "/docs/kratos/concepts/authenticators/look-up-secrets",
-      "destination": "/docs/kratos/two-factor-authentication-2fa-mfa",
+      "destination": "/docs/kratos/guides/two-factor-authentication-2fa-mfa",
       "permanent": false
     },
     {
