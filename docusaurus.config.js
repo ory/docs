@@ -160,7 +160,16 @@ module.exports = {
     require.resolve('./src/plugins/ory-scripts-loader'),
     require.resolve('./src/plugins/docusaurus-plugin-matamo'),
     '@docusaurus/plugin-sitemap',
-    'docusaurus2-dotenv'
+    'docusaurus2-dotenv',
+    '@docusaurus/plugin-client-redirects',
+    {
+      redirects: [
+        {
+          to: '/',
+          from: '/docs',
+        },
+      ]
+    }
   ],
   themes: [
     [
