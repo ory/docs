@@ -18,7 +18,7 @@
     "format": "prettier --write ${npm_package_config_prettierTarget}",
     "format:check": "prettier --check ${npm_package_config_prettierTarget}",
     "test": "playwright test",
-    "test:unit": "jest --passWithNoTests"
+    "test:unit": "jest tests/jest --maxConcurrency=8 --bail 1"
   },
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^9.0.9",
@@ -41,6 +41,7 @@
     "json-loader": "^0.5.7",
     "json-schema-faker": "^0.5.0-rcv.41",
     "mermaid": "8.13.8",
+    "net": "^1.0.2",
     "node-fetch": "2.6.7",
     "ory-prettier-styles": "1.1.2",
     "parser-front-matter": "1.6.4",
@@ -55,6 +56,7 @@
     "remarkable": "2.0.1",
     "semver": "^7.3.5",
     "sync-request": "6.1.0",
+    "tls": "^0.0.1",
     "url-loader": "4.1.1"
   },
   "browserslist": {
@@ -69,13 +71,20 @@
       "last 1 safari version"
     ]
   },
+  "optionalDependencies": {
+    "@swc/core-darwin-x64": "^1.2.139"
+  },
   "devDependencies": {
     "@playwright/test": "^1.18.1",
+    "@swc/core": "^1.2.139",
     "@swc/jest": "^0.2.17",
     "@types/jest": "^27.4.0",
+    "axios-retry": "^3.2.4",
     "fast-xml-parser": "^4.0.2",
+    "jasmine-fail-fast": "^2.0.1",
     "jest": "^27.5.1",
     "npm-run-all": "^4.1.5",
+    "path-to-regexp": "^6.2.0",
     "raw-loader": "^4.0.2",
     "text-runner": "^5.0.0",
     "wait-on": "^6.0.0",
