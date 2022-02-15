@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react'
 import { Configuration, Project, V0alpha0Api } from '@ory/client'
 import { Octokit } from '@octokit/rest'
-
-const sdk = new V0alpha0Api(new Configuration({
-  basePath: process.env.CLOUD_URL || 'https://api.console.ory:8080',
-  baseOptions: {
-    withCredentials: true
-  }
-}))
+import useDocusaurusContext from '@docusaurus/core/lib/client/exports/useDocusaurusContext'
 
 export function getSdkUrl() {
   const [project, setProject] = useState<Project | undefined>()
+  const { siteConfig } = useDocusaurusContext()
+
+  const sdk = new V0alpha0Api(new Configuration({
+    basePath: String(siteConfig.customFields.CLOUD_URL),
+    baseOptions: {
+      withCredentials: true
+    }
+  }))
 
   useEffect(() => {
     sdk.listProjects().then(({ data: projects }) => {
@@ -58,7 +60,7 @@ export function useLatestRelease(repo: string, fallback = '<version-you-want>') 
   const [release, setRelease] = useState<string>(fallback)
 
   useEffect(() => {
-    octokit.repos.listReleases( {
+    octokit.repos.listReleases({
       owner: 'ory',
       repo,
       per_page: 100

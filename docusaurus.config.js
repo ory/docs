@@ -50,6 +50,9 @@ const prismThemeLight = {
 }
 
 module.exports = {
+  customFields: {
+    'CLOUD_URL': process.env.CLOUD_URL || 'https://api.console.ory:8080'
+  },
   title: 'Ory',
   tagline: 'Open Source Identity and Access Infrastructure',
   url: `https://www.ory.sh/`,
@@ -160,7 +163,6 @@ module.exports = {
     require.resolve('./src/plugins/ory-scripts-loader'),
     require.resolve('./src/plugins/docusaurus-plugin-matamo'),
     '@docusaurus/plugin-sitemap',
-    'docusaurus2-dotenv',
     [
       '@docusaurus/plugin-client-redirects',
       {
