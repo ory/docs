@@ -55,7 +55,7 @@ module.exports = {
   },
   title: 'Ory',
   tagline: 'Open Source Identity and Access Infrastructure',
-  url: `https://www.ory.sh/`,
+  url: `https://www.ory.sh/docs/`,
   baseUrl: '/docs/',
   favicon: 'img/favico.png',
   onBrokenLinks: 'error',
@@ -92,8 +92,8 @@ module.exports = {
       hideOnScroll: false,
       logo: {
         alt: 'Ory',
-        src: `docs/img/logo-docs.svg`,
-        srcDark: `docs/img/logo-docs.svg`,
+        src: `/docs/img/logo-docs.svg`,
+        srcDark: `/docs/img/logo-docs.svg`,
         href: `https://www.ory.sh/docs`
       },
       items: [
