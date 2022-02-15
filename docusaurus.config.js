@@ -51,7 +51,7 @@ const prismThemeLight = {
 
 module.exports = {
   customFields: {
-    'CLOUD_URL': process.env.CLOUD_URL || 'https://api.console.ory:8080'
+    CLOUD_URL: process.env.CLOUD_URL || 'https://api.console.ory:8080'
   },
   title: 'Ory',
   tagline: 'Open Source Identity and Access Infrastructure',
