@@ -167,7 +167,7 @@ module.exports = {
         redirects: [
           {
             from: '/',
-            to: '/docs',
+            to: '/docs'
           }
         ]
       }
