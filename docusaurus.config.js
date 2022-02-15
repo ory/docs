@@ -74,7 +74,7 @@ module.exports = {
     },
     announcementBar: {
       id: 'supportus',
-      content: `Sign up for your <a href="https://console.ory.sh/registration?preferred_plan=start-up&utm_source=docs&utm_medium=banner&utm_campaign=top-banner-first900">Ory Start Up plan free for a year</a> by using <code>FIRST900</code> during the sign up!`
+      content: `Sign up for your <a href='https://console.ory.sh/registration?preferred_plan=start-up&utm_source=docs&utm_medium=banner&utm_campaign=top-banner-first900'>Ory Start Up plan free for a year</a> by using <code>FIRST900</code> during the sign up!`
     },
     algolia: {
       appId: 'V2EFIWEJ25',
@@ -161,15 +161,17 @@ module.exports = {
     require.resolve('./src/plugins/docusaurus-plugin-matamo'),
     '@docusaurus/plugin-sitemap',
     'docusaurus2-dotenv',
-    '@docusaurus/plugin-client-redirects',
-    {
-      redirects: [
-        {
-          to: '/',
-          from: '/docs',
-        },
-      ]
-    }
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        redirects: [
+          {
+            from: '/',
+            to: '/docs',
+          }
+        ]
+      }
+    ]
   ],
   themes: [
     [
