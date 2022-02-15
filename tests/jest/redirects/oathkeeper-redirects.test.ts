@@ -1,10 +1,7 @@
-import { readSitemapXML, Sitemap, getLoc, getNewURL } from './utils'
+import { readSitemapXML, Sitemap, getLoc, getNewURL, runTest } from './utils'
 
 const sitemap = readSitemapXML('sitemap_oathkeeper.xml')
 
-describe('docs sitemap', () => {
-  it.each(sitemap)('loc %s => %s', async (loc) => {
-      const { status } = await getLoc(loc)
-    expect(status).toEqual(200)
-    })
+it('test oathkeeper sitemap', async () => {
+  await runTest(sitemap)
 })

@@ -2,10 +2,10 @@ import { readFileSync } from 'fs'
 import axios, { AxiosError } from 'axios'
 import { resolve } from 'path'
 import { XMLParser } from 'fast-xml-parser'
-import axiosRetry from 'axios-retry';
+import axiosRetry from 'axios-retry'
 
-const client = axios.create({ timeout: 2500 })
-axiosRetry(client, { retries: 5, shouldResetTimeout: true });
+const client = axios.create({ timeout: 30000 })
+axiosRetry(client, { retries: 5, shouldResetTimeout: true })
 
 const sitemapsDir = resolve(__dirname, '../sitemaps')
 
@@ -49,16 +49,7 @@ export const getLoc: GetLoc = async (url, replace = [oldAddress, newAddress]) =>
         'Accept': 'text/html'
       }
     }).catch((err: AxiosError) => {
-      if (err.message.indexOf('timeout') > -1) {
-        return {
-          timeouted: true,
-          status: 200,
-          headers: {
-            location: '/'
-          }
-        }
-      }
-      return Promise.reject(err)
+    return Promise.reject(err)
   })
   return {
     status: res.status,
@@ -77,9 +68,32 @@ const ignoreUrls = [
   'https://www.ory.sh/keto/docs/search',
   'https://www.ory.sh/kratos/docs/v0.1',
   'https://www.ory.sh/kratos/docs/v0.2',
+  'https://www.ory.sh/kratos/docs/v0.3',
   'https://www.ory.sh/kratos/docs/v0.4',
   'https://www.ory.sh/kratos/docs/v0.6/concepts/authenticators/look-up-secrets',
   'https://www.ory.sh/kratos/docs/v0.7/concepts/authenticators/look-up-secrets'
 ]
 
-export const readSitemapXML = (filename: string) => parser.parse(readFileSync(resolve(sitemapsDir, filename), 'utf8')).urlset.url.filter(({ loc }) => !Boolean(ignoreUrls.findIndex((ignore) => ignore.indexOf(loc)))).map(({ loc }) => [loc, getNewURL(loc)])
+export const readSitemapXML = (filename: string) => parser.parse(readFileSync(resolve(sitemapsDir, filename), 'utf8')).urlset.url
+  .filter(({ loc }) => {
+    const index = ignoreUrls.findIndex((ignore) => {
+      return loc.indexOf(ignore) > -1
+    })
+    return index === -1
+  }).map(({ loc }) => [loc, getNewURL(loc)])
+
+export async function runTest(sitemap: Array<[string, string]>) {
+  const total = sitemap.length
+  let processed = 0
+  await Promise.all(sitemap.map(async ([src, loc]) =>
+    await getLoc(src).then(({ status }) => {
+      expect(status).toEqual(200)
+      processed++
+      return Promise.resolve()
+    }).catch((err) => {
+      console.error('Failed to redirect from %s to %s with %s', src, loc, err)
+      return Promise.reject(err)
+    })
+  ))
+  expect(processed).toEqual(total)
+}
