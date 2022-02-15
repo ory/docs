@@ -3,7 +3,7 @@ import { Configuration, Project, V0alpha0Api } from '@ory/client'
 import { Octokit } from '@octokit/rest'
 
 const sdk = new V0alpha0Api(new Configuration({
-  basePath: 'https://api.console.ory:8080',
+  basePath: process.env.CLOUD_URL || 'https://api.console.ory:8080',
   baseOptions: {
     withCredentials: true
   }
