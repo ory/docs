@@ -3,7 +3,7 @@
     "silent": true
   },
   "cleanUrls": true,
-  "trailingSlash": true,
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/",

@@ -55,7 +55,7 @@ module.exports = {
   },
   title: 'Ory',
   tagline: 'Open Source Identity and Access Infrastructure',
-  url: `https://www.ory.sh/docs/`,
+  url: `https://www.ory.sh`,
   baseUrl: '/docs/',
   favicon: 'img/favico.png',
   onBrokenLinks: 'error',
