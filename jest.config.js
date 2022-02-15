@@ -5,5 +5,5 @@ module.exports = {
   transform: {
     '^.+\\.[jt]sx?$': '@swc/jest'
   },
-  testTimeout: 30000,
+  testTimeout: 30000
 }

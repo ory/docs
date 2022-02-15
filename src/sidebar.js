@@ -294,12 +294,7 @@ module.exports = {
           ]
         },
         {
-          SDKs: [
-            'hydra/sdk',
-            'hydra/sdk/go',
-            'hydra/sdk/js',
-            'hydra/sdk/php'
-          ]
+          SDKs: ['hydra/sdk', 'hydra/sdk/go', 'hydra/sdk/js', 'hydra/sdk/php']
         },
         {
           Development: ['hydra/milestones']

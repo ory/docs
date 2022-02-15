@@ -52,7 +52,9 @@ If configuration key `dsn` (Data Source Name) is prefixed with `postgres://`,
 then PostgreSQL will be used as storage backend. An exemplary configuration
 would look like this: `DSN=postgres://user:password@host:123/database`
 
-All parameters [supported by `libpq`](https://www.postgresql.org/docs/9.6/libpq-connect.html) are supported by Ory Kratos as well. In particular but not exclusively:
+All parameters
+[supported by `libpq`](https://www.postgresql.org/docs/9.6/libpq-connect.html)
+are supported by Ory Kratos as well. In particular but not exclusively:
 
 - `max_conns` (number): Sets the maximum number of open connections to the
   database. Defaults to the number of CPU cores times 2.
