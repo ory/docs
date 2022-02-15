@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Form from '@rjsf/core'
 import axios from 'axios'
 import RefParser from '@apidevtools/json-schema-ref-parser'
+import Form from "@rjsf/material-ui";
 
 export default function ConfigEditor(props: { url: any }) {
   const [schema, setSchema] = useState<any>()
@@ -22,5 +22,8 @@ export default function ConfigEditor(props: { url: any }) {
     return null
   }
 
-  return <Form schema={schema} liveValidate={true} />
+  return (
+    <div className="bootstrap">
+      <Form schema={schema} liveValidate={true} />
+    </div>)
 }

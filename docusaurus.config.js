@@ -174,7 +174,8 @@ module.exports = {
     [
       '@docusaurus/theme-classic',
       {
-        customCss: [require.resolve('./src/css/theme.css')]
+        customCss: [require.resolve('./src/css/theme.css')],
+        respectPrefersColorScheme: true
       }
     ],
     '@docusaurus/theme-search-algolia',
