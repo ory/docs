@@ -181,6 +181,6 @@ module.exports = {
     'docusaurus-theme-redoc'
   ],
   scripts: [
-    // '/docs/scripts/redirect.js',
+    '/docs/scripts/redirect.js',
   ],
 }
