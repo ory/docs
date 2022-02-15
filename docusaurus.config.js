@@ -182,6 +182,6 @@ module.exports = {
   ],
   scripts: [
     // Needed as a workaround for https://answers.netlify.com/t/trailing-slash-missing-on-proxied-netlify-site/36367
-    '/docs/scripts/redirect.js',
-  ],
+    '/docs/scripts/redirect.js'
+  ]
 }
