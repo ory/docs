@@ -11,6 +11,11 @@
       "permanent": false
     },
     {
+      "source": "/docs",
+      "destination": "/docs/",
+      "permanent": false
+    },
+    {
       "source": "/keto/docs/v0.5/engines(/|)",
       "destination": "https://github.com/ory/keto/blob/v0.7.0-alpha.1/docs/versioned_docs/version-v0.5/engines/index.md",
       "permanent": false
