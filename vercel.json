@@ -301,6 +301,11 @@
       "permanent": false
     },
     {
+      "source": "/docs/kratos/two-factor-authentication-2fa-mfa",
+      "destination": "/docs/kratos/guides/two-factor-authentication-2fa-mfa",
+      "permanent": false
+    },
+    {
       "source": "/docs/start-building/server-side-web-app",
       "destination": "/docs/guides/protect-page-login/expressjs",
       "permanent": false

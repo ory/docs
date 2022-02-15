@@ -71,4 +71,4 @@ const ignoreUrls = [
   'https://www.ory.sh/kratos/docs/v0.7/concepts/authenticators/look-up-secrets'
 ]
 
-export const readSitemapXML = (filename: string) => parser.parse(readFileSync(resolve(sitemapsDir, filename), 'utf8')).urlset.url.filter(({ loc }) => ignoreUrls.indexOf(loc) === -1).map(({ loc }) => [loc, getNewURL(loc)])
+export const readSitemapXML = (filename: string) => parser.parse(readFileSync(resolve(sitemapsDir, filename), 'utf8')).urlset.url.filter(({ loc }) => Boolean(ignoreUrls.findIndex((ignore) => ignore.indexOf(loc)))).map(({ loc }) => [loc, getNewURL(loc)])
