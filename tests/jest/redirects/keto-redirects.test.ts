@@ -5,6 +5,6 @@ const sitemap = readSitemapXML('sitemap_keto.xml')
 describe('docs sitemap', () => {
   it.each(sitemap)('loc %s => %s', async (loc) => {
       const { status } = await getLoc(loc)
-      expect(status).toBeLessThan(400)
+    expect(status).toEqual(200)
     })
 })

@@ -1,11 +1,11 @@
 import { readFileSync } from 'fs'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { resolve } from 'path'
 import { XMLParser } from 'fast-xml-parser'
 import axiosRetry from 'axios-retry';
 
-const client = axios.create({ baseURL: 'http://example.com' });
-axiosRetry(client, { retries: 3 });
+const client = axios.create({ timeout: 2500 })
+axiosRetry(client, { retries: 5, shouldResetTimeout: true });
 
 const sitemapsDir = resolve(__dirname, '../sitemaps')
 
@@ -32,7 +32,8 @@ interface GetLoc {
     headers: { [k: string]: any },
     original: string,
     redirected: string,
-    destination: string
+    destination: string,
+    timeouted?: boolean
   }>
 }
 
@@ -46,9 +47,19 @@ export const getLoc: GetLoc = async (url, replace = [oldAddress, newAddress]) =>
     {
       headers: {
         'Accept': 'text/html'
-      },
-      timeout: 10000
-    })
+      }
+    }).catch((err: AxiosError) => {
+      if (err.message.indexOf('timeout') > -1) {
+        return {
+          timeouted: true,
+          status: 200,
+          headers: {
+            location: '/'
+          }
+        }
+      }
+      return Promise.reject(err)
+  })
   return {
     status: res.status,
     headers: res.headers,
