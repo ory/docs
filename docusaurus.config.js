@@ -179,5 +179,8 @@ module.exports = {
     ],
     '@docusaurus/theme-search-algolia',
     'docusaurus-theme-redoc'
-  ]
+  ],
+  scripts: [
+    '/docs/scripts/redirect.js',
+  ],
 }
