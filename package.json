@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^9.0.9",
-    "@codesandbox/sandpack-react": "^0.13.10",
     "@docusaurus/core": "2.0.0-beta.15",
     "@docusaurus/plugin-client-redirects": "^2.0.0-beta.15",
     "@docusaurus/plugin-content-docs": "2.0.0-beta.15",
@@ -30,10 +29,8 @@
     "@docusaurus/plugin-sitemap": "2.0.0-beta.15",
     "@docusaurus/theme-classic": "2.0.0-beta.15",
     "@docusaurus/theme-search-algolia": "2.0.0-beta.15",
-    "@octokit/graphql": "^4.8.0",
     "@octokit/rest": "^18.12.0",
     "@ory/client": "0.0.1-alpha.74",
-    "@ory/integrations": "^0.2.2",
     "@rjsf/core": "^3.2.1",
     "axios": "^0.25.0",
     "classnames": "2.3.1",
@@ -57,7 +54,6 @@
     "remark-admonitions": "1.2.1",
     "remarkable": "2.0.1",
     "semver": "^7.3.5",
-    "sync-request": "6.1.0",
     "tls": "^0.0.1",
     "url-loader": "4.1.1"
   },
@@ -74,13 +70,12 @@
     ]
   },
   "optionalDependencies": {
-    "@swc/core-darwin-x64": "^1.2.139",
-    "@swc/core": "^1.2.139",
-    "@swc/jest": "^0.2.17",
-    "babel-register": "^6.26.0"
+    "@swc/core-darwin-x64": "^1.2.139"
   },
   "devDependencies": {
     "@playwright/test": "^1.18.1",
+    "@swc/core": "^1.2.139",
+    "@swc/jest": "^0.2.17",
     "@types/jest": "^27.4.0",
     "axios-retry": "^3.2.4",
     "fast-xml-parser": "^4.0.2",
