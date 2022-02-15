@@ -53,7 +53,7 @@ module.exports = {
   title: 'Ory',
   tagline: 'Open Source Identity and Access Infrastructure',
   url: `https://www.ory.sh/`,
-  baseUrl: '/',
+  baseUrl: '/docs/',
   favicon: 'img/favico.png',
   onBrokenLinks: 'error',
   onBrokenMarkdownLinks: 'error',
@@ -89,9 +89,9 @@ module.exports = {
       hideOnScroll: false,
       logo: {
         alt: 'Ory',
-        src: `img/logo-docs.svg`,
-        srcDark: `img/logo-docs.svg`,
-        href: `https://www.ory.sh`
+        src: `docs/img/logo-docs.svg`,
+        srcDark: `docs/img/logo-docs.svg`,
+        href: `https://www.ory.sh/docs`
       },
       items: [
         {
@@ -148,7 +148,7 @@ module.exports = {
         sidebarPath: require.resolve('./src/sidebar.js'),
         editUrl: `https://github.com/ory/docs/edit/master/docs`,
         // editCurrentVersion: false,
-        routeBasePath: '/docs/',
+        routeBasePath: '/',
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
         disableVersioning: false,
