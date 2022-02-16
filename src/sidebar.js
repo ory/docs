@@ -1,6 +1,6 @@
 module.exports = {
   docs: [
-    'index',
+    'welcome',
     {
       type: 'category',
       label: 'Guides',

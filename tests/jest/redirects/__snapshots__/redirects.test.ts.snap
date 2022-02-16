@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should ensure the regex is ok 1`] = `
+Array [
+  "/docs/hydra/v1.9/foo",
+  "v1.9",
+  "foo",
+]
+`;
+
+exports[`should ensure the regex is ok 2`] = `
+Array [
+  "/docs/hydra/v1.9/",
+  "v1.9",
+  undefined,
+]
+`;
+
+exports[`should ensure the regex is ok 3`] = `
+Array [
+  "/docs/kratos/v0.8/self-service/flows/user-settings/",
+  "v0.8",
+  "self-service/flows/user-settings",
+]
+`;
+
+exports[`should ensure the regex is ok 4`] = `
+Array [
+  "/docs/kratos/next/self-service/flows/user-settings/",
+  "next",
+  "self-service/flows/user-settings",
+]
+`;

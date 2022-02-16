@@ -3,31 +3,31 @@
     "silent": true
   },
   "cleanUrls": true,
-  "trailingSlash": true,
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/",
-      "destination": "https://www.ory.sh/docs/",
+      "destination": "https://www.ory.sh/docs",
       "permanent": false
     },
     {
-      "source": "/docs",
-      "destination": "https://www.ory.sh/docs/",
+      "source": "/docs(/|)",
+      "destination": "https://www.ory.sh/docs/welcome",
       "permanent": false
     },
     {
-      "source": "/keto/docs/v0.5/engines(/|)",
-      "destination": "https://www.ory.shhttps://github.com/ory/keto/blob/v0.7.0-alpha.1/docs/versioned_docs/version-v0.5/engines/index.md",
+      "source": "/keto/docs/v0.5/engines",
+      "destination": "https://github.com/ory/keto/blob/v0.7.0-alpha.1/docs/versioned_docs/version-v0.5/engines/index.md",
       "permanent": false
     },
     {
       "source": "/keto/docs/v0.5/engines/:engine",
-      "destination": "https://www.ory.shhttps://github.com/ory/keto/blob/v0.7.0-alpha.1/docs/versioned_docs/version-v0.5/engines/:engine.md",
+      "destination": "https://github.com/ory/keto/blob/v0.7.0-alpha.1/docs/versioned_docs/version-v0.5/engines/:engine.md",
       "permanent": false
     },
     {
       "source": "/keto/docs/v0.5/configure-deploy",
-      "destination": "https://www.ory.shhttps://github.com/ory/keto/blob/v0.7.0-alpha.1/docs/versioned_docs/version-v0.5/configure-deploy.md",
+      "destination": "https://github.com/ory/keto/blob/v0.7.0-alpha.1/docs/versioned_docs/version-v0.5/configure-deploy.md",
       "permanent": false
     },
     {
@@ -36,7 +36,7 @@
       "permanent": false
     },
     {
-      "source": "/oathkeeper/docs(|/)",
+      "source": "/oathkeeper/docs",
       "destination": "https://www.ory.sh/docs/oathkeeper",
       "permanent": false
     },
@@ -46,7 +46,7 @@
       "permanent": false
     },
     {
-      "source": "/docs/oathkeeper/:version(v[0-9.]+|next)",
+      "source": "/docs/oathkeeper/:version(v[0-9.]+|v[0-9.]+/|next|next/)",
       "destination": "https://www.ory.sh/docs/oathkeeper",
       "permanent": false
     },
@@ -56,7 +56,7 @@
       "permanent": false
     },
     {
-      "source": "/hydra/docs(|/)",
+      "source": "/hydra/docs",
       "destination": "https://www.ory.sh/docs/hydra",
       "permanent": false
     },
@@ -66,7 +66,7 @@
       "permanent": false
     },
     {
-      "source": "/docs/hydra/:version(v[0-9.]+|next)",
+      "source": "/docs/hydra/:version(v[0-9.]+|v[0-9.]+/|next|next/)",
       "destination": "https://www.ory.sh/docs/hydra",
       "permanent": false
     },
@@ -76,7 +76,7 @@
       "permanent": false
     },
     {
-      "source": "/keto/docs(|/)",
+      "source": "/keto/docs",
       "destination": "https://www.ory.sh/docs/keto",
       "permanent": false
     },
@@ -86,7 +86,7 @@
       "permanent": false
     },
     {
-      "source": "/docs/keto/:version(v[0-9.]+|next)",
+      "source": "/docs/keto/:version(v[0-9.]+|v[0-9.]+/|next|next/)",
       "destination": "https://www.ory.sh/docs/keto",
       "permanent": false
     },
@@ -96,7 +96,7 @@
       "permanent": false
     },
     {
-      "source": "/kratos/docs(|/)",
+      "source": "/kratos/docs",
       "destination": "https://www.ory.sh/docs/kratos",
       "permanent": false
     },
@@ -106,7 +106,7 @@
       "permanent": false
     },
     {
-      "source": "/docs/kratos/:version(v[0-9.]+|next)",
+      "source": "/docs/kratos/:version(v[0-9.]+|v[0-9.]+/|next|next/)",
       "destination": "https://www.ory.sh/docs/kratos",
       "permanent": false
     },
@@ -128,11 +128,6 @@
     {
       "source": "/docs/start-building/server-side-web-app",
       "destination": "https://www.ory.sh/docs/guides/protect-page-login",
-      "permanent": false
-    },
-    {
-      "source": "/",
-      "destination": "https://www.ory.sh/docs/",
       "permanent": false
     },
     {
@@ -187,42 +182,42 @@
     },
     {
       "source": "/docs/keto/milestones",
-      "destination": "https://www.ory.shhttps://github.com/ory/keto/milestones",
+      "destination": "https://github.com/ory/keto/milestones",
       "permanent": false
     },
     {
       "source": "/docs/kratos/milestones",
-      "destination": "https://www.ory.shhttps://github.com/ory/kratos/milestones",
+      "destination": "https://github.com/ory/kratos/milestones",
       "permanent": false
     },
     {
       "source": "/docs/oathkeeper/milestones",
-      "destination": "https://www.ory.shhttps://github.com/ory/oathkeeper/milestones",
+      "destination": "https://github.com/ory/oathkeeper/milestones",
       "permanent": false
     },
     {
       "source": "/docs/hydra/milestones",
-      "destination": "https://www.ory.shhttps://github.com/ory/hydra/milestones",
+      "destination": "https://github.com/ory/hydra/milestones",
       "permanent": false
     },
     {
       "source": "/docs/hydra/(CHANGELOG|changelog)",
-      "destination": "https://www.ory.shhttps://github.com/ory/hydra/blob/master/CHANGELOG.md",
+      "destination": "https://github.com/ory/hydra/blob/master/CHANGELOG.md",
       "permanent": false
     },
     {
       "source": "/docs/keto/(CHANGELOG|changelog)",
-      "destination": "https://www.ory.shhttps://github.com/ory/keto/blob/master/CHANGELOG.md",
+      "destination": "https://github.com/ory/keto/blob/master/CHANGELOG.md",
       "permanent": false
     },
     {
       "source": "/docs/oathkeeper/(CHANGELOG|changelog)",
-      "destination": "https://www.ory.shhttps://github.com/ory/oathkeeper/blob/master/CHANGELOG.md",
+      "destination": "https://github.com/ory/oathkeeper/blob/master/CHANGELOG.md",
       "permanent": false
     },
     {
       "source": "/docs/kratos/(CHANGELOG|changelog)",
-      "destination": "https://www.ory.shhttps://github.com/ory/kratos/blob/master/CHANGELOG.md",
+      "destination": "https://github.com/ory/kratos/blob/master/CHANGELOG.md",
       "permanent": false
     },
     {

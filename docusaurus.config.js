@@ -166,7 +166,12 @@ module.exports = {
     [
       '@docusaurus/plugin-client-redirects',
       {
-        redirects: []
+        redirects: [
+          // {
+          // from: ['/','/docs','/docs/'],
+          // to: '/docs/welcome'
+          // }
+        ]
       }
     ]
   ],
