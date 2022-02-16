@@ -27,7 +27,7 @@ the `--watch-courier` flag to your `kratos serve` command, as outlined in the
 
 ### Multi-instance
 
-If you're running multiple instances of Kratos (eg replicated Kubernetes
+If you're running multiple instances of Kratos (e.g. replicated Kubernetes
 deployment), you need to run the mail courier as a separate singleton job. The
 courier can be started with the `kratos courier watch` command
 ([CLI docs](../cli/kratos-courier.md)).
@@ -59,7 +59,8 @@ courier:
 
 ### Sender Address and Template Customization
 
-You can customize the sender address and email templates.
+You can customize the sender address and email templates by overriding path to
+the templates folder. See more about custom templates in templates section.
 
 ```yaml title="path/to/my/kratos/config.yml"
 # $ kratos -c path/to/my/kratos/config.yml serve
@@ -132,6 +133,112 @@ courier:
     recovery:
       # the configuration structure is the same as the verification
 ```
+
+### Custom Headers
+
+You can configure custom SMTP headers. For example, if integrating with AWS SES
+SMTP interface, the headers can be configured for cross-account sending:
+
+```yaml title="path/to/my/kratos/config.yml"
+# $ kratos -c path/to/my/kratos/config.yml serve
+courier:
+  smtp:
+    headers:
+      X-SES-SOURCE-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
+      X-SES-FROM-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
+      X-SES-RETURN-PATH-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
+```
+
+## Sending SMS
+
+For sending SMS Ory Kratos uses an external SMS gateway, which must have HTTP
+API (such as Twilio, your local SMS sender, or your own microservice). Request
+method, headers, body, and content-type are fully configurable using options
+below.
+
+### Configuration
+
+Default configuration of Ory Kratos does not include sending SMS. To enable it
+you need to set "enabled" flag to true, sender URL, authorization (if needed)
+and request body format.
+
+#### Sender phone number
+
+SMS message will come to the recipient from this phone number. Depending on your
+SMS sender settings you can use letters here (for example "Your Org Name").
+Default value is equal to "Ory Kratos".
+
+```yaml title="path/to/my/kratos/config.yml"
+# $ kratos -c path/to/my/kratos/config.yml serve
+courier:
+  sms:
+    from: '+12065550110'
+```
+
+#### Request configuration
+
+```yaml title="path/to/my/kratos/config.yml"
+# $ kratos -c path/to/my/kratos/config.yml serve
+courier:
+  sms:
+    request_config:
+      url: https://api.twilio.com/2010-04-01/Accounts/YourAccountID/Messages.json
+      method: POST
+      body: file://./path/to/path/to/my/kratos/config/twilio.request.jsonnet
+      header:
+        'Content-Type': 'application/x-www-form-urlencoded'
+      auth:
+        type: basic_auth
+        config:
+          user: YourUsername
+          password: YourPass
+```
+
+The configuration consists of:
+
+- `url` - the URL, which should be called (mandatory). It needs to be absolute,
+  start with http:// or https:// scheme, and include path part - e.g.
+  "https://api.sender.com/v1/message".
+- `method` - the HTTP method (GET, POST, ...) (mandatory)
+- `body` - URI of a JsonNet template, used to render the payload to send
+  (optional). Use a `file://path/to/body.jsonnet` URL for referring to local
+  files. This property is ignored for HTTP `method`s, which do not support
+  sending of HTTP body payloads (TRACE).
+- `auth` - configuration of authentication and authorization mechanisms to be
+  used by request
+
+Courier binds the `From`, `To`, and `Body` variables into the JsonNet template.
+These variables are available through a `ctx` object. E.g. to create a body
+looking like `{ To: <some-number> }` to be sent to the SMS provider endpoint,
+the jsonnet template would look like this: `function(ctx) { To: ctx.To }`
+
+#### Authentication and Authorization
+
+For `auth` following mechanisms are supported:
+
+- Authentication via an Api Key. Type must be set to `api_key`.
+- Authentication via Basic Authentication. Type must be set to `basic_auth`.
+
+For `api_key` the config looks as follows:
+
+```yaml
+name: Some-Name
+value: The-Value-of-My-Key
+in: header # alternatively cookie
+```
+
+All properties are mandatory.
+
+For `basic_auth` the config looks as follows:
+
+```yaml
+user: My-User
+password: My-Pass-Value
+```
+
+All properties are mandatory.
+
+## Message templates
 
 Ory Kratos comes with built-in templates. If you wish to define your own, custom
 templates, you can use two methods.
@@ -307,7 +414,3 @@ courier:
       X-SES-RETURN-PATH-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
 ```
 
-## Sending SMS
-
-The Sending SMS feature is not supported at present. It will be available in a
-future version of Ory Kratos.
