@@ -574,9 +574,9 @@ validation errors such as a malformed email:
 
 <CodeTabs items={getFlowMethodLinkWithErrors} />
 
-When validation errors happen, browser clients receive a HTTP 303 See Other redirect
-to the Verification Flow UI, containing the Verification Flow ID which includes
-the error payloads.
+When validation errors happen, browser clients receive a HTTP 303 See Other
+redirect to the Verification Flow UI, containing the Verification Flow ID which
+includes the error payloads.
 
 For API Clients, the server typically responds with HTTP 400 Bad Request and the
 Verification Flow in the response payload as JSON.
