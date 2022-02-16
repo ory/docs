@@ -41,12 +41,12 @@
       "permanent": false
     },
     {
-      "source": "/docs/oathkeeper/:version(v[0-9\\.]+|next)/:path*",
+      "source": "/docs/oathkeeper/:version(v[0-9.]+|next)/:path*",
       "destination": "https://www.ory.sh/docs/oathkeeper/:path",
       "permanent": false
     },
     {
-      "source": "/docs/oathkeeper/:version(v[0-9\\.]+|next)",
+      "source": "/docs/oathkeeper/:version(v[0-9.]+|next)",
       "destination": "https://www.ory.sh/docs/oathkeeper",
       "permanent": false
     },
@@ -61,12 +61,12 @@
       "permanent": false
     },
     {
-      "source": "/docs/hydra/:version(v[0-9\\.]+|next)/:path*",
+      "source": "/docs/hydra/:version(v[0-9.]+|next)/:path*",
       "destination": "https://www.ory.sh/docs/hydra/:path",
       "permanent": false
     },
     {
-      "source": "/docs/hydra/:version(v[0-9\\.]+|next)",
+      "source": "/docs/hydra/:version(v[0-9.]+|next)",
       "destination": "https://www.ory.sh/docs/hydra",
       "permanent": false
     },
@@ -81,12 +81,12 @@
       "permanent": false
     },
     {
-      "source": "/docs/keto/:version(v[0-9\\.]+|next)/:path*",
+      "source": "/docs/keto/:version(v[0-9.]+|next)/:path*",
       "destination": "https://www.ory.sh/docs/keto/:path",
       "permanent": false
     },
     {
-      "source": "/docs/keto/:version(v[0-9\\.]+|next)",
+      "source": "/docs/keto/:version(v[0-9.]+|next)",
       "destination": "https://www.ory.sh/docs/keto",
       "permanent": false
     },
@@ -101,12 +101,12 @@
       "permanent": false
     },
     {
-      "source": "/docs/kratos/:version(v[0-9\\.]+|next)/:path*",
+      "source": "/docs/kratos/:version(v[0-9.]+|next)/:path*",
       "destination": "https://www.ory.sh/docs/kratos/:path",
       "permanent": false
     },
     {
-      "source": "/docs/kratos/:version(v[0-9\\.]+|next)",
+      "source": "/docs/kratos/:version(v[0-9.]+|next)",
       "destination": "https://www.ory.sh/docs/kratos",
       "permanent": false
     },
