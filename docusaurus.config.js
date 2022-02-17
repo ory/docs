@@ -149,7 +149,7 @@ module.exports = {
       {
         path: 'docs',
         sidebarPath: require.resolve('./src/sidebar.js'),
-        editUrl: `https://github.com/ory/docs/edit/master/docs`,
+        editUrl: `https://github.com/ory/docs/edit/master`,
         // editCurrentVersion: false,
         routeBasePath: '/',
         showLastUpdateAuthor: true,
