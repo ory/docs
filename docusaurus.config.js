@@ -83,10 +83,7 @@ module.exports = {
       appId: 'V2EFIWEJ25',
       apiKey: 'dc6b220f7d2bcd12da60b9cce431d8c5',
       indexName: 'ory',
-      contextualSearch: true,
-      searchParameters: {
-        facetFilters: [[`tags:docs`]]
-      }
+      contextualSearch: true
     },
     navbar: {
       hideOnScroll: false,
