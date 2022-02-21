@@ -11,15 +11,15 @@ binaries, Docker images, and support various package managers.
 If you have a NodeJS project you can install the Ory CLI globally using:
 
 ```
-$ npm i -g @ory/cli
-$ ory help
+npm i -g @ory/cli
+ory help
 ```
 
 Or as a development dependency for a NodeJS project:
 
 ```
-$ npm i -D @ory/cli
-$ npx ory help
+npm i -D @ory/cli
+npx ory help
 ```
 
 ## Install on macOS
@@ -27,8 +27,8 @@ $ npx ory help
 You can install Ory CLI using [homebrew](https://brew.sh/) on macOS:
 
 ```shell
-$ brew install ory/tap/cli
-$ ory help
+brew install ory/tap/cli
+ory help
 ```
 
 ## Install on Linux
@@ -37,15 +37,15 @@ On linux, you can use `bash <(curl ...)` to fetch the latest stable binary
 using:
 
 ```shell
-$ bash <(curl https://raw.githubusercontent.com/ory/meta/master/install.sh) -b . ory
-$ ./ory help
+bash <(curl https://raw.githubusercontent.com/ory/meta/master/install.sh) -b . ory
+./ory help
 ```
 
 You may want to move the Ory CLI to your `$PATH`:
 
 ```shell
-$ sudo mv ./ory /usr/local/bin/
-$ ory help
+sudo mv ./ory /usr/local/bin/
+ory help
 ```
 
 ## Install on Windows
@@ -69,7 +69,7 @@ variable yourself or put the binary in a location that is already in your
 Once installed, you should be able to run:
 
 ```shell
-$ ory help
+ory help
 ```
 
 ## Docker
@@ -84,6 +84,6 @@ may not work!
 :::
 
 ```shell
-$ docker pull oryd/ory
-$ docker run --rm -it oryd/ory help
+docker pull oryd/ory
+docker run --rm -it oryd/ory help
 ```
