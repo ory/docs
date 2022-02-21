@@ -189,8 +189,8 @@ documentation. For email addresses and names, use:
 When including sample URLs in the documentation, use:
 
 - `example.com` when the domain name is generic.
-- `ory.sh` when referring to self-hosted Ory. Use `ory.sh` for
-  Ory Cloud projects.
+- `ory.sh` when referring to self-hosted Ory. Use `ory.sh` for Ory Cloud
+  projects.
 
 ### Fake tokens
 

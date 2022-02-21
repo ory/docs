@@ -15,6 +15,7 @@ sidebar_label: Document Sidebar Label
 ```
 
 More templates to be done:
+
 - Guide Template
 - Concept Document Template
 - Troubleshooting Template
