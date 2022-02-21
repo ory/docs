@@ -10,8 +10,7 @@ formatting, word use, and more.
 In addition to this page, the following resources can help you craft and
 contribute to documentation:
 
-- Recommended word list
-- [Doc style and consistency testing](../testing.md)
+- [Doc style and consistency testing](testing.md)
 - [UI text guidelines](https://design.gitlab.com/content/error-messages/)
 - [Gitlab Handbook](https://about.gitlab.com/handbook/)
 - [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/)
@@ -122,7 +121,7 @@ permitted if:
 
 Ory ensures that the Markdown used across all documentation is consistent, as
 well as easy to review and maintain by
-[testing documentation changes](../testing.md).
+[testing documentation changes](testing.md).
 
 ## Language
 
@@ -786,7 +785,7 @@ extensively cited or peer-reviewed.
 > TODO
 
 UI elements, like button and checkbox names, should be **bold**. Guidance for
-each individual UI element is in [the word list](wordlist.md).
+each individual UI element is in [the word list](https://github.com/ory/docs/blob/0533161365f1d8bdca23dcb7ae36a34ea631997a/docs/markdownlint.yml#L31).
 
 ### How to write navigation task steps
 
@@ -949,7 +948,7 @@ ffmpeg -i $file -vcodec h264 -vf scale=1024:-1 -an "${file%.*}".mp4
 Next copy them next to the markdown file you are editing. Then use the following
 code to display the video:
 
-```mdx-code-block
+```md
 import mp4 from './screencast.mp4'
 import webm from './screencast.webm'
 import VideoEmbed from '@site/src/components/VideoEmbed'
