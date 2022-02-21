@@ -1,7 +1,7 @@
 ---
 id: testing
 title: Ory Documentation Testing
-sidebar_label: Documentation Testing
+sidebar_label: Testing
 ---
 
 ## prettier

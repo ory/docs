@@ -1,7 +1,7 @@
 ---
 id: templates
 title: Ory Documentation Templates
-sidebar_label: Documentation Templates
+sidebar_label: Templates
 ---
 
 ### Frontmatter Template

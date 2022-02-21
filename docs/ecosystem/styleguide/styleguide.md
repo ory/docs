@@ -785,7 +785,8 @@ extensively cited or peer-reviewed.
 > TODO
 
 UI elements, like button and checkbox names, should be **bold**. Guidance for
-each individual UI element is in [the word list](https://github.com/ory/docs/blob/0533161365f1d8bdca23dcb7ae36a34ea631997a/docs/markdownlint.yml#L31).
+each individual UI element is in
+[the word list](https://github.com/ory/docs/blob/0533161365f1d8bdca23dcb7ae36a34ea631997a/docs/markdownlint.yml#L31).
 
 ### How to write navigation task steps
 
@@ -949,9 +950,8 @@ Next copy them next to the markdown file you are editing. Then use the following
 code to display the video:
 
 ```md
-import mp4 from './screencast.mp4'
-import webm from './screencast.webm'
-import VideoEmbed from '@site/src/components/VideoEmbed'
+import mp4 from './screencast.mp4' import webm from './screencast.webm' import
+VideoEmbed from '@site/src/components/VideoEmbed'
 
 <VideoEmbed mp4={mp4} webm={webm} />
 ```
