@@ -76,8 +76,9 @@ are supported by Ory Kratos as well. In particular but not exclusively:
   one isn't provided.
 - `connect_timeout` (number): Maximum wait for connection, in seconds. Zero or
   not specified means wait indefinitely.
-- `search_path` (string): specifies the [search path](https://www.postgresql.org/docs/12/ddl-schemas.html),
-   such as the schema.
+- `search_path` (string): specifies the
+  [search path](https://www.postgresql.org/docs/12/ddl-schemas.html), such as
+  the schema.
 - `sslcert` (string): Cert file location. The file must contain PEM encoded
   data.
 - `sslkey` (string): Key file location. The file must contain PEM encoded data.
