@@ -4,10 +4,10 @@ title: Identity Schema, Custom Fields
 ---
 
 The Identity Schema is a JSON Schema which describes your identity's (your
-customers / users / employees ...) fields. In Ory, every identity can have their own
-model, allowing you to separate between different customer types, user types
-(employees and customers). For technical information on Identity Schemas,
-check out the open source documentation:
+customers / users / employees ...) fields. In Ory, every identity can have their
+own model, allowing you to separate between different customer types, user types
+(employees and customers). For technical information on Identity Schemas, check
+out the open source documentation:
 
 - [Identity Schema](https://www.ory.sh/kratos/docs/concepts/identity-schema)
 - [Identity Credentials](https://www.ory.sh/kratos/docs/concepts/credentials)
@@ -31,8 +31,8 @@ enumeration defenses! Do not use it in security-sensitive environments.
 
 :::
 
-With this preset, every identity has just one trait - the `username`.
-The `username` is the login identifier:
+With this preset, every identity has just one trait - the `username`. The
+`username` is the login identifier:
 
 ```json5
 // Identity example
@@ -46,8 +46,8 @@ The `username` is the login identifier:
 
 ### Email & Password
 
-With this preset, identities have just one trait, the `email`. 
-The `email` is the login identifier, for email verification, and for account recovery:
+With this preset, identities have just one trait, the `email`. The `email` is
+the login identifier, for email verification, and for account recovery:
 
 ```json5
 // Identity example
@@ -63,13 +63,12 @@ The `email` is the login identifier, for email verification, and for account rec
 
 :::warning
 
-This profile is EXPERIMENTAL and you should it for PoCs and
-demos.
+This profile is EXPERIMENTAL and you should it for PoCs and demos.
 
 :::
 
-The __Demo Profile__ preset has - like the __Email__ preset - an email
-field, a first name, last name, and a checkbox.
+The **Demo Profile** preset has - like the **Email** preset - an email field, a
+first name, last name, and a checkbox.
 
 ```json5
 // Identity example
