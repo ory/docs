@@ -18,6 +18,12 @@ We use code generation to generate our SDKs. The Go SDK is generated using
 import "github.com/ory/client-go/client"
 ```
 
+To use a proxy, set the environment variable HTTP_PROXY:
+
+```go
+os.Setenv("HTTP_PROXY", "http://proxy_name:proxy_port")
+```
+
 ## Make requests
 
 Making requests is straight forward:
@@ -30,34 +36,21 @@ import (
 )
 
 func main() {
-    adminURL := url.Parse("https://kratos.localhost:4434")
-    kratosAdmin := client.NewHTTPClientWithConfig(nil, &client.TransportConfig{Schemes: []string{adminURL.Scheme}, Host: adminURL.Host, BasePath: adminURL.Path})
+    KratosPublicEndpoint := url.Parse("https://kratos.localhost:4433")
 
-    // this needs to be changed to a kratos request.
-    // It is important to create the parameters using `New...`, otherwise requests will fail!
-    result, err := kratosAdmin.Admin.CreateOAuth2Client(
-        admin.NewCreateOAuth2ClientParams().WithBody(&models.OAuth2Client{
-        ClientID: "scoped",
-    }))
+    flow, _, err := s.KratosPublicEndpoint.V0alpha2Api.GetSelfServiceLoginFlow(r.Context()).Id(flowID).Cookie(cookie).Execute()
     if err != nil {
-        // err is not nil when the request failed (usually a 404, 401, 409 error)
-        // You can distinguish the errors by type-asserting err, for example:
-        switch e := err.(type) {
-        case (*admin.CreateOAuth2ClientConflict):
-            // do something...
-        }
+        writeError(w, http.StatusUnauthorized, err)
+        return
     }
-
-    // if err is nil, then result is set. The result payload/body can be retrieved using result.Payload.
-    fmt.Printf("Got client: %+v", result.Payload)
 }
 ```
 
 ## With Authorization
 
-Some endpoints require e.g. Basic Authorization:
+Some endpoints require authorization:
 
-Code example for deleting an identity using the PAT to interact with Kratos via the admin URL:
+Code example for deleting an identity using the PAT to interact with Kratos via the admin endpoint:
 
 ```go
 ctx := context.Background()
@@ -79,3 +72,55 @@ func (c *Client) DeleteIdentity(ctx context.Context, identityID string) error {
 ```
 For more information on Authorization, check the
 [go-swagger documentation](https://goswagger.io/generate/client.html#authentication).
+
+## Create Identity
+
+Code example for deleting an identity using the PAT to interact with Kratos via the admin URL:
+
+```go
+package ory
+
+import (
+	"context"
+	"errors"
+
+	ory "github.com/ory/kratos-client-go"
+)
+
+type CreateIdentityParams struct {
+	Email    string
+	Password string
+}
+
+// CreateIdentityFlow create an identity with the provided password
+func (c *Client) CreateIdentityFlow(ctx context.Context, params CreateIdentityParams) (string, error) {
+	flow, _, err := c.oryhttpc.V0alpha2Api.InitializeSelfServiceRegistrationFlowWithoutBrowser(ctx).Execute()
+	if err != nil {
+		return "", err
+	}
+
+	result, res, err := c.oryhttpc.V0alpha2Api.SubmitSelfServiceRegistrationFlow(ctx).Flow(flow.Id).SubmitSelfServiceRegistrationFlowBody(
+		ory.SubmitSelfServiceRegistrationFlowWithPasswordMethodBodyAsSubmitSelfServiceRegistrationFlowBody(&ory.SubmitSelfServiceRegistrationFlowWithPasswordMethodBody{
+			Method:   "password",
+			Password: params.Password,
+			Traits: map[string]interface{}{
+				"email": params.Email,
+			},
+		}),
+	).Execute()
+
+	defer res.Body.Close()
+
+	if err != nil {
+		c.logger.Error(err, "")
+		return "", err
+	}
+
+	if result.Session == nil {
+		return "", errors.New("Server did not create a session for the new registration.")
+	}
+
+	return result.Identity.Id, nil
+}
+
+```
