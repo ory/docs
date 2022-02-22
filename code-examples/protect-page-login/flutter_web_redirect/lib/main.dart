@@ -61,13 +61,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Ory ❤ Flutter Web'),
+      home: MyHomePage(title: 'Ory ❤ Flutter Web', auth: auth),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title, required this.auth}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -79,6 +79,8 @@ class MyHomePage extends StatefulWidget {
   // always marked "final".
 
   final String title;
+
+  final AuthService auth;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -133,6 +135,8 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text('Session Information:'+widget.auth.identity.toString(),
+            ),
             const Text(
               'You have pushed the button this many times:',
             ),

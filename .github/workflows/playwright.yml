@@ -31,6 +31,8 @@ jobs:
         flutter-version: '2.8.1'
         channel: 'stable'
     - run: npm install
+    - run: flutter pub get
+    - run: dart pub global activate dhttpd
     - name: Install Playwright
       run: npx playwright install --with-deps
     - name: Run Playwright tests

@@ -16,10 +16,10 @@ test.describe('protect-page-login', () => {
       test('able to use login and sign up', async ({ page }) => {
         await page.goto(app.url, { waitUntil: 'networkidle' });
 
-        expect(page.url()).toContain('/.ory/ui/login')
+        await expect(page).toHaveURL(/.*\/\.ory\/ui\/login.*/);
 
         await page.click('[data-testid="cta-link"]');
-        expect(page.url()).toContain('/.ory/ui/registration')
+        await expect(page).toHaveURL(/.*\/\.ory\/ui\/registration.*/)
 
         const email = randomEmail()
 
@@ -27,7 +27,7 @@ test.describe('protect-page-login', () => {
         await page.fill('[name="password"]', randomString())
         await page.click('[value="password"]')
 
-        expect(page.url()).toEqual(app.url)
+        await expect(page).toHaveURL(app.url)
         await expect(page.locator('body')).toContainText(email)
       });
     })
