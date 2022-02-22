@@ -6,7 +6,7 @@ title: Go
 To install the Go SDK, run:
 
 ```
-go get github.com/ory/kratos-client-go
+go get github.com/ory/client-go
 ```
 
 ## Configuration
@@ -15,7 +15,7 @@ We use code generation to generate our SDKs. The Go SDK is generated using
 [`go-swagger`](http://goswagger.io). Set up the SDK:
 
 ```go
-import "github.com/ory/kratos-client-go/client"
+import "github.com/ory/client-go/client"
 ```
 
 ## Make requests
@@ -24,9 +24,9 @@ Making requests is straight forward:
 
 ```go
 import (
-  "github.com/ory/kratos-client-go/client"
-  "github.com/ory/kratos-client-go/client/admin"
-  "github.com/ory/kratos-client-go/models"
+  "github.com/ory/client-go/client"
+  "github.com/ory/client-go/client/admin"
+  "github.com/ory/client-go/models"
 )
 
 func main() {
