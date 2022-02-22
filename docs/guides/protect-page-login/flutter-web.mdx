@@ -6,8 +6,8 @@ sidebar_label: Flutter Web application
 
 ```mdx-code-block
 import Teaser from './_common/teaser.mdx'
-import mp4 from './go/screencast.mp4'
-import webm from './go/screencast.webm'
+import mp4 from './flutter_web_redirect/screencast.mp4'
+import webm from './flutter_web_redirect/screencast.webm'
 
 <Teaser
   framework={<a href="https://flutter.dev/">Flutter</a>}
@@ -16,25 +16,83 @@ import webm from './go/screencast.webm'
 />
 ```
 
-:::note
+## Preface
 
-This is a guide on Flutter Web only. This does not handle mobile (Android/iOS) as well.
+From experience, we at Ory have noticed many resources online create confusion on how to
+add Authentication to applications. This is even worse on frameworks that
+allow support for so many devices as it becomes difficult to understand where to
+use session cookies, tokens or even OAuth2 flows.
 
-:::
+We won't be able to cover such a wide range of topics in one guide and will thus
+split them up in different projects/guides.
+
+This guide will specifically focus on **Flutter Web using browser redirects to
+set a session cookie**. This means we will rely on the Ory Managed UI for
+login/registration instead of building our own.
 
 ## Create Flutter Web App
 
 :::note
 
-This guide assumes you have already installed flutter on your system. Please follow the official installation guide if you have not https://docs.flutter.dev/get-started/install
+This guide assumes you already have flutter installed on your system. Please
+follow the official installation guide if you have not at
+https://docs.flutter.dev/get-started/install
 
 :::
 
-The below command will create a basic Flutter example application. We will just add to it an authentication layer to keep the guide simple.
+The below command will create a basic Flutter example application. We will just
+add to it an authentication layer to keep the guide simple.
 
 ```shell-session
-flutter create flutter_web
-cd flutter_web
+flutter create myapp
+cd myapp
+```
+
+In this guide we will use a simple browser redirect to the Ory managed UI,
+however, this is not the best for user experience. We recommend you implement
+your own UI and then do all the necessary HTTP calls to Ory without the need for
+any browser redirects.
+
+We will use [dio](https://github.com/flutterchina/dio) to make HTTP requests.
+
+All the packages we use throughout this guide is listed in our `pubspec.yaml`.
+
+```mdx-code-block title="pubspec.yaml"
+import pubspec from '!!raw-loader!../../../code-examples/protect-page-login/flutter_web_redirect/pubspec.yaml'
+import CodeBlock from '@theme/CodeBlock'
+
+<CodeBlock language="yaml">{pubspec}</CodeBlock>
+```
+
+Next let us create an Authentication service in our `lib/services` directory,
+which we will use to query the Ory APIs for session information.
+
+```mdx-code-block title="lib/services/auth.dart"
+import auth from '!!raw-loader!../../../code-examples/protect-page-login/flutter_web_redirect/lib/services/auth.dart'
+
+<CodeBlock language="dart">{auth}</CodeBlock>
+```
+
+Then we need to create an `.env` file in the root of our project to hold the
+`ORY_BASE_URL` variable so that we don't hardcode the base URL into our App.
+
+```shell-session
+touch .env
+```
+
+```mdx-code-block title=".env"
+import env from '!!raw-loader!../../../code-examples/protect-page-login/flutter_web_redirect/.env'
+
+<CodeBlock language="text">{env}</CodeBlock>
+```
+
+Finally, we update the `main.dart` file to check for a session cookie on the
+initial load of the application.
+
+```mdx-code-block title="lib/main.dart"
+import main from '!!raw-loader!../../../code-examples/protect-page-login/flutter_web_redirect/lib/main.dart'
+
+<CodeBlock language="dart">{main}</CodeBlock>
 ```
 
 ### Why do I Need the Ory CLI?
@@ -58,11 +116,10 @@ Ory's API endpoints on the domain of your application.
 
 [![Ory Proxy mirrors Ory's APIs](https://mermaid.ink/img/pako:eNptkMFKxEAMhl8l5GIXdm1BT3MQWlxEEBxWL8JchjbaYqcZMlO0bPfdna71sGBOP-H7EpIj1twQKvwQ61t4OpgBUlVZJfwVSDaw293ND_tXaGP0Ks97rm3fcojqtiiKGXT2LBNo4e9p8-vqs-I6EZYANkJ-zTLlM5T6cYGvwpLCBf3vgpvzgjJ741Gg9H41ykU4UPA8BJr1OuaiWeEWHYmzXZNOOy6IwdiSI4MqxcbKp0EznBI3-sZG2jddZEH1bvtAW7Rj5JdpqFFFGekPuu9sepNbqdMP2FdlPQ)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNptkMFKxEAMhl8l5GIXdm1BT3MQWlxEEBxWL8JchjbaYqcZMlO0bPfdna71sGBOP-H7EpIj1twQKvwQ61t4OpgBUlVZJfwVSDaw293ND_tXaGP0Ks97rm3fcojqtiiKGXT2LBNo4e9p8-vqs-I6EZYANkJ-zTLlM5T6cYGvwpLCBf3vgpvzgjJ741Gg9H41ykU4UPA8BJr1OuaiWeEWHYmzXZNOOy6IwdiSI4MqxcbKp0EznBI3-sZG2jddZEH1bvtAW7Rj5JdpqFFFGekPuu9sepNbqdMP2FdlPQ)
 
-
 ## Run your Flutter Web App
 
 ```shell-session
-flutter run -d web-server --web-port 3000 --web-hostname localhost
+flutter run -d web-server --web-port 3000
 ```
 
 ```mdx-code-block
@@ -71,6 +128,55 @@ import SdkEnvVar from '@site/src/components/SdkEnvVar'
 <SdkEnvVar />
 ```
 
+Start the Ory Cli proxy on [http://localhost:4000](http://localhost:4000) and set the proxied application to [http://localhost:3000](http://localhost:3000).
+
 ```shell-session
 ory proxy http://localhost:3000
 ```
+
+Open the browser on [http://localhost:4000](http://localhost:4000) you should
+now see the Ory managed Login page.
+
+:::note
+
+This example only does a simple check on the initial load of the application and
+is not meant to cover complex session checking in Flutter, nor how it would
+interact with your Backend server.
+
+:::
+
+## Preparing for Production
+
+Going to production with your app is possible in many ways. Whether you deploy
+it on Kubernetes, AWS, a VM, or a RaspberryPi is up to you. To get your app
+working with Ory, your app and Ory must be available under the same common
+domain (e.g. `https://ory.example.com` and `https://www.example.com`).
+
+The easiest way to connect Ory to your domain is to connect Ory to a subdomain
+of yours. You can do this easily by
+[adding a Custom Domain to your Cloud project](../custom-domains.mdx)!
+
+With the custom domain set up, you do not need the Ory Proxy anymore and will
+use the configured custom domain in your API calls:
+
+```shell-session
+export ORY_BASE_URL=https://ory.example.com
+```
+
+### Release Build
+
+With the `flutter` cli we can build a release version of our App by running the
+command below:
+
+```shell-session
+flutter build web
+```
+
+We then need an HTTP server to serve the files, we will use
+[dhttpd](https://pub.dev/packages/dhttpd).
+
+```shell-session
+dhttpd --port 3000 --path build/web
+```
+
+See here for more information on [Flutter Web in Production](https://docs.flutter.dev/deployment/web)

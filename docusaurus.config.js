@@ -73,7 +73,12 @@ module.exports = {
         'shell-session',
         'bash',
         'tsx',
+<<<<<<< HEAD
         'php'
+=======
+        'yaml',
+        'dart'
+>>>>>>> feat: flutter web example using redirects
       ]
     },
     announcementBar: {

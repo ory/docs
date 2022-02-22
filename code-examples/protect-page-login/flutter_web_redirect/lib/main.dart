@@ -1,11 +1,57 @@
+import 'dart:io';
+import 'dart:html';
+import 'package:dio/adapter_browser.dart';
+import 'package:dio/browser_imp.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_web_redirect/services/auth.dart';
 
-void main() {
-  runApp(const MyApp());
+Future main() async {
+  // load the .env file
+  await dotenv.load(fileName: ".env");
+
+  final baseUrl = dotenv.get("ORY_BASE_URL").toString();
+
+  // create the dio client for http requests
+  final options = BaseOptions(
+    baseUrl: baseUrl,
+    connectTimeout: 10000,
+    receiveTimeout: 5000,
+    headers: {
+      "Accept": "application/json",
+    },
+    validateStatus: (status) {
+      // here we prevent the request from throwing an error when the status code is less than 500 (internal server error)
+      return status! < 500;
+    },
+  );
+  final dio = DioForBrowser(options);
+  final adapter = BrowserHttpClientAdapter();
+  // enable cookies support
+  // we need this so we can send HTTP requests to the server with the cookies stored in the browser
+  adapter.withCredentials = true;
+  dio.httpClientAdapter = adapter;
+
+  final auth = AuthService(dio);
+
+  if (!await auth.isAuthenticated()) {
+    _launchURL(baseUrl);
+    return;
+  }
+
+  runApp(MyApp(dio, auth));
+}
+
+void _launchURL(String url) async {
+  window.open(url+'/self-service/login/browser', '_self');
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final Dio dio;
+  final AuthService auth;
+
+  MyApp(this.dio, this.auth);
 
   // This widget is the root of your application.
   @override
@@ -13,18 +59,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Ory ❤ Flutter Web'),
     );
   }
 }
@@ -49,6 +86,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
 
   void _incrementCounter() {
     setState(() {

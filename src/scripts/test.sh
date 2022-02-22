@@ -17,9 +17,14 @@ cd code-examples/protect-page-login/go && \
   PORT=4003 PROXY_PORT=3003 go run . &
 ory proxy --no-jwt --port 3003 http://localhost:4003/ &
 
+<<<<<<< HEAD
 cd code-examples/protect-page-login/php && \
   composer install && \
   PROXY_PORT=3004 php -S 127.0.0.1:4004 &
+=======
+cd code-examples/protect-page-login/flutter_web_redirect && \
+  flutter run -d web-server --web-port 4004 &
+>>>>>>> feat: flutter web example using redirects
 ory proxy --no-jwt --port 3004 http://localhost:4004/ &
 
 trap "exit" INT TERM ERR
