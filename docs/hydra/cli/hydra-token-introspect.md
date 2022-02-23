@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## hydra token introspect
 
 Introspect an access or refresh token
@@ -38,5 +39,4 @@ hydra token introspect &lt;token&gt; [flags]
 
 ### SEE ALSO
 
-* [hydra token](hydra-token)	 - Issue and Manage OAuth2 tokens
-
+- [hydra token](hydra-token) - Issue and Manage OAuth2 tokens

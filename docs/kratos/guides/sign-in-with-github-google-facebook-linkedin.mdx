@@ -1210,7 +1210,10 @@ We strongly discourage this practice, consider the following scenario:
 
 ## Configuration from environment variable
 
-You can provide the oidc configuration using [environment variables](../configuring.md) by setting the environment variable `SELFSERVICE_METHODS_OIDC_CONFIG_PROVIDERS`. For example:
+You can provide the oidc configuration using
+[environment variables](../configuring.md) by setting the environment variable
+`SELFSERVICE_METHODS_OIDC_CONFIG_PROVIDERS`. For example:
+
 ```
 SELFSERVICE_METHODS_OIDC_CONFIG_PROVIDERS='[{"id":"google","provider":"google","mapper_url":"<file_location>","client_id":"<client_id>","client_secret":"<client_secret>","scope":["openid","email","profile"],"auth_url":"https://accounts.google.com/o/oauth2/v2/auth","token_url":"https://www.googleapis.com/oauth2/v4/token","issuer_url":"https://accounts.google.com"}]'
 ```
