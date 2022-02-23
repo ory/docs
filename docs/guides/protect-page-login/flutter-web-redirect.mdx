@@ -1,5 +1,5 @@
 ---
-id: flutter-web
+id: flutter-web-redirect
 title: Protect a Page with Login in Flutter Web
 sidebar_label: Flutter Web application
 ---
@@ -18,16 +18,17 @@ import webm from './flutter_web_redirect/screencast.webm'
 
 ## Preface
 
-From experience, we at Ory have noticed many resources online create confusion
-on how to add Authentication to applications. This is even worse on frameworks
-that allow support for so many devices as it becomes difficult to understand
-where to use session cookies, tokens or even OAuth2 flows.
+From experience, we at Ory have noticed many resources do not fully explain
+which authentication method is the correct method for that technology or use
+case. With frameworks that support so many devices, it becomes difficult to
+understand where to use, for example, session cookies, tokens, or even OAuth2
+flows.
 
-We won't be able to cover such a wide range of topics in one guide and will thus
-split them up in different projects/guides.
+We won't cover such a wide range of topics in one guide and will thus split them
+up into different projects/guides.
 
 This guide will specifically focus on **Flutter Web using browser redirects to
-set a session cookie**. This means we will rely on the Ory Managed UI for
+set a session cookie**. To do this, we will rely on the Ory Managed UI for
 login/registration instead of building our own.
 
 ## Create Flutter Web App
