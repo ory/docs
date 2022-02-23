@@ -1,0 +1,126 @@
+---
+id: adfs
+title: Add an ADFS as a SAML SSO provider in Ory
+sidebar_label: ADFS
+toc_max_heading_level: 4
+---
+
+# Active Directory Federation Services
+
+:::note
+
+To add an ADFS as a SAML SSO provider, you need a ADFS installed in a Windows Server.
+
+:::
+
+````mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="cli" label="Ory CLI">
+
+Follow these steps to add an ADFS as a SAML SSO provider to your project using the Ory CLI:
+
+1. In the top bar of your Windows Server, click on **Tools** → **AD FS Management**.
+2. Click on **Relying Party Trusts**.
+3. Click on **Add Relying Party Trust...**.
+4. Select **Claims aware** then click on **Start**.
+5. Select **Import data about the relying party from a file** and select your Kratos SAML metadata file.
+6. Then click the **Next** button.
+7. Enter a display name for the relying party and click the **Next** button.
+8. Click **Next** in the Access Control window.
+9. Click **Next** again to proceed.
+10. Click the **Close** button in the last window. Your relying party trust is now added to your ADFS.
+11. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema.
+
+    ```jsonnet
+    local claims = {
+      email_verified: true,
+    } + std.extVar('claims');
+
+    {
+      identity: {
+        traits: {
+          [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,
+          first_name: claims.given_name,
+          last_name: claims.family_name,
+          [if 'hd' in claims && claims.email_verified then 'hd' else null]: claims.hd,
+        },
+      },
+    }
+    ```
+
+    The sample Jsonnet snippet creates the following mapping:
+
+    | ADFS claim | Ory Identity schema mapping |
+    | :----------- | :-------------------------- |
+    | email        | email                       |
+    | given_name   | first_name                  |
+    | family_name  | last_name                   |
+
+    :::note
+
+    If you want to use this data mapping, you must include the `first_name` and `last_name` fields in your Identity Schema
+
+    :::
+
+3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to The Ory Network.
+
+  ```shell
+  cat your-data-mapping.jsonnet | base64
+  ```
+
+4. Download the Ory Identities config from your project and save it to a file:
+
+   ```shell
+   ## List all available projects
+   ory list projects
+
+   ## Get config
+   ory get identity-config {project-id} --format yaml > identity-config.yaml
+   ```
+
+5. Add the SAML SSO provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
+   string or provide an URL to the file.
+
+   ```yaml
+   selfservice:
+     methods:
+       saml:
+        config:
+          providers:
+            - id: generic # This is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+              label: generic # Used as a label for the UI login button
+              provider: generic
+              public_cert_path: .... # Replace this with the provider public certificate path
+              private_key_path: .... # Replace this with the provider private key path
+              mapper_url: "base64://{YOUR_BASE64_ENCODED_JSONNET_HERE}"
+
+              idp_information:
+                idp_metadata_url: .... # Replace this with identity provider path URL
+
+              # You must match the values required by Kratos with the name of the attributes sent in the SAML assertion
+              attributes_map:
+                id: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn # ADFS example
+                firstname: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname # ADFS example
+                lastname: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname # ADFS example
+                nickname: default
+                gender: default
+                birthdate: default
+                picture: default
+                email: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress # ADFS example
+                roles: http://schemas.microsoft.com/ws/2008/06/identity/claims/role # ADFS example
+                phone_number: default
+          enabled: true
+   ```
+
+6. Update the Ory Identities configuration using the file you worked with:
+
+   ```shell
+   ory update identity-config {project-id} --file updated_config.yaml
+   ```
+
+</TabItem>
+</Tabs>
+````

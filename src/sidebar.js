@@ -92,6 +92,19 @@ module.exports = {
                 "kratos/social-signin/account-linking",
               ],
             },
+            {
+              type: "category",
+              label: "SSO sign-in",
+              items: [
+                "kratos/sso-signin/overview",
+                {
+                  "Integrating providers": [
+                    "kratos/sso-signin/generic",
+                    "kratos/sso-signin/adfs",
+                  ],
+                },
+              ],
+            },
             "identities/sign-in/check-session",
             "identities/sign-in/actions",
           ],
