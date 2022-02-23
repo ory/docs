@@ -26,3 +26,7 @@ yarn-error.log*
 docs/build
 test-results/
 playwright-report/
+
+.vercel/
+
+.vercel

@@ -28,6 +28,10 @@ folder. ([Ory Hydra](https://github.com/ory/hydra/tree/master/docs/docs),
 changes, please consider making the same changes in the latest version of
 `/versioned_docs`
 
+## Playwright tests
+
+The Playwright (E2E) tests file names end with `.spec.ts`.
+
 To test the documentation locally: (Assuming you already installed NodeJS)
 
 1. Clone this repository.
@@ -35,6 +39,10 @@ To test the documentation locally: (Assuming you already installed NodeJS)
 3. Install dependencies by running: `npm install`.
 4. Run the Docs webserver and test the documentation by running: `npm start`
 5. Build the docs and verify by running: `npm run build `
+
+## Jest tests
+
+The Playwright (E2E) tests file names end with `.test.ts`.
 
 ## Formatting documentation
 

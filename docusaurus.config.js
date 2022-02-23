@@ -50,10 +50,13 @@ const prismThemeLight = {
 }
 
 module.exports = {
+  customFields: {
+    CLOUD_URL: process.env.CLOUD_URL || 'https://api.console.ory:8080'
+  },
   title: 'Ory',
   tagline: 'Open Source Identity and Access Infrastructure',
-  url: `https://www.ory.sh/`,
-  baseUrl: '/',
+  url: `https://www.ory.sh`,
+  baseUrl: '/docs/',
   favicon: 'img/favico.png',
   onBrokenLinks: 'error',
   onBrokenMarkdownLinks: 'error',
@@ -74,24 +77,21 @@ module.exports = {
     },
     announcementBar: {
       id: 'supportus',
-      content: `Sign up for your <a href="https://console.ory.sh/registration?preferred_plan=start-up&utm_source=docs&utm_medium=banner&utm_campaign=top-banner-first900">Ory Start Up plan free for a year</a> by using <code>FIRST900</code> during the sign up!`
+      content: `Sign up for your <a href='https://console.ory.sh/registration?preferred_plan=start-up&utm_source=docs&utm_medium=banner&utm_campaign=top-banner-first900'>Ory Start Up plan free for a year</a> by using <code>FIRST900</code> during the sign up!`
     },
     algolia: {
       appId: 'V2EFIWEJ25',
       apiKey: 'dc6b220f7d2bcd12da60b9cce431d8c5',
       indexName: 'ory',
-      contextualSearch: true,
-      searchParameters: {
-        facetFilters: [[`tags:docs`]]
-      }
+      contextualSearch: true
     },
     navbar: {
       hideOnScroll: false,
       logo: {
         alt: 'Ory',
-        src: `img/logo-docs.svg`,
-        srcDark: `img/logo-docs.svg`,
-        href: `https://www.ory.sh`
+        src: `/docs/img/logo-docs.svg`,
+        srcDark: `/docs/img/logo-docs.svg`,
+        href: `https://www.ory.sh/docs`
       },
       items: [
         {
@@ -146,9 +146,9 @@ module.exports = {
       {
         path: 'docs',
         sidebarPath: require.resolve('./src/sidebar.js'),
-        editUrl: `https://github.com/ory/docs/edit/master/docs`,
+        editUrl: `https://github.com/ory/docs/edit/master`,
         // editCurrentVersion: false,
-        routeBasePath: '/docs/',
+        routeBasePath: '/',
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
         disableVersioning: false,
@@ -159,16 +159,32 @@ module.exports = {
     '@docusaurus/plugin-content-pages',
     require.resolve('./src/plugins/ory-scripts-loader'),
     require.resolve('./src/plugins/docusaurus-plugin-matamo'),
-    '@docusaurus/plugin-sitemap'
+    '@docusaurus/plugin-sitemap',
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        redirects: [
+          // {
+          // from: ['/','/docs','/docs/'],
+          // to: '/docs/welcome'
+          // }
+        ]
+      }
+    ]
   ],
   themes: [
     [
       '@docusaurus/theme-classic',
       {
-        customCss: [require.resolve('./src/css/theme.css')]
+        customCss: [require.resolve('./src/css/theme.css')],
+        respectPrefersColorScheme: true
       }
     ],
     '@docusaurus/theme-search-algolia',
     'docusaurus-theme-redoc'
+  ],
+  scripts: [
+    // Needed as a workaround for https://answers.netlify.com/t/trailing-slash-missing-on-proxied-netlify-site/36367
+    '/docs/scripts/redirect.js'
   ]
 }

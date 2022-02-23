@@ -52,6 +52,9 @@ transport keys over insecure channels such as http.
 The [REST API Documentation](./reference/api.mdx) will give you details on the
 various endpoints.
 
+ORY Hydra does not support signing JWTs using symmetric keys. Doing so will make
+anyone, having the secret, able to forge the tokens.
+
 ## Auto-generated JWKs
 
 Hydra generates a couple of JSON Web Keys in order to operate correctly:

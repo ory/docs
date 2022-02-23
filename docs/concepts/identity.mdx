@@ -3,11 +3,11 @@ id: identity
 title: Identity Schema, Custom Fields
 ---
 
-The Identity Schema is a JSON Schema which describes your identity's (e.g. your
-customers / users / ...) fields. In Ory, every identity can have their own
-model, allowing you to separate between different customer types, user types
-(e.g. employees and customers). For technical information on Identity Schemas,
-check out the open source documentation:
+The Identity Schema is a JSON Schema which describes your identity's (your
+customers / users / employees ...) fields. In Ory, every identity can have their
+own model, allowing you to separate between different customer types, user types
+(employees and customers). For technical information on Identity Schemas, check
+out the open source documentation:
 
 - [Identity Schema](https://www.ory.sh/kratos/docs/concepts/identity-schema)
 - [Identity Credentials](https://www.ory.sh/kratos/docs/concepts/credentials)
@@ -19,7 +19,7 @@ The Identity Schema can either be one of the available presets or a
 
 Ory Cloud provides three basic Identity Schema Presets.
 
-### Only Username
+### Username & Password
 
 This preset is useful for applications that do not require email addresses and a
 high degree of anonymity.
@@ -31,8 +31,8 @@ enumeration defenses! Do not use it in security-sensitive environments.
 
 :::
 
-With this preset, every identity has exactly one trait - the `username` - which
-is used as the login identifier:
+With this preset, every identity has just one trait - the `username`. The
+`username` is the login identifier:
 
 ```json5
 // Identity example
@@ -44,9 +44,9 @@ is used as the login identifier:
 }
 ```
 
-### Only Email
+### Email & Password
 
-With this preset, identities have exactly one trait, the `email`. It is used as
+With this preset, identities have just one trait, the `email`. The `email` is
 the login identifier, for email verification, and for account recovery:
 
 ```json5
@@ -63,13 +63,12 @@ the login identifier, for email verification, and for account recovery:
 
 :::warning
 
-This profile is EXPERIMENTAL and is encouraged to be used only in PoCs and
-demos. It will eventually be removed!
+This profile is EXPERIMENTAL and you should it for PoCs and demos.
 
 :::
 
-The "Demo Profile" preset has - similar to the "Only Email" preset - an email
-field and additionally a first name, last name, and a checkbox.
+The **Demo Profile** preset has - like the **Email & Password** preset - an email field, a
+first name, last name, and a checkbox.
 
 ```json5
 // Identity example
