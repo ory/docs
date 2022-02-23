@@ -207,10 +207,18 @@ The configuration consists of:
 - `auth` - configuration of authentication and authorization mechanisms to be
   used by request
 
-Courier binds the `From`, `To`, and `Body` variables into the JsonNet template.
+Courier binds the `from`, `to`, and `body` variables into the JsonNet template.
 These variables are available through a `ctx` object. E.g. to create a body
-looking like `{ To: <some-number> }` to be sent to the SMS provider endpoint,
-the jsonnet template would look like this: `function(ctx) { To: ctx.To }`
+looking like `{ to: "<some-number>" }` to be sent to the SMS provider endpoint,
+the jsonnet template would look like this:
+
+```jsonnet
+function(ctx) {
+  from: ctx.from,
+  to: ctx.to,
+  body: ctx.body
+}
+```
 
 #### Authentication and Authorization
 
@@ -413,4 +421,3 @@ courier:
       X-SES-FROM-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
       X-SES-RETURN-PATH-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
 ```
-
