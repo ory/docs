@@ -1,8 +1,7 @@
 ---
 id: oathkeeper-credentials-generate
 title: oathkeeper credentials generate
-description:
-  oathkeeper credentials generate Generate a key for the specified algorithm
+description: oathkeeper credentials generate Generate a key for the specified algorithm
 ---
 
 <!--
@@ -10,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## oathkeeper credentials generate
 
 Generate a key for the specified algorithm
@@ -19,9 +17,9 @@ Generate a key for the specified algorithm
 
 Examples:
 
-$ oathkeeper credentials generate --alg ES256 &gt; jwks.json $ oathkeeper
-credentials generate --alg RS256 &gt; jwks.json $ oathkeeper credentials
-generate --alg RS256 --bits 4096 &gt; jwks.json
+$ oathkeeper credentials generate --alg ES256 &gt; jwks.json
+$ oathkeeper credentials generate --alg RS256 &gt; jwks.json
+$ oathkeeper credentials generate --alg RS256 --bits 4096 &gt; jwks.json
 
 ```
 oathkeeper credentials generate [flags]
@@ -44,5 +42,5 @@ oathkeeper credentials generate [flags]
 
 ### SEE ALSO
 
-- [oathkeeper credentials](oathkeeper-credentials) - Generate RSA, ECDSA, and
-  other keys and output them as JSON Web Keys
+* [oathkeeper credentials](oathkeeper-credentials)	 - Generate RSA, ECDSA, and other keys and output them as JSON Web Keys
+

@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## oathkeeper rules list
 
 List access rules
@@ -18,7 +17,8 @@ List access rules
 
 Usage example:
 
-    oathkeeper rules --endpoint=http://localhost:4456/ list
+	oathkeeper rules --endpoint=http://localhost:4456/ list
+
 
 ```
 oathkeeper rules list [flags]
@@ -41,4 +41,5 @@ oathkeeper rules list [flags]
 
 ### SEE ALSO
 
-- [oathkeeper rules](oathkeeper-rules) - Commands for managing rules
+* [oathkeeper rules](oathkeeper-rules)	 - Commands for managing rules
+
