@@ -1,0 +1,135 @@
+---
+id: php
+title: Protect a Page with Login in PHP
+sidebar_label: PHP
+---
+
+```mdx-code-block
+import Teaser from './_common/teaser.mdx'
+import mp4 from './go/screencast.mp4'
+import webm from './go/screencast.webm'
+
+<Teaser
+  framework={<a href="https://www.php.net/">PHP</a>}
+  mp4={mp4}
+  webm={webm}
+/>
+```
+
+## Create PHP App
+
+First we create a new PHP project:
+
+```shell-session
+mkdir your-project
+cd your-project
+touch index.php
+```
+
+## Install Dependencies
+
+To interact with Ory's APIs we install the [Ory SDK](https://packagist.org/packages/ory/client):
+
+```shell-session
+composer require ory/client:^v0.0.1-alpha
+```
+
+To simplify URLs handling we install the [bramus/router](https://packagist.org/packages/bramus/router)
+```shell-session
+composer require bramus/router
+```
+
+### Why do I Need the Ory CLI?
+
+The Ory CLI includes useful functionality to manage your Ory Cloud Project. But
+that is not why we require it in this guide!
+
+Ory's philosophy is to make hard things easy for you. For this reason, Ory has
+deployed measures against all
+[OWASP Top 10](https://owasp.org/www-project-top-ten/) and implements the
+[OWASP Authentication Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html)
+along other mechanisms.
+
+Therefore, Ory manages Anti-CSRF Cookies as well as Ory Session Cookies for you.
+That however requires that Ory and your application run on the same domain!
+
+If your application runs on `http://localhost:3000` then Ory needs to be
+available on the hostname `localhost` as well (e.g. `http://localhost:3001`).
+That is why we need the Ory CLI, because it has a proxy included which mirrors
+Ory's API endpoints on the domain of your application.
+
+[![Ory Proxy mirrors Ory's APIs](https://mermaid.ink/img/pako:eNptkMFKxEAMhl8l5GIXdm1BT3MQWlxEEBxWL8JchjbaYqcZMlO0bPfdna71sGBOP-H7EpIj1twQKvwQ61t4OpgBUlVZJfwVSDaw293ND_tXaGP0Ks97rm3fcojqtiiKGXT2LBNo4e9p8-vqs-I6EZYANkJ-zTLlM5T6cYGvwpLCBf3vgpvzgjJ741Gg9H41ykU4UPA8BJr1OuaiWeEWHYmzXZNOOy6IwdiSI4MqxcbKp0EznBI3-sZG2jddZEH1bvtAW7Rj5JdpqFFFGekPuu9sepNbqdMP2FdlPQ)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNptkMFKxEAMhl8l5GIXdm1BT3MQWlxEEBxWL8JchjbaYqcZMlO0bPfdna71sGBOP-H7EpIj1twQKvwQ61t4OpgBUlVZJfwVSDaw293ND_tXaGP0Ks97rm3fcojqtiiKGXT2LBNo4e9p8-vqs-I6EZYANkJ-zTLlM5T6cYGvwpLCBf3vgpvzgjJ741Gg9H41ykU4UPA8BJr1OuaiWeEWHYmzXZNOOy6IwdiSI4MqxcbKp0EznBI3-sZG2jddZEH1bvtAW7Rj5JdpqFFFGekPuu9sepNbqdMP2FdlPQ)
+
+## Create an Entry Page
+
+This is a working example of basic `index.php` script which creates an Ory client,
+registers new route for our Dashboard and makes use of [Before Route Middlewares](https://github.com/bramus/router#before-router-middlewares)
+to validate if the user is allowed to view the Dashboard.
+
+```mdx-code-block title="index.php"
+import indexPHP from '!!raw-loader!../../../code-examples/protect-page-login/php/index.php'
+import CodeBlock from '@theme/CodeBlock'
+
+<CodeBlock language="php">{indexPHP}</CodeBlock>
+```
+
+## Validate and Login
+
+Next we will create handler which will check with your Ory project if the
+user has a valid session. Notice here that we are taking the current `request`
+cookies and passing them along to the Ory client.
+
+If the session is not valid the request is redirected to the Ory project for
+login. At this point we have not set up any custom UI management and thus will
+be shown the Ory Managed UI login page.
+
+For the last part we need to add the Dashboard handler (the page we would like to
+protect) which will render an HTML with the session data.
+
+This is accomplished by the simple `App` class stored in the `app.php` file:
+```mdx-code-block title="app.php"
+import appPHP from '!!raw-loader!../../../code-examples/protect-page-login/php/app.php'
+
+<CodeBlock language="php">{appPHP}</CodeBlock>
+```
+
+## Run your App
+
+Start your HTTP server and access the proxy URL
+
+```shell-session
+php -S 127.0.0.1:3000
+```
+
+```mdx-code-block
+import SdkEnvVar from '@site/src/components/SdkEnvVar'
+
+<SdkEnvVar />
+```
+
+```shell-session
+ory proxy http://localhost:3000
+```
+
+Then open [http://localhost:4000](http://localhost:4000) in your browser. You
+are presented with Ory's Sign In page! Let's click on sign up and create your
+first user!
+
+## Go to Production
+
+Going to production with your app is possible in many ways. Whether you deploy
+it on Kubernetes, AWS, a VM, or a RaspberryPi is up to you. To get your app
+working with Ory, your app and Ory must be available under the same common
+domain (e.g. `https://ory.example.com` and `https://www.example.com`).
+
+The easiest way to connect Ory to your domain is to connect Ory to a subdomain
+of yours. You can do this easily by
+[adding a Custom Domain to your Cloud project](../custom-domains.mdx)!
+
+With the custom domain set up, you do not need the Ory Proxy anymore and will
+use the configured custom domain in your SDK calls:
+
+```php
+$config = Ory\Client\Configuration::getDefaultConfiguration()->setHost("https://ory.example.org"));
+$ory = new Ory\Client\Api\V0alpha2Api(new GuzzleHttp\Client(), $config);
+```

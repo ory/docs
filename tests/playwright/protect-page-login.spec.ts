@@ -5,7 +5,8 @@ test.describe('protect-page-login', () => {
   for (const app of [
     { url: 'http://localhost:3001/', name: 'next.js' },
     { url: 'http://localhost:3002/', name: 'express.js' },
-    { url: 'http://localhost:3003/', name: 'go'}
+    { url: 'http://localhost:3003/', name: 'go'},
+    { url: 'http://localhost:3004/', name: 'php'},
   ]){
     test.describe(app.name, async() => {
       test('able to use login and sign up', async ({ page }) => {
