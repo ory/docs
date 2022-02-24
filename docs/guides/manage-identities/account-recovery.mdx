@@ -1,0 +1,187 @@
+---
+id: account-recovery
+title: Administrative Account Recovery
+---
+
+It is possible to initiate account recovery for identities using the Admin API
+endpoints.
+
+:::note
+
+It is possible to generate a link for an account without a recovery address via
+the admin API, but if the recovery link expires the user won't be able to
+re-initiate the flow by himself as long as the recovery address has been added.
+
+:::
+
+To create the account recovery link, use:
+
+````mdx-code-block
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
+import SelfHostedKratos from '@site/src/components/SelfHostedKratos'
+
+<Tabs
+  defaultValue="curl"
+  values={[
+    {label: 'curl', value: 'curl'},
+    {label: 'GoLang', value: 'go'},
+    {label: 'Self-Hosted Ory Kratos', value: 'kratos'},
+  ]}>
+  <TabItem value="curl">
+
+```shell
+curl --request POST -sL \
+  --header "Authorization: Bearer ory_pat_xRKLsFEOUFQFVBjd6o3FQDifaLYhabGd" \
+  --header "Content-Type: application/json" \
+  --request POST \
+  --data '{
+  "expires_in": "12h",
+  "identity_id": "e01b5f2f-6afc-4194-8578-4cebcf69a4d5"
+}' https://playground.projects.oryapis.com/api/kratos/admin/recovery/link
+```
+
+  </TabItem>
+  <TabItem value="go">
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/ory/client-go/client"
+	"github.com/ory/client-go/client/admin"
+	"github.com/ory/client-go/models"
+)
+
+func main() {
+	c := client.New(nil, &client.TransportConfig{
+        Host: "https://playground.projects.oryapis.com",
+        BasePath: "/",
+        Schemes: []string{"http"},
+    })
+
+	res, err := c.Admin.CreateRecoveryLink(admin.NewCreateRecoveryLinkParams().WithBody(admin.CreateRecoveryLinkBody{
+		IdentityID: models.UUID("the-uuid"),
+	}))
+	if err != nil {
+		// ...
+	}
+
+	fmt.Printf("Use link: %s", *res.Payload.RecoveryLink)
+}
+```
+
+  </TabItem>
+  <TabItem value="kratos">
+    <SelfHostedKratos />
+  </TabItem>
+</Tabs>
+````
+
+The response contains a `recovery_link` value which is the link the user should
+use to set up his or her credentials (e.g. connect to a Social Sign In Provider,
+set up a password, ...):
+
+```json
+{
+  "recovery_link": "https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery?flow=81c55cec-76fd-4907-bddf-cc112e835698&token=yM9nAZpPIjwccKh9qHRh8OfywZSRcr6q",
+  "expires_at": "2022-02-25T03:09:37.60684766Z"
+}
+```
+
+The user has only a limited amount of time to update their credentials once they
+use the recovery link. The time is the privileged session
+
+````mdx-code-block
+<Tabs
+  defaultValue="cloud"
+  values={[
+    {label: 'Ory Cloud', value: 'cloud'},
+    {label: 'Self-Hosted Ory Kratos', value: 'kratos'},
+  ]}>
+  <TabItem value="cloud">
+
+Configure the privileged session lifespan at [console.ory.sh/projects/current/session](https://console.ory.sh/projects/current/session).
+
+  </TabItem>
+  <TabItem value="kratos">
+
+```yml title="path/to/config.yml"
+selfservice:
+  flows:
+    settings:
+      privileged_session_max_age: 30m
+```
+
+  </TabItem>
+</Tabs>
+````
+
+If the user fails to set up his / her credentials in time, another recovery link
+needs to be issued and the user needs to re-do the flow.
+
+It is currently not possible to send the recovery link directly to a user's
+email, this feature is tracked as
+[#595](https://github.com/ory/kratos/issues/595).
+
+### Enable Account Recovery
+
+To enable recovery flows, make the following adjustments to your Ory Kratos
+configuration:
+
+```yaml title="path/to/config/kratos.yml"
+selfservice:
+  methods:
+    link:
+      enabled: true
+
+      config:
+        # If the link should point to a domain (and path) that differs from the configured public base URL,
+        # set this value to the base URL you want:
+        base_url: https://my-example-domain.com
+
+  flows:
+    recovery:
+      enabled: true
+```
+
+To specify that an identity's trait is a recovery email, use the following
+Identity Schema:
+
+```diff
+ {
+   "$id": "https://schemas.ory.sh/presets/kratos/quickstart/email-password/identity.schema.json",
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "title": "Person",
+   "type": "object",
+   "properties": {
+     "traits": {
+       "type": "object",
+       "properties": {
+         "email": {
+           "type": "string",
+           "format": "email",
+           "ory.sh/kratos": {
+             "credentials": {
+               "password": {
+                 "identifier": true
+               }
+             },
++            "recovery": {
++              "via": "email"
++            }
+           }
+         }
+       }
+       "additionalProperties": false
+     }
+   }
+ }
+```
+
+For more detailed information and general guidelines on these flows, take a look
+at the
+[Account Recovery and Password Reset](../../kratos/self-service/flows/account-recovery.mdx)
+section.

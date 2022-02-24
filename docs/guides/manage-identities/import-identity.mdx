@@ -1,0 +1,258 @@
+---
+id: import-identity
+title: Import Identities
+---
+
+Ory allows you to import identities from any other system. The endpoints used is
+the same as when
+[creating identities](../../kratos/admin/managing-users-identities.mdx) with the
+subtle difference that you additional provide the `credentials` field.
+
+## Importing Verified Addresses
+
+Use the `verifiable_addresses` field to import a verified address (e.g. an
+email).
+
+:::warning
+
+You must ensure that address verification is enabled and that the
+`verifiable_address` is present in the identity's traits. If the identity traits
+do not have the address set as the "verified address" type, the imported values
+will be deleted on the next identity update.
+
+:::
+
+An exemplary payload for importing an identity with a verified address is:
+
+```json {4,8-11}
+{
+  "schema_id": "preset://email",
+  "traits": {
+    "email": "docs-verify@example.org"
+  },
+  "verifiable_addresses": [
+    {
+      "value": "docs-verify@example.org",
+      "verified": true,
+      "via": "email",
+      "status": "completed"
+    }
+  ]
+}
+```
+
+Which can be tested with a curl command such as:
+
+````mdx-code-block
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import SelfHostedKratos from '@site/src/components/SelfHostedKratos'
+
+<Tabs
+  defaultValue="cloud"
+  values={[
+    {label: 'Ory Cloud', value: 'cloud'},
+    {label: 'Self-Hosted Ory Kratos', value: 'kratos'},
+  ]}>
+  <TabItem value="cloud">
+
+```shell
+curl --request POST -sL \
+  --header "Authorization: Bearer ory_pat_xRKLsFEOUFQFVBjd6o3FQDifaLYhabGd" \
+  --header "Content-Type: application/json" \
+  --data '{
+  "schema_id": "preset://email",
+  "traits": {
+    "email": "docs-verify@example.org"
+  },
+  "verifiable_addresses": [
+    {
+      "value": "docs-verify@example.org",
+      "verified": true,
+      "via": "email",
+      "status": "completed"
+    }
+  ]
+}' https://playground.projects.oryapis.com/api/kratos/admin/identities
+```
+
+  </TabItem>
+  <TabItem value="kratos">
+    <SelfHostedKratos/>
+
+And use it to create an identity:
+
+```shell
+curl --request POST -sL \
+  --header "Content-Type: application/json" \
+  --data '{
+  "schema_id": "preset://email",
+  "traits": {
+    "email": "docs-verify@example.org"
+  },
+  "verifiable_addresses": [
+    {
+      "value": "docs-verify@example.org",
+      "verified": true,
+      "via": "email",
+      "status": "completed"
+    }
+  ]
+}' http://127.0.0.1:4434/identities
+```
+
+  </TabItem>
+</Tabs>
+````
+
+The API then responds with the created identity:
+
+```json {13-15}
+{
+  "id": "880052ae-d32c-4b56-b82d-0dc711080910",
+  "schema_id": "preset://email",
+  "schema_url": "http://localhost:4455/schemas/cHJlc2V0Oi8vZW1haWw",
+  "state": "active",
+  "state_changed_at": "2022-02-24T15:33:17.845589803Z",
+  "traits": {
+    "email": "docs-verify@example.org"
+  },
+  "verifiable_addresses": [
+    {
+      "id": "c3f67b59-ab58-410b-971a-06b80f38468a",
+      "value": "docs-verify@example.org",
+      "verified": true,
+      "via": "email",
+      "status": "completed",
+      "created_at": "2022-02-24T15:33:17.848941Z",
+      "updated_at": "2022-02-24T15:33:17.848941Z"
+    }
+  ],
+  "recovery_addresses": [
+    {
+      "id": "819b53bf-79e3-452e-8a9b-0323ec9d193c",
+      "value": "docs-verify@example.org",
+      "via": "email",
+      "created_at": "2022-02-24T15:33:17.849758Z",
+      "updated_at": "2022-02-24T15:33:17.849758Z"
+    }
+  ],
+  "created_at": "2022-02-24T15:33:17.848475Z",
+  "updated_at": "2022-02-24T15:33:17.848475Z"
+}
+```
+
+## Importing Recovery Addresses
+
+It is possible to supply, similar to `verifiable_addresses` a list of
+`recovery_addresses` as well. However, since there is no status to set for this
+address type, it is better to let the identity schema handle setting the
+appropriate fields.
+
+We thus do not recommend setting these fields as they will be overwritten
+anyways! For more information on account recovery please head over to the
+[account recovery documentation](../../kratos/guides/account-recovery-password-reset.mdx).
+
+## Importing Credentials
+
+Ory supports importing credentials for identities. This currently spans
+passwords and social sign in. You can use all of these payloads with the `curl`
+command from above!
+
+### Clear Text Password
+
+To import a clear text password, provide the password in the JSON payload.
+
+:::warning
+
+Password imports do not use any password validation. Users have to update their
+password according to the policy themselves using self-service flows.
+
+:::
+
+```json {6-10}
+{
+  "schema_id": "preset://email",
+  "traits": {
+    "email": "docs-cleartext@example.org"
+  },
+  "credentials": {
+    "password": {
+      "config": {
+        "password": "the-password"
+      }
+    }
+  }
+}
+```
+
+The password `the-password` will then be hashed according to the configured
+password hashing algorithm and stored in the database. The identity will be able
+to sign in using `docs-cleartext@example.org` and `the-password` as credentials.
+
+### BCrypt, PKBDF2, Argon2 Family Hashed Password
+
+Besides clear text passwords it is possible to import password hashes. Currently
+the following algorithms are supported:
+
+- PKBDF2 family (`HMAC-SHA1`, `HMAC-SHA256`, ...), e.g.:
+  `$pbkdf2-sha256$i=1000,l=128$e8/arsEf4cvQihdNgqj0Nw$5xQQKNTyeTHx2Ld5/JDE7A`
+- Argon2 family (`Argon2id`, `Argon2i`, `Argon2d`, ...), e.g.:
+  `$argon2id$v=19$m=16,t=2,p=1$bVI1aE1SaTV6SGQ3bzdXdw$fnjCcZYmEPOUOjYXsT92Cg`
+- BCrypt, e.g.: `$2a$10$ZsCsoVQ3xfBG/K2z2XpBf.tm90GZmtOqtqWcB5.pYd5Eq8y7RlDyq`
+
+More information about the hash format can
+[be found in the here](../../kratos/concepts/credentials/username-email-password.mdx#hashed-password-format).
+
+```json {6-10}
+{
+  "schema_id": "preset://email",
+  "traits": {
+    "email": "docs-hash@example.org"
+  },
+  "credentials": {
+    "password": {
+      "config": {
+        "hashed_password": "$2a$10$ZsCsoVQ3xfBG/K2z2XpBf.tm90GZmtOqtqWcB5.pYd5Eq8y7RlDyq"
+      }
+    }
+  }
+}
+```
+
+### Social Sign In Connections
+
+Similar to importing passwords it is possible to import Social Sign In
+connections as well. If do not have Social Sign In set up yet please head over
+to the
+[social sign in documentation](../../kratos/guides/sign-in-with-github-google-facebook-linkedin.mdx).
+
+When importing social sign in connections, the provider refers to the provider
+ID you set in your Social Sign In configuration. The `subject` id must be the
+user's id on the given platform. Usually, this is the `sub` claim of the OpenID
+Connect ID Token provider by e.g. Google.
+
+```json {7-18}
+{
+  "schema_id": "preset://email",
+  "traits": {
+    "email": "docs-oidc@example.org"
+  },
+  "credentials": {
+    "oidc": {
+      "config": {
+        "providers": [
+          {
+            "provider": "github",
+            "subject": "12345"
+          },
+          {
+            "provider": "google",
+            "subject": "12345"
+          }
+        ]
+      }
+    }
+  }
+}
+```
