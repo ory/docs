@@ -28,16 +28,23 @@ touch index.php
 
 ## Install Dependencies
 
-To interact with Ory's APIs we install the [Ory SDK](https://packagist.org/packages/ory/client):
+To interact with Ory's APIs we install the
+[Ory SDK](https://packagist.org/packages/ory/client):
 
 ```shell-session
 composer require ory/client:^v0.0.1-alpha
 ```
 
-To simplify URLs handling we install the [bramus/router](https://packagist.org/packages/bramus/router)
+To simplify URLs handling we install the
+[bramus/router](https://packagist.org/packages/bramus/router)
+
 ```shell-session
 composer require bramus/router
 ```
+
+To install Ory CLI follow
+[this guide](https://www.ory.sh/docs/guides/ory-cli-install-use)
+
 ### Why do I Need the Ory CLI?
 
 ```mdx-code-block
@@ -48,8 +55,9 @@ import OryCLI from './_common/ory-cli.mdx'
 
 ## Create an Entry Page
 
-This is a working example of basic `index.php` script which creates an Ory client,
-registers new route for our Dashboard and makes use of [Before Route Middlewares](https://github.com/bramus/router#before-router-middlewares)
+This is a working example of basic `index.php` script which creates an Ory
+client, registers new route for our Dashboard and makes use of
+[Before Route Middlewares](https://github.com/bramus/router#before-router-middlewares)
 to validate if the user is allowed to view the Dashboard.
 
 ```mdx-code-block title="index.php"
@@ -61,18 +69,19 @@ import CodeBlock from '@theme/CodeBlock'
 
 ## Validate and Login
 
-Next we will create handler which will check with your Ory project if the
-user has a valid session. Notice here that we are taking the current `request`
+Next we will create handler which will check with your Ory project if the user
+has a valid session. Notice here that we are taking the current `request`
 cookies and passing them along to the Ory client.
 
 If the session is not valid the request is redirected to the Ory project for
 login. At this point we have not set up any custom UI management and thus will
 be shown the Ory Managed UI login page.
 
-For the last part we need to add the Dashboard handler (the page we would like to
-protect) which will render an HTML with the session data.
+For the last part we need to add the Dashboard handler (the page we would like
+to protect) which will render an HTML with the session data.
 
 This is accomplished by the simple `App` class stored in the `app.php` file:
+
 ```mdx-code-block title="app.php"
 import appPHP from '!!raw-loader!../../../code-examples/protect-page-login/php/app.php'
 
@@ -97,8 +106,10 @@ import SdkEnvVar from '@site/src/components/SdkEnvVar'
 ory proxy http://localhost:3000
 ```
 
-To access the PHP app through the ORY proxy open [http://localhost:4000](http://localhost:4000) in your browser. You
-are presented with Ory's Sign In page! Let's click on sign up and create your first user!
+To access the PHP app through the ORY proxy open
+[http://localhost:4000](http://localhost:4000) in your browser. You are
+presented with Ory's Sign In page! Let's click on sign up and create your first
+user!
 
 ## Go to Production
 
