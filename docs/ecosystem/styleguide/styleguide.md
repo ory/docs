@@ -16,6 +16,8 @@ contribute to documentation:
 - [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/)
 - [Google Developer Documentation Style Guide](https://developers.google.com/style)
 
+<This styleguide.md needs to have a license or copyright attribution>
+
 This document is based on the
 [Gitlab Documentation Style Guide](https://docs.gitlab.com/ee/development/documentation/styleguide/).
 
