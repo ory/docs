@@ -18,7 +18,7 @@
               if (! $session["active"]) throw new Exception('Session expired');
           } catch (Exception $e) {
               error_log('Exception when calling V0alpha2Api->toSession: '.$e->getMessage());
-              // this will redirect the user to the managed Ory Login UI
+              // this will initialize a new login flow and Kratos will redirect the user to the login UI
               header("Location: /.ory/api/kratos/public/self-service/login/browser", true, 303);
               die();
           }
