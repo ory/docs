@@ -137,7 +137,31 @@ after). For the `after` execution path of all flows, it binds the `identity`
 object into the jsonnet template as well. These objects are available through a
 `ctx` object. To create a body looking like `{ user_id: <some-id> }` to be sent
 to the web hook endpoint, the Jsonnet template would look like this:
-`function(ctx) { user_id: ctx.identity.id }`
+
+```jsonnet
+function(ctx) { user_id: ctx.identity.id }
+```
+
+#### Canceling Web Hooks
+
+In some cases you might want to cancel a webhook and not make the request. A
+good example might be when you test your systems and do not want the test
+accounts to end up in your e.g. CRM. In this case you can cancel the web-hook by
+raising an error:
+
+```jsonnet
+function(ctx)
+if std.startsWith(ctx.identity.traits.email, "test-") then
+  error "cancel"
+else
+  {
+    user_id: ctx.identity.id
+  }
+```
+
+Unfortunately, JsonNet does not yet support regular expressions. For progress on
+this feature please see
+[google/go-jsonnet/409](https://github.com/google/go-jsonnet/issues/409).
 
 #### Non-blocking webhooks
 
