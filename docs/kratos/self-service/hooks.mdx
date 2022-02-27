@@ -139,6 +139,22 @@ object into the jsonnet template as well. These objects are available through a
 send to the web hook end point, the jsonnet template would look like this:
 `function(ctx) { user_id: ctx.identity.id }`
 
+#### Non-Blocking Web Hooks
+
+Sometimes you need to notify a system without needing its response. For example,
+when a user signs up and you want their email address to be added to the
+newsletter you might not care about the response and favor the execution to be
+non-blocking.
+
+For those cases you can set `response.ignore` to `true` in your web-hook config:
+
+```yaml title="path/to/my/kratos.config.yml
+- hook: web_hook
+  config:
+    response:
+      ignore: true
+```
+
 #### Web-Hook Authentication and Authorization Mechanisms
 
 For `auth` following mechanisms are supported:
