@@ -77,7 +77,7 @@ module.exports = {
         'ecosystem/api-design',
         'concepts/password-policy'
       ]
-    },    
+    },
     {
       'Contributing & Open Source': [
         'open-source',
