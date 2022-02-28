@@ -3,8 +3,8 @@ id: emails
 title: Sending Emails
 ---
 
-Per default, Ory Cloud has the SMTP email sending configured. Emails will be
-sent from the following address:
+Per default, Ory Cloud has the SMTP email sending configured. Ory Cloud sends
+Emails from the following address:
 
 ```
 {project.name} via Ory <no-reply@courier-eu.mg.oryapis.com>
@@ -21,6 +21,6 @@ courier:
     from_name: ...
 ```
 
-Please be aware that it is not possible to customize the `from_address` and
+Please be aware that it's not possible to customize the `from_address` and
 `from_name` fields without also setting your own E-Mail sending server
 (`connection_uri`).

@@ -72,7 +72,8 @@ module.exports = {
         'pug',
         'shell-session',
         'bash',
-        'tsx'
+        'tsx',
+        'php'
       ]
     },
     announcementBar: {

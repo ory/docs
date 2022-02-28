@@ -250,6 +250,8 @@ and Login Flow:
 }
 ```
 
+#### Email
+
 Looking at the traits from above
 
 ```yaml
@@ -320,7 +322,88 @@ the identity's identifier. The system expects `office@ory.sh` plus a password to
 sign in.
 
 [Username and Password Credentials](credentials/username-email-password.mdx)
-contains more information and examples.
+contains more information and examples about credentials usage.
+
+Note that "format" field of identity schema will perform validation of given
+trait. In this example email address of identity will be validated using
+[JSONSchema](https://json-schema.org/understanding-json-schema/reference/string.html#email-addresses)
+ruleset.
+
+#### Phone number
+
+Ory Kratos also has phone number identity trait extension. Phone number trait
+will allow users to recover and verify account by SMS. For a moment this
+functionality is in development
+[#1451](https://github.com/ory/kratos/issues/1451).
+
+Let's extend identity schema from previous chapter with phone number:
+
+```json
+{
+  "$id": "http://mydomain.com/schemas/v2/customer.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "A customer (v2)",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "title": "E-Mail",
+          "type": "string",
+          "format": "email",
+
+          // This tells Ory Kratos that the field should be used as the "username" for the Username and Password Flow.
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
+        },
+        "phone": {
+          "title": "Phone",
+          "type": "string",
+          "format": "tel",
+
+          // Let's mark phone number as identifier. This allows the user to login with both email and phone.
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
+        },
+        "name": {
+          "type": "object",
+          "properties": {
+            "first": {
+              "type": "string"
+            },
+            "last": {
+              "type": "string"
+            }
+          }
+        },
+        "favorite_animal": {
+          "type": "string"
+        },
+        "accepted_tos": {
+          "type": "string"
+        }
+      },
+      "required": ["email"],
+      "additionalProperties": false
+    }
+  }
+}
+```
+
+By using "format": "tel" field we enable validation of phone numbers using
+golang [port](https://github.com/nyaruka/phonenumbers) of Google's
+[libphonenumber](https://github.com/google/libphonenumber).
 
 There are currently no other extensions supported for Identity Traits. Further
 fields will be added in future releases!

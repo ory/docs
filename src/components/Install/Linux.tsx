@@ -8,7 +8,7 @@ export default function Linux(props: { repo: string; name: string }) {
   return (
     <>
       <p>
-        Install ${name} on Linux using <code>{`bash <(curl ...)`}</code>:
+        Install {name} on Linux using <code>{`bash <(curl ...)`}</code>:
       </p>
       <CodeBlock language="shell">{`bash <(curl https://raw.githubusercontent.com/ory/meta/master/install.sh) -d -b . ${repo} ${version}
 ./${repo} help`}</CodeBlock>
