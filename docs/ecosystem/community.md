@@ -40,6 +40,7 @@ This is not an exhaustive list. Want your own content here? Create a PR!
 
 - [Ory Kratos Vue 3/Vite with Typescript example](https://github.com/timalanfarrow/kratos-selfservice-ui-vue3-typescript)
 - [Ory Kratos Quarkus, Kotlin, and Qute example](https://github.com/hbrammer/quarkus_kratos_example)
+- [Ory Kratos Admin Interface in React](https://github.com/dfoxg/kratos-admin-ui)
 - [Ory Kratos Svelte Node self service](https://github.com/emrahcom/kratos-selfservice-svelte-node)
 - [Ory Kratos Sveltekit example](https://github.com/drejohnson/sveltekit-kratos)
 - [Ory Kratos Next.js self service UI](https://github.com/spa5k/kratos-next)
