@@ -83,7 +83,7 @@ There are also the following sub-types:
 - Troubleshooting
   - Contains instructions on how to resolve issues with Ory services.
 
-Ory uses [category type templates](./templates.md).
+Ory uses [category type templates](templates.md).
 
 ### Link instead of repeating text
 
