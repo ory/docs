@@ -17,7 +17,9 @@ contribute to documentation:
 - [Google Developer Documentation Style Guide](https://developers.google.com/style)
 
 This document is based on the
-[Gitlab Documentation Style Guide](https://docs.gitlab.com/ee/development/documentation/styleguide/).
+[Gitlab Documentation Style Guide](https://docs.gitlab.com/ee/development/documentation/styleguide/)
+and licensed under
+[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 
 ## Documentation is the single source of truth
 
@@ -83,7 +85,7 @@ There are also the following sub-types:
 - Troubleshooting
   - Contains instructions on how to resolve issues with Ory services.
 
-Ory uses [category type templates](./templates.md).
+Ory uses [category type templates](templates.md).
 
 ### Link instead of repeating text
 
@@ -99,7 +101,7 @@ All Ory documentation is written using
 
 Use the same markdown in several places:
 
-````
+````bash
 ```mdx-code-block
 import ExampleMarkdown from './_common/example.md'
 
@@ -136,7 +138,7 @@ Ory documentation should be clear and easy to understand.
 
 ### Capitalization
 
-#### Headings
+#### Sentence case headings
 
 Use sentence case. For example:
 
@@ -213,8 +215,7 @@ You can use these fake tokens as examples:
 ### Contractions
 
 Contractions are encouraged, and can create a friendly and informal tone,
-especially in tutorials, instructional documentation, and
-[user interfaces](https://design.Ory.com/content/punctuation/#contractions).
+especially in tutorials, instructional documentation, and user interfaces.
 
 Some contractions, however, should be avoided:
 
@@ -278,7 +279,7 @@ Otherwise, use bold.
 - Use underscore (`_`) for text in italics (`_italic_`).
 - Use greater than (`>`) for blockquotes.
 
-### Punctuation
+### Text Punctuation
 
 Follow these guidelines for punctuation:
 
@@ -381,7 +382,7 @@ This is a list of available features:
 - Prefix `1.` to every item in an ordered list. When rendered, the list items
   display with sequential numbering.
 
-### Punctuation
+### List Punctuation
 
 - Don't add commas (`,`) or semicolons (`;`) to the ends of list items.
 - Only add periods to the end of a list item if the item consists of a complete
@@ -1032,7 +1033,7 @@ To embed a video:
 
 Use the same example code in several places:
 
-````
+````bash
 ```mdx-code-block
 import exampleJs from '!!raw-loader!./code-example.jsx'
 import exampleGo from '!!raw-loader!./code-example.go'
@@ -1046,7 +1047,7 @@ import exampleGo from '!!raw-loader!./code-example.go'
 
 Use `shellsession`:
 
-````
+````bash
 ```shellsession
 npx create-next-app@latest --typescript
 npm i --save @ory/integrations
