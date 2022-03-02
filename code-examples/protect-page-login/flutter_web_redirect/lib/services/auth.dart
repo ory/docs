@@ -11,7 +11,7 @@ class AuthService {
   Future<bool> isAuthenticated() async {
     return _dio.get('/sessions/whoami').then((value) {
       if (value.statusCode == 200) {
-        _identity = jsonDecode(value.data);
+        _identity = value.data;
         return true;
       }
       return false;

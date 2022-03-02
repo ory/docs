@@ -49,12 +49,8 @@ flutter create myapp
 cd myapp
 ```
 
-In this guide we will use a simple browser redirect to the Ory managed UI,
-however, this is not the best for user experience. We recommend you implement
-your own UI and then do all the necessary HTTP calls to Ory without the need for
-any browser redirects. This will be discussed in a separate guide.
-
-For HTTP requests we will use the [dio](https://github.com/flutterchina/dio) package.
+For HTTP requests we will use the [dio](https://github.com/flutterchina/dio)
+package.
 
 All the packages we use throughout this guide are listed in our `pubspec.yaml`.
 
@@ -66,11 +62,16 @@ import CodeBlock from '@theme/CodeBlock'
 ```
 
 Package sources:
+
 - https://github.com/flutterchina/dio
 - https://github.com/java-james/flutter_dotenv
 
 Next let us create an Authentication service in our `lib/services` directory,
 which we will use to query the Ory APIs for session information.
+
+```shell-session
+touch lib/services/auth.dart
+```
 
 ```mdx-code-block title="lib/services/auth.dart"
 import auth from '!!raw-loader!../../../code-examples/protect-page-login/flutter_web_redirect/lib/services/auth.dart'
@@ -78,8 +79,9 @@ import auth from '!!raw-loader!../../../code-examples/protect-page-login/flutter
 <CodeBlock language="dart">{auth}</CodeBlock>
 ```
 
-Then we need to create an `.env` file in the root of our project to hold the `ORY_BASE_URL` variable. This would be the Ory proxy URL (e.g. http://localhost:4000/.ory) and the path to the Ory API `/api/kratos/public`.
-
+Then we need to create an `.env` file in the root of our project to hold the
+`ORY_BASE_URL` variable. This would be the Ory proxy URL (e.g.
+http://localhost:4000/.ory) and the path to the Ory API `/api/kratos/public`.
 
 ```shell-session
 touch .env
@@ -92,7 +94,12 @@ import env from '!!raw-loader!../../../code-examples/protect-page-login/flutter_
 ```
 
 Finally, we update the `main.dart` file to check for a session cookie on the
-initial load of the application. This will determine if we redirect to the sign-in/signup page or not.
+initial load of the application. This will determine if we redirect to the
+sign-in/signup page or not.
+
+```shell-session
+touch lib/main.dart
+```
 
 ```mdx-code-block title="lib/main.dart"
 import main from '!!raw-loader!../../../code-examples/protect-page-login/flutter_web_redirect/lib/main.dart'
@@ -111,7 +118,7 @@ import OryCLI from './_common/ory-cli.mdx'
 ## Run your Flutter Web App
 
 ```shell-session
-flutter run -d web-server --web-port 3000
+flutter run -d web-server --web-port 3005
 ```
 
 ```mdx-code-block
@@ -120,11 +127,11 @@ import SdkEnvVar from '@site/src/components/SdkEnvVar'
 <SdkEnvVar />
 ```
 
-Start the Ory Cli proxy on [http://localhost:4005](http://localhost:4000) and
-set the proxied application to [http://localhost:3000](http://localhost:3000).
+Start the Ory Cli proxy on [http://localhost:4005](http://localhost:4005) and
+set the proxied application to [http://localhost:3005](http://localhost:3005).
 
 ```shell-session
-ory proxy --port 3004 http://localhost:3000
+ory proxy --port 4005 http://localhost:3005
 ```
 
 Open the browser on [http://localhost:4000](http://localhost:4000) you should

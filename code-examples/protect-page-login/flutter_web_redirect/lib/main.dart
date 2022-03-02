@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:html';
 import 'package:dio/adapter_browser.dart';
 import 'package:dio/browser_imp.dart';
@@ -6,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_web_redirect/services/auth.dart';
+import 'package:pretty_json/pretty_json.dart';
 
 Future main() async {
   // load the .env file
@@ -35,7 +35,7 @@ Future main() async {
 
   final auth = AuthService(dio);
 
-  if (!await auth.isAuthenticated()) {
+  if (!(await auth.isAuthenticated())) {
     _launchURL(baseUrl);
     return;
   }
@@ -135,8 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Session Information:'+widget.auth.identity.toString(),
-            ),
+            Text('Session Information:${prettyJson(widget.auth.identity)}'),
             const Text(
               'You have pushed the button this many times:',
             ),
