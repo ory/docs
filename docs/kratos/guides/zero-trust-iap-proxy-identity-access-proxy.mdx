@@ -23,9 +23,9 @@ To ensure that no one can access the dashboard without prior authentication, we
 are making use of our reverse proxy
 ([Ory Oathkeeper](https://github.com/ory/oathkeeper)) denying all
 unauthenticated traffic to `http://secure-app/dashboard` and redirecting the
-user to the login page at `http://secure-app/login`. Further, we will
-configure access to `http://secure-app/login` in such a way that access
-only works if one is not yet authenticated.
+user to the login page at `http://secure-app/login`. Further, we will configure
+access to `http://secure-app/login` in such a way that access only works if one
+is not yet authenticated.
 
 ## Running Ory Kratos and the Ory Oathkeeper Identity and Access Proxy
 

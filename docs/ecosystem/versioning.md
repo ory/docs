@@ -12,8 +12,8 @@ service versions and what they mean.
 :::important
 
 **Ory only releases software that is stable and ready for production!**  
-The sandbox/incubating stage is an indicator of _how much_ the API could
-change in the future, including backwards incompatible changes.
+The sandbox/incubating stage is an indicator of _how much_ the API could change
+in the future, including backwards incompatible changes.
 
 Ory was founded in 2015, secures more than 50B requests monthly and is the most
 trusted open source ecosystem for authentication & authorization.
