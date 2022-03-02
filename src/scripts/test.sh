@@ -42,6 +42,6 @@ npx wait-on -v -t 300000 \
   tcp:127.0.0.1:4002 \
   tcp:127.0.0.1:4003 \
   tcp:127.0.0.1:4004 \
-  tcp:127.0.0.1:4005
+  tcp:localhost:4005
 
 npm run test
