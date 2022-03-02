@@ -6,11 +6,8 @@ test.describe('protect-page-login', () => {
     { url: 'http://localhost:3001/', name: 'next.js' },
     { url: 'http://localhost:3002/', name: 'express.js' },
     { url: 'http://localhost:3003/', name: 'go'},
-<<<<<<< HEAD
     { url: 'http://localhost:3004/', name: 'php'},
-=======
-    { url: 'http://localhost:3004/', name: 'flutter_web_redirect'}
->>>>>>> feat: flutter web example using redirects
+    { url: 'http://localhost:3005/', name: 'flutter_web_redirect'}
   ]){
     test.describe(app.name, async() => {
       test('able to use login and sign up', async ({ page }) => {
