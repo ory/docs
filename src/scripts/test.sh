@@ -24,6 +24,7 @@ cd code-examples/protect-page-login/php && \
 ory proxy --no-jwt --port 3004 http://localhost:4004/ &
 
 cd code-examples/protect-page-login/flutter_web_redirect && \
+  flutter pub get && \
   flutter build web && \
   dart pub global run dhttpd --port 4005 --path build/web &
 
