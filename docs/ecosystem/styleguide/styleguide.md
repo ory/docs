@@ -16,9 +16,6 @@ contribute to documentation:
 - [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/)
 - [Google Developer Documentation Style Guide](https://developers.google.com/style)
 
-This document is based on the
-[Gitlab Documentation Style Guide](https://docs.gitlab.com/ee/development/documentation/styleguide/).
-
 ## Documentation is the single source of truth
 
 The Ory documentation is the place to find all information related to Ory
@@ -1373,3 +1370,12 @@ If the content in a topic is not ready, use the disclaimer in the topic.
 When a feature is deprecated, add `(DEPRECATED)` to the page title or to the
 heading of the section documenting the feature, immediately before the tier
 badge.
+
+:::info
+
+This document is based on the
+[Gitlab Documentation Style Guide](https://docs.gitlab.com/ee/development/documentation/styleguide/)
+and licensed under
+[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+
+:::
