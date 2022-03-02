@@ -81,7 +81,7 @@ import auth from '!!raw-loader!../../../code-examples/protect-page-login/flutter
 
 Then we need to create an `.env` file in the root of our project to hold the
 `ORY_BASE_URL` variable. This would be the Ory proxy URL (e.g.
-http://localhost:4000/.ory) and the path to the Ory API `/api/kratos/public`.
+http://localhost:3005/.ory) and the path to the Ory API `/api/kratos/public`.
 
 ```shell-session
 touch .env
@@ -118,7 +118,7 @@ import OryCLI from './_common/ory-cli.mdx'
 ## Run your Flutter Web App
 
 ```shell-session
-flutter run -d web-server --web-port 3005
+flutter run -d web-server --web-port 4005
 ```
 
 ```mdx-code-block
@@ -127,11 +127,11 @@ import SdkEnvVar from '@site/src/components/SdkEnvVar'
 <SdkEnvVar />
 ```
 
-Start the Ory Cli proxy on [http://localhost:4005](http://localhost:4005) and
-set the proxied application to [http://localhost:3005](http://localhost:3005).
+Start the Ory Cli proxy on [http://localhost:3005](http://localhost:3005) and
+set the proxied application to [http://localhost:4005](http://localhost:4005).
 
 ```shell-session
-ory proxy --port 4005 http://localhost:3005
+ory proxy --port 3005 http://localhost:4005
 ```
 
 Open the browser on [http://localhost:4000](http://localhost:4000) you should
@@ -176,7 +176,7 @@ We then need an HTTP server to serve the files, we will use
 [dhttpd](https://pub.dev/packages/dhttpd).
 
 ```shell-session
-dhttpd --port 3000 --path build/web
+dhttpd --host localhost --port 4005 --path build/web
 ```
 
 See here for more information on
