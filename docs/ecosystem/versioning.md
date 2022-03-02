@@ -9,6 +9,17 @@ service versions and what they mean.
 
 ## Development Stages
 
+:::important
+
+**Ory only releases software that is stable and ready for production!**  
+The sandbox/incubating stage is an indicator of _how much_ the API could
+change in the future, including backwards incompatible changes.
+
+Ory was founded in 2015, secures more than 50B requests monthly and is the most
+trusted open source ecosystem for authentication & authorization.
+
+:::
+
 There are three main stages of development for services:
 
 - **Graduated:** Mature implementations of proven concepts. They rarely change
@@ -36,16 +47,6 @@ The following is a list of maturity level per project:
   project.
 - [Ory Kratos](https://github.com/ory/kratos) is a **sandbox** project.
 - [Ory Keto](https://github.com/ory/keto) is a **sandbox** project.
-
-:::info
-
-Ory only releases software that is stable and ready for production!  
-The sandbox/incubating stage does _not_ mean the product is not ready to be
-used.  
-It is an indicator of _how much_ the project will change in the future,
-including backwards incompatible changes.
-
-:::
 
 ## Changelog
 
