@@ -204,7 +204,7 @@ For further instructions please head over to
 
 ## Disclosing vulnerabilities
 
-Please disclose vulnerabilities exclusively to
+Please disclose vulnerabilities to
 [security@ory.sh](mailto:security@ory.sh). Don't use GitHub issues.
 
 ## Code Style

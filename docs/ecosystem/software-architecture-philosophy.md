@@ -69,12 +69,12 @@ The processes are disposable, meaning they can be started or stopped at a
 moment’s notice. This facilitates fast elastic scaling, rapid deployment of code
 or config changes, and robustness of production deploys.
 
-The Ory stack strives to minimize startup time, taking no more than a few
+The Ory stack strives to minimize startup time, taking no more than
 milliseconds to be ready. The processes shut down gracefully when they receive a
 SIGTERM signal from the process manager. For a web process, graceful shutdown is
 achieved by ceasing to listen on the service port (thereby refusing any new
 requests), allowing any current requests to finish, and then exiting. Implicit
-in this model is that HTTP requests are short (no more than a few seconds), or
+in this model is that HTTP requests are short (no more than a several seconds), or
 in the case of long polling, the client should seamlessly attempt to reconnect
 when the connection is lost.
 

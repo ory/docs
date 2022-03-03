@@ -65,7 +65,7 @@ Hydra also provides a developer-friendly CLI.
 
 ## Limitations
 
-Hydra has a few limitations too:
+Hydra has limitations too:
 
 1. ORY Hydra doesn't manage user accounts, i.e. user registration, password
    reset, user login, sending confirmation emails, etc. In Hydra's architecture,

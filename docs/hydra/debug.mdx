@@ -19,8 +19,8 @@ There are three things you can do to quickly debug any issue:
    1. Ory Hydra sends `error_hint`, `error`, `error_description`, `error_debug`
       in the URL. You will find the cause of the error most likely in there.
    2. You are maybe in the wrong URL. Make sure the host and port and path is
-      correct. This happens often, especially when you're just starting out and
-      experimenting
+      correct. This happens often when you're just starting out and
+      experimenting.
 3. Set environment variable `OAUTH2_EXPOSE_INTERNAL_ERRORS=true`. Don't do this
    in production, it's possible, though unlikely, that important data leaks
    with this. If set to true, Ory Hydra will set the `error_debug` query
@@ -129,7 +129,7 @@ URL. Assuming your OAuth 2.0 URL looks like
 `http://ory-hydra/oauth2/auth?client_id=my-client&...&redirect_uri=http://my-url/callback`
 
 The redirect URL `http://my-url/callback` must be whitelisted in your client
-configuration. The URLs must match **exactly**. URL `http://my-url/callback` and
+configuration. The URLs **must** match. URL `http://my-url/callback` and
 `http://my-url/callback?foo=bar` are different URLs!
 
 To see the whitelisted redirect_uris, check the client:

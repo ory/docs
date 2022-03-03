@@ -237,7 +237,7 @@ Products in particular:
 - Small runtime footprint with an about five (5) MB binary running on all
   operating systems without any system, library, or VM dependencies;
 - Fully virtualized in a fifteen (15) MB Docker image;
-- Easy to manage with exactly one binary for the server and the cli;
+- Easy to manage with one binary for the server and the cli;
 - Run-time orchestration using the latest Kubernetes providing fast and easy to
   use [Helm charts](https://github.com/ory/k8s);
 - Horizontal scaling with no etcd key value store or memcached or adjacent tool
@@ -278,7 +278,7 @@ Ory Kratos implements both scenarios by using
 While proprietary and bespoke middleware can protect APIs and Web endpoints, Ory
 Open Source provides a base solution for many use cases. For example, Ory Kratos
 integrates with Ory Oathkeeper, a Reverse Proxy solution. Defining Access Rules
-is as easy as writing a few lines of JSON / JSON5 / YAML!
+is as easy as writing some JSON / JSON5 / YAML!
 
 Please consult the [Quickstart documentation](../quickstart.mdx), for further
 information.

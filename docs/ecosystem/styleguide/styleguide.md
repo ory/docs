@@ -214,8 +214,7 @@ You can use these fake tokens as examples:
 
 ### Contractions
 
-Contractions are encouraged, and can create a friendly and informal tone,
-especially in tutorials, instructional documentation, and user interfaces.
+Contractions are encouraged, and can create a friendly and informal tone, in tutorials, instructional documentation, and user interfaces.
 
 Some contractions, however, should be avoided:
 
@@ -363,7 +362,7 @@ These are the steps to do something:
 
 1. First, do the first step.
 1. Then, do the next step.
-1. Finally, do the last step.
+1. Do the last step.
 ```
 
 Don't:
@@ -591,7 +590,7 @@ This is overridden by the
 - Start with an `h2` (`##`), and respect the order `h2` > `h3` > `h4` > `h5` >
   `h6`. Never skip the hierarchy level, such as `h2` > `h4`
 - Avoid putting numbers in headings. Numbers shift, hence documentation anchor
-  links shift too, which eventually leads to dead links. If you think it's
+  links shift too, which leads to dead links. If you think it's
   compelling to add numbers in headings, make sure to at least discuss it with
   someone in the Merge Request.
 - Avoid using symbols and special characters in headers. Whenever possible, they
@@ -606,7 +605,7 @@ This is overridden by the
   parent heading's text in each subsection's heading.
 - Use articles and prepositions in headings where it would make sense in regular
   text.
-- Leave exactly one blank line before and after a heading.
+- Leave one blank line before and after a heading.
 - Don't use links in headings.
 - Search engines prioritize words used in headings and subheadings. Make your
   subheading titles clear, descriptive, and complete to help users find the
@@ -694,8 +693,8 @@ other documentation in the same project. Use relative links to the file, like
 Relative linking enables crosslinks to work:
 
 - in Review Apps, local previews, and `/help`.
-- when working on the documentation locally, so you can verify that they work as
-  early as possible in the process.
+- when working on the documentation locally, so you can verify that they work
+  during the process.
 - in the Ory user interface when browsing doc files in their respective
   repositories. For example, the links displayed at
   `https://github.com/ory/kratos/master/doc/README.md`.

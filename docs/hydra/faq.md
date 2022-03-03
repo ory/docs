@@ -43,11 +43,9 @@ Both Login and Consent Requests have a
 which contains the original OAuth2 Authorize URL (e.g.
 `/oauth2/auth?client_id=...&your_custom_param=....`)
 
-```
-RequestURL is the original OAuth 2.0 Authorization URL requested by the OAuth 2.0 client.
-It's the URL which initiates the OAuth 2.0 Authorization Code or OAuth 2.0 Implicit flow.
-This URL is typically not needed, but might come in handy if you want to deal with additional request parameters.
-```
+>RequestURL is the original OAuth 2.0 Authorization URL requested by the OAuth 2.0 client.
+>It's the URL which initiates the OAuth 2.0 Authorization Code or OAuth 2.0 Implicit flow.
+>This URL is typically not needed, but might come in handy if you want to deal with additional request parameters.
 
 ## How can I control SQL connection limits?
 
@@ -62,9 +60,9 @@ The following is a copy of the original
 
 I took a long time for this issue, primarily because I felt very uncomfortable
 implementing it. The ROPC grant is something from the "dark ages" of OAuth2 and
-there are suitable replacements for mobile clients, such as public oauth2
+there are [suitable replacements for mobile clients](https://tools.ietf.org/html/draft-ietf-oauth-native-apps-09
+), such as public oauth2
 clients, which are supported by Hydra:
-https://tools.ietf.org/html/draft-ietf-oauth-native-apps-09
 
 The OAuth2 Thread Model explicitly states that the ROPC grant is commonly used
 in legacy/migration scenarios, and
@@ -78,8 +76,8 @@ in legacy/migration scenarios, and
 
 > Because passwords are often used for more than 1 service, this anti-pattern
 > may also put at risk whatever else is accessible with the supplied credential.
-> Additionally, any easily derived equivalent (e.g., joe@example.com and
-> joe@example.net) might easily allow someone to guess that the same password
+> Additionally, any derived equivalent (e.g., joe@example.com and
+> joe@example.net) might allow someone to guess that the same password
 > can be used elsewhere.
 
 > Impact: The resource server can only differentiate scope based on the access

@@ -51,7 +51,7 @@ establish that **you need a method for users to sign in**.
 If you are wondering what password hashing algorithm to use, or how your users
 sign up for your platform, then you don't need OAuth2 or OpenID Connect right
 now. Instead, you should give [Ory Kratos](https://www.ory.sh/kratos/) a spin,
-which aims to solve exactly that.
+which aims to solve that.
 
 ## Access and Refresh Tokens aren't Sessions!
 
@@ -172,12 +172,12 @@ Storing access and refresh tokens involves tradeoffs:
 
 On top of that, you need to refresh tokens when they expire which may become
 very complex in scenarios where you have more than one HTTP request using the
-access token. This is especially true for systems that have refresh tokens which
+access token. This is mainly true for systems that have refresh tokens which
 are valid for one use only (e.g. Ory Hydra, Auth0, ...).
 
 **Cookies are great** and a common misconception is that cookies are less secure
 than tokens or less usable. For 95% of web applications it's enough to work
-with cookies, especially if they only run in the browser and not in a native
+with cookies, if they only run in the browser and not in a native
 mobile app. And that's great, because the browser takes care of:
 
 - Bound to one top-level-domain only;

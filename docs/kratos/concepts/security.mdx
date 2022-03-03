@@ -148,7 +148,7 @@ local claims = {
   identity: {
     traits: {
       // Allowing unverified email addresses enables account
-      // enumeration attacks, especially if the value is used for
+      // enumeration attacks, if the value is used for
       // e.g. verification or as a password login identifier.
       //
       // Therefore we only return the email if it (a) exists and (b) is marked verified

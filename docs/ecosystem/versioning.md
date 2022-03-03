@@ -27,7 +27,7 @@ There are three main stages of development for services:
   of `0` with a `alpha` or `beta` pre-release indicator, e.g. `v0.10.0-alpha.1`.
   It's more likely that you'll encounter a version tag with a `alpha`
   pre-release version. We will provide upgrade guides wherever possible,
-  especially when they're used in production already.
+  when they're used in production already.
 
 The following is a list of maturity level per project:
 
@@ -75,7 +75,7 @@ the foreseeable future.
 
 To make deployment easier but stay compatible with semantic versioning, each
 service is equipped with a `oryOS` version number denoted by `+oryOS.X` where
-`X` represents the "ecosystem" version. This is especially useful if you use
+`X` represents the "ecosystem" version. This is useful if you use
 more than one service from the Ory ecosystem. Let's look at some examples:
 
 - Ory Hydra `v1.0.1+oryOS.6` is best compatible with Ory Oathkeeper
@@ -168,7 +168,7 @@ This turned out to be a bad decision because of multiple factors:
    with the versioning concept.
 3. We're working towards an open source identity management system (Ory Hive)
    which will stay in sandbox and incubation for a while due to its complexity.
-   We definitely didn't want to give the impression that early MVPs are `v1` or
+   We didn't want to give the impression that MVPs are `v1` or
    even `v2`.
 
 Our plan to help developers understand which versions are compatible with one

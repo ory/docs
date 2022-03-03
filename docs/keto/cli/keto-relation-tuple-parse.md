@@ -17,7 +17,7 @@ Parse human readable relation tuples
 ### Synopsis
 
 Parse human readable relation tuples as used in the documentation. Supports
-various output formats. Especially useful for piping into other commands by
+various output formats. Useful for piping into other commands by
 using `--format json`. Ignores comments (starting with `//`) and blank lines.
 
 ```

@@ -390,7 +390,7 @@ serve:
 EOF
 ```
 
-Prometheus can easily be run as a docker container. More information are
+Prometheus can be run as a docker container. More information are
 available on
 [https://github.com/prometheus/prometheus](https://github.com/prometheus/prometheus).
 Start with setting up a prometheus configuration:

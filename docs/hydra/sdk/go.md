@@ -12,7 +12,7 @@ go get -u -d github.com/ory/hydra-client-go
 ## Configuration
 
 We use code generation to generate our SDKs. The Go SDK is generated using
-[`go-swagger`](http://goswagger.io). The SDK is easily set up:
+[`go-swagger`](http://goswagger.io). The SDK is set up:
 
 ```go
 import "github.com/ory/hydra-client-go/client"

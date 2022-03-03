@@ -95,7 +95,7 @@ local claims = {
   identity: {
     traits: {
       // Allowing unverified email addresses enables account
-      // enumeration attacks, especially if the value is used for
+      // enumeration attacks,  if the value is used for
       // e.g. verification or as a password login identifier.
       //
       // Therefore we only return the email if it (a) exists and (b) is marked verified
@@ -193,7 +193,7 @@ local claims = {
   identity: {
     traits: {
       // Allowing unverified email addresses enables account
-      // enumeration attacks, especially if the value is used for
+      // enumeration attacks,  if the value is used for
       // e.g. verification or as a password login identifier.
       //
       // It's assumed that Slack requires an email to be verified before accessible via OAuth (because they don't provide a email_verified field).
@@ -288,7 +288,7 @@ local claims = {
   identity: {
     traits: {
       // Allowing unverified email addresses enables account
-      // enumeration attacks, especially if the value is used for
+      // enumeration attacks,  if the value is used for
       // e.g. verification or as a password login identifier.
       //
       // Therefore we only return the email if it (a) exists and (b) is marked verified
@@ -379,7 +379,7 @@ local claims = {
   identity: {
     traits: {
       // Allowing unverified email addresses enables account
-      // enumeration attacks, especially if the value is used for
+      // enumeration attacks,  if the value is used for
       // e.g. verification or as a password login identifier.
       //
       // Therefore we only return the email if it (a) exists and (b) is marked verified
@@ -455,7 +455,7 @@ local claims = {
   identity: {
     traits: {
       // Allowing unverified email addresses enables account
-      // enumeration attacks, especially if the value is used for
+      // enumeration attacks,  if the value is used for
       // e.g. verification or as a password login identifier.
       //
       // Therefore we only return the email if it (a) exists and (b) is marked verified
@@ -532,7 +532,7 @@ local claims = std.extVar('claims');
   identity: {
     traits: {
       // Allowing unverified email addresses enables account
-      // enumeration attacks, especially if the value is used for
+      // enumeration attacks,  if the value is used for
       // e.g. verification or as a password login identifier.
       //
       // If connecting only to your organization (one tenant), claims.email is safe to use if you haven't actively disabled e-mail verification during signup.
@@ -618,7 +618,7 @@ local claims = {
   identity: {
     traits: {
       // Allowing unverified email addresses enables account
-      // enumeration attacks, especially if the value is used for
+      // enumeration attacks,  if the value is used for
       // e.g. verification or as a password login identifier.
       //
       // Therefore we only return the email if it (a) exists and (b) is marked verified
@@ -712,7 +712,7 @@ local claims = std.extVar('claims');
   identity: {
     traits: {
       // Allowing unverified email addresses enables account
-      // enumeration attacks, especially if the value is used for
+      // enumeration attacks,  if the value is used for
       // e.g. verification or as a password login identifier.
       //
       // It's assumed that Facebook requires an email to be verified before accessible via OAuth (because they don't provide an email_verified field).
@@ -1039,7 +1039,7 @@ local claims = {
   identity: {
     traits: {
       // Allowing unverified email addresses enables account
-      // enumeration attacks, especially if the value is used for
+      // enumeration attacks,  if the value is used for
       // e.g. verification or as a password login identifier.
       //
       // Therefore we only return the email if it (a) exists and (b) is marked verified

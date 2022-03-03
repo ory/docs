@@ -92,6 +92,6 @@ There are a ton of good reasons why this is a bad flow, they're summarized in
 
 ### What about Auth0, Okta, ...?
 
-Auth0, Okta, Stormpath started early with OAuth 2.0 SaaS and adopted the ROPC
+Auth0, Okta, Stormpath started with OAuth 2.0 SaaS and adopted the ROPC
 grant too. They since deprecated these old flows but still have them active as
 existing apps rely on them.
