@@ -30,15 +30,14 @@ reasons for this would perhaps include the following:
 
 - Assumption - it's certifiable;
 - Assumption - it offloads complexity to developers who need to interact with
-  and figure out for example `AppAuth`, `PassportJS`, and similar OAuth2 and OpenID
-  Connect SDKs developed by open source communities;
+  and figure out for example `AppAuth`, `PassportJS`, and similar OAuth2 and
+  OpenID Connect SDKs developed by open source communities;
 - Assumption - selling complexity as security;
 - Assumption - the nature of closed source doesn't allow for new, open and
   de-facto standards to emerge and instead uses a consenus driven feature set,
   even if it doesn't fit the use case 100%.
 
-While Ory Kratos is not certifiable, it tackles these topics as
-follows:
+While Ory Kratos is not certifiable, it tackles these topics as follows:
 
 - With inspiration from the approach taken in the Kubernetes Project, Ory
   provides an open source project that hopefully becomes an open standard in the
@@ -184,8 +183,7 @@ considerations and challenges in Ory's efforts:
   that has the same email address. Or, the user previously signed up using the
   email/password process or flow, and then signs up using "Sign up with Google"
   and vice versa. Even these fairly simple use cases warrant considerable
-  development effort to implement with some degree of user
-  friendliness;
+  development effort to implement with some degree of user friendliness;
 - To prevent security threats for example
   [account enumeration attacks](<https://wiki.owasp.org/index.php/Testing_for_User_Enumeration_and_Guessable_User_Account_(OWASP-AT-002)>);
 - To implement two factor authentication (2FA). When the user loses access to a
@@ -262,8 +260,7 @@ For more details about each individual flow, consult the
 
 ### Bring your own Identity Schema(s)
 
-Sometimes it's necessary to store more than one type of identity in your
-system:
+Sometimes it's necessary to store more than one type of identity in your system:
 
 - A customer that uses email + password to login, and needs to set a birthdate;
   or

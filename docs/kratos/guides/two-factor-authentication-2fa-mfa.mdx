@@ -30,9 +30,9 @@ The Authenticator Assurance Level (AAL) has two possible values:
   (`password`, `oidc`).
 - `aal2`: Implies that the identity has completed the first (`password`, `oidc`)
   and the second (`totp`, `lookup_secrets`, `webauthn`) authentication factor
-  (for example: `password` + `totp`, `oidc` + `webauthn`, ...). First authentication
-  factors can't be combined to gain `aal2` (for example `password` + `oidc` = `aal1`,
-  not `aal2`)!
+  (for example: `password` + `totp`, `oidc` + `webauthn`, ...). First
+  authentication factors can't be combined to gain `aal2` (for example
+  `password` + `oidc` = `aal1`, not `aal2`)!
 
 ### Authentication Method Reference (AMR)
 
@@ -116,8 +116,9 @@ session:
 The field `required_aal` can be one of:
 
 - `highest_available` (default): If set, requires identities who have set up a
-  second factor (for example `totp`, `webauthn`) to have an Ory Session where both
-  factors (for example `password` + `totp`) have been used to authenticated.
+  second factor (for example `totp`, `webauthn`) to have an Ory Session where
+  both factors (for example `password` + `totp`) have been used to
+  authenticated.
 - `aal1`: Even if an identity has a second factor set up, an Ory Session with
   only one factor (for example `oidc`, `password`) is enough to access it.
 
@@ -177,9 +178,9 @@ by initiating a new Login using the
 or
 [`/self-service/login/api`](../reference/api.mdx#operation/initializeSelfServiceLoginFlowWithoutBrowser)
 API and setting the `aal` parameter to `aal2`. Once the end-user has provided
-their second factor, the method (for example `totp`) will be added to the Or Session
-AMR, the Ory Session AAL will be set to `aal2`, and `authenticated_at` will be
-set to the current time.
+their second factor, the method (for example `totp`) will be added to the Or
+Session AMR, the Ory Session AAL will be set to `aal2`, and `authenticated_at`
+will be set to the current time.
 
 ```
 /self-service/login/browser?aal=aal2
@@ -328,11 +329,11 @@ cryptography instead of a password. Common use cases for WebAuthn are
 
 - using a USB, NFC, or Bluetooth low energy device (for example
   [YubiKey](https://www.yubico.com)) to authenticate
-- using an Operating System "platform module" (for example TouchID, FaceID, Windows
-  Hello Face, Android Biometric Authentication, ...)
+- using an Operating System "platform module" (for example TouchID, FaceID,
+  Windows Hello Face, Android Biometric Authentication, ...)
 
-Configuring WebAuthn is imperative, because the authentication will
-fail if something isn't configured.
+Configuring WebAuthn is imperative, because the authentication will fail if
+something isn't configured.
 
 ```yaml title="kratos.config.yml"
 selfservice:
@@ -371,10 +372,10 @@ There are some limitations to WebAuthN to be considered in development:
 
 - WebAuthN is a Browser standard. It doesn't work on native mobile apps.
 
-- WebAuthN is limited to one domain and doesn't work in a local environment
-  when using CNAME / Ory Proxy. WebAuthN uses an `https://origin` URL as part of
-  the client<->server challenge/response mechanism. This mechanism allows for
-  only one URL as the origin. Read more in the
+- WebAuthN is limited to one domain and doesn't work in a local environment when
+  using CNAME / Ory Proxy. WebAuthN uses an `https://origin` URL as part of the
+  client<->server challenge/response mechanism. This mechanism allows for only
+  one URL as the origin. Read more in the
   [WebAuthN guide](https://webauthn.guide/) and on
   [GitHub](https://github.com/w3c/webauthn/issues/1372).
 

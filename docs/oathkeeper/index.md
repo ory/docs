@@ -15,9 +15,9 @@ Architecture, [BeyondCorp](https://www.beyondcorp.com), and Identity And Access
 Proxy (IAP).
 
 While Ory Oathkeeper works well with Ory Hydra and Ory Keto, Ory Oathkeeper can
-be used standalone and alongside other stacks with adjacent problem
-domains (Keycloak, Gluu, Vault, ...). Ory Oathkeeper's Access Control Decision
-API works with
+be used standalone and alongside other stacks with adjacent problem domains
+(Keycloak, Gluu, Vault, ...). Ory Oathkeeper's Access Control Decision API works
+with
 
 - [Ambassador](https://github.com/datawire/ambassador) via
   [auth service](https://www.getambassador.io/reference/services/auth-service)
@@ -32,7 +32,10 @@ among others.
 
 ## Dependencies
 
-Ory Oathkeeper doesn't have any dependencies to other services. It can work in isolation and doesn't require a database or any other type of persistent storage. Ory Oathkeeper is configurable with yaml configuration files, JSON files, and environment variables.
+Ory Oathkeeper doesn't have any dependencies to other services. It can work in
+isolation and doesn't require a database or any other type of persistent
+storage. Ory Oathkeeper is configurable with yaml configuration files, JSON
+files, and environment variables.
 
 ## Operating Modes
 
@@ -43,8 +46,7 @@ the reverse proxy, the other Ory Oathkeeper's API.
 
 The port exposing the reverse proxy forwards requests to the upstream server,
 defined in the rule, if the request is allowed. If the request isn't allowed,
-Ory Oathkeeper doesn't forward the request and instead returns an error
-message.
+Ory Oathkeeper doesn't forward the request and instead returns an error message.
 
 [![Ory Oathkeeper deployed as a Reverse Proxy](https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgcGFydGljaXBhbnQgQyBhcyBDbGllbnRcbiAgICBwYXJ0aWNpcGFudCBPIGFzIE9hdGhrZWVwZXIgUHJveHlcbiAgICBwYXJ0aWNpcGFudCBBIGFzIFByb3RlY3RlZCBTZXJ2ZXIvQVBJXG4gICAgQy0-Pk86IEhUVFAgUmVxdWVzdFxuICAgIE8tLT4-TzogQ2hlY2sgaWYgcmVxdWVzdCBpcyBhbGxvd2VkXG4gICAgYWx0IGlzIG5vdCBhbGxvd2VkXG4gICAgTy0-PkM6IFJldHVybiBIVFRQIEVycm9yIFxuICAgIGVsc2UgaXMgYWxsb3dlZFxuICAgIE8tPj5BOiBGb3J3YXJkIEhUVFAgUmVxdWVzdCBcbiAgICBBLT4-TzogUmV0dXJuIEhUVFAgUmVzcG9uc2VcbiAgICBPLT4-QzogUmV0dXJuIEhUVFAgUmVzcG9uc2VcbiAgICBlbmQiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9fQ)](https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgcGFydGljaXBhbnQgQyBhcyBDbGllbnRcbiAgICBwYXJ0aWNpcGFudCBPIGFzIE9hdGhrZWVwZXIgUHJveHlcbiAgICBwYXJ0aWNpcGFudCBBIGFzIFByb3RlY3RlZCBTZXJ2ZXIvQVBJXG4gICAgQy0-Pk86IEhUVFAgUmVxdWVzdFxuICAgIE8tLT4-TzogQ2hlY2sgaWYgcmVxdWVzdCBpcyBhbGxvd2VkXG4gICAgYWx0IGlzIG5vdCBhbGxvd2VkXG4gICAgTy0-PkM6IFJldHVybiBIVFRQIEVycm9yIFxuICAgIGVsc2UgaXMgYWxsb3dlZFxuICAgIE8tPj5BOiBGb3J3YXJkIEhUVFAgUmVxdWVzdCBcbiAgICBBLT4-TzogUmV0dXJuIEhUVFAgUmVzcG9uc2VcbiAgICBPLT4-QzogUmV0dXJuIEhUVFAgUmVzcG9uc2VcbiAgICBlbmQiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9fQ)
 
@@ -193,13 +195,13 @@ requests. Authorization happens in four steps, each of which can be configured:
 2. **Authentication:** Oathkeeper can validate credentials via a variety of
    methods like Bearer Token, Basic Authorization, or cookie. Invalid
    credentials result in denial of the request. The "internal" session state
-   (such as the user ID) of valid (authenticated) credentials becomes input for the
-   next steps.
+   (such as the user ID) of valid (authenticated) credentials becomes input for
+   the next steps.
 3. **Authorization:** Access Rules can check permissions. To secure, for
    example, an API that requires admin privileges, configure the authorizer to
    check if the user ID from step 2 has the "admin" permission or role.
-   Oathkeeper supports a variety of authorizers. Failed authorization (for example user
-   doesn't have role "admin") results denial of the request.
+   Oathkeeper supports a variety of authorizers. Failed authorization (for
+   example user doesn't have role "admin") results denial of the request.
 4. **Mutation:** The Access Rule can add session data to the HTTP request that
    it forwards to the upstream API. For example, the mutator could add
    `X-User-ID: the-user-id` to the HTTP headers or generate a JWT with session

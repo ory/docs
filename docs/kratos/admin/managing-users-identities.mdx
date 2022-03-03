@@ -16,8 +16,7 @@ There are three principal flows supported for creating identities as an
 administrator:
 
 1. Inviting users - inviting a new employee to your organization IT.
-2. Importing existing users - when migrating from another system to Ory
-   Kratos.
+2. Importing existing users - when migrating from another system to Ory Kratos.
 3. Creating machine users - creating Service Accounts.
 
 :::note
@@ -124,9 +123,9 @@ func main() {
 ```
 
 The response contains a `recovery_link` value which is the link the user should
-use to set up his or her credentials (for example connect to a Social Sign In Provider,
-set up a password, ...). The user has only a limited amount of time to do so -
-the amount of time is specified in the Ory Kratos config:
+use to set up his or her credentials (for example connect to a Social Sign In
+Provider, set up a password, ...). The user has only a limited amount of time to
+do so - the amount of time is specified in the Ory Kratos config:
 
 ```yaml title="path/to/kratos/config.yml"
 selfservice:
@@ -138,9 +137,8 @@ selfservice:
 If the user fails to set up his / her credentials in time, another recovery link
 needs to be issued and the user needs to re-do the flow.
 
-It's not possible to send the recovery link directly to a user's
-email, this feature is tracked as
-[#595](https://github.com/ory/kratos/issues/595).
+It's not possible to send the recovery link directly to a user's email, this
+feature is tracked as [#595](https://github.com/ory/kratos/issues/595).
 
 </TabItem>
 </Tabs>

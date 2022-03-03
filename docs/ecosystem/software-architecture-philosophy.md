@@ -22,10 +22,9 @@ Our philosophy and assumption of how modern software works is summarized here.
 
 ### The Best System Dependency is no Dependency
 
-The Ory stack doesn't rely on (operating) system-wide dependencies such as
-Java, Apache, or other libraries. The only system-wide dependency you may
-encounter is libc / libmusl, required for standard C and POSIX functions when
-using SQLite.
+The Ory stack doesn't rely on (operating) system-wide dependencies such as Java,
+Apache, or other libraries. The only system-wide dependency you may encounter is
+libc / libmusl, required for standard C and POSIX functions when using SQLite.
 
 Installing an Ory project is often just one binary away - on any architecture,
 and operating system. Our binaries are a couple of MB small and so are the
@@ -37,8 +36,8 @@ webserver such as NGINX or Apache HTTP Server.
 ### The Platform is Responsible for Horizontal Scaling
 
 The Ory stack scales without the need for any additional external service
-dependencies (such as etcd, Memcached) except for a RDBMS (such as PostgreSQL, MySQL).
-Scaling horizontally is as easy as starting another process.
+dependencies (such as etcd, Memcached) except for a RDBMS (such as PostgreSQL,
+MySQL). Scaling horizontally is as easy as starting another process.
 
 The Ory Ecosystem assumes that the platform it's running on (such as Kubernetes,
 Google Cloud, Amazon Web Services, Azure, ...) is capable of Load Balancing and
@@ -69,22 +68,22 @@ The processes are disposable, meaning they can be started or stopped at a
 moment’s notice. This facilitates fast elastic scaling, rapid deployment of code
 or config changes, and robustness of production deploys.
 
-The Ory stack strives to minimize startup time, taking no more than
-milliseconds to be ready. The processes shut down gracefully when they receive a
-SIGTERM signal from the process manager. For a web process, graceful shutdown is
+The Ory stack strives to minimize startup time, taking no more than milliseconds
+to be ready. The processes shut down gracefully when they receive a SIGTERM
+signal from the process manager. For a web process, graceful shutdown is
 achieved by ceasing to listen on the service port (thereby refusing any new
 requests), allowing any current requests to finish, and then exiting. Implicit
-in this model is that HTTP requests are short (no more than a several seconds), or
-in the case of long polling, the client should seamlessly attempt to reconnect
-when the connection is lost.
+in this model is that HTTP requests are short (no more than a several seconds),
+or in the case of long polling, the client should seamlessly attempt to
+reconnect when the connection is lost.
 
 #### Logs are `stdout` / `stderr` Streams
 
 The Ory stack never concerns itself with routing or storage of its output
-stream. It doesn't attempt to write to or manage logfiles. Instead, each
-running process writes its event stream, unbuffered, to stdout and stderr.
-During local development, the developer will view this stream in the foreground
-of their terminal to observe the app’s behavior.
+stream. It doesn't attempt to write to or manage logfiles. Instead, each running
+process writes its event stream, unbuffered, to stdout and stderr. During local
+development, the developer will view this stream in the foreground of their
+terminal to observe the app’s behavior.
 
 ### Maintenance tasks run as a one-off processes
 

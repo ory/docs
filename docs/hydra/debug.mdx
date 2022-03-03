@@ -22,11 +22,11 @@ There are three things you can do to quickly debug any issue:
       correct. This happens often when you're just starting out and
       experimenting.
 3. Set environment variable `OAUTH2_EXPOSE_INTERNAL_ERRORS=true`. Don't do this
-   in production, it's possible, though unlikely, that important data leaks
-   with this. If set to true, Ory Hydra will set the `error_debug` query
-   parameter if debug information is available.
-4. If you're just starting out and experimenting your docker set up doesn't
-   work at all:
+   in production, it's possible, though unlikely, that important data leaks with
+   this. If set to true, Ory Hydra will set the `error_debug` query parameter if
+   debug information is available.
+4. If you're just starting out and experimenting your docker set up doesn't work
+   at all:
    1. Stop all containers
    2. Remove them (unless you have something important running)
    3. Retry. **This can help a lot if you are new to this!**
@@ -36,8 +36,7 @@ There are three things you can do to quickly debug any issue:
 If you expect an OAuth 2.0 ID Token but aren't receiving one, this can have
 multiple reasons:
 
-1. You are using the `client_credentials` grant which can't return an ID
-   token.
+1. You are using the `client_credentials` grant which can't return an ID token.
 2. You forgot to request the `openid` scope when calling
    `/oauth2/auth?response_type=code` (Authorize Code Flow - correct would be
    `/oauth2/auth?response_type=code&scope=openid`) or the `id_token` response
@@ -62,8 +61,8 @@ multiple reasons:
 
 ## OAuth 2.0 Refresh Token is missing
 
-If you expect an OAuth 2.0 Refresh Token but aren't receiving one, this can
-have multiple reasons:
+If you expect an OAuth 2.0 Refresh Token but aren't receiving one, this can have
+multiple reasons:
 
 1. You are using an implicit or hybrid flow. These flows never return a refresh
    token!
@@ -164,8 +163,8 @@ The response body that's sent to the client is like below
 }
 ```
 
-The debug error messages isn't provided to avoid divulging more information to
-a malicious client.
+The debug error messages isn't provided to avoid divulging more information to a
+malicious client.
 
 However if you need more information in response (for debugging) , you can
 enable the following environment variables in hydra server :

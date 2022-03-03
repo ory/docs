@@ -4,9 +4,8 @@ title: JSON Schema and JSON Paths
 ---
 
 [JSON Schema](https://json-schema.org) is a vocabulary that allows you to
-annotate and validate JSON documents. It's a IETF (Internet and Engineering
-Task Force) public standard and is similar to a XML DTD but suited for JSON
-payloads.
+annotate and validate JSON documents. It's a IETF (Internet and Engineering Task
+Force) public standard and is similar to a XML DTD but suited for JSON payloads.
 
 We rely on JSON Schema heavily internally, from configuration validation to
 generating OpenAPI Spec to writing documentation. By using Ory Kratos, you will

@@ -45,9 +45,9 @@ layouts. Errors have the following keys defined:
 
 ## User-Facing Errors when consuming APIs
 
-When a user-facing error occurs and the HTTP client is an API Client (for example a
-mobile app), the error will be returned as the HTTP Response. No additional
-steps are required.
+When a user-facing error occurs and the HTTP client is an API Client (for
+example a mobile app), the error will be returned as the HTTP Response. No
+additional steps are required.
 
 ## Using Stub Errors
 

@@ -72,9 +72,9 @@ Three settings methods are supported:
 - `password` for updating the password used to sign in;
 - `oidc` for un-/linking from social sign in providers such as Google or
   Facebook;
-- `profile` for updating an identity's traits (for example change the first name). The
-  updated traits must be valid against the Identity Schema defined for its
-  [Identity Traits](../../concepts/identity-schema.mdx).
+- `profile` for updating an identity's traits (for example change the first
+  name). The updated traits must be valid against the Identity Schema defined
+  for its [Identity Traits](../../concepts/identity-schema.mdx).
 
 <Tabs
   defaultValue="oss"
@@ -168,9 +168,9 @@ prompted to re-authenticate similar to the
   Sorry, your browser doesn't support embedded videos.
 </video>
 
-This end-user experience works only for Browser-based Settings Flows.
-API-based flows will simply return a 403 Forbidden status message which require
-you to request a new Ory Kratos Login session using the
+This end-user experience works only for Browser-based Settings Flows. API-based
+flows will simply return a 403 Forbidden status message which require you to
+request a new Ory Kratos Login session using the
 [API-based Login Flow](user-login.mdx).
 
 ## Initialize Settings Flow
@@ -637,8 +637,8 @@ curl -s -X GET \
 
 :::warning
 
-Social Sign In is not possible for API Clients. It will be possible in
-a future version, which is partially tracked as
+Social Sign In is not possible for API Clients. It will be possible in a future
+version, which is partially tracked as
 [kratos#273](https://github.com/ory/kratos/issues/273)
 
 :::
@@ -661,9 +661,9 @@ JSON.
 ### Update Profile
 
 To complete the profile update, the end-user fills out the presented profile
-form (for example updates their first name or email address). Possible validation
-errors include JSON Schema validation errors (for example `"format": "email"` not
-respected):
+form (for example updates their first name or email address). Possible
+validation errors include JSON Schema validation errors (for example
+`"format": "email"` not respected):
 
 <CodeTabs items={getFlowMethodProfileWithErrors} />
 
@@ -1024,8 +1024,8 @@ The Settings User Interface is a route (page / site) in your application
 (server, native app, single page app) that should render a settings form.
 
 In stark contrast to other Identity Systems, Ory Kratos doesn't render this
-HTML. Instead, you need to implement the HTML code in your application (for example
-NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
+HTML. Instead, you need to implement the HTML code in your application (for
+example NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
 flexibility and customizability in your user interface flows and designs.
 
 You will use the Settings Flow JSON response to render the settings form UI,

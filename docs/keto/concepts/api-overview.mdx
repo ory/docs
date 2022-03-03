@@ -83,10 +83,10 @@ head over to the [gRPC API reference](../reference/proto-api.mdx#writeservice)
 or [REST API reference](../reference/rest-api.mdx#write) to read more about the
 available methods for each client type.
 
-It's preferred to use the transaction based methods over repeatedly
-calling simple methods for bulk updates. This isn't only because they provide
-stronger consistency guarantees, but also because the database usually handles a
-single transaction with a lot of data faster than a lot of small transactions.
+It's preferred to use the transaction based methods over repeatedly calling
+simple methods for bulk updates. This isn't only because they provide stronger
+consistency guarantees, but also because the database usually handles a single
+transaction with a lot of data faster than a lot of small transactions.
 
 The main use cases for the write-APIs are:
 

@@ -7,8 +7,8 @@ sidebar_label: OpenID Connect
 Before you start reading this document, please make sure to have covered all
 topics in [OAuth 2.0 Concepts](./oauth2.mdx).
 
-OpenID Connect works like OAuth2. The primary use case for OpenID
-Connect is to solve "Login with <Google|Facebook|Hydra>" flows.
+OpenID Connect works like OAuth2. The primary use case for OpenID Connect is to
+solve "Login with <Google|Facebook|Hydra>" flows.
 
 To initiate an OpenID Connect flow all you have to do is to add the `openid`
 scope to your OAuth2 Authorize Code Flow:
@@ -51,9 +51,8 @@ you will receive an ID Token:
 ```
 
 The ID Token's purpose is to authenticate the End-User at the OAuth2 Client
-Application. **It doesn't** solve session management or anything else (you
-still have to manage cookies, logout, ... yourself!) - it's just a
-"certificate".
+Application. **It doesn't** solve session management or anything else (you still
+have to manage cookies, logout, ... yourself!) - it's just a "certificate".
 
 ### Userinfo
 

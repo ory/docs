@@ -132,8 +132,8 @@ Grant, the JWT Bearer in the `assertion` parameter is validated as follows:
    identifier for the entity that'ssued the JWT. The value must match the
    `issuer` value of the trust relationship.
 2. The JWT MUST contain a `sub` (subject) claim identifying the principal that
-   is the subject of the JWT (for example the user ID). The value must match the `subject`
-   value of the trust relationship.
+   is the subject of the JWT (for example the user ID). The value must match the
+   `subject` value of the trust relationship.
 3. The JWT MUST contain an `aud` (audience) claim containing a value that
    identifies the authorization server (Hydra) as an intended audience. So this
    value must be Hydra Token URL.
@@ -144,8 +144,8 @@ Grant, the JWT Bearer in the `assertion` parameter is validated as follows:
    before which the token MUST NOT be accepted for processing by Hydra.
 6. The JWT MAY contain an `iat` (issued at) claim that identifies the time at
    which the JWT was issued. Controlled by `oauth2.grant.jwt.iat_optional`
-   (default `false`) If `iat` isn't passed, then current time (when assertion
-   is received by Hydra) will be considered as issued date.
+   (default `false`) If `iat` isn't passed, then current time (when assertion is
+   received by Hydra) will be considered as issued date.
 7. The JWT MAY contain a `jti` (JWT ID) claim that provides a unique identifier
    for the token. Controlled by `oauth2.grant.jwt.jti_optional` (default
    `false`) setting. **Note**: If `jti` is configured to be required, then Hydra

@@ -21,9 +21,9 @@ Imports OAuth 2.0 Clients from one or more JSON files to the JSON Web Key Store
 This command allows you to import OAuth 2.0 Clients from one or more JSON files
 to the JSON Web Key Store.
 
-Supported formats are raw JSON Web Keys or PEM/DER encoded data. If
-the JSON Web Key Set exists already, the imported keys will be added to that
-set. Otherwise, a new set will be created.
+Supported formats are raw JSON Web Keys or PEM/DER encoded data. If the JSON Web
+Key Set exists already, the imported keys will be added to that set. Otherwise,
+a new set will be created.
 
 Please be aware that importing a private key does not automatically import its
 public key as well.

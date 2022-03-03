@@ -15,9 +15,9 @@ use cases require these messages:
 ## Mail courier
 
 Ory Kratos processes email dispatch using a mail courier worker, which must run
-as a singleton in order to process the mail queue. It can be run as a
-background worker on a single-instance Kratos setup or as a distinct singleton
-foreground worker in multi-instance deployments.
+as a singleton in order to process the mail queue. It can be run as a background
+worker on a single-instance Kratos setup or as a distinct singleton foreground
+worker in multi-instance deployments.
 
 ### Single instance
 
@@ -27,9 +27,9 @@ the `--watch-courier` flag to your `kratos serve` command, as outlined in the
 
 ### Multi-instance
 
-If you're running multiple instances of Kratos (for example replicated Kubernetes
-deployment), you need to run the mail courier as a separate singleton job. The
-courier can be started with the `kratos courier watch` command
+If you're running multiple instances of Kratos (for example replicated
+Kubernetes deployment), you need to run the mail courier as a separate singleton
+job. The courier can be started with the `kratos courier watch` command
 ([CLI docs](../cli/kratos-courier.md)).
 
 ## Sending E-Mails via SMTP
@@ -208,9 +208,9 @@ The configuration consists of:
   used by request
 
 Courier binds the `from`, `to`, and `body` variables into the JsonNet template.
-These variables are available through a `ctx` object. For example to create a body
-looking like `{ to: "<some-number>" }` to be sent to the SMS provider endpoint,
-the jsonnet template would look like this:
+These variables are available through a `ctx` object. For example to create a
+body looking like `{ to: "<some-number>" }` to be sent to the SMS provider
+endpoint, the jsonnet template would look like this:
 
 ```jsonnet
 function(ctx) {
@@ -376,8 +376,8 @@ also in the nested templates.
 ### Nested templates with remote templates
 
 When remote templates are used in Kratos, the dynamics of loading nested
-templates change. The templates can't reference templates outside itself as
-with templates loaded from a singular directory.
+templates change. The templates can't reference templates outside itself as with
+templates loaded from a singular directory.
 
 The template will need to contain the nested templates in the same file. See
 below for an example.

@@ -5,10 +5,10 @@ title: Security Policy
 
 :::caution Disclaimer
 
-We're  in the process of setting up a disclosure platform. Until that
-process is done, we can't payout bug bounties due to the administrative
-overhead. All disclosures that are made until the launch, will later be
-processed under the same conditions, but we can't guarantee when that happens.
+We're in the process of setting up a disclosure platform. Until that process is
+done, we can't payout bug bounties due to the administrative overhead. All
+disclosures that are made until the launch, will later be processed under the
+same conditions, but we can't guarantee when that happens.
 
 :::
 
@@ -41,8 +41,9 @@ regards to the new information they add to the issue. Ory will score the
 severity of the disclosed issue according to
 [CVSS 3.1](https://www.first.org/cvss/v3.1/specification-document). Ory reserves
 the right to solely determine the factors affecting the score calculation based
-on the submitted exploit. Effectively this means that you have to prove for example the
-loss of confidentiality to have that included in the CVSS calculation.
+on the submitted exploit. Effectively this means that you have to prove for
+example the loss of confidentiality to have that included in the CVSS
+calculation.
 
 Other Ory open source projects may still be eligible depending on the impact of
 the disclosed issue.

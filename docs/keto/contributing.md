@@ -95,10 +95,10 @@ a few things you can do to help out:
   look at discussions in the forum and take part in our weekly hangout. More
   info on this in [Communication](#communication).
 
-- **Helping with open issues.** We've a lot of open issues for Ory Keto and
-  some of them may lack necessary information, some are duplicates of older
-  issues. You can help out by guiding people through the process of filling out
-  the issue template, asking for clarifying information, or pointing them to
+- **Helping with open issues.** We've a lot of open issues for Ory Keto and some
+  of them may lack necessary information, some are duplicates of older issues.
+  You can help out by guiding people through the process of filling out the
+  issue template, asking for clarifying information, or pointing them to
   existing issues that match their description of the problem.
 
 - **Reviewing documentation changes.** Most documentation just needs a review
@@ -204,8 +204,8 @@ For further instructions please head over to
 
 ## Disclosing vulnerabilities
 
-Please disclose vulnerabilities to
-[security@ory.sh](mailto:security@ory.sh). Don't use GitHub issues.
+Please disclose vulnerabilities to [security@ory.sh](mailto:security@ory.sh).
+Don't use GitHub issues.
 
 ## Code Style
 

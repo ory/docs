@@ -15,7 +15,8 @@ to the endpoint.
 
 Each authorizer has two keys:
 
-- `handler` (string, required): Defines the handler, for example `noop`, to be used.
+- `handler` (string, required): Defines the handler, for example `noop`, to be
+  used.
 - `config` (object, optional): Configures the handler. Configuration keys can
   vary for each handler.s
 
@@ -196,8 +197,7 @@ from above would expand to:
 ```
 
 The `subject` field configures the subject that passes to the Ory Keto endpoint.
-If `subject` isn't specified it will default to
-`AuthenticationSession.Subject`.
+If `subject` isn't specified it will default to `AuthenticationSession.Subject`.
 
 For more details about supported Go template substitution, see.
 [How to use session variables](../pipeline.md#session)

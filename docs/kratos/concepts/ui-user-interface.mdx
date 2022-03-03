@@ -166,8 +166,8 @@ asynchronously. In ReactJS you might want to do something like the following:
 
 ### UI Anchor Nodes
 
-Nodes of type `a` are not used in Ory Kratos, but we've them around
-in case they're needed at a later stage!
+Nodes of type `a` are not used in Ory Kratos, but we've them around in case
+they're needed at a later stage!
 
 <CodeFromRemote
   lang="pug"
@@ -221,7 +221,8 @@ Here is an example of implementing an `img` node in ReactJS:
 
 ### UI Text Nodes
 
-Nodes of type `text` are commonly used to display secrets (for example lookup secrets).
+Nodes of type `text` are commonly used to display secrets (for example lookup
+secrets).
 
 ![Lookup Secret](../images/text-node-1.png)
 
@@ -415,8 +416,8 @@ In ReactJS, you will most likely find similar if statements on the message IDs.
 
 ### UI Input Nodes
 
-The most common node type is the `input` type. It represents an HTML
-`<input>` field:
+The most common node type is the `input` type. It represents an HTML `<input>`
+field:
 
 ```json
 {
@@ -576,8 +577,8 @@ the required JavaScript to get it working!
 
 In a single page application, we need a bit of trickery as we're executing
 JavaScript from a JSON source in JavaScript - which essentialy means we need to
-execute `eval`. This is only needed in this special case. If you do
-not use WebAuthn, you won't need `eval` at all!
+execute `eval`. This is only needed in this special case. If you do not use
+WebAuthn, you won't need `eval` at all!
 
 <CodeFromRemote
   lang="tsx"
@@ -597,9 +598,9 @@ submit button:
 />
 
 If you have control over the form's payload, like in ReactJS, you need to ensure
-that the name of the form (`method`) is only submitted once with the
-correct value (`password`). Because in some cases Ory Kratos might generate
-multiple submit buttons with the same `name` attribute.
+that the name of the form (`method`) is only submitted once with the correct
+value (`password`). Because in some cases Ory Kratos might generate multiple
+submit buttons with the same `name` attribute.
 
 ```json5
 [
@@ -963,8 +964,8 @@ different levels:
    (such as `request expired`)
 2. At the method (password, oidc, profile) level, indicating that the message
    affects a specific method / form.
-3. At the field level, indicating that the message affects a form field (for example
-   validation errors).
+3. At the field level, indicating that the message affects a form field (for
+   example validation errors).
 
 Each message has a layout of:
 
@@ -982,8 +983,8 @@ Each message has a layout of:
 The message ID is a 7-digit number (`xyyzzzz`) where
 
 - `x` is the message type which is either `1` for an info message (for example
-  `1020000`), `4` (for example `4020000`) for an input validation error message, and
-  `5` (for example `5020000`) for a generic error message.
+  `1020000`), `4` (for example `4020000`) for an input validation error message,
+  and `5` (for example `5020000`) for a generic error message.
 - `yy` is the module or flow this error references and can be:
 - `01` for login messages (for example `1010000`)
 - `02` for logout messages (for example `1020000`)
@@ -1034,6 +1035,7 @@ will be overwritten!
 :::
 
 <!-- START MESSAGE TABLE -->
+
 ###### Sign in (1010001)
 
 ```json
@@ -1876,6 +1878,5 @@ will be overwritten!
   "context": {}
 }
 ```
-
 
 <!-- END MESSAGE TABLE -->

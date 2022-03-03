@@ -166,8 +166,8 @@ flags, append the help flag (`-h`) to the command you wish to use.
 ## Configuration Types
 
 Ory uses JSON Schemas to define the configuration layout. JSON Schema defines
-types, which means that Ory is able to guess the type and convert strings (for example
-when using environment variables) to the correct type! A boolean type is
+types, which means that Ory is able to guess the type and convert strings (for
+example when using environment variables) to the correct type! A boolean type is
 converted to `true` or `false` accordingly for:
 
 ```bash

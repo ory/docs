@@ -9,9 +9,9 @@ video files that aren't modeled individually in Ory Keto. The only other
 privilege modeled in this example is "view access." Every owner has view access
 to their objects, and this privilege can be granted to other users as well. The
 video sharing application interprets the special `*` user ID as any user,
-including anonymous users. Note that Ory Keto doesn't interpret this subject
-any differently from other subjects. It also doesn't know anything about
-directory structures or induced ownership.
+including anonymous users. Note that Ory Keto doesn't interpret this subject any
+differently from other subjects. It also doesn't know anything about directory
+structures or induced ownership.
 
 :::info Terminology
 
@@ -90,12 +90,12 @@ keto check "*" view videos /cats/2.mp4
 # Denied
 ```
 
-We already discussed that this request should be denied, but it's always good
-to see this in action.
+We already discussed that this request should be denied, but it's always good to
+see this in action.
 
 Now `cat lady` wants to change some view permissions of `/cats/1.mp4`. For this,
-the video service application has to show all users that are allowed
-to view the video. It uses Keto's
+the video service application has to show all users that are allowed to view the
+video. It uses Keto's
 [expand-API](./concepts/api-overview.mdx#expand-subject-set) to get these data:
 
 ```shell

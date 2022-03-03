@@ -7,15 +7,16 @@ An authenticator is responsible for authenticating request credentials. Ory
 Oathkeeper supports different authenticators and we will add more as the project
 progresses.
 
-An authenticator inspects the HTTP request (for example the HTTP Authorization Header)
-and executes some business logic that returns true (for authentication ok) or
-false (for authentication invalid) as well as a subject ("user"). The subject is
-typically the "user" that made the request, but it could also be a machine (if
-you have machine-2-machine interaction) or something different.
+An authenticator inspects the HTTP request (for example the HTTP Authorization
+Header) and executes some business logic that returns true (for authentication
+ok) or false (for authentication invalid) as well as a subject ("user"). The
+subject is typically the "user" that made the request, but it could also be a
+machine (if you have machine-2-machine interaction) or something different.
 
 Each authenticator has two keys:
 
-- `handler` (string, required): Defines the handler (for example `noop`) to be used.
+- `handler` (string, required): Defines the handler (for example `noop`) to be
+  used.
 - `config` (object, optional): Configures the handler. Configuration keys vary
   per handler. The configuration can be defined in the global configuration
   file, or per access rule.
@@ -1003,5 +1004,5 @@ The request has been allowed! The subject is: "peter"
 
 In the background, this handler will fetch all JSON Web Key Sets provided by
 configuration key `authenticators.jwt.jwks_urls` and use those keys to verify
-the signature. If the signature can't be verified by any of those keys, the
-JWT is considered invalid.
+the signature. If the signature can't be verified by any of those keys, the JWT
+is considered invalid.

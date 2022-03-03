@@ -52,10 +52,10 @@ Redirects when performing the OAuth2 flow:
 
 The OAuth2 2.0 / OpenID Connect Flow is initiated by pointing the End-User's
 browser to the `/oauth2/auth` endpoint. Depending on which flow ("Authorize Code
-Flow", "Implicit Flow", ...) you want to use some of the query parameters (for example
-`/oauth2/auth?response_type=code`, `/oauth2/auth?response_type=token`, ...)
-might change but the overall initiation works always by sending the browser to
-that URL.
+Flow", "Implicit Flow", ...) you want to use some of the query parameters (for
+example `/oauth2/auth?response_type=code`, `/oauth2/auth?response_type=token`,
+...) might change but the overall initiation works always by sending the browser
+to that URL.
 
 :::note
 
@@ -188,9 +188,9 @@ http(s)://<HYDRA_ADMIN_URL>/oauth2/auth/requests/login?login_challenge=<challeng
 
 The response (see below in "Login Challenge Response" tab) contains information
 about the login request. The body contains a `skip` value. If the value is
-`false`, the user interface must be shown. If `skip` is true, you shouldn't
-show the user interface but instead just accept or reject the login request! For
-more details about the implementation check the
+`false`, the user interface must be shown. If `skip` is true, you shouldn't show
+the user interface but instead just accept or reject the login request! For more
+details about the implementation check the
 ["Implementing the Login Endpoint" Guide](../guides/login.mdx).
 
 <Tabs
@@ -274,8 +274,8 @@ an HTML form similar to:
 ```
 
 Once the End-User authenticated successfully, you either **accept** the login
-challenge, or you **reject** (for example the user isn't allowed to perform OAuth2
-flows) the login challenge.
+challenge, or you **reject** (for example the user isn't allowed to perform
+OAuth2 flows) the login challenge.
 
 ### Accepting the Login Flow
 
@@ -431,5 +431,5 @@ Revoking the login sessions of a user is as easy as sending `DELETE` to
 `/oauth2/auth/sessions/login?subject={subject}` (see
 [full API documentation](../reference/api.mdx#opIdrevokeAuthenticationSession)).
 
-This endpoint isn't compatible with OpenID Connect Front-/Backchannel logout
-and doesn't revoke any tokens.
+This endpoint isn't compatible with OpenID Connect Front-/Backchannel logout and
+doesn't revoke any tokens.

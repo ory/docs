@@ -130,7 +130,10 @@ Ory Oathkeeper: [Milestones](https://github.com/ory/oathkeeper/milestones) /
 
 [Ory Oathkeeper Discussions](https://github.com/ory/oathkeeper/discussions)
 
-For all other Ory projects (such as [Ory Dockertest](https://github.com/ory/dockertest/), [Ory Fosite](https://github.com/ory/fosite/), [Ory Herodot](https://github.com/ory/herodot/), etc.), please open
-a discussion in `ory/meta`:
+For all other Ory projects (such as
+[Ory Dockertest](https://github.com/ory/dockertest/),
+[Ory Fosite](https://github.com/ory/fosite/),
+[Ory Herodot](https://github.com/ory/herodot/), etc.), please open a discussion
+in `ory/meta`:
 
 [Ory Meta Discussions](https://github.com/ory/meta/discussions)

@@ -3,11 +3,11 @@ id: session
 title: Ory Session Token / Ory Session Cookie
 ---
 
-When an identity or end-user authenticates using the `password` method,
-they will receive an Ory Session. The Ory Session can either be issued as an
+When an identity or end-user authenticates using the `password` method, they
+will receive an Ory Session. The Ory Session can either be issued as an
 
-- Ory Session Cookie, which is used for all browser-flows (such as PHP app, single
-  page app, ...);
+- Ory Session Cookie, which is used for all browser-flows (such as PHP app,
+  single page app, ...);
 - Ory Session Token, which is used for non-browser flows (such as native apps).
 
 The session's content may look like the following:
@@ -85,7 +85,8 @@ Indicates when the Ory Session expires.
 ### `authenticated_at`
 
 Indicates the time of the most recent authentication. When a new Ory Session is
-created (for example because of a successful login), this is set to the current time.
+created (for example because of a successful login), this is set to the current
+time.
 
 This field is updated when:
 
@@ -98,8 +99,9 @@ This field is updated when:
 
 ## Ory Session Cookie
 
-The Ory Session Cookie will be issued when the end-user is using a browser to sign in. You can fetch the session's payload using the
-`/sessions/whoami` endpoint:
+The Ory Session Cookie will be issued when the end-user is using a browser to
+sign in. You can fetch the session's payload using the `/sessions/whoami`
+endpoint:
 
 ```
 curl 'https://<your-project-slug>.projects.oryapis.com/sessions/whoami' \
@@ -152,9 +154,9 @@ selfservice:
 ```
 
 In the example above, an Ory Session would be considered "privileged" for 15
-minutes. The end-user can perform any profile changes (for example update password,
-link another social provider, add a 2fa method, ...) without being prompted to
-re-authenticate.
+minutes. The end-user can perform any profile changes (for example update
+password, link another social provider, add a 2fa method, ...) without being
+prompted to re-authenticate.
 
 This flow is similar to
 [GitHub's sudo mode](https://help.github.com/en/github/authenticating-to-github/sudo-mode)!

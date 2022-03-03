@@ -31,9 +31,9 @@ The flow itself works as follows:
    redirect to looks similar to
    `http://login-service/login?login_challenge=1234...`.
 3. The Login Provider, once the user has successfully logged in, tells Ory Hydra
-   some information about who the user is (for example the user's ID) and also that the
-   login attempt was successful. This is done using a REST request which
-   includes another redirect URL along the lines of
+   some information about who the user is (for example the user's ID) and also
+   that the login attempt was successful. This is done using a REST request
+   which includes another redirect URL along the lines of
    `http://hydra/oauth2/auth?client_id=...&...&login_verifier=4321`.
 4. The user's user agent follows the redirect and lands back at Ory Hydra. Next,
    Ory Hydra redirects the user's user agent to the Consent Provider, hosted
@@ -55,8 +55,8 @@ The flow itself works as follows:
    access, refresh, and ID tokens.
 
 This flow allows you to take full control of the behaviour of your login system
-(for example 2FA, passwordless, ...) and consent screen. A well-documented reference
-implementation for both the Login and
+(for example 2FA, passwordless, ...) and consent screen. A well-documented
+reference implementation for both the Login and
 [Consent Provider is available on GitHub](https://github.com/ory/hydra-login-consent-node).
 
 ### The flow from a user's point of view

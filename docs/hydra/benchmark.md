@@ -10,12 +10,12 @@ run against the in-memory storage adapter of Ory Hydra. These benchmarks
 represent what performance you would get with a zero-overhead database
 implementation.
 
-We don't include benchmarks against databases (for example MySQL, PostgreSQL, SQLite
-or CockroachDB) as the performance greatly differs between deployments (for example
-request latency, database configuration) and tweaking individual things may
-greatly improve performance. We believe, for that reason, that benchmark results
-for these database adapters are difficult to generalize and potentially
-deceiving. They're thus not included.
+We don't include benchmarks against databases (for example MySQL, PostgreSQL,
+SQLite or CockroachDB) as the performance greatly differs between deployments
+(for example request latency, database configuration) and tweaking individual
+things may greatly improve performance. We believe, for that reason, that
+benchmark results for these database adapters are difficult to generalize and
+potentially deceiving. They're thus not included.
 
 This file is updated on every push to master. It thus represents the benchmark
 data for the latest version.

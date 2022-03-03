@@ -152,10 +152,10 @@ configuration file (explained in further detail at
 
 :::note
 
-Slack doesn't implement OpenID Connect. Therefore, Ory Kratos makes a request
-to [Slack's Oauth2 API](https://api.slack.com/methods/users.identity) and adds
-that data to `std.extVar('claims')`. However, not all fields are supported.
-Check the list of supported fields
+Slack doesn't implement OpenID Connect. Therefore, Ory Kratos makes a request to
+[Slack's Oauth2 API](https://api.slack.com/methods/users.identity) and adds that
+data to `std.extVar('claims')`. However, not all fields are supported. Check the
+list of supported fields
 [in Kratos' source code](https://github.com/ory/kratos/blob/master/selfservice/strategy/oidc/provider_slack.go).
 
 The `identity.basic` scope will add the following fields:
@@ -419,9 +419,9 @@ GitLab is now an option to log in via Kratos.
 
 To set up "Sign in with Auth0" you must create an
 [Auth0 Application for your Auth0 Tenant](https://auth0.com/docs/applications).
-Note that the endpoint for the application starts with your Tenant's name. for example
-`myAuth0Tenant.auth0.com`. This will be the `IssuerURL` you will use when
-configuring the OIDC connection.
+Note that the endpoint for the application starts with your Tenant's name. for
+example `myAuth0Tenant.auth0.com`. This will be the `IssuerURL` you will use
+when configuring the OIDC connection.
 
 Set the "Redirect URI" to:
 
@@ -471,9 +471,9 @@ Now, enable the Auth0 provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`. Note
 that the `issuer_url` needs to be the top-level domain for your Auth0
 application. This can be found by going to the Auth0 application page and
-choosing `Settings` then `Advanced Settings` then `Endpoints`. The
-endpoint is of the form `myAuth0Tenant.auth0.com` (where `myAuth0Tenant` is the
-name of your tenant).
+choosing `Settings` then `Advanced Settings` then `Endpoints`. The endpoint is
+of the form `myAuth0Tenant.auth0.com` (where `myAuth0Tenant` is the name of your
+tenant).
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
 # kratos -c path/to/my/kratos/config.yml serve
@@ -500,8 +500,8 @@ Auth0 is now an option to log in via Kratos.
 ## Microsoft
 
 This will enable you to log in using any Azure AD directory - Multi-tenant and
-personal Microsoft accounts (for example Skype, Xbox) depending on the settings made
-when creating the application in Azure AD.
+personal Microsoft accounts (for example Skype, Xbox) depending on the settings
+made when creating the application in Azure AD.
 
 #### Creating an Application in Azure AD
 
@@ -574,8 +574,8 @@ There are two ways to use the `microsoft` provider for authentication:
 
 1. For authenticating users in a single Azure AD Directory (organization), set
    the `tenant` value to either the `Directory ID` from the "App Registration"
-   page, or the organization domain. Examples:`8eaef023-2b34-4da1-9baa-8bc8c9d6a490`
-   or `example.onmicrosoft.com`.
+   page, or the organization domain.
+   Examples:`8eaef023-2b34-4da1-9baa-8bc8c9d6a490` or `example.onmicrosoft.com`.
 2. For authenticating any user in the Microsoft identity platform, set the
    `tenant` value to either:
 
@@ -1151,8 +1151,8 @@ and making a PR! :)
 ## How to prevent `username already taken`
 
 Sometimes the username returned by a provider is already taken in your
-application. To prevent this you can add a random suffix (for example a number) to the
-OIDC username. You can use the md5 function built in the
+application. To prevent this you can add a random suffix (for example a number)
+to the OIDC username. You can use the md5 function built in the
 [jsonnet standard library](https://jsonnet.org/ref/stdlib.html). See the
 following issue as well:
 [Add random function to the jsonnet library](https://github.com/ory/kratos/issues/988).
@@ -1188,13 +1188,14 @@ exchanges it for a session. For example:
 ## Log in through social providers if the identifiers match
 
 A user creates an account with the identifier `user@example.com`. When the same
-user has an account at for example ACME using the same identifier `user@example.com`,
-some providers offer the option to have the user login through ACME, even though
-the user hasn't created the account using `Login with ACME`.
+user has an account at for example ACME using the same identifier
+`user@example.com`, some providers offer the option to have the user login
+through ACME, even though the user hasn't created the account using
+`Login with ACME`.
 
 > Right now there's an explicit extra step to link them as default
-> configuration. There is no way to login through them without linking if for example
-> emails match.
+> configuration. There is no way to login through them without linking if for
+> example emails match.
 
 :::warning
 

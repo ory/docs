@@ -8,12 +8,12 @@ Read more about the
 if you haven't already. This chapter explains the different pipeline handlers
 available to you:
 
-- [Authentication handlers](pipeline/authn.md) inspect HTTP requests (for example the
-  HTTP Authorization Header) and execute some business logic that return true
-  (for authentication ok) or false (for authentication invalid) as well as a
-  subject ("user"). The subject is typically the "user" that made the request,
-  but it could also be a machine (if you have machine-2-machine interaction) or
-  something different.
+- [Authentication handlers](pipeline/authn.md) inspect HTTP requests (for
+  example the HTTP Authorization Header) and execute some business logic that
+  return true (for authentication ok) or false (for authentication invalid) as
+  well as a subject ("user"). The subject is typically the "user" that made the
+  request, but it could also be a machine (if you have machine-2-machine
+  interaction) or something different.
 - [Authorization handlers](pipeline/authz.md): ensure that a subject ("user")
   has the right permissions. For example, a specific endpoint might only be
   accessible to subjects ("users") from group "admin". The authorizer handles

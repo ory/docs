@@ -141,8 +141,8 @@ address is already known. Depending on the result, one of the two flows will be
 executed:
 
 - Unknown email address: An email is sent to the address informing the recipient
-  that someone tried to verify this email address but that it isn't known by
-  the system:
+  that someone tried to verify this email address but that it isn't known by the
+  system:
   <img
     alt="Verification email for unknown address"
     src={useBaseUrl('img/docs/email-verify-unknown.png')}
@@ -587,8 +587,9 @@ On successful submission, an email will be sent to the provided address:
 
 ## Unsuccessful Verification
 
-If the verification challenge (for example the link in the verification email) is
-invalid or expired, the user will be HTTP 303 redirected to the Verification UI.
+If the verification challenge (for example the link in the verification email)
+is invalid or expired, the user will be HTTP 303 redirected to the Verification
+UI.
 
 :::note
 
@@ -606,9 +607,9 @@ Please keep in mind that this part of the flow always involves a Browser!
 
 ## Successful Verification
 
-If the verification challenge is completed (for example the sent verification link was
-clicked), the end-user's Browser is redirected to the Verification UI with a
-Verification Flow that has now the `state` of `passed_challenge`:
+If the verification challenge is completed (for example the sent verification
+link was clicked), the end-user's Browser is redirected to the Verification UI
+with a Verification Flow that has now the `state` of `passed_challenge`:
 
 <CodeTabs items={getFlowMethodLinkChallengeDone} />
 
@@ -622,8 +623,8 @@ The Verification User Interface is a route (page / site) in your application
 (server, native app, single page app) that should render a verification form.
 
 In stark contrast to other Identity Systems, Ory Kratos doesn't render this
-HTML. Instead, you need to implement the HTML code in your application (for example
-NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
+HTML. Instead, you need to implement the HTML code in your application (for
+example NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
 flexibility and customizability in your user interface flows and designs.
 
 You will use the Verification Flow JSON response to render the verification form

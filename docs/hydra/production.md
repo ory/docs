@@ -33,11 +33,11 @@ With TLS termination enabled, ORY Hydra discards all requests unless:
 - The request is coming from a trusted IP address set by
   `serve.tls.allow_termination_from` and the header `X-Forwarded-Proto` is set
   to `https`.
-- The request goes to `/health/alive`, `/health/ready` which doesn't require
-  TLS termination and that's used to check the health of an instance.
+- The request goes to `/health/alive`, `/health/ready` which doesn't require TLS
+  termination and that's used to check the health of an instance.
 
-When TLS Termination is enabled, you don't need to provide a TLS Certificate
-and Private Key.
+When TLS Termination is enabled, you don't need to provide a TLS Certificate and
+Private Key.
 
 If you are unable to properly set up TLS Termination, you may want to set the
 `--dangerous-force-http` flag. But please be aware that we discourage you from

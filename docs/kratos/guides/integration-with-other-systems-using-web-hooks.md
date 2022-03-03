@@ -3,7 +3,8 @@ id: integration-with-other-systems-using-web-hooks
 title: Integration using Web-Hooks
 ---
 
-Ory Kratos supports integration with other systems such as ERP, CRM, or others using Web-Hooks.
+Ory Kratos supports integration with other systems such as ERP, CRM, or others
+using Web-Hooks.
 
 ### Mailchimp
 
@@ -25,8 +26,8 @@ selfservice:
 ```
 
 And create a JsonNet file. Please be aware that Mailchimps authentication
-mechanism requires to save the Mailchimp key in the JsonNet. For other
-systems you would be using the `web_hook`'s `auth` config.
+mechanism requires to save the Mailchimp key in the JsonNet. For other systems
+you would be using the `web_hook`'s `auth` config.
 
 ```jsonnet title="/path/to/my/mandrillapp.jsonnet"
 function(ctx) {

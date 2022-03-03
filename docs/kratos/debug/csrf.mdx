@@ -15,9 +15,9 @@ them is protection against CSRF:
 > function on the victim’s behalf. For most sites, browser requests
 > automatically include any credentials associated with the site, such as the
 > user’s session cookie, IP address, Windows domain credentials, and so forth.
-> Therefore, if the user is authenticated to the site, the site will
-> have no way to distinguish between the forged request sent by the victim and a
-> legitimate request sent by the victim.
+> Therefore, if the user is authenticated to the site, the site will have no way
+> to distinguish between the forged request sent by the victim and a legitimate
+> request sent by the victim.
 >
 > [Source](https://owasp.org/www-community/attacks/csrf)
 
@@ -63,20 +63,19 @@ and not use the `--dev` flag.
 ### Ory Kratos running over HTTP without dev-mode enabled
 
 Ory Kratos' cookies have the `Secure` flag enabled by default. This means that
-the browser won't send the cookie unless the URL is a HTTPS URL. If you want
-Ory Kratos to work with HTTP (for example on localhost) you can add the `--dev` flag:
-`kratos serve --dev`.
+the browser won't send the cookie unless the URL is a HTTPS URL. If you want Ory
+Kratos to work with HTTP (for example on localhost) you can add the `--dev`
+flag: `kratos serve --dev`.
 
 Don't do this in production!
 
 ### Running on separate (sub-)domains
 
-Cookies work best on the same domain. While it's possible to get cookies
-running on subdomains it isn't possible to do that across Top Level Domains
-(TLDs).
+Cookies work best on the same domain. While it's possible to get cookies running
+on subdomains it isn't possible to do that across Top Level Domains (TLDs).
 
-Make sure that your application (for example the Quickstart self service app ) and Ory
-Krato's Public API are available on the same domain - preferably without
+Make sure that your application (for example the Quickstart self service app )
+and Ory Krato's Public API are available on the same domain - preferably without
 subdomains. Hosting both systems and routing paths with a Reverse Proxy such as
 Nginx or Envoy or AWS API Gateway is the best solution. For example, routing
 `https://my-website/kratos/...` to Ory Kratos and `https://my-website/dashboard`
@@ -98,9 +97,9 @@ same.
 
 ### Mixing up 127.0.0.1 and localhost
 
-As already explained, make sure that the TLD stays the same. This is also
-true for `127.0.0.1` and `localhost` which are both separate TLDs. Make sure
-that you use `127.0.0.1` or `localhost` consistently across your configuration!
+As already explained, make sure that the TLD stays the same. This is also true
+for `127.0.0.1` and `localhost` which are both separate TLDs. Make sure that you
+use `127.0.0.1` or `localhost` consistently across your configuration!
 
 ### Trying to access Ory Kratos Cookies from client-side JavaScript
 
@@ -123,9 +122,10 @@ for example.
 
 ### Accessing Ory Kratos APIs from a server-side application
 
-When implementing a server-side application (for example in PHP, Java, Go, NodeJS, ...)
-make sure to include the `Cookie` header from the client when fetching the
-self-service flows (for example `GET /self-service/login/flows?id=...`):
+When implementing a server-side application (for example in PHP, Java, Go,
+NodeJS, ...) make sure to include the `Cookie` header from the client when
+fetching the self-service flows (for example
+`GET /self-service/login/flows?id=...`):
 
 ```ts
 export default (req: Request, res: Response) => {

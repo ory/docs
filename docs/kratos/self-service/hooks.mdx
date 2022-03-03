@@ -80,7 +80,8 @@ selfservice:
 ```
 
 `hook_1` is always run when the flow is started. On the finalization of the
-flow, `hook_2` isn't run for the `password` method, but for the `oidc` method. If the `password` method is used, then `hook_3` will run.
+flow, `hook_2` isn't run for the `password` method, but for the `oidc` method.
+If the `password` method is used, then `hook_3` will run.
 
 ## All flows
 
@@ -90,7 +91,8 @@ Following hooks can be configured for all flows.
 
 Web-Hooks can be configured for every, but error and logout flow and can be
 configured on either the before/after level or at the level of a particular
-method. Support for Web-Hooks before execution of a method is supported only for registration and login methods.
+method. Support for Web-Hooks before execution of a method is supported only for
+registration and login methods.
 
 :::note
 
@@ -133,8 +135,8 @@ request method (`request_method`), and the request url (`request_url`) of the
 flow into the jsonnet template for all methods and execution paths (before and
 after). For the `after` execution path of all flows, it binds the `identity`
 object into the jsonnet template as well. These objects are available through a
-`ctx` object. To create a body looking like `{ user_id: <some-id> }` to be
-sent to the web hook endpoint, the Jsonnet template would look like this:
+`ctx` object. To create a body looking like `{ user_id: <some-id> }` to be sent
+to the web hook endpoint, the Jsonnet template would look like this:
 `function(ctx) { user_id: ctx.identity.id }`
 
 #### Web-Hook Authentication and Authorization Mechanisms
@@ -317,9 +319,9 @@ Therefore, the user is logged in immediately.
 
 ### Registration Flow via API
 
-When performing a registration flow with an API client (such as a mobile app), this
-hook creates a session and returns the session token and the session itself in
-the response body as application/json:
+When performing a registration flow with an API client (such as a mobile app),
+this hook creates a session and returns the session token and the session itself
+in the response body as application/json:
 
 ```json
 {
@@ -338,9 +340,9 @@ the response body as application/json:
 :::info
 
 Because the HTTP reply is handled by the hook itself, no other hooks can be
-executed because the HTTP reply can't be modified further (for example HTTP Status
-Code was already sent as 200 and can't be changed to 301). You must ensure that
-the session hook is the last hook in your configuration!
+executed because the HTTP reply can't be modified further (for example HTTP
+Status Code was already sent as 200 and can't be changed to 301). You must
+ensure that the session hook is the last hook in your configuration!
 
 :::
 

@@ -300,13 +300,14 @@ Please define custom table names for all table structs. Keep in mind that
 Ory uses a lightweight DBAL across all projects that require a database. This
 DBAL is typically stored in the `persistence/` directory. Since we only support
 SQL at the moment - there are no plans to add new databases and contributions
-won't be accepted due to maintenance effort - you will find the
-implementation in `persistence/sql`.
+won't be accepted due to maintenance effort - you will find the implementation
+in `persistence/sql`.
 
 :::info
 
-This section only applies to Ory Kratos and Ory Keto. Ory Hydra is using an approach that doesn't rely on fizz migrations. Please
-discuss with maintainers before making changes to the Ory Hydra SQL schemata.
+This section only applies to Ory Kratos and Ory Keto. Ory Hydra is using an
+approach that doesn't rely on fizz migrations. Please discuss with maintainers
+before making changes to the Ory Hydra SQL schemata.
 
 :::
 

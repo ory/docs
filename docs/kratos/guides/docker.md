@@ -60,19 +60,19 @@ verify signatures and encrypt things:
 
 ### Volumes
 
-The provided Kratos Docker images don't include a default
-configuration file, but make it easy to pass in your own configuration file(s)
-by either binding a local directory or by creating your own custom Docker Image
-and adding the configuration file(s) to the custom image.
+The provided Kratos Docker images don't include a default configuration file,
+but make it easy to pass in your own configuration file(s) by either binding a
+local directory or by creating your own custom Docker Image and adding the
+configuration file(s) to the custom image.
 
 #### Binding host directory
 
 ##### Binding host directory example
 
-In this example we start the standard Docker container with SQLite
-support and use the quickstart email-password example configuration files by
-bind mounting the local directory. This example assumes that you checked out the
-Kratos Git repo and execute the Docker command in the Kratos Git repo directory:
+In this example we start the standard Docker container with SQLite support and
+use the quickstart email-password example configuration files by bind mounting
+the local directory. This example assumes that you checked out the Kratos Git
+repo and execute the Docker command in the Kratos Git repo directory:
 
 ```sh
 docker run -it -e DSN="memory" \

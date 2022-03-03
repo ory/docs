@@ -190,12 +190,13 @@ The documentation for this, other then inside the file, is a bit scattered:
 - [OmniAuth Gem-documentation from Satorix](https://gitlab.com/satorix/omniauth-oauth2-generic#gitlab-config-example)
 
 The biggest-source for errors is the clients-options-section. Here we'll specify
-the details for the OAuth2 flow and where Ory Hydra is located. Two things are important to keep in your mind when looking at configurations which
-are specifying some flow one way or another:
+the details for the OAuth2 flow and where Ory Hydra is located. Two things are
+important to keep in your mind when looking at configurations which are
+specifying some flow one way or another:
 
 - Where's the DNS-name resolved? Sometimes it's on the users browser, sometimes
-  on GitLab or on the hydra-side. In our docker-based POC, it makes a
-  huge difference!
+  on GitLab or on the hydra-side. In our docker-based POC, it makes a huge
+  difference!
 - Cookies can only be written/read, if they're from the same domain. In that
   case "127.0.0.1". That would be a different domain than "localhost". Pay
   attention to that.
@@ -342,9 +343,9 @@ we're mapping here the email-attribute to the Login-ID which is represented by
 
 But assuming that it's not doing that mapping, then GitLab would need to ask Ory
 Hydra on that endpoint the email-address. But is GitLab even allowed to read it?
-We need consent from the user for that and we configured the client
-above to be able to ask for that scope. However, we also need to configure
-GitLab to actually ask for that scope:
+We need consent from the user for that and we configured the client above to be
+able to ask for that scope. However, we also need to configure GitLab to
+actually ask for that scope:
 
 ```
      authorize_params: {
@@ -364,12 +365,12 @@ monkey-patched while following this guide (so far).
 
 After trying to login you get a message like this:
 
-> Error: invalid_client Description: Client authentication failed (for example, unknown
-> client, no client authentication included, or unsupported authentication
-> method) Hint: The requested OAuth 2.0 Client doesn't exist.
+> Error: invalid_client Description: Client authentication failed (for example,
+> unknown client, no client authentication included, or unsupported
+> authentication method) Hint: The requested OAuth 2.0 Client doesn't exist.
 
-Check your registered clients. Make sure ID and password are correct and
-matches that of the gitlab.rb:
+Check your registered clients. Make sure ID and password are correct and matches
+that of the gitlab.rb:
 
 ```sh
 hydra clients list --endpoint http://127.0.0.1:4445
@@ -450,9 +451,8 @@ that been used in this guide?
 
 OpenID might be the better choice then plain OAuth2. When we tried that, we ran
 into the issue that the used OpenID-connect-implementation doesn't allow
-http-connection but "only" https. That's    a good thing but stupid for
-POCs like this. Whereas Ory Hydra has a switch to whitelist URLs in such cases,
-the used
+http-connection but "only" https. That's a good thing but stupid for POCs like
+this. Whereas Ory Hydra has a switch to whitelist URLs in such cases, the used
 [openid-connect-implementation](https://github.com/nov/openid_connect/issues/47)
 doesn't seem to have that. So, here is a reasonable openID-Connect
 configuration:

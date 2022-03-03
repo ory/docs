@@ -11,8 +11,8 @@ stability of our open source service and identify potential issues.
 
 We're committed to full transparency on what data we transmit why and how. The
 source code of the telemetry package is open source and located
-[here](https://github.com/ory/x/blob/master/metricsx). If you don't wish to
-help us improve our projects by sharing telemetry data, it's possible to
+[here](https://github.com/ory/x/blob/master/metricsx). If you don't wish to help
+us improve our projects by sharing telemetry data, it's possible to
 [opt out of this feature](#opt-out).
 
 ## Data Processing
@@ -98,12 +98,12 @@ identifiable information.
 ### Identification
 
 To identify an installation and group together clusters, we create a SHA-256
-hash of unique information (for example host, port) for identification. Additionally,
-each running instance is identified using an unique identifier which is set
-every time the service starts. The identifier is a Universally Unique Identifier
-(V4) and is thus a cryptographically safe random string. Identification is
-triggered when we're confident that the instance isn't a test instance (for example
-one of the tutorials or a local installation).
+hash of unique information (for example host, port) for identification.
+Additionally, each running instance is identified using an unique identifier
+which is set every time the service starts. The identifier is a Universally
+Unique Identifier (V4) and is thus a cryptographically safe random string.
+Identification is triggered when we're confident that the instance isn't a test
+instance (for example one of the tutorials or a local installation).
 
 We collect the following system metrics:
 

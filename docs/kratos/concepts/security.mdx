@@ -16,9 +16,9 @@ understanding the possible motivations for an attack, or why an agent is a
 threat, knowing the attack surface, the likelihood, and the impact are important
 all aspects of a threat model.
 
-This documentation can't substitute a thorough and serious threat model, yet
-it will provide some guidelines to help configure Ory Kratos in a way that makes
-it best suited for any risk assessment.
+This documentation can't substitute a thorough and serious threat model, yet it
+will provide some guidelines to help configure Ory Kratos in a way that makes it
+best suited for any risk assessment.
 
 ## Account Enumeration Attacks
 
@@ -84,10 +84,10 @@ To mitigate this attack, the following methods need to be deployed:
 
 :::important
 
-If you wish to mitigate account enumeration attacks, it's important to note
-that you can't sign in users directly after sign up! Depending on the type of
-service you provide, you might not care about this specific attack in which case
-direct login after sign up would be ok.
+If you wish to mitigate account enumeration attacks, it's important to note that
+you can't sign in users directly after sign up! Depending on the type of service
+you provide, you might not care about this specific attack in which case direct
+login after sign up would be ok.
 
 :::
 
@@ -122,22 +122,22 @@ selfservice:
 
 #### Defending Against Account Enumeration when using OpenID Connect
 
-Scenario: In some cases you might want to use the email address returned by for example
-the GitHub profile to be added to your identity's account. You might also want
-to use it as an email + password identifier so that the identity is able to log
-in with a password as well. An attacker is able to exploit that by creating a
-social profile on another site (for example Google) and use the victims email address
-to set it up (this only works when the victim doesn't yet have an account with
-that email at Google). The attacker can then use that "spoofed" social profile
-to try and sign up with your Ory Kratos installation. Because the victim's email
-address is already known to Ory Kratos, the attacker might be able to observe
-the behavior (for example seeing an error page) and come to the conclusion that the
-victim already has an account at the website.
+Scenario: In some cases you might want to use the email address returned by for
+example the GitHub profile to be added to your identity's account. You might
+also want to use it as an email + password identifier so that the identity is
+able to log in with a password as well. An attacker is able to exploit that by
+creating a social profile on another site (for example Google) and use the
+victims email address to set it up (this only works when the victim doesn't yet
+have an account with that email at Google). The attacker can then use that
+"spoofed" social profile to try and sign up with your Ory Kratos installation.
+Because the victim's email address is already known to Ory Kratos, the attacker
+might be able to observe the behavior (for example seeing an error page) and
+come to the conclusion that the victim already has an account at the website.
 
 Mitigation: This attack surface is rather small and requires a lot of effort,
-including forging an for example Google profile, and can fail at several stages. To
-mitigate any chance of that happening, only accept email addresses
-that are marked as verified in your Jsonnet code:
+including forging an for example Google profile, and can fail at several stages.
+To mitigate any chance of that happening, only accept email addresses that are
+marked as verified in your Jsonnet code:
 
 ```json title="contrib/quickstart/kratos/email-password/oidc.github.jsonnet"
 local claims = {
@@ -318,17 +318,17 @@ Passwords must be checked against a database of compromised secrets such as
 
 Don't require mixtures of characters types or prohibiting repeated characters:
 
-> Verifiers SHOULD NOT impose other composition rules (such as, requiring mixtures
-> of different character types or prohibiting consecutively repeated characters)
-> for memorized secrets. Verifiers SHOULD NOT require memorized secrets to be
-> changed arbitrarily. However, verifiers SHALL force a
-> change if there is evidence of compromise of the authenticator.
+> Verifiers SHOULD NOT impose other composition rules (such as, requiring
+> mixtures of different character types or prohibiting consecutively repeated
+> characters) for memorized secrets. Verifiers SHOULD NOT require memorized
+> secrets to be changed arbitrarily. However, verifiers SHALL force a change if
+> there is evidence of compromise of the authenticator.
 
 ##### User Interface Guidelines
 
-These best practices need to be implemented in your User Interface and can't
-be handled by Ory Kratos. All Ory-built reference and demo applications
-implement these best practices:
+These best practices need to be implemented in your User Interface and can't be
+handled by Ory Kratos. All Ory-built reference and demo applications implement
+these best practices:
 
 Allow pasting of passwords:
 
@@ -424,8 +424,8 @@ It doesn't yet work as documented!
 
 ## Digital Identity Guidelines
 
-There is no one standard to digital identity. Ory Kratos follows
-emerging frameworks and guidelines such as:
+There is no one standard to digital identity. Ory Kratos follows emerging
+frameworks and guidelines such as:
 [Digital Identity Guidelines established by the National Institute of Standards and Technology (NIST)](https://pages.nist.gov/800-63-3/)
 (and a follow-up [FAQ](https://pages.nist.gov/800-63-3/)) .
 

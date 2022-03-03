@@ -17,7 +17,8 @@ This guide describes the steps needed to create custom Identity Schemas.
   [Projects/Overview](https://console.ory.sh/projects/list).
 
 - Head over to the "Customize / General" tab (URL:
-  https://console.ory.sh/projects/$YOURPROJECTID/settings) and review the active Identity Schema.
+  https://console.ory.sh/projects/$YOURPROJECTID/settings) and review the active
+  Identity Schema.
 
 - Select a preset model or an empty template as the basis for your new custom
   Identity Schema.
@@ -32,8 +33,8 @@ This guide describes the steps needed to create custom Identity Schemas.
   textbox between the checkbox and the schema.
 
 - Press `Enter` or hit the `Update` button to save it, once you have made your
-  changes. It isn't possible to edit an existing Identity Schema on
-  the same revision. The Identity Schema can still be reused as a template for a
+  changes. It isn't possible to edit an existing Identity Schema on the same
+  revision. The Identity Schema can still be reused as a template for a
   following revision.
 
 You can specify a title for your custom Identity Schema. The default is
@@ -98,8 +99,8 @@ flow in Ory Cloud. It also includes a method for
 [`recovery`](https://www.ory.sh/kratos/docs/self-service/flows/account-recovery#recovery-link-method)
 as well as
 [`verification`](https://www.ory.sh/kratos/docs/self-service/flows/verify-email-account-activation/#verification-link-method).
-Only the `email` method is available (recovery/verification via a
-link sent in an email).
+Only the `email` method is available (recovery/verification via a link sent in
+an email).
 
 ```diff
     "traits": {
@@ -187,8 +188,8 @@ adding the above examples the sign-up screen would look like so:
 
 ### Changing existing Identity Schemas
 
-While it's not possible to directly edit existing Identity Schemas,
-you can make revisions.
+While it's not possible to directly edit existing Identity Schemas, you can make
+revisions.
 
 For example, an Identity Schema named "Customer Type 1" exists and you would
 like to make changes to it:
@@ -293,8 +294,8 @@ This is what the above Identity Schema would look like on the sign-up screen:
 
 Theoretically, any amount and type of data can be included in your Identity
 model. We recommend that you don't include more fields than necessary in your
-Identity Schema. The Identity Schema should only include traits that
-are necessary or relevant to the users' profile. If the data is related to
-something else - for example business logic - it makes sense to store it somewhere
-else. It can still be captured in the sign up form, it just will need to be saved
-for example in your backend database.
+Identity Schema. The Identity Schema should only include traits that are
+necessary or relevant to the users' profile. If the data is related to something
+else - for example business logic - it makes sense to store it somewhere else.
+It can still be captured in the sign up form, it just will need to be saved for
+example in your backend database.

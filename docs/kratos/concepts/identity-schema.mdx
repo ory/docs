@@ -79,9 +79,9 @@ Identities are
 
 The identity state is therefore `active` or `inactive`.
 
-An inactive identity won't be able to log into the system. It will receive a
-401 with a reason indicating that the account has been disabled. More states
-will be added later on for specific features.
+An inactive identity won't be able to log into the system. It will receive a 401
+with a reason indicating that the account has been disabled. More states will be
+added later on for specific features.
 
 <Mermaid
   chart={`
@@ -98,8 +98,8 @@ Inactive --> Active: enable
 
 Traits are data associated with an identity. You have to define its schema
 according to your application's needs. They're also supposed to be modified by
-the identity itself for example as part of the registration or profile update process
-as well as anyone having access to Ory Krato's Admin API.
+the identity itself for example as part of the registration or profile update
+process as well as anyone having access to Ory Krato's Admin API.
 
 Ory Kratos uses
 [JSON Schema](https://json-schema.org/learn/getting-started-step-by-step.html)
@@ -175,8 +175,8 @@ switch (session.Identity.SchemaID) {
 
 :::warning
 
-The Identity Schema isn't a place to store sensitive information that should
-not be visible to the end-user!
+The Identity Schema isn't a place to store sensitive information that should not
+be visible to the end-user!
 
 :::
 
@@ -405,15 +405,15 @@ By using "format": "tel" field we enable validation of phone numbers using
 golang [port](https://github.com/nyaruka/phonenumbers) of Google's
 [libphonenumber](https://github.com/google/libphonenumber).
 
-There are no other extensions supported for Identity Traits. Further
-fields will be added in future releases!
+There are no other extensions supported for Identity Traits. Further fields will
+be added in future releases!
 
 ## Best Practices for Updating Identity Schemas
 
-We strongly encourage everyone to specify unique (for example versioned) identifiers
-for every identity schema defined. This allows you to gradually update your
-identity schema without affecting existing identities. Assume you just defined
-your first Identity Schema:
+We strongly encourage everyone to specify unique (for example versioned)
+identifiers for every identity schema defined. This allows you to gradually
+update your identity schema without affecting existing identities. Assume you
+just defined your first Identity Schema:
 
 ```yaml
 identity:
@@ -423,8 +423,8 @@ identity:
       url: file://path/to/user_v0.json
 ```
 
-Weeks later you might notice that you want some additional fields, or want
-to break compatibility with your current schema. Just add another version to the
+Weeks later you might notice that you want some additional fields, or want to
+break compatibility with your current schema. Just add another version to the
 schema and change the `default_schema_id`:
 
 ```yaml

@@ -95,8 +95,8 @@ For more information on Authorization, check the
 
 ### On every request
 
-You may want to protect Ory Hydra using OAuth2 Access Tokens. In that case,
-you can enhance the SDK by using the OAuth2 Client:
+You may want to protect Ory Hydra using OAuth2 Access Tokens. In that case, you
+can enhance the SDK by using the OAuth2 Client:
 
 ```go
 import "github.com/ory/hydra-client-go/client"

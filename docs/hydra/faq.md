@@ -43,9 +43,10 @@ Both Login and Consent Requests have a
 which contains the original OAuth2 Authorize URL (for example
 `/oauth2/auth?client_id=...&your_custom_param=....`)
 
->RequestURL is the original OAuth 2.0 Authorization URL requested by the OAuth 2.0 client.
->It's the URL which initiates the OAuth 2.0 Authorization Code or OAuth 2.0 Implicit flow.
->This URL is typically not needed, but might come in handy if you want to deal with additional request parameters.
+> RequestURL is the original OAuth 2.0 Authorization URL requested by the OAuth
+> 2.0 client. It's the URL which initiates the OAuth 2.0 Authorization Code or
+> OAuth 2.0 Implicit flow. This URL is typically not needed, but might come in
+> handy if you want to deal with additional request parameters.
 
 ## How can I control SQL connection limits?
 
@@ -60,9 +61,9 @@ The following is a copy of the original
 
 I took a long time for this issue, primarily because I felt very uncomfortable
 implementing it. The ROPC grant is something from the "dark ages" of OAuth2 and
-there are [suitable replacements for mobile clients](https://tools.ietf.org/html/draft-ietf-oauth-native-apps-09
-), such as public oauth2
-clients, which are supported by Hydra:
+there are
+[suitable replacements for mobile clients](https://tools.ietf.org/html/draft-ietf-oauth-native-apps-09),
+such as public oauth2 clients, which are supported by Hydra:
 
 The OAuth2 Thread Model explicitly states that the ROPC grant is commonly used
 in legacy/migration scenarios, and
@@ -72,18 +73,16 @@ in legacy/migration scenarios, and
 > authorization process, clients using this grant type aren't limited by scope
 > but instead have potentially the same capabilities as the user themselves. As
 > there is no authorization step, the ability to offer token revocation is
-> bypassed.
-> Because passwords are often used for more than 1 service, this anti-pattern
-> may also put at risk whatever else is accessible with the supplied credential.
-> Additionally, any derived equivalent (such as joe@example.com and
-> joe@example.net) might allow someone to guess that the same password
-> can be used elsewhere.
-> Impact: The resource server can only differentiate scope based on the access
-> token being associated with a particular client. The client could also acquire
-> long-lived tokens and pass them up to an attacker's web service for further
-> abuse. The client, eavesdroppers, or endpoints could eavesdrop the user id and
-> password.
-> Except for migration reasons, minimize use of this grant type.
+> bypassed. Because passwords are often used for more than 1 service, this
+> anti-pattern may also put at risk whatever else is accessible with the
+> supplied credential. Additionally, any derived equivalent (such as
+> joe@example.com and joe@example.net) might allow someone to guess that the
+> same password can be used elsewhere. Impact: The resource server can only
+> differentiate scope based on the access token being associated with a
+> particular client. The client could also acquire long-lived tokens and pass
+> them up to an attacker's web service for further abuse. The client,
+> eavesdroppers, or endpoints could eavesdrop the user id and password. Except
+> for migration reasons, minimize use of this grant type.
 
 - [source](https://tools.ietf.org/html/rfc6819#section-4.4.3)
 
@@ -131,18 +130,18 @@ Thus, to initialize the database schemas, it's required to run
 
 ## What does the installation process look like?
 
-1. Run `hydra migrate sql ...` on a host close to the database (for example a virtual
-   machine with access to the SQL instance).
+1. Run `hydra migrate sql ...` on a host close to the database (for example a
+   virtual machine with access to the SQL instance).
 
 ## What does a migration process look like?
 
 1. Make sure a database update is required by checking the release notes.
 2. Make a back up of the database.
-3. Run the migration script on a host close to the database (for example a virtual
-   machine with access to the SQL instance). Schemas are usually backwards
-   compatible, so instances running previous versions of Ory Hydra should keep
-   working fine. If backwards compatibility isn't given, this will be addressed
-   in the patch notes.
+3. Run the migration script on a host close to the database (for example a
+   virtual machine with access to the SQL instance). Schemas are usually
+   backwards compatible, so instances running previous versions of Ory Hydra
+   should keep working fine. If backwards compatibility isn't given, this will
+   be addressed in the patch notes.
 4. Upgrade all Ory Hydra instances.
 
 ## How can I do this in docker?
@@ -233,19 +232,17 @@ Check the logs using `docker logs <container-id>`.
 
 > Hey there , I am getting this error when I try request an access token "The
 > request used a security parameter (such as, anti-replay, anti-csrf) with
-> insufficient entropy (minimum of 8 characters)"
-> Kareem Diaa @kimooz Jun 07 16:41 Hey there , I am getting this error when I
-> try request an access token "The request used a security parameter (such as,
-> anti-replay, anti-csrf) with insufficient entropy (minimum of 8 characters)"
-> Aeneas @arekkas Jun 07 16:41 @kimooz make sure state and nonce are set in your
-> auth code url
+> insufficient entropy (minimum of 8 characters)" Kareem Diaa @kimooz Jun 07
+> 16:41 Hey there , I am getting this error when I try request an access token
+> "The request used a security parameter (such as, anti-replay, anti-csrf) with
+> insufficient entropy (minimum of 8 characters)" Aeneas @arekkas Jun 07 16:41
+> @kimooz make sure state and nonce are set in your auth code url
 > (http://hydra/oauth2/auth?client_id=...&nonce=THIS_NEEDS_TO_BE_SET&state=THIS_ALSO_NEEDS_TO_BE_SET
 
 ## I get compile errors
 
 > I would try deleting the vendor dir and glide’s files and try glide init again
-> or clear Glide’s global cache.
-> follow the steps in the readme
+> or clear Glide’s global cache. follow the steps in the readme
 > https://github.com/ory/hydra#building-from-source
 
 ## Refreshing tokens
@@ -267,8 +264,11 @@ you to show the login UI.
 ## Where can I get documentation on running multiple instances of Hydra?
 
 Hydra scales according to 12 factor principles. Just add another instance with
-the same config. Please check the [documentation section for 12 factor principles](https://www.ory.sh/docs/ecosystem/cloud-native).There is also some information on collecting statistics in the section on
-[prometheus](https://github.com/prometheus) in the [five minute tutorial](./5min-tutorial.mdx).
+the same config. Please check the
+[documentation section for 12 factor principles](https://www.ory.sh/docs/ecosystem/cloud-native).There
+is also some information on collecting statistics in the section on
+[prometheus](https://github.com/prometheus) in the
+[five minute tutorial](./5min-tutorial.mdx).
 
 ## Is it possible to disable/enable certain flows in Hydra?
 

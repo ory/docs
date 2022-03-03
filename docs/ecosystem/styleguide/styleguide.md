@@ -46,8 +46,8 @@ unlikely a user is to encounter a situation.
 
 Include any media types/sources if the content is relevant to readers. You can
 freely include or link presentations, diagrams, and videos. No matter who it was
-originally composed for, if it's helpful to any of our audiences, we can
-include it.
+originally composed for, if it's helpful to any of our audiences, we can include
+it.
 
 - If you use an image that has a separate source file (for example, a vector or
   diagram format), link the image to the source file so that anyone can update
@@ -214,16 +214,17 @@ You can use these fake tokens as examples:
 
 ### Contractions
 
-Contractions are encouraged, and can create a friendly and informal tone, in tutorials, instructional documentation, and user interfaces.
+Contractions are encouraged, and can create a friendly and informal tone, in
+tutorials, instructional documentation, and user interfaces.
 
 Some contractions, however, should be avoided:
 
-| Don't use a contraction      | Example                                          | Use instead                                       |
+| Don't use a contraction       | Example                                          | Use instead                                       |
 | ----------------------------- | ------------------------------------------------ | ------------------------------------------------- |
 | With a proper noun and a verb | The **Container Registry's** a powerful feature. | The **Container Registry** is a powerful feature. |
-| To emphasize a negative       | **Don't** install X with Y.                      | **Don't** install X with Y.                      |
-| In reference documentation    | **Don't** set a limit.                           | **Don't** set a limit.                           |
-| In error messages             | Requests to localhost **aren't** allowed.        | Requests to localhost **aren't** allowed.        |
+| To emphasize a negative       | **Don't** install X with Y.                      | **Don't** install X with Y.                       |
+| In reference documentation    | **Don't** set a limit.                           | **Don't** set a limit.                            |
+| In error messages             | Requests to localhost **aren't** allowed.        | Requests to localhost **aren't** allowed.         |
 
 ### Acronyms
 
@@ -287,12 +288,12 @@ Follow these guidelines for punctuation:
 | Avoid semicolons. Use two sentences instead.                                                                                                             | That's the way that the world goes 'round. You're up one day and the next you're down. |
 | Always end full sentences with a period.                                                                                                                 | For a complete overview, read through this document.                                   |
 | Always add a space after a period when beginning a new sentence.                                                                                         | For a complete overview, check this doc. For other references, check out this guide.   |
-| Don't use double spaces. (Tested in [`SentenceSpacing.yml`](SentenceSpacing.yml).)                                                                      | ---                                                                                    |
-| Don't use tabs for indentation. Use spaces instead. You can configure your code editor to output spaces instead of tabs when pressing the tab key.      | ---                                                                                    |
+| Don't use double spaces. (Tested in [`SentenceSpacing.yml`](SentenceSpacing.yml).)                                                                       | ---                                                                                    |
+| Don't use tabs for indentation. Use spaces instead. You can configure your code editor to output spaces instead of tabs when pressing the tab key.       | ---                                                                                    |
 | Use serial commas (Oxford commas) before the final **and** or **or** in a list of three or more items. (Tested in [`OxfordComma.yml`](OxfordComma.yml).) | You can create new issues, merge requests, and milestones.                             |
 | Always add a space before and after dashes when using it in a sentence (for replacing a comma, for example).                                             | You should try this - or not.                                                          |
 | When a colon is part of a sentence, always use lowercase after the colon.                                                                                | Linked issues: a way to create a relationship between issues.                          |
-| Don't use typographer's quotes. Use straight quotes instead. (Tested in [`NonStandardQuotes.yml`](NonStandardQuotes.yml).)                              | "It's the questions we can't answer that teach us the most"---Patrick Rothfuss         |
+| Don't use typographer's quotes. Use straight quotes instead. (Tested in [`NonStandardQuotes.yml`](NonStandardQuotes.yml).)                               | "It's the questions we can't answer that teach us the most"---Patrick Rothfuss         |
 
 ### Placeholder text
 
@@ -386,8 +387,8 @@ This is a list of available features:
 - Don't add commas (`,`) or semicolons (`;`) to the ends of list items.
 - Only add periods to the end of a list item if the item consists of a complete
   sentence (with a subject and a verb).
-- Be consistent throughout the list: if the majority of the items don't end in
-  a period, don't end any of the items in a period, even if they consist of a
+- Be consistent throughout the list: if the majority of the items don't end in a
+  period, don't end any of the items in a period, even if they consist of a
   complete sentence. The opposite is also valid: if the majority of the items
   end with a period, end all with a period.
 - Separate list items from explanatory text with a colon (`:`). For example:
@@ -590,9 +591,9 @@ This is overridden by the
 - Start with an `h2` (`##`), and respect the order `h2` > `h3` > `h4` > `h5` >
   `h6`. Never skip the hierarchy level, such as `h2` > `h4`
 - Avoid putting numbers in headings. Numbers shift, hence documentation anchor
-  links shift too, which leads to dead links. If you think it's
-  compelling to add numbers in headings, make sure to at least discuss it with
-  someone in the Merge Request.
+  links shift too, which leads to dead links. If you think it's compelling to
+  add numbers in headings, make sure to at least discuss it with someone in the
+  Merge Request.
 - Avoid using symbols and special characters in headers. Whenever possible, they
   should be plain and short text.
 - When possible, avoid including words that might change in the future. Changing
@@ -686,8 +687,8 @@ NOTE: **Internal** refers to documentation in the same project. When linking to
 documentation in separate projects (for example, linking to Omnibus
 documentation from Ory documentation), you must use absolute URLs.
 
-Don't use absolute URLs like `https://ory.sh/docs/index/` to cross-link to
-other documentation in the same project. Use relative links to the file, like
+Don't use absolute URLs like `https://ory.sh/docs/index/` to cross-link to other
+documentation in the same project. Use relative links to the file, like
 `../index.md`. (These are converted to HTML when the site is rendered.)
 
 Relative linking enables crosslinks to work:
@@ -982,8 +983,8 @@ up a lot of space on the page and can be distracting to readers.
 To embed a video:
 
 1. Copy the code from this procedure and paste it into your Markdown file. Leave
-   a blank line above and below it. Don't edit the code (don't remove or add
-   any spaces).
+   a blank line above and below it. Don't edit the code (don't remove or add any
+   spaces).
 1. In YouTube, visit the video URL you want to display. Copy the regular URL
    from your browser (`https://www.youtube.com/watch?v=VIDEO-ID`).
 1. Paste it where it should appear in the document.
@@ -1073,7 +1074,7 @@ documentation.
 | `golang`                | Alias: `go`.                                                                                                                                                    |
 | `graphql`               |                                                                                                                                                                 |
 | `html`                  |                                                                                                                                                                 |
-| `ini`                   | For some simple configuration files that aren't in TOML format.                                                                                                |
+| `ini`                   | For some simple configuration files that aren't in TOML format.                                                                                                 |
 | `javascript`            | Alias `js`.                                                                                                                                                     |
 | `json`                  |                                                                                                                                                                 |
 | `markdown`              | Alias: `md`.                                                                                                                                                    |

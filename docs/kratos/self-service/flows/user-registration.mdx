@@ -453,8 +453,8 @@ The Social Sign Up Method (`oidc`) enables you to use
 
 :::warning
 
-Social Sign Up is not possible for API Clients. It will be possible in
-a future version, which is partially tracked as
+Social Sign Up is not possible for API Clients. It will be possible in a future
+version, which is partially tracked as
 [kratos#273](https://github.com/ory/kratos/issues/273)
 
 :::
@@ -583,9 +583,9 @@ Schema, for example:
  }
 ```
 
-If the registration payload is invalid (for example the password doesn't match the
-password policy, the email is missing, ...), the password method includes the
-validation errors:
+If the registration payload is invalid (for example the password doesn't match
+the password policy, the email is missing, ...), the password method includes
+the validation errors:
 
 <CodeTabs items={getFlowMethodPasswordWithErrors} />
 
@@ -656,9 +656,9 @@ Let's assume the Ory Kratos Identity Schema JSON requires a `website` trait
 ```
 
 which wasn't provided by the upstream identity provider. This can happen when
-the user refuses to accept a certain scope (for example "Allow Ory Kratos access to my
-website") or if the provider simply doesn't have this data (for example the upstream
-identity provider doesn't collect the user's website).
+the user refuses to accept a certain scope (for example "Allow Ory Kratos access
+to my website") or if the provider simply doesn't have this data (for example
+the upstream identity provider doesn't collect the user's website).
 
 In that case the end-user ends up at the registration screen and is prompted to
 provide the missing or invalid fields:
@@ -1010,8 +1010,8 @@ The Registration User Interface is a route (page / site) in your application
 (server, native app, single page app) that should render a registration form.
 
 In stark contrast to other Identity Systems, Ory Kratos doesn't render this
-HTML. Instead, you need to implement the HTML code in your application (for example
-NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
+HTML. Instead, you need to implement the HTML code in your application (for
+example NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
 flexibility and customizability in your user interface flows and designs.
 
 You will use the Registration Flow JSON response to render the registration form

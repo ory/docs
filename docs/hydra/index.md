@@ -28,8 +28,8 @@ business logic and technology stack.
 Ory Hydra is a
 [Certified OpenID Connect Provider Server](https://openid.net/developers/certified/)
 and implements all the requirements stated by the OpenID Foundation. In
-particular, it implements the various OAuth 2.0 and OpenID Connect
-flows specified by the IETF and OpenID Foundation.
+particular, it implements the various OAuth 2.0 and OpenID Connect flows
+specified by the IETF and OpenID Foundation.
 
 ## Cryptographic Key Storage
 

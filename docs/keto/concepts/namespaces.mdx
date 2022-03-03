@@ -6,8 +6,8 @@ Ory Keto knows the concept of namespaces to organize
 [relation tuples](./relation-tuples.mdx). Namespaces have a configuration that
 defines the relations, and some other important values
 ([see reference](../reference/configuration.md)). Unlike other applications, Ory
-Keto does **not** isolate namespaces. [Subject sets](./subjects.mdx)
-can cross-reference from one namespace to another. The namespaces' purpose is to
+Keto does **not** isolate namespaces. [Subject sets](./subjects.mdx) can
+cross-reference from one namespace to another. The namespaces' purpose is to
 split up the data into coherent partitions, each with its corresponding
 configuration.
 
@@ -41,9 +41,10 @@ namespace to reference the same object.
 ## Naming Conventions
 
 Namespaces should be named after the plural of the type of objects they describe
-(for example `files`, `chats`, `organizations`). Relations within a namespace should be
-a word that describes what relation a subject has towards an object. As a rule
-of thumb, every relation tuple should translate to an english sentence like so:
+(for example `files`, `chats`, `organizations`). Relations within a namespace
+should be a word that describes what relation a subject has towards an object.
+As a rule of thumb, every relation tuple should translate to an english sentence
+like so:
 
 > **Subject** has **relation** on **object** which is one of the **namespace**.
 

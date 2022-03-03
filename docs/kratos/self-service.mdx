@@ -36,8 +36,8 @@ able to exploit
 There are also many other areas you need to think about, such as:
 
 - Mobile, Smart TV, ... authentication
-- Linking and unlinking social profiles (for example "Sign in with Google" or "Connect
-  with Google") to existing accounts
+- Linking and unlinking social profiles (for example "Sign in with Google" or
+  "Connect with Google") to existing accounts
 
 Ory Kratos applies best practices established by experts (National Institute of
 Sciences NIST, Internet Engineering Task Force IETF, Microsoft Research, Google
@@ -66,10 +66,9 @@ business logic:
 - The `link` method implements the "click this link to reset your password"
   account recovery method.
 
-Some flows implement the ability
-[to run hooks](self-service/hooks.mdx) which allow users to be immediately
-signed in after registration, notify another system on successful registration
-(such as Mailchimp), and so on.
+Some flows implement the ability [to run hooks](self-service/hooks.mdx) which
+allow users to be immediately signed in after registration, notify another
+system on successful registration (such as Mailchimp), and so on.
 
 ## Performing Login, Registration, Settings, ... Flows
 
@@ -110,9 +109,9 @@ The browser flow has three stages:
 
 :::note
 
-All examples use Ory Cloud playground project. Please be aware that everyone
-can see the data you enter there. You can replace the URL with a locally hosted
-Ory Kratos as well.
+All examples use Ory Cloud playground project. Please be aware that everyone can
+see the data you enter there. You can replace the URL with a locally hosted Ory
+Kratos as well.
 
 :::
 
@@ -120,8 +119,9 @@ Ory Kratos as well.
 
 ### Initialization and Redirect to UI
 
-First, the Browser opens the flow's initialization endpoint
-(for example`/self-service/login/browser`, `/self-service/registration/browser`, ...):
+First, the Browser opens the flow's initialization endpoint (for
+example`/self-service/login/browser`, `/self-service/registration/browser`,
+...):
 
 ```sh
 curl -s -i -X GET \
@@ -144,16 +144,17 @@ strict-transport-security: max-age=15724800; includeSubDomains
 
 The initialization endpoint creates a flow object and stores it in the database.
 The flow object has an ID and contains additional information about the flow
-such as the login methods (for example "username/password" and "Sign in with Google")
-and their form data.
+such as the login methods (for example "username/password" and "Sign in with
+Google") and their form data.
 
 import DomainWarning from '@site/src/theme/DomainWarning'
 
 <DomainWarning />
 
 Once stored, the Browser is HTTP 303 redirected to the flow's configured UI URL
-(for example `selfservice.flows.login.ui_url`), appending the flow ID as the `flow` URL
-Query Parameter. Also included are HTTP cookies such as Anti-CSRF cookies.
+(for example `selfservice.flows.login.ui_url`), appending the flow ID as the
+`flow` URL Query Parameter. Also included are HTTP cookies such as Anti-CSRF
+cookies.
 
 ### Form Rendering
 
@@ -455,8 +456,8 @@ The high-level sequence diagram for API flows looks as follows:
 
 ### Initialization
 
-The AJAX client (for example NextJS app) makes a request to the flow's initialization
-endpoint (for example`/self-service/login/browser`,
+The AJAX client (for example NextJS app) makes a request to the flow's
+initialization endpoint (for example`/self-service/login/browser`,
 `/self-service/registration/browser`, ...):
 
 ```sh
@@ -498,8 +499,8 @@ curl -v -s -X GET \
 
 The initialization endpoint creates a flow object and stores it in the database.
 The flow object has an ID and contains additional information about the flow
-such as the login methods (for example "username/password" and "Sign in with Google")
-and their form data.
+such as the login methods (for example "username/password" and "Sign in with
+Google") and their form data.
 
 ### Form Rendering
 

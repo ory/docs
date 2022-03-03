@@ -163,9 +163,9 @@ amount of time after clicking on the recovery link.
 
 If the email address used for recovery purposes is the same as the email used
 for verification purposes and the account hasn't yet been activated (see
-[Account Activation](verify-email-account-activation.mdx) - if the
-email address isn't yet verified, the verification status of the corresponding
-object in Kratos will be set to verified upon successful flow finalization.
+[Account Activation](verify-email-account-activation.mdx) - if the email address
+isn't yet verified, the verification status of the corresponding object in
+Kratos will be set to verified upon successful flow finalization.
 
 :::
 
@@ -567,8 +567,8 @@ On successful submission, an email will be sent to the provided address:
 
 ## Unsuccessful Recovery
 
-If the recovery challenge (for example the link in the recovery email) is invalid or
-expired, the user will be HTTP 303 redirected to the Recovery UI.
+If the recovery challenge (for example the link in the recovery email) is
+invalid or expired, the user will be HTTP 303 redirected to the Recovery UI.
 
 :::note
 
@@ -598,8 +598,8 @@ The Recovery User Interface is a route (page / site) in your application
 (server, native app, single page app) that should render a recovery form.
 
 In stark contrast to other Identity Systems, Ory Kratos doesn't render this
-HTML. Instead, you need to implement the HTML code in your application (for example
-NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
+HTML. Instead, you need to implement the HTML code in your application (for
+example NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
 flexibility and customizability in your user interface flows and designs.
 
 You will use the Recovery Flow JSON response to render the recovery form UI,

@@ -3,10 +3,9 @@ id: setting-up-password-hashing-parameters
 title: Setting up Argon2 Password Hashing Parameters
 ---
 
-Ory Kratos supports password hashing using Argon2 in the Argon2id
-variant. It's important to set up it's parameters to ensure a stable and
-reliable operation of Ory Kratos. In essence, you want to fulfill the following
-constrains:
+Ory Kratos supports password hashing using Argon2 in the Argon2id variant. It's
+important to set up it's parameters to ensure a stable and reliable operation of
+Ory Kratos. In essence, you want to fulfill the following constrains:
 
 1. Duration: the execution time of one hashing operation - this translates to
    the response time of Ory Kratos on login and registration.

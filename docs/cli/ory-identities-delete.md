@@ -17,8 +17,8 @@ Delete identities by ID
 ### Synopsis
 
 This command deletes one or more identities by ID. To delete an identity by some
-selector, such as the recovery email address, use the list command in combination
-with jq.
+selector, such as the recovery email address, use the list command in
+combination with jq.
 
 We have to admit, this is not easy if you don&#39;t speak jq fluently. What
 about opening an issue and telling us what predefined selectors you want to

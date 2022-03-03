@@ -12,9 +12,9 @@ them is protection against CSRF:
 > function on the victim’s behalf. For most sites, browser requests
 > automatically include any credentials associated with the site, such as the
 > user’s session cookie, IP address, Windows domain credentials, and so forth.
-> Therefore, if the user is authenticated to the site, the site will
-> have no way to distinguish between the forged request sent by the victim and a
-> legitimate request sent by the victim.
+> Therefore, if the user is authenticated to the site, the site will have no way
+> to distinguish between the forged request sent by the victim and a legitimate
+> request sent by the victim.
 >
 > [Source](https://owasp.org/www-community/attacks/csrf)
 
@@ -63,14 +63,14 @@ hydra serve all -c path/to/config.yml --dangerous-force-http
 
 ### Mixing up `127.0.0.1` and `localhost`
 
-Use either `127.0.0.1` or `localhost` - so either IPs or hostnames - throughout your flow because cookies from an IP aren't
-available to the hostname and vice-versa.
+Use either `127.0.0.1` or `localhost` - so either IPs or hostnames - throughout
+your flow because cookies from an IP aren't available to the hostname and
+vice-versa.
 
 ### Reverse Proxy / Load Balancers
 
-You are running Ory Hydra behind a reverse proxy that
-strips the Cookie header. If the reverse proxy supports path rewrites that might
-also cause issues!
+You are running Ory Hydra behind a reverse proxy that strips the Cookie header.
+If the reverse proxy supports path rewrites that might also cause issues!
 
 ### Running Flows in Separate Browsers or Browser Windows
 
