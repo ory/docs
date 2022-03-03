@@ -134,7 +134,7 @@ courier:
       # the configuration structure is the same as the verification
 ```
 
-### Custom Headers
+### Custom SMTP Headers
 
 You can configure custom SMTP headers. For example, if integrating with AWS SES
 SMTP interface, the headers can be configured for cross-account sending:
@@ -405,19 +405,4 @@ courier:
 {{ template "en_US" . }}
 {{- end -}}
 
-```
-
-### Custom Headers
-
-You can configure custom SMTP headers. For example, if integrating with AWS SES
-SMTP interface, the headers can be configured for cross-account sending:
-
-```yaml title="path/to/my/kratos/config.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
-courier:
-  smtp:
-    headers:
-      X-SES-SOURCE-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
-      X-SES-FROM-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
-      X-SES-RETURN-PATH-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
 ```
