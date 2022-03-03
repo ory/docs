@@ -135,7 +135,10 @@ ory proxy --port 3005 http://localhost:4005
 ```
 
 Open the browser on [http://localhost:4000](http://localhost:4000) you should
-now see the Ory managed Login page.
+now see the Ory managed Login page. Once you have completed the login/signup
+flow you should be redirected back to your Flutter Web App with a session
+cookie. The session cookie can now be sent to your backend service to validate
+the session on each API call.
 
 :::note
 
