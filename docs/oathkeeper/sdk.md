@@ -1,6 +1,6 @@
 ---
 id: sdk
-title: ORY Oathkeeper SDKs
+title: Ory Oathkeeper SDKs
 sidebar_label: Overview
 ---
 

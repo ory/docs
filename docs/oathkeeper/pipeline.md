@@ -26,7 +26,7 @@ available to you:
   other credential type. All your backend has to do is understand, for example,
   the `X-User:`.
 - [Error handlers](pipeline/error.md): are responsible for executing logic
-  after, for example, authentication or authorization failed. ORY Oathkeeper
+  after, for example, authentication or authorization failed. Ory Oathkeeper
   supports different error handlers and we will add more as the project
   progresses.
 

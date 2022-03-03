@@ -3,7 +3,7 @@ id: api-access-rules
 title: API Access Rules
 ---
 
-ORY Oathkeeper reaches decisions to allow or deny access by applying Access
+Ory Oathkeeper reaches decisions to allow or deny access by applying Access
 Rules. Access Rules can be stored on the file system, set as an environment
 variable, or fetched from HTTP(s) remotes. These repositories can be configured
 in the configuration file (`oathkeeper -c ./path/to/config.yml ...`)
@@ -12,7 +12,7 @@ in the configuration file (`oathkeeper -c ./path/to/config.yml ...`)
 # Configures Access Rules
 access_rules:
   # Locations (list of URLs) where access rules should be fetched from on boot.
-  # It's expected that the documents at those locations return a JSON or YAML Array containing ORY Oathkeeper Access Rules.
+  # It's expected that the documents at those locations return a JSON or YAML Array containing Ory Oathkeeper Access Rules.
   repositories:
     # If the URL Scheme is `file://`, the access rules (an array of access rules is expected) will be
     # fetched from the local file system.
@@ -69,18 +69,18 @@ cat ./rules.yaml
 Access Rules have four principal keys:
 
 - `id` (string): The unique ID of the Access Rule.
-- `version` (string): The version of ORY Oathkeeper this rule targets with out
-  the `+oryOS.<x>` appendix. ORY Oathkeeper is able to migrate access rules
-  across versions. If left empty ORY Oathkeeper will assume that the rule is
+- `version` (string): The version of Ory Oathkeeper this rule targets with out
+  the `+oryOS.<x>` appendix. Ory Oathkeeper is able to migrate access rules
+  across versions. If left empty Ory Oathkeeper will assume that the rule is
   using the same tag as the version that's running.
 - `upstream` (object): The location of the server where requests matching this
-  rule should be forwarded to. This only needs to be set when using the ORY
+  rule should be forwarded to. This only needs to be set when using the Ory
   Oathkeeper Proxy as the Decision API doesn't forward the request to the
   upstream.
   - `url` (string): The URL the request will be forwarded to.
   - `preserve_host` (bool): If set to `false` (default), the forwarded request
     will include the host and port of the `url` value. If `true`, the host and
-    port of the ORY Oathkeeper Proxy will be used instead:
+    port of the Ory Oathkeeper Proxy will be used instead:
     - `false`: Incoming HTTP Header `Host: mydomain.com`-> Forwarding HTTP
       Header `Host: someservice.intranet.mydomain.com:1234`
   - `strip_path` (string): If set, replaces the provided path prefix when
@@ -135,7 +135,7 @@ Access Rules have four principal keys:
   available authorizers, click [here](pipeline/authz.md).
 - `mutators`: A list of mutation handlers that transform the HTTP request before
   forwarding it. A common use case is generating a new set of credentials (for example
-  JWT) which then will be forwarded to the upstream server. When using ORY
+  JWT) which then will be forwarded to the upstream server. When using Ory
   Oathkeeper's Decision API, it's expected that the API Gateway forwards the
   mutated HTTP Headers to the upstream server. For the full list of available
   mutators, click [here](pipeline/mutator.md).
@@ -238,7 +238,7 @@ authenticators:
 
 Some credentials are scoped. For example, OAuth 2.0 Access Tokens usually are
 scoped ("OAuth 2.0 Scope"). Scope validation depends on the meaning of the
-scope. Therefore, wherever ORY Oathkeeper validates a scope, these scope
+scope. Therefore, wherever Ory Oathkeeper validates a scope, these scope
 strategies are supported:
 
 - `hierarchic`: Scope `foo` matches `foo`, `foo.bar`, `foo.baz` but not `bar`

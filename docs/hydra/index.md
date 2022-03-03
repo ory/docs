@@ -11,7 +11,7 @@ Tokens that enable third-parties to access your APIs in the name of your users.
 
 ## Flexible User Management
 
-One of ORY Hydra's biggest advantages is that unlike other OAuth 2.0
+One of Ory Hydra's biggest advantages is that unlike other OAuth 2.0
 implementations, it implements the OAuth and OpenID Connect standard without
 forcing you to use a "Hydra User Management" (login, logout, profile management,
 registration), a particular template engine, or a predefined front-end.
@@ -25,7 +25,7 @@ business logic and technology stack.
 
 ## OpenID Certified
 
-ORY Hydra is a
+Ory Hydra is a
 [Certified OpenID Connect Provider Server](https://openid.net/developers/certified/)
 and implements all the requirements stated by the OpenID Foundation. In
 particular, it implements the various OAuth 2.0 and OpenID Connect
@@ -33,18 +33,18 @@ flows specified by the IETF and OpenID Foundation.
 
 ## Cryptographic Key Storage
 
-In addition to the OAuth 2.0 functionality, ORY Hydra offers a safe storage for
+In addition to the OAuth 2.0 functionality, Ory Hydra offers a safe storage for
 cryptographic keys (used for example to sign JSON Web Tokens) and can manage
 OAuth 2.0 Clients.
 
 ### Hardware Security Module support
 
-ORY Hydra also offers a safe storage for cryptographic keys using HSM.
+Ory Hydra also offers a safe storage for cryptographic keys using HSM.
 [Learn more](guides/hsm-support.md).
 
 ## Security First
 
-ORY Hydra's architecture and work flows are designed to neutralize many common
+Ory Hydra's architecture and work flows are designed to neutralize many common
 (OWASP TOP TEN) and uncommon attack vectors.
 [Learn more](./security-architecture.md).
 
@@ -67,13 +67,13 @@ Hydra also provides a developer-friendly CLI.
 
 Hydra has limitations too:
 
-1. ORY Hydra doesn't manage user accounts, i.e. user registration, password
+1. Ory Hydra doesn't manage user accounts, i.e. user registration, password
    reset, user login, sending confirmation emails, etc. In Hydra's architecture,
    the _Identity Provider_ is responsible for this.
-2. ORY Hydra doesn't support the OAuth 2.0 Resource Owner Password Credentials
+2. Ory Hydra doesn't support the OAuth 2.0 Resource Owner Password Credentials
    flow because it's legacy, discouraged, and insecure.
 
-## Is ORY Hydra the right fit for you?
+## Is Ory Hydra the right fit for you?
 
 OAuth 2.0 can be used in many environments for various purposes. This list might
 help you decide if OAuth 2.0 and Hydra are the right fit for a use case:

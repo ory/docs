@@ -79,9 +79,9 @@ The request has been allowed! The original HTTP Request hasn't been modified.
 This mutator takes the authentication information (such as subject) and transforms
 it to a signed JSON Web Token, and more specifically to an OpenID Connect ID
 Token. Your backend can verify the token by fetching the (public) key from the
-`/.well-known/jwks.json` endpoint provided by the ORY Oathkeeper API.
+`/.well-known/jwks.json` endpoint provided by the Ory Oathkeeper API.
 
-Let's say a request is made to a resource protected by ORY Oathkeeper using
+Let's say a request is made to a resource protected by Ory Oathkeeper using
 Basic Authorization:
 
 ```bash
@@ -90,7 +90,7 @@ Host: www.example.com
 Authorization: Basic Zm9vOmJhcg==
 ```
 
-Assuming that ORY Oathkeeper is granting the access request,
+Assuming that Ory Oathkeeper is granting the access request,
 `Basic Zm9vOmJhcg==` will be replaced with a cryptographically signed JSON Web
 Token:
 
@@ -101,8 +101,8 @@ Authorization: Bearer <jwt-signed-id-token>
 ```
 
 Now, the protected resource is capable of decoding and validating the JSON Web
-Token using the public key supplied by ORY Oathkeeper's API. The public key for
-decoding the ID token is available at ORY Oathkeeper's `/.well-known/jwks.json`
+Token using the public key supplied by Ory Oathkeeper's API. The public key for
+decoding the ID token is available at Ory Oathkeeper's `/.well-known/jwks.json`
 endpoint:
 
 ```bash
@@ -133,7 +133,7 @@ The ID Token Claims are as follows:
 - `iss`: Issuer Identifier for the Issuer of the response. The iss value is a
   case sensitive URL using the https scheme that contains scheme, host, and
   optionally, port number and path components and no query or fragment
-  components. Typically, this is the URL of ORY Oathkeeper, for example:
+  components. Typically, this is the URL of Ory Oathkeeper, for example:
   `https://oathkeeper.myapi.com`.
 - `sub`: Subject Identifier. A locally unique and never reassigned identifier
   within the Issuer for the End-User, which is intended to be consumed by the

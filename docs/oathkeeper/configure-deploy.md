@@ -5,7 +5,7 @@ title: Configure and Deploy
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-The ORY Oathkeeper HTTP serve process `oathkeeper serve` opens two ports
+The Ory Oathkeeper HTTP serve process `oathkeeper serve` opens two ports
 exposing the
 
 - [reverse proxy](index.md#reverse-proxy)
@@ -14,12 +14,12 @@ exposing the
   other API endpoints such as health checks, JSON Web Key Sets, and a list of
   available rules.
 
-For this guide we're using Docker. ORY Oathkeeper however can be
+For this guide we're using Docker. Ory Oathkeeper however can be
 [installed in a variety of ways](install.md).
 
 ## Configure
 
-ORY Oathkeeper can be configured via the filesystem as well as environment
+Ory Oathkeeper can be configured via the filesystem as well as environment
 variables. For more information on mapping the keys to environment variables
 please head over to the [configuration chapter](reference/configuration.md).
 
@@ -95,7 +95,7 @@ noop and id_token mutators.
 ### Access Rules
 
 We will be using [httpbin.org](https://httpbin.org) as the upstream server. The
-service echoes incoming HTTP Requests and is perfect for seeing how ORY
+service echoes incoming HTTP Requests and is perfect for seeing how Ory
 Oathkeeper works. Let's define three rules:
 
 1. An access rule that allowing anonymous access to
@@ -230,7 +230,7 @@ EOF
 ### Cryptographic Keys
 
 The `id_token` mutator creates a signed JSON Web Token. For that to work, a
-public/private key is required. Luckily, ORY Oathkeeper can assist you in
+public/private key is required. Luckily, Ory Oathkeeper can assist you in
 creating such keys. All common JWT algorithms are supported (RS256, ES256,
 HS256, ...). Let's generate a key for the RS256 algorithm that will be used by
 the id_token mutator:
@@ -264,7 +264,7 @@ apply these best practices.
 
 ## Build & Run
 
-Before building the Docker Image, we need to make sure that the local ORY
+Before building the Docker Image, we need to make sure that the local Ory
 Oathkeeper Docker Image is on the most recent version:
 
 ```sh
@@ -435,5 +435,5 @@ available on
 We've a pre built Dashboard which you can use to get started quickly:
 [Oathkeeper-Dashboard.json](https://github.com/ory/oathkeeper/tree/master/contrib/grafana/Oathkeeper-Dashboard.json).
 
-<img alt="ORY Oathkeeper with Prometheus and Grafana"
+<img alt="Ory Oathkeeper with Prometheus and Grafana"
 src={useBaseUrl('img/docs/grafana.png')} />

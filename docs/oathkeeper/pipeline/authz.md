@@ -3,7 +3,7 @@ id: authz
 title: Authorizers
 ---
 
-An "authorizer" is responsible for properly permissioning a subject. ORY
+An "authorizer" is responsible for properly permissioning a subject. Ory
 Oathkeeper supports different kinds of authorizers. The list of authorizers
 increases over time due to new features and requirements.
 
@@ -124,14 +124,14 @@ The request is forbidden!
 
 ## `keto_engine_acp_ory`
 
-This authorizer uses the ORY Keto API to carry out access control using
-"ORY-flavored" Access Control Policies. The conventions used in the ORY Keto
-project are located on [GitHub ORY Keto](https://github.com/ory/keto) for
+This authorizer uses the Ory Keto API to carry out access control using
+"Ory-flavored" Access Control Policies. The conventions used in the Ory Keto
+project are located on [GitHub Ory Keto](https://github.com/ory/keto) for
 consultation prior to using this authorizer.
 
 ### `keto_engine_acp_ory` Configuration
 
-- `base_url` (string, required) - The base URL of ORY Keto, typically something
+- `base_url` (string, required) - The base URL of Ory Keto, typically something
   like `https://hostname:port/`
 - `required_action` (string, required) - See section below.
 - `required_resource` (string, required) - See section below.
@@ -195,7 +195,7 @@ from above would expand to:
 }
 ```
 
-The `subject` field configures the subject that passes to the ORY Keto endpoint.
+The `subject` field configures the subject that passes to the Ory Keto endpoint.
 If `subject` isn't specified it will default to
 `AuthenticationSession.Subject`.
 

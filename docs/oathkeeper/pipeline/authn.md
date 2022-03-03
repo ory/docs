@@ -3,7 +3,7 @@ id: authn
 title: Authenticators
 ---
 
-An authenticator is responsible for authenticating request credentials. ORY
+An authenticator is responsible for authenticating request credentials. Ory
 Oathkeeper supports different authenticators and we will add more as the project
 progresses.
 
@@ -61,7 +61,7 @@ too.
 
 ## `noop`
 
-The `noop` handler tells ORY Oathkeeper to bypass authentication, authorization,
+The `noop` handler tells Ory Oathkeeper to bypass authentication, authorization,
 and mutation. This implies that no authorization will be executed and no
 credentials will be issued. It's basically a pass-all authenticator that allows
 any request to be forwarded to the upstream URL.
@@ -113,7 +113,7 @@ The request has been allowed!
 
 ## `unauthorized`
 
-The `unauthorized` handler tells ORY Oathkeeper to reject all requests as
+The `unauthorized` handler tells Ory Oathkeeper to reject all requests as
 unauthorized.
 
 ### `unauthorized` Configuration
@@ -801,7 +801,7 @@ JSON Web Token and tries to verify the signature of it.
 
 ### `jwt` Configuration
 
-- `jwks_urls` ([]string, required) - The URLs where ORY Oathkeeper can retrieve
+- `jwks_urls` ([]string, required) - The URLs where Ory Oathkeeper can retrieve
   JSON Web Keys from for validating the JSON Web Token. Usually something like
   `https://my-keys.com/.well-known/jwks.json`. The response of that endpoint
   must return a JSON Web Key Set (JWKS).
