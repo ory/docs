@@ -288,12 +288,12 @@ Follow these guidelines for punctuation:
 | Avoid semicolons. Use two sentences instead.                                                                                                             | That's the way that the world goes 'round. You're up one day and the next you're down. |
 | Always end full sentences with a period.                                                                                                                 | For a complete overview, read through this document.                                   |
 | Always add a space after a period when beginning a new sentence.                                                                                         | For a complete overview, check this doc. For other references, check out this guide.   |
-| Don't use double spaces. (Tested in [`SentenceSpacing.yml`](SentenceSpacing.yml).)                                                                       | ---                                                                                    |
+| Don't use double spaces.)                                                                       | ---                                                                                    |
 | Don't use tabs for indentation. Use spaces instead. You can configure your code editor to output spaces instead of tabs when pressing the tab key.       | ---                                                                                    |
-| Use serial commas (Oxford commas) before the final **and** or **or** in a list of three or more items. (Tested in [`OxfordComma.yml`](OxfordComma.yml).) | You can create new issues, merge requests, and milestones.                             |
+| Use serial commas (Oxford commas) before the final **and** or **or** in a list of three or more items. | You can create new issues, merge requests, and milestones.                             |
 | Always add a space before and after dashes when using it in a sentence (for replacing a comma, for example).                                             | You should try this - or not.                                                          |
 | When a colon is part of a sentence, always use lowercase after the colon.                                                                                | Linked issues: a way to create a relationship between issues.                          |
-| Don't use typographer's quotes. Use straight quotes instead. (Tested in [`NonStandardQuotes.yml`](NonStandardQuotes.yml).)                               | "It's the questions we can't answer that teach us the most"---Patrick Rothfuss         |
+| Don't use typographer's quotes. Use straight quotes instead.                              | "It's the questions we can't answer that teach us the most"---Patrick Rothfuss         |
 
 ### Placeholder text
 
