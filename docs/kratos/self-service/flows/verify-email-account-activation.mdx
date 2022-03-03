@@ -143,7 +143,7 @@ address is already known. Depending on the result, one of the two flows will be
 executed:
 
 - Unknown email address: An email is sent to the address informing the recipient
-  that someone tried to verify this email address but that it is not known by
+  that someone tried to verify this email address but that it isn't known by
   the system:
   <img
     alt="Verification email for unknown address"
@@ -156,7 +156,7 @@ executed:
     src={useBaseUrl('img/docs/email-verify-known.png')}
   />
 
-This prevents Account Enumeration Attacks as it is not possible for a threat
+This prevents Account Enumeration Attacks as it isn't possible for a threat
 agent to determine if an account exists or not based on the verification flow.
 
 The emails are using templates that can be customised as explained in
@@ -229,8 +229,8 @@ stateDiagram-v2
 
 where
 
-- `choose_method` indicates that the user has not chosen a verification method
-  yet. This is useful when `link` is not the only verification method active.
+- `choose_method` indicates that the user hasn't chosen a verification method
+  yet. This is useful when `link` isn't the only verification method active.
 - `sent_email` implies that the verification email has been sent out.
 - `passed_challenge` is set when the user has clicked the verification link and
   completed the account verification.
@@ -399,7 +399,7 @@ $ curl -v -s -X GET \
 
 <ApiWarning />
 
-The Verification Flow for API clients does not use HTTP Redirects and can be
+The Verification Flow for API clients doesn't use HTTP Redirects and can be
 summarized as follows:
 
 <SelfServiceApiFlow
@@ -623,7 +623,7 @@ instead which would send the end-user to that configured URL.
 The Verification User Interface is a route (page / site) in your application
 (server, native app, single page app) that should render a verification form.
 
-In stark contrast to other Identity Systems, Ory Kratos does not render this
+In stark contrast to other Identity Systems, Ory Kratos doesn't render this
 HTML. Instead, you need to implement the HTML code in your application (e.g.
 NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
 flexibility and customizability in your user interface flows and designs.

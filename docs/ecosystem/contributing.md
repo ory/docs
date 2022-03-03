@@ -29,11 +29,11 @@ for all other Ory projects, events and content:
 To release a project, run the following bash command in the root of the project
 you would like to release. The first argument can be one of:
 
-- `patch` bumps `v1.2.3` to `v1.2.4` (does not work for pre-releases such as
+- `patch` bumps `v1.2.3` to `v1.2.4` (doesn't work for pre-releases such as
   `v1.2.3-beta.1`)
-- `minor` bumps `v1.2.3` to `v1.3.0` (does not work for pre-releases such as
+- `minor` bumps `v1.2.3` to `v1.3.0` (doesn't work for pre-releases such as
   `v1.2.3-beta.1`)
-- `major` bumps `v1.2.3` to `v2.0.0` (does not work for pre-releases such as
+- `major` bumps `v1.2.3` to `v2.0.0` (doesn't work for pre-releases such as
   `v1.2.3-beta.1`)
 - Any [semver-valid](https://semver.org) version, for example `v1.2.3-beta.1`
 
@@ -260,7 +260,7 @@ $ go mod list -m all | nancy
 ### Pinning indirect go module dependencies.
 
 Sometimes a project has an indirect dependency (another dependency requires that
-dependency) which does not pass, for example, `nancy` vulnerability scanning.
+dependency) which doesn't pass, for example, `nancy` vulnerability scanning.
 Because it's not possible to pin this dependency to a specific version, we need
 to explicitly require it. But because it's not directly required by our code, it
 will be pruned when using `go mod tidy`. To prevent that, create a file which
@@ -300,13 +300,13 @@ Please define custom table names for all table structs. Keep in mind that
 Ory uses a lightweight DBAL across all projects that require a database. This
 DBAL is typically stored in the `persistence/` directory. Since we only support
 SQL at the moment - there are no plans to add new databases and contributions
-will not be accepted due to maintenance effort - you will find the
+won't be accepted due to maintenance effort - you will find the
 implementation in `persistence/sql`.
 
 :::info
 
 This section currently only applies to Ory Kratos and Ory Keto. Ory Hydra is
-currently using an approach that does not rely on fizz migrations. Please
+currently using an approach that doesn't rely on fizz migrations. Please
 discuss with maintainers before making changes to Ory Hydra SQL schemata.
 
 :::
@@ -317,7 +317,7 @@ migrations are generated using the
 using the Ory CLI.
 
 This is necessary because there are differences between the SQL "dialects" of
-SQLite (does not support certain `ALTER TABLE` statements for example),
+SQLite (doesn't support certain `ALTER TABLE` statements for example),
 PostgreSQL, MySQL, and CockroachDB.
 
 To change the schema, create a new fizz template using:
@@ -330,7 +330,7 @@ $ make .bin/ory
 # $ make .bin/cli
 #
 # and replace `.bin/ory` with `.bin/cli`.
-# We are working on streamlining this
+# We're working on streamlining this
 # across all repos.
 
 $ .bin/ory dev pop migration create persistence/sql/migrations/templates descriptive_change
@@ -347,7 +347,7 @@ $ ls -la persistence/sql/migrations/templates | tail -n 2
 Add you fizz migrations there. The `up` file is for applying your schema
 changes, the `down` file for reverting them.
 
-Once your migrations are added, it is time to render them to SQL. Make sure that
+Once your migrations are added, it's time to render them to SQL. Make sure that
 Docker is running and execute:
 
 ```
@@ -413,7 +413,7 @@ code. Here you can find conventions we use across the code base.
 
 ### Models
 
-Models should have a descriptive title, a body, and be camelCase. It is good
+Models should have a descriptive title, a body, and be camelCase. It's good
 practice to scope the model where needed.
 
 ```go
@@ -436,7 +436,7 @@ privileged port (e.g. admin) it should be prefixed with `admin`.
 // swagger:route POST /identities v0alpha1 adminCreateIdentity
 ```
 
-Public endpoints do not need a prefix.
+Public endpoints don't need a prefix.
 
 ```go
 // swagger:route POST /something-public v0alpha1 somethingPublic
@@ -489,7 +489,7 @@ type identityList []Identity
 //
 // List Identities
 //
-// Lists all identities. Does not support search at the moment.
+// Lists all identities. Doesn't support search at the moment.
 //
 // Learn how identities work in [Ory Kratos' User And Identity Schema Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).
 //
@@ -510,7 +510,7 @@ type identityList []Identity
 #### Tests
 
 While running tests inside the IDE make sure you have the tag `-tags sqlite` in
-the "Go Tool Arguments". In the example screenshot we are looking at
+the "Go Tool Arguments". In the example screenshot we're looking at
 `login_test.go` and add it to the Run/Debug Configurations.
 
 ![Go Tool Arguments Configuration Screenshot](/images/contributing/goland-config.png)
@@ -556,7 +556,7 @@ To transfer the above to Kratos:
 - Change the DSN to the following:
   `dsn.Conn = "sqlite://file:TestDB.sqlite?_fk=true"`.
 - `mode=memor`.
-- In case you have an sqlite file, migrators are not automatically applied. Run
+- In case you have an sqlite file, migrators aren't automatically applied. Run
   them manually first with the
   [CLI](https://www.ory.sh/kratos/docs/cli/kratos-migrate-sql).
 

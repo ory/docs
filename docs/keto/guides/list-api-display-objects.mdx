@@ -15,7 +15,7 @@ query relation tuples based on partial relation tuples.
 As an example, we want to look at a chat application. Every user is part of one
 or more chats, and each chat has one or more members.
 
-Chats are stored in Ory Keto within the `chats` namespace. They are identified
+Chats are stored in Ory Keto within the `chats` namespace. They're identified
 by a UUID that the application maps to the actual object metadata. Users are
 also identified by and mapped to a UUID.
 
@@ -93,7 +93,7 @@ such a membership would be modeled through
 
 In this case the application should probably first use the
 [check-API](./simple-access-check-guide.mdx) to check whether the user is
-allowed to list the members of a group. This step is not part of this example.
+allowed to list the members of a group. This step isn't part of this example.
 
 :::
 
@@ -106,7 +106,7 @@ In our example, a user wants to see who is a member of the `coffee-break` group:
 
 ## Application Context
 
-It is important to note that the list API does **not** expand
+It's important to note that the list API does **not** expand
 [subject sets](../concepts/subjects.mdx#subject-sets). Usually the application
 has some context to determine what tuples to query anyway. That could be e.g.
 knowledge of the structure of subject sets like depth or hierarchy, or the UI
@@ -120,7 +120,7 @@ and can quickly degrade the service quality for all users. Please refer to the
 
 ## Pagination
 
-The list API only returns paginated results. Currently, it is not possible to
+The list API only returns paginated results. Currently, it isn't possible to
 customize the order of results. The response returns an opaque token that has to
 be used to retrieve the following page. The first page can be retrieved by
 passing no, or an empty token.

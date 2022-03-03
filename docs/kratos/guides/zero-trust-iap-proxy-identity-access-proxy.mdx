@@ -31,7 +31,7 @@ are making use of our reverse proxy
 unauthenticated traffic to `http://secure-app/dashboard` and redirecting the
 user to the login page at `http://secure-app/auth/login`. Further, we will
 configure access to `http://secure-app/auth/login` in such a way that access
-only works if one is not yet authenticated.
+only works if one isn't yet authenticated.
 
 ## Running Ory Kratos and the Ory Oathkeeper Identity and Access Proxy
 
@@ -60,9 +60,9 @@ the lines of (the order of messages might be reversed):
 ```
 kratos_1      | time="2020-01-20T14:52:13Z" level=info msg="Starting the admin httpd on: 0.0.0.0:4434"
 kratos_1      | time="2020-01-20T14:52:13Z" level=info msg="Starting the public httpd on: 0.0.0.0:4433"
-oathkeeper_1  | {"level":"info","msg":"TLS has not been configured for api, skipping","time":"2020-01-20T09:22:09Z"}
+oathkeeper_1  | {"level":"info","msg":"TLS hasn't been configured for api, skipping","time":"2020-01-20T09:22:09Z"}
 oathkeeper_1  | {"level":"info","msg":"Listening on http://:4456","time":"2020-01-20T09:22:09Z"}
-oathkeeper_1  | {"level":"info","msg":"TLS has not been configured for proxy, skipping","time":"2020-01-20T09:22:09Z"}
+oathkeeper_1  | {"level":"info","msg":"TLS hasn't been configured for proxy, skipping","time":"2020-01-20T09:22:09Z"}
 oathkeeper_1  | {"level":"info","msg":"Listening on http://:4455","time":"2020-01-20T09:22:09Z"}
 ```
 
@@ -89,8 +89,8 @@ This demo makes use of several services:
 2. [SecureApp](http://github.com/ory/kratos-selfservice-ui-node)
 
 - An example application written in NodeJS that implements the login,
-  registration, logout, dashboard, and other UIs. Because we are accessing this
-  via a proxy, its port (4435) is not publicly exposed.
+  registration, logout, dashboard, and other UIs. Because we're accessing this
+  via a proxy, its port (4435) isn't publicly exposed.
 
 3. [Ory Oathkeeper](https://github.com/ory/oathkeeper)
 
@@ -245,7 +245,7 @@ It's doing what the `needsLogin` function did in the
 
 The
 [Anonymous Authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#anonymous)
-is useful for endpoints that do not need login, such as the registration screen:
+is useful for endpoints that don't need login, such as the registration screen:
 
 ```yaml title="contrib/quickstart/oathkeeper/.oathkeeper.yml"
 # ...

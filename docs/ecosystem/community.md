@@ -20,9 +20,9 @@ archived old [forum](https://community.ory.sh/).
 
 Members of the Ory community have built technology, written blog posts, and
 published open source software that extends or modifies the core technology.
-This is not an exhaustive list. Want your own content here? Create a PR!
+This isn't an exhaustive list. Want your own content here? Create a PR!
 
-> Please note that this content is not actively maintained by the Ory team, is
+> Please note that this content isn't actively maintained by the Ory team, is
 > written by the community and might be out of date, unmaintained, or otherwise
 > faulty.
 
@@ -113,7 +113,7 @@ This is not an exhaustive list. Want your own content here? Create a PR!
 ## Postman API Reference Collections
 
 > Note that while we try to keep the collections up to date, they might be
-> outdated. Please open an [issue](https://github.com/ory/docs/) if that is the
+> outdated. Please open an [issue](https://github.com/ory/docs/) if that's the
 > case.
 
 First, you have to install the Postman App for Windows, Mac, or Chrome. You can
@@ -149,7 +149,7 @@ depending on the API call.
 
 :::info
 
-Do not store tokens in Postman as environment variables! If you are signed in to
+Don't store tokens in Postman as environment variables! If you are signed in to
 the Postman application, it will automatically try to synchronize Collections
 and Environments with the Postman servers. This means that a token, which could
 allow someone else access to your APIs, is being uploaded to Postman's servers.

@@ -12,7 +12,7 @@ This document is still in development.
 ## Database
 
 ORY Keto requires a production-grade database such as PostgreSQL, MySQL,
-CockroachDB. Do not use SQLite in production!
+CockroachDB. Don't use SQLite in production!
 
 ### Write API
 

@@ -80,7 +80,7 @@ selfservice:
 ```
 
 `hook_1` is always run when the flow is started. On the finalization of the
-flow, `hook_2` is not run for the `password` method, but for the `oidc` method
+flow, `hook_2` isn't run for the `password` method, but for the `oidc` method
 (for example). If the `password` method is used, then `hook_3` will run.
 
 ## All flows
@@ -96,7 +96,7 @@ supported only for registration and login methods.
 
 :::note
 
-As of today Web-Hooks cannot control the execution of the flow by
+As of today Web-Hooks can't control the execution of the flow by
 patching/updating particular properties of flow specific object upon Web-Hook
 completion. It will however cancel the execution of the flow if the call to the
 Web-Hook end point fails either due to a network error or if the end point
@@ -125,7 +125,7 @@ The configuration section of a web-hook consists of
   (mandatory)
 - `body` - URI of a jsonnet template, used by the web-hook to render the payload
   to send (optional). Use a `file://path/to/body.jsonnet` URL for referring to
-  local files. This property is ignored for HTTP `method`s, which do not support
+  local files. This property is ignored for HTTP `method`s, which don't support
   sending of HTTP body payloads.
 - `auth` - configuration of authentication and authorization mechanisms to be
   used by the web-hook
@@ -208,7 +208,7 @@ selfservice:
         <method>:
           hooks:
             - hook: revoke_active_sessions
-              # can not be configured
+              # can't be configured
 ```
 
 #### `require_verified_address`
@@ -224,7 +224,7 @@ selfservice:
         password:
           hooks:
             - hook: require_verified_address
-              # can not be configured
+              # can't be configured
 ```
 
 Please be aware, that since `require_verified_address` hook is enforcing a
@@ -305,7 +305,7 @@ selfservice:
         <method>:
           hooks:
             - hook: session
-              # can not be configured
+              # can't be configured
 ```
 
 Depending on the registration flow type the behavior changes.
@@ -340,8 +340,8 @@ the response body as application/json:
 :::info
 
 Because the HTTP reply is handled by the hook itself, no other hooks can be
-executed because the HTTP reply can not be modified further (e.g. HTTP Status
-Code was already sent as 200 and cannot be changed to 301). You must ensure that
+executed because the HTTP reply can't be modified further (e.g. HTTP Status
+Code was already sent as 200 and can't be changed to 301). You must ensure that
 the session hook is the last hook in your configuration!
 
 :::

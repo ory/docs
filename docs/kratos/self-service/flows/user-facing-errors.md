@@ -3,7 +3,7 @@ id: user-facing-errors
 title: User-Facing Errors
 ---
 
-Because Ory Kratos does not render User Interfaces, we implemented a flow that
+Because Ory Kratos doesn't render User Interfaces, we implemented a flow that
 allows you to implement the error page in any way you want.
 
 ## User-Facing Errors in the Browser
@@ -31,7 +31,7 @@ contains a list of errors and their details, for example:
 ]
 ```
 
-We are working on documenting possible error messages and homogenize error
+We're working on documenting possible error messages and homogenize error
 layouts. In general, errors have the following keys defined:
 
 ```json

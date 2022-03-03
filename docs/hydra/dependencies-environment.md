@@ -10,15 +10,15 @@ and versioned with
 and
 [detailed changelogs](https://github.com/ory/hydra/blob/master/CHANGELOG.md).
 Auto-scaling, migrations, health checks, it all works with zero additional work
-required. It is possible to run Ory Hydra on any platform, including but not
+required. It's possible to run Ory Hydra on any platform, including but not
 limited to OSX, Linux, Windows, ARM, FreeBSD and more.
 
 Ory Hydra has two operational modes:
 
-- In-memory: This mode does not work with more than one instance ("cluster") and
+- In-memory: This mode doesn't work with more than one instance ("cluster") and
   any state is lost after restarting the instance. Ory Hydra uses SQLite with
   in-memory mode to achieve this.
-- SQL: This mode works with more than one instance and state is not lost after
+- SQL: This mode works with more than one instance and state isn't lost after
   restarts.
 
 No further dependencies are required for a production-ready instance.
@@ -32,7 +32,7 @@ that older MySQL versions have issues with Ory Hydra's database schema. For more
 information [go here](https://github.com/ory/hydra/issues/377).
 
 If you do run the SQL adapter, you must first create the database schema. The
-`hydra serve` command does not do this automatically, instead you must run
+`hydra serve` command doesn't do this automatically, instead you must run
 `hydra migrate sql` to create the schemas. The `hydra migrate sql` command also
 runs database migrations in case of an upgrade. Please follow the
 [upgrade instructions](https://github.com/ory/hydra/blob/master/UPGRADE.md) to

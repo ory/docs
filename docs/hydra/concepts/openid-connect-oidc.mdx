@@ -51,7 +51,7 @@ you will additionally receive an ID Token:
 ```
 
 The ID Token's purpose is to authenticate the End-User at the OAuth2 Client
-Application. **It does not** solve session management or anything else (you
+Application. **It doesn't** solve session management or anything else (you
 still have to manage cookies, logout, ... yourself!) - it's just a
 "certificate".
 
@@ -75,7 +75,7 @@ Any information set to the key `session.id_token` during accepting the consent
 request will also be included here.
 
 ```js
-// This is node-js pseudo code and will not work if you copy it 1:1
+// This is node-js pseudo code and won't work if you copy it 1:1
 
 const body = {
     // grant_scope: ["foo", "bar"],
@@ -115,5 +115,5 @@ and the end-user authorizes that scope, the phone number should be added to
 `session.id_token`.
 
 > Be aware that the `/userinfo` endpoint is public. Its contents are thus as
-> publicly visible as those of ID Tokens. It is therefore imperative to **not
+> publicly visible as those of ID Tokens. It's therefore imperative to **not
 > expose sensitive information without end-user consent.**

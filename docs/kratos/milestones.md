@@ -23,7 +23,7 @@ incubating phase.
 
 ### [Bug](https://github.com/ory/kratos/labels/bug)
 
-Something is not working.
+Something isn't working.
 
 #### Issues
 
@@ -45,9 +45,9 @@ Something is not working.
       ([kratos#1068](https://github.com/ory/kratos/issues/1068))
 - [x] Relative path in ui_url or default_browser_return_url cause runtime crash
       ([kratos#1446](https://github.com/ory/kratos/issues/1446))
-- [x] /schemas/default does not work with base64 identity schemas
+- [x] /schemas/default doesn't work with base64 identity schemas
       ([kratos#1529](https://github.com/ory/kratos/issues/1529))
-- [x] Auto-Login on Registration flow does not return `session`, only `identity`
+- [x] Auto-Login on Registration flow doesn't return `session`, only `identity`
       for SPA requests
       ([kratos#1604](https://github.com/ory/kratos/issues/1604))
 
@@ -57,7 +57,7 @@ New feature or request.
 
 #### Issues
 
-- [ ] Do not send credentials to hooks
+- [ ] Don't send credentials to hooks
       ([kratos#77](https://github.com/ory/kratos/issues/77)) -
       [@hackerman](https://github.com/aeneasr)
 - [ ] Implement immutable keyword in JSON Schema for Identity Traits
@@ -96,7 +96,7 @@ New feature or request.
       ([kratos#1649](https://github.com/ory/kratos/issues/1649))
 - [ ] Expand password validation error messages to facilitate i18n
       ([kratos#1071](https://github.com/ory/kratos/issues/1071))
-- [ ] User deactivation does not deactivate user sessions
+- [ ] User deactivation doesn't deactivate user sessions
       ([kratos#1811](https://github.com/ory/kratos/issues/1811))
 - [ ] Implement full-spec with e2e tests for react native app
       ([kratos#1820](https://github.com/ory/kratos/issues/1820))
@@ -152,11 +152,11 @@ Blocks milestones or other issues or pulls.
 
 ## [v0.10.0-alpha.1](https://github.com/ory/kratos/milestone/13)
 
-_This milestone does not have a description._
+_This milestone doesn't have a description._
 
 ### [Bug](https://github.com/ory/kratos/labels/bug)
 
-Something is not working.
+Something isn't working.
 
 #### Issues
 
@@ -181,11 +181,11 @@ New feature or request.
 
 ## [v0.7.x](https://github.com/ory/kratos/milestone/12)
 
-_This milestone does not have a description._
+_This milestone doesn't have a description._
 
 ### [Bug](https://github.com/ory/kratos/labels/bug)
 
-Something is not working.
+Something isn't working.
 
 #### Issues
 
@@ -217,7 +217,7 @@ verification flows.
 
 ### [Bug](https://github.com/ory/kratos/labels/bug)
 
-Something is not working.
+Something isn't working.
 
 #### Issues
 
@@ -267,7 +267,7 @@ This milestone focuses on MFA with TOTP, WebAuthn, and Recovery Codes.
 
 ### [Bug](https://github.com/ory/kratos/labels/bug)
 
-Something is not working.
+Something isn't working.
 
 #### Issues
 
@@ -286,7 +286,7 @@ Something is not working.
 - [x] Hide SQLite migration message
       ([kratos#1791](https://github.com/ory/kratos/issues/1791)) -
       [@hackerman](https://github.com/aeneasr)
-- [x] Resumable session is not cleared up on error
+- [x] Resumable session isn't cleared up on error
       ([kratos#2016](https://github.com/ory/kratos/issues/2016)) -
       [@hackerman](https://github.com/aeneasr)
 
@@ -340,20 +340,20 @@ Blocks milestones or other issues or pulls.
 
 ## [v0.7.0-alpha.1](https://github.com/ory/kratos/milestone/9)
 
-_This milestone does not have a description._
+_This milestone doesn't have a description._
 
 ### [Bug](https://github.com/ory/kratos/labels/bug)
 
-Something is not working.
+Something isn't working.
 
 #### Issues
 
-- [x] Do not create system errors on duplicate credentials when linking oidc
+- [x] Don't create system errors on duplicate credentials when linking oidc
       providers ([kratos#694](https://github.com/ory/kratos/issues/694))
-- [x] Investigate why smtps fails but smtp does not
+- [x] Investigate why smtps fails but smtp doesn't
       ([kratos#781](https://github.com/ory/kratos/issues/781)) -
       [@hackerman](https://github.com/aeneasr)
-- [x] Reloading config values does not work
+- [x] Reloading config values doesn't work
       ([kratos#804](https://github.com/ory/kratos/issues/804)) -
       [@hackerman](https://github.com/aeneasr)
 - [x] handle 409 error in settings flow
@@ -379,7 +379,7 @@ Something is not working.
 - [x] fix: settings flow error handle should access schemas using configured
       "local" URLs instead of public URLs
       ([kratos#1448](https://github.com/ory/kratos/issues/1448))
-- [x] Verification does not include success message
+- [x] Verification doesn't include success message
       ([kratos#1450](https://github.com/ory/kratos/issues/1450)) -
       [@hackerman](https://github.com/aeneasr)
 
@@ -471,11 +471,11 @@ Blocks milestones or other issues or pulls.
 
 ## [v0.6.0-alpha.1](https://github.com/ory/kratos/milestone/8)
 
-_This milestone does not have a description._
+_This milestone doesn't have a description._
 
 ### [Bug](https://github.com/ory/kratos/labels/bug)
 
-Something is not working.
+Something isn't working.
 
 #### Issues
 

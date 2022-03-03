@@ -3,7 +3,7 @@ id: ui-user-interface
 title: Customize User Interface
 ---
 
-Ory Kratos is an HTTP API server and does not include a traditional HTML user
+Ory Kratos is an HTTP API server and doesn't include a traditional HTML user
 interface (rendering forms such as "Login" or "Registration") in its code base.
 We provide several reference UI implementations which you can use to get started
 quickly, or as the basis for your own UI:
@@ -147,7 +147,7 @@ The `script` node type is primarily used to load required scripts for WebAuthn!
 }
 ```
 
-Rendering it is straight forward if you are on the server-side:
+Rendering it's straight forward if you are on the server-side:
 
 <CodeFromRemote
   lang="pug"
@@ -166,8 +166,8 @@ asynchronously. In ReactJS you might want to do something like the following:
 
 ### UI Anchor Nodes
 
-Nodes of type `a` are currently not used in Ory Kratos, but we have them around
-in case they are needed at a later stage!
+Nodes of type `a` are currently not used in Ory Kratos, but we've them around
+in case they're needed at a later stage!
 
 <CodeFromRemote
   lang="pug"
@@ -257,7 +257,7 @@ Their JSON usually contains a bit of contextual information.
   "meta": {
     "label": {
       "id": 1050006,
-      "text": "This is your authenticator app secret. Use it if you can not scan the QR code.",
+      "text": "This is your authenticator app secret. Use it if you can't scan the QR code.",
       "type": "info"
     }
   }
@@ -509,7 +509,7 @@ override the hidden field, if set.
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_checkbox.hbs"
 />
 
-In single page apps, such as ReactJS, this trickery is not needed as you have
+In single page apps, such as ReactJS, this trickery isn't needed as you have
 full control over the form's state:
 
 <CodeFromRemote
@@ -520,7 +520,7 @@ full control over the form's state:
 
 #### Button Input Node
 
-Buttons are primarily used to trigger something, which is why it is important to
+Buttons are primarily used to trigger something, which is why it's important to
 have the `onclick` attribute handled. If `onclick` exists, you will also find a
 `script` node:
 
@@ -574,10 +574,10 @@ the required JavaScript to get it working!
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_checkbox.hbs"
 />
 
-In a single page application, we need a bit of trickery as we are executing
+In a single page application, we need a bit of trickery as we're executing
 JavaScript from a JSON source in JavaScript - which essentialy means we need to
 execute `eval`. Fortunately, this is only needed in this special case. If you do
-not use WebAuthn, you will not need `eval` at all!
+not use WebAuthn, you won't need `eval` at all!
 
 <CodeFromRemote
   lang="tsx"
@@ -693,7 +693,7 @@ and single page apps like ReactJS
 
 #### Default Input Node Rendering
 
-You do not need to have one view for every node type. Instead, you can "fall
+You don't need to have one view for every node type. Instead, you can "fall
 back" to a default implementation. The most important node types (`hidden`,
 `submit`, `button`, `checkbox`) we already covered!
 
@@ -952,7 +952,7 @@ this in your UI using map, filter, and other JSON transformation functions.
 
 ## Titles, Labels & Validation Messages
 
-Ory Kratos helps users understand what is happening by providing messages that
+Ory Kratos helps users understand what's happening by providing messages that
 explain what went wrong or what needs to be done. Examples are "The provided
 credentials are invalid", "Missing property email" and similar.
 
@@ -971,9 +971,9 @@ Each message has a layout of:
 ```json5
 {
   id: 1234,
-  // This ID will not change and can be used to translate the message or use your own message content.
+  // This ID won't change and can be used to translate the message or use your own message content.
   text: 'Some default text',
-  // A default text in english that you can display if you do not want to customize the message.
+  // A default text in english that you can display if you don't want to customize the message.
   context: {}
   // A JSON object which may contain additional fields such as `expires_at`. This is helpful if you want to craft your own messages.
 }
@@ -1058,12 +1058,12 @@ will be overwritten!
 }
 ```
 
-###### Please confirm this action by verifying that it is you. (1010003)
+###### Please confirm this action by verifying that it's you. (1010003)
 
 ```json
 {
   "id": 1010003,
-  "text": "Please confirm this action by verifying that it is you.",
+  "text": "Please confirm this action by verifying that it's you.",
   "type": "info",
   "context": {}
 }
@@ -1235,12 +1235,12 @@ will be overwritten!
 }
 ```
 
-###### This is your authenticator app secret. Use it if you can not scan the QR code. (1050006)
+###### This is your authenticator app secret. Use it if you can't scan the QR code. (1050006)
 
 ```json
 {
   "id": 1050006,
-  "text": "This is your authenticator app secret. Use it if you can not scan the QR code.",
+  "text": "This is your authenticator app secret. Use it if you can't scan the QR code.",
   "type": "info"
 }
 ```
@@ -1550,12 +1550,12 @@ will be overwritten!
 }
 ```
 
-###### "{value}" is not valid "{format}" (4000004)
+###### "{value}" isn't valid "{format}" (4000004)
 
 ```json
 {
   "id": 4000004,
-  "text": "\"{value}\" is not valid \"{format}\"",
+  "text": "\"{value}\" isn't valid \"{format}\"",
   "type": "error",
   "context": {
     "actual_value": "{value}",
@@ -1564,12 +1564,12 @@ will be overwritten!
 }
 ```
 
-###### The password can not be used because {reason}. (4000005)
+###### The password can't be used because {reason}. (4000005)
 
 ```json
 {
   "id": 4000005,
-  "text": "The password can not be used because {reason}.",
+  "text": "The password can't be used because {reason}.",
   "type": "error",
   "context": {
     "reason": "{reason}"
@@ -1610,12 +1610,12 @@ will be overwritten!
 }
 ```
 
-###### Could not find any login identifiers. Did you forget to set them? (4000009)
+###### Couldn't find any login identifiers. Did you forget to set them? (4000009)
 
 ```json
 {
   "id": 4000009,
-  "text": "Could not find any login identifiers. Did you forget to set them?",
+  "text": "Couldn't find any login identifiers. Did you forget to set them?",
   "type": "error"
 }
 ```
@@ -1641,12 +1641,12 @@ will be overwritten!
 }
 ```
 
-###### The backup recovery code is not valid. (4000012)
+###### The backup recovery code isn't valid. (4000012)
 
 ```json
 {
   "id": 4000012,
-  "text": "The backup recovery code is not valid.",
+  "text": "The backup recovery code isn't valid.",
   "type": "error",
   "context": {}
 }
@@ -1698,52 +1698,52 @@ will be overwritten!
 }
 ```
 
-###### Could not find a strategy to log you in with. Did you fill out the form correctly? (4010002)
+###### Couldn't find a strategy to log you in with. Did you fill out the form correctly? (4010002)
 
 ```json
 {
   "id": 4010002,
-  "text": "Could not find a strategy to log you in with. Did you fill out the form correctly?",
+  "text": "Couldn't find a strategy to log you in with. Did you fill out the form correctly?",
   "type": "error"
 }
 ```
 
-###### Could not find a strategy to sign you up with. Did you fill out the form correctly? (4010003)
+###### Couldn't find a strategy to sign you up with. Did you fill out the form correctly? (4010003)
 
 ```json
 {
   "id": 4010003,
-  "text": "Could not find a strategy to sign you up with. Did you fill out the form correctly?",
+  "text": "Couldn't find a strategy to sign you up with. Did you fill out the form correctly?",
   "type": "error"
 }
 ```
 
-###### Could not find a strategy to update your settings. Did you fill out the form correctly? (4010004)
+###### Couldn't find a strategy to update your settings. Did you fill out the form correctly? (4010004)
 
 ```json
 {
   "id": 4010004,
-  "text": "Could not find a strategy to update your settings. Did you fill out the form correctly?",
+  "text": "Couldn't find a strategy to update your settings. Did you fill out the form correctly?",
   "type": "error"
 }
 ```
 
-###### Could not find a strategy to recover your account with. Did you fill out the form correctly? (4010005)
+###### Couldn't find a strategy to recover your account with. Did you fill out the form correctly? (4010005)
 
 ```json
 {
   "id": 4010005,
-  "text": "Could not find a strategy to recover your account with. Did you fill out the form correctly?",
+  "text": "Couldn't find a strategy to recover your account with. Did you fill out the form correctly?",
   "type": "error"
 }
 ```
 
-###### Could not find a strategy to verify your account with. Did you fill out the form correctly? (4010006)
+###### Couldn't find a strategy to verify your account with. Did you fill out the form correctly? (4010006)
 
 ```json
 {
   "id": 4010006,
-  "text": "Could not find a strategy to verify your account with. Did you fill out the form correctly?",
+  "text": "Couldn't find a strategy to verify your account with. Did you fill out the form correctly?",
   "type": "error"
 }
 ```
@@ -1774,12 +1774,12 @@ will be overwritten!
 }
 ```
 
-###### The request was already completed successfully and can not be retried. (4060001)
+###### The request was already completed successfully and can't be retried. (4060001)
 
 ```json
 {
   "id": 4060001,
-  "text": "The request was already completed successfully and can not be retried.",
+  "text": "The request was already completed successfully and can't be retried.",
   "type": "error",
   "context": {}
 }
@@ -1831,12 +1831,12 @@ will be overwritten!
 }
 ```
 
-###### The request was already completed successfully and can not be retried. (4070002)
+###### The request was already completed successfully and can't be retried. (4070002)
 
 ```json
 {
   "id": 4070002,
-  "text": "The request was already completed successfully and can not be retried.",
+  "text": "The request was already completed successfully and can't be retried.",
   "type": "error",
   "context": {}
 }

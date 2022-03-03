@@ -58,7 +58,7 @@ $ curl --request POST -sL \
 
 Keep in mind that you can change the `schema_id` to reflect the schema you want
 to use for this user. Similarly, the trait key/values depend on your schema as
-well. The command shown does not create a password for the identity or any other
+well. The command shown doesn't create a password for the identity or any other
 type of credential. Instead, we will use another REST call to create a recovery
 link (here "invite link" is probably more appropriate, but the flow uses an
 account recovery link). It's possible to generate a link for an account without
@@ -138,7 +138,7 @@ selfservice:
 If the user fails to set up his / her credentials in time, another recovery link
 needs to be issued and the user needs to re-do the flow.
 
-It is currently not possible to send the recovery link directly to a user's
+It's currently not possible to send the recovery link directly to a user's
 email, this feature is tracked as
 [#595](https://github.com/ory/kratos/issues/595).
 
@@ -147,11 +147,11 @@ email, this feature is tracked as
 
 ### Import a User Identity
 
-This feature is not implemented yet.
+This feature isn't implemented yet.
 
 ### Creating a Machine Identity
 
-This feature is not implemented yet.
+This feature isn't implemented yet.
 
 ### Enable recovery flows
 
@@ -174,7 +174,7 @@ selfservice:
       enabled: true
 ```
 
-To specify that an identity's trait is a recovery email, use the following
+To specify that an identity's trait's a recovery email, use the following
 Identity Schema:
 
 ```diff

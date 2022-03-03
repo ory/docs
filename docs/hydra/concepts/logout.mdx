@@ -29,7 +29,7 @@ Legend:
   `/oauth2/sessions/logout?id_token_hint=...`
 - `**` Here, an "active session" implies that there has been at least one login
   request completed with `remember: true` for that user. If that's not the case,
-  the system "does not know" what to do (because there has never been a session
+  the system "doesn't know" what to do (because there has never been a session
   issued that was remembered - hence it's not possible to forget it).
 - `***`: Here, the "valid session cookies" implies that the browser has a valid
   authentication cookie when calling `/oauth2/sessions/logout`. If you have
@@ -76,7 +76,7 @@ Legend:
    either be the default redirect URL set by `urls.post_logout_redirect` or to
    the value specified by query parameter `post_logout_redirect_uri`.
 
-**This endpoint does not remove any Access/Refresh Tokens.**
+**This endpoint doesn't remove any Access/Refresh Tokens.**
 
 #### Logout Provider Example (NodeJS Pseudo-code)
 
@@ -85,7 +85,7 @@ provider (e.g. `https://my-logout-provider/logout?challenge=...`). Next, the
 logout provider fetches information about the logout request:
 
 ```js
-// This is node-js pseudo code and will not work if you copy it 1:1
+// This is node-js pseudo code and won't work if you copy it 1:1
 
 challenge = req.url.query.logout_challenge
 
@@ -114,13 +114,13 @@ The server response is a JSON object with the following keys:
   // The original request URL.
   "request_url": "https://hydra/oauth2/sessions/logout?id_token_hint=...",
 
-  // True if the request did not include a id_token_hint. False otherwise.
+  // True if the request didn't include a id_token_hint. False otherwise.
   "rp_initiated": true | false
 }
 ```
 
 Next, the logout provider should decide if the end-user should perform a UI
-action such as confirming the logout request. It is RECOMMENDED to request
+action such as confirming the logout request. It's RECOMMENDED to request
 logout confirmation from the end-user when `rp_initiated` is set to true.
 
 When the logout provider decides to accept the logout request, the flow is
@@ -200,7 +200,7 @@ this feature allows an OAuth 2.0 Client to register fields
 If `backchannel_logout_uri` is set to a valid URL, a HTTP Post request with
 Content-Type `application/x-www-form-urlencoded` and a `logout_token` will be
 made to that URL when a end-user logs out. The `logout_token` is a JWT signed
-with the same key that is used to sign OpenID Connect ID Tokens. You should thus
+with the same key that's used to sign OpenID Connect ID Tokens. You should thus
 validate the `logout_token` using the ID Token Public Key (can be fetched from
 `/.well-known/jwks.json`). The `logout_token` contains the following claims:
 
@@ -246,14 +246,14 @@ The Logout Token must be validated as follows:
 
 - Validate the Logout Token signature in the same way that an ID Token signature
   is validated, with the following refinements.
-- Validate the iss, aud, and iat Claims in the same way they are validated in ID
+- Validate the iss, aud, and iat Claims in the same way they're validated in ID
   Tokens.
 - Verify that the Logout Token contains a sid Claim.
 - Verify that the Logout Token contains an events Claim whose value is JSON
   object containing the member name
   http://schemas.openid.net/event/backchannel-logout.
-- Verify that the Logout Token does not contain a nonce Claim.
-- Optionally verify that another Logout Token with the same jti value has not
+- Verify that the Logout Token doesn't contain a nonce Claim.
+- Optionally verify that another Logout Token with the same jti value hasn't
   been recently received.
 
 The endpoint then returns a HTTP 200 OK response. Cache-Control headers should
@@ -264,7 +264,7 @@ Cache-Control: no-cache, no-store
 Pragma: no-cache
 ```
 
-Because the OpenID Connect Back-Channel Logout Flow is not executed using the
+Because the OpenID Connect Back-Channel Logout Flow isn't executed using the
 user-agent (e.g. Browser) but from Ory Hydra directly, the session cookie of the
-end-user will not be available to the OAuth 2.0 Client and the session has to be
+end-user won't be available to the OAuth 2.0 Client and the session has to be
 invalidated by some other means (e.g. by blacklisting the session ID).

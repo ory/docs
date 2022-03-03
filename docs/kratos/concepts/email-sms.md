@@ -158,7 +158,7 @@ below.
 
 ### Configuration
 
-Default configuration of Ory Kratos does not include sending SMS. To enable it
+Default configuration of Ory Kratos doesn't include sending SMS. To enable it
 you need to set "enabled" flag to true, sender URL, authorization (if needed)
 and request body format.
 
@@ -202,7 +202,7 @@ The configuration consists of:
 - `method` - the HTTP method (GET, POST, ...) (mandatory)
 - `body` - URI of a JsonNet template, used to render the payload to send
   (optional). Use a `file://path/to/body.jsonnet` URL for referring to local
-  files. This property is ignored for HTTP `method`s, which do not support
+  files. This property is ignored for HTTP `method`s, which don't support
   sending of HTTP body payloads (TRACE).
 - `auth` - configuration of authentication and authorization mechanisms to be
   used by request
@@ -254,7 +254,7 @@ templates, you can use two methods.
 1. Define each template individually through `templates` as shown above for
    `recovery.invalid`, `recovery.valid`, `verification.invalid` and
    `verification.valid`. None of the configurations listed are mandatory and
-   will always fallback to the build-in templates or what is defined by
+   will always fallback to the build-in templates or what's defined by
    `template_override_path`.
 2. Define `template_override_path`, as shown above, to indicate where your
    custom templates are located. This will become the `<template-root>` for your
@@ -338,7 +338,7 @@ You can use nested templates to render `email.subject.gotmpl`,
 
 Using nested templates, you can either use in-line template definitions, or as
 in this example, use separate templates. In this example, we will define the
-email body for recovery e-mails. Assuming that we have an attribute named `lang`
+email body for recovery e-mails. Assuming that we've an attribute named `lang`
 that contains the required language in the `traits` of the identity, we can
 define our templates as indicated below.
 
@@ -376,7 +376,7 @@ also in the nested templates.
 ### Nested templates with remote templates
 
 When remote templates are used in Kratos, the dynamics of loading nested
-templates change. The templates cannot reference templates outside itself as
+templates change. The templates can't reference templates outside itself as
 with templates loaded from a singular directory.
 
 The template will need to contain the nested templates in the same file. See

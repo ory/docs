@@ -8,7 +8,7 @@ details and edge cases that apply to all Ory services.
 
 :::info
 
-Please note that Ory Oathkeeper uses an old configuration library and does not
+Please note that Ory Oathkeeper uses an old configuration library and doesn't
 yet respect everything explained in this document.
 
 :::
@@ -94,7 +94,7 @@ In cases where you need to load secret values - this is usually the case when
 deploying Ory open source services yourself - you can use environment variables
 to override configuration values from files or CLI flags.
 
-It is possible to set _any_ configuration value from environment variables. To
+It's possible to set _any_ configuration value from environment variables. To
 understand how this works, let's look at an example:
 
 ```yaml
@@ -127,7 +127,7 @@ $env:SOME_NESTED_KEY_AND_ARRAY_1_ID = bar
 
 As you can see, subkeys are separated with an underscore `_`. If a subkey is an
 array, you can reference the array item by using the array index (`0`, `1`). It
-is also possible to define a new array by using an array index that is not yet
+is also possible to define a new array by using an array index that'sn't yet
 set:
 
 ```shell
@@ -145,7 +145,7 @@ some:
       - bar: bar
 ```
 
-It is also possible to use JSON strings to denote complex configuration keys:
+It's also possible to use JSON strings to denote complex configuration keys:
 
 ```shell
 # Linux / macOS

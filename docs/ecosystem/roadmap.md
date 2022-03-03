@@ -10,13 +10,13 @@ Users are often asking when a particular feature will be implemented or when it
 can be expected to be available.
 
 This document strives to give an answer to those questions and give you an
-outlook of what is happening in the Ory ecosystem. Please note that this roadmap
+outlook of what's happening in the Ory ecosystem. Please note that this roadmap
 is mainly focused on the Ory Open Source libraries - but this also influences
 the development of the Ory Cloud.
 
 ## Ory Roadmap
 
-If you are interested in a particular project, it is best to check out the
+If you are interested in a particular project, it's best to check out the
 [milestones and open issues & pull requests ](#milestones-issues-pull-requests)
 for that project.
 
@@ -24,7 +24,7 @@ Please note that **our roadmap is subject to changes**. This means that
 development is considering feedback both from the Open Source community as well
 as the Ory Cloud users.
 
-Issues on GitHub are not hard and fixed commitments. GitHub Issues, Milestones,
+Issues on GitHub aren't hard and fixed commitments. GitHub Issues, Milestones,
 and Discussions are general guidelines and efforts to make development at Ory as
 transparent as possible to facilitate collaboration, trust, and visibility.
 
@@ -58,7 +58,7 @@ affected, estimated effort, and other factors.
 First, you should check if an [issue](#milestones-issues-pull-requests) or a
 [discussion](#discussions) for that feature already exists.
 
-If it does not exist, please open a [discussion](#discussions) in the "Ideas"
+If it doesn't exist, please open a [discussion](#discussions) in the "Ideas"
 section and try to formulate as accurately as possible what you are trying to
 do, what you are expecting how it should work, as well as any technical details
 that are relevant. This helps others to understand your idea and maintainers
@@ -79,7 +79,7 @@ For more information please refer to the projects CONTRIBUTING.md (e.g. for
 
 - Support Ory
 
-If writing code yourself is not an option, you can consider becoming an Ory
+If writing code yourself isn't an option, you can consider becoming an Ory
 Sponsor on [Open Collective](https://opencollective.com/ory) or
 [Patreon](https://www.patreon.com/_ory). This helps us to employ more
 maintainers and technical staff - increasing velocity in development, community,

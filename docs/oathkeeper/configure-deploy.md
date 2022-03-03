@@ -14,7 +14,7 @@ exposing the
   other API endpoints such as health checks, JSON Web Key Sets, and a list of
   available rules.
 
-For this guide we are using Docker. ORY Oathkeeper however can be
+For this guide we're using Docker. ORY Oathkeeper however can be
 [installed in a variety of ways](install.md).
 
 ## Configure
@@ -254,7 +254,7 @@ ADD jwks.json /jwks.json
 EOF
 ```
 
-We are doing this for demonstration purposes only. In a production environment
+We're doing this for demonstration purposes only. In a production environment
 you would separate these configuration values from the build artifact itself. In
 Kuberentes, it would make most sense to provide the JSON Web Keys as a
 Kubernetes Secret mounted as in a directory, for example.
@@ -289,7 +289,7 @@ $ docker run --rm \
   serve
 ```
 
-Let's open a new terminal and check if it is alive:
+Let's open a new terminal and check if it's alive:
 
 ```
 $ curl http://127.0.0.1:4456/health/alive
@@ -336,7 +336,7 @@ $ curl -H "Accept: application/json" -X GET http://127.0.0.1:4455/anything/deny
   "error":{
     "code":403,
     "status":"Forbidden",
-    "message":"Access credentials are not sufficient to access this resource"
+    "message":"Access credentials aren't sufficient to access this resource"
   }
 }
 
@@ -432,7 +432,7 @@ building up nice visualizations eg. using Grafana. More information are
 available on
 [https://prometheus.io/docs/visualization/grafana/](https://prometheus.io/docs/visualization/grafana/).
 
-We have a pre built Dashboard which you can use to get started quickly:
+We've a pre built Dashboard which you can use to get started quickly:
 [Oathkeeper-Dashboard.json](https://github.com/ory/oathkeeper/tree/master/contrib/grafana/Oathkeeper-Dashboard.json).
 
 <img alt="ORY Oathkeeper with Prometheus and Grafana"

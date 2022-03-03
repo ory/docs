@@ -10,7 +10,7 @@ Each endpoint is exposed on a different port, so
 [you can decide how to restrict access](../secure.md). gRPC and REST connections
 are multiplexed on the same port.
 
-All APIs are available to gRPC and REST clients, although feature parity is not
+All APIs are available to gRPC and REST clients, although feature parity isn't
 always given. Because we follow gRPC and REST best practices and design
 guidelines, the APIs offer slightly different interfaces and capabilities.
 
@@ -83,8 +83,8 @@ head over to the [gRPC API reference](../reference/proto-api.mdx#writeservice)
 or [REST API reference](../reference/rest-api.mdx#write) to read more about the
 available methods for each client type.
 
-In general, it is preferred to use the transaction based methods over repeatedly
-calling simple methods for bulk updates. This is not only because they provide
+In general, it's preferred to use the transaction based methods over repeatedly
+calling simple methods for bulk updates. This isn't only because they provide
 stronger consistency guarantees, but also because the database usually handles a
 single transaction with a lot of data faster than a lot of small transactions.
 

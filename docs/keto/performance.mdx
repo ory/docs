@@ -55,7 +55,7 @@ design the ACL tuples in a way such that there are only view indirections to
 resolve. Learn more in our
 [best practices around ACL design](./guides/access-control-list-design-best-practices.mdx).
 
-Because of this we decided that generic benchmarks will not yield any meaningful
+Because of this we decided that generic benchmarks won't yield any meaningful
 result. We will therefore add a comparison with other similar projects later on.
 
 ## Expand Engine
@@ -65,7 +65,7 @@ expand-engine builds the tree of all set operations it encounters. It resolves
 all indirections starting at the requested subjectset up to the specified depth.
 Because it also uses breadth-first search, time and space complexity linearly
 depend on the nodes reachable from the requested subjectset. The same
-performance considerations apply here, while it is important to note that
+performance considerations apply here, while it's important to note that
 requesting a low depth will further limit the complexity of the operation. The
 returned tree can also exceed reasonable size limits quickly if the
 relationtuples are deeply and/or widely nested.

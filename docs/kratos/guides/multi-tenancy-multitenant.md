@@ -3,7 +3,7 @@ id: multi-tenancy-multitenant
 title: Multitenancy
 ---
 
-Ory Kratos does not implement multi-tenancy in its application logic, but it is
+Ory Kratos doesn't implement multi-tenancy in its application logic, but it's
 possible to implement multi-tenancy with Ory Kratos!
 
 The recommended approach is to run one or more (depending on your scale) SQL

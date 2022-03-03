@@ -79,11 +79,11 @@ Additionally, the following DSN parameters are supported:
 - `max_conn_idle_time` (duration): Sets the maximum amount of time ("ms", "s",
   "m", "h") a connection can be kept alive.
 - `collation` (string): Sets the collation used for client-server interaction on
-  connection. In contrast to charset, collation does not issue additional
+  connection. In contrast to charset, collation doesn't issue additional
   queries. If the specified collation is unavailable on the target server, the
   connection will fail.
 - `loc` (string): Sets the location for time.Time values. Note that this sets
-  the location for time.Time values but does not change MySQL's time_zone
+  the location for time.Time values but doesn't change MySQL's time_zone
   setting. For that set the time_zone DSN parameter. Please keep in mind, that
   param values must be url.QueryEscape'ed. Alternatively you can manually
   replace the / with %2F. For example US/Pacific would be loc=US%2FPacific.

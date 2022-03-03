@@ -46,14 +46,14 @@ unlikely a user is to encounter a situation.
 
 Include any media types/sources if the content is relevant to readers. You can
 freely include or link presentations, diagrams, and videos. No matter who it was
-originally composed for, if it is helpful to any of our audiences, we can
+originally composed for, if it's helpful to any of our audiences, we can
 include it.
 
 - If you use an image that has a separate source file (for example, a vector or
   diagram format), link the image to the source file so that anyone can update
   or reuse it.
-- Do not copy and paste content from other sources unless it is a limited
-  quotation with the source cited. Typically it is better to either rephrase
+- Don't copy and paste content from other sources unless it's a limited
+  quotation with the source cited. Typically it's better to either rephrase
   relevant information in your own words or link out to the other source.
 
 ### Category types
@@ -67,13 +67,13 @@ categories:
     form of a discursive explanation. The main goal is to explain.
 - Guides
   - The purpose of this category is to solve a specific problem. It has the form
-    of a series of steps towards a goal. It is aimed towards more experienced
+    of a series of steps towards a goal. It's aimed towards more experienced
     users, who are already familiar with the concepts and tools
 - Reference
   - The purpose of this category is to provide a detailed & in-depth description
     of the project. It has the form of an austere and to the point explanation
     and is rooted in code, most often these documents are built directly from
-    code without editor interaction. It does not give information on how to do
+    code without editor interaction. It doesn't give information on how to do
     specific things.
 
 There are also the following sub-types:
@@ -90,7 +90,7 @@ Ory uses [category type templates](templates.md).
 ### Link instead of repeating text
 
 Rather than repeating information from another topic, link to the single source
-of truth and explain why it is important.
+of truth and explain why it's important.
 
 ## Markdown
 
@@ -157,7 +157,7 @@ item, use the same capitalization that's displayed in the user interface.
   capabilities or tools. Features requiring title case should be added to the
   [word list](https://github.com/ory/docs/blob/0533161365f1d8bdca23dcb7ae36a34ea631997a/docs/markdownlint.yml#L31).
 
-Do not match the capitalization of terms or phrases on the
+Don't match the capitalization of terms or phrases on the
 [Website](https://ory.sh) by default.
 
 #### Other terms
@@ -177,7 +177,7 @@ entity, which may use non-standard case styles. For example: Ory and npm.
 ### Fake user information
 
 You may need to include user information in entries such as a REST call or user
-profile. Do not use real user information or email addresses in Ory
+profile. Don't use real user information or email addresses in Ory
 documentation. For email addresses and names, use:
 
 - Email addresses: Use an email address ending in `example.com`.
@@ -196,7 +196,7 @@ When including sample URLs in the documentation, use:
 ### Fake tokens
 
 There may be times where a token is needed to demonstrate an API call using cURL
-or a variable used in CI. It is strongly advised not to use real tokens in
+or a variable used in CI. It's strongly advised not to use real tokens in
 documentation even if the probability of a token being exploited is low.
 
 You can use these fake tokens as examples:
@@ -219,16 +219,16 @@ especially in tutorials, instructional documentation, and user interfaces.
 
 Some contractions, however, should be avoided:
 
-| Do not use a contraction      | Example                                          | Use instead                                       |
+| Don't use a contraction      | Example                                          | Use instead                                       |
 | ----------------------------- | ------------------------------------------------ | ------------------------------------------------- |
 | With a proper noun and a verb | The **Container Registry's** a powerful feature. | The **Container Registry** is a powerful feature. |
-| To emphasize a negative       | **Don't** install X with Y.                      | **Do not** install X with Y.                      |
-| In reference documentation    | **Don't** set a limit.                           | **Do not** set a limit.                           |
-| In error messages             | Requests to localhost **aren't** allowed.        | Requests to localhost **are not** allowed.        |
+| To emphasize a negative       | **Don't** install X with Y.                      | **Don't** install X with Y.                      |
+| In reference documentation    | **Don't** set a limit.                           | **Don't** set a limit.                           |
+| In error messages             | Requests to localhost **aren't** allowed.        | Requests to localhost **aren't** allowed.        |
 
 ### Acronyms
 
-If you use an acronym, spell it out on first use on a page. You do not need to
+If you use an acronym, spell it out on first use on a page. You don't need to
 spell it out more than once on a page. When possible, try to avoid acronyms in
 headings.
 
@@ -258,17 +258,17 @@ and greater. For details, see the
 
 ### Comments
 
-To embed comments within Markdown, use standard HTML comments that are not
+To embed comments within Markdown, use standard HTML comments that aren't
 rendered when published. Example:
 
 ```html
-<!-- This is a comment that is not rendered -->
+<!-- This is a comment that'sn't rendered -->
 ```
 
 ### Emphasis
 
 Use **bold** rather than italic to provide emphasis. Ory uses a sans-serif font
-and italic text does not stand out as much as it would in a serif font. For
+and italic text doesn't stand out as much as it would in a serif font. For
 details, see
 [Butterick's Practical Typography guide on bold or italic](https://practicaltypography.com/bold-or-italic.html).
 
@@ -288,12 +288,12 @@ Follow these guidelines for punctuation:
 | Avoid semicolons. Use two sentences instead.                                                                                                             | That's the way that the world goes 'round. You're up one day and the next you're down. |
 | Always end full sentences with a period.                                                                                                                 | For a complete overview, read through this document.                                   |
 | Always add a space after a period when beginning a new sentence.                                                                                         | For a complete overview, check this doc. For other references, check out this guide.   |
-| Do not use double spaces. (Tested in [`SentenceSpacing.yml`](SentenceSpacing.yml).)                                                                      | ---                                                                                    |
-| Do not use tabs for indentation. Use spaces instead. You can configure your code editor to output spaces instead of tabs when pressing the tab key.      | ---                                                                                    |
+| Don't use double spaces. (Tested in [`SentenceSpacing.yml`](SentenceSpacing.yml).)                                                                      | ---                                                                                    |
+| Don't use tabs for indentation. Use spaces instead. You can configure your code editor to output spaces instead of tabs when pressing the tab key.      | ---                                                                                    |
 | Use serial commas (Oxford commas) before the final **and** or **or** in a list of three or more items. (Tested in [`OxfordComma.yml`](OxfordComma.yml).) | You can create new issues, merge requests, and milestones.                             |
 | Always add a space before and after dashes when using it in a sentence (for replacing a comma, for example).                                             | You should try this - or not.                                                          |
 | When a colon is part of a sentence, always use lowercase after the colon.                                                                                | Linked issues: a way to create a relationship between issues.                          |
-| Do not use typographer's quotes. Use straight quotes instead. (Tested in [`NonStandardQuotes.yml`](NonStandardQuotes.yml).)                              | "It's the questions we can't answer that teach us the most"---Patrick Rothfuss         |
+| Don't use typographer's quotes. Use straight quotes instead. (Tested in [`NonStandardQuotes.yml`](NonStandardQuotes.yml).)                              | "It's the questions we can't answer that teach us the most"---Patrick Rothfuss         |
 
 ### Placeholder text
 
@@ -387,8 +387,8 @@ This is a list of available features:
 - Don't add commas (`,`) or semicolons (`;`) to the ends of list items.
 - Only add periods to the end of a list item if the item consists of a complete
   sentence (with a subject and a verb).
-- Be consistent throughout the list: if the majority of the items do not end in
-  a period, do not end any of the items in a period, even if they consist of a
+- Be consistent throughout the list: if the majority of the items don't end in
+  a period, don't end any of the items in a period, even if they consist of a
   complete sentence. The opposite is also valid: if the majority of the items
   end with a period, end all with a period.
 - Separate list items from explanatory text with a colon (`:`). For example:
@@ -509,7 +509,7 @@ that's best described by a matrix, tables are the best choice.
 
 ### Creation guidelines
 
-To keep tables accessible and scannable, tables should not have any empty cells.
+To keep tables accessible and scannable, tables shouldn't have any empty cells.
 If there is no otherwise meaningful value for a cell, consider entering **N/A**
 for 'not applicable' or **None**.
 
@@ -591,7 +591,7 @@ This is overridden by the
 - Start with an `h2` (`##`), and respect the order `h2` > `h3` > `h4` > `h5` >
   `h6`. Never skip the hierarchy level, such as `h2` > `h4`
 - Avoid putting numbers in headings. Numbers shift, hence documentation anchor
-  links shift too, which eventually leads to dead links. If you think it is
+  links shift too, which eventually leads to dead links. If you think it's
   compelling to add numbers in headings, make sure to at least discuss it with
   someone in the Merge Request.
 - Avoid using symbols and special characters in headers. Whenever possible, they
@@ -602,12 +602,12 @@ This is overridden by the
   grammatically and syntactically correct. This is to ensure that no document
   with wrong heading is going live without an audit, thus preventing dead links
   and redirection issues when corrected.
-- Use the context provided by parent section headings. That is, don't repeat the
+- Use the context provided by parent section headings. That's, don't repeat the
   parent heading's text in each subsection's heading.
 - Use articles and prepositions in headings where it would make sense in regular
   text.
 - Leave exactly one blank line before and after a heading.
-- Do not use links in headings.
+- Don't use links in headings.
 - Search engines prioritize words used in headings and subheadings. Make your
   subheading titles clear, descriptive, and complete to help users find the
   right example, as shown in the section on [heading titles](#heading-titles).
@@ -645,7 +645,7 @@ Important:
 - If possible, avoid changing headings, because they're not only linked
   internally. There are various links to Ory documentation on the internet, such
   as tutorials, presentations, StackOverflow posts, and other sources.
-- Do not link to `h1` headings.
+- Don't link to `h1` headings.
 
 ## Links
 
@@ -672,7 +672,7 @@ We include guidance for links in these categories:
 ### Basic link criteria
 
 - Use inline link Markdown markup `[Text](https://example.com)`. It's easier to
-  read, review, and maintain. Do not use `[Text][identifier]` reference-style
+  read, review, and maintain. Don't use `[Text][identifier]` reference-style
   links.
 
 - Use
@@ -687,7 +687,7 @@ NOTE: **Internal** refers to documentation in the same project. When linking to
 documentation in separate projects (for example, linking to Omnibus
 documentation from Ory documentation), you must use absolute URLs.
 
-Do not use absolute URLs like `https://ory.sh/docs/index/` to cross-link to
+Don't use absolute URLs like `https://ory.sh/docs/index/` to cross-link to
 other documentation in the same project. Use relative links to the file, like
 `../index.md`. (These are converted to HTML when the site is rendered.)
 
@@ -703,7 +703,7 @@ Relative linking enables crosslinks to work:
 To link to internal documentation:
 
 - Use relative links to Markdown files in the same repository.
-- Do not use absolute URLs or URLs from `ory.sh/docs`.
+- Don't use absolute URLs or URLs from `ory.sh/docs`.
 - Use `../` to navigate to higher-level directories.
 - Don't prepend `./` to links to files or directories. To link to a file in the
   same directory or one of its sub-directories, use the syntax
@@ -828,12 +828,12 @@ Images, including screenshots, can help a reader better understand a concept.
 However, they should be used sparingly because:
 
 - They tend to become out-of-date.
-- They are difficult and expensive to localize.
-- They cannot be read by screen readers.
+- They're difficult and expensive to localize.
+- They can't be read by screen readers.
 
 When needed, use images to help the reader understand:
 
-- Where they are in a complicated process.
+- Where they're in a complicated process.
 - How they should interact with the application.
 
 ### Capture the image
@@ -918,14 +918,14 @@ If you use macOS and want all screenshots to be compressed automatically, read
 ## Videos
 
 Adding Ory video tutorials to the documentation is highly encouraged, unless the
-video is outdated. Videos should not replace documentation, but complement or
+video is outdated. Videos shouldn't replace documentation, but complement or
 illustrate it. If content in a video is fundamental to a feature and its key use
 cases, but isn't adequately covered in the documentation, you should:
 
 - Add this detail to the documentation text.
 - Create an issue to review the video and update the page.
 
-Do not upload videos to the product repositories. [Link](#link-to-video) or
+Don't upload videos to the product repositories. [Link](#link-to-video) or
 [embed](#embed-videos) them instead.
 
 ### Convert Videos
@@ -983,7 +983,7 @@ up a lot of space on the page and can be distracting to readers.
 To embed a video:
 
 1. Copy the code from this procedure and paste it into your Markdown file. Leave
-   a blank line above and below it. Do not edit the code (don't remove or add
+   a blank line above and below it. Don't edit the code (don't remove or add
    any spaces).
 1. In YouTube, visit the video URL you want to display. Copy the regular URL
    from your browser (`https://www.youtube.com/watch?v=VIDEO-ID`).
@@ -1054,10 +1054,10 @@ npm i --save @ory/integrations
 ```
 ````
 
-Please do not prefixes with `$`
+Please don't prefixes with `$`
 
 ```patch
-- $ command --arg # do not
+- $ command --arg # don't
 + command --arg # do
 ```
 
@@ -1074,7 +1074,7 @@ documentation.
 | `golang`                | Alias: `go`.                                                                                                                                                    |
 | `graphql`               |                                                                                                                                                                 |
 | `html`                  |                                                                                                                                                                 |
-| `ini`                   | For some simple configuration files that are not in TOML format.                                                                                                |
+| `ini`                   | For some simple configuration files that aren't in TOML format.                                                                                                |
 | `javascript`            | Alias `js`.                                                                                                                                                     |
 | `json`                  |                                                                                                                                                                 |
 | `markdown`              | Alias: `md`.                                                                                                                                                    |
@@ -1248,7 +1248,7 @@ in the Ory product documentation.
 ### Avoid line breaks in names
 
 If a feature or product name contains spaces, don't split the name with a line
-break. When names change, it is more complicated to search or grep text that has
+break. When names change, it's more complicated to search or grep text that has
 line breaks.
 
 ## Versions
@@ -1302,7 +1302,7 @@ possible, link to its deprecation and removal issues.
 For example:
 
 ```markdown
-WARNING: This feature is in its end-of-life process. It is
+WARNING: This feature is in its end-of-life process. It's
 [deprecated](link-to-issue) for use in Ory Kratos X.X, and is planned for
 [removal](link-to-issue) in Ory Kratos X.X.
 ```
@@ -1326,27 +1326,27 @@ For example:
 
 ### Promising features in future versions
 
-Do not promise to deliver features in a future release. For example, avoid
+Don't promise to deliver features in a future release. For example, avoid
 phrases like, "Support for this feature is planned."
 
-We cannot guarantee future feature work, and promises like these can raise legal
+We can't guarantee future feature work, and promises like these can raise legal
 issues. Instead, say that an issue exists. For example:
 
 - Support for improvements is tracked `[in this issue](LINK)`.
-- You cannot do this thing, but `[an issue exists](LINK)` to change this
+- You can't do this thing, but `[an issue exists](LINK)` to change this
   behavior.
 
 You can say that we plan to remove a feature.
 
 #### Legal disclaimer for future features
 
-If you **must** write about features we have not yet delivered, put this exact
+If you **must** write about features we'ven't yet delivered, put this exact
 disclaimer near the content it applies to.
 
 ```markdown
 DISCLAIMER: This page contains information related to upcoming products,
-features, and functionality. It is important to note that the information
-presented is for informational purposes only. Please do not rely on this
+features, and functionality. It's important to note that the information
+presented is for informational purposes only. Please don't rely on this
 information for purchasing or planning purposes. As with all projects, the items
 mentioned on this page are subject to change or delay. The development, release,
 and timing of any products, features, or functionality remain at the sole
@@ -1356,17 +1356,17 @@ discretion of Ory Inc.
 It renders on the Ory documentation as:
 
 DISCLAIMER: This page contains information related to upcoming products,
-features, and functionality. It is important to note that the information
-presented is for informational purposes only. Please do not rely on this
+features, and functionality. It's important to note that the information
+presented is for informational purposes only. Please don't rely on this
 information for purchasing or planning purposes. As with all projects, the items
 mentioned on this page are subject to change or delay. The development, release,
 and timing of any products, features, or functionality remain at the sole
 discretion of Ory Inc.
 
-If all of the content on the page is not available, use the disclaimer once at
+If all of the content on the page isn't available, use the disclaimer once at
 the top of the page.
 
-If the content in a topic is not ready, use the disclaimer in the topic.
+If the content in a topic isn't ready, use the disclaimer in the topic.
 
 ### Deprecated features
 

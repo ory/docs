@@ -9,7 +9,7 @@ Management (IAM), Identity Management (IdM), Identity Provider (IP/IdP), or
 Identity as a Service (IDaaS) - have shortcomings that highlight the main
 differences between Ory Kratos and other systems.
 
-Ory Kratos solves identity on the network. It is not an on-device, for instance
+Ory Kratos solves identity on the network. It isn't an on-device, for instance
 mobile phones, user database. In Ory Kratos there is always an exchange of
 credentials. In the case of web applications and identity:
 
@@ -20,7 +20,7 @@ credentials. In the case of web applications and identity:
 Even for alternative use cases for example mobile, browser, or native
 application there is either a cookie, which accesses the application directly
 through the browser, or a token that accesses the application using a
-programmatic client via an API. While it is nowadays common - but bad practice -
+programmatic client via an API. While it's nowadays common - but bad practice -
 to use tokens for "Single Page Apps" or apps running on the client-side browser,
 there is no real difference between these two approaches as both represent a set
 of credentials valid for a certain domain or a number of domains.
@@ -28,12 +28,12 @@ of credentials valid for a certain domain or a number of domains.
 Still, many identity systems primarily rely on OAuth2 and OpenID Connect. The
 reasons for this would perhaps include the following:
 
-- Assumption - it is certifiable;
+- Assumption - it's certifiable;
 - Assumption - it offloads complexity to developers who need to interact with
   and figure out e.g. `AppAuth`, `PassportJS`, and similar OAuth2 and OpenID
   Connect SDKs developed by open source communities;
 - Assumption - selling complexity as security;
-- Assumption - the nature of closed source does not allow for new, open and
+- Assumption - the nature of closed source doesn't allow for new, open and
   de-facto standards to emerge and instead uses a consenus driven feature set,
   even if it doesn't fit the use case 100%.
 
@@ -46,7 +46,7 @@ follows:
 - Prioritise simplicity and ease of use for developers. Ory Kratos integrates
   critical security components without relying on complex flows and protocols.
 
-Using Ory Kratos it is possible to consume OAuth2 and OpenID Connect, and/or
+Using Ory Kratos it's possible to consume OAuth2 and OpenID Connect, and/or
 create an OAuth2 and OpenID Connect Provider by combining Ory Kratos with
 [Ory Hydra](http://github.com/ory/hydra) .
 
@@ -83,7 +83,7 @@ feature sets that include:
 Full-stack software projects come with some overhead:
 
 - the software has a large disk, CPU, and memory footprint;
-- while scaling and clustering for High Availability is possible, it is complex
+- while scaling and clustering for High Availability is possible, it's complex
   since inter-process-communication for caches and other features is required
   for example using protocols such as [JGroups](http://jgroups.org/); and
 - starting off with pre-defined use cases is easy, yet customization and
@@ -122,7 +122,7 @@ tools and technologies for the target application. Feedback from Ory's user
 community as well as the open source development efforts in creating the OAuth2
 and OpenID Connect server [Ory Hydra](https://github.com/ory/hydra), show that
 implementing OAuth2 or OpenID Connect is often frustrating and too complex.
-These technologies are not one size fits all, and not designed for every
+These technologies aren't one size fits all, and not designed for every
 implementation scenario.
 
 The main point is that OAuth2 and OpenID Connect protocols solve identity
@@ -133,7 +133,7 @@ These protocols don't solve processes like updating a user's profile, adding a
 secondary recovery email, solving 2FA, storing and managing sessions, or solving
 global logout. These processes are the developer's responsibility and while the
 OAuth2 and OpenID Connect protocols offer a way to securely solve identity
-federation over the browser, they do not solve:
+federation over the browser, they don't solve:
 
 - Storage and management of all these tokens. These would often end up in the
   localStore making them vulnerable to XSS attacks. Or in a cookie issued by an
@@ -262,7 +262,7 @@ For more details about each individual flow, consult the
 
 ### Bring your own Identity Schema(s)
 
-Sometimes it is necessary to store more than one type of identity in your
+Sometimes it's necessary to store more than one type of identity in your
 system:
 
 - A customer that uses email + password to login, and needs to set a birthdate;

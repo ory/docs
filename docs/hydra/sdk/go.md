@@ -49,13 +49,13 @@ func main() {
     adminURL := url.Parse("https://hydra.localhost:4445")
     hydraAdmin := client.NewHTTPClientWithConfig(nil, &client.TransportConfig{Schemes: []string{adminURL.Scheme}, Host: adminURL.Host, BasePath: adminURL.Path})
 
-    // It is important to create the parameters using `New...`, otherwise requests will fail!
+    // It's important to create the parameters using `New...`, otherwise requests will fail!
     result, err := hydraAdmin.Admin.CreateOAuth2Client(
         admin.NewCreateOAuth2ClientParams().WithBody(&models.OAuth2Client{
         ClientID: "scoped",
     }))
     if err != nil {
-        // err is not nil when the request failed (usually a 404, 401, 409 error)
+        // err isn't nil when the request failed (usually a 404, 401, 409 error)
         // You can distinguish the errors by type-asserting err, for example:
         switch e := err.(type) {
         case (*admin.CreateOAuth2ClientConflict):

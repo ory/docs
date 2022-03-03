@@ -25,9 +25,9 @@ There are three main stages of development for services:
 - **Sandbox:** Implements concepts, APIs and CLIs at the experimental stage and
   may change in unpredictable ways. Sandbox software has a major version number
   of `0` with a `alpha` or `beta` pre-release indicator, e.g. `v0.10.0-alpha.1`.
-  It is more likely that you'll encounter a version tag with a `alpha`
+  It's more likely that you'll encounter a version tag with a `alpha`
   pre-release version. We will provide upgrade guides wherever possible,
-  especially when they are used in production already.
+  especially when they're used in production already.
 
 The following is a list of maturity level per project:
 
@@ -39,10 +39,10 @@ The following is a list of maturity level per project:
 
 :::info
 
-Ory only releases software that is stable and ready for production!  
-The sandbox/incubating stage does _not_ mean the product is not ready to be
+Ory only releases software that's stable and ready for production!  
+The sandbox/incubating stage does _not_ mean the product isn't ready to be
 used.  
-It is an indicator of _how much_ the project will change in the future,
+It's an indicator of _how much_ the project will change in the future,
 including backwards incompatible changes.
 
 :::
@@ -87,7 +87,7 @@ more than one service from the Ory ecosystem. Let's look at some examples:
 - Ory Hydra `v1.1.0+oryOS.9` is best compatible with Ory Oathkeeper
   `v1.1.0+oryOS.9` and Ory Keto `v1.1.0+oryOS.9`.
 
-It is possible that a number of releases are versioned with the same `oryOS.x`
+It's possible that a number of releases are versioned with the same `oryOS.x`
 version metadata:
 
 - Ory Hydra `v1.0.1+oryOS.10`, `v1.0.2+oryOS.10` is guaranteed compatible with
@@ -125,7 +125,7 @@ This compatibility matrix shows which versions are compatible with one another.
 ### Package repository limitations
 
 Several package repositories such as
-[Docker Hub](https://github.com/moby/moby/issues/16304), NPM, and others do not
+[Docker Hub](https://github.com/moby/moby/issues/16304), NPM, and others don't
 allow build metadata in the version tag.
 
 Therefore, we generally strip the `oryOS` metadata from the versions published
@@ -135,7 +135,7 @@ on package repositories (e.g. NPM, Ruby Gems, Packagist, Maven Central, Go ...).
 
 As of January 2020 (oryOS.15) we will no longer use `-sandbox` to indicate the
 sandbox stage. Instead, please check the [maturity](#maturity) section. We made
-this change because some package manager (e.g. Ruby Gems) do not allow the
+this change because some package manager (e.g. Ruby Gems) don't allow the
 `-sandbox` suffix in the version.
 
 ### November 2018 Change
@@ -166,9 +166,9 @@ This turned out to be a bad decision because of multiple factors:
    caused delays. This lead to a misalignment between what the community wants
    (Ory Hydra rc1) and what had to be added to the roadmap in order to comply
    with the versioning concept.
-3. We are working towards an open source identity management system (Ory Hive)
+3. We're working towards an open source identity management system (Ory Hive)
    which will stay in sandbox and incubation for a while due to its complexity.
-   We definitely did not want to give the impression that early MVPs are `v1` or
+   We definitely didn't want to give the impression that early MVPs are `v1` or
    even `v2`.
 
 Our plan to help developers understand which versions are compatible with one

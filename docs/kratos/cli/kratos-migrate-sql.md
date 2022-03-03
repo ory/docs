@@ -17,7 +17,7 @@ Create SQL schemas and apply migration plans
 
 Run this command on a fresh SQL installation and when you upgrade Ory Kratos to a new minor version.
 
-It is recommended to run this command close to the SQL instance (e.g. same subnet) instead of over the public internet.
+It's recommended to run this command close to the SQL instance (e.g. same subnet) instead of over the public internet.
 This decreases risk of failure and decreases time required.
 
 You can read in the database URL using the -e flag, for example:

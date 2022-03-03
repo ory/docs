@@ -9,10 +9,10 @@ send a **fully anonymized** telemetry report ("anonymous usage statistics") to
 our servers. This data helps us understand how changes impact performance and
 stability of our open source service and identify potential issues.
 
-We are committed to full transparency on what data we transmit why and how. The
+We're committed to full transparency on what data we transmit why and how. The
 source code of the telemetry package is completely open source and located
-[here](https://github.com/ory/x/blob/master/metricsx). If you do not wish to
-help us improve our projects by sharing telemetry data, it is possible to
+[here](https://github.com/ory/x/blob/master/metricsx). If you don't wish to
+help us improve our projects by sharing telemetry data, it's possible to
 [opt out of this feature](#opt-out).
 
 ## Data Processing
@@ -27,7 +27,7 @@ The data processing pipeline has the following steps:
 2. Periodically this data is sent to the [segment.com](https://segment.com/)
    API.
 3. Segment forwards this data to a private AWS S3 Bucket owned by the Ory
-   organization. The data is not shared with any other party.
+   organization. The data isn't shared with any other party.
 4. The AWS S3 Bucket(s) are periodically downloaded onto on of our on-premise
    servers.
 5. The downloaded data is extracted, filtered, processed, and analyzed. The
@@ -67,24 +67,24 @@ You can opt out of software quality assurance features (telemetry)
 - by setting environment variable `SQA_OPT_OUT=true`.
 - by setting the yaml configuration key (if supported) `sqa.opt_out=true`.
 
-Disabling telemetry does not have any downsides, except for us not being able to
+Disabling telemetry doesn't have any downsides, except for us not being able to
 improve the project. Note that Ory always sends minimal ping with version
 information once on start up.
 
 ## Data Privacy
 
 To protect your privacy, we filter out any data that could identify you or your
-users. We are taking the following measures to protect your privacy:
+users. We're taking the following measures to protect your privacy:
 
 1. We only transmit information on how often endpoints are requested, how fast
    they respond and what HTTP status code was sent.
 2. We filter out any query parameters, headers, response and request bodies and
    path parameters. A full list of transmitted URL paths is listed in section
    [Request telemetry](#request-telemetry).
-3. **We are unable to see or store the IP address of your host**, as the
+3. **We're unable to see or store the IP address of your host**, as the
    [IP is set to `0.0.0.0`](https://github.com/ory/x/blob/master/metricsx/middleware.go)
    when transmitting data to our metrics aggregator.
-4. We do not transmit any environment information from the host, except:
+4. We don't transmit any environment information from the host, except:
 
 - Operating system id (windows, linux, osx)
 - The target architecture (amd64, darwin, ...)
@@ -102,7 +102,7 @@ hash of unique information (e.g. host, port) for identification. Additionally,
 each running instance is identified using an unique identifier which is set
 every time the service starts. The identifier is a Universally Unique Identifier
 (V4) and is thus a cryptographically safe random string. Identification is
-triggered when we are confident that the instance is not a test instance (e.g.
+triggered when we're confident that the instance isn't a test instance (e.g.
 one of the tutorials or a local installation).
 
 We collect the following system metrics:

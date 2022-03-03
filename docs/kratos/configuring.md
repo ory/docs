@@ -15,7 +15,7 @@ in-depth info run `kratos help`. We recommend you name your configuration file
 `kratos.(json|yml|yaml|toml)`. This will enable automatic validation and code
 completion in VSCode, JetBrains' IDEs and other tools that utilise
 [schemastore.org](https://www.schemastore.org/json/) JSON schemas. Alternatively
-you can add the schema mapping manually as well. It is recommended to prevent
+you can add the schema mapping manually as well. It's recommended to prevent
 leaking of secrets by setting sensitive values via environmental variables as
 described in the following section.
 

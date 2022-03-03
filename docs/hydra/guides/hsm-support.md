@@ -11,9 +11,9 @@ and a cryptographic device.
 
 :::note
 
-If a key is not found in the Hardware Security Module, the regular Software Key
+If a key isn't found in the Hardware Security Module, the regular Software Key
 Manager with AES-GCM software encryption will be used as a fallback. Storing
-keys will always use the Software Key Manager as it is not possible to add keys
+keys will always use the Software Key Manager as it isn't possible to add keys
 to a Hardware Security Module.
 
 :::
@@ -42,7 +42,7 @@ HSM_SLOT=0
 HSM_PIN=1234
 ```
 
-Token that is denoted by environment variables `HSM_TOKEN_LABEL` or `HSM_SLOT`
+Token that's denoted by environment variables `HSM_TOKEN_LABEL` or `HSM_SLOT`
 must preexist and optionally contain RSA or ECDSA key pairs with labels
 `hydra.openid.id-token` and `hydra.jwt.access-token` depending on configuration.
 **_If keys with these labels don't exist, they will be generated upon
@@ -71,7 +71,7 @@ secp521r1. As of now PKCS#11 v2.4 doesn't support EdDSA keys using curve
 Ed25519. However,
 [PKCS#11 v3.0](https://docs.oasis-open.org/pkcs11/pkcs11-curr/v3.0/pkcs11-curr-v3.0.html)
 contains support for EdDSA and therefore can be supported in upcoming versions.
-Symmetric key algorithms are not supported because it would imply, that shared
+Symmetric key algorithms aren't supported because it would imply, that shared
 HSM is used between server and authenticating client.
 
 <a name="generating-key-pairs"></a>
@@ -156,7 +156,7 @@ Public Key Object; RSA 4096 bits
 
 [SoftHSM](https://www.opendnssec.org/softhsm/) is an implementation of a
 cryptographic store accessible through a PKCS #11 interface. You can use it to
-explore PKCS#11 without having a Hardware Security Module. It is being developed
+explore PKCS#11 without having a Hardware Security Module. It's being developed
 as a part of the OpenDNSSEC project.
 
 [Follow these instructions to build SoftHSM from source.](https://wiki.opendnssec.org/display/SoftHSMDOCS/SoftHSM+Documentation+v2)
@@ -214,7 +214,7 @@ configured:
 ```shell
 $ docker logs ory-hydra-example--hydra
 time="2021-07-07T12:51:23Z" level=info msg="Hardware Security Module is configured."
-time="2021-07-07T12:51:23Z" level=info msg="JSON Web Key Set 'hydra.openid.id-token' does not exist yet, generating new key pair..."
+time="2021-07-07T12:51:23Z" level=info msg="JSON Web Key Set 'hydra.openid.id-token' doesn't exist yet, generating new key pair..."
 ```
 
 #### Run Tests with HSM enabled using Docker

@@ -185,7 +185,7 @@ hooks to run, set up Anti-CSRF tokens, and more. Each Settings Flow also has a
   chart={`
 stateDiagram
   [*] --> show_form
-  show_form --> show_form : Form payload is not valid
+  show_form --> show_form : Form payload isn't valid
   show_form --> success : Form payload is valid
   success --> [*]
 `}
@@ -362,7 +362,7 @@ $ curl -v -s -X GET \
 
 <ApiWarning />
 
-The Settings Flow for API clients does not use HTTP Redirects and can be
+The Settings Flow for API clients doesn't use HTTP Redirects and can be
 summarized as follows:
 
 <SelfServiceApiFlow
@@ -671,7 +671,7 @@ respected):
 
 To change the password, the end-user fills out the presented form and provides a
 new password. Possible validation errors include not providing the password or
-providing a password which does not match the password policy:
+providing a password which doesn't match the password policy:
 
 <CodeTabs items={getFlowMethodPasswordWithErrors} />
 
@@ -1023,7 +1023,7 @@ curl -s -X POST -H "Accept: application/json" -H "Content-Type: application/json
 The Settings User Interface is a route (page / site) in your application
 (server, native app, single page app) that should render a settings form.
 
-In stark contrast to other Identity Systems, Ory Kratos does not render this
+In stark contrast to other Identity Systems, Ory Kratos doesn't render this
 HTML. Instead, you need to implement the HTML code in your application (e.g.
 NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
 flexibility and customizability in your user interface flows and designs.

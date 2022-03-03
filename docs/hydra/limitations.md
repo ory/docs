@@ -37,7 +37,7 @@ For more information on this topic we recommend reading:
 
 ## Resource Owner Password Credentials Grant Type (ROPC)
 
-Ory Hydra does not and will not implement the Resource Owner Password
+Ory Hydra doesn't and won't implement the Resource Owner Password
 Credentials Grant Type. Read on for context.
 
 ### Overview
@@ -82,12 +82,12 @@ first-party apps. If you plan on doing this, stop right now and read
 
 The ROPC grant type is discouraged by developers, professionals, and the IETF
 itself. It was originally added because big legacy corporations (not dropping
-any names, but they are part of the IETF consortium) did not want to migrate
+any names, but they're part of the IETF consortium) didn't want to migrate
 their authentication infrastructure to the modern web but instead do what
 they've been doing all along "but OAuth 2.0" and for systems that want to
 upgrade from OAuth (1.0) to OAuth 2.0.
 
-There are a ton of good reasons why this is a bad flow, they are summarized in
+There are a ton of good reasons why this is a bad flow, they're summarized in
 [this excellent blog article as well](https://www.scottbrady91.com/OAuth/Why-the-Resource-Owner-Password-Credentials-Grant-Type-is-not-Authentication-nor-Suitable-for-Modern-Applications).
 
 ### What about Auth0, Okta, ...?

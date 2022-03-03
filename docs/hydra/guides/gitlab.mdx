@@ -21,7 +21,7 @@ The [5-min-tutorial](../5min-tutorial.md) might be worth checking out upfront.
 It'll a give a nice quick overview how OAuth2 is working within Ory Hydra with a
 minimal example. We assume basic knowledge, here.
 
-If you have not yet the source code of Ory Hydra, which we'll need for the
+If you haven't yet the source code of Ory Hydra, which we'll need for the
 `docker-compose` yaml-files and the gitlab-configuration, clone the repository:
 
 ```shell
@@ -194,10 +194,10 @@ the details for the OAuth2 flow and where Ory Hydra is located. Two things are
 extremely important to keep in your mind when looking at configurations which
 are specifying some flow one way or another:
 
-- Where is the DNS-name resolved? Sometimes it's on the users browser, sometimes
+- Where's the DNS-name resolved? Sometimes it's on the users browser, sometimes
   on GitLab or on the hydra-side. Especially in our docker-based POC, it makes a
   huge difference!
-- Cookies can only be written/read, if they are from the same domain. In that
+- Cookies can only be written/read, if they're from the same domain. In that
   case "127.0.0.1". That would be a different domain than "localhost". Pay
   attention to that.
 
@@ -251,7 +251,7 @@ Also worth noting here is the supported `token_endpoint_auth_methods`: How does
 GitLab authenticate against Ory Hydra? So GitLab is using `client_secret_post`
 which we needed to specify when we've created the GitLab-client in Ory Hydra.
 
-Some remarks for creating the client. We have created the client like this. The
+Some remarks for creating the client. We've created the client like this. The
 second command shows the created client:
 
 ```shell
@@ -291,7 +291,7 @@ $ hydra clients get hydra --endpoint http://127.0.0.1:4445
 }
 ```
 
-- The endpoint is not part of the configuration but it's a command-line-switch
+- The endpoint isn't part of the configuration but it's a command-line-switch
   telling the hydra-binary to which hydra-instance to talk to
 - `id` and `secret` has been specified before in the GitLab-config
 - the token-endpoint-auth-method is by default `client_secret_basic` but GitLab
@@ -367,7 +367,7 @@ After trying to login you get a message like this:
 
 > Error: invalid_client Description: Client authentication failed (e.g., unknown
 > client, no client authentication included, or unsupported authentication
-> method) Hint: The requested OAuth 2.0 Client does not exist.
+> method) Hint: The requested OAuth 2.0 Client doesn't exist.
 
 Doublecheck your registered clients. Mae sure ID and password are correct and
 matches that of the gitlab.rb:
@@ -389,7 +389,7 @@ which will redirect to the consent-app on port 3000. After the login, you'd get
 to the granting-page of the consent-app and after you've "allowed access",
 you'll get redirected back to gitlab which will unfortunately mention:
 
-> Could not authenticate you from OryHydra because "The request is missing a
+> Couldn't authenticate you from OryHydra because "The request is missing a
 > required parameter, includes an invalid parameter value, includes a parameter
 > more than once, or is otherwise malformed".
 
@@ -428,10 +428,10 @@ docker-compose -f quickstart.yml \
     restart hydra
 ```
 
-### GitLab: Signing in ... is not allowed
+### GitLab: Signing in ... isn't allowed
 
 > Signing in using your Ory Hydra account without a pre-existing GitLab account
-> is not allowed. Create a GitLab account first, and then connect it to your Ory
+> isn't allowed. Create a GitLab account first, and then connect it to your Ory
 > Hydra account.
 
 Double-Check the above explanation about user-creation.
@@ -450,7 +450,7 @@ GitLab is supporting OpenID-Connect and Ory Hydra does that as well. Why hasn't
 that been used in this guide?
 
 OpenID might be the better choice then plain OAuth2. When we tried that, we ran
-into the issue that the used OpenID-connect-implementation does not allow
+into the issue that the used OpenID-connect-implementation doesn't allow
 http-connection but "only" https. That's in general a good thing but stupid for
 POCs like this. Whereas Ory Hydra has a switch to whitelist URLs in such cases,
 the used
@@ -481,7 +481,7 @@ gitlab_rails['omniauth_providers'] = [
 ]
 ```
 
-In order to make that work which is not ssl, we need to patch the openid_connect
+In order to make that work which isn't ssl, we need to patch the openid_connect
 gem. Checkout the details
 [here](https://github.com/nov/openid_connect/issues/47).
 

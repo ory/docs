@@ -34,18 +34,18 @@ either by having two different login routes, or by adding some logic to your
 login UI that reroutes customers to `/login/customer` and employees to
 `/login/employee`. So you define the same login or registration UI URLs in both
 of the Kratos configurations. You may need to tell your login/registration UI
-which Kratos it is supposed to talk to. The instances are cheap to deploy and
+which Kratos it's supposed to talk to. The instances are cheap to deploy and
 the databases are completely isolated from each other. For example something
 like `/login/customer` and `/login/employee`.
 
 ### How can I verify in advance if a username is available during registration?
 
-You can not right now. It would allow account enumeration attacks. See also the
+You can't right now. It would allow account enumeration attacks. See also the
 [section in the documentation](https://www.ory.sh/kratos/docs/concepts/security/#account-enumeration).
 
 ### Do have plans to support automatic user migration scenarios?
 
-> E.g. configure a callback to the legacy system when you cannot find the
+> E.g. configure a callback to the legacy system when you can't find the
 > corresponding user, and store the identity on successful legacy system
 > response.
 

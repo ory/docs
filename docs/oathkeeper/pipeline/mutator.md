@@ -6,7 +6,7 @@ title: Mutators
 A mutator transforms the credentials from incoming requests to credentials that
 your backend understands. For example, the `Authorization: basic` header might
 be transformed to `X-User: <subject-id>`. This allows you to write backends that
-do not care if the original request was an anonymous one, an OAuth 2.0 Access
+don't care if the original request was an anonymous one, an OAuth 2.0 Access
 Token, or some other credential type. All your backend has to do is understand,
 for example, the `X-User:`.
 
@@ -15,7 +15,7 @@ Response.
 
 ## `noop`
 
-This mutator does not transform the HTTP request and simply forwards the headers
+This mutator doesn't transform the HTTP request and simply forwards the headers
 as-is. This is useful if you don't want to replace, for example,
 `Authorization: basic` with `X-User: <subject-id>`.
 
@@ -71,7 +71,7 @@ $ cat ./rules.json
 $ curl -X GET http://my-app/some-route
 
 HTTP/1.0 200 Status OK
-The request has been allowed! The original HTTP Request has not been modified.
+The request has been allowed! The original HTTP Request hasn't been modified.
 ```
 
 ## `id_token`
@@ -209,7 +209,7 @@ The first private key found in the JSON Web Key Set defined by
 `mutators.id_token.jwks_url` will be used for signing the JWT:
 
 - If the first key found is a symmetric key (`HS256` algorithm), that key will
-  be used. That key **will not** be broadcasted at `/.well-known/jwks.json`. You
+  be used. That key **won't** be broadcasted at `/.well-known/jwks.json`. You
   must manually configure the upstream to be able to fetch the key (e.g. from an
   environment variable).
 - If the first key found is an asymmetric private key (e.g. `RS256`, `ES256`,
@@ -237,7 +237,7 @@ The claims configuration expects a string which is expected to be valid JSON:
 }
 ```
 
-Please keep in mind that certain keys (such as the `sub`) claim **can not** be
+Please keep in mind that certain keys (such as the `sub`) claim **can't** be
 overwritten!
 
 ### Access Rule Example
@@ -483,7 +483,7 @@ The AuthenticationSession from this object replaces the original one and is
 passed to the next mutator, where it can be used to e.g. set a particular cookie
 to the value received from an API.
 
-Setting `extra` field does not transform the HTTP request, whereas headers set
+Setting `extra` field doesn't transform the HTTP request, whereas headers set
 in the `header` field will be added to the final request headers.
 
 ### Cache

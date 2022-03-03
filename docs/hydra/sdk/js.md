@@ -31,5 +31,5 @@ const hydraAdmin = new AdminApi(
 
 ### API Usage
 
-We recommend using TypeScript with auto-completion as API usage is not well
+We recommend using TypeScript with auto-completion as API usage isn't well
 documented currently.

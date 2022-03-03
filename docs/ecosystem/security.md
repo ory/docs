@@ -5,10 +5,10 @@ title: Security Policy
 
 :::caution Disclaimer
 
-We are currently in the process of setting up a disclosure platform. Until that
-process is done, we cannot payout bug bounties due to the administrative
+We're currently in the process of setting up a disclosure platform. Until that
+process is done, we can't payout bug bounties due to the administrative
 overhead. All disclosures that are made until the launch, will later be
-processed under the same conditions, but we cannot guarantee when that happens.
+processed under the same conditions, but we can't guarantee when that happens.
 
 :::
 
@@ -26,7 +26,7 @@ Provide all details to reproduce the issue in form of a non-public git
 repository including all setup and execution steps, the binary and source of the
 exploit, as well as an example exploit payload (if applicable). Low-quality
 reports may be disqualified. The Ory security team will contact you within 96
-hours to confirm the issue or ask for further details. Do not publish or share
+hours to confirm the issue or ask for further details. Don't publish or share
 any details regarding the issue until the Ory security team explicitly permits
 the publication in written form. The Ory security team will permit publication
 once incidence response and patches are fully enrolled. Any exploits shall not
@@ -55,7 +55,7 @@ original invoice and a valid reason for requiring the resources. All resources
 have to be directly tied to the disclosure of the issue. This clause also
 applies to exceptionally huge time-investment from your side. In that case, file
 an invoice yourself according to your local law, including a description of the
-work done on your side. It is Ory’s final decision whether the reasons for
+work done on your side. It's Ory’s final decision whether the reasons for
 additional expenses are valid and the additional expenses are refunded.
 
 ## Disclaimer

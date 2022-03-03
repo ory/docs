@@ -19,9 +19,9 @@ simply be run as a background worker, but for multi-instance Kratos deployments,
 it needs to be run a distinct singleton foreground worker. For setup details,
 refer to the [Out of Band Communication guide](../concepts/email-sms.md).
 
-Ory Kratos does not have any special requirements when it comes to High
-Availability as it does not manage state itself but instead relies on the SQL
+Ory Kratos doesn't have any special requirements when it comes to High
+Availability as it doesn't manage state itself but instead relies on the SQL
 database for that.
 
-It is therefore possible to use Ory Kratos with Auto-Scaling Groups (e.g. in
+It's therefore possible to use Ory Kratos with Auto-Scaling Groups (e.g. in
 Kubernetes) without any additional configuration.

@@ -5,7 +5,7 @@ title: Access Rule Pipeline
 
 Read more about the
 [principal components and execution pipeline of access rules](api-access-rules.md)
-if you have not already. This chapter explains the different pipeline handlers
+if you haven't already. This chapter explains the different pipeline handlers
 available to you:
 
 - [Authentication handlers](pipeline/authn.md) inspect HTTP requests (e.g. the
@@ -21,7 +21,7 @@ available to you:
 - [Mutation handlers](pipeline/mutator.md): transforms the credentials from
   incoming requests to credentials that your backend understands. For example,
   the `Authorization: basic` header might be transformed to
-  `X-User: <subject-id>`. This allows you to write backends that do not care if
+  `X-User: <subject-id>`. This allows you to write backends that don't care if
   the original request was an anonymous one, an OAuth 2.0 Access Token, or some
   other credential type. All your backend has to do is understand, for example,
   the `X-User:`.
@@ -136,7 +136,7 @@ non-existent map values will simply return an empty string, rather than
 `<no value>`.
 
 If you find that your field contain the string `<no value>` then you have most
-likely omitted the `print` function, and it is recommended you use it for all
+likely omitted the `print` function, and it's recommended you use it for all
 values out of an abundance of caution and for consistency.
 
 In the same way, a `printIndex` FuncMap function is provided to avoid _out of

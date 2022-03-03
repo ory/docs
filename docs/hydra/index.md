@@ -6,7 +6,7 @@ sidebar_label: Introduction
 
 Hydra is an OAuth 2.0 and OpenID Connect Provider. In other words, an
 implementation of the OAuth 2.0 Authorization Framework as well as the OpenID
-Connect Core 1.0 framework. As such, it issues OAuth 2.0 Access, Refresh, and ID
+Connect Core 1.0 framework. As such, it'ssues OAuth 2.0 Access, Refresh, and ID
 Tokens that enable third-parties to access your APIs in the name of your users.
 
 ## Flexible User Management
@@ -58,7 +58,7 @@ Docker, Google Container Engine, and others.
 
 Hydra is available for all popular platforms including Linux, OSX and Windows.
 It ships as a single binary without any additional dependencies. For further
-simplicity, it is available as a
+simplicity, it's available as a
 [Docker Image](https://hub.docker.com/r/oryd/hydra/).
 
 Hydra also provides a developer-friendly CLI.
@@ -67,11 +67,11 @@ Hydra also provides a developer-friendly CLI.
 
 Hydra has a few limitations too:
 
-1. ORY Hydra does not manage user accounts, i.e. user registration, password
+1. ORY Hydra doesn't manage user accounts, i.e. user registration, password
    reset, user login, sending confirmation emails, etc. In Hydra's architecture,
    the _Identity Provider_ is responsible for this.
 2. ORY Hydra doesn't support the OAuth 2.0 Resource Owner Password Credentials
-   flow because it is legacy, discouraged, and insecure.
+   flow because it's legacy, discouraged, and insecure.
 
 ## Is ORY Hydra the right fit for you?
 

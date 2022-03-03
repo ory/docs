@@ -285,7 +285,7 @@ about the flow:
     "messages": [
       {
         "id": 4010002,
-        "text": "Could not find a strategy to log you in with. Did you fill out the form correctly?",
+        "text": "Couldn't find a strategy to log you in with. Did you fill out the form correctly?",
         "type": "error"
       }
     ]
@@ -429,19 +429,19 @@ requests.
 
 :::info
 
-Ory Kratos and your UI must be hosted on same top level domain! You can not host
+Ory Kratos and your UI must be hosted on same top level domain! You can't host
 Ory Kratos and your UI on separate top level domains:
 
 - `kratos.bar.com` and `ui.bar.com` will work;
 - `kratos.bar.com` and `bar.com` will work;
-- `kratos.bar.com` and `not-bar.com` will not work.
+- `kratos.bar.com` and `not-bar.com` won't work.
 
 :::
 
 Ory Kratos identifies SPA requests by checking if the `Accept` HTTP Header is
 set to `application/json`.
 
-If it is, these flows act like an API flow and respond with JSON instead of HTTP
+If it's, these flows act like an API flow and respond with JSON instead of HTTP
 redirects while still setting and requiring the necessary cookies for CSRF,
 sessions, and more:
 
@@ -507,7 +507,7 @@ Form rendering works the same way as the flows for server-side browser apps.
 
 ### Form Submission and Payload Validation
 
-To submit the form, it is recommended to intercept the submission and send the
+To submit the form, it's recommended to intercept the submission and send the
 form as JSON using `fetch` (see
 ["Submit HTML Forms to JSON APIs easily"](https://dev.to/amjadmh73/submit-html-forms-to-json-apis-easily-137l))
 or the [SDK](sdk.md).
@@ -658,7 +658,7 @@ export default function Login () {
     return null
   }
 
-  // This is a non-functional, code example. It is missing state management and so on.
+  // This is a non-functional, code example. It's missing state management and so on.
   // The idea is to show how initializing such a flow would look like in an API scenario.
   return (
     <View>

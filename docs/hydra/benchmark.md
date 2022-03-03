@@ -10,12 +10,12 @@ run against the in-memory storage adapter of Ory Hydra. These benchmarks
 represent what performance you would get with a zero-overhead database
 implementation.
 
-We do not include benchmarks against databases (e.g. MySQL, PostgreSQL, SQLite
+We don't include benchmarks against databases (e.g. MySQL, PostgreSQL, SQLite
 or CockroachDB) as the performance greatly differs between deployments (e.g.
 request latency, database configuration) and tweaking individual things may
 greatly improve performance. We believe, for that reason, that benchmark results
 for these database adapters are difficult to generalize and potentially
-deceiving. They are thus not included.
+deceiving. They're thus not included.
 
 This file is updated on every push to master. It thus represents the benchmark
 data for the latest version.
@@ -31,7 +31,7 @@ Ory Hydra uses BCrypt to obfuscate secrets of OAuth 2.0 Clients. When using
 flows such as the OAuth 2.0 Client Credentials Grant, Ory Hydra validates the
 client credentials using BCrypt which causes (by design) CPU load. CPU load and
 performance depend on the BCrypt cost which can be set using the environment
-variable `BCRYPT_COST`. For these benchmarks, we have set `BCRYPT_COST=8`.
+variable `BCRYPT_COST`. For these benchmarks, we've set `BCRYPT_COST=8`.
 
 ## OAuth 2.0
 

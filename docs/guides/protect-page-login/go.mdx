@@ -39,7 +39,7 @@ go get -u github.com/ory/client-go
 ### Why do I Need the Ory CLI?
 
 The Ory CLI includes useful functionality to manage your Ory Cloud Project. But
-that is not why we require it in this guide!
+that'sn't why we require it in this guide!
 
 Ory's philosophy is to make hard things easy for you. For this reason, Ory has
 deployed measures against all
@@ -52,7 +52,7 @@ That however requires that Ory and your application run on the same domain!
 
 If your application runs on `http://localhost:3000` then Ory needs to be
 available on the hostname `localhost` as well (e.g. `http://localhost:3001`).
-That is why we need the Ory CLI, because it has a proxy included which mirrors
+That's why we need the Ory CLI, because it has a proxy included which mirrors
 Ory's API endpoints on the domain of your application.
 
 [![Ory Proxy mirrors Ory's APIs](https://mermaid.ink/img/pako:eNptkMFKxEAMhl8l5GIXdm1BT3MQWlxEEBxWL8JchjbaYqcZMlO0bPfdna71sGBOP-H7EpIj1twQKvwQ61t4OpgBUlVZJfwVSDaw293ND_tXaGP0Ks97rm3fcojqtiiKGXT2LBNo4e9p8-vqs-I6EZYANkJ-zTLlM5T6cYGvwpLCBf3vgpvzgjJ741Gg9H41ykU4UPA8BJr1OuaiWeEWHYmzXZNOOy6IwdiSI4MqxcbKp0EznBI3-sZG2jddZEH1bvtAW7Rj5JdpqFFFGekPuu9sepNbqdMP2FdlPQ)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNptkMFKxEAMhl8l5GIXdm1BT3MQWlxEEBxWL8JchjbaYqcZMlO0bPfdna71sGBOP-H7EpIj1twQKvwQ61t4OpgBUlVZJfwVSDaw293ND_tXaGP0Ks97rm3fcojqtiiKGXT2LBNo4e9p8-vqs-I6EZYANkJ-zTLlM5T6cYGvwpLCBf3vgpvzgjJ741Gg9H41ykU4UPA8BJr1OuaiWeEWHYmzXZNOOy6IwdiSI4MqxcbKp0EznBI3-sZG2jddZEH1bvtAW7Rj5JdpqFFFGekPuu9sepNbqdMP2FdlPQ)
@@ -73,11 +73,11 @@ import CodeBlock from '@theme/CodeBlock'
 ## Validate and Login
 
 Next we will create a middleware which will check with your Ory project if the
-user has a valid session. Notice here that we are taking the current `request`
+user has a valid session. Notice here that we're taking the current `request`
 cookies and passing them along to the Ory client.
 
-If the session is not valid the request is redirected to the Ory project for
-login. At this point we have not set up any custom UI management and thus will
+If the session isn't valid the request is redirected to the Ory project for
+login. At this point we'ven't set up any custom UI management and thus will
 be shown the Ory Managed UI login page.
 
 ```mdx-code-block title="middleware.go"
@@ -137,7 +137,7 @@ The easiest way to connect Ory to your domain is to connect Ory to a subdomain
 of yours. You can do this easily by
 [adding a Custom Domain to your Cloud project](../custom-domains.mdx)!
 
-With the custom domain set up, you do not need the Ory Proxy anymore and will
+With the custom domain set up, you don't need the Ory Proxy anymore and will
 use the configured custom domain in your SDK calls:
 
 ```go

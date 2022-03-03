@@ -42,7 +42,7 @@ If you believe you have found a security issue in Ory Keto, please responsibly
 disclose by contacting us at security@ory.sh.
 
 First: As a potential contributor, your changes and ideas are welcome at any
-hour of the day or night, weekdays, weekends, and holidays. Please do not ever
+hour of the day or night, weekdays, weekends, and holidays. Please don't ever
 hesitate to ask a question or send a pull request.
 
 If you are unsure, just ask or submit the issue or pull request anyways. You
@@ -80,7 +80,7 @@ the [Ory Chat](https://www.ory.sh/chat).
 
 ## How can I contribute?
 
-If you want to start contributing code right away, we have a
+If you want to start contributing code right away, we've a
 [list of good first issues](https://github.com/ory/keto/labels/good%20first%20issue).
 
 There are many other ways you can contribute without writing any code. Here are
@@ -95,7 +95,7 @@ a few things you can do to help out:
   look at discussions in the forum and take part in our weekly hangout. More
   info on this in [Communication](#communication).
 
-- **Helping with open issues.** We have a lot of open issues for Ory Keto and
+- **Helping with open issues.** We've a lot of open issues for Ory Keto and
   some of them may lack necessary information, some are duplicates of older
   issues. You can help out by guiding people through the process of filling out
   the issue template, asking for clarifying information, or pointing them to
@@ -142,7 +142,7 @@ documentation on [forking](https://help.github.com/articles/fork-a-repo) and
 requests should be targeted at the `master` branch. Before creating a pull
 request, go through this checklist:
 
-1. Create a feature branch off of `master` so that changes do not get mixed up.
+1. Create a feature branch off of `master` so that changes don't get mixed up.
 1. [Rebase](http://git-scm.com/book/en/Git-Branching-Rebasing) your local
    changes against the `master` branch.
 1. Run the full project test suite with the `go test -tags sqlite ./...` (or
@@ -156,10 +156,10 @@ request, go through this checklist:
    for an overview.
 1. Sign-up with CircleCI so that it has access to your repository with the
    branch containing your PR. Simply creating a CircleCI account is sufficient
-   for the CI jobs to run, you do not need to setup a CircleCI project for the
+   for the CI jobs to run, you don't need to setup a CircleCI project for the
    branch.
 
-If a pull request is not ready to be reviewed yet
+If a pull request isn't ready to be reviewed yet
 [it should be marked as a "Draft"](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/changing-the-stage-of-a-pull-request).
 
 Before your contributions can be reviewed you need to sign our
@@ -177,7 +177,7 @@ requests to address the failures until the tests pass.
 Pull requests eligible for review
 
 1. follow the repository's code formatting conventions;
-2. include tests which prove that the change works as intended and does not add
+2. include tests which prove that the change works as intended and doesn't add
    regressions;
 3. document the changes in the code and/or the project's documentation;
 4. pass the CI pipeline;
@@ -190,7 +190,7 @@ If all of these items are checked, the pull request is ready to be reviewed and
 you should change the status to "Ready for review" and
 [request review from a maintainer](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/requesting-a-pull-request-review).
 
-Reviewers will approve the pull request once they are satisfied with the patch.
+Reviewers will approve the pull request once they're satisfied with the patch.
 
 ## Documentation
 
@@ -205,7 +205,7 @@ For further instructions please head over to
 ## Disclosing vulnerabilities
 
 Please disclose vulnerabilities exclusively to
-[security@ory.sh](mailto:security@ory.sh). Do not use GitHub issues.
+[security@ory.sh](mailto:security@ory.sh). Don't use GitHub issues.
 
 ## Code Style
 
@@ -221,7 +221,7 @@ Please follow these guidelines when formatting source code:
 # First you clone the original repository
 git clone git@github.com:ory/ory/keto.git
 
-# Next you add a git remote that is your fork:
+# Next you add a git remote that's your fork:
 git remote add fork git@github.com:<YOUR-GITHUB-USERNAME-HERE>/ory/keto.git
 
 # Next you fetch the latest changes from origin for master:
@@ -247,21 +247,21 @@ Now go to the project's GitHub Pull Request page and click "New pull request"
 Whether you are a regular contributor or a newcomer, we care about making this
 community a safe place for you and we've got your back.
 
-- We are committed to providing a friendly, safe and welcoming environment for
+- We're committed to providing a friendly, safe and welcoming environment for
   all, regardless of gender, sexual orientation, disability, ethnicity,
   religion, or similar personal characteristic.
 - Please avoid using nicknames that might detract from a friendly, safe and
   welcoming environment for all.
 - Be kind and courteous. There is no need to be mean or rude.
 - We will exclude you from interaction if you insult, demean or harass anyone.
-  In particular, we do not tolerate behavior that excludes people in socially
+  In particular, we don't tolerate behavior that excludes people in socially
   marginalized groups.
 - Private harassment is also unacceptable. No matter who you are, if you feel
   you have been or are being harassed or made uncomfortable by a community
   member, please contact one of the channel ops or a member of the Ory Keto core
   team immediately.
 - Likewise any spamming, trolling, flaming, baiting or other attention-stealing
-  behaviour is not welcome.
+  behaviour isn't welcome.
 
 We welcome discussion about creating a welcoming, safe, and productive
 environment for the community. If you have any questions, feedback, or concerns

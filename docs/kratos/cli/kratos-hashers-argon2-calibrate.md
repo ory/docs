@@ -15,7 +15,7 @@ Computes Optimal Argon2 Parameters
 
 ### Synopsis
 
-This command helps you calibrate the configuration parameters for Argon2. Password hashing is a trade-off between security, resource consumption, and user experience. Resource consumption should not be too high and the login should not take too long.
+This command helps you calibrate the configuration parameters for Argon2. Password hashing is a trade-off between security, resource consumption, and user experience. Resource consumption shouldn't be too high and the login shouldn't take too long.
 
 We recommend that the login process takes between half a second and one second for password hashing, giving a good balance between security and user experience.
 

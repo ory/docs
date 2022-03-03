@@ -8,7 +8,7 @@ authentication or authorization failed. ORY Oathkeeper supports different error
 handlers and we will add more as the project progresses.
 
 A error handler can be configured to match on certain conditions, for example,
-it is possible to configure the `json` error handler to only be executed if the
+it's possible to configure the `json` error handler to only be executed if the
 HTTP Header `Accept` contains `application/json`.
 
 Each error handler has two keys:
@@ -36,7 +36,7 @@ their matching conditions (see next chapter), the appropriate error handler will
 be chosen.
 
 Please be aware that defining error handlers with overlapping matching
-conditions will cause errors, because ORY Oathkeeper will not know which error
+conditions will cause errors, because ORY Oathkeeper won't know which error
 handler to execute!
 
 ## Error Matching
@@ -45,7 +45,7 @@ You can configure the error handlers in such a way, that - for example - ORY
 Oathkeeper responds, in the case of an error, with
 
 - a JSON response, such as
-  `{"error":{"code":403,"status":"Forbidden","message":"Access credentials are not sufficient to access this resource"}}`,
+  `{"error":{"code":403,"status":"Forbidden","message":"Access credentials aren't sufficient to access this resource"}}`,
   when the client that expects JSON (`Accept: application/json`);
 - an XML response when the API Client expects XML (`Accept: application/xml`);
 - a HTTP Redirect (HTTP Status Found - 302) to `/login` when the endpoint is
@@ -74,7 +74,7 @@ This is the same for all handlers!
 
 If `when` is empty, then no conditions are applied and the error handler is
 always matching! In fact, this is also true for all subkeys. If left empty, the
-matching condition will not be applied and is thus always true!
+matching condition won't be applied and is thus always true!
 
 ### Fallback
 
@@ -102,7 +102,7 @@ errors:
 
 As discussed in the previous section, when `config.when` is empty, the error
 handler will always match. This of course is a problem because ORY Oathkeeper
-now does not know if it should redirect or send a JSON error!
+now doesn't know if it should redirect or send a JSON error!
 
 Therefore, an additional configuration - called `fallback` - is available:
 
@@ -252,7 +252,7 @@ Here are some examples:
 - `Bad Request` (400) -> `{"errors": ["bad_request"]}`
 
 Keep in mind that these errors must be emitted by ORY Oathkeeper itself, not by
-the upstream API. Therefore, most HTTP Status Codes will not have any effect
+the upstream API. Therefore, most HTTP Status Codes won't have any effect
 because ORY Oathkeeper - as of now - mostly returns 401, 403, 500 error codes.
 
 As discussed previously, if this configuration key is left empty, then all error
@@ -335,7 +335,7 @@ following `Accept` headers:
 
 Most browsers (see the FireFox example) also send wildcard `Accept` headers such
 as `*/*`. To prevent multiple conditions to match, HTTP Accept Headers from the
-client are interpreted literally, meaning that wildcards are not interpreted.
+client are interpreted literally, meaning that wildcards aren't interpreted.
 
 Assuming the client sends `Accept: */*` and the error condition is set to
 `accept: ["text/text"]`, the error condition would not match. If however the
@@ -355,7 +355,7 @@ As discussed previously, if this configuration key is left empty, then all
 The
 [HTTP Content Type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type)
 matcher works similar to the `Accept` header. The HTTP Content Type Header
-however is much less common, as it is only used in POST, PUT, PATCH requests (or
+however is much less common, as it's only used in POST, PUT, PATCH requests (or
 any other requests that send a HTTP Body).
 
 The main difference however is that the client never (unless it sends malformed
@@ -454,7 +454,7 @@ that will be displayed by the browser. Most browsers show a message like "The
 website says: `<realm>`". Using a real message is thus more appropriate than a
 Realm identifier.
 
-This error handler is "exotic" as WWW-Authenticate is not a common pattern in
+This error handler is "exotic" as WWW-Authenticate isn't a common pattern in
 today's web. As discussed in the previous section, you can define error matching
 conditions under the `when` key.
 

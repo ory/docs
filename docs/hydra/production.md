@@ -10,7 +10,7 @@ This document summarizes things you will find useful when going to production.
 Although ORY Hydra implements all Go best practices around running public-facing
 production http servers, we discourage running ORY Hydra facing the public net
 directly. We strongly recommend running ORY Hydra behind an API gateway or a
-load balancer. It is common to terminate TLS on the edge (gateway / load
+load balancer. It's common to terminate TLS on the edge (gateway / load
 balancer) and use certificates provided by your infrastructure provider (e.g.
 AWS CA) for last mile security.
 
@@ -33,10 +33,10 @@ With TLS termination enabled, ORY Hydra discards all requests unless:
 - The request is coming from a trusted IP address set by
   `serve.tls.allow_termination_from` and the header `X-Forwarded-Proto` is set
   to `https`.
-- The request goes to `/health/alive`, `/health/ready` which does not require
-  TLS termination and that is used to check the health of an instance.
+- The request goes to `/health/alive`, `/health/ready` which doesn't require
+  TLS termination and that's used to check the health of an instance.
 
-When TLS Termination is enabled, you do not need to provide a TLS Certificate
+When TLS Termination is enabled, you don't need to provide a TLS Certificate
 and Private Key.
 
 If you are unable to properly set up TLS Termination, you may want to set the
@@ -45,11 +45,11 @@ doing so and that you should know what you're doing.
 
 ### Routing
 
-It is common to use a router, or API gateway, to route subdomains or paths to a
+It's common to use a router, or API gateway, to route subdomains or paths to a
 specific service. For example, `https://myservice.com/hydra/` is routed to
 `http://10.0.1.213:3912/` where `10.0.1.213` is the host running ORY Hydra. To
 compute the values for the consent challenge, ORY Hydra uses the host and path
-headers from the HTTP request. Therefore, it is important to set up your API
+headers from the HTTP request. Therefore, it's important to set up your API
 Gateway in such a way, that it passes the public host (in this case
 `myservice.com`) and the path without any prefix (in this case `hydra/`). If you
 use the Mashape Kong API gateway, you can achieve this by setting
@@ -75,7 +75,7 @@ handles requests to:
 - `/oauth2/sessions/logout`
 - `/userinfo`
 
-The administrative port should not be exposed to public internet traffic. If you
+The administrative port shouldn't be exposed to public internet traffic. If you
 want to expose certain endpoints, such as the `/clients` endpoint for OpenID
 Connect Dynamic Client Registry, you can do so but you need to properly secure
 these endpoints with an API Gateway or Authorization Proxy. Administrative

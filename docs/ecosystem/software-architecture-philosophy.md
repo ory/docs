@@ -12,7 +12,7 @@ Ory's architecture is designed along several guiding principles:
 
 Our architecture leans on [12factor.net principles](https://www.12factor.net)
 and is designed to run best on a Container Orchestration Systems such as
-Kubernetes, CloudFoundry, OpenShift, and similar projects. While it is possible
+Kubernetes, CloudFoundry, OpenShift, and similar projects. While it's possible
 to run the Ory stack on a RaspberryPI, the integration with the Docker and
 Container ecosystem is best documented and supported.
 
@@ -22,7 +22,7 @@ Our philosophy and assumption of how modern software works is summarized here.
 
 ### The Best System Dependency is no Dependency
 
-The Ory stack does not rely on (operating) system-wide dependencies such as
+The Ory stack doesn't rely on (operating) system-wide dependencies such as
 Java, Apache, or other libraries. The only system-wide dependency you may
 encounter is libc / libmusl, required for standard C and POSIX functions when
 using SQLite.
@@ -31,7 +31,7 @@ Installing an Ory project is often just one binary away - on any architecture,
 and operating system. Our binaries are a couple of MB small and so are the
 Docker Images we distribute.
 
-Ory exposes HTTP(s) ports and configuration of these ports. It does not need a
+Ory exposes HTTP(s) ports and configuration of these ports. It doesn't need a
 webserver such as NGINX or Apache HTTP Server.
 
 ### The Platform is Responsible for Horizontal Scaling
@@ -42,7 +42,7 @@ Scaling horizontally is as easy as starting another process.
 
 The Ory Ecosystem assumes that the platform it's running on (e.g. Kubernetes,
 Google Cloud, Amazon Web Services, Azure, ...) is capable of Load Balancing and
-does not concern itself with things like Leader Election protocols or other
+doesn't concern itself with things like Leader Election protocols or other
 communicating between process instances of the same project.
 
 ### Configuration from Environment Variables and Configuration Files
@@ -55,7 +55,7 @@ This allows systems like Kubernetes to mount, and update, configuration files
 using volume mounts sourced from ConfigMaps and other similar resources.
 
 Our projects support hot-reloading of configuration files (support for hot
-reloading is not yet implemented everywhere).
+reloading isn't yet implemented everywhere).
 
 Configuration settings are validated using JSON Schema and we try to make it as
 difficult as possible to misconfigure our software.
@@ -81,7 +81,7 @@ when the connection is lost.
 #### Logs are `stdout` / `stderr` Streams
 
 The Ory stack never concerns itself with routing or storage of its output
-stream. It does not attempt to write to or manage logfiles. Instead, each
+stream. It doesn't attempt to write to or manage logfiles. Instead, each
 running process writes its event stream, unbuffered, to stdout and stderr.
 During local development, the developer will view this stream in the foreground
 of their terminal to observe the app’s behavior.

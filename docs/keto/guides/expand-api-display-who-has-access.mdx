@@ -19,7 +19,7 @@ per-directory basis. Users can only see and access files they own or were
 granted access by the owner.
 
 Directories and files are stored in Ory Keto within the `directories` and
-`files` namespaces respectively. They are identified by a UUID that the
+`files` namespaces respectively. They're identified by a UUID that the
 application maps to the actual object metadata. Users are also identified by and
 mapped to a UUID.
 
@@ -80,7 +80,7 @@ tree of everyone who has access to that file:
 
 The `max-depth` parameter is important to keep the request latency within an
 acceptable bound, but also abstract away the most basic subject sets. In many
-cases the application does not want to resolve all subject sets, but rather
+cases the application doesn't want to resolve all subject sets, but rather
 wants to display that e.g. `Everyone in the company` or `Admins` have a specific
 relation.
 
@@ -94,7 +94,7 @@ all relevant relations:
 
 ### Analyzing the Tree
 
-The tree does not only include the subject IDs (in this case usernames), but
+The tree doesn't only include the subject IDs (in this case usernames), but
 also for what reason they were included. This can be useful for users to audits
 permissions. Also, in many cases the application would not want to list all
 subject IDs but rather abstract away some subject sets.

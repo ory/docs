@@ -9,7 +9,7 @@ breaches documented by the HiBP project.
 
 In some environments, due to various CISO policies, it might be difficult to
 establish egress connectivity to non-approved hosts. If it happens that your
-Kratos operates in such an environment and it cannot communicate with the HiBP
+Kratos operates in such an environment and it can't communicate with the HiBP
 API at haveibeenpwned.com, but there is the requirement to check if passwords
 have been leaked, you can host the HiBP API yourself and configure Kratos to use
 your own instance.
@@ -34,7 +34,7 @@ follow [NIST guidelines](https://pages.nist.gov/800-63-3/sp800-63b.html):
 > When processing requests to establish and change memorized secrets, verifiers
 > SHALL compare the prospective secrets against a list that contains values
 > known to be commonly-used, expected, or compromised. For example, the list MAY
-> include, but is not limited to:
+> include, but isn't limited to:
 >
 > 1. Passwords obtained from previous breach corpuses.
 > 2. Dictionary words.
@@ -60,7 +60,7 @@ selfservice:
 
 :::note
 
-Ory Kratos `haveibeenpwned_host` setting does not allow configuring the
+Ory Kratos `haveibeenpwned_host` setting doesn't allow configuring the
 respective CA chain at the moment but it **does require a TLS connection**.
 Therefore your private HiBP API must use one of the trusted CAs of the
 underlying operating system.

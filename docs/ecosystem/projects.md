@@ -52,7 +52,7 @@ Ory Hydra enables you to become an OAuth 2.0 and OpenID Connect provider. If
 you're not writing a basic web app but something that has to work on different
 devices, that has machine-2-machine interaction, or enables third-party
 developers to use your API (and pay for it), then this is what you're looking
-for. Ory Hydra is not identity management, though. Instead, it connects to your
+for. Ory Hydra isn't identity management, though. Instead, it connects to your
 existing identity management (e.g. the one from the paragraph above, or your
 MySQL+PHP login service, or your Federated SAML SSO) and is capable of issuing,
 in a secure and OpenID Certified manner, access, refresh, and ID tokens. Of

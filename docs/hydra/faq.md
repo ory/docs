@@ -19,10 +19,10 @@ From [GitHub](https://github.com/ory/hydra/discussions/2562).
 > After accepting the login, redirect to callback URL with the authorization
 > code directly (no redirect to consent URL at all)?
 
-You can not skip the
+You can't skip the
 [consent redirection](https://www.ory.sh/hydra/docs/concepts/consent#redirection-to-the-consent-endpoint),
 but you can accept the redirection to the redirect URL immediately. The user
-will not notice as this takes less than < 100ms. The example on how to skip the
+won't notice as this takes less than < 100ms. The example on how to skip the
 consent screen provides a good starting point:
 [Skipping Consent Screen](https://www.ory.sh/hydra/docs/guides/consent/#skipping-consent-screen).
 
@@ -45,7 +45,7 @@ which contains the original OAuth2 Authorize URL (e.g.
 
 ```
 RequestURL is the original OAuth 2.0 Authorization URL requested by the OAuth 2.0 client.
-It is the URL which initiates the OAuth 2.0 Authorization Code or OAuth 2.0 Implicit flow.
+It's the URL which initiates the OAuth 2.0 Authorization Code or OAuth 2.0 Implicit flow.
 This URL is typically not needed, but might come in handy if you want to deal with additional request parameters.
 ```
 
@@ -70,8 +70,8 @@ The OAuth2 Thread Model explicitly states that the ROPC grant is commonly used
 in legacy/migration scenarios, and
 
 > This grant type has higher risk because it maintains the UID/password
-> anti-pattern. Additionally, because the user does not have control over the
-> authorization process, clients using this grant type are not limited by scope
+> anti-pattern. Additionally, because the user doesn't have control over the
+> authorization process, clients using this grant type aren't limited by scope
 > but instead have potentially the same capabilities as the user themselves. As
 > there is no authorization step, the ability to offer token revocation is
 > bypassed.
@@ -109,7 +109,7 @@ answer:
   token).
 - **No:** Never use access tokens for logging people in, for example
   `http://myapp.com/login?access_token=...`. Coming back to the money example:
-  The police officer ("authentication server") will not accept money ("access
+  The police officer ("authentication server") won't accept money ("access
   token") as a proof of identity ("it's really you"). Unless he is corrupt
   ("vulnerable"), of course.
 
@@ -130,7 +130,7 @@ is required in production environments, because:
 2. Running a production system with a user that has right such as ALTER TABLE is
    a security anti-pattern.
 
-Thus, to initialize the database schemas, it is required to run
+Thus, to initialize the database schemas, it's required to run
 `hydra migrate sql driver://user:password@host:port/db` before running
 `hydra host`.
 
@@ -146,7 +146,7 @@ Thus, to initialize the database schemas, it is required to run
 3. Run the migration script on a host close to the database (e.g. a virtual
    machine with access to the SQL instance). Schemas are usually backwards
    compatible, so instances running previous versions of Ory Hydra should keep
-   working fine. If backwards compatibility is not given, this will be addressed
+   working fine. If backwards compatibility isn't given, this will be addressed
    in the patch notes.
 4. Upgrade all Ory Hydra instances.
 
@@ -165,7 +165,7 @@ ENTRYPOINT hydra migrate sql --yes $DATABASE_URL
 
 and run it in your infrastructure once.
 
-Additionally, _but not recommended_, it is possible to override the entry point
+Additionally, _but not recommended_, it's possible to override the entry point
 of the Ory Hydra Docker image using CLI flag
 `--entrypoint "hydra migrate sql --yes $DATABASE_URL; hydra host"` or with
 `entrypoint: hydra migrate sql $DATABASE_URL; hydra host` set in your docker
@@ -218,8 +218,8 @@ You can do so by running `hydra host --dangerous-force-http`.
 ## MySQL gives `unsupported Scan, storing driver.Value type []uint8 into type *time.Time`
 
 > did a quick test to get mysql running, but run into migrate sql issue - seems
-> mysql related An error occurred while running the migrations: Could not apply
-> ladon SQL migrations: Could not migrate sql schema, applied 0 migrations: sql:
+> mysql related An error occurred while running the migrations: Couldn't apply
+> ladon SQL migrations: Couldn't migrate sql schema, applied 0 migrations: sql:
 > Scan error on column index 0: unsupported Scan, storing driver.Value type
 > []uint8 into type \*time.Time is this a known bug ? or any specific mysql
 > version which is required (running 5.7) ?
@@ -230,7 +230,7 @@ $ hydra help host
    - MySQL: If DATABASE_URL is a DSN starting with mysql:// MySQL will be used as storage backend.
         Example: DATABASE_URL=mysql://user:password@tcp(host:123)/database?parseTime=true
 
-        Be aware that the ?parseTime=true parameter is mandatory, or timestamps will not work.
+        Be aware that the ?parseTime=true parameter is mandatory, or timestamps won't work.
 ...
 ```
 

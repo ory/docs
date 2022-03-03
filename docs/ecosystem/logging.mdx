@@ -5,7 +5,7 @@ title: Logs and Audit Trails
 
 :::note
 
-This feature has not yet shipped to all projects but we are working on
+This feature hasn't yet shipped to all projects but we're working on
 homogenizing log output across the ecosystem.
 
 :::
@@ -29,7 +29,7 @@ log:
 
 The `level` configuration key supports the following values:
 
-- `panic`: highest level of severity. This event is so rare that it is, with
+- `panic`: highest level of severity. This event is so rare that it's, with
   almost absolute certainty, unlikely for you to encounter ever.
 - `fatal`: the program is unable to continue execution and ended with a fatal
   state. Can happen when the configuration is invalid, for example.
@@ -56,7 +56,7 @@ The `leak_sensitive_values` configuration key should always be set to `false`.
 If set to `true`, sensitive data such as Personally Identifiable Information
 (PII), secrets, tokens, and others will be leaked to the logs. This is only
 useful for debugging on development environments or with a very narrow scope. If
-set to `true` you must ensure that the output is not stored or cached anywhere.
+set to `true` you must ensure that the output isn't stored or cached anywhere.
 
 ## Traces
 

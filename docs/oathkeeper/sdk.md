@@ -7,7 +7,7 @@ sidebar_label: Overview
 All SDKs use automated code generation provided by
 [`openapi-generator`](https://github.com/OpenAPITools/openapi-generator).
 Unfortunately, `openapi-generator` has serious breaking changes in the generated
-code when upgrading versions. Therefore, we do not make backwards compatibility
+code when upgrading versions. Therefore, we don't make backwards compatibility
 promises with regards to the generated SDKs. We hope to improve this process in
 the future.
 

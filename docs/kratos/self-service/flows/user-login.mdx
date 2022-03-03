@@ -219,7 +219,7 @@ $ curl -v -s -X GET \
 
 <ApiWarning />
 
-The Login Flow for API clients does not use HTTP Redirects and can be summarized
+The Login Flow for API clients doesn't use HTTP Redirects and can be summarized
 as follows:
 
 <SelfServiceApiFlow
@@ -504,7 +504,7 @@ OpenID Connect flow which involves logging into the upstream identity provider
 :::note
 
 If the user has never signed in with the given provider before, a new account
-will be created. It is also possible to link upstream identities (e.g. Google
+will be created. It's also possible to link upstream identities (e.g. Google
 profile) with an existing Ory Kratos identity.
 
 :::
@@ -734,13 +734,13 @@ $ curl -s -H "Authorization: Bearer svX8bE9HTiVpMr7r55TtKtcOkLRhAq1a" \
 
 ## Refreshing a Session
 
-In some cases it is required to refresh a login session. This is the case when
+In some cases it's required to refresh a login session. This is the case when
 updating one's password. Refreshing a session updates the `authenticated_at`
 time.
 
 :::info
 
-Refreshing a session will not log the user out, unless another user signs in.
+Refreshing a session won't log the user out, unless another user signs in.
 
 :::
 
@@ -756,7 +756,7 @@ To refresh a session, append `?refresh=true` to:
 The Login User Interface is a route (page / site) in your application (server,
 native app, single page app) that should render a login form.
 
-In stark contrast to other Identity Systems, Ory Kratos does not render this
+In stark contrast to other Identity Systems, Ory Kratos doesn't render this
 HTML. Instead, you need to implement the HTML code in your application (e.g.
 NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
 flexibility and customizability in your user interface flows and designs.

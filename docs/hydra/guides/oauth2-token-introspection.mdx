@@ -11,7 +11,7 @@ which user and which scopes are associated with the token.
 :::warning
 
 Token Introspection is meant for first-party / internal use only. The endpoint
-should not be exposed publicly.
+shouldn't be exposed publicly.
 
 :::
 
@@ -38,7 +38,7 @@ fetch('http://<ory-hydra-admin-api>/oauth2/introspect', {
     method: 'POST', body
 }).then(body => {
     if (!body.active) {
-        // Token is not active/valid
+        // Token isn't active/valid
     }
 
     // token is active

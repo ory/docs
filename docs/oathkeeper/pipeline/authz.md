@@ -31,7 +31,7 @@ Each authorizer has two keys:
 ```
 
 There is a 1:1 mandatory relationship between an authoriser and an access rule.
-It is not possible to configure more than one authorizer per Access Rule.
+It isn't possible to configure more than one authorizer per Access Rule.
 
 ## `allow`
 
@@ -39,7 +39,7 @@ This authorizer permits every action allowed.
 
 ### Configuration
 
-This handler is not configurable.
+This handler isn't configurable.
 
 To enable this handler, set as follows:
 
@@ -85,7 +85,7 @@ This authorizer considers every action unauthorized therefore "forbidden" or
 
 ### Configuration
 
-This handler is not configurable.
+This handler isn't configurable.
 
 To enable this handler, set:
 
@@ -198,7 +198,7 @@ from above would expand to:
 ```
 
 The `subject` field configures the subject that passes to the ORY Keto endpoint.
-If `subject` is not specified it will default to
+If `subject` isn't specified it will default to
 `AuthenticationSession.Subject`.
 
 For more details about supported Go template substitution, see.

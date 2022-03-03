@@ -22,7 +22,7 @@ simple to pass in your own configuration files.
 ## Do Not Use `latest`
 
 Please, always use a tagged version and never use `latest` Docker images. This
-ensures that your deployment does not unexpectedly update with an incompatible
+ensures that your deployment doesn't unexpectedly update with an incompatible
 version!
 
 ## Running Migrations
@@ -40,7 +40,7 @@ docker -e DSN="<your database URL>" run oryd/kratos:<version> migrate sql -e
 
 This environment variable allows you to specify the database source name. As the
 `DSN` normally consists of the url to the database system and the credentials to
-access the database it is recommended to specify the `DSN` using a Environment
+access the database it's recommended to specify the `DSN` using a Environment
 variable.
 
 **Example:**
@@ -60,7 +60,7 @@ verify signatures and encrypt things:
 
 ### Volumes
 
-The provided Kratos Docker images currently do not include a default
+The provided Kratos Docker images currently don't include a default
 configuration file, but make it easy to pass in your own configuration file(s)
 by either binding a local directory or by creating your own custom Docker Image
 and adding the configuration file(s) to the custom image.

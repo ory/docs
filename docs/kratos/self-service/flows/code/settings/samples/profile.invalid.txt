@@ -16,7 +16,7 @@ $ curl -s -X GET \
   "messages": [
     {
       "id": 4000001,
-      "text": "\"notanemail\" is not valid \"email\"",
+      "text": "\"notanemail\" isn't valid \"email\"",
       "type": "error"
     }
   ],

@@ -11,7 +11,7 @@ OAuth2 and OpenID Connect require an authenticated End-User session for all
 OAuth2 / OpenID Connect flows except the `client_credentials` flow which does
 not involve End-Users.
 
-Ory Hydra does not contain a database with End-Users but instead uses HTTP
+Ory Hydra doesn't contain a database with End-Users but instead uses HTTP
 Redirection to "delegate" the login and consent flow to another app - we call
 this the Login & Consent App.
 
@@ -108,7 +108,7 @@ There are three possible states:
   remember the "consent", but the OAuth2 Client now also wants additional
   permissions ("has changed the token scope" in `/oauth2/auth?scope=...`).
 
-Regardless of which of these three states we are in, the End-User's browser is
+Regardless of which of these three states we're in, the End-User's browser is
 always redirected to the consent endpoint. What changes is the `skip` value, as
 explained a bit later.
 
@@ -138,7 +138,7 @@ http(s)://<HYDRA_ADMIN_URL>/oauth2/auth/requests/consent?consent_challenge=<chal
 The response (see below in "Consent Challenge Response" tab) contains
 information about the consent request. The body contains a `skip` value. If the
 value is `false`, the user interface must be shown. If `skip` is true, you
-should not show the user interface but instead just accept or reject the consent
+shouldn't show the user interface but instead just accept or reject the consent
 request! For more details about the implementation check the
 ["Implementing the Consent Endpoint" Guide](../guides/login.mdx).
 
@@ -348,7 +348,7 @@ tokens.
 
 :::warning
 
-Do not use this endpoint to "invalidate" user sessions. Please revise your
+Don't use this endpoint to "invalidate" user sessions. Please revise your
 approach to and usage of OAuth2 if you use access / refresh tokens as user
 sessions (i.e. instead of browser cookies).
 

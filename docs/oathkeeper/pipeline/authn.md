@@ -34,7 +34,7 @@ Each authenticator has two keys:
 ```
 
 You can define more than one authenticator in the Access Rule. The first
-authenticator that is able to handle the credentials will be consulted and other
+authenticator that's able to handle the credentials will be consulted and other
 authenticators will be ignored:
 
 ```json
@@ -54,10 +54,10 @@ authenticators will be ignored:
 ```
 
 If handler `a` is able to handle the provided credentials, then handler `b` and
-`c` will be ignored. If handler `a` can not handle the provided credentials but
+`c` will be ignored. If handler `a` can't handle the provided credentials but
 handler `b` can, then handler `a` and `c` will be ignored. Handling the provided
 credentials means that the authenticator knows how to handle, for example, the
-`Authorization: basic` header. It does not mean that the credentials are valid!
+`Authorization: basic` header. It doesn't mean that the credentials are valid!
 If a handler encounters invalid credentials, then other handlers will be ignored
 too.
 
@@ -69,12 +69,12 @@ credentials will be issued. It's basically a pass-all authenticator that allows
 any request to be forwarded to the upstream URL.
 
 > Using this handler is basically an allow-all configuration. It makes sense
-> when the upstream handles access control itself or does not need any type of
+> when the upstream handles access control itself or doesn't need any type of
 > access control.
 
 ### Configuration
 
-This handler is not configurable.
+This handler isn't configurable.
 
 To enable this handler, set:
 
@@ -120,7 +120,7 @@ unauthorized.
 
 ### Configuration
 
-This handler is not configurable.
+This handler isn't configurable.
 
 To enable this handler, set:
 
@@ -225,7 +225,7 @@ The request has been allowed! The subject is: "anonymous"
 $ curl -X GET -H "Authorization: Bearer foobar" http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
-The request is not authorized because credentials have been provided but only the anonymous
+The request isn't authorized because credentials have been provided but only the anonymous
 authenticator is enabled for this URL.
 ```
 
@@ -332,7 +332,7 @@ The request has been allowed! The subject is: "peter"
 $ curl -X GET -b sessionid=def http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
-The request is not authorized because the provided credentials are invalid.
+The request isn't authorized because the provided credentials are invalid.
 ```
 
 ## `bearer_token`
@@ -462,7 +462,7 @@ The request has been allowed! The subject is: "peter"
 $ curl -X GET -H 'Authorization: Bearer invalid-token' http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
-The request is not authorized because the provided credentials are invalid.
+The request isn't authorized because the provided credentials are invalid.
 ```
 
 ## `oauth2_client_credentials`
@@ -549,12 +549,12 @@ $ cat ./rules.json
 $ curl -X GET http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
-The request is not authorized because no credentials have been provided.
+The request isn't authorized because no credentials have been provided.
 
 $ curl -X GET --user idonotexist:whatever http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
-The request is not authorized because the provided credentials are invalid.
+The request isn't authorized because the provided credentials are invalid.
 
 $ curl -X GET --user peter:somesecret http://my-app/some-route
 
@@ -644,8 +644,8 @@ was granted the requested scope.
   - `ttl` (string) - Can override the default behaviour of using the token exp
     time, and specify a set time to live for the token in the cache.
 
-Please note that caching will not be used if the scope strategy is `none` and
-`required_scope` is not empty. In that case, the configured introspection URL
+Please note that caching won't be used if the scope strategy is `none` and
+`required_scope` isn't empty. In that case, the configured introspection URL
 will always be called and is expected to check if the scope is valid or not.
 
 ```yaml
@@ -756,12 +756,12 @@ $ cat ./rules.json
 $ curl -X GET http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
-The request is not authorized because no credentials have been provided.
+The request isn't authorized because no credentials have been provided.
 
 $ curl -X GET -H 'Authorization: Bearer invalid-token' http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
-The request is not authorized because the provided credentials are invalid.
+The request isn't authorized because the provided credentials are invalid.
 
 $ curl -X GET -H 'Authorization: Bearer valid.access.token.from.peter' http://my-app/some-route
 
@@ -827,7 +827,7 @@ JSON Web Token and tries to verify the signature of it.
   allowed. Defaults to `RS256`.
 - Value `required_scope` ([]string) validates the scope of the JWT. It will
   checks for claims `scp`, `scope`, `scopes` in the JWT when validating the
-  scope as that claim is not standardized.
+  scope as that claim isn't standardized.
 - `token_from` (object, optional) - The location of the bearer token. If not
   configured, the token will be received from a default location -
   'Authorization' header. One and only one location (header, query, or cookie)
@@ -935,7 +935,7 @@ valid:
 }
 ```
 
-And this token as invalid (audience is missing, issuer is not matching, scope is
+And this token as invalid (audience is missing, issuer isn't matching, scope is
 missing, wrong algorithm):
 
 ```
@@ -951,7 +951,7 @@ missing, wrong algorithm):
 
 ### Scope
 
-JSON Web Tokens can be scoped. However, that feature is not standardized and
+JSON Web Tokens can be scoped. However, that feature isn't standardized and
 several claims that represent the token scope have been seen in the wild: `scp`,
 `scope`, `scopes`. Additionally, the claim value can be a string (`"scope-a"`),
 a space-delimited string (`"scope-a scope-b"`) or a JSON string array
@@ -990,12 +990,12 @@ $ cat ./rules.json
 $ curl -X GET http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
-The request is not authorized because no credentials have been provided.
+The request isn't authorized because no credentials have been provided.
 
 $ curl -X GET -H 'Authorization: Bearer invalid-token' http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
-The request is not authorized because the provided credentials are invalid.
+The request isn't authorized because the provided credentials are invalid.
 
 $ curl -X GET -H 'Authorization: Bearer valid.jwtfrom.peter' http://my-app/some-route
 
@@ -1005,5 +1005,5 @@ The request has been allowed! The subject is: "peter"
 
 In the background, this handler will fetch all JSON Web Key Sets provided by
 configuration key `authenticators.jwt.jwks_urls` and use those keys to verify
-the signature. If the signature can not be verified by any of those keys, the
+the signature. If the signature can't be verified by any of those keys, the
 JWT is considered invalid.

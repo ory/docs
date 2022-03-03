@@ -6,7 +6,7 @@ title: Common Cookie and CSRF Pitfalls
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import CodeFromRemote from '@site/src/theme/CodeFromRemote'
 
-Because Ory Kratos is not just an API, but instead talks to your users' browsers
+Because Ory Kratos isn't just an API, but instead talks to your users' browsers
 directly, several security measures have been implemented in Ory Kratos. One of
 them is protection against CSRF:
 
@@ -63,16 +63,16 @@ and not use the `--dev` flag.
 ### Ory Kratos running over HTTP without dev-mode enabled
 
 Ory Kratos' cookies have the `Secure` flag enabled by default. This means that
-the browser will not send the cookie unless the URL is a HTTPS URL. If you want
+the browser won't send the cookie unless the URL is a HTTPS URL. If you want
 Ory Kratos to work with HTTP (e.g. on localhost) you can add the `--dev` flag:
 `kratos serve --dev`.
 
-Do not do this in production!
+Don't do this in production!
 
 ### Running on separate (sub-)domains
 
-Cookies work best on the same domain. While it is possible to get cookies
-running on subdomains it is not possible to do that across Top Level Domains
+Cookies work best on the same domain. While it's possible to get cookies
+running on subdomains it isn't possible to do that across Top Level Domains
 (TLDs).
 
 Make sure that your application (e.g. the SecureApp from the quickstart) and Ory
@@ -83,14 +83,14 @@ Nginx or Envoy or AWS API Gateway is the best solution. For example, routing
 to the SecureApp's Dashboard. Alternatively you can use piping in your app as we
 do in the Quickstart guide.
 
-We do not recommend running them on separate subdomains, e.g.
+We don't recommend running them on separate subdomains, e.g.
 `https://kratos.my-website/` and `https://secureapp.my-website/`.
 
 To allow cookies to work across subdomains, make sure to set the domain name in
 the Kratos config file under
 [`session.cookie.domain`](https://www.ory.sh/kratos/docs/next/guides/configuring-cookies/#session-cookies).
 
-Running the apps on different TLDs will not work at all, e.g.
+Running the apps on different TLDs won't work at all, e.g.
 `https://kratos-my-website/` and `https://secureapp-my-website/`.
 
 Running the services on different ports however is ok, if the domain stays the
@@ -104,8 +104,8 @@ that you use `127.0.0.1` or `localhost` consistently across your configuration!
 
 ### Trying to access Ory Kratos Cookies from client-side JavaScript
 
-The cookies Ory Kratos sets cannot be accessed directly from Client-Side
-JavaScript because the `HttpOnly` flag is set. This flag cannot be modified!
+The cookies Ory Kratos sets can't be accessed directly from Client-Side
+JavaScript because the `HttpOnly` flag is set. This flag can't be modified!
 
 ### Accessing Ory Kratos APIs from client-side JavaScript / AJAX
 
@@ -115,7 +115,7 @@ probably want to access Ory Krato's Public APIs.
 To prevent several attack vectors, Ory Krato's Public API is protected - even
 for some GET requests - with Anti-CSRF measures.
 
-Because AJAX does not send cookies per default, you need to configure your AJAX
+Because AJAX doesn't send cookies per default, you need to configure your AJAX
 request to include cookies. Using the Browser's `fetch` function, you need to
 set
 [`credentials: 'include'`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)
@@ -142,6 +142,6 @@ A complete example looks as follows:
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/src/routes/login.ts"
 />
 
-Without forwarding the `Cookie` HTTP Header it will not be possible to fetch the
+Without forwarding the `Cookie` HTTP Header it won't be possible to fetch the
 flow due to a security error. This protection prevents accidental leak of
 personal information when users copy/paste, for example, the login URL.

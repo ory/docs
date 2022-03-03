@@ -156,7 +156,7 @@ $ docker-compose -f quickstart.yml exec hydra \
 ```
 
 Next, we will perform the OAuth 2.0 Authorization Code Grant. For that, we must
-first create a client that is capable of performing that grant:
+first create a client that's capable of performing that grant:
 
 ```shell script
 $ docker-compose -f quickstart.yml exec hydra \
@@ -171,7 +171,7 @@ $ docker-compose -f quickstart.yml exec hydra \
 ```
 
 Note that you need to add `--token-endpoint-auth-method none` if your clients
-are public (such as SPA apps and native apps) because the public clients cannot
+are public (such as SPA apps and native apps) because the public clients can't
 provide client secrets.
 
 The following command starts a server that serves an example web application.
@@ -190,7 +190,7 @@ $ docker-compose -f quickstart.yml exec hydra \
 Setting up home route on http://127.0.0.1:5555/
 Setting up callback listener on http://127.0.0.1:5555/callback
 Press ctrl + c on Linux / Windows or cmd + c on OSX to end the process.
-If your browser does not open automatically, navigate to:
+If your browser doesn't open automatically, navigate to:
 
         http://127.0.0.1:5555/
 ```

@@ -12,7 +12,7 @@ in the configuration file (`oathkeeper -c ./path/to/config.yml ...`)
 # Configures Access Rules
 access_rules:
   # Locations (list of URLs) where access rules should be fetched from on boot.
-  # It is expected that the documents at those locations return a JSON or YAML Array containing ORY Oathkeeper Access Rules.
+  # It's expected that the documents at those locations return a JSON or YAML Array containing ORY Oathkeeper Access Rules.
   repositories:
     # If the URL Scheme is `file://`, the access rules (an array of access rules is expected) will be
     # fetched from the local file system.
@@ -72,10 +72,10 @@ Access Rules have four principal keys:
 - `version` (string): The version of ORY Oathkeeper this rule targets with out
   the `+oryOS.<x>` appendix. ORY Oathkeeper is able to migrate access rules
   across versions. If left empty ORY Oathkeeper will assume that the rule is
-  using the same tag as the version that is running.
+  using the same tag as the version that's running.
 - `upstream` (object): The location of the server where requests matching this
   rule should be forwarded to. This only needs to be set when using the ORY
-  Oathkeeper Proxy as the Decision API does not forward the request to the
+  Oathkeeper Proxy as the Decision API doesn't forward the request to the
   upstream.
   - `url` (string): The URL the request will be forwarded to.
   - `preserve_host` (bool): If set to `false` (default), the forwarded request
@@ -102,15 +102,15 @@ Access Rules have four principal keys:
 
     Regular expressions examples:
 
-    - `https://mydomain.com/` matches `https://mydomain.com/` and does not match
+    - `https://mydomain.com/` matches `https://mydomain.com/` and doesn't match
       `https://mydomain.com/foo` or `https://mydomain.com`.
     - `<https|http>://mydomain.com/<.*>` matches:`https://mydomain.com/` or
-      `http://mydomain.com/foo`. Does not match: `https://other-domain.com/` or
+      `http://mydomain.com/foo`. Doesn't match: `https://other-domain.com/` or
       `https://mydomain.com`.
     - `http://mydomain.com/<[[:digit:]]+>` matches `http://mydomain.com/123` and
-      does not match `http://mydomain/abc`.
+      doesn't match `http://mydomain/abc`.
     - `http://mydomain.com/<(?!protected).*>` matches
-      `http://mydomain.com/resource` and does not match
+      `http://mydomain.com/resource` and doesn't match
       `http://mydomain.com/protected`
 
     [Glob](http://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm) patterns
@@ -119,7 +119,7 @@ Access Rules have four principal keys:
     - `https://mydomain.com/<m?n>` matches `https://mydomain.com/man` and does
       not match `http://mydomain.com/foo`.
     - `https://mydomain.com/<{foo*,bar*}>` matches `https://mydomain.com/foo` or
-      `https://mydomain.com/bar` and does not match `https://mydomain.com/any`.
+      `https://mydomain.com/bar` and doesn't match `https://mydomain.com/any`.
 
 - `authenticators`: A list of authentication handlers that authenticate the
   provided credentials. Authenticators are checked iteratively from index `0` to
@@ -136,7 +136,7 @@ Access Rules have four principal keys:
 - `mutators`: A list of mutation handlers that transform the HTTP request before
   forwarding it. A common use case is generating a new set of credentials (e.g.
   JWT) which then will be forwarded to the upstream server. When using ORY
-  Oathkeeper's Decision API, it is expected that the API Gateway forwards the
+  Oathkeeper's Decision API, it's expected that the API Gateway forwards the
   mutated HTTP Headers to the upstream server. For the full list of available
   mutators, click [here](pipeline/mutator.md).
 - `errors`: A list of error handlers that are executed when any of the previous

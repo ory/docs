@@ -53,7 +53,7 @@ BasedOnStyles = Vale, write-good
 
 Create a folder for your styles `mkdir -p vale/styles`
 
-In this folder we are going to put our styles, I started with the boilerplate
+In this folder we're going to put our styles, I started with the boilerplate
 styles: https://github.com/errata-ai/vale-boilerplate/tree/master/styles Then I
 added the gitlab docs styles
 https://gitlab.com/gitlab-org/gitlab/-/tree/master/doc/.vale/gitlab
@@ -63,7 +63,7 @@ https://gitlab.com/gitlab-org/gitlab/-/tree/master/doc/.vale/gitlab
 + BasedOnStyles = Vale, write-good, gitlab
 ```
 
-We are going to change the Vocab to our custom vocabulary `Ory`
+We're going to change the Vocab to our custom vocabulary `Ory`
 
 ```diff
 - Vocab = Blog

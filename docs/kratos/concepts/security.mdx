@@ -16,7 +16,7 @@ understanding the possible motivations for an attack, or why an agent is a
 threat, knowing the attack surface, the likelihood, and the impact are important
 all aspects of a threat model.
 
-This documentation can not substitute a thorough and serious threat model, yet
+This documentation can't substitute a thorough and serious threat model, yet
 it will provide some guidelines to help configure Ory Kratos in a way that makes
 it best suited for any risk assessment.
 
@@ -27,7 +27,7 @@ it best suited for any risk assessment.
 This feature is a work in progress and is tracked as
 [kratos#133](https://github.com/ory/kratos/issues/133).
 
-It does not yet work as documented!
+It doesn't yet work as documented!
 
 :::
 
@@ -68,24 +68,24 @@ a service:
 To mitigate this attack, the following methods need to be deployed:
 
 - The login form should return the same message regardless of whether the
-  password is wrong or the email/username does not exist: "The provided
+  password is wrong or the email/username doesn't exist: "The provided
   credentials are invalid."
 - The password reset form should always return a success message and send out an
   email. If the email address is registered, a normal password reset email is
-  sent. If the email address is not registered, an email is sent to the address
+  sent. If the email address isn't registered, an email is sent to the address
   indicating that no account is set up with that email address. This is helpful
   to users that have multiple email addresses and are using the wrong email
   address for the password reset.
 - The registration form should also always return a success message and send out
-  an email. If the email address is not yet registered, a regular "account
+  an email. If the email address isn't yet registered, a regular "account
   activation" email is sent out. If the email address is registered already, a
   email is sent out telling the user that the account is already set up, and
   link to the login screen.
 
 :::important
 
-If you wish to mitigate account enumeration attacks, it is important to note
-that you cannot sign in users directly after sign up! Depending on the type of
+If you wish to mitigate account enumeration attacks, it's important to note
+that you can't sign in users directly after sign up! Depending on the type of
 service you provide, you might not care about this specific attack in which case
 direct login after sign up would be ok.
 
@@ -97,12 +97,12 @@ A timing attack against password hashing looks as follows:
 
 1. Login to an existing account and measure time which takes, depending on the
    hashing configuration, between 200ms and 2s;0
-2. Try out other accounts (e.g. `alice@example.org`). If the account does not
-   exist, password hashing does not run, hence it takes much less time for the
+2. Try out other accounts (e.g. `alice@example.org`). If the account doesn't
+   exist, password hashing doesn't run, hence it takes much less time for the
    server to answer (< 100ms).
 
 To protect against this attack, Ory Kratos adds a configurable delay with
-standard deviation to login flows where the account does not exist.
+standard deviation to login flows where the account doesn't exist.
 
 ### Enabling Account Enumeration Defenses
 
@@ -111,7 +111,7 @@ Ory Kratos as follows:
 
 - Collect one or more email addresses during sign up and enable email
   verification.
-- **Do not** enable the `session` post-registration workflow.
+- **Don't** enable the `session` post-registration workflow.
 
 ```yaml
 selfservice:
@@ -127,7 +127,7 @@ the GitHub profile to be added to your identity's account. You might also want
 to use it as an email + password identifier so that the identity is able to log
 in with a password as well. An attacker is able to exploit that by creating a
 social profile on another site (e.g. Google) and use the victims email address
-to set it up (this only works when the victim does not yet have an account with
+to set it up (this only works when the victim doesn't yet have an account with
 that email at Google). The attacker can then use that "spoofed" social profile
 to try and sign up with your Ory Kratos installation. Because the victim's email
 address is already known to Ory Kratos, the attacker might be able to observe
@@ -162,7 +162,7 @@ local claims = {
 ### Disabling Account Enumeration Defenses
 
 Enforcing email verification, which requires an email round trip and disrupts
-the sign up process, is not always feasible. In these cases, you might want to
+the sign up process, isn't always feasible. In these cases, you might want to
 disable account enumeration defenses.
 
 If you enable the `session` post-registration workflow - signing the user in
@@ -179,7 +179,7 @@ selfservice:
 
 ## Account Takeover Defenses
 
-The Settings Flow implements account takeover defenses as it is not possible to
+The Settings Flow implements account takeover defenses as it isn't possible to
 change the password without knowing the existing password. A good example of
 this flow is the
 [GitHub sudo mode](https://help.github.com/en/github/authenticating-to-github/sudo-mode).
@@ -242,7 +242,7 @@ that the identifier and password have a small enough longest common substring.
 
 Furthermore the `password` method comes with a build-in check against the
 ["Have I been pwned"](https://haveibeenpwned.com) breach database. This way Ory
-Kratos makes sure your users cannot use passwords like "password", "123456" or
+Kratos makes sure your users can't use passwords like "password", "123456" or
 any other commonly used one. To protect the value of the password the
 [range API](https://haveibeenpwned.com/API/v3#SearchingPwnedPasswordsByRange) is
 being used.
@@ -268,7 +268,7 @@ Ory Kratos implements a password policy that:
 - Checks if a password has previously been leaked using the
   [HIBP API](https://haveibeenpwned.com/API/v2),
 - Checks if a password is too similar to one of the identifiers,
-- Does not expire passwords.
+- Doesn't expire passwords.
 
 This is a rundown of all the practices Ory Kratos implements and why. **Some
 things need to be implemented by yourself** as they must be implemented in the
@@ -303,7 +303,7 @@ Passwords must be checked against a database of compromised secrets such as
 > When processing requests to establish and change memorized secrets, verifiers
 > SHALL compare the prospective secrets against a list that contains values
 > known to be commonly-used, expected, or compromised. For example, the list MAY
-> include, but is not limited to:
+> include, but isn't limited to:
 >
 > - Passwords obtained from previous breach corpuses.
 > - Dictionary words.
@@ -316,7 +316,7 @@ Passwords must be checked against a database of compromised secrets such as
 > reason for rejection, and SHALL require the subscriber to choose a different
 > value.
 
-Do not require mixtures of characters types or prohibiting repeated characters:
+Don't require mixtures of characters types or prohibiting repeated characters:
 
 > Verifiers SHOULD NOT impose other composition rules (e.g., requiring mixtures
 > of different character types or prohibiting consecutively repeated characters)
@@ -326,7 +326,7 @@ Do not require mixtures of characters types or prohibiting repeated characters:
 
 ##### User Interface Guidelines
 
-These best practices need to be implemented in your User Interface and can not
+These best practices need to be implemented in your User Interface and can't
 be handled by Ory Kratos. All Ory-built reference and demo applications
 implement these best practices:
 
@@ -341,8 +341,8 @@ Allow the user to show the secret in the UI:
 
 > In order to assist the claimant in successfully entering a memorized secret,
 > the verifier SHOULD offer an option to display the secret — rather than a
-> series of dots or asterisks — until it is entered. This allows the claimant to
-> verify their entry if they are in a location where their screen is unlikely to
+> series of dots or asterisks — until it's entered. This allows the claimant to
+> verify their entry if they're in a location where their screen is unlikely to
 > be observed. The verifier MAY also permit the user’s device to display
 > individual entered characters for a short time after each character is typed
 > to verify correct entry. This is particularly applicable on mobile devices.
@@ -350,7 +350,7 @@ Allow the user to show the secret in the UI:
 ##### Password Hints
 
 > Memorized secret verifiers SHALL NOT permit the subscriber to store a “hint”
-> that is accessible to an unauthenticated claimant.
+> that's accessible to an unauthenticated claimant.
 >
 > [NIST Digital Identity Guidelines - 5.1.1.2 Memorized Secret Verifiers](https://pages.nist.gov/800-63-3/sp800-63b.html)
 
@@ -418,7 +418,7 @@ Will be addressed in a future release.
 This feature is a work in progress and is tracked as
 [kratos#133](https://github.com/ory/kratos/issues/133).
 
-It does not yet work as documented!
+It doesn't yet work as documented!
 
 :::
 

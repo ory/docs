@@ -3,11 +3,11 @@ id: case-study
 title: OAuth 2.0 Case Study
 ---
 
-OAuth2 and OpenID Connect are tricky to understand. It is important to keep in
+OAuth2 and OpenID Connect are tricky to understand. It's important to keep in
 mind that OAuth2 is a delegation protocol. Let's look at a use case to
 understand how Hydra makes sense in new and existing projects.
 
-Let's assume we are running todo24.com, a ToDo list app. ToDo24 has a login
+Let's assume we're running todo24.com, a ToDo list app. ToDo24 has a login
 endpoint (todo24.com/login). The login endpoint is written in Node.JS and uses
 MongoDB to store user information (email + password + user profile). Of course,
 ToDo24 has other services as well: list management (todo24.com/lists: create,

@@ -27,7 +27,7 @@ and read these articles:
 
 :::note
 
-If you are not building a system that involves third parties - for example a
+If you aren't building a system that involves third parties - for example a
 third party company (CircleCI) using your (GitHub) APIs - but instead are
 looking to solve "Single Sign On", mobile / single page app authentication, or
 generally "I want an API token after someone logs in", take a look at
@@ -163,7 +163,7 @@ but may also refer to a subset of resources:
 
 When performing an OAuth 2.0 Flow where the end-user is involved (e.g. Implicit
 or Authorize Code), the granted audience must be set when accepting the consent
-using the `grant_access_token_audience` key. In most cases, it is ok to grant
+using the `grant_access_token_audience` key. In most cases, it's ok to grant
 the audience without user-interaction.
 
 ### OAuth 2.0 Refresh Tokens
@@ -171,7 +171,7 @@ the audience without user-interaction.
 OAuth 2.0 Refresh Tokens are issued only when an Authorize Code Flow
 (`response_type=code`) or an OpenID Connect Hybrid Flow with an Authorize Code
 Response Type (`response_type=code+...`) is executed. OAuth 2.0 Refresh Tokens
-are not returned for Implicit or Client Credentials grants:
+aren't returned for Implicit or Client Credentials grants:
 
 Capable of issuing an OAuth 2.0 Refresh Token:
 
@@ -180,7 +180,7 @@ Capable of issuing an OAuth 2.0 Refresh Token:
 - https://ory-hydra.example/oauth2/auth?response_type=code+token+id_token&...
 - https://ory-hydra.example/oauth2/auth?response_type=code+id_token&...
 
-Will not issue an OAuth 2.0 Refresh Token:
+Won't issue an OAuth 2.0 Refresh Token:
 
 - https://ory-hydra.example/oauth2/auth?response_type=token&...
 - https://ory-hydra.example/oauth2/auth?response_type=token+id_token&...

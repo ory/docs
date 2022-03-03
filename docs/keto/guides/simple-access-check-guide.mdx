@@ -32,7 +32,7 @@ sequenceDiagram
     alt is allowed
       K-->>A: true
       A-->>U: ory_is_awesome
-    else is not allowed
+    else isn't allowed
       K-->>A: false
       A-->>U: Error 403
     end
@@ -63,7 +63,7 @@ messages:02y_15_4w350m3#decypher@john
 
 :::caution Important
 
-It is up to the application and its defined relation tuples how the check
+It's up to the application and its defined relation tuples how the check
 requests have to be encoded. In this example we assume that the known cypher
 messages are stored in Ory Keto and access to the cleartext is encoded by the
 `decypher` relation.
@@ -94,7 +94,7 @@ message:
 
 ### Indirectly Defined Access
 
-On the other hand, it is possible to indirectly grant `john` access to the
+On the other hand, it's possible to indirectly grant `john` access to the
 resource. This could e.g. be done by adding a group, lets call it `hackers`. Now
 we can grant access to the resource to everyone in that group by adding the
 following relation tuple to Ory Keto:
@@ -120,17 +120,17 @@ groups:hackers#member
 and determine that `john` is a subject in the resulting set. Therefore, it
 approves the check request.
 
-There is no limit on the number of indirections through subject sets. It is
+There is no limit on the number of indirections through subject sets. It's
 however important to follow our
 [best practices](./access-control-list-design-best-practices.mdx) to ensure a
 good [performance](../performance.mdx).
 
 ## Caching Keto's responses
 
-We do not recommend that you cache the responses from Ory Keto. It is designed
+We don't recommend that you cache the responses from Ory Keto. It's designed
 to respond quickly and still provide
 [some consistency guarantees](../concepts/snaptokens-evaluation-consistency.mdx).
-Especially, for the revocation of access it is important to not use a local
+Especially, for the revocation of access it's important to not use a local
 cache. Be ensured that Ory Keto heavily utilizes caching wherever possible. If
 you still happen to find unacceptably slow check requests, check that you follow
 our [best practices](./access-control-list-design-best-practices.mdx) for good

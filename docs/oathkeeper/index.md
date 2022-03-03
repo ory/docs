@@ -32,8 +32,8 @@ among others.
 
 ## Dependencies
 
-ORY Oathkeeper does not have any dependencies to other services. It can work
-completely in isolation and does not require a database or any other type of
+ORY Oathkeeper doesn't have any dependencies to other services. It can work
+completely in isolation and doesn't require a database or any other type of
 persistent storage. ORY Oathkeeper is configurable with yaml configuration
 files, JSON files, and environment variables.
 
@@ -45,8 +45,8 @@ the reverse proxy, the other ORY Oathkeeper's API.
 ### Reverse Proxy
 
 The port exposing the reverse proxy forwards requests to the upstream server,
-defined in the rule, if the request is allowed. If the request is not allowed,
-ORY Oathkeeper does not forward the request and instead returns an error
+defined in the rule, if the request is allowed. If the request isn't allowed,
+ORY Oathkeeper doesn't forward the request and instead returns an error
 message.
 
 [![ORY Oathkeeper deployed as a Reverse Proxy](https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgcGFydGljaXBhbnQgQyBhcyBDbGllbnRcbiAgICBwYXJ0aWNpcGFudCBPIGFzIE9hdGhrZWVwZXIgUHJveHlcbiAgICBwYXJ0aWNpcGFudCBBIGFzIFByb3RlY3RlZCBTZXJ2ZXIvQVBJXG4gICAgQy0-Pk86IEhUVFAgUmVxdWVzdFxuICAgIE8tLT4-TzogQ2hlY2sgaWYgcmVxdWVzdCBpcyBhbGxvd2VkXG4gICAgYWx0IGlzIG5vdCBhbGxvd2VkXG4gICAgTy0-PkM6IFJldHVybiBIVFRQIEVycm9yIFxuICAgIGVsc2UgaXMgYWxsb3dlZFxuICAgIE8tPj5BOiBGb3J3YXJkIEhUVFAgUmVxdWVzdCBcbiAgICBBLT4-TzogUmV0dXJuIEhUVFAgUmVzcG9uc2VcbiAgICBPLT4-QzogUmV0dXJuIEhUVFAgUmVzcG9uc2VcbiAgICBlbmQiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9fQ)](https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgcGFydGljaXBhbnQgQyBhcyBDbGllbnRcbiAgICBwYXJ0aWNpcGFudCBPIGFzIE9hdGhrZWVwZXIgUHJveHlcbiAgICBwYXJ0aWNpcGFudCBBIGFzIFByb3RlY3RlZCBTZXJ2ZXIvQVBJXG4gICAgQy0-Pk86IEhUVFAgUmVxdWVzdFxuICAgIE8tLT4-TzogQ2hlY2sgaWYgcmVxdWVzdCBpcyBhbGxvd2VkXG4gICAgYWx0IGlzIG5vdCBhbGxvd2VkXG4gICAgTy0-PkM6IFJldHVybiBIVFRQIEVycm9yIFxuICAgIGVsc2UgaXMgYWxsb3dlZFxuICAgIE8tPj5BOiBGb3J3YXJkIEhUVFAgUmVxdWVzdCBcbiAgICBBLT4-TzogUmV0dXJuIEhUVFAgUmVzcG9uc2VcbiAgICBPLT4-QzogUmV0dXJuIEhUVFAgUmVzcG9uc2VcbiAgICBlbmQiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9fQ)
@@ -168,7 +168,7 @@ Content-Length: 0
 Connection: Closed
 ```
 
-It is also possible to have this endpoint return other error responses such as
+It's also possible to have this endpoint return other error responses such as
 the HTTP Status Found (HTTP Status Code `302`), depending configured on the
 error handling. Use this feature only if your Reverse Proxy supports these type
 of responses.
@@ -202,7 +202,7 @@ requests. Authorization happens in four steps, each of which can be configured:
    example, an API that requires admin privileges, configure the authorizer to
    check if the user ID from step 2 has the "admin" permission or role.
    Oathkeeper supports a variety of authorizers. Failed authorization (e.g. user
-   does not have role "admin") results denial of the request.
+   doesn't have role "admin") results denial of the request.
 4. **Mutation:** The Access Rule can add session data to the HTTP request that
    it forwards to the upstream API. For example, the mutator could add
    `X-User-ID: the-user-id` to the HTTP headers or generate a JWT with session
