@@ -41,7 +41,7 @@ in the community when planning development.
 ## Bugs
 
 Every release from Ory includes new features as well as bug fixes. You can find
-a full changelog in the main directory of every project (e.g.
+a full changelog in the main directory of every project (
 [ for Ory Kratos](https://github.com/ory/kratos/blob/master/CHANGELOG.md))
 
 If you happen to find a bug, please open an
@@ -74,7 +74,7 @@ If you think that you can contribute to that particular feature, maintainers
 will do their best to give you the right pointers and review PRs. We also really
 appreciate non-code contributions, i.e. documentation, feedback, ideas, ...
 
-For more information please refer to the projects CONTRIBUTING.md (e.g. for
+For more information please refer to the projects CONTRIBUTING.md ( for
 [Ory Kratos](https://github.com/ory/kratos/blob/master/CONTRIBUTING.md)).
 
 - Support Ory
@@ -130,7 +130,7 @@ Ory Oathkeeper: [Milestones](https://github.com/ory/oathkeeper/milestones) /
 
 [Ory Oathkeeper Discussions](https://github.com/ory/oathkeeper/discussions)
 
-For all other Ory projects (e.g. dockertest, fosite, herodot, etc.), please open
+For all other Ory projects (such as [Ory Dockertest](https://github.com/ory/dockertest/), [Ory Fosite](https://github.com/ory/fosite/), [Ory Herodot](https://github.com/ory/herodot/), etc.), please open
 a discussion in `ory/meta`:
 
 [Ory Meta Discussions](https://github.com/ory/meta/discussions)

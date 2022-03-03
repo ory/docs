@@ -27,7 +27,7 @@ the `--watch-courier` flag to your `kratos serve` command, as outlined in the
 
 ### Multi-instance
 
-If you're running multiple instances of Kratos (e.g. replicated Kubernetes
+If you're running multiple instances of Kratos (for example replicated Kubernetes
 deployment), you need to run the mail courier as a separate singleton job. The
 courier can be started with the `kratos courier watch` command
 ([CLI docs](../cli/kratos-courier.md)).
@@ -197,7 +197,7 @@ courier:
 The configuration consists of:
 
 - `url` - the URL, which should be called (mandatory). It needs to be absolute,
-  start with http:// or https:// scheme, and include path part - e.g.
+  start with http:// or https:// scheme, and include path part - for example
   "https://api.sender.com/v1/message".
 - `method` - the HTTP method (GET, POST, ...) (mandatory)
 - `body` - URI of a JsonNet template, used to render the payload to send
@@ -208,7 +208,7 @@ The configuration consists of:
   used by request
 
 Courier binds the `from`, `to`, and `body` variables into the JsonNet template.
-These variables are available through a `ctx` object. E.g. to create a body
+These variables are available through a `ctx` object. For example to create a body
 looking like `{ to: "<some-number>" }` to be sent to the SMS provider endpoint,
 the jsonnet template would look like this:
 

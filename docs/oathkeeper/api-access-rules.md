@@ -91,7 +91,7 @@ Access Rules have four principal keys:
       at `/api/v1/users`.
 - `match` (object): Defines the URL(s) this Access Rule should match.
 
-  - `methods` (string[]): Array of HTTP methods (e.g. GET, POST, PUT, DELETE,
+  - `methods` (string[]): Array of HTTP methods (for example GET, POST, PUT, DELETE,
     ...).
   - `url` (string): The URL that should be matched. You can use regular
     expressions or glob patterns in this field to match more than one url. The
@@ -134,13 +134,13 @@ Access Rules have four principal keys:
   group or if he/she has permission to perform that action. For the full list of
   available authorizers, click [here](pipeline/authz.md).
 - `mutators`: A list of mutation handlers that transform the HTTP request before
-  forwarding it. A common use case is generating a new set of credentials (e.g.
+  forwarding it. A common use case is generating a new set of credentials (for example
   JWT) which then will be forwarded to the upstream server. When using ORY
   Oathkeeper's Decision API, it's expected that the API Gateway forwards the
   mutated HTTP Headers to the upstream server. For the full list of available
   mutators, click [here](pipeline/mutator.md).
 - `errors`: A list of error handlers that are executed when any of the previous
-  handlers (e.g. authentication) fail. Error handlers define what to do in case
+  handlers (for example authentication) fail. Error handlers define what to do in case
   of an error, for example redirect the user to the login endpoint when a
   unauthorized (HTTP Status Code 401) error occurs. If left unspecified, errors
   will always be handled as JSON responses unless the global configuration key

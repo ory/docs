@@ -36,7 +36,7 @@ able to exploit
 There are also many other areas you need to think about, such as:
 
 - Mobile, Smart TV, ... authentication
-- Linking and unlinking social profiles (e.g. "Sign in with Google" or "Connect
+- Linking and unlinking social profiles (for example "Sign in with Google" or "Connect
   with Google") to existing accounts
 
 Ory Kratos applies best practices established by experts (National Institute of
@@ -69,16 +69,16 @@ business logic:
 Some flows implement the ability
 [to run hooks](self-service/hooks.mdx) which allow users to be immediately
 signed in after registration, notify another system on successful registration
-(e.g. Mailchimp), and so on.
+(such as Mailchimp), and so on.
 
 ## Performing Login, Registration, Settings, ... Flows
 
 There are two flow types supported in Ory Kratos:
 
 - Flows where the user sits in front of the Browser and the application is
-  - a server-side application (e.g. NodeJS, Java, ...)
-  - a client-side application (e.g. ReactJS, AngularJS, ...)
-- Flows where API interaction is required (e.g. mobile app, Smart TV, ...)
+  - a server-side application (NodeJS, Java, ...)
+  - a client-side application (ReactJS, AngularJS, ...)
+- Flows where API interaction is required (mobile app, Smart TV, ...)
 
 All Self-Service Flows ([User Login](self-service/flows/user-login.mdx),
 [User Registration](self-service/flows/user-registration.mdx),
@@ -121,7 +121,7 @@ Ory Kratos as well.
 ### Initialization and Redirect to UI
 
 First, the Browser opens the flow's initialization endpoint
-(e.g.`/self-service/login/browser`, `/self-service/registration/browser`, ...):
+(for example`/self-service/login/browser`, `/self-service/registration/browser`, ...):
 
 ```sh
 curl -s -i -X GET \
@@ -144,7 +144,7 @@ strict-transport-security: max-age=15724800; includeSubDomains
 
 The initialization endpoint creates a flow object and stores it in the database.
 The flow object has an ID and contains additional information about the flow
-such as the login methods (e.g. "username/password" and "Sign in with Google")
+such as the login methods (for example "username/password" and "Sign in with Google")
 and their form data.
 
 import DomainWarning from '@site/src/theme/DomainWarning'
@@ -152,7 +152,7 @@ import DomainWarning from '@site/src/theme/DomainWarning'
 <DomainWarning />
 
 Once stored, the Browser is HTTP 303 redirected to the flow's configured UI URL
-(e.g. `selfservice.flows.login.ui_url`), appending the flow ID as the `flow` URL
+(for example `selfservice.flows.login.ui_url`), appending the flow ID as the `flow` URL
 Query Parameter. Also included are HTTP cookies such as Anti-CSRF cookies.
 
 ### Form Rendering
@@ -412,7 +412,7 @@ which now includes validation errors and other potential messages:
 }
 ```
 
-If a system error (e.g. broken configuration file) occurs, the browser is
+If a system error (for example broken configuration file) occurs, the browser is
 redirected to the [Error UI](self-service/flows/user-facing-errors.md).
 
 If the form payload is valid, the flow completes with a success. The result here
@@ -455,8 +455,8 @@ The high-level sequence diagram for API flows looks as follows:
 
 ### Initialization
 
-The AJAX client (e.g. NextJS app) makes a request to the flow's initialization
-endpoint (e.g.`/self-service/login/browser`,
+The AJAX client (for example NextJS app) makes a request to the flow's initialization
+endpoint (for example`/self-service/login/browser`,
 `/self-service/registration/browser`, ...):
 
 ```sh
@@ -498,7 +498,7 @@ curl -v -s -X GET \
 
 The initialization endpoint creates a flow object and stores it in the database.
 The flow object has an ID and contains additional information about the flow
-such as the login methods (e.g. "username/password" and "Sign in with Google")
+such as the login methods (for example "username/password" and "Sign in with Google")
 and their form data.
 
 ### Form Rendering
@@ -591,7 +591,7 @@ response could be sent:
 API flows have three stages:
 
 - Initialization without redirect and cookies;
-- Form rendering using e.g. native iOS, Android, ... components;
+- Form rendering using for example native iOS, Android, ... components;
 - Form submission as `application/json` and payload validation.
 
 The high-level sequence diagram for API flows looks as follows:
@@ -600,8 +600,8 @@ The high-level sequence diagram for API flows looks as follows:
 
 ### Initialization
 
-The client (e.g. mobile application) makes a request to the flow's
-initialization endpoint (e.g.`/self-service/login/api`,
+The client (for example mobile application) makes a request to the flow's
+initialization endpoint (for example`/self-service/login/api`,
 `/self-service/registration/api`, ...):
 
 ```sh
@@ -625,8 +625,7 @@ curl -s -X GET \
 
 The initialization endpoint creates a flow object and stores it in the database.
 The flow object has an ID and contains additional information about the flow
-such as the login methods (e.g. "username/password" and "Sign in with Google")
-and their form data.
+such as the login methods and their form data.
 
 ### Form Rendering
 

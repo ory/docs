@@ -98,7 +98,7 @@ Inactive --> Active: enable
 
 Traits are data associated with an identity. You have to define its schema
 according to your application's needs. They're also supposed to be modified by
-the identity itself e.g. as part of the registration or profile update process
+the identity itself for example as part of the registration or profile update process
 as well as anyone having access to Ory Krato's Admin API.
 
 Ory Kratos uses
@@ -123,7 +123,7 @@ in the following situations:
 The following example illustrates a usage scenario with three types of
 identities: Regular customers,
 [grandfather accounts](https://en.wikipedia.org/wiki/Grandfather_clause), and
-Service Accounts (e.g. Microsoft provides
+Service Accounts (for example Microsoft provides
 [Service Accounts](https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/service-accounts)).
 There would be one JSON Schema per type of identity:
 
@@ -193,7 +193,7 @@ Because Ory Kratos doesn't know that a particular field has a system-relevant
 meaning you have to specify these in the schema. This includes for example:
 
 - The email address for recovering a lost password
-- The identifier for logging in with a password e.g. username or email
+- The identifier for logging in with a password such as username or email
 - The phone number for enabling SMS 2FA
 - ...
 
@@ -234,7 +234,7 @@ An overview of available configuration options follows in the next sections.
 
 ### Identifier for Username and Password Flows
 
-You can configure Ory Kratos to use specific fields as the _identifier_ e.g.
+You can configure Ory Kratos to use specific fields as the _identifier_ such as
 username, email, phone number, etc., in the Username and Password Registration
 and Login Flow:
 
@@ -410,7 +410,7 @@ fields will be added in future releases!
 
 ## Best Practices for Updating Identity Schemas
 
-We strongly encourage everyone to specify unique (e.g. versioned) identifiers
+We strongly encourage everyone to specify unique (for example versioned) identifiers
 for every identity schema defined. This allows you to gradually update your
 identity schema without affecting existing identities. Assume you just defined
 your first Identity Schema:

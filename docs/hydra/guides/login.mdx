@@ -78,7 +78,7 @@ router.get('/login', csrfProtection, (req, res, next) => {
       // ...
 
       // Now it's time to grant the login request. You could also deny the request if something went terribly wrong
-      // (e.g. your arch-enemy logging in...)
+      // (for example your arch-enemy logging in!)
       return hydraAdmin
         .acceptLoginRequest(challenge, {
           // All we need to do is to confirm that we indeed want to log in the user.
@@ -170,7 +170,7 @@ router.post('/login', csrfProtection, (req, res, next) => {
       // When the session expires, in seconds. Set this to 0 so it will never expire.
       rememberFor: 3600
 
-      // Sets which "level" (e.g. 2-factor authentication) of authentication the user has. The value is really arbitrary
+      // Sets which "level" (for example 2-factor authentication) of authentication the user has. The value is really arbitrary
       // and optional. In the context of OpenID Connect, a value of 0 indicates the lowest authorization level.
       // acr: '0',
     })

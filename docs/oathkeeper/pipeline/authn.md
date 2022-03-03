@@ -7,7 +7,7 @@ An authenticator is responsible for authenticating request credentials. ORY
 Oathkeeper supports different authenticators and we will add more as the project
 progresses.
 
-An authenticator inspects the HTTP request (e.g. the HTTP Authorization Header)
+An authenticator inspects the HTTP request (for example the HTTP Authorization Header)
 and executes some business logic that returns true (for authentication ok) or
 false (for authentication invalid) as well as a subject ("user"). The subject is
 typically the "user" that made the request, but it could also be a machine (if
@@ -15,7 +15,7 @@ you have machine-2-machine interaction) or something different.
 
 Each authenticator has two keys:
 
-- `handler` (string, required): Defines the handler (e.g. `noop`) to be used.
+- `handler` (string, required): Defines the handler (for example `noop`) to be used.
 - `config` (object, optional): Configures the handler. Configuration keys vary
   per handler. The configuration can be defined in the global configuration
   file, or per access rule.

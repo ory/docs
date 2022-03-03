@@ -24,7 +24,7 @@ There are some errors that indicate your Argon2 parameters need adjustment:
 
 1. Very slow login and registration requests, might cause network timeouts;
 2. Ory Kratos fails with `fatal error: runtime: out of memory`;
-3. The host environment (e.g. Minikube, Docker, Kubernetes...) crashes or
+3. The host environment on Minikube, Docker, or Kubernetes crashes or
    becomes unresponsive;
 
 In any of these cases, try reducing the resources used by Argon2 or increasing

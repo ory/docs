@@ -44,7 +44,7 @@ application <-> Ory Keto can vastly differ. The application could offer a JSON
 API towards the user, while communicating with Keto through gRPC.
 
 As a first step, the application has to authenticate the user reliably to
-provide the subject to Keto. This can be achieved e.g. by using
+provide the subject to Keto. This can be achieved by using
 [Ory Kratos](https://www.ory.sh/kratos/docs/) or any other authentication
 system.
 
@@ -95,7 +95,7 @@ message:
 ### Indirectly Defined Access
 
 On the other hand, it's possible to indirectly grant `john` access to the
-resource. This could e.g. be done by adding a group, lets call it `hackers`. Now
+resource. This could be done by adding a group, lets call it `hackers`. Now
 we can grant access to the resource to everyone in that group by adding the
 following relation tuple to Ory Keto:
 

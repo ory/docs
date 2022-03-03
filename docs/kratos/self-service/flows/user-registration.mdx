@@ -32,9 +32,9 @@ continuing with this document.
 There are two Registration Flow types supported in Ory Kratos:
 
 - Flows where the user sits in front of the Browser and the application is
-  - a server-side application (e.g. NodeJS, Java, ...)
-  - a client-side application (e.g. ReactJS, AngularJS, ...)
-- Flows where API interaction is required (e.g. mobile app, Smart TV, ...)
+  - a server-side application (NodeJS, Java, ...)
+  - a client-side application (ReactJS, AngularJS, ...)
+- Flows where API interaction is required (Mobile app, Smart TV, ...)
 
 The Registration Flow can be summarized as the following state machine:
 
@@ -543,7 +543,7 @@ The form payloads are then submitted to Ory Kratos which follows up with:
 - An HTTP 303 See Other redirect pointing to the Registration UI for Browser
   Clients;
 - An `application/json` response for API Clients and Client-Side Browser
-  applications (e.g. Single Page Apps).
+  applications (for example Single Page Apps).
 
 ### Registration with Username/Email and Password
 
@@ -583,7 +583,7 @@ Schema, for example:
  }
 ```
 
-If the registration payload is invalid (e.g. the password doesn't match the
+If the registration payload is invalid (for example the password doesn't match the
 password policy, the email is missing, ...), the password method includes the
 validation errors:
 
@@ -600,7 +600,7 @@ Registration Flow in the response payload as JSON.
 
 Completing the `oidc` method requires the user to go through an OAuth 2.0 or
 OpenID Connect flow which involves logging into the upstream identity provider
-(e.g. Google) and giving consent.
+(for example Google) and giving consent.
 
 :::note
 
@@ -615,7 +615,7 @@ A possible validation error is a missing ID Token:
 
 What may also happen is that the Ory Kratos Identity Schema JSON includes a
 field which is required but wasn't provided by the upstream identity provider
-(e.g. Google). In those cases, the end-user's browser is returned to the
+(for example Google). In those cases, the end-user's browser is returned to the
 registration screen with the form validation errors.
 
 Let's assume the Ory Kratos Identity Schema JSON requires a `website` trait
@@ -656,8 +656,8 @@ Let's assume the Ory Kratos Identity Schema JSON requires a `website` trait
 ```
 
 which wasn't provided by the upstream identity provider. This can happen when
-the user refuses to accept a certain scope (e.g. "Allow Ory Kratos access to my
-website") or if the provider simply doesn't have this data (e.g. the upstream
+the user refuses to accept a certain scope (for example "Allow Ory Kratos access to my
+website") or if the provider simply doesn't have this data (for example the upstream
 identity provider doesn't collect the user's website).
 
 In that case the end-user ends up at the registration screen and is prompted to
@@ -1010,7 +1010,7 @@ The Registration User Interface is a route (page / site) in your application
 (server, native app, single page app) that should render a registration form.
 
 In stark contrast to other Identity Systems, Ory Kratos doesn't render this
-HTML. Instead, you need to implement the HTML code in your application (e.g.
+HTML. Instead, you need to implement the HTML code in your application (for example
 NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
 flexibility and customizability in your user interface flows and designs.
 

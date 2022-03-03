@@ -97,7 +97,7 @@ A timing attack against password hashing looks as follows:
 
 1. Login to an existing account and measure time which takes, depending on the
    hashing configuration, between 200ms and 2s;0
-2. Try out other accounts (e.g. `alice@example.org`). If the account doesn't
+2. Try out other accounts such as `alice@example.org`. If the account doesn't
    exist, password hashing doesn't run, hence it takes much less time for the
    server to answer (< 100ms).
 
@@ -122,20 +122,20 @@ selfservice:
 
 #### Defending Against Account Enumeration when using OpenID Connect
 
-Scenario: In some cases you might want to use the email address returned by e.g.
+Scenario: In some cases you might want to use the email address returned by for example
 the GitHub profile to be added to your identity's account. You might also want
 to use it as an email + password identifier so that the identity is able to log
 in with a password as well. An attacker is able to exploit that by creating a
-social profile on another site (e.g. Google) and use the victims email address
+social profile on another site (for example Google) and use the victims email address
 to set it up (this only works when the victim doesn't yet have an account with
 that email at Google). The attacker can then use that "spoofed" social profile
 to try and sign up with your Ory Kratos installation. Because the victim's email
 address is already known to Ory Kratos, the attacker might be able to observe
-the behavior (e.g. seeing an error page) and come to the conclusion that the
+the behavior (for example seeing an error page) and come to the conclusion that the
 victim already has an account at the website.
 
 Mitigation: This attack surface is rather small and requires a lot of effort,
-including forging an e.g. Google profile, and can fail at several stages. To
+including forging an for example Google profile, and can fail at several stages. To
 mitigate any chance of that happening, only accept email addresses
 that are marked as verified in your Jsonnet code:
 
@@ -149,7 +149,7 @@ local claims = {
     traits: {
       // Allowing unverified email addresses enables account
       // enumeration attacks, if the value is used for
-      // e.g. verification or as a password login identifier.
+      // for example verification or as a password login identifier.
       //
       // Therefore we only return the email if it (a) exists and (b) is marked verified
       // by GitHub.
@@ -307,7 +307,7 @@ Passwords must be checked against a database of compromised secrets such as
 >
 > - Passwords obtained from previous breach corpuses.
 > - Dictionary words.
-> - Repetitive or sequential characters (e.g. ‘aaaaaa’, ‘1234abcd’).
+> - Repetitive or sequential characters (such as ‘aaaaaa’, ‘1234abcd’).
 > - Context-specific words, such as the name of the service, the username, and
 >   derivatives thereof.
 >
@@ -318,10 +318,10 @@ Passwords must be checked against a database of compromised secrets such as
 
 Don't require mixtures of characters types or prohibiting repeated characters:
 
-> Verifiers SHOULD NOT impose other composition rules (e.g., requiring mixtures
+> Verifiers SHOULD NOT impose other composition rules (such as, requiring mixtures
 > of different character types or prohibiting consecutively repeated characters)
 > for memorized secrets. Verifiers SHOULD NOT require memorized secrets to be
-> changed arbitrarily (e.g., periodically). However, verifiers SHALL force a
+> changed arbitrarily. However, verifiers SHALL force a
 > change if there is evidence of compromise of the authenticator.
 
 ##### User Interface Guidelines

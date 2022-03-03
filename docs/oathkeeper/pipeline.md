@@ -8,7 +8,7 @@ Read more about the
 if you haven't already. This chapter explains the different pipeline handlers
 available to you:
 
-- [Authentication handlers](pipeline/authn.md) inspect HTTP requests (e.g. the
+- [Authentication handlers](pipeline/authn.md) inspect HTTP requests (for example the
   HTTP Authorization Header) and execute some business logic that return true
   (for authentication ok) or false (for authentication invalid) as well as a
   subject ("user"). The subject is typically the "user" that made the request,

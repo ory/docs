@@ -80,13 +80,13 @@ of _resource owner_. Here is a full list of terms.
 2. The **OAuth 2.0 Authorization Server** implements the OAuth 2.0 protocol (and
    optionally OpenID Connect). In our case, this is **Ory Hydra**.
 3. The **resource provider** is the service that hosts (provides) the resources.
-   These resources (e.g. blog articles, printers, todo lists) are owned by a
+   These resources (for example blog articles, printers, todo lists) are owned by a
    resource owner (user) mentioned above.
 4. The **OAuth 2.0 Client** is the _external application_ that wants to access a
    resource owner's resources (read a user's images). To do that, it asks the
    OAuth 2.0 Authorization Server for an access token in a resource owner's
    behalf. The authorization server will ask the user if he/she "is ok with"
-   giving that external application e.g. write access to personal images.
+   giving that external application for example write access to personal images.
 5. The **Identity Provider** is a service that allows users to register
    accounts, log in, etc.
 6. **User Agent** is usually a browser.
@@ -145,7 +145,7 @@ Ory Hydra has pre-defined OAuth 2.0 Scope values:
 - `offline_access`: Include this scope if you wish to receive a refresh token
 - `openid`: Include this scope if you wish to perform an OpenID Connect request.
 
-When performing an OAuth 2.0 Flow where the end-user is involved (e.g. Implicit
+When performing an OAuth 2.0 Flow where the end-user is involved (for example Implicit
 or Authorize Code), the granted OAuth 2.0 Scope must be set when accepting the
 consent using the `grant_scope` key.
 
@@ -161,7 +161,7 @@ but may also refer to a subset of resources:
 
 - `https://api.mydomain.com/tenants/foo/users`
 
-When performing an OAuth 2.0 Flow where the end-user is involved (e.g. Implicit
+When performing an OAuth 2.0 Flow where the end-user is involved (for example Implicit
 or Authorize Code), the granted audience must be set when accepting the consent
 using the `grant_access_token_audience` key. In most cases, it's ok to grant
 the audience without user-interaction.

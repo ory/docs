@@ -81,7 +81,7 @@ New feature or request.
       ([kratos#707](https://github.com/ory/kratos/issues/707))
 - [ ] improve multi schema handling in different auth flows
       ([kratos#765](https://github.com/ory/kratos/issues/765))
-- [ ] Access identity schema information (e.g. usernames) within the jsonnet
+- [ ] Access identity schema information (for example usernames) within the jsonnet
       mapper ([kratos#987](https://github.com/ory/kratos/issues/987))
 - [ ] [Feature] LOG_LEVEL to allow stacktrace in error for /api endpoint
       ([kratos#1589](https://github.com/ory/kratos/issues/1589))

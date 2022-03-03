@@ -8,7 +8,7 @@ allows you to implement the error page in any way you want.
 
 ## User-Facing Errors in the Browser
 
-When a user-facing error occurs (e.g. during Self Service User Login), Ory
+When a user-facing error occurs for example during Self Service User Login, Ory
 Kratos will store error message and context and redirect the User's Browser to
 the Error UI URL set by the `selfservice.flows.error.ui_url` configuration or
 `SELFSERVICE_FLOWS_ERROR_UI_URL` environment variable.
@@ -45,8 +45,8 @@ layouts. Errors have the following keys defined:
 
 ## User-Facing Errors when consuming APIs
 
-When a user-facing error occurs and the HTTP client is an API Client (e.g.
-Mobile App), the error will be returned as the HTTP Response. No additional
+When a user-facing error occurs and the HTTP client is an API Client (for example a
+mobile app), the error will be returned as the HTTP Response. No additional
 steps are required.
 
 ## Using Stub Errors

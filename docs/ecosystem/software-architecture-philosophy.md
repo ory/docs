@@ -37,10 +37,10 @@ webserver such as NGINX or Apache HTTP Server.
 ### The Platform is Responsible for Horizontal Scaling
 
 The Ory stack scales without the need for any additional external service
-dependencies (e.g. etcd, Memcached) except for a RDBMS (e.g. PostgreSQL, MySQL).
+dependencies (such as etcd, Memcached) except for a RDBMS (such as PostgreSQL, MySQL).
 Scaling horizontally is as easy as starting another process.
 
-The Ory Ecosystem assumes that the platform it's running on (e.g. Kubernetes,
+The Ory Ecosystem assumes that the platform it's running on (such as Kubernetes,
 Google Cloud, Amazon Web Services, Azure, ...) is capable of Load Balancing and
 doesn't concern itself with things like Leader Election protocols or other
 communicating between process instances of the same project.
@@ -91,7 +91,7 @@ of their terminal to observe the app’s behavior.
 The process formation is the array of processes that are used to do the app’s
 regular business (such as handling web requests) as it runs. Separately,
 developers will often wish to do one-off administrative or maintenance tasks for
-the app, such as running database migrations (e.g. `hydra migrate sql`).
+the app, such as running database migrations (such as `hydra migrate sql`).
 
 One-off admin processes should be run in an identical environment as the regular
 long-running processes of the app. They run against a release, using the same

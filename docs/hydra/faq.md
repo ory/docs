@@ -40,7 +40,7 @@ You can do this using the
 
 Both Login and Consent Requests have a
 [`request url`](https://github.com/ory/hydra/blob/27dc147a37c1cb98b7beb5428c389545958dd122/consent/types.go#L505)
-which contains the original OAuth2 Authorize URL (e.g.
+which contains the original OAuth2 Authorize URL (for example
 `/oauth2/auth?client_id=...&your_custom_param=....`)
 
 >RequestURL is the original OAuth 2.0 Authorization URL requested by the OAuth 2.0 client.
@@ -75,7 +75,7 @@ in legacy/migration scenarios, and
 > bypassed.
 > Because passwords are often used for more than 1 service, this anti-pattern
 > may also put at risk whatever else is accessible with the supplied credential.
-> Additionally, any derived equivalent (e.g., joe@example.com and
+> Additionally, any derived equivalent (such as joe@example.com and
 > joe@example.net) might allow someone to guess that the same password
 > can be used elsewhere.
 > Impact: The resource server can only differentiate scope based on the access
@@ -131,14 +131,14 @@ Thus, to initialize the database schemas, it's required to run
 
 ## What does the installation process look like?
 
-1. Run `hydra migrate sql ...` on a host close to the database (e.g. a virtual
+1. Run `hydra migrate sql ...` on a host close to the database (for example a virtual
    machine with access to the SQL instance).
 
 ## What does a migration process look like?
 
 1. Make sure a database update is required by checking the release notes.
 2. Make a back up of the database.
-3. Run the migration script on a host close to the database (e.g. a virtual
+3. Run the migration script on a host close to the database (for example a virtual
    machine with access to the SQL instance). Schemas are usually backwards
    compatible, so instances running previous versions of Ory Hydra should keep
    working fine. If backwards compatibility isn't given, this will be addressed
@@ -232,10 +232,10 @@ Check the logs using `docker logs <container-id>`.
 ## Insufficient Entropy
 
 > Hey there , I am getting this error when I try request an access token "The
-> request used a security parameter (e.g., anti-replay, anti-csrf) with
+> request used a security parameter (such as, anti-replay, anti-csrf) with
 > insufficient entropy (minimum of 8 characters)"
 > Kareem Diaa @kimooz Jun 07 16:41 Hey there , I am getting this error when I
-> try request an access token "The request used a security parameter (e.g.,
+> try request an access token "The request used a security parameter (such as,
 > anti-replay, anti-csrf) with insufficient entropy (minimum of 8 characters)"
 > Aeneas @arekkas Jun 07 16:41 @kimooz make sure state and nonce are set in your
 > auth code url

@@ -76,7 +76,7 @@ The request has been allowed! The original HTTP Request hasn't been modified.
 
 ## `id_token`
 
-This mutator takes the authentication information (e.g. subject) and transforms
+This mutator takes the authentication information (such as subject) and transforms
 it to a signed JSON Web Token, and more specifically to an OpenID Connect ID
 Token. Your backend can verify the token by fetching the (public) key from the
 `/.well-known/jwks.json` endpoint provided by the ORY Oathkeeper API.
@@ -137,7 +137,7 @@ The ID Token Claims are as follows:
   `https://oathkeeper.myapi.com`.
 - `sub`: Subject Identifier. A locally unique and never reassigned identifier
   within the Issuer for the End-User, which is intended to be consumed by the
-  Client, e.g., 24400320 or AItOawmwtWwcT0k51BayewNvutrJUqsvl6qs7A4. It must not
+  Client, for example, 24400320 or AItOawmwtWwcT0k51BayewNvutrJUqsvl6qs7A4. It must not
   exceed 255 ASCII characters in length. The sub value is a case sensitive
   string. The End-User might also be an OAuth 2.0 Client, given that the access
   token was granted using the OAuth 2.0 Client Credentials flow.
@@ -208,9 +208,9 @@ The first private key found in the JSON Web Key Set defined by
 
 - If the first key found is a symmetric key (`HS256` algorithm), that key will
   be used. That key **won't** be broadcasted at `/.well-known/jwks.json`. You
-  must manually configure the upstream to be able to fetch the key (e.g. from an
+  must manually configure the upstream to be able to fetch the key (for example from an
   environment variable).
-- If the first key found is an asymmetric private key (e.g. `RS256`, `ES256`,
+- If the first key found is an asymmetric private key (for example `RS256`, `ES256`,
   ...), that key will be used. The related public key will be broadcasted at
   `/.well-known/jwks.json`.
 
@@ -478,7 +478,7 @@ Example request/response payload:
 ```
 
 The AuthenticationSession from this object replaces the original one and is
-passed to the next mutator, where it can be used to e.g. set a particular cookie
+passed to the next mutator, where it can be used to set a particular cookie
 to the value received from an API.
 
 Setting `extra` field doesn't transform the HTTP request, whereas headers set

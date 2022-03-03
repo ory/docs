@@ -15,7 +15,7 @@ quickly, or as the basis for your own UI:
 - [React / SPA Reference Implementation](https://github.com/ory/react-nextjs-example)
 
 Ory Kratos' HTTP APIs make it easy and straight forward to write your own UI
-(e.g. "login" screen, "update profile settings", ...) in any programming
+(for example "login" screen, "update profile settings", ...) in any programming
 languages and framework! It can be built in any programming language including
 Java, Node, or Python and can be run both a server or an end-user device for
 example a browser, or a mobile phone. Implementing your own UI is simple and
@@ -33,7 +33,7 @@ import TabItem from '@theme/TabItem'
 ## UI Payloads
 
 To make UI customization easy, Ory Kratos prepares all the necessary data for
-forms that need to be shown during e.g. login, registration:
+forms that need to be shown during login, registration, and other flows:
 
 ```json5
 {
@@ -221,7 +221,7 @@ Here is an example of implementing an `img` node in ReactJS:
 
 ### UI Text Nodes
 
-Nodes of type `text` are commonly used to display secrets (e.g. lookup secrets).
+Nodes of type `text` are commonly used to display secrets (for example lookup secrets).
 
 ![Lookup Secret](../images/text-node-1.png)
 
@@ -597,8 +597,8 @@ submit button:
 />
 
 If you have control over the form's payload, like in ReactJS, you need to ensure
-that the name of the form (e.g. `method`) is only submitted once with the
-correct value (e.g. `password`). Because in some cases Ory Kratos might generate
+that the name of the form (`method`) is only submitted once with the
+correct value (`password`). Because in some cases Ory Kratos might generate
 multiple submit buttons with the same `name` attribute.
 
 ```json5
@@ -960,10 +960,10 @@ Typically login, registration, settings, ... flows include such messages on
 different levels:
 
 1. At the root level, indicating that the message affects the whole request
-   (e.g. request expired)
+   (such as `request expired`)
 2. At the method (password, oidc, profile) level, indicating that the message
    affects a specific method / form.
-3. At the field level, indicating that the message affects a form field (e.g.
+3. At the field level, indicating that the message affects a form field (for example
    validation errors).
 
 Each message has a layout of:
@@ -981,17 +981,17 @@ Each message has a layout of:
 
 The message ID is a 7-digit number (`xyyzzzz`) where
 
-- `x` is the message type which is either `1` for an info message (e.g.
-  `1020000`), `4` (e.g. `4020000`) for an input validation error message, and
-  `5` (e.g. `5020000`) for a generic error message.
+- `x` is the message type which is either `1` for an info message (for example
+  `1020000`), `4` (for example `4020000`) for an input validation error message, and
+  `5` (for example `5020000`) for a generic error message.
 - `yy` is the module or flow this error references and can be:
-- `01` for login messages (e.g. `1010000`)
-- `02` for logout messages (e.g. `1020000`)
-- `03` for multi-factor authentication messages (e.g. `1030000`)
-- `04` for registration messages (e.g. `1040000`)
-- `05` for settings messages (e.g. `1050000`)
-- `06` for account recovery messages (e.g. `1060000`)
-- `07` for email/phone verification messages (e.g. `1070000`)
+- `01` for login messages (for example `1010000`)
+- `02` for logout messages (for example `1020000`)
+- `03` for multi-factor authentication messages (for example `1030000`)
+- `04` for registration messages (for example `1040000`)
+- `05` for settings messages (for example `1050000`)
+- `06` for account recovery messages (for example `1060000`)
+- `07` for email/phone verification messages (for example `1070000`)
 - `zzzz` is the message ID and typically starts at `0001`. For example, message
   ID `4070001` (`4` for input validation error, `07` for verification, `0001`
   for the concrete message) is:
@@ -1398,12 +1398,12 @@ will be overwritten!
 }
 ```
 
-###### You successfully recovered your account. Please change your password or set up an alternative login method (e.g. social sign in) within the next 0.02 minutes. (1060001)
+###### You successfully recovered your account. Please change your password or set up an alternative login method (for example social sign in) within the next 0.02 minutes. (1060001)
 
 ```json
 {
   "id": 1060001,
-  "text": "You successfully recovered your account. Please change your password or set up an alternative login method (e.g. social sign in) within the next 0.02 minutes.",
+  "text": "You successfully recovered your account. Please change your password or set up an alternative login method (for example social sign in) within the next 0.02 minutes.",
   "type": "info",
   "context": {
     "privilegedSessionExpiresAt": "2020-01-01T01:01:00Z"

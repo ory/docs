@@ -17,7 +17,7 @@ Get one or more identities by ID
 ### Synopsis
 
 This command gets all the details about an identity. To get an identity by some
-selector, e.g. the recovery email address, use the list command in combination
+selector, such as the recovery email address, use the list command in combination
 with jq.
 
 We have to admit, this is not easy if you don&#39;t speak jq fluently. What

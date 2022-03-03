@@ -32,5 +32,4 @@ Before upgrading to a newer version, please make sure to check with these
 documents first.
 
 **If you haven't already subscribed to our release announcements,
-[subscribe now](http://eepurl.com/di390P)!** We announce important releases
-(e.g. security releases) in this newsletter.
+[subscribe now](http://eepurl.com/di390P)!** We announce important security releases in this newsletter.

@@ -15,7 +15,7 @@ to the endpoint.
 
 Each authorizer has two keys:
 
-- `handler` (string, required): Defines the handler, e.g. `noop`, to be used.
+- `handler` (string, required): Defines the handler, for example `noop`, to be used.
 - `config` (object, optional): Configures the handler. Configuration keys can
   vary for each handler.s
 

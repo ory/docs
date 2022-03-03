@@ -70,7 +70,7 @@ func main() {
 
 ## With Authorization
 
-Some endpoints require e.g. Basic Authorization:
+Some endpoints require Basic Authorization:
 
 ```go
 import (
@@ -95,7 +95,7 @@ For more information on Authorization, check the
 
 ### On every request
 
-You may want to protect ORY Hydra using e.g. OAuth2 Access Tokens. In that case,
+You may want to protect ORY Hydra using OAuth2 Access Tokens. In that case,
 you can enhance the SDK by using the OAuth2 Client:
 
 ```go

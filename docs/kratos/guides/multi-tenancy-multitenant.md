@@ -17,10 +17,10 @@ different secrets and the tenant's DSN
 (`postgresql://user:pass@.../tenant-123`). Because Ory Kratos is very
 lightweight, the deployment overhead becomes negligible.
 
-While deployment complexity increases - but is addressable with e.g.
-Kubernetes - this approach has several advantages:
+Deployment complexity increases but is addressable with container orchestration systems such as [Kubernetes](https://kubernetes.io/).
+This approach has several advantages:
 
 - Absolute isolation of tenants which implies: better security, better privacy,
   more control.
 - Easy sharding and partitioning because database schemas isolate tenants.
-- No complexity in Ory Kratos' business logic and security defenses.
+- No complexity in Ory Kratos business logic and security defenses.

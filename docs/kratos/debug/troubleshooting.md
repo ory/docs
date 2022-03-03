@@ -17,7 +17,7 @@ either open a [discussion](https://github.com/ory/kratos/discussions) and ping
 Make sure you are starting and finishing the request in one browser.
 Self-service browser flows need to be executed in the same browser from start to
 finish!  
-Starting the flow in e.g. Safari and completing it in Chrome won't work. API
+Starting the flow in Safari and completing it in Chrome won't work. API
 Clients like Electron, Postman or Insomnia are browsers themselves, which can
 cause requests to fail. For testing purposes [cURL](https://curl.se/) is a good
 choice.
@@ -45,7 +45,7 @@ You can't right now. It would allow account enumeration attacks. See also the
 
 ### Do have plans to support automatic user migration scenarios?
 
-> E.g. configure a callback to the legacy system when you can't find the
+> For example configure a callback to the legacy system when you can't find the
 > corresponding user, and store the identity on successful legacy system
 > response.
 

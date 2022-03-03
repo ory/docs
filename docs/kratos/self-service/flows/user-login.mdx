@@ -28,9 +28,9 @@ continuing with this document.
 There are two Login Flow types supported in Ory Kratos:
 
 - Flows where the user sits in front of the Browser and the application is
-  - a server-side application (e.g. NodeJS, Java, ...)
-  - a client-side application (e.g. ReactJS, AngularJS, ...)
-- Flows where API interaction is required (e.g. mobile app, Smart TV, ...)
+  - a server-side application (NodeJS, Java, ...)
+  - a client-side application (ReactJS, AngularJS, ...)
+- Flows where API interaction is required (mobile app, Smart TV, ...)
 
 The Login Flow can be summarized as the following state machine:
 
@@ -478,7 +478,7 @@ The form payloads are then submitted to Ory Kratos which follows up with:
 
 - An HTTP 303 See Other redirect pointing to the Login UI for Browser Clients;
 - An `application/json` response for API Clients and Client-Side Browser
-  applications (e.g. Single Page Apps).
+  applications for example for Single Page Apps.
 
 ### Login with Username/Email and Password
 
@@ -499,12 +499,12 @@ Login Flow in the response payload as JSON.
 
 Completing the `oidc` method requires the user to go through an OAuth 2.0 or
 OpenID Connect flow which involves logging into the upstream identity provider
-(e.g. Google) and giving consent.
+(such as Google) and giving consent.
 
 :::note
 
 If the user has never signed in with the given provider before, a new account
-will be created. It's also possible to link upstream identities (e.g. Google
+will be created. It's also possible to link upstream identities (such as Google
 profile) with an existing Ory Kratos identity.
 
 :::
@@ -746,9 +746,9 @@ Refreshing a session won't log the user out, unless another user signs in.
 
 To refresh a session, append `?refresh=true` to:
 
-- `/self-service/login/browser` for browser Clients (e.g.
+- `/self-service/login/browser` for browser Clients (for example
   `https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser?refresh=true`)
-- `/self-service/login/api` for API Clients (e.g.
+- `/self-service/login/api` for API Clients (for example
   `https://playground.projects.oryapis.com/api/kratos/public/self-service/login/api?refresh=true`)
 
 ## Code Examples for NodeJS, ReactJS, Go, ...
@@ -757,7 +757,7 @@ The Login User Interface is a route (page / site) in your application (server,
 native app, single page app) that should render a login form.
 
 In stark contrast to other Identity Systems, Ory Kratos doesn't render this
-HTML. Instead, you need to implement the HTML code in your application (e.g.
+HTML. Instead, you need to implement the HTML code in your application (for example
 NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
 flexibility and customizability in your user interface flows and designs.
 

@@ -41,7 +41,7 @@ regards to the new information they add to the issue. Ory will score the
 severity of the disclosed issue according to
 [CVSS 3.1](https://www.first.org/cvss/v3.1/specification-document). Ory reserves
 the right to solely determine the factors affecting the score calculation based
-on the submitted exploit. Effectively this means that you have to prove e.g. the
+on the submitted exploit. Effectively this means that you have to prove for example the
 loss of confidentiality to have that included in the CVSS calculation.
 
 Other Ory open source projects may still be eligible depending on the impact of

@@ -3,8 +3,7 @@ id: integration-with-other-systems-using-web-hooks
 title: Integration using Web-Hooks
 ---
 
-Ory Kratos supports integration with other systems (e.g. ERP, Marketing, etc)
-using Web-Hooks.
+Ory Kratos supports integration with other systems such as ERP, CRM, or others using Web-Hooks.
 
 ### Mailchimp
 

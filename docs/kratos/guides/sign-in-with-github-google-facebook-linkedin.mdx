@@ -96,7 +96,7 @@ local claims = {
     traits: {
       // Allowing unverified email addresses enables account
       // enumeration attacks,  if the value is used for
-      // e.g. verification or as a password login identifier.
+      // verification or as a password login identifier.
       //
       // Therefore we only return the email if it (a) exists and (b) is marked verified
       // by Discord.
@@ -194,7 +194,7 @@ local claims = {
     traits: {
       // Allowing unverified email addresses enables account
       // enumeration attacks,  if the value is used for
-      // e.g. verification or as a password login identifier.
+      // verification or as a password login identifier.
       //
       // It's assumed that Slack requires an email to be verified before accessible via OAuth (because they don't provide a email_verified field).
       email: claims.email
@@ -289,7 +289,7 @@ local claims = {
     traits: {
       // Allowing unverified email addresses enables account
       // enumeration attacks,  if the value is used for
-      // e.g. verification or as a password login identifier.
+      // verification or as a password login identifier.
       //
       // Therefore we only return the email if it (a) exists and (b) is marked verified
       // by GitHub.
@@ -380,7 +380,7 @@ local claims = {
     traits: {
       // Allowing unverified email addresses enables account
       // enumeration attacks,  if the value is used for
-      // e.g. verification or as a password login identifier.
+      // verification or as a password login identifier.
       //
       // Therefore we only return the email if it (a) exists and (b) is marked verified
       // by GitLab.
@@ -419,7 +419,7 @@ GitLab is now an option to log in via Kratos.
 
 To set up "Sign in with Auth0" you must create an
 [Auth0 Application for your Auth0 Tenant](https://auth0.com/docs/applications).
-Note that the endpoint for the application starts with your Tenant's name. e.g.
+Note that the endpoint for the application starts with your Tenant's name. for example
 `myAuth0Tenant.auth0.com`. This will be the `IssuerURL` you will use when
 configuring the OIDC connection.
 
@@ -456,7 +456,7 @@ local claims = {
     traits: {
       // Allowing unverified email addresses enables account
       // enumeration attacks,  if the value is used for
-      // e.g. verification or as a password login identifier.
+      // verification or as a password login identifier.
       //
       // Therefore we only return the email if it (a) exists and (b) is marked verified
       // by Auth0.
@@ -499,8 +499,8 @@ Auth0 is now an option to log in via Kratos.
 
 ## Microsoft
 
-This will enable you to log in using any Azure AD directory - Multitenant and
-personal Microsoft accounts (e.g. Skype, Xbox) depending on the settings made
+This will enable you to log in using any Azure AD directory - Multi-tenant and
+personal Microsoft accounts (for example Skype, Xbox) depending on the settings made
 when creating the application in Azure AD.
 
 #### Creating an Application in Azure AD
@@ -533,7 +533,7 @@ local claims = std.extVar('claims');
     traits: {
       // Allowing unverified email addresses enables account
       // enumeration attacks,  if the value is used for
-      // e.g. verification or as a password login identifier.
+      // verification or as a password login identifier.
       //
       // If connecting only to your organization (one tenant), claims.email is safe to use if you haven't actively disabled e-mail verification during signup.
       //
@@ -574,8 +574,8 @@ There are two ways to use the `microsoft` provider for authentication:
 
 1. For authenticating users in a single Azure AD Directory (organization), set
    the `tenant` value to either the `Directory ID` from the "App Registration"
-   page, or the organization domain. E.g. `8eaef023-2b34-4da1-9baa-8bc8c9d6a490`
-   or `contoso.onmicrosoft.com`.
+   page, or the organization domain. Examples:`8eaef023-2b34-4da1-9baa-8bc8c9d6a490`
+   or `example.onmicrosoft.com`.
 2. For authenticating any user in the Microsoft identity platform, set the
    `tenant` value to either:
 
@@ -619,7 +619,7 @@ local claims = {
     traits: {
       // Allowing unverified email addresses enables account
       // enumeration attacks,  if the value is used for
-      // e.g. verification or as a password login identifier.
+      // verification or as a password login identifier.
       //
       // Therefore we only return the email if it (a) exists and (b) is marked verified
       // by Twitch.
@@ -713,7 +713,7 @@ local claims = std.extVar('claims');
     traits: {
       // Allowing unverified email addresses enables account
       // enumeration attacks,  if the value is used for
-      // e.g. verification or as a password login identifier.
+      // verification or as a password login identifier.
       //
       // It's assumed that Facebook requires an email to be verified before accessible via OAuth (because they don't provide an email_verified field).
       //
@@ -1040,7 +1040,7 @@ local claims = {
     traits: {
       // Allowing unverified email addresses enables account
       // enumeration attacks,  if the value is used for
-      // e.g. verification or as a password login identifier.
+      // verification or as a password login identifier.
       //
       // Therefore we only return the email if it (a) exists and (b) is marked verified
       // by Apple.
@@ -1151,7 +1151,7 @@ and making a PR! :)
 ## How to prevent `username already taken`
 
 Sometimes the username returned by a provider is already taken in your
-application. To prevent this you can add a random suffix (e.g. a number) to the
+application. To prevent this you can add a random suffix (for example a number) to the
 OIDC username. You can use the md5 function built in the
 [jsonnet standard library](https://jsonnet.org/ref/stdlib.html). See the
 following issue as well:
@@ -1162,7 +1162,7 @@ following issue as well:
 If multiple [registration methods](../self-service/flows/user-registration.mdx)
 are configured, users may be redirected to a social login provider to link the
 accounts after the email verification. To skip this link-up add the session hook
-after the registration method (e.g. `password`):
+after the registration method (for example `password`):
 
 ```
       after:
@@ -1188,12 +1188,12 @@ exchanges it for a session. For example:
 ## Log in through social providers if the identifiers match
 
 A user creates an account with the identifier `user@example.com`. When the same
-user has an account at e.g. ACME using the same identifier `user@example.com`,
+user has an account at for example ACME using the same identifier `user@example.com`,
 some providers offer the option to have the user login through ACME, even though
 the user hasn't created the account using `Login with ACME`.
 
 > Right now there's an explicit extra step to link them as default
-> configuration. There is no way to login through them without linking if e.g.
+> configuration. There is no way to login through them without linking if for example
 > emails match.
 
 :::warning
@@ -1204,7 +1204,7 @@ We strongly discourage this practice, consider the following scenario:
 
 - You have signed up using `user@example.com` to acme.com.
 - The hacker knows this.
-- The hacker creates a social login account (e.g. Google) with the email
+- The hacker creates a social login account (such as Google) with the email
   `user@example.com` and signs in on acme.com.
 - Now the hacker is in your account.
 

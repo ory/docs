@@ -40,9 +40,9 @@ Ory Kratos allows users to verify their out-of-band (email, telephone number,
 There are two Verification Flow types supported in Ory Kratos:
 
 - Flows where the user sits in front of the Browser and the application is
-  - a server-side application (e.g. NodeJS, Java, ...)
-  - a client-side application (e.g. ReactJS, AngularJS, ...)
-- Flows where API interaction is required (e.g. mobile app, Smart TV, ...)
+  - a server-side application (NodeJS, Java, ...)
+  - a client-side application (ReactJS, AngularJS, ...)
+- Flows where API interaction is required (Mobile app, Smart TV, ...)
 
 The Verification Flow can be summarized as the following state machine:
 
@@ -52,7 +52,7 @@ stateDiagram
   s1: Flow is initialized
   s2: User Interface renders Verification Flow Forms
   s3: Update Verification Flow with Error Context(s)
-  s4: Verification challenge initiated (e.g. link via email)
+  s4: Verification challenge initiated (link via email)
   s5: Verification completed
   [*] --> s1 : User clicks "Verify Email/SMS/..."
   s1 --> s2
@@ -563,7 +563,7 @@ The form payloads are then submitted to Ory Kratos which follows up with:
 - An HTTP 303 See Other redirect pointing to the Registration UI for Browser
   Clients;
 - An `application/json` response for API Clients and Client-Side Browser
-  applications (e.g. Single Page Apps).
+  applications (for example Single Page Apps)e Apps).
 
 ### Verification Link via Email
 
@@ -587,7 +587,7 @@ On successful submission, an email will be sent to the provided address:
 
 ## Unsuccessful Verification
 
-If the verification challenge (e.g. the link in the verification email) is
+If the verification challenge (for example the link in the verification email) is
 invalid or expired, the user will be HTTP 303 redirected to the Verification UI.
 
 :::note
@@ -606,7 +606,7 @@ Please keep in mind that this part of the flow always involves a Browser!
 
 ## Successful Verification
 
-If the verification challenge is completed (e.g. the sent verification link was
+If the verification challenge is completed (for example the sent verification link was
 clicked), the end-user's Browser is redirected to the Verification UI with a
 Verification Flow that has now the `state` of `passed_challenge`:
 
@@ -622,7 +622,7 @@ The Verification User Interface is a route (page / site) in your application
 (server, native app, single page app) that should render a verification form.
 
 In stark contrast to other Identity Systems, Ory Kratos doesn't render this
-HTML. Instead, you need to implement the HTML code in your application (e.g.
+HTML. Instead, you need to implement the HTML code in your application (for example
 NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
 flexibility and customizability in your user interface flows and designs.
 

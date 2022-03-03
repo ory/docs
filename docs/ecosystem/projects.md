@@ -53,7 +53,7 @@ you're not writing a basic web app but something that has to work on different
 devices, that has machine-2-machine interaction, or enables third-party
 developers to use your API (and pay for it), then this is what you're looking
 for. Ory Hydra isn't identity management, though. Instead, it connects to your
-existing identity management (e.g. the one from the paragraph above, or your
+existing identity management (for example the one from the paragraph above, or your
 MySQL+PHP login service, or your Federated SAML SSO) and is capable of issuing,
 in a secure and OpenID Certified manner, access, refresh, and ID tokens. Of
 course, it's shipped as a 5MB Docker Image with almost no configuration
@@ -66,7 +66,7 @@ React/Angular app and a REST api, you need a way to authenticate the user and to
 check if he/she has the necessary permissions (we call this "access control"
 from now on). One way would be, of course, to add these checks in your code.
 Another is to deploy the 5MB Ory Oathkeeper Docker Image, define access rules
-for your API endpoints (e.g. OAuth 2.0 Access Token + certain set of
+for your API endpoints (for example OAuth 2.0 Access Token + certain set of
 permissions, a valid JSON Web Token, a valid SAML assertion, ...) and put it -
 like a firewall - in front of your services.
 
@@ -82,10 +82,10 @@ These policies represent flexible rules and allow you to express complex access
 control scenarios. You could, of course, write your own system or spend a bit of
 time educating yourself about RBAC, ACL, ABAC, ACP - or (you probably already
 guessed it) - boot up the 5MB Ory Keto Docker Image. Ory Keto is able to
-authenticate different types of credentials (e.g. OAuth 2.0 Access Tokens, SAML
+authenticate different types of credentials (for example OAuth 2.0 Access Tokens, SAML
 Assertions, JSON Web Tokens, ...) and allows you to define advanced permission
 rules ("Access Control Policies"). And there's of course an endpoint that tells
-you if a certain set of credentials (e.g. an OAuth 2.0 Access Token) is allowed
+you if a certain set of credentials (for example an OAuth 2.0 Access Token) is allowed
 to modify that blog post.
 
 <img alt="The full Ory Ecosystem" src={useBaseUrl('img/docs/ory-ecosystem.png')}

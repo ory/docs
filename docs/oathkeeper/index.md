@@ -193,12 +193,12 @@ requests. Authorization happens in four steps, each of which can be configured:
 2. **Authentication:** Oathkeeper can validate credentials via a variety of
    methods like Bearer Token, Basic Authorization, or cookie. Invalid
    credentials result in denial of the request. The "internal" session state
-   (e.g. user ID) of valid (authenticated) credentials becomes input for the
+   (such as the user ID) of valid (authenticated) credentials becomes input for the
    next steps.
 3. **Authorization:** Access Rules can check permissions. To secure, for
    example, an API that requires admin privileges, configure the authorizer to
    check if the user ID from step 2 has the "admin" permission or role.
-   Oathkeeper supports a variety of authorizers. Failed authorization (e.g. user
+   Oathkeeper supports a variety of authorizers. Failed authorization (for example user
    doesn't have role "admin") results denial of the request.
 4. **Mutation:** The Access Rule can add session data to the HTTP request that
    it forwards to the upstream API. For example, the mutator could add

@@ -32,9 +32,9 @@ Ory Kratos allows users to update their own settings and profile information
 using two principal flows:
 
 - Flows where the user sits in front of the Browser and the application is
-  - a server-side application (e.g. NodeJS, Java, ...)
-  - a client-side application (e.g. ReactJS, AngularJS, ...)
-- Flows where API interaction is required (e.g. mobile app, Smart TV, ...)
+  - a server-side application (NodeJS, Java, ...)
+  - a client-side application (ReactJS, AngularJS, ...)
+- Flows where API interaction is required (Mobile app, Smart TV, ...)
 
 The Settings Flow is composed of several high-level steps summarized in this
 state diagram:
@@ -72,7 +72,7 @@ Three settings methods are supported:
 - `password` for updating the password used to sign in;
 - `oidc` for un-/linking from social sign in providers such as Google or
   Facebook;
-- `profile` for updating an identity's traits (e.g. change the first name). The
+- `profile` for updating an identity's traits (for example change the first name). The
   updated traits must be valid against the Identity Schema defined for its
   [Identity Traits](../../concepts/identity-schema.mdx).
 
@@ -650,7 +650,7 @@ The form payloads are then submitted to Ory Kratos which follows up with:
 - An HTTP 303 See Other redirect pointing to the Registration UI for Browser
   Clients;
 - An `application/json` response for API Clients and Client-Side Browser
-  applications (e.g. Single Page Apps).
+  applications (for example Single Page Apps).
 
 When validation errors happen, browser clients receive a HTTP 303 See Other
 redirect to the Settings Flow UI, containing the Settings Flow ID which includes
@@ -661,8 +661,8 @@ JSON.
 ### Update Profile
 
 To complete the profile update, the end-user fills out the presented profile
-form (e.g. updates their first name or email address). Possible validation
-errors include JSON Schema validation errors (e.g. `"format": "email"` not
+form (for example updates their first name or email address). Possible validation
+errors include JSON Schema validation errors (for example `"format": "email"` not
 respected):
 
 <CodeTabs items={getFlowMethodProfileWithErrors} />
@@ -682,7 +682,7 @@ GitHub, Facebook, the user either clicks the unlink or link button depending on
 the interaction.
 
 There are no expected validation errors except for an error where the profile
-(e.g. Google) to be linked is already linked with another identity in the
+(for example Google) to be linked is already linked with another identity in the
 system.
 
 ## Successful Settings Update
@@ -1024,7 +1024,7 @@ The Settings User Interface is a route (page / site) in your application
 (server, native app, single page app) that should render a settings form.
 
 In stark contrast to other Identity Systems, Ory Kratos doesn't render this
-HTML. Instead, you need to implement the HTML code in your application (e.g.
+HTML. Instead, you need to implement the HTML code in your application (for example
 NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
 flexibility and customizability in your user interface flows and designs.
 

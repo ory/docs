@@ -39,8 +39,8 @@ We built this pipeline with the following goals in mind:
 - Understand which features are used and how.
 - Understand how much throughput deployments handle.
 - Evaluate how frequently specific features are used.
-- Detect issues introduced by new features (e.g. buggy releases).
-- Identify problems at scale (e.g. slow endpoints).
+- Detect issues introduced by new features (such as a buggy releases).
+- Identify problems at scale (such as slow endpoints).
 - Understand which versions are deployed.
 
 The following real-world outcomes have been achieved using this data (excerpt):
@@ -98,11 +98,11 @@ identifiable information.
 ### Identification
 
 To identify an installation and group together clusters, we create a SHA-256
-hash of unique information (e.g. host, port) for identification. Additionally,
+hash of unique information (for example host, port) for identification. Additionally,
 each running instance is identified using an unique identifier which is set
 every time the service starts. The identifier is a Universally Unique Identifier
 (V4) and is thus a cryptographically safe random string. Identification is
-triggered when we're confident that the instance isn't a test instance (e.g.
+triggered when we're confident that the instance isn't a test instance (for example
 one of the tutorials or a local installation).
 
 We collect the following system metrics:

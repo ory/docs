@@ -95,8 +95,8 @@ Ory Hydra issues opaque OAuth 2.0 Access Tokens per default for the following
 reasons:
 
 1. **OAuth 2.0 Access Tokens represent internal state but are public
-   knowledge:** An Access Token often contains internal data (e.g. session data)
-   or other sensitive data (e.g. user roles and permissions) and is sometimes
+   knowledge:** An Access Token often contains internal data (such as session data)
+   or other sensitive data (such as user roles and permissions) and is sometimes
    used as a means of transporting system-relevant information in a stateless
    manner. Therefore, making these tokens transparent (by using JSON Web Tokens
    as Access Tokens) comes with risk of exposing this information,
@@ -137,7 +137,7 @@ token's expiry.
 #### JSON Web Token Validation
 
 You can validate JSON Web Tokens issued by Ory Hydra by pointing your `jwt`
-library (e.g. [node-jwks-rsa](https://github.com/auth0/node-jwks-rsa)) to
+library (for example [node-jwks-rsa](https://github.com/auth0/node-jwks-rsa)) to
 `http://ory-hydra-public-api/.well-known/jwks.json`. All necessary keys are
 available there.
 
@@ -294,8 +294,8 @@ app.
 
 ### Using login_hint with Different Subject
 
-When a user already logged in with a subject(e.g. user-A), and she would like to
-login as another user using login_hint(e.g. login_hint=user-B), directly
+When a user already logged in with a subject(for example user-A), and she would like to
+login as another user using login_hint(for example login_hint=user-B), directly
 accepting the latter login request in your login provider will make hydra reply:
 `Subject from payload doesn't match subject from previous authentication`
 

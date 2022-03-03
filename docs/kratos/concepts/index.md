@@ -30,7 +30,7 @@ reasons for this would perhaps include the following:
 
 - Assumption - it's certifiable;
 - Assumption - it offloads complexity to developers who need to interact with
-  and figure out e.g. `AppAuth`, `PassportJS`, and similar OAuth2 and OpenID
+  and figure out for example `AppAuth`, `PassportJS`, and similar OAuth2 and OpenID
   Connect SDKs developed by open source communities;
 - Assumption - selling complexity as security;
 - Assumption - the nature of closed source doesn't allow for new, open and

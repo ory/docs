@@ -5,7 +5,7 @@ title: 'List API: Display all Objects a User has Access to'
 import CodeTabs from '@site/src/theme/CodeTabs'
 
 In this guide you will learn how to use Ory Keto's list API to display a list of
-all objects (e.g. files, ...) a user has access to. Please refer to the
+all objects (for example files, ...) a user has access to. Please refer to the
 [gRPC](../reference/proto-api.mdx) and [REST](../reference/rest-api.mdx) API
 reference documentation for all details. The list API allows you to
 query relation tuples based on partial relation tuples.
@@ -108,8 +108,7 @@ In our example, a user wants to see who is a member of the `coffee-break` group:
 
 It's important to note that the list API does **not** expand
 [subject sets](../concepts/subjects.mdx#subject-sets). Usually the application
-has some context to determine what tuples to query anyway. That could be e.g.
-knowledge of the structure of subject sets like depth or hierarchy, or the UI
+has some context to determine what tuples to query anyway. That could be knowledge of the structure of subject sets like depth or hierarchy, or the UI
 context, like a "My Items" view which should probably contain other objects than
 a "My Organizations" or "Shared with Me" views. If there really is no way to
 narrow down a query, you will have to use the

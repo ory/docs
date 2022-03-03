@@ -114,7 +114,7 @@ explained a bit later.
 
 :::note
 
-In certain scenarios (e.g. a special OAuth2 Client) you might not want to show
+In certain scenarios (for example a special OAuth2 Client) you might not want to show
 the consent screen at all. In those cases you can choose to skip showing the UI
 and just accept the consent. Please keep in mind that OAuth2 is a delegation
 protocol and that it makes most sense for third-party access. Not showing the
@@ -291,7 +291,7 @@ To reject the Login Challenge, make a HTTP PUT request with
 
 ```json
 {
-  // The error should follow the OAuth2 error format (e.g. `invalid_request`, `login_required`).
+  // The error should follow the OAuth2 error format (for example `invalid_request`, `login_required`).
   "error": "user_banned",
 
   // Description of the error in a human readable format.
@@ -304,7 +304,7 @@ To reject the Login Challenge, make a HTTP PUT request with
   // to the public but only in the server logs.
   "error_debug": "The user was marked banned in the database.",
 
-  // Represents the HTTP status code of the error (e.g. 401 or 403)
+  // Represents the HTTP status code of the error (for example 401 or 403)
   //
   // Defaults to 400
   "status_code": 403

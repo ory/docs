@@ -78,7 +78,7 @@ router.get('/', csrfProtection, (req, res, next) => {
     .getLogoutRequest(challenge)
     // This will be called if the HTTP request was successful
     .then(({ body }) => {
-      // Here we've access to e.g. response.subject, response.sid, ...
+      // Here we've access to response.subject, response.sid, ...
 
       // The most secure way to perform a logout request is by asking the user if he/she really want to log out.
       res.render('logout', {

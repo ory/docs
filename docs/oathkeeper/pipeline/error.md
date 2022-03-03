@@ -13,7 +13,7 @@ HTTP Header `Accept` contains `application/json`.
 
 Each error handler has two keys:
 
-- `handler` (string, required): Defines the handler (e.g. `noop`) to be used.
+- `handler` (string, required): Defines the handler (for example `noop`) to be used.
 - `config` (object, optional): Configures the handler. Configuration keys vary
   per handler. The configuration can be defined in the global configuration
   file, or per access rule.
@@ -304,7 +304,7 @@ handler.
 The HTTP `Accept` Header is the most common way to tell an HTTP API what MIME
 content type is expected. For example, FireFox sends
 `Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8` for
-all regular requests (e.g. when opening [www.ory.sh](https://www.ory.sh/)). And
+all regular requests for example when opening [www.ory.sh](https://www.ory.sh/). And
 a REST API Client usually sends `Accept: application/json`.
 
 Therefore, using the `Accept` header is one of the most common ways to

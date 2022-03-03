@@ -26,7 +26,7 @@ company like CircleCi or TravisCI to have access to your user's data, Ory Hydra
 is the right tool for you.
 
 If you want apps and websites you don't own to use your application as a
-potential sign in (e.g. be listed alongside "Sign in with Google", "Sign in with
+potential sign in (for example be listed alongside "Sign in with Google", "Sign in with
 Apple"), Ory Hydra is the right tool for you.
 
 If you use an API that works with OAuth2 or OpenID Connect, then of course you
@@ -64,7 +64,7 @@ With OAuth2 and OpenID Connect you end up with three session layers:
   set for that user. This allows the next OAuth2 request to complete without
   requesting the user to sign in again.
 - Optionally - If your application connects to a third-party identity provider
-  (e.g. Sign in with Google, GitHub, Facebook, ...) that third party provider
+  (such as Sign in with Google, GitHub, Facebook, ...) that third party provider
   also maintains a session of the user.
 
 A common misconception is that access and refresh tokens represent a user
@@ -140,19 +140,19 @@ They do, and they have great SDKs to help you avoid a lot of the OAuth2 and
 OpenID Complexity until you hit the very core limitations of OAuth2 which are
 amongst others:
 
-- Up to three different session states (see e.g.
+- Up to three different session states (see for example
   [Auth0 Session Layers](https://auth0.com/docs/sessions/concepts/session-layers));
-- Multi-stage logout flows (see e.g.
+- Multi-stage logout flows (see for example
   [Auth0 Logout on NodeJS](https://auth0.com/docs/quickstart/webapp/nodejs),
   [Revoke Tokens on Auth0](https://auth0.com/docs/tokens/guides/revoke-tokens));
-- Logout doesn't invalidate access tokens (see e.g.
+- Logout doesn't invalidate access tokens (see for example
   [Auth0 Logout](https://auth0.com/docs/logout));
-- Complex integration with Social Sign In (e.g. Twitter, Facebook, ...) on
-  native mobile apps (see e.g.
+- Complex integration with Social Sign In (for example Twitter, Facebook, ...) on
+  native mobile apps (see for example
   [iOS Swift - Facebook Login](https://auth0.com/docs/quickstart/native/ios-swift-facebook-login#before-you-start)).
 
 We picked Auth0 docs a lot because they explain the caveats of using OAuth2 and
-OpenID Connect well. These limitations apply to all software (e.g. Ory Hydra,
+OpenID Connect well. These limitations apply to all software (for example Ory Hydra,
 Okta, Keycloak, ...) that use OAuth2 and OpenID Connect as their primary
 protocols.
 
@@ -173,7 +173,7 @@ Storing access and refresh tokens involves tradeoffs:
 On top of that, you need to refresh tokens when they expire which may become
 very complex in scenarios where you have more than one HTTP request using the
 access token. This is mainly true for systems that have refresh tokens which
-are valid for one use only (e.g. Ory Hydra, Auth0, ...).
+are valid for one use only (such as Ory Hydra, Auth0, ...).
 
 **Cookies are great** and a common misconception is that cookies are less secure
 than tokens or less usable. For 95% of web applications it's enough to work
