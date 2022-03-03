@@ -128,7 +128,7 @@ free to [open an issue](https://github.com/ory/kratos/issues/new/choose).
 
 Let's clone Ory Kratos and run `docker-compose`:
 
-```shell script
+```sh
 git clone https://github.com/ory/kratos.git
 cd kratos
 git checkout v0.8.0-alpha.3
@@ -261,11 +261,11 @@ We can use `curl` to get an example of the payload that Ory Kratos responds
 with. `GET` a valid `<flow_id>` or copy it from your browser and make a request
 to `/self-service/login/`:
 
-```shell-session
-$ flowId=$(curl -s -X GET \
+```sh
+flowId=$(curl -s -X GET \
     -H "Accept: application/json" \
     http://127.0.0.1:4433/self-service/login/api | jq -r '.id')
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Accept: application/json" \
     "http://127.0.0.1:4433/self-service/login/flows?id=$flowId" | jq
 {
@@ -372,12 +372,12 @@ The network trace should look familiar by now:
 To get an example of the payload for a registration flow, we can use the same
 `curl` request as above, now to the `self-service/registration` endpoint.
 
-```shell script
-$ flowId=$(curl -s -X GET \
+```sh
+flowId=$(curl -s -X GET \
     -H "Accept: application/json" \
     http://127.0.0.1:4433/self-service/registration/api | jq -r '.id')
 
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Accept: application/json" \
     "http://127.0.0.1:4433/self-service/registration/flows?id=$flowId" | jq
 {
@@ -652,7 +652,7 @@ for pointers how to continue.
 To clean everything up, you need to bring down the Docker Compose environment
 and remove all mounted volumes.
 
-```shell script
+```sh
 docker-compose -f quickstart.yml down -v
 docker-compose -f quickstart.yml rm -fsv
 ```

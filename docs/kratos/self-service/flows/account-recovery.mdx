@@ -272,8 +272,8 @@ Kratos, your Recovery UI, and the end-user's browser:
 To initialize the Recovery Flow, point the Browser to the initialization
 endpoint:
 
-```shell-session
-$ curl -s -i -X GET \
+```sh
+curl -s -i -X GET \
     -H "Accept: text/html" \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery/browser
 
@@ -338,7 +338,7 @@ To initialize the Recovery Flow, call the recovery initialization endpoint and
 set `Accept: application/json`:
 
 ```
-$ curl -v -s -X GET \
+curl -v -s -X GET \
     -H "Accept: application/json"  \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery/browser | jq
 
@@ -434,8 +434,8 @@ endpoint
 ([REST API Reference](../../reference/api.mdx#initialize-recovery-flow-for-api-clients))
 which returns a JSON response:
 
-```shell-session
-$ curl -s -X GET \
+```sh
+curl -s -X GET \
     -H "Accept: application/json"  \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery/api | jq
 
@@ -461,12 +461,12 @@ Fetching the Recovery Flow
 only required for browser clients but also works for Recovery Flows initialized
 by API clients. All you need is a valid flow ID:
 
-```shell-session
-$ flowId=$(curl -s -X GET \
+```sh
+flowId=$(curl -s -X GET \
     -H "Accept: application/json" \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery/api | jq -r '.id')
 
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Accept: application/json" \
     "https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery/flows?id=$flowId" | jq
 
@@ -500,7 +500,7 @@ When the `link` method is enabled, it will be part of the `methods` payload in
 the Recovery Flow:
 
 ```shell script
-$ curl -H "Accept: application/json" -s \
+curl -H "Accept: application/json" -s \
     'https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery/flows?id=199a2c74-08ca-4f22-b24c-3de3032682f8' | \
       jq -r '.ui.nodes[] | select(.group=="link")'
 

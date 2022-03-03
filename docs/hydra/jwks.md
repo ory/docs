@@ -8,7 +8,7 @@ represents a cryptographic key and is specified at
 [IETF RFC7517](https://tools.ietf.org/html/rfc7517). If you've heard of PEM
 files...
 
-```
+```sh
 -----BEGIN ENCRYPTED PRIVATE KEY-----
 id: MIIFDjBABgkqhkiG9w0BBQ0wMzAbBgkqhkiG9w0BBQwwDg
 MBQGCCqGSIb3DQMHBAgD1kGN4ZslJgSCBMi1xk9jhlPxPc

@@ -1044,10 +1044,10 @@ import exampleGo from '!!raw-loader!./code-example.go'
 
 ### Write a shell example
 
-Use `shellsession`:
+Use `sh`:
 
-````bash
-```shellsession
+````sh
+```sh
 npx create-next-app@latest --typescript
 npm i --save @ory/integrations
 ```

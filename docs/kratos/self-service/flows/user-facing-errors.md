@@ -58,8 +58,8 @@ Error UI:
 
 To call a stub error, simply do:
 
-```shell script
-$ curl -s \
+```sh
+curl -s \
   'https://playground.projects.oryapis.com/api/kratos/public/self-service/errors?id=stub:500' | jq
 
 {

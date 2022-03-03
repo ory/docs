@@ -1,4 +1,4 @@
-$ curl -H "Accept: application/json" -s \
+curl -H "Accept: application/json" -s \
     'https://playground.projects.oryapis.com/api/kratos/public/self-service/verification/flows?id=11f6e7f4-99f9-4bcf-bcfc-208d8db942c5' | \
       jq
 

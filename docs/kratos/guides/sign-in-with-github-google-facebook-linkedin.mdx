@@ -8,12 +8,12 @@ different providers using Ory Kratos.
 
 Run the [Quickstart](../quickstart.mdx) with Docker Compose:
 
-```shell script
+```sh
 # This assumes that you have Ory Kratos checked out locally and
 # that your current directory ("pwd") is the folder where Ory Kratos
 # is.
 
-$ make quickstart
+make quickstart
 ```
 
 :::info
@@ -23,7 +23,7 @@ hooks. Otherwise, your users need to use the login flow again to be able to get
 a session.
 
 ```yaml title="path/to/my/kratos/config.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   flows:
     registration:
@@ -110,7 +110,7 @@ Now, enable the Discord provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -207,7 +207,7 @@ Now, enable the Slack provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -305,7 +305,7 @@ Now, enable the GitHub OAuth2 provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -325,7 +325,7 @@ Or enable the GitHub App provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -394,7 +394,7 @@ Now, enable the GitLab provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -476,7 +476,7 @@ endpoint is of the form `myAuth0Tenant.auth0.com` (where `myAuth0Tenant` is the
 name of your tenant).
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -633,7 +633,7 @@ Now, enable the Twitch provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -728,7 +728,7 @@ Now, enable the Facebook provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -790,7 +790,7 @@ Now, enable the Google provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -900,7 +900,7 @@ Now, enable the VK provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -984,7 +984,7 @@ Now, enable the Yandex provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -1054,7 +1054,7 @@ Now, enable the Apple provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -1123,7 +1123,7 @@ Now, enable the Spotify provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:

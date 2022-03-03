@@ -156,8 +156,8 @@ request! For more details about the implementation check the
 </TabItem>
 <TabItem value="curl">
 
-```shell script
-$ curl \
+```sh
+curl \
   "http://127.0.0.1:4445/oauth2/auth/requests/consent?consent_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2"
 ```
 
@@ -262,8 +262,8 @@ To accept the Consent Challenge, make an HTTP PUT request with
 
 With `curl` this might look like the following request:
 
-```shell script
-$ curl --location --request PUT 'http://127.0.0.1:4445/oauth2/auth/requests/consent/accept?consent_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2' \
+```sh
+curl --location --request PUT 'http://127.0.0.1:4445/oauth2/auth/requests/consent/accept?consent_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "grant_scope": ["openid", "offline_access"]
@@ -313,8 +313,8 @@ To reject the Login Challenge, make a HTTP PUT request with
 
 With `curl` this might look like the following request:
 
-```shell script
-$ curl --location --request PUT 'http://127.0.0.1:4445/oauth2/auth/requests/consent/reject?consent_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2' \
+```sh
+curl --location --request PUT 'http://127.0.0.1:4445/oauth2/auth/requests/consent/reject?consent_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "error": "user_banned",

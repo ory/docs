@@ -1,4 +1,4 @@
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Authorization: Bearer $sessionToken"  \
     -H "Accept: application/json"  \
     'https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/flows?id=9b527900-2199-4221-9252-7971b3362282' | \

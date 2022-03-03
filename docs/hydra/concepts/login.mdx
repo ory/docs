@@ -331,8 +331,8 @@ username, or something else that may change over time.
 
 With `curl` this might look like the following request:
 
-```shell script
-$ curl --location --request PUT 'http://127.0.0.1:4445/oauth2/auth/requests/login/accept?login_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2' \
+```sh
+curl --location --request PUT 'http://127.0.0.1:4445/oauth2/auth/requests/login/accept?login_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "subject": "the-user-id-that-just-logged-in",
@@ -384,8 +384,8 @@ To reject the Login Challenge, make a HTTP PUT request with
 
 With `curl` this might look like the following request:
 
-```shell script
-$ curl --location --request PUT 'http://127.0.0.1:4445/oauth2/auth/requests/login/reject?login_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2' \
+```sh
+curl --location --request PUT 'http://127.0.0.1:4445/oauth2/auth/requests/login/reject?login_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "error": "user_banned",

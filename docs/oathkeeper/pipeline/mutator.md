@@ -41,7 +41,7 @@ mutators:
 ### `noop` Access Rule Example
 
 ```shell
-$ cat ./rules.json
+cat ./rules.json
 {
   "id": "some-id",
   "upstream": {
@@ -68,7 +68,7 @@ $ cat ./rules.json
   ]
 }
 
-$ curl -X GET http://my-app/some-route
+curl -X GET http://my-app/some-route
 
 HTTP/1.0 200 Status OK
 The request has been allowed! The original HTTP Request hasn't been modified.
@@ -241,7 +241,7 @@ overwritten!
 ### `id_token` Access Rule Example
 
 ```shell
-$ cat ./rules.json
+cat ./rules.json
 {
   "id": "some-id",
   "upstream": {

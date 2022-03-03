@@ -256,8 +256,8 @@ echo $session | jq
 To initialize the Settings Flow, point the Browser to the initialization
 endpoint:
 
-```shell-session
-$ curl -s -i -X GET \
+```sh
+curl -s -i -X GET \
     --cookie $cookieJar --cookie-jar $cookieJar \
     -H "Accept: text/html" \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/browser
@@ -322,8 +322,8 @@ The Settings Flow for client-side browser clients relies on AJAX requests.
 To initialize the Settings Flow, point the Browser to the initialization
 endpoint:
 
-```shell-session
-$ curl -v -s -X GET \
+```sh
+curl -v -s -X GET \
     --cookie $cookieJar --cookie-jar $cookieJar \
     -H "Accept: application/json"  \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/browser | jq
@@ -376,8 +376,8 @@ endpoint
 ([REST API Reference](../../reference/api.mdx#initialize-settings-flow-for-api-clients))
 which returns a JSON response:
 
-```shell-session
-$ curl -s -X GET \
+```sh
+curl -s -X GET \
     -H "Accept: application/json" \
     -H "Authorization: bearer $sessionToken" \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/api | jq
@@ -437,13 +437,13 @@ Fetching the Settings Flow
 only required for browser clients but also works for Settings Flows initialized
 by API clients. All you need is a valid flow ID:
 
-```shell-session
-$ flowId=$(curl -s -X GET \
+```sh
+flowId=$(curl -s -X GET \
     -H "Accept: application/json" \
     -H "Authorization: bearer $sessionToken" \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/api | jq -r '.id')
 
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Accept: application/json" \
     -H "Authorization: bearer $sessionToken" \
     "https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/flows?id=$flowId" | jq
@@ -468,7 +468,7 @@ When the `profile` method is enabled, it will be part of the `methods` payload
 in the Settings Flow:
 
 ```shell script
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Authorization: Bearer $sessionToken"  \
     -H "Accept: application/json"  \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/api | jq -r '.ui.nodes[] | select(.group=="profile")'
@@ -528,7 +528,7 @@ When the `password` method is enabled, it will be part of the `methods` payload
 in the Settings Flow:
 
 ```shell script
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Authorization: Bearer $sessionToken"  \
     -H "Accept: application/json"  \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/api | jq -r '.ui.nodes[] | select(.group=="password")'
@@ -585,7 +585,7 @@ When the `oidc` method is enabled, it will be part of the `methods` payload in
 the Settings Flow:
 
 ```shell script
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Authorization: Bearer $sessionToken"  \
     -H "Accept: application/json"  \
     'https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/flows?id=14cbf9a7-0c71-46e9-b3b9-806cb7859145' | \
@@ -695,8 +695,8 @@ When the profile update is completed successfully, Ory Kratos responds with a
 HTTP 303 Redirect to the Settings UI which now contains the success state
 (`state: success`) as well as the updated identity:
 
-```shell-session
-$ curl -s -X GET \
+```sh
+curl -s -X GET \
     --cookie $cookieJar --cookie-jar $cookieJar \
     -H "Accept: application/json"  \
     'https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/flows?id=f71743cd-700d-4a30-9275-8edc90de07cc' | \

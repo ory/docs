@@ -45,15 +45,15 @@ export ACCESS_RULES_REPOSITORIES='file://path/to/rules.json,https://path-to-my-r
 The repository (file, inline, remote) must be formatted either as a JSON or a
 YAML array containing the access rules:
 
-```shell
-$ cat ./rules.json
+```sh
+cat ./rules.json
 [{
     "id": "my-first-rule"
 },{
     "id": "my-second-rule"
 }]
 
-$ cat ./rules.yaml
+cat ./rules.yaml
 - id: my-first-rule
   version: v0.36.0-beta.4
   authenticators:

@@ -25,8 +25,8 @@ To install Ory Hydra, the following
 If you wish to install Ory Hydra with an in-memory database, a cryptographically
 strong secret, a Login and Consent provider located at `https://my-idp/` run:
 
-```bash
-$ helm install \
+```sh
+helm install \
     --set 'hydra.config.secrets.system={'$(LC_ALL=C tr -dc 'A-Za-z0-9' < /dev/urandom | base64 | head -c 32)'}' \
     --set 'hydra.config.dsn=memory' \
     --set 'hydra.config.urls.self.issuer=https://my-hydra/' \
@@ -37,8 +37,8 @@ $ helm install \
 
 You can optionally also set the cookie secrets:
 
-```bash
-$ helm install \
+```sh
+helm install \
     ...
     --set 'hydra.config.secrets.cookie=$(LC_ALL=C tr -dc 'A-Za-z0-9' < /dev/urandom | base64 | head -c 32)' \
     ...
@@ -49,13 +49,13 @@ Alternatively, you can use an existing
 [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/)
 instead of letting the Helm Chart create one for you:
 
-```bash
+```sh
 
-$ kubectl create secret generic my-secure-secret --from-literal=dsn=postgres://foo:bar@baz:1234/db \
+kubectl create secret generic my-secure-secret --from-literal=dsn=postgres://foo:bar@baz:1234/db \
     --from-literal=secretsCookie=$(LC_ALL=C tr -dc 'A-Za-z0-9' < /dev/urandom | base64 | head -c 32) \
     --from-literal=secretsSystem=$(LC_ALL=C tr -dc 'A-Za-z0-9' < /dev/urandom | base64 | head -c 32)
 
-$ helm install \
+helm install \
     ...
     --set 'hydra.existingSecret=my-secure-secret' \
     ...
@@ -66,8 +66,8 @@ $ helm install \
 
 To run Ory Hydra against a SQL database, set the connection string. For example:
 
-```bash
-$ helm install \
+```sh
+helm install \
     ...
     --set 'dsn=postgres://foo:bar@baz:1234/db' \
     ory/hydra
@@ -84,8 +84,8 @@ To connect to Google Cloud SQL, you could use the
 [`gcloud-sqlproxy`](https://github.com/rimusz/charts/tree/master/stable/gcloud-sqlproxy)
 chart:
 
-```bash
-$ helm upgrade pg-sqlproxy rimusz/gcloud-sqlproxy --namespace sqlproxy \
+```sh
+helm upgrade pg-sqlproxy rimusz/gcloud-sqlproxy --namespace sqlproxy \
     --set 'serviceAccountKey="$(cat service-account.json | base64 | tr -d '\n')"' \
     ...
 ```
@@ -94,8 +94,8 @@ When bringing up Ory Hydra, set the host to `pg-sqlproxy-gcloud-sqlproxy` as
 documented
 [here](https://github.com/rimusz/charts/tree/master/stable/gcloud-sqlproxy#installing-the-chart):
 
-```bash
-$ helm install \
+```sh
+helm install \
     ...
     --set 'dsn=postgres://foo:bar@pg-sqlproxy-gcloud-sqlproxy:5432/db' \
     ory/hydra
@@ -119,8 +119,8 @@ hydra:
 
 and passing that as a value override to helm:
 
-```bash
-$ helm install -f ./path/to/hydra-config.yaml ory/hydra
+```sh
+helm install -f ./path/to/hydra-config.yaml ory/hydra
 ```
 
 Additionally, the following extra settings are available:
@@ -141,8 +141,8 @@ running Kubernetes locally, please adjust the hostnames accordingly.
 
 Let's install the Login and Consent App first
 
-```bash
-$ helm install hydra-example-idp ory/example-idp \
+```sh
+helm install hydra-example-idp ory/example-idp \
     --set 'hydraAdminUrl=http://hydra-example-admin/' \
     --set 'hydraPublicUrl=http://public.hydra.localhost/' \
     --set 'ingress.enabled=true'
@@ -161,8 +161,8 @@ Next install Ory Hydra. Please note that SSL is disabled using
 outside of `localhost` and only for testing and demonstration purposes. Install
 the Ory Hydra Helm Chart
 
-```bash
-$ helm install hydra-example ory/hydra \
+```sh
+helm install hydra-example ory/hydra \
     --set 'hydra.config.secrets.system={'$(LC_ALL=C tr -dc 'A-Za-z0-9' < /dev/urandom | base64 | head -c 32)'}' \
     --set 'hydra.config.dsn=memory' \
     --set 'hydra.config.urls.self.issuer=http://public.hydra.localhost/' \
@@ -181,15 +181,15 @@ with hostnames
 
 If running Minikube, enable the Ingress addon
 
-```bash
-$ minikube addons enable ingress
+```sh
+minikube addons enable ingress
 ```
 
 and get the IP addresses for the Ingress controllers with (you may need to wait
 a bit)
 
-```bash
-$ kubectl get ing
+```sh
+kubectl get ing
 NAME                   HOSTS                    ADDRESS        PORTS   AGE
 hydra-example-idp      example-idp.localhost    192.168.64.3   80      3m47s
 hydra-example-public   public.hydra.localhost   192.168.64.3   80      35s
@@ -198,16 +198,16 @@ hydra-example-admin    admin.hydra.localhost    192.168.64.3   80      35s
 
 or alternatively with
 
-```bash
-$ minikube ip192.168.64.3
+```sh
+minikube ip192.168.64.3
 
 ```
 
 next route the hostnames to the IP Address from above by editing, for example
 `/etc/hosts`. The result should look something like:
 
-```bash
-$ cat /etc/hosts
+```sh
+cat /etc/hosts
 127.0.0.1	    localhost
 255.255.255.255	broadcasthost
 ::1             localhost
@@ -220,8 +220,8 @@ $ cat /etc/hosts
 Please note that file contents will be different on every operating system and
 network. Now, confirm that everything is working:
 
-```bash
-$ curl http://example-idp.localhost/
+```sh
+curl http://example-idp.localhost/
 http://public.hydra.localhost/.well-known/openid-configuration
 ```
 
@@ -229,15 +229,15 @@ Next, you can follow the [5 Minute Tutorial](../5min-tutorial.mdx), skipping the
 `git` and `docker-compose` set up sections. Assuming you have Ory Hydra
 installed locally, you can rewrite commands from, for example,
 
-```bash
-$ docker-compose -f quickstart.yml exec hydra \
+```sh
+docker-compose -f quickstart.yml exec hydra \
       hydra clients create \
       --endpoint http://127.0.0.1:4445/ \
       --id my-client \
       --secret secret \
       -g client_credentials
 
-$ docker-compose -f quickstart.yml exec hydra \
+docker-compose -f quickstart.yml exec hydra \
       hydra token client \
       --endpoint http://127.0.0.1:4444/ \
       --client-id my-client \
@@ -246,14 +246,14 @@ $ docker-compose -f quickstart.yml exec hydra \
 
 to
 
-```bash
-$ hydra clients create \
+```sh
+hydra clients create \
     --endpoint http://admin.hydra.localhost/ \
     --id my-client \
     --secret secret \
     -g client_credentials
 
-$ hydra token client \
+hydra token client \
     --endpoint http://public.hydra.localhost/ \
     --client-id my-client \
     --client-secret secret
@@ -268,8 +268,8 @@ a Kubernetes controller, which manages OAuth2 clients using the
 enabled and installed together with Hydra. However, it can be disabled by
 setting the proper flag:
 
-```bash
-$ helm install \
+```sh
+helm install \
     --set 'maester.enabled=false' \
     ory/hydra
 ```

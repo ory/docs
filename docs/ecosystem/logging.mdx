@@ -6,8 +6,8 @@ title: Logs and Audit Trails
 Log output is sent to stdout/stderr. There is no option to change the log
 destination. You should use bash pipes instead, for example:
 
-```
-$ hydra serve all >log.txt 2>&1
+```sh
+hydra serve all >log.txt 2>&1
 ```
 
 Log configuration happens via environment variables `LOG_LEVEL`, `LOG_FORMAT`,
@@ -37,11 +37,11 @@ The `level` configuration key supports the following values:
 
 The `format` configuration key supports `text` and `json`:
 
-```
+```sh
 time=2020-05-20T11:57:09+02:00 level=info msg=An example log message. audience=application service_name=foo service_version=bar
 ```
 
-```
+```sh
 {"audience":"application","level":"info","msg":"An example log message.","service_name":"foo","service_version":"bar","time":"2020-05-20T11:56:57+02:00"}
 ```
 
@@ -55,7 +55,7 @@ set to `true` you must ensure that the output isn't stored or cached anywhere.
 
 If `LOG_LEVEL=trace`, traces will be included for log calls and errors:
 
-```
+```json
 {
   "audience": "application",
   "error": {
@@ -82,7 +82,7 @@ The `audience` field distinguishes between `application` logs intended for
 operators and developers, and `audit` logs that document allowed and denied
 authorizations, failed and succeeded log in attempts, and so on:
 
-```
+```sh
 time=2020-05-20T11:57:09+02:00 level=info msg=An example log message. audience=application service_name=foo service_version=bar
 time=2020-05-20T11:57:29+02:00 level=info msg=Login successful. audience=audit service_name=foo service_version=bar
 ```
@@ -101,11 +101,11 @@ We include vital HTTP request info whenever possible:
 - HTTP request path;
 - request query (redacted per default);
 
-```
+```sh
 time=2020-05-20T12:20:10+02:00 level=info msg=I am an example log audience=application http_request=map[headers:map[accept-encoding:gzip user-agent:Go-http-client/1.1] host:127.0.0.1:52286 method:GET path:/foo/bar query:Value is sensitive and has been redacted. To see the value set config key "log.leak_sensitive_values = true" or environment variable "LOG_LEAK_SENSITIVE_VALUES=true". remote:127.0.0.1:52287 scheme:http] service_name=foo service_version=bar
 ```
 
-```
+```sh
 {
   "audience": "application",
   "http_request": {

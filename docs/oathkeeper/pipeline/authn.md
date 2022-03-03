@@ -87,7 +87,7 @@ authenticators:
 ### `noop` Access Rule Example
 
 ```sh
-$ cat ./rules.json
+cat ./rules.json
 
 [{
   "id": "some-id",
@@ -105,7 +105,7 @@ $ cat ./rules.json
   }]
 }]
 
-$ curl -X GET http://my-app/some-route
+curl -X GET http://my-app/some-route
 
 HTTP/1.0 200 Status OK
 The request has been allowed!
@@ -133,7 +133,7 @@ unauthorized:
 ### `unauthorized` Access Rule Example
 
 ```sh
-$ cat ./rules.json
+cat ./rules.json
 
 [{
   "id": "some-id",
@@ -151,7 +151,7 @@ $ cat ./rules.json
   }]
 }]
 
-$ curl -X GET http://my-app/some-route
+curl -X GET http://my-app/some-route
 
 HTTP/1.0 401 Unauthorized
 ```
@@ -195,7 +195,7 @@ sets the subject name to the anonymous username, as long as no `Authorization`
 header is set in the HTTP request:
 
 ```shell
-$ cat ./rules.json
+cat ./rules.json
 
 [{
   "id": "some-id",
@@ -215,12 +215,12 @@ $ cat ./rules.json
   "mutators": [{ "handler": "noop" }]
 }]
 
-$ curl -X GET http://my-app/some-route
+curl -X GET http://my-app/some-route
 
 HTTP/1.0 200 Status OK
 The request has been allowed! The subject is: "anonymous"
 
-$ curl -X GET -H "Authorization: Bearer foobar" http://my-app/some-route
+curl -X GET -H "Authorization: Bearer foobar" http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
 The request isn't authorized because credentials have been provided but only the anonymous
@@ -302,7 +302,7 @@ authenticators:
 ### `cookie_session` Access Rule Example
 
 ```shell
-$ cat ./rules.json
+cat ./rules.json
 
 [{
   "id": "some-id",
@@ -322,12 +322,12 @@ $ cat ./rules.json
   "mutators": [{ "handler": "noop" }]
 }]
 
-$ curl -X GET -b sessionid=abc http://my-app/some-route
+curl -X GET -b sessionid=abc http://my-app/some-route
 
 HTTP/1.0 200 OK
 The request has been allowed! The subject is: "peter"
 
-$ curl -X GET -b sessionid=def http://my-app/some-route
+curl -X GET -b sessionid=def http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
 The request isn't authorized because the provided credentials are invalid.
@@ -432,7 +432,7 @@ authenticators:
 ### `bearer_token` Access Rule Example
 
 ```shell
-$ cat ./rules.json
+cat ./rules.json
 
 [{
   "id": "some-id",
@@ -452,12 +452,12 @@ $ cat ./rules.json
   "mutators": [{ "handler": "noop" }]
 }]
 
-$ curl -X GET -H 'Authorization: Bearer valid-token' http://my-app/some-route
+curl -X GET -H 'Authorization: Bearer valid-token' http://my-app/some-route
 
 HTTP/1.0 200 OK
 The request has been allowed! The subject is: "peter"
 
-$ curl -X GET -H 'Authorization: Bearer invalid-token' http://my-app/some-route
+curl -X GET -H 'Authorization: Bearer invalid-token' http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
 The request isn't authorized because the provided credentials are invalid.
@@ -521,7 +521,7 @@ authenticators:
 ### `oauth2_client_credentials` Access Rule Example
 
 ```shell
-$ cat ./rules.json
+cat ./rules.json
 
 [{
   "id": "some-id",
@@ -544,17 +544,17 @@ $ cat ./rules.json
   "mutators": [{ "handler": "noop" }]
 }]
 
-$ curl -X GET http://my-app/some-route
+curl -X GET http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
 The request isn't authorized because no credentials have been provided.
 
-$ curl -X GET --user idonotexist:whatever http://my-app/some-route
+curl -X GET --user idonotexist:whatever http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
 The request isn't authorized because the provided credentials are invalid.
 
-$ curl -X GET --user peter:somesecret http://my-app/some-route
+curl -X GET --user peter:somesecret http://my-app/some-route
 
 HTTP/1.0 200 OK
 The request has been allowed! The subject is: "peter"
@@ -727,7 +727,7 @@ authenticators:
 ### `oauth2_introspection` Access Rule Example
 
 ```shell
-$ cat ./rules.json
+cat ./rules.json
 
 [{
   "id": "some-id",
@@ -751,17 +751,17 @@ $ cat ./rules.json
   "mutators": [{ "handler": "noop" }]
 }]
 
-$ curl -X GET http://my-app/some-route
+curl -X GET http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
 The request isn't authorized because no credentials have been provided.
 
-$ curl -X GET -H 'Authorization: Bearer invalid-token' http://my-app/some-route
+curl -X GET -H 'Authorization: Bearer invalid-token' http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
 The request isn't authorized because the provided credentials are invalid.
 
-$ curl -X GET -H 'Authorization: Bearer valid.access.token.from.peter' http://my-app/some-route
+curl -X GET -H 'Authorization: Bearer valid.access.token.from.peter' http://my-app/some-route
 
 HTTP/1.0 200 OK
 The request has been allowed! The subject is: "peter"
@@ -960,7 +960,7 @@ authentication session (`.Extra["scp"]`).
 ### `jwt` Access Rule Example
 
 ```shell
-$ cat ./rules.json
+cat ./rules.json
 
 [{
   "id": "some-id",
@@ -985,17 +985,17 @@ $ cat ./rules.json
   "mutators": [{ "handler": "noop" }]
 }]
 
-$ curl -X GET http://my-app/some-route
+curl -X GET http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
 The request isn't authorized because no credentials have been provided.
 
-$ curl -X GET -H 'Authorization: Bearer invalid-token' http://my-app/some-route
+curl -X GET -H 'Authorization: Bearer invalid-token' http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
 The request isn't authorized because the provided credentials are invalid.
 
-$ curl -X GET -H 'Authorization: Bearer valid.jwtfrom.peter' http://my-app/some-route
+curl -X GET -H 'Authorization: Bearer valid.jwtfrom.peter' http://my-app/some-route
 
 HTTP/1.0 200 OK
 The request has been allowed! The subject is: "peter"

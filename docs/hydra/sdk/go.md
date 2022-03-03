@@ -5,7 +5,7 @@ title: Go
 
 To install the Go SDK, run:
 
-```
+```go
 go get -u -d github.com/ory/hydra-client-go
 ```
 
@@ -105,17 +105,17 @@ import "golang.org/x/oauth2/clientcredentials"
 
 func main() {
     publicURL := url.Parse("https://hydra.localhost:4444")
- 	ht := httptransport.NewWithClient(
- 		publicURL.Host,
- 		publicURL.Path,
- 		[]string{publicURL.Scheme},
- 		clientcredentials.Config{
- 			TokenURL:"http://hydra.localhost:4444/oauth2/token",
- 			ClientID:"my-client",
- 			ClientSecret:"my-secret",
- 			Scopes:[]string{"scope-a", "scope-b"},
- 		}.Client(context.Background()),
- 	)
+   ht := httptransport.NewWithClient(
+     publicURL.Host,
+     publicURL.Path,
+     []string{publicURL.Scheme},
+     clientcredentials.Config{
+       TokenURL:"http://hydra.localhost:4444/oauth2/token",
+       ClientID:"my-client",
+       ClientSecret:"my-secret",
+       Scopes:[]string{"scope-a", "scope-b"},
+     }.Client(context.Background()),
+   )
 
     public := hydra.New(ht, nil)
 
@@ -128,7 +128,7 @@ func main() {
 
 ### TLS Termination
 
-```
+```go
 
 import "github.com/ory/hydra-client-go/client"
 import httptransport "github.com/go-openapi/runtime/client"
@@ -141,8 +141,8 @@ func main() {
   rt.Set("X-Forwarded-Proto", "https")
   tlsTermClient.Transport = rt
 
-	transport := httptransport.NewWithClient("host:port", "/", []string{"https"}, tlsTermClient)
-	hydra := client.New(transport, nil)
+  transport := httptransport.NewWithClient("host:port", "/", []string{"https"}, tlsTermClient)
+  hydra := client.New(transport, nil)
 
   // ...
 }
@@ -177,14 +177,14 @@ import httptransport "github.com/go-openapi/runtime/client"#
 import "net/http"
 
 func main() {
-	skipTlsClient := &http.Client{
-		Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		},
-		Timeout: 10,
-	}
-	transport := httptransport.NewWithClient("host:port", "/", []string{"https"}, skipTlsClient)
-	hydra := client.New(transport, nil)
+  skipTlsClient := &http.Client{
+    Transport: &http.Transport{
+      TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+    },
+    Timeout: 10,
+  }
+  transport := httptransport.NewWithClient("host:port", "/", []string{"https"}, skipTlsClient)
+  hydra := client.New(transport, nil)
 
   // ...
 }

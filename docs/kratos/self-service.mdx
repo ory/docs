@@ -123,8 +123,8 @@ Ory Kratos as well.
 First, the Browser opens the flow's initialization endpoint
 (e.g.`/self-service/login/browser`, `/self-service/registration/browser`, ...):
 
-```shell-session
-$ curl -s -i -X GET \
+```sh
+curl -s -i -X GET \
     -H "Accept: text/html" \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser
 
@@ -183,7 +183,7 @@ failure!
 The endpoint returns the flow data - so for example the login form and any
 validation errors. Let's take a look at an example using CURL:
 
-```shell-session
+```sh
 # A cookie jar for storing the CSRF tokens
 $ cookieJar=$(mktemp)
 $ flowId=$(curl -s -X GET \
@@ -459,7 +459,7 @@ The AJAX client (e.g. NextJS app) makes a request to the flow's initialization
 endpoint (e.g.`/self-service/login/browser`,
 `/self-service/registration/browser`, ...):
 
-```shell-session
+```sh
 $ curl -v -s -X GET \
     -H "Accept: application/json"  \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser | jq
@@ -604,7 +604,7 @@ The client (e.g. mobile application) makes a request to the flow's
 initialization endpoint (e.g.`/self-service/login/api`,
 `/self-service/registration/api`, ...):
 
-```shell-session
+```sh
 $ curl -s -X GET \
     -H "Accept: application/json"  \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/login/api | jq

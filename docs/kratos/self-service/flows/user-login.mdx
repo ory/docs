@@ -112,8 +112,8 @@ your Login UI, and the end-user's browser:
 
 To initialize the Login Flow, point the Browser to the initialization endpoint:
 
-```shell-session
-$ curl -s -i -X GET \
+```sh
+curl -s -i -X GET \
     -H "Accept: text/html" \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser
 
@@ -178,8 +178,8 @@ The Login Flow for client-side browser clients relies on AJAX requests.
 To initialize the Login Flow, call the login initialization endpoint and set
 `Accept: application/json`:
 
-```shell-session
-$ curl -v -s -X GET \
+```sh
+curl -v -s -X GET \
     -H "Accept: application/json"  \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser | jq
 
@@ -233,8 +233,8 @@ endpoint
 ([REST API Reference](../../reference/api.mdx#initialize-login-flow-for-api-clients))
 which returns a JSON response:
 
-```shell-session
-$ curl -s -X GET \
+```sh
+curl -s -X GET \
     -H "Accept: application/json"  \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/login/api | jq
 
@@ -259,12 +259,12 @@ Fetching the Login Flow
 required for browser clients but also works for Login Flows initialized by API
 clients. All you need is a valid flow ID:
 
-```shell-session
-$ flowId=$(curl -s -X GET \
+```sh
+flowId=$(curl -s -X GET \
     -H "Accept: application/json" \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/login/api | jq -r '.id')
 
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Accept: application/json" \
     "https://playground.projects.oryapis.com/api/kratos/public/self-service/login/flows?id=$flowId" | jq
 
@@ -295,8 +295,8 @@ first.
 When the `password` method is enabled, it will be part of the `methods` payload
 in the Login Flow:
 
-```shell script
-$ curl -H "Accept: application/json" -s \
+```sh
+curl -H "Accept: application/json" -s \
     'https://playground.projects.oryapis.com/api/kratos/public/self-service/self-service/login/flows?id=42e26bc5-8014-400c-b463-dc5c3738c242' | jq
 
 {
@@ -417,8 +417,8 @@ a future version, which is partially tracked as
 If enabled, the method contains an `oidc` key with the configured sign in
 providers as submit fields:
 
-```shell script
-$ curl -H "Accept: application/json" -s \
+```sh
+curl -H "Accept: application/json" -s \
     'https://playground.projects.oryapis.com/api/kratos/public/self-service/self-service/login/flows?id=d6340737-89f2-4b01-a848-79007de6f430' \
     | jq
 
@@ -539,7 +539,7 @@ Content-Length: 0
 Now, whenever the browser is making a request (with cookies) to the
 `http://127.0.0.1/sessions/whoami` endpoint, the session will be returned:
 
-```shell script
+```sh
 curl -s -H "Cookie: ory_kratos_session=MTU5OTE2ODc2N3xEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJR055VlROMGRteHhSakJrUzBkbmRUUjBlVFY1V0RCRWFVTnJXVmR6V25oaHx2DICsB6IMbaHSQwnYITUZqr7Qx7CxUlnaneJWH495wQ==" \
   https://playground.projects.oryapis.com/api/kratos/public/sessions/whoami | jq
 
@@ -633,16 +633,16 @@ For API Clients, Ory Kratos responds with a JSON payload which includes the
 identity which just authenticated, the session, and the Ory Kratos Session
 Token:
 
-```shell script
+```sh
 # Inits a Login Flow
-$ actionUrl=$(\
+actionUrl=$(\
   curl -s -X GET -H "Accept: application/json" \
     "https://playground.projects.oryapis.com/api/kratos/public/self-service/login/api" \
     | jq -r '.ui.action'\
 )
 
 # Complete Login Flow with password method
-$ curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/json" \
+curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/json" \
     -d '{"password_identifier": "api@user.org", "password": "iohuasf0897zAJHf", "method": "password"}' \
     "$actionUrl" | jq
 
@@ -690,8 +690,8 @@ $ curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/j
 The Ory Kratos Session Token can be checked at the
 `http://127.0.0.1/sessions/whoami` endpoint:
 
-```shell script
-$ curl -s -H "Authorization: Bearer svX8bE9HTiVpMr7r55TtKtcOkLRhAq1a" \
+```sh
+curl -s -H "Authorization: Bearer svX8bE9HTiVpMr7r55TtKtcOkLRhAq1a" \
   https://playground.projects.oryapis.com/api/kratos/public/sessions/whoami | jq
 
 {

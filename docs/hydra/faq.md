@@ -215,8 +215,8 @@ You can do so by running `hydra host --dangerous-force-http`.
 > []uint8 into type \*time.Time is this a known bug ? or any specific mysql
 > version which is required (running 5.7) ?
 
-```bash
-$ hydra help host
+```sh
+hydra help host
 ...
    - MySQL: If DATABASE_URL is a DSN starting with mysql:// MySQL will be used as storage backend.
         Example: DATABASE_URL=mysql://user:password@tcp(host:123)/database?parseTime=true

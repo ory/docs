@@ -92,7 +92,7 @@ We strongly encourage you to validate the JSON Web Token using Ory Proxy's
 public key. The public key is available at `/.ory/proxy/jwks.json`:
 
 ```
-$ curl -sk https://<proxy-host>/.ory/proxy/jwks.json | jq
+curl -sk https://<proxy-host>/.ory/proxy/jwks.json | jq
 {
   "keys": [
     {

@@ -220,5 +220,5 @@ time="2021-07-07T12:51:23Z" level=info msg="JSON Web Key Set 'hydra.openid.id-to
 #### Run Tests with HSM enabled using Docker
 
 ```shell
-$ make quicktest-hsm
+make quicktest-hsm
 ```
