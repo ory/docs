@@ -17,8 +17,7 @@ This guide describes the steps needed to create custom Identity Schemas.
   [Projects/Overview](https://console.ory.sh/projects/list).
 
 - Head over to the "Customize / General" tab (URL:
-  https://console.ory.sh/projects/$YOURPROJECTID/settings) and review the
-  currently active Identity Schema.
+  https://console.ory.sh/projects/$YOURPROJECTID/settings) and review the active Identity Schema.
 
 - Select a preset model or an empty template as the basis for your new custom
   Identity Schema.
@@ -33,7 +32,7 @@ This guide describes the steps needed to create custom Identity Schemas.
   textbox between the checkbox and the schema.
 
 - Press `Enter` or hit the `Update` button to save it, once you have made your
-  changes. Currently, it isn't possible to edit an existing Identity Schema on
+  changes. It isn't possible to edit an existing Identity Schema on
   the same revision. The Identity Schema can still be reused as a template for a
   following revision.
 
@@ -99,7 +98,7 @@ flow in the Ory Cloud. It also includes a method for
 [`recovery`](https://www.ory.sh/kratos/docs/self-service/flows/account-recovery#recovery-link-method)
 as well as
 [`verification`](https://www.ory.sh/kratos/docs/self-service/flows/verify-email-account-activation/#verification-link-method).
-Currently, only the `email` method is available (recovery/verification via a
+Only the `email` method is available (recovery/verification via a
 link sent in an email).
 
 ```diff
@@ -188,7 +187,7 @@ adding the above examples the sign-up screen would look like so:
 
 ### Changing existing Identity Schemas
 
-While it's currently not possible to directly edit existing Identity Schemas,
+While it's not possible to directly edit existing Identity Schemas,
 you can make revisions.
 
 For example, an Identity Schema named "Customer Type 1" exists and you would
@@ -205,8 +204,7 @@ like to make changes to it:
 The
 [`additionalProperties`](https://json-schema.org/understanding-json-schema/reference/object.html#additional-properties)
 keyword is used to control the handling of properties whose names aren't listed
-in the properties keyword. This currently has no effect and should be set to
-false.
+in the properties keyword. This has no effect and should be set to false.
 
 ```json
       "additionalProperties": false

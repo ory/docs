@@ -51,7 +51,7 @@ The Login and Registration flows have three fields (all optional):
 
 1. `Default Redirect URL` domain or path relative to your application URL
 2. An `Post-Password Redirect URL`
-3. An `Post-OIDC Redirect URL` (**currently not supported**)
+3. An `Post-OIDC Redirect URL` (**not supported**)
 
 And Settings has three fields (all optional):
 
@@ -61,7 +61,7 @@ And Settings has three fields (all optional):
 
 :::info
 
-Setting `Post-OIDC` redirects for Login and Registration are currently not
+Setting `Post-OIDC` redirects for Login and Registration are not
 supported since an Ory Cloud project can't be setup to use OIDC yet. This will
 be supported in the future. For more information see the
 [Ory Cloud Roadmap](../cloud/cloud-roadmap.mdx).
@@ -95,9 +95,8 @@ https://myapp.com/after/login/password.
 
 :::warning
 
-The `Post-Recovery` redirect is currently not supported and will automatically
-redirect the user to the `Settings UI` URL. This implies that you should
-currently rely on the `Post-Settings` redirect URL for `Post-Recovery` flows as
+The `Post-Recovery` redirect is not supported and will automatically
+redirect the user to the `Settings UI` URL. This implies that you should rely on the `Post-Settings` redirect URL for `Post-Recovery` flows as
 well.
 
 :::

@@ -52,7 +52,7 @@ and can be run as a single, static binary on top of, for example, a raw Linux
 kernel. The binary and Docker image are each less than 20MB in size.
 
 Ory Kratos scales horizontally without effort. The only external dependency is
-an RDBMS - we currently support SQLite, PostgreSQL, MySQL, CockroachDB. You will
+an RDBMS - we support SQLite, PostgreSQL, MySQL, CockroachDB. You will
 not need memcached, etcd, or any other system to scale Ory Kratos.
 
 We believe in strong separation of concerns, which is a guiding principle in the

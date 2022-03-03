@@ -196,7 +196,7 @@ router.post('/login', csrfProtection, (req, res, next) => {
 <TabItem value="node">
 
 ```typescript
-// You can deny the login request at any point - for example if the system is currently undergoing maintenance
+// You can deny the login request at any point - for example if the system is undergoing maintenance
 // or the user has been banned, isn't allowed to use OAuth2 flows, and so on:
 hydraAdmin
   .rejectLoginRequest(challenge, {

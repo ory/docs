@@ -33,7 +33,7 @@ pages for why the mapping is necessary.
 Our example application allows users to browse the chats they belong to. To
 achieve that, it uses Ory Keto's list API.
 
-We assume that the application currently has the following chats:
+We assume that the application has the following chats:
 
 ```yml
 memes:
@@ -120,7 +120,7 @@ and can quickly degrade the service quality for all users. Please refer to the
 
 ## Pagination
 
-The list API only returns paginated results. Currently, it isn't possible to
+The list API only returns paginated results. It isn't possible to
 customize the order of results. The response returns an opaque token that has to
 be used to retrieve the following page. The first page can be retrieved by
 passing no, or an empty token.

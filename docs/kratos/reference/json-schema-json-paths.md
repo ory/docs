@@ -16,8 +16,7 @@ things.
 To learn more about JSON Schema, head over to
 [json-schema.org/learn/](https://json-schema.org/learn/).
 
-We're currently using JSON Schema Draft7 but plan on migrating to a newer
-version in the future.
+Ory Kratos is using JSON Schema Draft7.
 
 ## JSON Path Syntax
 

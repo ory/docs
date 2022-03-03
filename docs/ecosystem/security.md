@@ -5,7 +5,7 @@ title: Security Policy
 
 :::caution Disclaimer
 
-We're currently in the process of setting up a disclosure platform. Until that
+We're  in the process of setting up a disclosure platform. Until that
 process is done, we can't payout bug bounties due to the administrative
 overhead. All disclosures that are made until the launch, will later be
 processed under the same conditions, but we can't guarantee when that happens.

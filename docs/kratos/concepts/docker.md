@@ -53,7 +53,7 @@ verify signatures and encrypt things:
 ### Volumes
 
 If the file `$HOME/.kratos.yaml` exists, it will be used as the configuration
-file. The provided Kratos Docker images currently don't include a default
+file. The provided Kratos Docker images don't include a default
 configuration file, but make it easy to pass in your own configuration file(s)
 by either binding a local directory or by creating your own custom Docker Image
 and adding the configuration file(s) to the custom image.

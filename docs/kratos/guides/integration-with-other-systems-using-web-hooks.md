@@ -25,8 +25,8 @@ selfservice:
                 body: /path/to/my/mandrillapp.jsonnet
 ```
 
-And create a JsonNet file. Please be aware that Mailchimps' authentication
-mechanism currently requires to save the Mailchimp key in the JsonNet. For other
+And create a JsonNet file. Please be aware that Mailchimps authentication
+mechanism requires to save the Mailchimp key in the JsonNet. For other
 systems you would be using the `web_hook`'s `auth` config.
 
 ```jsonnet title="/path/to/my/mandrillapp.jsonnet"

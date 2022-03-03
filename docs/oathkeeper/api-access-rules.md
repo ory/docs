@@ -32,7 +32,7 @@ access_rules:
     - s3://my-bucket-name/rules.json?endpoint=minio.my-server.net
     - gs://gcp-bucket-name/rules.json
     - azblob://my-blob-container/rules.json
-  # Determines a matching strategy for the access rules . Currently supported values are `glob` and `regexp`. Empty string defaults to regexp.
+  # Determines a matching strategy for the access rules . Supported values are `glob` and `regexp`. Empty string defaults to regexp.
   matching_strategy: glob
 ```
 

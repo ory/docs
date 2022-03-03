@@ -62,7 +62,7 @@ running Hydra is easiest with Docker. Ory Hydra is available on
 [Docker Hub](https://hub.docker.com/r/oryd/hydra/).
 
 ```shell
-# The system secret can only be set against a fresh database. Key rotation is currently not supported. This
+# The system secret can only be set against a fresh database. Key rotation is not supported. This
 # secret is used to encrypt the database and needs to be set to the same value every time the process (re-)starts.
 # You can use /dev/urandom to generate a secret. But make sure that the secret must be the same anytime you define it.
 # You could, for example, store the value somewhere.

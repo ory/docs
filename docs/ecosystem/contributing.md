@@ -305,9 +305,8 @@ implementation in `persistence/sql`.
 
 :::info
 
-This section currently only applies to Ory Kratos and Ory Keto. Ory Hydra is
-currently using an approach that doesn't rely on fizz migrations. Please
-discuss with maintainers before making changes to Ory Hydra SQL schemata.
+This section only applies to Ory Kratos and Ory Keto. Ory Hydra is using an approach that doesn't rely on fizz migrations. Please
+discuss with maintainers before making changes to the Ory Hydra SQL schemata.
 
 :::
 

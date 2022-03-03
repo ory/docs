@@ -37,7 +37,7 @@ reasons for this would perhaps include the following:
   de-facto standards to emerge and instead uses a consenus driven feature set,
   even if it doesn't fit the use case 100%.
 
-While Ory Kratos is currently not certifiable, it tackles these topics as
+While Ory Kratos is not certifiable, it tackles these topics as
 follows:
 
 - With inspiration from the approach taken in the Kubernetes Project, Ory
