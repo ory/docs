@@ -4,10 +4,7 @@ title: Data Storage and Persistence
 ---
 
 All Ory projects support storing data in memory and in relational databases
-(PostgreSQL, MySQL).
-
-Ory Hydra additionally supports CockroachDB, but still beta, use it at your own
-risk!
+such as PostgreSQL, MySQL, SQLite and CockroachDB.
 
 ## In-memory (ephemeral)
 
