@@ -9,7 +9,7 @@ import 'package:pretty_json/pretty_json.dart';
 
 Future main() async {
   // load the .env file
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: "env");
 
   final baseUrl = dotenv.get("ORY_BASE_URL").toString();
 

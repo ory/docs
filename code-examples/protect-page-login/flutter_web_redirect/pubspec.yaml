@@ -22,6 +22,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  # Load our .env file from the root directory
+  # Load our env file from the root directory
   assets:
-    - .env
+    - env
