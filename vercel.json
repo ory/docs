@@ -6,13 +6,23 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/",
+      "source": "https://docs-omega-six.vercel.app/",
       "destination": "https://www.ory.sh/docs",
       "permanent": false
     },
     {
-      "source": "/docs(/|)",
+      "source": "https://docs-omega-six.vercel.app/docs(/|)",
       "destination": "https://www.ory.sh/docs/welcome",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "destination": "/docs",
+      "permanent": false
+    },
+    {
+      "source": "/docs(/|)",
+      "destination": "/docs/welcome",
       "permanent": false
     },
     {
