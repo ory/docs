@@ -43,9 +43,9 @@ This environment variable allows you to specify the database source name. As the
 access the database it's recommended to specify the `DSN` using a Environment
 variable.
 
-**Example:**
+##### `DSN` Example
 
-```
+```sh
 docker run -e DSN="memory" oryd/kratos:<version>
 ```
 
@@ -54,7 +54,7 @@ docker run -e DSN="memory" oryd/kratos:<version>
 This environment variable allows you to specify the secret used to sign and
 verify signatures and encrypt things:
 
-**Example:**
+##### `SECRETS_DEFAULT` Example
 
 `docker run -e SECRETS_DEFAULT="CHANGE-ME" oryd/kratos:<version>`
 
@@ -67,18 +67,20 @@ and adding the configuration file(s) to the custom image.
 
 #### Binding host directory
 
-**Example:** In this example we start the standard Docker container with SQLite
+##### Binding host directory example
+
+In this example we start the standard Docker container with SQLite
 support and use the quickstart email-password example configuration files by
 bind mounting the local directory. This example assumes that you checked out the
 Kratos Git repo and execute the Docker command in the Kratos Git repo directory:
 
-```
+```sh
 docker run -it -e DSN="memory" \
    --mount type=bind,source="$(pwd)"/contrib/quickstart/kratos/email-password,target=/home/ory \
    oryd/kratos:<version>
 ```
 
-In general we only recommend this approach for local development.
+We only recommend this approach for local development.
 
 #### Creating custom Docker image
 
@@ -95,6 +97,6 @@ COPY contrib/quickstart/kratos/email-password/kratos.yml /home/ory
 **Note that in both cases**, you must supply the location of the configuration
 file using the `--config` flag when running the container.
 
-```
-$ docker run <theimage> --config /home/ory/kratos.yml
+```sh
+docker run <theimage> --config /home/ory/kratos.yml
 ```

@@ -6,7 +6,7 @@ title: HTML Form Parser
 If you're using HTML Forms to sign users up or update profiles, Ory Kratos needs
 to assert the type of each field, as HTML Form Field Values are untyped.
 
-Ory Kratos uses the Identity Schema to assert form field types. 
+Ory Kratos uses the Identity Schema to assert form field types.
 
 ## Nesting
 
@@ -39,7 +39,7 @@ Assuming this Identity Schema:
 
 You could address `traits.name.first` this with an HTML Input Form:
 
-```
+```js
 <input type="text" name="traits.name.last">
 ```
 
@@ -48,7 +48,7 @@ You could address `traits.name.first` this with an HTML Input Form:
 Checkboxes for `true` / `false` can be set up as follows. If the value is
 supposed to be false: not checked:
 
-```
+```js
 <input type="hidden" value="false" name="traits.path.to.my.boolean" />
 <input type="checkbox" value="true" name="traits.path.to.my.boolean" />
 ```

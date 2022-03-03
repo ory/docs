@@ -38,8 +38,8 @@ access_rules:
 
 or by setting the equivalent environment variable:
 
-```bash
-$ export ACCESS_RULES_REPOSITORIES='file://path/to/rules.json,https://path-to-my-rules/rules.json,inline://W3siaWQiOiJmb28tcnVsZSIsImF1dGhlbnRpY2F0b3JzIjpbXX1d'
+```sh
+export ACCESS_RULES_REPOSITORIES='file://path/to/rules.json,https://path-to-my-rules/rules.json,inline://W3siaWQiOiJmb28tcnVsZSIsImF1dGhlbnRpY2F0b3JzIjpbXX1d'
 ```
 
 The repository (file, inline, remote) must be formatted either as a JSON or a
@@ -147,7 +147,7 @@ Access Rules have four principal keys:
   `errors.fallback` was changed. For more information on error handlers, click
   [here](pipeline/error.md).
 
-**Examples**
+#### Examples
 
 Rule in JSON format:
 
@@ -258,19 +258,17 @@ struct:
 
 ```go
 type AuthenticationSession struct {
-	Subject      string
-	Extra        map[string]interface{}
-	Header       http.Header
-	MatchContext MatchContext
+  Subject      string
+  Extra        map[string]interface{}
+  Header       http.Header
+  MatchContext MatchContext
 }
 
 type MatchContext struct {
-	RegexpCaptureGroups []string
-	URL                 *url.URL
+  RegexpCaptureGroups []string
+  URL                 *url.URL
 }
 ```
-
-**Examples**
 
 If the match URL is `<https|http>://mydomain.com/<.*>` and the request is
 `http://mydomain.com/foo`, the `MatchContext` field will contain

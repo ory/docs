@@ -32,7 +32,7 @@ contains a list of errors and their details, for example:
 ```
 
 We're working on documenting possible error messages and homogenize error
-layouts. In general, errors have the following keys defined:
+layouts. Errors have the following keys defined:
 
 ```json
 {

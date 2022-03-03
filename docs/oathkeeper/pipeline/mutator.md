@@ -19,7 +19,7 @@ This mutator doesn't transform the HTTP request and simply forwards the headers
 as-is. This is useful if you don't want to replace, for example,
 `Authorization: basic` with `X-User: <subject-id>`.
 
-### Configuration
+### `noop` Configuration
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -38,7 +38,7 @@ mutators:
   - handler: noop
 ```
 
-### Access Rule Example
+### `noop` Access Rule Example
 
 ```shell
 $ cat ./rules.json
@@ -84,7 +84,7 @@ Token. Your backend can verify the token by fetching the (public) key from the
 Let's say a request is made to a resource protected by ORY Oathkeeper using
 Basic Authorization:
 
-```
+```bash
 GET /api/resource HTTP/1.1
 Host: www.example.com
 Authorization: Basic Zm9vOmJhcg==
@@ -94,7 +94,7 @@ Assuming that ORY Oathkeeper is granting the access request,
 `Basic Zm9vOmJhcg==` will be replaced with a cryptographically signed JSON Web
 Token:
 
-```
+```bash
 GET /api/resource HTTP/1.1
 Host: internal-api-endpoint-dns
 Authorization: Bearer <jwt-signed-id-token>
@@ -105,7 +105,7 @@ Token using the public key supplied by ORY Oathkeeper's API. The public key for
 decoding the ID token is available at ORY Oathkeeper's `/.well-known/jwks.json`
 endpoint:
 
-```
+```bash
 http://oathkeeper:4456/.well-known/jwks.json
 ```
 
@@ -150,16 +150,14 @@ The ID Token Claims are as follows:
   date/time MUST be before the expiration date/time listed in the value. Its
   value is a JSON number representing the number of seconds from
   1970-01-01T0:0:0Z as measured in UTC until the date/time. See RFC 3339
-  [RFC3339] for details regarding date/times in general and UTC in particular.
+  [RFC3339] for details regarding date/times and UTC in particular.
 - `iat`: Time at which the JWT was issued. Its value is a JSON number
   representing the number of seconds from 1970-01-01T0:0:0Z as measured in UTC
   until the date/time.
 - `jti`: A cryptographically strong random identifier to ensure the ID Token's
   uniqueness.
 
-### Global Configuration
-
-### Configuration
+### `id_token` Configuration
 
 - `issuer_url` (string, required) - Sets the "iss" value of the ID Token.
 - `jwks_url` (string, required) - Sets the URL where keys should be fetched
@@ -216,7 +214,7 @@ The first private key found in the JSON Web Key Set defined by
   ...), that key will be used. The related public key will be broadcasted at
   `/.well-known/jwks.json`.
 
-#### Claims
+#### `id_token` Claims
 
 This mutator allows you to specify custom claims, like the audience of ID
 tokens, via the `claims` field of the mutator's `config` field. The keys
@@ -240,7 +238,7 @@ The claims configuration expects a string which is expected to be valid JSON:
 Please keep in mind that certain keys (such as the `sub`) claim **can't** be
 overwritten!
 
-### Access Rule Example
+### `id_token` Access Rule Example
 
 ```shell
 $ cat ./rules.json
@@ -284,7 +282,7 @@ This mutator will transform the request, allowing you to pass the credentials to
 the upstream application via the headers. This will augment, for example,
 `Authorization: basic` with `X-User: <subject-id>`.
 
-### Configuration
+### `header` Configuration
 
 - `headers` (object (`string: string`), required) - A keyed object
   (`string:string`) representing the headers to be added to this request, see
@@ -324,7 +322,7 @@ package for value substitution, receiving the `AuthenticationSession` struct.
 
 For more details please check [Session variables](../pipeline.md#session)
 
-### Access Rule Example
+### `header` Access Rule Example
 
 ```json
 {
@@ -363,7 +361,7 @@ For more details please check [Session variables](../pipeline.md#session)
 This mutator will transform the request, allowing you to pass the credentials to
 the upstream application via the cookies.
 
-### Configuration
+### `cookie` Configuration
 
 - `cookies` (object (`string: string`), required) - A keyed object
   (`string:string`) representing the cookies to be added to this request, see
@@ -403,7 +401,7 @@ package for value substitution, receiving the `AuthenticationSession` struct.
 
 For more details please check [Session variables](../pipeline.md#session)
 
-##### Example
+#### `cookie` Example
 
 ```json
 {
@@ -498,7 +496,7 @@ of cache misses. This will be improved in future versions.
 
 :::
 
-### Configuration
+### `hydrator` Configuration
 
 - `api.url` (string - required) - The API URL.
 - `api.auth.basic.*` (optional) - Enables HTTP Basic Authorization.
@@ -546,7 +544,7 @@ mutators:
         ttl: 60s
 ```
 
-### Access Rule Example
+### `hydrator` Access Rule Example
 
 ```json
 {

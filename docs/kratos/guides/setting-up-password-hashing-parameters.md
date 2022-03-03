@@ -17,8 +17,8 @@ We recommend choosing a duration of 0.5s to 1s and as much memory as possible.
 To determine the exact recommended values following security best practices, run
 the CLI helper included in Ory Kratos:
 
-```
-$ kratos hashers argon2 calibrate 1s
+```sh
+kratos hashers argon2 calibrate 1s
 ```
 
 It will output the exact values to use in the

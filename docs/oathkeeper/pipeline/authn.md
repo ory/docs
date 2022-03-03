@@ -20,8 +20,6 @@ Each authenticator has two keys:
   per handler. The configuration can be defined in the global configuration
   file, or per access rule.
 
-**Example**
-
 ```json
 {
   "authenticators": [
@@ -72,7 +70,7 @@ any request to be forwarded to the upstream URL.
 > when the upstream handles access control itself or doesn't need any type of
 > access control.
 
-### Configuration
+### `noop` Configuration
 
 This handler isn't configurable.
 
@@ -86,7 +84,7 @@ authenticators:
     enabled: true
 ```
 
-### Access Rule Example
+### `noop` Access Rule Example
 
 ```sh
 $ cat ./rules.json
@@ -118,7 +116,7 @@ The request has been allowed!
 The `unauthorized` handler tells ORY Oathkeeper to reject all requests as
 unauthorized.
 
-### Configuration
+### `unauthorized` Configuration
 
 This handler isn't configurable.
 
@@ -132,7 +130,7 @@ unauthorized:
     enabled: true
 ```
 
-### Access Rule Example
+### `unauthorized` Access Rule Example
 
 ```sh
 $ cat ./rules.json
@@ -163,7 +161,7 @@ HTTP/1.0 401 Unauthorized
 The `anonymous` authenticator checks whether or not an `Authorization` header is
 set. If not, it will set the subject to `anonymous`.
 
-### Configuration
+### `anonymous` Configuration
 
 - `subject` (string, optional) - Sets the anonymous username. Defaults to
   "anonymous". Common names include "guest", "anon", "anonymous", "unknown".
@@ -190,7 +188,7 @@ authenticators:
       subject: guest
 ```
 
-### Access Rule Example
+### `anonymous` Access Rule Example
 
 The following rule allows all requests to `GET http://my-app/some-route` and
 sets the subject name to the anonymous username, as long as no `Authorization`
@@ -237,7 +235,7 @@ headers to a session store. If the session store returns `200 OK` and body
 appropriately. Please note that Gzipped responses from `check_session_url` are
 not supported, and will fail silently.
 
-### Configuration
+### `cookie_session` Configuration
 
 - `check_session_url` (string, required) - The session store to forward request
   method/path/headers to for validation.
@@ -301,7 +299,7 @@ authenticators:
       preserve_query: true
 ```
 
-### Access Rule Example
+### `cookie_session` Access Rule Example
 
 ```shell
 $ cat ./rules.json
@@ -343,7 +341,7 @@ headers to a session store. If the session store returns `200 OK` and body
 appropriately. Please note that Gzipped responses from `check_session_url` are
 not supported, and will fail silently.
 
-### Configuration
+### `bearer_token` Configuration
 
 - `check_session_url` (string, required) - The session store to forward request
   method/path/headers to for validation.
@@ -431,7 +429,7 @@ authenticators:
       preserve_query: true
 ```
 
-### Access Rule Example
+### `bearer_token` Access Rule Example
 
 ```shell
 $ cat ./rules.json
@@ -478,7 +476,7 @@ header as the subject for this request.
 > If you are unfamiliar with OAuth 2.0 Client Credentials we recommend
 > [reading this guide](https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/).
 
-### Configuration
+### `oauth2_client_credentials` Configuration
 
 - `token_url` (string, required) - The OAuth 2.0 Token Endpoint that will be
   used to validate the client credentials.
@@ -520,7 +518,7 @@ authenticators:
       token_url: https://my-website.com/oauth2/token
 ```
 
-### Access Rule Example
+### `oauth2_client_credentials` Access Rule Example
 
 ```shell
 $ cat ./rules.json
@@ -566,7 +564,7 @@ In the background, a request to the OAuth 2.0 Token Endpoint (value of
 `authenticators.oauth2_client_credentials.token_url`) will be made, using the
 OAuth 2.0 Client Credentials Grant:
 
-```
+```bash
 POST /oauth2/token HTTP/1.1
 Host: authorization-server.com
 
@@ -590,7 +588,7 @@ was granted the requested scope.
 > If you are unfamiliar with OAuth 2.0 Introspection we recommend
 > [reading this guide](https://www.oauth.com/oauth2-servers/token-introspection-endpoint/).
 
-### Configuration
+### `oauth2_introspection` Configuration
 
 - `introspection_url` (string, required) - The OAuth 2.0 Token Introspection
   endpoint.
@@ -726,7 +724,7 @@ authenticators:
         give_up_after: 2s
 ```
 
-### Access Rule Example
+### `oauth2_introspection` Access Rule Example
 
 ```shell
 $ cat ./rules.json
@@ -774,7 +772,7 @@ Endpoint (configuration value
 `authenticators.oauth2_introspection.introspection_url`) to check if the Bearer
 Token is valid:
 
-```
+```bash
 POST /oauth2/introspect HTTP/1.1
 
 token=valid.access.token.from.peter
@@ -783,7 +781,7 @@ token=valid.access.token.from.peter
 If pre-authorization is enabled, that request will include an Authorization
 Header:
 
-```
+```bash
 POST /oauth2/introspect HTTP/1.1
 Authorization: Bearer token-received-by-performing-pre-authorization
 
@@ -801,7 +799,7 @@ Authorization Header (`Authorization: bearer <token>`) or in a different header
 or query parameter specified in configuration. It assumes that the token is a
 JSON Web Token and tries to verify the signature of it.
 
-### Configuration
+### `jwt` Configuration
 
 - `jwks_urls` ([]string, required) - The URLs where ORY Oathkeeper can retrieve
   JSON Web Keys from for validating the JSON Web Token. Usually something like
@@ -904,7 +902,7 @@ authenticators:
         # cookie: auth-token
 ```
 
-#### Validation example
+#### `jwt` Validation example
 
 ```json
 {
@@ -924,7 +922,7 @@ authenticators:
 That exemplary Access Rule consider the following (decoded) JSON Web Token as
 valid:
 
-```
+```json
 {
   "alg": "RS256"
 }
@@ -938,7 +936,7 @@ valid:
 And this token as invalid (audience is missing, issuer isn't matching, scope is
 missing, wrong algorithm):
 
-```
+```json
 {
   "alg": "HS256"
 }
@@ -949,7 +947,7 @@ missing, wrong algorithm):
 }
 ```
 
-### Scope
+### `jwt` Scope
 
 JSON Web Tokens can be scoped. However, that feature isn't standardized and
 several claims that represent the token scope have been seen in the wild: `scp`,
@@ -959,7 +957,7 @@ a space-delimited string (`"scope-a scope-b"`) or a JSON string array
 checked and parsed and will be available as `scp` (string array) in the
 authentication session (`.Extra["scp"]`).
 
-### Access Rule Example
+### `jwt` Access Rule Example
 
 ```shell
 $ cat ./rules.json

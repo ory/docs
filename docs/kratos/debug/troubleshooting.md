@@ -22,7 +22,7 @@ Clients like Electron, Postman or Insomnia are browsers themselves, which can
 cause requests to fail. For testing purposes [cURL](https://curl.se/) is a good
 choice.
 
-### How can I separate customers/employee data, but have them use the same login dialog?
+### How can I separate customers/employee data, but have them use the same login dialog
 
 > We want to separate our customers and employees, so we store them in different
 > databases. But we would like to have them use the same login dialog for our

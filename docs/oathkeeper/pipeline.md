@@ -72,17 +72,17 @@ struct content.
 
 ```go
 type AuthenticationSession struct {
-	Subject      string
-	Extra        map[string]interface{}
-	Header       http.Header
-	MatchContext MatchContext
+  Subject      string
+  Extra        map[string]interface{}
+  Header       http.Header
+  MatchContext MatchContext
 }
 
 type MatchContext struct {
-	RegexpCaptureGroups []string
-	URL                 *url.URL
-	Method              string
-	Header              http.Header
+  RegexpCaptureGroups []string
+  URL                 *url.URL
+  Method              string
+  Header              http.Header
 }
 ```
 

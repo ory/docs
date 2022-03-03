@@ -71,7 +71,7 @@ docker run -it -e DSN="memory" \
        oryd/kratos:latest-sqlite
 ```
 
-In general we only recommend this approach for local development.
+We only recommend this approach for local development.
 
 #### Creating custom Docker image
 

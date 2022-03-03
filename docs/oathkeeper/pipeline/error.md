@@ -18,7 +18,7 @@ Each error handler has two keys:
   per handler. The configuration can be defined in the global configuration
   file, or per access rule.
 
-**Example**
+#### Example
 
 ```json
 {
@@ -392,7 +392,7 @@ surface. You can enable more detailed error messages by setting `verbose` to
 `true`. As discussed in the previous section, you can define error matching
 conditions under the `when` key.
 
-**Example**
+#### `json` Example
 
 ```json5
 // access-rule.json
@@ -420,7 +420,7 @@ either from the URL, or from the `X-Forwarded-Method`, `X-Forwarded-Proto`,
 `X-Forwarded-Host`, `X-Forwarded-Uri` headers (if present) of the incoming
 request.
 
-**Example**
+#### `redirect` Example
 
 ```json5
 // access-rule.json
@@ -458,7 +458,7 @@ This error handler is "exotic" as WWW-Authenticate isn't a common pattern in
 today's web. As discussed in the previous section, you can define error matching
 conditions under the `when` key.
 
-**Example**
+#### `www_authenticate` Example
 
 ```json5
 // access-rule.json

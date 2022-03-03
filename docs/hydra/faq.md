@@ -73,20 +73,17 @@ in legacy/migration scenarios, and
 > but instead have potentially the same capabilities as the user themselves. As
 > there is no authorization step, the ability to offer token revocation is
 > bypassed.
-
 > Because passwords are often used for more than 1 service, this anti-pattern
 > may also put at risk whatever else is accessible with the supplied credential.
 > Additionally, any derived equivalent (e.g., joe@example.com and
 > joe@example.net) might allow someone to guess that the same password
 > can be used elsewhere.
-
 > Impact: The resource server can only differentiate scope based on the access
 > token being associated with a particular client. The client could also acquire
 > long-lived tokens and pass them up to an attacker's web service for further
 > abuse. The client, eavesdroppers, or endpoints could eavesdrop the user id and
 > password.
-
-> o Except for migration reasons, minimize use of this grant type.
+> Except for migration reasons, minimize use of this grant type.
 
 - [source](https://tools.ietf.org/html/rfc6819#section-4.4.3)
 
@@ -155,7 +152,7 @@ available, we advise to extend the Ory Hydra Docker image
 
 **Dockerfile**
 
-```
+```sql
 FROM oryd/hydra:<tag>
 
 ENTRYPOINT hydra migrate sql --yes $DATABASE_URL
@@ -186,12 +183,12 @@ There are various levels supported:
 You can import TLS certificates when running `hydra host`. This can be done by
 setting the following environment variables:
 
-**Read from file**
+### Read from file
 
 - `HTTPS_TLS_CERT_PATH`: The path to the TLS certificate (pem encoded).
 - `HTTPS_TLS_KEY_PATH`: The path to the TLS private key (pem encoded).
 
-**Embedded**
+### Embedded
 
 - `HTTPS_TLS_CERT`: A pem encoded TLS certificate passed as string. Can be used
   instead of TLS_CERT_PATH.
@@ -200,14 +197,10 @@ setting the following environment variables:
 
 Or by specifying the following flags:
 
-```
+```bash
 --https-tls-cert-path string   Path to the certificate file for HTTP/2 over TLS (https). You can set HTTPS_TLS_KEY_PATH or HTTPS_TLS_KEY instead.
 --https-tls-key-path string    Path to the key file for HTTP/2 over TLS (https). You can set HTTPS_TLS_KEY_PATH or HTTPS_TLS_KEY instead.
 ```
-
-## Is there an HTTP API Documentation?
-
-[Yes](https://www.ory.sh/docs/hydra/reference/api.mdx). bro
 
 ## How can I disable HTTPS for testing?
 
@@ -222,7 +215,7 @@ You can do so by running `hydra host --dangerous-force-http`.
 > []uint8 into type \*time.Time is this a known bug ? or any specific mysql
 > version which is required (running 5.7) ?
 
-```
+```bash
 $ hydra help host
 ...
    - MySQL: If DATABASE_URL is a DSN starting with mysql:// MySQL will be used as storage backend.
@@ -241,20 +234,17 @@ Check the logs using `docker logs <container-id>`.
 > Hey there , I am getting this error when I try request an access token "The
 > request used a security parameter (e.g., anti-replay, anti-csrf) with
 > insufficient entropy (minimum of 8 characters)"
-
 > Kareem Diaa @kimooz Jun 07 16:41 Hey there , I am getting this error when I
 > try request an access token "The request used a security parameter (e.g.,
 > anti-replay, anti-csrf) with insufficient entropy (minimum of 8 characters)"
-
 > Aeneas @arekkas Jun 07 16:41 @kimooz make sure state and nonce are set in your
 > auth code url
 > (http://hydra/oauth2/auth?client_id=...&nonce=THIS_NEEDS_TO_BE_SET&state=THIS_ALSO_NEEDS_TO_BE_SET
 
-## I get compile errors!
+## I get compile errors
 
 > I would try deleting the vendor dir and glide’s files and try glide init again
 > or clear Glide’s global cache.
-
 > follow the steps in the readme
 > https://github.com/ory/hydra#building-from-source
 
@@ -276,18 +266,9 @@ you to show the login UI.
 
 ## Where can I get documentation on running multiple instances of Hydra?
 
-> @killa#7335 20190103 01:06 My company is thinking about adopting Hydra. There
-> is a performance benchmark including data at
-> https://www.ory.sh/docs/next/performance/hydra and some information on how to
-> scale hydra. Where can I get documentation on running multiple instances of
-> Hydra? Source: Discord/ory/general
-
 Hydra scales according to 12 factor principles. Just add another instance with
-the same config. Please check the documentation section for 12 factor principles
-for more information: https://www.ory.sh/docs/ecosystem/cloud-native. There is
-also some information on collecting statistics in the section on
-[prometheus](https://github.com/prometheus) in the
-[five minute tutorial](./5min-tutorial.mdx).
+the same config. Please check the [documentation section for 12 factor principles](https://www.ory.sh/docs/ecosystem/cloud-native).There is also some information on collecting statistics in the section on
+[prometheus](https://github.com/prometheus) in the [five minute tutorial](./5min-tutorial.mdx).
 
 ## Is it possible to disable/enable certain flows in Hydra?
 
