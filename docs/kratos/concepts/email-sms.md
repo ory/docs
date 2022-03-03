@@ -39,7 +39,7 @@ set up in the configuration file using an absolute URL with the `smtp` or
 `smtps` scheme:
 
 ```yaml title="path/to/my/kratos/config.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 courier:
   smtp:
     connection_uri: smtps://foo:bar@my-smtp-server:1234/
@@ -63,7 +63,7 @@ You can customize the sender address and email templates by overriding path to
 the templates folder. See more about custom templates in templates section.
 
 ```yaml title="path/to/my/kratos/config.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 courier:
   ## SMTP Sender Address ##
   #
@@ -73,7 +73,7 @@ courier:
   #
   # Set this value using environment variables on
   # - Linux/macOS:
-  #    $ export COURIER_SMTP_FROM_ADDRESS=<value>
+  #    export COURIER_SMTP_FROM_ADDRESS=<value>
   # - Windows Command Line (CMD):
   #    > set COURIER_SMTP_FROM_ADDRESS=<value>
   #
@@ -88,7 +88,7 @@ courier:
   #
   # Set this value using environment variables on
   # - Linux/macOS:
-  #    $ export COURIER_TEMPLATE_OVERRIDE_PATH=<value>
+  #    export COURIER_TEMPLATE_OVERRIDE_PATH=<value>
   # - Windows Command Line (CMD):
   #    > set COURIER_TEMPLATE_OVERRIDE_PATH=<value>
   #
@@ -140,7 +140,7 @@ You can configure custom SMTP headers. For example, if integrating with AWS SES
 SMTP interface, the headers can be configured for cross-account sending:
 
 ```yaml title="path/to/my/kratos/config.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 courier:
   smtp:
     headers:
@@ -169,7 +169,7 @@ SMS sender settings you can use letters here (for example "Your Org Name").
 Default value is equal to "Ory Kratos".
 
 ```yaml title="path/to/my/kratos/config.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 courier:
   sms:
     from: '+12065550110'
@@ -178,7 +178,7 @@ courier:
 #### Request configuration
 
 ```yaml title="path/to/my/kratos/config.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 courier:
   sms:
     request_config:

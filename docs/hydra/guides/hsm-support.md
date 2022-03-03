@@ -88,8 +88,8 @@ vendor, tools initializing tokens and generating keys vary. To demonstrate key
 pair generation we first initialize token using `pkcs11-tool` (see how to
 [setup SoftHSM and OpenSC](#testing-with-softhsm))
 
-```shell
-$ pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so --slot 0 --init-token --so-pin 0000 --pin 1234 --init-pin --label hydra
+```sh
+pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so --slot 0 --init-token --so-pin 0000 --pin 1234 --init-pin --label hydra
 
 Using slot 0 with a present token (0x2763db07)
 Token successfully initialized
@@ -112,8 +112,8 @@ HSM_PIN=1234
 
 Generating RSA keypair for JSON Web Key `hydra.openid.id-token`
 
-```shell
-$ pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so \
+```sh
+pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so \
 --pin 1234 --token-label hydra \
 --keypairgen --key-type rsa:4096 --usage-sign \
 --label hydra.openid.id-token --id 746573742d6b65792d6964
@@ -163,30 +163,30 @@ as a part of the OpenDNSSEC project.
 
 #### Install SoftHSM/OpenSC on Mac OSX
 
-```shell
-$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 2> /dev/null
+```sh
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 2> /dev/null
 ```
 
-```shell
-$ brew install softhsm
+```sh
+brew install softhsm
 ```
 
-```shell
-$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 2> /dev/null
+```sh
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 2> /dev/null
 ```
 
-```shell
-$ brew install opensc
+```sh
+brew install opensc
 ```
 
 #### Install SoftHSM/OpenSC on Ubuntu
 
-```shell
-$ sudo apt update
+```sh
+sudo apt update
 ```
 
-```shell
-$ sudo apt install softhsm opensc
+```sh
+sudo apt install softhsm opensc
 ```
 
 #### Install SoftHSM/OpenSC on Windows
@@ -204,21 +204,21 @@ need to have the latest [Docker](https://www.docker.com) and
 quickstart HSM change into the directory with the Hydra source code and run the
 following command:
 
-```shell
-$ docker-compose -f quickstart-hsm.yml up --build
+```sh
+docker-compose -f quickstart-hsm.yml up --build
 ```
 
 Following is logged on startup if Hardware Security Module is successfully
 configured:
 
-```shell
-$ docker logs ory-hydra-example--hydra
+```sh
+docker logs ory-hydra-example--hydra
 time="2021-07-07T12:51:23Z" level=info msg="Hardware Security Module is configured."
 time="2021-07-07T12:51:23Z" level=info msg="JSON Web Key Set 'hydra.openid.id-token' doesn't exist yet, generating new key pair..."
 ```
 
 #### Run Tests with HSM enabled using Docker
 
-```shell
+```sh
 make quicktest-hsm
 ```

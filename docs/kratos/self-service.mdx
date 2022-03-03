@@ -185,14 +185,14 @@ validation errors. Let's take a look at an example using CURL:
 
 ```sh
 # A cookie jar for storing the CSRF tokens
-$ cookieJar=$(mktemp)
-$ flowId=$(curl -s -X GET \
+cookieJar=$(mktemp)
+flowId=$(curl -s -X GET \
     --cookie-jar $cookieJar --cookie $cookieJar \
     -H "Accept: application/json" \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser | jq -r '.id')
 
 # The endpoint uses Ory Kratos' REST API to fetch information about the request
-$ curl -s -X GET \
+curl -s -X GET \
     --cookie-jar $cookieJar --cookie $cookieJar \
     -H "Accept: application/json" \
     "https://playground.projects.oryapis.com/api/kratos/public/self-service/login/flows?id=$flowId" | jq
@@ -336,8 +336,8 @@ then fetches the information about the flow again
 
 ```
 # The endpoint uses Ory Kratos' REST API to fetch information about the request
-$ theFlowID=...
-$ curl -s -i -X GET \
+theFlowID=...
+curl -s -i -X GET \
     -H "Accept: application/json"  \
     'https://playground.projects.oryapis.com/api/kratos/public/self-service/login/flows?id=$theFlowID' | jq
 ```
@@ -460,7 +460,7 @@ endpoint (e.g.`/self-service/login/browser`,
 `/self-service/registration/browser`, ...):
 
 ```sh
-$ curl -v -s -X GET \
+curl -v -s -X GET \
     -H "Accept: application/json"  \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser | jq
 
@@ -605,7 +605,7 @@ initialization endpoint (e.g.`/self-service/login/api`,
 `/self-service/registration/api`, ...):
 
 ```sh
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Accept: application/json"  \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/login/api | jq
 
@@ -681,7 +681,7 @@ If needed, the client can re-request the flow using the same HTTP Request as the
 browser flow at the Public API endpoint:
 
 ```shell script
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Accept: application/json" \
     "https://playground.projects.oryapis.com/api/kratos/public/self-service/login/flows?id=<the-flow-id>" | jq
 

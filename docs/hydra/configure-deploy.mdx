@@ -31,8 +31,8 @@ without virtualization, installing Go, and compiling Ory Hydra.
 Before we can start, a network must be created which we will attach all our
 Docker containers to. That way, the containers can talk to one another.
 
-```shell
-$ docker network create hydraguide
+```sh
+docker network create hydraguide
 ```
 
 ## Deploy PostgreSQL
@@ -41,8 +41,8 @@ For the purpose of this tutorial, we will use PostgreSQL as a database. As you
 probably already know, don't run databases in Docker in production! For the sake
 of this tutorial however, let's use Docker to quickly deploy the database.
 
-```shell
-$ docker run \
+```sh
+docker run \
   --network hydraguide \
   --name ory-hydra-example--postgres \
   -e POSTGRES_USER=hydra \
@@ -61,26 +61,26 @@ We highly recommend using Docker to run Hydra, as installing, configuring and
 running Hydra is easiest with Docker. Ory Hydra is available on
 [Docker Hub](https://hub.docker.com/r/oryd/hydra/).
 
-```shell
+```sh
 # The system secret can only be set against a fresh database. Key rotation is not supported. This
 # secret is used to encrypt the database and needs to be set to the same value every time the process (re-)starts.
 # You can use /dev/urandom to generate a secret. But make sure that the secret must be the same anytime you define it.
 # You could, for example, store the value somewhere.
-$ export SECRETS_SYSTEM=$(export LC_CTYPE=C; cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+export SECRETS_SYSTEM=$(export LC_CTYPE=C; cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 #
 # Alternatively you can obviously just set a secret:
-# $ export SECRETS_SYSTEM=this_needs_to_be_the_same_always_and_also_very_$3cuR3-._
+# export SECRETS_SYSTEM=this_needs_to_be_the_same_always_and_also_very_$3cuR3-._
 
 # The database url points us at the postgres instance. This could also be an ephemeral in-memory database (`export DSN=memory`)
 # or a MySQL URI.
-$ export DSN=postgres://hydra:secret@ory-hydra-example--postgres:5432/hydra?sslmode=disable
+export DSN=postgres://hydra:secret@ory-hydra-example--postgres:5432/hydra?sslmode=disable
 
 # Before starting, let's pull the latest Ory Hydra tag from docker.
-$ docker pull oryd/hydra:v1.10.6
+docker pull oryd/hydra:v1.10.6
 
 # This command will show you all the environment variables that you can set. Read this with care.
 # It's the equivalent to `hydra help serve`.
-$ docker run -it --rm --entrypoint hydra oryd/hydra:v1.10.6 help serve
+docker run -it --rm --entrypoint hydra oryd/hydra:v1.10.6 help serve
 
 Starts all HTTP/2 APIs and connects to a database backend.
 [...]
@@ -88,7 +88,7 @@ Starts all HTTP/2 APIs and connects to a database backend.
 # Ory Hydra doesn't do magic, it requires conscious decisions, for example running SQL migrations which is required
 # when installing a new version of Ory Hydra, or upgrading an existing installation.
 # It's the equivalent to `hydra migrate sql --yes postgres://hydra:secret@ory-hydra-example--postgres:5432/hydra?sslmode=disable`
-$ docker run -it --rm \
+docker run -it --rm \
   --network hydraguide \
   oryd/hydra:v1.10.6 \
   migrate sql --yes $DSN
@@ -98,7 +98,7 @@ Applying `client` SQL migrations...
 Migration successful!
 
 # Let's run the server (settings explained below):
-$ docker run -d \
+docker run -d \
   --name ory-hydra-example--hydra \
   --network hydraguide \
   -p 9000:4444 \
@@ -111,7 +111,7 @@ $ docker run -d \
   oryd/hydra:v1.10.6 serve all
 
 # And check if it's running:
-$ docker logs ory-hydra-example--hydra
+docker logs ory-hydra-example--hydra
 
 time="2017-06-29T21:26:26Z" level=info msg="Connecting with postgres://*:*@postgres:5432/hydra?sslmode=disable"
 time="2017-06-29T21:26:26Z" level=info msg="Connected to SQL!"
@@ -156,8 +156,8 @@ We only used environmental variables to configure Ory Hydra in this example. If
 you use a [configuration file](reference/configuration.md) instead, remember to
 mount it in the container. For example:
 
-```shell
-$ docker run -d \
+```sh
+docker run -d \
   -v $(pwd)/hydra.yaml:/hydra.yaml \
   oryd/hydra:v1.10.6 serve all --config /hydra.yaml
 ```
@@ -171,8 +171,8 @@ the self-signed certificate in your browser. You should simply see `ok`.
 On start up, Ory Hydra is initializing some values. Let's take a look at the
 logs:
 
-```shell
-$ docker logs ory-hydra-example--hydra
+```sh
+docker logs ory-hydra-example--hydra
 time="2017-06-30T09:06:34Z" level=info msg="Connecting with postgres://*:*@postgres:5432/hydra?sslmode=disable"
 time="2017-06-30T09:06:34Z" level=info msg="Connected to SQL!"
 time="2017-06-30T09:06:34Z" level=info msg="Key pair for signing hydra.openid.id-token is missing. Creating new one."
@@ -193,8 +193,8 @@ a fresh database:
 Ory Hydra can be managed using the Hydra Command Line Interface (CLI), which is
 using Ory Hydra's REST APIs. To see the available commands, run:
 
-```shell
-$ docker run --rm -it --entrypoint hydra oryd/hydra:v1.10.6 help
+```sh
+docker run --rm -it --entrypoint hydra oryd/hydra:v1.10.6 help
 Hydra is a cloud native high throughput OAuth2 and OpenID Connect provider
 
 Usage:
@@ -211,9 +211,9 @@ provide a
 which combines both features in one app. Here, we will use deploy that app using
 Docker.
 
-```shell
-$ docker pull oryd/hydra-login-consent-node:v1.10.6
-$ docker run -d \
+```sh
+docker pull oryd/hydra-login-consent-node:v1.10.6
+docker run -d \
   --name ory-hydra-example--consent \
   -p 9020:3000 \
   --network hydraguide \
@@ -222,7 +222,7 @@ $ docker run -d \
   oryd/hydra-login-consent-node:v1.3.2
 
 # Let's check if it's running ok:
-$ docker logs ory-hydra-example--consent
+docker logs ory-hydra-example--consent
 ```
 
 Let's take a look at the arguments:
@@ -249,8 +249,8 @@ up. Let's call the client `facebook-photo-backup`. We've to specify which
 OAuth 2.0 Grant Types, OAuth 2.0 Scope, OAuth 2.0 Response Types, and Callback
 URLs the client may request:
 
-```shell
-$ docker run --rm -it \
+```sh
+docker run --rm -it \
   -e HYDRA_ADMIN_URL=https://ory-hydra-example--hydra:4445 \
   --network hydraguide \
   oryd/hydra:v1.10.6 \
@@ -296,8 +296,8 @@ Just imagine this being, for example, passport.js that's generating an auth
 code url, redirecting the browser to it, and then exchanging the authorize code
 for an access token. The same thing happens with this command:
 
-```shell
-$ docker run --rm -it \
+```sh
+docker run --rm -it \
   --network hydraguide \
   -p 9010:9010 \
   oryd/hydra:v1.10.6 \
