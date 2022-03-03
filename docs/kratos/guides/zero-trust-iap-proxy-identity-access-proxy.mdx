@@ -9,12 +9,6 @@ import Mermaid from '@site/src/theme/Mermaid'
 The [Quickstart](../quickstart.mdx) covers a basic set up that uses client-side
 routing in `SecureApp` to forward requests to Ory Kratos.
 
-:::warning
-
-This guide is outdated, use at your own risk!
-
-:::
-
 Systems that have more than one component often use reverse proxies such as
 Nginx, Envoy, or Kong to route and authorize traffic to applications. Ory Kratos
 works very well in such environments. The purpose of this guide is to clarify
@@ -223,7 +217,7 @@ is enabled and points to [Ory Kratos' `/sessions/whoami` API](../reference/api).
 It uses the `ory_kratos_session` cookie to identify if a request contains a
 session or not:
 
-```yaml title="contrib/quickstart/oathkeeper/.oathkeeper.yml"
+```yaml title="contrib/quickstart/oathkeeper/oathkeeper.yml"
 # ...
 authenticators:
   cookie_session:
@@ -247,7 +241,7 @@ The
 [Anonymous Authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#anonymous)
 is useful for endpoints that don't need login, such as the registration screen:
 
-```yaml title="contrib/quickstart/oathkeeper/.oathkeeper.yml"
+```yaml title="contrib/quickstart/oathkeeper/oathkeeper.yml"
 # ...
 authenticators:
   anonymous:
@@ -265,7 +259,7 @@ simply allows all users to access the URL. Since we don't have Role-based access
 control (RBAC) or an Access Control list (ACL) in place for this example, this
 will be enough.
 
-```yaml title="contrib/quickstart/oathkeeper/.oathkeeper.yml"
+```yaml title="contrib/quickstart/oathkeeper/oathkeeper.yml"
 # ...
 authorizers:
   allowed:
@@ -298,7 +292,7 @@ We also enabled the
 [NoOp Mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#) for the
 various other endpoints such as login and registration:
 
-```yaml title="contrib/quickstart/oathkeeper/.oathkeeper.yml"
+```yaml title="contrib/quickstart/oathkeeper/oathkeeper.yml"
 mutators:
   noop:
     enabled: true
@@ -323,7 +317,7 @@ use headers such as `X-User-ID` instead of the JWT.
 We configure the error handling in such a way that a missing or invalid login
 session (when accessed from a browser) redirects to `/auth/login`:
 
-```yaml title="contrib/quickstart/oathkeeper/.oathkeeper.yml"
+```yaml title="contrib/quickstart/oathkeeper/oathkeeper.yml"
 errors:
   fallback:
     - json
@@ -332,7 +326,7 @@ errors:
     redirect:
       enabled: true
       config:
-        to: http://127.0.0.1:4455/auth/login
+        to: http://127.0.0.1:4455/login
         when:
           - error:
               - unauthorized
@@ -353,7 +347,7 @@ errors:
 We use [glob matching](https://github.com/gobwas/glob) to match the HTTP
 requests for our access rules:
 
-```yaml title="contrib/quickstart/oathkeeper/.oathkeeper.yml"
+```yaml title="contrib/quickstart/oathkeeper/oathkeeper.yml"
 access_rules:
   matching_strategy: glob
   repositories:
@@ -395,7 +389,7 @@ login, registration, and the page for resending the verification email:
     preserve_host: true
     url: 'http://kratos-selfservice-ui-node:4435'
   match:
-    url: 'http://127.0.0.1:4455/<{error,verify,auth/*,**.css,**.js}{/,}>'
+    url: 'http://127.0.0.1:4455/<{registration,welcome,recovery,verification,login,**.css,**.js,**.png}>'
     methods:
       - GET
   authenticators:
@@ -416,7 +410,7 @@ dashboard and user settings:
     preserve_host: true
     url: 'http://kratos-selfservice-ui-node:4435'
   match:
-    url: 'http://127.0.0.1:4455/<{,debug,dashboard,settings}{/,}>'
+    url: 'http://127.0.0.1:4455/<{debug,dashboard,settings}{/,}>'
     methods:
       - GET
   authenticators:
@@ -428,7 +422,7 @@ dashboard and user settings:
   errors:
     - handler: redirect
       config:
-        to: http://127.0.0.1:4455/auth/login
+        to: http://127.0.0.1:4455/login
 ```
 
 ## Cleaning up Docker
