@@ -12,7 +12,7 @@ can be expected to be available.
 This document strives to give an answer to those questions and give you an
 outlook of what's happening in the Ory ecosystem. Please note that this roadmap
 is mainly focused on the Ory Open Source libraries - but this also influences
-the development of the Ory Cloud.
+the development of Ory Cloud.
 
 ## Ory Roadmap
 
@@ -22,7 +22,7 @@ for that project.
 
 Please note that **our roadmap is subject to changes**. This means that
 development is considering feedback both from the Open Source community as well
-as the Ory Cloud users.
+as Ory Cloud users.
 
 Issues on GitHub aren't hard and fixed commitments. GitHub Issues, Milestones,
 and Discussions are general guidelines and efforts to make development at Ory as
