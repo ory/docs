@@ -110,7 +110,7 @@ Ory Hydra checks if a session cookie is set containing information about a
 previously successful login. Additionally, OpenID Connect parameters
 `id_token_hint`, `prompt`, and `max_age` are evaluated and processed. Depending
 on their values and the login state, the user might need to re-authenticate or
-the flow will fail completely.
+the flow will fail.
 
 To authenticate the user (this happens regardless of whether a session exists
 for the user or not), Ory Hydra redirects the browser to the "Login Endpoint"

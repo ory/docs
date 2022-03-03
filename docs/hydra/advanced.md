@@ -99,7 +99,7 @@ reasons:
    or other sensitive data (e.g. user roles and permissions) and is sometimes
    used as a means of transporting system-relevant information in a stateless
    manner. Therefore, making these tokens transparent (by using JSON Web Tokens
-   as Access Tokens) comes with risk of exposing this information accidentally,
+   as Access Tokens) comes with risk of exposing this information,
    and with the downside of not storing this information in the OAuth 2.0 Access
    Token at all.
 2. **JSON Web Tokens can't hold secrets:** Unless encrypted, JSON Web Tokens

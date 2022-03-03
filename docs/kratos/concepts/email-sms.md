@@ -15,7 +15,7 @@ use cases require these messages:
 ## Mail courier
 
 Ory Kratos processes email dispatch using a mail courier worker, which must run
-as a singleton in order to process the mail queue correctly. It can be run as a
+as a singleton in order to process the mail queue. It can be run as a
 background worker on a single-instance Kratos setup or as a distinct singleton
 foreground worker in multi-instance deployments.
 

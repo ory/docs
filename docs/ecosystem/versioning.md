@@ -295,7 +295,7 @@ the following changes will be made:
 > If you are looking for the old developer guide,
 > [click here](https://www.ory.sh/docs/deprecated/latest/).
 
-The documentation got a major overhaul. We completely deprecated GitBook, which
+The documentation got a major overhaul. We deprecated GitBook, which
 is no longer being developed, and moved to [Docusaurus](https://docusaurus.io/).
 Additionally, the API documentation is now integrated in Docusaurus using
 [widdershins](https://github.com/Mermade/widdershins) with custom templates, and

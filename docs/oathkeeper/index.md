@@ -15,7 +15,7 @@ Architecture, [BeyondCorp](https://www.beyondcorp.com), and Identity And Access
 Proxy (IAP).
 
 While ORY Oathkeeper works well with ORY Hydra and ORY Keto, ORY Oathkeeper can
-be used completely standalone and alongside other stacks with adjacent problem
+be used standalone and alongside other stacks with adjacent problem
 domains (Keycloak, Gluu, Vault, ...). ORY Oathkeeper's Access Control Decision
 API works with
 
@@ -32,10 +32,7 @@ among others.
 
 ## Dependencies
 
-ORY Oathkeeper doesn't have any dependencies to other services. It can work
-completely in isolation and doesn't require a database or any other type of
-persistent storage. ORY Oathkeeper is configurable with yaml configuration
-files, JSON files, and environment variables.
+ORY Oathkeeper doesn't have any dependencies to other services. It can work in isolation and doesn't require a database or any other type of persistent storage. ORY Oathkeeper is configurable with yaml configuration files, JSON files, and environment variables.
 
 ## Operating Modes
 

@@ -26,7 +26,7 @@ markdown styles.
 1. Download and install the
    [markdownlint CLI](https://github.com/igorshubovych/markdownlint-cli).
    `brew install markdownlint-cli`
-1. Check if markdownlint installed correctly.  
+1. Check if markdownlint installed.  
    `markdownlint --help``
 1. Lint all files in the project, in the docs folder use `cd docs`
    `markdownlint '**/*.md' --ignore node_modules`
@@ -42,7 +42,7 @@ writing style.
 
 1. Download and install [Vale](https://github.com/errata-ai/vale).  
    `brew install vale`
-1. Check if Vale installed correctly.  
+1. Check if Vale installed.  
    `vale -h`
 1. Copy the write-good and Microsoft Vale Styles:
 

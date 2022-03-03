@@ -35,7 +35,7 @@ login UI that reroutes customers to `/login/customer` and employees to
 `/login/employee`. So you define the same login or registration UI URLs in both
 of the Kratos configurations. You may need to tell your login/registration UI
 which Kratos it's supposed to talk to. The instances are cheap to deploy and
-the databases are completely isolated from each other. For example something
+the databases are isolated from each other. For example something
 like `/login/customer` and `/login/employee`.
 
 ### How can I verify in advance if a username is available during registration?

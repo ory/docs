@@ -845,7 +845,7 @@ When you take screenshots:
   [use realistic text](#fake-user-information).
 - **Capture only the relevant UI.** Don't include unnecessary white space or
   areas of the UI that don't help illustrate the point. The sidebars in Ory can
-  change, so don't include them in screenshots unless absolutely necessary.
+  change, so don't include them in screenshots unless necessary.
 - **Keep it small.** If you don't need to show the full width of the screen,
   don't. Reduce the size of your browser window as much as possible to keep
   elements close together and reduce empty space. Try to keep the screenshot

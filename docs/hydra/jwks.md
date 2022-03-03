@@ -57,7 +57,7 @@ anyone, having the secret, able to forge the tokens.
 
 ## Auto-generated JWKs
 
-Hydra generates a couple of JSON Web Keys in order to operate correctly:
+Hydra generates a couple of JSON Web Keys in order to operate:
 
 - `http://localhost:4445/keys/hydra.openid.id-token`: A RSA public/private key
   pair for signing and validating OpenID Connect ID Tokens.

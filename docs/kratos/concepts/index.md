@@ -184,7 +184,7 @@ considerations and challenges in Ory's efforts:
   that has the same email address. Or, the user previously signed up using the
   email/password process or flow, and then signs up using "Sign up with Google"
   and vice versa. Even these fairly simple use cases warrant considerable
-  development effort to correctly implement with some degree of user
+  development effort to implement with some degree of user
   friendliness;
 - To prevent security threats for example
   [account enumeration attacks](<https://wiki.owasp.org/index.php/Testing_for_User_Enumeration_and_Guessable_User_Account_(OWASP-AT-002)>);
@@ -210,7 +210,7 @@ peer reviewed and developed in a broad community of experts.
 
 ### Solving a specific problem domain
 
-Ory Kratos addresses a clearly defined problem domain:
+Ory Kratos addresses a defined problem domain:
 
 - managing credentials such as passwords, recovery email addresses, and security
   questions;

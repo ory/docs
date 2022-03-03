@@ -47,7 +47,7 @@ serve:
 
 Keep in mind that the OAuth 2.0 Authorization Endpoint (`/oauth2/auth`) doesn't
 expose CORS by design. This endpoint should never be consumed in a CORS-fashion.
-Some endpoints (`/oauth2/token`, `/userinfo`, `/oauth2/revoke`) additionally
+Some endpoints (`/oauth2/token`, `/userinfo`, `/oauth2/revoke`) also
 include URLs listed in field `allowed_cors_origins` of the OAuth 2.0 Client that
 is making the request. For example, OAuth 2.0 Client
 

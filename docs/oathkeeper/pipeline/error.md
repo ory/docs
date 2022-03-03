@@ -128,7 +128,7 @@ errors:
 This feature tells ORY Oathkeeper that the `json` error handler should be used
 as fallback. You could also define multiple fallback handlers - the first
 matching handler will be the one and only executed! This makes sense if you
-additionally configure the `when` section:
+configure the `when` section as well:
 
 ```yaml
 # .oathkeeper.yaml
