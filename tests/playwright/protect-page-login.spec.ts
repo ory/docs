@@ -24,8 +24,15 @@ test.describe('protect-page-login', () => {
         await page.fill('[name="password"]', randomString())
         await page.click('[value="password"]')
 
-        await expect(page).toHaveURL(app.url)
-        await expect(page.locator('body')).toContainText(email)
+        // we need a different way to test flutter since it renderes a canvas instead of html elements
+        if (app.name.includes('flutter')) {
+          await expect(page).toHaveURL(`${app.url}#/`)
+          expect(await page.locator('body').screenshot()).toMatchSnapshot(`${app.name}.png`, {threshold: 1.0})
+        } else {
+          await expect(page).toHaveURL(app.url)
+          await expect(page.locator('body')).toContainText(email)
+        }
+
       });
     })
   }
