@@ -79,6 +79,30 @@ module.exports = {
       ]
     },
     {
+      'Contributing & Open Source': [
+        'open-source',
+        'ecosystem/contributing',
+        'ecosystem/community',
+        'ecosystem/projects',
+        'ecosystem/versioning',
+        'ecosystem/configuring',
+        'ecosystem/deployment',
+        'ecosystem/upgrading',
+        'ecosystem/logging',
+        'ecosystem/sqa',
+        'ecosystem/security',
+        'ecosystem/roadmap',
+        'ecosystem/software-architecture-philosophy',
+        {
+          'Documentation Styleguide': [
+            'ecosystem/styleguide/styleguide',
+            'ecosystem/styleguide/testing',
+            'ecosystem/styleguide/templates'
+          ]
+        }
+      ]
+    },
+    {
       type: 'category',
       label: 'Identity Management (Ory Kratos)',
       items: [
@@ -431,30 +455,6 @@ module.exports = {
         },
         {
           SDKs: ['oathkeeper/sdk']
-        }
-      ]
-    },
-    {
-      'Contributing & Open Source': [
-        'open-source',
-        'ecosystem/contributing',
-        'ecosystem/community',
-        'ecosystem/projects',
-        'ecosystem/versioning',
-        'ecosystem/configuring',
-        'ecosystem/deployment',
-        'ecosystem/upgrading',
-        'ecosystem/logging',
-        'ecosystem/sqa',
-        'ecosystem/security',
-        'ecosystem/roadmap',
-        'ecosystem/software-architecture-philosophy',
-        {
-          'Documentation Styleguide': [
-            'ecosystem/styleguide/styleguide',
-            'ecosystem/styleguide/testing',
-            'ecosystem/styleguide/templates'
-          ]
         }
       ]
     },

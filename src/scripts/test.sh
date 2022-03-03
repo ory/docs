@@ -17,6 +17,11 @@ cd code-examples/protect-page-login/go && \
   PORT=4003 PROXY_PORT=3003 go run . &
 ory proxy --no-jwt --port 3003 http://localhost:4003/ &
 
+cd code-examples/protect-page-login/php && \
+  composer install && \
+  PROXY_PORT=3004 php -S 127.0.0.1:4004 &
+ory proxy --no-jwt --port 3004 http://localhost:4004/ &
+
 trap "exit" INT TERM ERR
 trap 'kill $(jobs -p)' EXIT
 
@@ -24,7 +29,9 @@ npx wait-on -v -t 300000 \
   tcp:127.0.0.1:3001 \
   tcp:127.0.0.1:3002 \
   tcp:127.0.0.1:3003 \
+  tcp:127.0.0.1:3004 \
   tcp:127.0.0.1:4002 \
-  tcp:127.0.0.1:4003
+  tcp:127.0.0.1:4003 \
+  tcp:127.0.0.1:4004
 
 npm run test

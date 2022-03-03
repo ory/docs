@@ -121,23 +121,18 @@ Next open a new terminal window and start the Ory Proxy:
 npm run proxy
 ```
 
-Then open [http://localhost:4000](http://localhost:4000) in your browser. You
-are presented with Ory's Sign In page! Let's click on sign up and create your
-first user!
+To access the ExpressJS app through the ORY proxy open
+[http://localhost:4000](http://localhost:4000) in your browser. You are
+presented with Ory's Sign In page! Let's click on sign up and create your first
+user!
 
 ## Go to Production
 
-Going to production with your app is possible in many ways. Whether you deploy
-it on Kubernetes, AWS, a VM, or a RaspberryPi is up to you. To get your app
-working with Ory, your app and Ory must be available under the same common
-domain (for example `https://ory.example.com` and `https://www.example.com`).
+```mdx-code-block
+import ToProd from './_common/going-to-prod.mdx'
 
-The easiest way to connect Ory to your domain is to connect Ory to a subdomain
-of yours. You can do this by
-[adding a Custom Domain to your Cloud project](../custom-domains.mdx)!
-
-With the custom domain set up, you don't need the Ory Proxy anymore and will use
-the configured custom domain in your SDK calls:
+<ToProd />
+```
 
 ```js {2,4-7}
 var sdk = require('@ory/client')
