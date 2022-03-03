@@ -17,10 +17,8 @@ to `memory`.
 
 ## SQL (persistent)
 
-All Ory projects support PostgreSQL and MySQL as first-class citizens.
-
-Ory Hydra additionally supports CockroachDB, but still beta, use it at your own
-risk!
+All Ory projects support PostgreSQL, MySQL, SQLite and CockroachDB as
+first-class citizens.
 
 ### PostgreSQL
 
