@@ -2076,12 +2076,12 @@
             "description": "The user's password.",
             "type": "string"
           },
-          "password_identifier": {
+          "identifier": {
             "description": "Identifier is the email or username of the user trying to log in.",
             "type": "string"
           }
         },
-        "required": ["method", "password", "password_identifier"],
+        "required": ["method", "password", "identifier"],
         "title": "submitSelfServiceLoginFlowWithPasswordMethodBody is used to decode the login form payload.",
         "type": "object"
       },

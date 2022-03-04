@@ -326,7 +326,7 @@ curl -H "Accept: application/json" -s \
         "type": "input",
         "group": "password",
         "attributes": {
-          "name": "password_identifier",
+          "name": "identifier",
           "type": "text",
           "value": "",
           "required": true,
@@ -643,7 +643,7 @@ actionUrl=$(\
 
 # Complete Login Flow with password method
 curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/json" \
-    -d '{"password_identifier": "api@user.org", "password": "iohuasf0897zAJHf", "method": "password"}' \
+    -d '{"identifier": "api@user.org", "password": "iohuasf0897zAJHf", "method": "password"}' \
     "$actionUrl" | jq
 
 {

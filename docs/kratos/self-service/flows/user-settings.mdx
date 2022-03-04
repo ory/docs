@@ -246,7 +246,7 @@ csrfToken=$(echo $flow | jq -r '.ui.nodes[] | select(.attributes.name=="csrf_tok
 session=$( \
   curl -s --cookie $cookieJar --cookie-jar $cookieJar -X POST \
     -H "Accept: application/json" -H "Content-Type: application/json" \
-    --data '{ "password_identifier": "'$username'", "password": "'$password'", "method": "password", "csrf_token": "'$csrfToken'" }' \
+    --data '{ "identifier": "'$username'", "password": "'$password'", "method": "password", "csrf_token": "'$csrfToken'" }' \
     "$actionUrl" \
 )
 
