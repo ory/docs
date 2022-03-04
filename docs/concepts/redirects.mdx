@@ -19,7 +19,7 @@ source documentation:
 
 ## Allow list
 
-The Ory Cloud allows dynamic redirects to be set using the `?return_to=` query
+Ory Cloud allows dynamic redirects to be set using the `?return_to=` query
 parameter on [Self-Service Flows](./self-service.mdx). As an example a user
 opens a sharable link to go to https://myapp.com/posts, however, this url
 requires the user to be signed in and thus redirects the user back to the login
@@ -37,11 +37,11 @@ will fail, however, for https://anotherapp.com will succeed on any path.
 
 ## Redirect Flows
 
-The Ory Cloud has a total of 6 flows, Login, Registration, Verification,
-Recovery, Settings and Logout which can be configured to redirect back to any
-URL you specify. As an example you can redirect the user to your application
+Ory Cloud has a total of six flows, **Login**, **Registration**, **Verification**,
+**Recovery**, **Settings** and **Logout** which can be configured to redirect back to any
+URL. A common use case would be to redirect the user to your application
 home screen after a logout or to a specific url on a sub-domain after a settings
-password update. On project creation the redirect flows are all set to the
+password update. On project creation the redirect flows are set to the
 default Ory Cloud Managed UI. For more information on the Ory Managed UI, please
 see the [Managed User Interface](./managed-ui.mdx) documentation.
 
@@ -61,10 +61,8 @@ And Settings has three fields (all optional):
 
 :::info
 
-Setting `Post-OIDC` redirects for Login and Registration are not supported since
-an Ory Cloud project can't be setup to use OIDC yet. This will be supported in
-the future. For more information see the
-[Ory Cloud Roadmap](../cloud/cloud-roadmap.mdx).
+Setting `Post-OIDC` redirects for Login and Registration will be supported in
+a future release. For more information see the [Ory Cloud Roadmap](../cloud/cloud-roadmap.mdx).
 
 :::
 
