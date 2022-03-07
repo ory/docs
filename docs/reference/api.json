@@ -133,6 +133,17 @@
       "RecoveryAddressType": {
         "type": "string"
       },
+      "SQLNullString": {
+        "properties": {
+          "String": {
+            "type": "string"
+          },
+          "Valid": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
       "String": {
         "$ref": "#/components/schemas/NullString"
       },
@@ -1470,9 +1481,7 @@
       "projectRevisionThirdPartyLoginProvider": {
         "properties": {
           "apple_private_key": {
-            "description": "Apple Private Key\n\nSign In with Apple Private Key needed for generating a JWT token for client secret",
-            "example": "-----BEGIN PRIVATE KEY----- ........ -----END PRIVATE KEY-----",
-            "type": "string"
+            "$ref": "#/components/schemas/SQLNullString"
           },
           "apple_private_key_id": {
             "description": "Apple Private Key Identifier\n\nSign In with Apple Private Key Identifier needed for generating a JWT token for client secret",
@@ -1499,8 +1508,7 @@
             "type": "string"
           },
           "client_secret": {
-            "description": "ClientSecret is the application's secret.",
-            "type": "string"
+            "$ref": "#/components/schemas/SQLNullString"
           },
           "created_at": {
             "description": "The Project's Revision Creation Date",
