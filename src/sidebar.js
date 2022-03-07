@@ -46,6 +46,14 @@ module.exports = {
         },
         {
           type: 'category',
+          label: 'Passwordless',
+          items: [
+            'guides/passwordless/webauthn'
+            // 'guides/passwordless/social-sign-in'
+          ]
+        },
+        {
+          type: 'category',
           label: 'Managing Identities',
           items: [
             'kratos/admin/managing-users-identities',

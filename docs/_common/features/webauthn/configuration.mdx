@@ -1,0 +1,30 @@
+WebAuthn needs to be configured to work. It is disabled per default.
+
+:::info
+
+Once `passwordless` is set to either `true` or `false`, avoid changing it may
+happen that users will be locked out of their accounts.
+
+:::
+
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+
+<CodeBlock language="yaml" title="config.yml">{`selfservice:
+  flows:
+  methods:
+    webauthn:
+      enabled: true
+      config:
+        # If set to true will use WebAuthn for passwordless flows intead of multi-factor authentication.
+        passwordless: ${props.passwordless || false}
+        rp:
+          # This MUST be your top-level-domain
+          id: example.org
+          # This MUST be the exact URL of the page which will prompt for WebAuthn!
+          # Only the scheme (https / http), host (auth.example.org), and port (4455) are relevant. The
+          # path is irrelevant
+          origin: http://auth.example.org:4455
+          # A display name which will be shown to the user on her/his device.
+          display_name: Ory`}</CodeBlock>
+```
