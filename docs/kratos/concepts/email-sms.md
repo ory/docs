@@ -385,7 +385,7 @@ below for an example.
 ```yaml title="path/to/my/kratos/config.yml"
 courier:
   templates:
-    verify:
+    verification:
       email:
         body:
           plaintext: https://some-remote-template/tmp.gotmpl
