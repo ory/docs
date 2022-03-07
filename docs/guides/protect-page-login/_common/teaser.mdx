@@ -1,21 +1,27 @@
 import VideoEmbed from '@site/src/components/VideoEmbed'
 
 <p>
-  In this guide, we set up a new {props.framework} application and protect its
-  home page with a login page using Ory. It will also add features such as
-  profile settings, registration, and more. You can use this guide with both Ory
-  Cloud and by self-hosting Ory software.
+This guide shows how to create a simple {props.framework} application and secure access to the app with Ory. You can use this guide with both Ory Cloud and self-hosted Ory software.
+
 </p>
 
-This guide is for you if you:
+
+This guide is perfect for you if:
 
 <ol>
-  <li>have {props.framework} installed;</li>
-  <li>want to use {props.framework} to build an application;</li>
-  <li>want to show your app only if the user is logged in.</li>
+
+<li>You have {props.framework} installed.</li>
+<li>You want to build an app using {props.framework}.</li>
+<li>You want to give access to your to signed-in users only.</li>
+
 </ol>
 
-Before we start, let's take a look at what user flow you will implement with
-this guide.
+Before you start, watch this video to see the user flow you're going to implement:
 
 <VideoEmbed mp4={props.mp4} webm={props.webm} />
+
+:::info
+
+You can find the code of the sample application [here](https://github.com/ory/docs/tree/master/code-examples/protect-page-login/).
+
+:::
