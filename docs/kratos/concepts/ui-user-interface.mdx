@@ -3,7 +3,7 @@ id: ui-user-interface
 title: Customize User Interface
 ---
 
-Ory Kratos is an HTTP API server and doesn't include a traditional HTML user
+Ory Kratos is an HTTP API server and does not include a traditional HTML user
 interface (rendering forms such as "Login" or "Registration") in its code base.
 We provide several reference UI implementations which you can use to get started
 quickly, or as the basis for your own UI:
@@ -15,7 +15,7 @@ quickly, or as the basis for your own UI:
 - [React / SPA Reference Implementation](https://github.com/ory/react-nextjs-example)
 
 Ory Kratos' HTTP APIs make it easy and straight forward to write your own UI
-(for example "login" screen, "update profile settings", ...) in any programming
+(e.g. "login" screen, "update profile settings", ...) in any programming
 languages and framework! It can be built in any programming language including
 Java, Node, or Python and can be run both a server or an end-user device for
 example a browser, or a mobile phone. Implementing your own UI is simple and
@@ -33,7 +33,7 @@ import TabItem from '@theme/TabItem'
 ## UI Payloads
 
 To make UI customization easy, Ory Kratos prepares all the necessary data for
-forms that need to be shown during login, registration, and other flows:
+forms that need to be shown during e.g. login, registration:
 
 ```json5
 {
@@ -147,7 +147,7 @@ The `script` node type is primarily used to load required scripts for WebAuthn!
 }
 ```
 
-Rendering it's straight forward if you are on the server-side:
+Rendering it is straight forward if you are on the server-side:
 
 <CodeFromRemote
   lang="pug"
@@ -166,8 +166,8 @@ asynchronously. In ReactJS you might want to do something like the following:
 
 ### UI Anchor Nodes
 
-Nodes of type `a` are not used in Ory Kratos, but we've them around in case
-they're needed at a later stage!
+Nodes of type `a` are currently not used in Ory Kratos, but we have them around
+in case they are needed at a later stage!
 
 <CodeFromRemote
   lang="pug"
@@ -221,8 +221,7 @@ Here is an example of implementing an `img` node in ReactJS:
 
 ### UI Text Nodes
 
-Nodes of type `text` are commonly used to display secrets (for example lookup
-secrets).
+Nodes of type `text` are commonly used to display secrets (e.g. lookup secrets).
 
 ![Lookup Secret](../images/text-node-1.png)
 
@@ -258,7 +257,7 @@ Their JSON usually contains a bit of contextual information.
   "meta": {
     "label": {
       "id": 1050006,
-      "text": "This is your authenticator app secret. Use it if you can't scan the QR code.",
+      "text": "This is your authenticator app secret. Use it if you can not scan the QR code.",
       "type": "info"
     }
   }
@@ -416,8 +415,8 @@ In ReactJS, you will most likely find similar if statements on the message IDs.
 
 ### UI Input Nodes
 
-The most common node type is the `input` type. It represents an HTML `<input>`
-field:
+The most common node type is the `input` type. In general, it represents an HTL
+`<input>` field:
 
 ```json
 {
@@ -510,7 +509,7 @@ override the hidden field, if set.
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_checkbox.hbs"
 />
 
-In single page apps, such as ReactJS, this trickery isn't needed as you have
+In single page apps, such as ReactJS, this trickery is not needed as you have
 full control over the form's state:
 
 <CodeFromRemote
@@ -521,7 +520,7 @@ full control over the form's state:
 
 #### Button Input Node
 
-Buttons are primarily used to trigger something, which is why it's important to
+Buttons are primarily used to trigger something, which is why it is important to
 have the `onclick` attribute handled. If `onclick` exists, you will also find a
 `script` node:
 
@@ -575,10 +574,10 @@ the required JavaScript to get it working!
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_checkbox.hbs"
 />
 
-In a single page application, we need a bit of trickery as we're executing
+In a single page application, we need a bit of trickery as we are executing
 JavaScript from a JSON source in JavaScript - which essentialy means we need to
-execute `eval`. This is only needed in this special case. If you do not use
-WebAuthn, you won't need `eval` at all!
+execute `eval`. Fortunately, this is only needed in this special case. If you do
+not use WebAuthn, you will not need `eval` at all!
 
 <CodeFromRemote
   lang="tsx"
@@ -598,9 +597,9 @@ submit button:
 />
 
 If you have control over the form's payload, like in ReactJS, you need to ensure
-that the name of the form (`method`) is only submitted once with the correct
-value (`password`). Because in some cases Ory Kratos might generate multiple
-submit buttons with the same `name` attribute.
+that the name of the form (e.g. `method`) is only submitted once with the
+correct value (e.g. `password`). Because in some cases Ory Kratos might generate
+multiple submit buttons with the same `name` attribute.
 
 ```json5
 [
@@ -694,7 +693,7 @@ and single page apps like ReactJS
 
 #### Default Input Node Rendering
 
-You don't need to have one view for every node type. Instead, you can "fall
+You do not need to have one view for every node type. Instead, you can "fall
 back" to a default implementation. The most important node types (`hidden`,
 `submit`, `button`, `checkbox`) we already covered!
 
@@ -953,7 +952,7 @@ this in your UI using map, filter, and other JSON transformation functions.
 
 ## Titles, Labels & Validation Messages
 
-Ory Kratos helps users understand what's happening by providing messages that
+Ory Kratos helps users understand what is happening by providing messages that
 explain what went wrong or what needs to be done. Examples are "The provided
 credentials are invalid", "Missing property email" and similar.
 
@@ -961,20 +960,20 @@ Typically login, registration, settings, ... flows include such messages on
 different levels:
 
 1. At the root level, indicating that the message affects the whole request
-   (such as `request expired`)
+   (e.g. request expired)
 2. At the method (password, oidc, profile) level, indicating that the message
    affects a specific method / form.
-3. At the field level, indicating that the message affects a form field (for
-   example validation errors).
+3. At the field level, indicating that the message affects a form field (e.g.
+   validation errors).
 
 Each message has a layout of:
 
 ```json5
 {
   id: 1234,
-  // This ID won't change and can be used to translate the message or use your own message content.
+  // This ID will not change and can be used to translate the message or use your own message content.
   text: 'Some default text',
-  // A default text in english that you can display if you don't want to customize the message.
+  // A default text in english that you can display if you do not want to customize the message.
   context: {}
   // A JSON object which may contain additional fields such as `expires_at`. This is helpful if you want to craft your own messages.
 }
@@ -982,17 +981,17 @@ Each message has a layout of:
 
 The message ID is a 7-digit number (`xyyzzzz`) where
 
-- `x` is the message type which is either `1` for an info message (for example
-  `1020000`), `4` (for example `4020000`) for an input validation error message,
-  and `5` (for example `5020000`) for a generic error message.
+- `x` is the message type which is either `1` for an info message (e.g.
+  `1020000`), `4` (e.g. `4020000`) for an input validation error message, and
+  `5` (e.g. `5020000`) for a generic error message.
 - `yy` is the module or flow this error references and can be:
-- `01` for login messages (for example `1010000`)
-- `02` for logout messages (for example `1020000`)
-- `03` for multi-factor authentication messages (for example `1030000`)
-- `04` for registration messages (for example `1040000`)
-- `05` for settings messages (for example `1050000`)
-- `06` for account recovery messages (for example `1060000`)
-- `07` for email/phone verification messages (for example `1070000`)
+- `01` for login messages (e.g. `1010000`)
+- `02` for logout messages (e.g. `1020000`)
+- `03` for multi-factor authentication messages (e.g. `1030000`)
+- `04` for registration messages (e.g. `1040000`)
+- `05` for settings messages (e.g. `1050000`)
+- `06` for account recovery messages (e.g. `1060000`)
+- `07` for email/phone verification messages (e.g. `1070000`)
 - `zzzz` is the message ID and typically starts at `0001`. For example, message
   ID `4070001` (`4` for input validation error, `07` for verification, `0001`
   for the concrete message) is:
@@ -1047,6 +1046,17 @@ will be overwritten!
 }
 ```
 
+###### Sign in with security key (1010001)
+
+```json
+{
+  "id": 1010001,
+  "text": "Sign in with security key",
+  "type": "info",
+  "context": {}
+}
+```
+
 ###### Sign in with {provider} (1010002)
 
 ```json
@@ -1060,12 +1070,12 @@ will be overwritten!
 }
 ```
 
-###### Please confirm this action by verifying that it's you. (1010003)
+###### Please confirm this action by verifying that it is you. (1010003)
 
 ```json
 {
   "id": 1010003,
-  "text": "Please confirm this action by verifying that it's you.",
+  "text": "Please confirm this action by verifying that it is you.",
   "type": "info",
   "context": {}
 }
@@ -1147,6 +1157,37 @@ will be overwritten!
 }
 ```
 
+###### Continue with security key (1010011)
+
+```json
+{
+  "id": 1010011,
+  "text": "Continue with security key",
+  "type": "info"
+}
+```
+
+###### Prepare your WebAuthn device (e.g. security key, biometrics scanner, ...) and press continue. (1010012)
+
+```json
+{
+  "id": 1010012,
+  "text": "Prepare your WebAuthn device (e.g. security key, biometrics scanner, ...) and press continue.",
+  "type": "info",
+  "context": {}
+}
+```
+
+###### Continue (1010013)
+
+```json
+{
+  "id": 1010013,
+  "text": "Continue",
+  "type": "info"
+}
+```
+
 ###### Sign up (1040001)
 
 ```json
@@ -1177,6 +1218,16 @@ will be overwritten!
 {
   "id": 1040003,
   "text": "Continue",
+  "type": "info"
+}
+```
+
+###### Sign up with security key (1040004)
+
+```json
+{
+  "id": 1040004,
+  "text": "Sign up with security key",
   "type": "info"
 }
 ```
@@ -1233,16 +1284,6 @@ will be overwritten!
 {
   "id": 1050005,
   "text": "Authenticator app QR code",
-  "type": "info"
-}
-```
-
-###### This is your authenticator app secret. Use it if you can't scan the QR code. (1050006)
-
-```json
-{
-  "id": 1050006,
-  "text": "This is your authenticator app secret. Use it if you can't scan the QR code.",
   "type": "info"
 }
 ```
@@ -1323,17 +1364,13 @@ will be overwritten!
 }
 ```
 
-###### Remove security key "{name}" (1050012)
+###### Add security key (1050012)
 
 ```json
 {
   "id": 1050012,
-  "text": "Remove security key \"{name}\"",
-  "type": "info",
-  "context": {
-    "added_at": "2020-01-01T00:59:59Z",
-    "display_name": "{name}"
-  }
+  "text": "Add security key",
+  "type": "info"
 }
 ```
 
@@ -1400,12 +1437,36 @@ will be overwritten!
 }
 ```
 
-###### You successfully recovered your account. Please change your password or set up an alternative login method (for example social sign in) within the next 0.02 minutes. (1060001)
+###### This is your authenticator app secret. Use it if you can not scan the QR code. (1050017)
+
+```json
+{
+  "id": 1050017,
+  "text": "This is your authenticator app secret. Use it if you can not scan the QR code.",
+  "type": "info"
+}
+```
+
+###### Remove security key "{name}" (1050018)
+
+```json
+{
+  "id": 1050018,
+  "text": "Remove security key \"{name}\"",
+  "type": "info",
+  "context": {
+    "added_at": "2020-01-01T00:59:59Z",
+    "display_name": "{name}"
+  }
+}
+```
+
+###### You successfully recovered your account. Please change your password or set up an alternative login method (e.g. social sign in) within the next 0.02 minutes. (1060001)
 
 ```json
 {
   "id": 1060001,
-  "text": "You successfully recovered your account. Please change your password or set up an alternative login method (for example social sign in) within the next 0.02 minutes.",
+  "text": "You successfully recovered your account. Please change your password or set up an alternative login method (e.g. social sign in) within the next 0.02 minutes.",
   "type": "info",
   "context": {
     "privilegedSessionExpiresAt": "2020-01-01T01:01:00Z"
@@ -1552,12 +1613,12 @@ will be overwritten!
 }
 ```
 
-###### "{value}" isn't valid "{format}" (4000004)
+###### "{value}" is not valid "{format}" (4000004)
 
 ```json
 {
   "id": 4000004,
-  "text": "\"{value}\" isn't valid \"{format}\"",
+  "text": "\"{value}\" is not valid \"{format}\"",
   "type": "error",
   "context": {
     "actual_value": "{value}",
@@ -1566,12 +1627,12 @@ will be overwritten!
 }
 ```
 
-###### The password can't be used because {reason}. (4000005)
+###### The password can not be used because {reason}. (4000005)
 
 ```json
 {
   "id": 4000005,
-  "text": "The password can't be used because {reason}.",
+  "text": "The password can not be used because {reason}.",
   "type": "error",
   "context": {
     "reason": "{reason}"
@@ -1612,12 +1673,12 @@ will be overwritten!
 }
 ```
 
-###### Couldn't find any login identifiers. Did you forget to set them? (4000009)
+###### Could not find any login identifiers. Did you forget to set them? This could also be caused by a server misconfiguration. (4000009)
 
 ```json
 {
   "id": 4000009,
-  "text": "Couldn't find any login identifiers. Did you forget to set them?",
+  "text": "Could not find any login identifiers. Did you forget to set them? This could also be caused by a server misconfiguration.",
   "type": "error"
 }
 ```
@@ -1638,17 +1699,6 @@ will be overwritten!
 {
   "id": 4000011,
   "text": "You have no TOTP device set up.",
-  "type": "error",
-  "context": {}
-}
-```
-
-###### The backup recovery code isn't valid. (4000012)
-
-```json
-{
-  "id": 4000012,
-  "text": "The backup recovery code isn't valid.",
   "type": "error",
   "context": {}
 }
@@ -1687,6 +1737,28 @@ will be overwritten!
 }
 ```
 
+###### This account does not exist or has no security key set up. (4000015)
+
+```json
+{
+  "id": 4000015,
+  "text": "This account does not exist or has no security key set up.",
+  "type": "error",
+  "context": {}
+}
+```
+
+###### The backup recovery code is not valid. (4000016)
+
+```json
+{
+  "id": 4000016,
+  "text": "The backup recovery code is not valid.",
+  "type": "error",
+  "context": {}
+}
+```
+
 ###### The login flow expired 0.02 minutes ago, please try again. (4010001)
 
 ```json
@@ -1700,52 +1772,52 @@ will be overwritten!
 }
 ```
 
-###### Couldn't find a strategy to log you in with. Did you fill out the form ? (4010002)
+###### Could not find a strategy to log you in with. Did you fill out the form correctly? (4010002)
 
 ```json
 {
   "id": 4010002,
-  "text": "Couldn't find a strategy to log you in with. Did you fill out the form ?",
+  "text": "Could not find a strategy to log you in with. Did you fill out the form correctly?",
   "type": "error"
 }
 ```
 
-###### Couldn't find a strategy to sign you up with. Did you fill out the form ? (4010003)
+###### Could not find a strategy to sign you up with. Did you fill out the form correctly? (4010003)
 
 ```json
 {
   "id": 4010003,
-  "text": "Couldn't find a strategy to sign you up with. Did you fill out the form ?",
+  "text": "Could not find a strategy to sign you up with. Did you fill out the form correctly?",
   "type": "error"
 }
 ```
 
-###### Couldn't find a strategy to update your settings. Did you fill out the form ? (4010004)
+###### Could not find a strategy to update your settings. Did you fill out the form correctly? (4010004)
 
 ```json
 {
   "id": 4010004,
-  "text": "Couldn't find a strategy to update your settings. Did you fill out the form ?",
+  "text": "Could not find a strategy to update your settings. Did you fill out the form correctly?",
   "type": "error"
 }
 ```
 
-###### Couldn't find a strategy to recover your account with. Did you fill out the form ? (4010005)
+###### Could not find a strategy to recover your account with. Did you fill out the form correctly? (4010005)
 
 ```json
 {
   "id": 4010005,
-  "text": "Couldn't find a strategy to recover your account with. Did you fill out the form ?",
+  "text": "Could not find a strategy to recover your account with. Did you fill out the form correctly?",
   "type": "error"
 }
 ```
 
-###### Couldn't find a strategy to verify your account with. Did you fill out the form ? (4010006)
+###### Could not find a strategy to verify your account with. Did you fill out the form correctly? (4010006)
 
 ```json
 {
   "id": 4010006,
-  "text": "Couldn't find a strategy to verify your account with. Did you fill out the form ?",
+  "text": "Could not find a strategy to verify your account with. Did you fill out the form correctly?",
   "type": "error"
 }
 ```
@@ -1776,12 +1848,12 @@ will be overwritten!
 }
 ```
 
-###### The request was already completed successfully and can't be retried. (4060001)
+###### The request was already completed successfully and can not be retried. (4060001)
 
 ```json
 {
   "id": 4060001,
-  "text": "The request was already completed successfully and can't be retried.",
+  "text": "The request was already completed successfully and can not be retried.",
   "type": "error",
   "context": {}
 }
@@ -1833,12 +1905,12 @@ will be overwritten!
 }
 ```
 
-###### The request was already completed successfully and can't be retried. (4070002)
+###### The request was already completed successfully and can not be retried. (4070002)
 
 ```json
 {
   "id": 4070002,
-  "text": "The request was already completed successfully and can't be retried.",
+  "text": "The request was already completed successfully and can not be retried.",
   "type": "error",
   "context": {}
 }
