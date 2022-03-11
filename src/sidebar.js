@@ -51,6 +51,11 @@ module.exports = {
             'guides/custom-domains',
             'guides/bring-your-user-interface',
             'guides/customize-identity-schema',
+            {
+              type: 'category',
+              label: 'Enabling Social Sign-in',
+              items: ['guides/social-signin/github']
+            },
             'start-building/single-page-app-spa'
           ]
         },
