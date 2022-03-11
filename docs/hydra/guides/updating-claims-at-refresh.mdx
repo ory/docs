@@ -1,0 +1,92 @@
+---
+id: claims-at-refresh
+title: Updating claims at token refresh
+---
+
+## Overview
+
+The Hydra OAuth2 and OpenID Connect server comes with a mechanism that allows updating `id_token` and `access_token` 
+when a registered client sends a token refresh request. The flow is realized by calling the defined refresh token hook endpoint 
+which returns updated data. 
+
+If the data provided by the webhook is different from the data the client sends, the webhook overwrites the session data with a new set. 
+
+:::note
+
+The hook is called before any other logic is executed. If the hook execution fails, 
+the entire token refresh flow fails and the `refresh_token` remains unused.
+
+::: 
+
+
+## Configuration
+
+To enable the token refresh webhook, configure the `oauth2.refresh_token_hook` key in the Hydra configuration: 
+
+```yaml
+oauth2:
+  refresh_token_hook: https://my-example.app/token-refresh-hook
+```
+
+If you're running Hydra locally, you can set this value by exporting the refresh token hook endpoint URL as an environment variable. 
+Run this command: 
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="macos" label="macOS" default>
+
+    export OAUTH2_REFRESH_TOKEN_HOOK=<value>
+
+  </TabItem>
+  <TabItem value="linux" label="Linux">
+
+    export OAUTH2_REFRESH_TOKEN_HOOK=<value>
+  
+  </TabItem>
+  <TabItem value="windows" label="Windows">
+
+    set OAUTH2_REFRESH_TOKEN_HOOK=<value>
+  
+  </TabItem>
+</Tabs>
+
+### Webhook configuration
+
+The refresh token hook endpoint must accept the following payload format sent by Hydra: 
+
+```json
+{
+  "subject": "foo",
+  "client_id": "bar",
+  "granted_scopes": ["openid", "offline"],
+  "granted_audience": []
+}
+```
+
+To update the data, the webhook must return a `200 OK` response and the updated session data in the following format:
+
+```json
+{
+  "session": {
+    "access_token": {
+      "foo": "bar"
+    },
+    "id_token": {
+      "bar": "baz"
+    }
+  }
+}
+```
+
+:::note
+
+The token subject is never overridden.
+
+:::
+
+## Rejecting token refresh
+
+To gracefully reject token refresh, the hook must return a `403 Forbidden` response. 
+Any other response results in a failure of the token refresh and, as a result, failure of the entire flow. 
