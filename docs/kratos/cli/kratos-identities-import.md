@@ -21,7 +21,7 @@ Import identities from files or STD_IN.
 Files can contain only a single or an array of identities. The validity of files
 can be tested beforehand using &#34;... identities validate&#34;.
 
-WARNING: Importing credentials is not yet supported.
+WARNING: Importing credentials isn't yet supported.
 
 ```
 kratos identities import &lt;file.json [file-2.json [file-3.json] ...]&gt; [flags]

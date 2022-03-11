@@ -6,8 +6,8 @@ title: Distributed Tracing
 Configuring Distributed Tracing (DT) will enable you to obtain a visualization
 of the call paths that take place in order to process a request made to Hydra.
 It's yet another tool that you can use to aid you in profiling, debugging and
-ultimately understanding your deployment of Hydra better. Hydra currently
-supports the following tracing options:
+ultimately understanding your deployment of Hydra better. Hydra supports the
+following tracing options:
 
 - Tracing backend(s): Jaeger, Elastic APM, Datadog, Zipkin and Instana - _Note:
   adding support for other
@@ -29,7 +29,7 @@ of work. Each Hydra span is encapsulated with the following state:
 - A finish time
 - A set of zero or more tags
 
-Hydra currently creates the following spans:
+Hydra creates the following spans:
 
 - Top level span (_named after the request path_) for the requested endpoint.
   Span tags: - http method - http status code - error IFF status code >= 400
@@ -39,7 +39,7 @@ Hydra currently creates the following spans:
   driver used.
 
 This is still evolving and subject to change as tracing support continues to
-expand in Hydra. If you see something that is missing/wrong, please create an
+expand in Hydra. If you see something that's missing/wrong, please create an
 issue.
 
 ### Alright, how can I set this up locally?
@@ -52,8 +52,8 @@ an example.
 
 Simply run
 
-```shell script
-$ docker-compose -f quickstart.yml \
+```sh
+docker-compose -f quickstart.yml \
     -f quickstart-tracing.yml \
     up --build
 ```

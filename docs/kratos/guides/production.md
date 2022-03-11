@@ -12,11 +12,11 @@ This document is still in development.
 ## Database
 
 Ory Kratos requires a production-grade database such as PostgreSQL, MySQL,
-CockroachDB. Do not use SQLite in production!
+CockroachDB. Don't use SQLite in production!
 
 ## Security
 
-When preparing for production it is paramount to omit the `--dev` flag from
+When preparing for production it's paramount to omit the `--dev` flag from
 `kratos serve`.
 
 ### HTTP Clients
@@ -31,7 +31,7 @@ clients:
 ```
 
 If enabled, all outgoing HTTP calls done by Ory Kratos will be checked whether
-they are against a private IP range. If that is the case, the request will fail
+they're against a private IP range. If that's the case, the request will fail
 with an error.
 
 ### Admin API

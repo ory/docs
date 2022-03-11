@@ -15,10 +15,9 @@ Kratos. You should already be familiar with the
 There are three principal flows supported for creating identities as an
 administrator:
 
-1. Inviting users - e.g. inviting a new employee to your organization IT.
-2. Importing existing users - e.g. when migrating from another system to Ory
-   Kratos.
-3. Creating machine users - e.g. creating Service Accounts.
+1. Inviting users - inviting a new employee to your organization IT.
+2. Importing existing users - when migrating from another system to Ory Kratos.
+3. Creating machine users - creating Service Accounts.
 
 :::note
 
@@ -35,8 +34,8 @@ way of signing into the identity (account) and setting their password (or any
 other type of credential) for future logins. To achieve this, first create the
 identity and set its traits and schema:
 
-```shell script
-$ curl --request POST -sL \
+```sh
+curl --request POST -sL \
     --header "Content-Type: application/json" \
     --request POST \
     --data '{
@@ -58,7 +57,7 @@ $ curl --request POST -sL \
 
 Keep in mind that you can change the `schema_id` to reflect the schema you want
 to use for this user. Similarly, the trait key/values depend on your schema as
-well. The command shown does not create a password for the identity or any other
+well. The command shown doesn't create a password for the identity or any other
 type of credential. Instead, we will use another REST call to create a recovery
 link (here "invite link" is probably more appropriate, but the flow uses an
 account recovery link). It's possible to generate a link for an account without
@@ -76,8 +75,8 @@ To create the account recovery link, use:
   ]}>
 <TabItem value="curl">
 
-```shell script
-$ curl --request POST -sL \
+```sh
+curl --request POST -sL \
     --header "Content-Type: application/json" \
     --request POST \
     --data '{
@@ -124,9 +123,9 @@ func main() {
 ```
 
 The response contains a `recovery_link` value which is the link the user should
-use to set up his or her credentials (e.g. connect to a Social Sign In Provider,
-set up a password, ...). The user has only a limited amount of time to do so -
-the amount of time is specified in the Ory Kratos config:
+use to set up his or her credentials (for example connect to a Social Sign In
+Provider, set up a password, ...). The user has only a limited amount of time to
+do so - the amount of time is specified in the Ory Kratos config:
 
 ```yaml title="path/to/kratos/config.yml"
 selfservice:
@@ -138,20 +137,19 @@ selfservice:
 If the user fails to set up his / her credentials in time, another recovery link
 needs to be issued and the user needs to re-do the flow.
 
-It is currently not possible to send the recovery link directly to a user's
-email, this feature is tracked as
-[#595](https://github.com/ory/kratos/issues/595).
+It's not possible to send the recovery link directly to a user's email, this
+feature is tracked as [#595](https://github.com/ory/kratos/issues/595).
 
 </TabItem>
 </Tabs>
 
 ### Import a User Identity
 
-This feature is not implemented yet.
+This feature isn't implemented yet.
 
 ### Creating a Machine Identity
 
-This feature is not implemented yet.
+This feature isn't implemented yet.
 
 ### Enable recovery flows
 
@@ -174,7 +172,7 @@ selfservice:
       enabled: true
 ```
 
-To specify that an identity's trait is a recovery email, use the following
+To specify that an identity's trait's a recovery email, use the following
 Identity Schema:
 
 ```diff

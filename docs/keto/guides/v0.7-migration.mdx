@@ -5,11 +5,11 @@ title: Migrating to Keto v0.7
 Ory Keto v0.6 used the table-separated namespaces database schema described in
 the [Google Zanzibar paper](https://research.google/pubs/pub48190/). However, we
 found for various reasons outlined in
-[#613](https://github.com/ory/keto/issues/613) that this is not ideal for Keto.
+[#613](https://github.com/ory/keto/issues/613) that this isn't ideal for Keto.
 
-Because the database schema changed significantly, and it is not possible to
-have SQL-only migrations, there is a special migration procedure needed to
-upgrade Ory Keto v0.6.
+Because the database schema changed significantly, and it isn't possible to have
+SQL-only migrations, there is a special migration procedure needed to upgrade
+Ory Keto v0.6.
 
 ## Preparations
 
@@ -23,7 +23,7 @@ the migration process first on a non-production copy of the database.
 This migration has to download all the data from the database, transform them,
 and then write them back to the database. Make sure that you run it as close to
 the database as possible to reduce the latency and failure rate. In case of a
-failure, just restart the process. It is run as one big SQL transaction.
+failure, just restart the process. It's run as one big SQL transaction.
 
 ## Recommended Procedure
 
@@ -66,5 +66,5 @@ The `keto namespace migrate legacy` command supports multiple options:
 
 - interactive mode with manual approval by not specifying `--yes`
 - migrate single namespace by specifying its name as an argument
-- only delete old tables by specifying `--down-only`; useful if you did not
+- only delete old tables by specifying `--down-only`; useful if you didn't
   approve the down migration previously

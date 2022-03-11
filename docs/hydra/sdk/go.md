@@ -5,14 +5,14 @@ title: Go
 
 To install the Go SDK, run:
 
-```
+```go
 go get -u -d github.com/ory/hydra-client-go
 ```
 
 ## Configuration
 
 We use code generation to generate our SDKs. The Go SDK is generated using
-[`go-swagger`](http://goswagger.io). The SDK is easily set up:
+[`go-swagger`](http://goswagger.io). The SDK is set up:
 
 ```go
 import "github.com/ory/hydra-client-go/client"
@@ -49,13 +49,13 @@ func main() {
     adminURL := url.Parse("https://hydra.localhost:4445")
     hydraAdmin := client.NewHTTPClientWithConfig(nil, &client.TransportConfig{Schemes: []string{adminURL.Scheme}, Host: adminURL.Host, BasePath: adminURL.Path})
 
-    // It is important to create the parameters using `New...`, otherwise requests will fail!
+    // It's important to create the parameters using `New...`, otherwise requests will fail!
     result, err := hydraAdmin.Admin.CreateOAuth2Client(
         admin.NewCreateOAuth2ClientParams().WithBody(&models.OAuth2Client{
         ClientID: "scoped",
     }))
     if err != nil {
-        // err is not nil when the request failed (usually a 404, 401, 409 error)
+        // err isn't nil when the request failed (usually a 404, 401, 409 error)
         // You can distinguish the errors by type-asserting err, for example:
         switch e := err.(type) {
         case (*admin.CreateOAuth2ClientConflict):
@@ -70,7 +70,7 @@ func main() {
 
 ## With Authorization
 
-Some endpoints require e.g. Basic Authorization:
+Some endpoints require Basic Authorization:
 
 ```go
 import (
@@ -95,8 +95,8 @@ For more information on Authorization, check the
 
 ### On every request
 
-You may want to protect ORY Hydra using e.g. OAuth2 Access Tokens. In that case,
-you can enhance the SDK by using the OAuth2 Client:
+You may want to protect Ory Hydra using OAuth2 Access Tokens. In that case, you
+can enhance the SDK by using the OAuth2 Client:
 
 ```go
 import "github.com/ory/hydra-client-go/client"
@@ -105,17 +105,17 @@ import "golang.org/x/oauth2/clientcredentials"
 
 func main() {
     publicURL := url.Parse("https://hydra.localhost:4444")
- 	ht := httptransport.NewWithClient(
- 		publicURL.Host,
- 		publicURL.Path,
- 		[]string{publicURL.Scheme},
- 		clientcredentials.Config{
- 			TokenURL:"http://hydra.localhost:4444/oauth2/token",
- 			ClientID:"my-client",
- 			ClientSecret:"my-secret",
- 			Scopes:[]string{"scope-a", "scope-b"},
- 		}.Client(context.Background()),
- 	)
+   ht := httptransport.NewWithClient(
+     publicURL.Host,
+     publicURL.Path,
+     []string{publicURL.Scheme},
+     clientcredentials.Config{
+       TokenURL:"http://hydra.localhost:4444/oauth2/token",
+       ClientID:"my-client",
+       ClientSecret:"my-secret",
+       Scopes:[]string{"scope-a", "scope-b"},
+     }.Client(context.Background()),
+   )
 
     public := hydra.New(ht, nil)
 
@@ -128,7 +128,7 @@ func main() {
 
 ### TLS Termination
 
-```
+```go
 
 import "github.com/ory/hydra-client-go/client"
 import httptransport "github.com/go-openapi/runtime/client"
@@ -141,8 +141,8 @@ func main() {
   rt.Set("X-Forwarded-Proto", "https")
   tlsTermClient.Transport = rt
 
-	transport := httptransport.NewWithClient("host:port", "/", []string{"https"}, tlsTermClient)
-	hydra := client.New(transport, nil)
+  transport := httptransport.NewWithClient("host:port", "/", []string{"https"}, tlsTermClient)
+  hydra := client.New(transport, nil)
 
   // ...
 }
@@ -177,14 +177,14 @@ import httptransport "github.com/go-openapi/runtime/client"#
 import "net/http"
 
 func main() {
-	skipTlsClient := &http.Client{
-		Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		},
-		Timeout: 10,
-	}
-	transport := httptransport.NewWithClient("host:port", "/", []string{"https"}, skipTlsClient)
-	hydra := client.New(transport, nil)
+  skipTlsClient := &http.Client{
+    Transport: &http.Transport{
+      TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+    },
+    Timeout: 10,
+  }
+  transport := httptransport.NewWithClient("host:port", "/", []string{"https"}, skipTlsClient)
+  hydra := client.New(transport, nil)
 
   // ...
 }

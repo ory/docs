@@ -3,12 +3,12 @@ id: user-facing-errors
 title: User-Facing Errors
 ---
 
-Because Ory Kratos does not render User Interfaces, we implemented a flow that
+Because Ory Kratos doesn't render User Interfaces, we implemented a flow that
 allows you to implement the error page in any way you want.
 
 ## User-Facing Errors in the Browser
 
-When a user-facing error occurs (e.g. during Self Service User Login), Ory
+When a user-facing error occurs for example during Self Service User Login, Ory
 Kratos will store error message and context and redirect the User's Browser to
 the Error UI URL set by the `selfservice.flows.error.ui_url` configuration or
 `SELFSERVICE_FLOWS_ERROR_UI_URL` environment variable.
@@ -31,8 +31,8 @@ contains a list of errors and their details, for example:
 ]
 ```
 
-We are working on documenting possible error messages and homogenize error
-layouts. In general, errors have the following keys defined:
+We're working on documenting possible error messages and homogenize error
+layouts. Errors have the following keys defined:
 
 ```json
 {
@@ -45,9 +45,9 @@ layouts. In general, errors have the following keys defined:
 
 ## User-Facing Errors when consuming APIs
 
-When a user-facing error occurs and the HTTP client is an API Client (e.g.
-Mobile App), the error will be returned as the HTTP Response. No additional
-steps are required.
+When a user-facing error occurs and the HTTP client is an API Client (for
+example a mobile app), the error will be returned as the HTTP Response. No
+additional steps are required.
 
 ## Using Stub Errors
 
@@ -58,8 +58,8 @@ Error UI:
 
 To call a stub error, simply do:
 
-```shell script
-$ curl -s \
+```sh
+curl -s \
   'https://playground.projects.oryapis.com/api/kratos/public/self-service/errors?id=stub:500' | jq
 
 {

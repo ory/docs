@@ -1,4 +1,4 @@
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Authorization: Bearer $sessionToken"  \
     -H "Accept: application/json"  \
     'https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/flows?id=9b527900-2199-4221-9252-7971b3362282' | \
@@ -16,7 +16,7 @@ $ curl -s -X GET \
     "messages": [
       {
         "id": 1060001,
-        "text": "You successfully recovered your account. Please change your password or set up an alternative login method (e.g. social sign in) within the next 15.00 minutes.",
+        "text": "You successfully recovered your account. Please change your password or set up an alternative login method (for example social sign in) within the next 15.00 minutes.",
         "type": "info",
         "context": {
           "privilegedSessionExpiresAt": "2021-04-28T13:10:36.050848814Z"

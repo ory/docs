@@ -5,7 +5,7 @@ title: Configure and Deploy
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-The ORY Oathkeeper HTTP serve process `oathkeeper serve` opens two ports
+The Ory Oathkeeper HTTP serve process `oathkeeper serve` opens two ports
 exposing the
 
 - [reverse proxy](index.md#reverse-proxy)
@@ -14,26 +14,26 @@ exposing the
   other API endpoints such as health checks, JSON Web Key Sets, and a list of
   available rules.
 
-For this guide we are using Docker. ORY Oathkeeper however can be
+For this guide we're using Docker. Ory Oathkeeper however can be
 [installed in a variety of ways](install.md).
 
 ## Configure
 
-ORY Oathkeeper can be configured via the filesystem as well as environment
+Ory Oathkeeper can be configured via the filesystem as well as environment
 variables. For more information on mapping the keys to environment variables
 please head over to the [configuration chapter](reference/configuration.md).
 
 First, create an empty directory and `cd` into it:
 
 ```shell
-$ mkdir oathkeeper-demo
-$ cd oathkeeper-demo
+mkdir oathkeeper-demo
+cd oathkeeper-demo
 ```
 
 Create a file called `config.yaml` with the following content:
 
 ```shell
-$ cat << EOF > config.yaml
+cat << EOF > config.yaml
 serve:
   proxy:
     port: 4455 # run the proxy at port 4455
@@ -95,7 +95,7 @@ noop and id_token mutators.
 ### Access Rules
 
 We will be using [httpbin.org](https://httpbin.org) as the upstream server. The
-service echoes incoming HTTP Requests and is perfect for seeing how ORY
+service echoes incoming HTTP Requests and is perfect for seeing how Ory
 Oathkeeper works. Let's define three rules:
 
 1. An access rule that allowing anonymous access to
@@ -108,7 +108,7 @@ Oathkeeper works. Let's define three rules:
    `https://httpbin.org/anything/id_token` using the `id_token` mutator.
 
 ```shell
-$ cat << EOF > rules.json
+cat << EOF > rules.json
 [
   {
     "id": "allow-anonymous-with-header-mutator",
@@ -230,13 +230,13 @@ EOF
 ### Cryptographic Keys
 
 The `id_token` mutator creates a signed JSON Web Token. For that to work, a
-public/private key is required. Luckily, ORY Oathkeeper can assist you in
+public/private key is required. Luckily, Ory Oathkeeper can assist you in
 creating such keys. All common JWT algorithms are supported (RS256, ES256,
 HS256, ...). Let's generate a key for the RS256 algorithm that will be used by
 the id_token mutator:
 
 ```sh
-$ docker run oryd/oathkeeper:v0.38.16-beta.1 credentials generate --alg RS256 > jwks.json
+docker run oryd/oathkeeper:v0.38.16-beta.1 credentials generate --alg RS256 > jwks.json
 ```
 
 ### Dockerfile
@@ -244,8 +244,8 @@ $ docker run oryd/oathkeeper:v0.38.16-beta.1 credentials generate --alg RS256 > 
 Next we will be creating a custom Docker Image that adds these configuration
 files to the image:
 
-```shell
-$ cat << EOF > Dockerfile
+```sh
+cat << EOF > Dockerfile
 FROM oryd/oathkeeper:v0.38.16-beta.1
 
 ADD config.yaml /config.yaml
@@ -254,9 +254,9 @@ ADD jwks.json /jwks.json
 EOF
 ```
 
-We are doing this for demonstration purposes only. In a production environment
+We're doing this for demonstration purposes only. In a production environment
 you would separate these configuration values from the build artifact itself. In
-Kuberentes, it would make most sense to provide the JSON Web Keys as a
+Kubernetes, it would make most sense to provide the JSON Web Keys as a
 Kubernetes Secret mounted as in a directory, for example.
 
 We encourage you to check out our [helm charts](https://k8s.ory.sh/helm/) which
@@ -264,23 +264,23 @@ apply these best practices.
 
 ## Build & Run
 
-Before building the Docker Image, we need to make sure that the local ORY
+Before building the Docker Image, we need to make sure that the local Ory
 Oathkeeper Docker Image is on the most recent version:
 
 ```sh
-$ docker pull oryd/oathkeeper:v0.38.16-beta.1
+docker pull oryd/oathkeeper:v0.38.16-beta.1
 ```
 
 Next we will build our custom Docker Image
 
 ```sh
-$ docker build -t ory-oathkeeper-demo .
+docker build -t ory-oathkeeper-demo .
 ```
 
 and run it
 
-```
-$ docker run --rm \
+```sh
+docker run --rm \
   --name ory-oathkeeper-demo \
   -p 4455:4455 \
   -p 4456:4456 \
@@ -289,20 +289,20 @@ $ docker run --rm \
   serve
 ```
 
-Let's open a new terminal and check if it is alive:
+Let's open a new terminal and check if it's alive:
 
-```
-$ curl http://127.0.0.1:4456/health/alive
+```sh
+curl http://127.0.0.1:4456/health/alive
 {"status":"ok"}
 
-$ curl http://127.0.0.1:4456/health/ready
+curl http://127.0.0.1:4456/health/ready
 {"status":"ok"}
 ```
 
 Let's also check if the rules have been imported properly:
 
-```
-$ curl http://127.0.0.1:4456/rules
+```sh
+curl http://127.0.0.1:4456/rules
 [{"id":"allow-anonymous-with-header-mutator","description":"","match":{"methods":["GET"],...
 ```
 
@@ -310,8 +310,8 @@ $ curl http://127.0.0.1:4456/rules
 
 Everything is up and running and configured! Let's make some requests:
 
-```
-$ curl -X GET http://127.0.0.1:4455/anything/header
+```sh
+curl -X GET http://127.0.0.1:4455/anything/header
 {
   "args": {},
   "data": "",
@@ -331,20 +331,20 @@ $ curl -X GET http://127.0.0.1:4455/anything/header
 }
 
 # Make request and accept JSON (we get an error response)
-$ curl -H "Accept: application/json" -X GET http://127.0.0.1:4455/anything/deny
+curl -H "Accept: application/json" -X GET http://127.0.0.1:4455/anything/deny
 {
   "error":{
     "code":403,
     "status":"Forbidden",
-    "message":"Access credentials are not sufficient to access this resource"
+    "message":"Access credentials aren't sufficient to access this resource"
   }
 }
 
 # Make request and accept text/* (we get a redirect response).
-$ curl -H "Accept: text/html" -X GET http://127.0.0.1:4455/anything/deny
+curl -H "Accept: text/html" -X GET http://127.0.0.1:4455/anything/deny
 <a href="https://www.ory.sh/docs">Found</a>.
 
-$ curl -X GET http://127.0.0.1:4455/anything/id_token
+curl -X GET http://127.0.0.1:4455/anything/id_token
 {
   "args": {},
   "data": "",
@@ -366,10 +366,10 @@ $ curl -X GET http://127.0.0.1:4455/anything/id_token
 
 That's it! You can now clean up the demo using:
 
-```
-$ docker rm -f ory-oathkeeper-demo
-$ docker rmi -f ory-oathkeeper-demo
-$ rm -rf oathkeeper-demo
+```sh
+docker rm -f ory-oathkeeper-demo
+docker rmi -f ory-oathkeeper-demo
+rm -rf oathkeeper-demo
 ```
 
 ## Monitoring
@@ -381,7 +381,7 @@ endpoint can be accessed by default at:
 You can adjust the settings within Oathkeeper's config.
 
 ```shell
-$ cat << EOF > config.yaml
+cat << EOF > config.yaml
 serve:
   prometheus:
     port: 9000
@@ -390,13 +390,12 @@ serve:
 EOF
 ```
 
-Prometheus can easily be run as a docker container. More information are
-available on
+Prometheus can be run as a docker container. More information are available on
 [https://github.com/prometheus/prometheus](https://github.com/prometheus/prometheus).
 Start with setting up a prometheus configuration:
 
 ```shell
-$ cat << EOF > prometheus.yml
+cat << EOF > prometheus.yml
 global:
   scrape_interval: 15s # By default, scrape targets every 15 seconds.
 
@@ -417,7 +416,7 @@ Then start the prometheus server and access it on
 [http://localhost:9090](http://localhost:9090).
 
 ```shell
-$ docker run \
+docker run \
   --config.file=/etc/prometheus/prometheus.yml \
   -v ./prometheus.yml:/etc/prometheus/prometheus.yml \
   --name prometheus \
@@ -432,8 +431,8 @@ building up nice visualizations eg. using Grafana. More information are
 available on
 [https://prometheus.io/docs/visualization/grafana/](https://prometheus.io/docs/visualization/grafana/).
 
-We have a pre built Dashboard which you can use to get started quickly:
+We've a pre built Dashboard which you can use to get started quickly:
 [Oathkeeper-Dashboard.json](https://github.com/ory/oathkeeper/tree/master/contrib/grafana/Oathkeeper-Dashboard.json).
 
-<img alt="ORY Oathkeeper with Prometheus and Grafana"
+<img alt="Ory Oathkeeper with Prometheus and Grafana"
 src={useBaseUrl('img/docs/grafana.png')} />

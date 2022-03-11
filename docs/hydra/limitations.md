@@ -18,27 +18,27 @@ OAuth 2.0 Client Secrets are hashed using BCrypt. BCrypt has, by design, a
 maximum password length. The Golang BCrypt library has a maximum password length
 of 73 bytes. Any password longer will be "truncated":
 
-```shell script
-$ hydra clients create --id long-secret \
-	--secret 525348e77144a9cee9a7471a8b67c50ea85b9e3eb377a3c1a3a23db88f9150eefe76e6a339fdbc62b817595f53d72549d9ebe36438f8c2619846b963e9f43a94 \
-	--endpoint http://localhost:4445 \
-	--token-endpoint-auth-method client_secret_post \
-	--grant-types client_credentials
+```sh
+hydra clients create --id long-secret \
+  --secret 525348e77144a9cee9a7471a8b67c50ea85b9e3eb377a3c1a3a23db88f9150eefe76e6a339fdbc62b817595f53d72549d9ebe36438f8c2619846b963e9f43a94 \
+  --endpoint http://localhost:4445 \
+  --token-endpoint-auth-method client_secret_post \
+  --grant-types client_credentials
 
-$ hydra token client --client-id long-secret \
-	--client-secret 525348e77144a9cee9a7471a8b67c50ea85b9e3eb377a3c1a3a23db88f9150eefe76e6a3 \
-	--endpoint http://localhost:4444
+hydra token client --client-id long-secret \
+  --client-secret 525348e77144a9cee9a7471a8b67c50ea85b9e3eb377a3c1a3a23db88f9150eefe76e6a3 \
+  --endpoint http://localhost:4444
 ```
 
 For more information on this topic we recommend reading:
 
-- https://security.stackexchange.com/questions/39849/does-bcrypt-have-a-maximum-password-length
-- https://security.stackexchange.com/questions/6623/pre-hash-password-before-applying-bcrypt-to-avoid-restricting-password-length
+- [Does bcrypt have a maximum password length?](https://security.stackexchange.com/questions/39849/does-bcrypt-have-a-maximum-password-length)
+- [Pre-hash password before applying bcrypt to avoid restricting password length](https://security.stackexchange.com/questions/6623/pre-hash-password-before-applying-bcrypt-to-avoid-restricting-password-length)
 
 ## Resource Owner Password Credentials Grant Type (ROPC)
 
-Ory Hydra does not and will not implement the Resource Owner Password
-Credentials Grant Type. Read on for context.
+Ory Hydra doesn't and won't implement the Resource Owner Password Credentials
+Grant Type. Read on for context.
 
 ### Overview
 
@@ -47,7 +47,7 @@ password) for an access token.
 
 **Request:**
 
-```
+```sh
 POST /oauth2/token HTTP/1.1
 Host: server.example.com
 Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
@@ -58,7 +58,7 @@ grant_type=password&username=johndoe&password=A3ddj3w
 
 **Response:**
 
-```
+```sh
 HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Cache-Control: no-store
@@ -82,16 +82,16 @@ first-party apps. If you plan on doing this, stop right now and read
 
 The ROPC grant type is discouraged by developers, professionals, and the IETF
 itself. It was originally added because big legacy corporations (not dropping
-any names, but they are part of the IETF consortium) did not want to migrate
-their authentication infrastructure to the modern web but instead do what
-they've been doing all along "but OAuth 2.0" and for systems that want to
-upgrade from OAuth (1.0) to OAuth 2.0.
+any names, but they're part of the IETF consortium) didn't want to migrate their
+authentication infrastructure to the modern web but instead do what they've been
+doing all along "but OAuth 2.0" and for systems that want to upgrade from OAuth
+(1.0) to OAuth 2.0.
 
-There are a ton of good reasons why this is a bad flow, they are summarized in
+There are a ton of good reasons why this is a bad flow, they're summarized in
 [this excellent blog article as well](https://www.scottbrady91.com/OAuth/Why-the-Resource-Owner-Password-Credentials-Grant-Type-is-not-Authentication-nor-Suitable-for-Modern-Applications).
 
 ### What about Auth0, Okta, ...?
 
-Auth0, Okta, Stormpath started early with OAuth 2.0 SaaS and adopted the ROPC
-grant too. They since deprecated these old flows but still have them active as
+Auth0, Okta, Stormpath started with OAuth 2.0 SaaS and adopted the ROPC grant
+too. They since deprecated these old flows but still have them active as
 existing apps rely on them.

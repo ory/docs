@@ -3,13 +3,13 @@ id: redirects
 title: Browser Redirects and Flow Completion
 ---
 
-Ory Cloud offers a few methods to integrate your own user interface (UI) such as
-utilising the SDK in Single Page Applications (ReactJs, Angular, VueJs etc.) or
+Ory Cloud offers methods to integrate your own user interface (UI) such as
+utilizing the SDK in Single Page Applications (ReactJs, Angular, VueJs etc.) or
 using redirects in Server Side Applications (NodeJs, PHP, Golang etc.).
 
 On this page of the documentation we will be covering Browser Redirects and how
-to configure it on the Ory Cloud console. If you are interested in utilising the
-SDK for Single Page Applications, check out our [SDK](./services-api.mdx)
+to configure it on Ory Cloud console. If you are interested in utilizing the SDK
+for Single Page Applications, check out our [SDK](./services-api.mdx)
 documentation.
 
 For a deeper dive into the background of this setup, head over to our open
@@ -19,7 +19,7 @@ source documentation:
 
 ## Allow list
 
-The Ory Cloud allows dynamic redirects to be set using the `?return_to=` query
+Ory Cloud allows dynamic redirects to be set using the `?return_to=` query
 parameter on [Self-Service Flows](./self-service.mdx). As an example a user
 opens a sharable link to go to https://myapp.com/posts, however, this url
 requires the user to be signed in and thus redirects the user back to the login
@@ -37,13 +37,14 @@ will fail, however, for https://anotherapp.com will succeed on any path.
 
 ## Redirect Flows
 
-The Ory Cloud has a total of 6 flows, Login, Registration, Verification,
-Recovery, Settings and Logout which can be configured to redirect back to any
-URL you specify. As an example you can redirect the user to your application
-home screen after a logout or to a specific url on a sub-domain after a settings
-password update. On project creation the redirect flows are all set to the
-default Ory Cloud Managed UI. For more information on the Ory Managed UI, please
-see the [Managed User Interface](./managed-ui.mdx) documentation.
+Ory Cloud has a total of six flows, **Login**, **Registration**,
+**Verification**, **Recovery**, **Settings** and **Logout** which can be
+configured to redirect back to any URL. A common use case would be to redirect
+the user to your application home screen after a logout or to a specific url on
+a sub-domain after a settings password update. On project creation the redirect
+flows are set to the default Ory Cloud Managed UI. For more information on the
+Ory Managed UI, please see the [Managed User Interface](./managed-ui.mdx)
+documentation.
 
 ### Login, Registration and Settings
 
@@ -51,7 +52,7 @@ The Login and Registration flows have three fields (all optional):
 
 1. `Default Redirect URL` domain or path relative to your application URL
 2. An `Post-Password Redirect URL`
-3. An `Post-OIDC Redirect URL` (**currently not supported**)
+3. An `Post-OIDC Redirect URL` (**not supported**)
 
 And Settings has three fields (all optional):
 
@@ -61,18 +62,17 @@ And Settings has three fields (all optional):
 
 :::info
 
-Setting `Post-OIDC` redirects for Login and Registration are currently not
-supported since an Ory Cloud project cannot be setup to use OIDC yet. This will
-be supported in the future. For more information see the
+Setting `Post-OIDC` redirects for Login and Registration will be supported in a
+future release. For more information see the
 [Ory Cloud Roadmap](../cloud/cloud-roadmap.mdx).
 
 :::
 
 When setting the `Default Redirect URL` as an FQDN (fully qualified domain name)
-such as e.g. https://domain.example/login it will overwrite the
+such as `https://domain.example/login` it will overwrite the
 `Global Redirect URL`. As a path it will replace the `Global Redirect URL` path,
-e.g. a path such as `/login` will alter https://domain.example/global/path to
-https://domain.example/login.
+for example a path such as `/login` will alter
+`https://domain.example/global/path` to `https://domain.example/login`.
 
 On the sub-conditions such as `Post-Password` or `Post-OIDC` an FQDN or a path
 can be set. In the case of an FQDN it will replace the closest relative starting
@@ -95,10 +95,9 @@ https://myapp.com/after/login/password.
 
 :::warning
 
-The `Post-Recovery` redirect is currently not supported and will automatically
-redirect the user to the `Settings UI` URL. This implies that you should
-currently rely on the `Post-Settings` redirect URL for `Post-Recovery` flows as
-well.
+The `Post-Recovery` redirect is not supported and will automatically redirect
+the user to the `Settings UI` URL. This implies that you should rely on the
+`Post-Settings` redirect URL for `Post-Recovery` flows as well.
 
 :::
 
@@ -110,15 +109,14 @@ with the Login, Registration and Settings configurations, the
 
 ## Resetting/Updating Flows
 
-A redirect can easily be updated or reset by either changing the current
-redirects value or deleting the entry and clicking the "Update" button. All the
-flows can be reset at once by pressing the "Reset Flows" button which will
-prompt a confirmation box. Resetting all flows will reset all the fields back to
-the default value which is the Ory Cloud
-[Managed User Interface](./managed-ui.mdx).
+A redirect can be updated or reset by either changing the current redirects
+value or deleting the entry and clicking the "Update" button. All the flows can
+be reset at once by pressing the "Reset Flows" button which will prompt a
+confirmation box. Resetting all flows will reset all the fields back to the
+default value which is Ory Cloud [Managed User Interface](./managed-ui.mdx).
 
 Once a flow has been reset or updated it will take effect immediately on **new**
-flows. Old flows that have not expired yet will not be updated.
+flows. Old flows that haven't expired yet won't be updated.
 
 ![Browser Redirects URL Reset All](/images/browser-redirects/browser-redirects-reset-all.png)
 

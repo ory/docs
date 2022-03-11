@@ -10,13 +10,13 @@ guide assumes that you have the `oidc` method enabled.
 :::note
 
 Please be aware that these tokens are only set when an identity sign ups with,
-or links a new Social Sign In provider. They are not updated when an identity
+or links a new Social Sign In provider. They'ren't updated when an identity
 signs in!
 
 :::
 
-```shell script
-$ curl --request GET -sL \
+```sh
+curl --request GET -sL \
     --header "Content-Type: application/json" \
     http://127.0.0.1:4434/identities/3ade335e-62e6-4abb-b190-6efd48e077fc?include_credential=oidc
 

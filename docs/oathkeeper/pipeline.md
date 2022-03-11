@@ -5,15 +5,15 @@ title: Access Rule Pipeline
 
 Read more about the
 [principal components and execution pipeline of access rules](api-access-rules.md)
-if you have not already. This chapter explains the different pipeline handlers
+if you haven't already. This chapter explains the different pipeline handlers
 available to you:
 
-- [Authentication handlers](pipeline/authn.md) inspect HTTP requests (e.g. the
-  HTTP Authorization Header) and execute some business logic that return true
-  (for authentication ok) or false (for authentication invalid) as well as a
-  subject ("user"). The subject is typically the "user" that made the request,
-  but it could also be a machine (if you have machine-2-machine interaction) or
-  something different.
+- [Authentication handlers](pipeline/authn.md) inspect HTTP requests (for
+  example the HTTP Authorization Header) and execute some business logic that
+  return true (for authentication ok) or false (for authentication invalid) as
+  well as a subject ("user"). The subject is typically the "user" that made the
+  request, but it could also be a machine (if you have machine-2-machine
+  interaction) or something different.
 - [Authorization handlers](pipeline/authz.md): ensure that a subject ("user")
   has the right permissions. For example, a specific endpoint might only be
   accessible to subjects ("users") from group "admin". The authorizer handles
@@ -21,12 +21,12 @@ available to you:
 - [Mutation handlers](pipeline/mutator.md): transforms the credentials from
   incoming requests to credentials that your backend understands. For example,
   the `Authorization: basic` header might be transformed to
-  `X-User: <subject-id>`. This allows you to write backends that do not care if
+  `X-User: <subject-id>`. This allows you to write backends that don't care if
   the original request was an anonymous one, an OAuth 2.0 Access Token, or some
   other credential type. All your backend has to do is understand, for example,
   the `X-User:`.
 - [Error handlers](pipeline/error.md): are responsible for executing logic
-  after, for example, authentication or authorization failed. ORY Oathkeeper
+  after, for example, authentication or authorization failed. Ory Oathkeeper
   supports different error handlers and we will add more as the project
   progresses.
 
@@ -72,17 +72,17 @@ struct content.
 
 ```go
 type AuthenticationSession struct {
-	Subject      string
-	Extra        map[string]interface{}
-	Header       http.Header
-	MatchContext MatchContext
+  Subject      string
+  Extra        map[string]interface{}
+  Header       http.Header
+  MatchContext MatchContext
 }
 
 type MatchContext struct {
-	RegexpCaptureGroups []string
-	URL                 *url.URL
-	Method              string
-	Header              http.Header
+  RegexpCaptureGroups []string
+  URL                 *url.URL
+  Method              string
+  Header              http.Header
 }
 ```
 
@@ -136,7 +136,7 @@ non-existent map values will simply return an empty string, rather than
 `<no value>`.
 
 If you find that your field contain the string `<no value>` then you have most
-likely omitted the `print` function, and it is recommended you use it for all
+likely omitted the `print` function, and it's recommended you use it for all
 values out of an abundance of caution and for consistency.
 
 In the same way, a `printIndex` FuncMap function is provided to avoid _out of

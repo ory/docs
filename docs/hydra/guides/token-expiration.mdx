@@ -22,7 +22,7 @@ flow may take.
   #
   # Set this value using environment variables on
   # - Linux/macOS:
-  #    $ export TTL_LOGIN_CONSENT_REQUEST=<value>
+  #    export TTL_LOGIN_CONSENT_REQUEST=<value>
   # - Windows Command Line (CMD):
   #    > set TTL_LOGIN_CONSENT_REQUEST=<value>
   #
@@ -44,7 +44,7 @@ Key `ttl.access_token` configures how long access tokens are valid.
   #
   # Set this value using environment variables on
   # - Linux/macOS:
-  #    $ export TTL_ACCESS_TOKEN=<value>
+  #    export TTL_ACCESS_TOKEN=<value>
   # - Windows Command Line (CMD):
   #    > set TTL_ACCESS_TOKEN=<value>
   #
@@ -67,7 +67,7 @@ for refresh tokens to never expire.
   #
   # Set this value using environment variables on
   # - Linux/macOS:
-  #    $ export TTL_REFRESH_TOKEN=<value>
+  #    export TTL_REFRESH_TOKEN=<value>
   # - Windows Command Line (CMD):
   #    > set TTL_REFRESH_TOKEN=<value>
   #
@@ -77,7 +77,7 @@ for refresh tokens to never expire.
 
 ### Refresh Token Rotation
 
-When a refresh token is used it is deactivated, which is known as Refresh Token
+When a refresh token is used it's deactivated, which is known as Refresh Token
 Rotation. By default, Ory Hydra deactivates the refresh token it receives and
 issues a new token. If a deactivated refresh token is used again, all tokens
 related to that refresh token will also be deactivated. More information on
@@ -86,7 +86,7 @@ Refresh Token Rotation can be found in the recommendation section of the OAuth
 [here](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics#section-4.13.2).
 
 There are some cases when a one time use refresh token may be undesirable, such
-as when a networking error occurs and the newly issued refresh token is not
+as when a networking error occurs and the newly issued refresh token isn't
 received. Hydra may be configured to use a refresh token grace period which
 allows a refresh token to be reused for the duration of the grace period. Note
 that a new refresh token is still generated and sent back in the response;
@@ -131,7 +131,7 @@ Key `ttl.id_token` configures how long id tokens are valid.
   #
   # Set this value using environment variables on
   # - Linux/macOS:
-  #    $ export TTL_ID_TOKEN=<value>
+  #    export TTL_ID_TOKEN=<value>
   # - Windows Command Line (CMD):
   #    > set TTL_ID_TOKEN=<value>
   #
@@ -153,7 +153,7 @@ Key `ttl.auth_code` configures how long auth codes are valid.
   #
   # Set this value using environment variables on
   # - Linux/macOS:
-  #    $ export TTL_AUTH_CODE=<value>
+  #    export TTL_AUTH_CODE=<value>
   # - Windows Command Line (CMD):
   #    > set TTL_AUTH_CODE=<value>
   #

@@ -60,12 +60,12 @@ import CodeBlock from '@theme/CodeBlock'
 ## Validate and Login
 
 Next we will create a middleware which will check with your Ory project if the
-user has a valid session. Notice here that we are taking the current `request`
+user has a valid session. Notice here that we're taking the current `request`
 cookies and passing them along to the Ory client.
 
-If the session is not valid the request is redirected to the Ory project for
-login. At this point we have not set up any custom UI management and thus will
-be shown the Ory Managed UI login page.
+If the session isn't valid the request is redirected to the Ory project for
+login. At this point we'ven't set up any custom UI management and thus will be
+shown the Ory Managed UI login page.
 
 ```mdx-code-block title="middleware.go"
 import middlewareGo from '!!raw-loader!../../../code-examples/protect-page-login/go/middleware.go'

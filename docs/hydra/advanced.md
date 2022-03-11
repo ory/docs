@@ -16,9 +16,9 @@ Connect:
 2. OpenID Connect: The ID Token is "external-facing". The `aud` claim of an
    OpenID Connect ID Token defines which _clients_ should accept it.
 
-While modifying the audience of an ID Token is not desirable, specifying the
-audience of an OAuth 2.0 Access Token is. This is not defined as an IETF
-Standard but is considered good practice in certain environments.
+While modifying the audience of an ID Token isn't desirable, specifying the
+audience of an OAuth 2.0 Access Token is. This isn't defined as an IETF Standard
+but is considered good practice in certain environments.
 
 For this reason, Hydra allows you to control the aud claim of the access token.
 To do so, you must specify the intended audiences in the OAuth 2.0 Client's
@@ -95,23 +95,23 @@ Ory Hydra issues opaque OAuth 2.0 Access Tokens per default for the following
 reasons:
 
 1. **OAuth 2.0 Access Tokens represent internal state but are public
-   knowledge:** An Access Token often contains internal data (e.g. session data)
-   or other sensitive data (e.g. user roles and permissions) and is sometimes
-   used as a means of transporting system-relevant information in a stateless
-   manner. Therefore, making these tokens transparent (by using JSON Web Tokens
-   as Access Tokens) comes with risk of exposing this information accidentally,
+   knowledge:** An Access Token often contains internal data (such as session
+   data) or other sensitive data (such as user roles and permissions) and is
+   sometimes used as a means of transporting system-relevant information in a
+   stateless manner. Therefore, making these tokens transparent (by using JSON
+   Web Tokens as Access Tokens) comes with risk of exposing this information,
    and with the downside of not storing this information in the OAuth 2.0 Access
    Token at all.
-2. **JSON Web Tokens can not hold secrets:** Unless encrypted, JSON Web Tokens
-   can be read by everyone, including 3rd Parties. Therefore, they can not keep
-   secrets. This point is similar to (1), but it is important to stress this.
-3. **Access Tokens as JSON Web Tokens can not be revoked:** Well, you can revoke
+2. **JSON Web Tokens can't hold secrets:** Unless encrypted, JSON Web Tokens can
+   be read by everyone, including 3rd Parties. Therefore, they can't keep
+   secrets. This point is similar to (1), but it's important to stress this.
+3. **Access Tokens as JSON Web Tokens can't be revoked:** Well, you can revoke
    them, but they will be considered valid until the "expiry" of the token is
    reached. Unless, of course, you have a blacklist or check with Hydra if the
    token was revoked, which however defeats the purpose of using JSON Web Tokens
    in the first place.
-4. **Certain OpenID Connect features will not work** when using JSON Web Tokens
-   as Access Tokens, such as the pairwise subject identifier algorithm.
+4. **Certain OpenID Connect features won't work** when using JSON Web Tokens as
+   Access Tokens, such as the pairwise subject identifier algorithm.
 5. **There is a better solution: Use
    [Ory Oathkeeper](https://github.com/ory/oathkeeper)!** Ory Oathkeeper is a
    proxy you deploy in front of your services. It will "convert" Ory Hydra's
@@ -119,7 +119,7 @@ reasons:
    allows your services to work without additional REST Calls while solving all
    previous points. **We really recommend this option if you want JWTs!**
 
-If you are not convinced that Ory Oathkeeper is the right tool for the job, you
+If you aren't convinced that Ory Oathkeeper is the right tool for the job, you
 can still enable JSON Web Tokens in Ory Hydra by setting:
 
 ```yaml
@@ -128,16 +128,16 @@ strategies:
 ```
 
 Be aware that only access tokens are formatted as JSON Web Tokens. Refresh
-tokens are not impacted by this strategy. By performing OAuth 2.0 Token
+tokens aren't impacted by this strategy. By performing OAuth 2.0 Token
 Introspection you can check if the token is still valid. If a token is revoked
 or otherwise blacklisted, the OAuth 2.0 Token Introspection will return
-`{ "active": false }`. This is useful when you do not want to rely only on the
+`{ "active": false }`. This is useful when you don't want to rely only on the
 token's expiry.
 
 #### JSON Web Token Validation
 
 You can validate JSON Web Tokens issued by Ory Hydra by pointing your `jwt`
-library (e.g. [node-jwks-rsa](https://github.com/auth0/node-jwks-rsa)) to
+library (for example [node-jwks-rsa](https://github.com/auth0/node-jwks-rsa)) to
 `http://ory-hydra-public-api/.well-known/jwks.json`. All necessary keys are
 available there.
 
@@ -279,9 +279,9 @@ oidc:
       salt: some-salt
 ```
 
-**This value should not be changed once set in production. Changing it will
-cause all client applications to receive new user IDs from Ory Hydra which will
-lead to serious complications with authentication on their side!**
+**This value shouldn't be changed once set in production. Changing it will cause
+all client applications to receive new user IDs from Ory Hydra which will lead
+to serious complications with authentication on their side!**
 
 Each OAuth 2.0 Client has a configuration field `subject_type`. The value of
 that `subject_type` is either `public` or `pairwise`. If the identifier
@@ -294,10 +294,11 @@ app.
 
 ### Using login_hint with Different Subject
 
-When a user already logged in with a subject(e.g. user-A), and she would like to
-login as another user using login_hint(e.g. login_hint=user-B), directly
-accepting the latter login request in your login provider will make hydra reply:
-`Subject from payload does not match subject from previous authentication`
+When a user already logged in with a subject(for example user-A), and she would
+like to login as another user using login_hint(for example login_hint=user-B),
+directly accepting the latter login request in your login provider will make
+hydra reply:
+`Subject from payload doesn't match subject from previous authentication`
 
 The suggested flow is:
 

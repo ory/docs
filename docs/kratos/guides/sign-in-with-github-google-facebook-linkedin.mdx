@@ -8,22 +8,22 @@ different providers using Ory Kratos.
 
 Run the [Quickstart](../quickstart.mdx) with Docker Compose:
 
-```shell script
+```sh
 # This assumes that you have Ory Kratos checked out locally and
 # that your current directory ("pwd") is the folder where Ory Kratos
 # is.
 
-$ make quickstart
+make quickstart
 ```
 
 :::info
 
-It is very important to add the "session" hook to the after OIDC registration
+It's very important to add the "session" hook to the after OIDC registration
 hooks. Otherwise, your users need to use the login flow again to be able to get
 a session.
 
 ```yaml title="path/to/my/kratos/config.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   flows:
     registration:
@@ -58,7 +58,7 @@ configuration file (explained in further detail at
 
 :::note
 
-Discord does not implement OpenID Connect. Therefore, Ory Kratos makes a request
+Discord doesn't implement OpenID Connect. Therefore, Ory Kratos makes a request
 to
 [Discord's User API](https://discord.com/developers/docs/resources/user#get-current-user)
 and adds that data to `std.extVar('claims')`. However, not all fields are
@@ -95,8 +95,8 @@ local claims = {
   identity: {
     traits: {
       // Allowing unverified email addresses enables account
-      // enumeration attacks, especially if the value is used for
-      // e.g. verification or as a password login identifier.
+      // enumeration attacks,  if the value is used for
+      // verification or as a password login identifier.
       //
       // Therefore we only return the email if it (a) exists and (b) is marked verified
       // by Discord.
@@ -110,7 +110,7 @@ Now, enable the Discord provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -152,10 +152,10 @@ configuration file (explained in further detail at
 
 :::note
 
-Slack does not implement OpenID Connect. Therefore, Ory Kratos makes a request
-to [Slack's Oauth2 API](https://api.slack.com/methods/users.identity) and adds
-that data to `std.extVar('claims')`. However, not all fields are supported.
-Check the list of supported fields
+Slack doesn't implement OpenID Connect. Therefore, Ory Kratos makes a request to
+[Slack's Oauth2 API](https://api.slack.com/methods/users.identity) and adds that
+data to `std.extVar('claims')`. However, not all fields are supported. Check the
+list of supported fields
 [in Kratos' source code](https://github.com/ory/kratos/blob/master/selfservice/strategy/oidc/provider_slack.go).
 
 The `identity.basic` scope will add the following fields:
@@ -193,10 +193,10 @@ local claims = {
   identity: {
     traits: {
       // Allowing unverified email addresses enables account
-      // enumeration attacks, especially if the value is used for
-      // e.g. verification or as a password login identifier.
+      // enumeration attacks,  if the value is used for
+      // verification or as a password login identifier.
       //
-      // It is assumed that Slack requires an email to be verified before accessible via OAuth (because they don't provide a email_verified field).
+      // It's assumed that Slack requires an email to be verified before accessible via OAuth (because they don't provide a email_verified field).
       email: claims.email
     },
   },
@@ -207,7 +207,7 @@ Now, enable the Slack provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -259,7 +259,7 @@ configuration file (explained in further detail at
 
 :::note
 
-GitHub does not implement OpenID Connect. Therefore, Ory Kratos makes a request
+GitHub doesn't implement OpenID Connect. Therefore, Ory Kratos makes a request
 to
 [GitHub's User API](https://developer.github.com/v3/users/#get-the-authenticated-user)
 and adds that data to `std.extVar('claims')`. Check out what data is available
@@ -268,7 +268,7 @@ at
 However, not all GitHub fields are supported. Check the list of supported fields
 [in Kratos' source code](https://github.com/ory/kratos/blob/v0.2.1-alpha.1/selfservice/strategy/oidc/provider_github.go#L72-L98).
 
-Only for `Github Oauth2` as `GitHub App` does not have scope. See the
+Only for `Github Oauth2` as `GitHub App` doesn't have scope. See the
 [Differences between GitHub Apps and OAuth2](https://docs.github.com/en/developers/apps/getting-started-with-apps/differences-between-github-apps-and-oauth-apps)
 
 :::
@@ -288,8 +288,8 @@ local claims = {
   identity: {
     traits: {
       // Allowing unverified email addresses enables account
-      // enumeration attacks, especially if the value is used for
-      // e.g. verification or as a password login identifier.
+      // enumeration attacks,  if the value is used for
+      // verification or as a password login identifier.
       //
       // Therefore we only return the email if it (a) exists and (b) is marked verified
       // by GitHub.
@@ -305,7 +305,7 @@ Now, enable the GitHub OAuth2 provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -325,7 +325,7 @@ Or enable the GitHub App provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -379,8 +379,8 @@ local claims = {
   identity: {
     traits: {
       // Allowing unverified email addresses enables account
-      // enumeration attacks, especially if the value is used for
-      // e.g. verification or as a password login identifier.
+      // enumeration attacks,  if the value is used for
+      // verification or as a password login identifier.
       //
       // Therefore we only return the email if it (a) exists and (b) is marked verified
       // by GitLab.
@@ -394,7 +394,7 @@ Now, enable the GitLab provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -419,9 +419,9 @@ GitLab is now an option to log in via Kratos.
 
 To set up "Sign in with Auth0" you must create an
 [Auth0 Application for your Auth0 Tenant](https://auth0.com/docs/applications).
-Note that the endpoint for the application starts with your Tenant's name. e.g.
-`myAuth0Tenant.auth0.com`. This will be the `IssuerURL` you will use when
-configuring the OIDC connection.
+Note that the endpoint for the application starts with your Tenant's name. for
+example `myAuth0Tenant.auth0.com`. This will be the `IssuerURL` you will use
+when configuring the OIDC connection.
 
 Set the "Redirect URI" to:
 
@@ -455,8 +455,8 @@ local claims = {
   identity: {
     traits: {
       // Allowing unverified email addresses enables account
-      // enumeration attacks, especially if the value is used for
-      // e.g. verification or as a password login identifier.
+      // enumeration attacks,  if the value is used for
+      // verification or as a password login identifier.
       //
       // Therefore we only return the email if it (a) exists and (b) is marked verified
       // by Auth0.
@@ -471,12 +471,12 @@ Now, enable the Auth0 provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`. Note
 that the `issuer_url` needs to be the top-level domain for your Auth0
 application. This can be found by going to the Auth0 application page and
-choosing `Settings` then `Advanced Settings` then `Endpoints`. In general, the
-endpoint is of the form `myAuth0Tenant.auth0.com` (where `myAuth0Tenant` is the
-name of your tenant).
+choosing `Settings` then `Advanced Settings` then `Endpoints`. The endpoint is
+of the form `myAuth0Tenant.auth0.com` (where `myAuth0Tenant` is the name of your
+tenant).
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -499,9 +499,9 @@ Auth0 is now an option to log in via Kratos.
 
 ## Microsoft
 
-This will enable you to log in using any Azure AD directory - Multitenant and
-personal Microsoft accounts (e.g. Skype, Xbox) depending on the settings made
-when creating the application in Azure AD.
+This will enable you to log in using any Azure AD directory - Multi-tenant and
+personal Microsoft accounts (for example Skype, Xbox) depending on the settings
+made when creating the application in Azure AD.
 
 #### Creating an Application in Azure AD
 
@@ -532,12 +532,12 @@ local claims = std.extVar('claims');
   identity: {
     traits: {
       // Allowing unverified email addresses enables account
-      // enumeration attacks, especially if the value is used for
-      // e.g. verification or as a password login identifier.
+      // enumeration attacks,  if the value is used for
+      // verification or as a password login identifier.
       //
-      // If connecting only to your organization (one tenant), claims.email is safe to use if you have not actively disabled e-mail verification during signup.
+      // If connecting only to your organization (one tenant), claims.email is safe to use if you haven't actively disabled e-mail verification during signup.
       //
-      // The email might be empty if the account is not linked to an email address.
+      // The email might be empty if the account isn't linked to an email address.
       // For a human readable identifier, consider using the "preferred_username" claim.
       [if "email" in claims then "email" else null]: claims.email,
     },
@@ -574,8 +574,8 @@ There are two ways to use the `microsoft` provider for authentication:
 
 1. For authenticating users in a single Azure AD Directory (organization), set
    the `tenant` value to either the `Directory ID` from the "App Registration"
-   page, or the organization domain. E.g. `8eaef023-2b34-4da1-9baa-8bc8c9d6a490`
-   or `contoso.onmicrosoft.com`.
+   page, or the organization domain.
+   Examples:`8eaef023-2b34-4da1-9baa-8bc8c9d6a490` or `example.onmicrosoft.com`.
 2. For authenticating any user in the Microsoft identity platform, set the
    `tenant` value to either:
 
@@ -618,8 +618,8 @@ local claims = {
   identity: {
     traits: {
       // Allowing unverified email addresses enables account
-      // enumeration attacks, especially if the value is used for
-      // e.g. verification or as a password login identifier.
+      // enumeration attacks,  if the value is used for
+      // verification or as a password login identifier.
       //
       // Therefore we only return the email if it (a) exists and (b) is marked verified
       // by Twitch.
@@ -633,7 +633,7 @@ Now, enable the Twitch provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -712,12 +712,12 @@ local claims = std.extVar('claims');
   identity: {
     traits: {
       // Allowing unverified email addresses enables account
-      // enumeration attacks, especially if the value is used for
-      // e.g. verification or as a password login identifier.
+      // enumeration attacks,  if the value is used for
+      // verification or as a password login identifier.
       //
-      // It is assumed that Facebook requires an email to be verified before accessible via OAuth (because they don't provide an email_verified field).
+      // It's assumed that Facebook requires an email to be verified before accessible via OAuth (because they don't provide an email_verified field).
       //
-      // The email might be empty if the user is not allowed to an email scope.
+      // The email might be empty if the user isn't allowed to an email scope.
       [if "email" in claims then "email" else null]: claims.email,
     },
   },
@@ -728,7 +728,7 @@ Now, enable the Facebook provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -790,7 +790,7 @@ Now, enable the Google provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -889,7 +889,7 @@ local claims = std.extVar('claims');
     traits: {
       // VK don't provide an email_verified field.
       //
-      // The email might be empty if the user is not allowed to an email scope.
+      // The email might be empty if the user isn't allowed to an email scope.
       [if "email" in claims then "email" else null]: claims.email,
     },
   },
@@ -900,7 +900,7 @@ Now, enable the VK provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -973,7 +973,7 @@ local claims = std.extVar('claims');
     traits: {
       // Yandex don't provide an email_verified field.
       //
-      // The email might be empty if the user is not allowed to an email scope.
+      // The email might be empty if the user isn't allowed to an email scope.
       [if "email" in claims then "email" else null]: claims.email,
     },
   },
@@ -984,7 +984,7 @@ Now, enable the Yandex provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -1013,7 +1013,7 @@ https://playground.projects.oryapis.com/api/kratos/public/self-service/methods/o
 ```
 
 Due to implementation constraints, the provider ID at the end of this address
-cannot be changed.
+can't be changed.
 
 The pattern of this URL is:
 
@@ -1039,8 +1039,8 @@ local claims = {
   identity: {
     traits: {
       // Allowing unverified email addresses enables account
-      // enumeration attacks, especially if the value is used for
-      // e.g. verification or as a password login identifier.
+      // enumeration attacks,  if the value is used for
+      // verification or as a password login identifier.
       //
       // Therefore we only return the email if it (a) exists and (b) is marked verified
       // by Apple.
@@ -1054,7 +1054,7 @@ Now, enable the Apple provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -1099,7 +1099,7 @@ http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callbac
 
 While Spotify
 [provides an OIDC discovery URL](https://accounts.spotify.com/.well-known/openid-configuration),
-Spotify does not support the `openid` claim and only returns an access token.
+Spotify doesn't support the `openid` claim and only returns an access token.
 Therefore, Ory Kratos makes a request to
 [Spotify's /me API](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-current-users-profile)
 and adds the user info to `std.extVar('claims')`.
@@ -1123,7 +1123,7 @@ Now, enable the Spotify provider in the Ory Kratos config located at
 `<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
 
 ```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 selfservice:
   methods:
     oidc:
@@ -1151,8 +1151,8 @@ and making a PR! :)
 ## How to prevent `username already taken`
 
 Sometimes the username returned by a provider is already taken in your
-application. To prevent this you can add a random suffix (e.g. a number) to the
-OIDC username. You can use the md5 function built in the
+application. To prevent this you can add a random suffix (for example a number)
+to the OIDC username. You can use the md5 function built in the
 [jsonnet standard library](https://jsonnet.org/ref/stdlib.html). See the
 following issue as well:
 [Add random function to the jsonnet library](https://github.com/ory/kratos/issues/988).
@@ -1162,7 +1162,7 @@ following issue as well:
 If multiple [registration methods](../self-service/flows/user-registration.mdx)
 are configured, users may be redirected to a social login provider to link the
 accounts after the email verification. To skip this link-up add the session hook
-after the registration method (e.g. `password`):
+after the registration method (for example `password`):
 
 ```
       after:
@@ -1173,7 +1173,7 @@ after the registration method (e.g. `password`):
 
 ## How Ory Kratos handles OIDC token
 
-The OIDC token is not being saved in the Ory Kratos database, Ory Kratos
+The OIDC token isn't being saved in the Ory Kratos database, Ory Kratos
 exchanges it for a session. For example:
 
 - Ory Kratos starts the OIDC flow with Google.
@@ -1188,13 +1188,14 @@ exchanges it for a session. For example:
 ## Log in through social providers if the identifiers match
 
 A user creates an account with the identifier `user@example.com`. When the same
-user has an account at e.g. ACME using the same identifier `user@example.com`,
-some providers offer the option to have the user login through ACME, even though
-the user has not created the account using `Login with ACME`.
+user has an account at for example ACME using the same identifier
+`user@example.com`, some providers offer the option to have the user login
+through ACME, even though the user hasn't created the account using
+`Login with ACME`.
 
 > Right now there's an explicit extra step to link them as default
-> configuration. There is no way to login through them without linking if e.g.
-> emails match.
+> configuration. There is no way to login through them without linking if for
+> example emails match.
 
 :::warning
 
@@ -1204,7 +1205,7 @@ We strongly discourage this practice, consider the following scenario:
 
 - You have signed up using `user@example.com` to acme.com.
 - The hacker knows this.
-- The hacker creates a social login account (e.g. Google) with the email
+- The hacker creates a social login account (such as Google) with the email
   `user@example.com` and signs in on acme.com.
 - Now the hacker is in your account.
 

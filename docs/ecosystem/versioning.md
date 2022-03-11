@@ -24,21 +24,21 @@ There are three main stages of development for services:
 
 - **Graduated:** Mature implementations of proven concepts. They rarely change
   in backwards incompatible ways. A software is considered graduated if the
-  major version is >= 1, e.g. `v1.0.1`, `v2.2.2`. Backwards incompatible changes
-  are indicated by a bump of the major version number. Most, if not all, REST
-  APIs will provide backwards compatible transformations that make it possible
-  to interact with the server using older API versions.
+  major version is >= 1, for example `v1.0.1`, `v2.2.2`. Backwards incompatible
+  changes are indicated by a bump of the major version number. Most, if not all,
+  REST APIs will provide backwards compatible transformations that make it
+  possible to interact with the server using older API versions.
 - **Incubating:** Implements well defined but not fully matured concepts.
-  Incubating software has a major version number of `0`, e.g. `v0.10.0`. You may
-  see a pre-release version such as `v0.10.0-beta.1`. Incubating software has a
-  higher (but overall moderate) probability for larger changes that can break
-  backwards compatibility, for which there are upgrade guides.
+  Incubating software has a major version number of `0`, for example `v0.10.0`.
+  You may see a pre-release version such as `v0.10.0-beta.1`. Incubating
+  software has a higher (but overall moderate) probability for larger changes
+  that can break backwards compatibility, for which there are upgrade guides.
 - **Sandbox:** Implements concepts, APIs and CLIs at the experimental stage and
   may change in unpredictable ways. Sandbox software has a major version number
-  of `0` with a `alpha` or `beta` pre-release indicator, e.g. `v0.10.0-alpha.1`.
-  It is more likely that you'll encounter a version tag with a `alpha`
-  pre-release version. We will provide upgrade guides wherever possible,
-  especially when they are used in production already.
+  of `0` with a `alpha` or `beta` pre-release indicator, for example
+  `v0.10.0-alpha.1`. It's more likely that you'll encounter a version tag with a
+  `alpha` pre-release version. We will provide upgrade guides wherever possible,
+  when they're used in production already.
 
 The following is a list of maturity level per project:
 
@@ -76,8 +76,8 @@ the foreseeable future.
 
 To make deployment easier but stay compatible with semantic versioning, each
 service is equipped with a `oryOS` version number denoted by `+oryOS.X` where
-`X` represents the "ecosystem" version. This is especially useful if you use
-more than one service from the Ory ecosystem. Let's look at some examples:
+`X` represents the "ecosystem" version. This is useful if you use more than one
+service from the Ory ecosystem. Let's look at some examples:
 
 - Ory Hydra `v1.0.1+oryOS.6` is best compatible with Ory Oathkeeper
   `v0.13.1+oryOS.6` and Ory Keto `v0.5.1+oryOS.6`.
@@ -88,7 +88,7 @@ more than one service from the Ory ecosystem. Let's look at some examples:
 - Ory Hydra `v1.1.0+oryOS.9` is best compatible with Ory Oathkeeper
   `v1.1.0+oryOS.9` and Ory Keto `v1.1.0+oryOS.9`.
 
-It is possible that a number of releases are versioned with the same `oryOS.x`
+It's possible that a number of releases are versioned with the same `oryOS.x`
 version metadata:
 
 - Ory Hydra `v1.0.1+oryOS.10`, `v1.0.2+oryOS.10` is guaranteed compatible with
@@ -126,17 +126,18 @@ This compatibility matrix shows which versions are compatible with one another.
 ### Package repository limitations
 
 Several package repositories such as
-[Docker Hub](https://github.com/moby/moby/issues/16304), NPM, and others do not
+[Docker Hub](https://github.com/moby/moby/issues/16304), NPM, and others don't
 allow build metadata in the version tag.
 
 Therefore, we generally strip the `oryOS` metadata from the versions published
-on package repositories (e.g. NPM, Ruby Gems, Packagist, Maven Central, Go ...).
+on package repositories (for example NPM, Ruby Gems, Packagist, Maven Central,
+Go ...).
 
 ### January 2020 Change
 
 As of January 2020 (oryOS.15) we will no longer use `-sandbox` to indicate the
 sandbox stage. Instead, please check the [maturity](#maturity) section. We made
-this change because some package manager (e.g. Ruby Gems) do not allow the
+this change because some package manager (for example Ruby Gems) don't allow the
 `-sandbox` suffix in the version.
 
 ### November 2018 Change
@@ -167,10 +168,9 @@ This turned out to be a bad decision because of multiple factors:
    caused delays. This lead to a misalignment between what the community wants
    (Ory Hydra rc1) and what had to be added to the roadmap in order to comply
    with the versioning concept.
-3. We are working towards an open source identity management system (Ory Hive)
+3. We're working towards an open source identity management system (Ory Hive)
    which will stay in sandbox and incubation for a while due to its complexity.
-   We definitely did not want to give the impression that early MVPs are `v1` or
-   even `v2`.
+   We didn't want to give the impression that MVPs are `v1` or even `v2`.
 
 Our plan to help developers understand which versions are compatible with one
 another backfired and instead we delayed releases and developers were confused
@@ -211,10 +211,11 @@ versioning framework, the following changes will be made:
   `v0.13.2+oryOS.2` are equal.
 - [Git Tags](https://github.com/ory/oathkeeper/tags) will be removed on **Jan
   15th 2019**. Until then, you will be able to check out the specific commits
-  using e.g. `git checkout v1.0.0-beta.2 -b my-branch`. Tags `v1.0.0-beta.1` to
-  `v1.0.0-beta.9` will be re-released as `v0.13.1+oryOS.1` to `v0.13.9+oryOS.2`.
-  After Jan 15th 2019 you will be able to get the same functionality as before,
-  but you have to change the tag from `v1.0.0-beta.x` to `v0.13.x+oryOS.x`.
+  using for example `git checkout v1.0.0-beta.2 -b my-branch`. Tags
+  `v1.0.0-beta.1` to `v1.0.0-beta.9` will be re-released as `v0.13.1+oryOS.1` to
+  `v0.13.9+oryOS.2`. After Jan 15th 2019 you will be able to get the same
+  functionality as before, but you have to change the tag from `v1.0.0-beta.x`
+  to `v0.13.x+oryOS.x`.
 - Versions `v1.0.0-beta.1` to `v1.0.0-beta.9` will be removed from
   [Docker Hub `oryd/oathkeeper`](https://hub.docker.com/r/oryd/oathkeeper/) on
   **Jan 15th 2019**. These have been re-released according to the same rules
@@ -258,7 +259,7 @@ the following changes will be made:
   `v0.1.2-sandbox+oryOS.2` are equal.
 - [Git Tags](https://github.com/ory/keto/tags) will be removed on **Jan 15th
   2019**. Until then, you will be able to check out the specific commits using
-  e.g. `git checkout v1.0.0-beta.2 -b my-branch`. Tags `v1.0.0-beta.1` to
+  for example `git checkout v1.0.0-beta.2 -b my-branch`. Tags `v1.0.0-beta.1` to
   `v1.0.0-beta.9` will be re-released as `v0.1.1-sandbox+oryOS.1` to
   `v0.1.9-sandbox+oryOS.9`. After Jan 15th 2019 you will be able to get the same
   functionality as before, but you have to change the tag from `v1.0.0-beta.x`
@@ -296,8 +297,8 @@ the following changes will be made:
 > If you are looking for the old developer guide,
 > [click here](https://www.ory.sh/docs/deprecated/latest/).
 
-The documentation got a major overhaul. We completely deprecated GitBook, which
-is no longer being developed, and moved to [Docusaurus](https://docusaurus.io/).
+The documentation got a major overhaul. We deprecated GitBook, which is no
+longer being developed, and moved to [Docusaurus](https://docusaurus.io/).
 Additionally, the API documentation is now integrated in Docusaurus using
 [widdershins](https://github.com/Mermade/widdershins) with custom templates, and
 no longer uses SwaggerUI. This is great, because everything is now in one

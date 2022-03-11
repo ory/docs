@@ -28,9 +28,9 @@ continuing with this document.
 There are two Login Flow types supported in Ory Kratos:
 
 - Flows where the user sits in front of the Browser and the application is
-  - a server-side application (e.g. NodeJS, Java, ...)
-  - a client-side application (e.g. ReactJS, AngularJS, ...)
-- Flows where API interaction is required (e.g. mobile app, Smart TV, ...)
+  - a server-side application (NodeJS, Java, ...)
+  - a client-side application (ReactJS, AngularJS, ...)
+- Flows where API interaction is required (mobile app, Smart TV, ...)
 
 The Login Flow can be summarized as the following state machine:
 
@@ -57,7 +57,7 @@ stateDiagram
 `}
 />
 
-Currently, two login methods are supported:
+Two login methods are supported:
 
 - `password` for signing in with an email / username and password;
 - `oidc` for signing in using a social sign in provider such as Google or
@@ -72,7 +72,7 @@ Currently, two login methods are supported:
   ]}>
   <TabItem value="oc">
 
-Currently, only the password method is enabled.
+Only the password method is enabled.
 
   </TabItem>
   <TabItem value="oss">
@@ -112,8 +112,8 @@ your Login UI, and the end-user's browser:
 
 To initialize the Login Flow, point the Browser to the initialization endpoint:
 
-```shell-session
-$ curl -s -i -X GET \
+```sh
+curl -s -i -X GET \
     -H "Accept: text/html" \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser
 
@@ -178,8 +178,8 @@ The Login Flow for client-side browser clients relies on AJAX requests.
 To initialize the Login Flow, call the login initialization endpoint and set
 `Accept: application/json`:
 
-```shell-session
-$ curl -v -s -X GET \
+```sh
+curl -v -s -X GET \
     -H "Accept: application/json"  \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser | jq
 
@@ -219,7 +219,7 @@ $ curl -v -s -X GET \
 
 <ApiWarning />
 
-The Login Flow for API clients does not use HTTP Redirects and can be summarized
+The Login Flow for API clients doesn't use HTTP Redirects and can be summarized
 as follows:
 
 <SelfServiceApiFlow
@@ -233,8 +233,8 @@ endpoint
 ([REST API Reference](../../reference/api.mdx#initialize-login-flow-for-api-clients))
 which returns a JSON response:
 
-```shell-session
-$ curl -s -X GET \
+```sh
+curl -s -X GET \
     -H "Accept: application/json"  \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/login/api | jq
 
@@ -259,12 +259,12 @@ Fetching the Login Flow
 required for browser clients but also works for Login Flows initialized by API
 clients. All you need is a valid flow ID:
 
-```shell-session
-$ flowId=$(curl -s -X GET \
+```sh
+flowId=$(curl -s -X GET \
     -H "Accept: application/json" \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/login/api | jq -r '.id')
 
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Accept: application/json" \
     "https://playground.projects.oryapis.com/api/kratos/public/self-service/login/flows?id=$flowId" | jq
 
@@ -295,8 +295,8 @@ first.
 When the `password` method is enabled, it will be part of the `methods` payload
 in the Login Flow:
 
-```shell script
-$ curl -H "Accept: application/json" -s \
+```sh
+curl -H "Accept: application/json" -s \
     'https://playground.projects.oryapis.com/api/kratos/public/self-service/self-service/login/flows?id=42e26bc5-8014-400c-b463-dc5c3738c242' | jq
 
 {
@@ -408,8 +408,8 @@ The Social Sign In Method (`oidc`) enables you to use
 
 :::warning
 
-Social Sign In is currently not possible for API Clients. It will be possible in
-a future version, which is partially tracked as
+Social Sign In is not possible for API Clients. It will be possible in a future
+version, which is partially tracked as
 [kratos#273](https://github.com/ory/kratos/issues/273)
 
 :::
@@ -417,8 +417,8 @@ a future version, which is partially tracked as
 If enabled, the method contains an `oidc` key with the configured sign in
 providers as submit fields:
 
-```shell script
-$ curl -H "Accept: application/json" -s \
+```sh
+curl -H "Accept: application/json" -s \
     'https://playground.projects.oryapis.com/api/kratos/public/self-service/self-service/login/flows?id=d6340737-89f2-4b01-a848-79007de6f430' \
     | jq
 
@@ -478,7 +478,7 @@ The form payloads are then submitted to Ory Kratos which follows up with:
 
 - An HTTP 303 See Other redirect pointing to the Login UI for Browser Clients;
 - An `application/json` response for API Clients and Client-Side Browser
-  applications (e.g. Single Page Apps).
+  applications for example for Single Page Apps.
 
 ### Login with Username/Email and Password
 
@@ -499,12 +499,12 @@ Login Flow in the response payload as JSON.
 
 Completing the `oidc` method requires the user to go through an OAuth 2.0 or
 OpenID Connect flow which involves logging into the upstream identity provider
-(e.g. Google) and giving consent.
+(such as Google) and giving consent.
 
 :::note
 
 If the user has never signed in with the given provider before, a new account
-will be created. It is also possible to link upstream identities (e.g. Google
+will be created. It's also possible to link upstream identities (such as Google
 profile) with an existing Ory Kratos identity.
 
 :::
@@ -539,7 +539,7 @@ Content-Length: 0
 Now, whenever the browser is making a request (with cookies) to the
 `http://127.0.0.1/sessions/whoami` endpoint, the session will be returned:
 
-```shell script
+```sh
 curl -s -H "Cookie: ory_kratos_session=MTU5OTE2ODc2N3xEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJR055VlROMGRteHhSakJrUzBkbmRUUjBlVFY1V0RCRWFVTnJXVmR6V25oaHx2DICsB6IMbaHSQwnYITUZqr7Qx7CxUlnaneJWH495wQ==" \
   https://playground.projects.oryapis.com/api/kratos/public/sessions/whoami | jq
 
@@ -633,16 +633,16 @@ For API Clients, Ory Kratos responds with a JSON payload which includes the
 identity which just authenticated, the session, and the Ory Kratos Session
 Token:
 
-```shell script
+```sh
 # Inits a Login Flow
-$ actionUrl=$(\
+actionUrl=$(\
   curl -s -X GET -H "Accept: application/json" \
     "https://playground.projects.oryapis.com/api/kratos/public/self-service/login/api" \
     | jq -r '.ui.action'\
 )
 
 # Complete Login Flow with password method
-$ curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/json" \
+curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/json" \
     -d '{"password_identifier": "api@user.org", "password": "iohuasf0897zAJHf", "method": "password"}' \
     "$actionUrl" | jq
 
@@ -690,8 +690,8 @@ $ curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/j
 The Ory Kratos Session Token can be checked at the
 `http://127.0.0.1/sessions/whoami` endpoint:
 
-```shell script
-$ curl -s -H "Authorization: Bearer svX8bE9HTiVpMr7r55TtKtcOkLRhAq1a" \
+```sh
+curl -s -H "Authorization: Bearer svX8bE9HTiVpMr7r55TtKtcOkLRhAq1a" \
   https://playground.projects.oryapis.com/api/kratos/public/sessions/whoami | jq
 
 {
@@ -734,21 +734,21 @@ $ curl -s -H "Authorization: Bearer svX8bE9HTiVpMr7r55TtKtcOkLRhAq1a" \
 
 ## Refreshing a Session
 
-In some cases it is required to refresh a login session. This is the case when
+In some cases it's required to refresh a login session. This is the case when
 updating one's password. Refreshing a session updates the `authenticated_at`
 time.
 
 :::info
 
-Refreshing a session will not log the user out, unless another user signs in.
+Refreshing a session won't log the user out, unless another user signs in.
 
 :::
 
 To refresh a session, append `?refresh=true` to:
 
-- `/self-service/login/browser` for browser Clients (e.g.
+- `/self-service/login/browser` for browser Clients (for example
   `https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser?refresh=true`)
-- `/self-service/login/api` for API Clients (e.g.
+- `/self-service/login/api` for API Clients (for example
   `https://playground.projects.oryapis.com/api/kratos/public/self-service/login/api?refresh=true`)
 
 ## Code Examples for NodeJS, ReactJS, Go, ...
@@ -756,9 +756,9 @@ To refresh a session, append `?refresh=true` to:
 The Login User Interface is a route (page / site) in your application (server,
 native app, single page app) that should render a login form.
 
-In stark contrast to other Identity Systems, Ory Kratos does not render this
-HTML. Instead, you need to implement the HTML code in your application (e.g.
-NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
+In stark contrast to other Identity Systems, Ory Kratos doesn't render this
+HTML. Instead, you need to implement the HTML code in your application (for
+example NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
 flexibility and customizability in your user interface flows and designs.
 
 You will use the Login Flow JSON response to render the login form UI, which

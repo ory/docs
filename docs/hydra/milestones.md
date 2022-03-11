@@ -5,25 +5,25 @@ title: Milestones and Roadmap
 
 ## [v2.0](https://github.com/ory/hydra/milestone/42)
 
-_This milestone does not have a description._
+_This milestone doesn't have a description._
 
 ### [Bug](https://github.com/ory/hydra/labels/bug)
 
-Something is not working.
+Something isn't working.
 
 #### Issues
 
 - [ ] Make cookies with SameSite=None secure by default or using the
       configuration flag
       ([hydra#1844](https://github.com/ory/hydra/issues/1844))
-- [ ] client_id case sensitivity is not properly enforced when using MySQL
+- [ ] client_id case sensitivity isn't properly enforced when using MySQL
       ([hydra#1644](https://github.com/ory/hydra/issues/1644)) -
       [@Patrik](https://github.com/zepatrik)
 - [ ] Client allowed_cors_origins not working
       ([hydra#1754](https://github.com/ory/hydra/issues/1754))
 - [ ] Consider customizing 'azp' and 'aud' claims in ID Tokens
       ([hydra#2042](https://github.com/ory/hydra/issues/2042))
-- [ ] Do not return `email` in `id_token` but instead in `userinfo` for specific
+- [ ] Don't return `email` in `id_token` but instead in `userinfo` for specific
       response types ([hydra#2163](https://github.com/ory/hydra/issues/2163)) -
       [@hackerman](https://github.com/aeneasr)
 - [ ] SQL persister uses | to store scopes and audiences without any escaping
@@ -57,7 +57,7 @@ New feature or request.
       ([hydra#2911](https://github.com/ory/hydra/issues/2911))
 - [ ] Move to go-jose key generation
       ([hydra#1825](https://github.com/ory/hydra/issues/1825))
-- [ ] Auth session cannot be prolonged even if the user is active
+- [ ] Auth session can't be prolonged even if the user is active
       ([hydra#1690](https://github.com/ory/hydra/issues/1690))
 - [ ] Token claims customization with Jsonnet
       ([hydra#1748](https://github.com/ory/hydra/issues/1748)) -
@@ -71,11 +71,11 @@ New feature or request.
 
 ## [next](https://github.com/ory/hydra/milestone/41)
 
-_This milestone does not have a description._
+_This milestone doesn't have a description._
 
 ### [Bug](https://github.com/ory/hydra/labels/bug)
 
-Something is not working.
+Something isn't working.
 
 #### Issues
 
@@ -104,11 +104,11 @@ A request for comments to discuss and share ideas.
 
 ## [v1.10](https://github.com/ory/hydra/milestone/40)
 
-_This milestone does not have a description._
+_This milestone doesn't have a description._
 
 ### [Bug](https://github.com/ory/hydra/labels/bug)
 
-Something is not working.
+Something isn't working.
 
 #### Issues
 
@@ -191,19 +191,19 @@ Blocks milestones or other issues or pulls.
 
 ## [v1.11](https://github.com/ory/hydra/milestone/39)
 
-_This milestone does not have a description._
+_This milestone doesn't have a description._
 
 ### [Bug](https://github.com/ory/hydra/labels/bug)
 
-Something is not working.
+Something isn't working.
 
 #### Issues
 
-- [x] Introspection Response: `access_token` and `refresh_token` are not valid
+- [x] Introspection Response: `access_token` and `refresh_token` aren't valid
       `token_type` ([hydra#1762](https://github.com/ory/hydra/issues/1762))
 - [x] RSA key generation is slow on ARM
       ([hydra#1989](https://github.com/ory/hydra/issues/1989))
-- [x] `loginRequest.requested_access_token_audience` should not be `null`
+- [x] `loginRequest.requested_access_token_audience` shouldn't be `null`
       ([hydra#2039](https://github.com/ory/hydra/issues/2039))
 - [x] Redirect URI should be able to contain plus (+) character
       ([hydra#2055](https://github.com/ory/hydra/issues/2055))
@@ -261,7 +261,7 @@ New feature or request.
       ([hydra#2033](https://github.com/ory/hydra/issues/2033))
 - [x] Find out if a login/consent challenge is still valid
       ([hydra#2057](https://github.com/ory/hydra/issues/2057))
-- [x] Prometheus endpoint should not require x-forwarded-proto header
+- [x] Prometheus endpoint shouldn't require x-forwarded-proto header
       ([hydra#2072](https://github.com/ory/hydra/issues/2072))
 
 #### Pull Requests
@@ -282,7 +282,7 @@ A request for comments to discuss and share ideas.
 
 ## [v1.7.0](https://github.com/ory/hydra/milestone/38)
 
-_This milestone does not have a description._
+_This milestone doesn't have a description._
 
 ### [Feat](https://github.com/ory/hydra/labels/feat)
 
@@ -295,11 +295,11 @@ New feature or request.
 
 ## [v1.6.0](https://github.com/ory/hydra/milestone/37)
 
-_This milestone does not have a description._
+_This milestone doesn't have a description._
 
 ### [Bug](https://github.com/ory/hydra/labels/bug)
 
-Something is not working.
+Something isn't working.
 
 #### Issues
 
@@ -317,11 +317,11 @@ New feature or request.
 
 ## [v1.5.0](https://github.com/ory/hydra/milestone/36)
 
-_This milestone does not have a description._
+_This milestone doesn't have a description._
 
 ### [Bug](https://github.com/ory/hydra/labels/bug)
 
-Something is not working.
+Something isn't working.
 
 #### Issues
 

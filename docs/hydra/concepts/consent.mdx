@@ -11,7 +11,7 @@ OAuth2 and OpenID Connect require an authenticated End-User session for all
 OAuth2 / OpenID Connect flows except the `client_credentials` flow which does
 not involve End-Users.
 
-Ory Hydra does not contain a database with End-Users but instead uses HTTP
+Ory Hydra doesn't contain a database with End-Users but instead uses HTTP
 Redirection to "delegate" the login and consent flow to another app - we call
 this the Login & Consent App.
 
@@ -108,17 +108,17 @@ There are three possible states:
   remember the "consent", but the OAuth2 Client now also wants additional
   permissions ("has changed the token scope" in `/oauth2/auth?scope=...`).
 
-Regardless of which of these three states we are in, the End-User's browser is
+Regardless of which of these three states we're in, the End-User's browser is
 always redirected to the consent endpoint. What changes is the `skip` value, as
 explained a bit later.
 
 :::note
 
-In certain scenarios (e.g. a special OAuth2 Client) you might not want to show
-the consent screen at all. In those cases you can choose to skip showing the UI
-and just accept the consent. Please keep in mind that OAuth2 is a delegation
-protocol and that it makes most sense for third-party access. Not showing the
-consent screen will break OpenID Connect Certification.
+In certain scenarios (for example a special OAuth2 Client) you might not want to
+show the consent screen at all. In those cases you can choose to skip showing
+the UI and just accept the consent. Please keep in mind that OAuth2 is a
+delegation protocol and that it makes most sense for third-party access. Not
+showing the consent screen will break OpenID Connect Certification.
 
 :::
 
@@ -138,7 +138,7 @@ http(s)://<HYDRA_ADMIN_URL>/oauth2/auth/requests/consent?consent_challenge=<chal
 The response (see below in "Consent Challenge Response" tab) contains
 information about the consent request. The body contains a `skip` value. If the
 value is `false`, the user interface must be shown. If `skip` is true, you
-should not show the user interface but instead just accept or reject the consent
+shouldn't show the user interface but instead just accept or reject the consent
 request! For more details about the implementation check the
 ["Implementing the Consent Endpoint" Guide](../guides/login.mdx).
 
@@ -156,8 +156,8 @@ request! For more details about the implementation check the
 </TabItem>
 <TabItem value="curl">
 
-```shell script
-$ curl \
+```sh
+curl \
   "http://127.0.0.1:4445/oauth2/auth/requests/consent?consent_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2"
 ```
 
@@ -262,8 +262,8 @@ To accept the Consent Challenge, make an HTTP PUT request with
 
 With `curl` this might look like the following request:
 
-```shell script
-$ curl --location --request PUT 'http://127.0.0.1:4445/oauth2/auth/requests/consent/accept?consent_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2' \
+```sh
+curl --location --request PUT 'http://127.0.0.1:4445/oauth2/auth/requests/consent/accept?consent_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "grant_scope": ["openid", "offline_access"]
@@ -291,7 +291,7 @@ To reject the Login Challenge, make a HTTP PUT request with
 
 ```json
 {
-  // The error should follow the OAuth2 error format (e.g. `invalid_request`, `login_required`).
+  // The error should follow the OAuth2 error format (for example `invalid_request`, `login_required`).
   "error": "user_banned",
 
   // Description of the error in a human readable format.
@@ -304,7 +304,7 @@ To reject the Login Challenge, make a HTTP PUT request with
   // to the public but only in the server logs.
   "error_debug": "The user was marked banned in the database.",
 
-  // Represents the HTTP status code of the error (e.g. 401 or 403)
+  // Represents the HTTP status code of the error (for example 401 or 403)
   //
   // Defaults to 400
   "status_code": 403
@@ -313,8 +313,8 @@ To reject the Login Challenge, make a HTTP PUT request with
 
 With `curl` this might look like the following request:
 
-```shell script
-$ curl --location --request PUT 'http://127.0.0.1:4445/oauth2/auth/requests/consent/reject?consent_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2' \
+```sh
+curl --location --request PUT 'http://127.0.0.1:4445/oauth2/auth/requests/consent/reject?consent_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "error": "user_banned",
@@ -348,7 +348,7 @@ tokens.
 
 :::warning
 
-Do not use this endpoint to "invalidate" user sessions. Please revise your
+Don't use this endpoint to "invalidate" user sessions. Please revise your
 approach to and usage of OAuth2 if you use access / refresh tokens as user
 sessions (i.e. instead of browser cookies).
 

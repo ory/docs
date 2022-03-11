@@ -7,8 +7,8 @@ import CodeTabs from '@site/src/theme/CodeTabs'
 This guide will explain how to use Ory Keto's expand-API to display who has
 access to an object, and why. Please refer to the
 [gRPC](../reference/proto-api.mdx) and [REST](../reference/rest-api.mdx) API
-reference documentation for all details. In general, the expand-API allows to
-expand a given subject set into all its effective subjects.
+reference documentation for all details. The expand-API allows to expand a given
+subject set into all its effective subjects.
 
 ## Example
 
@@ -19,7 +19,7 @@ per-directory basis. Users can only see and access files they own or were
 granted access by the owner.
 
 Directories and files are stored in Ory Keto within the `directories` and
-`files` namespaces respectively. They are identified by a UUID that the
+`files` namespaces respectively. They're identified by a UUID that the
 application maps to the actual object metadata. Users are also identified by and
 mapped to a UUID.
 
@@ -34,8 +34,8 @@ instead. Please refer to the [objects](../concepts/objects.mdx) and
 ### Displaying who has Access
 
 To assist users with managing permissions for their files, the application has
-to display exactly who has access to a file and why. In this example, we assume
-that the application knows the following files and directories:
+to display who has access to a file and why. In this example, we assume that the
+application knows the following files and directories:
 
 ```
 ├─ photos            (owner: maureen; shared with laura)
@@ -80,9 +80,9 @@ tree of everyone who has access to that file:
 
 The `max-depth` parameter is important to keep the request latency within an
 acceptable bound, but also abstract away the most basic subject sets. In many
-cases the application does not want to resolve all subject sets, but rather
-wants to display that e.g. `Everyone in the company` or `Admins` have a specific
-relation.
+cases the application doesn't want to resolve all subject sets, but rather wants
+to display that for example `Everyone in the company` or `Admins` have a
+specific relation.
 
 In this example the application knows the rough structure of the relation tuples
 it uses and can therefore determine that `max-depth=3` is sufficient to display
@@ -94,7 +94,7 @@ all relevant relations:
 
 ### Analyzing the Tree
 
-The tree does not only include the subject IDs (in this case usernames), but
-also for what reason they were included. This can be useful for users to audits
+The tree doesn't only include the subject IDs (in this case usernames), but also
+for what reason they were included. This can be useful for users to audits
 permissions. Also, in many cases the application would not want to list all
 subject IDs but rather abstract away some subject sets.

@@ -25,8 +25,7 @@ to call, for example, the URL
 `https://<your-project-slug>.projects.oryapis.com/ui/login`, the equivalent
 proxied URL would be `https://<proxy-host>/.ory/ui/login`.
 
-Ory Proxy has a few shorthand URLs which you can use to initiate self-service
-flows:
+Ory Proxy has shorthand URLs which you can use to initiate self-service flows:
 
 - `/.ory/self-service/login/browser` initiates the self-service login flow.
 - `/.ory/self-service/registration/browser` initiates the self-service
@@ -49,7 +48,7 @@ You can also append a `return_to` query parameter so that the user ends up at
 that URL. Please keep in mind that the domain MUST be an allow-listed URL in the
 Ory Cloud Project configuration!
 
-The return_to URL must include the protocol and domain! Relative URLs are not
+The return_to URL must include the protocol and domain! Relative URLs aren't
 possible.
 
 ```html
@@ -61,9 +60,9 @@ possible.
 
 ### Zero Trust
 
-Ory Proxy translates any known Ory credentials (e.g. Ory Session Token or Ory
-Session Cookie) to a JSON Web Token. Assuming the user calls Ory Proxy with a
-valid Ory Session Cookie
+Ory Proxy translates any known Ory credentials (for example an Ory Session Token
+or Ory Session Cookie) to a JSON Web Token. Assuming the user calls Ory Proxy
+with a valid Ory Session Cookie
 
 ```
 GET /some-path
@@ -92,7 +91,7 @@ We strongly encourage you to validate the JSON Web Token using Ory Proxy's
 public key. The public key is available at `/.ory/proxy/jwks.json`:
 
 ```
-$ curl -sk https://<proxy-host>/.ory/proxy/jwks.json | jq
+curl -sk https://<proxy-host>/.ory/proxy/jwks.json | jq
 {
   "keys": [
     {
@@ -225,11 +224,11 @@ One option is to add both Ory Proxy and your service to a Docker container.
 
 Running two processes in one Docker Container is problematic as Docker will only
 watch the process running in the foreground. If the process in the background
-crashes, Docker will not be notified. To get a more stable system in place,
-please follow
+crashes, Docker won't be notified. To get a more stable system in place, please
+follow
 [Run multiple services in a container](https://docs.docker.com/config/containers/multi-service_container/).
 
-For simplicity we have chosen to run Ory Proxy as a background task here!
+For simplicity we've chosen to run Ory Proxy as a background task here!
 
 :::
 
@@ -240,7 +239,7 @@ To run Ory Proxy alongside your application, create a file called
 #!/bin/bash
 set -e
 
-# This assumes that your server is running on port 3000. If it is running on a different port,
+# This assumes that your server is running on port 3000. If it's running on a different port,
 # change the `3000` to the port where your server is running at!
 ory proxy --port 8080 http://127.0.0.1:3000 https://your-domain.com &
 

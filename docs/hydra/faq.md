@@ -19,10 +19,10 @@ From [GitHub](https://github.com/ory/hydra/discussions/2562).
 > After accepting the login, redirect to callback URL with the authorization
 > code directly (no redirect to consent URL at all)?
 
-You can not skip the
+You can't skip the
 [consent redirection](https://www.ory.sh/hydra/docs/concepts/consent#redirection-to-the-consent-endpoint),
 but you can accept the redirection to the redirect URL immediately. The user
-will not notice as this takes less than < 100ms. The example on how to skip the
+won't notice as this takes less than < 100ms. The example on how to skip the
 consent screen provides a good starting point:
 [Skipping Consent Screen](https://www.ory.sh/hydra/docs/guides/consent/#skipping-consent-screen).
 
@@ -40,14 +40,13 @@ You can do this using the
 
 Both Login and Consent Requests have a
 [`request url`](https://github.com/ory/hydra/blob/27dc147a37c1cb98b7beb5428c389545958dd122/consent/types.go#L505)
-which contains the original OAuth2 Authorize URL (e.g.
+which contains the original OAuth2 Authorize URL (for example
 `/oauth2/auth?client_id=...&your_custom_param=....`)
 
-```
-RequestURL is the original OAuth 2.0 Authorization URL requested by the OAuth 2.0 client.
-It is the URL which initiates the OAuth 2.0 Authorization Code or OAuth 2.0 Implicit flow.
-This URL is typically not needed, but might come in handy if you want to deal with additional request parameters.
-```
+> RequestURL is the original OAuth 2.0 Authorization URL requested by the OAuth
+> 2.0 client. It's the URL which initiates the OAuth 2.0 Authorization Code or
+> OAuth 2.0 Implicit flow. This URL is typically not needed, but might come in
+> handy if you want to deal with additional request parameters.
 
 ## How can I control SQL connection limits?
 
@@ -62,33 +61,28 @@ The following is a copy of the original
 
 I took a long time for this issue, primarily because I felt very uncomfortable
 implementing it. The ROPC grant is something from the "dark ages" of OAuth2 and
-there are suitable replacements for mobile clients, such as public oauth2
-clients, which are supported by Hydra:
-https://tools.ietf.org/html/draft-ietf-oauth-native-apps-09
+there are
+[suitable replacements for mobile clients](https://tools.ietf.org/html/draft-ietf-oauth-native-apps-09),
+such as public oauth2 clients, which are supported by Hydra:
 
 The OAuth2 Thread Model explicitly states that the ROPC grant is commonly used
 in legacy/migration scenarios, and
 
 > This grant type has higher risk because it maintains the UID/password
-> anti-pattern. Additionally, because the user does not have control over the
-> authorization process, clients using this grant type are not limited by scope
+> anti-pattern. Additionally, because the user doesn't have control over the
+> authorization process, clients using this grant type aren't limited by scope
 > but instead have potentially the same capabilities as the user themselves. As
 > there is no authorization step, the ability to offer token revocation is
-> bypassed.
-
-> Because passwords are often used for more than 1 service, this anti-pattern
-> may also put at risk whatever else is accessible with the supplied credential.
-> Additionally, any easily derived equivalent (e.g., joe@example.com and
-> joe@example.net) might easily allow someone to guess that the same password
-> can be used elsewhere.
-
-> Impact: The resource server can only differentiate scope based on the access
-> token being associated with a particular client. The client could also acquire
-> long-lived tokens and pass them up to an attacker's web service for further
-> abuse. The client, eavesdroppers, or endpoints could eavesdrop the user id and
-> password.
-
-> o Except for migration reasons, minimize use of this grant type.
+> bypassed. Because passwords are often used for more than 1 service, this
+> anti-pattern may also put at risk whatever else is accessible with the
+> supplied credential. Additionally, any derived equivalent (such as
+> joe@example.com and joe@example.net) might allow someone to guess that the
+> same password can be used elsewhere. Impact: The resource server can only
+> differentiate scope based on the access token being associated with a
+> particular client. The client could also acquire long-lived tokens and pass
+> them up to an attacker's web service for further abuse. The client,
+> eavesdroppers, or endpoints could eavesdrop the user id and password. Except
+> for migration reasons, minimize use of this grant type.
 
 - [source](https://tools.ietf.org/html/rfc6819#section-4.4.3)
 
@@ -109,7 +103,7 @@ answer:
   token).
 - **No:** Never use access tokens for logging people in, for example
   `http://myapp.com/login?access_token=...`. Coming back to the money example:
-  The police officer ("authentication server") will not accept money ("access
+  The police officer ("authentication server") won't accept money ("access
   token") as a proof of identity ("it's really you"). Unless he is corrupt
   ("vulnerable"), of course.
 
@@ -130,24 +124,24 @@ is required in production environments, because:
 2. Running a production system with a user that has right such as ALTER TABLE is
    a security anti-pattern.
 
-Thus, to initialize the database schemas, it is required to run
+Thus, to initialize the database schemas, it's required to run
 `hydra migrate sql driver://user:password@host:port/db` before running
 `hydra host`.
 
 ## What does the installation process look like?
 
-1. Run `hydra migrate sql ...` on a host close to the database (e.g. a virtual
-   machine with access to the SQL instance).
+1. Run `hydra migrate sql ...` on a host close to the database (for example a
+   virtual machine with access to the SQL instance).
 
 ## What does a migration process look like?
 
 1. Make sure a database update is required by checking the release notes.
 2. Make a back up of the database.
-3. Run the migration script on a host close to the database (e.g. a virtual
-   machine with access to the SQL instance). Schemas are usually backwards
-   compatible, so instances running previous versions of Ory Hydra should keep
-   working fine. If backwards compatibility is not given, this will be addressed
-   in the patch notes.
+3. Run the migration script on a host close to the database (for example a
+   virtual machine with access to the SQL instance). Schemas are usually
+   backwards compatible, so instances running previous versions of Ory Hydra
+   should keep working fine. If backwards compatibility isn't given, this will
+   be addressed in the patch notes.
 4. Upgrade all Ory Hydra instances.
 
 ## How can I do this in docker?
@@ -157,7 +151,7 @@ available, we advise to extend the Ory Hydra Docker image
 
 **Dockerfile**
 
-```
+```sql
 FROM oryd/hydra:<tag>
 
 ENTRYPOINT hydra migrate sql --yes $DATABASE_URL
@@ -165,7 +159,7 @@ ENTRYPOINT hydra migrate sql --yes $DATABASE_URL
 
 and run it in your infrastructure once.
 
-Additionally, _but not recommended_, it is possible to override the entry point
+Additionally, _but not recommended_, it's possible to override the entry point
 of the Ory Hydra Docker image using CLI flag
 `--entrypoint "hydra migrate sql --yes $DATABASE_URL; hydra host"` or with
 `entrypoint: hydra migrate sql $DATABASE_URL; hydra host` set in your docker
@@ -188,12 +182,12 @@ There are various levels supported:
 You can import TLS certificates when running `hydra host`. This can be done by
 setting the following environment variables:
 
-**Read from file**
+### Read from file
 
 - `HTTPS_TLS_CERT_PATH`: The path to the TLS certificate (pem encoded).
 - `HTTPS_TLS_KEY_PATH`: The path to the TLS private key (pem encoded).
 
-**Embedded**
+### Embedded
 
 - `HTTPS_TLS_CERT`: A pem encoded TLS certificate passed as string. Can be used
   instead of TLS_CERT_PATH.
@@ -202,14 +196,10 @@ setting the following environment variables:
 
 Or by specifying the following flags:
 
-```
+```bash
 --https-tls-cert-path string   Path to the certificate file for HTTP/2 over TLS (https). You can set HTTPS_TLS_KEY_PATH or HTTPS_TLS_KEY instead.
 --https-tls-key-path string    Path to the key file for HTTP/2 over TLS (https). You can set HTTPS_TLS_KEY_PATH or HTTPS_TLS_KEY instead.
 ```
-
-## Is there an HTTP API Documentation?
-
-[Yes](https://www.ory.sh/docs/hydra/reference/api.mdx). bro
 
 ## How can I disable HTTPS for testing?
 
@@ -218,19 +208,19 @@ You can do so by running `hydra host --dangerous-force-http`.
 ## MySQL gives `unsupported Scan, storing driver.Value type []uint8 into type *time.Time`
 
 > did a quick test to get mysql running, but run into migrate sql issue - seems
-> mysql related An error occurred while running the migrations: Could not apply
-> ladon SQL migrations: Could not migrate sql schema, applied 0 migrations: sql:
+> mysql related An error occurred while running the migrations: Couldn't apply
+> ladon SQL migrations: Couldn't migrate sql schema, applied 0 migrations: sql:
 > Scan error on column index 0: unsupported Scan, storing driver.Value type
 > []uint8 into type \*time.Time is this a known bug ? or any specific mysql
 > version which is required (running 5.7) ?
 
-```
-$ hydra help host
+```sh
+hydra help host
 ...
    - MySQL: If DATABASE_URL is a DSN starting with mysql:// MySQL will be used as storage backend.
         Example: DATABASE_URL=mysql://user:password@tcp(host:123)/database?parseTime=true
 
-        Be aware that the ?parseTime=true parameter is mandatory, or timestamps will not work.
+        Be aware that the ?parseTime=true parameter is mandatory, or timestamps won't work.
 ...
 ```
 
@@ -241,23 +231,18 @@ Check the logs using `docker logs <container-id>`.
 ## Insufficient Entropy
 
 > Hey there , I am getting this error when I try request an access token "The
-> request used a security parameter (e.g., anti-replay, anti-csrf) with
-> insufficient entropy (minimum of 8 characters)"
-
-> Kareem Diaa @kimooz Jun 07 16:41 Hey there , I am getting this error when I
-> try request an access token "The request used a security parameter (e.g.,
-> anti-replay, anti-csrf) with insufficient entropy (minimum of 8 characters)"
-
-> Aeneas @arekkas Jun 07 16:41 @kimooz make sure state and nonce are set in your
-> auth code url
+> request used a security parameter (such as, anti-replay, anti-csrf) with
+> insufficient entropy (minimum of 8 characters)" Kareem Diaa @kimooz Jun 07
+> 16:41 Hey there , I am getting this error when I try request an access token
+> "The request used a security parameter (such as, anti-replay, anti-csrf) with
+> insufficient entropy (minimum of 8 characters)" Aeneas @arekkas Jun 07 16:41
+> @kimooz make sure state and nonce are set in your auth code url
 > (http://hydra/oauth2/auth?client_id=...&nonce=THIS_NEEDS_TO_BE_SET&state=THIS_ALSO_NEEDS_TO_BE_SET
 
-## I get compile errors!
+## I get compile errors
 
 > I would try deleting the vendor dir and glide’s files and try glide init again
-> or clear Glide’s global cache.
-
-> follow the steps in the readme
+> or clear Glide’s global cache. follow the steps in the readme
 > https://github.com/ory/hydra#building-from-source
 
 ## Refreshing tokens
@@ -278,16 +263,10 @@ you to show the login UI.
 
 ## Where can I get documentation on running multiple instances of Hydra?
 
-> @killa#7335 20190103 01:06 My company is thinking about adopting Hydra. There
-> is a performance benchmark including data at
-> https://www.ory.sh/docs/next/performance/hydra and some information on how to
-> scale hydra. Where can I get documentation on running multiple instances of
-> Hydra? Source: Discord/ory/general
-
 Hydra scales according to 12 factor principles. Just add another instance with
-the same config. Please check the documentation section for 12 factor principles
-for more information: https://www.ory.sh/docs/ecosystem/cloud-native. There is
-also some information on collecting statistics in the section on
+the same config. Please check the
+[documentation section for 12 factor principles](https://www.ory.sh/docs/ecosystem/cloud-native).There
+is also some information on collecting statistics in the section on
 [prometheus](https://github.com/prometheus) in the
 [five minute tutorial](./5min-tutorial.mdx).
 

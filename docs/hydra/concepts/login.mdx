@@ -11,7 +11,7 @@ OAuth2 and OpenID Connect require an authenticated End-User session for all
 OAuth2 / OpenID Connect flows except the `client_credentials` flow which does
 not involve End-Users.
 
-Ory Hydra does not contain a database with End-Users but instead uses HTTP
+Ory Hydra doesn't contain a database with End-Users but instead uses HTTP
 Redirection to "delegate" the login flow to another app - we call this the Login
 & Consent App.
 
@@ -52,10 +52,10 @@ Redirects when performing the OAuth2 flow:
 
 The OAuth2 2.0 / OpenID Connect Flow is initiated by pointing the End-User's
 browser to the `/oauth2/auth` endpoint. Depending on which flow ("Authorize Code
-Flow", "Implicit Flow", ...) you want to use some of the query parameters (e.g.
-`/oauth2/auth?response_type=code`, `/oauth2/auth?response_type=token`, ...)
-might change but the overall initiation works always by sending the browser to
-that URL.
+Flow", "Implicit Flow", ...) you want to use some of the query parameters (for
+example `/oauth2/auth?response_type=code`, `/oauth2/auth?response_type=token`,
+...) might change but the overall initiation works always by sending the browser
+to that URL.
 
 :::note
 
@@ -110,7 +110,7 @@ Ory Hydra checks if a session cookie is set containing information about a
 previously successful login. Additionally, OpenID Connect parameters
 `id_token_hint`, `prompt`, and `max_age` are evaluated and processed. Depending
 on their values and the login state, the user might need to re-authenticate or
-the flow will fail completely.
+the flow will fail.
 
 To authenticate the user (this happens regardless of whether a session exists
 for the user or not), Ory Hydra redirects the browser to the "Login Endpoint"
@@ -144,9 +144,9 @@ Ory Hydra supports the following OpenID Connect query parameters:
   values that specifies whether the Authorization Server prompts the End-User
   for reauthentication and consent.
   - `prompt=none` instructs Ory Hydra to not display the login or consent user
-    interface pages. An error is returned if an End-User is not already
-    authenticated or the Client does not have pre-configured consent for the
-    requested Claims or does not fulfill other conditions for processing the
+    interface pages. An error is returned if an End-User isn't already
+    authenticated or the Client doesn't have pre-configured consent for the
+    requested Claims or doesn't fulfill other conditions for processing the
     request. The error code will typically be `login_required`,
     `interaction_required`, or another code. This can be used as a method to
     check for existing authentication and/or consent.
@@ -155,7 +155,7 @@ Ory Hydra supports the following OpenID Connect query parameters:
   - `prompt=consent` instructs Ory Hydra to force the End-User to re-authorize
     (give consent) the OAuth2 Client using the
     [Consent HTML Form in the Consent Endpoint](./consent.mdx).
-  - `prompt=select_account` is currently not supported in Ory Hydra, see [#].
+  - `prompt=select_account` is not supported in Ory Hydra, see [#].
 - `max_age` (optional) specifies the allowable elapsed time in seconds since the
   last time the End-User was actively authenticated by Ory Hydra. If the elapsed
   time is greater than this value, the Login HTML Form must be shown and the
@@ -188,9 +188,9 @@ http(s)://<HYDRA_ADMIN_URL>/oauth2/auth/requests/login?login_challenge=<challeng
 
 The response (see below in "Login Challenge Response" tab) contains information
 about the login request. The body contains a `skip` value. If the value is
-`false`, the user interface must be shown. If `skip` is true, you should not
-show the user interface but instead just accept or reject the login request! For
-more details about the implementation check the
+`false`, the user interface must be shown. If `skip` is true, you shouldn't show
+the user interface but instead just accept or reject the login request! For more
+details about the implementation check the
 ["Implementing the Login Endpoint" Guide](../guides/login.mdx).
 
 <Tabs
@@ -274,8 +274,8 @@ an HTML form similar to:
 ```
 
 Once the End-User authenticated successfully, you either **accept** the login
-challenge, or you **reject** (e.g. the user is not allowed to perform OAuth2
-flows) the login challenge.
+challenge, or you **reject** (for example the user isn't allowed to perform
+OAuth2 flows) the login challenge.
 
 ### Accepting the Login Flow
 
@@ -298,7 +298,7 @@ username, or something else that may change over time.
   // All values below are optional!
 
   // Remember, if set to true, tells Ory Hydra to remember this user by telling the user agent (browser) to store
-  // a cookie with authentication data. If the same user performs another OAuth 2.0 Authorization Request, he/she will not be asked to log in again.
+  // a cookie with authentication data. If the same user performs another OAuth 2.0 Authorization Request, he/she won't be asked to log in again.
   "remember": true,
 
   // RememberFor sets how long the authentication should be remembered for in seconds. If set to 0,
@@ -317,11 +317,11 @@ username, or something else that may change over time.
 
   // ForceSubjectIdentifier forces the "pairwise" user ID of the end-user that authenticated. The "pairwise"
   // user ID refers to the (Pairwise Identifier Algorithm)[http://openid.net/specs/openid-connect-core-1_0.html#PairwiseAlg]
-  // of the OpenID Connect specification. It allows you to set an obfuscated subject ("user") identifier that is unique
+  // of the OpenID Connect specification. It allows you to set an obfuscated subject ("user") identifier that's unique
   // to the client. Please note that this changes the user ID on endpoint /userinfo and sub claim of the ID Token.
-  // It does not change the sub claim in the OAuth 2.0 Introspection. Per default, Ory Hydra handles this value with its own algorithm.
-  // In case you want to set this yourself you can use this field. Please note that setting this field has no effect if pairwise is not
-  // configured in Ory Hydra or the OAuth 2.0 Client does not expect a pairwise identifier (set via subject_type key in the client's configuration).
+  // It doesn't change the sub claim in the OAuth 2.0 Introspection. Per default, Ory Hydra handles this value with its own algorithm.
+  // In case you want to set this yourself you can use this field. Please note that setting this field has no effect if pairwise isn't
+  // configured in Ory Hydra or the OAuth 2.0 Client doesn't expect a pairwise identifier (set via subject_type key in the client's configuration).
   // Please also be aware that Ory Hydra is unable to properly compute this value during authentication. This implies that
   // you have to compute this value on every authentication process (probably depending on the client ID or some other unique value).
   // If you fail to compute the proper value, then authentication processes which have id_token_hint set might fail.
@@ -331,8 +331,8 @@ username, or something else that may change over time.
 
 With `curl` this might look like the following request:
 
-```shell script
-$ curl --location --request PUT 'http://127.0.0.1:4445/oauth2/auth/requests/login/accept?login_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2' \
+```sh
+curl --location --request PUT 'http://127.0.0.1:4445/oauth2/auth/requests/login/accept?login_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "subject": "the-user-id-that-just-logged-in",
@@ -362,7 +362,7 @@ To reject the Login Challenge, make a HTTP PUT request with
 
 ```json
 {
-  // The error should follow the OAuth2 error format (e.g. `invalid_request`, `login_required`).
+  // The error should follow the OAuth2 error format (for example `invalid_request`, `login_required`).
   "error": "user_banned",
 
   // Description of the error in a human readable format.
@@ -375,7 +375,7 @@ To reject the Login Challenge, make a HTTP PUT request with
   // to the public but only in the server logs.
   "error_debug": "The user was marked banned in the database.",
 
-  // Represents the HTTP status code of the error (e.g. 401 or 403)
+  // Represents the HTTP status code of the error (for example 401 or 403)
   //
   // Defaults to 400
   "status_code": 403
@@ -384,8 +384,8 @@ To reject the Login Challenge, make a HTTP PUT request with
 
 With `curl` this might look like the following request:
 
-```shell script
-$ curl --location --request PUT 'http://127.0.0.1:4445/oauth2/auth/requests/login/reject?login_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2' \
+```sh
+curl --location --request PUT 'http://127.0.0.1:4445/oauth2/auth/requests/login/reject?login_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "error": "user_banned",
@@ -422,8 +422,8 @@ devices.
 
 :::info
 
-Revoking a login session does not invalidate any Access, Refresh, or ID Tokens!
-If you log out of GitHub, you will not be logged out of CircleCI/TravisCI.
+Revoking a login session doesn't invalidate any Access, Refresh, or ID Tokens!
+If you log out of GitHub, you won't be logged out of CircleCI/TravisCI.
 
 :::
 
@@ -431,5 +431,5 @@ Revoking the login sessions of a user is as easy as sending `DELETE` to
 `/oauth2/auth/sessions/login?subject={subject}` (see
 [full API documentation](../reference/api.mdx#opIdrevokeAuthenticationSession)).
 
-This endpoint is not compatible with OpenID Connect Front-/Backchannel logout
-and does not revoke any tokens.
+This endpoint isn't compatible with OpenID Connect Front-/Backchannel logout and
+doesn't revoke any tokens.

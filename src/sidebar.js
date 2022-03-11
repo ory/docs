@@ -194,6 +194,7 @@ module.exports = {
             'kratos/reference/configuration-editor',
             'kratos/reference/json-schema-json-paths',
             'kratos/reference/html-forms',
+            'kratos/reference/jsonnet',
             {
               'Command Line Interface (CLI)': [
                 {

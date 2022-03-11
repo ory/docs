@@ -22,7 +22,7 @@ is highly appreciated in improving these docs!
 
 :::note
 
-The Logout HTML Form cannot be only a Single Page App (Client-side browser
+The Logout HTML Form can't be only a Single Page App (Client-side browser
 application) or a Mobile App! There has to be a server-side component with
 access to Ory Hydra's Admin Endpoint!
 
@@ -78,7 +78,7 @@ router.get('/', csrfProtection, (req, res, next) => {
     .getLogoutRequest(challenge)
     // This will be called if the HTTP request was successful
     .then(({ body }) => {
-      // Here we have access to e.g. response.subject, response.sid, ...
+      // Here we've access to response.subject, response.sid, ...
 
       // The most secure way to perform a logout request is by asking the user if he/she really want to log out.
       res.render('logout', {
@@ -165,7 +165,7 @@ router.post('/logout', csrfProtection, (req, res, next) => {
     hydraAdmin
       .rejectLogoutRequest(challenge)
       .then(() => {
-        // The user did not want to log out. Let's redirect him back somewhere or do something else.
+        // The user didn't want to log out. Let's redirect him back somewhere or do something else.
         res.redirect('https://www.ory.sh/')
       })
       // This will handle any error that happens when making HTTP calls to hydra
