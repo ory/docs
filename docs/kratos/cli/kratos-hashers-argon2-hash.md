@@ -1,7 +1,9 @@
 ---
 id: kratos-hashers-argon2-hash
 title: kratos hashers argon2 hash
-description: kratos hashers argon2 hash Hash a list of passwords for benchmarking the hashing parameters
+description:
+  kratos hashers argon2 hash Hash a list of passwords for benchmarking the
+  hashing parameters
 ---
 
 <!--
@@ -9,6 +11,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## kratos hashers argon2 hash
 
 Hash a list of passwords for benchmarking the hashing parameters
@@ -35,5 +38,4 @@ kratos hashers argon2 hash &lt;password1&gt; [&lt;password2&gt; ...] [flags]
 
 ### SEE ALSO
 
-* [kratos hashers argon2](kratos-hashers-argon2)	 - 
-
+- [kratos hashers argon2](kratos-hashers-argon2) -

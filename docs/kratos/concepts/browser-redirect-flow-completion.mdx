@@ -149,4 +149,7 @@ https://public.kratos/self-service/registration/browser?after_verification_retur
 
 ## JSON
 
-This feature is in prototype phase and will be documented at a later stage.
+Requests from API clients - for example AJAX - are identified by the
+`Accept: application/json` header and return a JSON response. If no redirection
+URL is set for the flow, the `default_redirect_to` URL will be used for most
+flows.
