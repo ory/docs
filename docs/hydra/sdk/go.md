@@ -11,7 +11,9 @@ go get -u -d github.com/ory/hydra-client-go
 
 :::tip
 
-Be aware that endpoints /oauth2/auth and /oauth2/token __MUST NOT__ be consumed using this SDK. Use [golang.org/x/oauth2](https://godoc.org/golang.org/x/oauth2) instead.
+Be aware that endpoints /oauth2/auth and /oauth2/token **MUST NOT** be consumed
+using this SDK. Use [golang.org/x/oauth2](https://godoc.org/golang.org/x/oauth2)
+instead.
 
 :::
 
@@ -124,10 +126,10 @@ func main() {
     {
       URL: "https://hydra.localhost:4000",
     },
-  }    
+  }
 
   c := client.NewAPIClient(config)
-    
+
     publicURL := url.Parse("https://hydra.localhost:4444")
    ht := httptransport.NewWithClient(
      publicURL.Host,
