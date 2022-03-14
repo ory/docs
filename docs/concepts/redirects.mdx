@@ -12,133 +12,156 @@ to configure it on Ory Cloud console. If you are interested in utilizing the SDK
 for Single Page Applications, check out our [SDK](./services-api.mdx)
 documentation.
 
-For a deeper dive into the background of this setup, head over to our open
-source documentation:
-
-- https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion
-
 ## Allow list
 
 Ory Cloud allows dynamic redirects to be set using the `?return_to=` query
-parameter on [Self-Service Flows](./self-service.mdx). As an example a user
-opens a sharable link to go to https://myapp.com/posts, however, this url
-requires the user to be signed in and thus redirects the user back to the login
-page. To return the user back to the original url we can append
-`?return_to=https://myapp.com/posts` to the specified Self-Service initialise
-flow url.
+parameter on [Self-Service Flows](./self-service.mdx). For example: A user opens
+a sharable link to go to `https://myapp.com/posts`. This URL requires the user
+to be signed in and redirects the user back to the login page. To return the
+user back to the original URL append `?return_to=https://myapp.com/posts` when
+starting the self-service login flow `initSelfServiceLogin`:
 
-The `Allow list` is used in this scenario to prevent Open Redirect Attacks by
-only allowing certain domains, or paths on a domain. As shown in this example
-below the https://sub.domain.myapp.com/only/path needs to match perfectly for
-this sub-domain and path for it to be allowed. Other redirects using myapp.com
-will fail, however, for https://anotherapp.com will succeed on any path.
+```js
+    "request_url": "http://<your-project>.projects.oryapis.com/self-service/login/browser?return_to=...",
+```
+
+`return_to` is set when `initSelfServiceLogin` is called in a browser with a
+`return_to` URL set. For API clients such as AJAX
+[visit this section](#api-clients).
+
+The `allow list` is used to prevent
+[Open Redirect Attacks](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html)
+by only allowing certain domains, or paths on a domain. As in the example below
+`https://sub.domain.myapp.com/only/path` needs to match the sub-domain and path
+for it to be allowed. Other redirects using `myapp.com` will fail. Redirects
+using `https://anotherapp.com` will succeed on any path.
 
 ![Browser Redirects Allow List](/images/browser-redirects/browser-redirects-allow-list.png)
 
-## Redirect Flows
+## Redirect flows
 
 Ory Cloud has a total of six flows, **Login**, **Registration**,
 **Verification**, **Recovery**, **Settings** and **Logout** which can be
 configured to redirect back to any URL. A common use case would be to redirect
-the user to your application home screen after a logout or to a specific url on
-a sub-domain after a settings password update. On project creation the redirect
-flows are set to the default Ory Cloud Managed UI. For more information on the
-Ory Managed UI, please see the [Managed User Interface](./managed-ui.mdx)
-documentation.
+the user to your application home screen after a logout or to a specific URL on
+a sub-domain after a settings password update.
 
-### Login, Registration and Settings
+On project creation the redirect flows are set to the default
+[Managed User Interface](./managed-ui.mdx).
 
-The Login and Registration flows have three fields (all optional):
+### Login, registration and settings
 
-1. `Default Redirect URL` domain or path relative to your application URL
-2. An `Post-Password Redirect URL`
-3. An `Post-OIDC Redirect URL` (**not supported**)
-
-And Settings has three fields (all optional):
+The `Login` and `Registration` flows have three fields (all optional):
 
 1. `Default Redirect URL` domain or path relative to your application URL
-2. An `Post-Password Redirect URL`
-3. An `Post-Profile Redirect URL`
+2. `Post-Password Redirect URL`
+3. `Post-OIDC Redirect URL` (_coming soon_)
 
-:::info
+The `Settings` flow has three fields (all optional):
 
-Setting `Post-OIDC` redirects for Login and Registration will be supported in a
-future release. For more information see the
-[Ory Cloud Roadmap](../cloud/cloud-roadmap.mdx).
+1. `Default Redirect URL` domain or path relative to your application URL
+2. `Post-Password Redirect URL`
+3. `Post-Profile Redirect URL`
 
-:::
+To overwrite the `Global Redirect URL` set the `Default Redirect URL` to a fully
+qualified domain name
+([FQDN](https://en.wikipedia.org/wiki/Fully_qualified_domain_name) - for example
+`https://domain.example/login`).  
+To replace the `Global Redirect URL` path set the `Default Redirect URL` to a
+path. For example when setting it to `/login`,
+`https://domain.example/global/path` becomes `https://domain.example/login`.
 
-When setting the `Default Redirect URL` as an FQDN (fully qualified domain name)
-such as `https://domain.example/login` it will overwrite the
-`Global Redirect URL`. As a path it will replace the `Global Redirect URL` path,
-for example a path such as `/login` will alter
-`https://domain.example/global/path` to `https://domain.example/login`.
+The `Default Redirect URL` is used when Ory isn't sure where to redirect. It’s a
+good idea for this to be your default app URL, for example `/` or the dashboard.
+Use sub-conditions to control where users are redirected after registration,
+login, and other self-service flows.
 
-On the sub-conditions such as `Post-Password` or `Post-OIDC` an FQDN or a path
-can be set. In the case of an FQDN it will replace the closest relative starting
+On sub-conditions such as `After Password` or `After Profile` an FQDN or a path
+can be set.  
+Set the `Post-` redirect to a FQDN to replace the closest relative, starting
 with the Login/Registration `Default Redirect URL` and then the
-`Global Redirect URL`. With a path it will use the closest relative as the base
-URL as described above with the `Default Redirect URL`.
+`Global Redirect URL`.  
+Set the `Post-` redirect to a path to use the closest relative as the base URL -
+as described above with the `Default Redirect URL`.
+
+All the relative URLs will be updated with their respective base URL. As shown
+in the example below, the `Post-Login Default Redirect URL` has been set to use
+a path. This means the base URL will be the `Global Redirect URL`
+(`https://myapp.com`). This will set the Login `Default Redirect URL` to
+`https://myapp.com/after/login` and the `Post-Password` to
+`https://myapp.com/after/login/password`.
 
 ![Browser Redirects Url Management](/images/browser-redirects/browser-redirects-url-management.png)
 
-All the relative URLs will be updated with their respective base URL. As shown
-in the example below, the Login `Default Redirect URL` has been set to use a
-relative URL and thus the base URL will be the `Global Redirect URL`
-(https://myapp.com). This will then set the Login `Default Redirect URL` to
-https://myapp.com/after/login and the `Post-Password` to
-https://myapp.com/after/login/password.
+In the example below , the `Post-Login Default Redirect URL` has been set to use
+a FQDN. This will set the Login `Default Redirect URL` to
+`https://myapp.com/after/login` and the `Post-Password` to
+`https://myapp.com/after/login/password`.
 
 ![Browser Redirects URL Management Transformed](/images/browser-redirects/browser-redirects-url-management-2.png)
 
-### Verification, Recovery and Logout
+### Verification, recovery and logout
 
 :::warning
 
-The `Post-Recovery` redirect is not supported and will automatically redirect
-the user to the `Settings UI` URL. This implies that you should rely on the
-`Post-Settings` redirect URL for `Post-Recovery` flows as well.
+The `Post-Recovery` redirect isn't supported and will automatically redirect the
+user to the `Settings UI` URL.  
+Use the `Post-Settings` redirect of `Post-Recovery` flows.
 
 :::
 
-Each of these flows have only a single field, the `Default Redirect URL`. As
-with the Login, Registration and Settings configurations, the
-`Default Redirect URL` can be an FQDN or a path.
+Each of these flows has only a single field, the `Default Redirect URL`. As with
+Login, Registration and Settings configurations, the `Default Redirect URL` can
+be an FQDN or a path.
 
 ![Browser Redirects URL Management Transformed](/images/browser-redirects/browser-redirects-url-management-3.png)
 
-## Resetting/Updating Flows
+## Reset and update flows
 
-A redirect can be updated or reset by either changing the current redirects
-value or deleting the entry and clicking the "Update" button. All the flows can
-be reset at once by pressing the "Reset Flows" button which will prompt a
-confirmation box. Resetting all flows will reset all the fields back to the
-default value which is Ory Cloud [Managed User Interface](./managed-ui.mdx).
+A redirect can be updated or deleted by either changing the current redirects
+value or deleting the entry and clicking the **Update** button. All flows can be
+reset at once with the **Reset Flows** button which will prompt a confirmation
+box. Resetting all flows will reset all the fields back to the default value
+which is the Ory Cloud [Managed User Interface](./managed-ui.mdx).
 
 Once a flow has been reset or updated it will take effect immediately on **new**
 flows. Old flows that haven't expired yet won't be updated.
 
 ![Browser Redirects URL Reset All](/images/browser-redirects/browser-redirects-reset-all.png)
 
-## Troubleshooting Guide
+## Troubleshooting
 
-### Allow List
+### API clients
 
-The `Allow List` requires a valid URL to be set with a scheme (http or https).
+The browser redirects only work for regular browser requests.  
+If you are using an API Client for example AJAX, redirect the user to the right
+endpoint in the application, for example:
+
+```ts
+          .then((res) => {
+            router.push('/<your-route>')
+          })
+```
+
+### `incorrect format`
+
+The [allow list](#allow-list) and any of the post-flow redirects require a valid
+URL to be set with a scheme (HTTP or HTTPS). An example of a valid URL is
+`https://www.google.com`.
 
 ![Browser Redirects URL Error Message](/images/browser-redirects/browser-redirects-error-messages-1.png)
 
-### Post Flow
-
-Any of the Post-flow redirects require a valid URL with scheme (http or https)
-or path. An example of a valid URL is https://www.google.com.
-
 ![Browser Redirects URL Error Message Flows](/images/browser-redirects/browser-redirects-error-messages-flows.png)
 
-### Domain Denied
+### Domain denied
 
-URLs matching any of the denied URLs, such as the Ory domain will automatically
-be denied. This deny list can be extended in future to prevent any abuse on the
-Ory Cloud.
+URLs not matching any of the allowed URLs will automatically be denied.
 
 ![Browser Redirects URL Error Message](/images/browser-redirects/browser-redirects-error-messages-2.png)
+
+## Read more
+
+For a deeper dive into the background of browser redirects, head over to our
+open source documentation:
+
+- [HTTP Redirection Configuration](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion)
