@@ -9,9 +9,9 @@ To install the Go SDK, run:
 go get -u -d github.com/ory/hydra-client-go
 ```
 
-:::tip
+:::info
 
-Be aware that endpoints /oauth2/auth and /oauth2/token **MUST NOT** be consumed
+Be aware that endpoints `/oauth2/auth` and `/oauth2/token` **MUST NOT** be consumed
 using this SDK. Use [golang.org/x/oauth2](https://godoc.org/golang.org/x/oauth2)
 instead.
 
