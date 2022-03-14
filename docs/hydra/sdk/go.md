@@ -9,30 +9,38 @@ To install the Go SDK, run:
 go get -u -d github.com/ory/hydra-client-go
 ```
 
+:::tip
+
+Be aware that endpoints /oauth2/auth and /oauth2/token __MUST NOT__ be consumed using this SDK. Use [golang.org/x/oauth2](https://godoc.org/golang.org/x/oauth2) instead.
+
+:::
+
 ## Configuration
 
 We use code generation to generate our SDKs. The Go SDK is generated using
 [`go-swagger`](http://goswagger.io). The SDK is set up:
 
 ```go
-import "github.com/ory/hydra-client-go/client"
+import (
+  client "github.com/ory/hydra-client-go"
+)
 
 func main() {
-    adminURL := url.Parse("https://hydra.localhost:4445")
-    hydraAdmin := client.NewHTTPClientWithConfig(nil, &client.TransportConfig{Schemes: []string{adminURL.Scheme}, Host: adminURL.Host, BasePath: adminURL.Path})
+  config := client.NewConfiguration()
+  config.Servers = []client.ServerConfiguration{
+    {
+      URL: "https://hydra.localhost:4000",
+    },
+  }
 
-    // admin.Admin.CreateOAuth2Client(...
+  c := client.NewAPIClient(config)
 
-    publicURL := url.Parse("https://hydra.localhost:4444")
-    hydraPublic := client.NewHTTPClientWithConfig(nil, &client.TransportConfig{Schemes: []string{publicURL.Scheme}, Host: publicURL.Host, BasePath: publicURL.Path})
+  c.AdminApi.CreateOAuth2Client(...
 
-    // public.Public.RevokeOAuth2Token(...
+  c.PublicApi.RevokeOAuth2Token(...
 }
-```
 
-> Be aware that endpoints /oauth2/auth and /oauth2/token MUST NOT be consumed
-> using this SDK. Use
-> [golang.org/x/oauth2](https://godoc.org/golang.org/x/oauth2) instead.
+```
 
 ## Making requests
 
@@ -40,18 +48,20 @@ Making requests is straight forward:
 
 ```go
 import (
-  "github.com/ory/hydra-client-go/client"
-  "github.com/ory/hydra-client-go/client/admin"
-  "github.com/ory/hydra-client-go/models"
+  "github.com/ory/hydra-client-go/de"
 )
 
 func main() {
-    adminURL := url.Parse("https://hydra.localhost:4445")
-    hydraAdmin := client.NewHTTPClientWithConfig(nil, &client.TransportConfig{Schemes: []string{adminURL.Scheme}, Host: adminURL.Host, BasePath: adminURL.Path})
+  config := client.NewConfiguration()
+  config.Servers = []client.ServerConfiguration{
+    {
+      URL: "https://hydra.localhost:4000",
+    },
+  }
 
-    // It's important to create the parameters using `New...`, otherwise requests will fail!
-    result, err := hydraAdmin.Admin.CreateOAuth2Client(
-        admin.NewCreateOAuth2ClientParams().WithBody(&models.OAuth2Client{
+  c := client.NewAPIClient(config)
+
+  result, err := c.AdminApi.CreateOAuth2Client(client.WithBody(&models.OAuth2Client{
         ClientID: "scoped",
     }))
     if err != nil {
@@ -74,16 +84,21 @@ Some endpoints require Basic Authorization:
 
 ```go
 import (
-  "github.com/ory/hydra-client-go/client"
-  "github.com/ory/hydra-client-go/client/public"
+  client "github.com/ory/hydra-client-go"
   httptransport "github.com/go-openapi/runtime/client"
 )
 
 func main() {
-    publicURL := url.Parse("https://hydra.localhost:4444")
-    hydraPublic := hydra.NewHTTPClientWithConfig(nil, &client.TransportConfig{Schemes: []string{publicURL.Scheme}, Host: publicURL.Host, BasePath: publicURL.Path})
+  config := client.NewConfiguration()
+  config.Servers = []client.ServerConfiguration{
+    {
+      URL: "https://hydra.localhost:4000",
+    },
+  }
 
-    _, err := hydraPublic.Public.RevokeOAuth2Token(
+  c := client.NewAPIClient(config)
+
+    _, err := c.PublicApi.RevokeOAuth2Token(
         public.NewRevokeOAuth2TokenParams().WithToken(c.token),
         httptransport.BasicAuth("my-client", "foobar"),
     )
@@ -99,11 +114,20 @@ You may want to protect Ory Hydra using OAuth2 Access Tokens. In that case, you
 can enhance the SDK by using the OAuth2 Client:
 
 ```go
-import "github.com/ory/hydra-client-go/client"
+  client "github.com/ory/hydra-client-go"
 import httptransport "github.com/go-openapi/runtime/client"
 import "golang.org/x/oauth2/clientcredentials"
 
 func main() {
+  config := client.NewConfiguration()
+  config.Servers = []client.ServerConfiguration{
+    {
+      URL: "https://hydra.localhost:4000",
+    },
+  }    
+
+  c := client.NewAPIClient(config)
+    
     publicURL := url.Parse("https://hydra.localhost:4444")
    ht := httptransport.NewWithClient(
      publicURL.Host,
@@ -119,7 +143,7 @@ func main() {
 
     public := hydra.New(ht, nil)
 
-    _, err := client.Public.RevokeOAuth2Token(
+    _, err := c.PublicApi.RevokeOAuth2Token(
         public.NewRevokeOAuth2TokenParams().WithToken(c.token),
         httptransport.BasicAuth("my-client", "foobar"),
     )
