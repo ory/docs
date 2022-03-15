@@ -65,11 +65,11 @@ import CodeBlock from '@theme/CodeBlock'
 
 ## Validate and Login
 
-Next, create middleware that checks if the user has a valid session with the defined Ory project. The session is considered valid when the user is signed in to an account created in the defined project.
+Next, create middleware that checks if the user has a valid session. The session is considered valid when the user is authenticated.
 
 The middleware passes the current `request` cookies to the Ory client to check if the session is valid.
 
-If the session is valid, the user is presented with the protected page. When the session is not valid, which means that the user is not signed in, the request is redirected to the defined Ory project for login using the Ory Managed UI. 
+If the session is valid, the user is presented with the protected page. When the session is not valid, which means that the user is not authenticated or the session expired, the request is redirected for login using the Ory Managed UI. 
 
 To create the middleware, add the code to the `middleware.go` file:
 
