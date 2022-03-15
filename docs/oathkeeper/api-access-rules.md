@@ -69,9 +69,11 @@ cat ./rules.yaml
 Access Rules have four principal keys:
 
 - `id` (string): The unique ID of the Access Rule.
-- `version` (string): The version of Ory Oathkeeper uses [Semantic Versioning](https://semver.org). Please use `vMAJOR.MINOR.PATCH` notation
-  format. Ory Oathkeeper can migrate access rules across versions. If left empty Ory Oathkeeper will assume that the rule uses
-  the same tag as the running version. Examples: `v0.1.3` or `v1.2.3`
+- `version` (string): The version of Ory Oathkeeper uses
+  [Semantic Versioning](https://semver.org). Please use `vMAJOR.MINOR.PATCH`
+  notation format. Ory Oathkeeper can migrate access rules across versions. If
+  left empty Ory Oathkeeper will assume that the rule uses the same tag as the
+  running version. Examples: `v0.1.3` or `v1.2.3`
 - `upstream` (object): The location of the server where requests matching this
   rule should be forwarded to. This only needs to be set when using the Ory
   Oathkeeper Proxy as the Decision API doesn't forward the request to the
