@@ -54,7 +54,10 @@ module.exports = {
             {
               type: 'category',
               label: 'Enabling Social Sign-in',
-              items: ['guides/social-signin/github']
+              items: [
+                'guides/social-signin/google',
+                'guides/social-signin/github'
+              ]
             },
             'start-building/single-page-app-spa'
           ]
