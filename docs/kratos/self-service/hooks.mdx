@@ -139,7 +139,7 @@ object into the jsonnet template as well. These objects are available through a
 send to the web hook end point, the jsonnet template would look like this:
 `function(ctx) { user_id: ctx.identity.id }`
 
-#### Non-Blocking Web Hooks
+#### Non-blocking webhooks
 
 Sometimes you need to notify a system without needing its response. For example,
 when a user signs up and you want their email address to be added to the
