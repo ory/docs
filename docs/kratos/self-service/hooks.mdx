@@ -142,11 +142,10 @@ send to the web hook end point, the jsonnet template would look like this:
 #### Non-blocking webhooks
 
 Sometimes you need to notify a system without needing its response. For example,
-when a user signs up and you want their email address to be added to the
-newsletter you might not care about the response and favor the execution to be
-non-blocking.
+when a user signs up, their email address is added to the newsletter. If the system's response
+is not important, you can ignore the response and make the webhook execution non-blocking.
 
-For those cases you can set `response.ignore` to `true` in your web-hook config:
+To do that, set `response.ignore` to `true` in the webhook config:
 
 ```yaml title="path/to/my/kratos.config.yml
 - hook: web_hook
