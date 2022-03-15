@@ -30,7 +30,8 @@ go mod init github.com/<your-name>/your-project
 
 ## Install Ory SDK
 
-Run this command to install the Ory SDK which allows you to interact with Ory APIs:
+Run this command to install the Ory SDK which allows you to interact with Ory
+APIs:
 
 ```shell-session
 go get -u github.com/ory/client-go
@@ -38,7 +39,8 @@ go get -u github.com/ory/client-go
 
 ## Install Ory CLI
 
-Follow [this guide](../ory-cli-install-use.mdx) to install the Ory CLI on your machine.
+Follow [this guide](../ory-cli-install-use.mdx) to install the Ory CLI on your
+machine.
 
 ### Why do I Need the Ory CLI?
 
@@ -50,9 +52,9 @@ import OryPHP from './_common/ory-cli.mdx'
 
 ## Create HTTP Server
 
-Use this code to set up a basic server that creates an Ory client,
-registers a new route for the Go app and uses middleware to
-validate if the user is allowed to access the application.
+Use this code to set up a basic server that creates an Ory client, registers a
+new route for the Go app and uses middleware to validate if the user is allowed
+to access the application.
 
 Add the code to the `main.go` file:
 
@@ -65,11 +67,15 @@ import CodeBlock from '@theme/CodeBlock'
 
 ## Validate and Login
 
-Next, create middleware that checks if the user has a valid session. The session is considered valid when the user is authenticated.
+Next, create middleware that checks if the user has a valid session. The session
+is considered valid when the user is authenticated.
 
-The middleware passes the current `request` cookies to the Ory client to check if the session is valid.
+The middleware passes the current `request` cookies to the Ory client to check
+if the session is valid.
 
-If the session is valid, the user is presented with the protected page. When the session is not valid, which means that the user is not authenticated or the session expired, the request is redirected for login using the Ory Managed UI. 
+If the session is valid, the user is presented with the protected page. When the
+session is not valid, which means that the user is not authenticated or the
+session expired, the request is redirected for login using the Ory Managed UI.
 
 To create the middleware, add the code to the `middleware.go` file:
 
@@ -81,9 +87,11 @@ import middlewareGo from '!!raw-loader!../../../code-examples/protect-page-login
 
 ## The protected page
 
-As the final step, create a `Dashboard` page that's presented to signed-in users. This page diplays the user's session data. 
+As the final step, create a `Dashboard` page that's presented to signed-in
+users. This page diplays the user's session data.
 
-1. Create the `dashboardHandler` that renders the page with the session data. Add this code to the `handler.go` file:
+1. Create the `dashboardHandler` that renders the page with the session data.
+   Add this code to the `handler.go` file:
 
 ```mdx-code-block title="handler.go"
 import handlerGo from '!!raw-loader!../../../code-examples/protect-page-login/go/handler.go'
@@ -91,8 +99,8 @@ import handlerGo from '!!raw-loader!../../../code-examples/protect-page-login/go
 <CodeBlock language="go">{handlerGo}</CodeBlock>
 ```
 
-2. To present the data to the user, create the `Dashboard` HTML page.
-Add this code to the `index.html` file: 
+2. To present the data to the user, create the `Dashboard` HTML page. Add this
+   code to the `index.html` file:
 
 ```mdx-code-block title="index.html"
 import index from '!!raw-loader!../../../code-examples/protect-page-login/go/index.html'
@@ -102,19 +110,24 @@ import index from '!!raw-loader!../../../code-examples/protect-page-login/go/ind
 
 ## Test your application
 
-With all of the pieces in place, it's time to test your application. Follow these steps: 
+With all of the pieces in place, it's time to test your application. Follow
+these steps:
 
-1. Start your Go app: 
+1. Start your Go app:
 
 ```shell-session
  go run .
- ```
+```
 
-2. Export the SDK configuration URL for the desired Ory project. You can use the provided playground project for testing, or export the SDK URL of your own Ory Cloud project. 
+2. Export the SDK configuration URL for the desired Ory project. You can use the
+   provided playground project for testing, or export the SDK URL of your own
+   Ory Cloud project.
 
 :::info
 
-To get your project's SDK URL, sign in at [console.ory.sh](https://console.ory.sh/), select Connect from the left navigation panel, and copy the URL from the SDK Configuration section.
+To get your project's SDK URL, sign in at
+[console.ory.sh](https://console.ory.sh/), select **Connect** from the left
+navigation panel, and copy the URL from the **SDK Configuration** section.
 
 :::
 
@@ -124,14 +137,19 @@ import SdkEnvVar from '@site/src/components/SdkEnvVar'
 <SdkEnvVar />
 ```
 
-3. Run the Ory proxy to mirror the Ory API endpoints on your application's domain (`localhost`):
+3. Run the Ory proxy to mirror the Ory API endpoints on your application's
+   domain (`localhost`):
 
 ```shell-session
 ory proxy http://localhost:3000
 ```
 
-4. Open [http://localhost:4000](http://localhost:4000) to access the application. As the initial call is made by an unauthenticated user, the middleware doesn't detect a valid session and redirects to the login page of the defined Ory project. <br/> <br/>
-From there, you can create a new account or sign in using an existing identity. When you sign in, the session becomes valid and the application shows the `Dashboard` page with the session data.
+4. Open [http://localhost:4000](http://localhost:4000) to access the
+   application. As the initial call is made by an unauthenticated user, the
+   middleware doesn't detect a valid session and redirects to the login page of
+   the defined Ory project. <br/> <br/> From there, you can create a new account
+   or sign in using an existing identity. When you sign in, the session becomes
+   valid and the application shows the `Dashboard` page with the session data.
 
 ## Go to Production
 
