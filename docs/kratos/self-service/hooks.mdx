@@ -144,10 +144,12 @@ function(ctx) { user_id: ctx.identity.id }
 
 #### Canceling Webhooks
 
-In some cases you might want to cancel a webhook and not make the request. A
-good example might be when you test your systems and do not want the test
-accounts to end up in your e.g. CRM. In this case you can cancel the web-hook by
-raising an error:
+You can cancel configured webhooks and not make the defined request.
+ 
+This can come in handy in testing. For example, if you cancel the webhook, you prevent the 
+test accounts created during testing from being added to CRM. 
+
+In such a scenario, cancel the webhook by raising an error for all accounts with the `test-` name prefix:
 
 ```jsonnet
 function(ctx)
