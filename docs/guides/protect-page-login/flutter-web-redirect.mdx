@@ -107,6 +107,10 @@ import main from '!!raw-loader!../../../code-examples/protect-page-login/flutter
 <CodeBlock language="dart">{main}</CodeBlock>
 ```
 
+---
+
+You can find the [full example application here](https://github.com/ory/docs/tree/d977f6a8616aa03ba7c77ce0588b0b89019807cf/code-examples/protect-page-login/flutter_web_redirect)
+
 ### Why do I Need the Ory CLI?
 
 ```mdx-code-block
@@ -134,7 +138,7 @@ set the proxied application to [http://localhost:4005](http://localhost:4005).
 ory proxy --port 3005 http://localhost:4005
 ```
 
-Open the browser on [http://localhost:4000](http://localhost:4000) you should
+Open the browser on [http://localhost:3005](http://localhost:3005) you should
 now see the Ory managed Login page. Once you have completed the login/signup
 flow you should be redirected back to your Flutter Web App with a session
 cookie. The session cookie can now be sent to your server-side services to
