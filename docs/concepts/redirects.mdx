@@ -12,7 +12,7 @@ to configure it on Ory Cloud console. If you are interested in utilizing the SDK
 for Single Page Applications, check out our [SDK](./services-api.mdx)
 documentation.
 
-## Allow list
+## Allow List
 
 Ory Cloud allows dynamic redirects to be set using the `?return_to=` query
 parameter on [Self-Service Flows](./self-service.mdx). For example: a user opens
@@ -38,7 +38,7 @@ using `https://anotherapp.com` will succeed on any path.
 
 ![Browser Redirects Allow List](/images/browser-redirects/browser-redirects-allow-list.png)
 
-## Redirect flows
+## Redirect Flows
 
 Ory Cloud has a total of six flows, **Login**, **Registration**,
 **Verification**, **Recovery**, **Settings** and **Logout** which can be
@@ -49,15 +49,15 @@ a sub-domain after a settings password update.
 On project creation the redirect flows are set to the default
 [Managed User Interface](./managed-ui.mdx).
 
-### Login, registration and settings
+### Login, Registration and Settings
 
-The `Login` and `Registration` flows have three fields (all optional):
+The Login and Registration flows have three fields (all optional):
 
 1. `Default Redirect URL` domain or path relative to your application URL
 2. `Post-Password Redirect URL`
 3. `Post-OIDC Redirect URL` (_coming soon_)
 
-The `Settings` flow has three fields (all optional):
+The Settings flow has three fields (all optional):
 
 1. `Default Redirect URL` domain or path relative to your application URL
 2. `Post-Password Redirect URL`
@@ -100,7 +100,7 @@ a FQDN. This will set the Login `Default Redirect URL` to
 
 ![Browser Redirects URL Management Transformed](/images/browser-redirects/browser-redirects-url-management-2.png)
 
-### Verification, recovery, and logout
+### Verification, Recovery, and Logout
 
 :::warning
 
@@ -116,7 +116,7 @@ be an FQDN or a path.
 
 ![Browser Redirects URL Management Transformed](/images/browser-redirects/browser-redirects-url-management-3.png)
 
-## Reset and update flows
+## Reset and Update Flows
 
 A redirect can be updated or deleted by either changing the current redirects
 value or deleting the entry and clicking the **Update** button. All flows can be
@@ -131,7 +131,7 @@ flows. Old flows that haven't expired yet won't be updated.
 
 ## Troubleshooting
 
-### API clients
+### API Clients
 
 The browser redirects only work for regular browser requests.  
 If you are using an API Client for example AJAX, redirect the user to the right
@@ -143,7 +143,7 @@ endpoint in the application, for example:
           })
 ```
 
-### `incorrect format`
+### Invalid URL
 
 The [allow list](#allow-list) and any of the post-flow redirects require a valid
 URL to be set with a scheme (HTTP or HTTPS). An example of a valid URL is
@@ -153,13 +153,13 @@ URL to be set with a scheme (HTTP or HTTPS). An example of a valid URL is
 
 ![Browser Redirects URL Error Message Flows](/images/browser-redirects/browser-redirects-error-messages-flows.png)
 
-### Domain denied
+### Domain Denied
 
 URLs not matching any of the allowed URLs will automatically be denied.
 
 ![Browser Redirects URL Error Message](/images/browser-redirects/browser-redirects-error-messages-2.png)
 
-## Read more
+## Read More
 
 For a deeper dive into the background of browser redirects, head over to our
 open source documentation:
