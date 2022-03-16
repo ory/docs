@@ -3,8 +3,6 @@ id: claims-at-refresh
 title: Updating claims at token refresh
 ---
 
-## Overview
-
 The Hydra OAuth2 and OpenID Connect server comes with a mechanism that allows updating `id_token` and `access_token` 
 when a registered client sends a token refresh request. The flow is realized by calling the defined refresh token hook endpoint 
 which returns updated data. 
@@ -18,7 +16,6 @@ the entire token refresh flow fails and the `refresh_token` remains unused.
 
 ::: 
 
-
 ## Configuration
 
 To enable the token refresh webhook, configure the `oauth2.refresh_token_hook` key in the Hydra configuration: 
@@ -30,6 +27,8 @@ oauth2:
 
 If you're running Hydra locally, you can set this value by exporting the refresh token hook endpoint URL as an environment variable. 
 Run this command: 
+
+```mdx-code-block
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -51,6 +50,7 @@ import TabItem from '@theme/TabItem';
   
   </TabItem>
 </Tabs>
+```
 
 ### Webhook configuration
 
@@ -85,6 +85,46 @@ To update the data, the webhook must return a `200 OK` response and the updated 
 The token subject is never overridden.
 
 :::
+
+### Updated tokens
+
+The following examples show fragments of tokens updated by a webhook set up with the [example configuration](#webhook-configuration):
+
+```mdx-code-block
+
+<Tabs>
+  <TabItem value="id_token" label="id_token" default>
+
+        "at_hash": "a0iOL0mRPeaJO7Ns0SECnQ",
+        "aud": [
+          "my_client"
+        ],
+        "auth_time": 1647427485,
+        "bar": "baz",
+        "iss": "http://ory.hydra.example/",
+        "sub": "foo@bar.com"
+      }
+
+  </TabItem>
+  <TabItem value="access_token" label="access_token">
+
+        {
+        "active": true,
+        "scope": "openid offline",
+        "client_id": "my_client",
+        "sub": "foo@bar.com",
+        "aud": [],
+        "iss": "http://ory.hydra.example/",
+        "token_type": "Bearer",
+        "token_use": "access_token",
+        "ext": {
+            "foo": "bar"
+        }
+    }
+  
+  </TabItem>
+</Tabs>
+```
 
 ## Rejecting token refresh
 
