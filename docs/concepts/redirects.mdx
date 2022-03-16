@@ -3,21 +3,15 @@ id: redirects
 title: Browser Redirects and Flow Completion
 ---
 
-Ory Cloud offers methods to integrate your own user interface (UI) such as
-utilizing the SDK in Single Page Applications (ReactJs, Angular, VueJs etc.) or
-using redirects in Server Side Applications (NodeJs, PHP, Golang etc.).
-
-On this page of the documentation we will be covering Browser Redirects and how
-to configure it on Ory Cloud console. If you are interested in utilizing the SDK
-for Single Page Applications, check out our [SDK](./services-api.mdx)
+This document covers browser redirects for Server Side Applications (NodeJs, PHP, Golang etc.) and how
+to configure them. To learn more about the SDK for Single Page Applications, check out the [SDK](./services-api.mdx)
 documentation.
 
 ## Allow List
 
-Ory Cloud allows dynamic redirects to be set using the `?return_to=` query
-parameter on [Self-Service Flows](./self-service.mdx). For example: a user opens
+Set dynamic redirects using the `?return_to=` query parameter on [Self-Service Flows](./self-service.mdx). For example: a user opens
 a sharable link to go to `https://myapp.com/posts`. This URL requires the user
-to be signed in and redirects the user back to the login page. To return the
+to have an active session and redirects the user back to the login page. To return the
 user back to the original URL, append `?return_to=https://myapp.com/posts` when
 starting the self-service login flow `initSelfServiceLogin`:
 
@@ -29,11 +23,11 @@ starting the self-service login flow `initSelfServiceLogin`:
 `return_to` URL set. For API clients such as AJAX
 [visit this section](#api-clients).
 
-The `allow list` is used to prevent
+The `allow list` prevents
 [Open Redirect Attacks](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html)
-by only allowing certain domains, or paths on a domain. As in the example below
-`https://sub.domain.myapp.com/only/path` needs to match the sub-domain and path
-for it to be allowed. Other redirects using `myapp.com` will fail. Redirects
+by just allowing certain domains, or paths on a domain. As in the example below
+`https://sub.domain.myapp.com/only/path` needs to match the sub-domain and path. 
+Other redirects using `myapp.com` will fail. Redirects
 using `https://anotherapp.com` will succeed on any path.
 
 ![Browser Redirects Allow List](/images/browser-redirects/browser-redirects-allow-list.png)
@@ -49,7 +43,7 @@ a sub-domain after a settings password update.
 On project creation the redirect flows are set to the default
 [Managed User Interface](./managed-ui.mdx).
 
-### Login, Registration and Settings
+### Login, Registration, and Settings
 
 The Login and Registration flows have three fields (all optional):
 
@@ -85,7 +79,7 @@ Set the `Post-` redirect to a path to use the closest relative as the base URL -
 as described above with the `Default Redirect URL`.
 
 All the relative URLs will be updated with their respective base URL. As shown
-in the example below, the `Post-Login Default Redirect URL` has been set to use
+in the example below, the `Post-Login Default Redirect URL` is set to
 a path. This means the base URL will be the `Global Redirect URL`
 (`https://myapp.com`). This will set the Login `Default Redirect URL` to
 `https://myapp.com/after/login` and the `Post-Password` to
@@ -93,7 +87,7 @@ a path. This means the base URL will be the `Global Redirect URL`
 
 ![Browser Redirects Url Management](/images/browser-redirects/browser-redirects-url-management.png)
 
-In the example below , the `Post-Login Default Redirect URL` has been set to use
+In the example below , the `Post-Login Default Redirect URL` is set to use
 a FQDN. This will set the Login `Default Redirect URL` to
 `https://myapp.com/after/login` and the `Post-Password` to
 `https://myapp.com/after/login/password`.
@@ -110,22 +104,20 @@ Use the `Post-Settings` redirect of `Post-Recovery` flows.
 
 :::
 
-Each of these flows has only a single field, the `Default Redirect URL`. As with
-Login, Registration and Settings configurations, the `Default Redirect URL` can
+Each of these flows has a single field, the `Default Redirect URL`. As with
+Login, Registration, and Settings configurations, the `Default Redirect URL` can
 be an FQDN or a path.
 
 ![Browser Redirects URL Management Transformed](/images/browser-redirects/browser-redirects-url-management-3.png)
 
 ## Reset and Update Flows
 
-A redirect can be updated or deleted by either changing the current redirects
-value or deleting the entry and clicking the **Update** button. All flows can be
-reset at once with the **Reset Flows** button which will prompt a confirmation
+Update or delete a redirect by either changing the current redirects
+value or deleting the entry and clicking the **Update** button. Reset all flows at once with the **Reset Flows** button which will prompt a confirmation
 box. Resetting all flows will reset all the fields back to the default value
 which is the Ory Cloud [Managed User Interface](./managed-ui.mdx).
 
-Once a flow has been reset or updated it will take effect immediately on **new**
-flows. Old flows that haven't expired yet won't be updated.
+Updates to flows will take effect on **new** flows. It will have no effect on old flows that haven't expired yet.
 
 ![Browser Redirects URL Reset All](/images/browser-redirects/browser-redirects-reset-all.png)
 
@@ -133,7 +125,7 @@ flows. Old flows that haven't expired yet won't be updated.
 
 ### API Clients
 
-The browser redirects only work for regular browser requests.  
+The browser redirects work just for regular browser requests.  
 If you are using an API Client for example AJAX, redirect the user to the right
 endpoint in the application, for example:
 
@@ -146,7 +138,7 @@ endpoint in the application, for example:
 ### Invalid URL
 
 The [allow list](#allow-list) and any of the post-flow redirects require a valid
-URL to be set with a scheme (HTTP or HTTPS). An example of a valid URL is
+URL with a scheme (HTTP or HTTPS). An example of a valid URL is
 `https://www.google.com`.
 
 ![Browser Redirects URL Error Message](/images/browser-redirects/browser-redirects-error-messages-1.png)
@@ -155,13 +147,13 @@ URL to be set with a scheme (HTTP or HTTPS). An example of a valid URL is
 
 ### Domain Denied
 
-It is not possible to set any `ory` domain as redirect URL for security reasons.
+It's not possible to set the `ory` domain as redirect URL.
 
 ![Browser Redirects URL Error Message](/images/browser-redirects/browser-redirects-error-messages-2.png)
 
 ## Read More
 
-For a deeper dive into the background of browser redirects, head over to our
-open source documentation:
+For a deeper dive into the background of browser redirects, head over to the
+Ory Kratos concept documentation:
 
 - [HTTP Redirection Configuration](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion)
