@@ -262,9 +262,54 @@ npm i --save @ory/integrations
 ```
 ````
 
-Please do not prefixes with `$`
+Please don't prefix with `$`
 
 ```patch
 - $ command --arg # do not
 + command --arg # do
+```
+
+### Fetch Latest Version from GitHub
+
+If you have a code examples which should use the latest available release
+version, use:
+
+````
+```mdx-code-block
+import { useLatestRelease } from '@site/src/hooks'
+import CodeBlock from '@theme/CodeBlock'
+
+<CodeBlock className="language-shell">
+{`The most recent version for Ory Kratos is: ${useLatestRelease('kratos')}`}
+</CodeBlock>
+```
+````
+
+## Trouble Shooting
+
+### Code Examples Fail to Render
+
+If your MDX code examples fail, the reason might be linebreaks:
+
+```mdx-code-block
+import { useLatestRelease } from '@site/src/hooks'
+import CodeBlock from '@theme/CodeBlock'
+
+<CodeBlock className="language-shell">{`this
+will
+
+break the parser`}</CodeBlock>
+```
+
+Markdown interprets line breaks as the beginning of a new paragraph. To resolve
+this, you need to add escaped the newline in the code block:
+
+```mdx-code-block
+import { useLatestRelease } from '@site/src/hooks'
+import CodeBlock from '@theme/CodeBlock'
+
+<CodeBlock className="language-shell">{`this
+will
+\
+NOT break the parser`}</CodeBlock>
 ```
