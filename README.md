@@ -8,7 +8,6 @@
     <a href="https://www.ory.sh/jobs/">Work in Open Source, Ory is hiring!</a>
 </h4>
 
-
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
@@ -43,7 +42,7 @@
 
 # Ory Documentation
 
->Documentation is the single source of truth
+> Documentation is the single source of truth
 
 The Ory documentation is the place to find all information related to Ory
 services, usage and troubleshooting.
@@ -155,9 +154,9 @@ each individual UI element is in
 
 ### Playwright tests
 
-The [Playwright](https://github.com/microsoft/playwright) (E2E) tests file names end with `.spec.ts` and can be found in `/tests/playwright`.
-NodeJS is required to run Playright tests locally.
-To test the documentation locally:
+The [Playwright](https://github.com/microsoft/playwright) (E2E) tests file names
+end with `.spec.ts` and can be found in `/tests/playwright`. NodeJS is required
+to run Playright tests locally. To test the documentation locally:
 
 1. Clone this repository.
 1. Enter the `/docs` folder in your local git environment.
@@ -167,7 +166,8 @@ To test the documentation locally:
 
 ### Jest tests
 
-The Playwright (E2E) tests file names end with `.test.ts`  and can be found in `/tests/jest`.
+The Playwright (E2E) tests file names end with `.test.ts` and can be found in
+`/tests/jest`.
 
 ### Formatting documentation
 
@@ -225,13 +225,15 @@ Check the [documentation](https://docs.errata.ai/) for more advanced features.
 
 If you would add a link to an outside resource, just go ahead.
 
-**If you want to add a link to a document in our own documentation, add the filename.**
+**If you want to add a link to a document in our own documentation, add the
+filename.**
 
-- ✅ `[XY Guide](./guide/XY.md)` 
+- ✅ `[XY Guide](./guide/XY.md)`
 - 🚫 `[XY Guide](./guide/XY)`
 
-This prevents [broken links issue](https://github.com/ory/docusaurus-template/issues/38) when you load
-the documentation from an outside link.
+This prevents
+[broken links issue](https://github.com/ory/docusaurus-template/issues/38) when
+you load the documentation from an outside link.
 
 ### Import Markdown
 
@@ -305,8 +307,9 @@ import exampleGo from '!!raw-loader!./code-example.go'
 The Markdown code for including an image in a document is:
 `![Image description which will be the alt tag](img/document_image_title_vX_Y.png)`
 
-Compress new images you add to the documentation. One
-known tool is [`pngquant`](https://pngquant.org/). [Related article](https://about.gitlab.com/blog/2020/01/30/simple-trick-for-smaller-screenshots/).
+Compress new images you add to the documentation. One known tool is
+[`pngquant`](https://pngquant.org/).
+[Related article](https://about.gitlab.com/blog/2020/01/30/simple-trick-for-smaller-screenshots/).
 
 - Don't use `lorem ipsum` text.
 - Capture only the relevant UI.
@@ -317,7 +320,8 @@ When you
 [record your screen using Quicktime](https://support.apple.com/en-gb/guide/quicktime-player/qtp97b08e666/mac),
 a `.mov` file is recorded. Follow these rules:
 
-1. Please use 16:9 format with at least 1024 pixels wide. `ffmpeg` will scale it to the right size.
+1. Please use 16:9 format with at least 1024 pixels wide. `ffmpeg` will scale it
+   to the right size.
 1. Please make sure that no history or auto-suggestions are visible.
 
 Once recoded, use the commands below to convert them to `mp4` and `webm`:
