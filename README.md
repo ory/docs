@@ -1,13 +1,49 @@
-# Documentation
+<h1 align="center">Ory Documentation</h1>
+
+<h4 align="center">
+    <a href="https://www.ory.sh/chat">Chat</a> |
+    <a href="http://eepurl.com/di390P">Newsletter</a><br/><br/>
+    <a href="https://www.ory.sh/docs/">Documentation</a> |
+    <a href="https://opencollective.com/ory">Support this project!</a><br/><br/>
+    <a href="https://www.ory.sh/jobs/">Work in Open Source, Ory is hiring!</a>
+</h4>
+
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Ory Documentation](#ory-documentation)
+  - [Contributing Documentation](#contributing-documentation)
+  - [Style and Format](#style-and-format)
+    - [Categories](#categories)
+    - [Document Structure](#document-structure)
+  - [Testing](#testing)
+    - [Playwright tests](#playwright-tests)
+    - [Jest tests](#jest-tests)
+    - [Formatting documentation](#formatting-documentation)
+  - [How-To](#how-to)
+    - [Links to other pages](#links-to-other-pages)
+    - [Import Markdown](#import-markdown)
+    - [Code snippets](#code-snippets)
+      - [From Github](#from-github)
+      - [From this Repository](#from-this-repository)
+    - [Videos](#videos)
+    - [Shell Examples](#shell-examples)
+  - [CLI Documentation](#cli-documentation)
+  - [Fixing Ory CLI docs](#fixing-ory-cli-docs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+# Ory Documentation
 
 This repository contains meta-documentation for the
-[ORY Ecosystem](https://www.ory.sh/docs/ecosystem/projects/). You can find the
-source files for each project's documentation here:
+[Ory Ecosystem](https://www.ory.sh/docs/ecosystem/projects/). You can find the
+source code for each project here:
 
-- [Ory Kratos](https://github.com/ory/kratos/tree/master/docs)
-- [Ory Hydra](https://github.com/ory/hydra/tree/master/docs)
-- [Ory Oathkeeper](https://github.com/ory/oathkeeper/tree/master/docs)
-- [Ory Keto](https://github.com/ory/keto/tree/master/docs)
+- [Ory Kratos](https://github.com/ory/kratos/)
+- [Ory Hydra](https://github.com/ory/hydra/)
+- [Ory Oathkeeper](https://github.com/ory/oathkeeper/)
+- [Ory Keto](https://github.com/ory/keto/)
 
 Other Ory Projects documentation:
 
@@ -15,52 +51,11 @@ Other Ory Projects documentation:
 - [Ory Dockertest](https://github.com/ory/dockertest/blob/v3/README.md)
 - [Ory SDKs](https://github.com/ory/sdk/blob/master/README.md)
 
-# Contributing Documentation
+## Contributing Documentation
 
-Documentation for
-[the Ory Ecosystem](https://www.ory.sh/docs/ecosystem/projects/) lives in
-[ory/docs](https://github.com/ory/docs/tree/master/docs/docs/ecosystem).
-Documentation for the individual projects live in their respective `docs`
-folder. ([Ory Hydra](https://github.com/ory/hydra/tree/master/docs/docs),
-[Ory Kratos](https://github.com/ory/kratos/tree/master/docs/docs),
-[Ory Oathkeeper](https://github.com/ory/oathkeeper/tree/master/docs/docs),
-[Ory Keto](https://github.com/ory/keto/tree/master/docs/docs)) If you make
-changes, please consider making the same changes in the latest version of
-`/versioned_docs`
+## Style and Format
 
-## Playwright tests
-
-The Playwright (E2E) tests file names end with `.spec.ts`.
-
-To test the documentation locally: (Assuming you already installed NodeJS)
-
-1. Clone this repository.
-2. Enter the `/docs` folder in your local git environment.
-3. Install dependencies by running: `npm install`.
-4. Run the Docs webserver and test the documentation by running: `npm start`
-5. Build the docs and verify by running: `npm run build `
-
-## Jest tests
-
-The Playwright (E2E) tests file names end with `.test.ts`.
-
-## Formatting documentation
-
-All documentation (as well as any other files) must be formatted using
-[Ory's prettier styles](https://github.com/ory/prettier-styles)
-
-To format all for documentation relevant files simply run the following command
-from the repositories main directory:
-
-```
-cd docs
-npm install
-npm run format
-git commit -a -m "styles: format"
-git push
-```
-
-## Categories
+### Categories
 
 Ory Documentations is structured into several main categories. Each of those
 categories serves a specific purpose. The purpose of each category is outlined
@@ -90,7 +85,7 @@ in.
   - Same as the above category but for SDKs, also containing simple guides for
     using SDKs.
 
-## Document Structure
+### Document Structure
 
 Add a meaningful title and an ID to the top of the document. `id` needs to be
 separated with `-` and lowercase, `title` with space and Uppercase. Example:
@@ -102,20 +97,69 @@ title: Documentation Title
 ---
 ```
 
-## How to add links to other pages
+## Testing
+
+### Playwright tests
+
+The [Playwright](https://github.com/microsoft/playwright) (E2E) tests file names end with `.spec.ts` and can be found in `/tests/playwright`.
+NodeJS is required to run Playright tests locally.
+To test the documentation locally:
+
+1. Clone this repository.
+1. Enter the `/docs` folder in your local git environment.
+1. Install dependencies by running: `npm install`.
+1. Run the Docs webserver and test the documentation by running: `npm start`
+1. Build the docs and verify by running: `npm run build`
+
+### Jest tests
+
+The Playwright (E2E) tests file names end with `.test.ts`  and can be found in `/tests/jest`.
+
+### Formatting documentation
+
+All documentation (as well as any other files) must be formatted using
+[Ory's prettier styles](https://github.com/ory/prettier-styles)
+
+To format all for documentation relevant files simply run the following command
+from the repositories main directory:
+
+```sh
+cd docs
+npm install
+npm run format
+git commit -a -m "styles: format"
+git push
+```
+
+## How-To
+
+### Links to other pages
 
 If you would add a link to an outside resource, just go ahead.
 
-**If you want to add a link to a document in our own documentation, please make
-sure to add the filename.**
+**If you want to add a link to a document in our own documentation, add the filename.**
 
-For example `[XY Guide](./guide/XY.md)` rather than `[XY Guide](./guide/XY)`.
+- ✅ `[XY Guide](./guide/XY.md)` 
+- 🚫 `[XY Guide](./guide/XY)`
 
-This prevents broken links
-([issue](https://github.com/ory/docusaurus-template/issues/38)) when you load
+This prevents [broken links issue](https://github.com/ory/docusaurus-template/issues/38) when you load
 the documentation from an outside link.
 
-## How to add code from Github
+### Import Markdown
+
+Use the same markdown in several places:
+
+````md
+```mdx-code-block
+import ExampleMarkdown from './_common/example.md'
+
+<ExampleMarkdown />
+```
+````
+
+### Code snippets
+
+#### From Github
 
 Use
 [CodeFromRemote](https://github.com/ory/docusaurus-template/blob/master/src/theme/CodeFromRemote.js)
@@ -123,7 +167,7 @@ to import code directly from Github.
 
 Import at the beginning of your document like so:
 
-```
+```md
 ---
 id: documentation id
 title: Documentation Title
@@ -134,76 +178,48 @@ import CodeFromRemote from '@theme/CodeFromRemote'
 
 Then at the place you want the code to appear in the document add:
 
-```
+```js
 <CodeFromRemote
   lang="js" # the language of the code you want to add e.g. jsx,tsx,ts,go,yaml,yml,js,html,pug
   link="https://github.com/ory/kratos-selfservice-ui-node/blob/master/src/middleware/simple.ts"
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/src/middleware/simple.ts"
+
 />
 ```
 
-# CLI Docs
+You can use `startAt` and `endAt` if you only want to show a part of the code:
 
-## Fixing Ory CLI docs
-
-If you find an error in the Ory CLI documentation here are some pointers on how
-to fix it:
-
-The code that generates the CLI docs (for Kratos) comes from here:
-https://github.com/ory/kratos/blob/master/cmd/clidoc/main.go
-
-`cmd/clidoc/main.go` is the general path for all Ory projects.
-
-The command to generate the CLI docs can be found here:
-https://github.com/ory/x/blob/master/clidoc/generate.go#L96
-
-## Develop
-
-To change the documentation locally, you need NodeJS installed. Next, install
-the dependencies:
-
-```
-$ npm install
+```js
+<CodeFromRemote
+  lang="yml"
+  src="https://github.com/gen1us2k/kratos_flask_example/blob/master/docker-compose.yml"
+  startAt="postgres-kratos:"
+  endAt="postgres-keto:"
+/>
 ```
 
-## Develop
+#### From this Repository
 
+Use the same code example in several places:
+
+````md
+```mdx-code-block
+import exampleJs from '!!raw-loader!./code-example.jsx'
+import exampleGo from '!!raw-loader!./code-example.go'
+
+<CodeBlock className="language-jsx">{exampleJs}</CodeBlock>
+<CodeBlock className="language-go">{exampleGo}</CodeBlock>
 ```
-$ npm start
-```
+````
 
-This command starts a local development server and open up a browser window.
-Most changes are reflected live without having to restart the server.
-
-### Build
-
-```
-$ npm build
-```
-
-This command generates static content into the `build` directory and can be
-served using any static contents hosting service.
-
-### Test
-
-```
-$ make test
-```
-
-This command generates static content into the `build` directory and can be
-served using any static contents hosting service.
-
-## Guides
-
-### Convert Videos
+### Videos
 
 When you
 [record your screen using Quicktime](https://support.apple.com/en-gb/guide/quicktime-player/qtp97b08e666/mac),
-a `.mov` file is recorded. When recording a video, please follow these rules:
+a `.mov` file is recorded. Follow these rules:
 
-1. Please use 16:9 format with at least 1024 pixels wide. `ffmpeg` will scale it
-   to the right size.
-2. Please make sure that no history or auto-suggestions are visible.
+1. Please use 16:9 format with at least 1024 pixels wide. `ffmpeg` will scale it to the right size.
+1. Please make sure that no history or auto-suggestions are visible.
 
 Once recoded, use the commands below to convert them to `mp4` and `webm`:
 
@@ -225,37 +241,11 @@ import VideoEmbed from '@site/src/components/VideoEmbed'
 <VideoEmbed mp4={mp4} webm={webm} />
 ```
 
-### Import Code Examples from this Repository
-
-Use the same markdown in several places:
-
-````
-```mdx-code-block
-import exampleJs from '!!raw-loader!./code-example.jsx'
-import exampleGo from '!!raw-loader!./code-example.go'
-
-<CodeBlock className="language-jsx">{exampleJs}</CodeBlock>
-<CodeBlock className="language-go">{exampleGo}</CodeBlock>
-```
-````
-
-### Import Markdown
-
-Use the same markdown in several places:
-
-````
-```mdx-code-block
-import ExampleMarkdown from './_common/example.md'
-
-<ExampleMarkdown />
-```
-````
-
-### Write a Shell Example
+### Shell Examples
 
 Use `shellsession`:
 
-````
+````md
 ```shellsession
 npx create-next-app@latest --typescript
 npm i --save @ory/integrations
@@ -268,3 +258,18 @@ Please do not prefixes with `$`
 - $ command --arg # do not
 + command --arg # do
 ```
+
+## CLI Documentation
+
+## Fixing Ory CLI docs
+
+If you find an error in the Ory CLI documentation here are some pointers on how
+to fix it:
+
+The code that generates the CLI docs (for Kratos) comes from here:
+https://github.com/ory/kratos/blob/master/cmd/clidoc/main.go
+
+`cmd/clidoc/main.go` is the general path for all Ory projects.
+
+The command to generate the CLI docs can be found here:
+https://github.com/ory/x/blob/master/clidoc/generate.go#L96
