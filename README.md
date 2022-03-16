@@ -13,28 +13,40 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Ory Documentation](#ory-documentation)
-  - [Contributing Documentation](#contributing-documentation)
-  - [Style and Format](#style-and-format)
+  - [Style](#style)
     - [Categories](#categories)
-    - [Document Structure](#document-structure)
+      - [Document Frontmatter](#document-frontmatter)
+    - [Text](#text)
+      - [Headings](#headings)
+        - [Headings Capitalization](#headings-capitalization)
+    - [Names for console UI elements](#names-for-console-ui-elements)
+    - [Lists](#lists)
   - [Testing](#testing)
     - [Playwright tests](#playwright-tests)
     - [Jest tests](#jest-tests)
     - [Formatting documentation](#formatting-documentation)
+    - [Markdownlint](#markdownlint)
+    - [Vale](#vale)
   - [How-To](#how-to)
     - [Links to other pages](#links-to-other-pages)
     - [Import Markdown](#import-markdown)
     - [Code snippets](#code-snippets)
       - [From Github](#from-github)
       - [From this Repository](#from-this-repository)
+    - [Images](#images)
     - [Videos](#videos)
     - [Shell Examples](#shell-examples)
   - [CLI Documentation](#cli-documentation)
-  - [Fixing Ory CLI docs](#fixing-ory-cli-docs)
+    - [Fixing Ory CLI docs](#fixing-ory-cli-docs)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Ory Documentation
+
+>Documentation is the single source of truth
+
+The Ory documentation is the place to find all information related to Ory
+services, usage and troubleshooting.
 
 This repository contains meta-documentation for the
 [Ory Ecosystem](https://www.ory.sh/docs/ecosystem/projects/). You can find the
@@ -51,51 +63,93 @@ Other Ory Projects documentation:
 - [Ory Dockertest](https://github.com/ory/dockertest/blob/v3/README.md)
 - [Ory SDKs](https://github.com/ory/sdk/blob/master/README.md)
 
-## Contributing Documentation
-
-## Style and Format
+## Style
 
 ### Categories
 
-Ory Documentations is structured into several main categories. Each of those
-categories serves a specific purpose. The purpose of each category is outlined
-in short here, to help find the correct category for your documentation to live
-in.
+The Ory Developer documentation can be organized in three different main
+categories:
 
-- Introduction
-  - The purpose of this category is to introduce the very `basics` of the
-    project and give newcomers an easy way to start. Contains the most basic
-    explanation of the project, an installation guide, a Quickstart/5-Minute
-    Tutorial and Contribution Guidelines.
 - Concepts
-  - The purpose of this category is to give the reader a deep `understanding` of
+  - The purpose of this category is to give the reader a deep understanding of
     the ideas upon which the project is built. Content in this category has the
-    form of a discursive explanation. The main goal is to `explain`.
+    form of a discursive explanation. The main goal is to explain.
 - Guides
   - The purpose of this category is to solve a specific problem. It has the form
-    of a `series of steps` towards a goal. It is aimed towards more experienced
-    users, who are already familiar with the concepts and tools.
+    of a series of steps towards a goal. It's aimed towards more experienced
+    users, who are already familiar with the concepts and tools
 - Reference
   - The purpose of this category is to provide a detailed & in-depth description
-    of the project. It has the form of an `austere and to the point explanation`
+    of the project. It has the form of an austere and to the point explanation
     and is rooted in code, most often these documents are built directly from
-    code without editor interaction. It **does not** give information on how to
-    do specific things, but describes how to correctly use the APIs etc.
-- SDK
-  - Same as the above category but for SDKs, also containing simple guides for
-    using SDKs.
+    code without editor interaction. It doesn't give information on how to do
+    specific things.
 
-### Document Structure
+There are also sub-types:
+
+- Introduction
+  - The purpose of this guide is to introduce the very basics of the project and
+    give newcomers an easy way to start. Contains the most basic explanation of
+    the project, an installation guide or a Quickstart/5-Minute Tutorial.
+- Troubleshooting
+  - Contains instructions on how to resolve issues with Ory services.
+
+#### Document Frontmatter
 
 Add a meaningful title and an ID to the top of the document. `id` needs to be
 separated with `-` and lowercase, `title` with space and Uppercase. Example:
 
-```
+```md
 ---
 id: documentation-id
 title: Documentation Title
 ---
 ```
+
+### Text
+
+Ory documentation should be clear and easy to understand.
+
+- Avoid unnecessary words.
+- Be clear, concise, and stick to the goal of the topic.
+- Write in US English with US grammar.
+- Use articles such as a/an and the wherever possible.
+- Use active voice.
+- Avoid slang and jargon, while allowing for specific terminology.
+
+#### Headings
+
+- Add only one H1 in each document, by adding `#` at the beginning of it (when
+  using Markdown). The `h1` becomes the document `<title>`.
+- Start with an `h2` (`##`), and respect the order `h2` > `h3` > `h4` > `h5` >
+  `h6`. Never skip the hierarchy level, such as `h2` > `h4`
+- Avoid using symbols and special characters in headers. Whenever possible, they
+  should be plain and short text.
+- Leave one blank line before and after a heading.
+- Don't use links in headings.
+- Search engines prioritize words used in headings and subheadings. Make your
+  subheading titles clear, descriptive, and complete to help users find the
+  right example, as shown in the section on [heading titles](#heading-titles).
+
+##### Headings Capitalization
+
+<!-- TODO sentence-casing or [letter-casing](https://en.wikipedia.org/wiki/Letter_case#Sentence_case)  -->
+
+### Names for console UI elements
+
+<!-- TODO
+
+UI elements, like button and checkbox names, should be **bold**. Guidance for
+each individual UI element is in
+[the word list](https://github.com/ory/docs/blob/master/docs/markdownlint.yml#L31).  -->
+
+### Lists
+
+- Always start list items with a capital letter, unless they're parameters or
+  commands that are in backticks, or similar.
+- Always leave a blank line before and after a list.
+- Begin a line with spaces (not tabs) to denote a
+  [nested sub-item](#nesting-inside-a-list-item).
 
 ## Testing
 
@@ -130,6 +184,40 @@ npm run format
 git commit -a -m "styles: format"
 git push
 ```
+
+### Markdownlint
+
+- [Word List](https://github.com/ory/docs/blob/master/docs/markdownlint.yml#L31).
+
+Locally:
+
+1. Download and install the
+   [markdownlint CLI](https://github.com/igorshubovych/markdownlint-cli).
+   `brew install markdownlint-cli`
+1. Check if markdownlint installed.  
+   `markdownlint --help``
+1. Lint all files in the project, in the docs folder use `cd docs`
+   `markdownlint '**/*.md' --ignore node_modules`
+1. Fix all files in the project, `Warning: This writes to your files!` `cd docs`
+   `markdownlint './docs/**/*.+(md|mdx)' --ignore node_modules --fix`
+
+### Vale
+
+1. Download and install [Vale](https://github.com/errata-ai/vale).  
+   `brew install vale`
+1. Check if Vale installed.  
+   `vale -h`
+1. Copy the write-good and Microsoft Vale Styles:
+
+- https://github.com/errata-ai/write-good/releases/latest/download/write-good.zip
+- https://github.com/errata-ai/Microsoft/releases/latest/download/Microsoft.zip
+
+1. Add `.vale.ini` in your root or project folder.
+   [Reference .vale.ini](https://raw.githubusercontent.com/ory/docs/master/docs/.vale.ini)
+1. Check the document:  
+   `vale yourdocument.md` or `vale docs/ecosystem/styleguide/testing.md`
+
+Check the [documentation](https://docs.errata.ai/) for more advanced features.
 
 ## How-To
 
@@ -212,6 +300,17 @@ import exampleGo from '!!raw-loader!./code-example.go'
 ```
 ````
 
+### Images
+
+The Markdown code for including an image in a document is:
+`![Image description which will be the alt tag](img/document_image_title_vX_Y.png)`
+
+Compress new images you add to the documentation. One
+known tool is [`pngquant`](https://pngquant.org/). [Related article](https://about.gitlab.com/blog/2020/01/30/simple-trick-for-smaller-screenshots/).
+
+- Don't use `lorem ipsum` text.
+- Capture only the relevant UI.
+
 ### Videos
 
 When you
@@ -241,6 +340,8 @@ import VideoEmbed from '@site/src/components/VideoEmbed'
 <VideoEmbed mp4={mp4} webm={webm} />
 ```
 
+To embed Youtube videos just copy & paste the link, its that easy!
+
 ### Shell Examples
 
 Use `shellsession`:
@@ -261,7 +362,7 @@ Please do not prefixes with `$`
 
 ## CLI Documentation
 
-## Fixing Ory CLI docs
+### Fixing Ory CLI docs
 
 If you find an error in the Ory CLI documentation here are some pointers on how
 to fix it:
