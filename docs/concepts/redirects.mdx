@@ -3,16 +3,17 @@ id: redirects
 title: Browser Redirects and Flow Completion
 ---
 
-This document covers browser redirects for Server Side Applications (NodeJs, PHP, Golang etc.) and how
-to configure them. To learn more about the SDK for Single Page Applications, check out the [SDK](./services-api.mdx)
-documentation.
+This document covers browser redirects for Server Side Applications (NodeJs,
+PHP, Golang etc.) and how to configure them. To learn more about the SDK for
+Single Page Applications, check out the [SDK](./services-api.mdx) documentation.
 
 ## Allow List
 
-Set dynamic redirects using the `?return_to=` query parameter on [Self-Service Flows](./self-service.mdx). For example: a user opens
-a sharable link to go to `https://myapp.com/posts`. This URL requires the user
-to have an active session and redirects the user back to the login page. To return the
-user back to the original URL, append `?return_to=https://myapp.com/posts` when
+Set dynamic redirects using the `?return_to=` query parameter on
+[Self-Service Flows](./self-service.mdx). For example: a user opens a sharable
+link to go to `https://myapp.com/posts`. This URL requires the user to have an
+active session and redirects the user back to the login page. To return the user
+back to the original URL, append `?return_to=https://myapp.com/posts` when
 starting the self-service login flow `initSelfServiceLogin`:
 
 ```js
@@ -26,9 +27,9 @@ starting the self-service login flow `initSelfServiceLogin`:
 The `allow list` prevents
 [Open Redirect Attacks](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html)
 by just allowing certain domains, or paths on a domain. As in the example below
-`https://sub.domain.myapp.com/only/path` needs to match the sub-domain and path. 
-Other redirects using `myapp.com` will fail. Redirects
-using `https://anotherapp.com` will succeed on any path.
+`https://sub.domain.myapp.com/only/path` needs to match the sub-domain and path.
+Other redirects using `myapp.com` will fail. Redirects using
+`https://anotherapp.com` will succeed on any path.
 
 ![Browser Redirects Allow List](/images/browser-redirects/browser-redirects-allow-list.png)
 
@@ -79,16 +80,16 @@ Set the `Post-` redirect to a path to use the closest relative as the base URL -
 as described above with the `Default Redirect URL`.
 
 All the relative URLs will be updated with their respective base URL. As shown
-in the example below, the `Post-Login Default Redirect URL` is set to
-a path. This means the base URL will be the `Global Redirect URL`
-(`https://myapp.com`). This will set the Login `Default Redirect URL` to
+in the example below, the `Post-Login Default Redirect URL` is set to a path.
+This means the base URL will be the `Global Redirect URL` (`https://myapp.com`).
+This will set the Login `Default Redirect URL` to
 `https://myapp.com/after/login` and the `Post-Password` to
 `https://myapp.com/after/login/password`.
 
 ![Browser Redirects Url Management](/images/browser-redirects/browser-redirects-url-management.png)
 
-In the example below , the `Post-Login Default Redirect URL` is set to use
-a FQDN. This will set the Login `Default Redirect URL` to
+In the example below , the `Post-Login Default Redirect URL` is set to use a
+FQDN. This will set the Login `Default Redirect URL` to
 `https://myapp.com/after/login` and the `Post-Password` to
 `https://myapp.com/after/login/password`.
 
@@ -112,12 +113,14 @@ be an FQDN or a path.
 
 ## Reset and Update Flows
 
-Update or delete a redirect by either changing the current redirects
-value or deleting the entry and clicking the **Update** button. Reset all flows at once with the **Reset Flows** button which will prompt a confirmation
-box. Resetting all flows will reset all the fields back to the default value
-which is the Ory Cloud [Managed User Interface](./managed-ui.mdx).
+Update or delete a redirect by either changing the current redirects value or
+deleting the entry and clicking the **Update** button. Reset all flows at once
+with the **Reset Flows** button which will prompt a confirmation box. Resetting
+all flows will reset all the fields back to the default value which is the Ory
+Cloud [Managed User Interface](./managed-ui.mdx).
 
-Updates to flows will take effect on **new** flows. It will have no effect on old flows that haven't expired yet.
+Updates to flows will take effect on **new** flows. It will have no effect on
+old flows that haven't expired yet.
 
 ![Browser Redirects URL Reset All](/images/browser-redirects/browser-redirects-reset-all.png)
 
@@ -153,7 +156,7 @@ It's not possible to set the `ory` domain as redirect URL.
 
 ## Read More
 
-For a deeper dive into the background of browser redirects, head over to the
-Ory Kratos concept documentation:
+For a deeper dive into the background of browser redirects, head over to the Ory
+Kratos concept documentation:
 
 - [HTTP Redirection Configuration](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion)
