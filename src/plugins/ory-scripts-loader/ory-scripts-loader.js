@@ -10,13 +10,13 @@ export default (function () {
 
   const script = document.createElement('script')
   script.src = 'https://www.ory.sh/scripts.js'
-  script.onload = () => window.initAnalytics()
+  script.onload = () => window.initAnalytics('GTM-NTT7RMX')
   document.body.appendChild(script)
 
   return {
     onRouteUpdate() {
       if (window && typeof window.initAnalytics === 'function') {
-        window.initAnalytics()
+        window.initAnalytics('GTM-NTT7RMX')
       }
     }
   }
