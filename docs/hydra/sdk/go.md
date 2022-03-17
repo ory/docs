@@ -23,23 +23,39 @@ We use code generation to generate our SDKs. The Go SDK is generated using
 [`go-swagger`](http://goswagger.io). The SDK is set up:
 
 ```go
+package main
+
 import (
   client "github.com/ory/hydra-client-go"
 )
 
 func main() {
+  // Using Admin APIs
   config := client.NewConfiguration()
   config.Servers = []client.ServerConfiguration{
     {
-      URL: "https://hydra.localhost:4000",
+      URL: "https://hydra.localhost:4445", // Admin API URL
     },
   }
 
   c := client.NewAPIClient(config)
 
-  c.AdminApi.CreateOAuth2Client(...
+  // Using Public APIs
 
-  c.PublicApi.RevokeOAuth2Token(...
+  c.AdminApi.ListOAuth2Clients(context.TODO())
+  // Using PublicAPIs
+  config := client.NewConfiguration()
+  config.Servers = []client.ServerConfiguration{
+    {
+      URL: "https://hydra.localhost:4444", // Public API URL
+    },
+  }
+
+  c := client.NewAPIClient(config)
+
+  // Using Public APIs
+
+  c.PublicApi.RevokeOAuth2Token(context.TODO())
 }
 
 ```
@@ -49,34 +65,32 @@ func main() {
 Making requests is straight forward:
 
 ```go
+package main
+
 import (
-  "github.com/ory/hydra-client-go/de"
+  "github.com/ory/hydra-client-go"
 )
 
 func main() {
   config := client.NewConfiguration()
   config.Servers = []client.ServerConfiguration{
     {
-      URL: "https://hydra.localhost:4000",
+      URL: "https://hydra.localhost:4445", // Admin API
     },
   }
 
   c := client.NewAPIClient(config)
-
-  result, err := c.AdminApi.CreateOAuth2Client(client.WithBody(&models.OAuth2Client{
-        ClientID: "scoped",
-    }))
-    if err != nil {
-        // err isn't nil when the request failed (usually a 404, 401, 409 error)
-        // You can distinguish the errors by type-asserting err, for example:
-        switch e := err.(type) {
-        case (*admin.CreateOAuth2ClientConflict):
-            // do something...
-        }
-    }
-
-    // if err is nil, then result is set. The result payload/body can be retrieved using result.Payload.
-    fmt.Printf("Got client: %+v", result.Payload)
+  oauthClient := client.NewOAuth2ClientWithDefaults()
+  oauthClient.SetClientId("scoped")
+  req := c.AdminApi.CreateOAuth2Client(context.TODO())
+  req = req.OAuth2Client(*oauthClient)
+  oauthClient, res, err := req.Execute()
+  if err != nil {
+      // Handle the error
+  }
+  if res.StatusCode != http.StatusOK {
+    // Check the status code
+  }
 }
 ```
 
@@ -85,25 +99,29 @@ func main() {
 Some endpoints require Basic Authorization:
 
 ```go
+package main
+
 import (
-  client "github.com/ory/hydra-client-go"
+  "context"
+
   httptransport "github.com/go-openapi/runtime/client"
+  client "github.com/ory/hydra-client-go"
 )
 
 func main() {
   config := client.NewConfiguration()
   config.Servers = []client.ServerConfiguration{
     {
-      URL: "https://hydra.localhost:4000",
+      URL: "https://hydra.localhost:4000", // Public API
     },
   }
 
+  config.HTTPClient.Transport = httptransport.BasicAuth("my-client", "foobar")
   c := client.NewAPIClient(config)
 
-    _, err := c.PublicApi.RevokeOAuth2Token(
-        public.NewRevokeOAuth2TokenParams().WithToken(c.token),
-        httptransport.BasicAuth("my-client", "foobar"),
-    )
+  req := c.PublicApi.RevokeOAuth2Token(context.TODO())
+  req.Execute()
+
 }
 ```
 
@@ -116,91 +134,99 @@ You may want to protect Ory Hydra using OAuth2 Access Tokens. In that case, you
 can enhance the SDK by using the OAuth2 Client:
 
 ```go
-  client "github.com/ory/hydra-client-go"
-import httptransport "github.com/go-openapi/runtime/client"
-import "golang.org/x/oauth2/clientcredentials"
+package main
+
+import (
+	"context"
+
+	client "github.com/ory/hydra-client-go"
+	"golang.org/x/oauth2/clientcredentials"
+)
 
 func main() {
-  config := client.NewConfiguration()
-  config.Servers = []client.ServerConfiguration{
-    {
-      URL: "https://hydra.localhost:4000",
-    },
-  }
+	config := client.NewConfiguration()
+	config.Servers = []client.ServerConfiguration{
+		{
+			URL: "https://hydra.localhost:4444", // Public API URL
+		},
+	}
 
-  c := client.NewAPIClient(config)
+	creds := clientcredentials.Config{
+		TokenURL:     "http://hydra.localhost:4444/oauth2/token",
+		ClientID:     "my-client",
+		ClientSecret: "my-secret",
+		Scopes:       []string{"scope-a", "scope-b"},
+	}
+	config.HTTPClient = creds.Client(context.TODO())
+	c := client.NewAPIClient(config)
+	req := c.PublicApi.RevokeOAuth2Token(context.TODO())
+	req.Execute()
 
-    publicURL := url.Parse("https://hydra.localhost:4444")
-   ht := httptransport.NewWithClient(
-     publicURL.Host,
-     publicURL.Path,
-     []string{publicURL.Scheme},
-     clientcredentials.Config{
-       TokenURL:"http://hydra.localhost:4444/oauth2/token",
-       ClientID:"my-client",
-       ClientSecret:"my-secret",
-       Scopes:[]string{"scope-a", "scope-b"},
-     }.Client(context.Background()),
-   )
-
-    public := hydra.New(ht, nil)
-
-    _, err := c.PublicApi.RevokeOAuth2Token(
-        public.NewRevokeOAuth2TokenParams().WithToken(c.token),
-        httptransport.BasicAuth("my-client", "foobar"),
-    )
 }
 ```
 
 ### TLS Termination
 
 ```go
+package main
 
-import "github.com/ory/hydra-client-go/client"
-import httptransport "github.com/go-openapi/runtime/client"
-import "net/http"
+import (
+	"net/http"
+
+	client "github.com/ory/hydra-client-go"
+)
 
 func main() {
 
-  tlsTermClient := new(http.Client)
-  rt := WithHeader(tlsTermClient.Transport)
-  rt.Set("X-Forwarded-Proto", "https")
-  tlsTermClient.Transport = rt
+	tlsTermClient := new(http.Client)
+	rt := WithHeader(tlsTermClient.Transport)
+	rt.Set("X-Forwarded-Proto", "https")
+	tlsTermClient.Transport = rt
 
-  transport := httptransport.NewWithClient("host:port", "/", []string{"https"}, tlsTermClient)
-  hydra := client.New(transport, nil)
+	config := client.NewConfiguration()
+	config.Servers = []client.ServerConfiguration{
+		{
+			URL: "https://hydra.localhost:4444", // Public API URL
+		},
+	}
+	config.HTTPClient = tlsTermClient
+	c := client.NewAPIClient(config)
 
-  // ...
+	// ...
 }
 
 type withHeader struct {
-        http.Header
-        rt http.RoundTripper
+	http.Header
+	rt http.RoundTripper
 }
 
 func WithHeader(rt http.RoundTripper) withHeader {
-        if rt == nil {
-                rt = http.DefaultTransport
-        }
+	if rt == nil {
+		rt = http.DefaultTransport
+	}
 
-        return withHeader{Header: make(http.Header), rt: rt}
+	return withHeader{Header: make(http.Header), rt: rt}
 }
 
 func (h withHeader) RoundTrip(req *http.Request) (*http.Response, error) {
-        for k, v := range h.Header {
-                req.Header[k] = v
-        }
+	for k, v := range h.Header {
+		req.Header[k] = v
+	}
 
-        return h.rt.RoundTrip(req)
+	return h.rt.RoundTrip(req)
 }
 ```
 
 ### Skip TLS Verification
 
 ```go
-import "github.com/ory/hydra-client-go/client"
-import httptransport "github.com/go-openapi/runtime/client"#
-import "net/http"
+package main
+
+import (
+  "github.com/ory/hydra-client-go/client"
+  httptransport "github.com/go-openapi/runtime/client"
+  "net/http"
+)
 
 func main() {
   skipTlsClient := &http.Client{
@@ -209,8 +235,14 @@ func main() {
     },
     Timeout: 10,
   }
-  transport := httptransport.NewWithClient("host:port", "/", []string{"https"}, skipTlsClient)
-  hydra := client.New(transport, nil)
+	config := client.NewConfiguration()
+	config.Servers = []client.ServerConfiguration{
+		{
+			URL: "https://hydra.localhost:4444", // Public API URL
+		},
+	}
+	config.HTTPClient = tlsTermClient
+	c := client.NewAPIClient(config)
 
   // ...
 }
