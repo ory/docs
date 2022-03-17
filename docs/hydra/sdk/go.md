@@ -112,7 +112,7 @@ func main() {
   config := client.NewConfiguration()
   config.Servers = []client.ServerConfiguration{
     {
-      URL: "https://hydra.localhost:4000", // Public API
+      URL: "https://hydra.localhost:4444", // Public API
     },
   }
 
