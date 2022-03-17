@@ -16,8 +16,8 @@ To upgrade Ory Kratos follow these steps:
   appropriate SQL queries.
 
 Ory Kratos will run the `migrate sql` command for all versions. For example when
-upgrading from v0.6 to v0.8, the migrations will run for v0.6 to v0.7 and
-then for v0.7 to v0.8. As such upgrading from any version to the latest version
+upgrading from v0.6 to v0.8, the migrations will run for v0.6 to v0.7 and then
+for v0.7 to v0.8. As such upgrading from any version to the latest version
 directly is possible. Should you run into problems with a direct upgrade,
 consider a stepped upgrade and please visit the community
 [chat](https://slack.ory.sh/) or
@@ -34,9 +34,9 @@ incorrectly.
 
 Take the following steps to ensure no data loss:
 
-> Please note: These are recommendations and should be used with
-> other Ops best practices. The steps required for a smooth and secure upgrade
-> process may vary with different setups, tech stacks, and environments.
+> Please note: These are recommendations and should be used with other Ops best
+> practices. The steps required for a smooth and secure upgrade process may vary
+> with different setups, tech stacks, and environments.
 
 1. Write down a high-level upgrade plan
    - Who will perform the upgrade?
