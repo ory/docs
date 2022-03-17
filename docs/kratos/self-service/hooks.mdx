@@ -104,6 +104,7 @@ following structure:
     url: https://test.kratos.ory.sh/after_verification_hook
     method: POST # GET, DELETE, etc
     body: file:///path/of/my/jsonnet/file
+    can_interrupt: true
     auth:
       type: <some-type>
       config: <type-specific-config>
@@ -116,17 +117,14 @@ The configuration section of a web-hook consists of
 - `body` - URI of a jsonnet template, used by the web-hook to render the payload to send (optional). Use a
   `file://path/to/body.jsonnet` URL for referring to local files. This property is ignored for HTTP `method`s, which don't support
   sending of HTTP body payloads.
-- `auth` - configuration of authentication and authorization mechanisms to be used by the web-hook
-
-Web-Hooks bind the `flow`, as well as request headers (`request_headers`), request method (`request_method`), and the request url
-(`request_url`) of the flow into the jsonnet template for all methods and execution paths (before and after). For the `after`
-execution path of all flows, it binds the `identity` object into the jsonnet template as well. These objects are available through
-a `ctx` object. To create a body looking like `{ user_id: <some-id> }` to be sent to the web hook endpoint, the Jsonnet template
-would look like this:
-
-```jsonnet
-function(ctx) { user_id: ctx.identity.id }
-```
+- `auth` - configuration of authentication and authorization mechanisms to be
+  used by the web-hook
+- `can_interrupt` - specifies if a given web hook can interrupt the flow by
+  returning a predefined JSON message with validation errors or just stop flow
+  without user facing errors. This is useful when integrating Kratos
+  self-service flows with external systems that can do some extra input
+  validation (i.e. user identity, username availability in other systems etc.).
+  See below for an example response.
 
 #### Canceling Webhooks
 
@@ -171,7 +169,7 @@ To do that, set `response.ignore` to `true` in the webhook config:
 
 #### Web-Hook Authentication and Authorization Mechanisms
 
-For `auth` following mechanisms are supported:
+Web-hooks supports the following mechanisms for the `auth` parameter:
 
 - Authentication via an Api Key. Type must be set to `api_key`.
 - Authentication via Basic Authentication. Type must be set to `basic_auth`.
@@ -195,10 +193,57 @@ password: My-Pass-Value
 
 All properties are mandatory.
 
+### Interruptable Web-Hooks
+
+Sometimes notification-like web hooks are not enough and one need to integrate
+some external business logic into user's self-service flows. Here interruptable
+web-hooks comes with help. Basic flow is to pass self-service flow to an
+external service that will decide if the process should continue or user should
+be notified about an error (or fail silently). To achieve that interruptable
+web-hook can be defined by specifying `can_interrupt` flag and pointing it to a
+web service that will process the payload from the webhook and will return a
+predefined JSON that will instruct Kratos to forward this information to the
+front end. When hook service returns status code that is equal or lower than 399
+the self-service flow continues normally but if web hook returns 400 or higher
+Kratos parses the returned JSON and looks for a messages that can be forwarded
+to the front end. Sample payload may look like this:
+
+```json
+{
+  "messages": [
+    {
+      "instance_ptr": "#/traits/foo/bar",
+      "message": "bar field is violating our policies",
+      "detailed_meesages": [
+        {
+          "id": 123,
+          "text": "field must be longer than 12 characters",
+          "type": "validation",
+          "context": {
+            "value": "short value"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+Since the whole idea of blocking hooks is to allow to interrupt selfservice flow
+and provide user with a meaningfull information (messages/errors) please cofigure
+them in `after` web hooks configurations.
+
+Some clarifications about meaning of some fields:
+
+- `instance_ptr` points to the field in the payload/schema that this error
+  refers to (displayed by the frontend next to the corresponding field)
+- `id` is the unique numeric error ID that helps to translate messages in the
+  front end aplpication.
+
 ## Login
 
-Hooks running before or after successful user login are defined per Self-Service Registration Method in Ory Kratos' configuration
-file.
+For each Registration Method in Ory Kratos' configuration file allows to setup
+hooks that runs before or after successful user login.
 
 ### Before
 
