@@ -95,32 +95,32 @@ The following examples show fragments of tokens issued after refreshing:
 <Tabs>
   <TabItem value="id_token" label="id_token" default>
     <CodeBlock language="json">{` 
-      {
-        "aud": [
-          "my_client"
-        ],
-        "auth_time": 1647427485,
-        "bar": "baz",
-        "iss": "http://ory.hydra.example/",
-        "sub": "foo@bar.com"
-      }
+  {
+    "aud": [
+      "my_client"
+    ],
+    "auth_time": 1647427485,
+    "bar": "baz",
+    "iss": "http://ory.hydra.example/",
+    "sub": "foo@bar.com"
+  }
     `}</CodeBlock>
   </TabItem>
   <TabItem value="access_token" label="access_token">
     <CodeBlock language="json">{`
-        {
-          "active": true,
-          "scope": "openid offline",
-          "client_id": "my_client",
-          "sub": "foo@bar.com",
-          "aud": [],
-          "iss": "http://ory.hydra.example/",
-          "token_type": "Bearer",
-          "token_use": "access_token",
-          "ext": {
-              "foo": "bar"
-            }
-        }  
+  {
+    "active": true,
+    "scope": "openid offline",
+    "client_id": "my_client",
+    "sub": "foo@bar.com",
+    "aud": [],
+    "iss": "http://ory.hydra.example/",
+    "token_type": "Bearer",
+    "token_use": "access_token",
+    "ext": {
+        "foo": "bar"
+      }
+  }  
      `}</CodeBlock>
   </TabItem>
 </Tabs>
