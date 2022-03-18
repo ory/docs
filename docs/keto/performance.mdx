@@ -38,7 +38,7 @@ graph TD
 
 A check request of the form `object#relation@user` will be evaluated by
 searching the graph starting at `object` going through `relation` trying to
-reach `user`. The request is allowed iff there is such a path.
+reach `user`. The request is allowed if there is such a path.
 
 The algorithm used in Ory Keto for this graph traversal is breadth-first search.
 In the worst case it has a time complexity of `O(n+e)` where `n` is the number
