@@ -20,7 +20,6 @@ jobs:
             https://github.com/errata-ai/write-good/releases/latest/download/write-good.zip
           config: https://raw.githubusercontent.com/ory/docs/${{ github.sha }}/docs/.vale.ini
           onlyAnnotateModifiedLines: true
-          debug: true
 
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
