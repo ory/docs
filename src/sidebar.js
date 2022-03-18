@@ -92,14 +92,7 @@ module.exports = {
         'ecosystem/sqa',
         'ecosystem/security',
         'ecosystem/roadmap',
-        'ecosystem/software-architecture-philosophy',
-        {
-          'Documentation Styleguide': [
-            'ecosystem/styleguide/styleguide',
-            'ecosystem/styleguide/testing',
-            'ecosystem/styleguide/templates'
-          ]
-        }
+        'ecosystem/software-architecture-philosophy'
       ]
     },
     {
