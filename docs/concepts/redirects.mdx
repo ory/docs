@@ -14,13 +14,13 @@ Set dynamic redirects using the `?return_to=` query parameter on
 link to go to `https://myapp.com/posts`. This URL requires the user to have an
 active session and redirects the user back to the login page. To return the user
 back to the original URL, append `?return_to=https://myapp.com/posts` when
-starting the self-service login flow `initSelfServiceLogin`:
+starting the [self-service login flow](https://www.ory.sh/docs/reference/api#operation/initializeSelfServiceLoginFlowForBrowsers):
 
 ```js
-    "request_url": "http://<your-project>.projects.oryapis.com/self-service/login/browser?return_to=...",
+    curl -X GET 'http://<your-project>.projects.oryapis.com/self-service/login/browser?return_to=...'
 ```
 
-`return_to` is set when `initSelfServiceLogin` is called in a browser with a
+`return_to` is set when the login flow is started in a browser with a
 `return_to` URL set. For API clients such as AJAX
 [visit this section](#api-clients).
 
@@ -48,49 +48,49 @@ On project creation the redirect flows are set to the default
 
 The Login and Registration flows have three fields (all optional):
 
-1. `Default Redirect URL` domain or path relative to your application URL
-2. `Post-Password Redirect URL`
-3. `Post-OIDC Redirect URL`
+1. Default Redirect URL domain or path relative to your application URL
+2. Post-Password Redirect URL
+3. Post-OIDC Redirect URL
 
 The Settings flow has three fields (all optional):
 
-1. `Default Redirect URL` domain or path relative to your application URL
-2. `Post-Password Redirect URL`
-3. `Post-Profile Redirect URL`
+1. Default Redirect URL domain or path relative to your application URL
+2. Post-Password Redirect URL
+3. Post-Profile Redirect URL
 
-To overwrite the `Global Redirect URL` set the `Default Redirect URL` to a fully
+To overwrite the Global Redirect URL set the Default Redirect URL to a fully
 qualified domain name
 ([FQDN](https://en.wikipedia.org/wiki/Fully_qualified_domain_name) - for example
 `https://domain.example/login`).  
-To replace the `Global Redirect URL` path set the `Default Redirect URL` to a
+To replace the Global Redirect URL path set the Default Redirect URL to a
 path. For example when setting it to `/login`,
 `https://domain.example/global/path` becomes `https://domain.example/login`.
 
-The `Default Redirect URL` is used when Ory isn't sure where to redirect. It’s a
+The Default Redirect URL is used when Ory isn't sure where to redirect. It’s a
 good idea for this to be your default app URL, for example `/` or the dashboard.
 Use sub-conditions to control where users are redirected after registration,
 login, and other self-service flows.
 
-On sub-conditions such as `After Password` or `After Profile` an FQDN or a path
+On sub-conditions such as After Password or After Profile an FQDN or a path
 can be set.  
-Set the `Post-` redirect to a FQDN to replace the closest relative, starting
-with the Login/Registration `Default Redirect URL` and then the
-`Global Redirect URL`.  
-Set the `Post-` redirect to a path to use the closest relative as the base URL -
-as described above with the `Default Redirect URL`.
+Set the Post- redirect to a FQDN to replace the closest relative, starting
+with the Login/Registration Default Redirect URL and then the
+Global Redirect URL.  
+Set the Post- redirect to a path to use the closest relative as the base URL -
+as described above with the Default Redirect URL.
 
 All the relative URLs will be updated with their respective base URL. As shown
-in the example below, the `Post-Login Default Redirect URL` is set to a path.
-This means the base URL will be the `Global Redirect URL` (`https://myapp.com`).
-This will set the Login `Default Redirect URL` to
-`https://myapp.com/after/login` and the `Post-Password` to
+in the example below, the Post-Login Default Redirect URL is set to a path.
+This means the base URL will be the Global Redirect URL (`https://myapp.com`).
+This will set the Login Default Redirect URL to
+`https://myapp.com/after/login` and the Post-Password to
 `https://myapp.com/after/login/password`.
 
 ![Browser Redirects Url Management](/images/browser-redirects/browser-redirects-url-management.png)
 
-In the example below , the `Post-Login Default Redirect URL` is set to use a
-FQDN. This will set the Login `Default Redirect URL` to
-`https://myapp.com/after/login` and the `Post-Password` to
+In the example below , the Post-Login Default Redirect URL is set to use a
+FQDN. This will set the Login Default Redirect URL to
+`https://myapp.com/after/login` and the Post-Password to
 `https://myapp.com/after/login/password`.
 
 ![Browser Redirects URL Management Transformed](/images/browser-redirects/browser-redirects-url-management-2.png)
@@ -99,14 +99,14 @@ FQDN. This will set the Login `Default Redirect URL` to
 
 :::warning
 
-The `Post-Recovery` redirect isn't supported and will automatically redirect the
-user to the `Settings UI` URL.  
-Use the `Post-Settings` redirect of `Post-Recovery` flows.
+The Post-Recovery redirect isn't supported and will automatically redirect the
+user to the Settings UI URL.  
+Use the Post-Settings redirect of Post-Recovery flows.
 
 :::
 
-Each of these flows has a single field, the `Default Redirect URL`. As with
-Login, Registration, and Settings configurations, the `Default Redirect URL` can
+Each of these flows has a single field, the Default Redirect URL. As with
+Login, Registration, and Settings configurations, the Default Redirect URL can
 be an FQDN or a path.
 
 ![Browser Redirects URL Management Transformed](/images/browser-redirects/browser-redirects-url-management-3.png)
