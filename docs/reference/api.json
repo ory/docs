@@ -1766,6 +1766,18 @@
         },
         "type": "array"
       },
+      "provisionMockSubscriptionPayload": {
+        "properties": {
+          "identity_id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "plan_or_price": {
+            "type": "string"
+          }
+        },
+        "required": ["plan_or_price", "identity_id"],
+        "type": "object"
+      },
       "revokedSessions": {
         "properties": {
           "count": {
