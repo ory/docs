@@ -1479,7 +1479,7 @@
       "normalizedProjectRevisionThirdPartyProvider": {
         "properties": {
           "apple_private_key": {
-            "$ref": "#/components/schemas/SQLNullString"
+            "$ref": "#/components/schemas/String"
           },
           "apple_private_key_id": {
             "description": "Apple Private Key Identifier\n\nSign In with Apple Private Key Identifier needed for generating a JWT token for client secret",
@@ -1506,7 +1506,7 @@
             "type": "string"
           },
           "client_secret": {
-            "$ref": "#/components/schemas/SQLNullString"
+            "$ref": "#/components/schemas/String"
           },
           "created_at": {
             "description": "The Project's Revision Creation Date",
