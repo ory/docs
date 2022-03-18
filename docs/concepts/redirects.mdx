@@ -17,7 +17,7 @@ back to the original URL, append `?return_to=https://myapp.com/posts` when
 starting the [self-service login flow](https://www.ory.sh/docs/reference/api#operation/initializeSelfServiceLoginFlowForBrowsers):
 
 ```js
-    curl -X GET 'http://<your-project>.projects.oryapis.com/self-service/login/browser?return_to=...'
+curl -X GET 'http://<your-project>.projects.oryapis.com/self-service/login/browser?return_to=...'
 ```
 
 `return_to` is set when the login flow is started in a browser with a
@@ -150,7 +150,7 @@ URL with a scheme (HTTP or HTTPS). An example of a valid URL is
 
 ### Domain Denied
 
-It's not possible to set the `ory` domain as redirect URL.
+It's not possible to set the any Ory-owned domain as redirect URL.
 
 ![Browser Redirects URL Error Message](/images/browser-redirects/browser-redirects-error-messages-2.png)
 
