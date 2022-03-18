@@ -217,6 +217,7 @@ ffmpeg -i $file -vcodec h264 -vf scale=1024:-1 -an "${file%.*}".mp4
 Next copy them next to the markdown file you are editing. Then use the following
 code to display the video:
 
+````
 ```mdx-code-block
 import mp4 from './screencast.mp4'
 import webm from './screencast.webm'
@@ -224,6 +225,42 @@ import VideoEmbed from '@site/src/components/VideoEmbed'
 
 <VideoEmbed mp4={mp4} webm={webm} />
 ```
+````
+
+### Code Examples in MDX
+
+If you are using MDX and are in, for example, code tabs, use the `CodeBlock` to
+nest code items:
+
+````
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+
+<Tabs
+  defaultValue="ui"
+  values={[
+    {label: 'UI', value: 'ui'},
+  ]}>
+  <TabItem value="ui">
+    <CodeBlock className="language-jsx">{`Your
+
+code
+
+here`}</CodeBlock>
+  </TabItem>
+  <TabItem value="node">
+    <CodeFromRemote
+      src="https://github.com/ory/hydra-login-consent-node/blob/master/src/routes/consent.ts"
+    />
+  </TabItem>
+  <TabItem value="html">
+    <CodeFromRemote
+      src="https://github.com/ory/hydra-login-consent-node/blob/master/views/consent.pug"
+    />
+  </TabItem>
+</Tabs>
+```
+````
 
 ### Import Code Examples from this Repository
 
@@ -231,6 +268,7 @@ Use the same markdown in several places:
 
 ````
 ```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
 import exampleJs from '!!raw-loader!./code-example.jsx'
 import exampleGo from '!!raw-loader!./code-example.go'
 
