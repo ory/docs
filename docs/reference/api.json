@@ -1476,6 +1476,12 @@
         },
         "type": "object"
       },
+      "normalizedProjectRevisionIdentitySchemas": {
+        "items": {
+          "$ref": "#/components/schemas/normalizedProjectRevisionIdentitySchema"
+        },
+        "type": "array"
+      },
       "normalizedProjectRevisionThirdPartyProvider": {
         "properties": {
           "apple_private_key": {
@@ -1706,6 +1712,58 @@
       "projectMembers": {
         "items": {
           "$ref": "#/components/schemas/projectMember"
+        },
+        "type": "array"
+      },
+      "projectMetadata": {
+        "properties": {
+          "created_at": {
+            "description": "The Project's Creation Date",
+            "format": "date-time",
+            "type": "string"
+          },
+          "hosts": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "name": {
+            "description": "The project's name if set",
+            "type": "string"
+          },
+          "slug": {
+            "description": "The project's slug",
+            "readOnly": true,
+            "type": "string"
+          },
+          "state": {
+            "description": "The state of the project.",
+            "enum": ["running", "halted"],
+            "type": "string"
+          },
+          "subscription_id": {
+            "$ref": "#/components/schemas/NullUUID"
+          },
+          "updated_at": {
+            "description": "Last Time Project was Updated",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "hosts",
+          "state",
+          "created_at",
+          "updated_at",
+          "name"
+        ],
+        "type": "object"
+      },
+      "projectMetadataList": {
+        "items": {
+          "$ref": "#/components/schemas/projectMetadata"
         },
         "type": "array"
       },
@@ -4007,11 +4065,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/projects"
+                  "$ref": "#/components/schemas/projectMetadataList"
                 }
               }
             },
-            "description": "projects"
+            "description": "projectMetadataList"
           },
           "401": {
             "content": {
