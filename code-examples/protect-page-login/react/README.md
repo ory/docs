@@ -36,6 +36,8 @@ yarn proxy # for starting the ory proxy for local devlopment
 #### Open TODOS
 - Debug FLow.tsx and convert to function component
 - Check and add other routes (registration, verification, error...)
+- Add ory eslint and prettier guidelines
+- Add test setup
 - Test flows
 - Check test passing
 - Add demo ory url to .env.local
