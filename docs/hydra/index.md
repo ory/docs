@@ -6,7 +6,7 @@ sidebar_label: Introduction
 
 Hydra is an OAuth 2.0 and OpenID Connect Provider. In other words, an
 implementation of the OAuth 2.0 Authorization Framework as well as the OpenID
-Connect Core 1.0 framework. As such, it'ssues OAuth 2.0 Access, Refresh, and ID
+Connect Core 1.0 framework. As such, it issues OAuth 2.0 Access, Refresh, and ID
 Tokens that enable third-parties to access your APIs in the name of your users.
 
 ## Flexible User Management
