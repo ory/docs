@@ -1,0 +1,25 @@
+.application-loader:empty {
+  --primary-color: #5528ff;
+  display: inline-block !important;
+  position: absolute !important;
+  top: calc(50% - 1em) !important;
+  left: calc(50% - 1em) !important;
+  box-sizing: border-box !important;
+  display: block !important;
+  width: 40px !important;
+  height: 40px !important;
+  margin: 3px !important;
+  border: 3px solid var(--primary-color) !important;
+  border-radius: 50% !important;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite !important;
+  border-color: var(--primary-color) transparent transparent transparent !important;
+}
+
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "react-ory-tailwind-vite",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "author": {
+    "name": "felix-schaipp"
+  },
+  "scripts": {
+    "start": "vite",
+    "proxy": "ory proxy http://localhost:3000 --open",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@ory/client": "^0.0.1-alpha.138",
+    "@ory/integrations": "^0.2.5",
+    "@ory/themes": "^0.0.101",
+    "@tailwindcss/forms": "^0.5.0",
+    "@types/node": "^17.0.21",
+    "@types/uuid": "^8.3.4",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-helmet-async": "^1.2.3",
+    "react-router-dom": "^6.2.2",
+    "react-toastify": "^8.2.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/react": "17.0.41",
+    "@types/react-dom": "17.0.14",
+    "@types/react-router-dom": "^5.3.3",
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
+    "@typescript-eslint/parser": "^5.15.0",
+    "@vitejs/plugin-react": "^1.2.0",
+    "autoprefixer": "^10.4.4",
+    "eslint": "^8.11.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "6.0.0",
+    "eslint-plugin-react": "^7.29.4",
+    "postcss": "^8.4.12",
+    "prettier": "^2.6.0",
+    "tailwindcss": "^3.0.23",
+    "typescript": "^4.6.2",
+    "vite": "^2.8.6",
+    "vite-tsconfig-paths": "^3.4.1"
+  }
+}
