@@ -143,10 +143,8 @@ The API then responds with the created identity:
 
 ## Importing Recovery Addresses
 
-It is possible to supply, similar to `verifiable_addresses` a list of
-`recovery_addresses` as well. However, since there is no status to set for this
-address type, it is better to let the identity schema handle setting the
-appropriate fields.
+It is possible to import a list of `recovery_addresses` - similar to `verifiable_addresses`. It is better to let the identity schema handle setting the
+appropriate fields since there is no status to set for this address type.
 
 We thus do not recommend setting these fields as they will be overwritten
 anyways! For more information on account recovery please head over to the
