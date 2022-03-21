@@ -3126,7 +3126,7 @@
             "type": "integer"
           }
         },
-        "required": ["src", "id", "node_type"],
+        "required": ["src", "id", "width", "height", "node_type"],
         "title": "ImageAttributes represents the attributes of an image node.",
         "type": "object"
       },
