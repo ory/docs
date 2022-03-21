@@ -3,17 +3,23 @@ id: upgrade
 title: Apply Upgrades
 ---
 
+:::warning
+
+Back up your data! Applying upgrades can lead to data loss if handled
+incorrectly.
+
+:::
+
 This guide covers basics to consider when upgrading Ory Kratos, please also
 visit [CHANGELOG.md](https://github.com/ory/kratos/blob/master/CHANGELOG.md) for
-more technical details.
+more details.
 
 To upgrade Ory Kratos follow these steps:
 
-- Make a backup.
-- [Install](../install.md) the new version (depending on how you run Ory
+1. Make a backup.
+1. [Install](../install.md) the new version (depending on how you run Ory
   Kratos).
-- Run [`kratos migrate sql`](../cli/kratos-migrate-sql.md) to run the
-  appropriate SQL queries.
+1. **Run [`kratos migrate sql`](../cli/kratos-migrate-sql.md)** to run the SQL queries.
 
 Ory Kratos will run the `migrate sql` command for all versions. For example when
 upgrading from v0.6 to v0.8, the migrations will run for v0.6 to v0.7 and then
@@ -22,13 +28,6 @@ directly is possible. Should you run into problems with a direct upgrade,
 consider a stepped upgrade and please visit the community
 [chat](https://slack.ory.sh/) or
 [discussions](https://github.com/ory/kratos/discussions).
-
-:::warning
-
-Back up your data! Applying upgrades can lead to data loss if handled
-incorrectly.
-
-:::
 
 ### Upgrade Tips
 
