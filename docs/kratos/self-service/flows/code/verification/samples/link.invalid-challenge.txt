@@ -1,5 +1,5 @@
 rl -H "Accept: application/json" -s \
-    'http://127.0.0.1:4434/self-service/verification/flows?id=9040cdea-3674-4c3e-8b2d-b35b268c696e' | \
+    'http://127.0.0.1:4433/self-service/verification/flows?id=9040cdea-3674-4c3e-8b2d-b35b268c696e' | \
       jq
 
 {
