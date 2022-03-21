@@ -14,15 +14,15 @@ Set dynamic redirects using the `?return_to=` query parameter on
 link to go to `https://myapp.com/posts`. This URL requires the user to have an
 active session and redirects the user back to the login page. To return the user
 back to the original URL, append `?return_to=https://myapp.com/posts` when
-starting the [self-service login flow](https://www.ory.sh/docs/reference/api#operation/initializeSelfServiceLoginFlowForBrowsers):
+starting the
+[self-service login flow](https://www.ory.sh/docs/reference/api#operation/initializeSelfServiceLoginFlowForBrowsers):
 
 ```js
 curl -X GET 'http://<your-project>.projects.oryapis.com/self-service/login/browser?return_to=...'
 ```
 
-`return_to` is set when the login flow is started in a browser with a
-`return_to` URL set. For API clients such as AJAX
-[visit this section](#api-clients).
+When the login flow starts in a browser with a `return_to` URL set, `return_to`
+will be set. For API clients such as AJAX [visit this section](#api-clients).
 
 The `allow list` prevents
 [Open Redirect Attacks](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html)
@@ -52,62 +52,85 @@ The Login and Registration flows have three fields (all optional):
 2. Post-Password Redirect URL
 3. Post-OIDC Redirect URL
 
+```yaml file="kratos.config.yml"
+selfservice:
+  flows:
+    login:
+      after:
+        default_browser_return_url: https://this-is-overridden-by-password/
+        password:
+          # redirect after successful login or registration with `password` method
+          default_browser_return_url: https://end-up-here-after-login-with-password/
+        oidc:
+          # redirect after successful login or registration with `OIDC` method
+          default_browser_return_url: https://end-up-here-after-login-with-oidc/
+    registration:
+      after:
+        default_browser_return_url: https://end-up-here-after-registration/
+    # password:
+    # ...
+```
+
 The Settings flow has three fields (all optional):
 
 1. Default Redirect URL domain or path relative to your application URL
 2. Post-Password Redirect URL
 3. Post-Profile Redirect URL
 
-To overwrite the Global Redirect URL set the Default Redirect URL to a fully
-qualified domain name
-([FQDN](https://en.wikipedia.org/wiki/Fully_qualified_domain_name) - for example
-`https://domain.example/login`).  
-To replace the Global Redirect URL path set the Default Redirect URL to a
-path. For example when setting it to `/login`,
-`https://domain.example/global/path` becomes `https://domain.example/login`.
+```yaml file="kratos.config.yml"
+selfservice:
+  flows:
+    settings:
+      after:
+        default_browser_return_url: https://this-is-overridden-by-password/
+        password:
+          # redirect after successfully updating the password in settings
+          default_browser_return_url: https://end-up-here-after-login-with-password/
+        profile:
+          # redirect after successfully updating the username or email in settings
+          default_browser_return_url: https://end-up-here-after-login-with-password/
+```
 
 The Default Redirect URL is used when Ory isn't sure where to redirect. It’s a
 good idea for this to be your default app URL, for example `/` or the dashboard.
 Use sub-conditions to control where users are redirected after registration,
 login, and other self-service flows.
 
-On sub-conditions such as After Password or After Profile an FQDN or a path
-can be set.  
-Set the Post- redirect to a FQDN to replace the closest relative, starting
-with the Login/Registration Default Redirect URL and then the
-Global Redirect URL.  
-Set the Post- redirect to a path to use the closest relative as the base URL -
-as described above with the Default Redirect URL.
+When setting the Post-Login Redirect as an fully qualified domain name
+([FQDN](https://en.wikipedia.org/wiki/Fully_qualified_domain_name) such as
+`https://domain.example/login` it will overwrite the Default Redirect URL. As a
+path it will replace the Default Redirect URL path, for example `/login` will
+alter `https://domain.example/default/path` to `https://domain.example/login`.
+This works the same for all other Post- flows and sub-conditions.
 
-All the relative URLs will be updated with their respective base URL. As shown
-in the example below, the Post-Login Default Redirect URL is set to a path.
-This means the base URL will be the Global Redirect URL (`https://myapp.com`).
-This will set the Login Default Redirect URL to
-`https://myapp.com/after/login` and the Post-Password to
-`https://myapp.com/after/login/password`.
+On sub-conditions such as After Password or After Profile an FQDN or a path can
+be set. All the relative URLs will be updated with their respective base URL. As
+shown in the example below, the Post-Login Redirect URL is a path. This means
+the base URL will be the Default Redirect URL (`https://myapp.com`). This will
+set the Post-Login Redirect URL to `https://myapp.com/after/login` and the
+Post-Password Redirect URL to `https://myapp.com/after/login/password`.
 
 ![Browser Redirects Url Management](/images/browser-redirects/browser-redirects-url-management.png)
 
-In the example below , the Post-Login Default Redirect URL is set to use a
-FQDN. This will set the Login Default Redirect URL to
-`https://myapp.com/after/login` and the Post-Password to
-`https://myapp.com/after/login/password`.
+In the example below, the Post-Login Redirect URL is a FQDN. This will set the
+Post-Login Redirect URL to `https://myapp.com/after/login` and the Post-Password
+Redirect URL to `https://myapp.com/after/login/password`.
 
 ![Browser Redirects URL Management Transformed](/images/browser-redirects/browser-redirects-url-management-2.png)
 
 ### Verification, Recovery, and Logout
 
-:::warning
+:::tip
 
 The Post-Recovery redirect isn't supported and will automatically redirect the
-user to the Settings UI URL.  
-Use the Post-Settings redirect of Post-Recovery flows.
+user to the Settings UI URL. Use the Post-Settings redirect for Post-Recovery
+flows.
 
 :::
 
-Each of these flows has a single field, the Default Redirect URL. As with
-Login, Registration, and Settings configurations, the Default Redirect URL can
-be an FQDN or a path.
+Each of these flows has a single field, the Default Redirect URL. As with Login,
+Registration, and Settings configurations, the Default Redirect URL can be an
+FQDN or a path.
 
 ![Browser Redirects URL Management Transformed](/images/browser-redirects/browser-redirects-url-management-3.png)
 
@@ -129,8 +152,8 @@ old flows that haven't expired yet.
 ### API Clients
 
 The browser redirects work just for regular browser requests.  
-If you are using an API Client for example AJAX, redirect the user to the right
-endpoint in the application, for example:
+If you are using an API Client, for example AJAX, redirect the user to the right
+endpoint in the application:
 
 ```ts
           .then((res) => {
