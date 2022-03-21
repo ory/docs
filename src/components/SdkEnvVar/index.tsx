@@ -9,7 +9,7 @@ export default function SdkEnvVar(props: any) {
 
   return (
     <Tabs>
-      <TabItem value="macos" label="Mac OS" default>
+      <TabItem value="macos" label="macOS" default>
         <CodeBlock language="shell">{`${hint}export ORY_SDK_URL=${url}`}</CodeBlock>
       </TabItem>
       <TabItem value="linux" label="Linux">
