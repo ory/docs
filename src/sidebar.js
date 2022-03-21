@@ -46,6 +46,15 @@ module.exports = {
         },
         {
           type: 'category',
+          label: 'Managing Identities',
+          items: [
+            'kratos/admin/managing-users-identities',
+            'guides/manage-identities/import-identity',
+            'guides/manage-identities/account-recovery'
+          ]
+        },
+        {
+          type: 'category',
           label: 'Customizing Ory',
           items: [
             'guides/custom-domains',
