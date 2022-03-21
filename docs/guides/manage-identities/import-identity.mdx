@@ -224,10 +224,10 @@ connections as well. If do not have Social Sign In set up yet please head over
 to the
 [social sign in documentation](../../kratos/guides/sign-in-with-github-google-facebook-linkedin.mdx).
 
-When importing social sign in connections, the provider refers to the provider
-ID you set in your Social Sign In configuration. The `subject` id must be the
-user's id on the given platform. Usually, this is the `sub` claim of the OpenID
-Connect ID Token provider by e.g. Google.
+When importing social sign in connections, the provider refers to the `provider`
+ID you set in your Social Sign In configuration. The `subject` ID must be the
+ID of the user on the given platform. Usually, this is the `sub` claim of the OpenID
+Connect ID Token provider such as Google.
 
 ```json {7-18}
 {
