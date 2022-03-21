@@ -142,8 +142,9 @@ to the web hook endpoint, the Jsonnet template would look like this:
 #### Non-blocking webhooks
 
 Sometimes you need to notify a system without needing its response. For example,
-when a user signs up, their email address is added to the newsletter. If the system's response
-is not important, you can ignore the response and make the webhook execution non-blocking.
+when a user signs up, their email address is added to the newsletter. If the
+system's response is not important, you can ignore the response and make the
+webhook execution non-blocking.
 
 To do that, set `response.ignore` to `true` in the webhook config:
 
