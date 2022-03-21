@@ -60,6 +60,17 @@ module.exports = {
             'guides/custom-domains',
             'guides/bring-your-user-interface',
             'guides/customize-identity-schema',
+            {
+              type: 'category',
+              label: 'Enabling Social Sign-in',
+              items: [
+                'guides/social-signin/google',
+                'guides/social-signin/facebook',
+                'guides/social-signin/microsoft',
+                'guides/social-signin/github',
+                'guides/social-signin/generic'
+              ]
+            },
             'start-building/single-page-app-spa'
           ]
         },
