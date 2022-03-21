@@ -1,0 +1,133 @@
+---
+id: claims-at-refresh
+title: Updating claims at token refresh
+---
+
+The Hydra OAuth2 and OpenID Connect server comes with a mechanism that allows
+updating `id_token` and `access_token` when a registered client sends a token
+refresh request. The flow is realized by calling the defined refresh token hook
+endpoint which returns updated data.
+
+If the data provided by the webhook is different from the data the client sends,
+the webhook overwrites the session data with a new set.
+
+:::note
+
+The hook is called before any other logic is executed. If the hook execution
+fails, the entire token refresh flow fails and the `refresh_token` remains
+unused.
+
+:::
+
+## Configuration
+
+To enable the token refresh webhook, configure the `oauth2.refresh_token_hook`
+key in the Hydra configuration:
+
+```yaml
+oauth2:
+  refresh_token_hook: https://my-example.app/token-refresh-hook
+```
+
+If you're running Hydra locally, you can set this value by exporting the refresh
+token hook endpoint URL as an environment variable. Run this command:
+
+```mdx-code-block
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock'
+
+<Tabs>
+  <TabItem value="macos" label="macOS" default>
+    <CodeBlock language="shell">export OAUTH2_REFRESH_TOKEN_HOOK=value</CodeBlock>
+  </TabItem>
+  <TabItem value="linux" label="Linux">
+    <CodeBlock language="shell">export OAUTH2_REFRESH_TOKEN_HOOK=value</CodeBlock>
+  </TabItem>
+  <TabItem value="windows" label="Windows">
+    <CodeBlock language="shell">set OAUTH2_REFRESH_TOKEN_HOOK=value</CodeBlock> 
+  </TabItem>
+</Tabs>
+```
+
+### Webhook configuration
+
+The refresh token hook endpoint must accept the following payload format:
+
+```json
+{
+  "subject": "foo",
+  "client_id": "bar",
+  "granted_scopes": ["openid", "offline"],
+  "granted_audience": []
+}
+```
+
+To update the data, the webhook must return a `200 OK` response and the updated
+session data in the following format:
+
+```json
+{
+  "session": {
+    "access_token": {
+      "foo": "bar"
+    },
+    "id_token": {
+      "bar": "baz"
+    }
+  }
+}
+```
+
+:::note
+
+The token subject is never overridden.
+
+:::
+
+### Updated tokens
+
+The following examples show fragments of tokens issued after refreshing:
+
+```mdx-code-block
+
+<Tabs>
+  <TabItem value="id_token" label="id_token" default>
+    <CodeBlock language="json">{` 
+{
+  "aud": [
+    "my_client"
+  ],
+  "auth_time": 1647427485,
+  "bar": "baz",
+  "iss": "http://ory.hydra.example/",
+  "sub": "foo@bar.com"
+}
+    `}</CodeBlock>
+  </TabItem>
+  <TabItem value="access_token" label="access_token">
+    <CodeBlock language="json">{`
+{
+  "active": true,
+  "scope": "openid offline",
+  "client_id": "my_client",
+  "sub": "foo@bar.com",
+  "aud": [],
+  "iss": "http://ory.hydra.example/",
+  "token_type": "Bearer",
+  "token_use": "access_token",
+  "ext": {
+      "foo": "bar"
+    }
+}  
+     `}</CodeBlock>
+  </TabItem>
+</Tabs>
+```
+
+## Rejecting token refresh
+
+To gracefully reject token contents update, the hook must return a
+`403 Forbidden` response. Any other response results in a failure of the token
+update and, as a result, failure of the entire token refresh flow.
