@@ -230,7 +230,7 @@ about the flow:
         "type": "input",
         "group": "password",
         "attributes": {
-          "name": "password_identifier",
+          "name": "identifier",
           "type": "text",
           "value": "",
           "required": true,
@@ -314,7 +314,7 @@ HTML Form would look along the lines of:
   />
   <fieldset>
     <label>
-      <input name="password_identifier" type="text" value="" placeholder="ID" />
+      <input name="identifier" type="text" value="" placeholder="ID" />
       <span>ID</span>
     </label>
   </fieldset>
@@ -361,7 +361,7 @@ which now includes validation errors and other potential messages:
         type: 'input',
         group: 'password',
         attributes: {
-          name: 'password_identifier',
+          name: 'identifier',
           type: 'text',
           value: '',
           required: true,
@@ -533,7 +533,7 @@ response could be sent:
         type: 'input',
         group: 'password',
         attributes: {
-          name: 'password_identifier',
+          name: 'identifier',
           type: 'text',
           value: '',
           required: true,
@@ -704,7 +704,7 @@ echo $actionUrl
 # https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=6394ffa4-235f-4c1a-a200-e62f89862015
 
 curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/json" \
-    -d '{"password_identifier": "i-do-not-exist@user.org", "password": "the-wrong-password", "method": "password"}' \
+    -d '{"identifier": "i-do-not-exist@user.org", "password": "the-wrong-password", "method": "password"}' \
     "$actionUrl" | jq
 ```
 
@@ -746,7 +746,7 @@ which in this case fails with a 400 Bad Request error and the following payload:
         "type": "input",
         "group": "password",
         "attributes": {
-          "name": "password_identifier",
+          "name": "identifier",
           "type": "text",
           "value": "i-do-not-exist@user.org",
           "required": true,
