@@ -146,15 +146,13 @@ The API then responds with the created identity:
 It is possible to import a list of `recovery_addresses` - similar to `verifiable_addresses`. It is better to let the identity schema handle setting the
 appropriate fields since there is no status to set for this address type.
 
-We thus do not recommend setting these fields as they will be overwritten
+We do not recommend setting these fields as they will be overwritten
 anyways! For more information on account recovery please head over to the
 [account recovery documentation](../../kratos/guides/account-recovery-password-reset.mdx).
 
 ## Importing Credentials
 
-Ory supports importing credentials for identities. This currently spans
-passwords and social sign in. You can use all of these payloads with the `curl`
-command from above!
+Ory supports importing credentials for identities including passwords and social sign in. You can use all of these payloads with the `curl` command from above!
 
 ### Clear Text Password
 
@@ -199,7 +197,7 @@ the following algorithms are supported:
 - BCrypt, e.g.: `$2a$10$ZsCsoVQ3xfBG/K2z2XpBf.tm90GZmtOqtqWcB5.pYd5Eq8y7RlDyq`
 
 More information about the hash format can
-[be found in the here](../../kratos/concepts/credentials/username-email-password.mdx#hashed-password-format).
+be found in the ["Hashed Password Format" document](../../kratos/concepts/credentials/username-email-password.mdx#hashed-password-format).
 
 ```json {6-10}
 {
@@ -220,7 +218,7 @@ More information about the hash format can
 ### Social Sign In Connections
 
 Similar to importing passwords it is possible to import Social Sign In
-connections as well. If do not have Social Sign In set up yet please head over
+connections as well. If you do not have Social Sign In set up yet please head over
 to the
 [social sign in documentation](../../kratos/guides/sign-in-with-github-google-facebook-linkedin.mdx).
 
