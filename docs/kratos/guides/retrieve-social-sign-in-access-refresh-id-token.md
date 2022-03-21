@@ -4,8 +4,8 @@ title: Get Access, Refresh, ID Tokens from Social Sign In Providers
 ---
 
 This document describes how to retrieve OpenID Connect / OAuth 2.0 Access,
-Refresh, and ID Tokens from Social Sign In at the `GET /admin/identities` API. This
-guide assumes that you have the `oidc` method enabled.
+Refresh, and ID Tokens from Social Sign In at the `GET /admin/identities` API.
+This guide assumes that you have the `oidc` method enabled.
 
 :::note
 
