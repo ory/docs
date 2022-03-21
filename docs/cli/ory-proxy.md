@@ -38,7 +38,7 @@ The first argument [upstream] points to the location of your application. If you
 are running the proxy and your app on the same host, this could be localhost.
 
 The second argument [public-url] is optional. It refers to the public URL of
-your application (e.g. https://www.example.org).
+your application (`https://www.example.org`).
 
 If [public-url] is not set, it will default to the default host and port this
 proxy listens on:
@@ -68,7 +68,7 @@ that port in the [public-url]:
     	http://localhost:3000 \
     	https://example.org:1234
 
-If this proxy runs on a subdomain, and you want Ory&#39;s cookies (e.g. the
+If this proxy runs on a subdomain, and you want Orys cookies (such as the
 session cookie) to be available on all of your domain, you can use the following
 CLI flag to customize the cookie domain:
 

@@ -1046,6 +1046,17 @@ will be overwritten!
 }
 ```
 
+###### Sign in with security key (1010001)
+
+```json
+{
+  "id": 1010001,
+  "text": "Sign in with security key",
+  "type": "info",
+  "context": {}
+}
+```
+
 ###### Sign in with {provider} (1010002)
 
 ```json
@@ -1146,6 +1157,37 @@ will be overwritten!
 }
 ```
 
+###### Continue with security key (1010011)
+
+```json
+{
+  "id": 1010011,
+  "text": "Continue with security key",
+  "type": "info"
+}
+```
+
+###### Prepare your WebAuthn device (e.g. security key, biometrics scanner, ...) and press continue. (1010012)
+
+```json
+{
+  "id": 1010012,
+  "text": "Prepare your WebAuthn device (e.g. security key, biometrics scanner, ...) and press continue.",
+  "type": "info",
+  "context": {}
+}
+```
+
+###### Continue (1010013)
+
+```json
+{
+  "id": 1010013,
+  "text": "Continue",
+  "type": "info"
+}
+```
+
 ###### Sign up (1040001)
 
 ```json
@@ -1176,6 +1218,16 @@ will be overwritten!
 {
   "id": 1040003,
   "text": "Continue",
+  "type": "info"
+}
+```
+
+###### Sign up with security key (1040004)
+
+```json
+{
+  "id": 1040004,
+  "text": "Sign up with security key",
   "type": "info"
 }
 ```
@@ -1232,16 +1284,6 @@ will be overwritten!
 {
   "id": 1050005,
   "text": "Authenticator app QR code",
-  "type": "info"
-}
-```
-
-###### This is your authenticator app secret. Use it if you can not scan the QR code. (1050006)
-
-```json
-{
-  "id": 1050006,
-  "text": "This is your authenticator app secret. Use it if you can not scan the QR code.",
   "type": "info"
 }
 ```
@@ -1322,17 +1364,13 @@ will be overwritten!
 }
 ```
 
-###### Remove security key "{name}" (1050012)
+###### Add security key (1050012)
 
 ```json
 {
   "id": 1050012,
-  "text": "Remove security key \"{name}\"",
-  "type": "info",
-  "context": {
-    "added_at": "2020-01-01T00:59:59Z",
-    "display_name": "{name}"
-  }
+  "text": "Add security key",
+  "type": "info"
 }
 ```
 
@@ -1396,6 +1434,30 @@ will be overwritten!
   "id": 1050016,
   "text": "Disable this method",
   "type": "info"
+}
+```
+
+###### This is your authenticator app secret. Use it if you can not scan the QR code. (1050017)
+
+```json
+{
+  "id": 1050017,
+  "text": "This is your authenticator app secret. Use it if you can not scan the QR code.",
+  "type": "info"
+}
+```
+
+###### Remove security key "{name}" (1050018)
+
+```json
+{
+  "id": 1050018,
+  "text": "Remove security key \"{name}\"",
+  "type": "info",
+  "context": {
+    "added_at": "2020-01-01T00:59:59Z",
+    "display_name": "{name}"
+  }
 }
 ```
 
@@ -1611,12 +1673,12 @@ will be overwritten!
 }
 ```
 
-###### Could not find any login identifiers. Did you forget to set them? (4000009)
+###### Could not find any login identifiers. Did you forget to set them? This could also be caused by a server misconfiguration. (4000009)
 
 ```json
 {
   "id": 4000009,
-  "text": "Could not find any login identifiers. Did you forget to set them?",
+  "text": "Could not find any login identifiers. Did you forget to set them? This could also be caused by a server misconfiguration.",
   "type": "error"
 }
 ```
@@ -1637,17 +1699,6 @@ will be overwritten!
 {
   "id": 4000011,
   "text": "You have no TOTP device set up.",
-  "type": "error",
-  "context": {}
-}
-```
-
-###### The backup recovery code is not valid. (4000012)
-
-```json
-{
-  "id": 4000012,
-  "text": "The backup recovery code is not valid.",
   "type": "error",
   "context": {}
 }
@@ -1681,6 +1732,28 @@ will be overwritten!
 {
   "id": 4000014,
   "text": "You have no backup recovery codes set up.",
+  "type": "error",
+  "context": {}
+}
+```
+
+###### This account does not exist or has no security key set up. (4000015)
+
+```json
+{
+  "id": 4000015,
+  "text": "This account does not exist or has no security key set up.",
+  "type": "error",
+  "context": {}
+}
+```
+
+###### The backup recovery code is not valid. (4000016)
+
+```json
+{
+  "id": 4000016,
+  "text": "The backup recovery code is not valid.",
   "type": "error",
   "context": {}
 }

@@ -10,7 +10,7 @@ Ory Kratos has several moving parts and getting everything right from the
 beginning can be challenging. This getting started guide will help you install
 Ory Kratos and some additional dependencies so that you can see how it works.
 
-Please be aware that this guide is not a replacement for studying the docs. You
+Please be aware that this guide isn't a replacement for studying the docs. You
 must understand core concepts and APIs to use Ory Kratos productively. This is
 merely a guide to get you set up with some examples.
 
@@ -34,14 +34,14 @@ This section gives you some context on what we want to achieve and what tools we
 need for that. You will also learn about the network set up we picked for this
 guide.
 
-This quickstart guide operates on the assumption that we are writing a NodeJS
+This quickstart guide operates on the assumption that we're writing a NodeJS
 app. This app is using nothing fancy - some ExpressJS and a bit of HTML
 Templating using Handlebars. We do want to use TypeScript, but only because it's
 more readable - not because we're doing anything out of the ordinary!
 
 You could pick any technology here, of course. This works with Swift, ReactJS,
 or Angular (client side) as well as with PHP, Ruby, Python, Java (server side) -
-you name it! We picked NodeJS + TypeScript because we believe it is the easiest
+you name it! We picked NodeJS + TypeScript because we believe it's the easiest
 to understand, and because JavaScript and NodeJS are universally understood and
 easy to install.
 
@@ -65,7 +65,7 @@ and of course:
 
 ## Setup
 
-As you might already know, Ory Kratos is API-only; it does not have a UI or HTML
+As you might already know, Ory Kratos is API-only; it doesn't have a UI or HTML
 templating engine. We will implement all the user-facing UIs like "dashboard",
 "login", and "registration" in our NodeJS app!
 
@@ -80,22 +80,22 @@ To ensure that no one can access the dashboard without prior authentication
 
 :::info
 
-Ory Kratos is not just an API: it uses cookies, HTTP redirects, anti-CSRF tokens
+Ory Kratos isn't just an API: it uses cookies, HTTP redirects, anti-CSRF tokens
 and more so you don't have to.
 
 :::
 
 The NodeJS app and Ory Kratos need to share cookies in order for anti-CSRF
 tokens and login sessions to work. Because the quickstart runs on different
-ports on `127.0.0.1` there is nothing we need to do to get this all working. In
+ports on `127.0.0.1` there isn'thing we need to do to get this all working. In
 environments where you have multiple sub-domains or reverse proxies, the set up
 will be a bit more sophisticated. You can find more information about the
 different set up possibilities in the
 [Getting Cookies to Work on Multi-Domains Guide](guides/multi-domain-cookies.mdx).
 
-Ory Kratos does not ship with an administrative user interface. You must
-implement that yourself or choose the Ory Cloud offering (to be announced). In
-this quickstart we will use Ory Kratos' CLI to interact with Ory Kratos' APIs.
+Ory Kratos doesn't ship with an administrative user interface. You must
+implement that yourself or choose Ory Cloud offering (to be announced). In this
+quickstart we will use Ory Kratos' CLI to interact with Ory Kratos' APIs.
 
 The quickstart also comes with [MailSlurper](https://mailslurper.com), a mock
 SMTP server the demo uses to show how email verification works.
@@ -120,15 +120,15 @@ start!
 
 :::tip
 
-If you encounter build errors (e.g. network timeout), make sure that the network
-is running correctly and run `make docker` again. If the problem persists, feel
+If you encounter build errors such as network timeout, make sure that the
+network is running and run `make docker` again. If the problem persists, feel
 free to [open an issue](https://github.com/ory/kratos/issues/new/choose).
 
 :::
 
 Let's clone Ory Kratos and run `docker-compose`:
 
-```shell script
+```sh
 git clone https://github.com/ory/kratos.git
 cd kratos
 git checkout v0.8.0-alpha.3
@@ -155,7 +155,7 @@ There are two important factors to get a fully functional system:
   [are free](https://serverfault.com/questions/309052/check-if-port-is-open-or-closed-on-a-linux-server).
 - Make sure to always use `127.0.0.1` as the hostname; never use `localhost`!
   This is important because browsers treat these two as separate domains and
-  will therefore have issues with setting and using cookies correctly.
+  will therefore have issues with setting and using cookies.
 
 :::
 
@@ -232,8 +232,9 @@ specific flows for SPAs head over to the [concept](concepts/index.md) chapter.
 :::
 
 Click `Sign In` to start a login flow. On the Sign In Screen you can see the
-unique login `<flow_id>` e.g. `?flow=78e374d2-f36b-40ae-922d-e81f812ea897`
-appended to the /login route in the URL.
+unique login `<flow_id>` for example
+`?flow=78e374d2-f36b-40ae-922d-e81f812ea897` appended to the /login route in the
+URL.
 
 Looking at the network stack, you can see two redirects happening:
 
@@ -261,11 +262,11 @@ We can use `curl` to get an example of the payload that Ory Kratos responds
 with. `GET` a valid `<flow_id>` or copy it from your browser and make a request
 to `/self-service/login/`:
 
-```shell-session
-$ flowId=$(curl -s -X GET \
+```sh
+flowId=$(curl -s -X GET \
     -H "Accept: application/json" \
     http://127.0.0.1:4433/self-service/login/api | jq -r '.id')
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Accept: application/json" \
     "http://127.0.0.1:4433/self-service/login/flows?id=$flowId" | jq
 {
@@ -372,12 +373,12 @@ The network trace should look familiar by now:
 To get an example of the payload for a registration flow, we can use the same
 `curl` request as above, now to the `self-service/registration` endpoint.
 
-```shell script
-$ flowId=$(curl -s -X GET \
+```sh
+flowId=$(curl -s -X GET \
     -H "Accept: application/json" \
     http://127.0.0.1:4433/self-service/registration/api | jq -r '.id')
 
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Accept: application/json" \
     "http://127.0.0.1:4433/self-service/registration/flows?id=$flowId" | jq
 {
@@ -525,7 +526,7 @@ explanation of how each individual flow works.
 ### Email Verification
 
 As you've signed up, an email was sent to the email address you used. Because
-the quickstart uses a fake SMTP server, the email did not arrive in your inbox.
+the quickstart uses a fake SMTP server, the email didn't arrive in your inbox.
 You can retrieve the email however by opening the MailSlurper UI at
 [127.0.0.1:4436](http://127.0.0.1:4436).
 
@@ -652,7 +653,7 @@ for pointers how to continue.
 To clean everything up, you need to bring down the Docker Compose environment
 and remove all mounted volumes.
 
-```shell script
+```sh
 docker-compose -f quickstart.yml down -v
 docker-compose -f quickstart.yml rm -fsv
 ```

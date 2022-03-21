@@ -15,9 +15,9 @@ use cases require these messages:
 ## Mail courier
 
 Ory Kratos processes email dispatch using a mail courier worker, which must run
-as a singleton in order to process the mail queue correctly. It can be run as a
-background worker on a single-instance Kratos setup or as a distinct singleton
-foreground worker in multi-instance deployments.
+as a singleton in order to process the mail queue. It can be run as a background
+worker on a single-instance Kratos setup or as a distinct singleton foreground
+worker in multi-instance deployments.
 
 ### Single instance
 
@@ -27,9 +27,9 @@ the `--watch-courier` flag to your `kratos serve` command, as outlined in the
 
 ### Multi-instance
 
-If you're running multiple instances of Kratos (e.g. replicated Kubernetes
-deployment), you need to run the mail courier as a separate singleton job. The
-courier can be started with the `kratos courier watch` command
+If you're running multiple instances of Kratos (for example replicated
+Kubernetes deployment), you need to run the mail courier as a separate singleton
+job. The courier can be started with the `kratos courier watch` command
 ([CLI docs](../cli/kratos-courier.md)).
 
 ## Sending E-Mails via SMTP
@@ -39,7 +39,7 @@ set up in the configuration file using an absolute URL with the `smtp` or
 `smtps` scheme:
 
 ```yaml title="path/to/my/kratos/config.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 courier:
   smtp:
     connection_uri: smtps://foo:bar@my-smtp-server:1234/
@@ -63,7 +63,7 @@ You can customize the sender address and email templates by overriding path to
 the templates folder. See more about custom templates in templates section.
 
 ```yaml title="path/to/my/kratos/config.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 courier:
   ## SMTP Sender Address ##
   #
@@ -73,7 +73,7 @@ courier:
   #
   # Set this value using environment variables on
   # - Linux/macOS:
-  #    $ export COURIER_SMTP_FROM_ADDRESS=<value>
+  #    export COURIER_SMTP_FROM_ADDRESS=<value>
   # - Windows Command Line (CMD):
   #    > set COURIER_SMTP_FROM_ADDRESS=<value>
   #
@@ -88,7 +88,7 @@ courier:
   #
   # Set this value using environment variables on
   # - Linux/macOS:
-  #    $ export COURIER_TEMPLATE_OVERRIDE_PATH=<value>
+  #    export COURIER_TEMPLATE_OVERRIDE_PATH=<value>
   # - Windows Command Line (CMD):
   #    > set COURIER_TEMPLATE_OVERRIDE_PATH=<value>
   #
@@ -134,13 +134,13 @@ courier:
       # the configuration structure is the same as the verification
 ```
 
-### Custom Headers
+### Custom SMTP Headers
 
 You can configure custom SMTP headers. For example, if integrating with AWS SES
 SMTP interface, the headers can be configured for cross-account sending:
 
 ```yaml title="path/to/my/kratos/config.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 courier:
   smtp:
     headers:
@@ -158,7 +158,7 @@ below.
 
 ### Configuration
 
-Default configuration of Ory Kratos does not include sending SMS. To enable it
+Default configuration of Ory Kratos doesn't include sending SMS. To enable it
 you need to set "enabled" flag to true, sender URL, authorization (if needed)
 and request body format.
 
@@ -169,7 +169,7 @@ SMS sender settings you can use letters here (for example "Your Org Name").
 Default value is equal to "Ory Kratos".
 
 ```yaml title="path/to/my/kratos/config.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 courier:
   sms:
     from: '+12065550110'
@@ -178,7 +178,7 @@ courier:
 #### Request configuration
 
 ```yaml title="path/to/my/kratos/config.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
+# kratos -c path/to/my/kratos/config.yml serve
 courier:
   sms:
     request_config:
@@ -197,20 +197,20 @@ courier:
 The configuration consists of:
 
 - `url` - the URL, which should be called (mandatory). It needs to be absolute,
-  start with http:// or https:// scheme, and include path part - e.g.
+  start with http:// or https:// scheme, and include path part - for example
   "https://api.sender.com/v1/message".
 - `method` - the HTTP method (GET, POST, ...) (mandatory)
 - `body` - URI of a JsonNet template, used to render the payload to send
   (optional). Use a `file://path/to/body.jsonnet` URL for referring to local
-  files. This property is ignored for HTTP `method`s, which do not support
+  files. This property is ignored for HTTP `method`s, which don't support
   sending of HTTP body payloads (TRACE).
 - `auth` - configuration of authentication and authorization mechanisms to be
   used by request
 
 Courier binds the `from`, `to`, and `body` variables into the JsonNet template.
-These variables are available through a `ctx` object. E.g. to create a body
-looking like `{ to: "<some-number>" }` to be sent to the SMS provider endpoint,
-the jsonnet template would look like this:
+These variables are available through a `ctx` object. For example to create a
+body looking like `{ to: "<some-number>" }` to be sent to the SMS provider
+endpoint, the jsonnet template would look like this:
 
 ```jsonnet
 function(ctx) {
@@ -254,7 +254,7 @@ templates, you can use two methods.
 1. Define each template individually through `templates` as shown above for
    `recovery.invalid`, `recovery.valid`, `verification.invalid` and
    `verification.valid`. None of the configurations listed are mandatory and
-   will always fallback to the build-in templates or what is defined by
+   will always fallback to the build-in templates or what's defined by
    `template_override_path`.
 2. Define `template_override_path`, as shown above, to indicate where your
    custom templates are located. This will become the `<template-root>` for your
@@ -338,7 +338,7 @@ You can use nested templates to render `email.subject.gotmpl`,
 
 Using nested templates, you can either use in-line template definitions, or as
 in this example, use separate templates. In this example, we will define the
-email body for recovery e-mails. Assuming that we have an attribute named `lang`
+email body for recovery e-mails. Assuming that we've an attribute named `lang`
 that contains the required language in the `traits` of the identity, we can
 define our templates as indicated below.
 
@@ -376,8 +376,8 @@ also in the nested templates.
 ### Nested templates with remote templates
 
 When remote templates are used in Kratos, the dynamics of loading nested
-templates change. The templates cannot reference templates outside itself as
-with templates loaded from a singular directory.
+templates change. The templates can't reference templates outside itself as with
+templates loaded from a singular directory.
 
 The template will need to contain the nested templates in the same file. See
 below for an example.
@@ -385,7 +385,7 @@ below for an example.
 ```yaml title="path/to/my/kratos/config.yml"
 courier:
   templates:
-    verify:
+    verification:
       email:
         body:
           plaintext: https://some-remote-template/tmp.gotmpl
@@ -405,19 +405,4 @@ courier:
 {{ template "en_US" . }}
 {{- end -}}
 
-```
-
-### Custom Headers
-
-You can configure custom SMTP headers. For example, if integrating with AWS SES
-SMTP interface, the headers can be configured for cross-account sending:
-
-```yaml title="path/to/my/kratos/config.yml"
-# $ kratos -c path/to/my/kratos/config.yml serve
-courier:
-  smtp:
-    headers:
-      X-SES-SOURCE-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
-      X-SES-FROM-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
-      X-SES-RETURN-PATH-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
 ```

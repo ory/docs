@@ -6,7 +6,7 @@ title: Mutators
 A mutator transforms the credentials from incoming requests to credentials that
 your backend understands. For example, the `Authorization: basic` header might
 be transformed to `X-User: <subject-id>`. This allows you to write backends that
-do not care if the original request was an anonymous one, an OAuth 2.0 Access
+don't care if the original request was an anonymous one, an OAuth 2.0 Access
 Token, or some other credential type. All your backend has to do is understand,
 for example, the `X-User:`.
 
@@ -15,11 +15,11 @@ Response.
 
 ## `noop`
 
-This mutator does not transform the HTTP request and simply forwards the headers
+This mutator doesn't transform the HTTP request and simply forwards the headers
 as-is. This is useful if you don't want to replace, for example,
 `Authorization: basic` with `X-User: <subject-id>`.
 
-### Configuration
+### `noop` Configuration
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -38,10 +38,10 @@ mutators:
   - handler: noop
 ```
 
-### Access Rule Example
+### `noop` Access Rule Example
 
 ```shell
-$ cat ./rules.json
+cat ./rules.json
 {
   "id": "some-id",
   "upstream": {
@@ -68,44 +68,44 @@ $ cat ./rules.json
   ]
 }
 
-$ curl -X GET http://my-app/some-route
+curl -X GET http://my-app/some-route
 
 HTTP/1.0 200 Status OK
-The request has been allowed! The original HTTP Request has not been modified.
+The request has been allowed! The original HTTP Request hasn't been modified.
 ```
 
 ## `id_token`
 
-This mutator takes the authentication information (e.g. subject) and transforms
-it to a signed JSON Web Token, and more specifically to an OpenID Connect ID
-Token. Your backend can verify the token by fetching the (public) key from the
-`/.well-known/jwks.json` endpoint provided by the ORY Oathkeeper API.
+This mutator takes the authentication information (such as subject) and
+transforms it to a signed JSON Web Token, and more specifically to an OpenID
+Connect ID Token. Your backend can verify the token by fetching the (public) key
+from the `/.well-known/jwks.json` endpoint provided by the Ory Oathkeeper API.
 
-Let's say a request is made to a resource protected by ORY Oathkeeper using
+Let's say a request is made to a resource protected by Ory Oathkeeper using
 Basic Authorization:
 
-```
+```bash
 GET /api/resource HTTP/1.1
 Host: www.example.com
 Authorization: Basic Zm9vOmJhcg==
 ```
 
-Assuming that ORY Oathkeeper is granting the access request,
+Assuming that Ory Oathkeeper is granting the access request,
 `Basic Zm9vOmJhcg==` will be replaced with a cryptographically signed JSON Web
 Token:
 
-```
+```bash
 GET /api/resource HTTP/1.1
 Host: internal-api-endpoint-dns
 Authorization: Bearer <jwt-signed-id-token>
 ```
 
 Now, the protected resource is capable of decoding and validating the JSON Web
-Token using the public key supplied by ORY Oathkeeper's API. The public key for
-decoding the ID token is available at ORY Oathkeeper's `/.well-known/jwks.json`
+Token using the public key supplied by Ory Oathkeeper's API. The public key for
+decoding the ID token is available at Ory Oathkeeper's `/.well-known/jwks.json`
 endpoint:
 
-```
+```bash
 http://oathkeeper:4456/.well-known/jwks.json
 ```
 
@@ -133,14 +133,14 @@ The ID Token Claims are as follows:
 - `iss`: Issuer Identifier for the Issuer of the response. The iss value is a
   case sensitive URL using the https scheme that contains scheme, host, and
   optionally, port number and path components and no query or fragment
-  components. Typically, this is the URL of ORY Oathkeeper, for example:
+  components. Typically, this is the URL of Ory Oathkeeper, for example:
   `https://oathkeeper.myapi.com`.
 - `sub`: Subject Identifier. A locally unique and never reassigned identifier
   within the Issuer for the End-User, which is intended to be consumed by the
-  Client, e.g., 24400320 or AItOawmwtWwcT0k51BayewNvutrJUqsvl6qs7A4. It must not
-  exceed 255 ASCII characters in length. The sub value is a case sensitive
-  string. The End-User might also be an OAuth 2.0 Client, given that the access
-  token was granted using the OAuth 2.0 Client Credentials flow.
+  Client, for example, 24400320 or AItOawmwtWwcT0k51BayewNvutrJUqsvl6qs7A4. It
+  must not exceed 255 ASCII characters in length. The sub value is a case
+  sensitive string. The End-User might also be an OAuth 2.0 Client, given that
+  the access token was granted using the OAuth 2.0 Client Credentials flow.
 - `aud`: Audience(s) that this ID Token is intended for. It MUST contain the
   OAuth 2.0 client_id of the Relying Party as an audience value. It MAY also
   contain identifiers for other audiences. In the general case, the aud value is
@@ -150,16 +150,14 @@ The ID Token Claims are as follows:
   date/time MUST be before the expiration date/time listed in the value. Its
   value is a JSON number representing the number of seconds from
   1970-01-01T0:0:0Z as measured in UTC until the date/time. See RFC 3339
-  [RFC3339] for details regarding date/times in general and UTC in particular.
+  [RFC3339] for details regarding date/times and UTC in particular.
 - `iat`: Time at which the JWT was issued. Its value is a JSON number
   representing the number of seconds from 1970-01-01T0:0:0Z as measured in UTC
   until the date/time.
 - `jti`: A cryptographically strong random identifier to ensure the ID Token's
   uniqueness.
 
-### Global Configuration
-
-### Configuration
+### `id_token` Configuration
 
 - `issuer_url` (string, required) - Sets the "iss" value of the ID Token.
 - `jwks_url` (string, required) - Sets the URL where keys should be fetched
@@ -209,14 +207,14 @@ The first private key found in the JSON Web Key Set defined by
 `mutators.id_token.jwks_url` will be used for signing the JWT:
 
 - If the first key found is a symmetric key (`HS256` algorithm), that key will
-  be used. That key **will not** be broadcasted at `/.well-known/jwks.json`. You
-  must manually configure the upstream to be able to fetch the key (e.g. from an
-  environment variable).
-- If the first key found is an asymmetric private key (e.g. `RS256`, `ES256`,
-  ...), that key will be used. The related public key will be broadcasted at
-  `/.well-known/jwks.json`.
+  be used. That key **won't** be broadcasted at `/.well-known/jwks.json`. You
+  must manually configure the upstream to be able to fetch the key (for example
+  from an environment variable).
+- If the first key found is an asymmetric private key (for example `RS256`,
+  `ES256`, ...), that key will be used. The related public key will be
+  broadcasted at `/.well-known/jwks.json`.
 
-#### Claims
+#### `id_token` Claims
 
 This mutator allows you to specify custom claims, like the audience of ID
 tokens, via the `claims` field of the mutator's `config` field. The keys
@@ -237,13 +235,13 @@ The claims configuration expects a string which is expected to be valid JSON:
 }
 ```
 
-Please keep in mind that certain keys (such as the `sub`) claim **can not** be
+Please keep in mind that certain keys (such as the `sub`) claim **can't** be
 overwritten!
 
-### Access Rule Example
+### `id_token` Access Rule Example
 
 ```shell
-$ cat ./rules.json
+cat ./rules.json
 {
   "id": "some-id",
   "upstream": {
@@ -284,7 +282,7 @@ This mutator will transform the request, allowing you to pass the credentials to
 the upstream application via the headers. This will augment, for example,
 `Authorization: basic` with `X-User: <subject-id>`.
 
-### Configuration
+### `header` Configuration
 
 - `headers` (object (`string: string`), required) - A keyed object
   (`string:string`) representing the headers to be added to this request, see
@@ -324,7 +322,7 @@ package for value substitution, receiving the `AuthenticationSession` struct.
 
 For more details please check [Session variables](../pipeline.md#session)
 
-### Access Rule Example
+### `header` Access Rule Example
 
 ```json
 {
@@ -363,7 +361,7 @@ For more details please check [Session variables](../pipeline.md#session)
 This mutator will transform the request, allowing you to pass the credentials to
 the upstream application via the cookies.
 
-### Configuration
+### `cookie` Configuration
 
 - `cookies` (object (`string: string`), required) - A keyed object
   (`string:string`) representing the cookies to be added to this request, see
@@ -403,7 +401,7 @@ package for value substitution, receiving the `AuthenticationSession` struct.
 
 For more details please check [Session variables](../pipeline.md#session)
 
-##### Example
+#### `cookie` Example
 
 ```json
 {
@@ -480,11 +478,11 @@ Example request/response payload:
 ```
 
 The AuthenticationSession from this object replaces the original one and is
-passed to the next mutator, where it can be used to e.g. set a particular cookie
-to the value received from an API.
+passed to the next mutator, where it can be used to set a particular cookie to
+the value received from an API.
 
-Setting `extra` field does not transform the HTTP request, whereas headers set
-in the `header` field will be added to the final request headers.
+Setting `extra` field doesn't transform the HTTP request, whereas headers set in
+the `header` field will be added to the final request headers.
 
 ### Cache
 
@@ -498,7 +496,7 @@ of cache misses. This will be improved in future versions.
 
 :::
 
-### Configuration
+### `hydrator` Configuration
 
 - `api.url` (string - required) - The API URL.
 - `api.auth.basic.*` (optional) - Enables HTTP Basic Authorization.
@@ -546,7 +544,7 @@ mutators:
         ttl: 60s
 ```
 
-### Access Rule Example
+### `hydrator` Access Rule Example
 
 ```json
 {

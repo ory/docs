@@ -129,11 +129,11 @@ When performing the `urn:ietf:params:oauth:grant-type:jwt-bearer` Authorization
 Grant, the JWT Bearer in the `assertion` parameter is validated as follows:
 
 1. The JWT MUST contain an `iss` (issuer) claim that contains a unique
-   identifier for the entity that issued the JWT. The value must match the
+   identifier for the entity that'ssued the JWT. The value must match the
    `issuer` value of the trust relationship.
 2. The JWT MUST contain a `sub` (subject) claim identifying the principal that
-   is the subject of the JWT (e.g. user ID). The value must match the `subject`
-   value of the trust relationship.
+   is the subject of the JWT (for example the user ID). The value must match the
+   `subject` value of the trust relationship.
 3. The JWT MUST contain an `aud` (audience) claim containing a value that
    identifies the authorization server (Hydra) as an intended audience. So this
    value must be Hydra Token URL.
@@ -144,13 +144,13 @@ Grant, the JWT Bearer in the `assertion` parameter is validated as follows:
    before which the token MUST NOT be accepted for processing by Hydra.
 6. The JWT MAY contain an `iat` (issued at) claim that identifies the time at
    which the JWT was issued. Controlled by `oauth2.grant.jwt.iat_optional`
-   (default `false`) If `iat` is not passed, then current time (when assertion
-   is received by Hydra) will be considered as issued date.
+   (default `false`) If `iat` isn't passed, then current time (when assertion is
+   received by Hydra) will be considered as issued date.
 7. The JWT MAY contain a `jti` (JWT ID) claim that provides a unique identifier
    for the token. Controlled by `oauth2.grant.jwt.jti_optional` (default
    `false`) setting. **Note**: If `jti` is configured to be required, then Hydra
    will reject all assertions with the same `jti`, if `jti` was already used by
-   some assertion, and this assertion is not expired yet (see `exp` claim).
+   some assertion, and this assertion isn't expired yet (see `exp` claim).
 8. The JWT MUST be digitally signed.
 
 If a scope was included in the OAuth2 Access Token Request
@@ -171,7 +171,7 @@ relationship.
 ## Using JWTs for Client Authentication
 
 Ory Hydra supports OAuth 2.0 Client Authentication with RSA and ECDSA
-private/public keypairs with currently supported signing algorithms:
+private/public keypairs with supported signing algorithms:
 
 - RS256 (default), RS384, RS512
 - PS256, PS384, PS512
@@ -194,7 +194,7 @@ When authenticating the client at the token endpoint, you generate and sign
 - `sub`: REQUIRED. Subject. This MUST contain the client_id of the OAuth Client.
 - `aud`: REQUIRED. Audience. The aud (audience) Claim. Value that identifies the
   Authorization Server (Ory Hydra) as an intended audience. The Authorization
-  Server MUST verify that it is an intended audience for the token. The Audience
+  Server MUST verify that it's an intended audience for the token. The Audience
   SHOULD be the URL of the Authorization Server's Token Endpoint.
 - `jti`: REQUIRED. JWT ID. A unique identifier for the token, which can be used
   to prevent reuse of the token. These tokens MUST only be used once, unless

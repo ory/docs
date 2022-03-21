@@ -80,8 +80,8 @@ selfservice:
 ```
 
 `hook_1` is always run when the flow is started. On the finalization of the
-flow, `hook_2` is not run for the `password` method, but for the `oidc` method
-(for example). If the `password` method is used, then `hook_3` will run.
+flow, `hook_2` isn't run for the `password` method, but for the `oidc` method.
+If the `password` method is used, then `hook_3` will run.
 
 ## All flows
 
@@ -91,12 +91,12 @@ Following hooks can be configured for all flows.
 
 Web-Hooks can be configured for every, but error and logout flow and can be
 configured on either the before/after level or at the level of a particular
-method. Support for Web-Hooks before execution of a method is currently
-supported only for registration and login methods.
+method. Support for Web-Hooks before execution of a method is supported only for
+registration and login methods.
 
 :::note
 
-As of today Web-Hooks cannot control the execution of the flow by
+As of today Web-Hooks can't control the execution of the flow by
 patching/updating particular properties of flow specific object upon Web-Hook
 completion. It will however cancel the execution of the flow if the call to the
 Web-Hook end point fails either due to a network error or if the end point
@@ -125,7 +125,7 @@ The configuration section of a web-hook consists of
   (mandatory)
 - `body` - URI of a jsonnet template, used by the web-hook to render the payload
   to send (optional). Use a `file://path/to/body.jsonnet` URL for referring to
-  local files. This property is ignored for HTTP `method`s, which do not support
+  local files. This property is ignored for HTTP `method`s, which don't support
   sending of HTTP body payloads.
 - `auth` - configuration of authentication and authorization mechanisms to be
   used by the web-hook
@@ -135,9 +135,25 @@ request method (`request_method`), and the request url (`request_url`) of the
 flow into the jsonnet template for all methods and execution paths (before and
 after). For the `after` execution path of all flows, it binds the `identity`
 object into the jsonnet template as well. These objects are available through a
-`ctx` object. E.g. to create a body looking like `{ user_id: <some-id> }` to be
-send to the web hook end point, the jsonnet template would look like this:
+`ctx` object. To create a body looking like `{ user_id: <some-id> }` to be sent
+to the web hook endpoint, the Jsonnet template would look like this:
 `function(ctx) { user_id: ctx.identity.id }`
+
+#### Non-blocking webhooks
+
+Sometimes you need to notify a system without needing its response. For example,
+when a user signs up, their email address is added to the newsletter. If the
+system's response is not important, you can ignore the response and make the
+webhook execution non-blocking.
+
+To do that, set `response.ignore` to `true` in the webhook config:
+
+```yaml title="path/to/my/kratos.config.yml
+- hook: web_hook
+  config:
+    response:
+      ignore: true
+```
 
 #### Web-Hook Authentication and Authorization Mechanisms
 
@@ -168,7 +184,7 @@ All properties are mandatory.
 ## Login
 
 Hooks running before or after successful user login are defined per Self-Service
-Registration Method in ORY Kratos' configuration file.
+Registration Method in Ory Kratos' configuration file.
 
 ### Before
 
@@ -208,7 +224,7 @@ selfservice:
         <method>:
           hooks:
             - hook: revoke_active_sessions
-              # can not be configured
+              # can't be configured
 ```
 
 #### `require_verified_address`
@@ -224,7 +240,7 @@ selfservice:
         password:
           hooks:
             - hook: require_verified_address
-              # can not be configured
+              # can't be configured
 ```
 
 Please be aware, that since `require_verified_address` hook is enforcing a
@@ -237,7 +253,7 @@ configured by the user, thus having a backup if something goes wrong.
 ## Registration
 
 Hooks running before or after successful user registration are defined per
-Self-Service Registration Method in ORY Kratos' configuration file.
+Self-Service Registration Method in Ory Kratos' configuration file.
 
 ### Before
 
@@ -305,7 +321,7 @@ selfservice:
         <method>:
           hooks:
             - hook: session
-              # can not be configured
+              # can't be configured
 ```
 
 Depending on the registration flow type the behavior changes.
@@ -319,9 +335,9 @@ Therefore, the user is logged in immediately.
 
 ### Registration Flow via API
 
-When performing a registration flow with an API client (e.g. mobile apo), this
-hook creates a session and returns the session token and the session itself in
-the response body as application/json:
+When performing a registration flow with an API client (such as a mobile app),
+this hook creates a session and returns the session token and the session itself
+in the response body as application/json:
 
 ```json
 {
@@ -340,9 +356,9 @@ the response body as application/json:
 :::info
 
 Because the HTTP reply is handled by the hook itself, no other hooks can be
-executed because the HTTP reply can not be modified further (e.g. HTTP Status
-Code was already sent as 200 and cannot be changed to 301). You must ensure that
-the session hook is the last hook in your configuration!
+executed because the HTTP reply can't be modified further (for example HTTP
+Status Code was already sent as 200 and can't be changed to 301). You must
+ensure that the session hook is the last hook in your configuration!
 
 :::
 

@@ -32,9 +32,9 @@ continuing with this document.
 There are two Registration Flow types supported in Ory Kratos:
 
 - Flows where the user sits in front of the Browser and the application is
-  - a server-side application (e.g. NodeJS, Java, ...)
-  - a client-side application (e.g. ReactJS, AngularJS, ...)
-- Flows where API interaction is required (e.g. mobile app, Smart TV, ...)
+  - a server-side application (NodeJS, Java, ...)
+  - a client-side application (ReactJS, AngularJS, ...)
+- Flows where API interaction is required (Mobile app, Smart TV, ...)
 
 The Registration Flow can be summarized as the following state machine:
 
@@ -61,7 +61,7 @@ stateDiagram
 `}
 />
 
-Currently, two registration methods are supported:
+Two registration methods are supported:
 
 - `password` for signing up with an email / username and password;
 - `oidc` for signing up using a social sign in provider such as Google or
@@ -76,7 +76,7 @@ Currently, two registration methods are supported:
   ]}>
   <TabItem value="oc">
 
-Currently, only the password method is enabled.
+Only the password method is enabled.
 
   </TabItem>
   <TabItem value="oss">
@@ -118,7 +118,7 @@ To initialize the Registration Flow, point the Browser to the initialization
 endpoint:
 
 ```shell-session
-$ curl -s -i -X GET \
+curl -s -i -X GET \
     -H "Accept: text/html" \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/browser
 
@@ -184,7 +184,7 @@ To initialize the Registration Flow, call the registration initialization
 endpoint and set `Accept: application/json`:
 
 ```
-$ curl -v -s -X GET \
+curl -v -s -X GET \
     -H "Accept: application/json"  \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/browser | jq
 
@@ -222,7 +222,7 @@ $ curl -v -s -X GET \
 
 <ApiWarning />
 
-The Registration Flow for API clients does not use HTTP Redirects and can be
+The Registration Flow for API clients doesn't use HTTP Redirects and can be
 summarized as follows:
 
 <SelfServiceApiFlow
@@ -237,7 +237,7 @@ endpoint
 which returns a JSON response:
 
 ```shell-session
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Accept: application/json"  \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/api | jq
 
@@ -265,11 +265,11 @@ only required for browser clients but also works for Registration Flows
 initialized by API clients. All you need is a valid Registration Flow ID:
 
 ```shell-session
-$ flowId=$(curl -s -X GET \
+flowId=$(curl -s -X GET \
     -H "Accept: application/json" \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/api | jq -r '.id')
 
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Accept: application/json" \
     "https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/flows?id=$flowId" | jq
 
@@ -300,7 +300,7 @@ first.
 When the `password` method is enabled, it will be part of the `methods` payload
 in the Registration Flow. Ory Kratos uses the Identity Schema defined in
 `identity.default_schema_id` to generate a list of form fields and add it to the
-Registration Flow. Assuming we are using the Identity Schema from the Quickstart
+Registration Flow. Assuming we're using the Identity Schema from the Quickstart
 
 <CodeFromRemote
   language="json"
@@ -311,7 +311,7 @@ Registration Flow. Assuming we are using the Identity Schema from the Quickstart
 the response would look as such:
 
 ```shell script
-$ curl -H "Accept: application/json" -s \
+curl -H "Accept: application/json" -s \
     'https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/flows?id=388ae8da-4c44-4765-bfa8-669963d388f5' | jq
 
 {
@@ -453,8 +453,8 @@ The Social Sign Up Method (`oidc`) enables you to use
 
 :::warning
 
-Social Sign Up is currently not possible for API Clients. It will be possible in
-a future version, which is partially tracked as
+Social Sign Up is not possible for API Clients. It will be possible in a future
+version, which is partially tracked as
 [kratos#273](https://github.com/ory/kratos/issues/273)
 
 :::
@@ -463,7 +463,7 @@ If enabled, the method contains an `oidc` key with the configured sign in
 providers as submit fields:
 
 ```shell script
-$ curl -H "Accept: application/json" -s \
+curl -H "Accept: application/json" -s \
   'https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/flows?id=c1f4dfd1-3559-4cd3-b6f6-4a83689a41bd' | jq
 
 {
@@ -543,7 +543,7 @@ The form payloads are then submitted to Ory Kratos which follows up with:
 - An HTTP 303 See Other redirect pointing to the Registration UI for Browser
   Clients;
 - An `application/json` response for API Clients and Client-Side Browser
-  applications (e.g. Single Page Apps).
+  applications (for example Single Page Apps).
 
 ### Registration with Username/Email and Password
 
@@ -583,9 +583,9 @@ Schema, for example:
  }
 ```
 
-If the registration payload is invalid (e.g. the password does not match the
-password policy, the email is missing, ...), the password method includes the
-validation errors:
+If the registration payload is invalid (for example the password doesn't match
+the password policy, the email is missing, ...), the password method includes
+the validation errors:
 
 <CodeTabs items={getFlowMethodPasswordWithErrors} />
 
@@ -600,7 +600,7 @@ Registration Flow in the response payload as JSON.
 
 Completing the `oidc` method requires the user to go through an OAuth 2.0 or
 OpenID Connect flow which involves logging into the upstream identity provider
-(e.g. Google) and giving consent.
+(for example Google) and giving consent.
 
 :::note
 
@@ -614,8 +614,8 @@ A possible validation error is a missing ID Token:
 <CodeTabs items={getFlowMethodOidcWithErrors} />
 
 What may also happen is that the Ory Kratos Identity Schema JSON includes a
-field which is required but was not provided by the upstream identity provider
-(e.g. Google). In those cases, the end-user's browser is returned to the
+field which is required but wasn't provided by the upstream identity provider
+(for example Google). In those cases, the end-user's browser is returned to the
 registration screen with the form validation errors.
 
 Let's assume the Ory Kratos Identity Schema JSON requires a `website` trait
@@ -655,10 +655,10 @@ Let's assume the Ory Kratos Identity Schema JSON requires a `website` trait
  }
 ```
 
-which was not provided by the upstream identity provider. This can happen when
-the user refuses to accept a certain scope (e.g. "Allow Ory Kratos access to my
-website") or if the provider simply does not have this data (e.g. the upstream
-identity provider does not collect the user's website).
+which wasn't provided by the upstream identity provider. This can happen when
+the user refuses to accept a certain scope (for example "Allow Ory Kratos access
+to my website") or if the provider simply doesn't have this data (for example
+the upstream identity provider doesn't collect the user's website).
 
 In that case the end-user ends up at the registration screen and is prompted to
 provide the missing or invalid fields:
@@ -668,13 +668,13 @@ provide the missing or invalid fields:
 ## Successful Registration
 
 Completing the registration behaves differently for Browser and API Clients. The
-Registration Flow does not issue a Ory Kratos Login Session automatically which
-prevents Account Enumeration Attacks. If these types of attacks are not your
+Registration Flow doesn't issue a Ory Kratos Login Session automatically which
+prevents Account Enumeration Attacks. If these types of attacks aren't your
 concern, you can add the session hook which will issue a session after
 successful registration:
 
 ```yaml title="path/to/my/config/kratos.yml"
-# $ kratos -c path/to/my/config/kratos.yml serve
+# kratos -c path/to/my/config/kratos.yml serve
 selfservice:
   flows:
     registration:
@@ -689,7 +689,7 @@ selfservice:
 
 :::important
 
-It is very important to add the "session" hook to the after `oidc` registration
+It's very important to add the "session" hook to the after `oidc` registration
 hooks. Otherwise your users need to use the login flow again to be able to get a
 session. Account Enumeration Attacks with OpenID Connect sign in flows are
 typically not an issue if you follow the guidelines in the
@@ -886,14 +886,14 @@ signed up identity:
 
 ```shell script
 # Inits a Registration Flow
-$ actionUrl=$(\
+actionUrl=$(\
   curl -s -X GET -H "Accept: application/json" \
     "https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/api" \
     | jq -r '.ui.action'\
 )
 
 # Complete Registration Flow with password method
-$ curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/json" \
+curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/json" \
     -d '{"traits.email": "registration-api@user.org", "password": "fhAzi860a", "method": "password"}' \
     "$actionUrl" | jq
 
@@ -932,13 +932,13 @@ If the `session` after hook is enabled, the Ory Kratos Login Session and Ory
 Kratos Login Session Token are included in the response:
 
 ```shell script
-$ actionUrl=$(\
+actionUrl=$(\
   curl -s -X GET -H "Accept: application/json" \
     "https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/api" \
     | jq -r '.ui.action'\
 )
 
-$ curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/json" \
+curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/json" \
     -d '{"traits.email": "registration-api@user.org", "password": "fhAzi860a", "method": "password"}' \
     "$actionUrl" | jq
 
@@ -1009,9 +1009,9 @@ $ curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/j
 The Registration User Interface is a route (page / site) in your application
 (server, native app, single page app) that should render a registration form.
 
-In stark contrast to other Identity Systems, Ory Kratos does not render this
-HTML. Instead, you need to implement the HTML code in your application (e.g.
-NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
+In stark contrast to other Identity Systems, Ory Kratos doesn't render this
+HTML. Instead, you need to implement the HTML code in your application (for
+example NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
 flexibility and customizability in your user interface flows and designs.
 
 You will use the Registration Flow JSON response to render the registration form
@@ -1037,11 +1037,11 @@ Using the `/self-service/registration` with `POST` allows the creation of new
 user information
 
 ```shell-session
-$ actionUrl=$(curl -s -X GET  -H "Accept: application/json" \
+actionUrl=$(curl -s -X GET  -H "Accept: application/json" \
     https:/playground.projects.oryapis.com/api/kratos/public/self-service/registration/api  \
     | jq -r '.ui.action')
 
-$ curl -s -X POST -H "Content-Type: application/json" \
+curl -s -X POST -H "Content-Type: application/json" \
     -d '{"traits.email": "iminvisibleagain@google.com", "password": "__MY__PASSWORD__", "method": "password"}' \
     "$actionUrl" | jq
 ```

@@ -34,8 +34,8 @@ the Hydra source code is easy:
 Change into the directory with the Hydra source code and run the following
 command to start the needed containers:
 
-```shell script
-$ docker-compose -f quickstart.yml \
+```sh
+docker-compose -f quickstart.yml \
     -f quickstart-postgres.yml \
     up --build
 
@@ -47,24 +47,24 @@ Starting hydra_hydra_1
 This command adds support for PostgreSQL. If you wish to use another database
 backend, you can run this command to use MySQL:
 
-```shell script
-$ docker-compose -f quickstart.yml \
+```sh
+docker-compose -f quickstart.yml \
     -f quickstart-mysql.yml \
     up --build
 ```
 
 This one to use CockroachDB:
 
-```shell script
-$ docker-compose -f quickstart.yml \
+```sh
+docker-compose -f quickstart.yml \
     -f quickstart-cockroach.yml \
     up --build
 ```
 
 Or simply omit the second file to default to SQLite:
 
-```shell script
-$ docker-compose -f quickstart.yml \
+```sh
+docker-compose -f quickstart.yml \
     up --build
 ```
 
@@ -75,8 +75,8 @@ please examine the `scripts/5-min-tutorial.sh` and `docker-compose*.yml` files.
 You may also extend the command above to enable distributed tracing. The tracing
 UI is exposed at [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search):
 
-```shell script
-$ docker-compose -f quickstart.yml \
+```sh
+docker-compose -f quickstart.yml \
     -f quickstart-postgres.yml \
     -f quickstart-tracing.yml \
     up --build
@@ -87,8 +87,8 @@ following command to start the needed containers, and status of Hydra is exposed
 at targets page in Prometheus
 [http://localhost:9090/targets](http://localhost:9090/targets):
 
-```shell script
-$ docker-compose -f quickstart.yml \
+```sh
+docker-compose -f quickstart.yml \
   -f quickstart-prometheus.yml \
   up --build
 ```
@@ -96,8 +96,8 @@ $ docker-compose -f quickstart.yml \
 If you want to test Hardware Security Module add `-f quickstart-hsm.yml`. For
 more information head over to [HSM support](./guides/hsm-support.md).
 
-```shell script
-$ docker-compose -f quickstart.yml \
+```sh
+docker-compose -f quickstart.yml \
     -f quickstart-hsm.yml \
     up --build
 ```
@@ -114,8 +114,8 @@ head over to [Exposing Administrative and Public API Endpoints](production).
 
 Let's create the OAuth 2.0 Client:
 
-```shell script
-$ docker-compose -f quickstart.yml exec hydra \
+```sh
+docker-compose -f quickstart.yml exec hydra \
     hydra clients create \
     --endpoint http://127.0.0.1:4445/ \
     --id my-client \
@@ -125,8 +125,8 @@ $ docker-compose -f quickstart.yml exec hydra \
 
 Let's perform the client credentials grant:
 
-```shell script
-$ docker-compose -f quickstart.yml exec hydra \
+```sh
+docker-compose -f quickstart.yml exec hydra \
     hydra token client \
     --endpoint http://127.0.0.1:4444/ \
     --client-id my-client \
@@ -138,8 +138,8 @@ UDYMha9TwsMBejEvKfnDOXkhgkLsnmUNYVQDklT5bD8.ZNpuNRC85erbIYDjPqhMwTinlvQmNTk_Uvtt
 Let's perform token introspection on that token. Make sure to copy the token you
 just got and not the dummy value.
 
-```shell script
-$ docker-compose -f quickstart.yml exec hydra \
+```sh
+docker-compose -f quickstart.yml exec hydra \
     hydra token introspect \
     --endpoint http://127.0.0.1:4445/ \
     UDYMha9TwsMBejEvKfnDOXkhgkLsnmUNYVQDklT5bD8.ZNpuNRC85erbIYDjPqhMwTinlvQmNTk_UvttcLQxFJY
@@ -156,10 +156,10 @@ $ docker-compose -f quickstart.yml exec hydra \
 ```
 
 Next, we will perform the OAuth 2.0 Authorization Code Grant. For that, we must
-first create a client that is capable of performing that grant:
+first create a client that's capable of performing that grant:
 
-```shell script
-$ docker-compose -f quickstart.yml exec hydra \
+```sh
+docker-compose -f quickstart.yml exec hydra \
     hydra clients create \
     --endpoint http://127.0.0.1:4445 \
     --id auth-code-client \
@@ -171,15 +171,15 @@ $ docker-compose -f quickstart.yml exec hydra \
 ```
 
 Note that you need to add `--token-endpoint-auth-method none` if your clients
-are public (such as SPA apps and native apps) because the public clients cannot
+are public (such as SPA apps and native apps) because the public clients can't
 provide client secrets.
 
 The following command starts a server that serves an example web application.
 The application will perform the OAuth 2.0 Authorization Code Flow using Ory
 Hydra. The web server runs on [http://127.0.0.1:5555](http://127.0.0.1:5555).
 
-```shell script
-$ docker-compose -f quickstart.yml exec hydra \
+```sh
+docker-compose -f quickstart.yml exec hydra \
     hydra token user \
     --client-id auth-code-client \
     --client-secret secret \
@@ -190,7 +190,7 @@ $ docker-compose -f quickstart.yml exec hydra \
 Setting up home route on http://127.0.0.1:5555/
 Setting up callback listener on http://127.0.0.1:5555/callback
 Press ctrl + c on Linux / Windows or cmd + c on OSX to end the process.
-If your browser does not open automatically, navigate to:
+If your browser doesn't open automatically, navigate to:
 
         http://127.0.0.1:5555/
 ```
@@ -204,9 +204,9 @@ Great! You installed Ory Hydra, connected the CLI, created a client and
 completed two authentication flows! Before you continue, clean up this set up in
 order to avoid conflicts with other tutorials from this guide:
 
-```shell script
-$ docker-compose -f quickstart.yml kill
-$ docker-compose -f quickstart.yml rm -f -v
+```sh
+docker-compose -f quickstart.yml kill
+docker-compose -f quickstart.yml rm -f -v
 ```
 
 ### Quickstart Configuration

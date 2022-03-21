@@ -8,11 +8,35 @@
     {
       "source": "/",
       "destination": "https://www.ory.sh/docs",
+      "has": [
+        {
+          "type": "header",
+          "key": "host",
+          "value": "docs-omega-six.vercel.app"
+        }
+      ],
       "permanent": false
     },
     {
       "source": "/docs(/|)",
       "destination": "https://www.ory.sh/docs/welcome",
+      "has": [
+        {
+          "type": "header",
+          "key": "host",
+          "value": "docs-omega-six.vercel.app"
+        }
+      ],
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "destination": "/docs",
+      "permanent": false
+    },
+    {
+      "source": "/docs(/|)",
+      "destination": "/docs/welcome",
       "permanent": false
     },
     {

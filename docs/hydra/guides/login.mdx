@@ -22,7 +22,7 @@ is highly appreciated in improving these docs!
 
 :::note
 
-The Login HTML Form cannot be only a Single Page App (Client-side browser
+The Login HTML Form can't be only a Single Page App (Client-side browser
 application) or a Mobile App! There has to be a server-side component with
 access to Ory Hydra's Admin Endpoint!
 
@@ -71,14 +71,14 @@ router.get('/login', csrfProtection, (req, res, next) => {
   const challenge = String(query.login_challenge)
 
   hydraAdmin.getLoginRequest(challenge).then(({ body }) => {
-    // If hydra was already able to authenticate the user, skip will be true and we do not need to re-authenticate
+    // If hydra was already able to authenticate the user, skip will be true and we don't need to re-authenticate
     // the user.
     if (body.skip) {
       // You can apply logic here, for example update the number of times the user logged in.
       // ...
 
       // Now it's time to grant the login request. You could also deny the request if something went terribly wrong
-      // (e.g. your arch-enemy logging in...)
+      // (for example your arch-enemy logging in!)
       return hydraAdmin
         .acceptLoginRequest(challenge, {
           // All we need to do is to confirm that we indeed want to log in the user.
@@ -152,7 +152,7 @@ router.post('/login', csrfProtection, (req, res, next) => {
     res.render('login', {
       csrfToken: req.csrfToken(),
       challenge: challenge,
-      error: 'The username / password combination is not correct'
+      error: 'The username / password combination isn't correct'
     })
     return
   }
@@ -170,7 +170,7 @@ router.post('/login', csrfProtection, (req, res, next) => {
       // When the session expires, in seconds. Set this to 0 so it will never expire.
       rememberFor: 3600
 
-      // Sets which "level" (e.g. 2-factor authentication) of authentication the user has. The value is really arbitrary
+      // Sets which "level" (for example 2-factor authentication) of authentication the user has. The value is really arbitrary
       // and optional. In the context of OpenID Connect, a value of 0 indicates the lowest authorization level.
       // acr: '0',
     })
@@ -196,12 +196,12 @@ router.post('/login', csrfProtection, (req, res, next) => {
 <TabItem value="node">
 
 ```typescript
-// You can deny the login request at any point - for example if the system is currently undergoing maintenance
-// or the user has been banned, is not allowed to use OAuth2 flows, and so on:
+// You can deny the login request at any point - for example if the system is undergoing maintenance
+// or the user has been banned, isn't allowed to use OAuth2 flows, and so on:
 hydraAdmin
   .rejectLoginRequest(challenge, {
     error: 'user_banned',
-    errorDescription: 'You are not allowed to log in!'
+    errorDescription: 'You aren't allowed to log in!'
   })
   .then(({ body }) => {
     // All we need to do now is to redirect the browser back to hydra!

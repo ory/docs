@@ -18,7 +18,7 @@ uses libmusl. All Docker images (`kratos:<version>`) without the postfix
 libmusl.
 
 If you don't make use of the embedded SQLite support we recommend to use the
-Docker images without SQLite support as they are smaller in size, include fewer
+Docker images without SQLite support as they're smaller in size, include fewer
 libraries and therefore have a smaller attack surface.
 
 ## How to use these images
@@ -34,7 +34,7 @@ simple to pass in your own configuration files.
 
 This environment variable allows you to specify the database source name. As the
 `DSN` normally consists of the url to the database system and the credentials to
-access the database it is recommended to specify the `DSN` using a Environment
+access the database it's recommended to specify the `DSN` using a Environment
 variable.
 
 **Example:**
@@ -53,10 +53,10 @@ verify signatures and encrypt things:
 ### Volumes
 
 If the file `$HOME/.kratos.yaml` exists, it will be used as the configuration
-file. The provided Kratos Docker images currently do not include a default
-configuration file, but make it easy to pass in your own configuration file(s)
-by either binding a local directory or by creating your own custom Docker Image
-and adding the configuration file(s) to the custom image.
+file. The provided Kratos Docker images don't include a default configuration
+file, but make it easy to pass in your own configuration file(s) by either
+binding a local directory or by creating your own custom Docker Image and adding
+the configuration file(s) to the custom image.
 
 #### Binding host directory
 
@@ -71,7 +71,7 @@ docker run -it -e DSN="memory" \
        oryd/kratos:latest-sqlite
 ```
 
-In general we only recommend this approach for local development.
+We only recommend this approach for local development.
 
 #### Creating custom Docker image
 

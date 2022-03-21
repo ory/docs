@@ -3,11 +3,11 @@ id: case-study
 title: OAuth 2.0 Case Study
 ---
 
-OAuth2 and OpenID Connect are tricky to understand. It is important to keep in
+OAuth2 and OpenID Connect are tricky to understand. It's important to keep in
 mind that OAuth2 is a delegation protocol. Let's look at a use case to
 understand how Hydra makes sense in new and existing projects.
 
-Let's assume we are running todo24.com, a ToDo list app. ToDo24 has a login
+Let's assume we're running todo24.com, a ToDo list app. ToDo24 has a login
 endpoint (todo24.com/login). The login endpoint is written in Node.JS and uses
 MongoDB to store user information (email + password + user profile). Of course,
 ToDo24 has other services as well: list management (todo24.com/lists: create,
@@ -44,8 +44,8 @@ back to Ory Hydra. Next, Ory Hydra needs the user's consent. It redirects the
 user agent to the consent endpoint (todo24.com/consent) where the user is asked
 something like _"Do you want to grant MyAnalyticsApp read access to your todo
 lists? [Yes][no]"_. Once the user gives consent by clicking _Yes_, the consent
-endpoint redirects back to Ory Hydra. Hydra validates the request and finally
-issues the access, refresh, and ID tokens.
+endpoint redirects back to Ory Hydra. Hydra validates the request and issues the
+access, refresh, and ID tokens.
 
 You can validate the access tokens which are sent to your API directly at Ory
 Hydra, or use an Identity & Access Proxy like Ory Oathkeeper to do it for you.

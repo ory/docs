@@ -3,7 +3,7 @@ id: authz
 title: Authorizers
 ---
 
-An "authorizer" is responsible for properly permissioning a subject. ORY
+An "authorizer" is responsible for properly permissioning a subject. Ory
 Oathkeeper supports different kinds of authorizers. The list of authorizers
 increases over time due to new features and requirements.
 
@@ -15,11 +15,10 @@ to the endpoint.
 
 Each authorizer has two keys:
 
-- `handler` (string, required): Defines the handler, e.g. `noop`, to be used.
+- `handler` (string, required): Defines the handler, for example `noop`, to be
+  used.
 - `config` (object, optional): Configures the handler. Configuration keys can
-  vary for each handler.
-
-**Example**
+  vary for each handler.s
 
 ```json
 {
@@ -31,15 +30,15 @@ Each authorizer has two keys:
 ```
 
 There is a 1:1 mandatory relationship between an authoriser and an access rule.
-It is not possible to configure more than one authorizer per Access Rule.
+It isn't possible to configure more than one authorizer per Access Rule.
 
 ## `allow`
 
 This authorizer permits every action allowed.
 
-### Configuration
+### `allow` Configuration
 
-This handler is not configurable.
+This handler isn't configurable.
 
 To enable this handler, set as follows:
 
@@ -51,7 +50,7 @@ authorizers:
     enabled: true
 ```
 
-### Access Rule Example
+### `allow` Access Rule Example
 
 ```sh
 $ cat ./rules.json
@@ -83,9 +82,9 @@ The request has been allowed!
 This authorizer considers every action unauthorized therefore "forbidden" or
 "disallowed".
 
-### Configuration
+### `deny` Configuration
 
-This handler is not configurable.
+This handler isn't configurable.
 
 To enable this handler, set:
 
@@ -97,7 +96,7 @@ authorizers:
     enabled: true
 ```
 
-### Access Rule Example
+### `deny` Access Rule Example
 
 ```sh
 $ cat ./rules.json
@@ -126,15 +125,15 @@ The request is forbidden!
 
 ## `keto_engine_acp_ory`
 
-This authorizer uses the ORY Keto API to carry out access control using
-"ORY-flavored" Access Control Policies. The conventions used in the ORY Keto
-project are located on [GitHub ORY Keto](https://github.com/ory/keto) for
+This authorizer uses the Ory Keto API to carry out access control using
+"Ory-flavored" Access Control Policies. The conventions used in the Ory Keto
+project are located on [GitHub Ory Keto](https://github.com/ory/keto) for
 consultation prior to using this authorizer.
 
-### Configuration
+### `keto_engine_acp_ory` Configuration
 
-- `base_url` (string, required) - The base URL of ORY Keto, typically something
-  like https://hostname:port/
+- `base_url` (string, required) - The base URL of Ory Keto, typically something
+  like `https://hostname:port/`
 - `required_action` (string, required) - See section below.
 - `required_resource` (string, required) - See section below.
 - `subject` (string, optional) - See section below.
@@ -197,14 +196,13 @@ from above would expand to:
 }
 ```
 
-The `subject` field configures the subject that passes to the ORY Keto endpoint.
-If `subject` is not specified it will default to
-`AuthenticationSession.Subject`.
+The `subject` field configures the subject that passes to the Ory Keto endpoint.
+If `subject` isn't specified it will default to `AuthenticationSession.Subject`.
 
 For more details about supported Go template substitution, see.
 [How to use session variables](../pipeline.md#session)
 
-#### Example
+#### `keto_engine_acp_ory` Example
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -236,7 +234,7 @@ authorizers:
       flavor: ...
 ```
 
-### Access Rule Example
+### `keto_engine_acp_ory` Access Rule Example
 
 ```shell
 $ cat ./rules.json
@@ -281,7 +279,7 @@ makes a HTTP POST request to a remote endpoint with the original body request as
 body. If the endpoint returns a "200 OK" response code, the access is allowed,
 if it returns a "403 Forbidden" response code, the access is denied.
 
-### Configuration
+### `remote` Configuration
 
 - `remote` (string, required) - The remote authorizer's URL. The remote
   authorizer is expected to return either "200 OK" or "403 Forbidden" to
@@ -303,7 +301,7 @@ if it returns a "403 Forbidden" response code, the access is denied.
     time. The value will be parsed by the Go
     [duration parser](https://pkg.go.dev/time#ParseDuration).
 
-#### Example
+#### `remote` Example
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -331,7 +329,7 @@ authorizers:
         X-Subject: '{{ print .Subject }}'
 ```
 
-### Access Rule Example
+### `remote` Access Rule Example
 
 ```shell
 {
@@ -375,7 +373,7 @@ makes a HTTP POST request to a remote endpoint with a JSON body. If the endpoint
 returns a "200 OK" response code, the access is allowed, if it returns a "403
 Forbidden" response code, the access is denied.
 
-### Configuration
+### `remote_json` Configuration
 
 - `remote` (string, required) - The remote authorizer's URL. The remote
   authorizer is expected to return either "200 OK" or "403 Forbidden" to
@@ -397,7 +395,7 @@ Forbidden" response code, the access is denied.
     time. The value will be parsed by the Go
     [duration parser](https://pkg.go.dev/time#ParseDuration).
 
-#### Example
+#### `remote_json` Example
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -431,7 +429,7 @@ authorizers:
         }
 ```
 
-### Access Rule Example
+### `remote_json` Access Rule Example
 
 ```shell
 {

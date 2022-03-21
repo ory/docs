@@ -3,7 +3,7 @@ id: federation
 title: Federation
 ---
 
-Ory Kratos does not support federation features itself, but it integrates with
+Ory Kratos doesn't support federation features itself, but it integrates with
 projects like [Ory Hydra](https://www.ory.sh/hydra) that implement federation
 protocols.
 

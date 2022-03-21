@@ -45,7 +45,7 @@ Additionally these safeguards are implemented:
 For a OAuth2 access token, refresh token or authorize code to be valid, one
 requires both the key and the signature (formatted as
 &lt;key&gt;.&lt;signature&gt;). Only the signature is stored in the datastore
-(SQL), thus a compromised datastore will not allow an attacker to gain access to
+(SQL), thus a compromised datastore won't allow an attacker to gain access to
 any valid authorize codes, access tokens, or refresh tokens.
 
 Because HMAC-SHA256 is used, the System Secret is required to create valid
@@ -100,8 +100,8 @@ see
 
 ### BCrypt
 
-BCrypt is used to hash client credentials at rest. It is not officially
-recommended by NIST as it is not based on hashing primitives such as SHA-2, but
+BCrypt is used to hash client credentials at rest. It isn't officially
+recommended by NIST as it isn't based on hashing primitives such as SHA-2, but
 rather on Blowfish. However, BCrypt is much stronger than any other (salted)
 hashing method for passwords, has wide adoption and is an official golang/x
 library.

@@ -32,9 +32,9 @@ Ory Kratos allows users to update their own settings and profile information
 using two principal flows:
 
 - Flows where the user sits in front of the Browser and the application is
-  - a server-side application (e.g. NodeJS, Java, ...)
-  - a client-side application (e.g. ReactJS, AngularJS, ...)
-- Flows where API interaction is required (e.g. mobile app, Smart TV, ...)
+  - a server-side application (NodeJS, Java, ...)
+  - a client-side application (ReactJS, AngularJS, ...)
+- Flows where API interaction is required (Mobile app, Smart TV, ...)
 
 The Settings Flow is composed of several high-level steps summarized in this
 state diagram:
@@ -67,14 +67,14 @@ stateDiagram
 `}
 />
 
-Currently, three settings methods are supported:
+Three settings methods are supported:
 
 - `password` for updating the password used to sign in;
 - `oidc` for un-/linking from social sign in providers such as Google or
   Facebook;
-- `profile` for updating an identity's traits (e.g. change the first name). The
-  updated traits must be valid against the Identity Schema defined for its
-  [Identity Traits](../../concepts/identity-schema.mdx).
+- `profile` for updating an identity's traits (for example change the first
+  name). The updated traits must be valid against the Identity Schema defined
+  for its [Identity Traits](../../concepts/identity-schema.mdx).
 
 <Tabs
   defaultValue="oss"
@@ -84,7 +84,7 @@ Currently, three settings methods are supported:
   ]}>
   <TabItem value="oc">
 
-Currently, only the password and profile method are enabled.
+Only the password and profile method are enabled.
 
   </TabItem>
   <TabItem value="oss">
@@ -168,9 +168,9 @@ prompted to re-authenticate similar to the
   Sorry, your browser doesn't support embedded videos.
 </video>
 
-This end-user experience currently works only for Browser-based Settings Flows.
-API-based flows will simply return a 403 Forbidden status message which require
-you to request a new Ory Kratos Login session using the
+This end-user experience works only for Browser-based Settings Flows. API-based
+flows will simply return a 403 Forbidden status message which require you to
+request a new Ory Kratos Login session using the
 [API-based Login Flow](user-login.mdx).
 
 ## Initialize Settings Flow
@@ -185,7 +185,7 @@ hooks to run, set up Anti-CSRF tokens, and more. Each Settings Flow also has a
   chart={`
 stateDiagram
   [*] --> show_form
-  show_form --> show_form : Form payload is not valid
+  show_form --> show_form : Form payload isn't valid
   show_form --> success : Form payload is valid
   success --> [*]
 `}
@@ -256,8 +256,8 @@ echo $session | jq
 To initialize the Settings Flow, point the Browser to the initialization
 endpoint:
 
-```shell-session
-$ curl -s -i -X GET \
+```sh
+curl -s -i -X GET \
     --cookie $cookieJar --cookie-jar $cookieJar \
     -H "Accept: text/html" \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/browser
@@ -322,8 +322,8 @@ The Settings Flow for client-side browser clients relies on AJAX requests.
 To initialize the Settings Flow, point the Browser to the initialization
 endpoint:
 
-```shell-session
-$ curl -v -s -X GET \
+```sh
+curl -v -s -X GET \
     --cookie $cookieJar --cookie-jar $cookieJar \
     -H "Accept: application/json"  \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/browser | jq
@@ -362,7 +362,7 @@ $ curl -v -s -X GET \
 
 <ApiWarning />
 
-The Settings Flow for API clients does not use HTTP Redirects and can be
+The Settings Flow for API clients doesn't use HTTP Redirects and can be
 summarized as follows:
 
 <SelfServiceApiFlow
@@ -376,8 +376,8 @@ endpoint
 ([REST API Reference](../../reference/api.mdx#initialize-settings-flow-for-api-clients))
 which returns a JSON response:
 
-```shell-session
-$ curl -s -X GET \
+```sh
+curl -s -X GET \
     -H "Accept: application/json" \
     -H "Authorization: bearer $sessionToken" \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/api | jq
@@ -437,13 +437,13 @@ Fetching the Settings Flow
 only required for browser clients but also works for Settings Flows initialized
 by API clients. All you need is a valid flow ID:
 
-```shell-session
-$ flowId=$(curl -s -X GET \
+```sh
+flowId=$(curl -s -X GET \
     -H "Accept: application/json" \
     -H "Authorization: bearer $sessionToken" \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/api | jq -r '.id')
 
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Accept: application/json" \
     -H "Authorization: bearer $sessionToken" \
     "https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/flows?id=$flowId" | jq
@@ -468,7 +468,7 @@ When the `profile` method is enabled, it will be part of the `methods` payload
 in the Settings Flow:
 
 ```shell script
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Authorization: Bearer $sessionToken"  \
     -H "Accept: application/json"  \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/api | jq -r '.ui.nodes[] | select(.group=="profile")'
@@ -528,7 +528,7 @@ When the `password` method is enabled, it will be part of the `methods` payload
 in the Settings Flow:
 
 ```shell script
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Authorization: Bearer $sessionToken"  \
     -H "Accept: application/json"  \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/api | jq -r '.ui.nodes[] | select(.group=="password")'
@@ -585,7 +585,7 @@ When the `oidc` method is enabled, it will be part of the `methods` payload in
 the Settings Flow:
 
 ```shell script
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Authorization: Bearer $sessionToken"  \
     -H "Accept: application/json"  \
     'https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/flows?id=14cbf9a7-0c71-46e9-b3b9-806cb7859145' | \
@@ -637,8 +637,8 @@ $ curl -s -X GET \
 
 :::warning
 
-Social Sign In is currently not possible for API Clients. It will be possible in
-a future version, which is partially tracked as
+Social Sign In is not possible for API Clients. It will be possible in a future
+version, which is partially tracked as
 [kratos#273](https://github.com/ory/kratos/issues/273)
 
 :::
@@ -650,7 +650,7 @@ The form payloads are then submitted to Ory Kratos which follows up with:
 - An HTTP 303 See Other redirect pointing to the Registration UI for Browser
   Clients;
 - An `application/json` response for API Clients and Client-Side Browser
-  applications (e.g. Single Page Apps).
+  applications (for example Single Page Apps).
 
 When validation errors happen, browser clients receive a HTTP 303 See Other
 redirect to the Settings Flow UI, containing the Settings Flow ID which includes
@@ -661,9 +661,9 @@ JSON.
 ### Update Profile
 
 To complete the profile update, the end-user fills out the presented profile
-form (e.g. updates their first name or email address). Possible validation
-errors include JSON Schema validation errors (e.g. `"format": "email"` not
-respected):
+form (for example updates their first name or email address). Possible
+validation errors include JSON Schema validation errors (for example
+`"format": "email"` not respected):
 
 <CodeTabs items={getFlowMethodProfileWithErrors} />
 
@@ -671,7 +671,7 @@ respected):
 
 To change the password, the end-user fills out the presented form and provides a
 new password. Possible validation errors include not providing the password or
-providing a password which does not match the password policy:
+providing a password which doesn't match the password policy:
 
 <CodeTabs items={getFlowMethodPasswordWithErrors} />
 
@@ -682,7 +682,7 @@ GitHub, Facebook, the user either clicks the unlink or link button depending on
 the interaction.
 
 There are no expected validation errors except for an error where the profile
-(e.g. Google) to be linked is already linked with another identity in the
+(for example Google) to be linked is already linked with another identity in the
 system.
 
 ## Successful Settings Update
@@ -695,8 +695,8 @@ When the profile update is completed successfully, Ory Kratos responds with a
 HTTP 303 Redirect to the Settings UI which now contains the success state
 (`state: success`) as well as the updated identity:
 
-```shell-session
-$ curl -s -X GET \
+```sh
+curl -s -X GET \
     --cookie $cookieJar --cookie-jar $cookieJar \
     -H "Accept: application/json"  \
     'https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/flows?id=f71743cd-700d-4a30-9275-8edc90de07cc' | \
@@ -1023,9 +1023,9 @@ curl -s -X POST -H "Accept: application/json" -H "Content-Type: application/json
 The Settings User Interface is a route (page / site) in your application
 (server, native app, single page app) that should render a settings form.
 
-In stark contrast to other Identity Systems, Ory Kratos does not render this
-HTML. Instead, you need to implement the HTML code in your application (e.g.
-NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
+In stark contrast to other Identity Systems, Ory Kratos doesn't render this
+HTML. Instead, you need to implement the HTML code in your application (for
+example NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
 flexibility and customizability in your user interface flows and designs.
 
 You will use the Settings Flow JSON response to render the settings form UI,

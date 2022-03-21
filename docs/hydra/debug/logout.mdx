@@ -3,7 +3,7 @@ id: logout
 title: Logout not Working as Expected
 ---
 
-Sometimes, calling `/oauth2/sessions/logout` does not behave as expected, for
+Sometimes, calling `/oauth2/sessions/logout` doesn't behave as expected, for
 example:
 
 - An error occurs.
@@ -20,17 +20,17 @@ redirected immediately to the system-wide configured post logout redirect URI.
 
 An active session may be missing because:
 
-- You are mixing up domain names (e.g. 127.0.0.1 and localhost - **this is a
-  common mistake**)
+- You are mixing up domain names (for example `127.0.0.1` and `localhost` -
+  **this is a common mistake**)
 - You are running Ory Hydra behind a proxy that messes with Cookies
 - You are using a Browser with a very strict privacy policy which makes it
   difficult or impossible for Ory Hydra to properly set cookies. We've observed
   that the **Brave Browser** is very, very difficult here.
-- You did not set `remember: true` when accepting the login request
+- You didn't set `remember: true` when accepting the login request
 
 **Before filing a bug report, make sure you actually have a cookie named
-`oauth2_authentication_session` for the URL Ory Hydra is running on, and
-especially for the domain that's in your `http://.../oauth2/sessions/logout`**
+`oauth2_authentication_session` for the URL Ory Hydra is running on, and for the
+domain that's in your `http://.../oauth2/sessions/logout`**
 
 If `id_token_hint` is set, you may define both `state` and
 `post_logout_redirect_uri`. The same problems can cause this flow to behave

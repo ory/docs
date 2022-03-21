@@ -4,21 +4,22 @@ title: Error Handlers
 ---
 
 A error handler is responsible for executing logic after, for example,
-authentication or authorization failed. ORY Oathkeeper supports different error
+authentication or authorization failed. Ory Oathkeeper supports different error
 handlers and we will add more as the project progresses.
 
 A error handler can be configured to match on certain conditions, for example,
-it is possible to configure the `json` error handler to only be executed if the
+it's possible to configure the `json` error handler to only be executed if the
 HTTP Header `Accept` contains `application/json`.
 
 Each error handler has two keys:
 
-- `handler` (string, required): Defines the handler (e.g. `noop`) to be used.
+- `handler` (string, required): Defines the handler (for example `noop`) to be
+  used.
 - `config` (object, optional): Configures the handler. Configuration keys vary
   per handler. The configuration can be defined in the global configuration
   file, or per access rule.
 
-**Example**
+#### Example
 
 ```json
 {
@@ -36,16 +37,16 @@ their matching conditions (see next chapter), the appropriate error handler will
 be chosen.
 
 Please be aware that defining error handlers with overlapping matching
-conditions will cause errors, because ORY Oathkeeper will not know which error
+conditions will cause errors, because Ory Oathkeeper won't know which error
 handler to execute!
 
 ## Error Matching
 
-You can configure the error handlers in such a way, that - for example - ORY
+You can configure the error handlers in such a way, that - for example - Ory
 Oathkeeper responds, in the case of an error, with
 
 - a JSON response, such as
-  `{"error":{"code":403,"status":"Forbidden","message":"Access credentials are not sufficient to access this resource"}}`,
+  `{"error":{"code":403,"status":"Forbidden","message":"Access credentials aren't sufficient to access this resource"}}`,
   when the client that expects JSON (`Accept: application/json`);
 - an XML response when the API Client expects XML (`Accept: application/xml`);
 - a HTTP Redirect (HTTP Status Found - 302) to `/login` when the endpoint is
@@ -74,16 +75,16 @@ This is the same for all handlers!
 
 If `when` is empty, then no conditions are applied and the error handler is
 always matching! In fact, this is also true for all subkeys. If left empty, the
-matching condition will not be applied and is thus always true!
+matching condition won't be applied and is thus always true!
 
 ### Fallback
 
-Error handling can be set globally and per access rule. ORY Oathkeeper will
+Error handling can be set globally and per access rule. Ory Oathkeeper will
 first check for any access rule specific error handling before falling back to
 the globally defined error handling.
 
 Similar to other pipeline handlers (authentication, authorization, mutation),
-you must enable the error handlers in the global ORY Oathkeeper config, except
+you must enable the error handlers in the global Ory Oathkeeper config, except
 for the `json` error handler which is always enabled by default:
 
 ```yaml
@@ -101,8 +102,8 @@ errors:
 ```
 
 As discussed in the previous section, when `config.when` is empty, the error
-handler will always match. This of course is a problem because ORY Oathkeeper
-now does not know if it should redirect or send a JSON error!
+handler will always match. This of course is a problem because Ory Oathkeeper
+now doesn't know if it should redirect or send a JSON error!
 
 Therefore, an additional configuration - called `fallback` - is available:
 
@@ -125,10 +126,10 @@ errors:
       # when: ...
 ```
 
-This feature tells ORY Oathkeeper that the `json` error handler should be used
+This feature tells Ory Oathkeeper that the `json` error handler should be used
 as fallback. You could also define multiple fallback handlers - the first
 matching handler will be the one and only executed! This makes sense if you
-additionally configure the `when` section:
+configure the `when` section as well:
 
 ```yaml
 # .oathkeeper.yaml
@@ -150,7 +151,7 @@ errors:
                   - text/*
 ```
 
-In this configuration example, ORY Oathkeeper would first check if the HTTP
+In this configuration example, Ory Oathkeeper would first check if the HTTP
 Request Header contains `Accept: text/html` (or `text/xhtml`, `text/text`, ...)
 and if not, would return a JSON Error Message.
 
@@ -251,9 +252,9 @@ Here are some examples:
 - `Not Found` (404) -> `{"errors": ["not_found"]}`
 - `Bad Request` (400) -> `{"errors": ["bad_request"]}`
 
-Keep in mind that these errors must be emitted by ORY Oathkeeper itself, not by
-the upstream API. Therefore, most HTTP Status Codes will not have any effect
-because ORY Oathkeeper - as of now - mostly returns 401, 403, 500 error codes.
+Keep in mind that these errors must be emitted by Ory Oathkeeper itself, not by
+the upstream API. Therefore, most HTTP Status Codes won't have any effect
+because Ory Oathkeeper - as of now - mostly returns 401, 403, 500 error codes.
 
 As discussed previously, if this configuration key is left empty, then all error
 types will match!
@@ -276,8 +277,8 @@ config:
 This configuration would match a HTTP Request coming directly from
 `192.168.1.1`, `192.168.1.2`, and so on.
 
-If ORY Oathkeeper runs behind a Load Balancer or any other type of Reverse
-Proxy, you can configure ORY Oathkeeper to check the
+If Ory Oathkeeper runs behind a Load Balancer or any other type of Reverse
+Proxy, you can configure Ory Oathkeeper to check the
 [`X-Forwarded-For` HTTP Header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For)
 header as well:
 
@@ -304,14 +305,14 @@ handler.
 The HTTP `Accept` Header is the most common way to tell an HTTP API what MIME
 content type is expected. For example, FireFox sends
 `Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8` for
-all regular requests (e.g. when opening [www.ory.sh](https://www.ory.sh/)). And
-a REST API Client usually sends `Accept: application/json`.
+all regular requests for example when opening [www.ory.sh](https://www.ory.sh/).
+And a REST API Client usually sends `Accept: application/json`.
 
 Therefore, using the `Accept` header is one of the most common ways to
 distinguish between "regular" browser traffic, REST API traffic, and other types
 of HTTP traffic.
 
-In ORY Oathkeeper, you can specify the matching conditions for the Accept header
+In Ory Oathkeeper, you can specify the matching conditions for the Accept header
 as follows:
 
 ```yaml
@@ -335,7 +336,7 @@ following `Accept` headers:
 
 Most browsers (see the FireFox example) also send wildcard `Accept` headers such
 as `*/*`. To prevent multiple conditions to match, HTTP Accept Headers from the
-client are interpreted literally, meaning that wildcards are not interpreted.
+client are interpreted literally, meaning that wildcards aren't interpreted.
 
 Assuming the client sends `Accept: */*` and the error condition is set to
 `accept: ["text/text"]`, the error condition would not match. If however the
@@ -355,7 +356,7 @@ As discussed previously, if this configuration key is left empty, then all
 The
 [HTTP Content Type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type)
 matcher works similar to the `Accept` header. The HTTP Content Type Header
-however is much less common, as it is only used in POST, PUT, PATCH requests (or
+however is much less common, as it's only used in POST, PUT, PATCH requests (or
 any other requests that send a HTTP Body).
 
 The main difference however is that the client never (unless it sends malformed
@@ -363,7 +364,7 @@ data) sends wildcard MIME types, as the MIME type needs to be deterministic.
 It's typically something like `multipart/form-data`,
 `application/x-www-form-urlencoded`, or `application/json`.
 
-In ORY Oathkeeper, you can specify the matching conditions for the
+In Ory Oathkeeper, you can specify the matching conditions for the
 `Content-Type` header as follows:
 
 ```yaml
@@ -392,7 +393,7 @@ surface. You can enable more detailed error messages by setting `verbose` to
 `true`. As discussed in the previous section, you can define error matching
 conditions under the `when` key.
 
-**Example**
+#### `json` Example
 
 ```json5
 // access-rule.json
@@ -420,7 +421,7 @@ either from the URL, or from the `X-Forwarded-Method`, `X-Forwarded-Proto`,
 `X-Forwarded-Host`, `X-Forwarded-Uri` headers (if present) of the incoming
 request.
 
-**Example**
+#### `redirect` Example
 
 ```json5
 // access-rule.json
@@ -454,11 +455,11 @@ that will be displayed by the browser. Most browsers show a message like "The
 website says: `<realm>`". Using a real message is thus more appropriate than a
 Realm identifier.
 
-This error handler is "exotic" as WWW-Authenticate is not a common pattern in
+This error handler is "exotic" as WWW-Authenticate isn't a common pattern in
 today's web. As discussed in the previous section, you can define error matching
 conditions under the `when` key.
 
-**Example**
+#### `www_authenticate` Example
 
 ```json5
 // access-rule.json

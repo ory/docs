@@ -13,14 +13,14 @@ successful response modes:
 
 Browser requests, identified by the `Accept: text/html` header, complete with a
 redirection flow. If no redirection URL is set for the flow, the Default
-Redirect URL will be used for most flows (e.g. login, registration):
+Redirect URL will be used for most flows (for example login, registration):
 
 ```yaml file="path/to/my/kratos.config.yml"
 selfservice:
   default_browser_return_url: https://always-end-up-here-per-default/
 ```
 
-It is possible to specify a redirect URL per Self-Service Flow:
+It's possible to specify a redirect URL per Self-Service Flow:
 
 ```yaml file="path/to/my/kratos.config.yml"
 selfservice:
@@ -49,24 +49,24 @@ selfservice:
       # ...
 ```
 
-It is also possible to redirect someone back to the original URL. For example,
-if a user requests `https://www.myapp.com/blog/write` but is not logged in, we
-want the user to end up at that page after login. To achieve that, you append
+It's also possible to redirect someone back to the original URL. For example, if
+a user requests `https://www.myapp.com/blog/write` but isn't logged in, we want
+the user to end up at that page after login. To achieve that, you append
 `?return_to=https://www.myapp.com/blog/write` when initializing the Login /
 Registration /Settings flow.
 
 Because Ory Kratos prevents Open Redirect Attacks, you need to whitelist the
 domain in your Ory Kratos config when using the `?return_to=` query parameter.
-For other return urls specified inside the configuration it is not necessary to
+For other return urls specified inside the configuration it isn't necessary to
 add the domain to the whitelist.
 
-Let's look at an example, here we are adding `myapp.com` to the whitelist, thus
+Let's look at an example, here we're adding `myapp.com` to the whitelist, thus
 we can now specify a dynamic return url like so
 `?return_to=https://www.myapp.com/blog/write`.
 
 ```yaml file="path/to/my/kratos.config.yml"
 selfservice:
-  whitelisted_return_urls:
+  allowed_return_urls:
     - https://www.myapp.com/
 ```
 
@@ -106,7 +106,7 @@ selfservice:
 
 ### Post-Settings Redirection
 
-Post-settings redirection **does not use** the `urls.default_redirect_to`
+Post-settings redirection **doesn't use** the `urls.default_redirect_to`
 configuration key. Instead the redirect ends at the same Settings UI with the
 same Settings Request ID and key `state` set to `success`. If the listed keys
 are set, the redirection will end up at the specified values:
@@ -124,7 +124,7 @@ selfservice:
 
 ### Post-Verification Redirection
 
-Post-verification redirection **does not use** the `urls.default_redirect_to`
+Post-verification redirection **doesn't use** the `urls.default_redirect_to`
 configuration key. Instead the redirect ends at the same Verification UI with
 the same Verification Request ID and key `state` set to `passed_challenge`. If
 the listed keys are set, the redirection will end up at the specified values:
@@ -149,5 +149,7 @@ https://public.kratos/self-service/registration/browser?after_verification_retur
 
 ## JSON
 
-This feature is currently in prototype phase and will be documented at a later
-stage.
+Requests from API clients - for example AJAX - are identified by the
+`Accept: application/json` header and return a JSON response. If no redirection
+URL is set for the flow, the `default_redirect_to` URL will be used for most
+flows.

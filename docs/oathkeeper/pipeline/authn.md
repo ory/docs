@@ -3,24 +3,23 @@ id: authn
 title: Authenticators
 ---
 
-An authenticator is responsible for authenticating request credentials. ORY
+An authenticator is responsible for authenticating request credentials. Ory
 Oathkeeper supports different authenticators and we will add more as the project
 progresses.
 
-An authenticator inspects the HTTP request (e.g. the HTTP Authorization Header)
-and executes some business logic that returns true (for authentication ok) or
-false (for authentication invalid) as well as a subject ("user"). The subject is
-typically the "user" that made the request, but it could also be a machine (if
-you have machine-2-machine interaction) or something different.
+An authenticator inspects the HTTP request (for example the HTTP Authorization
+Header) and executes some business logic that returns true (for authentication
+ok) or false (for authentication invalid) as well as a subject ("user"). The
+subject is typically the "user" that made the request, but it could also be a
+machine (if you have machine-2-machine interaction) or something different.
 
 Each authenticator has two keys:
 
-- `handler` (string, required): Defines the handler (e.g. `noop`) to be used.
+- `handler` (string, required): Defines the handler (for example `noop`) to be
+  used.
 - `config` (object, optional): Configures the handler. Configuration keys vary
   per handler. The configuration can be defined in the global configuration
   file, or per access rule.
-
-**Example**
 
 ```json
 {
@@ -34,7 +33,7 @@ Each authenticator has two keys:
 ```
 
 You can define more than one authenticator in the Access Rule. The first
-authenticator that is able to handle the credentials will be consulted and other
+authenticator that's able to handle the credentials will be consulted and other
 authenticators will be ignored:
 
 ```json
@@ -54,27 +53,27 @@ authenticators will be ignored:
 ```
 
 If handler `a` is able to handle the provided credentials, then handler `b` and
-`c` will be ignored. If handler `a` can not handle the provided credentials but
+`c` will be ignored. If handler `a` can't handle the provided credentials but
 handler `b` can, then handler `a` and `c` will be ignored. Handling the provided
 credentials means that the authenticator knows how to handle, for example, the
-`Authorization: basic` header. It does not mean that the credentials are valid!
+`Authorization: basic` header. It doesn't mean that the credentials are valid!
 If a handler encounters invalid credentials, then other handlers will be ignored
 too.
 
 ## `noop`
 
-The `noop` handler tells ORY Oathkeeper to bypass authentication, authorization,
+The `noop` handler tells Ory Oathkeeper to bypass authentication, authorization,
 and mutation. This implies that no authorization will be executed and no
 credentials will be issued. It's basically a pass-all authenticator that allows
 any request to be forwarded to the upstream URL.
 
 > Using this handler is basically an allow-all configuration. It makes sense
-> when the upstream handles access control itself or does not need any type of
+> when the upstream handles access control itself or doesn't need any type of
 > access control.
 
-### Configuration
+### `noop` Configuration
 
-This handler is not configurable.
+This handler isn't configurable.
 
 To enable this handler, set:
 
@@ -86,10 +85,10 @@ authenticators:
     enabled: true
 ```
 
-### Access Rule Example
+### `noop` Access Rule Example
 
 ```sh
-$ cat ./rules.json
+cat ./rules.json
 
 [{
   "id": "some-id",
@@ -107,7 +106,7 @@ $ cat ./rules.json
   }]
 }]
 
-$ curl -X GET http://my-app/some-route
+curl -X GET http://my-app/some-route
 
 HTTP/1.0 200 Status OK
 The request has been allowed!
@@ -115,12 +114,12 @@ The request has been allowed!
 
 ## `unauthorized`
 
-The `unauthorized` handler tells ORY Oathkeeper to reject all requests as
+The `unauthorized` handler tells Ory Oathkeeper to reject all requests as
 unauthorized.
 
-### Configuration
+### `unauthorized` Configuration
 
-This handler is not configurable.
+This handler isn't configurable.
 
 To enable this handler, set:
 
@@ -132,10 +131,10 @@ unauthorized:
     enabled: true
 ```
 
-### Access Rule Example
+### `unauthorized` Access Rule Example
 
 ```sh
-$ cat ./rules.json
+cat ./rules.json
 
 [{
   "id": "some-id",
@@ -153,7 +152,7 @@ $ cat ./rules.json
   }]
 }]
 
-$ curl -X GET http://my-app/some-route
+curl -X GET http://my-app/some-route
 
 HTTP/1.0 401 Unauthorized
 ```
@@ -163,7 +162,7 @@ HTTP/1.0 401 Unauthorized
 The `anonymous` authenticator checks whether or not an `Authorization` header is
 set. If not, it will set the subject to `anonymous`.
 
-### Configuration
+### `anonymous` Configuration
 
 - `subject` (string, optional) - Sets the anonymous username. Defaults to
   "anonymous". Common names include "guest", "anon", "anonymous", "unknown".
@@ -190,14 +189,14 @@ authenticators:
       subject: guest
 ```
 
-### Access Rule Example
+### `anonymous` Access Rule Example
 
 The following rule allows all requests to `GET http://my-app/some-route` and
 sets the subject name to the anonymous username, as long as no `Authorization`
 header is set in the HTTP request:
 
 ```shell
-$ cat ./rules.json
+cat ./rules.json
 
 [{
   "id": "some-id",
@@ -217,15 +216,15 @@ $ cat ./rules.json
   "mutators": [{ "handler": "noop" }]
 }]
 
-$ curl -X GET http://my-app/some-route
+curl -X GET http://my-app/some-route
 
 HTTP/1.0 200 Status OK
 The request has been allowed! The subject is: "anonymous"
 
-$ curl -X GET -H "Authorization: Bearer foobar" http://my-app/some-route
+curl -X GET -H "Authorization: Bearer foobar" http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
-The request is not authorized because credentials have been provided but only the anonymous
+The request isn't authorized because credentials have been provided but only the anonymous
 authenticator is enabled for this URL.
 ```
 
@@ -235,9 +234,9 @@ The `cookie_session` authenticator will forward the request method, path and
 headers to a session store. If the session store returns `200 OK` and body
 `{ "subject": "...", "extra": {} }` then the authenticator will set the subject
 appropriately. Please note that Gzipped responses from `check_session_url` are
-not currently supported, and will fail silently.
+not supported, and will fail silently.
 
-### Configuration
+### `cookie_session` Configuration
 
 - `check_session_url` (string, required) - The session store to forward request
   method/path/headers to for validation.
@@ -301,10 +300,10 @@ authenticators:
       preserve_query: true
 ```
 
-### Access Rule Example
+### `cookie_session` Access Rule Example
 
 ```shell
-$ cat ./rules.json
+cat ./rules.json
 
 [{
   "id": "some-id",
@@ -324,15 +323,15 @@ $ cat ./rules.json
   "mutators": [{ "handler": "noop" }]
 }]
 
-$ curl -X GET -b sessionid=abc http://my-app/some-route
+curl -X GET -b sessionid=abc http://my-app/some-route
 
 HTTP/1.0 200 OK
 The request has been allowed! The subject is: "peter"
 
-$ curl -X GET -b sessionid=def http://my-app/some-route
+curl -X GET -b sessionid=def http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
-The request is not authorized because the provided credentials are invalid.
+The request isn't authorized because the provided credentials are invalid.
 ```
 
 ## `bearer_token`
@@ -341,9 +340,9 @@ The `bearer_token` authenticator will forward the request method, path and
 headers to a session store. If the session store returns `200 OK` and body
 `{ "subject": "...", "extra": {} }` then the authenticator will set the subject
 appropriately. Please note that Gzipped responses from `check_session_url` are
-not currently supported, and will fail silently.
+not supported, and will fail silently.
 
-### Configuration
+### `bearer_token` Configuration
 
 - `check_session_url` (string, required) - The session store to forward request
   method/path/headers to for validation.
@@ -431,10 +430,10 @@ authenticators:
       preserve_query: true
 ```
 
-### Access Rule Example
+### `bearer_token` Access Rule Example
 
 ```shell
-$ cat ./rules.json
+cat ./rules.json
 
 [{
   "id": "some-id",
@@ -454,15 +453,15 @@ $ cat ./rules.json
   "mutators": [{ "handler": "noop" }]
 }]
 
-$ curl -X GET -H 'Authorization: Bearer valid-token' http://my-app/some-route
+curl -X GET -H 'Authorization: Bearer valid-token' http://my-app/some-route
 
 HTTP/1.0 200 OK
 The request has been allowed! The subject is: "peter"
 
-$ curl -X GET -H 'Authorization: Bearer invalid-token' http://my-app/some-route
+curl -X GET -H 'Authorization: Bearer invalid-token' http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
-The request is not authorized because the provided credentials are invalid.
+The request isn't authorized because the provided credentials are invalid.
 ```
 
 ## `oauth2_client_credentials`
@@ -478,7 +477,7 @@ header as the subject for this request.
 > If you are unfamiliar with OAuth 2.0 Client Credentials we recommend
 > [reading this guide](https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/).
 
-### Configuration
+### `oauth2_client_credentials` Configuration
 
 - `token_url` (string, required) - The OAuth 2.0 Token Endpoint that will be
   used to validate the client credentials.
@@ -520,10 +519,10 @@ authenticators:
       token_url: https://my-website.com/oauth2/token
 ```
 
-### Access Rule Example
+### `oauth2_client_credentials` Access Rule Example
 
 ```shell
-$ cat ./rules.json
+cat ./rules.json
 
 [{
   "id": "some-id",
@@ -546,17 +545,17 @@ $ cat ./rules.json
   "mutators": [{ "handler": "noop" }]
 }]
 
-$ curl -X GET http://my-app/some-route
+curl -X GET http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
-The request is not authorized because no credentials have been provided.
+The request isn't authorized because no credentials have been provided.
 
-$ curl -X GET --user idonotexist:whatever http://my-app/some-route
+curl -X GET --user idonotexist:whatever http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
-The request is not authorized because the provided credentials are invalid.
+The request isn't authorized because the provided credentials are invalid.
 
-$ curl -X GET --user peter:somesecret http://my-app/some-route
+curl -X GET --user peter:somesecret http://my-app/some-route
 
 HTTP/1.0 200 OK
 The request has been allowed! The subject is: "peter"
@@ -566,7 +565,7 @@ In the background, a request to the OAuth 2.0 Token Endpoint (value of
 `authenticators.oauth2_client_credentials.token_url`) will be made, using the
 OAuth 2.0 Client Credentials Grant:
 
-```
+```bash
 POST /oauth2/token HTTP/1.1
 Host: authorization-server.com
 
@@ -590,7 +589,7 @@ was granted the requested scope.
 > If you are unfamiliar with OAuth 2.0 Introspection we recommend
 > [reading this guide](https://www.oauth.com/oauth2-servers/token-introspection-endpoint/).
 
-### Configuration
+### `oauth2_introspection` Configuration
 
 - `introspection_url` (string, required) - The OAuth 2.0 Token Introspection
   endpoint.
@@ -644,8 +643,8 @@ was granted the requested scope.
   - `ttl` (string) - Can override the default behaviour of using the token exp
     time, and specify a set time to live for the token in the cache.
 
-Please note that caching will not be used if the scope strategy is `none` and
-`required_scope` is not empty. In that case, the configured introspection URL
+Please note that caching won't be used if the scope strategy is `none` and
+`required_scope` isn't empty. In that case, the configured introspection URL
 will always be called and is expected to check if the scope is valid or not.
 
 ```yaml
@@ -726,10 +725,10 @@ authenticators:
         give_up_after: 2s
 ```
 
-### Access Rule Example
+### `oauth2_introspection` Access Rule Example
 
 ```shell
-$ cat ./rules.json
+cat ./rules.json
 
 [{
   "id": "some-id",
@@ -753,17 +752,17 @@ $ cat ./rules.json
   "mutators": [{ "handler": "noop" }]
 }]
 
-$ curl -X GET http://my-app/some-route
+curl -X GET http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
-The request is not authorized because no credentials have been provided.
+The request isn't authorized because no credentials have been provided.
 
-$ curl -X GET -H 'Authorization: Bearer invalid-token' http://my-app/some-route
+curl -X GET -H 'Authorization: Bearer invalid-token' http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
-The request is not authorized because the provided credentials are invalid.
+The request isn't authorized because the provided credentials are invalid.
 
-$ curl -X GET -H 'Authorization: Bearer valid.access.token.from.peter' http://my-app/some-route
+curl -X GET -H 'Authorization: Bearer valid.access.token.from.peter' http://my-app/some-route
 
 HTTP/1.0 200 OK
 The request has been allowed! The subject is: "peter"
@@ -774,7 +773,7 @@ Endpoint (configuration value
 `authenticators.oauth2_introspection.introspection_url`) to check if the Bearer
 Token is valid:
 
-```
+```bash
 POST /oauth2/introspect HTTP/1.1
 
 token=valid.access.token.from.peter
@@ -783,7 +782,7 @@ token=valid.access.token.from.peter
 If pre-authorization is enabled, that request will include an Authorization
 Header:
 
-```
+```bash
 POST /oauth2/introspect HTTP/1.1
 Authorization: Bearer token-received-by-performing-pre-authorization
 
@@ -801,9 +800,9 @@ Authorization Header (`Authorization: bearer <token>`) or in a different header
 or query parameter specified in configuration. It assumes that the token is a
 JSON Web Token and tries to verify the signature of it.
 
-### Configuration
+### `jwt` Configuration
 
-- `jwks_urls` ([]string, required) - The URLs where ORY Oathkeeper can retrieve
+- `jwks_urls` ([]string, required) - The URLs where Ory Oathkeeper can retrieve
   JSON Web Keys from for validating the JSON Web Token. Usually something like
   `https://my-keys.com/.well-known/jwks.json`. The response of that endpoint
   must return a JSON Web Key Set (JWKS).
@@ -827,7 +826,7 @@ JSON Web Token and tries to verify the signature of it.
   allowed. Defaults to `RS256`.
 - Value `required_scope` ([]string) validates the scope of the JWT. It will
   checks for claims `scp`, `scope`, `scopes` in the JWT when validating the
-  scope as that claim is not standardized.
+  scope as that claim isn't standardized.
 - `token_from` (object, optional) - The location of the bearer token. If not
   configured, the token will be received from a default location -
   'Authorization' header. One and only one location (header, query, or cookie)
@@ -904,7 +903,7 @@ authenticators:
         # cookie: auth-token
 ```
 
-#### Validation example
+#### `jwt` Validation example
 
 ```json
 {
@@ -924,7 +923,7 @@ authenticators:
 That exemplary Access Rule consider the following (decoded) JSON Web Token as
 valid:
 
-```
+```json
 {
   "alg": "RS256"
 }
@@ -935,10 +934,10 @@ valid:
 }
 ```
 
-And this token as invalid (audience is missing, issuer is not matching, scope is
+And this token as invalid (audience is missing, issuer isn't matching, scope is
 missing, wrong algorithm):
 
-```
+```json
 {
   "alg": "HS256"
 }
@@ -949,9 +948,9 @@ missing, wrong algorithm):
 }
 ```
 
-### Scope
+### `jwt` Scope
 
-JSON Web Tokens can be scoped. However, that feature is not standardized and
+JSON Web Tokens can be scoped. However, that feature isn't standardized and
 several claims that represent the token scope have been seen in the wild: `scp`,
 `scope`, `scopes`. Additionally, the claim value can be a string (`"scope-a"`),
 a space-delimited string (`"scope-a scope-b"`) or a JSON string array
@@ -959,10 +958,10 @@ a space-delimited string (`"scope-a scope-b"`) or a JSON string array
 checked and parsed and will be available as `scp` (string array) in the
 authentication session (`.Extra["scp"]`).
 
-### Access Rule Example
+### `jwt` Access Rule Example
 
 ```shell
-$ cat ./rules.json
+cat ./rules.json
 
 [{
   "id": "some-id",
@@ -987,17 +986,17 @@ $ cat ./rules.json
   "mutators": [{ "handler": "noop" }]
 }]
 
-$ curl -X GET http://my-app/some-route
+curl -X GET http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
-The request is not authorized because no credentials have been provided.
+The request isn't authorized because no credentials have been provided.
 
-$ curl -X GET -H 'Authorization: Bearer invalid-token' http://my-app/some-route
+curl -X GET -H 'Authorization: Bearer invalid-token' http://my-app/some-route
 
 HTTP/1.0 401 Status Unauthorized
-The request is not authorized because the provided credentials are invalid.
+The request isn't authorized because the provided credentials are invalid.
 
-$ curl -X GET -H 'Authorization: Bearer valid.jwtfrom.peter' http://my-app/some-route
+curl -X GET -H 'Authorization: Bearer valid.jwtfrom.peter' http://my-app/some-route
 
 HTTP/1.0 200 OK
 The request has been allowed! The subject is: "peter"
@@ -1005,5 +1004,5 @@ The request has been allowed! The subject is: "peter"
 
 In the background, this handler will fetch all JSON Web Key Sets provided by
 configuration key `authenticators.jwt.jwks_urls` and use those keys to verify
-the signature. If the signature can not be verified by any of those keys, the
-JWT is considered invalid.
+the signature. If the signature can't be verified by any of those keys, the JWT
+is considered invalid.

@@ -101,14 +101,7 @@ module.exports = {
         'ecosystem/sqa',
         'ecosystem/security',
         'ecosystem/roadmap',
-        'ecosystem/software-architecture-philosophy',
-        {
-          'Documentation Styleguide': [
-            'ecosystem/styleguide/styleguide',
-            'ecosystem/styleguide/testing',
-            'ecosystem/styleguide/templates'
-          ]
-        }
+        'ecosystem/software-architecture-philosophy'
       ]
     },
     {
@@ -203,6 +196,7 @@ module.exports = {
             'kratos/reference/configuration-editor',
             'kratos/reference/json-schema-json-paths',
             'kratos/reference/html-forms',
+            'kratos/reference/jsonnet',
             {
               'Command Line Interface (CLI)': [
                 {
@@ -296,7 +290,8 @@ module.exports = {
                 'hydra/guides/using-oauth2',
                 'hydra/guides/token-expiration',
                 'hydra/guides/oauth2-token-introspection',
-                'hydra/guides/oauth2-public-spa-mobile'
+                'hydra/guides/oauth2-public-spa-mobile',
+                'hydra/guides/claims-at-refresh'
               ]
             }
           ]

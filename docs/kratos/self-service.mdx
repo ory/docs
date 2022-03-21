@@ -36,8 +36,8 @@ able to exploit
 There are also many other areas you need to think about, such as:
 
 - Mobile, Smart TV, ... authentication
-- Linking and unlinking social profiles (e.g. "Sign in with Google" or "Connect
-  with Google") to existing accounts
+- Linking and unlinking social profiles (for example "Sign in with Google" or
+  "Connect with Google") to existing accounts
 
 Ory Kratos applies best practices established by experts (National Institute of
 Sciences NIST, Internet Engineering Task Force IETF, Microsoft Research, Google
@@ -66,19 +66,18 @@ business logic:
 - The `link` method implements the "click this link to reset your password"
   account recovery method.
 
-Some flows additionally implement the ability
-[to run hooks](self-service/hooks.mdx) which allow users to be immediately
-signed in after registration, notify another system on successful registration
-(e.g. Mailchimp), and so on.
+Some flows implement the ability [to run hooks](self-service/hooks.mdx) which
+allow users to be immediately signed in after registration, notify another
+system on successful registration (such as Mailchimp), and so on.
 
 ## Performing Login, Registration, Settings, ... Flows
 
 There are two flow types supported in Ory Kratos:
 
 - Flows where the user sits in front of the Browser and the application is
-  - a server-side application (e.g. NodeJS, Java, ...)
-  - a client-side application (e.g. ReactJS, AngularJS, ...)
-- Flows where API interaction is required (e.g. mobile app, Smart TV, ...)
+  - a server-side application (NodeJS, Java, ...)
+  - a client-side application (ReactJS, AngularJS, ...)
+- Flows where API interaction is required (mobile app, Smart TV, ...)
 
 All Self-Service Flows ([User Login](self-service/flows/user-login.mdx),
 [User Registration](self-service/flows/user-registration.mdx),
@@ -110,9 +109,9 @@ The browser flow has three stages:
 
 :::note
 
-All examples use the Ory Cloud playground project. Please be aware that everyone
-can see the data you enter there. You can replace the URL with a locally hosted
-Ory Kratos as well.
+All examples use Ory Cloud playground project. Please be aware that everyone can
+see the data you enter there. You can replace the URL with a locally hosted Ory
+Kratos as well.
 
 :::
 
@@ -120,11 +119,12 @@ Ory Kratos as well.
 
 ### Initialization and Redirect to UI
 
-First, the Browser opens the flow's initialization endpoint
-(e.g.`/self-service/login/browser`, `/self-service/registration/browser`, ...):
+First, the Browser opens the flow's initialization endpoint (for
+example`/self-service/login/browser`, `/self-service/registration/browser`,
+...):
 
-```shell-session
-$ curl -s -i -X GET \
+```sh
+curl -s -i -X GET \
     -H "Accept: text/html" \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser
 
@@ -144,16 +144,17 @@ strict-transport-security: max-age=15724800; includeSubDomains
 
 The initialization endpoint creates a flow object and stores it in the database.
 The flow object has an ID and contains additional information about the flow
-such as the login methods (e.g. "username/password" and "Sign in with Google")
-and their form data.
+such as the login methods (for example "username/password" and "Sign in with
+Google") and their form data.
 
 import DomainWarning from '@site/src/theme/DomainWarning'
 
 <DomainWarning />
 
 Once stored, the Browser is HTTP 303 redirected to the flow's configured UI URL
-(e.g. `selfservice.flows.login.ui_url`), appending the flow ID as the `flow` URL
-Query Parameter. Also included are HTTP cookies such as Anti-CSRF cookies.
+(for example `selfservice.flows.login.ui_url`), appending the flow ID as the
+`flow` URL Query Parameter. Also included are HTTP cookies such as Anti-CSRF
+cookies.
 
 ### Form Rendering
 
@@ -183,16 +184,16 @@ failure!
 The endpoint returns the flow data - so for example the login form and any
 validation errors. Let's take a look at an example using CURL:
 
-```shell-session
+```sh
 # A cookie jar for storing the CSRF tokens
-$ cookieJar=$(mktemp)
-$ flowId=$(curl -s -X GET \
+cookieJar=$(mktemp)
+flowId=$(curl -s -X GET \
     --cookie-jar $cookieJar --cookie $cookieJar \
     -H "Accept: application/json" \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser | jq -r '.id')
 
 # The endpoint uses Ory Kratos' REST API to fetch information about the request
-$ curl -s -X GET \
+curl -s -X GET \
     --cookie-jar $cookieJar --cookie $cookieJar \
     -H "Accept: application/json" \
     "https://playground.projects.oryapis.com/api/kratos/public/self-service/login/flows?id=$flowId" | jq
@@ -285,7 +286,7 @@ about the flow:
     "messages": [
       {
         "id": 4010002,
-        "text": "Could not find a strategy to log you in with. Did you fill out the form correctly?",
+        "text": "Couldn't find a strategy to log you in with. Did you fill out the form?",
         "type": "error"
       }
     ]
@@ -336,8 +337,8 @@ then fetches the information about the flow again
 
 ```
 # The endpoint uses Ory Kratos' REST API to fetch information about the request
-$ theFlowID=...
-$ curl -s -i -X GET \
+theFlowID=...
+curl -s -i -X GET \
     -H "Accept: application/json"  \
     'https://playground.projects.oryapis.com/api/kratos/public/self-service/login/flows?id=$theFlowID' | jq
 ```
@@ -412,7 +413,7 @@ which now includes validation errors and other potential messages:
 }
 ```
 
-If a system error (e.g. broken configuration file) occurs, the browser is
+If a system error (for example broken configuration file) occurs, the browser is
 redirected to the [Error UI](self-service/flows/user-facing-errors.md).
 
 If the form payload is valid, the flow completes with a success. The result here
@@ -429,19 +430,19 @@ requests.
 
 :::info
 
-Ory Kratos and your UI must be hosted on same top level domain! You can not host
+Ory Kratos and your UI must be hosted on same top level domain! You can't host
 Ory Kratos and your UI on separate top level domains:
 
 - `kratos.bar.com` and `ui.bar.com` will work;
 - `kratos.bar.com` and `bar.com` will work;
-- `kratos.bar.com` and `not-bar.com` will not work.
+- `kratos.bar.com` and `not-bar.com` won't work.
 
 :::
 
 Ory Kratos identifies SPA requests by checking if the `Accept` HTTP Header is
 set to `application/json`.
 
-If it is, these flows act like an API flow and respond with JSON instead of HTTP
+If it's, these flows act like an API flow and respond with JSON instead of HTTP
 redirects while still setting and requiring the necessary cookies for CSRF,
 sessions, and more:
 
@@ -455,12 +456,12 @@ The high-level sequence diagram for API flows looks as follows:
 
 ### Initialization
 
-The AJAX client (e.g. NextJS app) makes a request to the flow's initialization
-endpoint (e.g.`/self-service/login/browser`,
+The AJAX client (for example NextJS app) makes a request to the flow's
+initialization endpoint (for example`/self-service/login/browser`,
 `/self-service/registration/browser`, ...):
 
-```shell-session
-$ curl -v -s -X GET \
+```sh
+curl -v -s -X GET \
     -H "Accept: application/json"  \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser | jq
 
@@ -498,8 +499,8 @@ $ curl -v -s -X GET \
 
 The initialization endpoint creates a flow object and stores it in the database.
 The flow object has an ID and contains additional information about the flow
-such as the login methods (e.g. "username/password" and "Sign in with Google")
-and their form data.
+such as the login methods (for example "username/password" and "Sign in with
+Google") and their form data.
 
 ### Form Rendering
 
@@ -507,9 +508,9 @@ Form rendering works the same way as the flows for server-side browser apps.
 
 ### Form Submission and Payload Validation
 
-To submit the form, it is recommended to intercept the submission and send the
+To submit the form, it's recommended to intercept the submission and send the
 form as JSON using `fetch` (see
-["Submit HTML Forms to JSON APIs easily"](https://dev.to/amjadmh73/submit-html-forms-to-json-apis-easily-137l))
+["Submit HTML Forms to JSON APIs"](https://dev.to/amjadmh73/submit-html-forms-to-json-apis-easily-137l))
 or the [SDK](sdk.md).
 
 The response depends on the result (sign up success, account recovery success,
@@ -591,7 +592,7 @@ response could be sent:
 API flows have three stages:
 
 - Initialization without redirect and cookies;
-- Form rendering using e.g. native iOS, Android, ... components;
+- Form rendering using for example native iOS, Android, ... components;
 - Form submission as `application/json` and payload validation.
 
 The high-level sequence diagram for API flows looks as follows:
@@ -600,12 +601,12 @@ The high-level sequence diagram for API flows looks as follows:
 
 ### Initialization
 
-The client (e.g. mobile application) makes a request to the flow's
-initialization endpoint (e.g.`/self-service/login/api`,
+The client (for example mobile application) makes a request to the flow's
+initialization endpoint (for example`/self-service/login/api`,
 `/self-service/registration/api`, ...):
 
-```shell-session
-$ curl -s -X GET \
+```sh
+curl -s -X GET \
     -H "Accept: application/json"  \
     https://playground.projects.oryapis.com/api/kratos/public/self-service/login/api | jq
 
@@ -625,8 +626,7 @@ $ curl -s -X GET \
 
 The initialization endpoint creates a flow object and stores it in the database.
 The flow object has an ID and contains additional information about the flow
-such as the login methods (e.g. "username/password" and "Sign in with Google")
-and their form data.
+such as the login methods and their form data.
 
 ### Form Rendering
 
@@ -658,7 +658,7 @@ export default function Login () {
     return null
   }
 
-  // This is a non-functional, code example. It is missing state management and so on.
+  // This is a non-functional, code example. It's missing state management and so on.
   // The idea is to show how initializing such a flow would look like in an API scenario.
   return (
     <View>
@@ -681,7 +681,7 @@ If needed, the client can re-request the flow using the same HTTP Request as the
 browser flow at the Public API endpoint:
 
 ```shell script
-$ curl -s -X GET \
+curl -s -X GET \
     -H "Accept: application/json" \
     "https://playground.projects.oryapis.com/api/kratos/public/self-service/login/flows?id=<the-flow-id>" | jq
 

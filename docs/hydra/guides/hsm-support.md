@@ -11,9 +11,9 @@ and a cryptographic device.
 
 :::note
 
-If a key is not found in the Hardware Security Module, the regular Software Key
+If a key isn't found in the Hardware Security Module, the regular Software Key
 Manager with AES-GCM software encryption will be used as a fallback. Storing
-keys will always use the Software Key Manager as it is not possible to add keys
+keys will always use the Software Key Manager as it isn't possible to add keys
 to a Hardware Security Module.
 
 :::
@@ -42,7 +42,7 @@ HSM_SLOT=0
 HSM_PIN=1234
 ```
 
-Token that is denoted by environment variables `HSM_TOKEN_LABEL` or `HSM_SLOT`
+Token that's denoted by environment variables `HSM_TOKEN_LABEL` or `HSM_SLOT`
 must preexist and optionally contain RSA or ECDSA key pairs with labels
 `hydra.openid.id-token` and `hydra.jwt.access-token` depending on configuration.
 **_If keys with these labels don't exist, they will be generated upon
@@ -71,7 +71,7 @@ secp521r1. As of now PKCS#11 v2.4 doesn't support EdDSA keys using curve
 Ed25519. However,
 [PKCS#11 v3.0](https://docs.oasis-open.org/pkcs11/pkcs11-curr/v3.0/pkcs11-curr-v3.0.html)
 contains support for EdDSA and therefore can be supported in upcoming versions.
-Symmetric key algorithms are not supported because it would imply, that shared
+Symmetric key algorithms aren't supported because it would imply, that shared
 HSM is used between server and authenticating client.
 
 <a name="generating-key-pairs"></a>
@@ -88,8 +88,8 @@ vendor, tools initializing tokens and generating keys vary. To demonstrate key
 pair generation we first initialize token using `pkcs11-tool` (see how to
 [setup SoftHSM and OpenSC](#testing-with-softhsm))
 
-```shell
-$ pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so --slot 0 --init-token --so-pin 0000 --pin 1234 --init-pin --label hydra
+```sh
+pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so --slot 0 --init-token --so-pin 0000 --pin 1234 --init-pin --label hydra
 
 Using slot 0 with a present token (0x2763db07)
 Token successfully initialized
@@ -112,8 +112,8 @@ HSM_PIN=1234
 
 Generating RSA keypair for JSON Web Key `hydra.openid.id-token`
 
-```shell
-$ pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so \
+```sh
+pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so \
 --pin 1234 --token-label hydra \
 --keypairgen --key-type rsa:4096 --usage-sign \
 --label hydra.openid.id-token --id 746573742d6b65792d6964
@@ -156,37 +156,37 @@ Public Key Object; RSA 4096 bits
 
 [SoftHSM](https://www.opendnssec.org/softhsm/) is an implementation of a
 cryptographic store accessible through a PKCS #11 interface. You can use it to
-explore PKCS#11 without having a Hardware Security Module. It is being developed
+explore PKCS#11 without having a Hardware Security Module. It's being developed
 as a part of the OpenDNSSEC project.
 
 [Follow these instructions to build SoftHSM from source.](https://wiki.opendnssec.org/display/SoftHSMDOCS/SoftHSM+Documentation+v2)
 
 #### Install SoftHSM/OpenSC on Mac OSX
 
-```shell
-$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 2> /dev/null
+```sh
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 2> /dev/null
 ```
 
-```shell
-$ brew install softhsm
+```sh
+brew install softhsm
 ```
 
-```shell
-$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 2> /dev/null
+```sh
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 2> /dev/null
 ```
 
-```shell
-$ brew install opensc
+```sh
+brew install opensc
 ```
 
 #### Install SoftHSM/OpenSC on Ubuntu
 
-```shell
-$ sudo apt update
+```sh
+sudo apt update
 ```
 
-```shell
-$ sudo apt install softhsm opensc
+```sh
+sudo apt install softhsm opensc
 ```
 
 #### Install SoftHSM/OpenSC on Windows
@@ -204,21 +204,21 @@ need to have the latest [Docker](https://www.docker.com) and
 quickstart HSM change into the directory with the Hydra source code and run the
 following command:
 
-```shell
-$ docker-compose -f quickstart-hsm.yml up --build
+```sh
+docker-compose -f quickstart-hsm.yml up --build
 ```
 
 Following is logged on startup if Hardware Security Module is successfully
 configured:
 
-```shell
-$ docker logs ory-hydra-example--hydra
+```sh
+docker logs ory-hydra-example--hydra
 time="2021-07-07T12:51:23Z" level=info msg="Hardware Security Module is configured."
-time="2021-07-07T12:51:23Z" level=info msg="JSON Web Key Set 'hydra.openid.id-token' does not exist yet, generating new key pair..."
+time="2021-07-07T12:51:23Z" level=info msg="JSON Web Key Set 'hydra.openid.id-token' doesn't exist yet, generating new key pair..."
 ```
 
 #### Run Tests with HSM enabled using Docker
 
-```shell
-$ make quicktest-hsm
+```sh
+make quicktest-hsm
 ```

@@ -27,7 +27,7 @@ and read these articles:
 
 :::note
 
-If you are not building a system that involves third parties - for example a
+If you aren't building a system that involves third parties - for example a
 third party company (CircleCI) using your (GitHub) APIs - but instead are
 looking to solve "Single Sign On", mobile / single page app authentication, or
 generally "I want an API token after someone logs in", take a look at
@@ -80,13 +80,13 @@ of _resource owner_. Here is a full list of terms.
 2. The **OAuth 2.0 Authorization Server** implements the OAuth 2.0 protocol (and
    optionally OpenID Connect). In our case, this is **Ory Hydra**.
 3. The **resource provider** is the service that hosts (provides) the resources.
-   These resources (e.g. blog articles, printers, todo lists) are owned by a
-   resource owner (user) mentioned above.
+   These resources (for example blog articles, printers, todo lists) are owned
+   by a resource owner (user) mentioned above.
 4. The **OAuth 2.0 Client** is the _external application_ that wants to access a
    resource owner's resources (read a user's images). To do that, it asks the
    OAuth 2.0 Authorization Server for an access token in a resource owner's
    behalf. The authorization server will ask the user if he/she "is ok with"
-   giving that external application e.g. write access to personal images.
+   giving that external application for example write access to personal images.
 5. The **Identity Provider** is a service that allows users to register
    accounts, log in, etc.
 6. **User Agent** is usually a browser.
@@ -145,9 +145,9 @@ Ory Hydra has pre-defined OAuth 2.0 Scope values:
 - `offline_access`: Include this scope if you wish to receive a refresh token
 - `openid`: Include this scope if you wish to perform an OpenID Connect request.
 
-When performing an OAuth 2.0 Flow where the end-user is involved (e.g. Implicit
-or Authorize Code), the granted OAuth 2.0 Scope must be set when accepting the
-consent using the `grant_scope` key.
+When performing an OAuth 2.0 Flow where the end-user is involved (for example
+Implicit or Authorize Code), the granted OAuth 2.0 Scope must be set when
+accepting the consent using the `grant_scope` key.
 
 ### OAuth 2.0 Access Token Audience
 
@@ -161,35 +161,24 @@ but may also refer to a subset of resources:
 
 - `https://api.mydomain.com/tenants/foo/users`
 
-When performing an OAuth 2.0 Flow where the end-user is involved (e.g. Implicit
-or Authorize Code), the granted audience must be set when accepting the consent
-using the `grant_access_token_audience` key. In most cases, it is ok to grant
-the audience without user-interaction.
+When performing an OAuth 2.0 Flow where the end-user is involved (for example
+Implicit or Authorize Code), the granted audience must be set when accepting the
+consent using the `grant_access_token_audience` key. In most cases, it's ok to
+grant the audience without user-interaction.
 
 ### OAuth 2.0 Refresh Tokens
 
-OAuth 2.0 Refresh Tokens are issued only when an Authorize Code Flow
-(`response_type=code`) or an OpenID Connect Hybrid Flow with an Authorize Code
-Response Type (`response_type=code+...`) is executed. OAuth 2.0 Refresh Tokens
-are not returned for Implicit or Client Credentials grants:
+OAuth 2.0 Refresh Tokens are issued only for the following flows:
 
-Capable of issuing an OAuth 2.0 Refresh Token:
+- Authorization Code Flow: `response_type=code`
+- OpenID Hybrid Flow with Authorization Code Flow reponse type:
+  `response_type=code+{other_response}`
 
-- https://ory-hydra.example/oauth2/auth?response_type=code&...
-- https://ory-hydra.example/oauth2/auth?response_type=code+token&...
-- https://ory-hydra.example/oauth2/auth?response_type=code+token+id_token&...
-- https://ory-hydra.example/oauth2/auth?response_type=code+id_token&...
+To get Refresh Tokens, OAuth 2.0 clients must be allowed to request the
+`offline_access` scope.
 
-Will not issue an OAuth 2.0 Refresh Token:
-
-- https://ory-hydra.example/oauth2/auth?response_type=token&...
-- https://ory-hydra.example/oauth2/auth?response_type=token+id_token&...
-- https://ory-hydra.example/oauth2/token?grant_type=client_credentials&...
-
-Additionally, each OAuth 2.0 Client that wants to request an OAuth 2.0 Refresh
-Token must be allowed to request scope `offline_access`. When performing an
-OAuth 2.0 Authorize Code Flow, the `offline_access` value must be included in
-the requested OAuth 2.0 Scope:
+When performing the Authorization Code Flow, `offline_access` must be included
+in the requested scope:
 
 ```
 https://authorization-server.com/auth
@@ -200,8 +189,8 @@ https://authorization-server.com/auth
  &state=...
 ```
 
-When [accepting the consent request](consent), `offline_access` must be in the
-list of `grant_scope`:
+When [accepting consent requests](consent), the `offline_access` scope must be
+included in the list of `grant_scope`:
 
 ```js
 fetch('https://hydra/oauth2/auth/requests/consent/accept?challenge=' + encodeURIComponent(challenge), {
@@ -214,8 +203,14 @@ const body = {
 }
 ```
 
-Refresh Token Lifespan can be set using configuration key `ttl.refresh_token`.
-If set to -1, Refresh Tokens never expire.
+You can adjust the Refresh Token lifespan (TTL) using the `ttl.refresh_token`
+configuration key. By default, the TTL is set to 1 hour.
+
+:::tip
+
+If you set `ttl.refresh_token` to `-1`, Refresh Tokens never expire.
+
+:::
 
 ### OAuth 2.0 Token Introspection
 
