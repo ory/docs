@@ -18,8 +18,7 @@ import webm from './flutter_web_redirect/screencast.webm'
 
 ## Create Flutter Web App
 
-The below command will create a basic Flutter example application. We will just
-add to it an authentication layer to keep the guide simple.
+Run this command to create a basic Flutter application:
 
 ```shell-session
 flutter create myapp
@@ -28,9 +27,11 @@ cd myapp
 
 Add [dio](https://github.com/flutterchina/dio) and
 [flutter dotenv](https://github.com/java-james/flutter_dotenv) to your
-`pubspec.yaml`. We use [dio](https://github.com/flutterchina/dio) for HTTP
-request and [flutter dotenv](https://github.com/java-james/flutter_dotenv) for
-managing our environment variables.
+`pubspec.yaml` file.
+
+We use [dio](https://github.com/flutterchina/dio) for HTTP request and
+[flutter dotenv](https://github.com/java-james/flutter_dotenv) for environment
+variable management.
 
 ```mdx-code-block title="pubspec.yaml"
 import pubspec from '!!raw-loader!../../../code-examples/protect-page-login/flutter_web_redirect/pubspec.yaml'
@@ -54,8 +55,8 @@ import OryCLI from './_common/ory-cli.mdx'
 
 ## Create the Authentication service
 
-Next, create an Authentication service in our `lib/services` directory, which we
-will use to query the Ory APIs for session information.
+Next, create an Authentication service in the `lib/services` directory. This
+service will be used to query the Ory APIs for session information.
 
 ```shell-session
 touch lib/services/auth.dart
@@ -69,9 +70,9 @@ import auth from '!!raw-loader!../../../code-examples/protect-page-login/flutter
 
 ## Add Environment Variables
 
-Create an `.env` file in the root of our project to hold the `ORY_BASE_URL`
-variable. This would be the Ory proxy URL (for example
-http://localhost:3005/.ory).
+Create a `.env` file in the root of the project to hold the `ORY_BASE_URL`
+variable. The value of the variable is the Ory proxy URL, for example
+`http://localhost:3005/.ory`.
 
 ```shell-session
 touch .env
@@ -85,9 +86,10 @@ import env from '!!raw-loader!../../../code-examples/protect-page-login/flutter_
 
 ## Update lib/main.dart
 
-Finally, we update the `lib/main.dart` file to check for a session cookie on the
-initial load of the application. This will determine if we redirect to the
-sign-in/signup page or not.
+Finally, update the `lib/main.dart` file to check for a session cookie on the
+initial load of the application. If the cookie is found, the user can access the
+application. If the cookie isn't found, the user is redirected to the login
+page.
 
 ```mdx-code-block title="lib/main.dart"
 import main from '!!raw-loader!../../../code-examples/protect-page-login/flutter_web_redirect/lib/main.dart'
@@ -164,7 +166,7 @@ dhttpd --host localhost --port 4005 --path build/web
 
 :::tip
 
-See here for more information on
-[Flutter Web in Production](https://docs.flutter.dev/deployment/web)
+Follow this link to learn more about
+[Flutter Web applications in production](https://docs.flutter.dev/deployment/web).
 
 :::
