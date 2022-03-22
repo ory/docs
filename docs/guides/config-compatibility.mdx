@@ -3,39 +3,62 @@ id: config-compatibility
 title: Configure Features using Ory CLI
 ---
 
-Ory's components use the same configuration format and APIs regardless of
-whether you consume them via Ory Cloud or self-hosting. In this guide, you'll
-learn how to use the Ory Configuration format to configure Ory Cloud and
-self-hosted Ory components.
+All Ory components use the same configuration format and APIs when they are self-hosted or
+consumed through Ory Cloud. 
 
-## Ory Cloud
+This allows you to use the Ory CLI to configure your components, no matter how you use Ory!
 
-The easiest way to configure Ory Cloud is through the User Interface of Ory
-Console:
+:::note
 
-![Ory Console Configuration Example](./config-compatibility/console-config.png)
+Ory CLI is actively developed. This means that new configuration options are added with new CLI 
+releases. 
 
-However, not all configuration options are available in the User Interface. Or
-you want to use automation (for example GitOps) to configure Ory Cloud. In those
-cases you can use the Ory CLI to configure the desired settings.
+:::
 
-### Ory CLI
+## Using the CLI with Ory Cloud
 
-To get started, install the CLI and sign in to Ory Cloud:
+To use the CLI with your Ory Cloud project, run this command to sign in:
 
 ```shell
 ory auth
 ```
 
-Next you have two options to manage Ory Cloud projects. You can either overwrite
-the complete config, or you can patch only parts of it.
+Follow the on-screen instructions to sign in to your project. Upon successful sign in, the CLI 
+shows the details of the user signed in to the Ory Cloud: 
 
-#### Overwrite / Import Configuration
+```text
+You are now signed in as: john.wick@company.com
+ID			7759555-e23a-44b7-b148-7fed7f908024
+EMAIL			john.wick@company.com
+SELECTED_PROJECT	00000000-0000-0000-0000-000000000000
+```
 
-To overwrite the complete configuration, create a file with the configuration
-you want to use. The configuration format follows the
+:::tip
+
+If you don't have an Ory Cloud project, you can create one straight from the CLI. 
+
+:::
+
+## Configuring Projects
+
+There are two ways to adjust the configuration of Ory Cloud projects. You can:
+
+- overwite / import configuration from a file using the `ory update` command
+- patch the existing configuration using the `ory patch` command
+
+### Overwrite / Import Configuration
+
+To overwrite the entire project configuration or to import a brand new config, create a file with the configuration
+you want to use. 
+
+The configuration format follows the
 [updateProject API request payload](../reference/api.mdx#operation/updateProject).
-The key `/services/identity/config`
+
+:::note
+
+The `/services/identity/config` key is compatible with the
+[Ory Kratos configuration format](../docs/kratos/reference/configuration.md)
+except for some keys (for example `serve`, `dsn`) which will be ignored.
 
 ```json
 {
@@ -46,15 +69,10 @@ The key `/services/identity/config`
   }
 }
 ```
+:::
 
-is fully compatible with the
-[Ory Kratos configuration format](../docs/kratos/reference/configuration.md)
-except for some keys (for example `serve`, `dsn`) which will be ignored.
-
-Let's make an example. We want to modify the `from` name when sending out
-recovery / verification emails.
-
-First, we create a configuration file:
+Let's look at an example. If you want to change the name of the email sender for recover and verification emails, 
+create a configuration file which looks like this: 
 
 ```json title="config.json"
 {
@@ -73,27 +91,30 @@ First, we create a configuration file:
 }
 ```
 
-and use it in the Ory CLI:
+Next, use the Ory CLI to apply the config:
 
 ```shell
 ory update project <your-project-id> --file config.json
 ```
 
-#### Patch Configuration
+### Patch Configuration
 
-Most of the times you only want to modify a few parts of the configuration. In
-that case, you can use the `patch` command in combination with
-[JSON Patch](http://jsonpatch.com/) to target individual keys. If we look at the
-example from import, the same could be achieved with:
+When you want to change specific parts of the configuration instead of overwriting the entire
+config, use the `ory patch` command.
+
+Use this command in combination with [JSON Patch](http://jsonpatch.com/) to target individual keys.
+
+To perform an update similar to the one described in the previous paragraph and change 
+the name of the email sender for recover and verification emails, run this command:
 
 ```
 ory patch project <your-project-id> \
   --replace '/services/identity/config/courier/smtp/from_name="My Custom E-Mail Name"'
 ```
 
-:::note
+:::tip
 
-Please notice that the part after `=` is interpreted as raw JSON:
+Note that the part after `=` is interpreted as raw JSON:
 
 - String: `/path/to/key="my string"`
 - Bool: `/path/to/key=true`
@@ -101,32 +122,3 @@ Please notice that the part after `=` is interpreted as raw JSON:
 - Complex: `/path/to/key={"my": ["vaules", {"foo":"bar"}]}`
 
 :::
-
-## Self-Hosted
-
-Ory's core components can be self-hosted. When self-hosting, all settings such
-as disabling registration, to enabling advanced Multi-Factor Authentication
-protocols, is configured using files.
-
-## Identity Services
-
-When self-hosting Ory's Identity Service, you will be running the
-[Ory Kratos project](https://www.ory.sh/docs/kratos/). To configure Ory Kratos,
-you need to create a configuration file on your file system
-
-```yaml title="my-config.yaml"
-# An Ory Kratos configuration file with an example configuration:
-selfservice:
-  flows:
-    registration:
-      enabled: false
-```
-
-and pass it to the CLI flags of Ory Kratos when starting the server:
-
-```shell
-kratos serve --config my-config.yaml
-```
-
-For a list of all possible configuration items, see the
-[Ory Kratos documentation](../kratos/reference/configuration.md).
