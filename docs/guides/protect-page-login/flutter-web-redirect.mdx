@@ -16,30 +16,7 @@ import webm from './flutter_web_redirect/screencast.webm'
 />
 ```
 
-## Preface
-
-From experience, we at Ory have noticed many resources do not fully explain
-which authentication method is the correct method for that technology or use
-case. With frameworks that support so many devices, it becomes difficult to
-understand where to use, for example, session cookies, tokens, or even OAuth2
-flows.
-
-We won't cover such a wide range of topics in one guide and will thus split them
-up into different projects/guides.
-
-This guide will specifically focus on **Flutter Web using browser redirects to
-set a session cookie**. To do this, we will rely on the Ory Managed UI for
-login/registration instead of building our own.
-
 ## Create Flutter Web App
-
-:::note
-
-This guide assumes you already have flutter installed on your system. Please
-follow the official installation guide if you have not at
-https://docs.flutter.dev/get-started/install
-
-:::
 
 The below command will create a basic Flutter example application. We will just
 add to it an authentication layer to keep the guide simple.
@@ -107,9 +84,6 @@ import main from '!!raw-loader!../../../code-examples/protect-page-login/flutter
 <CodeBlock language="dart">{main}</CodeBlock>
 ```
 
----
-
-You can find the [full example application here](https://github.com/ory/docs/tree/master/code-examples/protect-page-login/flutter_web_redirect)
 
 ### Why do I Need the Ory CLI?
 
@@ -152,23 +126,6 @@ interact with your Backend server.
 
 :::
 
-## Preparing for Production
-
-Going to production with your app is possible in many ways. Whether you deploy
-it on Kubernetes, AWS, a VM, or a RaspberryPi is up to you. To get your app
-working with Ory, your app and Ory must be available under the same common
-domain (e.g. `https://ory.example.com` and `https://www.example.com`).
-
-The easiest way to connect Ory to your domain is to connect Ory to a subdomain
-of yours. You can do this easily by
-[adding a Custom Domain to your Cloud project](../custom-domains.mdx)!
-
-With the custom domain set up, you do not need the Ory Proxy anymore and will
-use the configured custom domain in your API calls:
-
-```shell-session
-export ORY_BASE_URL=https://ory.example.com
-```
 
 ### Release Build
 
