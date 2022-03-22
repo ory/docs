@@ -16,6 +16,14 @@ import webm from './flutter_web_redirect/screencast.webm'
 />
 ```
 
+:::note
+
+This example only does a simple check on the initial load of the application and
+is not meant to cover complex session checking in Flutter, nor how it would
+interact with your Backend server.
+
+:::
+
 ## Create Flutter Web App
 
 The below command will create a basic Flutter example application. We will just
@@ -74,16 +82,16 @@ Finally, we update the `main.dart` file to check for a session cookie on the
 initial load of the application. This will determine if we redirect to the
 sign-in/signup page or not.
 
-```shell-session
-touch lib/main.dart
-```
-
 ```mdx-code-block title="lib/main.dart"
 import main from '!!raw-loader!../../../code-examples/protect-page-login/flutter_web_redirect/lib/main.dart'
 
 <CodeBlock language="dart">{main}</CodeBlock>
 ```
 
+## Install Ory CLI
+
+Follow [this guide](../ory-cli-install-use.mdx) to install the Ory CLI on your
+machine.
 
 ### Why do I Need the Ory CLI?
 
@@ -118,14 +126,13 @@ flow you should be redirected back to your Flutter Web App with a session
 cookie. The session cookie can now be sent to your server-side services to
 validate the session on each API call.
 
-:::note
+## Go to Production
 
-This example only does a simple check on the initial load of the application and
-is not meant to cover complex session checking in Flutter, nor how it would
-interact with your Backend server.
+```mdx-code-block
+import ToProd from './_common/going-to-prod.mdx'
 
-:::
-
+<ToProd />
+```
 
 ### Release Build
 
