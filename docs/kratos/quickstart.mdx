@@ -128,14 +128,17 @@ free to [open an issue](https://github.com/ory/kratos/issues/new/choose).
 
 Let's clone Ory Kratos and run `docker-compose`:
 
-```sh
-git clone https://github.com/ory/kratos.git
-cd kratos
-git checkout v0.8.0-alpha.3
+```mdx-code-block
+import { useLatestRelease } from '@site/src/hooks'
+import CodeBlock from '@theme/CodeBlock'
 
+<CodeBlock className="language-shell">{`git clone https://github.com/ory/kratos.git
+cd kratos
+\
+git checkout {useLatestRelease('kratos')}
 docker-compose -f quickstart.yml -f quickstart-standalone.yml up --build --force-recreate
 # If you have SELinux, run:
-docker-compose -f quickstart.yml -f quickstart-selinux.yml -f quickstart-standalone.yml up --build --force-recreate
+docker-compose -f quickstart.yml -f quickstart-selinux.yml -f quickstart-standalone.yml up --build --force-recreate`}</CodeBlock>
 ```
 
 This might take a minute or two. Once the output slows down and logs indicate a
