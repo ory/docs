@@ -26,11 +26,11 @@ flutter create myapp
 cd myapp
 ```
 
-For HTTP requests we will use the [dio](https://github.com/flutterchina/dio)
-package and for managing environment variable we will use
-[flutter dotenv](https://github.com/java-james/flutter_dotenv).
-
-All the packages we use throughout this guide are listed in our `pubspec.yaml`.
+Add [dio](https://github.com/flutterchina/dio) and
+[flutter dotenv](https://github.com/java-james/flutter_dotenv) to your
+`pubspec.yaml`. We use [dio](https://github.com/flutterchina/dio) for HTTP
+request and [flutter dotenv](https://github.com/java-james/flutter_dotenv) for
+managing our environment variables.
 
 ```mdx-code-block title="pubspec.yaml"
 import pubspec from '!!raw-loader!../../../code-examples/protect-page-login/flutter_web_redirect/pubspec.yaml'
@@ -38,6 +38,21 @@ import CodeBlock from '@theme/CodeBlock'
 
 <CodeBlock language="yaml">{pubspec}</CodeBlock>
 ```
+
+## Install Ory CLI
+
+Follow [this guide](../ory-cli-install-use.mdx) to install the Ory CLI on your
+machine.
+
+### Why do I Need the Ory CLI?
+
+```mdx-code-block
+import OryCLI from './_common/ory-cli.mdx'
+
+<OryCLI />
+```
+
+## Create the Authentication service
 
 Next, create an Authentication service in our `lib/services` directory, which we
 will use to query the Ory APIs for session information.
@@ -51,6 +66,8 @@ import auth from '!!raw-loader!../../../code-examples/protect-page-login/flutter
 
 <CodeBlock language="dart">{auth}</CodeBlock>
 ```
+
+## Add Environment Variables
 
 Create an `.env` file in the root of our project to hold the `ORY_BASE_URL`
 variable. This would be the Ory proxy URL (for example
@@ -66,7 +83,9 @@ import env from '!!raw-loader!../../../code-examples/protect-page-login/flutter_
 <CodeBlock language="text">{env}</CodeBlock>
 ```
 
-Finally, we update the `main.dart` file to check for a session cookie on the
+## Update lib/main.dart
+
+Finally, we update the `lib/main.dart` file to check for a session cookie on the
 initial load of the application. This will determine if we redirect to the
 sign-in/signup page or not.
 
@@ -74,19 +93,6 @@ sign-in/signup page or not.
 import main from '!!raw-loader!../../../code-examples/protect-page-login/flutter_web_redirect/lib/main.dart'
 
 <CodeBlock language="dart">{main}</CodeBlock>
-```
-
-## Install Ory CLI
-
-Follow [this guide](../ory-cli-install-use.mdx) to install the Ory CLI on your
-machine.
-
-### Why do I Need the Ory CLI?
-
-```mdx-code-block
-import OryCLI from './_common/ory-cli.mdx'
-
-<OryCLI />
 ```
 
 ## Test you application
@@ -156,5 +162,9 @@ We then need an HTTP server to serve the files, we will use
 dhttpd --host localhost --port 4005 --path build/web
 ```
 
+:::tip
+
 See here for more information on
 [Flutter Web in Production](https://docs.flutter.dev/deployment/web)
+
+:::
