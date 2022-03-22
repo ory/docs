@@ -1,8 +1,8 @@
 var express = require('express')
 var router = express.Router()
+// highlight-start
 var sdk = require('@ory/client')
 
-// highlight-start
 var ory = new sdk.V0alpha2Api(
   new sdk.Configuration({
     baseUrl: '/.ory'
