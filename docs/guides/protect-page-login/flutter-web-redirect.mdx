@@ -16,13 +16,6 @@ import webm from './flutter_web_redirect/screencast.webm'
 />
 ```
 
-:::note
-
-This example only does a simple check on the initial load of the application and
-is not meant to cover complex session checking in Flutter, nor how it would
-interact with your Backend server.
-
-:::
 
 ## Create Flutter Web App
 
@@ -101,11 +94,27 @@ import OryCLI from './_common/ory-cli.mdx'
 <OryCLI />
 ```
 
-## Run your Flutter Web App
+## Test you application
+
+Run the following steps to get your application running:
+
+1. Start your flutter web server
 
 ```shell-session
 flutter run -d web-server --web-port 4005
 ```
+
+2. Export the SDK configuration URL for the desired Ory project. You can use the
+provided playground project for testing, or export the SDK URL of your own
+Ory Cloud project.
+
+:::info
+
+To get your project's SDK URL, sign in at
+[console.ory.sh](https://console.ory.sh/), select **Connect** from the left
+navigation panel, and copy the URL from the **SDK Configuration** section.
+
+:::
 
 ```mdx-code-block
 import SdkEnvVar from '@site/src/components/SdkEnvVar'
@@ -113,18 +122,19 @@ import SdkEnvVar from '@site/src/components/SdkEnvVar'
 <SdkEnvVar />
 ```
 
-Start the Ory Cli proxy on [http://localhost:3005](http://localhost:3005) and
-set the proxied application to [http://localhost:4005](http://localhost:4005).
+3. Run the Ory proxy to mirror the Ory API endpoints on your application's
+domain (`localhost`):
 
 ```shell-session
 ory proxy --port 3005 http://localhost:4005
 ```
 
-Open the browser on [http://localhost:3005](http://localhost:3005) you should
-now see the Ory managed Login page. Once you have completed the login/signup
-flow you should be redirected back to your Flutter Web App with a session
-cookie. The session cookie can now be sent to your server-side services to
-validate the session on each API call.
+4. Open [http://localhost:3005](http://localhost:3005) to access the
+application. As the initial call is made by an unauthenticated user, the
+session check doesn't detect a valid session and redirects to the login page of
+the defined Ory project. <br/> <br/> From there, you can create a new account
+or sign in using an existing identity. When you sign in, the session becomes
+valid and the application shows the `Dashboard` page with the session data.
 
 ## Go to Production
 
