@@ -28,7 +28,7 @@ cd myapp
 ```
 
 For HTTP requests we will use the [dio](https://github.com/flutterchina/dio)
-package.
+package and for managing environment variable we will use [flutter dotenv](https://github.com/java-james/flutter_dotenv).
 
 All the packages we use throughout this guide are listed in our `pubspec.yaml`.
 
@@ -39,12 +39,7 @@ import CodeBlock from '@theme/CodeBlock'
 <CodeBlock language="yaml">{pubspec}</CodeBlock>
 ```
 
-Package sources:
-
-- https://github.com/flutterchina/dio
-- https://github.com/java-james/flutter_dotenv
-
-Next let us create an Authentication service in our `lib/services` directory,
+Next, create an Authentication service in our `lib/services` directory,
 which we will use to query the Ory APIs for session information.
 
 ```shell-session
@@ -57,8 +52,8 @@ import auth from '!!raw-loader!../../../code-examples/protect-page-login/flutter
 <CodeBlock language="dart">{auth}</CodeBlock>
 ```
 
-Then we need to create an `.env` file in the root of our project to hold the
-`ORY_BASE_URL` variable. This would be the Ory proxy URL (e.g.
+Create an `.env` file in the root of our project to hold the
+`ORY_BASE_URL` variable. This would be the Ory proxy URL (for example
 http://localhost:3005/.ory) and the path to the Ory API `/api/kratos/public`.
 
 ```shell-session
