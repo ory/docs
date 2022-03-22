@@ -51,7 +51,7 @@ multiple reasons:
    `nonce` claim can then be verified by the client application to mitigate any
    replay attacks. Optional for Authoize Code Flow, but mandatory for
    Implicit/Hybrid flow. Correct request would be -
-   `/oauth2/auth?response_type=id_token?nonce=some-value`. You can read more
+   `/oauth2/auth?response_type=id_token&nonce=some-value`. You can read more
    about `nonce` here
    [OpenId Connect Core](https://openid.net/specs/openid-connect-core-1_0.html#NonceNotes).
 4. Your consent app didn't send `granted_scope: ["openid"]` or when accepting
