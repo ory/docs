@@ -73,7 +73,9 @@ module.exports = {
         'shell-session',
         'bash',
         'tsx',
-        'php'
+        'php',
+        'yaml',
+        'dart'
       ]
     },
     announcementBar: {
