@@ -54,7 +54,7 @@ EMAIL			tom@email.com
 SELECTED_PROJECT	00000000-0000-0000-0000-00000000000
 ```
 
-## Using the CLI with Ory Cloud
+## Using Existing Projects
 
 To use the CLI with your existing Ory Cloud account and project, run this
 command to sign in:
@@ -73,6 +73,21 @@ ID			7759555-e23a-44b7-b148-7fed7f908024
 EMAIL			john.wick@company.com
 SELECTED_PROJECT	00000000-0000-0000-0000-000000000000
 ```
+
+### Accounts with Social Sign-In
+
+If you created your account through a social sign-in provider such as GitHub or Google, 
+you must adjust your account configuration to use the Ory CLI. 
+
+Accounts created with social sign-in providers don't use passwords. To sign in to your
+account with the Ory CLI, you must provide your email address and password. 
+
+Follow these steps to create a password for an account created with a social sign-in provider: 
+
+1. Open the [Ory Console](https://console.ory.sh/) and sign in.
+2. Go to your [account settings](https://console.ory.sh/settings).
+3. Enter a new password in the **Update Password** field. 
+4. Click **Save** to finish. 
 
 ## Configuring Projects
 
