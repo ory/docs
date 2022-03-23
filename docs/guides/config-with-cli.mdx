@@ -15,16 +15,50 @@ releases.
 
 :::
 
-## Using the CLI with Ory Cloud
+## Creating Projects
 
-To use the CLI with your Ory Cloud project, run this command to sign in:
+With Ory CLI, you can create a new Ory Cloud account and project from your terminal. 
+
+To start, run this command to start the wizard:
 
 ```shell
 ory auth
 ```
 
-Follow the on-screen instructions to sign in to your project. Upon successful sign in, the CLI 
-shows the details of the user signed in to the Ory Cloud: 
+If you haven't signed in with the CLI before, you're asked if you have an Ory Cloud account.
+
+```shell
+Do you already have an Ory Console account you wish to use? [y/n]: n
+```
+
+Answer "no" to create a new account. In the process, you must provide the basic account information: email address, password, user name, 
+and choose if you want to be informed about platform security updates.
+
+As a final step, accept the Terms of Service.
+
+```shell
+I accept the Terms of Service https://www.ory.sh/ptos:  [y/n]: y
+```
+
+When the process is completed, the CLI displays the created project and user details: 
+
+```text
+You are now signed in as: tom@email.com
+ID			cae666dg-2ffa-491b-9912-6b090ec10e1c
+EMAIL			tom@email.com
+SELECTED_PROJECT	00000000-0000-0000-0000-00000000000
+```
+
+## Using the CLI with Ory Cloud
+
+To use the CLI with your existing Ory Cloud account and project, run this command to sign in:
+
+```shell
+ory auth
+```
+
+Follow the on-screen instructions to sign in to your account. Upon successful sign in, the CLI 
+shows the details of the signed-in user and the selected Ory Cloud project: 
 
 ```text
 You are now signed in as: john.wick@company.com
@@ -32,12 +66,6 @@ ID			7759555-e23a-44b7-b148-7fed7f908024
 EMAIL			john.wick@company.com
 SELECTED_PROJECT	00000000-0000-0000-0000-000000000000
 ```
-
-:::tip
-
-If you don't have an Ory Cloud project, you can create one straight from the CLI. 
-
-:::
 
 ## Configuring Projects
 
