@@ -10,7 +10,7 @@ This allows you to use the Ory CLI to configure your components, no matter how y
 
 :::note
 
-Ory CLI is actively developed. This means that new configuration options are added with new CLI 
+Ory CLI is actively developed. This means that more configuration options are added with new CLI 
 releases. 
 
 :::
@@ -71,8 +71,8 @@ except for some keys (for example `serve`, `dsn`) which will be ignored.
 ```
 :::
 
-Let's look at an example. If you want to change the name of the email sender for recover and verification emails, 
-create a configuration file which looks like this: 
+Let's look at an example. If you want to change the name of the email sender for recovery and verification emails, 
+create a configuration file that looks like this: 
 
 ```json title="config.json"
 {
@@ -105,12 +105,14 @@ config, use the `ory patch` command.
 Use this command in combination with [JSON Patch](http://jsonpatch.com/) to target individual keys.
 
 To perform an update similar to the one described in the previous paragraph and change 
-the name of the email sender for recover and verification emails, run this command:
+the name of the email sender for recovery and verification emails, run this command:
 
 ```
 ory patch project <your-project-id> \
   --replace '/services/identity/config/courier/smtp/from_name="My Custom E-Mail Name"'
 ```
+
+Use the `--replace` flag to indicate the key you want to change. 
 
 :::tip
 
