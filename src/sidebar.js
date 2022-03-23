@@ -60,6 +60,7 @@ module.exports = {
             'guides/custom-domains',
             'guides/bring-your-user-interface',
             'guides/customize-identity-schema',
+            'guides/config-with-cli',
             {
               type: 'category',
               label: 'Enabling Social Sign-in',
