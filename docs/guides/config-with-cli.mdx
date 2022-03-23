@@ -3,21 +3,23 @@ id: config-with-cli
 title: Configure Projects with Ory CLI
 ---
 
-All Ory components use the same configuration format and APIs when they are self-hosted or
-consumed through Ory Cloud. 
+All Ory components use the same configuration format and APIs when they are
+self-hosted or consumed through Ory Cloud.
 
-This allows you to use the Ory CLI to configure your components, no matter how you use Ory!
+This allows you to use the Ory CLI to configure your components, no matter how
+you use Ory!
 
 :::note
 
-Ory CLI is actively developed. This means that more configuration options are added with new CLI 
-releases. 
+Ory CLI is actively developed. This means that more configuration options are
+added with new CLI releases.
 
 :::
 
 ## Creating Projects
 
-With Ory CLI, you can create a new Ory Cloud account and project from your terminal. 
+With Ory CLI, you can create a new Ory Cloud account and project from your
+terminal.
 
 To start, run this command to start the wizard:
 
@@ -25,14 +27,16 @@ To start, run this command to start the wizard:
 ory auth
 ```
 
-If you haven't signed in with the CLI before, you're asked if you have an Ory Cloud account.
+If you haven't signed in with the CLI before, you're asked if you have an Ory
+Cloud account.
 
 ```shell
 Do you already have an Ory Console account you wish to use? [y/n]: n
 ```
 
-Answer "no" to create a new account. In the process, you must provide the basic account information: email address, password, user name, 
-and choose if you want to be informed about platform security updates.
+Answer "no" to create a new account. In the process, you must provide the basic
+account information: email address, password, user name, and choose if you want
+to be informed about platform security updates.
 
 As a final step, accept the Terms of Service.
 
@@ -40,7 +44,8 @@ As a final step, accept the Terms of Service.
 I accept the Terms of Service https://www.ory.sh/ptos:  [y/n]: y
 ```
 
-When the process is completed, the CLI displays the created project and user details: 
+When the process is completed, the CLI displays the created project and user
+details:
 
 ```text
 You are now signed in as: tom@email.com
@@ -51,14 +56,16 @@ SELECTED_PROJECT	00000000-0000-0000-0000-00000000000
 
 ## Using the CLI with Ory Cloud
 
-To use the CLI with your existing Ory Cloud account and project, run this command to sign in:
+To use the CLI with your existing Ory Cloud account and project, run this
+command to sign in:
 
 ```shell
 ory auth
 ```
 
-Follow the on-screen instructions to sign in to your account. Upon successful sign in, the CLI 
-shows the details of the signed-in user and the selected Ory Cloud project: 
+Follow the on-screen instructions to sign in to your account. Upon successful
+sign in, the CLI shows the details of the signed-in user and the selected Ory
+Cloud project:
 
 ```text
 You are now signed in as: john.wick@company.com
@@ -76,8 +83,8 @@ There are two ways to adjust the configuration of Ory Cloud projects. You can:
 
 ### Overwrite / Import Configuration
 
-To overwrite the entire project configuration or to import a brand new config, create a file with the configuration
-you want to use. 
+To overwrite the entire project configuration or to import a brand new config,
+create a file with the configuration you want to use.
 
 The configuration format follows the
 [updateProject API request payload](../reference/api.mdx#operation/updateProject).
@@ -97,10 +104,12 @@ except for some keys (for example `serve`, `dsn`) which will be ignored.
   }
 }
 ```
+
 :::
 
-Let's look at an example. If you want to change the name of the email sender for recovery and verification emails, 
-create a configuration file that looks like this: 
+Let's look at an example. If you want to change the name of the email sender for
+recovery and verification emails, create a configuration file that looks like
+this:
 
 ```json title="config.json"
 {
@@ -127,20 +136,22 @@ ory update project <your-project-id> --file config.json
 
 ### Patch Configuration
 
-When you want to change specific parts of the configuration instead of overwriting the entire
-config, use the `ory patch` command.
+When you want to change specific parts of the configuration instead of
+overwriting the entire config, use the `ory patch` command.
 
-Use this command in combination with [JSON Patch](http://jsonpatch.com/) to target individual keys.
+Use this command in combination with [JSON Patch](http://jsonpatch.com/) to
+target individual keys.
 
-To perform an update similar to the one described in the previous paragraph and change 
-the name of the email sender for recovery and verification emails, run this command:
+To perform an update similar to the one described in the previous paragraph and
+change the name of the email sender for recovery and verification emails, run
+this command:
 
 ```
 ory patch project <your-project-id> \
   --replace '/services/identity/config/courier/smtp/from_name="My Custom E-Mail Name"'
 ```
 
-Use the `--replace` flag to indicate the key you want to change. 
+Use the `--replace` flag to indicate the key you want to change.
 
 :::tip
 
