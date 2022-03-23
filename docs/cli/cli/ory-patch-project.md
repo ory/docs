@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## ory patch project
 
 Patch an Ory Cloud Project
@@ -48,5 +49,4 @@ ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 
 ### SEE ALSO
 
-* [ory patch](ory-patch)	 - Patch resources
-
+- [ory patch](ory-patch) - Patch resources

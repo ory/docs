@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## keto expand
 
 Expand a subject set
@@ -40,5 +41,4 @@ keto expand &lt;relation&gt; &lt;namespace&gt; &lt;object&gt; [flags]
 
 ### SEE ALSO
 
-* [keto](keto)	 - Global and consistent permission and authorization server
-
+- [keto](keto) - Global and consistent permission and authorization server

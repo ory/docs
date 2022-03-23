@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## ory get
 
 Get a resource
@@ -25,6 +26,5 @@ Get a resource
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
-* [ory get project](ory-get-project)	 - Get an Ory Cloud project
-
+- [ory](ory) - The ORY CLI
+- [ory get project](ory-get-project) - Get an Ory Cloud project
