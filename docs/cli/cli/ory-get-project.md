@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory get project
 
 Get an Ory Cloud project
@@ -35,4 +34,5 @@ ory get project id [flags]
 
 ### SEE ALSO
 
-- [ory get](ory-get) - Get a resource
+* [ory get](ory-get)	 - Get a resource
+

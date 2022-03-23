@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory create project
 
 Create a new Ory Cloud Project
@@ -36,4 +35,5 @@ ory create project [flags]
 
 ### SEE ALSO
 
-- [ory create](ory-create) - Create Ory Cloud resources
+* [ory create](ory-create)	 - Create Ory Cloud resources
+
