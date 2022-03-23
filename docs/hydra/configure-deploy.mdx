@@ -31,7 +31,7 @@ without virtualization, installing Go, and compiling Ory Hydra.
 Before we can start, a network must be created which we will attach all our
 Docker containers to. That way, the containers can talk to one another.
 
-```sh
+```bash
 docker network create hydraguide
 ```
 
@@ -41,7 +41,7 @@ For the purpose of this tutorial, we will use PostgreSQL as a database. As you
 probably already know, don't run databases in Docker in production! For the sake
 of this tutorial however, let's use Docker to quickly deploy the database.
 
-```sh
+```bash
 docker run \
   --network hydraguide \
   --name ory-hydra-example--postgres \
@@ -61,7 +61,7 @@ We highly recommend using Docker to run Hydra, as installing, configuring and
 running Hydra is easiest with Docker. Ory Hydra is available on
 [Docker Hub](https://hub.docker.com/r/oryd/hydra/).
 
-```sh
+```bash
 # The system secret can only be set against a fresh database. Key rotation is not supported. This
 # secret is used to encrypt the database and needs to be set to the same value every time the process (re-)starts.
 # You can use /dev/urandom to generate a secret. But make sure that the secret must be the same anytime you define it.
@@ -101,11 +101,11 @@ Migration successful!
 docker run -d \
   --name ory-hydra-example--hydra \
   --network hydraguide \
-  -p 9000:4444 \
-  -p 9001:4445 \
+  -p 5444:4444 \
+  -p 5445:4445 \
   -e SECRETS_SYSTEM=$SECRETS_SYSTEM \
   -e DSN=$DSN \
-  -e URLS_SELF_ISSUER=https://localhost:9000/ \
+  -e URLS_SELF_ISSUER=https://localhost:5444/ \
   -e URLS_CONSENT=http://localhost:9020/consent \
   -e URLS_LOGIN=http://localhost:9020/login \
   oryd/hydra:v1.10.6 serve all
@@ -123,13 +123,13 @@ Let's dive into the various settings:
 
 - `--network hydraguide` connects this instance to the network and makes it
   possible to connect to the PostgreSQL database.
-- `-p 9000:4444` exposes Ory Hydra's public API on `https://localhost:9000/`.
-- `-p 9001:4445` exposes Ory Hydra's administrative API on
-  `https://localhost:9001/`.
+- `-p 5444:4444` exposes Ory Hydra's public API on `https://localhost:5444/`.
+- `-p 5445:4445` exposes Ory Hydra's administrative API on
+  `https://localhost:5445/`.
 - `-e SECRETS_SYSTEM=$SECRETS_SYSTEM` sets the system secret environment
   variable **(required)**.
 - `-e DSN=$DSN` sets the database url environment variable **(required)**.
-- `-e URLS_SELF_ISSUER=https://localhost:9000/` this value must be set to the
+- `-e URLS_SELF_ISSUER=https://localhost:5444/` this value must be set to the
   publicly available URL of Ory Hydra **(required)**.
 - `-e URLS_CONSENT=http://localhost:9020/consent` this sets the URL of the
   consent provider **(required)**. We will set up the service that handles
@@ -165,7 +165,7 @@ docker run -d \
 :::
 
 To confirm that the instance is running properly,
-[open the health check](https://localhost:9001/health/ready). If asked, accept
+[open the health check](https://localhost:5445/health/ready). If asked, accept
 the self-signed certificate in your browser. You should simply see `ok`.
 
 On start up, Ory Hydra is initializing some values. Let's take a look at the
@@ -303,7 +303,7 @@ docker run --rm -it \
   oryd/hydra:v1.10.6 \
   token user --skip-tls-verify \
     --port 9010 \
-    --auth-url https://localhost:9000/oauth2/auth \
+    --auth-url https://localhost:5444/oauth2/auth \
     --token-url https://ory-hydra-example--hydra:4444/oauth2/token \
     --client-id facebook-photo-backup \
     --client-secret some-secret \
