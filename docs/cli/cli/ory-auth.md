@@ -21,7 +21,7 @@ ory auth [flags]
 
 ```
   -c, --config string   Path to the Ory Cloud configuration file.
-      --format string   Set the output format. One of table, json, and json-pretty. (default &#34;default&#34;)
+      --format string   Set the output format. One of table, json, yaml, and json-pretty. (default "default")
   -h, --help            help for auth
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogues with yes.

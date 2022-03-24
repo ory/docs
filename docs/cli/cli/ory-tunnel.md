@@ -11,7 +11,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory tunnel
 
-Tunnel Ory on a subdomain of your app or a seperate port your app&#39;s domain
+Tunnel Ory on a subdomain of your app or a seperate port your app's domain
 
 ### Synopsis
 
