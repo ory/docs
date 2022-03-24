@@ -33,7 +33,16 @@ Let's add the following content to `keto.yml` configuration file. You can find a
 namespaces:
   - id: 0
   name: blog_posts
+
+serve:
+  read:
+    host: 0.0.0.0
+    port: 4466
+  write:
+    host: 0.0.0.0
+    port: 4467
 ```
+
 General mapping from old to new policies
 
 - Subjects -> Subject or Subject Sets
@@ -76,7 +85,7 @@ blog_posts:3#delete@bob
 blog_posts:3#create@bob
 ```
 
-Keto has converter from Zanzibar notation to JSON that can be used to create tuples using REST API
+## Creating rules using Cli
 
 ```bash
 keto relation-tuple parse alice_policies- --format json | \
