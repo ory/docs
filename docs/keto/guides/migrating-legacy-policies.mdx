@@ -3,10 +3,6 @@ id: migrating-legacy-policies
 title: Migrating policies from 0.5 to 0.6
 ---
 
-With 0.6 release Ory Keto implements [Zanzibar: Google’s Consistent, Global Authorization System](https://research.google/pubs/pub48190/):
-
-> Zanzibar provides a uniform data model and configuration language for expressing a wide range of access control policies from hundreds of client services at Google, including Calendar, Cloud, Drive, Maps, Photos, and YouTube. Its authorization decisions respect causal ordering of user actions and thus provide external consistency amid changes to access control lists and object contents. Zanzibar scales to trillions of access control lists and millions of authorization requests per second to support services used by billions of people. It has maintained 95th-percentile latency of less than 10 milliseconds and availability of greater than 99.999% over 3 years of production use.
-
 0.6 release makes Ory Access Control Policy DSL modeled after AWS IAM Policies obsolete. This guide will help you to rewrite your policies in to [relation-tuples](https://www.ory.sh/docs/keto/concepts/relation-tuples)
 
 ## Legacy rules example
@@ -30,15 +26,24 @@ The policy below allows `Alice` and `Bob` to create/read/modify/delete `blog_pos
 
 According to the example above we need to create required [namespace](https://www.ory.sh/docs/keto/concepts/namespaces) and [relationship tuple](https://www.ory.sh/docs/keto/concepts/relation-tuples)
 
-Let's add the following content to `keto.yml` file
+Let's add the following content to `keto.yml` configuration file. You can find a [good template](https://github.com/ory/keto/blob/master/config/keto.yml) to start with
+
 
 ```yaml
 namespaces:
   - id: 0
   name: blog_posts
 ```
+General mapping from old to new policies
+
+- Subjects -> Subject or Subject Sets
+- Resources -> Namespaces with Objects
+- Actions -> Relations
+- Effect -> Relations or obsolete
 
 ## Alice relationship tuples
+
+Let's create a `alice_policies` file with the following content which adds exaclty same permissions to Alice as previous example
 
 ```
 blog_posts:my-first-blog-post#read@alice
@@ -54,8 +59,7 @@ blog_posts:3#modify@alice
 blog_posts:3#delete@alice
 blog_posts:3#create@alice
 ```
-
-## Bob relationship tuples
+You can create a similar `bob_policies` file with similar permissions
 
 ```
 blog_posts:my-first-blog-post#read@bob
@@ -72,6 +76,24 @@ blog_posts:3#delete@bob
 blog_posts:3#create@bob
 ```
 
+Keto has converter from Zanzibar notation to JSON that can be used to create tuples using REST API
+
+```bash
+keto relation-tuple parse alice_policies- --format json | \
+  keto relation-tuple create - >/dev/null \
+  && echo "Successfully created tuple" \
+  || echo "Encountered error"
+
+```
+
+Bob
+```bash
+keto relation-tuple parse bob_policies- --format json | \
+  keto relation-tuple create - >/dev/null \
+  && echo "Successfully created tuple" \
+  || echo "Encountered error"
+
+```
 ## Next steps
 
 - [Check whether a User has Access to Something](https://www.ory.sh/docs/keto/guides/simple-access-check-guide)
