@@ -2,17 +2,13 @@
 title: Role Based Access Control (RBAC)
 ---
 
-This guide will explain how to implement RBAC using Ory Keto. It is still work
-in progress. If you happened to figure this out yourself, please open a PR to
-add your findings on this page.
+This guide will explain how to implement RBAC using Ory Keto.
 
-:::note
-This guide enables RBAC support with Keto but for native support you can check the following issues
-[ABAC](https://github.com/ory/keto/issues/319)
-
-[highlevel RBAC api/manager](https://github.com/ory/keto/issues/598)
-
+:::warning
+Implementing RBAC currently is possible, but requires a lot of thought and workarounds.
+This guide enables RBAC support with Keto but for native support is still work in progress and you can track progress in [this issue](https://github.com/ory/keto/issues/598)
 :::
+
 [Role Based Access Control (RBAC)](https://en.wikipedia.org/wiki/Role-based_access_control)
 maps subjects to roles and roles to permissions. The goal of (H)RBAC is to make
 permission management convenient by grouping subjects in roles and assigning
@@ -60,7 +56,7 @@ environments.
     services when the request comes from IP 10.0.0.3_.
   - There is no concept of tenants: _Dan is allowed to access resources on the
     "dan's test" tenant_.
-  - Roles explosion
+
 
 
 ```
