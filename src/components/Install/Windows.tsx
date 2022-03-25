@@ -6,7 +6,7 @@ export default function Windows(props: { repo: string; name: string }) {
   return (
     <>
       <p>
-        Install {name} on Windowsusing <a href={'https://scoop.sh/'}>Scoop</a>:
+        Install {name} on Windows using <a href={'https://scoop.sh/'}>Scoop</a>:
       </p>
       <CodeBlock language="shell">{`scoop bucket add ory https://github.com/ory/scoop.git
 scoop install ${repo}
