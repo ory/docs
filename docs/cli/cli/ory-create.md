@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## ory create
 
 Create Ory Cloud resources
@@ -25,6 +26,5 @@ Create Ory Cloud resources
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
-* [ory create project](ory-create-project)	 - Create a new Ory Cloud Project
-
+- [ory](ory) - The ORY CLI
+- [ory create project](ory-create-project) - Create a new Ory Cloud Project

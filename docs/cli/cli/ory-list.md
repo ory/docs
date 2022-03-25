@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## ory list
 
 List resources
@@ -25,6 +26,5 @@ List resources
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
-* [ory list projects](ory-list-projects)	 - List your Ory Cloud projects
-
+- [ory](ory) - The ORY CLI
+- [ory list projects](ory-list-projects) - List your Ory Cloud projects
