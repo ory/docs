@@ -5,33 +5,37 @@ title: Installation
 
 ## Overview
 
-Ory CLI is a convenient and easy-to-use tool that helps you manage and configure Ory Cloud and self-hosted projects. 
+Ory CLI is a convenient and easy-to-use tool that helps you manage and configure
+Ory Cloud and self-hosted projects.
 
-Its functionality is also essential for self-hosting Ory components and local development. The built-in
-proxy and tunneling mechanisms help route application traffic to the appropriate endpoints in a safe and hassle-free manner. 
+Its functionality is also essential for self-hosting Ory components and local
+development. The built-in proxy and tunneling mechanisms help route application
+traffic to the appropriate endpoints in a safe and hassle-free manner.
 
-The ability to export configurations allows you to bring your setup from a self-hosted environment to the cloud
-and from Ory Cloud to self-hosted setups alike. 
+The ability to export configurations allows you to bring your setup from a
+self-hosted environment to the cloud and from Ory Cloud to self-hosted setups
+alike.
 
 :::info
 
-The Ory CLI is actively developed. This means that new features are added with every release. 
+The Ory CLI is actively developed. This means that new features are added with
+every release.
 
 :::
 
 ## Installation
 
-You can install Ory CLI directly on your machine, or run the tool in Docker. 
+You can install Ory CLI directly on your machine, or run the tool in Docker.
 
 ### macOS
 
-Run this command to install the CLI using Homebrew: 
+Run this command to install the CLI using Homebrew:
 
 ```shell
 brew install ory/tap/cli
 ```
 
-Verify the installation: 
+Verify the installation:
 
 ```shell
 ory help
@@ -39,7 +43,7 @@ ory help
 
 ### Linux
 
-Ory CLI works on all Linux distributions. Run this command to install: 
+Ory CLI works on all Linux distributions. Run this command to install:
 
 ```shell
 bash <(curl https://raw.githubusercontent.com/ory/meta/master/install.sh) -b . ory
@@ -51,7 +55,7 @@ You may want to move the Ory CLI to your `$PATH`:
 sudo mv ./ory /usr/local/bin/
 ```
 
-Verify the installation after moving to `$PATH`: 
+Verify the installation after moving to `$PATH`:
 
 ```shell
 ory help
@@ -66,7 +70,7 @@ To install the CLI on Windows, use [scoop](https://scoop.sh). Run:
 > scoop install ory
 ```
 
-Verify the installation: 
+Verify the installation:
 
 ```shell
 ory help
@@ -90,9 +94,8 @@ docker run --rm -it oryd/ory help
 
 ### Binary
 
-You can download the server and client binaries from the 
-[GitHub "releases" tab](https://github.com/ory/cli/releases). 
+You can download the server and client binaries from the
+[GitHub "releases" tab](https://github.com/ory/cli/releases).
 
-To install, add the binary to the `PATH` environment variable
-or move it to a path that's already in your `$PATH`, for
-example `/usr/local/bin`.
+To install, add the binary to the `PATH` environment variable or move it to a
+path that's already in your `$PATH`, for example `/usr/local/bin`.

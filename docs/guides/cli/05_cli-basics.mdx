@@ -3,15 +3,16 @@ id: cli-basics
 title: Basic functionality
 ---
 
-To get a full list of commands available in Ory CLI, run this command: 
+To get a full list of commands available in Ory CLI, run this command:
 
 ```shell
 ory help
 ```
 
-This prints the list of available commands with short descriptions. Additionally, 
-each commands accepts the `--help` flag. Use it to get more information about the 
-command, available command-specific flags and command modifiers. For example: 
+This prints the list of available commands with short descriptions.
+Additionally, each commands accepts the `--help` flag. Use it to get more
+information about the command, available command-specific flags and command
+modifiers. For example:
 
 ```shell
 ory auth --help
@@ -44,36 +45,36 @@ Follow these steps:
 
 1. Run this command to start the wizard:
 
-  ```shell
-  ory auth
-  ```
+```shell
+ory auth
+```
 
 2. If you haven't signed in with the CLI before, you're asked if you have an Ory
-Cloud account.
+   Cloud account.
 
-  ```shell
-  Do you already have an Ory Console account you wish to use? [y/n]: n
-  ```
+```shell
+Do you already have an Ory Console account you wish to use? [y/n]: n
+```
 
-  Answer "no" to create a new account. In the process, you must provide the basic
-  account information: email address, password, user name, and choose if you want
-  to be informed about platform security updates.
+Answer "no" to create a new account. In the process, you must provide the basic
+account information: email address, password, user name, and choose if you want
+to be informed about platform security updates.
 
 3. As a final step, accept the [Terms of Service](https://www.ory.sh/ptos).
 
-  ```shell
-  I accept the Terms of Service https://www.ory.sh/ptos:  [y/n]: y
-  ```
+```shell
+I accept the Terms of Service https://www.ory.sh/ptos:  [y/n]: y
+```
 
 4. When the process is completed, the CLI displays the created project and user
-details:
+   details:
 
-  ```text
-  You are now signed in as: tom@email.com
-  ID			cae666dg-2ffa-491b-9912-6b090ec10e1c
-  EMAIL			tom@email.com
-  SELECTED_PROJECT	00000000-0000-0000-0000-00000000000
-  ```
+```text
+You are now signed in as: tom@email.com
+ID			cae666dg-2ffa-491b-9912-6b090ec10e1c
+EMAIL			tom@email.com
+SELECTED_PROJECT	00000000-0000-0000-0000-00000000000
+```
 
 ## Use CLI with Existing Cloud Account
 
@@ -81,44 +82,44 @@ Sign in to use the CLI with your existing Ory Cloud account and project.
 
 1. Run this command to start the wizard:
 
-  ```shell
-  ory auth
-  ```
+```shell
+ory auth
+```
 
 2. If you haven't signed in with the CLI before, you're asked if you have an Ory
-Cloud account.
+   Cloud account.
 
-  ```shell
-  Do you already have an Ory Console account you wish to use? [y/n]: n
-  ```
+```shell
+Do you already have an Ory Console account you wish to use? [y/n]: n
+```
 
 3. Follow the on-screen instructions to sign in to your account.
 
-  :::info
+:::info
 
-  If you created your Ory Cloud account with a social sign-in provider, you must adjust the account 
-  configuration to use the CLI. [Read this section for more information](#accounts-with-social-sign-in).
+If you created your Ory Cloud account with a social sign-in provider, you must
+adjust the account configuration to use the CLI.
+[Read this section for more information](#accounts-with-social-sign-in).
 
-  :::
+:::
 
+4. Upon successful sign in, the CLI shows the details of the signed-in user and
+   the selected Ory Cloud project:
 
-4. Upon successful sign in, the CLI shows the details of the signed-in user and the selected Ory 
-  Cloud project:
-
-  ```text
-  You are now signed in as: john.wick@company.com
-  ID			7759555-e23a-44b7-b148-7fed7f908024
-  EMAIL			john.wick@company.com
-  SELECTED_PROJECT	00000000-0000-0000-0000-000000000000
-  ```
+```text
+You are now signed in as: john.wick@company.com
+ID			7759555-e23a-44b7-b148-7fed7f908024
+EMAIL			john.wick@company.com
+SELECTED_PROJECT	00000000-0000-0000-0000-000000000000
+```
 
 ### Accounts with Social Sign-In
 
 If you created your account through a social sign-in provider such as GitHub or
 Google, you must adjust your account configuration to use the Ory CLI.
 
-Accounts created with social sign-in providers don't use passwords. To use your account
-with Ory CLI, your account must have a password. 
+Accounts created with social sign-in providers don't use passwords. To use your
+account with Ory CLI, your account must have a password.
 
 Follow these steps to create a password for an account created with a social
 sign-in provider:
