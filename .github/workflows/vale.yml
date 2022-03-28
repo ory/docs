@@ -1,4 +1,4 @@
-name: Linting Markdown with Vale
+name: 'Lint Markdown with Vale'
 
 on:
   push:
