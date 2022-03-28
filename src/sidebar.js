@@ -205,9 +205,7 @@ module.exports = {
             'kratos/guides/setting-up-password-hashing-parameters',
             'kratos/guides/integration-with-other-systems-using-web-hooks',
             'kratos/guides/tracing',
-            'kratos/guides/upgrade',
-            'kratos/guides/password-policy'
-          ]
+            'kratos/guides/upgrade'          ]
         },
         'kratos/reference/api',
         {
