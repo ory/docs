@@ -1,17 +1,19 @@
 name: Linting Markdown with Vale
+
 on:
   push:
-    branches: [ main, master ]
+    branches:
+      - master
   pull_request:
-    branches: [ main, master ]
+    branches:
+      - master
 
 jobs:
-  lint:
+  lint-vale:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@master
-
       - name: Lint Markdown with Vale
         uses: errata-ai/vale-action@master
         with:
@@ -19,6 +21,5 @@ jobs:
             https://github.com/errata-ai/write-good/releases/latest/download/write-good.zip
           config: https://raw.githubusercontent.com/ory/docs/${{ github.sha }}/docs/.vale.ini
           onlyAnnotateModifiedLines: true
-
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
