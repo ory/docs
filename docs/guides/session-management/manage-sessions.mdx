@@ -28,8 +28,8 @@ X-Session-Token: ...`}</CodeBlock>
 ```
 
 It returns a list of all sessions that are active and haven't expired, except
-the current session. This can be used to show a UI with all other sessions that
-are active.
+the current session. Use this feature to show a UI with all active sessions to
+the user.
 
 :::note
 
@@ -62,7 +62,7 @@ revoking the current session, use the
 
 :::
 
-A user can also revoke all of their otther sessions using the
+A user can also revoke their other sessions using the
 [DELETE `/sessions`](../../reference/api.mdx#operation/revokeSessions) API /
 `revokeSessions` SDK command:
 
@@ -73,10 +73,9 @@ Cookies: ory_kratos_session=...
 X-Session-Token: ...`}</CodeBlock>
 ```
 
-This essentially logs the user out of all other sessions on any device. Sessions
-that were revoked through self-service aren't deleted. Instead, they are marked
-as inactive. Inactive sessions are retrievable and deletable through the
-administrative API.
+This essentially logs the user out of all other sessions on any device. Through
+self-service revoked sessions aren't deleted. Instead, they become inactive.
+Inactive sessions are retrievable and deletable through the administrative API.
 
 :::note
 
@@ -94,7 +93,7 @@ As an administrator, you have access to all the sessions in the system.
 
 ### List Sessions as an Administrator
 
-All sessions for a specific identity can be listed using the administrative
+Retrieve all sessions for a specific identity using the administrative
 [GET `/admin/identities/{id}/sessions` endpoint](../../reference/api.mdx#operation/adminListIdentitySessions):
 
 ```mdx-code-block
@@ -104,9 +103,9 @@ Authorization: Bearer {your-personal-access-token}`}</CodeBlock>
 
 ### Revoke Sessions as an Administrator
 
-There is also the administrative
+The administrative
 [DELETE `/admin/identities/{id}/sessions` endpoint](../../reference/api.mdx#operation/adminDeleteIdentitySessions)
-to delete all sessions for a specific identity:
+to delete all sessions for a specific identity is:
 
 ```mdx-code-block
 <CodeBlock>{`DELETE ${getSdkUrl().url}/admin/identities/{id}/sessions

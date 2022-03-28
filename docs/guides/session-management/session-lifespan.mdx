@@ -3,8 +3,8 @@ id: session-lifespan
 title: Session Lifespans
 ---
 
-Sessions expire after a certain amount of time. This is called the **lifespan**
-of the session. It is possible to configure this lifespan:
+Sessions expire after a certain amount of time, the **lifespan** of the session.
+Configure the session lifespan using:
 
 ````mdx-code-block
 import CodeBlock from '@theme/CodeBlock'
@@ -61,11 +61,11 @@ ory patch kratos-config <your-project-id> \\
 
 The cookie `max-age` parameter behaves as follows:
 
-- The browser interprets the cookie to be removed when the session ends if
+- The browser schedules the cookie for deletion when the session ends, if
   `max-age` isn't set as part of the `Set-Cookie` header. A session ends if the
-  browser is terminated due to a reboot or when shutting down the browser.
-- The browser keeps the cookie until `max-age` is reached otherwise.
+  browser terminates due to a reboot or when shutting down the browser.
+- The browser keeps the cookie until `max-age` otherwise.
 
 :::
 
-Once the lifespan is reached, the user needs to sign in again.
+Once the lifespan reaches its end, the user needs to sign in again.
