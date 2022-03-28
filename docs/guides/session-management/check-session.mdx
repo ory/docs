@@ -1,0 +1,172 @@
+---
+id: check-session
+title: Check for Sessions
+---
+
+There are two session credential types:
+
+1. Session Browser Cookies: When Ory detects a browser, it issues a cookie to
+   that browser. This cookie represents the user's session.
+2. Session Tokens: When Ory detects a non-browser client (for example a native
+   mobile app), it issues a token to that client.
+
+It is not possible to break this isolation between session tokens and session
+cookies out of security reasons.
+
+## Session Browser Cookies
+
+The easiest way to check if a user is signed in is to call
+
+```mdx-code-block
+import { getSdkUrl } from '@site/src/hooks'
+import CodeBlock from '@theme/CodeBlock'
+
+<CodeBlock>{`GET ${getSdkUrl().url}/sessions/whoami
+Cookies: ory_session_...=...
+# OR
+X-Session-Token: {your-session-token}`}</CodeBlock>
+```
+
+endpoint which will return either a 401 Unauthorized or HTTP 200 OK with the
+session.
+
+:::note
+
+Make sure to include the Ory Kratos Session Cookie when calling this endpoint.
+If you are calling this endpoint from a proxy or middleware, make sure to
+forward the cookies sent to the proxy/middleware. If you are calling this
+endpoint as an AJAX call, make sure to include credentials and configure CORS
+properly.
+
+:::
+
+A typical session payload will look like this:
+
+```json
+{
+  "id": "8f660ce3-69ec-4aeb-9fda-f9230dc3243f",
+  "active": true,
+  "expires_at": "2020-08-25T13:42:15.7411522Z",
+  "authenticated_at": "2020-08-24T13:42:15.7411522Z",
+  "issued_at": "2020-08-24T13:42:15.7412042Z",
+  "identity": {
+    "id": "bf32596a-f853-47c4-91e6-a3f41cf4949d",
+    "schema_id": "default",
+    "schema_url": "https://playground.projects.oryapis.com/api/kratos/public/schemas/default",
+    "traits": {
+      "email": "api@user.org",
+      "name": {
+        "last": "User",
+        "first": "API"
+      }
+    },
+    "verifiable_addresses": [
+      {
+        "id": "f877db6c-7dfb-45e3-bbeb-ac8349348128",
+        "value": "api@user.org",
+        "verified": false,
+        "via": "email",
+        "verified_at": null,
+        "expires_at": "2020-08-24T14:35:59.125873Z"
+      }
+    ],
+    "recovery_addresses": [
+      {
+        "id": "065a908c-82be-4110-bf67-9910f36242b7",
+        "value": "api@user.org",
+        "via": "email"
+      }
+    ]
+  }
+}
+```
+
+### Code Examples
+
+```mdx-code-block
+<Tabs
+  defaultValue="nodejs"
+  values={[
+    {label: 'ExpressJS', value: 'nodejs'},
+  ]}>
+  <TabItem value="nodejs">
+    <CodeFromRemote
+      lang="js"
+      title="https://github.com/ory/kratos-selfservice-ui-node/blob/master/src/pkg/middleware.ts"
+      src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/src/pkg/middleware.ts"
+    />
+  </TabItem>
+</Tabs>
+```
+
+If you have the session cookie available from another source you can also use
+the `X-Session-Token` header:
+
+```js
+app.get('/', function (req, res) {
+  // Cookies that haven't been signed
+  const cookie = req.cookies['ory_kratos_session']
+
+  // Make a request and include the cookie in X-Session-Cookie
+  fetch(
+    'https://playground.projects.oryapis.com/api/kratos/public/sessions/whoami',
+    {
+      headers: { 'X-Session-Cookie': cookie }
+    }
+  )
+    .then((res) => res.json())
+    .then((session) => console.log(session))
+})
+```
+
+## API Client
+
+API clients receive and use Ory Kratos Session Tokens which can be checked by
+calling the `/sessions/whoami` endpoint and including the Ory Kratos Session
+Token as a bearer token in the HTTP Authorization Header:
+
+```mdx-code-block
+<CodeBlock language="shell">{`sessionToken={someSessionTokenHere}
+curl -s -X POST -H  "Accept: application/json" \\
+    -H "Authorization: Bearer $sessionToken" \\
+    # OR: \\
+    # -H "X-Session-Token: $sessionToken" \\
+    ${getSdkUrl().url}/sessions/whoami | jq
+\
+{
+  "id": "8f660ce3-69ec-4aeb-9fda-f9230dc3243f",
+  "active": true,
+  "expires_at": "2020-08-25T13:42:15.7411522Z",
+  "authenticated_at": "2020-08-24T13:42:15.7411522Z",
+  "issued_at": "2020-08-24T13:42:15.7412042Z",
+  "identity": {
+    "id": "bf32596a-f853-47c4-91e6-a3f41cf4949d",
+    "schema_id": "default",
+    "schema_url": "https://playground.projects.oryapis.com/api/kratos/public/schemas/default",
+    "traits": {
+      "email": "api@user.org",
+      "name": {
+        "last": "User",
+        "first": "API"
+      }
+    },
+    "verifiable_addresses": [
+      {
+        "id": "f877db6c-7dfb-45e3-bbeb-ac8349348128",
+        "value": "api@user.org",
+        "verified": false,
+        "via": "email",
+        "verified_at": null,
+        "expires_at": "2020-08-24T14:35:59.125873Z"
+      }
+    ],
+    "recovery_addresses": [
+      {
+        "id": "065a908c-82be-4110-bf67-9910f36242b7",
+        "value": "api@user.org",
+        "via": "email"
+      }
+    ]
+  }
+}`}</CodeBlock>
+```

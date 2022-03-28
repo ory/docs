@@ -1,0 +1,71 @@
+---
+id: session-lifespan
+title: Session Lifespans
+---
+
+Sessions expire after a certain amount of time. This is called the **lifespan**
+of the session. It is possible to configure this lifespan:
+
+````mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="cloud" label="Ory CLI" default>
+
+```shell
+ory patch identity-config <your-project-id> \\
+  --replace '/session/lifespan="720h"' # 30 days
+```
+
+  </TabItem>
+  <TabItem value="macos" label="Self-Hosted Ory Kratos Config" default>
+
+```shell title=path/to/kratos/config.yml
+ory patch kratos-config <your-project-id> \\
+  --replace '/session/lifespan="720h"' \\
+  --format yaml
+```
+
+  </TabItem>
+</Tabs>
+````
+
+Per default the session cookie has the `max-age` parameter set to the specified
+session lifespan. You may disable this behavior by setting:
+
+````mdx-code-block
+<Tabs>
+  <TabItem value="cloud" label="Ory CLI" default>
+
+```shell
+ory patch identity-config <your-project-id> \\
+  --replace '/session/cookie/persistent=false'
+```
+
+  </TabItem>
+  <TabItem value="macos" label="Self-Hosted Ory Kratos Config" default>
+
+```shell title=path/to/kratos/config.yml
+ory patch kratos-config <your-project-id> \\
+  --replace '/session/cookie/persistent=false' \\
+  --format yaml
+```
+
+  </TabItem>
+</Tabs>
+````
+
+:::note
+
+The cookie `max-age` parameter behaves as follows:
+
+- The browser interprets the cookie to be removed when the session ends if
+  `max-age` isn't set as part of the `Set-Cookie` header. A session ends if the
+  browser is terminated due to a reboot or when shutting down the browser.
+- The browser keeps the cookie until `max-age` is reached otherwise.
+
+:::
+
+Once the lifespan is reached, the user needs to sign in again.

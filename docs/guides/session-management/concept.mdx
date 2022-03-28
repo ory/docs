@@ -1,14 +1,21 @@
 ---
-id: session
-title: Ory Session Token / Ory Session Cookie
+id: concept
+title: The Ory Session
 ---
 
-When an identity or end-user authenticates using the `password` method, they
-will receive an Ory Session. The Ory Session can either be issued as an
+When an identity or end-user authenticates (for example signs in using their
+email and poassword), they receive an Ory Session. The Ory Session can either be
+issued as an
 
-- Ory Session Cookie, which is used for all browser-flows (such as PHP app,
-  single page app, ...);
-- Ory Session Token, which is used for non-browser flows (such as native apps).
+1. **Ory Session Cookie**: When Ory detects a browser, it stores a cookie in
+   that user's browser. This cookie represents the user's session.
+2. **Ory Session Token**: When Ory detects a non-browser client (for example a
+   native mobile app), it issues an Ory Session Token to that client.
+
+It is not possible to break this isolation between session tokens and session
+cookies out of security reasons.
+
+## The Ory Session
 
 The session's content may look like the following:
 
@@ -92,9 +99,9 @@ This field is updated when:
 
 - The end-user authenticates with a second factor such as TOTP
 - The end-user refreshes their session using the
-  [`/self-service/login/browser`](../reference/api.mdx#operation/initializeSelfServiceLoginFlowForBrowsers)
+  [`/self-service/login/browser`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowForBrowsers)
   or
-  [`/self-service/login/api`](../reference/api.mdx#operation/initializeSelfServiceLoginFlowWithoutBrowser)
+  [`/self-service/login/api`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowWithoutBrowser)
   endpoint and setting `refresh` to `true`
 
 ## Ory Session Cookie
@@ -103,10 +110,13 @@ The Ory Session Cookie will be issued when the end-user is using a browser to
 sign in. You can fetch the session's payload using the `/sessions/whoami`
 endpoint:
 
-```
-curl 'https://<your-project-slug>.projects.oryapis.com/sessions/whoami' \
-  -H 'Accept: application/json \
-  -H 'Cookie: ory_kratos_session=MTYzNDIyNzEzN3xEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJRTFDYWtvME5VNVlaVWxvYVZWeWJrUnZhSEF4YmxSV2VVRlhNMWwxVlVGenxXpsk2cL21Dclk3nCoXV41N6bFxvVJSt7CeICy_815Aw=='
+```mdx-code-block
+import { getSdkUrl } from '@site/src/hooks'
+import CodeBlock from '@theme/CodeBlock'
+
+<CodeBlock language="shell">{`curl '${getSdkUrl().url}/sessions/whoami' \\
+  -H 'Accept: application/json \\
+  -H 'Cookie: ory_kratos_session=MTYzNDIyNzEzN3xEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJRTFDYWtvME5VNVlaVWxvYVZWeWJrUnZhSEF4YmxSV2VVRlhNMWwxVlVGenxXpsk2cL21Dclk3nCoXV41N6bFxvVJSt7CeICy_815Aw=='`}</CodeBlock>
 ```
 
 ## Ory Session Token
@@ -115,23 +125,23 @@ The Ory Session Token will be issued when the end-user is using, for example, a
 native mobile app to sign in. In this case, you need to include the Ory Session
 Token in the `Authorization` HTTP Header
 
-```
-curl 'https://<your-project-slug>.projects.oryapis.com/sessions/whoami' \
+```mdx-code-block
+<CodeBlock language="shell">{`curl '${getSdkUrl().url}/sessions/whoami' \\
   -H 'Accept: application/json \
-  -H 'Authorization: Bearer BRFbGMzTnBiMjVmZEcEdjM1J5YVc1bkRDSUFvME5VNVlaVeWJrUnZhSEF4YmxSV2VVRlhNMWwxVlVGenxXpsk2cLXV41N6bFxvVJSt7CeICy'
+  -H 'Authorization: Bearer BRFbGMzTnBiMjVmZEcEdjM1J5YVc1bkRDSUFvME5VNVlaVeWJrUnZhSEF4YmxSV2VVRlhNMWwxVlVGenxXpsk2cLXV41N6bFxvVJSt7CeICy'`}</CodeBlock>
 ```
 
 or alternatively in the `X-Session-Token` HTTP Header:
 
-```
-curl 'https://<your-project-slug>.projects.oryapis.com/sessions/whoami' \
+```mdx-code-block
+<CodeBlock language="shell">{`curl '${getSdkUrl().url}/sessions/whoami' \\
   -H 'Accept: application/json \
-  -H 'X-Session-Token: BRFbGMzTnBiMjVmZEcEdjM1J5YVc1bkRDSUFvME5VNVlaVeWJrUnZhSEF4YmxSV2VVRlhNMWwxVlVGenxXpsk2cLXV41N6bFxvVJSt7CeICy'
+  -H 'X-Session-Token: BRFbGMzTnBiMjVmZEcEdjM1J5YVc1bkRDSUFvME5VNVlaVeWJrUnZhSEF4YmxSV2VVRlhNMWwxVlVGenxXpsk2cLXV41N6bFxvVJSt7CeICy'`}</CodeBlock>
 ```
 
 ## Privileged Sessions
 
-import { privilegedVideo } from '../self-service/flows/code/settings'
+import { privilegedVideo } from '../../kratos/self-service/flows/code/settings'
 
 Some profile changes, such as updating the password or adding / removing second
 factors, require a privileged Ory Session Token or Ory Session Cookie to be
@@ -146,12 +156,30 @@ completed successfully:
 Ory Sessions are considered "privileged" if their `authenticated_at` time isn't
 older than the `privileged_session_max_age` specified in your config:
 
-```yml title="path/to/kratos/config.yml"
-selfservice:
-  flows:
-    settings:
-      privileged_session_max_age: 15m
+````mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="cloud" label="Ory CLI" default>
+
+```shell
+ory patch identity-config <your-project-id> \\
+  --replace '/selfservice/flows/settings/privileged_session_max_age/lifespan="15m"' # 15 minutes
 ```
+
+  </TabItem>
+  <TabItem value="macos" label="Self-Hosted Ory Kratos Config" default>
+
+```shell title=path/to/kratos/config.yml
+ory patch identity-config <your-project-id> \\
+  --replace '/selfservice/flows/settings/privileged_session_max_age/lifespan="15m"' \\
+  --format yaml
+```
+
+  </TabItem>
+</Tabs>
+````
 
 In the example above, an Ory Session would be considered "privileged" for 15
 minutes. The end-user can perform any profile changes (for example update
@@ -164,20 +192,20 @@ This flow is similar to
 ## Refreshing Sessions
 
 You can prompt the user to re-authenticate by interacting with the
-[`/self-service/login/browser`](../reference/api.mdx#operation/initializeSelfServiceLoginFlowForBrowsers)
+[`/self-service/login/browser`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowForBrowsers)
 or
-[`/self-service/login/api`](../reference/api.mdx#operation/initializeSelfServiceLoginFlowWithoutBrowser)
+[`/self-service/login/api`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowWithoutBrowser)
 API and setting the `refresh` parameter to true. Once the user has
 re-authenticated, the `authenticated_at` timestamp of the Ory Session will be
 set to the current time.
 
-```
-/self-service/login/browser?refresh=true
+```mdx-code-block
+<CodeBlock language="shell">{`${getSdkUrl().url}/self-service/login/browser?refresh=true`}</CodeBlock>
 ```
 
 If enabled, you can also refresh the second factor by setting both `refresh` and
 `aal`:
 
-```
-/self-service/login/browser?refresh=true&aal=aal2
+```mdx-code-block
+<CodeBlock language="shell">{`${getSdkUrl().url}/self-service/login/browser?refresh=true&aal=aal2`}</CodeBlock>
 ```
