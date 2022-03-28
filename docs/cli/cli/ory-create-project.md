@@ -29,7 +29,7 @@ ory create project [flags]
 
 ```
   -c, --config string   Path to the Ory Cloud configuration file.
-      --format string   Set the output format. One of default, json, and json-pretty. (default &#34;default&#34;)
+      --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogues with yes.
 ```

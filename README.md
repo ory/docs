@@ -338,7 +338,7 @@ here`}</CodeBlock>
 ```
 ````
 
-### Write a Shell Example
+### Shell Examples
 
 Use `shellsession`:
 

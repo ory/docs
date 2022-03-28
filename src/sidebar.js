@@ -46,6 +46,14 @@ module.exports = {
         },
         {
           type: 'category',
+          label: 'Passwordless',
+          items: [
+            'guides/passwordless/webauthn'
+            // 'guides/passwordless/social-sign-in'
+          ]
+        },
+        {
+          type: 'category',
           label: 'Managing Identities',
           items: [
             'kratos/admin/managing-users-identities',
@@ -60,6 +68,7 @@ module.exports = {
             'guides/custom-domains',
             'guides/bring-your-user-interface',
             'guides/customize-identity-schema',
+            'guides/config-with-cli',
             {
               type: 'category',
               label: 'Enabling Social Sign-in',
@@ -196,9 +205,7 @@ module.exports = {
             'kratos/guides/setting-up-password-hashing-parameters',
             'kratos/guides/integration-with-other-systems-using-web-hooks',
             'kratos/guides/tracing',
-            'kratos/guides/upgrade',
-            'kratos/guides/password-policy'
-          ]
+            'kratos/guides/upgrade'          ]
         },
         'kratos/reference/api',
         {
@@ -286,7 +293,8 @@ module.exports = {
                 'hydra/guides/cors',
                 'hydra/guides/gitlab',
                 'hydra/guides/migrating-from-mitreid',
-                'hydra/guides/merge-multiple-db-secrets'
+                'hydra/guides/merge-multiple-db-secrets',
+                'hydra/guides/upgrade'
               ]
             },
             {
@@ -383,7 +391,8 @@ module.exports = {
             'keto/guides/migrating-legacy-policies',
             'keto/guides/rbac',
             'keto/guides/access-control-inheritance',
-            'keto/guides/access-control-list-design-best-practices'
+            'keto/guides/access-control-list-design-best-practices',
+            'keto/guides/upgrade'
           ]
         },
         {

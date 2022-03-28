@@ -14,6 +14,17 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 
 Patch an Ory Cloud Project
 
+### Synopsis
+
+Use this command to patch your current Ory Cloud Project&#39;s service
+configuration. Only values specified in the patch will be overwritten. To
+replace the config use the `update` command instead.
+
+The format of the patch is a JSON-Patch document. For more details please check:
+
+    https://www.ory.sh/docs/reference/api#operation/patchProject
+    https://jsonpatch.com
+
 ```
 ory patch project id [flags]
 ```
@@ -22,23 +33,28 @@ ory patch project id [flags]
 
 ```
 ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
-	--replace &#39;/name=&#34;My new project name&#34;&#39; \
-	--add &#39;/services/identity/config/courier/smtp={&#34;from_name&#34;:&#34;My new email name&#34;}&#39; \
-	--replace &#39;/services/identity/config/selfservice/methods/password/enabled=false&#39; \
-	--delete &#39;/services/identity/config/selfservice/methods/totp/enabled&#39;
+	--replace '/name="My new project name"' \
+	--add '/services/identity/config/courier/smtp={"from_name":"My new email name"}' \
+	--replace '/services/identity/config/selfservice/methods/password/enabled=false' \
+	--delete '/services/identity/config/selfservice/methods/totp/enabled'
+
+ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
+	--replace '/name="My new project name"' \
+	--delete '/services/identity/config/selfservice/methods/totp/enabled'
+	--format kratos-config > my-config.yaml
 ```
 
 ### Options
 
 ```
-      --add strings       Add a specific key to the configuration
-  -f, --file strings      Configuration file(s) (file://config.json, https://example.org/config.yaml, ...) to update the project
-      --format string     Set the output format. One of table, json, and json-pretty. (default &#34;default&#34;)
-  -h, --help              help for project
-  -q, --quiet             Be quiet with output printing.
-      --remove strings    Remove a specific key from the configuration
-      --replace strings   Replace a specific key in the configuration
-  -y, --yes               Confirm all dialogues with yes.
+      --add stringArray       Add a specific key to the configuration
+  -f, --file strings          Configuration file(s) (file://config.json, https://example.org/config.yaml, ...) to update the project
+      --format string         Set the output format. One of table, json, yaml, and json-pretty. (default "default")
+  -h, --help                  help for project
+  -q, --quiet                 Be quiet with output printing.
+      --remove stringArray    Remove a specific key from the configuration
+      --replace stringArray   Replace a specific key in the configuration
+  -y, --yes                   Confirm all dialogues with yes.
 ```
 
 ### Options inherited from parent commands

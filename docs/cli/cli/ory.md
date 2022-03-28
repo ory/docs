@@ -30,7 +30,7 @@ The ORY CLI
 - [ory proxy](ory-proxy) - Run your app and Ory on the same domain using a
   reverse proxy
 - [ory tunnel](ory-tunnel) - Tunnel Ory on a subdomain of your app or a seperate
-  port your app&#39;s domain
+  port your app's domain
 - [ory update](ory-update) - Update resources
-- [ory version](ory-version) - Display this binary&#39;s version, build time,
-  and git hash of this build
+- [ory version](ory-version) - Display this binary's version, build time, and
+  git hash of this build
