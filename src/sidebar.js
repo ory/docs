@@ -295,7 +295,8 @@ module.exports = {
                 'hydra/guides/cors',
                 'hydra/guides/gitlab',
                 'hydra/guides/migrating-from-mitreid',
-                'hydra/guides/merge-multiple-db-secrets'
+                'hydra/guides/merge-multiple-db-secrets',
+                'hydra/guides/upgrade'
               ]
             },
             {
@@ -391,7 +392,8 @@ module.exports = {
             'keto/guides/v0.7-migration',
             'keto/guides/rbac',
             'keto/guides/access-control-inheritance',
-            'keto/guides/access-control-list-design-best-practices'
+            'keto/guides/access-control-list-design-best-practices',
+            'keto/guides/upgrade'
           ]
         },
         {
