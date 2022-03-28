@@ -560,7 +560,7 @@ selfservice:
             client_id: .... # Replace this with the Application ID from the App Registration
             client_secret: .... # Replace this with the generated Secret value from the App Registration
             microsoft_tenant: .... # Replace this with the Tenant of your choice (see below)
-            subject_source: userinfo
+            subject_source: userinfo # or alternatively: me
             mapper_url: file:///etc/config/kratos/oidc.microsoft.jsonnet
             scope:
               - profile
