@@ -86,10 +86,10 @@ $ curl 'https://{your-project-slug}.projects.oryapis.com/admin/sessions/ede90ce6
 
 ## Reduce Database Load
 
-Since session refresh causes database writes it's possible to set a config value to
-allow session refresh only for a specific time before the session expires. If we
-set the `earliest_refresh` equal to `lifespan`, it's possible to refresh
-even new sessions.
+Since session refresh causes database writes it's possible to set a config value
+to allow session refresh only for a specific time before the session expires. If
+we set the `earliest_refresh` equal to `lifespan`, it's possible to refresh even
+new sessions.
 
 Sets when a session can be extended. Settings this value to `24h` will prevent
 the session from being extended before until 24 hours before it expires. This
@@ -98,7 +98,8 @@ setting this value!
 
 :::warning
 
-Setting `earliest_refresh` to `lifespan`, all sessions will constantly be refreshed!
+Setting `earliest_refresh` to `lifespan`, all sessions will constantly be
+refreshed!
 
 :::
 
