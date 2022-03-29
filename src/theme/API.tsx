@@ -6,19 +6,17 @@ import { useLatestRelease } from '../hooks'
 import useSSR from 'use-ssr'
 
 function API({
-               url,
-               repo,
-               override
-             }: {
+  url,
+  repo,
+  override
+}: {
   url: string
   repo: string
   override?: any
 }) {
   const version = useLatestRelease(repo, 'master')
   const [spec, setSpec] = useState<any>(override)
-  const {
-    isServer
-  } = useSSR()
+  const { isServer } = useSSR()
 
   useEffect(() => {
     if (override || isServer) {
@@ -35,8 +33,8 @@ function API({
     return <></>
   }
 
-  console.log('redoc',{ isServer })
-  return <Redoc spec={ spec } />
+  console.log('redoc', { isServer })
+  return <Redoc spec={spec} />
 }
 
 export default API
