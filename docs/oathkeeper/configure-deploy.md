@@ -107,12 +107,17 @@ Oathkeeper works. Let's define three rules:
 3. An access rule allowing anonymous access to
    `https://httpbin.org/anything/id_token` using the `id_token` mutator.
 
-```shell
+```mdx-code-block
+
+import { useLatestRelease } from '@site/src/hooks'
+import CodeBlock from '@theme/CodeBlock'
+
+<CodeBlock className="language-shell">{`
 cat << EOF > rules.json
 [
   {
     "id": "allow-anonymous-with-header-mutator",
-    "version": "v0.36.0-beta.4",
+    "version": "${useLatestRelease('oathkeeper')}",
     "upstream": {
       "url": "https://httpbin.org/anything/header"
     },
@@ -143,7 +148,7 @@ cat << EOF > rules.json
   },
   {
     "id": "deny-anonymous",
-    "version": "v0.36.0-beta.4",
+    "version": "${useLatestRelease('oathkeeper')}",
     "upstream": {
       "url": "https://httpbin.org/anything/deny"
     },
@@ -199,7 +204,7 @@ cat << EOF > rules.json
   },
   {
     "id": "allow-anonymous-with-id-token-mutator",
-    "version": "v0.36.0-beta.4",
+    "version": "${useLatestRelease('oathkeeper')}",
     "upstream": {
       "url": "https://httpbin.org/anything/id_token"
     },
@@ -224,7 +229,7 @@ cat << EOF > rules.json
     ]
   }
 ]
-EOF
+EOF`}</CodeBlock>
 ```
 
 ### Cryptographic Keys
@@ -235,8 +240,11 @@ creating such keys. All common JWT algorithms are supported (RS256, ES256,
 HS256, ...). Let's generate a key for the RS256 algorithm that will be used by
 the id_token mutator:
 
-```sh
-docker run oryd/oathkeeper:v0.38.16-beta.1 credentials generate --alg RS256 > jwks.json
+```mdx-code-block
+
+<CodeBlock className="language-shell">{`
+docker run oryd/oathkeeper:${useLatestRelease('oathkeeper')} credentials generate --alg RS256 > jwks.json
+`}</CodeBlock>
 ```
 
 ### Dockerfile
@@ -244,14 +252,15 @@ docker run oryd/oathkeeper:v0.38.16-beta.1 credentials generate --alg RS256 > jw
 Next we will be creating a custom Docker Image that adds these configuration
 files to the image:
 
-```sh
-cat << EOF > Dockerfile
-FROM oryd/oathkeeper:v0.38.16-beta.1
+```mdx-code-block
 
+<CodeBlock className="language-shell">{`cat << EOF > Dockerfile
+FROM oryd/oathkeeper:${useLatestRelease('oathkeeper')}
 ADD config.yaml /config.yaml
 ADD rules.json /rules.json
 ADD jwks.json /jwks.json
-EOF
+EOF`}</CodeBlock>
+
 ```
 
 We're doing this for demonstration purposes only. In a production environment
@@ -267,8 +276,11 @@ apply these best practices.
 Before building the Docker Image, we need to make sure that the local Ory
 Oathkeeper Docker Image is on the most recent version:
 
-```sh
-docker pull oryd/oathkeeper:v0.38.16-beta.1
+```mdx-code-block
+
+<CodeBlock className="language-shell">{`
+docker pull oryd/oathkeeper:${useLatestRelease('oathkeeper')}
+`}</CodeBlock>
 ```
 
 Next we will build our custom Docker Image
