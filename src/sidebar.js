@@ -389,6 +389,7 @@ module.exports = {
             'keto/guides/expand-api-display-who-has-access',
             'keto/guides/production',
             'keto/guides/v0.7-migration',
+            'keto/guides/migrating-legacy-policies',
             'keto/guides/rbac',
             'keto/guides/access-control-inheritance',
             'keto/guides/access-control-list-design-best-practices',
