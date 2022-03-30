@@ -160,6 +160,8 @@ func main() {
 package main
 
 import (
+	"context"
+	"fmt"
 	"net/http"
 
 	client "github.com/ory/hydra-client-go"
@@ -180,6 +182,7 @@ func main() {
 	}
 	config.HTTPClient = tlsTermClient
 	c := client.NewAPIClient(config)
+	fmt.Println(c.PublicApi.RevokeOAuth2Token(context.Background()).Token("some_token").Execute())
 
 	// ...
 }
@@ -204,6 +207,7 @@ func (h withHeader) RoundTrip(req *http.Request) (*http.Response, error) {
 
 	return h.rt.RoundTrip(req)
 }
+
 ```
 
 ### Skip TLS Verification
@@ -212,29 +216,34 @@ func (h withHeader) RoundTrip(req *http.Request) (*http.Response, error) {
 package main
 
 import (
-  "github.com/ory/hydra-client-go/client"
-  httptransport "github.com/go-openapi/runtime/client"
-  "net/http"
+	"context"
+	"crypto/tls"
+	"fmt"
+	"net/http"
+
+	client "github.com/ory/hydra-client-go"
 )
 
 func main() {
-  skipTlsClient := &http.Client{
-    Transport: &http.Transport{
-      TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-    },
-    Timeout: 10,
-  }
+	skipTLSClient := &http.Client{
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		},
+		Timeout: 10,
+	}
 	config := client.NewConfiguration()
 	config.Servers = []client.ServerConfiguration{
 		{
 			URL: "https://hydra.localhost:4444", // Public API URL
 		},
 	}
-	config.HTTPClient = tlsTermClient
+	config.HTTPClient = skipTLSClient
 	c := client.NewAPIClient(config)
+	fmt.Println(c.PublicApi.RevokeOAuth2Token(context.Background()).Token("some_token").Execute())
 
-  // ...
+	// ...
 }
+
 ```
 
 ## More examples
