@@ -77,25 +77,39 @@ Some endpoints require Basic Authorization:
 package main
 
 import (
-  "context"
+	"context"
+	"encoding/base64"
+	"fmt"
+	"net/http"
 
-  httptransport "github.com/go-openapi/runtime/client"
-  client "github.com/ory/hydra-client-go"
+	client "github.com/ory/hydra-client-go"
 )
 
+type BasicAuthTransport struct {
+	Username string
+	Password string
+}
+
+func (t BasicAuthTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	req.Header.Set("Authorization", fmt.Sprintf("Basic %s",
+		base64.StdEncoding.EncodeToString([]byte(fmt.Sprintf("%s:%s",
+			t.Username, t.Password)))))
+	return http.DefaultTransport.RoundTrip(req)
+}
+
 func main() {
-  config := client.NewConfiguration()
-  config.Servers = []client.ServerConfiguration{
-    {
-      URL: "https://hydra.localhost:4444", // Public API
-    },
-  }
+	config := client.NewConfiguration()
+	config.Servers = []client.ServerConfiguration{
+		{
+			URL: "https://hydra.localhost:4445", // Admin API
+		},
+	}
 
-  config.HTTPClient.Transport = httptransport.BasicAuth("my-client", "foobar")
-  c := client.NewAPIClient(config)
+	c := client.NewAPIClient(config)
+	config.HTTPClient.Transport = BasicAuthTransport{Username: "foo", Password: "bar"}
 
-  req := c.PublicApi.RevokeOAuth2Token(context.TODO())
-  req.Execute()
+	req := c.AdminApi.GetConsentRequest(context.Background()).ConsentChallenge("consentChallenge_example")
+	fmt.Println(req.Execute())
 
 }
 ```
