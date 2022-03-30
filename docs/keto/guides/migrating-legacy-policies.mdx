@@ -106,6 +106,22 @@ keto relation-tuple parse bob_policies --format json | \
   || echo "Encountered error"
 
 ```
+Now, we can use the [check-API](https://www.ory.sh/docs/keto/guides/simple-access-check-guide) to verify that `alice` is allowed to `read` the `my-first-blog-post`:
+
+```sh
+keto check alice read blog_posts my-first-blog-post
+Allowed
+```
+What about Bob?
+```
+keto check bob read blog_posts my-first-blog-post
+Allowed
+```
+What about John?
+```
+keto check john read blog_posts my-first-blog-post
+Denied
+```
 ## Next steps
 
 - [Check whether a User has Access to Something](https://www.ory.sh/docs/keto/guides/simple-access-check-guide)
