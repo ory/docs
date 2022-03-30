@@ -255,7 +255,7 @@ You can set Ory Hydra to HTTPS mode without actually accepting TLS connections,
 visit
 [Preparing for Production](https://www.ory.sh/docs/hydra/production#tls-termination)
 to learn more. The following code example shows how to configure Ory Hydra to
-fake TLS termination:
+fake a TLS termination:
 
 ```go
 package main
