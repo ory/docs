@@ -26,6 +26,89 @@ We use code generation to generate our SDKs. The Go SDK is generated using
 package main
 
 import (
+	client "github.com/ory/hydra-client-go"
+)
+
+func main() {
+	configuration := client.NewConfiguration()
+	configuration.Servers = []client.ServerConfiguration{
+		{
+			URL: "http://localhost:4445", // Admin API URL
+		},
+	}
+	admin := client.NewAPIClient(configuration)
+
+	// admin.Admin.CreateOAuth2Client(...
+
+	configuration.Servers = []client.ServerConfiguration{
+		{
+			URL: "http://localhost:4445", // Public API URL
+		},
+	}
+
+	hydraPublic := client.NewAPIClient(configuration)
+
+	// public.Public.RevokeOAuth2Token(...
+}
+```
+
+## Making requests
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"net/http"
+	"os"
+
+	client "github.com/ory/hydra-client-go"
+)
+
+func main() {
+	clientName := "example_client"
+	oAuth2Client := *client.NewOAuth2Client() // OAuth2Client |
+	oAuth2Client.SetClientId("example_client_id")
+	oAuth2Client.SetClientName(clientName)
+
+	configuration := client.NewConfiguration()
+	configuration.Servers = []client.ServerConfiguration{
+		{
+			URL: "http://localhost:4445", // Public API URL
+		},
+	}
+	apiClient := client.NewAPIClient(configuration)
+	resp, r, err := apiClient.AdminApi.CreateOAuth2Client(context.Background()).OAuth2Client(oAuth2Client).Execute()
+	if err != nil {
+		switch r.StatusCode {
+		case http.StatusConflict:
+			fmt.Fprintf(os.Stderr, "Conflict when creating oAuth2Client: %v\n", err)
+		default:
+			fmt.Fprintf(os.Stderr, "Error when calling `AdminApi.CreateOAuth2Client``: %v\n", err)
+			fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+		}
+	}
+	// response from `CreateOAuth2Client`: OAuth2Client
+	fmt.Fprintf(os.Stdout, "Created client with name %s\n", resp.GetClientName())
+
+	limit := int64(20)
+	offset := int64(0)
+	clients, r, err := apiClient.AdminApi.ListOAuth2Clients(context.Background()).Limit(limit).Offset(offset).ClientName(clientName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AdminApi.ListOAuth2Clients``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	fmt.Fprintf(os.Stdout, "We have %d clients\n", len(clients))
+	fmt.Fprintf(os.Stdout, "First client name: %s\n", clients[0].GetClientName())
+
+}
+```
+
+## Status codes and error handling example
+```go
+package main
+
+import (
 	"context"
 	"fmt"
 	"net/http"
