@@ -91,7 +91,7 @@ This example uses the Ory Keto CLI to create the relation tuple using the [write
 
 
 ```bash
-keto relation-tuple parse alice_policies- --format json | \
+keto relation-tuple parse alice_policies --format json | \
   keto relation-tuple create - >/dev/null \
   && echo "Successfully created tuple" \
   || echo "Encountered error"
