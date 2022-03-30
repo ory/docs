@@ -36,7 +36,7 @@ func main() {
 			URL: "http://localhost:4445", // Admin API URL
 		},
 	}
-	admin := client.NewAPIClient(configuration)
+//	admin := client.NewAPIClient(configuration)
 
 	// admin.Admin.CreateOAuth2Client(...
 
@@ -46,7 +46,7 @@ func main() {
 		},
 	}
 
-	hydraPublic := client.NewAPIClient(configuration)
+//	hydraPublic := client.NewAPIClient(configuration)
 
 	// public.Public.RevokeOAuth2Token(...
 }
@@ -104,7 +104,7 @@ func main() {
 }
 ```
 
-## Status codes and error handling example
+## Status codes and error handling
 ```go
 package main
 
@@ -184,7 +184,7 @@ func main() {
 	config := client.NewConfiguration()
 	config.Servers = []client.ServerConfiguration{
 		{
-			URL: "https://hydra.localhost:4445", // Admin API
+			URL: "http://localhost:4445", // Admin API
 		},
 	}
 
@@ -219,7 +219,7 @@ func main() {
 	config := client.NewConfiguration()
 	config.Servers = []client.ServerConfiguration{
 		{
-			URL: "https://hydra.localhost:4444", // Public API URL
+			URL: "http://localhost:4444", // Public API URL
 		},
 	}
 
