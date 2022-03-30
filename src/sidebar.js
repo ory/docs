@@ -415,7 +415,10 @@ module.exports = {
           ]
         },
         {
-          SDKs: ['keto/sdk/index']
+          SDKs: [
+            'keto/sdk/index',
+            'keto/sdk/go'
+          ]
         },
         {
           label: 'Changelog',
