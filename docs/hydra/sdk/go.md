@@ -13,7 +13,7 @@ go get -u -d github.com/ory/hydra-client-go
 
 Don't consume the `/oauth2/auth` and `/oauth2/token` endpoints using this SDK.
 Use [golang.org/x/oauth2](https://godoc.org/golang.org/x/oauth2). For more
-information visit the [Using OAuth2](../guides/using-oauth2.mdx) guide. 
+information visit the [Using OAuth2](../guides/using-oauth2.mdx) guide.
 
 :::
 
@@ -26,71 +26,46 @@ We use code generation to generate our SDKs. The Go SDK is generated using
 package main
 
 import (
-  client "github.com/ory/hydra-client-go"
+	"context"
+	"fmt"
+	"net/http"
+	"os"
+
+	client "github.com/ory/hydra-client-go"
 )
 
 func main() {
-  // Using Admin APIs
-  config := client.NewConfiguration()
-  config.Servers = []client.ServerConfiguration{
-    {
-      URL: "https://hydra.localhost:4445", // Admin API URL
-    },
-  }
+	consentChallenge := "consentChallenge_example" // string |
 
-  c := client.NewAPIClient(config)
+	configuration := client.NewConfiguration()
+	configuration.Servers = []client.ServerConfiguration{
+		{
+			URL: "http://localhost:4445", // Admin API
+		},
+	}
+	apiClient := client.NewAPIClient(configuration)
+	resp, r, err := apiClient.AdminApi.GetConsentRequest(context.Background()).ConsentChallenge(consentChallenge).Execute()
+	if err != nil {
+		switch r.StatusCode {
+		case http.StatusNotFound:
+			// Accessing to response details
+			// cast err to *client.GenericOpenAPIError object first and then
+			// to your desired type
+			notFound, ok := err.(*client.GenericOpenAPIError).Model().(client.JsonError)
+			fmt.Println(ok)
+			fmt.Println(*notFound.ErrorDescription)
+		case http.StatusGone:
 
-  // Using Public APIs
-
-  c.AdminApi.ListOAuth2Clients(context.TODO())
-  // Using PublicAPIs
-  config := client.NewConfiguration()
-  config.Servers = []client.ServerConfiguration{
-    {
-      URL: "https://hydra.localhost:4444", // Public API URL
-    },
-  }
-
-  c := client.NewAPIClient(config)
-
-  // Using Public APIs
-
-  c.PublicApi.RevokeOAuth2Token(context.TODO())
-}
-
-```
-
-## Making requests
-
-Making requests is straight forward:
-
-```go
-package main
-
-import (
-  "github.com/ory/hydra-client-go"
-)
-
-func main() {
-  config := client.NewConfiguration()
-  config.Servers = []client.ServerConfiguration{
-    {
-      URL: "https://hydra.localhost:4445", // Admin API
-    },
-  }
-
-  c := client.NewAPIClient(config)
-  oauthClient := client.NewOAuth2ClientWithDefaults()
-  oauthClient.SetClientId("scoped")
-  req := c.AdminApi.CreateOAuth2Client(context.TODO())
-  req = req.OAuth2Client(*oauthClient)
-  oauthClient, res, err := req.Execute()
-  if err != nil {
-      // Handle the error
-  }
-  if res.StatusCode != http.StatusOK {
-    // Check the status code
-  }
+			r, ok := err.(*client.GenericOpenAPIError).Model().(client.RequestWasHandledResponse)
+			fmt.Println(r, ok)
+			fmt.Println("It's gone")
+		default:
+			fmt.Fprintf(os.Stderr, "Error when calling `AdminApi.GetConsentRequest``: %v\n", err)
+			fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+		}
+	}
+	// response from `GetConsentRequest`: ConsentRequest
+	fmt.Fprintf(os.Stdout, "Response from `AdminApi.GetConsentRequest`: %v\n", resp)
 }
 ```
 
