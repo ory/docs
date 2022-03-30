@@ -112,8 +112,7 @@ Oathkeeper works. Let's define three rules:
 import { useLatestRelease } from '@site/src/hooks'
 import CodeBlock from '@theme/CodeBlock'
 
-<CodeBlock className="language-shell">{`
-cat << EOF > rules.json
+<CodeBlock className="language-shell">{`cat << EOF > rules.json
 [
   {
     "id": "allow-anonymous-with-header-mutator",
