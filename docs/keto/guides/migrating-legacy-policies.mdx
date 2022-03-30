@@ -100,7 +100,7 @@ keto relation-tuple parse alice_policies --format json | \
 
 Bob
 ```bash
-keto relation-tuple parse bob_policies- --format json | \
+keto relation-tuple parse bob_policies --format json | \
   keto relation-tuple create - >/dev/null \
   && echo "Successfully created tuple" \
   || echo "Encountered error"
