@@ -26,29 +26,27 @@ We use code generation to generate our SDKs. The Go SDK is generated using
 package main
 
 import (
-	client "github.com/ory/hydra-client-go"
+  client "github.com/ory/hydra-client-go"
 )
 
 func main() {
-	configuration := client.NewConfiguration()
-	configuration.Servers = []client.ServerConfiguration{
-		{
-			URL: "http://localhost:4445", // Admin API URL
-		},
-	}
-//	admin := client.NewAPIClient(configuration)
+  configuration := client.NewConfiguration()
+  configuration.Servers = []client.ServerConfiguration{
+    {
+      URL: "http://localhost:4445", // Admin API URL
+    },
+  }
+  // admin := client.NewAPIClient(configuration)
+  // admin.Admin.CreateOAuth2Client(...
 
-	// admin.Admin.CreateOAuth2Client(...
+  configuration.Servers = []client.ServerConfiguration{
+    {
+      URL: "http://localhost:4445", // Public API URL
+    },
+  }
 
-	configuration.Servers = []client.ServerConfiguration{
-		{
-			URL: "http://localhost:4445", // Public API URL
-		},
-	}
-
-//	hydraPublic := client.NewAPIClient(configuration)
-
-	// public.Public.RevokeOAuth2Token(...
+  // hydraPublic := client.NewAPIClient(configuration)
+  // public.Public.RevokeOAuth2Token(...
 }
 ```
 
@@ -57,49 +55,49 @@ func main() {
 package main
 
 import (
-	"context"
-	"fmt"
-	"net/http"
-	"os"
+  "context"
+  "fmt"
+  "net/http"
+  "os"
 
-	client "github.com/ory/hydra-client-go"
+  client "github.com/ory/hydra-client-go"
 )
 
 func main() {
-	clientName := "example_client"
-	oAuth2Client := *client.NewOAuth2Client() // OAuth2Client |
-	oAuth2Client.SetClientId("example_client_id")
-	oAuth2Client.SetClientName(clientName)
+  clientName := "example_client"
+  oAuth2Client := *client.NewOAuth2Client() // OAuth2Client |
+  oAuth2Client.SetClientId("example_client_id")
+  oAuth2Client.SetClientName(clientName)
 
-	configuration := client.NewConfiguration()
-	configuration.Servers = []client.ServerConfiguration{
-		{
-			URL: "http://localhost:4445", // Public API URL
-		},
-	}
-	apiClient := client.NewAPIClient(configuration)
-	resp, r, err := apiClient.AdminApi.CreateOAuth2Client(context.Background()).OAuth2Client(oAuth2Client).Execute()
-	if err != nil {
-		switch r.StatusCode {
-		case http.StatusConflict:
-			fmt.Fprintf(os.Stderr, "Conflict when creating oAuth2Client: %v\n", err)
-		default:
-			fmt.Fprintf(os.Stderr, "Error when calling `AdminApi.CreateOAuth2Client``: %v\n", err)
-			fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-		}
-	}
-	// response from `CreateOAuth2Client`: OAuth2Client
-	fmt.Fprintf(os.Stdout, "Created client with name %s\n", resp.GetClientName())
+  configuration := client.NewConfiguration()
+  configuration.Servers = []client.ServerConfiguration{
+    {
+      URL: "http://localhost:4445", // Public API URL
+    },
+  }
+  apiClient := client.NewAPIClient(configuration)
+  resp, r, err := apiClient.AdminApi.CreateOAuth2Client(context.Background()).OAuth2Client(oAuth2Client).Execute()
+  if err != nil {
+    switch r.StatusCode {
+    case http.StatusConflict:
+      fmt.Fprintf(os.Stderr, "Conflict when creating oAuth2Client: %v\n", err)
+    default:
+      fmt.Fprintf(os.Stderr, "Error when calling `AdminApi.CreateOAuth2Client``: %v\n", err)
+      fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+  }
+  // response from `CreateOAuth2Client`: OAuth2Client
+  fmt.Fprintf(os.Stdout, "Created client with name %s\n", resp.GetClientName())
 
-	limit := int64(20)
-	offset := int64(0)
-	clients, r, err := apiClient.AdminApi.ListOAuth2Clients(context.Background()).Limit(limit).Offset(offset).ClientName(clientName).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AdminApi.ListOAuth2Clients``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	fmt.Fprintf(os.Stdout, "We have %d clients\n", len(clients))
-	fmt.Fprintf(os.Stdout, "First client name: %s\n", clients[0].GetClientName())
+  limit := int64(20)
+  offset := int64(0)
+  clients, r, err := apiClient.AdminApi.ListOAuth2Clients(context.Background()).Limit(limit).Offset(offset).ClientName(clientName).Execute()
+  if err != nil {
+    fmt.Fprintf(os.Stderr, "Error when calling `AdminApi.ListOAuth2Clients``: %v\n", err)
+    fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+  }
+  fmt.Fprintf(os.Stdout, "We have %d clients\n", len(clients))
+  fmt.Fprintf(os.Stdout, "First client name: %s\n", clients[0].GetClientName())
 
 }
 ```
@@ -109,46 +107,46 @@ func main() {
 package main
 
 import (
-	"context"
-	"fmt"
-	"net/http"
-	"os"
+  "context"
+  "fmt"
+  "net/http"
+  "os"
 
-	client "github.com/ory/hydra-client-go"
+  client "github.com/ory/hydra-client-go"
 )
 
 func main() {
-	consentChallenge := "consentChallenge_example" // string |
+  consentChallenge := "consentChallenge_example" // string |
 
-	configuration := client.NewConfiguration()
-	configuration.Servers = []client.ServerConfiguration{
-		{
-			URL: "http://localhost:4445", // Admin API
-		},
-	}
-	apiClient := client.NewAPIClient(configuration)
-	resp, r, err := apiClient.AdminApi.GetConsentRequest(context.Background()).ConsentChallenge(consentChallenge).Execute()
-	if err != nil {
-		switch r.StatusCode {
-		case http.StatusNotFound:
-			// Accessing to response details
-			// cast err to *client.GenericOpenAPIError object first and then
-			// to your desired type
-			notFound, ok := err.(*client.GenericOpenAPIError).Model().(client.JsonError)
-			fmt.Println(ok)
-			fmt.Println(*notFound.ErrorDescription)
-		case http.StatusGone:
+  configuration := client.NewConfiguration()
+  configuration.Servers = []client.ServerConfiguration{
+    {
+      URL: "http://localhost:4445", // Admin API
+    },
+  }
+  apiClient := client.NewAPIClient(configuration)
+  resp, r, err := apiClient.AdminApi.GetConsentRequest(context.Background()).ConsentChallenge(consentChallenge).Execute()
+  if err != nil {
+    switch r.StatusCode {
+    case http.StatusNotFound:
+      // Accessing to response details
+      // cast err to *client.GenericOpenAPIError object first and then
+      // to your desired type
+      notFound, ok := err.(*client.GenericOpenAPIError).Model().(client.JsonError)
+      fmt.Println(ok)
+      fmt.Println(*notFound.ErrorDescription)
+    case http.StatusGone:
 
-			r, ok := err.(*client.GenericOpenAPIError).Model().(client.RequestWasHandledResponse)
-			fmt.Println(r, ok)
-			fmt.Println("It's gone")
-		default:
-			fmt.Fprintf(os.Stderr, "Error when calling `AdminApi.GetConsentRequest``: %v\n", err)
-			fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-		}
-	}
-	// response from `GetConsentRequest`: ConsentRequest
-	fmt.Fprintf(os.Stdout, "Response from `AdminApi.GetConsentRequest`: %v\n", resp)
+      r, ok := err.(*client.GenericOpenAPIError).Model().(client.RequestWasHandledResponse)
+      fmt.Println(r, ok)
+      fmt.Println("It's gone")
+    default:
+      fmt.Fprintf(os.Stderr, "Error when calling `AdminApi.GetConsentRequest``: %v\n", err)
+      fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+  }
+  // response from `GetConsentRequest`: ConsentRequest
+  fmt.Fprintf(os.Stdout, "Response from `AdminApi.GetConsentRequest`: %v\n", resp)
 }
 ```
 
@@ -160,39 +158,39 @@ Some endpoints require Basic Authorization:
 package main
 
 import (
-	"context"
-	"encoding/base64"
-	"fmt"
-	"net/http"
+  "context"
+  "encoding/base64"
+  "fmt"
+  "net/http"
 
-	client "github.com/ory/hydra-client-go"
+  client "github.com/ory/hydra-client-go"
 )
 
 type BasicAuthTransport struct {
-	Username string
-	Password string
+  Username string
+  Password string
 }
 
 func (t BasicAuthTransport) RoundTrip(req *http.Request) (*http.Response, error) {
-	req.Header.Set("Authorization", fmt.Sprintf("Basic %s",
-		base64.StdEncoding.EncodeToString([]byte(fmt.Sprintf("%s:%s",
-			t.Username, t.Password)))))
-	return http.DefaultTransport.RoundTrip(req)
+  req.Header.Set("Authorization", fmt.Sprintf("Basic %s",
+    base64.StdEncoding.EncodeToString([]byte(fmt.Sprintf("%s:%s",
+      t.Username, t.Password)))))
+  return http.DefaultTransport.RoundTrip(req)
 }
 
 func main() {
-	config := client.NewConfiguration()
-	config.Servers = []client.ServerConfiguration{
-		{
-			URL: "http://localhost:4445", // Admin API
-		},
-	}
+  config := client.NewConfiguration()
+  config.Servers = []client.ServerConfiguration{
+    {
+      URL: "http://localhost:4445", // Admin API
+    },
+  }
 
-	c := client.NewAPIClient(config)
-	config.HTTPClient.Transport = BasicAuthTransport{Username: "foo", Password: "bar"}
+  c := client.NewAPIClient(config)
+  config.HTTPClient.Transport = BasicAuthTransport{Username: "foo", Password: "bar"}
 
-	req := c.AdminApi.GetConsentRequest(context.Background()).ConsentChallenge("consentChallenge_example")
-	fmt.Println(req.Execute())
+  req := c.AdminApi.GetConsentRequest(context.Background()).ConsentChallenge("consentChallenge_example")
+  fmt.Println(req.Execute())
 
 }
 ```
@@ -209,30 +207,30 @@ can enhance the SDK by using the OAuth2 Client:
 package main
 
 import (
-	"context"
+  "context"
 
-	client "github.com/ory/hydra-client-go"
-	"golang.org/x/oauth2/clientcredentials"
+  client "github.com/ory/hydra-client-go"
+  "golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
-	config := client.NewConfiguration()
-	config.Servers = []client.ServerConfiguration{
-		{
-			URL: "http://localhost:4444", // Public API URL
-		},
-	}
+  config := client.NewConfiguration()
+  config.Servers = []client.ServerConfiguration{
+    {
+      URL: "http://localhost:4444", // Public API URL
+    },
+  }
 
-	creds := clientcredentials.Config{
-		TokenURL:     "http://hydra.localhost:4444/oauth2/token",
-		ClientID:     "my-client",
-		ClientSecret: "my-secret",
-		Scopes:       []string{"scope-a", "scope-b"},
-	}
-	config.HTTPClient = creds.Client(context.TODO())
-	c := client.NewAPIClient(config)
-	req := c.PublicApi.RevokeOAuth2Token(context.TODO())
-	req.Execute()
+  creds := clientcredentials.Config{
+    TokenURL:     "http://hydra.localhost:4444/oauth2/token",
+    ClientID:     "my-client",
+    ClientSecret: "my-secret",
+    Scopes:       []string{"scope-a", "scope-b"},
+  }
+  config.HTTPClient = creds.Client(context.TODO())
+  c := client.NewAPIClient(config)
+  req := c.PublicApi.RevokeOAuth2Token(context.TODO())
+  req.Execute()
 
 }
 ```
@@ -243,52 +241,52 @@ func main() {
 package main
 
 import (
-	"context"
-	"fmt"
-	"net/http"
+  "context"
+  "fmt"
+  "net/http"
 
-	client "github.com/ory/hydra-client-go"
+  client "github.com/ory/hydra-client-go"
 )
 
 func main() {
 
-	tlsTermClient := new(http.Client)
-	rt := WithHeader(tlsTermClient.Transport)
-	rt.Set("X-Forwarded-Proto", "https")
-	tlsTermClient.Transport = rt
+  tlsTermClient := new(http.Client)
+  rt := WithHeader(tlsTermClient.Transport)
+  rt.Set("X-Forwarded-Proto", "https")
+  tlsTermClient.Transport = rt
 
-	config := client.NewConfiguration()
-	config.Servers = []client.ServerConfiguration{
-		{
-			URL: "https://hydra.localhost:4444", // Public API URL
-		},
-	}
-	config.HTTPClient = tlsTermClient
-	c := client.NewAPIClient(config)
-	fmt.Println(c.PublicApi.RevokeOAuth2Token(context.Background()).Token("some_token").Execute())
+  config := client.NewConfiguration()
+  config.Servers = []client.ServerConfiguration{
+    {
+      URL: "https://hydra.localhost:4444", // Public API URL
+    },
+  }
+  config.HTTPClient = tlsTermClient
+  c := client.NewAPIClient(config)
+  fmt.Println(c.PublicApi.RevokeOAuth2Token(context.Background()).Token("some_token").Execute())
 
-	// ...
+  // ...
 }
 
 type withHeader struct {
-	http.Header
-	rt http.RoundTripper
+  http.Header
+  rt http.RoundTripper
 }
 
 func WithHeader(rt http.RoundTripper) withHeader {
-	if rt == nil {
-		rt = http.DefaultTransport
-	}
+  if rt == nil {
+    rt = http.DefaultTransport
+  }
 
-	return withHeader{Header: make(http.Header), rt: rt}
+  return withHeader{Header: make(http.Header), rt: rt}
 }
 
 func (h withHeader) RoundTrip(req *http.Request) (*http.Response, error) {
-	for k, v := range h.Header {
-		req.Header[k] = v
-	}
+  for k, v := range h.Header {
+    req.Header[k] = v
+  }
 
-	return h.rt.RoundTrip(req)
+  return h.rt.RoundTrip(req)
 }
 
 ```
@@ -299,32 +297,32 @@ func (h withHeader) RoundTrip(req *http.Request) (*http.Response, error) {
 package main
 
 import (
-	"context"
-	"crypto/tls"
-	"fmt"
-	"net/http"
+  "context"
+  "crypto/tls"
+  "fmt"
+  "net/http"
 
-	client "github.com/ory/hydra-client-go"
+  client "github.com/ory/hydra-client-go"
 )
 
 func main() {
-	skipTLSClient := &http.Client{
-		Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		},
-		Timeout: 10,
-	}
-	config := client.NewConfiguration()
-	config.Servers = []client.ServerConfiguration{
-		{
-			URL: "https://hydra.localhost:4444", // Public API URL
-		},
-	}
-	config.HTTPClient = skipTLSClient
-	c := client.NewAPIClient(config)
-	fmt.Println(c.PublicApi.RevokeOAuth2Token(context.Background()).Token("some_token").Execute())
+  skipTLSClient := &http.Client{
+    Transport: &http.Transport{
+      TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+    },
+    Timeout: 10,
+  }
+  config := client.NewConfiguration()
+  config.Servers = []client.ServerConfiguration{
+    {
+      URL: "https://hydra.localhost:4444", // Public API URL
+    },
+  }
+  config.HTTPClient = skipTLSClient
+  c := client.NewAPIClient(config)
+  fmt.Println(c.PublicApi.RevokeOAuth2Token(context.Background()).Token("some_token").Execute())
 
-	// ...
+  // ...
 }
 
 ```
