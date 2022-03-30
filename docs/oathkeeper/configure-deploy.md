@@ -273,9 +273,7 @@ Before building the Docker Image, we need to make sure that the local Ory
 Oathkeeper Docker Image is on the most recent version:
 
 ```mdx-code-block
-<CodeBlock className="language-shell">{`
-docker pull oryd/oathkeeper:${useLatestRelease('oathkeeper')}
-`}</CodeBlock>
+<CodeBlock className="language-shell">{`docker pull oryd/oathkeeper:${useLatestRelease('oathkeeper')}`}</CodeBlock>
 ```
 
 Next we will build our custom Docker Image
