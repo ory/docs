@@ -240,9 +240,7 @@ HS256, ...). Let's generate a key for the RS256 algorithm that will be used by
 the id_token mutator:
 
 ```mdx-code-block
-<CodeBlock className="language-shell">{`
-docker run oryd/oathkeeper:${useLatestRelease('oathkeeper')} credentials generate --alg RS256 > jwks.json
-`}</CodeBlock>
+<CodeBlock className="language-shell">{`docker run oryd/oathkeeper:${useLatestRelease('oathkeeper')} credentials generate --alg RS256 > jwks.json`}</CodeBlock>
 ```
 
 ### Dockerfile
