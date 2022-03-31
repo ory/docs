@@ -4,7 +4,7 @@ title: Go
 ---
 
 Ory SDKs are generated using the
-[openapi-generator](https://github.com/OpenAPITools/openapi-generator. The Ory
+[openapi-generator](https://github.com/OpenAPITools/openapi-generator). The Ory
 Hydra Go SDK is generated using [`go-swagger`](http://goswagger.io).
 
 :::warning
@@ -43,7 +43,7 @@ func main() {
     },
   }
   // admin := client.NewAPIClient(configuration)
-  // admin.Admin.CreateOAuth2Client(...
+  // admin.AdminApi.CreateOAuth2Client(...
 
   configuration.Servers = []client.ServerConfiguration{
     {
@@ -52,7 +52,7 @@ func main() {
   }
 
   // hydraPublic := client.NewAPIClient(configuration)
-  // public.Public.RevokeOAuth2Token(...
+  // public.PublicApi.RevokeOAuth2Token(...
 }
 ```
 
