@@ -25,7 +25,7 @@ Installing gRPC SDK
 Installing REST SDK
 
 ```mdx-code-block
-<CodeBlock className="language-shell">{`go get  github.com/ory/keto-client-go`}</CodeBlock>
+<CodeBlock className="language-shell">{`go get  github.com/ory/keto-client-go${useLatestRelease('keto')}`}</CodeBlock>
 ```
 
 ## Configuration
