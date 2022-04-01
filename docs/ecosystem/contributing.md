@@ -265,7 +265,7 @@ Please follow these guidelines when formatting source code:
 
 ### Working with Forks
 
-```
+```shell
 # First you clone the original repository
 git clone git@github.com:ory/ory/kratos.git
 
@@ -428,78 +428,13 @@ archives:
 When you have finalized changes to the `.goreleaser.yml`, run:
 
 ```shell
-$ GO111MODULES=off go get -u github.com/goreleaser/godownloader
-$ godownloader .goreleaser.yml --repo=$(basename $(dirname $(pwd)))/$(basename $(pwd)) > ./install.sh
-```
-
-### CircleCI
-
-Define CI Environment Variables:
-
-- [ ] Make sure you set `GITHUB_TOKEN` in the project's CI config.
-- [ ] Make sure you set `MAILCHIMP_API_KEY` in the project's CI config.
-- [ ] Make sure you set `DOCKER_USER` in the project's CI config.
-- [ ] Make sure you set `DOCKER_TOKEN` in the project's CI config.
-
-In the project's CircleCI config (`.circleci/config.yml`), use the following
-workflow (please use an appropriate `$VERSION`):
-
-```yaml
-orbs:
-  goreleaser: ory/goreleaser@0.1.7
-  slack: circleci/slack@3.4.2
-
-workflows:
-  my-workflow:
-    jobs:
-      - goreleaser/test:
-          filters:
-            tags:
-              only: /.*/
-      - goreleaser/release:
-          requires:
-            - goreleaser/test
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /.*/
-
-      - goreleaser/newsletter-draft:
-          chimp-list: f605a41b53
-          chimp-segment: 6478605
-          requires:
-            - goreleaser/release
-          filters:
-            tags:
-              only: /.*/
-      - slack/approval-notification:
-          message: Pending approval
-          channel: release-automation
-          requires:
-            - goreleaser/newsletter-draft
-          filters:
-            tags:
-              only: /.*/
-      - newsletter-approval:
-          type: approval
-          requires:
-            - goreleaser/newsletter-draft
-          filters:
-            tags:
-              only: /.*/
-      - goreleaser/newsletter-send:
-          chimp-list: f605a41b53
-          requires:
-            - newsletter-approval
-          filters:
-            tags:
-              only: /.*/
+GO111MODULES=off go get -u github.com/goreleaser/godownloader
+godownloader .goreleaser.yml --repo=$(basename $(dirname $(pwd)))/$(basename $(pwd)) > ./install.sh
 ```
 
 ## CI
 
-We use [our own CircleCI Orbs](http://github.com/ory/ci):
+[Ory CI](http://github.com/ory/ci):
 
 ### ory/nancy
 
@@ -528,15 +463,15 @@ This is done automatically by GitHub
 
 #### Go
 
-```
+```go
 # Outside of a go module-enabled project:
-$ go get -u github.com/sonatype-nexus-community/nancy
+  go get -u github.com/sonatype-nexus-community/nancy
 
 # Inside your go module-enabled project:
-$ go mod list -m all | nancy
+  go mod list -m all | nancy
 ```
 
-### Pinning indirect go module dependencies.
+### Pinning indirect go module dependencies
 
 Sometimes a project has an indirect dependency (another dependency requires that
 dependency) which doesn't pass, for example, `nancy` vulnerability scanning.
@@ -601,24 +536,24 @@ PostgreSQL, MySQL, and CockroachDB.
 
 To change the schema, create a new fizz template using:
 
-```
+```shell
 # In the project root - e.g. /kratos
-$ make .bin/ory
+  make .bin/ory
 
 # If make .bin/ory fails use:
-# $ make .bin/cli
+#   make .bin/cli
 #
 # and replace `.bin/ory` with `.bin/cli`.
 # We're working on streamlining this
 # across all repos.
 
-$ .bin/ory dev pop migration create persistence/sql/migrations/templates descriptive_change
+  .bin/ory dev pop migration create persistence/sql/migrations/templates descriptive_change
 ```
 
 This will create two new files:
 
-```
-$ ls -la persistence/sql/migrations/templates | tail -n 2
+```shell
+  ls -la persistence/sql/migrations/templates | tail -n 2
 -rw-r--r--   1 foobar  staff      0 Apr 28 17:25 20210428172500_descriptive_change.down.fizz
 -rw-r--r--   1 foobar  staff      0 Apr 28 17:25 20210428172500_descriptive_change.up.fizz
 ```
@@ -629,15 +564,15 @@ changes, the `down` file for reverting them.
 Once your migrations are added, it's time to render them to SQL. Make sure that
 Docker is running and execute:
 
-```
-$ .bin/ory dev pop migration render persistence/sql/migrations/templates persistence/sql/migrations/sql
+```shell
+  .bin/ory dev pop migration render persistence/sql/migrations/templates persistence/sql/migrations/sql
 ```
 
 If you encounter errors you can also try running this with the `--replace`
 option but please let maintainers know that you used `--replace` in your PR:
 
-```
-$ .bin/ory dev pop migration render --replace persistence/sql/migrations/templates persistence/sql/migrations/sql
+```shell
+  .bin/ory dev pop migration render --replace persistence/sql/migrations/templates persistence/sql/migrations/sql
 ```
 
 This will render your migrations to SQL files. Add them to git (`git add -A`)
@@ -645,14 +580,14 @@ and commit them.
 
 Next, you need to update the migration tests. To do so, run the sync command:
 
-```
-$ .bin/ory dev pop migration sync persistence/sql/migrations/templates persistence/sql/migratest/testdata
+```shell
+  .bin/ory dev pop migration sync persistence/sql/migrations/templates persistence/sql/migratest/testdata
 ```
 
 This will add create a new SQL file:
 
-```
-$ ls -la  persistence/sql/migratest/testdata | tail -n 1
+```shell
+  ls -la  persistence/sql/migratest/testdata | tail -n 1
 -rw-r--r--   1 foobar  staff      0 Apr 28 17:28 20210428172500_testdata.sql
 ```
 
@@ -661,23 +596,23 @@ have made to the schema to the file. Let's say you added a new column
 `new_column` to table `bar`. In that case, write an `INSERT` statement that
 reflects this:
 
-```
+```sql
 INSERT INTO bar (old_column, new_column) VALUES ('foo', 'bar');
 ```
 
 Next, execute the tests:
 
-```
-$ cd persistence/sql/migratest
-$ go test -tags sqlite ./...
+```go
+cd persistence/sql/migratest
+go test -tags sqlite ./...
 ```
 
 The tests will probably fail because the fixtures need to be updated. To update
 them, run:
 
-```
-$ cd persistence/sql/migratest
-$ go test -tags sqlite,refresh -short .
+```go
+cd persistence/sql/migratest
+go test -tags sqlite,refresh -short .
 ```
 
 You might need to run the `go test` command two or three times before all
@@ -758,7 +693,7 @@ type adminCreateIdentityBody struct {
 
 Where possible use models for responses.
 
-```
+```shell
 // A list of identities.
 // swagger:model identityList
 // nolint:deadcode,unused
@@ -834,7 +769,7 @@ To transfer the above to Kratos:
 
 - Change the DSN to the following:
   `dsn.Conn = "sqlite://file:TestDB.sqlite?_fk=true"`.
-- `mode=memor`.
+- `mode=memory`.
 - In case you have an sqlite file, migrators aren't automatically applied. Run
   them manually first with the
   [CLI](https://www.ory.sh/kratos/docs/cli/kratos-migrate-sql).
