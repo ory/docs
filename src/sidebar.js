@@ -242,6 +242,9 @@ module.exports = {
           ]
         },
         {
+          SDKs: ['kratos/sdk/index', 'kratos/sdk/go']
+        },
+        {
           'Debug & Help': [
             'kratos/debug/troubleshooting',
             'kratos/debug/csrf',
