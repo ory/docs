@@ -118,7 +118,7 @@ a few things you can do to help out:
 
 - **Join the community.** Sometimes helping people can be as easy as listening
   to their problems and offering a different perspective. Join our Slack, have a
-  look at discussions in the forum and take part in our weekly hangout. More
+  look at discussions on GitHub and take part in events like the Community Calls. More
   info on this in [Communication](#communication).
 
 - **Helping with open issues.** We have a lot of open issues for Ory and
@@ -128,19 +128,19 @@ a few things you can do to help out:
   existing issues that match their description of the problem.
 
 - **Reviewing documentation changes.** Most documentation just needs a review
-  for proper spelling and grammar. If you think a document can be improved in
+  for proper spelling and grammar. If you think you can improve a document in
   any way, feel free to hit the `edit` button at the top of the page. More info
   on contributing to documentation [here](#documentation).
 
 - **Help with tests.** Some pull requests may lack proper tests or test plans.
-  These are needed for the change to be implemented safely.
+  These are needed for the change to be implemented.
 
 ## Communication
 
 We use [Slack](https://www.ory.sh/chat). You are welcome to drop in and ask
 questions, discuss bugs and feature requests, talk to other users of Ory, etc.
 
-Check out [Ory Discussions](https://github.com/ory/kratos/discussions).
+Check out [Discussions] for [Ory Cloud](https://github.com/ory/cloud/discussions), [Ory Kratos](https://github.com/ory/kratos/discussions), [Ory Hydra](https://github.com/ory/kratos/discussions), [Ory Keto](https://github.com/ory/kratos/discussions), [Ory Oathkeeper](https://github.com/ory/kratos/discussions), and [more](https://github.com/ory/kratos/discussions).
 This is a great place for in-depth discussions and lots of code examples, logs
 and similar data.
 
@@ -164,13 +164,13 @@ community a safe place for you and we've got your back.
   religion, or similar personal characteristic.
 - Please avoid using nicknames that might detract from a friendly, safe and
   welcoming environment for all.
-- Be kind and courteous. There is no need to be mean or rude.
+- Be kind and courteous. Don't be mean or rude.
 - We will exclude you from interaction if you insult, demean or harass anyone.
   In particular, we do not tolerate behavior that excludes people in socially
   marginalized groups.
 - Private harassment is also unacceptable. No matter who you are, if you feel
   you have been or are being harassed or made uncomfortable by a community
-  member, please contact a member of the Ory team immediately.
+  member, please contact a member of the Ory team.
 - Likewise any spamming, trolling, flaming, baiting or other attention-stealing
   behavior is not welcome.
 
@@ -252,7 +252,7 @@ For further instructions please head over to
 
 ## Disclosing vulnerabilities
 
-Please disclose vulnerabilities exclusively to
+Please disclose vulnerabilities to
 [security@ory.sh](mailto:security@ory.sh). Do not use GitHub issues.
 
 ## Code Style
@@ -260,8 +260,7 @@ Please disclose vulnerabilities exclusively to
 Please follow these guidelines when formatting source code:
 
 - Go code should match the output of `gofmt -s` and pass `golangci-lint run`.
-- NodeJS and JavaScript code should be prettified using `npm run format` where
-  appropriate.
+- Format NodeJS and JavaScript code using `npm run format` where appropriate.
 
 ### Working with Forks
 
@@ -512,14 +511,14 @@ Please define custom table names for all table structs. Keep in mind that
 ### SQL Migrations
 
 Ory uses a lightweight DBAL across all projects that require a database. This
-DBAL is typically stored in the `persistence/` directory. Since we only support
+DBAL is typically stored in the `persistence/` directory. Since we just support
 SQL at the moment - there are no plans to add new databases and contributions
 won't be accepted due to maintenance effort - you will find the implementation
 in `persistence/sql`.
 
 :::info
 
-This section only applies to Ory Kratos and Ory Keto. Ory Hydra is using an
+This section just applies to Ory Kratos and Ory Keto. Ory Hydra is using an
 approach that doesn't rely on fizz migrations. Please discuss with maintainers
 before making changes to the Ory Hydra SQL schemata.
 
