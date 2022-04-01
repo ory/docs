@@ -3,19 +3,13 @@ id: check-session
 title: Check for Sessions
 ---
 
-There are two session credential types:
+You can check for sessions by calling the `/sessions/whoami` endpoint and including the issued cookie or token.
 
-1. Session Browser Cookies: When Ory detects a browser, it issues a cookie to
-   that browser. This cookie represents the user's session.
-2. Session Tokens: When Ory detects a non-browser client (for example a native
-   mobile app), it issues a token to that client.
+## Browser Cookies
 
-It is not possible to break this isolation between session tokens and session
-cookies out of security reasons.
-
-## Session Browser Cookies
-
-The easiest way to check if a user is signed in is to call
+To check if the user is signed in, call the `/sessions/whoami` endpoint. When the user is doesn't have
+a session, you get a `401 Unauthorized` response. If the user has a session, you get a `200 OK` response 
+and the session payload.
 
 ```mdx-code-block
 import { getSdkUrl } from '@site/src/hooks'
@@ -27,61 +21,7 @@ Cookies: ory_session_...=...
 X-Session-Token: {your-session-token}`}</CodeBlock>
 ```
 
-endpoint which will return either a 401 Unauthorized or HTTP 200 OK with the
-session.
-
-:::note
-
-Make sure to include the Ory Kratos Session Cookie when calling this endpoint.
-If you are calling this endpoint from a proxy or middleware, make sure to
-forward the cookies sent to the proxy/middleware. If you are calling this
-endpoint as an AJAX call, make sure to include credentials and configure CORS
-properly.
-
-:::
-
-A typical session payload will look like this:
-
-```json
-{
-  "id": "8f660ce3-69ec-4aeb-9fda-f9230dc3243f",
-  "active": true,
-  "expires_at": "2020-08-25T13:42:15.7411522Z",
-  "authenticated_at": "2020-08-24T13:42:15.7411522Z",
-  "issued_at": "2020-08-24T13:42:15.7412042Z",
-  "identity": {
-    "id": "bf32596a-f853-47c4-91e6-a3f41cf4949d",
-    "schema_id": "default",
-    "schema_url": "https://playground.projects.oryapis.com/api/kratos/public/schemas/default",
-    "traits": {
-      "email": "api@user.org",
-      "name": {
-        "last": "User",
-        "first": "API"
-      }
-    },
-    "verifiable_addresses": [
-      {
-        "id": "f877db6c-7dfb-45e3-bbeb-ac8349348128",
-        "value": "api@user.org",
-        "verified": false,
-        "via": "email",
-        "verified_at": null,
-        "expires_at": "2020-08-24T14:35:59.125873Z"
-      }
-    ],
-    "recovery_addresses": [
-      {
-        "id": "065a908c-82be-4110-bf67-9910f36242b7",
-        "value": "api@user.org",
-        "via": "email"
-      }
-    ]
-  }
-}
-```
-
-### Code Examples
+### Code Sample
 
 ```mdx-code-block
 <Tabs
@@ -119,11 +59,10 @@ app.get('/', function (req, res) {
 })
 ```
 
-## API Client
+## Session Tokens
 
-API clients receive and use Ory Kratos Session Tokens which can be checked by
-calling the `/sessions/whoami` endpoint and including the Ory Kratos Session
-Token as a bearer token in the HTTP Authorization Header:
+To check for sessions of API clients, call the `/sessions/whoami` and include 
+the Ory Kratos Session Token as the Bearer Token in the HTTP `Authorization` header:  
 
 ```mdx-code-block
 <CodeBlock language="shell">{`sessionToken={someSessionTokenHere}

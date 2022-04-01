@@ -356,12 +356,12 @@
     },
     {
       "source": "/docs/kratos/guides/login-session",
-      "destination": "https://www.ory.sh/docs/session-management/check-session",
+      "destination": "https://www.ory.sh/docs/guides/session-management/check-session",
       "permanent": false
     },
     {
       "source": "/docs/kratos/concept/session",
-      "destination": "https://www.ory.sh/docs/session-management/concept",
+      "destination": "https://www.ory.sh/docs/guides/session-management/overview",
       "permanent": false
     },
     {
