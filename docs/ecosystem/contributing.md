@@ -59,13 +59,12 @@ https://github.com/ory/web/blob/master/src/markdown/pages/contribute.md
 
 ## Introduction
 
-There are many ways in which you can contribute, beyond writing code. The goal
-of this document is to provide a high-level overview of how you can get
-involved.
+You can contribute in many ways beyond writing code. The goal of this document
+is to provide a high-level overview of how you can get involved.
 
-_Please note_: We take Ory's security and our users' trust very
-seriously. If you believe you have found a security issue in Ory, please
-responsibly disclose by contacting us at security@ory.sh.
+_Please note_: We are serious about Ory's security and our users' trust. If you
+believe you have found a security issue in Ory, please disclose by contacting us
+at security@ory.sh.
 
 First: As a potential contributor, your changes and ideas are welcome at any
 hour of the day or night, weekdays, weekends, and holidays. Please do not ever
@@ -73,22 +72,25 @@ hesitate to ask a question or send a pull request.
 
 If you are unsure, just ask or submit the issue or pull request anyways. You
 won't be yelled at for giving it your best effort. The worst that can happen is
-that you'll be politely asked to change something. We appreciate any sort of
+that you'll be asked to change something. We appreciate any sort of
 contributions, and don't want a wall of rules to get in the way of that.
 
-That said, if you want to ensure that a pull request is likely to be merged,
-talk to us! You can find out our thoughts and ensure that your contribution
-won't clash or be obviated by Ory's normal direction. A great way to do
-this is via [Ory Discussions](https://github.com/ory/kratos/discussions)
-or the [Ory Chat](https://www.ory.sh/chat).
+That said, if you want to ensure that a pull request is going to be merged, talk
+to us! You can find out our thoughts and ensure that your contribution won't
+clash with Ory's normal direction. A great way to do this is via GitHub
+Discussions (([Ory Cloud](https://github.com/ory/cloud/discussions),
+[Ory Kratos](https://github.com/ory/kratos/discussions),
+[Ory Hydra](https://github.com/ory/kratos/discussions),
+[Ory Keto](https://github.com/ory/kratos/discussions),
+[Ory Oathkeeper](https://github.com/ory/kratos/discussions))) or the
+[Ory Chat](https://www.ory.sh/chat).
 
 ## Frequently asked questions
 
 - I am new to the community. Where can I find the
   [Ory Community Code of Conduct?](https://github.com/ory/kratos/blob/master/CODE_OF_CONDUCT.md)
 
-- I have a question. Where can I get
-  [answers to questions regarding Ory?](#communication)
+- I have a question. Where can I get [answers to questions?](#communication)
 
 - I would like to contribute but I am not sure how. Are there
   [easy ways to contribute?](#how-can-i-contribute)
@@ -97,9 +99,8 @@ or the [Ory Chat](https://www.ory.sh/chat).
 - I want to talk to other Ory users.
   [How can I become a part of the community?](#communication)
 
-- I would like to know what I am agreeing to when I contribute to Ory.
-  Does Ory have
-  [a Contributors License Agreement?](https://cla-assistant.io/ory/)
+- I would like to know what I am agreeing to when I contribute to Ory. Does Ory
+  have [a Contributors License Agreement?](https://cla-assistant.io/ory/)
 
 - I would like updates about new versions of Ory.
   [How are new releases announced?](https://ory.us10.list-manage.com/subscribe?u=ffb1a878e4ec6c0ed312a3480&id=f605a41b53)
@@ -109,23 +110,23 @@ or the [Ory Chat](https://www.ory.sh/chat).
 If you want to start contributing code right away, we have a
 [list of good first issues](https://github.com/ory/kratos/labels/good%20first%20issue).
 
-There are many other ways you can contribute without writing any code. Here are
-a few things you can do to help out:
+You can contribute without writing any code in multiple ways . Here are a few
+things you can do to help out:
 
 - **Give us a star.** It may not seem like much, but it really makes a
-  difference. This is something that everyone can do to help out Ory.
-  Github stars help the project gain visibility and stand out.
+  difference. This is something that everyone can do to help out Ory. Github
+  stars help the project gain visibility and stand out.
 
 - **Join the community.** Sometimes helping people can be as easy as listening
   to their problems and offering a different perspective. Join our Slack, have a
-  look at discussions on GitHub and take part in events like the Community Calls. More
-  info on this in [Communication](#communication).
+  look at discussions on GitHub and take part in events like the Community
+  Calls. More info on this in [Communication](#communication).
 
-- **Helping with open issues.** We have a lot of open issues for Ory and
-  some of them may lack necessary information, some are duplicates of older
-  issues. You can help out by guiding people through the process of filling out
-  the issue template, asking for clarifying information, or pointing them to
-  existing issues that match their description of the problem.
+- **Helping with open issues.** We have a lot of open issues for Ory and some of
+  them may lack necessary information, some are duplicates of older issues. You
+  can help out by guiding people through the process of filling out the issue
+  template, asking for clarifying information, or pointing them to existing
+  issues that match their description of the problem.
 
 - **Reviewing documentation changes.** Most documentation just needs a review
   for proper spelling and grammar. If you think you can improve a document in
@@ -140,17 +141,22 @@ a few things you can do to help out:
 We use [Slack](https://www.ory.sh/chat). You are welcome to drop in and ask
 questions, discuss bugs and feature requests, talk to other users of Ory, etc.
 
-Check out [Discussions] for [Ory Cloud](https://github.com/ory/cloud/discussions), [Ory Kratos](https://github.com/ory/kratos/discussions), [Ory Hydra](https://github.com/ory/kratos/discussions), [Ory Keto](https://github.com/ory/kratos/discussions), [Ory Oathkeeper](https://github.com/ory/kratos/discussions), and [more](https://github.com/ory/kratos/discussions).
-This is a great place for in-depth discussions and lots of code examples, logs
-and similar data.
+Check out [Discussions] for
+[Ory Cloud](https://github.com/ory/cloud/discussions),
+[Ory Kratos](https://github.com/ory/kratos/discussions),
+[Ory Hydra](https://github.com/ory/kratos/discussions),
+[Ory Keto](https://github.com/ory/kratos/discussions),
+[Ory Oathkeeper](https://github.com/ory/kratos/discussions), and
+[more](https://github.com/ory/kratos/discussions). This is a great place for
+in-depth discussions and lots of code examples, logs and similar data.
 
 You can also join our community hangout, if you want to speak to the Ory team
 directly or ask some questions. You can find more info on the hangouts in
 [Slack](https://www.ory.sh/chat).
 
-If you want to receive regular notifications about updates to Ory,
-consider joining the mailing list. We will _only_ send you vital information on
-the projects that you are interested in.
+If you want to receive regular notifications about updates to Ory, consider
+joining the mailing list. We will _only_ send you vital information on the
+projects that you are interested in.
 
 Also [follow us on twitter](https://twitter.com/orycorp).
 
@@ -182,8 +188,8 @@ environment for the community. If you have any questions, feedback, or concerns
 
 Unless you are fixing a known bug, we **strongly** recommend discussing it with
 the core team via a GitHub issue or [in our chat](https://www.ory.sh/chat)
-before getting started to ensure your work is consistent with Ory's
-road map and architecture.
+before getting started to ensure your work is consistent with Ory's road map and
+architecture.
 
 All contributions are made via pull requests. To make a pull request, you will
 need a GitHub account; if you are unclear on this process, see GitHub's
@@ -245,15 +251,16 @@ Reviewers will approve the pull request once they are satisfied with the patch.
 ## Documentation
 
 Please provide documentation when changing, removing, or adding features.
-Documentation resides in the [Ory docs repository](https://github.com/ory/docs/tree/master/docs) folder.
+Documentation resides in the
+[Ory docs repository](https://github.com/ory/docs/tree/master/docs) folder.
 
 For further instructions please head over to
 [docs/README.md](https://github.com/ory/docs/blob/master/README.md).
 
 ## Disclosing vulnerabilities
 
-Please disclose vulnerabilities to
-[security@ory.sh](mailto:security@ory.sh). Do not use GitHub issues.
+Please disclose vulnerabilities to [security@ory.sh](mailto:security@ory.sh). Do
+not use GitHub issues.
 
 ## Code Style
 
