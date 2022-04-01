@@ -1,5 +1,5 @@
 ---
-id: sdk
+id: index
 title: SDKs
 sidebar_label: Overview
 ---
