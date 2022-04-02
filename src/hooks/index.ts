@@ -44,7 +44,7 @@ export function getSdkUrl() {
 `
   return {
     hint,
-    url: project ? 'https://' + project.slug + '.projects.oryapis.com' : 'https://playground.projects.oryapis.com'
+    url: project ? 'https://' + project.slug + '.projects.oryapis.com' : 'https://{your-project-slug-here}.projects.oryapis.com'
   }
 }
 
