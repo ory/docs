@@ -46,10 +46,21 @@ module.exports = {
         },
         {
           type: 'category',
-          label: 'Passwordless',
+          label: 'Passwordless Authentication',
           items: [
             'guides/passwordless/webauthn'
             // 'guides/passwordless/social-sign-in'
+          ]
+        },
+        {
+          type: 'category',
+          label: 'Managing Sessions',
+          items: [
+            'guides/session-management/overview',
+            'guides/session-management/session-management',
+            'guides/session-management/session-lifespan',
+            'guides/session-management/check-session',
+            'guides/session-management/refresh-extend-sessions'
           ]
         },
         {
@@ -101,7 +112,6 @@ module.exports = {
         'concepts/personal-access-token',
         'concepts/self-service',
         'concepts/redirects',
-        'concepts/session',
         'concepts/emails',
         'ecosystem/api-design',
         'concepts/password-policy'
@@ -141,7 +151,6 @@ module.exports = {
           Concepts: [
             'kratos/concepts/index',
             'kratos/concepts/terminology',
-            'kratos/concepts/session',
             'kratos/concepts/ui-user-interface',
             'kratos/concepts/management-ui',
             'kratos/concepts/identity-schema',
@@ -185,7 +194,6 @@ module.exports = {
           Guides: [
             'kratos/guides/two-factor-authentication-2fa-mfa',
             'kratos/guides/sign-in-with-github-google-facebook-linkedin',
-            'kratos/guides/login-session',
             'kratos/guides/configuring-cookies',
             'kratos/guides/multi-domain-cookies',
             'kratos/guides/setting-up-cors',
