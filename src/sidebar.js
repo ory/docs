@@ -55,17 +55,13 @@ module.exports = {
         {
           type: 'category',
           label: 'Managing Sessions',
-          link: {
-            type: 'doc',
-            id: 'guides/session-management/index'
-          },
           items: [
-            'guides/session-management/concept',
-            'guides/session-management/check-session',
+            'guides/session-management/overview',
+            'guides/session-management/session-management',
             'guides/session-management/session-lifespan',
-            'guides/session-management/refresh-session',
-            'guides/session-management/manage-sessions',
-            'guides/session-management/jwt-session'
+            'guides/session-management/check-session',
+            'guides/session-management/refresh-extend-sessions'
+
           ]
         },
         {
@@ -117,7 +113,6 @@ module.exports = {
         'concepts/personal-access-token',
         'concepts/self-service',
         'concepts/redirects',
-        'guides/session-management/concept',
         'concepts/emails',
         'ecosystem/api-design',
         'concepts/password-policy'

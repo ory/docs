@@ -1,19 +1,21 @@
 ---
-id: refresh-session
+id: refresh-extend-sessions
 title: Refresh and Extend Sessions
 ---
 
-Use cases exist where sessions need to be refreshed on user activity or per
-administrative intervention. When a session is refreshed, the session's
-`expires` property is set to the current time plus the configured
-`/session/lifespan` value.
+For certain usecases, sessions need to be refreshed on user activity or 
+administrative action. 
 
-## Extend Sessions as an Administrator
+When you refresh a session, its `expires` property is set to a value that
+is the time when the refresh is triggered plus the amount of time defined by 
+the value of `/session/lifespan`.
+
+
+## Refresh Sessions as an Administrator
 
 To extend a session's lifespan, call the administrative
 [`adminRefreshSession`](../../reference/api.mdx#operation/adminRefreshSession)
-endpoint with the session's ID, which you receive from `toSession` /
-`/sessions/whoami`:
+endpoint with the session ID:
 
 ```mdx-code-block
 import { getSdkUrl } from '@site/src/hooks'
@@ -23,9 +25,11 @@ import CodeBlock from '@theme/CodeBlock'
 Authorization: Bearer {your-personal-access-token}`}</CodeBlock>
 ```
 
-This document walks you through managing user session expiration time.
+:::tip
+To get the Session ID, call the `/sessions/whoami` endpoint or `toSession`.
+:::
 
-## Extend user session using the admin endpoints
+## Extend User Session Using the Admin Endpoints
 
 ````mdx-code-block
 import Tabs from '@theme/Tabs'
@@ -86,19 +90,22 @@ $ curl 'https://{your-project-slug}.projects.oryapis.com/admin/sessions/ede90ce6
 
 ## Reduce Database Load
 
-Since session refresh causes database writes it's possible to set a config value
-to allow session refresh for a specific time before the session expires. If we
-set the `earliest_refresh` equal to `lifespan`, it's possible to refresh even
-new sessions.
+Refreshing sessions causes database writes. 
 
-Sets when a session can be extended. Settings this value to `24h` will prevent
-the session from being extended before until 24 hours before it expires. This
-setting prevents excessive writes to the database and we highly recommend
-setting this value!
+To reduce the database load, you can limit the time in which the session 
+can be refreshed by adjusting the `earliest_refresh` configuration. 
+
+For example, if you set `earliest_refresh` to `24h`, sessions can't be
+refreshed until 24 hours before they expire. This setting prevents putting
+excessive load on the database. 
+
+If you need high flexibility when extending sessions, you can set `earliest_refresh` 
+to `lifespan`, which allows sessions to be refreshed during their entire lifespan, 
+even right after they are created.
 
 :::warning
 
-Setting `earliest_refresh` to `lifespan`, all sessions will constantly be
+If you set `earliest_refresh` to `lifespan`, all sessions will constantly be
 refreshed!
 
 :::
