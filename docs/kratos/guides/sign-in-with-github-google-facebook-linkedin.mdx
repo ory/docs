@@ -586,12 +586,15 @@ There are two ways to use the `microsoft` provider for authentication:
 
 ##### Choosing source of subject identifier
 
-By default, the microsoft provider will rely on identifier taken from the `sub` field of OIDC ID token.
-The same identifier is also returned by standard OIDC `/userinfo` endpoint.
+By default, the microsoft provider will rely on identifier taken from the `sub`
+field of OIDC ID token. The same identifier is also returned by standard OIDC
+`/userinfo` endpoint.
 
-But there are systems out there that use `id` field returned by `https://graph.microsoft.com/v1.0/me` endpoint as a subject identifier.
-To make migrating such systems to Kratos easier the microsoft provider allows using `me` endpoint's `id` as an identifier.
-Set the provider config `subject_source` field to `me` to activate this feature.
+But there are systems out there that use `id` field returned by
+`https://graph.microsoft.com/v1.0/me` endpoint as a subject identifier. To make
+migrating such systems to Kratos easier the microsoft provider allows using `me`
+endpoint's `id` as an identifier. Set the provider config `subject_source` field
+to `me` to activate this feature.
 
 ## Twitch
 
