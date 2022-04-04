@@ -19,7 +19,7 @@ module.exports = {
               label: 'Protect a Page or Screen with Login',
               link: {
                 type: 'doc',
-                id: 'guides/protect-page-login'
+                id: 'guides/protect-page-login/index'
               },
               items: [
                 {
