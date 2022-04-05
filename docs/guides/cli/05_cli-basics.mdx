@@ -66,8 +66,8 @@ Follow these steps:
    I accept the Terms of Service https://www.ory.sh/ptos:  [y/n]: y
    ```
 
-4. When the process is completed, the CLI displays the created project and user
-   details:
+4. When the process is completed, the CLI displays the details of the created account and
+the ID of the currently selected project:
 
    ```text
    You are now signed in as: tom@email.com
@@ -75,6 +75,35 @@ Follow these steps:
    EMAIL			          tom@email.com
    SELECTED_PROJECT	      00000000-0000-0000-0000-000000000000
    ```
+
+:::note
+
+By default, no projects are associated with the account when you create a new
+account using the Ory CLI. To create a new project, use the [Ory Console](https://console.ory.sh/) or the
+[CLI](#create-ory-cloud-project). 
+
+:::
+
+## Create Ory Cloud Project
+
+Run this command to create a new Ory Cloud project through the CLI: 
+
+```shell
+ory create project
+```
+
+When the operation is successful, the system returns the details of the newly 
+created project: 
+
+```text
+Project created successfully!
+ID	     5e2281bd-e094-87b5-9d76-812ce4a9cfb3
+SLUG	 twisty-galois-kz61jdc42q
+STATE	 running
+NAME	 Newly Created Project
+```
+
+
 
 ## Use CLI with Existing Cloud Account
 

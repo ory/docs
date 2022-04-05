@@ -1,0 +1,77 @@
+---
+id: identity-cli
+title: Configure Identity Service
+---
+
+Using the Ory CLI, you can quickly adjust the configuration of the Ory Cloud
+Identity Service and apply config from the Cloud environment to self-hosted
+Ory Kratos instances. 
+
+:::tip
+
+Ory Kratos is the open-source project that powers the Ory Cloud Identity Service.
+
+:::
+
+This feature is useful for fluently moving your local setup to the Cloud, or 
+for working on the configuration and testing different settings in the safety 
+of the local development environment. 
+
+## Export Configuration from Ory Cloud
+
+To get your project's Identity Service configuration, run this command:
+
+:::info
+
+To get the configuration, you must be signed in to an Ory Cloud account. 
+Read [this document](./cli-basics#use-cli-with-existing-cloud-account) to learn more. 
+
+:::
+
+```bash
+ory get identity-config <project-id> --format yaml
+```
+
+The `--format` flag defines the format of the output file. You can choose one of `yaml`,
+`json`, or `json-pretty`. 
+
+Getting the configuration in the YAML format produces output that is ready 
+to use with self-hosted Ory Kratos. 
+
+### Export to File
+
+For an even more convenient way to get the Identity Service configuration 
+working in  self-hosted Ory Kratos, save the configuration to a YAML file.
+
+Run this command:
+
+```bash
+ory get identity-config <project-id> --format yaml >identity-config.yaml 
+```
+
+## Import Configuration to Ory Cloud
+
+To start using using the configuration from a self-hosted Ory Kratos instance
+in the Ory Cloud Identity Service, import the configuration file with the CLI:
+
+```shell
+ory update identity-config <project-id> --file config.yaml
+```
+
+## Adjust Specific Keys
+
+You can adjust specific keys in the configuration using the `ory patch` CLI command:
+
+```shell
+ory patch identity-config <project-id> \ 
+  --replace '/selfservice/methods/totp/enabled=false'
+```
+
+This command sets the `/selfservice/methods/totp/enabled` key value to `false`. 
+
+:::note
+
+To learn more about adjusting project configuration with the Ory CLI, 
+read [this document](./config-with-cli).
+
+:::
