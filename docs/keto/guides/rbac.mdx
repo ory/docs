@@ -57,33 +57,98 @@ environments.
   - There is no concept of tenants: _Dan is allowed to access resources on the
     "dan's test" tenant_.
 
+## Using RBAC with Ory Keto
 
+Let's assume that we are building a reporting application and need to have three groups of users with different access levels. We have the following group of reports in our application.
 
-```
-reports:finances#access@(groups:users#member)
-groups:users#member@Vincent
+- Financial performance reports
+- Marketing performance reports
+- Community performance reports
 
-reports:pulse_report#access@(groups:management#member)
-groups:users#member@(groups:management#member)
-groups:management#member@Vincent
+We need to have three groups, `finance`, `marketing`, `community`. Also, we need to have two namespaces: `reports` to manage access control and `groups` to add users to this group
 
-db:Settings#create@(db:settings-creator#member)
-db:settings-creator#member@(groups:top-management#member)
-reports:finance_margin#access@(groups:top-management#member)
-groups:management#member@(groups:top-management#member)
-groups:top-management#member@Vincent
-```
+Let's add namespaces to Keto config. [here](https://www.ory.sh/docs/keto/reference/configuration)
 
-
-## Check access
-
-```
-
-curl http://localhost:4466/relation-tuples\?subject_id\=Akyl\&relation\=member
-
-curl http://localhost:4466/relation-tuples\?subject_set.namespace\=groups\&subject_set.relation\=member\&subject_set.object\=users
+```yaml
+...
+namespaces:
+  - id: 0
+    name: groups
+  - id: 1
+    name: reports
+...
 ```
 
-## Check access using expand API
+We can have two types of permission to access reports for granularity. Let's assume that we need `edit` and `view` access to the reports.
 
+```sh
+# View only access for finance department
+reports:finance#view@(groups:finance#member)
+
+# View only access for community department
+reports:community#view@(groups:community#member)
+
+# View only access for marketing department
+reports:marketing#view@(groups:marketing#member)
+
+# Edit access for admin group
+reports:finance#edit@(groups:admin#member)
+reports:community#edit@(groups:admin#member)
+reports:marketing#edit@(groups:admin#member)
+reports:finance#view@(groups:admin#member)
+reports:community#view@(groups:admin#member)
+reports:marketing#view@(groups:admin#member)
+```
+
+Let's assume that we have four people in our organization. Lila is CFO and needs access to financial reports, Hadley works in marketing, and Dilan works as a community manager. Neel is an admin of a system and needs to have edit permissions for reports.
+
+```
+groups:finance#member@Lila
+groups:community#member@Dilan
+groups:marketing#member@Hadley
+groups:admin#member@Neel
+```
+
+## Creating Relation Tuples
+
+Let's copy all permissions we created to a `policies` file. Then we can run
+
+```bash
+keto relation-tuple parse policies --format json | \
+  keto relation-tuple create - >/dev/null \
+  && echo "Successfully created tuple" \
+  || echo "Encountered error"
+```
+
+
+## Check access / extend access
+
+```
+keto check Dilan view reports finance
+Denied
+keto check Dilan view reports community
+Allowed
+keto check Dilan edit reports community
+Denied
+```
+
+```
+groups:marketing#member@Dilan
+```
+
+```
+keto check Dilan view reports marketing
+Allowed
+```
+
+```
+curl http://localhost:4466/relation-tuples\?subject_id\=Dilan\&relation\=member
+{"relation_tuples":[{"namespace":"groups","object":"community","relation":"member","subject_id":"Dilan"},{"namespace":"groups","object":"marketing","relation":"member","subject_id":"Dilan"}],"next_page_token":""}
+
+curl http://localhost:4466/relation-tuples\?subject_set.namespace\=groups\&subject_set.relation\=member\&subject_set.object\=marketing
+{"relation_tuples":[{"namespace":"reports","object":"marketing","relation":"view","subject_set":{"namespace":"groups","object":"marketing","relation":"member"}}],"next_page_token":""}
+
+curl http://localhost:4466/relation-tuples\?subject_set.namespace\=groups\&subject_set.relation\=member\&subject_set.object\=marketing
+{"relation_tuples":[{"namespace":"reports","object":"community","relation":"view","subject_set":{"namespace":"groups","object":"community","relation":"member"}}],"next_page_token":""}
+```
 
