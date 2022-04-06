@@ -50,6 +50,7 @@ This isn't an exhaustive list. Want your own content here? Create a PR!
 
 ### Ory Hydra
 
+- [Ory Hydra Terraform Provider](https://github.com/svrakitin/terraform-provider-hydra)
 - [Ory Hydra Identity Provider for over LDAP](https://github.com/i-core/werther)
 - [Ory Hydra Middleware for Gin (Go)](https://github.com/janekolszak/gin-hydra)
 - [Ory Hydra Two-factor authentication login provider](https://github.com/epandurski/hydra_login2f)
@@ -60,6 +61,12 @@ This isn't an exhaustive list. Want your own content here? Create a PR!
 ### Ory Keto
 
 - [KetoToDot Ory Keto relation tuples to dot notation converter](https://github.com/psauvage0/ketodot)
+
+### Ory Fosite
+
+- [Testing OAuth 2.0 JWT token implementation with Ory Fosite](https://github.com/breathbath/oauth-test)
+- [MongoDB storage for Ory Fosite](https://github.com/matthewhartstonge/storage)
+- [Argon2 Hasher for Ory Fosite](https://github.com/matthewhartstonge/hasher)
 
 **Work In Progress & Archived/Outdated**
 

@@ -3,6 +3,7 @@ import Redoc from '@theme/Redoc'
 import './API.module.css'
 import axios from 'axios'
 import { useLatestRelease } from '../hooks'
+import useSSR from 'use-ssr'
 
 function API({
   url,
@@ -15,9 +16,10 @@ function API({
 }) {
   const version = useLatestRelease(repo, 'master')
   const [spec, setSpec] = useState<any>(override)
+  const { isServer } = useSSR()
 
   useEffect(() => {
-    if (override) {
+    if (override || isServer) {
       return
     }
 
@@ -26,10 +28,12 @@ function API({
     })
   }, [url, repo, version])
 
-  if (!spec) {
-    return null
+  // For some reason this does not render server-side...
+  if (!spec || isServer) {
+    return <></>
   }
 
+  console.log('redoc', { isServer })
   return <Redoc spec={spec} />
 }
 

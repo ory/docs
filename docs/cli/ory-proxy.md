@@ -1,7 +1,8 @@
 ---
 id: ory-proxy
 title: ory proxy
-description: ory proxy Integrate your application with Ory using the Ory Proxy
+description:
+  ory proxy Run your app and Ory on the same domain using a reverse proxy
 ---
 
 <!--
@@ -12,7 +13,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 
 ## ory proxy
 
-Integrate your application with Ory using the Ory Proxy
+Run your app and Ory on the same domain using a reverse proxy
 
 ### Synopsis
 
@@ -21,10 +22,10 @@ application. This proxy works both in development and in production, for example
 when deploying a React, NodeJS, Java, PHP, ... app to a server / the cloud or
 when developing it locally on your machine.
 
-Before you start, you need to have a running instance of Ory Kratos / Ory Hydra
-/ ... either locally or in Ory Cloud. Set the environment variable ORY_SDK_URL
-to the path where Ory is available. For Ory Cloud, this is the &#34;SDK URL&#34;
-which can be found in the &#34;API &amp; Services&#34; section of your Ory Cloud
+Before you start, you need a running Ory Cloud project or a self-hosted version
+of Ory Kratos, Ory Hydra, ... Set the environment variable `ORY_SDK_URL` to the
+path where Ory is available. For Ory Cloud, this is the &#34;SDK URL&#34; which
+can be found in the &#34;API &amp; Services&#34; section of your Ory Cloud
 Console.
 
     $ export ORY_SDK_URL=https://playground.projects.oryapis.com
@@ -34,25 +35,25 @@ Alternatively, you can set this using the --sdk-url flag:
     $ ory proxy --sdk-url https://playground.projects.oryapis.com \
     	...
 
-The first argument [upstream] points to the location of your application. If you
+The first argument `app-url` points to the location of your application. If you
 are running the proxy and your app on the same host, this could be localhost.
 
-The second argument [public-url] is optional. It refers to the public URL of
-your application (`https://www.example.org`).
+The second argument `[publish-url]` is optional. It refers to the public URL of
+your application (e.g. https://www.example.org).
 
-If [public-url] is not set, it will default to the default host and port this
+If `[publish-url]` is not set, it will default to the default host and port this
 proxy listens on:
 
     http://localhost:4000
 
-You must set the [public-url] if you are not using the Ory Proxy in locally or
-in development:
+You must set the `[publish-url]` if you are not using the Ory Proxy in locally
+or in development:
 
     $ ory proxy \
     	http://localhost:3000 \
     	https://example.org
 
-Please note that you can not set a path in the [public-url]!
+Please note that you can not set a path in the `[publish-url]`!
 
 Per default, the proxy listens on port 4000. If you want to listen on another
 port, use the port flag:
@@ -62,13 +63,13 @@ port, use the port flag:
     	https://example.org
 
 If your public URL is available on a non-standard HTTP/HTTPS port, you can set
-that port in the [public-url]:
+that port in the `[publish-url]`:
 
     $ ory proxy \
     	http://localhost:3000 \
     	https://example.org:1234
 
-If this proxy runs on a subdomain, and you want Orys cookies (such as the
+If this proxy runs on a subdomain, and you want Ory&#39;s cookies (e.g. the
 session cookie) to be available on all of your domain, you can use the following
 CLI flag to customize the cookie domain:
 
@@ -76,6 +77,17 @@ CLI flag to customize the cookie domain:
     	--cookie-domain example.org \
     	http://127.0.0.1:3000 \
     	https://ory.example.org
+
+Per default all default redirects will go to to `[publish-url]`. You can change
+this behavior using the `--default-redirect-url` flag:
+
+    $ ory --default-redirect-url /welcome \
+    	http://127.0.0.1:3000 \
+    	https://ory.example.org
+
+Now, all redirects happening e.g. after login will point to `/welcome` instead
+of `/` unless you have specified custom redirects in your Ory configuration or
+in the flow&#39;s `?return_to=` query parameter.
 
 If the request is not authenticated, the HTTP Authorization Header will be
 empty:
@@ -88,7 +100,7 @@ Authorization Header containing the Ory Session:
 
     GET / HTTP/1.1
     Host: localhost:3000
-    Authorization: Bearer &lt;the-json-web-token&gt;
+    Authorization: Bearer the-json-web-token
 
 The JSON Web Token claims contain:
 
@@ -96,8 +108,8 @@ The JSON Web Token claims contain:
 - The &#34;session&#34; field which contains the full Ory Session.
 
 The JSON Web Token is signed using the ES256 algorithm. The public key can be
-found by fetching the /.ory/jwks.json path when calling the proxy - for example
-http://127.0.0.1:4000/.ory/jwks.json
+found by fetching the /.ory/jwks.json path when calling the proxy - for example:
+`http://127.0.0.1:4000/.ory/jwks.json`
 
 An example payload of the JSON Web Token is:
 
@@ -119,18 +131,19 @@ An example payload of the JSON Web Token is:
     }
 
 ```
-ory proxy [upstream] &lt;[public-url]&gt; [flags]
+ory proxy app-url [publish-url] [flags]
 ```
 
 ### Options
 
 ```
-      --cookie-domain string   Set a dedicated cookie domain.
-  -h, --help                   help for proxy
-      --no-jwt                 Do not create a JWT from the Ory Kratos Session. Useful if you need fast start up times of the Ory Proxy.
-      --open                   Open the browser when the proxy starts.
-      --port int               The port the proxy should listen on. (default 4000)
-      --sdk-url string         Set the Ory SDK URL.
+      --cookie-domain string          Set a dedicated cookie domain.
+      --default-redirect-url string   Set the URL to redirect to per default after e.g. login or account creation.
+  -h, --help                          help for proxy
+      --no-jwt                        Do not create a JWT from the Ory Kratos Session. Useful if you need fast start up times of the Ory Proxy.
+      --open                          Open the browser when the proxy starts.
+      --port int                      The port the proxy should listen on. (default 4000)
+      --sdk-url string                Set the Ory SDK URL.
 ```
 
 ### SEE ALSO

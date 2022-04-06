@@ -1,0 +1,36 @@
+All Ory presets have the correct settings for WebAuthn enabled.
+
+If you want to use a custom identity schema, you need to define what field of
+the identity schema is the primary identifier for WebAuthn. This is used for
+both multi-factor authentication as well as passwordless:
+
+```json5 title="identity.schema.json" {16-18}
+{
+  $schema: 'http://json-schema.org/draft-07/schema#',
+  type: 'object',
+  properties: {
+    traits: {
+      type: 'object',
+      properties: {
+        email: {
+          type: 'string',
+          format: 'email',
+          title: 'Your E-Mail',
+          minLength: 3,
+          'ory.sh/kratos': {
+            credentials: {
+              // ...
+              webauthn: {
+                identifier: true
+              }
+            }
+            // ...
+          }
+        }
+        // ...
+      }
+      // ...
+    }
+  }
+}
+```
