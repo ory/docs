@@ -3,8 +3,8 @@ id: go
 title: Go
 ---
 
-import CodeBlock from '@theme/CodeBlock'
-import { useLatestRelease } from '@site/src/hooks'
+import CodeBlock from '@theme/CodeBlock' import { useLatestRelease } from
+'@site/src/hooks'
 
 Ory SDKs are generated using the
 [openapi-generator](https://github.com/OpenAPITools/openapi-generator). The Ory

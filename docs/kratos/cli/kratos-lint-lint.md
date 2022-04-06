@@ -1,7 +1,7 @@
 ---
 id: kratos-lint-lint
 title: kratos lint lint
-description: kratos lint lint 
+description: kratos lint lint
 ---
 
 <!--
@@ -9,13 +9,13 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## kratos lint lint
-
-
 
 ### Synopsis
 
-Lints JSONNet files using the official JSONNet linter and exits with a status code of 1 when issues are detected.
+Lints JSONNet files using the official JSONNet linter and exits with a status
+code of 1 when issues are detected.
 
 Glob Syntax:
 
@@ -54,5 +54,4 @@ kratos lint lint path/to/files/*.jsonnet [more/files.jsonnet] [supports/**/{foo,
 
 ### SEE ALSO
 
-* [kratos lint](kratos-lint)	 - Helpers for linting code
-
+- [kratos lint](kratos-lint) - Helpers for linting code
