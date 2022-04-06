@@ -437,6 +437,7 @@ For more details please check [Session variables](../pipeline.md#session)
 
 ## `hydrator`
 
+
 This mutator allows for fetching additional data from external APIs, which can
 be then used by other mutators. It works by making an upstream HTTP call to an
 API specified in the **Per-Rule Configuration** section below. The request is a
@@ -476,6 +477,10 @@ Example request/response payload:
   }
 }
 ```
+:::warning
+Ory Oathkeeper expects custom headers followed by canonical header notation. Every header should start with the uppercase first letter and any other letter following a hyphen. For example, `x-user` should be passed to oathkeeper as `X-User`
+:::
+
 
 The AuthenticationSession from this object replaces the original one and is
 passed to the next mutator, where it can be used to set a particular cookie to
