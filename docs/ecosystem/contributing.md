@@ -9,53 +9,9 @@ Thank you for contributing changes to this document! Because we use a central re
 to synchronize this file across all our repositories, make sure to make your edits
 in the correct file, which you can find here:
 
-https://github.com/ory/web/blob/master/src/markdown/pages/contribute.md
+https://github.com/ory/docs/blob/master/docs/ecosystem/contributing.md
 
 -->
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-- [Introduction](#introduction)
-- [Frequently asked questions](#frequently-asked-questions)
-- [How can I contribute?](#how-can-i-contribute)
-- [Communication](#communication)
-- [Conduct](#conduct)
-- [Contributing Code](#contributing-code)
-- [Documentation](#documentation)
-- [Disclosing vulnerabilities](#disclosing-vulnerabilities)
-- [Code Style](#code-style)
-  - [Working with Forks](#working-with-forks)
-- [Releasing Software](#releasing-software)
-  - [Defining Release Config](#defining-release-config)
-    - [Goreleaser](#goreleaser)
-  - [Update install script](#update-install-script)
-  - [CircleCI](#circleci)
-- [CI](#ci)
-  - [ory/nancy](#orynancy)
-- [Toolchain](#toolchain)
-  - [Checking for vulnerabilities](#checking-for-vulnerabilities)
-    - [NodeJS](#nodejs)
-    - [Go](#go)
-  - [Pinning indirect go module dependencies.](#pinning-indirect-go-module-dependencies)
-- [Development](#development)
-  - [DBAL gobuffalo/pop](#dbal-gobuffalopop)
-    - [Table Names](#table-names)
-  - [SQL Migrations](#sql-migrations)
-- [OpenAPI Spec and Go Swagger](#openapi-spec-and-go-swagger)
-  - [Models](#models)
-  - [Routes](#routes)
-    - [Parameters](#parameters)
-    - [Responses](#responses)
-- [IDE Tips](#ide-tips)
-  - [Goland](#goland)
-    - [Goland Tests](#goland-tests)
-  - [Jetbrains](#jetbrains)
-    - [Debugging Tests](#debugging-tests)
-  - [VS Code](#vs-code)
-    - [VS Code Tests](#vs-code-tests)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Introduction
 
