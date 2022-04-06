@@ -111,7 +111,26 @@ groups:admin#member@Neel
 
 ## Creating Relation Tuples
 
-Let's copy all permissions we created to a `policies` file. Then we can run
+Let's copy all permissions we created to a `policies` file with the following content.
+
+```sh
+reports:finance#view@(groups:finance#member)
+reports:community#view@(groups:community#member)
+reports:marketing#view@(groups:marketing#member)
+reports:finance#edit@(groups:admin#member)
+reports:community#edit@(groups:admin#member)
+reports:marketing#edit@(groups:admin#member)
+reports:finance#view@(groups:admin#member)
+reports:community#view@(groups:admin#member)
+reports:marketing#view@(groups:admin#member)
+groups:finance#member@Lila
+groups:community#member@Dilan
+groups:marketing#member@Hadley
+groups:admin#member@Neel
+```
+
+
+Then we can run
 
 ```bash
 keto relation-tuple parse policies --format json | \
@@ -122,32 +141,44 @@ keto relation-tuple parse policies --format json | \
 
 
 ## Check access / extend access
+Since Dilan works as a community manager, the following check examples show that he has access only to community reports
 
-```
+```bash
 keto check Dilan view reports finance
 Denied
+
 keto check Dilan view reports community
 Allowed
+
 keto check Dilan edit reports community
 Denied
 ```
+Dilan decided to work with marketing a little bit, and we need to update his permissions and add him to the marketing group.
 
 ```
 groups:marketing#member@Dilan
 ```
-
+Now he has an access to marketing reports
 ```
 keto check Dilan view reports marketing
 Allowed
 ```
 
-```
+## Display all objects a User has access to
+
+The example below shows you how to get a list of objects Dilan has access to
+
+```bash
+
+# Get all groups for Dilan
 curl http://localhost:4466/relation-tuples\?subject_id\=Dilan\&relation\=member
 {"relation_tuples":[{"namespace":"groups","object":"community","relation":"member","subject_id":"Dilan"},{"namespace":"groups","object":"marketing","relation":"member","subject_id":"Dilan"}],"next_page_token":""}
 
+# Get permissions to objects for marketing group
 curl http://localhost:4466/relation-tuples\?subject_set.namespace\=groups\&subject_set.relation\=member\&subject_set.object\=marketing
 {"relation_tuples":[{"namespace":"reports","object":"marketing","relation":"view","subject_set":{"namespace":"groups","object":"marketing","relation":"member"}}],"next_page_token":""}
 
+# Get permissions to objects for community group
 curl http://localhost:4466/relation-tuples\?subject_set.namespace\=groups\&subject_set.relation\=member\&subject_set.object\=marketing
 {"relation_tuples":[{"namespace":"reports","object":"community","relation":"view","subject_set":{"namespace":"groups","object":"community","relation":"member"}}],"next_page_token":""}
 ```
