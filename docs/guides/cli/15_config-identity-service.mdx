@@ -23,7 +23,7 @@ To get your project's Identity Service configuration, run this command:
 
 :::info
 
-To get the configuration, you must be signed in to an Ory Cloud account. 
+You must be signed in to an Ory Cloud account to perform this action. 
 Read [this document](./cli-basics#use-cli-with-existing-cloud-account) to learn more. 
 
 :::
@@ -32,16 +32,16 @@ Read [this document](./cli-basics#use-cli-with-existing-cloud-account) to learn 
 ory get identity-config <project-id> --format yaml
 ```
 
-The `--format` flag defines the format of the output file. You can choose one of `yaml`,
-`json`, or `json-pretty`. 
+The `--format` flag defines the format of the output file. You can choose one of `yaml`
+,`json`, or `json-pretty`. 
 
 Getting the configuration in the YAML format produces output that is ready 
 to use with self-hosted Ory Kratos. 
 
 ### Export to File
 
-For an even more convenient way to get the Identity Service configuration 
-working in  self-hosted Ory Kratos, save the configuration to a YAML file.
+For a convenient way to get the Identity Service configuration 
+working in self-hosted Ory Kratos, save the configuration to a YAML file.
 
 Run this command:
 
@@ -60,18 +60,18 @@ ory update identity-config <project-id> --file config.yaml
 
 ## Adjust Specific Keys
 
-You can adjust specific keys in the configuration using the `ory patch` CLI command:
+You can adjust specific keys in the configuration using the `ory patch` CLI command. 
+
+Running this sample command sets the `/selfservice/methods/totp/enabled` key value to `false`:
 
 ```shell
 ory patch identity-config <project-id> \ 
   --replace '/selfservice/methods/totp/enabled=false'
 ```
 
-This command sets the `/selfservice/methods/totp/enabled` key value to `false`. 
-
 :::note
 
-To learn more about adjusting project configuration with the Ory CLI, 
-read [this document](./config-with-cli).
+Read [this document](./config-with-cli) to learn more about adjusting project configuration 
+with the Ory CLI.
 
 :::
