@@ -168,10 +168,19 @@ ory patch identity-config <your-project-id> \\
   </TabItem>
   <TabItem value="macos" label="Self-Hosted Ory Kratos Config" default>
 
-```shell title=path/to/kratos/config.yml
-ory patch identity-config <your-project-id> \\
-  --replace '/selfservice/flows/settings/privileged_session_max_age/lifespan="15m"' \\
-  --format yaml
+```yaml title=path/to/kratos/config.yml
+settings:
+  after:
+    hooks: []
+    password:
+      hooks: []
+    profile:
+      hooks: []
+  lifespan: 30m0s
+  // highlight-next-line
+  privileged_session_max_age: 15m0s
+  required_aal: highest_available
+  ui_url: /ui/settings
 ```
 
   </TabItem>

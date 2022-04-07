@@ -360,7 +360,7 @@
       "permanent": false
     },
     {
-      "source": "/docs/kratos/concept/session",
+      "source": "/docs/kratos/concepts/session",
       "destination": "https://www.ory.sh/docs/guides/session-management/overview",
       "permanent": false
     },
