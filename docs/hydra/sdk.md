@@ -37,9 +37,9 @@ repositories:
 
 We also provide more info for these SDKs:
 
-- [Golang](sdk/go.md)
-- [JavaScript](sdk/js.md)
-- [PHP](sdk/php.md)
+- [Golang](sdk/go.mdx)
+- [JavaScript](sdk/js.mdx)
+- [PHP](sdk/php.mdx)
 
 Take a look at the source:
 [Generated SDKs for Ory Hydra](https://github.com/ory/sdk/tree/master/clients/hydra/)
