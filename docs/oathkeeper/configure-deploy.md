@@ -379,8 +379,8 @@ rm -rf oathkeeper-demo
 
 ## Monitoring
 
-Ory Oathkeeper provides an endpoint for [Prometheus](https://prometheus.io/) to scrape as a target. This
-endpoint can be accessed by default at:
+Ory Oathkeeper provides an endpoint for [Prometheus](https://prometheus.io/) to
+scrape as a target. This endpoint can be accessed by default at:
 [http://localhost:9000/metrics](http://localhost:9000/metrics):
 
 You can adjust the settings in the Ory Oathkeeper configuration.
@@ -431,8 +431,10 @@ docker run \
   prom/prometheus
 ```
 
-You can extend the basic monitoring setup with visualizations using for example [Grafana](https://grafana.com/). For more information visit the
-["Grafana support for Prometheus"](https://prometheus.io/docs/visualization/grafana/) documentation.
+You can extend the basic monitoring setup with visualizations using for example
+[Grafana](https://grafana.com/). For more information visit the
+["Grafana support for Prometheus"](https://prometheus.io/docs/visualization/grafana/)
+documentation.
 
 You can use the exemplary dashboard to get started quickly:
 [Oathkeeper-Dashboard.json](https://github.com/ory/oathkeeper/tree/master/contrib/grafana/Oathkeeper-Dashboard.json).
