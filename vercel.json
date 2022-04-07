@@ -355,8 +355,28 @@
       "permanent": false
     },
     {
+      "source": "/docs/kratos/guides/login-session",
+      "destination": "https://www.ory.sh/docs/guides/session-management/check-session",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/concept/session",
+      "destination": "https://www.ory.sh/docs/guides/session-management/overview",
+      "permanent": false
+    },
+    {
       "source": "/:path*/index",
       "destination": "https://www.ory.sh/:path",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/config-with-cli",
+      "destination": "https://www.ory.sh/docs/guides/cli/config-with-cli",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/ory-cli-install-use",
+      "destination": "https://www.ory.sh/docs/guides/cli/installation",
       "permanent": false
     },
     {
