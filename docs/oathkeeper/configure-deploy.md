@@ -379,11 +379,11 @@ rm -rf oathkeeper-demo
 
 ## Monitoring
 
-Oathkeeper provides an endpoint for Prometheus to scrape as a target. This
+Ory Oathkeeper provides an endpoint for [Prometheus](https://prometheus.io/) to scrape as a target. This
 endpoint can be accessed by default at:
 [http://localhost:9000/metrics](http://localhost:9000/metrics):
 
-You can adjust the settings within Oathkeeper's config.
+You can adjust the settings in the Ory Oathkeeper configuration.
 
 ```shell
 cat << EOF > config.yaml
@@ -395,9 +395,9 @@ serve:
 EOF
 ```
 
-Prometheus can be run as a docker container. More information are available on
+Prometheus can be run as a Docker container. More information are available on
 [https://github.com/prometheus/prometheus](https://github.com/prometheus/prometheus).
-Start with setting up a prometheus configuration:
+Start with setting up a Prometheus configuration:
 
 ```shell
 cat << EOF > prometheus.yml
@@ -417,8 +417,8 @@ scrape_configs:
       - targets: ['localhost:9000']
 ```
 
-Then start the prometheus server and access it on
-[http://localhost:9090](http://localhost:9090).
+Run the following commands to start the Prometheus server and access it on
+[http://localhost:9090](http://localhost:9090):
 
 ```shell
 docker run \
@@ -431,12 +431,10 @@ docker run \
   prom/prometheus
 ```
 
-Now where you have a basic monitoring setup running you can extend it by
-building up nice visualizations eg. using Grafana. More information are
-available on
-[https://prometheus.io/docs/visualization/grafana/](https://prometheus.io/docs/visualization/grafana/).
+You can extend the basic monitoring setup with visualizations using for example [Grafana](https://grafana.com/). For more information visit the
+["Grafana support for Prometheus"](https://prometheus.io/docs/visualization/grafana/) documentation.
 
-We've a pre built Dashboard which you can use to get started quickly:
+You can use the exemplary dashboard to get started quickly:
 [Oathkeeper-Dashboard.json](https://github.com/ory/oathkeeper/tree/master/contrib/grafana/Oathkeeper-Dashboard.json).
 
 <img alt="Ory Oathkeeper with Prometheus and Grafana"
