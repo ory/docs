@@ -5,8 +5,12 @@ title: Role Based Access Control (RBAC)
 This guide will explain how to implement RBAC using Ory Keto.
 
 :::warning
-Implementing RBAC currently is possible, but requires a lot of thought and workarounds.
-This guide enables RBAC support with Keto but for native support is still work in progress and you can track progress in [this issue](https://github.com/ory/keto/issues/598)
+
+Implementing RBAC currently is possible, but requires some workarounds. This
+guide enables RBAC support with Keto but native support is still work in
+progress. Follow the progress in
+[this issue](https://github.com/ory/keto/issues/598)
+
 :::
 
 [Role Based Access Control (RBAC)](https://en.wikipedia.org/wiki/Role-based_access_control)
@@ -23,21 +27,21 @@ management complexity around defining privileges.
 
 Let's come back to Alice, Bob, Peter, and blog posts and the matrix from the ACL
 example. This time we model the access rights using (H)RBAC and the roles
-"reader", "author", and "admin":
+`reader`, `author`, and `admin`:
 
-`Admin` inherits all privileges from `author`, which inherits from `reader`.
-Only `Alice` (or rather her role `admin`) can delete blog posts, whereas
-`author` can create and modify blog posts.
+The role `admin` inherits all privileges from `author`, which inherits from
+`reader`. Only `Alice` (or rather her role `admin`) can delete blog posts,
+whereas `author` can create and modify blog posts.
 
 (H)RBAC is everywhere. If you ever installed a forum software such as
 [phpBB](https://www.phpbb.com/support/docs/en/3.1/ug/adminguide/permissions_roles/)
 or [Wordpress](https://codex.wordpress.org/Roles_and_Capabilities), you have
 definitely encountered ACL, (H)RBAC, or both.
 
-(H)RBAC reduces management complexity & overhead with large user/subject bases.
+(H)RBAC reduces management complexity and overhead with large user bases.
 Sometimes however, even (H)RBAC is not enough. An example is when you need to
-express ownership (e.g. `bob` can only modify his own blog posts), have
-attributes (e.g. `bob` works in department `blog`), or in multi-tenant
+express ownership (e.g. `Bob` can only modify his own blog posts), have
+attributes (e.g. `Bob` works in department `blog`), or in multi-tenant
 environments.
 
 **Benefits:**
@@ -59,39 +63,45 @@ environments.
 
 ## Using RBAC with Ory Keto
 
-Let's assume that we are building a reporting application and need to have three groups of users with different access levels. We have the following group of reports in our application.
+Let's assume that we are building a reporting application and need to have three
+groups of users with different access levels. We have the following group of
+reports in our application.
 
 - Financial performance reports
 - Marketing performance reports
 - Community performance reports
 
-We need to have three groups, `finance`, `marketing`, `community`. Also, we need to have two namespaces: `reports` to manage access control and `groups` to add users to this group
+We need to have three groups, `finance`, `marketing`, `community`. Also, we need
+to have two namespaces: `reports` to manage access control and `groups` to add
+users to this group
 
-Let's add namespaces to Keto config. [here](https://www.ory.sh/docs/keto/reference/configuration)
+Let's add namespaces to Keto config.
+[here](https://www.ory.sh/docs/keto/reference/configuration)
 
 ```yaml
-...
+# ...
 namespaces:
   - id: 0
     name: groups
   - id: 1
     name: reports
-...
+# ...
 ```
 
-We can have two types of permission to access reports for granularity. Let's assume that we need `edit` and `view` access to the reports.
+We can have two types of permission to access reports for granularity. Let's
+assume that we need `edit` and `view` access to the reports.
 
-```sh
-# View only access for finance department
+```keto-relation-tuples
+// View only access for finance department
 reports:finance#view@(groups:finance#member)
 
-# View only access for community department
+// View only access for community department
 reports:community#view@(groups:community#member)
 
-# View only access for marketing department
+// View only access for marketing department
 reports:marketing#view@(groups:marketing#member)
 
-# Edit access for admin group
+// Edit access for admin group
 reports:finance#edit@(groups:admin#member)
 reports:community#edit@(groups:admin#member)
 reports:marketing#edit@(groups:admin#member)
@@ -100,9 +110,12 @@ reports:community#view@(groups:admin#member)
 reports:marketing#view@(groups:admin#member)
 ```
 
-Let's assume that we have four people in our organization. Lila is CFO and needs access to financial reports, Hadley works in marketing, and Dilan works as a community manager. Neel is an admin of a system and needs to have edit permissions for reports.
+Let's assume that we have four people in our organization. Lila is CFO and needs
+access to financial reports, Hadley works in marketing, and Dilan works as a
+community manager. Neel is an admin of a system and needs to have edit
+permissions for reports.
 
-```
+```keto-relation-tuples
 groups:finance#member@Lila
 groups:community#member@Dilan
 groups:marketing#member@Hadley
@@ -111,9 +124,10 @@ groups:admin#member@Neel
 
 ## Creating Relation Tuples
 
-Let's copy all permissions we created to a `policies` file with the following content.
+Let's copy all permissions we created to a `policies.rts` file with the
+following content.
 
-```sh
+```keto-relation-tuples
 reports:finance#view@(groups:finance#member)
 reports:community#view@(groups:community#member)
 reports:marketing#view@(groups:marketing#member)
@@ -129,19 +143,19 @@ groups:marketing#member@Hadley
 groups:admin#member@Neel
 ```
 
-
 Then we can run
 
 ```bash
-keto relation-tuple parse policies --format json | \
+keto relation-tuple parse policies.rts --format json | \
   keto relation-tuple create - >/dev/null \
   && echo "Successfully created tuple" \
   || echo "Encountered error"
 ```
 
-
 ## Check access / extend access
-Since Dilan works as a community manager, the following check examples show that he has access only to community reports
+
+Since Dilan works as a community manager, the following check examples show that
+he has access only to community reports
 
 ```bash
 keto check Dilan view reports finance
@@ -153,12 +167,16 @@ Allowed
 keto check Dilan edit reports community
 Denied
 ```
-Dilan decided to work with marketing a little bit, and we need to update his permissions and add him to the marketing group.
 
-```
+Now Dilan decided to also work with marketing. Therefore we need to update his
+permissions and add him to the marketing group.
+
+```keto-relation-tuples
 groups:marketing#member@Dilan
 ```
-Now he has an access to marketing reports
+
+Now he also has access to marketing reports:
+
 ```
 keto check Dilan view reports marketing
 Allowed
@@ -182,4 +200,3 @@ curl http://localhost:4466/relation-tuples\?subject_set.namespace\=groups\&subje
 curl http://localhost:4466/relation-tuples\?subject_set.namespace\=groups\&subject_set.relation\=member\&subject_set.object\=marketing
 {"relation_tuples":[{"namespace":"reports","object":"community","relation":"view","subject_set":{"namespace":"groups","object":"community","relation":"member"}}],"next_page_token":""}
 ```
-
