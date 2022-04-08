@@ -3,11 +3,17 @@ id: migrating-legacy-policies
 title: Migrating policies from 0.5 to 0.6
 ---
 
-0.6 release makes Ory Access Control Policy DSL modeled after AWS IAM Policies obsolete. This guide will help you to rewrite your policies in to [relation-tuples](https://www.ory.sh/docs/keto/concepts/relation-tuples). You can read [The Evolution of Ory Keto: A Global Scale Authorization System](https://www.ory.sh/keto-zanzibar-evolution/) blogpost to understand a benefits of 0.6 release
+0.6 release makes Ory Access Control Policy DSL modeled after AWS IAM Policies
+obsolete. This guide will help you to rewrite your policies in to
+[relation-tuples](https://www.ory.sh/docs/keto/concepts/relation-tuples). You
+can read
+[The Evolution of Ory Keto: A Global Scale Authorization System](https://www.ory.sh/keto-zanzibar-evolution/)
+blogpost to understand a benefits of 0.6 release
 
 ## Legacy rules example
 
-The policy below allows `Alice` and `Bob` to create/read/modify/delete `blog_posts:my-first-blog-post`, `blog_posts:2`, and `blog_posts:3`.
+The policy below allows `Alice` and `Bob` to create/read/modify/delete
+`blog_posts:my-first-blog-post`, `blog_posts:2`, and `blog_posts:3`.
 
 ```json
 {
@@ -24,7 +30,9 @@ The policy below allows `Alice` and `Bob` to create/read/modify/delete `blog_pos
 
 ## Rewriting it to relation tuples
 
-According to the example above we need to create required [namespace](https://www.ory.sh/docs/keto/concepts/namespaces) and [relation tuple](https://www.ory.sh/docs/keto/concepts/relation-tuples)
+According to the example above we need to create required
+[namespace](https://www.ory.sh/docs/keto/concepts/namespaces) and
+[relation tuple](https://www.ory.sh/docs/keto/concepts/relation-tuples)
 
 General mapping from old to new policies
 
@@ -33,8 +41,9 @@ General mapping from old to new policies
 - Actions -> Relations
 - Effect -> Became obsolete or can be considered as Relations
 
-We need to have `blog_posts` namespace for our example. Let's add the following content to `keto.yml` configuration file. You can find a good template [here](https://www.ory.sh/docs/keto/reference/configuration).
-
+We need to have `blog_posts` namespace for our example. Let's add the following
+content to `keto.yml` configuration file. You can find a good template
+[here](https://www.ory.sh/docs/keto/reference/configuration).
 
 ```yaml
 namespaces:
@@ -52,7 +61,8 @@ serve:
 
 ## Alice Relation Tuples
 
-Let's create an `alice_policies` file with the following content, which adds exactly the same permissions to Alice as the previous example
+Let's create an `alice_policies` file with the following content, which adds
+exactly the same permissions to Alice as the previous example
 
 ```
 blog_posts:my-first-blog-post#read@alice
@@ -68,6 +78,7 @@ blog_posts:3#modify@alice
 blog_posts:3#delete@alice
 blog_posts:3#create@alice
 ```
+
 You can create a similar `bob_policies` file with the following permissions
 
 ```
@@ -87,41 +98,48 @@ blog_posts:3#create@bob
 
 ## Creating Relation Tuples using the CLI
 
-This example uses the Ory Keto CLI to create the relation tuple using the [write API](../concepts/api-overview#write-apis)
-
+This example uses the Ory Keto CLI to create the relation tuple using the
+[write API](../concepts/api-overview#write-apis)
 
 ```bash
 keto relation-tuple parse alice_policies --format json | \
   keto relation-tuple create - >/dev/null \
   && echo "Successfully created tuple" \
   || echo "Encountered error"
-
 ```
 
 Bob
+
 ```bash
 keto relation-tuple parse bob_policies --format json | \
   keto relation-tuple create - >/dev/null \
   && echo "Successfully created tuple" \
   || echo "Encountered error"
-
 ```
-Now, we can use the [check-API](https://www.ory.sh/docs/keto/guides/simple-access-check-guide) to verify that `alice` is allowed to `read` the `my-first-blog-post`:
+
+Now, we can use the
+[check-API](https://www.ory.sh/docs/keto/guides/simple-access-check-guide) to
+verify that `alice` is allowed to `read` the `my-first-blog-post`:
 
 ```sh
 keto check alice read blog_posts my-first-blog-post
 Allowed
 ```
+
 What about Bob?
+
 ```
 keto check bob read blog_posts my-first-blog-post
 Allowed
 ```
+
 What about John?
+
 ```
 keto check john read blog_posts my-first-blog-post
 Denied
 ```
+
 ## Next steps
 
 - [Check whether a User has Access to Something](https://www.ory.sh/docs/keto/guides/simple-access-check-guide)
