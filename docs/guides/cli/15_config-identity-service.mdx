@@ -17,6 +17,10 @@ This feature is useful for fluently moving your local setup to the Cloud, or
 for working on the configuration and testing different settings in the safety 
 of the local development environment. 
 
+To work with the Ory Cloud Identity Service, you must have an active Ory Cloud
+project. Use the [CLI](./config-with-cli#create-ory-cloud-project) or the [Ory Console](https://console.ory.sh/)
+to create one.
+
 ## Export Configuration from Ory Cloud
 
 To get your project's Identity Service configuration, run this command:
@@ -29,6 +33,10 @@ Read [this document](./cli-basics#use-cli-with-existing-cloud-account) to learn 
 :::
 
 ```bash
+## List all available projects
+ory list projects
+
+## Get config
 ory get identity-config <project-id> --format yaml
 ```
 
@@ -46,7 +54,7 @@ working in self-hosted Ory Kratos, save the configuration to a YAML file.
 Run this command:
 
 ```bash
-ory get identity-config <project-id> --format yaml >identity-config.yaml 
+ory get identity-config <project-id> --format yaml > identity-config.yaml 
 ```
 
 ## Import Configuration to Ory Cloud
