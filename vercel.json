@@ -378,6 +378,11 @@
       "source": "/docs/guides/ory-cli-install-use",
       "destination": "https://www.ory.sh/docs/guides/cli/installation",
       "permanent": false
+    },
+    {
+      "source": "https://www.ory.sh/docs/(kratos|hydra|keto|oathkeeper)/contributing",
+      "destination": "https://github.com/ory/(kratos|hydra|keto|oathkeeper)/blob/master/CONTRIBUTING.md",
+      "permanent": false
     }
   ]
 }

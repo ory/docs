@@ -152,7 +152,6 @@ module.exports = {
             'kratos/quickstart',
             'kratos/install',
             'kratos/configuring',
-            'kratos/contributing'
           ]
         },
         {
@@ -267,7 +266,6 @@ module.exports = {
             'hydra/index',
             'hydra/5min-tutorial',
             'hydra/install',
-            'hydra/contributing'
           ]
         },
         {
@@ -448,7 +446,6 @@ module.exports = {
           Introduction: [
             'oathkeeper/index',
             'oathkeeper/install',
-            'oathkeeper/contributing'
           ]
         },
         {
