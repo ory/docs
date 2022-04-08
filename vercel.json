@@ -380,8 +380,23 @@
       "permanent": false
     },
     {
-      "source": "https://www.ory.sh/docs/(kratos|hydra|keto|oathkeeper)/contributing",
-      "destination": "https://github.com/ory/(kratos|hydra|keto|oathkeeper)/blob/master/CONTRIBUTING.md",
+      "source": "https://www.ory.sh/docs/kratos/contributing",
+      "destination": "https://github.com/ory/kratos/blob/master/CONTRIBUTING.md",
+      "permanent": false
+    }
+    {
+      "source": "https://www.ory.sh/docs/hydra/contributing",
+      "destination": "https://github.com/ory/hydra/blob/master/CONTRIBUTING.md",
+      "permanent": false
+    }
+    {
+      "source": "https://www.ory.sh/docs/keto/contributing",
+      "destination": "https://github.com/ory/keto/blob/master/CONTRIBUTING.md",
+      "permanent": false
+    }
+    {
+      "source": "https://www.ory.sh/docs/oathkeeper/contributing",
+      "destination": "https://github.com/ory/oathkeeper/blob/master/CONTRIBUTING.md",
       "permanent": false
     }
   ]
