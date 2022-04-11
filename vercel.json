@@ -360,7 +360,7 @@
       "permanent": false
     },
     {
-      "source": "/docs/kratos/concept/session",
+      "source": "/docs/kratos/concepts/session",
       "destination": "https://www.ory.sh/docs/guides/session-management/overview",
       "permanent": false
     },
@@ -377,6 +377,11 @@
     {
       "source": "/docs/guides/ory-cli-install-use",
       "destination": "https://www.ory.sh/docs/guides/cli/installation",
+      "permanent": false
+    },
+    {
+      "source": "/docs/(kratos|hydra|keto|oathkeeper)/contributing",
+      "destination": "https://github.com/ory/(kratos|hydra|keto|oathkeeper)/blob/master/CONTRIBUTING.md",
       "permanent": false
     }
   ]

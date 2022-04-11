@@ -26,10 +26,18 @@ ory patch identity-config <your-project-id> \\
   </TabItem>
   <TabItem value="macos" label="Self-Hosted Ory Kratos Config" default>
 
-```shell title=path/to/kratos/config.yml
-ory patch kratos-config <your-project-id> \\
-  --replace '/session/lifespan="720h"' \\
-  --format yaml
+```yaml title=path/to/kratos/config.yml
+// highlight-start
+session:
+  cookie:
+// highlight-end
+    domain: fancy-moofasa-nsuq4mdx5a.projects.oryapis.com
+    name: ory_session_fancymoofasansuq4mdx5a
+    path: /
+    persistent: false
+    same_site: Lax
+// highlight-next-line
+  lifespan: 72h0m0s
 ```
 
   </TabItem>
@@ -54,17 +62,21 @@ ory patch identity-config <your-project-id> \\
   </TabItem>
   <TabItem value="macos" label="Self-Hosted Ory Kratos Config" default>
 
-```shell title=path/to/kratos/config.yml
-ory patch kratos-config <your-project-id> \\
-  --replace '/session/cookie/persistent=false' \\
-  --format yaml
+```yaml title=path/to/kratos/config.yml
+// highlight-next-line
+session:
+  cookie:
+    domain: fancy-moofasa-nsuq4mdx5a.projects.oryapis.com
+    name: ory_session_fancymoofasansuq4mdx5a
+    path: /
+    // highlight-next-line
+    persistent: false
+    same_site: Lax
 ```
 
   </TabItem>
 </Tabs>
 ````
-
-:::note
 
 If `max-age` is set as a part of the `Set-Cookie` header, the browser deletes
 the cookie when it reaches the age defined in `max-age`.

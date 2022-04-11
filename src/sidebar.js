@@ -151,8 +151,7 @@ module.exports = {
             'kratos/index',
             'kratos/quickstart',
             'kratos/install',
-            'kratos/configuring',
-            'kratos/contributing'
+            'kratos/configuring'
           ]
         },
         {
@@ -263,12 +262,7 @@ module.exports = {
       label: 'OAuth2 & OpenID Connect (Ory Hydra)',
       items: [
         {
-          Introduction: [
-            'hydra/index',
-            'hydra/5min-tutorial',
-            'hydra/install',
-            'hydra/contributing'
-          ]
+          Introduction: ['hydra/index', 'hydra/5min-tutorial', 'hydra/install']
         },
         {
           Concepts: [
@@ -405,6 +399,7 @@ module.exports = {
             'keto/guides/expand-api-display-who-has-access',
             'keto/guides/production',
             'keto/guides/v0.7-migration',
+            'keto/guides/migrating-legacy-policies',
             'keto/guides/rbac',
             'keto/guides/access-control-inheritance',
             'keto/guides/access-control-list-design-best-practices',
@@ -445,11 +440,7 @@ module.exports = {
       label: 'Zero Trust Proxy (Ory Oathkeeper)',
       items: [
         {
-          Introduction: [
-            'oathkeeper/index',
-            'oathkeeper/install',
-            'oathkeeper/contributing'
-          ]
+          Introduction: ['oathkeeper/index', 'oathkeeper/install']
         },
         {
           'Core Concepts': [
