@@ -151,7 +151,7 @@ module.exports = {
             'kratos/index',
             'kratos/quickstart',
             'kratos/install',
-            'kratos/configuring',
+            'kratos/configuring'
           ]
         },
         {
@@ -262,11 +262,7 @@ module.exports = {
       label: 'OAuth2 & OpenID Connect (Ory Hydra)',
       items: [
         {
-          Introduction: [
-            'hydra/index',
-            'hydra/5min-tutorial',
-            'hydra/install',
-          ]
+          Introduction: ['hydra/index', 'hydra/5min-tutorial', 'hydra/install']
         },
         {
           Concepts: [
@@ -444,10 +440,7 @@ module.exports = {
       label: 'Zero Trust Proxy (Ory Oathkeeper)',
       items: [
         {
-          Introduction: [
-            'oathkeeper/index',
-            'oathkeeper/install',
-          ]
+          Introduction: ['oathkeeper/index', 'oathkeeper/install']
         },
         {
           'Core Concepts': [
