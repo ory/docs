@@ -434,7 +434,5 @@ available on
 We've a pre built Dashboard which you can use to get started quickly:
 [Oathkeeper-Dashboard.json](https://github.com/ory/oathkeeper/tree/master/contrib/grafana/Oathkeeper-Dashboard.json).
 
-<img
-  alt="Ory Oathkeeper with Prometheus and Grafana"
-  src={useBaseUrl('images/oathkeeper/grafana.png')}
-/>
+<img alt="Ory Oathkeeper with Prometheus and Grafana"
+src={useBaseUrl('images/oathkeeper/grafana.png')} />
