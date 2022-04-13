@@ -3,8 +3,8 @@ id: proxy-and-tunnel
 title: Ory Proxy and Ory Tunnel
 ---
 
-The CLI contains two important tools for local development and self-hosted instances
-of the Ory Identity Service (Kratos): 
+The CLI contains two important tools for local development or production environment
+when you don't have a custom domain:
 
 - Ory Proxy
 - Ory Tunnel
@@ -29,21 +29,80 @@ navigation panel, and copy the URL from the **SDK Configuration** section.
 
 Ory Proxy is a reverse proxy deployed in front of your application. This allows the 
 Ory endpoints to be mirrored on the same domain as the app you're running. 
+
+The Proxy rewrites cookies to match the domain your application is currently on. 
+As a result, the origin of the cookies is set correctly to the domain you run the app on 
+instead of `<your-project-slug>.projects.oryapis.com`. 
+
+This behavior is necessary to avoid issues with the browser [CORS policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy).
+
 Additionally, the Proxy converts sessions into JSON Web Tokens (JWTs) and ensures that cookies 
 and URLs are properly configured.
 
 :::info
 
 Using the Proxy is an alternative to custom domains (CNAME), and a useful tool when developing locally. 
-Even though you can use the Proxy in production, we recommend using our Custom Domain feature where possible.
+Even though you can use the Proxy in production, we recommend using a CNAME where possible.
+
+Using a custom domain is a more seamless solution for deploying on production - using Ory Proxy requires 
+additional setup and configuration.
 
 :::
 
 When an application runs on `http://localhost:3000`, Ory must be available 
-on the same domain, for example at `http://localhost:3001`. Thanks to such setup, 
+on the same domain, for example at `http://localhost:4000`. Thanks to such setup, 
 the system can manage Anti-CSRF Cookies and Ory Session Cookies. 
 
-[![Ory Proxy mirrors Ory's APIs](https://mermaid.ink/img/pako:eNptkMFKxEAMhl8l5GIXdm1BT3MQWlxEEBxWL8JchjbaYqcZMlO0bPfdna71sGBOP-H7EpIj1twQKvwQ61t4OpgBUlVZJfwVSDaw293ND_tXaGP0Ks97rm3fcojqtiiKGXT2LBNo4e9p8-vqs-I6EZYANkJ-zTLlM5T6cYGvwpLCBf3vgpvzgjJ741Gg9H41ykU4UPA8BJr1OuaiWeEWHYmzXZNOOy6IwdiSI4MqxcbKp0EznBI3-sZG2jddZEH1bvtAW7Rj5JdpqFFFGekPuu9sepNbqdMP2FdlPQ)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNptkMFKxEAMhl8l5GIXdm1BT3MQWlxEEBxWL8JchjbaYqcZMlO0bPfdna71sGBOP-H7EpIj1twQKvwQ61t4OpgBUlVZJfwVSDaw293ND_tXaGP0Ks97rm3fcojqtiiKGXT2LBNo4e9p8-vqs-I6EZYANkJ-zTLlM5T6cYGvwpLCBf3vgpvzgjJ741Gg9H41ykU4UPA8BJr1OuaiWeEWHYmzXZNOOy6IwdiSI4MqxcbKp0EznBI3-sZG2jddZEH1bvtAW7Rj5JdpqFFFGekPuu9sepNbqdMP2FdlPQ)
+![Ory Proxy diagram](../_static/cli/proxy.svg)
+
+### URL Structure
+
+:::tip
+Ory Proxy adds `/.ory` prefix when mirroring the Ory Cloud APIs and UIs. 
+:::
+
+For example, when using the Ory Proxy, calling 
+`https://<proxy-host>/.ory/ui/login` is the same as calling 
+`https://<your-project-slug>.projects.oryapis.com/ui/login`
+directly.
+
+#### Self-service Flows
+
+Ory Proxy provides URLs which you can use to initiate self-service flows:
+
+  | URL   |  Self-service Flow  |
+  |:--- |:--- |
+  | `/.ory/self-service/login/browser`| [Login](/kratos/self-service/flows/user-login)  |
+  | `/.ory/self-service/registration/browser`| [Registration](/kratos/self-service/flows/user-registration) |
+  | `/.ory/self-service/recovery/browser`| [Recovery](/kratos/self-service/flows/account-recovery)  |
+  | `/.ory/self-service/verification/browser`| [Verification](/kratos/self-service/flows/verify-email-account-activation) |
+  | `/.ory/self-service/settings/browser`| [Settings](/kratos/self-service/flows/user-settings) |
+
+
+If you redirect or link the user to one of those paths, the corresponding 
+self-service flow is initiated, for example:
+
+```html
+<a href="/.ory/self-service/login/browser">Log in</a>
+```
+
+You can also append a `return_to=<your-url>` query parameter to the URL. This redirects the user
+to the set URL when they complete the self-service flow.
+
+:::info
+
+The domain used in `return_to` must be an allow-listed URL set in the
+Ory Cloud Project configuration.
+
+The URL must include the protocol and domain. Relative URLs aren't
+supported.
+
+:::
+
+```html
+<a href="/.ory/self-service/login/browser?return_to=https://localhost:4000/my-url">Log in</a>
+```
+
 
 ### Zero Trust
 
@@ -62,7 +121,7 @@ User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (
 
 Ory Proxy resolves the session and converts it to a JSON Web Token. The token is
 included in the `Authorization` HTTP header of the request made to the
-"upstream" (the URL protected by the Ory Proxy). 
+your application (the URL protected by the Ory Proxy). 
 
 The session is also included in the request so that you can use it to, for example, 
 generate a logout URL.
@@ -202,6 +261,13 @@ ory proxy --port 8080 http://127.0.0.1:3000 https://your-domain.com &
 node your-entrypoint.js
 ```
 
+:::tip
+
+The Ory Proxy shouldn't be the main entry point to your application. Always run
+an ingress proxy such as Nginx or Traefik in front.
+
+:::
+
 ### Running in Docker
 
 To use the Proxy in Docker, add your application and the Proxy to a single 
@@ -255,12 +321,12 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 
 ## Ory Tunnel
 
-The Ory Tunnel has the same funtionality and behaves the same way 
+The Ory Tunnel has the same functionality and behaves the same way 
 as the Proxy with these exceptions:  
 
   ❌ Ory Tunnel doesn't alter incoming HTTP headers <br />
   ❌ Ory Tunnel doesn't convert sessions into JSON Web Tokens, doesn't issue JTWs, 
-  and does't use JWTs natively <br />
+  and doesn't use JWTs natively <br />
   ❌ Add the `.ory` prefix to any of the Ory URLs
 
 To run the Tunnel, use the `ory tunnel` command and point to the URL with your application, for example: 
@@ -275,102 +341,3 @@ You can use Ory Tunnel the same way you can use Ory Proxy. The tool can be used 
 in production, on different server types, and in Docker. 
 
 For more details, refer to the [Ory Proxy documentation](#ory-proxy).
-
-## URL Structure
-
-:::tip
-Ory Proxy adds `/.ory` prefix when mirroring the Ory Cloud APIs and UIs. 
-:::
-
-For example, when using the Ory Proxy, calling 
-`https://<proxy-host>/.ory/ui/login` is the same as calling `https://<your-project-slug>.projects.oryapis.com/ui/login`
-directly.
-
-### Self-service Flows
-
-Ory Proxy and Tunnel provide URLs which you can use to initiate self-service flows:
-
-````mdx-code-block
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem'
-
-<Tabs groupId="proxy-tunnel">
-  <TabItem value="proxy" label="Ory Proxy">
-
-  | URL   |  Self-service Flow  |
-  |:--- |:--- |
-  | `/.ory/self-service/login/browser`| [Login](/kratos/self-service/flows/user-login)  |
-  | `/.ory/self-service/registration/browser`| [Registration](/kratos/self-service/flows/user-registration) |
-  | `/.ory/self-service/recovery/browser`| [Recovery](/kratos/self-service/flows/account-recovery)  |
-  | `/.ory/self-service/verification/browser`| [Verification](/kratos/self-service/flows/verify-email-account-activation) |
-  | `/.ory/self-service/settings/browser`| [Settings](/kratos/self-service/flows/user-settings) |
-
-  </TabItem>
-  <TabItem value="tunnel" label="Ory Tunnel">
-
-  | URL   |  Self-service Flow  |
-  |:--- |:--- |
-  | `/self-service/login/browser`| [Login](/kratos/self-service/flows/user-login)  |
-  | `/self-service/registration/browser`| [Registration](/kratos/self-service/flows/user-registration) |
-  | `/self-service/recovery/browser`| [Recovery](/kratos/self-service/flows/account-recovery)  |
-  | `/self-service/verification/browser`| [Verification](/kratos/self-service/flows/verify-email-account-activation) |
-  | `/self-service/settings/browser`| [Settings](/kratos/self-service/flows/user-settings) |
-
-  </TabItem>
-</Tabs>
-````
-
-If you redirect or link the user to one of those paths, the corresponding 
-self-service flow is initiated, for example:
-
-````mdx-code-block
-<Tabs groupId="proxy-tunnel">
-  <TabItem value="proxy" label="Ory Proxy">
-
-```html
-<a href="/.ory/self-service/login/browser">Log in</a>
-```
-
-  </TabItem>
-  <TabItem value="tunnel" label="Ory Tunnel">
-
-```html
-<a href="/self-service/login/browser">Log in</a>
-```
-
-  </TabItem>
-</Tabs>
-````
-
-You can also append a `return_to` query parameter to the URL. This redirects the user
-to the set URL when they complete the self-service flow.
-
-:::info
-
-The domain used in `return_to` must be an allow-listed URL set in the
-Ory Cloud Project configuration.
-
-The URL must include the protocol and domain. Relative URLs aren't
-supported.
-
-:::
-
-````mdx-code-block
-<Tabs groupId="proxy-tunnel">
-  <TabItem value="proxy" label="Ory Proxy">
-
-```html
-<a href="/.ory/self-service/login/browser?return_to=https://localhost:4000/my-url">Log in</a>
-```
-
-  </TabItem>
-  <TabItem value="tunnel" label="Ory Tunnel">
-
-```html
-<a href="/self-service/login/browser?return_to=https://localhost:4000/my-url">Log in</a>
-```
-
-  </TabItem>
-</Tabs>
-````
