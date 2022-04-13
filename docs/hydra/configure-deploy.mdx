@@ -116,10 +116,12 @@ docker run -d \
 # And check if it's running:
 docker logs ory-hydra-example--hydra
 
-time="2017-06-29T21:26:26Z" level=info msg="Connecting with postgres://*:*@postgres:5432/hydra?sslmode=disable"
-time="2017-06-29T21:26:26Z" level=info msg="Connected to SQL!"
+time=2022-04-13T11:27:32Z level=info msg=No tracer configured - skipping tracing setup audience=application service_name=ORY Hydra service_version=v1.10.6
+time=2022-04-13T11:27:32Z level=warning msg=JSON Web Key Set "hydra.openid.id-token" does not exist yet, generating new key pair... audience=application service_name=ORY Hydra service_version=v1.10.6
 [...]
-time="2017-06-29T21:26:34Z" level=info msg="Setting up http server on :4444"
+time=2022-04-13T11:28:07Z level=warning msg=JSON Web Key Set "hydra.https-tls" does not exist yet, generating new key pair... audience=application service_name=ORY Hydra service_version=v1.10.6
+time=2022-04-13T11:28:19Z level=info msg=Setting up http server on :4444 audience=application service_name=ORY Hydra service_version=v1.10.6
+time=2022-04-13T11:28:19Z level=info msg=Setting up http server on :4445 audience=application service_name=ORY Hydra service_version=v1.10.6
 ```
 
 Let's dive into the various settings:
@@ -176,11 +178,12 @@ logs:
 
 ```sh
 docker logs ory-hydra-example--hydra
-time="2017-06-30T09:06:34Z" level=info msg="Connecting with postgres://*:*@postgres:5432/hydra?sslmode=disable"
-time="2017-06-30T09:06:34Z" level=info msg="Connected to SQL!"
-time="2017-06-30T09:06:34Z" level=info msg="Key pair for signing hydra.openid.id-token is missing. Creating new one."
-time="2017-06-30T09:06:41Z" level=warning msg="No TLS Key / Certificate for HTTPS found. Generating self-signed certificate."
-time="2017-06-30T09:06:41Z" level=info msg="Setting up http server on :4444"
+time=2022-04-13T11:27:32Z level=info msg=No tracer configured - skipping tracing setup audience=application service_name=ORY Hydra service_version=v1.10.6
+time=2022-04-13T11:27:32Z level=warning msg=JSON Web Key Set "hydra.openid.id-token" does not exist yet, generating new key pair... audience=application service_name=ORY Hydra service_version=v1.10.6
+[...]
+time=2022-04-13T11:28:07Z level=warning msg=JSON Web Key Set "hydra.https-tls" does not exist yet, generating new key pair... audience=application service_name=ORY Hydra service_version=v1.10.6
+time=2022-04-13T11:28:19Z level=info msg=Setting up http server on :4444 audience=application service_name=ORY Hydra service_version=v1.10.6
+time=2022-04-13T11:28:19Z level=info msg=Setting up http server on :4445 audience=application service_name=ORY Hydra service_version=v1.10.6
 ```
 
 As you can see, the following steps are performed when running Ory Hydra against
@@ -226,6 +229,11 @@ docker run -d \
 
 # Let's check if it's running ok:
 docker logs ory-hydra-example--consent
+
+> hydra-login-consent-logout@0.0.0 serve /usr/src/app
+> node lib/app.js
+
+Listening on http://0.0.0.0:3000
 ```
 
 Let's take a look at the arguments:
@@ -312,11 +320,12 @@ docker run --rm -it \
     --client-secret some-secret \
     --scope openid,offline,photos.read
 
-Setting up callback listener on http://localhost:9010/callback
+Setting up home route on http://127.0.0.1:9010/
+Setting up callback listener on http://127.0.0.1:9010/callback
 Press ctrl + c on Linux / Windows or cmd + c on OSX to end the process.
-If your browser doesn't open automatically, navigate to:
+If your browser does not open automatically, navigate to:
 
-        https://localhost:9010/
+        http://127.0.0.1:9010/
 ```
 
 open the link, as prompted, in your browser, and follow the steps shown there.
