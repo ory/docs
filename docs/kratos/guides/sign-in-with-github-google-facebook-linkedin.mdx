@@ -1179,10 +1179,10 @@ http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callbac
 
 While you can use
 [NetID as an OIDC identity provider](https://docs.gitlab.com/ee/integration/openid_connect_provider.html),
-NetID only returns the sub and sub_legacy claims in the ID token. Therefore,
-Ory Kratos makes a request to
-[NetID's userinfo API](https://broker.netid.de/userinfo) and adds the
-user info to `std.extVar('claims')`.
+NetID only returns the sub and sub_legacy claims in the ID token. Therefore, Ory
+Kratos makes a request to
+[NetID's userinfo API](https://broker.netid.de/userinfo) and adds the user info
+to `std.extVar('claims')`.
 
 :::
 
