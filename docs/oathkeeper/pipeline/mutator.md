@@ -477,8 +477,12 @@ Example request/response payload:
   }
 }
 ```
-:::warning
-Ory Oathkeeper expects custom headers followed by canonical header notation. Every header should start with the uppercase first letter and any other letter following a hyphen. For example, `x-user` should be passed to oathkeeper as `X-User`
+:::note
+Custom headers passed to Ory Oathkeeper are case insensitive, but Oathkeeper returns
+them using the canonical format of the MIME header key. The canonicalization converts
+the first letter and any letter following a hyphen to upper case; the rest are
+converted to lowercase. For example, the canonical key for
+"x-user-company" is "X-User-Company".
 :::
 
 
