@@ -1155,6 +1155,91 @@ selfservice:
 
 Spotify is now an option to log in via Kratos.
 
+## NetID
+
+To set up "Sign in with NetID" you must create a
+[NetID Service](https://developerzone.netid.dev/devportal/tutorial/services/).
+
+Next you muste create a
+[NetID Client](https://developerzone.netid.dev/devportal/tutorial/clients/).
+
+Set the "Redirect URI" to:
+
+```
+https://playground.projects.oryapis.com/api/kratos/public/self-service/methods/oidc/callback/gitlab
+```
+
+The pattern of this URL is:
+
+```
+http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/<provider-id>
+```
+
+:::note
+
+While you can use
+[NetID as an OIDC identity provider](https://docs.gitlab.com/ee/integration/openid_connect_provider.html),
+NetID only returns the sub and sub_legacy claims in the ID token. Therefore,
+Ory Kratos makes a request to
+[NetID's userinfo API](https://broker.netid.de/userinfo) and adds the
+user info to `std.extVar('claims')`.
+
+:::
+
+```json title="contrib/quickstart/kratos/email-password/oidc.netid.jsonnet"
+local claims = {
+  email_verified: false
+} + std.extVar('claims');
+
+{
+  identity: {
+    traits: {
+      // Allowing unverified email addresses enables account
+      // enumeration attacks,  if the value is used for
+      // verification or as a password login identifier.
+      //
+      // Therefore we only return the email if it (a) exists and (b) is marked verified
+      // by NetID.
+      [if "email" in claims && claims.email_verified then "email" else null]: claims.email,
+    },
+  },
+}
+```
+
+Now, enable the NetID provider in the Ory Kratos config located at
+`<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
+
+```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
+# kratos -c path/to/my/kratos/config.yml serve
+selfservice:
+  methods:
+    oidc:
+      enabled: true
+      config:
+        providers:
+          - id: netid # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+            provider: netid
+            client_id: .... # Replace this with the OAuth2 Client ID provided by GitLab
+            client_secret: .... # Replace this with the OAuth2 Client Secret provided by GitLab
+            mapper_url: file:///etc/config/kratos/oidc.gitlab.jsonnet
+            requested_claims: # for more information navigate to https://developerzone.netid.dev/sso/#claims-and-scopes
+              userinfo:
+                email:
+                  essential: true
+                email_verified:
+                  essential: true
+              id_token:
+                email:
+                  essential: true
+                email_verified:
+                  essential: true
+            scope:
+              - email
+              - openid
+```
+
+NetID is now an option to log in via Kratos.
+
 ## LinkedIn
 
 Connecting with other Social Sign In providers will be very similar to the
