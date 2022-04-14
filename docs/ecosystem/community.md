@@ -81,7 +81,9 @@ This isn't an exhaustive list. Want your own content here? Create a PR!
 
 #### Ory Blog Guest Articles
 
-Are you building something with Ory? Are you interested in Auth and security topics in general? Do you want to share your knowledge and experiences? [Reach out to us](mailto:office@ory.sh) to be published in our blog!
+Are you building something with Ory? Are you interested in Auth and security
+topics in general? Do you want to share your knowledge and experiences?
+[Reach out to us](mailto:office@ory.sh) to be published in our blog!
 
 - [How I built LoginWithHN using Ory Hydra](https://www.ory.sh/how-to-build-login-with-hacker-news/)
 - [Add Authentication to your Flutter Web Applications with Ory Kratos](https://www.ory.sh/login-flutter-authentication-example-api-open-source/)
