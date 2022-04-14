@@ -105,7 +105,7 @@ module.exports = {
         {
           type: 'category',
           label: 'Going to Production',
-          items: ['start-building/deploy-auth-production', 'guides/proxy']
+          items: ['start-building/deploy-auth-production']
         }
       ]
     },

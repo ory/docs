@@ -383,6 +383,11 @@
       "source": "/docs/(kratos|hydra|keto|oathkeeper)/contributing",
       "destination": "https://github.com/ory/(kratos|hydra|keto|oathkeeper)/blob/master/CONTRIBUTING.md",
       "permanent": false
+    },
+    {
+      "source": "/docs/guides/proxy",
+      "destination": "https://www.ory.sh/docs/guides/cli/proxy-and-tunnel",
+      "permanent": false
     }
   ]
 }
