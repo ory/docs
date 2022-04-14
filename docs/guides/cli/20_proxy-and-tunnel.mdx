@@ -327,7 +327,7 @@ as your application to ensure that there are no CORS issues.
 The Tunnel shares most of its code with the Ory Proxy, and from the user's point of view,
 it works in a similar way. There are, however, several important differences between these tools: 
 
-  ❌ Ory Tunnel doesn't handle your application's traffic routing <br />
+  ❌ Ory Tunnel doesn't handle your application's traffic routing and instead only routes traffic to Ory APIs <br />
   ❌ Ory Tunnel doesn't mirror Ory URLs and as such doesn't add the `.ory` prefix to any of the Ory URLs <br />
   ❌ Ory Tunnel doesn't alter incoming HTTP headers <br />
   ❌ Ory Tunnel doesn't convert sessions into JSON Web Tokens, doesn't issue JTWs, 
