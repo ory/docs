@@ -9,13 +9,12 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## hydra token revoke
 
 Revoke an access or refresh token
 
 ```
-hydra token revoke &lt;token&gt; [flags]
+hydra token revoke <token> [flags]
 ```
 
 ### Options
@@ -31,10 +30,11 @@ hydra token revoke &lt;token&gt; [flags]
 
 ```
       --fail-after duration    Stop retrying after the specified duration (default 1m0s)
-      --fake-tls-termination   fake tls termination by adding &#34;X-Forwarded-Proto: https&#34; to http headers
+      --fake-tls-termination   fake tls termination by adding "X-Forwarded-Proto: https" to http headers
       --skip-tls-verify        Foolishly accept TLS certificates signed by unknown certificate authorities
 ```
 
 ### SEE ALSO
 
-- [hydra token](hydra-token) - Issue and Manage OAuth2 tokens
+* [hydra token](hydra-token)	 - Issue and Manage OAuth2 tokens
+
