@@ -12,9 +12,9 @@ and a cryptographic device.
 :::note
 
 If a key isn't found in the Hardware Security Module, the regular Software Key
-Manager with AES-GCM software encryption will be used as a fallback. Storing
-keys will always use the Software Key Manager as it isn't possible to add keys
-to a Hardware Security Module.
+Manager with AES-GCM software encryption will be used as a fallback.
+Adding/updating keys will always use the Software Key Manager as it isn't
+possible to add keys to a Hardware Security Module.
 
 :::
 
@@ -40,18 +40,22 @@ HSM_LIBRARY=/path/to/hsm-vendor/library.so
 HSM_TOKEN_LABEL=hydra
 HSM_SLOT=0
 HSM_PIN=1234
+HSM_KEY_SET_PREFIX=app1.
 ```
 
 Token that's denoted by environment variables `HSM_TOKEN_LABEL` or `HSM_SLOT`
-must preexist and optionally contain RSA or ECDSA key pairs with labels
-`hydra.openid.id-token` and `hydra.jwt.access-token` depending on configuration.
-**_If keys with these labels don't exist, they will be generated upon
-startup._** If both `HSM_TOKEN_LABEL` and `HSM_SLOT` are set, `HSM_TOKEN_LABEL`
-takes preference over `HSM_SLOT`. In this case first slot that contains this
-label is used. `HSM_LIBRARY` must point to vendor specific PKCS#11 library or
-SoftHSM library if you want to [test HSM support](#testing-with-softhsm).
-
-<a name="pkcs11-attribute-mappings"></a>
+must preexist and optionally contain RSA (or ECDSA when JWT support comes) key
+pairs with labels `hydra.openid.id-token` and `hydra.jwt.access-token` depending
+on configuration. **_If keys with these labels don't exist, they will be
+generated upon startup._** If both `HSM_TOKEN_LABEL` and `HSM_SLOT` are set,
+`HSM_TOKEN_LABEL` takes preference over `HSM_SLOT`. In this case first slot that
+contains this label is used. `HSM_LIBRARY` must point to vendor specific PKCS#11
+library or SoftHSM library if you want to
+[test HSM support](#testing-with-softhsm). `HSM_KEY_SET_PREFIX` can be used in
+case of multiple Ory Hydra instances need to store keys on the same HSM
+partition. For example if `HSM_KEY_SET_PREFIX=app1.` then key set
+`hydra.openid.id-token` would be generated/requested/deleted on HSM with
+`CKA_LABEL=app1.hydra.openid.id-token`. <a name="pkcs11-attribute-mappings"></a>
 
 ### PKCS#11 attribute mappings to JSON Web Key Set attributes
 
