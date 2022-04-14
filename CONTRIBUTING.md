@@ -49,7 +49,7 @@ That said, if you want to ensure that a pull request is likely to be merged,
 talk to us! You can find out our thoughts and ensure that your contribution
 won't clash or be obviated by Ory Documentation's normal direction. A great way
 to do this is via
-[Ory Documentation Discussions](https://github.com/ory/meta/discussions) or the
+[Ory Documentation Discussions](https://github.com/orgs/ory/discussions) or the
 [Ory Chat](https://www.ory.sh/chat).
 
 ## FAQ
@@ -112,7 +112,7 @@ We use [Slack](https://www.ory.sh/chat). You are welcome to drop in and ask
 questions, discuss bugs and feature requests, talk to other users of Ory, etc.
 
 Check out
-[Ory Documentation Discussions](https://github.com/ory/meta/discussions). This
+[Ory Documentation Discussions](https://github.com/orgs/ory/discussions). This
 is a great place for in-depth discussions and lots of code examples, logs and
 similar data.
 
