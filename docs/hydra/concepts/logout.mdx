@@ -269,3 +269,33 @@ Because the OpenID Connect Back-Channel Logout Flow isn't executed using the
 user-agent (such as Browser) but from Ory Hydra directly, the session cookie of
 the end-user won't be available to the OAuth 2.0 Client and the session has to
 be invalidated by some other means (for example by blacklisting the session ID).
+
+#### Back-Channel Logout client TLS configuration
+
+Http clients used in Ory Hydra can be configured to use custom `client.default`
+TLS configuration. If `client.default` configuration is not specified, then
+default Go configuration is used instead. To override `client.default`
+configuration for Back-Channel logout client, then `client.back_channel_logout`
+can be used to override configuration.
+
+```yaml
+client:
+  default:
+    min_version: tls12
+    max_version: tls13
+    cipher_suites:
+      - TLS13-CHACHA20-POLY1305-SHA256
+      - TLS13-AES-256-GCM-SHA384
+      - TLS13-AES-128-GCM-SHA256
+      - ECDHE-ECDSA-CHACHA20-POLY1305-SHA256
+      - ECDHE-ECDSA-CHACHA20-POLY1305
+      - ECDHE-ECDSA-AES256-SHA384
+      - ECDHE-ECDSA-AES128-SHA256
+      - ECDHE-RSA-CHACHA20-POLY1305
+  back_channel_logout:
+    min_version: tls13
+    cipher_suites:
+      - TLS13-CHACHA20-POLY1305-SHA256
+      - TLS13-AES-256-GCM-SHA384
+      - TLS13-AES-128-GCM-SHA256
+```
