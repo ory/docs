@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## kratos format
 
 Helpers for formatting code
@@ -22,5 +21,6 @@ Helpers for formatting code
 
 ### SEE ALSO
 
-- [kratos](kratos) -
-- [kratos format jsonnet](kratos-format-jsonnet) -
+* [kratos](kratos)	 - 
+* [kratos format jsonnet](kratos-format-jsonnet)	 - 
+
