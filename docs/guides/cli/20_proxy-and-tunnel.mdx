@@ -157,8 +157,6 @@ curl -sk https://<proxy-host>/.ory/proxy/jwks.json | jq
 }
 ```
 
-You can validate and decode the JWT using the public key.
-
 The token contains all session and identity information linked to the Ory Session
 Cookie. 
 
@@ -323,13 +321,17 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 
 ## Ory Tunnel
 
-The Ory Tunnel has the same functionality and behaves the same way 
-as the Proxy with these exceptions:  
+The main role of the Ory Tunnel is exposing the Ory APIs under the same top-level domain 
+as your application to ensure that there are no CORS issues.
 
+The Tunnel shares most of its code with the Ory Proxy, and from the user's point of view
+it works in a similar way. There are, however, several important differences between these tools: 
+
+  ❌ Ory Tunnel doesn't handle traffic routing
+  ❌ Ory Tunnel doesn't mirror Ory URLs and as such doesn't add the `.ory` prefix to any of the Ory URLs
   ❌ Ory Tunnel doesn't alter incoming HTTP headers <br />
   ❌ Ory Tunnel doesn't convert sessions into JSON Web Tokens, doesn't issue JTWs, 
   and doesn't use JWTs natively <br />
-  ❌ Add the `.ory` prefix to any of the Ory URLs
 
 To run the Tunnel, use the `ory tunnel` command and point to the URL with your application, for example: 
 
