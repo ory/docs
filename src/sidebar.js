@@ -312,6 +312,7 @@ module.exports = {
                 'hydra/guides/gitlab',
                 'hydra/guides/migrating-from-mitreid',
                 'hydra/guides/merge-multiple-db-secrets',
+                'hydra/guides/deploying-to-digitalocean',
                 'hydra/guides/upgrade'
               ]
             },
