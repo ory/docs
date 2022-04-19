@@ -222,7 +222,7 @@ func main() {
 
 ## More examples
 
-REST API
+### More examples REST API
 - [Write API documentation](https://github.com/ory/keto-client-go/blob/master/docs/WriteApi.md)
 - [Read API documentation](https://github.com/ory/keto-client-go/blob/master/docs/ReadApi.md)
 
