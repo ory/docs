@@ -1166,7 +1166,7 @@ Next you muste create a
 Set the "Redirect URI" to:
 
 ```
-https://playground.projects.oryapis.com/api/kratos/public/self-service/methods/oidc/callback/gitlab
+https://playground.projects.oryapis.com/api/kratos/public/self-service/methods/oidc/callback/netid
 ```
 
 The pattern of this URL is:
@@ -1178,7 +1178,7 @@ http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callbac
 :::note
 
 While you can use
-[NetID as an OIDC identity provider](https://docs.gitlab.com/ee/integration/openid_connect_provider.html),
+[NetID as an OIDC identity provider](https://developerzone.netid.dev/sso/),
 NetID only returns the sub and sub_legacy claims in the ID token. Therefore, Ory
 Kratos makes a request to
 [NetID's userinfo API](https://broker.netid.de/userinfo) and adds the user info
@@ -1219,9 +1219,9 @@ selfservice:
         providers:
           - id: netid # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
             provider: netid
-            client_id: .... # Replace this with the OAuth2 Client ID provided by GitLab
-            client_secret: .... # Replace this with the OAuth2 Client Secret provided by GitLab
-            mapper_url: file:///etc/config/kratos/oidc.gitlab.jsonnet
+            client_id: .... # Replace this with the OAuth2 Client ID provided by NetID
+            client_secret: .... # Replace this with the OAuth2 Client Secret provided by NetID
+            mapper_url: file:///etc/config/kratos/oidc.netid.jsonnet
             requested_claims: # for more information navigate to https://developerzone.netid.dev/sso/#claims-and-scopes
               userinfo:
                 email:
