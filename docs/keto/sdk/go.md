@@ -104,7 +104,7 @@ As an example, let's create the following relation tuple and check that `alice` 
 blog_posts:my-first-blog-post#read@alice
 ```
 
-gRPC example
+### Making requests with gRPC API
 ```go
 package main
 
