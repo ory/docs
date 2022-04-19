@@ -9,8 +9,8 @@ import CodeBlock from '@theme/CodeBlock'
 
 This guide shows you how you can use Ory Oathkeeper with WebSockets.
 
-:::note
-Oathkeeper authenticates cookies only for the first connections.
+:::tip
+Websockets bypass Oathkeeper after the first request and thus Oathkeeper only validates cookies once. It is up to your service to ensure that websocket connections expire within a reasonable time frame to ensure the session cookie is still active and valid.
 :::
 
 Let's create a simple echo WebSocket service that sends back an
