@@ -9,8 +9,8 @@ import { useLatestRelease } from '@site/src/hooks'
 
 Ory Keto exposes two APIs for integration
 
-- [gRPC](http://localhost:3001/docs/keto/reference/proto-api)
-- [REST](http://localhost:3001/docs/keto/reference/rest-api)
+- [gRPC](http://ory.sh/docs/keto/reference/proto-api)
+- [REST](http://ory.sh/docs/keto/reference/rest-api)
 
 ## Installing SDK
 
