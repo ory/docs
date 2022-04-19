@@ -163,7 +163,7 @@ func main() {
 }
 ```
 
-REST example
+### Making requests with REST API
 ```go
 package main
 
