@@ -55,7 +55,7 @@ courier:
     #   verification)
     # - "smtps://foo:bar@my-mailserver:1234/?skip_ssl_verify=true (NOT
     #   RECOMMENDED: Implicit TLS without certificate trust verification)"
-    # - "smtps://subdomain.my-mailserver:1234/?server_name=my-mailserver (allows TLS to 
+    # - "smtps://subdomain.my-mailserver:1234/?server_name=my-mailserver (allows TLS to
     #   work if the server is hosted on a sudomain and uses a non-wildcard domain certificate)"
 ```
 
@@ -153,9 +153,9 @@ courier:
 
 ### Certificate based authentication
 
-If your SMTP server enforces certificate based authentication, you can
-configure the client certificate and client private key to use to connect
-to the server. The files must contain PEM encoded data:
+If your SMTP server enforces certificate based authentication, you can configure
+the client certificate and client private key to use to connect to the server.
+The files must contain PEM encoded data:
 
 ```yaml title="path/to/my/kratos/config.yml"
 # kratos -c path/to/my/kratos/config.yml serve
