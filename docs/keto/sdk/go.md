@@ -226,6 +226,6 @@ func main() {
 - [Write API documentation](https://github.com/ory/keto-client-go/blob/master/docs/WriteApi.md)
 - [Read API documentation](https://github.com/ory/keto-client-go/blob/master/docs/ReadApi.md)
 
-gRPC API
+### More examples gRPC API
 
 - [Protocol Buffer API](http://localhost:3001/docs/keto/reference/proto-api)
