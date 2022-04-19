@@ -14,7 +14,7 @@ Ory Keto exposes two APIs for integration
 
 ## Installation
 
-Installing gRPC SDK
+### Installation gRPC API
 
 ```mdx-code-block
 
