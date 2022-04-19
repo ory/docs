@@ -221,7 +221,7 @@ and `oathkeeper/access-rules.yml` with the following content
         to: http://127.0.0.1:4455/login
 ```
 
-This configuration of oathkeeper uses cookie authenticator against Ory Kratos and proxies only authenticated requests to `http://ws:8080` upstream. The ws hostname is a hostname of the websocket service that we'll create right now.
+This configuration of oathkeeper uses cookie authenticator against Ory Kratos and proxies only authenticated requests to `http://ws:8080` upstream. The `ws` hostname is resolved through the docker network. If you aren't deploying your application within docker, this would just be your localhost IP.
 
 ## Websocket service
 
