@@ -12,7 +12,7 @@ Ory Keto exposes two APIs for integration
 - [gRPC](http://ory.sh/docs/keto/reference/proto-api)
 - [REST](http://ory.sh/docs/keto/reference/rest-api)
 
-## Installing SDK
+## Installation
 
 Installing gRPC SDK
 
