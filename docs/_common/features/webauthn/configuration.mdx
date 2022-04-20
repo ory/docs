@@ -15,9 +15,9 @@ import TabItem from '@theme/TabItem';
 <Tabs>
   <TabItem value="cloud" label="Ory CLI" default>
     <CodeBlock language="shell">{`ory patch identity-config <your-project-id> \\
-  --replace '/selfservice/flows/methods/webauthn/enabled=true' \\
-  --replace '/selfservice/flows/methods/webauthn/config/passwordless=${props.passwordless || false}' \\
-  --replace '/selfservice/flows/methods/webauthn/config/rp/display_name="My Display Name"'`}</CodeBlock>
+  --add '/selfservice/methods/webauthn/enabled=true' \\
+  --add '/selfservice/methods/webauthn/config/passwordless=${props.passwordless || false}' \\
+  --add '/selfservice/methods/webauthn/config/rp/display_name="My Display Name"'`}</CodeBlock>
   </TabItem>
   <TabItem value="macos" label="Full Config" default>
     <CodeBlock language="yaml" title="config.yml">{`selfservice:

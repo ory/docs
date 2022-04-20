@@ -32,7 +32,7 @@ hydra migrate sql -e
 Before running this command on an existing database, create a back up!
 
 ```
-hydra migrate sql &lt;database-url&gt; [flags]
+hydra migrate sql <database-url> [flags]
 ```
 
 ### Options

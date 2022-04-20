@@ -440,4 +440,4 @@ You can use the exemplary dashboard to get started quickly:
 [Oathkeeper-Dashboard.json](https://github.com/ory/oathkeeper/tree/master/contrib/grafana/Oathkeeper-Dashboard.json).
 
 <img alt="Ory Oathkeeper with Prometheus and Grafana"
-src={useBaseUrl('img/docs/grafana.png')} />
+src={useBaseUrl('images/oathkeeper/grafana.png')} />

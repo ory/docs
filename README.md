@@ -358,8 +358,15 @@ Please do not prefixes with `$`
 
 ### Images
 
-The Markdown code for including an image in a document is:
-`![Image description which will be the alt tag](img/document_image_title_vX_Y.png)`
+Add images directly with an `img` tag:
+
+```html
+<img alt="Image description which will be the alt tag"
+src={useBaseUrl('images/some-folder/some-image.png')} />
+```
+
+The useBaseUrl is `https://www.ory.sh/` and exposes `src/static/...`, so all
+images are stored in `src/static/images/...`.
 
 Compress new images you add to the documentation. One known tool is
 [`pngquant`](https://pngquant.org/).

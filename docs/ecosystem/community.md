@@ -79,6 +79,19 @@ This isn't an exhaustive list. Want your own content here? Create a PR!
 
 ## Community Articles & Tutorials
 
+#### Ory Blog Guest Articles
+
+Are you building something with Ory? Are you interested in Auth and security
+topics in general? Do you want to share your knowledge and experiences?
+[Reach out to us](mailto:office@ory.sh) to be published in our blog!
+
+- [How I built LoginWithHN using Ory Hydra](https://www.ory.sh/how-to-build-login-with-hacker-news/)
+- [Add Authentication to your Flutter Web Applications with Ory Kratos](https://www.ory.sh/login-flutter-authentication-example-api-open-source/)
+- E-Commerce with Ory Cloud
+  [Part 1: Backend](https://www.ory.sh/cloud-ecommerce-backend/),
+  [Part 2: Frontend](https://www.ory.sh/cloud-ecommerce-frontend/)
+- [Looking at Zanzibar through Ory Keto](https://www.ory.sh/looking-at-keto/)
+
 #### Ory Stack
 
 - [Open Source Authentication with Hydra and Kratos](https://blog.px.dev/open-source-auth/ossauth/)

@@ -22,7 +22,15 @@ The ORY CLI
 
 ### SEE ALSO
 
-- [ory proxy](ory-proxy) - Integrate your application with Ory using the Ory
-  Proxy
-- [ory version](ory-version) - Display this binary&#39;s version, build time,
-  and git hash of this build
+- [ory auth](ory-auth) - Create an or sign into your Ory Cloud account
+- [ory create](ory-create) - Create Ory Cloud resources
+- [ory get](ory-get) - Get a resource
+- [ory list](ory-list) - List resources
+- [ory patch](ory-patch) - Patch resources
+- [ory proxy](ory-proxy) - Run your app and Ory on the same domain using a
+  reverse proxy
+- [ory tunnel](ory-tunnel) - Tunnel Ory on a subdomain of your app or a seperate
+  port your app's domain
+- [ory update](ory-update) - Update resources
+- [ory version](ory-version) - Display this binary's version, build time, and
+  git hash of this build
