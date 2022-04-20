@@ -22,7 +22,7 @@ Ory Keto exposes two APIs for integration
 
 ```
 
-Installing REST SDK
+### Installation REST API
 
 ```mdx-code-block
 <CodeBlock className="language-shell">{`go get github.com/ory/keto-client-go${useLatestRelease('keto')}`}</CodeBlock>
@@ -30,7 +30,7 @@ Installing REST SDK
 
 ## Configuration
 
-gRPC SDK
+### Configuration gRPC API
 
 ```go
 package main
@@ -65,7 +65,7 @@ func main() {
 }
 ```
 
-REST SDK
+### Configuration REST API
 
 ```go
 package main
