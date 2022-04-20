@@ -25,7 +25,7 @@ Ory Keto exposes two APIs for integration
 Installing REST SDK
 
 ```mdx-code-block
-<CodeBlock className="language-shell">{`go get  github.com/ory/keto-client-go${useLatestRelease('keto')}`}</CodeBlock>
+<CodeBlock className="language-shell">{`go get github.com/ory/keto-client-go${useLatestRelease('keto')}`}</CodeBlock>
 ```
 
 ## Configuration
