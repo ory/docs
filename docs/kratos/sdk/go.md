@@ -40,7 +40,7 @@ func main() {
 
 ```
 ## Making requests
-The most helpful example would be a toSession call because Go used on backend systems, and you need to check the session and use it in your middlewares or API endpoints.
+The following code example shows how to use make a toSession call to check the active session using the Kratos Go SDK.
 
 
 ```go
