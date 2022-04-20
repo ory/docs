@@ -78,7 +78,8 @@ module.exports = {
           items: [
             'kratos/admin/managing-users-identities',
             'guides/manage-identities/import-identity',
-            'guides/manage-identities/account-recovery'
+            'guides/manage-identities/account-recovery',
+            'guides/manage-identities/metadata'
           ]
         },
         {

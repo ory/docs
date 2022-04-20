@@ -1,0 +1,56 @@
+---
+id: metadata
+title: Manage Metadata
+---
+
+Ory supports saving metadata for your identities. Examples of metadata may be:
+
+- The subscription plan the identity is on;
+- A credit score for the identity;
+- The region of the identity;
+- Any other application data.
+
+Contrary to an identity's traits, the metadata can not be updated by the
+identity using self-service flows, such as the settings flow.
+
+Available metadata can either be hidden from the identity, meaning that it is
+only available at administrative endpoints, or it can be visible to the
+identity, implying that it is returned by `GET /sessions/whoami`:
+
+- `metadata_public` is included in calls to `GET /sessions/whoami` as well as
+  all administrative endpoints;
+- `metadata_admin` is only available at administrative endpoints - it is hidden
+  from the identity;
+
+Please be aware that metadata can currently only be set using
+`POST /admin/identities` and `PUT /admin/identities/{id}`. Modifying these
+fields through web hooks is tracked as
+[kratos#2412](https://github.com/ory/kratos/issues/2412).
+
+Metadata is currently not validated using the Identity JSON Schema.
+
+## Metadata Example
+
+This is an exemplary payload of
+
+```
+{
+  "id": "308929d3-41a2-43fe-a33c-75308539d841",
+  "schema_id": "default",
+  "schema_url": "https://www.ory.sh/schemas/ZGVmYXVsdA",
+  "state": "active",
+  "traits": {
+    "email": "aeneas@ory.sh"
+  },
+  "metadata_public": {
+    "subscription_plan": "1234",
+    "nested": [{"foo":"bar"}, "field"]
+  },
+  "metadata_admin": {
+    "notes": "This is a great customer please treat them with care.",
+    "nested": [{"foo":"bar"}, "field"]
+  },
+  "created_at": "2013-10-07T08:23:19Z",
+  "updated_at": "2013-10-07T08:23:19Z"
+}
+```
