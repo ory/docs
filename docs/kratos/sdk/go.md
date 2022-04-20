@@ -74,7 +74,7 @@ func main() {
 ```
 
 ## Gin-middleware
-The following code example shows how to use Kratos Go SDK with [gin framework](https://github.com/gin-gonic/gin):
+The following code example shows how to use the Kratos Go SDK with the [Gin Web Framework](https://github.com/gin-gonic/gin):
 
 ```go
 package main
