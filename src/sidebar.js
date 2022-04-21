@@ -107,6 +107,7 @@ module.exports = {
                   'guides/social-signin/spotify',
                   'guides/social-signin/discord',
                   'guides/social-signin/twitch',
+                  'guides/social-signin/netid',
                   'guides/social-signin/yandex',
                   'guides/social-signin/vk'
                   ]
