@@ -90,13 +90,27 @@ module.exports = {
             'guides/customize-identity-schema',
             {
               type: 'category',
-              label: 'Enabling Social Sign-in',
+              label: 'Social Sign-in',
               items: [
-                'guides/social-signin/google',
-                'guides/social-signin/facebook',
-                'guides/social-signin/microsoft',
-                'guides/social-signin/github',
-                'guides/social-signin/generic'
+                'guides/social-signin/overview',
+                {
+                'Integrating Providers': [
+                  'guides/social-signin/google',
+                  'guides/social-signin/facebook',
+                  'guides/social-signin/microsoft',
+                  'guides/social-signin/github',
+                  'guides/social-signin/generic',
+                  'guides/social-signin/apple',
+                  'guides/social-signin/gitlab',
+                  'guides/social-signin/auth0',
+                  'guides/social-signin/slack',
+                  'guides/social-signin/spotify',
+                  'guides/social-signin/discord',
+                  'guides/social-signin/twitch',
+                  'guides/social-signin/yandex',
+                  'guides/social-signin/vk'
+                  ]
+                }
               ]
             },
             'start-building/single-page-app-spa'
@@ -197,7 +211,6 @@ module.exports = {
         {
           Guides: [
             'kratos/guides/two-factor-authentication-2fa-mfa',
-            'kratos/guides/sign-in-with-github-google-facebook-linkedin',
             'kratos/guides/configuring-cookies',
             'kratos/guides/multi-domain-cookies',
             'kratos/guides/setting-up-cors',
