@@ -2,11 +2,12 @@
 id: deploying-to-digitalocean
 title: Deploying Hydra to Digital Ocean with Nginx
 ---
+
 import { useLatestRelease, useLatestReleaseFilename } from '@site/src/hooks'
 import CodeBlock from '@theme/CodeBlock'
 
-This guide explains how to setup and run Ory Hydra in a
-production environment. This guide covers the following topics:
+This guide explains how to setup and run Ory Hydra in a production environment.
+This guide covers the following topics:
 
 - Installation and configuration of Postgres
 - Installation and configuration of Ory Hydra
@@ -27,15 +28,18 @@ Spin up a droplet with the following configuration:
 
 Wait for the ready-to-use VM and copy the IP address of your droplet
 
-:::note
-This example shows a single configuration on a small droplet.
-The configuration of a droplet may vary depending on your scale
+:::note 
+
+This example shows a single configuration on a small droplet. The
+configuration of a droplet may vary depending on your scale 
+
 :::
 
-This guide uses `oauth2.example.com` as a hostname to run Ory Hydra. Replace it with `<something>.<your-domain>`.
-You need to configure DNS, create an `A type` record, and point it to the droplet's IP.
+This guide uses `oauth2.example.com` as a hostname to run Ory Hydra. Replace it
+with `<something>.<your-domain>` for your purposes. You need to configure DNS,
+create an `A type` record, and point it to the droplet's IP.
 
-Let's connect to our droplet via SSH
+Connect to your droplet via SSH
 
 ```bash
 ssh -A root@oauth2.example.com
@@ -63,14 +67,17 @@ Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
 applicable law.
 root@ubuntu-s-1vcpu-1gb-ams3-01:~#
 ```
+
 ## Installing required dependencies
 
 As a first step, we need to upgrade all packages in our Droplet.
+
 ```bash
 apt-get update && apt-get upgrade
 ```
-The default version of nodejs is v10.19.0 on Ubuntu 20.04,
-which seems outdated for today. We need to install a newer version:
+
+The default version of nodejs is v10.19.0 on Ubuntu 20.04, which seems outdated
+for today. We need to install a newer version:
 
 ```bash
 curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh
@@ -88,21 +95,27 @@ v16.14.2
 ## Install PostgreSQL
 
 Let's install PostgreSQL by running the following command
+
 ```bash
 sudo apt install postgresql postgresql-contrib
 sudo -i -u postgres
 ```
+
 Let's create database
+
 ```bash
 createdb hydra
 ```
+
 Let's change the default password encryption to a stronger one
+
 ```bash
 psql
 # Change the default password encryption to stronger one
 ALTER SYSTEM SET password_encryption = 'scram-sha-256';
 SELECT pg_reload_conf();
 ```
+
 Let's create a temporary user to get a hash of a password:
 
 ```bash
@@ -113,7 +126,8 @@ SELECT rolpassword FROM pg_catalog.pg_authid WHERE rolname='tmp_user_to_create_a
 DROP USER IF EXISTS tmp_user_to_create_a_password;
 ```
 
-Now we can create a user by running the following command, fill in the password hash you copied in the step before:
+Now we can create a user by running the following command, fill in the password
+hash you copied in the step before:
 
 ```bash
 CREATE USER hydra with password 'SCRAM-SHA-256$4096:<your-copied-hashed-password-here>';
@@ -126,7 +140,8 @@ Exit psql:
 \q
 ```
 
-We need to change the `/etc/postgresql/12/main/pg_hba.conf` file and append the following to enable `scram-sha-256` encryption:
+We need to change the `/etc/postgresql/12/main/pg_hba.conf` file and append the
+following to enable `scram-sha-256` encryption:
 
 ```bash
 host    all             all             127.0.0.1/32            scram-sha-256
@@ -141,11 +156,14 @@ psql (12.9 (Ubuntu 12.9-0ubuntu0.20.04.1))
 SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
 Type "help" for help.
 ```
-We installed and configured the PostgreSQL database. Let's continue with the Ory Hydra setup
+
+We installed and configured the PostgreSQL database. Let's continue with the Ory
+Hydra setup
 
 ## Install Ory Hydra
 
 For security reasons, we need to create a new user with prohibited login
+
 ```bash
 useradd -s /bin/false -m -d /opt/hydra hydra
 ```
@@ -172,7 +190,9 @@ rm LICENSE`}
 Download the [Quickstart](../5min-tutorial) configuration files:
 
 <CodeBlock className="language-shell">{`cd ../config
-wget https://raw.githubusercontent.com/ory/hydra/${useLatestRelease('hydra')}/contrib/quickstart/5-min/hydra.yml`}</CodeBlock>
+wget https://raw.githubusercontent.com/ory/hydra/${useLatestRelease(
+  'hydra'
+)}/contrib/quickstart/5-min/hydra.yml`}</CodeBlock>
 
 We need to add some configuration in `hydra.yml` to use our Postgres
 
@@ -181,8 +201,8 @@ dsn: postgres://hydra:b0qw68gr3Q@127.0.0.1:5432/hydra?sslmode=disable&max_conns=
 urls:
   self:
     issuer: https://accounts.gen1us2k.com
-
 ```
+
 Apply [migrations](../cli/hydra-migrate-sql):
 
 ```bash
@@ -206,6 +226,7 @@ WARN[2022-04-15T15:24:37Z] JSON Web Key Set "hydra.https-tls" does not exist yet
 INFO[2022-04-15T15:24:41Z] Setting up http server on :4444               audience=application service_name=Ory Hydra service_version=v1.11.7
 INFO[2022-04-15T15:24:41Z] Setting up http server on :4445               audience=application service_name=Ory Hydra service_version=v1.11.7
 ```
+
 ## Run Ory Hydra using systemd
 
 We need to give ownership of `/opt/hydra` directory to the `hydra` user:
@@ -253,13 +274,14 @@ We have Ory Hydra up and running and listening on the loopback interface.
 
 ## Install and configure Nginx
 
-We'll use Nginx as reverse proxy and load balancer for our service. 
+We'll use Nginx as reverse proxy and load balancer for our service.
 
 ```bash
 apt install nginx certbot python3-certbot-nginx
 ```
 
-We need a default configuration for the virtual host. Let's create a `/etc/nginx/sites-avaiable/oauth2.example.com` with the following content:
+We need a default configuration for the virtual host. Let's create a
+`/etc/nginx/sites-avaiable/oauth2.example.com` with the following content:
 
 ```
 server {
@@ -274,7 +296,8 @@ We need to create a symlink to `sites-enabled` directory:
 ln -s /etc/nginx/sites-available/oauth2.example.com /etc/nginx/sites-enabled/oauth2.example.com
 ```
 
-Configuring SSL via Certbot. Run the following command and answer a simple questions:
+Configuring SSL via Certbot. Run the following command and answer a simple
+questions:
 
 ```bash
 certbot --nginx -d oauth2.example.com
@@ -300,16 +323,20 @@ server {
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
 ```
-We have configured the TLS connection with the redirect from HTTP to HTTPS by default.
-We have missing parts in our configuration, and we need to configure locations and [upstream APIs](http://nginx.org/en/docs/http/ngx_http_upstream_module.html).
+
+We have configured the TLS connection with the redirect from HTTP to HTTPS by
+default. We have missing parts in our configuration, and we need to configure
+locations and
+[upstream APIs](http://nginx.org/en/docs/http/ngx_http_upstream_module.html).
 You can balance network traffic between different instances of Ory Hydra running
-on the various virtual machines. We need to have two upstreams:  
+on the various virtual machines. We need to have two upstreams:
 
 - public_api to proxy traffic to the Public API of Ory Hydra
 - admin_api to proxy traffic to the Admin API of Ory Hydra
 
 [Read more about Exposing Administrative and Public API Endpoints](https://www.ory.sh/docs/hydra/production#exposing-administrative-and-public-api-endpoints)
-Add the following configuration before `server` section to `/etc/nginx/sites-enabled/oauth2.example.com` file:
+Add the following configuration before `server` section to
+`/etc/nginx/sites-enabled/oauth2.example.com` file:
 
 ```diff
 +upstream public_api {
@@ -324,7 +351,7 @@ Add the following configuration before `server` section to `/etc/nginx/sites-ena
 ...
 ```
 
-Add the following location to  `/etc/nginx/sites-enabled/oauth2.example.com`:
+Add the following location to `/etc/nginx/sites-enabled/oauth2.example.com`:
 
 ```diff
 ...
