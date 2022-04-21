@@ -94,20 +94,20 @@ v16.14.2
 
 ## Install PostgreSQL
 
-Let's install PostgreSQL by running the following command
+Install PostgreSQL by running the following command:
 
 ```bash
 sudo apt install postgresql postgresql-contrib
 sudo -i -u postgres
 ```
 
-Let's create database
+Create the database:
 
 ```bash
 createdb hydra
 ```
 
-Let's change the default password encryption to a stronger one
+Change the default password encryption to a stronger one:
 
 ```bash
 psql
@@ -116,7 +116,7 @@ ALTER SYSTEM SET password_encryption = 'scram-sha-256';
 SELECT pg_reload_conf();
 ```
 
-Let's create a temporary user to get a hash of a password:
+Create a temporary user to get a hash of a password:
 
 ```bash
 CREATE USER tmp_user_to_create_a_password WITH PASSWORD 'b0qw68gr3Q';
@@ -147,7 +147,7 @@ following to enable `scram-sha-256` encryption:
 host    all             all             127.0.0.1/32            scram-sha-256
 ```
 
-Let's check our credentials against PostgreSQL:
+Check your credentials against PostgreSQL:
 
 ```bash
 psql -U hydra -W -h 127.0.0.1
@@ -157,18 +157,18 @@ SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, co
 Type "help" for help.
 ```
 
-We installed and configured the PostgreSQL database. Let's continue with the Ory
-Hydra setup
+We installed and configured the PostgreSQL database. 
+Next we will set up Ory Hydra.
 
 ## Install Ory Hydra
 
-For security reasons, we need to create a new user with prohibited login
+For security reasons, we need to create a new user with prohibited login:
 
 ```bash
 useradd -s /bin/false -m -d /opt/hydra hydra
 ```
 
-Let's create a couple of folders:
+Create a couple of folders:
 
 ```bash
 mkdir /opt/hydra/{bin,config}
