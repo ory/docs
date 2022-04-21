@@ -201,24 +201,6 @@ Locally:
 1. Fix all files in the project, `Warning: This writes to your files!` `cd docs`
    `markdownlint './docs/**/*.+(md|mdx)' --ignore node_modules --fix`
 
-### Vale
-
-1. Download and install [Vale](https://github.com/errata-ai/vale).  
-   `brew install vale`
-1. Check if Vale installed.  
-   `vale -h`
-1. Copy the write-good and Microsoft Vale Styles:
-
-- https://github.com/errata-ai/write-good/releases/latest/download/write-good.zip
-- https://github.com/errata-ai/Microsoft/releases/latest/download/Microsoft.zip
-
-1. Add `.vale.ini` in your root or project folder.
-   [Reference .vale.ini](https://raw.githubusercontent.com/ory/docs/master/docs/.vale.ini)
-1. Check the document:  
-   `vale yourdocument.md` or `vale docs/ecosystem/styleguide/testing.md`
-
-Check the [documentation](https://docs.errata.ai/) for more advanced features.
-
 ## How-To
 
 ### Links to other pages
