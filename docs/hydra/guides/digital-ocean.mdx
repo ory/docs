@@ -5,16 +5,16 @@ title: Deploying Hydra to Digital Ocean with Nginx
 import { useLatestRelease, useLatestReleaseFilename } from '@site/src/hooks'
 import CodeBlock from '@theme/CodeBlock'
 
-This guide explains how to setup and run Hydra in a
+This guide explains how to setup and run Ory Hydra in a
 production environment. This guide covers the following topics:
 
 - Installation and configuration of Postgres
-- Installation and configuration of Hydra
+- Installation and configuration of Ory Hydra
 - Installation and configuration of Nginx
 
-## Creating a Droplet
-Spin up a droplet with the following configuration
+## Create a Droplet
 
+Spin up a droplet with the following configuration:
 
 - **OS**: Ubuntu 20.04
 - **Plan**: Basic
@@ -32,7 +32,7 @@ This example shows a single configuration on a small droplet.
 The configuration of a droplet may vary depending on your scale
 :::
 
-This guide uses oauth2.example.com as a hostname to run Hydra.
+This guide uses `oauth2.example.com` as a hostname to run Ory Hydra. Replace it with `<something>.<your-domain>`.
 You need to configure DNS, create an `A type` record, and point it to the droplet's IP.
 
 Let's connect to our droplet via SSH
@@ -64,18 +64,29 @@ applicable law.
 root@ubuntu-s-1vcpu-1gb-ams3-01:~#
 ```
 ## Installing required dependencies
+
 As a first step, we need to upgrade all packages in our Droplet.
 ```bash
 apt-get update && apt-get upgrade
 ```
 The default version of nodejs is v10.19.0 on Ubuntu 20.04,
-which seems outdated for today. We need to install a newer version.
+which seems outdated for today. We need to install a newer version:
+
 ```bash
 curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh
 bash /tmp/nodesource_setup.sh
 apt-get install nodejs npm jq unzip
 ```
-## Installing PostgreSQL
+
+Confirm the correct version of NodeJs is installed:
+
+```bash
+node -v
+v16.14.2
+```
+
+## Install PostgreSQL
+
 Let's install PostgreSQL by running the following command
 ```bash
 sudo apt install postgresql postgresql-contrib
@@ -88,29 +99,41 @@ createdb hydra
 Let's change the default password encryption to a stronger one
 ```bash
 psql
-ALTER SYSTEM SET password_encryption = 'scram-sha-256'; # Change the default password encryption to stronger one
-ALTER SYSTEM
+# Change the default password encryption to stronger one
+ALTER SYSTEM SET password_encryption = 'scram-sha-256';
 SELECT pg_reload_conf();
 ```
-Let's create a temporary user to get a hash of a password
+Let's create a temporary user to get a hash of a password:
+
 ```bash
 CREATE USER tmp_user_to_create_a_password WITH PASSWORD 'b0qw68gr3Q';
 # Copy the password hash from the following command
 SELECT rolpassword FROM pg_catalog.pg_authid WHERE rolname='tmp_user_to_create_a_password';
+# Delete the temporary user
 DROP USER IF EXISTS tmp_user_to_create_a_password;
 ```
-One can create a user by running the following command
+
+Now we can create a user by running the following command, fill in the password hash you copied in the step before:
+
 ```bash
-CREATE USER hydra with password 'SCRAM-SHA-256$4096:N66uuf4gEDEdvqhrInf7tw==$mnm9XgQuRIA3z8DlLa+E710GewLIDGpj2+hKyhiHOqM=:ypiPv/R1nnVc6yaiyektFuA4wnqa0xX4qjRNFKdwU2g=';
-CREATE ROLE
+CREATE USER hydra with password 'SCRAM-SHA-256$4096:<your-copied-hashed-password-here>';
 GRANT CONNECT ON DATABASE hydra to hydra;
-GRANT
 ```
-We need to change `/etc/postgresql/12/main/pg_hba.conf` file and add the following content to enable `scram-sha-256` encryption
+
+Exit psql:
+
+```bash
+\q
 ```
+
+We need to change the `/etc/postgresql/12/main/pg_hba.conf` file and append the following to enable `scram-sha-256` encryption:
+
+```bash
 host    all             all             127.0.0.1/32            scram-sha-256
 ```
-Let's check our credentials against PostgreSQL
+
+Let's check our credentials against PostgreSQL:
+
 ```bash
 psql -U hydra -W -h 127.0.0.1
 Password:
@@ -118,32 +141,40 @@ psql (12.9 (Ubuntu 12.9-0ubuntu0.20.04.1))
 SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
 Type "help" for help.
 ```
-We installed and configured PostgreSQL database and let's continue with Hydra setup
-## Installing Hydra
+We installed and configured the PostgreSQL database. Let's continue with the Ory Hydra setup
+
+## Install Ory Hydra
+
 For security reasons, we need to create a new user with prohibited login
 ```bash
 useradd -s /bin/false -m -d /opt/hydra hydra
 ```
-Let's create a couple of folders
+
+Let's create a couple of folders:
+
 ```bash
 mkdir /opt/hydra/{bin,config}
 ```
-Hydra installation
-<CodeBlock className="language-shell">{`cd /opt/hydra/bin
+
+Install Ory Hydra:
+
+```bash
+cd /opt/hydra/bin
 # Download a new version of Ory Hydra
 wget https://github.com/ory/hydra/releases/download/${useLatestRelease('hydra')}/hydra_${useLatestReleaseFilename('hydra')}-linux_64bit.tar.gz
 # Extract contents
 tar xfvz hydra_${useLatestReleaseFilename('hydra')}-linux_64bit.tar.gz
 # Remove redundant files
 rm *md
-rm LICENSE`}</CodeBlock>
+rm LICENSE`}
+```
 
-Downloading configuration files
+Download the [Quickstart](../5min-tutorial) configuration files:
 
 <CodeBlock className="language-shell">{`cd ../config
 wget https://raw.githubusercontent.com/ory/hydra/${useLatestRelease('hydra')}/contrib/quickstart/5-min/hydra.yml`}</CodeBlock>
 
-At this point, we need to make additional configuration steps. Let's change some configuration parameters in `hydra.yml` file
+We need to add some configuration in `hydra.yml` to use our Postgres
 
 ```yml
 dsn: postgres://hydra:b0qw68gr3Q@127.0.0.1:5432/hydra?sslmode=disable&max_conns=20&max_idle_conns=4
@@ -152,11 +183,14 @@ urls:
     issuer: https://accounts.gen1us2k.com
 
 ```
-Applying migrations
+Apply [migrations](../cli/hydra-migrate-sql):
+
 ```bash
 /opt/hydra/bin/hydra -c /opt/hydra/config/hydra.yml migrate sql -y postgres://hydra:b0qw68gr3Q@127.0.0.1:5432/hydra?sslmode=disable
 ```
-Testing our setup
+
+Test our setup:
+
 ```bash
 /opt/hydra/bin/hydra -c /opt/hydra/config/hydra.yml serve all
 INFO[2022-04-15T15:24:29Z] No tracer configured - skipping tracing setup  audience=application service_name=Ory Hydra service_version=v1.11.7
@@ -172,12 +206,16 @@ WARN[2022-04-15T15:24:37Z] JSON Web Key Set "hydra.https-tls" does not exist yet
 INFO[2022-04-15T15:24:41Z] Setting up http server on :4444               audience=application service_name=Ory Hydra service_version=v1.11.7
 INFO[2022-04-15T15:24:41Z] Setting up http server on :4445               audience=application service_name=Ory Hydra service_version=v1.11.7
 ```
-## Running Hydra using Systemd
-We need to change ownker of `/opt/hydra` directory to `hydra` user
+## Run Ory Hydra using systemd
+
+We need to give ownership of `/opt/hydra` directory to the `hydra` user:
+
 ```bash
 chown -R hydra /opt/hydra/
 ```
-Let's create a `/etc/systemd/system/hydra.service` file with the following content
+
+Create a `/etc/systemd/system/hydra.service` file with the following content:
+
 ```
 [Unit]
 Description=Hydra Service
@@ -196,7 +234,9 @@ ExecStart=/opt/hydra/bin/hydra -c /opt/hydra/config/hydra.yml serve all
 [Install]
 WantedBy=multi-user.target
 ```
-Running hydra using systemd
+
+Run Ory Hydra using systemd:
+
 ```bash
 # Add systemd service to startup
 systemctl enable hydra.service
@@ -209,17 +249,17 @@ ps ax | grep hydra
 19206 ?        Ss     0:00 postgres: 12/main: hydra hydra 127.0.0.1(36094) idle
 ```
 
-We have Hydra up and running and listening loopback interface
+We have Ory Hydra up and running and listening on the loopback interface.
 
-## Installing and configuring nginx
+## Install and configure Nginx
 
-We'll use Nginx as reverse proxy and load balancer for our service. You can install it by running
+We'll use Nginx as reverse proxy and load balancer for our service. 
 
 ```bash
 apt install nginx certbot python3-certbot-nginx
 ```
 
-Let's create a default configuration for the virtual host. Let's create a `/etc/nginx/sites-avaiable/oauth2.example.com` with the following content
+We need a default configuration for the virtual host. Let's create a `/etc/nginx/sites-avaiable/oauth2.example.com` with the following content:
 
 ```
 server {
@@ -228,19 +268,19 @@ server {
 }
 ```
 
-We need to create a symlink to `sites-enabled` directory
+We need to create a symlink to `sites-enabled` directory:
 
 ```bash
 ln -s /etc/nginx/sites-available/oauth2.example.com /etc/nginx/sites-enabled/oauth2.example.com
 ```
 
-Configuring SSL via Certbot. Run the following command and answer a simple questions
+Configuring SSL via Certbot. Run the following command and answer a simple questions:
 
 ```bash
 certbot --nginx -d oauth2.example.com
 ```
 
-After running certbot your configuration file will look like this
+After running Certbot your configuration file will look like this:
 
 ```bash
 # cat /etc/nginx/sites-enabled/oauth2.example.com
@@ -261,27 +301,77 @@ server {
 }
 ```
 We have configured the TLS connection with the redirect from HTTP to HTTPS by default.
- We have missing parts in our configuration, and we need to configure
- locations and [upstreams](http://nginx.org/en/docs/http/ngx_http_upstream_module.html).
-One can balance network traffic between different instances of Hydra running
-on the various virtual machines. We need to have two upstreams
+We have missing parts in our configuration, and we need to configure locations and [upstream APIs](http://nginx.org/en/docs/http/ngx_http_upstream_module.html).
+You can balance network traffic between different instances of Ory Hydra running
+on the various virtual machines. We need to have two upstreams:  
+
 - public_api to proxy traffic to the Public API of Ory Hydra
-- admin_api to proxy traffic to the admin API of Ory Hydra
-Let's add the following configuration before `server` section to `/etc/nginx/sites-enabled/oauth2.example.com` file
-```
-upstream public_api {
-        server 127.0.0.1:4444;
-        server 127.0.0.1:4444; # We can load balance the traffic to support scaling
-}
-upstream admin_api {
-        server 127.0.0.1:4445;
-        server 127.0.0.1:4445;
-}
-server {
+- admin_api to proxy traffic to the Admin API of Ory Hydra
+
+[Read more about Exposing Administrative and Public API Endpoints](https://www.ory.sh/docs/hydra/production#exposing-administrative-and-public-api-endpoints)
+Add the following configuration before `server` section to `/etc/nginx/sites-enabled/oauth2.example.com` file:
+
+```diff
++upstream public_api {
++        server 127.0.0.1:4444;
++        server 127.0.0.1:4444; # We can load balance the traffic to support scaling
++}
++upstream admin_api {
++        server 127.0.0.1:4445;
++        server 127.0.0.1:4445;
++}
++server {
 ...
 ```
-Let's add our locations and the `/etc/nginx/sites-enabled/oauth2.example.com` has the following content
+
+Add the following location to  `/etc/nginx/sites-enabled/oauth2.example.com`:
+
+```diff
+...
+server {
+	listen [::]:443 ssl ipv6only=on; # managed by Certbot
+	listen 443 ssl; # managed by Certbot
+	ssl_certificate /etc/letsencrypt/live/oauth2.example.com/fullchain.pem; # managed by Certbot
+	ssl_certificate_key /etc/letsencrypt/live/oauth2.example.com/privkey.pem; # managed by Certbot
+	include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+	ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
++	location ~ ^/(.well-known|oauth2/auth|oauth2/token|oauth2/revoke|oauth2/fallbacks/consent|oauth2/fallbacks/error|userinfo)/? {
++		proxy_pass http://public_api;
++		proxy_redirect          off;
++		proxy_set_header        Host            $host;
++		proxy_set_header        X-Real-IP       $remote_addr;
++		proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
++		proxy_set_header	X-Forwarded-Proto $http_x_forwarded_proto;
++
++	}
++	location ~ ^/(clients|keys|health|metrics|version|oauth2/auth/requests|oauth2/introspect|oauth2/flush)/? {
++		set $allow 0;
++		if ($remote_addr ~* "172.28.0.*") {
++			set $allow 1;
++		}
++		if ($arg_secret = "GuQ8alL2") {
++			set $allow 1;
++		}
++		if ($allow = 0) {
++			return 403;
++		}
++
++		rewrite /admin/(.*) /$1  break;
++
++		proxy_pass http://admin_api;
++		proxy_redirect          off;
++		proxy_set_header        Host            $host;
++		proxy_set_header        X-Real-IP       $remote_addr;
++		proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
++		proxy_set_header	X-Forwarded-Proto $http_x_forwarded_proto;
++	}
+
+}
 ```
+
+Your full Nginx configuration should now look something like this:
+
+```bash
 upstream public_api {
         server 127.0.0.1:4444;
         server 127.0.0.1:4444; # We can load balance the traffic to support scaling
@@ -298,46 +388,48 @@ server {
         } # managed by Certbot
 }
 server {
-	listen [::]:443 ssl ipv6only=on; # managed by Certbot
-	listen 443 ssl; # managed by Certbot
-	ssl_certificate /etc/letsencrypt/live/oauth2.example.com/fullchain.pem; # managed by Certbot
-	ssl_certificate_key /etc/letsencrypt/live/oauth2.example.com/privkey.pem; # managed by Certbot
-	include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-	ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-	location ~ ^/(.well-known|oauth2/auth|oauth2/token|oauth2/revoke|oauth2/fallbacks/consent|oauth2/fallbacks/error|userinfo)/? {
-		proxy_pass http://public_api;
-		proxy_redirect          off;
-		proxy_set_header        Host            $host;
-		proxy_set_header        X-Real-IP       $remote_addr;
-		proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-		proxy_set_header	X-Forwarded-Proto $http_x_forwarded_proto;
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/oauth2.example.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/oauth2.example.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+    location ~ ^/(.well-known|oauth2/auth|oauth2/token|oauth2/revoke|oauth2/fallbacks/consent|oauth2/fallbacks/error|userinfo)/? {
+        proxy_pass http://public_api;
+        proxy_redirect          off;
+        proxy_set_header        Host            $host;
+        proxy_set_header        X-Real-IP       $remote_addr;
+        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header    X-Forwarded-Proto $http_x_forwarded_proto;
 
-	}
-	location ~ ^/(clients|keys|health|metrics|version|oauth2/auth/requests|oauth2/introspect|oauth2/flush)/? {
-		set $allow 0;
-		if ($remote_addr ~* "172.28.0.*") {
-			set $allow 1;
-		}
-		if ($arg_secret = "GuQ8alL2") {
-			set $allow 1;
-		}
-		if ($allow = 0) {
-			return 403;
-		}
+    }
+    location ~ ^/(clients|keys|health|metrics|version|oauth2/auth/requests|oauth2/introspect|oauth2/flush)/? {
+        set $allow 0;
+        if ($remote_addr ~* "172.28.0.*") {
+            set $allow 1;
+        }
+        if ($arg_secret = "GuQ8alL2") {
+            set $allow 1;
+        }
+        if ($allow = 0) {
+            return 403;
+        }
 
-		rewrite /admin/(.*) /$1  break;
+        rewrite /admin/(.*) /$1  break;
 
-		proxy_pass http://admin_api;
-		proxy_redirect          off;
-		proxy_set_header        Host            $host;
-		proxy_set_header        X-Real-IP       $remote_addr;
-		proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-		proxy_set_header	X-Forwarded-Proto $http_x_forwarded_proto;
-	}
+        proxy_pass http://admin_api;
+        proxy_redirect          off;
+        proxy_set_header        Host            $host;
+        proxy_set_header        X-Real-IP       $remote_addr;
+        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header    X-Forwarded-Proto $http_x_forwarded_proto;
+    }
 
 }
 ```
-Testing Nginx configuration and reloading it
+
+Test the Nginx configuration and reload it:
+
 ```bash
 nginx -t
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
