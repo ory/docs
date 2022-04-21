@@ -1,17 +1,22 @@
 ---
-id: deploying-to-digitalocean
-title: Deploying Hydra to Digital Ocean with Nginx
+id: deploy-to-digitalocean
+title: Deploy to production
 ---
 
 import { useLatestRelease, useLatestReleaseFilename } from '@site/src/hooks'
 import CodeBlock from '@theme/CodeBlock'
 
 This guide explains how to setup and run Ory Hydra in a production environment.
-This guide covers the following topics:
+It uses Postgres as database, Nginx as reverse proxy and Digital Ocean
+as cloud provider. You can use another
+[relational database](https://www.ory.sh/docs/ecosystem/deployment#data-storage-and-persistence),
+a different reverse proxy, and deploy on any other host. 
 
-- Installation and configuration of Postgres
-- Installation and configuration of Ory Hydra
-- Installation and configuration of Nginx
+The guide covers the following topics:
+
+- Installation and configuration of [Postgres](https://www.postgresql.org/)
+- Installation and configuration of [Ory Hydra](../install.mdx)
+- Installation and configuration of [Nginx](https://www.nginx.com/)
 
 ## Create a Droplet
 
@@ -26,23 +31,23 @@ Spin up a droplet with the following configuration:
 - **Authentication**: SSH Keys. Don't forget to add your own SSH key
 - **Region**: Choose your region
 
-Wait for the ready-to-use VM and copy the IP address of your droplet
+:::note
 
-:::note 
-
-This example shows a single configuration on a small droplet. The
-configuration of a droplet may vary depending on your scale 
+This example shows a single configuration on a small droplet. The configuration
+of a droplet may vary depending on your scale
 
 :::
+
+Wait for the droplet to start up and copy the IP address.
 
 This guide uses `oauth2.example.com` as a hostname to run Ory Hydra. Replace it
 with `<something>.<your-domain>` for your purposes. You need to configure DNS,
 create an `A type` record, and point it to the droplet's IP.
 
-Connect to your droplet via SSH
+Connect to your droplet via SSH:
 
 ```bash
-ssh -A root@oauth2.example.com
+ssh -A root@oauth2.example.com # replace oauth2.example.com with your domain!
 The authenticity of host 'oauth2.example.com (157.245.75.223)' can't be established.
 ED25519 key fingerprint is SHA256:WJsAOHk3b12Ym7keL8MHjBLjgvxfUQPhIy9pwx1czAk.
 This key is not known by any other names
@@ -54,7 +59,7 @@ Welcome to Ubuntu 20.04.3 LTS (GNU/Linux 5.4.0-97-generic x86_64)
  * Support:        https://ubuntu.com/advantage
   System information as of Fri Apr 15 07:57:35 UTC 2022
   System load:  0.31              Users logged in:       0
-  Usage of /:   6.1% of 24.06GB   IPv4 address for eth0: 157.245.75.223
+  Usage of /:   6.1% of 24.06GB   IPv4 address for eth0: 157.245.75.223<
   Memory usage: 19%               IPv4 address for eth0: 10.18.0.5
   Swap usage:   0%                IPv4 address for eth1: 10.110.0.2
   Processes:    109
@@ -68,7 +73,7 @@ applicable law.
 root@ubuntu-s-1vcpu-1gb-ams3-01:~#
 ```
 
-## Installing required dependencies
+## Install required dependencies
 
 As a first step, we need to upgrade all packages in our Droplet.
 
@@ -134,12 +139,6 @@ CREATE USER hydra with password 'SCRAM-SHA-256$4096:<your-copied-hashed-password
 GRANT CONNECT ON DATABASE hydra to hydra;
 ```
 
-Exit psql:
-
-```bash
-\q
-```
-
 We need to change the `/etc/postgresql/12/main/pg_hba.conf` file and append the
 following to enable `scram-sha-256` encryption:
 
@@ -157,8 +156,8 @@ SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, co
 Type "help" for help.
 ```
 
-We installed and configured the PostgreSQL database. 
-Next we will set up Ory Hydra.
+We installed and configured the PostgreSQL database. Next we will set up Ory
+Hydra.
 
 ## Install Ory Hydra
 
@@ -176,7 +175,7 @@ mkdir /opt/hydra/{bin,config}
 
 Install Ory Hydra:
 
-```bash
+<CodeBlock className="language-shell">{`
 cd /opt/hydra/bin
 # Download a new version of Ory Hydra
 wget https://github.com/ory/hydra/releases/download/${useLatestRelease('hydra')}/hydra_${useLatestReleaseFilename('hydra')}-linux_64bit.tar.gz
@@ -184,8 +183,8 @@ wget https://github.com/ory/hydra/releases/download/${useLatestRelease('hydra')}
 tar xfvz hydra_${useLatestReleaseFilename('hydra')}-linux_64bit.tar.gz
 # Remove redundant files
 rm *md
-rm LICENSE`}
-```
+rm LICENSE
+`}</CodeBlock>
 
 Download the [Quickstart](../5min-tutorial) configuration files:
 
@@ -213,6 +212,7 @@ Test our setup:
 
 ```bash
 /opt/hydra/bin/hydra -c /opt/hydra/config/hydra.yml serve all
+
 INFO[2022-04-15T15:24:29Z] No tracer configured - skipping tracing setup  audience=application service_name=Ory Hydra service_version=v1.11.7
 WARN[2022-04-15T15:24:29Z] JSON Web Key Set "hydra.openid.id-token" does not exist yet, generating new key pair...  audience=application service_name=Ory Hydra service_version=v1.11.7
 WARN[2022-04-15T15:24:34Z] JSON Web Key Set "hydra.jwt.access-token" does not exist yet, generating new key pair...  audience=application service_name=Ory Hydra service_version=v1.11.7
@@ -256,6 +256,8 @@ ExecStart=/opt/hydra/bin/hydra -c /opt/hydra/config/hydra.yml serve all
 WantedBy=multi-user.target
 ```
 
+[Read more about the administrative and public APIs](https://www.ory.sh/docs/hydra/production#exposing-administrative-and-public-api-endpoints).  
+
 Run Ory Hydra using systemd:
 
 ```bash
@@ -296,7 +298,7 @@ We need to create a symlink to `sites-enabled` directory:
 ln -s /etc/nginx/sites-available/oauth2.example.com /etc/nginx/sites-enabled/oauth2.example.com
 ```
 
-Configuring SSL via Certbot. Run the following command and answer a simple
+Configure SSL via Certbot. Run the following command and answer a simple
 questions:
 
 ```bash
@@ -312,15 +314,15 @@ server {
         server_name oauth2.example.com;
         if ($host = oauth2.example.com) {
                 return 301 https://$host$request_uri;
-        } # managed by Certbot
+        }
 }
 server {
-    listen [::]:443 ssl ipv6only=on; # managed by Certbot
-    listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/oauth2.example.com/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/oauth2.example.com/privkey.pem; # managed by Certbot
-    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+    listen [::]:443 ssl ipv6only=on;
+    listen 443 ssl;
+    ssl_certificate /etc/letsencrypt/live/oauth2.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/oauth2.example.com/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 }
 ```
 
@@ -334,34 +336,35 @@ on the various virtual machines. We need to have two upstreams:
 - public_api to proxy traffic to the Public API of Ory Hydra
 - admin_api to proxy traffic to the Admin API of Ory Hydra
 
-[Read more about Exposing Administrative and Public API Endpoints](https://www.ory.sh/docs/hydra/production#exposing-administrative-and-public-api-endpoints)
+[Read more about exposing admin and public API endpoints](https://www.ory.sh/docs/hydra/production#exposing-administrative-and-public-api-endpoints).  
 Add the following configuration before `server` section to
 `/etc/nginx/sites-enabled/oauth2.example.com` file:
 
 ```diff
 +upstream public_api {
 +        server 127.0.0.1:4444;
-+        server 127.0.0.1:4444; # We can load balance the traffic to support scaling
+# We can load balance the traffic to support scaling
++        server 127.0.0.1:4444;
 +}
 +upstream admin_api {
 +        server 127.0.0.1:4445;
 +        server 127.0.0.1:4445;
 +}
-+server {
+server {
 ...
 ```
 
-Add the following location to `/etc/nginx/sites-enabled/oauth2.example.com`:
+Add the following location as well:
 
 ```diff
 ...
 server {
-	listen [::]:443 ssl ipv6only=on; # managed by Certbot
-	listen 443 ssl; # managed by Certbot
-	ssl_certificate /etc/letsencrypt/live/oauth2.example.com/fullchain.pem; # managed by Certbot
-	ssl_certificate_key /etc/letsencrypt/live/oauth2.example.com/privkey.pem; # managed by Certbot
-	include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-	ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+	listen [::]:443 ssl ipv6only=on;
+	listen 443 ssl;
+	ssl_certificate /etc/letsencrypt/live/oauth2.example.com/fullchain.pem;
+	ssl_certificate_key /etc/letsencrypt/live/oauth2.example.com/privkey.pem;
+	include /etc/letsencrypt/options-ssl-nginx.conf;
+	ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 +	location ~ ^/(.well-known|oauth2/auth|oauth2/token|oauth2/revoke|oauth2/fallbacks/consent|oauth2/fallbacks/error|userinfo)/? {
 +		proxy_pass http://public_api;
 +		proxy_redirect          off;
@@ -401,7 +404,7 @@ Your full Nginx configuration should now look something like this:
 ```bash
 upstream public_api {
         server 127.0.0.1:4444;
-        server 127.0.0.1:4444; # We can load balance the traffic to support scaling
+        server 127.0.0.1:4444;
 }
 upstream admin_api {
         server 127.0.0.1:4445;
@@ -412,15 +415,15 @@ server {
         server_name oauth2.example.com;
         if ($host = oauth2.example.com) {
                 return 301 https://$host$request_uri;
-        } # managed by Certbot
+        }
 }
 server {
-    listen [::]:443 ssl ipv6only=on; # managed by Certbot
-    listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/oauth2.example.com/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/oauth2.example.com/privkey.pem; # managed by Certbot
-    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+    listen [::]:443 ssl ipv6only=on;
+    listen 443 ssl;
+    ssl_certificate /etc/letsencrypt/live/oauth2.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/oauth2.example.com/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
     location ~ ^/(.well-known|oauth2/auth|oauth2/token|oauth2/revoke|oauth2/fallbacks/consent|oauth2/fallbacks/error|userinfo)/? {
         proxy_pass http://public_api;
         proxy_redirect          off;

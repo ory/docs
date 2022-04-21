@@ -3,7 +3,8 @@ id: production
 title: Prepare for Production
 ---
 
-This document summarizes some considerations you will find useful when preparing for production.
+This document summarizes some considerations you will find useful when preparing
+for production.
 
 ## Ory Hydra behind an API Gateway
 
@@ -144,4 +145,5 @@ Once done, you can raise your number of containers to achieve high availability.
 
 ## Next Steps
 
-For a deployment guide using Nginx, visit the [Deploy to production](./guides/digital-ocean.mdx) documentation.
+For a deployment guide using Nginx, visit the
+[Deploy to production](./guides/digital-ocean.mdx) documentation.
