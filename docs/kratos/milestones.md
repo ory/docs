@@ -33,7 +33,7 @@ Something isn't working.
 - [ ] Fetching a settings request after error is missing identity data
       ([kratos#689](https://github.com/ory/kratos/issues/689)) -
       [@hackerman](https://github.com/aeneasr)
-- [ ] Implement email TTL for non-working/non-existant emails
+- [ ] Implement email TTL for non-working/non-existent emails
       ([kratos#944](https://github.com/ory/kratos/issues/944)) -
       [@hackerman](https://github.com/aeneasr)
 - [ ] Courier Watcher should start a (tracing-) span

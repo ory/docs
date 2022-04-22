@@ -456,7 +456,7 @@ struct in body, which is:
 }
 ```
 
-As a response the mutator expects similiar JSON object, but with `extra` or
+As a response the mutator expects similar JSON object, but with `extra` or
 `header` fields modified.
 
 Example request/response payload:

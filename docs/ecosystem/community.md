@@ -119,7 +119,7 @@ topics in general? Do you want to share your knowledge and experiences?
 
 #### Ory Oathkeepeer
 
-- [User Managment using Ory Oathkeeper](https://blog.commit.dev/articles/open-source-sundays-building-a-user-management-solution-using-ory-oathkeeper-and-auth0)
+- [User Management using Ory Oathkeeper](https://blog.commit.dev/articles/open-source-sundays-building-a-user-management-solution-using-ory-oathkeeper-and-auth0)
 - [API Access Control with Ambassador and Ory Oathkeeper](https://blog.getambassador.io/part-2-api-access-control-and-authentication-with-kubernetes-ambassador-and-ory-oathkeeper-q-a-127fa57f6332?utm_content=76739953&utm_medium=social&utm_source=twitter)
 - [Ory Oathkeeper Istio best practices/reference configuration](https://github.com/ory/oathkeeper/issues/624)
 
