@@ -463,6 +463,7 @@ module.exports = {
             'oathkeeper/configure-deploy',
             'oathkeeper/guides/ory-oathkeeper-proxying-websockets',
             'oathkeeper/guides/traefik-proxy-integration'
+            'oathkeeper/guides/upgrade'
           ]
         },
         'oathkeeper/reference/api',
