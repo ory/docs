@@ -441,7 +441,7 @@ request.
 When the user accesses a protected url `http://my-website/settings`, they will
 be redirected to
 `http://my-website/login?return_to=http%3A%2F%2Fmy-website%2Fsettings`. The
-login page can use the `return_to` paramter to return user to intended page
+login page can use the `return_to` parameter to return user to intended page
 after a successful login.
 
 ### `www_authenticate`
