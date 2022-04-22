@@ -54,7 +54,7 @@ ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
   -q, --quiet                 Be quiet with output printing.
       --remove stringArray    Remove a specific key from the configuration
       --replace stringArray   Replace a specific key in the configuration
-  -y, --yes                   Confirm all dialogues with yes.
+  -y, --yes                   Confirm all dialogs with yes.
 ```
 
 ### Options inherited from parent commands

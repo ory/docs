@@ -36,7 +36,7 @@ member from removing members or adding new ones.
 
 Each project, depending on the plan, has a set number of seats associated with
 it. The number of seats are used up by `pending` and `accepted` invites. Once
-the invite state changes to `expired`, `removed`, `declined` and `cancelled` the
+the invite state changes to `expired`, `removed`, `declined` and `canceled` the
 seat is freed up again. The reason for `pending` invites to take up seats are to
 prevent users from using up the seats on a first-come, first-served basis,
 leading to more invites sent than member slot availability.
@@ -44,7 +44,7 @@ leading to more invites sent than member slot availability.
 There are two ways to free up member seats:
 
 - Remove a member from the project will result in a `removed` status.
-- Cancel a `pending` invite will result in a `cancelled` status.
+- Cancel a `pending` invite will result in a `canceled` status.
 
 ## Invite State and Validity
 
@@ -55,12 +55,12 @@ The invite can have many states, namely:
 - declined
 - expired
 - removed
-- cancelled
+- canceled
 
 The state of the invite can only change in certain ways depending on the actions
 of the subject (invited user), the actor (project owner) and the system. In the
 below state diagram the invite state starts out at `pending` and then goes on to
-be either `accepted`, `declined`, `expired` or `cancelled`. Only the subject can
+be either `accepted`, `declined`, `expired` or `canceled`. Only the subject can
 `accept` and `decline` the invite, while the actor can `cancel`, `remove` and
 `delete` an invite. The system can `expire` an invite.
 

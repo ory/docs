@@ -84,7 +84,7 @@ courier:
       --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
   -h, --help            help for identity-config
   -q, --quiet           Be quiet with output printing.
-  -y, --yes             Confirm all dialogues with yes.
+  -y, --yes             Confirm all dialogs with yes.
 ```
 
 ### Options inherited from parent commands

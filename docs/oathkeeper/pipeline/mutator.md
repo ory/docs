@@ -437,7 +437,6 @@ For more details please check [Session variables](../pipeline.md#session)
 
 ## `hydrator`
 
-
 This mutator allows for fetching additional data from external APIs, which can
 be then used by other mutators. It works by making an upstream HTTP call to an
 API specified in the **Per-Rule Configuration** section below. The request is a
@@ -457,7 +456,7 @@ struct in body, which is:
 }
 ```
 
-As a response the mutator expects similiar JSON object, but with `extra` or
+As a response the mutator expects similar JSON object, but with `extra` or
 `header` fields modified.
 
 Example request/response payload:
@@ -477,15 +476,14 @@ Example request/response payload:
   }
 }
 ```
-:::note
-Ory Oathkeeper is case-insensitive when accepting custom request headers. However, all 
-incoming custom headers are converted to the canonical format of the MIME header key. 
-This means that the first letter of the incoming header, as well as any letter that follows a hyphen, 
-is converted into upper case and the rest of the letters are converted into lowercase.
-For example, the incoming header `x-user-company` is converted and returned by
-Oathkeeper as `X-User-Company`.
-:::
 
+:::note Ory Oathkeeper is case-insensitive when accepting custom request
+headers. However, all incoming custom headers are converted to the canonical
+format of the MIME header key. This means that the first letter of the incoming
+header, as well as any letter that follows a hyphen, is converted into upper
+case and the rest of the letters are converted into lowercase. For example, the
+incoming header `x-user-company` is converted and returned by Oathkeeper as
+`X-User-Company`. :::
 
 The AuthenticationSession from this object replaces the original one and is
 passed to the next mutator, where it can be used to set a particular cookie to

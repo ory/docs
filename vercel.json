@@ -388,6 +388,11 @@
       "source": "/docs/guides/proxy",
       "destination": "https://www.ory.sh/docs/guides/cli/proxy-and-tunnel",
       "permanent": false
+    },
+    {
+      "source": "/docs/keto/engines",
+      "destination": "https://www.ory.sh/docs/keto/guides/upgrade",
+      "permanent": false
     }
   ]
 }
