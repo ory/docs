@@ -398,6 +398,10 @@ server {
 
 }
 ```
+Let's take a closer look at the configuration. We have two location blocks
+
+- The first `location` block proxies network traffic to the public API of Hydra. It allows to utilize oauth2 flows and can be exposed to the public internet without additional authentication/authorization/access control checks.
+- The second `location` block proxies network traffic to the admin API of Hydra. Nginx proxies requests only from the `172.28.0.0/24` subnet or by providing `?secret=GuQ8alL2` argument for additional security. Admin API implements administrative endpoints to manage data or implements `/health` endpoints to check the availability of your Hydra instance. You should either not expose these endpoints or implement additional security checks for them.
 
 Your full Nginx configuration should now look something like this:
 
@@ -457,10 +461,6 @@ server {
 
 }
 ```
-Important notes of the configuration
-
-We expose Hydra's public endpoints to the public internet without additional authentication/authorization. However, Hydra has additional administrative endpoints that can be used to implement a management interface to manage data. These endpoints and the whole admin service are used either for internal usage (e.g., /health endpoints to check availability of Hydra) or to manage data (add/update/remove clients or keys)
-
 Test the Nginx configuration and reload it:
 
 ```bash
