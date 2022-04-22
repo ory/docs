@@ -65,7 +65,7 @@ Janitor can be used in several ways.
         janitor --tokens --requests --grants &lt;database-url&gt;
 
 ```
-hydra janitor [&lt;database-url&gt;] [flags]
+hydra janitor [<database-url>] [flags]
 ```
 
 ### Options

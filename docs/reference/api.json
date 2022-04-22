@@ -1809,15 +1809,6 @@
         "required": ["identity"],
         "type": "object"
       },
-      "projectSlug": {
-        "properties": {
-          "slug": {
-            "description": "The Project Slug",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
       "projects": {
         "items": {
           "$ref": "#/components/schemas/project"

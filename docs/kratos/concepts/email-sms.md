@@ -55,6 +55,8 @@ courier:
     #   verification)
     # - "smtps://foo:bar@my-mailserver:1234/?skip_ssl_verify=true (NOT
     #   RECOMMENDED: Implicit TLS without certificate trust verification)"
+    # - "smtps://subdomain.my-mailserver:1234/?server_name=my-mailserver (allows TLS to
+    #   work if the server is hosted on a sudomain and uses a non-wildcard domain certificate)"
 ```
 
 ### Sender Address and Template Customization
@@ -147,6 +149,20 @@ courier:
       X-SES-SOURCE-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
       X-SES-FROM-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
       X-SES-RETURN-PATH-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
+```
+
+### Certificate based authentication
+
+If your SMTP server enforces certificate based authentication, you can configure
+the client certificate and client private key to use to connect to the server.
+The files must contain PEM encoded data:
+
+```yaml title="path/to/my/kratos/config.yml"
+# kratos -c path/to/my/kratos/config.yml serve
+courier:
+  smtp:
+    client_cert_path: /somepath/client.cert
+    client_key_path: /somepath/client.key
 ```
 
 ## Sending SMS
