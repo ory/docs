@@ -393,6 +393,11 @@
       "source": "/docs/keto/engines",
       "destination": "https://www.ory.sh/docs/keto/guides/upgrade",
       "permanent": false
+    },
+    {
+      "source": "/docs/kratos/admin/managing-users-identities",
+      "destination": "https://www.ory.sh/docs/guides/manage-identities/managing-users-identities",
+      "permanent": false
     }
   ]
 }

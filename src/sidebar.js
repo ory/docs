@@ -76,7 +76,7 @@ module.exports = {
           type: 'category',
           label: 'Managing Identities',
           items: [
-            'kratos/admin/managing-users-identities',
+            'guides/manage-identities/managing-users-identities',
             'guides/manage-identities/import-identity',
             'guides/manage-identities/account-recovery'
           ]
@@ -193,9 +193,6 @@ module.exports = {
             'kratos/self-service/flows/2fa-mfa-multi-factor-authentication',
             'kratos/self-service/hooks'
           ]
-        },
-        {
-          Administration: ['kratos/admin/managing-users-identities']
         },
         {
           Guides: [
