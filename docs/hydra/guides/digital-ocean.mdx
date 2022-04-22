@@ -403,6 +403,8 @@ Let's take a closer look at the configuration. We have two location blocks
 - The first `location` block proxies network traffic to the public API of Hydra. It allows to utilize oauth2 flows and can be exposed to the public internet without additional authentication/authorization/access control checks.
 - The second `location` block proxies network traffic to the admin API of Hydra. Nginx proxies requests only from the `172.28.0.0/24` subnet or by providing `?secret=GuQ8alL2` argument for additional security. Admin API implements administrative endpoints to manage data or implements `/health` endpoints to check the availability of your Hydra instance. You should either not expose these endpoints or implement additional security checks for them.
 
+You can find more information about endpoints in the [prepare for production](/docs/hydra/production) guide
+
 Your full Nginx configuration should now look something like this:
 
 ```bash
