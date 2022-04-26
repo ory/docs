@@ -13,7 +13,7 @@ Go to [Google Cloud Console](https://console.developers.google.com/) to create o
 ## Configuration in Ory Cloud Console
 
 Follow these steps to add Google as a social sign-in provider for your Ory Cloud
-project using the Ory Console.
+project using the Ory Cloud Console.
 
 1. Sign in to Ory Cloud Console and select
    [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
@@ -28,18 +28,17 @@ project using the Ory Console.
 
   :::
 7. Configure the Google OAuth client. In the **Authorized redirect URIs** section, add the
-redirect URI copied from the Ory Console. 
+redirect URI copied from the Ory Cloud Console. 
 8. Save the configuration and copy the Client ID and Client secret. 
 9. Paste the Client ID and Client secret of the created OAuth client into the corresponding
-fields in the Ory Console.    
+fields in the Ory Cloud Console.    
 10. Click **Save Configuration** to enable Google as a social sign-in provider.
 
 :::note
 
-The **Scopes** and **Data mapping** fields are optional - you don't have to
-configure them to start using the social sign-in provider. 
-
-However, we strongly recommend configuring them to ensure a smooth user experience.
+These steps cover the basic configuration of a social sign-in provider integration. At this point, the user experience
+is incomplete. To complete the configuration and ensure a smooth and secure user experience, configure the [scopes](#scopes) and 
+[data mapping](#data-mapping) as described in the next section.
 
 :::
 
@@ -56,7 +55,7 @@ sign-in provider. Defining scopes allows you to interact with the provider's
 APIs on behalf of the user, or to access additional user data, which is exposed
 as claims for data mapping.
 
-Leave this field blank to use the default scopes.
+For Google, add the `email`, `email_verified`, `given_name`, and `family_name` scopes for a basic setup.
 
 To learn more about the scopes available for Google, read the
 [related documentation](https://developers.google.com/identity/protocols/oauth2/scopes).
@@ -64,10 +63,7 @@ To learn more about the scopes available for Google, read the
 #### Data Mapping
 
 The Data Mapping section allows you to map the data returned by the sign-in
-provider to traits as defined in the identity schema. While optional, we highly
-recommend you add it. The user experience will be worse if left blank, as a user
-will have to supply their email address through an additional custom step after
-completing the OAuth flow.
+provider to traits as defined in the identity schema.
 
 To define the mapping, create a Jsonnet code snippet. Read
 [this document](../../kratos/concepts/credentials/openid-connect-oidc-oauth2#data-mapping-with-jsonnet)
@@ -188,8 +184,10 @@ Ory Kratos:
 3. Create a [Jsonnet code snippet](#data-mapping) to map the desired claims to the Ory Identity schema.
 4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or store it in a location available to
 your Ory Kratos instance. 
-5. Add the social sign-in provider configuration to the Ory Kratos configuration. Add the Jsonnet snippet
-with mappings as a Base64 string or provide a path or an URL of the file.
+5. Add the [social sign-in provider configuration](#configuration-with-ory-cli) to the Ory Kratos configuration. Add 
+the Jsonnet snippet with mappings as a Base64 string or provide a path or an URL of the file.
+
+## Prevent Having to Login after Sign-Up
 
 ```mdx-code-block
 import OidcSessionHook from '../_common/oidc_session_hook.mdx'

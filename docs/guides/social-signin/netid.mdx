@@ -3,7 +3,7 @@ id: netid
 title: NetID
 ---
 
-## Configuration using the Ory CLI 
+## Configuration with Ory CLI 
 
 Follow these steps to add NetID as a social sign-in provider to your Ory Cloud project
 using the Ory CLI:
@@ -14,8 +14,8 @@ using the Ory CLI:
   ```shell
   https://<ory-cloud-project-slug>.projects.oryapis.com/self-service/methods/oidc/callback/netid
   ```
-
-2. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema.
+<a name="mapping"></a>
+3. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema.
 
   ```json
   local claims = {
@@ -37,16 +37,25 @@ using the Ory CLI:
   }
   ```
 
+  :::info
 
-```mdx-code-block
-import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
+  [NetID](https://developerzone.netid.dev/sso/)
+  returns only the `sub` and `sub_legacy` claims in the `id_token`.
+  Ory makes a request to
+  [NetID's /userinfo API](https://developerzone.netid.dev/sso/#userinfo-endpoint) and adds the
+  user info to `std.extVar('claims')`.
 
-<JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
-```
+  :::
 
-3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible 
+  ```mdx-code-block
+  import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
+
+  <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
+  ```
+
+4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible 
 to Ory Cloud.
-4. Download the Identity Service config from your Ory Cloud project and save it to a file: 
+5. Download the Identity Service config from your Ory Cloud project and save it to a file: 
 
   ```shell
   ## List all available projects
@@ -55,41 +64,41 @@ to Ory Cloud.
   ## Get config
   ory get identity-config <project-id> --format yaml > identity-config.yaml
   ```
-
-5. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet
+<a name="config"></a>
+6. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet
 with mappings as a Base64 string or provide an URL to the file. 
 
-```yaml
-selfservice:
-  methods:
-    oidc:
-      enabled: true
-      config:
-        providers:
-          - id: netid # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
-            provider: netid
-            client_id: .... # Replace this with the OAuth2 Client ID provided by NetID
-            client_secret: .... # Replace this with the OAuth2 Client Secret provided by NetID
-             mapper_url: "base64://<YOUR_BASE64_ENCODED_JSONNET_HERE>"
+  ```yaml
+  selfservice:
+    methods:
+      oidc:
+        enabled: true
+        config: 
+          providers:
+            - id: netid # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+              provider: netid
+              client_id: .... # Replace this with the OAuth2 Client ID provided by NetID
+              client_secret: .... # Replace this with the OAuth2 Client Secret provided by NetID
+              mapper_url: "base64://<YOUR_BASE64_ENCODED_JSONNET_HERE>"
               # Alternatively, use an URL:
               # mapper_url: https://storage.googleapis.com/abc-cde-prd/9cac9717f007808bf17f22ce7f4295c739604b183f05ac4afb4t
-            requested_claims: # for more information navigate to https://developerzone.netid.dev/sso/#claims-and-scopes
-              userinfo:
-                email:
-                  essential: true
-                email_verified:
-                  essential: true
-              id_token:
-                email:
-                  essential: true
-                email_verified:
-                  essential: true
-            scope:
-              - email
-              - openid
-```
+              requested_claims: # for more information navigate to https://developerzone.netid.dev/sso/#claims-and-scopes
+                userinfo:
+                  email:
+                    essential: true
+                  email_verified:
+                    essential: true
+                id_token:
+                  email:
+                    essential: true
+                  email_verified:
+                    essential: true
+              scope:
+                - email
+                - openid
+  ```
 
-6. Update the Ory Cloud Identity Service configuration using the file you worked with: 
+7. Update the Ory Cloud Identity Service configuration using the file you worked with: 
 
   ```shell
   ory update identity-config <project-id> --file updated_config.yaml
@@ -107,11 +116,13 @@ Ory Kratos:
   http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/netid
   ```
 
-3. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema.
+3. Create a [Jsonnet code snippet to map the desired claims to the Ory Identity schema](#mapping).
 4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or store it in a location available to
 your Ory Kratos instance. 
-5. Add the social sign-in provider configuration to the Ory Kratos configuration. Add the Jsonnet snippet
+5. Add the social [sign-in provider configuration to the Ory Kratos configuration](#config). Add the Jsonnet snippet
 with mappings as a Base64 string or provide a path or an URL of the file.
+
+## Prevent Having to Login after Sign-Up
 
 ```mdx-code-block
 import OidcSessionHook from '../_common/oidc_session_hook.mdx'

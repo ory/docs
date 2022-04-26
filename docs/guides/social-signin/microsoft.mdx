@@ -41,7 +41,7 @@ local claims = std.extVar('claims');
       // enumeration attacks,  if the value is used for
       // verification or as a password login identifier.
       //
-      // If connecting only to your organization (one tenant), claims.email is safe to use if you haven't actively disabled e-mail verification during signup.
+      // If connecting only to your organization (one tenant), claims.email is safe to use if you haven't actively disabled e-mail verification during Sign-Up.
       //
       // The email might be empty if the account isn't linked to an email address.
       // For a human readable identifier, consider using the "preferred_username" claim.
@@ -101,3 +101,11 @@ But there are systems out there that use `id` field returned by
 migrating such systems to Kratos easier the microsoft provider allows using `me`
 endpoint's `id` as an identifier. Set the provider config `subject_source` field
 to `me` to activate this feature.
+
+## Prevent Having to Login after Sign-Up
+
+```mdx-code-block
+import OidcSessionHook from '../_common/oidc_session_hook.mdx'
+
+<OidcSessionHook />
+```

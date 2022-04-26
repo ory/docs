@@ -7,12 +7,14 @@ Thanks to social sign-in, users can use their existing accounts from providers s
 Google, Slack, or Facebook for sign-up and sign-in in your application. 
 
 Ory Cloud provides convenient, GUI-based flows for adding new social sign-in providers through the
-Ory Console. Each flow is custom-tailored to accommodate configuration requirements of the specific 
-identity provider. 
+[Ory Cloud Console](https://console.ory.sh/login). Each flow is custom-tailored to accommodate configuration requirements of the specific 
+identity provider.
+
+Alternatively, you can use the [Ory CLI](../cli/installation) to add and configure social sign-in providers.
 
 :::info
 
-This feature is being actively developed. New provider-specific flows are added to the Ory Console
+This feature is being actively developed. New provider-specific flows are added to the Ory Cloud Console
 with new releases.
 
 :::
@@ -25,7 +27,7 @@ Allowing users to use their existing accounts with your application removes the 
 that comes with having to remember another set of credentials and makes the decision to 
 sign up much easier.
 
-Adding social sign-in providers relies on OAuth2 authorization and the OpenID identity layer. 
+Adding social sign-in providers relies on OAuth2 and OpenID Connect. 
 
 ## OIDC Token Handling
 
@@ -43,7 +45,7 @@ providers. The tokens are exchanged for Ory Sessions. The tokens are used in the
 
 ## Preventing Account Linking
 
-If you enable multiple registration methods users may be redirected to a social login provider 
+If you enable multiple registration methods, users may be redirected to a social login provider 
 to link their existing accounts after email verification. To disable this behavior, add the `session`
 hook after one of the registration methods (for example `password`):
 
@@ -57,3 +59,45 @@ selfservice:
             - hook: session
 ```
 
+### Dangers of Account Linking
+
+When the system detects that a user signs in with a social sign-provider's account
+that has the same identifier as an existing account, the user is asked to link the 
+accounts. 
+
+There is no way to have two separate accounts (one created "manually", one through a social sign-in) 
+for a single identifier.
+
+This is the default behavior of the system.
+
+While convenient for users, this behavior creates an attack vector that can allow malicious
+actors to take over user accounts. 
+
+To better understand the danger, consider the following scenario: 
+
+- Your application allows users to create new accounts or sign in with ACME - 
+a well-known social sign-in provider.
+- John creates a new account in your application using his john@doe.com email. 
+- Malicious actors know that John uses john@doe.com to sign in to his account in your app.
+- Malicious actors create an ACME account for john@doe.com. 
+- Malicious actors sign up in your application using the ACME account created for the john@doe.com 
+account. 
+- Your system uses the default behavior and when it detects two accounts with the same identifier, 
+malicious actors are asked to link the accounts. 
+- Malicious actors link the accounts. 
+- Malicious actors get access to the account that John created manually using his john@doe.com 
+email. 
+
+:::warning
+
+Since it constitutes a security threat, we strongly discourage allowing account linking. 
+
+:::
+
+## Prevent Having to Login after Sign-Up
+
+```mdx-code-block
+import OidcSessionHook from '../_common/oidc_session_hook.mdx'
+
+<OidcSessionHook />
+```

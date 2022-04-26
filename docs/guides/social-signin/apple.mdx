@@ -3,7 +3,7 @@ id: apple
 title: Apple
 ---
 
-## Configuration using the Ory CLI 
+## Configuration with Ory CLI 
 
 Follow these steps to add Apple as a social sign-in provider to your Ory Cloud project
 using the Ory CLI:
@@ -15,7 +15,7 @@ using the Ory CLI:
   https://<ory-cloud-project-slug>.projects.oryapis.com/self-service/methods/oidc/callback/apple
   ```
 <a name="mapping"></a>
-2. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema.
+3. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema.
 
   ```json
   local claims = {
@@ -43,9 +43,9 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
 <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
 ```
 
-3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible 
+4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible 
 to Ory Cloud.
-4. Download the Identity Service config from your Ory Cloud project and save it to a file: 
+5. Download the Identity Service config from your Ory Cloud project and save it to a file: 
 
   ```shell
   ## List all available projects
@@ -55,7 +55,7 @@ to Ory Cloud.
   ory get identity-config <project-id> --format yaml > identity-config.yaml
   ```
 <a name="config"></a>
-5. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet
+6. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet
 with mappings as a Base64 string or provide an URL to the file. 
 
   ```yaml
@@ -81,7 +81,7 @@ with mappings as a Base64 string or provide an URL to the file.
                 - email
   ```
 
-6. Update the Ory Cloud Identity Service configuration using the file you worked with: 
+7. Update the Ory Cloud Identity Service configuration using the file you worked with: 
 
   ```shell
   ory update identity-config <project-id> --file updated_config.yaml
@@ -104,6 +104,8 @@ Ory Kratos:
 your Ory Kratos instance. 
 5. Add the social [sign-in provider configuration to the Ory Kratos configuration](#config). Add the Jsonnet snippet
 with mappings as a Base64 string or provide a path or an URL of the file.
+
+## Prevent Having to Login after Sign-Up
 
 ```mdx-code-block
 import OidcSessionHook from '../_common/oidc_session_hook.mdx'
