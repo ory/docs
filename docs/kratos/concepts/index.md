@@ -213,7 +213,7 @@ Ory Kratos addresses a defined problem domain:
 - managing credentials such as passwords, recovery email addresses, and security
   questions;
 - authentication including secure login, keeping track of sessions and devices;
-- selfservice account management for example update profile, add/update email
+- self-service account management for example update profile, add/update email
   addresses, and changing passwords;
 - account/identity administration such as create, read, delete, update, import,
   and get; and
