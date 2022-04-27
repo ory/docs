@@ -107,13 +107,13 @@ The rest ports or services will be available only inside the internal network.
 
 ## Configuring Ory Oathkeeper and Ory Kratos
 
-Let's create a `kratos` folder and fetch configuration files
+1. Let's create a `kratos` folder and fetch configuration files
 
 <CodeBlock className="language-shell">{`mkdir kratos
 wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease('kratos')}/contrib/quickstart/kratos/email-password/identity.schema.json -O kratos/identity.schema.json
 wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease('kratos')}/contrib/quickstart/kratos/email-password/kratos.yml -O kratos/kratos.yml`}</CodeBlock>
 
-As a next step, create `oathkeeper` folder and `oathkeeper/oathkeeper.yml` with the following content
+2. Create `oathkeeper` folder and `oathkeeper/oathkeeper.yml` with the following content
 
 ```yaml
 log:
@@ -196,7 +196,7 @@ mutators:
     enabled: true
 ```
 
-and `oathkeeper/access-rules.yml` with the following content
+3. Create `oathkeeper/access-rules.yml` with the following content
 
 ```yaml
 -
@@ -225,7 +225,7 @@ This configuration of Oathkeeper uses cookie authenticator against Ory Kratos an
 
 ## WebSocket service
 
-Let's create a folder `ws` and create our websocket service using Go and Gin framework. Create `ws/main.go` file with the following content:
+1. Let's create a folder `ws` and create our websocket service using Go and Gin framework. Create `ws/main.go` file with the following content:
 
 ```go
 package main
@@ -272,7 +272,7 @@ func main() {
 }
 
 ```
-Then we need to initialize go modules by running the following commands:
+2. We need to initialize go modules by running the following commands:
 
 ```shell
 cd ws
@@ -280,7 +280,7 @@ go mod init ws
 go mod tidy
 ```
 
-Let's add our simple frontend application. Create `ws/index.html` file with the following content:
+3. Create `ws/index.html` file with the following content:
 
 ```html
 <html>
@@ -317,7 +317,7 @@ Let's add our simple frontend application. Create `ws/index.html` file with the 
 </html>
 ```
 
-and `ws/Dockerfile` with the following content
+4. Create `ws/Dockerfile` with the following content
 
 ```
 FROM golang as builder
@@ -336,7 +336,7 @@ COPY --from=builder /build/ws /ws
 COPY index.html /index.html
 ENTRYPOINT ["/ws"]
 ```
-As a final step we need to add our `ws` service to the `docker-compose.yml`
+5. We need to add our `ws` service to the `docker-compose.yml`
 
 ```yaml
 services:
