@@ -126,23 +126,6 @@ module.exports = {
       ]
     },
     {
-      'Contributing & Open Source': [
-        'open-source',
-        'ecosystem/contributing',
-        'ecosystem/community',
-        'ecosystem/projects',
-        'ecosystem/versioning',
-        'ecosystem/configuring',
-        'ecosystem/deployment',
-        'ecosystem/upgrading',
-        'ecosystem/logging',
-        'ecosystem/sqa',
-        'ecosystem/security',
-        'ecosystem/roadmap',
-        'ecosystem/software-architecture-philosophy'
-      ]
-    },
-    {
       type: 'category',
       label: 'Identity Management (Ory Kratos)',
       items: [
@@ -511,5 +494,20 @@ module.exports = {
       label: 'Further Reading',
       items: ['cloud/developer', 'cloud/cloud-roadmap']
     }
-  ]
-}
+  ],
+  opensource: [
+        'open-source',
+        'ecosystem/contributing',
+        'ecosystem/community',
+        'ecosystem/projects',
+        'ecosystem/versioning',
+        'ecosystem/configuring',
+        'ecosystem/deployment',
+        'ecosystem/upgrading',
+        'ecosystem/logging',
+        'ecosystem/sqa',
+        'ecosystem/security',
+        'ecosystem/roadmap',
+        'ecosystem/software-architecture-philosophy'
+  ],
+};
