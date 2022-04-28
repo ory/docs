@@ -103,6 +103,18 @@ module.exports = {
           position: 'left'
         },
         {
+          type: 'docSidebar',
+          position: 'left',
+          sidebarId: 'docs',
+          label: 'Documentation',
+        },
+        {
+          type: 'docSidebar',
+          position: 'left',
+          sidebarId: 'opensource',
+          label: 'Contributing & Open Source',
+        },
+        {
           href: `https://github.com/ory/cloud/discussions`,
           label: 'Discussions',
           position: 'right'
