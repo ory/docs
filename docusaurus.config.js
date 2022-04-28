@@ -110,7 +110,7 @@ module.exports = {
         },
         {
           type: 'docSidebar',
-          position: 'right',
+          position: 'left',
           sidebarId: 'opensource',
           label: 'Contributing & Open Source',
         },
