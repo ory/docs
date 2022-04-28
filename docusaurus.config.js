@@ -98,11 +98,6 @@ module.exports = {
       },
       items: [
         {
-          to: 'https://www.ory.sh/',
-          label: `Home`,
-          position: 'left'
-        },
-        {
           type: 'docSidebar',
           position: 'left',
           sidebarId: 'docs',
@@ -113,6 +108,11 @@ module.exports = {
           position: 'left',
           sidebarId: 'opensource',
           label: 'Contributing & Open Source',
+        },
+        {
+          to: 'https://www.ory.sh/',
+          label: `Website`,
+          position: 'right'
         },
         {
           href: `https://github.com/ory/cloud/discussions`,
