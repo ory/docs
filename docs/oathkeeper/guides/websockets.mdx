@@ -1,6 +1,6 @@
 ---
 id: ory-oathkeeper-proxying-websockets
-title: Defining websockets rules with Oathkeeper
+title: Defining WebSockets rules with Oathkeeper
 ---
 
 import { useLatestRelease } from '@site/src/hooks'
@@ -10,7 +10,7 @@ import CodeBlock from '@theme/CodeBlock'
 This guide shows you how you can use Ory Oathkeeper with WebSockets.
 
 :::tip
-WebSockets bypass Oathkeeper after the first request and thus Oathkeeper only validates cookies once. It is up to your service to ensure that websocket connections expire within a reasonable time frame to ensure the session cookie is still active and valid.
+WebSockets bypass Oathkeeper after the first request and thus Oathkeeper only validates cookies once. It is up to your service to ensure that WebSocket connections expire within a reasonable time frame to ensure the session cookie is still active and valid.
 :::
 
 Let's create a simple echo WebSocket service that sends back an
@@ -19,7 +19,7 @@ and Ory Kratos to handle user login/signup and verification flows.
 
 ## Installing Ory Kratos and Ory Oathkeeper
 
-You can create any directory for the experiments and create `docker-compose.yml` file with the following content
+You can create any directory for the experiments and create `docker-compose.yml` file with the following content:
 
 <CodeBlock className="language-yaml">{`version: "3.7"
 services:
@@ -113,7 +113,7 @@ The rest ports or services will be available only inside the internal network.
 wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease('kratos')}/contrib/quickstart/kratos/email-password/identity.schema.json -O kratos/identity.schema.json
 wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease('kratos')}/contrib/quickstart/kratos/email-password/kratos.yml -O kratos/kratos.yml`}</CodeBlock>
 
-2. Create `oathkeeper` folder and `oathkeeper/oathkeeper.yml` with the following content
+2. Create `oathkeeper` folder and `oathkeeper/oathkeeper.yml` with the following content:
 
 ```yaml
 log:
@@ -196,7 +196,7 @@ mutators:
     enabled: true
 ```
 
-3. Create `oathkeeper/access-rules.yml` with the following content
+3. Create `oathkeeper/access-rules.yml` with the following content:
 
 ```yaml
 -
@@ -221,11 +221,11 @@ mutators:
         to: http://127.0.0.1:4455/login
 ```
 
-This configuration of Oathkeeper uses cookie authenticator against Ory Kratos and proxies only authenticated requests to `http://ws:8080` upstream. The `ws` hostname is resolved through the docker network. If you aren't deploying your application within docker, this would just be your localhost IP.
+This configuration of Oathkeeper uses cookie authenticator against Ory Kratos and proxies only authenticated requests to `http://ws:8080` upstream. The `ws` hostname is resolved through the Docker network. If you aren't deploying your application within Docker, this would just be your localhost IP.
 
 ## WebSocket service
 
-1. Let's create a folder `ws` and create our websocket service using Go and Gin framework. Create `ws/main.go` file with the following content:
+1. Let's create a folder `ws` and create our WebSocket service using Go and Gin framework. Create `ws/main.go` file with the following content:
 
 ```go
 package main
@@ -317,7 +317,7 @@ go mod tidy
 </html>
 ```
 
-4. Create `ws/Dockerfile` with the following content
+4. Create `ws/Dockerfile` with the following content:
 
 ```
 FROM golang as builder
