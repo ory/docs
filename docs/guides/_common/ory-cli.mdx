@@ -5,7 +5,10 @@ Ory Proxy is a reverse proxy deployed in front of your application. The Proxy mi
 domain as the application you're running and rewrites cookies to match the domain your application is currently on.
 
 As a result, the origin of the cookies is set correctly to the domain you run the app on instead of <br /> 
-`<your-project-slug>.projects.oryapis.com.`
+
+```
+<your-project-slug>.projects.oryapis.com
+```
 
 This behavior is necessary to avoid issues with the browser [CORS policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
 
