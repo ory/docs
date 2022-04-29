@@ -8,6 +8,12 @@
     "schemas": {
       "AdminUpdateIdentityBody": {
         "properties": {
+          "metadata_admin": {
+            "description": "Store metadata about the user which is only accessible through admin APIs such as `GET /admin/identities/\u003cid\u003e`."
+          },
+          "metadata_public": {
+            "description": "Store metadata about the identity which the identity itself can see when calling for example the\nsession endpoint. Do not store sensitive information (e.g. credit score) about the identity in this field."
+          },
           "schema_id": {
             "description": "SchemaID is the ID of the JSON Schema to be used for validating the identity's traits. If set\nwill update the Identity's SchemaID.",
             "type": "string"
@@ -197,6 +203,12 @@
         "properties": {
           "credentials": {
             "$ref": "#/components/schemas/adminIdentityImportCredentials"
+          },
+          "metadata_admin": {
+            "description": "Store metadata about the user which is only accessible through admin APIs such as `GET /admin/identities/\u003cid\u003e`."
+          },
+          "metadata_public": {
+            "description": "Store metadata about the identity which the identity itself can see when calling for example the\nsession endpoint. Do not store sensitive information (e.g. credit score) about the identity in this field."
           },
           "recovery_addresses": {
             "description": "RecoveryAddresses contains all the addresses that can be used to recover an identity.\n\nUse this structure to import recovery addresses for an identity. Please keep in mind\nthat the address needs to be represented in the Identity Schema or this field will be overwritten\non the next identity update.",
@@ -590,6 +602,12 @@
           },
           "id": {
             "$ref": "#/components/schemas/UUID"
+          },
+          "metadata_admin": {
+            "$ref": "#/components/schemas/nullJsonRawMessage"
+          },
+          "metadata_public": {
+            "$ref": "#/components/schemas/nullJsonRawMessage"
           },
           "recovery_addresses": {
             "description": "RecoveryAddresses contains all the addresses that can be used to recover an identity.",
@@ -2098,6 +2116,7 @@
         },
         "required": [
           "id",
+          "type",
           "expires_at",
           "issued_at",
           "request_url",
@@ -2161,7 +2180,14 @@
             "$ref": "#/components/schemas/uiContainer"
           }
         },
-        "required": ["id", "expires_at", "issued_at", "request_url", "ui"],
+        "required": [
+          "id",
+          "type",
+          "expires_at",
+          "issued_at",
+          "request_url",
+          "ui"
+        ],
         "type": "object"
       },
       "selfServiceSettingsFlow": {
@@ -2207,6 +2233,7 @@
         },
         "required": [
           "id",
+          "type",
           "expires_at",
           "issued_at",
           "request_url",
@@ -2327,7 +2354,8 @@
               "totp",
               "oidc",
               "webauthn",
-              "lookup_secret"
+              "lookup_secret",
+              "v0.6_legacy_session"
             ],
             "title": "The method used",
             "type": "string"
@@ -2494,7 +2522,7 @@
             "type": "string"
           }
         },
-        "required": ["method", "password", "password_identifier", "identifier"],
+        "required": ["method", "password", "identifier"],
         "title": "submitSelfServiceLoginFlowWithPasswordMethodBody is used to decode the login form payload.",
         "type": "object"
       },
@@ -3023,7 +3051,18 @@
             "$ref": "#/components/schemas/uiNodeAttributes"
           },
           "group": {
-            "$ref": "#/components/schemas/uiNodeGroup"
+            "description": "Group specifies which group (e.g. password authenticator) this node belongs to.",
+            "enum": [
+              "default",
+              "password",
+              "oidc",
+              "profile",
+              "link",
+              "totp",
+              "lookup_secret",
+              "webauthn"
+            ],
+            "type": "string"
           },
           "messages": {
             "$ref": "#/components/schemas/uiTexts"
@@ -3032,7 +3071,9 @@
             "$ref": "#/components/schemas/uiNodeMeta"
           },
           "type": {
-            "$ref": "#/components/schemas/uiNodeType"
+            "description": "The node's type",
+            "enum": ["text", "input", "img", "a", "script"],
+            "type": "string"
           }
         },
         "required": ["type", "group", "attributes", "messages", "meta"],
@@ -3050,7 +3091,9 @@
             "type": "string"
           },
           "node_type": {
-            "$ref": "#/components/schemas/uiNodeType"
+            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.",
+            "enum": ["text", "input", "img", "a", "script"],
+            "type": "string"
           },
           "title": {
             "$ref": "#/components/schemas/uiText"
@@ -3063,8 +3106,8 @@
       "uiNodeAttributes": {
         "discriminator": {
           "mapping": {
-            "anchor": "#/components/schemas/uiNodeAnchorAttributes",
-            "image": "#/components/schemas/uiNodeImageAttributes",
+            "a": "#/components/schemas/uiNodeAnchorAttributes",
+            "img": "#/components/schemas/uiNodeImageAttributes",
             "input": "#/components/schemas/uiNodeInputAttributes",
             "script": "#/components/schemas/uiNodeScriptAttributes",
             "text": "#/components/schemas/uiNodeTextAttributes"
@@ -3090,9 +3133,6 @@
         ],
         "title": "Attributes represents a list of attributes (e.g. `href=\"foo\"` for links)."
       },
-      "uiNodeGroup": {
-        "type": "string"
-      },
       "uiNodeImageAttributes": {
         "properties": {
           "height": {
@@ -3105,7 +3145,9 @@
             "type": "string"
           },
           "node_type": {
-            "$ref": "#/components/schemas/uiNodeType"
+            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.",
+            "enum": ["text", "input", "img", "a", "script"],
+            "type": "string"
           },
           "src": {
             "description": "The image's source URL.\n\nformat: uri",
@@ -3139,7 +3181,9 @@
             "type": "string"
           },
           "node_type": {
-            "$ref": "#/components/schemas/uiNodeType"
+            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.",
+            "enum": ["text", "input", "img", "a", "script"],
+            "type": "string"
           },
           "onclick": {
             "description": "OnClick may contain javascript which should be executed on click. This is primarily\nused for WebAuthn.",
@@ -3193,7 +3237,9 @@
             "type": "string"
           },
           "node_type": {
-            "$ref": "#/components/schemas/uiNodeType"
+            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.",
+            "enum": ["text", "input", "img", "a", "script"],
+            "type": "string"
           },
           "nonce": {
             "description": "Nonce for CSP\n\nA nonce you may want to use to improve your Content Security Policy.\nYou do not have to use this value but if you want to improve your CSP\npolicies you may use it. You can also choose to use your own nonce value!",
@@ -3233,7 +3279,9 @@
             "type": "string"
           },
           "node_type": {
-            "$ref": "#/components/schemas/uiNodeType"
+            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.",
+            "enum": ["text", "input", "img", "a", "script"],
+            "type": "string"
           },
           "text": {
             "$ref": "#/components/schemas/uiText"
@@ -3242,9 +3290,6 @@
         "required": ["text", "id", "node_type"],
         "title": "TextAttributes represents the attributes of a text node.",
         "type": "object"
-      },
-      "uiNodeType": {
-        "type": "string"
       },
       "uiNodes": {
         "items": {
@@ -3463,7 +3508,7 @@
         "tags": ["v0alpha2"]
       },
       "post": {
-        "description": "This endpoint creates an identity. It is NOT possible to set an identity's credentials (password, ...)\nusing this method! A way to achieve that will be introduced in the future.\n\nLearn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
+        "description": "This endpoint creates an identity. Learn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
         "operationId": "adminCreateIdentity",
         "requestBody": {
           "content": {
@@ -3640,7 +3685,7 @@
         "tags": ["v0alpha2"]
       },
       "put": {
-        "description": "This endpoint updates an identity. It is NOT possible to set an identity's credentials (password, ...)\nusing this method! A way to achieve that will be introduced in the future.\n\nThe full identity payload (except credentials) is expected. This endpoint does not support patching.\n\nLearn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
+        "description": "This endpoint updates an identity. The full identity payload (except credentials) is expected. This endpoint does not support patching.\n\nLearn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
         "operationId": "adminUpdateIdentity",
         "parameters": [
           {

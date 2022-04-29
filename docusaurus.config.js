@@ -101,13 +101,13 @@ module.exports = {
           type: 'docSidebar',
           position: 'left',
           sidebarId: 'docs',
-          label: 'Documentation',
+          label: 'Documentation'
         },
         {
           type: 'docSidebar',
           position: 'left',
           sidebarId: 'opensource',
-          label: 'Contributing & Open Source',
+          label: 'Contributing & Open Source'
         },
         {
           to: 'https://www.ory.sh/',
