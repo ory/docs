@@ -9,17 +9,25 @@ It's yet another tool that you can use to aid you in profiling, debugging and
 ultimately understanding your deployment of Kratos better. Kratos supports the
 following tracing options:
 
-- Tracing backend(s): Jaeger - _Note:
-  adding support for other
-  [OpenTelemetry exporters](https://opentelemetry.io/docs/instrumentation/go/exporting_data/)
-  is planned. To aid in priority, please
-  [create an issue](https://github.com/ory/kratos/issues) with your feature
-  request._
-- Following existing traces: If you have deployed Kratos behind a proxy that has
-  initiated a trace, Kratos will attempt to join that trace by examining the
-  request headers for tracing context. At present, support for Jaeger
-  and Zipkin (B3) spans exists; support for additional formats like Trace Context
-  and Baggage is planned.
+- Tracing backend(s): Jaeger
+
+  **Note**: Adding support for other [OpenTelemetry
+  exporters](https://opentelemetry.io/docs/instrumentation/go/exporting_data/)
+  is planned. To aid in priority, please [create an
+  issue](https://github.com/ory/kratos/issues) with your feature
+  request. However, official support in OpenTelemetry only exists for
+  the exporters listed
+  [here](https://github.com/open-telemetry/opentelemetry-go/tree/main/exporters).
+  Other backends can be technically "supported" by sending spans to the
+  OpenTelemetry Collector agent, and configuring the collector to push
+  spans to whatever [backend of your choice](
+  https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter).
+
+- Following existing traces: If you have deployed Kratos behind a proxy
+  that has initiated a trace, Kratos will attempt to join that trace by
+  examining the request headers for tracing context. At present, support
+  for Jaeger and Zipkin (B3) spans exists; support for additional
+  formats like Trace Context and Baggage is planned.
 
 ### What a Kratos trace includes
 
