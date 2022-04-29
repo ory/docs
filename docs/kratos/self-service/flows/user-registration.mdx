@@ -66,7 +66,7 @@ Two registration methods are supported:
 - `password` for signing up with an email / username and password;
 - `oidc` for signing up using a social sign in provider such as Google or
   Facebook (check out the
-  [set up guide](../../guides/sign-in-with-github-google-facebook-linkedin.mdx)).
+  [set up guide](../../../guides/social-signin/overview)).
 
 <Tabs
   defaultValue="oss"
@@ -435,7 +435,7 @@ curl -H "Accept: application/json" -s \
 :::tip Before you start
 
 Check out the
-[Sign in with GitHub, Google, ... Guide](../../guides/sign-in-with-github-google-facebook-linkedin.mdx)
+[social sign-in documentation](../../../guides/social-signin/overview)
 and learn how to set up this method!
 
 :::
@@ -693,7 +693,7 @@ It's very important to add the "session" hook to the after `oidc` registration
 hooks. Otherwise your users need to use the login flow again to be able to get a
 session. Account Enumeration Attacks with OpenID Connect sign in flows are
 typically not an issue if you follow the guidelines in the
-[Sign in with GitHub, Google, Facebook, LinkedIn, Microsoft ... Guide](../../guides/sign-in-with-github-google-facebook-linkedin.mdx)!
+[social sign-in documentation](../../../guides/social-signin/overview)!
 
 :::
 
