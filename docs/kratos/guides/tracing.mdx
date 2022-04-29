@@ -51,3 +51,32 @@ Kratos creates the following spans:
 This is still evolving and subject to change as tracing support continues to
 expand in Kratos. If you see something that's missing/wrong, please create an
 issue.
+
+### Configuring tracing
+
+The [provided docker-compose
+file](https://github.com/ory/kratos/blob/master/quickstart-tracing.yml) in the
+project repository has tracing configuration which you can use to play around
+with.
+
+Simply run
+
+```sh
+docker-compose -f quickstart.yml \
+    -f quickstart-tracing.yml \
+    up --build
+```
+
+Grab a coffee or stretch while you wait for everything to come up. You will then
+be able to navigate to the Jaeger UI which you have exposed on port `16686` at
+http://localhost:16686/search. You can now start making requests to Kratos and
+inspect traces!
+
+In essence, simply set the following environment variables:
+
+```sh
+TRACING_PROVIDER=jaeger    # only "jaeger" is supported for now
+TRACING_PROVIDERS_JAEGER_SAMPLING_SERVER_URL=http://jaeger:5778/sampling
+TRACING_PROVIDERS_JAEGER_LOCAL_AGENT_ADDRESS=jaeger:6831
+```
+
