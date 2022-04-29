@@ -3,9 +3,6 @@ id: go
 title: Go
 ---
 
-import CodeBlock from '@theme/CodeBlock'
-import { useLatestRelease } from '@site/src/hooks'
-
 Ory SDKs are generated using the
 [openapi-generator](https://github.com/OpenAPITools/openapi-generator). The Ory
 Hydra Go SDK is generated using [`go-swagger`](http://goswagger.io).
@@ -23,6 +20,9 @@ information visit the [Using OAuth2](../guides/using-oauth2.mdx) guide.
 To install the Go SDK, run:
 
 ```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import { useLatestRelease } from '@site/src/hooks'
+
 <CodeBlock className="language-shell">{`go get github.com/ory/hydra-client-go@${useLatestRelease('hydra')}`}</CodeBlock>
 ```
 

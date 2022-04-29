@@ -16,8 +16,8 @@ Import resources
 ### Options
 
 ```
-  -e, --endpoint string   The URL of Ory Kratos&#39; Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
-  -f, --format string     Set the output format. One of table, json, and json-pretty. (default &#34;default&#34;)
+  -e, --endpoint string   The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
+      --format string     Set the output format. One of table, json, yaml, and json-pretty. (default "default")
   -h, --help              help for import
   -q, --quiet             Be quiet with output printing.
 ```

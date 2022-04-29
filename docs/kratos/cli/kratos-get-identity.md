@@ -26,23 +26,23 @@ kratos get identity [id-1] [id-2] [id-n] [flags]
 ### Examples
 
 ```
-To get the identities with the recovery email address at the domain &#34;ory.sh&#34;, run:
+To get the identities with the recovery email address at the domain "ory.sh", run:
 
-	kratos get identity $(kratos ls identities --format json | jq -r &#39;map(select(.recovery_addresses[].value | endswith(&#34;@ory.sh&#34;))) | .[].id&#39;)
+	kratos get identity $(kratos ls identities --format json | jq -r 'map(select(.recovery_addresses[].value | endswith("@ory.sh"))) | .[].id')
 ```
 
 ### Options
 
 ```
   -h, --help                              help for identity
-  -i, --include-credentials stringArray   Include third party tokens (only &#34;oidc&#34; supported) 
+  -i, --include-credentials stringArray   Include third party tokens (only "oidc" supported) 
 ```
 
 ### Options inherited from parent commands
 
 ```
-  -e, --endpoint string   The URL of Ory Kratos&#39; Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
-  -f, --format string     Set the output format. One of table, json, and json-pretty. (default &#34;default&#34;)
+  -e, --endpoint string   The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
+      --format string     Set the output format. One of table, json, yaml, and json-pretty. (default "default")
   -q, --quiet             Be quiet with output printing.
 ```
 
