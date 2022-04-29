@@ -3,14 +3,14 @@ id: go
 title: Go
 ---
 
-import CodeBlock from '@theme/CodeBlock' import { useLatestRelease } from
-'@site/src/hooks'
-
 This guide shows how you can use Go SDK with Ory Kratos.
 
 ## Installation
 
 ```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import { useLatestRelease } from '@site/src/hooks'
+
 <CodeBlock className="language-shell">{`go get  github.com/ory/kratos-client-go@${useLatestRelease('keto')}`}</CodeBlock>
 ```
 
