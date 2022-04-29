@@ -29,7 +29,7 @@ using the Ory CLI:
         // enumeration attacks,  if the value is used for
         // verification or as a password login identifier.
         //
-        // It's assumed that Slack requires an email to be verified before accessible via OAuth (because they don't provide a email_verified field).
+        // It's assumed that Slack requires an email to be verified to be accessible via OAuth (because they don't provide a email_verified field).
         email: claims.email
       },
     },
@@ -99,6 +99,12 @@ Ory Kratos:
 your Ory Kratos instance. 
 5. Add the social [sign-in provider configuration to the Ory Kratos configuration](#config). Add the Jsonnet snippet
 with mappings as a Base64 string or provide a path or an URL of the file.
+
+```mdx-code-block
+import ConfigAsEnv from '../_common/config_as_env.mdx'
+
+<ConfigAsEnv />
+```
 
 ## Prevent Having to Login after Sign-Up
 

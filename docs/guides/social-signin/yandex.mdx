@@ -22,7 +22,7 @@ using the Ory CLI:
   {
     identity: {
       traits: {
-        // Yandex don't provide an email_verified field.
+        // Yandex doesn't provide an email_verified field.
         //
         // The email might be empty if the user isn't allowed to an email scope.
         [if "email" in claims then "email" else null]: claims.email,
@@ -100,6 +100,12 @@ Ory Kratos:
 your Ory Kratos instance. 
 5. Add the social [sign-in provider configuration to the Ory Kratos configuration](#config). Add the Jsonnet snippet
 with mappings as a Base64 string or provide a path or an URL of the file.
+
+```mdx-code-block
+import ConfigAsEnv from '../_common/config_as_env.mdx'
+
+<ConfigAsEnv />
+```
 
 ## Prevent Having to Login after Sign-Up
 

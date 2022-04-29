@@ -59,7 +59,7 @@ To define the mapping, create a Jsonnet code snippet. Read
 [this document](../../kratos/concepts/credentials/openid-connect-oidc-oauth2#data-mapping-with-jsonnet)
 to learn more about data mapping with Jsonnet.
 
-:::note
+:::info
 
 GitHub doesn't implement OpenID Connect. Because of this limitation, Ory Kratos
 makes a request to
@@ -163,6 +163,12 @@ Ory Kratos:
 your Ory Kratos instance. 
 5. Add the [social sign-in provider configuration](#configuration-with-ory-cli) to the Ory Kratos configuration. Add 
 the Jsonnet snippet with mappings as a Base64 string or provide a path or an URL of the file.
+
+```mdx-code-block
+import ConfigAsEnv from '../_common/config_as_env.mdx'
+
+<ConfigAsEnv />
+```
 
 ## Prevent Having to Login after Sign-Up
 

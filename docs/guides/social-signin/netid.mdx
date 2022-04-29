@@ -47,11 +47,11 @@ using the Ory CLI:
 
   :::
 
-  ```mdx-code-block
-  import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
+```mdx-code-block
+import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
 
-  <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
-  ```
+<JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
+```
 
 4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible 
 to Ory Cloud.
@@ -121,6 +121,12 @@ Ory Kratos:
 your Ory Kratos instance. 
 5. Add the social [sign-in provider configuration to the Ory Kratos configuration](#config). Add the Jsonnet snippet
 with mappings as a Base64 string or provide a path or an URL of the file.
+
+```mdx-code-block
+import ConfigAsEnv from '../_common/config_as_env.mdx'
+
+<ConfigAsEnv />
+```
 
 ## Prevent Having to Login after Sign-Up
 
