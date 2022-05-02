@@ -1,6 +1,8 @@
 import { test, expect } from '@playwright/test';
 import {randomEmail, randomString} from "./helpers";
 
+test.slow() // extend the base timeouts
+
 test.describe('protect-page-login', () => {
   for (const app of [
     { url: 'http://localhost:3001/', name: 'next.js' },
