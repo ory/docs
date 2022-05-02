@@ -54,7 +54,7 @@ function Footer() {
         'footer--dark': footer.style === 'dark'
       })}
     >
-      <div className="container">
+      <div className="container text--center">
         {links && links.length > 0 && (
           <div className="row footer__links">
             {links.map((linkItem, i) => (
@@ -89,7 +89,7 @@ function Footer() {
           </div>
         )}
         {(logo || copyright) && (
-          <div className="text--center">
+          <div className="footer--copyright">
             {logo && logo.src && (
               <div className="margin-bottom--sm">
                 {logo.href ? (
