@@ -223,8 +223,7 @@ module.exports = {
             'kratos/guides/setting-up-password-hashing-parameters',
             'kratos/guides/integration-with-other-systems-using-web-hooks',
             'kratos/guides/tracing',
-            'kratos/guides/upgrade',
-            'kratos/guides/going-to-production-with-nginx-and-digitalocean'
+            'kratos/guides/upgrade'
           ]
         },
         'kratos/reference/api',
