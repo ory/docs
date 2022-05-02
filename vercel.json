@@ -399,7 +399,7 @@
       "destination": "https://www.ory.sh/docs/guides/manage-identities/managing-users-identities",
       "permanent": false
     },
-    {  
+    {
       "source": "/docs/kratos/guides/sign-in-with-github-google-facebook-linkedin",
       "destination": "https://www.ory.sh/docs/guides/social-signin/overview",
       "permanent": false

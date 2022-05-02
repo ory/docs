@@ -95,22 +95,22 @@ module.exports = {
           items: [
             'guides/social-signin/overview',
             {
-            'Integrating Providers': [
-              'guides/social-signin/generic',
-              'guides/social-signin/google',
-              'guides/social-signin/facebook',
-              'guides/social-signin/microsoft',
-              'guides/social-signin/github',
-              'guides/social-signin/apple',
-              'guides/social-signin/gitlab',
-              'guides/social-signin/auth0',
-              'guides/social-signin/slack',
-              'guides/social-signin/spotify',
-              'guides/social-signin/discord',
-              'guides/social-signin/twitch',
-              'guides/social-signin/netid',
-              'guides/social-signin/yandex',
-              'guides/social-signin/vk'
+              'Integrating Providers': [
+                'guides/social-signin/generic',
+                'guides/social-signin/google',
+                'guides/social-signin/facebook',
+                'guides/social-signin/microsoft',
+                'guides/social-signin/github',
+                'guides/social-signin/apple',
+                'guides/social-signin/gitlab',
+                'guides/social-signin/auth0',
+                'guides/social-signin/slack',
+                'guides/social-signin/spotify',
+                'guides/social-signin/discord',
+                'guides/social-signin/twitch',
+                'guides/social-signin/netid',
+                'guides/social-signin/yandex',
+                'guides/social-signin/vk'
               ]
             }
           ]
