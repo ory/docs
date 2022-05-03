@@ -3,21 +3,20 @@ id: auth0
 title: Auth0
 ---
 
-## Configuration with Ory CLI
 
-Follow these steps to add Auth0 as a social sign-in provider to your Ory Cloud
-project using the Ory CLI:
+## Configuration with Ory CLI 
+
+Follow these steps to add Auth0 as a social sign-in provider to your Ory Cloud project
+using the Ory CLI:
 
 1. [Create an Auth0 Application for your Auth0 Tenant](https://auth0.com/docs/applications).
 2. In the created app, set the redirect URI to:
-
-```shell
-https://<ory-cloud-project-slug>.projects.oryapis.com/self-service/methods/oidc/callback/auth0
-```
-
+  
+  ```shell
+  https://<ory-cloud-project-slug>.projects.oryapis.com/self-service/methods/oidc/callback/auth0
+  ```
 <a name="mapping"></a>
-3. Create a Jsonnet code snippet to map the desired claims to the Ory Identity
-schema.{' '}
+3. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema. 
 
     ```json
     local claims = {
@@ -47,7 +46,7 @@ schema.{' '}
     [Auth0's /userinfo API](https://auth0.com/docs/api/authentication?http#user-profile)
     and adds the user info to `std.extVar('claims')`.
 
-    :::
+    :::   
 
 ```mdx-code-block
 import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
@@ -55,23 +54,20 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
 <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
 ```
 
-4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or
-   host it under an URL accessible to Ory Cloud.
-5. Download the Identity Service config from your Ory Cloud project and save it
-   to a file:
+4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible 
+to Ory Cloud.
+5. Download the Identity Service config from your Ory Cloud project and save it to a file: 
 
-```shell
-## List all available projects
-ory list projects
+  ```shell
+  ## List all available projects
+  ory list projects
 
-## Get config
-ory get identity-config <project-id> --format yaml > identity-config.yaml
-```
-
+  ## Get config
+  ory get identity-config <project-id> --format yaml > identity-config.yaml
+  ```
 <a name="config"></a>
-6. Add the social sign-in provider configuration to the downloaded config. Add
-the Jsonnet snippet with mappings as a Base64 string or provide an URL to the
-file.{' '}
+6. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet
+with mappings as a Base64 string or provide an URL to the file. 
 
     ```yaml
     selfservice:
@@ -94,12 +90,11 @@ file.{' '}
                 - email
     ```
 
-7. Update the Ory Cloud Identity Service configuration using the file you worked
-   with:
+7. Update the Ory Cloud Identity Service configuration using the file you worked with: 
 
-```shell
-ory update identity-config <project-id> --file updated_config.yaml
-```
+  ```shell
+  ory update identity-config <project-id> --file updated_config.yaml
+  ```
 
 ## Configuration for Self-hosted Instances
 
@@ -109,18 +104,15 @@ Ory Kratos:
 1. [Create an Auth0 Application for your Auth0 Tenant](https://auth0.com/docs/applications).
 2. Set the redirect URI to URL that follows this pattern:
 
-```shell
-http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/auth0
-```
+  ```shell
+  http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/auth0
+  ```
 
-3. Create a
-   [Jsonnet code snippet to map the desired claims to the Ory Identity schema](#mapping).
-4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or
-   store it in a location available to your Ory Kratos instance.
-5. Add the social
-   [sign-in provider configuration to the Ory Kratos configuration](#config).
-   Add the Jsonnet snippet with mappings as a Base64 string or provide a path or
-   an URL of the file.
+3. Create a [Jsonnet code snippet to map the desired claims to the Ory Identity schema](#mapping).
+4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or store it in a location available to
+your Ory Kratos instance. 
+5. Add the social [sign-in provider configuration to the Ory Kratos configuration](#config). Add the Jsonnet snippet
+with mappings as a Base64 string or provide a path or an URL of the file.
 
 ```mdx-code-block
 import ConfigAsEnv from '../_common/config_as_env.mdx'
