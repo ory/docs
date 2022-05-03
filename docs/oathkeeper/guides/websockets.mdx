@@ -227,49 +227,10 @@ This configuration of Oathkeeper uses cookie authenticator against Ory Kratos an
 
 1. Let's create a folder `ws` and create our WebSocket service using Go and Gin framework. Create `ws/main.go` file with the following content:
 
-```go
-package main
+```mdx-code-block title="ws/main.go"
+import app from '!!raw-loader!../../../code-examples/oathkeeper/main.go'
 
-import (
-	"fmt"
-
-	"github.com/gin-gonic/gin"
-	"github.com/gorilla/websocket"
-)
-
-func main() {
-
-	r := gin.Default()
-	r.LoadHTMLFiles("index.html")
-
-	r.GET("/", func(c *gin.Context) {
-		c.HTML(200, "index.html", nil)
-		return
-	})
-
-	r.GET("/ws", func(c *gin.Context) {
-		var wsupgrader = websocket.Upgrader{
-			ReadBufferSize:  1024,
-			WriteBufferSize: 1024,
-		}
-		conn, err := wsupgrader.Upgrade(c.Writer, c.Request, nil)
-		if err != nil {
-			fmt.Printf("Failed to set websocket upgrade: %+v\n", err)
-			return
-		}
-
-		for {
-			t, msg, err := conn.ReadMessage()
-			if err != nil {
-				break
-			}
-			conn.WriteMessage(t, msg)
-		}
-		return
-	})
-
-	r.Run(":8080")
-}
+<CodeBlock language="go">{app}</CodeBlock>
 
 ```
 2. We need to initialize go modules by running the following commands:
@@ -282,59 +243,20 @@ go mod tidy
 
 3. Create `ws/index.html` file with the following content:
 
-```html
-<html>
-<head>
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-</head>
+```mdx-code-block title="ws/index.html"
+import index from '!!raw-loader!../../../code-examples/oathkeeper/index.html'
 
-<body>
-<h3>WebSocket Go</h3>
-<pre id="output"></pre>
+<CodeBlock language="html">{index}</CodeBlock>
 
-<script>
-    url = 'ws://127.0.0.1:8080/ws';
-    c = new WebSocket(url);
-
-    send = function(data){
-        $("#output").append((new Date())+ " ==> "+data+"\n")
-        c.send(data)
-    }
-
-    c.onmessage = function(msg){
-        $("#output").append((new Date())+ " <== "+msg.data+"\n")
-        console.log(msg)
-    }
-
-    c.onopen = function(){
-        setInterval(
-            function(){ send("ping") }
-            , 1000 )
-    }
-</script>
-
-</body>
-</html>
 ```
 
 4. Create `ws/Dockerfile` with the following content:
 
-```
-FROM golang as builder
+```mdx-code-block title="ws/Dockerfile"
+import dockerfile from '!!raw-loader!../../../code-examples/oathkeeper/Dockerfile'
 
-RUN mkdir /build
+<CodeBlock language="html">{dockerfile}</CodeBlock>
 
-ADD . /build
-
-WORKDIR /build
-RUN GOOS=linux GOARCH=amd64 go build -o ws main.go
-
-FROM alpine
-EXPOSE 8090
-
-COPY --from=builder /build/ws /ws
-COPY index.html /index.html
-ENTRYPOINT ["/ws"]
 ```
 5. We need to add our `ws` service to the `docker-compose.yml`
 
