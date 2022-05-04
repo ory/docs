@@ -119,7 +119,7 @@ module.exports = {
           type: 'category',
           label: 'Customizing Ory',
           items: [
-            'guides/custom-domains-and-cors',
+            'guides/custom-domains',
             'guides/bring-your-user-interface',
             'guides/customize-identity-schema',
             'start-building/single-page-app-spa'
