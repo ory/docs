@@ -1,7 +1,7 @@
 ---
-id: ory-create-project
-title: ory create project
-description: ory create project Create a new Ory Cloud Project
+id: ory-list-identities
+title: ory list identities
+description: ory list identities List identities
 ---
 
 <!--
@@ -9,19 +9,29 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-## ory create project
+## ory list identities
 
-Create a new Ory Cloud Project
+List identities
+
+### Synopsis
+
+List identities (paginated)
 
 ```
-ory create project [flags]
+ory list identities [<page> <per-page>] [flags]
+```
+
+### Examples
+
+```
+ory ls identities 100 1
 ```
 
 ### Options
 
 ```
-  -h, --help          help for project
-  -n, --name string   The name of the project, required when quiet mode is used
+  -h, --help             help for identities
+      --project string   The project to use
 ```
 
 ### Options inherited from parent commands
@@ -35,5 +45,5 @@ ory create project [flags]
 
 ### SEE ALSO
 
-* [ory create](ory-create)	 - Create Ory Cloud resources
+* [ory list](ory-list)	 - List resources
 

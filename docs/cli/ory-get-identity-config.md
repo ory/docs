@@ -1,8 +1,7 @@
 ---
 id: ory-get-identity-config
 title: ory get identity-config
-description:
-  ory get identity-config Get an Ory Cloud project's identity configuration
+description: ory get identity-config Get an Ory Cloud project's identity configuration
 ---
 
 <!--
@@ -10,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory get identity-config
 
 Get an Ory Cloud project's identity configuration
@@ -57,4 +55,5 @@ $ ory get kratos-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
 
 ### SEE ALSO
 
-- [ory get](ory-get) - Get a resource
+* [ory get](ory-get)	 - Get a resource
+

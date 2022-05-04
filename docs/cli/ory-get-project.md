@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory get project
 
 Get an Ory Cloud project
@@ -23,9 +22,9 @@ ory get project id [flags]
 ```
 $ ory get project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89
 
-ID		ecaaa3cb-0730-4ee8-a6df-9553cdfeef89
-SLUG	good-wright-t7kzy3vugf
-STATE	running
+ID		ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 
+SLUG	good-wright-t7kzy3vugf		
+STATE	running					
 NAME	Example Project
 
 $ ory get project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
@@ -64,4 +63,5 @@ $ ory get project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
 
 ### SEE ALSO
 
-- [ory get](ory-get) - Get a resource
+* [ory get](ory-get)	 - Get a resource
+

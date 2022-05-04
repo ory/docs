@@ -1,8 +1,7 @@
 ---
 id: ory-patch-identity-config
 title: ory patch identity-config
-description:
-  ory patch identity-config Patch an Ory Cloud Project's Identity Config
+description: ory patch identity-config Patch an Ory Cloud Project's Identity Config
 ---
 
 <!--
@@ -10,34 +9,31 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory patch identity-config
 
 Patch an Ory Cloud Project's Identity Config
 
 ### Synopsis
 
-Use this command to patch your current Ory Cloud Project&#39;s identity service
-configuration. Only values specified in the patch will be overwritten. To
-replace the config use the `update` command instead.
+Use this command to patch your current Ory Cloud Project&#39;s identity service configuration. Only values
+specified in the patch will be overwritten. To replace the config use the `update` command instead.
 
-Compared to the `patch project` command, this command only updates the identity
-service configuration and also only returns the identity service configuration
-as a result. This command is useful when you want to import an Ory Kratos config
-as well, for example. This allows for shorter paths when specifying the flags
+Compared to the `patch project` command, this command only updates the identity service configuration
+and also only returns the identity service configuration as a result. This command is useful when you want to
+import an Ory Kratos config as well, for example. This allows for shorter paths when specifying the flags
 
-    ory patch identity-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
-    	--replace &#39;/selfservice/methods/password/enabled=false&#39;
+	ory patch identity-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
+		--replace &#39;/selfservice/methods/password/enabled=false&#39;
 
 when compared to the `patch project` command:
 
-    ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
-    	--replace &#39;/identity/services/config/selfservice/methods/password/enabled=false&#39;
+	ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
+		--replace &#39;/identity/services/config/selfservice/methods/password/enabled=false&#39;
 
 The format of the patch is a JSON-Patch document. For more details please check:
 
-    https://www.ory.sh/docs/reference/api#operation/patchProject
-    https://jsonpatch.com
+	https://www.ory.sh/docs/reference/api#operation/patchProject
+	https://jsonpatch.com
 
 ```
 ory patch identity-config project-id [flags]
@@ -83,4 +79,5 @@ $ ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 
 ### SEE ALSO
 
-- [ory patch](ory-patch) - Patch resources
+* [ory patch](ory-patch)	 - Patch resources
+

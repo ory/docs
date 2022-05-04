@@ -1,7 +1,7 @@
 ---
-id: ory-create-project
-title: ory create project
-description: ory create project Create a new Ory Cloud Project
+id: ory-import
+title: ory import
+description: ory import Import resources
 ---
 
 <!--
@@ -9,31 +9,22 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-## ory create project
+## ory import
 
-Create a new Ory Cloud Project
-
-```
-ory create project [flags]
-```
+Import resources
 
 ### Options
 
 ```
-  -h, --help          help for project
-  -n, --name string   The name of the project, required when quiet mode is used
-```
-
-### Options inherited from parent commands
-
-```
   -c, --config string   Path to the Ory Cloud configuration file.
       --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
+  -h, --help            help for import
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
 ```
 
 ### SEE ALSO
 
-* [ory create](ory-create)	 - Create Ory Cloud resources
+* [ory](ory)	 - The ORY CLI
+* [ory import identities](ory-import-identities)	 - Import one or more identities from files or STD_IN
 

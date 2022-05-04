@@ -9,40 +9,39 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory update project
 
 Update Ory Cloud Project Service Configuration
 
 ### Synopsis
 
-Use this command to replace your current Ory Cloud Project&#39;s service
-configuration. All values will be overwritten. To update individual settings use
-the `patch` command instead.
+Use this command to replace your current Ory Cloud Project&#39;s service configuration. All values
+will be overwritten. To update individual settings use the `patch` command instead.
 
 If the `--name` flag is not set, the project&#39;s name will not be changed.
 
 The full configuration payload can be found at
 
-    https://www.ory.sh/docs/reference/api#operation/updateProject
+	https://www.ory.sh/docs/reference/api#operation/updateProject
 
 As an example an input could look like:
 
-    {
+	{
       &#34;name&#34;: &#34;my updated name&#34;,
-      &#34;identity&#34;: {
-    	&#34;services&#34;: {
-    	  &#34;config&#34;: {
-    		&#34;courier&#34;: {
-    		  &#34;smtp&#34;: {
-    			&#34;from_name&#34;: &#34;...&#34;
-    		  }
-    		  // ...
-    		}
-    	  }
-    	}
-      }
-    }
+	  &#34;identity&#34;: {
+		&#34;services&#34;: {
+		  &#34;config&#34;: {
+			&#34;courier&#34;: {
+			  &#34;smtp&#34;: {
+				&#34;from_name&#34;: &#34;...&#34;
+			  }
+			  // ...
+			}
+		  }
+		}
+	  }
+	}
+
 
 ```
 ory update project id [flags]
@@ -58,10 +57,10 @@ $ ory update project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 	--file https://example.org/config.yaml \
 	--file base64://<json>
 
-ID		ecaaa3cb-0730-4ee8-a6df-9553cdfeef89
-SLUG	good-wright-t7kzy3vugf
-STATE	running
-NAME	Example Project
+ID		ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 
+SLUG	good-wright-t7kzy3vugf		
+STATE	running					
+NAME	Example Project	
 
 $ ory update project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 	--name \"my updated name\" \
@@ -104,4 +103,5 @@ $ ory update project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 
 ### SEE ALSO
 
-- [ory update](ory-update) - Update resources
+* [ory update](ory-update)	 - Update resources
+
