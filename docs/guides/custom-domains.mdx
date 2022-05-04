@@ -40,6 +40,25 @@ whatever you supplied in the first step. See the
 [Cookie configuration section in the Kratos docs](https://www.ory.sh/kratos/docs/guides/configuring-cookies/)
 and [this Stackoverflow answer](https://stackoverflow.com/a/23086139).
 
+Cross-Origin Resource Sharing (CORS) is also enabled by default on the custom
+domain you add, in this example we have `auth.foobar.ory` set as our custom
+domain which will point to your Ory Cloud Project. It is important that you add
+CORS origins to your custom domain to **ensure Single Page Applications (SPAs)
+support**. We allow up to **50 origins**. If you plan on us ing server-side
+rendering or native applications, you can safely disable CORS. You can read more
+about [CORS at MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
+
+:::note
+
+We do not allow setting the CORS origins to be `*`, `null` or
+`localhost/127.0.0.1`. You can, however, use a wildcard subdomain such as
+`https://*.foobar.ory`. To be on the safe side, we recommend setting the CORS
+origins to be an exact match instead of a wildcard subdomain. To use
+`localhost/127.0.0.1` for development we recommend using the
+[Ory Cli Proxy](./cli/20_proxy-and-tunnel.mdx).
+
+:::
+
 ## Waiting for propagation
 
 When you've added the domain in Cloud Console, we will continuously recheck its
@@ -50,17 +69,28 @@ You may also manually recheck on the custom domains page, or check the value to
 set with your DNS provider by clicking the magnifying icon in the custom domains
 section:
 
-![Check custom domain details](./_static/custom-domains/cname-check.png)
+![Check custom domain details](./_static/custom-domains/cname-cors-check.png)
 
 When the domain is reachable, it will have the "Active status".
 
+The CORS status will show "Inactive" while the domain is pending verification.
+After the domain is verified, the CORS status will show "Enabled/Disabled".
+
+![Custom Domain Cors enabled](./_static/custom-domains/cname-cors-enabled.png)
+
 Once active the Ory Managed UI is reachable at
-`https://<your-custom-domain>/ui/welcome`.  
-Learn how to configure a custom UI:
+`https://<your-custom-domain>/ui/welcome`. Learn how to configure a custom UI:
 [Bring Your Own UI](bring-your-user-interface.mdx).
 
 You may also remove your custom domain from the Console, but please note that
 **any requests to it will no longer resolve** once you do.
+
+When editing your custom domain entry, you can update the CORS settings
+independent of the custom domain or cookie domain settings.
+
+![Custom Domain Cors edit](./_static/custom-domains/cname-cors-edit.png)
+
+![Custom Domain Cors disabled](./_static/custom-domains/cname-cors-disabled.png)
 
 ## Setting up a CNAME record
 
