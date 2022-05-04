@@ -500,11 +500,6 @@ module.exports = {
       label: 'Reference',
       collapsed: false,
       items: ['reference/api']
-    },
-    {
-      type: 'category',
-      label: 'Further Reading',
-      items: ['cloud/developer', 'cloud/cloud-roadmap']
     }
   ],
   opensource: [
