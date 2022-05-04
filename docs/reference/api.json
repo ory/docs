@@ -377,6 +377,12 @@
           "cookie_domain": {
             "type": "string"
           },
+          "cors_allowed_origins": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "cors_enabled": {
+            "type": "boolean"
+          },
           "created_at": {
             "format": "date-time",
             "type": "string"
@@ -408,6 +414,17 @@
           "cookie_domain": {
             "description": "The domain where cookies will be set. Has to be a parent domain of the custom hostname to work.",
             "type": "string"
+          },
+          "cors_allowed_origins": {
+            "description": "Cors Allowed origins for the custom hostname.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "cors_enabled": {
+            "description": "Cors Enabled for the custom hostname.",
+            "type": "boolean"
           },
           "hostname": {
             "description": "The custom hostname where the API will be exposed.",
@@ -3331,6 +3348,17 @@
           "cookie_domain": {
             "description": "The domain where cookies will be set. Has to be a parent domain of the custom hostname to work.",
             "type": "string"
+          },
+          "cors_allowed_origins": {
+            "description": "Cors Allowed origins for the custom hostname.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "cors_enabled": {
+            "description": "Cors Enabled for the custom hostname.",
+            "type": "boolean"
           },
           "hostname": {
             "description": "The custom hostname where the API will be exposed.",
