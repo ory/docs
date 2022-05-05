@@ -11,23 +11,23 @@ following tracing options:
 
 - Tracing backend(s): Jaeger
 
-  **Note**: Adding support for other [OpenTelemetry
-  exporters](https://opentelemetry.io/docs/instrumentation/go/exporting_data/)
-  is planned. To aid in priority, please [create an
-  issue](https://github.com/ory/kratos/issues) with your feature
-  request. However, official support in OpenTelemetry only exists for
-  the exporters listed
+  **Note**: Adding support for other
+  [OpenTelemetry exporters](https://opentelemetry.io/docs/instrumentation/go/exporting_data/)
+  is planned. To aid in priority, please
+  [create an issue](https://github.com/ory/kratos/issues) with your feature
+  request. However, official support in OpenTelemetry only exists for the
+  exporters listed
   [here](https://github.com/open-telemetry/opentelemetry-go/tree/main/exporters).
   Other backends can be technically "supported" by sending spans to the
-  OpenTelemetry Collector agent, and configuring the collector to push
-  spans to whatever [backend of your choice](
-  https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter).
+  OpenTelemetry Collector agent, and configuring the collector to push spans to
+  whatever
+  [backend of your choice](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter).
 
-- Following existing traces: If you have deployed Kratos behind a proxy
-  that has initiated a trace, Kratos will attempt to join that trace by
-  examining the request headers for tracing context. At present, support
-  for Jaeger and Zipkin (B3) spans exists; support for additional
-  formats like Trace Context and Baggage is planned.
+- Following existing traces: If you have deployed Kratos behind a proxy that has
+  initiated a trace, Kratos will attempt to join that trace by examining the
+  request headers for tracing context. At present, support for Jaeger and Zipkin
+  (B3) spans exists; support for additional formats like Trace Context and
+  Baggage is planned.
 
 ### What a Kratos trace includes
 
@@ -54,10 +54,10 @@ issue.
 
 ### Configuring tracing
 
-The [provided docker-compose
-file](https://github.com/ory/kratos/blob/master/quickstart-tracing.yml) in the
-project repository has tracing configuration which you can use to play around
-with.
+The
+[provided docker-compose file](https://github.com/ory/kratos/blob/master/quickstart-tracing.yml)
+in the project repository has tracing configuration which you can use to play
+around with.
 
 Simply run
 
@@ -79,4 +79,3 @@ TRACING_PROVIDER=jaeger    # only "jaeger" is supported for now
 TRACING_PROVIDERS_JAEGER_SAMPLING_SERVER_URL=http://jaeger:5778/sampling
 TRACING_PROVIDERS_JAEGER_LOCAL_AGENT_ADDRESS=jaeger:6831
 ```
-

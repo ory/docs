@@ -57,6 +57,44 @@
         "format": "int64",
         "type": "integer"
       },
+      "Int": {
+        "description": "Int adds an implementation for int\nthat supports proper JSON encoding/decoding.",
+        "properties": {
+          "Int": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "Valid": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "InternalRelationTuple": {
+        "properties": {
+          "namespace": {
+            "description": "Namespace of the Relation Tuple",
+            "type": "string"
+          },
+          "object": {
+            "description": "Object of the Relation Tuple",
+            "type": "string"
+          },
+          "relation": {
+            "description": "Relation of the Relation Tuple",
+            "type": "string"
+          },
+          "subject_id": {
+            "description": "SubjectID of the Relation Tuple\n\nEither SubjectSet or SubjectID are required.",
+            "type": "string"
+          },
+          "subject_set": {
+            "$ref": "#/components/schemas/SubjectSet"
+          }
+        },
+        "required": ["namespace", "object", "relation"],
+        "type": "object"
+      },
       "InvitePayload": {
         "properties": {
           "invitee_email": {
@@ -69,9 +107,31 @@
         "title": "JSONRawMessage represents a json.RawMessage that works well with JSON, SQL, and Swagger.",
         "type": "object"
       },
+      "KetoNamespace": {
+        "properties": {
+          "id": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "KetoNamespaces": {
+        "items": {
+          "$ref": "#/components/schemas/KetoNamespace"
+        },
+        "type": "array"
+      },
       "NullBool": {
         "nullable": true,
         "type": "boolean"
+      },
+      "NullInt": {
+        "format": "int64",
+        "type": "integer"
       },
       "NullPlan": {
         "enum": [
@@ -94,6 +154,18 @@
       "NullUUID": {
         "format": "uuid4",
         "type": "string"
+      },
+      "PatchDelta": {
+        "properties": {
+          "action": {
+            "enum": ["insert", "delete"],
+            "type": "string"
+          },
+          "relation_tuple": {
+            "$ref": "#/components/schemas/InternalRelationTuple"
+          }
+        },
+        "type": "object"
       },
       "QuotaProjectMemberSeats": {
         "properties": {
@@ -139,6 +211,30 @@
       "RecoveryAddressType": {
         "type": "string"
       },
+      "RelationQuery": {
+        "properties": {
+          "namespace": {
+            "description": "Namespace of the Relation Tuple",
+            "type": "string"
+          },
+          "object": {
+            "description": "Object of the Relation Tuple",
+            "type": "string"
+          },
+          "relation": {
+            "description": "Relation of the Relation Tuple",
+            "type": "string"
+          },
+          "subject_id": {
+            "description": "SubjectID of the Relation Tuple\n\nEither SubjectSet or SubjectID can be provided.",
+            "type": "string"
+          },
+          "subject_set": {
+            "$ref": "#/components/schemas/SubjectSet"
+          }
+        },
+        "type": "object"
+      },
       "SQLNullString": {
         "nullable": true,
         "type": "string"
@@ -152,6 +248,24 @@
         },
         "title": "StringSliceJSONFormat represents []string{} which is encoded to/from JSON for SQL storage.",
         "type": "array"
+      },
+      "SubjectSet": {
+        "properties": {
+          "namespace": {
+            "description": "Namespace of the Subject Set",
+            "type": "string"
+          },
+          "object": {
+            "description": "Object of the Subject Set",
+            "type": "string"
+          },
+          "relation": {
+            "description": "Relation of the Subject Set",
+            "type": "string"
+          }
+        },
+        "required": ["namespace", "object", "relation"],
+        "type": "object"
       },
       "SubscriptionStatus": {
         "title": "SubscriptionStatus is the list of allowed values for the subscription's status.",
@@ -493,6 +607,28 @@
         "title": "ErrAALNotSatisfied is returned when an active session was found but the requested AAL is not satisfied.",
         "type": "object"
       },
+      "expandTree": {
+        "properties": {
+          "children": {
+            "items": {
+              "$ref": "#/components/schemas/expandTree"
+            },
+            "type": "array"
+          },
+          "subject_id": {
+            "type": "string"
+          },
+          "subject_set": {
+            "$ref": "#/components/schemas/SubjectSet"
+          },
+          "type": {
+            "enum": ["union", "exclusion", "intersection", "leaf"],
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "type": "object"
+      },
       "genericError": {
         "description": "Error responses are sent when an error (e.g. unauthorized, bad request, ...) occurred.",
         "properties": {
@@ -510,6 +646,10 @@
           "details": {
             "additionalProperties": false,
             "description": "Further error details",
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
             "type": "object"
           },
           "error": {
@@ -575,9 +715,36 @@
         },
         "type": "object"
       },
+      "getCheckResponse": {
+        "description": "The content of the allowed field is mirrored in the HTTP status code.",
+        "properties": {
+          "allowed": {
+            "description": "whether the relation tuple is allowed",
+            "type": "boolean"
+          }
+        },
+        "required": ["allowed"],
+        "title": "RESTResponse is the response for a check request.",
+        "type": "object"
+      },
       "getProjectAccessResponse": {
         "additionalProperties": {
           "type": "boolean"
+        },
+        "type": "object"
+      },
+      "getRelationTuplesResponse": {
+        "properties": {
+          "next_page_token": {
+            "description": "The opaque token to provide in a subsequent request\nto get the next page. It is the empty string iff this is\nthe last page.",
+            "type": "string"
+          },
+          "relation_tuples": {
+            "items": {
+              "$ref": "#/components/schemas/InternalRelationTuple"
+            },
+            "type": "array"
+          }
         },
         "type": "object"
       },
@@ -1066,6 +1233,12 @@
           },
           "id": {
             "$ref": "#/components/schemas/UUID"
+          },
+          "keto_namespaces": {
+            "$ref": "#/components/schemas/KetoNamespaces"
+          },
+          "keto_read_max_depth": {
+            "$ref": "#/components/schemas/Int"
           },
           "kratos_cookies_same_site": {
             "description": "Configures the Ory Kratos Cookie SameSite Attribute\n\nThis governs the \"cookies.same_site\" setting.",
@@ -1835,13 +2008,24 @@
         "required": ["config"],
         "type": "object"
       },
+      "projectServicePermission": {
+        "properties": {
+          "config": {
+            "type": "object"
+          }
+        },
+        "required": ["config"],
+        "type": "object"
+      },
       "projectServices": {
         "properties": {
           "identity": {
             "$ref": "#/components/schemas/projectServiceIdentity"
+          },
+          "permission": {
+            "$ref": "#/components/schemas/projectServicePermission"
           }
         },
-        "required": ["identity"],
         "type": "object"
       },
       "projects": {
@@ -2430,6 +2614,9 @@
             "type": "string"
           }
         },
+        "type": "object"
+      },
+      "subject": {
         "type": "object"
       },
       "submitSelfServiceFlowWithWebAuthnRegistrationMethod": {
@@ -4036,6 +4223,214 @@
         "tags": ["v0alpha2"]
       }
     },
+    "/admin/relation-tuples": {
+      "delete": {
+        "description": "Use this endpoint to delete relation tuples",
+        "operationId": "deleteRelationTuples",
+        "parameters": [
+          {
+            "description": "Namespace of the Relation Tuple",
+            "in": "query",
+            "name": "namespace",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Object of the Relation Tuple",
+            "in": "query",
+            "name": "object",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Relation of the Relation Tuple",
+            "in": "query",
+            "name": "relation",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "SubjectID of the Relation Tuple",
+            "in": "query",
+            "name": "subject_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Namespace of the Subject Set",
+            "in": "query",
+            "name": "subject_set.namespace",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Object of the Subject Set",
+            "in": "query",
+            "name": "subject_set.object",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Relation of the Subject Set",
+            "in": "query",
+            "name": "subject_set.relation",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/emptyResponse"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Delete Relation Tuples",
+        "tags": ["write"]
+      },
+      "patch": {
+        "description": "Use this endpoint to patch one or more relation tuples.",
+        "operationId": "patchRelationTuples",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/PatchDelta"
+                },
+                "type": "array"
+              }
+            }
+          },
+          "x-originalParamName": "Payload"
+        },
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/emptyResponse"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Patch Multiple Relation Tuples",
+        "tags": ["write"]
+      },
+      "put": {
+        "description": "Use this endpoint to create a relation tuple.",
+        "operationId": "createRelationTuple",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RelationQuery"
+              }
+            }
+          },
+          "x-originalParamName": "Payload"
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RelationQuery"
+                }
+              }
+            },
+            "description": "RelationQuery"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Create a Relation Tuple",
+        "tags": ["write"]
+      }
+    },
     "/admin/sessions/{id}/extend": {
       "patch": {
         "description": "Retrieve the session ID from the `/sessions/whoami` endpoint / `toSession` SDK method.",
@@ -4135,6 +4530,11 @@
             "description": "genericError"
           }
         },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
         "summary": "Check HTTP Server Status",
         "tags": ["metadata"]
       }
@@ -4182,6 +4582,11 @@
             "description": "Ory Kratos is not yet ready to accept requests."
           }
         },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
         "summary": "Check HTTP Server and Database Status",
         "tags": ["metadata"]
       }
@@ -4800,6 +5205,410 @@
         ],
         "summary": "Remove a member associated with this project. This also sets their invite status to `REMOVED`.",
         "tags": ["v0alpha2"]
+      }
+    },
+    "/relation-tuples": {
+      "get": {
+        "description": "Get all relation tuples that match the query. Only the namespace field is required.",
+        "operationId": "getRelationTuples",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page_token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Namespace of the Relation Tuple",
+            "in": "query",
+            "name": "namespace",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Object of the Relation Tuple",
+            "in": "query",
+            "name": "object",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Relation of the Relation Tuple",
+            "in": "query",
+            "name": "relation",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "SubjectID of the Relation Tuple",
+            "in": "query",
+            "name": "subject_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Namespace of the Subject Set",
+            "in": "query",
+            "name": "subject_set.namespace",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Object of the Subject Set",
+            "in": "query",
+            "name": "subject_set.object",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Relation of the Subject Set",
+            "in": "query",
+            "name": "subject_set.relation",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getRelationTuplesResponse"
+                }
+              }
+            },
+            "description": "getRelationTuplesResponse"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Query relation tuples",
+        "tags": ["read"]
+      }
+    },
+    "/relation-tuples/check": {
+      "get": {
+        "description": "To learn how relation tuples and the check works, head over to [the documentation](../concepts/relation-tuples.mdx).",
+        "operationId": "getCheck",
+        "parameters": [
+          {
+            "description": "Namespace of the Relation Tuple",
+            "in": "query",
+            "name": "namespace",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Object of the Relation Tuple",
+            "in": "query",
+            "name": "object",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Relation of the Relation Tuple",
+            "in": "query",
+            "name": "relation",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "SubjectID of the Relation Tuple",
+            "in": "query",
+            "name": "subject_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Namespace of the Subject Set",
+            "in": "query",
+            "name": "subject_set.namespace",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Object of the Subject Set",
+            "in": "query",
+            "name": "subject_set.object",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Relation of the Subject Set",
+            "in": "query",
+            "name": "subject_set.relation",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "max-depth",
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getCheckResponse"
+                }
+              }
+            },
+            "description": "getCheckResponse"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getCheckResponse"
+                }
+              }
+            },
+            "description": "getCheckResponse"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Check a relation tuple",
+        "tags": ["read"]
+      },
+      "post": {
+        "description": "To learn how relation tuples and the check works, head over to [the documentation](../concepts/relation-tuples.mdx).",
+        "operationId": "postCheck",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "max-depth",
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RelationQuery"
+              }
+            }
+          },
+          "x-originalParamName": "Payload"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getCheckResponse"
+                }
+              }
+            },
+            "description": "getCheckResponse"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getCheckResponse"
+                }
+              }
+            },
+            "description": "getCheckResponse"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Check a relation tuple",
+        "tags": ["read"]
+      }
+    },
+    "/relation-tuples/expand": {
+      "get": {
+        "description": "Use this endpoint to expand a relation tuple.",
+        "operationId": "getExpand",
+        "parameters": [
+          {
+            "description": "Namespace of the Subject Set",
+            "in": "query",
+            "name": "namespace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Object of the Subject Set",
+            "in": "query",
+            "name": "object",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Relation of the Subject Set",
+            "in": "query",
+            "name": "relation",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "max-depth",
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/expandTree"
+                }
+              }
+            },
+            "description": "expandTree"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Expand a Relation Tuple",
+        "tags": ["read"]
       }
     },
     "/schemas": {
@@ -6821,6 +7630,11 @@
             "description": "Returns the Ory Kratos version."
           }
         },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
         "summary": "Return Running Software Version.",
         "tags": ["metadata"]
       }
