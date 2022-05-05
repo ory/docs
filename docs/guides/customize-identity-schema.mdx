@@ -13,12 +13,6 @@ This guide describes the steps needed to create custom Identity Schemas.
 
 ## Setup Custom Identity Schema
 
-```mdx-code-block
-import JsonnetWarning from '../_common/jsonnetwarning.mdx'
-
-<JsonnetWarning format="JSON schemas" use="custom identity schemas" />
-```
-
 - Select the Ory Cloud Project, you want to change under
   [Projects/Overview](https://console.ory.sh/projects/list).
 
@@ -192,7 +186,7 @@ adding the above examples the sign-up screen would look like so:
 
 ![Example Identity Schema with GitHub and Phone Number Fields](/images/identity-model/example-identity0.png)
 
-### Changing existing Identity Schemas
+### Change existing Identity Schemas
 
 While it's not possible to directly edit existing Identity Schemas, you can make
 revisions.
@@ -205,6 +199,14 @@ like to make changes to it:
 - Make the necessary changes.
 - Enter a new name, for example "Customer Type 2".
 - Press the `Enter` key or `Update` to save it.
+
+### Add Identity Metadata
+
+It is possible to add metadata to an identity, either as protected field that
+can only be read by the admin only or as public field that can be read by the
+user as well.
+[Visit the Manage Identity Metadata documentation](https://www.ory.sh/docs/guides/manage-identities/managing-users-identities-metadata)
+for details on how to add metadata to identities.
 
 ### Additional Properties
 
