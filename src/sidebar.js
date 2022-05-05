@@ -86,7 +86,8 @@ module.exports = {
           items: [
             'guides/manage-identities/managing-users-identities',
             'guides/manage-identities/import-identity',
-            'guides/manage-identities/account-recovery'
+            'guides/manage-identities/account-recovery',
+            'guides/manage-identities/managing-users-identities-metadata'
           ]
         },
         {
