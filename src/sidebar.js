@@ -461,7 +461,7 @@ module.exports = {
         {
           Guides: [
             'oathkeeper/configure-deploy',
-            'oathkeeper/guides/proxying-websockets',
+            'oathkeeper/guides/proxy-websockets',
             'oathkeeper/guides/traefik-proxy-integration',
             'oathkeeper/guides/upgrade'
           ]
