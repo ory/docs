@@ -1,25 +1,32 @@
 ---
-id: proxying-websockets
-title: Defining WebSockets rules with Oathkeeper
+id: proxy-websockets
+title: Define WebSockets rules with Oathkeeper
 ---
 
 import { useLatestRelease } from '@site/src/hooks'
 import CodeBlock from '@theme/CodeBlock'
 
-
-This guide shows you how you can use Ory Oathkeeper with WebSockets.
+This guide shows how to use Ory Oathkeeper with
+[WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API).
 
 :::tip
-WebSockets bypass Oathkeeper after the first request and thus Oathkeeper only validates cookies once. It is up to your service to ensure that WebSocket connections expire within a reasonable time frame to ensure the session cookie is still active and valid.
+
+WebSockets bypass Ory Oathkeeper after the first request and thus Ory Oathkeeper
+only validates cookies once. It is up to your service to make sure that
+WebSocket connections expire within a reasonable time frame so the session
+cookie is still active and valid.
+
 :::
 
-Let's create a simple echo WebSocket service that sends back an
-accepted message. We'll use Go, Gin to build our application,
-and Ory Kratos to handle user login/signup and verification flows.
+Let's create a simple echo WebSocket service that sends back an accepted
+message. We'll use the [Gin Web framework](https://github.com/gin-gonic/gin) to
+build our application, and [Ory Kratos](https://github.com/ory/kratos) to handle
+user login, sign-up, and verification flows.
 
-## Installing Ory Kratos and Ory Oathkeeper
+## Install Ory Kratos and Ory Oathkeeper
 
-You can create any directory for the experiments and create `docker-compose.yml` file with the following content:
+You can create any directory for testing and create a `docker-compose.yml` file
+with the following content:
 
 <CodeBlock className="language-yaml">{`version: "3.7"
 services:
@@ -98,22 +105,28 @@ networks:
 
 This example uses the following network architecture:
 
-- `4433` port is a public ("Browser") API of Ory Kratos
-- `4434` is an admin API of Ory Kratos
-- `4455` is a port of the User Interface implemented by self-service-ui
-- `8080` is a port of Ory Oathkeeper
+- `4433` port is the public ("browser") API of Ory Kratos.
+- `4434` is the admin API of Ory Kratos.
+- `4455` is a port for the user interface implemented by the
+  [reference self-service UI](https://github.com/ory/kratos-selfservice-ui-node).
+- `8080` is a port of Ory Oathkeeper.
 
 Other ports and services are available only in the internal network.
 
-## Configuring Ory Oathkeeper and Ory Kratos
+## Configure Ory Oathkeeper and Ory Kratos
 
-1. Let's create a `kratos` folder and fetch configuration files
+1. Create a `kratos` folder and fetch configuration files:
 
 <CodeBlock className="language-shell">{`mkdir kratos
-wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease('kratos')}/contrib/quickstart/kratos/email-password/identity.schema.json -O kratos/identity.schema.json
-wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease('kratos')}/contrib/quickstart/kratos/email-password/kratos.yml -O kratos/kratos.yml`}</CodeBlock>
+wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
+  'kratos'
+)}/contrib/quickstart/kratos/email-password/identity.schema.json -O kratos/identity.schema.json
+wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
+  'kratos'
+)}/contrib/quickstart/kratos/email-password/kratos.yml -O kratos/kratos.yml`}</CodeBlock>
 
-2. Create `oathkeeper` folder and `oathkeeper/oathkeeper.yml` with the following content:
+2. Create a `oathkeeper` folder and `oathkeeper/oathkeeper.yml` with the
+   following content:
 
 ```yaml
 log:
@@ -150,8 +163,7 @@ errors:
       config:
         to: http://127.0.0.1:4455/login
         when:
-          -
-            error:
+          - error:
               - unauthorized
               - forbidden
             request:
@@ -179,8 +191,8 @@ authenticators:
     config:
       check_session_url: http://kratos:4433/sessions/whoami
       preserve_path: true
-      extra_from: "@this"
-      subject_from: "identity.id"
+      extra_from: '@this'
+      subject_from: 'identity.id'
       only:
         - ory_kratos_session
 
@@ -199,13 +211,12 @@ mutators:
 3. Create `oathkeeper/access-rules.yml` with the following content:
 
 ```yaml
--
-  id: "ws:protected"
+- id: 'ws:protected'
   upstream:
     preserve_host: true
-    url: "http://ws:8080"
+    url: 'http://ws:8080'
   match:
-    url: "http://127.0.0.1:8080/<**>"
+    url: 'http://127.0.0.1:8080/<**>'
     methods:
       - GET
       - POST
@@ -221,18 +232,23 @@ mutators:
         to: http://127.0.0.1:4455/login
 ```
 
-This configuration of Oathkeeper uses cookie authenticator against Ory Kratos and proxies only authenticated requests to `http://ws:8080` upstream. The `ws` hostname is resolved through the Docker network. If you aren't deploying your application within Docker, this would just be your localhost IP.
+This configuration of Ory Oathkeeper uses the
+[cookie authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#cookie_session)
+against Ory Kratos and proxies only authenticated requests to `http://ws:8080`
+upstream. The `ws` hostname is resolved through the Docker network. If you
+aren't deploying your application within Docker, this would just be your
+localhost IP.
 
 ## WebSocket service
 
-1. Let's create a folder `ws` and create our WebSocket service using Go and Gin framework. Create `ws/main.go` file with the following content:
+1. Let's create a folder `ws` and create our WebSocket service using Go and Gin
+   framework. Create `ws/main.go` file with the following content:
 
 ```mdx-code-block title="ws/main.go"
 import app from '!!raw-loader!../../../code-examples/oathkeeper/main.go'
-
 <CodeBlock language="go">{app}</CodeBlock>
-
 ```
+
 2. We need to initialize go modules by running the following commands:
 
 ```shell
@@ -245,30 +261,26 @@ go mod tidy
 
 ```mdx-code-block title="ws/index.html"
 import index from '!!raw-loader!../../../code-examples/oathkeeper/index.html'
-
 <CodeBlock language="html">{index}</CodeBlock>
-
 ```
 
 4. Create `ws/Dockerfile` with the following content:
 
 ```mdx-code-block title="ws/Dockerfile"
 import dockerfile from '!!raw-loader!../../../code-examples/oathkeeper/Dockerfile'
-
 <CodeBlock language="html">{dockerfile}</CodeBlock>
-
 ```
+
 5. We need to add our `ws` service to the `docker-compose.yml`
 
 ```yaml
 services:
-...
-  ws:
-    build:
-      context: "ws"
-    networks:
-      - intranet
-...
+---
+ws:
+  build:
+    context: 'ws'
+  networks:
+    - intranet
 ```
 
 ## Testing
@@ -278,5 +290,3 @@ services:
 3. Open `http://127.0.0.1:4455`.
 4. Create a new account.
 5. Open `http://127.0.0.1:8080`.
-
-
