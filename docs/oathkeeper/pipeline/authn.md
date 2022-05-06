@@ -488,7 +488,7 @@ header as the subject for this request.
 - `cache` (object, optional) - Enables caching of requested tokens
   - `enabled` (bool, optional) - Enable the cache, will use exp time of token to
     determine when to evict from cache. Defaults to false.
-  - `ttl` (string) - Can override the default behaviour of using the token exp
+  - `ttl` (string) - Can override the default behavior of using the token exp
     time, and specify a set time to live for the token in the cache. If the
     token exp time is lower than the set value the token exp time will be used
     instead.
@@ -640,7 +640,7 @@ was granted the requested scope.
 - `cache` (object, optional) - Enables caching of incoming tokens
   - `enabled` (bool, optional) - Enable the cache, will use exp time of token to
     determine when to evict from cache. Defaults to false.
-  - `ttl` (string) - Can override the default behaviour of using the token exp
+  - `ttl` (string) - Can override the default behavior of using the token exp
     time, and specify a set time to live for the token in the cache.
 
 Please note that caching won't be used if the scope strategy is `none` and

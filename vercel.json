@@ -393,6 +393,26 @@
       "source": "/docs/keto/engines",
       "destination": "https://www.ory.sh/docs/keto/guides/upgrade",
       "permanent": false
+    },
+    {
+      "source": "/docs/kratos/admin/managing-users-identities",
+      "destination": "https://www.ory.sh/docs/guides/manage-identities/managing-users-identities",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/guides/sign-in-with-github-google-facebook-linkedin",
+      "destination": "https://www.ory.sh/docs/guides/social-signin/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/cloud/developer",
+      "destination": "https://www.ory.sh/pricing",
+      "permanent": false
+    },
+    {
+      "source": "/docs/cloud/cloud-roadmap",
+      "destination": "https://www.ory.sh/cloud",
+      "permanent": false
     }
   ]
 }

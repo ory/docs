@@ -21,10 +21,11 @@ List resources
       --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
   -h, --help            help for list
   -q, --quiet           Be quiet with output printing.
-  -y, --yes             Confirm all dialogues with yes.
+  -y, --yes             Confirm all dialogs with yes.
 ```
 
 ### SEE ALSO
 
 - [ory](ory) - The ORY CLI
+- [ory list identities](ory-list-identities) - List identities
 - [ory list projects](ory-list-projects) - List your Ory Cloud projects

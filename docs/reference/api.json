@@ -8,6 +8,12 @@
     "schemas": {
       "AdminUpdateIdentityBody": {
         "properties": {
+          "metadata_admin": {
+            "description": "Store metadata about the user which is only accessible through admin APIs such as `GET /admin/identities/\u003cid\u003e`."
+          },
+          "metadata_public": {
+            "description": "Store metadata about the identity which the identity itself can see when calling for example the\nsession endpoint. Do not store sensitive information (e.g. credit score) about the identity in this field."
+          },
           "schema_id": {
             "description": "SchemaID is the ID of the JSON Schema to be used for validating the identity's traits. If set\nwill update the Identity's SchemaID.",
             "type": "string"
@@ -51,6 +57,44 @@
         "format": "int64",
         "type": "integer"
       },
+      "Int": {
+        "description": "Int adds an implementation for int\nthat supports proper JSON encoding/decoding.",
+        "properties": {
+          "Int": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "Valid": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "InternalRelationTuple": {
+        "properties": {
+          "namespace": {
+            "description": "Namespace of the Relation Tuple",
+            "type": "string"
+          },
+          "object": {
+            "description": "Object of the Relation Tuple",
+            "type": "string"
+          },
+          "relation": {
+            "description": "Relation of the Relation Tuple",
+            "type": "string"
+          },
+          "subject_id": {
+            "description": "SubjectID of the Relation Tuple\n\nEither SubjectSet or SubjectID are required.",
+            "type": "string"
+          },
+          "subject_set": {
+            "$ref": "#/components/schemas/SubjectSet"
+          }
+        },
+        "required": ["namespace", "object", "relation"],
+        "type": "object"
+      },
       "InvitePayload": {
         "properties": {
           "invitee_email": {
@@ -63,9 +107,31 @@
         "title": "JSONRawMessage represents a json.RawMessage that works well with JSON, SQL, and Swagger.",
         "type": "object"
       },
+      "KetoNamespace": {
+        "properties": {
+          "id": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "KetoNamespaces": {
+        "items": {
+          "$ref": "#/components/schemas/KetoNamespace"
+        },
+        "type": "array"
+      },
       "NullBool": {
         "nullable": true,
         "type": "boolean"
+      },
+      "NullInt": {
+        "format": "int64",
+        "type": "integer"
       },
       "NullPlan": {
         "enum": [
@@ -88,6 +154,18 @@
       "NullUUID": {
         "format": "uuid4",
         "type": "string"
+      },
+      "PatchDelta": {
+        "properties": {
+          "action": {
+            "enum": ["insert", "delete"],
+            "type": "string"
+          },
+          "relation_tuple": {
+            "$ref": "#/components/schemas/InternalRelationTuple"
+          }
+        },
+        "type": "object"
       },
       "QuotaProjectMemberSeats": {
         "properties": {
@@ -133,6 +211,30 @@
       "RecoveryAddressType": {
         "type": "string"
       },
+      "RelationQuery": {
+        "properties": {
+          "namespace": {
+            "description": "Namespace of the Relation Tuple",
+            "type": "string"
+          },
+          "object": {
+            "description": "Object of the Relation Tuple",
+            "type": "string"
+          },
+          "relation": {
+            "description": "Relation of the Relation Tuple",
+            "type": "string"
+          },
+          "subject_id": {
+            "description": "SubjectID of the Relation Tuple\n\nEither SubjectSet or SubjectID can be provided.",
+            "type": "string"
+          },
+          "subject_set": {
+            "$ref": "#/components/schemas/SubjectSet"
+          }
+        },
+        "type": "object"
+      },
       "SQLNullString": {
         "nullable": true,
         "type": "string"
@@ -146,6 +248,24 @@
         },
         "title": "StringSliceJSONFormat represents []string{} which is encoded to/from JSON for SQL storage.",
         "type": "array"
+      },
+      "SubjectSet": {
+        "properties": {
+          "namespace": {
+            "description": "Namespace of the Subject Set",
+            "type": "string"
+          },
+          "object": {
+            "description": "Object of the Subject Set",
+            "type": "string"
+          },
+          "relation": {
+            "description": "Relation of the Subject Set",
+            "type": "string"
+          }
+        },
+        "required": ["namespace", "object", "relation"],
+        "type": "object"
       },
       "SubscriptionStatus": {
         "title": "SubscriptionStatus is the list of allowed values for the subscription's status.",
@@ -197,6 +317,12 @@
         "properties": {
           "credentials": {
             "$ref": "#/components/schemas/adminIdentityImportCredentials"
+          },
+          "metadata_admin": {
+            "description": "Store metadata about the user which is only accessible through admin APIs such as `GET /admin/identities/\u003cid\u003e`."
+          },
+          "metadata_public": {
+            "description": "Store metadata about the identity which the identity itself can see when calling for example the\nsession endpoint. Do not store sensitive information (e.g. credit score) about the identity in this field."
           },
           "recovery_addresses": {
             "description": "RecoveryAddresses contains all the addresses that can be used to recover an identity.\n\nUse this structure to import recovery addresses for an identity. Please keep in mind\nthat the address needs to be represented in the Identity Schema or this field will be overwritten\non the next identity update.",
@@ -365,6 +491,12 @@
           "cookie_domain": {
             "type": "string"
           },
+          "cors_allowed_origins": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "cors_enabled": {
+            "type": "boolean"
+          },
           "created_at": {
             "format": "date-time",
             "type": "string"
@@ -396,6 +528,17 @@
           "cookie_domain": {
             "description": "The domain where cookies will be set. Has to be a parent domain of the custom hostname to work.",
             "type": "string"
+          },
+          "cors_allowed_origins": {
+            "description": "Cors Allowed origins for the custom hostname.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "cors_enabled": {
+            "description": "Cors Enabled for the custom hostname.",
+            "type": "boolean"
           },
           "hostname": {
             "description": "The custom hostname where the API will be exposed.",
@@ -464,6 +607,28 @@
         "title": "ErrAALNotSatisfied is returned when an active session was found but the requested AAL is not satisfied.",
         "type": "object"
       },
+      "expandTree": {
+        "properties": {
+          "children": {
+            "items": {
+              "$ref": "#/components/schemas/expandTree"
+            },
+            "type": "array"
+          },
+          "subject_id": {
+            "type": "string"
+          },
+          "subject_set": {
+            "$ref": "#/components/schemas/SubjectSet"
+          },
+          "type": {
+            "enum": ["union", "exclusion", "intersection", "leaf"],
+            "type": "string"
+          }
+        },
+        "required": ["type"],
+        "type": "object"
+      },
       "genericError": {
         "description": "Error responses are sent when an error (e.g. unauthorized, bad request, ...) occurred.",
         "properties": {
@@ -481,6 +646,10 @@
           "details": {
             "additionalProperties": false,
             "description": "Further error details",
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
             "type": "object"
           },
           "error": {
@@ -546,9 +715,36 @@
         },
         "type": "object"
       },
+      "getCheckResponse": {
+        "description": "The content of the allowed field is mirrored in the HTTP status code.",
+        "properties": {
+          "allowed": {
+            "description": "whether the relation tuple is allowed",
+            "type": "boolean"
+          }
+        },
+        "required": ["allowed"],
+        "title": "RESTResponse is the response for a check request.",
+        "type": "object"
+      },
       "getProjectAccessResponse": {
         "additionalProperties": {
           "type": "boolean"
+        },
+        "type": "object"
+      },
+      "getRelationTuplesResponse": {
+        "properties": {
+          "next_page_token": {
+            "description": "The opaque token to provide in a subsequent request\nto get the next page. It is the empty string iff this is\nthe last page.",
+            "type": "string"
+          },
+          "relation_tuples": {
+            "items": {
+              "$ref": "#/components/schemas/InternalRelationTuple"
+            },
+            "type": "array"
+          }
         },
         "type": "object"
       },
@@ -590,6 +786,12 @@
           },
           "id": {
             "$ref": "#/components/schemas/UUID"
+          },
+          "metadata_admin": {
+            "$ref": "#/components/schemas/nullJsonRawMessage"
+          },
+          "metadata_public": {
+            "$ref": "#/components/schemas/nullJsonRawMessage"
           },
           "recovery_addresses": {
             "description": "RecoveryAddresses contains all the addresses that can be used to recover an identity.",
@@ -1031,6 +1233,12 @@
           },
           "id": {
             "$ref": "#/components/schemas/UUID"
+          },
+          "keto_namespaces": {
+            "$ref": "#/components/schemas/KetoNamespaces"
+          },
+          "keto_read_max_depth": {
+            "$ref": "#/components/schemas/Int"
           },
           "kratos_cookies_same_site": {
             "description": "Configures the Ory Kratos Cookie SameSite Attribute\n\nThis governs the \"cookies.same_site\" setting.",
@@ -1800,13 +2008,24 @@
         "required": ["config"],
         "type": "object"
       },
+      "projectServicePermission": {
+        "properties": {
+          "config": {
+            "type": "object"
+          }
+        },
+        "required": ["config"],
+        "type": "object"
+      },
       "projectServices": {
         "properties": {
           "identity": {
             "$ref": "#/components/schemas/projectServiceIdentity"
+          },
+          "permission": {
+            "$ref": "#/components/schemas/projectServicePermission"
           }
         },
-        "required": ["identity"],
         "type": "object"
       },
       "projects": {
@@ -2098,6 +2317,7 @@
         },
         "required": [
           "id",
+          "type",
           "expires_at",
           "issued_at",
           "request_url",
@@ -2161,7 +2381,14 @@
             "$ref": "#/components/schemas/uiContainer"
           }
         },
-        "required": ["id", "expires_at", "issued_at", "request_url", "ui"],
+        "required": [
+          "id",
+          "type",
+          "expires_at",
+          "issued_at",
+          "request_url",
+          "ui"
+        ],
         "type": "object"
       },
       "selfServiceSettingsFlow": {
@@ -2207,6 +2434,7 @@
         },
         "required": [
           "id",
+          "type",
           "expires_at",
           "issued_at",
           "request_url",
@@ -2327,7 +2555,8 @@
               "totp",
               "oidc",
               "webauthn",
-              "lookup_secret"
+              "lookup_secret",
+              "v0.6_legacy_session"
             ],
             "title": "The method used",
             "type": "string"
@@ -2385,6 +2614,9 @@
             "type": "string"
           }
         },
+        "type": "object"
+      },
+      "subject": {
         "type": "object"
       },
       "submitSelfServiceFlowWithWebAuthnRegistrationMethod": {
@@ -2494,7 +2726,7 @@
             "type": "string"
           }
         },
-        "required": ["method", "password", "password_identifier", "identifier"],
+        "required": ["method", "password", "identifier"],
         "title": "submitSelfServiceLoginFlowWithPasswordMethodBody is used to decode the login form payload.",
         "type": "object"
       },
@@ -3023,7 +3255,18 @@
             "$ref": "#/components/schemas/uiNodeAttributes"
           },
           "group": {
-            "$ref": "#/components/schemas/uiNodeGroup"
+            "description": "Group specifies which group (e.g. password authenticator) this node belongs to.",
+            "enum": [
+              "default",
+              "password",
+              "oidc",
+              "profile",
+              "link",
+              "totp",
+              "lookup_secret",
+              "webauthn"
+            ],
+            "type": "string"
           },
           "messages": {
             "$ref": "#/components/schemas/uiTexts"
@@ -3032,7 +3275,9 @@
             "$ref": "#/components/schemas/uiNodeMeta"
           },
           "type": {
-            "$ref": "#/components/schemas/uiNodeType"
+            "description": "The node's type",
+            "enum": ["text", "input", "img", "a", "script"],
+            "type": "string"
           }
         },
         "required": ["type", "group", "attributes", "messages", "meta"],
@@ -3050,7 +3295,9 @@
             "type": "string"
           },
           "node_type": {
-            "$ref": "#/components/schemas/uiNodeType"
+            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.",
+            "enum": ["text", "input", "img", "a", "script"],
+            "type": "string"
           },
           "title": {
             "$ref": "#/components/schemas/uiText"
@@ -3063,8 +3310,8 @@
       "uiNodeAttributes": {
         "discriminator": {
           "mapping": {
-            "anchor": "#/components/schemas/uiNodeAnchorAttributes",
-            "image": "#/components/schemas/uiNodeImageAttributes",
+            "a": "#/components/schemas/uiNodeAnchorAttributes",
+            "img": "#/components/schemas/uiNodeImageAttributes",
             "input": "#/components/schemas/uiNodeInputAttributes",
             "script": "#/components/schemas/uiNodeScriptAttributes",
             "text": "#/components/schemas/uiNodeTextAttributes"
@@ -3090,9 +3337,6 @@
         ],
         "title": "Attributes represents a list of attributes (e.g. `href=\"foo\"` for links)."
       },
-      "uiNodeGroup": {
-        "type": "string"
-      },
       "uiNodeImageAttributes": {
         "properties": {
           "height": {
@@ -3105,7 +3349,9 @@
             "type": "string"
           },
           "node_type": {
-            "$ref": "#/components/schemas/uiNodeType"
+            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.",
+            "enum": ["text", "input", "img", "a", "script"],
+            "type": "string"
           },
           "src": {
             "description": "The image's source URL.\n\nformat: uri",
@@ -3139,7 +3385,9 @@
             "type": "string"
           },
           "node_type": {
-            "$ref": "#/components/schemas/uiNodeType"
+            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.",
+            "enum": ["text", "input", "img", "a", "script"],
+            "type": "string"
           },
           "onclick": {
             "description": "OnClick may contain javascript which should be executed on click. This is primarily\nused for WebAuthn.",
@@ -3193,7 +3441,9 @@
             "type": "string"
           },
           "node_type": {
-            "$ref": "#/components/schemas/uiNodeType"
+            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.",
+            "enum": ["text", "input", "img", "a", "script"],
+            "type": "string"
           },
           "nonce": {
             "description": "Nonce for CSP\n\nA nonce you may want to use to improve your Content Security Policy.\nYou do not have to use this value but if you want to improve your CSP\npolicies you may use it. You can also choose to use your own nonce value!",
@@ -3233,7 +3483,9 @@
             "type": "string"
           },
           "node_type": {
-            "$ref": "#/components/schemas/uiNodeType"
+            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.",
+            "enum": ["text", "input", "img", "a", "script"],
+            "type": "string"
           },
           "text": {
             "$ref": "#/components/schemas/uiText"
@@ -3242,9 +3494,6 @@
         "required": ["text", "id", "node_type"],
         "title": "TextAttributes represents the attributes of a text node.",
         "type": "object"
-      },
-      "uiNodeType": {
-        "type": "string"
       },
       "uiNodes": {
         "items": {
@@ -3286,6 +3535,17 @@
           "cookie_domain": {
             "description": "The domain where cookies will be set. Has to be a parent domain of the custom hostname to work.",
             "type": "string"
+          },
+          "cors_allowed_origins": {
+            "description": "Cors Allowed origins for the custom hostname.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "cors_enabled": {
+            "description": "Cors Enabled for the custom hostname.",
+            "type": "boolean"
           },
           "hostname": {
             "description": "The custom hostname where the API will be exposed.",
@@ -3463,7 +3723,7 @@
         "tags": ["v0alpha2"]
       },
       "post": {
-        "description": "This endpoint creates an identity. It is NOT possible to set an identity's credentials (password, ...)\nusing this method! A way to achieve that will be introduced in the future.\n\nLearn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
+        "description": "This endpoint creates an identity. Learn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
         "operationId": "adminCreateIdentity",
         "requestBody": {
           "content": {
@@ -3640,7 +3900,7 @@
         "tags": ["v0alpha2"]
       },
       "put": {
-        "description": "This endpoint updates an identity. It is NOT possible to set an identity's credentials (password, ...)\nusing this method! A way to achieve that will be introduced in the future.\n\nThe full identity payload (except credentials) is expected. This endpoint does not support patching.\n\nLearn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
+        "description": "This endpoint updates an identity. The full identity payload (except credentials) is expected. This endpoint does not support patching.\n\nLearn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
         "operationId": "adminUpdateIdentity",
         "parameters": [
           {
@@ -3963,6 +4223,214 @@
         "tags": ["v0alpha2"]
       }
     },
+    "/admin/relation-tuples": {
+      "delete": {
+        "description": "Use this endpoint to delete relation tuples",
+        "operationId": "deleteRelationTuples",
+        "parameters": [
+          {
+            "description": "Namespace of the Relation Tuple",
+            "in": "query",
+            "name": "namespace",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Object of the Relation Tuple",
+            "in": "query",
+            "name": "object",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Relation of the Relation Tuple",
+            "in": "query",
+            "name": "relation",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "SubjectID of the Relation Tuple",
+            "in": "query",
+            "name": "subject_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Namespace of the Subject Set",
+            "in": "query",
+            "name": "subject_set.namespace",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Object of the Subject Set",
+            "in": "query",
+            "name": "subject_set.object",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Relation of the Subject Set",
+            "in": "query",
+            "name": "subject_set.relation",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/emptyResponse"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Delete Relation Tuples",
+        "tags": ["write"]
+      },
+      "patch": {
+        "description": "Use this endpoint to patch one or more relation tuples.",
+        "operationId": "patchRelationTuples",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/PatchDelta"
+                },
+                "type": "array"
+              }
+            }
+          },
+          "x-originalParamName": "Payload"
+        },
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/emptyResponse"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Patch Multiple Relation Tuples",
+        "tags": ["write"]
+      },
+      "put": {
+        "description": "Use this endpoint to create a relation tuple.",
+        "operationId": "createRelationTuple",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RelationQuery"
+              }
+            }
+          },
+          "x-originalParamName": "Payload"
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RelationQuery"
+                }
+              }
+            },
+            "description": "RelationQuery"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Create a Relation Tuple",
+        "tags": ["write"]
+      }
+    },
     "/admin/sessions/{id}/extend": {
       "patch": {
         "description": "Retrieve the session ID from the `/sessions/whoami` endpoint / `toSession` SDK method.",
@@ -4062,6 +4530,11 @@
             "description": "genericError"
           }
         },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
         "summary": "Check HTTP Server Status",
         "tags": ["metadata"]
       }
@@ -4109,6 +4582,11 @@
             "description": "Ory Kratos is not yet ready to accept requests."
           }
         },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
         "summary": "Check HTTP Server and Database Status",
         "tags": ["metadata"]
       }
@@ -4727,6 +5205,410 @@
         ],
         "summary": "Remove a member associated with this project. This also sets their invite status to `REMOVED`.",
         "tags": ["v0alpha2"]
+      }
+    },
+    "/relation-tuples": {
+      "get": {
+        "description": "Get all relation tuples that match the query. Only the namespace field is required.",
+        "operationId": "getRelationTuples",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page_token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Namespace of the Relation Tuple",
+            "in": "query",
+            "name": "namespace",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Object of the Relation Tuple",
+            "in": "query",
+            "name": "object",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Relation of the Relation Tuple",
+            "in": "query",
+            "name": "relation",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "SubjectID of the Relation Tuple",
+            "in": "query",
+            "name": "subject_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Namespace of the Subject Set",
+            "in": "query",
+            "name": "subject_set.namespace",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Object of the Subject Set",
+            "in": "query",
+            "name": "subject_set.object",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Relation of the Subject Set",
+            "in": "query",
+            "name": "subject_set.relation",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getRelationTuplesResponse"
+                }
+              }
+            },
+            "description": "getRelationTuplesResponse"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Query relation tuples",
+        "tags": ["read"]
+      }
+    },
+    "/relation-tuples/check": {
+      "get": {
+        "description": "To learn how relation tuples and the check works, head over to [the documentation](../concepts/relation-tuples.mdx).",
+        "operationId": "getCheck",
+        "parameters": [
+          {
+            "description": "Namespace of the Relation Tuple",
+            "in": "query",
+            "name": "namespace",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Object of the Relation Tuple",
+            "in": "query",
+            "name": "object",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Relation of the Relation Tuple",
+            "in": "query",
+            "name": "relation",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "SubjectID of the Relation Tuple",
+            "in": "query",
+            "name": "subject_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Namespace of the Subject Set",
+            "in": "query",
+            "name": "subject_set.namespace",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Object of the Subject Set",
+            "in": "query",
+            "name": "subject_set.object",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Relation of the Subject Set",
+            "in": "query",
+            "name": "subject_set.relation",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "max-depth",
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getCheckResponse"
+                }
+              }
+            },
+            "description": "getCheckResponse"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getCheckResponse"
+                }
+              }
+            },
+            "description": "getCheckResponse"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Check a relation tuple",
+        "tags": ["read"]
+      },
+      "post": {
+        "description": "To learn how relation tuples and the check works, head over to [the documentation](../concepts/relation-tuples.mdx).",
+        "operationId": "postCheck",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "max-depth",
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RelationQuery"
+              }
+            }
+          },
+          "x-originalParamName": "Payload"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getCheckResponse"
+                }
+              }
+            },
+            "description": "getCheckResponse"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getCheckResponse"
+                }
+              }
+            },
+            "description": "getCheckResponse"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Check a relation tuple",
+        "tags": ["read"]
+      }
+    },
+    "/relation-tuples/expand": {
+      "get": {
+        "description": "Use this endpoint to expand a relation tuple.",
+        "operationId": "getExpand",
+        "parameters": [
+          {
+            "description": "Namespace of the Subject Set",
+            "in": "query",
+            "name": "namespace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Object of the Subject Set",
+            "in": "query",
+            "name": "object",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Relation of the Subject Set",
+            "in": "query",
+            "name": "relation",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "max-depth",
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/expandTree"
+                }
+              }
+            },
+            "description": "expandTree"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Expand a Relation Tuple",
+        "tags": ["read"]
       }
     },
     "/schemas": {
@@ -6748,6 +7630,11 @@
             "description": "Returns the Ory Kratos version."
           }
         },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
         "summary": "Return Running Software Version.",
         "tags": ["metadata"]
       }

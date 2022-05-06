@@ -1,0 +1,109 @@
+---
+id: overview
+title: Overview
+---
+
+Thanks to social sign-in, users can use their existing accounts from providers
+such as Google, Slack, or Facebook for sign-up and sign-in in your application.
+
+Ory Cloud provides convenient, GUI-based flows for adding new social sign-in
+providers through the [Ory Cloud Console](https://console.ory.sh/login). Each
+flow is custom-tailored to accommodate configuration requirements of the
+specific identity provider.
+
+Alternatively, you can use the [Ory CLI](../cli/installation) to add and
+configure social sign-in providers.
+
+:::info
+
+This feature is being actively developed. New provider-specific flows are added
+to the Ory Cloud Console with new releases.
+
+:::
+
+By signing up with external identity providers, users give Ory access to the
+profile data of the account created in the external identity provider. This data
+is used to create an Ory identity and a user account in your application
+
+Allowing users to use their existing accounts with your application removes the
+friction that comes with having to remember another set of credentials and makes
+the decision to sign up much easier.
+
+Adding social sign-in providers relies on OAuth2 and OpenID Connect.
+
+## OIDC Token Handling
+
+Ory Identity Service (Kratos) doesn't save the OIDC tokens it gets from social
+sign-in providers. The tokens are exchanged for Ory Sessions. The tokens are
+used in the following way:
+
+1. Ory Identity Service starts the OIDC flow with a social sign-in provider.
+2. Upon successful authentication, the social sign-in provider issues an
+   `id_token`.
+3. Ory Identity Service gets user information from the `id_token` claims.
+4. The Identity service checks if a matching identity exists. <br /> ✅ The user
+   gets a Session. <br /> ❌ Identity Service creates a new identity and issues
+   a Session.
+5. The system discards of the `id_token` when the flow is completed.
+
+## Preventing Account Linking
+
+If you enable multiple registration methods, users may be redirected to a social
+login provider to link their existing accounts after email verification. To
+disable this behavior, add the `session` hook after one of the registration
+methods (for example `password`):
+
+```yaml
+selfservice:
+  flows:
+    registration:
+      after:
+        password:
+          hooks:
+            - hook: session
+```
+
+### Dangers of Account Linking
+
+When the system detects that a user signs in with a social sign-provider's
+account that has the same identifier as an existing account, the user is asked
+to link the accounts.
+
+There is no way to have two separate accounts (one created "manually", one
+through a social sign-in) for a single identifier.
+
+This is the default behavior of the system.
+
+While convenient for users, this behavior creates an attack vector that can
+allow malicious actors to take over user accounts.
+
+To better understand the danger, consider the following scenario:
+
+- Your application allows users to create new accounts or sign in with ACME - a
+  well-known social sign-in provider.
+- John creates a new account in your application using his john@doe.com email.
+- Malicious actors know that John uses john@doe.com to sign in to his account in
+  your app.
+- Malicious actors create an ACME account for john@doe.com.
+- Malicious actors sign up in your application using the ACME account created
+  for the john@doe.com account.
+- Your system uses the default behavior and when it detects two accounts with
+  the same identifier, malicious actors are asked to link the accounts.
+- Malicious actors link the accounts.
+- Malicious actors get access to the account that John created manually using
+  his john@doe.com email.
+
+:::warning
+
+Since it constitutes a security threat, we strongly discourage allowing account
+linking.
+
+:::
+
+## Prevent Having to Login after Sign-Up
+
+```mdx-code-block
+import OidcSessionHook from '../_common/oidc_session_hook.mdx'
+
+<OidcSessionHook />
+```

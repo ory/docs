@@ -59,7 +59,7 @@ $ ory get project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
 ```
   -c, --config string   Path to the Ory Cloud configuration file.
   -q, --quiet           Be quiet with output printing.
-  -y, --yes             Confirm all dialogues with yes.
+  -y, --yes             Confirm all dialogs with yes.
 ```
 
 ### SEE ALSO

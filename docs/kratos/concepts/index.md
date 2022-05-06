@@ -42,7 +42,7 @@ While Ory Kratos is not certifiable, it tackles these topics as follows:
 - With inspiration from the approach taken in the Kubernetes Project, Ory
   provides an open source project that hopefully becomes an open standard in the
   future.
-- Prioritise simplicity and ease of use for developers. Ory Kratos integrates
+- Prioritize simplicity and ease of use for developers. Ory Kratos integrates
   critical security components without relying on complex flows and protocols.
 
 Using Ory Kratos it's possible to consume OAuth2 and OpenID Connect, and/or
@@ -141,7 +141,7 @@ federation over the browser, they don't solve:
   create the cookie for the session, delete the cookie at log out, and to make
   sure that the cookie implements best security practices.
 - Refreshing expiring tokens. While this function is straightforward for one
-  request, synchronising for example fifteen concurrent requests can be
+  request, synchronizing for example fifteen concurrent requests can be
   difficult.
 
 The point is that OAuth2 is hard to use because the intended use cases (for
@@ -213,7 +213,7 @@ Ory Kratos addresses a defined problem domain:
 - managing credentials such as passwords, recovery email addresses, and security
   questions;
 - authentication including secure login, keeping track of sessions and devices;
-- selfservice account management for example update profile, add/update email
+- self-service account management for example update profile, add/update email
   addresses, and changing passwords;
 - account/identity administration such as create, read, delete, update, import,
   and get; and

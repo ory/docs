@@ -109,7 +109,7 @@ logoutUrl=$( \
 # Complete the logout
 curl -s --cookie $cookieJar --cookie-jar $cookieJar "$logoutUrl"
 
-# Check the current user id again. It should be `null` after a succesful logout
+# Check the current user id again. It should be `null` after a successful logout
 curl -s --cookie $cookieJar --cookie-jar $cookieJar -H "Accept: application/json" \
   https://playground.projects.oryapis.com/api/kratos/public/sessions/whoami | \
   jq -r ".id"

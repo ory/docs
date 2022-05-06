@@ -54,7 +54,7 @@ The flow itself works as follows:
    Next, Ory Hydra will run some checks and if everything works out, issue
    access, refresh, and ID tokens.
 
-This flow allows you to take full control of the behaviour of your login system
+This flow allows you to take full control of the behavior of your login system
 (for example 2FA, passwordless, ...) and consent screen. A well-documented
 reference implementation for both the Login and
 [Consent Provider is available on GitHub](https://github.com/ory/hydra-login-consent-node).

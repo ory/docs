@@ -93,7 +93,7 @@ $ ory update project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
   -h, --help            help for project
   -n, --name string     The name of the project, required when quiet mode is used
   -q, --quiet           Be quiet with output printing.
-  -y, --yes             Confirm all dialogues with yes.
+  -y, --yes             Confirm all dialogs with yes.
 ```
 
 ### Options inherited from parent commands
