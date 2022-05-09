@@ -1,7 +1,7 @@
 ---
 id: ory-lint-lint
 title: ory lint lint
-description: ory lint lint
+description: ory lint lint 
 ---
 
 <!--
@@ -9,13 +9,13 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory lint lint
+
+
 
 ### Synopsis
 
-Lints JSONNet files using the official JSONNet linter and exits with a status
-code of 1 when issues are detected.
+Lints JSONNet files using the official JSONNet linter and exits with a status code of 1 when issues are detected.
 
 Glob Syntax:
 
@@ -54,4 +54,5 @@ ory lint lint path/to/files/*.jsonnet [more/files.jsonnet] [supports/**/{foo,bar
 
 ### SEE ALSO
 
-- [ory lint](ory-lint) - Helpers for linting code
+* [ory lint](ory-lint)	 - Helpers for linting code
+
