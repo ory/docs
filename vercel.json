@@ -413,6 +413,11 @@
       "source": "/docs/cloud/cloud-roadmap",
       "destination": "https://www.ory.sh/cloud",
       "permanent": false
+    },
+    {
+      "source": "/docs/kratos/guides/two-factor-authentication-2fa-mfa",
+      "destination": "https://www.ory.sh/docs/guides/mfa/overview",
+      "permanent": false
     }
   ]
 }
