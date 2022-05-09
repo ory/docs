@@ -9,13 +9,12 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory get project
 
 Get an Ory Cloud project
 
 ```
-ory get project id [flags]
+ory get project <id> [flags]
 ```
 
 ### Examples
@@ -64,4 +63,5 @@ $ ory get project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
 
 ### SEE ALSO
 
-- [ory get](ory-get) - Get a resource
+* [ory get](ory-get)	 - Get a resource
+
