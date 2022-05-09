@@ -245,7 +245,7 @@ localhost IP.
    framework. Create `ws/main.go` file with the following content:
 
 ```mdx-code-block title="ws/main.go"
-import app from '!!raw-loader!../../../code-examples/oathkeeper/main.go'
+import app from '!!raw-loader!../../../code-examples/oathkeeper/ws/main.go'
 <CodeBlock language="go">{app}</CodeBlock>
 ```
 
@@ -260,14 +260,14 @@ go mod tidy
 3. Create `ws/index.html` file with the following content:
 
 ```mdx-code-block title="ws/index.html"
-import index from '!!raw-loader!../../../code-examples/oathkeeper/index.html'
+import index from '!!raw-loader!../../../code-examples/oathkeeper/ws/index.html'
 <CodeBlock language="html">{index}</CodeBlock>
 ```
 
 4. Create `ws/Dockerfile` with the following content:
 
 ```mdx-code-block title="ws/Dockerfile"
-import dockerfile from '!!raw-loader!../../../code-examples/oathkeeper/Dockerfile'
+import dockerfile from '!!raw-loader!../../../code-examples/oathkeeper/ws/Dockerfile'
 <CodeBlock language="html">{dockerfile}</CodeBlock>
 ```
 
