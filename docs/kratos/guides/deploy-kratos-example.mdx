@@ -177,32 +177,40 @@ identity:
 Apply [migrations](../cli/kratos-migrate-sql.md):
 
 ```bash
-/opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml migrate sql -y postgres://kratos:b0qw68gr3Q@127.0.0.1:5432/kratos?sslmode=disable
+/opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml migrate sql -y postgres://kratos:CHANGE-ME-INSECURE-PASSWORD@127.0.0.1:5432/kratos?sslmode=disable
 ```
 
-Test your setup:
+Test your setup using the [`serve` command](../cli/kratos-serve):
 
 ```bash
 /opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml serve
-INFO[2022-04-15T08:24:42Z] No tracer configured - skipping tracing setup  audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
-DEBU[2022-04-15T08:24:42Z] Connecting to SQL Database                    audience=application connMaxLifetime=0s idlePool=4 pool=20 service_name=Ory Kratos service_version=v0.9.0-alpha.3
-WARN[2022-04-15T08:24:42Z] Config version is 'v0.7.1-alpha.1' but kratos runs on version 'v0.9.0-alpha.3'  audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
-INFO[2022-04-15T08:24:42Z] Software quality assurance features are enabled. Learn more at: https://www.ory.sh/docs/ecosystem/sqa  audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
-INFO[2022-04-15T08:24:42Z] TLS has not been configured for public, skipping  audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
-INFO[2022-04-15T08:24:42Z] Starting the public httpd on: 0.0.0.0:4433    audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
-INFO[2022-04-15T08:24:42Z] TLS has not been configured for admin, skipping  audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
-INFO[2022-04-15T08:24:42Z] Starting the admin httpd on: 0.0.0.0:4434     audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
+```
+
+You should see something like this once the service has been started:
+
+```bash
+INFO[2022-05-10T20:51:56Z] TLS has not been configured for public, skipping  audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
+INFO[2022-05-10T20:51:56Z] Starting the public httpd on: 0.0.0.0:4433    audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
+INFO[2022-05-10T20:51:56Z] TLS has not been configured for admin, skipping  audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
+INFO[2022-05-10T20:51:56Z] Starting the admin httpd on: 0.0.0.0:4434     audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3```
 ```
 
 ## Run Ory Kratos using Systemd
 
-We need to change owner of `/opt/kratos` directory to `kratos` user:
+We need to change the owner of `/opt/kratos` directory to the `kratos` user:
 
 ```bash
 chown -R kratos /opt/kratos/
 ```
 
-Create a `/etc/systemd/system/kratos.service` file with the following content:
+Create a `/etc/systemd/system/kratos.service` file
+
+```bash
+cd /etc/systemd/system
+nano kratos.service
+```
+
+Paste the following content to configure systemd to start Ory Kratos using the [`serve` command](../cli/kratos-serve) from earlier.
 
 ```
 [Unit]
@@ -221,23 +229,31 @@ ExecStart=/opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml serve
 WantedBy=multi-user.target
 ```
 
-Running Ory Kratos using systemd:
+To run Ory Kratos using systemd add the systemd service to startup:
 
 ```bash
-# Add systemd service to startup
 systemctl enable kratos.service
 Created symlink /etc/systemd/system/multi-user.target.wants/kratos.service → /etc/systemd/system/kratos.service.
+```
 
-# Start kratos service
+Start kratos service using systemd:
+
+```
 systemctl start kratos.service
+```
 
-# Check running processes
-ps ax | grep kratos
+Check running processes with `ps ax | grep kratos`. 
+If everything worked correctly you should see output like this:
+
+```bash
 19191 ?        Ssl    0:00 /opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml serve
 19206 ?        Ss     0:00 postgres: 12/main: kratos kratos 127.0.0.1(36094) idle
+```
 
-# Check if it's accessible
-curl -s  http://accounts.example.com:4433/sessions/whoami|jq
+Check if it's accessible (if your DNS record is not set yet (it takes up to 24h to propagate), you can also send the request here directly to your droplet IP)
+
+```bash
+curl -s  http://accounts.example.com:4433/sessions/whoami | jq
 {
   "error": {
     "code": 401,
@@ -248,23 +264,22 @@ curl -s  http://accounts.example.com:4433/sessions/whoami|jq
 }
 ```
 
-We have Ory Kratos up and running, but we need to make the Kratos Admin API  inaccessible via the
-public internet and configure a reverse proxy. We need to set `serve.public.host`
-and `serve.admin.host` to `127.0.0.1` to ensure Ory Kratos is listening
+We have Ory Kratos up and running, but we need to configure a reverse proxy to make the Kratos Admin API inaccessible via the
+public internet. We need to set `serve.public.host` and `serve.admin.host` to `127.0.0.1` to ensure Ory Kratos is listening
 on the loopback interface.
 
-Change the following sections in your `kratos.yml`:
+Change the following sections in your `kratos.yml` (in case you forgot: you can find it in `/opt/kratos/config`):
 
-```yaml
+```diff
 serve:
   public:
     base_url: http://127.0.0.1:4433/
-    host: 127.0.0.1
++    host: 127.0.0.1
     cors:
       enabled: true
   admin:
-    host: 127.0.0.1
     base_url: http://kratos:4434/
++    host: 127.0.0.1
 ```
 and then restart Kratos by running
 
