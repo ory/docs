@@ -418,6 +418,11 @@
       "source": "/docs/kratos/guides/two-factor-authentication-2fa-mfa",
       "destination": "https://www.ory.sh/docs/guides/mfa/overview",
       "permanent": false
-    }
+    },
+    {
+      "source": "/docs/guides/passwordless/social-sign-in",
+      "destination": "https://www.ory.sh/docs/guides/social-signin/overview",
+      "permanent": false
+    },
   ]
 }
