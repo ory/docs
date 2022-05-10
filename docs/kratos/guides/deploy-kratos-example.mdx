@@ -325,8 +325,13 @@ another reverse proxy and load balancer instead. Install Nginx by running:
 apt-get nginx certbot python3-certbot-nginx
 ```
 
-Create a default configuration for the virtual host. Let's create a
-`/etc/nginx/sites-available/accounts.example.com` with the following content
+Create a default configuration for the virtual host. To do this 
+create the file `accounts.example.com` at `/etc/nginx/sites-available/` with the following content
+
+```bash
+cd /etc/nginx/sites-available/
+nano accounts.example.com
+```
 
 ```
 server {
@@ -341,8 +346,8 @@ We need to create a symlink to the `sites-enabled` directory
 ln -s /etc/nginx/sites-available/accounts.example.com /etc/nginx/sites-enabled/accounts.example.com
 ```
 
-Configure SSL via Certbot. Run the following command and answer a simple
-question
+Configure SSL via Certbot. Run the following command and answer the questions to set it up.
+When prompted choose to redirect HTTP traffic to HTTPS.
 
 ```bash
 certbot --nginx -d accounts.example.com
@@ -369,12 +374,11 @@ server {
 }
 ```
 
-We have configured the TLS connection with the redirect from HTTP to HTTPS by
-default. We have missing parts in our configuration, and we need to configure
+There are some missing parts in your configuration at this point, and we need to configure
 locations and
-[upstreams](http://nginx.org/en/docs/http/ngx_http_upstream_module.html). You
+[upstream APIs](http://nginx.org/en/docs/http/ngx_http_upstream_module.html). You
 can balance network traffic between different instances of Ory Kratos running on
-the various virtual machines. We need to have two upstreams
+the various virtual machines. We need two upstream APIs:
 
 - public_api to proxy traffic to the Public API of Ory Kratos
 - admin_api to proxy traffic to the admin API of Ory Kratos
