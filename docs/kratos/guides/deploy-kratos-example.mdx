@@ -2,17 +2,23 @@
 id: deploy-kratos-example
 title: Deploy to production
 ---
-import { useLatestRelease,useLatestReleaseFilename } from '@site/src/hooks'
+
+import { useLatestRelease, useLatestReleaseFilename } from '@site/src/hooks'
 import CodeBlock from '@theme/CodeBlock'
 
-This guide explains how to setup and run Ory Kratos in an exemplary
-production environment. It uses Postgres as database, Nginx as reverse proxy, [Digital Ocean](https://www.digitalocean.com/) as cloud provider, and the Ory Kratos NodeJS UI Reference as user interface. 
-You can use another [relational database](https://www.ory.sh/docs/ecosystem/deployment#data-storage-and-persistence), a different reverse proxy, deploy on any other cloud host, and [spin up a custom interface in your favourite language](https://www.ory.sh/docs/kratos/sdk/).
+This guide explains how to setup and run Ory Kratos in an exemplary production
+environment. It uses Postgres as database, Nginx as reverse proxy,
+[Digital Ocean](https://www.digitalocean.com/) as cloud provider, and the Ory
+Kratos NodeJS UI Reference as user interface. You can use another
+[relational database](https://www.ory.sh/docs/ecosystem/deployment#data-storage-and-persistence),
+a different reverse proxy, deploy on any other cloud host, and
+[spin up a custom interface in your favourite language](https://www.ory.sh/docs/kratos/sdk/).
 
 - Installation and configuration of [PostgreSQL](https://www.postgresql.org/)
 - Installation and configuration of [Ory Kratos](https://github.com/ory/kratos)
 - Installation and configuration of [Nginx](https://www.nginx.com/)
-- Installation and configuration of [Ory Kratos NodeJS UI Reference](https://github.com/ory/kratos-selfservice-ui-node)
+- Installation and configuration of
+  [Ory Kratos NodeJS UI Reference](https://github.com/ory/kratos-selfservice-ui-node)
 
 ## Create a Droplet
 
@@ -29,19 +35,23 @@ Spin up a droplet with the following configuration:
 
 :::note
 
-This example shows a single configuration on a small droplet.
-The configuration of a virtual machine (VM) may vary depending on the scale of your application.
+This example shows a single configuration on a small droplet. The configuration
+of a virtual machine (VM) may vary depending on the scale of your application.
 
 :::
 
 Wait for the virtual machine (VM) to start up and copy the IP address.
 
-This guide uses `accounts.example.com` as a hostname to run Ory Kratos. Replace it with `<something>.<your-domain>` for your purposes. 
-You need to configure DNS, create an `A type` record, and point it to the VM's IP.
+This guide uses `accounts.example.com` as a hostname to run Ory Kratos. Replace
+it with `<something>.<your-domain>` for your purposes. You need to configure
+DNS, create an `A type` record, and point it to the VM's IP.
 
 ## Install required dependencies
 
-Connect to your [droplet via SSH](https://docs.digitalocean.com/products/droplets/how-to/connect-with-ssh/) or use the [Droplet Console](https://docs.digitalocean.com/products/droplets/how-to/connect-with-console/).
+Connect to your
+[droplet via SSH](https://docs.digitalocean.com/products/droplets/how-to/connect-with-ssh/)
+or use the
+[Droplet Console](https://docs.digitalocean.com/products/droplets/how-to/connect-with-console/).
 
 First upgrade all packages in your VM.
 
@@ -49,8 +59,9 @@ First upgrade all packages in your VM.
 apt-get update && apt-get upgrade -y
 ```
 
-The default version of [Node.js](https://nodejs.org/en/) is v10.19.0 on Ubuntu 20.04,
-we need to install a newer version. You can use the following script to install Node.js 16.x on a Ubuntu system.
+The default version of [Node.js](https://nodejs.org/en/) is v10.19.0 on Ubuntu
+20.04, we need to install a newer version. You can use the following script to
+install Node.js 16.x on a Ubuntu system.
 
 ```bash
 curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh
@@ -64,21 +75,23 @@ apt-get install nodejs jq unzip -y
 Install PostgreSQL by running the following command:
 
 ```bash
-sudo apt-get postgresql postgresql-contrib -y
+sudo apt install postgresql postgresql-contrib -y
 sudo -i -u postgres
 ```
+
 Create the database:
 
 ```bash
 createdb kratos
 ```
 
-Change the default password encryption to a stronger one as [recommended by PostgreSQL](https://www.postgresql.org/docs/current/auth-password.html):
+Change the default password encryption to a stronger one as
+[recommended by PostgreSQL](https://www.postgresql.org/docs/current/auth-password.html):
 
 ```bash
 psql
 # Postgres command line
-ALTER SYSTEM SET password_encryption = 'scram-sha-256'; 
+ALTER SYSTEM SET password_encryption = 'scram-sha-256';
 # Change the default password encryption to stronger one
 SELECT pg_reload_conf();
 # Reload configuration
@@ -96,8 +109,9 @@ Give the newly created account access to the database:
 GRANT CONNECT ON DATABASE kratos to kratos;
 ```
 
-We need to change the Postgres configuration to enable `scram-sha-256` encryption.
-Open the file at `/etc/postgresql/12/main/pg_hba.conf`, and add the following content:
+We need to change the Postgres configuration to enable `scram-sha-256`
+encryption. Open the file at `/etc/postgresql/12/main/pg_hba.conf`, and add the
+following content:
 
 ```
 host    all             all             127.0.0.1/32            scram-sha-256
@@ -105,13 +119,12 @@ host    all             all             127.0.0.1/32            scram-sha-256
 
 Check your credentials against PostgreSQL:
 
-
 ```bash
 psql -U kratos -W -h 127.0.0.1
 ```
- 
-Type or paste the password for the Ory Kratos user we created before. 
-If everything works correctly you should see a prompt similar to this:
+
+Type or paste the password for the Ory Kratos user we created before. If
+everything works correctly you should see a prompt similar to this:
 
 ```
 Password:
@@ -119,10 +132,11 @@ psql (12.9 (Ubuntu 12.9-0ubuntu0.20.04.1))
 SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
 Type "help" for help.
 
-kratos=> 
+kratos=>
 ```
 
-Congratulations, you have installed and configured the PostgreSQL database to store your identities. Next we will setup Ory Kratos.
+Congratulations, you have installed and configured the PostgreSQL database to
+store your identities. Next we will setup Ory Kratos.
 
 ## Install Ory Kratos
 
@@ -131,6 +145,7 @@ For security reasons, we need to create a new user with prohibited login:
 ```bash
 useradd -s /bin/false -m -d /opt/kratos kratos
 ```
+
 Create folders to hold the installation data and configuration files.
 
 ```bash
@@ -141,7 +156,9 @@ Install Ory Kratos:
 
 <CodeBlock className="language-shell">{`cd /opt/kratos/bin
 # Download a new version of Ory Kratos
-wget https://github.com/ory/kratos/releases/download/${useLatestRelease('kratos')}/kratos_${useLatestReleaseFilename('kratos')}-linux_64bit.tar.gz
+wget https://github.com/ory/kratos/releases/download/${useLatestRelease(
+  'kratos'
+)}/kratos_${useLatestReleaseFilename('kratos')}-linux_64bit.tar.gz
 # Extract contents
 tar xfvz kratos_${useLatestReleaseFilename('kratos')}-linux_64bit.tar.gz
 # Remove redundant files
@@ -151,12 +168,17 @@ rm LICENSE`}</CodeBlock>
 Download the [Quickstart](../quickstart.mdx) configuration files:
 
 <CodeBlock className="language-shell">{`cd ../config
-wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease('kratos')}/contrib/quickstart/kratos/email-password/identity.schema.json
-wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease('kratos')}/contrib/quickstart/kratos/email-password/kratos.yml`}</CodeBlock>
+wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
+  'kratos'
+)}/contrib/quickstart/kratos/email-password/identity.schema.json
+wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
+  'kratos'
+)}/contrib/quickstart/kratos/email-password/kratos.yml`}</CodeBlock>
 
-We need configure Ory Kratos to use the Postgres database. 
-Open `kratos.yml` and change the dsn configuration. By default `dsn: memory` is configured, so Ory Kratos is storing data in the temporary memory.
-Change the dsn key to use the Postgres database you configured before:
+We need configure Ory Kratos to use the Postgres database. Open `kratos.yml` and
+change the dsn configuration. By default `dsn: memory` is configured, so Ory
+Kratos is storing data in the temporary memory. Change the dsn key to use the
+Postgres database you configured before:
 
 ```diff
 - dsn: memory
@@ -188,12 +210,12 @@ Test your setup using the [`serve` command](../cli/kratos-serve):
 
 You should see something like this once the service has been started:
 
-```bash
+````bash
 INFO[2022-05-10T20:51:56Z] TLS has not been configured for public, skipping  audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
 INFO[2022-05-10T20:51:56Z] Starting the public httpd on: 0.0.0.0:4433    audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
 INFO[2022-05-10T20:51:56Z] TLS has not been configured for admin, skipping  audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
 INFO[2022-05-10T20:51:56Z] Starting the admin httpd on: 0.0.0.0:4434     audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3```
-```
+````
 
 ## Run Ory Kratos using Systemd
 
@@ -210,7 +232,8 @@ cd /etc/systemd/system
 nano kratos.service
 ```
 
-Paste the following content to configure systemd to start Ory Kratos using the [`serve` command](../cli/kratos-serve) from earlier.
+Paste the following content to configure systemd to start Ory Kratos using the
+[`serve` command](../cli/kratos-serve) from earlier.
 
 ```
 [Unit]
@@ -242,15 +265,16 @@ Start kratos service using systemd:
 systemctl start kratos.service
 ```
 
-Check running processes with `ps ax | grep kratos`. 
-If everything worked correctly you should see output like this:
+Check running processes with `ps ax | grep kratos`. If everything worked
+correctly you should see output like this:
 
 ```bash
 19191 ?        Ssl    0:00 /opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml serve
 19206 ?        Ss     0:00 postgres: 12/main: kratos kratos 127.0.0.1(36094) idle
 ```
 
-Check if it's accessible (if your DNS record is not set yet (it takes up to 24h to propagate), you can also send the request here directly to your droplet IP)
+Check if it's accessible (if your DNS record is not set yet (it takes up to 24h
+to propagate), you can also send the request here directly to your droplet IP)
 
 ```bash
 curl -s  http://accounts.example.com:4433/sessions/whoami | jq
@@ -264,11 +288,13 @@ curl -s  http://accounts.example.com:4433/sessions/whoami | jq
 }
 ```
 
-We have Ory Kratos up and running, but we need to configure a reverse proxy to make the Kratos Admin API inaccessible via the
-public internet. We need to set `serve.public.host` and `serve.admin.host` to `127.0.0.1` to ensure Ory Kratos is listening
-on the loopback interface.
+We have Ory Kratos up and running, but we need to configure a reverse proxy to
+make the Kratos Admin API inaccessible via the public internet. We need to set
+`serve.public.host` and `serve.admin.host` to `127.0.0.1` to ensure Ory Kratos
+is listening on the loopback interface.
 
-Change the following sections in your `kratos.yml` (in case you forgot: you can find it in `/opt/kratos/config`):
+Change the following sections in your `kratos.yml` (in case you forgot: you can
+find it in `/opt/kratos/config`):
 
 ```diff
 serve:
@@ -281,6 +307,7 @@ serve:
     base_url: http://kratos:4434/
 +    host: 127.0.0.1
 ```
+
 and then restart Kratos by running
 
 ```bash
@@ -291,13 +318,15 @@ curl: (7) Failed to connect to accounts.example.com port 4433: Connection refuse
 
 ## Installing and configuring Nginx
 
-We'll use Nginx as reverse proxy and load balancer for our service. You can use another reverse proxy and load balancer instead. Install Nginx by running:
+We'll use Nginx as reverse proxy and load balancer for our service. You can use
+another reverse proxy and load balancer instead. Install Nginx by running:
 
 ```bash
-apt install nginx certbot python3-certbot-nginx
+apt-get nginx certbot python3-certbot-nginx
 ```
 
-Create a default configuration for the virtual host. Let's create a `/etc/nginx/sites-available/accounts.example.com` with the following content
+Create a default configuration for the virtual host. Let's create a
+`/etc/nginx/sites-available/accounts.example.com` with the following content
 
 ```
 server {
@@ -312,7 +341,8 @@ We need to create a symlink to the `sites-enabled` directory
 ln -s /etc/nginx/sites-available/accounts.example.com /etc/nginx/sites-enabled/accounts.example.com
 ```
 
-Configure SSL via Certbot. Run the following command and answer a simple question
+Configure SSL via Certbot. Run the following command and answer a simple
+question
 
 ```bash
 certbot --nginx -d accounts.example.com
@@ -338,15 +368,19 @@ server {
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
 ```
-We have configured the TLS connection with the redirect from HTTP to HTTPS by default.
-We have missing parts in our configuration, and we need to configure locations and [upstreams](http://nginx.org/en/docs/http/ngx_http_upstream_module.html).
-You can balance network traffic between different instances of Ory Kratos running
-on the various virtual machines. We need to have two upstreams
+
+We have configured the TLS connection with the redirect from HTTP to HTTPS by
+default. We have missing parts in our configuration, and we need to configure
+locations and
+[upstreams](http://nginx.org/en/docs/http/ngx_http_upstream_module.html). You
+can balance network traffic between different instances of Ory Kratos running on
+the various virtual machines. We need to have two upstreams
 
 - public_api to proxy traffic to the Public API of Ory Kratos
 - admin_api to proxy traffic to the admin API of Ory Kratos
 
-Add the following configuration before `server` section to `/etc/nginx/sites-enabled/accounts.example.com` file
+Add the following configuration before `server` section to
+`/etc/nginx/sites-enabled/accounts.example.com` file
 
 ```
 upstream public_api {
@@ -360,7 +394,9 @@ upstream admin_api {
 server {
 ...
 ```
-Add your locations and the `/etc/nginx/sites-enabled/accounts.example.com` has the following content
+
+Add your locations and the `/etc/nginx/sites-enabled/accounts.example.com` has
+the following content
 
 ```
 upstream public_api {
@@ -455,7 +491,9 @@ curl -s  http://accounts.example.com/sessions/whoami|jq
 The installation of the Ory Kratos NodeJS UI Reference is straightfoward:
 
 <CodeBlock className="language-shell">{`useradd -s /bin/false -m -d /opt/uinode uinode
-wget https://github.com/ory/kratos-selfservice-ui-node/archive/refs/tags/${useLatestRelease('kratos')}.zip
+wget https://github.com/ory/kratos-selfservice-ui-node/archive/refs/tags/${useLatestRelease(
+  'kratos'
+)}.zip
 unzip ${useLatestRelease('kratos')}
 rm  ${useLatestRelease('kratos')}
 mv kratos-selfservice-ui-node-${useLatestReleaseFilename('kratos')}/ ui
@@ -464,7 +502,8 @@ npm i
 chown -R uinode /opt/uinode
 `}</CodeBlock>
 
-Create a configuration file for systemd. Create `/etc/systemd/system/uinode.service` with the following content:
+Create a configuration file for systemd. Create
+`/etc/systemd/system/uinode.service` with the following content:
 
 ```
 [Unit]
@@ -485,6 +524,7 @@ WorkingDirectory=/opt/uinode/ui
 [Install]
 WantedBy=multi-user.target
 ```
+
 Let's enable systemd service and start it
 
 ```bash
@@ -495,7 +535,8 @@ systemctl start uinode
 
 ## Configure User Interface
 
-In `kratos.yml` change URLs to use the user interface you installed in the step before:
+In `kratos.yml` change URLs to use the user interface you installed in the step
+before:
 
 ```yaml
 serve:
@@ -571,7 +612,6 @@ Configure Nginx and add the missing configuration for your UI:
 
 Test the Nginx configuration and reload it:
 
-
 ```bash
 nginx -t
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
@@ -582,4 +622,5 @@ service nginx reload
 
 ## Conclusion
 
-Open https://accounts.example.com/auth/login and you should see the Login Screen.
+Open https://accounts.example.com/auth/login and you should see the Login
+Screen.
