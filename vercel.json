@@ -423,6 +423,6 @@
       "source": "/docs/guides/passwordless/social-sign-in",
       "destination": "https://www.ory.sh/docs/guides/social-signin/overview",
       "permanent": false
-    },
+    }
   ]
 }
