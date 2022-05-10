@@ -10,7 +10,7 @@ Authenticator Assurance Level (AAL).
 - **Lax**, where the secured operations require only the `aal1`
 Authenticator Assurance Level (AAL).
 
-You can set required authentication model for these operations/endpoints:
+You can set the required authentication model for these operations/endpoints:
 
 - User sign-in (getting an Ory Session) / `/sessions/whoami` endpoint
 - Self-service user settings
@@ -22,7 +22,7 @@ You can set required authentication model for these operations/endpoints:
 In Ory Cloud projects, the default multi-factor authentication enforcement model 
 is Strict. 
 
-To change it to Lax and allow users sign in or access user settings without authenticating
+To change it to Lax and allow users to sign in or access user settings without authenticating
 with the second factor, go to the **Ory Cloud Console → Two-Factor Authentication** and use the
 switches in the **General Settings** section.
 
@@ -45,24 +45,24 @@ and save it to a file:
 
 2. Adjust the values of the indicated keys to the desired values: 
 
-    ```yaml
-    # ...
-    selfservice:
-      flows:
-        settings:
-          required_aal: aal1
-    # ...
-    session:
-      whoami:
+  ```yaml
+  # ...
+  selfservice:
+    flows:
+      settings:
         required_aal: aal1
-    # ...
-    ```
+  # ...
+  session:
+    whoami:
+      required_aal: aal1
+  # ...
+  ```
 
-    :::tip
+  :::tip
 
-    Use `aal1` for the Lax model and `highest_available` for the Strict model.
+  Use `aal1` for the Lax model and `highest_available` for the Strict model.
 
-    :::
+  :::
 
 3. Update the Ory Cloud Identity Service configuration using the file you worked
    with:
