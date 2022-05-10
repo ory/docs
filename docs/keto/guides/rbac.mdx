@@ -179,7 +179,7 @@ The example below shows you how to get a list of objects Dilan has access to
 
 ```bash
 # Get all groups for Dilan
-curl -s http://localhost:4466/relation-tuples\?subject_id\=Dilan\&relation\=member | jq
+keto relation-tuple get --subject-id=Dilan --relation=member --format json --read-remote localhost:4466 | jq
 {
   "relation_tuples": [
     {
@@ -199,7 +199,7 @@ curl -s http://localhost:4466/relation-tuples\?subject_id\=Dilan\&relation\=memb
 }
 
 # Get permissions to objects for marketing group
-curl -s http://localhost:4466/relation-tuples\?subject_set.namespace\=groups\&subject_set.relation\=member\&subject_set.object\=marketing | jq
+keto relation-tuple get --subject-set="groups:marketing#member" --format json --read-remote localhost:4466 | jq
 {
   "relation_tuples": [
     {
@@ -216,7 +216,7 @@ curl -s http://localhost:4466/relation-tuples\?subject_set.namespace\=groups\&su
   "next_page_token": ""
 }
 # Get permissions to objects for community group
-curl -s http://localhost:4466/relation-tuples\?subject_set.namespace\=groups\&subject_set.relation\=member\&subject_set.object\=community | jq
+keto relation-tuple get --subject-set="groups:community#member" --format json --read-remote localhost:4466 | jq
 {
   "relation_tuples": [
     {
