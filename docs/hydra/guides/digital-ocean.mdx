@@ -3,7 +3,7 @@ id: deploy-to-digitalocean
 title: Deploy to production
 ---
 
-import { useLatestRelease, useLatestReleaseFilename } from '@site/src/hooks'
+import { useLatestRelease } from '@site/src/hooks'
 import CodeBlock from '@theme/CodeBlock'
 
 This guide explains how to setup and run Ory Hydra in a production environment.
@@ -178,9 +178,9 @@ Install Ory Hydra:
 <CodeBlock className="language-shell">{`
 cd /opt/hydra/bin
 # Download a new version of Ory Hydra
-wget https://github.com/ory/hydra/releases/download/${useLatestRelease('hydra')}/hydra_${useLatestReleaseFilename('hydra')}-linux_64bit.tar.gz
+wget https://github.com/ory/hydra/releases/download/${useLatestRelease('hydra')}/hydra_${useLatestRelease('hydra')}-linux_64bit.tar.gz
 # Extract contents
-tar xfvz hydra_${useLatestReleaseFilename('hydra')}-linux_64bit.tar.gz
+tar xfvz hydra_${useLatestRelease('hydra')}-linux_64bit.tar.gz
 # Remove redundant files
 rm *md
 rm LICENSE
