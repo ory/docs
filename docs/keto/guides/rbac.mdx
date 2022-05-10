@@ -216,16 +216,16 @@ curl -s http://localhost:4466/relation-tuples\?subject_set.namespace\=groups\&su
   "next_page_token": ""
 }
 # Get permissions to objects for community group
-curl -s http://localhost:4466/relation-tuples\?subject_set.namespace\=groups\&subject_set.relation\=member\&subject_set.object\=marketing | jq
+curl -s http://localhost:4466/relation-tuples\?subject_set.namespace\=groups\&subject_set.relation\=member\&subject_set.object\=community | jq
 {
   "relation_tuples": [
     {
       "namespace": "reports",
-      "object": "marketing",
+      "object": "community",
       "relation": "view",
       "subject_set": {
         "namespace": "groups",
-        "object": "marketing",
+        "object": "community",
         "relation": "member"
       }
     }
