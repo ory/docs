@@ -648,17 +648,23 @@ Configure Nginx and add the missing configuration for your UI:
 
 ```
 
-Test the Nginx configuration and reload it:
+Test the Nginx configuration:
 
 ```bash
 nginx -t
+```
+You should get the following response if the configuration is correct:
+
+```bash
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
+````
 
+Reload the Nginx service:
+
+```bash
 service nginx reload
 ```
 
-## Conclusion
-
-Open https://accounts.example.com/auth/login and you should see the Login
-Screen.
+Open `https://accounts.example.com/auth/login` and you should see the Login
+Screen. 
