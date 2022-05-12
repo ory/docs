@@ -205,5 +205,20 @@ module.exports = {
         'generic-overview',
 	    ]
     },
+  ],
+  opensource: [
+    'open-source',
+    'ecosystem/contributing',
+    'ecosystem/community',
+    'ecosystem/projects',
+    'ecosystem/versioning',
+    'ecosystem/configuring',
+    'ecosystem/deployment',
+    'ecosystem/upgrading',
+    'ecosystem/logging',
+    'ecosystem/sqa',
+    'ecosystem/security',
+    'ecosystem/roadmap',
+    'ecosystem/software-architecture-philosophy'
   ]
 };
