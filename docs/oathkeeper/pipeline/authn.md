@@ -260,7 +260,8 @@ not supported, and will fail silently.
   [GJSON Path](https://github.com/tidwall/gjson/blob/master/SYNTAX.md) pointing
   to the `subject` field. This defaults to `subject`. Example: `identity.id` for
   `{ "identity": { "id": "1234" } }`.
-- `additional_headers` (map[string]string, optional - defaults empty) - If set, you can either add additional headers or override existing ones.
+- `additional_headers` (map[string]string, optional - defaults empty) - If set,
+  you can either add additional headers or override existing ones.
 
 ```yaml
 # Global configuration file oathkeeper.yml
