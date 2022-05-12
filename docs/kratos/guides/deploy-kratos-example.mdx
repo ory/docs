@@ -481,7 +481,7 @@ Test the Nginx configuration:
 nginx -t
 ```
 
-If your configuration is correct, you should get the following outputs: 
+If your configuration is correct, you should get the following outputs:
 
 ```bash
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
@@ -521,7 +521,8 @@ chown -R uinode /opt/uinode
 `}</CodeBlock>
 
 Create a configuration file for systemd. Create a file named `uinode.service` at
-`/etc/systemd/system/` with the following content (change `https://accounts.example.com` to your domain!):
+`/etc/systemd/system/` with the following content (change
+`https://accounts.example.com` to your domain!):
 
 ```
 [Unit]
@@ -653,12 +654,13 @@ Test the Nginx configuration:
 ```bash
 nginx -t
 ```
+
 You should get the following response if the configuration is correct:
 
 ```bash
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
-````
+```
 
 Reload the Nginx service:
 
@@ -667,11 +669,14 @@ service nginx reload
 ```
 
 Open `https://accounts.example.com/auth/login` and you should see the Login
-Screen. 
+Screen.
 
 ## Next Steps
 
-- Fork the [Ory Kratos NodeJS UI Reference](https://github.com/ory/kratos-selfservice-ui-node) or [build a custom UI in the language of your choice](https://ory.sh/docs/kratos/sdk).
+- Fork the
+  [Ory Kratos NodeJS UI Reference](https://github.com/ory/kratos-selfservice-ui-node)
+  or
+  [build a custom UI in the language of your choice](https://ory.sh/docs/kratos/sdk).
 - [Add Two Factor Authentication (2FA) to your App](https://www.ory.sh/docs/kratos/guides/two-factor-authentication-2fa-mfa)
 - [Configure The Password Policy](https://www.ory.sh/docs/kratos/guides/password-policy)
 - [Integrate using Web-Hooks](ory.sh/docs/kratos/guides/integration-with-other-systems-using-web-hooks)
