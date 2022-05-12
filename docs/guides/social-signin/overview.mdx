@@ -40,9 +40,9 @@ Sessions. The tokens are used in the following way:
 
 ## Preventing Account Linking
 
-If you enable multiple registration methods, users may be redirected to a social login provider to link their existing accounts
-after email verification. To disable this behavior, add the `session` hook after one of the registration methods (for example
-`password`):
+If you enable multiple registration methods, users can link their existing accounts
+to social sign-in provider accounts after email verification. To disable this behavior, 
+add the `session` hook after one of the registration methods (for example `password`):
 
 ```yaml
 selfservice:
@@ -56,14 +56,8 @@ selfservice:
 
 ### Dangers of Account Linking
 
-When the system detects that a user signs in with a social sign-provider's account that has the same identifier as an existing
-account, the user is asked to link the accounts.
-
-There is no way to have two separate accounts (one created "manually", one through a social sign-in) for a single identifier.
-
-This is the default behavior of the system.
-
-While convenient for users, this behavior creates an attack vector that can allow malicious actors to take over user accounts.
+While convenient for users, linking accounts creates an attack vector that can
+allow malicious actors to take over user accounts.
 
 To better understand the danger, consider the following scenario:
 
