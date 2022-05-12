@@ -267,7 +267,7 @@ systemctl start kratos.service
 ```
 
 Check running processes with `ps ax | grep kratos`. If everything worked
-correctly you should see output like this:
+correctly you should see something like this:
 
 ```bash
 19191 ?        Ssl    0:00 /opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml serve
@@ -566,10 +566,11 @@ systemctl start uinode
 In `kratos.yml` change URLs to use the user interface you installed in the step
 before:
 
-```yaml
+```diff
 serve:
   public:
-    base_url: https://accounts.example.com/
+-    base_url: http://127.0.0.1:4433/
++    base_url: https://accounts.example.com/
     host: 127.0.0.1
     cors:
       enabled: true
@@ -578,9 +579,11 @@ serve:
     base_url: http://127.0.0.1:4434/
 
 selfservice:
-  default_browser_return_url: https://accounts.example.com/auth/
+-  default_browser_return_url: http://127.0.0.1:4455/
++  default_browser_return_url: https://accounts.example.com/auth/
   allowed_return_urls:
-    - https://accounts.example.com
+-    - https://accounts.example.com
++    - http://127.0.0.1:4455
 
   methods:
     password:
@@ -588,28 +591,35 @@ selfservice:
 
   flows:
     error:
-      ui_url: https://accounts.example.com/auth/errors
+-      ui_url: http://127.0.0.1:4455/error
++      ui_url: https://accounts.example.com/auth/errors
 
     settings:
-      ui_url: https://accounts.example.com/auth/settings
+-      ui_url: http://127.0.0.1:4455/settings
++      ui_url: https://accounts.example.com/auth/settings
       privileged_session_max_age: 15m
 
     recovery:
       enabled: true
-      ui_url: https://accounts.example.com/auth/recovery
+-      ui_url: http://127.0.0.1:4455/recovery
++      ui_url: https://accounts.example.com/auth/recovery
 
     verification:
       enabled: true
-      ui_url: https://accounts.example.com/auth/verification
+-      ui_url: http://127.0.0.1:4455/verification
++      ui_url: https://accounts.example.com/auth/verification
       after:
-        default_browser_return_url: https://accounts.example.com/auth/
+-        default_browser_return_url: http://127.0.0.1:4455/
++        default_browser_return_url: https://accounts.example.com/auth/
 
     logout:
       after:
-        default_browser_return_url: https://accounts.example.com/auth/login
+-        default_browser_return_url: http://127.0.0.1:4455/login
++        default_browser_return_url: https://accounts.example.com/auth/login
 
     login:
-      ui_url: https://accounts.example.com/auth/login
+-      ui_url: http://127.0.0.1:4455/login
++      ui_url: https://accounts.example.com/auth/login
       lifespan: 10m
 ```
 
