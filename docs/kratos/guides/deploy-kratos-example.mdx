@@ -515,7 +515,7 @@ wget https://github.com/ory/kratos-selfservice-ui-node/archive/refs/tags/${useLa
 )}.zip
 unzip ${useLatestRelease('kratos')}.zip
 rm  ${useLatestRelease('kratos')}.zip
-mv kratos-selfservice-ui-node-${useLatestRelease('kratos')}/ ui
+mv kratos-selfservice-ui-node-${useLatestReleaseFilename('kratos')}/ ui
 cd ui
 npm i
 chown -R uinode /opt/uinode
@@ -629,7 +629,7 @@ selfservice:
     registration:
       lifespan: 10m
 -      ui_url: http://127.0.0.1:4455/registration
-+      ui_url: https://accounts.vinckr.com/auth/registration
++      ui_url: https://accounts.example.com/auth/registration
       after:
         password:
           hooks:
