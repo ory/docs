@@ -50,6 +50,7 @@ This isn't an exhaustive list. Want your own content here? Create a PR!
 
 ### Ory Hydra
 
+- [Ory Hydra SDK for Laravel (unofficial)](https://github.com/ALTELMA/laravel-hydra)
 - [Ory Hydra Terraform Provider](https://github.com/svrakitin/terraform-provider-hydra)
 - [Ory Hydra Identity Provider for over LDAP](https://github.com/i-core/werther)
 - [Ory Hydra Middleware for Gin (Go)](https://github.com/janekolszak/gin-hydra)
