@@ -625,6 +625,16 @@ selfservice:
 -      ui_url: http://127.0.0.1:4455/login
 +      ui_url: https://accounts.example.com/auth/login
       lifespan: 10m
+
+    registration:
+      lifespan: 10m
+-      ui_url: http://127.0.0.1:4455/registration
++      ui_url: https://accounts.vinckr.com/auth/registration
+      after:
+        password:
+          hooks:
+            -
+              hook: session
 ```
 
 Configure Nginx and add the missing configuration for your UI:
