@@ -60,7 +60,7 @@ and save it to a file:
 2. Find `totp` in `selfservice/methods`, set `enabled` to `true`, and define the
 `issuer`:
 
-  ```yaml
+  ```yaml title="identity-config.yaml"
   selfservice:
     methods:
       totp:
@@ -76,7 +76,7 @@ and save it to a file:
    with:
 
   ```shell
-  ory update identity-config <project-id> --file updated_config.yaml
+  ory update identity-config <project-id> --file identity-config.yaml
   ```
 
 ### Self-Hosted Instances

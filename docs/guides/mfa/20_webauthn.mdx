@@ -67,7 +67,7 @@ and save it to a file:
 2. Find `webauthn` in `selfservice/methods`, set `enabled` to `true`, and define the
 `id` (hostname) and `origin` of the login page users interact with:
 
-  ```yaml
+  ```yaml title="identity-config.yaml"
   webauthn:
       config:
         passwordless: false
@@ -82,17 +82,17 @@ and save it to a file:
       // highlight-end
   ```
 
-  :::info
+:::info
 
-  The `display_name` is always set to the name of your project.
+The `display_name` is always set to the name of your project.
 
-  :::
+:::
 
 3. Update the Ory Cloud Identity Service configuration using the file you worked
    with:
 
   ```shell
-  ory update identity-config <project-id> --file updated_config.yaml
+  ory update identity-config <project-id> --file identity-config.yaml
   ```
 
 ### Self-Hosted Instances
