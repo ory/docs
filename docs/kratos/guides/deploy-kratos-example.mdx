@@ -509,12 +509,13 @@ curl -s  http://accounts.example.com/sessions/whoami|jq
 The installation of the Ory Kratos NodeJS UI Reference is straightfoward:
 
 <CodeBlock className="language-shell">{`useradd -s /bin/false -m -d /opt/uinode uinode
+cd /opt/uinode
 wget https://github.com/ory/kratos-selfservice-ui-node/archive/refs/tags/${useLatestRelease(
   'kratos'
 )}.zip
-unzip ${useLatestRelease('kratos')}
+unzip ${useLatestRelease('kratos')}.zip
 rm  ${useLatestRelease('kratos')}.zip
-mv kratos-selfservice-ui-node-${useLatestReleaseFilename('kratos')}/ ui
+mv kratos-selfservice-ui-node-${useLatestRelease('kratos')}/ ui
 cd ui
 npm i
 chown -R uinode /opt/uinode
@@ -561,6 +562,8 @@ Now start the self-service UI
 ```bash
 systemctl start uinode
 ```
+
+You can use `ps ax | grep node` to check if it is running.
 
 ## Configure User Interface
 
@@ -662,10 +665,11 @@ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-Reload the Nginx service:
+Reload the Nginx and Ory Kratos services:
 
 ```bash
 service nginx reload
+service kratos restart
 ```
 
 Open `https://accounts.example.com/auth/login` and you should see the Login
