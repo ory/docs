@@ -12,7 +12,8 @@ environment. It uses Postgres as database, Nginx as reverse proxy,
 Kratos NodeJS UI Reference as user interface. You can use another
 [relational database](https://www.ory.sh/docs/ecosystem/deployment#data-storage-and-persistence),
 a different reverse proxy, deploy on any other cloud host, and
-[spin up a custom interface in your favourite language](https://www.ory.sh/docs/kratos/sdk/).
+[spin up a custom interface in your favorite language](https://www.ory.sh/docs/kratos/sdk/) -
+this is just an example!
 
 - Installation and configuration of [PostgreSQL](https://www.postgresql.org/)
 - Installation and configuration of [Ory Kratos](https://github.com/ory/kratos)
@@ -357,7 +358,10 @@ certbot --nginx -d accounts.example.com
 After running Certbot your configuration file will look like this:
 
 ```bash
-# cat /etc/nginx/sites-enabled/accounts.example.com
+cat /etc/nginx/sites-enabled/accounts.example.com
+```
+
+```
 server {
         listen 80;
         server_name accounts.example.com;
@@ -471,13 +475,22 @@ server {
 }
 ```
 
-Test the Nginx configuration and reload it:
+Test the Nginx configuration:
 
 ```bash
 nginx -t
+```
+
+If your configuration is correct, you should get the following outputs: 
+
+```bash
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
 
+Now reload the Nginx service:
+
+```
 service nginx reload
 
 curl -s  http://accounts.example.com/sessions/whoami|jq
@@ -500,15 +513,15 @@ wget https://github.com/ory/kratos-selfservice-ui-node/archive/refs/tags/${useLa
   'kratos'
 )}.zip
 unzip ${useLatestRelease('kratos')}
-rm  ${useLatestRelease('kratos')}
+rm  ${useLatestRelease('kratos')}.zip
 mv kratos-selfservice-ui-node-${useLatestReleaseFilename('kratos')}/ ui
 cd ui
 npm i
 chown -R uinode /opt/uinode
 `}</CodeBlock>
 
-Create a configuration file for systemd. Create
-`/etc/systemd/system/uinode.service` with the following content:
+Create a configuration file for systemd. Create a file named `uinode.service` at
+`/etc/systemd/system/` with the following content (change `https://accounts.example.com` to your domain!):
 
 ```
 [Unit]
@@ -530,11 +543,21 @@ WorkingDirectory=/opt/uinode/ui
 WantedBy=multi-user.target
 ```
 
-Let's enable systemd service and start it
+Let's enable the systemd service and start it
 
 ```bash
 systemctl enable uinode
+```
+
+You should get the following response:
+
+```bash
 Created symlink /etc/systemd/system/multi-user.target.wants/uinode.service → /etc/systemd/system/uinode.service.
+```
+
+Now start the self-service UI
+
+```bash
 systemctl start uinode
 ```
 
