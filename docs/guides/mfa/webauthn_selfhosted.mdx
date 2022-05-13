@@ -1,0 +1,68 @@
+---
+id: webauthn_selfhosted
+title: Configuration in Self-Hosted Instances
+---
+
+When working with self-hosted instances of the Ory Identity Service (Kratos), add the
+`webauthn` method to `selfservice/methods` in the configuration file to enable WebAuthn as the second authentication factor: 
+
+```yaml title="kratos.config.yml"
+selfservice:
+    methods:
+      webauthn:
+        config:
+          passwordless: false
+          rp:
+            display_name: SAMPLE_NAME
+            # Set 'id' to the top-level domain.
+            id: loginpage.com
+            # Set 'origin' to the exact URL of the page that prompts the user to use WebAuthn. You must include the scheme, host, and port.
+            origin: https://loginpage.auth.com:4455
+        enabled: true
+```
+
+### Distinguishing Identities Requesting WebAuthn
+
+To help users distinguish which identity requests for WebAuthn authentication, add a `webauthn` object  
+to the trait which represents the WebAuthn account name. 
+
+In this example, the user's email address is the identifier: 
+
+:::note
+
+This configuration is the default for all Ory Cloud projects. 
+
+:::
+
+```json title="sample identity schema"
+{
+  $schema: 'http://json-schema.org/draft-07/schema#',
+  type: 'object',
+  properties: {
+    traits: {
+      type: 'object',
+      properties: {
+        email: {
+          type: 'string',
+          format: 'email',
+          title: 'Your E-Mail',
+          minLength: 3,
+          'ory.sh/kratos': {
+            credentials: {
+              // ...
+              // highlight-start
+              webauthn: {
+                identifier: true
+              }
+              // highlight-end
+            }
+            // ...
+          }
+        }
+        // ...
+      }
+      // ...
+    }
+  }
+}
+```

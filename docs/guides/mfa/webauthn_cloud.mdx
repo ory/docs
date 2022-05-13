@@ -1,0 +1,26 @@
+---
+id: webauthn_cloud
+title: Configuration in Ory Cloud Console
+---
+
+Follow these steps to enable WebAuthn as the second authentication factor: 
+
+1. Sign in to the **Ory Cloud Console** and go to **Two-Factor Authentication**.
+2. In the **WebAuthn** section, use the switch to enable WebAuthn. 
+3. Define the hostname of your login page. You must set this to your
+top-level domain. 
+4. Define the origin of your login page. Set it to the exact URL of the page
+that prompts the user to use WebAuthn. The relevant items are: 
+  - scheme (http/https)
+  - host (`auth.example.com`)
+  - port (`4455`)
+
+  :::note
+
+  If you are using the Ory Managed UI, leave these fields blank. 
+
+  :::
+
+4. Click **Save** to finish.
+
+![](../_static/mfa/5.png)

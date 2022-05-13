@@ -1,0 +1,70 @@
+---
+id: totp-selfhosted
+title: Configuration in Self-Hosted Instances
+---
+
+
+When working with self-hosted instances of the Ory Identity Service (Kratos), add the
+`totp` method to `selfservice/methods` in the configuration file to enable Time-Based One-Time 
+Password (TOTP) as the second authentication factor: 
+
+```yaml title="kratos.config.yml"
+selfservice:
+    methods:
+      totp:
+        config:
+          # The "issuer" is the name in the TOTP application users see when getting a one-time password.
+          issuer: ExampleIssuerForSelfHosted.com
+        enabled: true
+```
+
+### Distinguishing Identities Requesting TOTP
+
+To help users distinguish which identity requests for the TOTP code, add a `totp` object  
+to the trait which represents the TOTP account name. 
+
+In this example, the user's email address is the identifier: 
+
+:::note
+
+This configuration is the default for all Ory Cloud projects. 
+
+:::
+
+```json title="sample identity schema"
+{
+  $schema: 'http://json-schema.org/draft-07/schema#',
+  type: 'object',
+  properties: {
+    traits: {
+      type: 'object',
+      properties: {
+        email: {
+          type: 'string',
+          format: 'email',
+          title: 'Your E-Mail',
+          minLength: 3,
+          'ory.sh/kratos': {
+            credentials: {
+              // ...
+              // highlight-start
+              totp: {
+                account_name: true
+              }
+              // highlight-end
+            }
+            // ...
+          }
+        }
+        // ...
+      }
+      // ...
+    }
+  }
+}
+```
+
+## Writing E2E Tests
+
+When writing end-to-end (E2E) tests for TOTP implementation in your app, 
+[you can reference the Cypress tests used in Ory Identity Service (Kratos)](https://github.com/ory/kratos/blob/fc2cecfbeab811aa1a851f953b6bc2a4c119c412/test/e2e/cypress/integration/profiles/mfa/totp.spec.ts).
