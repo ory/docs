@@ -9,15 +9,14 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## keto migrate status
 
 Get the current migration status
 
 ### Synopsis
 
-Get the current migration status. This does not affect namespaces. Use
-`keto namespace migrate status` for migrating namespaces.
+Get the current migration status.
+This does not affect namespaces. Use `keto namespace migrate status` for migrating namespaces.
 
 ```
 keto migrate status [flags]
@@ -26,7 +25,7 @@ keto migrate status [flags]
 ### Options
 
 ```
-  -f, --format string   Set the output format. One of table, json, and json-pretty. (default &#34;default&#34;)
+      --format string   Set the output format. One of table, json, yaml, and json-pretty. (default "default")
   -h, --help            help for status
   -q, --quiet           Be quiet with output printing.
 ```
@@ -39,4 +38,5 @@ keto migrate status [flags]
 
 ### SEE ALSO
 
-- [keto migrate](keto-migrate) - Commands to migrate the database
+* [keto migrate](keto-migrate)	 - Commands to migrate the database
+
