@@ -685,19 +685,22 @@ service kratos restart
 Open `https://accounts.example.com/auth/login` and you should see the Login
 Screen.
 
-## Final steps
+## Secure secrets
 
-We covered a basic guide for deploying Ory Kratos to production with Nginx. However, the configuration of Kratos itself is not production-ready. We need to do the following things
+We covered a basic deployment of Ory Kratos to production with Nginx. However,
+the configuration of Kratos itself is not production-ready. We need to:
 
-1. Setup secure keys
-1. Run Ory Kratos in production mode
+1. Set up secure keys.
+1. Run Ory Kratos in production mode.
 
-You can generate secure keys using the following `openssl` command
+Generate secure keys using the following
+[`openssl`](https://www.openssl.org/docs/manmaster/man1/openssl.html) command:
 
 ```bash
 openssl rand -base64 32
 ```
-Edit `/opt/kratos/config/kratos.yml` file and replace the following values.
+
+Edit `/opt/kratos/config/kratos.yml` file and replace the following values:
 
 ```yaml
 secrets:
@@ -706,7 +709,8 @@ secrets:
   cipher:
     - 32-LONG-SECRET-NOT-SECURE-AT-ALL
 ```
-with unique and generated strings like in example below
+
+with unique and generated strings:
 
 ```yaml
 secrets:
@@ -716,26 +720,26 @@ secrets:
     - rtxrVjiWwe85nxB9XeWoDP8U17+sT6kHo0E1t3Tr5uY=
 ```
 
-And don't forged to change `log.leak_sensitive_values` to false
+Change `log.leak_sensitive_values` to false, to not leak any sensitive values
+like secrets in the logs:
 
-```
+```diff
 log:
-  leak_sensitive_values: false
+-  leak_sensitive_values: true
++  leak_sensitive_values: false
 ```
-Save changes and restart Ory Kratos by running
+
+Save changes and restart Ory Kratos:
 
 ```
 systemctl restart kratos
 ```
 
-
 ## Next Steps
 
 - Fork the
   [Ory Kratos NodeJS UI Reference](https://github.com/ory/kratos-selfservice-ui-node)
-  or
-  [build a custom UI in the language of your choice](../sdk.md).
+  or [build a custom UI in the language of your choice](../sdk.md).
 - [Add Two Factor Authentication (2FA) to your App](./two-factor-authentication-2fa-mfa.mdx)
 - [Configure The Password Policy](./password-policy.mdx)
 - [Integrate using Web-Hooks](./integration-with-other-systems-using-web-hooks.md)
- 
