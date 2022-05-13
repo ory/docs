@@ -3,28 +3,22 @@ id: community
 title: Community
 ---
 
-Ory is possible because of a unique, experienced, and dedicated community.
-Sponsors, contributors, and adopters make this ecosystem possible and shape it
-in significant ways.
+Ory is possible because of a unique, experienced, and dedicated community. Sponsors, contributors, and adopters make this
+ecosystem possible and shape it in significant ways.
 
-Important community resources include [GitHub](https://github.com/ory),
-[Ory Slack Chat](https://slack.ory.sh/) and GitHub Discussions for
-[Ory Kratos](https://github.com/ory/kratos/discussions),
-[Ory Hydra](https://github.com/ory/hydra/discussions),
-[Ory Keto](https://github.com/ory/oathkeeper/discussions),
-[Ory Oathkeeper](https://github.com/ory/oathkeeper/discussions) and all other
-[Ory projects](https://github.com/ory/meta/discussions), you can also visit our
-archived old [forum](https://community.ory.sh/).
+Important community resources include [GitHub](https://github.com/ory), [Ory Slack Chat](https://slack.ory.sh/) and GitHub
+Discussions for [Ory Kratos](https://github.com/ory/kratos/discussions), [Ory Hydra](https://github.com/ory/hydra/discussions),
+[Ory Keto](https://github.com/ory/oathkeeper/discussions), [Ory Oathkeeper](https://github.com/ory/oathkeeper/discussions) and all
+other [Ory projects](https://github.com/ory/meta/discussions), you can also visit our archived old
+[forum](https://community.ory.sh/).
 
 ## Community Projects
 
-Members of the Ory community have built technology, written blog posts, and
-published open source software that extends or modifies the core technology.
-This isn't an exhaustive list. Want your own content here? Create a PR!
+Members of the Ory community have built technology, written blog posts, and published open source software that extends or
+modifies the core technology. This isn't an exhaustive list. Want your own content here? Create a PR!
 
-> Please note that this content isn't actively maintained by the Ory team, is
-> written by the community and might be out of date, unmaintained, or otherwise
-> faulty.
+> Please note that this content isn't actively maintained by the Ory team, is written by the community and might be out of date,
+> unmaintained, or otherwise faulty.
 
 ### Ory Stack
 
@@ -82,14 +76,12 @@ This isn't an exhaustive list. Want your own content here? Create a PR!
 
 #### Ory Blog Guest Articles
 
-Are you building something with Ory? Are you interested in Auth and security
-topics in general? Do you want to share your knowledge and experiences?
-[Reach out to us](mailto:office@ory.sh) to be published in our blog!
+Are you building something with Ory? Are you interested in Auth and security topics in general? Do you want to share your
+knowledge and experiences? [Reach out to us](mailto:office@ory.sh) to be published in our blog!
 
 - [How I built LoginWithHN using Ory Hydra](https://www.ory.sh/how-to-build-login-with-hacker-news/)
 - [Add Authentication to your Flutter Web Applications with Ory Kratos](https://www.ory.sh/login-flutter-authentication-example-api-open-source/)
-- E-Commerce with Ory Cloud
-  [Part 1: Backend](https://www.ory.sh/cloud-ecommerce-backend/),
+- E-Commerce with Ory Cloud [Part 1: Backend](https://www.ory.sh/cloud-ecommerce-backend/),
   [Part 2: Frontend](https://www.ory.sh/cloud-ecommerce-frontend/)
 - [Looking at Zanzibar through Ory Keto](https://www.ory.sh/looking-at-keto/)
 
@@ -133,16 +125,14 @@ topics in general? Do you want to share your knowledge and experiences?
 
 ## Postman API Reference Collections
 
-> Note that while we try to keep the collections up to date, they might be
-> outdated. Please open an [issue](https://github.com/ory/docs/) if that's the
-> case.
+> Note that while we try to keep the collections up to date, they might be outdated. Please open an
+> [issue](https://github.com/ory/docs/) if that's the case.
 
-First, you have to install the Postman App for Windows, Mac, or Chrome. You can
-find it on the [Postman Apps](https://www.getpostman.com/apps) page.
+First, you have to install the Postman App for Windows, Mac, or Chrome. You can find it on the
+[Postman Apps](https://www.getpostman.com/apps) page.
 
-Visit the [Ory Postman Public Workspace](https://www.postman.com/ory-docs) and
-select the Collection you want to use and import it or select the Ory project
-you want to run below:
+Visit the [Ory Postman Public Workspace](https://www.postman.com/ory-docs) and select the Collection you want to use and import it
+or select the Ory project you want to run below:
 
 [![Run Ory Hydra in Postman](../../src/static/img/docs/postmanHydra.svg)](https://app.getpostman.com/run-collection/12423954-d820ed2c-b119-44df-8b3e-4f344d8aa03a?action=collection%2Ffork&collection-url=entityId%3D12423954-d820ed2c-b119-44df-8b3e-4f344d8aa03a%26entityType%3Dcollection%26workspaceId%3Dba1e6798-1497-4918-a896-cac2f90d481b)
 
@@ -152,30 +142,22 @@ you want to run below:
 
 [![Run Ory Oathkeeper in Postman](../../src/static/img/docs/postmanOathkeeper.svg)](https://app.getpostman.com/run-collection/12423954-8c811fa9-6666-499b-b5a6-71d059274dbf?action=collection%2Ffork&collection-url=entityId%3D12423954-8c811fa9-6666-499b-b5a6-71d059274dbf%26entityType%3Dcollection%26workspaceId%3Dba1e6798-1497-4918-a896-cac2f90d481b)
 
-Our API Collections are built directly from the swagger specification (you can
-find it at the path `/spec/api.json`) and are organized into folders that
-categorize the various API calls.
+Our API Collections are built directly from the swagger specification (you can find it at the path `/spec/api.json`) and are
+organized into folders that categorize the various API calls.
 
-For example, in the Ory Kratos collection, you will find all calls related to
-`identities` in the folder with the same name.
+For example, in the Ory Kratos collection, you will find all calls related to `identities` in the folder with the same name.
 
-To be able to work with the collection you need to set the `baseURl` variable.
-For example, when running Ory Kratos as configured, the `baseURl` needs to be
-set to the public endpoint(in the
-[Quickstart](https://www.ory.sh/kratos/docs/quickstart) it
+To be able to work with the collection you need to set the `baseURl` variable. For example, when running Ory Kratos as configured,
+the `baseURl` needs to be set to the public endpoint(in the [Quickstart](https://www.ory.sh/kratos/docs/quickstart) it
 is`http://127.0.0.1:4433/`).
 
-You may also have to configure query parameters or the JSON method body,
-depending on the API call.
+You may also have to configure query parameters or the JSON method body, depending on the API call.
 
 :::info
 
-Don't store tokens in Postman as environment variables! If you are signed in to
-the Postman application, it will automatically try to synchronize Collections
-and Environments with the Postman servers. This means that a token, which could
-allow someone else access to your APIs, is being uploaded to Postman's servers.
-Postman has taken measures to ensure that tokens are encrypted and encourages
-users to store them in Environment Variables. Read more
-[here](https://www.postman.com/security).
+Don't store tokens in Postman as environment variables! If you are signed in to the Postman application, it will automatically try
+to synchronize Collections and Environments with the Postman servers. This means that a token, which could allow someone else
+access to your APIs, is being uploaded to Postman's servers. Postman has taken measures to ensure that tokens are encrypted and
+encourages users to store them in Environment Variables. Read more [here](https://www.postman.com/security).
 
 :::

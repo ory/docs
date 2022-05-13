@@ -3,14 +3,12 @@ id: token-expiration
 title: Configuring Expiration
 ---
 
-In the Hydra config.yaml - located in your Hydra directory - you can set times
-for how long a login/consent flow may take, expiration times for access tokens,
-refresh tokens, id tokens and auth codes.
+In the Hydra config.yaml - located in your Hydra directory - you can set times for how long a login/consent flow may take,
+expiration times for access tokens, refresh tokens, id tokens and auth codes.
 
 ## Login and Consent Request Expiration
 
-Key `ttl.login_consent_request` configures how long a user login and consent
-flow may take.
+Key `ttl.login_consent_request` configures how long a user login and consent flow may take.
 
 ```json title="path/to/hydra/config.yaml"
 #....
@@ -54,8 +52,7 @@ Key `ttl.access_token` configures how long access tokens are valid.
 
 ## Refresh Token Expiration
 
-Key `ttl.refresh_token` configures how long refresh tokens are valid. Set to -1
-for refresh tokens to never expire.
+Key `ttl.refresh_token` configures how long refresh tokens are valid. Set to -1 for refresh tokens to never expire.
 
 ```json title="path/to/hydra/config.yaml"
 #....
@@ -77,24 +74,19 @@ for refresh tokens to never expire.
 
 ### Refresh Token Rotation
 
-When a refresh token is used it's deactivated, which is known as Refresh Token
-Rotation. By default, Ory Hydra deactivates the refresh token it receives and
-issues a new token. If a deactivated refresh token is used again, all tokens
-related to that refresh token will also be deactivated. More information on
-Refresh Token Rotation can be found in the recommendation section of the OAuth
+When a refresh token is used it's deactivated, which is known as Refresh Token Rotation. By default, Ory Hydra deactivates the
+refresh token it receives and issues a new token. If a deactivated refresh token is used again, all tokens related to that refresh
+token will also be deactivated. More information on Refresh Token Rotation can be found in the recommendation section of the OAuth
 2.0 Security Best Practices document
 [here](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics#section-4.13.2).
 
-There are some cases when a one time use refresh token may be undesirable, such
-as when a networking error occurs and the newly issued refresh token isn't
-received. Hydra may be configured to use a refresh token grace period which
-allows a refresh token to be reused for the duration of the grace period. Note
-that a new refresh token is still generated and sent back in the response;
+There are some cases when a one time use refresh token may be undesirable, such as when a networking error occurs and the newly
+issued refresh token isn't received. Hydra may be configured to use a refresh token grace period which allows a refresh token to
+be reused for the duration of the grace period. Note that a new refresh token is still generated and sent back in the response;
 clients **must** store and use the new refresh token.
 
-**WARNING** Using the refresh token grace period is an increased security risk,
-as an intercepted refresh token may be reused by a bad actor. Use this feature
-with appropriate consideration.
+**WARNING** Using the refresh token grace period is an increased security risk, as an intercepted refresh token may be reused by a
+bad actor. Use this feature with appropriate consideration.
 
 ```
 oauth2:

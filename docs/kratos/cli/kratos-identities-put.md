@@ -16,9 +16,8 @@ Put identities from files or STD_IN
 
 ### Synopsis
 
-Put (as in http PUT) identities from files or STD_IN. Files are expected to each
-contain a single identity. The validity of files can be tested beforehand using
-`... identities validate`.
+Put (as in http PUT) identities from files or STD_IN. Files are expected to each contain a single identity. The validity of files
+can be tested beforehand using `... identities validate`.
 
 ```
 kratos identities put <file.json [file-2.json [file-3.json] ...]> [flags]
@@ -40,5 +39,4 @@ kratos identities put <file.json [file-2.json [file-3.json] ...]> [flags]
 
 ### SEE ALSO
 
-- [kratos identities](kratos-identities) - Tools to interact with remote
-  identities
+- [kratos identities](kratos-identities) - Tools to interact with remote identities

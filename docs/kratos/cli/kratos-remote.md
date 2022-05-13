@@ -1,8 +1,7 @@
 ---
 id: kratos-remote
 title: kratos remote
-description:
-  kratos remote Helpers and management for remote Ory Kratos instances
+description: kratos remote Helpers and management for remote Ory Kratos instances
 ---
 
 <!--
@@ -27,7 +26,5 @@ Helpers and management for remote Ory Kratos instances
 ### SEE ALSO
 
 - [kratos](kratos) -
-- [kratos remote status](kratos-remote-status) - Print the alive and readiness
-  status of a Ory Kratos instance
-- [kratos remote version](kratos-remote-version) - Print the version of an Ory
-  Kratos instance
+- [kratos remote status](kratos-remote-status) - Print the alive and readiness status of a Ory Kratos instance
+- [kratos remote version](kratos-remote-version) - Print the version of an Ory Kratos instance

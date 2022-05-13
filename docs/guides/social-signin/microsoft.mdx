@@ -5,9 +5,8 @@ title: Microsoft
 
 ## Microsoft
 
-This will enable you to log in using any Azure AD directory - Multi-tenant and
-personal Microsoft accounts (for example Skype, Xbox) depending on the settings
-made when creating the application in Azure AD.
+This will enable you to log in using any Azure AD directory - Multi-tenant and personal Microsoft accounts (for example Skype,
+Xbox) depending on the settings made when creating the application in Azure AD.
 
 #### Creating an Application in Azure AD
 
@@ -20,17 +19,15 @@ Select "Web" as the "Redirect URI" type, and set the URI to:
 http(s)://<domain-of-ory-kratos>:<public-port>//self-service/methods/oidc/callback/<provider-id>
 ```
 
-After the "App Registration" is created, make note of the `Application ID` and
-`Directory ID` on top of the Overview page. To create the client secret,
-navigate to "Certificates & secrets" and click "+ New client secret". Remember
-to copy the secret value as it will only be shown once.
+After the "App Registration" is created, make note of the `Application ID` and `Directory ID` on top of the Overview page. To
+create the client secret, navigate to "Certificates & secrets" and click "+ New client secret". Remember to copy the secret value
+as it will only be shown once.
 
 #### Configuring Kratos
 
 Create a Jsonnet claims mapper as described in
 
-Save the code in
-`<kratos-directory>/contrib/quickstart/kratos/email-password/oidc.microsoft.jsonnet`.
+Save the code in `<kratos-directory>/contrib/quickstart/kratos/email-password/oidc.microsoft.jsonnet`.
 
 ```json title="contrib/quickstart/kratos/email-password/oidc.microsoft.jsonnet"
 local claims = std.extVar('claims');
@@ -85,12 +82,10 @@ import ConfigAsEnv from '../_common/config_as_env.mdx'
 
 There are two ways to use the `microsoft` provider for authentication:
 
-1. For authenticating users in a single Azure AD Directory (organization), set
-   the `tenant` value to either the `Directory ID` from the "App Registration"
-   page, or the organization domain.
-   Examples:`8eaef023-2b34-4da1-9baa-8bc8c9d6a490` or `example.onmicrosoft.com`.
-2. For authenticating any user in the Microsoft identity platform, set the
-   `tenant` value to either:
+1. For authenticating users in a single Azure AD Directory (organization), set the `tenant` value to either the `Directory ID`
+   from the "App Registration" page, or the organization domain. Examples:`8eaef023-2b34-4da1-9baa-8bc8c9d6a490` or
+   `example.onmicrosoft.com`.
+2. For authenticating any user in the Microsoft identity platform, set the `tenant` value to either:
 
 - `organizations` to allow users with work or school accounts, or
 - `consumers` to allow users with personal accounts, or
@@ -98,15 +93,12 @@ There are two ways to use the `microsoft` provider for authentication:
 
 ##### Choosing source of subject identifier
 
-By default, the microsoft provider will rely on identifier taken from the `sub`
-field of OIDC ID token. The same identifier is also returned by standard OIDC
-`/userinfo` endpoint.
+By default, the microsoft provider will rely on identifier taken from the `sub` field of OIDC ID token. The same identifier is
+also returned by standard OIDC `/userinfo` endpoint.
 
-But there are systems out there that use `id` field returned by
-`https://graph.microsoft.com/v1.0/me` endpoint as a subject identifier. To make
-migrating such systems to Kratos easier the microsoft provider allows using `me`
-endpoint's `id` as an identifier. Set the provider config `subject_source` field
-to `me` to activate this feature.
+But there are systems out there that use `id` field returned by `https://graph.microsoft.com/v1.0/me` endpoint as a subject
+identifier. To make migrating such systems to Kratos easier the microsoft provider allows using `me` endpoint's `id` as an
+identifier. Set the provider config `subject_source` field to `me` to activate this feature.
 
 ## Prevent Having to Login after Sign-Up
 

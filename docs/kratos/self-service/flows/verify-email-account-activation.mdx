@@ -26,13 +26,12 @@ import TabItem from '@theme/TabItem'
 
 :::info
 
-Please read the [Self-Service Flows](../../self-service.mdx) overview before
-continuing with this document.
+Please read the [Self-Service Flows](../../self-service.mdx) overview before continuing with this document.
 
 :::
 
-Ory Kratos allows users to verify their out-of-band (email, telephone number,
-...) communication channels. Verification can be initiated
+Ory Kratos allows users to verify their out-of-band (email, telephone number, ...) communication channels. Verification can be
+initiated
 
 - after registration or by performing a verification flow;
 - manually by the user.
@@ -73,14 +72,12 @@ stateDiagram
   ]}>
   <TabItem value="ocp">
 
-Account verification can be configured in the `Customize/Email Verification`
-screen of Ory Cloud.
+Account verification can be configured in the `Customize/Email Verification` screen of Ory Cloud.
 
   </TabItem>
   <TabItem value="oss">
 
-To enable verification flows, make the following adjustments to your Ory Kratos
-configuration:
+To enable verification flows, make the following adjustments to your Ory Kratos configuration:
 
 ```yaml title="path/to/config/kratos.yml"
 selfservice:
@@ -109,21 +106,17 @@ selfservice:
 
 ## Account Activation
 
-Using this feature implements the so-called "account activation". Depending on
-your scenario or use cases, you may either choose to limit what an identity
-without verified addresses is able to do in your application logic or API
-Gateways, or make Ory Kratos prevent signing into accounts without verified
-addresses. Latter is possible by the usage of `require_verified_address` hook
-(See [Hooks](../hooks.mdx) for more details).
+Using this feature implements the so-called "account activation". Depending on your scenario or use cases, you may either choose
+to limit what an identity without verified addresses is able to do in your application logic or API Gateways, or make Ory Kratos
+prevent signing into accounts without verified addresses. Latter is possible by the usage of `require_verified_address` hook (See
+[Hooks](../hooks.mdx) for more details).
 
 :::note
 
-Please be aware, that since `require_verified_address` hook is enforcing a
-verified address before the user can login, a typo in an email address done by
-the user either during the registration or as part of a self-service flow (email
-change) will make the login for that user impossible. So you should think about
-measures to prevent such situations, like requiring two email addresses being
-configured by the user, thus having a backup if something goes wrong.
+Please be aware, that since `require_verified_address` hook is enforcing a verified address before the user can login, a typo in
+an email address done by the user either during the registration or as part of a self-service flow (email change) will make the
+login for that user impossible. So you should think about measures to prevent such situations, like requiring two email addresses
+being configured by the user, thus having a backup if something goes wrong.
 
 :::
 
@@ -133,42 +126,31 @@ configured by the user, thus having a backup if something goes wrong.
 
 ### Verification `link` Method
 
-Enabling this method will send out verification emails on new sign ups and when
-a verified email address is updated.
+Enabling this method will send out verification emails on new sign ups and when a verified email address is updated.
 
-Before sending out a verification E-Mail, Ory Kratos will check if the email
-address is already known. Depending on the result, one of the two flows will be
-executed:
+Before sending out a verification E-Mail, Ory Kratos will check if the email address is already known. Depending on the result,
+one of the two flows will be executed:
 
-- Unknown email address: An email is sent to the address informing the recipient
-  that someone tried to verify this email address but that it isn't known by the
-  system:
+- Unknown email address: An email is sent to the address informing the recipient that someone tried to verify this email address
+  but that it isn't known by the system:
 
-<img
-  alt="Verification email for unknown address"
-  src={useBaseUrl('images/kratos/email-verify-unknown.png')}
-/>
+<img alt="Verification email for unknown address" src={useBaseUrl('images/kratos/email-verify-unknown.png')} />
 
-- Known email address: An email which includes a verification link is sent to
-  the address:
+- Known email address: An email which includes a verification link is sent to the address:
 
-<img
-  alt="Verification email for known address"
-  src={useBaseUrl('images/kratos/email-verify-known.png')}
-/>
+<img alt="Verification email for known address" src={useBaseUrl('images/kratos/email-verify-known.png')} />
 
-This prevents Account Enumeration Attacks as it isn't possible for a threat
-agent to determine if an account exists or not based on the verification flow.
+This prevents Account Enumeration Attacks as it isn't possible for a threat agent to determine if an account exists or not based
+on the verification flow.
 
 The emails are using templates that can be customized as explained in
-[Customizing E-Mail Templates](../../concepts/email-sms.md#templates). The
-template IDs are:
+[Customizing E-Mail Templates](../../concepts/email-sms.md#templates). The template IDs are:
 
 - Unknown email address: `verification_invalid`
 - Known email address: `verification_valid`
 
-You must define at least one Identity Traits field as a verification field. You
-can do so by defining the following section in your Identity Schema:
+You must define at least one Identity Traits field as a verification field. You can do so by defining the following section in
+your Identity Schema:
 
 ```diff
  {
@@ -201,18 +183,15 @@ can do so by defining the following section in your Identity Schema:
  }
 ```
 
-You can also combine this with the password method login identifier (see example
-above). That way, the field `email` (or any field you define with these
-properties) will serve as both the login identifier and as a verifiable email
-address.
+You can also combine this with the password method login identifier (see example above). That way, the field `email` (or any field
+you define with these properties) will serve as both the login identifier and as a verifiable email address.
 
 ## Initialize Verification Flow to Request or Resend Verification Challenge
 
 <DomainWarning />
 
-The first step is to initialize the Verification Flow. This sets up Anti-CSRF
-tokens and more. Each verification flow has a `state` parameter which follows
-the state machine:
+The first step is to initialize the Verification Flow. This sets up Anti-CSRF tokens and more. Each verification flow has a
+`state` parameter which follows the state machine:
 
 <Mermaid
   chart={`
@@ -230,16 +209,15 @@ stateDiagram-v2
 
 where
 
-- `choose_method` indicates that the user hasn't chosen a verification method
-  yet. This is useful when `link` isn't the only verification method active.
+- `choose_method` indicates that the user hasn't chosen a verification method yet. This is useful when `link` isn't the only
+  verification method active.
 - `sent_email` implies that the verification email has been sent out.
-- `passed_challenge` is set when the user has clicked the verification link and
-  completed the account verification.
+- `passed_challenge` is set when the user has clicked the verification link and completed the account verification.
 
 ### Verification for Server-Side Browser Clients
 
-The Verification Flow for browser clients relies on HTTP redirects between Ory
-Kratos, your Verification UI, and the end-user's browser:
+The Verification Flow for browser clients relies on HTTP redirects between Ory Kratos, your Verification UI, and the end-user's
+browser:
 
 <SelfServiceBrowserFlow
   flows={['verification']}
@@ -247,8 +225,7 @@ Kratos, your Verification UI, and the end-user's browser:
   interactions={['"Verify Email"']}
 />
 
-To initialize the Verification Flow, point the Browser to the initialization
-endpoint:
+To initialize the Verification Flow, point the Browser to the initialization endpoint:
 
 ```sh
 curl -s -i -X GET \
@@ -269,9 +246,8 @@ strict-transport-security: max-age=15724800; includeSubDomains
 <a href="https://playground.projects.oryapis.com/hosted/verification?flow=ba66958a-5f15-4b8f-88f9-52b35020db5c">See Other</a>.
 ```
 
-The server responds with a HTTP 303 redirect to the Verification UI, appending
-the `?flow=<flow-id>` query parameter (see the curl example) to the URL
-configured here:
+The server responds with a HTTP 303 redirect to the Verification UI, appending the `?flow=<flow-id>` query parameter (see the curl
+example) to the URL configured here:
 
 <Tabs
   defaultValue="oss"
@@ -281,9 +257,8 @@ configured here:
   ]}>
   <TabItem value="oc">
 
-Ory Cloud offers a default UI implementation. Visit
-[Bring Your Own UI](https://www.ory.sh/docs/guides/bring-your-user-interface) to
-learn how to implement a custom UI.
+Ory Cloud offers a default UI implementation. Visit [Bring Your Own UI](https://www.ory.sh/docs/guides/bring-your-user-interface)
+to learn how to implement a custom UI.
 
   </TabItem>
   <TabItem value="oss">
@@ -313,8 +288,7 @@ The Verification Flow for client-side browser clients relies on AJAX requests.
   interactions={['"Verify Email"']}
 />
 
-To initialize the Verification Flow, call the verification initialization
-endpoint and set `Accept: application/json`:
+To initialize the Verification Flow, call the verification initialization endpoint and set `Accept: application/json`:
 
 ```
 curl -v -s -X GET \
@@ -400,19 +374,12 @@ curl -v -s -X GET \
 
 <ApiWarning />
 
-The Verification Flow for API clients doesn't use HTTP Redirects and can be
-summarized as follows:
+The Verification Flow for API clients doesn't use HTTP Redirects and can be summarized as follows:
 
-<SelfServiceApiFlow
-  flows={['verification']}
-  success="Set verified flag to true"
-  interactions={['"Verify Email"']}
-/>
+<SelfServiceApiFlow flows={['verification']} success="Set verified flag to true" interactions={['"Verify Email"']} />
 
-To initialize the API flow, the client calls the API-flow initialization
-endpoint
-([REST API Reference](../../reference/api.mdx#initialize-verification-flow-for-api-clients))
-which returns a JSON response:
+To initialize the API flow, the client calls the API-flow initialization endpoint
+([REST API Reference](../../reference/api.mdx#initialize-verification-flow-for-api-clients)) which returns a JSON response:
 
 ```sh
 curl -s -X GET \
@@ -480,10 +447,8 @@ curl -s -X GET \
 
 ## Verification Flow Payloads
 
-Fetching the Verification Flow
-([REST API Reference](../../reference/api.mdx#get-verification-flow)) is usually
-only required for browser clients but also works for Verification Flows
-initialized by API clients. All you need is a valid flow ID:
+Fetching the Verification Flow ([REST API Reference](../../reference/api.mdx#get-verification-flow)) is usually only required for
+browser clients but also works for Verification Flows initialized by API clients. All you need is a valid flow ID:
 
 ```sh
 flowId=$(curl -s -X GET \
@@ -513,14 +478,12 @@ curl -s -X GET \
 
 :::note
 
-The `link` verification mode will always open a link in the browser, even if it
-was initiated by an API client. This is because the user clicks the link in
-his/her email client, which opens the browser.
+The `link` verification mode will always open a link in the browser, even if it was initiated by an API client. This is because
+the user clicks the link in his/her email client, which opens the browser.
 
 :::
 
-When the `link` method is enabled, it will be part of the `methods` payload in
-the Verification Flow:
+When the `link` method is enabled, it will be part of the `methods` payload in the Verification Flow:
 
 ```shell script
 curl -H "Accept: application/json" -s \
@@ -563,24 +526,20 @@ curl -H "Accept: application/json" -s \
 
 The form payloads are then submitted to Ory Kratos which follows up with:
 
-- An HTTP 303 See Other redirect pointing to the Registration UI for Browser
-  Clients;
-- An `application/json` response for API Clients and Client-Side Browser
-  applications (for example Single Page Apps)e Apps).
+- An HTTP 303 See Other redirect pointing to the Registration UI for Browser Clients;
+- An `application/json` response for API Clients and Client-Side Browser applications (for example Single Page Apps)e Apps).
 
 ### Verification Link via Email
 
-To send the verification email, the end-user fills out the form. There might be
-validation errors such as a malformed email:
+To send the verification email, the end-user fills out the form. There might be validation errors such as a malformed email:
 
 <CodeTabs items={getFlowMethodLinkWithErrors} />
 
-When validation errors happen, browser clients receive a HTTP 303 See Other
-redirect to the Verification Flow UI, containing the Verification Flow ID which
-includes the error payloads.
+When validation errors happen, browser clients receive a HTTP 303 See Other redirect to the Verification Flow UI, containing the
+Verification Flow ID which includes the error payloads.
 
-For API Clients, the server typically responds with HTTP 400 Bad Request and the
-Verification Flow in the response payload as JSON.
+For API Clients, the server typically responds with HTTP 400 Bad Request and the Verification Flow in the response payload as
+JSON.
 
 #### Successful Submission
 
@@ -590,15 +549,13 @@ On successful submission, an email will be sent to the provided address:
 
 ## Unsuccessful Verification
 
-If the verification challenge (for example the link in the verification email)
-is invalid or expired, the user will be HTTP 303 redirected to the Verification
-UI.
+If the verification challenge (for example the link in the verification email) is invalid or expired, the user will be HTTP 303
+redirected to the Verification UI.
 
 :::note
 
-When an invalid or expired challenge is used, Ory Kratos initializes a new
-Account Verification flow automatically. This flow will always be a
-Browser-based flow because the challenge is completed by clicking a link!
+When an invalid or expired challenge is used, Ory Kratos initializes a new Account Verification flow automatically. This flow will
+always be a Browser-based flow because the challenge is completed by clicking a link!
 
 :::
 
@@ -610,28 +567,24 @@ Please keep in mind that this part of the flow always involves a Browser!
 
 ## Successful Verification
 
-If the verification challenge is completed (for example the sent verification
-link was clicked), the end-user's Browser is redirected to the Verification UI
-with a Verification Flow that has now the `state` of `passed_challenge`:
+If the verification challenge is completed (for example the sent verification link was clicked), the end-user's Browser is
+redirected to the Verification UI with a Verification Flow that has now the `state` of `passed_challenge`:
 
 <CodeTabs items={getFlowMethodLinkChallengeDone} />
 
-You may also
-[configure a redirect URL](../../concepts/browser-redirect-flow-completion.mdx)
-instead which would send the end-user to that configured URL.
+You may also [configure a redirect URL](../../concepts/browser-redirect-flow-completion.mdx) instead which would send the end-user
+to that configured URL.
 
 ## Code Examples for NodeJS, ReactJS, Go, ...
 
-The Verification User Interface is a route (page / site) in your application
-(server, native app, single page app) that should render a verification form.
+The Verification User Interface is a route (page / site) in your application (server, native app, single page app) that should
+render a verification form.
 
-In stark contrast to other Identity Systems, Ory Kratos doesn't render this
-HTML. Instead, you need to implement the HTML code in your application (for
-example NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme
-flexibility and customizability in your user interface flows and designs.
+In stark contrast to other Identity Systems, Ory Kratos doesn't render this HTML. Instead, you need to implement the HTML code in
+your application (for example NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme flexibility and
+customizability in your user interface flows and designs.
 
-You will use the Verification Flow JSON response to render the verification form
-UI, which could looks as follows depending on your programming language and web
-framework:
+You will use the Verification Flow JSON response to render the verification form UI, which could looks as follows depending on
+your programming language and web framework:
 
 <RenderFlow flow="verification" />
