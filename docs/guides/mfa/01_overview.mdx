@@ -162,11 +162,18 @@ Authentication methods are classified into factors:
 |  `oidc`	|  first 	|
 |  `totp` | second |
 |  `webauthn` | second |
-| `lookup_secret` | second | 
+| `lookup_secret` | second |
+
+:::info
+
+If you enable `webauthn` for [passwordless authentication](../passwordless/webauthn), passwordless flows 
+are used instead of MFA. In such setups, `webauthn` is considered a first authentication factor. 
+
+:::
 
 The parameter can take one of two values:
 
-  - `aal1` - The Identity completed only the first authentication factor(s).
+  - `aal1`: The Identity completed only the first authentication factor(s).
   - `aal2`: The Identity completed the first and the second authentication factor(s).
 
 :::warning
