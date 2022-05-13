@@ -477,15 +477,15 @@ Example request/response payload:
 }
 ```
 
-:::note 
+:::note
 
-Ory Oathkeeper is case-insensitive when accepting custom request
-headers. However, all incoming custom headers are converted to the canonical
-format of the MIME header key. This means that the first letter of the incoming
-header, as well as any letter that follows a hyphen, is converted into upper
-case and the rest of the letters are converted into lowercase. For example, the
-incoming header `x-user-company` is converted and returned by Oathkeeper as
-`X-User-Company`. 
+Ory Oathkeeper is case-insensitive when accepting custom request headers.
+However, all incoming custom headers are converted to the canonical format of
+the MIME header key. This means that the first letter of the incoming header, as
+well as any letter that follows a hyphen, is converted into upper case and the
+rest of the letters are converted into lowercase. For example, the incoming
+header `x-user-company` is converted and returned by Oathkeeper as
+`X-User-Company`.
 
 :::
 

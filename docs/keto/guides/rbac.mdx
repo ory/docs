@@ -9,8 +9,7 @@ This guide will explain how to implement RBAC using Ory Keto.
 Implementing RBAC currently is possible, but requires some workarounds. This
 guide enables RBAC support with Keto but native support is still work in
 progress. Follow the progress in
-[this issue](https://github.com/ory/keto/issues/598)
-:::
+[this issue](https://github.com/ory/keto/issues/598) :::
 
 [Role Based Access Control (RBAC)](https://en.wikipedia.org/wiki/Role-based_access_control)
 maps subjects to roles and roles to permissions. The goal of (H)RBAC is to make
@@ -25,17 +24,18 @@ inherit all permissions from the "moderator" role. This reduces duplication and
 management complexity around defining privileges.
 
 Let's assume that we are building a reporting application and need to have three
-groups of users with different access levels.
-We have the following group of reports in our application.
+groups of users with different access levels. We have the following group of
+reports in our application.
 
 - Financial performance reports
 - Marketing performance reports
 - Community performance reports
 
-This time we model the access rights using (H)RBAC and the roles
-`community`, `marketing`, `finance` and `admin`:
+This time we model the access rights using (H)RBAC and the roles `community`,
+`marketing`, `finance` and `admin`:
 
-The role `admin` inherits all privileges from `finance`, `marketing` and `community`
+The role `admin` inherits all privileges from `finance`, `marketing` and
+`community`
 
 (H)RBAC is everywhere. If you ever installed a forum software such as
 [phpBB](https://www.phpbb.com/support/docs/en/3.1/ug/adminguide/permissions_roles/)
@@ -45,8 +45,8 @@ definitely encountered ACL, (H)RBAC, or both.
 (H)RBAC reduces management complexity and overhead with large user bases.
 Sometimes however, even (H)RBAC is not enough. An example is when you need to
 express ownership (e.g. `Dilan` can only modify his own reports), have
-attributes (e.g. `Dilan` needs to have access only during work hours),
-or in multi-tenant environments.
+attributes (e.g. `Dilan` needs to have access only during work hours), or in
+multi-tenant environments.
 
 **Benefits:**
 
@@ -57,12 +57,12 @@ or in multi-tenant environments.
 
 **Shortcomings:**
 
-- There is no concept of ownership: _Dan is the author of article "Hello
-World" and is thus allowed to update it_.
+- There is no concept of ownership: _Dan is the author of article "Hello World"
+  and is thus allowed to update it_.
 - There is no concept of environment: _Dan is allowed to access accounting
-services when the request comes from IP 10.0.0.3_.
+  services when the request comes from IP 10.0.0.3_.
 - There is no concept of tenants: _Dan is allowed to access resources on the
-"dan's test" tenant_.
+  "dan's test" tenant_.
 
 ## Using RBAC with Ory Keto
 
@@ -135,7 +135,6 @@ groups:marketing#member@Hadley
 groups:admin#member@Neel
 ```
 
-
 Then we can run
 
 ```bash
@@ -144,7 +143,6 @@ keto relation-tuple parse policies.rts --format json | \
   && echo "Successfully created tuple" \
   || echo "Encountered error"
 ```
-
 
 Since Dilan works as a community manager, the following check examples show that
 he has access only to community reports
