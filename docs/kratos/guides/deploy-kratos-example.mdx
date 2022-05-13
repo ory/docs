@@ -685,6 +685,50 @@ service kratos restart
 Open `https://accounts.example.com/auth/login` and you should see the Login
 Screen.
 
+## Final steps
+
+We covered a basic guide for deploying Ory Kratos to production with Nginx. However, the configuration of Kratos itself is not production-ready. We need to do the following things
+
+1. Setup secure keys
+1. Run Ory Kratos in production mode
+
+You can generate secure keys using the following `openssl` command
+
+```bash
+openssl rand -base64 32
+```
+Edit `/opt/kratos/config/kratos.yml` file and replace the following values.
+
+```yaml
+secrets:
+  cookie:
+    - PLEASE-CHANGE-ME-I-AM-VERY-INSECURE
+  cipher:
+    - 32-LONG-SECRET-NOT-SECURE-AT-ALL
+```
+with unique and generated strings like in example below
+
+```yaml
+secrets:
+  cookie:
+    - xgrxYZLM0jGgJqijvvf73x30URJkRENoCm2ExQw9+CE=
+  cipher:
+    - rtxrVjiWwe85nxB9XeWoDP8U17+sT6kHo0E1t3Tr5uY=
+```
+
+And don't forged to change `log.leak_sensitive_values` to false
+
+```
+log:
+  leak_sensitive_values: false
+```
+Save changes and restart Ory Kratos by running
+
+```
+systemctl restart kratos
+```
+
+
 ## Next Steps
 
 - Fork the
