@@ -3,18 +3,15 @@ id: refresh-extend-sessions
 title: Refresh and Extend Sessions
 ---
 
-For certain usecases, sessions need to be refreshed on user activity or
-administrative action.
+For certain usecases, sessions need to be refreshed on user activity or administrative action.
 
-When you refresh a session, its `expires` property is set to a value that is the
-time when the refresh is triggered plus the amount of time defined by the value
-of `/session/lifespan`.
+When you refresh a session, its `expires` property is set to a value that is the time when the refresh is triggered plus the
+amount of time defined by the value of `/session/lifespan`.
 
 ## Refresh Sessions as an Administrator
 
 To extend a session's lifespan, call the administrative
-[`adminRefreshSession`](../../reference/api.mdx#operation/adminRefreshSession)
-endpoint with the session ID:
+[`adminRefreshSession`](../../reference/api.mdx#operation/adminRefreshSession) endpoint with the session ID:
 
 ```mdx-code-block
 import { getSdkUrl } from '@site/src/hooks'
@@ -93,21 +90,18 @@ $ curl 'https://{your-project-slug}.projects.oryapis.com/admin/sessions/ede90ce6
 
 Refreshing sessions causes database writes.
 
-To reduce the database load, you can limit the time in which the session can be
-refreshed by adjusting the `earliest_refresh` configuration.
+To reduce the database load, you can limit the time in which the session can be refreshed by adjusting the `earliest_refresh`
+configuration.
 
-For example, if you set `earliest_refresh` to `24h`, sessions can't be refreshed
-until 24 hours before they expire. This setting prevents putting excessive load
-on the database.
+For example, if you set `earliest_refresh` to `24h`, sessions can't be refreshed until 24 hours before they expire. This setting
+prevents putting excessive load on the database.
 
-If you need high flexibility when extending sessions, you can set
-`earliest_refresh` to `lifespan`, which allows sessions to be refreshed during
-their entire lifespan, even right after they are created.
+If you need high flexibility when extending sessions, you can set `earliest_refresh` to `lifespan`, which allows sessions to be
+refreshed during their entire lifespan, even right after they are created.
 
 :::warning
 
-If you set `earliest_refresh` to `lifespan`, all sessions will constantly be
-refreshed!
+If you set `earliest_refresh` to `lifespan`, all sessions will constantly be refreshed!
 
 :::
 

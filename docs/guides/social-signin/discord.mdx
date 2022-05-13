@@ -5,8 +5,7 @@ title: Discord
 
 ## Configuration with Ory CLI
 
-Follow these steps to add Discord as a social sign-in provider to your Ory Cloud
-project using the Ory CLI:
+Follow these steps to add Discord as a social sign-in provider to your Ory Cloud project using the Ory CLI:
 
 1. [Create a Discord OAuth2 application](https://discord.com/developers/docs/topics/oauth2).
 2. In the created app, set the redirect URI to:
@@ -16,8 +15,7 @@ https://<ory-cloud-project-slug>.projects.oryapis.com/self-service/methods/oidc/
 ```
 
 <a name="mapping"></a>
-3. Create a Jsonnet code snippet to map the desired claims to the Ory Identity
-schema.
+3. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema.
 
 ```json
 local claims = {
@@ -42,9 +40,8 @@ local claims = {
 :::info
 
 Discord doesn't implement OpenID Connect. Ory makes a request to
-[Discord's User API](https://discord.com/developers/docs/resources/user#get-current-user)
-and adds the data to `std.extVar('claims')`. Not all fields are supported. Check
-the list of supported fields
+[Discord's User API](https://discord.com/developers/docs/resources/user#get-current-user) and adds the data to
+`std.extVar('claims')`. Not all fields are supported. Check the list of supported fields
 [in the source code](https://github.com/ory/kratos/blob/v0.5.1-alpha.1/selfservice/strategy/oidc/provider_discord.go#L81-L91).
 
 The `identify` scope adds these fields:
@@ -74,10 +71,8 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
 <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
 ```
 
-4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or
-   host it under an URL accessible to Ory Cloud.
-5. Download the Identity Service config from your Ory Cloud project and save it
-   to a file:
+4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Cloud.
+5. Download the Identity Service config from your Ory Cloud project and save it to a file:
 
 ```shell
 ## List all available projects
@@ -88,9 +83,8 @@ ory get identity-config <project-id> --format yaml > identity-config.yaml
 ```
 
 <a name="config"></a>
-6. Add the social sign-in provider configuration to the downloaded config. Add
-the Jsonnet snippet with mappings as a Base64 string or provide an URL to the
-file.{' '}
+6. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
+string or provide an URL to the file.{' '}
 
 ```yaml
 selfservice:
@@ -111,8 +105,7 @@ selfservice:
               - email
 ```
 
-7. Update the Ory Cloud Identity Service configuration using the file you worked
-   with:
+7. Update the Ory Cloud Identity Service configuration using the file you worked with:
 
 ```shell
 ory update identity-config <project-id> --file updated_config.yaml
@@ -120,8 +113,7 @@ ory update identity-config <project-id> --file updated_config.yaml
 
 ## Configuration for Self-hosted Instances
 
-Follow these steps to add Discord as a social sign-in provider when self-hosting
-Ory Kratos:
+Follow these steps to add Discord as a social sign-in provider when self-hosting Ory Kratos:
 
 1. [Create a Discord OAuth2 application](https://discord.com/developers/docs/topics/oauth2).
 2. Set the redirect URI to URL that follows this pattern:
@@ -130,14 +122,11 @@ Ory Kratos:
 http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/discord
 ```
 
-3. Create a
-   [Jsonnet code snippet to map the desired claims to the Ory Identity schema](#mapping).
-4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or
-   store it in a location available to your Ory Kratos instance.
-5. Add the social
-   [sign-in provider configuration to the Ory Kratos configuration](#config).
-   Add the Jsonnet snippet with mappings as a Base64 string or provide a path or
-   an URL of the file.
+3. Create a [Jsonnet code snippet to map the desired claims to the Ory Identity schema](#mapping).
+4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or store it in a location available to your Ory Kratos
+   instance.
+5. Add the social [sign-in provider configuration to the Ory Kratos configuration](#config). Add the Jsonnet snippet with mappings
+   as a Base64 string or provide a path or an URL of the file.
 
 ```mdx-code-block
 import ConfigAsEnv from '../_common/config_as_env.mdx'

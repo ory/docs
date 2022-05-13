@@ -27,5 +27,4 @@ Import resources
 ### SEE ALSO
 
 - [ory](ory) - The ORY CLI
-- [ory import identities](ory-import-identities) - Import one or more identities
-  from files or STD_IN
+- [ory import identities](ory-import-identities) - Import one or more identities from files or STD_IN

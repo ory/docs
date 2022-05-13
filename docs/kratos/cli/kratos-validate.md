@@ -26,5 +26,4 @@ Validate resources
 ### SEE ALSO
 
 - [kratos](kratos) -
-- [kratos validate identity](kratos-validate-identity) - Validate local identity
-  files
+- [kratos validate identity](kratos-validate-identity) - Validate local identity files

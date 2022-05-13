@@ -16,13 +16,11 @@ Delete one or more identities by their ID(s)
 
 ### Synopsis
 
-This command deletes one or more identities by ID. To delete an identity by some
-selector, e.g. the recovery email address, use the list command in combination
-with jq.
+This command deletes one or more identities by ID. To delete an identity by some selector, e.g. the recovery email address, use
+the list command in combination with jq.
 
-We have to admit, this is not easy if you don&#39;t speak jq fluently. What
-about opening an issue and telling us what predefined selectors you want to
-have? https://github.com/ory/kratos/issues/new/choose
+We have to admit, this is not easy if you don&#39;t speak jq fluently. What about opening an issue and telling us what predefined
+selectors you want to have? https://github.com/ory/kratos/issues/new/choose
 
 ```
 kratos delete identity id-0 [id-1] [id-2] [id-n] [flags]

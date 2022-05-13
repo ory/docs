@@ -3,14 +3,12 @@ id: check-session
 title: Check for Sessions
 ---
 
-You can check for sessions by calling the `/sessions/whoami` endpoint and
-including the issued cookie or token.
+You can check for sessions by calling the `/sessions/whoami` endpoint and including the issued cookie or token.
 
 ## Browser Cookies
 
-To check if the user is signed in, call the `/sessions/whoami` endpoint. When
-the user doesn't have a session, you get a `401 Unauthorized` response. If the
-user has a session, you get a `200 OK` response and the session payload.
+To check if the user is signed in, call the `/sessions/whoami` endpoint. When the user doesn't have a session, you get a
+`401 Unauthorized` response. If the user has a session, you get a `200 OK` response and the session payload.
 
 ```mdx-code-block
 import { getSdkUrl } from '@site/src/hooks'
@@ -40,8 +38,7 @@ X-Session-Token: {your-session-token}`}</CodeBlock>
 </Tabs>
 ```
 
-If you have the session cookie available from another source you can also use
-the `X-Session-Token` header:
+If you have the session cookie available from another source you can also use the `X-Session-Token` header:
 
 ```js
 app.get('/', function (req, res) {
@@ -49,12 +46,9 @@ app.get('/', function (req, res) {
   const cookie = req.cookies['ory_kratos_session']
 
   // Make a request and include the cookie in X-Session-Cookie
-  fetch(
-    'https://playground.projects.oryapis.com/api/kratos/public/sessions/whoami',
-    {
-      headers: { 'X-Session-Cookie': cookie }
-    }
-  )
+  fetch('https://playground.projects.oryapis.com/api/kratos/public/sessions/whoami', {
+    headers: { 'X-Session-Cookie': cookie }
+  })
     .then((res) => res.json())
     .then((session) => console.log(session))
 })
@@ -62,9 +56,8 @@ app.get('/', function (req, res) {
 
 ## Session Tokens
 
-To check for sessions of API clients, call the `/sessions/whoami` and include
-the Ory Kratos Session Token as the Bearer Token in the HTTP `Authorization`
-header:
+To check for sessions of API clients, call the `/sessions/whoami` and include the Ory Kratos Session Token as the Bearer Token in
+the HTTP `Authorization` header:
 
 ```mdx-code-block
 <CodeBlock language="shell">{`sessionToken={someSessionTokenHere}

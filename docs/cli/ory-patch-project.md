@@ -16,9 +16,8 @@ Patch an Ory Cloud Project
 
 ### Synopsis
 
-Use this command to patch your current Ory Cloud Project&#39;s service
-configuration. Only values specified in the patch will be overwritten. To
-replace the config use the `update` command instead.
+Use this command to patch your current Ory Cloud Project&#39;s service configuration. Only values specified in the patch will be
+overwritten. To replace the config use the `update` command instead.
 
 The format of the patch is a JSON-Patch document. For more details please check:
 

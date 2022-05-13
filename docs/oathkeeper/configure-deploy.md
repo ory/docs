@@ -5,23 +5,18 @@ title: Configure and Deploy
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-The Ory Oathkeeper HTTP serve process `oathkeeper serve` opens two ports
-exposing the
+The Ory Oathkeeper HTTP serve process `oathkeeper serve` opens two ports exposing the
 
 - [reverse proxy](index.md#reverse-proxy)
-- REST API which serves the
-  [Access Control Decision API](index.md#access-control-decision-api) as well as
-  other API endpoints such as health checks, JSON Web Key Sets, and a list of
-  available rules.
+- REST API which serves the [Access Control Decision API](index.md#access-control-decision-api) as well as other API endpoints
+  such as health checks, JSON Web Key Sets, and a list of available rules.
 
-For this guide we're using Docker. Ory Oathkeeper however can be
-[installed in a variety of ways](install.md).
+For this guide we're using Docker. Ory Oathkeeper however can be [installed in a variety of ways](install.md).
 
 ## Configure
 
-Ory Oathkeeper can be configured via the filesystem as well as environment
-variables. For more information on mapping the keys to environment variables
-please head over to the [configuration chapter](reference/configuration.md).
+Ory Oathkeeper can be configured via the filesystem as well as environment variables. For more information on mapping the keys to
+environment variables please head over to the [configuration chapter](reference/configuration.md).
 
 First, create an empty directory and `cd` into it:
 
@@ -88,24 +83,19 @@ authenticators:
 EOF
 ```
 
-This configuration file will run the proxy at port 4455, the api at port 4456,
-and enable the anonymous authenticator, the allow and deny authorizers, and the
-noop and id_token mutators.
+This configuration file will run the proxy at port 4455, the api at port 4456, and enable the anonymous authenticator, the allow
+and deny authorizers, and the noop and id_token mutators.
 
 ### Access Rules
 
-We will be using [httpbin.org](https://httpbin.org) as the upstream server. The
-service echoes incoming HTTP Requests and is perfect for seeing how Ory
-Oathkeeper works. Let's define three rules:
+We will be using [httpbin.org](https://httpbin.org) as the upstream server. The service echoes incoming HTTP Requests and is
+perfect for seeing how Ory Oathkeeper works. Let's define three rules:
 
-1. An access rule that allowing anonymous access to
-   `https://httpbin.org/anything/header` and using the `header` mutator.
-2. An access rule denying every access to `https://httpbin.org/anything/deny`.
-   If the request header has `Accept: application/json`, we will receive a JSON
-   response. If however the accept header has `Accept: text/*`, a HTTP Redirect
+1. An access rule that allowing anonymous access to `https://httpbin.org/anything/header` and using the `header` mutator.
+2. An access rule denying every access to `https://httpbin.org/anything/deny`. If the request header has
+   `Accept: application/json`, we will receive a JSON response. If however the accept header has `Accept: text/*`, a HTTP Redirect
    will be sent (to `https://www.ory.sh/docs` as configured above).
-3. An access rule allowing anonymous access to
-   `https://httpbin.org/anything/id_token` using the `id_token` mutator.
+3. An access rule allowing anonymous access to `https://httpbin.org/anything/id_token` using the `id_token` mutator.
 
 ```mdx-code-block
 
@@ -233,11 +223,9 @@ EOF`}</CodeBlock>
 
 ### Cryptographic Keys
 
-The `id_token` mutator creates a signed JSON Web Token. For that to work, a
-public/private key is required. Luckily, Ory Oathkeeper can assist you in
-creating such keys. All common JWT algorithms are supported (RS256, ES256,
-HS256, ...). Let's generate a key for the RS256 algorithm that will be used by
-the id_token mutator:
+The `id_token` mutator creates a signed JSON Web Token. For that to work, a public/private key is required. Luckily, Ory
+Oathkeeper can assist you in creating such keys. All common JWT algorithms are supported (RS256, ES256, HS256, ...). Let's
+generate a key for the RS256 algorithm that will be used by the id_token mutator:
 
 ```mdx-code-block
 <CodeBlock className="language-shell">{`docker run oryd/oathkeeper:${useLatestRelease('oathkeeper')} credentials generate --alg RS256 > jwks.json`}</CodeBlock>
@@ -245,8 +233,7 @@ the id_token mutator:
 
 ### Dockerfile
 
-Next we will be creating a custom Docker Image that adds these configuration
-files to the image:
+Next we will be creating a custom Docker Image that adds these configuration files to the image:
 
 ```mdx-code-block
 
@@ -259,18 +246,15 @@ EOF`}</CodeBlock>
 
 ```
 
-We're doing this for demonstration purposes only. In a production environment
-you would separate these configuration values from the build artifact itself. In
-Kubernetes, it would make most sense to provide the JSON Web Keys as a
-Kubernetes Secret mounted as in a directory, for example.
+We're doing this for demonstration purposes only. In a production environment you would separate these configuration values from
+the build artifact itself. In Kubernetes, it would make most sense to provide the JSON Web Keys as a Kubernetes Secret mounted as
+in a directory, for example.
 
-We encourage you to check out our [helm charts](https://k8s.ory.sh/helm/) which
-apply these best practices.
+We encourage you to check out our [helm charts](https://k8s.ory.sh/helm/) which apply these best practices.
 
 ## Build & Run
 
-Before building the Docker Image, we need to make sure that the local Ory
-Oathkeeper Docker Image is on the most recent version:
+Before building the Docker Image, we need to make sure that the local Ory Oathkeeper Docker Image is on the most recent version:
 
 ```mdx-code-block
 <CodeBlock className="language-shell">{`docker pull oryd/oathkeeper:${useLatestRelease('oathkeeper')}`}</CodeBlock>
@@ -379,9 +363,8 @@ rm -rf oathkeeper-demo
 
 ## Monitoring
 
-Ory Oathkeeper provides an endpoint for [Prometheus](https://prometheus.io/) to
-scrape as a target. This endpoint can be accessed by default at:
-[http://localhost:9000/metrics](http://localhost:9000/metrics):
+Ory Oathkeeper provides an endpoint for [Prometheus](https://prometheus.io/) to scrape as a target. This endpoint can be accessed
+by default at: [http://localhost:9000/metrics](http://localhost:9000/metrics):
 
 You can adjust the settings in the Ory Oathkeeper configuration.
 
@@ -396,8 +379,8 @@ EOF
 ```
 
 Prometheus can be run as a Docker container. More information are available on
-[https://github.com/prometheus/prometheus](https://github.com/prometheus/prometheus).
-Start with setting up a Prometheus configuration:
+[https://github.com/prometheus/prometheus](https://github.com/prometheus/prometheus). Start with setting up a Prometheus
+configuration:
 
 ```shell
 cat << EOF > prometheus.yml
@@ -417,8 +400,7 @@ scrape_configs:
       - targets: ['localhost:9000']
 ```
 
-Run the following commands to start the Prometheus server and access it on
-[http://localhost:9090](http://localhost:9090):
+Run the following commands to start the Prometheus server and access it on [http://localhost:9090](http://localhost:9090):
 
 ```shell
 docker run \
@@ -431,13 +413,10 @@ docker run \
   prom/prometheus
 ```
 
-You can extend the basic monitoring setup with visualizations using for example
-[Grafana](https://grafana.com/). For more information visit the
-["Grafana support for Prometheus"](https://prometheus.io/docs/visualization/grafana/)
-documentation.
+You can extend the basic monitoring setup with visualizations using for example [Grafana](https://grafana.com/). For more
+information visit the ["Grafana support for Prometheus"](https://prometheus.io/docs/visualization/grafana/) documentation.
 
 You can use the exemplary dashboard to get started quickly:
 [Oathkeeper-Dashboard.json](https://github.com/ory/oathkeeper/tree/master/contrib/grafana/Oathkeeper-Dashboard.json).
 
-<img alt="Ory Oathkeeper with Prometheus and Grafana"
-src={useBaseUrl('images/oathkeeper/grafana.png')} />
+<img alt="Ory Oathkeeper with Prometheus and Grafana" src={useBaseUrl('images/oathkeeper/grafana.png')} />

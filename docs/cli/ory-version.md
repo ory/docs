@@ -1,9 +1,7 @@
 ---
 id: ory-version
 title: ory version
-description:
-  ory version Display this binary's version, build time, and git hash of this
-  build
+description: ory version Display this binary's version, build time, and git hash of this build
 ---
 
 <!--

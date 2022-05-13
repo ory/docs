@@ -27,5 +27,4 @@ Delete resources
 ### SEE ALSO
 
 - [ory](ory) - The ORY CLI
-- [ory delete identity](ory-delete-identity) - Delete one or more identities by
-  their ID(s)
+- [ory delete identity](ory-delete-identity) - Delete one or more identities by their ID(s)
