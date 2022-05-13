@@ -1,49 +1,50 @@
 ---
 id: webauthn
-title: WebAuthn
+title: WebAuthn / FIDO2
+sidebar_title: WebAuthn / FIDO2 / YubiKey
 ---
 
-You can enable WebAuthn in the Ory Identity Service (Kratos) to allow users to perform 2FA with 
+You can enable WebAuthn in the Ory Identity Service (Kratos) to allow users to perform 2FA with
 with physical devices such as USB keys or OS-level biometric authentication protocols, such as TouchID.
 
-When users trigger the WebAuthn process, the web browser displays a prompt: 
+When users trigger the WebAuthn process, the web browser displays a prompt:
 
 ![](../_static/mfa/4.png)
 
 :::note
 
-The look of the prompt depends on the web browser. The screenshot shows a Google Chrome prompt. 
+The look of the prompt depends on the web browser. The screenshot shows a Google Chrome prompt.
 
 :::
 
 ## Constraints
 
 - WebAuthn is a browser-only standard. It doesn't work with native mobile apps.
-- WebAuthn is limited to one domain and does not work in a local environment when using CNAME / Ory Proxy. 
-  WebAuthN uses an `https://origin` URL as part of the client-server challenge/response mechanism. This mechanism allows a single URL 
+- WebAuthn is limited to one domain and does not work in a local environment when using CNAME / Ory Proxy.
+  WebAuthN uses an `https://origin` URL as part of the client-server challenge/response mechanism. This mechanism allows a single URL
   as the origin. To learn more, read this [WebAuthn discussion and on GitHub](https://github.com/w3c/webauthn/issues/1372).
-- Depending on the framework you use, implementing WebAuthn in your own UI can be challenging. 
+- Depending on the framework you use, implementing WebAuthn in your own UI can be challenging.
   Check out the [reference implementations](../../kratos/guides/custom-ui) to see how you can approach implementation for different app types (web app, SPA).
 
 ## Configuration
 
-Follow these steps to enable WebAuthn as the second authentication factor: 
+Follow these steps to enable WebAuthn as the second authentication factor:
 
 ### Ory Cloud Console
 
 1. Sign in to the **Ory Cloud Console** and go to **Two-Factor Authentication**.
-2. In the **WebAuthn** section, use the switch to enable WebAuthn. 
+2. In the **WebAuthn** section, use the switch to enable WebAuthn.
 3. Define the hostname of your login page. You must set this to your
-top-level domain. 
+top-level domain.
 4. Define the origin of your login page. Set it to the exact URL of the page
-that prompts the user to use WebAuthn. The relevant items are: 
+that prompts the user to use WebAuthn. The relevant items are:
   - scheme (http/https)
   - host (`auth.example.com`)
   - port (`4455`)
 
   :::note
 
-  If you are using the Ory Managed UI, leave these fields blank. 
+  If you are using the Ory Managed UI, leave these fields blank.
 
   :::
 
@@ -53,8 +54,8 @@ that prompts the user to use WebAuthn. The relevant items are:
 
 ### Ory CLI
 
-1. Get the Identity Service configuration from your project 
-and save it to a file: 
+1. Get the Identity Service configuration from your project
+and save it to a file:
 
   ```shell
   ## List all available projects
@@ -98,7 +99,7 @@ The `display_name` is always set to the name of your project.
 ### Self-Hosted Instances
 
 When working with self-hosted instances of the Ory Identity Service (Kratos), add the
-`webauthn` method to `selfservice/methods` in the configuration file: 
+`webauthn` method to `selfservice/methods` in the configuration file:
 
 ```yaml title="kratos.config.yml"
 selfservice:
@@ -117,14 +118,14 @@ selfservice:
 
 ### Distinguishing Identities Requesting WebAuthn
 
-To help users distinguish which identity requests for WebAuthn authentication, add a `webauthn` object  
-to the trait which represents the WebAuthn account name. 
+To help users distinguish which identity requests for WebAuthn authentication, add a `webauthn` object
+to the trait which represents the WebAuthn account name.
 
-In this example, the user's email address is the identifier: 
+In this example, the user's email address is the identifier:
 
 :::note
 
-This configuration is the default for all Ory Cloud projects. 
+This configuration is the default for all Ory Cloud projects.
 
 :::
 
@@ -164,7 +165,7 @@ This configuration is the default for all Ory Cloud projects.
 
 ## Writing E2E Tests
 
-When writing end-to-end (E2E) tests for WebAuthn implementation in your app, 
+When writing end-to-end (E2E) tests for WebAuthn implementation in your app,
 [you can reference the Cypress tests used in Ory Identity Service (Kratos)](https://github.com/ory/kratos/blob/fc2cecfbeab811aa1a851f953b6bc2a4c119c412/test/e2e/cypress/integration/profiles/mfa/webauthn.spec.ts).
 
 :::tip
