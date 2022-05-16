@@ -45,10 +45,10 @@ to social sign-in provider accounts after email verification.
 
 Linking accounts is an operation that users must perform manually from their account settings. 
 
-:::note
+:::info
 
 Automatic account linking is not available in Ory as it creates an attack vector that hackers
-can use to steal user accounts. Read this section to learn more. 
+can use to steal user accounts. Read [this section](#dangers-of-automatic-account-linking) to learn more. 
 
 :::
 
@@ -72,21 +72,6 @@ allow malicious actors to steal user accounts.
 
 To better understand the danger, consider the following scenario:
 
-<<<<<<< HEAD
-- Your application allows users to create new accounts or sign in with ACME - a well-known social sign-in provider.
-- John creates a new account in your application using his john@doe.com email.
-- Malicious actors know that John uses john@doe.com to sign in to his account in your app.
-- Malicious actors create an ACME account for john@doe.com.
-- Malicious actors sign up in your application using the ACME account created for the john@doe.com account.
-- Your system uses the default behavior and when it detects two accounts with the same identifier, malicious actors are asked to
-  link the accounts.
-- Malicious actors link the accounts.
-- Malicious actors get access to the account that John created manually using his john@doe.com email.
-
-:::warning
-
-Since it constitutes a security threat, we strongly discourage allowing account linking.
-=======
 - Your application allows users to create new accounts or sign in with ACME - a
   well-known social sign-in provider.
 - John creates a new account in your application using his `john@doe.com` email.
@@ -105,7 +90,6 @@ Since it constitutes a security threat, we strongly discourage allowing account 
 
 Since it constitutes a security threat, automatic account linking is not available
 in Ory.
->>>>>>> 25d94f4a (chore: u)
 
 :::
 
