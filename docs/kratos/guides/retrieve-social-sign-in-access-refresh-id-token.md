@@ -8,7 +8,7 @@ This document describes how to retrieve OpenID Connect / OAuth 2.0 Access, Refre
 
 :::note
 
-Please be aware that these tokens are only set when an identity sign ups with, or links a new Social Sign In provider. They'ren't
+Please be aware that these tokens are only set when an identity sign ups with, or links a new Social Sign In provider. They aren't
 updated when an identity signs in!
 
 :::
