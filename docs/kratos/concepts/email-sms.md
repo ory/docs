@@ -161,11 +161,9 @@ courier:
 
 ### Custom SMTP HELO/EHLO identifier
 
-If your SMTP server requires a unique identifier for the HELO/EHLO command, you
-can configure the identifier. Some SMTP relays (e.g. Gmail / Google Workspace)
-may close the connection for generic identifiers like `localhost`. The
-identifier should usually be the domain name of the sending host. If the
-identifier is not configured, `localhost` is used per default.
+If your SMTP server requires a unique identifier for the HELO/EHLO command, you can configure the identifier. Some SMTP relays
+(e.g. Gmail / Google Workspace) may close the connection for generic identifiers like `localhost`. The identifier should usually
+be the domain name of the sending host. If the identifier is not configured, `localhost` is used per default.
 
 ```yaml title="path/to/my/kratos/config.yml"
 courier:
