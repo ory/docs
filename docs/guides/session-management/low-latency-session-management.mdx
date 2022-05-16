@@ -1,0 +1,42 @@
+---
+id: low-latency-sessions
+title: Validating sessions with low-latency
+---
+
+Some systems that require high-throughput and low-latency session validation can be slow. Here's the example
+
+```bash
+curl -o /dev/null\
+     -w %{time_connect}:%{time_starttransfer}:%{time_total} \
+     -s https://playground.projects.oryapis.com/sessions/whoami
+     -H 'ory_session_playground=MTY1MjcyMjk5OXxBenA5MVdvaXpPZ242QlZtOVNCZ2JuRWt4NVB4WFFIVGdLcmFIZl9BN0VTOHZ3VHlJbVdVenpaZl96VWtWS1p4clI3bFRkYnFBeDZwdFZGU3RvSmxyY0JpUGJLNGQwLUlfWnNCMlFlMS1CbDlBdEtjX0xoLWxmSUNmWUJWU24xWTBoNlBGM0laSHc9PXyOu8_5YP6pFxhuNLWD3fmzxdo8JWo27iy0NkF2HQ7fcA=='
+
+0.275457:0.778495:0.778623
+```
+
+That basic example above shows:
+
+1. 0.275457 seconds spent connecting to the playground.
+1. 0.778495 seconds passed to start transferring data.
+1. 0.778623 total seconds spent on the request.
+
+## How to validate session
+
+1. By using `toSession` method of Ory SDK
+1. By calling `/sessions/whoami` endpoint
+
+## When sessions invalidate
+
+1. When the user logs out.
+1. When it expires
+1. When one wants to force a user to logout by calling [revokeSession](https://github.com/ory/kratos-client-go/blob/master/docs/V0alpha2Api.md#RevokeSession)
+
+## How to cache sessions
+
+1. Using LRU+TTL cache
+1. Consider invalidating cache values
+
+## Security considerations
+
+1. Never use API flows to implement Browser applications! Using API flows in Single-Page-Apps and server-side apps open up several potential attack vectors, including log-in and other CSRF attacks.
+1. Be careful with TTL for cached sessions, and don't forget to remove the session expiration/user logout data. Users can still have access because of cached data, leading to a potential breach.

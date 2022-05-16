@@ -76,7 +76,8 @@ module.exports = {
             'guides/session-management/session-management',
             'guides/session-management/session-lifespan',
             'guides/session-management/check-session',
-            'guides/session-management/refresh-extend-sessions'
+            'guides/session-management/refresh-extend-sessions',
+            'guides/session-management/low-latency-sessions'
           ]
         },
         {
