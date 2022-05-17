@@ -50,6 +50,9 @@ func (k *kratosMiddleware) Session() gin.HandlerFunc {
 	}
 }
 func (k *kratosMiddleware) cacheSession(key string, sess *client.Session) error {
+	// Calculate TTL. Do not cache sessions without TTL.
+	//
+	// Cached session should evict on sess.ExpiresAt
 	exp := (*sess.ExpiresAt).Sub(time.Now())
 	data, err := json.Marshal(sess)
 	if err != nil {
@@ -74,6 +77,8 @@ func (k *kratosMiddleware) getSession(key string) (*client.Session, error) {
 }
 
 func (k *kratosMiddleware) validateSession(r *http.Request) (*client.Session, error) {
+	// Use a cookie name for your Ory Cloud project
+	// It looks like ory_session_projectid
 	cookie, err := r.Cookie("ory_session_playground")
 	if err != nil {
 		return nil, err
@@ -81,6 +86,7 @@ func (k *kratosMiddleware) validateSession(r *http.Request) (*client.Session, er
 	if cookie == nil {
 		return nil, errors.New("no session found in cookie")
 	}
+	// Try to return a cached session
 	sess, err := k.getSession(cookie.Value)
 	if err != nil {
 		return nil, err
@@ -88,10 +94,12 @@ func (k *kratosMiddleware) validateSession(r *http.Request) (*client.Session, er
 	if sess != nil {
 		return sess, nil
 	}
+	// validate a session
 	resp, _, err := k.client.V0alpha2Api.ToSession(context.Background()).Cookie(cookie.String()).Execute()
 	if err != nil {
 		return nil, err
 	}
+	// cache the session
 	if err := k.cacheSession(cookie.Value, resp); err != nil {
 		return nil, err
 	}

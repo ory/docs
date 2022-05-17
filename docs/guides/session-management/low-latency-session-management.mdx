@@ -2,8 +2,9 @@
 id: low-latency-sessions
 title: Validating sessions with low-latency
 ---
+import CodeBlock from '@theme/CodeBlock'
 
-Some systems that require high-throughput and low-latency session validation can be slow. Here's the example
+Ory Cloud is an external dependency, and latency to validate a session may vary. Here's the example
 
 ```bash
 curl -o /dev/null\
@@ -20,12 +21,15 @@ That basic example above shows:
 1. 0.778495 seconds passed to start transferring data.
 1. 0.778623 total seconds spent on the request.
 
-## How to validate session
+
+## How to validate session and when do they invalidate
+
+You can validate a session using the following options:
 
 1. By using `toSession` method of Ory SDK
 1. By calling `/sessions/whoami` endpoint
 
-## When sessions invalidate
+A session invalidates in these cases:
 
 1. When the user logs out.
 1. When it expires
@@ -33,10 +37,32 @@ That basic example above shows:
 
 ## How to cache sessions
 
-1. Using LRU+TTL cache
-1. Consider invalidating cache values
+Caching allows reusing previously retrieved or computed data efficiently. A cache is a high-speed data storage
+layer that stores a subset of data, typically transient. Future requests for that data are served up faster than
+is possible by accessing the data’s primary storage location.
 
-## Security considerations
+One of the most used strategies is to use the least recently used (LRU) cache. There are many options to use in a system:
 
-1. Never use API flows to implement Browser applications! Using API flows in Single-Page-Apps and server-side apps open up several potential attack vectors, including log-in and other CSRF attacks.
-1. Be careful with TTL for cached sessions, and don't forget to remove the session expiration/user logout data. Users can still have access because of cached data, leading to a potential breach.
+1. Embedded in-memory caches such as LevelDB, BerkeleyDB, Flashdb, etc.
+1. Using Key-Value storage such as Redis, Memcached, Aerospike cache, etc.
+
+Depending on requirements, one can choose any of the key-value storage available but consider this:
+
+1. Using embedded in-memory solutions can give one low latency. However, an application stores state can prevent horizontally scaling it.
+1. Key-value storages add network latency, but an application does not store any state so that one can scale it without any issues.
+
+:::warning
+Be careful with the TTL for cached sessions, and do not forget to remove the session once it expires or a user logs out. Users can still have access because of cached data, leading to a potential security breach.
+:::
+
+Let us take a look at the following example. We have session middleware that validates sessions and caches data. The logic is simple
+
+1. Try to get cached session from Redis
+1. If a session is valid, return it and do not request Ory Cloud
+1. If data does not persist, validate a session against Ory Cloud and cache it.
+
+```mdx-code-block title="main.go"
+import index from '!!raw-loader!../../../code-examples/low-latency-sessions/main.go'
+
+<CodeBlock language="go">{index}</CodeBlock>
+```
