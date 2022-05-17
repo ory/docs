@@ -66,3 +66,19 @@ import index from '!!raw-loader!../../../code-examples/low-latency-sessions/main
 
 <CodeBlock language="go">{index}</CodeBlock>
 ```
+The strategy above works for most cases when one has a high-throughput system.
+:::warning
+Caching can worsen the situation in the low-throughput systems because of [RTT](https://en.wikipedia.org/wiki/Round-trip_delay)
+to the caching backend when cached data has expired.
+:::
+
+A performance difference
+
+```
+# Without caching the response time is 1.5s
+[GIN] 2022/05/17 - 18:27:58 | 200 |  1.501481333s |             ::1 | GET      "/ping"
+
+# With caching enabled the response time is 5 ms
+[GIN] 2022/05/17 - 18:28:42 | 200 |    5.309667ms |             ::1 | GET      "/ping"
+```
+
