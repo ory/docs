@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -48,19 +49,41 @@ func (k *kratosMiddleware) Session() gin.HandlerFunc {
 		c.Next()
 	}
 }
+func (k *kratosMiddleware) cacheSession(key string, sess *client.Session) error {
+	exp := (*sess.ExpiresAt).Sub(time.Now())
+	data, err := json.Marshal(sess)
+	if err != nil {
+		return err
+	}
+	return k.redis.Set(context.Background(), fmt.Sprintf("session:%s", key), data, exp).Err()
+}
+
+func (k *kratosMiddleware) getSession(key string) (*client.Session, error) {
+	var sess client.Session
+	data, err := k.redis.Get(context.Background(), fmt.Sprintf("session:%s", key)).Bytes()
+	if err != nil {
+		if err == redis.Nil {
+			return nil, nil
+		}
+		return nil, err
+	}
+	if err := json.Unmarshal(data, &sess); err != nil {
+		return nil, err
+	}
+	return &sess, nil
+}
+
 func (k *kratosMiddleware) validateSession(r *http.Request) (*client.Session, error) {
-	cookie, err := r.Cookie("ory_kratos_session")
-	var sess *client.Session
+	cookie, err := r.Cookie("ory_session_playground")
 	if err != nil {
 		return nil, err
 	}
 	if cookie == nil {
 		return nil, errors.New("no session found in cookie")
 	}
-	if err := k.redis.Get(context.Background(), fmt.Sprintf("session:%s", cookie)).Scan(sess); err != nil {
-		if err != redis.Nil {
-			return nil, err
-		}
+	sess, err := k.getSession(cookie.Value)
+	if err != nil {
+		return nil, err
 	}
 	if sess != nil {
 		return sess, nil
@@ -69,8 +92,7 @@ func (k *kratosMiddleware) validateSession(r *http.Request) (*client.Session, er
 	if err != nil {
 		return nil, err
 	}
-	exp := (*resp.ExpiresAt).Sub(time.Now())
-	if err := k.redis.Set(context.Background(), fmt.Sprintf("session:%s", cookie), resp, exp).Err(); err != nil {
+	if err := k.cacheSession(cookie.Value, resp); err != nil {
 		return nil, err
 	}
 	return resp, nil
