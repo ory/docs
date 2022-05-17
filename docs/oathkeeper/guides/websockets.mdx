@@ -128,108 +128,16 @@ wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
 2. Create a `oathkeeper` folder and `oathkeeper/oathkeeper.yml` with the
    following content:
 
-```yaml
-log:
-  level: debug
-  format: json
-
-serve:
-  proxy:
-    cors:
-      enabled: true
-      allowed_origins:
-        - http://127.0.0.1:8080
-      allowed_methods:
-        - POST
-        - GET
-        - PUT
-        - PATCH
-        - DELETE
-      allowed_headers:
-        - Authorization
-        - Content-Type
-      exposed_headers:
-        - Content-Type
-      allow_credentials: true
-      debug: true
-
-errors:
-  fallback:
-    - json
-
-  handlers:
-    redirect:
-      enabled: true
-      config:
-        to: http://127.0.0.1:4455/login
-        when:
-          - error:
-              - unauthorized
-              - forbidden
-            request:
-              header:
-                accept:
-                  - text/html
-    json:
-      enabled: true
-      config:
-        verbose: true
-
-access_rules:
-  matching_strategy: glob
-  repositories:
-    - file:///etc/config/oathkeeper/access-rules.yml
-
-authenticators:
-  anonymous:
-    enabled: true
-    config:
-      subject: guest
-
-  cookie_session:
-    enabled: true
-    config:
-      check_session_url: http://kratos:4433/sessions/whoami
-      preserve_path: true
-      extra_from: '@this'
-      subject_from: 'identity.id'
-      only:
-        - ory_kratos_session
-
-  noop:
-    enabled: true
-
-authorizers:
-  allow:
-    enabled: true
-
-mutators:
-  noop:
-    enabled: true
+```mdx-code-block title="oathkeeper/oathkeeper.yml"
+import oathkeeper from '!!raw-loader!../../../code-examples/oathkeeper/oathkeeper/oathkeeper.yml'
+<CodeBlock language="yaml">{oathkeeper}</CodeBlock>
 ```
 
 3. Create `oathkeeper/access-rules.yml` with the following content:
 
-```yaml
-- id: 'ws:protected'
-  upstream:
-    preserve_host: true
-    url: 'http://ws:8080'
-  match:
-    url: 'http://127.0.0.1:8080/<**>'
-    methods:
-      - GET
-      - POST
-  authenticators:
-    - handler: cookie_session
-  mutators:
-    - handler: noop
-  authorizer:
-    handler: allow
-  errors:
-    - handler: redirect
-      config:
-        to: http://127.0.0.1:4455/login
+```mdx-code-block title="oathkeeper/access-rules.yml"
+import rules from '!!raw-loader!../../../code-examples/oathkeeper/oathkeeper/access-rules.yml'
+<CodeBlock language="yaml">{rules}</CodeBlock>
 ```
 
 This configuration of Ory Oathkeeper uses the
