@@ -87,7 +87,7 @@ knowledge and experiences? [Reach out to us](mailto:office@ory.sh) to be publish
 
 #### Ory Stack
 
-- [Open Source Authentication with Hydra and Kratos](https://blog.px.dev/open-source-auth/ossauth/)
+- [Open Source Authentication with Hydra and Kratos](https://blog.px.dev/open-source-auth/)
 
 #### Ory Kratos
 
