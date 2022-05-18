@@ -9,15 +9,14 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## keto relation-tuple delete-all
 
 Delete ALL relation tuples matching the relation query.
 
 ### Synopsis
 
-Delete all relation tuples matching the relation query. It is recommended to first run the command without the `--force` flag to
-verify that the operation is safe.
+Delete all relation tuples matching the relation query.
+It is recommended to first run the command without the `--force` flag to verify that the operation is safe.
 
 ```
 keto relation-tuple delete-all [flags]
@@ -47,4 +46,5 @@ keto relation-tuple delete-all [flags]
 
 ### SEE ALSO
 
-- [keto relation-tuple](keto-relation-tuple) - Read and manipulate relation tuples
+* [keto relation-tuple](keto-relation-tuple)	 - Read and manipulate relation tuples
+
