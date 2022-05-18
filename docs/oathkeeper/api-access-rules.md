@@ -138,7 +138,7 @@ Rule in JSON format:
   "match": {
     "headers": {
       "Content-Type": "application+v2.json"
-    }
+    },
     "url": "http://my-app/some-route/<.*>",
     "methods": ["GET", "POST"]
   },
