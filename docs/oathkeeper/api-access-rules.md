@@ -82,9 +82,9 @@ Access Rules have four principal keys:
 - `match` (object): Defines the URL(s) this Access Rule should match.
 
   - `methods` (string[]): Array of HTTP methods (for example GET, POST, PUT, DELETE, ...).
-  - `headers` (map[string]string): Map of HTTP headers to match. If the header you are matching against is of array type
-  (like a User-Agent header), the value you define must match any of the element of the array. The match is an equality and 
-  does not support regular expressions.
+  - `headers` (map[string]string): Map of HTTP headers to match. If the header you are matching against is of array type (like a
+    User-Agent header), the value you define must match any of the element of the array. The match is an equality and does not
+    support regular expressions.
   - `url` (string): The URL that should be matched. You can use regular expressions or glob patterns in this field to match more
     than one url. The matching strategy (glob or regexp) is defined in the global configuration file as
     `access_rules.matching_strategy`. This matcher ignores query parameters. Regular expressions (or glob patterns) are
