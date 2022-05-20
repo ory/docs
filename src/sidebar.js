@@ -4,7 +4,8 @@ module.exports = {
       Introduction: [
         'welcome',
         'roots',
-        'arch'
+        'arch',
+        'security'
       ]
     },
     {
@@ -43,6 +44,14 @@ module.exports = {
           ]
         }
       ],
+    },
+    {
+      type: 'category',
+      label: 'Reference',
+      items: [
+        'cloud-api',
+        'cloud-sdk', 
+      ]
     },
     {
       type: 'category',
@@ -162,23 +171,11 @@ module.exports = {
         },
         {
           type: 'category',
-          label: 'Reference',
-          items: [
-            'kratos/reference/api',
-            'kratos/reference/json-schema-json-paths',
-            'kratos/reference/html-forms',
-            'kratos/reference/jsonnet',
-            {
-              SDKs: ['kratos/sdk/index', 'kratos/sdk/go']
-            }
-          ]
-        },
-        {
-          type: 'category',
           label: 'Self-Hosting',
           items: [
             'selfhosted-overview',
             'kratos/install',
+            'connect-to-cloud',
             'kratos/quickstart',
             'kratos/guides/upgrade',
             {
@@ -209,6 +206,19 @@ module.exports = {
                 'kratos/guides/tracing',
               ]
             },
+            {
+              type: 'category',
+              label: 'Reference',
+              items: [
+                'kratos/reference/api',
+                'kratos/reference/json-schema-json-paths',
+                'kratos/reference/html-forms',
+                'kratos/reference/jsonnet',
+                {
+                  SDKs: ['kratos/sdk/index', 'kratos/sdk/go']
+                }
+              ]
+            },
           ]
         }
    		]  
@@ -218,20 +228,168 @@ module.exports = {
       label: 'OAuth2 & OpenID Connect',
       items: [
         'generic-overview',
-	    ]
-    },
+        {
+          type: 'category',
+          label: 'OAuth2 Flows',
+          items: [
+            'hydra/advanced',
+            'hydra/guides/openid-connect-dynamic-client-registration',
+            'hydra/guides/oauth2-clients',
+            'hydra/guides/oauth2-grant-type-jwt-bearer',
+            'hydra/guides/common-oauth2-openid-connect-flows',
+            'hydra/guides/using-oauth2',
+            'hydra/guides/token-expiration',
+            'hydra/guides/oauth2-token-introspection',
+            'hydra/guides/oauth2-public-spa-mobile',
+            'hydra/guides/claims-at-refresh'
+          ]
+        },
+        {
+          type: 'category',
+          label: 'Implementing User Interface',
+          items: [
+            'hydra/guides/login',
+            'hydra/guides/consent',
+            'hydra/guides/logout'
+          ]
+        },
+        {
+          type: 'category',
+          label: 'Self-Hosting',
+          items: [
+            'selfhosted-overview',
+            'hydra/install',
+            'connect-to-cloud',
+            'hydra/5min-tutorial',
+            'hydra/guides/upgrade',
+            {
+              type: 'category',
+              label: 'Configuration',
+              items: [
+              'hydra/configure-deploy',
+              'hydra/dependencies-environment',
+              'hydra/guides/scaling-hydra',
+              ]
+            },
+            {
+              type: 'category',
+              label: 'Reference',
+              items: [
+                'hydra/reference/api',
+                {
+                  SDKs: ['hydra/sdk', 'hydra/sdk/go', 'hydra/sdk/js', 'hydra/sdk/php']
+                },
+              ]
+            }  
+	        ],
+        },
+      ]
+    },   
     {
       type: 'category',
       label: 'Permissions & Access Control',
       items: [
         'generic-overview',
+        {
+          type: 'category',
+          label: 'Role-Based Access Control (RBAC)',
+          items: [
+            'keto/guides/rbac',
+            'keto/guides/access-control-inheritance',
+            'keto/guides/access-control-list-design-best-practices',
+            'keto/guides/simple-access-check-guide',
+            'keto/guides/list-api-display-objects',
+          ]
+        },
+        {
+          type: 'category',
+          label: 'Relation Tuples',
+          items: [
+            'keto/concepts/relation-tuples',
+            'keto/concepts/namespaces',
+            'keto/concepts/objects',
+            'keto/concepts/subjects',
+            'keto/concepts/graph-of-relations', 
+          ]
+        },
+        {
+          type: 'category',
+          label: 'Self-Hosting',
+          items: [
+            'selfhosted-overview',
+            'connect-to-cloud',
+            'kratos/install',
+            'kratos/quickstart',
+            'kratos/guides/upgrade',
+            {
+              type: 'category',
+              label: 'Configuration',
+              items: [
+                'keto/secure',
+                'keto/guides/expand-api-display-who-has-access',
+                'keto/guides/production',
+              ]
+            },
+            {
+              type: 'category',
+              label: 'Reference',
+              items: [
+                'keto/reference/rest-api',
+                {
+                  SDKs: ['keto/sdk/index']
+                },
+                'keto/reference/configuration',
+                'keto/reference/configuration-editor',
+                'keto/reference/proto-api',
+              ]
+            },
+          ]
+        }
 	    ]
     },
     {
       type: 'category',
       label: 'Zero-Trust',
       items: [
-        'generic-overview',
+        'oathkeeper/index',
+        {
+          type: 'category',
+          label: 'Handlers',
+          items: [
+            'oathkeeper/pipeline',
+            'oathkeeper/pipeline/authn',
+            'oathkeeper/pipeline/authz',
+            'oathkeeper/pipeline/mutator',
+            'oathkeeper/pipeline/error'
+          ]
+        },
+        'oathkeeper/api-access-rules',
+        {
+          type: 'category',
+          label: 'Self-Hosting',
+          items: [
+            'selfhosted-overview',
+            'connect-to-cloud',
+            'oathkeeper/install',
+            'oathkeeper/configure-deploy',
+            'oathkeeper/guides/upgrade',
+            {
+              Configuration: ['oathkeeper/guides/traefik-proxy-integration']
+            },
+            {
+              type: 'category',
+              label: 'Reference',
+              items: [
+                'oathkeeper/reference/api',
+                {
+                  SDKs: ['oathkeeper/sdk']
+                },
+                'oathkeeper/reference/configuration',
+                'oathkeeper/reference/configuration-editor',
+              ]
+            },
+          ]
+        }    
 	    ]
     },
   ],
