@@ -1,4 +1,4 @@
-module lru
+module embedded
 
 go 1.17
 

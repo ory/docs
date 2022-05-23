@@ -55,11 +55,26 @@ Depending on requirements, one can choose any of the key-value storage available
 Be careful with the TTL for cached sessions, and do not forget to remove the session once it expires or a user logs out. Users can still have access because of cached data, leading to a potential security breach.
 :::
 
-Let us take a look at the following example. We have session middleware that validates sessions and caches data. The logic is simple
+Let us take a look at following examples. We have session middleware that validates sessions and caches data. The logic is simple
 
 1. Try to get cached session from Redis
 1. If a session is valid, return it and do not request Ory Cloud
 1. If data does not persist, validate a session against Ory Cloud and cache it.
+
+## Using embedded cache storage
+
+This example uses [dgraph-io/ristretto](https://github.com/dgraph-io/ristretto) memory-bound
+Go cache.
+
+```mdx-code-block title="main.go"
+import embedded from '!!raw-loader!../../../code-examples/low-latency-sessions/embedded/main.go'
+
+<CodeBlock language="go">{embedded}</CodeBlock>
+```
+
+## Using Redis cache
+
+The example below shows how to cache sessions using [Redis](https://redis.io)
 
 ```mdx-code-block title="main.go"
 import index from '!!raw-loader!../../../code-examples/low-latency-sessions/main.go'
@@ -67,6 +82,7 @@ import index from '!!raw-loader!../../../code-examples/low-latency-sessions/main
 <CodeBlock language="go">{index}</CodeBlock>
 ```
 The strategy above works for most cases when one has a high-throughput system.
+
 :::warning
 Caching can worsen the situation in the low-throughput systems because of [RTT](https://en.wikipedia.org/wiki/Round-trip_delay)
 to the caching backend when cached data has expired.
