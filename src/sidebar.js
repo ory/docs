@@ -1,6 +1,7 @@
 module.exports = {
   docs: [
     'welcome',
+    'security-model',
     {
       type: 'category',
       label: 'Guides',

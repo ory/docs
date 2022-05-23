@@ -1,0 +1,149 @@
+---
+id: security-model
+title: The Ory Security Model
+sidebar_label: Ory Security Model
+---
+
+Ory has a proven security model which can take a moment to get used to. Compared to other solutions,
+Ory manages sessions, tokens, and cookies for you whenever possible. You do not need to worry about refreshing
+tokens or figuring out whether to store them in `localStorage` or `document.cookies`. Instead, Ory solves
+all of this for you and deploys best-in-class protections for common browser attack vectors (XSS, CSRF, ...).
+
+## Ory's Identity Service Need Access to Your Domain
+
+Ory bears the responsibility of managing sessions, cookies, and tokens for you. To do this, Ory needs to be exposed on your domain, otherwise the HTTP Cookies will not be sent. Per default,
+Ory's APIs are available at
+
+```
+https://<project-slug>.projects.oryapis.com
+```
+
+Let's say you are developing an app and it runs on `http://localhost:3000`. For Ory to be able to manage the session information, it needs to be able to set an HTTP Cookie for `domain=localhost` as well!
+The same applies when your app runs in production (for example on `https://app.example.org`). Here too Ory needs to be able to set the HTTP Cookie for `domain=example.org`:
+
+1. During **development** you use the [Ory Tunnel on your machine](guides/local-development.mdx) to "mirror" the APIs available at `https://<project-slug>.projects.oryapis.com` on your `localhost` domain. Ory offers SDKs for certain deployment options such as [Vercel](guides/protect-page-login/nextjs.mdx) which mirror Ory's APIs without the need of running another process.
+2. For **production** you set up a [Custom Domain](guides/custom-domains.mdx) (for example `https://ory.example.org`) which makes Ory's APIs available at `https://ory.example.org`.
+
+## Further Reading
+
+### HTTP Cookies Explained
+
+Whenever the client is a browser, Ory uses HTTP cookies to store the session states and to protect against attack vectors such as CSRF.
+Ory issues HTTP Cookies with the following flags for the highest level of security:
+
+1. `secure`: The cookie is only sent over HTTPS connection to protect against man-in-the-middle attacks;
+2. `httpOnly`: The Cookie is not available to JavaScript code to protect against XSS;
+3. `sameSite=Strict`: The Cookie can only be requested from the same origin to protect against CSRF attacks;
+
+#### HTTP Cookie Domains
+
+When the server sets a cookie, it defines the `domain` the cookie is valid for:
+
+```
+Set-Cookie: <name>=<value>; domain=<domain>
+```
+
+At Ory, this value defaults to the domain of your project (`<project>.projects.oryapis.com`). The browser only accepts
+cookies from the same domain. If you make a request to `https://www.my-evil-app.com` and the server responds with
+
+```
+Set-Cookie: google_session=1234; domain=google.com
+```
+
+the browser of course rejects the cookie! The same applies when you make a request in the browser. It will only
+send the cookie if the domain matches. Making a request to `https://www.my-evil-app.com` will **never** send cookies
+set for `google.com`.
+
+The rules of when a browser accepts or rejects are as follows:
+
+1. A cookie set with `Set-Cookie: <name>=<value>; domain=example.org` will be sent in requests to `example.org` and all subdomains of example.org (`www.example.org`, `api.example.org`, ...);
+1. A cookie set with `Set-Cookie: <name>=<value>; domain=api.example.org` will be sent to `api.example.org` and its subdomains (`service.api.example.org`, ...) but not to `example.org` or `not-api.example.org`;
+1. Cookies do not care about the port number. A cookie set with `Set-Cookie: <name>=<value>; domain=example.org:1234` will be sent to `https://example.org:443`, `http://example.org:80`, `http://api.example.org:1234`, ...;
+
+#### Cross-Origin HTTP Cookies
+
+When working with Single Page Apps, we often use AJAX requests to fetch data from the server. There are three cross-origin types of AJAX
+requests:
+
+1. On the same domain: the browser address bar is `https://www.example.org` and the AJAX request goes to `https://www.example.org/api/...`;
+2. On the same top-level-domain: the browser address bar is `https://www.example.org` and the AJAX request goes to `https://api.example.org/api/...`;
+3. On another top-level-domain: the browser address bar is `https://www.example.org` and the AJAX request goes to `https://api-example.com/...`;
+
+##### Same-Domain
+
+This just works - there is no extra work to do.
+
+##### Same Top-Level-Domain
+
+This only works if the server at `api.example.org` responds with the appropriate [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) headers
+
+and when the JavaScrip XHR request is made with `withCredentials: true`
+
+##### Cross Top-Level-Domain
+
+Sending cookies cross top-level-domains worked in the past, but is being deprecated on most browsers to improve data privacy. Cross-domain cookies
+have been abused for user tracking and advertisement. Here is a list of browser who have phased out cross-domain cookies already or who are planning to do so:
+
+1. [Safari blocks cross-domain cookies per default](https://www.infoq.com/news/2020/04/safari-third-party-cookies-block/);
+2. [Chrome blocks cross-domain cookies in incognito mode]();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+When the browser accepts a cookie, it will send it to the server in the request. The server will then send the cookie back to the browser in the response.
+
+
+
+
+
+
+
+
+
+
+
+
+## Ory Sessions
+
+Ory's Identity Service, the one your users use to login and sign up, issues so-called "Ory Sessions". These Ory Sessions
+are either issued as a HTTP Cookie, or as a HTTP Bearer Token:
+
+* HTTP Cookie: Ory Session Cookies are issued when the client is a browser;
+* HTTP Bearer Token: Ory Session Tokens are issued when the client is not a browser (e.g. Native App, Command Line Interface, ...).
+
+Ory Sessions have a unique identifier. To verify if a session is still active, and to get the contents of the session, you make
+an API call to `https://<project>.projects.oryapis.com/sessions/whoami`. When a user logs out, or the session is terminated by
+an administrator or security monitoring, that API call will return that the session is invalid immediately.
+
+### Ory Session Cookies
+
+HTTP Cookies are the most secure way of storing session information. With flags `httpOnly`, `secure`, and `sameSite`,
+cookies prevent common attack vectors such as CSRF, Man In The Middle, XSS, and more!
+
+### Ory Session Token
+
+
+## Further Reading
+
+### What about OAuth 2.0 / OpenID Connect?
+
+### What about Access Tokens / Refresh Tokens?
+
+### What about JSON Web Tokens?
+
+1. Storage
+2. TTL
+3. Logout
