@@ -24,7 +24,7 @@ Choose your desired plan. You can update your plan at any time from your subscri
 Next, hit "Create Your First Project" and fill out the details on the checkout page in case you're opting for a paid plan. Your
 project should come alive shortly after!
 
-## Creating additional projects
+## Create additional projects
 
 Your Ory Cloud account isn't limited to a single project. You can create as many as you like, and each project can have its own
 subscription.
@@ -34,6 +34,19 @@ To create another project after your first, locate the "Create Project" button a
 ![Ory Cloud Project creation screen](/images/get-started/project-create.png)
 
 This screen is more of the same - enter a project name, pick your desired plan, and your project will be created shortly!
+
+## Create projects using the CLI
+
+You can use the [Ory CLI](https://www.ory.sh/docs/guides/cli/installation) to create new projects:
+
+```bash
+# Login your existing Ory account or create an new one
+ory auth
+# create a new Ory Cloud project named dev
+ory create project --name dev
+```
+
+Use `ory help` or visit the [Ory CLI documentation](https://www.ory.sh/docs/guides/cli/cli-basics) to learn more about the Ory CLI features.
 
 ## Create Personal Access Token
 
