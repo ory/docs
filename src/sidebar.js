@@ -211,6 +211,7 @@ module.exports = {
         {
           Guides: [
             'kratos/guides/configuring-cookies',
+            'kratos/guides/deploy-kratos-example',
             'kratos/guides/multi-domain-cookies',
             'kratos/guides/setting-up-cors',
             'kratos/guides/password-policy',
