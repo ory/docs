@@ -2,3 +2,54 @@
 id: local-development
 title: Developing Locally
 ---
+
+As explained in the [Ory Security Model](../security-model.mdx), to get Ory working you need to expose Ory's APIs on the same
+domain you develop at (usually this is `localhost`).
+
+The easiest way to achieve that is to install the [Ory CLI](cli/01_installation.mdx). Copy the Ory SDK URL from your
+[Connect page](https://console.ory.sh/projects/current/connect), set it as an environment variable, and start the Ory Tunnel:
+
+```
+export ORY_SDK_URL=https://<your-slug>.projects.oryapis.com
+ory tunnel --dev
+```
+
+This will open the `4000` port on your local machine, which is connected to your Ory Project. Try it out by performing the sign in
+flow: http://localhost:4000/ui/login
+
+Once this port is open, you can start developing locally. Make sure to send any HTTP calls you make to `http://localhost:4000` and
+not `https://<your-slug>.projects.oryapis.com`. Let's say you're configuring the Ory SDK (here in NodeJS):
+
+```javascript
+import { Configuration, V0alpha2Api } from '@ory/client'
+
+const sdk = new V0alpha2Api(
+  new Configuration({
+    basePath: 'http://localhost:4000', // instead of `https://<your-slug>.projects.oryapis.com`
+    baseOptions: {
+      withCredentials: true
+    }
+  })
+)
+```
+
+## Limitations & Gotchas
+
+Using the Ory Tunnel has a few limitations and gotchas.
+
+### `localhost` vs `127.0.0.1`
+
+Your local machine is usually available on both `localhost` and `127.0.0.1`. For the browser though these two domains are
+different top-level-domains. Cookies set on `localhost` will not be sent in requests to `127.0.0.1` and vice versa.
+
+If you encounter cookie issues, make sure that all of your requests go to `localhost` and not `127.0.0.1`.
+
+### Social Sign In
+
+Setting up Social Sign In on `localhost` is not yet officially supported. We are working towards a solution that allows us to
+easily set up Social Sign In when developing locally.
+
+### WebAuthn
+
+Similar to Social Sign In, WebAuthn is not yet supported on `localhost`. The reason is the explicit origin matching in WebAuthn
+which is a measure against phishing. We are working towards a solution to make WebAuthn available on localhost as well!

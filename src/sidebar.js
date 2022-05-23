@@ -29,6 +29,7 @@ module.exports = {
                 }
               ]
             },
+            'guides/local-development',
             'start-building/native-mobile-app',
             'guides/create-personal-access-token',
             'start-building/other-languages'
@@ -508,6 +509,12 @@ module.exports = {
       label: 'Reference',
       collapsed: false,
       items: ['reference/api']
+    },
+    {
+      type: 'category',
+      label: 'Further Reading',
+      collapsed: false,
+      items: ['further-reading/http-cookies-explained']
     }
   ],
   opensource: [
