@@ -122,6 +122,8 @@ knowledge and experiences? [Reach out to us](mailto:office@ory.sh) to be publish
 - [Integration tests in Golang with dockertest](https://sergiocarracedo.es/integration-tests-in-golang-with-dockertest/)
 - [Go Package for better integration tests: Ory Dockertest](https://mariocarrion.com/2021/03/14/golang-package-testing-datastores-ory-dockertest.html)
 - [Using Dockertest with Golang](https://bignerdranch.com/blog/using-dockertest-with-golang/)
+- [How to write a Go API Part 3: Testing With Dockertest](https://jonnylangefeld.com/blog/how-to-write-a-go-api-part-3-testing-with-dockertest)
+
 
 ## Postman API Reference Collections
 
