@@ -14,7 +14,19 @@ import (
 	client "github.com/ory/kratos-client-go"
 )
 
-const cacheSize = 1000
+const (
+	cacheSize = 1000
+	// For local development, it's requires to use
+	// ory proxy to make cookies work fine.
+	// Replace it with http://projectId.projects.oryapis.com
+	// for production usage.
+	sdkURL = "http://localhost:4000/.ory"
+	// For local development, it's requires to use
+	// ory proxy to make cookies work fine.
+	// Replace it with http://projectId.projects.oryapis.com/ui/login
+	// for production usage.
+	loginURL = "http://localhost:4000/.ory/ui/login"
+)
 
 type kratosMiddleware struct {
 	client *client.APIClient
@@ -25,7 +37,7 @@ func NewMiddleware() (*kratosMiddleware, error) {
 	configuration := client.NewConfiguration()
 	configuration.Servers = []client.ServerConfiguration{
 		{
-			URL: "https://playground.projects.oryapis.com",
+			URL: sdkURL,
 		},
 	}
 
@@ -47,7 +59,7 @@ func (k *kratosMiddleware) Session() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session, err := k.validateSession(c.Request)
 		if err != nil {
-			c.Redirect(http.StatusFound, "https://playground.projects.oryapis.com/ui/login")
+			c.Redirect(http.StatusFound, loginURL)
 			return
 		}
 		if !*session.Active {
