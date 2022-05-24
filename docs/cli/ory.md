@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory
 
 The ORY CLI
@@ -22,16 +21,17 @@ The ORY CLI
 
 ### SEE ALSO
 
-- [ory auth](ory-auth) - Create an or sign into your Ory Cloud account
-- [ory create](ory-create) - Create Ory Cloud resources
-- [ory delete](ory-delete) - Delete resources
-- [ory format](ory-format) - Helpers for formatting code
-- [ory get](ory-get) - Get a resource
-- [ory import](ory-import) - Import resources
-- [ory lint](ory-lint) - Helpers for linting code
-- [ory list](ory-list) - List resources
-- [ory patch](ory-patch) - Patch resources
-- [ory tunnel](ory-tunnel) - Tunnel Ory on a subdomain of your app or a seperate port your app's domain
-- [ory update](ory-update) - Update resources
-- [ory validate](ory-validate) - Validate resources
-- [ory version](ory-version) - Display this binary's version, build time, and git hash of this build
+* [ory auth](ory-auth)	 - Create an or sign into your Ory Cloud account
+* [ory create](ory-create)	 - Create Ory Cloud resources
+* [ory delete](ory-delete)	 - Delete resources
+* [ory format](ory-format)	 - Helpers for formatting code
+* [ory get](ory-get)	 - Get a resource
+* [ory import](ory-import)	 - Import resources
+* [ory lint](ory-lint)	 - Helpers for linting code
+* [ory list](ory-list)	 - List resources
+* [ory patch](ory-patch)	 - Patch resources
+* [ory tunnel](ory-tunnel)	 - Tunnel Ory on a subdomain of your app or a seperate port your app's domain
+* [ory update](ory-update)	 - Update resources
+* [ory validate](ory-validate)	 - Validate resources
+* [ory version](ory-version)	 - Display this binary's version, build time, and git hash of this build
+

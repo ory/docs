@@ -9,39 +9,39 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory update project
 
 Update Ory Cloud Project Service Configuration
 
 ### Synopsis
 
-Use this command to replace your current Ory Cloud Project's service configuration. All values will be overwritten. To update
-individual settings use the `patch` command instead.
+Use this command to replace your current Ory Cloud Project's service configuration. All values
+will be overwritten. To update individual settings use the `patch` command instead.
 
 If the `--name` flag is not set, the project's name will not be changed.
 
 The full configuration payload can be found at
 
-    https://www.ory.sh/docs/reference/api#operation/updateProject
+	https://www.ory.sh/docs/reference/api#operation/updateProject
 
 As an example an input could look like:
 
-    {
+	{
       "name": "my updated name",
-      "identity": {
-    	"services": {
-    	  "config": {
-    		"courier": {
-    		  "smtp": {
-    			"from_name": "..."
-    		  }
-    		  // ...
-    		}
-    	  }
-    	}
-      }
-    }
+	  "identity": {
+		"services": {
+		  "config": {
+			"courier": {
+			  "smtp": {
+				"from_name": "..."
+			  }
+			  // ...
+			}
+		  }
+		}
+	  }
+	}
+
 
 ```
 ory update project <id> [flags]
@@ -103,4 +103,5 @@ $ ory update project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 
 ### SEE ALSO
 
-- [ory update](ory-update) - Update resources
+* [ory update](ory-update)	 - Update resources
+
