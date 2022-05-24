@@ -45,14 +45,8 @@ module.exports = {
         }
       ],
     },
-    {
-      type: 'category',
-      label: 'Reference',
-      items: [
         'cloud-api',
         'cloud-sdk', 
-      ]
-    },
     {
       type: 'category',
       label: 'Identity Management',
@@ -287,7 +281,7 @@ module.exports = {
     },   
     {
       type: 'category',
-      label: 'Permissions & Access Control',
+      label: 'Permissions and Access Control',
       items: [
         'generic-overview',
         {
@@ -349,7 +343,7 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Zero-Trust',
+      label: 'Identity and Access Proxy (IAP)',
       items: [
         'oathkeeper/index',
         {
