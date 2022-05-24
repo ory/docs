@@ -7,9 +7,9 @@ import CodeBlock from '@theme/CodeBlock'
 Ory Cloud is an external dependency, and latency to validate a session may vary. Here's the example
 
 ```bash
-curl -o /dev/null\
+curl -o /dev/null \
      -w %{time_connect}:%{time_starttransfer}:%{time_total} \
-     -s https://playground.projects.oryapis.com/sessions/whoami
+     -s https://playground.projects.oryapis.com/sessions/whoami \
      -H 'ory_session_playground=MTY1MjcyMjk5OXxBenA5MVdvaXpPZ242QlZtOVNCZ2JuRWt4NVB4WFFIVGdLcmFIZl9BN0VTOHZ3VHlJbVdVenpaZl96VWtWS1p4clI3bFRkYnFBeDZwdFZGU3RvSmxyY0JpUGJLNGQwLUlfWnNCMlFlMS1CbDlBdEtjX0xoLWxmSUNmWUJWU24xWTBoNlBGM0laSHc9PXyOu8_5YP6pFxhuNLWD3fmzxdo8JWo27iy0NkF2HQ7fcA=='
 
 0.030575:0.265693:0.265756
