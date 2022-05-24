@@ -47,7 +47,7 @@ func (k *kratosMiddleware) Session() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session, err := k.validateSession(c.Request)
 		if err != nil {
-			c.Redirect(http.StatusMovedPermanently, "https://playground.projects.oryapis.com/ui/login")
+			c.Redirect(http.StatusFound, "https://playground.projects.oryapis.com/ui/login")
 			return
 		}
 		if !*session.Active {
