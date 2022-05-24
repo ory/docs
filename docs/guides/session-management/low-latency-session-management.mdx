@@ -57,8 +57,8 @@ Be careful with the TTL for cached sessions, and do not forget to remove the ses
 
 Let us take a look at following examples. We have session middleware that validates sessions and caches data. The logic is simple
 
-1. Try to get cached session from Redis
-1. If a session is valid, return it and do not request Ory Cloud
+1. Try to get cached session from Redis;
+1. If a session is valid, return it and do not request Ory Cloud;
 1. If data does not persist, validate a session against Ory Cloud and cache it.
 
 ## Using embedded cache storage
