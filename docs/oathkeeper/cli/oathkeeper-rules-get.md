@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## oathkeeper rules get
 
 Get access rule
@@ -17,8 +18,7 @@ Get access rule
 
 Usage example:
 
-	oathkeeper rules --endpoint=http://localhost:4456/ get rule-1
-
+    oathkeeper rules --endpoint=http://localhost:4456/ get rule-1
 
 ```
 oathkeeper rules get &lt;id&gt; [flags]
@@ -39,5 +39,4 @@ oathkeeper rules get &lt;id&gt; [flags]
 
 ### SEE ALSO
 
-* [oathkeeper rules](oathkeeper-rules)	 - Commands for managing rules
-
+- [oathkeeper rules](oathkeeper-rules) - Commands for managing rules
