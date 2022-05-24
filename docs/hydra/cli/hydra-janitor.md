@@ -9,54 +9,55 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## hydra janitor
 
 Clean the database of old tokens, login/consent requests and jwt grant issuers
 
 ### Synopsis
 
-This command will cleanup any expired oauth2 tokens as well as login/consent requests. This will select records to delete with a
-limit and delete records in batch to ensure that no table locking issues arise in big production databases.
+This command will cleanup any expired oauth2 tokens as well as login/consent requests.
+This will select records to delete with a limit and delete records in batch to ensure that no table locking issues arise in big production databases.
 
-### Warning
+### Warning ###
 
 This command is in beta. Proceed with caution!
 
-This is a destructive command and will purge data directly from the database. Please use this command with caution if you need to
-keep historic data for any reason.
+This is a destructive command and will purge data directly from the database.
+Please use this command with caution if you need to keep historic data for any reason.
 
 ###############
 
 Janitor can be used in several ways.
 
-1.  By passing the database connection string (DSN) as an argument Pass the database url (dsn) as an argument to janitor. E.g.
-    janitor &lt;database-url&gt;
-2.  By passing the DSN as an environment variable
+1. By passing the database connection string (DSN) as an argument
+   Pass the database url (dsn) as an argument to janitor. E.g. janitor &lt;database-url&gt;
+2. By passing the DSN as an environment variable
 
-        export DSN=...
-        janitor -e
+		export DSN=...
+		janitor -e
 
-3.  By passing a configuration file containing the DSN janitor -c /path/to/conf.yml
-4.  Extra _optional_ parameters can also be added such as
+3. By passing a configuration file containing the DSN
+   janitor -c /path/to/conf.yml
+4. Extra *optional* parameters can also be added such as
 
-        janitor --keep-if-younger 23h --access-lifespan 1h --refresh-lifespan 40h --consent-request-lifespan 10m &lt;database-url&gt;
+		janitor --keep-if-younger 23h --access-lifespan 1h --refresh-lifespan 40h --consent-request-lifespan 10m &lt;database-url&gt;
 
-5.  Running only a certain cleanup
+5. Running only a certain cleanup
 
-        janitor --tokens &lt;database-url&gt;
+		janitor --tokens &lt;database-url&gt;
+
+   or
+
+		janitor --requests &lt;database-url&gt;
 
     or
 
-        janitor --requests &lt;database-url&gt;
+		janitor --grants &lt;database-url&gt;
 
-    or
+   or any combination of them
 
-        janitor --grants &lt;database-url&gt;
+		janitor --tokens --requests --grants &lt;database-url&gt;
 
-    or any combination of them
-
-        janitor --tokens --requests --grants &lt;database-url&gt;
 
 ```
 hydra janitor [<database-url>] [flags]
@@ -81,4 +82,5 @@ hydra janitor [<database-url>] [flags]
 
 ### SEE ALSO
 
-- [hydra](hydra) - Run and manage Ory Hydra
+* [hydra](hydra)	 - Run and manage Ory Hydra
+
