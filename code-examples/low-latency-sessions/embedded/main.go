@@ -51,7 +51,7 @@ func (k *kratosMiddleware) Session() gin.HandlerFunc {
 			return
 		}
 		if !*session.Active {
-			c.Redirect(http.StatusMovedPermanently, "http://your_endpoint")
+			c.Redirect(http.StatusFound, "http://your_endpoint")
 			return
 		}
 		c.Next()
