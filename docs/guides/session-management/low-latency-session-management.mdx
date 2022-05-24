@@ -52,7 +52,9 @@ Depending on requirements, one can choose any of the key-value storage available
 1. Key-value storages add network latency, but an application does not store any state so that one can scale it without any issues.
 
 :::warning
+
 Be careful with the TTL for cached sessions, and do not forget to remove the session once it expires or a user logs out. Users can still have access because of cached data, leading to a potential security breach.
+
 :::
 
 Let us take a look at following examples. We have session middleware that validates sessions and caches data. The logic is simple
