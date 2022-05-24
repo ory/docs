@@ -63,10 +63,21 @@ Let us take a look at following examples. We have session middleware that valida
 1. If a session is valid, return it and do not request Ory Cloud;
 1. If data does not persist, validate a session against Ory Cloud and cache it.
 
+## Network architecture
+
+1. `8080` port is used by the REST API
+1. `4000` port is used by [`ory proxy`](https://ory.sh/docs/guides/cli/proxy-and-tunnel) that manages cookies for local domain and proxies traffic to Ory Cloud
+
+Running Ory proxy
+
+```bash
+ORY_SDK_URL=https://playground.projects.oryapis.com ory proxy http://localhost:8080
+```
+
 ## Using embedded cache storage
 
 This example uses [dgraph-io/ristretto](https://github.com/dgraph-io/ristretto) memory-bound
-Go cache. Also, it uses [Ory Proxy](https://ory.sh/docs/guides/cli/proxy-and-tunnel) for local development
+Go cache.
 
 ```mdx-code-block title="main.go"
 import embedded from '!!raw-loader!../../../code-examples/low-latency-sessions/embedded/main.go'
@@ -90,7 +101,7 @@ Caching can worsen the situation in the low-throughput systems because of [RTT](
 to the caching backend when cached data has expired.
 :::
 
-A performance difference
+A performance difference. Open `http://localhost:8080/ping`
 
 ```
 # Without caching the response time is 1.5s
