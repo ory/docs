@@ -1,0 +1,14 @@
+{
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.rulers": [88],
+  "editor.wordWrapColumn": 88,
+  "editor.wordWrap": "wordWrapColumn",
+  "prettier.printWidth": 88,
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "git.autofetch": true,
+  "npm.packageManager": "yarn",
+  "yaml.format.printWidth": 88
+}
