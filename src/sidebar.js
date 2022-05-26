@@ -106,8 +106,8 @@ module.exports = {
               label: 'Multi-Factor Authentication (MFA)',
               items: [
                 'guides/mfa/overview',
-                'guides/mfa/strict_lax_mfa',
-                'guides/mfa/requesting_2fa',
+                'guides/mfa/strict-lax-mfa',
+                'guides/mfa/requesting-2fa',
                 {
                   type: 'category',
                   label: 'TOTP',
@@ -123,19 +123,19 @@ module.exports = {
                   label: 'WebAuthn',
                   items: [
                     'guides/mfa/webauthn',
-                    'guides/mfa/webauthn_cloud',
-                    'guides/mfa/webauthn_cli',
-                    'guides/mfa/webauthn_selfhosted',
+                    'guides/mfa/webauthn-cloud',
+                    'guides/mfa/webauthn-cli',
+                    'guides/mfa/webauthn-selfhosted',
                   ]
                 },
                 {
                   type: 'category',
                   label: 'Lookup Secrets',
                   items: [
-                    'guides/mfa/lookup_secrets_overview',
-                    'guides/mfa/lookup_secrets_cloud',
-                    'guides/mfa/lookup_secrets_cli',
-                    'guides/mfa/lookup_secrets_selfhosted',
+                    'guides/mfa/lookup-secrets-overview',
+                    'guides/mfa/lookup-secrets-cloud',
+                    'guides/mfa/lookup-secrets-cli',
+                    'guides/mfa/lookup-secrets-selfhosted',
                   ]
                 },
               ]
