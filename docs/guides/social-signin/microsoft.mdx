@@ -103,6 +103,17 @@ value to:
   - `consumers` to allow users with personal accounts
   - `common` to allow both kinds of accounts
 
+:::info
+
+To allow sign-in and sign-up for users with Microsoft accounts that don't belong to any organization (Azure Active Directory), 
+you must adjust the Azure application configuration by editing the [Manifest](https://docs.microsoft.com/en-us/azure/active-directory/develop/reference-app-manifest). 
+
+Learn more: 
+- [Microsoft Azure documentation](https://docs.microsoft.com/en-us/azure/active-directory/develop/supported-accounts-validation) 
+- [Related StackOverflow thread](https://stackoverflow.com/questions/57826919/azure-ad-how-to-set-app-manifest-properties-programatically-accesstokenaccept)
+
+:::
+
 ## Configuration using the Ory CLI
 
 Follow these steps to add Microsoft as a social sign-in provider to your Ory Cloud project using the Ory CLI:
