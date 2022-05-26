@@ -110,9 +110,9 @@ module.exports = {
           label: 'Contributing & Open Source'
         },
         {
-          to: 'https://github.com/ory/examples',
-          label: `Examples`,
-          position: 'left'
+          to: '/examples',
+          position: 'left',
+          label: 'Examples'
         },
         {
           to: 'https://www.ory.sh/',
