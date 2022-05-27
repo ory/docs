@@ -107,7 +107,7 @@ module.exports = {
           type: 'docSidebar',
           position: 'left',
           sidebarId: 'opensource',
-          label: 'Contributing & Open Source'
+          label: 'Open Source'
         },
         {
           to: 'https://github.com/ory/examples',

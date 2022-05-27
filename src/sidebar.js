@@ -3,7 +3,6 @@ module.exports = {
     {
       Introduction: [
         'welcome',
-        'roots',
         'arch',
         'security'
       ]
@@ -46,7 +45,7 @@ module.exports = {
       ],
     },
         'cloud-api',
-        'cloud-sdk', 
+        'cloud-sdk',
     {
       type: 'category',
       label: 'Identity Management',
@@ -61,7 +60,7 @@ module.exports = {
             'guides/customize-identity-schema'
           ]
         },
-        {   
+        {
           type: 'category',
           label: 'Social Sign-in',
           items: [
@@ -143,8 +142,8 @@ module.exports = {
             {
               'Passwordless': [
                 'guides/passwordless/webauthn'
-              ] 
-            }, 
+              ]
+            },
           ]
         },
         {
@@ -215,7 +214,7 @@ module.exports = {
             },
           ]
         }
-   		]  
+   		]
 		},
     {
       type: 'category',
@@ -274,11 +273,11 @@ module.exports = {
                   SDKs: ['hydra/sdk', 'hydra/sdk/go', 'hydra/sdk/js', 'hydra/sdk/php']
                 },
               ]
-            }  
+            }
 	        ],
         },
       ]
-    },   
+    },
     {
       type: 'category',
       label: 'Permissions and Access Control',
@@ -303,7 +302,7 @@ module.exports = {
             'keto/concepts/namespaces',
             'keto/concepts/objects',
             'keto/concepts/subjects',
-            'keto/concepts/graph-of-relations', 
+            'keto/concepts/graph-of-relations',
           ]
         },
         {
@@ -383,7 +382,7 @@ module.exports = {
               ]
             },
           ]
-        }    
+        }
 	    ]
     },
   ],
