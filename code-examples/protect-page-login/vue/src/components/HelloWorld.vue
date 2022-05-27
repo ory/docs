@@ -1,58 +1,118 @@
 <template>
-  <div class="hello">
+  <div class='main'>
     <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
+
+    <div v-if='!session'>
+      <p>Click on "login" or "Sign Up" below to sign in.</p>
+      <!-- highlight-start -->
+      <li><a :href="basePath + '/ui/login'">Login</a></li>
+      <li><a :href="basePath + '/ui/registration'">Sign Up</a></li>
+      <!-- highlight-end -->
+    </div>
+
+    <h3 v-if='session'>Calling <code>toSession()</code></h3>
+    <div v-if='session'>
+      <p>Use the SDK's <code>toSession()</code> call to receive
+        the session information, for example
+        the authentication methods used:</p>
+      <!-- highlight-start -->
+      <pre><code>{{ session.authentication_methods }}</code></pre>
+      <!-- highlight-end -->
+    </div>
+
+    <h3 v-if='apiResponse'>API Response</h3>
+    <div v-if='apiResponse'>
+      <p>Or make authenticated AJAX calls to your API using <code>fetch()</code>:</p>
+      <!-- highlight-start -->
+      <pre><code>{{ apiResponse }}</code></pre>
+      <!-- highlight-end -->
+    </div>
+
+    <h3 v-if='session'>Common Actions</h3>
+    <ul v-if='session'>
+      <!-- highlight-start -->
+      <li><a :href='logoutUrl'>Logout</a></li>
+      <li><a :href="basePath + '/ui/settings'">Settings</a></li>
+      <!-- highlight-end -->
     </ul>
+
     <h3>Essential Links</h3>
     <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
+      <li><a href='https://www.ory.sh'>Ory Website</a></li>
+      <li><a href='https://github.com/ory'>Ory GitHub</a></li>
+      <li><a href='https://www.ory.sh/docs'>Documentation</a></li>
     </ul>
   </div>
 </template>
 
 <script>
+// highlight-next-line
+import { V0alpha2Api, Configuration } from '@ory/client'
+
+// The basePath points to the location of Ory's APIs.
+// You can use https://<slug>.projects.oryapis.com/ here because cookies can not
+// easily be shared across different domains.
+//
+// In the next step, we will run a process to mirror Ory's APIs
+// on your local machine using the Ory Tunnel at http://localhost:4000
+// highlight-start
+const basePath = 'http://localhost:4000'
+const ory = new V0alpha2Api(new Configuration({
+  basePath,
+  baseOptions: {
+    // Ensures we send cookies in the CORS requests.
+    withCredentials: true
+  }
+}))
+// highlight-end
+
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  data() {
+    return {
+      session: null,
+      logoutUrl: null,
+      apiResponse: null,
+      basePath
+    }
+  },
+  mounted() {
+    // highlight-start
+    // Fetch the session directly from Ory
+    ory.toSession().then(({ data }) => {
+      this.session = data
+      // highlight-end
+
+      // If the user is logged in, we want to show a logout link!
+      // highlight-start
+      ory.createSelfServiceLogoutFlowUrlForBrowsers().then(({ data }) => {
+        this.logoutUrl = data.logout_url
+      })
+      // highlight-end
+    })
+
+    // highlight-start
+    // Or make an authenticated request to your API
+    fetch('http://localhost:8081/api/hello', {
+      // Do not forget to set this - it is required to send the session cookie!
+      credentials: 'include'
+    })
+    // highlight-end
+      .then((res) => res.json())
+      .then((res) => {
+      this.apiResponse = res
+    })
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.main {
+  max-width: 400px;
+  margin: 0 auto;
 }
 </style>

@@ -1,0 +1,59 @@
+const express = require('express')
+const cors = require('cors')
+const { V0alpha2Api, Configuration } = require('@ory/client')
+
+const app = express()
+
+// highlight-start
+const ory = new V0alpha2Api(
+  new Configuration({
+    // Points to the local Ory API server (Ory TunneL).
+    basePath: 'http://localhost:4000',
+    baseOptions: { withCredentials: true }
+  })
+)
+// highlight-end
+
+app.use(
+  // highlight-start
+  cors({
+    origin: 'http://localhost:8080',
+    credentials: true // <- Required for CORS to accept cookies and tokens.
+  })
+  // highlight-end
+)
+
+app.use((req, res, next) => {
+  // A simple middleware to authenticate the request.
+  // highlight-start
+  ory
+    .toSession(
+      undefined,
+      // This is important - you need to forward the cookies (think of it as a token)
+      // to Ory:
+      req.headers.cookie
+    )
+    .then(({ data }) => {
+      req.session = data
+      next()
+    })
+    .catch(() => {
+      res.status(401)
+      res.json({ error: 'Unauthorized' })
+    })
+  // highlight-end
+})
+
+app.get('/api/hello', (req, res) => {
+  res.json({
+    message: 'Hello from our API!',
+    // highlight-start
+    session_id: req.session.id,
+    identity_traits: req.session.identity.traits
+    // highlight-end
+  })
+})
+
+app.listen(8081, () => {
+  console.log(`Example app listening on port ${8081}`)
+})

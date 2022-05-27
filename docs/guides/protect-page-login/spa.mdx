@@ -1,0 +1,117 @@
+---
+id: spa
+title: Single Page App + API
+sidebar_position: 1
+---
+
+In this guide we will walk through setting up Ory with a Single Page App. We will use VueJS as the frontend framework, but the
+concepts shown can be applied to any single page app framework (React, Angular, ...).
+
+```mdx-code-block
+import mp4 from '../_static/spa/screencast.mp4'
+import webm from '../_static/spa/screencast.webm'
+import VideoEmbed from '@site/src/components/VideoEmbed'
+
+<VideoEmbed mp4={mp4} webm={webm} />
+```
+
+## Create Single Page VueJS App
+
+We create a new VueJS project
+
+```shell-session
+npx @vue/cli create ory-spa --preset "Default (Vue 3)"
+cd ory-spa
+```
+
+and install the Ory SDK:
+
+```shell-session
+npm i --save @ory/client
+```
+
+## Check for Session in Component
+
+Next we want to show whether the user is signed in or not, and provide links to the login and registration page, or to the account
+settings or logout. To do that we modify the existing `HelloWorld.vue` component to include logic for handling the sessions and
+links to login, logout, registration and account settings.
+
+```mdx-code-block
+import handlerVue from '!!raw-loader!../../../code-examples/protect-page-login/vue/src/components/HelloWorld.vue'
+import CodeBlock from '@theme/CodeBlock'
+
+<CodeBlock language="html" title="src/components/HelloWorld.vue">{handlerVue}</CodeBlock>
+```
+
+## Run Ory's API on `localhost`
+
+Because Ory's security model uses HTTP cookies, we need to expose Ory's APIs on your `localhost` machine.
+
+:::info
+
+Make sure to either `localhost` or `127.0.0.1` but not both when developing locally. If the hostnames are different, Ory's APIs
+might not be able to read the cookies properly.
+
+:::
+
+To achieve that, we use the Ory Tunnel. It's like a microservice - the authentication API server - on your domain!
+
+```shell-session
+npx @ory/cli tunnel --dev --project <your-project-slug> http://localhost:8080
+
+# Don't have a project? Use the public playground!
+npx @ory/cli tunnel --dev --project playground http://localhost:8080
+```
+
+Ory's APIs are now mirrored on `http://localhost:4000`. We use that URL as the `baseUrl` for the `@ory/client` SDK (see the code
+example above). The `--dev` flag disables security checks for easier integration and should not be used when deploying the tunnel
+to staging.
+
+## Run the App
+
+The last step is to run the app. Open a new terminal window, run
+
+```
+npm run serve
+```
+
+and open [localhost:8080](http://localhost:8080/).
+
+## Make Authenticated Calls to your API
+
+To make authenticated requests to your API there are two main components:
+
+1. When making AJAX requests you must set `{"credentials": "include"}` in the options. For the `fetch` method it looks like this:
+
+```js
+fetch(url, { credentials: 'include' })
+```
+
+2. Your API must have a CORS middleware with `credentials: true` and `Access-Control-Allow-Origin` of your frontend app (here
+   `http://localhost:8080`).
+
+Let's put this into action. Since we are already in the node ecosystem, we will create a quick HTTP API with express
+
+```shell-script
+mkdir my-api
+cd my-api
+npm init
+npm i --save @ory/client express cors
+```
+
+and create a simple API in `index.js`:
+
+```mdx-code-block
+import handlerApi from '!!raw-loader!../../../code-examples/auth-api/expressjs/index.js'
+
+<CodeBlock language="js" title="index.js">{handlerApi}</CodeBlock>
+```
+
+Next, we run the server:
+
+```shell-session
+node index.js
+```
+
+Let's open up our single page app at [localhost:8080](http://localhost:8080/), sign in and see if we can make authenticated
+requests to our API!
