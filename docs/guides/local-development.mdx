@@ -10,8 +10,7 @@ The easiest way to achieve that is to install the [Ory CLI](cli/01_installation.
 [Connect page](https://console.ory.sh/projects/current/connect), set it as an environment variable, and start the Ory Tunnel:
 
 ```
-export ORY_SDK_URL=https://<your-slug>.projects.oryapis.com
-ory tunnel --dev http://localhost:3000
+ory tunnel --project <your-slug> --dev http://localhost:3000
 ```
 
 This will open the `4000` port on your local machine, which is connected to your Ory Project. The value `http://localhost:3000`
