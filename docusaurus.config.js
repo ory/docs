@@ -104,15 +104,16 @@ module.exports = {
           label: 'Documentation'
         },
         {
+          type: 'doc',
+          position: 'left',
+          docId: 'examples',
+          label: 'Examples'
+        },
+        {
           type: 'docSidebar',
           position: 'left',
           sidebarId: 'opensource',
           label: 'Contributing & Open Source'
-        },
-        {
-          to: 'https://github.com/ory/examples',
-          label: `Examples`,
-          position: 'left'
         },
         {
           to: 'https://www.ory.sh/',
