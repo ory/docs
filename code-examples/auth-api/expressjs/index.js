@@ -17,7 +17,7 @@ const ory = new V0alpha2Api(
 app.use(
   // highlight-start
   cors({
-    origin:  process.env.UI_URL || 'http://localhost:8080',
+    origin: process.env.UI_URL || 'http://localhost:8080',
     credentials: true // <- Required for CORS to accept cookies and tokens.
   })
   // highlight-end
