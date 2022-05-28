@@ -54,7 +54,7 @@ might not be able to read the cookies properly.
 
 :::
 
-To achieve that, we use the Ory Tunnel. It's like a microservice - the authentication API server - on your domain!
+To achieve that we use the Ory Tunnel. It's like a microservice - the authentication API server - on your domain!
 
 ```shell-session
 npx @ory/cli tunnel --dev --project <your-project-slug> http://localhost:8080
@@ -115,3 +115,19 @@ node index.js
 
 Let's open up our single page app at [localhost:8080](http://localhost:8080/), sign in and see if we can make authenticated
 requests to our API!
+
+## Going to Production
+
+To move this app to production, we need to:
+
+1. Build the VueJS app and run it somewhere (e.g. Vercel or Netlify);
+2. Deploy our API (e.g. on Heroku);
+3. Connect your project with a [custom domain](../custom-domains.mdx);
+
+All these three components needs to be hosted on the same top-level domain as they were on your local machine:
+
+| Component       | Production      | Local          |
+| --------------- | --------------- | -------------- |
+| Single Page App | www.example.org | localhost:8080 |
+| API             | api.example.org | localhost:3000 |
+| Ory             | ory.example.org | localhost:4000 |
