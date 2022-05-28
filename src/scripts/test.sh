@@ -5,6 +5,12 @@ cd "$(dirname "${BASH_SOURCE[0]}")/../.."
 
 export ORY_SDK_URL=https://playground.projects.oryapis.com
 
+cd code-examples/protect-page-login/flutter_web_redirect && \
+  flutter pub get && \
+  flutter build web --web-renderer html && \
+  dart pub global run dhttpd --host localhost --port 4005 --path build/web &
+ory proxy --no-jwt --port 3005 http://localhost:4005/ &
+
 cd code-examples/protect-page-login/nextjs && \
   npm run start -- --port=3001 &
 
@@ -21,12 +27,6 @@ cd code-examples/protect-page-login/php && \
   composer install && \
   PROXY_PORT=3004 php -S 127.0.0.1:4004 &
 ory proxy --no-jwt --port 3004 http://localhost:4004/ &
-
-cd code-examples/protect-page-login/flutter_web_redirect && \
-  flutter pub get && \
-  flutter build web --web-renderer html && \
-  dart pub global run dhttpd --host localhost --port 4005 --path build/web &
-ory proxy --no-jwt --port 3005 http://localhost:4005/ &
 
 cd code-examples/auth-api/expressjs && \
   ORY_URL=http://localhost:3006 UI_URL=http://localhost:4006 PORT=4007 npm run start &
