@@ -20,15 +20,20 @@ ory proxy --no-jwt --port 3003 http://localhost:4003/ &
 cd code-examples/protect-page-login/php && \
   composer install && \
   PROXY_PORT=3004 php -S 127.0.0.1:4004 &
-
 ory proxy --no-jwt --port 3004 http://localhost:4004/ &
 
 cd code-examples/protect-page-login/flutter_web_redirect && \
   flutter pub get && \
   flutter build web --web-renderer html && \
   dart pub global run dhttpd --host localhost --port 4005 --path build/web &
-
 ory proxy --no-jwt --port 3005 http://localhost:4005/ &
+
+cd code-examples/auth-api/expressjs && \
+  ORY_URL=http://localhost:3006 UI_URL=http://localhost:4006 PORT=4007 npm run start &
+cd code-examples/protect-page-login/vue && \
+  VUE_APP_API_URL=http://localhost:4007 VUE_APP_ORY_URL=http://localhost:3006 npm run build && \
+  npm run start -- -l 4006 &
+ory tunnel --dev --port 3006 http://localhost:4006/ &
 
 trap "exit" INT TERM ERR
 trap 'kill $(jobs -p)' EXIT
@@ -39,9 +44,12 @@ npx wait-on -v -t 300000 \
   tcp:127.0.0.1:3003 \
   tcp:127.0.0.1:3004 \
   tcp:127.0.0.1:3005 \
+  tcp:127.0.0.1:3006 \
   tcp:127.0.0.1:4002 \
   tcp:127.0.0.1:4003 \
   tcp:127.0.0.1:4004 \
+  tcp:localhost:4005 \
+  tcp:localhost:4006 \
   tcp:localhost:4005
 
 npm run test

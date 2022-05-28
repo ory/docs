@@ -18,6 +18,7 @@
     "format": "prettier --write ${npm_package_config_prettierTarget}",
     "format:check": "prettier --check ${npm_package_config_prettierTarget}",
     "test": "playwright test",
+    "test:debug": "playwright test --debug",
     "test:unit": "jest tests/jest --maxConcurrency=8 --bail 1"
   },
   "dependencies": {

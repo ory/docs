@@ -5,34 +5,34 @@
     <div v-if='!session'>
       <p>Click on "login" or "Sign Up" below to sign in.</p>
       <!-- highlight-start -->
-      <li><a :href="basePath + '/ui/login'">Login</a></li>
-      <li><a :href="basePath + '/ui/registration'">Sign Up</a></li>
+      <li><a :href="basePath + '/ui/login'" data-testid='sign-in'>Login</a></li>
+      <li><a :href="basePath + '/ui/registration'" data-testid='sign-up'>Sign Up</a></li>
       <!-- highlight-end -->
     </div>
 
     <h3 v-if='session'>Calling <code>toSession()</code></h3>
-    <div v-if='session'>
+    <div v-if='session' class='long'>
       <p>Use the SDK's <code>toSession()</code> call to receive
         the session information, for example
         the authentication methods used:</p>
       <!-- highlight-start -->
-      <pre><code>{{ session.authentication_methods }}</code></pre>
+      <pre><code data-testid='ory-response'>{{ session.authentication_methods }}</code></pre>
       <!-- highlight-end -->
     </div>
 
     <h3 v-if='apiResponse'>API Response</h3>
-    <div v-if='apiResponse'>
+    <div v-if='apiResponse' class='long'>
       <p>Or make authenticated AJAX calls to your API using <code>fetch()</code>:</p>
       <!-- highlight-start -->
-      <pre><code>{{ apiResponse }}</code></pre>
+      <pre><code data-testid='api-response'>{{ apiResponse }}</code></pre>
       <!-- highlight-end -->
     </div>
 
     <h3 v-if='session'>Common Actions</h3>
     <ul v-if='session'>
       <!-- highlight-start -->
-      <li><a :href='logoutUrl'>Logout</a></li>
-      <li><a :href="basePath + '/ui/settings'">Settings</a></li>
+      <li><a :href='logoutUrl' data-testid='logout'>Logout</a></li>
+      <li><a :href="basePath + '/ui/settings'" data-testid='settings'>Settings</a></li>
       <!-- highlight-end -->
     </ul>
 
@@ -56,7 +56,7 @@ import { V0alpha2Api, Configuration } from '@ory/client'
 // In the next step, we will run a process to mirror Ory's APIs
 // on your local machine using the Ory Tunnel at http://localhost:4000
 // highlight-start
-const basePath = 'http://localhost:4000'
+const basePath = process.env.VUE_APP_ORY_URL || 'http://localhost:4000'
 const ory = new V0alpha2Api(new Configuration({
   basePath,
   baseOptions: {
@@ -65,6 +65,8 @@ const ory = new V0alpha2Api(new Configuration({
   }
 }))
 // highlight-end
+
+const apiUrl = process.env.VUE_APP_API_URL || 'http://localhost:8081'
 
 export default {
   name: 'HelloWorld',
@@ -96,15 +98,14 @@ export default {
 
     // highlight-start
     // Or make an authenticated request to your API
-    fetch('http://localhost:8081/api/hello', {
+    fetch(apiUrl + '/api/hello', {
       // Do not forget to set this - it is required to send the session cookie!
       credentials: 'include'
     })
-    // highlight-end
-      .then((res) => res.json())
-      .then((res) => {
-      this.apiResponse = res
-    })
+      // highlight-end
+      .then((res) => res.ok && res.json().then((res) => {
+        this.apiResponse = res
+      }))
   }
 }
 </script>

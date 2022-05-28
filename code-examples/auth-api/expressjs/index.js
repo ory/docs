@@ -8,7 +8,7 @@ const app = express()
 const ory = new V0alpha2Api(
   new Configuration({
     // Points to the local Ory API server (Ory TunneL).
-    basePath: 'http://localhost:4000',
+    basePath: process.env.ORY_URL || 'http://localhost:4000',
     baseOptions: { withCredentials: true }
   })
 )
@@ -17,7 +17,7 @@ const ory = new V0alpha2Api(
 app.use(
   // highlight-start
   cors({
-    origin: 'http://localhost:8080',
+    origin:  process.env.UI_URL || 'http://localhost:8080',
     credentials: true // <- Required for CORS to accept cookies and tokens.
   })
   // highlight-end
@@ -54,6 +54,7 @@ app.get('/api/hello', (req, res) => {
   })
 })
 
-app.listen(8081, () => {
-  console.log(`Example app listening on port ${8081}`)
+const port = process.env.PORT || 8081
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
 })

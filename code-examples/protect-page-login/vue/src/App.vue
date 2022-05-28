@@ -24,7 +24,7 @@ export default {
   margin-top: 60px;
 }
 
-p {
+.long {
   text-align: left;
 }
 
