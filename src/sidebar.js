@@ -510,12 +510,6 @@ module.exports = {
       collapsed: false,
       items: ['reference/api']
     },
-    {
-      type: 'category',
-      label: 'Further Reading',
-      collapsed: false,
-      items: ['further-reading/http-cookies-explained']
-    }
   ],
   opensource: [
     'open-source',
