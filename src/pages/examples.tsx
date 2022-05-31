@@ -1,7 +1,7 @@
 import React from 'react'
 import Layout from '@theme/Layout'
-import * as styles from './examples.module.css'
-import { content } from './examples-content'
+import * as styles from './_assets/examples.module.css'
+import { content } from './_assets/examples-content'
 
 function Examples() {
   return (

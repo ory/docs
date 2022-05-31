@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'
-
 export const content = [
   {
     name: 'Protect a Page with Login: NextJs/React',
