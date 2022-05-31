@@ -65,7 +65,7 @@ Model is a much easier solution to handle.
 
 ### What about JSON Web Tokens?
 
-Currently, Ory doesn't support JSON Web Tokens (JWTs).
+Currently, Ory's Identity Service doesn't support JSON Web Tokens (JWTs).
 
 :::note
 
@@ -73,6 +73,10 @@ Do you need JWTs in your implementation? Let us know in
 [this issue for the Ory Identity Service (Kratos)](https://github.com/ory/kratos/issues/2487).
 
 :::
+
+Other Ory components are capable of issuing JSON Web Tokens. Ory's OAuth2 and OpenID Connect Provider (Ory Hydra) is able to
+issue OAuth2 Access Tokens in the JSON Web Token format. Using OAuth2 and OpenID Connect is discouraged unless you have a
+[targeted use case for it](https://www.ory.sh/oauth2-openid-connect-do-you-need-use-cases-examples/)
 
 ## HTTP Cookies Explained
 
@@ -135,7 +139,29 @@ What requirements must be met for these requests to work?
 These requests are allowed only if the server at `api.example.org`:
 
 - responds with the appropriate [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) headers
-- the JavaScrip XHR request is made with `withCredentials: true`
+- the JavaScript XHR request is made with `credentials: 'include'`
+
+Setting `withCredentials` to true can be done in the Ory JavaScript / TypeScript SDK:
+
+```js
+import { V0alpha2Api, Configuration } from '@ory/client'
+
+const ory = new V0alpha2Api(new Configuration({
+  basePath,
+  baseOptions: {
+    // Ensures we send cookies in the CORS requests.
+    withCredentials: true
+  }
+}))
+```
+
+or using the [Browser's Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API):
+
+```js
+fetch('https://example.org/', {
+  credentials: 'include'
+})
+```
 
 #### Cross Top-Level Domain
 
