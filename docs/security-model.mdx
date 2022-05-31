@@ -11,43 +11,49 @@ To achieve that, Ory manages:
 - tokens
 - cookies
 
-While this is not a common approach that might require a shift in thinking and some getting used to, it's implemented 
-so that you don't have to worry about refreshing tokens or deciding whether to store them in `localStorage` or `document.cookies`.
+While this is not a common approach that might require a shift in thinking and some getting used to, it's implemented so that you
+don't have to worry about refreshing tokens or deciding whether to store them in `localStorage` or `document.cookies`.
 
-Instead, you can devote all your focus and time to developing great software for your users, while Ory does its thing and gives you
-best-in-class protection from all common browser attack vectors, such as [Cross-site scripting (XSS)](https://owasp.org/www-community/attacks/xss/) 
-or [Cross-site request forgery (CSRF)](https://owasp.org/www-community/attacks/csrf/).
+Instead, you can devote all your focus and time to developing great software for your users, while Ory does its thing and gives
+you best-in-class protection from all common browser attack vectors, such as
+[Cross-site scripting (XSS)](https://owasp.org/www-community/attacks/xss/) or
+[Cross-site request forgery (CSRF)](https://owasp.org/www-community/attacks/csrf/).
 
 ## Access to Your Domain
 
 To manage sessions, tokens, and cookies, Ory APIs must be exposed on the same domain as your application. If you don't fulfil this
-requirement, HTTP Cookies are not sent, which prevents the Ory Identity Service (Kratos) from functioning properly. 
+requirement, HTTP Cookies are ignored by the browser, which prevents the Ory Identity Service (Ory Kratos) from functioning
+properly.
 
-Ory exposes the APIs at `https://<project-slug>.projects.oryapis.com`To manage the session information, Ory Identity Service (Kratos) 
-must be able set the domain in HTTP Cookies to the same domain as the application that consumes its APIs. For example: 
+Ory exposes the APIs at `https://<project-slug>.projects.oryapis.com`. To manage session information, Ory Identity Service
+(Kratos) must be able set the domain in HTTP Cookies to the same domain as the application that consumes its APIs. For example:
 
-- When working with an application that runs on `http://localhost:3000` for local development, Ory must be able to set `domain=localhost` 
-in the HTTP cookie. 
+- When working with an application that runs on `http://localhost:3000` for local development, Ory must be able to set
+  `domain=localhost` in the HTTP cookie.
 
-Ory offers SDKs for certain deployment options such
-   as [Vercel](guides/protect-page-login/nextjs.mdx) which mirror Ory's APIs without the need of running another process.
+Ory offers SDKs for certain deployment options such as [Vercel](guides/protect-page-login/nextjs.mdx) which mirror Ory's APIs
+without the need of running another process.
 
-- When working with an application that runs on `https://app.example.org`, Ory must be able to set `domain=example.org` in the HTTP 
-cookie. 
-
+- When working with an application that runs on `https://app.example.org`, Ory must be able to set `domain=example.org` in the
+  HTTP cookie.
+- Some multi-tenant providers like Heroku (`<your-slug>.herokuapp.com`) or Vercel (`<your-slug>.vercel.app`) expose many apps
+  under the same domain. These domains are listed in
+  [Public Suffix Domain List](https://publicsuffix.org/list/public_suffix_list.dat). For these domains it is not possible to set a
+  cookie on the root domain (so `cookie=herokuapp.com`) but only on the subdomain (so `cookie=your-slug.herokuapp.com`).
 
 ## What about OAuth 2.0 / OpenID Connect?
 
-Ory offers an OAuth 2.0 and OpenID Connect solution in the form of open-source [Ory Hydra](https://github.com/ory/hydra), which you 
-can self-host and manage.
+Ory offers an OAuth 2.0 and OpenID Connect solution in the form of open-source [Ory Hydra](https://github.com/ory/hydra), which
+you can currently self-host.
 
-At Ory, we believe that OAuth 2.0 and OpenID Connect aren't the ultimate solution. In fact, we think that you probably don't need
-to use them at all! As such, we recommend the use of [Ory Hydra](https://github.com/ory/hydra) for targeted use cases only.
+At Ory, we believe that OAuth 2.0 and OpenID Connect isn't a one-size-fits solution. In fact, we think that you probably don't
+need to use the complicated protocols at all! As such, we recommend the use of [Ory Hydra](https://github.com/ory/hydra) for
+targeted use cases only.
 
 :::tip
 
-Read [this blog post](https://www.ory.sh/oauth2-openid-connect-do-you-need-use-cases-examples/) to learn why you probably don't 
-need OAuth 2.0 and OpenID Connect in your project. 
+Read [this blog post](https://www.ory.sh/oauth2-openid-connect-do-you-need-use-cases-examples/) to learn why you probably don't
+need OAuth 2.0 and OpenID Connect in your project.
 
 :::
 
@@ -55,15 +61,16 @@ need OAuth 2.0 and OpenID Connect in your project.
 
 You can generate access and refresh tokens using [Ory Hydra](https://github.com/ory/hydra). Unless you really need to use
 [you need OAuth 2.0 / OpenID Connect](https://www.ory.sh/oauth2-openid-connect-do-you-need-use-cases-examples/), Ory Security
-Model is a much easier solution to handle. 
+Model is a much easier solution to handle.
 
 ### What about JSON Web Tokens?
 
-Currently, Ory doesn't support JSON Web Tokens (JWTs). 
+Currently, Ory doesn't support JSON Web Tokens (JWTs).
 
 :::note
 
-Do you need JWTs in your implementation? Let us know in [this issue for the Ory Identity Service (Kratos)](https://github.com/ory/kratos/issues/2487).
+Do you need JWTs in your implementation? Let us know in
+[this issue for the Ory Identity Service (Kratos)](https://github.com/ory/kratos/issues/2487).
 
 :::
 
@@ -71,13 +78,14 @@ Do you need JWTs in your implementation? Let us know in [this issue for the Ory 
 
 HTTP Cookies are a central part of the unique security model in Ory.
 
-Whenever the client that consumes Ory APIs is a browser, the system uses HTTP cookies to store session states and protect against 
-attack vectors such as [CSRF](https://owasp.org/www-community/attacks/csrf). 
+Whenever the client that consumes Ory APIs is a browser, the system uses HTTP cookies to store session states and protect against
+attack vectors such as [CSRF](https://owasp.org/www-community/attacks/csrf).
 
 Ory issues HTTP Cookies with the following flags for the highest level of security:
 
 - `secure`: The cookie is only sent over HTTPS connection to protect against man-in-the-middle attacks.
-- `httpOnly`: The Cookie is not available to JavaScript code to protect against [XSS](https://owasp.org/www-community/attacks/xss/).
+- `httpOnly`: The Cookie is not available to JavaScript code to protect against
+  [XSS](https://owasp.org/www-community/attacks/xss/).
 - `sameSite=Strict`: The Cookie can only be requested from the same origin to protect against CSRF attacks.
 
 ### HTTP Cookie Domains
@@ -89,7 +97,7 @@ Set-Cookie: <name>=<value>; domain=<domain>
 ```
 
 At Ory, this value defaults to the domain of your project (`<project>.projects.oryapis.com`). The browser only accepts cookies
-from the same domain. 
+from the same domain.
 
 If you make a request to `https://www.my-evil-app.com` and the server responds with
 
@@ -97,22 +105,23 @@ If you make a request to `https://www.my-evil-app.com` and the server responds w
 Set-Cookie: google_session=1234; domain=google.com
 ```
 
-the browser rejects the cookie. The same happens when you make a request in the browser. The browsers sends cookies only to 
-a matching domain. When the browser makes a request to `https://www.my-evil-app.com`, it never sends cookies set for `google.com`.
+the browser rejects the cookie. The same happens when you make a request in the browser. The browsers sends cookies only to a
+matching domain. When the browser makes a request to `https://www.my-evil-app.com`, it never sends cookies set for `google.com`.
 
-How does a browser decide whether to accept or reject a cookie? 
+How does a browser decide whether to accept or reject a cookie?
 
 - A cookie set with `Set-Cookie: <name>=<value>; domain=example.org` will be sent in requests to `example.org` and all subdomains
-of `example.org` (for example`www.example.org`, `api.example.org`).
-- A cookie set with `Set-Cookie: <name>=<value>; domain=api.example.org` will be sent to `api.example.org` and its subdomains
-(for example `service.api.example.org`) but not to `example.org` or `not-api.example.org`.
-- Cookies ignore the port number, which is important in local development. A cookie set with `Set-Cookie: <name>=<value>; domain=example.org:1234` 
-will be sent to `https://example.org:443`, `http://example.org:80`, and `http://api.example.org:1234`.
+  of `example.org` (for example`www.example.org`, `api.example.org`).
+- A cookie set with `Set-Cookie: <name>=<value>; domain=api.example.org` will be sent to `api.example.org` and its subdomains (for
+  example `service.api.example.org`) but not to `example.org` or `not-api.example.org`.
+- Cookies ignore the port number, which is important in local development. A cookie set with
+  `Set-Cookie: <name>=<value>; domain=example.org:1234` will be sent to `https://example.org:443`, `http://example.org:80`, and
+  `http://api.example.org:1234`.
 
 ### Cross-Origin HTTP Cookies
 
-When working with Single Page Apps (SPA), you often fetch data from servers using AJAX requests. There are two types of cross-origin
-AJAX requests:
+When working with Single Page Apps (SPA), you often fetch data from servers using AJAX requests. There are two types of
+cross-origin AJAX requests:
 
 1. **On the same top-level domain**: the browser address bar is `https://www.example.org` and the AJAX request goes to
    `https://api.example.org/api/...`.
@@ -130,13 +139,12 @@ These requests are allowed only if the server at `api.example.org`:
 
 #### Cross Top-Level Domain
 
-Sending cookies across different top-level domains is a practice that gets used less frequently nowadays to improve data
-privacy. 
+Sending cookies across different top-level domains is a practice that gets used less frequently nowadays to improve data privacy.
 
 This practice was abused for user tracking and targeted advertising which. Some browsers deprecated cross-domain cookies, while
 others are planning to do so in the near future.
 
-Notable mentions are: 
+Notable mentions are:
 
 1. [Safari](https://www.infoq.com/news/2020/04/safari-third-party-cookies-block/)
 2. [Chrome](https://www.adexchanger.com/privacy/google-will-limit-cross-site-tracking-in-chrome-by-default-starting-in-february/)

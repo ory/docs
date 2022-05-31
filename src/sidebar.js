@@ -509,7 +509,7 @@ module.exports = {
       label: 'Reference',
       collapsed: false,
       items: ['reference/api']
-    },
+    }
   ],
   opensource: [
     'open-source',
