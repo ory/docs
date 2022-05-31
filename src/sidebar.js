@@ -3,7 +3,6 @@ module.exports = {
     {
       Introduction: [
         'welcome',
-        'roots',
         'arch',
         'security'
       ]
