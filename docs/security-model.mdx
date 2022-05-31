@@ -65,7 +65,7 @@ Model is a much easier solution to handle.
 
 ### What about JSON Web Tokens?
 
-Currently, Ory's Identity Service doesn't support JSON Web Tokens (JWTs).
+Currently, Ory's Identity Service doesn't support JSON Web Tokens (JWTs) natively.
 
 :::note
 
@@ -74,9 +74,14 @@ Do you need JWTs in your implementation? Let us know in
 
 :::
 
-Other Ory components are capable of issuing JSON Web Tokens. Ory's OAuth2 and OpenID Connect Provider (Ory Hydra) is able to
-issue OAuth2 Access Tokens in the JSON Web Token format. Using OAuth2 and OpenID Connect is discouraged unless you have a
+Other Ory components are capable of issuing JSON Web Tokens.
+[Ory's OAuth2 and OpenID Connect Provider (Ory Hydra)](https://www.ory.sh/hydra) is able to issue OAuth2 Access Tokens in the
+JSON Web Token format. Using OAuth2 and OpenID Connect is discouraged unless you have a
 [targeted use case for it](https://www.ory.sh/oauth2-openid-connect-do-you-need-use-cases-examples/)
+
+[Ory's Zero Trust Identity and Access Proxy (Ory Oathkeeper)](https://www.ory.sh/oathkeeper) can "convert" Ory Sessions to
+JSON Web Tokens. Using Ory Oathkeeper is recommended when developing sophisticated applications with control over network
+traffic (Kubernetes, OpenShift, ...).
 
 ## HTTP Cookies Explained
 
