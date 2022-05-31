@@ -26,5 +26,4 @@ Delete resources
 ### SEE ALSO
 
 - [kratos](kratos) -
-- [kratos delete identity](kratos-delete-identity) - Delete one or more
-  identities by their ID(s)
+- [kratos delete identity](kratos-delete-identity) - Delete one or more identities by their ID(s)

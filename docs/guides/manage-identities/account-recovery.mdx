@@ -3,14 +3,12 @@ id: account-recovery
 title: Administrative Account Recovery
 ---
 
-It is possible to initiate account recovery for identities using the Admin API
-endpoints.
+It is possible to initiate account recovery for identities using the Admin API endpoints.
 
 :::note
 
-It is possible to generate a link for an account without a recovery address via
-the admin API, but if the recovery link expires the user won't be able to
-re-initiate the flow by himself as long as the recovery address has been added.
+It is possible to generate a link for an account without a recovery address via the admin API, but if the recovery link expires
+the user won't be able to re-initiate the flow by himself as long as the recovery address has been added.
 
 :::
 
@@ -80,9 +78,8 @@ func main() {
 </Tabs>
 ````
 
-The response contains a `recovery_link` value. This is the link the user should
-use to set up his or her credentials to connect to a Social Sign In Provider or
-set up a password :
+The response contains a `recovery_link` value. This is the link the user should use to set up his or her credentials to connect to
+a Social Sign In Provider or set up a password :
 
 ```json
 {
@@ -91,8 +88,8 @@ set up a password :
 }
 ```
 
-The user has only a limited amount of time to update their credentials once they
-use the recovery link. The time is the privileged session
+The user has only a limited amount of time to update their credentials once they use the recovery link. The time is the privileged
+session
 
 ````mdx-code-block
 <Tabs
@@ -119,17 +116,15 @@ selfservice:
 </Tabs>
 ````
 
-If the user fails to set up his / her credentials in time, another recovery link
-needs to be issued and the user needs to re-do the flow.
+If the user fails to set up his / her credentials in time, another recovery link needs to be issued and the user needs to re-do
+the flow.
 
-It is currently not possible to send the recovery link directly to a user's
-email, this feature is tracked as
+It is currently not possible to send the recovery link directly to a user's email, this feature is tracked as
 [#595](https://github.com/ory/kratos/issues/595).
 
 ### Enable Account Recovery
 
-To enable recovery flows, make the following adjustments to your Ory Kratos
-configuration:
+To enable recovery flows, make the following adjustments to your Ory Kratos configuration:
 
 ```yaml title="path/to/config/kratos.yml"
 selfservice:
@@ -147,8 +142,7 @@ selfservice:
       enabled: true
 ```
 
-To specify that an identity's trait is a recovery email, use the following
-Identity Schema:
+To specify that an identity's trait is a recovery email, use the following Identity Schema:
 
 ```diff
  {
@@ -181,7 +175,5 @@ Identity Schema:
  }
 ```
 
-For more detailed information and general guidelines on these flows, take a look
-at the
-[Account Recovery and Password Reset](../../kratos/self-service/flows/account-recovery.mdx)
-section.
+For more detailed information and general guidelines on these flows, take a look at the
+[Account Recovery and Password Reset](../../kratos/self-service/flows/account-recovery.mdx) section.
