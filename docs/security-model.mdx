@@ -11,11 +11,11 @@ To achieve that, Ory manages:
 - tokens
 - cookies
 
-While this is not a common approach that might require a shift in thinking and some getting used to, it's implemented so that you
+Although it is an uncommon approach and might require a shift in thinking, Ory has implemented it so that you
 don't have to worry about refreshing tokens or deciding whether to store them in `localStorage` or `document.cookies`.
 
-Instead, you can devote all your focus and time to developing great software for your users, while Ory does its thing and gives
-you best-in-class protection from all common browser attack vectors, such as
+Instead, you can devote all your focus and time to developing great software for your users, while Ory takes care of the complicated heavy lifting by giving
+you the best-in-class protection from all common browser attack vectors, such as
 [Cross-site scripting (XSS)](https://owasp.org/www-community/attacks/xss/) or
 [Cross-site request forgery (CSRF)](https://owasp.org/www-community/attacks/csrf/).
 
@@ -26,7 +26,7 @@ requirement, HTTP Cookies are ignored by the browser, which prevents the Ory Ide
 properly.
 
 Ory exposes the APIs at `https://<project-slug>.projects.oryapis.com`. To manage session information, Ory Identity Service
-(Kratos) must be able set the domain in HTTP Cookies to the same domain as the application that consumes its APIs. For example:
+(Kratos) must be able to set the domain in HTTP Cookies to the same domain as the application that consumes its APIs. For example:
 
 - When working with an application that runs on `http://localhost:3000` for local development, Ory must be able to set
   `domain=localhost` in the HTTP cookie.
@@ -46,9 +46,9 @@ without the need of running another process.
 Ory offers an OAuth 2.0 and OpenID Connect solution in the form of open-source [Ory Hydra](https://github.com/ory/hydra), which
 you can currently self-host.
 
-At Ory, we believe that OAuth 2.0 and OpenID Connect isn't a one-size-fits solution. In fact, we think that you probably don't
-need to use the complicated protocols at all! As such, we recommend the use of [Ory Hydra](https://github.com/ory/hydra) for
-targeted use cases only.
+At Ory, we believe that OAuth 2.0 and OpenID Connect isn't a one-size-fits-all solution. In fact, we think that you probably don't
+need to use such complicated protocols at all! We recommend the use of [Ory Hydra](https://github.com/ory/hydra) for
+targeted use cases only, such as providing third party integration with your application (e.g. a sign in with [your company] button).
 
 :::tip
 
@@ -84,6 +84,12 @@ JSON Web Tokens. Using Ory Oathkeeper is recommended when developing sophisticat
 traffic (Kubernetes, OpenShift, ...).
 
 ## HTTP Cookies Explained
+
+:::tip
+
+Read our extensive blog post exploring [authentication and modern software](https://www.ory.sh/auth-and-modern-software/)
+
+:::
 
 HTTP Cookies are a central part of the unique security model in Ory.
 
@@ -146,7 +152,7 @@ These requests are allowed only if the server at `api.example.org`:
 - responds with the appropriate [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) headers
 - the JavaScript XHR request is made with `credentials: 'include'`
 
-Setting `withCredentials` to true can be done in the Ory JavaScript / TypeScript SDK:
+Setting `withCredentials` to `true` can be done in the Ory JavaScript / TypeScript SDK:
 
 ```js
 import { V0alpha2Api, Configuration } from '@ory/client'
@@ -172,7 +178,7 @@ fetch('https://example.org/', {
 
 Sending cookies across different top-level domains is a practice that gets used less frequently nowadays to improve data privacy.
 
-This practice was abused for user tracking and targeted advertising which. Some browsers deprecated cross-domain cookies, while
+This practice was abused for user tracking and targeted advertising. Some browsers deprecated cross-domain cookies, while
 others are planning to do so in the near future.
 
 Notable mentions are:
