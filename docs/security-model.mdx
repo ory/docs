@@ -1,55 +1,151 @@
 ---
 id: security-model
-title: The Ory Security Model
-sidebar_label: Ory Security Model
+title: Security Model
 ---
 
-Ory has a proven security model which can take a moment to get used to. Compared to other solutions, Ory manages sessions, tokens,
-and cookies for you whenever possible. You do not need to worry about refreshing tokens or figuring out whether to store them in
-`localStorage` or `document.cookies`. Instead, Ory solves all of this for you and deploys best-in-class protections for common
-browser attack vectors (XSS, CSRF, ...).
+The security model used by Ory is designed to deliver the most secure and hassle-free solution to all users.
 
-## Ory's Identity Service Need Access to Your Domain
+To achieve that, Ory manages:
 
-Ory bears the responsibility of managing sessions, cookies, and tokens for you. To do this, Ory needs to be exposed on your
-domain, otherwise HTTP Cookies will not be sent. Per default, Ory's APIs are available at
+- sessions
+- tokens
+- cookies
 
-```
-https://<project-slug>.projects.oryapis.com
-```
+While this is not a common approach that might require a shift in thinking and some getting used to, it's implemented so that you
+don't have to worry about refreshing tokens or deciding whether to store them in `localStorage` or `document.cookies`.
 
-Let's say you are developing an app and it runs on `http://localhost:3000`. For Ory to be able to manage the session information,
-it needs to be able to set an HTTP Cookie for `domain=localhost` as well! The same applies when your app runs in production (for
-example on `https://app.example.org`). Here too Ory needs to be able to set the HTTP Cookie for `domain=example.org`:
+Instead, you can devote all your focus and time to developing great software for your users, while Ory does its thing and gives
+you best-in-class protection from all common browser attack vectors, such as
+[Cross-site scripting (XSS)](https://owasp.org/www-community/attacks/xss/) or
+[Cross-site request forgery (CSRF)](https://owasp.org/www-community/attacks/csrf/).
 
-1. During **development** you use the [Ory Tunnel on your machine](guides/local-development.mdx) to "mirror" the APIs available at
-   `https://<project-slug>.projects.oryapis.com` on your `localhost` domain. Ory offers SDKs for certain deployment options such
-   as [Vercel](guides/protect-page-login/nextjs.mdx) which mirror Ory's APIs without the need of running another process.
-2. For **production** you set up a [Custom Domain](guides/custom-domains.mdx) (for example `https://ory.example.org`) which makes
-   Ory's APIs available at `https://ory.example.org`.
+## Access to Your Domain
 
-If you're interested in learning more about this topic, head over to
-[HTTP Cookies Explained](further-reading/http-cookies-explained.mdx)
+To manage sessions, tokens, and cookies, Ory APIs must be exposed on the same domain as your application. If you don't fulfil this
+requirement, HTTP Cookies are ignored by the browser, which prevents the Ory Identity Service (Ory Kratos) from functioning
+properly.
 
-## Frequently Asked Questions
+Ory exposes the APIs at `https://<project-slug>.projects.oryapis.com`. To manage session information, Ory Identity Service
+(Kratos) must be able set the domain in HTTP Cookies to the same domain as the application that consumes its APIs. For example:
 
-Below we have collected some frequently asked questions about Ory's security model.
+- When working with an application that runs on `http://localhost:3000` for local development, Ory must be able to set
+  `domain=localhost` in the HTTP cookie.
 
-### How do I solve CSRF Issues?
+Ory offers SDKs for certain deployment options such as [Vercel](guides/protect-page-login/nextjs.mdx) which mirror Ory's APIs
+without the need of running another process.
 
-### What about OAuth 2.0 / OpenID Connect?
+- When working with an application that runs on `https://app.example.org`, Ory must be able to set `domain=example.org` in the
+  HTTP cookie.
+- Some multi-tenant providers like Heroku (`<your-slug>.herokuapp.com`) or Vercel (`<your-slug>.vercel.app`) expose many apps
+  under the same domain. These domains are listed in
+  [Public Suffix Domain List](https://publicsuffix.org/list/public_suffix_list.dat). For these domains it is not possible to set a
+  cookie on the root domain (so `cookie=herokuapp.com`) but only on the subdomain (so `cookie=your-slug.herokuapp.com`).
 
-Ory has an OAuth 2.0 and OpenID Connect product currently available as self-hosted open source under the name of
-[Ory Hydra](https://github.com/ory/hydra). Ory thus supports OAuth 2.0 and OpenID Connect, but only recommends it for targeted use
-cases. If you haven't, read
-[Why you probably do not need OAuth2 / OpenID Connect](https://www.ory.sh/oauth2-openid-connect-do-you-need-use-cases-examples/).
+## What about OAuth 2.0 / OpenID Connect?
+
+Ory offers an OAuth 2.0 and OpenID Connect solution in the form of open-source [Ory Hydra](https://github.com/ory/hydra), which
+you can currently self-host.
+
+At Ory, we believe that OAuth 2.0 and OpenID Connect isn't a one-size-fits solution. In fact, we think that you probably don't
+need to use the complicated protocols at all! As such, we recommend the use of [Ory Hydra](https://github.com/ory/hydra) for
+targeted use cases only.
+
+:::tip
+
+Read [this blog post](https://www.ory.sh/oauth2-openid-connect-do-you-need-use-cases-examples/) to learn why you probably don't
+need OAuth 2.0 and OpenID Connect in your project.
+
+:::
 
 ### What about Access Tokens / Refresh Tokens?
 
-Ory has an OAuth 2.0 / OpenID Connect product which can generate Access and Refresh Tokens. Unless
-[you need OAuth 2.0 / OpenID Connect](https://www.ory.sh/oauth2-openid-connect-do-you-need-use-cases-examples/), Ory's Security
+You can generate access and refresh tokens using [Ory Hydra](https://github.com/ory/hydra). Unless you really need to use
+[you need OAuth 2.0 / OpenID Connect](https://www.ory.sh/oauth2-openid-connect-do-you-need-use-cases-examples/), Ory Security
 Model is a much easier solution to handle.
 
 ### What about JSON Web Tokens?
 
-There is an [open issue to support JSON Web Tokens](https://github.com/ory/kratos/issues/2487) for Ory's Identity Service.
+Currently, Ory doesn't support JSON Web Tokens (JWTs).
+
+:::note
+
+Do you need JWTs in your implementation? Let us know in
+[this issue for the Ory Identity Service (Kratos)](https://github.com/ory/kratos/issues/2487).
+
+:::
+
+## HTTP Cookies Explained
+
+HTTP Cookies are a central part of the unique security model in Ory.
+
+Whenever the client that consumes Ory APIs is a browser, the system uses HTTP cookies to store session states and protect against
+attack vectors such as [CSRF](https://owasp.org/www-community/attacks/csrf).
+
+Ory issues HTTP Cookies with the following flags for the highest level of security:
+
+- `secure`: The cookie is only sent over HTTPS connection to protect against man-in-the-middle attacks.
+- `httpOnly`: The Cookie is not available to JavaScript code to protect against
+  [XSS](https://owasp.org/www-community/attacks/xss/).
+- `sameSite=Strict`: The Cookie can only be requested from the same origin to protect against CSRF attacks.
+
+### HTTP Cookie Domains
+
+When the server sets a cookie, it defines the `domain` the cookie is valid for:
+
+```
+Set-Cookie: <name>=<value>; domain=<domain>
+```
+
+At Ory, this value defaults to the domain of your project (`<project>.projects.oryapis.com`). The browser only accepts cookies
+from the same domain.
+
+If you make a request to `https://www.my-evil-app.com` and the server responds with
+
+```
+Set-Cookie: google_session=1234; domain=google.com
+```
+
+the browser rejects the cookie. The same happens when you make a request in the browser. The browsers sends cookies only to a
+matching domain. When the browser makes a request to `https://www.my-evil-app.com`, it never sends cookies set for `google.com`.
+
+How does a browser decide whether to accept or reject a cookie?
+
+- A cookie set with `Set-Cookie: <name>=<value>; domain=example.org` will be sent in requests to `example.org` and all subdomains
+  of `example.org` (for example`www.example.org`, `api.example.org`).
+- A cookie set with `Set-Cookie: <name>=<value>; domain=api.example.org` will be sent to `api.example.org` and its subdomains (for
+  example `service.api.example.org`) but not to `example.org` or `not-api.example.org`.
+- Cookies ignore the port number, which is important in local development. A cookie set with
+  `Set-Cookie: <name>=<value>; domain=example.org:1234` will be sent to `https://example.org:443`, `http://example.org:80`, and
+  `http://api.example.org:1234`.
+
+### Cross-Origin HTTP Cookies
+
+When working with Single Page Apps (SPA), you often fetch data from servers using AJAX requests. There are two types of
+cross-origin AJAX requests:
+
+1. **On the same top-level domain**: the browser address bar is `https://www.example.org` and the AJAX request goes to
+   `https://api.example.org/api/...`.
+2. **Across different top-level domains**: the browser address bar is `https://www.example.org` and the AJAX request goes to
+   `https://api-example.com/...`.
+
+What requirements must be met for these requests to work?
+
+#### Same Top-Level Domain
+
+These requests are allowed only if the server at `api.example.org`:
+
+- responds with the appropriate [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) headers
+- the JavaScrip XHR request is made with `withCredentials: true`
+
+#### Cross Top-Level Domain
+
+Sending cookies across different top-level domains is a practice that gets used less frequently nowadays to improve data privacy.
+
+This practice was abused for user tracking and targeted advertising which. Some browsers deprecated cross-domain cookies, while
+others are planning to do so in the near future.
+
+Notable mentions are:
+
+1. [Safari](https://www.infoq.com/news/2020/04/safari-third-party-cookies-block/)
+2. [Chrome](https://www.adexchanger.com/privacy/google-will-limit-cross-site-tracking-in-chrome-by-default-starting-in-february/)
+3. [Firefox](https://www.theverge.com/2019/6/4/18650363/firefox-block-trackers-default-enhanced-tracking-protection)
