@@ -23,22 +23,28 @@
   text-decoration: none;
 }
 
-.exampleimg {
+.examplename {
+  font-size: large;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.img {
   width: 80px;
   margin-top: 10px;
   margin-left: 5px;
 }
 
-h1 {
+.pageHeading {
   margin: 2rem;
 }
 
-button img {
+.buttonImg {
   width: 10px;
   margin-right: 10px;
 }
 
-button {
+.button {
   background: darken(#F5F5F5, 10%);
   padding: 5px 15px 5px 15px;
   cursor: pointer;

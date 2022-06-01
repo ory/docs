@@ -1,6 +1,9 @@
-export const content = [
+import { PropTypes } from "../../components/Examples/example-list"
+
+export const official : PropTypes = {
+  examples: [
   {
-    name: 'Protect a Page with Login: NextJs/React',
+    title: 'Protect a Page with Login: NextJs/React',
     language: 'typescript',
     framework: 'NextJs/React',
     author: 'ory',
@@ -11,7 +14,7 @@ export const content = [
     description: 'TODO'
   },
   {
-    name: 'Protect a Page with Login: ExpressJS',
+    title: 'Protect a Page with Login: ExpressJS',
     language: 'typescript',
     framework: 'ExpressJs',
     author: 'ory',
@@ -22,7 +25,7 @@ export const content = [
     description: 'TODO'
   },
   {
-    name: 'Protect a Page with Login: Go',
+    title: 'Protect a Page with Login: Go',
     language: 'Go',
     framework: 'Vanilla',
     author: 'ory',
@@ -33,7 +36,7 @@ export const content = [
     description: 'TODO'
   },
   {
-    name: 'Protect a Page with Login: PHP',
+    title: 'Protect a Page with Login: PHP',
     language: 'php',
     framework: 'Vanilla',
     author: 'ory',
@@ -44,7 +47,7 @@ export const content = [
     description: 'TODO'
   },
   {
-    name: 'Protect a Page with Login: Flutter',
+    title: 'Protect a Page with Login: Flutter',
     language: 'dart',
     framework: 'Flutter',
     author: 'ory',
@@ -55,18 +58,7 @@ export const content = [
     description: 'TODO'
   },
   {
-    name: 'Protect a Page with Login: Kotlin',
-    language: 'java',
-    framework: 'Quarkus',
-    author: 'ory',
-    tested: true,
-    repoLink: 'https://github.com/hbrammer/quarkus_kratos_example',
-    tutorialLink:
-      'https://hauke.me/writing/2021-03-building-a-quarkus-application-with-ory-kratos/',
-    description: 'How to use Ory Kratos with Quarkus, Kotlin, and Qute.'
-  },
-  {
-    name: 'Protect a Page with Login: Django',
+    title: 'Protect a Page with Login: Django',
     language: 'python',
     framework: 'Django',
     author: 'ory',
@@ -78,7 +70,7 @@ export const content = [
       'This repo demonstrates how you can use Ory Cloud or Ory Kratos with Django apps.'
   },
   {
-    name: 'Protect a Page with Login: Flask',
+    title: 'Protect a Page with Login: Flask',
     language: 'python',
     framework: 'Flask',
     author: 'ory',
@@ -90,7 +82,7 @@ export const content = [
       'An example Flask app using Kratos and Keto to check permissions and authenticate users.'
   },
   {
-    name: 'Customize Self-service UI: NodeJs',
+    title: 'Customize Self-service UI: NodeJs',
     language: 'typescript',
     framework: 'NodeJs',
     author: 'ory',
@@ -101,7 +93,7 @@ export const content = [
       'A reference implementation for Ory Kratos in NodeJS / ExpressJS / Handlebars / NextJS.'
   },
   {
-    name: 'Customize Self-service UI: NextJS/React',
+    title: 'Customize Self-service UI: NextJS/React',
     language: 'typescript',
     framework: 'NextJs/React',
     author: 'ory',
@@ -113,7 +105,7 @@ export const content = [
       'Add login, registration, account recovery (password reset), account verification (email verification), social sign in, multi-factor authentication to your Next.js / React App using Ory.'
   },
   {
-    name: 'Customize Self-service UI: React Native',
+    title: 'Customize Self-service UI: React Native',
     language: 'typescript',
     framework: 'React Native',
     author: 'ory',
@@ -123,9 +115,33 @@ export const content = [
       'https://www.ory.sh/login-react-native-authentication-example-api/',
     description:
       'A reference implementation of an app using ORY Kratos for auth (login), sign up (registration), profile settings (update password), MFA/2FA, account recovery (password reset), and more for React Native.'
+  }
+]
+}
+
+export const community : PropTypes = {
+  examples: [
+  {
+    title: 'Customize Self-service UI: Flutter',
+    language: 'dart',
+    framework: 'Flutter',
+    author: 'amorevino',
+    tested: false,
+    repoLink: 'https://github.com/amorevino/ory-showcase-apps',
+    tutorialLink: '',
+    description: 'Flutter app using Ory Kratos for authentication.'
   },
   {
-    name: 'Customize Self-service UI: Vue3',
+    title: 'Protect a Page with Login: Kotlin',
+    language: 'java',
+    framework: 'Quarkus',
+    author: 'hbrammer',
+    tested: false,
+    repoLink: 'https://github.com/hbrammer/quarkus_kratos_example',
+    tutorialLink: 'https://hauke.me/writing/2021-03-building-a-quarkus-application-with-ory-kratos/',
+  },
+  {
+    title: 'Customize Self-service UI: Vue3',
     language: 'typescript',
     framework: 'Vue3',
     author: 'timalanfarrow',
@@ -137,7 +153,7 @@ export const content = [
       'A reference self-service UI implementation for Ory Kratos in Vue.'
   },
   {
-    name: 'Customize Self-service UI: Erlang',
+    title: 'Customize Self-service UI: Erlang',
     language: 'erlang',
     framework: 'Rebar3',
     author: 'hrefhref',
@@ -147,7 +163,7 @@ export const content = [
     description: 'Lightweight self-service UI for Ory Kratos/Hydra.'
   },
   {
-    name: 'Customize Self-service UI: Rescript',
+    title: 'Customize Self-service UI: Rescript',
     language: 'rescript',
     framework: 'React',
     author: 'allancalix',
@@ -158,18 +174,16 @@ export const content = [
       'A ReScript React implementation of Kratos browser authentication flows.'
   },
   {
-    name: 'Customize Self-service UI: Sveltekit',
+    title: 'Customize Self-service UI: Sveltekit',
     language: 'javascript',
     framework: 'Sveltekit',
     author: 'micleyman',
     tested: true,
     repoLink: 'https://github.com/micleyman/sveltekit-ory-starter',
     tutorialLink: '',
-    description:
-      'An unstyled starter template for a modern Svelte Kit app, secured using Orys open source libraries.'
   },
   {
-    name: 'Customize Self-service UI: Sveltekit',
+    title: 'Customize Self-service UI: Sveltekit',
     language: 'javascript',
     framework: 'Sveltekit',
     author: 'drejohnson',
@@ -179,7 +193,7 @@ export const content = [
     description: 'Basic SvelteKit example using Ory Kratos for authentication.'
   },
   {
-    name: 'Customize Self-service UI: Sveltekit',
+    title: 'Customize Self-service UI: Sveltekit',
     language: 'javascript',
     framework: 'Sveltekit',
     author: 'emrahcom',
@@ -188,19 +202,15 @@ export const content = [
     tutorialLink: '',
     description:
       'Self-service Svelte node for Ory Kratos. It has no style or decoration. Apply your custom style according to your application.'
-  },
+  }
+]
+}
+
+
+export const selfhosted : PropTypes = {
+  examples: [
   {
-    name: 'Customize Self-service UI: Flutter',
-    language: 'dart',
-    framework: 'Flutter',
-    author: 'amorevino',
-    tested: false,
-    repoLink: 'https://github.com/amorevino/ory-showcase-apps',
-    tutorialLink: '',
-    description: 'Flutter app using Ory Kratos for authentication.'
-  },
-  {
-    name: 'Integrate: Kong',
+    title: 'Integrate: Kong',
     language: 'ory',
     framework: 'Kong',
     author: 'ory',
@@ -212,7 +222,7 @@ export const content = [
       'This is a demo app build to show a configuration using Kong and Ory'
   },
   {
-    name: 'Ory Oathkeeper Examples',
+    title: 'Ory Oathkeeper Examples',
     language: 'ory',
     framework: 'Ory Oathkeeper',
     author: 'ory',
@@ -223,3 +233,4 @@ export const content = [
       'This is a collection of example configuration for Ory Oathkeeper'
   }
 ]
+}
