@@ -3,13 +3,7 @@ id: security-model
 title: Security Model
 ---
 
-The security model used by Ory is designed to deliver the most secure and hassle-free solution to all users.
-
-To achieve that, Ory manages:
-
-- sessions
-- tokens
-- cookies
+Orys' security model delivers the most secure and hassle-free solution to users by managing `sessions`, `tokens` and `cookies`.
 
 Although it is an uncommon approach that might require a shift in thinking, it's implemented so that you
 don't have to worry about refreshing tokens or deciding whether to store them in `localStorage` or `document.cookies`.
@@ -19,9 +13,15 @@ you the best-in-class protection from all common browser attack vectors, such as
 [Cross-site scripting (XSS)](https://owasp.org/www-community/attacks/xss/) or
 [Cross-site request forgery (CSRF)](https://owasp.org/www-community/attacks/csrf/).
 
+:::tip
+
+Read our blog post exploring [authentication and modern software](https://www.ory.sh/auth-and-modern-software/).
+
+:::
+
 ## Access to Your Domain
 
-To manage sessions, tokens, and cookies, Ory APIs must be exposed on the same domain as your application. If you don't fulfil this
+To manage `sessions`, `tokens`, and `cookies`, Ory APIs must be exposed on the same domain as your application. If you don't fulfil this
 requirement, HTTP Cookies are ignored by the browser, which prevents the Ory Identity Service (Ory Kratos) from functioning
 properly.
 
@@ -83,13 +83,8 @@ JSON Web Token format. Using OAuth2 and OpenID Connect is discouraged unless you
 JSON Web Tokens. Using Ory Oathkeeper is recommended when developing sophisticated applications with control over network
 traffic (Kubernetes, OpenShift, ...).
 
-## HTTP Cookies Explained
 
-:::tip
-
-Read our extensive blog post exploring [authentication and modern software](https://www.ory.sh/auth-and-modern-software/)
-
-:::
+## HTTP Cookies
 
 HTTP Cookies are a central part of the unique security model in Ory.
 
@@ -145,7 +140,7 @@ cross-origin AJAX requests:
 
 What requirements must be met for these requests to work?
 
-#### Same Top-Level Domain
+### Same Top-Level Domain
 
 These requests are allowed only if the server at `api.example.org`:
 
@@ -174,7 +169,7 @@ fetch('https://example.org/', {
 })
 ```
 
-#### Cross Top-Level Domain
+### Cross Top-Level Domain
 
 Sending cookies across different top-level domains is a practice that gets used less frequently nowadays to improve data privacy.
 
