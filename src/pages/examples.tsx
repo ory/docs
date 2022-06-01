@@ -1,59 +1,52 @@
 import React from 'react'
 import Layout from '@theme/Layout'
-import * as styles from './_assets/examples.module.css'
+import styles from './examples.module.css';
+
 import { content } from './_assets/examples-content'
 
-function Examples() {
+const Examples = () => {
   return (
     <Layout>
-      <div>
-        <h1>Ory Examples</h1>
-        <table className={styles.table}>
-          <thead className={styles.th}>
-            <tr>
-              <th>Language</th>
-              <th>Framework</th>
-              <th>Tutorial</th>
-              <th>Link to Code</th>
-              <th>Author</th>
-              <th>Tests</th>
-            </tr>
-          </thead>
-          <tbody>
-            {content.map((value, key) => {
-              {
-                return (
-                  <tr key={key}>
-                    <td>
-                      <img
-                        width="75px"
-                        height="75px"
-                        src={'./img/examples/' + value.language + '.svg'}
-                      />
-                    </td>
-                    <td>{value.framework}</td>
-                    <td>
-                      {' '}
-                      {value.tutorialLink.length > 1 && (
-                        <a href={value.tutorialLink}>{value.name}</a>
-                      )}
-                    </td>
-                    <td>
-                      <a href={value.repoLink}>{value.repoLink}</a>
-                    </td>
-                    <td>
-                      <a href={'https://github.com/' + value.createdBy}>
-                        {value.createdBy}
-                      </a>
-                    </td>
-                    <td>{value.tested ? '✅' : '✖️'}</td>
-                  </tr>
-                )
-              }
-            })}
-          </tbody>
-        </table>
-      </div>
+      <h1>Ory Examples</h1>
+      <ul className={styles.wrapper}>
+        {content.map((content) => {
+          return (
+            <li key="content.name">
+              <div className={styles.examplecontainer} >
+                <div>
+                  <img
+                    className={styles.exampleimg}
+                    src={'./img/examples/' + content.language + '.svg'}
+                  />
+                </div>
+                <div>
+                  <h2>{content.name}</h2>
+                </div>
+                <div></div>
+                <div>
+                  <h3>by <a href={'https://github.com/' + content.author}>@{content.author}</a></h3>
+                </div>
+                <div></div>
+                <div>
+                  {' '}
+                  <button onClick={() => location.href=`${content.repoLink}`} type="button">
+                    <img
+                      src="./img/github.svg"
+                    />
+                    Code
+                  </button>{' '}
+                  {content.tutorialLink.length > 1 && (<button onClick={() => location.href=`${content.tutorialLink}`} type="button">
+                    <img
+                      src="./img/book.svg"
+                    />
+                    Docs
+                  </button>)}
+                </div>
+              </div>
+            </li>
+          )
+        })}
+      </ul>
     </Layout>
   )
 }
