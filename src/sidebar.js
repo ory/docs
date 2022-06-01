@@ -1,6 +1,7 @@
 module.exports = {
   docs: [
     'welcome',
+    'security-model',
     {
       type: 'category',
       label: 'Guides',
@@ -28,6 +29,7 @@ module.exports = {
                 }
               ]
             },
+            'guides/local-development',
             'start-building/native-mobile-app',
             'guides/create-personal-access-token',
             'start-building/other-languages'
@@ -474,6 +476,7 @@ module.exports = {
         {
           Guides: [
             'oathkeeper/configure-deploy',
+            'oathkeeper/guides/proxy-websockets',
             'oathkeeper/guides/traefik-proxy-integration',
             'oathkeeper/guides/upgrade'
           ]
