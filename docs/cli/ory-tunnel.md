@@ -1,7 +1,7 @@
 ---
 id: ory-tunnel
 title: ory tunnel
-description: ory tunnel Tunnel Ory on a subdomain of your app or a seperate port your app's domain
+description: ory tunnel Tunnel Ory on a subdomain of your app or a separate port your app's domain
 ---
 
 <!--
@@ -11,7 +11,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory tunnel
 
-Tunnel Ory on a subdomain of your app or a seperate port your app's domain
+Tunnel Ory on a subdomain of your app or a separate port your app's domain
 
 ### Synopsis
 
