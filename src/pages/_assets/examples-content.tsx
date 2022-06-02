@@ -1,6 +1,8 @@
 import { PropTypes } from "../../components/Examples/example-list"
 
 export const official : PropTypes = {
+  title: 'Official Examples',
+  description: 'Examples maintained and tested by Ory.',
   examples: [
   {
     title: 'Protect a Page with Login: NextJs/React',
@@ -120,6 +122,8 @@ export const official : PropTypes = {
 }
 
 export const community : PropTypes = {
+  title: 'Community Examples',
+  description: 'Examples contributed by the Ory community. These examples are not maintained by Ory.',
   examples: [
   {
     title: 'Customize Self-service UI: Flutter',
@@ -208,6 +212,8 @@ export const community : PropTypes = {
 
 
 export const selfhosted : PropTypes = {
+  title: 'Selfhosted Examples',
+  description: 'Guides, tutorials and configurations for self-hosting Ory services.',
   examples: [
   {
     title: 'Integrate: Kong',

@@ -9,30 +9,28 @@
   list-style: none;
 }
 
-.examplecontainer {
+.container {
   display: grid;
-  grid-template-columns: 120px 260px;
-  grid-template-rows: 50px 40px 36px;
+  grid-template-columns: 90px 250px;
+  grid-template-rows: 55px 30px 40px;
   position: relative;
   margin: auto;
   overflow: hidden;
   width: 380px;
-  height: 126px;
+  height: 125px;
   background: #F5F5F5;
   border-radius: 5px;
   text-decoration: none;
 }
 
-.examplename {
+.title {
   font-size: large;
-  font-weight: bold;
-  margin-bottom: 8px;
 }
 
 .img {
-  width: 80px;
-  margin-top: 10px;
-  margin-left: 5px;
+  width: 50px;
+  margin-top: 15px;
+  margin-left: 15px;
 }
 
 .pageHeading {
@@ -40,12 +38,13 @@
 }
 
 .buttonImg {
-  width: 10px;
-  margin-right: 10px;
+  width: 12px;
+  margin-right: 8px;
 }
 
 .button {
   background: darken(#F5F5F5, 10%);
-  padding: 5px 15px 5px 15px;
+  margin-top: 8px;
+  padding: 2px 12px 2px 12px;
   cursor: pointer;
 }
