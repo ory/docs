@@ -163,8 +163,7 @@ export const community: PropTypes = {
       framework: 'NextJs',
       author: 'spa5k',
       tested: false,
-      repoLink:
-        'https://github.com/spa5k/kratos-next',
+      repoLink: 'https://github.com/spa5k/kratos-next',
       docs: 'https://github.com/spa5k/kratos-next/blob/main/README.md'
     },
     {

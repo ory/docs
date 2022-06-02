@@ -6,13 +6,12 @@
   grid-template-columns: auto auto;
   gap: 25px;
   list-style: none;
-}   
-@media screen and (min-width : 1200px) {
-  .wrapper{
+}
+@media screen and (min-width: 1200px) {
+  .wrapper {
     grid-template-columns: auto auto auto;
   }
-}    
-
+}
 
 .container {
   display: grid;
