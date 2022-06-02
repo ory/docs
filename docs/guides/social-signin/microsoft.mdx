@@ -201,20 +201,20 @@ To do that, add the `subject_source` field set to `me` to the social sign-in pro
 
 ```yaml title=kratos-config.yaml
   providers:
-    - id: microsoft # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
-          provider: microsoft
-          client_id: .... # This is the the Application (client) ID from the App Registration
-          client_secret: .... # This is the generated Secret value from the App Registration
-          microsoft_tenant: .... # This allows you to select the tenant.
-          // highlight-start
-          subject_source: me 
-          # or
-          # subject_source: userinfo  
-          // highlight-end
-          mapper_url: 'base64://<YOUR_BASE64_ENCODED_JSONNET_HERE>'
-          scope:
-            - profile
-            - email
+  - id: microsoft # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+    provider: microsoft
+    client_id: .... # This is the the Application (client) ID from the App Registration
+    client_secret: .... # This is the generated Secret value from the App Registration
+    microsoft_tenant: .... # This allows you to select the tenant.
+    // highlight-start
+    subject_source: me 
+    # or
+    # subject_source: userinfo  
+    // highlight-end
+    mapper_url: 'base64://<YOUR_BASE64_ENCODED_JSONNET_HERE>'
+    scope:
+    - profile
+    - email
 ```
 
 ## Prevent Having to Login after Sign-Up
