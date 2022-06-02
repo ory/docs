@@ -35,6 +35,7 @@ Before you start, you need to have a running Ory Cloud project. You can create o
 Pass the project's slug as a flag to the tunnel command:
 
 	$ ory tunnel --project <your-project-slug> ...
+	$ ORY_PROJECT_SLUG=<your-project-slug> ory tunnel ...
 
 ### Developing Locally
 
