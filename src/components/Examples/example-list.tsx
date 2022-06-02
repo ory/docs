@@ -14,7 +14,7 @@ interface ExampleCard {
   author: string
   tested: boolean
   repoLink: string
-  tutorialLink?: string
+  docs?: string
   description?: string
 }
 
@@ -24,7 +24,7 @@ const ExampleCard = ({
   framework,
   author,
   repoLink,
-  tutorialLink
+  docs
 }: ExampleCard) => (
   <li>
     <div className={styles.container}>
@@ -54,10 +54,10 @@ const ExampleCard = ({
           <img className={styles.buttonImg} src="./img/github.svg" />
           Code
         </button>
-        {tutorialLink && (
+        {docs && (
           <button
             className={styles.button}
-            onClick={() => (location.href = `${tutorialLink}`)}
+            onClick={() => (location.href = `${docs}`)}
             type="button"
           >
             <img className={styles.buttonImg} src="./img/book.svg" />
