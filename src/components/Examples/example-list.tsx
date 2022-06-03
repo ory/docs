@@ -51,7 +51,7 @@ const ExampleCard = ({
           onClick={() => (location.href = `${repo}`)}
           type="button"
         >
-          <span className={styles.buttonWrapper} ><img className={styles.buttonImg} src="./img/github.svg" /></span>
+          <img className={styles.buttonImg} src="./img/github.svg" />
           Code
         </button>
         {docs && (

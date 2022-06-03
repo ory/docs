@@ -11,8 +11,7 @@ export const official: PropTypes = {
       framework: 'NextJs/React',
       author: 'ory',
       tested: true,
-      repo:
-        'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/nextjs',
+      repo: 'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/nextjs',
       docs: 'https://www.ory.sh/docs/guides/protect-page-login/next.js'
     },
     {
@@ -21,8 +20,7 @@ export const official: PropTypes = {
       framework: 'ExpressJs',
       author: 'ory',
       tested: true,
-      repo:
-        'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/expressjs',
+      repo: 'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/expressjs',
       docs: 'https://www.ory.sh/docs/guides/protect-page-login/expressjs'
     },
     {
@@ -31,8 +29,7 @@ export const official: PropTypes = {
       framework: 'Vanilla',
       author: 'ory',
       tested: true,
-      repo:
-        'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/go',
+      repo: 'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/go',
       docs: 'https://www.ory.sh/docs/guides/protect-page-login/go'
     },
     {
@@ -41,8 +38,7 @@ export const official: PropTypes = {
       framework: 'Vanilla',
       author: 'ory',
       tested: true,
-      repo:
-        'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/php',
+      repo: 'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/php',
       docs: 'https://www.ory.sh/docs/guides/protect-page-login/php'
     },
     {
@@ -51,8 +47,7 @@ export const official: PropTypes = {
       framework: 'Flutter',
       author: 'ory',
       tested: true,
-      repo:
-        'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/flutter_web_redirect',
+      repo: 'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/flutter_web_redirect',
       docs: 'https://www.ory.sh/docs/guides/protect-page-login/-web-redirect'
     },
     {
@@ -108,8 +103,7 @@ export const official: PropTypes = {
       framework: 'React Native',
       author: 'ory',
       tested: false,
-      repo:
-        'https://github.com/ory/examples/tree/master/supabase-ory-cloud',
+      repo: 'https://github.com/ory/examples/tree/master/supabase-ory-cloud',
       docs: 'https://github.com/ory/examples/blob/master/supabase-ory-cloud/README.md'
     }
   ]
@@ -153,8 +147,7 @@ export const community: PropTypes = {
       framework: 'Vue3',
       author: 'timalanfarrow',
       tested: false,
-      repo:
-        'https://github.com/timalanfarrow/kratos-selfservice-ui-vue3-typescript',
+      repo: 'https://github.com/timalanfarrow/kratos-selfservice-ui-vue3-typescript',
       docs: 'https://github.com/timalanfarrow/kratos-selfservice-ui-vue3-typescript/blob/main/README.md'
     },
     {
@@ -225,8 +218,7 @@ export const selfhosted: PropTypes = {
       framework: 'Kong',
       author: 'ory',
       tested: false,
-      repo:
-        'https://github.com/ory/examples/tree/master/kratos-oathkeeper-kong',
+      repo: 'https://github.com/ory/examples/tree/master/kratos-oathkeeper-kong',
       docs: 'https://www.ory.sh/zero-trust-api-security-ory-tutorial/'
     },
     {

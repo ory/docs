@@ -51,11 +51,6 @@
 .button {
   margin-top: 8px;
   padding: 2px 12px 2px 12px;
+  color-scheme: light;
   cursor: pointer;
-}
-
-.buttonWrapper {
-  padding: -12px;
-  background-color: whitesmoke
-   
 }
