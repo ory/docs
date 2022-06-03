@@ -2,10 +2,6 @@
   "name": "docusaurus-template",
   "version": "0.0.0",
   "private": true,
-  "prettier": "ory-prettier-styles",
-  "config": {
-    "prettierTarget": "{code-examples/**,docs/**,docs/,scripts/,static/,contrib/,src/,src/**/,}*.{md,mdx,json,js,css,html,ts,tsx}"
-  },
   "scripts": {
     "gen": "npm-run-all gen:*",
     "docusaurus": "docusaurus",
@@ -15,12 +11,12 @@
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "serve": "docusaurus serve",
-    "format": "prettier --write ${npm_package_config_prettierTarget}",
-    "format:check": "prettier --check ${npm_package_config_prettierTarget}",
     "test": "playwright test",
     "test:unit": "jest tests/jest --maxConcurrency=8 --bail 1"
   },
   "dependencies": {
+    "ory-prettier-styles": "1.2.0",
+    "prettier": "2.6.2",
     "@apidevtools/json-schema-ref-parser": "^9.0.9",
     "@docusaurus/core": "^2.0.0-beta.21",
     "@docusaurus/plugin-client-redirects": "^2.0.0-beta.21",
@@ -44,9 +40,7 @@
     "mermaid": "8.13.8",
     "net": "^1.0.2",
     "node-fetch": "2.6.7",
-    "ory-prettier-styles": "1.2.0",
     "parser-front-matter": "1.6.4",
-    "prettier": "2.6.2",
     "prism-react-renderer": "1.2.1",
     "prismjs": "1.27.0",
     "ramda": "^0.27.1",
@@ -76,6 +70,8 @@
     "@swc/core-darwin-x64": "^1.2.139"
   },
   "devDependencies": {
+    "ory-prettier-styles": "1.2.0",
+    "prettier": "2.6.2",
     "@playwright/test": "^1.18.1",
     "@swc/core": "^1.2.139",
     "@swc/jest": "^0.2.17",
