@@ -11,33 +11,33 @@ export interface PropTypes {
   author: string
   tested: boolean
   repoLink: string
-  docs: string
+  tutorialLink: string
   description: string
 }
 
-const Examples = ({}: PropTypes) => (
-  <Layout>
-    <h1 className={styles.pageHeading}>Ory Examples</h1>
-    <ul className={styles.wrapper}>
-      {official.map((official) => {
-        return (
-          <li key="name">
-            <div className={styles.examplecontainer}>
-              <div>
-                <img
-                  className={styles.img}
-                  src={'./img/examples/' + official.language + '.svg'}
-                />
-              </div>
-              <div>
-                <p className={styles.examplename}>{official.title}</p>
-              </div>
-            </div>
-          </li>
-        )
-      })}
-    </ul>
-  </Layout>
-)
+const Examples = ({ }: PropTypes) => (
+      <Layout>
+      <h1 className={styles.pageHeading}>Ory Examples</h1>
+      <ul className={styles.wrapper}>
+        {official.map((official) => {
+          return (
+            <li key="name">
+              <div className={styles.examplecontainer}>
+                <div>
+                  <img
+                    className={styles.img}
+                    src={'./img/examples/' + official.language + '.svg'}
+                  />
+                </div>
+                <div>
+                  <p className={styles.examplename}>{official.title}</p>
+                  </div>
+                  </div>
+            </li>
+          )
+        })}
+         </ul>
+    </Layout>
+    )
 
 export default Examples

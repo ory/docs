@@ -11,7 +11,7 @@ export const official: PropTypes = {
       framework: 'NextJs/React',
       author: 'ory',
       tested: true,
-      repoLink:
+      repo:
         'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/nextjs',
       docs: 'https://www.ory.sh/docs/guides/protect-page-login/next.js'
     },
@@ -21,7 +21,7 @@ export const official: PropTypes = {
       framework: 'ExpressJs',
       author: 'ory',
       tested: true,
-      repoLink:
+      repo:
         'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/expressjs',
       docs: 'https://www.ory.sh/docs/guides/protect-page-login/expressjs'
     },
@@ -31,7 +31,7 @@ export const official: PropTypes = {
       framework: 'Vanilla',
       author: 'ory',
       tested: true,
-      repoLink:
+      repo:
         'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/go',
       docs: 'https://www.ory.sh/docs/guides/protect-page-login/go'
     },
@@ -41,7 +41,7 @@ export const official: PropTypes = {
       framework: 'Vanilla',
       author: 'ory',
       tested: true,
-      repoLink:
+      repo:
         'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/php',
       docs: 'https://www.ory.sh/docs/guides/protect-page-login/php'
     },
@@ -51,7 +51,7 @@ export const official: PropTypes = {
       framework: 'Flutter',
       author: 'ory',
       tested: true,
-      repoLink:
+      repo:
         'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/flutter_web_redirect',
       docs: 'https://www.ory.sh/docs/guides/protect-page-login/-web-redirect'
     },
@@ -61,7 +61,7 @@ export const official: PropTypes = {
       framework: 'Django',
       author: 'ory',
       tested: true,
-      repoLink: 'https://github.com/ory/examples/tree/master/django-ory-cloud',
+      repo: 'https://github.com/ory/examples/tree/master/django-ory-cloud',
       docs: 'https://hauke.me/writing/2021-03-building-a-quarkus-application-with-ory-kratos/',
       description:
         'This repo demonstrates how you can use Ory Cloud or Ory Kratos with Django apps.'
@@ -72,7 +72,7 @@ export const official: PropTypes = {
       framework: 'Flask',
       author: 'ory',
       tested: true,
-      repoLink: 'https://github.com/ory/examples/tree/master/kratos-keto-flask',
+      repo: 'https://github.com/ory/examples/tree/master/kratos-keto-flask',
       docs: 'https://www.ory.sh/securing-flask-application-using-kratos-and-keto/'
     },
     {
@@ -81,7 +81,7 @@ export const official: PropTypes = {
       framework: 'NodeJs',
       author: 'ory',
       tested: true,
-      repoLink: 'https://github.com/ory/kratos-selfservice-ui-node',
+      repo: 'https://github.com/ory/kratos-selfservice-ui-node',
       docs: 'https://github.com/ory/kratos-selfservice-ui-node/blob/master/README.md'
     },
     {
@@ -90,7 +90,7 @@ export const official: PropTypes = {
       framework: 'NextJs/React',
       author: 'ory',
       tested: true,
-      repoLink: 'https://github.com/ory/kratos-nextjs-react-example',
+      repo: 'https://github.com/ory/kratos-nextjs-react-example',
       docs: 'https://www.ory.sh/nextjs-authentication-spa-custom-flows-open-source/'
     },
     {
@@ -99,7 +99,7 @@ export const official: PropTypes = {
       framework: 'React Native',
       author: 'ory',
       tested: false,
-      repoLink: 'https://github.com/ory/kratos-selfservice-ui-react-native',
+      repo: 'https://github.com/ory/kratos-selfservice-ui-react-native',
       docs: 'https://www.ory.sh/login-react-native-authentication-example-api/'
     },
     {
@@ -108,7 +108,7 @@ export const official: PropTypes = {
       framework: 'React Native',
       author: 'ory',
       tested: false,
-      repoLink:
+      repo:
         'https://github.com/ory/examples/tree/master/supabase-ory-cloud',
       docs: 'https://github.com/ory/examples/blob/master/supabase-ory-cloud/README.md'
     }
@@ -126,7 +126,7 @@ export const community: PropTypes = {
       framework: 'Flutter',
       author: 'amorevino',
       tested: false,
-      repoLink: 'https://github.com/amorevino/ory-showcase-apps',
+      repo: 'https://github.com/amorevino/ory-showcase-apps',
       docs: 'https://www.ory.sh/cloud-ecommerce-frontend/'
     },
     {
@@ -135,7 +135,7 @@ export const community: PropTypes = {
       framework: 'Flutter Web',
       author: 'IGLU-Agency',
       tested: false,
-      repoLink: 'https://github.com/IGLU-Agency/iglu-ory-kratos-example',
+      repo: 'https://github.com/IGLU-Agency/iglu-ory-kratos-example',
       docs: 'https://www.ory.sh/login-flutter-authentication-example-api-open-source/'
     },
     {
@@ -144,7 +144,7 @@ export const community: PropTypes = {
       framework: 'Quarkus',
       author: 'hbrammer',
       tested: false,
-      repoLink: 'https://github.com/hbrammer/quarkus_kratos_example',
+      repo: 'https://github.com/hbrammer/quarkus_kratos_example',
       docs: 'https://hauke.me/writing/2021-03-building-a-quarkus-application-with-ory-kratos/'
     },
     {
@@ -153,7 +153,7 @@ export const community: PropTypes = {
       framework: 'Vue3',
       author: 'timalanfarrow',
       tested: false,
-      repoLink:
+      repo:
         'https://github.com/timalanfarrow/kratos-selfservice-ui-vue3-typescript',
       docs: 'https://github.com/timalanfarrow/kratos-selfservice-ui-vue3-typescript/blob/main/README.md'
     },
@@ -163,7 +163,7 @@ export const community: PropTypes = {
       framework: 'NextJs',
       author: 'spa5k',
       tested: false,
-      repoLink: 'https://github.com/spa5k/kratos-next',
+      repo: 'https://github.com/spa5k/kratos-next',
       docs: 'https://github.com/spa5k/kratos-next/blob/main/README.md'
     },
     {
@@ -172,7 +172,7 @@ export const community: PropTypes = {
       framework: 'Rebar3',
       author: 'hrefhref',
       tested: false,
-      repoLink: 'https://github.com/hrefhref/styx',
+      repo: 'https://github.com/hrefhref/styx',
       docs: 'https://github.com/hrefhref/styx/blob/main/README.md'
     },
     {
@@ -181,7 +181,7 @@ export const community: PropTypes = {
       framework: 'React',
       author: 'allancalix',
       tested: false,
-      repoLink: 'https://github.com/allancalix/kratos-ui',
+      repo: 'https://github.com/allancalix/kratos-ui',
       docs: 'https://github.com/allancalix/kratos-ui/blob/main/README.md'
     },
     {
@@ -190,7 +190,7 @@ export const community: PropTypes = {
       framework: 'Sveltekit',
       author: 'micleyman',
       tested: true,
-      repoLink: 'https://github.com/micleyman/sveltekit-ory-starter',
+      repo: 'https://github.com/micleyman/sveltekit-ory-starter',
       docs: 'https://github.com/micleyman/sveltekit-ory-starter/blob/main/README.md'
     },
     {
@@ -199,7 +199,7 @@ export const community: PropTypes = {
       framework: 'Sveltekit',
       author: 'drejohnson',
       tested: false,
-      repoLink: 'https://github.com/drejohnson/sveltekit-kratos',
+      repo: 'https://github.com/drejohnson/sveltekit-kratos',
       docs: 'https://github.com/drejohnson/sveltekit-kratos/blob/main/README.md'
     },
     {
@@ -208,7 +208,7 @@ export const community: PropTypes = {
       framework: 'Sveltekit',
       author: 'emrahcom',
       tested: false,
-      repoLink: 'https://github.com/emrahcom/kratos-selfservice-svelte-node',
+      repo: 'https://github.com/emrahcom/kratos-selfservice-svelte-node',
       docs: 'https://github.com/emrahcom/kratos-selfservice-svelte-node/blob/master/README.md'
     }
   ]
@@ -225,7 +225,7 @@ export const selfhosted: PropTypes = {
       framework: 'Kong',
       author: 'ory',
       tested: false,
-      repoLink:
+      repo:
         'https://github.com/ory/examples/tree/master/kratos-oathkeeper-kong',
       docs: 'https://www.ory.sh/zero-trust-api-security-ory-tutorial/'
     },
@@ -235,7 +235,7 @@ export const selfhosted: PropTypes = {
       framework: 'Ory Oathkeeper',
       author: 'ory',
       tested: false,
-      repoLink: 'https://github.com/ory/examples/tree/master/oathkeeper',
+      repo: 'https://github.com/ory/examples/tree/master/oathkeeper',
       docs: 'https://github.com/ory/examples/blob/master/oathkeeper/README.md'
     },
     {
@@ -244,7 +244,7 @@ export const selfhosted: PropTypes = {
       framework: 'Ory Kratos',
       author: 'ory',
       tested: false,
-      repoLink: 'https://github.com/dfoxg/kratos-admin-ui',
+      repo: 'https://github.com/dfoxg/kratos-admin-ui',
       docs: 'https://github.com/dfoxg/kratos-admin-ui/blob/main/README.md'
     },
     {
@@ -253,7 +253,7 @@ export const selfhosted: PropTypes = {
       framework: 'Ory Stack',
       author: 'pngouin',
       tested: false,
-      repoLink: 'https://github.com/pngouin/k8s-ory-example',
+      repo: 'https://github.com/pngouin/k8s-ory-example',
       docs: 'https://github.com/pngouin/k8s-ory-example/blob/main/README.md'
     },
     {
@@ -262,7 +262,7 @@ export const selfhosted: PropTypes = {
       framework: 'Ory Stack',
       author: 'radekg',
       tested: false,
-      repoLink: 'https://github.com/radekg/ory-reference-compose',
+      repo: 'https://github.com/radekg/ory-reference-compose',
       docs: 'https://github.com/dfoxg/kratos-admin-ui/blob/main/README.md'
     }
   ]

@@ -13,7 +13,7 @@ interface ExampleCard {
   framework?: string
   author: string
   tested: boolean
-  repoLink: string
+  repo: string
   docs?: string
   description?: string
 }
@@ -23,7 +23,7 @@ const ExampleCard = ({
   language,
   framework,
   author,
-  repoLink,
+  repo,
   docs
 }: ExampleCard) => (
   <li>
@@ -48,10 +48,10 @@ const ExampleCard = ({
         {' '}
         <button
           className={styles.button}
-          onClick={() => (location.href = `${repoLink}`)}
+          onClick={() => (location.href = `${repo}`)}
           type="button"
         >
-          <img className={styles.buttonImg} src="./img/github.svg" />
+          <span className={styles.buttonWrapper} ><img className={styles.buttonImg} src="./img/github.svg" /></span>
           Code
         </button>
         {docs && (
