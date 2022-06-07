@@ -63,7 +63,7 @@ Let us take a look at following examples. We have session middleware that valida
 1. If a session is valid, return it and do not request Ory Cloud;
 1. If data does not persist, validate a session against Ory Cloud and cache it.
 
-## Network architecture
+### Network architecture
 
 1. `8080` port is used by the REST API
 1. `4000` port is used by [`ory proxy`](https://ory.sh/docs/guides/cli/proxy-and-tunnel) that manages cookies for local domain and proxies traffic to Ory Cloud
@@ -74,7 +74,7 @@ Running Ory proxy
 ORY_SDK_URL=https://playground.projects.oryapis.com ory proxy http://localhost:8080
 ```
 
-## Using embedded cache storage
+### Using embedded cache storage
 
 This example uses [dgraph-io/ristretto](https://github.com/dgraph-io/ristretto) memory-bound
 Go cache.
@@ -85,7 +85,7 @@ import embedded from '!!raw-loader!../../../code-examples/low-latency-sessions/e
 <CodeBlock language="go">{embedded}</CodeBlock>
 ```
 
-## Using Redis cache
+### Using Redis cache
 
 The example below shows how to cache sessions using [Redis](https://redis.io)
 

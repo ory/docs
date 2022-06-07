@@ -17,12 +17,12 @@ import (
 const (
 	// For local development, it's requires to use
 	// ory proxy to make cookies work fine.
-	// Replace it with http://projectId.projects.oryapis.com
+	// Replace it with http://<project_slug>.projects.oryapis.com
 	// for production usage.
 	sdkURL = "http://localhost:4000/.ory"
-	// For local development, it's requires to use
-	// ory proxy to make cookies work fine.
-	// Replace it with http://projectId.projects.oryapis.com/ui/login
+	// When developing locally, use Ory Proxy
+	// to have the right origin set in HTTP cookies.
+	// Replace it with http://<project_slug>.projects.oryapis.com/ui/login
 	// for production usage.
 	loginURL = "http://localhost:4000/.ory/ui/login"
 )
