@@ -355,8 +355,73 @@
       "permanent": false
     },
     {
+      "source": "/docs/kratos/guides/login-session",
+      "destination": "https://www.ory.sh/docs/guides/session-management/check-session",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/concepts/session",
+      "destination": "https://www.ory.sh/docs/guides/session-management/overview",
+      "permanent": false
+    },
+    {
       "source": "/:path*/index",
       "destination": "https://www.ory.sh/:path",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/config-with-cli",
+      "destination": "https://www.ory.sh/docs/guides/cli/config-with-cli",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/ory-cli-install-use",
+      "destination": "https://www.ory.sh/docs/guides/cli/installation",
+      "permanent": false
+    },
+    {
+      "source": "/docs/(kratos|hydra|keto|oathkeeper)/contributing",
+      "destination": "https://github.com/ory/(kratos|hydra|keto|oathkeeper)/blob/master/CONTRIBUTING.md",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/proxy",
+      "destination": "https://www.ory.sh/docs/guides/cli/proxy-and-tunnel",
+      "permanent": false
+    },
+    {
+      "source": "/docs/keto/engines",
+      "destination": "https://www.ory.sh/docs/keto/guides/upgrade",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/admin/managing-users-identities",
+      "destination": "https://www.ory.sh/docs/guides/manage-identities/managing-users-identities",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/guides/sign-in-with-github-google-facebook-linkedin",
+      "destination": "https://www.ory.sh/docs/guides/social-signin/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/cloud/developer",
+      "destination": "https://www.ory.sh/pricing",
+      "permanent": false
+    },
+    {
+      "source": "/docs/cloud/cloud-roadmap",
+      "destination": "https://www.ory.sh/cloud",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/guides/two-factor-authentication-2fa-mfa",
+      "destination": "https://www.ory.sh/docs/guides/mfa/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/passwordless/social-sign-in",
+      "destination": "https://www.ory.sh/docs/guides/social-signin/overview",
       "permanent": false
     }
   ]

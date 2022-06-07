@@ -3,22 +3,17 @@ id: authz
 title: Authorizers
 ---
 
-An "authorizer" is responsible for properly permissioning a subject. Ory
-Oathkeeper supports different kinds of authorizers. The list of authorizers
-increases over time due to new features and requirements.
+An "authorizer" is responsible for properly permissioning a subject. Ory Oathkeeper supports different kinds of authorizers. The
+list of authorizers increases over time due to new features and requirements.
 
-Authorizers assure that a subject, for instance a "user", has the permissions
-necessary to access or perform a particular service. For example, an authorizer
-can permit access to an endpoint or URL for specific subjects or "users" from a
-specific group "admin". The authorizer permits the subjects the desired access
-to the endpoint.
+Authorizers assure that a subject, for instance a "user", has the permissions necessary to access or perform a particular service.
+For example, an authorizer can permit access to an endpoint or URL for specific subjects or "users" from a specific group "admin".
+The authorizer permits the subjects the desired access to the endpoint.
 
 Each authorizer has two keys:
 
-- `handler` (string, required): Defines the handler, for example `noop`, to be
-  used.
-- `config` (object, optional): Configures the handler. Configuration keys can
-  vary for each handler.s
+- `handler` (string, required): Defines the handler, for example `noop`, to be used.
+- `config` (object, optional): Configures the handler. Configuration keys can vary for each handler.s
 
 ```json
 {
@@ -29,8 +24,8 @@ Each authorizer has two keys:
 }
 ```
 
-There is a 1:1 mandatory relationship between an authoriser and an access rule.
-It isn't possible to configure more than one authorizer per Access Rule.
+There is a 1:1 mandatory relationship between an authoriser and an access rule. It isn't possible to configure more than one
+authorizer per Access Rule.
 
 ## `allow`
 
@@ -79,8 +74,7 @@ The request has been allowed!
 
 ## `deny`
 
-This authorizer considers every action unauthorized therefore "forbidden" or
-"disallowed".
+This authorizer considers every action unauthorized therefore "forbidden" or "disallowed".
 
 ### `deny` Configuration
 
@@ -125,15 +119,13 @@ The request is forbidden!
 
 ## `keto_engine_acp_ory`
 
-This authorizer uses the Ory Keto API to carry out access control using
-"Ory-flavored" Access Control Policies. The conventions used in the Ory Keto
-project are located on [GitHub Ory Keto](https://github.com/ory/keto) for
-consultation prior to using this authorizer.
+This authorizer uses the Ory Keto API to carry out access control using "Ory-flavored" Access Control Policies. The conventions
+used in the Ory Keto project are located on [GitHub Ory Keto](https://github.com/ory/keto) for consultation prior to using this
+authorizer.
 
 ### `keto_engine_acp_ory` Configuration
 
-- `base_url` (string, required) - The base URL of Ory Keto, typically something
-  like `https://hostname:port/`
+- `base_url` (string, required) - The base URL of Ory Keto, typically something like `https://hostname:port/`
 - `required_action` (string, required) - See section below.
 - `required_resource` (string, required) - See section below.
 - `subject` (string, optional) - See section below.
@@ -141,8 +133,7 @@ consultation prior to using this authorizer.
 
 #### Resource, Action, Subject
 
-This authorizer has four configuration options, `required_action`,
-`required_resource`, `subject`, and `flavor`:
+This authorizer has four configuration options, `required_action`, `required_resource`, `subject`, and `flavor`:
 
 ```json
 {
@@ -156,8 +147,7 @@ This authorizer has four configuration options, `required_action`,
 }
 ```
 
-All configuration options except `flavor` support Go
-[`text/template`](https://golang.org/pkg/text/template/). For example in the
+All configuration options except `flavor` support Go [`text/template`](https://golang.org/pkg/text/template/). For example in the
 following match configuration:
 
 ```json
@@ -169,9 +159,8 @@ following match configuration:
 }
 ```
 
-The following example shows how to reference the values matched by or resulting
-from the two regular expressions, `<[0-9]+>` and `<[a-zA-Z]+>`. using the
-`AuthenticationSession` struct:
+The following example shows how to reference the values matched by or resulting from the two regular expressions, `<[0-9]+>` and
+`<[a-zA-Z]+>`. using the `AuthenticationSession` struct:
 
 ```json
 {
@@ -183,8 +172,7 @@ from the two regular expressions, `<[0-9]+>` and `<[a-zA-Z]+>`. using the
 }
 ```
 
-Assuming a request to `http://my-api/api/users/1234/foobar` was made, the config
-from above would expand to:
+Assuming a request to `http://my-api/api/users/1234/foobar` was made, the config from above would expand to:
 
 ```json
 {
@@ -196,11 +184,10 @@ from above would expand to:
 }
 ```
 
-The `subject` field configures the subject that passes to the Ory Keto endpoint.
-If `subject` isn't specified it will default to `AuthenticationSession.Subject`.
+The `subject` field configures the subject that passes to the Ory Keto endpoint. If `subject` isn't specified it will default to
+`AuthenticationSession.Subject`.
 
-For more details about supported Go template substitution, see.
-[How to use session variables](../pipeline.md#session)
+For more details about supported Go template substitution, see. [How to use session variables](../pipeline.md#session)
 
 #### `keto_engine_acp_ory` Example
 
@@ -274,31 +261,24 @@ $ cat ./rules.json
 
 ## `remote`
 
-This authorizer performs authorization using a remote authorizer. The authorizer
-makes a HTTP POST request to a remote endpoint with the original body request as
-body. If the endpoint returns a "200 OK" response code, the access is allowed,
-if it returns a "403 Forbidden" response code, the access is denied.
+This authorizer performs authorization using a remote authorizer. The authorizer makes a HTTP POST request to a remote endpoint
+with the original body request as body. If the endpoint returns a "200 OK" response code, the access is allowed, if it returns a
+"403 Forbidden" response code, the access is denied.
 
 ### `remote` Configuration
 
-- `remote` (string, required) - The remote authorizer's URL. The remote
-  authorizer is expected to return either "200 OK" or "403 Forbidden" to
-  allow/deny access.
-- `headers` (map of strings, optional) - The HTTP headers sent to the remote
-  authorizer. The values will be parsed by the Go
-  [`text/template`](https://golang.org/pkg/text/template/) package and applied
-  to an
-  [`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/master/pipeline/authn/authenticator.go#L40)
-  object. See [Session](../pipeline.md#session) for more details.
-- `forward_response_headers_to_upstream` (slice of strings, optional) - The HTTP
-  headers that will be allowed from remote authorizer responses. If returned,
-  headers on this list will be forward to upstream services.
-- `retry` (object, optional) - Configures timeout and delay settings for the
-  request against the token endpoint
-  - `give_up_after` (string) max delay duration of retry. The value will be
-    parsed by the Go [duration parser](https://pkg.go.dev/time#ParseDuration).
-  - `max_delay` (string) time to wait between retries and max service response
-    time. The value will be parsed by the Go
+- `remote` (string, required) - The remote authorizer's URL. The remote authorizer is expected to return either "200 OK" or "403
+  Forbidden" to allow/deny access.
+- `headers` (map of strings, optional) - The HTTP headers sent to the remote authorizer. The values will be parsed by the Go
+  [`text/template`](https://golang.org/pkg/text/template/) package and applied to an
+  [`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/master/pipeline/authn/authenticator.go#L40) object. See
+  [Session](../pipeline.md#session) for more details.
+- `forward_response_headers_to_upstream` (slice of strings, optional) - The HTTP headers that will be allowed from remote
+  authorizer responses. If returned, headers on this list will be forward to upstream services.
+- `retry` (object, optional) - Configures timeout and delay settings for the request against the token endpoint
+  - `give_up_after` (string) max delay duration of retry. The value will be parsed by the Go
+    [duration parser](https://pkg.go.dev/time#ParseDuration).
+  - `max_delay` (string) time to wait between retries and max service response time. The value will be parsed by the Go
     [duration parser](https://pkg.go.dev/time#ParseDuration).
 
 #### `remote` Example
@@ -368,31 +348,24 @@ authorizers:
 
 ## `remote_json`
 
-This authorizer performs authorization using a remote authorizer. The authorizer
-makes a HTTP POST request to a remote endpoint with a JSON body. If the endpoint
-returns a "200 OK" response code, the access is allowed, if it returns a "403
-Forbidden" response code, the access is denied.
+This authorizer performs authorization using a remote authorizer. The authorizer makes a HTTP POST request to a remote endpoint
+with a JSON body. If the endpoint returns a "200 OK" response code, the access is allowed, if it returns a "403 Forbidden"
+response code, the access is denied.
 
 ### `remote_json` Configuration
 
-- `remote` (string, required) - The remote authorizer's URL. The remote
-  authorizer is expected to return either "200 OK" or "403 Forbidden" to
-  allow/deny access.
-- `payload` (string, required) - The request's JSON payload sent to the remote
-  authorizer. The string will be parsed by the Go
-  [`text/template`](https://golang.org/pkg/text/template/) package and applied
-  to an
-  [`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/master/pipeline/authn/authenticator.go#L40)
-  object. See [Session](../pipeline.md#session) for more details.
-- `forward_response_headers_to_upstream` (slice of strings, optional) - The HTTP
-  headers that will be allowed from remote authorizer responses. If returned,
-  headers on this list will be forward to upstream services.
-- `retry` (object, optional) - Configures timeout and delay settings for the
-  request against the token endpoint
-  - `give_up_after` (string) max delay duration of retry. The value will be
-    parsed by the Go [duration parser](https://pkg.go.dev/time#ParseDuration).
-  - `max_delay` (string) time to wait between retries and max service response
-    time. The value will be parsed by the Go
+- `remote` (string, required) - The remote authorizer's URL. The remote authorizer is expected to return either "200 OK" or "403
+  Forbidden" to allow/deny access.
+- `payload` (string, required) - The request's JSON payload sent to the remote authorizer. The string will be parsed by the Go
+  [`text/template`](https://golang.org/pkg/text/template/) package and applied to an
+  [`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/master/pipeline/authn/authenticator.go#L40) object. See
+  [Session](../pipeline.md#session) for more details.
+- `forward_response_headers_to_upstream` (slice of strings, optional) - The HTTP headers that will be allowed from remote
+  authorizer responses. If returned, headers on this list will be forward to upstream services.
+- `retry` (object, optional) - Configures timeout and delay settings for the request against the token endpoint
+  - `give_up_after` (string) max delay duration of retry. The value will be parsed by the Go
+    [duration parser](https://pkg.go.dev/time#ParseDuration).
+  - `max_delay` (string) time to wait between retries and max service response time. The value will be parsed by the Go
     [duration parser](https://pkg.go.dev/time#ParseDuration).
 
 #### `remote_json` Example

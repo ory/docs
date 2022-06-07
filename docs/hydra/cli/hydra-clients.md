@@ -20,7 +20,7 @@ Manage OAuth 2.0 Clients
       --access-token string    Set an access token to be used in the Authorization header, defaults to environment variable OAUTH2_ACCESS_TOKEN
       --endpoint string        Set the URL where Ory Hydra is hosted, defaults to environment variable HYDRA_ADMIN_URL. A unix socket can be set in the form unix:///path/to/socket
       --fail-after duration    Stop retrying after the specified duration (default 1m0s)
-      --fake-tls-termination   Fake tls termination by adding &#34;X-Forwarded-Proto: https&#34; to http headers
+      --fake-tls-termination   Fake tls termination by adding "X-Forwarded-Proto: https" to http headers
   -h, --help                   help for clients
       --skip-tls-verify        Foolishly accept TLS certificates signed by unknown certificate authorities
 ```
@@ -31,14 +31,9 @@ Manage OAuth 2.0 Clients
 - [hydra clients create](hydra-clients-create) - Create a new OAuth 2.0 Client
 - [hydra clients delete](hydra-clients-delete) - Delete an OAuth 2.0 Client
 - [hydra clients get](hydra-clients-get) - Get an OAuth 2.0 Client
-- [hydra clients import](hydra-clients-import) - Import OAuth 2.0 Clients from
-  one or more JSON files
-- [hydra clients import](hydra-clients-import) - Import OAuth 2.0 Clients from
-  one or more JSON files
-- [hydra clients import](hydra-clients-import) - Imports OAuth 2.0 Clients from
-  one or more JSON files to the JSON Web Key Store
-- [hydra clients import](hydra-clients-import) - Import OAuth 2.0 Clients from
-  one or more JSON files
+- [hydra clients import](hydra-clients-import) - Import OAuth 2.0 Clients from one or more JSON files
+- [hydra clients import](hydra-clients-import) - Import OAuth 2.0 Clients from one or more JSON files
+- [hydra clients import](hydra-clients-import) - Imports OAuth 2.0 Clients from one or more JSON files to the JSON Web Key Store
+- [hydra clients import](hydra-clients-import) - Import OAuth 2.0 Clients from one or more JSON files
 - [hydra clients list](hydra-clients-list) - List OAuth 2.0 Clients
-- [hydra clients update](hydra-clients-update) - Update an entire OAuth 2.0
-  Client
+- [hydra clients update](hydra-clients-update) - Update an entire OAuth 2.0 Client

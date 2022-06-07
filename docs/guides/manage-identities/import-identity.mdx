@@ -3,22 +3,18 @@ id: import-identity
 title: Import Identities
 ---
 
-Ory allows you to import identities from any other system. The endpoints used is
-the same as when
-[creating identities](../../kratos/admin/managing-users-identities.mdx) with the
-subtle difference that you additional provide the `credentials` field.
+Ory allows you to import identities from any other system. The endpoint used is the same as when
+[creating identities](./managing-users-identities.mdx) with the subtle difference that you also provide the `credentials` field.
 
 ## Importing Verified Addresses
 
-Use the `verifiable_addresses` field to import a verified address like an email
-address.
+Use the `verifiable_addresses` field to import a verified address like an email address.
 
 :::warning
 
-You must ensure that address verification is enabled and that the
-`verifiable_address` is present in the identity's traits. If the identity traits
-do not have the address set as the "verified address" type, the imported values
-will be deleted on the next identity update.
+You must ensure that address verification is enabled and that the `verifiable_address` is present in the identity's traits. If the
+identity traits do not have the address set as the "verified address" type, the imported values will be deleted on the next
+identity update.
 
 :::
 
@@ -144,18 +140,16 @@ The API then responds with the created identity:
 
 ## Importing Recovery Addresses
 
-It is possible to import a list of `recovery_addresses` - similar to
-`verifiable_addresses`. It is better to let the identity schema handle setting
-the appropriate fields since there is no status to set for this address type.
+It is possible to import a list of `recovery_addresses` - similar to `verifiable_addresses`. It is better to let the identity
+schema handle setting the appropriate fields since there is no status to set for this address type.
 
-We do not recommend setting these fields as they will be overwritten anyways!
-For more information on account recovery please head over to the
-[account recovery documentation](../../kratos/guides/account-recovery-password-reset.mdx).
+We do not recommend setting these fields as they will be overwritten anyways! For more information on account recovery please head
+over to the [account recovery documentation](../../kratos/guides/account-recovery-password-reset.mdx).
 
 ## Importing Credentials
 
-Ory supports importing credentials for identities including passwords and social
-sign in. You can use all of these payloads with the `curl` command from above!
+Ory supports importing credentials for identities including passwords and social sign in. You can use all of these payloads with
+the `curl` command from above!
 
 ### Clear Text Password
 
@@ -163,8 +157,8 @@ To import a clear text password, provide the password in the JSON payload.
 
 :::warning
 
-Password imports do not use any password validation. Users have to update their
-password according to the policy themselves using self-service flows.
+Password imports do not use any password validation. Users have to update their password according to the policy themselves using
+self-service flows.
 
 :::
 
@@ -184,14 +178,12 @@ password according to the policy themselves using self-service flows.
 }
 ```
 
-The password `the-password` will then be hashed according to the configured
-password hashing algorithm and stored in the database. The identity will be able
-to sign in using `docs-cleartext@example.org` and `the-password` as credentials.
+The password `the-password` will then be hashed according to the configured password hashing algorithm and stored in the database.
+The identity will be able to sign in using `docs-cleartext@example.org` and `the-password` as credentials.
 
 ### BCrypt, PKBDF2, Argon2 Family Hashed Password
 
-Besides clear text passwords it is possible to import password hashes. Currently
-the following algorithms are supported:
+Besides clear text passwords it is possible to import password hashes. Currently the following algorithms are supported:
 
 - PKBDF2 family (`HMAC-SHA1`, `HMAC-SHA256`, ...), e.g.:
   `$pbkdf2-sha256$i=1000,l=128$e8/arsEf4cvQihdNgqj0Nw$5xQQKNTyeTHx2Ld5/JDE7A`
@@ -220,15 +212,12 @@ More information about the hash format can be found in the
 
 ### Social Sign In Connections
 
-Similar to importing passwords it is possible to import Social Sign In
-connections as well. If you do not have Social Sign In set up yet please head
-over to the
-[social sign in documentation](../../kratos/guides/sign-in-with-github-google-facebook-linkedin.mdx).
+Similar to importing passwords it is possible to import Social Sign In connections as well. If you do not have Social Sign In set
+up yet please head over to the [social sign in documentation](../social-signin/overview).
 
-When importing social sign in connections, the provider refers to the `provider`
-ID you set in your Social Sign In configuration. The `subject` ID must be the ID
-of the user on the given platform. Usually, this is the `sub` claim of the
-OpenID Connect ID Token provider such as Google.
+When importing social sign in connections, the provider refers to the `provider` ID you set in your Social Sign In configuration.
+The `subject` ID must be the ID of the user on the given platform. Usually, this is the `sub` claim of the OpenID Connect ID Token
+provider such as Google.
 
 ```json {7-18}
 {

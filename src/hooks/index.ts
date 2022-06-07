@@ -44,7 +44,7 @@ export function getSdkUrl() {
 `
   return {
     hint,
-    url: project ? 'https://' + project.slug + '.projects.oryapis.com' : 'https://playground.projects.oryapis.com'
+    url: project ? 'https://' + project.slug + '.projects.oryapis.com' : 'https://{your-project-slug-here}.projects.oryapis.com'
   }
 }
 
@@ -73,4 +73,15 @@ export function useLatestRelease(repo: string, fallback = '<version-you-want>') 
   }, [repo])
 
   return release
+}
+
+/**
+ * Returns the latest release filename tag
+ *
+ * @param repo
+ * @param fallback
+ */
+export function useLatestReleaseFilename(repo: string, fallback = '<version-you-want>') {
+  const releaseTag = useLatestRelease(repo)
+  return releaseTag.replace('v', '')
 }

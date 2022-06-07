@@ -20,7 +20,7 @@ Manage JSON Web Keys
       --access-token string    Set an access token to be used in the Authorization header, defaults to environment variable OAUTH2_ACCESS_TOKEN
       --endpoint string        Set the URL where Ory Hydra is hosted, defaults to environment variable HYDRA_ADMIN_URL
       --fail-after duration    Stop retrying after the specified duration (default 1m0s)
-      --fake-tls-termination   fake tls termination by adding &#34;X-Forwarded-Proto: https&#34; to http headers
+      --fake-tls-termination   fake tls termination by adding "X-Forwarded-Proto: https" to http headers
   -h, --help                   help for keys
       --skip-tls-verify        Foolishly accept TLS certificates signed by unknown certificate authorities
 ```
@@ -31,5 +31,4 @@ Manage JSON Web Keys
 - [hydra keys create](hydra-keys-create) - Create a new JSON Web Key Set
 - [hydra keys delete](hydra-keys-delete) - Delete a new JSON Web Key Set
 - [hydra keys get](hydra-keys-get) - Get a new JSON Web Key Set
-- [hydra keys import](hydra-keys-import) - Imports OAuth 2.0 Clients from one or
-  more JSON files to the JSON Web Key Store
+- [hydra keys import](hydra-keys-import) - Imports OAuth 2.0 Clients from one or more JSON files to the JSON Web Key Store

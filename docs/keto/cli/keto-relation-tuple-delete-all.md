@@ -26,16 +26,16 @@ keto relation-tuple delete-all [flags]
 
 ```
       --force                 Force the deletion of relation tuples
-  -f, --format string         Set the output format. One of table, json, and json-pretty. (default &#34;default&#34;)
+      --format string         Set the output format. One of table, json, yaml, and json-pretty. (default "default")
   -h, --help                  help for delete-all
       --namespace string      Set the requested namespace
       --object string         Set the requested object
   -q, --quiet                 Be quiet with output printing.
-      --read-remote string    Remote address of the read API endpoint. (default &#34;127.0.0.1:4466&#34;)
+      --read-remote string    Remote address of the read API endpoint. (default "127.0.0.1:4466")
       --relation string       Set the requested relation
       --subject-id string     Set the requested subject ID
-      --subject-set string    Set the requested subject set; format: &#34;namespace:object#relation&#34;
-      --write-remote string   Remote address of the write API endpoint. (default &#34;127.0.0.1:4467&#34;)
+      --subject-set string    Set the requested subject set; format: "namespace:object#relation"
+      --write-remote string   Remote address of the write API endpoint. (default "127.0.0.1:4467")
 ```
 
 ### Options inherited from parent commands

@@ -3,15 +3,13 @@ id: retrieve-social-sign-in-access-refresh-id-token
 title: Get Access, Refresh, ID Tokens from Social Sign In Providers
 ---
 
-This document describes how to retrieve OpenID Connect / OAuth 2.0 Access,
-Refresh, and ID Tokens from Social Sign In at the `GET /admin/identities` API.
-This guide assumes that you have the `oidc` method enabled.
+This document describes how to retrieve OpenID Connect / OAuth 2.0 Access, Refresh, and ID Tokens from Social Sign In at the
+`GET /admin/identities` API. This guide assumes that you have the `oidc` method enabled.
 
 :::note
 
-Please be aware that these tokens are only set when an identity sign ups with,
-or links a new Social Sign In provider. They'ren't updated when an identity
-signs in!
+Please be aware that these tokens are only set when an identity sign ups with, or links a new Social Sign In provider. They aren't
+updated when an identity signs in!
 
 :::
 
@@ -77,11 +75,9 @@ curl --request GET -sL \
 
 ## Encryption
 
-By default Access Token and Refresh Token are plaintext recorded
-[Noop Cipher](setting-up-noop-cipher-parameters.mdx)
+By default Access Token and Refresh Token are plaintext recorded [Noop Cipher](setting-up-noop-cipher-parameters.mdx)
 
 For a tighter security aspect you could choose following cipher:
 
 - AES by following this [setup](setting-up-aes-cipher-parameters.mdx)
-- XChaCha20 Poly1305 by following this
-  [setup](setting-up-xchacha-cipher-parameters.mdx)
+- XChaCha20 Poly1305 by following this [setup](setting-up-xchacha-cipher-parameters.mdx)

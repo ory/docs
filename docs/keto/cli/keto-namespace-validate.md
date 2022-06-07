@@ -21,7 +21,7 @@ files passed via the configuration flag. Returns human readable errors. Useful f
 debugging.
 
 ```
-keto namespace validate &lt;namespace.yml&gt; [&lt;namespace2.yml&gt; ...] | validate -c &lt;config.yaml&gt; [flags]
+keto namespace validate <namespace.yml> [<namespace2.yml> ...] | validate -c <config.yaml> [flags]
 ```
 
 ### Options

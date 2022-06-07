@@ -21,18 +21,18 @@ If no namespace is specified, all legacy namespaces will be migrated.
 Please ensure that namespace IDs did not change in the config file and you have a backup in case something goes wrong!
 
 ```
-keto namespace migrate legacy [&lt;namespace-name&gt;] [flags]
+keto namespace migrate legacy [<namespace-name>] [flags]
 ```
 
 ### Options
 
 ```
       --down-only             Migrate legacy namespace(s) only down.
-  -f, --format string         Set the output format. One of table, json, and json-pretty. (default &#34;default&#34;)
+      --format string         Set the output format. One of table, json, yaml, and json-pretty. (default "default")
   -h, --help                  help for legacy
   -q, --quiet                 Be quiet with output printing.
-      --read-remote string    Remote address of the read API endpoint. (default &#34;127.0.0.1:4466&#34;)
-      --write-remote string   Remote address of the write API endpoint. (default &#34;127.0.0.1:4467&#34;)
+      --read-remote string    Remote address of the read API endpoint. (default "127.0.0.1:4466")
+      --write-remote string   Remote address of the write API endpoint. (default "127.0.0.1:4467")
   -y, --yes                   yes to all questions, no user input required
 ```
 
