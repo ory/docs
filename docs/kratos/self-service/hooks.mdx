@@ -120,6 +120,10 @@ The configuration section of a web-hook consists of
 - `auth` - configuration of authentication and authorization mechanisms to be
   used by the web-hook
 - `can_interrupt` - specifies if a given web hook can interrupt the flow by
+  returning a predefined JSON message either with or without user-facing validation errors. This is useful when integrating Kratos
+  self-service flows with external systems that can perform some extra input
+  validation (i.e. user identity, username availability in other systems etc.).
+  See [below](#interruptable-web-hooks) for an example response.```
   returning a predefined JSON message with validation errors or just stop flow
   without user facing errors. This is useful when integrating Kratos
   self-service flows with external systems that can do some extra input
@@ -169,7 +173,7 @@ To do that, set `response.ignore` to `true` in the webhook config:
 
 #### Web-Hook Authentication and Authorization Mechanisms
 
-Web-hooks supports the following mechanisms for the `auth` parameter:
+Web-hooks support the following mechanisms for the `auth` parameter:
 
 - Authentication via an Api Key. Type must be set to `api_key`.
 - Authentication via Basic Authentication. Type must be set to `basic_auth`.
@@ -238,7 +242,7 @@ Some clarifications about meaning of some fields:
 - `instance_ptr` points to the field in the payload/schema that this error
   refers to (displayed by the frontend next to the corresponding field)
 - `id` is the unique numeric error ID that helps to translate messages in the
-  front end aplpication.
+  frontend application.
 
 ## Login
 
