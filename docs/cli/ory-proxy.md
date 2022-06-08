@@ -20,16 +20,14 @@ This proxy works both in development and in production, for example when deployi
 React, NodeJS, Java, PHP, ... app to a server / the cloud or when developing it locally
 on your machine.
 
-Before you start, you need a running Ory Cloud project or a self-hosted version of Ory Kratos, Ory Hydra, ...
-Set the environment variable `ORY_SDK_URL` to the path where Ory is available. For Ory Cloud, this is the
-&#34;SDK URL&#34; which can be found in the &#34;API &amp; Services&#34; section of your Ory Cloud Console.
+Before you start, you need to have a running Ory Cloud project. You can create one with the following command:
 
-	$ export ORY_SDK_URL=https://playground.projects.oryapis.com
+	$ ory create project --name "Command Line Project"
 
-Alternatively, you can set this using the --sdk-url flag:
+Pass the project's slug as a flag to the tunnel command:
 
-	$ ory proxy --sdk-url https://playground.projects.oryapis.com \
-		...
+	$ ory proxy --project <your-project-slug> ...
+	$ ORY_PROJECT_SLUG=<your-project-slug> ory proxy ...
 
 The first argument `app-url` points to the location of your application. If you are
 running the proxy and your app on the same host, this could be localhost.
@@ -45,7 +43,7 @@ host and port this proxy listens on:
 You must set the `[publish-url]` if you are not using the Ory Proxy in locally or in
 development:
 
-	$ ory proxy \
+	$ ory proxy --project <your-project-slug> \
 		http://localhost:3000 \
 		https://example.org
 
@@ -54,21 +52,21 @@ Please note that you can not set a path in the `[publish-url]`!
 Per default, the proxy listens on port 4000. If you want to listen on another port, use the
 port flag:
 
-	$ ory proxy --port 8080 \
+	$ ory proxy --port 8080  --project <your-project-slug> \
 		http://localhost:3000 \
 		https://example.org
 
 If your public URL is available on a non-standard HTTP/HTTPS port, you can set that port in the `[publish-url]`:
 
-	$ ory proxy \
+	$ ory proxy --project <your-project-slug> \
 		http://localhost:3000 \
 		https://example.org:1234
 
-If this proxy runs on a subdomain, and you want Ory&#39;s cookies (e.g. the session cookie) to
+If this proxy runs on a subdomain, and you want Ory's cookies (e.g. the session cookie) to
 be available on all of your domain, you can use the following CLI flag to customize the cookie
 domain:
 
-	$ ory proxy \
+	$ ory proxy --project <your-project-slug> \
 		--cookie-domain example.org \
 		http://127.0.0.1:3000 \
 		https://ory.example.org
@@ -76,12 +74,13 @@ domain:
 Per default all default redirects will go to to `[publish-url]`. You can change this behavior using
 the `--default-redirect-url` flag:
 
-    $ ory --default-redirect-url /welcome \
+    $ ory --project <your-project-slug> \
+		--default-redirect-url /welcome \
 		http://127.0.0.1:3000 \
 		https://ory.example.org
 
 Now, all redirects happening e.g. after login will point to `/welcome` instead of `/` unless you
-have specified custom redirects in your Ory configuration or in the flow&#39;s `?return_to=` query parameter.
+have specified custom redirects in your Ory configuration or in the flow's `?return_to=` query parameter.
 
 If the request is not authenticated, the HTTP Authorization Header will be empty:
 
@@ -97,8 +96,8 @@ Ory Session:
 
 The JSON Web Token claims contain:
 
-* The &#34;sub&#34; field which is set to the Ory Identity ID.
-* The &#34;session&#34; field which contains the full Ory Session.
+* The "sub" field which is set to the Ory Identity ID.
+* The "session" field which contains the full Ory Session.
 
 The JSON Web Token is signed using the ES256 algorithm. The public key can be found by fetching the /.ory/jwks.json path
 when calling the proxy - for example: `http://127.0.0.1:4000/.ory/jwks.json`
@@ -106,17 +105,17 @@ when calling the proxy - for example: `http://127.0.0.1:4000/.ory/jwks.json`
 An example payload of the JSON Web Token is:
 
 	{
-	  &#34;id&#34;: &#34;821f5a53-a0b3-41fa-9c62-764560fa4406&#34;,
-	  &#34;active&#34;: true,
-	  &#34;expires_at&#34;: &#34;2021-02-25T09:25:37.929792Z&#34;,
-	  &#34;authenticated_at&#34;: &#34;2021-02-24T09:25:37.931774Z&#34;,
-	  &#34;issued_at&#34;: &#34;2021-02-24T09:25:37.929813Z&#34;,
-	  &#34;identity&#34;: {
-		&#34;id&#34;: &#34;18aafd3e-b00c-4b19-81c8-351e38705126&#34;,
-		&#34;schema_id&#34;: &#34;default&#34;,
-		&#34;schema_url&#34;: &#34;https://example.projects.oryapis.com/api/kratos/public/schemas/default&#34;,
-		&#34;traits&#34;: {
-		  &#34;email&#34;: &#34;foo@bar&#34;,
+	  "id": "821f5a53-a0b3-41fa-9c62-764560fa4406",
+	  "active": true,
+	  "expires_at": "2021-02-25T09:25:37.929792Z",
+	  "authenticated_at": "2021-02-24T09:25:37.931774Z",
+	  "issued_at": "2021-02-24T09:25:37.929813Z",
+	  "identity": {
+		"id": "18aafd3e-b00c-4b19-81c8-351e38705126",
+		"schema_id": "default",
+		"schema_url": "https://example.projects.oryapis.com/api/kratos/public/schemas/default",
+		"traits": {
+		  "email": "foo@bar",
 		  // ... your other identity traits
 		}
 	  }
@@ -136,7 +135,7 @@ ory proxy app-url [publish-url] [flags]
       --no-jwt                        Do not create a JWT from the Ory Kratos Session. Useful if you need fast start up times of the Ory Proxy.
       --open                          Open the browser when the proxy starts.
       --port int                      The port the proxy should listen on. (default 4000)
-      --sdk-url string                Set the Ory SDK URL.
+      --project string                The slug of your Ory Cloud Project.
 ```
 
 ### SEE ALSO

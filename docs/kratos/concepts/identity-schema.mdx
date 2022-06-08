@@ -5,23 +5,19 @@ title: Identity Schema
 
 import Mermaid from '@site/src/theme/Mermaid'
 
-An identity ("user", "user account", "account", "subject") is the "who" of a
-software system. It can be a customer, employee, user, contractor, or even a
-programmatic identity such as an IoT device, application, or some other type of
-"robot."
+An identity ("user", "user account", "account", "subject") is the "who" of a software system. It can be a customer, employee,
+user, contractor, or even a programmatic identity such as an IoT device, application, or some other type of "robot."
 
 :::info
 
-In Ory Kratos' terminology we call all of them "identities", and it's always
-exposed as `identity` in the API endpoints, requests, and response payloads. In
-the documentation however, we mix these words as "account recovery" or "account
-activation" is a widely accepted and understood terminology and user flow, while
-"identity recovery" or "identity activation" isn't.
+In Ory Kratos' terminology we call all of them "identities", and it's always exposed as `identity` in the API endpoints, requests,
+and response payloads. In the documentation however, we mix these words as "account recovery" or "account activation" is a widely
+accepted and understood terminology and user flow, while "identity recovery" or "identity activation" isn't.
 
 :::
 
-The following examples use YAML for improved readability. However, the API
-payload is usually in JSON format. An `identity` has the following properties:
+The following examples use YAML for improved readability. However, the API payload is usually in JSON format. An `identity` has
+the following properties:
 
 ```yaml title="curl http://kratos/admin/identities/9f425a8d-7efc-4768-8f23-7647a74fdf13"
 # A UUID that's generated when the identity is created and
@@ -74,14 +70,12 @@ Identities are
 - `created` - via API or self-service registration;
 - `updated` - via API or self-service settings, account recovery, etc.;
 - `inactive` - via API only;
-- `deleted` - via API or with a self-service flow (not yet implemented see
-  [#596](https://github.com/ory/kratos/issues/596)).
+- `deleted` - via API or with a self-service flow (not yet implemented see [#596](https://github.com/ory/kratos/issues/596)).
 
 The identity state is therefore `active` or `inactive`.
 
-An inactive identity won't be able to log into the system. It will receive a 401
-with a reason indicating that the account has been disabled. More states will be
-added later on for specific features.
+An inactive identity won't be able to log into the system. It will receive a 401 with a reason indicating that the account has
+been disabled. More states will be added later on for specific features.
 
 <Mermaid
   chart={`
@@ -96,36 +90,26 @@ Inactive --> Active: enable
 
 ## Identity Traits and JSON Schemas
 
-Traits are data associated with an identity. You have to define its schema
-according to your application's needs. They're also supposed to be modified by
-the identity itself for example as part of the registration or profile update
-process as well as anyone having access to Ory Krato's Admin API.
+Traits are data associated with an identity. You have to define its schema according to your application's needs. They're also
+supposed to be modified by the identity itself for example as part of the registration or profile update process as well as anyone
+having access to Ory Krato's Admin API.
 
-Ory Kratos uses
-[JSON Schema](https://json-schema.org/learn/getting-started-step-by-step.html)
-to validate Identity Traits.
+Ory Kratos uses [JSON Schema](https://json-schema.org/learn/getting-started-step-by-step.html) to validate Identity Traits.
 
-Ory Kratos defines JSON Schema extension "Vocabulary" that allows you to tell
-Ory Kratos that a specific trait adds some specific meaning to the standard JSON
-Schema (more on that later).
+Ory Kratos defines JSON Schema extension "Vocabulary" that allows you to tell Ory Kratos that a specific trait adds some specific
+meaning to the standard JSON Schema (more on that later).
 
-Each identity can, theoretically, have a different JSON Schema. This is useful
-in the following situations:
+Each identity can, theoretically, have a different JSON Schema. This is useful in the following situations:
 
-- there is more than one type of identity in the system for instance customers,
-  support or staff;
-- the system includes both users and robots sometimes also known as named
-  service accounts;
+- there is more than one type of identity in the system for instance customers, support or staff;
+- the system includes both users and robots sometimes also known as named service accounts;
 - the system needs to ingest another company's Identity Schema, and
-- the system's Identity Schema changes or grows over time and requires
-  versioning.
+- the system's Identity Schema changes or grows over time and requires versioning.
 
-The following example illustrates a usage scenario with three types of
-identities: Regular customers,
-[grandfather accounts](https://en.wikipedia.org/wiki/Grandfather_clause), and
-Service Accounts (for example Microsoft provides
-[Service Accounts](https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/service-accounts)).
-There would be one JSON Schema per type of identity:
+The following example illustrates a usage scenario with three types of identities: Regular customers,
+[grandfather accounts](https://en.wikipedia.org/wiki/Grandfather_clause), and Service Accounts (for example Microsoft provides
+[Service Accounts](https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/service-accounts)). There
+would be one JSON Schema per type of identity:
 
 - Customers: `http://mydomain.com/schemas/v2/customer.schema.json`
 - Grandfather Accounts: `http://mydomain.com/schemas/v1/customer.schema.json`
@@ -150,10 +134,9 @@ identity:
       url: http://foo.bar.com/person.schema.json
 ```
 
-Ory Kratos validates the Identity Traits against the corresponding schema on all
-writing operations (create / update). The employed business logic must be able
-to distinguish these three types of identities. You might use a switch statement
-like in the following example:
+Ory Kratos validates the Identity Traits against the corresponding schema on all writing operations (create / update). The
+employed business logic must be able to distinguish these three types of identities. You might use a switch statement like in the
+following example:
 
 ```go
 // This is an example program that can deal with all three types of identities
@@ -175,22 +158,19 @@ switch (session.Identity.SchemaID) {
 
 :::warning
 
-The Identity Schema isn't a place to store sensitive information that should not
-be visible to the end-user!
+The Identity Schema isn't a place to store sensitive information that should not be visible to the end-user!
 
 :::
 
-The Identity Schema isn't the right place to store data that should be
-obfuscated from the user! Users can see traits and other data - except
-credentials - using the `sessions/whoami` endpoint. Users are also able to edit
-identity traits. Visit [this issue](https://github.com/ory/kratos/issues/47) for
-information on a feature that can be configured to prevent the end-user from
-viewing/editing identity traits.
+The Identity Schema isn't the right place to store data that should be obfuscated from the user! Users can see traits and other
+data - except credentials - using the `sessions/whoami` endpoint. Users are also able to edit identity traits. Visit
+[this issue](https://github.com/ory/kratos/issues/47) for information on a feature that can be configured to prevent the end-user
+from viewing/editing identity traits.
 
 ## Identity Schema Vocabulary Extensions
 
-Because Ory Kratos doesn't know that a particular field has a system-relevant
-meaning you have to specify these in the schema. This includes for example:
+Because Ory Kratos doesn't know that a particular field has a system-relevant meaning you have to specify these in the schema.
+This includes for example:
 
 - The email address for recovering a lost password
 - The identifier for logging in with a password such as username or email
@@ -234,9 +214,8 @@ An overview of available configuration options follows in the next sections.
 
 ### Identifier for Username and Password Flows
 
-You can configure Ory Kratos to use specific fields as the _identifier_ such as
-username, email, phone number, etc., in the Username and Password Registration
-and Login Flow:
+You can configure Ory Kratos to use specific fields as the _identifier_ such as username, email, phone number, etc., in the
+Username and Password Registration and Login Flow:
 
 ```json
 {
@@ -265,8 +244,7 @@ traits:
   accepted_tos: true
 ```
 
-and using a JSON Schema that uses the `email` field as the identifier for the
-password flow
+and using a JSON Schema that uses the `email` field as the identifier for the password flow
 
 ```json
 {
@@ -317,24 +295,19 @@ password flow
 }
 ```
 
-In this example, Ory Kratos understands that traits:email: `office@ory.sh` is
-the identity's identifier. The system expects `office@ory.sh` plus a password to
-sign in.
+In this example, Ory Kratos understands that traits:email: `office@ory.sh` is the identity's identifier. The system expects
+`office@ory.sh` plus a password to sign in.
 
-[Username and Password Credentials](credentials/username-email-password.mdx)
-contains more information and examples about credentials usage.
+[Username and Password Credentials](credentials/username-email-password.mdx) contains more information and examples about
+credentials usage.
 
-Note that "format" field of identity schema will perform validation of given
-trait. In this example email address of identity will be validated using
-[JSONSchema](https://json-schema.org/understanding-json-schema/reference/string.html#email-addresses)
-ruleset.
+Note that "format" field of identity schema will perform validation of given trait. In this example email address of identity will
+be validated using [JSONSchema](https://json-schema.org/understanding-json-schema/reference/string.html#email-addresses) ruleset.
 
 #### Phone number
 
-Ory Kratos also has phone number identity trait extension. Phone number trait
-will allow users to recover and verify account by SMS. For a moment this
-functionality is in development
-[#1451](https://github.com/ory/kratos/issues/1451).
+Ory Kratos also has phone number identity trait extension. Phone number trait will allow users to recover and verify account by
+SMS. For a moment this functionality is in development [#1451](https://github.com/ory/kratos/issues/1451).
 
 Let's extend identity schema from previous chapter with phone number:
 
@@ -401,19 +374,16 @@ Let's extend identity schema from previous chapter with phone number:
 }
 ```
 
-By using "format": "tel" field we enable validation of phone numbers using
-golang [port](https://github.com/nyaruka/phonenumbers) of Google's
-[libphonenumber](https://github.com/google/libphonenumber).
+By using "format": "tel" field we enable validation of phone numbers using golang [port](https://github.com/nyaruka/phonenumbers)
+of Google's [libphonenumber](https://github.com/google/libphonenumber).
 
-There are no other extensions supported for Identity Traits. Further fields will
-be added in future releases!
+There are no other extensions supported for Identity Traits. Further fields will be added in future releases!
 
 ## Best Practices for Updating Identity Schemas
 
-We strongly encourage everyone to specify unique (for example versioned)
-identifiers for every identity schema defined. This allows you to gradually
-update your identity schema without affecting existing identities. Assume you
-just defined your first Identity Schema:
+We strongly encourage everyone to specify unique (for example versioned) identifiers for every identity schema defined. This
+allows you to gradually update your identity schema without affecting existing identities. Assume you just defined your first
+Identity Schema:
 
 ```yaml
 identity:
@@ -423,9 +393,8 @@ identity:
       url: file://path/to/user_v0.json
 ```
 
-Weeks later you might notice that you want some additional fields, or want to
-break compatibility with your current schema. Just add another version to the
-schema and change the `default_schema_id`:
+Weeks later you might notice that you want some additional fields, or want to break compatibility with your current schema. Just
+add another version to the schema and change the `default_schema_id`:
 
 ```yaml
 identity:
@@ -437,17 +406,14 @@ identity:
       url: file://path/to/user_v1.json
 ```
 
-All existing identities will continue to work as expected, having their identity
-schema ID be `user_v0`. All new identities will user `user_v1`! If you are ready
-to do a migration, you can list all identities in your system with `user_v0` as
-the schema, and update them to `user_v1` with the required data transformations
-using the REST APIs!
+All existing identities will continue to work as expected, having their identity schema ID be `user_v0`. All new identities will
+user `user_v1`! If you are ready to do a migration, you can list all identities in your system with `user_v0` as the schema, and
+update them to `user_v1` with the required data transformations using the REST APIs!
 
 ### Sanitize Usernames/Traits
 
-To make sure usernames (or traits) satisfy a specific regex (for example only
-alphanumeric characters), they can be sanitized. To sanitize usernames add
-[Regular Expressions](https://json-schema.org/understanding-json-schema/reference/string.html#regular-expressions)
-to the Ory Kratos Identity Schema. To sanitize usernames coming from third-party
-OIDC providers like Google or GitHub write [Jsonnet](https://jsonnet.org). Learn
-more about [Data Mapping with Jsonnet](../reference/jsonnet/).
+To make sure usernames (or traits) satisfy a specific regex (for example only alphanumeric characters), they can be sanitized. To
+sanitize usernames add
+[Regular Expressions](https://json-schema.org/understanding-json-schema/reference/string.html#regular-expressions) to the Ory
+Kratos Identity Schema. To sanitize usernames coming from third-party OIDC providers like Google or GitHub write
+[Jsonnet](https://jsonnet.org). Learn more about [Data Mapping with Jsonnet](../reference/jsonnet/).
