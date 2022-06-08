@@ -24,17 +24,17 @@ oidc:
 
 Enabling this feature will add listeners to the following four routes at the public endpoint:
 
-- `POST /openid/register` - Register a new OAuth2 Client;
-- `GET /openid/register/<client_id>` - Fetch the OAuth2 Client;
-- `PUT /openid/register/<client_id>` - Update the OAuth2 Client;
-- `DELETE /openid/register/<client_id>` - Delete the OAuth2 Client;
+- `POST /oauth2/register` - Register a new OAuth2 Client;
+- `GET /oauth2/register/<client_id>` - Fetch the OAuth2 Client;
+- `PUT /oauth2/register/<client_id>` - Update the OAuth2 Client;
+- `DELETE /oauth2/register/<client_id>` - Delete the OAuth2 Client;
 
 ## Register OAuth2 & OpenID Connect Clients
 
 If OpenID Connect Dynamic Client Registration is enabled, registering a new OAuth2 Client is as simple as:
 
 ```
-POST /openid/register
+POST /oauth2/register
 Content-Type: application/json
 
 {
@@ -63,7 +63,7 @@ The `POST` endpoint requires the client to authenticate with the `registration_a
 `token_endpoint_auth_method`. It can be used to update the OAuth2 Client.
 
 ```
-PUT /openid/register/{client_id}
+PUT /oauth2/register/{client_id}
 Authorization: Bearer <registration_access_token>
 Content-Type: application/json
 
@@ -95,7 +95,7 @@ The `GET` endpoint requires the client to authenticate with the `registration_ac
 `token_endpoint_auth_method`. It can be used to retrieve the OAuth2 Client.
 
 ```
-GET /openid/register/{client_id}
+GET /oauth2/register/{client_id}
 Authorization: Bearer <registration_access_token>
 Content-Type: application/json
 
@@ -111,6 +111,6 @@ The `DELETE` endpoint requires the client to authenticate with the `registration
 `token_endpoint_auth_method`. It can be used to delete the OAuth2 Client.
 
 ```
-DELETE /openid/register/{client_id}
+DELETE /oauth2/register/{client_id}
 Authorization: Bearer <registration_access_token>
 ```
