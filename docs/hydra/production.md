@@ -146,4 +146,4 @@ Once done, you can raise your number of containers to achieve high availability.
 ## Next Steps
 
 For a deployment guide using Nginx, visit the
-[Deploy to production](./guides/digital-ocean.mdx) documentation.
+[Deploy to production](./guides/deploy-hydra-example.mdx) documentation.

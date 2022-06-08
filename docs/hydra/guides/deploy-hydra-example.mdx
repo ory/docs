@@ -258,7 +258,7 @@ systemctl start hydra.service
 
 Check running processes with `ps ax | grep hydra`. If everything worked correctly you should see something like this:
 
-````
+```
 ps ax | grep hydra
 19191 ?        Ssl    0:00 /opt/hydra/bin/hydra -c /opt/hydra/config/hydra.yml serve
 19206 ?        Ss     0:00 postgres: 12/main: hydra hydra 127.0.0.1(36094) idle
@@ -490,6 +490,5 @@ You can test if Ory Hydra runs by doing a health check at
 
 - Read the [Prepare for production](../production.md).
 - Fork the [Ory Hydra NodeJS UI Reference](https://github.com/ory/hydra-login-consent-node) or
-  [build a custom UI in the language of your choice](../sdk/index.md).
+  [build a custom UI in the language of your choice](../sdk/).
 - [Add Identity and Account Management](../../kratos/index.md)
-````
