@@ -6,10 +6,10 @@ title: Deploy to production
 import { useLatestRelease } from '@site/src/hooks'
 import CodeBlock from '@theme/CodeBlock'
 
-This guide explains how to setup and run Ory Hydra in an exemplary production environment.
-It uses Postgres as database, Nginx as reverse proxy, and Digital Ocean
-as cloud provider. You can use another [relational database](https://www.ory.sh/docs/ecosystem/deployment#data-storage-and-persistence), a
-different reverse proxy, deploy on any other cloud host, and
+This guide explains how to setup and run Ory Hydra in an exemplary production environment. It uses Postgres as database, Nginx as
+reverse proxy, and Digital Ocean as cloud provider. You can use another
+[relational database](https://www.ory.sh/docs/ecosystem/deployment#data-storage-and-persistence), a different reverse proxy,
+deploy on any other cloud host, and
 [spin up a custom user interface in your favorite language](https://www.ory.sh/docs/hydra/sdk/) - this is just an example!
 
 The guide covers the following topics:
@@ -40,9 +40,8 @@ the scale of your application.
 
 Wait for the virtual machine (VM) to start up and copy the IP address.
 
-This guide uses `oauth2.example.com` as a hostname to run Ory Hydra. Replace it
-with `<something>.<your-domain>` for your purposes. You need to configure DNS,
-create an `A type` record, and point it to the VM's IP.
+This guide uses `oauth2.example.com` as a hostname to run Ory Hydra. Replace it with `<something>.<your-domain>` for your
+purposes. You need to configure DNS, create an `A type` record, and point it to the VM's IP.
 
 ## Install required dependencies
 
@@ -105,8 +104,7 @@ Let's create a user for Hydra (Use your own password / hash!):
 CREATE USER hydra PASSWORD 'CHANGE-ME-INSECURE-PASSWORD';
 ```
 
-We need to change the `/etc/postgresql/12/main/pg_hba.conf` file and append the
-following to enable `scram-sha-256` encryption:
+We need to change the `/etc/postgresql/12/main/pg_hba.conf` file and append the following to enable `scram-sha-256` encryption:
 
 ```bash
 host    all             all             127.0.0.1/32            scram-sha-256
@@ -119,8 +117,8 @@ psql -U hydra -W -h 127.0.0.1
 
 ```
 
-Type or paste the password for the Ory Hydra user we created before. If everything works correctly you should see a prompt
-similar to this:
+Type or paste the password for the Ory Hydra user we created before. If everything works correctly you should see a prompt similar
+to this:
 
 ```
 Password:
@@ -131,8 +129,7 @@ Type "help" for help.
 hydra=>
 ```
 
-Congratulations, you have installed and configured the PostgreSQL database. Next we will set up Ory
-Hydra.
+Congratulations, you have installed and configured the PostgreSQL database. Next we will set up Ory Hydra.
 
 ## Install Ory Hydra
 
@@ -153,7 +150,9 @@ Install Ory Hydra:
 <CodeBlock className="language-shell">{`
 cd /opt/hydra/bin
 # Download a new version of Ory Hydra
-wget https://github.com/ory/hydra/releases/download/${useLatestRelease('hydra')}/hydra_${useLatestRelease('hydra')}-linux_64bit.tar.gz
+wget https://github.com/ory/hydra/releases/download/${useLatestRelease('hydra')}/hydra_${useLatestRelease(
+  'hydra'
+)}-linux_64bit.tar.gz
 # Extract contents
 tar xfvz hydra_${useLatestRelease('hydra')}-linux_64bit.tar.gz
 # Remove redundant files
@@ -164,13 +163,12 @@ rm LICENSE
 Download the [Quickstart](../5min-tutorial) configuration files:
 
 <CodeBlock className="language-shell">{`cd ../config
-wget https://raw.githubusercontent.com/ory/hydra/${useLatestRelease(
-  'hydra'
-)}/contrib/quickstart/5-min/hydra.yml`}</CodeBlock>
+wget https://raw.githubusercontent.com/ory/hydra/${useLatestRelease('hydra')}/contrib/quickstart/5-min/hydra.yml`}</CodeBlock>
 
-We need to add some configuration in `hydra.yml` to use our Postgres
-We need configure Ory Hydra to use the Postgres database. Open `hydra.yml` and change the dsn configuration. In the default quickstart configuration
-Ory Hydra is storing data in an SQLite database. Change the dsn key to use the Postgres database you configured before and add the `issuer` URL. This URL will be used as `issuer` in access and ID tokens.
+We need to add some configuration in `hydra.yml` to use our Postgres We need configure Ory Hydra to use the Postgres database.
+Open `hydra.yml` and change the dsn configuration. In the default quickstart configuration Ory Hydra is storing data in an SQLite
+database. Change the dsn key to use the Postgres database you configured before and add the `issuer` URL. This URL will be used as
+`issuer` in access and ID tokens.
 
 ```yml
 dsn: postgres://hydra:b0qw68gr3Q@127.0.0.1:5432/hydra?sslmode=disable&max_conns=20&max_idle_conns=4
@@ -222,8 +220,7 @@ cd /etc/systemd/system
 nano hydra.service
 ```
 
-Paste the following content to configure systemd to start Ory Hydra using the [`serve` command](../cli/hydra-serve) from
-earlier:
+Paste the following content to configure systemd to start Ory Hydra using the [`serve` command](../cli/hydra-serve) from earlier:
 
 ```
 [Unit]
@@ -485,7 +482,7 @@ Now reload the Nginx service:
 service nginx reload
 ```
 
-You can test if Ory Hydra runs by doing a health check at 
+You can test if Ory Hydra runs by doing a health check at
 `https://oauth2.example.com/health?secret=CHANGE-ME-INSECURE-PASSWORD`.
 
 
@@ -495,3 +492,4 @@ You can test if Ory Hydra runs by doing a health check at
 - Fork the [Ory Hydra NodeJS UI Reference](https://github.com/ory/hydra-login-consent-node) or
   [build a custom UI in the language of your choice](../sdk/index.md).
 - [Add Identity and Account Management](../../kratos/index.md)
+````
