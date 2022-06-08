@@ -199,18 +199,19 @@ All properties are mandatory.
 
 ### Interruptable Web-Hooks
 
-Sometimes notification-like web hooks are not enough and one need to integrate
-some external business logic into user's self-service flows. Here interruptable
-web-hooks comes with help. Basic flow is to pass self-service flow to an
-external service that will decide if the process should continue or user should
-be notified about an error (or fail silently). To achieve that interruptable
-web-hook can be defined by specifying `can_interrupt` flag and pointing it to a
-web service that will process the payload from the webhook and will return a
+Sometimes notification-like web hooks are not enough and one needs to integrate
+some external business logic into user's self-service flows. This can be solved with interruptible web-hooks. Kratos passes the self-service flow to an
+external service that will decide if the flow should continue or not. If the flow is interrupted, the web-hook can further decide if the user should
+be notified about the error, or if the failure is silent.
+
+Interruptable web-hooks must be defined by specifying can_interrupt flag. The
+web service specified with url will process the payload from the webhook and will return a
 predefined JSON that will instruct Kratos to forward this information to the
-front end. When hook service returns status code that is equal or lower than 399
-the self-service flow continues normally but if web hook returns 400 or higher
-Kratos parses the returned JSON and looks for a messages that can be forwarded
-to the front end. Sample payload may look like this:
+frontend as follows:
+- Status code <400: The self-service flow continues as normal
+- Status code 400 or higher: Kratos parses the returned JSON and looks for a messages that can be forwarded to the frontend.
+
+Sample payload may look like this:
 
 ```json
 {
