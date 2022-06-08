@@ -1,16 +1,16 @@
 ---
-id: deploy-to-digitalocean
+id: deploy-hydra-example
 title: Deploy to production
 ---
 
 import { useLatestRelease } from '@site/src/hooks'
 import CodeBlock from '@theme/CodeBlock'
 
-This guide explains how to setup and run Ory Hydra in a production environment.
-It uses Postgres as database, Nginx as reverse proxy and Digital Ocean
-as cloud provider. You can use another
-[relational database](https://www.ory.sh/docs/ecosystem/deployment#data-storage-and-persistence),
-a different reverse proxy, and deploy on any other host.
+This guide explains how to setup and run Ory Hydra in an exemplary production environment.
+It uses Postgres as database, Nginx as reverse proxy, and Digital Ocean
+as cloud provider. You can use another [relational database](https://www.ory.sh/docs/ecosystem/deployment#data-storage-and-persistence), a
+different reverse proxy, deploy on any other cloud host, and
+[spin up a custom user interface in your favorite language](https://www.ory.sh/docs/hydra/sdk/) - this is just an example!
 
 The guide covers the following topics:
 
@@ -33,61 +33,36 @@ Spin up a droplet with the following configuration:
 
 :::note
 
-This example shows a single configuration on a small droplet. The configuration
-of a droplet may vary depending on your scale
+This example shows a single configuration on a small droplet. The configuration of a virtual machine (VM) may vary depending on
+the scale of your application.
 
 :::
 
-Wait for the droplet to start up and copy the IP address.
+Wait for the virtual machine (VM) to start up and copy the IP address.
 
 This guide uses `oauth2.example.com` as a hostname to run Ory Hydra. Replace it
 with `<something>.<your-domain>` for your purposes. You need to configure DNS,
-create an `A type` record, and point it to the droplet's IP.
-
-Connect to your droplet via SSH:
-
-```bash
-ssh -A root@oauth2.example.com # replace oauth2.example.com with your domain!
-The authenticity of host 'oauth2.example.com (157.245.75.223)' can't be established.
-ED25519 key fingerprint is SHA256:WJsAOHk3b12Ym7keL8MHjBLjgvxfUQPhIy9pwx1czAk.
-This key is not known by any other names
-Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-Warning: Permanently added 'oauth2.example.com' (ED25519) to the list of known hosts.
-Welcome to Ubuntu 20.04.3 LTS (GNU/Linux 5.4.0-97-generic x86_64)
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/advantage
-  System information as of Fri Apr 15 07:57:35 UTC 2022
-  System load:  0.31              Users logged in:       0
-  Usage of /:   6.1% of 24.06GB   IPv4 address for eth0: 157.245.75.223<
-  Memory usage: 19%               IPv4 address for eth0: 10.18.0.5
-  Swap usage:   0%                IPv4 address for eth1: 10.110.0.2
-  Processes:    109
-1 update can be applied immediately.
-To see these additional updates run: apt list --upgradable
-The programs included with the Ubuntu system are free software;
-the exact distribution terms for each program are described in the
-individual files in /usr/share/doc/*/copyright.
-Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
-applicable law.
-root@ubuntu-s-1vcpu-1gb-ams3-01:~#
-```
+create an `A type` record, and point it to the VM's IP.
 
 ## Install required dependencies
 
-As a first step, we need to upgrade all packages in our Droplet.
+Connect to your [droplet via SSH](https://docs.digitalocean.com/products/droplets/how-to/connect-with-ssh/) or use the
+[Droplet Console](https://docs.digitalocean.com/products/droplets/how-to/connect-with-console/).
+
+First upgrade all packages in your VM.
 
 ```bash
 apt-get update && apt-get upgrade
 ```
 
-The default version of nodejs is v10.19.0 on Ubuntu 20.04, which seems outdated
-for today. We need to install a newer version:
+The default version of [Node.js](https://nodejs.org/en/) is v10.19.0 on Ubuntu 20.04, we need to install a newer version. You can
+use the following script to install Node.js 16.x on a Ubuntu system.
 
 ```bash
 curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh
 bash /tmp/nodesource_setup.sh
 apt-get install nodejs npm jq unzip
+# Install Node.js 16.x and other dependencies
 ```
 
 Confirm the correct version of NodeJs is installed:
@@ -112,31 +87,22 @@ Create the database:
 createdb hydra
 ```
 
-Change the default password encryption to a stronger one:
+Change the default password encryption to a stronger one as
+[recommended by PostgreSQL](https://www.postgresql.org/docs/current/auth-password.html):
 
 ```bash
 psql
-# Change the default password encryption to stronger one
+# Postgres command line
 ALTER SYSTEM SET password_encryption = 'scram-sha-256';
+# Change the default password encryption to stronger one
 SELECT pg_reload_conf();
+# Reload configuration
 ```
 
-Create a temporary user to get a hash of a password:
+Let's create a user for Hydra (Use your own password / hash!):
 
 ```bash
-CREATE USER tmp_user_to_create_a_password WITH PASSWORD 'b0qw68gr3Q';
-# Copy the password hash from the following command
-SELECT rolpassword FROM pg_catalog.pg_authid WHERE rolname='tmp_user_to_create_a_password';
-# Delete the temporary user
-DROP USER IF EXISTS tmp_user_to_create_a_password;
-```
-
-Now we can create a user by running the following command, fill in the password
-hash you copied in the step before:
-
-```bash
-CREATE USER hydra with password 'SCRAM-SHA-256$4096:<your-copied-hashed-password-here>';
-GRANT CONNECT ON DATABASE hydra to hydra;
+CREATE USER hydra PASSWORD 'CHANGE-ME-INSECURE-PASSWORD';
 ```
 
 We need to change the `/etc/postgresql/12/main/pg_hba.conf` file and append the
@@ -150,13 +116,22 @@ Check your credentials against PostgreSQL:
 
 ```bash
 psql -U hydra -W -h 127.0.0.1
+
+```
+
+Type or paste the password for the Ory Hydra user we created before. If everything works correctly you should see a prompt
+similar to this:
+
+```
 Password:
 psql (12.9 (Ubuntu 12.9-0ubuntu0.20.04.1))
 SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
 Type "help" for help.
+
+hydra=>
 ```
 
-We installed and configured the PostgreSQL database. Next we will set up Ory
+Congratulations, you have installed and configured the PostgreSQL database. Next we will set up Ory
 Hydra.
 
 ## Install Ory Hydra
@@ -167,7 +142,7 @@ For security reasons, we need to create a new user with prohibited login:
 useradd -s /bin/false -m -d /opt/hydra hydra
 ```
 
-Create a couple of folders:
+Create folders to hold the installation data and configuration files:
 
 ```bash
 mkdir /opt/hydra/{bin,config}
@@ -194,6 +169,8 @@ wget https://raw.githubusercontent.com/ory/hydra/${useLatestRelease(
 )}/contrib/quickstart/5-min/hydra.yml`}</CodeBlock>
 
 We need to add some configuration in `hydra.yml` to use our Postgres
+We need configure Ory Hydra to use the Postgres database. Open `hydra.yml` and change the dsn configuration. In the default quickstart configuration
+Ory Hydra is storing data in an SQLite database. Change the dsn key to use the Postgres database you configured before and add the `issuer` URL. This URL will be used as `issuer` in access and ID tokens.
 
 ```yml
 dsn: postgres://hydra:b0qw68gr3Q@127.0.0.1:5432/hydra?sslmode=disable&max_conns=20&max_idle_conns=4
@@ -208,12 +185,15 @@ Apply [migrations](../cli/hydra-migrate-sql):
 /opt/hydra/bin/hydra -c /opt/hydra/config/hydra.yml migrate sql -y postgres://hydra:b0qw68gr3Q@127.0.0.1:5432/hydra?sslmode=disable
 ```
 
-Test our setup:
+Test your setup using the [`serve` command](../cli/hydra-serve):
 
 ```bash
 /opt/hydra/bin/hydra -c /opt/hydra/config/hydra.yml serve all
+```
 
-INFO[2022-04-15T15:24:29Z] No tracer configured - skipping tracing setup  audience=application service_name=Ory Hydra service_version=v1.11.7
+You should see something like this once the service has been started:
+
+```bash
 WARN[2022-04-15T15:24:29Z] JSON Web Key Set "hydra.openid.id-token" does not exist yet, generating new key pair...  audience=application service_name=Ory Hydra service_version=v1.11.7
 WARN[2022-04-15T15:24:34Z] JSON Web Key Set "hydra.jwt.access-token" does not exist yet, generating new key pair...  audience=application service_name=Ory Hydra service_version=v1.11.7
 Thank you for using Ory Hydra v1.11.7!
@@ -229,13 +209,21 @@ INFO[2022-04-15T15:24:41Z] Setting up http server on :4445               audienc
 
 ## Run Ory Hydra using systemd
 
-We need to give ownership of `/opt/hydra` directory to the `hydra` user:
+We need to change the owner of `/opt/hydra` directory to the `hydra` user:
 
 ```bash
 chown -R hydra /opt/hydra/
 ```
 
-Create a `/etc/systemd/system/hydra.service` file with the following content:
+Create a `/etc/systemd/system/kratos.service` file
+
+```bash
+cd /etc/systemd/system
+nano hydra.service
+```
+
+Paste the following content to configure systemd to start Ory Hydra using the [`serve` command](../cli/hydra-serve) from
+earlier:
 
 ```
 [Unit]
@@ -258,32 +246,46 @@ WantedBy=multi-user.target
 
 [Read more about the administrative and public APIs](https://www.ory.sh/docs/hydra/production#exposing-administrative-and-public-api-endpoints).
 
-Run Ory Hydra using systemd:
+To run Ory Hydra using systemd add the systemd service to startup:
 
 ```bash
-# Add systemd service to startup
 systemctl enable hydra.service
 Created symlink /etc/systemd/system/multi-user.target.wants/hydra.service → /etc/systemd/system/hydra.service.
-# Start hydra service
+```
+
+Start hydra.service using systemd:
+
+```
 systemctl start hydra.service
-# Check running processes
+```
+
+Check running processes with `ps ax | grep hydra`. If everything worked correctly you should see something like this:
+
+````
 ps ax | grep hydra
 19191 ?        Ssl    0:00 /opt/hydra/bin/hydra -c /opt/hydra/config/hydra.yml serve
 19206 ?        Ss     0:00 postgres: 12/main: hydra hydra 127.0.0.1(36094) idle
 ```
 
-We have Ory Hydra up and running and listening on the loopback interface.
+We have Ory Kratos up and running, now we need to configure a reverse proxy to make the Hydra Admin API inaccessible via the
+public internet.
 
 ## Install and configure Nginx
 
-We'll use Nginx as reverse proxy and load balancer for our service.
+We'll use Nginx as reverse proxy and load balancer for our service. You can use another reverse proxy and load balancer instead.
+Install Nginx (and certbot) by running:
 
 ```bash
 apt install nginx certbot python3-certbot-nginx
 ```
 
-We need a default configuration for the virtual host. Let's create a
-`/etc/nginx/sites-avaiable/oauth2.example.com` with the following content:
+Create a default configuration for the virtual host. To do this create the file `accounts.example.com` at
+`/etc/nginx/sites-available/` with the following content
+
+```bash
+cd /etc/nginx/sites-available/
+nano oauth2.example.com
+```
 
 ```
 server {
@@ -298,8 +300,8 @@ We need to create a symlink to `sites-enabled` directory:
 ln -s /etc/nginx/sites-available/oauth2.example.com /etc/nginx/sites-enabled/oauth2.example.com
 ```
 
-Configure SSL via Certbot. Run the following command and answer a simple
-questions:
+Configure SSL via Certbot. Run the following command and answer the questions to set it up. When prompted choose to redirect HTTP
+traffic to HTTPS.
 
 ```bash
 certbot --nginx -d oauth2.example.com
@@ -308,7 +310,10 @@ certbot --nginx -d oauth2.example.com
 After running Certbot your configuration file will look like this:
 
 ```bash
-# cat /etc/nginx/sites-enabled/oauth2.example.com
+cat /etc/nginx/sites-enabled/oauth2.example.com
+```
+
+```bash
 server {
         listen 80;
         server_name oauth2.example.com;
@@ -326,19 +331,15 @@ server {
 }
 ```
 
-We have configured the TLS connection with the redirect from HTTP to HTTPS by
-default. We have missing parts in our configuration, and we need to configure
-locations and
-[upstream APIs](http://nginx.org/en/docs/http/ngx_http_upstream_module.html).
-You can balance network traffic between different instances of Ory Hydra running
-on the various virtual machines. We need to have two upstreams:
+There are some missing parts in your configuration at this point, and we need to configure locations and
+[upstream APIs](http://nginx.org/en/docs/http/ngx_http_upstream_module.html). You can balance network traffic between different
+instances of Ory Kratos running on the various virtual machines. We need two upstream APIs:
 
 - public_api to proxy traffic to the Public API of Ory Hydra
 - admin_api to proxy traffic to the Admin API of Ory Hydra
 
 [Read more about exposing admin and public API endpoints](https://www.ory.sh/docs/hydra/production#exposing-administrative-and-public-api-endpoints).
-Add the following configuration before `server` section to
-`/etc/nginx/sites-enabled/oauth2.example.com` file:
+Add the following configuration before `server` section to the `/etc/nginx/sites-enabled/oauth2.example.com` file:
 
 ```diff
 +upstream public_api {
@@ -354,7 +355,7 @@ server {
 ...
 ```
 
-Add the following location as well:
+Add your locations and the `/etc/nginx/sites-enabled/oauth2.example.com` has the following content:
 
 ```diff
 ...
@@ -379,7 +380,7 @@ server {
 +		if ($remote_addr ~* "172.28.0.*") {
 +			set $allow 1;
 +		}
-+		if ($arg_secret = "GuQ8alL2") {
++		if ($arg_secret = "CHANGE-ME-INSECURE-PASSWORD") {
 +			set $allow 1;
 +		}
 +		if ($allow = 0) {
@@ -398,12 +399,13 @@ server {
 
 }
 ```
-Let's take a closer look at the configuration. We have two location blocks
+
+Let's take a closer look at the configuration. We have two location blocks.
 
 - The first `location` block proxies network traffic to the public API of Hydra. It allows to utilize oauth2 flows and can be exposed to the public internet without additional authentication/authorization/access control checks.
-- The second `location` block proxies network traffic to the admin API of Hydra. Nginx proxies requests only from the `172.28.0.0/24` subnet or by providing `?secret=GuQ8alL2` argument for additional security. Admin API implements administrative endpoints to manage data or implements `/health` endpoints to check the availability of your Hydra instance. You should either not expose these endpoints or implement additional security checks for them.
+- The second `location` block proxies network traffic to the admin API of Hydra. Nginx proxies requests only from the `172.28.0.0/24` subnet or by providing `?secret=CHANGE-ME-INSECURE-PASSWORD` argument for additional security. Admin API implements administrative endpoints to manage data or implements `/health` endpoints to check the availability of your Hydra instance. You should either not expose these endpoints or implement additional security checks for them.
 
-You can find more information about endpoints in the [prepare for production](/docs/hydra/production) guide
+You can find more information about endpoints in the [Prepare for production](../production.md) guide.
 
 Your full Nginx configuration should now look something like this:
 
@@ -444,7 +446,7 @@ server {
         if ($remote_addr ~* "172.28.0.*") {
             set $allow 1;
         }
-        if ($arg_secret = "GuQ8alL2") {
+        if ($arg_secret = "CHANGE-ME-INSECURE-PASSWORD") {
             set $allow 1;
         }
         if ($allow = 0) {
@@ -463,11 +465,33 @@ server {
 
 }
 ```
-Test the Nginx configuration and reload it:
+
+Test the Nginx configuration:
 
 ```bash
 nginx -t
+```
+
+If your configuration is correct, you should get the following outputs:
+
+```bash
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
+Now reload the Nginx service:
+
+```bash
 service nginx reload
 ```
+
+You can test if Ory Hydra runs by doing a health check at 
+`https://oauth2.example.com/health?secret=CHANGE-ME-INSECURE-PASSWORD`.
+
+
+## Next Steps
+
+- Read the [Prepare for production](../production.md).
+- Fork the [Ory Hydra NodeJS UI Reference](https://github.com/ory/hydra-login-consent-node) or
+  [build a custom UI in the language of your choice](../sdk/index.md).
+- [Add Identity and Account Management](../../kratos/index.md)
