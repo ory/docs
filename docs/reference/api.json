@@ -57,19 +57,6 @@
         "format": "int64",
         "type": "integer"
       },
-      "Int": {
-        "description": "Int adds an implementation for int\nthat supports proper JSON encoding/decoding.",
-        "properties": {
-          "Int": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "Valid": {
-            "type": "boolean"
-          }
-        },
-        "type": "object"
-      },
       "InternalRelationTuple": {
         "properties": {
           "namespace": {
@@ -130,10 +117,11 @@
         "type": "boolean"
       },
       "NullInt": {
-        "format": "int64",
+        "nullable": true,
         "type": "integer"
       },
       "NullPlan": {
+        "description": "\nunknown Unknown\nfree Free\nstart_up_monthly StartUpMonthly\nstart_up_yearly StartUpYearly\ncustom Custom",
         "enum": [
           "unknown",
           "free",
@@ -141,9 +129,11 @@
           "start_up_yearly",
           "custom"
         ],
-        "type": "string"
+        "type": "string",
+        "x-go-enum-desc": "unknown Unknown\nfree Free\nstart_up_monthly StartUpMonthly\nstart_up_yearly StartUpYearly\ncustom Custom"
       },
       "NullString": {
+        "nullable": true,
         "type": "string"
       },
       "NullTime": {
@@ -153,6 +143,7 @@
       },
       "NullUUID": {
         "format": "uuid4",
+        "nullable": true,
         "type": "string"
       },
       "PatchDelta": {
@@ -234,10 +225,6 @@
           }
         },
         "type": "object"
-      },
-      "SQLNullString": {
-        "nullable": true,
-        "type": "string"
       },
       "String": {
         "$ref": "#/components/schemas/NullString"
@@ -530,14 +517,14 @@
             "type": "string"
           },
           "cors_allowed_origins": {
-            "description": "Cors Allowed origins for the custom hostname.",
+            "description": "CORS Allowed origins for the custom hostname.",
             "items": {
               "type": "string"
             },
             "type": "array"
           },
           "cors_enabled": {
-            "description": "Cors Enabled for the custom hostname.",
+            "description": "CORS Enabled for the custom hostname.",
             "type": "boolean"
           },
           "hostname": {
@@ -1196,10 +1183,11 @@
             "type": "string"
           },
           "state": {
-            "description": "The state of the project.",
+            "description": "The state of the project.\nrunning Running\nhalted Halted",
             "enum": ["running", "halted"],
             "readOnly": true,
-            "type": "string"
+            "type": "string",
+            "x-go-enum-desc": "running Running\nhalted Halted"
           },
           "subscription_id": {
             "$ref": "#/components/schemas/NullUUID"
@@ -1238,7 +1226,7 @@
             "$ref": "#/components/schemas/KetoNamespaces"
           },
           "keto_read_max_depth": {
-            "$ref": "#/components/schemas/Int"
+            "$ref": "#/components/schemas/NullInt"
           },
           "kratos_cookies_same_site": {
             "description": "Configures the Ory Kratos Cookie SameSite Attribute\n\nThis governs the \"cookies.same_site\" setting.",
@@ -1832,10 +1820,11 @@
             "type": "string"
           },
           "state": {
-            "description": "The state of the project.",
+            "description": "The state of the project.\nrunning Running\nhalted Halted",
             "enum": ["running", "halted"],
             "readOnly": true,
-            "type": "string"
+            "type": "string",
+            "x-go-enum-desc": "running Running\nhalted Halted"
           }
         },
         "required": ["id", "revision_id", "slug", "services", "state", "name"],
@@ -1946,9 +1935,10 @@
             "type": "string"
           },
           "state": {
-            "description": "The state of the project.",
+            "description": "The state of the project.\nrunning Running\nhalted Halted",
             "enum": ["running", "halted"],
-            "type": "string"
+            "type": "string",
+            "x-go-enum-desc": "running Running\nhalted Halted"
           },
           "subscription_id": {
             "$ref": "#/components/schemas/NullUUID"
@@ -3125,7 +3115,7 @@
             "type": "string"
           },
           "current_plan": {
-            "description": "The currently active plan of the subscription",
+            "description": "The currently active plan of the subscription\nunknown Unknown\nfree Free\nstart_up_monthly StartUpMonthly\nstart_up_yearly StartUpYearly\ncustom Custom",
             "enum": [
               "unknown",
               "free",
@@ -3134,7 +3124,8 @@
               "custom"
             ],
             "readOnly": true,
-            "type": "string"
+            "type": "string",
+            "x-go-enum-desc": "unknown Unknown\nfree Free\nstart_up_monthly StartUpMonthly\nstart_up_yearly StartUpYearly\ncustom Custom"
           },
           "customer_id": {
             "description": "The ID of the stripe customer",
@@ -3295,8 +3286,7 @@
             "type": "string"
           },
           "node_type": {
-            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.",
-            "enum": ["text", "input", "img", "a", "script"],
+            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.  In this struct it technically always is \"a\".",
             "type": "string"
           },
           "title": {
@@ -3349,8 +3339,7 @@
             "type": "string"
           },
           "node_type": {
-            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.",
-            "enum": ["text", "input", "img", "a", "script"],
+            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.  In this struct it technically always is \"img\".",
             "type": "string"
           },
           "src": {
@@ -3385,8 +3374,7 @@
             "type": "string"
           },
           "node_type": {
-            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.",
-            "enum": ["text", "input", "img", "a", "script"],
+            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.  In this struct it technically always is \"input\".",
             "type": "string"
           },
           "onclick": {
@@ -3441,8 +3429,7 @@
             "type": "string"
           },
           "node_type": {
-            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.",
-            "enum": ["text", "input", "img", "a", "script"],
+            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0. In this struct it technically always is \"script\".",
             "type": "string"
           },
           "nonce": {
@@ -3483,8 +3470,7 @@
             "type": "string"
           },
           "node_type": {
-            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.",
-            "enum": ["text", "input", "img", "a", "script"],
+            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.  In this struct it technically always is \"text\".",
             "type": "string"
           },
           "text": {
@@ -3537,14 +3523,14 @@
             "type": "string"
           },
           "cors_allowed_origins": {
-            "description": "Cors Allowed origins for the custom hostname.",
+            "description": "CORS Allowed origins for the custom hostname.",
             "items": {
               "type": "string"
             },
             "type": "array"
           },
           "cors_enabled": {
-            "description": "Cors Enabled for the custom hostname.",
+            "description": "CORS Enabled for the custom hostname.",
             "type": "boolean"
           },
           "hostname": {
@@ -5797,6 +5783,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
+            "in": "header",
+            "name": "Cookie",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -5812,6 +5806,7 @@
               }
             }
           },
+          "required": true,
           "x-originalParamName": "Body"
         },
         "responses": {
@@ -6023,9 +6018,9 @@
             }
           },
           {
-            "description": "HTTP Cookies\n\nWhen using the SDK on the server side you must include the HTTP Cookie Header\noriginally sent to your HTTP handler here.",
+            "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
             "in": "header",
-            "name": "cookie",
+            "name": "Cookie",
             "schema": {
               "type": "string"
             }
@@ -6246,6 +6241,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
+            "in": "header",
+            "name": "Cookie",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -6261,6 +6264,7 @@
               }
             }
           },
+          "required": true,
           "x-originalParamName": "Body"
         },
         "responses": {
@@ -6420,9 +6424,9 @@
             }
           },
           {
-            "description": "HTTP Cookies\n\nWhen using the SDK on the server side you must include the HTTP Cookie Header\noriginally sent to your HTTP handler here.",
+            "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
             "in": "header",
-            "name": "cookie",
+            "name": "Cookie",
             "schema": {
               "type": "string"
             }
@@ -6487,6 +6491,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
+            "in": "header",
+            "name": "Cookie",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -6502,6 +6514,7 @@
               }
             }
           },
+          "required": true,
           "x-originalParamName": "Body"
         },
         "responses": {
@@ -6661,9 +6674,9 @@
             }
           },
           {
-            "description": "HTTP Cookies\n\nWhen using the SDK on the server side you must include the HTTP Cookie Header\noriginally sent to your HTTP handler here.",
+            "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
             "in": "header",
-            "name": "cookie",
+            "name": "Cookie",
             "schema": {
               "type": "string"
             }
@@ -6746,6 +6759,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
+            "in": "header",
+            "name": "Cookie",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -6761,6 +6782,7 @@
               }
             }
           },
+          "required": true,
           "x-originalParamName": "Body"
         },
         "responses": {
@@ -6993,9 +7015,9 @@
             }
           },
           {
-            "description": "HTTP Cookies\n\nWhen using the SDK on the server side you must include the HTTP Cookie Header\noriginally sent to your HTTP handler here. You only need to do this for browser-\nbased flows.",
+            "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
             "in": "header",
-            "name": "cookie",
+            "name": "Cookie",
             "schema": {
               "type": "string"
             }
@@ -7088,6 +7110,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
+            "in": "header",
+            "name": "Cookie",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -7103,6 +7133,7 @@
               }
             }
           },
+          "required": true,
           "x-originalParamName": "Body"
         },
         "responses": {

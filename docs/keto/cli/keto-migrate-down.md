@@ -9,24 +9,23 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## keto migrate down
 
 Migrate the database down
 
 ### Synopsis
 
-Migrate the database down a specific amount of steps. Pass 0 steps to fully
-migrate down.
+Migrate the database down a specific amount of steps.
+Pass 0 steps to fully migrate down.
 
 ```
-keto migrate down &lt;steps&gt; [flags]
+keto migrate down <steps> [flags]
 ```
 
 ### Options
 
 ```
-  -f, --format string   Set the output format. One of table, json, and json-pretty. (default &#34;default&#34;)
+      --format string   Set the output format. One of table, json, yaml, and json-pretty. (default "default")
   -h, --help            help for down
   -q, --quiet           Be quiet with output printing.
   -y, --yes             yes to all questions, no user input required
@@ -40,4 +39,5 @@ keto migrate down &lt;steps&gt; [flags]
 
 ### SEE ALSO
 
-- [keto migrate](keto-migrate) - Commands to migrate the database
+* [keto migrate](keto-migrate)	 - Commands to migrate the database
+

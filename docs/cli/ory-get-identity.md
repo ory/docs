@@ -17,7 +17,7 @@ Get one or more identities by their ID(s)
 
 This command gets all the details about an identity. To get an identity by some selector, e.g. the recovery email address, use the list command in combination with jq.
 
-We have to admit, this is not easy if you don&#39;t speak jq fluently. What about opening an issue and telling us what predefined selectors you want to have? https://github.com/ory/kratos/issues/new/choose
+We have to admit, this is not easy if you don't speak jq fluently. What about opening an issue and telling us what predefined selectors you want to have? https://github.com/ory/kratos/issues/new/choose
 
 ```
 ory get identity [id-1] [id-2] [id-n] [flags]

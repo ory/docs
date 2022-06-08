@@ -8,19 +8,16 @@ for production.
 
 ## Ory Hydra behind an API Gateway
 
-Although Ory Hydra implements all Go best practices around running public-facing
-production http servers, we discourage running Ory Hydra facing the public net
-directly. We strongly recommend running Ory Hydra behind an API gateway or a
-load balancer. It's common to terminate TLS on the edge (gateway / load
-balancer) and use certificates provided by your infrastructure provider such as
-AWS CA for last mile security.
+Although ORY Hydra implements all Go best practices around running public-facing production http servers, we discourage running
+ORY Hydra facing the public net directly. We strongly recommend running ORY Hydra behind an API gateway or a load balancer. It's
+common to terminate TLS on the edge (gateway / load balancer) and use certificates provided by your infrastructure provider such
+as AWS CA for last mile security.
 
 ### TLS Termination
 
-You may also choose to set Hydra to HTTPS mode without actually accepting TLS
-connections. In that case, all Hydra URLs are prefixed with `https://`, but the
-server is actually accepting http. This makes sense if you don't want last mile
-security using TLS, and trust your network to properly handle internal traffic:
+You may also choose to set Hydra to HTTPS mode without actually accepting TLS connections. In that case, all Hydra URLs are
+prefixed with `https://`, but the server is actually accepting http. This makes sense if you don't want last mile security using
+TLS, and trust your network to properly handle internal traffic:
 
 ```yaml
 serve:
@@ -31,30 +28,24 @@ serve:
 
 With TLS termination enabled, Ory Hydra discards all requests unless:
 
-- The request is coming from a trusted IP address set by
-  `serve.tls.allow_termination_from` and the header `X-Forwarded-Proto` is set
-  to `https`.
-- The request goes to `/health/alive`, `/health/ready` which doesn't require TLS
-  termination and that's used to check the health of an instance.
+- The request is coming from a trusted IP address set by `serve.tls.allow_termination_from` and the header `X-Forwarded-Proto` is
+  set to `https`.
+- The request goes to `/health/alive`, `/health/ready` which doesn't require TLS termination and that's used to check the health
+  of an instance.
 
-When TLS Termination is enabled, you don't need to provide a TLS Certificate and
-Private Key.
+When TLS Termination is enabled, you don't need to provide a TLS Certificate and Private Key.
 
-If you are unable to properly set up TLS Termination, you may want to set the
-`--dangerous-force-http` flag. But please be aware that we discourage you from
-doing so and that you should know what you're doing.
+If you are unable to properly set up TLS Termination, you may want to set the `--dangerous-force-http` flag. But please be aware
+that we discourage you from doing so and that you should know what you're doing.
 
 ### Routing
 
-It's common to use a router, or API gateway, to route subdomains or paths to a
-specific service. For example, `https://myservice.com/hydra/` is routed to
-`http://10.0.1.213:3912/` where `10.0.1.213` is the host running Ory Hydra. To
-compute the values for the consent challenge, Ory Hydra uses the host and path
-headers from the HTTP request. Therefore, it's important to set up your API
-Gateway in such a way, that it passes the public host (in this case
-`myservice.com`) and the path without any prefix (in this case `hydra/`). If you
-use the Mashape Kong API gateway, you can achieve this by setting
-`strip_request_path=true` and `preserve_host=true.`
+It's common to use a router, or API gateway, to route subdomains or paths to a specific service. For example,
+`https://myservice.com/hydra/` is routed to `http://10.0.1.213:3912/` where `10.0.1.213` is the host running ORY Hydra. To compute
+the values for the consent challenge, ORY Hydra uses the host and path headers from the HTTP request. Therefore, it's important to
+set up your API Gateway in such a way, that it passes the public host (in this case `myservice.com`) and the path without any
+prefix (in this case `hydra/`). If you use the Mashape Kong API gateway, you can achieve this by setting `strip_request_path=true`
+and `preserve_host=true.`
 
 ## Exposing Administrative and Public API Endpoints
 
@@ -63,8 +54,7 @@ Ory Hydra serves APIs via two ports:
 - Public port (default 4444)
 - Administrative port (default 4445)
 
-The public port can and should be exposed to public internet traffic. That port
-handles requests to:
+The public port can and should be exposed to public internet traffic. That port handles requests to:
 
 - `/.well-known/jwks.json`
 - `/.well-known/openid-configuration`
@@ -76,11 +66,9 @@ handles requests to:
 - `/oauth2/sessions/logout`
 - `/userinfo`
 
-The administrative port shouldn't be exposed to public internet traffic. If you
-want to expose certain endpoints, such as the `/clients` endpoint for OpenID
-Connect Dynamic Client Registry, you can do so but you need to properly secure
-these endpoints with an API Gateway or Authorization Proxy. Administrative
-endpoints include:
+The administrative port shouldn't be exposed to public internet traffic. If you want to expose certain endpoints, such as the
+`/clients` endpoint for OpenID Connect Dynamic Client Registry, you can do so but you need to properly secure these endpoints with
+an API Gateway or Authorization Proxy. Administrative endpoints include:
 
 - All `/clients` endpoints.
 - All `/keys` endpoints.
@@ -89,33 +77,27 @@ endpoints include:
 - Endpoint `/oauth2/introspect`.
 - Endpoint `/oauth2/flush`.
 
-None of the administrative endpoints have any built-in access control. You can
-do simple `curl` or Postman requests to talk to them.
+None of the administrative endpoints have any built-in access control. You can do simple `curl` or Postman requests to talk to
+them.
 
-The Token Introspection endpoint requires authentication. But since there is no
-access control, any valid authentication enables the endpoint to be used. If you
-need to access this endpoint in production, you should configure your API
-Gateway or Application Proxy to restrict which clients have access to the
-endpoint.
+The Token Introspection endpoint requires authentication. But since there is no access control, any valid authentication enables
+the endpoint to be used. If you need to access this endpoint in production, you should configure your API Gateway or Application
+Proxy to restrict which clients have access to the endpoint.
 
-We generally advise to run Ory Hydra with `hydra serve all` which listens on
-both ports in one process.
+We generally advise to run ORY Hydra with `hydra serve all` which listens on both ports in one process.
 
 ### Binding to different interfaces or UNIX sockets
 
 Ory Hydra will bind public and administrative APIs ports to all interfaces.
 
-The interfaces or UNIX sockets used may be specified via environment variables
-`PUBLIC_HOST` and `ADMIN_HOST`. Interfaces may be specified as TCP address or as
-UNIX socket (giving the absolute path to the socket file prefixed by `unix:`)
-like:
+The interfaces or UNIX sockets used may be specified via environment variables `PUBLIC_HOST` and `ADMIN_HOST`. Interfaces may be
+specified as TCP address or as UNIX socket (giving the absolute path to the socket file prefixed by `unix:`) like:
 
 - `PUBLIC_HOST=127.0.0.1`
 - `ADMIN_HOST="unix:/var/run/hydra/admin_socket"`
 
-Ory Hydra will try to create the socket file during startup and the socket will
-be writeable by the user running Ory Hydra. The owner, group and mode of the
-socket can be modified:
+ORY Hydra will try to create the socket file during startup and the socket will be writeable by the user running ORY Hydra. The
+owner, group and mode of the socket can be modified:
 
 ```yaml
 serve:
@@ -129,17 +111,14 @@ serve:
 
 ### Key generation and High Availability environments
 
-Be aware that on the very first launch of the Hydra container(s), a worker
-process will perform certain first-time installation tasks, such as generating
-[JSON web keys](jwks.md) if they don't already exist.
+Be aware that on the very first launch of the Hydra container(s), a worker process will perform certain first-time installation
+tasks, such as generating [JSON web keys](jwks.md) if they don't already exist.
 
-If you intend on running your production Hydra environment in a highly-available
-setup (for example, multiple concurrent containers behind a load-balancer), it's
-possible that both containers will generate JWKs at the same time.
+If you intend on running your production Hydra environment in a highly-available setup (for example, multiple concurrent
+containers behind a load-balancer), it's possible that both containers will generate JWKs at the same time.
 
-Although this isn't a problem, we recommend that you launch your production
-environment with just one container to begin with, to complete the initial
-seeding of the database.
+Although this isn't a problem, we recommend that you launch your production environment with just one container to begin with, to
+complete the initial seeding of the database.
 
 Once done, you can raise your number of containers to achieve high availability.
 
