@@ -117,6 +117,10 @@ func updateDynamicClient(client *ory.OAuth2Client) (*ory.OAuth2Client, error) {
 		).
 		OAuth2Client(*client).
 		Execute()
+
+	// Don't forget to store the update `registration_access_token`!
+	// newToken := *c.RegistrationAccessToken
+
 	return c, err
 }
 ```
