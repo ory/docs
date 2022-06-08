@@ -12,7 +12,9 @@
     "swizzle": "docusaurus swizzle",
     "serve": "docusaurus serve",
     "test": "playwright test",
-    "test:unit": "jest tests/jest --maxConcurrency=8 --bail 1"
+    "test:unit": "jest tests/jest --maxConcurrency=8 --bail 1",
+    "format": "exit 0",
+    "format:check": "exit 0"
   },
   "dependencies": {
     "ory-prettier-styles": "1.2.0",
