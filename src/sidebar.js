@@ -71,7 +71,6 @@ module.exports = {
           type: 'category',
           label: 'Managing Identities',
           items: [
-            'guides/manage-identities/identity',
             'guides/manage-identities/managing-users-identities',
             'guides/manage-identities/import-identity',
             'guides/manage-identities/account-recovery',
@@ -101,7 +100,9 @@ module.exports = {
                 'guides/social-signin/yandex',
                 'guides/social-signin/vk'
               ]
-            }
+            },
+            'guides/social-signin/get-tokens',
+            'guides/social-signin/data-mapping'
           ]
         },
         {
@@ -151,21 +152,9 @@ module.exports = {
         {
           Concepts: [
             'kratos/concepts/index',
-            'kratos/concepts/terminology',
             'kratos/concepts/ui-user-interface',
-            'kratos/concepts/identity-schema',
-            {
-              label: 'Identity Credentials',
-              type: 'category',
-              items: [
-                'kratos/concepts/credentials',
-                'kratos/concepts/credentials/username-email-password',
-                'kratos/concepts/credentials/openid-connect-oidc-oauth2',
-              ]
-            },
             'kratos/concepts/browser-redirect-flow-completion',
             'kratos/concepts/email-sms',
-            'kratos/concepts/rest-api',
             'kratos/concepts/security'
           ]
         },
@@ -195,10 +184,7 @@ module.exports = {
             'kratos/guides/zero-trust-iap-proxy-identity-access-proxy',
             'kratos/guides/multi-tenancy-multitenant',
             'kratos/guides/secret-key-rotation',
-            'kratos/guides/retrieve-social-sign-in-access-refresh-id-token',
-            'kratos/guides/setting-up-noop-cipher-parameters',
-            'kratos/guides/setting-up-xchacha-cipher-parameters',
-            'kratos/guides/setting-up-aes-cipher-parameters',
+            'kratos/guides/select-cipher-algorithm',
             'kratos/guides/high-availability-ha',
             'kratos/guides/docker',
             'kratos/guides/https-tls',
