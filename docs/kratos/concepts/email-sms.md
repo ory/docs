@@ -9,7 +9,6 @@ Ory Kratos sends out-of-band messages via SMS or E-Mail. The following exemplary
 - Verify an E-Mail address or mobile phone number using SMS
 - Preventing Account Enumeration Attacks
 - Sending a 2FA Codes
-- ...
 
 ## Mail courier
 
