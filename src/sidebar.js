@@ -168,7 +168,6 @@ module.exports = {
             'kratos/self-service/flows/verify-email-account-activation',
             'kratos/self-service/flows/user-logout',
             'kratos/self-service/flows/user-facing-errors',
-            'kratos/self-service/flows/2fa-mfa-multi-factor-authentication',
             'kratos/self-service/hooks'
           ]
         },
