@@ -32,6 +32,7 @@ modifies the core technology. This isn't an exhaustive list. Want your own conte
 
 ### Ory Kratos
 
+- [Ory Kratos configuration to deploy on fly.io](https://github.com/tinco/kratos-service)
 - [Ory Kratos Vue 3/Vite with Typescript example](https://github.com/timalanfarrow/kratos-selfservice-ui-vue3-typescript)
 - [Ory Kratos Quarkus, Kotlin, and Qute example](https://github.com/hbrammer/quarkus_kratos_example)
 - [Ory Kratos Admin Interface in React](https://github.com/dfoxg/kratos-admin-ui)
