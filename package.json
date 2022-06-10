@@ -13,8 +13,8 @@
     "serve": "docusaurus serve",
     "test": "playwright test",
     "test:unit": "jest tests/jest --maxConcurrency=8 --bail 1",
-    "format": "exit 0",
-    "format:check": "exit 0"
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "ory-prettier-styles": "1.2.0",
