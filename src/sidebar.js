@@ -71,6 +71,7 @@ module.exports = {
           type: 'category',
           label: 'Managing Identities',
           items: [
+            'guides/manage-identities/identity',
             'guides/manage-identities/managing-users-identities',
             'guides/manage-identities/import-identity',
             'guides/manage-identities/account-recovery',
@@ -130,7 +131,6 @@ module.exports = {
       Concepts: [
         'concepts/terminology',
         'concepts/project',
-        'concepts/services-api',
         'concepts/redirects',
         'concepts/emails',
         'ecosystem/api-design',
