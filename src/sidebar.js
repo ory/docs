@@ -155,7 +155,15 @@ module.exports = {
             'kratos/concepts/ui-user-interface',
             'kratos/concepts/browser-redirect-flow-completion',
             'kratos/concepts/email-sms',
-            'kratos/concepts/security'
+            'kratos/concepts/security',
+            {
+              label: 'Identity Credentials',
+              type: 'category',
+              items: [
+                'kratos/concepts/credentials',
+                'kratos/concepts/credentials/username-email-password',
+              ]
+            },
           ]
         },
         {
