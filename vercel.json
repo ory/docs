@@ -151,7 +151,7 @@
     },
     {
       "source": "/docs/start-building/server-side-web-app",
-      "destination": "https://www.ory.sh/docs/guides/protect-page-login",
+      "destination": "https://www.ory.sh/docs/guides/protect-page-login/go",
       "permanent": false
     },
     {
