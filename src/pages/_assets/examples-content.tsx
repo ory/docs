@@ -25,7 +25,7 @@ export const official: PropTypes = {
     },
     {
       title: 'Protect a Page with Login: Go',
-      language: 'Go',
+      language: 'go',
       framework: 'Vanilla',
       author: 'ory',
       tested: true,
