@@ -6,7 +6,9 @@
   grid-template-columns: auto auto;
   gap: 25px;
   list-style: none;
+  margin: auto;
 }
+
 @media screen and (min-width: 1200px) {
   .wrapper {
     grid-template-columns: auto auto auto;
