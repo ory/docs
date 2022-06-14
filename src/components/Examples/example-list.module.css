@@ -7,10 +7,17 @@ margin: auto;
 .wrapper {
   max-width: 1600px;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto;
   gap: 32px;
   list-style: none;
   padding-bottom: 32px;
+  margin-right: 32px
+}
+
+@media screen and (min-width:800px) {
+  .wrapper {
+    grid-template-columns: auto auto;
+    }
 }
 
 @media screen and (min-width: 1200px) {
@@ -21,17 +28,27 @@ margin: auto;
 
 .container {
   display: grid;
-  border-width: 1px;
+  border-width: 0px;
   border-style: solid;
   grid-template-columns: 90px 250px;
   grid-template-rows: 55px 30px 40px;
   position: relative;
+  max-width: 340px; 
   margin: auto;
   overflow: hidden;
   width: 100%;
   height: 125px;
   border-radius: 5px;
   text-decoration: none;
+  background-color: var(--container-bg);
+}
+
+[data-theme="light"] {
+  --container-bg: #F4F6F8;
+}
+
+[data-theme="dark"] {
+  --container-bg: #637381;
 }
 
 .title {
