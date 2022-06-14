@@ -60,3 +60,9 @@ margin: auto;
   cursor: pointer;
   margin-left: 8px;
 }
+
+.jfcard {
+  background-color: var(--ifm-pre-background);
+  color: inherit;
+  padding: 1rem;
+}
