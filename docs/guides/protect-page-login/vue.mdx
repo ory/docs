@@ -34,9 +34,13 @@ npm i --save @ory/client
 
 ## Check for Session in Component
 
-Next we want to show whether the user is signed in or not, and provide links to the login and registration page, or to the account
-settings or logout. To do that we modify the existing `HelloWorld.vue` component to include logic for handling the sessions and
-links to login, logout, registration and account settings.
+With a Vue.js project created, add the Ory logic to the application. The application should recognize whether the user is signed 
+in and if they have a valid Session. 
+
+Depending on whether the user has a valid Session, the application should show registration and login links or account settings
+and logout links.
+
+To implement that behavior, modify the existing `HelloWorld.vue` component to include the appropriate logic: 
 
 ```mdx-code-block
 import handlerVue from '!!raw-loader!../../../code-examples/protect-page-login/vue/src/components/HelloWorld.vue'
@@ -45,33 +49,39 @@ import CodeBlock from '@theme/CodeBlock'
 <CodeBlock language="html" title="src/components/HelloWorld.vue">{handlerVue}</CodeBlock>
 ```
 
-## Run Ory's API on `localhost`
+## Run Ory APIs on `localhost`
 
-Because Ory's security model uses HTTP cookies, we need to expose Ory's APIs on your `localhost` machine.
+The Ory security model uses HTTP cookies to manage sessions, tokens, and cookies. To do that, Ory APIs must be exposed on the same
+domain as your application. 
+
+In the case of this example, the domain of your application, which runs on your local machine, is `localhost`.
 
 :::info
 
-Make sure to either use `localhost` or `127.0.0.1` but not both when developing locally. If the hostnames are different, Ory's APIs
-might not be able to read the cookies properly.
+When developing locally, use either `localhost` or `127.0.0.1`, but not both. Although technically these mean the same thing, 
+they're different hostnames. 
+
+Using both interchangeably in your code can cause problems with the origin of HTTP cookies sent by the application. When that happens 
+Ory APIs might not be able to read the cookies sent by your app.
 
 :::
 
-To achieve that we use the Ory Tunnel. It's like a microservice - the authentication API server - on your domain!
+To get your application that runs locally and Ory APIs on the same domain, use Ory Tunnel - a development tool bundled with Ory CLI. 
+It's like a microservice - an authentication API server on your domain!
 
 ```shell-session
-npx @ory/cli tunnel --dev --project <your-project-slug> http://localhost:8080
-
-# Don't have a project? Use the public playground!
-npx @ory/cli tunnel --dev --project playground http://localhost:8080
+npx @ory/cli tunnel --dev http://localhost:8080
 ```
 
-Ory's APIs are now mirrored on `http://localhost:4000`. We use that URL as the `baseUrl` for the `@ory/client` SDK (see the code
-example above). The `--dev` flag disables security checks for easier integration and should not be used when deploying the tunnel
-to staging.
+Ory APIs are now mirrored on `http://localhost:4000`. Use that URL as the `baseUrl` for the `@ory/client` SDK (see `HelloWorld.vue`
+code above). The `--dev` flag disables security checks for easier integration and should not be used when deploying the Tunnel
+to a staging environment. 
 
 ## Run your Vue.js App
 
-Great, that's it! Let's run your application! Set up your environment variables to connect with Ory's APIs
+Now that your app is ready, it's time to run it!
+
+First, set up your Ory Cloud SDK URL to connect with the Ory APIs in your Ory Cloud project:
 
 ```mdx-code-block
 import SdkEnvVar from '@site/src/components/SdkEnvVar'
@@ -79,28 +89,27 @@ import SdkEnvVar from '@site/src/components/SdkEnvVar'
 <SdkEnvVar />
 ```
 
-and start the Next.js development server:
+Next, start the Next.js development server:
 
 ```shell-session
 npm run serve
 ```
 
-and open [localhost:8080](http://localhost:8080/).
+Go to [localhost:8080](http://localhost:8080/) to access your application.
 
 ## Make Authenticated Calls to your API
 
 To make authenticated requests to your API there are two main components:
 
-1. When making AJAX requests you must set `{"credentials": "include"}` in the options. For the `fetch` method it looks like this:
+- When making AJAX requests you must set `{"credentials": "include"}` in the options. For the `fetch` method it looks like this:
+  ```js
+  fetch(url, { credentials: 'include' })
+  ```
 
-```js
-fetch(url, { credentials: 'include' })
-```
+- Your API must have a CORS middleware with `credentials: true` and `Access-Control-Allow-Origin` of your frontend app (here
+`http://localhost:8080`).
 
-2. Your API must have a CORS middleware with `credentials: true` and `Access-Control-Allow-Origin` of your frontend app (here
-   `http://localhost:8080`).
-
-Let's put this into action. Since we are already in the node ecosystem, we will create a quick HTTP API with express
+Let's put this into action. Create a simple HTTP API with express. Run:
 
 ```shell-script
 mkdir my-api
@@ -109,7 +118,7 @@ npm init
 npm i --save @ory/client express cors
 ```
 
-and create a simple API in `index.js`:
+Next, create a simple API in `index.js`:
 
 ```mdx-code-block
 import handlerApi from '!!raw-loader!../../../code-examples/auth-api/expressjs/index.js'
@@ -117,24 +126,26 @@ import handlerApi from '!!raw-loader!../../../code-examples/auth-api/expressjs/i
 <CodeBlock language="js" title="index.js">{handlerApi}</CodeBlock>
 ```
 
-Next, we run the server:
+Finally, start the server:
 
 ```shell-session
 node index.js
 ```
 
-Let's open up our single page app at [localhost:8080](http://localhost:8080/), sign in and see if we can make authenticated
-requests to our API!
+### See it in Action
+
+Access your single-page app at [localhost:8080](http://localhost:8080/), sign in, and see if you can make authenticated
+requests to your API!
 
 ## Go to Production
 
-To move this app to production, we need to:
+To promote this app to production:
 
-1. Build the VueJS app and run it somewhere (e.g. Vercel or Netlify);
-2. Deploy our API (e.g. on Heroku);
-3. Connect your project with a [custom domain](../custom-domains.mdx);
+1. Build the VueJS app and run it somewhere (for example on Vercel or Netlify)
+2. Deploy the API (for example, on Heroku)
+3. Connect your project with a [custom domain](../custom-domains.mdx)
 
-All these three components needs to be hosted on the same top-level domain as they were on your local machine:
+These three components must be hosted on the same top-level domain as they were on your local machine:
 
 | Component       | Production      | Local          |
 | --------------- | --------------- | -------------- |
