@@ -70,7 +70,7 @@ const ExampleCard = ({
 )
 
 const ExampleList = ({ examples, title, description }: PropTypes) => (
-  <div>
+  <div className={styles.examplesWrapper}>
     <div className={styles.header}>
       <h1>{title}</h1>
       <p>{description}</p>

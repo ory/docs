@@ -1,9 +1,16 @@
+.examplesWrapper {
+
+max-width: 1060px; 
+margin: auto;
+}
+
 .wrapper {
   max-width: 1600px;
   display: grid;
   grid-template-columns: auto auto;
   gap: 32px;
-  list-style: none;  
+  list-style: none;
+  padding-bottom: 32px;
 }
 
 @media screen and (min-width: 1200px) {
@@ -52,4 +59,5 @@
   padding: 2px 12px 2px 12px;
   color-scheme: light;
   cursor: pointer;
+  margin-left: 8px;
 }
