@@ -8,7 +8,7 @@ export const official: PropTypes = {
     {
       title: 'Protect a Page with Login: NextJs/React',
       language: 'typescript',
-      framework: 'NextJs/React',
+      // framework: 'NextJs/React',
       author: 'ory',
       tested: true,
       repo: 'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/nextjs',
@@ -17,7 +17,7 @@ export const official: PropTypes = {
     {
       title: 'Protect a Page with Login: ExpressJS',
       language: 'typescript',
-      framework: 'ExpressJs',
+      // framework: 'ExpressJs',
       author: 'ory',
       tested: true,
       repo: 'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/expressjs',
@@ -26,7 +26,7 @@ export const official: PropTypes = {
     {
       title: 'Protect a Page with Login: Go',
       language: 'go',
-      framework: 'Vanilla',
+      // framework: 'Vanilla',
       author: 'ory',
       tested: true,
       repo: 'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/go',
@@ -35,7 +35,7 @@ export const official: PropTypes = {
     {
       title: 'Protect a Page with Login: PHP',
       language: 'php',
-      framework: 'Vanilla',
+      // framework: 'Vanilla',
       author: 'ory',
       tested: true,
       repo: 'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/php',
@@ -44,7 +44,7 @@ export const official: PropTypes = {
     {
       title: 'Protect a Page with Login: Flutter',
       language: 'dart',
-      framework: 'Flutter',
+      // framework: 'Flutter',
       author: 'ory',
       tested: true,
       repo: 'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/flutter_web_redirect',
@@ -53,7 +53,7 @@ export const official: PropTypes = {
     {
       title: 'Protect a Page with Login: Django',
       language: 'python',
-      framework: 'Django',
+      // framework: 'Django',
       author: 'ory',
       tested: true,
       repo: 'https://github.com/ory/examples/tree/master/django-ory-cloud',
@@ -64,7 +64,7 @@ export const official: PropTypes = {
     {
       title: 'Protect a Page with Login: Flask',
       language: 'python',
-      framework: 'Flask',
+      // framework: 'Flask',
       author: 'ory',
       tested: true,
       repo: 'https://github.com/ory/examples/tree/master/kratos-keto-flask',
@@ -73,7 +73,7 @@ export const official: PropTypes = {
     {
       title: 'Customize Self-service UI: NodeJs',
       language: 'typescript',
-      framework: 'NodeJs',
+      // framework: 'NodeJs',
       author: 'ory',
       tested: true,
       repo: 'https://github.com/ory/kratos-selfservice-ui-node',
@@ -82,7 +82,7 @@ export const official: PropTypes = {
     {
       title: 'Customize Self-service UI: NextJS/React',
       language: 'typescript',
-      framework: 'NextJs/React',
+      // framework: 'NextJs/React',
       author: 'ory',
       tested: true,
       repo: 'https://github.com/ory/kratos-nextjs-react-example',
@@ -91,7 +91,7 @@ export const official: PropTypes = {
     {
       title: 'Customize Self-service UI: React Native',
       language: 'typescript',
-      framework: 'React Native',
+      // framework: 'React Native',
       author: 'ory',
       tested: false,
       repo: 'https://github.com/ory/kratos-selfservice-ui-react-native',
@@ -100,7 +100,7 @@ export const official: PropTypes = {
     {
       title: 'Ory Cloud with Supabase Backend',
       language: 'typescript',
-      framework: 'React Native',
+      // framework: 'React Native',
       author: 'ory',
       tested: false,
       repo: 'https://github.com/ory/examples/tree/master/supabase-ory-cloud',
@@ -117,7 +117,7 @@ export const community: PropTypes = {
     {
       title: 'Customize Self-service UI: Flutter',
       language: 'dart',
-      framework: 'Flutter',
+      // framework: 'Flutter',
       author: 'amorevino',
       tested: false,
       repo: 'https://github.com/amorevino/ory-showcase-apps',
@@ -126,7 +126,7 @@ export const community: PropTypes = {
     {
       title: 'Customize Self-service UI: Flutter Web',
       language: 'dart',
-      framework: 'Flutter Web',
+      // framework: 'Flutter Web',
       author: 'IGLU-Agency',
       tested: false,
       repo: 'https://github.com/IGLU-Agency/iglu-ory-kratos-example',
@@ -135,7 +135,7 @@ export const community: PropTypes = {
     {
       title: 'Protect a Page with Login: Kotlin',
       language: 'java',
-      framework: 'Quarkus',
+      // framework: 'Quarkus',
       author: 'hbrammer',
       tested: false,
       repo: 'https://github.com/hbrammer/quarkus_kratos_example',
@@ -144,7 +144,7 @@ export const community: PropTypes = {
     {
       title: 'Customize Self-service UI: Vue3',
       language: 'typescript',
-      framework: 'Vue3',
+      // framework: 'Vue3',
       author: 'timalanfarrow',
       tested: false,
       repo: 'https://github.com/timalanfarrow/kratos-selfservice-ui-vue3-typescript',
@@ -153,7 +153,7 @@ export const community: PropTypes = {
     {
       title: 'Customize Self-service UI: NextJs',
       language: 'typescript',
-      framework: 'NextJs',
+      // framework: 'NextJs',
       author: 'spa5k',
       tested: false,
       repo: 'https://github.com/spa5k/kratos-next',
@@ -162,7 +162,7 @@ export const community: PropTypes = {
     {
       title: 'Customize Self-service UI: Erlang',
       language: 'erlang',
-      framework: 'Rebar3',
+      // framework: 'Rebar3',
       author: 'hrefhref',
       tested: false,
       repo: 'https://github.com/hrefhref/styx',
@@ -171,7 +171,7 @@ export const community: PropTypes = {
     {
       title: 'Customize Self-service UI: Rescript',
       language: 'rescript',
-      framework: 'React',
+      // framework: 'React',
       author: 'allancalix',
       tested: false,
       repo: 'https://github.com/allancalix/kratos-ui',
@@ -180,7 +180,7 @@ export const community: PropTypes = {
     {
       title: 'Customize Self-service UI: Sveltekit',
       language: 'javascript',
-      framework: 'Sveltekit',
+      // framework: 'Sveltekit',
       author: 'micleyman',
       tested: true,
       repo: 'https://github.com/micleyman/sveltekit-ory-starter',
@@ -189,7 +189,7 @@ export const community: PropTypes = {
     {
       title: 'Customize Self-service UI: Sveltekit',
       language: 'javascript',
-      framework: 'Sveltekit',
+      // framework: 'Sveltekit',
       author: 'drejohnson',
       tested: false,
       repo: 'https://github.com/drejohnson/sveltekit-kratos',
@@ -198,7 +198,7 @@ export const community: PropTypes = {
     {
       title: 'Customize Self-service UI: Sveltekit',
       language: 'javascript',
-      framework: 'Sveltekit',
+      // framework: 'Sveltekit',
       author: 'emrahcom',
       tested: false,
       repo: 'https://github.com/emrahcom/kratos-selfservice-svelte-node',
@@ -215,7 +215,7 @@ export const selfhosted: PropTypes = {
     {
       title: 'API Gateway using Kong, Ory Kratos & Ory Oathkeeper',
       language: 'ory',
-      framework: 'Kong',
+      // framework: 'Kong',
       author: 'ory',
       tested: false,
       repo: 'https://github.com/ory/examples/tree/master/kratos-oathkeeper-kong',
@@ -224,7 +224,7 @@ export const selfhosted: PropTypes = {
     {
       title: 'Ory Oathkeeper Examples',
       language: 'ory',
-      framework: 'Ory Oathkeeper',
+      // framework: 'Ory Oathkeeper',
       author: 'ory',
       tested: false,
       repo: 'https://github.com/ory/examples/tree/master/oathkeeper',
@@ -233,7 +233,7 @@ export const selfhosted: PropTypes = {
     {
       title: 'Simple Admin UI for Ory Kratos',
       language: 'javascript',
-      framework: 'Ory Kratos',
+      // framework: 'Ory Kratos',
       author: 'ory',
       tested: false,
       repo: 'https://github.com/dfoxg/kratos-admin-ui',
@@ -242,7 +242,7 @@ export const selfhosted: PropTypes = {
     {
       title: 'SSO and ACL Ory Stack',
       language: 'javascript',
-      framework: 'Ory Stack',
+      // framework: 'Ory Stack',
       author: 'pngouin',
       tested: false,
       repo: 'https://github.com/pngouin/k8s-ory-example',
@@ -251,7 +251,7 @@ export const selfhosted: PropTypes = {
     {
       title: ' Reference Ory Stack Docker Compose',
       language: 'ory',
-      framework: 'Ory Stack',
+      // framework: 'Ory Stack',
       author: 'radekg',
       tested: false,
       repo: 'https://github.com/radekg/ory-reference-compose',
