@@ -9,18 +9,15 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory delete identity
 
 Delete one or more identities by their ID(s)
 
 ### Synopsis
 
-This command deletes one or more identities by ID. To delete an identity by some selector, e.g. the recovery email address, use
-the list command in combination with jq.
+This command deletes one or more identities by ID. To delete an identity by some selector, e.g. the recovery email address, use the list command in combination with jq.
 
-We have to admit, this is not easy if you don't speak jq fluently. What about opening an issue and telling us what predefined
-selectors you want to have? https://github.com/ory/kratos/issues/new/choose
+We have to admit, this is not easy if you don't speak jq fluently. What about opening an issue and telling us what predefined selectors you want to have? https://github.com/ory/kratos/issues/new/choose
 
 ```
 ory delete identity id-0 [id-1] [id-2] [id-n] [flags]
@@ -52,4 +49,5 @@ To delete the identity with the recovery email address "foo@bar.com", run:
 
 ### SEE ALSO
 
-- [ory delete](ory-delete) - Delete resources
+* [ory delete](ory-delete)	 - Delete resources
+

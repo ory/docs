@@ -9,32 +9,31 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory patch permission-config
 
 Patch an Ory Cloud Project's Permission Config
 
 ### Synopsis
 
-Use this command to patch your current Ory Cloud Project's permission service configuration. Only values specified in the patch
-will be overwritten. To replace the config use the `update` command instead.
+Use this command to patch your current Ory Cloud Project's permission service configuration. Only values
+specified in the patch will be overwritten. To replace the config use the `update` command instead.
 
-Compared to the `patch project` command, this command only updates the permission service configuration and also only returns the
-permission service configuration as a result. This command is useful when you want to import an Ory Keto config as well, for
-example. This allows for shorter paths when specifying the flags
+Compared to the `patch project` command, this command only updates the permission service configuration
+and also only returns the permission service configuration as a result. This command is useful when you want to
+import an Ory Keto config as well, for example. This allows for shorter paths when specifying the flags
 
-    ory patch identity-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
-    	--replace '/limit/max_read_depth=5'
+	ory patch identity-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
+		--replace '/limit/max_read_depth=5'
 
 when compared to the `patch project` command:
 
-    ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
-    	--replace '/services/permission/config/limit/max_read_depth=5'
+	ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
+		--replace '/services/permission/config/limit/max_read_depth=5'
 
 The format of the patch is a JSON-Patch document. For more details please check:
 
-    https://www.ory.sh/docs/reference/api#operation/patchProject
-    https://jsonpatch.com
+	https://www.ory.sh/docs/reference/api#operation/patchProject
+	https://jsonpatch.com
 
 ```
 ory patch permission-config <project-id> [flags]
@@ -85,4 +84,5 @@ $ ory patch permission-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 
 ### SEE ALSO
 
-- [ory patch](ory-patch) - Patch resources
+* [ory patch](ory-patch)	 - Patch resources
+
