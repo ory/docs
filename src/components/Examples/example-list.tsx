@@ -10,7 +10,6 @@ export interface PropTypes {
 interface ExampleCard {
   title: string
   language: string
-  framework?: string
   author: string
   tested: boolean
   repo: string
@@ -21,7 +20,6 @@ interface ExampleCard {
 const ExampleCard = ({
   title,
   language,
-  framework,
   author,
   repo,
   docs
