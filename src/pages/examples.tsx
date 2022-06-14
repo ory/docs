@@ -6,7 +6,7 @@ import Layout from '@theme/Layout'
 const ExamplePage = () => {
   return (
     <Layout>
-      <div>
+      <div style={{maxWidth:'1060px', margin:'auto'}}>
         <ExampleList {...content.official} />
         <ExampleList {...content.community} />
         <ExampleList {...content.selfhosted} />

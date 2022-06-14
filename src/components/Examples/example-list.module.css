@@ -1,12 +1,9 @@
-/* center container in the middle */
-
 .wrapper {
   max-width: 1600px;
   display: grid;
   grid-template-columns: auto auto;
-  gap: 25px;
-  list-style: none;
-  margin: auto;
+  gap: 32px;
+  list-style: none;  
 }
 
 @media screen and (min-width: 1200px) {
@@ -24,7 +21,7 @@
   position: relative;
   margin: auto;
   overflow: hidden;
-  width: 380px;
+  width: 100%;
   height: 125px;
   border-radius: 5px;
   text-decoration: none;
