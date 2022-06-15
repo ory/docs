@@ -1,4 +1,4 @@
-.jfcard {
+.card {
   background-color: var(--ifm-pre-background);
   color: inherit;
   padding: 1rem;
@@ -11,29 +11,29 @@
     "logo-img content";
 }
 
-.jfcardcontent {
+.cardcontent {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
 }
 
-.jfcardimage {
+.cardimage {
   grid-area: logo-img;
   width: 2rem;
 }
 
-.jfcardtitle {
+.cardtitle {
   margin-bottom: 0.25rem;
 }
 
 
-.jfcardbuttongroup {
-  grid-area: jfbuttons;
+.cardbuttongroup {
+  grid-area: buttons;
   display: flex;
   flex-direction: row;
 }
 
-.jfcardbutton {
+.cardbutton {
   display: flex;
   align-items: center;
   background-color: transparent;
@@ -43,43 +43,43 @@
   cursor: pointer;
 }
 
-.jfcardbutton:hover {
+.cardbutton:hover {
   background-color: rgba(128, 128, 128, 0.32)
 }
 
-.jfcardbutton:first-child {
+.cardbutton:first-child {
   margin-right: 0.5rem;
 }
 
-.jfcardbuttonimg {
+.cardbuttonimg {
   fill: grey;
   margin-right: 0.25rem;
 }
 
-.jfexamplesection {
+.examplesection {
   max-width: var(--ifm-container-width-xl);
   margin: 0 auto;
   padding: 2rem 2rem 3rem;
 }
 
-.jfexamplesectionheading {
+.examplesectionheading {
   padding-bottom: 1rem;
 }
 
-.jfcardgrid {
+.cardgrid {
   margin: 0 auto;
   display: grid;
   gap: 1rem;
 }
 
 @media screen and (min-width: 600px) {
-  .jfcardgrid {
+  .cardgrid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media screen and (min-width: 996px) {
-  .jfcardgrid {
+  .cardgrid {
     grid-template-columns: repeat(3, 1fr);
   }
 }

@@ -25,28 +25,28 @@ const ExampleCard = ({
                        repo,
                        docs
                      }: ExampleCard) => (
-  <article className={styles.jfcard}>
+  <article className={styles.card}>
     <div>
       <img
-        className={styles.jfcardimage}
+        className={styles.cardimage}
         src={'./img/examples/' + language + '.svg'}
       />
     </div>
-    <section className={styles.jfcardcontent}>
+    <section className={styles.cardcontent}>
       <div>
-        <h4 className={styles.jfcardtitle}>{title}</h4>
+        <h4 className={styles.cardtitle}>{title}</h4>
         <p>
           by <a href={'https://github.com/' + author}>@{author}</a>
         </p>
       </div>
 
-      <div className={styles.jfcardbuttongroup}>
+      <div className={styles.cardbuttongroup}>
         <button
-          className={styles.jfcardbutton}
+          className={styles.cardbutton}
           onClick={() => (location.href = `${repo}`)}
           type='button'
         >
-          <svg className={styles.jfcardbuttonimg} width='16' height='16' viewBox='0 0 16 16'
+          <svg className={styles.cardbuttonimg} width='16' height='16' viewBox='0 0 16 16'
                xmlns='http://www.w3.org/2000/svg'>
             <path fillRule='evenodd' clipRule='evenodd'
                   d='M8.04876 0.625C6.25578 0.624404 4.52114 1.26202 3.15539 2.4237C1.78964 3.58538 0.881967 5.19525 0.594888 6.9651C0.307809 8.73494 0.660065 10.5492 1.58859 12.083C2.51711 13.6168 3.96127 14.7701 5.66251 15.3362C6.03751 15.4062 6.17751 15.1725 6.17751 14.9738C6.17751 14.7938 6.17126 14.1988 6.16751 13.5675C4.06751 14.025 3.62501 12.6775 3.62501 12.6775C3.28126 11.8025 2.78626 11.5725 2.78626 11.5725C2.10126 11.1037 2.83876 11.1137 2.83876 11.1137C3.59626 11.1675 3.99501 11.8912 3.99501 11.8912C4.66876 13.0462 5.76126 12.7125 6.19251 12.5162C6.26001 12.0287 6.45501 11.6963 6.67126 11.5075C4.99501 11.3163 3.23251 10.6688 3.23251 7.77625C3.22127 7.02632 3.49977 6.30096 4.01001 5.75125C3.93126 5.56 3.67251 4.7925 4.08251 3.75125C4.08251 3.75125 4.71626 3.54875 6.15876 4.525C7.39647 4.18666 8.7023 4.18666 9.94001 4.525C11.38 3.54875 12.0138 3.75125 12.0138 3.75125C12.4238 4.79125 12.1663 5.55875 12.0875 5.75125C12.5973 6.30116 12.8753 7.02649 12.8638 7.77625C12.8638 10.6763 11.0988 11.315 9.41751 11.5013C9.68876 11.735 9.93001 12.195 9.93001 12.8987C9.93001 13.9087 9.92126 14.7225 9.92126 14.9712C9.92126 15.1712 10.0563 15.4075 10.4388 15.3325C12.1375 14.7642 13.5788 13.6103 14.5051 12.077C15.4313 10.5437 15.7821 8.73106 15.4948 6.96294C15.2075 5.19482 14.3007 3.5865 12.9367 2.42542C11.5726 1.26434 9.84007 0.626181 8.04876 0.625V0.625Z' />
@@ -69,11 +69,11 @@ const ExampleCard = ({
         </button>
         {docs && (
           <button
-            className={styles.jfcardbutton}
+            className={styles.cardbutton}
             onClick={() => (location.href = `${docs}`)}
             type='button'
           >
-            <svg className={styles.jfcardbuttonimg} width='16' height='16' viewBox='0 0 16 16' fill='none'
+            <svg className={styles.cardbuttonimg} width='16' height='16' viewBox='0 0 16 16' fill='none'
                  xmlns='http://www.w3.org/2000/svg'>
               <path fillRule='evenodd' clipRule='evenodd'
                     d='M2.67311 4.50861V11.7547C4.17033 11.1944 5.83007 11.1926 7.33724 11.7568V4.53539C5.86645 3.81046 4.14513 3.80154 2.67311 4.50861ZM8.33648 13.3863C8.30093 13.4058 8.26381 13.4219 8.22568 13.4346C8.15612 13.4594 8.08134 13.4729 8.00355 13.4729C7.9308 13.4729 7.8611 13.4615 7.79601 13.4405C7.75228 13.4269 7.71003 13.4088 7.67017 13.3863C6.01773 12.4343 3.98549 12.4343 2.3397 13.3863H2.33904C2.01255 13.566 1.6061 13.4595 1.4262 13.14C1.3483 13.0038 1.32151 12.8537 1.3405 12.7119V4.24806C1.33593 4.21678 1.33357 4.18482 1.33357 4.15234C1.32691 3.90603 1.46017 3.68635 1.66673 3.56652L1.66007 3.56053C3.60569 2.44216 5.97775 2.37559 7.99 3.38079C9.98893 2.36893 12.3743 2.4355 14.3199 3.56053C14.3819 3.59609 14.436 3.6405 14.4816 3.69134C14.5961 3.81026 14.6666 3.97229 14.6666 4.15311V12.8072C14.6666 13.1733 14.3668 13.4729 14.0003 13.4729C13.8988 13.4729 13.8032 13.4507 13.7178 13.4111C13.7005 13.4034 13.6836 13.3951 13.667 13.3863C12.0145 12.4343 9.98227 12.4343 8.33648 13.3863ZM13.334 11.7598V4.53537C11.8632 3.81046 10.1419 3.80154 8.66986 4.50863V11.7579C10.1768 11.1975 11.8318 11.2007 13.334 11.7598Z' />
@@ -87,12 +87,12 @@ const ExampleCard = ({
 )
 
 const ExampleList = ({ id, examples, title, description }: PropTypes) => (
-  <section className={styles.jfexamplesection} id={id}>
-    <div className={styles.jfexamplesectionheading}>
+  <section className={styles.examplesection} id={id}>
+    <div className={styles.examplesectionheading}>
       <h1>{title}</h1>
       <p>{description}</p>
     </div>
-    <div className={styles.jfcardgrid}>
+    <div className={styles.cardgrid}>
       {examples.map((examples, index) => (
         <div key={index}>
           <ExampleCard {...examples} />
