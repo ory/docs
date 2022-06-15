@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './example-list.module.css'
 
 export interface PropTypes {
+  id
   title?
   description?
   examples: Array<ExampleCard>
@@ -85,8 +86,8 @@ const ExampleCard = ({
   </article>
 )
 
-const ExampleList = ({ examples, title, description }: PropTypes) => (
-  <section className={styles.jfexamplesection} id={title}>
+const ExampleList = ({ id, examples, title, description }: PropTypes) => (
+  <section className={styles.jfexamplesection} id={id}>
     <div className={styles.jfexamplesectionheading}>
       <h1>{title}</h1>
       <p>{description}</p>
