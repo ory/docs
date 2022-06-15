@@ -563,6 +563,11 @@
       "source": "/docs/start-building/single-page-app-spa",
       "destination": "https://www.ory.sh/login-spa-react-nextjs-authentication-example-api-open-source/",
       "permanent": false
+    },
+    {
+      "source": "/docs/guides/protect-page-login/index",
+      "destination": "https://www.ory.sh/docs/guides/protect-page-login/go",
+      "permanent": false
     }
   ]
 }
