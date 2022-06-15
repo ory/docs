@@ -93,7 +93,7 @@ const ExampleList = ({ examples, title, description }: PropTypes) => (
     </div>
     <ul className={styles.wrapper}>
       {examples.map((examples, index) => (
-        <div key="index">
+        <div key={index}>
           <ExampleCard {...examples} />
         </div>
       ))}
