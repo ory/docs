@@ -52,7 +52,7 @@
 }
 
 .cardbuttonimg {
-  fill: grey;
+  fill: var(--ifm-font-color-base);
   margin-right: 0.25rem;
 }
 
