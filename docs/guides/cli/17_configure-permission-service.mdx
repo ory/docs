@@ -1,0 +1,79 @@
+---
+id: configure-permission-service
+title: Configure Permission Service
+---
+
+Using the Ory CLI, you can quickly adjust the configuration of the Ory Cloud Permission Service and apply config from the Cloud
+environment to self-hosted Ory Keto instances.
+
+:::tip
+
+Ory Keto is the open-source project that powers the Ory Cloud Permission Service.
+
+:::
+
+This feature is useful for fluently moving your local setup to the Cloud, or for working on the configuration and testing
+different settings in the safety of the local development environment.
+
+To work with the Ory Cloud Permission Service, you must have an active Ory Cloud project. Use the
+[CLI](./config-with-cli#create-ory-cloud-project) or the [Ory Console](https://console.ory.sh/) to create one.
+
+## Export Configuration from Ory Cloud
+
+To get your project's Permission Service configuration, run this command:
+
+:::info
+
+You must be signed in to an Ory Cloud account to perform this action. Read
+[this document](./cli-basics#use-cli-with-existing-cloud-account) to learn more.
+
+:::
+
+```bash
+## List all available projects
+ory list projects
+
+## Get config
+ory get permission-config <project-id> --format yaml
+```
+
+The `--format` flag defines the format of the output file. You can choose one of `yaml` ,`json`, or `json-pretty`.
+
+Getting the configuration in the YAML format produces output that is ready to use with self-hosted Ory Keto.
+
+### Export to File
+
+For a convenient way to get the Permission Service configuration working in self-hosted Ory Keto, save the configuration to a YAML
+file.
+
+Run this command:
+
+```bash
+ory get permission-config <project-id> --format yaml > identity-config.yaml
+```
+
+## Import Configuration to Ory Cloud
+
+To start using the configuration from a self-hosted Ory Keto instance in the Ory Cloud Permission Service, import the
+configuration file with the CLI:
+
+```shell
+ory update permission-config <project-id> --file config.yaml
+```
+
+## Adjust Specific Keys
+
+You can adjust specific keys in the configuration using the `ory patch` CLI command.
+
+Running this sample command sets the `/limit/max_read_depth` key value to `3`:
+
+```shell
+ory patch permission-config <project-id> \
+  --replace '/limit/max_read_depth=3'
+```
+
+:::note
+
+Read [this document](./config-with-cli) to learn more about adjusting project configuration with the Ory CLI.
+
+:::
