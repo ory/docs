@@ -74,8 +74,62 @@ margin: auto;
     "logo-img content";
 }
 
-.jfcards {
-  max-width: 1200px;
+.jfcardcontent {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.jfcardimage {
+  grid-area: logo-img;
+  width: 2rem;
+}
+
+.jfcardtitle {
+  margin-bottom: 0.25rem;
+}
+
+
+.jfcardbuttongroup {
+  grid-area: jfbuttons;
+  display: flex;
+  flex-direction: row;
+}
+
+.jfcardbutton {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: 1px solid rgba(128, 128, 128, 0.32);
+  color: inherit;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.jfcardbutton:hover {
+  background-color: rgba(128, 128, 128, 0.32)
+}
+
+.jfcardbutton:first-child {
+  margin-right: 0.5rem;
+}
+
+.jfcardbuttonimg {
+  fill: grey;
+  margin-right: 0.25rem;
+}
+
+.jfexamplesection {
+  max-width: var(--ifm-container-width-xl);
+  margin: 0 auto;
+  padding: 2rem 2rem 3rem;
+}
+
+.jfexamplesectionheading {
+  padding-bottom: 1rem;
+}
+
+.jfcardgrid {
   margin: 0 auto;
   display: grid;
   gap: 1rem;
