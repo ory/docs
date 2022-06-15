@@ -4,7 +4,7 @@ export const official: PropTypes = {
   id: 'official',
   title: 'Official Examples',
   description:
-    'Guides, tutorials and configurations for using Ory services. Examples maintained and tested by the Ory team.',
+    'Guides, tutorials, and configurations for using Ory services. Examples maintained and tested by the Ory team.',
   examples: [
     {
       title: 'Protect a Page with Login: NextJs/React',
@@ -59,8 +59,6 @@ export const official: PropTypes = {
       tested: true,
       repo: 'https://github.com/ory/examples/tree/master/django-ory-cloud',
       docs: 'https://hauke.me/writing/2021-03-building-a-quarkus-application-with-ory-kratos/',
-      description:
-        'This repo demonstrates how you can use Ory Cloud or Ory Kratos with Django apps.'
     },
     {
       title: 'Protect a Page with Login: Flask',
@@ -114,7 +112,7 @@ export const community: PropTypes = {
   id: 'community',
   title: 'Community Examples',
   description:
-    'Guides, tutorials and configurations for using Ory services contributed by the Ory community.',
+    'Guides, tutorials, and configurations for using Ory services contributed by the Ory community.',
   examples: [
     {
       title: 'Customize Self-service UI: Flutter',
@@ -213,7 +211,7 @@ export const selfhosted: PropTypes = {
   id: 'selfhosted',
   title: 'Selfhosted Examples',
   description:
-    'Guides, tutorials and configurations for self-hosting Ory services. These examples are partly contributed by the Ory community, in parts by the Ory team.',
+    'Guides, tutorials, and configurations for self-hosting Ory services. These examples are partly contributed by the Ory community, in parts by the Ory team.',
   examples: [
     {
       title: 'API Gateway using Kong, Ory Kratos & Ory Oathkeeper',
@@ -237,7 +235,7 @@ export const selfhosted: PropTypes = {
       title: 'Simple Admin UI for Ory Kratos',
       language: 'javascript',
       // framework: 'Ory Kratos',
-      author: 'ory',
+      author: 'dfoxg',
       tested: false,
       repo: 'https://github.com/dfoxg/kratos-admin-ui',
       docs: 'https://github.com/dfoxg/kratos-admin-ui/blob/main/README.md'
@@ -258,7 +256,7 @@ export const selfhosted: PropTypes = {
       author: 'radekg',
       tested: false,
       repo: 'https://github.com/radekg/ory-reference-compose',
-      docs: 'https://github.com/dfoxg/kratos-admin-ui/blob/main/README.md'
+      docs: 'https://github.com/radekg/ory-reference-compose/blob/master/README.md'
     }
   ]
 }
