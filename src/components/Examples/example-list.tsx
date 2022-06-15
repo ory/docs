@@ -33,6 +33,7 @@ const ExampleCard = ({
     </div>
     <section className={styles.jfcardcontent}>
       <div>
+        <h4 className={styles.jfcardtitle}>{title}</h4>
         <p>
           by <a href={'https://github.com/' + author}>@{author}</a>
         </p>
