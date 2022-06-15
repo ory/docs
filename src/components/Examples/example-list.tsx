@@ -86,8 +86,8 @@ const ExampleCard = ({
 )
 
 const ExampleList = ({ examples, title, description }: PropTypes) => (
-  <div className={styles.examplesWrapper}>
-    <div className={styles.header}>
+  <section className={styles.jfexamplesection} id={title}>
+    <div className={styles.jfexamplesectionheading}>
       <h1>{title}</h1>
       <p>{description}</p>
     </div>
@@ -97,8 +97,8 @@ const ExampleList = ({ examples, title, description }: PropTypes) => (
           <ExampleCard {...examples} />
         </div>
       ))}
-    </ul>
-  </div>
+    </div>
+  </section>
 )
 
 export default ExampleList
