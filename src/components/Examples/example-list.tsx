@@ -91,7 +91,7 @@ const ExampleList = ({ examples, title, description }: PropTypes) => (
       <h1>{title}</h1>
       <p>{description}</p>
     </div>
-    <ul className={styles.wrapper}>
+    <div className={styles.jfcardgrid}>
       {examples.map((examples, index) => (
         <div key={index}>
           <ExampleCard {...examples} />
