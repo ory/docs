@@ -18,24 +18,20 @@ interface ExampleCard {
 }
 
 const ExampleCard = ({
-  title,
-  language,
-  author,
-  repo,
-  docs
-}: ExampleCard) => (
-  <li>
-    <div className={styles.container}>
-      <div>
-        <img
-          className={styles.img}
-          src={'./img/examples/' + language + '.svg'}
-        />
-      </div>
-      <div>
-        <p className={styles.title}>{title}</p>
-      </div>
-      <div></div>
+                       title,
+                       language,
+                       author,
+                       repo,
+                       docs
+                     }: ExampleCard) => (
+  <article className={styles.jfcard}>
+    <div>
+      <img
+        className={styles.jfcardimage}
+        src={'./img/examples/' + language + '.svg'}
+      />
+    </div>
+    <section className={styles.jfcardcontent}>
       <div>
         <p>
           by <a href={'https://github.com/' + author}>@{author}</a>
@@ -85,8 +81,8 @@ const ExampleCard = ({
           </button>
         )}
       </div>
-    </div>
-  </li>
+    </section>
+  </article>
 )
 
 const ExampleList = ({ examples, title, description }: PropTypes) => (
