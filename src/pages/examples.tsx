@@ -6,11 +6,11 @@ import Layout from '@theme/Layout'
 const ExamplePage = () => {
   return (
     <Layout>
-      <div>
+      <section className={"docs-doc-page"}>
         <ExampleList {...content.official} />
         <ExampleList {...content.community} />
         <ExampleList {...content.selfhosted} />
-      </div>
+      </section>
     </Layout>
   )
 }
