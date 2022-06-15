@@ -65,6 +65,13 @@ margin: auto;
   background-color: var(--ifm-pre-background);
   color: inherit;
   padding: 1rem;
+  display: grid;
+  height: 100%;
+  grid-template-columns: 2rem 1.75fr;
+  grid-template-rows: 1fr;
+  gap: 1rem;
+  grid-template-areas:
+    "logo-img content";
 }
 
 .jfcards {
