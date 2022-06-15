@@ -134,3 +134,15 @@ margin: auto;
   display: grid;
   gap: 1rem;
 }
+
+@media screen and (min-width: 600px) {
+  .jfcardgrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 996px) {
+  .jfcardgrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
