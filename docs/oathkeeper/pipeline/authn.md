@@ -918,7 +918,7 @@ use those keys to verify the signature. If the signature can't be verified by an
 
 ## `remote_json`
 
-The `remote_json` authenticator will forward the HTTP request (method, path, headers and body) to an upstream service. If the service returns `200 OK` and body `{ "subject": "...", "extra": {} }`, then the authenticator will set the subject appropriately.
+The `remote_json` authenticator will forward the HTTP request (method, path, headers and body) to an upstream service. This authenticator aims to send both, the request headers and body to the authentication service, in contrast with the `bearer_token` authenticator, where the request only contains the request headers. If the service returns `200 OK` and body `{ "subject": "...", "extra": {} }`, then the authenticator will set the subject appropriately.
 
 ### `remote_json` Configuration
 
@@ -926,7 +926,8 @@ The `remote_json` authenticator will forward the HTTP request (method, path, hea
 - `preserve_path` (boolean, optional - defaults to `false`) - If set to `true`, any path in `service_url` will be preserved instead of replacing the path with the path of the request being checked.
 - `extra_from` (string, optional - defaults to `extra`) - A [GJSON Path](https://github.com/tidwall/gjson/blob/master/SYNTAX.md) pointing to the `extra` field. This defaults to `extra`, but it could also be `@this` (for the root element), `session.foo.bar` for `{ "subject": "...", "session": { "foo": {"bar": "whatever"} } }`, and so on.
 - `subject_from` (string, optional - defaults to `subject`) - A [GJSON Path](https://github.com/tidwall/gjson/blob/master/SYNTAX.md) pointing to the `subject` field. This defaults to `subject`. Example: `identity.id` for `{ "identity": { "id": "1234" } }`.
-- `method` (string, optional) - The method to pass to the authenticator service. If set, the method of the original request is overwritten with the specified method. If not set, the method of the original request is used.
+- `method` (string, optional) - The method to pass to the authenticator service. If set, the method of the original request is overwritten with the specified method. If not set, the method used will be `POST` by default, or the original request method if the `use_original_method` fiels is set to `true`.
+- `use_original_method` (boolean, optional - defaults to `false`) - If set to `true`, the request to the authentication service will be performed using the original request method; otherwise, the request will be performed using the method `POST`. This field is ignored if the `method` field is set.
 
 ```yaml
 # Global configuration file oathkeeper.yml
