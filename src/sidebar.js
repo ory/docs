@@ -342,7 +342,6 @@ module.exports = {
           Introduction: [
             'keto/index',
             'keto/install',
-            'keto/implemented-planned-features',
             'keto/performance',
             'keto/quickstart'
           ]
