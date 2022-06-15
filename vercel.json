@@ -573,6 +573,11 @@
       "source": "/docs/concepts/services-api",
       "destination": "https://www.ory.sh/docs/welcome",
       "permanent": false
+    },
+    {
+      "source": "/docs/keto/implemented-planned-features",
+      "destination": "https://www.ory.sh/docs/guides/cli/configure-permission-service",
+      "permanent": false
     }
   ]
 }
