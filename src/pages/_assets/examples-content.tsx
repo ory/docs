@@ -1,6 +1,7 @@
 import { PropTypes } from '../../components/Examples/example-list'
 
 export const official: PropTypes = {
+  id: 'official',
   title: 'Official Examples',
   description:
     'Guides, tutorials and configurations for using Ory services. Examples maintained and tested by the Ory team.',
@@ -110,6 +111,7 @@ export const official: PropTypes = {
 }
 
 export const community: PropTypes = {
+  id: 'community',
   title: 'Community Examples',
   description:
     'Guides, tutorials and configurations for using Ory services contributed by the Ory community.',
@@ -208,6 +210,7 @@ export const community: PropTypes = {
 }
 
 export const selfhosted: PropTypes = {
+  id: 'selfhosted',
   title: 'Selfhosted Examples',
   description:
     'Guides, tutorials and configurations for self-hosting Ory services. These examples are partly contributed by the Ory community, in parts by the Ory team.',
