@@ -23,18 +23,17 @@
   - [Testing](#testing)
     - [Playwright tests](#playwright-tests)
     - [Jest tests](#jest-tests)
-    - [Formatting documentation](#formatting-documentation)
     - [Markdownlint](#markdownlint)
-    - [Vale](#vale)
   - [How-To](#how-to)
     - [Links to other pages](#links-to-other-pages)
     - [Import Markdown](#import-markdown)
     - [Code snippets](#code-snippets)
       - [From Github](#from-github)
       - [From this Repository](#from-this-repository)
+      - [Code Examples in MDX](#code-examples-in-mdx)
+    - [Shell Examples](#shell-examples)
     - [Images](#images)
     - [Videos](#videos)
-    - [Shell Examples](#shell-examples)
   - [CLI Documentation](#cli-documentation)
     - [Fixing Ory CLI docs](#fixing-ory-cli-docs)
 
@@ -154,21 +153,6 @@ The [Playwright](https://github.com/microsoft/playwright) (E2E) tests file names
 ### Jest tests
 
 The Playwright (E2E) tests file names end with `.test.ts` and can be found in `/tests/jest`.
-
-### Formatting documentation
-
-All documentation (as well as any other files) must be formatted using
-[Ory's prettier styles](https://github.com/ory/prettier-styles)
-
-To format all for documentation relevant files simply run the following command from the repositories main directory:
-
-```sh
-cd docs
-npm install
-npm run format
-git commit -a -m "styles: format"
-git push
-```
 
 ### Markdownlint
 
@@ -340,7 +324,7 @@ file is recorded. Follow these rules:
 1. Please use 16:9 format with at least 1024 pixels wide. `ffmpeg` will scale it to the right size.
 1. Please make sure that no history or auto-suggestions are visible.
 
-Once recoded, use the commands below to convert them to `mp4` and `webm`:
+Once recorded, use the commands below to convert them to `mp4` and `webm`:
 
 ```shellsession
 file="screencast.mov"
@@ -361,7 +345,7 @@ import VideoEmbed from '@site/src/components/VideoEmbed'
 ```
 ````
 
-To embed Youtube videos just copy & paste the link, its that easy!
+To embed Youtube videos just copy & paste the link, it's that easy!
 
 ## CLI Documentation
 

@@ -13,7 +13,7 @@ func (app *App) dashboardHandler() http.HandlerFunc {
 			http.Error(writer, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		session, err := json.Marshal(app.session)
+		session, err := json.Marshal(getSession(request.Context()))
 		if err != nil {
 			http.Error(writer, err.Error(), http.StatusInternalServerError)
 			return
