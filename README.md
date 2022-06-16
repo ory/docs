@@ -169,6 +169,27 @@ Locally:
 
 ## How-To
 
+### Add content to example page
+
+[The example page](https://www.ory.sh/docs/examples) provides an overview of Ory examples.
+Add a new example or modify existing entries:
+
+- Open `examples-content.tsx` under the path `docs/src/pages/_assets/`
+- Copy the following snippet and append it in the correct array (either official, community or self-hosting examples):
+
+```tsx
+{
+      title: 'Protect a Page with Login: NextJs/React', //Your example title goes here
+      language: 'typescript',                           //The main programming language of your example
+      author: 'ory',                                    //The authors github handle
+      tested: true,                                     //Is the example in ory/examples and has automated tests added?
+      repo: 'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/nextjs', //The repo containing the example code
+      docs: 'https://www.ory.sh/docs/guides/protect-page-login/next.js'                        //Documentation for the example, can be README, blog article or similar
+    },
+```
+
+- Open a pull request with your changes
+
 ### Links to other pages
 
 If you would add a link to an outside resource, just go ahead.
