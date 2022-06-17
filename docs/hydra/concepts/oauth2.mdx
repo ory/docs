@@ -179,3 +179,13 @@ of the token from the authorization server to the protected resource.
 
 The usage of an access token or client credentials is required to access the endpoint. Ory Hydra will however accept any valid
 token or valid credentials as there is no built-in access control.
+
+## Token Formats
+
+Ory issues access tokens, refresh tokens, and authorization codes with a fixed prefix:
+
+* `ory_at_`: OAuth 2.0 Access Token
+* `ory_rt_`: OAuth 2.0 Refresh Token
+* `ory_ac_`: OAuth 2.0 Authorization Code
+
+These help identify OAuth2 credentials in code scanning tools.
