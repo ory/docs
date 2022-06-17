@@ -129,6 +129,7 @@ module.exports = {
         'concepts/project',
         'concepts/redirects',
         'concepts/emails',
+        'concepts/personal-access-token',
         'ecosystem/api-design',
         'concepts/password-policy'
       ]
