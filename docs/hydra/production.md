@@ -36,6 +36,21 @@ When TLS Termination is enabled, you don't need to provide a TLS Certificate and
 
 If you are unable to properly set up TLS Termination, you may want to set the `--dangerous-force-http` flag. But please be aware
 that we discourage you from doing so and that you should know what you're doing.
+Clients
+
+### HTTP Clients
+
+In some scenarios you might want to disallow HTTP calls to private IP ranges. To configure this feature, set the following
+configuration:
+
+```yaml
+clients:
+  http:
+    disallow_private_ip_ranges: true
+```
+
+If enabled, all outgoing HTTP calls done by Ory Hydra will be checked whether they're against a private IP range. If that's the
+case, the request will fail with an error.
 
 ### Routing
 
