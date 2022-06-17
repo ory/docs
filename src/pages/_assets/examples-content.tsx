@@ -107,7 +107,7 @@ export const official: PropTypes = {
     },
     {
       title: 'Ory Cloud with Supabase Backend',
-      language: 'Go',
+      language: 'go',
       // framework: 'Go',
       author: 'ory',
       tested: false,
