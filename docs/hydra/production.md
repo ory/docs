@@ -12,32 +12,6 @@ ORY Hydra facing the public net directly. We strongly recommend running ORY Hydr
 common to terminate TLS on the edge (gateway / load balancer) and use certificates provided by your infrastructure provider such
 as AWS CA for last mile security.
 
-### TLS Termination
-
-You may also choose to set Hydra to HTTPS mode without actually accepting TLS connections. In that case, all Hydra URLs are
-prefixed with `https://`, but the server is actually accepting http. This makes sense if you don't want last mile security using
-TLS, and trust your network to properly handle internal traffic:
-
-```yaml
-serve:
-  tls:
-    allow_termination_from:
-      - 127.0.0.1/32
-```
-
-With TLS termination enabled, ORY Hydra discards all requests unless:
-
-- The request is coming from a trusted IP address set by `serve.tls.allow_termination_from` and the header `X-Forwarded-Proto` is
-  set to `https`.
-- The request goes to `/health/alive`, `/health/ready` which doesn't require TLS termination and that's used to check the health
-  of an instance.
-
-When TLS Termination is enabled, you don't need to provide a TLS Certificate and Private Key.
-
-If you are unable to properly set up TLS Termination, you may want to set the `--dangerous-force-http` flag. But please be aware
-that we discourage you from doing so and that you should know what you're doing.
-Clients
-
 ### HTTP Clients
 
 In some scenarios you might want to disallow HTTP calls to private IP ranges. To configure this feature, set the following
