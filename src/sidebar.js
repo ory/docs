@@ -95,7 +95,8 @@ module.exports = {
                 'guides/social-signin/twitch',
                 'guides/social-signin/netid',
                 'guides/social-signin/yandex',
-                'guides/social-signin/vk'
+                'guides/social-signin/vk',
+                'guides/social-signin/dingtalk'
               ]
             },
             'guides/social-signin/get-tokens',
@@ -394,7 +395,10 @@ module.exports = {
           ]
         },
         {
-          SDKs: ['keto/sdk/index']
+          SDKs: [
+            'keto/sdk/index',
+            'keto/sdk/go'
+          ]
         }
       ]
     },
