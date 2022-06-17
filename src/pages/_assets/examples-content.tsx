@@ -7,18 +7,18 @@ export const official: PropTypes = {
     'Guides, tutorials, and configurations for using Ory services. Examples maintained and tested by the Ory team.',
   examples: [
     {
-      title: 'Protect a Page with Login: NextJs/React',
-      language: 'typescript',
-      // framework: 'NextJs/React',
+      title: 'Protect a Page with Login: Next.js/React',
+      language: 'javascript',
+      // framework: 'Next.js/React',
       author: 'ory',
       tested: true,
       repo: 'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/nextjs',
       docs: 'https://www.ory.sh/docs/guides/protect-page-login/next.js'
     },
     {
-      title: 'Protect a Page with Login: ExpressJS',
-      language: 'typescript',
-      // framework: 'ExpressJs',
+      title: 'Protect a Page with Login: Express.js',
+      language: 'javascript',
+      // framework: 'Express.js',
       author: 'ory',
       tested: true,
       repo: 'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/expressjs',
@@ -41,6 +41,15 @@ export const official: PropTypes = {
       tested: true,
       repo: 'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/php',
       docs: 'https://www.ory.sh/docs/guides/protect-page-login/php'
+    },
+    {
+      title: 'Protect a Page with Login: Vue.js',
+      language: 'javascript',
+      // framework: 'Vanilla',
+      author: 'ory',
+      tested: true,
+      repo: 'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/vue',
+      docs: 'https://www.ory.sh/docs/guides/protect-page-login/vue'
     },
     {
       title: 'Protect a Page with Login: Flutter',
@@ -70,18 +79,18 @@ export const official: PropTypes = {
       docs: 'https://www.ory.sh/securing-flask-application-using-kratos-and-keto/'
     },
     {
-      title: 'Customize Self-service UI: NodeJs',
+      title: 'Customize Self-service UI: Node.js',
       language: 'typescript',
-      // framework: 'NodeJs',
+      // framework: 'Node.js',
       author: 'ory',
       tested: true,
       repo: 'https://github.com/ory/kratos-selfservice-ui-node',
       docs: 'https://github.com/ory/kratos-selfservice-ui-node/blob/master/README.md'
     },
     {
-      title: 'Customize Self-service UI: NextJS/React',
+      title: 'Customize Self-service UI: Next.js/React',
       language: 'typescript',
-      // framework: 'NextJs/React',
+      // framework: 'Next.js/React',
       author: 'ory',
       tested: true,
       repo: 'https://github.com/ory/kratos-nextjs-react-example',
@@ -98,8 +107,8 @@ export const official: PropTypes = {
     },
     {
       title: 'Ory Cloud with Supabase Backend',
-      language: 'typescript',
-      // framework: 'React Native',
+      language: 'go',
+      // framework: 'Go',
       author: 'ory',
       tested: false,
       repo: 'https://github.com/ory/examples/tree/master/supabase-ory-cloud',
@@ -142,9 +151,9 @@ export const community: PropTypes = {
       docs: 'https://hauke.me/writing/2021-03-building-a-quarkus-application-with-ory-kratos/'
     },
     {
-      title: 'Customize Self-service UI: Vue3',
+      title: 'Customize Self-service UI: Vue.js',
       language: 'typescript',
-      // framework: 'Vue3',
+      // framework: 'Vue.js',
       author: 'timalanfarrow',
       tested: false,
       repo: 'https://github.com/timalanfarrow/kratos-selfservice-ui-vue3-typescript',
@@ -223,7 +232,7 @@ export const selfhosted: PropTypes = {
       docs: 'https://www.ory.sh/zero-trust-api-security-ory-tutorial/'
     },
     {
-      title: 'Ory Oathkeeper Examples',
+      title: 'Ory Oathkeeper Configurations',
       language: 'ory',
       // framework: 'Ory Oathkeeper',
       author: 'ory',
@@ -232,7 +241,25 @@ export const selfhosted: PropTypes = {
       docs: 'https://github.com/ory/examples/blob/master/oathkeeper/README.md'
     },
     {
-      title: 'Simple Admin UI for Ory Kratos',
+      title: 'Ory Hydra Nginx Configurations',
+      language: 'ory',
+      // framework: 'Ory Hydra',
+      author: 'ory',
+      tested: false,
+      repo: 'https://github.com/ory/examples/tree/master/hydra-nginx',
+      docs: 'https://github.com/ory/examples/blob/master/hydra-nginx/README.md'
+    },
+    {
+      title: 'Ory Kratos Nginx Configurations',
+      language: 'ory',
+      // framework: 'Ory Oathkeeper',
+      author: 'ory',
+      tested: false,
+      repo: 'https://github.com/ory/examples/tree/master/kratos-nginx',
+      docs: 'https://github.com/ory/examples/blob/master/kratos-nginx/README.md'
+    },
+    {
+      title: 'Basic Admin UI for Ory Kratos',
       language: 'javascript',
       // framework: 'Ory Kratos',
       author: 'dfoxg',
@@ -257,6 +284,15 @@ export const selfhosted: PropTypes = {
       tested: false,
       repo: 'https://github.com/radekg/ory-reference-compose',
       docs: 'https://github.com/radekg/ory-reference-compose/blob/master/README.md'
+    },
+    {
+      title: 'Ory Kratos with Supabase Backend',
+      language: 'Go',
+      // framework: 'Go',
+      author: 'ory',
+      tested: false,
+      repo: 'https://github.com/ory/examples/tree/master/kratos-keto-oathkeeper-supabase',
+      docs: 'https://www.ory.sh/tutorial-url-shortener-supabase-ory-integration-backend/'
     }
   ]
 }
