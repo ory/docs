@@ -138,3 +138,18 @@ This configuration is the default for all Ory Cloud projects.
 
 When writing end-to-end (E2E) tests for TOTP implementation in your app,
 [you can reference the Cypress tests used in Ory Identity Service (Kratos)](https://github.com/ory/kratos/blob/fc2cecfbeab811aa1a851f953b6bc2a4c119c412/test/e2e/cypress/integration/profiles/mfa/totp.spec.ts).
+
+## Identity Credentials
+
+When the user enables TOTP, Ory adds the following entries to the `credentials` object of the associated Identity:
+
+```yaml
+credentials:
+  password:
+    id: totp
+    identifiers:
+      - 802471b9-06f5-49d4-a88d-5e7d6bcfed22
+    config:
+      # This is the TOTP URL which contains the pre-shared key and some additional meta-information.
+      totp_url: otpauth://totp/Example:alice@example.org?secret=JBSWY3DPEHPK3PXP&issuer=Example
+```

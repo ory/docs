@@ -29,9 +29,6 @@ technology (such as Kubernetes) most:
   to a cost center, and that smart fridge on floor 4. You can express the different data models using
   [JSON Schema](https://json-schema.org/) and make the system work for you - not the other way around.
 
-To learn more about what's different and how Ory Kratos compares to other open source solutions, head over to
-[Concepts](./concepts/index.md) and [Comparison](./further-reading/comparison.md).
-
 Ory Kratos isn't just about features; it stands out because it runs on any operating system (Linux, macOS, Windows) and on most
 processors (i386, amd64, arm, etc.). The compiled binary has _no system or library or file dependencies_ and can be run as a
 single, static binary on top of, for example, a raw Linux kernel. The binary and Docker image are each less than 20MB in size.
