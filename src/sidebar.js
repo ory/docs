@@ -91,6 +91,13 @@ module.exports = {
         },
         {
           type: 'category',
+          label: 'Permissions',
+          items: [
+            'guides/permissions/overview'
+          ]
+        },
+        {
+          type: 'category',
           label: 'Social Sign-in',
           items: [
             'guides/social-signin/overview',
