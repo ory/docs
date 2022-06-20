@@ -26,7 +26,7 @@ modifies the core technology. This isn't an exhaustive list. Want your own conte
 - [Starter for Svelte Kit and the Ory Stack](https://github.com/MicLeey/sveltekit-ory-starter)
 - [Reference Ory Docker Compose Setup ](https://github.com/radekg/ory-reference-compose) +
   [Article](https://gruchalski.com/posts/2021-04-10-ory-reference-docker-compose-and-thoughts-on-the-platform/)
-- [WIP Ory Hydra/Kratos Integration in Go](https://github.com/atreya2011/go-kratos-test)
+- [Ory Hydra/Kratos Integration in Go](https://github.com/atreya2011/go-kratos-test)
 - [Ory Kratos "hydra-integration" branch](https://github.com/ory/kratos-selfservice-ui-node/tree/hydra-integration-2021)
 - [Predefined dockertest libraries for Hydra, Kratos & Keto integration tests](https://github.com/radekg/app-kit-orytest)
 
