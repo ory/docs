@@ -77,7 +77,8 @@ ORY_SDK_URL=https://playground.projects.oryapis.com ory proxy http://localhost:8
 ### Using embedded cache storage
 
 This example uses [dgraph-io/ristretto](https://github.com/dgraph-io/ristretto) memory-bound
-Go cache.
+Go cache. You can access `/cached` and `/uncached` endpoints to see the difference in
+performance.
 
 ```mdx-code-block title="main.go"
 import embedded from '!!raw-loader!../../../code-examples/low-latency-sessions/embedded/main.go'
@@ -87,12 +88,21 @@ import embedded from '!!raw-loader!../../../code-examples/low-latency-sessions/e
 
 ### Using Redis cache
 
-The example below shows how to cache sessions using [Redis](https://redis.io)
+The example below shows how to cache sessions using [Redis](https://redis.io).
 
 ```mdx-code-block title="main.go"
 import index from '!!raw-loader!../../../code-examples/low-latency-sessions/main.go'
 
 <CodeBlock language="go">{index}</CodeBlock>
+```
+It uses same `/cached` and `/uncached` endpoints to show the difference in performance
+but requires running Redis instance. The following docker-compose configuration can be used
+to run it.
+
+```mdx-code-block title="main.go"
+import compoese from '!!raw-loader!../../../code-examples/low-latency-sessions/docker-compose.yml'
+
+<CodeBlock language="yaml">{compoese}</CodeBlock>
 ```
 The strategy above works for most cases when one has a high-throughput system.
 
