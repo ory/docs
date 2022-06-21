@@ -578,6 +578,11 @@
       "source": "/docs/guides/protect-page-login",
       "destination": "https://www.ory.sh/docs/examples",
       "permanent": false
+    },
+    {
+      "source": "/docs/concepts/session",
+      "destination": "https://www.ory.sh/docs/guides/session-management/overview",
+      "permanent": false
     }
   ]
 }
