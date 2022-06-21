@@ -573,6 +573,11 @@
       "source": "/docs/keto/implemented-planned-features",
       "destination": "https://www.ory.sh/docs/guides/cli/configure-permission-service",
       "permanent": false
+    },
+    {
+      "source": "/docs/guides/protect-page-login/index",
+      "destination": "https://www.ory.sh/docs/examples",
+      "permanent": false
     }
   ]
 }
