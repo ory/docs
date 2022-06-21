@@ -16,7 +16,7 @@ export const official: PropTypes = {
     },
     {
       title: 'Protect a Page with Login: Express.js',
-      language: 'expressjs',
+      language: 'typescript',
       author: 'ory',
       tested: true,
       repo: 'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/expressjs',
@@ -242,7 +242,7 @@ export const selfhosted: PropTypes = {
     },
     {
       title: 'SSO and ACL Ory Stack',
-      language: 'k8s',
+      language: 'kubernetes',
       author: 'pngouin',
       tested: false,
       repo: 'https://github.com/pngouin/k8s-ory-example',
