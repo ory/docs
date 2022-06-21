@@ -28,11 +28,12 @@ const (
 )
 
 type kratosMiddleware struct {
-	client *client.APIClient
-	redis  *redis.Client
+	client         *client.APIClient
+	redis          *redis.Client
+	cachingEnabled bool
 }
 
-func NewMiddleware() *kratosMiddleware {
+func NewMiddleware(cachingEnabled bool) *kratosMiddleware {
 	configuration := client.NewConfiguration()
 	configuration.Servers = []client.ServerConfiguration{
 		{
@@ -40,7 +41,8 @@ func NewMiddleware() *kratosMiddleware {
 		},
 	}
 	return &kratosMiddleware{
-		client: client.NewAPIClient(configuration),
+		cachingEnabled: cachingEnabled,
+		client:         client.NewAPIClient(configuration),
 		redis: redis.NewClient(&redis.Options{
 			Addr:     "localhost:6379",
 			Password: "", // no password set
@@ -66,6 +68,9 @@ func (k *kratosMiddleware) cacheSession(key string, sess *client.Session) error 
 	// Calculate TTL. Do not cache sessions without TTL.
 	//
 	// Cached session should evict on sess.ExpiresAt
+	if !k.cachingEnabled {
+		return nil
+	}
 	exp := (*sess.ExpiresAt).Sub(time.Now())
 	data, err := json.Marshal(sess)
 	if err != nil {
@@ -75,6 +80,9 @@ func (k *kratosMiddleware) cacheSession(key string, sess *client.Session) error 
 }
 
 func (k *kratosMiddleware) getSession(key string) (*client.Session, error) {
+	if !k.cachingEnabled {
+		return nil, nil
+	}
 	var sess client.Session
 	data, err := k.redis.Get(context.Background(), fmt.Sprintf("session:%s", key)).Bytes()
 	if err != nil {
@@ -122,10 +130,19 @@ func (k *kratosMiddleware) validateSession(r *http.Request) (*client.Session, er
 func main() {
 
 	r := gin.Default()
-	k := NewMiddleware()
+	cachedMiddleware := NewMiddleware(true)
+	unCachedMiddleware := NewMiddleware(false)
 
-	r.Use(k.Session())
-	r.GET("/ping", func(c *gin.Context) {
+	cached := r.Group("/cached")
+	cached.Use(cachedMiddleware.Session())
+	cached.GET("", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
+	})
+	uncached := r.Group("/uncached")
+	uncached.Use(unCachedMiddleware.Session())
+	uncached.GET("", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})

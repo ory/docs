@@ -29,11 +29,12 @@ const (
 )
 
 type kratosMiddleware struct {
-	client *client.APIClient
-	cache  *ristretto.Cache
+	cachingEnabled bool
+	client         *client.APIClient
+	cache          *ristretto.Cache
 }
 
-func NewMiddleware() (*kratosMiddleware, error) {
+func NewMiddleware(cachingEnabled bool) (*kratosMiddleware, error) {
 	configuration := client.NewConfiguration()
 	configuration.Servers = []client.ServerConfiguration{
 		{
@@ -51,8 +52,9 @@ func NewMiddleware() (*kratosMiddleware, error) {
 	}
 
 	return &kratosMiddleware{
-		client: client.NewAPIClient(configuration),
-		cache:  cache,
+		cachingEnabled: cachingEnabled,
+		client:         client.NewAPIClient(configuration),
+		cache:          cache,
 	}, nil
 }
 func (k *kratosMiddleware) Session() gin.HandlerFunc {
@@ -73,6 +75,9 @@ func (k *kratosMiddleware) cacheSession(key string, sess *client.Session) error 
 	// Calculate TTL. Do not cache sessions without TTL.
 	//
 	// Cached session should evict on sess.ExpiresAt
+	if !k.cachingEnabled {
+		return nil
+	}
 	exp := (*sess.ExpiresAt).Sub(time.Now())
 	if ok := k.cache.SetWithTTL(fmt.Sprintf("session:%s", key), sess, 1, exp); !ok {
 		return errors.New("cannot set session")
@@ -82,6 +87,9 @@ func (k *kratosMiddleware) cacheSession(key string, sess *client.Session) error 
 }
 
 func (k *kratosMiddleware) getSession(key string) (*client.Session, error) {
+	if !k.cachingEnabled {
+		return nil, nil
+	}
 	data, ok := k.cache.Get(fmt.Sprintf("session:%s", key))
 	if !ok {
 		return nil, nil
@@ -122,13 +130,25 @@ func (k *kratosMiddleware) validateSession(r *http.Request) (*client.Session, er
 func main() {
 
 	r := gin.Default()
-	k, err := NewMiddleware()
+	cachedMiddleware, err := NewMiddleware(true)
+	if err != nil {
+		log.Fatal(err)
+	}
+	unCachedMiddleware, err := NewMiddleware(false)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	r.Use(k.Session())
-	r.GET("/ping", func(c *gin.Context) {
+	cached := r.Group("/cached")
+	cached.Use(cachedMiddleware.Session())
+	cached.GET("", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
+	})
+	uncached := r.Group("/uncached")
+	uncached.Use(unCachedMiddleware.Session())
+	uncached.GET("", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})
