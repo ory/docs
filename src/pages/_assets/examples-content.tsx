@@ -263,6 +263,15 @@ export const selfhosted: PropTypes = {
       tested: false,
       repo: 'https://github.com/ory/examples/tree/master/kratos-keto-oathkeeper-supabase',
       docs: 'https://www.ory.sh/tutorial-url-shortener-supabase-ory-integration-backend/'
+    },
+    {
+      title: 'Ory Hydra / Kratos Integration in Go',
+      language: 'ory',
+      // framework: 'Ory',
+      author: 'atreya2011',
+      tested: false,
+      repo: 'https://github.com/atreya2011/go-kratos-test/tree/hydra-consent',
+      docs: 'https://github.com/atreya2011/go-kratos-test/blob/hydra-consent/README.md'
     }
   ]
 }

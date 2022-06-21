@@ -440,11 +440,6 @@
       "permanent": false
     },
     {
-      "source": "/docs/concepts/personal-access-token",
-      "destination": "https://www.ory.sh/docs/welcome",
-      "permanent": false
-    },
-    {
       "source": "/docs/concepts/project-invite-membership",
       "destination": "https://www.ory.sh/docs/welcome",
       "permanent": false
@@ -577,6 +572,16 @@
     {
       "source": "/docs/keto/implemented-planned-features",
       "destination": "https://www.ory.sh/docs/guides/cli/configure-permission-service",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/protect-page-login",
+      "destination": "https://www.ory.sh/docs/examples",
+      "permanent": false
+    },
+    {
+      "source": "/docs/concepts/session",
+      "destination": "https://www.ory.sh/docs/guides/session-management/overview",
       "permanent": false
     }
   ]
