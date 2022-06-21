@@ -74,3 +74,14 @@ export function useLatestRelease(repo: string, fallback = '<version-you-want>') 
 
   return release
 }
+
+/**
+ * Returns the latest release filename tag
+ *
+ * @param repo
+ * @param fallback
+ */
+export function useLatestReleaseFilename(repo: string, fallback = '<version-you-want>') {
+  const releaseTag = useLatestRelease(repo)
+  return releaseTag.replace('v', '')
+}

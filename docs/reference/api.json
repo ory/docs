@@ -26,7 +26,11 @@
             "type": "object"
           }
         },
-        "required": ["schema_id", "traits", "state"],
+        "required": [
+          "schema_id",
+          "traits",
+          "state"
+        ],
         "type": "object"
       },
       "CreateSubscriptionPayload": {
@@ -41,7 +45,10 @@
             "type": "string"
           }
         },
-        "required": ["plan_or_price", "provision_first_project"],
+        "required": [
+          "plan_or_price",
+          "provision_first_project"
+        ],
         "type": "object"
       },
       "CustomHostnameStatus": {
@@ -79,7 +86,11 @@
             "$ref": "#/components/schemas/SubjectSet"
           }
         },
-        "required": ["namespace", "object", "relation"],
+        "required": [
+          "namespace",
+          "object",
+          "relation"
+        ],
         "type": "object"
       },
       "InvitePayload": {
@@ -149,7 +160,10 @@
       "PatchDelta": {
         "properties": {
           "action": {
-            "enum": ["insert", "delete"],
+            "enum": [
+              "insert",
+              "delete"
+            ],
             "type": "string"
           },
           "relation_tuple": {
@@ -196,7 +210,11 @@
             "$ref": "#/components/schemas/RecoveryAddressType"
           }
         },
-        "required": ["id", "value", "via"],
+        "required": [
+          "id",
+          "value",
+          "via"
+        ],
         "type": "object"
       },
       "RecoveryAddressType": {
@@ -251,7 +269,11 @@
             "type": "string"
           }
         },
-        "required": ["namespace", "object", "relation"],
+        "required": [
+          "namespace",
+          "object",
+          "relation"
+        ],
         "type": "object"
       },
       "SubscriptionStatus": {
@@ -275,7 +297,9 @@
             "type": "string"
           }
         },
-        "required": ["plan_or_price"],
+        "required": [
+          "plan_or_price"
+        ],
         "type": "object"
       },
       "Warning": {
@@ -337,7 +361,10 @@
             "type": "array"
           }
         },
-        "required": ["schema_id", "traits"],
+        "required": [
+          "schema_id",
+          "traits"
+        ],
         "type": "object"
       },
       "adminCreateIdentityImportCredentialsOidc": {
@@ -374,7 +401,10 @@
             "type": "string"
           }
         },
-        "required": ["subject", "provider"],
+        "required": [
+          "subject",
+          "provider"
+        ],
         "type": "object"
       },
       "adminCreateIdentityImportCredentialsPassword": {
@@ -409,7 +439,9 @@
             "$ref": "#/components/schemas/UUID"
           }
         },
-        "required": ["identity_id"],
+        "required": [
+          "identity_id"
+        ],
         "type": "object"
       },
       "adminIdentityImportCredentials": {
@@ -444,7 +476,11 @@
             "type": "string"
           }
         },
-        "required": ["id", "name", "owner_id"],
+        "required": [
+          "id",
+          "name",
+          "owner_id"
+        ],
         "type": "object"
       },
       "apiTokens": {
@@ -455,7 +491,12 @@
       },
       "authenticatorAssuranceLevel": {
         "description": "The authenticator assurance level can be one of \"aal1\", \"aal2\", or \"aal3\". A higher number means that it is harder\nfor an attacker to compromise the account.\n\nGenerally, \"aal1\" implies that one authentication factor was used while AAL2 implies that two factors (e.g.\npassword + TOTP) have been used.\n\nTo learn more about these levels please head over to: https://www.ory.sh/kratos/docs/concepts/credentials",
-        "enum": ["aal0", "aal1", "aal2", "aal3"],
+        "enum": [
+          "aal0",
+          "aal1",
+          "aal2",
+          "aal3"
+        ],
         "title": "Authenticator Assurance Level (AAL)",
         "type": "string"
       },
@@ -517,14 +558,14 @@
             "type": "string"
           },
           "cors_allowed_origins": {
-            "description": "Cors Allowed origins for the custom hostname.",
+            "description": "CORS Allowed origins for the custom hostname.",
             "items": {
               "type": "string"
             },
             "type": "array"
           },
           "cors_enabled": {
-            "description": "Cors Enabled for the custom hostname.",
+            "description": "CORS Enabled for the custom hostname.",
             "type": "boolean"
           },
           "hostname": {
@@ -541,7 +582,9 @@
             "type": "string"
           }
         },
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "type": "object"
       },
       "errorAuthenticatorAssuranceLevelNotSatisfied": {
@@ -590,7 +633,9 @@
             "type": "string"
           }
         },
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "title": "ErrAALNotSatisfied is returned when an active session was found but the requested AAL is not satisfied.",
         "type": "object"
       },
@@ -609,11 +654,18 @@
             "$ref": "#/components/schemas/SubjectSet"
           },
           "type": {
-            "enum": ["union", "exclusion", "intersection", "leaf"],
+            "enum": [
+              "union",
+              "exclusion",
+              "intersection",
+              "leaf"
+            ],
             "type": "string"
           }
         },
-        "required": ["type"],
+        "required": [
+          "type"
+        ],
         "type": "object"
       },
       "genericError": {
@@ -667,7 +719,9 @@
             "type": "string"
           }
         },
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "title": "Error response",
         "type": "object"
       },
@@ -710,7 +764,9 @@
             "type": "boolean"
           }
         },
-        "required": ["allowed"],
+        "required": [
+          "allowed"
+        ],
         "title": "RESTResponse is the response for a check request.",
         "type": "object"
       },
@@ -819,7 +875,12 @@
             "x-omitempty": true
           }
         },
-        "required": ["id", "schema_id", "schema_url", "traits"],
+        "required": [
+          "id",
+          "schema_id",
+          "schema_url",
+          "traits"
+        ],
         "title": "Identity represents an Ory Kratos identity",
         "type": "object"
       },
@@ -902,7 +963,13 @@
       },
       "identityCredentialsType": {
         "description": "and so on.",
-        "enum": ["password", "totp", "oidc", "webauthn", "lookup_secret"],
+        "enum": [
+          "password",
+          "totp",
+          "oidc",
+          "webauthn",
+          "lookup_secret"
+        ],
         "title": "CredentialsType  represents several different credential types, like password credentials, passwordless credentials,",
         "type": "string"
       },
@@ -988,7 +1055,10 @@
             "type": "string"
           }
         },
-        "required": ["url", "schema"],
+        "required": [
+          "url",
+          "schema"
+        ],
         "type": "object"
       },
       "identitySchemaPresets": {
@@ -1017,7 +1087,10 @@
       },
       "identityState": {
         "description": "The state can either be `active` or `inactive`.",
-        "enum": ["active", "inactive"],
+        "enum": [
+          "active",
+          "inactive"
+        ],
         "title": "An Identity's State",
         "type": "string"
       },
@@ -1043,7 +1116,10 @@
             "type": "string"
           }
         },
-        "required": ["Subject", "ProjectSlug"],
+        "required": [
+          "Subject",
+          "ProjectSlug"
+        ],
         "type": "object"
       },
       "isOwnerForProjectBySlugPayload": {
@@ -1061,7 +1137,10 @@
             "type": "string"
           }
         },
-        "required": ["subject", "project_slug"],
+        "required": [
+          "subject",
+          "project_slug"
+        ],
         "type": "object"
       },
       "jsonError": {
@@ -1071,7 +1150,9 @@
             "$ref": "#/components/schemas/genericError"
           }
         },
-        "required": ["error"],
+        "required": [
+          "error"
+        ],
         "title": "JSON API Error Response",
         "type": "object"
       },
@@ -1080,7 +1161,14 @@
         "properties": {
           "op": {
             "description": "The JSON Patch operation",
-            "enum": ["add", "remove", "replace", "move", "copy", "test"],
+            "enum": [
+              "add",
+              "remove",
+              "replace",
+              "move",
+              "copy",
+              "test"
+            ],
             "type": "string"
           },
           "path": {
@@ -1092,7 +1180,10 @@
             "description": "The value to be used. Only available for `add` and `replace` operations."
           }
         },
-        "required": ["op", "path"],
+        "required": [
+          "op",
+          "path"
+        ],
         "title": "A JSON Patch",
         "type": "object"
       },
@@ -1153,7 +1244,10 @@
             "type": "string"
           }
         },
-        "required": ["message", "redirect_browser_to"],
+        "required": [
+          "message",
+          "redirect_browser_to"
+        ],
         "title": "Is sent when a privileged session is required to perform the settings update.",
         "type": "object"
       },
@@ -1184,7 +1278,10 @@
           },
           "state": {
             "description": "The state of the project.\nrunning Running\nhalted Halted",
-            "enum": ["running", "halted"],
+            "enum": [
+              "running",
+              "halted"
+            ],
             "readOnly": true,
             "type": "string",
             "x-go-enum-desc": "running Running\nhalted Halted"
@@ -1545,7 +1642,9 @@
             "type": "string"
           }
         },
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "type": "object"
       },
       "normalizedProjectRevisionHook": {
@@ -1623,7 +1722,10 @@
             "type": "string"
           }
         },
-        "required": ["config_key", "hook"],
+        "required": [
+          "config_key",
+          "hook"
+        ],
         "type": "object"
       },
       "normalizedProjectRevisionIdentitySchema": {
@@ -1821,13 +1923,23 @@
           },
           "state": {
             "description": "The state of the project.\nrunning Running\nhalted Halted",
-            "enum": ["running", "halted"],
+            "enum": [
+              "running",
+              "halted"
+            ],
             "readOnly": true,
             "type": "string",
             "x-go-enum-desc": "running Running\nhalted Halted"
           }
         },
-        "required": ["id", "revision_id", "slug", "services", "state", "name"],
+        "required": [
+          "id",
+          "revision_id",
+          "slug",
+          "services",
+          "state",
+          "name"
+        ],
         "type": "object"
       },
       "projectHost": {
@@ -1843,7 +1955,11 @@
             "$ref": "#/components/schemas/UUID"
           }
         },
-        "required": ["id", "host", "project_id"],
+        "required": [
+          "id",
+          "host",
+          "project_id"
+        ],
         "type": "object"
       },
       "projectInvite": {
@@ -1936,7 +2052,10 @@
           },
           "state": {
             "description": "The state of the project.\nrunning Running\nhalted Halted",
-            "enum": ["running", "halted"],
+            "enum": [
+              "running",
+              "halted"
+            ],
             "type": "string",
             "x-go-enum-desc": "running Running\nhalted Halted"
           },
@@ -1995,7 +2114,9 @@
             "type": "object"
           }
         },
-        "required": ["config"],
+        "required": [
+          "config"
+        ],
         "type": "object"
       },
       "projectServicePermission": {
@@ -2004,7 +2125,9 @@
             "type": "object"
           }
         },
-        "required": ["config"],
+        "required": [
+          "config"
+        ],
         "type": "object"
       },
       "projectServices": {
@@ -2033,7 +2156,10 @@
             "type": "string"
           }
         },
-        "required": ["plan_or_price", "identity_id"],
+        "required": [
+          "plan_or_price",
+          "identity_id"
+        ],
         "type": "object"
       },
       "revokedSessions": {
@@ -2057,7 +2183,10 @@
             "type": "string"
           }
         },
-        "required": ["name", "data"],
+        "required": [
+          "name",
+          "data"
+        ],
         "type": "object"
       },
       "selfServiceBrowserLocationChangeRequiredError": {
@@ -2107,7 +2236,9 @@
             "type": "string"
           }
         },
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "title": "Is sent when a flow requires a browser to change its location.",
         "type": "object"
       },
@@ -2130,7 +2261,9 @@
             "type": "string"
           }
         },
-        "required": ["id"],
+        "required": [
+          "id"
+        ],
         "type": "object"
       },
       "selfServiceFlowExpiredError": {
@@ -2183,7 +2316,9 @@
             "$ref": "#/components/schemas/UUID"
           }
         },
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "type": "object"
       },
       "selfServiceFlowType": {
@@ -2264,7 +2399,10 @@
             "type": "string"
           }
         },
-        "required": ["logout_url", "logout_token"],
+        "required": [
+          "logout_url",
+          "logout_token"
+        ],
         "type": "object"
       },
       "selfServiceRecoveryFlow": {
@@ -2319,7 +2457,11 @@
       },
       "selfServiceRecoveryFlowState": {
         "description": "The state represents the state of the recovery flow.\n\nchoose_method: ask the user to choose a method (e.g. recover account via email)\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the recovery challenge was passed.",
-        "enum": ["choose_method", "sent_email", "passed_challenge"],
+        "enum": [
+          "choose_method",
+          "sent_email",
+          "passed_challenge"
+        ],
         "title": "Recovery Flow State",
         "type": "string"
       },
@@ -2335,7 +2477,9 @@
             "type": "string"
           }
         },
-        "required": ["recovery_link"],
+        "required": [
+          "recovery_link"
+        ],
         "type": "object"
       },
       "selfServiceRegistrationFlow": {
@@ -2437,7 +2581,10 @@
       },
       "selfServiceSettingsFlowState": {
         "description": "show_form: No user data has been collected, or it is invalid, and thus the form should be shown.\nsuccess: Indicates that the settings flow has been updated successfully with the provided data.\nDone will stay true when repeatedly checking. If set to true, done will revert back to false only\nwhen a flow with invalid (e.g. \"please use a valid phone number\") data was sent.",
-        "enum": ["show_form", "success"],
+        "enum": [
+          "show_form",
+          "success"
+        ],
         "title": "State represents the state of this flow. It knows two states:",
         "type": "string"
       },
@@ -2479,13 +2626,22 @@
             "$ref": "#/components/schemas/uiContainer"
           }
         },
-        "required": ["id", "type", "ui", "state"],
+        "required": [
+          "id",
+          "type",
+          "ui",
+          "state"
+        ],
         "title": "A Verification Flow",
         "type": "object"
       },
       "selfServiceVerificationFlowState": {
         "description": "The state represents the state of the verification flow.\n\nchoose_method: ask the user to choose a method (e.g. recover account via email)\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the recovery challenge was passed.",
-        "enum": ["choose_method", "sent_email", "passed_challenge"],
+        "enum": [
+          "choose_method",
+          "sent_email",
+          "passed_challenge"
+        ],
         "title": "Verification Flow State",
         "type": "string"
       },
@@ -2524,7 +2680,10 @@
             "type": "string"
           }
         },
-        "required": ["id", "identity"],
+        "required": [
+          "id",
+          "identity"
+        ],
         "type": "object"
       },
       "sessionAuthenticationMethod": {
@@ -2595,7 +2754,11 @@
             "$ref": "#/components/schemas/uiNodes"
           }
         },
-        "required": ["action", "method", "nodes"],
+        "required": [
+          "action",
+          "method",
+          "nodes"
+        ],
         "type": "object"
       },
       "stripeCustomerResponse": {
@@ -2666,7 +2829,10 @@
             "type": "string"
           }
         },
-        "required": ["method", "lookup_secret"],
+        "required": [
+          "method",
+          "lookup_secret"
+        ],
         "title": "submitSelfServiceLoginFlowWithLookupSecretMethodBody is used to decode the login form payload.",
         "type": "object"
       },
@@ -2690,7 +2856,10 @@
             "type": "object"
           }
         },
-        "required": ["provider", "method"],
+        "required": [
+          "provider",
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceLoginFlowWithPasswordMethodBody": {
@@ -2716,7 +2885,11 @@
             "type": "string"
           }
         },
-        "required": ["method", "password", "identifier"],
+        "required": [
+          "method",
+          "password",
+          "identifier"
+        ],
         "title": "submitSelfServiceLoginFlowWithPasswordMethodBody is used to decode the login form payload.",
         "type": "object"
       },
@@ -2735,7 +2908,10 @@
             "type": "string"
           }
         },
-        "required": ["method", "totp_code"],
+        "required": [
+          "method",
+          "totp_code"
+        ],
         "title": "submitSelfServiceLoginFlowWithTotpMethodBody is used to decode the login form payload.",
         "type": "object"
       },
@@ -2758,7 +2934,9 @@
             "type": "string"
           }
         },
-        "required": ["method"],
+        "required": [
+          "method"
+        ],
         "title": "submitSelfServiceLoginFlowWithWebAuthnMethodBody is used to decode the login form payload.",
         "type": "object"
       },
@@ -2770,7 +2948,9 @@
             "type": "string"
           }
         },
-        "required": ["session_token"],
+        "required": [
+          "session_token"
+        ],
         "type": "object"
       },
       "submitSelfServiceRecoveryFlowBody": {
@@ -2801,7 +2981,10 @@
             "type": "string"
           }
         },
-        "required": ["email", "method"],
+        "required": [
+          "email",
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceRegistrationFlowBody": {
@@ -2845,7 +3028,10 @@
             "type": "object"
           }
         },
-        "required": ["provider", "method"],
+        "required": [
+          "provider",
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceRegistrationFlowWithPasswordMethodBody": {
@@ -2868,7 +3054,11 @@
             "type": "object"
           }
         },
-        "required": ["password", "traits", "method"],
+        "required": [
+          "password",
+          "traits",
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceRegistrationFlowWithWebAuthnMethodBody": {
@@ -2894,7 +3084,10 @@
             "type": "string"
           }
         },
-        "required": ["traits", "method"],
+        "required": [
+          "traits",
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowBody": {
@@ -2960,7 +3153,9 @@
             "type": "string"
           }
         },
-        "required": ["method"],
+        "required": [
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowWithOidcMethodBody": {
@@ -2987,7 +3182,9 @@
             "type": "string"
           }
         },
-        "required": ["method"],
+        "required": [
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowWithPasswordMethodBody": {
@@ -3005,7 +3202,10 @@
             "type": "string"
           }
         },
-        "required": ["password", "method"],
+        "required": [
+          "password",
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowWithProfileMethodBody": {
@@ -3024,7 +3224,10 @@
             "type": "object"
           }
         },
-        "required": ["traits", "method"],
+        "required": [
+          "traits",
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowWithTotpMethodBody": {
@@ -3046,7 +3249,9 @@
             "type": "boolean"
           }
         },
-        "required": ["method"],
+        "required": [
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceSettingsFlowWithWebAuthnMethodBody": {
@@ -3072,7 +3277,9 @@
             "type": "string"
           }
         },
-        "required": ["method"],
+        "required": [
+          "method"
+        ],
         "type": "object"
       },
       "submitSelfServiceVerificationFlowBody": {
@@ -3104,7 +3311,10 @@
             "type": "string"
           }
         },
-        "required": ["email", "method"],
+        "required": [
+          "email",
+          "method"
+        ],
         "type": "object"
       },
       "subscription": {
@@ -3184,7 +3394,10 @@
             "type": "array"
           }
         },
-        "required": ["project", "warnings"],
+        "required": [
+          "project",
+          "warnings"
+        ],
         "type": "object"
       },
       "successfulSelfServiceLoginWithoutBrowser": {
@@ -3198,7 +3411,9 @@
             "type": "string"
           }
         },
-        "required": ["session"],
+        "required": [
+          "session"
+        ],
         "type": "object"
       },
       "successfulSelfServiceRegistrationWithoutBrowser": {
@@ -3215,7 +3430,9 @@
             "type": "string"
           }
         },
-        "required": ["identity"],
+        "required": [
+          "identity"
+        ],
         "type": "object"
       },
       "uiContainer": {
@@ -3236,7 +3453,11 @@
             "$ref": "#/components/schemas/uiNodes"
           }
         },
-        "required": ["action", "method", "nodes"],
+        "required": [
+          "action",
+          "method",
+          "nodes"
+        ],
         "type": "object"
       },
       "uiNode": {
@@ -3267,11 +3488,23 @@
           },
           "type": {
             "description": "The node's type",
-            "enum": ["text", "input", "img", "a", "script"],
+            "enum": [
+              "text",
+              "input",
+              "img",
+              "a",
+              "script"
+            ],
             "type": "string"
           }
         },
-        "required": ["type", "group", "attributes", "messages", "meta"],
+        "required": [
+          "type",
+          "group",
+          "attributes",
+          "messages",
+          "meta"
+        ],
         "title": "Node represents a flow's nodes",
         "type": "object"
       },
@@ -3293,7 +3526,12 @@
             "$ref": "#/components/schemas/uiText"
           }
         },
-        "required": ["href", "title", "id", "node_type"],
+        "required": [
+          "href",
+          "title",
+          "id",
+          "node_type"
+        ],
         "title": "AnchorAttributes represents the attributes of an anchor node.",
         "type": "object"
       },
@@ -3352,7 +3590,13 @@
             "type": "integer"
           }
         },
-        "required": ["src", "id", "width", "height", "node_type"],
+        "required": [
+          "src",
+          "id",
+          "width",
+          "height",
+          "node_type"
+        ],
         "title": "ImageAttributes represents the attributes of an image node.",
         "type": "object"
       },
@@ -3397,7 +3641,12 @@
             "nullable": true
           }
         },
-        "required": ["name", "type", "disabled", "node_type"],
+        "required": [
+          "name",
+          "type",
+          "disabled",
+          "node_type"
+        ],
         "type": "object"
       },
       "uiNodeMeta": {
@@ -3477,7 +3726,11 @@
             "$ref": "#/components/schemas/uiText"
           }
         },
-        "required": ["text", "id", "node_type"],
+        "required": [
+          "text",
+          "id",
+          "node_type"
+        ],
         "title": "TextAttributes represents the attributes of a text node.",
         "type": "object"
       },
@@ -3504,7 +3757,11 @@
             "$ref": "#/components/schemas/uiTextType"
           }
         },
-        "required": ["id", "text", "type"],
+        "required": [
+          "id",
+          "text",
+          "type"
+        ],
         "type": "object"
       },
       "uiTextType": {
@@ -3523,14 +3780,14 @@
             "type": "string"
           },
           "cors_allowed_origins": {
-            "description": "Cors Allowed origins for the custom hostname.",
+            "description": "CORS Allowed origins for the custom hostname.",
             "items": {
               "type": "string"
             },
             "type": "array"
           },
           "cors_enabled": {
-            "description": "Cors Enabled for the custom hostname.",
+            "description": "CORS Enabled for the custom hostname.",
             "type": "boolean"
           },
           "hostname": {
@@ -3550,7 +3807,10 @@
             "$ref": "#/components/schemas/projectServices"
           }
         },
-        "required": ["services", "name"],
+        "required": [
+          "services",
+          "name"
+        ],
         "type": "object"
       },
       "verifiableIdentityAddress": {
@@ -3590,7 +3850,13 @@
             "$ref": "#/components/schemas/identityVerifiableAddressType"
           }
         },
-        "required": ["id", "value", "verified", "via", "status"],
+        "required": [
+          "id",
+          "value",
+          "verified",
+          "via",
+          "status"
+        ],
         "type": "object"
       },
       "version": {
@@ -3646,7 +3912,9 @@
           }
         },
         "summary": "Get WebAuthn JavaScript",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/admin/identities": {
@@ -3706,7 +3974,9 @@
           }
         ],
         "summary": "List Identities",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       },
       "post": {
         "description": "This endpoint creates an identity. Learn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
@@ -3769,7 +4039,9 @@
           }
         ],
         "summary": "Create an Identity",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/admin/identities/{id}": {
@@ -3818,7 +4090,9 @@
           }
         ],
         "summary": "Delete an Identity",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       },
       "get": {
         "description": "Learn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
@@ -3883,7 +4157,9 @@
           }
         ],
         "summary": "Get an Identity",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       },
       "put": {
         "description": "This endpoint updates an identity. The full identity payload (except credentials) is expected. This endpoint does not support patching.\n\nLearn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
@@ -3967,7 +4243,9 @@
           }
         ],
         "summary": "Update an Identity",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/admin/identities/{id}/sessions": {
@@ -4036,7 +4314,9 @@
           }
         ],
         "summary": "Calling this endpoint irrecoverably and permanently deletes and invalidates all sessions that belong to the given Identity.",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       },
       "get": {
         "description": "This endpoint is useful for:\n\nListing all sessions that belong to an Identity in an administrative context.",
@@ -4141,7 +4421,9 @@
           }
         ],
         "summary": "This endpoint returns all sessions that belong to the given Identity.",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/admin/recovery/link": {
@@ -4206,7 +4488,9 @@
           }
         ],
         "summary": "Create a Recovery Link",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/admin/relation-tuples": {
@@ -4302,7 +4586,9 @@
           }
         ],
         "summary": "Delete Relation Tuples",
-        "tags": ["write"]
+        "tags": [
+          "write"
+        ]
       },
       "patch": {
         "description": "Use this endpoint to patch one or more relation tuples.",
@@ -4361,7 +4647,9 @@
           }
         ],
         "summary": "Patch Multiple Relation Tuples",
-        "tags": ["write"]
+        "tags": [
+          "write"
+        ]
       },
       "put": {
         "description": "Use this endpoint to create a relation tuple.",
@@ -4414,7 +4702,9 @@
           }
         ],
         "summary": "Create a Relation Tuple",
-        "tags": ["write"]
+        "tags": [
+          "write"
+        ]
       }
     },
     "/admin/sessions/{id}/extend": {
@@ -4480,7 +4770,9 @@
           }
         ],
         "summary": "Calling this endpoint extends the given session ID. If `session.earliest_possible_extend` is set it\nwill only extend the session after the specified time has passed.",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/health/alive": {
@@ -4498,7 +4790,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["status"],
+                  "required": [
+                    "status"
+                  ],
                   "type": "object"
                 }
               }
@@ -4522,7 +4816,9 @@
           }
         ],
         "summary": "Check HTTP Server Status",
-        "tags": ["metadata"]
+        "tags": [
+          "metadata"
+        ]
       }
     },
     "/health/ready": {
@@ -4540,7 +4836,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["status"],
+                  "required": [
+                    "status"
+                  ],
                   "type": "object"
                 }
               }
@@ -4560,7 +4858,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["errors"],
+                  "required": [
+                    "errors"
+                  ],
                   "type": "object"
                 }
               }
@@ -4574,7 +4874,9 @@
           }
         ],
         "summary": "Check HTTP Server and Database Status",
-        "tags": ["metadata"]
+        "tags": [
+          "metadata"
+        ]
       }
     },
     "/projects": {
@@ -4639,7 +4941,9 @@
           }
         ],
         "summary": "List All Projects",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       },
       "post": {
         "description": "Creates a new project.",
@@ -4712,7 +5016,9 @@
           }
         ],
         "summary": "Create a Project",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/projects/{project_id}": {
@@ -4781,7 +5087,9 @@
           }
         ],
         "summary": "Irrecoverably Purge a Project",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       },
       "get": {
         "description": "Get a projects you have access to by its ID.",
@@ -4855,7 +5163,9 @@
           }
         ],
         "summary": "Get a Project",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       },
       "patch": {
         "description": "This endpoints allows you to patch individual Ory Cloud Project configuration keys for\nOry's services (identity, permission, ...). The configuration format is fully compatible\nwith the open source projects for the respective services (e.g. Ory Kratos for Identity, Ory Keto for Permissions).\n\nThis endpoint expects the `version` key to be set in the payload. If it is unset, it\nwill try to import the config as if it is from the most recent version.\n\nIf you have an older version of a configuration, you should set the version key in the payload!\n\nWhile this endpoint is able to process all configuration items related to features (e.g. password reset),\nit does not support operational configuration items (e.g. port, tracing, logging) otherwise available in the\nopen source.\n\nFor configuration items that can not be translated to Ory Cloud, this endpoint will return a list of warnings\nto help you understand which parts of your config could not be processed.",
@@ -4952,7 +5262,9 @@
           }
         ],
         "summary": "Patch an Ory Cloud Project Configuration",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       },
       "put": {
         "description": "This endpoints allows you to update the Ory Cloud Project configuration for\nindividual services (identity, permission, ...). The configuration is fully compatible\nwith the open source projects for the respective services (e.g. Ory Kratos for Identity, Ory Keto for Permissions).\n\nThis endpoint expects the `version` key to be set in the payload. If it is unset, it\nwill try to import the config as if it is from the most recent version.\n\nIf you have an older version of a configuration, you should set the version key in the payload!\n\nWhile this endpoint is able to process all configuration items related to features (e.g. password reset),\nit does not support operational configuration items (e.g. port, tracing, logging) otherwise available in the\nopen source.\n\nFor configuration items that can not be translated to Ory Cloud, this endpoint will return a list of warnings\nto help you understand which parts of your config could not be processed.\n\nBe aware that updating any service's configuration will completely override your current configuration for that\nservice!",
@@ -5046,7 +5358,9 @@
           }
         ],
         "summary": "Update an Ory Cloud Project Configuration",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/projects/{project_id}/members": {
@@ -5112,7 +5426,9 @@
           }
         ],
         "summary": "Get all members associated with this project.",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/projects/{project_id}/members/{member_id}": {
@@ -5190,7 +5506,9 @@
           }
         ],
         "summary": "Remove a member associated with this project. This also sets their invite status to `REMOVED`.",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/relation-tuples": {
@@ -5308,7 +5626,9 @@
           }
         ],
         "summary": "Query relation tuples",
-        "tags": ["read"]
+        "tags": [
+          "read"
+        ]
       }
     },
     "/relation-tuples/check": {
@@ -5429,7 +5749,9 @@
           }
         ],
         "summary": "Check a relation tuple",
-        "tags": ["read"]
+        "tags": [
+          "read"
+        ]
       },
       "post": {
         "description": "To learn how relation tuples and the check works, head over to [the documentation](../concepts/relation-tuples.mdx).",
@@ -5502,7 +5824,9 @@
           }
         ],
         "summary": "Check a relation tuple",
-        "tags": ["read"]
+        "tags": [
+          "read"
+        ]
       }
     },
     "/relation-tuples/expand": {
@@ -5594,7 +5918,9 @@
           }
         ],
         "summary": "Expand a Relation Tuple",
-        "tags": ["read"]
+        "tags": [
+          "read"
+        ]
       }
     },
     "/schemas": {
@@ -5648,7 +5974,9 @@
             "description": "jsonError"
           }
         },
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/schemas/{id}": {
@@ -5698,7 +6026,9 @@
             "description": "jsonError"
           }
         },
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/errors": {
@@ -5759,7 +6089,9 @@
           }
         },
         "summary": "Get Self-Service Errors",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/login": {
@@ -5785,9 +6117,9 @@
             }
           },
           {
-            "description": "CSRF Cookie\n\nThe CSRF cookie for browsers flow.",
+            "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
             "in": "header",
-            "name": "cookie",
+            "name": "Cookie",
             "schema": {
               "type": "string"
             }
@@ -5806,6 +6138,7 @@
               }
             }
           },
+          "required": true,
           "x-originalParamName": "Body"
         },
         "responses": {
@@ -5864,7 +6197,9 @@
           }
         },
         "summary": "Submit a Login Flow",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/login/api": {
@@ -5930,7 +6265,9 @@
           }
         },
         "summary": "Initialize Login Flow for APIs, Services, Apps, ...",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/login/browser": {
@@ -5999,7 +6336,9 @@
           }
         },
         "summary": "Initialize Login Flow for Browsers",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/login/flows": {
@@ -6017,9 +6356,9 @@
             }
           },
           {
-            "description": "HTTP Cookies\n\nWhen using the SDK on the server side you must include the HTTP Cookie Header\noriginally sent to your HTTP handler here.",
+            "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
             "in": "header",
-            "name": "cookie",
+            "name": "Cookie",
             "schema": {
               "type": "string"
             }
@@ -6078,7 +6417,9 @@
           }
         },
         "summary": "Get Login Flow",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/logout": {
@@ -6122,7 +6463,9 @@
           }
         },
         "summary": "Complete Self-Service Logout",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/logout/api": {
@@ -6166,7 +6509,9 @@
           }
         },
         "summary": "Perform Logout for APIs, Services, Apps, ...",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/logout/browser": {
@@ -6216,7 +6561,9 @@
           }
         },
         "summary": "Create a Logout URL for Browsers",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/recovery": {
@@ -6240,6 +6587,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
+            "in": "header",
+            "name": "Cookie",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -6255,6 +6610,7 @@
               }
             }
           },
+          "required": true,
           "x-originalParamName": "Body"
         },
         "responses": {
@@ -6303,7 +6659,9 @@
           }
         },
         "summary": "Complete Recovery Flow",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/recovery/api": {
@@ -6343,7 +6701,9 @@
           }
         },
         "summary": "Initialize Recovery Flow for APIs, Services, Apps, ...",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/recovery/browser": {
@@ -6396,7 +6756,9 @@
           }
         },
         "summary": "Initialize Recovery Flow for Browsers",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/recovery/flows": {
@@ -6414,9 +6776,9 @@
             }
           },
           {
-            "description": "HTTP Cookies\n\nWhen using the SDK on the server side you must include the HTTP Cookie Header\noriginally sent to your HTTP handler here.",
+            "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
             "in": "header",
-            "name": "cookie",
+            "name": "Cookie",
             "schema": {
               "type": "string"
             }
@@ -6465,7 +6827,9 @@
           }
         },
         "summary": "Get Recovery Flow",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/registration": {
@@ -6478,6 +6842,14 @@
             "in": "query",
             "name": "flow",
             "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
+            "in": "header",
+            "name": "Cookie",
             "schema": {
               "type": "string"
             }
@@ -6496,6 +6868,7 @@
               }
             }
           },
+          "required": true,
           "x-originalParamName": "Body"
         },
         "responses": {
@@ -6554,7 +6927,9 @@
           }
         },
         "summary": "Submit a Registration Flow",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/registration/api": {
@@ -6594,7 +6969,9 @@
           }
         },
         "summary": "Initialize Registration Flow for APIs, Services, Apps, ...",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/registration/browser": {
@@ -6637,7 +7014,9 @@
           }
         },
         "summary": "Initialize Registration Flow for Browsers",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/registration/flows": {
@@ -6655,9 +7034,9 @@
             }
           },
           {
-            "description": "HTTP Cookies\n\nWhen using the SDK on the server side you must include the HTTP Cookie Header\noriginally sent to your HTTP handler here.",
+            "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
             "in": "header",
-            "name": "cookie",
+            "name": "Cookie",
             "schema": {
               "type": "string"
             }
@@ -6716,7 +7095,9 @@
           }
         },
         "summary": "Get Registration Flow",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/settings": {
@@ -6740,6 +7121,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
+            "in": "header",
+            "name": "Cookie",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -6755,6 +7144,7 @@
               }
             }
           },
+          "required": true,
           "x-originalParamName": "Body"
         },
         "responses": {
@@ -6838,7 +7228,9 @@
           }
         ],
         "summary": "Complete Settings Flow",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/settings/api": {
@@ -6888,7 +7280,9 @@
           }
         },
         "summary": "Initialize Settings Flow for APIs, Services, Apps, ...",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/settings/browser": {
@@ -6961,7 +7355,9 @@
           }
         },
         "summary": "Initialize Settings Flow for Browsers",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/settings/flows": {
@@ -6987,9 +7383,9 @@
             }
           },
           {
-            "description": "HTTP Cookies\n\nWhen using the SDK on the server side you must include the HTTP Cookie Header\noriginally sent to your HTTP handler here. You only need to do this for browser-\nbased flows.",
+            "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
             "in": "header",
-            "name": "cookie",
+            "name": "Cookie",
             "schema": {
               "type": "string"
             }
@@ -7058,7 +7454,9 @@
           }
         },
         "summary": "Get Settings Flow",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/verification": {
@@ -7082,6 +7480,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
+            "in": "header",
+            "name": "Cookie",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -7097,6 +7503,7 @@
               }
             }
           },
+          "required": true,
           "x-originalParamName": "Body"
         },
         "responses": {
@@ -7145,7 +7552,9 @@
           }
         },
         "summary": "Complete Verification Flow",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/verification/api": {
@@ -7185,7 +7594,9 @@
           }
         },
         "summary": "Initialize Verification Flow for APIs, Services, Apps, ...",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/verification/browser": {
@@ -7228,7 +7639,9 @@
           }
         },
         "summary": "Initialize Verification Flow for Browser Clients",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/self-service/verification/flows": {
@@ -7297,7 +7710,9 @@
           }
         },
         "summary": "Get Verification Flow",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/sessions": {
@@ -7375,7 +7790,9 @@
           }
         },
         "summary": "Calling this endpoint invalidates all except the current session that belong to the logged-in user.\nSession data are not deleted.",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       },
       "get": {
         "description": "This endpoint is useful for:\n\nDisplaying all other sessions that belong to the logged-in user",
@@ -7474,7 +7891,9 @@
           }
         },
         "summary": "This endpoints returns all other active sessions that belong to the logged-in user.\nThe current session can be retrieved by calling the `/sessions/whoami` endpoint.",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/sessions/whoami": {
@@ -7544,7 +7963,9 @@
           }
         },
         "summary": "Check Who the Current HTTP Session Belongs To",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/sessions/{id}": {
@@ -7598,7 +8019,9 @@
           }
         },
         "summary": "Calling this endpoint invalidates the specified session. The current session cannot be revoked.\nSession data are not deleted.",
-        "tags": ["v0alpha2"]
+        "tags": [
+          "v0alpha2"
+        ]
       }
     },
     "/version": {
@@ -7616,7 +8039,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["version"],
+                  "required": [
+                    "version"
+                  ],
                   "type": "object"
                 }
               }
@@ -7630,7 +8055,9 @@
           }
         ],
         "summary": "Return Running Software Version.",
-        "tags": ["metadata"]
+        "tags": [
+          "metadata"
+        ]
       }
     }
   },

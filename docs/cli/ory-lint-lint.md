@@ -1,7 +1,7 @@
 ---
 id: ory-lint-lint
 title: ory lint lint
-description: ory lint lint
+description: ory lint lint 
 ---
 
 <!--
@@ -9,8 +9,9 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory lint lint
+
+
 
 ### Synopsis
 
@@ -22,23 +23,23 @@ Glob Syntax:
         { term }
 
     term:
-        &#39;*&#39;         matches any sequence of non-separator characters
-        &#39;**&#39;        matches any sequence of characters
-        &#39;?&#39;         matches any single non-separator character
-        &#39;[&#39; [ &#39;!&#39; ] { character-range } &#39;]&#39;
+        '*'         matches any sequence of non-separator characters
+        '**'        matches any sequence of characters
+        '?'         matches any single non-separator character
+        '[' [ '!' ] { character-range } ']'
                     character class (must be non-empty)
-        &#39;{&#39; pattern-list &#39;}&#39;
+        '{' pattern-list '}'
                     pattern alternatives
-        c           matches character c (c != &#39;*&#39;, &#39;**&#39;, &#39;?&#39;, &#39;\&#39;, &#39;[&#39;, &#39;{&#39;, &#39;}&#39;)
-        &#39;\&#39; c       matches character c
+        c           matches character c (c != '*', '**', '?', '\', '[', '{', '}')
+        '\' c       matches character c
 
     character-range:
-        c           matches character c (c != &#39;\\&#39;, &#39;-&#39;, &#39;]&#39;)
-        &#39;\&#39; c       matches character c
-        lo &#39;-&#39; hi   matches character c for lo &lt;= c &lt;= hi
+        c           matches character c (c != '\\', '-', ']')
+        '\' c       matches character c
+        lo '-' hi   matches character c for lo <= c <= hi
 
     pattern-list:
-        pattern { &#39;,&#39; pattern }
+        pattern { ',' pattern }
                     comma-separated (without spaces) patterns
 
 ```
@@ -53,4 +54,5 @@ ory lint lint path/to/files/*.jsonnet [more/files.jsonnet] [supports/**/{foo,bar
 
 ### SEE ALSO
 
-- [ory lint](ory-lint) - Helpers for linting code
+* [ory lint](ory-lint)	 - Helpers for linting code
+
