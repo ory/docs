@@ -575,7 +575,7 @@
       "permanent": false
     },
     {
-      "source": "/docs/guides/protect-page-login/",
+      "source": "/docs/guides/protect-page-login",
       "destination": "https://www.ory.sh/docs/examples",
       "permanent": false
     }
