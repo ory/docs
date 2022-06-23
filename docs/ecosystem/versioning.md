@@ -37,7 +37,7 @@ The following is a list of maturity level per project:
 
 - [Ory Hydra](https://github.com/ory/hydra) is a **graduated** project.
 - [Ory Oathkeeper](https://github.com/ory/oathkeeper) is a **incubating** project.
-- [Ory Kratos](https://github.com/ory/kratos) is a **sandbox** project.
+- [Ory Kratos](https://github.com/ory/kratos) is a **incubating** project.
 - [Ory Keto](https://github.com/ory/keto) is a **sandbox** project.
 
 ## Changelog
