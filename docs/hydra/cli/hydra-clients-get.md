@@ -1,7 +1,7 @@
 ---
 id: hydra-clients-get
 title: hydra clients get
-description: hydra clients get Get an OAuth 2.0 Client
+description: hydra get clientGet an OAuth 2.0 Client
 ---
 
 <!--
@@ -18,10 +18,10 @@ Get an OAuth 2.0 Client
 This command retrieves an OAuth 2.0 Clients by its ID.
 
 Example:
-  hydra clients get client-1
+  hydra get clientclient-1
 
 ```
-hydra clients get <id> [flags]
+hydra get client<id> [flags]
 ```
 
 ### Options

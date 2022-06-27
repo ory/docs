@@ -75,7 +75,7 @@ You are using the wrong OAuth 2.0 Client or the OAuth 2.0 Client has a broken co
 client, run:
 
 ```
-hydra clients get --endpoint http://ory-hydra <the-client-id>
+hydra get client--endpoint http://ory-hydra <the-client-id>
 ```
 
 The result shows you the whole client (excluding its secret). Check that the values are correct. Example:
@@ -111,7 +111,7 @@ The redirect URL `http://my-url/callback` must be whitelisted in your client con
 To see the whitelisted redirect_uris, check the client:
 
 ```
-hydra clients get --endpoint http://ory-hydra <the-client-id>
+hydra get client--endpoint http://ory-hydra <the-client-id>
 
 {
         // ...

@@ -10,7 +10,7 @@ We've an [excellent blog post](https://www.ory.sh/oauth2-for-mobile-app-spa-brow
 You can create a public OAuth 2.0 Client (for example for the authorize code + PKCE or implicit flow) with the CLI
 
 ```
-hydra clients create --endpoint http://ory-hydra-admin-api --token-endpoint-auth-method none
+hydra create client --endpoint http://ory-hydra-admin-api --token-endpoint-auth-method none
 ```
 
 or by setting in the HTTP API JSON body when POSTing to `/clients`:
