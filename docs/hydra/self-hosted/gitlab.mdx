@@ -36,7 +36,7 @@ add the following switch to the services.hydra.command-section in the quickstart
 this:
 
 ```
-    serve all --dangerous-allow-insecure-redirect-urls http://gitlab.example.com:8000/users/auth/Ory_Hydra/callback
+    serve all --dev
 ```
 
 ## Spin up the instances and logging in
@@ -369,7 +369,7 @@ or environment variable "LOG_LEAK_SENSITIVE_VALUES=true".
 remote:172.19.0.1:47684 scheme:http] service_name= service_version=
 ```
 
-The relevant part here is: `Redirect URL is using an insecure protocol`. Make sure to add the --dangerous-force-http to the
+The relevant part here is: `Redirect URL is using an insecure protocol`. Make sure to add the `--dev`? to the
 hydra-command as described above.
 
 After that, restart the hydra-container like this:
