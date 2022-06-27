@@ -117,8 +117,7 @@ helm install -f ./path/to/hydra-config.yaml ory/hydra
 Additionally, the following extra settings are available:
 
 - `autoMigrate` (bool): If enabled, an `initContainer` running `hydra migrate sql` will be created.
-- `dangerousForceHttp` (bool): If enabled, sets the `--dangerous-force-http` flag on `hydra serve all`.
-- `dangerousAllowInsecureRedirectUrls` (string[]): Sets the `--dangerous-allow-insecure-redirect-urls` flag on `hydra serve all`.
+- `dev` (bool): If enabled, sets the `--dev` flag on `hydra serve all`.
 
 ## Examples
 

@@ -165,7 +165,7 @@ Or by specifying the following flags:
 
 ## How can I disable HTTPS for testing?
 
-You can do so by running `hydra host --dangerous-force-http`.
+You can do so by running `hydra serve --dev`.
 
 ## MySQL gives `unsupported Scan, storing driver.Value type []uint8 into type *time.Time`
 
