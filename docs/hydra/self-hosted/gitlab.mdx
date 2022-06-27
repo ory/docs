@@ -57,29 +57,31 @@ We have to create the client in Ory Hydra first.
 Depending on whether you have the hydra-binary available, you can use it directly or the one in the docker-container.
 
 ```sh
-hydra clients create \
+client=$(hydra create client \
     --endpoint http://127.0.0.1:4445 \
-    --id gitlab \
-    --secret theSecret \
-    --grant-types authorization_code,refresh_token \
-    --response-types code,id_token, email \
+    --format json \
+    --grant-type authorization_code,refresh_token \
+    --response-type code,id_token, email \
     --scope openid,offline_access,profile,email \
-    --callbacks http://gitlab.example.com:8000/users/auth/Ory_Hydra/callback \
-    --token-endpoint-auth-method client_secret_post
+    --redirect-uri http://gitlab.example.com:8000/users/auth/Ory_Hydra/callback \
+    --token-endpoint-auth-method client_secret_post)
+
+client_id=$(echo $client | jq -r '.client_id')
+client_secret=$(echo $client | jq -r '.client_secret')
 ```
 
 or you can use the binary within the docker-container:
 
 ```sh
 docker-compose -f quickstart.yml exec hydra \
-    hydra clients create \
+    hydra create client \
     --endpoint http://127.0.0.1:4445 \
-    --id gitlab \
-    --secret theSecret \
-    --grant-types authorization_code,refresh_token \
-    --response-types code,id_token,email \
+    --id $client_id \
+    --secret $client_secret \
+    --grant-type authorization_code,refresh_token \
+    --response-type code,id_token,email \
     --scope openid,offline_access,profile,email \
-    --callbacks http://gitlab.example.com:8000/users/auth/Ory_Hydra/callback \
+    --redirect-uri http://gitlab.example.com:8000/users/auth/Ory_Hydra/callback \
     --token-endpoint-auth-method client_secret_post
 ```
 
@@ -134,8 +136,8 @@ gitlab_rails['omniauth_allow_single_sign_on'] = ['Ory_Hydra']
 gitlab_rails['omniauth_providers'] = [
   {
     'name' => 'oauth2_generic',
-    'app_id' => 'gitlab',
-    'app_secret' => 'theSecret',
+    'app_id' => '<THE-CLIENT-ID-GOES-HERE>',
+    'app_secret' => '<THE-CLIENT-SECRET-GOES-HERE>',
     'args' => {
       client_options: {
         'site' => 'http://127.0.0.1:4444', # including port if necessary
@@ -225,17 +227,17 @@ is using `client_secret_post` which we needed to specify when we've created the 
 Some remarks for creating the client. We've created the client like this. The second command shows the created client:
 
 ```sh
-hydra clients create \
+hydra create client \
     --endpoint http://127.0.0.1:4445 \
-    --id gitlab \
-    --secret theSecret \
-    --grant-types authorization_code,refresh_token \
-    --response-types code,id_token, email \
+    --id $client_id \
+    --secret $client_secret \
+    --grant-type authorization_code,refresh_token \
+    --response-type code,id_token, email \
     --scope openid,offline_access,profile,email \
-    --callbacks http://gitlab.example.com:8000/users/auth/Ory_Hydra/callback \
+    --redirect-uri http://gitlab.example.com:8000/users/auth/Ory_Hydra/callback \
     --token-endpoint-auth-method client_secret_post
 
-hydra clients get hydra --endpoint http://127.0.0.1:4445
+hydra get clienthydra --endpoint http://127.0.0.1:4445
 {
         "client_id": "gitlab",
         "created_at": "2020-08-31T08:47:30.000Z",
@@ -330,7 +332,7 @@ After trying to log in, you get a message like this:
 Check your registered clients. Make sure ID and password are correct and matches that of the gitlab.rb:
 
 ```sh
-hydra clients list --endpoint http://127.0.0.1:4445
+hydra list clients --endpoint http://127.0.0.1:4445
 | CLIENT ID | NAME | RESPONSE TYPES |             SCOPE              |                        REDIRECT URIS                         |           GRANT TYPES            | TOKEN ENDPOINT AUTH METHOD |
 |-----------|------|----------------|--------------------------------|--------------------------------------------------------------|----------------------------------|----------------------------|
 | gitlab    |      | code,id_token, | openid offline_access profile  | http://gitlab.example.com:8000/users/auth/Ory_Hydra/callback | authorization_code,refresh_token | client_secret_post         |

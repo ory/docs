@@ -240,10 +240,10 @@ docker run --rm -it \
   clients create --skip-tls-verify \
     --id facebook-photo-backup \
     --secret some-secret \
-    --grant-types authorization_code,refresh_token,client_credentials,implicit \
-    --response-types token,code,id_token \
+    --grant-type authorization_code,refresh_token,client_credentials,implicit \
+    --response-type token,code,id_token \
     --scope openid,offline,photos.read \
-    --callbacks http://127.0.0.1:9010/callback
+    --redirect-uri http://127.0.0.1:9010/callback
 
 Client facebook-photo-backup
 Client Secret: some-secret
@@ -254,9 +254,9 @@ Let's dive into some of the arguments:
 - `--skip-tls-verify` is supported by all management commands (create/delete/update/... OAuth 2.0 Client, JSON Web Key, ...) and
   tells the CLI to trust any certificate authority - even self-signed ones. We need this flag because the server uses a
   self-signed certificate. In production deployments, you would use a certificate signed by a trusted CA.
-- `--grant-types authorize_code,refresh_token,client_credentials,implicit` we want to be able to perform all of these OAuth 2.0
+- `--grant-type authorize_code,refresh_token,client_credentials,implicit` we want to be able to perform all of these OAuth 2.0
   flows.
-- `--response-types token,code,id_token` allows us to receive authorize codes, access and refresh tokens, and OpenID Connect ID
+- `--response-type token,code,id_token` allows us to receive authorize codes, access and refresh tokens, and OpenID Connect ID
   Tokens.
 - `--scope openid,offline,photos.read` allows the client to request various permissions:
   - `openid` allows the client to perform the OpenID Connect flow and request an OpenID Connect ID Token.
@@ -264,10 +264,10 @@ Let's dive into some of the arguments:
     refresh expired access tokens. This scope allows that.
   - `photos.read` this is an imaginary scope that'sn't handled by Ory Hydra but serves the purpose of making it clear that we
     could request read access to a user's photos. You can obviously omit this scope or use your own scope.
-  - `--callbacks http://localhost:9010/callback` allows the client to request this redirect uri.
+  - `--redirect-uri http://localhost:9010/callback` allows the client to request this redirect uri.
 
 Perfect, let's perform an exemplary OAuth 2.0 Authorize Code Flow! To make this easy, the Ory Hydra CLI provides a helper command
-called `hydra token user`. Just imagine this being, for example, passport.js that's generating an auth code url, redirecting the
+called `hydra perform authorization-code`. Just imagine this being, for example, passport.js that's generating an auth code url, redirecting the
 browser to it, and then exchanging the authorize code for an access token. The same thing happens with this command:
 
 ```sh

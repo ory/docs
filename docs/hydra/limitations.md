@@ -16,13 +16,13 @@ OAuth 2.0 Client Secrets are hashed using BCrypt. BCrypt has, by design, a maxim
 a maximum password length of 73 bytes. Any password longer will be "truncated":
 
 ```sh
-hydra clients create --id long-secret \
+hydra create client \
   --secret 525348e77144a9cee9a7471a8b67c50ea85b9e3eb377a3c1a3a23db88f9150eefe76e6a339fdbc62b817595f53d72549d9ebe36438f8c2619846b963e9f43a94 \
   --endpoint http://localhost:4445 \
   --token-endpoint-auth-method client_secret_post \
-  --grant-types client_credentials
+  --grant-type client_credentials
 
-hydra token client --client-id long-secret \
+hydra perform client-credentials --client-id <the-client-id> \
   --client-secret 525348e77144a9cee9a7471a8b67c50ea85b9e3eb377a3c1a3a23db88f9150eefe76e6a3 \
   --endpoint http://localhost:4444
 ```
