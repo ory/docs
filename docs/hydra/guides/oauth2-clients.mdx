@@ -14,14 +14,12 @@ The following command creates an OAuth 2.0 Client capable of executing the Autho
 and performing the OAuth 2.0 Refresh Grant:
 
 ```sh
-hydra clients create \
-    --endpoint http://ory-hydra:4445 \
-    --id client-id \
-    --secret client-secret \
-    --grant-types authorization_code,refresh_token \
-    --response-types code \
-    --scope openid,offline \
-    --callbacks http://my-app.com/callback,http://my-other-app.com/callback
+hydra create client \
+  --endpoint http://ory-hydra:4445 \
+  --grant-type authorization_code,refresh_token \
+  --response-type code \
+  --scope openid,offline \
+  --redirect-uri http://my-app.com/callback,http://my-other-app.com/callback
 ```
 
 The OAuth 2.0 Client will be allowed to use values `http://my-app.com/callback` and `http://my-other-app.com/callback` as
@@ -43,9 +41,7 @@ and `PUT /clients/<id>`.
 A client only capable of performing the Client Credentials Flow can be created as follows:
 
 ```
-hydra clients create \
-    --endpoint http://ory-hydra:4445 \
-    --id my-client \
-    --secret secret \
-    -g client_credentials
+hydra create client \
+  --endpoint http://ory-hydra:4445 \
+  -g client_credentials
 ```

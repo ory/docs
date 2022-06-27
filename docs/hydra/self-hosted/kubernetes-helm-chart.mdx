@@ -209,33 +209,35 @@ Next, you can follow the [5 Minute Tutorial](../5min-tutorial), skipping the `gi
 you have Ory Hydra installed locally, you can rewrite commands from, for example,
 
 ```sh
-docker-compose -f quickstart.yml exec hydra \
-      hydra clients create \
-      --endpoint http://127.0.0.1:4445/ \
-      --id my-client \
-      --secret secret \
-      -g client_credentials
+client=$(docker-compose -f quickstart.yml exec hydra \
+  hydra create client \
+  --endpoint http://127.0.0.1:4445/ \
+  --format json \
+  -g client_credentials)
+
+client_id=$(echo $client | jq -r '.client_id')
+client_secret=$(echo $client | jq -r '.client_secret')
 
 docker-compose -f quickstart.yml exec hydra \
-      hydra token client \
-      --endpoint http://127.0.0.1:4444/ \
-      --client-id my-client \
-      --client-secret secret
+  hydra perform client-credentials \
+  --endpoint http://127.0.0.1:4444/ \
+  --client-id $client_id \
+  --client-secret $client_secret
 ```
 
 to
 
 ```sh
-hydra clients create \
+client=$(docker-compose -f quickstart.yml exec hydra \
+  hydra create client \
     --endpoint http://admin.hydra.localhost/ \
-    --id my-client \
-    --secret secret \
-    -g client_credentials
+  --format json \
+  -g client_credentials)
 
-hydra token client \
+hydra perform client-credentials \
     --endpoint http://public.hydra.localhost/ \
-    --client-id my-client \
-    --client-secret secret
+  --client-id $client_id \
+  --client-secret $client_secret
 ```
 
 ### Hydra Maester
@@ -251,7 +253,7 @@ helm install \
     ory/hydra
 ```
 
-#### Using fullnameOverride
+#### Using `fullnameOverride`
 
 If you use need to override the name of the hydra resources such as the deployment or services, the traditional `fullnameOverride`
 value is available.
