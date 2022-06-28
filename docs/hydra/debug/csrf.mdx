@@ -35,7 +35,7 @@ Google Chrome changed the behavior of `SameSite=None` so that it isn't possible 
 
 If you run a version of Ory Hydra 1.6 and below and experience this issue:
 
-- Make sure to not use the `--dangerous-force-http` flag
+- Make sure to not use the `--dev` flag
 - Set configuration value `serve.cookies.same_site_mode` or environment variable `SERVE_COOKIES_SAME_SITE_MODE` to `Lax` - this
   happens automatically for Ory Hydra v1.7.0 when running in HTTP mode.
 
