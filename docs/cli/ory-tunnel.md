@@ -15,7 +15,6 @@ Tunnel Ory on a subdomain of your app or a separate port your app's domain
 
 ### Synopsis
 
-
 This command runs an HTTP Server which is connected to Ory's APIs, in order for your application and Ory's
 APIs to run on the same top level domain (for example yourapp.com, localhost). Having Ory on your domain
 is required for cookies to work.
@@ -23,8 +22,8 @@ is required for cookies to work.
 The first argument `application-url` points to the location of your application. This location
 will be used as the default redirect URL for the tunnel, for example after a successful login.
 
-    $ ory tunnel https://www.example.org --project <your-project-slug>
-    $ ory tunnel http://localhost:3000 --project <your-project-slug>
+    $ ory tunnel --project <your-project-slug> https://www.example.org
+    $ ORY_PROJECT_SLUG=<your-project-slug> ory tunnel http://localhost:3000
 
 ### Connecting to Ory
 
