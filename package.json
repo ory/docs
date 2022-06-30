@@ -14,8 +14,8 @@
     "test": "playwright test",
     "test:debug": "playwright test --debug",
     "test:unit": "jest tests/jest --maxConcurrency=8 --bail 1",
-    "format": "exit 0",
-    "format:check": "exit 0"
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^9.0.9",
