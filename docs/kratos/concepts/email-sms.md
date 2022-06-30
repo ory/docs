@@ -189,7 +189,7 @@ example "Your Org Name"). Default value is equal to "Ory Kratos".
 # kratos -c path/to/my/kratos/config.yml serve
 courier:
   sms:
-    from: '+12065550110'
+    from: "+12065550110"
 ```
 
 #### Request configuration
@@ -203,7 +203,7 @@ courier:
       method: POST
       body: file://./path/to/path/to/my/kratos/config/twilio.request.jsonnet
       header:
-        'Content-Type': 'application/x-www-form-urlencoded'
+        "Content-Type": "application/x-www-form-urlencoded"
       auth:
         type: basic_auth
         config:

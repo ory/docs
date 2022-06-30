@@ -1,13 +1,13 @@
-import React from 'react'
-import Mermaid from './Mermaid'
+import React from "react"
+import Mermaid from "./Mermaid"
 
 const chart = ({
-  flows = ['login', 'registration', 'settings', '...'],
-  interactions = ['"Log in"', '"Sign Up"', '"Update Email"', '...'],
-  success = 'Perform flow-specific action (e.g. create user, set session cookie, ...)'
+  flows = ["login", "registration", "settings", "..."],
+  interactions = ['"Log in"', '"Sign Up"', '"Update Email"', "..."],
+  success = "Perform flow-specific action (e.g. create user, set session cookie, ...)",
 }) => {
   const components =
-    flows.length > 1 ? `<${flows.join('|')}>` : `${flows.join('|')}`
+    flows.length > 1 ? `<${flows.join("|")}>` : `${flows.join("|")}`
   return `
 sequenceDiagram
 
@@ -16,12 +16,12 @@ sequenceDiagram
   participant A as Flow UI
 
   B->>K: Follow link to /self-service/${components}/browser
-  K-->>K: Create and store new ${flows.join(', ')} flow
+  K-->>K: Create and store new ${flows.join(", ")} flow
   K->>B: HTTP 302 Found <selfservice.flows.${components}.ui_url>?flow=<flow-id>
 
-  B->>A: Opens <selfservice.flows.<${flows.join('|')}>.ui_url>?flow=<flow-id>
+  B->>A: Opens <selfservice.flows.<${flows.join("|")}>.ui_url>?flow=<flow-id>
   A-->>K: Fetches data to render forms using /selfservice/${components}/flows?id=<flow-id>
-  B-->>A: Fills out forms, clicks e.g. ${interactions.join(', ')}
+  B-->>A: Fills out forms, clicks e.g. ${interactions.join(", ")}
   B->>K: Submits form
   K-->>K: Validates and processes form payloads
 

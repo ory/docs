@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## ory delete
 
 Delete resources
@@ -25,6 +26,5 @@ Delete resources
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
-* [ory delete identity](ory-delete-identity)	 - Delete one or more identities by their ID(s)
-
+- [ory](ory) - The ORY CLI
+- [ory delete identity](ory-delete-identity) - Delete one or more identities by their ID(s)

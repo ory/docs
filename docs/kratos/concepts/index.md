@@ -49,7 +49,7 @@ Let's take a look at different approaches and software systems today.
 
 ### Full-stack Identity and Access Management (IAM)
 
-_Disclaimer: There are neither product nor project names in this section. This section's goal is to describe circumstances and
+Disclaimer: There are neither product nor project names in this section. This section's goal is to describe circumstances and
 problems that mostly stem from the community's experience.
 
 Full-stack IAM is usually sold as a one-size-fits-all solution. Due to size and complexity, these full-stack solutions are

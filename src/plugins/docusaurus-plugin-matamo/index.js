@@ -5,24 +5,24 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const path = require('path')
+const path = require("path")
 
 module.exports = function (context) {
   return {
-    name: 'docusaurus-plugin-matamo',
+    name: "docusaurus-plugin-matamo",
 
     getClientModules() {
-      return [path.resolve(__dirname, './analytics')]
+      return [path.resolve(__dirname, "./analytics")]
     },
 
     injectHtmlTags() {
       return {
         postBodyTags: [
-          `<noscript><p><img src="//sqa-web.ory.sh/np.php?idsite=2&amp;rec=1" style="border:0;" alt="" /></p></noscript>`
+          `<noscript><p><img src="//sqa-web.ory.sh/np.php?idsite=2&amp;rec=1" style="border:0;" alt="" /></p></noscript>`,
         ],
         headTags: [
           {
-            tagName: 'script',
+            tagName: "script",
             innerHTML: `
 var _paq = window._paq = window._paq || [];
 /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
@@ -38,10 +38,10 @@ _paq.push(['enableLinkTracking']);
   var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
   g.type='text/javascript'; g.async=true; g.src=u+'js/np.min.js'; s.parentNode.insertBefore(g,s);
 })();
-`
-          }
-        ]
+`,
+          },
+        ],
       }
-    }
+    },
   }
 }
