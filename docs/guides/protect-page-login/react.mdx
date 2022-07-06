@@ -1,0 +1,81 @@
+---
+id: react
+title: Protect a Page with Login in React
+sidebar_label: React
+---
+
+```mdx-code-block
+import Teaser from '../_common/teaser.mdx'
+import mp4 from '../_static/react/screencast.mp4'
+import webm from '../_static/react/screencast.webm'
+
+<Teaser
+  framework={<a href="https://reactjs.org/">React</a>}
+  mp4={mp4}
+  webm={webm}
+/>
+```
+
+## Create React App
+
+First we create a new React project:
+
+```shell-session
+npx create-react-app@latest --typescript
+cd <your-project-directory>
+```
+
+## Install Ory SDK
+
+Use `npm` to install the Ory SDK:
+
+```shell-session
+npm i --save @ory/client
+```
+
+## Require Login to Access the App Page
+
+Next we add a session check to the default home page of the React example application.The highlighted code is what we added to
+check whether the user is signed in, get the logout url flow and redirect them to the login page if not:
+
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import App from '!!raw-loader!../../../code-examples/protect-page-login/react/src/App.tsx'
+
+<CodeBlock language="tsx">{App}</CodeBlock>
+```
+
+## Run your React App
+
+Great, that's it! Let's run your application! Set up your environment variables to connect with Ory's APIs
+
+```mdx-code-block
+import SdkEnvVar from '@site/src/components/SdkEnvVar'
+
+<SdkEnvVar />
+```
+
+and start the React development server:
+
+```shell-session
+npm run start
+```
+
+Then open [http://localhost:3000](http://localhost:3000) in your browser. are presented with Ory's Sign In page! Let's click on
+sign up and create your first user!
+
+## Go to Production
+
+To promote this app to production:
+
+1. Build the React app and run it somewhere (for example on Vercel or Netlify)
+2. Deploy the API (for example, on Heroku)
+3. Connect your project with a [custom domain](../custom-domains.mdx)
+
+These three components must be hosted on the same top-level domain as they were on your local machine:
+
+| Component       | Production      | Local          |
+| --------------- | --------------- | -------------- |
+| Single Page App | www.example.org | localhost:8080 |
+| API             | api.example.org | localhost:3000 |
+| Ory             | ory.example.org | localhost:4000 |
