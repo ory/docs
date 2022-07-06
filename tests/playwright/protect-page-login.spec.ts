@@ -78,9 +78,6 @@ test.describe('React Single Page App', ()=> {
     await expect(page).toHaveURL("http://localhost:3006")
     await expect(page.locator('body')).toContainText(email)
 
-    await page.locator('text=Logout').click();
-    
-    //await page.goto('http://localhost:3006/')
-    //await expect(page).toHaveURL(/.*\/ui\/login.*/)
+    await page.locator('text=Logout').click()
   })
 })
