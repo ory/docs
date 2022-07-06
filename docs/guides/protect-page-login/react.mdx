@@ -21,8 +21,8 @@ import webm from '../_static/react/screencast.webm'
 First we create a new React project:
 
 ```shell-session
-npx create-react-app@latest --typescript
-cd <your-project-directory>
+npx create-react-app --typescript my_project
+cd my_project
 ```
 
 ## Install Ory SDK
@@ -36,7 +36,7 @@ npm i --save @ory/client
 ## Require Login to Access the App Page
 
 Next we add a session check to the default home page of the React example application.The highlighted code is what we added to
-check whether the user is signed in, get the logout url flow and redirect them to the login page if not:
+check whether the user is signed in, get the logout url flow and redirect them to the login page if not. There is also a welcome message with the registered user email and a logout link:
 
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock'
