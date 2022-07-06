@@ -71,6 +71,7 @@ test.describe('Single Page App + API', () => {
 test.describe('React Single Page App', ()=> {
   test('able to use Sign in and Login', async ({page}) => {
     await page.goto('http://localhost:3006/')
+    await page.waitForLoadState('networkidle')
     await page.click('[data-testid="cta-link"]')
     await expect(page).toHaveURL(/.*\/ui\/registration.*/)
 
