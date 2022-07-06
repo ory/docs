@@ -7,12 +7,20 @@ export const official: PropTypes = {
     'Guides, tutorials, and configurations for using Ory services. Examples maintained and tested by the Ory team.',
   examples: [
     {
-      title: 'Protect a Page with Login: Next.js/React',
+      title: 'Protect a Page with Login: Next.js',
       language: 'nextjs',
       author: 'ory',
       tested: true,
       repo: 'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/nextjs',
       docs: 'https://www.ory.sh/docs/guides/protect-page-login/next.js'
+    },
+    {
+      title: 'Protect a Page with Login: React',
+      language: 'react',
+      author: 'ory',
+      tested: true,
+      repo: 'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/react',
+      docs: 'https://www.ory.sh/docs/guides/protect-page-login/react'
     },
     {
       title: 'Protect a Page with Login: Express.js',
