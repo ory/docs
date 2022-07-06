@@ -1,0 +1,76 @@
+import React, { useEffect, useState } from 'react';
+import logo from './logo.svg';
+import './App.css';
+
+// highlight-start
+import { V0alpha2Api, Configuration, Session, Identity } from '@ory/client'
+
+function App() {
+  const [session, setSession] = useState<Session | undefined>()
+  const [logoutUrl, setLogoutUrl] = useState<string | undefined>()
+
+  //  
+  const basePath = process.env.ORY_URL || 'http://localhost:4000'
+  const ory = new V0alpha2Api(new Configuration({
+	  basePath,
+	  baseOptions: {
+		withCredentials: true
+	  }
+	}))
+
+  // Returns either the email or the username depending on the user's Identity Schema
+  const getUserName = (identity: Identity) => identity.traits.email || identity.traits.username
+
+// highlight-end
+
+// highlight-start
+useEffect(()=> {
+  ory.toSession().then(({data})=> {
+    // User has a session!
+    setSession(data)
+    ory.createSelfServiceLogoutFlowUrlForBrowsers().then(({data})=>{
+      // Get also the logout url
+      setLogoutUrl(data.logout_url)
+    })
+
+  }).catch(()=> {
+    // Redirect to login page
+    window.location.replace(`${basePath}/ui/login`);
+  })
+})
+
+
+if (!session) {
+  // Still loading
+  return <h1>Loading...</h1>
+}
+// highlight-end
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Welcome to Ory, {
+          // highlight-next-line
+          getUserName(session?.identity)
+          }.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+        {
+        // highlight-next-line
+        session && <a href={logoutUrl}>Logout</a>
+        }
+      </header>
+    </div>
+  );
+}
+
+export default App;
