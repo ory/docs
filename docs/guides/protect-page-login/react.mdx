@@ -45,22 +45,6 @@ import App from '!!raw-loader!../../../code-examples/protect-page-login/react/sr
 <CodeBlock language="tsx">{App}</CodeBlock>
 ```
 
-## Run your React App
-
-Great, that's it! Let's run your application! Set up your environment variables to connect with Ory's APIs
-
-```mdx-code-block
-import SdkEnvVar from '@site/src/components/SdkEnvVar'
-
-<SdkEnvVar />
-```
-
-and start the React development server:
-
-```shell-session
-npm run start
-```
-
 ## Run Ory APIs on `localhost`
 
 The Ory security model uses HTTP cookies to manage sessions, tokens, and cookies. To do that, Ory APIs must be exposed on the same
@@ -91,6 +75,22 @@ to a staging environment.
 
 Then open [http://localhost:3000](http://localhost:3000) in your browser. are presented with Ory's Sign In page! Let's click on
 sign up and create your first user!
+
+## Run your React App
+
+Great, that's it! Let's run your application! Set up your environment variables to connect with Ory's APIs
+
+```mdx-code-block
+import SdkEnvVar from '@site/src/components/SdkEnvVar'
+
+<SdkEnvVar />
+```
+
+and start the React development server:
+
+```shell-session
+npm run start
+```
 
 ## Go to Production
 
