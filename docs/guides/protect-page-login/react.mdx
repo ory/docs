@@ -61,6 +61,18 @@ and start the React development server:
 npm run start
 ```
 
+To get your application that runs locally and Ory APIs on the same domain, use Ory Tunnel - a development tool bundled with Ory CLI. 
+It's like a microservice - an authentication API server on your domain!
+
+```shell-session
+export ORY_SDK_URL="https://<your-project-slug>.projects.oryapis.com"
+npx @ory/cli tunnel --dev http://localhost:3000
+```
+
+Ory APIs are now mirrored on `http://localhost:4000`. Use that URL as the `baseUrl` for the `@ory/client` SDK (see code above).
+The `--dev` flag disables security checks for easier integration and should not be used when deploying the Tunnel
+to a staging environment.
+
 Then open [http://localhost:3000](http://localhost:3000) in your browser. are presented with Ory's Sign In page! Let's click on
 sign up and create your first user!
 
@@ -77,5 +89,4 @@ These three components must be hosted on the same top-level domain as they were 
 | Component       | Production      | Local          |
 | --------------- | --------------- | -------------- |
 | Single Page App | www.example.org | localhost:8080 |
-| API             | api.example.org | localhost:3000 |
 | Ory             | ory.example.org | localhost:4000 |
