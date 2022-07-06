@@ -9,7 +9,6 @@ function App() {
   const [session, setSession] = useState<Session | undefined>()
   const [logoutUrl, setLogoutUrl] = useState<string | undefined>()
 
-  //  
   const basePath = process.env.ORY_URL || 'http://localhost:4000'
   const ory = new V0alpha2Api(new Configuration({
 	  basePath,
@@ -24,6 +23,7 @@ function App() {
 // highlight-end
 
 // highlight-start
+// Second, gather session data, if the user is not logged in, redirect to login
 useEffect(()=> {
   ory.toSession().then(({data})=> {
     // User has a session!
