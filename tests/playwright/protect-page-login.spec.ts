@@ -16,7 +16,6 @@ test.describe('protect-page-login', () => {
     { url: 'http://localhost:3003/', name: 'go' },
     { url: 'http://localhost:3004/', name: 'php' },
     { url: 'http://localhost:3005/', name: 'flutter_web_redirect' },
-    { url: 'http://localhost:3006/', name: 'react'}
   ]) {
     test.describe(app.name, async () => {
       test('able to use login and sign up', async ({ page }) => {
@@ -66,5 +65,23 @@ test.describe('Single Page App + API', () => {
     // Click a:has-text("Login")
     await page.locator('[data-testid="sign-in"]').click()
     await expect(page).toHaveURL(/.*\/ui\/login.*/)
+  })
+})
+
+test.describe('React Single Page App', ()=> {
+  test('able to use Sign in and Login', async ({page}) => {
+    await page.goto('http://localhost:3006/')
+    //await page.waitForLoadState('networkidle')
+    await page.click('[data-testid="cta-link"]')
+    await expect(page).toHaveURL(/.*\/ui\/registration.*/)
+
+    const email = await login(page)
+    await expect(page).toHaveURL("http://localhost:3006")
+    await expect(page.locator('body')).toContainText(email)
+
+    await page.locator('text=Logout').click();
+    
+    //await page.goto('http://localhost:3006/')
+    //await expect(page).toHaveURL(/.*\/ui\/login.*/)
   })
 })
