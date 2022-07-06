@@ -31,9 +31,8 @@ keto serve [flags]
 ### Options
 
 ```
-      --disable-telemetry   Disable anonymized telemetry reports - for more information please visit https://www.ory.sh/docs/ecosystem/sqa (default true)
-  -h, --help                help for serve
-      --sqa-opt-out         Disable anonymized telemetry reports - for more information please visit https://www.ory.sh/docs/ecosystem/sqa (default true)
+  -h, --help          help for serve
+      --sqa-opt-out   Disable anonymized telemetry reports - for more information please visit https://www.ory.sh/docs/ecosystem/sqa
 ```
 
 ### Options inherited from parent commands
