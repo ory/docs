@@ -9,6 +9,8 @@ function App() {
   const [session, setSession] = useState<Session | undefined>()
   const [logoutUrl, setLogoutUrl] = useState<string | undefined>()
 
+  // Get your Ory url from .env
+  // Or localhost for local development
   const basePath = process.env.ORY_URL || 'http://localhost:4000'
   const ory = new V0alpha2Api(new Configuration({
 	  basePath,
@@ -66,7 +68,8 @@ if (!session) {
         </a>
         {
         // highlight-next-line
-        session && <a href={logoutUrl}>Logout</a>
+        // Our logout link
+        <a href={logoutUrl}>Logout</a>
         }
       </header>
     </div>
