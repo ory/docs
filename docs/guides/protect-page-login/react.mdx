@@ -61,6 +61,23 @@ and start the React development server:
 npm run start
 ```
 
+## Run Ory APIs on `localhost`
+
+The Ory security model uses HTTP cookies to manage sessions, tokens, and cookies. To do that, Ory APIs must be exposed on the same
+domain as your application.
+
+In the case of this example, the domain of your application, which runs on your local machine, is `localhost`.
+
+:::info
+
+When developing locally, use either `localhost` or `127.0.0.1`, but not both. Although technically these mean the same thing,
+they're different hostnames.
+
+Using both interchangeably in your code can cause problems with the origin of HTTP cookies sent by the application. When that happens
+Ory APIs might not be able to read the cookies sent by your app.
+
+:::
+
 To get your application that runs locally and Ory APIs on the same domain, use Ory Tunnel - a development tool bundled with Ory CLI.
 It's like a microservice - an authentication API server on your domain!
 
