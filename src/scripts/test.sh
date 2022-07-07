@@ -36,7 +36,7 @@ cd code-examples/protect-page-login/vue && \
 ory tunnel --dev --port 3006 http://localhost:4006/ &
 
 cd code-examples/protect-page-login/react && \
-  PORT=4008 npm run start &
+  PORT=4008 REACT_APP_ORY_URL=http://localhost:3007 npm run start &
 ory tunnel --dev --port 3007 http://localhost:4008/ &
 
 trap "exit" INT TERM ERR
