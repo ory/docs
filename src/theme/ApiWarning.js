@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 const ApiWarning = () => (
   <div className="admonition admonition-warning alert alert--danger">

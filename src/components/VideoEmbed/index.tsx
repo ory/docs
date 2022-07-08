@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react"
 
 export default function VideoEmbed({
   webm,
-  mp4
+  mp4,
 }: {
   mp4: string
   webm: string

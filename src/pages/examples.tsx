@@ -1,7 +1,7 @@
-import React from 'react'
-import ExampleList from '../components/Examples/example-list'
-import * as content from './_assets/examples-content'
-import Layout from '@theme/Layout'
+import React from "react"
+import ExampleList from "../components/Examples/example-list"
+import * as content from "./_assets/examples-content"
+import Layout from "@theme/Layout"
 
 const ExamplePage = () => {
   return (

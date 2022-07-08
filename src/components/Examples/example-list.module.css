@@ -7,8 +7,7 @@
   grid-template-columns: 2rem 1.75fr;
   grid-template-rows: 1fr;
   gap: 1rem;
-  grid-template-areas:
-    "logo-img content";
+  grid-template-areas: "logo-img content";
 }
 
 .cardcontent {
@@ -25,7 +24,6 @@
 .cardtitle {
   margin-bottom: 0.25rem;
 }
-
 
 .cardbuttongroup {
   grid-area: buttons;
@@ -44,7 +42,7 @@
 }
 
 .cardbutton:hover {
-  background-color: rgba(128, 128, 128, 0.32)
+  background-color: rgba(128, 128, 128, 0.32);
 }
 
 .cardbutton:first-child {

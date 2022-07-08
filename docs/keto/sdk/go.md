@@ -3,9 +3,7 @@ id: go
 title: Go
 ---
 
-import CodeBlock from '@theme/CodeBlock'
-import { useLatestRelease } from '@site/src/hooks'
-
+import CodeBlock from '@theme/CodeBlock'; import { useLatestRelease } from '@site/src/hooks'
 
 Ory Keto exposes two APIs for integration
 
@@ -105,6 +103,7 @@ blog_posts:my-first-blog-post#read@alice
 ```
 
 ### Making requests with gRPC API
+
 ```go
 package main
 
@@ -164,6 +163,7 @@ func main() {
 ```
 
 ### Making requests with REST API
+
 ```go
 package main
 
@@ -223,6 +223,7 @@ func main() {
 ## More examples
 
 ### More examples REST API
+
 - [Write API documentation](https://github.com/ory/keto-client-go/blob/master/docs/WriteApi.md)
 - [Read API documentation](https://github.com/ory/keto-client-go/blob/master/docs/ReadApi.md)
 

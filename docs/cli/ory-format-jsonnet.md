@@ -1,7 +1,7 @@
 ---
 id: ory-format-jsonnet
 title: ory format jsonnet
-description: ory format jsonnet 
+description: ory format jsonnet
 ---
 
 <!--
@@ -9,9 +9,8 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## ory format jsonnet
-
-
 
 ### Synopsis
 
@@ -57,5 +56,4 @@ ory format jsonnet path/to/files/*.jsonnet [more/files.jsonnet] [supports/**/{fo
 
 ### SEE ALSO
 
-* [ory format](ory-format)	 - Helpers for formatting code
-
+- [ory format](ory-format) - Helpers for formatting code
