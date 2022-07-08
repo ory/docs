@@ -24,4 +24,5 @@ Commands related to the Ory Kratos message courier
 ### SEE ALSO
 
 - [kratos](kratos) -
-- [kratos courier watch](kratos-courier-watch) - Starts the Ory Kratos message courier
+- [kratos courier watch](kratos-courier-watch) - Starts the Ory Kratos message
+  courier

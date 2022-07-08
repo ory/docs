@@ -14,7 +14,8 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 
 ### Synopsis
 
-Lints JSONNet files using the official JSONNet linter and exits with a status code of 1 when issues are detected.
+Lints JSONNet files using the official JSONNet linter and exits with a status
+code of 1 when issues are detected.
 
 Glob Syntax:
 

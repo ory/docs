@@ -3,7 +3,8 @@ id: go
 title: Go
 ---
 
-import CodeBlock from '@theme/CodeBlock'; import { useLatestRelease } from '@site/src/hooks'
+import CodeBlock from '@theme/CodeBlock'; import { useLatestRelease } from
+'@site/src/hooks'
 
 Ory Keto exposes two APIs for integration
 
@@ -96,7 +97,8 @@ func main() {
 
 ## Making requests
 
-As an example, let's create the following relation tuple and check that `alice` has access to `my-first-blog-post` object
+As an example, let's create the following relation tuple and check that `alice`
+has access to `my-first-blog-post` object
 
 ```
 blog_posts:my-first-blog-post#read@alice

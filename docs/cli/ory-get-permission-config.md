@@ -1,7 +1,8 @@
 ---
 id: ory-get-permission-config
 title: ory get permission-config
-description: ory get permission-config Get an Ory Cloud project's permission configuration
+description:
+  ory get permission-config Get an Ory Cloud project's permission configuration
 ---
 
 <!--

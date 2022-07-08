@@ -88,5 +88,6 @@
     "text-runner": "^5.0.0",
     "wait-on": "^6.0.0",
     "yaml": "^1.10.2"
-  }
+  },
+  "prettier": "ory-prettier-styles"
 }

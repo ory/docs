@@ -26,4 +26,5 @@ Import resources
 ### SEE ALSO
 
 - [kratos](kratos) -
-- [kratos import identities](kratos-import-identities) - Import one or more identities from files or STD_IN
+- [kratos import identities](kratos-import-identities) - Import one or more
+  identities from files or STD_IN

@@ -1,7 +1,9 @@
 ---
 id: oathkeeper-credentials
 title: oathkeeper credentials
-description: oathkeeper credentials Generate RSA, ECDSA, and other keys and output them as JSON Web Keys
+description:
+  oathkeeper credentials Generate RSA, ECDSA, and other keys and output them as
+  JSON Web Keys
 ---
 
 <!--
@@ -29,4 +31,5 @@ Generate RSA, ECDSA, and other keys and output them as JSON Web Keys
 ### SEE ALSO
 
 - [oathkeeper](oathkeeper) - A cloud native Access and Identity Proxy
-- [oathkeeper credentials generate](oathkeeper-credentials-generate) - Generate a key for the specified algorithm
+- [oathkeeper credentials generate](oathkeeper-credentials-generate) - Generate
+  a key for the specified algorithm

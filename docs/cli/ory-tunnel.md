@@ -1,7 +1,9 @@
 ---
 id: ory-tunnel
 title: ory tunnel
-description: ory tunnel Tunnel Ory on a subdomain of your app or a separate port your app's domain
+description:
+  ory tunnel Tunnel Ory on a subdomain of your app or a separate port your app's
+  domain
 ---
 
 <!--
@@ -16,18 +18,22 @@ Tunnel Ory on a subdomain of your app or a separate port your app's domain
 
 ### Synopsis
 
-This command runs an HTTP Server which is connected to Ory's APIs, in order for your application and Ory's APIs to run on the same
-top level domain (for example yourapp.com, localhost). Having Ory on your domain is required for cookies to work.
+This command runs an HTTP Server which is connected to Ory's APIs, in order for
+your application and Ory's APIs to run on the same top level domain (for example
+yourapp.com, localhost). Having Ory on your domain is required for cookies to
+work.
 
-The first argument `application-url` points to the location of your application. This location will be used as the default
-redirect URL for the tunnel, for example after a successful login.
+The first argument `application-url` points to the location of your application.
+This location will be used as the default redirect URL for the tunnel, for
+example after a successful login.
 
     $ ory tunnel --project <your-project-slug> https://www.example.org
     $ ORY_PROJECT_SLUG=<your-project-slug> ory tunnel http://localhost:3000
 
 ### Connecting to Ory
 
-Before you start, you need to have a running Ory Cloud project. You can create one with the following command:
+Before you start, you need to have a running Ory Cloud project. You can create
+one with the following command:
 
     $ ory create project --name "Command Line Project"
 
@@ -38,18 +44,21 @@ Pass the project's slug as a flag to the tunnel command:
 
 ### Developing Locally
 
-When developing locally we recommend to use the `--dev` flag, which uses a lax security setting:
+When developing locally we recommend to use the `--dev` flag, which uses a lax
+security setting:
 
     $ ory tunnel --dev --project <your-project-slug> \
     	http://localhost:3000
 
 ### Running on a Server
 
-To go to production set up a custom domain (CNAME) for Ory. If you can not set up a custom domain - for example because you are
-developing a staging environment - using the Ory Tunnel is an alternative.
+To go to production set up a custom domain (CNAME) for Ory. If you can not set
+up a custom domain - for example because you are developing a staging
+environment - using the Ory Tunnel is an alternative.
 
-To run on a server, you need to set the optional second argument `[tunnel-url]`. It tells the Ory Tunnel on which domain it will
-run (for example https://ory.example.org).
+To run on a server, you need to set the optional second argument `[tunnel-url]`.
+It tells the Ory Tunnel on which domain it will run (for example
+https://ory.example.org).
 
     $ ory tunnel --project <your-project-slug> \
     	https://www.example.org \
@@ -62,12 +71,14 @@ Please note that you can not set a path in the `[tunnel-url]`!
 
 ### Ports
 
-Per default, the tunnel listens on port 4000. If you want to listen on another port, use the port flag:
+Per default, the tunnel listens on port 4000. If you want to listen on another
+port, use the port flag:
 
     $ ory tunnel --port 8080 --project <your-project-slug> \
     	https://www.example.org
 
-If your application URL is available on a non-standard HTTP/HTTPS port, you can set that port in the `application-url`:
+If your application URL is available on a non-standard HTTP/HTTPS port, you can
+set that port in the `application-url`:
 
     $ ory tunnel --project <your-project-slug> \
     	https://example.org:1234

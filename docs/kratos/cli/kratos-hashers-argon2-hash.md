@@ -1,7 +1,9 @@
 ---
 id: kratos-hashers-argon2-hash
 title: kratos hashers argon2 hash
-description: kratos hashers argon2 hash Hash a list of passwords for benchmarking the hashing parameters
+description:
+  kratos hashers argon2 hash Hash a list of passwords for benchmarking the
+  hashing parameters
 ---
 
 <!--

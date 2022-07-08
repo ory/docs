@@ -1,7 +1,8 @@
 ---
 id: ory-get-identity-config
 title: ory get identity-config
-description: ory get identity-config Get an Ory Cloud project's identity configuration
+description:
+  ory get identity-config Get an Ory Cloud project's identity configuration
 ---
 
 <!--

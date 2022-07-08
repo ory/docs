@@ -27,8 +27,9 @@ cd <your-project-directory>
 
 ## Install Ory
 
-Ory provides integration tools that quickly combine Ory with Next.js. Let's install Ory's SDK, used to make API calls to Ory, and
-Ory's Integration Tools for JavaScript frameworks:
+Ory provides integration tools that quickly combine Ory with Next.js. Let's
+install Ory's SDK, used to make API calls to Ory, and Ory's Integration Tools
+for JavaScript frameworks:
 
 ```shell-session
 npm i --save @ory/integrations @ory/client
@@ -43,13 +44,15 @@ import apiRoute from '!!raw-loader!../../../code-examples/protect-page-login/nex
 <CodeBlock language="tsx">{apiRoute}</CodeBlock>
 ```
 
-This route connects your Next.js app with Ory's APIs and ensures that all cookies and credentials are set up. Without it, your
-Next.js application won't be able to talk to Ory's APIs.
+This route connects your Next.js app with Ory's APIs and ensures that all
+cookies and credentials are set up. Without it, your Next.js application won't
+be able to talk to Ory's APIs.
 
 ## Require Login to Access the Home Page
 
-Next we add a session check to the default home page of the Next.js example application.The highlighted code is what we added to
-check whether the user is signed in, and redirect them to the login page if not:
+Next we add a session check to the default home page of the Next.js example
+application.The highlighted code is what we added to check whether the user is
+signed in, and redirect them to the login page if not:
 
 ```mdx-code-block
 import homePage from '!!raw-loader!../../../code-examples/protect-page-login/nextjs/pages/index.tsx'
@@ -59,7 +62,8 @@ import homePage from '!!raw-loader!../../../code-examples/protect-page-login/nex
 
 ## Run your Next.js App
 
-Great, that's it! Let's run your application! Set up your environment variables to connect with Ory's APIs
+Great, that's it! Let's run your application! Set up your environment variables
+to connect with Ory's APIs
 
 ```mdx-code-block
 import SdkEnvVar from '@site/src/components/SdkEnvVar'
@@ -73,8 +77,9 @@ and start the Next.js development server:
 npm run dev
 ```
 
-Then open [http://localhost:3000](http://localhost:3000) in your browser. are presented with Ory's Sign In page! Let's click on
-sign up and create your first user!
+Then open [http://localhost:3000](http://localhost:3000) in your browser. are
+presented with Ory's Sign In page! Let's click on sign up and create your first
+user!
 
 ## Go to Production
 

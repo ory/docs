@@ -6,22 +6,26 @@ title: Hooks
 Hooks execute logic after a flow (login, registration, settings, ...):
 
 - _Before login:_ is executed when a login flow starts.
-- _After login:_ is executed after a successful identification and authentication of the user, but before the kratos session is
-  created.
+- _After login:_ is executed after a successful identification and
+  authentication of the user, but before the kratos session is created.
 - _Before registration:_ is executed when a registration flow starts.
 - _After registration:_ is executed when a registration was successful:
   - _Before persisting:_ runs before the identity is saved in the database.
   - _After persisting:_ runs after the identity was saved in the database.
-- _After recovery:_ is executed after a password has been successfully recovered.
+- _After recovery:_ is executed after a password has been successfully
+  recovered.
 - _After settings:_ is executed when a settings was successful:
   - _Before persisting:_ runs before the identity is saved in the database.
   - _After persisting:_ runs after the identity was saved in the database.
-- _After verification:_ is executed when the verification of an account was successful.
+- _After verification:_ is executed when the verification of an account was
+  successful.
 
-There are hooks, which can be configured only for a particular flow (login, registration, settings, ...) method (password, oidc,
-profile) and hooks, which can be configured for all methods of any flow.
+There are hooks, which can be configured only for a particular flow (login,
+registration, settings, ...) method (password, oidc, profile) and hooks, which
+can be configured for all methods of any flow.
 
-To configure hooks for all methods of a particular flow, following pattern must be used:
+To configure hooks for all methods of a particular flow, following pattern must
+be used:
 
 ```yaml title="path/to/my/kratos.config.yml
 selfservice:
@@ -36,7 +40,8 @@ selfservice:
           ...
 ```
 
-Following pattern must be followed to configure hooks for a particular flow method:
+Following pattern must be followed to configure hooks for a particular flow
+method:
 
 ```yaml title="path/to/my/kratos.config.yml
 selfservice:
@@ -52,8 +57,8 @@ selfservice:
             ...
 ```
 
-Hooks configured on a particular method level always override the hooks configured on the flow level. So given the following
-example
+Hooks configured on a particular method level always override the hooks
+configured on the flow level. So given the following example
 
 ```yaml title="path/to/my/kratos.config.yml
 selfservice:
@@ -74,8 +79,9 @@ selfservice:
         # ...
 ```
 
-`hook_1` is always run when the flow is started. On the finalization of the flow, `hook_2` isn't run for the `password` method,
-but for the `oidc` method. If the `password` method is used, then `hook_3` will run.
+`hook_1` is always run when the flow is started. On the finalization of the
+flow, `hook_2` isn't run for the `password` method, but for the `oidc` method.
+If the `password` method is used, then `hook_3` will run.
 
 ## All flows
 
@@ -83,20 +89,23 @@ Following hooks can be configured for all flows.
 
 ### Web-Hooks
 
-Web-Hooks can be configured for every, but error and logout flow and can be configured on either the before/after level or at the
-level of a particular method. Support for Web-Hooks before execution of a method is supported only for registration and login
-methods.
+Web-Hooks can be configured for every, but error and logout flow and can be
+configured on either the before/after level or at the level of a particular
+method. Support for Web-Hooks before execution of a method is supported only for
+registration and login methods.
 
 :::note
 
-As of today Web-Hooks can't control the execution of the flow by patching/updating particular properties of flow specific object
-upon Web-Hook completion. It will however cancel the execution of the flow if the call to the Web-Hook end point fails either due
-to a network error or if the end point responses with an HTTP code > 300.
+As of today Web-Hooks can't control the execution of the flow by
+patching/updating particular properties of flow specific object upon Web-Hook
+completion. It will however cancel the execution of the flow if the call to the
+Web-Hook end point fails either due to a network error or if the end point
+responses with an HTTP code > 300.
 
 :::
 
-The configuration for a web-hook goes into the `hooks` property either on the flow before/after, or the method level and has the
-following structure:
+The configuration for a web-hook goes into the `hooks` property either on the
+flow before/after, or the method level and has the following structure:
 
 ```yaml title="path/to/my/kratos.config.yml
 - hook: web_hook
@@ -112,17 +121,22 @@ following structure:
 The configuration section of a web-hook consists of
 
 - `url` - the url, the web-hook should call (mandatory)
-- `method` - the HTTP method (GET, POST, ...), the web-hook should use (mandatory)
-- `body` - URI of a jsonnet template, used by the web-hook to render the payload to send (optional). Use a
-  `file://path/to/body.jsonnet` URL for referring to local files. This property is ignored for HTTP `method`s, which don't support
+- `method` - the HTTP method (GET, POST, ...), the web-hook should use
+  (mandatory)
+- `body` - URI of a jsonnet template, used by the web-hook to render the payload
+  to send (optional). Use a `file://path/to/body.jsonnet` URL for referring to
+  local files. This property is ignored for HTTP `method`s, which don't support
   sending of HTTP body payloads.
-- `auth` - configuration of authentication and authorization mechanisms to be used by the web-hook
+- `auth` - configuration of authentication and authorization mechanisms to be
+  used by the web-hook
 
-Web-Hooks bind the `flow`, as well as request headers (`request_headers`), request method (`request_method`), and the request url
-(`request_url`) of the flow into the jsonnet template for all methods and execution paths (before and after). For the `after`
-execution path of all flows, it binds the `identity` object into the jsonnet template as well. These objects are available through
-a `ctx` object. To create a body looking like `{ user_id: <some-id> }` to be sent to the web hook endpoint, the Jsonnet template
-would look like this:
+Web-Hooks bind the `flow`, as well as request headers (`request_headers`),
+request method (`request_method`), and the request url (`request_url`) of the
+flow into the jsonnet template for all methods and execution paths (before and
+after). For the `after` execution path of all flows, it binds the `identity`
+object into the jsonnet template as well. These objects are available through a
+`ctx` object. To create a body looking like `{ user_id: <some-id> }` to be sent
+to the web hook endpoint, the Jsonnet template would look like this:
 
 ```jsonnet
 function(ctx) { user_id: ctx.identity.id }
@@ -132,10 +146,11 @@ function(ctx) { user_id: ctx.identity.id }
 
 You can cancel configured webhooks and not make the defined request.
 
-This can come in handy in testing. For example, if you cancel the webhook, you prevent the test accounts created during testing
-from being added to CRM.
+This can come in handy in testing. For example, if you cancel the webhook, you
+prevent the test accounts created during testing from being added to CRM.
 
-In such a scenario, cancel the webhook by raising an error for all accounts with the `test-` name prefix:
+In such a scenario, cancel the webhook by raising an error for all accounts with
+the `test-` name prefix:
 
 ```jsonnet
 function(ctx)
@@ -149,16 +164,18 @@ else
 
 :::info
 
-Currently, JsonNet doesn't support regular expressions. Follow this issue to see if the feature has been implemented:
+Currently, JsonNet doesn't support regular expressions. Follow this issue to see
+if the feature has been implemented:
 [google/go-jsonnet/409](https://github.com/google/go-jsonnet/issues/409).
 
 :::
 
 #### Non-blocking webhooks
 
-Sometimes you need to notify a system without needing its response. For example, when a user signs up, their email address is
-added to the newsletter. If the system's response is not important, you can ignore the response and make the webhook execution
-non-blocking.
+Sometimes you need to notify a system without needing its response. For example,
+when a user signs up, their email address is added to the newsletter. If the
+system's response is not important, you can ignore the response and make the
+webhook execution non-blocking.
 
 To do that, set `response.ignore` to `true` in the webhook config:
 
@@ -197,8 +214,8 @@ All properties are mandatory.
 
 ## Login
 
-Hooks running before or after successful user login are defined per Self-Service Registration Method in Ory Kratos' configuration
-file.
+Hooks running before or after successful user login are defined per Self-Service
+Registration Method in Ory Kratos' configuration file.
 
 ### Before
 
@@ -227,8 +244,8 @@ selfservice:
 
 #### `revoke_active_sessions`
 
-The `revoke_active_sessions` will delete all active sessions for that user on successful login. This hook is available for all
-supported methods:
+The `revoke_active_sessions` will delete all active sessions for that user on
+successful login. This hook is available for all supported methods:
 
 ```yaml title="path/to/my/kratos.config.yml"
 selfservice:
@@ -243,8 +260,8 @@ selfservice:
 
 #### `require_verified_address`
 
-The `require_verified_address` will ensure, the user can login only if its email address is verified. This hook is available for
-the `password` method only:
+The `require_verified_address` will ensure, the user can login only if its email
+address is verified. This hook is available for the `password` method only:
 
 ```yaml title="path/to/my/kratos.config.yml"
 selfservice:
@@ -257,15 +274,17 @@ selfservice:
               # can't be configured
 ```
 
-Please be aware, that since `require_verified_address` hook is enforcing a verified address before the user can login, a typo in
-an email address done by the user either during the registration or as part of a self service flow (email change) will make the
-login for that user impossible. So you should think about measures to prevent such situations, like requiring two email addresses
-being configured by the user, thus having a backup if something goes wrong.
+Please be aware, that since `require_verified_address` hook is enforcing a
+verified address before the user can login, a typo in an email address done by
+the user either during the registration or as part of a self service flow (email
+change) will make the login for that user impossible. So you should think about
+measures to prevent such situations, like requiring two email addresses being
+configured by the user, thus having a backup if something goes wrong.
 
 ## Registration
 
-Hooks running before or after successful user registration are defined per Self-Service Registration Method in Ory Kratos'
-configuration file.
+Hooks running before or after successful user registration are defined per
+Self-Service Registration Method in Ory Kratos' configuration file.
 
 ### Before
 
@@ -296,19 +315,24 @@ selfservice:
 
 #### `session`
 
-Adding the `session` hook signs the user immediately in once the account has been created. It runs after the identity has been
-saved to the database.
+Adding the `session` hook signs the user immediately in once the account has
+been created. It runs after the identity has been saved to the database.
 
 :::info
 
-Using this job as part of your post-registration workflow makes your system vulnerable to
-[Account Enumeration Attacks](../concepts/security.mdx#account-enumeration-attacks) because a threat agent can distinguish between
-existing and non-existing accounts by checking if `Set-Cookie` was sent as part of the registration response.
+Using this job as part of your post-registration workflow makes your system
+vulnerable to
+[Account Enumeration Attacks](../concepts/security.mdx#account-enumeration-attacks)
+because a threat agent can distinguish between existing and non-existing
+accounts by checking if `Set-Cookie` was sent as part of the registration
+response.
 
 :::
 
-To use this hook, you must first define one or more (for secret rotation) secrets. You can either choose to use the "default"
-secrets or the more specific "cookie" secrets. The other required config is setting the hook in `after` work flows:
+To use this hook, you must first define one or more (for secret rotation)
+secrets. You can either choose to use the "default" secrets or the more specific
+"cookie" secrets. The other required config is setting the hook in `after` work
+flows:
 
 ```yaml title="path/to/my/kratos.config.yml"
 secrets:
@@ -335,14 +359,16 @@ Depending on the registration flow type the behavior changes.
 
 ### Registration Flow via Browser
 
-When performing a registration flow with a Browser, this hook sends a `Set-Cookie` HTTP header which contains the session cookie.
+When performing a registration flow with a Browser, this hook sends a
+`Set-Cookie` HTTP header which contains the session cookie.
 
 Therefore, the user is logged in immediately.
 
 ### Registration Flow via API
 
-When performing a registration flow with an API client (such as a mobile app), this hook creates a session and returns the session
-token and the session itself in the response body as application/json:
+When performing a registration flow with an API client (such as a mobile app),
+this hook creates a session and returns the session token and the session itself
+in the response body as application/json:
 
 ```json
 {
@@ -360,16 +386,17 @@ token and the session itself in the response body as application/json:
 
 :::info
 
-Because the HTTP reply is handled by the hook itself, no other hooks can be executed because the HTTP reply can't be modified
-further (for example HTTP Status Code was already sent as 200 and can't be changed to 301). You must ensure that the session hook
-is the last hook in your configuration!
+Because the HTTP reply is handled by the hook itself, no other hooks can be
+executed because the HTTP reply can't be modified further (for example HTTP
+Status Code was already sent as 200 and can't be changed to 301). You must
+ensure that the session hook is the last hook in your configuration!
 
 :::
 
 ## Settings
 
-Hooks running after successfully updating user settings and are defined per Self-Service Settings Method in Ory Kratos'
-configuration file.
+Hooks running after successfully updating user settings and are defined per
+Self-Service Settings Method in Ory Kratos' configuration file.
 
 ### After
 

@@ -1,7 +1,8 @@
 ---
 id: oathkeeper-health-alive
 title: oathkeeper health alive
-description: oathkeeper health alive Checks if an ORY Oathkeeper deployment is alive
+description:
+  oathkeeper health alive Checks if an ORY Oathkeeper deployment is alive
 ---
 
 <!--
@@ -18,8 +19,9 @@ Checks if an ORY Oathkeeper deployment is alive
 
 Usage example: oathkeeper health --endpoint=http://localhost:4456/ alive
 
-Note: The endpoint URL should point to a single ORY Oathkeeper deployment. If the endpoint URL points to a Load Balancer, these
-commands will effective test the Load Balancer.
+Note: The endpoint URL should point to a single ORY Oathkeeper deployment. If
+the endpoint URL points to a Load Balancer, these commands will effective test
+the Load Balancer.
 
 ```
 oathkeeper health alive [flags]
@@ -40,4 +42,5 @@ oathkeeper health alive [flags]
 
 ### SEE ALSO
 
-- [oathkeeper health](oathkeeper-health) - Commands for checking the status of an ORY Oathkeeper deployment
+- [oathkeeper health](oathkeeper-health) - Commands for checking the status of
+  an ORY Oathkeeper deployment

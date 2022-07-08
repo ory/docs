@@ -3,14 +3,16 @@ id: get-tokens
 title: Get Social Sign-in Provider Tokens
 ---
 
-You can get the OIDC / OAuth 2.0 access, refresh, and ID tokens issued for the Identity by social sign-in providers.
+You can get the OIDC / OAuth 2.0 access, refresh, and ID tokens issued for the
+Identity by social sign-in providers.
 
 These tokens are issued only when the Identity:
 
 - Signs up with a social sign-in provider.
 - Links a new social sign-in provider to their account.
 
-Run this command to get the Identity details that include the social sign-in provider tokens:
+Run this command to get the Identity details that include the social sign-in
+provider tokens:
 
 ````mdx-code-block
 import Tabs from '@theme/Tabs'
@@ -57,7 +59,8 @@ curl --request GET -sL \
 </Tabs>
 ````
 
-When the call is successful, the system returns the Identity details with the available social sign-in provider tokens:
+When the call is successful, the system returns the Identity details with the
+available social sign-in provider tokens:
 
 ```sh
 {
@@ -121,7 +124,10 @@ When the call is successful, the system returns the Identity details with the av
 
 ## Encryption
 
-By default, tokens are stored as plain text recorded with the default Noop cipher.
+By default, tokens are stored as plain text recorded with the default Noop
+cipher.
 
-To increase the security, you can choose to encode the tokens with AES or XChaCha20 Poly1305 ciphers. Read
-[this document](../../kratos/guides/select-cipher-algorithm) to learn how to choose the cipher.
+To increase the security, you can choose to encode the tokens with AES or
+XChaCha20 Poly1305 ciphers. Read
+[this document](../../kratos/guides/select-cipher-algorithm) to learn how to
+choose the cipher.

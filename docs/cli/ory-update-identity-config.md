@@ -1,7 +1,9 @@
 ---
 id: ory-update-identity-config
 title: ory update identity-config
-description: ory update identity-config Update Ory Cloud Project's Identity Service Configuration
+description:
+  ory update identity-config Update Ory Cloud Project's Identity Service
+  Configuration
 ---
 
 <!--
@@ -16,18 +18,21 @@ Update Ory Cloud Project's Identity Service Configuration
 
 ### Synopsis
 
-Use this command to replace your current Ory Cloud Project's identity service configuration. All values of the identity service
-will be overwritten. To update individual settings use the `patch` command instead.
+Use this command to replace your current Ory Cloud Project's identity service
+configuration. All values of the identity service will be overwritten. To update
+individual settings use the `patch` command instead.
 
-Compared to the `update project` command, this command only updates the identity service configuration and also only returns the
-identity service configuration as a result. This command is useful when you want to import an Ory Kratos config as well, for
-example.
+Compared to the `update project` command, this command only updates the identity
+service configuration and also only returns the identity service configuration
+as a result. This command is useful when you want to import an Ory Kratos config
+as well, for example.
 
 The full configuration payload can be found at:
 
     https://www.ory.sh/docs/reference/api#operation/updateProject.
 
-This command expects the contents of the `/services/identity/config` key, so for example:
+This command expects the contents of the `/services/identity/config` key, so for
+example:
 
     {
       "courier": {

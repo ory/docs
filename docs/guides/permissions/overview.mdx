@@ -3,24 +3,29 @@ id: overview
 title: Overview
 ---
 
-The Ory Permission Service ([Keto](https://github.com/ory/keto)) implements Google Zanzibar. It might differ a bit from other
-authorization services you know, so let's first clarify a few concepts.
+The Ory Permission Service ([Keto](https://github.com/ory/keto)) implements
+Google Zanzibar. It might differ a bit from other authorization services you
+know, so let's first clarify a few concepts.
 
 :::note Ory Cloud Availability
 
-The Permission Service is available to all Ory Cloud users without additional fees or setup. The API is in a production-ready
-state. The documentation, integration, and UI are under active development.
+The Permission Service is available to all Ory Cloud users without additional
+fees or setup. The API is in a production-ready state. The documentation,
+integration, and UI are under active development.
 
 :::
 
 ## Relations and Relation Tuples
 
-The data model used by the Permission Service are so-called [relation tuples](/keto/concepts/relation-tuples.mdx) that encode
-relations between [subjects](/keto/concepts/subjects.mdx) and [objects](/keto/concepts/objects.mdx).
+The data model used by the Permission Service are so-called
+[relation tuples](/keto/concepts/relation-tuples.mdx) that encode relations
+between [subjects](/keto/concepts/subjects.mdx) and
+[objects](/keto/concepts/objects.mdx).
 
 :::tip
 
-Read the dedicated documents to learn more about [subjects](/keto/concepts/subjects.mdx) and
+Read the dedicated documents to learn more about
+[subjects](/keto/concepts/subjects.mdx) and
 [objects](/keto/concepts/objects.mdx).
 
 :::
@@ -30,13 +35,16 @@ Examples of relation tuples are:
 - `user1` is `member` of `groups:group1`
 - `member` of `groups:group1` is `reader` of `files:file1`
 
-As you can see, the subject of a relation tuple can either be a specific subject ID, or subjects defined through an
-[indirection](https://en.wikipedia.org/wiki/Indirection) (all members of a certain group). The object is referenced by its ID.
+As you can see, the subject of a relation tuple can either be a specific subject
+ID, or subjects defined through an
+[indirection](https://en.wikipedia.org/wiki/Indirection) (all members of a
+certain group). The object is referenced by its ID.
 
 ## Checking Permissions
 
-Permissions are just another form of relations. Therefore, a permission check is a request to check whether a subject has a
-certain relation to an object, possibly through one or more indirections.
+Permissions are just another form of relations. Therefore, a permission check is
+a request to check whether a subject has a certain relation to an object,
+possibly through one or more indirections.
 
 As a very simple example, we assume the following tuples exist:
 
@@ -45,18 +53,20 @@ As a very simple example, we assume the following tuples exist:
 
 Now, one could ask:
 
-- Is `user1` a `reader` of `files:file1`? - Yes, because `user1` is a `member` of `groups:group1` and all `member`s of
-  `groups:group1` are `reader` of `files:file1`.
+- Is `user1` a `reader` of `files:file1`? - Yes, because `user1` is a `member`
+  of `groups:group1` and all `member`s of `groups:group1` are `reader` of
+  `files:file1`.
 - Is `user2` a `member` of `groups:group1`? - No.
 
 ## Example
 
-This example setup demonstrates the basics of relation tuple management and usage of the Check API.
+This example setup demonstrates the basics of relation tuple management and
+usage of the Check API.
 
 ### Defining Namespaces
 
-Relation tuples reside in [namespaces](/keto/concepts/namespaces.mdx). To create relation tuples, you must define their namespace
-first.
+Relation tuples reside in [namespaces](/keto/concepts/namespaces.mdx). To create
+relation tuples, you must define their namespace first.
 
 ````mdx-code-block
 import CodeBlock from '@theme/CodeBlock'
@@ -89,8 +99,9 @@ namespaces:
 
 ### Creating Relation Tuples
 
-After creating the namespaces, you can use the [relation tuple APIs](/reference/api.mdx#operation/createRelationTuple) to create a
-relation tuple.
+After creating the namespaces, you can use the
+[relation tuple APIs](/reference/api.mdx#operation/createRelationTuple) to
+create a relation tuple.
 
 ````mdx-code-block
 <Tabs>
@@ -173,10 +184,12 @@ curl -X PUT \
 
 ### Checking Permissions
 
-Permission checks are requests that check whether a subject has a relation to an object. This relation can be directly defined, or
-constructed following indirections (e.g. members of a group).
+Permission checks are requests that check whether a subject has a relation to an
+object. This relation can be directly defined, or constructed following
+indirections (e.g. members of a group).
 
-The [Check API](/reference/api.mdx#operation/postCheck) allows to perform such checks:
+The [Check API](/reference/api.mdx#operation/postCheck) allows to perform such
+checks:
 
 ````mdx-code-block
 <Tabs>

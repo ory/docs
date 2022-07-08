@@ -20,8 +20,9 @@ This command opens the network ports and listens to HTTP and gRPC API requests.
 
 ## Configuration
 
-ORY Keto can be configured using environment variables as well as a configuration file. For more information on configuration
-options, open the configuration documentation:
+ORY Keto can be configured using environment variables as well as a
+configuration file. For more information on configuration options, open the
+configuration documentation:
 
 > > https://www.ory.sh/keto/docs/reference/configuration <<
 

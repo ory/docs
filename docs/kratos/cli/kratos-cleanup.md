@@ -24,4 +24,5 @@ Various cleanup helpers
 ### SEE ALSO
 
 - [kratos](kratos) -
-- [kratos cleanup sql](kratos-cleanup-sql) - Cleanup sql database from expired flows and sessions
+- [kratos cleanup sql](kratos-cleanup-sql) - Cleanup sql database from expired
+  flows and sessions

@@ -16,7 +16,8 @@ Get the status of the upstream Keto instance
 
 ### Synopsis
 
-Get a status report about the upstream Keto instance. Can also block until the service is healthy.
+Get a status report about the upstream Keto instance. Can also block until the
+service is healthy.
 
 ```
 keto status [flags]

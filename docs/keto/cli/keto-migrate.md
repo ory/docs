@@ -16,7 +16,8 @@ Commands to migrate the database
 
 ### Synopsis
 
-Commands to migrate the database. This does not affect namespaces. Use `keto namespace migrate` for migrating namespaces.
+Commands to migrate the database. This does not affect namespaces. Use
+`keto namespace migrate` for migrating namespaces.
 
 ### Options
 

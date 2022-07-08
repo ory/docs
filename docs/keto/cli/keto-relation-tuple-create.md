@@ -16,8 +16,9 @@ Create relation tuples from JSON files
 
 ### Synopsis
 
-Create relation tuples from JSON files. A directory will be traversed and all relation tuples will be created. Pass the special
-filename `-` to read from STD_IN.
+Create relation tuples from JSON files. A directory will be traversed and all
+relation tuples will be created. Pass the special filename `-` to read from
+STD_IN.
 
 ```
 keto relation-tuple create <relation-tuple.json> [<relation-tuple-dir>] [flags]
@@ -41,4 +42,5 @@ keto relation-tuple create <relation-tuple.json> [<relation-tuple-dir>] [flags]
 
 ### SEE ALSO
 
-- [keto relation-tuple](keto-relation-tuple) - Read and manipulate relation tuples
+- [keto relation-tuple](keto-relation-tuple) - Read and manipulate relation
+  tuples

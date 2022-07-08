@@ -3,12 +3,13 @@ id: select-cipher-algorithm
 title: Selecting Cipher Algorithm
 ---
 
-Currently, the Ory Identity Service (Kratos) supports encryption and decryption for OIDC tokens only. You can choose one of these
-algorithms:
+Currently, the Ory Identity Service (Kratos) supports encryption and decryption
+for OIDC tokens only. You can choose one of these algorithms:
 
 ## Noop
 
-Noop is the default cipher. It doesn't use an algorithm, which means that you don't need to set secrets.
+Noop is the default cipher. It doesn't use an algorithm, which means that you
+don't need to set secrets.
 
 ```yaml title=path/to/kratos/config.yml
 ciphers:
@@ -27,7 +28,8 @@ ciphers:
   algorithm: xchacha20-poly1305
 ```
 
-You must set up [secrets key rotation](secret-key-rotation). Secrets must be 32-character-long strings.
+You must set up [secrets key rotation](secret-key-rotation). Secrets must be
+32-character-long strings.
 
 ## AES
 
@@ -41,4 +43,5 @@ ciphers:
   algorithm: aes
 ```
 
-You must set up [secrets key rotation](secret-key-rotation). Secrets must be 32-character-long strings.
+You must set up [secrets key rotation](secret-key-rotation). Secrets must be
+32-character-long strings.

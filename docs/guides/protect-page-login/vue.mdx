@@ -34,13 +34,15 @@ npm i --save @ory/client
 
 ## Check for Session in Component
 
-With a Vue.js project created, add the Ory logic to the application. The application should recognize whether the user is signed
-in and if they have a valid Session.
+With a Vue.js project created, add the Ory logic to the application. The
+application should recognize whether the user is signed in and if they have a
+valid Session.
 
-Depending on whether the user has a valid Session, the application should show registration and login links or account settings
-and logout links.
+Depending on whether the user has a valid Session, the application should show
+registration and login links or account settings and logout links.
 
-To implement that behavior, modify the existing `HelloWorld.vue` component to include the appropriate logic:
+To implement that behavior, modify the existing `HelloWorld.vue` component to
+include the appropriate logic:
 
 ```mdx-code-block
 import handlerVue from '!!raw-loader!../../../code-examples/protect-page-login/vue/src/components/HelloWorld.vue'
@@ -51,37 +53,43 @@ import CodeBlock from '@theme/CodeBlock'
 
 ## Run Ory APIs on `localhost`
 
-The Ory security model uses HTTP cookies to manage sessions, tokens, and cookies. To do that, Ory APIs must be exposed on the same
-domain as your application.
+The Ory security model uses HTTP cookies to manage sessions, tokens, and
+cookies. To do that, Ory APIs must be exposed on the same domain as your
+application.
 
-In the case of this example, the domain of your application, which runs on your local machine, is `localhost`.
+In the case of this example, the domain of your application, which runs on your
+local machine, is `localhost`.
 
 :::info
 
-When developing locally, use either `localhost` or `127.0.0.1`, but not both. Although technically these mean the same thing,
-they're different hostnames.
+When developing locally, use either `localhost` or `127.0.0.1`, but not both.
+Although technically these mean the same thing, they're different hostnames.
 
-Using both interchangeably in your code can cause problems with the origin of HTTP cookies sent by the application. When that
-happens Ory APIs might not be able to read the cookies sent by your app.
+Using both interchangeably in your code can cause problems with the origin of
+HTTP cookies sent by the application. When that happens Ory APIs might not be
+able to read the cookies sent by your app.
 
 :::
 
-To get your application that runs locally and Ory APIs on the same domain, use Ory Tunnel - a development tool bundled with Ory
-CLI. It's like a microservice - an authentication API server on your domain!
+To get your application that runs locally and Ory APIs on the same domain, use
+Ory Tunnel - a development tool bundled with Ory CLI. It's like a microservice -
+an authentication API server on your domain!
 
 ```shell-session
 npx @ory/cli tunnel --dev http://localhost:8080
 ```
 
-Ory APIs are now mirrored on `http://localhost:4000`. Use that URL as the `baseUrl` for the `@ory/client` SDK (see
-`HelloWorld.vue` code above). The `--dev` flag disables security checks for easier integration and should not be used when
-deploying the Tunnel to a staging environment.
+Ory APIs are now mirrored on `http://localhost:4000`. Use that URL as the
+`baseUrl` for the `@ory/client` SDK (see `HelloWorld.vue` code above). The
+`--dev` flag disables security checks for easier integration and should not be
+used when deploying the Tunnel to a staging environment.
 
 ## Run your Vue.js App
 
 Now that your app is ready, it's time to run it!
 
-First, set up your Ory Cloud SDK URL to connect with the Ory APIs in your Ory Cloud project:
+First, set up your Ory Cloud SDK URL to connect with the Ory APIs in your Ory
+Cloud project:
 
 ```mdx-code-block
 import SdkEnvVar from '@site/src/components/SdkEnvVar'
@@ -101,13 +109,15 @@ Go to [localhost:8080](http://localhost:8080/) to access your application.
 
 To make authenticated requests to your API there are two main components:
 
-- When making AJAX requests you must set `{"credentials": "include"}` in the options. For the `fetch` method it looks like this:
+- When making AJAX requests you must set `{"credentials": "include"}` in the
+  options. For the `fetch` method it looks like this:
 
   ```js
   fetch(url, { credentials: "include" })
   ```
 
-- Your API must have a CORS middleware with `credentials: true` and `Access-Control-Allow-Origin` of your frontend app (here
+- Your API must have a CORS middleware with `credentials: true` and
+  `Access-Control-Allow-Origin` of your frontend app (here
   `http://localhost:8080`).
 
 Let's put this into action. Create a simple HTTP API with express. Run:
@@ -135,8 +145,8 @@ node index.js
 
 ### See it in Action
 
-Access your single-page app at [localhost:8080](http://localhost:8080/), sign in, and see if you can make authenticated requests
-to your API!
+Access your single-page app at [localhost:8080](http://localhost:8080/), sign
+in, and see if you can make authenticated requests to your API!
 
 ## Go to Production
 
@@ -146,7 +156,8 @@ To promote this app to production:
 2. Deploy the API (for example, on Heroku)
 3. Connect your project with a [custom domain](../custom-domains.mdx)
 
-These three components must be hosted on the same top-level domain as they were on your local machine:
+These three components must be hosted on the same top-level domain as they were
+on your local machine:
 
 | Component       | Production      | Local          |
 | --------------- | --------------- | -------------- |

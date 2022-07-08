@@ -33,4 +33,5 @@ kratos courier watch [flags]
 
 ### SEE ALSO
 
-- [kratos courier](kratos-courier) - Commands related to the Ory Kratos message courier
+- [kratos courier](kratos-courier) - Commands related to the Ory Kratos message
+  courier

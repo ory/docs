@@ -1,7 +1,9 @@
 ---
 id: oathkeeper-health
 title: oathkeeper health
-description: oathkeeper health Commands for checking the status of an ORY Oathkeeper deployment
+description:
+  oathkeeper health Commands for checking the status of an ORY Oathkeeper
+  deployment
 ---
 
 <!--
@@ -16,8 +18,9 @@ Commands for checking the status of an ORY Oathkeeper deployment
 
 ### Synopsis
 
-Note: The endpoint URL should point to a single ORY Oathkeeper deployment. If the endpoint URL points to a Load Balancer, these
-commands will effective test the Load Balancer.
+Note: The endpoint URL should point to a single ORY Oathkeeper deployment. If
+the endpoint URL points to a Load Balancer, these commands will effective test
+the Load Balancer.
 
 ```
 oathkeeper health [flags]
@@ -39,5 +42,7 @@ oathkeeper health [flags]
 ### SEE ALSO
 
 - [oathkeeper](oathkeeper) - A cloud native Access and Identity Proxy
-- [oathkeeper health alive](oathkeeper-health-alive) - Checks if an ORY Oathkeeper deployment is alive
-- [oathkeeper health ready](oathkeeper-health-ready) - Checks if an ORY Oathkeeper deployment is ready
+- [oathkeeper health alive](oathkeeper-health-alive) - Checks if an ORY
+  Oathkeeper deployment is alive
+- [oathkeeper health ready](oathkeeper-health-ready) - Checks if an ORY
+  Oathkeeper deployment is ready

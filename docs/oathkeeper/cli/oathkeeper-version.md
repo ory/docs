@@ -1,7 +1,9 @@
 ---
 id: oathkeeper-version
 title: oathkeeper version
-description: oathkeeper version Display this binary's version, build time and git hash of this build
+description:
+  oathkeeper version Display this binary's version, build time and git hash of
+  this build
 ---
 
 <!--

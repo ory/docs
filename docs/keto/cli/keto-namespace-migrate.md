@@ -29,4 +29,5 @@ Migrate a namespace
 ### SEE ALSO
 
 - [keto namespace](keto-namespace) - Read and manipulate namespaces
-- [keto namespace migrate legacy](keto-namespace-migrate-legacy) - Migrate a namespace from v0.6.x to v0.7.x and later.
+- [keto namespace migrate legacy](keto-namespace-migrate-legacy) - Migrate a
+  namespace from v0.6.x to v0.7.x and later.

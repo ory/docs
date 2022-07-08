@@ -3,24 +3,28 @@ id: ui-user-interface
 title: Customize User Interface
 ---
 
-Ory Kratos is an HTTP API server and does not include a traditional HTML user interface (rendering forms such as "Login" or
-"Registration") in its code base. We provide several reference UI implementations which you can use to get started quickly, or as
-the basis for your own UI:
+Ory Kratos is an HTTP API server and does not include a traditional HTML user
+interface (rendering forms such as "Login" or "Registration") in its code base.
+We provide several reference UI implementations which you can use to get started
+quickly, or as the basis for your own UI:
 
-- The [Ory Cloud Managed UI](https://playground.projects.oryapis.com/ui/welcome) is available when you run Ory Kratos in Ory
-  Cloud.
+- The [Ory Cloud Managed UI](https://playground.projects.oryapis.com/ui/welcome)
+  is available when you run Ory Kratos in Ory Cloud.
 - [React Native Reference Implementation](https://github.com/ory/kratos-selfservice-ui-react-native)
 - [NodeJS Reference Implementation](https://github.com/ory/kratos-selfservice-ui-node)
 - [React / SPA Reference Implementation](https://github.com/ory/react-nextjs-example)
 
-Ory Kratos' HTTP APIs make it easy and straight forward to write your own UI (e.g. "login" screen, "update profile settings", ...)
-in any programming languages and framework! It can be built in any programming language including Java, Node, or Python and can be
-run both a server or an end-user device for example a browser, or a mobile phone. Implementing your own UI is simple and straight
-forward. There is no complex authentication mechanism required and no need to worry about possible attack vectors such as CSRF or
-Session Attacks since Ory Kratos provides the preventive measures built in.
+Ory Kratos' HTTP APIs make it easy and straight forward to write your own UI
+(e.g. "login" screen, "update profile settings", ...) in any programming
+languages and framework! It can be built in any programming language including
+Java, Node, or Python and can be run both a server or an end-user device for
+example a browser, or a mobile phone. Implementing your own UI is simple and
+straight forward. There is no complex authentication mechanism required and no
+need to worry about possible attack vectors such as CSRF or Session Attacks
+since Ory Kratos provides the preventive measures built in.
 
-Chapter [Self-Service Flows](../self-service.mdx) contains further information on APIs and flows related to the SSUI, and build
-self-service applications.
+Chapter [Self-Service Flows](../self-service.mdx) contains further information
+on APIs and flows related to the SSUI, and build self-service applications.
 
 import CodeFromRemote from "@site/src/theme/CodeFromRemote"
 import Tabs from "@theme/Tabs"
@@ -28,8 +32,8 @@ import TabItem from "@theme/TabItem"
 
 ## UI Payloads
 
-To make UI customization easy, Ory Kratos prepares all the necessary data for forms that need to be shown during e.g. login,
-registration:
+To make UI customization easy, Ory Kratos prepares all the necessary data for
+forms that need to be shown during e.g. login, registration:
 
 ```json5
 {
@@ -101,16 +105,20 @@ The above example would be rendered in HTML like this:
 </form>
 ```
 
-As you can see, the JSON can be mapped almost 1:1 to HTML! This method makes it easy for you to implement complex forms without
-having to deal with state management, form validation, and more!
+As you can see, the JSON can be mapped almost 1:1 to HTML! This method makes it
+easy for you to implement complex forms without having to deal with state
+management, form validation, and more!
 
 ## UI Node Groups
 
-Nodes are grouped (using the `group` key) based on the source that generated the node. Sources are the different methods such as
-"password" ("Sign in/up with ID & password"), "oidc" (Social Sign In), "link" (Password reset and email verification), "profile"
-("Update your profile") and the "default" group which typically contains the CSRF token.
+Nodes are grouped (using the `group` key) based on the source that generated the
+node. Sources are the different methods such as "password" ("Sign in/up with ID
+& password"), "oidc" (Social Sign In), "link" (Password reset and email
+verification), "profile" ("Update your profile") and the "default" group which
+typically contains the CSRF token.
 
-You can use the node group to filter out items, re-arrange them, render them differently - up to you!
+You can use the node group to filter out items, re-arrange them, render them
+differently - up to you!
 
 ## UI Node Types
 
@@ -147,8 +155,8 @@ Rendering it is straight forward if you are on the server-side:
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_script.hbs"
 />
 
-For single-page apps, you might need a different set up to load the script asynchronously. In ReactJS you might want to do
-something like the following:
+For single-page apps, you might need a different set up to load the script
+asynchronously. In ReactJS you might want to do something like the following:
 
 <CodeFromRemote
   lang="tsx"
@@ -158,7 +166,8 @@ something like the following:
 
 ### UI Anchor Nodes
 
-Nodes of type `a` are currently not used in Ory Kratos, but we have them around in case they are needed at a later stage!
+Nodes of type `a` are currently not used in Ory Kratos, but we have them around
+in case they are needed at a later stage!
 
 <CodeFromRemote
   lang="pug"
@@ -385,9 +394,10 @@ Their JSON usually contains a bit of contextual information.
   </TabItem>
 </Tabs>
 
-Rendering the text component is usually a bit more complex, as you most likely want a bit of custom formatting. By the way, you
-can find an overview of all message IDs used here in the conditionals at the end of this page! In handlebars, this could look as
-follows:
+Rendering the text component is usually a bit more complex, as you most likely
+want a bit of custom formatting. By the way, you can find an overview of all
+message IDs used here in the conditionals at the end of this page! In
+handlebars, this could look as follows:
 
 <CodeFromRemote
   lang="pug"
@@ -405,7 +415,8 @@ In ReactJS, you will most likely find similar if statements on the message IDs.
 
 ### UI Input Nodes
 
-The most common node type is the `input` type. In general, it represents an HTL `<input>` field:
+The most common node type is the `input` type. In general, it represents an HTL
+`<input>` field:
 
 ```json
 {
@@ -440,7 +451,8 @@ An `input` node itself has a type as well. These types are taken from HTML:
 
 #### Checkbox Input Node
 
-Checkboxes are primarily used when an Identity Schema field is of `"type": "boolean"`. The following Identity Schema
+Checkboxes are primarily used when an Identity Schema field is of
+`"type": "boolean"`. The following Identity Schema
 
 ```json5
 {
@@ -486,9 +498,10 @@ would result in such a checkbox node:
 }
 ```
 
-When using plain HTML and not a single page app, the best option you have is to use two input fields - one hidden and one a
-checkbox - with `false` and `true` respectively. Make sure that the checkbox input field is second as it needs to override the
-hidden field, if set.
+When using plain HTML and not a single page app, the best option you have is to
+use two input fields - one hidden and one a checkbox - with `false` and `true`
+respectively. Make sure that the checkbox input field is second as it needs to
+override the hidden field, if set.
 
 <CodeFromRemote
   lang="pug"
@@ -496,7 +509,8 @@ hidden field, if set.
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_checkbox.hbs"
 />
 
-In single page apps, such as ReactJS, this trickery is not needed as you have full control over the form's state:
+In single page apps, such as ReactJS, this trickery is not needed as you have
+full control over the form's state:
 
 <CodeFromRemote
   lang="tsx"
@@ -506,8 +520,9 @@ In single page apps, such as ReactJS, this trickery is not needed as you have fu
 
 #### Button Input Node
 
-Buttons are primarily used to trigger something, which is why it is important to have the `onclick` attribute handled. If
-`onclick` exists, you will also find a `script` node:
+Buttons are primarily used to trigger something, which is why it is important to
+have the `onclick` attribute handled. If `onclick` exists, you will also find a
+`script` node:
 
 ```json
 [
@@ -550,7 +565,8 @@ Buttons are primarily used to trigger something, which is why it is important to
 ]
 ```
 
-For example, when an end-user triggers a WebAuthn flow, the button would trigger the required JavaScript to get it working!
+For example, when an end-user triggers a WebAuthn flow, the button would trigger
+the required JavaScript to get it working!
 
 <CodeFromRemote
   lang="pug"
@@ -558,9 +574,10 @@ For example, when an end-user triggers a WebAuthn flow, the button would trigger
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_checkbox.hbs"
 />
 
-In a single page application, we need a bit of trickery as we are executing JavaScript from a JSON source in JavaScript - which
-essentially means we need to execute `eval`. Fortunately, this is only needed in this special case. If you do not use WebAuthn,
-you will not need `eval` at all!
+In a single page application, we need a bit of trickery as we are executing
+JavaScript from a JSON source in JavaScript - which essentially means we need to
+execute `eval`. Fortunately, this is only needed in this special case. If you do
+not use WebAuthn, you will not need `eval` at all!
 
 <CodeFromRemote
   lang="tsx"
@@ -570,7 +587,8 @@ you will not need `eval` at all!
 
 #### Submit Input Node
 
-Submit buttons trigger the form submission. In pure HTML, this is just a simple submit button:
+Submit buttons trigger the form submission. In pure HTML, this is just a simple
+submit button:
 
 <CodeFromRemote
   lang="pug"
@@ -578,9 +596,10 @@ Submit buttons trigger the form submission. In pure HTML, this is just a simple 
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_submit.hbs"
 />
 
-If you have control over the form's payload, like in ReactJS, you need to ensure that the name of the form (e.g. `method`) is only
-submitted once with the correct value (e.g. `password`). Because in some cases Ory Kratos might generate multiple submit buttons
-with the same `name` attribute.
+If you have control over the form's payload, like in ReactJS, you need to ensure
+that the name of the form (e.g. `method`) is only submitted once with the
+correct value (e.g. `password`). Because in some cases Ory Kratos might generate
+multiple submit buttons with the same `name` attribute.
 
 ```json5
 [
@@ -626,8 +645,8 @@ with the same `name` attribute.
 ]
 ```
 
-You need to ensure that the correct value for the `name` is submitted, or the user might end up updating their password instead of
-their email address!
+You need to ensure that the correct value for the `name` is submitted, or the
+user might end up updating their password instead of their email address!
 
 <CodeFromRemote
   lang="tsx"
@@ -674,8 +693,9 @@ and single page apps like ReactJS
 
 #### Default Input Node Rendering
 
-You do not need to have one view for every node type. Instead, you can "fall back" to a default implementation. The most important
-node types (`hidden`, `submit`, `button`, `checkbox`) we already covered!
+You do not need to have one view for every node type. Instead, you can "fall
+back" to a default implementation. The most important node types (`hidden`,
+`submit`, `button`, `checkbox`) we already covered!
 
 Here are some examples for you to get a feeling for possible payloads!
 
@@ -787,7 +807,8 @@ Here are some examples for you to get a feeling for possible payloads!
 </TabItem>
 </Tabs>
 
-You should render these components using a generic node input render logic like the one below:
+You should render these components using a generic node input render logic like
+the one below:
 
 <CodeFromRemote
   lang="pug"
@@ -797,7 +818,8 @@ You should render these components using a generic node input render logic like 
 
 ## Node Order and Labels
 
-For all traits, the labels and orders are taken from the Identity Schema. An Identity Schema such as
+For all traits, the labels and orders are taken from the Identity Schema. An
+Identity Schema such as
 
 ```json
 {
@@ -844,7 +866,8 @@ For all traits, the labels and orders are taken from the Identity Schema. An Ide
 }
 ```
 
-will generate the following fields - take note that the order of the JSON Schema affects the order of the nodes:
+will generate the following fields - take note that the order of the JSON Schema
+affects the order of the nodes:
 
 ```json
 [
@@ -923,19 +946,25 @@ will generate the following fields - take note that the order of the JSON Schema
 ]
 ```
 
-Generally, submit buttons are the last node in a group. If you wish to have more flexibility with regards to order or labeling the
-best option is to implement this in your UI using map, filter, and other JSON transformation functions.
+Generally, submit buttons are the last node in a group. If you wish to have more
+flexibility with regards to order or labeling the best option is to implement
+this in your UI using map, filter, and other JSON transformation functions.
 
 ## Titles, Labels & Validation Messages
 
-Ory Kratos helps users understand what is happening by providing messages that explain what went wrong or what needs to be done.
-Examples are "The provided credentials are invalid", "Missing property email" and similar.
+Ory Kratos helps users understand what is happening by providing messages that
+explain what went wrong or what needs to be done. Examples are "The provided
+credentials are invalid", "Missing property email" and similar.
 
-Typically login, registration, settings, ... flows include such messages on different levels:
+Typically login, registration, settings, ... flows include such messages on
+different levels:
 
-1. At the root level, indicating that the message affects the whole request (e.g. request expired)
-2. At the method (password, oidc, profile) level, indicating that the message affects a specific method / form.
-3. At the field level, indicating that the message affects a form field (e.g. validation errors).
+1. At the root level, indicating that the message affects the whole request
+   (e.g. request expired)
+2. At the method (password, oidc, profile) level, indicating that the message
+   affects a specific method / form.
+3. At the field level, indicating that the message affects a form field (e.g.
+   validation errors).
 
 Each message has a layout of:
 
@@ -952,8 +981,9 @@ Each message has a layout of:
 
 The message ID is a 7-digit number (`xyyzzzz`) where
 
-- `x` is the message type which is either `1` for an info message (e.g. `1020000`), `4` (e.g. `4020000`) for an input validation
-  error message, and `5` (e.g. `5020000`) for a generic error message.
+- `x` is the message type which is either `1` for an info message (e.g.
+  `1020000`), `4` (e.g. `4020000`) for an input validation error message, and
+  `5` (e.g. `5020000`) for a generic error message.
 - `yy` is the module or flow this error references and can be:
 - `01` for login messages (e.g. `1010000`)
 - `02` for logout messages (e.g. `1020000`)
@@ -962,14 +992,16 @@ The message ID is a 7-digit number (`xyyzzzz`) where
 - `05` for settings messages (e.g. `1050000`)
 - `06` for account recovery messages (e.g. `1060000`)
 - `07` for email/phone verification messages (e.g. `1070000`)
-- `zzzz` is the message ID and typically starts at `0001`. For example, message ID `4070001` (`4` for input validation error, `07`
-  for verification, `0001` for the concrete message) is:
+- `zzzz` is the message ID and typically starts at `0001`. For example, message
+  ID `4070001` (`4` for input validation error, `07` for verification, `0001`
+  for the concrete message) is:
   `The verification code has expired or was otherwise invalid. Please request another code.`.
 
 ## UI Error Codes
 
-When building a single page app, or a native app, Ory Kratos will respond with errors in some cases. You can find an exemplary
-error handling logic in our ReactJS reference implementation:
+When building a single page app, or a native app, Ory Kratos will respond with
+errors in some cases. You can find an exemplary error handling logic in our
+ReactJS reference implementation:
 
 <CodeFromRemote
   lang="tsx"
@@ -1008,7 +1040,8 @@ for the values of these fields, please check the list below.
 
 :::note
 
-The section below is auto-generated. Changing it has no effect as any changes will be overwritten!
+The section below is auto-generated. Changing it has no effect as any changes
+will be overwritten!
 
 :::
 

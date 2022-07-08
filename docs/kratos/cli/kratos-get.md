@@ -26,4 +26,5 @@ Get resources
 ### SEE ALSO
 
 - [kratos](kratos) -
-- [kratos get identity](kratos-get-identity) - Get one or more identities by their ID(s)
+- [kratos get identity](kratos-get-identity) - Get one or more identities by
+  their ID(s)

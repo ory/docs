@@ -3,11 +3,13 @@ id: integration-with-other-systems-using-web-hooks
 title: Integration using Web-Hooks
 ---
 
-Ory Kratos supports integration with other systems such as ERP, CRM, or others using Web-Hooks.
+Ory Kratos supports integration with other systems such as ERP, CRM, or others
+using Web-Hooks.
 
 ### Mailchimp
 
-To send marketing email using [Mailchimp](https://mailchimp.com) upon registration, add the following to your Ory Kratos config:
+To send marketing email using [Mailchimp](https://mailchimp.com) upon
+registration, add the following to your Ory Kratos config:
 
 ```yaml title="path/to/my/kratos.config.yml"
 selfservice:
@@ -23,8 +25,9 @@ selfservice:
                 body: /path/to/my/mandrillapp.jsonnet
 ```
 
-And create a JsonNet file. Please be aware that Mailchimps authentication mechanism requires to save the Mailchimp key in the
-JsonNet. For other systems you would be using the `web_hook`'s `auth` config.
+And create a JsonNet file. Please be aware that Mailchimps authentication
+mechanism requires to save the Mailchimp key in the JsonNet. For other systems
+you would be using the `web_hook`'s `auth` config.
 
 ```jsonnet title="/path/to/my/mandrillapp.jsonnet"
 function(ctx) {

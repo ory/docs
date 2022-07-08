@@ -3,8 +3,9 @@ id: totp
 title: TOTP (Google Authenticator)
 ---
 
-You can enable Time-Based One-Time Password authentication in the Ory Identity Service (Kratos) to allow users to perform 2FA with
-TOTP apps such as the Google Authenticator.
+You can enable Time-Based One-Time Password authentication in the Ory Identity
+Service (Kratos) to allow users to perform 2FA with TOTP apps such as the Google
+Authenticator.
 
 When enabled, users can pair a TOTP app with their account:
 
@@ -16,34 +17,38 @@ The example screenshot is captured using the Ory Managed UI.
 
 ![TOTP linking in Ory Managed UI](../_static/mfa/1.png)
 
-When attempting to perform actions secured with 2FA, users get a TOTP code with the application identifier:
+When attempting to perform actions secured with 2FA, users get a TOTP code with
+the application identifier:
 
 ![2FA with Google Authenticator](../_static/mfa/2.png)
 
 :::info
 
-In this example, the user identifier (email - `alice@example.com`) is used. To learn how to enable this behavior, read
+In this example, the user identifier (email - `alice@example.com`) is used. To
+learn how to enable this behavior, read
 [this section](#distinguishing-identities-requesting-totp).
 
 :::
 
 ## Configuration
 
-Follow these steps to enable Time-Based One-Time Password (TOTP) as the second authentication factor:
+Follow these steps to enable Time-Based One-Time Password (TOTP) as the second
+authentication factor:
 
 ### Ory Cloud Console
 
 1. Sign in to the **Ory Cloud Console** and go to **Two-Factor Authentication**.
 2. In the **TOTP Authenticator App** section, use the switch to enable TOTP.
-3. Define the name of the requesting party in the **Display Name**. The users sees this name in the TOTP application when getting
-   a one-time password.
+3. Define the name of the requesting party in the **Display Name**. The users
+   sees this name in the TOTP application when getting a one-time password.
 4. Click **Save** to finish.
 
 ![TOTP setup in Ory Cloud Console](../_static/mfa/3.png)
 
 ### Ory CLI
 
-1. Get the Identity Service configuration from your project and save it to a file:
+1. Get the Identity Service configuration from your project and save it to a
+   file:
 
 ```shell
 ## List all available projects
@@ -53,7 +58,8 @@ ory list projects
 ory get identity-config <project-id> --format yaml > identity-config.yaml
 ```
 
-2. Find `totp` in `selfservice/methods`, set `enabled` to `true`, and define the `issuer`:
+2. Find `totp` in `selfservice/methods`, set `enabled` to `true`, and define the
+   `issuer`:
 
 ```yaml title="identity-config.yaml"
 selfservice:
@@ -67,7 +73,8 @@ selfservice:
       // highlight-end
 ```
 
-3. Update the Ory Cloud Identity Service configuration using the file you worked with:
+3. Update the Ory Cloud Identity Service configuration using the file you worked
+   with:
 
 ```shell
 ory update identity-config <project-id> --file identity-config.yaml
@@ -75,8 +82,8 @@ ory update identity-config <project-id> --file identity-config.yaml
 
 ### Self-Hosted Instances
 
-When working with self-hosted instances of the Ory Identity Service (Kratos), add the `totp` method to `selfservice/methods` in
-the configuration file:
+When working with self-hosted instances of the Ory Identity Service (Kratos),
+add the `totp` method to `selfservice/methods` in the configuration file:
 
 ```yaml title="kratos.config.yml"
 selfservice:
@@ -90,8 +97,8 @@ selfservice:
 
 ### Distinguishing Identities Requesting TOTP
 
-To help users distinguish which identity requests for the TOTP code, add a `totp` object to the trait which represents the TOTP
-account name.
+To help users distinguish which identity requests for the TOTP code, add a
+`totp` object to the trait which represents the TOTP account name.
 
 In this example, the user's email address is the identifier:
 
@@ -141,7 +148,8 @@ When writing end-to-end (E2E) tests for TOTP implementation in your app,
 
 ## Identity Credentials
 
-When the user enables TOTP, Ory adds the following entries to the `credentials` object of the associated Identity:
+When the user enables TOTP, Ory adds the following entries to the `credentials`
+object of the associated Identity:
 
 ```yaml
 credentials:

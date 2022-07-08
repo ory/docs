@@ -47,4 +47,5 @@ keto relation-tuple get [flags]
 
 ### SEE ALSO
 
-- [keto relation-tuple](keto-relation-tuple) - Read and manipulate relation tuples
+- [keto relation-tuple](keto-relation-tuple) - Read and manipulate relation
+  tuples

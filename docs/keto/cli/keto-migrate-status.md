@@ -16,7 +16,8 @@ Get the current migration status
 
 ### Synopsis
 
-Get the current migration status. This does not affect namespaces. Use `keto namespace migrate status` for migrating namespaces.
+Get the current migration status. This does not affect namespaces. Use
+`keto namespace migrate status` for migrating namespaces.
 
 ```
 keto migrate status [flags]

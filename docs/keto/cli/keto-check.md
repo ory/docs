@@ -16,7 +16,8 @@ Check whether a subject has a relation on an object
 
 ### Synopsis
 
-Check whether a subject has a relation on an object. This method resolves subject sets and subject set rewrites.
+Check whether a subject has a relation on an object. This method resolves
+subject sets and subject set rewrites.
 
 ```
 keto check <subject> <relation> <namespace> <object> [flags]

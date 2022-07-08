@@ -4,8 +4,9 @@ title: Protocol Buffers API
 
 <!-- This file is generated. Please edit the .proto files instead to update the documentation -->
 
-The API is divided into the [read APIs](../concepts/api-overview.mdx#read-apis) and
-[write APIs](../concepts/api-overview.mdx#write-apis). Each service is annotated with the API it belongs to.
+The API is divided into the [read APIs](../concepts/api-overview.mdx#read-apis)
+and [write APIs](../concepts/api-overview.mdx#write-apis). Each service is
+annotated with the API it belongs to.
 
 ## ory/keto/acl/v1alpha1/acl.proto
 
@@ -22,7 +23,8 @@ RelationTuple defines a relation between an Object and a Subject.
 
 ### Subject
 
-Subject is either a concrete subject id or a `SubjectSet` expanding to more Subjects.
+Subject is either a concrete subject id or a `SubjectSet` expanding to more
+Subjects.
 
 | Field | Type                                            | Label | Description                                                                                                             |
 | ----- | ----------------------------------------------- | ----- | ----------------------------------------------------------------------------------------------------------------------- |
@@ -43,7 +45,8 @@ SubjectSet refers to all subjects who have the same `relation` on an `object`.
 
 ### CheckService
 
-The service that performs authorization checks based on the stored Access Control Lists.
+The service that performs authorization checks based on the stored Access
+Control Lists.
 
 This service is part of the [read-APIs](../concepts/api-overview.mdx#read-apis).
 
@@ -53,7 +56,8 @@ This service is part of the [read-APIs](../concepts/api-overview.mdx#read-apis).
 
 ### CheckRequest
 
-The request for a CheckService.Check RPC. Checks whether a specific subject is related to an object.
+The request for a CheckService.Check RPC. Checks whether a specific subject is
+related to an object.
 
 | Field     | Type                                      | Label | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | --------- | ----------------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -78,7 +82,8 @@ The response for a CheckService.Check rpc.
 
 ### ExpandService
 
-The service that performs subject set expansion based on the stored Access Control Lists.
+The service that performs subject set expansion based on the stored Access
+Control Lists.
 
 This service is part of the [read-APIs](../concepts/api-overview.mdx#read-apis).
 
@@ -136,7 +141,8 @@ This service is part of the [read-APIs](../concepts/api-overview.mdx#read-apis).
 
 ### ListRelationTuplesRequest
 
-Request for ReadService.ListRelationTuples RPC. See `ListRelationTuplesRequest_Query` for how to filter the query.
+Request for ReadService.ListRelationTuples RPC. See
+`ListRelationTuplesRequest_Query` for how to filter the query.
 
 | Field       | Type                                                                                      | Label | Description                                                                                                                                                                                                                                                                                                                                                                            |
 | ----------- | ----------------------------------------------------------------------------------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -148,14 +154,18 @@ Request for ReadService.ListRelationTuples RPC. See `ListRelationTuplesRequest_Q
 
 ### ListRelationTuplesRequest.Query
 
-The query for listing relation tuples. Clients can specify any optional field to partially filter for specific relation tuples.
+The query for listing relation tuples. Clients can specify any optional field to
+partially filter for specific relation tuples.
 
 Example use cases (namespace is always required):
 
 - object only: display a list of all permissions referring to a specific object
-- relation only: get all groups that have members; get all directories that have content
-- object & relation: display all subjects that have a specific permission relation
-- subject & relation: display all groups a subject belongs to; display all objects a subject has access to
+- relation only: get all groups that have members; get all directories that have
+  content
+- object & relation: display all subjects that have a specific permission
+  relation
+- subject & relation: display all groups a subject belongs to; display all
+  objects a subject has access to
 - object & relation & subject: check whether the relation tuple already exists
 
 | Field     | Type                                      | Label | Description                          |
@@ -180,8 +190,8 @@ The response of a ReadService.ListRelationTuples RPC.
 
 The service returning the specific Ory Keto instance version.
 
-This service is part of the [read-APIs](../concepts/api-overview.mdx#read-apis) and
-[write-APIs](../concepts/api-overview.mdx#write-apis).
+This service is part of the [read-APIs](../concepts/api-overview.mdx#read-apis)
+and [write-APIs](../concepts/api-overview.mdx#write-apis).
 
 | Method Name | Request Type                                                  | Response Type                                                   | Description                                   |
 | ----------- | ------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------- |
@@ -205,7 +215,8 @@ Response of the VersionService.GetVersion RPC.
 
 The write service to create and delete Access Control Lists.
 
-This service is part of the [write-APIs](../concepts/api-overview.mdx#write-apis).
+This service is part of the
+[write-APIs](../concepts/api-overview.mdx#write-apis).
 
 | Method Name            | Request Type                                                                          | Response Type                                                                           | Description                                                 |
 | ---------------------- | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
