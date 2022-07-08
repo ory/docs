@@ -98,6 +98,7 @@ knowledge and experiences? [Reach out to us](mailto:office@ory.sh) to be publish
 
 #### Ory Hydra
 
+- [Ory Hydra with Apache APISIX integration](https://apisix.apache.org/blog/2022/07/04/apisix-integrates-with-hydra/)
 - [Practical Example of Implementing OAuth 2.0 Using ory/hydra](https://yusufs.medium.com/practical-example-of-implementing-oauth-2-0-using-ory-hydra-fbaa2765d94f)
 - OAuth 2.0 with Ory Hydra and Vapor on iOS:
   [Part 1](https://medium.com/12plus1/oauth2-with-ory-hydra-vapor-3-and-ios-12-ca0e61c28f5a),

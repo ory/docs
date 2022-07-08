@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## keto namespace
 
 Read and manipulate namespaces
@@ -27,7 +28,6 @@ Read and manipulate namespaces
 
 ### SEE ALSO
 
-* [keto](keto)	 - Global and consistent permission and authorization server
-* [keto namespace migrate](keto-namespace-migrate)	 - Migrate a namespace
-* [keto namespace validate](keto-namespace-validate)	 - Validate namespace definitions
-
+- [keto](keto) - Global and consistent permission and authorization server
+- [keto namespace migrate](keto-namespace-migrate) - Migrate a namespace
+- [keto namespace validate](keto-namespace-validate) - Validate namespace definitions

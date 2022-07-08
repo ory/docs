@@ -1,6 +1,6 @@
-import React from 'react'
-import CodeBlock from '@theme/CodeBlock'
-import { useLatestRelease } from '../../hooks'
+import React from "react"
+import CodeBlock from "@theme/CodeBlock"
+import { useLatestRelease } from "../../hooks"
 
 export default function Linux(props: { repo: string; name: string }) {
   const { repo, name } = props

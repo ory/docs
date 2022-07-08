@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import RefParser from '@apidevtools/json-schema-ref-parser'
-import Form from '@rjsf/material-ui'
+import React, { useEffect, useState } from "react"
+import axios from "axios"
+import RefParser from "@apidevtools/json-schema-ref-parser"
+import Form from "@rjsf/material-ui"
 
 export default function ConfigEditor(props: { url: any }) {
   const [schema, setSchema] = useState<any>()

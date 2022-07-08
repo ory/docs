@@ -1,8 +1,8 @@
-import React from 'react'
-import CodeBlock from '@theme/CodeBlock'
-import { getSdkUrl } from '../../hooks'
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
+import React from "react"
+import CodeBlock from "@theme/CodeBlock"
+import { getSdkUrl } from "../../hooks"
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
 export default function SdkEnvVar(props: any) {
   const { hint, url } = getSdkUrl()

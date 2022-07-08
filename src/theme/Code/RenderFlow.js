@@ -1,33 +1,33 @@
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-import React from 'react'
-import CodeFromRemote from '../CodeFromRemote'
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import React from "react"
+import CodeFromRemote from "../CodeFromRemote"
 
-import loginBrowser from './images/login/browser.png'
-import settingsBrowser from './images/settings/browser.png'
-import registrationBrowser from './images/registration/browser.png'
-import recoveryBrowser from './images/recovery/browser.png'
+import loginBrowser from "./images/login/browser.png"
+import settingsBrowser from "./images/settings/browser.png"
+import registrationBrowser from "./images/registration/browser.png"
+import recoveryBrowser from "./images/recovery/browser.png"
 
 const ucfirst = (name) => name.charAt(0).toUpperCase() + name.slice(1)
 
 const RenderFlow = ({ flow }) => {
   let image
   switch (flow) {
-    case 'registration':
+    case "registration":
       image = (
         <img src={registrationBrowser} alt="User Registration HTML Form" />
       )
       break
-    case 'login':
+    case "login":
       image = <img src={loginBrowser} alt="User Login HTML Form" />
       break
-    case 'settings':
+    case "settings":
       image = <img src={settingsBrowser} alt="Profile Settings HTML Form" />
       break
-    case 'recovery':
+    case "recovery":
       image = <img src={recoveryBrowser} alt="Account Recovery HTML Form" />
       break
-    case 'verification':
+    case "verification":
       image = <img src={recoveryBrowser} alt="Email Verification HTML Form" />
       break
   }
@@ -36,11 +36,11 @@ const RenderFlow = ({ flow }) => {
     <Tabs
       defaultValue="browser"
       values={[
-        { label: 'Browser UI', value: 'browser' },
-        { label: 'Golang (API Flow)', value: 'golang' },
-        { label: 'ExpressJS', value: 'express' },
-        { label: 'ReactJS', value: 'react' },
-        { label: 'React Native', value: 'react-native' }
+        { label: "Browser UI", value: "browser" },
+        { label: "Golang (API Flow)", value: "golang" },
+        { label: "ExpressJS", value: "express" },
+        { label: "ReactJS", value: "react" },
+        { label: "React Native", value: "react-native" },
       ]}
     >
       <TabItem value="browser">{image}</TabItem>
@@ -56,9 +56,9 @@ const RenderFlow = ({ flow }) => {
         <Tabs
           defaultValue="view"
           values={[
-            { label: `${ucfirst(flow)} View`, value: 'view' },
-            { label: 'Generic Form View', value: 'generic-form' },
-            { label: 'Example Input Form Element', value: 'input-form' }
+            { label: `${ucfirst(flow)} View`, value: "view" },
+            { label: "Generic Form View", value: "generic-form" },
+            { label: "Example Input Form Element", value: "input-form" },
           ]}
         >
           <TabItem value="view">
@@ -83,7 +83,7 @@ const RenderFlow = ({ flow }) => {
             />
           </TabItem>
         </Tabs>
-        The rest of the form partials can be found{' '}
+        The rest of the form partials can be found{" "}
         <a href="https://github.com/ory/kratos-selfservice-ui-node/tree/master/views/partials">
           here
         </a>
@@ -102,17 +102,17 @@ const RenderFlow = ({ flow }) => {
           link={`https://github.com/ory/kratos/blob/master/examples/go/selfservice/${flow}/main.go.tsx`}
           src={`https://raw.githubusercontent.com/ory/kratos/master/examples/go/selfservice/${flow}/main.go`}
         />
-        The rest of the code examples partials can be found{' '}
+        The rest of the code examples partials can be found{" "}
         <a href="https://github.com/ory/kratos/blob/master/examples">here</a>
       </TabItem>
       <TabItem value="react-native">
         <CodeFromRemote
           lang="tsx"
           link={`https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/src/components/Routes/${ucfirst(
-            flow
+            flow,
           )}.tsx`}
           src={`https://raw.githubusercontent.com/ory/kratos-selfservice-ui-react-native/master/src/components/Routes/${ucfirst(
-            flow
+            flow,
           )}.tsx`}
         />
         The views can be rather simple, as Ory Kratos provides you with all the
@@ -120,8 +120,8 @@ const RenderFlow = ({ flow }) => {
         <Tabs
           defaultValue="generic-form"
           values={[
-            { label: 'Generic Form View', value: 'generic-form' },
-            { label: 'Example Input Form Element', value: 'input-form' }
+            { label: "Generic Form View", value: "generic-form" },
+            { label: "Example Input Form Element", value: "input-form" },
           ]}
         >
           <TabItem value="generic-form">
@@ -139,7 +139,7 @@ const RenderFlow = ({ flow }) => {
             />
           </TabItem>
         </Tabs>
-        The rest of the form partials can be found{' '}
+        The rest of the form partials can be found{" "}
         <a href="https://github.com/ory/kratos-selfservice-ui-react-native/tree/master/src">
           here
         </a>

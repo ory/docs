@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## hydra clients
 
 Manage OAuth 2.0 Clients
@@ -26,14 +27,13 @@ Manage OAuth 2.0 Clients
 
 ### SEE ALSO
 
-* [hydra](hydra)	 - Run and manage Ory Hydra
-* [hydra clients create](hydra-clients-create)	 - Create a new OAuth 2.0 Client
-* [hydra clients delete](hydra-clients-delete)	 - Delete an OAuth 2.0 Client
-* [hydra clients get](hydra-clients-get)	 - Get an OAuth 2.0 Client
-* [hydra clients import](hydra-clients-import)	 - Import OAuth 2.0 Clients from one or more JSON files
-* [hydra clients import](hydra-clients-import)	 - Import OAuth 2.0 Clients from one or more JSON files
-* [hydra clients import](hydra-clients-import)	 - Imports OAuth 2.0 Clients from one or more JSON files to the JSON Web Key Store
-* [hydra clients import](hydra-clients-import)	 - Import OAuth 2.0 Clients from one or more JSON files
-* [hydra clients list](hydra-clients-list)	 - List OAuth 2.0 Clients
-* [hydra clients update](hydra-clients-update)	 - Update an entire OAuth 2.0 Client
-
+- [hydra](hydra) - Run and manage Ory Hydra
+- [hydra clients create](hydra-clients-create) - Create a new OAuth 2.0 Client
+- [hydra clients delete](hydra-clients-delete) - Delete an OAuth 2.0 Client
+- [hydra clients get](hydra-clients-get) - Get an OAuth 2.0 Client
+- [hydra clients import](hydra-clients-import) - Import OAuth 2.0 Clients from one or more JSON files
+- [hydra clients import](hydra-clients-import) - Import OAuth 2.0 Clients from one or more JSON files
+- [hydra clients import](hydra-clients-import) - Imports OAuth 2.0 Clients from one or more JSON files to the JSON Web Key Store
+- [hydra clients import](hydra-clients-import) - Import OAuth 2.0 Clients from one or more JSON files
+- [hydra clients list](hydra-clients-list) - List OAuth 2.0 Clients
+- [hydra clients update](hydra-clients-update) - Update an entire OAuth 2.0 Client

@@ -14,34 +14,34 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '17.x'
-        cache: 'npm'
-    - uses: actions/setup-go@v2
-      with:
-        go-version: '^1.17.6'
-    - uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.1'
-        tools: composer
-    - uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '2.8.1'
-        channel: 'stable'
-    - run: npm install
-    - run: dart pub global activate dhttpd
-    - name: Install Playwright
-      run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: make test
-    - uses: actions/upload-artifact@v2
-      if: always()
-      timeout-minutes: 15
-      with:
-        name: playwright-report
-        path: |
-          playwright-report/
-          test-results/
-        retention-days: 30
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "17.x"
+          cache: "npm"
+      - uses: actions/setup-go@v2
+        with:
+          go-version: "^1.17.6"
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+          tools: composer
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "2.8.1"
+          channel: "stable"
+      - run: npm install
+      - run: dart pub global activate dhttpd
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: make test
+      - uses: actions/upload-artifact@v2
+        if: always()
+        timeout-minutes: 15
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 30
