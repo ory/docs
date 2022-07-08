@@ -4,7 +4,7 @@ title: Configuring
 ---
 
 This document describes _how_ the service can be configured. For a documentation on all configuration values head over to the
-[configuration reference](reference/configuration.md).
+[configuration reference](reference/configuration.mdx).
 
 ## Configuration File
 
