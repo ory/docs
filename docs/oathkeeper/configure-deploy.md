@@ -11,7 +11,7 @@ The Ory Oathkeeper HTTP serve process `oathkeeper serve` opens two ports exposin
 - REST API which serves the [Access Control Decision API](index.md#access-control-decision-api) as well as other API endpoints
   such as health checks, JSON Web Key Sets, and a list of available rules.
 
-For this guide we're using Docker. Ory Oathkeeper however can be [installed in a variety of ways](install.md).
+For this guide we're using Docker. Ory Oathkeeper however can be [installed in a variety of ways](install.mdx).
 
 ## Configure
 
