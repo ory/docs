@@ -3,8 +3,8 @@ id: proxy-websockets
 title: Define WebSockets Rules
 ---
 
-import { useLatestRelease } from "@site/src/hooks"
-import CodeBlock from "@theme/CodeBlock"
+import { useLatestRelease } from '@site/src/hooks'
+import CodeBlock from '@theme/CodeBlock'
 
 This guide shows how to use Ory Oathkeeper with [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API).
 
@@ -27,7 +27,7 @@ You can create any directory for testing and create a `docker-compose.yml` file 
 <CodeBlock className="language-yaml">{`version: "3.7"
 services:
   oathkeeper:
-    image: oryd/oathkeeper:${useLatestRelease("oathkeeper")}
+    image: oryd/oathkeeper:${useLatestRelease('oathkeeper')}
     depends_on:
       - kratos
     ports:
@@ -51,7 +51,7 @@ services:
     networks:
       - intranet
   kratos-migrate:
-    image: oryd/kratos:${useLatestRelease("kratos")}
+    image: oryd/kratos:${useLatestRelease('kratos')}
     links:
       - postgres-kratos:postgres-kratos
     environment:
@@ -64,7 +64,7 @@ services:
         target: /etc/config/kratos
     command: -c /etc/config/kratos/kratos.yml migrate sql -e --yes
   kratos:
-    image: oryd/kratos:${useLatestRelease("kratos")}
+    image: oryd/kratos:${useLatestRelease('kratos')}
     links:
       - postgres-kratos:postgres-kratos
     environment:
@@ -115,10 +115,10 @@ Other ports and services are available only in the internal network.
 
 <CodeBlock className="language-shell">{`mkdir kratos
 wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
-  "kratos",
+  'kratos'
 )}/contrib/quickstart/kratos/email-password/identity.schema.json -O kratos/identity.schema.json
 wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
-  "kratos",
+  'kratos'
 )}/contrib/quickstart/kratos/email-password/kratos.yml -O kratos/kratos.yml`}</CodeBlock>
 
 2. Create a `oathkeeper` folder and `oathkeeper/oathkeeper.yml` with the following content:
@@ -184,7 +184,7 @@ services:
 ---
 ws:
   build:
-    context: "ws"
+    context: 'ws'
   networks:
     - intranet
 ```

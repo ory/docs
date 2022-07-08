@@ -52,14 +52,14 @@ All match definitions are set in the handler's config, using the `when` key. Thi
 
 ```json5
 {
-  handler: "json", // or redirect, www_authenticate, ...
+  handler: 'json', // or redirect, www_authenticate, ...
   config: {
     when: [
       {
-        error: ["unauthorized", "...", "..."],
-      },
-    ],
-  },
+        error: ['unauthorized', '...', '...']
+      }
+    ]
+  }
 }
 ```
 
@@ -146,14 +146,14 @@ All matchers are defined under the `config.when` key of the error handler, both 
 ```json5
 // access-rule.json
 {
-  handler: "json",
+  handler: 'json',
   config: {
     when: [
       {
-        error: ["unauthorized", "...", "..."],
-      },
-    ],
-  },
+        error: ['unauthorized', '...', '...']
+      }
+    ]
+  }
 }
 ```
 
@@ -353,13 +353,13 @@ previous section, you can define error matching conditions under the `when` key.
 ```json5
 // access-rule.json
 {
-  handler: "json",
+  handler: 'json',
   config: {
     verbose: true, // defaults to false
     when: [
       // ...
-    ],
-  },
+    ]
+  }
 }
 ```
 
@@ -377,15 +377,15 @@ the `X-Forwarded-Method`, `X-Forwarded-Proto`, `X-Forwarded-Host`, `X-Forwarded-
 ```json5
 // access-rule.json
 {
-  handler: "json",
+  handler: 'json',
   config: {
-    to: "http://my-website/login", // required!!
-    return_to_query_param: "return_to",
+    to: 'http://my-website/login', // required!!
+    return_to_query_param: 'return_to',
     code: 301, // defaults to 302 - only 301 and 302 are supported.
     when: [
       // ...
-    ],
-  },
+    ]
+  }
 }
 ```
 
@@ -409,12 +409,12 @@ you can define error matching conditions under the `when` key.
 ```json5
 // access-rule.json
 {
-  handler: "json",
+  handler: 'json',
   config: {
-    realm: "Please enter your username and password", // Defaults to `Please authenticate.`
+    realm: 'Please enter your username and password', // Defaults to `Please authenticate.`
     when: [
       // ...
-    ],
-  },
+    ]
+  }
 }
 ```

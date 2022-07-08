@@ -3,24 +3,24 @@ id: user-registration
 title: User Registration
 ---
 
-import Mermaid from "@site/src/theme/Mermaid"
-import ApiWarning from "@site/src/theme/ApiWarning"
-import CodeFromRemote from "@site/src/theme/CodeFromRemote"
-import SelfServiceBrowserFlow from "@site/src/theme/SelfServiceBrowserFlow"
-import SelfServiceApiFlow from "@site/src/theme/SelfServiceApiFlow"
-import SelfServiceSpaFlow from "@site/src/theme/SelfServiceSpaFlow"
+import Mermaid from '@site/src/theme/Mermaid'
+import ApiWarning from '@site/src/theme/ApiWarning'
+import CodeFromRemote from '@site/src/theme/CodeFromRemote'
+import SelfServiceBrowserFlow from '@site/src/theme/SelfServiceBrowserFlow'
+import SelfServiceApiFlow from '@site/src/theme/SelfServiceApiFlow'
+import SelfServiceSpaFlow from '@site/src/theme/SelfServiceSpaFlow'
 
-import CodeTabs from "@site/src/theme/Code/CodeTabs"
+import CodeTabs from '@site/src/theme/Code/CodeTabs'
 import {
   getFlowMethodOidcWithCompletion,
   getFlowMethodOidcWithErrors,
-  getFlowMethodPasswordWithErrors,
-} from "./code/registration"
-import RenderFlow from "@site/src/theme/Code/RenderFlow"
-import DomainWarning from "@site/src/theme/DomainWarning"
-import AjaxWarning from "@site/src/theme/AjaxWarning"
-import Tabs from "@theme/Tabs"
-import TabItem from "@theme/TabItem"
+  getFlowMethodPasswordWithErrors
+} from './code/registration'
+import RenderFlow from '@site/src/theme/Code/RenderFlow'
+import DomainWarning from '@site/src/theme/DomainWarning'
+import AjaxWarning from '@site/src/theme/AjaxWarning'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 :::info
 
@@ -107,7 +107,7 @@ The Registration Flow for browser clients relies on HTTP redirects between Ory K
 browser:
 
 <SelfServiceBrowserFlow
-  flows={["registration"]}
+  flows={['registration']}
   success="User created and successful HTTP 303 redirect"
   interactions={['"Sign up"']}
 />
@@ -169,7 +169,7 @@ The Registration Flow for client-side browser clients relies on AJAX requests.
 
 <AjaxWarning />
 
-<SelfServiceSpaFlow flows={["registration"]} success="Set session cookie" interactions={['"Log in"']} />
+<SelfServiceSpaFlow flows={['registration']} success="Set session cookie" interactions={['"Log in"']} />
 
 To initialize the Registration Flow, call the registration initialization endpoint and set `Accept: application/json`:
 
@@ -214,7 +214,7 @@ curl -v -s -X GET \
 
 The Registration Flow for API clients doesn't use HTTP Redirects and can be summarized as follows:
 
-<SelfServiceApiFlow flows={["registration"]} success="User created and HTTP 200 OK response" interactions={['"Sign in"']} />
+<SelfServiceApiFlow flows={['registration']} success="User created and HTTP 200 OK response" interactions={['"Sign in"']} />
 
 To initialize the API flow, the client calls the API-flow initialization endpoint
 ([REST API Reference](../../reference/api.mdx#initialize-registration-flow-for-api-clients)) which returns a JSON response:

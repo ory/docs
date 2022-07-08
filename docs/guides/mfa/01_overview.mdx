@@ -93,20 +93,20 @@ This is how the information is saved in the Ory Session:
 
 ```json5 title="Sample Ory Session JSON Payload"
 {
-  id: "6b51a3f2-6a2c-4557-90a8-4e23de7072aa",
+  id: '6b51a3f2-6a2c-4557-90a8-4e23de7072aa',
   active: true,
   // ...
-  authenticator_assurance_level: "aal2",
+  authenticator_assurance_level: 'aal2',
   authentication_methods: [
     {
-      method: "password",
-      completed_at: "2021-10-14T09:37:53.872104Z",
+      method: 'password',
+      completed_at: '2021-10-14T09:37:53.872104Z'
     },
     {
-      method: "lookup_secret",
-      completed_at: "2021-10-14T09:41:16.771859Z",
-    },
-  ],
+      method: 'lookup_secret',
+      completed_at: '2021-10-14T09:41:16.771859Z'
+    }
+  ]
   // ...
 }
 ```
@@ -116,24 +116,24 @@ re-authenticating:
 
 ```json5 title="Sample Ory Session JSON Payload"
 {
-  id: "6b51a3f2-6a2c-4557-90a8-4e23de7072aa",
+  id: '6b51a3f2-6a2c-4557-90a8-4e23de7072aa',
   active: true,
   // ...
-  authenticator_assurance_level: "aal2",
+  authenticator_assurance_level: 'aal2',
   authentication_methods: [
     {
-      method: "password",
-      completed_at: "2021-10-14T09:37:53.872104Z",
+      method: 'password',
+      completed_at: '2021-10-14T09:37:53.872104Z'
     },
     {
-      method: "lookup_secret",
-      completed_at: "2021-10-14T09:41:16.771859Z",
+      method: 'lookup_secret',
+      completed_at: '2021-10-14T09:41:16.771859Z'
     },
     {
-      method: "password",
-      completed_at: "2021-10-14T12:00:00.134567Z",
-    },
-  ],
+      method: 'password',
+      completed_at: '2021-10-14T12:00:00.134567Z'
+    }
+  ]
   // ...
 }
 ```

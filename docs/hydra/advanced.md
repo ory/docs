@@ -123,8 +123,8 @@ Assume you want to add custom claims to the access token with the following code
 ```typescript
 let session: ConsentRequestSession = {
   access_token: {
-    foo: "bar",
-  },
+    foo: 'bar'
+  }
 }
 ```
 

@@ -3,26 +3,26 @@ id: verify-email-account-activation
 title: Email and Phone Verification and Account Activation
 ---
 
-import useBaseUrl from "@docusaurus/useBaseUrl"
-import Mermaid from "@theme/Mermaid"
-import ApiWarning from "@theme/ApiWarning"
-import SelfServiceBrowserFlow from "@theme/SelfServiceBrowserFlow"
-import SelfServiceSpaFlow from "@theme/SelfServiceSpaFlow"
-import SelfServiceApiFlow from "@theme/SelfServiceApiFlow"
+import useBaseUrl from '@docusaurus/useBaseUrl'
+import Mermaid from '@theme/Mermaid'
+import ApiWarning from '@theme/ApiWarning'
+import SelfServiceBrowserFlow from '@theme/SelfServiceBrowserFlow'
+import SelfServiceSpaFlow from '@theme/SelfServiceSpaFlow'
+import SelfServiceApiFlow from '@theme/SelfServiceApiFlow'
 
-import CodeTabs from "@theme/Code/CodeTabs"
+import CodeTabs from '@theme/Code/CodeTabs'
 import {
   getFlowMethodLinkWithErrors,
   getFlowMethodLinkSuccess,
   getFlowMethodLinkInvalidChallenge,
-  getFlowMethodLinkChallengeDone,
-} from "./code/verification"
-import RenderFlow from "@site/src/theme/Code/RenderFlow"
+  getFlowMethodLinkChallengeDone
+} from './code/verification'
+import RenderFlow from '@site/src/theme/Code/RenderFlow'
 
-import DomainWarning from "@theme/DomainWarning"
-import AjaxWarning from "@theme/AjaxWarning"
-import Tabs from "@theme/Tabs"
-import TabItem from "@theme/TabItem"
+import DomainWarning from '@theme/DomainWarning'
+import AjaxWarning from '@theme/AjaxWarning'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 :::info
 
@@ -134,11 +134,11 @@ one of the two flows will be executed:
 - Unknown email address: An email is sent to the address informing the recipient that someone tried to verify this email address
   but that it isn't known by the system:
 
-<img alt="Verification email for unknown address" src={useBaseUrl("images/kratos/email-verify-unknown.png")} />
+<img alt="Verification email for unknown address" src={useBaseUrl('images/kratos/email-verify-unknown.png')} />
 
 - Known email address: An email which includes a verification link is sent to the address:
 
-<img alt="Verification email for known address" src={useBaseUrl("images/kratos/email-verify-known.png")} />
+<img alt="Verification email for known address" src={useBaseUrl('images/kratos/email-verify-known.png')} />
 
 This prevents Account Enumeration Attacks as it isn't possible for a threat agent to determine if an account exists or not based
 on the verification flow.
@@ -220,7 +220,7 @@ The Verification Flow for browser clients relies on HTTP redirects between Ory K
 browser:
 
 <SelfServiceBrowserFlow
-  flows={["verification"]}
+  flows={['verification']}
   success="Set verified flag and redirect to successful Verification Flow"
   interactions={['"Verify Email"']}
 />
@@ -283,7 +283,7 @@ The Verification Flow for client-side browser clients relies on AJAX requests.
 <AjaxWarning />
 
 <SelfServiceSpaFlow
-  flows={["verification"]}
+  flows={['verification']}
   success="Set verified flag and redirect to successful Verification Flow"
   interactions={['"Verify Email"']}
 />
@@ -376,7 +376,7 @@ curl -v -s -X GET \
 
 The Verification Flow for API clients doesn't use HTTP Redirects and can be summarized as follows:
 
-<SelfServiceApiFlow flows={["verification"]} success="Set verified flag to true" interactions={['"Verify Email"']} />
+<SelfServiceApiFlow flows={['verification']} success="Set verified flag to true" interactions={['"Verify Email"']} />
 
 To initialize the API flow, the client calls the API-flow initialization endpoint
 ([REST API Reference](../../reference/api.mdx#initialize-verification-flow-for-api-clients)) which returns a JSON response:

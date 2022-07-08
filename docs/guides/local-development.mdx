@@ -32,15 +32,15 @@ You can now start developing locally. Make sure to send any HTTP calls you make 
 For example, when you configure the Ory SDK (here in NodeJS):
 
 ```javascript
-import { Configuration, V0alpha2Api } from "@ory/client"
+import { Configuration, V0alpha2Api } from '@ory/client'
 
 const sdk = new V0alpha2Api(
   new Configuration({
-    basePath: "http://localhost:4000", // instead of `https://<your-slug>.projects.oryapis.com`
+    basePath: 'http://localhost:4000', // instead of `https://<your-slug>.projects.oryapis.com`
     baseOptions: {
-      withCredentials: true,
-    },
-  }),
+      withCredentials: true
+    }
+  })
 )
 ```
 

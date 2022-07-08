@@ -4,9 +4,9 @@ title: Implementing the Consent Endpoint & UI
 sidebar_label: Consent Endpoint
 ---
 
-import Tabs from "@theme/Tabs"
-import TabItem from "@theme/TabItem"
-import CodeFromRemote from "@theme/CodeFromRemote"
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeFromRemote from '@theme/CodeFromRemote'
 
 :::note
 
@@ -57,7 +57,7 @@ server-side component with access to Ory Hydra's Admin Endpoint!
 
 ## Accepting the Consent Request
 
-<Tabs defaultValue="node" values={[{ label: "NodeJS", value: "node" }]}>
+<Tabs defaultValue="node" values={[{ label: 'NodeJS', value: 'node' }]}>
   <TabItem value="node">
     <CodeFromRemote
       startAt="let grantScope = req.body.grant_scope"
@@ -69,7 +69,7 @@ server-side component with access to Ory Hydra's Admin Endpoint!
 
 ## Rejecting the Consent Request
 
-<Tabs defaultValue="node" values={[{ label: "NodeJS", value: "node" }]}>
+<Tabs defaultValue="node" values={[{ label: 'NodeJS', value: 'node' }]}>
   <TabItem value="node">
     <CodeFromRemote
       startAt="if (req.body.submit === 'Deny access') {"
@@ -81,7 +81,7 @@ server-side component with access to Ory Hydra's Admin Endpoint!
 
 ## Skipping Consent Screen
 
-<Tabs defaultValue="node" values={[{ label: "NodeJS", value: "node" }]}>
+<Tabs defaultValue="node" values={[{ label: 'NodeJS', value: 'node' }]}>
   <TabItem value="node">
     <CodeFromRemote
       startAt="// This section processes consent requests and either shows the consent UI"
@@ -93,7 +93,7 @@ server-side component with access to Ory Hydra's Admin Endpoint!
 
 ## Complete Endpoint
 
-<Tabs defaultValue="node" values={[{ label: "NodeJS", value: "node" }]}>
+<Tabs defaultValue="node" values={[{ label: 'NodeJS', value: 'node' }]}>
   <TabItem value="node">
     <CodeFromRemote src="https://github.com/ory/hydra-login-consent-node/blob/master/src/routes/consent.ts" />
   </TabItem>
