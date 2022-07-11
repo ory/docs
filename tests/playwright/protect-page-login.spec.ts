@@ -73,3 +73,18 @@ test.describe("Single Page App + API", () => {
     await expect(page).toHaveURL(/.*\/ui\/login.*/)
   })
 })
+
+test.describe('React Single Page App', ()=> {
+  test('able to use Sign in and Login', async ({page}) => {
+    await page.goto('http://localhost:4008/')
+    await page.waitForLoadState('networkidle')
+    await page.click('[data-testid="cta-link"]')
+    await expect(page).toHaveURL(/.*\/ui\/registration.*/)
+
+    const email = await login(page)
+    await expect(page).toHaveURL("http://localhost:4008")
+    await expect(page.locator('body')).toContainText(email)
+
+    await page.locator('text=Logout').click()
+  })
+})
