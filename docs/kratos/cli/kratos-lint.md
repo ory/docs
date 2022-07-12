@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## kratos lint
 
 Helpers for linting code
@@ -22,5 +21,6 @@ Helpers for linting code
 
 ### SEE ALSO
 
-- [kratos](kratos) -
-- [kratos lint lint](kratos-lint-lint) -
+* [kratos](kratos)	 - 
+* [kratos lint lint](kratos-lint-lint)	 - 
+
