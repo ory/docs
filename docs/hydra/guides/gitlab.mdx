@@ -98,7 +98,7 @@ Gitlab has some [documentation](https://docs.gitlab.com/omnibus/docker/) about h
 example for docker-compose. The `quickstart-gitlab.yaml` file in the contrib directory doesn't contain surprising things:
 
 ```yaml
-version: '3'
+version: "3"
 
 services:
   gitlab:
@@ -109,11 +109,11 @@ services:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'http://gitlab.example.com:8000/'
     ports:
-      - '8000:8000' # http
+      - "8000:8000" # http
     volumes:
-      - './contrib/quickstart/gitlab/config:/etc/gitlab'
-      - './contrib/quickstart/gitlab/logs:/var/log/gitlab'
-      - './contrib/quickstart/gitlab/data:/var/opt/gitlab'
+      - "./contrib/quickstart/gitlab/config:/etc/gitlab"
+      - "./contrib/quickstart/gitlab/logs:/var/log/gitlab"
+      - "./contrib/quickstart/gitlab/data:/var/opt/gitlab"
 ```
 
 Other then `logs` and `data`, the config directory is already prepopulated and the single most important configuration-file is the

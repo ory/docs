@@ -172,10 +172,11 @@ The Playwright (E2E) tests file names end with `.test.ts` and can be found in
 
 ### Formatting Documentation
 
-All documents and other files in this repository must be formatted with Prettier using the
-[Ory Prettier styles](https://github.com/ory/prettier-styles). 
+All documents and other files in this repository must be formatted with Prettier
+using the [Ory Prettier styles](https://github.com/ory/prettier-styles).
 
-To format all for documentation relevant files, run these command from the main directory of the repository:
+To format all for documentation relevant files, run these command from the main
+directory of the repository:
 
 ```sh
 npm install

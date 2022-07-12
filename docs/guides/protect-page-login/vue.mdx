@@ -104,7 +104,7 @@ To make authenticated requests to your API there are two main components:
 - When making AJAX requests you must set `{"credentials": "include"}` in the options. For the `fetch` method it looks like this:
 
   ```js
-  fetch(url, { credentials: 'include' })
+  fetch(url, { credentials: "include" })
   ```
 
 - Your API must have a CORS middleware with `credentials: true` and `Access-Control-Allow-Origin` of your frontend app (here
