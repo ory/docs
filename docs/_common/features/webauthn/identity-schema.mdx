@@ -5,31 +5,31 @@ WebAuthn. This is used for both multi-factor authentication as well as passwordl
 
 ```json5 title="identity.schema.json" {16-18}
 {
-  $schema: 'http://json-schema.org/draft-07/schema#',
-  type: 'object',
+  $schema: "http://json-schema.org/draft-07/schema#",
+  type: "object",
   properties: {
     traits: {
-      type: 'object',
+      type: "object",
       properties: {
         email: {
-          type: 'string',
-          format: 'email',
-          title: 'Your E-Mail',
+          type: "string",
+          format: "email",
+          title: "Your E-Mail",
           minLength: 3,
-          'ory.sh/kratos': {
+          "ory.sh/kratos": {
             credentials: {
               // ...
               webauthn: {
-                identifier: true
-              }
-            }
+                identifier: true,
+              },
+            },
             // ...
-          }
-        }
+          },
+        },
         // ...
-      }
+      },
       // ...
-    }
-  }
+    },
+  },
 }
 ```

@@ -3,33 +3,65 @@ id: microsoft
 title: Microsoft
 ---
 
-## Microsoft
+:::note
 
-This will enable you to log in using any Azure AD directory - Multi-tenant and personal Microsoft accounts (for example Skype,
-Xbox) depending on the settings made when creating the application in Azure AD.
+To add Microsoft as a social sign-in provider, you need an Azure account with an active subscription. Follow
+[this link](https://azure.microsoft.com/free/?WT.mc_id=A261C142F) to create a free account.
 
-#### Creating an Application in Azure AD
+:::
 
-To set up "Sign in with Microsoft" you must first
-[register an application with the Microsoft identity platform](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app).
+## Configuration in Ory Cloud Console
 
-Select "Web" as the "Redirect URI" type, and set the URI to:
+Follow these steps to add Microsoft as a social sign-in provider for your Ory Cloud project using the Ory Cloud Console.
 
-```
-http(s)://<domain-of-ory-kratos>:<public-port>//self-service/methods/oidc/callback/<provider-id>
-```
+1. Sign in to Ory Cloud Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
+2. Click the switch next to the Microsoft logo to start the configuration.
+3. Copy the Redirect URI from Ory and save it for later use.
+4. Go to the [Azure portal](https://portal.azure.com/) → **Azure Active Directory**.
+5. From **Overview**, select **Manage tenants** from the top navigation. Choose the desired tenant or create a new one.
+6. Return to **Overview**, open the **App registration** dropdown menu and click **App registration**.
+7. Register a new application:
 
-After the "App Registration" is created, make note of the `Application ID` and `Directory ID` on top of the Overview page. To
-create the client secret, navigate to "Certificates & secrets" and click "+ New client secret". Remember to copy the secret value
-as it will only be shown once.
+   - Define the app display name
+   - Select the supported account types
+   - Select the appropriate application type using the dropdown menu
+   - Provide the Redirect URI copied from the Ory Console
 
-#### Configuring Kratos
+8. Copy the **Application (client) ID** from Azure and paste it into the corresponding field in the Ory Console.
+9. In Azure, click the **Client credentials** link and create a new client secret.
+10. Copy the **Value** of the client secret and paste it into the corresponding field in the Ory Console.
+11. Copy the **Directory (tenant) ID** from Azure and paste it into the corresponding field in the Ory Console.
+12. Click **Save Configuration** to enable Microsoft as a social sign-in provider.
 
-Create a Jsonnet claims mapper as described in
+:::note
 
-Save the code in `<kratos-directory>/contrib/quickstart/kratos/email-password/oidc.microsoft.jsonnet`.
+These steps cover the basic configuration of a social sign-in provider integration. At this point, the user experience is
+incomplete. To complete the configuration and ensure a smooth and secure user experience, configure the [scopes](#scopes) and
+[data mapping](#data-mapping) as described in the next section.
 
-```json title="contrib/quickstart/kratos/email-password/oidc.microsoft.jsonnet"
+:::
+
+### Additional configuration
+
+When adding a social sign-in provider, you can customize the integration by defining the OAuth scopes Ory requests from the
+provider and by setting up custom data mappings.
+
+#### Scopes
+
+The Scopes section allows you to define the OAuth scopes Ory requests from the sign-in provider. Defining scopes allows you to
+interact with the provider's APIs on behalf of the user, or to access additional user data, which is exposed as claims for data
+mapping.
+
+For Microsoft, add the `email` and `profile` scopes for a basic setup.
+
+#### Data Mapping
+
+The Data Mapping section allows you to map the data returned by the sign-in provider to traits as defined in the identity schema.
+
+To define the mapping, create a Jsonnet code snippet. Read [this document](./data-mapping) to learn more about Jsonnet data
+mapping.
+
+```json
 local claims = std.extVar('claims');
 {
   identity: {
@@ -38,39 +70,118 @@ local claims = std.extVar('claims');
       // enumeration attacks,  if the value is used for
       // verification or as a password login identifier.
       //
-      // If connecting only to your organization (one tenant), claims.email is safe to use if you haven't actively disabled e-mail verification during Sign-Up.
+      // If connecting only to your organization (one tenant), claims.email is safe to use
+      // if you haven't actively disabled e-mail verification during sign-up.
       //
       // The email might be empty if the account isn't linked to an email address.
       // For a human readable identifier, consider using the "preferred_username" claim.
-      [if "email" in claims then "email" else null]: claims.email,
+      [if 'email' in claims then 'email' else null]: claims.email,
     },
   },
 }
 ```
 
-Enable the Microsoft provider in the Ory Kratos config located at
-`<kratos-directory>/contrib/quickstart/kratos/email-password/kratos.yml`.
+```mdx-code-block
+import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
 
-```yaml title="contrib/quickstart/kratos/email-password/kratos.yml"
-selfservice:
-  methods:
-    oidc:
-      enabled: true
-      config:
-        providers:
-          - id: microsoft # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
-            provider: microsoft
-            client_id: .... # Replace this with the Application ID from the App Registration
-            client_secret: .... # Replace this with the generated Secret value from the App Registration
-            microsoft_tenant: .... # Replace this with the Tenant of your choice (see below)
-            subject_source: userinfo # or alternatively: me
-            mapper_url: file:///etc/config/kratos/oidc.microsoft.jsonnet
-            scope:
-              - profile
-              - email
+<JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
 ```
 
-Azure AD is now an option to log in to Ory Kratos.
+#### Selecting a Tenant
+
+When you add Microsoft as a social sign-in provider, you can define which user groups can sign in and sign up with Microsoft by
+setting a specific value of the **Tenant** field:
+
+1. To authenticate users that belong to a single, specific organization (Azure Active Directory), set the value to **Directory
+   (tenant) ID** or the organization's domain, for example, `example.onmicrosoft.com`.
+
+2. To authenticate users with Microsoft accounts that are not limited to a specific organization, set **Tenant** value to:
+
+   - `organizations` to allow users with work or school accounts
+   - `consumers` to allow users with personal accounts
+   - `common` to allow both kinds of accounts
+
+:::info
+
+To allow sign-in and sign-up for users with Microsoft accounts that don't belong to any organization (Azure Active Directory), you
+must adjust the Azure application configuration by editing the
+[Manifest](https://docs.microsoft.com/en-us/azure/active-directory/develop/reference-app-manifest).
+
+Learn more:
+
+- [Microsoft Azure documentation](https://docs.microsoft.com/en-us/azure/active-directory/develop/supported-accounts-validation)
+- [Related StackOverflow thread](https://stackoverflow.com/questions/57826919/azure-ad-how-to-set-app-manifest-properties-programatically-accesstokenaccept)
+
+:::
+
+## Configuration using the Ory CLI
+
+Follow these steps to add Microsoft as a social sign-in provider to your Ory Cloud project using the Ory CLI:
+
+1. [Create an Azure AD Application and Tenant](#configuration-in-ory-cloud-console).
+2. Create a [Jsonnet code snippet](#data-mapping) to map the desired claims to the Ory Identity schema.
+3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Cloud.
+4. Download the Identity Service config from your Ory Cloud project and save it to a file:
+
+   ```shell
+   ## List all available projects
+   ory list projects
+
+   ## Get config
+   ory get identity-config <project-id> --format yaml > identity-config.yaml
+   ```
+
+5. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
+   string or provide an URL to the file.
+
+   ```yaml
+   selfservice:
+     methods:
+       oidc:
+         config:
+           providers:
+             - id: microsoft # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+               provider: microsoft
+               client_id: .... # This is the the Application (client) ID from the App Registration
+               client_secret: .... # This is the generated Secret value from the App Registration
+               microsoft_tenant: .... # This allows you to select the tenant.
+               mapper_url: "base64://<YOUR_BASE64_ENCODED_JSONNET_HERE>"
+               # Alternatively, use an URL:
+               # mapper_url: https://storage.googleapis.com/abc-cde-prd/9cac9717f007808bf17f22ce7f4295c739604b183f05ac4afb4
+               scope:
+                 - profile
+                 - email
+         enabled: true
+   ```
+
+   :::tip
+
+   Read [this section](#selecting-a-tenant) to learn more about selecting a Microsoft tenant.
+
+   :::
+
+6. Update the Ory Cloud Identity Service configuration using the file you worked with:
+
+   ```shell
+   ory update identity-config <project-id> --file updated_config.yaml
+   ```
+
+## Configuration for Self-hosted Instances
+
+Follow these steps to add Microsoft as a social sign-in provider when self-hosting Ory Kratos:
+
+1. [Create an Azure AD Application and Tenant](#configuration-in-ory-cloud-console).
+2. Set the redirect URI to URL that follows this pattern:
+
+   ```shell
+   http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/<social-signin-provider-id>
+   ```
+
+3. Create a [Jsonnet code snippet](#data-mapping) to map the desired claims to the Ory Identity schema.
+4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or store it in a location available to your Ory Kratos
+   instance.
+5. Add the [social sign-in provider configuration](#configuration-with-ory-cli) to the Ory Kratos configuration. Add the Jsonnet
+   snippet with mappings as a Base64 string or provide a path or an URL of the file.
 
 ```mdx-code-block
 import ConfigAsEnv from '../_common/config_as_env.mdx'
@@ -78,27 +189,33 @@ import ConfigAsEnv from '../_common/config_as_env.mdx'
 <ConfigAsEnv />
 ```
 
-##### Choosing Tenant
+### Choosing source of subject identifier
 
-There are two ways to use the `microsoft` provider for authentication:
+By default, Microsoft uses the identifier taken from the `sub` field of OIDC `id_token`. The same identifier is also returned by
+the standard OIDC `/userinfo` endpoint.
 
-1. For authenticating users in a single Azure AD Directory (organization), set the `tenant` value to either the `Directory ID`
-   from the "App Registration" page, or the organization domain. Examples:`8eaef023-2b34-4da1-9baa-8bc8c9d6a490` or
-   `example.onmicrosoft.com`.
-2. For authenticating any user in the Microsoft identity platform, set the `tenant` value to either:
+However, some systems use the `id` field returned by the `https://graph.microsoft.com/v1.0/me` endpoint as a subject identifier.
+To make migrating such systems to Kratos easier, you can use the identifier from obtained from the `me` endpoint.
 
-- `organizations` to allow users with work or school accounts, or
-- `consumers` to allow users with personal accounts, or
-- `common` to allow both kind of accounts.
+To do that, add the `subject_source` field set to `me` to the social sign-in provider config for your Kratos instance.
 
-##### Choosing source of subject identifier
-
-By default, the microsoft provider will rely on identifier taken from the `sub` field of OIDC ID token. The same identifier is
-also returned by standard OIDC `/userinfo` endpoint.
-
-But there are systems out there that use `id` field returned by `https://graph.microsoft.com/v1.0/me` endpoint as a subject
-identifier. To make migrating such systems to Kratos easier the microsoft provider allows using `me` endpoint's `id` as an
-identifier. Set the provider config `subject_source` field to `me` to activate this feature.
+```yaml title=kratos-config.yaml
+  providers:
+  - id: microsoft # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+    provider: microsoft
+    client_id: .... # This is the the Application (client) ID from the App Registration
+    client_secret: .... # This is the generated Secret value from the App Registration
+    microsoft_tenant: .... # This allows you to select the tenant.
+    // highlight-start
+    subject_source: me
+    # or
+    # subject_source: userinfo
+    // highlight-end
+    mapper_url: 'base64://<YOUR_BASE64_ENCODED_JSONNET_HERE>'
+    scope:
+    - profile
+    - email
+```
 
 ## Prevent Having to Login after Sign-Up
 

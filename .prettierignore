@@ -1,7 +1,4 @@
-build/
-website/build/
-schemas/
-apis/
-.widdershins/
-hooks/
-.next
+code-examples/protect-page-login/php/composer.lock
+CONTRIBUTING.md
+.github/pull_request_template.md
+package-lock.json

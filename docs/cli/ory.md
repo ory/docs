@@ -32,7 +32,7 @@ The ORY CLI
 - [ory list](ory-list) - List resources
 - [ory patch](ory-patch) - Patch resources
 - [ory proxy](ory-proxy) - Run your app and Ory on the same domain using a reverse proxy
-- [ory tunnel](ory-tunnel) - Tunnel Ory on a subdomain of your app or a seperate port your app's domain
+- [ory tunnel](ory-tunnel) - Tunnel Ory on a subdomain of your app or a separate port your app's domain
 - [ory update](ory-update) - Update resources
 - [ory validate](ory-validate) - Validate resources
 - [ory version](ory-version) - Display this binary's version, build time, and git hash of this build

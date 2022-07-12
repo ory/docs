@@ -19,5 +19,4 @@ Ory Keto is the first and only open source implementation of "Zanzibar: Google's
 If you need to know if a user (or robot, car, service) is allowed to do something - Ory Keto is the right fit for you.
 
 Ory Keto implements the basic API contracts for managing and checking relations ("permissions") with HTTP and gRPC APIs. Future
-versions will include features such as userset rewrites (for example RBAC-style role-permission models), Zookies, and more. An
-overview of what's implemented and upcoming can be found at [Implemented and Planned Features](implemented-planned-features.mdx).
+versions will include features such as userset rewrites (for example RBAC-style role-permission models), Zookies, and more.

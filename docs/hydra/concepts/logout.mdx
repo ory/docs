@@ -67,7 +67,7 @@ Following step 1 from the flow above, the user-agent is redirected to the logout
 
 challenge = req.url.query.logout_challenge
 
-fetch('https://hydra/oauth2/auth/requests/logout?' + querystring.stringify({ logout_challenge: challenge }))
+fetch("https://hydra/oauth2/auth/requests/logout?" + querystring.stringify({ logout_challenge: challenge }))
   .then(function (response) {
     return response.json()
   })
@@ -100,8 +100,8 @@ RECOMMENDED to request logout confirmation from the end-user when `rp_initiated`
 When the logout provider decides to accept the logout request, the flow is completed as follows:
 
 ```js
-fetch('https://hydra/oauth2/auth/requests/logout/accept?' + querystring.stringify({ logout_challenge: challenge }), {
-  method: 'PUT'
+fetch("https://hydra/oauth2/auth/requests/logout/accept?" + querystring.stringify({ logout_challenge: challenge }), {
+  method: "PUT",
 })
   .then(function (response) {
     return response.json()
@@ -115,8 +115,8 @@ fetch('https://hydra/oauth2/auth/requests/logout/accept?' + querystring.stringif
 You can also reject a logout request (for example if the user chose to not log out):
 
 ```js
-fetch('https://hydra/oauth2/auth/requests/logout/reject?' + querystring.stringify({ logout_challenge: challenge }), {
-  method: 'PUT'
+fetch("https://hydra/oauth2/auth/requests/logout/reject?" + querystring.stringify({ logout_challenge: challenge }), {
+  method: "PUT",
 }).then(function (response) {
   // Now you can do whatever you want - redirect the user back to your home page or whatever comes to mind.
 })

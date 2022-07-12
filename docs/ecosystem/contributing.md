@@ -265,7 +265,7 @@ Name snapshot releases `-next`:
 
 ```yaml
 snapshot:
-  name_template: '{{ .Tag }}-_next'
+  name_template: "{{ .Tag }}-_next"
 ```
 
 If you create a new goreleaser config, you may also want to create the following empty GitHub repositories:
@@ -279,10 +279,10 @@ dockers:
     binaries:
       - $PROJECT_NAME
     image_templates:
-      - 'oryd/$PROJECT_NAME:v{{ .Major }}'
-      - 'oryd/$PROJECT_NAME:v{{ .Major }}.{{ .Minor }}'
-      - 'oryd/$PROJECT_NAME:v{{ .Major }}.{{ .Minor }}.{{ .Patch }}'
-      - 'oryd/$PROJECT_NAME:latest'
+      - "oryd/$PROJECT_NAME:v{{ .Major }}"
+      - "oryd/$PROJECT_NAME:v{{ .Major }}.{{ .Minor }}"
+      - "oryd/$PROJECT_NAME:v{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+      - "oryd/$PROJECT_NAME:latest"
 ```
 
 If you add [Scoop](https://scoop.sh) (Homebrew for Windows) you must also create a GitHub repository under the `ory` org named

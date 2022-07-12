@@ -2,10 +2,6 @@
   "name": "docusaurus-template",
   "version": "0.0.0",
   "private": true,
-  "prettier": "ory-prettier-styles",
-  "config": {
-    "prettierTarget": "{code-examples/**,docs/**,docs/,scripts/,static/,contrib/,src/,src/**/,}*.{md,mdx,json,js,css,html,ts,tsx}"
-  },
   "scripts": {
     "gen": "npm-run-all gen:*",
     "docusaurus": "docusaurus",
@@ -15,20 +11,21 @@
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "serve": "docusaurus serve",
-    "format": "prettier --write ${npm_package_config_prettierTarget}",
-    "format:check": "prettier --check ${npm_package_config_prettierTarget}",
     "test": "playwright test",
-    "test:unit": "jest tests/jest --maxConcurrency=8 --bail 1"
+    "test:debug": "playwright test --debug",
+    "test:unit": "jest tests/jest --maxConcurrency=8 --bail 1",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^9.0.9",
-    "@docusaurus/core": "2.0.0-beta.18",
-    "@docusaurus/plugin-client-redirects": "2.0.0-beta.18",
-    "@docusaurus/plugin-content-docs": "2.0.0-beta.18",
-    "@docusaurus/plugin-content-pages": "2.0.0-beta.18",
-    "@docusaurus/plugin-sitemap": "2.0.0-beta.18",
-    "@docusaurus/theme-classic": "2.0.0-beta.18",
-    "@docusaurus/theme-search-algolia": "2.0.0-beta.18",
+    "@docusaurus/core": "^2.0.0-beta.21",
+    "@docusaurus/plugin-client-redirects": "^2.0.0-beta.21",
+    "@docusaurus/plugin-content-docs": "^2.0.0-beta.21",
+    "@docusaurus/plugin-content-pages": "^2.0.0-beta.21",
+    "@docusaurus/plugin-sitemap": "^2.0.0-beta.21",
+    "@docusaurus/theme-classic": "^2.0.0-beta.21",
+    "@docusaurus/theme-search-algolia": "^2.0.0-beta.21",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@octokit/rest": "^18.12.0",
@@ -44,7 +41,6 @@
     "mermaid": "8.13.8",
     "net": "^1.0.2",
     "node-fetch": "2.6.7",
-    "ory-prettier-styles": "1.2.0",
     "parser-front-matter": "1.6.4",
     "prism-react-renderer": "1.2.1",
     "prismjs": "1.27.0",
@@ -75,6 +71,8 @@
     "@swc/core-darwin-x64": "^1.2.139"
   },
   "devDependencies": {
+    "ory-prettier-styles": "1.3.0",
+    "prettier": "2.6.2",
     "@playwright/test": "^1.18.1",
     "@swc/core": "^1.2.139",
     "@swc/jest": "^0.2.17",
@@ -83,6 +81,7 @@
     "fast-xml-parser": "^4.0.2",
     "jasmine-fail-fast": "^2.0.1",
     "jest": "^27.5.1",
+    "memfs": "^3.4.2",
     "npm-run-all": "^4.1.5",
     "path-to-regexp": "^6.2.0",
     "prettier": "2.6.2",

@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## kratos get
 
 Get resources
@@ -25,5 +24,6 @@ Get resources
 
 ### SEE ALSO
 
-- [kratos](kratos) -
-- [kratos get identity](kratos-get-identity) - Get one or more identities by their ID(s)
+* [kratos](kratos)	 - 
+* [kratos get identity](kratos-get-identity)	 - Get one or more identities by their ID(s)
+

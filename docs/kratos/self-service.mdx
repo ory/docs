@@ -8,12 +8,12 @@ Ory Kratos implements flows that users perform themselves as opposed to administ
 provide self-service registration and profile management features as you are able to make changes to your profile and sign up
 yourself.
 
-import ApiWarning from '@site/src/theme/ApiWarning'
-import CodeTabs from '@site/src/theme/Code/CodeTabs'
-import { initApiFlow, initSpaFlow, initBrowserFlow } from './self-service/flows/code/login'
-import SelfServiceBrowserFlow from '@site/src/theme/SelfServiceBrowserFlow'
-import SelfServiceApiFlow from '@site/src/theme/SelfServiceApiFlow'
-import SelfServiceSpaFlow from '@site/src/theme/SelfServiceSpaFlow'
+import ApiWarning from "@site/src/theme/ApiWarning"
+import CodeTabs from "@site/src/theme/Code/CodeTabs"
+import { initApiFlow, initSpaFlow, initBrowserFlow } from "./self-service/flows/code/login"
+import SelfServiceBrowserFlow from "@site/src/theme/SelfServiceBrowserFlow"
+import SelfServiceApiFlow from "@site/src/theme/SelfServiceApiFlow"
+import SelfServiceSpaFlow from "@site/src/theme/SelfServiceSpaFlow"
 
 Most believe that user management systems are easy to implement because picking the right password hashing algorithm and sending
 an account verification code is a solvable challenge. The real complexity however hides in the details and attack vectors of
@@ -39,7 +39,7 @@ IETF, Microsoft Research, Google Research, Troy Hunt, ...) and implements the fo
 - [Account Recovery](self-service/flows/account-recovery.mdx)
 - [Address Verification](self-service/flows/verify-email-account-activation.mdx)
 - [User-Facing Error](self-service/flows/user-facing-errors.md)
-- [2FA / MFA](self-service/flows/2fa-mfa-multi-factor-authentication.md)
+- 2FA / MFA
 
 Some flows break down into "flow methods" which implement some of the flow's business logic:
 
@@ -93,7 +93,7 @@ URL with a locally hosted Ory Kratos as well.
 
 :::
 
-<SelfServiceBrowserFlow flows={['login', 'settings', '...']} />
+<SelfServiceBrowserFlow flows={["login", "settings", "..."]} />
 
 ### Initialization and Redirect to UI
 
@@ -123,7 +123,7 @@ The initialization endpoint creates a flow object and stores it in the database.
 information about the flow such as the login methods (for example "username/password" and "Sign in with Google") and their form
 data.
 
-import DomainWarning from '@site/src/theme/DomainWarning'
+import DomainWarning from "@site/src/theme/DomainWarning"
 
 <DomainWarning />
 
@@ -314,69 +314,69 @@ which now includes validation errors and other potential messages:
 
 ```json5
 {
-  id: '36c3246f-8e40-4f45-8721-c246576a8bc3',
-  type: 'browser',
-  expires_at: '2021-04-28T09:00:57.10254633Z',
-  issued_at: '2021-04-28T08:50:57.10254633Z',
-  request_url: 'https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser',
+  id: "36c3246f-8e40-4f45-8721-c246576a8bc3",
+  type: "browser",
+  expires_at: "2021-04-28T09:00:57.10254633Z",
+  issued_at: "2021-04-28T08:50:57.10254633Z",
+  request_url: "https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser",
   ui: {
-    action: 'https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=36c3246f-8e40-4f45-8721-c246576a8bc3',
-    method: 'POST',
+    action: "https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=36c3246f-8e40-4f45-8721-c246576a8bc3",
+    method: "POST",
     nodes: [
       // ...
       {
-        type: 'input',
-        group: 'password',
+        type: "input",
+        group: "password",
         attributes: {
-          name: 'identifier',
-          type: 'text',
-          value: '',
+          name: "identifier",
+          type: "text",
+          value: "",
           required: true,
-          disabled: false
+          disabled: false,
         },
         messages: [
           {
             id: 4000001,
-            text: 'length must be >= 1, but got 0',
-            type: 'error'
-          }
+            text: "length must be >= 1, but got 0",
+            type: "error",
+          },
         ],
         meta: {
           label: {
             id: 1070004,
-            text: 'ID',
-            type: 'info'
-          }
-        }
+            text: "ID",
+            type: "info",
+          },
+        },
       },
       {
-        type: 'input',
-        group: 'password',
+        type: "input",
+        group: "password",
         attributes: {
-          name: 'password',
-          type: 'password',
+          name: "password",
+          type: "password",
           required: true,
-          disabled: false
+          disabled: false,
         },
         messages: [
           {
             id: 4000001,
-            text: 'length must be >= 1, but got 0',
-            type: 'error'
-          }
+            text: "length must be >= 1, but got 0",
+            type: "error",
+          },
         ],
         meta: {
           label: {
             id: 1070001,
-            text: 'Password',
-            type: 'info'
-          }
-        }
-      }
+            text: "Password",
+            type: "info",
+          },
+        },
+      },
       // ...
-    ]
+    ],
   },
-  forced: false
+  forced: false,
 }
 ```
 
@@ -477,69 +477,69 @@ error occurs, the following response could be sent:
 
 ```json5
 {
-  id: 'f6209031-38d5-48bc-b6a5-118e8a24d1fe',
-  type: 'browser',
-  expires_at: '2021-04-28T09:00:57.10254633Z',
-  issued_at: '2021-04-28T08:50:57.10254633Z',
-  request_url: 'https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser',
+  id: "f6209031-38d5-48bc-b6a5-118e8a24d1fe",
+  type: "browser",
+  expires_at: "2021-04-28T09:00:57.10254633Z",
+  issued_at: "2021-04-28T08:50:57.10254633Z",
+  request_url: "https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser",
   ui: {
-    action: 'https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=f6209031-38d5-48bc-b6a5-118e8a24d1fe',
-    method: 'POST',
+    action: "https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=f6209031-38d5-48bc-b6a5-118e8a24d1fe",
+    method: "POST",
     nodes: [
       // ...
       {
-        type: 'input',
-        group: 'password',
+        type: "input",
+        group: "password",
         attributes: {
-          name: 'identifier',
-          type: 'text',
-          value: '',
+          name: "identifier",
+          type: "text",
+          value: "",
           required: true,
-          disabled: false
+          disabled: false,
         },
         messages: [
           {
             id: 4000001,
-            text: 'length must be >= 1, but got 0',
-            type: 'error'
-          }
+            text: "length must be >= 1, but got 0",
+            type: "error",
+          },
         ],
         meta: {
           label: {
             id: 1070004,
-            text: 'ID',
-            type: 'info'
-          }
-        }
+            text: "ID",
+            type: "info",
+          },
+        },
       },
       {
-        type: 'input',
-        group: 'password',
+        type: "input",
+        group: "password",
         attributes: {
-          name: 'password',
-          type: 'password',
+          name: "password",
+          type: "password",
           required: true,
-          disabled: false
+          disabled: false,
         },
         messages: [
           {
             id: 4000001,
-            text: 'length must be >= 1, but got 0',
-            type: 'error'
-          }
+            text: "length must be >= 1, but got 0",
+            type: "error",
+          },
         ],
         meta: {
           label: {
             id: 1070001,
-            text: 'Password',
-            type: 'info'
-          }
-        }
-      }
+            text: "Password",
+            type: "info",
+          },
+        },
+      },
       // ...
-    ]
+    ],
   },
-  forced: false
+  forced: false,
 }
 ```
 

@@ -3,15 +3,14 @@ id: redirects
 title: Browser Redirects and Flow Completion
 ---
 
-This document covers browser redirects for Server Side Applications (NodeJs, PHP, Golang etc.) and how to configure them. To learn
-more about the SDK for Single Page Applications, check out the [SDK](./services-api.mdx) documentation.
+This document covers browser redirects for Server Side Applications (NodeJs, PHP, Golang etc.) and how to configure them.
 
 ## Allow List
 
-Set dynamic redirects using the `?return_to=` query parameter on [Self-Service Flows](./self-service.mdx). For example: a user
-opens a sharable link to go to `https://myapp.com/posts`. This URL requires the user to have an active session and redirects the
-user back to the login page. To return the user back to the original URL, append `?return_to=https://myapp.com/posts` when
-starting the [self-service login flow](https://www.ory.sh/docs/reference/api#operation/initializeSelfServiceLoginFlowForBrowsers):
+Set dynamic redirects using the `?return_to=` query parameter on self-service flows. For example: a user opens a sharable link to
+go to `https://myapp.com/posts`. This URL requires the user to have an active session and redirects the user back to the login
+page. To return the user back to the original URL, append `?return_to=https://myapp.com/posts` when starting the
+[self-service login flow](https://www.ory.sh/docs/reference/api#operation/initializeSelfServiceLoginFlowForBrowsers):
 
 ```js
 curl -X GET 'http://<your-project>.projects.oryapis.com/self-service/login/browser?return_to=...'
@@ -34,7 +33,7 @@ Ory Cloud has a total of six flows, **Login**, **Registration**, **Verification*
 can be configured to redirect back to any URL. A common use case would be to redirect the user to your application home screen
 after a logout or to a specific URL on a sub-domain after a settings password update.
 
-On project creation the redirect flows are set to the default [Managed User Interface](./managed-ui.mdx).
+On project creation the redirect flows are set to the default Managed User Interface.
 
 ### Login, Registration, and Settings
 
@@ -123,7 +122,7 @@ Default Redirect URL can be an FQDN or a path.
 
 Update or delete a redirect by either changing the current redirects value or deleting the entry and clicking the **Update**
 button. Reset all flows at once with the **Reset Flows** button which will prompt a confirmation box. Resetting all flows will
-reset all the fields back to the default value which is the Ory Cloud [Managed User Interface](./managed-ui.mdx).
+reset all the fields back to the default value which is the Ory Cloud Managed User Interface.
 
 Updates to flows will take effect on **new** flows. It will have no effect on old flows that haven't expired yet.
 

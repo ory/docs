@@ -517,14 +517,14 @@
             "type": "string"
           },
           "cors_allowed_origins": {
-            "description": "Cors Allowed origins for the custom hostname.",
+            "description": "CORS Allowed origins for the custom hostname.",
             "items": {
               "type": "string"
             },
             "type": "array"
           },
           "cors_enabled": {
-            "description": "Cors Enabled for the custom hostname.",
+            "description": "CORS Enabled for the custom hostname.",
             "type": "boolean"
           },
           "hostname": {
@@ -3523,14 +3523,14 @@
             "type": "string"
           },
           "cors_allowed_origins": {
-            "description": "Cors Allowed origins for the custom hostname.",
+            "description": "CORS Allowed origins for the custom hostname.",
             "items": {
               "type": "string"
             },
             "type": "array"
           },
           "cors_enabled": {
-            "description": "Cors Enabled for the custom hostname.",
+            "description": "CORS Enabled for the custom hostname.",
             "type": "boolean"
           },
           "hostname": {
@@ -5806,6 +5806,7 @@
               }
             }
           },
+          "required": true,
           "x-originalParamName": "Body"
         },
         "responses": {
@@ -6263,6 +6264,7 @@
               }
             }
           },
+          "required": true,
           "x-originalParamName": "Body"
         },
         "responses": {
@@ -6512,6 +6514,7 @@
               }
             }
           },
+          "required": true,
           "x-originalParamName": "Body"
         },
         "responses": {
@@ -6779,6 +6782,7 @@
               }
             }
           },
+          "required": true,
           "x-originalParamName": "Body"
         },
         "responses": {
@@ -7129,6 +7133,7 @@
               }
             }
           },
+          "required": true,
           "x-originalParamName": "Body"
         },
         "responses": {

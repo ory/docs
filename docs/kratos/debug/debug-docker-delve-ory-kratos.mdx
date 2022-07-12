@@ -26,7 +26,7 @@ Imagine you have the following project structure:
 The `docker-compose.yml` mentioned above could look as follows:
 
 ```yaml
-version: '3.7'
+version: "3.7"
 
 volumes:
   postgres-db:
@@ -35,7 +35,7 @@ services:
   postgresd:
     image: postgres:9.6
     ports:
-      - '5432:5432'
+      - "5432:5432"
     volumes:
       - type: volume
         source: postgres-db
@@ -69,8 +69,8 @@ services:
     depends_on:
       - kratos-migrate
     ports:
-      - '4433:4433' # public
-      - '4434:4434' # admin
+      - "4433:4433" # public
+      - "4434:4434" # admin
     command: serve -c /etc/config/kratos/kratos.yml --watch-courier --dev
     volumes:
       - type: bind

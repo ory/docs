@@ -22,9 +22,9 @@ Session Attacks since Ory Kratos provides the preventive measures built in.
 Chapter [Self-Service Flows](../self-service.mdx) contains further information on APIs and flows related to the SSUI, and build
 self-service applications.
 
-import CodeFromRemote from '@site/src/theme/CodeFromRemote'
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
+import CodeFromRemote from "@site/src/theme/CodeFromRemote"
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
 ## UI Payloads
 
@@ -33,50 +33,50 @@ registration:
 
 ```json5
 {
-  id: '9b527900-2199-4221-9252-7971b3362282',
-  type: 'browser',
-  expires_at: '2021-04-28T13:55:36.046466067Z',
-  issued_at: '2021-04-28T12:55:36.046466067Z',
+  id: "9b527900-2199-4221-9252-7971b3362282",
+  type: "browser",
+  expires_at: "2021-04-28T13:55:36.046466067Z",
+  issued_at: "2021-04-28T12:55:36.046466067Z",
   ui: {
-    action: 'https://playground.projects.oryapis.com/api/kratos/public/self-service/settings?flow=9b527900-2199-4221-9252-7971b3362282',
-    method: 'POST',
+    action: "https://playground.projects.oryapis.com/api/kratos/public/self-service/settings?flow=9b527900-2199-4221-9252-7971b3362282",
+    method: "POST",
     nodes: [
       {
-        type: 'input',
-        group: 'default',
+        type: "input",
+        group: "default",
         attributes: {
-          node_type: 'input',
-          name: 'csrf_token',
-          type: 'hidden',
-          value: 'U3r/lgEfT8rA1Lg0Eeo06oGO8mX6T4TKoe/z7rbInhvYeacbRg0IW9zrqnpU1wmQJXKiekNzdLnypx5naHXoPg==',
+          node_type: "input",
+          name: "csrf_token",
+          type: "hidden",
+          value: "U3r/lgEfT8rA1Lg0Eeo06oGO8mX6T4TKoe/z7rbInhvYeacbRg0IW9zrqnpU1wmQJXKiekNzdLnypx5naHXoPg==",
           required: true,
-          disabled: false
+          disabled: false,
         },
         messages: null,
-        meta: {}
+        meta: {},
       },
       {
-        type: 'input',
-        group: 'profile',
+        type: "input",
+        group: "profile",
         attributes: {
-          node_type: 'input',
-          name: 'traits.email',
-          type: 'email',
-          value: 'foo@ory.sh',
-          disabled: false
+          node_type: "input",
+          name: "traits.email",
+          type: "email",
+          value: "foo@ory.sh",
+          disabled: false,
         },
         messages: null,
         meta: {
           label: {
             id: 1070002,
-            text: 'E-Mail',
-            type: 'info'
-          }
-        }
-      }
+            text: "E-Mail",
+            type: "info",
+          },
+        },
+      },
       // ...
-    ]
-  }
+    ],
+  },
 }
 ```
 
@@ -444,22 +444,22 @@ Checkboxes are primarily used when an Identity Schema field is of `"type": "bool
 
 ```json5
 {
-  $schema: 'http://json-schema.org/draft-07/schema#',
-  type: 'object',
+  $schema: "http://json-schema.org/draft-07/schema#",
+  type: "object",
   properties: {
     traits: {
-      type: 'object',
+      type: "object",
       properties: {
         // ...
         tos: {
-          title: 'Accept Terms of Service',
-          type: 'boolean'
-        }
+          title: "Accept Terms of Service",
+          type: "boolean",
+        },
         // ...
-      }
+      },
       // ...
-    }
-  }
+    },
+  },
 }
 ```
 
@@ -585,44 +585,44 @@ with the same `name` attribute.
 ```json5
 [
   {
-    type: 'input',
-    group: 'profile',
+    type: "input",
+    group: "profile",
     attributes: {
-      name: 'method',
-      type: 'submit',
-      value: 'profile',
+      name: "method",
+      type: "submit",
+      value: "profile",
       disabled: false,
-      node_type: 'input'
+      node_type: "input",
     },
     messages: [],
     meta: {
       label: {
         id: 1070003,
-        text: 'Save',
-        type: 'info'
-      }
-    }
+        text: "Save",
+        type: "info",
+      },
+    },
   },
   // ...
   {
-    type: 'input',
-    group: 'password',
+    type: "input",
+    group: "password",
     attributes: {
-      name: 'method',
-      type: 'submit',
-      value: 'password',
+      name: "method",
+      type: "submit",
+      value: "password",
       disabled: false,
-      node_type: 'input'
+      node_type: "input",
     },
     messages: [],
     meta: {
       label: {
         id: 1070003,
-        text: 'Save',
-        type: 'info'
-      }
-    }
-  }
+        text: "Save",
+        type: "info",
+      },
+    },
+  },
 ]
 ```
 
@@ -641,18 +641,18 @@ Hidden input fields such as the `csrf_token`
 
 ```json5
 {
-  type: 'input',
-  group: 'default',
+  type: "input",
+  group: "default",
   attributes: {
-    name: 'csrf_token',
-    type: 'hidden',
-    value: 'By8X7TPnn/NMtXeDpK6sbshISK3t1WnezAtlMnFA6ZPsxxNmRsG8ks7WpsHMQtTLbxtqKJOiu4aArJok6/GOSw==',
+    name: "csrf_token",
+    type: "hidden",
+    value: "By8X7TPnn/NMtXeDpK6sbshISK3t1WnezAtlMnFA6ZPsxxNmRsG8ks7WpsHMQtTLbxtqKJOiu4aArJok6/GOSw==",
     required: true,
     disabled: false,
-    node_type: 'input'
+    node_type: "input",
   },
   messages: [],
-  meta: {}
+  meta: {},
 }
 ```
 
@@ -943,9 +943,9 @@ Each message has a layout of:
 {
   id: 1234,
   // This ID will not change and can be used to translate the message or use your own message content.
-  text: 'Some default text',
+  text: "Some default text",
   // A default text in english that you can display if you do not want to customize the message.
-  context: {}
+  context: {},
   // A JSON object which may contain additional fields such as `expires_at`. This is helpful if you want to craft your own messages.
 }
 ```
@@ -984,15 +984,27 @@ UI Messages are always presented as the following JSON
 ```json5
 {
   id: 1234, // A unique, fixed number
-  text: '...',
-  type: '...', // Usually "error" or "info"
+  text: "...",
+  type: "...", // Usually "error" or "info"
   context: {
     // Additional, contextual information
-  }
+  },
 }
 ```
 
 for the values of these fields, please check the list below.
+
+### Machine Readable Format
+
+```mdx-code-block
+<CodeFromRemote
+  lang="json"
+  title="https://github.com/ory/docs/blob/master/docs/kratos/concepts/messages.json"
+  src="https://raw.githubusercontent.com/ory/docs/master/docs/kratos/concepts/messages.json"
+/>
+```
+
+### Human Readable Format
 
 :::note
 
@@ -1001,7 +1013,6 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 :::
 
 <!-- START MESSAGE TABLE -->
-
 ###### Sign in (1010001)
 
 ```json
@@ -1917,5 +1928,6 @@ The section below is auto-generated. Changing it has no effect as any changes wi
   "context": {}
 }
 ```
+
 
 <!-- END MESSAGE TABLE -->

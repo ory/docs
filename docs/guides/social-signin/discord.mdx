@@ -10,60 +10,61 @@ Follow these steps to add Discord as a social sign-in provider to your Ory Cloud
 1. [Create a Discord OAuth2 application](https://discord.com/developers/docs/topics/oauth2).
 2. In the created app, set the redirect URI to:
 
-```shell
-https://<ory-cloud-project-slug>.projects.oryapis.com/self-service/methods/oidc/callback/discord
-```
+   ```shell
+   https://<ory-cloud-project-slug>.projects.oryapis.com/self-service/methods/oidc/callback/discord
+   ```
 
 <a name="mapping"></a>
+
 3. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema.
 
-```json
-local claims = {
-  email_verified: false
-} + std.extVar('claims');
+   ```json
+   local claims = {
+     email_verified: false,
+   } + std.extVar('claims');
 
-{
-  identity: {
-    traits: {
-      // Allowing unverified email addresses enables account
-      // enumeration attacks,  if the value is used for
-      // verification or as a password login identifier.
-      //
-      // Therefore we only return the email if it (a) exists and (b) is marked verified
-      // by Discord.
-      [if "email" in claims && claims.email_verified then "email" else null]: claims.email,
-    },
-  },
-}
-```
+   {
+     identity: {
+       traits: {
+         // Allowing unverified email addresses enables account
+         // enumeration attacks,  if the value is used for
+         // verification or as a password login identifier.
+         //
+         // Therefore we only return the email if it (a) exists and (b) is marked verified
+         // by Discord.
+         [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,
+       },
+     },
+   }
+   ```
 
-:::info
+   :::info
 
-Discord doesn't implement OpenID Connect. Ory makes a request to
-[Discord's User API](https://discord.com/developers/docs/resources/user#get-current-user) and adds the data to
-`std.extVar('claims')`. Not all fields are supported. Check the list of supported fields
-[in the source code](https://github.com/ory/kratos/blob/v0.5.1-alpha.1/selfservice/strategy/oidc/provider_discord.go#L81-L91).
+   Discord doesn't implement OpenID Connect. Ory makes a request to
+   [Discord's User API](https://discord.com/developers/docs/resources/user#get-current-user) and adds the data to
+   `std.extVar('claims')`. Not all fields are supported. Check the list of supported fields
+   [in the source code](https://github.com/ory/kratos/blob/v0.5.1-alpha.1/selfservice/strategy/oidc/provider_discord.go#L81-L91).
 
-The `identify` scope adds these fields:
+   The `identify` scope adds these fields:
 
-```text
-iss                 # always https://discord.com/api/v6/oauth2/
-sub                 # numeric discord user id
-name                # username + # + discriminator
-nickname            # username
-preferred_username  # username
-picture             # avatar url
-locale              # user locale
-```
+   ```text
+   iss                 # always https://discord.com/api/v6/oauth2/
+   sub                 # numeric discord user id
+   name                # username + # + discriminator
+   nickname            # username
+   preferred_username  # username
+   picture             # avatar url
+   locale              # user locale
+   ```
 
-The `email` scope adds these fields:
+   The `email` scope adds these fields:
 
-```text
-email               # user email
-email_verified      # whether email is verified
-```
+   ```text
+   email               # user email
+   email_verified      # whether email is verified
+   ```
 
-:::
+   :::
 
 ```mdx-code-block
 import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
@@ -74,42 +75,43 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
 4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Cloud.
 5. Download the Identity Service config from your Ory Cloud project and save it to a file:
 
-```shell
-## List all available projects
-ory list projects
+   ```shell
+   ## List all available projects
+   ory list projects
 
-## Get config
-ory get identity-config <project-id> --format yaml > identity-config.yaml
-```
+   ## Get config
+   ory get identity-config <project-id> --format yaml > identity-config.yaml
+   ```
 
 <a name="config"></a>
-6. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
-string or provide an URL to the file.{' '}
 
-```yaml
-selfservice:
-  methods:
-    oidc:
-      enabled: true
-      config:
-        providers:
-          - id: discord # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
-            provider: discord
-            client_id: .... # Replace this with the OAuth2 Client ID provided by Discord
-            client_secret: .... # Replace this with the OAuth2 Client Secret provided by Discord
-            mapper_url: 'base64://<YOUR_BASE64_ENCODED_JSONNET_HERE>'
-            # Alternatively, use an URL:
-            # mapper_url: https://storage.googleapis.com/abc-cde-prd/9cac9717f007808bf17f22ce7f4295c739604b183f05ac4afb4
-            scope:
-              - identify
-              - email
-```
+6. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
+   string or provide an URL to the file.
+
+   ```yaml
+   selfservice:
+     methods:
+       oidc:
+         config:
+           providers:
+             - id: discord # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+               provider: discord
+               client_id: .... # Replace this with the OAuth2 Client ID provided by Discord
+               client_secret: .... # Replace this with the OAuth2 Client Secret provided by Discord
+               mapper_url: "base64://<YOUR_BASE64_ENCODED_JSONNET_HERE>"
+               # Alternatively, use an URL:
+               # mapper_url: https://storage.googleapis.com/abc-cde-prd/9cac9717f007808bf17f22ce7f4295c739604b183f05ac4afb4
+               scope:
+                 - identify
+                 - email
+         enabled: true
+   ```
 
 7. Update the Ory Cloud Identity Service configuration using the file you worked with:
 
-```shell
-ory update identity-config <project-id> --file updated_config.yaml
-```
+   ```shell
+   ory update identity-config <project-id> --file updated_config.yaml
+   ```
 
 ## Configuration for Self-hosted Instances
 
@@ -118,9 +120,9 @@ Follow these steps to add Discord as a social sign-in provider when self-hosting
 1. [Create a Discord OAuth2 application](https://discord.com/developers/docs/topics/oauth2).
 2. Set the redirect URI to URL that follows this pattern:
 
-```shell
-http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/discord
-```
+   ```shell
+   http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/discord
+   ```
 
 3. Create a [Jsonnet code snippet to map the desired claims to the Ory Identity schema](#mapping).
 4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or store it in a location available to your Ory Kratos

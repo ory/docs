@@ -1,6 +1,6 @@
-import React from 'react'
-import CodeBlock from '@theme/CodeBlock'
-import { getSdkUrl } from '../../hooks'
+import React from "react"
+import CodeBlock from "@theme/CodeBlock"
+import { getSdkUrl } from "../../hooks"
 
 export default function VercelDeploy() {
   const { hint, url } = getSdkUrl()
