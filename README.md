@@ -175,7 +175,12 @@ The Playwright (E2E) tests file names end with `.test.ts` and can be found in
 All documents and other files in this repository must be formatted with Prettier
 using the [Ory Prettier styles](https://github.com/ory/prettier-styles).
 
-To format all for documentation relevant files, run these command from the main
+The recommended way to achieve this is installing the Prettier plugin for your editor:
+
+- [VSCode Prettier plugin](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- [IntelliJ Prettier plugin](https://www.jetbrains.com/help/idea/prettier.html)
+
+To format all relevant files, run these commands from the main
 directory of the repository:
 
 ```sh
