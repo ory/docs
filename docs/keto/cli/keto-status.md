@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## keto status
 
 Get the status of the upstream Keto instance
@@ -41,4 +40,5 @@ keto status [flags]
 
 ### SEE ALSO
 
-- [keto](keto) - Global and consistent permission and authorization server
+* [keto](keto)	 - Global and consistent permission and authorization server
+
