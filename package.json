@@ -38,7 +38,7 @@
     "file-loader": "6.2.0",
     "json-loader": "^0.5.7",
     "json-schema-faker": "^0.5.0-rcv.41",
-    "mermaid": "8.13.8",
+    "mermaid": "9.1.2",
     "net": "^1.0.2",
     "node-fetch": "2.6.7",
     "parser-front-matter": "1.6.4",

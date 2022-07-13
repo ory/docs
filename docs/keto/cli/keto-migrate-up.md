@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## keto migrate up
 
 Migrate the database up
@@ -19,13 +18,13 @@ Migrate the database up
 Run this command on a fresh SQL installation and when you upgrade Ory Keto from
 version v0.7.x and later.
 
-It is recommended to run this command close to the SQL instance (e.g. same
-subnet) instead of over the public internet. This decreases risk of failure and
-decreases time required.
+It is recommended to run this command close to the SQL instance (e.g. same subnet) instead of over the public internet.
+This decreases risk of failure and decreases time required.
 
-### WARNING
+### WARNING ###
 
 Before running this command on an existing database, create a back up!
+
 
 ```
 keto migrate up [flags]
@@ -48,4 +47,4 @@ keto migrate up [flags]
 
 ### SEE ALSO
 
-- [keto migrate](keto-migrate) - Commands to migrate the database
+* [keto migrate](keto-migrate)	 - Commands to migrate the database

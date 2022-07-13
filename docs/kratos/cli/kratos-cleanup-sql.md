@@ -10,22 +10,21 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## kratos cleanup sql
 
 Cleanup sql database from expired flows and sessions
 
 ### Synopsis
 
-Run this command as frequently as you need. It is recommended to run this
-command close to the SQL instance (e.g. same subnet) instead of over the public
-internet. This decreases risk of failure and decreases time required. You can
-read in the database URL using the -e flag, for example: export DSN=... kratos
-cleanup sql -e
-
-### WARNING
-
+Run this command as frequently as you need.
+It is recommended to run this command close to the SQL instance (e.g. same subnet) instead of over the public internet.
+This decreases risk of failure and decreases time required.
+You can read in the database URL using the -e flag, for example:
+	export DSN=...
+	kratos cleanup sql -e
+### WARNING ###
 Before running this command on an existing database, create a back up!
+
 
 ```
 kratos cleanup sql <database-url> [flags]
@@ -49,4 +48,4 @@ kratos cleanup sql <database-url> [flags]
 
 ### SEE ALSO
 
-- [kratos cleanup](kratos-cleanup) - Various cleanup helpers
+* [kratos cleanup](kratos-cleanup)	 - Various cleanup helpers

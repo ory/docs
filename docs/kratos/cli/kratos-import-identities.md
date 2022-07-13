@@ -10,7 +10,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## kratos import identities
 
 Import one or more identities from files or STD_IN
@@ -19,8 +18,7 @@ Import one or more identities from files or STD_IN
 
 Import identities from files or STD_IN.
 
-Files can contain only a single or an array of identities. The validity of files
-can be tested beforehand using "... identities validate".
+Files can contain only a single or an array of identities. The validity of files can be tested beforehand using "... identities validate".
 
 WARNING: Importing credentials is not yet supported.
 
@@ -65,4 +63,4 @@ Alternatively:
 
 ### SEE ALSO
 
-- [kratos import](kratos-import) - Import resources
+* [kratos import](kratos-import)	 - Import resources

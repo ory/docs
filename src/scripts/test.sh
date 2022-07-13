@@ -35,6 +35,10 @@ cd code-examples/protect-page-login/vue && \
   npm run start -- -l 4006 &
 ory tunnel --dev --port 3006 http://localhost:4006/ &
 
+cd code-examples/protect-page-login/react && \
+  PORT=4008 REACT_APP_ORY_URL=http://localhost:3007 npm run start &
+ory tunnel --dev --port 3007 http://localhost:4008/ &
+
 trap "exit" INT TERM ERR
 trap 'kill $(jobs -p)' EXIT
 
@@ -45,11 +49,12 @@ npx wait-on -v -t 300000 \
   tcp:127.0.0.1:3004 \
   tcp:127.0.0.1:3005 \
   tcp:127.0.0.1:3006 \
+  tcp:127.0.0.1:3007 \
   tcp:127.0.0.1:4002 \
   tcp:127.0.0.1:4003 \
   tcp:127.0.0.1:4004 \
   tcp:localhost:4005 \
   tcp:localhost:4006 \
-  tcp:localhost:4005
+  tcp:localhost:4005 \
 
 npm run test

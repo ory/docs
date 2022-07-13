@@ -11,7 +11,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## kratos remote status
 
 Print the alive and readiness status of a Ory Kratos instance
@@ -36,5 +35,4 @@ kratos remote status [flags]
 
 ### SEE ALSO
 
-- [kratos remote](kratos-remote) - Helpers and management for remote Ory Kratos
-  instances
+* [kratos remote](kratos-remote)	 - Helpers and management for remote Ory Kratos instances
