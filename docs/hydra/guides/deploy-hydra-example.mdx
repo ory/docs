@@ -3,8 +3,8 @@ id: deploy-hydra-example
 title: Deploy to production
 ---
 
-import { useLatestRelease } from "@site/src/hooks";
-import CodeBlock from "@theme/CodeBlock";
+import { useLatestRelease } from '@site/src/hooks'
+import CodeBlock from '@theme/CodeBlock'
 
 This guide explains how to set up and run Ory Hydra in an exemplary production environment. It uses Postgres as database, Nginx as
 reverse proxy, and Digital Ocean as cloud provider. You can use another
@@ -27,8 +27,8 @@ Spin up a Droplet (virtual machine) with the following configuration:
 
 :::note
 
-This example shows a basic configuration of Ory Hydra on a single virtual machine (VM). The configuration of a VM may vary depending on
-the scale of your application.
+This example shows a basic configuration of Ory Hydra on a single virtual machine (VM). The configuration of a VM may vary
+depending on the scale of your application.
 
 :::
 
@@ -48,8 +48,8 @@ First, upgrade all packages on your Droplet.
 apt-get update && apt-get upgrade
 ```
 
-Since the default version of [Node.js](https://nodejs.org/en/) is outdated we need to install a newer version. You can
-use the following script to install Node.js 16 on a Ubuntu system.
+Since the default version of [Node.js](https://nodejs.org/en/) is outdated we need to install a newer version. You can use the
+following script to install Node.js 16 on a Ubuntu system.
 
 ```bash
 curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh
@@ -111,8 +111,8 @@ psql -U hydra -W -h 127.0.0.1
 
 ```
 
-6. Use the password for the Ory Hydra user we created before to log into Postgres. If everything works correctly you should see a prompt similar
-   to this:
+6. Use the password for the Ory Hydra user we created before to log into Postgres. If everything works correctly you should see a
+   prompt similar to this:
 
 ```
 Password:
@@ -144,11 +144,11 @@ mkdir /opt/hydra/{bin,config}
 <CodeBlock className="language-shell">{`
 cd /opt/hydra/bin
 # Download a new version of Ory Hydra
-wget https://github.com/ory/hydra/releases/download/${useLatestRelease(
-  "hydra"
-)}/hydra_${useLatestRelease("hydra")}-linux_64bit.tar.gz
+wget https://github.com/ory/hydra/releases/download/${useLatestRelease('hydra')}/hydra_${useLatestRelease(
+  'hydra'
+)}-linux_64bit.tar.gz
 # Extract contents
-tar xfvz hydra_${useLatestRelease("hydra")}-linux_64bit.tar.gz
+tar xfvz hydra_${useLatestRelease('hydra')}-linux_64bit.tar.gz
 # Remove redundant files
 rm *md
 rm LICENSE
@@ -157,13 +157,12 @@ rm LICENSE
 4. Download the [Quickstart](../5min-tutorial) configuration files:
 
 <CodeBlock className="language-shell">{`cd ../config
-wget https://raw.githubusercontent.com/ory/hydra/${useLatestRelease(
-  "hydra"
-)}/contrib/quickstart/5-min/hydra.yml`}</CodeBlock>
+wget https://raw.githubusercontent.com/ory/hydra/${useLatestRelease('hydra')}/contrib/quickstart/5-min/hydra.yml`}</CodeBlock>
 
 5. Add configuration for Ory Hydra in `hydra.yml` to use the Postgres database.  
-   Open `hydra.yml` and change the DSN configuration. Ory Hydra is storing data in an SQLite database in the default quickstart configuration.
-   Change the DSN key to use the Postgres database you configured before and add the `issuer` URL. This URL will be used as `issuer` in access and ID tokens.
+   Open `hydra.yml` and change the DSN configuration. Ory Hydra is storing data in an SQLite database in the default quickstart
+   configuration. Change the DSN key to use the Postgres database you configured before and add the `issuer` URL. This URL will be
+   used as `issuer` in access and ID tokens.
 
 ```yml
 dsn: postgres://hydra:b0qw68gr3Q@127.0.0.1:5432/hydra?sslmode=disable&max_conns=20&max_idle_conns=4
@@ -293,8 +292,8 @@ server {
 ln -s /etc/nginx/sites-available/oauth2.example.com /etc/nginx/sites-enabled/oauth2.example.com
 ```
 
-4. Configure SSL via Certbot. Run the following command and answer the questions to set it up. When prompted choose to redirect HTTP
-   traffic to HTTPS.
+4. Configure SSL via Certbot. Run the following command and answer the questions to set it up. When prompted choose to redirect
+   HTTP traffic to HTTPS.
 
 ```bash
 certbot --nginx -d oauth2.example.com
@@ -396,8 +395,12 @@ server {
 
 Let's take a closer look at the configuration. We have two location blocks.
 
-- The first `location` block proxies network traffic to the public API of Ory Hydra. It allows to utilize OAuth 2.0 flows and can be exposed to the public internet without additional authentication/authorization/access control checks.
-- The second `location` block proxies network traffic to the admin API of Ory Hydra. Nginx proxies requests only from the `172.28.0.0/24` subnet or by providing `?secret=CHANGE-ME-INSECURE-PASSWORD` argument for additional security. The Admin API implements administrative endpoints to manage data or `/health` endpoints to check the availability of your instance. You should either not expose these endpoints or implement additional security checks for them.
+- The first `location` block proxies network traffic to the public API of Ory Hydra. It allows to utilize OAuth 2.0 flows and can
+  be exposed to the public internet without additional authentication/authorization/access control checks.
+- The second `location` block proxies network traffic to the admin API of Ory Hydra. Nginx proxies requests only from the
+  `172.28.0.0/24` subnet or by providing `?secret=CHANGE-ME-INSECURE-PASSWORD` argument for additional security. The Admin API
+  implements administrative endpoints to manage data or `/health` endpoints to check the availability of your instance. You should
+  either not expose these endpoints or implement additional security checks for them.
 
 You can find more information about endpoints in the [Prepare for production](../production.md) guide.
 
