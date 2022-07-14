@@ -3,8 +3,8 @@ id: deploy-hydra-example
 title: Deploy to production
 ---
 
-import { useLatestRelease } from '@site/src/hooks'
-import CodeBlock from '@theme/CodeBlock'
+import { useLatestRelease } from "@site/src/hooks";
+import CodeBlock from "@theme/CodeBlock";
 
 This guide explains how to setup and run Ory Hydra in an exemplary production environment. It uses Postgres as database, Nginx as
 reverse proxy, and Digital Ocean as cloud provider. You can use another
@@ -12,15 +12,9 @@ reverse proxy, and Digital Ocean as cloud provider. You can use another
 deploy on any other cloud host, and
 [spin up a custom user interface in your favorite language](https://www.ory.sh/docs/hydra/sdk/) - this is just an example!
 
-The guide covers the following topics:
-
-- Installation and configuration of [Postgres](https://www.postgresql.org/)
-- Installation and configuration of [Ory Hydra](../install.mdx)
-- Installation and configuration of [Nginx](https://www.nginx.com/)
-
 ## Create a Droplet
 
-Spin up a droplet with the following configuration:
+Spin up a Droplet (virtual machine) with the following configuration:
 
 - **OS**: Ubuntu 20.04
 - **Plan**: Basic
@@ -33,19 +27,19 @@ Spin up a droplet with the following configuration:
 
 :::note
 
-This example shows a single configuration on a small droplet. The configuration of a virtual machine (VM) may vary depending on
+This example shows basic configuration of Ory Hydra on a single virtual machine (VM). The configuration of a VM may vary depending on
 the scale of your application.
 
 :::
 
-Wait for the virtual machine (VM) to start up and copy the IP address.
+Wait for the Droplet to start up and copy the IP address.
 
 This guide uses `oauth2.example.com` as a hostname to run Ory Hydra. Replace it with `<something>.<your-domain>` for your
 purposes. You need to configure DNS, create an `A type` record, and point it to the VM's IP.
 
 ## Install required dependencies
 
-Connect to your [droplet via SSH](https://docs.digitalocean.com/products/droplets/how-to/connect-with-ssh/) or use the
+Connect to your [Droplet via SSH](https://docs.digitalocean.com/products/droplets/how-to/connect-with-ssh/) or use the
 [Droplet Console](https://docs.digitalocean.com/products/droplets/how-to/connect-with-console/).
 
 First upgrade all packages in your VM.
@@ -150,11 +144,11 @@ Install Ory Hydra:
 <CodeBlock className="language-shell">{`
 cd /opt/hydra/bin
 # Download a new version of Ory Hydra
-wget https://github.com/ory/hydra/releases/download/${useLatestRelease('hydra')}/hydra_${useLatestRelease(
-  'hydra'
-)}-linux_64bit.tar.gz
+wget https://github.com/ory/hydra/releases/download/${useLatestRelease(
+  "hydra"
+)}/hydra_${useLatestRelease("hydra")}-linux_64bit.tar.gz
 # Extract contents
-tar xfvz hydra_${useLatestRelease('hydra')}-linux_64bit.tar.gz
+tar xfvz hydra_${useLatestRelease("hydra")}-linux_64bit.tar.gz
 # Remove redundant files
 rm *md
 rm LICENSE
@@ -163,7 +157,9 @@ rm LICENSE
 Download the [Quickstart](../5min-tutorial) configuration files:
 
 <CodeBlock className="language-shell">{`cd ../config
-wget https://raw.githubusercontent.com/ory/hydra/${useLatestRelease('hydra')}/contrib/quickstart/5-min/hydra.yml`}</CodeBlock>
+wget https://raw.githubusercontent.com/ory/hydra/${useLatestRelease(
+  "hydra"
+)}/contrib/quickstart/5-min/hydra.yml`}</CodeBlock>
 
 We need to add some configuration in `hydra.yml` to use our Postgres We need configure Ory Hydra to use the Postgres database.
 Open `hydra.yml` and change the dsn configuration. In the default quickstart configuration Ory Hydra is storing data in an SQLite
@@ -484,7 +480,6 @@ service nginx reload
 
 You can test if Ory Hydra runs by doing a health check at
 `https://oauth2.example.com/health?secret=CHANGE-ME-INSECURE-PASSWORD`.
-
 
 ## Next Steps
 
