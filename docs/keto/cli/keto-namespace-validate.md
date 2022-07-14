@@ -9,16 +9,16 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## keto namespace validate
 
 Validate namespace definitions
 
 ### Synopsis
 
-validate
-Validates namespace definitions. Parses namespace yaml files or configuration
-files passed via the configuration flag. Returns human readable errors. Useful for
-debugging.
+validate Validates namespace definitions. Parses namespace yaml files or
+configuration files passed via the configuration flag. Returns human readable
+errors. Useful for debugging.
 
 ```
 keto namespace validate <namespace.yml> [<namespace2.yml> ...] | validate -c <config.yaml> [flags]
@@ -38,4 +38,4 @@ keto namespace validate <namespace.yml> [<namespace2.yml> ...] | validate -c <co
 
 ### SEE ALSO
 
-* [keto namespace](keto-namespace)	 - Read and manipulate namespaces
+- [keto namespace](keto-namespace) - Read and manipulate namespaces

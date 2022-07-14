@@ -9,13 +9,15 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## keto migrate down
 
 Migrate the database down
 
 ### Synopsis
 
-Migrate the database down a specific amount of steps. Pass 0 steps to fully migrate down.
+Migrate the database down a specific amount of steps. Pass 0 steps to fully
+migrate down.
 
 ```
 keto migrate down <steps> [flags]
@@ -38,4 +40,4 @@ keto migrate down <steps> [flags]
 
 ### SEE ALSO
 
-* [keto migrate](keto-migrate)	 - Commands to migrate the database
+- [keto migrate](keto-migrate) - Commands to migrate the database

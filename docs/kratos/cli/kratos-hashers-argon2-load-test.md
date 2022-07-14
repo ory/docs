@@ -11,13 +11,16 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## kratos hashers argon2 load-test
 
 Simulate the password hashing with a number of concurrent requests/minute.
 
 ### Synopsis
 
-Simulates a number of concurrent authentication requests per minute. Gives statistical data about the measured performance and resource consumption. Can be used to tune and test the hashing parameters for peak demand situations.
+Simulates a number of concurrent authentication requests per minute. Gives
+statistical data about the measured performance and resource consumption. Can be
+used to tune and test the hashing parameters for peak demand situations.
 
 ```
 kratos hashers argon2 load-test <authentication-requests-per-minute> [flags]
@@ -42,4 +45,4 @@ kratos hashers argon2 load-test <authentication-requests-per-minute> [flags]
 
 ### SEE ALSO
 
-* [kratos hashers argon2](kratos-hashers-argon2)	 -
+- [kratos hashers argon2](kratos-hashers-argon2) -

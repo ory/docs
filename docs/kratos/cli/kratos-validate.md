@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## kratos validate
 
 Validate resources
@@ -24,5 +25,6 @@ Validate resources
 
 ### SEE ALSO
 
-* [kratos](kratos)	 -
-* [kratos validate identity](kratos-validate-identity)	 - Validate local identity files
+- [kratos](kratos) -
+- [kratos validate identity](kratos-validate-identity) - Validate local identity
+  files

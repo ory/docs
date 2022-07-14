@@ -1,7 +1,7 @@
 ---
 id: kratos-lint-lint
 title: kratos lint lint
-description: kratos lint lint 
+description: kratos lint lint
 ---
 
 <!--
@@ -9,9 +9,8 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## kratos lint lint
-
-
 
 ### Synopsis
 
@@ -55,5 +54,4 @@ kratos lint lint path/to/files/*.jsonnet [more/files.jsonnet] [supports/**/{foo,
 
 ### SEE ALSO
 
-* [kratos lint](kratos-lint)	 - Helpers for linting code
-
+- [kratos lint](kratos-lint) - Helpers for linting code

@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## kratos delete
 
 Delete resources
@@ -24,5 +25,6 @@ Delete resources
 
 ### SEE ALSO
 
-* [kratos](kratos)	 -
-* [kratos delete identity](kratos-delete-identity)	 - Delete one or more identities by their ID(s)
+- [kratos](kratos) -
+- [kratos delete identity](kratos-delete-identity) - Delete one or more
+  identities by their ID(s)

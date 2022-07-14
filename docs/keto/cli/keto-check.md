@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## keto check
 
 Check whether a subject has a relation on an object
@@ -41,5 +42,4 @@ keto check <subject> <relation> <namespace> <object> [flags]
 
 ### SEE ALSO
 
-* [keto](keto)	 - Global and consistent permission and authorization server
-
+- [keto](keto) - Global and consistent permission and authorization server

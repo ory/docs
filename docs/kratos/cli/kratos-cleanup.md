@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## kratos cleanup
 
 Various cleanup helpers
@@ -22,5 +23,6 @@ Various cleanup helpers
 
 ### SEE ALSO
 
-* [kratos](kratos)	 -
-* [kratos cleanup sql](kratos-cleanup-sql)	 - Cleanup sql database from expired flows and sessions
+- [kratos](kratos) -
+- [kratos cleanup sql](kratos-cleanup-sql) - Cleanup sql database from expired
+  flows and sessions

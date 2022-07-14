@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## kratos import
 
 Import resources
@@ -24,5 +25,6 @@ Import resources
 
 ### SEE ALSO
 
-* [kratos](kratos)	 -
-* [kratos import identities](kratos-import-identities)	 - Import one or more identities from files or STD_IN
+- [kratos](kratos) -
+- [kratos import identities](kratos-import-identities) - Import one or more
+  identities from files or STD_IN

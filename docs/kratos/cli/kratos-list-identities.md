@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## kratos list identities
 
 List identities
@@ -43,5 +44,4 @@ kratos ls identities 100 1
 
 ### SEE ALSO
 
-* [kratos list](kratos-list)	 - List resources
-
+- [kratos list](kratos-list) - List resources
