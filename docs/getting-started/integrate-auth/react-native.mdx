@@ -33,29 +33,29 @@ Follow these steps:
 
 1. Run these commands to install Expo and create a new project using the Ory templates:
 
-```shell
-# Install Expo
-npm install -g expo-cli
-# Create a new project using Ory templates
-expo init login-signup-app -t @ory/expo-login-registration-template --npm
-```
+   ```shell
+   # Install Expo
+   npm install -g expo-cli
+   # Create a new project using Ory templates
+   expo init login-signup-app -t @ory/expo-login-registration-template --npm
+   ```
 
 2. Next, install and initialize all required components. Run:
 
-```shell
-cd login-signup-app
-npm i
-npm run expo-install
-# For iOS you also need to run:
-npm run pod-install
-```
+   ```shell
+   cd login-signup-app
+   npm i
+   npm run expo-install
+   # For iOS you also need to run:
+   npm run pod-install
+   ```
 
 3. At this point, the application is ready for you to explore! Use these commands to run the application in the preferred way:
 
-- `npm start` opens a dashboard where you can choose to run the app in iOS, Android, or web environments.
-- `npm run android` runs the app in the Android environment (requires a connected Android VM or device).
-- `npm run ios` runs the app in the iOS environment iOS (available only on macOS).
-- `npm run web` run the app in the browser.
+   - `npm start` opens a dashboard where you can choose to run the app in iOS, Android, or web environments.
+   - `npm run android` runs the app in the Android environment (requires a connected Android VM or device).
+   - `npm run ios` runs the app in the iOS environment iOS (available only on macOS).
+   - `npm run web` runs the app in the browser.
 
 By default, the application uses the Ory Cloud Playground project, which is a public demo environment available to all Ory users.
 When using the application this way, make sure to anonymize any data you send to Ory!
@@ -70,7 +70,7 @@ APIs. Follow these steps:
 2. Open the `app.config.js` file to configure the application.
 3. Find the `KRATOS_URL` variable and replace the playground project URL with the SDK URL you copied from your project.
 
-<CodeFromRemote lang="js" src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/app.config.js" />
+    <CodeFromRemote lang="js" src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/app.config.js" />
 
 ## Understanding the Implementation
 
