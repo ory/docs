@@ -26,7 +26,7 @@
     - [Formatting Documentation](#formatting-documentation)
     - [Markdownlint](#markdownlint)
   - [How-To](#how-to)
-    - [Add content to example page](#add-content-to-example-page)
+    - [Add Content to Example Page](#add-content-to-example-page)
     - [Links to Other Pages](#links-to-other-pages)
     - [Import Markdown](#import-markdown)
     - [Code Snippets](#code-snippets)
@@ -207,7 +207,7 @@ Locally:
 
 ## How-To
 
-### Add content to example page
+### Add Content to Example Page
 
 [The example page](https://www.ory.sh/docs/examples) provides an overview of Ory
 examples. Add a new example or modify existing entries:
