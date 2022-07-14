@@ -35,14 +35,14 @@ the scale of your application.
 Wait for the Droplet to start up and copy the IP address.
 
 This guide uses `oauth2.example.com` as a hostname to run Ory Hydra. Replace it with `<something>.<your-domain>` for your
-purposes. You need to configure DNS, create an `A type` record, and point it to the VM's IP.
+purposes. At your hosting provider, configure DNS, create an `A type` record, and point it to the Droplet IP .
 
 ## Install required dependencies
 
 Connect to your [Droplet via SSH](https://docs.digitalocean.com/products/droplets/how-to/connect-with-ssh/) or use the
 [Droplet Console](https://docs.digitalocean.com/products/droplets/how-to/connect-with-console/).
 
-First upgrade all packages in your VM.
+First upgrade all packages in your Droplet.
 
 ```bash
 apt-get update && apt-get upgrade
