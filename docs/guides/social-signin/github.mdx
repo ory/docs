@@ -12,6 +12,16 @@ Follow these steps to add GitHub as a social sign-in provider for your for your 
 3. Copy the Redirect URI and save it for later use.
 4. Create an OAuth2 app in GitHub. Open a new browser tab, go to
    [Developer settings → OAuth Apps](https://github.com/settings/developers) and click **New OAuth App**.
+
+   :::info
+
+   Currently, the Ory Cloud Console allows you to integrate with GitHub through a GitHub OAuth App. If you want to create an
+   integration through a
+   [GitHub App](https://docs.github.com/en/developers/apps/getting-started-with-apps/differences-between-github-apps-and-oauth-apps),
+   use the Ory CLI. For more information read [these instructions](#configuration-using-the-ory-cli).
+
+   :::
+
 5. Paste the Redirect URI copied from Ory into the **Authorization Callback URL** field in GitHub and fill in other required app
    details.
 6. Click the **Register application** button.
@@ -93,7 +103,7 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
 
 Follow these steps to add GitHub as a social sign-in provider to your Ory Cloud project using the Ory CLI:
 
-1. [Create a GitHub OAuth app](#configuration-in-ory-cloud-console).
+1. [Create a GitHub OAuth app or a GitHub App](#configuration-in-ory-cloud-console).
 2. Create a [Jsonnet code snippet](#data-mapping) to map the desired claims to the Ory Identity schema.
 3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Cloud.
 4. Download the Identity Service config from your Ory Cloud project and save it to a file:
@@ -116,7 +126,7 @@ Follow these steps to add GitHub as a social sign-in provider to your Ory Cloud 
          config:
            providers:
              - id: github # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
-               provider: github
+               provider: github # This defines the app type used for integration. Use 'github' for GitHub OAuth app. Use 'github-app' for GitHub App.
                client_id: .... # Replace this with the OAuth2 Client ID provided by GitHub
                client_secret: .... # Replace this with the OAuth2 Client Secret provided by GitHub
                mapper_url: "base64://<YOUR_BASE64_ENCODED_JSONNET_HERE>"
