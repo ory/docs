@@ -22,7 +22,7 @@
     - [Lists](#lists)
   - [Testing](#testing)
     - [Playwright tests](#playwright-tests)
-    - [Jest Tests](#jest-tests)
+    - [Jest tests](#jest-tests)
     - [Formatting documentation](#formatting-documentation)
     - [Markdownlint](#markdownlint)
   - [How to...](#how-to)
@@ -165,7 +165,7 @@ to run Playright tests locally. To test the documentation locally:
 1. Run the Docs webserver and test the documentation by running: `npm start`
 1. Build the docs and verify by running: `npm run build`
 
-### Jest Tests
+### Jest tests
 
 The Playwright (E2E) tests file names end with `.test.ts` and can be found in
 `/tests/jest`.
