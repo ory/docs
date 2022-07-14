@@ -37,18 +37,18 @@ Wait for the Droplet to start up and copy the IP address.
 This guide uses `oauth2.example.com` as a hostname to run Ory Hydra. Replace it with `<something>.<your-domain>` for your
 purposes. At your hosting provider, configure DNS, create an `A type` record, and point it to the Droplet IP .
 
-## Install required dependencies
+## Install Dependencies
 
 Connect to your [Droplet via SSH](https://docs.digitalocean.com/products/droplets/how-to/connect-with-ssh/) or use the
 [Droplet Console](https://docs.digitalocean.com/products/droplets/how-to/connect-with-console/).
 
-First upgrade all packages in your Droplet.
+First, upgrade all packages on your Droplet.
 
 ```bash
 apt-get update && apt-get upgrade
 ```
 
-The default version of [Node.js](https://nodejs.org/en/) is v10.19.0 on Ubuntu 20.04, we need to install a newer version. You can
+Since the default version of [Node.js](https://nodejs.org/en/) is outdated we need to install a newer version. You can
 use the following script to install Node.js 16.x on a Ubuntu system.
 
 ```bash
@@ -92,26 +92,26 @@ SELECT pg_reload_conf();
 # Reload configuration
 ```
 
-Let's create a user for Hydra (Use your own password / hash!):
+Let's create a Postgres user for Hydra:
 
 ```bash
-CREATE USER hydra PASSWORD 'CHANGE-ME-INSECURE-PASSWORD';
+CREATE USER hydra PASSWORD '<YOUR_PASSWORD_HERE>';
 ```
 
-We need to change the `/etc/postgresql/12/main/pg_hba.conf` file and append the following to enable `scram-sha-256` encryption:
+Edit the `/etc/postgresql/12/main/pg_hba.conf` file and add the following to enable `scram-sha-256` encryption:
 
 ```bash
 host    all             all             127.0.0.1/32            scram-sha-256
 ```
 
-Check your credentials against PostgreSQL:
+Check your credentials against Postgres:
 
 ```bash
 psql -U hydra -W -h 127.0.0.1
 
 ```
 
-Type or paste the password for the Ory Hydra user we created before. If everything works correctly you should see a prompt similar
+Use the password for the Ory Hydra user we created before to log into Postgres. If everything works correctly you should see a prompt similar
 to this:
 
 ```
