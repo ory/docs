@@ -27,7 +27,7 @@ module.exports = {
               "Single Page App (SPA)": [
                 "getting-started/integrate-auth/nextjs",
                 "getting-started/integrate-auth/flutter-web-redirect",
-                "getting-started/integrate-auth/react"
+                "getting-started/integrate-auth/react",
               ],
             },
             {
