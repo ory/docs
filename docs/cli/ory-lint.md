@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## ory lint
 
 Helpers for linting code
@@ -21,6 +22,5 @@ Helpers for linting code
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
-* [ory lint lint](ory-lint-lint)	 - 
-
+- [ory](ory) - The ORY CLI
+- [ory lint lint](ory-lint-lint) -

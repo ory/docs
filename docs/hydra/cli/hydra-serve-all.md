@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## hydra serve all
 
 Serves both public and administrative HTTP/2 APIs
@@ -17,23 +18,22 @@ Serves both public and administrative HTTP/2 APIs
 
 Starts a process which listens on two ports for public and administrative HTTP/2 API requests.
 
-If you want more granular control (e.g. different TLS settings) over each API group (administrative, public) you
-can run &#34;serve admin&#34; and &#34;serve public&#34; separately.
+If you want more granular control (e.g. different TLS settings) over each API group (administrative, public) you can run
+&#34;serve admin&#34; and &#34;serve public&#34; separately.
 
-This command exposes a variety of controls via environment variables. You can
-set environments using &#34;export KEY=VALUE&#34; (Linux/macOS) or &#34;set KEY=VALUE&#34; (Windows). On Linux,
-you can also set environments by prepending key value pairs: &#34;KEY=VALUE KEY2=VALUE2 hydra&#34;
+This command exposes a variety of controls via environment variables. You can set environments using &#34;export KEY=VALUE&#34;
+(Linux/macOS) or &#34;set KEY=VALUE&#34; (Windows). On Linux, you can also set environments by prepending key value pairs:
+&#34;KEY=VALUE KEY2=VALUE2 hydra&#34;
 
-All possible controls are listed below. This command exposes exposes command line flags, which are listed below
-the controls section.
+All possible controls are listed below. This command exposes exposes command line flags, which are listed below the controls
+section.
 
 ## Configuration
 
-Ory Hydra can be configured using environment variables as well as a configuration file. For more information
-on configuration options, open the configuration documentation:
+Ory Hydra can be configured using environment variables as well as a configuration file. For more information on configuration
+options, open the configuration documentation:
 
 &gt;&gt; https://www.ory.sh/hydra/docs/reference/configuration &lt;&lt;
-
 
 ```
 hydra serve all [flags]
@@ -56,5 +56,4 @@ hydra serve all [flags]
 
 ### SEE ALSO
 
-* [hydra serve](hydra-serve)	 - Parent command for starting public and administrative HTTP/2 APIs
-
+- [hydra serve](hydra-serve) - Parent command for starting public and administrative HTTP/2 APIs

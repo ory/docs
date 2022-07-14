@@ -151,7 +151,7 @@
     },
     {
       "source": "/docs/start-building/server-side-web-app",
-      "destination": "https://www.ory.sh/docs/guides/protect-page-login",
+      "destination": "https://www.ory.sh/docs/guides/protect-page-login/go",
       "permanent": false
     },
     {
@@ -422,6 +422,166 @@
     {
       "source": "/docs/guides/passwordless/social-sign-in",
       "destination": "https://www.ory.sh/docs/guides/social-signin/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/concepts/self-service",
+      "destination": "https://www.ory.sh/docs/kratos/self-service",
+      "permanent": false
+    },
+    {
+      "source": "/docs/concepts/identity",
+      "destination": "https://www.ory.sh/docs/guides/manage-identities/identity",
+      "permanent": false
+    },
+    {
+      "source": "/docs/concepts/managed-ui",
+      "destination": "https://www.ory.sh/docs/welcome",
+      "permanent": false
+    },
+    {
+      "source": "/docs/concepts/project-invite-membership",
+      "destination": "https://www.ory.sh/docs/welcome",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/console/create-project",
+      "destination": "https://www.ory.sh/docs/welcome",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/create-personal-access-token",
+      "destination": "https://www.ory.sh/docs/welcome",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/milestones",
+      "destination": "https://github.com/ory/hydra/milestones",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/concepts/credentials/lookup-secrets",
+      "destination": "https://www.ory.sh/docs/guides/mfa/lookup-secrets",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/mfa/lookup_secrets",
+      "destination": "https://www.ory.sh/docs/guides/mfa/lookup-secrets",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/concepts/credentials/openid-connect-oidc-oauth2",
+      "destination": "https://www.ory.sh/docs/guides/social-signin/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/concepts/credentials/totp",
+      "destination": "https://www.ory.sh/docs/guides/mfa/totp",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/concepts/credentials/webauthn",
+      "destination": "https://www.ory.sh/docs/guides/mfa/webauthn-fido-yubikey",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/concepts/federation",
+      "destination": "https://www.ory.sh/docs/kratos/",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/concepts/management-ui",
+      "destination": "https://www.ory.sh/docs/welcome",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/concepts/rest-api",
+      "destination": "https://www.ory.sh/docs/ecosystem/api-design",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/concepts/securing-applications",
+      "destination": "https://www.ory.sh/docs/kratos/",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/concepts/terminology",
+      "destination": "https://www.ory.sh/docs/concepts/terminology",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/further-reading/comparison",
+      "destination": "https://www.ory.sh/docs/kratos/",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/further-reading/kratos-video-tutorials",
+      "destination": "https://www.ory.sh/docs/kratos/quickstart",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/guides/retrieve-social-sign-in-access-refresh-id-token",
+      "destination": "https://www.ory.sh/docs/guides/social-signin/get-tokens",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/guides/setting-up-aes-cipher-parameters",
+      "destination": "https://www.ory.sh/docs/kratos/guides/select-cipher-algorithm",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/guides/setting-up-noop-cipher-parameters",
+      "destination": "https://www.ory.sh/docs/kratos/guides/select-cipher-algorithm",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/guides/setting-up-xchacha-cipher-parameters",
+      "destination": "https://www.ory.sh/docs/kratos/guides/select-cipher-algorithm",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/self-service/flows/2fa-mfa-multi-factor-authentication",
+      "destination": "https://www.ory.sh/docs/guides/mfa/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/start-building/deploy-auth-production",
+      "destination": "https://www.ory.sh/docs/guides/custom-domains",
+      "permanent": false
+    },
+    {
+      "source": "/docs/start-building/other-languages",
+      "destination": "https://www.ory.sh/docs/examples",
+      "permanent": false
+    },
+    {
+      "source": "/docs/start-building/single-page-app-spa",
+      "destination": "https://www.ory.sh/login-spa-react-nextjs-authentication-example-api-open-source/",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/protect-page-login/index",
+      "destination": "https://www.ory.sh/docs/examples",
+      "permanent": false
+    },
+    {
+      "source": "/docs/concepts/services-api",
+      "destination": "https://www.ory.sh/docs/welcome",
+      "permanent": false
+    },
+    {
+      "source": "/docs/keto/implemented-planned-features",
+      "destination": "https://www.ory.sh/docs/guides/cli/configure-permission-service",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/protect-page-login",
+      "destination": "https://www.ory.sh/docs/examples",
+      "permanent": false
+    },
+    {
+      "source": "/docs/concepts/session",
+      "destination": "https://www.ory.sh/docs/guides/session-management/overview",
       "permanent": false
     }
   ]

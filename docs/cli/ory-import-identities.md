@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## ory import identities
 
 Import one or more identities from files or STD_IN
@@ -17,7 +18,8 @@ Import one or more identities from files or STD_IN
 
 Import identities from files or STD_IN.
 
-Files can contain only a single or an array of identities. The validity of files can be tested beforehand using "... identities validate".
+Files can contain only a single or an array of identities. The validity of files can be tested beforehand using "... identities
+validate".
 
 WARNING: Importing credentials is not yet supported.
 
@@ -64,5 +66,4 @@ Alternatively:
 
 ### SEE ALSO
 
-* [ory import](ory-import)	 - Import resources
-
+- [ory import](ory-import) - Import resources

@@ -3,35 +3,31 @@ id: proxy-websockets
 title: Define WebSockets Rules
 ---
 
-import { useLatestRelease } from '@site/src/hooks'
-import CodeBlock from '@theme/CodeBlock'
+import { useLatestRelease } from "@site/src/hooks"
+import CodeBlock from "@theme/CodeBlock"
 
-This guide shows how to use Ory Oathkeeper with
-[WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API).
+This guide shows how to use Ory Oathkeeper with [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API).
 
 :::tip
 
-WebSockets bypass Ory Oathkeeper after the first request and thus Ory Oathkeeper
-only validates cookies once. It is up to your service to make sure that
-WebSocket connections expire within a reasonable time frame so the session
-cookie is still active and valid.
+WebSockets bypass Ory Oathkeeper after the first request and thus Ory Oathkeeper only validates cookies once. It is up to your
+service to make sure that WebSocket connections expire within a reasonable time frame so the session cookie is still active and
+valid.
 
 :::
 
-Let's create a simple echo WebSocket service that sends back an accepted
-message. We'll use the [Gin Web framework](https://github.com/gin-gonic/gin) to
-build our application, and [Ory Kratos](https://github.com/ory/kratos) to handle
-user login, sign-up, and verification flows.
+Let's create a simple echo WebSocket service that sends back an accepted message. We'll use the
+[Gin Web framework](https://github.com/gin-gonic/gin) to build our application, and [Ory Kratos](https://github.com/ory/kratos) to
+handle user login, sign-up, and verification flows.
 
 ## Install Ory Kratos and Ory Oathkeeper
 
-You can create any directory for testing and create a `docker-compose.yml` file
-with the following content:
+You can create any directory for testing and create a `docker-compose.yml` file with the following content:
 
 <CodeBlock className="language-yaml">{`version: "3.7"
 services:
   oathkeeper:
-    image: oryd/oathkeeper:${useLatestRelease('oathkeeper')}
+    image: oryd/oathkeeper:${useLatestRelease("oathkeeper")}
     depends_on:
       - kratos
     ports:
@@ -55,7 +51,7 @@ services:
     networks:
       - intranet
   kratos-migrate:
-    image: oryd/kratos:${useLatestRelease('kratos')}
+    image: oryd/kratos:${useLatestRelease("kratos")}
     links:
       - postgres-kratos:postgres-kratos
     environment:
@@ -68,7 +64,7 @@ services:
         target: /etc/config/kratos
     command: -c /etc/config/kratos/kratos.yml migrate sql -e --yes
   kratos:
-    image: oryd/kratos:${useLatestRelease('kratos')}
+    image: oryd/kratos:${useLatestRelease("kratos")}
     links:
       - postgres-kratos:postgres-kratos
     environment:
@@ -119,14 +115,13 @@ Other ports and services are available only in the internal network.
 
 <CodeBlock className="language-shell">{`mkdir kratos
 wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
-  'kratos'
+  "kratos",
 )}/contrib/quickstart/kratos/email-password/identity.schema.json -O kratos/identity.schema.json
 wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
-  'kratos'
+  "kratos",
 )}/contrib/quickstart/kratos/email-password/kratos.yml -O kratos/kratos.yml`}</CodeBlock>
 
-2. Create a `oathkeeper` folder and `oathkeeper/oathkeeper.yml` with the
-   following content:
+2. Create a `oathkeeper` folder and `oathkeeper/oathkeeper.yml` with the following content:
 
 ```mdx-code-block title="oathkeeper/oathkeeper.yml"
 import oathkeeper from '!!raw-loader!../../../code-examples/oathkeeper/oathkeeper/oathkeeper.yml'
@@ -143,16 +138,14 @@ import rules from '!!raw-loader!../../../code-examples/oathkeeper/oathkeeper/acc
 ```
 
 This configuration of Ory Oathkeeper uses the
-[cookie authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#cookie_session)
-against Ory Kratos and proxies only authenticated requests to `http://ws:8080`
-upstream. The `ws` hostname is resolved through the Docker network. If you
-aren't deploying your application within Docker, this would just be your
-localhost IP.
+[cookie authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#cookie_session) against Ory Kratos and proxies only
+authenticated requests to `http://ws:8080` upstream. The `ws` hostname is resolved through the Docker network. If you aren't
+deploying your application within Docker, this would just be your localhost IP.
 
 ## WebSocket service
 
-1. Let's create a folder `ws` and create our WebSocket service using Go and Gin
-   framework. Create `ws/main.go` file with the following content:
+1. Let's create a folder `ws` and create our WebSocket service using Go and Gin framework. Create `ws/main.go` file with the
+   following content:
 
 ```mdx-code-block title="ws/main.go"
 import app from '!!raw-loader!../../../code-examples/oathkeeper/ws/main.go'
@@ -191,7 +184,7 @@ services:
 ---
 ws:
   build:
-    context: 'ws'
+    context: "ws"
   networks:
     - intranet
 ```

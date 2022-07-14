@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## ory validate
 
 Validate resources
@@ -25,6 +26,5 @@ Validate resources
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
-* [ory validate identity](ory-validate-identity)	 - Validate local identity files
-
+- [ory](ory) - The ORY CLI
+- [ory validate identity](ory-validate-identity) - Validate local identity files

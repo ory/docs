@@ -26,12 +26,13 @@ modifies the core technology. This isn't an exhaustive list. Want your own conte
 - [Starter for Svelte Kit and the Ory Stack](https://github.com/MicLeey/sveltekit-ory-starter)
 - [Reference Ory Docker Compose Setup ](https://github.com/radekg/ory-reference-compose) +
   [Article](https://gruchalski.com/posts/2021-04-10-ory-reference-docker-compose-and-thoughts-on-the-platform/)
-- [WIP Ory Hydra/Kratos Integration in Go](https://github.com/atreya2011/go-kratos-test)
+- [Ory Hydra/Kratos Integration in Go](https://github.com/atreya2011/go-kratos-test/tree/hydra-consent)
 - [Ory Kratos "hydra-integration" branch](https://github.com/ory/kratos-selfservice-ui-node/tree/hydra-integration-2021)
 - [Predefined dockertest libraries for Hydra, Kratos & Keto integration tests](https://github.com/radekg/app-kit-orytest)
 
 ### Ory Kratos
 
+- [Ory Kratos configuration to deploy on fly.io](https://github.com/tinco/kratos-service)
 - [Ory Kratos Vue 3/Vite with Typescript example](https://github.com/timalanfarrow/kratos-selfservice-ui-vue3-typescript)
 - [Ory Kratos Quarkus, Kotlin, and Qute example](https://github.com/hbrammer/quarkus_kratos_example)
 - [Ory Kratos Admin Interface in React](https://github.com/dfoxg/kratos-admin-ui)
@@ -97,6 +98,7 @@ knowledge and experiences? [Reach out to us](mailto:office@ory.sh) to be publish
 
 #### Ory Hydra
 
+- [Ory Hydra with Apache APISIX integration](https://apisix.apache.org/blog/2022/07/04/apisix-integrates-with-hydra/)
 - [Practical Example of Implementing OAuth 2.0 Using ory/hydra](https://yusufs.medium.com/practical-example-of-implementing-oauth-2-0-using-ory-hydra-fbaa2765d94f)
 - OAuth 2.0 with Ory Hydra and Vapor on iOS:
   [Part 1](https://medium.com/12plus1/oauth2-with-ory-hydra-vapor-3-and-ios-12-ca0e61c28f5a),

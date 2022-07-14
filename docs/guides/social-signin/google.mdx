@@ -19,19 +19,19 @@ Follow these steps to add Google as a social sign-in provider for your Ory Cloud
 3. Copy the Redirect URI and save it for later use.
 4. Go to [Google Cloud Console → APIs & Services](https://console.cloud.google.com/apis/) to set up OAuth 2.
 5. Using the project dropdown menu, select an existing project or create a new one.
-6. Go to [Credentials](https://console.cloud.google.com/apis/credentials) and create a new [OAuth client ID](https://console.cloud.google.com/apis/credentials/oauthclient). 
+6. Go to [Credentials](https://console.cloud.google.com/apis/credentials) and create a new
+   [OAuth client ID](https://console.cloud.google.com/apis/credentials/oauthclient).
 
-  :::info
+   :::info
 
-  You must have a consent screen configured to proceed.
+   You must have a consent screen configured to proceed.
 
-  ::: 
+   :::
 
-7. Configure the Google OAuth client. In the **Authorized redirect URIs** section, add the redirect URI copied from the Ory
-Cloud Console. 
-8. Save the configuration and copy the Client ID and Client secret. 
-9. Paste the Client ID and Client secret of the
-created OAuth client into the corresponding fields in the Ory Cloud Console.  
+7. Configure the Google OAuth client. In the **Authorized redirect URIs** section, add the redirect URI copied from the Ory Cloud
+   Console.
+8. Save the configuration and copy the Client ID and Client secret.
+9. Paste the Client ID and Client secret of the created OAuth client into the corresponding fields in the Ory Cloud Console.
 10. Click **Save Configuration** to enable Google as a social sign-in provider.
 
 :::note
@@ -62,9 +62,8 @@ To learn more about the scopes available for Google, read the
 
 The Data Mapping section allows you to map the data returned by the sign-in provider to traits as defined in the identity schema.
 
-To define the mapping, create a Jsonnet code snippet. Read
-[this document](../../kratos/concepts/credentials/openid-connect-oidc-oauth2#data-mapping-with-jsonnet) to learn more about data
-mapping with Jsonnet.
+To define the mapping, create a Jsonnet code snippet. Read [this document](./data-mapping) to learn more about Jsonnet data
+mapping.
 
 ```json
 local claims = {
@@ -116,52 +115,52 @@ Follow these steps to add Google as a social sign-in provider to your Ory Cloud 
 3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Cloud.
 4. Download the Identity Service config from your Ory Cloud project and save it to a file:
 
-  ```shell
-  ## List all available projects
-  ory list projects
+   ```shell
+   ## List all available projects
+   ory list projects
 
-  ## Get config
-  ory get identity-config <project-id> --format yaml > identity-config.yaml
-  ```
+   ## Get config
+   ory get identity-config <project-id> --format yaml > identity-config.yaml
+   ```
 
 5. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
    string or provide an URL to the file.
 
-  ```yaml
-  selfservice:
-    methods:
-      oidc:
-        config:
-          providers:
-          - id: google # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
-            provider: google
-            client_id: .... # Replace this with the OAuth2 Client ID
-            client_secret: .... # Replace this with the OAuth2 Client secret
-            mapper_url: 'base64://<YOUR_BASE64_ENCODED_JSONNET_HERE>'
-            # Alternatively, use an URL:
-            # mapper_url: https://storage.googleapis.com/abc-cde-prd/9cac9717f007808bf17f22ce7f4295c739604b183f05ac4afb4
-            scope:
-            - email
-            - profile
-            # other supported scopes can be found in Google OAuth 2.0 dev docs
-            requested_claims:
-              id_token:
-                email:
-                  essential: true
-                email_verified:
-                  essential: true
-                given_name:
-                  essential: true
-                family_name: null
-                hd: null # If you want the Google Workspace domain
-        enabled: true
-  ```
+   ```yaml
+   selfservice:
+     methods:
+       oidc:
+         config:
+           providers:
+             - id: google # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+               provider: google
+               client_id: .... # Replace this with the OAuth2 Client ID
+               client_secret: .... # Replace this with the OAuth2 Client secret
+               mapper_url: "base64://<YOUR_BASE64_ENCODED_JSONNET_HERE>"
+               # Alternatively, use an URL:
+               # mapper_url: https://storage.googleapis.com/abc-cde-prd/9cac9717f007808bf17f22ce7f4295c739604b183f05ac4afb4
+               scope:
+                 - email
+                 - profile
+               # other supported scopes can be found in Google OAuth 2.0 dev docs
+               requested_claims:
+                 id_token:
+                   email:
+                     essential: true
+                   email_verified:
+                     essential: true
+                   given_name:
+                     essential: true
+                   family_name: null
+                   hd: null # If you want the Google Workspace domain
+         enabled: true
+   ```
 
 6. Update the Ory Cloud Identity Service configuration using the file you worked with:
 
-  ```shell
-  ory update identity-config <project-id> --file updated_config.yaml
-  ```
+   ```shell
+   ory update identity-config <project-id> --file updated_config.yaml
+   ```
 
 ## Configuration for Self-hosted Instances
 
@@ -170,9 +169,9 @@ Follow these steps to add Google as a social sign-in provider when self-hosting 
 1. [Create a Google OAuth client](#configuration-in-ory-cloud-console).
 2. Set the redirect URI to URL that follows this pattern:
 
-  ```shell
-  http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/<social-signin-provider-id>
-  ```
+   ```shell
+   http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/<social-signin-provider-id>
+   ```
 
 3. Create a [Jsonnet code snippet](#data-mapping) to map the desired claims to the Ory Identity schema.
 4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or store it in a location available to your Ory Kratos

@@ -19,9 +19,7 @@
         "type": "string",
         "minLength": 1
       },
-      "default": [
-        "*"
-      ],
+      "default": ["*"],
       "uniqueItems": true,
       "examples": [
         "https://example.com",
@@ -47,13 +45,7 @@
         ]
       },
       "uniqueItems": true,
-      "default": [
-        "GET",
-        "POST",
-        "PUT",
-        "PATCH",
-        "DELETE"
-      ]
+      "default": ["GET", "POST", "PUT", "PATCH", "DELETE"]
     },
     "allowed_headers": {
       "description": "A list of non simple headers the client is allowed to use with cross-domain requests.",
@@ -64,10 +56,7 @@
       },
       "minLength": 1,
       "uniqueItems": true,
-      "default": [
-        "Authorization",
-        "Content-Type"
-      ]
+      "default": ["Authorization", "Content-Type"]
     },
     "exposed_headers": {
       "description": "Indicates which headers are safe to expose to the API of a CORS API specification",
@@ -78,9 +67,7 @@
       },
       "minLength": 1,
       "uniqueItems": true,
-      "default": [
-        "Content-Type"
-      ]
+      "default": ["Content-Type"]
     },
     "allow_credentials": {
       "type": "boolean",
@@ -92,7 +79,8 @@
       "type": "number",
       "default": 0,
       "title": "Maximum Age",
-      "description": "Indicates how long (in seconds) the results of a preflight request can be cached. The default is 0 which stands for no max age."},
+      "description": "Indicates how long (in seconds) the results of a preflight request can be cached. The default is 0 which stands for no max age."
+    },
     "debug": {
       "type": "boolean",
       "default": false,

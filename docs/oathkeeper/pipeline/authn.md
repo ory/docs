@@ -241,6 +241,8 @@ note that Gzipped responses from `check_session_url` are not supported, and will
   `subject`. Example: `identity.id` for `{ "identity": { "id": "1234" } }`.
 - `additional_headers` (map[string]string, optional - defaults empty) - If set, you can either add additional headers or override
   existing ones.
+- `forward_http_headers` ([]string, optional - defaults ["Authorization", "Cookie"]) - If set, you can specify which headers will
+  be forwarded.
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -264,6 +266,24 @@ authenticators:
       check_session_url: https://session-store-host
       only:
         - sessionid
+```
+
+```yaml
+# Some Access Rule: access-rule-1.yaml
+id: access-rule-1
+# match: ...
+# upstream: ...
+authenticators:
+  - handler: cookie_session
+    config:
+      check_session_url: https://session-store-host
+      only:
+        - sessionid
+      forward_http_headers:
+        - Connect
+        - Authorization
+        - Cookie
+        - X-Forwarded-For
 ```
 
 ```yaml
@@ -343,6 +363,8 @@ note that Gzipped responses from `check_session_url` are not supported, and will
     request authentication. It can't be set along with `header` or `cookie`.
   - `cookie` (string, required, one of) - The cookie (case sensitive) that must contain a Bearer token for request authentication.
     It can't be set along with `header` or `query_parameter`
+- `forward_http_headers` ([]string, optional - defaults ["Authorization", "Cookie"]) - If set, you can specify which headers will
+  be forwarded.
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -395,6 +417,10 @@ authenticators:
         # cookie: auth-token
       preserve_path: true
       preserve_query: true
+      forward_http_headers:
+        - Authorization
+        - Cookie
+        - X-Forwarded-For
 ```
 
 ### `bearer_token` Access Rule Example

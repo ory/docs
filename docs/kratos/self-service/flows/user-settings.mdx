@@ -3,19 +3,19 @@ id: user-settings
 title: User Settings and Profile Updates
 ---
 
-import Mermaid from '@site/src/theme/Mermaid'
-import ApiWarning from '@site/src/theme/ApiWarning'
-import SelfServiceBrowserFlow from '@site/src/theme/SelfServiceBrowserFlow'
-import SelfServiceApiFlow from '@site/src/theme/SelfServiceApiFlow'
-import SelfServiceSpaFlow from '@site/src/theme/SelfServiceSpaFlow'
+import Mermaid from "@site/src/theme/Mermaid"
+import ApiWarning from "@site/src/theme/ApiWarning"
+import SelfServiceBrowserFlow from "@site/src/theme/SelfServiceBrowserFlow"
+import SelfServiceApiFlow from "@site/src/theme/SelfServiceApiFlow"
+import SelfServiceSpaFlow from "@site/src/theme/SelfServiceSpaFlow"
 
-import CodeTabs from '@site/src/theme/Code/CodeTabs'
-import { getFlowMethodPasswordWithErrors, getFlowMethodProfileWithErrors, privilegedVideo } from './code/settings'
-import RenderFlow from '@theme/Code/RenderFlow'
-import AjaxWarning from '@theme/AjaxWarning'
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-import DomainWarning from '@theme/DomainWarning'
+import CodeTabs from "@site/src/theme/Code/CodeTabs"
+import { getFlowMethodPasswordWithErrors, getFlowMethodProfileWithErrors, privilegedVideo } from "./code/settings"
+import RenderFlow from "@theme/Code/RenderFlow"
+import AjaxWarning from "@theme/AjaxWarning"
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import DomainWarning from "@theme/DomainWarning"
 
 :::info
 
@@ -201,7 +201,7 @@ echo $sessionToken
 The settings flow for browser clients relies on HTTP redirects between Ory Kratos, your Settings UI, and the end-user's browser:
 
 <SelfServiceBrowserFlow
-  flows={['settings']}
+  flows={["settings"]}
   success="Identity Updated and HTTP 303 redirect to Success Flow"
   interactions={['"Save Profile Changes"']}
 />
@@ -292,7 +292,7 @@ The Settings Flow for client-side browser clients relies on AJAX requests.
 
 <AjaxWarning />
 
-<SelfServiceSpaFlow flows={['settings']} success="Identity Updated and HTTP 200 OK" interactions={['"Save Profile Changes"']} />
+<SelfServiceSpaFlow flows={["settings"]} success="Identity Updated and HTTP 200 OK" interactions={['"Save Profile Changes"']} />
 
 To initialize the Settings Flow, point the Browser to the initialization endpoint:
 
@@ -338,7 +338,7 @@ curl -v -s -X GET \
 
 The Settings Flow for API clients doesn't use HTTP Redirects and can be summarized as follows:
 
-<SelfServiceApiFlow flows={['settings']} success="Identity Updated and HTTP 200 OK" interactions={['"Save Profile Changes"']} />
+<SelfServiceApiFlow flows={["settings"]} success="Identity Updated and HTTP 200 OK" interactions={['"Save Profile Changes"']} />
 
 To initialize the API flow, the client calls the API-flow initialization endpoint
 ([REST API Reference](../../reference/api.mdx#initialize-settings-flow-for-api-clients)) which returns a JSON response:

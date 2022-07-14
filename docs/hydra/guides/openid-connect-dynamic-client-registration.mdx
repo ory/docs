@@ -24,17 +24,49 @@ oidc:
 
 Enabling this feature will add listeners to the following four routes at the public endpoint:
 
-- `POST /openid/register` - Register a new OAuth2 Client;
-- `GET /openid/register/<client_id>` - Fetch the OAuth2 Client;
-- `PUT /openid/register/<client_id>` - Update the OAuth2 Client;
-- `DELETE /openid/register/<client_id>` - Delete the OAuth2 Client;
+- `POST /oauth2/register` - Register a new OAuth2 Client;
+- `GET /oauth2/register/<client_id>` - Fetch the OAuth2 Client;
+- `PUT /oauth2/register/<client_id>` - Update the OAuth2 Client;
+- `DELETE /oauth2/register/<client_id>` - Delete the OAuth2 Client;
 
 ## Register OAuth2 & OpenID Connect Clients
 
 If OpenID Connect Dynamic Client Registration is enabled, registering a new OAuth2 Client is as simple as:
 
+````mdx-code-block
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs
+defaultValue="go"
+values={[
+  {label: 'Go', value: 'go'},
+  {label: 'HTTP', value: 'http'},
+]}>
+<TabItem value="go">
+
+```go
+import ory "github.com/ory/hydra-client-go"
+
+func newSDK(port int, host string) *ory.APIClient {
+	conf := ory.NewConfiguration()
+	conf.Servers = ory.ServerConfigurations{ory.ServerConfiguration{URL: "https://<slug>.projects.oryapis.com"}}
+	return ory.NewAPIClient(conf)
+}
+
+func createDynamicClient() (*ory.OAuth2Client, error) {
+	c, _, err := newSDK().V0Alpha2.
+		DynamicClientRegistrationCreateOAuth2Client(context.Background()).
+		OAuth2Client(ory.OAuth2Client{ /* ClientName: "..." */ }).Execute()
+	return c, err
+}
 ```
-POST /openid/register
+
+</TabItem>
+<TabItem value="http">
+
+```shell
+POST /oauth2/register
 Content-Type: application/json
 
 {
@@ -43,6 +75,10 @@ Content-Type: application/json
   ...
 }
 ```
+
+</TabItem>
+</Tabs>
+````
 
 :::note
 
@@ -62,8 +98,38 @@ also not be read using OpenID Connect Dynamic Client Registration endpoints!
 The `POST` endpoint requires the client to authenticate with the `registration_access_token` regardless of the
 `token_endpoint_auth_method`. It can be used to update the OAuth2 Client.
 
+````mdx-code-block
+<Tabs
+defaultValue="go"
+values={[
+  {label: 'Go', value: 'go'},
+  {label: 'HTTP', value: 'http'},
+]}>
+<TabItem value="go">
+
+```go
+// ...
+func updateDynamicClient(client *ory.OAuth2Client) (*ory.OAuth2Client, error) {
+	c, _, err := newSDK(publicPort, host).V0Alpha2.
+		DynamicClientRegistrationUpdateOAuth2Client(
+			context.WithValue(context.Background(), hydra.ContextAccessToken, *client.RegistrationAccessToken),
+			*client.ClientId,
+		).
+		OAuth2Client(*client).
+		Execute()
+
+	// Don't forget to store the update `registration_access_token`!
+	// newToken := *c.RegistrationAccessToken
+
+	return c, err
+}
 ```
-PUT /openid/register/{client_id}
+
+</TabItem>
+<TabItem value="http">
+
+```shell
+PUT /oauth2/register/{client_id}
 Authorization: Bearer <registration_access_token>
 Content-Type: application/json
 
@@ -72,6 +138,10 @@ Content-Type: application/json
   ...
 }
 ```
+
+</TabItem>
+</Tabs>
+````
 
 The response will include the updated OAuth2 Client.
 
@@ -94,8 +164,32 @@ When updating the OAuth2 Client, the server will respond with a new registration
 The `GET` endpoint requires the client to authenticate with the `registration_access_token` regardless of the
 `token_endpoint_auth_method`. It can be used to retrieve the OAuth2 Client.
 
+````mdx-code-block
+<Tabs
+defaultValue="go"
+values={[
+  {label: 'Go', value: 'go'},
+  {label: 'HTTP', value: 'http'},
+]}>
+<TabItem value="go">
+
+```go
+// ...
+func getDynamicClient(client *ory.OAuth2Client) (*ory.OAuth2Client, error) {
+	c, _, err := newSDK(publicPort, host).V0Alpha2.
+		DynamicClientRegistrationGetOAuth2Client(
+			context.WithValue(context.Background(), hydra.ContextAccessToken, *client.RegistrationAccessToken),
+			*client.ClientId,
+		).Execute()
+	return c, err
+}
 ```
-GET /openid/register/{client_id}
+
+</TabItem>
+<TabItem value="http">
+
+```shell
+GET /oauth2/register/{client_id}
 Authorization: Bearer <registration_access_token>
 Content-Type: application/json
 
@@ -105,12 +199,44 @@ Content-Type: application/json
 }
 ```
 
+</TabItem>
+</Tabs>
+````
+
 ## Delete OAuth2 & OpenID Connect Clients
 
 The `DELETE` endpoint requires the client to authenticate with the `registration_access_token` regardless of the
 `token_endpoint_auth_method`. It can be used to delete the OAuth2 Client.
 
+````mdx-code-block
+<Tabs
+defaultValue="go"
+values={[
+  {label: 'Go', value: 'go'},
+  {label: 'HTTP', value: 'http'},
+]}>
+<TabItem value="go">
+
+```go
+// ...
+func deleteDynamicClient(client *ory.OAuth2Client) (error) {
+	_, err := newSDK(publicPort, host).V0Alpha2.
+		DynamicClientRegistrationDeleteOAuth2Client(
+			context.WithValue(context.Background(), hydra.ContextAccessToken, *client.RegistrationAccessToken),
+			*client.ClientId,
+		).Execute()
+	return err
+}
 ```
-DELETE /openid/register/{client_id}
+
+</TabItem>
+<TabItem value="http">
+
+```shell
+DELETE /oauth2/register/{client_id}
 Authorization: Bearer <registration_access_token>
 ```
+
+</TabItem>
+</Tabs>
+````

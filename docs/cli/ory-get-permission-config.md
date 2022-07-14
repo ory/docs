@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## ory get permission-config
 
 Get an Ory Cloud project's permission configuration
@@ -56,5 +57,4 @@ $ ory get keto-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
 
 ### SEE ALSO
 
-* [ory get](ory-get)	 - Get a resource
-
+- [ory get](ory-get) - Get a resource

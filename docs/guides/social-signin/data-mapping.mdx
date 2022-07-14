@@ -1,0 +1,160 @@
+---
+id: data-mapping
+title: Data Mapping with Jsonnet
+---
+
+Different social sign-in providers will send different data in their payloads. While you might expect to get some basic
+information consistently, the payload isn't standarized.
+
+As a result, when integrating with social sign-in providers, you must specify how to map the data you get from the specific
+provider to the Identity traits.
+
+You define this mapping by creating a [Jsonnet code snippet](../../kratos/reference/jsonnet.mdx). This snippet becomes a part of
+the Identity Service configuration for the given social sign-in provider.
+
+:::tip
+
+You can find the mapping required for a basic configuration of social sign-in providers in our documentation. For example,
+[learn how to create a data mapping for GitHub.](github#data-mapping)
+
+:::
+
+Ory Identity Service (Kratos) adds an external variable called `claims` to the data mapper. It contains all claims for the OpenID
+Connect or OAuth2 provider such as the username and user email.
+
+Keep in mind that the claims vary per provider and per flow - depending on what permissions the user gives to your app, for
+example "App XYZ can access my private email".
+
+Your Jsonnet code must return a JSON object that looks like this:
+
+```json5
+{
+  identity: {
+    traits: {
+      /* ... */
+    },
+  },
+}
+```
+
+To learn more, read our [Jsonnet documentation] reference/jsonnet.mdx.
+
+:::tip
+
+To debug Jsonnet payloads when running the Identity Service (Kratos) locally, use the `--dev` flag and set `log.level` to `debug`
+(for example `LOG_LEVEL=debug kratos serve --dev`).Logs with detailed payloads will be emitted once you complete OpenID Connect/
+OAuth2 login or registration.
+
+:::
+
+For example, this Jsonnet code snippet:
+
+```json title="github.data-mapper.jsonnet"
+// claims contains all the data sent by the upstream.
+local claims = std.extVar('claims');
+
+{
+  identity: {
+    traits: {
+      email: claims.email, // If email isn't set the Jsonnet snippet will fail with an error.
+      [if "website" in claims then "website" else null]: claims.website, // The website claim is optional.
+    },
+  },
+}
+```
+
+returns this object:
+
+```json
+{
+  "identity": {
+    "traits": {
+      "email": "foo@ory.sh",
+      "website": "https://www.ory.sh"
+    }
+  }
+}
+```
+
+when the ID Token body (or the OAuth2 equivalent) returned by the OpenID Connect provider contains:
+
+```json
+{
+  "sub": "some-identity-id-4hA8gk",
+  "email": "foo@ory.sh",
+  "website": "https://www.ory.sh"
+}
+```
+
+which is used for the Identity's traits.
+
+The `sub` field, which is returned by OpenID Connect and OAuth2 servers alike is used as the primary credential identifier for the
+provider. This allows to link the identity to the "social sign-in profile" for future login flows:
+
+```yaml
+# This is the YAML representation of an identity
+id: "9f425a8d-7efc-4768-8f23-7647a74fdf13"
+
+credentials:
+  oidc:
+    id: oidc
+    identifiers:
+      - example:some-identity-id-4hA8gk
+    config:
+      - provider: example
+        identifier: some-identity-id-4hA8gk
+
+schema_url: http://foo.bar.com/person.schema.json # This comes from the default identity schema url.
+
+traits:
+  email: foo@ory.sh # This is extracted from `username` using
+  website: https://www.ory.sh # This is extracted from `username` using
+```
+
+### External Variable `claims`
+
+The `std.ExtVar('claims')` object has the following structure and keys available:
+
+```go
+package oidc
+
+type Claims struct {
+	Issuer              string `json:"iss,omitempty"`
+	Subject             string `json:"sub,omitempty"`
+	Name                string `json:"name,omitempty"`
+	GivenName           string `json:"given_name,omitempty"`
+	FamilyName          string `json:"family_name,omitempty"`
+	LastName            string `json:"last_name,omitempty"`
+	MiddleName          string `json:"middle_name,omitempty"`
+	Nickname            string `json:"nickname,omitempty"`
+	PreferredUsername   string `json:"preferred_username,omitempty"`
+	Profile             string `json:"profile,omitempty"`
+	Picture             string `json:"picture,omitempty"`
+	Website             string `json:"website,omitempty"`
+	Email               string `json:"email,omitempty"`
+	EmailVerified       bool   `json:"email_verified,omitempty"`
+	Gender              string `json:"gender,omitempty"`
+	Birthdate           string `json:"birthdate,omitempty"`
+	Zoneinfo            string `json:"zoneinfo,omitempty"`
+	Locale              string `json:"locale,omitempty"`
+	PhoneNumber         string `json:"phone_number,omitempty"`
+	PhoneNumberVerified bool   `json:"phone_number_verified,omitempty"`
+	UpdatedAt           int64  `json:"updated_at,omitempty"`
+	HD                  string `json:"hd,omitempty"`
+}
+```
+
+## Identity Traits Validation and Data Completion
+
+Sometimes the data provided by OpenID Connect or OAuth2 providers isn't enough. A common example of not enough data is asking the
+user to agree to the terms of service. No OpenID Connect or OAuth2 provider can give you this information because these are YOUR
+terms of service, not something that comes from the provider.
+
+Another example is when users don't agree to share their email address when authorizing your OAuth2 app. If such a validation
+error occurs, the user will be redirected to the Registration UI. The Registration Flow includes all the valid and invalid fields.
+
+When submitting the form again, the data provided by the user and the data coming from the OpenID Connect / OAuth2 provider will
+be merged. This process repeats itself until the Identity's traits are valid against the defined JSON Schema.
+
+For more information on this flow (network flow, examples, UI, and more) head over to the
+[OpenID Connect and OAuth2 Self-Service Method Documentation](../../kratos/self-service/flows/user-registration.mdx).

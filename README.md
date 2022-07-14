@@ -43,9 +43,11 @@
 
 > Documentation is the single source of truth
 
-The Ory documentation is the place to find all information related to Ory services, usage and troubleshooting.
+The Ory documentation is the place to find all information related to Ory
+services, usage and troubleshooting.
 
-This repository contains meta-documentation for the [Ory Ecosystem](https://www.ory.sh/docs/ecosystem/projects/). You can find the
+This repository contains meta-documentation for the
+[Ory Ecosystem](https://www.ory.sh/docs/ecosystem/projects/). You can find the
 source code for each project here:
 
 - [Ory Kratos](https://github.com/ory/kratos/)
@@ -63,31 +65,37 @@ Other Ory Projects documentation:
 
 ### Categories
 
-The Ory Developer documentation can be organized in three different main categories:
+The Ory Developer documentation can be organized in three different main
+categories:
 
 - Concepts
-  - The purpose of this category is to give the reader a deep understanding of the ideas upon which the project is built. Content
-    in this category has the form of a discursive explanation. The main goal is to explain.
+  - The purpose of this category is to give the reader a deep understanding of
+    the ideas upon which the project is built. Content in this category has the
+    form of a discursive explanation. The main goal is to explain.
 - Guides
-  - The purpose of this category is to solve a specific problem. It has the form of a series of steps towards a goal. It's aimed
-    towards more experienced users, who are already familiar with the concepts and tools
+  - The purpose of this category is to solve a specific problem. It has the form
+    of a series of steps towards a goal. It's aimed towards more experienced
+    users, who are already familiar with the concepts and tools
 - Reference
-  - The purpose of this category is to provide a detailed & in-depth description of the project. It has the form of an austere and
-    to the point explanation and is rooted in code, most often these documents are built directly from code without editor
-    interaction. It doesn't give information on how to do specific things.
+  - The purpose of this category is to provide a detailed & in-depth description
+    of the project. It has the form of an austere and to the point explanation
+    and is rooted in code, most often these documents are built directly from
+    code without editor interaction. It doesn't give information on how to do
+    specific things.
 
 There are also sub-types:
 
 - Introduction
-  - The purpose of this guide is to introduce the very basics of the project and give newcomers an easy way to start. Contains the
-    most basic explanation of the project, an installation guide or a Quickstart/5-Minute Tutorial.
+  - The purpose of this guide is to introduce the very basics of the project and
+    give newcomers an easy way to start. Contains the most basic explanation of
+    the project, an installation guide or a Quickstart/5-Minute Tutorial.
 - Troubleshooting
   - Contains instructions on how to resolve issues with Ory services.
 
 #### Document Frontmatter
 
-Add a meaningful title and an ID to the top of the document. `id` needs to be separated with `-` and lowercase, `title` with space
-and Uppercase. Example:
+Add a meaningful title and an ID to the top of the document. `id` needs to be
+separated with `-` and lowercase, `title` with space and Uppercase. Example:
 
 ```md
 ---
@@ -109,15 +117,17 @@ Ory documentation should be clear and easy to understand.
 
 #### Headings
 
-- Add only one H1 in each document, by adding `#` at the beginning of it (when using Markdown). The `h1` becomes the document
-  `<title>`.
-- Start with an `h2` (`##`), and respect the order `h2` > `h3` > `h4` > `h5` > `h6`. Never skip the hierarchy level, such as
-  `h2` > `h4`
-- Avoid using symbols and special characters in headers. Whenever possible, they should be plain and short text.
+- Add only one H1 in each document, by adding `#` at the beginning of it (when
+  using Markdown). The `h1` becomes the document `<title>`.
+- Start with an `h2` (`##`), and respect the order `h2` > `h3` > `h4` > `h5` >
+  `h6`. Never skip the hierarchy level, such as `h2` > `h4`
+- Avoid using symbols and special characters in headers. Whenever possible, they
+  should be plain and short text.
 - Leave one blank line before and after a heading.
 - Don't use links in headings.
-- Search engines prioritize words used in headings and subheadings. Make your subheading titles clear, descriptive, and complete
-  to help users find the right example, as shown in the section on [heading titles](#heading-titles).
+- Search engines prioritize words used in headings and subheadings. Make your
+  subheading titles clear, descriptive, and complete to help users find the
+  right example, as shown in the section on [heading titles](#heading-titles).
 
 ##### Headings Capitalization
 
@@ -133,16 +143,19 @@ each individual UI element is in
 
 ### Lists
 
-- Always start list items with a capital letter, unless they're parameters or commands that are in backticks, or similar.
+- Always start list items with a capital letter, unless they're parameters or
+  commands that are in backticks, or similar.
 - Always leave a blank line before and after a list.
-- Begin a line with spaces (not tabs) to denote a [nested sub-item](#nesting-inside-a-list-item).
+- Begin a line with spaces (not tabs) to denote a
+  [nested sub-item](#nesting-inside-a-list-item).
 
 ## Testing
 
 ### Playwright tests
 
-The [Playwright](https://github.com/microsoft/playwright) (E2E) tests file names end with `.spec.ts` and can be found in
-`/tests/playwright`. NodeJS is required to run Playright tests locally. To test the documentation locally:
+The [Playwright](https://github.com/microsoft/playwright) (E2E) tests file names
+end with `.spec.ts` and can be found in `/tests/playwright`. NodeJS is required
+to run Playright tests locally. To test the documentation locally:
 
 1. Clone this repository.
 1. Enter the `/docs` folder in your local git environment.
@@ -152,7 +165,8 @@ The [Playwright](https://github.com/microsoft/playwright) (E2E) tests file names
 
 ### Jest tests
 
-The Playwright (E2E) tests file names end with `.test.ts` and can be found in `/tests/jest`.
+The Playwright (E2E) tests file names end with `.test.ts` and can be found in
+`/tests/jest`.
 
 ### Markdownlint
 
@@ -160,26 +174,56 @@ The Playwright (E2E) tests file names end with `.test.ts` and can be found in `/
 
 Locally:
 
-1. Download and install the [markdownlint CLI](https://github.com/igorshubovych/markdownlint-cli). `brew install markdownlint-cli`
-1. Check if markdownlint installed.  
-   `markdownlint --help``
-1. Lint all files in the project, in the docs folder use `cd docs` `markdownlint '**/*.md' --ignore node_modules`
+1. Download and install the
+   [markdownlint CLI](https://github.com/igorshubovych/markdownlint-cli).
+   `brew install markdownlint-cli`
+1. Check if markdownlint installed. `markdownlint --help``
+1. Lint all files in the project, in the docs folder use `cd docs`
+   `markdownlint '**/*.md' --ignore node_modules`
 1. Fix all files in the project, `Warning: This writes to your files!` `cd docs`
    `markdownlint './docs/**/*.+(md|mdx)' --ignore node_modules --fix`
 
 ## How-To
 
+### Add content to example page
+
+[The example page](https://www.ory.sh/docs/examples) provides an overview of Ory
+examples. Add a new example or modify existing entries:
+
+- Open `examples-content.tsx` under the path `docs/src/pages/_assets/`
+- Copy the following snippet and append it in the correct array (either
+  official, community or self-hosting examples):
+
+```tsx
+{
+      title: 'Protect a Page with Login: NextJs/React', //Your example title goes here
+      language: 'typescript',                           //The main programming language of your example
+      author: 'ory',                                    //The author's GitHub handle
+      tested: true,                                     //Is the example in ory/examples or ory/docs and has automated tests?
+      repo: 'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/nextjs', //The repo containing the example code
+      docs: 'https://www.ory.sh/docs/guides/protect-page-login/next.js'                        //Documentation for the example, can be README, blog article or similar
+    },
+```
+
+- `language` can be one of: dart, django, docker, erlang, flutter, go, java,
+  javascript, kotlin, kubernetes, nextjs, nodejs, ory, php, python, react,
+  rescript, svelte, typescript, vue
+
+- Open a pull request with your changes.
+
 ### Links to other pages
 
 If you would add a link to an outside resource, just go ahead.
 
-**If you want to add a link to a document in our own documentation, add the filename.**
+**If you want to add a link to a document in our own documentation, add the
+filename.**
 
 - ✅ `[XY Guide](./guide/XY.md)`
 - 🚫 `[XY Guide](./guide/XY)`
 
-This prevents [broken links issue](https://github.com/ory/docusaurus-template/issues/38) when you load the documentation from an
-outside link.
+This prevents
+[broken links issue](https://github.com/ory/docusaurus-template/issues/38) when
+you load the documentation from an outside link.
 
 ### Import Markdown
 
@@ -197,8 +241,9 @@ import ExampleMarkdown from './_common/example.md'
 
 #### From Github
 
-Use [CodeFromRemote](https://github.com/ory/docusaurus-template/blob/master/src/theme/CodeFromRemote.js) to import code directly
-from Github.
+Use
+[CodeFromRemote](https://github.com/ory/docusaurus-template/blob/master/src/theme/CodeFromRemote.js)
+to import code directly from Github.
 
 Import at the beginning of your document like so:
 
@@ -250,7 +295,8 @@ import exampleGo from '!!raw-loader!./code-example.go'
 
 #### Code Examples in MDX
 
-If you are using MDX and are in, for example, code tabs, use the `CodeBlock` to nest code items:
+If you are using MDX and are in, for example, code tabs, use the `CodeBlock` to
+nest code items:
 
 ````md
 ```mdx-code-block
@@ -305,12 +351,17 @@ Please do not prefixes with `$`
 Add images directly with an `img` tag:
 
 ```html
-<img alt="Image description which will be the alt tag" src={useBaseUrl('images/some-folder/some-image.png')} />
+<img
+  alt="Image description which will be the alt tag"
+  src="{useBaseUrl('images/some-folder/some-image.png')}"
+/>
 ```
 
-The useBaseUrl is `https://www.ory.sh/` and exposes `src/static/...`, so all images are stored in `src/static/images/...`.
+The useBaseUrl is `https://www.ory.sh/` and exposes `src/static/...`, so all
+images are stored in `src/static/images/...`.
 
-Compress new images you add to the documentation. One known tool is [`pngquant`](https://pngquant.org/).
+Compress new images you add to the documentation. One known tool is
+[`pngquant`](https://pngquant.org/).
 [Related article](https://about.gitlab.com/blog/2020/01/30/simple-trick-for-smaller-screenshots/).
 
 - Don't use `lorem ipsum` text.
@@ -318,10 +369,12 @@ Compress new images you add to the documentation. One known tool is [`pngquant`]
 
 ### Videos
 
-When you [record your screen using Quicktime](https://support.apple.com/en-gb/guide/quicktime-player/qtp97b08e666/mac), a `.mov`
-file is recorded. Follow these rules:
+When you
+[record your screen using Quicktime](https://support.apple.com/en-gb/guide/quicktime-player/qtp97b08e666/mac),
+a `.mov` file is recorded. Follow these rules:
 
-1. Please use 16:9 format with at least 1024 pixels wide. `ffmpeg` will scale it to the right size.
+1. Please use 16:9 format with at least 1024 pixels wide. `ffmpeg` will scale it
+   to the right size.
 1. Please make sure that no history or auto-suggestions are visible.
 
 Once recorded, use the commands below to convert them to `mp4` and `webm`:
@@ -333,7 +386,8 @@ ffmpeg -i $file -an -c:v libvpx-vp9 -vf scale=1024:-1 -crf 30 -b:v 0 "${file%.*}
 ffmpeg -i $file -vcodec h264 -vf scale=1024:-1 -an "${file%.*}".mp4
 ```
 
-Next copy them next to the markdown file you are editing. Then use the following code to display the video:
+Next copy them next to the markdown file you are editing. Then use the following
+code to display the video:
 
 ````
 ```mdx-code-block
@@ -351,10 +405,13 @@ To embed Youtube videos just copy & paste the link, it's that easy!
 
 ### Fixing Ory CLI docs
 
-If you find an error in the Ory CLI documentation here are some pointers on how to fix it:
+If you find an error in the Ory CLI documentation here are some pointers on how
+to fix it:
 
-The code that generates the CLI docs (for Kratos) comes from here: https://github.com/ory/kratos/blob/master/cmd/clidoc/main.go
+The code that generates the CLI docs (for Kratos) comes from here:
+https://github.com/ory/kratos/blob/master/cmd/clidoc/main.go
 
 `cmd/clidoc/main.go` is the general path for all Ory projects.
 
-The command to generate the CLI docs can be found here: https://github.com/ory/x/blob/master/clidoc/generate.go#L96
+The command to generate the CLI docs can be found here:
+https://github.com/ory/x/blob/master/clidoc/generate.go#L96

@@ -1,6 +1,6 @@
-import { useLatestRelease } from '../../hooks'
-import React from 'react'
-import CodeBlock from '@theme/CodeBlock'
+import { useLatestRelease } from "../../hooks"
+import React from "react"
+import CodeBlock from "@theme/CodeBlock"
 
 export default function Docker(props: { repo: string; name: string }) {
   const { repo, name } = props

@@ -1,9 +1,30 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net/http"
+
+	ory "github.com/ory/client-go"
 )
+
+// save the cookies for any upstream calls to the Ory apis
+func withCookies(ctx context.Context, v string) context.Context {
+	return context.WithValue(ctx, "req.cookies", v)
+}
+
+func getCookies(ctx context.Context) string {
+	return ctx.Value("req.cookies").(string)
+}
+
+// save the session to display it on the dashboard
+func withSession(ctx context.Context, v *ory.Session) context.Context {
+	return context.WithValue(ctx, "req.session", v)
+}
+
+func getSession(ctx context.Context) *ory.Session {
+	return ctx.Value("req.session").(*ory.Session)
+}
 
 func (app *App) sessionMiddleware(next http.HandlerFunc) http.HandlerFunc {
 	return func(writer http.ResponseWriter, request *http.Request) {
@@ -26,10 +47,12 @@ func (app *App) sessionMiddleware(next http.HandlerFunc) http.HandlerFunc {
 			http.Redirect(writer, request, "/.ory/self-service/login/browser", http.StatusSeeOther)
 			return
 		}
-		app.cookies = cookies
-		app.session = session
+
+		ctx := withCookies(request.Context(), cookies)
+		ctx = withSession(ctx, session)
+
 		// continue to the requested page (in our case the Dashboard)
-		next.ServeHTTP(writer, request)
+		next.ServeHTTP(writer, request.WithContext(ctx))
 		return
 	}
 }

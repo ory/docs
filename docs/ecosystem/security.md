@@ -3,48 +3,96 @@ id: security
 title: Security Policy
 ---
 
-:::caution Disclaimer
+:::info Private Bug Bounty Program
 
-We're in the process of setting up a disclosure platform. Until that process is done, we can't payout bug bounties due to the
-administrative overhead. All disclosures that are made until the launch, will later be processed under the same conditions, but we
-can't guarantee when that happens.
+Ory is working with Hackerone to provide a private bug bounty program for all Ory products. If you are interested in joining the
+program, please [create an account at Hackerone](https://hackerone.com/sign_up) and
+[request access](https://hackerone.com/ory_corp). The following is the policy for the private bug bounty program.
 
 :::
 
-As a security focused company, Ory appreciates and encourages any interest by security researches and white-hat hackers in the
-companies products. To support the global infosec community, we award the responsible disclosure of vulnerabilities and data leaks
-according to the following policies.
+Being a security-focused company, Ory appreciates, encourages, and rewards feedback from the security community. Ory is open
+source at heart, so feel free to inspect our [source code](https://github.com/ory). Ory commits to following HackerOne's
+[vulnerability disclosure guidelines](https://www.hackerone.com/disclosure-guidelines) and we ask you to do the same. Thank you
+for helping keep Ory and our users safe!
 
-## Responsible Disclosure
+## Research guidelines
 
-A responsible disclosure always starts with contacting the Ory security team, using one of the channels specified at
-[https://www.ory.sh/.well-known/security.txt](https://www.ory.sh/.well-known/security.txt). Provide all details to reproduce the
-issue in form of a non-public git repository including all setup and execution steps, the binary and source of the exploit, as
-well as an example exploit payload (if applicable). Low-quality reports may be disqualified. The Ory security team will contact
-you within 96 hours to confirm the issue or ask for further details. Don't publish or share any details regarding the issue until
-the Ory security team explicitly permits the publication in written form. The Ory security team will permit publication once
-incidence response and patches are fully enrolled. Any exploits shall not be tested against environments hosted by Ory or any
-third party without the explicit consent to do so. In case this happens, the submission is disqualified.
+While security-testing Ory systems, please make a good-faith effort to avoid privacy violations, destruction of data, and
+interruption or degradation of our service. Interact only with accounts you own or with the explicit permission of the account
+holder.
 
-## Awards
+Prohibited activities:
 
-The Ory maintainers have final decision on which issues constitute security vulnerabilities. Reports for already known issues will
-only be awarded with regards to the new information they add to the issue. Ory will score the severity of the disclosed issue
-according to [CVSS 3.1](https://www.first.org/cvss/v3.1/specification-document). Ory reserves the right to solely determine the
-factors affecting the score calculation based on the submitted exploit. Effectively this means that you have to prove for example
-the loss of confidentiality to have that included in the CVSS calculation.
+- social engineering like phishing, vishing, or smishing
+- security scanning with more than 5 QPS against Ory domains
+- any activity that leads to disruption of our service longer than 5 minutes
 
-Other Ory open source projects may still be eligible depending on the impact of the disclosed issue.
+## What can you report
 
-### Additional Expenses
+Please report any potential security vulnerability that potentially leads to sensible exploits. Please report vulnerabilities in
+Ory's upstream dependencies to the respective projects and only reach out to us if the the report to upstream was unsuccessful.
 
-In case you required exceptional expenses for providing and disclosing the issue, Ory will refund you these expenses, if and only
-if you provide the original invoice and a valid reason for requiring the resources. All resources have to be directly tied to the
-disclosure of the issue. This clause also applies to exceptionally huge time-investment from your side. In that case, file an
-invoice yourself according to your local law, including a description of the work done on your side. It's Ory’s final decision
-whether the reasons for additional expenses are valid and the additional expenses are refunded.
+When reporting vulnerabilities, please consider the attack scenario, exploitability, and security impact of the bug. Out of scope
+are attacks
 
-## Disclaimer
+- through the runtime environment of self-hosted Ory installations
+- through user-provided configuration like a user not setting appropriate permissions on projects containing sensitive information
+- through port address translation for Ory Cloud Projects
+- around missing rate limiting (we have it on our roadmap)
+- on intentionally public hosts and information on them like our [documentation](https://github.com/ory/docs/) and
+  [website](https://github.com/ory/docs/)
+- that require physical access to the victim's computer
+- against vulnerabilities in outdated browsers (more than two versions behind the latest stable version)
+- based on software version disclosure, banner identification issues, descriptive error messages or headers (stack traces,
+  application or server errors)
+- based on tabnabbing or open redirect unless you can demonstrate an additional security impact
+- that require unlikely user interaction
+- disclosing configuration and paths unless you include proof of credential leakage or demonstrate an attack with the leaked
+  information (since we manage much of our infrastructure through public GitOps repositories)
 
-This document is **not legally binding**. It’s sole purpose is to define the submission and follow-up process of reporting
-security issues to Ory. The content of this document may change at any time.
+Please use Ory's customer support channels if you need help tuning Ory components for security or need help applying
+security-related updates.
+
+## How to report
+
+Submit one vulnerability per report unless you need to chain vulnerabilities to achieve impact.
+
+Please provide a detailed vulnerability report with step-by-step instructions to reproduce the issue. Only vulnerabilities that we
+can reproduce are eligible for a reward.
+
+## Review
+
+Ory commits to these response timelines:
+
+- 1-2 business days to first response
+- 3-5 business days from report submission to triage
+- 3-5 business days from triage to bounty
+
+We'll stay in close contact with you throughout the process.
+
+## Rewards
+
+While all reward decision are up to our discretion, we generally award these monetary bounties out of our total yearly bounty
+budget for security vulnerabilities that we can reproduce:
+
+| Low  | Medium | High   | Critical |
+| ---- | ------ | ------ | -------- |
+| $100 | $350   | $1,000 | $3,000   |
+
+We also award swag for smaller findings like problems with Ory usage of third-party software and services for marketing, email, or
+developer support.
+
+When receiving multiple reports about the same issue, we award the first report that we can fully reproduce. Multiple
+vulnerabilities caused by the same underlying issue result in only one bounty. We award public Zero-day vulnerabilities that have
+had an official patch for less than one month on a case-by-case basis
+
+## Publication
+
+Please do not discuss any vulnerabilities, even resolved ones, outside this program without written consent from Ory.
+
+## Safe Harbor
+
+Any activities conducted in a manner consistent with this policy will be considered authorized conduct and not result in legal
+action from Ory against you. If you face legal action in connection with activities conducted under this policy, Ory will take
+steps to make it known that you conducted your actions in compliance with this policy.

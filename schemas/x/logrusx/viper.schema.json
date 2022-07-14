@@ -8,24 +8,14 @@
     "level": {
       "type": "string",
       "default": "info",
-      "enum": [
-        "panic",
-        "fatal",
-        "error",
-        "warn",
-        "info",
-        "debug"
-      ],
+      "enum": ["panic", "fatal", "error", "warn", "info", "debug"],
       "title": "Level",
       "description": "Debug enables stack traces on errors. Can also be set using environment variable LOG_LEVEL."
     },
     "format": {
       "type": "string",
       "default": "text",
-      "enum": [
-        "text",
-        "json"
-      ],
+      "enum": ["text", "json"],
       "title": "Format",
       "description": "The log format can either be text or JSON."
     }

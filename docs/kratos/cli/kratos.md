@@ -21,6 +21,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 
 ### SEE ALSO
 
+* [kratos cleanup](kratos-cleanup)	 - Various cleanup helpers
 * [kratos courier](kratos-courier)	 - Commands related to the Ory Kratos message courier
 * [kratos delete](kratos-delete)	 - Delete resources
 * [kratos format](kratos-format)	 - Helpers for formatting code

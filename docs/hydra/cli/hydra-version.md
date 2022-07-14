@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## hydra version
 
 Display this binary's version, build time and git hash of this build
@@ -25,5 +26,4 @@ hydra version [flags]
 
 ### SEE ALSO
 
-* [hydra](hydra)	 - Run and manage Ory Hydra
-
+- [hydra](hydra) - Run and manage Ory Hydra
