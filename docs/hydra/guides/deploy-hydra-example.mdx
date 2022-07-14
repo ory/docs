@@ -6,7 +6,7 @@ title: Deploy to production
 import { useLatestRelease } from "@site/src/hooks";
 import CodeBlock from "@theme/CodeBlock";
 
-This guide explains how to setup and run Ory Hydra in an exemplary production environment. It uses Postgres as database, Nginx as
+This guide explains how to set up and run Ory Hydra in an exemplary production environment. It uses Postgres as database, Nginx as
 reverse proxy, and Digital Ocean as cloud provider. You can use another
 [relational database](https://www.ory.sh/docs/ecosystem/deployment#data-storage-and-persistence), a different reverse proxy,
 deploy on any other cloud host, and
@@ -22,12 +22,12 @@ Spin up a Droplet (virtual machine) with the following configuration:
 - **RAM**: 1Gb
 - **SSD**: 25Gb
 - **VPC network**: default
-- **Authentication**: SSH Keys. Don't forget to add your own SSH key
+- **Authentication**: SSH Keys. Don't forget to add your SSH key.
 - **Region**: Choose your region
 
 :::note
 
-This example shows basic configuration of Ory Hydra on a single virtual machine (VM). The configuration of a VM may vary depending on
+This example shows a basic configuration of Ory Hydra on a single virtual machine (VM). The configuration of a VM may vary depending on
 the scale of your application.
 
 :::
@@ -35,7 +35,7 @@ the scale of your application.
 Wait for the Droplet to start up and copy the IP address.
 
 This guide uses `oauth2.example.com` as a hostname to run Ory Hydra. Replace it with `<something>.<your-domain>` for your
-purposes. At your hosting provider, configure DNS, create an `A type` record, and point it to the Droplet IP .
+purposes. At your hosting provider, configure DNS, create an `A type` record, and point it to the Droplet IP.
 
 ## Install Dependencies
 
@@ -49,7 +49,7 @@ apt-get update && apt-get upgrade
 ```
 
 Since the default version of [Node.js](https://nodejs.org/en/) is outdated we need to install a newer version. You can
-use the following script to install Node.js 16.x on a Ubuntu system.
+use the following script to install Node.js 16 on a Ubuntu system.
 
 ```bash
 curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh
@@ -58,7 +58,7 @@ apt-get install nodejs npm jq unzip
 # Install Node.js 16.x and other dependencies
 ```
 
-Confirm the correct version of NodeJs is installed:
+Confirm the correct version of Node.js is installed:
 
 ```bash
 node -v
@@ -123,7 +123,7 @@ Type "help" for help.
 hydra=>
 ```
 
-Congratulations, you have installed and configured the PostgreSQL database. Next we will set up Ory Hydra.
+Congratulations, you have installed and configured the PostgreSQL database. Next, you will set up Ory Hydra.
 
 ## Install Ory Hydra
 
@@ -162,9 +162,8 @@ wget https://raw.githubusercontent.com/ory/hydra/${useLatestRelease(
 )}/contrib/quickstart/5-min/hydra.yml`}</CodeBlock>
 
 5. Add configuration for Ory Hydra in `hydra.yml` to use the Postgres database.  
-   Open `hydra.yml` and change the dsn configuration. In the default quickstart configuration Ory Hydra is storing data in an SQLite
-   database. Change the DSN key to use the Postgres database you configured before and add the `issuer` URL. This URL will be used as
-   `issuer` in access and ID tokens.
+   Open `hydra.yml` and change the DSN configuration. Ory Hydra is storing data in an SQLite database in the default quickstart configuration.
+   Change the DSN key to use the Postgres database you configured before and add the `issuer` URL. This URL will be used as `issuer` in access and ID tokens.
 
 ```yml
 dsn: postgres://hydra:b0qw68gr3Q@127.0.0.1:5432/hydra?sslmode=disable&max_conns=20&max_idle_conns=4
@@ -265,7 +264,7 @@ public internet.
 
 ## Install and configure Nginx
 
-We'll use Nginx as reverse proxy and load balancer for our service. You can use another reverse proxy and load balancer instead.
+We'll use Nginx as a reverse proxy and load balancer for our service. You can use another reverse proxy and load balancer instead.
 
 1. Install Nginx (and certbot) by running:
 
@@ -325,7 +324,7 @@ server {
 }
 ```
 
-There are some parts missing in your configuration at this point, and we need to configure locations and
+Some parts are missing from your configuration at this point, and we need to configure locations and
 [upstream APIs](http://nginx.org/en/docs/http/ngx_http_upstream_module.html). You can balance network traffic between different
 instances of Ory Hydra running on the various virtual machines. We need two upstream APIs:
 
@@ -334,7 +333,7 @@ instances of Ory Hydra running on the various virtual machines. We need two upst
 
 [Read more about exposing admin and public API endpoints](https://www.ory.sh/docs/hydra/production#exposing-administrative-and-public-api-endpoints).
 
-5. Add the following configuration before `server` section to the `/etc/nginx/sites-enabled/oauth2.example.com` file:
+5. Add the following configuration before the `server` section to the `/etc/nginx/sites-enabled/oauth2.example.com` file:
 
 ```diff
 +upstream public_api {
@@ -397,8 +396,8 @@ server {
 
 Let's take a closer look at the configuration. We have two location blocks.
 
-- The first `location` block proxies network traffic to the public API of Hydra. It allows to utilize oauth2 flows and can be exposed to the public internet without additional authentication/authorization/access control checks.
-- The second `location` block proxies network traffic to the admin API of Hydra. Nginx proxies requests only from the `172.28.0.0/24` subnet or by providing `?secret=CHANGE-ME-INSECURE-PASSWORD` argument for additional security. Admin API implements administrative endpoints to manage data or implements `/health` endpoints to check the availability of your Hydra instance. You should either not expose these endpoints or implement additional security checks for them.
+- The first `location` block proxies network traffic to the public API of Ory Hydra. It allows to utilize OAuth 2.0 flows and can be exposed to the public internet without additional authentication/authorization/access control checks.
+- The second `location` block proxies network traffic to the admin API of Ory Hydra. Nginx proxies requests only from the `172.28.0.0/24` subnet or by providing `?secret=CHANGE-ME-INSECURE-PASSWORD` argument for additional security. The Admin API implements administrative endpoints to manage data or `/health` endpoints to check the availability of your instance. You should either not expose these endpoints or implement additional security checks for them.
 
 You can find more information about endpoints in the [Prepare for production](../production.md) guide.
 
@@ -485,6 +484,6 @@ service nginx reload
 ## Next Steps
 
 - Read the [Prepare for production](../production.md).
-- Fork the [Ory Hydra NodeJS UI Reference](https://github.com/ory/hydra-login-consent-node) or
+- Fork the [Ory Hydra Node.js UI Reference](https://github.com/ory/hydra-login-consent-node) or
   [build a custom UI in the language of your choice](../sdk/).
 - [Add Identity and Account Management](../../kratos/index.md)
