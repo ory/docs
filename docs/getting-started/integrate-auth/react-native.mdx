@@ -1,0 +1,161 @@
+---
+id: react-native
+title: Integrate Authentication into React Native
+sidebar_label: React Native
+---
+
+import CodeFromRemote from "@theme/CodeFromRemote"
+
+With Ory, you can easily integrate authentication into native applications. To give you a better idea of how easy it is, we
+prepared a sample React Native application that implements screens for:
+
+- Registration
+- Login
+- User Management
+
+:::info
+
+The code of the sample application is available in [this repository](https://github.com/ory/kratos-selfservice-ui-react-native).
+
+:::
+
+## Creating the Application with Expo
+
+To create the sample application, you can use Expo and the Ory React Native templates.
+
+:::note
+
+To follow these steps, you must [install Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+
+:::
+
+Follow these steps:
+
+1. Run these commands to install Expo and create a new project using the Ory templates:
+
+  ```shell
+  # Install Expo
+  npm install -g expo-cli
+  # Create a new project using Ory templates
+  expo init login-signup-app -t @ory/expo-login-registration-template --npm
+  ```
+
+2. Next, install and initialize all required components. Run:
+
+  ```shell
+  cd login-signup-app
+  npm i
+  npm run expo-install
+  # For iOS you also need to run:
+  npm run pod-install
+  ```
+
+3. At this point, the application is ready for you to explore! Use these commands to run the application in the preferred way:
+
+  - `npm start` opens a dashboard where you can choose to run the app in iOS, Android, or web environments.
+  - `npm run android` runs the app in the Android environment (requires a connected Android VM or device).
+  - `npm run ios` runs the app in the iOS environment iOS (available only on macOS).
+  - `npm run web` run the app in the browser.
+
+By default, the application uses the Ory Cloud Playground project, which is a public demo environment available to all Ory users.
+When using the application this way, make sure to anonymize any data you send to Ory!
+
+### Connect to your Ory Cloud Project
+
+Instead of using the public playground project, you can connect the application directly to your Ory Cloud project and its admin
+APIs. Follow these steps:
+
+1. Sign in at [console.ory.sh](https://console.ory.sh/), select **Connect** from the left navigation panel, and copy the URL from the **SDK Configuration**
+   section.
+2. Open the `app.config.js` file to configure the application.
+3. Find the `KRATOS_URL` variable and replace the playground project URL with the SDK URL you copied from your project.
+
+<CodeFromRemote lang="js" src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/app.config.js" />
+
+## Understanding the Implementation
+
+With the application live, running, and connected to your Ory Cloud project, let's have a closer look at the code to understand
+the implementation.
+
+### React Navigation with Authentication Session
+
+The entry point for the app is [`App.tsx`](https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/App.tsx). The
+component loads fonts, sets up the views, but most importantly, it defines the structure of the application - including the
+navigation:
+
+<CodeFromRemote
+  lang="tsx"
+  startAt="export default"
+  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/App.tsx"
+/>
+
+#### The `AuthProvider` component
+
+The `<AuthProvider>` component is the main point of the integration as it adds authentication and login context to the React
+Native component tree:
+
+<CodeFromRemote
+  lang="tsx"
+  startAt="export default"
+  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/src/components/AuthProvider.tsx"
+/>
+
+#### Helper Methods
+
+The helper methods in
+[`src/helpers/auth.tsx`](https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/src/helpers/auth.tsx) are simple
+wrappers around the Expo [SecureStore](https://docs.expo.io/versions/latest/sdk/securestore/). To make them work in the web
+environment, [`@react-native-community/async-storage`](https://github.com/react-native-async-storage/async-storage) is used as a
+fallback:
+
+<CodeFromRemote
+  lang="tsx"
+  startAt="// getAuthenticatedSession"
+  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/src/helpers/auth.tsx"
+/>
+
+That's all it takes to make the magic happen! Everything else is handled by the
+[Ory Kratos' Session Token](https://www.ory.sh/kratos/docs/guides/login-session).
+
+#### Navigation
+
+With this setup in place, the application can store and refresh the user session. Additionally, this allows the app to verify if the user session is
+still active in the navigation and show the dashboard or login/registration screens accordingly:
+
+<CodeFromRemote
+  lang="tsx"
+  startAt="export default"
+  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/src/components/Navigation.tsx"
+/>
+
+### React Native Authentication Screens
+
+To avoid writing a form renderer for every component - including styling - the app uses form rendering abstracted into separate
+own components, which you can find in
+[`src/components/Form`](https://github.com/ory/kratos-selfservice-ui-react-native/tree/master/src/components/Form).
+
+#### Home Component
+
+The Home component receives the user's Session and displays all relevant information.
+
+<CodeFromRemote
+  lang="tsx"
+  startAt="const Home ="
+  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/src/components/Routes/Home.tsx"
+/>
+
+#### User Settings Component
+
+The User Settings component performs a [User Settings API Flow](https://www.ory.sh/kratos/docs/self-service/flows/user-settings).
+
+<CodeFromRemote
+  lang="tsx"
+  startAt="const Settings ="
+  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/src/components/Routes/Settings.tsx"
+/>
+
+## Try it Yourself
+
+If you want to take a more hands-on approach and go through the process of creating the sample application step-by-step, refer to
+[the post published on the Ory Blog](https://www.ory.sh/login-react-native-authentication-example-api/#adding-authentication-to-a-react-native-app-from-scratch).
+There, you can learn how the components analyzed in this document are created.
