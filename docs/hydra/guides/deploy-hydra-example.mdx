@@ -67,14 +67,14 @@ v16.14.2
 
 ## Install PostgreSQL
 
-Install PostgreSQL by running the following command:
+1. Install PostgreSQL by running the following command:
 
 ```bash
 sudo apt install postgresql postgresql-contrib
 sudo -i -u postgres
 ```
 
-Create the database:
+2. Create the database:
 
 ```bash
 createdb hydra
@@ -92,27 +92,27 @@ SELECT pg_reload_conf();
 # Reload configuration
 ```
 
-Let's create a Postgres user for Hydra:
+3. Create a Postgres user for Hydra:
 
 ```bash
 CREATE USER hydra PASSWORD '<YOUR_PASSWORD_HERE>';
 ```
 
-Edit the `/etc/postgresql/12/main/pg_hba.conf` file and add the following to enable `scram-sha-256` encryption:
+4. Edit the `/etc/postgresql/12/main/pg_hba.conf` file and add the following to enable `scram-sha-256` encryption:
 
 ```bash
 host    all             all             127.0.0.1/32            scram-sha-256
 ```
 
-Check your credentials against Postgres:
+5. Check your credentials against Postgres:
 
 ```bash
 psql -U hydra -W -h 127.0.0.1
 
 ```
 
-Use the password for the Ory Hydra user we created before to log into Postgres. If everything works correctly you should see a prompt similar
-to this:
+6. Use the password for the Ory Hydra user we created before to log into Postgres. If everything works correctly you should see a prompt similar
+   to this:
 
 ```
 Password:
@@ -127,19 +127,19 @@ Congratulations, you have installed and configured the PostgreSQL database. Next
 
 ## Install Ory Hydra
 
-For security reasons, we need to create a new user with prohibited login:
+1. Create a new user with prohibited login:
 
 ```bash
 useradd -s /bin/false -m -d /opt/hydra hydra
 ```
 
-Create folders to hold the installation data and configuration files:
+2. Create folders to hold the installation data and configuration files:
 
 ```bash
 mkdir /opt/hydra/{bin,config}
 ```
 
-Install Ory Hydra:
+3. Install Ory Hydra:
 
 <CodeBlock className="language-shell">{`
 cd /opt/hydra/bin
@@ -154,17 +154,17 @@ rm *md
 rm LICENSE
 `}</CodeBlock>
 
-Download the [Quickstart](../5min-tutorial) configuration files:
+4. Download the [Quickstart](../5min-tutorial) configuration files:
 
 <CodeBlock className="language-shell">{`cd ../config
 wget https://raw.githubusercontent.com/ory/hydra/${useLatestRelease(
   "hydra"
 )}/contrib/quickstart/5-min/hydra.yml`}</CodeBlock>
 
-We need to add some configuration in `hydra.yml` to use our Postgres We need configure Ory Hydra to use the Postgres database.
-Open `hydra.yml` and change the dsn configuration. In the default quickstart configuration Ory Hydra is storing data in an SQLite
-database. Change the dsn key to use the Postgres database you configured before and add the `issuer` URL. This URL will be used as
-`issuer` in access and ID tokens.
+5. Add configuration for Ory Hydra in `hydra.yml` to use the Postgres database.  
+   Open `hydra.yml` and change the dsn configuration. In the default quickstart configuration Ory Hydra is storing data in an SQLite
+   database. Change the DSN key to use the Postgres database you configured before and add the `issuer` URL. This URL will be used as
+   `issuer` in access and ID tokens.
 
 ```yml
 dsn: postgres://hydra:b0qw68gr3Q@127.0.0.1:5432/hydra?sslmode=disable&max_conns=20&max_idle_conns=4
@@ -173,13 +173,13 @@ urls:
     issuer: https://oauth2.example.com
 ```
 
-Apply [migrations](../cli/hydra-migrate-sql):
+6. Apply [migrations](../cli/hydra-migrate-sql):
 
 ```bash
 /opt/hydra/bin/hydra -c /opt/hydra/config/hydra.yml migrate sql -y postgres://hydra:b0qw68gr3Q@127.0.0.1:5432/hydra?sslmode=disable
 ```
 
-Test your setup using the [`serve` command](../cli/hydra-serve):
+7. Test your setup using the [`serve` command](../cli/hydra-serve):
 
 ```bash
 /opt/hydra/bin/hydra -c /opt/hydra/config/hydra.yml serve all
@@ -203,20 +203,20 @@ INFO[2022-04-15T15:24:41Z] Setting up http server on :4445               audienc
 
 ## Run Ory Hydra using systemd
 
-We need to change the owner of `/opt/hydra` directory to the `hydra` user:
+1. Change the owner of `/opt/hydra` directory to the `hydra` user:
 
 ```bash
 chown -R hydra /opt/hydra/
 ```
 
-Create a `/etc/systemd/system/kratos.service` file
+2. Create a `/etc/systemd/system/kratos.service` file
 
 ```bash
 cd /etc/systemd/system
 nano hydra.service
 ```
 
-Paste the following content to configure systemd to start Ory Hydra using the [`serve` command](../cli/hydra-serve) from earlier:
+3. Add the following to configure systemd to start Ory Hydra using the [`serve` command](../cli/hydra-serve) from earlier:
 
 ```
 [Unit]
@@ -239,20 +239,20 @@ WantedBy=multi-user.target
 
 [Read more about the administrative and public APIs](https://www.ory.sh/docs/hydra/production#exposing-administrative-and-public-api-endpoints).
 
-To run Ory Hydra using systemd add the systemd service to startup:
+4. To run Ory Hydra using systemd add the systemd service to startup:
 
 ```bash
 systemctl enable hydra.service
 Created symlink /etc/systemd/system/multi-user.target.wants/hydra.service → /etc/systemd/system/hydra.service.
 ```
 
-Start hydra.service using systemd:
+5. Start hydra.service using systemd:
 
 ```
 systemctl start hydra.service
 ```
 
-Check running processes with `ps ax | grep hydra`. If everything worked correctly you should see something like this:
+6. Check running processes with `ps ax | grep hydra`. If everything worked correctly you should see something like this:
 
 ```
 ps ax | grep hydra
@@ -266,14 +266,15 @@ public internet.
 ## Install and configure Nginx
 
 We'll use Nginx as reverse proxy and load balancer for our service. You can use another reverse proxy and load balancer instead.
-Install Nginx (and certbot) by running:
+
+1. Install Nginx (and certbot) by running:
 
 ```bash
 apt install nginx certbot python3-certbot-nginx
 ```
 
-Create a default configuration for the virtual host. To do this create the file `accounts.example.com` at
-`/etc/nginx/sites-available/` with the following content
+2. Create a default configuration for the virtual host. To do this create the file `accounts.example.com` at
+   `/etc/nginx/sites-available/` with the following content
 
 ```bash
 cd /etc/nginx/sites-available/
@@ -287,14 +288,14 @@ server {
 }
 ```
 
-We need to create a symlink to `sites-enabled` directory:
+3. Create a symlink to `sites-enabled` directory:
 
 ```bash
 ln -s /etc/nginx/sites-available/oauth2.example.com /etc/nginx/sites-enabled/oauth2.example.com
 ```
 
-Configure SSL via Certbot. Run the following command and answer the questions to set it up. When prompted choose to redirect HTTP
-traffic to HTTPS.
+4. Configure SSL via Certbot. Run the following command and answer the questions to set it up. When prompted choose to redirect HTTP
+   traffic to HTTPS.
 
 ```bash
 certbot --nginx -d oauth2.example.com
@@ -324,15 +325,16 @@ server {
 }
 ```
 
-There are some missing parts in your configuration at this point, and we need to configure locations and
+There are some parts missing in your configuration at this point, and we need to configure locations and
 [upstream APIs](http://nginx.org/en/docs/http/ngx_http_upstream_module.html). You can balance network traffic between different
-instances of Ory Kratos running on the various virtual machines. We need two upstream APIs:
+instances of Ory Hydra running on the various virtual machines. We need two upstream APIs:
 
 - public_api to proxy traffic to the Public API of Ory Hydra
 - admin_api to proxy traffic to the Admin API of Ory Hydra
 
 [Read more about exposing admin and public API endpoints](https://www.ory.sh/docs/hydra/production#exposing-administrative-and-public-api-endpoints).
-Add the following configuration before `server` section to the `/etc/nginx/sites-enabled/oauth2.example.com` file:
+
+5. Add the following configuration before `server` section to the `/etc/nginx/sites-enabled/oauth2.example.com` file:
 
 ```diff
 +upstream public_api {
@@ -348,7 +350,7 @@ server {
 ...
 ```
 
-Add your locations and the `/etc/nginx/sites-enabled/oauth2.example.com` has the following content:
+6. Add your locations and the `/etc/nginx/sites-enabled/oauth2.example.com` has the following content:
 
 ```diff
 ...
@@ -459,7 +461,7 @@ server {
 }
 ```
 
-Test the Nginx configuration:
+7. Test the Nginx configuration:
 
 ```bash
 nginx -t
@@ -472,14 +474,13 @@ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-Now reload the Nginx service:
+8. Now reload the Nginx service:
 
 ```bash
 service nginx reload
 ```
 
-You can test if Ory Hydra runs by doing a health check at
-`https://oauth2.example.com/health?secret=CHANGE-ME-INSECURE-PASSWORD`.
+9. Test if Ory Hydra runs by doing a health check at `https://oauth2.example.com/health?secret=CHANGE-ME-INSECURE-PASSWORD`.
 
 ## Next Steps
 
