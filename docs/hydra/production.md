@@ -1,11 +1,11 @@
 ---
 id: production
-title: Preparing for Production
+title: Prepare for Production
 ---
 
-This document summarizes things you will find useful when going to production.
+This document summarizes some considerations you will find useful when preparing for production.
 
-## ORY Hydra behind an API Gateway
+## Ory Hydra behind an API Gateway
 
 Although ORY Hydra implements all Go best practices around running public-facing production http servers, we discourage running
 ORY Hydra facing the public net directly. We strongly recommend running ORY Hydra behind an API gateway or a load balancer. It's
@@ -25,7 +25,7 @@ serve:
       - 127.0.0.1/32
 ```
 
-With TLS termination enabled, ORY Hydra discards all requests unless:
+With TLS termination enabled, Ory Hydra discards all requests unless:
 
 - The request is coming from a trusted IP address set by `serve.tls.allow_termination_from` and the header `X-Forwarded-Proto` is
   set to `https`.
@@ -48,7 +48,7 @@ and `preserve_host=true.`
 
 ## Exposing Administrative and Public API Endpoints
 
-ORY Hydra serves APIs via two ports:
+Ory Hydra serves APIs via two ports:
 
 - Public port (default 4444)
 - Administrative port (default 4445)
@@ -87,7 +87,7 @@ We generally advise to run ORY Hydra with `hydra serve all` which listens on bot
 
 ### Binding to different interfaces or UNIX sockets
 
-ORY Hydra will bind public and administrative APIs ports to all interfaces.
+Ory Hydra will bind public and administrative APIs ports to all interfaces.
 
 The interfaces or UNIX sockets used may be specified via environment variables `PUBLIC_HOST` and `ADMIN_HOST`. Interfaces may be
 specified as TCP address or as UNIX socket (giving the absolute path to the socket file prefixed by `unix:`) like:
@@ -120,3 +120,7 @@ Although this isn't a problem, we recommend that you launch your production envi
 complete the initial seeding of the database.
 
 Once done, you can raise your number of containers to achieve high availability.
+
+## Next Steps
+
+For a deployment guide using Nginx, visit the [Deploy to production](./guides/deploy-hydra-example.mdx) documentation.

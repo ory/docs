@@ -272,6 +272,7 @@ module.exports = {
                 "hydra/configure-deploy",
                 "hydra/dependencies-environment",
                 "hydra/production",
+                "hydra/guides/deploy-hydra-example",
                 "hydra/guides/tracing",
                 "hydra/guides/hsm-support",
                 "hydra/guides/secrets-key-rotation",
