@@ -8,3 +8,5 @@ docs/oathkeeper/cli/
 package-lock.json
 .docusaurus/
 build/
+.next
+playwright-report/
