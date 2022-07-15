@@ -583,6 +583,46 @@
       "source": "/docs/concepts/session",
       "destination": "https://www.ory.sh/docs/guides/session-management/overview",
       "permanent": false
+    },
+    {
+      "source": "/docs/guides/protect-page-login/expressjs",
+      "destination": "https://www.ory.sh/docs/getting-started/integrate-auth/expressjs",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/protect-page-login/flutter-web-redirect",
+      "destination": "https://www.ory.sh/docs/getting-started/integrate-auth/flutter-web-redirect",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/protect-page-login/go",
+      "destination": "https://www.ory.sh/docs/getting-started/integrate-auth/go",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/protect-page-login/next.js",
+      "destination": "https://www.ory.sh/docs/getting-started/integrate-auth/nextjs",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/protect-page-login/php",
+      "destination": "https://www.ory.sh/docs/getting-started/integrate-auth/php",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/protect-page-login/react",
+      "destination": "https://www.ory.sh/docs/getting-started/integrate-auth/react",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/protect-page-login/vue",
+      "destination": "https://www.ory.sh/docs/getting-started/integrate-auth/vue",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/local-development",
+      "destination": "https://www.ory.sh/docs/getting-started/local-development",
+      "permanent": false
     }
   ]
 }
