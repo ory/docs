@@ -623,6 +623,11 @@
       "source": "/docs/guides/local-development",
       "destination": "https://www.ory.sh/docs/getting-started/local-development",
       "permanent": false
+    },
+    {
+      "source": "/docs/start-building/native-mobile-app",
+      "destination": "https://www.ory.sh/docs/getting-started/integrate-auth/react-native",
+      "permanent": false
     }
   ]
 }
