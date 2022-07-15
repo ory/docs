@@ -41,13 +41,13 @@ X-Session-Token: {your-session-token}`}</CodeBlock>
 If you have the session cookie available from another source you can also use the `X-Session-Token` header:
 
 ```js
-app.get('/', function (req, res) {
+app.get("/", function (req, res) {
   // Cookies that haven't been signed
-  const cookie = req.cookies['ory_kratos_session']
+  const cookie = req.cookies["ory_kratos_session"]
 
   // Make a request and include the cookie in X-Session-Cookie
-  fetch('https://playground.projects.oryapis.com/api/kratos/public/sessions/whoami', {
-    headers: { 'X-Session-Cookie': cookie }
+  fetch("https://playground.projects.oryapis.com/api/kratos/public/sessions/whoami", {
+    headers: { "X-Session-Cookie": cookie },
   })
     .then((res) => res.json())
     .then((session) => console.log(session))

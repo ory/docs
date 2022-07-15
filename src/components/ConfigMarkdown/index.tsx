@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react"
 
-import axios from 'axios'
-import RefParser from '@apidevtools/json-schema-ref-parser'
-import jsf from 'json-schema-faker'
-import YAML from 'yaml'
-import { pathOr } from 'ramda'
-import Admonition from '@theme/Admonition'
-import CodeBlock from '@theme/CodeBlock'
+import axios from "axios"
+import RefParser from "@apidevtools/json-schema-ref-parser"
+import jsf from "json-schema-faker"
+import YAML from "yaml"
+import { pathOr } from "ramda"
+import Admonition from "@theme/Admonition"
+import CodeBlock from "@theme/CodeBlock"
 
 const parser = new RefParser()
 
 const refs = {
-  'ory://tracing-config': `https://raw.githubusercontent.com/ory/x/v0.0.344/tracing/config.schema.json`,
-  'ory://logging-config': `https://raw.githubusercontent.com/ory/x/v0.0.344/logrusx/config.schema.json`
+  "ory://tracing-config": `https://raw.githubusercontent.com/ory/x/v0.0.344/tracing/config.schema.json`,
+  "ory://logging-config": `https://raw.githubusercontent.com/ory/x/v0.0.344/logrusx/config.schema.json`,
 }
 
 const enhance =
@@ -21,53 +21,53 @@ const enhance =
     const key = item.key.value
 
     const path = [
-      ...parents.map((parent) => ['properties', parent]),
-      ['properties', key]
+      ...parents.map((parent) => ["properties", parent]),
+      ["properties", key],
     ].flat()
 
-    if (['title', 'description'].find((f) => path[path.length - 1] === f)) {
+    if (["title", "description"].find((f) => path[path.length - 1] === f)) {
       return
     }
 
-    const comments = [`# ${pathOr(key, [...path, 'title'], schema)} ##`, '']
+    const comments = [`# ${pathOr(key, [...path, "title"], schema)} ##`, ""]
 
-    const description = pathOr('', [...path, 'description'], schema)
+    const description = pathOr("", [...path, "description"], schema)
     if (description) {
-      comments.push(' ' + description.split('\n').join('\n '), '')
+      comments.push(" " + description.split("\n").join("\n "), "")
     }
 
-    const defaultValue = pathOr('', [...path, 'default'], schema)
+    const defaultValue = pathOr("", [...path, "default"], schema)
     if (defaultValue || defaultValue === false) {
-      comments.push(' Default value: ' + defaultValue, '')
+      comments.push(" Default value: " + defaultValue, "")
     }
 
-    const enums = pathOr('', [...path, 'enum'], schema)
+    const enums = pathOr("", [...path, "enum"], schema)
     if (enums && Array.isArray(enums)) {
       comments.push(
-        ' One of:',
+        " One of:",
         ...YAML.stringify(enums)
-          .split('\n')
-          .map((i) => ` ${i}`)
+          .split("\n")
+          .map((i) => ` ${i}`),
       ) // split always returns one empty object so no need for newline
     }
 
-    const min = pathOr('', [...path, 'minimum'], schema)
+    const min = pathOr("", [...path, "minimum"], schema)
     if (min || min === 0) {
-      comments.push(` Minimum value: ${min}`, '')
+      comments.push(` Minimum value: ${min}`, "")
     }
 
-    const max = pathOr('', [...path, 'maximum'], schema)
+    const max = pathOr("", [...path, "maximum"], schema)
     if (max || max === 0) {
-      comments.push(` Maximum value: ${max}`, '')
+      comments.push(` Maximum value: ${max}`, "")
     }
 
-    const examples = pathOr('', [...path, 'examples'], schema)
+    const examples = pathOr("", [...path, "examples"], schema)
     if (examples) {
       comments.push(
-        ' Examples:',
+        " Examples:",
         ...YAML.stringify(examples)
-          .split('\n')
-          .map((i) => ` ${i}`)
+          .split("\n")
+          .map((i) => ` ${i}`),
       ) // split always returns one empty object so no need for newline
     }
 
@@ -82,49 +82,49 @@ const enhance =
     }
 
     const showEnvVarBlockForObject = pathOr(
-      '',
-      [...path, 'showEnvVarBlockForObject'],
-      schema
+      "",
+      [...path, "showEnvVarBlockForObject"],
+      schema,
     )
     if (!hasChildren || showEnvVarBlockForObject) {
-      const env = [...parents, key].map((i) => i.toUpperCase()).join('_')
+      const env = [...parents, key].map((i) => i.toUpperCase()).join("_")
       comments.push(
-        ' Set this value using environment variables on',
-        ' - Linux/macOS:',
+        " Set this value using environment variables on",
+        " - Linux/macOS:",
         `    $ export ${env}=<value>`,
-        ' - Windows Command Line (CMD):',
+        " - Windows Command Line (CMD):",
         `    > set ${env}=<value>`,
-        ''
+        "",
       )
 
       // Show this if the config property is an object, to call out how to specify the env var
       if (hasChildren) {
         comments.push(
-          ' This can be set as an environment variable by supplying it as a JSON object.',
-          ''
+          " This can be set as an environment variable by supplying it as a JSON object.",
+          "",
         )
       }
     }
 
-    item.commentBefore = comments.join('\n')
+    item.commentBefore = comments.join("\n")
     item.spaceBefore = true
   }
 
 const oryResolver = {
   order: 1,
   canRead: /^ory:/i,
-  read: ({ url }) => axios.get(refs[url]).then(({ data }) => data)
+  read: ({ url }) => axios.get(refs[url]).then(({ data }) => data),
 }
 
 export default function ConfigMarkdown(props: { src: string; binary: string }) {
-  const [content, setContent] = React.useState('')
+  const [content, setContent] = React.useState("")
 
   jsf.option({
     alwaysFakeOptionals: true,
     useExamplesValue: true,
     useDefaultValue: true,
     minItems: 1,
-    random: () => 0
+    random: () => 0,
   })
 
   useEffect(() => {
@@ -134,18 +134,18 @@ export default function ConfigMarkdown(props: { src: string; binary: string }) {
           schema,
           {
             resolve: {
-              ory: oryResolver
-            }
+              ory: oryResolver,
+            },
           },
-          (err, result) => (err ? reject(err) : resolve(result))
+          (err, result) => (err ? reject(err) : resolve(result)),
         )
       })
         .then((schema: any) => {
           const removeAdditionalProperties = (o) => {
-            delete o['additionalProperties']
+            delete o["additionalProperties"]
             if (o.properties) {
               Object.keys(o.properties).forEach((key) =>
-                removeAdditionalProperties(o.properties[key])
+                removeAdditionalProperties(o.properties[key]),
               )
             }
           }
@@ -153,7 +153,7 @@ export default function ConfigMarkdown(props: { src: string; binary: string }) {
           const enableAll = (o) => {
             if (o.properties) {
               Object.keys(o.properties).forEach((key) => {
-                if (key === 'enable') {
+                if (key === "enable") {
                   o.properties[key] = true
                 }
                 enableAll(o.properties[key])
@@ -174,22 +174,22 @@ export default function ConfigMarkdown(props: { src: string; binary: string }) {
             useExamplesValue: true,
             useDefaultValue: false, // do not change this!!
             fixedProbabilities: true,
-            alwaysFakeOptionals: true
+            alwaysFakeOptionals: true,
           })
 
           const values = jsf.generate(schema)
           const doc = YAML.parseDocument(YAML.stringify(values))
 
-          const comments = [`# ${pathOr(props.binary, ['title'], schema)}`, '']
+          const comments = [`# ${pathOr(props.binary, ["title"], schema)}`, ""]
 
-          const description = pathOr('', ['description'], schema)
+          const description = pathOr("", ["description"], schema)
           if (description) {
-            comments.push(' ' + description)
+            comments.push(" " + description)
           }
 
           console.log({ doc })
 
-          doc.commentBefore = comments.join('\n')
+          doc.commentBefore = comments.join("\n")
           doc.spaceAfter = false
           doc.spaceBefore = false
 
@@ -198,7 +198,7 @@ export default function ConfigMarkdown(props: { src: string; binary: string }) {
           return Promise.resolve({
             // schema,
             // values,
-            yaml: doc.toString()
+            yaml: doc.toString(),
           })
         })
         .then((out) => {
@@ -210,8 +210,8 @@ export default function ConfigMarkdown(props: { src: string; binary: string }) {
   return (
     <>
       <p>
-        You can load the config file from another source using the{' '}
-        <code>-c path/to/config.yaml</code> or{' '}
+        You can load the config file from another source using the{" "}
+        <code>-c path/to/config.yaml</code> or{" "}
         <code>--config path/to/config.yaml</code>
         flag: <code>${props.binary} --config path/to/config.yaml</code>.
       </p>
@@ -221,7 +221,7 @@ export default function ConfigMarkdown(props: { src: string; binary: string }) {
         values can be set using environment variables, as documented below.
       </p>
 
-      <Admonition type="warning" title={'Disclaimer'}>
+      <Admonition type="warning" title={"Disclaimer"}>
         <p>
           This reference configuration documents all keys, also deprecated ones!
           It is a reference for all possible configuration values.
@@ -234,9 +234,9 @@ export default function ConfigMarkdown(props: { src: string; binary: string }) {
       <p>
         To find out more about edge cases like setting string array values
         through environmental variables head to the
-        <a href={'/docs/ecosystem/configuring'}>
+        <a href={"/docs/ecosystem/configuring"}>
           Configuring Ory services
-        </a>{' '}
+        </a>{" "}
         section.
       </p>
 

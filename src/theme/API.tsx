@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import Redoc from '@theme/Redoc'
-import './API.module.css'
-import axios from 'axios'
-import { useLatestRelease } from '../hooks'
-import useSSR from 'use-ssr'
+import React, { useEffect, useState } from "react"
+import Redoc from "@theme/Redoc"
+import "./API.module.css"
+import axios from "axios"
+import { useLatestRelease } from "../hooks"
+import useSSR from "use-ssr"
 
 function API({
   url,
   repo,
-  override
+  override,
 }: {
   url: string
   repo: string
   override?: any
 }) {
-  const version = useLatestRelease(repo, 'master')
+  const version = useLatestRelease(repo, "master")
   const [spec, setSpec] = useState<any>(override)
   const { isServer } = useSSR()
 
@@ -33,7 +33,7 @@ function API({
     return <></>
   }
 
-  console.log('redoc', { isServer })
+  console.log("redoc", { isServer })
   return <Redoc spec={spec} />
 }
 

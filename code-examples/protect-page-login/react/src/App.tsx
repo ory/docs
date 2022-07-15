@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import React, { useEffect, useState } from "react"
+import logo from "./logo.svg"
+import "./App.css"
 
 // highlight-start
-import { V0alpha2Api, Configuration, Session, Identity } from '@ory/client'
+import { V0alpha2Api, Configuration, Session, Identity } from "@ory/client"
 
 function App() {
   const [session, setSession] = useState<Session | undefined>()
@@ -11,14 +11,14 @@ function App() {
 
   // Get your Ory url from .env
   // Or localhost for local development
-  const basePath = process.env.REACT_APP_ORY_URL || 'http://localhost:4000'
+  const basePath = process.env.REACT_APP_ORY_URL || "http://localhost:4000"
   const ory = new V0alpha2Api(
     new Configuration({
       basePath,
       baseOptions: {
-        withCredentials: true
-      }
-    })
+        withCredentials: true,
+      },
+    }),
   )
 
   // Returns either the email or the username depending on the user's Identity Schema
@@ -57,7 +57,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Welcome to Ory,{' '}
+          Welcome to Ory,{" "}
           {
             // highlight-next-line
             getUserName(session?.identity)

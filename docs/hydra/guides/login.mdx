@@ -4,8 +4,8 @@ title: Implementing the Login Endpoint
 sidebar_label: Login Endpoint
 ---
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
 :::note
 
@@ -48,10 +48,10 @@ Check out our [reference implementation](https://github.com/ory/hydra-login-cons
 
 ```typescript title="routes/login.ts"
 // This example uses ExpressJS
-import express from 'express'
-import url from 'url'
-import csrf from 'csurf'
-import { AdminApi } from '@ory/hydra-client'
+import express from "express"
+import url from "url"
+import csrf from "csurf"
+import { AdminApi } from "@ory/hydra-client"
 
 const hydraAdmin = new AdminApi(process.env.HYDRA_ADMIN_URL)
 
@@ -59,7 +59,7 @@ const hydraAdmin = new AdminApi(process.env.HYDRA_ADMIN_URL)
 const csrfProtection = csrf({ cookie: true })
 const router = express.Router()
 
-router.get('/login', csrfProtection, (req, res, next) => {
+router.get("/login", csrfProtection, (req, res, next) => {
   // Parses the URL query
   const query = url.parse(req.url, true).query
 
@@ -78,7 +78,7 @@ router.get('/login', csrfProtection, (req, res, next) => {
       return hydraAdmin
         .acceptLoginRequest(challenge, {
           // All we need to do is to confirm that we indeed want to log in the user.
-          subject: String(body.subject)
+          subject: String(body.subject),
         })
         .then(({ body }) => {
           // All we need to do now is to redirect the user back to hydra!
@@ -87,9 +87,9 @@ router.get('/login', csrfProtection, (req, res, next) => {
     }
 
     // If authentication can't be skipped we MUST show the login UI.
-    res.render('login', {
+    res.render("login", {
       csrfToken: req.csrfToken(),
-      challenge: challenge
+      challenge: challenge,
     })
   })
 })

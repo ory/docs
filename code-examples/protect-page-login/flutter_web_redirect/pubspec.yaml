@@ -1,12 +1,12 @@
 name: flutter_web_redirect
 description: A Flutter Web App integrated with Ory.
 
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.15.1 <3.0.0'
+  sdk: ">=2.15.1 <3.0.0"
 dependencies:
   flutter:
     sdk: flutter

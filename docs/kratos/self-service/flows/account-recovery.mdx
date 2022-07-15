@@ -3,26 +3,26 @@ id: account-recovery
 title: Account Recovery and Password Reset
 ---
 
-import useBaseUrl from '@docusaurus/useBaseUrl'
-import Mermaid from '@site/src/theme/Mermaid'
-import ApiWarning from '@site/src/theme/ApiWarning'
-import SelfServiceBrowserFlow from '@site/src/theme/SelfServiceBrowserFlow'
-import SelfServiceSpaFlow from '@site/src/theme/SelfServiceSpaFlow'
-import SelfServiceApiFlow from '@site/src/theme/SelfServiceApiFlow'
+import useBaseUrl from "@docusaurus/useBaseUrl"
+import Mermaid from "@site/src/theme/Mermaid"
+import ApiWarning from "@site/src/theme/ApiWarning"
+import SelfServiceBrowserFlow from "@site/src/theme/SelfServiceBrowserFlow"
+import SelfServiceSpaFlow from "@site/src/theme/SelfServiceSpaFlow"
+import SelfServiceApiFlow from "@site/src/theme/SelfServiceApiFlow"
 
-import CodeTabs from '@site/src/theme/Code/CodeTabs'
+import CodeTabs from "@site/src/theme/Code/CodeTabs"
 import {
   getFlowMethodLinkWithErrors,
   getFlowMethodLinkSuccess,
   getFlowMethodLinkInvalidChallenge,
-  getFlowMethodLinkChallengeDone
-} from './code/recovery'
-import RenderFlow from '@site/src/theme/Code/RenderFlow'
+  getFlowMethodLinkChallengeDone,
+} from "./code/recovery"
+import RenderFlow from "@site/src/theme/Code/RenderFlow"
 
-import DomainWarning from '@site/src/theme/DomainWarning'
-import AjaxWarning from '@site/src/theme/AjaxWarning'
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
+import DomainWarning from "@site/src/theme/DomainWarning"
+import AjaxWarning from "@site/src/theme/AjaxWarning"
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
 :::info
 
@@ -118,7 +118,7 @@ There are two email types sent by this method:
 
 <p>
   <figure>
-    <img alt="Recovery email sent to unknown address" src={useBaseUrl('images/kratos/email-recovery-unknown.png')} />
+    <img alt="Recovery email sent to unknown address" src={useBaseUrl("images/kratos/email-recovery-unknown.png")} />
     <figcaption>
       If the requested email address is an unknown recovery address, an account recovery attempt email is sent to that email
       address.
@@ -128,7 +128,7 @@ There are two email types sent by this method:
 
 <p>
   <figure>
-    <img alt="Recovery email sent to a known recovery address" src={useBaseUrl('images/kratos/email-recovery-known.png')} />
+    <img alt="Recovery email sent to a known recovery address" src={useBaseUrl("images/kratos/email-recovery-known.png")} />
     <figcaption>
       If the requested email address is a known recovery address, a recovery link is sent to that email address.
     </figcaption>
@@ -246,7 +246,7 @@ where
 The Recovery Flow for browser clients relies on HTTP redirects between Ory Kratos, your Recovery UI, and the end-user's browser:
 
 <SelfServiceBrowserFlow
-  flows={['recovery']}
+  flows={["recovery"]}
   success="Set session cookie and initialize Settings Flow"
   interactions={['"Recover account"']}
 />
@@ -308,7 +308,7 @@ The Recovery Flow for client-side browser clients relies on AJAX requests.
 <AjaxWarning />
 
 <SelfServiceSpaFlow
-  flows={['recovery']}
+  flows={["recovery"]}
   success="Set session cookie and initialize Settings Flow"
   interactions={['"Recover account"']}
 />
@@ -400,7 +400,7 @@ curl -v -s -X GET \
 
 The Recovery Flow for API clients doesn't use HTTP Redirects and can be summarized as follows:
 
-<SelfServiceApiFlow flows={['recovery']} success="Return session token" interactions={['"Recover account"']} />
+<SelfServiceApiFlow flows={["recovery"]} success="Return session token" interactions={['"Recover account"']} />
 
 To initialize the API flow, the client calls the API-flow initialization endpoint
 ([REST API Reference](../../reference/api.mdx#initialize-recovery-flow-for-api-clients)) which returns a JSON response:

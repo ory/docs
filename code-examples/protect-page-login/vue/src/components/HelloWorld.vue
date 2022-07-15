@@ -56,7 +56,7 @@
 
 <script>
 // highlight-next-line
-import { V0alpha2Api, Configuration } from '@ory/client'
+import { V0alpha2Api, Configuration } from "@ory/client"
 
 // The basePath points to the location of Ory's APIs.
 // You can use https://<slug>.projects.oryapis.com/ here because cookies can not
@@ -65,31 +65,31 @@ import { V0alpha2Api, Configuration } from '@ory/client'
 // In the next step, we will run a process to mirror Ory's APIs
 // on your local machine using the Ory Tunnel at http://localhost:4000
 // highlight-start
-const basePath = process.env.VUE_APP_ORY_URL || 'http://localhost:4000'
+const basePath = process.env.VUE_APP_ORY_URL || "http://localhost:4000"
 const ory = new V0alpha2Api(
   new Configuration({
     basePath,
     baseOptions: {
       // Ensures we send cookies in the CORS requests.
-      withCredentials: true
-    }
-  })
+      withCredentials: true,
+    },
+  }),
 )
 // highlight-end
 
-const apiUrl = process.env.VUE_APP_API_URL || 'http://localhost:8081'
+const apiUrl = process.env.VUE_APP_API_URL || "http://localhost:8081"
 
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   props: {
-    msg: String
+    msg: String,
   },
   data() {
     return {
       session: null,
       logoutUrl: null,
       apiResponse: null,
-      basePath
+      basePath,
     }
   },
   mounted() {
@@ -109,9 +109,9 @@ export default {
 
     // highlight-start
     // Or make an authenticated request to your API
-    fetch(apiUrl + '/api/hello', {
+    fetch(apiUrl + "/api/hello", {
       // Do not forget to set this - it is required to send the session cookie!
-      credentials: 'include'
+      credentials: "include",
     })
       // highlight-end
       .then(
@@ -119,9 +119,9 @@ export default {
           res.ok &&
           res.json().then((res) => {
             this.apiResponse = res
-          })
+          }),
       )
-  }
+  },
 }
 </script>
 
