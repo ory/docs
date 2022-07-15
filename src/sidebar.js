@@ -31,7 +31,7 @@ module.exports = {
               ],
             },
             {
-              "Native App": ["getting-started/integrate-auth/react-native"],
+              "Native App": ["start-building/native-mobile-app"],
             },
           ],
         },
