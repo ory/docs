@@ -1,5 +1,5 @@
-import React from "react"
-import Mermaid from "./Mermaid"
+import React from 'react'
+import Mermaid from './Mermaid'
 
 const chart = `
 sequenceDiagram

@@ -3,8 +3,8 @@ id: csrf
 title: Common Cookie and CSRF Pitfalls
 ---
 
-import useBaseUrl from "@docusaurus/useBaseUrl"
-import CodeFromRemote from "@site/src/theme/CodeFromRemote"
+import useBaseUrl from '@docusaurus/useBaseUrl'
+import CodeFromRemote from '@site/src/theme/CodeFromRemote'
 
 Because Ory Kratos isn't just an API, but instead talks to your users' browsers directly, several security measures have been
 implemented in Ory Kratos. One of them is protection against CSRF:
@@ -32,11 +32,11 @@ causes and easy fixes if that happens to you!
 Before starting to debug cookie and CSRF issues, make sure to check out the Chrome Developer Tools (or any comparable technology)
 Cookies tabs in the Application tab
 
-<img alt="Google Chrome Developer Tools - Application Tab - Cookies" src={useBaseUrl("img/docs/csrf_app_tab.png")} />
+<img alt="Google Chrome Developer Tools - Application Tab - Cookies" src={useBaseUrl('img/docs/csrf_app_tab.png')} />
 
 as well as the network tab - look for `Cookie` and `Set-Cookie` HTTP Headers:
 
-<img alt="Google Chrome Developer Tools - Network Tab - Cookies" src={useBaseUrl("img/docs/csrf_network_tab.png")} />
+<img alt="Google Chrome Developer Tools - Network Tab - Cookies" src={useBaseUrl('img/docs/csrf_network_tab.png')} />
 
 ### SameSite Attribute
 
@@ -101,7 +101,7 @@ from the client when fetching the self-service flows (for example `GET /self-ser
 ```ts
 export default (req: Request, res: Response) => {
   // ...
-  kratos.getSelfServiceLoginFlow(flow, req.header("cookie"))
+  kratos.getSelfServiceLoginFlow(flow, req.header('cookie'))
 }
 ```
 

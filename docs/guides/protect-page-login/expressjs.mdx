@@ -117,15 +117,15 @@ import ToProd from '../_common/going-to-prod.mdx'
 ```
 
 ```js {2,4-7}
-var sdk = require("@ory/client")
+var sdk = require('@ory/client')
 
 var ory = new sdk.V0alpha2Api(
   new sdk.Configuration({
-    baseUrl: "https://ory.example.org",
+    baseUrl: 'https://ory.example.org',
     baseOptions: {
       // Ensures that cookies are included in CORS requests:
-      withCredentials: true,
-    },
-  }),
+      withCredentials: true
+    }
+  })
 )
 ```

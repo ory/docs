@@ -3,17 +3,17 @@ id: user-login
 title: User Login
 ---
 
-import Mermaid from "@site/src/theme/Mermaid"
-import ApiWarning from "@site/src/theme/ApiWarning"
-import SelfServiceBrowserFlow from "@site/src/theme/SelfServiceBrowserFlow"
-import SelfServiceSpaFlow from "@site/src/theme/SelfServiceSpaFlow"
-import SelfServiceApiFlow from "@site/src/theme/SelfServiceApiFlow"
-import Tabs from "@theme/Tabs"
-import TabItem from "@theme/TabItem"
-import CodeTabs from "@site/src/theme/Code/CodeTabs"
-import { getFlowMethodPasswordWithErrors, getFlowMethodOidcWithErrors } from "./code/login"
-import RenderFlow from "@site/src/theme/Code/RenderFlow"
-import DomainWarning from "@site/src/theme/DomainWarning"
+import Mermaid from '@site/src/theme/Mermaid'
+import ApiWarning from '@site/src/theme/ApiWarning'
+import SelfServiceBrowserFlow from '@site/src/theme/SelfServiceBrowserFlow'
+import SelfServiceSpaFlow from '@site/src/theme/SelfServiceSpaFlow'
+import SelfServiceApiFlow from '@site/src/theme/SelfServiceApiFlow'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeTabs from '@site/src/theme/Code/CodeTabs'
+import { getFlowMethodPasswordWithErrors, getFlowMethodOidcWithErrors } from './code/login'
+import RenderFlow from '@site/src/theme/Code/RenderFlow'
+import DomainWarning from '@site/src/theme/DomainWarning'
 
 :::info
 
@@ -97,7 +97,7 @@ The first step is to initialize the Login Flow. This allows pre-login hooks to r
 
 The Login Flow for browser clients relies on HTTP redirects between Ory Kratos, your Login UI, and the end-user's browser:
 
-<SelfServiceBrowserFlow flows={["login"]} success="Set session cookie" interactions={['"Log in"']} />
+<SelfServiceBrowserFlow flows={['login']} success="Set session cookie" interactions={['"Log in"']} />
 
 To initialize the Login Flow, point the Browser to the initialization endpoint:
 
@@ -156,7 +156,7 @@ The Login Flow for client-side browser clients relies on AJAX requests.
 
 <AjaxWarning />
 
-<SelfServiceSpaFlow flows={["login"]} success="Set session cookie" interactions={['"Log in"']} />
+<SelfServiceSpaFlow flows={['login']} success="Set session cookie" interactions={['"Log in"']} />
 
 To initialize the Login Flow, call the login initialization endpoint and set `Accept: application/json`:
 
@@ -203,7 +203,7 @@ curl -v -s -X GET \
 
 The Login Flow for API clients doesn't use HTTP Redirects and can be summarized as follows:
 
-<SelfServiceApiFlow flows={["login"]} success="Return login session token" interactions={['"Log in"']} />
+<SelfServiceApiFlow flows={['login']} success="Return login session token" interactions={['"Log in"']} />
 
 To initialize the API flow, the client calls the API-flow initialization endpoint
 ([REST API Reference](../../reference/api.mdx#initialize-login-flow-for-api-clients)) which returns a JSON response:

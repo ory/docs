@@ -9,30 +9,30 @@
 //     cr([Create Request]) --> backoffice[Backoffice Server REST]
 // `}/>
 
-import React, { useEffect, useState } from "react"
-import mermaid from "mermaid"
-import styles from "./mermaid.module.css"
-import cn from "classnames"
+import React, { useEffect, useState } from 'react'
+import mermaid from 'mermaid'
+import styles from './mermaid.module.css'
+import cn from 'classnames'
 
 mermaid.initialize({
   startOnLoad: true,
-  logLevel: "fatal",
-  securityLevel: "strict",
+  logLevel: 'fatal',
+  securityLevel: 'strict',
   arrowMarkerAbsolute: false,
-  theme: "neutral",
+  theme: 'neutral',
   flowchart: {
     useMaxWidth: true,
     htmlLabels: true,
     rankSpacing: 65,
     nodeSpacing: 30,
-    curve: "basis",
+    curve: 'basis'
   },
   sequence: {
-    useMaxWidth: true,
+    useMaxWidth: true
   },
   gantt: {
-    useMaxWidth: true,
-  },
+    useMaxWidth: true
+  }
 })
 
 const Mermaid = ({ chart }) => {
@@ -57,7 +57,7 @@ const Mermaid = ({ chart }) => {
       <div
         onClick={toggle}
         className={cn(styles.overlay, styles.pointer, styles.graph, {
-          [styles.visible]: zoomed,
+          [styles.visible]: zoomed
         })}
       >
         <div

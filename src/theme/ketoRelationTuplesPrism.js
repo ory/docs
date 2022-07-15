@@ -1,33 +1,33 @@
 const delimiter = {
-  delimiter: /[:#@()]/,
+  delimiter: /[:#@()]/
 }
 
 const namespace = {
   pattern: /[^:#@()\n]+:/,
   inside: {
     ...delimiter,
-    namespace: /.*/,
-  },
+    namespace: /.*/
+  }
 }
 
 const object = {
   pattern: /[^:#@()\n]+#/,
   inside: {
     ...delimiter,
-    "property-access": /.*/,
-  },
+    'property-access': /.*/
+  }
 }
 
 const relation = {
-  pattern: /[^:#@()\n]+/,
+  pattern: /[^:#@()\n]+/
 }
 
 const subjectID = {
   pattern: /@[^:#@()\n]+/,
   inside: {
     ...delimiter,
-    subject: /.*/,
-  },
+    subject: /.*/
+  }
 }
 
 const subjectSet = {
@@ -36,14 +36,14 @@ const subjectSet = {
     delimiter: /[@()]*/,
     namespace,
     object,
-    relation,
-  },
+    relation
+  }
 }
 
 export default (prism) =>
-  (prism.languages["keto-relation-tuples"] = {
+  (prism.languages['keto-relation-tuples'] = {
     comment: /\/\/.*(\n|$)/,
-    "relation-tuple": {
+    'relation-tuple': {
       pattern:
         /([^:#@()\n]+:)?([^:#@()\n]+)#([^:#@()\n]+)@?((\(([^:#@()\n]+:)?([^:#@()\n]+)#([^:#@()\n]*)\))|([^:#@()\n]+))/,
       inside: {
@@ -51,7 +51,7 @@ export default (prism) =>
         object,
         subjectID,
         subjectSet,
-        relation,
-      },
-    },
+        relation
+      }
+    }
   })

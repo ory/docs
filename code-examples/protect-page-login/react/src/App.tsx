@@ -11,13 +11,13 @@ function App() {
 
   // Get your Ory url from .env
   // Or localhost for local development
-  const basePath = process.env.REACT_APP_ORY_URL || "http://localhost:4000"
+  const basePath = process.env.REACT_APP_ORY_URL || 'http://localhost:4000'
   const ory = new V0alpha2Api(
     new Configuration({
       basePath,
       baseOptions: {
-        withCredentials: true,
-      },
+        withCredentials: true
+      }
     })
   )
 

@@ -1,89 +1,89 @@
-const config = require("./contrib/config.js")
-const fs = require("fs")
+const config = require('./contrib/config.js')
+const fs = require('fs')
 
 const githubRepoName =
-  config.projectSlug === "ecosystem" ? "docs" : config.projectSlug
+  config.projectSlug === 'ecosystem' ? 'docs' : config.projectSlug
 
 const baseUrl = config.baseUrl ? config.baseUrl : `/${config.projectSlug}/docs/`
 
 let links = [
   {
-    to: "https://www.ory.sh/",
+    to: 'https://www.ory.sh/',
     label: `Home`,
-    position: "left",
+    position: 'left'
   },
   {
     href: `https://github.com/ory/${githubRepoName}/discussions`,
-    label: "Discussions",
-    position: "right",
+    label: 'Discussions',
+    position: 'right'
   },
   {
-    href: "https://www.ory.sh/chat",
-    label: "Slack",
-    position: "right",
+    href: 'https://www.ory.sh/chat',
+    label: 'Slack',
+    position: 'right'
   },
   {
     href: `https://github.com/ory/${githubRepoName}`,
-    label: "GitHub",
-    position: "right",
-  },
+    label: 'GitHub',
+    position: 'right'
+  }
 ]
 
-const customCss = [require.resolve("./contrib/theme.css")]
+const customCss = [require.resolve('./contrib/theme.css')]
 
-if (fs.existsSync("./src/css/theme.css")) {
-  customCss.push(require.resolve("./src/css/theme.css"))
+if (fs.existsSync('./src/css/theme.css')) {
+  customCss.push(require.resolve('./src/css/theme.css'))
 }
 
-const githubPrismTheme = require("prism-react-renderer/themes/github")
+const githubPrismTheme = require('prism-react-renderer/themes/github')
 
 const prismThemeLight = {
   ...githubPrismTheme,
   styles: [
     ...githubPrismTheme.styles,
     {
-      languages: ["keto-relation-tuples"],
-      types: ["namespace"],
+      languages: ['keto-relation-tuples'],
+      types: ['namespace'],
       style: {
-        color: "#666",
-      },
+        color: '#666'
+      }
     },
     {
-      languages: ["keto-relation-tuples"],
-      types: ["object"],
+      languages: ['keto-relation-tuples'],
+      types: ['object'],
       style: {
-        color: "#939",
-      },
+        color: '#939'
+      }
     },
     {
-      languages: ["keto-relation-tuples"],
-      types: ["relation"],
+      languages: ['keto-relation-tuples'],
+      types: ['relation'],
       style: {
-        color: "#e80",
-      },
+        color: '#e80'
+      }
     },
     {
-      languages: ["keto-relation-tuples"],
-      types: ["delimiter"],
+      languages: ['keto-relation-tuples'],
+      types: ['delimiter'],
       style: {
-        color: "#555",
-      },
+        color: '#555'
+      }
     },
     {
-      languages: ["keto-relation-tuples"],
-      types: ["comment"],
+      languages: ['keto-relation-tuples'],
+      types: ['comment'],
       style: {
-        color: "#999",
-      },
+        color: '#999'
+      }
     },
     {
-      languages: ["keto-relation-tuples"],
-      types: ["subject"],
+      languages: ['keto-relation-tuples'],
+      types: ['subject'],
       style: {
-        color: "#903",
-      },
-    },
-  ],
+        color: '#903'
+      }
+    }
+  ]
 }
 
 module.exports = {
@@ -91,32 +91,32 @@ module.exports = {
   tagline: config.projectTagLine,
   url: `https://www.ory.sh/`,
   baseUrl,
-  favicon: "img/favico.png",
-  onBrokenLinks: "warn",
-  onBrokenMarkdownLinks: "warn",
-  organizationName: "ory", // Usually your GitHub org/user name.
+  favicon: 'img/favico.png',
+  onBrokenLinks: 'warn',
+  onBrokenMarkdownLinks: 'warn',
+  organizationName: 'ory', // Usually your GitHub org/user name.
   projectName: config.projectSlug, // Usually your repo name.
   themeConfig: {
     prism: {
       theme: prismThemeLight,
-      darkTheme: require("prism-react-renderer/themes/dracula"),
-      additionalLanguages: ["json5", "pug", "shell-session"],
+      darkTheme: require('prism-react-renderer/themes/dracula'),
+      additionalLanguages: ['json5', 'pug', 'shell-session']
     },
     announcementBar: {
-      id: "supportus",
+      id: 'supportus',
       content:
-        config.projectSlug === "docs"
+        config.projectSlug === 'docs'
           ? `Sign up for <a href="${config.newsletter}">important security announcements</a> and if you like the ${config.projectName} give us some ⭐️ on <a target="_blank" rel="noopener noreferrer" href="https://github.com/ory">GitHub</a>!`
-          : `Sign up for <a href="${config.newsletter}">important security announcements</a> and if you like ${config.projectName} give it a ⭐️ on <a target="_blank" rel="noopener noreferrer" href="https://github.com/ory/${githubRepoName}">GitHub</a>!`,
+          : `Sign up for <a href="${config.newsletter}">important security announcements</a> and if you like ${config.projectName} give it a ⭐️ on <a target="_blank" rel="noopener noreferrer" href="https://github.com/ory/${githubRepoName}">GitHub</a>!`
     },
     algolia: {
-      appId: "V2EFIWEJ25",
-      apiKey: "dc6b220f7d2bcd12da60b9cce431d8c5",
-      indexName: "ory",
+      appId: 'V2EFIWEJ25',
+      apiKey: 'dc6b220f7d2bcd12da60b9cce431d8c5',
+      indexName: 'ory',
       contextualSearch: true,
       searchParameters: {
-        facetFilters: [[`tags:${config.projectSlug}`, `tags:docs`]],
-      },
+        facetFilters: [[`tags:${config.projectSlug}`, `tags:docs`]]
+      }
     },
     navbar: {
       hideOnScroll: false,
@@ -125,81 +125,81 @@ module.exports = {
         src: `img/logo-${config.projectSlug}.svg`,
         srcDark: `img/logo-${config.projectSlug}.svg`,
         href:
-          config.projectSlug === "docs"
+          config.projectSlug === 'docs'
             ? `https://www.ory.sh`
-            : `https://www.ory.sh/${config.projectSlug}`,
+            : `https://www.ory.sh/${config.projectSlug}`
       },
       items: [
         ...links,
         {
-          type: "docsVersionDropdown",
-          position: "right",
+          type: 'docsVersionDropdown',
+          position: 'right',
           dropdownActiveClassDisabled: true,
           dropdownItemsAfter: [
             {
-              to: "/versions",
-              label: "All versions",
-            },
-          ],
-        },
-      ],
+              to: '/versions',
+              label: 'All versions'
+            }
+          ]
+        }
+      ]
     },
     footer: {
-      style: "dark",
+      style: 'dark',
       copyright: `Copyright © ${new Date().getFullYear()} ORY GmbH`,
       links: [
         {
-          title: "Company",
+          title: 'Company',
           items: [
             {
-              label: "Imprint",
-              href: "https://www.ory.sh/imprint",
+              label: 'Imprint',
+              href: 'https://www.ory.sh/imprint'
             },
             {
-              label: "Privacy",
-              href: "https://www.ory.sh/privacy",
+              label: 'Privacy',
+              href: 'https://www.ory.sh/privacy'
             },
             {
-              label: "Terms",
-              href: "https://www.ory.sh/tos",
-            },
-          ],
-        },
-      ],
-    },
+              label: 'Terms',
+              href: 'https://www.ory.sh/tos'
+            }
+          ]
+        }
+      ]
+    }
   },
   plugins: [
     [
-      "@docusaurus/plugin-content-docs",
+      '@docusaurus/plugin-content-docs',
       {
         path:
-          config.projectSlug === "docusaurus-template"
-            ? "contrib/docs"
-            : "docs",
-        sidebarPath: require.resolve("./contrib/sidebar.js"),
+          config.projectSlug === 'docusaurus-template'
+            ? 'contrib/docs'
+            : 'docs',
+        sidebarPath: require.resolve('./contrib/sidebar.js'),
         editUrl: `https://github.com/ory/${githubRepoName}/edit/master/docs`,
         editCurrentVersion: false,
-        routeBasePath: "/",
+        routeBasePath: '/',
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
         disableVersioning: false,
-        include: ["**/*.md", "**/*.mdx", "**/*.jsx"],
-        docLayoutComponent: "@theme/RoutedDocPage",
-      },
+        include: ['**/*.md', '**/*.mdx', '**/*.jsx'],
+        docLayoutComponent: '@theme/RoutedDocPage'
+      }
     ],
-    "@docusaurus/plugin-content-pages",
-    require.resolve("./src/plugins/ory-scripts-loader"),
-    require.resolve("./src/plugins/docusaurus-plugin-matamo"),
-    "@docusaurus/plugin-sitemap",
+    '@docusaurus/plugin-content-pages',
+    require.resolve('./src/plugins/ory-scripts-loader'),
+    require.resolve('./src/plugins/docusaurus-plugin-matamo'),
+    '@docusaurus/plugin-sitemap'
   ],
   themes: [
     [
-      "@docusaurus/theme-classic",
+      '@docusaurus/theme-classic',
       {
-        customCss,
-      },
+        customCss
+      }
     ],
-    "@docusaurus/theme-search-algolia",
-    "docusaurus-theme-redoc",
-  ],
+    '@docusaurus/theme-search-algolia',
+    'docusaurus-theme-redoc'
+  ]
 }

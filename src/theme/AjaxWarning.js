@@ -1,6 +1,6 @@
-import React from "react"
+import React from 'react'
 
-const AjaxWarning = ({ severity = "info" }) => (
+const AjaxWarning = ({ severity = 'info' }) => (
   <div className={`admonition admonition-warning alert alert--${severity}`}>
     <div className="admonition-heading">
       <h5>
@@ -23,7 +23,7 @@ const AjaxWarning = ({ severity = "info" }) => (
     <div className="admonition-content">
       <p>
         This flow requires AJAX and you need to ensure that all cookies are sent
-        using the appropriate CORS and <code>includeCredentials</code>{" "}
+        using the appropriate CORS and <code>includeCredentials</code>{' '}
         configurations. Additionally, Ory Kratos and your app must be hosted on
         the same domain.
       </p>

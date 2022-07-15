@@ -1,8 +1,8 @@
-const path = require("path")
+const path = require('path')
 const name = process.argv[2]
-const fs = require("fs")
+const fs = require('fs')
 
-const p = path.join(__dirname, "../versions.json")
+const p = path.join(__dirname, '../versions.json')
 
 fs.writeFile(
   p,
@@ -11,5 +11,5 @@ fs.writeFile(
     if (err) {
       return console.error(err)
     }
-  },
+  }
 )

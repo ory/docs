@@ -1,30 +1,30 @@
-const RefParser = require("json-schema-ref-parser")
+const RefParser = require('json-schema-ref-parser')
 const parser = new RefParser()
-const jsf = require("json-schema-faker").default
-const YAML = require("yaml")
-const { pathOr } = require("ramda")
-const path = require("path")
-const fs = require("fs")
-const prettier = require("prettier")
-const prettierStyles = require("ory-prettier-styles")
-const { execSync } = require("child_process")
-const fetch = require("node-fetch")
+const jsf = require('json-schema-faker').default
+const YAML = require('yaml')
+const { pathOr } = require('ramda')
+const path = require('path')
+const fs = require('fs')
+const prettier = require('prettier')
+const prettierStyles = require('ory-prettier-styles')
+const { execSync } = require('child_process')
+const fetch = require('node-fetch')
 
 const oryXVersion = execSync(
-  "cd ..; go list -f '{{.Version}}' -m github.com/ory/x",
+  "cd ..; go list -f '{{.Version}}' -m github.com/ory/x"
 )
-  .toString("utf-8")
+  .toString('utf-8')
   .trim()
 
 const refs = {
-  "ory://tracing-config": `https://raw.githubusercontent.com/ory/x/${oryXVersion}/tracing/config.schema.json`,
-  "ory://logging-config": `https://raw.githubusercontent.com/ory/x/${oryXVersion}/logrusx/config.schema.json`,
+  'ory://tracing-config': `https://raw.githubusercontent.com/ory/x/${oryXVersion}/tracing/config.schema.json`,
+  'ory://logging-config': `https://raw.githubusercontent.com/ory/x/${oryXVersion}/logrusx/config.schema.json`
 }
 
 const oryResolver = {
   order: 1,
   canRead: /^ory:/i,
-  read: ({ url }) => fetch(refs[url]).then((res) => res.json()),
+  read: ({ url }) => fetch(refs[url]).then((res) => res.json())
 }
 
 jsf.option({
@@ -32,10 +32,10 @@ jsf.option({
   useExamplesValue: true,
   useDefaultValue: true,
   minItems: 1,
-  random: () => 0,
+  random: () => 0
 })
 
-if (process.argv.length !== 3 || process.argv[1] === "help") {
+if (process.argv.length !== 3 || process.argv[1] === 'help') {
   console.error(`
   usage:
     node config.js path/to/config.js
@@ -51,53 +51,53 @@ const enhance =
     const key = item.key.value
 
     const path = [
-      ...parents.map((parent) => ["properties", parent]),
-      ["properties", key],
+      ...parents.map((parent) => ['properties', parent]),
+      ['properties', key]
     ].flat()
 
-    if (["title", "description"].find((f) => path[path.length - 1] === f)) {
+    if (['title', 'description'].find((f) => path[path.length - 1] === f)) {
       return
     }
 
-    const comments = [`# ${pathOr(key, [...path, "title"], schema)} ##`, ""]
+    const comments = [`# ${pathOr(key, [...path, 'title'], schema)} ##`, '']
 
-    const description = pathOr("", [...path, "description"], schema)
+    const description = pathOr('', [...path, 'description'], schema)
     if (description) {
-      comments.push(" " + description.split("\n").join("\n "), "")
+      comments.push(' ' + description.split('\n').join('\n '), '')
     }
 
-    const defaultValue = pathOr("", [...path, "default"], schema)
+    const defaultValue = pathOr('', [...path, 'default'], schema)
     if (defaultValue || defaultValue === false) {
-      comments.push(" Default value: " + defaultValue, "")
+      comments.push(' Default value: ' + defaultValue, '')
     }
 
-    const enums = pathOr("", [...path, "enum"], schema)
+    const enums = pathOr('', [...path, 'enum'], schema)
     if (enums && Array.isArray(enums)) {
       comments.push(
-        " One of:",
+        ' One of:',
         ...YAML.stringify(enums)
-          .split("\n")
-          .map((i) => ` ${i}`),
+          .split('\n')
+          .map((i) => ` ${i}`)
       ) // split always returns one empty object so no need for newline
     }
 
-    const min = pathOr("", [...path, "minimum"], schema)
+    const min = pathOr('', [...path, 'minimum'], schema)
     if (min || min === 0) {
-      comments.push(` Minimum value: ${min}`, "")
+      comments.push(` Minimum value: ${min}`, '')
     }
 
-    const max = pathOr("", [...path, "maximum"], schema)
+    const max = pathOr('', [...path, 'maximum'], schema)
     if (max || max === 0) {
-      comments.push(` Maximum value: ${max}`, "")
+      comments.push(` Maximum value: ${max}`, '')
     }
 
-    const examples = pathOr("", [...path, "examples"], schema)
+    const examples = pathOr('', [...path, 'examples'], schema)
     if (examples) {
       comments.push(
-        " Examples:",
+        ' Examples:',
         ...YAML.stringify(examples)
-          .split("\n")
-          .map((i) => ` ${i}`),
+          .split('\n')
+          .map((i) => ` ${i}`)
       ) // split always returns one empty object so no need for newline
     }
 
@@ -112,31 +112,31 @@ const enhance =
     }
 
     const showEnvVarBlockForObject = pathOr(
-      "",
-      [...path, "showEnvVarBlockForObject"],
-      schema,
+      '',
+      [...path, 'showEnvVarBlockForObject'],
+      schema
     )
     if (!hasChildren || showEnvVarBlockForObject) {
-      const env = [...parents, key].map((i) => i.toUpperCase()).join("_")
+      const env = [...parents, key].map((i) => i.toUpperCase()).join('_')
       comments.push(
-        " Set this value using environment variables on",
-        " - Linux/macOS:",
+        ' Set this value using environment variables on',
+        ' - Linux/macOS:',
         `    $ export ${env}=<value>`,
-        " - Windows Command Line (CMD):",
+        ' - Windows Command Line (CMD):',
         `    > set ${env}=<value>`,
-        "",
+        ''
       )
 
       // Show this if the config property is an object, to call out how to specify the env var
       if (hasChildren) {
         comments.push(
-          " This can be set as an environment variable by supplying it as a JSON object.",
-          "",
+          ' This can be set as an environment variable by supplying it as a JSON object.',
+          ''
         )
       }
     }
 
-    item.commentBefore = comments.join("\n")
+    item.commentBefore = comments.join('\n')
     item.spaceBefore = true
   }
 
@@ -145,18 +145,18 @@ new Promise((resolve, reject) => {
     require(path.resolve(config.updateConfig.src)),
     {
       resolve: {
-        ory: oryResolver,
-      },
+        ory: oryResolver
+      }
     },
-    (err, result) => (err ? reject(err) : resolve(result)),
+    (err, result) => (err ? reject(err) : resolve(result))
   )
 })
   .then((schema) => {
     const removeAdditionalProperties = (o) => {
-      delete o["additionalProperties"]
+      delete o['additionalProperties']
       if (o.properties) {
         Object.keys(o.properties).forEach((key) =>
-          removeAdditionalProperties(o.properties[key]),
+          removeAdditionalProperties(o.properties[key])
         )
       }
     }
@@ -164,7 +164,7 @@ new Promise((resolve, reject) => {
     const enableAll = (o) => {
       if (o.properties) {
         Object.keys(o.properties).forEach((key) => {
-          if (key === "enable") {
+          if (key === 'enable') {
             o.properties[key] = true
           }
           enableAll(o.properties[key])
@@ -185,20 +185,20 @@ new Promise((resolve, reject) => {
       useExamplesValue: true,
       useDefaultValue: false, // do not change this!!
       fixedProbabilities: true,
-      alwaysFakeOptionals: true,
+      alwaysFakeOptionals: true
     })
 
     const values = jsf.generate(schema)
     const doc = YAML.parseDocument(YAML.stringify(values))
 
-    const comments = [`# ${pathOr(config.projectSlug, ["title"], schema)}`, ""]
+    const comments = [`# ${pathOr(config.projectSlug, ['title'], schema)}`, '']
 
-    const description = pathOr("", ["description"], schema)
+    const description = pathOr('', ['description'], schema)
     if (description) {
-      comments.push(" " + description)
+      comments.push(' ' + description)
     }
 
-    doc.commentBefore = comments.join("\n")
+    doc.commentBefore = comments.join('\n')
     doc.spaceAfter = false
     doc.spaceBefore = false
 
@@ -207,7 +207,7 @@ new Promise((resolve, reject) => {
     return Promise.resolve({
       // schema,
       // values,
-      yaml: doc.toString(),
+      yaml: doc.toString()
     })
   })
   .then((out) => {
@@ -245,20 +245,20 @@ ${out.yaml}
     return new Promise((resolve, reject) => {
       fs.writeFile(
         path.resolve(config.updateConfig.dst),
-        prettier.format(content, { ...prettierStyles, parser: "markdown" }),
-        "utf8",
+        prettier.format(content, { ...prettierStyles, parser: 'markdown' }),
+        'utf8',
         (err) => {
           if (err) {
             reject(err)
             return
           }
           resolve()
-        },
+        }
       )
     })
   })
   .then(() => {
-    console.log("Done!")
+    console.log('Done!')
   })
   .catch((err) => {
     console.error(err)

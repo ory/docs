@@ -18,8 +18,8 @@ jobs:
       - name: Lint files
         uses: avto-dev/markdown-lint@v1.5.0
         with:
-          config: "./docs/.markdownlint.yml"
-          args: "./docs/docs/**/*.+(md|mdx)"
+          config: './docs/.markdownlint.yml'
+          args: './docs/docs/**/*.+(md|mdx)'
 
   misspell:
     name: Check spelling using misspell
@@ -33,9 +33,9 @@ jobs:
         uses: reviewdog/action-misspell@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          path: "./docs"
-          locale: "US"
-          level: "warning"
+          path: './docs'
+          locale: 'US'
+          level: 'warning'
           pattern: |
             *.md
             *.mdx

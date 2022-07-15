@@ -1,8 +1,8 @@
-import Tabs from "@theme/Tabs"
-import TabItem from "@theme/TabItem"
-import React from "react"
-import CodeBlock from "@theme/CodeBlock"
-import CodeFromRemote from "@theme/CodeFromRemote"
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import React from 'react'
+import CodeBlock from '@theme/CodeBlock'
+import CodeFromRemote from '@theme/CodeFromRemote'
 
 const FlowContent = ({ item }) => {
   if (item.code) {
@@ -34,7 +34,7 @@ const GetFlow = ({ items }) => {
       defaultValue={Object.keys(items)[0]}
       values={Object.keys(items).map((key) => ({
         label: items[key].label,
-        value: key,
+        value: key
       }))}
     >
       {Object.keys(items).map((key) => (

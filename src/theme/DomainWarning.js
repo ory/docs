@@ -1,6 +1,6 @@
-import React from "react"
+import React from 'react'
 
-const DomainWarning = ({ severity = "info" }) => (
+const DomainWarning = ({ severity = 'info' }) => (
   <div className={`admonition admonition-warning alert alert--${severity}`}>
     <div className="admonition-heading">
       <h5>

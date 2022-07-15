@@ -7,7 +7,7 @@
   grid-template-columns: 2rem 1.75fr;
   grid-template-rows: 1fr;
   gap: 1rem;
-  grid-template-areas: "logo-img content";
+  grid-template-areas: 'logo-img content';
 }
 
 .cardcontent {

@@ -1,5 +1,5 @@
-import React from "react"
-import styles from "./example-list.module.css"
+import React from 'react'
+import styles from './example-list.module.css'
 
 export interface PropTypes {
   id
@@ -23,14 +23,14 @@ const ExampleCard = ({ title, language, author, repo, docs }: ExampleCard) => (
     <div>
       <img
         className={styles.cardimage}
-        src={"./img/examples/" + language + ".svg"}
+        src={'./img/examples/' + language + '.svg'}
       />
     </div>
     <section className={styles.cardcontent}>
       <div>
         <h4 className={styles.cardtitle}>{title}</h4>
         <p>
-          by <a href={"https://github.com/" + author}>@{author}</a>
+          by <a href={'https://github.com/' + author}>@{author}</a>
         </p>
       </div>
 

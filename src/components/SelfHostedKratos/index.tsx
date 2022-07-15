@@ -1,5 +1,5 @@
-import CodeBlock from "@theme/CodeBlock"
-import React from "react"
+import CodeBlock from '@theme/CodeBlock'
+import React from 'react'
 
 export default function SelfHostedKratos() {
   return (

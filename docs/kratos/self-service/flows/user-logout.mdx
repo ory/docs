@@ -10,15 +10,15 @@ Ory Kratos supports two logout flows:
 - API-based (advanced): This flow works for native applications like iOS (Swift), Android (Java), Microsoft (.NET), React Native,
   Electron, and others.
 
-import { apiFlow, browserFlow } from "./code/logout"
-import CodeTabs from "@site/src/theme/Code/CodeTabs"
+import { apiFlow, browserFlow } from './code/logout'
+import CodeTabs from '@site/src/theme/Code/CodeTabs'
 
 ## Self-Service Logout for Server-Side Browser Applications
 
 To ensure that a logout was indeed intended by the user, Ory Kratos first generates a Logout URL for a given Ory Session Cookie.
 You can then open the Logout URL in the Browser.
 
-import SelfServiceLogoutBrowserFlow from "@site/src/theme/SelfServiceLogoutBrowserFlow"
+import SelfServiceLogoutBrowserFlow from '@site/src/theme/SelfServiceLogoutBrowserFlow'
 
 <SelfServiceLogoutBrowserFlow />
 
@@ -44,7 +44,7 @@ Similar to Server-Side Browser Applications, Ory Kratos first generates a Logout
 can simply call the Logout URL using an AJAX request. Ory Kratos returns a `204 No Content` response on success or an error
 otherwise.
 
-import SelfServiceLogoutSPAFlow from "@site/src/theme/SelfServiceLogoutSPAFlow"
+import SelfServiceLogoutSPAFlow from '@site/src/theme/SelfServiceLogoutSPAFlow'
 
 <SelfServiceLogoutSPAFlow />
 

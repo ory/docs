@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment"
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
 
 export default (function () {
   if (!ExecutionEnvironment.canUseDOM) {
@@ -16,7 +16,7 @@ export default (function () {
   let lastLocation = window.location.pathname
   return {
     onRouteUpdate({ location }) {
-      if (typeof window.gtag !== "function") {
+      if (typeof window.gtag !== 'function') {
         return
       }
 
@@ -29,9 +29,9 @@ export default (function () {
       }
       lastLocation = location.pathname
 
-      window.gtag("config", "UA-71865250-1", {
-        page_path: pagePath,
+      window.gtag('config', 'UA-71865250-1', {
+        page_path: pagePath
       })
-    },
+    }
   }
 })()

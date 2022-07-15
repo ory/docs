@@ -1,7 +1,7 @@
-import { readSitemapXML, Sitemap, getLoc, getNewURL, runTest } from "./utils"
+import { readSitemapXML, Sitemap, getLoc, getNewURL, runTest } from './utils'
 
-const sitemap = readSitemapXML("sitemap_hydra.xml")
+const sitemap = readSitemapXML('sitemap_hydra.xml')
 
-it("test hydra sitemap", async () => {
+it('test hydra sitemap', async () => {
   await runTest(sitemap)
 })

@@ -1,6 +1,6 @@
-const express = require("express")
-const cors = require("cors")
-const { V0alpha2Api, Configuration } = require("@ory/client")
+const express = require('express')
+const cors = require('cors')
+const { V0alpha2Api, Configuration } = require('@ory/client')
 
 const app = express()
 
@@ -8,18 +8,18 @@ const app = express()
 const ory = new V0alpha2Api(
   new Configuration({
     // Points to the local Ory API server (Ory TunneL).
-    basePath: process.env.ORY_URL || "http://localhost:4000",
-    baseOptions: { withCredentials: true },
-  }),
+    basePath: process.env.ORY_URL || 'http://localhost:4000',
+    baseOptions: { withCredentials: true }
+  })
 )
 // highlight-end
 
 app.use(
   // highlight-start
   cors({
-    origin: process.env.UI_URL || "http://localhost:8080",
-    credentials: true, // <- Required for CORS to accept cookies and tokens.
-  }),
+    origin: process.env.UI_URL || 'http://localhost:8080',
+    credentials: true // <- Required for CORS to accept cookies and tokens.
+  })
   // highlight-end
 )
 
@@ -31,7 +31,7 @@ app.use((req, res, next) => {
       undefined,
       // This is important - you need to forward the cookies (think of it as a token)
       // to Ory:
-      req.headers.cookie,
+      req.headers.cookie
     )
     .then(({ data }) => {
       req.session = data
@@ -39,17 +39,17 @@ app.use((req, res, next) => {
     })
     .catch(() => {
       res.status(401)
-      res.json({ error: "Unauthorized" })
+      res.json({ error: 'Unauthorized' })
     })
   // highlight-end
 })
 
-app.get("/api/hello", (req, res) => {
+app.get('/api/hello', (req, res) => {
   res.json({
-    message: "Hello from our API!",
+    message: 'Hello from our API!',
     // highlight-start
     session_id: req.session.id,
-    identity_traits: req.session.identity.traits,
+    identity_traits: req.session.identity.traits
     // highlight-end
   })
 })

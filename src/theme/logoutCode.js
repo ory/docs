@@ -1,3 +1,3 @@
-import logoutCode from "raw-loader!./logoutCode/main.go"
+import logoutCode from 'raw-loader!./logoutCode/main.go'
 
 export default logoutCode

@@ -1,7 +1,7 @@
-import React, { useState } from "react"
-import cn from "classnames"
-import styles from "./faq.module.css"
-import genStyle from "./faq.gen.module.css"
+import React, { useState } from 'react'
+import cn from 'classnames'
+import styles from './faq.module.css'
+import genStyle from './faq.gen.module.css'
 
 const Question = ({ children, tags }) => (
   <div className={cn(genStyle.question, ...tags.map((tag) => genStyle[tag]))}>
@@ -16,7 +16,7 @@ const TagButton = ({ tag, isSelected, children, toggleSelected }) => (
       genStyle[tag],
       styles.pills,
       styles.pills__item,
-      { [styles["pills__item--active"]]: isSelected },
+      { [styles['pills__item--active']]: isSelected }
     )}
     onClick={toggleSelected}
   >
@@ -26,7 +26,7 @@ const TagButton = ({ tag, isSelected, children, toggleSelected }) => (
 
 const FaqTags = ({ tags, initiallyDisabled }) => {
   const [selectedTags, setSelectedTags] = useState(
-    tags.filter((t) => !initiallyDisabled.includes(t)),
+    tags.filter((t) => !initiallyDisabled.includes(t))
   )
 
   return (

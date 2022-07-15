@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from "react"
-import fetch from "node-fetch"
-import CodeBlock from "@theme/CodeBlock"
-import styles from "./CodeFromRemote.module.css"
+import React, { useEffect, useState } from 'react'
+import fetch from 'node-fetch'
+import CodeBlock from '@theme/CodeBlock'
+import styles from './CodeFromRemote.module.css'
 
 const detectLanguage = (src) => {
-  const ext = src.split(".").pop()
+  const ext = src.split('.').pop()
   switch (ext) {
-    case "jsx":
-      return "jsx"
-    case "tsx":
-      return "tsx"
-    case "ts":
-      return "typescript"
-    case "go":
-      return "go"
-    case "yaml":
-    case "yml":
-      return "yaml"
-    case "js":
-      return "javascript"
-    case "html":
-      return "html"
-    case "pug":
-      return "pug"
+    case 'jsx':
+      return 'jsx'
+    case 'tsx':
+      return 'tsx'
+    case 'ts':
+      return 'typescript'
+    case 'go':
+      return 'go'
+    case 'yaml':
+    case 'yml':
+      return 'yaml'
+    case 'js':
+      return 'javascript'
+    case 'html':
+      return 'html'
+    case 'pug':
+      return 'pug'
     default:
       return ext
   }
@@ -31,7 +31,7 @@ const detectLanguage = (src) => {
 const findPath = (src) => {
   const matches =
     src.match(
-      new RegExp("https://github.com/[^/]+/[^/]+/blob/[^/]+/(.+)", "i"),
+      new RegExp('https://github.com/[^/]+/[^/]+/blob/[^/]+/(.+)', 'i')
     ) || []
   if (matches.length >= 2) {
     return matches[1]
@@ -56,30 +56,30 @@ const findLine = (needle, haystack) => {
 const transform =
   ({ startAt, endAt }) =>
   (content) => {
-    let lines = content.split("\n")
+    let lines = content.split('\n')
 
     const startIndex = findLine(startAt, lines)
     if (startIndex > 0) {
-      lines = ["// ...", ...lines.slice(startIndex, -1)]
+      lines = ['// ...', ...lines.slice(startIndex, -1)]
     }
 
     const endIndex = findLine(endAt, lines)
     if (endIndex > 0) {
-      lines = [...lines.slice(0, endIndex + 1), "// ..."]
+      lines = [...lines.slice(0, endIndex + 1), '// ...']
     }
 
-    return lines.join("\n")
+    return lines.join('\n')
   }
 
 const CodeFromRemote = (props) => {
   const { src, title } = props
-  const [content, setContent] = useState("")
+  const [content, setContent] = useState('')
 
   useEffect(() => {
     fetch(
       src
-        .replace("github.com", "raw.githubusercontent.com")
-        .replace("/blob/", "/"),
+        .replace('github.com', 'raw.githubusercontent.com')
+        .replace('/blob/', '/')
     )
       .then((body) => body.text())
       .then(transform(props))

@@ -1,16 +1,16 @@
-import React from "react"
-import Tabs from "@theme/Tabs"
-import TabItem from "@theme/TabItem"
-import CodeFromRemote from "../CodeFromRemote"
+import React from 'react'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeFromRemote from '../CodeFromRemote'
 
 const CodeTabs = ({ sampleId, version }) => (
   <>
     <Tabs
       values={[
-        { label: "gRPC Go", value: "grpc-go" },
-        { label: "gRPC node.js", value: "grpc-nodejs" },
-        { label: "REST", value: "rest" },
-        { label: "Keto Client CLI", value: "cli" },
+        { label: 'gRPC Go', value: 'grpc-go' },
+        { label: 'gRPC node.js', value: 'grpc-nodejs' },
+        { label: 'REST', value: 'rest' },
+        { label: 'Keto Client CLI', value: 'cli' }
       ]}
       defaultValue="grpc-go"
     >
