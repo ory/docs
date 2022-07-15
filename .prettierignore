@@ -1,4 +1,12 @@
 code-examples/protect-page-login/php/composer.lock
 CONTRIBUTING.md
-.github/pull_request_template.md
+docs/cli/
+docs/hydra/cli/
+docs/keto/cli/
+docs/kratos/cli/
+docs/oathkeeper/cli/
 package-lock.json
+.docusaurus/
+build/
+.next
+playwright-report/
