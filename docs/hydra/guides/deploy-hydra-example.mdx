@@ -3,8 +3,8 @@ id: deploy-hydra-example
 title: Deploy to production
 ---
 
-import { useLatestRelease } from '@site/src/hooks'
-import CodeBlock from '@theme/CodeBlock'
+import { useLatestRelease } from "@site/src/hooks"
+import CodeBlock from "@theme/CodeBlock"
 
 This guide explains how to set up and run Ory Hydra in an exemplary production environment. It uses Postgres as database, Nginx as
 reverse proxy, and Digital Ocean as cloud provider. You can use another
@@ -144,11 +144,11 @@ mkdir /opt/hydra/{bin,config}
 <CodeBlock className="language-shell">{`
 cd /opt/hydra/bin
 # Download a new version of Ory Hydra
-wget https://github.com/ory/hydra/releases/download/${useLatestRelease('hydra')}/hydra_${useLatestRelease(
-  'hydra'
+wget https://github.com/ory/hydra/releases/download/${useLatestRelease("hydra")}/hydra_${useLatestRelease(
+  "hydra",
 )}-linux_64bit.tar.gz
 # Extract contents
-tar xfvz hydra_${useLatestRelease('hydra')}-linux_64bit.tar.gz
+tar xfvz hydra_${useLatestRelease("hydra")}-linux_64bit.tar.gz
 # Remove redundant files
 rm *md
 rm LICENSE
@@ -157,7 +157,7 @@ rm LICENSE
 4. Download the [Quickstart](../5min-tutorial) configuration files:
 
 <CodeBlock className="language-shell">{`cd ../config
-wget https://raw.githubusercontent.com/ory/hydra/${useLatestRelease('hydra')}/contrib/quickstart/5-min/hydra.yml`}</CodeBlock>
+wget https://raw.githubusercontent.com/ory/hydra/${useLatestRelease("hydra")}/contrib/quickstart/5-min/hydra.yml`}</CodeBlock>
 
 5. Add configuration for Ory Hydra in `hydra.yml` to use the Postgres database.  
    Open `hydra.yml` and change the DSN configuration. Ory Hydra is storing data in an SQLite database in the default quickstart
