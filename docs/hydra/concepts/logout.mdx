@@ -94,7 +94,13 @@ The server response is a JSON object with the following keys:
 }
 ```
 
-Next, the logout provider should decide if the end-user should perform a UI action such as confirming the logout request. It's STRONGLY RECOMMENDED to request logout confirmation from the end-user when `rp_initiated` is set to `false` as this signifies that the end-user requested the logout without any further query parameters. In this situation neither Ory Hydra nor the logout provider can implicitly verify whether the end-user willingly requested the logout URL or if they were tricked into clicking a manipulated link in a vulnerable application. On the other hand, when `rp_initiated` is set to `true` it's also RECOMMENDED to request logout confirmation from the end-user, however, based on your Relying Parties (the OAuth2 Clients) this step could most likely safely be skipped.
+Next, the logout provider should decide if the end-user should perform a UI action such as confirming the logout request. It's
+STRONGLY RECOMMENDED to request logout confirmation from the end-user when `rp_initiated` is set to `false` as this signifies that
+the end-user requested the logout without any further query parameters. In this situation neither Ory Hydra nor the logout
+provider can implicitly verify whether the end-user willingly requested the logout URL or if they were tricked into clicking a
+manipulated link in a vulnerable application. On the other hand, when `rp_initiated` is set to `true` it's also RECOMMENDED to
+request logout confirmation from the end-user, however, based on your Relying Parties (the OAuth2 Clients) this step could most
+likely safely be skipped.
 
 When the logout provider decides to accept the logout request, the flow is completed as follows:
 

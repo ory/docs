@@ -175,13 +175,14 @@ The Playwright (E2E) tests file names end with `.test.ts` and can be found in
 All documents and other files in this repository must be formatted with Prettier
 using the [Ory Prettier styles](https://github.com/ory/prettier-styles).
 
-The recommended way to achieve this is installing the Prettier plugin for your editor:
+The recommended way to achieve this is installing the Prettier plugin for your
+editor:
 
 - [VSCode Prettier plugin](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 - [IntelliJ Prettier plugin](https://www.jetbrains.com/help/idea/prettier.html)
 
-To format all relevant files, run these commands from the main
-directory of the repository:
+To format all relevant files, run these commands from the main directory of the
+repository:
 
 ```sh
 npm install
@@ -209,8 +210,8 @@ Locally:
 
 ### Add content to Examples page
 
-[The Examples page](https://www.ory.sh/docs/examples) provides an overview of Ory
-examples. Add a new example or modify existing entries:
+[The Examples page](https://www.ory.sh/docs/examples) provides an overview of
+Ory examples. Add a new example or modify existing entries:
 
 - Open `examples-content.tsx` under the path `docs/src/pages/_assets/`
 - Copy the following snippet and append it in the correct array (either
