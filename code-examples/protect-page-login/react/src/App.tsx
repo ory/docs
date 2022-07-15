@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import React, { useEffect, useState } from "react"
+import logo from "./logo.svg"
+import "./App.css"
 
 // highlight-start
-import { V0alpha2Api, Configuration, Session, Identity } from '@ory/client'
+import { V0alpha2Api, Configuration, Session, Identity } from "@ory/client"
 
 function App() {
   const [session, setSession] = useState<Session | undefined>()
@@ -18,7 +18,7 @@ function App() {
       baseOptions: {
         withCredentials: true,
       },
-    })
+    }),
   )
 
   // Returns either the email or the username depending on the user's Identity Schema
@@ -57,7 +57,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Welcome to Ory,{' '}
+          Welcome to Ory,{" "}
           {
             // highlight-next-line
             getUserName(session?.identity)

@@ -10,3 +10,4 @@ package-lock.json
 build/
 .next
 playwright-report/
+.github/pull_request_template.md

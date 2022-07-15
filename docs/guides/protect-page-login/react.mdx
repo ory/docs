@@ -36,7 +36,8 @@ npm i --save @ory/client
 ## Require Login to Access the App Page
 
 Next we add a session check to the default home page of the React example application.The highlighted code is what we added to
-check whether the user is signed in, get the logout url flow and redirect them to the login page if not. There is also a welcome message with the registered user email and a logout link:
+check whether the user is signed in, get the logout url flow and redirect them to the login page if not. There is also a welcome
+message with the registered user email and a logout link:
 
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock'
@@ -57,21 +58,21 @@ In the case of this example, the domain of your application, which runs on your 
 When developing locally, use either `localhost` or `127.0.0.1`, but not both. Although technically these mean the same thing,
 they're different hostnames.
 
-Using both interchangeably in your code can cause problems with the origin of HTTP cookies sent by the application. When that happens
-Ory APIs might not be able to read the cookies sent by your app.
+Using both interchangeably in your code can cause problems with the origin of HTTP cookies sent by the application. When that
+happens Ory APIs might not be able to read the cookies sent by your app.
 
 :::
 
-To get your application that runs locally and Ory APIs on the same domain, use Ory Tunnel - a development tool bundled with Ory CLI.
-It's like a microservice - an authentication API server on your domain!
+To get your application that runs locally and Ory APIs on the same domain, use Ory Tunnel - a development tool bundled with Ory
+CLI. It's like a microservice - an authentication API server on your domain!
 
 ```shell-session
 npx @ory/cli tunnel --dev http://localhost:3000
 ```
 
 Ory APIs are now mirrored on `http://localhost:4000`. Use that URL as the `baseUrl` for the `@ory/client` SDK (see code above).
-The `--dev` flag disables security checks for easier integration and should not be used when deploying the Tunnel
-to a staging environment.
+The `--dev` flag disables security checks for easier integration and should not be used when deploying the Tunnel to a staging
+environment.
 
 ## Run your React App
 
@@ -89,8 +90,8 @@ and start the React development server:
 npm run start
 ```
 
-Then open [http://localhost:3000](http://localhost:3000) in your browser. After loading, you now are presented with Ory's Sign In page! Let's click on
-sign up and create your first user!
+Then open [http://localhost:3000](http://localhost:3000) in your browser. After loading, you now are presented with Ory's Sign In
+page! Let's click on sign up and create your first user!
 
 ## Go to Production
 
