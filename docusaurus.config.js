@@ -78,10 +78,6 @@ module.exports = {
         "dart",
       ],
     },
-    announcementBar: {
-      id: "supportus",
-      content: `Sign up for your <a href='https://console.ory.sh/registration?preferred_plan=start-up&utm_source=docs&utm_medium=banner&utm_campaign=top-banner-first900'>Ory Start Up plan free for half a year</a> by using <code>FIRST900</code> during the sign up!`,
-    },
     algolia: {
       appId: "V2EFIWEJ25",
       apiKey: "dc6b220f7d2bcd12da60b9cce431d8c5",
