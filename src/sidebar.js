@@ -134,6 +134,7 @@ module.exports = {
             },
           ],
         },
+        "guides/emails",
         {
           type: "category",
           label: "Customizing Ory",
@@ -150,7 +151,6 @@ module.exports = {
         "concepts/terminology",
         "concepts/project",
         "concepts/redirects",
-        "concepts/emails",
         "concepts/personal-access-token",
         "ecosystem/api-design",
         "concepts/password-policy",
