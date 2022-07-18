@@ -623,6 +623,11 @@
       "source": "/docs/guides/local-development",
       "destination": "https://www.ory.sh/docs/getting-started/local-development",
       "permanent": false
+    },
+    {
+      "source": "/docs/concepts/emails",
+      "destination": "https://www.ory.sh/docs/guides/emails",
+      "permanent": false
     }
   ]
 }
