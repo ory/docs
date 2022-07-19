@@ -186,7 +186,7 @@ username=dev+docs.$(date +%s)@ory.sh
 password=$(openssl rand -base64 12)
 
 actionUrl=$(curl -s -H "Accept: application/json" \
-  'https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/api' | jq -r '.ui.action')
+  'https://playground.projects.oryapis.com/self-service/registration/api' | jq -r '.ui.action')
 
 session=$(curl -s  -X POST -H "Accept: application/json" -H "Content-Type: application/json" \
   --data '{ "traits.email": "'$username'", "password": "'$password'", "method": "password" }' \
@@ -215,7 +215,7 @@ cookieJar=$(mktemp)
 # Initialize the flow
 flow=$( \
     curl -s -H "Accept: application/json"  --cookie $cookieJar --cookie-jar $cookieJar \
-      'https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser' \
+      'https://playground.projects.oryapis.com/self-service/login/browser' \
   )
 
 # Get the action URL
@@ -241,7 +241,7 @@ To initialize the Settings Flow, point the Browser to the initialization endpoin
 curl -s -i -X GET \
     --cookie $cookieJar --cookie-jar $cookieJar \
     -H "Accept: text/html" \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/browser
+    https://playground.projects.oryapis.com/self-service/settings/browser
 
 HTTP/2 303
 date: Fri, 09 Jul 2021 11:07:48 GMT
@@ -300,9 +300,9 @@ To initialize the Settings Flow, point the Browser to the initialization endpoin
 curl -v -s -X GET \
     --cookie $cookieJar --cookie-jar $cookieJar \
     -H "Accept: application/json"  \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/browser | jq
+    https://playground.projects.oryapis.com/self-service/settings/browser | jq
 
-> GET /api/kratos/public/self-service/settings/browser HTTP/2
+> GET /self-service/settings/browser HTTP/2
 > Host: playground.projects.oryapis.com
 > User-Agent: curl/7.64.1
 > Accept: application/json
@@ -325,7 +325,7 @@ curl -v -s -X GET \
   "issued_at": "2021-07-09T09:36:34.04310083Z",
   "request_url": "http://playground.projects.oryapis.com/self-service/settings/browser",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/settings?flow=4074acf9-5025-469b-be9c-9bc776b4a862",
+    "action": "https://playground.projects.oryapis.com/self-service/settings?flow=4074acf9-5025-469b-be9c-9bc776b4a862",
     "method": "POST",
     "nodes": [ /* ... */ ]
   }
@@ -347,7 +347,7 @@ To initialize the API flow, the client calls the API-flow initialization endpoin
 curl -s -X GET \
     -H "Accept: application/json" \
     -H "Authorization: bearer $sessionToken" \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/api | jq
+    https://playground.projects.oryapis.com/self-service/settings/api | jq
 
 {
   "id": "20d5c364-663f-47e6-bd06-2944aa288f55",
@@ -356,14 +356,14 @@ curl -s -X GET \
   "issued_at": "2021-07-09T11:10:36.109455077Z",
   "request_url": "http://playground.projects.oryapis.com/self-service/settings/api",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/settings?flow=20d5c364-663f-47e6-bd06-2944aa288f55",
+    "action": "https://playground.projects.oryapis.com/self-service/settings?flow=20d5c364-663f-47e6-bd06-2944aa288f55",
     "method": "POST",
     "nodes": [ /* ... */ ]
   },
   "identity": {
     "id": "7130f345-8506-4c13-869b-d0e8341ff585",
     "schema_id": "default",
-    "schema_url": "https://playground.projects.oryapis.com/api/kratos/public/schemas/default",
+    "schema_url": "https://playground.projects.oryapis.com/schemas/default",
     "state": "active",
     "state_changed_at": "2021-07-09T11:06:02.23703Z",
     "traits": {
@@ -406,12 +406,12 @@ clients but also works for Settings Flows initialized by API clients. All you ne
 flowId=$(curl -s -X GET \
     -H "Accept: application/json" \
     -H "Authorization: bearer $sessionToken" \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/api | jq -r '.id')
+    https://playground.projects.oryapis.com/self-service/settings/api | jq -r '.id')
 
 curl -s -X GET \
     -H "Accept: application/json" \
     -H "Authorization: bearer $sessionToken" \
-    "https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/flows?id=$flowId" | jq
+    "https://playground.projects.oryapis.com/self-service/settings/flows?id=$flowId" | jq
 
 {
   "id": "260196cc-cd99-40b8-a9b1-8afc06c08afc",
@@ -420,7 +420,7 @@ curl -s -X GET \
   "issued_at": "2021-07-09T10:05:43.388907Z",
   "request_url": "http://playground.projects.oryapis.com/self-service/registration/api",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/registration?flow=260196cc-cd99-40b8-a9b1-8afc06c08afc",
+    "action": "https://playground.projects.oryapis.com/self-service/registration?flow=260196cc-cd99-40b8-a9b1-8afc06c08afc",
     "method": "POST",
     "nodes": [ /* ... */ ]
   }
@@ -435,7 +435,7 @@ When the `profile` method is enabled, it will be part of the `methods` payload i
 curl -s -X GET \
     -H "Authorization: Bearer $sessionToken"  \
     -H "Accept: application/json"  \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/api | jq -r '.ui.nodes[] | select(.group=="profile")'
+    https://playground.projects.oryapis.com/self-service/settings/api | jq -r '.ui.nodes[] | select(.group=="profile")'
 
 {
   "type": "input",
@@ -492,7 +492,7 @@ When the `password` method is enabled, it will be part of the `methods` payload 
 curl -s -X GET \
     -H "Authorization: Bearer $sessionToken"  \
     -H "Accept: application/json"  \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/api | jq -r '.ui.nodes[] | select(.group=="password")'
+    https://playground.projects.oryapis.com/self-service/settings/api | jq -r '.ui.nodes[] | select(.group=="password")'
 
 {
   "type": "input",
@@ -546,7 +546,7 @@ When the `oidc` method is enabled, it will be part of the `methods` payload in t
 curl -s -X GET \
     -H "Authorization: Bearer $sessionToken"  \
     -H "Accept: application/json"  \
-    'https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/flows?id=14cbf9a7-0c71-46e9-b3b9-806cb7859145' | \
+    'https://playground.projects.oryapis.com/self-service/settings/flows?id=14cbf9a7-0c71-46e9-b3b9-806cb7859145' | \
       jq -r '.ui.nodes[] | select(.group=="oidc")'
 
 {
@@ -646,7 +646,7 @@ contains the success state (`state: success`) as well as the updated identity:
 curl -s -X GET \
     --cookie $cookieJar --cookie-jar $cookieJar \
     -H "Accept: application/json"  \
-    'https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/flows?id=f71743cd-700d-4a30-9275-8edc90de07cc' | \
+    'https://playground.projects.oryapis.com/self-service/settings/flows?id=f71743cd-700d-4a30-9275-8edc90de07cc' | \
       jq
 
 {
@@ -654,9 +654,9 @@ curl -s -X GET \
   "type": "browser",
   "expires_at": "2021-04-28T12:39:36.804397011Z",
   "issued_at": "2021-04-28T11:39:36.804397011Z",
-  "request_url": "https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/browser",
+  "request_url": "https://playground.projects.oryapis.com/self-service/settings/browser",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/settings?flow=f71743cd-700d-4a30-9275-8edc90de07cc",
+    "action": "https://playground.projects.oryapis.com/self-service/settings?flow=f71743cd-700d-4a30-9275-8edc90de07cc",
     "method": "POST",
     "nodes": [
       {
@@ -792,7 +792,7 @@ curl -s -X GET \
   "identity": {
     "id": "5b23b651-c186-4398-8717-f15ac72cbc7e",
     "schema_id": "default",
-    "schema_url": "https://playground.projects.oryapis.com/api/kratos/public/schemas/default",
+    "schema_url": "https://playground.projects.oryapis.com/schemas/default",
     "traits": {
       "email": "example.user@ory.sh"
     },
@@ -831,7 +831,7 @@ password=ByS8NWuFSkDgMjbe
 # Initialize the flow
 flow=$( \
     curl -s -H "Accept: application/json" --cookie $cookieJar --cookie-jar $cookieJar \
-      'https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/browser' \
+      'https://playground.projects.oryapis.com/self-service/settings/browser' \
   )
 
 # Get the action URL
@@ -853,9 +853,9 @@ session=$( \
   "type": "browser",
   "expires_at": "2021-04-28T12:39:36.804397011Z",
   "issued_at": "2021-04-28T11:39:36.804397011Z",
-  "request_url": "https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/browser",
+  "request_url": "https://playground.projects.oryapis.com/self-service/settings/browser",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/settings?flow=f71743cd-700d-4a30-9275-8edc90de07cc",
+    "action": "https://playground.projects.oryapis.com/self-service/settings?flow=f71743cd-700d-4a30-9275-8edc90de07cc",
     "method": "POST",
     "nodes": [
       // ...
@@ -871,7 +871,7 @@ session=$( \
   "identity": {
     "id": "5b23b651-c186-4398-8717-f15ac72cbc7e",
     "schema_id": "default",
-    "schema_url": "https://playground.projects.oryapis.com/api/kratos/public/schemas/default",
+    "schema_url": "https://playground.projects.oryapis.com/schemas/default",
     "traits": {
       "email": "example.user@ory.sh"
     },
@@ -906,7 +906,7 @@ password=ByS8NWuFSkDgMjbe
 
 actionUrl=$(curl -s -H "Accept: application/json" \
   -H "Authorization: bearer $sessionToken" \
-  'https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/api' | jq -r '.ui.action')
+  'https://playground.projects.oryapis.com/self-service/settings/api' | jq -r '.ui.action')
 
 curl -s -X POST -H "Accept: application/json" -H "Content-Type: application/json" \
     -H "Authorization: bearer $sessionToken" \
@@ -918,9 +918,9 @@ curl -s -X POST -H "Accept: application/json" -H "Content-Type: application/json
   "type": "browser",
   "expires_at": "2021-04-28T12:39:36.804397011Z",
   "issued_at": "2021-04-28T11:39:36.804397011Z",
-  "request_url": "https://playground.projects.oryapis.com/api/kratos/public/self-service/settings/browser",
+  "request_url": "https://playground.projects.oryapis.com/self-service/settings/browser",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/settings?flow=f71743cd-700d-4a30-9275-8edc90de07cc",
+    "action": "https://playground.projects.oryapis.com/self-service/settings?flow=f71743cd-700d-4a30-9275-8edc90de07cc",
     "method": "POST",
     "nodes": [
       // ...
@@ -936,7 +936,7 @@ curl -s -X POST -H "Accept: application/json" -H "Content-Type: application/json
   "identity": {
     "id": "5b23b651-c186-4398-8717-f15ac72cbc7e",
     "schema_id": "default",
-    "schema_url": "https://playground.projects.oryapis.com/api/kratos/public/schemas/default",
+    "schema_url": "https://playground.projects.oryapis.com/schemas/default",
     "traits": {
       "email": "example.user@ory.sh"
     },

@@ -140,7 +140,7 @@ An example payload of the JSON Web Token is:
       "identity": {
     	"id": "18aafd3e-b00c-4b19-81c8-351e38705126",
     	"schema_id": "default",
-    	"schema_url": "https://example.projects.oryapis.com/api/kratos/public/schemas/default",
+    	"schema_url": "https://example.projects.oryapis.com/schemas/default",
     	"traits": {
     	  "email": "foo@bar",
     	  // ... your other identity traits
