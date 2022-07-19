@@ -230,7 +230,7 @@ To initialize the Verification Flow, point the Browser to the initialization end
 ```sh
 curl -s -i -X GET \
     -H "Accept: text/html" \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/verification/browser
+    https://playground.projects.oryapis.com/self-service/verification/browser
 
 HTTP/2 303
 date: Fri, 09 Jul 2021 13:08:00 GMT
@@ -293,9 +293,9 @@ To initialize the Verification Flow, call the verification initialization endpoi
 ```
 curl -v -s -X GET \
     -H "Accept: application/json"  \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/verification/browser | jq
+    https://playground.projects.oryapis.com/self-service/verification/browser | jq
 
-> GET /api/kratos/public/self-service/verification/browser HTTP/2
+> GET /self-service/verification/browser HTTP/2
 > Host: playground.projects.oryapis.com
 > User-Agent: curl/7.64.1
 > Accept: application/json
@@ -315,7 +315,7 @@ curl -v -s -X GET \
   "type": "browser",
   "expires_at": "2021-06-15T14:38:26.190743Z",
   "issued_at": "2021-06-15T14:33:26.190743Z",
-  "request_url": "https://playground.projects.oryapis.com/api/kratos/public/self-service/verification/browser",
+  "request_url": "https://playground.projects.oryapis.com/self-service/verification/browser",
   "ui": {
     "action": "http://127.0.0.1:4455/self-service/verification?flow=bcf93f61-2ecd-48d2-ac18-6d731fead2b6",
     "method": "POST",
@@ -384,7 +384,7 @@ To initialize the API flow, the client calls the API-flow initialization endpoin
 ```sh
 curl -s -X GET \
     -H "Accept: application/json"  \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/verification/api | jq
+    https://playground.projects.oryapis.com/self-service/verification/api | jq
 
 {
   "id": "535faa25-d617-42ff-b85c-c0d04fd87c44",
@@ -393,7 +393,7 @@ curl -s -X GET \
   "issued_at": "2021-07-09T13:11:07.30270945Z",
   "request_url": "http://playground.projects.oryapis.com/self-service/verification/api",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/verification?flow=535faa25-d617-42ff-b85c-c0d04fd87c44",
+    "action": "https://playground.projects.oryapis.com/self-service/verification?flow=535faa25-d617-42ff-b85c-c0d04fd87c44",
     "method": "POST",
     "nodes": [
       {
@@ -453,11 +453,11 @@ browser clients but also works for Verification Flows initialized by API clients
 ```sh
 flowId=$(curl -s -X GET \
     -H "Accept: application/json" \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/verification/api | jq -r '.id')
+    https://playground.projects.oryapis.com/self-service/verification/api | jq -r '.id')
 
 curl -s -X GET \
     -H "Accept: application/json" \
-    "https://playground.projects.oryapis.com/api/kratos/public/self-service/verification/flows?id=$flowId" | jq
+    "https://playground.projects.oryapis.com/self-service/verification/flows?id=$flowId" | jq
 
 {
   "id": "979d00d7-4d45-4960-8566-730e37dc0a3e",
@@ -466,7 +466,7 @@ curl -s -X GET \
   "issued_at": "2021-07-09T13:11:53.197917Z",
   "request_url": "http://playground.projects.oryapis.com/self-service/verification/api",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/verification?flow=979d00d7-4d45-4960-8566-730e37dc0a3e",
+    "action": "https://playground.projects.oryapis.com/self-service/verification?flow=979d00d7-4d45-4960-8566-730e37dc0a3e",
     "method": "POST",
     "nodes": [ /* ... */ ]
   },
@@ -487,7 +487,7 @@ When the `link` method is enabled, it will be part of the `methods` payload in t
 
 ```shell script
 curl -H "Accept: application/json" -s \
-    'https://playground.projects.oryapis.com/api/kratos/public/self-service/verification/flows?id=956c0499-17a9-4a99-9602-9282d1632f7b' | \
+    'https://playground.projects.oryapis.com/self-service/verification/flows?id=956c0499-17a9-4a99-9602-9282d1632f7b' | \
       jq -r '.ui.nodes[] | select(.group=="link")'
 
 {

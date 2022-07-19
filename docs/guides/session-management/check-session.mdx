@@ -46,7 +46,7 @@ app.get("/", function (req, res) {
   const cookie = req.cookies["ory_kratos_session"]
 
   // Make a request and include the cookie in X-Session-Cookie
-  fetch("https://playground.projects.oryapis.com/api/kratos/public/sessions/whoami", {
+  fetch("https://playground.projects.oryapis.com/sessions/whoami", {
     headers: { "X-Session-Cookie": cookie },
   })
     .then((res) => res.json())
@@ -76,7 +76,7 @@ curl -s -X POST -H  "Accept: application/json" \\
   "identity": {
     "id": "bf32596a-f853-47c4-91e6-a3f41cf4949d",
     "schema_id": "default",
-    "schema_url": "https://playground.projects.oryapis.com/api/kratos/public/schemas/default",
+    "schema_url": "https://playground.projects.oryapis.com/schemas/default",
     "traits": {
       "email": "api@user.org",
       "name": {

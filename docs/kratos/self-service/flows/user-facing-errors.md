@@ -54,7 +54,7 @@ To call a stub error, simply do:
 
 ```sh
 curl -s \
-  'https://playground.projects.oryapis.com/api/kratos/public/self-service/errors?id=stub:500' | jq
+  'https://playground.projects.oryapis.com/self-service/errors?id=stub:500' | jq
 
 {
   "id": "9f900efa-a5ea-4dfd-8311-a8c7448ffeec",
