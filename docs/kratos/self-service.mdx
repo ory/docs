@@ -103,7 +103,7 @@ First, the Browser opens the flow's initialization endpoint (for example`/self-s
 ```sh
 curl -s -i -X GET \
     -H "Accept: text/html" \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser
+    https://playground.projects.oryapis.com/self-service/login/browser
 
 HTTP/2 303
 date: Fri, 09 Jul 2021 10:23:52 GMT
@@ -143,7 +143,7 @@ other flow forms. This HTML form is rendered by the [Self-Service UI](concepts/u
 
 The endpoint responsible for the UI URL uses the `flow` URL Query Parameter (here `...?flow=36c3246f-8e40-4f45-8721-c246576a8bc3`)
 to call the flow information endpoint, for example:
-`https://playground.projects.oryapis.com/api/kratos/public/self-service/login/flows?id=36c3246f-8e40-4f45-8721-c246576a8bc3`
+`https://playground.projects.oryapis.com/self-service/login/flows?id=36c3246f-8e40-4f45-8721-c246576a8bc3`
 
 :::note
 
@@ -160,13 +160,13 @@ cookieJar=$(mktemp)
 flowId=$(curl -s -X GET \
     --cookie-jar $cookieJar --cookie $cookieJar \
     -H "Accept: application/json" \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser | jq -r '.id')
+    https://playground.projects.oryapis.com/self-service/login/browser | jq -r '.id')
 
 # The endpoint uses Ory Kratos' REST API to fetch information about the request
 curl -s -X GET \
     --cookie-jar $cookieJar --cookie $cookieJar \
     -H "Accept: application/json" \
-    "https://playground.projects.oryapis.com/api/kratos/public/self-service/login/flows?id=$flowId" | jq
+    "https://playground.projects.oryapis.com/self-service/login/flows?id=$flowId" | jq
 ```
 
 The response includes login methods, their fields, and additional information about the flow:
@@ -179,7 +179,7 @@ The response includes login methods, their fields, and additional information ab
   "issued_at": "2021-07-09T09:08:08.856735Z",
   "request_url": "http://playground.projects.oryapis.com/self-service/login/browser",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=33f6079a-ef14-4084-af13-34a91e53cd6c",
+    "action": "https://playground.projects.oryapis.com/self-service/login?flow=33f6079a-ef14-4084-af13-34a91e53cd6c",
     "method": "POST",
     "nodes": [
       {
@@ -271,10 +271,7 @@ For more details, check out the individual flow documentation.
 The flow UI then renders the given methods. For the example above, a suitable HTML Form would look along the lines of:
 
 ```html
-<form
-  action="https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=f6209031-38d5-48bc-b6a5-118e8a24d1fe"
-  method="POST"
->
+<form action="https://playground.projects.oryapis.com/self-service/login?flow=f6209031-38d5-48bc-b6a5-118e8a24d1fe" method="POST">
   <input
     name="csrf_token"
     type="hidden"
@@ -307,7 +304,7 @@ information about the flow again
 theFlowID=...
 curl -s -i -X GET \
     -H "Accept: application/json"  \
-    'https://playground.projects.oryapis.com/api/kratos/public/self-service/login/flows?id=$theFlowID' | jq
+    'https://playground.projects.oryapis.com/self-service/login/flows?id=$theFlowID' | jq
 ```
 
 which now includes validation errors and other potential messages:
@@ -318,9 +315,9 @@ which now includes validation errors and other potential messages:
   type: "browser",
   expires_at: "2021-04-28T09:00:57.10254633Z",
   issued_at: "2021-04-28T08:50:57.10254633Z",
-  request_url: "https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser",
+  request_url: "https://playground.projects.oryapis.com/self-service/login/browser",
   ui: {
-    action: "https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=36c3246f-8e40-4f45-8721-c246576a8bc3",
+    action: "https://playground.projects.oryapis.com/self-service/login?flow=36c3246f-8e40-4f45-8721-c246576a8bc3",
     method: "POST",
     nodes: [
       // ...
@@ -424,9 +421,9 @@ example`/self-service/login/browser`, `/self-service/registration/browser`, ...)
 ```sh
 curl -v -s -X GET \
     -H "Accept: application/json"  \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser | jq
+    https://playground.projects.oryapis.com/self-service/login/browser | jq
 
-> GET /api/kratos/public/self-service/login/browser HTTP/2
+> GET /self-service/login/browser HTTP/2
 > Host: playground.projects.oryapis.com
 > User-Agent: curl/7.64.1
 > Accept: application/json
@@ -448,7 +445,7 @@ curl -v -s -X GET \
   "issued_at": "2021-07-09T10:25:12.136099226Z",
   "request_url": "http://playground.projects.oryapis.com/self-service/login/browser",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=ff0c97c4-a7bb-49a5-a8a6-ebf174877fa5",
+    "action": "https://playground.projects.oryapis.com/self-service/login?flow=ff0c97c4-a7bb-49a5-a8a6-ebf174877fa5",
     "method": "POST",
     "nodes": [ /* ... */ ]
   },
@@ -481,9 +478,9 @@ error occurs, the following response could be sent:
   type: "browser",
   expires_at: "2021-04-28T09:00:57.10254633Z",
   issued_at: "2021-04-28T08:50:57.10254633Z",
-  request_url: "https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser",
+  request_url: "https://playground.projects.oryapis.com/self-service/login/browser",
   ui: {
-    action: "https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=f6209031-38d5-48bc-b6a5-118e8a24d1fe",
+    action: "https://playground.projects.oryapis.com/self-service/login?flow=f6209031-38d5-48bc-b6a5-118e8a24d1fe",
     method: "POST",
     nodes: [
       // ...
@@ -565,7 +562,7 @@ example`/self-service/login/api`, `/self-service/registration/api`, ...):
 ```sh
 curl -s -X GET \
     -H "Accept: application/json"  \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/login/api | jq
+    https://playground.projects.oryapis.com/self-service/login/api | jq
 
 {
   "id": "9d17f37b-b60b-44f5-9812-4829a89810f7",
@@ -574,7 +571,7 @@ curl -s -X GET \
   "issued_at": "2021-07-09T10:26:04.019418543Z",
   "request_url": "http://playground.projects.oryapis.com/self-service/login/api",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=9d17f37b-b60b-44f5-9812-4829a89810f7",
+    "action": "https://playground.projects.oryapis.com/self-service/login?flow=9d17f37b-b60b-44f5-9812-4829a89810f7",
     "method": "POST",
     "nodes": [ /* ... */ ]
   }
@@ -636,7 +633,7 @@ If needed, the client can re-request the flow using the same HTTP Request as the
 ```shell script
 curl -s -X GET \
     -H "Accept: application/json" \
-    "https://playground.projects.oryapis.com/api/kratos/public/self-service/login/flows?id=<the-flow-id>" | jq
+    "https://playground.projects.oryapis.com/self-service/login/flows?id=<the-flow-id>" | jq
 
 {
   "id": "41ebf1e9-79f5-4b97-b643-04bfc405f8ad",
@@ -649,11 +646,11 @@ curl -s -X GET \
 The request is then completed by sending the form formatted as `application/json` to the action endpoint
 
 ```shell
-flow=$(curl -s -X GET -H "Accept: application/json" "https://playground.projects.oryapis.com/api/kratos/public/self-service/login/api")
+flow=$(curl -s -X GET -H "Accept: application/json" "https://playground.projects.oryapis.com/self-service/login/api")
 actionUrl=$(echo $flow | jq -r '.ui.action')
 
 echo $actionUrl
-# https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=6394ffa4-235f-4c1a-a200-e62f89862015
+# https://playground.projects.oryapis.com/self-service/login?flow=6394ffa4-235f-4c1a-a200-e62f89862015
 
 curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/json" \
     -d '{"identifier": "i-do-not-exist@user.org", "password": "the-wrong-password", "method": "password"}' \
@@ -668,9 +665,9 @@ which in this case fails with a 400 Bad Request error and the following payload:
   "type": "api",
   "expires_at": "2021-04-28T09:12:48.462374732Z",
   "issued_at": "2021-04-28T09:02:48.462374732Z",
-  "request_url": "https://playground.projects.oryapis.com/api/kratos/public/self-service/login/api",
+  "request_url": "https://playground.projects.oryapis.com/self-service/login/api",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=6394ffa4-235f-4c1a-a200-e62f89862015",
+    "action": "https://playground.projects.oryapis.com/self-service/login?flow=6394ffa4-235f-4c1a-a200-e62f89862015",
     "method": "POST",
     "messages": [
       {

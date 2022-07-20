@@ -64,7 +64,7 @@ cookieJar=$(mktemp)
 # Initialize the flow
 flow=$( \
   curl -s -H "Accept: application/json"  --cookie $cookieJar --cookie-jar $cookieJar \
-    'https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser' \
+    'https://playground.projects.oryapis.com/self-service/login/browser' \
 )
 
 # Get the action URL
@@ -88,7 +88,7 @@ echo $session | jq
 
 # Check the current user id
 curl -s --cookie $cookieJar --cookie-jar $cookieJar -H "Accept: application/json" \
-  https://playground.projects.oryapis.com/api/kratos/public/sessions/whoami | \
+  https://playground.projects.oryapis.com/sessions/whoami | \
   jq -r ".id"
 ```
 
@@ -98,7 +98,7 @@ To logout, first get the generated Logout URL then point the Browser to it:
 # Get the Logout URL
 logoutUrl=$( \
   curl -s --cookie $cookieJar --cookie-jar $cookieJar -H "Accept: application/json" \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/logout/browser | \
+    https://playground.projects.oryapis.com/self-service/logout/browser | \
     jq -r ".logout_url" \
 )
 
@@ -107,7 +107,7 @@ curl -s --cookie $cookieJar --cookie-jar $cookieJar "$logoutUrl"
 
 # Check the current user id again. It should be `null` after a successful logout
 curl -s --cookie $cookieJar --cookie-jar $cookieJar -H "Accept: application/json" \
-  https://playground.projects.oryapis.com/api/kratos/public/sessions/whoami | \
+  https://playground.projects.oryapis.com/sessions/whoami | \
   jq -r ".id"
 ```
 

@@ -18,7 +18,7 @@ security best practices, run the CLI helper included in Ory Kratos:
 kratos hashers argon2 calibrate 1s
 ```
 
-It will output the exact values to use in the [configuration](../reference/configuration.md).
+It will output the exact values to use in the [configuration](../reference/configuration.mdx).
 
 Head to [our blogpost](https://www.ory.sh/choose-recommended-argon2-parameters-password-hashing/) about Argon2 parameters to learn
 how this command and password checking in Ory Kratos works.

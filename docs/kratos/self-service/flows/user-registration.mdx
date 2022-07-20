@@ -117,7 +117,7 @@ To initialize the Registration Flow, point the Browser to the initialization end
 ```shell-session
 curl -s -i -X GET \
     -H "Accept: text/html" \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/browser
+    https://playground.projects.oryapis.com/self-service/registration/browser
 
 HTTP/2 303
 date: Fri, 09 Jul 2021 09:35:26 GMT
@@ -176,9 +176,9 @@ To initialize the Registration Flow, call the registration initialization endpoi
 ```
 curl -v -s -X GET \
     -H "Accept: application/json"  \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/browser | jq
+    https://playground.projects.oryapis.com/self-service/registration/browser | jq
 
-> GET /api/kratos/public/self-service/registration/browser HTTP/2
+> GET /self-service/registration/browser HTTP/2
 > Host: playground.projects.oryapis.com
 > User-Agent: curl/7.64.1
 > Accept: application/json
@@ -201,7 +201,7 @@ curl -v -s -X GET \
   "issued_at": "2021-07-09T09:36:34.04310083Z",
   "request_url": "http://playground.projects.oryapis.com/self-service/registration/browser",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/registration?flow=4074acf9-5025-469b-be9c-9bc776b4a862",
+    "action": "https://playground.projects.oryapis.com/self-service/registration?flow=4074acf9-5025-469b-be9c-9bc776b4a862",
     "method": "POST",
     "nodes": [ /* ... */ ]
   }
@@ -222,7 +222,7 @@ To initialize the API flow, the client calls the API-flow initialization endpoin
 ```shell-session
 curl -s -X GET \
     -H "Accept: application/json"  \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/api | jq
+    https://playground.projects.oryapis.com/self-service/registration/api | jq
 
 {
   "id": "c7ed95c7-2710-436c-a7d0-09ac771a3e8b",
@@ -231,7 +231,7 @@ curl -s -X GET \
   "issued_at": "2021-07-09T09:41:34.883536226Z",
   "request_url": "http://playground.projects.oryapis.com/self-service/registration/api",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/registration?flow=c7ed95c7-2710-436c-a7d0-09ac771a3e8b",
+    "action": "https://playground.projects.oryapis.com/self-service/registration?flow=c7ed95c7-2710-436c-a7d0-09ac771a3e8b",
     "method": "POST",
      "method": "POST",
     "method": "POST",
@@ -248,11 +248,11 @@ browser clients but also works for Registration Flows initialized by API clients
 ```shell-session
 flowId=$(curl -s -X GET \
     -H "Accept: application/json" \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/api | jq -r '.id')
+    https://playground.projects.oryapis.com/self-service/registration/api | jq -r '.id')
 
 curl -s -X GET \
     -H "Accept: application/json" \
-    "https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/flows?id=$flowId" | jq
+    "https://playground.projects.oryapis.com/self-service/registration/flows?id=$flowId" | jq
 
 {
   "id": "260196cc-cd99-40b8-a9b1-8afc06c08afc",
@@ -261,7 +261,7 @@ curl -s -X GET \
   "issued_at": "2021-07-09T10:05:43.388907Z",
   "request_url": "http://playground.projects.oryapis.com/self-service/registration/api",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/registration?flow=260196cc-cd99-40b8-a9b1-8afc06c08afc",
+    "action": "https://playground.projects.oryapis.com/self-service/registration?flow=260196cc-cd99-40b8-a9b1-8afc06c08afc",
     "method": "POST",
     "nodes": [ /* ... */ ]
   }
@@ -291,16 +291,16 @@ the response would look as such:
 
 ```shell script
 curl -H "Accept: application/json" -s \
-    'https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/flows?id=388ae8da-4c44-4765-bfa8-669963d388f5' | jq
+    'https://playground.projects.oryapis.com/self-service/registration/flows?id=388ae8da-4c44-4765-bfa8-669963d388f5' | jq
 
 {
   "id": "388ae8da-4c44-4765-bfa8-669963d388f5",
   "type": "browser",
   "expires_at": "2021-04-28T09:29:23.713785401Z",
   "issued_at": "2021-04-28T09:19:23.713785401Z",
-  "request_url": "https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/browser",
+  "request_url": "https://playground.projects.oryapis.com/self-service/registration/browser",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/registration?flow=388ae8da-4c44-4765-bfa8-669963d388f5",
+    "action": "https://playground.projects.oryapis.com/self-service/registration?flow=388ae8da-4c44-4765-bfa8-669963d388f5",
     "method": "POST",
     "nodes": [
       {
@@ -439,14 +439,14 @@ If enabled, the method contains an `oidc` key with the configured sign in provid
 
 ```shell script
 curl -H "Accept: application/json" -s \
-  'https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/flows?id=c1f4dfd1-3559-4cd3-b6f6-4a83689a41bd' | jq
+  'https://playground.projects.oryapis.com/self-service/registration/flows?id=c1f4dfd1-3559-4cd3-b6f6-4a83689a41bd' | jq
 
 {
   "id": "c1f4dfd1-3559-4cd3-b6f6-4a83689a41bd",
   "type": "browser",
   "expires_at": "2021-04-28T10:25:35.011063Z",
   "issued_at": "2021-04-28T09:25:35.011063Z",
-  "request_url": "https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/browser",
+  "request_url": "https://playground.projects.oryapis.com/self-service/registration/browser",
   "ui": {
     "action": "http://127.0.0.1:4455/self-service/registration?flow=c1f4dfd1-3559-4cd3-b6f6-4a83689a41bd",
     "method": "POST",
@@ -684,7 +684,7 @@ be returned:
 
 ```shell script
 curl -s -H "Cookie: ory_kratos_session=MTU5OTE2ODc2N3xEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJR055VlROMGRteHhSakJrUzBkbmRUUjBlVFY1V0RCRWFVTnJXVmR6V25oaHx2DICsB6IMbaHSQwnYITUZqr7Qx7CxUlnaneJWH495wQ==" \
-  https://playground.projects.oryapis.com/api/kratos/public/sessions/whoami | jq
+  https://playground.projects.oryapis.com/sessions/whoami | jq
 
 {
   "id": "ede90ce6-2420-435a-a745-3d8ab1a9636c",
@@ -695,7 +695,7 @@ curl -s -H "Cookie: ory_kratos_session=MTU5OTE2ODc2N3xEdi1CQkFFQ180SUFBUkFCRUFBQ
   "identity": {
     "id": "d96e86d9-bc33-4aa5-b865-4ade8a3974b3",
     "schema_id": "default",
-    "schema_url": "https://playground.projects.oryapis.com/api/kratos/public/schemas/default",
+    "schema_url": "https://playground.projects.oryapis.com/schemas/default",
     "traits": {
       "email": "foouser@ory.sh",
       "name": {
@@ -733,7 +733,7 @@ When the registration is completed successfully, Ory Kratos responds with a HTTP
   "identity": {
     "id": "d8baf63b-7ce6-4275-82b9-9ac6d97e5037",
     "schema_id": "default",
-    "schema_url": "https://playground.projects.oryapis.com/api/kratos/public/schemas/default",
+    "schema_url": "https://playground.projects.oryapis.com/schemas/default",
     "traits": {
       "email": "registration-api@user.org"
     },
@@ -785,7 +785,7 @@ As well as information about the session:
     "identity": {
       "id": "8a7755df-1aac-4477-a53c-3f16fa059113",
       "schema_id": "default",
-      "schema_url": "https://playground.projects.oryapis.com/api/kratos/public/schemas/default",
+      "schema_url": "https://playground.projects.oryapis.com/schemas/default",
       "traits": {
         "email": "registration-session-api@user.org"
       },
@@ -811,7 +811,7 @@ As well as information about the session:
   "identity": {
     "id": "8a7755df-1aac-4477-a53c-3f16fa059113",
     "schema_id": "default",
-    "schema_url": "https://playground.projects.oryapis.com/api/kratos/public/schemas/default",
+    "schema_url": "https://playground.projects.oryapis.com/schemas/default",
     "traits": {
       "email": "registration-session-api@user.org"
     },
@@ -844,7 +844,7 @@ For API Clients, Ory Kratos responds with a JSON payload which includes the sign
 # Inits a Registration Flow
 actionUrl=$(\
   curl -s -X GET -H "Accept: application/json" \
-    "https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/api" \
+    "https://playground.projects.oryapis.com/self-service/registration/api" \
     | jq -r '.ui.action'\
 )
 
@@ -857,7 +857,7 @@ curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/jso
   "identity": {
     "id": "d8baf63b-7ce6-4275-82b9-9ac6d97e5037",
     "schema_id": "default",
-    "schema_url": "https://playground.projects.oryapis.com/api/kratos/public/schemas/default",
+    "schema_url": "https://playground.projects.oryapis.com/schemas/default",
     "traits": {
       "email": "registration-api@user.org"
     },
@@ -890,7 +890,7 @@ response:
 ```shell script
 actionUrl=$(\
   curl -s -X GET -H "Accept: application/json" \
-    "https://playground.projects.oryapis.com/api/kratos/public/self-service/registration/api" \
+    "https://playground.projects.oryapis.com/self-service/registration/api" \
     | jq -r '.ui.action'\
 )
 
@@ -909,7 +909,7 @@ curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/jso
     "identity": {
       "id": "8a7755df-1aac-4477-a53c-3f16fa059113",
       "schema_id": "default",
-      "schema_url": "https://playground.projects.oryapis.com/api/kratos/public/schemas/default",
+      "schema_url": "https://playground.projects.oryapis.com/schemas/default",
       "traits": {
         "email": "registration-session-api@user.org"
       },
@@ -935,7 +935,7 @@ curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/jso
   "identity": {
     "id": "8a7755df-1aac-4477-a53c-3f16fa059113",
     "schema_id": "default",
-    "schema_url": "https://playground.projects.oryapis.com/api/kratos/public/schemas/default",
+    "schema_url": "https://playground.projects.oryapis.com/schemas/default",
     "traits": {
       "email": "registration-session-api@user.org"
     },
@@ -989,7 +989,7 @@ Using the `/self-service/registration` with `POST` allows the creation of new us
 
 ```shell-session
 actionUrl=$(curl -s -X GET  -H "Accept: application/json" \
-    https:/playground.projects.oryapis.com/api/kratos/public/self-service/registration/api  \
+    https:/playground.projects.oryapis.com/self-service/registration/api  \
     | jq -r '.ui.action')
 
 curl -s -X POST -H "Content-Type: application/json" \
@@ -1011,7 +1011,7 @@ On successful response will get JSON response like the following:
     "identity": {
       "id": "bd1fbe06-7273-462c-ad8c-d077bfc370b9",
       "schema_id": "default",
-      "schema_url": "https://playground.projects.oryapis.com/api/kratos/public/schemas/default",
+      "schema_url": "https://playground.projects.oryapis.com/schemas/default",
       "state": "active",
       "state_changed_at": "2021-07-14T08:41:26.29470737Z",
       "traits": {

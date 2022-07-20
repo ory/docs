@@ -37,6 +37,27 @@ Your Jsonnet code must return a JSON object that looks like this:
 }
 ```
 
+You can set public and admin metadata fields, these fields will then be populated whenever data is mapped.
+
+```jsonnet
+local claims = std.extVar('claims');
+
+{
+  identity: {
+    traits: {
+      email: claims.email
+    },
+    metadata_public: {
+        id: claims.sub,
+        subscriber: true
+    },
+    metadata_admin: {
+        tier: 1
+    },
+  }
+}
+```
+
 To learn more, read our [Jsonnet documentation] reference/jsonnet.mdx.
 
 :::tip

@@ -256,7 +256,7 @@ To initialize the Recovery Flow, point the Browser to the initialization endpoin
 ```sh
 curl -s -i -X GET \
     -H "Accept: text/html" \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery/browser
+    https://playground.projects.oryapis.com/self-service/recovery/browser
 
 HTTP/2 303
 date: Fri, 09 Jul 2021 12:50:38 GMT
@@ -318,9 +318,9 @@ To initialize the Recovery Flow, call the recovery initialization endpoint and s
 ```
 curl -v -s -X GET \
     -H "Accept: application/json"  \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery/browser | jq
+    https://playground.projects.oryapis.com/self-service/recovery/browser | jq
 
-> GET /api/kratos/public/self-service/recovery/browser HTTP/2
+> GET /self-service/recovery/browser HTTP/2
 > Host: playground.projects.oryapis.com
 > User-Agent: curl/7.64.1
 > Accept: application/json
@@ -340,7 +340,7 @@ curl -v -s -X GET \
   "type": "browser",
   "expires_at": "2021-06-15T14:27:31.270617Z",
   "issued_at": "2021-06-15T14:22:31.270617Z",
-  "request_url": "https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery/browser",
+  "request_url": "https://playground.projects.oryapis.com/self-service/recovery/browser",
   "ui": {
     "action": "http://127.0.0.1:4455/self-service/recovery?flow=d37e270d-eb84-472a-8032-3f0f01786210",
     "method": "POST",
@@ -408,7 +408,7 @@ To initialize the API flow, the client calls the API-flow initialization endpoin
 ```sh
 curl -s -X GET \
     -H "Accept: application/json"  \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery/api | jq
+    https://playground.projects.oryapis.com/self-service/recovery/api | jq
 
 {
   "id": "660cc928-48f1-485b-8003-dc690f5afc35",
@@ -417,7 +417,7 @@ curl -s -X GET \
   "issued_at": "2021-07-09T12:52:56.270081773Z",
   "request_url": "http://playground.projects.oryapis.com/self-service/recovery/api",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery?flow=660cc928-48f1-485b-8003-dc690f5afc35",
+    "action": "https://playground.projects.oryapis.com/self-service/recovery?flow=660cc928-48f1-485b-8003-dc690f5afc35",
     "method": "POST",
     "nodes": [ /* */ ]
   },
@@ -433,11 +433,11 @@ clients but also works for Recovery Flows initialized by API clients. All you ne
 ```sh
 flowId=$(curl -s -X GET \
     -H "Accept: application/json" \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery/api | jq -r '.id')
+    https://playground.projects.oryapis.com/self-service/recovery/api | jq -r '.id')
 
 curl -s -X GET \
     -H "Accept: application/json" \
-    "https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery/flows?id=$flowId" | jq
+    "https://playground.projects.oryapis.com/self-service/recovery/flows?id=$flowId" | jq
 
 {
   "id": "7c033350-a935-4807-a06e-85cfc2475c75",
@@ -447,7 +447,7 @@ curl -s -X GET \
   "request_url": "http://playground.projects.oryapis.com/self-service/recovery/api",
   "active": "default",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery?flow=7c033350-a935-4807-a06e-85cfc2475c75",
+    "action": "https://playground.projects.oryapis.com/self-service/recovery?flow=7c033350-a935-4807-a06e-85cfc2475c75",
     "method": "POST",
     "nodes": [ /* ... */ ]
   },
@@ -468,7 +468,7 @@ When the `link` method is enabled, it will be part of the `methods` payload in t
 
 ```shell script
 curl -H "Accept: application/json" -s \
-    'https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery/flows?id=199a2c74-08ca-4f22-b24c-3de3032682f8' | \
+    'https://playground.projects.oryapis.com/self-service/recovery/flows?id=199a2c74-08ca-4f22-b24c-3de3032682f8' | \
       jq -r '.ui.nodes[] | select(.group=="link")'
 
 {
