@@ -6,48 +6,59 @@ sidebar_label: React Native
 
 import CodeFromRemote from "@theme/CodeFromRemote"
 
-With Ory, you can easily integrate authentication into native applications. To give you a better idea of how easy it is, we
-prepared a sample mobile React Native application that implements screens for:
+This guide shows how to create a simple React application and secure it with authentication powered by Ory. You can use this guide
+with both Ory Cloud and self-hosted Ory software.
 
-- Registration
-- Login
-- User Management
+This guide is perfect for you if:
+
+- You have set up a [React Native development environment](https://reactnative.dev/docs/environment-setup).
+- You want to build an app using React Native.
+- You want to give access to your application to signed-in users only.
+
+![](../_static/react-native/1.png)
 
 :::info
 
-The code of the sample application is available in [this repository](https://github.com/ory/kratos-selfservice-ui-react-native).
+You can find the code of the sample application [here](https://github.com/ory/kratos-selfservice-ui-react-native).
+The application is also available to download from the [Apple App Store](https://apps.apple.com/pl/app/ory-profile-app/id1536546333).
 
 :::
 
-## Run the Application Locally
+## Clone the Sample App Repository
 
-The sample application is designed for use with mobile devices, but with the help of emulation, you can run it on your machine.
+Start with cloning the repository with the sample application. Run:
 
-:::note
+```shell
+# Clone using SSH
+git clone git@github.com:ory/kratos-selfservice-ui-react-native.git
 
-Running the application locally requires using mobile device emulation. Before you start:
+# Clone using HTTPS
+https://github.com/ory/kratos-selfservice-ui-react-native.git
+```
 
-- Install Xcode and
+## Prepare Environment
+
+To run the sample application, you must set up a React Native development environment and install mobile device emulators:
+
+- Install Expo CLI.
+- Install [Xcode](https://developer.apple.com/xcode/) and
   [Xcode Command Line Tools](https://www.czconsultants.com/2019/10/react-native-unable-to-verify-xcode-and-simulator-installation/)
   to run the application in an emulated iOS environment.
+
+  :::note
+
+  Xcode and its iOS emulation are available only on macOS.
+
+  :::
+
 - Install the [Android Studio Emulator](https://docs.expo.dev/workflow/android-studio-emulator/) to run the application in an
   emulated Android environment.
 
-:::
+## Run the Application Locally
 
 Follow these steps to run the app locally in an emulated iOS environment:
 
-1. Clone the repository with the sample application:
-
-   ```shell
-   # Clone with SSH
-   git clone git@github.com:ory/kratos-selfservice-ui-react-native.git
-
-   # Clone with HTTPS
-   git clone https://github.com/ory/kratos-selfservice-ui-react-native.git
-   ```
-
-2. Enter the directory and install all dependencies:
+1. Enter the directory and install all dependencies:
 
    ```shell
    # Change directory
@@ -57,16 +68,21 @@ Follow these steps to run the app locally in an emulated iOS environment:
    npm i
    ```
 
-3. Use these commands to run the application in the preferred way:
+2. Run `npm run ios` to start the iOS simulator and run the application.
+
+   :::tip
+
+   You can also use these commands:
 
    - `npm start` opens a dashboard where you can choose to run the app in iOS or Android simulated environments.
    - `npm run android` runs the app in the Android environment.
-   - `npm run ios` runs the app in the iOS environment iOS.
 
-4. Run `npm run ios` to start the iOS simulator and run the application.
-5. In the simulator, find and open the **Expo Go** application.
-6. In the application, click the **+** icon in the top-right corner.
-7. Enter the project URL provided by [Metro](https://facebook.github.io/metro/):
+   :::
+
+3. When the simulator starts, the **Expo Go** application opens on the simulated iOS device. If this doesn't happen, open the app
+   manually.
+4. In the **Expo Go** application, click the **+** icon in the top-right corner.
+5. Enter the project URL provided by [Metro](https://facebook.github.io/metro/):
 
    ```shell
    npm run ios
@@ -178,9 +194,3 @@ The User Settings component performs a [User Settings API Flow](../../kratos/sel
   startAt="const Settings ="
   src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/src/components/Routes/Settings.tsx"
 />
-
-## Try it Yourself
-
-If you want to take a more hands-on approach and go through the process of creating the sample application step-by-step, refer to
-[the post published on the Ory Blog](https://www.ory.sh/login-react-native-authentication-example-api/#adding-authentication-to-a-react-native-app-from-scratch).
-There, you can learn how the components analyzed in this document are created.
