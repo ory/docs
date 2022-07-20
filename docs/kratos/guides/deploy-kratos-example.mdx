@@ -6,8 +6,8 @@ title: Deploy to production
 import { useLatestRelease, useLatestReleaseFilename } from "@site/src/hooks"
 import CodeBlock from "@theme/CodeBlock"
 
-This guide explains how to setup and run Ory Kratos in an exemplary production environment. It uses Postgres as database, Nginx as
-reverse proxy, Digital Ocean as cloud provider, and the
+This guide explains how to set up and run Ory Kratos in an exemplary production environment. It uses Postgres as database, Nginx
+as reverse proxy, Digital Ocean as cloud provider, and the
 [Ory Kratos NodeJS UI Reference](https://github.com/ory/kratos-selfservice-ui-node) as user interface. You can use another
 [relational database](https://www.ory.sh/docs/ecosystem/deployment#data-storage-and-persistence), a different reverse proxy,
 deploy on any other cloud host, and [spin up a custom interface in your favorite language](https://www.ory.sh/docs/kratos/sdk/) -
@@ -23,13 +23,13 @@ Spin up a Droplet (virtual machine) with the following configuration:
 - **RAM**: 1Gb
 - **SSD**: 25Gb
 - **VPC network**: default
-- **Authentication**: SSH Keys. Don't forget to add your own SSH key
+- **Authentication**: SSH Keys. Don't forget to add your SSH key.
 - **Region**: Choose your region
 
 :::note
 
 This example shows a basic configuration of Ory Kratos on a single virtual machine (VM). The configuration of a VM may vary
-depending on the scale of your application.the scale of your application.
+depending on the scale of your application.
 
 :::
 
@@ -43,7 +43,7 @@ purposes. At your hosting provider, configure DNS, create an A type record, and 
 Connect to your [Droplet via SSH](https://docs.digitalocean.com/products/droplets/how-to/connect-with-ssh/) or use the
 [Droplet Console](https://docs.digitalocean.com/products/droplets/how-to/connect-with-console/).
 
-First upgrade all packages in your VM.
+First, upgrade all packages in your Droplet.
 
 ```bash
 apt-get update && apt-get upgrade -y
@@ -130,7 +130,7 @@ Type "help" for help.
 kratos=>
 ```
 
-Congratulations, you have installed and configured the PostgreSQL database to store your identities. Next we will setup Ory
+Congratulations, you have installed and configured the PostgreSQL database to store your identities. Next, we will setup Ory
 Kratos.
 
 ## Install Ory Kratos
@@ -170,8 +170,8 @@ wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
   "kratos",
 )}/contrib/quickstart/kratos/email-password/kratos.yml`}</CodeBlock>
 
-5. Add configuration for Ory Kratos in `kratos.yml` to use the Postgres database.. Open `kratos.yml` and change the dsn
-   configuration. By default `dsn: memory` is configured, so Ory Kratos is storing data in the temporary memory. Change the dsn
+5. Add configuration for Ory Kratos in `kratos.yml` to use the Postgres database. Open `kratos.yml` and change the dsn
+   configuration. By default `dsn: memory` is configured, so Ory Kratos is storing data in the temporary memory. Change the DSN
    key to use the Postgres database you configured before:
 
 ```diff
@@ -690,7 +690,7 @@ secrets:
 +    - rtxrVjiWwe85nxB9XeWoDP8U17+sT6kHo0E1t3Tr5uY=
 ```
 
-3. Change `log.leak_sensitive_values` to false, to not leak any sensitive values like secrets in the logs:
+3. Change `log.leak_sensitive_values` to false, as to not leak any sensitive values like secrets in the logs:
 
 ```diff
 log:
