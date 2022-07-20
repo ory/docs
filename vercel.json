@@ -628,6 +628,11 @@
       "source": "/docs/concepts/emails",
       "destination": "https://www.ory.sh/docs/guides/emails",
       "permanent": false
+    },
+    {
+      "source": "/docs/start-building/native-mobile-app",
+      "destination": "https://www.ory.sh/docs/getting-started/integrate-auth/react-native",
+      "permanent": false
     }
   ]
 }
