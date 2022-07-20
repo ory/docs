@@ -108,13 +108,12 @@ host    all             all             127.0.0.1/32            scram-sha-256
 
 ```bash
 psql -U hydra -W -h 127.0.0.1
-
 ```
 
 6. Use the password for the Ory Hydra user we created before to log into Postgres. If everything works correctly you should see a
    prompt similar to this:
 
-```
+```bash
 Password:
 psql (12.9 (Ubuntu 12.9-0ubuntu0.20.04.1))
 SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
