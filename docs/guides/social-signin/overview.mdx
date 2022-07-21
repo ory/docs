@@ -26,7 +26,7 @@ another set of credentials and makes the decision to sign up much easier.
 
 Adding social sign-in providers relies on OAuth2 and OpenID Connect.
 
-## OIDC Token Handling
+## OIDC token handling
 
 Ory Identity Service (Kratos) doesn't save the OIDC tokens it gets from social sign-in providers. The tokens are exchanged for Ory
 Sessions. The tokens are used in the following way:
@@ -38,7 +38,7 @@ Sessions. The tokens are used in the following way:
    creates a new identity and issues a Session.
 5. The system discards of the `id_token` when the flow is completed.
 
-## Preventing Account Linking
+## Preventing account linking
 
 If you enable multiple registration methods, users can link their existing accounts to social sign-in provider accounts after
 email verification.
@@ -64,7 +64,7 @@ selfservice:
             - hook: session
 ```
 
-### Dangers of Automatic Account Linking
+### Dangers of automatic account linking
 
 While convenient for users, automatic account linking creates an attack vector that can allow malicious actors to steal user
 accounts.
@@ -87,7 +87,7 @@ Since it constitutes a security threat, automatic account linking is not availab
 
 :::
 
-## Prevent Having to Login after Sign-Up
+## Prevent having to login after sign-up
 
 ```mdx-code-block
 import OidcSessionHook from '../_common/oidc_session_hook.mdx'
