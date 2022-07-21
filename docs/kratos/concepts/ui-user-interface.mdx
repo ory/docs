@@ -10,7 +10,7 @@ the basis for your own UI:
 - The [Ory Cloud Managed UI](https://playground.projects.oryapis.com/ui/welcome) is available when you run Ory Kratos in Ory
   Cloud.
 - [React Native Reference Implementation](https://github.com/ory/kratos-selfservice-ui-react-native)
-- [NodeJS Reference Implementation](https://github.com/ory/kratos-selfservice-ui-node)
+- [Node.js Reference Implementation](https://github.com/ory/kratos-selfservice-ui-node)
 - [React / SPA Reference Implementation](https://github.com/ory/react-nextjs-example)
 
 Ory Kratos' HTTP APIs make it easy and straight forward to write your own UI (e.g. "login" screen, "update profile settings", ...)
@@ -147,7 +147,7 @@ Rendering it is straight forward if you are on the server-side:
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_script.hbs"
 />
 
-For single-page apps, you might need a different set up to load the script asynchronously. In ReactJS you might want to do
+For single-page apps, you might need a different set up to load the script asynchronously. In React.js you might want to do
 something like the following:
 
 <CodeFromRemote
@@ -202,7 +202,7 @@ Here is an example of implementing an `img` node in handlebars:
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_image.hbs"
 />
 
-Here is an example of implementing an `img` node in ReactJS:
+Here is an example of implementing an `img` node in React.js:
 
 <CodeFromRemote
   lang="tsx"
@@ -395,7 +395,7 @@ follows:
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_text.hbs"
 />
 
-In ReactJS, you will most likely find similar if statements on the message IDs.
+In React.js, you will most likely find similar if statements on the message IDs.
 
 <CodeFromRemote
   lang="tsx"
@@ -496,7 +496,7 @@ hidden field, if set.
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_checkbox.hbs"
 />
 
-In single page apps, such as ReactJS, this trickery is not needed as you have full control over the form's state:
+In single page apps, such as React.js, this trickery is not needed as you have full control over the form's state:
 
 <CodeFromRemote
   lang="tsx"
@@ -578,9 +578,9 @@ Submit buttons trigger the form submission. In pure HTML, this is just a simple 
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_submit.hbs"
 />
 
-If you have control over the form's payload, like in ReactJS, you need to ensure that the name of the form (e.g. `method`) is only
-submitted once with the correct value (e.g. `password`). Because in some cases Ory Kratos might generate multiple submit buttons
-with the same `name` attribute.
+If you have control over the form's payload, like in React.js, you need to ensure that the name of the form (e.g. `method`) is
+only submitted once with the correct value (e.g. `password`). Because in some cases Ory Kratos might generate multiple submit
+buttons with the same `name` attribute.
 
 ```json5
 [
@@ -664,7 +664,7 @@ are easy to implement in both pure HTML
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_hidden.hbs"
 />
 
-and single page apps like ReactJS
+and single page apps like React.js
 
 <CodeFromRemote
   lang="tsx"
@@ -969,7 +969,7 @@ The message ID is a 7-digit number (`xyyzzzz`) where
 ## UI Error Codes
 
 When building a single page app, or a native app, Ory Kratos will respond with errors in some cases. You can find an exemplary
-error handling logic in our ReactJS reference implementation:
+error handling logic in our React.js reference implementation:
 
 <CodeFromRemote
   lang="tsx"

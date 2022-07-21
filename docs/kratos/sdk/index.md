@@ -17,8 +17,8 @@ We publish our SDKs for popular languages in their respective package repositori
 - [.NET](https://www.nuget.org/packages/Ory.Kratos.Client/)
 - [Go](https://github.com/ory/kratos-client-go)
 - [Java](https://search.maven.org/artifact/sh.ory.kratos/kratos-client)
-- [JavaScript](https://www.npmjs.com/package/@ory/client) with TypeScript definitions and compatible with: NodeJS, ReactJS,
-  AngularJS, Vue.js, and many more.
+- [JavaScript](https://www.npmjs.com/package/@ory/client) with TypeScript definitions and compatible with: Node.js, React.js,
+  Angular, Vue.js, and many more.
 - [PHP](https://packagist.org/packages/ory/kratos-client)
 - [Python](https://pypi.org/project/ory-kratos-client/)
 - [Ruby](https://rubygems.org/gems/ory-kratos-client)

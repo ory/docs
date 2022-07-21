@@ -58,8 +58,8 @@ registration, notify another system on successful registration (such as Mailchim
 There are two flow types supported in Ory Kratos:
 
 - Flows where the user sits in front of the Browser and the application is
-  - a server-side application (NodeJS, Java, ...)
-  - a client-side application (ReactJS, AngularJS, ...)
+  - a server-side application (Node.js, Java, ...)
+  - a client-side application (React.js, Angular, ...)
 - Flows where API interaction is required (mobile app, Smart TV, ...)
 
 All Self-Service Flows ([User Login](self-service/flows/user-login.mdx),
@@ -70,7 +70,7 @@ same data models but do use different API endpoints.
 
 <ApiWarning />
 
-## Browser Flows for Server-Side Apps: NodeJS, PHP, Java, ...
+## Browser Flows for Server-Side Apps: Node.js, PHP, Java, ...
 
 Browser-based flows for server-side apps make use of three core HTTP technologies:
 
@@ -384,9 +384,9 @@ If the form payload is valid, the flow completes with a success. The result here
 example redirects the user to a specified redirect URL and sets a session cookie. The registration flow also redirects to a
 specified redirect URL but only creates the user in the database and might issue a session cookie if configured to do so.
 
-## Browser Flows for Client-Side Apps: Single-Page-Apps, ReactJS, AngularJS, NextJS, ...
+## Browser Flows for Client-Side Apps: Single-Page-Apps, React.js, Angular, Next.js, ...
 
-Browser-based flows also support Client Side applications such as Single-Page-Apps (ReactJS, AngularJS, NextJS, ...) that use AJAX
+Browser-based flows also support Client Side applications such as Single-Page-Apps (React.js, Angular, Next.js, ...) that use AJAX
 to perform requests.
 
 :::info
@@ -415,7 +415,7 @@ The high-level sequence diagram for API flows looks as follows:
 
 ### Initialization
 
-The AJAX client (for example NextJS app) makes a request to the flow's initialization endpoint (for
+The AJAX client (for example Next.js app) makes a request to the flow's initialization endpoint (for
 example`/self-service/login/browser`, `/self-service/registration/browser`, ...):
 
 ```sh

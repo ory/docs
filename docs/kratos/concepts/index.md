@@ -184,7 +184,7 @@ explains the architectural beliefs and framework behind the Ory Products in part
 Ory's approach to user interface and user experience is to provide for an interaction concept with maximum flexibility and
 creativity. Some companies need
 [progressive profiling](https://blog.hubspot.com/blog/tabid/6307/bid/34155/how-to-capture-more-and-better-lead-intel-with-progressive-profiling.aspx)
-and build a NodeJS app. Other companies desire to capture everything in one go, using Client-Side JavaScript library such as
+and build a Node.js app. Other companies desire to capture everything in one go, using Client-Side JavaScript library such as
 Angular or React. Some companies want an iOS-native registration and login experience. While Ory's cloud native headless API
 approach address many integration and UI issues, with Ory Kratos, predefined flows make it easy to implement a custom user
 interface for login, registration, profile management, account reset, etc. Furthermore, to make it very easy to get started there

@@ -84,7 +84,7 @@ can't be modified!
 
 ### Accessing Ory Kratos APIs from client-side JavaScript / AJAX
 
-When implementing a Single Page App (SPA) using AngularJS or ReactJS you probably want to access Ory Krato's Public APIs.
+When implementing a Single Page App (SPA) using Angular or React.js you probably want to access Ory Krato's Public APIs.
 
 To prevent several attack vectors, Ory Krato's Public API is protected - even for some GET requests - with Anti-CSRF measures.
 
@@ -95,7 +95,7 @@ example.
 
 ### Accessing Ory Kratos APIs from a server-side application
 
-When implementing a server-side application (for example in PHP, Java, Go, NodeJS, ...) make sure to include the `Cookie` header
+When implementing a server-side application (for example in PHP, Java, Go, Node.js, ...) make sure to include the `Cookie` header
 from the client when fetching the self-service flows (for example `GET /self-service/login/flows?id=...`):
 
 ```ts

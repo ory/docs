@@ -30,7 +30,7 @@ server-side component with access to Ory Hydra's Admin Endpoint!
   defaultValue="ui"
   values={[
     {label: 'UI', value: 'ui'},
-    {label: 'NodeJS', value: 'node'},
+    {label: 'Node.js', value: 'node'},
     {label: 'HTML Example', value: 'html'},
   ]}>
 <TabItem value="ui">
@@ -47,7 +47,7 @@ Check out our [reference implementation](https://github.com/ory/hydra-login-cons
 :::
 
 ```typescript title="routes/login.ts"
-// This example uses ExpressJS
+// This example uses Express.js
 import express from "express"
 import url from "url"
 import csrf from "csurf"
@@ -120,7 +120,7 @@ router.get("/login", csrfProtection, (req, res, next) => {
 <Tabs
   defaultValue="node"
   values={[
-    {label: 'NodeJS', value: 'node'},
+    {label: 'Node.js', value: 'node'},
   ]}>
 <TabItem value="node">
 
@@ -185,7 +185,7 @@ router.post('/login', csrfProtection, (req, res, next) => {
 <Tabs
   defaultValue="node"
   values={[
-    {label: 'NodeJS', value: 'node'},
+    {label: 'Node.js', value: 'node'},
   ]}>
 <TabItem value="node">
 

@@ -38,8 +38,8 @@ const RenderFlow = ({ flow }) => {
       values={[
         { label: "Browser UI", value: "browser" },
         { label: "Golang (API Flow)", value: "golang" },
-        { label: "ExpressJS", value: "express" },
-        { label: "ReactJS", value: "react" },
+        { label: "Express.js", value: "express" },
+        { label: "React.js", value: "react" },
         { label: "React Native", value: "react-native" },
       ]}
     >

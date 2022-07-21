@@ -39,8 +39,8 @@ Account Recovery must be performed if access to an account needs to be recovered
 There are two Recovery Flow types supported in Ory Kratos:
 
 - Flows where the user sits in front of the Browser and the application is
-  - a server-side application (NodeJS, Java, ...)
-  - a client-side application (ReactJS, AngularJS, ...)
+  - a server-side application (Node.js, Java, ...)
+  - a client-side application (React.js, Angular, ...)
 - Flows where API interaction is required (Mobile app, Smart TV, ...)
 
 The Recovery Flow can be summarized as the following state machine:
@@ -552,13 +552,13 @@ Settings Flow prompting the user to update their password or credentials:
 
 <CodeTabs items={getFlowMethodLinkChallengeDone} />
 
-## Code Examples for NodeJS, ReactJS, Go, ...
+## Code Examples for Node.js, React.js, Go, ...
 
 The Recovery User Interface is a route (page / site) in your application (server, native app, single page app) that should render
 a recovery form.
 
 In stark contrast to other Identity Systems, Ory Kratos doesn't render this HTML. Instead, you need to implement the HTML code in
-your application (for example NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme flexibility and
+your application (for example Node.js + Express.js, Java, PHP, React.js, ...), which gives you extreme flexibility and
 customizability in your user interface flows and designs.
 
 You will use the Recovery Flow JSON response to render the recovery form UI, which could looks as follows depending on your

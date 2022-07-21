@@ -7,7 +7,7 @@ import { useLatestRelease, useLatestReleaseFilename } from "@site/src/hooks"
 import CodeBlock from "@theme/CodeBlock"
 
 This guide explains how to setup and run Ory Kratos in an exemplary production environment. It uses Postgres as database, Nginx as
-reverse proxy, [Digital Ocean](https://www.digitalocean.com/) as cloud provider, and the Ory Kratos NodeJS UI Reference as user
+reverse proxy, [Digital Ocean](https://www.digitalocean.com/) as cloud provider, and the Ory Kratos Node.js UI Reference as user
 interface. You can use another [relational database](https://www.ory.sh/docs/ecosystem/deployment#data-storage-and-persistence), a
 different reverse proxy, deploy on any other cloud host, and
 [spin up a custom interface in your favorite language](https://www.ory.sh/docs/kratos/sdk/) - this is just an example!
@@ -15,7 +15,7 @@ different reverse proxy, deploy on any other cloud host, and
 - Installation and configuration of [PostgreSQL](https://www.postgresql.org/)
 - Installation and configuration of [Ory Kratos](https://github.com/ory/kratos)
 - Installation and configuration of [Nginx](https://www.nginx.com/)
-- Installation and configuration of [Ory Kratos NodeJS UI Reference](https://github.com/ory/kratos-selfservice-ui-node)
+- Installation and configuration of [Ory Kratos Node.js UI Reference](https://github.com/ory/kratos-selfservice-ui-node)
 
 ## Create a Droplet
 
@@ -488,7 +488,7 @@ curl -s  http://accounts.example.com/sessions/whoami|jq
 
 ## Install Ory Kratos UI
 
-The installation of the Ory Kratos NodeJS UI Reference is straightfoward:
+The installation of the Ory Kratos Node.js UI Reference is straightfoward:
 
 <CodeBlock className="language-shell">{`useradd -s /bin/false -m -d /opt/uinode uinode
 cd /opt/uinode
@@ -712,7 +712,7 @@ systemctl restart kratos
 
 ## Next Steps
 
-- Fork the [Ory Kratos NodeJS UI Reference](https://github.com/ory/kratos-selfservice-ui-node) or
+- Fork the [Ory Kratos Node.js UI Reference](https://github.com/ory/kratos-selfservice-ui-node) or
   [build a custom UI in the language of your choice](../sdk/index.md).
 - [Add Two Factor Authentication (2FA) to your App](../../guides/mfa/overview)
 - [Configure The Password Policy](./password-policy.mdx)

@@ -156,7 +156,7 @@ each individual UI element is in
 ### Playwright tests
 
 The [Playwright](https://github.com/microsoft/playwright) (E2E) tests file names
-end with `.spec.ts` and can be found in `/tests/playwright`. NodeJS is required
+end with `.spec.ts` and can be found in `/tests/playwright`. Node.js is required
 to run Playright tests locally. To test the documentation locally:
 
 1. Clone this repository.

@@ -128,7 +128,7 @@ Before creating a pull request, go through this checklist:
 1. [Rebase](http://git-scm.com/book/en/Git-Branching-Rebasing) your local changes against the `master` branch.
 1. Run the full project test suite with the `go test -tags sqlite ./...` (or equivalent) command and confirm that it passes.
 1. Run `make format` if a `Makefile` is available, `gofmt -s` if the project is written in Go, `npm run format` if the project is
-   written for NodeJS.
+   written for Node.js.
 1. Ensure that each commit has a descriptive prefix. This ensures a uniform commit history and helps structure the changelog.  
    Please refer to this [list of prefixes for Kratos](https://github.com/ory/kratos/blob/master/.github/semantic.yml) for an
    overview.
@@ -179,7 +179,7 @@ Please disclose vulnerabilities to [security@ory.sh](mailto:security@ory.sh). Do
 Please follow these guidelines when formatting source code:
 
 - Go code should match the output of `gofmt -s` and pass `golangci-lint run`.
-- Format NodeJS and JavaScript code using `npm run format` where appropriate.
+- Format Node.js and JavaScript code using `npm run format` where appropriate.
 
 ### Working with Forks
 
@@ -362,7 +362,7 @@ workflows:
 
 ### Checking for vulnerabilities
 
-#### NodeJS
+#### Node.js
 
 This is done automatically by GitHub
 

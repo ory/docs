@@ -24,8 +24,8 @@ Please read the [Self-Service Flows](../../self-service.mdx) overview before con
 There are two Login Flow types supported in Ory Kratos:
 
 - Flows where the user sits in front of the Browser and the application is
-  - a server-side application (NodeJS, Java, ...)
-  - a client-side application (ReactJS, AngularJS, ...)
+  - a server-side application (Node.js, Java, ...)
+  - a client-side application (React.js, Angular, ...)
 - Flows where API interaction is required (mobile app, Smart TV, ...)
 
 The Login Flow can be summarized as the following state machine:
@@ -706,13 +706,13 @@ To refresh a session, append `?refresh=true` to:
 - `/self-service/login/api` for API Clients (for example
   `https://playground.projects.oryapis.com/self-service/login/api?refresh=true`)
 
-## Code Examples for NodeJS, ReactJS, Go, ...
+## Code Examples for Node.js, React.js, Go, ...
 
 The Login User Interface is a route (page / site) in your application (server, native app, single page app) that should render a
 login form.
 
 In stark contrast to other Identity Systems, Ory Kratos doesn't render this HTML. Instead, you need to implement the HTML code in
-your application (for example NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme flexibility and
+your application (for example Node.js + Express.js, Java, PHP, React.js, ...), which gives you extreme flexibility and
 customizability in your user interface flows and designs.
 
 You will use the Login Flow JSON response to render the login form UI, which could looks as follows depending on your programming
