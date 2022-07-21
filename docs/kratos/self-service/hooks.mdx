@@ -117,18 +117,14 @@ The configuration section of a web-hook consists of
 - `body` - URI of a jsonnet template, used by the web-hook to render the payload to send (optional). Use a
   `file://path/to/body.jsonnet` URL for referring to local files. This property is ignored for HTTP `method`s, which don't support
   sending of HTTP body payloads.
-- `auth` - configuration of authentication and authorization mechanisms to be
-  used by the web-hook
-- `can_interrupt` - specifies if a given web hook can interrupt the flow by
-  returning a predefined JSON message either with or without user-facing validation errors. This is useful when integrating Kratos
-  self-service flows with external systems that can perform some extra input
-  validation (i.e. user identity, username availability in other systems etc.).
-  See [below](#interruptable-web-hooks) for an example response.```
-  returning a predefined JSON message with validation errors or just stop flow
-  without user facing errors. This is useful when integrating Kratos
-  self-service flows with external systems that can do some extra input
-  validation (i.e. user identity, username availability in other systems etc.).
-  See below for an example response.
+- `auth` - configuration of authentication and authorization mechanisms to be used by the web-hook
+- `can_interrupt` - specifies if a given web hook can interrupt the flow by returning a predefined JSON message either with or
+  without user-facing validation errors. This is useful when integrating Kratos self-service flows with external systems that can
+  perform some extra input validation (i.e. user identity, username availability in other systems etc.). See
+  [below](#interruptable-web-hooks) for an example response.``` returning a predefined JSON message with validation errors or just
+  stop flow without user facing errors. This is useful when integrating Kratos self-service flows with external systems that can
+  do some extra input validation (i.e. user identity, username availability in other systems etc.). See below for an example
+  response.
 
 #### Canceling Webhooks
 
@@ -199,15 +195,15 @@ All properties are mandatory.
 
 ### Interruptable Web-Hooks
 
-Sometimes notification-like web hooks are not enough and one needs to integrate
-some external business logic into user's self-service flows. This can be solved with interruptible web-hooks. Kratos passes the self-service flow to an
-external service that will decide if the flow should continue or not. If the flow is interrupted, the web-hook can further decide if the user should
-be notified about the error, or if the failure is silent.
+Sometimes notification-like web hooks are not enough and one needs to integrate some external business logic into user's
+self-service flows. This can be solved with interruptible web-hooks. Kratos passes the self-service flow to an external service
+that will decide if the flow should continue or not. If the flow is interrupted, the web-hook can further decide if the user
+should be notified about the error, or if the failure is silent.
 
-Interruptable web-hooks must be defined by specifying can_interrupt flag. The
-web service specified with url will process the payload from the webhook and will return a
-predefined JSON that will instruct Kratos to forward this information to the
-frontend as follows:
+Interruptable web-hooks must be defined by specifying can_interrupt flag. The web service specified with url will process the
+payload from the webhook and will return a predefined JSON that will instruct Kratos to forward this information to the frontend
+as follows:
+
 - Status code <400: The self-service flow continues as normal
 - Status code 400 or higher: Kratos parses the returned JSON and looks for a messages that can be forwarded to the frontend.
 
@@ -218,8 +214,7 @@ Sample payload may look like this:
   "messages": [
     {
       "instance_ptr": "#/traits/foo/bar",
-      "message": "bar field is violating our policies",
-      "detailed_meesages": [
+      "messages": [
         {
           "id": 123,
           "text": "field must be longer than 12 characters",
@@ -234,21 +229,19 @@ Sample payload may look like this:
 }
 ```
 
-Since the whole idea of blocking hooks is to allow to interrupt selfservice flow
-and provide user with a meaningfull information (messages/errors) please cofigure
-them in `after` web hooks configurations.
+Since the whole idea of blocking hooks is to allow to interrupt selfservice flow and provide user with a meaningfull information
+(messages/errors) please cofigure them in `after` web hooks configurations.
 
 Some clarifications about meaning of some fields:
 
-- `instance_ptr` points to the field in the payload/schema that this error
-  refers to (displayed by the frontend next to the corresponding field)
-- `id` is the unique numeric error ID that helps to translate messages in the
-  frontend application.
+- `instance_ptr` points to the field in the payload/schema that this error refers to (displayed by the frontend next to the
+  corresponding field)
+- `id` is the unique numeric error ID that helps to translate messages in the frontend application.
 
 ## Login
 
-Hooks running before or after successful user login are defined per Self-Service
-Registration Method in Ory Kratos' configuration file.
+Hooks running before or after successful user login are defined per Self-Service Registration Method in Ory Kratos' configuration
+file.
 
 ### Before
 
