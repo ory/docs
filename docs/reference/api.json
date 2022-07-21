@@ -158,6 +158,22 @@
         },
         "type": "object"
       },
+      "QuotaCustomDomains": {
+        "properties": {
+          "available_domains": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "can_use": {
+            "type": "boolean"
+          },
+          "used_domains": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
       "QuotaProjectMemberSeats": {
         "properties": {
           "project_id": {
