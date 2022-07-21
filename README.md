@@ -151,7 +151,8 @@ each individual UI element is in
 - Always leave a blank line before and after a list.
 - Begin a line with spaces (not tabs) to denote a
   [nested sub-item](#nesting-inside-a-list-item).
-- Indent all code blocks in lists so that they are formatted to be part of list items. 
+- Indent all code blocks in lists so that they are formatted to be part of list
+  items.
 
 ## Testing
 
