@@ -21,7 +21,7 @@ export const official: PropTypes = {
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/react",
       docs: "https://www.ory.sh/docs/getting-started/integrate-auth/react",
-    },    
+    },
     {
       title: "Protect a Page with Login: React Native",
       language: "react",
@@ -68,7 +68,7 @@ export const official: PropTypes = {
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/flutter_web_redirect",
-      docs: "https://www.ory.sh/docs/getting-started/integrate-auth/flutter-web-redirect,
+      docs: "https://www.ory.sh/docs/getting-started/integrate-auth/flutter-web-redirect",
     },
     {
       title: "Protect a Page with Login: Django",
