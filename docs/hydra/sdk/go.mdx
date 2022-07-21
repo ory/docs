@@ -246,7 +246,7 @@ func main() {
 }
 ```
 
-### Fake TLS Termination
+### Fake TLS termination
 
 You can set Ory Hydra to HTTPS mode without actually accepting TLS connections, visit
 [Preparing for Production](https://www.ory.sh/docs/hydra/production#tls-termination) to learn more. The following code example
@@ -306,7 +306,7 @@ func (h withHeader) RoundTrip(req *http.Request) (*http.Response, error) {
 
 ```
 
-### Skip TLS Verification
+### Skip TLS verification
 
 When using self-signed certificates we need to skip the TLS verification and accept all certificates. In production deployments,
 you would use a certificate signed by a trusted CA. The following code example shows how to configure Ory Hydra to skip the TLS

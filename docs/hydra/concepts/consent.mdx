@@ -1,6 +1,6 @@
 ---
 id: consent
-title: Consent Flow
+title: Consent flow
 ---
 
 import Mermaid from "@theme/Mermaid"
@@ -44,7 +44,7 @@ The following sequence diagram describes the different API calls and HTTP Redire
     Ory Hydra->>OAuth2 Client: Transmits authorization code/token`}
 />
 
-## Redirection to the Consent Endpoint
+## Redirection to the consent endpoint
 
 Once the login challenge is accepted, Ory Hydra will ask the user for consent:
 
@@ -74,7 +74,7 @@ Endpoint to fetch important information about the request.
 https://consent-app/consent?consent_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2
 ```
 
-### Previous Consent
+### Previous consent
 
 A consent has four distinctive attributes:
 
@@ -102,7 +102,7 @@ that it makes most sense for third-party access. Not showing the consent screen 
 
 :::
 
-## The Consent Endpoint
+## The consent endpoint
 
 The Consent Endpoint (set by `urls.consent`) is an application written by you. You can find an exemplary
 [Node.js reference implementation on our GitHub](https://github.com/ory/hydra-login-consent-node).
@@ -200,7 +200,7 @@ The way you collect the consent information from the End-User is up to you. In m
 </form>
 ```
 
-### Accepting the Consent Flow
+### Accepting the consent flow
 
 To accept the Consent Challenge, make an HTTP PUT request with `Content-Type: application/json` and a JSON payload (see
 [Accept Consent Request HTTP API Reference](../reference/api.mdx#schemaacceptconsentrequest))
@@ -258,7 +258,7 @@ which is the URL your application must the End-User's browser to.
 Check the ["Implementing the Consent Endpoint" Guide](../guides/consent.mdx) for examples using the Ory Hydra SDK in different
 languages.
 
-### Rejecting the Consent Flow
+### Rejecting the consent flow
 
 To reject the Login Challenge, make a HTTP PUT request with `Content-Type: application/json` and a JSON payload (see
 [Reject Consent Request HTTP API Reference](../reference/api.mdx#schemarejectrequest))
@@ -312,7 +312,7 @@ which is the URL your application must the End-User's browser to.
 Check the ["Implementing the Login Endpoint" Guide](../guides/login.mdx) for examples using the Ory Hydra SDK in different
 languages.
 
-## Revoking Consent
+## Revoking consent
 
 You can revoke a user's consent either on a per application basis or for all applications.
 

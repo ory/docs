@@ -1,6 +1,6 @@
 ---
 id: oauth2-grant-type-jwt-bearer
-title: JSON Web Token (JWT) Profile (RFC7523)
+title: JSON Web Token (JWT) profile (RFC7523)
 ---
 
 Ory Hydra is capable of performing the
@@ -39,7 +39,7 @@ J9l-ZhwP[...omitted for brevity...]
 
 Clients using this grant must be authenticated.
 
-### Establishing a Trust Relationship
+### Establishing a trust relationship
 
 Before using this grant type, you must establish a trust relationship in Ory Hydra. Trust relationships come in two flavors:
 
@@ -153,7 +153,7 @@ with resulting access token claims:
 You can also delete, get, and list trust relationships. Please check the [HTTP REST API documentation](../reference/api.mdx) for
 more details.
 
-### OAuth2 JWT Bearer Grant Type Validation
+### OAuth2 JWT bearer grant type validation
 
 When performing the `urn:ietf:params:oauth:grant-type:jwt-bearer` Authorization Grant, the JWT Bearer in the `assertion` parameter
 is validated as follows:
@@ -191,7 +191,7 @@ grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer
 
 Hydra will check them against scopes defined in the corresponding trust relationship.
 
-## Using JWTs for Client Authentication
+## Using JWTs for client authentication
 
 Ory Hydra supports OAuth 2.0 Client Authentication with RSA and ECDSA private/public keypairs with supported signing algorithms:
 

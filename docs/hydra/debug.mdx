@@ -1,12 +1,12 @@
 ---
 id: debug
-title: Common Problems
-sidebar_label: Common Problem Solutions
+title: Common problems
+sidebar_label: Common problem solutions
 ---
 
 Spec-compliant OAuth 2.0 and OpenID Connect is hard. Let's take a look how to resolve certain issues.
 
-## First Aid
+## First aid
 
 There are three things you can do to quickly debug any issue:
 
@@ -55,11 +55,11 @@ If you expect an OAuth 2.0 Refresh Token but aren't receiving one, this can have
    request.
 5. The OAuth 2.0 Client making the request isn't allowed to grant type `refresh_token`.
 
-## OAuth 2.0 Authorize Code Flow fails
+## OAuth 2.0 authorize code flow fails
 
 The most likely cause is misconfiguration, summarized in the next sections.
 
-## Refresh Token Flow fails
+## Refresh Token flow fails
 
 Refresh tokens can become invalid if abuse is detected, but coding issues may also trigger this scenario, for example if a client
 makes multiple requests.
@@ -69,7 +69,7 @@ Some common examples:
 1.  Replay of authorization code grant.
 2.  Replay of refresh token grant.
 
-### Wrong or misconfigured OAuth 2.0 Client
+### Wrong or misconfigured OAuth 2.0 client
 
 You are using the wrong OAuth 2.0 Client or the OAuth 2.0 Client has a broken configuration. To check that you're using the right
 client, run:
@@ -124,7 +124,7 @@ hydra clients get --endpoint http://ory-hydra <the-client-id>
 
 Here you see that `http://my-url/callback` isn't in the list, which is why the request fails.
 
-### oauth2/token endpoint fails for jwks based client
+### oauth2/token endpoint fails for JWKS based client
 
 When trying to get an access token for a client registered with `"token_endpoint_auth_method": "private_key_jwt"` it's possible
 that the provided jwt has expired.

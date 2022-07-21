@@ -1,6 +1,6 @@
 ---
 id: before-oauth2
-title: Do You Need OAuth2?
+title: Do you need OAuth2?
 ---
 
 OAuth2 and OpenID Connect is all the rage with big platforms (Google, Facebook, GitHub) and identity SaaS products (Okta, Auth0)
@@ -17,7 +17,7 @@ more, check out [Ory Kratos](https://www.ory.sh/kratos) first!
 
 :::
 
-## What it's Good for
+## What it's good for
 
 If you are like GitHub and you want to enable people not associated with your company like CircleCi or TravisCI to have access to
 your user's data, Ory Hydra is the right tool for you.
@@ -32,7 +32,7 @@ If you want a system for user registration, password recovery, login form, sessi
 with OAuth2 right away. It's recommended to use [Ory Kratos](https://www.ory.sh/kratos) for your basic user management needs and
 then figure out if you still need OAuth2.
 
-## OAuth2 and OpenID Connect don't Solve Registration, Password Reset, ...
+## OAuth2 and OpenID Connect don't solve registration, password reset, ...
 
 OAuth2 and OpenID Connect are so-called delegation protocols which aren't concerned with user registration, password recovery,
 changing a password or email address and so on.
@@ -44,7 +44,7 @@ If you are wondering what password hashing algorithm to use, or how your users s
 OAuth2 or OpenID Connect right now. Instead, you should give [Ory Kratos](https://www.ory.sh/kratos/) a spin, which aims to solve
 that.
 
-## Access and Refresh Tokens aren't Sessions!
+## Access and Refresh Tokens aren't sessions!
 
 With OAuth2 and OpenID Connect you end up with three session layers:
 
@@ -107,9 +107,9 @@ However, OAuth2 and OpenID Connect do get used in certain scenarios at these com
 - FireStick uses the OAuth2 Device Authorization grant to log you into your Amazon account;
 - GitHub does offer an API to third-party developers that involves OAuth2.
 
-## "But SaaS Identity Products use OAuth2 and OpenID Connect"
+## "But SaaS identity products use OAuth2 and OpenID Connect"
 
-They do, and they have great SDKs to help you avoid a lot of the OAuth2 and OpenID Complexity until you hit the very core
+They do, and they have great SDKs to help you avoid a lot of the OAuth2 and OpenID complexity until you hit the very core
 limitations of OAuth2 which are amongst others:
 
 - Up to three different session states (see for example
@@ -126,7 +126,7 @@ all software (for example Ory Hydra, Okta, Keycloak, ...) that use OAuth2 and Op
 If all you need is user registration, log in, user settings, and similar flows - check out
 [Ory Kratos](https://www.ory.sh/kratos/)!
 
-## You must Ensure Secure Storage of Access and Refresh Tokens
+## You must ensure secure storage of Access and Refresh Tokens
 
 Storing access and refresh tokens involves tradeoffs:
 
@@ -152,7 +152,7 @@ because the browser takes care of:
 [Ory Kratos](https://www.ory.sh/kratos/) works both with tokens and cookies. Implementing login doesn't involve any manual token
 handling - just log in and you're done!
 
-## Access Token Scope isn't an Access Control Permission
+## Access Token Scope isn't an access control permission
 
 The OAuth 2.0 Scope **isn't an internal RBAC/ACL permission**:
 

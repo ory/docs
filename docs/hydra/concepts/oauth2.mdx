@@ -79,7 +79,7 @@ A typical OAuth 2.0 flow looks as follows:
 4. The Authorization Server confirms the user's identity and asks the user to grant the OAuth 2.0 Client certain permissions.
 5. The Authorization Server issues tokens that the OAuth 2.0 client uses to access resources on the user's behalf.
 
-### OAuth 2.0 Scope
+### OAuth 2.0 scope
 
 :::note
 
@@ -112,7 +112,7 @@ Ory Hydra has pre-defined OAuth 2.0 Scope values:
 When performing an OAuth 2.0 Flow where the end-user is involved (for example Implicit or Authorize Code), the granted OAuth 2.0
 Scope must be set when accepting the consent using the `grant_scope` key.
 
-### OAuth 2.0 Access Token Audience
+### OAuth 2.0 Access Token audience
 
 The Audience of an Access Token refers to the Resource Servers that this token is intended for. The audience usually refers to one
 or more URLs such as
@@ -170,7 +170,7 @@ If you set `ttl.refresh_token` to `-1`, Refresh Tokens never expire.
 
 :::
 
-### OAuth 2.0 Token Introspection
+### OAuth 2.0 token introspection
 
 OAuth2 Token Introspection is an [IETF](https://tools.ietf.org/html/rfc7662) standard. It defines a method for a protected
 resource to query an OAuth 2.0 authorization server to determine the active state of an OAuth 2.0 token and to determine
