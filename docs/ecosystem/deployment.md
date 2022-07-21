@@ -1,6 +1,6 @@
 ---
 id: deployment
-title: Deployment Fundamentals and Requirements
+title: Deployment fundamentals and requirements
 ---
 
 ## Integrates with Kubernetes

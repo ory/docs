@@ -1,6 +1,6 @@
 ---
 id: sqa
-title: Software Quality Assurance
+title: Software quality assurance
 ---
 
 Our goal is to provide you with the fastest and most reliable open source services. To achieve this goal, we collect metrics on
@@ -11,7 +11,7 @@ We're committed to full transparency on what data we transmit why and how. The s
 and located [here](https://github.com/ory/x/blob/master/metricsx). If you don't wish to help us improve our projects by sharing
 telemetry data, it's possible to [opt out of this feature](#opt-out).
 
-## Data Processing
+## Data processing
 
 We want to give you a thorough understanding why we collect this data, how we collect it, and what we do with it, as well as
 real-world examples of how this data improved a project.
@@ -47,7 +47,7 @@ The following real-world outcomes have been achieved using this data (excerpt):
 4. A heavy uptake in usage of Ory Keto showed us that we need to provide certain migration tools for an update that introduces
    breaking changes. We were under the impression that the service was only used in test environments.
 
-## Opt Out
+## Opt out
 
 You can opt out of software quality assurance features (telemetry)
 
@@ -58,7 +58,7 @@ You can opt out of software quality assurance features (telemetry)
 Disabling telemetry doesn't have any downsides, except for us not being able to improve the project. Note that Ory always sends
 minimal ping with version information once on start up.
 
-## Data Privacy
+## Data privacy
 
 To protect your privacy, we filter out any data that could identify you or your users. We're taking the following measures to
 protect your privacy:
@@ -107,11 +107,11 @@ hashed with SHA-256 using a randomly assigned UUID v4 salt:
 - `/policies?owner=foo` with salt `ABCDEFGH` becomes `/policies?owner=sha256("foo|ABCDEFGH")`:
   `/policies?owner=0301424a80469ad03a208de925563a97ec6ab2f9dc7a2ad71b2ded85a7f7a7af`).
 
-### Source Code
+### Source code
 
 The full code-base is [open source](https://github.com/ory/metrics-middleware).
 
-### Data Example
+### Data example
 
 The following code snippet represents two raw event types (`page` and `identify`) collected by a real Ory Hydra instance:
 
