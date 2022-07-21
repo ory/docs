@@ -633,6 +633,26 @@
       "source": "/docs/start-building/native-mobile-app",
       "destination": "https://www.ory.sh/docs/getting-started/integrate-auth/react-native",
       "permanent": false
+    },
+    {
+      "source": "docs/kratos/concepts/identity-schema",
+      "destination": "https://www.ory.sh/docs/guides/manage-identities/overview",
+      "permanent": false
+    },
+    {
+      "source": "docs/guides/manage-identities/managing-users-identities",
+      "destination": "https://www.ory.sh/docs/guides/manage-identities/create-identities",
+      "permanent": false
+    },
+    {
+      "source": "docs/guides/manage-identities/identity",
+      "destination": "https://www.ory.sh/docs/guides/manage-identities/identity-schema",
+      "permanent": false
+    },
+    {
+      "source": "docs/guides/manage-identities/managing-users-identities-metadata",
+      "destination": "https://www.ory.sh/docs/guides/manage-identities/identity-metadata-traits",
+      "permanent": false
     }
   ]
 }

@@ -199,7 +199,7 @@ Sometimes it's necessary to store more than one type of identity in your system:
 - A customer that uses email + password to login, and needs to set a birthdate; or
 - An employee that uses a unique username + password to login with a cost center attached to the profile.
 
-Ory Kratos implements both scenarios by using [Identity Schemas](./identity-schema.mdx)
+Ory Kratos implements both scenarios by using [Identity Schemas](../../guides/manage-identities/identity-schema)
 
 ### Forget passport-js, oidc-client, ...
 

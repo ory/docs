@@ -1,40 +1,22 @@
 ---
 id: customize-identity-schema
-title: Customize identity schema
+title: Customize Identity schema
 ---
 
-Ory supports custom Identity Schemas. The Identity Model is a JSON Schema which describes the traits that make up an identity, for
-example customers, users or staff accounts.
+Ory supports custom Identity schemas. The Identity schema is a JSON Schema that describes the traits that make up an Identity.
+This document describes how to create custom Identity schemas.
 
-This guide describes the steps needed to create custom Identity Schemas.
+## Create custom Identity schema
 
-## Setup custom identity schema
+Follow these steps to create a custom Identity schema in Ory Cloud:
 
-- Select the Ory Cloud Project, you want to change under [Projects/Overview](https://console.ory.sh/projects/list).
-
-- Head over to the "Customize / General" tab (URL: https://console.ory.sh/projects/$YOURPROJECTID/settings) and review the active
-  Identity Schema.
-
-- Select a preset model or an empty template as the basis for your new custom Identity Schema.
-
-- Check the `Customize Identity Schema` box to enable editing on the Identity Model.
-
-- Add or remove traits from the Identity Schema as desired, more info in the [Customize Fields](#customize-fields) section.
-
-- When finished editing name your custom Identity Schema. Input the name in the textbox between the checkbox and the schema.
-
-- Press `Enter` or hit the `Update` button to save it, once you have made your changes. It isn't possible to edit an existing
-  Identity Schema on the same revision. The Identity Schema can still be reused as a template for a following revision.
-
-You can specify a title for your custom Identity Schema. The default is `"title": "Person",` but this can be changed to something
-that describes this Identity Schema better:
-
-```
-"title": "Customer",
-"title": "Administrator",
-"title": "Foo",
-etc...
-```
+1. Open the [Ory Console](https://console.ory.sh/) and sign in.
+2. Select **Customize → Identity Schema** from the left navigation bar.
+3. Using the dropdown menu, select one of the preset schemas or the empty template as the starting point for your custom schema.
+4. Check the **Customize Identity Schema** box to enable editing of the schema.
+5. Adjust the schema to your needs - adjust or remove traits.
+6. Define the name of the custom schema in the **Identity Model Schema** text box.
+7. Click the **Update** button to save.
 
 ## Customize fields
 
@@ -46,7 +28,7 @@ An Identity Schemas traits are specified under
     "properties": {
 ```
 
-Each trait translates into a field on the user-facing frontend. For example the "email & password" preset defines two traits -
+Each trait translates into a field on the user-facing frontend. For example, the "email & password" preset defines two traits -
 email and password:
 
 ```json
@@ -80,7 +62,7 @@ email and password:
 ```
 
 This Identity Schema translates into the following sign-up screen:
-![Email Password Identity Schema](/images/identity-model/email-password.png)
+![Email Password Identity Schema](../_static/manage-identities/1.png)
 
 The part highlighted below defines the identities `email` for the email+password flow in Ory Cloud. It also includes a method for
 [`recovery`](https://www.ory.sh/kratos/docs/self-service/flows/account-recovery#recovery-link-method) as well as
@@ -168,9 +150,9 @@ you want to know more about these types, please refer to the
 The `title` of each field is what the user as description or sample input. After adding the above examples the sign-up screen
 would look like so:
 
-![Example Identity Schema with GitHub and Phone Number Fields](/images/identity-model/example-identity0.png)
+![Example Identity Schema with GitHub and Phone Number Fields](../_static/manage-identities/2.png)
 
-### Change existing Identity Schemas
+### Change existing Identity schemas
 
 While it's not possible to directly edit existing Identity Schemas, you can make revisions.
 
@@ -181,14 +163,14 @@ For example, an Identity Schema named "Customer Type 1" exists and you would lik
 - Enter a new name, for example "Customer Type 2".
 - Press the `Enter` key or `Update` to save it.
 
-### Add Identity Metadata
+### Add Identity metadata
 
-It is possible to add metadata to an identity, either as protected field that can only be read by the admin only or as public
-field that can be read by the user as well.
+It is possible to add metadata to an identity, either as a protected field that can only be read by the admin or as a public field
+that can be read by the user as well.
 [Visit the Manage Identity Metadata documentation](https://www.ory.sh/docs/guides/manage-identities/managing-users-identities-metadata)
 for details on how to add metadata to identities.
 
-### Additional Properties
+### Additional properties
 
 The [`additionalProperties`](https://json-schema.org/understanding-json-schema/reference/object.html#additional-properties)
 keyword is used to control the handling of properties whose names aren't listed in the properties keyword. This has no effect and
@@ -198,7 +180,7 @@ should be set to false.
       "additionalProperties": false
 ```
 
-## Reference identity schema
+## Reference Identity schema
 
 The following Identity Schema includes first/last and nickname, as well as number fields for the users' age. There are also two
 true/false fields for specifying the newsletter subscription and enterprise status.
@@ -269,15 +251,6 @@ Please note that this is just a reference Identity Schema, for practical uses it
 }
 ```
 
-This is what the above Identity Schema would look like on the sign-up screen:
+This is what the above Identity schema would look like on the sign-up screen:
 
-![Example Identity Schema with many fields](/images/identity-model/example-identity1.png)
-
-## Best practices
-
-- Keep your data lean!
-
-Theoretically, any amount and type of data can be included in your Identity model. We recommend that you don't include more fields
-than necessary in your Identity Schema. The Identity Schema should only include traits that are necessary or relevant to the
-users' profile. If the data is related to something else - for example business logic - it makes sense to store it somewhere else.
-It can still be captured in the sign up form, it just will need to be saved for example in your backend database.
+![Example Identity Schema with many fields](../_static/manage-identities/3.png)

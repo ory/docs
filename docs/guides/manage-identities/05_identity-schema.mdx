@@ -1,0 +1,293 @@
+---
+id: identity-schema
+title: Identity schema
+---
+
+The Identity schema is a JSON schema that describes the data model that makes up the Identity. In Ory, every Identity can have its
+own model (a unique set of data fields).
+
+The Identity schema can either be one of the available presets or a [customized model](#custom-identity-model).
+
+## Available presets
+
+Ory Cloud provides three basic Identity Schema presets.
+
+### Username & password
+
+This preset is useful for applications that don't need the user's email address and don't prioritize a high degree of user
+anonymity.
+
+:::warning
+
+This preset disables account verification, account recovery, and account enumeration defenses. Don't use it in security-sensitive
+environments.
+
+:::
+
+With this preset, every Identity has a single trait - the `username`. The `username` is the login identifier:
+
+```json5
+// Identity example
+{
+  id: "6e9d3d30-f93e-4630-901f-c2096953723d",
+  traits: {
+    username: "some-username",
+  },
+}
+```
+
+### Email & password
+
+With this preset, Identities have a single trait, the `email`. The `email` is the login identifier and is used for email
+verification and for account recovery:
+
+```json5
+// Identity example
+{
+  id: "6e9d3d30-f93e-4630-901f-c2096953723d",
+  traits: {
+    email: "foo@bar.com",
+  },
+}
+```
+
+### Demo profile
+
+:::warning
+
+This preset is experimental. Use it for PoCs and demos only.
+
+:::
+
+This preset has an email field, a first name, last name, and a "newsletter" checkbox.
+
+```json5
+// Identity example
+{
+  id: "6e9d3d30-f93e-4630-901f-c2096953723d",
+  traits: {
+    email: "foo@bar.com",
+    name: {
+      first: "Foo",
+      last: "Bar",
+    },
+    newsletter: true,
+  },
+}
+```
+
+## Identity schema vocabulary extensions
+
+Because the system doesn't know that a particular field has a system-relevant meaning, you have to specify that in the schema. For
+example:
+
+- This email address should be used for recovering a lost password.
+- This identifier (username or email) should be used for logging in with a password.
+- This is the phone number used for SMS 2FA.
+
+A vocabulary extension can be used within a property:
+
+```json
+{
+  "$id": "http://mydomain.com/schemas/v2/customer.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "A customer (v2)",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "title": "E-Mail",
+          "type": "string",
+          "format": "email",
+
+          // This tells Ory Kratos that the field should be used as the "username" for the username+password flow.
+          // It's an extension to the regular JSON Schema vocabulary.
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Identifier for Username and Password flows
+
+You can configure Ory Identity Service (Kratos) to use specific fields as the Identity's identifier. In this example, the
+`password` is set as the identifier:
+
+```json
+{
+  "ory.sh/kratos": {
+    "credentials": {
+      "password": {
+        "identifier": true
+      }
+    }
+  }
+}
+```
+
+#### Email
+
+Looking at the traits from above
+
+```yaml
+traits:
+  # These are just examples
+  email: office@ory.sh
+  name:
+    first: Aeneas
+    last: Rekkas
+  favorite_animal: Dog
+  accepted_tos: true
+```
+
+and using a JSON Schema that uses the `email` field as the identifier for the password flow:
+
+```json
+{
+  "$id": "http://mydomain.com/schemas/v2/customer.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "A customer (v2)",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "title": "E-Mail",
+          "type": "string",
+          "format": "email",
+
+          // This tells Ory Kratos that the field should be used as the "username" for the Username and Password Flow.
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
+        },
+        "name": {
+          "type": "object",
+          "properties": {
+            "first": {
+              "type": "string"
+            },
+            "last": {
+              "type": "string"
+            }
+          }
+        },
+        "favorite_animal": {
+          "type": "string"
+        },
+        "accepted_tos": {
+          "type": "string"
+        }
+      },
+      "required": ["email"],
+      "additionalProperties": false
+    }
+  }
+}
+```
+
+In this example, Ory understands that `traits:email: 'office@ory.sh'` is the identifier for this Identity. The system must get
+`office@ory.sh` and a password to sign in an user.
+
+[Username and Password Credentials](../../kratos/concepts/credentials/username-email-password) contains more information and
+examples about credentials usage.
+
+Note that `format` field of the Identity schema will perform validation of the given trait. In this example, the email address is
+validated using the [JSONSchema](https://json-schema.org/understanding-json-schema/reference/string.html#email-addresses) rule
+set.
+
+#### Phone number
+
+Let's extend the Identity schema from the previous chapter with a phone number:
+
+```json
+{
+  "$id": "http://mydomain.com/schemas/v2/customer.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "A customer (v2)",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "title": "E-Mail",
+          "type": "string",
+          "format": "email",
+
+          // This tells Ory Kratos that the field should be used as the "username" for the Username and Password Flow.
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
+        },
+        "phone": {
+          "title": "Phone",
+          "type": "string",
+          "format": "tel",
+
+          // The phone number is marked as an identifier. This allows the user to login with both email and phone number.
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
+        },
+        "name": {
+          "type": "object",
+          "properties": {
+            "first": {
+              "type": "string"
+            },
+            "last": {
+              "type": "string"
+            }
+          }
+        },
+        "favorite_animal": {
+          "type": "string"
+        },
+        "accepted_tos": {
+          "type": "string"
+        }
+      },
+      "required": ["email"],
+      "additionalProperties": false
+    }
+  }
+}
+```
+
+By using the `"format": "tel"` field we enable validation of phone numbers using the Golang
+[port](https://github.com/nyaruka/phonenumbers) of Google's [libphonenumber](https://github.com/google/libphonenumber).
+
+## Identity state
+
+The Identity can have one of these states:
+
+- `created` - via API or self-service registration
+- `updated` - via API or self-service settings, account recovery, etc.
+- `inactive` - only via API
+
+An inactive Identity can't sign in to the system. When trying to sign in, an inactive Identity gets a code `401` error with a
+message indicating that the account was disabled.

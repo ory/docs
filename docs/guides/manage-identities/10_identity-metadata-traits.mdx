@@ -1,0 +1,102 @@
+---
+id: identity-metadata-traits
+title: Identity metadata & traits
+---
+
+Identities have traits and metadata:
+
+- **Traits** are the attributes of an Identity, that can be updated by the Identity owner, for example the username or email
+  address.
+- **Metadata** are the attributes defined by the system admin that can't be updated or modified by the Identity owner. The only
+  way to update the metadata is to use the `/admin/identities` APIs. These fields can be used to store, for example, the user's
+  roles, subscription status, etc.
+
+## Metadata
+
+There are two types of Identity metadata:
+
+- **Public:** Attributes which can only be modified using the `/admin/identities` APIs. They are visible to the user when calling
+  `toSession()` or `/sessions/whoami`.
+- **Admin:** Attributes which can only be modified and read using the `/admin/identities` APIs. They are never directly exposed to
+  the Identity/user.
+
+:::note
+
+Metadata is not validated using the Identity's JSON Schema. You must ensure that the metadata you store is valid according to your
+schema and you must keep the schema up to date to accommodate changes in the data.
+
+:::
+
+To manage metadata, use the following APIs:
+
+- [`POST /admin/identities`](../../reference/api.mdx#operation/adminCreateIdentity)
+- [`GET /admin/identities`](../../reference/api.mdx#operation/adminListIdentities)
+- [`GET /admin/identities/{id}`](../../reference/api.mdx#operation/adminGetIdentity)
+- [`PUT /admin/identities/{id}`](../../reference/api.mdx#operation/adminUpdateIdentity)
+
+## Traits
+
+Traits are the data associated with an Identity. This data can be modified by the Identity owner, for example at sign up or in the
+profile update process. Identity traits can also be modified by users with Ory Identity Service (Kratos) Admin API access.
+
+:::note
+
+Ory Identity Service (Kratos) uses [JSON Schema](https://json-schema.org/learn/getting-started-step-by-step.html) to validate
+Identity traits.
+
+:::
+
+Each identity can, theoretically, have a different JSON Schema. This can be useful in the following situations:
+
+- There is more than one type of Identity in the system for example: customers, support, staff.
+- The system includes both human users and "robots" (sometimes also known as named service accounts).
+- The system needs to ingest another company's Identity schema.
+- The system's Identity Schema changes or grows over time and requires versioning.
+
+This example illustrates a usage scenario with three types of identities: regular customers,
+[grandfather accounts](https://en.wikipedia.org/wiki/Grandfather_clause), and service accounts (for example a Microsoft
+[Service Account](https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/service-accounts)). Each
+Identity has one JSON schema that defines it:
+
+- Customers: `http://mydomain.com/schemas/v2/customer.schema.json`
+- Grandfather Accounts: `http://mydomain.com/schemas/v1/customer.schema.json`
+- Service Accounts: `http://mydomain.com/schemas/service-account.schema.json`
+
+Ory Kratos expects the JSON Schemas in its configuration file:
+
+```yaml
+identity:
+  # This will be the default JSON Schema. If `schema_id` is empty when creating an Identity using the
+  # Admin API or a user signs up using a selfservice flow, this schema will be used.
+  #
+  # This is a required configuration field!
+  default_schema_id: person
+
+  # Optionally define additional schemas here:
+  schemas:
+    # When creating an Identity that uses this schema, `traits_schema_id: customer` are set for that Identity.
+    - id: customer
+      url: http://foo.bar.com/customer.schema.json
+    - id: person
+      url: http://foo.bar.com/person.schema.json
+```
+
+Ory validates the Identity traits against the corresponding schema on all "write" operations (create/update). The employed
+business logic must be able to distinguish these three types of identities. You might use a switch statement like in the following
+example:
+
+```go
+// This is an example program that can deal with all three types of Identities
+session, err := ory.SessionFromRequest(r)
+// some error handling
+switch (session.Identity.SchemaID) {
+    case "customer":
+        // ...
+    case "employee":
+        // ...
+    case "default":
+        fallthrough
+    default:
+        // ...
+}
+```

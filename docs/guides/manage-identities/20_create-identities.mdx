@@ -1,22 +1,10 @@
 ---
-id: managing-users-identities
-title: Create and invite identities
+id: create-identities
+title: Create Identities
 ---
 
-This document walks you through the administrative identity management in Ory. You should already be familiar with the
-[Identity Schema](../../kratos/concepts/identity-schema.mdx) before reading this guide.
-
-There are three principal flows supported for creating identities as an administrator:
-
-1. Create users.
-1. Invite users - e.g. inviting a new employee to your organization IT.
-1. Importing existing users - e.g. when migrating from another system to Ory Kratos.
-
-## Create an identity
-
-The goal of this flow is to create an identity and provide the end-user with a way of signing into the identity and setting their
-password (or any other type of credential) for future logins. To achieve this, first create the identity and set its traits and
-schema:
+The goal of this flow is to create an Identity and provide the end user with a way of signing in and setting their password (or
+any other type of credential) for future logins. To achieve this, create the Identity and set its traits and schema:
 
 ````mdx-code-block
 import Tabs from '@theme/Tabs'
@@ -47,7 +35,7 @@ curl --request POST -sL \\
   </TabItem>
   <TabItem value="kratos">
     <SelfHostedKratos/>
-    <p>And use it to create an identity:</p>
+    <p>And use it to create an Identity:</p>
 
 ```shell
 curl --request POST -sL \\
@@ -101,14 +89,6 @@ The server responds with something similar to:
 }
 ```
 
-Keep in mind that you can change the `schema_id` to reflect the schema you want to use for this identity. Similarly, the trait
-key/values depend on your schema as well. The command shown does not create a password for the identity or any other type of
-credential.
-
-## Invite identity
-
-While there is no feature called "user invite", you can initiate account recovery as an administrator which is quite similar to a
-user invite feature as it allows the user to set their password (or any other credential) and sign in without further
-intervention.
-
-Please head over to [Administrative Account Recovery](../../guides/manage-identities/account-recovery.mdx) to learn more.
+Keep in mind that you can change the `schema_id` to reflect the schema you want to use for this Identity. Similarly, the trait
+key/values depend on your schema as well. The command shown does not create a password or any other type of credential for the
+Identity.
