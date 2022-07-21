@@ -119,6 +119,9 @@ Ory documentation should be clear and easy to understand.
 
 #### Headings
 
+- Use
+  [sentence case](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization)
+  for headings.
 - Add only one H1 in each document, by adding `#` at the beginning of it (when
   using Markdown). The `h1` becomes the document `<title>`.
 - Start with an `h2` (`##`), and respect the order `h2` > `h3` > `h4` > `h5` >
