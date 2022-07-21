@@ -21,6 +21,7 @@ module.exports = {
                 "getting-started/integrate-auth/go",
                 "getting-started/integrate-auth/php",
                 "getting-started/integrate-auth/expressjs",
+                "getting-started/integrate-auth/vue",
               ],
             },
             {
