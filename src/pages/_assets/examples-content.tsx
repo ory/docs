@@ -12,7 +12,7 @@ export const official: PropTypes = {
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/nextjs",
-      docs: "https://www.ory.sh/docs/guides/protect-page-login/next.js",
+      docs: "hhttps://www.ory.sh/docs/getting-started/integrate-auth/nextjs",
     },
     {
       title: "Protect a Page with Login: React",
@@ -20,7 +20,15 @@ export const official: PropTypes = {
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/react",
-      docs: "https://www.ory.sh/docs/guides/protect-page-login/react",
+      docs: "https://www.ory.sh/docs/getting-started/integrate-auth/react",
+    },    
+    {
+      title: "Protect a Page with Login: React Native",
+      language: "react",
+      author: "ory",
+      tested: true,
+      repo: "https://github.com/ory/kratos-selfservice-ui-react-native",
+      docs: "https://www.ory.sh/docs/getting-started/integrate-auth/react-native",
     },
     {
       title: "Protect a Page with Login: Express.js",
@@ -28,7 +36,7 @@ export const official: PropTypes = {
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/expressjs",
-      docs: "https://www.ory.sh/docs/guides/protect-page-login/expressjs",
+      docs: "https://www.ory.sh/docs/getting-started/integrate-auth/expressjs",
     },
     {
       title: "Protect a Page with Login: Go",
@@ -36,7 +44,7 @@ export const official: PropTypes = {
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/go",
-      docs: "https://www.ory.sh/docs/guides/protect-page-login/go",
+      docs: "https://www.ory.sh/docs/getting-started/integrate-auth/go",
     },
     {
       title: "Protect a Page with Login: PHP",
@@ -44,7 +52,7 @@ export const official: PropTypes = {
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/php",
-      docs: "https://www.ory.sh/docs/guides/protect-page-login/php",
+      docs: "https://www.ory.sh/docs/getting-started/integrate-auth/php",
     },
     {
       title: "Protect a Page with Login: Vue.js",
@@ -52,7 +60,7 @@ export const official: PropTypes = {
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/vue",
-      docs: "https://www.ory.sh/docs/guides/protect-page-login/vue",
+      docs: "https://www.ory.sh/docs/getting-started/integrate-auth/vue",
     },
     {
       title: "Protect a Page with Login: Flutter",
@@ -60,7 +68,7 @@ export const official: PropTypes = {
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/flutter_web_redirect",
-      docs: "https://www.ory.sh/docs/guides/protect-page-login/-web-redirect",
+      docs: "https://www.ory.sh/docs/getting-started/integrate-auth/flutter-web-redirect,
     },
     {
       title: "Protect a Page with Login: Django",
