@@ -1,6 +1,6 @@
 ---
 id: php
-title: Integrate Authentication into PHP
+title: Integrate authentication into PHP
 sidebar_label: PHP
 ---
 
@@ -16,7 +16,7 @@ import webm from '../_static/php/screencast.webm'
 />
 ```
 
-## Create PHP App
+## Create PHP app
 
 First we create a new PHP project:
 
@@ -26,7 +26,7 @@ cd your-project
 touch index.php
 ```
 
-## Install Dependencies
+## Install dependencies
 
 To interact with Ory's APIs we install the [Ory SDK](https://packagist.org/packages/ory/client):
 
@@ -63,7 +63,7 @@ import CodeBlock from '@theme/CodeBlock'
 <CodeBlock language="php">{indexPHP}</CodeBlock>
 ```
 
-## Validate and Login
+## Validate and login
 
 Next we will create handler which will check with your Ory project if the user has a valid session. Notice here that we are taking
 the current `request` cookies and passing them along to the Ory client.
@@ -82,7 +82,7 @@ import appPHP from '!!raw-loader!../../../code-examples/protect-page-login/php/a
 <CodeBlock language="php">{appPHP}</CodeBlock>
 ```
 
-## Run your App
+## Run your app
 
 Start your HTTP server and access the proxy URL
 
@@ -103,7 +103,7 @@ ory proxy http://localhost:3000
 To access the PHP app through the ORY proxy open [http://localhost:4000](http://localhost:4000) in your browser. You are presented
 with Ory's Sign In page! Let's click on sign up and create your first user!
 
-## Go to Production
+## Go to production
 
 ```mdx-code-block
 import ToProd from '../_common/going-to-prod.mdx'

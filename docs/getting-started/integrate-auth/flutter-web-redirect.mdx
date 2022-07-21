@@ -1,6 +1,6 @@
 ---
 id: flutter-web-redirect
-title: Integrate Authentication into Flutter Web
+title: Integrate authentication into Flutter Web
 sidebar_label: Flutter
 ---
 
@@ -16,7 +16,7 @@ import webm from '../_static/flutter_web_redirect/screencast.webm'
 />
 ```
 
-## Create Flutter Web App
+## Create Flutter Web app
 
 Run this command to create a basic Flutter application:
 
@@ -50,7 +50,7 @@ import OryCLI from '../_common/ory-cli.mdx'
 <OryCLI />
 ```
 
-## Create the Authentication service
+## Create the authentication service
 
 Next, create an Authentication service in the `lib/services` directory. This service will be used to query the Ory APIs for
 session information.
@@ -65,7 +65,7 @@ import auth from '!!raw-loader!../../../code-examples/protect-page-login/flutter
 <CodeBlock language="dart">{auth}</CodeBlock>
 ```
 
-## Add Environment Variables
+## Add environment variables
 
 Create a `.env` file in the root of the project to hold the `ORY_BASE_URL` variable. The value of the variable is the Ory proxy
 URL, for example `http://localhost:3005/.ory`.
@@ -128,7 +128,7 @@ ory proxy --port 3005 http://localhost:4005
    project. <br/> <br/> From there, you can create a new account or sign in using an existing identity. When you sign in, the
    session becomes valid and the application shows the `Home` page with the session data.
 
-## Go to Production
+## Go to production
 
 ```mdx-code-block
 import ToProd from '../_common/going-to-prod.mdx'
@@ -136,7 +136,7 @@ import ToProd from '../_common/going-to-prod.mdx'
 <ToProd />
 ```
 
-### Release Build
+### Release build
 
 With the `flutter` cli we can build a release version of our App by running the command below:
 

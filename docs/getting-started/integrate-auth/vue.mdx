@@ -1,6 +1,6 @@
 ---
 id: vue
-title: Integrate Authentication into Vue.js + API
+title: Integrate authentication into Vue.js + API
 ---
 
 ```mdx-code-block
@@ -15,7 +15,7 @@ import webm from '../_static/vue/screencast.webm'
 />
 ```
 
-## Create Vue.js App
+## Create Vue.js app
 
 First, create a new Vue.js project. Run:
 
@@ -32,7 +32,7 @@ Use `npm` to install the Ory SDK:
 npm i --save @ory/client
 ```
 
-## Check for Session in Component
+## Check for session in component
 
 With a Vue.js project created, add the Ory logic to the application. The application should recognize whether the user is signed
 in and if they have a valid Session.
@@ -77,7 +77,7 @@ Ory APIs are now mirrored on `http://localhost:4000`. Use that URL as the `baseU
 `HelloWorld.vue` code above). The `--dev` flag disables security checks for easier integration and should not be used when
 deploying the Tunnel to a staging environment.
 
-## Run your Vue.js App
+## Run your Vue.js app
 
 Now that your app is ready, it's time to run it!
 
@@ -97,7 +97,7 @@ npm run serve
 
 Go to [localhost:8080](http://localhost:8080/) to access your application.
 
-## Make Authenticated Calls to your API
+## Make authenticated calls to your API
 
 To make authenticated requests to your API there are two main components:
 
@@ -133,12 +133,12 @@ Finally, start the server:
 node index.js
 ```
 
-### See it in Action
+### See it in action
 
 Access your single-page app at [localhost:8080](http://localhost:8080/), sign in, and see if you can make authenticated requests
 to your API!
 
-## Go to Production
+## Go to production
 
 To promote this app to production:
 

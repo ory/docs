@@ -1,6 +1,6 @@
 ---
 id: nextjs
-title: Integrate Authentication into Next.js
+title: Integrate authentication into Next.js
 sidebar_label: Next.js
 ---
 
@@ -16,7 +16,7 @@ import webm from '../_static/nextjs/screencast.webm'
 />
 ```
 
-## Create Next.js App
+## Create Next.js app
 
 First we create a new Next.js project:
 
@@ -46,7 +46,7 @@ import apiRoute from '!!raw-loader!../../../code-examples/protect-page-login/nex
 This route connects your Next.js app with Ory's APIs and ensures that all cookies and credentials are set up. Without it, your
 Next.js application won't be able to talk to Ory's APIs.
 
-## Require Login to Access the Home Page
+## Require login to access the home page
 
 Next we add a session check to the default home page of the Next.js example application.The highlighted code is what we added to
 check whether the user is signed in, and redirect them to the login page if not:
@@ -57,7 +57,7 @@ import homePage from '!!raw-loader!../../../code-examples/protect-page-login/nex
 <CodeBlock language="tsx">{homePage}</CodeBlock>
 ```
 
-## Run your Next.js App
+## Run your Next.js app
 
 Great, that's it! Let's run your application! Set up your environment variables to connect with Ory's APIs
 
@@ -76,7 +76,7 @@ npm run dev
 Then open [http://localhost:3000](http://localhost:3000) in your browser. are presented with Ory's Sign In page! Let's click on
 sign up and create your first user!
 
-## Go to Production
+## Go to production
 
 Release your app bundled with Ory to production using:
 

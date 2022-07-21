@@ -1,6 +1,6 @@
 ---
 id: local-development
-title: Local Development for Ory Cloud
+title: Local development for Ory Cloud
 ---
 
 As explained in the Ory Security Model description, Ory APIs must be available on the same domain as your application to allow
@@ -44,9 +44,9 @@ const sdk = new V0alpha2Api(
 )
 ```
 
-## Limitations & Gotchas
+## Limitations
 
-Using the Ory Tunnel has a few limitations and gotchas.
+Using the Ory Tunnel has a few limitations.
 
 ### `localhost` vs `127.0.0.1`
 
@@ -59,7 +59,7 @@ If you encounter cookie issues, make sure that all of your requests are sent to 
 
 :::
 
-### Social Sign-In
+### Social sign-In
 
 Currently, setting up [social sign-in](../guides/social-signin/overview) on `localhost` isn't officially supported.
 
