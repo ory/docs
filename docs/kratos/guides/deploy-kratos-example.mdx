@@ -149,27 +149,31 @@ Kratos.
 
 3. Install Ory Kratos:
 
-<CodeBlock className="language-shell">{` 
- cd /opt/kratos/bin
-  # Download a new version of Ory Kratos
-  wget https://github.com/ory/kratos/releases/download/${useLatestRelease("kratos")}/kratos_${useLatestReleaseFilename(
-  "kratos",
-)}-linux_64bit.tar.gz
-  # Extract contents
-  tar xfvz kratos_${useLatestReleaseFilename("kratos")}-linux_64bit.tar.gz
-  # Remove redundant files
-  rm *md
-  rm LICENSE`}</CodeBlock>
+   ```mdx-code-block
+   <CodeBlock className="language-shell">{`
+   cd /opt/kratos/bin
+   # Download a new version of Ory Kratos
+   wget https://github.com/ory/kratos/releases/download/${useLatestRelease("kratos")}/kratos_${useLatestReleaseFilename(
+   "kratos",
+   )}-linux_64bit.tar.gz
+   # Extract contents
+   tar xfvz kratos_${useLatestReleaseFilename("kratos")}-linux_64bit.tar.gz
+   # Remove redundant files
+   rm *md
+   rm LICENSE`}</CodeBlock>
+   ```
 
 4. Download the [Quickstart](../quickstart.mdx) configuration files:
 
-<CodeBlock className="language-shell">{`cd ../config
-wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
-  "kratos",
-)}/contrib/quickstart/kratos/email-password/identity.schema.json
-wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
-  "kratos",
-)}/contrib/quickstart/kratos/email-password/kratos.yml`}</CodeBlock>
+   ```mdx-code-block
+   <CodeBlock className="language-shell">{`cd ../config
+   wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
+   "kratos",
+   )}/contrib/quickstart/kratos/email-password/identity.schema.json
+   wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
+   "kratos",
+   )}/contrib/quickstart/kratos/email-password/kratos.yml`}</CodeBlock>
+   ```
 
 5. Add configuration for Ory Kratos in `kratos.yml` to use the Postgres database. Open `kratos.yml` and change the dsn
    configuration. By default `dsn: memory` is configured, so Ory Kratos is storing data in the temporary memory. Change the DSN
@@ -182,14 +186,14 @@ wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
 
 6. Change the default location of the identity schema:
 
-```diff
-identity:
-  default_schema_id: default
-  schemas:
-    - id: default
--    url: file:///etc/kratos/config/identity.schema.json
-+    url: file:///opt/kratos/config/identity.schema.json
-```
+   ```diff
+   identity:
+   default_schema_id: default
+   schemas:
+      - id: default
+   -    url: file:///etc/kratos/config/identity.schema.json
+   +    url: file:///opt/kratos/config/identity.schema.json
+   ```
 
 7. Apply [migrations](../cli/kratos-migrate-sql.md):
 
@@ -205,12 +209,12 @@ identity:
 
 You should see something like this once the service has been started:
 
-````bash
+```bash
 INFO[2022-05-10T20:51:56Z] TLS has not been configured for public, skipping  audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
 INFO[2022-05-10T20:51:56Z] Starting the public httpd on: 0.0.0.0:4433    audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
 INFO[2022-05-10T20:51:56Z] TLS has not been configured for admin, skipping  audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
-INFO[2022-05-10T20:51:56Z] Starting the admin httpd on: 0.0.0.0:4434     audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3```
-````
+INFO[2022-05-10T20:51:56Z] Starting the admin httpd on: 0.0.0.0:4434     audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
+```
 
 ## Run Ory Kratos using Systemd
 
@@ -229,7 +233,7 @@ INFO[2022-05-10T20:51:56Z] Starting the admin httpd on: 0.0.0.0:4434     audienc
 
 3. Add the following to configure systemd to start Ory Kratos using the [`serve` command](../cli/kratos-serve) from earlier:
 
-   ```
+   ```bash
    [Unit]
    Description=Kratos Service
    After=network.target
@@ -255,7 +259,7 @@ INFO[2022-05-10T20:51:56Z] Starting the admin httpd on: 0.0.0.0:4434     audienc
 
 5. Start kratos.service using systemd:
 
-   ```
+   ```bash
    systemctl start kratos.service
    ```
 
@@ -347,27 +351,24 @@ We'll use Nginx as reverse proxy and load balancer for our service. You can use 
 
 After running Certbot your configuration file will look like this:
 
-    ```bash
-    cat /etc/nginx/sites-enabled/accounts.example.com
-    ```
-
-    ```
-    server {
-            listen 80;
-            server_name accounts.example.com;
-            if ($host = accounts.example.com) {
-                    return 301 https://$host$request_uri;
-            } # managed by Certbot
-    }
-    server {
-        listen [::]:443 ssl ipv6only=on; # managed by Certbot
-        listen 443 ssl; # managed by Certbot
-        ssl_certificate /etc/letsencrypt/live/accounts.example.com/fullchain.pem; # managed by Certbot
-        ssl_certificate_key /etc/letsencrypt/live/accounts.example.com/privkey.pem; # managed by Certbot
-        include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-        ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-    }
-    ```
+```bash
+cat /etc/nginx/sites-enabled/accounts.example.com
+server {
+      listen 80;
+      server_name accounts.example.com;
+      if ($host = accounts.example.com) {
+               return 301 https://$host$request_uri;
+      } # managed by Certbot
+}
+server {
+   listen [::]:443 ssl ipv6only=on; # managed by Certbot
+   listen 443 ssl; # managed by Certbot
+   ssl_certificate /etc/letsencrypt/live/accounts.example.com/fullchain.pem; # managed by Certbot
+   ssl_certificate_key /etc/letsencrypt/live/accounts.example.com/privkey.pem; # managed by Certbot
+   include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+   ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+```
 
 Some parts are missing in your configuration at this point, and we need to configure locations and
 [upstream APIs](http://nginx.org/en/docs/http/ngx_http_upstream_module.html). You can balance network traffic between different
@@ -469,14 +470,14 @@ instances of Ory Kratos running on the various virtual machines. We need two ups
 
 If your configuration is correct, you should get the following outputs:
 
-    ```bash
-    nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-    nginx: configuration file /etc/nginx/nginx.conf test is successful
-    ```
+```bash
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
 
 8. Now reload the Nginx service:
 
-   ```
+   ```bash
    service nginx reload
 
    curl -s  http://accounts.example.com/sessions/whoami|jq
@@ -494,16 +495,18 @@ If your configuration is correct, you should get the following outputs:
 
 1. The installation of the Ory Kratos NodeJS UI is straightforward:
 
-<CodeBlock className="language-shell">{`useradd -s /bin/false -m -d /opt/uinode uinode
-cd /opt/uinode
-wget https://github.com/ory/kratos-selfservice-ui-node/archive/refs/tags/${useLatestRelease("kratos")}.zip
-unzip ${useLatestRelease("kratos")}.zip
-rm  ${useLatestRelease("kratos")}.zip
-mv kratos-selfservice-ui-node-${useLatestReleaseFilename("kratos")}/ ui
-cd ui
-npm i
-chown -R uinode /opt/uinode
-`}</CodeBlock>
+   ```mdx-code-block
+   <CodeBlock className="language-shell">{`useradd -s /bin/false -m -d /opt/uinode uinode
+   cd /opt/uinode
+   wget https://github.com/ory/kratos-selfservice-ui-node/archive/refs/tags/${useLatestRelease("kratos")}.zip
+   unzip ${useLatestRelease("kratos")}.zip
+   rm  ${useLatestRelease("kratos")}.zip
+   mv kratos-selfservice-ui-node-${useLatestReleaseFilename("kratos")}/ ui
+   cd ui
+   npm i
+   chown -R uinode /opt/uinode
+   `}</CodeBlock>
+   ```
 
 2. The UI needs a configuration file for systemd. Create a file named `uinode.service` at `/etc/systemd/system/` with the
    following content (change `https://accounts.example.com` to your domain):
@@ -536,9 +539,9 @@ chown -R uinode /opt/uinode
 
 You should get the following response:
 
-    ```bash
-    Created symlink /etc/systemd/system/multi-user.target.wants/uinode.service → /etc/systemd/system/uinode.service.
-    ```
+```bash
+Created symlink /etc/systemd/system/multi-user.target.wants/uinode.service → /etc/systemd/system/uinode.service.
+```
 
 4. Start the self-service UI:
 

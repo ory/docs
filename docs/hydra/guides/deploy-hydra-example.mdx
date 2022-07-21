@@ -83,14 +83,14 @@ v16.14.2
 3.  Change the default password encryption to a stronger one as
     [recommended by PostgreSQL](https://www.postgresql.org/docs/current/auth-password.html):
 
-        ```bash
-        psql
-        # Postgres command line
-        ALTER SYSTEM SET password_encryption = 'scram-sha-256';
-        # Change the default password encryption to stronger one
-        SELECT pg_reload_conf();
-        # Reload configuration
-        ```
+    ```bash
+    psql
+    # Postgres command line
+    ALTER SYSTEM SET password_encryption = 'scram-sha-256';
+    # Change the default password encryption to stronger one
+    SELECT pg_reload_conf();
+    # Reload configuration
+    ```
 
 4.  Create a Postgres user for Hydra:
 
@@ -140,22 +140,25 @@ Congratulations, you have installed and configured the PostgreSQL database. Next
 
 3. Install Ory Hydra:
 
-<CodeBlock className="language-shell">{`
- cd /opt/hydra/bin
- # Download a new version of Ory Hydra
- wget https://github.com/ory/hydra/releases/download/${useLatestRelease("hydra")}/hydra_${useLatestRelease(
-  "hydra",
-)}-linux_64bit.tar.gz
- # Extract contents
- tar xfvz hydra_${useLatestRelease("hydra")}-linux_64bit.tar.gz
- # Remove redundant files
- rm *md
- rm LICENSE`}</CodeBlock>
+   ```mdx-code-block
+   <CodeBlock className="language-shell">{`cd /opt/hydra/bin
+   # Download a new version of Ory Hydra
+   wget https://github.com/ory/hydra/releases/download/${useLatestRelease("hydra")}/hydra_${useLatestRelease(
+   "hydra",
+   )}-linux_64bit.tar.gz
+   # Extract contents
+   tar xfvz hydra_${useLatestRelease("hydra")}-linux_64bit.tar.gz
+   # Remove redundant files
+   rm *md
+   rm LICENSE`}</CodeBlock>
+   ```
 
-4. Download the [Quickstart](../5min-tutorial) configuration files:
+4. Download the [Quickstart](../5min-tutorial) configuration files
 
-<CodeBlock className="language-shell">{`cd ../config
-wget https://raw.githubusercontent.com/ory/hydra/${useLatestRelease("hydra")}/contrib/quickstart/5-min/hydra.yml`}</CodeBlock>
+   ```mdx-code-block
+      <CodeBlock className="language-shell">{`cd ../config
+   wget https://raw.githubusercontent.com/ory/hydra/${useLatestRelease("hydra")}/contrib/quickstart/5-min/hydra.yml`}</CodeBlock>
+   ```
 
 5. Add configuration for Ory Hydra in `hydra.yml` to use the Postgres database.  
    Open `hydra.yml` and change the DSN configuration. Ory Hydra is storing data in an SQLite database in the default quickstart
