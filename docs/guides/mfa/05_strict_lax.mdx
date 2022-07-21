@@ -1,6 +1,6 @@
 ---
 id: enforce-mfa
-title: Enforce Multi-Factor Authentication
+title: Enforce multi-factor authentication
 ---
 
 You can enforce multi-factor authentication in one of two models:
@@ -14,6 +14,8 @@ You can set the required authentication model for these operations/endpoints:
 - Self-service user settings
 
 ## Configuration
+
+Follow these steps to enforce multi-factor authentication:
 
 ### Ory Cloud Console
 
@@ -65,7 +67,7 @@ Use `aal1` for the Lax model and `highest_available` for the Strict model.
 ory update identity-config <project-id> --file identity-config.yaml
 ```
 
-### Self-Hosted Instances
+### Self-hosted instances
 
 When working with self-hosted instances of the Ory Identity Service (Kratos), change the enforcement model by adjusting these keys
 in the configuration file:
