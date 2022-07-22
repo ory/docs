@@ -8,6 +8,9 @@
     "schemas": {
       "AdminUpdateIdentityBody": {
         "properties": {
+          "credentials": {
+            "$ref": "#/components/schemas/adminIdentityImportCredentials"
+          },
           "metadata_admin": {
             "description": "Store metadata about the user which is only accessible through admin APIs such as `GET /admin/identities/\u003cid\u003e`."
           },
@@ -154,6 +157,22 @@
           },
           "relation_tuple": {
             "$ref": "#/components/schemas/InternalRelationTuple"
+          }
+        },
+        "type": "object"
+      },
+      "QuotaCustomDomains": {
+        "properties": {
+          "available_domains": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "can_use": {
+            "type": "boolean"
+          },
+          "used_domains": {
+            "format": "int64",
+            "type": "integer"
           }
         },
         "type": "object"
@@ -938,18 +957,12 @@
             "type": "string"
           },
           "id": {
-            "$ref": "#/components/schemas/UUID",
-            "description": "The ID of the Identity JSON Schema",
-            "type": "string"
+            "$ref": "#/components/schemas/UUID"
           },
           "name": {
             "description": "The schema name\n\nThis is set by the user and is for them to easily recognise their schema",
             "example": "CustomerIdentity",
             "type": "string"
-          },
-          "schema": {
-            "description": "The actual Identity JSON Schema",
-            "type": "object"
           },
           "updated_at": {
             "description": "Last Time Schema was Updated",
@@ -967,6 +980,18 @@
           "updated_at"
         ],
         "title": "Schema represents an Ory Kratos Identity Schema",
+        "type": "object"
+      },
+      "identitySchemaContainer": {
+        "properties": {
+          "id": {
+            "description": "The ID of the Identity JSON Schema",
+            "type": "string"
+          },
+          "schema": {
+            "$ref": "#/components/schemas/identitySchema"
+          }
+        },
         "type": "object"
       },
       "identitySchemaLocation": {
@@ -1078,9 +1103,15 @@
       "jsonPatch": {
         "description": "JSON Patch allows you to target individual keys in a JSON document for updates.\n\nFor more examples see: https://jsonpatch.com",
         "properties": {
+          "from": {
+            "description": "This field is used together with operation \"move\" and uses JSON Pointer notation.\n\nLearn more [about JSON Pointers](https://datatracker.ietf.org/doc/html/rfc6901#section-5).",
+            "example": "/name",
+            "type": "string"
+          },
           "op": {
             "description": "The JSON Patch operation",
             "enum": ["add", "remove", "replace", "move", "copy", "test"],
+            "example": "replace",
             "type": "string"
           },
           "path": {
@@ -1089,16 +1120,20 @@
             "type": "string"
           },
           "value": {
-            "description": "The value to be used. Only available for `add` and `replace` operations."
+            "description": "The value to be used. Only available for `add` and `replace` operations.",
+            "example": "foobar"
           }
         },
         "required": ["op", "path"],
         "title": "A JSON Patch",
         "type": "object"
       },
-      "jsonSchema": {
-        "description": "Raw JSON Schema",
-        "type": "object"
+      "jsonPatchDocument": {
+        "description": "A JSONPatchDocument request",
+        "items": {
+          "$ref": "#/components/schemas/jsonPatch"
+        },
+        "type": "array"
       },
       "listCustomHostnamesResponse": {
         "items": {
@@ -1382,7 +1417,7 @@
             "type": "string"
           },
           "kratos_selfservice_flows_registration_enabled": {
-            "$ref": "#/components/schemas/NullBool"
+            "$ref": "#/components/schemas/nullBool"
           },
           "kratos_selfservice_flows_registration_lifespan": {
             "description": "Configures the Ory Kratos Registration Lifespan\n\nThis governs the \"selfservice.flows.registration.lifespan\" setting.",
@@ -1445,10 +1480,10 @@
             "type": "string"
           },
           "kratos_selfservice_methods_link_enabled": {
-            "$ref": "#/components/schemas/NullBool"
+            "$ref": "#/components/schemas/nullBool"
           },
           "kratos_selfservice_methods_lookup_secret_enabled": {
-            "$ref": "#/components/schemas/NullBool"
+            "$ref": "#/components/schemas/nullBool"
           },
           "kratos_selfservice_methods_oidc_config_base_redirect_uri": {
             "description": "Configures the Ory Kratos Third Party / OpenID Connect base redirect URI\n\nThis governs the \"selfservice.methods.oidc.config.base_redirect_uri\" setting.",
@@ -1462,13 +1497,13 @@
             "type": "boolean"
           },
           "kratos_selfservice_methods_password_config_haveibeenpwned_enabled": {
-            "$ref": "#/components/schemas/NullBool"
+            "$ref": "#/components/schemas/nullBool"
           },
           "kratos_selfservice_methods_password_config_identifier_similarity_check_enabled": {
-            "$ref": "#/components/schemas/NullBool"
+            "$ref": "#/components/schemas/nullBool"
           },
           "kratos_selfservice_methods_password_config_ignore_network_errors": {
-            "$ref": "#/components/schemas/NullBool"
+            "$ref": "#/components/schemas/nullBool"
           },
           "kratos_selfservice_methods_password_config_max_breaches": {
             "description": "Configures Ory Kratos Password Max Breaches Detection\n\nThis governs the \"selfservice.methods.password.config.max_breaches\" setting.",
@@ -1481,17 +1516,17 @@
             "type": "integer"
           },
           "kratos_selfservice_methods_password_enabled": {
-            "$ref": "#/components/schemas/NullBool"
+            "$ref": "#/components/schemas/nullBool"
           },
           "kratos_selfservice_methods_profile_enabled": {
-            "$ref": "#/components/schemas/NullBool"
+            "$ref": "#/components/schemas/nullBool"
           },
           "kratos_selfservice_methods_totp_config_issuer": {
             "description": "Configures Ory Kratos TOTP Issuer\n\nThis governs the \"selfservice.methods.totp.config.issuer\" setting.",
             "type": "string"
           },
           "kratos_selfservice_methods_totp_enabled": {
-            "$ref": "#/components/schemas/NullBool"
+            "$ref": "#/components/schemas/nullBool"
           },
           "kratos_selfservice_methods_webauthn_config_passwordless": {
             "description": "Configures whether Ory Kratos Webauthn is used for passwordless flows\n\nThis governs the \"selfservice.methods.webauthn.config.passwordless\" setting.",
@@ -1514,10 +1549,10 @@
             "type": "string"
           },
           "kratos_selfservice_methods_webauthn_enabled": {
-            "$ref": "#/components/schemas/NullBool"
+            "$ref": "#/components/schemas/nullBool"
           },
           "kratos_session_cookie_persistent": {
-            "$ref": "#/components/schemas/NullBool"
+            "$ref": "#/components/schemas/nullBool"
           },
           "kratos_session_cookie_same_site": {
             "description": "Configures the Ory Kratos Session Cookie SameSite Attribute\n\nThis governs the \"session.cookie.same_site\" setting.",
@@ -1770,6 +1805,10 @@
         },
         "type": "array"
       },
+      "nullBool": {
+        "nullable": true,
+        "type": "boolean"
+      },
       "nullJsonRawMessage": {
         "description": "NullJSONRawMessage represents a json.RawMessage that works well with JSON, SQL, and Swagger and is NULLable-",
         "type": "object"
@@ -1783,7 +1822,7 @@
         "properties": {
           "page": {
             "default": 1,
-            "description": "Pagination Page",
+            "description": "Pagination Page\n\nThis value is currently an integer, but it is not sequential. The value is not the page number, but a\nreference. The next page can be any number and some numbers might return an empty list.\n\nFor example, page 2 might not follow after page 1. And even if page 3 and 5 exist, but page 4 might not exist.",
             "format": "int64",
             "minimum": 1,
             "type": "integer"
@@ -2746,7 +2785,7 @@
             "type": "string"
           },
           "identifier": {
-            "description": "Identifier is the email or username of the user trying to log in. This field is\nonly required when using WebAuthn for passwordless login. When using WebAuthn\nfor multi-factor authentication, it is not needed.",
+            "description": "Identifier is the email or username of the user trying to log in.",
             "type": "string"
           },
           "method": {
@@ -2758,7 +2797,7 @@
             "type": "string"
           }
         },
-        "required": ["method"],
+        "required": ["identifier", "method"],
         "title": "submitSelfServiceLoginFlowWithWebAuthnMethodBody is used to decode the login form payload.",
         "type": "object"
       },
@@ -3218,6 +3257,38 @@
         "required": ["identity"],
         "type": "object"
       },
+      "tokenPagination": {
+        "properties": {
+          "page_size": {
+            "default": 250,
+            "description": "Items per page\n\nThis is the number of items per page to return.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).",
+            "format": "int64",
+            "maximum": 1000,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "page_token": {
+            "default": "1",
+            "description": "Next Page Token\n\nThe next page token.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).",
+            "minimum": 1,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "tokenPaginationHeaders": {
+        "properties": {
+          "link": {
+            "description": "The link header contains pagination links.\n\nFor details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).\n\nin: header",
+            "type": "string"
+          },
+          "x-total-count": {
+            "description": "The total number of clients.\n\nin: header",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "uiContainer": {
         "description": "Container represents a HTML Form. The container can work with both HTTP Form and JSON requests",
         "properties": {
@@ -3356,12 +3427,21 @@
         "title": "ImageAttributes represents the attributes of an image node.",
         "type": "object"
       },
-      "uiNodeInputAttributeType": {
-        "type": "string"
-      },
       "uiNodeInputAttributes": {
         "description": "InputAttributes represents the attributes of an input node",
         "properties": {
+          "autocomplete": {
+            "description": "The autocomplete attribute for the input.",
+            "enum": [
+              "email",
+              "tel",
+              "url",
+              "current-password",
+              "new-password",
+              "one-time-code"
+            ],
+            "type": "string"
+          },
           "disabled": {
             "description": "Sets the input's disabled field to true or false.",
             "type": "boolean"
@@ -3390,7 +3470,22 @@
             "type": "boolean"
           },
           "type": {
-            "$ref": "#/components/schemas/uiNodeInputAttributeType"
+            "description": "The input's element type.",
+            "enum": [
+              "text",
+              "password",
+              "number",
+              "checkbox",
+              "hidden",
+              "email",
+              "tel",
+              "submit",
+              "button",
+              "datetime-local",
+              "date",
+              "url"
+            ],
+            "type": "string"
           },
           "value": {
             "description": "The input's value.",
@@ -3590,7 +3685,7 @@
             "$ref": "#/components/schemas/identityVerifiableAddressType"
           }
         },
-        "required": ["id", "value", "verified", "via", "status"],
+        "required": ["value", "verified", "via", "status"],
         "type": "object"
       },
       "version": {
@@ -3667,7 +3762,7 @@
             }
           },
           {
-            "description": "Pagination Page",
+            "description": "Pagination Page\n\nThis value is currently an integer, but it is not sequential. The value is not the page number, but a\nreference. The next page can be any number and some numbers might return an empty list.\n\nFor example, page 2 might not follow after page 1. And even if page 3 and 5 exist, but page 4 might not exist.",
             "in": "query",
             "name": "page",
             "schema": {
@@ -3885,6 +3980,90 @@
         "summary": "Get an Identity",
         "tags": ["v0alpha2"]
       },
+      "patch": {
+        "description": "NOTE: The fields `id`, `stateChangedAt` and `credentials` are not updateable.\n\nLearn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
+        "operationId": "adminPatchIdentity",
+        "parameters": [
+          {
+            "description": "ID must be set to the ID of identity you want to update",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/jsonPatchDocument"
+              }
+            }
+          },
+          "x-originalParamName": "Body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/identity"
+                }
+              }
+            },
+            "description": "identity"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/jsonError"
+                }
+              }
+            },
+            "description": "jsonError"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/jsonError"
+                }
+              }
+            },
+            "description": "jsonError"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/jsonError"
+                }
+              }
+            },
+            "description": "jsonError"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/jsonError"
+                }
+              }
+            },
+            "description": "jsonError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Partially updates an Identity's field using [JSON Patch](https://jsonpatch.com/)",
+        "tags": ["v0alpha2"]
+      },
       "put": {
         "description": "This endpoint updates an identity. The full identity payload (except credentials) is expected. This endpoint does not support patching.\n\nLearn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
         "operationId": "adminUpdateIdentity",
@@ -4064,7 +4243,7 @@
             }
           },
           {
-            "description": "Pagination Page",
+            "description": "Pagination Page\n\nThis value is currently an integer, but it is not sequential. The value is not the page number, but a\nreference. The next page can be any number and some numbers might return an empty list.\n\nFor example, page 2 might not follow after page 1. And even if page 3 and 5 exist, but page 4 might not exist.",
             "in": "query",
             "name": "page",
             "schema": {
@@ -5703,7 +5882,7 @@
             }
           },
           {
-            "description": "Pagination Page",
+            "description": "Pagination Page\n\nThis value is currently an integer, but it is not sequential. The value is not the page number, but a\nreference. The next page can be any number and some numbers might return an empty list.\n\nFor example, page 2 might not follow after page 1. And even if page 3 and 5 exist, but page 4 might not exist.",
             "in": "query",
             "name": "page",
             "schema": {
@@ -5742,7 +5921,7 @@
     "/schemas/{id}": {
       "get": {
         "description": "Get a JSON Schema",
-        "operationId": "getJsonSchema",
+        "operationId": "getIdentitySchema",
         "parameters": [
           {
             "description": "ID must be set to the ID of schema you want to get",
@@ -5759,11 +5938,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/jsonSchema"
+                  "$ref": "#/components/schemas/identitySchema"
                 }
               }
             },
-            "description": "jsonSchema"
+            "description": "identitySchema"
           },
           "404": {
             "content": {
@@ -6176,7 +6355,7 @@
         "operationId": "submitSelfServiceLogoutFlow",
         "parameters": [
           {
-            "description": "A Valid Logout Token\n\nIf you do not have a logout token because you only have a session cookie,\ncall `/self-service/logout/urls` to generate a URL for this endpoint.",
+            "description": "A Valid Logout Token\n\nIf you do not have a logout token because you only have a session cookie,\ncall `/self-service/logout/browser` to generate a URL for this endpoint.",
             "in": "query",
             "name": "token",
             "schema": {
@@ -7275,7 +7454,7 @@
     },
     "/self-service/verification/api": {
       "get": {
-        "description": "This endpoint initiates a verification flow for API clients such as mobile devices, smart TVs, and so on.\n\nTo fetch an existing verification flow call `/self-service/verification/flows?flow=\u003cflow_id\u003e`.\n\nYou MUST NOT use this endpoint in client-side (Single Page Apps, ReactJS, AngularJS) nor server-side (Java Server\nPages, NodeJS, PHP, Golang, ...) browser applications. Using this endpoint in these applications will make\nyou vulnerable to a variety of CSRF attacks.\n\nThis endpoint MUST ONLY be used in scenarios such as native mobile apps (React Native, Objective C, Swift, Java, ...).\n\nMore information can be found at [Ory Kratos Email and Phone Verification Documentation](https://www.ory.sh/docs/kratos/selfservice/flows/verify-email-account-activation).",
+        "description": "This endpoint initiates a verification flow for API clients such as mobile devices, smart TVs, and so on.\n\nTo fetch an existing verification flow call `/self-service/verification/flows?flow=\u003cflow_id\u003e`.\n\nYou MUST NOT use this endpoint in client-side (Single Page Apps, ReactJS, AngularJS) nor server-side (Java Server\nPages, NodeJS, PHP, Golang, ...) browser applications. Using this endpoint in these applications will make\nyou vulnerable to a variety of CSRF attacks.\n\nThis endpoint MUST ONLY be used in scenarios such as native mobile apps (React Native, Objective C, Swift, Java, ...).\n\nMore information can be found at [Ory Kratos Email and Phone Verification Documentation](https://www.ory.sh/docs/kratos/self-service/flows/verify-email-account-activation).",
         "operationId": "initializeSelfServiceVerificationFlowWithoutBrowser",
         "responses": {
           "200": {
@@ -7535,7 +7714,7 @@
             }
           },
           {
-            "description": "Pagination Page",
+            "description": "Pagination Page\n\nThis value is currently an integer, but it is not sequential. The value is not the page number, but a\nreference. The next page can be any number and some numbers might return an empty list.\n\nFor example, page 2 might not follow after page 1. And even if page 3 and 5 exist, but page 4 might not exist.",
             "in": "query",
             "name": "page",
             "schema": {
