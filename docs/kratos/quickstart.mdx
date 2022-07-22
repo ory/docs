@@ -20,7 +20,7 @@ Video based on Ory Kratos 0.5.5 quickstart, so some routes may have changed.
 
 :::
 
-## Use Case: Application Login and Registration
+## Use case: application login and registration
 
 This section gives you some context on what we want to achieve and what tools we need for that. You will also learn about the
 network set up we picked for this guide.
@@ -80,7 +80,7 @@ be announced). In this quickstart we will use Ory Kratos' CLI to interact with O
 The quickstart also comes with [MailSlurper](https://mailslurper.com), a mock SMTP server the demo uses to show how email
 verification works.
 
-### Clone Ory Kratos and Run it in Docker
+### Clone Ory Kratos and run it in Docker
 
 To get this example working, you will need Git, [Docker](https://docs.docker.com/get-docker/), and
 [Docker Compose](https://docs.docker.com/compose/install/) installed on your system. No other dependencies are required. Before
@@ -140,7 +140,7 @@ backends. For the quickstart, we're mounting a persistent volume to store the SQ
 
 Future guides will explain how to set up a production system.
 
-### Network Architecture
+### Network architecture
 
 This demo makes use of several services:
 
@@ -181,7 +181,7 @@ end
 `}
 />
 
-## Perform Registration, Login, and Logout
+## Perform registration, login, and logout
 
 Enough theory, it's time to get this thing going! Let's start by trying to open the dashboard - **go to
 [127.0.0.1:4455/welcome](http://127.0.0.1:4455/welcome)**.
@@ -475,11 +475,11 @@ Setting a password that doesn't violate these policies, we will be immediately r
 By clicking the "logout" icon in the top right, you will be redirected to the login screen again where you will be able to use
 your credentials to log back in again. Exciting!
 
-### Understanding How Login and Registration Works
+### Understand how login and registration work
 
 Head over to the [Self-Service Flows Chapter](self-service.mdx) for an in-depth explanation of how each individual flow works.
 
-### Email Verification
+### Email verification
 
 As you've signed up, an email was sent to the email address you used. Because the quickstart uses a fake SMTP server, the email
 didn't arrive in your inbox. You can retrieve the email however by opening the MailSlurper UI at
@@ -553,7 +553,7 @@ To re-request the verification email, fill out the form at [127.0.0.1:4455/verif
 To learn more about verification recovery, head over to the
 [Email and Phone Verification and Account Activation Documentation](self-service/flows/verify-email-account-activation.mdx).
 
-### Account Recovery
+### Account recovery
 
 The quickstart has account recovery enabled. To recover an account, log out and click on "Recover Account":
 
@@ -594,7 +594,7 @@ or else Kratos will use fallback URLs.
 
 This is just scratching the surface of Ory Kratos, see [Next Steps](#next-steps) for pointers how to continue.
 
-## Cleaning Up Docker
+## Cleaning up Docker
 
 To clean everything up, you need to bring down the Docker Compose environment and remove all mounted volumes.
 
@@ -603,7 +603,7 @@ docker-compose -f quickstart.yml down -v
 docker-compose -f quickstart.yml rm -fsv
 ```
 
-## Next Steps
+## Next steps
 
 Here is some information should you want to modify the quickstart:
 
@@ -643,7 +643,7 @@ To change the redirects happening after registration,login or a settings change,
 
 If you delete the `session` hook from `kratos.yml`, the user will _not_ be immediately signed in after registration.
 
-### Quickstart Configuration
+### Quickstart configuration
 
 In this tutorial we use a simplified configuration. You can find it in
 [`contrib/quickstart/kratos/email-password/kratos.yml`](https://github.com/ory/kratos/blob/master/contrib/quickstart/kratos/email-password/kratos.yml).
