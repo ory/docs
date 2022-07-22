@@ -1,5 +1,5 @@
 ---
-title: API Overview
+title: API overview
 ---
 
 This page gives an overview over all APIs Ory Keto offers, including common use cases.
@@ -14,7 +14,7 @@ practices and design guidelines, the APIs offer slightly different interfaces an
 
 The read-APIs are per default exposed on the TCP port `4466`.
 
-### List Relation Tuples
+### List relation tuples
 
 This API allows you to query [relation tuples](./relation-tuples.mdx) by providing a partial relation tuple. It can be used to:
 
@@ -26,7 +26,7 @@ This API allows you to query [relation tuples](./relation-tuples.mdx) by providi
 For more details, head over to the [gRPC API reference](../reference/proto-api.mdx#readservice) or
 [REST API reference](../reference/rest-api.mdx#query-relation-tuples).
 
-### Check Relation Tuple
+### Check telation tuple
 
 The check-API allows you to check whether a subject has a relation on an object. This API resolves
 [subject sets](./subjects.mdx#subject-sets) and [subject set rewrites](https://github.com/ory/keto/issues/263).
@@ -40,7 +40,7 @@ out more about Ory Keto's performance, head over to the [performance considerati
 For more details, head over to the [gRPC API reference](../reference/proto-api.mdx#checkservice) or
 [REST API reference](../reference/rest-api.mdx#check-a-relation-tuple).
 
-### Expand Subject Sets
+### Expand subject sets
 
 The expand-API recursively expands a [subject set](./subjects.mdx#subject-sets) into a tree of subjects. For each subject, the
 tree assembles the relation tuples including the operands as defined in the [namespace configuration](./namespaces.mdx). It can be
@@ -61,7 +61,7 @@ For more details, head over to the [gRPC API reference](../reference/proto-api.m
 
 The write-APIs are per default exposed on the TCP port `4467`.
 
-### Change Relation Tuples
+### Change relation tuples
 
 The write-APIs offer multiple ways to insert and delete relation tuples. Please head over to the
 [gRPC API reference](../reference/proto-api.mdx#writeservice) or [REST API reference](../reference/rest-api.mdx#write) to read

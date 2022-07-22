@@ -22,7 +22,7 @@ This migration has to download all the data from the database, transform them, a
 that you run it as close to the database as possible to reduce the latency and failure rate. In case of a failure, just restart
 the process. It's run as one big SQL transaction.
 
-## Recommended Procedure
+## Recommended procedure
 
 :::caution
 
@@ -49,7 +49,7 @@ This procedure is zero-downtime only for read API requests. The write API will n
 9. After the migration is successfully done, route all traffic to Keto v0.7 and shut down Keto v0.6. At this point the API is
    fully operational again.
 
-## Options for Adjusting the Migration Process
+## Options for adjusting the migration process
 
 The `keto namespace migrate legacy` command supports multiple options:
 
