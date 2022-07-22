@@ -1,4 +1,4 @@
-// @ory/integrations offers a package for integrating with NextJS.
+// @ory/integrations offers a package for integrating with Next.js.
 import { config, createApiHandler } from "@ory/integrations/next-edge"
 
 // We need to export the config.

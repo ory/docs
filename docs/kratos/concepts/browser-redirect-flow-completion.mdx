@@ -1,6 +1,6 @@
 ---
 id: browser-redirect-flow-completion
-title: HTTP Redirection Configuration
+title: HTTP redirection configuration
 ---
 
 Self-Service flows such as Login, Registration, Updating Settings support two successful response modes:
@@ -63,7 +63,7 @@ selfservice:
     - https://www.myapp.com/
 ```
 
-### Post-Login Redirection
+### Post-login redirection
 
 Post-login redirection considers the following configuration keys:
 
@@ -80,7 +80,7 @@ selfservice:
           default_browser_return_url: https://end-up-here-after-login-with-password/
 ```
 
-### Post-Registration Redirection
+### Post-registration redirection
 
 Post-registration redirection considers the following configuration keys:
 
@@ -97,7 +97,7 @@ selfservice:
           default_browser_return_url: https://end-up-here-after-registration-with-password/
 ```
 
-### Post-Settings Redirection
+### Post-settings redirection
 
 Post-settings redirection **doesn't use** the `urls.default_redirect_to` configuration key. Instead the redirect ends at the same
 Settings UI with the same Settings Request ID and key `state` set to `success`. If the listed keys are set, the redirection will
@@ -114,7 +114,7 @@ selfservice:
           default_redirect_to: https://end-up-here-after-settings-with-password/
 ```
 
-### Post-Verification Redirection
+### Post-verification redirection
 
 Post-verification redirection **doesn't use** the `urls.default_redirect_to` configuration key. Instead the redirect ends at the
 same Verification UI with the same Verification Request ID and key `state` set to `passed_challenge`. If the listed keys are set,
@@ -128,7 +128,7 @@ selfservice:
         default_redirect_to: https://this-is-overridden-by-password/
 ```
 
-#### Specify Redirection URL during Registration
+#### Specify redirection URL during registration
 
 Verification emails are usually sent in response to a successful registration flow. To specify the redirect URL for the
 verification flow after registration, append `after_verification_return_to` to the Browser Registration Init endpoint:

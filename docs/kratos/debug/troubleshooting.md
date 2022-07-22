@@ -1,6 +1,6 @@
 ---
 id: troubleshooting
-title: Tips & Troubleshooting
+title: Tips and troubleshooting
 ---
 
 :::info

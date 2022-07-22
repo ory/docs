@@ -1,6 +1,6 @@
 ---
 id: email-sms
-title: Out-of-band communication via E-Mail and SMS
+title: Out-of-band communication via email and SMS
 ---
 
 Ory Kratos sends out-of-band messages via SMS or E-Mail. The following exemplary use cases require these messages:
@@ -27,10 +27,10 @@ If you're running multiple instances of Kratos (for example replicated Kubernete
 a separate singleton job. The courier can be started with the `kratos courier watch` command
 ([CLI docs](../cli/kratos-courier.md)).
 
-## Sending E-Mails via SMTP
+## Sending emails via SMTP
 
-To have E-Mail delivery running with Ory Kratos requires an SMTP server. This is set up in the configuration file using an
-absolute URL with the `smtp` or `smtps` scheme:
+To have email delivery running with Ory Kratos requires an SMTP server. This is set up in the configuration file using an absolute
+URL with the `smtp` or `smtps` scheme:
 
 ```yaml title="path/to/my/kratos/config.yml"
 # kratos -c path/to/my/kratos/config.yml serve
@@ -130,7 +130,7 @@ courier:
       # the configuration structure is the same as the verification
 ```
 
-### Custom SMTP Headers
+### Custom SMTP headers
 
 You can configure custom SMTP headers. For example, if integrating with AWS SES SMTP interface, the headers can be configured for
 cross-account sending:
@@ -269,20 +269,20 @@ Ory Kratos comes with built-in templates. If you wish to define your own, custom
 2. Define `template_override_path`, as shown above, to indicate where your custom templates are located. This will become the
    `<template-root>` for your custom templates, as indicated below.
 
-### Remote Templates
+### Remote templates
 
 Templates can be added through `http://`, `file://` and `base64://` URIs in the configurations. The only mandatory fields are
 `plaintext` and `html` when defining the `body` key. All other keys are optional and will always fallback to the built-in
 templates or the `template_override_path`.
 
-### Template Override Path
+### Template override path
 
 `email.subject.gotmpl`, `email.body.gotmpl` and `email.body.plaintext.gotmpl` are common template file names expected in the sub
 directories of the root directory, corresponding to the respective methods for filling e-mail subject and body. Both plain text
 and HTML templates are required. The courier uses them as
 [alternatives](https://github.com/ory/kratos/blob/871ee0475a27771dd6395aad617f41a22ccc3b9a/courier/courier.go#L205) for fallback.
 
-### Creating Templates
+### Creating templates
 
 > Templates use the golang template engine in the `text/template` package for rendering the `email.subject.gotmpl` and
 > `email.body.plaintext.gotmpl` templates, and the `html/template` package for rendering the `email.body.gotmpl` template:
@@ -318,7 +318,7 @@ Hi, please verify your account by clicking the following link: {{ .VerificationU
 If you're running multiple instances of Kratos and separate courier job, make sure to provide templates to all instances (both
 Kratos and courier).
 
-### The Identity attribute
+### The identity attribute
 
 To be able to customize the content of templates based on the identity of the recipient of the e-mail, the identity has been made
 available as `Identity`. This object is a map containing all the attributes of an identity, such as `id`, `state`,

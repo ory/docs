@@ -1,6 +1,6 @@
 ---
 id: case-study
-title: OAuth 2.0 Case Study
+title: OAuth 2.0 case study
 ---
 
 OAuth2 and OpenID Connect are tricky to understand. It's important to keep in mind that OAuth2 is a delegation protocol. Let's

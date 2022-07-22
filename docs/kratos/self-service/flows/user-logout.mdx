@@ -1,6 +1,6 @@
 ---
 id: user-logout
-title: User Logout
+title: User logout
 ---
 
 Ory Kratos supports two logout flows:
@@ -13,7 +13,7 @@ Ory Kratos supports two logout flows:
 import { apiFlow, browserFlow } from "./code/logout"
 import CodeTabs from "@site/src/theme/Code/CodeTabs"
 
-## Self-Service Logout for Server-Side Browser Applications
+## Self-service logout for server-side browser applications
 
 To ensure that a logout was indeed intended by the user, Ory Kratos first generates a Logout URL for a given Ory Session Cookie.
 You can then open the Logout URL in the Browser.
@@ -38,9 +38,9 @@ selfservice:
 
 If an error occurs, the browser is redirected to the [Error UI](./user-facing-errors.md).
 
-## Self-Service Logout for Client-Side Browser Applications
+## Self-service logout for client-side browser applications
 
-Similar to Server-Side Browser Applications, Ory Kratos first generates a Logout URL for a given Ory Session Cookie. However, you
+Similar to server-side browser applications, Ory Kratos first generates a Logout URL for a given Ory Session Cookie. However, you
 can simply call the Logout URL using an AJAX request. Ory Kratos returns a `204 No Content` response on success or an error
 otherwise.
 
@@ -111,7 +111,7 @@ curl -s --cookie $cookieJar --cookie-jar $cookieJar -H "Accept: application/json
   jq -r ".id"
 ```
 
-## Self-Service Logout for API Clients
+## Self-service logout for API clients
 
 API clients (such as native mobile apps) use Ory Session Tokens. To revoke such a token, call the logout API endpoint:
 

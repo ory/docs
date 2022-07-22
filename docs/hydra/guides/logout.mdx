@@ -1,7 +1,7 @@
 ---
 id: logout
-title: Implementing the Logout Endpoint & UI
-sidebar_label: Logout Endpoint
+title: Implementing the logout endpoint & UI
+sidebar_label: Logout endpoint
 ---
 
 import Tabs from "@theme/Tabs"
@@ -17,7 +17,7 @@ In this document, you will learn how to implement the Logout Endpoint using our 
 have document this for multiple programming languages. If you are an expert in one of these languages, your help is highly
 appreciated in improving these docs!
 
-## Implementing the Logout HTML Form
+## Implementing the logout HTML form
 
 :::note
 
@@ -30,7 +30,7 @@ server-side component with access to Ory Hydra's Admin Endpoint!
   defaultValue="ui"
   values={[
     {label: 'UI', value: 'ui'},
-    {label: 'NodeJS', value: 'node'},
+    {label: 'Node.js', value: 'node'},
     {label: 'HTML Example', value: 'html'},
   ]}>
 <TabItem value="ui">
@@ -47,7 +47,7 @@ Check out our [reference implementation](https://github.com/ory/hydra-login-cons
 :::
 
 ```typescript title="routes/logout.ts"
-// This example uses ExpressJS
+// This example uses Express.js
 import express from "express"
 import url from "url"
 import csrf from "csurf"
@@ -102,12 +102,12 @@ router.get("/", csrfProtection, (req, res, next) => {
 </TabItem>
 </Tabs>
 
-## Accepting Logout
+## Accepting logout
 
 <Tabs
   defaultValue="node"
   values={[
-    {label: 'NodeJS', value: 'node'},
+    {label: 'Node.js', value: 'node'},
   ]}>
 <TabItem value="node">
 
@@ -135,12 +135,12 @@ router.post("/logout", csrfProtection, (req, res, next) => {
 </TabItem>
 </Tabs>
 
-## Rejecting Logout
+## Rejecting logout
 
 <Tabs
   defaultValue="node"
   values={[
-    {label: 'NodeJS', value: 'node'},
+    {label: 'Node.js', value: 'node'},
   ]}>
 <TabItem value="node">
 

@@ -119,8 +119,9 @@ Ory documentation should be clear and easy to understand.
 
 #### Headings
 
-- Add only one H1 in each document, by adding `#` at the beginning of it (when
-  using Markdown). The `h1` becomes the document `<title>`.
+- Use
+  [sentence case](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization)
+  for headings.
 - Start with an `h2` (`##`), and respect the order `h2` > `h3` > `h4` > `h5` >
   `h6`. Never skip the hierarchy level, such as `h2` > `h4`
 - Avoid using symbols and special characters in headers. Whenever possible, they
@@ -156,7 +157,7 @@ each individual UI element is in
 ### Playwright tests
 
 The [Playwright](https://github.com/microsoft/playwright) (E2E) tests file names
-end with `.spec.ts` and can be found in `/tests/playwright`. NodeJS is required
+end with `.spec.ts` and can be found in `/tests/playwright`. Node.js is required
 to run Playright tests locally. To test the documentation locally:
 
 1. Clone this repository.

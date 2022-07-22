@@ -16,7 +16,7 @@ The look of the prompt depends on the web browser. The screenshot shows a Google
 
 :::
 
-## Constraints
+## Limitations
 
 - WebAuthn is a browser-only standard. It doesn't work with native mobile apps.
 - WebAuthn is limited to one domain and does not work in a local environment when using CNAME / Ory Proxy. WebAuthN uses an
@@ -94,7 +94,7 @@ The `display_name` is always set to the name of your project.
 ory update identity-config <project-id> --file identity-config.yaml
 ```
 
-### Self-Hosted Instances
+### Self-hosted instances
 
 When working with self-hosted instances of the Ory Identity Service (Kratos), add the `webauthn` method to `selfservice/methods`
 in the configuration file:
@@ -114,7 +114,7 @@ selfservice:
       enabled: true
 ```
 
-### Distinguishing Identities Requesting WebAuthn
+### Distinguish identities requesting WebAuthn
 
 To help users distinguish which identity requests for WebAuthn authentication, add a `webauthn` object to the trait which
 represents the WebAuthn account name.
@@ -172,7 +172,7 @@ To learn more about the approach used in Cypress, read
 
 :::
 
-## Identity Credentials
+## Identity credentials
 
 When the user enables WebAuthn, Ory adds the following entries to the `credentials` object of the associated Identity:
 

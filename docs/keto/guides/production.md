@@ -1,6 +1,6 @@
 ---
 id: production
-title: Going to Production
+title: Going to production
 ---
 
 :::warning

@@ -232,7 +232,7 @@ New feature or request.
 
 #### Pull Requests
 
-- [x] feat: ReactJS, better SPA APIs, 2FA with WebAuthn & TOTP & Lookup Secrets, better errors, typescript e2e tests
+- [x] feat: React.js, better SPA APIs, 2FA with WebAuthn & TOTP & Lookup Secrets, better errors, typescript e2e tests
       ([kratos#1624](https://github.com/ory/kratos/pull/1624)) - [@hackerman](https://github.com/aeneasr)
 - [x] fix: slow CLI start up time ([kratos#1878](https://github.com/ory/kratos/pull/1878))
 
@@ -249,7 +249,7 @@ Blocks milestones or other issues or pulls.
 
 #### Pull Requests
 
-- [x] feat: ReactJS, better SPA APIs, 2FA with WebAuthn & TOTP & Lookup Secrets, better errors, typescript e2e tests
+- [x] feat: React.js, better SPA APIs, 2FA with WebAuthn & TOTP & Lookup Secrets, better errors, typescript e2e tests
       ([kratos#1624](https://github.com/ory/kratos/pull/1624)) - [@hackerman](https://github.com/aeneasr)
 
 ## [v0.7.0-alpha.1](https://github.com/ory/kratos/milestone/9)
@@ -321,7 +321,7 @@ New feature or request.
 
 #### Pull Requests
 
-- [x] feat: APIs for native integration with AJAX / SPAs / ReactJS / NextJS / ...
+- [x] feat: APIs for native integration with AJAX / SPAs / React.js / Next.js / ...
       ([kratos#1367](https://github.com/ory/kratos/pull/1367)) - [@hackerman](https://github.com/aeneasr)
 - [x] feat: anti-CSRF measures when fetching flows ([kratos#1458](https://github.com/ory/kratos/pull/1458)) -
       [@hackerman](https://github.com/aeneasr)
@@ -348,7 +348,7 @@ Blocks milestones or other issues or pulls.
 
 #### Pull Requests
 
-- [x] feat: APIs for native integration with AJAX / SPAs / ReactJS / NextJS / ...
+- [x] feat: APIs for native integration with AJAX / SPAs / React.js / Next.js / ...
       ([kratos#1367](https://github.com/ory/kratos/pull/1367)) - [@hackerman](https://github.com/aeneasr)
 
 ## [v0.6.0-alpha.1](https://github.com/ory/kratos/milestone/8)

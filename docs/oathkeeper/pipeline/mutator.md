@@ -15,7 +15,7 @@ The Access Control Decision API will return the mutated result as the HTTP Respo
 This mutator doesn't transform the HTTP request and simply forwards the headers as-is. This is useful if you don't want to
 replace, for example, `Authorization: basic` with `X-User: <subject-id>`.
 
-### `noop` Configuration
+### `noop` configuration
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -34,7 +34,7 @@ mutators:
   - handler: noop
 ```
 
-### `noop` Access Rule Example
+### `noop` access rule example
 
 ```shell
 cat ./rules.json
@@ -138,7 +138,7 @@ The ID Token Claims are as follows:
   measured in UTC until the date/time.
 - `jti`: A cryptographically strong random identifier to ensure the ID Token's uniqueness.
 
-### `id_token` Configuration
+### `id_token` configuration
 
 - `issuer_url` (string, required) - Sets the "iss" value of the ID Token.
 - `jwks_url` (string, required) - Sets the URL where keys should be fetched from. Supports remote locations (http, https, s3, gs,
@@ -209,7 +209,7 @@ The claims configuration expects a string which is expected to be valid JSON:
 
 Please keep in mind that certain keys (such as the `sub`) claim **can't** be overwritten!
 
-### `id_token` Access Rule Example
+### `id_token` access rule example
 
 ```shell
 cat ./rules.json
@@ -252,7 +252,7 @@ cat ./rules.json
 This mutator will transform the request, allowing you to pass the credentials to the upstream application via the headers. This
 will augment, for example, `Authorization: basic` with `X-User: <subject-id>`.
 
-### `header` Configuration
+### `header` configuration
 
 - `headers` (object (`string: string`), required) - A keyed object (`string:string`) representing the headers to be added to this
   request, see section [headers](#headers).
@@ -290,7 +290,7 @@ receiving the `AuthenticationSession` struct.
 
 For more details please check [Session variables](../pipeline.md#session)
 
-### `header` Access Rule Example
+### `header` access rule example
 
 ```json
 {
@@ -328,7 +328,7 @@ For more details please check [Session variables](../pipeline.md#session)
 
 This mutator will transform the request, allowing you to pass the credentials to the upstream application via the cookies.
 
-### `cookie` Configuration
+### `cookie` configuration
 
 - `cookies` (object (`string: string`), required) - A keyed object (`string:string`) representing the cookies to be added to this
   request, see section [cookies](#cookies).
@@ -366,7 +366,7 @@ receiving the `AuthenticationSession` struct.
 
 For more details please check [Session variables](../pipeline.md#session)
 
-#### `cookie` Example
+#### `cookie` example
 
 ```json
 {
@@ -467,7 +467,7 @@ versions.
 
 :::
 
-### `hydrator` Configuration
+### `hydrator` configuration
 
 - `api.url` (string - required) - The API URL.
 - `api.auth.basic.*` (optional) - Enables HTTP Basic Authorization.
@@ -515,7 +515,7 @@ mutators:
         ttl: 60s
 ```
 
-### `hydrator` Access Rule Example
+### `hydrator` access rule example
 
 ```json
 {

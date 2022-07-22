@@ -1,6 +1,6 @@
 ---
 id: csrf
-title: Common Cookie and CSRF Pitfalls
+title: Common cookie and CSRF pitfalls
 ---
 
 import useBaseUrl from "@docusaurus/useBaseUrl"
@@ -24,7 +24,7 @@ request is allowed.
 
 Ory Kratos uses HTTP Cookies to store login sessions when accessed via a browser.
 
-## Common Pitfalls
+## Common pitfalls
 
 Sometimes, cookies and CSRF just wont work - all requests end up with a 401 Unauthorized or 400 Bad Request. Here are some common
 causes and easy fixes if that happens to you!
@@ -38,7 +38,7 @@ as well as the network tab - look for `Cookie` and `Set-Cookie` HTTP Headers:
 
 <img alt="Google Chrome Developer Tools - Network Tab - Cookies" src={useBaseUrl("img/docs/csrf_network_tab.png")} />
 
-### SameSite Attribute
+### SameSite attribute
 
 If you run Ory Kratos in `--dev` mode, it disables `SameSite=Lax` as Google Chrome rejects all cookies that have `SameSite=Lax`
 but have `secure` set to `false`. If you require `SameSite=Lax`, you need to run Ory Kratos with HTTPS and not use the `--dev`
@@ -84,7 +84,7 @@ can't be modified!
 
 ### Accessing Ory Kratos APIs from client-side JavaScript / AJAX
 
-When implementing a Single Page App (SPA) using AngularJS or ReactJS you probably want to access Ory Krato's Public APIs.
+When implementing a Single Page App (SPA) using Angular or React.js you probably want to access Ory Krato's Public APIs.
 
 To prevent several attack vectors, Ory Krato's Public API is protected - even for some GET requests - with Anti-CSRF measures.
 
@@ -95,7 +95,7 @@ example.
 
 ### Accessing Ory Kratos APIs from a server-side application
 
-When implementing a server-side application (for example in PHP, Java, Go, NodeJS, ...) make sure to include the `Cookie` header
+When implementing a server-side application (for example in PHP, Java, Go, Node.js, ...) make sure to include the `Cookie` header
 from the client when fetching the self-service flows (for example `GET /self-service/login/flows?id=...`):
 
 ```ts

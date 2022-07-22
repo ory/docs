@@ -17,7 +17,7 @@ Run your app and Ory on the same domain using a reverse proxy
 ### Synopsis
 
 This command starts a reverse proxy which must be deployed in front of your application. This proxy works both in development and
-in production, for example when deploying a React, NodeJS, Java, PHP, ... app to a server / the cloud or when developing it
+in production, for example when deploying a React, Node.js, Java, PHP, ... app to a server / the cloud or when developing it
 locally on your machine.
 
 The first argument `application-url` points to the location of your application. The Ory Proxy will pass all traffic through to

@@ -1,6 +1,6 @@
 ---
 id: security
-title: Security Policy
+title: Security policy
 ---
 
 :::info Private Bug Bounty Program
@@ -91,7 +91,7 @@ had an official patch for less than one month on a case-by-case basis
 
 Please do not discuss any vulnerabilities, even resolved ones, outside this program without written consent from Ory.
 
-## Safe Harbor
+## Safe harbor
 
 Any activities conducted in a manner consistent with this policy will be considered authorized conduct and not result in legal
 action from Ory against you. If you face legal action in connection with activities conducted under this policy, Ory will take

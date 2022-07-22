@@ -8,7 +8,7 @@ This document explains the time complexity of Ory Keto. Main memory complexity w
 only examine the evaluation engines (check- and expand-API) as all other parts are mainly determined by dependencies like your
 database of choice, or the de-/encoding of messages. Examples given omit the namespace for clarity.
 
-## Check Engine
+## Check engine
 
 In essence, the check-engine assumes that the relation tuples and their indirections assemble an acyclic directed graph, known as
 [the graph of relations](concepts/graph-of-relations).
@@ -49,7 +49,7 @@ Learn more in our [best practices around ACL design](./guides/access-control-lis
 Because of this we decided that generic benchmarks won't yield any meaningful result. We will therefore add a comparison with
 other similar projects later on.
 
-## Expand Engine
+## Expand engine
 
 Similar to how the check-engine traverses the graph of relationtuples, the expand-engine builds the tree of all set operations it
 encounters. It resolves all indirections starting at the requested subjectset up to the specified depth. Because it also uses

@@ -61,7 +61,7 @@ forwarded to the upstream URL.
 > Using this handler is basically an allow-all configuration. It makes sense when the upstream handles access control itself or
 > doesn't need any type of access control.
 
-### `noop` Configuration
+### `noop` configuration
 
 This handler isn't configurable.
 
@@ -75,7 +75,7 @@ authenticators:
     enabled: true
 ```
 
-### `noop` Access Rule Example
+### `noop` access rule example
 
 ```sh
 cat ./rules.json
@@ -120,7 +120,7 @@ unauthorized:
     enabled: true
 ```
 
-### `unauthorized` Access Rule Example
+### `unauthorized` access rule example
 
 ```sh
 cat ./rules.json
@@ -178,7 +178,7 @@ authenticators:
       subject: guest
 ```
 
-### `anonymous` Access Rule Example
+### `anonymous` access rule example
 
 The following rule allows all requests to `GET http://my-app/some-route` and sets the subject name to the anonymous username, as
 long as no `Authorization` header is set in the HTTP request:
@@ -222,7 +222,7 @@ The `cookie_session` authenticator will forward the request method, path and hea
 returns `200 OK` and body `{ "subject": "...", "extra": {} }` then the authenticator will set the subject appropriately. Please
 note that Gzipped responses from `check_session_url` are not supported, and will fail silently.
 
-### `cookie_session` Configuration
+### `cookie_session` configuration
 
 - `check_session_url` (string, required) - The session store to forward request method/path/headers to for validation.
 - `only` ([]string, optional) - If set, only requests that have at least one of the set cookies will be forwarded, others will be
@@ -301,7 +301,7 @@ authenticators:
       preserve_query: true
 ```
 
-### `cookie_session` Access Rule Example
+### `cookie_session` access rule example
 
 ```shell
 cat ./rules.json
@@ -341,7 +341,7 @@ The `bearer_token` authenticator will forward the request method, path and heade
 returns `200 OK` and body `{ "subject": "...", "extra": {} }` then the authenticator will set the subject appropriately. Please
 note that Gzipped responses from `check_session_url` are not supported, and will fail silently.
 
-### `bearer_token` Configuration
+### `bearer_token` configuration
 
 - `check_session_url` (string, required) - The session store to forward request method/path/headers to for validation.
 - `preserve_path` (boolean, optional) - If set, any path in `check_session_url` will be preserved instead of replacing the path
@@ -423,7 +423,7 @@ authenticators:
         - X-Forwarded-For
 ```
 
-### `bearer_token` Access Rule Example
+### `bearer_token` access rule example
 
 ```shell
 cat ./rules.json
@@ -468,7 +468,7 @@ This authenticator will use the username from the HTTP Basic Authorization heade
 > If you are unfamiliar with OAuth 2.0 Client Credentials we recommend
 > [reading this guide](https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/).
 
-### `oauth2_client_credentials` Configuration
+### `oauth2_client_credentials` configuration
 
 - `token_url` (string, required) - The OAuth 2.0 Token Endpoint that will be used to validate the client credentials.
 - `retry` (object, optional) - Configures timeout and delay settings for the request against the token endpoint
@@ -505,7 +505,7 @@ authenticators:
       token_url: https://my-website.com/oauth2/token
 ```
 
-### `oauth2_client_credentials` Access Rule Example
+### `oauth2_client_credentials` access rule example
 
 ```shell
 cat ./rules.json
@@ -571,7 +571,7 @@ Token Introspection to check if the token is valid and if the token was granted 
 > If you are unfamiliar with OAuth 2.0 Introspection we recommend
 > [reading this guide](https://www.oauth.com/oauth2-servers/token-introspection-endpoint/).
 
-### `oauth2_introspection` Configuration
+### `oauth2_introspection` configuration
 
 - `introspection_url` (string, required) - The OAuth 2.0 Token Introspection endpoint.
 - `scope_strategy` (string, optional) - Sets the strategy to be used to validate/match the token scope. Supports "hierarchic",
@@ -689,7 +689,7 @@ authenticators:
         give_up_after: 2s
 ```
 
-### `oauth2_introspection` Access Rule Example
+### `oauth2_introspection` access rule example
 
 ```shell
 cat ./rules.json
@@ -759,7 +759,7 @@ The `jwt` authenticator handles requests that have an Bearer Token in the Author
 or in a different header or query parameter specified in configuration. It assumes that the token is a JSON Web Token and tries to
 verify the signature of it.
 
-### `jwt` Configuration
+### `jwt` configuration
 
 - `jwks_urls` ([]string, required) - The URLs where Ory Oathkeeper can retrieve JSON Web Keys from for validating the JSON Web
   Token. Usually something like `https://my-keys.com/.well-known/jwks.json`. The response of that endpoint must return a JSON Web
@@ -848,7 +848,7 @@ authenticators:
         # cookie: auth-token
 ```
 
-#### `jwt` Validation example
+#### `jwt` validation example
 
 ```json
 {
@@ -895,7 +895,7 @@ been seen in the wild: `scp`, `scope`, `scopes`. Additionally, the claim value c
 string (`"scope-a scope-b"`) or a JSON string array (`["scope-a", "scope-b"]`). Because of this ambiguity, all of those claims are
 checked and parsed and will be available as `scp` (string array) in the authentication session (`.Extra["scp"]`).
 
-### `jwt` Access Rule Example
+### `jwt` access rule example
 
 ```shell
 cat ./rules.json

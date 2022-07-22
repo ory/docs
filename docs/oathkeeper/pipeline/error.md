@@ -1,6 +1,6 @@
 ---
 id: error
-title: Error Handlers
+title: Error handlers
 ---
 
 A error handler is responsible for executing logic after, for example, authentication or authorization failed. Ory Oathkeeper
@@ -34,7 +34,7 @@ appropriate error handler will be chosen.
 Please be aware that defining error handlers with overlapping matching conditions will cause errors, because Ory Oathkeeper won't
 know which error handler to execute!
 
-## Error Matching
+## Error matching
 
 You can configure the error handlers in such a way, that - for example - Ory Oathkeeper responds, in the case of an error, with
 
@@ -404,7 +404,7 @@ browsers show a message like "The website says: `<realm>`". Using a real message
 This error handler is "exotic" as WWW-Authenticate isn't a common pattern in today's web. As discussed in the previous section,
 you can define error matching conditions under the `when` key.
 
-#### `www_authenticate` Example
+#### `www_authenticate` example
 
 ```json5
 // access-rule.json

@@ -1,6 +1,6 @@
 ---
 id: deployment
-title: Deployment Fundamentals and Requirements
+title: Deployment fundamentals and requirements
 ---
 
 ## Integrates with Kubernetes
@@ -8,7 +8,7 @@ title: Deployment Fundamentals and Requirements
 Ory technology is cloud first and runs natively on Docker and Kubernetes and naturally supports Kubernetes Helm Charts. Head over
 to our [Kubernetes Helm Chart Repository](https://k8s.ory.sh/helm) for Charts and accompanying Documentation.
 
-## Data Storage and Persistence
+## Data Storage and persistence
 
 All Ory projects support storing data in memory and in relational databases such as PostgreSQL, MySQL, SQLite and CockroachDB.
 

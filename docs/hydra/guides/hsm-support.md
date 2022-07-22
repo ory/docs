@@ -1,6 +1,6 @@
 ---
 id: hsm-support
-title: Hardware Security Module support for JSON Web Key Sets
+title: Hardware Security Module support for JSON Web Key sets
 ---
 
 The

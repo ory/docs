@@ -1,6 +1,6 @@
 ---
 id: security
-title: Threat Models and Security Profiles
+title: Threat models and security profiles
 ---
 
 :::warning
@@ -17,7 +17,7 @@ likelihood, and the impact are important all aspects of a threat model.
 This documentation can't substitute a thorough and serious threat model, yet it will provide some guidelines to help configure Ory
 Kratos in a way that makes it best suited for any risk assessment.
 
-## Account Enumeration Attacks
+## Account enumeration attacks
 
 :::warning
 
@@ -73,7 +73,7 @@ up would be ok.
 
 :::
 
-### Hash Timing Attack Mitigation
+### Hash timing attack mitigation
 
 A timing attack against password hashing looks as follows:
 
@@ -84,7 +84,7 @@ A timing attack against password hashing looks as follows:
 To protect against this attack, Ory Kratos adds a configurable delay with standard deviation to login flows where the account
 doesn't exist.
 
-### Enabling Account Enumeration Defenses
+### Enabling account enumeration defenses
 
 Assuming you wish to enable account enumeration defenses, you need to configure Ory Kratos as follows:
 
@@ -132,7 +132,7 @@ local claims = {
 }
 ```
 
-### Disabling Account Enumeration Defenses
+### Disabling account enumeration defenses
 
 Enforcing email verification, which requires an email round trip and disrupts the sign up process, isn't always feasible. In these
 cases, you might want to disable account enumeration defenses.
@@ -170,7 +170,7 @@ Further improvements are work in progress and are tracked on
 
 :::
 
-### Expensive Hashing with BCrypt
+### Expensive hashing with BCrypt
 
 Ory Kratos supports BCrypt for password hashing per default. BCrypt is recommended when you want hashing to take at most one
 second:
@@ -182,7 +182,7 @@ hashers:
     cost: 12
 ```
 
-### Expensive Hashing with Argon2
+### Expensive hashing with Argon2
 
 Ory Kratos supports Argon2 for password hashing. Argon2 is recommended when you want hashing to take at least 2 seconds. You can
 tweak the Argon2 configuration in your Ory Kratos configuration file:
@@ -200,7 +200,7 @@ hashers:
 
 To determine the ideal parameters, head over to the [setup guide](../guides/setting-up-password-hashing-parameters.md).
 
-### Password Policy
+### Password policy
 
 To prevent weak passwords Ory Kratos implements different measures. Users often choose passwords similar to their traits. To
 prevent this Ory Kratos ensures there is a sufficient [Levenshtein-Distance](https://en.wikipedia.org/wiki/Levenshtein_distance)
@@ -212,7 +212,7 @@ database. This way Ory Kratos makes sure your users can't use passwords like "pa
 To protect the value of the password the [range API](https://haveibeenpwned.com/API/v3#SearchingPwnedPasswordsByRange) is being
 used.
 
-#### Password Policy Best Practices
+#### Password policy best practices
 
 Almost every service with a login offers some type of registration using a password. Therefore, there are many strategies floating
 around, with many of them implementing terrible and insecure patterns such as:
@@ -236,7 +236,7 @@ This is a rundown of all the practices Ory Kratos implements and why. **Some thi
 must be implemented in the User Interface that interfaces with Ory Kratos. You can find these in the
 [User Interface Guidelines](#user-interface-guidelines) section.
 
-##### Password Complexity
+##### Password complexity
 
 This outline and quotes are defined in the
 [NIST Digital Identity Guidelines - 5.1.1.2 Memorized Secret Verifiers](https://pages.nist.gov/800-63-3/sp800-63b.html). Ory
@@ -271,7 +271,7 @@ Don't require mixtures of characters types or prohibiting repeated characters:
 > consecutively repeated characters) for memorized secrets. Verifiers SHOULD NOT require memorized secrets to be changed
 > arbitrarily. However, verifiers SHALL force a change if there is evidence of compromise of the authenticator.
 
-##### User Interface Guidelines
+##### User interface guidelines
 
 These best practices need to be implemented in your User Interface and can't be handled by Ory Kratos. All Ory-built reference and
 demo applications implement these best practices:
@@ -290,13 +290,13 @@ Allow the user to show the secret in the UI:
 > individual entered characters for a short time after each character is typed to verify correct entry. This is particularly
 > applicable on mobile devices.
 
-##### Password Hints
+##### Password hints
 
 > Memorized secret verifiers SHALL NOT permit the subscriber to store a “hint” that's accessible to an unauthenticated claimant.
 >
 > [NIST Digital Identity Guidelines - 5.1.1.2 Memorized Secret Verifiers](https://pages.nist.gov/800-63-3/sp800-63b.html)
 
-##### Password Expiry
+##### Password expiry
 
 > Forcing password expiry carries no real benefits because:
 >
@@ -308,7 +308,7 @@ Allow the user to show the secret in the UI:
 >
 > [NSCS Password administration for system owners](https://www.ncsc.gov.uk/collection/passwords/updating-your-approach)
 
-## Anti-Automation
+## Anti-automation
 
 :::warning
 
@@ -328,23 +328,23 @@ CAPTCHA renders these attacks either very difficult or impossible. CAPTCHA will 
 
 For integration guidelines, please check the individual flow's (registration, login, account recovery) integration documentation.
 
-## Bruteforce Attacks
+## Bruteforce attacks
 
 Will be addressed in a future release.
 
-## Phishing Attacks
+## Phishing attacks
 
 Will be addressed in a future release.
 
-## Social Engineering Attacks
+## Social engineering attacks
 
 Will be addressed in a future release.
 
-## SMS Spoofing Attacks
+## SMS spoofing attacks
 
 Will be addressed in a future release.
 
-## Account Enumeration
+## Account enumeration
 
 :::warning
 
@@ -354,7 +354,7 @@ It doesn't yet work as documented!
 
 :::
 
-## Digital Identity Guidelines
+## Digital identity guidelines
 
 There is no one standard to digital identity. Ory Kratos follows emerging frameworks and guidelines such as:
 [Digital Identity Guidelines established by the National Institute of Standards and Technology (NIST)](https://pages.nist.gov/800-63-3/)

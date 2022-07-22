@@ -1,5 +1,5 @@
 ---
-title: "List API: Display all Objects a User has Access to"
+title: "List API: display all objects a user has access to"
 ---
 
 import CodeTabs from "@site/src/theme/CodeTabs"
@@ -23,7 +23,7 @@ For the sake of readability, the code samples use the name of the chat and usern
 
 :::
 
-### Listing Objects
+### Listing objects
 
 Our example application allows users to browse the chats they belong to. To achieve that, it uses Ory Keto's list API.
 
@@ -70,7 +70,7 @@ The user `PM` now opens the chat application. To display a list of all of `PM`'s
 As a response, the application gets the list of all chats the user `PM` is a member of. It can then use the information to build
 the UI.
 
-### Listing Subjects
+### Listing subjects
 
 Another view of the chat application has to display all members of a specific group to the user. This can also be achieved using
 the list API. In cases where such a membership would be modeled through [subject sets](../concepts/subjects.mdx#subject-sets), you
@@ -87,7 +87,7 @@ In our example, a user wants to see who is a member of the `coffee-break` group:
 
 <CodeTabs sampleId="list-api-display-objects/02-list-coffee-break" version="v0.7.0-alpha.1" />
 
-## Application Context
+## Application context
 
 It's important to note that the list API does **not** expand [subject sets](../concepts/subjects.mdx#subject-sets). Usually the
 application has some context to determine what tuples to query anyway. That could be knowledge of the structure of subject sets

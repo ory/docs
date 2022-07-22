@@ -1,13 +1,11 @@
 ---
 id: security-architecture
-title: Security Architecture
+title: Security architecture
 ---
 
 Hydra is built with tough security in mind.
 
-<!-- toc -->
-
-## OAuth 2.0 Security Overview
+## OAuth 2.0 security overview
 
 Hydra is an implementation of the security-first Fosite OAuth 2.0 SDK
 ([https://github.com/ory/fosite](https://github.com/ory/fosite)). Fosite respects the
@@ -37,7 +35,7 @@ Additionally these safeguards are implemented:
 - Advanced Token Validation: Tokens are laid out as &lt;key&gt;.&lt;signature&gt; where &lt;signature&gt; is created using
   HMAC-SHA256 using a global secret.
 
-### Advanced Token Validation (Datastore Security)
+### Advanced token validation (datastore security)
 
 For a OAuth2 access token, refresh token or authorize code to be valid, one requires both the key and the signature (formatted as
 &lt;key&gt;.&lt;signature&gt;). Only the signature is stored in the datastore (SQL), thus a compromised datastore won't allow an
@@ -93,6 +91,6 @@ I recommend reading this thread on Security Stack Exchange on BCrypt, SCrypt and
 Be aware that BCrypt causes very high CPU loads, depending on the Workload Factor. We strongly advise reducing the number of
 requests that use Basic Authorization.
 
-## How does Access Control work with Hydra?
+## How does access control work with Hydra?
 
 See [OAuth 2.0 Token Introspection](guides/oauth2-token-introspection).

@@ -1,6 +1,6 @@
 ---
 id: data-mapping
-title: Data Mapping with Jsonnet
+title: Data mapping with jsonnet
 ---
 
 Different social sign-in providers will send different data in their payloads. While you might expect to get some basic
@@ -132,7 +132,7 @@ traits:
   website: https://www.ory.sh # This is extracted from `username` using
 ```
 
-### External Variable `claims`
+### External variable `claims`
 
 The `std.ExtVar('claims')` object has the following structure and keys available:
 
@@ -165,7 +165,7 @@ type Claims struct {
 }
 ```
 
-## Identity Traits Validation and Data Completion
+## Identity traits validation and data completion
 
 Sometimes the data provided by OpenID Connect or OAuth2 providers isn't enough. A common example of not enough data is asking the
 user to agree to the terms of service. No OpenID Connect or OAuth2 provider can give you this information because these are YOUR
