@@ -1,6 +1,6 @@
 ---
 id: api-access-rules
-title: API Access Rules
+title: API access rules
 ---
 
 Ory Oathkeeper reaches decisions to allow or deny access by applying Access Rules. Access Rules can be stored on the file system,
@@ -62,7 +62,7 @@ cat ./rules.yaml
     handler: allow
 ```
 
-## Access Rule Format
+## Access rule format
 
 Access Rules have four principal keys:
 
@@ -202,7 +202,7 @@ authenticators:
 }
 ```
 
-## Scoped Credentials
+## Scoped credentials
 
 Some credentials are scoped. For example, OAuth 2.0 Access Tokens usually are scoped ("OAuth 2.0 Scope"). Scope validation depends
 on the meaning of the scope. Therefore, wherever Ory Oathkeeper validates a scope, these scope strategies are supported:
