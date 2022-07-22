@@ -12,7 +12,7 @@ Discussions for [Ory Kratos](https://github.com/ory/kratos/discussions), [Ory Hy
 other [Ory projects](https://github.com/ory/meta/discussions), you can also visit our archived old
 [forum](https://community.ory.sh/).
 
-## Community Projects
+## Community projects
 
 Members of the Ory community have built technology, written blog posts, and published open source software that extends or
 modifies the core technology. This isn't an exhaustive list. Want your own content here? Create a PR!
@@ -73,9 +73,9 @@ modifies the core technology. This isn't an exhaustive list. Want your own conte
 - [OpenID Connect client for Angular](https://git.webmeisterei.com/minadmin/js-oidc)
 - [Archived: Ory Hydra Golang login/consent provider using Authboss user/password authentication](https://github.com/nbycomp/login-consent)
 
-## Community Articles & Tutorials
+## Community articles and tutorials
 
-#### Ory Blog Guest Articles
+#### Ory Blog guest articles
 
 Are you building something with Ory? Are you interested in Auth and security topics in general? Do you want to share your
 knowledge and experiences? [Reach out to us](mailto:office@ory.sh) to be published in our blog!
@@ -126,7 +126,7 @@ knowledge and experiences? [Reach out to us](mailto:office@ory.sh) to be publish
 - [Using Dockertest with Golang](https://bignerdranch.com/blog/using-dockertest-with-golang/)
 - [How to write a Go API Part 3: Testing With Dockertest](https://jonnylangefeld.com/blog/how-to-write-a-go-api-part-3-testing-with-dockertest)
 
-## Postman API Reference Collections
+## Postman API reference collections
 
 > Note that while we try to keep the collections up to date, they might be outdated. Please open an
 > [issue](https://github.com/ory/docs/) if that's the case.

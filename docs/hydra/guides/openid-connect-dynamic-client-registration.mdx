@@ -1,6 +1,6 @@
 ---
 id: openid-connect-dynamic-client-registration
-title: OpenID Connect Dynamic Client Registration
+title: OpenID Connect dynamic client registration
 ---
 
 Ory Hydra is capable of exposing
@@ -29,7 +29,7 @@ Enabling this feature will add listeners to the following four routes at the pub
 - `PUT /oauth2/register/<client_id>` - Update the OAuth2 Client;
 - `DELETE /oauth2/register/<client_id>` - Delete the OAuth2 Client;
 
-## Register OAuth2 & OpenID Connect Clients
+## Register OAuth2 & OpenID Connect clients
 
 If OpenID Connect Dynamic Client Registration is enabled, registering a new OAuth2 Client is as simple as:
 
@@ -93,7 +93,7 @@ endpoint. This ensure that third parties follow the strict security guidlines of
 The metadata field is protected and privileged and can only be set using the administrative endpoint! OAuth2 Client Metadata can
 also not be read using OpenID Connect Dynamic Client Registration endpoints!
 
-## Manage OAuth2 & OpenID Connect Clients
+## Manage OAuth2 & OpenID Connect clients
 
 The `POST` endpoint requires the client to authenticate with the `registration_access_token` regardless of the
 `token_endpoint_auth_method`. It can be used to update the OAuth2 Client.
@@ -159,7 +159,7 @@ When updating the OAuth2 Client, the server will respond with a new registration
 }
 ```
 
-## Get OAuth2 & OpenID Connect Clients
+## Get OAuth2 & OpenID Connect clients
 
 The `GET` endpoint requires the client to authenticate with the `registration_access_token` regardless of the
 `token_endpoint_auth_method`. It can be used to retrieve the OAuth2 Client.
@@ -203,7 +203,7 @@ Content-Type: application/json
 </Tabs>
 ````
 
-## Delete OAuth2 & OpenID Connect Clients
+## Delete OAuth2 & OpenID Connect clients
 
 The `DELETE` endpoint requires the client to authenticate with the `registration_access_token` regardless of the
 `token_endpoint_auth_method`. It can be used to delete the OAuth2 Client.

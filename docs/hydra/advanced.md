@@ -1,6 +1,6 @@
 ---
 id: advanced
-title: Advanced OAuth2 and OpenID Connect Flows
+title: Advanced OAuth2 and OpenID Connect flows
 ---
 
 ## OAuth 2.0
@@ -29,7 +29,7 @@ in the OAuth 2.0 Client's metadata on a per-client basis:
 
 The audience is a list of case-sensitive URLs. **URLs must not contain whitespaces**.
 
-#### OAuth 2.0 Authorization Code, Implicit, Hybrid Flows
+#### OAuth 2.0 authorization code, implicit, and hybrid flows
 
 When performing an OAuth 2.0 authorize code, implicit, or hybrid flow, you can request audiences at the `/oauth2/auth` endpoint
 `https://my-hydra.com/oauth2/auth?client_id=...&scope=...&audience=https%3A%2F%2Fapi.my-cloud.com%2Fuser+https%3A%2F%2Fsome-tenant.my-cloud.com%2F`
@@ -71,7 +71,7 @@ When introspecting the OAuth 2.0 Access Token, the response payload will include
 }
 ```
 
-#### OAuth 2.0 Client Credentials Grant
+#### OAuth 2.0 client credentials grant
 
 When performing the client credentials grant, the audience parameter from the POST body of the `/oauth2/token` is decoded and
 validated according to the same rules of the previous section, except for the login and consent part which does not exist for this
@@ -110,7 +110,7 @@ Be aware that only access tokens are formatted as JSON Web Tokens. Refresh token
 OAuth 2.0 Token Introspection you can check if the token is still valid. If a token is revoked or otherwise blacklisted, the OAuth
 2.0 Token Introspection will return `{ "active": false }`. This is useful when you don't want to rely only on the token's expiry.
 
-#### JSON Web Token Validation
+#### JSON Web Token validation
 
 You can validate JSON Web Tokens issued by Ory Hydra by pointing your `jwt` library (for example
 [node-jwks-rsa](https://github.com/auth0/node-jwks-rsa)) to `http://ory-hydra-public-api/.well-known/jwks.json`. All necessary
@@ -162,7 +162,7 @@ Please head over to the [RFC7523 Documentation](guides/oauth2-grant-type-jwt-bea
 
 ## OpenID Connect
 
-### Subject Identifier Algorithms
+### Subject identifier algorithms
 
 Hydra supports two [Subject Identifier Algorithms](http://openid.net/specs/openid-connect-core-1_0.html#SubjectIDTypes):
 
@@ -202,7 +202,7 @@ If the identifier algorithm is enabled, Ory Hydra will choose the right strategy
 While Ory Hydra handles `sub` obfuscation out of the box, you may also override this value with your own obfuscated `sub` value by
 setting `force_subject_identifier` when accepting the login challenge in your user login app.
 
-### Using login_hint with Different Subject
+### Using login_hint with different subject
 
 When a user already logged in with a subject(for example user-A), and she would like to login as another user using login_hint(for
 example login_hint=user-B), directly accepting the latter login request in your login provider will make hydra reply:

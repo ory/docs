@@ -31,7 +31,7 @@ authorizer per Access Rule.
 
 This authorizer permits every action allowed.
 
-### `allow` Configuration
+### `allow` configuration
 
 This handler isn't configurable.
 
@@ -45,7 +45,7 @@ authorizers:
     enabled: true
 ```
 
-### `allow` Access Rule Example
+### `allow` access rule example
 
 ```sh
 $ cat ./rules.json
@@ -76,7 +76,7 @@ The request has been allowed!
 
 This authorizer considers every action unauthorized therefore "forbidden" or "disallowed".
 
-### `deny` Configuration
+### `deny` configuration
 
 This handler isn't configurable.
 
@@ -90,7 +90,7 @@ authorizers:
     enabled: true
 ```
 
-### `deny` Access Rule Example
+### `deny` access rule example
 
 ```sh
 $ cat ./rules.json
@@ -123,7 +123,7 @@ This authorizer uses the Ory Keto API to carry out access control using "Ory-fla
 used in the Ory Keto project are located on [GitHub Ory Keto](https://github.com/ory/keto) for consultation prior to using this
 authorizer.
 
-### `keto_engine_acp_ory` Configuration
+### `keto_engine_acp_ory` configuration
 
 - `base_url` (string, required) - The base URL of Ory Keto, typically something like `https://hostname:port/`
 - `required_action` (string, required) - See section below.
@@ -131,7 +131,7 @@ authorizer.
 - `subject` (string, optional) - See section below.
 - `flavor` (string, optional) - See section below.
 
-#### Resource, Action, Subject
+#### Resource, action, subject
 
 This authorizer has four configuration options, `required_action`, `required_resource`, `subject`, and `flavor`:
 
@@ -189,7 +189,7 @@ The `subject` field configures the subject that passes to the Ory Keto endpoint.
 
 For more details about supported Go template substitution, see. [How to use session variables](../pipeline.md#session)
 
-#### `keto_engine_acp_ory` Example
+#### `keto_engine_acp_ory` example
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -221,7 +221,7 @@ authorizers:
       flavor: ...
 ```
 
-### `keto_engine_acp_ory` Access Rule Example
+### `keto_engine_acp_ory` access rule example
 
 ```shell
 $ cat ./rules.json
@@ -265,7 +265,7 @@ This authorizer performs authorization using a remote authorizer. The authorizer
 with the original body request as body. If the endpoint returns a "200 OK" response code, the access is allowed, if it returns a
 "403 Forbidden" response code, the access is denied.
 
-### `remote` Configuration
+### `remote` configuration
 
 - `remote` (string, required) - The remote authorizer's URL. The remote authorizer is expected to return either "200 OK" or "403
   Forbidden" to allow/deny access.
@@ -281,7 +281,7 @@ with the original body request as body. If the endpoint returns a "200 OK" respo
   - `max_delay` (string) time to wait between retries and max service response time. The value will be parsed by the Go
     [duration parser](https://pkg.go.dev/time#ParseDuration).
 
-#### `remote` Example
+#### `remote` example
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -309,7 +309,7 @@ authorizers:
         X-Subject: "{{ print .Subject }}"
 ```
 
-### `remote` Access Rule Example
+### `remote` access rule example
 
 ```shell
 {
@@ -352,7 +352,7 @@ This authorizer performs authorization using a remote authorizer. The authorizer
 with a JSON body. If the endpoint returns a "200 OK" response code, the access is allowed, if it returns a "403 Forbidden"
 response code, the access is denied.
 
-### `remote_json` Configuration
+### `remote_json` configuration
 
 - `remote` (string, required) - The remote authorizer's URL. The remote authorizer is expected to return either "200 OK" or "403
   Forbidden" to allow/deny access.
@@ -368,7 +368,7 @@ response code, the access is denied.
   - `max_delay` (string) time to wait between retries and max service response time. The value will be parsed by the Go
     [duration parser](https://pkg.go.dev/time#ParseDuration).
 
-#### `remote_json` Example
+#### `remote_json` example
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -402,7 +402,7 @@ authorizers:
         }
 ```
 
-### `remote_json` Access Rule Example
+### `remote_json` access rule example
 
 ```shell
 {

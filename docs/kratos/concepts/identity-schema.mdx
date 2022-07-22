@@ -1,6 +1,6 @@
 ---
 id: identity-schema
-title: Identity Schema
+title: Identity schema
 ---
 
 import Mermaid from "@site/src/theme/Mermaid"
@@ -63,7 +63,7 @@ traits:
   accepted_tos: true
 ```
 
-## Identity State
+## Identity state
 
 Identities are
 
@@ -88,7 +88,7 @@ Inactive --> Active: enable
 `}
 />
 
-## Identity Traits and JSON Schemas
+## Identity traits and JSON schemas
 
 Traits are data associated with an identity. You have to define its schema according to your application's needs. They're also
 supposed to be modified by the identity itself for example as part of the registration or profile update process as well as anyone
@@ -154,20 +154,20 @@ switch (session.Identity.SchemaID) {
 }
 ```
 
-### Sensitive Data in Identity Schema
+### Sensitive data in identity schema
 
 :::warning
 
-The Identity Schema isn't a place to store sensitive information that should not be visible to the end-user!
+The identity schema isn't a place to store sensitive information that should not be visible to the end-user!
 
 :::
 
-The Identity Schema isn't the right place to store data that should be obfuscated from the user! Users can see traits and other
+The identity schema isn't the right place to store data that should be obfuscated from the user! Users can see traits and other
 data - except credentials - using the `sessions/whoami` endpoint. Users are also able to edit identity traits. Visit
-[this issue](https://github.com/ory/kratos/issues/47) for information on a feature that can be configured to prevent the end-user
-from viewing/editing identity traits.
+[this document](https://www.ory.sh/docs/guides/manage-identities/managing-users-identities-metadata) for information how to use
+metadata that can not be viewed or changed by the end-user.
 
-## Identity Schema Vocabulary Extensions
+## Identity schema vocabulary extensions
 
 Because Ory Kratos doesn't know that a particular field has a system-relevant meaning you have to specify these in the schema.
 This includes for example:
@@ -212,7 +212,7 @@ Ory Kratos' JSON Schema Vocabulary Extension can be used within a property:
 
 An overview of available configuration options follows in the next sections.
 
-### Identifier for Username and Password Flows
+### Identifier for username and password flows
 
 You can configure Ory Kratos to use specific fields as the _identifier_ such as username, email, phone number, etc., in the
 Username and Password Registration and Login Flow:
@@ -410,7 +410,7 @@ All existing identities will continue to work as expected, having their identity
 user `user_v1`! If you are ready to do a migration, you can list all identities in your system with `user_v0` as the schema, and
 update them to `user_v1` with the required data transformations using the REST APIs!
 
-### Sanitize Usernames/Traits
+### Sanitize usernames/traits
 
 To make sure usernames (or traits) satisfy a specific regex (for example only alphanumeric characters), they can be sanitized. To
 sanitize usernames add

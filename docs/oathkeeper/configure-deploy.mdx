@@ -1,6 +1,6 @@
 ---
 id: configure-deploy
-title: Configure and Deploy
+title: Configure and deploy
 ---
 
 import useBaseUrl from "@docusaurus/useBaseUrl"
@@ -86,7 +86,7 @@ EOF
 This configuration file will run the proxy at port 4455, the api at port 4456, and enable the anonymous authenticator, the allow
 and deny authorizers, and the noop and id_token mutators.
 
-### Access Rules
+### Access rules
 
 We will be using [httpbin.org](https://httpbin.org) as the upstream server. The service echoes incoming HTTP Requests and is
 perfect for seeing how Ory Oathkeeper works. Let's define three rules:
@@ -221,7 +221,7 @@ import CodeBlock from '@theme/CodeBlock'
 EOF`}</CodeBlock>
 ```
 
-### Cryptographic Keys
+### Cryptographic keys
 
 The `id_token` mutator creates a signed JSON Web Token. For that to work, a public/private key is required. Luckily, Ory
 Oathkeeper can assist you in creating such keys. All common JWT algorithms are supported (RS256, ES256, HS256, ...). Let's
@@ -252,7 +252,7 @@ in a directory, for example.
 
 We encourage you to check out our [helm charts](https://k8s.ory.sh/helm/) which apply these best practices.
 
-## Build & Run
+## Build & run
 
 Before building the Docker Image, we need to make sure that the local Ory Oathkeeper Docker Image is on the most recent version:
 
@@ -295,7 +295,7 @@ curl http://127.0.0.1:4456/rules
 [{"id":"allow-anonymous-with-header-mutator","description":"","match":{"methods":["GET"],...
 ```
 
-## Authorizing Requests
+## Authorize requests
 
 Everything is up and running and configured! Let's make some requests:
 

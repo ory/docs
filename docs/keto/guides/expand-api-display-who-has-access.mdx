@@ -1,5 +1,5 @@
 ---
-title: "Expand API: Display who has Access to an Object"
+title: "Expand API: display who has access to an object"
 ---
 
 import CodeTabs from "@site/src/theme/CodeTabs"
@@ -24,7 +24,7 @@ For the sake of readability, the code samples use the object path and user name 
 
 :::
 
-### Displaying who has Access
+### Displaying who has access
 
 To assist users with managing permissions for their files, the application has to display who has access to a file and why. In
 this example, we assume that the application knows the following files and directories:
@@ -63,7 +63,7 @@ to get a tree of everyone who has access to that file:
 
 <CodeTabs sampleId="expand-api-display-access/01-expand-beach" version="v0.7.0-alpha.1" />
 
-### Maximum Tree Depth
+### Maximum tree depth
 
 The `max-depth` parameter is important to keep the request latency within an acceptable bound, but also abstract away the most
 basic subject sets. In many cases the application doesn't want to resolve all subject sets, but rather wants to display that for
@@ -76,7 +76,7 @@ In this example the application knows the rough structure of the relation tuples
 2. indirectly granted access through ownership (depth 2)
 3. indirectly granted access through ownership of the parent (depth 3)
 
-### Analyzing the Tree
+### Analyzing the tree
 
 The tree doesn't only include the subject IDs (in this case usernames), but also for what reason they were included. This can be
 useful for users to audits permissions. Also, in many cases the application would not want to list all subject IDs but rather

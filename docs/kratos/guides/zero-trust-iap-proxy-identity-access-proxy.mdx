@@ -1,6 +1,6 @@
 ---
 id: zero-trust-iap-proxy-identity-access-proxy
-title: Zero Trust with IAP Proxy
+title: Zero trust with IAP proxy
 ---
 
 import useBaseUrl from "@docusaurus/useBaseUrl"
@@ -22,7 +22,7 @@ To ensure that no one can access the dashboard without prior authentication, we 
 redirecting the user to the login page at `http://secure-app/auth/login`. Further, we will configure access to
 `http://secure-app/auth/login` in such a way that access only works if one isn't yet authenticated.
 
-## Running Ory Kratos and the Ory Oathkeeper Identity and Access Proxy
+## Running Ory Kratos and the Ory Oathkeeper identity and access proxy
 
 Clone the Ory Kratos repository and fetch the latest images:
 
@@ -63,7 +63,7 @@ oathkeeper_1  | {"level":"info","msg":"Listening on http://:4455","time":"2020-0
 
 :::
 
-### Network Architecture
+### Network architecture
 
 This demo makes use of several services:
 
@@ -74,7 +74,7 @@ This demo makes use of several services:
 
 2. [SecureApp](http://github.com/ory/kratos-selfservice-ui-node)
 
-- An example application written in NodeJS that implements the login, registration, logout, dashboard, and other UIs. Because
+- An example application written in Node.js that implements the login, registration, logout, dashboard, and other UIs. Because
   we're accessing this via a proxy, its port (4435) isn't publicly exposed.
 
 3. [Ory Oathkeeper](https://github.com/ory/oathkeeper)
@@ -168,7 +168,7 @@ end
 In order to avoid common cross-domain issues with cookies, we're using Ory Oathkeeper to proxy requests to Ory Kratos' Public API
 so that all requests come from the same hostname.
 
-## Perform Registration, Login, and Logout
+## Perform registration, login, and logout
 
 Enough theory! Let's start by opening the dashboard: go to [127.0.0.1:4455/welcome](http://127.0.0.1:4455/welcome).
 

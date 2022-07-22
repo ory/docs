@@ -24,7 +24,7 @@ is also available to download from the [Apple App Store](https://apps.apple.com/
 
 :::
 
-## Clone the Sample App Repository
+## Clone the sample app repository
 
 Start with cloning the repository with the sample application. Run:
 
@@ -36,7 +36,7 @@ git clone git@github.com:ory/kratos-selfservice-ui-react-native.git
 git clone https://github.com/ory/kratos-selfservice-ui-react-native.git
 ```
 
-## Prepare Environment
+## Prepare environment
 
 To run the sample application, you must set up a React Native development environment and install mobile device emulators:
 
@@ -54,7 +54,7 @@ To run the sample application, you must set up a React Native development enviro
 - Install the [Android Studio Emulator](https://docs.expo.dev/workflow/android-studio-emulator/) to run the application in an
   emulated Android environment.
 
-## Run the Application Locally
+## Run the application locally
 
 Follow these steps to run the app locally in an emulated iOS environment:
 
@@ -118,7 +118,7 @@ APIs. Follow these steps:
 With the application live, running, and connected to your Ory Cloud project, let's have a closer look at the code to understand
 the implementation.
 
-### React Navigation with Authentication Session
+### React navigation with authentication session
 
 The entry point for the app is [`App.tsx`](https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/App.tsx). The
 component loads fonts, sets up the views, but most importantly, it defines the structure of the application - including the
@@ -141,7 +141,7 @@ Native component tree:
   src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/src/components/AuthProvider.tsx"
 />
 
-#### Helper Methods
+#### Helper methods
 
 The helper methods in
 [`src/helpers/auth.tsx`](https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/src/helpers/auth.tsx) are simple
@@ -169,13 +169,13 @@ the user session is still active in the navigation and shows the dashboard or lo
   src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/src/components/Navigation.tsx"
 />
 
-### React Native Authentication Screens
+### React Native authentication screens
 
 To avoid writing a form renderer for every component - including styling - the app uses form rendering abstracted into separate
 own components, which you can find in
 [`src/components/Form`](https://github.com/ory/kratos-selfservice-ui-react-native/tree/master/src/components/Form).
 
-#### Home Component
+#### Home component
 
 The Home component receives the user's Session and displays all relevant information.
 
@@ -185,7 +185,7 @@ The Home component receives the user's Session and displays all relevant informa
   src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/src/components/Routes/Home.tsx"
 />
 
-#### User Settings Component
+#### User settings component
 
 The User Settings component performs a [User Settings API Flow](../../kratos/self-service/flows/user-settings).
 

@@ -1,12 +1,12 @@
 ---
 id: token-expiration
-title: Configuring Expiration
+title: Configuring expiration
 ---
 
 In the Hydra config.yaml - located in your Hydra directory - you can set times for how long a login/consent flow may take,
 expiration times for access tokens, refresh tokens, id tokens and auth codes.
 
-## Login and Consent Request Expiration
+## Login and consent request expiration
 
 Key `ttl.login_consent_request` configures how long a user login and consent flow may take.
 
@@ -28,7 +28,7 @@ Key `ttl.login_consent_request` configures how long a user login and consent flo
  #....
 ```
 
-## Access Token Expiration
+## Access Token expiration
 
 Key `ttl.access_token` configures how long access tokens are valid.
 
@@ -50,7 +50,7 @@ Key `ttl.access_token` configures how long access tokens are valid.
    #....
 ```
 
-## Refresh Token Expiration
+## Refresh Token expiration
 
 Key `ttl.refresh_token` configures how long refresh tokens are valid. Set to -1 for refresh tokens to never expire.
 
@@ -72,7 +72,7 @@ Key `ttl.refresh_token` configures how long refresh tokens are valid. Set to -1 
     #....
 ```
 
-### Refresh Token Rotation
+### Refresh Token rotation
 
 When a refresh token is used it's deactivated, which is known as Refresh Token Rotation. By default, Ory Hydra deactivates the
 refresh token it receives and issues a new token. If a deactivated refresh token is used again, all tokens related to that refresh
@@ -131,7 +131,7 @@ Key `ttl.id_token` configures how long id tokens are valid.
      #....
 ```
 
-## Auth Code Expiration
+## Auth Code expiration
 
 Key `ttl.auth_code` configures how long auth codes are valid.
 

@@ -1,11 +1,11 @@
 ---
 id: high-availability-ha
-title: High Availability
+title: High availability
 ---
 
 This document explains how to set up Ory Kratos in for High Availability.
 
-## Horizontal Scaling
+## Horizontal scaling
 
 Ory Kratos scales effortlessly to thousands of pods without any additional work!
 

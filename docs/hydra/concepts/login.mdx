@@ -1,6 +1,6 @@
 ---
 id: login
-title: Login Flow
+title: Login flow
 ---
 
 import Mermaid from "@theme/Mermaid"
@@ -38,7 +38,7 @@ The following sequence diagram describes the different API calls and HTTP Redire
     Ory Hydra->>OAuth2 Client: Transmits authorization code/token`}
 />
 
-## Initiating the OAuth 2.0 / OpenID Connect Flow
+## Initiating the OAuth 2.0 / OpenID Connect flow
 
 The OAuth2 2.0 / OpenID Connect Flow is initiated by pointing the End-User's browser to the `/oauth2/auth` endpoint. Depending on
 which flow ("Authorize Code Flow", "Implicit Flow", ...) you want to use some of the query parameters (for example
@@ -85,7 +85,7 @@ window.location.href = "https://public.hydra.url/oauth2/auth?client_id=...&respo
 </TabItem>
 </Tabs>
 
-## Redirection to the Login Endpoint
+## Redirection to the login endpoint
 
 The next task for Ory Hydra is to know the user of the request. To achieve that, Ory Hydra checks if a session cookie is set
 containing information about a previously successful login. Additionally, OpenID Connect parameters `id_token_hint`, `prompt`, and
@@ -109,7 +109,7 @@ Endpoint to fetch important information about the request.
 https://login-app/login?login_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2
 ```
 
-### Login Sessions, `prompt`, `max_age`, `id_token_hint`
+### Login sessions, `prompt`, `max_age`, `id_token_hint`
 
 Ory Hydra keeps track of user sessions. It does so by issuing a cookie which contains the user ID. On subsequent OAuth2 / OpenID
 Connect flows, the session will be checked and the Login Endpoint will be instructed to, for example, show the Login HTML Form or
@@ -141,10 +141,10 @@ To specify these parameters add them to the OAuth2 Auth Endpoint URL Query:
 https://<hydra-public>/oauth2/auth?prompt=login&max_age=60&id_token_hint=...'
 ```
 
-## The Login Endpoint
+## The login endpoint
 
 The Login Endpoint (set by `urls.login`) is an application written by you. You can find an exemplary
-[NodeJS reference implementation on our GitHub](https://github.com/ory/hydra-login-consent-node).
+[Node.js reference implementation on our GitHub](https://github.com/ory/hydra-login-consent-node).
 
 The Login Endpoint uses the `login_challenge` value in the URL to fetch information about the login request by making a HTTP GET
 request to:
@@ -236,7 +236,7 @@ The way you authenticate the End-User is up to you. In most cases, you will show
 Once the End-User authenticated successfully, you either **accept** the login challenge, or you **reject** (for example the user
 isn't allowed to perform OAuth2 flows) the login challenge.
 
-### Accepting the Login Flow
+### Accepting the login flow
 
 To accept the Login Challenge, make a HTTP PUT request with `Content-Type: application/json` and a JSON payload (see
 [Accept Login Request HTTP API Reference](../reference/api.mdx#schemaacceptloginrequest))
@@ -312,7 +312,7 @@ which is the URL your application must redirect the End-User's browser to.
 Check the ["Implementing the Login Endpoint" Guide](../guides/login.mdx) for examples using the Ory Hydra SDK in different
 languages.
 
-### Rejecting the Login Flow
+### Rejecting the login flow
 
 To reject the Login Challenge, make a HTTP PUT request with `Content-Type: application/json` and a JSON payload (see
 [Reject Login Request HTTP API Reference](../reference/api.mdx#schemarejectrequest))
@@ -366,11 +366,11 @@ which is the URL your application must the End-User's browser to.
 Check the ["Implementing the Login Endpoint" Guide](../guides/login.mdx) for examples using the Ory Hydra SDK in different
 languages.
 
-## Redirection to the Consent Endpoint
+## Redirection to the consent endpoint
 
 Please head over to [Consent Flow](./consent.mdx)!
 
-## Revoking Ory Hydra Login Sessions
+## Revoking Ory Hydra login sessions
 
 Revoking a login session will remove all of the user's cookies at Ory Hydra and will require the user to re-authenticate when
 performing the next OAuth 2.0 Authorize Code Flow. Be aware that this option will remove all cookies from all devices.

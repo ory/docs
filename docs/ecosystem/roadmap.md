@@ -78,7 +78,7 @@ All collected money goes directly into open source development.
 - [Ory Oathkeeper Changelog](https://github.com/ory/oathkeeper/blob/master/CHANGELOG.md) /
   [Releases](https://github.com/ory/oathkeeper/releases)
 
-### Milestones, Issues, Pull Requests
+### Milestones, issues, pull requests
 
 Ory Kratos: [Milestones](https://github.com/Ory/kratos/milestones) /
 [Open Issues & Pull Requests](https://github.com/ory/kratos/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc) /

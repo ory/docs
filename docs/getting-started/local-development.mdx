@@ -1,6 +1,6 @@
 ---
 id: local-development
-title: Local Development for Ory Cloud
+title: Local development for Ory Cloud
 ---
 
 As explained in the Ory Security Model description, Ory APIs must be available on the same domain as your application to allow
@@ -29,7 +29,7 @@ After starting the Tunnel, test it by performing the registration flow: `http://
 You can now start developing locally. Make sure to send any HTTP calls you make to `http://localhost:4000` and not
 `https://<your-slug>.projects.oryapis.com`.
 
-For example, when you configure the Ory SDK (here in NodeJS):
+For example, when you configure the Ory SDK (here in Node.js):
 
 ```javascript
 import { Configuration, V0alpha2Api } from "@ory/client"
@@ -44,9 +44,9 @@ const sdk = new V0alpha2Api(
 )
 ```
 
-## Limitations & Gotchas
+## Limitations
 
-Using the Ory Tunnel has a few limitations and gotchas.
+Using the Ory Tunnel has a few limitations.
 
 ### `localhost` vs `127.0.0.1`
 
@@ -59,7 +59,7 @@ If you encounter cookie issues, make sure that all of your requests are sent to 
 
 :::
 
-### Social Sign-In
+### Social sign-In
 
 Currently, setting up [social sign-in](../guides/social-signin/overview) on `localhost` isn't officially supported.
 

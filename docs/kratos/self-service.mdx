@@ -1,7 +1,7 @@
 ---
 id: self-service
-title: Self-Service Flows
-sidebar_label: Concepts and Overview
+title: Self-service flows
+sidebar_label: Concepts and overview
 ---
 
 Ory Kratos implements flows that users perform themselves as opposed to administrative intervention. Facebook and Google both
@@ -53,13 +53,13 @@ Some flows break down into "flow methods" which implement some of the flow's bus
 Some flows implement the ability [to run hooks](self-service/hooks.mdx) which allow users to be immediately signed in after
 registration, notify another system on successful registration (such as Mailchimp), and so on.
 
-## Performing Login, Registration, Settings, ... Flows
+## Performing login, registration, settings, ... flows
 
 There are two flow types supported in Ory Kratos:
 
 - Flows where the user sits in front of the Browser and the application is
-  - a server-side application (NodeJS, Java, ...)
-  - a client-side application (ReactJS, AngularJS, ...)
+  - a server-side application (Node.js, Java, ...)
+  - a client-side application (React.js, Angular, ...)
 - Flows where API interaction is required (mobile app, Smart TV, ...)
 
 All Self-Service Flows ([User Login](self-service/flows/user-login.mdx),
@@ -70,7 +70,7 @@ same data models but do use different API endpoints.
 
 <ApiWarning />
 
-## Browser Flows for Server-Side Apps: NodeJS, PHP, Java, ...
+## Browser flows for server-side apps: Node.js, PHP, Java, ...
 
 Browser-based flows for server-side apps make use of three core HTTP technologies:
 
@@ -95,7 +95,7 @@ URL with a locally hosted Ory Kratos as well.
 
 <SelfServiceBrowserFlow flows={["login", "settings", "..."]} />
 
-### Initialization and Redirect to UI
+### Initialization and redirect to UI
 
 First, the Browser opens the flow's initialization endpoint (for example`/self-service/login/browser`,
 `/self-service/registration/browser`, ...):
@@ -130,7 +130,7 @@ import DomainWarning from "@site/src/theme/DomainWarning"
 Once stored, the Browser is HTTP 303 redirected to the flow's configured UI URL (for example `selfservice.flows.login.ui_url`),
 appending the flow ID as the `flow` URL Query Parameter. Also included are HTTP cookies such as Anti-CSRF cookies.
 
-### Form Rendering
+### Form rendering
 
 The Browser follows the link and opens
 
@@ -293,7 +293,7 @@ The flow UI then renders the given methods. For the example above, a suitable HT
 </form>
 ```
 
-### Form Submission and Payload Validation
+### Form submission and payload validation
 
 The user completes the flow by submitting the form. The form action always points to Ory Kratos directly. The business logic for
 the flow method will then validate the form payload and return to the UI URL on validation errors. The UI then fetches the
@@ -384,9 +384,9 @@ If the form payload is valid, the flow completes with a success. The result here
 example redirects the user to a specified redirect URL and sets a session cookie. The registration flow also redirects to a
 specified redirect URL but only creates the user in the database and might issue a session cookie if configured to do so.
 
-## Browser Flows for Client-Side Apps: Single-Page-Apps, ReactJS, AngularJS, NextJS, ...
+## Browser Flows for Client-Side Apps: Single-Page-Apps, React.js, Angular, Next.js, ...
 
-Browser-based flows also support Client Side applications such as Single-Page-Apps (ReactJS, AngularJS, NextJS, ...) that use AJAX
+Browser-based flows also support Client Side applications such as Single-Page-Apps (React.js, Angular, Next.js, ...) that use AJAX
 to perform requests.
 
 :::info
@@ -415,7 +415,7 @@ The high-level sequence diagram for API flows looks as follows:
 
 ### Initialization
 
-The AJAX client (for example NextJS app) makes a request to the flow's initialization endpoint (for
+The AJAX client (for example Next.js app) makes a request to the flow's initialization endpoint (for
 example`/self-service/login/browser`, `/self-service/registration/browser`, ...):
 
 ```sh
@@ -459,11 +459,11 @@ The initialization endpoint creates a flow object and stores it in the database.
 information about the flow such as the login methods (for example "username/password" and "Sign in with Google") and their form
 data.
 
-### Form Rendering
+### Form rendering
 
 Form rendering works the same way as the flows for server-side browser apps.
 
-### Form Submission and Payload Validation
+### Form submission and payload validation
 
 To submit the form, it's recommended to intercept the submission and send the form as JSON using `fetch` (see
 ["Submit HTML Forms to JSON APIs"](https://dev.to/amjadmh73/submit-html-forms-to-json-apis-easily-137l)) or the
@@ -581,7 +581,7 @@ curl -s -X GET \
 The initialization endpoint creates a flow object and stores it in the database. The flow object has an ID and contains additional
 information about the flow such as the login methods and their form data.
 
-### Form Rendering
+### Form rendering
 
 While the Browser flow redirects the client and uses cookies to protect against CSRF and session hijacking attacks, the API flow
 answers with a fresh flow formatted as `application/json` right away. The client would then use that information to render the UI.
@@ -641,7 +641,7 @@ curl -s -X GET \
   # ...
 ```
 
-### Form Submission and Payload Validation
+### Form submission and payload validation
 
 The request is then completed by sending the form formatted as `application/json` to the action endpoint
 

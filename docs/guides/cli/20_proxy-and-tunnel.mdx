@@ -52,7 +52,7 @@ When an application runs on `http://localhost:3000`, Ory must be available on th
 
 ![Ory Proxy diagram](../_static/cli/proxy.svg)
 
-### URL Structure
+### URL structure
 
 :::tip
 
@@ -63,7 +63,7 @@ Ory Proxy adds `/.ory` prefix when mirroring the Ory Cloud APIs and UIs.
 For example, when using the Ory Proxy, calling `https://<proxy-host>/.ory/ui/login` is the same as calling
 `https://<your-project-slug>.projects.oryapis.com/ui/login` directly.
 
-#### Self-service Flows
+#### Self-service flows
 
 Ory Proxy provides URLs which you can use to initiate self-service flows:
 
@@ -96,7 +96,7 @@ The URL must include the protocol and domain. Relative URLs aren't supported.
 <a href="/.ory/self-service/login/browser?return_to=https://localhost:4000/my-url">Log in</a>
 ```
 
-### Zero Trust
+### Zero trust
 
 Ory Proxy translates known Ory credentials, such as Ory Session Tokens or Ory Session Cookies, to JSON Web Tokens.
 
@@ -201,7 +201,7 @@ This is an example of a JWT with session and identity data:
 }
 ```
 
-### Usage in Local Development
+### Usage in local development
 
 When using the Proxy for local development, point to the URL where your application runs.
 
@@ -220,7 +220,7 @@ If you want to adjust the entry point URL, pass the desired address along with t
 ory proxy http://localhost:3000 http://localhost:3001
 ```
 
-### Usage in Production
+### Usage in production
 
 You can use Ory Proxy in a production setup when you are self-hosting Ory components. To do that, set the entry point URL to the
 domain where you want to expose the app through the Ory Proxy:
@@ -229,11 +229,11 @@ domain where you want to expose the app through the Ory Proxy:
 ory proxy http://localhost:3000 https://my-domain.com
 ```
 
-### Running on Virtual and Dedicated Servers
+### Run on virtual and dedicated servers
 
 To use the Proxy with an application deployed on a VM or a Dedicated Server, run the application server and the Proxy in parallel.
 
-For example, if you are running a NodeJS server on port `3000` and you expose web traffic on port `8080`:
+For example, if you are running a Node.js server on port `3000` and you expose web traffic on port `8080`:
 
 ```shell
 ory proxy --port 8080 http://127.0.0.1:3000 https://your-domain.com &
@@ -249,7 +249,7 @@ front.
 
 :::
 
-### Running in Docker
+### Run in Docker
 
 To use the Proxy in Docker, add your application and the Proxy to a single Docker container.
 

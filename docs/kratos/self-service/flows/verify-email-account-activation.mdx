@@ -1,6 +1,6 @@
 ---
 id: verify-email-account-activation
-title: Email and Phone Verification and Account Activation
+title: Email and phone verification and account activation
 ---
 
 import useBaseUrl from "@docusaurus/useBaseUrl"
@@ -39,8 +39,8 @@ initiated
 There are two Verification Flow types supported in Ory Kratos:
 
 - Flows where the user sits in front of the Browser and the application is
-  - a server-side application (NodeJS, Java, ...)
-  - a client-side application (ReactJS, AngularJS, ...)
+  - a server-side application (Node.js, Java, ...)
+  - a client-side application (React.js, Angular, ...)
 - Flows where API interaction is required (Mobile app, Smart TV, ...)
 
 The Verification Flow can be summarized as the following state machine:
@@ -104,7 +104,7 @@ selfservice:
   </TabItem>
 </Tabs>
 
-## Account Activation
+## Account activation
 
 Using this feature implements the so-called "account activation". Depending on your scenario or use cases, you may either choose
 to limit what an identity without verified addresses is able to do in your application logic or API Gateways, or make Ory Kratos
@@ -120,11 +120,11 @@ being configured by the user, thus having a backup if something goes wrong.
 
 :::
 
-## Verification Methods
+## Verification methods
 
 - The `link` method performs verification of email addresses.
 
-### Verification `link` Method
+### Verification `link` method
 
 Enabling this method will send out verification emails on new sign ups and when a verified email address is updated.
 
@@ -186,7 +186,7 @@ your Identity Schema:
 You can also combine this with the password method login identifier (see example above). That way, the field `email` (or any field
 you define with these properties) will serve as both the login identifier and as a verifiable email address.
 
-## Initialize Verification Flow to Request or Resend Verification Challenge
+## Initialize verification flow to request or resend verification challenge
 
 <DomainWarning />
 
@@ -214,7 +214,7 @@ where
 - `sent_email` implies that the verification email has been sent out.
 - `passed_challenge` is set when the user has clicked the verification link and completed the account verification.
 
-### Verification for Server-Side Browser Clients
+### Verification for server-side browser clients
 
 The Verification Flow for browser clients relies on HTTP redirects between Ory Kratos, your Verification UI, and the end-user's
 browser:
@@ -276,7 +276,7 @@ selfservice:
   </TabItem>
 </Tabs>
 
-### Verification for Client-Side (AJAX) Browser Clients
+### Verification for client-side (AJAX) browser clients
 
 The Verification Flow for client-side browser clients relies on AJAX requests.
 
@@ -370,7 +370,7 @@ curl -v -s -X GET \
 
 ```
 
-### Verification for API Clients
+### Verification for API clients
 
 <ApiWarning />
 
@@ -474,7 +474,7 @@ curl -s -X GET \
 }
 ```
 
-### Send Verification Link to Email
+### Send verification link to email
 
 :::note
 
@@ -522,7 +522,7 @@ curl -H "Accept: application/json" -s \
 }
 ```
 
-## Verification Form Validation
+## Verification form validation
 
 The form payloads are then submitted to Ory Kratos which follows up with:
 
@@ -541,13 +541,13 @@ Verification Flow ID which includes the error payloads.
 For API Clients, the server typically responds with HTTP 400 Bad Request and the Verification Flow in the response payload as
 JSON.
 
-#### Successful Submission
+#### Successful submission
 
 On successful submission, an email will be sent to the provided address:
 
 <CodeTabs items={getFlowMethodLinkSuccess} />
 
-## Unsuccessful Verification
+## Unsuccessful verification
 
 If the verification challenge (for example the link in the verification email) is invalid or expired, the user will be HTTP 303
 redirected to the Verification UI.
@@ -565,7 +565,7 @@ The new Verification Flow includes an error message such as the following:
 
 Please keep in mind that this part of the flow always involves a Browser!
 
-## Successful Verification
+## Successful verification
 
 If the verification challenge is completed (for example the sent verification link was clicked), the end-user's Browser is
 redirected to the Verification UI with a Verification Flow that has now the `state` of `passed_challenge`:
@@ -575,13 +575,13 @@ redirected to the Verification UI with a Verification Flow that has now the `sta
 You may also [configure a redirect URL](../../concepts/browser-redirect-flow-completion.mdx) instead which would send the end-user
 to that configured URL.
 
-## Code Examples for NodeJS, ReactJS, Go, ...
+## Code examples for Node.js, React.js, Go, ...
 
 The Verification User Interface is a route (page / site) in your application (server, native app, single page app) that should
 render a verification form.
 
 In stark contrast to other Identity Systems, Ory Kratos doesn't render this HTML. Instead, you need to implement the HTML code in
-your application (for example NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme flexibility and
+your application (for example Node.js + Express.js, Java, PHP, React.js, ...), which gives you extreme flexibility and
 customizability in your user interface flows and designs.
 
 You will use the Verification Flow JSON response to render the verification form UI, which could looks as follows depending on

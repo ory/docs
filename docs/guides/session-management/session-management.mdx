@@ -1,6 +1,6 @@
 ---
 id: session-management
-title: Session Management
+title: Session management
 ---
 
 Sessions can be managed by:
@@ -8,7 +8,7 @@ Sessions can be managed by:
 1. The user who owns the session through **self-service**
 2. System administators using **administrative endpoints**
 
-## Self-Service Session Management
+## Self-service session management
 
 Using self-service session management, users can manage their own sessions.
 
@@ -20,7 +20,7 @@ calls, make sure to include credentials and configure CORS properly.
 
 :::
 
-### Listing Sessions
+### Listing sessions
 
 Users can list their sessions by sending a `GET` request to the `/sessions` endpoint or by using the `listSessions` SDK command:
 
@@ -42,7 +42,7 @@ You can use this call to show a UI with all active sessions to the user.
 
 :::
 
-### Revoking Specific Sessions
+### Revoking specific sessions
 
 To revoke a specific session, the user must send a `DELETE` request to the
 [`/sessions/{id}`](../../reference/api.mdx#operation/revokeSessionById) endpoint or use the `revokeSessionById` SDK command:
@@ -64,7 +64,7 @@ This endpoint revokes only sessions other than the current session. To revoke th
 
 :::
 
-### Revoking All Sessions
+### Revoking all sessions
 
 To revoke all sessions, the user must send a `DELETE` request to the
 [`/sessions`](../../reference/api.mdx#operation/revokeSessions) endpoint or use the `revokeSessions` SDK command:
@@ -76,7 +76,7 @@ Cookies: ory_kratos_session=...
 X-Session-Token: ...`}</CodeBlock>
 ```
 
-## Administrative Session Management
+## Administrative session management
 
 System administrators have access to all sessions in the system.
 
@@ -90,7 +90,7 @@ To get all sessions of a specific identity, administrators must send a `GET` req
 Authorization: Bearer {your-personal-access-token}`}</CodeBlock>
 ```
 
-### Revoke Sessions as an Administrator
+### Revoke sessions as an administrator
 
 To revoke all sessions of a specific identity, administrators must send a `DELETE` request to the administrative
 [`/admin/identities/{id}/sessions`](../../reference/api.mdx#operation/adminDeleteIdentitySessions) endpoint.

@@ -1,6 +1,6 @@
 ---
 id: user-login
-title: User Login
+title: User login
 ---
 
 import Mermaid from "@site/src/theme/Mermaid"
@@ -24,8 +24,8 @@ Please read the [Self-Service Flows](../../self-service.mdx) overview before con
 There are two Login Flow types supported in Ory Kratos:
 
 - Flows where the user sits in front of the Browser and the application is
-  - a server-side application (NodeJS, Java, ...)
-  - a client-side application (ReactJS, AngularJS, ...)
+  - a server-side application (Node.js, Java, ...)
+  - a client-side application (React.js, Angular, ...)
 - Flows where API interaction is required (mobile app, Smart TV, ...)
 
 The Login Flow can be summarized as the following state machine:
@@ -87,13 +87,13 @@ selfservice:
   </TabItem>
 </Tabs>
 
-## Initialize Login Flow
+## Initialize login flow
 
 <DomainWarning />
 
 The first step is to initialize the Login Flow. This allows pre-login hooks to run, set up Anti-CSRF tokens, and more.
 
-### Login for Server-Side Browser Clients
+### Login for server-side browser clients
 
 The Login Flow for browser clients relies on HTTP redirects between Ory Kratos, your Login UI, and the end-user's browser:
 
@@ -150,7 +150,7 @@ selfservice:
   </TabItem>
 </Tabs>
 
-### Login for Client-Side (AJAX) Browser Clients
+### Login for client-side (AJAX) browser clients
 
 The Login Flow for client-side browser clients relies on AJAX requests.
 
@@ -255,7 +255,7 @@ curl -s -X GET \
 }
 ```
 
-### Login with Username/Email and Password
+### Login with username/email and password
 
 :::tip Before you start
 
@@ -438,14 +438,14 @@ curl -H "Accept: application/json" -s \
 }
 ```
 
-## Login Form Validation
+## Login form validation
 
 The form payloads are then submitted to Ory Kratos which follows up with:
 
 - An HTTP 303 See Other redirect pointing to the Login UI for Browser Clients;
 - An `application/json` response for API Clients and Client-Side Browser applications for example for Single Page Apps.
 
-### Login with Username/Email and Password
+### Login with username/email and password
 
 To complete the login, the end-user fills out their identifier (username, email, phone number, ...) and the password. Possible
 validation errors include a missing identifier or password, or invalid credentials:
@@ -473,11 +473,11 @@ A possible validation error is a missing ID Token:
 
 <CodeTabs items={getFlowMethodOidcWithErrors} />
 
-## Successful Login
+## Successful login
 
 Completing the login behaves differently for Browser and API Clients.
 
-### Server-Side Browser Clients
+### Server-side browser clients
 
 When the login is completed successfully, Ory Kratos responds with a HTTP 303 Redirect to the
 [configured redirect URL](../../concepts/browser-redirect-flow-completion). Alongside the HTTP 303 Redirect is a `Set-Cookie`
@@ -539,7 +539,7 @@ curl -s -H "Cookie: ory_kratos_session=MTU5OTE2ODc2N3xEdi1CQkFFQ180SUFBUkFCRUFBQ
 }
 ```
 
-### Client-Side Browser Clients (AJAX)
+### Client-side browser clients (AJAX)
 
 When the login is completed successfully, Ory Kratos responds with a HTTP 200 OK which includes a `Set-Cookie` header and a JSON
 response (see below):
@@ -585,7 +585,7 @@ response (see below):
 }
 ```
 
-### API Clients
+### API clients
 
 For API Clients, Ory Kratos responds with a JSON payload which includes the identity which just authenticated, the session, and
 the Ory Kratos Session Token:
@@ -688,7 +688,7 @@ curl -s -H "Authorization: Bearer svX8bE9HTiVpMr7r55TtKtcOkLRhAq1a" \
 }
 ```
 
-## Refreshing a Session
+## Refreshing a session
 
 In some cases it's required to refresh a login session. This is the case when updating one's password. Refreshing a session
 updates the `authenticated_at` time.
@@ -706,13 +706,13 @@ To refresh a session, append `?refresh=true` to:
 - `/self-service/login/api` for API Clients (for example
   `https://playground.projects.oryapis.com/self-service/login/api?refresh=true`)
 
-## Code Examples for NodeJS, ReactJS, Go, ...
+## Code Examples for Node.js, React.js, Go, ...
 
 The Login User Interface is a route (page / site) in your application (server, native app, single page app) that should render a
 login form.
 
 In stark contrast to other Identity Systems, Ory Kratos doesn't render this HTML. Instead, you need to implement the HTML code in
-your application (for example NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme flexibility and
+your application (for example Node.js + Express.js, Java, PHP, React.js, ...), which gives you extreme flexibility and
 customizability in your user interface flows and designs.
 
 You will use the Login Flow JSON response to render the login form UI, which could looks as follows depending on your programming

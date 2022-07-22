@@ -1,6 +1,6 @@
 ---
 id: user-registration
-title: User Registration
+title: User registration
 ---
 
 import Mermaid from "@site/src/theme/Mermaid"
@@ -31,8 +31,8 @@ Please read the [Self-Service Flows](../../self-service.mdx) overview before con
 There are two Registration Flow types supported in Ory Kratos:
 
 - Flows where the user sits in front of the Browser and the application is
-  - a server-side application (NodeJS, Java, ...)
-  - a client-side application (ReactJS, AngularJS, ...)
+  - a server-side application (Node.js, Java, ...)
+  - a client-side application (React.js, Angular, ...)
 - Flows where API interaction is required (Mobile app, Smart TV, ...)
 
 The Registration Flow can be summarized as the following state machine:
@@ -94,14 +94,14 @@ selfservice:
   </TabItem>
 </Tabs>
 
-## Initialize Registration Flow
+## Initialize registration flow
 
 The first step is to initialize the Registration Flow. This allows pre-registration hooks to run, set up Anti-CSRF tokens, and
 more.
 
 <DomainWarning />
 
-### Registration for Server-Side Browser Clients
+### Registration for server-side browser clients
 
 The Registration Flow for browser clients relies on HTTP redirects between Ory Kratos, your Registration UI, and the end-user's
 browser:
@@ -163,7 +163,7 @@ selfservice:
   </TabItem>
 </Tabs>
 
-### Registration for Client-Side (AJAX) Browser Clients
+### Registration for client-side (AJAX) browser clients
 
 The Registration Flow for client-side browser clients relies on AJAX requests.
 
@@ -208,7 +208,7 @@ curl -v -s -X GET \
 }
 ```
 
-### Registration for API Clients and Clients without Browsers
+### Registration for API clients and clients without browsers
 
 <ApiWarning />
 
@@ -240,7 +240,7 @@ curl -s -X GET \
 }
 ```
 
-## Registration Form Payloads
+## Registration form payloads
 
 Fetching the Registration Flow ([REST API Reference](../../reference/api.mdx#get-registration-flow)) is usually only required for
 browser clients but also works for Registration Flows initialized by API clients. All you need is a valid Registration Flow ID:
@@ -268,7 +268,7 @@ curl -s -X GET \
 }
 ```
 
-### Registration with Username/Email and password
+### Registration with username/email and password
 
 :::tip Before you start
 
@@ -511,14 +511,14 @@ curl -H "Accept: application/json" -s \
 }
 ```
 
-## Registration Form Validation
+## Registration form validation
 
 The form payloads are then submitted to Ory Kratos which follows up with:
 
 - An HTTP 303 See Other redirect pointing to the Registration UI for Browser Clients;
 - An `application/json` response for API Clients and Client-Side Browser applications (for example Single Page Apps).
 
-### Registration with Username/Email and Password
+### Registration with username/email and password
 
 To complete the registration process, the end-user fills out the form which must include a field marked as the identifier
 (`ory.sh/kratos.credentials.password.identifier: true`) in the Identity JSON Schema, for example:
@@ -630,7 +630,7 @@ In that case the end-user ends up at the registration screen and is prompted to 
 
 <CodeTabs items={getFlowMethodOidcWithCompletion} />
 
-## Successful Registration
+## Successful registration
 
 Completing the registration behaves differently for Browser and API Clients. The Registration Flow doesn't issue a Ory Kratos
 Login Session automatically which prevents Account Enumeration Attacks. If these types of attacks aren't your concern, you can add
@@ -658,12 +658,12 @@ if you follow the guidelines in the [social sign-in documentation](../../../guid
 
 :::
 
-### Server-Side Browser Clients
+### Server-side browser clients
 
 When the registration is completed successfully, Ory Kratos responds with a HTTP 303 Redirect to the
 [configured redirect URL](../../concepts/browser-redirect-flow-completion.mdx).
 
-#### With Auto-Login on Registration
+#### With auto-login on registration
 
 If the `session` after hook is enabled, a `Set-Cookie` HTTP Header is set alongside the HTTP 303 redirect which contains the Ory
 Kratos Login Session Cookie:
@@ -724,7 +724,7 @@ curl -s -H "Cookie: ory_kratos_session=MTU5OTE2ODc2N3xEdi1CQkFFQ180SUFBUkFCRUFBQ
 }
 ```
 
-### Client-Side Browser Clients
+### Client-side browser clients
 
 When the registration is completed successfully, Ory Kratos responds with a HTTP 200 OK message which contains the identity:
 
@@ -758,7 +758,7 @@ When the registration is completed successfully, Ory Kratos responds with a HTTP
 }
 ```
 
-#### With Auto-Login on Registration
+#### With auto-login on registration
 
 If the `session` after hook is enabled, a `Set-Cookie` HTTP Header is set alongside the HTTP 303 redirect which contains the Ory
 Kratos Login Session Cookie:
@@ -836,9 +836,9 @@ As well as information about the session:
 }
 ```
 
-### API Clients
+### API clients
 
-For API Clients, Ory Kratos responds with a JSON payload which includes the signed up identity:
+For API clients, Ory Kratos responds with a JSON payload which includes the signed up identity:
 
 ```shell script
 # Inits a Registration Flow
@@ -882,7 +882,7 @@ curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/jso
 }
 ```
 
-#### With Auto-Login on Registration
+#### With auto-login on registration
 
 If the `session` after hook is enabled, the Ory Kratos Login Session and Ory Kratos Login Session Token are included in the
 response:
@@ -960,13 +960,13 @@ curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/jso
 }
 ```
 
-## Code Examples for NodeJS, ReactJS, Go, ...
+## Code examples for Node.js, React.js, Go, ...
 
 The Registration User Interface is a route (page / site) in your application (server, native app, single page app) that should
 render a registration form.
 
 In stark contrast to other Identity Systems, Ory Kratos doesn't render this HTML. Instead, you need to implement the HTML code in
-your application (for example NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme flexibility and
+your application (for example Node.js + Express.js, Java, PHP, React.js, ...), which gives you extreme flexibility and
 customizability in your user interface flows and designs.
 
 You will use the Registration Flow JSON response to render the registration form UI, which could looks as follows depending on
@@ -981,9 +981,9 @@ restrict registration to IPs coming from your internal network or other logic.
 
 For more information about hooks please read the [Hook Documentation](../hooks.mdx).
 
-## API Examples
+## API examples
 
-### Registering New User Information
+### Registering new user information
 
 Using the `/self-service/registration` with `POST` allows the creation of new user information
 

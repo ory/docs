@@ -8,7 +8,7 @@ Hydra is an OAuth 2.0 and OpenID Connect Provider. In other words, an implementa
 well as the OpenID Connect Core 1.0 framework. As such, it issues OAuth 2.0 Access, Refresh, and ID Tokens that enable
 third-parties to access your APIs in the name of your users.
 
-## Flexible User Management
+## Flexible user management
 
 One of Ory Hydra's biggest advantages is that unlike other OAuth 2.0 implementations, it implements the OAuth and OpenID Connect
 standard without forcing you to use a "Hydra User Management" (login, logout, profile management, registration), a particular
@@ -19,13 +19,13 @@ by your use case (token-based 2FA, SMS 2FA, etc). You can of course use existing
 [authboss](https://github.com/go-authboss/authboss). It provides you all the benefits of OAuth 2.0 and OpenID Connect while being
 minimally invasive to your business logic and technology stack.
 
-## OpenID Certified
+## OpenID certified
 
 Ory Hydra is a [Certified OpenID Connect Provider Server](https://openid.net/developers/certified/) and implements all the
 requirements stated by the OpenID Foundation. In particular, it implements the various OAuth 2.0 and OpenID Connect flows
 specified by the IETF and OpenID Foundation.
 
-## Cryptographic Key Storage
+## Cryptographic key storage
 
 In addition to the OAuth 2.0 functionality, Ory Hydra offers a safe storage for cryptographic keys (used for example to sign JSON
 Web Tokens) and can manage OAuth 2.0 Clients.
@@ -34,17 +34,17 @@ Web Tokens) and can manage OAuth 2.0 Clients.
 
 Ory Hydra also offers a safe storage for cryptographic keys using HSM. [Learn more](guides/hsm-support.md).
 
-## Security First
+## Security first
 
 Ory Hydra's architecture and work flows are designed to neutralize many common (OWASP TOP TEN) and uncommon attack vectors.
 [Learn more](./security-architecture.md).
 
-## High Performance
+## High performance
 
 Hydra has a low CPU and memory footprint, short start-up time, and scales effortlessly up and down on many platforms including
 Heroku, Cloud Foundry, Docker, Google Container Engine, and others.
 
-## Developer Friendly
+## Developer friendly
 
 Hydra is available for all popular platforms including Linux, OSX and Windows. It ships as a single binary without any additional
 dependencies. For further simplicity, it's available as a [Docker Image](https://hub.docker.com/r/oryd/hydra/).

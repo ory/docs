@@ -83,7 +83,7 @@ docker-compose -f quickstart.yml exec hydra \
     --token-endpoint-auth-method client_secret_post
 ```
 
-## OAuth2 Login
+## OAuth2 login
 
 With the first access of your [GitLab-instance](http://gitlab.example.com:8000/), you will have to change the root-password. You
 should see a "Ory Hydra" Login-button. Clicking it will forward you to the hydra-consent-app where you can login with
@@ -121,7 +121,7 @@ Other then `logs` and `data`, the config directory is already prepopulated and t
 
 So let's move on to `gitlab.rb`.
 
-## GitLab configuration - OAuth2-setup
+## GitLab configuration - OAuth 2 setup
 
 The gitLab-configuration in `contrib/quickstart/gitlab/config/gitlab.rb` is the original "template" which consists of 2400 lines
 of comments on how to do stuff. Our relevant configuration starts at line 432 where the corresponding comments about OAuth2 is
@@ -270,7 +270,7 @@ hydra clients get hydra --endpoint http://127.0.0.1:4445
   In order to make that resolvable on the client, we set the `external_url` in the GitLab-configuration. Here that value is just
   there to cross-check with the generated one. It needs to match.
 
-## Proper GitLab user-creation
+## GitLab user-creation
 
 Initially, GitLab doesn't have any user but it needs them in order to manage authorisation, no matter how the login is done. This
 is a common issue and a common solution to this is to create the users on the fly with the first login. So in order to do that,
@@ -350,7 +350,7 @@ you've "allowed access", you'll get redirected back to gitlab which will unfortu
 So the message in quotes is from Ory Hydra and not very expressive. Note that it's a bit difficult to expose very meaningful
 error-messages as this could be used for security-attacks. So in such cases check the hydra-logs on what's wrong.
 
-### Ory Hydra Logs: Redirect URL is using an insecure protocol
+### Ory Hydra logs: redirect URL is using an insecure protocol
 
 ```
 hydra_1          | time=2020-08-24T12:42:36Z level=error msg=An error occurred
@@ -380,28 +380,27 @@ docker-compose -f quickstart.yml \
     restart hydra
 ```
 
-### GitLab: Signing in ... isn't allowed
+### GitLab: signing in ... isn't allowed
 
 > Signing in using your Ory Hydra account without a pre-existing GitLab account isn't allowed. Create a GitLab account first, and
 > then connect it to your Ory Hydra account.
 
 Double-Check the above explanation about user-creation.
 
-### GitLab: Email can't be blank
+### GitLab: email can't be blank
 
 > Sign-in failed because Email can't be blank and Notification email can't be blank.
 
 Double-check the `user_response_structure` and the `authorize_params`. The `attributes` need an email-entry.
 
-## Appendix: Some notes about OpenID connect
+## Appendix: some notes about OpenID Connect (OIDC)
 
-GitLab is supporting OpenID-Connect and Ory Hydra does that as well. Why hasn't that been used in this guide?
+GitLab is supporting OIDC and Ory Hydra does that as well. Why hasn't that been used in this guide?
 
-OpenID might be the better choice then plain OAuth2. When we tried that, we ran into the issue that the used
-OpenID-connect-implementation doesn't allow http-connection but "only" https. That's a good thing but stupid for POCs like this.
-Whereas Ory Hydra has a switch to whitelist URLs in such cases, the used
-[openid-connect-implementation](https://github.com/nov/openid_connect/issues/47) doesn't seem to have that. So, here is a
-reasonable openID-Connect configuration:
+OIDC might be the better choice then plain OAuth2. When we tried that, we ran into the issue that the used OIDC implementation
+doesn't allow HTTP but "only" HTTPS. That's a good thing but not optimal for POCs like this. Whereas Ory Hydra has a switch to
+whitelist URLs in such cases, the used [OIDC](https://github.com/nov/openid_connect/issues/47) doesn't seem to have that. So, here
+is a reasonable OIDC configuration:
 
 ```ruby
 gitlab_rails['omniauth_providers'] = [
@@ -426,7 +425,7 @@ gitlab_rails['omniauth_providers'] = [
 ]
 ```
 
-In order to make that work which isn't ssl, we need to patch the openid_connect gem. Checkout the details
+In order to make that work which isn't SSL, we need to patch the openid_connect gem. Checkout the details
 [here](https://github.com/nov/openid_connect/issues/47).
 
 ```sh
@@ -455,5 +454,4 @@ docker-compose -f quickstart.yml  -f quickstart-postgres.yml -f quickstart-gitla
           end
 ```
 
-In order to avoid that scenario, this guide avoids OpenID-Connect. There might also be other
-[issues](https://gitlab.com/gitlab-org/gitlab-foss/-/issues/62208) with OpenID-Connect on GitLab.
+In order to avoid that scenario, this guide avoids OIDC.

@@ -1,12 +1,12 @@
 ---
 id: import-identity
-title: Import Identities
+title: Import identities
 ---
 
 Ory allows you to import identities from any other system. The endpoint used is the same as when
 [creating identities](./managing-users-identities.mdx) with the subtle difference that you also provide the `credentials` field.
 
-## Importing Verified Addresses
+## Importing verified addresses
 
 Use the `verifiable_addresses` field to import a verified address like an email address.
 
@@ -138,7 +138,7 @@ The API then responds with the created identity:
 }
 ```
 
-## Importing Recovery Addresses
+## Importing recovery addresses
 
 It is possible to import a list of `recovery_addresses` - similar to `verifiable_addresses`. It is better to let the identity
 schema handle setting the appropriate fields since there is no status to set for this address type.
@@ -146,12 +146,12 @@ schema handle setting the appropriate fields since there is no status to set for
 We do not recommend setting these fields as they will be overwritten anyways! For more information on account recovery please head
 over to the [account recovery documentation](../../kratos/guides/account-recovery-password-reset.mdx).
 
-## Importing Credentials
+## Importing credentials
 
 Ory supports importing credentials for identities including passwords and social sign in. You can use all of these payloads with
 the `curl` command from above!
 
-### Clear Text Password
+### Clear text password
 
 To import a clear text password, provide the password in the JSON payload.
 
@@ -181,7 +181,7 @@ self-service flows.
 The password `the-password` will then be hashed according to the configured password hashing algorithm and stored in the database.
 The identity will be able to sign in using `docs-cleartext@example.org` and `the-password` as credentials.
 
-### BCrypt, PKBDF2, Argon2 Family Hashed Password
+### BCrypt, PKBDF2, Argon2 family hashed password
 
 Besides clear text passwords it is possible to import password hashes. Currently the following algorithms are supported:
 
@@ -210,7 +210,7 @@ More information about the hash format can be found in the
 }
 ```
 
-### Social Sign In Connections
+### Social sign-in connections
 
 Similar to importing passwords it is possible to import Social Sign In connections as well. If you do not have Social Sign In set
 up yet please head over to the [social sign in documentation](../social-signin/overview).

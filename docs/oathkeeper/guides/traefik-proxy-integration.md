@@ -1,11 +1,11 @@
 ---
 id: traefik-proxy-integration
-title: Traefik Proxy Integration
+title: Traefik proxy integration
 ---
 
-[Traefik Proxy](https://doc.traefik.io/traefik/) is modern HTTP proxy and load balancer for microservices, oathkeeper can be
-integrated with via the [ForwardAuth Middleware](https://doc.traefik.io/traefik/middlewares/http/forwardauth/) by making use of
-the available [Access Control Decision API](../index.md#access-control-decision-api).
+[Traefik](https://doc.traefik.io/traefik/) is modern HTTP proxy and load balancer for microservices, oathkeeper can be integrated
+with via the [ForwardAuth Middleware](https://doc.traefik.io/traefik/middlewares/http/forwardauth/) by making use of the available
+[Access Control Decision API](../index.md#access-control-decision-api).
 
 To achieve this,
 

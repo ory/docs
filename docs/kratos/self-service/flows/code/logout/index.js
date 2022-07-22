@@ -13,7 +13,7 @@ export const apiFlow = {
 }
 export const browserFlow = {
   node: {
-    label: "NodeJS (ExpressJS, ...)",
+    label: "Node.js (Express.js, ...)",
     language: "js",
     code: require("raw-loader!./samples/browser/node.txt").default,
   },

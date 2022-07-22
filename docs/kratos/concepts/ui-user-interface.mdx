@@ -1,6 +1,6 @@
 ---
 id: ui-user-interface
-title: Customize User Interface
+title: Customize user interface
 ---
 
 Ory Kratos is an HTTP API server and does not include a traditional HTML user interface (rendering forms such as "Login" or
@@ -10,7 +10,7 @@ the basis for your own UI:
 - The [Ory Cloud Managed UI](https://playground.projects.oryapis.com/ui/welcome) is available when you run Ory Kratos in Ory
   Cloud.
 - [React Native Reference Implementation](https://github.com/ory/kratos-selfservice-ui-react-native)
-- [NodeJS Reference Implementation](https://github.com/ory/kratos-selfservice-ui-node)
+- [Node.js Reference Implementation](https://github.com/ory/kratos-selfservice-ui-node)
 - [React / SPA Reference Implementation](https://github.com/ory/react-nextjs-example)
 
 Ory Kratos' HTTP APIs make it easy and straight forward to write your own UI (e.g. "login" screen, "update profile settings", ...)
@@ -26,7 +26,7 @@ import CodeFromRemote from "@site/src/theme/CodeFromRemote"
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 
-## UI Payloads
+## UI payloads
 
 To make UI customization easy, Ory Kratos prepares all the necessary data for forms that need to be shown during e.g. login,
 registration:
@@ -104,7 +104,7 @@ The above example would be rendered in HTML like this:
 As you can see, the JSON can be mapped almost 1:1 to HTML! This method makes it easy for you to implement complex forms without
 having to deal with state management, form validation, and more!
 
-## UI Node Groups
+## UI node groups
 
 Nodes are grouped (using the `group` key) based on the source that generated the node. Sources are the different methods such as
 "password" ("Sign in/up with ID & password"), "oidc" (Social Sign In), "link" (Password reset and email verification), "profile"
@@ -112,11 +112,11 @@ Nodes are grouped (using the `group` key) based on the source that generated the
 
 You can use the node group to filter out items, re-arrange them, render them differently - up to you!
 
-## UI Node Types
+## UI node types
 
 UI Nodes can have several types!
 
-### UI Script Nodes
+### UI script nodes
 
 The `script` node type is primarily used to load required scripts for WebAuthn!
 
@@ -147,7 +147,7 @@ Rendering it is straight forward if you are on the server-side:
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_script.hbs"
 />
 
-For single-page apps, you might need a different set up to load the script asynchronously. In ReactJS you might want to do
+For single-page apps, you might need a different set up to load the script asynchronously. In React.js you might want to do
 something like the following:
 
 <CodeFromRemote
@@ -166,7 +166,7 @@ Nodes of type `a` are currently not used in Ory Kratos, but we have them around 
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_anchor.hbs"
 />
 
-### UI Image Nodes
+### UI image nodes
 
 Nodes of type `img` are used as QR codes, for example.
 
@@ -202,7 +202,7 @@ Here is an example of implementing an `img` node in handlebars:
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_image.hbs"
 />
 
-Here is an example of implementing an `img` node in ReactJS:
+Here is an example of implementing an `img` node in React.js:
 
 <CodeFromRemote
   lang="tsx"
@@ -210,7 +210,7 @@ Here is an example of implementing an `img` node in ReactJS:
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/ui/NodeImage.tsx"
 />
 
-### UI Text Nodes
+### UI text nodes
 
 Nodes of type `text` are commonly used to display secrets (e.g. lookup secrets).
 
@@ -395,7 +395,7 @@ follows:
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_text.hbs"
 />
 
-In ReactJS, you will most likely find similar if statements on the message IDs.
+In React.js, you will most likely find similar if statements on the message IDs.
 
 <CodeFromRemote
   lang="tsx"
@@ -403,7 +403,7 @@ In ReactJS, you will most likely find similar if statements on the message IDs.
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/ui/NodeText.tsx"
 />
 
-### UI Input Nodes
+### UI input nodes
 
 The most common node type is the `input` type. In general, it represents an HTL `<input>` field:
 
@@ -438,7 +438,7 @@ An `input` node itself has a type as well. These types are taken from HTML:
 - `date`
 - `url`
 
-#### Checkbox Input Node
+#### Checkbox input node
 
 Checkboxes are primarily used when an Identity Schema field is of `"type": "boolean"`. The following Identity Schema
 
@@ -496,7 +496,7 @@ hidden field, if set.
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_checkbox.hbs"
 />
 
-In single page apps, such as ReactJS, this trickery is not needed as you have full control over the form's state:
+In single page apps, such as React.js, this trickery is not needed as you have full control over the form's state:
 
 <CodeFromRemote
   lang="tsx"
@@ -504,7 +504,7 @@ In single page apps, such as ReactJS, this trickery is not needed as you have fu
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/ui/NodeInputCheckbox.tsx"
 />
 
-#### Button Input Node
+#### Button input node
 
 Buttons are primarily used to trigger something, which is why it is important to have the `onclick` attribute handled. If
 `onclick` exists, you will also find a `script` node:
@@ -568,7 +568,7 @@ you will not need `eval` at all!
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/ui/NodeInputButton.tsx"
 />
 
-#### Submit Input Node
+#### Submit input node
 
 Submit buttons trigger the form submission. In pure HTML, this is just a simple submit button:
 
@@ -578,9 +578,9 @@ Submit buttons trigger the form submission. In pure HTML, this is just a simple 
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_submit.hbs"
 />
 
-If you have control over the form's payload, like in ReactJS, you need to ensure that the name of the form (e.g. `method`) is only
-submitted once with the correct value (e.g. `password`). Because in some cases Ory Kratos might generate multiple submit buttons
-with the same `name` attribute.
+If you have control over the form's payload, like in React.js, you need to ensure that the name of the form (e.g. `method`) is
+only submitted once with the correct value (e.g. `password`). Because in some cases Ory Kratos might generate multiple submit
+buttons with the same `name` attribute.
 
 ```json5
 [
@@ -635,7 +635,7 @@ their email address!
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/ui/NodeInputSubmit.tsx"
 />
 
-#### Hidden Input Node
+#### Hidden input node
 
 Hidden input fields such as the `csrf_token`
 
@@ -664,7 +664,7 @@ are easy to implement in both pure HTML
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_hidden.hbs"
 />
 
-and single page apps like ReactJS
+and single page apps like React.js
 
 <CodeFromRemote
   lang="tsx"
@@ -672,7 +672,7 @@ and single page apps like ReactJS
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/ui/NodeInputHidden.tsx"
 />
 
-#### Default Input Node Rendering
+#### Default input node rendering
 
 You do not need to have one view for every node type. Instead, you can "fall back" to a default implementation. The most important
 node types (`hidden`, `submit`, `button`, `checkbox`) we already covered!
@@ -795,7 +795,7 @@ You should render these components using a generic node input render logic like 
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_default.hbs"
 />
 
-## Node Order and Labels
+## Node order and labels
 
 For all traits, the labels and orders are taken from the Identity Schema. An Identity Schema such as
 
@@ -969,7 +969,7 @@ The message ID is a 7-digit number (`xyyzzzz`) where
 ## UI Error Codes
 
 When building a single page app, or a native app, Ory Kratos will respond with errors in some cases. You can find an exemplary
-error handling logic in our ReactJS reference implementation:
+error handling logic in our React.js reference implementation:
 
 <CodeFromRemote
   lang="tsx"
@@ -977,7 +977,7 @@ error handling logic in our ReactJS reference implementation:
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/errors.tsx"
 />
 
-## UI Message Codes
+## UI message codes
 
 UI Messages are always presented as the following JSON
 

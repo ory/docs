@@ -1,6 +1,6 @@
 ---
 id: tracing
-title: Distributed Tracing
+title: Distributed tracing
 ---
 
 Configuring Distributed Tracing (DT) will enable you to obtain a visualization of the call paths that take place in order to
@@ -13,7 +13,7 @@ understanding your deployment of Hydra better. Hydra supports the following trac
 - Following existing traces: If you have deployed Hydra behind a proxy that has initiated a trace, Hydra will attempt to join that
   trace by examining the request headers for tracing context.
 
-### What a Hydra trace includes
+### What an Ory Hydra trace includes
 
 In DT speak, a trace is comprised of one or more spans which are logical units of work. Each Hydra span is encapsulated with the
 following state:
@@ -23,7 +23,7 @@ following state:
 - A finish time
 - A set of zero or more tags
 
-Hydra creates the following spans:
+Ory Hydra creates the following spans:
 
 - Top level span (_named after the request path_) for the requested endpoint. Span tags: - http method - http status code - error
   IFF status code >= 400
