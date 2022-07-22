@@ -1,6 +1,6 @@
 ---
 id: ui-user-interface
-title: Customize User Interface
+title: Customize user interface
 ---
 
 Ory Kratos is an HTTP API server and does not include a traditional HTML user interface (rendering forms such as "Login" or
@@ -26,7 +26,7 @@ import CodeFromRemote from "@site/src/theme/CodeFromRemote"
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 
-## UI Payloads
+## UI payloads
 
 To make UI customization easy, Ory Kratos prepares all the necessary data for forms that need to be shown during e.g. login,
 registration:
@@ -104,7 +104,7 @@ The above example would be rendered in HTML like this:
 As you can see, the JSON can be mapped almost 1:1 to HTML! This method makes it easy for you to implement complex forms without
 having to deal with state management, form validation, and more!
 
-## UI Node Groups
+## UI node groups
 
 Nodes are grouped (using the `group` key) based on the source that generated the node. Sources are the different methods such as
 "password" ("Sign in/up with ID & password"), "oidc" (Social Sign In), "link" (Password reset and email verification), "profile"
@@ -112,11 +112,11 @@ Nodes are grouped (using the `group` key) based on the source that generated the
 
 You can use the node group to filter out items, re-arrange them, render them differently - up to you!
 
-## UI Node Types
+## UI node types
 
 UI Nodes can have several types!
 
-### UI Script Nodes
+### UI script nodes
 
 The `script` node type is primarily used to load required scripts for WebAuthn!
 
@@ -166,7 +166,7 @@ Nodes of type `a` are currently not used in Ory Kratos, but we have them around 
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_anchor.hbs"
 />
 
-### UI Image Nodes
+### UI image nodes
 
 Nodes of type `img` are used as QR codes, for example.
 
@@ -210,7 +210,7 @@ Here is an example of implementing an `img` node in React.js:
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/ui/NodeImage.tsx"
 />
 
-### UI Text Nodes
+### UI text nodes
 
 Nodes of type `text` are commonly used to display secrets (e.g. lookup secrets).
 
@@ -403,7 +403,7 @@ In React.js, you will most likely find similar if statements on the message IDs.
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/ui/NodeText.tsx"
 />
 
-### UI Input Nodes
+### UI input nodes
 
 The most common node type is the `input` type. In general, it represents an HTL `<input>` field:
 
@@ -438,7 +438,7 @@ An `input` node itself has a type as well. These types are taken from HTML:
 - `date`
 - `url`
 
-#### Checkbox Input Node
+#### Checkbox input node
 
 Checkboxes are primarily used when an Identity Schema field is of `"type": "boolean"`. The following Identity Schema
 
@@ -504,7 +504,7 @@ In single page apps, such as React.js, this trickery is not needed as you have f
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/ui/NodeInputCheckbox.tsx"
 />
 
-#### Button Input Node
+#### Button input node
 
 Buttons are primarily used to trigger something, which is why it is important to have the `onclick` attribute handled. If
 `onclick` exists, you will also find a `script` node:
@@ -568,7 +568,7 @@ you will not need `eval` at all!
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/ui/NodeInputButton.tsx"
 />
 
-#### Submit Input Node
+#### Submit input node
 
 Submit buttons trigger the form submission. In pure HTML, this is just a simple submit button:
 
@@ -635,7 +635,7 @@ their email address!
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/ui/NodeInputSubmit.tsx"
 />
 
-#### Hidden Input Node
+#### Hidden input node
 
 Hidden input fields such as the `csrf_token`
 
@@ -672,7 +672,7 @@ and single page apps like React.js
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/ui/NodeInputHidden.tsx"
 />
 
-#### Default Input Node Rendering
+#### Default input node rendering
 
 You do not need to have one view for every node type. Instead, you can "fall back" to a default implementation. The most important
 node types (`hidden`, `submit`, `button`, `checkbox`) we already covered!
@@ -795,7 +795,7 @@ You should render these components using a generic node input render logic like 
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_default.hbs"
 />
 
-## Node Order and Labels
+## Node order and labels
 
 For all traits, the labels and orders are taken from the Identity Schema. An Identity Schema such as
 
@@ -977,7 +977,7 @@ error handling logic in our React.js reference implementation:
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/errors.tsx"
 />
 
-## UI Message Codes
+## UI message codes
 
 UI Messages are always presented as the following JSON
 

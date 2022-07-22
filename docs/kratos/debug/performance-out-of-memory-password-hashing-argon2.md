@@ -1,6 +1,6 @@
 ---
 id: performance-out-of-memory-password-hashing-argon2
-title: Performance Problems and Out Of Memory Panics Caused by Password Hashing
+title: Performance problems and out of memory panics caused by password hashing
 ---
 
 :::info
@@ -15,7 +15,7 @@ Ory Kratos comes with a [CLI](../cli/kratos-hashers-argon2-calibrate.md) that au
 practices. You can read more about these best practices in our
 [blog post](https://www.ory.sh/choose-recommended-argon2-parameters-password-hashing/).
 
-## Common Errors
+## Common errors
 
 There are some errors that indicate your Argon2 parameters need adjustment:
 

@@ -1,6 +1,6 @@
 ---
 id: docker
-title: Docker Images
+title: Docker images
 ---
 
 ## Supported tags and respective `Dockerfile` links
@@ -8,7 +8,7 @@ title: Docker Images
 - [`latest`, `v0.4.3-alpha.1`, `v0.4.3`, `v0.4`, `v0`](https://github.com/ory/kratos/blob/v0.4.3-alpha.1/.docker/Dockerfile)
 - [`latest-sqlite`, `v0.4.3-alpha.1-sqlite`, `v0.4.3-sqlite`, `v0.4-sqlite`, `v0-sqlite`](https://github.com/ory/kratos/blob/v0.4.3-alpha.1/.docker/Dockerfile-sqlite)
 
-## Image Variants
+## Image variants
 
 The `Kratos` Docker images come in two different flavors, one with and one without SQLite support. All Docker images with the
 postfix `kratos:<version>-sqlite` in the tag are compiled with embed SQLite support and uses libmusl. All Docker images
@@ -23,7 +23,7 @@ In order to make the provided Docker images as useful as possible they can be co
 variables. In addition the default configuration directory can be bound to a directory of choice to make it simple to pass in your
 own configuration files.
 
-### Environment Variables
+### Environment variables
 
 #### `DSN`
 

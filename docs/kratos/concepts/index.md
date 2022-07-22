@@ -43,11 +43,11 @@ combining Ory Kratos with [Ory Hydra](http://github.com/ory/hydra) .
 With a primary developer audience, Ory designs, secures, and tests critical network flows, system architectures, user flows,
 protocols, and business logic.
 
-## Today's Landscape
+## Today's landscape
 
 Let's take a look at different approaches and software systems today.
 
-### Full-stack Identity and Access Management (IAM)
+### Full-stack identity and access management (IAM)
 
 Disclaimer: There are neither product nor project names in this section. This section's goal is to describe circumstances and
 problems that mostly stem from the community's experience.
@@ -82,7 +82,7 @@ product. It's certainly great, and it covers a lot of ground, but it also comes 
   the above leads to added complexity in application development and deployment due to session management, cookie management, CSRF
   protection, and other mechanisms related to identity and security.
 
-### Identity as a Service (IDaaS)
+### Identity as a service (IDaaS)
 
 In today's market, with many proprietary SAAS companies offering Identity as a Service, it seems easy to make sign-on cumbersome
 for both developers and users. Even with delegated third party login processes such as "Login with Google," where OAuth2 and
@@ -167,7 +167,7 @@ Ory has numerous products that support the protocols OAuth2 or OpenID Connect in
 permission system in [Ory Keto](http://github.com/ory/keto), and a Reverse Proxy in
 [Ory Oathkeeper](http://github.com/ory/oathkeeper).
 
-### Software Architecture
+### Software architecture
 
 Ory's [Software Architecture and Philosophy](https://www.ory.sh/docs/ecosystem/software-architecture-philosophy) document,
 explains the architectural beliefs and framework behind the Ory Products in particular:
@@ -179,7 +179,7 @@ explains the architectural beliefs and framework behind the Ory Products in part
 - Run-time orchestration using the latest Kubernetes providing fast and easy to use [Helm charts](https://github.com/ory/k8s);
 - Horizontal scaling with no etcd key value store or memcached or adjacent tool required.
 
-### Bring your own User Interface (Framework)
+### Bring your own user interface (framework)
 
 Ory's approach to user interface and user experience is to provide for an interaction concept with maximum flexibility and
 creativity. Some companies need
@@ -192,7 +192,7 @@ is a reference implementation [github.com/ory/kratos-selfservice-ui-node](https:
 
 For more details about each individual flow, consult the [Self-Service Flows Chapter](../self-service.mdx).
 
-### Bring your own Identity Schema(s)
+### Bring your own identity schema(s)
 
 Sometimes it's necessary to store more than one type of identity in your system:
 
