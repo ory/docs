@@ -9,14 +9,14 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## keto relation-tuple get
 
 Get relation tuples
 
 ### Synopsis
 
-Get relation tuples matching the given partial tuple.
-Returns paginated results.
+Get relation tuples matching the given partial tuple. Returns paginated results.
 
 ```
 keto relation-tuple get [flags]
@@ -47,5 +47,4 @@ keto relation-tuple get [flags]
 
 ### SEE ALSO
 
-* [keto relation-tuple](keto-relation-tuple)	 - Read and manipulate relation tuples
-
+- [keto relation-tuple](keto-relation-tuple) - Read and manipulate relation tuples
