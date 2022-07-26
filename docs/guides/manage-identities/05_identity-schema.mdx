@@ -120,7 +120,7 @@ A vocabulary extension can be used within a property:
 
 ### Identifier for username and password flows
 
-You can configure Ory Identity Service (Kratos) to use specific fields as the identity's identifier. In this example, the
+You can configure Ory Identity Service (Ory Kratos) to use specific fields as the identity's identifier. In this example, the
 `password` is set as the identifier:
 
 ```json
@@ -201,7 +201,7 @@ and using a JSON Schema that uses the `email` field as the identifier for the pa
 }
 ```
 
-In this example, Ory understands that `traits:email: 'office@ory.sh'` is the identifier for this identity. The system must get
+In this example, Ory understands that `traits.email='office@ory.sh'` is the identifier for this identity. The system must get
 `office@ory.sh` and a password to sign in an user.
 
 [Username and Password Credentials](../../kratos/concepts/credentials/username-email-password) contains more information and
