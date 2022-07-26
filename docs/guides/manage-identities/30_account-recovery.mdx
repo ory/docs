@@ -3,12 +3,12 @@ id: account-recovery
 title: Administrative account recovery
 ---
 
-You can initiate account recovery for Identities using the Admin API endpoints.
+You can initiate account recovery for identities using the admin API endpoints.
 
 :::note
 
 You can generate a link for an account without a recovery address via the admin API, but if the recovery link expires the users
-cant re-initiate the flow by themselves as long as the recovery address has been added.
+can't re-initiate the flow by themselves if a recovery address hasn't been added.
 
 :::
 
@@ -47,27 +47,27 @@ curl --request POST -sL \
 package main
 
 import (
-	"fmt"
-	"github.com/ory/client-go/client"
-	"github.com/ory/client-go/client/admin"
-	"github.com/ory/client-go/models"
+  "fmt"
+  "github.com/ory/client-go/client"
+  "github.com/ory/client-go/client/admin"
+  "github.com/ory/client-go/models"
 )
 
 func main() {
-	c := client.New(nil, &client.TransportConfig{
+  c := client.New(nil, &client.TransportConfig{
         Host: "https://playground.projects.oryapis.com",
         BasePath: "/",
         Schemes: []string{"http"},
     })
 
-	res, err := c.Admin.CreateRecoveryLink(admin.NewCreateRecoveryLinkParams().WithBody(admin.CreateRecoveryLinkBody{
-		IdentityID: models.UUID("the-uuid"),
-	}))
-	if err != nil {
-		// ...
-	}
+  res, err := c.Admin.CreateRecoveryLink(admin.NewCreateRecoveryLinkParams().WithBody(admin.CreateRecoveryLinkBody{
+    IdentityID: models.UUID("the-uuid"),
+  }))
+  if err != nil {
+    // ...
+  }
 
-	fmt.Printf("Use link: %s", *res.Payload.RecoveryLink)
+  fmt.Printf("Use link: %s", *res.Payload.RecoveryLink)
 }
 ```
 
@@ -79,7 +79,7 @@ func main() {
 ````
 
 The response contains a `recovery_link` value. This is the link the user should use to set up his or her credentials to connect to
-a Social Sign In Provider or set up a password :
+a social sign-in provider or set up a password :
 
 ```json
 {
@@ -88,7 +88,7 @@ a Social Sign In Provider or set up a password :
 }
 ```
 
-The user has only a limited amount of time to update their credentials once they use the recovery link. The time is the privileged
+The user has a limited amount of time to update their credentials once they use the recovery link. The time is the privileged
 session
 
 ````mdx-code-block
@@ -116,8 +116,8 @@ selfservice:
 </Tabs>
 ````
 
-If the user fails to set up his / her credentials in time, another recovery link needs to be issued and the user needs to re-do
-the flow.
+If the user fails to set up their credentials in time, another recovery link needs to be issued and the user needs to re-do the
+flow.
 
 It is currently not possible to send the recovery link directly to a user's email, this feature is tracked as
 [#595](https://github.com/ory/kratos/issues/595).

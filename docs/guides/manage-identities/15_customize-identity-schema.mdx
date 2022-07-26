@@ -1,14 +1,13 @@
 ---
 id: customize-identity-schema
-title: Customize Identity schema
+title: Customize Identity Schema
 ---
 
-Ory supports custom Identity schemas. The Identity schema is a JSON Schema that describes the traits that make up an Identity.
-This document describes how to create custom Identity schemas.
+Ory supports custom Identity Schemas. The Identity Schema is a JSON Schema that describes the traits that make up an identity.
 
-## Create custom Identity schema
+## Create custom Identity Schema
 
-Follow these steps to create a custom Identity schema in Ory Cloud:
+Follow these steps to create a custom Identity Schema in Ory Cloud:
 
 1. Open the [Ory Console](https://console.ory.sh/) and sign in.
 2. Select **Customize → Identity Schema** from the left navigation bar.
@@ -20,7 +19,7 @@ Follow these steps to create a custom Identity schema in Ory Cloud:
 
 ## Customize fields
 
-An Identity Schemas traits are specified under
+The traits of an Identity Schema are specified under
 
 ```json
 "traits": {
@@ -64,7 +63,7 @@ email and password:
 This Identity Schema translates into the following sign-up screen:
 ![Email Password Identity Schema](../_static/manage-identities/1.png)
 
-The part highlighted below defines the identities `email` for the email+password flow in Ory Cloud. It also includes a method for
+The part highlighted below defines the identity's `email` for the email+password flow in Ory Cloud. It also includes a method for
 [`recovery`](https://www.ory.sh/kratos/docs/self-service/flows/account-recovery#recovery-link-method) as well as
 [`verification`](https://www.ory.sh/kratos/docs/self-service/flows/verify-email-account-activation/#verification-link-method).
 Only the `email` method is available (recovery/verification via a link sent in an email).
@@ -163,7 +162,7 @@ For example, an Identity Schema named "Customer Type 1" exists and you would lik
 - Enter a new name, for example "Customer Type 2".
 - Press the `Enter` key or `Update` to save it.
 
-### Add Identity metadata
+### Add identity metadata
 
 It is possible to add metadata to an identity, either as a protected field that can only be read by the admin or as a public field
 that can be read by the user as well.
@@ -180,7 +179,7 @@ should be set to false.
       "additionalProperties": false
 ```
 
-## Reference Identity schema
+## Reference Identity Schema
 
 The following Identity Schema includes first/last and nickname, as well as number fields for the users' age. There are also two
 true/false fields for specifying the newsletter subscription and enterprise status.
@@ -251,6 +250,6 @@ Please note that this is just a reference Identity Schema, for practical uses it
 }
 ```
 
-This is what the above Identity schema would look like on the sign-up screen:
+This is what the above Identity Schema would look like on the sign-up screen:
 
 ![Example Identity Schema with many fields](../_static/manage-identities/3.png)

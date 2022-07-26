@@ -1,35 +1,35 @@
 ---
 id: overview
-title: What is an Identity?
+title: What is an identity?
 sidebar_label: Overview
 ---
 
-Ory Identity Service (Kratos) uses Identities to identify entities that sign up or authenticate. These can be humans that sign up
+Ory Identity Service (Kratos) uses identities to identify entities that sign up or authenticate. These can be humans that sign up
 on a website or an application that uses Ory, for example online store customers, file sharing service users, or company
 contractors signing up to use internal systems.
 
-The Identity isn't limited to humans. Ory can create Identities for programmatic entities such as IoT devices, client
+The identity isn't limited to humans. Ory can create identities for programmatic entities such as IoT devices, client
 applications, and other types of "robots". 🤖
 
-What Ory calls Identities, other software often refers to as "users", "accounts", "user accounts", etc. For the sake of clarity,
-we're not strict about using the term "Identity" in the documentation. This means that you can see references to "account
+What Ory calls identities, other software often refers to as "users", "accounts", "user accounts", etc. For the sake of clarity,
+we're not strict about using the term "identity" in the documentation. This means that you can see references to "account
 recovery" or "account activation", which are widely understood terms, while "identity recovery" or "identity activation" aren't.
 
-Ory Identities are created on the basis of schemas, which define what fields (data) the system stores for the Identity. Thanks to
-schemas, every Identity created in your system can store its own set of data, which allows you to easily differentiate between
+Identities are created on the basis of schemas, which define what fields (data) the system stores for the identity. Thanks to
+schemas, every identity created in your system can store its own set of data, which allows you to easily differentiate between
 user types, for example customers and employees.
 
-This is a sample Identity presented in the YAML format. To interact with Identities (create, list, etc.), use the
+This is a sample identity presented in the YAML format. To interact with identities (create, list, etc.), use the
 `/admin/identities` endpoint. Keep in mind that the API payload is in JSON format.
 
 ```yaml
-# This is a UUID generated when the Identity is created. Can't be changed or updated.
+# This is a UUID generated when the identity is created. Can't be changed or updated.
 id: "9f425a8d-7efc-4768-8f23-7647a74fdf13"
 
-# Every Identity has a state. Inactive identities can't log into the system.
+# Every identity has a state. Inactive identities can't log into the system.
 state: active
 
-# This section represents all the credentials associated with the Identity.
+# This section represents all the credentials associated with the identity.
 credentials:
   password:
     id: password
@@ -49,10 +49,10 @@ credentials:
       - provider: facebook
         identifier: 83475891
 
-# This is the JSON Schema ID used for validating the traits of this Identity.
+# This is the JSON Schema ID used for validating the traits of this identity.
 schema_id: default
 
-# Traits represent information about the Identity, such as the first or last name. The traits content is
+# Traits represent information about the identity, such as the first or last name. The traits content is
 # up to you and will be validated using the JSON Schema at `traits_schema_url`.
 traits:
   # These are just examples

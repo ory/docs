@@ -3,30 +3,31 @@ id: best-practices
 title: Best practices
 ---
 
-## Sensitive data in Identity schema
+## Sensitive data in Identity Schema
 
 :::warning
 
-The Identity schema isn't a place to store sensitive information that should not be visible to the end-user.
+The Identity Schema isn't a place to store sensitive information that should not be visible to the end-user.
 
 :::
 
 The Identity Schema isn't the right place to store data that should be obfuscated from the user. Users can see traits and other
-data - except credentials - using the `sessions/whoami` endpoint. Users are also able to edit identity traits. Visit
-[this issue](https://github.com/ory/kratos/issues/47) for information on a feature that can be configured to prevent the end-user
-from viewing/editing identity traits.
+data - except credentials - using the `sessions/whoami` endpoint. Users are also able to edit identity traits.
+
+Read [this document](./identity-metadata-traits) for information how to use metadata that can't be viewed or changed by the end
+user.
 
 ## Keep your data lean
 
-Theoretically, any amount and type of data can be included in your Identity model. We recommend that you don't include more fields
+Theoretically, any amount and type of data can be included in your identity model. We recommend that you don't include more fields
 than necessary in your Identity Schema. The Identity Schema should only include traits that are necessary or relevant to the
 users' profile. If the data is related to something else - for example business logic - it makes sense to store it somewhere else.
 It can still be captured in the sign up form, it just will need to be saved for example in your backend database.
 
-## Updating Identity schemas
+## Updating Identity Schemas
 
-We strongly encourage everyone to specify unique (for example versioned) identifiers for every identity schema defined. This
-allows you to gradually update your identity schema without affecting existing identities. Assume you just defined your first
+We strongly encourage everyone to specify unique, for example versioned, identifiers for every Identity Schema defined. This
+allows you to gradually update your Identity Schema without affecting existing identities. Assume you just defined your first
 Identity Schema:
 
 ```yaml
@@ -50,7 +51,7 @@ identity:
       url: file://path/to/user_v1.json
 ```
 
-All existing identities will continue to work as expected, having their identity schema ID be `user_v0`. All new identities will
+All existing identities will continue to work as expected, having their Identity Schema ID be `user_v0`. All new identities will
 user `user_v1`! If you are ready to do a migration, you can list all identities in your system with `user_v0` as the schema, and
 update them to `user_v1` with the required data transformations using the REST APIs!
 
@@ -58,6 +59,5 @@ update them to `user_v1` with the required data transformations using the REST A
 
 To make sure usernames (or traits) satisfy a specific regex (for example only alphanumeric characters), they can be sanitized. To
 sanitize usernames add
-[Regular Expressions](https://json-schema.org/understanding-json-schema/reference/string.html#regular-expressions) to the Ory
-Kratos Identity Schema. To sanitize usernames coming from third-party OIDC providers like Google or GitHub write
-[Jsonnet](https://jsonnet.org).
+[Regular Expressions](https://json-schema.org/understanding-json-schema/reference/string.html#regular-expressions) to the Identity
+Schema. To sanitize usernames coming from third-party OIDC providers like Google or GitHub write [Jsonnet](https://jsonnet.org).
