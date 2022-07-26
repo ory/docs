@@ -216,7 +216,7 @@ INFO[2022-05-10T20:51:56Z] TLS has not been configured for admin, skipping  audi
 INFO[2022-05-10T20:51:56Z] Starting the admin httpd on: 0.0.0.0:4434     audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
 ```
 
-## Run Ory Kratos using Systemd
+## Run Ory Kratos using systemd
 
 1. Change the owner of `/opt/kratos` directory to the `kratos` user:
 
@@ -694,7 +694,7 @@ We need to set up secure keys and run Ory Kratos in production mode:
    +    - rtxrVjiWwe85nxB9XeWoDP8U17+sT6kHo0E1t3Tr5uY=
    ```
 
-   3. Change `log.leak_sensitive_values` to false, as to not leak any sensitive values like secrets in the logs:
+3. Change `log.leak_sensitive_values` to false, as to not leak any sensitive values like secrets in the logs:
 
    ```diff
    log:
@@ -702,7 +702,7 @@ We need to set up secure keys and run Ory Kratos in production mode:
    +  leak_sensitive_values: false
    ```
 
-3. Save changes and restart Ory Kratos:
+4. Save changes and restart Ory Kratos:
 
    ```
    systemctl restart kratos
