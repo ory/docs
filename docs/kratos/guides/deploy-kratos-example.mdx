@@ -270,8 +270,8 @@ INFO[2022-05-10T20:51:56Z] Starting the admin httpd on: 0.0.0.0:4434     audienc
    19206 ?        Ss     0:00 postgres: 12/main: kratos kratos 127.0.0.1(36094) idle
    ```
 
-7. Check if it's accessible (if your DNS record is not set yet (it takes up to 24h to propagate), you can also send the request
-   here directly to your Droplet IP)
+7. Check if it's accessible (if your DNS record is not set yet - it can take up to 24h to propagate - you can also send the
+   request here directly to your Droplet IP)
 
    ```bash
    curl -s  http://accounts.example.com:4433/sessions/whoami | jq
