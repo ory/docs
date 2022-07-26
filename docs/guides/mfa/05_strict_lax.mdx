@@ -32,40 +32,40 @@ Follow these steps to adjust the settings in Ory Cloud using the Ory CLI:
 
 1. Get the Identity Service configuration from your project and save it to a file:
 
-```shell
-## List all available projects
-ory list projects
+   ```shell
+   ## List all available projects
+   ory list projects
 
-## Get config
-ory get identity-config <project-id> --format yaml > identity-config.yaml
-```
+   ## Get config
+   ory get identity-config <project-id> --format yaml > identity-config.yaml
+   ```
 
 2. Adjust the values of the indicated keys to the desired values:
 
-```yaml title="identity-config.yaml"
-# ...
-selfservice:
-  flows:
-    settings:
-      required_aal: aal1
-# ...
-session:
-  whoami:
-    required_aal: aal1
-# ...
-```
+   ```yaml title="identity-config.yaml"
+   # ...
+   selfservice:
+     flows:
+       settings:
+         required_aal: aal1
+   # ...
+   session:
+     whoami:
+       required_aal: aal1
+   # ...
+   ```
 
-:::tip
+   :::tip
 
-Use `aal1` for the Lax model and `highest_available` for the Strict model.
+   Use `aal1` for the Lax model and `highest_available` for the Strict model.
 
-:::
+   :::
 
 3. Update the Ory Cloud Identity Service configuration using the file you worked with:
 
-```shell
-ory update identity-config <project-id> --file identity-config.yaml
-```
+   ```shell
+   ory update identity-config <project-id> --file identity-config.yaml
+   ```
 
 ### Self-hosted instances
 
