@@ -5038,7 +5038,7 @@
         "tags": ["v0alpha2"]
       },
       "patch": {
-        "description": "This endpoints allows you to patch individual Ory Cloud Project configuration keys for\nOry's services (identity, permission, ...). The configuration format is fully compatible\nwith the open source projects for the respective services (e.g. Ory Kratos for Identity, Ory Keto for Permissions).\n\nThis endpoint expects the `version` key to be set in the payload. If it is unset, it\nwill try to import the config as if it is from the most recent version.\n\nIf you have an older version of a configuration, you should set the version key in the payload!\n\nWhile this endpoint is able to process all configuration items related to features (e.g. password reset),\nit does not support operational configuration items (e.g. port, tracing, logging) otherwise available in the\nopen source.\n\nFor configuration items that can not be translated to Ory Cloud, this endpoint will return a list of warnings\nto help you understand which parts of your config could not be processed.",
+        "description": "Deprecated: Use the `patchProjectWithRevision` endpoint instead to specify the exact revision the patch was generated for.\n\nThis endpoints allows you to patch individual Ory Cloud Project configuration keys for\nOry's services (identity, permission, ...). The configuration format is fully compatible\nwith the open source projects for the respective services (e.g. Ory Kratos for Identity, Ory Keto for Permissions).\n\nThis endpoint expects the `version` key to be set in the payload. If it is unset, it\nwill try to import the config as if it is from the most recent version.\n\nIf you have an older version of a configuration, you should set the version key in the payload!\n\nWhile this endpoint is able to process all configuration items related to features (e.g. password reset),\nit does not support operational configuration items (e.g. port, tracing, logging) otherwise available in the\nopen source.\n\nFor configuration items that can not be translated to Ory Cloud, this endpoint will return a list of warnings\nto help you understand which parts of your config could not be processed.",
         "operationId": "patchProject",
         "parameters": [
           {
@@ -5131,7 +5131,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "Patch an Ory Cloud Project Configuration",
+        "summary": "Patch an Ory Cloud Project Configuration`",
         "tags": ["v0alpha2"]
       },
       "put": {
