@@ -67,61 +67,60 @@ v16.14.2
 
 ## Install PostgreSQL
 
-1. Install PostgreSQL by running the following command:
+1.  Install PostgreSQL by running the following command:
 
-```bash
-sudo apt install postgresql postgresql-contrib
-sudo -i -u postgres
-```
+    ```bash
+    sudo apt install postgresql postgresql-contrib
+    sudo -i -u postgres
+    ```
 
-2. Create the database:
+2.  Create the database:
 
-```bash
-createdb hydra
-```
+    ```bash
+    createdb hydra
+    ```
 
-Change the default password encryption to a stronger one as
-[recommended by PostgreSQL](https://www.postgresql.org/docs/current/auth-password.html):
+3.  Change the default password encryption to a stronger one as
+    [recommended by PostgreSQL](https://www.postgresql.org/docs/current/auth-password.html):
 
-```bash
-psql
-# Postgres command line
-ALTER SYSTEM SET password_encryption = 'scram-sha-256';
-# Change the default password encryption to stronger one
-SELECT pg_reload_conf();
-# Reload configuration
-```
+    ```bash
+    psql
+    # Postgres command line
+    ALTER SYSTEM SET password_encryption = 'scram-sha-256';
+    # Change the default password encryption to stronger one
+    SELECT pg_reload_conf();
+    # Reload configuration
+    ```
 
-3. Create a Postgres user for Hydra:
+4.  Create a Postgres user for Hydra:
 
-```bash
-CREATE USER hydra PASSWORD '<YOUR_PASSWORD_HERE>';
-```
+    ```bash
+    CREATE USER hydra PASSWORD '<YOUR_PASSWORD_HERE>';
+    ```
 
-4. Edit the `/etc/postgresql/12/main/pg_hba.conf` file and add the following to enable `scram-sha-256` encryption:
+5.  Edit the `/etc/postgresql/12/main/pg_hba.conf` file and add the following to enable `scram-sha-256` encryption:
 
-```bash
-host    all             all             127.0.0.1/32            scram-sha-256
-```
+    ```bash
+    host    all             all             127.0.0.1/32            scram-sha-256
+    ```
 
-5. Check your credentials against Postgres:
+6.  Check your credentials against Postgres:
 
-```bash
-psql -U hydra -W -h 127.0.0.1
+    ```bash
+    psql -U hydra -W -h 127.0.0.1
+    ```
 
-```
+7.  Use the password for the Ory Hydra user we created before to log into Postgres. If everything works correctly you should see a
+    prompt similar to this:
 
-6. Use the password for the Ory Hydra user we created before to log into Postgres. If everything works correctly you should see a
-   prompt similar to this:
+    ```bash
+    Password:
+    psql (12.9 (Ubuntu 12.9-0ubuntu0.20.04.1))
+    SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+    Type "help" for help.
 
-```
-Password:
-psql (12.9 (Ubuntu 12.9-0ubuntu0.20.04.1))
-SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
-Type "help" for help.
-
-hydra=>
-```
+    hydra=>
+    ```
 
 Congratulations, you have installed and configured the PostgreSQL database. Next, you will set up Ory Hydra.
 
@@ -129,59 +128,61 @@ Congratulations, you have installed and configured the PostgreSQL database. Next
 
 1. Create a new user with prohibited login:
 
-```bash
-useradd -s /bin/false -m -d /opt/hydra hydra
-```
+   ```bash
+   useradd -s /bin/false -m -d /opt/hydra hydra
+   ```
 
 2. Create folders to hold the installation data and configuration files:
 
-```bash
-mkdir /opt/hydra/{bin,config}
-```
+   ```bash
+   mkdir /opt/hydra/{bin,config}
+   ```
 
 3. Install Ory Hydra:
 
-<CodeBlock className="language-shell">{`
-cd /opt/hydra/bin
-# Download a new version of Ory Hydra
-wget https://github.com/ory/hydra/releases/download/${useLatestRelease("hydra")}/hydra_${useLatestRelease(
-  "hydra",
-)}-linux_64bit.tar.gz
-# Extract contents
-tar xfvz hydra_${useLatestRelease("hydra")}-linux_64bit.tar.gz
-# Remove redundant files
-rm *md
-rm LICENSE
-`}</CodeBlock>
+   ```mdx-code-block
+   <CodeBlock className="language-shell">{`cd /opt/hydra/bin
+   # Download a new version of Ory Hydra
+   wget https://github.com/ory/hydra/releases/download/${useLatestRelease("hydra")}/hydra_${useLatestRelease(
+   "hydra",
+   )}-linux_64bit.tar.gz
+   # Extract contents
+   tar xfvz hydra_${useLatestRelease("hydra")}-linux_64bit.tar.gz
+   # Remove redundant files
+   rm *md
+   rm LICENSE`}</CodeBlock>
+   ```
 
-4. Download the [Quickstart](../5min-tutorial) configuration files:
+4. Download the [Quickstart](../5min-tutorial) configuration files
 
-<CodeBlock className="language-shell">{`cd ../config
-wget https://raw.githubusercontent.com/ory/hydra/${useLatestRelease("hydra")}/contrib/quickstart/5-min/hydra.yml`}</CodeBlock>
+   ```mdx-code-block
+      <CodeBlock className="language-shell">{`cd ../config
+   wget https://raw.githubusercontent.com/ory/hydra/${useLatestRelease("hydra")}/contrib/quickstart/5-min/hydra.yml`}</CodeBlock>
+   ```
 
 5. Add configuration for Ory Hydra in `hydra.yml` to use the Postgres database.  
    Open `hydra.yml` and change the DSN configuration. Ory Hydra is storing data in an SQLite database in the default quickstart
    configuration. Change the DSN key to use the Postgres database you configured before and add the `issuer` URL. This URL will be
    used as `issuer` in access and ID tokens.
 
-```yml
-dsn: postgres://hydra:b0qw68gr3Q@127.0.0.1:5432/hydra?sslmode=disable&max_conns=20&max_idle_conns=4
-urls:
-  self:
-    issuer: https://oauth2.example.com
-```
+   ```yml
+   dsn: postgres://hydra:b0qw68gr3Q@127.0.0.1:5432/hydra?sslmode=disable&max_conns=20&max_idle_conns=4
+   urls:
+     self:
+       issuer: https://oauth2.example.com
+   ```
 
 6. Apply [migrations](../cli/hydra-migrate-sql):
 
-```bash
-/opt/hydra/bin/hydra -c /opt/hydra/config/hydra.yml migrate sql -y postgres://hydra:b0qw68gr3Q@127.0.0.1:5432/hydra?sslmode=disable
-```
+   ```bash
+   /opt/hydra/bin/hydra -c /opt/hydra/config/hydra.yml migrate sql -y postgres://hydra:b0qw68gr3Q@127.0.0.1:5432/hydra?sslmode=disable
+   ```
 
 7. Test your setup using the [`serve` command](../cli/hydra-serve):
 
-```bash
-/opt/hydra/bin/hydra -c /opt/hydra/config/hydra.yml serve all
-```
+   ```bash
+   /opt/hydra/bin/hydra -c /opt/hydra/config/hydra.yml serve all
+   ```
 
 You should see something like this once the service has been started:
 
@@ -203,60 +204,60 @@ INFO[2022-04-15T15:24:41Z] Setting up http server on :4445               audienc
 
 1. Change the owner of `/opt/hydra` directory to the `hydra` user:
 
-```bash
-chown -R hydra /opt/hydra/
-```
+   ```bash
+   chown -R hydra /opt/hydra/
+   ```
 
 2. Create a `/etc/systemd/system/kratos.service` file
 
-```bash
-cd /etc/systemd/system
-nano hydra.service
-```
+   ```bash
+   cd /etc/systemd/system
+   nano hydra.service
+   ```
 
 3. Add the following to configure systemd to start Ory Hydra using the [`serve` command](../cli/hydra-serve) from earlier:
 
-```
-[Unit]
-Description=Hydra Service
-After=network.target
-StartLimitIntervalSec=0
+   ```
+   [Unit]
+   Description=Hydra Service
+   After=network.target
+   StartLimitIntervalSec=0
 
-[Service]
-Type=simple
-Restart=always
-RestartSec=1
-User=hydra
-Environment=SERVE_ADMIN_HOST=127.0.0.1
-Environment=SERVE_PUBLIC_HOST=127.0.0.1
-ExecStart=/opt/hydra/bin/hydra -c /opt/hydra/config/hydra.yml serve all
+   [Service]
+   Type=simple
+   Restart=always
+   RestartSec=1
+   User=hydra
+   Environment=SERVE_ADMIN_HOST=127.0.0.1
+   Environment=SERVE_PUBLIC_HOST=127.0.0.1
+   ExecStart=/opt/hydra/bin/hydra -c /opt/hydra/config/hydra.yml serve all
 
-[Install]
-WantedBy=multi-user.target
-```
+   [Install]
+   WantedBy=multi-user.target
+   ```
 
 [Read more about the administrative and public APIs](https://www.ory.sh/docs/hydra/production#exposing-administrative-and-public-api-endpoints).
 
 4. To run Ory Hydra using systemd add the systemd service to startup:
 
-```bash
-systemctl enable hydra.service
-Created symlink /etc/systemd/system/multi-user.target.wants/hydra.service → /etc/systemd/system/hydra.service.
-```
+   ```bash
+   systemctl enable hydra.service
+   Created symlink /etc/systemd/system/multi-user.target.wants/hydra.service → /etc/systemd/system/hydra.service.
+   ```
 
 5. Start hydra.service using systemd:
 
-```
-systemctl start hydra.service
-```
+   ```
+   systemctl start hydra.service
+   ```
 
 6. Check running processes with `ps ax | grep hydra`. If everything worked correctly you should see something like this:
 
-```
-ps ax | grep hydra
-19191 ?        Ssl    0:00 /opt/hydra/bin/hydra -c /opt/hydra/config/hydra.yml serve
-19206 ?        Ss     0:00 postgres: 12/main: hydra hydra 127.0.0.1(36094) idle
-```
+   ```
+   ps ax | grep hydra
+   19191 ?        Ssl    0:00 /opt/hydra/bin/hydra -c /opt/hydra/config/hydra.yml serve
+   19206 ?        Ss     0:00 postgres: 12/main: hydra hydra 127.0.0.1(36094) idle
+   ```
 
 We have Ory Kratos up and running, now we need to configure a reverse proxy to make the Hydra Admin API inaccessible via the
 public internet.
@@ -267,37 +268,37 @@ We'll use Nginx as a reverse proxy and load balancer for our service. You can us
 
 1. Install Nginx (and certbot) by running:
 
-```bash
-apt install nginx certbot python3-certbot-nginx
-```
+   ```bash
+   apt install nginx certbot python3-certbot-nginx
+   ```
 
 2. Create a default configuration for the virtual host. To do this create the file `accounts.example.com` at
    `/etc/nginx/sites-available/` with the following content
 
-```bash
-cd /etc/nginx/sites-available/
-nano oauth2.example.com
-```
+   ```bash
+   cd /etc/nginx/sites-available/
+   nano oauth2.example.com
+   ```
 
-```
-server {
-        listen 80;
-        server_name oauth2.example.com;
-}
-```
+   ```
+   server {
+           listen 80;
+           server_name oauth2.example.com;
+   }
+   ```
 
 3. Create a symlink to `sites-enabled` directory:
 
-```bash
-ln -s /etc/nginx/sites-available/oauth2.example.com /etc/nginx/sites-enabled/oauth2.example.com
-```
+   ```bash
+   ln -s /etc/nginx/sites-available/oauth2.example.com /etc/nginx/sites-enabled/oauth2.example.com
+   ```
 
 4. Configure SSL via Certbot. Run the following command and answer the questions to set it up. When prompted choose to redirect
    HTTP traffic to HTTPS.
 
-```bash
-certbot --nginx -d oauth2.example.com
-```
+   ```bash
+   certbot --nginx -d oauth2.example.com
+   ```
 
 After running Certbot your configuration file will look like this:
 
@@ -334,64 +335,64 @@ instances of Ory Hydra running on the various virtual machines. We need two upst
 
 5. Add the following configuration before the `server` section to the `/etc/nginx/sites-enabled/oauth2.example.com` file:
 
-```diff
-+upstream public_api {
-+        server 127.0.0.1:4444;
-# We can load balance the traffic to support scaling
-+        server 127.0.0.1:4444;
-+}
-+upstream admin_api {
-+        server 127.0.0.1:4445;
-+        server 127.0.0.1:4445;
-+}
-server {
-...
-```
+   ```diff
+   +upstream public_api {
+   +        server 127.0.0.1:4444;
+   # We can load balance the traffic to support scaling
+   +        server 127.0.0.1:4444;
+   +}
+   +upstream admin_api {
+   +        server 127.0.0.1:4445;
+   +        server 127.0.0.1:4445;
+   +}
+   server {
+   ...
+   ```
 
 6. Add your locations and the `/etc/nginx/sites-enabled/oauth2.example.com` has the following content:
 
-```diff
-...
-server {
-	listen [::]:443 ssl ipv6only=on;
-	listen 443 ssl;
-	ssl_certificate /etc/letsencrypt/live/oauth2.example.com/fullchain.pem;
-	ssl_certificate_key /etc/letsencrypt/live/oauth2.example.com/privkey.pem;
-	include /etc/letsencrypt/options-ssl-nginx.conf;
-	ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
-+	location ~ ^/(.well-known|oauth2/auth|oauth2/token|oauth2/revoke|oauth2/fallbacks/consent|oauth2/fallbacks/error|userinfo)/? {
-+		proxy_pass http://public_api;
-+		proxy_redirect          off;
-+		proxy_set_header        Host            $host;
-+		proxy_set_header        X-Real-IP       $remote_addr;
-+		proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-+		proxy_set_header	X-Forwarded-Proto $http_x_forwarded_proto;
-+
-+	}
-+	location ~ ^/(clients|keys|health|metrics|version|oauth2/auth/requests|oauth2/introspect|oauth2/flush)/? {
-+		set $allow 0;
-+		if ($remote_addr ~* "172.28.0.*") {
-+			set $allow 1;
-+		}
-+		if ($arg_secret = "CHANGE-ME-INSECURE-PASSWORD") {
-+			set $allow 1;
-+		}
-+		if ($allow = 0) {
-+			return 403;
-+		}
-+
-+		rewrite /admin/(.*) /$1  break;
-+
-+		proxy_pass http://admin_api;
-+		proxy_redirect          off;
-+		proxy_set_header        Host            $host;
-+		proxy_set_header        X-Real-IP       $remote_addr;
-+		proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-+		proxy_set_header	X-Forwarded-Proto $http_x_forwarded_proto;
-+	}
+   ```diff
+   ...
+   server {
+     listen [::]:443 ssl ipv6only=on;
+     listen 443 ssl;
+     ssl_certificate /etc/letsencrypt/live/oauth2.example.com/fullchain.pem;
+     ssl_certificate_key /etc/letsencrypt/live/oauth2.example.com/privkey.pem;
+     include /etc/letsencrypt/options-ssl-nginx.conf;
+     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+   +	location ~ ^/(.well-known|oauth2/auth|oauth2/token|oauth2/revoke|oauth2/fallbacks/consent|oauth2/fallbacks/error|userinfo)/? {
+   +		proxy_pass http://public_api;
+   +		proxy_redirect          off;
+   +		proxy_set_header        Host            $host;
+   +		proxy_set_header        X-Real-IP       $remote_addr;
+   +		proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+   +		proxy_set_header	X-Forwarded-Proto $http_x_forwarded_proto;
+   +
+   +	}
+   +	location ~ ^/(clients|keys|health|metrics|version|oauth2/auth/requests|oauth2/introspect|oauth2/flush)/? {
+   +		set $allow 0;
+   +		if ($remote_addr ~* "172.28.0.*") {
+   +			set $allow 1;
+   +		}
+   +		if ($arg_secret = "CHANGE-ME-INSECURE-PASSWORD") {
+   +			set $allow 1;
+   +		}
+   +		if ($allow = 0) {
+   +			return 403;
+   +		}
+   +
+   +		rewrite /admin/(.*) /$1  break;
+   +
+   +		proxy_pass http://admin_api;
+   +		proxy_redirect          off;
+   +		proxy_set_header        Host            $host;
+   +		proxy_set_header        X-Real-IP       $remote_addr;
+   +		proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+   +		proxy_set_header	X-Forwarded-Proto $http_x_forwarded_proto;
+   +	}
 
-}
-```
+   }
+   ```
 
 Let's take a closer look at the configuration. We have two location blocks.
 
@@ -465,22 +466,22 @@ server {
 
 7. Test the Nginx configuration:
 
-```bash
-nginx -t
-```
+   ```bash
+   nginx -t
+   ```
 
-If your configuration is correct, you should get the following outputs:
+   If your configuration is correct, you should get the following outputs:
 
-```bash
-nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-nginx: configuration file /etc/nginx/nginx.conf test is successful
-```
+   ```bash
+   nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+   nginx: configuration file /etc/nginx/nginx.conf test is successful
+   ```
 
 8. Now reload the Nginx service:
 
-```bash
-service nginx reload
-```
+   ```bash
+   service nginx reload
+   ```
 
 9. Test if Ory Hydra runs by doing a health check at `https://oauth2.example.com/health?secret=CHANGE-ME-INSECURE-PASSWORD`.
 
