@@ -1,6 +1,6 @@
 ---
 id: webauthn-fido-yubikey
-title: WebAuthn / FIDO2 (YubiKey)
+title: WebAuthn and FIDO2 (YubiKey)
 ---
 
 You can enable WebAuthn in the Ory Identity Service (Kratos) to allow users to perform 2FA with with physical devices such as USB
@@ -56,43 +56,43 @@ If you are using the Ory Managed UI, leave these fields blank.
 
 1. Get the Identity Service configuration from your project and save it to a file:
 
-```shell
-## List all available projects
-ory list projects
+   ```shell
+   ## List all available projects
+   ory list projects
 
-## Get config
-ory get identity-config <project-id> --format yaml > identity-config.yaml
-```
+   ## Get config
+   ory get identity-config <project-id> --format yaml > identity-config.yaml
+   ```
 
 2. Find `webauthn` in `selfservice/methods`, set `enabled` to `true`, and define the `id` (hostname) and `origin` of the login
    page users interact with:
 
-```yaml title="identity-config.yaml"
-webauthn:
-    config:
-      passwordless: false
-      rp:
-        display_name: MY_PROJECT_NAME
-        // highlight-start
-        id: loginpage.com
-        # Set 'id' to the top-level domain.
-        origin: https://loginpage.auth.com:4455
-        # Set 'origin' to to the exact URL of the page that prompts user to use WebAuthn. You must include the scheme, host, and port.
-    enabled: true
-    // highlight-end
-```
+   ```yaml title="identity-config.yaml"
+   webauthn:
+       config:
+         passwordless: false
+         rp:
+           display_name: MY_PROJECT_NAME
+           // highlight-start
+           id: loginpage.com
+           # Set 'id' to the top-level domain.
+           origin: https://loginpage.auth.com:4455
+           # Set 'origin' to to the exact URL of the page that prompts user to use WebAuthn. You must include the scheme, host, and port.
+       enabled: true
+       // highlight-end
+   ```
 
-:::info
+   :::info
 
-The `display_name` is always set to the name of your project.
+   The `display_name` is always set to the name of your project.
 
-:::
+   :::
 
 3. Update the Ory Cloud Identity Service configuration using the file you worked with:
 
-```shell
-ory update identity-config <project-id> --file identity-config.yaml
-```
+   ```shell
+   ory update identity-config <project-id> --file identity-config.yaml
+   ```
 
 ### Self-hosted instances
 
@@ -160,7 +160,7 @@ This configuration is the default for all Ory Cloud projects.
 }
 ```
 
-## Writing E2E Tests
+## Writing E2E tests
 
 When writing end-to-end (E2E) tests for WebAuthn implementation in your app,
 [you can reference the Cypress tests used in Ory Identity Service (Kratos)](https://github.com/ory/kratos/blob/fc2cecfbeab811aa1a851f953b6bc2a4c119c412/test/e2e/cypress/integration/profiles/mfa/webauthn.spec.ts).

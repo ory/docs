@@ -1,10 +1,10 @@
 ---
 id: totp
-title: Time-Based One-Time Password (TOTP)
+title: TOTP (Google Authenticator)
 ---
 
-You can enable Time-Based One-Time Password authentication in the Ory Identity Service (Kratos) to allow users to perform 2FA with
-TOTP apps such as Google Authenticator, LastPass, or [FreeOTP](https://freeotp.github.io/).
+You can enable Time-Based One-Time Password (TOTP) authentication in the Ory Identity Service (Kratos) to allow users to perform
+2FA with TOTP apps such as Google Authenticator, LastPass, or [FreeOTP](https://freeotp.github.io/).
 
 When enabled, users can pair a TOTP app with their account:
 
@@ -45,35 +45,35 @@ Follow these steps to enable Time-Based One-Time Password (TOTP) as the second a
 
 1. Get the Identity Service configuration from your project and save it to a file:
 
-```shell
-## List all available projects
-ory list projects
+   ```shell
+   ## List all available projects
+   ory list projects
 
-## Get config
-ory get identity-config <project-id> --format yaml > identity-config.yaml
-```
+   ## Get config
+   ory get identity-config <project-id> --format yaml > identity-config.yaml
+   ```
 
 2. Find `totp` in `selfservice/methods`, set `enabled` to `true`, and define the `issuer`:
 
-```yaml title="identity-config.yaml"
-selfservice:
-  methods:
-    totp:
-      // highlight-start
-      config:
-        # The "issuer" is the name in the TOTP application users see when getting a one-time password.
-        issuer: ExampleIssuer.com
-      enabled: true
-      // highlight-end
-```
+   ```yaml title="identity-config.yaml"
+   selfservice:
+     methods:
+       totp:
+         // highlight-start
+         config:
+           # The "issuer" is the name in the TOTP application users see when getting a one-time password.
+           issuer: ExampleIssuer.com
+         enabled: true
+         // highlight-end
+   ```
 
 3. Update the Ory Cloud Identity Service configuration using the file you worked with:
 
-```shell
-ory update identity-config <project-id> --file identity-config.yaml
-```
+   ```shell
+   ory update identity-config <project-id> --file identity-config.yaml
+   ```
 
-### Self-Hosted Instances
+### Self-hosted instances
 
 When working with self-hosted instances of the Ory Identity Service (Kratos), add the `totp` method to `selfservice/methods` in
 the configuration file:
@@ -88,7 +88,7 @@ selfservice:
       enabled: true
 ```
 
-### Distinguishing Identities Requesting TOTP
+### Distinguishing Identities requesting TOTP
 
 To help users distinguish which identity requests for the TOTP code, add a `totp` object to the trait which represents the TOTP
 account name.
@@ -134,12 +134,12 @@ This configuration is the default for all Ory Cloud projects.
 }
 ```
 
-## Writing E2E Tests
+## Writing E2E tests
 
 When writing end-to-end (E2E) tests for TOTP implementation in your app,
 [you can reference the Cypress tests used in Ory Identity Service (Kratos)](https://github.com/ory/kratos/blob/fc2cecfbeab811aa1a851f953b6bc2a4c119c412/test/e2e/cypress/integration/profiles/mfa/totp.spec.ts).
 
-## Identity Credentials
+## Identity credentials
 
 When the user enables TOTP, Ory adds the following entries to the `credentials` object of the associated Identity:
 
