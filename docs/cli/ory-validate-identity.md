@@ -9,15 +9,15 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory validate identity
 
 Validate local identity files
 
 ### Synopsis
 
-This command allows validation of identity files. It validates against the payload of the API and the identity schema as
-configured in Ory Kratos. Identities can be supplied via STD_IN or JSON files containing a single or an array of identities.
+This command allows validation of identity files.
+It validates against the payload of the API and the identity schema as configured in Ory Kratos.
+Identities can be supplied via STD_IN or JSON files containing a single or an array of identities.
 
 ```
 ory validate identity file.json [file-2.json] [file-3.json] [file-n.json] [flags]
@@ -40,4 +40,5 @@ ory validate identity file.json [file-2.json] [file-3.json] [file-n.json] [flags
 
 ### SEE ALSO
 
-- [ory validate](ory-validate) - Validate resources
+* [ory validate](ory-validate)	 - Validate resources
+
