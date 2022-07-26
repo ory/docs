@@ -28,7 +28,7 @@ jobs:
           tools: composer
       - uses: subosito/flutter-action@v2.5.0
         with:
-          channel: "stable"  
+          channel: "stable"
       - run: npm install
       - run: dart pub global activate dhttpd
       - name: Install Playwright
