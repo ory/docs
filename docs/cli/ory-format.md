@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory format
 
 Helpers for formatting code
@@ -22,5 +21,6 @@ Helpers for formatting code
 
 ### SEE ALSO
 
-- [ory](ory) - The ORY CLI
-- [ory format jsonnet](ory-format-jsonnet) -
+* [ory](ory)	 - The ORY CLI
+* [ory format jsonnet](ory-format-jsonnet)	 - 
+
