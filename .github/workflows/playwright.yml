@@ -26,10 +26,9 @@ jobs:
         with:
           php-version: "8.1"
           tools: composer
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@v2.5.0
         with:
-          flutter-version: "2.5.0"
-          channel: "stable"
+          channel: "stable"  
       - run: npm install
       - run: dart pub global activate dhttpd
       - name: Install Playwright
