@@ -71,30 +71,25 @@ All collected money goes directly into open source development.
 
 ### Changelogs
 
-- [Ory Kratos Changelog](https://github.com/ory/kratos/blob/master/CHANGELOG.md) /
-  [Releases](https://github.com/ory/kratos/releases)
-- [Ory Hydra Changelog](https://github.com/ory/hydra/blob/master/CHANGELOG.md) / [Releases](https://github.com/ory/hydra/releases)
-- [Ory Keto Changelog](https://github.com/ory/keto/blob/master/CHANGELOG.md) / [Releases](https://github.com/ory/keto/releases)
-- [Ory Oathkeeper Changelog](https://github.com/ory/oathkeeper/blob/master/CHANGELOG.md) /
-  [Releases](https://github.com/ory/oathkeeper/releases)
+[Visit the Changelog for all Ory Changelogs](./changelog.md)
 
 ### Milestones, issues, pull requests
 
 Ory Kratos: [Milestones](https://github.com/Ory/kratos/milestones) /
-[Open Issues & Pull Requests](https://github.com/ory/kratos/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc) /
-[Issues sorted by popularity](https://github.com/ory/kratos/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc)
+[Open Issues & Pull Requests](https://github.com/ory/kratos/issues?q=is%3Aopen) /
+[Issues sorted by popularity](https://github.com/ory/kratos/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions)
 
 Ory Hydra: [Milestones](https://github.com/Ory/hydra/milestones) /
-[Open Issues & Pull Requests](https://github.com/ory/hydra/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc) /
-[Issues sorted by popularity](https://github.com/ory/hydra/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc)
+[Open Issues & Pull Requests](https://github.com/ory/hydra/issues?q=is%3Aopen) /
+[Issues sorted by popularity](https://github.com/ory/hydra/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions)
 
 Ory Keto: [Milestones](https://github.com/ory/keto/milestones) /
-[Open Issues & Pull Requests](https://github.com/ory/keto/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc) /
-[Issues sorted by popularity](https://github.com/ory/keto/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc)
+[Open Issues & Pull Requests](https://github.com/ory/keto/issues?q=is%3Aopen) /
+[Issues sorted by popularity](https://github.com/ory/keto/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions)
 
 Ory Oathkeeper: [Milestones](https://github.com/ory/oathkeeper/milestones) /
-[Open Issues & Pull Requests](https://github.com/ory/oathkeeper/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc)
-/ [Issues sorted by popularity](https://github.com/ory/oathkeeper/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc)
+[Open Issues & Pull Requests](https://github.com/ory/oathkeeper/issues?q=is%3Aopen) /
+[Issues sorted by popularity](https://github.com/ory/oathkeeper/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions)
 
 ### Discussions
 
@@ -108,6 +103,6 @@ Ory Oathkeeper: [Milestones](https://github.com/ory/oathkeeper/milestones) /
 
 For all other Ory projects (such as [Ory Dockertest](https://github.com/ory/dockertest/),
 [Ory Fosite](https://github.com/ory/fosite/), [Ory Herodot](https://github.com/ory/herodot/), etc.), please open a discussion in
-`ory/meta`:
+the Ory Org discussion board:
 
-[Ory Meta Discussions](https://github.com/ory/meta/discussions)
+[Ory Org Discussions](https://github.com/orgs/ory/discussions)
