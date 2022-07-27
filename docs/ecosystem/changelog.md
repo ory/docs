@@ -22,6 +22,6 @@ project's changelog before you [upgrade](./upgrading.md) to a new version.
 [Ory Hydra Releases](https://github.com/ory/hydra/releases) /
 [Full CHANGELOG.md](https://github.com/ory/hydra/blob/master/CHANGELOG.md)  
 [Ory Keto Releases](https://github.com/ory/keto/releases) /
-[Full CHANGELOG.md](https:‚//github.com/ory/keto/blob/master/CHANGELOG.md)  
+[Full CHANGELOG.md](https://github.com/ory/keto/blob/master/CHANGELOG.md)  
 [Ory Oathkeeper Releases](https://github.com/ory/oathkeeper/releases) /
-[Full CHANGELOG.md](https://github.com/ory/oathkeeper/blob/master/CHANGELOG.md) ‚
+[Full CHANGELOG.md](https://github.com/ory/oathkeeper/blob/master/CHANGELOG.md)
