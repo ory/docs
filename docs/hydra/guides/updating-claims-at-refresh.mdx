@@ -56,10 +56,14 @@ The refresh token hook endpoint must accept the following payload format:
 {
   "subject": "foo",
   "client_id": "bar",
+  "id_token_extra": {},
   "granted_scopes": ["openid", "offline"],
   "granted_audience": []
 }
 ```
+:::note
+
+`id_token_extra` is the data that was passed to the [Accept Consent Request](https://www.ory.sh/docs/hydra/reference/api#operation/acceptConsentRequest) in the `id_token` field.
 
 To update the data, the webhook must return a `200 OK` response and the updated session data in the following format:
 
