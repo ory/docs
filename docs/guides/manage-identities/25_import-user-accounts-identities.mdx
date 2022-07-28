@@ -1,10 +1,11 @@
 ---
-id: import-identity
-title: Import identities
+id: import-user-accounts-identities
+title: Learn how to import user accounts from other systems to Ory
+sidebar_label: Import identities
 ---
 
 Ory allows you to import identities from any other system. The endpoint used is the same as when
-[creating identities](./managing-users-identities.mdx) with the subtle difference that you also provide the `credentials` field.
+[creating identities](./create-users-identities) with the subtle difference that you also provide the `credentials` field.
 
 ## Importing verified addresses
 
@@ -185,14 +186,13 @@ The identity will be able to sign in using `docs-cleartext@example.org` and `the
 
 Besides clear text passwords it is possible to import password hashes. Currently the following algorithms are supported:
 
-- PKBDF2 family (`HMAC-SHA1`, `HMAC-SHA256`, ...), e.g.:
+- PKBDF2 family (`HMAC-SHA1`, `HMAC-SHA256`), for example:
   `$pbkdf2-sha256$i=1000,l=128$e8/arsEf4cvQihdNgqj0Nw$5xQQKNTyeTHx2Ld5/JDE7A`
-- Argon2 family (`Argon2id`, `Argon2i`, `Argon2d`, ...), e.g.:
+- Argon2 family (`Argon2id`, `Argon2i`, `Argon2d`), for example:
   `$argon2id$v=19$m=16,t=2,p=1$bVI1aE1SaTV6SGQ3bzdXdw$fnjCcZYmEPOUOjYXsT92Cg`
-- BCrypt, e.g.: `$2a$10$ZsCsoVQ3xfBG/K2z2XpBf.tm90GZmtOqtqWcB5.pYd5Eq8y7RlDyq`
+- BCrypt, for example: `$2a$10$ZsCsoVQ3xfBG/K2z2XpBf.tm90GZmtOqtqWcB5.pYd5Eq8y7RlDyq`
 
-More information about the hash format can be found in the
-["Hashed Password Format" document](../../kratos/concepts/credentials/username-email-password.mdx#hashed-password-format).
+Read [this document](../../kratos/concepts/credentials/username-email-password.mdx#hashed-password-format) to learn more.
 
 ```json {6-10}
 {
@@ -212,7 +212,7 @@ More information about the hash format can be found in the
 
 ### Social sign-in connections
 
-Similar to importing passwords it is possible to import Social Sign In connections as well. If you do not have Social Sign In set
+Similar to importing passwords it is possible to import social sign-in connections as well. If you do not have Social Sign In set
 up yet please head over to the [social sign in documentation](../social-signin/overview).
 
 When importing social sign in connections, the provider refers to the `provider` ID you set in your Social Sign In configuration.
