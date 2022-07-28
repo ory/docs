@@ -641,7 +641,7 @@
     },
     {
       "source": "docs/guides/manage-identities/managing-users-identities",
-      "destination": "https://www.ory.sh/docs/guides/manage-identities/create-identities",
+      "destination": "https://www.ory.sh/docs/guides/manage-identities/create-users-identities",
       "permanent": false
     },
     {
@@ -650,8 +650,8 @@
       "permanent": false
     },
     {
-      "source": "docs/guides/manage-identities/managing-users-identities-metadata",
-      "destination": "https://www.ory.sh/docs/guides/manage-identities/identity-metadata-traits",
+      "source": "docs/guides/manage-identities/import-identity",
+      "destination": "https://www.ory.sh/docs/guides/manage-identities/import-user-accounts-identities",
       "permanent": false
     }
   ]
