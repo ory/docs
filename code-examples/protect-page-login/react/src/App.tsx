@@ -45,7 +45,7 @@ function App() {
         // Redirect to login page
         window.location.replace(`${basePath}/ui/login`)
       })
-  }, [])
+  }, [ory, basePath])
 
   if (!session) {
     // Still loading
