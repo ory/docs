@@ -40,11 +40,12 @@ function App() {
           setLogoutUrl(data.logout_url)
         })
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error(err)
         // Redirect to login page
         window.location.replace(`${basePath}/ui/login`)
       })
-  })
+  }, [])
 
   if (!session) {
     // Still loading
