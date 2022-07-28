@@ -5,21 +5,21 @@ import "./App.css"
 // highlight-start
 import { V0alpha2Api, Configuration, Session, Identity } from "@ory/client"
 
+// Get your Ory url from .env
+// Or localhost for local development
+const basePath = process.env.REACT_APP_ORY_URL || "http://localhost:4000"
+const ory = new V0alpha2Api(
+  new Configuration({
+    basePath,
+    baseOptions: {
+      withCredentials: true,
+    },
+  }),
+)
+
 function App() {
   const [session, setSession] = useState<Session | undefined>()
   const [logoutUrl, setLogoutUrl] = useState<string | undefined>()
-
-  // Get your Ory url from .env
-  // Or localhost for local development
-  const basePath = process.env.REACT_APP_ORY_URL || "http://localhost:4000"
-  const ory = new V0alpha2Api(
-    new Configuration({
-      basePath,
-      baseOptions: {
-        withCredentials: true,
-      },
-    }),
-  )
 
   // Returns either the email or the username depending on the user's Identity Schema
   const getUserName = (identity: Identity) =>
@@ -45,7 +45,7 @@ function App() {
         // Redirect to login page
         window.location.replace(`${basePath}/ui/login`)
       })
-  }, [ory, basePath])
+  }, [])
 
   if (!session) {
     // Still loading
