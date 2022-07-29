@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## hydra clients import
 
 Imports OAuth 2.0 Clients from one or more JSON files to the JSON Web Key Store
@@ -18,13 +17,15 @@ Imports OAuth 2.0 Clients from one or more JSON files to the JSON Web Key Store
 
 This command allows you to import OAuth 2.0 Clients from one or more JSON files to the JSON Web Key Store.
 
-Currently supported formats are raw JSON Web Keys or PEM/DER encoded data. If the JSON Web Key Set exists already, the imported
-keys will be added to that set. Otherwise, a new set will be created.
+Currently supported formats are raw JSON Web Keys or PEM/DER encoded data. If the JSON Web Key Set exists already,
+the imported keys will be added to that set. Otherwise, a new set will be created.
 
 Please be aware that importing a private key does not automatically import its public key as well.
 
-Examples: hydra keys import my-set ./path/to/jwk.json ./path/to/jwk-2.json hydra keys import my-set ./path/to/rsa.key
-./path/to/rsa.pub --default-key-id cae6b214-fb1e-4ebc-9019-95286a62eabc
+Examples:
+	hydra keys import my-set ./path/to/jwk.json ./path/to/jwk-2.json
+	hydra keys import my-set ./path/to/rsa.key ./path/to/rsa.pub --default-key-id cae6b214-fb1e-4ebc-9019-95286a62eabc
+
 
 ```
 hydra clients import <set> <file-1> [<file-2> [<file-3 [<...>]]] [flags]
@@ -50,4 +51,5 @@ hydra clients import <set> <file-1> [<file-2> [<file-3 [<...>]]] [flags]
 
 ### SEE ALSO
 
-- [hydra clients](hydra-clients) - Manage OAuth 2.0 Clients
+* [hydra clients](hydra-clients)	 - Manage OAuth 2.0 Clients
+
