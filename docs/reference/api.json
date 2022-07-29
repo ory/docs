@@ -124,16 +124,18 @@
         "type": "integer"
       },
       "NullPlan": {
-        "description": "\nunknown Unknown\nfree Free\nstart_up_monthly StartUpMonthly\nstart_up_yearly StartUpYearly\ncustom Custom",
+        "description": "\nunknown Unknown\nfree Free\nstart_up_monthly StartUpMonthly\nstart_up_yearly StartUpYearly\nbusiness_monthly BusinessMonthly\nbusiness_yearly BusinessYearly\ncustom Custom",
         "enum": [
           "unknown",
           "free",
           "start_up_monthly",
           "start_up_yearly",
+          "business_monthly",
+          "business_yearly",
           "custom"
         ],
         "type": "string",
-        "x-go-enum-desc": "unknown Unknown\nfree Free\nstart_up_monthly StartUpMonthly\nstart_up_yearly StartUpYearly\ncustom Custom"
+        "x-go-enum-desc": "unknown Unknown\nfree Free\nstart_up_monthly StartUpMonthly\nstart_up_yearly StartUpYearly\nbusiness_monthly BusinessMonthly\nbusiness_yearly BusinessYearly\ncustom Custom"
       },
       "NullString": {
         "nullable": true,
@@ -3155,17 +3157,19 @@
             "type": "string"
           },
           "current_plan": {
-            "description": "The currently active plan of the subscription\nunknown Unknown\nfree Free\nstart_up_monthly StartUpMonthly\nstart_up_yearly StartUpYearly\ncustom Custom",
+            "description": "The currently active plan of the subscription\nunknown Unknown\nfree Free\nstart_up_monthly StartUpMonthly\nstart_up_yearly StartUpYearly\nbusiness_monthly BusinessMonthly\nbusiness_yearly BusinessYearly\ncustom Custom",
             "enum": [
               "unknown",
               "free",
               "start_up_monthly",
               "start_up_yearly",
+              "business_monthly",
+              "business_yearly",
               "custom"
             ],
             "readOnly": true,
             "type": "string",
-            "x-go-enum-desc": "unknown Unknown\nfree Free\nstart_up_monthly StartUpMonthly\nstart_up_yearly StartUpYearly\ncustom Custom"
+            "x-go-enum-desc": "unknown Unknown\nfree Free\nstart_up_monthly StartUpMonthly\nstart_up_yearly StartUpYearly\nbusiness_monthly BusinessMonthly\nbusiness_yearly BusinessYearly\ncustom Custom"
           },
           "customer_id": {
             "description": "The ID of the stripe customer",
