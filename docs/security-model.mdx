@@ -1,6 +1,6 @@
 ---
 id: security-model
-title: Security Model
+title: Security model
 ---
 
 The security model used by Ory delivers the most secure and hassle-free solution to users by managing:
@@ -24,7 +24,7 @@ about `sessions`.
 
 :::
 
-## Access to Your Domain
+## Access to your domain
 
 To manage `sessions`, `tokens`, and `cookies`, Ory APIs must be exposed on the same domain as your application. If you don't
 fulfill this requirement, HTTP Cookies are ignored by the browser, which prevents the Ory Identity Service (Ory Kratos) from
@@ -88,21 +88,21 @@ Web Token format. Using OAuth2 and OpenID Connect is discouraged unless you have
 Web Tokens. Using Ory Oathkeeper is recommended when developing sophisticated applications with control over network traffic
 (Kubernetes, OpenShift, ...).
 
-## HTTP Cookies
+## HTTP cookies
 
-HTTP Cookies are a central part of the unique security model in Ory.
+HTTP cookies are a central part of the unique security model in Ory.
 
 Whenever the client that consumes Ory APIs is a browser, the system uses HTTP cookies to store session states and protect against
 attack vectors such as [CSRF](https://owasp.org/www-community/attacks/csrf).
 
-Ory issues HTTP Cookies with the following flags for the highest level of security:
+Ory issues HTTP cookies with the following flags for the highest level of security:
 
 - `secure`: The cookie is only sent over HTTPS connection to protect against man-in-the-middle attacks.
-- `httpOnly`: The Cookie is not available to JavaScript code to protect against
+- `httpOnly`: The cookie is not available to JavaScript code to protect against
   [XSS](https://owasp.org/www-community/attacks/xss/).
-- `sameSite=Strict`: The Cookie can only be requested from the same origin to protect against CSRF attacks.
+- `sameSite=Strict`: The cookie can only be requested from the same origin to protect against CSRF attacks.
 
-### HTTP Cookie Domains
+### HTTP cookie domains
 
 When the server sets a cookie, it defines the `domain` the cookie is valid for:
 
@@ -132,7 +132,7 @@ How does a browser decide whether to accept or reject a cookie?
   `Set-Cookie: <name>=<value>; domain=example.org:1234` will be sent to `https://example.org:443`, `http://example.org:80`, and
   `http://api.example.org:1234`.
 
-### Cross-Origin HTTP Cookies
+### Cross-Origin HTTP cookies
 
 When working with Single Page Apps (SPA), you often fetch data from servers using AJAX requests. There are two types of
 cross-origin AJAX requests:
@@ -144,7 +144,7 @@ cross-origin AJAX requests:
 
 What requirements must be met for these requests to work?
 
-### Same Top-Level Domain
+### Same top-level domain
 
 These requests are allowed only if the server at `api.example.org`:
 
@@ -175,7 +175,7 @@ fetch("https://example.org/", {
 })
 ```
 
-### Cross Top-Level Domain
+### Cross top-level domain
 
 Sending cookies across different top-level domains is a practice that gets used less frequently nowadays to improve data privacy.
 

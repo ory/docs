@@ -1,6 +1,6 @@
 ---
 id: pipeline
-title: Access Rule Pipeline
+title: Access rule pipeline
 ---
 
 Read more about the [principal components and execution pipeline of access rules](api-access-rules.md) if you haven't already.

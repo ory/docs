@@ -1,6 +1,6 @@
 ---
 id: api-design
-title: API Design
+title: API design
 ---
 
 This chapter contains generally applicable information on API design. When using Ory services, one can expect a consistent
@@ -40,11 +40,11 @@ Example:
 [...]
 ```
 
-### Total Count
+### Total count
 
 You can get the total item count from the `X-Total-Count` HTTP Header.
 
-## Date Format
+## Date format
 
 Ory's APIs use [rfc3339](https://tools.ietf.org/html/rfc3339) as the date format:
 

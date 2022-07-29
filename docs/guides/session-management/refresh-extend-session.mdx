@@ -1,6 +1,6 @@
 ---
 id: refresh-extend-sessions
-title: Refresh and Extend Sessions
+title: Refresh and extend sessions
 ---
 
 For certain usecases, sessions need to be refreshed on user activity or administrative action.
@@ -27,7 +27,7 @@ To get the Session ID, call the `/sessions/whoami` endpoint or `toSession`.
 
 :::
 
-## Extend User Session Using the Admin Endpoints
+## Extend user session using the admin endpoints
 
 ````mdx-code-block
 import Tabs from '@theme/Tabs'
@@ -86,7 +86,7 @@ $ curl -X PATCH 'https://{your-project-slug}.projects.oryapis.com/admin/sessions
 </Tabs>
 ````
 
-## Reduce Database Load
+## Reduce database load
 
 Refreshing sessions causes database writes.
 

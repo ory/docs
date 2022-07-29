@@ -1,6 +1,6 @@
 ---
 id: upgrading
-title: Software Updates
+title: Software updates
 ---
 
 > Running security-critical open source technology in a self-service format requires vigilance. We make your life easier by
@@ -10,7 +10,7 @@ title: Software Updates
 Good software improves over time. If it wouldn't, you shouldn't use it. Unfortunately, some of these improvements have breaking
 changes. We know that breaking changes are annoying so we want to make upgrading as painless as possible.
 
-We document detailed changelogs and upgrade guides for this very reason:
+We document changelogs and upgrade guides for Ory services:
 
 - Ory Kratos: [upgrade guide](https://github.com/ory/kratos/blob/master/UPGRADE.md),
   [changelog](https://github.com/ory/kratos/blob/master/CHANGELOG.md)

@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory list identities
 
 List identities
@@ -46,4 +45,5 @@ ory ls identities 100 1
 
 ### SEE ALSO
 
-- [ory list](ory-list) - List resources
+* [ory list](ory-list)	 - List resources
+

@@ -20,18 +20,18 @@ Video based on Ory Kratos 0.5.5 quickstart, so some routes may have changed.
 
 :::
 
-## Use Case: Application Login and Registration
+## Use case: application login and registration
 
 This section gives you some context on what we want to achieve and what tools we need for that. You will also learn about the
 network set up we picked for this guide.
 
-This quickstart guide operates on the assumption that we're writing a NodeJS app. This app is using nothing fancy - some ExpressJS
-and a bit of HTML Templating using Handlebars. We do want to use TypeScript, but only because it's more readable - not because
-we're doing anything out of the ordinary!
+This quickstart guide operates on the assumption that we're writing a Node.js app. This app is using nothing fancy - some
+Express.js and a bit of HTML Templating using Handlebars. We do want to use TypeScript, but only because it's more readable - not
+because we're doing anything out of the ordinary!
 
-You could pick any technology here, of course. This works with Swift, ReactJS, or Angular (client side) as well as with PHP, Ruby,
-Python, Java (server side) - you name it! We picked NodeJS + TypeScript because we believe it's the easiest to understand, and
-because JavaScript and NodeJS are universally understood and easy to install.
+You could pick any technology here, of course. This works with Swift, React.js, or Angular (client side) as well as with PHP,
+Ruby, Python, Java (server side) - you name it! We picked Node.js + TypeScript because we believe it's the easiest to understand,
+and because JavaScript and Node.js are universally understood and easy to install.
 
 We know our app will need to have some type of dashboard and that it needs users. Therefore, we need:
 
@@ -52,10 +52,10 @@ and of course:
 ## Setup
 
 As you might already know, Ory Kratos is API-only; it doesn't have a UI or HTML templating engine. We will implement all the
-user-facing UIs like "dashboard", "login", and "registration" in our NodeJS app!
+user-facing UIs like "dashboard", "login", and "registration" in our Node.js app!
 
 To ensure that no one can access the dashboard without prior authentication (login), we can use a small piece of code (here
-ExpressJS) to do that:
+Express.js) to do that:
 
 <CodeFromRemote
   lang="js"
@@ -69,7 +69,7 @@ Ory Kratos isn't just an API: it uses cookies, HTTP redirects, anti-CSRF tokens 
 
 :::
 
-The NodeJS app and Ory Kratos need to share cookies in order for anti-CSRF tokens and login sessions to work. Because the
+The Node.js app and Ory Kratos need to share cookies in order for anti-CSRF tokens and login sessions to work. Because the
 quickstart runs on different ports on `127.0.0.1` there isn't anything we need to do to get this all working. In environments
 where you have multiple sub-domains or reverse proxies, the set up will be a bit more sophisticated. You can find more information
 about the different set up possibilities in the [Getting Cookies to Work on Multi-Domains Guide](guides/multi-domain-cookies.mdx).
@@ -80,7 +80,7 @@ be announced). In this quickstart we will use Ory Kratos' CLI to interact with O
 The quickstart also comes with [MailSlurper](https://mailslurper.com), a mock SMTP server the demo uses to show how email
 verification works.
 
-### Clone Ory Kratos and Run it in Docker
+### Clone Ory Kratos and run it in Docker
 
 To get this example working, you will need Git, [Docker](https://docs.docker.com/get-docker/), and
 [Docker Compose](https://docs.docker.com/compose/install/) installed on your system. No other dependencies are required. Before
@@ -140,16 +140,16 @@ backends. For the quickstart, we're mounting a persistent volume to store the SQ
 
 Future guides will explain how to set up a production system.
 
-### Network Architecture
+### Network architecture
 
 This demo makes use of several services:
 
 1. [Ory Kratos](https://github.com/ory/kratos)
    - Public ("Browser") API (port 4433)
    - Admin API (port 4434) - This is only made public so we can test via the CLI.
-2. [NodeJS Selfservice UI](http://github.com/ory/kratos-selfservice-ui-node)
-   - Public (port 4455) - an example application written in NodeJS that implements the login, registration, logout, dashboard, and
-     other UIs.
+2. [Node.js Selfservice UI](http://github.com/ory/kratos-selfservice-ui-node)
+   - Public (port 4455) - an example application written in Node.js that implements the login, registration, logout, dashboard,
+     and other UIs.
 3. [MailSlurper](https://github.com/mailslurper)
    - Public (port 4436) - a development SMTP server which Ory Kratos will use to send emails.
 
@@ -181,7 +181,7 @@ end
 `}
 />
 
-## Perform Registration, Login, and Logout
+## Perform registration, login, and logout
 
 Enough theory, it's time to get this thing going! Let's start by trying to open the dashboard - **go to
 [127.0.0.1:4455/welcome](http://127.0.0.1:4455/welcome)**.
@@ -195,7 +195,7 @@ Under the section `Session Information` you can find the Ory Session details, as
 :::note
 
 The rendered login form should be a standard HTML `<form>`. AJAX requests require `credentials: 'include'`. This flow also works
-with Single Page Apps (SPA) and frameworks like Angular or ReactJS. For more details about the specific flows for SPAs head over
+with Single Page Apps (SPA) and frameworks like Angular or React.js. For more details about the specific flows for SPAs head over
 to the [concept](concepts/index.md) chapter.
 
 :::
@@ -475,11 +475,11 @@ Setting a password that doesn't violate these policies, we will be immediately r
 By clicking the "logout" icon in the top right, you will be redirected to the login screen again where you will be able to use
 your credentials to log back in again. Exciting!
 
-### Understanding How Login and Registration Works
+### Understand how login and registration work
 
 Head over to the [Self-Service Flows Chapter](self-service.mdx) for an in-depth explanation of how each individual flow works.
 
-### Email Verification
+### Email verification
 
 As you've signed up, an email was sent to the email address you used. Because the quickstart uses a fake SMTP server, the email
 didn't arrive in your inbox. You can retrieve the email however by opening the MailSlurper UI at
@@ -553,7 +553,7 @@ To re-request the verification email, fill out the form at [127.0.0.1:4455/verif
 To learn more about verification recovery, head over to the
 [Email and Phone Verification and Account Activation Documentation](self-service/flows/verify-email-account-activation.mdx).
 
-### Account Recovery
+### Account recovery
 
 The quickstart has account recovery enabled. To recover an account, log out and click on "Recover Account":
 
@@ -594,7 +594,7 @@ or else Kratos will use fallback URLs.
 
 This is just scratching the surface of Ory Kratos, see [Next Steps](#next-steps) for pointers how to continue.
 
-## Cleaning Up Docker
+## Cleaning up Docker
 
 To clean everything up, you need to bring down the Docker Compose environment and remove all mounted volumes.
 
@@ -603,7 +603,7 @@ docker-compose -f quickstart.yml down -v
 docker-compose -f quickstart.yml rm -fsv
 ```
 
-## Next Steps
+## Next steps
 
 Here is some information should you want to modify the quickstart:
 
@@ -643,7 +643,7 @@ To change the redirects happening after registration,login or a settings change,
 
 If you delete the `session` hook from `kratos.yml`, the user will _not_ be immediately signed in after registration.
 
-### Quickstart Configuration
+### Quickstart configuration
 
 In this tutorial we use a simplified configuration. You can find it in
 [`contrib/quickstart/kratos/email-password/kratos.yml`](https://github.com/ory/kratos/blob/master/contrib/quickstart/kratos/email-password/kratos.yml).
@@ -658,5 +658,5 @@ the tutorial can be found. The configuration gets loaded in docker-compose as sp
   src="https://github.com/ory/kratos/blob/master/contrib/quickstart/kratos/email-password/kratos.yml"
 />
 
-Have a look at the [reference configuration](./reference/configuration.md) for further information on possible configuration
+Have a look at the [reference configuration](./reference/configuration.mdx) for further information on possible configuration
 options.

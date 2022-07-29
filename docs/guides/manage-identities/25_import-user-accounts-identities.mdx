@@ -1,12 +1,13 @@
 ---
-id: import-identity
-title: Import Identities
+id: import-user-accounts-identities
+title: Learn how to import user accounts from other systems to Ory
+sidebar_label: Import identities
 ---
 
 Ory allows you to import identities from any other system. The endpoint used is the same as when
-[creating identities](./managing-users-identities.mdx) with the subtle difference that you also provide the `credentials` field.
+[creating identities](./create-users-identities) with the subtle difference that you also provide the `credentials` field.
 
-## Importing Verified Addresses
+## Importing verified addresses
 
 Use the `verifiable_addresses` field to import a verified address like an email address.
 
@@ -69,7 +70,7 @@ curl --request POST -sL \
       "status": "completed"
     }
   ]
-}' https://playground.projects.oryapis.com/api/kratos/admin/identities
+}' https://playground.projects.oryapis.com/admin/identities
 ```
 
   </TabItem>
@@ -138,7 +139,7 @@ The API then responds with the created identity:
 }
 ```
 
-## Importing Recovery Addresses
+## Importing recovery addresses
 
 It is possible to import a list of `recovery_addresses` - similar to `verifiable_addresses`. It is better to let the identity
 schema handle setting the appropriate fields since there is no status to set for this address type.
@@ -146,12 +147,12 @@ schema handle setting the appropriate fields since there is no status to set for
 We do not recommend setting these fields as they will be overwritten anyways! For more information on account recovery please head
 over to the [account recovery documentation](../../kratos/guides/account-recovery-password-reset.mdx).
 
-## Importing Credentials
+## Importing credentials
 
 Ory supports importing credentials for identities including passwords and social sign in. You can use all of these payloads with
 the `curl` command from above!
 
-### Clear Text Password
+### Clear text password
 
 To import a clear text password, provide the password in the JSON payload.
 
@@ -181,18 +182,17 @@ self-service flows.
 The password `the-password` will then be hashed according to the configured password hashing algorithm and stored in the database.
 The identity will be able to sign in using `docs-cleartext@example.org` and `the-password` as credentials.
 
-### BCrypt, PKBDF2, Argon2 Family Hashed Password
+### BCrypt, PKBDF2, Argon2 family hashed password
 
 Besides clear text passwords it is possible to import password hashes. Currently the following algorithms are supported:
 
-- PKBDF2 family (`HMAC-SHA1`, `HMAC-SHA256`, ...), e.g.:
+- PKBDF2 family (`HMAC-SHA1`, `HMAC-SHA256`), for example:
   `$pbkdf2-sha256$i=1000,l=128$e8/arsEf4cvQihdNgqj0Nw$5xQQKNTyeTHx2Ld5/JDE7A`
-- Argon2 family (`Argon2id`, `Argon2i`, `Argon2d`, ...), e.g.:
+- Argon2 family (`Argon2id`, `Argon2i`, `Argon2d`), for example:
   `$argon2id$v=19$m=16,t=2,p=1$bVI1aE1SaTV6SGQ3bzdXdw$fnjCcZYmEPOUOjYXsT92Cg`
-- BCrypt, e.g.: `$2a$10$ZsCsoVQ3xfBG/K2z2XpBf.tm90GZmtOqtqWcB5.pYd5Eq8y7RlDyq`
+- BCrypt, for example: `$2a$10$ZsCsoVQ3xfBG/K2z2XpBf.tm90GZmtOqtqWcB5.pYd5Eq8y7RlDyq`
 
-More information about the hash format can be found in the
-["Hashed Password Format" document](../../kratos/concepts/credentials/username-email-password.mdx#hashed-password-format).
+Read [this document](../../kratos/concepts/credentials/username-email-password.mdx#hashed-password-format) to learn more.
 
 ```json {6-10}
 {
@@ -210,9 +210,9 @@ More information about the hash format can be found in the
 }
 ```
 
-### Social Sign In Connections
+### Social sign-in connections
 
-Similar to importing passwords it is possible to import Social Sign In connections as well. If you do not have Social Sign In set
+Similar to importing passwords it is possible to import social sign-in connections as well. If you do not have Social Sign In set
 up yet please head over to the [social sign in documentation](../social-signin/overview).
 
 When importing social sign in connections, the provider refers to the `provider` ID you set in your Social Sign In configuration.

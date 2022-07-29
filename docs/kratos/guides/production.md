@@ -1,6 +1,6 @@
 ---
 id: production
-title: Going to Production
+title: Going to production
 ---
 
 :::warning
@@ -17,7 +17,7 @@ Ory Kratos requires a production-grade database such as PostgreSQL, MySQL, Cockr
 
 When preparing for production it's paramount to omit the `--dev` flag from `kratos serve`.
 
-### HTTP Clients
+### HTTP clients
 
 In some scenarios you might want to disallow HTTP calls to private IP ranges. To configure this feature, set the following
 configuration:

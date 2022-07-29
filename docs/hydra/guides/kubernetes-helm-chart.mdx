@@ -8,7 +8,7 @@ The Ory Hydra Helm Chart helps you deploy Ory Hydra on Kubernetes using Helm. Th
 
 ## Installation
 
-To install Ory Hydra, the following [configuration values](../reference/configuration.md) must be set:
+To install Ory Hydra, the following [configuration values](../reference/configuration.mdx) must be set:
 
 - `hydra.config.dsn`
 - `hydra.config.urls.self.issuer`
@@ -58,7 +58,7 @@ helm install \
     ory/hydra
 ```
 
-### With SQL Database
+### With SQL database
 
 To run Ory Hydra against a SQL database, set the connection string. For example:
 
@@ -95,7 +95,7 @@ helm install \
 
 ## Configuration
 
-You can pass your [Ory Hydra configuration file](../reference/configuration.md) by creating a yaml file with key `hydra.config`
+You can pass your [Ory Hydra configuration file](../reference/configuration.mdx) by creating a yaml file with key `hydra.config`
 
 ```yaml
 # hydra-config.yaml
@@ -122,7 +122,7 @@ Additionally, the following extra settings are available:
 
 ## Examples
 
-### Exemplary Login and Consent App
+### Exemplary login and consent app
 
 This tutorial assumes that you're running Minikube locally. If you're not running Kubernetes locally, please adjust the hostnames
 accordingly.

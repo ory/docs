@@ -1,6 +1,6 @@
 ---
 id: dependencies-environment
-title: Database Setup and Configuration
+title: Database setup and configuration
 ---
 
 Ory Hydra is built cloud native and implements [12factor](https://www.12factor.net/) principles. The Docker Image is 5 MB light
@@ -17,7 +17,7 @@ Ory Hydra has two operational modes:
 
 No further dependencies are required for a production-ready instance.
 
-## Database Configuration
+## Database configuration
 
 For more information on configuring
 

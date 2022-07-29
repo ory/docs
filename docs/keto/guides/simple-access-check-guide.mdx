@@ -1,5 +1,5 @@
 ---
-title: Check whether a User has Access to Something
+title: Check whether a user has access to something
 ---
 
 import Mermaid from "@site/src/theme/Mermaid"
@@ -9,7 +9,7 @@ This guide will explain how you can use Ory Keto's [check-API](../concepts/api-o
 whether a [subject](../concepts/subjects.mdx) has a specific [relation](../concepts/relation-tuples.mdx) on an
 [object](../concepts/objects.mdx). The result can be used for controlling access to specific resources.
 
-## Synchronous Authorization Flow
+## Synchronous authorization flow
 
 We recommend offloading the whole burden of access control to Ory Keto. Typically, this means that the application forwards every
 incoming request as a check request to Ory Keto. The following chart demonstrates how such a flow can look like:
@@ -57,7 +57,7 @@ that the known cypher messages are stored in Ory Keto and access to the cleartex
 
 :::
 
-### Directly Defined Access
+### Directly defined access
 
 Ory Keto can know the exact relation tuple that the application is checking. Intuitively, this means that `john` was allowed to
 `decypher` the message `02y_15_4w350m3` directly (imagine a "Share with `john`" input in a UI).
@@ -70,7 +70,7 @@ Now, we can use the check-API to verify that `john` is allowed to `decypher` the
 
 <CodeTabs sampleId="simple-access-check-guide/01-check-direct-access" version="v0.7.0-alpha.1" />
 
-### Indirectly Defined Access
+### Indirectly defined access
 
 On the other hand, it's possible to indirectly grant `john` access to the resource. This could be done by adding a group, lets
 call it `hackers`. Now we can grant access to the resource to everyone in that group by adding the following relation tuple to Ory
@@ -97,7 +97,7 @@ and determine that `john` is a subject in the resulting set. Therefore, it appro
 There is no limit on the number of indirections through subject sets. It's however important to follow our
 [best practices](./access-control-list-design-best-practices.mdx) to ensure a good [performance](../performance.mdx).
 
-## Caching Keto's responses
+## Caching Keto responses
 
 We don't recommend that you cache the responses from Ory Keto. It's designed to respond quickly and still provide
 [some consistency guarantees](../concepts/snaptokens-evaluation-consistency.mdx). For the revocation of access it's important to

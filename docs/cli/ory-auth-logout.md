@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory auth logout
 
 Signs you out of your account on this computer.
@@ -34,4 +33,5 @@ ory auth logout [flags]
 
 ### SEE ALSO
 
-- [ory auth](ory-auth) - Create an or sign into your Ory Cloud account
+* [ory auth](ory-auth)	 - Create an or sign into your Ory Cloud account
+

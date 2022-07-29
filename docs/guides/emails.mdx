@@ -1,17 +1,18 @@
 ---
 id: emails
-title: Sending Emails
+title: Sending emails
 ---
 
-Per default, Ory Cloud has the SMTP email sending configured. Ory Cloud sends Emails from the following address:
+Ory Cloud comes with SMTP email sending configured out of the box. Ory emails are sent from this address:
 
 ```
 {project.name} via Ory <no-reply@courier-eu.mg.oryapis.com>
 ```
 
-## Send Emails using your SMTP Server
+## Send emails using your SMTP server
 
-To supply your own SMTP server, supply the SMTP configuration key when importing your Ory Kratos to Ory Cloud configuration:
+To use your own SMTP server for sending emails, adjust the SMTP configuration key directly in the Ory Identity Service (Kratos)
+config:
 
 ```yaml
 courier:
@@ -21,10 +22,7 @@ courier:
     from_name: "My Company"
 ```
 
-Please be aware that it's not possible to customize the `from_address` and `from_name` fields without also setting your own E-Mail
-sending server (`connection_uri`).
-
-To configure these values with the Ory CLI use:
+Alternatively, you can configure these values using the Ory CLI:
 
 ```shell
 ory patch project {your-project-id} \
@@ -33,7 +31,14 @@ ory patch project {your-project-id} \
   --replace '/services/identity/config/courier/smtp/from_name="My Company"'
 ```
 
-### SMTP Connection URI
+:::note
+
+You can't customize the `from_address` and `from_name` fields without also setting your own email sending server
+(`connection_uri`).
+
+:::
+
+### SMTP connection URI
 
 SMTP has six different security mechanisms. Most SMTP services today use Explicit StartTLS with trusted certificates.
 
@@ -41,23 +46,23 @@ SMTP has six different security mechanisms. Most SMTP services today use Explici
    ```
    smtp://username:password@server:port/
    ```
-1. StartTLS without certificate trust verification:
+2. StartTLS without certificate trust verification:
    ```
    smtp://username:password@server:port/?skip_ssl_verify=true
    ```
-1. Cleartext SMTP uses no encryption and is not secure. This option is often used in development environments:
+3. Cleartext SMTP uses no encryption and is not secure. This option is often used in development environments:
    ```
    smtp://username:password@server:port/?disable_starttls=true
    ```
-1. Implicit TLS with certificate trust verification:
+4. Implicit TLS with certificate trust verification:
    ```
    smtps://username:password@server:port/
    ```
-1. Implicit TLS without certificate trust verification:
+5. Implicit TLS without certificate trust verification:
    ```
    smtps://username:password@server:port/?skip_ssl_verify=true
    ```
-1. Implicit TLS with certificate verification which works if the server is hosted on a sudomain and uses a non-wildcard domain
+6. Implicit TLS with certificate verification which works if the server is hosted on a subdomain and uses a non-wildcard domain
    certificate:
    ```
    smtps://username:password@subdomain.my-mailserver.com:1234/?server_name=my-mailserver.com

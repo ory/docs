@@ -22,6 +22,24 @@ Source community as well as Ory Cloud users.
 Issues on GitHub aren't hard and fixed commitments. GitHub Issues, Milestones, and Discussions are general guidelines and efforts
 to make development at Ory as transparent as possible to facilitate collaboration, trust, and visibility.
 
+Visit [this page](./changelog.md) to see the changelogs for all Ory projects.
+
+Ory Kratos: [Milestones](https://github.com/Ory/kratos/milestones) /
+[Open issues](https://github.com/ory/kratos/issues?q=is:issue+is:openn) /
+[Issues sorted by popularity](https://github.com/ory/kratos/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions)
+
+Ory Hydra: [Milestones](https://github.com/Ory/hydra/milestones) /
+[Open issues](https://github.com/ory/hydra/issues?q=is:issue+is:open) /
+[Issues sorted by popularity](https://github.com/ory/hydra/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions)
+
+Ory Keto: [Milestones](https://github.com/ory/keto/milestones) /
+[Open issues](https://github.com/ory/keto/issues?q=is:issue+is:open) /
+[Issues sorted by popularity](https://github.com/ory/keto/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions)
+
+Ory Oathkeeper: [Milestones](https://github.com/ory/oathkeeper/milestones) /
+[Open issues](https://github.com/ory/oathkeeper/issues?q=is:issue+is:open) /
+[Issues sorted by popularity](https://github.com/ory/oathkeeper/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions)
+
 ## Feedback
 
 If you are a user of our Open Source offering and you have feedback, please do so in [GitHub Discussions](#discussions) or
@@ -69,33 +87,6 @@ maintainers and technical staff - increasing velocity in development, community,
 
 All collected money goes directly into open source development.
 
-### Changelogs
-
-- [Ory Kratos Changelog](https://github.com/ory/kratos/blob/master/CHANGELOG.md) /
-  [Releases](https://github.com/ory/kratos/releases)
-- [Ory Hydra Changelog](https://github.com/ory/hydra/blob/master/CHANGELOG.md) / [Releases](https://github.com/ory/hydra/releases)
-- [Ory Keto Changelog](https://github.com/ory/keto/blob/master/CHANGELOG.md) / [Releases](https://github.com/ory/keto/releases)
-- [Ory Oathkeeper Changelog](https://github.com/ory/oathkeeper/blob/master/CHANGELOG.md) /
-  [Releases](https://github.com/ory/oathkeeper/releases)
-
-### Milestones, Issues, Pull Requests
-
-Ory Kratos: [Milestones](https://github.com/Ory/kratos/milestones) /
-[Open Issues & Pull Requests](https://github.com/ory/kratos/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc) /
-[Issues sorted by popularity](https://github.com/ory/kratos/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc)
-
-Ory Hydra: [Milestones](https://github.com/Ory/hydra/milestones) /
-[Open Issues & Pull Requests](https://github.com/ory/hydra/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc) /
-[Issues sorted by popularity](https://github.com/ory/hydra/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc)
-
-Ory Keto: [Milestones](https://github.com/ory/keto/milestones) /
-[Open Issues & Pull Requests](https://github.com/ory/keto/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc) /
-[Issues sorted by popularity](https://github.com/ory/keto/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc)
-
-Ory Oathkeeper: [Milestones](https://github.com/ory/oathkeeper/milestones) /
-[Open Issues & Pull Requests](https://github.com/ory/oathkeeper/issues?q=is%3Aopen+sort%3Aupdated-desc+sort%3Areactions-%2B1-desc)
-/ [Issues sorted by popularity](https://github.com/ory/oathkeeper/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc)
-
 ### Discussions
 
 [Ory Kratos Discussions](https://github.com/ory/kratos/discussions)
@@ -108,6 +99,6 @@ Ory Oathkeeper: [Milestones](https://github.com/ory/oathkeeper/milestones) /
 
 For all other Ory projects (such as [Ory Dockertest](https://github.com/ory/dockertest/),
 [Ory Fosite](https://github.com/ory/fosite/), [Ory Herodot](https://github.com/ory/herodot/), etc.), please open a discussion in
-`ory/meta`:
+the [Ory Org discussion board](https://github.com/orgs/ory/discussions).
 
-[Ory Meta Discussions](https://github.com/ory/meta/discussions)
+[Ory Org Discussions](https://github.com/orgs/ory/discussions)

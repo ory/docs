@@ -1,6 +1,6 @@
 ---
 id: json-schema-json-paths
-title: JSON Schema and JSON Paths
+title: JSON schema and JSON paths
 ---
 
 [JSON Schema](https://json-schema.org) is a vocabulary that allows you to annotate and validate JSON documents. It's a IETF

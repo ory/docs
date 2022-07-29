@@ -1,6 +1,6 @@
 ---
 id: go
-title: Integrate Authentication into Go
+title: Integrate authentication into Go
 sidebar_label: Go
 ---
 
@@ -16,7 +16,7 @@ import webm from '../_static/go/screencast.webm'
 />
 ```
 
-## Create Go App
+## Create Go app
 
 First, create a Go app. Run these commands:
 
@@ -48,7 +48,7 @@ import OryCLI from '../_common/ory-cli.mdx'
 <OryCLI />
 ```
 
-## Create HTTP Server
+## Create HTTP server
 
 Use this code to set up a basic server that creates an Ory client, registers a new route for the Go app and uses middleware to
 validate if the user is allowed to access the application.
@@ -62,7 +62,7 @@ import CodeBlock from '@theme/CodeBlock'
 <CodeBlock language="go">{mainGo}</CodeBlock>
 ```
 
-## Validate and Login
+## Validate and login
 
 Next, create middleware that checks if the user has a valid session. The session is considered valid when the user is
 authenticated.
@@ -137,7 +137,7 @@ ory proxy http://localhost:3000
    <br /> <br /> From there, you can create a new account or sign in using an existing identity. When you sign in, the session
    becomes valid and the application shows the `Dashboard` page with the session data.
 
-## Go to Production
+## Go to production
 
 ```mdx-code-block
 import ToProd from '../_common/going-to-prod.mdx'

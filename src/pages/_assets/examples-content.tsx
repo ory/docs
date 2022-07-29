@@ -2,68 +2,76 @@ import { PropTypes } from "../../components/Examples/example-list"
 
 export const official: PropTypes = {
   id: "official",
-  title: "Official Examples",
+  title: "Official examples",
   description:
     "Guides, tutorials, and configurations for using Ory services. Examples maintained and tested by the Ory team.",
   examples: [
     {
-      title: "Protect a Page with Login: Next.js/React",
+      title: "Protect a page with login: Next.js/React",
       language: "nextjs",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/nextjs",
-      docs: "https://www.ory.sh/docs/guides/protect-page-login/next.js",
+      docs: "hhttps://www.ory.sh/docs/getting-started/integrate-auth/nextjs",
     },
     {
-      title: "Protect a Page with Login: React",
+      title: "Protect a page with login: React",
       language: "react",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/react",
-      docs: "https://www.ory.sh/docs/guides/protect-page-login/react",
+      docs: "https://www.ory.sh/docs/getting-started/integrate-auth/react",
     },
     {
-      title: "Protect a Page with Login: Express.js",
+      title: "Protect a Page with Login: React Native",
+      language: "react",
+      author: "ory",
+      tested: true,
+      repo: "https://github.com/ory/kratos-selfservice-ui-react-native",
+      docs: "https://www.ory.sh/docs/getting-started/integrate-auth/react-native",
+    },
+    {
+      title: "Protect a page with login: Express.js",
       language: "typescript",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/expressjs",
-      docs: "https://www.ory.sh/docs/guides/protect-page-login/expressjs",
+      docs: "https://www.ory.sh/docs/getting-started/integrate-auth/expressjs",
     },
     {
-      title: "Protect a Page with Login: Go",
+      title: "Protect a page with login: Go",
       language: "go",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/go",
-      docs: "https://www.ory.sh/docs/guides/protect-page-login/go",
+      docs: "https://www.ory.sh/docs/getting-started/integrate-auth/go",
     },
     {
-      title: "Protect a Page with Login: PHP",
+      title: "Protect a page with login: PHP",
       language: "php",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/php",
-      docs: "https://www.ory.sh/docs/guides/protect-page-login/php",
+      docs: "https://www.ory.sh/docs/getting-started/integrate-auth/php",
     },
     {
-      title: "Protect a Page with Login: Vue.js",
+      title: "Protect a page with login: Vue.js",
       language: "vue",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/vue",
-      docs: "https://www.ory.sh/docs/guides/protect-page-login/vue",
+      docs: "https://www.ory.sh/docs/getting-started/integrate-auth/vue",
     },
     {
-      title: "Protect a Page with Login: Flutter",
+      title: "Protect a page with login: Flutter",
       language: "flutter",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/flutter_web_redirect",
-      docs: "https://www.ory.sh/docs/guides/protect-page-login/-web-redirect",
+      docs: "https://www.ory.sh/docs/getting-started/integrate-auth/flutter-web-redirect",
     },
     {
-      title: "Protect a Page with Login: Django",
+      title: "Protect a page with login: Django",
       language: "django",
       author: "ory",
       tested: true,
@@ -71,7 +79,7 @@ export const official: PropTypes = {
       docs: "https://hauke.me/writing/2021-03-building-a-quarkus-application-with-ory-kratos/",
     },
     {
-      title: "Protect a Page with Login: Flask",
+      title: "Protect a page with login: Flask",
       language: "python",
       author: "ory",
       tested: true,
@@ -79,7 +87,7 @@ export const official: PropTypes = {
       docs: "https://www.ory.sh/securing-flask-application-using-kratos-and-keto/",
     },
     {
-      title: "Customize Self-service UI: Node.js",
+      title: "Customize self-service UI: Node.js",
       language: "nodejs",
       author: "ory",
       tested: true,
@@ -87,7 +95,7 @@ export const official: PropTypes = {
       docs: "https://github.com/ory/kratos-selfservice-ui-node/blob/master/README.md",
     },
     {
-      title: "Customize Self-service UI: Next.js/React",
+      title: "Customize self-service UI: Next.js/React",
       language: "nextjs",
       author: "ory",
       tested: true,
@@ -95,7 +103,7 @@ export const official: PropTypes = {
       docs: "https://www.ory.sh/nextjs-authentication-spa-custom-flows-open-source/",
     },
     {
-      title: "Customize Self-service UI: React Native",
+      title: "Customize self-service UI: React Native",
       language: "react",
       author: "ory",
       tested: false,
@@ -120,7 +128,7 @@ export const community: PropTypes = {
     "Guides, tutorials, and configurations for using Ory services contributed by the Ory community.",
   examples: [
     {
-      title: "Customize Self-service UI: Flutter",
+      title: "Customize self-service UI: Flutter",
       language: "flutter",
       author: "amorevino",
       tested: false,
@@ -128,7 +136,7 @@ export const community: PropTypes = {
       docs: "https://www.ory.sh/cloud-ecommerce-frontend/",
     },
     {
-      title: "Customize Self-service UI: Flutter Web",
+      title: "Customize self-service UI: Flutter Web",
       language: "flutter",
       author: "IGLU-Agency",
       tested: false,
@@ -136,7 +144,7 @@ export const community: PropTypes = {
       docs: "https://www.ory.sh/login-flutter-authentication-example-api-open-source/",
     },
     {
-      title: "Protect a Page with Login: Kotlin",
+      title: "Protect a page with login: Kotlin",
       language: "quarkus",
       author: "hbrammer",
       tested: false,
@@ -144,7 +152,7 @@ export const community: PropTypes = {
       docs: "https://hauke.me/writing/2021-03-building-a-quarkus-application-with-ory-kratos/",
     },
     {
-      title: "Customize Self-service UI: Vue.js",
+      title: "Customize self-service UI: Vue.js",
       language: "vue",
       author: "timalanfarrow",
       tested: false,
@@ -152,7 +160,7 @@ export const community: PropTypes = {
       docs: "https://github.com/timalanfarrow/kratos-selfservice-ui-vue3-typescript/blob/main/README.md",
     },
     {
-      title: "Customize Self-service UI: NextJs",
+      title: "Customize self-service UI: NextJs",
       language: "nextjs",
       author: "spa5k",
       tested: false,
@@ -160,7 +168,7 @@ export const community: PropTypes = {
       docs: "https://github.com/spa5k/kratos-next/blob/main/README.md",
     },
     {
-      title: "Customize Self-service UI: Erlang",
+      title: "Customize self-service UI: Erlang",
       language: "erlang",
       author: "hrefhref",
       tested: false,
@@ -168,7 +176,7 @@ export const community: PropTypes = {
       docs: "https://github.com/hrefhref/styx/blob/main/README.md",
     },
     {
-      title: "Customize Self-service UI: Rescript",
+      title: "Customize self-service UI: Rescript",
       language: "rescript",
       author: "allancalix",
       tested: false,
@@ -176,7 +184,7 @@ export const community: PropTypes = {
       docs: "https://github.com/allancalix/kratos-ui/blob/main/README.md",
     },
     {
-      title: "Customize Self-service UI: Svelte",
+      title: "Customize self-service UI: Svelte",
       language: "svelte",
       author: "micleyman",
       tested: true,
@@ -184,7 +192,7 @@ export const community: PropTypes = {
       docs: "https://github.com/micleyman/sveltekit-ory-starter/blob/main/README.md",
     },
     {
-      title: "Customize Self-service UI: Svelte",
+      title: "Customize self-service UI: Svelte",
       language: "svelte",
       author: "drejohnson",
       tested: false,
@@ -192,7 +200,7 @@ export const community: PropTypes = {
       docs: "https://github.com/drejohnson/sveltekit-kratos/blob/main/README.md",
     },
     {
-      title: "Customize Self-service UI: Svelte",
+      title: "Customize self-service UI: Svelte",
       language: "svelte",
       author: "emrahcom",
       tested: false,
@@ -204,7 +212,7 @@ export const community: PropTypes = {
 
 export const selfhosted: PropTypes = {
   id: "selfhosted",
-  title: "Selfhosted Examples",
+  title: "Selfhosted examples",
   description:
     "Guides, tutorials, and configurations for self-hosting Ory services. These examples are partly contributed by the Ory community, in parts by the Ory team.",
   examples: [
@@ -217,7 +225,7 @@ export const selfhosted: PropTypes = {
       docs: "https://www.ory.sh/zero-trust-api-security-ory-tutorial/",
     },
     {
-      title: "Ory Oathkeeper Configurations",
+      title: "Ory Oathkeeper configurations",
       language: "ory",
       author: "ory",
       tested: false,
@@ -225,7 +233,7 @@ export const selfhosted: PropTypes = {
       docs: "https://github.com/ory/examples/blob/master/oathkeeper/README.md",
     },
     {
-      title: "Ory Hydra Nginx Configurations",
+      title: "Ory Hydra Nginx configurations",
       language: "ory",
       author: "ory",
       tested: false,
@@ -233,7 +241,7 @@ export const selfhosted: PropTypes = {
       docs: "https://github.com/ory/examples/blob/master/hydra-nginx/README.md",
     },
     {
-      title: "Ory Kratos Nginx Configurations",
+      title: "Ory Kratos Nginx configurations",
       language: "ory",
       author: "ory",
       tested: false,
@@ -265,7 +273,7 @@ export const selfhosted: PropTypes = {
       docs: "https://github.com/radekg/ory-reference-compose/blob/master/README.md",
     },
     {
-      title: "Ory Kratos with Supabase Backend",
+      title: "Ory Kratos with Supabase backend",
       language: "go",
       author: "ory",
       tested: false,
@@ -273,7 +281,7 @@ export const selfhosted: PropTypes = {
       docs: "https://www.ory.sh/tutorial-url-shortener-supabase-ory-integration-backend/",
     },
     {
-      title: "Ory Hydra / Kratos Integration in Go",
+      title: "Ory Hydra / Kratos integration in Go",
       language: "ory",
       // framework: 'Ory',
       author: "atreya2011",

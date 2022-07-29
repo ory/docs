@@ -1,6 +1,6 @@
 ---
 id: software-architecture-philosophy
-title: Software Architecture and Philosophy
+title: Software architecture and philosophy
 ---
 
 Ory's architecture is designed along several guiding principles:
@@ -14,11 +14,11 @@ Our architecture leans on [12factor.net principles](https://www.12factor.net) an
 Orchestration Systems such as Kubernetes, CloudFoundry, OpenShift, and similar projects. While it's possible to run the Ory stack
 on a RaspberryPI, the integration with the Docker and Container ecosystem is best documented and supported.
 
-## Architecture Philosophy
+## Architecture philosophy
 
 Our philosophy and assumption of how modern software works is summarized here.
 
-### The Best System Dependency is no Dependency
+### The best system dependency is no dependency
 
 The Ory stack doesn't rely on (operating) system-wide dependencies such as Java, Apache, or other libraries. The only system-wide
 dependency you may encounter is libc / libmusl, required for standard C and POSIX functions when using SQLite.
@@ -28,7 +28,7 @@ MB small and so are the Docker Images we distribute.
 
 Ory exposes HTTP(s) ports and configuration of these ports. It doesn't need a webserver such as NGINX or Apache HTTP Server.
 
-### The Platform is Responsible for Horizontal Scaling
+### The platform is responsible for horizontal scaling
 
 The Ory stack scales without the need for any additional external service dependencies (such as etcd, Memcached) except for a
 RDBMS (such as PostgreSQL, MySQL). Scaling horizontally is as easy as starting another process.
@@ -37,7 +37,7 @@ The Ory Ecosystem assumes that the platform it's running on (such as Kubernetes,
 capable of Load Balancing and doesn't concern itself with things like Leader Election protocols or other communicating between
 process instances of the same project.
 
-### Configuration from Environment Variables and Configuration Files
+### Configuration from environment variables and configuration files
 
 The Ory stack uses environment variables (often shortened to env vars or env) and files as a configuration source. All settings
 from a configuration file can also be set using environment variables and vice versa.
@@ -50,7 +50,7 @@ Our projects support hot-reloading of configuration files (support for hot reloa
 Configuration settings are validated using JSON Schema and we try to make it as difficult as possible to misconfigure our
 software.
 
-### The Process is Stateless and Disposable
+### The process is stateless and disposable
 
 Ory processes are stateless and share-nothing. Any data that needs to persist must be stored in a stateful backing service,
 typically a RDBMS (SQL) database.
@@ -64,7 +64,7 @@ on the service port (thereby refusing any new requests), allowing any current re
 this model is that HTTP requests are short (no more than a several seconds), or in the case of long polling, the client should
 seamlessly attempt to reconnect when the connection is lost.
 
-#### Logs are `stdout` / `stderr` Streams
+#### Logs are `stdout` / `stderr` streams
 
 The Ory stack never concerns itself with routing or storage of its output stream. It doesn't attempt to write to or manage
 logfiles. Instead, each running process writes its event stream, unbuffered, to stdout and stderr. During local development, the
@@ -80,7 +80,7 @@ One-off admin processes should be run in an identical environment as the regular
 against a release, using the same codebase and config as any process run against that release. Admin code must ship with
 application code to avoid synchronization issues.
 
-### External Services (PostgreSQL, MySQL, ...) are Attached Resources
+### External services (PostgreSQL, MySQL, ...) are attached resources
 
 A backing service is any service the app consumes over the network as part of its normal operation. Examples include datastores
 (such as MySQL or CouchDB), messaging/queueing systems (such as RabbitMQ or Beanstalkd), SMTP services for outbound email (such as
@@ -92,7 +92,7 @@ database with one managed by a third party (such as Amazon RDS) without any chan
 server could be swapped with a third-party SMTP service (such as Postmark) without code changes. In both cases, only the resource
 handle in the config needs to change.
 
-### Concurrency as mandated by the UNIX Process Model
+### Concurrency as mandated by the UNIX process model
 
 In the Ory Ecosystem, processes are a first class citizen. Processes take strong cues from the unix process model for running
 service daemons. Using this model, the developer can architect their app to handle diverse workloads by assigning each type of

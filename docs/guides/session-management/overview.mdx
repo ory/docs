@@ -94,7 +94,7 @@ This is an sample Ory Session:
 | `expires_at`       | Defines the time when the Session expires. This value depends on the session lifespan configuration.                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `authenticated_at` | Indicates the time of the most recent successful authentication. This value is updated when: <ul><li>The end-user authenticates with a second factor such as TOTP</li><li>The end-user refreshes their session using the [`/self-service/login/browser`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowForBrowsers) endpoint or [`/self-service/login/api`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowWithoutBrowser) endpoint and setting `refresh` to `true`</li></ul> |
 
-## Session Cookie
+## Session cookie
 
 The Session Cookie is issued when the user signs in through a web browser. To get the session payload, send a request to the
 `/sessions/whoami` endpoint:
@@ -108,7 +108,7 @@ import CodeBlock from '@theme/CodeBlock'
   -H 'Cookie: ory_kratos_session=MTYzNDIyNzEzN3xEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJRTFDYWtvME5VNVlaVWxvYVZWeWJrUnZhSEF4YmxSV2VVRlhNMWwxVlVGenxXpsk2cL21Dclk3nCoXV41N6bFxvVJSt7CeICy_815Aw=='`}</CodeBlock>
 ```
 
-## Session Token
+## Session token
 
 A Session Token is issued when the user authenticates through a client other than a web browser. To get the session payload, send
 a request to the `/sessions/whoami` endpoint.
@@ -194,7 +194,7 @@ Watch this video to see the flow in action:
   Sorry, your browser doesn't support embedded videos.
 </video>
 
-## Refreshing Sessions
+## Refreshing sessions
 
 You can prompt the user to re-authenticate by interacting with the
 [`/self-service/login/browser`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowForBrowsers) or
@@ -212,7 +212,7 @@ If enabled, you can also refresh the second factor by setting both `refresh` and
 <CodeBlock language="shell">{`${getSdkUrl().url}/self-service/login/browser?refresh=true&aal=aal2`}</CodeBlock>
 ```
 
-## JSON Web Token (JWT) Support
+## JSON Web Token (JWT) support
 
 :::warning
 

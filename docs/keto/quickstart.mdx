@@ -16,9 +16,9 @@ client.
 
 :::
 
-## Starting the Example
+## Starting the example
 
-First, [install Keto](./install.md).
+First, [install Keto](./install.mdx).
 
 Now you can start the example using either `docker-compose` or a bash script. The bash script requires you to have the `keto`
 binary in your `$PATH`.
@@ -45,14 +45,14 @@ docker-compose -f contrib/cat-videos-example/docker-compose.yml up
 # videos          /cats           view            videos:/cats#owner
 ```
 
-## State of the System
+## State of the system
 
 At the current state only one user with the username `cat lady` has added videos. Both videos are in the `/cats` directory owned
 by `cat lady`. The file `/cats/1.mp4` can be viewed by anyone (`*`), while `/cats/2.mp4` has no extra sharing options, and can
 therefore only be viewed by its owner, `cat lady`. The relation tuple definitions are located in the
 `contrib/cat-videos-example/relation-tuples` directory.
 
-## Simulating the Video Sharing Application
+## Simulating the video sharing application
 
 Now you can open a second terminal to run the queries against, just like the video service client would do. In this example we
 will use the Keto CLI client.
@@ -70,7 +70,7 @@ necessary if using Docker):
 export KETO_READ_REMOTE="127.0.0.1:4466"
 ```
 
-### Check Incoming Requests
+### Check incoming requests
 
 First off, we get a request by an anonymous user that would like to view `/cats/2.mp4`. The client now has to ask Keto if that
 operation should be allowed or denied.

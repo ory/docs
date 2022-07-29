@@ -1,6 +1,6 @@
 ---
 id: user-logout
-title: User Logout
+title: User logout
 ---
 
 Ory Kratos supports two logout flows:
@@ -13,7 +13,7 @@ Ory Kratos supports two logout flows:
 import { apiFlow, browserFlow } from "./code/logout"
 import CodeTabs from "@site/src/theme/Code/CodeTabs"
 
-## Self-Service Logout for Server-Side Browser Applications
+## Self-service logout for server-side browser applications
 
 To ensure that a logout was indeed intended by the user, Ory Kratos first generates a Logout URL for a given Ory Session Cookie.
 You can then open the Logout URL in the Browser.
@@ -38,9 +38,9 @@ selfservice:
 
 If an error occurs, the browser is redirected to the [Error UI](./user-facing-errors.md).
 
-## Self-Service Logout for Client-Side Browser Applications
+## Self-service logout for client-side browser applications
 
-Similar to Server-Side Browser Applications, Ory Kratos first generates a Logout URL for a given Ory Session Cookie. However, you
+Similar to server-side browser applications, Ory Kratos first generates a Logout URL for a given Ory Session Cookie. However, you
 can simply call the Logout URL using an AJAX request. Ory Kratos returns a `204 No Content` response on success or an error
 otherwise.
 
@@ -64,7 +64,7 @@ cookieJar=$(mktemp)
 # Initialize the flow
 flow=$( \
   curl -s -H "Accept: application/json"  --cookie $cookieJar --cookie-jar $cookieJar \
-    'https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser' \
+    'https://playground.projects.oryapis.com/self-service/login/browser' \
 )
 
 # Get the action URL
@@ -88,7 +88,7 @@ echo $session | jq
 
 # Check the current user id
 curl -s --cookie $cookieJar --cookie-jar $cookieJar -H "Accept: application/json" \
-  https://playground.projects.oryapis.com/api/kratos/public/sessions/whoami | \
+  https://playground.projects.oryapis.com/sessions/whoami | \
   jq -r ".id"
 ```
 
@@ -98,7 +98,7 @@ To logout, first get the generated Logout URL then point the Browser to it:
 # Get the Logout URL
 logoutUrl=$( \
   curl -s --cookie $cookieJar --cookie-jar $cookieJar -H "Accept: application/json" \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/logout/browser | \
+    https://playground.projects.oryapis.com/self-service/logout/browser | \
     jq -r ".logout_url" \
 )
 
@@ -107,11 +107,11 @@ curl -s --cookie $cookieJar --cookie-jar $cookieJar "$logoutUrl"
 
 # Check the current user id again. It should be `null` after a successful logout
 curl -s --cookie $cookieJar --cookie-jar $cookieJar -H "Accept: application/json" \
-  https://playground.projects.oryapis.com/api/kratos/public/sessions/whoami | \
+  https://playground.projects.oryapis.com/sessions/whoami | \
   jq -r ".id"
 ```
 
-## Self-Service Logout for API Clients
+## Self-service logout for API clients
 
 API clients (such as native mobile apps) use Ory Session Tokens. To revoke such a token, call the logout API endpoint:
 

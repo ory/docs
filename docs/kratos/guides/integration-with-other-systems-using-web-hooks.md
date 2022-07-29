@@ -1,6 +1,6 @@
 ---
 id: integration-with-other-systems-using-web-hooks
-title: Integration using Web-Hooks
+title: Integration using web-hooks
 ---
 
 Ory Kratos supports integration with other systems such as ERP, CRM, or others using Web-Hooks.

@@ -1,6 +1,6 @@
 ---
 id: versioning
-title: Software Versions
+title: Software versions
 ---
 
 The Ory ecosystem consists of multiple services versioned using [semantic versioning](https://semver.org). This section explains

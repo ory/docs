@@ -13,7 +13,7 @@ state. The documentation, integration, and UI are under active development.
 
 :::
 
-## Relations and Relation Tuples
+## Relations and relation tuples
 
 The data model used by the Permission Service are so-called [relation tuples](/keto/concepts/relation-tuples.mdx) that encode
 relations between [subjects](/keto/concepts/subjects.mdx) and [objects](/keto/concepts/objects.mdx).
@@ -33,7 +33,7 @@ Examples of relation tuples are:
 As you can see, the subject of a relation tuple can either be a specific subject ID, or subjects defined through an
 [indirection](https://en.wikipedia.org/wiki/Indirection) (all members of a certain group). The object is referenced by its ID.
 
-## Checking Permissions
+## Checking permissions
 
 Permissions are just another form of relations. Therefore, a permission check is a request to check whether a subject has a
 certain relation to an object, possibly through one or more indirections.
@@ -53,7 +53,7 @@ Now, one could ask:
 
 This example setup demonstrates the basics of relation tuple management and usage of the Check API.
 
-### Defining Namespaces
+### Defining namespaces
 
 Relation tuples reside in [namespaces](/keto/concepts/namespaces.mdx). To create relation tuples, you must define their namespace
 first.
@@ -87,7 +87,7 @@ namespaces:
 </Tabs>
 ````
 
-### Creating Relation Tuples
+### Creating relation tuples
 
 After creating the namespaces, you can use the [relation tuple APIs](/reference/api.mdx#operation/createRelationTuple) to create a
 relation tuple.
@@ -171,7 +171,7 @@ curl -X PUT \
 </Tabs>
 ````
 
-### Checking Permissions
+### Checking permissions
 
 Permission checks are requests that check whether a subject has a relation to an object. This relation can be directly defined, or
 constructed following indirections (e.g. members of a group).

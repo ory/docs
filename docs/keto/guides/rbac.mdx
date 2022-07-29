@@ -7,7 +7,9 @@ This guide will explain how to implement RBAC using Ory Keto.
 :::warning
 
 Implementing RBAC currently is possible, but requires some workarounds. This guide enables RBAC support with Keto but native
-support is still work in progress. Follow the progress in [this issue](https://github.com/ory/keto/issues/598) :::
+support is still work in progress. Follow the progress in [this issue](https://github.com/ory/keto/issues/598)
+
+:::
 
 [Role Based Access Control (RBAC)](https://en.wikipedia.org/wiki/Role-based_access_control) maps subjects to roles and roles to
 permissions. The goal of (H)RBAC is to make permission management convenient by grouping subjects in roles and assigning
@@ -49,7 +51,7 @@ to have access only during work hours), or in multi-tenant environments.
 - There is no concept of environment: _Dan is allowed to access accounting services when the request comes from IP 10.0.0.3_.
 - There is no concept of tenants: _Dan is allowed to access resources on the "dan's test" tenant_.
 
-## Using RBAC with Ory Keto
+## RBAC with Ory Keto
 
 We need to have three groups, `finance`, `marketing`, `community`. Also, we need to have two namespaces: `reports` to manage
 access control and `groups` to add users to this group
@@ -148,7 +150,7 @@ keto check Dilan view reports marketing
 Allowed
 ```
 
-## Display all objects a User has access to
+## Display all objects a user has access to
 
 The example below shows you how to get a list of objects Dilan has access to
 

@@ -17,8 +17,8 @@ We publish our SDKs for popular languages in their respective package repositori
 - [.NET](https://www.nuget.org/packages/Ory.Oathkeeper.Client/)
 - [Go](https://github.com/ory/oathkeeper-client-go)
 - [Java](https://search.maven.org/artifact/sh.ory.oathkeeper/oathkeeper-client)
-- [JavaScript](https://www.npmjs.com/package/@ory/oathkeeper-client) with TypeScript definitions and compatible with: NodeJS,
-  ReactJS, AnuglarJS, Vue.js, and many more.
+- [JavaScript](https://www.npmjs.com/package/@ory/oathkeeper-client) with TypeScript definitions and compatible with: Node.js,
+  React.js, AnuglarJS, Vue.js, and many more.
 - [PHP](https://packagist.org/packages/ory/oathkeeper-client)
 - [Python](https://pypi.org/project/ory-oathkeeper-client/)
 - [Ruby](https://rubygems.org/gems/ory-oathkeeper-client)

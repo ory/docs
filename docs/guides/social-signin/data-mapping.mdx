@@ -1,10 +1,11 @@
 ---
 id: data-mapping
-title: Data Mapping with Jsonnet
+title: Learn how to map data from social sign-in providers to Ory identity traits
+sidebar_label: Data mapping with Jsonnet
 ---
 
 Different social sign-in providers will send different data in their payloads. While you might expect to get some basic
-information consistently, the payload isn't standarized.
+information consistently, the payload isn't standardized.
 
 As a result, when integrating with social sign-in providers, you must specify how to map the data you get from the specific
 provider to the Identity traits.
@@ -19,8 +20,8 @@ You can find the mapping required for a basic configuration of social sign-in pr
 
 :::
 
-Ory Identity Service (Kratos) adds an external variable called `claims` to the data mapper. It contains all claims for the OpenID
-Connect or OAuth2 provider such as the username and user email.
+Ory Identity Service (Ory Kratos) adds an external variable called `claims` to the data mapper. It contains all claims for the
+OpenID Connect or OAuth2 provider such as the username and user email.
 
 Keep in mind that the claims vary per provider and per flow - depending on what permissions the user gives to your app, for
 example "App XYZ can access my private email".
@@ -34,6 +35,27 @@ Your Jsonnet code must return a JSON object that looks like this:
       /* ... */
     },
   },
+}
+```
+
+You can set public and admin metadata fields, these fields will then be populated whenever data is mapped.
+
+```jsonnet
+local claims = std.extVar('claims');
+
+{
+  identity: {
+    traits: {
+      email: claims.email
+    },
+    metadata_public: {
+        id: claims.sub,
+        subscriber: true
+    },
+    metadata_admin: {
+        tier: 1
+    },
+  }
 }
 ```
 
@@ -111,7 +133,7 @@ traits:
   website: https://www.ory.sh # This is extracted from `username` using
 ```
 
-### External Variable `claims`
+### External variable `claims`
 
 The `std.ExtVar('claims')` object has the following structure and keys available:
 
@@ -144,7 +166,7 @@ type Claims struct {
 }
 ```
 
-## Identity Traits Validation and Data Completion
+## Identity traits validation and data completion
 
 Sometimes the data provided by OpenID Connect or OAuth2 providers isn't enough. A common example of not enough data is asking the
 user to agree to the terms of service. No OpenID Connect or OAuth2 provider can give you this information because these are YOUR

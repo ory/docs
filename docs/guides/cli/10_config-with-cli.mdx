@@ -1,6 +1,6 @@
 ---
 id: config-with-cli
-title: Configure Projects with Ory CLI
+title: Configure projects with Ory CLI
 ---
 
 All Ory components use the same configuration format and APIs whether they are self-hosted or consumed through Ory Cloud.
@@ -13,7 +13,7 @@ This feature is currently in development. More configuration options are added w
 
 :::
 
-## Configuring Projects
+## Configure projects
 
 There are two ways to adjust the configuration of Ory Cloud projects. You can:
 
@@ -30,8 +30,8 @@ The configuration format follows the [updateProject API request payload](../../r
 :::note
 
 The `/services/identity/config` key is compatible with the
-[Ory Kratos configuration format](../../kratos/reference/configuration.md) except for some keys (for example `serve`, `dsn`) which
-are ignored.
+[Ory Kratos configuration format](../../kratos/reference/configuration.mdx) except for some keys (for example `serve`, `dsn`)
+which are ignored.
 
 ```json
 {
@@ -71,7 +71,7 @@ Next, use the Ory CLI to apply the config:
 ory update project <your-project-id> --file config.json
 ```
 
-### Patch Configuration
+### Patch configuration
 
 When you want to change specific parts of the configuration instead of overwriting the entire config, use the `ory patch` command.
 

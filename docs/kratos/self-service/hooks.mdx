@@ -81,7 +81,7 @@ but for the `oidc` method. If the `password` method is used, then `hook_3` will 
 
 Following hooks can be configured for all flows.
 
-### Web-Hooks
+### Web-hooks
 
 Web-Hooks can be configured for every, but error and logout flow and can be configured on either the before/after level or at the
 level of a particular method. Support for Web-Hooks before execution of a method is supported only for registration and login
@@ -128,7 +128,7 @@ would look like this:
 function(ctx) { user_id: ctx.identity.id }
 ```
 
-#### Canceling Webhooks
+#### Canceling webhooks
 
 You can cancel configured webhooks and not make the defined request.
 
@@ -169,7 +169,7 @@ To do that, set `response.ignore` to `true` in the webhook config:
       ignore: true
 ```
 
-#### Web-Hook Authentication and Authorization Mechanisms
+#### Web-Hook authentication and authorization mechanisms
 
 For `auth` following mechanisms are supported:
 
@@ -333,13 +333,13 @@ selfservice:
 
 Depending on the registration flow type the behavior changes.
 
-### Registration Flow via Browser
+### Registration flow via browser
 
 When performing a registration flow with a Browser, this hook sends a `Set-Cookie` HTTP header which contains the session cookie.
 
 Therefore, the user is logged in immediately.
 
-### Registration Flow via API
+### Registration flow via API
 
 When performing a registration flow with an API client (such as a mobile app), this hook creates a session and returns the session
 token and the session itself in the response body as application/json:

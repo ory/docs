@@ -1,6 +1,6 @@
 ---
 id: account-recovery
-title: Account Recovery and Password Reset
+title: Account recovery and password reset
 ---
 
 import useBaseUrl from "@docusaurus/useBaseUrl"
@@ -39,8 +39,8 @@ Account Recovery must be performed if access to an account needs to be recovered
 There are two Recovery Flow types supported in Ory Kratos:
 
 - Flows where the user sits in front of the Browser and the application is
-  - a server-side application (NodeJS, Java, ...)
-  - a client-side application (ReactJS, AngularJS, ...)
+  - a server-side application (Node.js, Java, ...)
+  - a client-side application (React.js, Angular, ...)
 - Flows where API interaction is required (Mobile app, Smart TV, ...)
 
 The Recovery Flow can be summarized as the following state machine:
@@ -112,7 +112,7 @@ One recovery method is supported:
 - The `link` method performs account recovery (also known as password reset) by sending an email containing a recovery link to the
   user.
 
-### Recovery `link` Method
+### Recovery `link` method
 
 There are two email types sent by this method:
 
@@ -213,7 +213,7 @@ To specify that an identity's trait's a recovery email, use the following Identi
  }
 ```
 
-## Initialize Recovery Flow
+## Initialize recovery flow
 
 <DomainWarning />
 
@@ -241,7 +241,7 @@ where
 - `sent_email` implies that the recovery email has been sent out.
 - `passed_challenge` is set when the user has clicked the recovery link and completed the account recovery.
 
-### Recovery for Server-Side Browser Clients
+### Recovery for server-side browser clients
 
 The Recovery Flow for browser clients relies on HTTP redirects between Ory Kratos, your Recovery UI, and the end-user's browser:
 
@@ -256,7 +256,7 @@ To initialize the Recovery Flow, point the Browser to the initialization endpoin
 ```sh
 curl -s -i -X GET \
     -H "Accept: text/html" \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery/browser
+    https://playground.projects.oryapis.com/self-service/recovery/browser
 
 HTTP/2 303
 date: Fri, 09 Jul 2021 12:50:38 GMT
@@ -301,7 +301,7 @@ selfservice:
   </TabItem>
 </Tabs>
 
-### Recovery for Client-Side (AJAX) Browser Clients
+### Recovery for client-side (AJAX) browser clients
 
 The Recovery Flow for client-side browser clients relies on AJAX requests.
 
@@ -318,9 +318,9 @@ To initialize the Recovery Flow, call the recovery initialization endpoint and s
 ```
 curl -v -s -X GET \
     -H "Accept: application/json"  \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery/browser | jq
+    https://playground.projects.oryapis.com/self-service/recovery/browser | jq
 
-> GET /api/kratos/public/self-service/recovery/browser HTTP/2
+> GET /self-service/recovery/browser HTTP/2
 > Host: playground.projects.oryapis.com
 > User-Agent: curl/7.64.1
 > Accept: application/json
@@ -340,7 +340,7 @@ curl -v -s -X GET \
   "type": "browser",
   "expires_at": "2021-06-15T14:27:31.270617Z",
   "issued_at": "2021-06-15T14:22:31.270617Z",
-  "request_url": "https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery/browser",
+  "request_url": "https://playground.projects.oryapis.com/self-service/recovery/browser",
   "ui": {
     "action": "http://127.0.0.1:4455/self-service/recovery?flow=d37e270d-eb84-472a-8032-3f0f01786210",
     "method": "POST",
@@ -394,7 +394,7 @@ curl -v -s -X GET \
 }
 ```
 
-### Recovery for API Clients and Clients without Browsers
+### Recovery for API clients and clients without browsers
 
 <ApiWarning />
 
@@ -408,7 +408,7 @@ To initialize the API flow, the client calls the API-flow initialization endpoin
 ```sh
 curl -s -X GET \
     -H "Accept: application/json"  \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery/api | jq
+    https://playground.projects.oryapis.com/self-service/recovery/api | jq
 
 {
   "id": "660cc928-48f1-485b-8003-dc690f5afc35",
@@ -417,7 +417,7 @@ curl -s -X GET \
   "issued_at": "2021-07-09T12:52:56.270081773Z",
   "request_url": "http://playground.projects.oryapis.com/self-service/recovery/api",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery?flow=660cc928-48f1-485b-8003-dc690f5afc35",
+    "action": "https://playground.projects.oryapis.com/self-service/recovery?flow=660cc928-48f1-485b-8003-dc690f5afc35",
     "method": "POST",
     "nodes": [ /* */ ]
   },
@@ -425,7 +425,7 @@ curl -s -X GET \
 }
 ```
 
-## Recovery Flow Payloads
+## Recovery flow payloads
 
 Fetching the Recovery Flow ([REST API Reference](../../reference/api.mdx#get-recovery-flow)) is usually only required for browser
 clients but also works for Recovery Flows initialized by API clients. All you need is a valid flow ID:
@@ -433,11 +433,11 @@ clients but also works for Recovery Flows initialized by API clients. All you ne
 ```sh
 flowId=$(curl -s -X GET \
     -H "Accept: application/json" \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery/api | jq -r '.id')
+    https://playground.projects.oryapis.com/self-service/recovery/api | jq -r '.id')
 
 curl -s -X GET \
     -H "Accept: application/json" \
-    "https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery/flows?id=$flowId" | jq
+    "https://playground.projects.oryapis.com/self-service/recovery/flows?id=$flowId" | jq
 
 {
   "id": "7c033350-a935-4807-a06e-85cfc2475c75",
@@ -447,7 +447,7 @@ curl -s -X GET \
   "request_url": "http://playground.projects.oryapis.com/self-service/recovery/api",
   "active": "default",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery?flow=7c033350-a935-4807-a06e-85cfc2475c75",
+    "action": "https://playground.projects.oryapis.com/self-service/recovery?flow=7c033350-a935-4807-a06e-85cfc2475c75",
     "method": "POST",
     "nodes": [ /* ... */ ]
   },
@@ -455,7 +455,7 @@ curl -s -X GET \
 }
 ```
 
-### Send Recovery Link to Email
+### Send recovery link to email
 
 :::note
 
@@ -468,7 +468,7 @@ When the `link` method is enabled, it will be part of the `methods` payload in t
 
 ```shell script
 curl -H "Accept: application/json" -s \
-    'https://playground.projects.oryapis.com/api/kratos/public/self-service/recovery/flows?id=199a2c74-08ca-4f22-b24c-3de3032682f8' | \
+    'https://playground.projects.oryapis.com/self-service/recovery/flows?id=199a2c74-08ca-4f22-b24c-3de3032682f8' | \
       jq -r '.ui.nodes[] | select(.group=="link")'
 
 {
@@ -503,14 +503,14 @@ curl -H "Accept: application/json" -s \
 }
 ```
 
-## Recovery Form Validation
+## Recovery form validation
 
 The form payloads are then submitted to Ory Kratos which follows up with:
 
 - An HTTP 303 See Other redirect pointing to the Registration UI for Browser Clients;
 - An `application/json` response for API Clients and Client-Side Browser applications (for example Single Page Apps).
 
-### Recovery Link via Email
+### Recovery link via email
 
 To send the recovery email, the end-user fills out the form. There might be validation errors such as a malformed email:
 
@@ -521,13 +521,13 @@ Recovery Flow ID which includes the error payloads.
 
 For API Clients, the server typically responds with HTTP 400 Bad Request and the Recovery Flow in the response payload as JSON.
 
-#### Successful Submission
+#### Successful submission
 
 On successful submission, an email will be sent to the provided address:
 
 <CodeTabs items={getFlowMethodLinkSuccess} />
 
-## Unsuccessful Recovery
+## Unsuccessful recovery
 
 If the recovery challenge (for example the link in the recovery email) is invalid or expired, the user will be HTTP 303 redirected
 to the Recovery UI.
@@ -545,20 +545,20 @@ The new Recovery Flow includes an error message such as the following:
 
 Please keep in mind that this part of the flow always involves a Browser!
 
-## Successful Recovery
+## Successful recovery
 
 Completing account recovery always results in a HTTP 303 redirect with a Ory Kratos Login Session Cookie to the Settings UI with a
 Settings Flow prompting the user to update their password or credentials:
 
 <CodeTabs items={getFlowMethodLinkChallengeDone} />
 
-## Code Examples for NodeJS, ReactJS, Go, ...
+## Code examples for Node.js, React.js, Go, ...
 
 The Recovery User Interface is a route (page / site) in your application (server, native app, single page app) that should render
 a recovery form.
 
 In stark contrast to other Identity Systems, Ory Kratos doesn't render this HTML. Instead, you need to implement the HTML code in
-your application (for example NodeJS + ExpressJS, Java, PHP, ReactJS, ...), which gives you extreme flexibility and
+your application (for example Node.js + Express.js, Java, PHP, React.js, ...), which gives you extreme flexibility and
 customizability in your user interface flows and designs.
 
 You will use the Recovery Flow JSON response to render the recovery form UI, which could looks as follows depending on your
