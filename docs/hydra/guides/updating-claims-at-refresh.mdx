@@ -62,9 +62,7 @@ The refresh token hook endpoint must accept the following payload format:
         "jti": "jti",
         "iss": "http://localhost:4444/",
         "sub": "foo",
-        "aud": [
-          "bar"
-        ],
+        "aud": ["bar"],
         "iat": 1234567,
         "exp": 1234567,
         "rat": 1234567,
@@ -96,18 +94,20 @@ The refresh token hook endpoint must accept the following payload format:
     "client_id": "bar",
     "granted_scopes": ["openid", "offline"],
     "granted_audience": [],
-    "grant_types": [
-      "refresh_token"
-    ]
+    "grant_types": ["refresh_token"]
   },
   "granted_scopes": ["openid", "offline"],
   "granted_audience": []
 }
 ```
+
 :::note
 
-`session` represents consent session, along with the data that was passed to the [Accept Consent Request](https://www.ory.sh/docs/hydra/reference/api#operation/acceptConsentRequest) in the `id_token` field.
+`session` represents the consent session, along with the data that was passed to the
+[Accept Consent Request](https://www.ory.sh/docs/hydra/reference/api#operation/acceptConsentRequest) in the `id_token` field.
 `requester` is the token request context.
+
+:::
 
 To update the data, the webhook must return a `200 OK` response and the updated session data in the following format:
 
