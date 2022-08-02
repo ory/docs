@@ -394,3 +394,16 @@ courier:
 {{- end -}}
 
 ```
+
+## Handling errors
+
+The courier module has a few ways of dealing with undeliverable messages.
+For example if the configured SMTP server or the SMS gateway is unable to deliver a message, the courier will retry sending the message until it has tried a specifiable amount of times.
+
+```yaml title="path/to/my/kratos/config.yml"
+# kratos -c path/to/my/kratos/config.yml serve
+courier:
+  message_retries: 5
+```
+
+If a message has not been delivered after the specified amount of times, it is considered `Abandoned` and the courier will no longer try to deliver the message.
