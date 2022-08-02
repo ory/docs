@@ -6,11 +6,9 @@ title: Configuring expiration
 In the Hydra config.yaml - located in your Hydra directory - you can set times for how long a login/consent flow may take,
 expiration times for access tokens, refresh tokens, id tokens and auth codes.
 
-Furthermore, if you require different clients to have different token lifespans,
-the Hydra admin API exposes and endpoint that allows the configuration of
-individual clients. The client configuration takes precedence over the
-instance-wide configuration. See [Client Token Lifespan
-configuration](#client-token-lifespan-configuration).
+Furthermore, if you require different clients to have different token lifespans, the Hydra admin API exposes and endpoint that
+allows the configuration of individual clients. The client configuration takes precedence over the instance-wide configuration.
+See [Client Token Lifespan configuration](#client-token-lifespan-configuration).
 
 ## Instance-wide configuration
 
@@ -126,9 +124,9 @@ Key `ttl.auth_code` configures how long auth codes are valid.
 
 ## Client Token Lifespan configuration
 
-Individual OAuth2 Clients can have their lifespans configured using the
-UpdateOAuth2ClientLifespans endpoint. The endpoint is documented in the [API reference](../reference/api#operation/UpdateOAuth2ClientLifespans) and its details are also available in the [SDKs](../sdk).
-This endpoint allows for configuration of each combination of Client, Grant Type, and Token Type.
+Individual OAuth2 Clients can have their lifespans configured using the UpdateOAuth2ClientLifespans endpoint. The endpoint is
+documented in the [API reference](../reference/api#operation/UpdateOAuth2ClientLifespans) and its details are also available in
+the [SDKs](../sdk). This endpoint allows for configuration of each combination of Client, Grant Type, and Token Type.
 
 ```json title=example-payload.json
 {
