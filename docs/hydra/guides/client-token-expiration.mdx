@@ -1,0 +1,205 @@
+---
+id: client-token-expiration
+title: Configure token expiration time
+sidebar_label: Configure instance-wide token expiration time or adjust it for individual OAuth2 clients
+---
+
+The Hydra `config.yaml` file located in the main Hydra directory allows you to adjust:
+
+- Expiration time of the user login and consent flow
+- Expiration time for an access token
+- Expiration time for an ID token
+- Expiration time for auth codes
+
+This configuration is instance-wide, which means that it applies to all registered clients.
+
+If you need to set different token lifespans for specific clients, you can do that by calling the
+[OAuth2ClientLifespans](../reference/api#operation/UpdateOAuth2ClientLifespans) endpoint of the Hydra admin API. The client
+configuration takes precedence over the instance-wide configuration. Read [this section](#client-token-lifespan-configuration) to
+learn more.
+
+## Instance-wide configuration
+
+You can change the configuration on the instance-wide level by adjusting specific keys in the Hydra configuration.
+
+### Login and consent request flow expiration
+
+The `ttl.login_consent_request` key defines the expiration time of the user login and consent flow.
+
+```json title="path/to/hydra/config.yaml"
+#....
+  ## login_consent_request ##
+  #
+  # Defines the expiration time of the user login and consent flow.
+  #
+  # Default value: 1h
+  #
+  # Set this value using environment variables on
+  # - Linux/macOS:
+  #    export TTL_LOGIN_CONSENT_REQUEST=<value>
+  # - Windows Command Line (CMD):
+  #    > set TTL_LOGIN_CONSENT_REQUEST=<value>
+  #
+  login_consent_request: 1h
+ #....
+```
+
+### Access Token expiration
+
+The `ttl.access_token` key defines the expiration time of access tokens.
+
+```json title="path/to/hydra/config.yaml"
+#....
+  ## access_token ##
+  #
+  # Defines how long access tokens are valid.
+  #
+  # Default value: 1h
+  #
+  # Set this value using environment variables on
+  # - Linux/macOS:
+  #    export TTL_ACCESS_TOKEN=<value>
+  # - Windows Command Line (CMD):
+  #    > set TTL_ACCESS_TOKEN=<value>
+  #
+  access_token: 1h
+   #....
+```
+
+### Refresh token expiration
+
+The `ttl.refresh_token` key defines the expiration time of refresh tokens.
+
+:::tip
+
+When set to `-1`, refresh tokens never expire.
+
+:::
+
+```json title="path/to/hydra/config.yaml"
+#....
+  ## refresh_token ##
+  #
+  # Defines how long refresh tokens are valid. Set to -1 for refresh tokens to never expire.
+  #
+  # Default value: 720h
+  #
+  # Set this value using environment variables on
+  # - Linux/macOS:
+  #    export TTL_REFRESH_TOKEN=<value>
+  # - Windows Command Line (CMD):
+  #    > set TTL_REFRESH_TOKEN=<value>
+  #
+  refresh_token: "-1"
+    #....
+```
+
+### ID token expiration
+
+The `ttl.id_token` key defines the expiration time of ID tokens.
+
+```json title="path/to/hydra/config.yaml"
+#....
+  ## id_token ##
+  #
+  # Defines how long id tokens are valid.
+  #
+  # Default value: 1h
+  #
+  # Set this value using environment variables on
+  # - Linux/macOS:
+  #    export TTL_ID_TOKEN=<value>
+  # - Windows Command Line (CMD):
+  #    > set TTL_ID_TOKEN=<value>
+  #
+  id_token: 1h
+     #....
+```
+
+### Auth code expiration
+
+The `ttl.auth_code` defines the expiration time of auth codes.
+
+```json title="path/to/hydra/config.yaml"
+#....
+  ## auth_code ##
+  #
+  # Defines how long auth codes are valid.
+  #
+  # Default value: 10m
+  #
+  # Set this value using environment variables on
+  # - Linux/macOS:
+  #    export TTL_AUTH_CODE=<value>
+  # - Windows Command Line (CMD):
+  #    > set TTL_AUTH_CODE=<value>
+  #
+  auth_code: 1h
+     #....
+```
+
+## Lifespan configuration for specific clients
+
+To adjust the configuration for a specific client, call the
+[OAuth2ClientLifespans](../reference/api#operation/UpdateOAuth2ClientLifespans) endpoint of the Hydra admin API. This endpoint
+allows to configure every combination of client, grant type, and token type.
+
+:::tip
+
+The configuration applied to a specific client using this endpoint precedes the instance-wide configuration set in the Hydra
+configuration file.
+
+:::
+
+For example, to update the configuration of a client registered in a Hydra instance that runs locally, send this request:
+
+```shell
+$ curl -X PUT localhost:4445/clients/db779000-01f3-4c12-bf70-ff85933d485e/lifespans --data '{
+  "authorization_code_grant_access_token_lifespan": "1h",
+  "authorization_code_grant_id_token_lifespan": "12h",
+  "authorization_code_grant_refresh_token_lifespan": "24h",
+  "client_credentials_grant_access_token_lifespan": "1h",
+  "implicit_grant_access_token_lifespan": "1h",
+  "implicit_grant_id_token_lifespan": "12h",
+  "jwt_bearer_grant_access_token_lifespan": "1h",
+  "refresh_token_grant_access_token_lifespan": "1h",
+  "refresh_token_grant_id_token_lifespan": "12h",
+  "refresh_token_grant_refresh_token_lifespan": "24h"
+}' 2>/dev/null | jq
+{
+  "client_id": "db779000-01f3-4c12-bf70-ff85933d485e",
+  "client_name": "",
+  "redirect_uris": [],
+  "grant_types": [],
+  "response_types": [],
+  "scope": "offline_access offline openid",
+  "audience": [],
+  "owner": "",
+  "policy_uri": "",
+  "allowed_cors_origins": [],
+  "tos_uri": "",
+  "client_uri": "",
+  "logo_uri": "",
+  "contacts": [],
+  "client_secret_expires_at": 0,
+  "subject_type": "public",
+  "jwks": {},
+  "token_endpoint_auth_method": "client_secret_basic",
+  "userinfo_signed_response_alg": "none",
+  "created_at": "2022-08-02T09:40:07Z",
+  "updated_at": "2022-08-02T11:45:35.322963+02:00",
+  "metadata": {},
+  "authorization_code_grant_access_token_lifespan": "1h0m0s",
+  "authorization_code_grant_id_token_lifespan": "12h0m0s",
+  "authorization_code_grant_refresh_token_lifespan": "24h0m0s",
+  "client_credentials_grant_access_token_lifespan": "1h0m0s",
+  "implicit_grant_access_token_lifespan": "1h0m0s",
+  "implicit_grant_id_token_lifespan": "12h0m0s",
+  "jwt_bearer_grant_access_token_lifespan": "1h0m0s",
+  "password_grant_access_token_lifespan": null,
+  "password_grant_refresh_token_lifespan": null,
+  "refresh_token_grant_id_token_lifespan": "12h0m0s",
+  "refresh_token_grant_access_token_lifespan": "1h0m0s",
+  "refresh_token_grant_refresh_token_lifespan": "24h0m0s"
+}
+```

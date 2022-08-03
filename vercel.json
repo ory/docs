@@ -668,6 +668,11 @@
       "source": "/docs/cli/ory-identities-get",
       "destination": "https://www.ory.sh/docs/cli/ory-get-identity",
       "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/token-expiration",
+      "destination": "https://www.ory.sh/docs/hydra/guides/client-token-expiration",
+      "permanent": false
     }
   ]
 }

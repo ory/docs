@@ -309,7 +309,7 @@ module.exports = {
                 "hydra/guides/oauth2-grant-type-jwt-bearer",
                 "hydra/guides/common-oauth2-openid-connect-flows",
                 "hydra/guides/using-oauth2",
-                "hydra/guides/token-expiration",
+                "hydra/guides/client-token-expiration",
                 "hydra/guides/oauth2-token-introspection",
                 "hydra/guides/oauth2-public-spa-mobile",
                 "hydra/guides/claims-at-refresh",
