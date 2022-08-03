@@ -653,6 +653,21 @@
       "source": "/docs/guides/manage-identities/import-identity",
       "destination": "https://www.ory.sh/docs/guides/manage-identities/import-user-accounts-identities",
       "permanent": false
+    },
+    {
+      "source": "/docs/guides/customize-identity-schema",
+      "destination": "https://www.ory.sh/docs/guides/manage-identities/customize-identity-schema",
+      "permanent": false
+    },
+    {
+      "source": "/docs/cli/ory-identities",
+      "destination": "https://www.ory.sh/docs/cli/ory-list-identities",
+      "permanent": false
+    },
+    {
+      "source": "/docs/cli/ory-identities-get",
+      "destination": "https://www.ory.sh/docs/cli/ory-get-identity",
+      "permanent": false
     }
   ]
 }
