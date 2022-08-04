@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## hydra clients update
 
 Update an entire OAuth 2.0 Client
@@ -18,15 +17,15 @@ Update an entire OAuth 2.0 Client
 
 This command replaces an OAuth 2.0 Client by its ID.
 
-Please be aware that this command replaces the entire client. To update only the name, a full client should be provided, for
-example: hydra clients update client-1 -n &#34;my updated app&#34; -c http://localhost/cb -g authorization_code -r code -a
-core,foobar
+Please be aware that this command replaces the entire client.
+To update only the name, a full client should be provided, for example:
+  hydra clients update client-1 -n &#34;my updated app&#34; -c http://localhost/cb -g authorization_code -r code -a core,foobar
 
 If only the name flag (-n &#34;my updated app&#34;) is provided, the all other fields are updated to their default values.
 
-To encrypt auto generated client secret, use &#34;--pgp-key&#34;, &#34;--pgp-key-url&#34; or &#34;--keybase&#34; flag, for
-example: hydra clients update client-1 -n &#34;my updated app&#34; -g client_credentials -r token -a core,foobar --keybase
-keybase_username
+To encrypt auto generated client secret, use &#34;--pgp-key&#34;, &#34;--pgp-key-url&#34; or &#34;--keybase&#34; flag, for example:
+  hydra clients update client-1 -n &#34;my updated app&#34; -g client_credentials -r token -a core,foobar --keybase keybase_username
+
 
 ```
 hydra clients update <id> [flags]
@@ -74,4 +73,5 @@ hydra clients update <id> [flags]
 
 ### SEE ALSO
 
-- [hydra clients](hydra-clients) - Manage OAuth 2.0 Clients
+* [hydra clients](hydra-clients)	 - Manage OAuth 2.0 Clients
+

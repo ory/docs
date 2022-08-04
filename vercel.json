@@ -633,6 +633,46 @@
       "source": "/docs/start-building/native-mobile-app",
       "destination": "https://www.ory.sh/docs/getting-started/integrate-auth/react-native",
       "permanent": false
+    },
+    {
+      "source": "/docs/kratos/concepts/identity-schema",
+      "destination": "https://www.ory.sh/docs/guides/manage-identities/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/manage-identities/managing-users-identities",
+      "destination": "https://www.ory.sh/docs/guides/manage-identities/create-users-identities",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/manage-identities/identity",
+      "destination": "https://www.ory.sh/docs/guides/manage-identities/identity-schema",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/manage-identities/import-identity",
+      "destination": "https://www.ory.sh/docs/guides/manage-identities/import-user-accounts-identities",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/customize-identity-schema",
+      "destination": "https://www.ory.sh/docs/guides/manage-identities/customize-identity-schema",
+      "permanent": false
+    },
+    {
+      "source": "/docs/cli/ory-identities",
+      "destination": "https://www.ory.sh/docs/cli/ory-list-identities",
+      "permanent": false
+    },
+    {
+      "source": "/docs/cli/ory-identities-get",
+      "destination": "https://www.ory.sh/docs/cli/ory-get-identity",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/token-expiration",
+      "destination": "https://www.ory.sh/docs/hydra/guides/client-token-expiration",
+      "permanent": false
     }
   ]
 }

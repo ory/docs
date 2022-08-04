@@ -9,20 +9,19 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory patch project
 
 Patch an Ory Cloud Project
 
 ### Synopsis
 
-Use this command to patch your current Ory Cloud Project's service configuration. Only values specified in the patch will be
-overwritten. To replace the config use the `update` command instead.
+Use this command to patch your current Ory Cloud Project's service configuration. Only values
+specified in the patch will be overwritten. To replace the config use the `update` command instead.
 
 The format of the patch is a JSON-Patch document. For more details please check:
 
-    https://www.ory.sh/docs/reference/api#operation/patchProject
-    https://jsonpatch.com
+	https://www.ory.sh/docs/reference/api#operation/patchProject
+	https://jsonpatch.com
 
 ```
 ory patch project <id> [flags]
@@ -64,4 +63,5 @@ ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 
 ### SEE ALSO
 
-- [ory patch](ory-patch) - Patch resources
+* [ory patch](ory-patch)	 - Patch resources
+
