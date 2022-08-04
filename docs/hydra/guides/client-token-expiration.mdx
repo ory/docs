@@ -50,20 +50,21 @@ The `ttl.access_token` key defines the expiration time of access tokens.
 
 ```yaml title="path/to/hydra/config.yaml"
 #....
-  ## access_token ##
-  #
-  # Defines how long access tokens are valid.
-  #
-  # Default value: 1h
-  #
-  # Set this value using environment variables on
-  # - Linux/macOS:
-  #    export TTL_ACCESS_TOKEN=<value>
-  # - Windows Command Line (CMD):
-  #    > set TTL_ACCESS_TOKEN=<value>
-  #
-  access_token: 1h
-   #....
+## access_token ##
+#
+# Defines how long access tokens are valid.
+#
+# Default value: 1h
+#
+# Set this value using environment variables on
+# - Linux/macOS:
+#    export TTL_ACCESS_TOKEN=<value>
+# - Windows Command Line (CMD):
+#    > set TTL_ACCESS_TOKEN=<value>
+#
+access_token:
+  1h
+  #....
 ```
 
 ### Refresh token expiration
@@ -78,20 +79,21 @@ When set to `-1`, refresh tokens never expire.
 
 ```yaml title="path/to/hydra/config.yaml"
 #....
-  ## refresh_token ##
-  #
-  # Defines how long refresh tokens are valid. Set to -1 for refresh tokens to never expire.
-  #
-  # Default value: 720h
-  #
-  # Set this value using environment variables on
-  # - Linux/macOS:
-  #    export TTL_REFRESH_TOKEN=<value>
-  # - Windows Command Line (CMD):
-  #    > set TTL_REFRESH_TOKEN=<value>
-  #
-  refresh_token: "-1"
-    #....
+## refresh_token ##
+#
+# Defines how long refresh tokens are valid. Set to -1 for refresh tokens to never expire.
+#
+# Default value: 720h
+#
+# Set this value using environment variables on
+# - Linux/macOS:
+#    export TTL_REFRESH_TOKEN=<value>
+# - Windows Command Line (CMD):
+#    > set TTL_REFRESH_TOKEN=<value>
+#
+refresh_token:
+  "-1"
+  #....
 ```
 
 ### ID token expiration
@@ -100,20 +102,21 @@ The `ttl.id_token` key defines the expiration time of ID tokens.
 
 ```yaml title="path/to/hydra/config.yaml"
 #....
-  ## id_token ##
-  #
-  # Defines how long id tokens are valid.
-  #
-  # Default value: 1h
-  #
-  # Set this value using environment variables on
-  # - Linux/macOS:
-  #    export TTL_ID_TOKEN=<value>
-  # - Windows Command Line (CMD):
-  #    > set TTL_ID_TOKEN=<value>
-  #
-  id_token: 1h
-     #....
+## id_token ##
+#
+# Defines how long id tokens are valid.
+#
+# Default value: 1h
+#
+# Set this value using environment variables on
+# - Linux/macOS:
+#    export TTL_ID_TOKEN=<value>
+# - Windows Command Line (CMD):
+#    > set TTL_ID_TOKEN=<value>
+#
+id_token:
+  1h
+  #....
 ```
 
 ### Auth code expiration
@@ -122,20 +125,21 @@ The `ttl.auth_code` defines the expiration time of auth codes.
 
 ```yaml title="path/to/hydra/config.yaml"
 #....
-  ## auth_code ##
-  #
-  # Defines how long auth codes are valid.
-  #
-  # Default value: 10m
-  #
-  # Set this value using environment variables on
-  # - Linux/macOS:
-  #    export TTL_AUTH_CODE=<value>
-  # - Windows Command Line (CMD):
-  #    > set TTL_AUTH_CODE=<value>
-  #
-  auth_code: 1h
-     #....
+## auth_code ##
+#
+# Defines how long auth codes are valid.
+#
+# Default value: 10m
+#
+# Set this value using environment variables on
+# - Linux/macOS:
+#    export TTL_AUTH_CODE=<value>
+# - Windows Command Line (CMD):
+#    > set TTL_AUTH_CODE=<value>
+#
+auth_code:
+  1h
+  #....
 ```
 
 ## Lifespan configuration for specific clients
