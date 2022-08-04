@@ -44,11 +44,11 @@ The `ttl.login_consent_request` key defines the expiration time of the user logi
  #....
 ```
 
-### Access Token expiration
+### Access token expiration
 
 The `ttl.access_token` key defines the expiration time of access tokens.
 
-```json title="path/to/hydra/config.yaml"
+```yaml title="path/to/hydra/config.yaml"
 #....
   ## access_token ##
   #
@@ -76,7 +76,7 @@ When set to `-1`, refresh tokens never expire.
 
 :::
 
-```json title="path/to/hydra/config.yaml"
+```yaml title="path/to/hydra/config.yaml"
 #....
   ## refresh_token ##
   #
@@ -98,7 +98,7 @@ When set to `-1`, refresh tokens never expire.
 
 The `ttl.id_token` key defines the expiration time of ID tokens.
 
-```json title="path/to/hydra/config.yaml"
+```yaml title="path/to/hydra/config.yaml"
 #....
   ## id_token ##
   #
@@ -120,7 +120,7 @@ The `ttl.id_token` key defines the expiration time of ID tokens.
 
 The `ttl.auth_code` defines the expiration time of auth codes.
 
-```json title="path/to/hydra/config.yaml"
+```yaml title="path/to/hydra/config.yaml"
 #....
   ## auth_code ##
   #
@@ -154,18 +154,19 @@ configuration file.
 For example, to update the configuration of a client registered in a Hydra instance that runs locally, send this request:
 
 ```shell
-$ curl -X PUT localhost:4445/clients/db779000-01f3-4c12-bf70-ff85933d485e/lifespans --data '{
-  "authorization_code_grant_access_token_lifespan": "1h",
-  "authorization_code_grant_id_token_lifespan": "12h",
-  "authorization_code_grant_refresh_token_lifespan": "24h",
-  "client_credentials_grant_access_token_lifespan": "1h",
-  "implicit_grant_access_token_lifespan": "1h",
-  "implicit_grant_id_token_lifespan": "12h",
-  "jwt_bearer_grant_access_token_lifespan": "1h",
-  "refresh_token_grant_access_token_lifespan": "1h",
-  "refresh_token_grant_id_token_lifespan": "12h",
-  "refresh_token_grant_refresh_token_lifespan": "24h"
-}' 2>/dev/null | jq
+$ curl -H "Content-Type: application/json" \
+  -X PUT https://localhost:4445/clients/db779000-01f3-4c12-bf70-ff85933d485e/lifespans --data '{
+    "authorization_code_grant_access_token_lifespan": "1h",
+    "authorization_code_grant_id_token_lifespan": "12h",
+    "authorization_code_grant_refresh_token_lifespan": "24h",
+    "client_credentials_grant_access_token_lifespan": "1h",
+    "implicit_grant_access_token_lifespan": "1h",
+    "implicit_grant_id_token_lifespan": "12h",
+    "jwt_bearer_grant_access_token_lifespan": "1h",
+    "refresh_token_grant_access_token_lifespan": "1h",
+    "refresh_token_grant_id_token_lifespan": "12h",
+    "refresh_token_grant_refresh_token_lifespan": "24h"
+  }' 2>/dev/null | jq
 {
   "client_id": "db779000-01f3-4c12-bf70-ff85933d485e",
   "client_name": "",
