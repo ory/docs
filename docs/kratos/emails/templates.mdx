@@ -1,0 +1,194 @@
+---
+id: email-templates
+title: Customize message templates for recovery and verification emails
+sidebar_label: Email templates
+---
+
+Ory Identity Service (Ory Kratos) comes with built-in templates for all messages sent by the system. You can replace the default
+templates with custom ones that will carry your own branding, visual elements, and communication tone. 
+
+The system uses templates in these flows: 
+
+1. `recovery` - the system sends these messages when users recover their accounts, for example after forgetting their password. 
+    - `recovery.valid` - the system sends these messages when the user completes the recovery flow successfully.
+    - `recovery.invalid` - `the system sends these messages when the recovery flow fails.
+2. `verification` - the system sends these messages when users verify their accounts after signing up.
+    - `verification.valid` - the system sends these messages when the user verifies their account successfully.
+    - `verification.invalid` - `the system sends these messages when the account verification fails.
+
+:::info
+
+When self-hosting Ory Kratos, the system expects the templates at these paths: 
+
+- `<kratos-root>/<template-root>/recovery/valid`
+- `<kratos-root>/<template-root>/recovery/invalid`
+- `<kratos-root>/<template-root>/verification/valid`
+- `<kratos-root>/<template-root>/verification/invalid`
+
+Read [this document](../self-hosted/mail-courier) to learn more about the email courier and templates in self-hosted Ory Kratos instances.
+
+:::
+
+## Use custom message templates
+
+You can use custom templates in place of built-in ones. If you don't specify a custom template, the system automatically uses the
+built-in one.
+
+````mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="cloud" label="Ory CLI" default>
+
+To use custom templates in Ory Cloud, encode your template with Base64 and use the encoded string to update the key corresponding to the
+desired flow with Ory CLI:
+
+```shell
+ory patch project {your-project-id} \
+  --replace '/services/identity/config/courier/smtp/templates/recovery/valid/email/body="base64://<b64-encoded-url>" \
+  --replace '/services/identity/config/courier/smtp/templates/recovery/invalid/email/body="base64://<b64-encoded-url>" \
+  --replace '/services/identity/config/courier/smtp/templates/verification/valid/email/body="base64://<b64-encoded-url>" \
+  --replace '/services/identity/config/courier/smtp/templates/verification/invalid/email/body="base64://<b64-encoded-url>"
+```
+
+  </TabItem>
+  <TabItem value="selfhosted" label="Self-Hosted Ory Kratos Config" default>
+
+In self-hosted Ory Kratos instances, you can add custom templates from `http://`, `file://`, and `base64://` URIs.
+The `plaintext` and `html` fields are mandatory when defining the `body` key. All other keys are optional and will always fallback 
+to the built-in templates or to the `template_override_path` (if specified).
+
+```yaml title=path/to/kratos/config.yml
+smtp:
+  template_override_path: /conf/courier-template
+  # ...
+  templates:
+    verification:
+      valid:
+        email:
+          body:
+            html: https://some-remote-resource/gotmpl
+            plaintext: base64://SGV5IHlvdSBkZWNvZGVkIG1lIDop
+          # optional
+          subject: file://some-file/subject.gotmpl
+```
+
+  </TabItem>
+</Tabs>
+````
+
+## Create templates
+
+Templates use the golang template engine in the `text/template` package for rendering the `email.subject.gotmpl` and
+`email.body.plaintext.gotmpl` templates, and the `html/template` package for rendering the `email.body.gotmpl` template.
+
+Learn more:
+
+- https://pkg.go.dev/text/template
+- https://pkg.go.dev/html/template
+
+:::tip
+
+Templates can use the [Sprig](https://github.com/Masterminds/sprig) library, which provides [more than 100 commonly used template functions](http://masterminds.github.io/sprig/)
+
+:::
+
+The templates must contain these variables: 
+
+- `recovery.valid` - `To`,`RecoveryURL`, and `Identity` for validating recovery.
+- `recovery.invalid` - `To` for invalidating recovery.
+- `verification.valid` - `To`, `VerificationURL` and `Identity` for validating verification.
+- `verification.invalid` - `To` for invalidating verification.
+
+For example:
+
+[`https://github.com/ory/kratos/blob/master/courier/template/courier/builtin/templates/verification/valid/email.body.gotmpl`](https://github.com/ory/kratos/blob/master/courier/template/courier/builtin/templates/verification/valid/email.body.gotmpl)
+
+```gotmpl title="courier/template/templates/verification/valid/email.body.gotmpl"
+Hi, please verify your account by clicking the following link:
+
+<a href="{{ .VerificationURL }}">{{ .VerificationURL }}</a>
+```
+
+```gotmp title="courier/template/templates/verification/valid/email.body.plaintext.gotmpl"
+Hi, please verify your account by clicking the following link: {{ .VerificationURL }}
+```
+
+### Customizing template content for specific users
+
+To enable customizing the content of templates based on the identity of the recipient of the email, the Ory identity is available
+as the `Identity` object. This object is a map containing all the attributes of an identity, such as `id`, `state`,
+`recovery_addresses`, `verifiable_addresses` and `traits`.
+
+### Nested templates
+
+You can use nested templates to render `email.subject.gotmpl`, `email.body.gotmpl` and `email.body.plaintext.gotmpl` templates.
+
+#### Example: i18n customization
+
+Using nested templates, you can either use in-line template definitions, or as in this example, use separate templates. The following
+example defines the message body for verification emails. It assumes that there is a `lang` attribute defined in the identity traits 
+that contains the preferred language of the user.
+
+```txt file="<template-root>/recovery/valid/email.body.gotmpl"
+
+{{- if eq .Identity.traits.language "de" -}}
+{{ template "email.body.de.gotmpl" . }}
+{{- else -}}
+{{ template "email.body.en.gotmpl" . }}
+{{- end -}}
+<a href="{{ .RecoveryURL }}">{{.RecoveryURL }}</a>
+```
+
+```txt file="<template-root>/recovery/valid/email.body.de.gotmpl"
+
+Hallo {{ upper .Identity.traits.firstName }},
+
+Um Ihr Konto wiederherzustellen, klicken Sie bitte auf den folgenden Link:
+```
+
+```txt file="<template-root>/recovery/valid/email.body.en.gotmpl"
+
+
+Hello {{ upper .Identity.traits.firstName }},
+
+to recover your account, please click on the link below:
+```
+
+As indicated by the example, we need a root template, which is the `email.body.gotmpl` template, and then we define sub templates
+that conform to the following pattern: `email.body*`. You can also see that the `Identity` of the user is available in all
+templates, and that you can use Sprig functions also in the nested templates.
+
+### Nested templates with remote templates
+
+When remote templates are used in Kratos, the dynamics of loading nested templates change. The templates can't reference templates
+outside itself as with templates loaded from a singular directory.
+
+The template will need to contain the nested templates in the same file. See below for an example.
+
+```yaml title="path/to/my/kratos/config.yml"
+courier:
+  templates:
+    verification:
+      email:
+        body:
+          plaintext: https://some-remote-template/tmp.gotmpl
+          html: https://some-remote-template/tmp.gotmpl
+```
+
+**Our template:**
+
+```gotmpl title="https://some-remote-template/tmp.gotmpl"
+
+{{define "en_US"}}
+{{ $l := cat "lang=" .lang }}
+{{ nospace $l }}
+{{end}}
+
+{{- if eq .lang "en_US" -}}
+{{ template "en_US" . }}
+{{- end -}}
+
+```

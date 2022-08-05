@@ -90,11 +90,7 @@ module.exports = {
       type: "category",
       label: "Identity Management (Ory Kratos)",
       items: [
-        {
-          Introduction: [
-            "kratos/index",
-          ],
-        },
+          "kratos/ory-kratos-intro",
         {
           type: "category",
           label: "Managing identities",
@@ -211,7 +207,6 @@ module.exports = {
             label: 'Configuration',
             items: [
               'kratos/configuring',
-              'kratos/reference/configuration',
               'kratos/reference/configuration-editor',
               'kratos/guides/configuring-cookies',
               'kratos/guides/multi-domain-cookies',
@@ -229,22 +224,21 @@ module.exports = {
               'kratos/guides/tracing',
             ] 
           },
-          {
-            "Debug & Help": [
+          { 
+            type: 'category',
+            label: 'Debugging and help',
+            items: [
               "kratos/debug/troubleshooting",
               "kratos/debug/csrf",
               "kratos/debug/performance-out-of-memory-password-hashing-argon2",
               "kratos/debug/debug-docker-delve-ory-kratos",
-            ],
+            ]
           },
           {
             type: 'category',
             label: 'Reference',
             items: [
               'kratos/reference/api',
-              'kratos/reference/json-schema-json-paths',
-              'kratos/reference/html-forms',
-              'kratos/reference/jsonnet',
               {
                 "Command Line Interface (CLI)": [
                   {
@@ -255,7 +249,11 @@ module.exports = {
               },
               {
                 SDKs: ['kratos/sdk/index', 'kratos/sdk/go']
-              }
+              },
+              'kratos/reference/configuration',
+              'kratos/reference/json-schema-json-paths',
+              'kratos/reference/html-forms',
+              'kratos/reference/jsonnet',
             ]  
           }
          ]

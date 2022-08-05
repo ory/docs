@@ -1,6 +1,7 @@
 ---
-id: index
-title: Introduction
+id: ory-kratos-intro
+title: Introduction to the Ory Identity Service (Ory Kratos)
+sidebar_label: Introduction
 ---
 
 Ory Identity Service (Ory Kratos) is an API-first identity and user management system built following
