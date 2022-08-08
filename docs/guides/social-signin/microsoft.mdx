@@ -195,11 +195,6 @@ import ConfigAsEnv from '../_common/config_as_env.mdx'
 By default, Microsoft uses the identifier taken from the `sub` field of OIDC `id_token`. The same identifier is also returned by
 the standard OIDC `/userinfo` endpoint.
 
-However, some systems use the `id` field returned by the `https://graph.microsoft.com/v1.0/me` endpoint as a subject identifier.
-To make migrating such systems to Kratos easier, you can use the identifier from obtained from the `me` endpoint.
-
-To do that, add the `subject_source` field set to `me` to the social sign-in provider config for your Kratos instance.
-
 ```yaml title=kratos-config.yaml
   providers:
   - id: microsoft # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
@@ -216,6 +211,16 @@ To do that, add the `subject_source` field set to `me` to the social sign-in pro
     scope:
     - profile
     - email
+```
+
+However, some systems use the `id` field returned by the `https://graph.microsoft.com/v1.0/me` endpoint as a subject identifier.
+To make migrating such systems to Kratos easier, you can use the identifier obtained from the `me` endpoint. To do that, update 
+the social sign-in provider config of your Kratos instance with the following.
+
+```yaml
+subject_source: me
+scope:
+  - https://graph.microsoft.com/User.Read
 ```
 
 ## Prevent having to login after sign-up
