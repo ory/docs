@@ -1,6 +1,8 @@
 ---
-id: emails
-title: Sending emails
+id: sending-emails-smtp
+title: Use a custom SMTP server to send recovery and verification messages to users
+sidebar_label: SMTP server configuration
+toc_max_heading_level: 4
 ---
 
 Ory Cloud comes with SMTP email sending configured out of the box. Ory emails are sent from this address:
@@ -40,7 +42,7 @@ You can't customize the `from_address` and `from_name` fields without also setti
 
 :::
 
-### SMTP connection URI
+### SMTP security mechanisms
 
 SMTP has six different security mechanisms. Most SMTP services today use Explicit StartTLS with trusted certificates.
 
@@ -69,6 +71,10 @@ SMTP has six different security mechanisms. Most SMTP services today use Explici
    ```
    smtps://username:password@subdomain.my-mailserver.com:1234/?server_name=my-mailserver.com
    ```
+
+### Integrations
+
+Reference the sample connection URIs to send emails using different providers.
 
 #### Mailgun
 
