@@ -103,9 +103,11 @@ The refresh token hook endpoint must accept the following payload format:
 
 :::note
 
-`session` represents consent session, along with the data that was passed to the
+`session` represents the consent session, along with the data that was passed to the
 [Accept Consent Request](https://www.ory.sh/docs/hydra/reference/api#operation/acceptConsentRequest) in the `id_token` field.
 `requester` is the token request context.
+
+:::
 
 To update the data, the webhook must return a `200 OK` response and the updated session data in the following format:
 
