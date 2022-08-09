@@ -51,3 +51,44 @@ If the courier can't deliver the message within the number of retries specified 
 courier:
   message_retries: 5
 ```
+
+## Custom SMTP headers
+
+You can configure custom SMTP headers. For example, if integrating with AWS SES SMTP interface, the headers can be configured for
+cross-account sending:
+
+```yaml title="path/to/my/kratos/config.yml"
+# kratos -c path/to/my/kratos/config.yml serve
+courier:
+  smtp:
+    headers:
+      X-SES-SOURCE-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
+      X-SES-FROM-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
+      X-SES-RETURN-PATH-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
+```
+
+## Certificate-based authentication
+
+If your SMTP server enforces certificate based authentication, you can configure the client certificate and client private key to
+use to connect to the server. The files must contain PEM encoded data:
+
+```yaml title="path/to/my/kratos/config.yml"
+# kratos -c path/to/my/kratos/config.yml serve
+courier:
+  smtp:
+    client_cert_path: /somepath/client.cert
+    client_key_path: /somepath/client.key
+```
+
+## Custom SMTP HELO/EHLO identifier
+
+If your SMTP server requires a unique identifier for the HELO/EHLO command, you can configure the identifier. Some SMTP relays
+(e.g. Gmail / Google Workspace) may close the connection for generic identifiers like `localhost`. The identifier should usually
+be the domain name of the sending host. If the identifier is not configured, `localhost` is used per default.
+
+```yaml title="path/to/my/kratos/config.yml"
+courier:
+  smtp:
+    local_name: exmaple.org
+```
+

@@ -673,6 +673,56 @@
       "source": "/docs/hydra/guides/token-expiration",
       "destination": "https://www.ory.sh/docs/hydra/guides/client-token-expiration",
       "permanent": false
+    },
+    {
+      "source": "/docs/guides/passwordless/:path*",
+      "destination": "https://www.ory.sh/docs/kratos/passwordless/:path",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/session-management/:path*",
+      "destination": "https://www.ory.sh/docs/kratos/session-management/:path",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/manage-identities/:path*",
+      "destination": "https://www.ory.sh/docs/kratos/manage-identities/:path",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/social-signin/:path*",
+      "destination": "https://www.ory.sh/docs/kratos/social-signin/:path",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/mfa/:path*",
+      "destination": "https://www.ory.sh/docs/kratos/mfa/:path",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/emails",
+      "destination": "https://www.ory.sh/docs/kratos/emails-sms/sending-emails-smtp",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/concepts/email-sms",
+      "destination": "https://www.ory.sh/docs/kratos/emails-sms/custom-email-templates",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/concepts/index",
+      "destination": "https://www.ory.sh/docs/kratos/ory-kratos-intro",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/index",
+      "destination": "https://www.ory.sh/docs/kratos/ory-kratos-intro",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/milestones",
+      "destination": "https://www.ory.sh/docs/ecosystem/changelog",
+      "permanent": false
     }
   ]
 }
