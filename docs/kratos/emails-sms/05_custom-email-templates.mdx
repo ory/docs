@@ -15,7 +15,8 @@ The system uses templates in these flows:
      flow using an email address that isn't associated with a registered user account.
 2. `verification` - the system sends these messages when users verify their accounts after signing up.
    - `verification.valid` - the system sends these messages when the user verifies their account successfully.
-   - `verification.invalid` - the system sends these messages when the account verification fails.
+   - `verification.invalid` - the system sends these messages when the account verification fails, for example when you start the
+     verification flow using an email address that isn't associated with a registered user account.
 
 ## Use custom message templates
 
@@ -76,7 +77,7 @@ Follow these steps:
 :::warning
 
 In Ory Cloud, you can use only Base64-encoded templates. The system doesn't accept `http://` or `file://` URIs. If you provide
-templates using unsupported methods, the system falls back to using the default templates.
+custom templates using unsupported methods, the system uses the default templates.
 
 :::
 
@@ -84,8 +85,8 @@ templates using unsupported methods, the system falls back to using the default 
   <TabItem value="selfhosted" label="Self-Hosted Ory Kratos Config" default>
 
 In self-hosted Ory Kratos instances, you can add custom templates from `http://`, `file://`, and `base64://` URIs.
-The `plaintext` and `html` fields are mandatory when defining the `body` key. All other keys are optional and will always fallback
-to the built-in templates or to the `template_override_path` (if specified).
+The `plaintext` and `html` fields are mandatory when defining the `body` key. All other keys are optional. If the system can't use
+the custom templates, it falls back to the built-in templates or to the `template_override_path` (if specified).
 
 ```yaml title=path/to/kratos/config.yml
 smtp:
@@ -177,7 +178,7 @@ For example, for this template:
   <a href="{{ .VerificationURL }}">{{ .VerificationURL }}</a>
   ```
 
-- The `plaintext` version doesn't use any HTML and keeps only the gotmpl logic (`{{ .VerificationURL }}`) and plain text.
+- The `plaintext` version doesn't contain any HTML and keeps only the gotmpl logic (`{{ .VerificationURL }}`) and plain text.
 
   ```gotmp title="courier/template/templates/verification/valid/email.body.plaintext.gotmpl"
   Hi, please verify your account by clicking the following link: {{ .VerificationURL }}
@@ -191,7 +192,7 @@ as `id`, `state`, `recovery_addresses`, `verifiable_addresses` and `traits`.
 
 :::tip
 
-Read [this document](../manage-identities/overview) to learn more about the Ory identity and the identity schema.
+Read [this document](../manage-identities/overview) to learn more about the Ory identity and the Identity Schema.
 
 :::
 
@@ -225,6 +226,13 @@ For example:
 }
 ```
 
+:::tip
+
+You can get user-specific metadata, such as the language or the locale automatically using the identity metadata. Read
+[this document](../manage-identities/managing-users-identities-metadata#metadata) to learn more.
+
+:::
+
 You can then use this trait to decide what template variant to show.
 
 ````mdx-code-block
@@ -233,7 +241,7 @@ You can then use this trait to decide what template variant to show.
 
 You can use in-line template definitions in nested templates. The following example defines the message body for verification emails.
 It assumes that there is a `lang` attribute defined in the identity traits that contains the preferred language of the user. The verification email
-content changes if the system detects `fr` or `it` in the identity traits. If the system detects any other language, it uses the `eng` template.
+content changes to show the appropriate language version if the system detects `fr` or `it` in the identity traits. If the system detects any other language, it uses the `eng` template.
 
 ```gotmpl title="Example nested template that serves different content based on an identity trait"
 {{define "en"}}
@@ -272,7 +280,7 @@ Recuperare l'accesso al proprio account facendo clic sul seguente link:
   </TabItem>
   <TabItem value="selfhosted" label="Self-Hosted Ory Kratos Config" default>
 
-To create nested templates, you can use either in-line template definitions, or as in this example, use separate templates. The following
+To create nested templates, you can use either in-line template definitions, or as in this example, use separate template files. The following
 example defines the message body for verification emails. It assumes that there is a `lang` attribute defined in the identity traits
 that contains the preferred language of the user.
 
@@ -310,38 +318,3 @@ You can use Sprig functions in the nested templates. For security reasons, some 
 [Click here to see the list of disabled functions.](#spring-disabled)
 
 :::
-
-### Nested templates containing remote templates
-
-:::warning
-
-This approach is available in self-hosted Ory Kratos instances only. For security reasons, Ory Cloud doesn't allow linking to
-external resources. As such, all options must be contained in a single template.
-
-:::
-
-When remote templates are used in self-hosted Ory Kratos, the dynamics of loading nested templates change. Remote templates can't
-reference templates outside of the instance's template directory.
-
-```yaml title="path/to/my/kratos/config.yml"
-courier:
-  templates:
-    verification:
-      email:
-        body:
-          plaintext: https://some-remote-template/tmp.gotmpl
-          html: https://some-remote-template/tmp.gotmpl
-```
-
-The template:
-
-```gotmpl title="https://some-remote-template/tmp.gotmpl"
-{{define "en_US"}}
-{{ $l := cat "lang=" .lang }}
-{{ nospace $l }}
-{{end}}
-
-{{- if eq .lang "en_US" -}}
-{{ template "en_US" . }}
-{{- end -}}
-```
