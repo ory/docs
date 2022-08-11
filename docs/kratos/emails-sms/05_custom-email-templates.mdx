@@ -11,7 +11,7 @@ The system uses templates in these flows:
 
 1. `recovery` - the system sends these messages when users recover their accounts, for example after forgetting their password.
    - `recovery.valid` - the system sends these messages when the user completes the recovery flow successfully.
-   - `recovery.invalid` - the system sends these messages when the recovery flow fails.
+   - `recovery.invalid` - the system sends these messages when the recovery flow fails, for example when you start the recovery flow using an email address that isn't associated with a registered user account.
 2. `verification` - the system sends these messages when users verify their accounts after signing up.
    - `verification.valid` - the system sends these messages when the user verifies their account successfully.
    - `verification.invalid` - the system sends these messages when the account verification fails.
@@ -29,7 +29,7 @@ import TabItem from '@theme/TabItem';
 <Tabs>
   <TabItem value="cloud" label="Ory Cloud" default>
 
-To use custom templates in Ory Cloud, encode the content template with Base64 and use the encoded string to update the Identity Service config.
+To use custom templates in Ory Cloud, encode the content of the template with Base64 and use the encoded string to update the Identity Service config.
 Follow these steps:
 
 1. List all your projects and get the Identity Service config file:
@@ -74,7 +74,8 @@ Follow these steps:
 
 :::warning
 
-In Ory Cloud, you can use only Base64-encoded templates.
+In Ory Cloud, you can use only Base64-encoded templates. The system doesn't accept `http://` or `file://` URIs. If you provide 
+templates using unsupported methods, the system falls back to using the default templates.
 
 :::
 
@@ -128,10 +129,23 @@ Learn more:
 - https://pkg.go.dev/text/template
 - https://pkg.go.dev/html/template
 
+<a name="spring-disabled"></a>
+
 :::tip
 
 Templates can use the [Sprig](https://github.com/Masterminds/sprig) library, which provides
 [more than 100 commonly used template functions](http://masterminds.github.io/sprig/)
+
+:::
+
+:::warning
+
+For security reasons, these Spring functions are disabled in Ory Cloud: 
+
+- Date functions: `date`,`date_in_zone`,`date_modify`, `now`, `htmlDate`, `htmlDateInZone`, `dateInZone`, `dateModify`
+- Strings: `randAlphaNum`, `randAlpha`, `randAscii`, `randNumeric`, `uuidv4`
+- OS: `env`, `expandenv`
+- Network: `getHostByName`
 
 :::
 
@@ -142,39 +156,82 @@ Use these variables in templates:
 - `verification.valid` - `To`, `VerificationURL` and `Identity` for validating verification.
 - `verification.invalid` - `To` for invalidating verification.
 
-For example:
+Each template must have two versions: `html` and `plaintext`. 
+  - `html` version uses the HTML syntax to achieve the desired look and functionality (such as clickable buttons) of the email message. 
+  - `plaintext` version can't contain any HTML. Must contain only plain text content and any necessary gotmpl logic. This version is used as a fallback when the `html` version cannot be delivered, 
+    for example when the user's mail server blocks HTML in all incoming messages.
+
+For example, for this template:
 
 [`https://github.com/ory/kratos/blob/master/courier/template/courier/builtin/templates/verification/valid/email.body.gotmpl`](https://github.com/ory/kratos/blob/master/courier/template/courier/builtin/templates/verification/valid/email.body.gotmpl)
 
-```gotmpl title="courier/template/templates/verification/valid/email.body.gotmpl"
-Hi, please verify your account by clicking the following link:
+- The `html` version looks like this:
 
-<a href="{{ .VerificationURL }}">{{ .VerificationURL }}</a>
-```
+  ```gotmpl title="courier/template/templates/verification/valid/email.body.gotmpl"
+  Hi, please verify your account by clicking the following link:
 
-```gotmp title="courier/template/templates/verification/valid/email.body.plaintext.gotmpl"
-Hi, please verify your account by clicking the following link: {{ .VerificationURL }}
-```
+  <a href="{{ .VerificationURL }}">{{ .VerificationURL }}</a>
+  ```
+
+- The `plaintext` version doesn't use any HTML and keeps only the gotmpl logic (`{{ .VerificationURL }}`) and plain text.  
+
+  ```gotmp title="courier/template/templates/verification/valid/email.body.plaintext.gotmpl"
+  Hi, please verify your account by clicking the following link: {{ .VerificationURL }}
+  ```
 
 ## Customizing template content for specific users
 
 To enable customizing the content of templates based on the identity of the recipient of the email, the Ory identity is available
-as the `Identity` object. This object is a map containing all the attributes of an identity, such as `id`, `state`,
+as the `Identity` object. This object is a map containing all the attributes of an identity defined in the identity schema, such as `id`, `state`,
 `recovery_addresses`, `verifiable_addresses` and `traits`.
+
+:::tip
+
+Read [this document](../manage-identities/overview) to learn more about the Ory identity and the identity schema.
+
+:::
 
 ### Nested templates: i18n customization
 
 You can use nested templates to render `email.subject.gotmpl`, `email.body.gotmpl` and `email.body.plaintext.gotmpl` templates.
 
+To enable i18n customization of templates, customize the identity schema to include the user's preferred communication language.
+For example: 
+
+```json title="Sample custom Identity Schema with user language"
+{
+  // ...
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        // ...
+        // highlight-start
+        "lang": {
+          "type": "string",
+          "title": "Your preferred language"
+      },
+      // highlight-end
+      "required": [
+        "email"
+      ],
+      "additionalProperties": false,
+    }
+  }
+}
+```
+
+You can then use this trait to decide what template variant to show.
+
 ````mdx-code-block
 <Tabs>
   <TabItem value="cloud" label="Ory Cloud" default>
 
-You can either use in-line template definitions in nested templates. The following example defines the message body for verification emails.
+You can use in-line template definitions in nested templates. The following example defines the message body for verification emails.
 It assumes that there is a `lang` attribute defined in the identity traits that contains the preferred language of the user. The verification email
 content changes if the system detects `fr` or `it` in the identity traits. If the system detects any other language, it uses the `eng` template.
 
-```gotmpl
+```gotmpl title="Example nested template that serves different content based on an identity trait"
 {{define "en"}}
 Hi,
 
@@ -184,15 +241,15 @@ Please recover access to your account by clicking the following link:
 {{end}}
 
 {{define "fr"}}
-Bonjour ,
+Bonjour,
 
-Veuillez récupérer l'accès à votre compte en cliquant sur le lien suivant :
+Veuillez récupérer l'accès à votre compte en cliquant sur le lien suivant:
 
 {{ .RecoveryURL }}
 {{end}}
 
 {{define "it"}}
-Ciao ,
+Ciao,
 
 Recuperare l'accesso al proprio account facendo clic sul seguente link:
 
@@ -245,7 +302,8 @@ The identity of the user is available in all templates.
 
 :::tip
 
-You can use Sprig functions in the nested templates.
+You can use Sprig functions in the nested templates. For security reasons, some functions are disabled in Ory Cloud. [Click here to 
+see the list of disabled functions.](#spring-disabled)
 
 :::
 

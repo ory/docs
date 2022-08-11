@@ -723,6 +723,16 @@
       "source": "/docs/kratos/milestones",
       "destination": "https://www.ory.sh/docs/ecosystem/changelog",
       "permanent": false
+    },
+    {
+      "source": "/docs/kratos/guides/account-activation-email-verification",
+      "destination": "https://www.ory.sh/docs/kratos/self-hosted/account-activation-email-verification",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/guides/account-recovery-password-reset",
+      "destination": "https://www.ory.sh/docs/kratos/self-hosted/account-recovery-password-reset",
+      "permanent": false
     }
   ]
 }

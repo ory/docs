@@ -213,6 +213,8 @@ module.exports = {
                 "kratos/guides/setting-up-cors",
                 "kratos/guides/password-policy",
                 "kratos/self-hosted/mail-courier-selfhosted",
+                "kratos/self-hosted/account-activation-email-verification",
+                "kratos/self-hosted/account-recovery-password-reset",
                 "kratos/guides/zero-trust-iap-proxy-identity-access-proxy",
                 "kratos/guides/multi-tenancy-multitenant",
                 "kratos/guides/select-cipher-algorithm",
