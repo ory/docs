@@ -1,0 +1,119 @@
+id: userset-rewrites title: Define file access permissions with userset rewrites sidebar_label: Userset rewrites
+
+---
+
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import CodeFromRemote from "@theme/CodeFromRemote"
+const sha = "fc39b65f8be9b23bbb4e19480706964d61505c5e"
+const file = (path) => `https://github.com/ory/keto/blob/${sha}/contrib/rewrites-example/${path}`
+
+This guide explains how to configure namespaces and relations using the
+[Ory Permission Language](../reference/ory-permission-language).
+
+The example describes a file store. Individual files are organized in a folder hierarchy, and can be accessed by individual users
+or groups of users. Using the Ory Permission Language you can specify that if a user has access to a folder, the user also has
+access to all files in that folder.
+
+## Setup and Configuration
+
+First, [install Keto](../install.mdx). Next, create the `keto.yaml` file and save it at the `contrib/rewrites-example/` path:
+
+<CodeFromRemote src={file("keto.yaml")} />
+
+In the `namespaces` key, you see the line `config: file://./namespaces.keto.ts`. This needs to point to your namespace
+configuration in the Ory Permission Language.
+
+:::info
+
+Namespace configurations without the Ory Permission Language are still supported by either specifying the namespaces directly or a
+"naked" URI, e.g. `namespaces: file://.namespaces.yaml`.
+
+:::
+
+Next, create a file with the namespace configuration:
+
+<CodeFromRemote src={file("namespaces.keto.ts")} />
+
+:::tip
+
+If you are using a text editor with TypeScript support, you can get extra help when using the Ory Permission Language. Make sure
+that the file `contrib/rewrites-examples/lib.ts` is in the same folder as the file you are editing. It contains all definitions to
+type-check the config.
+
+:::
+
+### Starting Ory Keto
+
+After you created both configuration files (`keto.yaml` and `namespaces.keto.ts`), run this command to start Ory Keto:
+
+```sh
+$ keto serve --config ./path/to/keto.yaml
+```
+
+## Creating the tuples
+
+Now that Ory Keto is running, create relation tuples using the Keto CLI.
+
+The following relation tuples showcase the namespace configuration. In short, it sets up a "developer" group with two members, and
+a folder hierarchy. Through the rules in the Ory Permission Language, every member of the "developer" group can access the files
+in the hierarchy.
+
+You can create additional fine-grained permission rules for certain objects, similar to the "private" file.
+
+<CodeFromRemote src={file("relation-tuples/tuples.json")} />
+
+To load the file into Ory Keto, run this command:
+
+```sh
+$ keto relation-tuple create ./contrib/rewrites-example/relation-tuples/tuples.json
+
+NAMESPACE       OBJECT                  RELATION NAME   SUBJECT
+Group           developer               members         patrik
+Group           developer               members         User:Patrik
+Group           developer               members         User:Henning
+Folder          keto/                   viewers         Group:developer#members
+File            keto/README.md          parents         Folder:keto/
+Folder          keto/src/               parents         Folder:keto/
+File            keto/src/main.go        parents         Folder:keto/src/
+File            private                 owners          User:Henning
+```
+
+## Checking for permissions
+
+Now, let's check some permissions! Some queries to try:
+
+### Transitive permissions for objects in the hierarchy
+
+Patrik can view `keto/src/main.go`. This file is in the `keto/src` folder, which is in `keto`. The `keto` directory has the
+"developer" group as its "viewers". Patrik is a member of the "developer" group.
+
+```
+$ keto check User:Patrik view File keto/src/main.go
+Allowed
+```
+
+### No transitivity for objects outside the hierarchy
+
+Patrik cannot view the private file, since that file is not part of any folder hierarchy Patrik has access to.
+
+```
+$ keto check User:Patrik view File private
+Denied
+```
+
+### Fine-grained permissions for any object
+
+Henning can both edit and view the private file, since he is an "owner" of it.
+
+```
+$ keto check User:Henning view File private
+Allowed
+
+$ keto check User:Henning edit File private
+Allowed
+```
+
+## Further reading
+
+To learn more about the Ory Permission Language, read the [specification](../reference/ory-permission-language) document.
