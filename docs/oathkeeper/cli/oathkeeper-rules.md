@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## oathkeeper rules
 
 Commands for managing rules
@@ -33,6 +32,7 @@ oathkeeper rules [flags]
 
 ### SEE ALSO
 
-- [oathkeeper](oathkeeper) - A cloud native Access and Identity Proxy
-- [oathkeeper rules get](oathkeeper-rules-get) - Get access rule
-- [oathkeeper rules list](oathkeeper-rules-list) - List access rules
+* [oathkeeper](oathkeeper)	 - A cloud native Access and Identity Proxy
+* [oathkeeper rules get](oathkeeper-rules-get)	 - Get access rule
+* [oathkeeper rules list](oathkeeper-rules-list)	 - List access rules
+
