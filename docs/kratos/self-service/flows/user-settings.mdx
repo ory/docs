@@ -65,7 +65,7 @@ Three settings methods are supported:
 - `password` for updating the password used to sign in;
 - `oidc` for un-/linking from social sign in providers such as Google or Facebook;
 - `profile` for updating an identity's traits (for example change the first name). The updated traits must be valid against the
-  Identity Schema defined for its [Identity Traits](../../../guides/manage-identities/managing-users-identities-metadata).
+  Identity Schema defined for its [identity traits](../../manage-identities/managing-users-identities-metadata).
 
 <Tabs
   defaultValue="oss"
@@ -106,7 +106,7 @@ Most Settings Flow Methods allow the user to update fields which are considered 
   - the username or email address used to sign in;
   - the recovery email address;
 - The `oidc` method allows linking and unlinking from Google, Facebook, Github, ... which is considered a privileged action (check
-  out the [set up guide](../../../guides/social-signin/overview)).
+  out the [set up guide](../../social-signin/overview)).
 
 ```yaml title="path/to/kratos/config.yml"
 selfservice:
@@ -475,7 +475,7 @@ curl -s -X GET \
 }
 ```
 
-The form fields depend on the [Identity Schema](../../../guides/manage-identities/identity-schema).
+The form fields depend on the [Identity Schema](../../manage-identities/identity-schema).
 
 ### Update password
 
@@ -536,7 +536,7 @@ curl -s -X GET \
 
 :::tip Before you start
 
-Check out the [social sign-in documentation](../../../guides/social-signin/overview) and learn how to set up this method!
+Check out the [social sign-in documentation](../../social-signin/overview) and learn how to set up this method!
 
 :::
 
