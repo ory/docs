@@ -9,17 +9,19 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## oathkeeper health ready
 
 Checks if an ORY Oathkeeper deployment is ready
 
 ### Synopsis
 
-Usage example: oathkeeper health --endpoint=http://localhost:4456/ ready
+Usage example:
+  oathkeeper health --endpoint=http://localhost:4456/ ready
 
-Note: The endpoint URL should point to a single ORY Oathkeeper deployment. If the endpoint URL points to a Load Balancer, these
-commands will effective test the Load Balancer.
+Note:
+  The endpoint URL should point to a single ORY Oathkeeper deployment.
+  If the endpoint URL points to a Load Balancer, these commands will effective test the Load Balancer.
+
 
 ```
 oathkeeper health ready [flags]
@@ -40,4 +42,5 @@ oathkeeper health ready [flags]
 
 ### SEE ALSO
 
-- [oathkeeper health](oathkeeper-health) - Commands for checking the status of an ORY Oathkeeper deployment
+* [oathkeeper health](oathkeeper-health)	 - Commands for checking the status of an ORY Oathkeeper deployment
+
