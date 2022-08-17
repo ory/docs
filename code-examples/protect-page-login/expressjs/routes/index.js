@@ -5,7 +5,8 @@ var sdk = require("@ory/client")
 
 var ory = new sdk.V0alpha2Api(
   new sdk.Configuration({
-    baseUrl: "/.ory",
+    basePath:
+      process.env.ORY_SDK_URL || "https://playground.projects.oryapis.com",
   }),
 )
 // highlight-end
