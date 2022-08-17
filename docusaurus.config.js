@@ -100,6 +100,18 @@ module.exports = {
           label: "Documentation",
         },
         {
+          type: 'doc',
+          position: 'left',
+          docId: 'reference/api',
+          label: 'API reference'
+        },
+        {
+          type: 'docSidebar',
+          position: 'left',
+          sidebarId: 'sdk',
+          label: 'SDKs'
+        },
+        {
           to: "/examples",
           position: "left",
           label: "Examples",
@@ -108,7 +120,7 @@ module.exports = {
           type: "docSidebar",
           position: "left",
           sidebarId: "opensource",
-          label: "Contributing & Open Source",
+          label: "Open source",
         },
         {
           to: "https://www.ory.sh/",
