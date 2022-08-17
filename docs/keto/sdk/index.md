@@ -1,6 +1,7 @@
 ---
 id: index
 title: Overview
+sidebar_position: 1
 ---
 
 All SDKs use automated code generation provided by [`openapi-generator`](https://github.com/OpenAPITools/openapi-generator) and
