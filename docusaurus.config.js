@@ -100,16 +100,16 @@ module.exports = {
           label: "Documentation",
         },
         {
-          type: 'doc',
-          position: 'left',
-          docId: 'reference/api',
-          label: 'API reference'
+          type: "doc",
+          position: "left",
+          docId: "reference/api",
+          label: "API reference",
         },
         {
-          type: 'docSidebar',
-          position: 'left',
-          sidebarId: 'sdk',
-          label: 'SDKs'
+          type: "docSidebar",
+          position: "left",
+          sidebarId: "sdk",
+          label: "SDKs",
         },
         {
           to: "/examples",

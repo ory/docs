@@ -527,7 +527,7 @@ module.exports = {
       ],
     },
     {
-      "Ory Oathkeeper": ['oathkeeper/sdk'],
+      "Ory Oathkeeper": ["oathkeeper/sdk"],
     },
   ],
 }
