@@ -29,11 +29,11 @@ We publish our SDKs for popular languages in their respective package repositori
 - [Ruby](https://rubygems.org/gems/ory-hydra-client)
 - [Rust](https://crates.io/crates/ory-hydra-client)
 
-We also provide more info for these SDKs:
+Code examples:
 
-- [Golang](./go.mdx)
-- [JavaScript](./js.mdx)
-- [PHP](./php.mdx)
+- [Golang](./01_go.mdx)
+- [JavaScript](./02_js.mdx)
+- [PHP](./03_php.mdx)
 
 Take a look at the source: [Generated SDKs for Ory Hydra](https://github.com/ory/sdk/tree/master/clients/hydra/)
 
