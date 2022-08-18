@@ -1,7 +1,7 @@
 ---
 id: sdk
 title: Ory Oathkeeper SDKs
-sidebar_label: Overview
+sidebar_label: Ory Oathkeeper
 ---
 
 All SDKs use automated code generation provided by [`openapi-generator`](https://github.com/OpenAPITools/openapi-generator).

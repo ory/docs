@@ -1,5 +1,5 @@
 ---
-id: sdk
+id: index
 title: Software Development Kits (SDKs)
 sidebar_label: Overview
 ---
@@ -28,11 +28,11 @@ We publish our SDKs for popular languages in their respective package repositori
 - [Ruby](https://rubygems.org/gems/ory-hydra-client)
 - [Rust](https://crates.io/crates/ory-hydra-client)
 
-We also provide more info for these SDKs:
+Code examples:
 
-- [Golang](sdk/go.mdx)
-- [JavaScript](sdk/js.mdx)
-- [PHP](sdk/php.mdx)
+- [Go](./05_go.mdx)
+- [JavaScript](./10_js.mdx)
+- [PHP](./15_php.mdx)
 
 Take a look at the source: [Generated SDKs for Ory Hydra](https://github.com/ory/sdk/tree/master/clients/hydra/)
 

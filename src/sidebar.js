@@ -359,7 +359,12 @@ module.exports = {
           ],
         },
         {
-          SDKs: ["hydra/sdk", "hydra/sdk/go", "hydra/sdk/js", "hydra/sdk/php"],
+          SDKs: [
+            "hydra/sdk/index",
+            "hydra/sdk/go",
+            "hydra/sdk/js",
+            "hydra/sdk/php",
+          ],
         },
         {
           "Further Reading": [
@@ -526,8 +531,6 @@ module.exports = {
         },
       ],
     },
-    {
-      "Ory Oathkeeper": ["oathkeeper/sdk"],
-    },
+    "oathkeeper/sdk",
   ],
 }

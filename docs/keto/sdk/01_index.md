@@ -25,6 +25,10 @@ We publish our SDKs for popular languages in their respective package repositori
 - [Node.js REST](https://www.npmjs.com/package/@ory/keto-client) (with TypeScript)
 - [Node.js gRPC](https://www.npmjs.com/package/@ory/keto-grpc-client) (with TypeScript)
 
+Code examples:
+
+- [Go](./05_go.mdx)
+
 Take a look at the source: [Generated SDKs for Ory Keto](https://github.com/ory/sdk/tree/master/clients/keto/)
 
 Missing your programming language? [Create an issue](https://github.com/ory/keto/issues) and help us build, test and publish the
