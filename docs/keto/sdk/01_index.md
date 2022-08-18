@@ -1,7 +1,6 @@
 ---
 id: index
 title: Overview
-sidebar_position: 1
 ---
 
 All SDKs use automated code generation provided by [`openapi-generator`](https://github.com/OpenAPITools/openapi-generator) and
@@ -28,7 +27,7 @@ We publish our SDKs for popular languages in their respective package repositori
 
 Code examples:
 
-- [Go](./01_go.mdx)
+- [Go](./05_go.mdx)
 
 Take a look at the source: [Generated SDKs for Ory Keto](https://github.com/ory/sdk/tree/master/clients/keto/)
 
