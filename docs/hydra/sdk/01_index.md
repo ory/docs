@@ -2,7 +2,6 @@
 id: index
 title: Software Development Kits (SDKs)
 sidebar_label: Overview
-sidebar_position: 1
 ---
 
 All SDKs use automated code generation provided by [`openapi-generator`](https://github.com/OpenAPITools/openapi-generator).
@@ -31,9 +30,9 @@ We publish our SDKs for popular languages in their respective package repositori
 
 Code examples:
 
-- [Golang](./01_go.mdx)
-- [JavaScript](./02_js.mdx)
-- [PHP](./03_php.mdx)
+- [Go](./05_go.mdx)
+- [JavaScript](./10_js.mdx)
+- [PHP](./15_php.mdx)
 
 Take a look at the source: [Generated SDKs for Ory Hydra](https://github.com/ory/sdk/tree/master/clients/hydra/)
 
