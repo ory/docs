@@ -85,7 +85,7 @@
     "path-to-regexp": "^6.2.0",
     "prettier": "2.6.2",
     "raw-loader": "^4.0.2",
-    "text-runner": "^5.0.0",
+    "text-runner": "^5.0.2",
     "wait-on": "^6.0.0",
     "yaml": "^1.10.2"
   }
