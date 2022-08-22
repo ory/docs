@@ -201,6 +201,7 @@ module.exports = {
           items: [
             "kratos/install",
             "kratos/quickstart",
+            "kratos/guides/deploy-kratos-example",
             "kratos/guides/upgrade",
             {
               type: "category",
