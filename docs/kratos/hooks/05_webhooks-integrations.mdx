@@ -1,0 +1,186 @@
+---
+id: webhooks-integrations
+title: External system integrations with webhooks
+sidebar_label: Webhook integrations
+---
+
+You can easily integrate with external systems using webhooks. Use these examples to integrate with one of the listed systems or to 
+create a custom configuration.
+
+:::tip
+
+Read this document to learn more about configuring hooks and webhooks. 
+
+:::
+
+## Mailchimp
+
+Use this configuration to send emails to users with [Mailchimp](https://mailchimp.com/)
+
+````mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs groupId="wherehosted">
+  <TabItem value="cloud" label="Ory Cloud" default>
+
+```yaml
+  - hook: web_hook
+    config:
+      url: https://mandrillapp.com/api/1.0/messages/send
+      method: POST
+      # Encode the Jsonnet with Base64 and add the encoded string to 'body'.
+      body: base64://ENCODED_JSONNET
+```
+
+  </TabItem>
+  <TabItem value="selfhosted" label="Self-Hosted Ory Kratos Config" default>
+
+```yaml title="path/to/my/kratos.config.yml"
+  - hook: web_hook
+    config:
+      url: https://mandrillapp.com/api/1.0/messages/send
+      method: POST
+      body: /path/to/my/mandrillapp.jsonnet
+```
+
+  </TabItem>
+</Tabs>
+````
+
+Request body Jsonnet:
+
+:::info
+
+For Mailchimp, you must pass the API key in the request body. This means you must include it in the Jsonnet snippet.
+
+:::
+
+```jsonnet title="Mailchimp request body"
+function(ctx) {
+  key: "<Your-Api-Key>",
+  message: {
+    from_email: "hello@example.com",
+    subject: "Hello from Ory",
+    text: "Welcome to Ory! Have fun and happy hacking!",
+    to: [
+      {
+        email: ctx.identity.verifiable_addresses[0].value,
+        type: "to"
+      }
+    ]
+  }
+}
+```
+
+## Hubspot
+
+Use this configuration to add customers to your [HubSpot contact list](https://developers.hubspot.com/docs/api/crm/contacts):
+
+````mdx-code-block
+<Tabs groupId="wherehosted">
+  <TabItem value="cloud" label="Ory Cloud" default>
+
+
+```yaml
+  - hook: web_hook
+    config:
+      response:
+        ignore: true
+      url: "https://api.hubapi.com/crm/v3/objects/contacts?hapikey={{ .api key }}"
+      method: POST
+      # Encode the Jsonnet with Base64 and add the encoded string to 'body'.
+      body: base64://ENCODED_JSONNET
+```
+
+  </TabItem>
+  <TabItem value="selfhosted" label="Self-Hosted Ory Kratos Config" default>
+
+```yaml title="path/to/my/kratos.config.yml"
+  - hook: web_hook
+    config:
+      response:
+        ignore: true
+      url: "https://api.hubapi.com/crm/v3/objects/contacts?hapikey={{ .api key }}"
+      method: POST
+      body: /path/to/my/hubspot_body.jsonnet
+```
+
+  </TabItem>
+</Tabs>
+````
+
+Request body Jsonnet:
+
+```json title="HubSpot request body"
+function(ctx)
+    {
+      properties: {
+        email: ctx.identity.traits.email,
+        firstname: ctx.identity.traits.name,
+        // ...
+      },
+    }
+```
+
+## Segment
+
+Use this configuration to call [Segment's Identify API](https://segment.com/docs/connections/spec/identify/) and collect user-specific usage data:
+
+:::note
+
+This setup creates a non-blocking webhook. [Click here](configure-hooks#non-blocking-webhooks) to learn more.
+
+:::
+
+````mdx-code-block
+<Tabs groupId="wherehosted">
+  <TabItem value="cloud" label="Ory Cloud" default>
+
+```yaml
+- hook: web_hook
+  config:
+    auth:
+      type: "basic_auth"
+      config:
+        user: <segment_write_key>
+        password: ""
+    url: "https://api.segment.io/v1/identify"
+    method: POST
+    # Encode the Jsonnet with Base64 and add the encoded string to 'body'.
+    body: base64://ENCODED_JSONNET
+```
+
+  </TabItem>
+  <TabItem value="selfhosted" label="Self-Hosted Ory Kratos Config" default>
+
+```yaml
+- hook: web_hook
+  config:
+    auth:
+      type: "basic_auth"
+      config:
+        user: <segment_write_key>
+        password: ""
+    url: "https://api.segment.io/v1/identify"
+    method: POST
+    body: /path/to/my/segment_body.jsonnet
+```
+
+  </TabItem>
+</Tabs>
+````
+
+Request body Jsonnet:
+
+```json title="Segment request body"
+function(ctx)    {
+      userId: ctx.identity.id,
+      traits: {
+        email: ctx.identity.traits.email,
+        name: ctx.identity.traits.name,
+        newsletterConsent: ctx.identity.traits.consent.newsletter,
+      },
+    }
+```
