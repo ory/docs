@@ -1,11 +1,12 @@
 ---
-id: hooks
-title: Hooks
+id: configure-hooks
+title: Add and configure hooks for self-service user flows
+sidebar_label: Configuration
 toc_max_heading_level: 4
 ---
 
 Ory Identity Service (Kratos) allows you to enrich self-service user flows by executing additional logic at specific points of the
-selected flow. 
+selected flow. You enrich the flows through hooks.
 
 Adding hooks to self-service flows can help you shape your customers' user experience and increase the security of your systems. 
 
@@ -29,7 +30,7 @@ The login and registration self-service flows support multiple authentication me
 | :-------------------- | :----- |
 | `password`            | Sign-in and sign-up with username and password combo. |
 | `oidc`                | Sign-in and sign-up through OIDC-compliant OAuth2 identity providers. |
-| `totp`                | Sign-in with a TOTP code from apps such as Google Authenticatior. |
+| `totp`                | Sign-in with a TOTP code from apps such as Google Authenticator. |
 | `webauthn`            | Sign-in with WebAuthn-compatible factors (FaceID, YubiKey) or paswordless sign-up and sign-in. |
 | `lookup_secret`       | Sign-in with recovery codes. |
 
@@ -46,7 +47,7 @@ There are 4 hooks you can use to extend self-service user flows. Note that some 
 
 | Hook | Description | Constraints |
 | :--- | :---------- | :---------- |
-| `session` | Signs in the user immediately after they create an account. | For use only with the `after` registration flow. To use it, you must define secrets for secrets rotation. | 
+| `session` | Signs in the user immediately after they create an account. | For use only with the `after` registration flow. To use it, you must define secrets for secret rotation. | 
 | `revoke_active_sessions` | Revokes all other active sessions of the user on successful login. | For use only with the login flow. | 
 | `require_verified_address` | Allows users to sign in only when they verified their email address. | For use only with the `after` login flow, `password` method only. |
 | `web_hook` | Allows to trigger external logic. Can be used with all flows and methods except error and logout. | Requires providing web-hook configuration. The only hook type available for the `after` settings flow. | 
@@ -170,6 +171,14 @@ The hook behaves differently depending on the registration flow used:
 
   The hook sends a `Set-Cookie` HTTP header which contains the session cookie. The user is signed in immediately.
 
+  :::warning
+
+  Using this job as part of your post-registration workflow makes your system vulnerable to Account Enumeration Attacks because a 
+  threat agent can distinguish between existing and non-existing accounts by checking if Set-Cookie was sent as part of the registration 
+  response.
+
+  :::
+
 - Registration through the API (mobile app)
 
   When the registration is performed through an API client (such as a mobile app), the hook creates a session and returns the 
@@ -189,17 +198,22 @@ The hook behaves differently depending on the registration flow used:
   }
   ```
 
-### Webhooks
-
 :::info
 
-Webhooks can't control the execution of the flow by patching/updating particular properties of flow-specific objects on webhook completion. 
+The HTTP response is set by the hook. As a result, no other hooks can be executed after the `session` hook. This is because the initial
+HTTP response can't be modified by subsequent hooks. 
 
-The execution of the flow can be cancelled if the call to the webhook endpoint fails either due to a network error or if the endpoint returns a HTTP code `4xx` or `5xx` response.
+If you want to trigger multiple hooks in your setup, make sure that `session` is the last executed hook.
 
 :::
 
+### Webhooks
+
 To configure webhooks, use this pattern:
+
+````mdx-code-block
+<Tabs groupId="wherehosted">
+  <TabItem value="cloud" label="Ory Cloud" default>
 
 ```yaml
 selfservice:
@@ -209,41 +223,60 @@ selfservice:
         hooks:
           - hook: web_hook # To use webhooks, you must set 'hook' to 'web_hook'
             config: 
-              url: https://test.kratos.ory.sh/after_verification_hook # Webhook URL. 
+              url: https://test.hook.site.sh/before_login_hook # Webhook URL. 
               method: POST # HTTP method used to send request to the webhook URL.
-              body: file:///path/of/my/jsonnet/file # Jsonnet template URI used to render payload. Ignored when 
-              # using an HTTP method that doesn't allow sending body. OPTIONAL
+              body: base64://ENCODED_JSONNET # Encoded Jsonnet template used to render payload. 
+              # Ignored when using an HTTP method that doesn't allow sending body. OPTIONAL
               auth: 
                 type: # Can be one of 'basic_auth' or 'api_key'
                 config: # Additional auth config for the hook. Read next section for details.
 ```
 
-Webhook config consists of these settings: 
-
-````mdx-code-block
-<Tabs groupId="wherehosted">
-  <TabItem value="cloud" label="Ory Cloud" default>
-
 | Setting | Mandatory | Description
 | :------ | :-------: | :--------- |
 | `url`   | Yes | URL called by the webhook. |
-| `method`| Yes | HTTP method used to send request to the webhook URL. |
+| `method`| Yes | HTTP method used to send a request to the webhook URL. |
 | `body`  | No | Base64-encoded Jsonnet template used to render the payload. Ignored when using an HTTP method that doesn't allow sending body.|
 | `auth`  | No | Webhook authentication mechanism configuration. |
 
   </TabItem>
   <TabItem value="selfhosted" label="Self-Hosted Ory Kratos Config" default>
 
+```yaml
+selfservice:
+  flows:
+    login:
+      before:
+        hooks:
+          - hook: web_hook # To use webhooks, you must set 'hook' to 'web_hook'
+            config: 
+              url: https://test.hook.site.sh/before_login_hook # Webhook URL. 
+              method: POST # HTTP method used to send request to the webhook URL.
+              body: file:///path/of/my/jsonnet/file # Jsonnet template URI used to render payload. 
+              # Ignored when using an HTTP method that doesn't allow sending body. OPTIONAL
+              auth: 
+                type: # Can be one of 'basic_auth' or 'api_key'
+                config: # Additional auth config for the hook. Read next section for details.
+```
+
 | Setting | Mandatory | Description
 | :------ | :-------: | :--------- |
 | `url`   | Yes | URL called by the webhook. |
-| `method`| Yes | HTTP method used to send request to the webhook URL. |
+| `method`| Yes | HTTP method used to send a request to the webhook URL. |
 | `body`  | No | Jsonnet template URI used to render payload. Use `file://path/to/body.jsonnet` when referring to local files. Ignored when using an HTTP method that doesn't allow sending body.|
 | `auth`  | No | Webhook authentication mechanism configuration. |
 
   </TabItem>
 </Tabs>
 ````
+
+:::info
+
+Webhooks can't control the execution of the flow by patching/updating particular properties of flow-specific objects on webhook completion. 
+
+The execution of the flow can be canceled if the call to the webhook endpoint fails either due to a network error or if the endpoint returns an HTTP code `4xx` or `5xx` response.
+
+:::
 
 #### Request body
 
@@ -335,4 +368,3 @@ To do that, set `response.ignore` to `true` in the webhook config:
       ignore: true
   // highlight-end
 ```
-
