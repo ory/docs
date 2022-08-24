@@ -228,6 +228,7 @@ selfservice:
               method: POST # HTTP method used to send request to the webhook URL.
               body: base64://ENCODED_JSONNET # Encoded Jsonnet template used to render payload.
               # Ignored when using an HTTP method that doesn't allow sending body. OPTIONAL
+              can_interrupt: true # Defines if the webhook can interrupt the flow. Boolean. OPTIONAL
               auth:
                 type: # Can be one of 'basic_auth' or 'api_key'
                 config: # Additional auth config for the hook. Read next section for details.
@@ -238,6 +239,7 @@ selfservice:
 | `url`   | Yes | URL called by the webhook. |
 | `method`| Yes | HTTP method used to send a request to the webhook URL. |
 | `body`  | No | Base64-encoded Jsonnet template used to render the payload. Ignored when using an HTTP method that doesn't allow sending body.|
+| `can_interrupt`  | No | Defines if the webhook can interrupt the flow. |
 | `auth`  | No | Webhook authentication mechanism configuration. |
 
   </TabItem>
@@ -255,6 +257,7 @@ selfservice:
               method: POST # HTTP method used to send request to the webhook URL.
               body: file:///path/of/my/jsonnet/file # Jsonnet template URI used to render payload.
               # Ignored when using an HTTP method that doesn't allow sending body. OPTIONAL
+              can_interrupt: true # Defines if the webhook can interrupt the flow. Boolean. OPTIONAL
               auth:
                 type: # Can be one of 'basic_auth' or 'api_key'
                 config: # Additional auth config for the hook. Read next section for details.
@@ -265,7 +268,9 @@ selfservice:
 | `url`   | Yes | URL called by the webhook. |
 | `method`| Yes | HTTP method used to send a request to the webhook URL. |
 | `body`  | No | Jsonnet template URI used to render payload. Use `file://path/to/body.jsonnet` when referring to local files. Ignored when using an HTTP method that doesn't allow sending body.|
+| `can_interrupt`  | No | Defines if the webhook can interrupt the flow. |
 | `auth`  | No | Webhook authentication mechanism configuration. |
+
 
   </TabItem>
 </Tabs>
@@ -371,3 +376,42 @@ To do that, set `response.ignore` to `true` in the webhook config:
       ignore: true
   // highlight-end
 ```
+
+#### Flow-interrupting webhooks
+
+If you want the result of webhook execution to have the potential of blocking a self-service user flow, use the
+`can_interrupt: true` setting in the config.
+
+The external service called in the flow decides if it allows the flow to continue, or if it interrupts the flow. For example:
+
+- For HTTP response codes `1xx`, `2xx`, and `3xx`, the flow is not interrupted.
+- For HTTP response codes `4xx`, `5xx`, the external service interrupts the flow and returns a predefined payload.
+
+Example payload:
+
+```json
+{
+  "messages": [
+    {
+      "instance_ptr": "#/traits/foo/bar", # Indicates the field where there is an error.
+      "messages": [
+        {
+          "id": 123, # Unique numeric ID of the error that helps the frontend to interpret this message.
+          "text": "field must be longer than 12 characters",
+          "type": "validation",
+          "context": {
+            "value": "short value"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::tip
+
+Flow-interrupting webhooks work best if you give users meaningful information about the status of their flow. The best place to
+trigger these hooks is `after` flows.
+
+:::
