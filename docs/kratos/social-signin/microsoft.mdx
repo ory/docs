@@ -196,9 +196,10 @@ By default, Microsoft uses the identifier taken from the `sub` field of OIDC `id
 the standard OIDC `/userinfo` endpoint.
 
 However, some systems use the `id` field returned by the `https://graph.microsoft.com/v1.0/me` endpoint as a subject identifier.
-To make migrating such systems to Kratos easier, you can use the identifier from obtained from the `me` endpoint.
+To make migrating such systems to the Ory Identity Service (Ory Kratos) easier, you can use the identifier obtained from the `me`
+endpoint.
 
-To do that, add the `subject_source` field set to `me` to the social sign-in provider config for your Kratos instance.
+To do that, add the `subject_source` field set to `me` to the social sign-in provider config of your Ory Kratos instance.
 
 ```yaml title=kratos-config.yaml
   providers:
@@ -211,6 +212,8 @@ To do that, add the `subject_source` field set to `me` to the social sign-in pro
     subject_source: me
     # or
     # subject_source: userinfo
+    scope:
+      - https://graph.microsoft.com/User.Read # Required when 'subject_source: me'.
     // highlight-end
     mapper_url: 'base64://<YOUR_BASE64_ENCODED_JSONNET_HERE>'
     scope:
