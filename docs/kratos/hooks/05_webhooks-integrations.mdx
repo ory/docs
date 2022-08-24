@@ -9,7 +9,7 @@ to create a custom configuration.
 
 :::tip
 
-Read this document to learn more about configuring hooks and webhooks.
+Read [this document](./configure-hooks) to learn more about configuring hooks and webhooks.
 
 :::
 
@@ -74,9 +74,15 @@ function(ctx) {
 }
 ```
 
-## Hubspot
+## HubSpot
 
 Use this configuration to add customers to your [HubSpot contact list](https://developers.hubspot.com/docs/api/crm/contacts):
+
+:::note
+
+This setup creates a non-blocking webhook. [Click here](configure-hooks#non-blocking-webhooks) to learn more.
+
+:::
 
 ````mdx-code-block
 <Tabs groupId="wherehosted">
@@ -128,12 +134,6 @@ function(ctx)
 
 Use this configuration to call [Segment's Identify API](https://segment.com/docs/connections/spec/identify/) and collect
 user-specific usage data:
-
-:::note
-
-This setup creates a non-blocking webhook. [Click here](configure-hooks#non-blocking-webhooks) to learn more.
-
-:::
 
 ````mdx-code-block
 <Tabs groupId="wherehosted">
