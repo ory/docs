@@ -64,31 +64,6 @@
         "description": "CustomHostnameStatus is the enumeration of valid state values in the CustomHostnameSSL",
         "type": "string"
       },
-      "DefaultSession": {
-        "description": "IDTokenSession is a session container for the id token",
-        "properties": {
-          "expires_at": {
-            "additionalProperties": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "type": "object"
-          },
-          "headers": {
-            "$ref": "#/components/schemas/Headers"
-          },
-          "id_token_claims": {
-            "$ref": "#/components/schemas/IDTokenClaims"
-          },
-          "subject": {
-            "type": "string"
-          },
-          "username": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
       "Duration": {
         "description": "A Duration represents the elapsed time between two instants\nas an int64 nanosecond count. The representation limits the\nlargest representable duration to approximately 290 years.",
         "format": "int64",
@@ -358,52 +333,6 @@
           },
           "subject_set": {
             "$ref": "#/components/schemas/SubjectSet"
-          }
-        },
-        "type": "object"
-      },
-      "Session": {
-        "properties": {
-          "allowed_top_level_claims": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "client_id": {
-            "type": "string"
-          },
-          "consent_challenge": {
-            "type": "string"
-          },
-          "exclude_not_before_claim": {
-            "type": "boolean"
-          },
-          "expires_at": {
-            "additionalProperties": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "type": "object"
-          },
-          "extra": {
-            "additionalProperties": true,
-            "type": "object"
-          },
-          "headers": {
-            "$ref": "#/components/schemas/Headers"
-          },
-          "id_token_claims": {
-            "$ref": "#/components/schemas/IDTokenClaims"
-          },
-          "kid": {
-            "type": "string"
-          },
-          "subject": {
-            "type": "string"
-          },
-          "username": {
-            "type": "string"
           }
         },
         "type": "object"
@@ -1822,6 +1751,13 @@
             "description": "Sets the Refresh Token Hook Endpoint. If set this endpoint will be called during the OAuth2 Token Refresh grant update the OAuth2 Access Token claims.\n\nThis governs the \"oauth2.refresh_token_hook\" setting.",
             "type": "string"
           },
+          "hydra_oauth2_session_allowed_top_level_claims": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "hydra_oauth2_session_exclude_not_before_claim": {
+            "description": "Set to true if you want to exclude claim `nbf (not before)` part of access token.\n\nThis governs the \"oauth2.session.exclude_not_before_claim\" setting.",
+            "type": "boolean"
+          },
           "hydra_oidc_dynamic_client_registration_default_scope": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
@@ -2838,6 +2774,70 @@
         "title": "Contains optional information about the OpenID Connect request.",
         "type": "object"
       },
+      "oAuth2ConsentSession": {
+        "properties": {
+          "allowed_top_level_claims": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "client_id": {
+            "type": "string"
+          },
+          "consent_challenge": {
+            "type": "string"
+          },
+          "exclude_not_before_claim": {
+            "type": "boolean"
+          },
+          "expires_at": {
+            "properties": {
+              "access_token": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "authorize_code": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "id_token": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "par_context": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "refresh_token": {
+                "format": "date-time",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "extra": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "headers": {
+            "$ref": "#/components/schemas/Headers"
+          },
+          "id_token_claims": {
+            "$ref": "#/components/schemas/IDTokenClaims"
+          },
+          "kid": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "oAuth2LoginRequest": {
         "properties": {
           "challenge": {
@@ -3564,7 +3564,7 @@
             "$ref": "#/components/schemas/oAuth2AccessRequest"
           },
           "session": {
-            "$ref": "#/components/schemas/Session"
+            "$ref": "#/components/schemas/oAuth2ConsentSession"
           },
           "subject": {
             "description": "Subject is the identifier of the authenticated end-user.",
