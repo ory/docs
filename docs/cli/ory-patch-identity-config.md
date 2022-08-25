@@ -45,8 +45,8 @@ ory patch identity-config <project-id> [flags]
 $ ory patch identity-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 	--add '/courier/smtp={"from_name":"My new email name"}' \
 	--replace '/selfservice/methods/password/enabled=false' \
-	--delete '/selfservice/methods/totp/enabled' \
-	--format json
+	--remove '/selfservice/methods/totp/enabled' \
+	--format json-pretty
 
 {
   "selfservice": {

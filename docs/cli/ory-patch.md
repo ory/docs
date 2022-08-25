@@ -24,6 +24,7 @@ Patch resources
 
 * [ory](ory)	 - The ORY CLI
 * [ory patch identity-config](ory-patch-identity-config)	 - Patch an Ory Cloud Project's Identity Config
+* [ory patch oauth2-config](ory-patch-oauth2-config)	 - Patch an Ory Cloud Project's OAuth2 Config
 * [ory patch permission-config](ory-patch-permission-config)	 - Patch an Ory Cloud Project's Permission Config
 * [ory patch project](ory-patch-project)	 - Patch an Ory Cloud Project
 
