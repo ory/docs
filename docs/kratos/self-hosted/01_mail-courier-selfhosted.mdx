@@ -1,0 +1,93 @@
+---
+id: mail-courier-selfhosted
+title: Mail courier in self-hosted Ory Kratos
+sidebar_label: Mail courier
+---
+
+This document describes the behaviors and requirements of the mail courier that are applicable only when running a self-hosted
+instance of Ory Kratos.
+
+## How many couriers should you run?
+
+Ory Kratos processes email dispatch using a mail courier worker, which must run as a singleton in order to process the mail queue.
+It can be run as a background worker on a single-instance Kratos setup or as a distinct singleton foreground worker in
+multi-instance deployments.
+
+### Single-instance setup
+
+To run the mail courier in the background on your single Kratos instance, add the `--watch-courier` flag to your `kratos serve`
+command, as outlined in the [CLI docs](../cli/kratos-serve.md)
+
+### Multi-instance setup
+
+If you're running multiple instances of Kratos (for example replicated Kubernetes deployment), you need to run the mail courier as
+a separate singleton job. The courier can be started with the `kratos courier watch` command
+([CLI docs](../cli/kratos-courier.md)).
+
+## Template override path
+
+`email.subject.gotmpl`, `email.body.gotmpl` and `email.body.plaintext.gotmpl` are common template file names expected in the sub
+directories of the root directory, corresponding to the respective methods for filling e-mail subject and body. Both plain text
+and HTML templates are required. The courier uses them as
+[alternatives](https://github.com/ory/kratos/blob/871ee0475a27771dd6395aad617f41a22ccc3b9a/courier/courier.go#L205) for fallback.
+
+:::tip
+
+If you're running multiple instances of Kratos and separate courier job, make sure to provide templates to all instances (both
+Kratos and courier).
+
+:::
+
+## Error handling
+
+The `message_retries` parameter defines the number of times the mail courier attempts to deliver a message. This setting applies
+to both the SMTP server and the SMS gateway. By default, `message_retries` is set to `5`.
+
+If the courier can't deliver the message within the number of retries specified in `message_retries`, the message gets the
+`Abandoned` status and the courier stops trying to deliver it.
+
+```yaml title="path/to/my/kratos/config.yml"
+# kratos -c path/to/my/kratos/config.yml serve
+courier:
+  message_retries: 5
+```
+
+## Custom SMTP headers
+
+You can configure custom SMTP headers. For example, if integrating with AWS SES SMTP interface, the headers can be configured for
+cross-account sending:
+
+```yaml title="path/to/my/kratos/config.yml"
+# kratos -c path/to/my/kratos/config.yml serve
+courier:
+  smtp:
+    headers:
+      X-SES-SOURCE-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
+      X-SES-FROM-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
+      X-SES-RETURN-PATH-ARN: arn:aws:ses:us-west-2:123456789012:identity/example.com
+```
+
+## Certificate-based authentication
+
+If your SMTP server enforces certificate based authentication, you can configure the client certificate and client private key to
+use to connect to the server. The files must contain PEM encoded data:
+
+```yaml title="path/to/my/kratos/config.yml"
+# kratos -c path/to/my/kratos/config.yml serve
+courier:
+  smtp:
+    client_cert_path: /somepath/client.cert
+    client_key_path: /somepath/client.key
+```
+
+## Custom SMTP HELO/EHLO identifier
+
+If your SMTP server requires a unique identifier for the HELO/EHLO command, you can configure the identifier. Some SMTP relays
+(e.g. Gmail / Google Workspace) may close the connection for generic identifiers like `localhost`. The identifier should usually
+be the domain name of the sending host. If the identifier is not configured, `localhost` is used per default.
+
+```yaml title="path/to/my/kratos/config.yml"
+courier:
+  smtp:
+    local_name: exmaple.org
+```

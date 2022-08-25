@@ -23,7 +23,7 @@ profile) and hooks, which can be configured for all methods of any flow.
 
 To configure hooks for all methods of a particular flow, following pattern must be used:
 
-```yaml title="path/to/my/kratos.config.yml
+```yaml title="path/to/my/kratos.config.yml"
 selfservice:
   flows:
     <login|registration|recovery|...>:
@@ -38,7 +38,7 @@ selfservice:
 
 Following pattern must be followed to configure hooks for a particular flow method:
 
-```yaml title="path/to/my/kratos.config.yml
+```yaml title="path/to/my/kratos.config.yml"
 selfservice:
   flows:
     <login|registration|recovery|...>:
@@ -55,7 +55,7 @@ selfservice:
 Hooks configured on a particular method level always override the hooks configured on the flow level. So given the following
 example
 
-```yaml title="path/to/my/kratos.config.yml
+```yaml title="path/to/my/kratos.config.yml"
 selfservice:
   flows:
     login:
@@ -98,7 +98,7 @@ to a network error or if the end point responses with an HTTP code > 300.
 The configuration for a web-hook goes into the `hooks` property either on the flow before/after, or the method level and has the
 following structure:
 
-```yaml title="path/to/my/kratos.config.yml
+```yaml title="path/to/my/kratos.config.yml"
 - hook: web_hook
   config:
     url: https://test.kratos.ory.sh/after_verification_hook
@@ -162,7 +162,7 @@ non-blocking.
 
 To do that, set `response.ignore` to `true` in the webhook config:
 
-```yaml title="path/to/my/kratos.config.yml
+```yaml title="path/to/my/kratos.config.yml"
 - hook: web_hook
   config:
     response:
@@ -178,19 +178,31 @@ For `auth` following mechanisms are supported:
 
 For `api_key` the config looks as follows:
 
-```yaml
-name: Some-Name
-value: The-Value-of-My-Key
-in: header # alternatively cookie
+```yaml title="path/to/my/kratos.config.yml"
+- hook: web_hook
+  # <other configuration keys>
+  config:
+    auth:
+      type: api_key
+      config:
+        name: Some-Name
+        value: The-Value-of-My-Key
+        in: header # alternatively "cookie"
 ```
 
 All properties are mandatory.
 
 For `basic_auth` the config looks as follows:
 
-```yaml
-user: My-User
-password: My-Pass-Value
+```yaml title="path/to/my/kratos.config.yml"
+- hook: web_hook
+  # <other configuration keys>
+  config:
+    auth:
+      type: basic_auth
+      config:
+        user: My-User
+        password: My-Pass-Value
 ```
 
 All properties are mandatory.

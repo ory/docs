@@ -1,0 +1,84 @@
+---
+id: session-lifespan
+title: Session lifespan
+---
+
+Each session is valid for a set amount of time. This time is the session's lifespan. When the session lifespan expires, the user
+must re-authenticate.
+
+In the configuration, the session lifespan is expressed in hours.
+
+Run this command to adjust the session lifespan to 720 hours (30 days):
+
+````mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="cloud" label="Ory CLI" default>
+
+```shell
+ory patch identity-config <your-project-id> \\
+  --replace '/session/lifespan="720h"' # 30 days
+```
+
+  </TabItem>
+  <TabItem value="selfhosted" label="Self-Hosted Ory Kratos Config" default>
+
+```yaml title=path/to/kratos/config.yml
+// highlight-start
+session:
+  cookie:
+// highlight-end
+    domain: fancy-moofasa-nsuq4mdx5a.projects.oryapis.com
+    name: ory_session_fancymoofasansuq4mdx5a
+    path: /
+    persistent: false
+    same_site: Lax
+// highlight-next-line
+  lifespan: 72h0m0s
+```
+
+  </TabItem>
+</Tabs>
+````
+
+## Session cookie 'max-age'
+
+By default, the session cookie `max-age` is the same as the set session lifespan. To disable this behavior and allow to define a
+different cookie `max-age`, set the `session/cookie/persistent` value to `false`:
+
+````mdx-code-block
+<Tabs>
+  <TabItem value="cloud" label="Ory CLI" default>
+
+```shell
+ory patch identity-config <your-project-id> \\
+  --replace '/session/cookie/persistent=false'
+```
+
+  </TabItem>
+  <TabItem value="macos" label="Self-Hosted Ory Kratos Config" default>
+
+```yaml title=path/to/kratos/config.yml
+// highlight-next-line
+session:
+  cookie:
+    domain: fancy-moofasa-nsuq4mdx5a.projects.oryapis.com
+    name: ory_session_fancymoofasansuq4mdx5a
+    path: /
+    // highlight-next-line
+    persistent: false
+    same_site: Lax
+```
+
+  </TabItem>
+</Tabs>
+````
+
+If `max-age` is set as a part of the `Set-Cookie` header, the browser deletes the cookie when it reaches the age defined in
+`max-age`.
+
+When `max-age` is not set, the browser deletes the cookie when the session ends. The session ends when the set session lifespan
+expires, or when the browser is shut down by the user.

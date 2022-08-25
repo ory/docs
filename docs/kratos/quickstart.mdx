@@ -188,15 +188,14 @@ Enough theory, it's time to get this thing going! Let's start by trying to open 
 
 You should end up at the dashboard:
 
-![Dashboard screen of your secured app](images/quickstart/ui-unverified-dashboard.png)
+![Dashboard screen of your secured app](./_static/quickstart/ui-unverified-dashboard.png)
 
 Under the section `Session Information` you can find the Ory Session details, as there is no active session this is empty for now.
 
 :::note
 
 The rendered login form should be a standard HTML `<form>`. AJAX requests require `credentials: 'include'`. This flow also works
-with Single Page Apps (SPA) and frameworks like Angular or React.js. For more details about the specific flows for SPAs head over
-to the [concept](concepts/index.md) chapter.
+with Single Page Apps (SPA) and frameworks like Angular or React.js.
 
 :::
 
@@ -205,7 +204,7 @@ Click `Sign In` to start a login flow. On the Sign In Screen you can see the uni
 
 Looking at the network stack, you can see two redirects happening:
 
-![Network trace of your secured app](images/quickstart/secureapp-login-ntrace.png)
+![Network trace of your secured app](./_static/quickstart/secureapp-login-ntrace.png)
 
 Here's a play-by-play of what happened:
 
@@ -324,11 +323,11 @@ curl -s -X GET \
 Let's move on to the next flow - registration! Click on "Register new account", which initiates a flow similar to the one we just
 used:
 
-![Registration screen of your secured app](images/quickstart/secureapp-registration.png)
+![Registration screen of your secured app](./_static/quickstart/secureapp-registration.png)
 
 The network trace should look familiar by now:
 
-![Registration with network trace screen of your secured app](images/quickstart/secureapp-registration-ntrace.png)
+![Registration with network trace screen of your secured app](./_static/quickstart/secureapp-registration-ntrace.png)
 
 To get an example of the payload for a registration flow, we can use the same `curl` request as above, now to the
 `self-service/registration` endpoint.
@@ -466,11 +465,11 @@ curl -s -X GET \
 
 If we try to sign up using a password like `123456`, Krato's password policy will complain:
 
-![Registration with network trace screen of your secured app](images/quickstart/secureapp-registration-pwpolicy.png)
+![Registration with network trace screen of your secured app](./_static/quickstart/secureapp-registration-pwpolicy.png)
 
 Setting a password that doesn't violate these policies, we will be immediately redirected to the dashboard:
 
-![SecureApp Dashboard](images/quickstart/secureapp-dashboard.png)
+![SecureApp Dashboard](./_static/quickstart/secureapp-dashboard.png)
 
 By clicking the "logout" icon in the top right, you will be redirected to the login screen again where you will be able to use
 your credentials to log back in again. Exciting!
@@ -487,7 +486,7 @@ didn't arrive in your inbox. You can retrieve the email however by opening the M
 
 You should see something like this:
 
-![User Email Verification](images/quickstart/mailslurper-quickstart.png)
+![User Email Verification](./_static/quickstart/mailslurper-quickstart.png)
 
 If not, hard refresh the tab or click on the home icon in the menu bar.
 
@@ -557,19 +556,19 @@ To learn more about verification recovery, head over to the
 
 The quickstart has account recovery enabled. To recover an account, log out and click on "Recover Account":
 
-![Click on recover account](images/quickstart/quickstart-recover-i.png)
+![Click on recover account](./_static/quickstart/quickstart-recover-i.png)
 
 The next screen shows a HTML form where you enter your email address:
 
-![Enter your email address](images/quickstart/quickstart-recover-ii.png)
+![Enter your email address](./_static/quickstart/quickstart-recover-ii.png)
 
 Hit "submit" and check the emails for the account recovery message:
 
-![Check your email for the password reset email](images/quickstart/quickstart-recover-iii.png)
+![Check your email for the password reset email](./_static/quickstart/quickstart-recover-iii.png)
 
 Click the link, and change your password:
 
-![Change your password](images/quickstart/quickstart-recover-iv.png)
+![Change your password](./_static/quickstart/quickstart-recover-iv.png)
 
 You are now able to sign in with the new password. To learn more about account recovery, head over to the
 [Account Recovery Documentation](self-service/flows/account-recovery.mdx).
@@ -609,12 +608,12 @@ Here is some information should you want to modify the quickstart:
 
 **Social Login**
 
-[Step-by-step guides](../guides/social-signin/overview) to add sign up and login with popular OIDC providers to the Ory Kratos
-Quickstart, for example:
+[Step-by-step guides](./social-signin/overview) to add sign up and login with popular OIDC providers to the Ory Kratos Quickstart,
+for example:
 
-- [GitHub](../guides/social-signin/github)
-- [Google](../guides/social-signin/google)
-- [Facebook](../guides/social-signin/facebook)
+- [GitHub](./social-signin/github)
+- [Google](./social-signin/google)
+- [Facebook](./social-signin/facebook)
 
 **Use a different database**
 
