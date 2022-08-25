@@ -36,7 +36,6 @@ module.exports = {
             },
           ],
         },
-        "getting-started/integrate-with-ory-cloud-through-webhooks",
       ],
     },
     {
@@ -72,8 +71,12 @@ module.exports = {
         },
         {
           type: "category",
-          label: "Customizing Ory",
-          items: ["guides/custom-domains", "guides/bring-your-user-interface"],
+          label: "Customizing Ory Cloud",
+          items: [
+            "guides/custom-domains",
+            "guides/bring-your-user-interface",
+            "guides/integrate-with-ory-cloud-through-webhooks",
+          ],
         },
       ],
     },
