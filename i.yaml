@@ -1,0 +1,175 @@
+cookies:
+  domain: keen-ardinghelli-nsuq4mdx5a.projects.oryapis.com
+  path: /
+  same_site: Lax
+courier:
+  smtp:
+    from_name: DIMO via Ory
+  templates:
+    recovery:
+      invalid:
+        email:
+          body: {}
+      valid:
+        email:
+          body: {}
+    verification:
+      invalid:
+        email:
+          body: {}
+      valid:
+        email:
+          body: {}
+identity:
+  default_schema_id: preset://email
+  schemas:
+    - id: preset://email
+      url: base64://ewogICIkaWQiOiAiaHR0cHM6Ly9zY2hlbWFzLm9yeS5zaC9wcmVzZXRzL2tyYXRvcy9pZGVudGl0eS5lbWFpbC5zY2hlbWEuanNvbiIsCiAgIiRzY2hlbWEiOiAiaHR0cDovL2pzb24tc2NoZW1hLm9yZy9kcmFmdC0wNy9zY2hlbWEjIiwKICAidGl0bGUiOiAiUGVyc29uIiwKICAidHlwZSI6ICJvYmplY3QiLAogICJwcm9wZXJ0aWVzIjogewogICAgInRyYWl0cyI6IHsKICAgICAgInR5cGUiOiAib2JqZWN0IiwKICAgICAgInByb3BlcnRpZXMiOiB7CiAgICAgICAgImVtYWlsIjogewogICAgICAgICAgInR5cGUiOiAic3RyaW5nIiwKICAgICAgICAgICJmb3JtYXQiOiAiZW1haWwiLAogICAgICAgICAgInRpdGxlIjogIkUtTWFpbCIsCiAgICAgICAgICAib3J5LnNoL2tyYXRvcyI6IHsKICAgICAgICAgICAgImNyZWRlbnRpYWxzIjogewogICAgICAgICAgICAgICJwYXNzd29yZCI6IHsKICAgICAgICAgICAgICAgICJpZGVudGlmaWVyIjogdHJ1ZQogICAgICAgICAgICAgIH0sCiAgICAgICAgICAgICAgIndlYmF1dGhuIjogewogICAgICAgICAgICAgICAgImlkZW50aWZpZXIiOiB0cnVlCiAgICAgICAgICAgICAgfSwKICAgICAgICAgICAgICAidG90cCI6IHsKICAgICAgICAgICAgICAgICJhY2NvdW50X25hbWUiOiB0cnVlCiAgICAgICAgICAgICAgfQogICAgICAgICAgICB9LAogICAgICAgICAgICAicmVjb3ZlcnkiOiB7CiAgICAgICAgICAgICAgInZpYSI6ICJlbWFpbCIKICAgICAgICAgICAgfSwKICAgICAgICAgICAgInZlcmlmaWNhdGlvbiI6IHsKICAgICAgICAgICAgICAidmlhIjogImVtYWlsIgogICAgICAgICAgICB9CiAgICAgICAgICB9LAogICAgICAgICAgIm1heExlbmd0aCI6IDMyMAogICAgICAgIH0KICAgICAgfSwKICAgICAgInJlcXVpcmVkIjogWwogICAgICAgICJlbWFpbCIKICAgICAgXSwKICAgICAgImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjogZmFsc2UKICAgIH0KICB9Cn0K
+    - id: 963f9c1586127a47e77131b2c81e69abff5d0a0e29c265808f91096b012018dd45c9bbe3cb23d8c6df659afd1b63618951da65983ef8fb7e67f730edce1f59f2
+      url: https://storage.googleapis.com/bac-gcs-production/963f9c1586127a47e77131b2c81e69abff5d0a0e29c265808f91096b012018dd45c9bbe3cb23d8c6df659afd1b63618951da65983ef8fb7e67f730edce1f59f2.json
+    - id: 0b4b416aabea087bfca554da7d3314d01bb03b561c8c4d899fe61e1fc470be8e9ad32b16519159f221dd3f3c99e2ee1897b59b3baf145a510c9974b90ca3adaf
+      url: https://storage.googleapis.com/bac-gcs-production/0b4b416aabea087bfca554da7d3314d01bb03b561c8c4d899fe61e1fc470be8e9ad32b16519159f221dd3f3c99e2ee1897b59b3baf145a510c9974b90ca3adaf.json
+    - id: 077b0a56d09fac42e8d48f3d3924e14e9ca8919e19990f234dd98056c4a0644c31a4e6db1e7309cd652ac7c4151bdcac023d282ac258a9228ff367fafa4fd54a
+      url: https://storage.googleapis.com/bac-gcs-production/077b0a56d09fac42e8d48f3d3924e14e9ca8919e19990f234dd98056c4a0644c31a4e6db1e7309cd652ac7c4151bdcac023d282ac258a9228ff367fafa4fd54a.json
+selfservice:
+  allowed_return_urls: []
+  default_browser_return_url: /ui/welcome
+  flows:
+    error:
+      ui_url: /ui/error
+    login:
+      after:
+        hooks: []
+        oidc:
+          hooks: []
+        password:
+          hooks: []
+        webauthn:
+          hooks: []
+      before:
+        hooks: []
+      lifespan: 30m0s
+      ui_url: /ui/login
+    logout:
+      after: {}
+    recovery:
+      after:
+        hooks: []
+      enabled: true
+      lifespan: 30m0s
+      ui_url: /ui/recovery
+    registration:
+      after:
+        hooks: []
+        oidc:
+          hooks:
+            - hook: session
+        password:
+          hooks:
+            - hook: session
+        webauthn:
+          hooks: []
+      before:
+        hooks: []
+      enabled: true
+      lifespan: 30m0s
+      ui_url: /ui/registration
+    settings:
+      after:
+        hooks: []
+        password:
+          hooks: []
+        profile:
+          hooks: []
+      lifespan: 30m0s
+      privileged_session_max_age: 15m0s
+      required_aal: aal1
+      ui_url: /ui/settings
+    verification:
+      after:
+        hooks: []
+      enabled: true
+      lifespan: 30m0s
+      ui_url: /ui/verification
+  methods:
+    link:
+      config:
+        base_url: ""
+        lifespan: 15m0s
+      enabled: true
+    lookup_secret:
+      enabled: false
+    oidc:
+      config:
+        providers:
+          - client_id: 764804154327-qm8t8d6gbsr17rvsqirrs6hjm8btqkk3.apps.googleusercontent.com
+            client_secret: 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
+            id: google
+            label: Google
+            mapper_url: https://storage.googleapis.com/bac-gcs-production/ac1d2096a98a6459613616163b7f09728ce30fdb9c71d9edfd60821c3801702401d66c5a26f793b2b6f839d78e31330ac8704207570781f49d281a996e938734.jsonnet
+            provider: google
+            scope:
+              - email
+              - profile
+          - client_id: 7b348a893b04dd53ebfc
+            client_secret: 82af76d1f3eb5cfc316166f96e2ab553cf6f6e1c
+            id: github
+            label: GitHub
+            mapper_url: https://storage.googleapis.com/bac-gcs-production/616e5fe34e3b03dd52011944752cda4e9a60a5058b675331f3e81ccd4ba3f259dea0d7d94e45c572af8f524124c912ff27f7212a3dcac03d79249e302940ced8.jsonnet
+            provider: github
+            scope:
+              - user:email
+          - client_id: ed60ae48-29f4-4fb6-97aa-7d2bce8a6434
+            client_secret: Rkq8Q~VT72nZxgoLv0jdqHBhYpvgxgeuczZJjc12
+            id: microsoft
+            label: Microsoft
+            mapper_url: https://storage.googleapis.com/bac-gcs-production/a9b4838956834ff14d77a3f66fac95885f2b4aa58d28ad71a72a054a76a4489312279b9f8ea4d71b30ed8170555b469d9640775e09038b91758b7e53b59ace5a.jsonnet
+            microsoft_tenant: common
+            provider: microsoft
+            scope:
+              - profile
+              - email
+      enabled: true
+    password:
+      config:
+        haveibeenpwned_enabled: true
+        identifier_similarity_check_enabled: true
+        ignore_network_errors: true
+        max_breaches: 1
+        min_password_length: 8
+      enabled: true
+    profile:
+      enabled: true
+    totp:
+      config:
+        issuer: TO_ZMIENIONE
+      enabled: true
+    webauthn:
+      config:
+        passwordless: true
+        rp:
+          display_name: DIMO
+          id: keen-ardinghelli-nsuq4mdx5a.projects.oryapis.com
+          origin: https://keen-ardinghelli-nsuq4mdx5a.projects.oryapis.com
+      enabled: true
+serve:
+  admin:
+    base_url: https://keen-ardinghelli-nsuq4mdx5a.projects.oryapis.com/
+    request_log:
+      disable_for_health: true
+  public:
+    base_url: https://keen-ardinghelli-nsuq4mdx5a.projects.oryapis.com/
+    cors:
+      enabled: false
+    request_log:
+      disable_for_health: true
+session:
+  cookie:
+    domain: keen-ardinghelli-nsuq4mdx5a.projects.oryapis.com
+    name: ory_session_keenardinghellinsuq4mdx5a
+    path: /
+    persistent: false
+    same_site: Lax
+  lifespan: 72h0m0s
+  whoami:
+    required_aal: aal1
