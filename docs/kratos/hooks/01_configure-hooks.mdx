@@ -48,26 +48,12 @@ login flow with the `password` method and not run any hooks for logins with the 
 There are 4 hooks you can use to extend self-service user flows. Note that some hooks can only be used for specific flows and
 methods.
 
-<<<<<<< HEAD | Hook | Description | Constraints | | :------------------------- |
-:------------------------------------------------------------------------------------------------ |
-:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-| | `session` | Signs in the user immediately after they create an account. | For use only with the `after` registration flow. To
-use it, you must define [secrets for secret rotation](#session-hook-configuration). | | `revoke_active_sessions` | Revokes all
-other active sessions of the user on successful login. | For use only with the login flow. | | `require_verified_address` | Allows
-users to sign in only when they verified their email address. | For use only with the `after` login flow, `password` method only.
-| | `web_hook` | Allows to trigger external logic. Can be used with all flows and methods except error and logout. | Requires
-providing web-hook configuration. The only hook type available for the `after` settings flow. See an example of using webhooks
-[here](../../guides/integrate-with-ory-cloud-through-webhooks). | ======= | Hook | Description | Constraints | |
-:------------------------- | :------------------------------------------------------------------------------------------------ |
-:--------------------------------------------------------------------------------------------------------------------------------------
-| | `session` | Signs in the user immediately after they create an account. | For use only with the `after` registration flow. To
-use it, you must define [secrets for secret rotation](#session-hook-configuration). | | `revoke_active_sessions` | Revokes all
-other active sessions of the user on successful login. | For use only with the login flow. | | `require_verified_address` | Allows
-users to sign in only when they verified their email address. | For use only with the `after` login flow, `password` method only.
-| | `web_hook` | Allows to trigger external logic. Can be used with all flows and methods except error and logout. | Requires
-providing web-hook configuration. The only hook type available for the `after` settings flow. |
-
-> > > > > > > 0be38164f86819c1d790478a80cd97f2fd572e33
+| Hook                       | Description                                                                                       | Constraints                                                                                                                                                                                             |
+| :------------------------- | :------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `session`                  | Signs in the user immediately after they create an account.                                       | For use only with the `after` registration flow. To use it, you must define secrets for secret rotation.                                                                                                |
+| `revoke_active_sessions`   | Revokes all other active sessions of the user on successful login.                                | For use only with the login flow.                                                                                                                                                                       |
+| `require_verified_address` | Allows users to sign in only when they verified their email address.                              | For use only with the `after` login flow, `password` method only.                                                                                                                                       |
+| `web_hook`                 | Allows to trigger external logic. Can be used with all flows and methods except error and logout. | Requires providing web-hook configuration. The only hook type available for the `after` settings flow. See an example of using webhooks [here](../../guides/integrate-with-ory-cloud-through-webhooks). |
 
 ## Configuration
 
@@ -333,12 +319,7 @@ For `auth` following mechanisms are supported:
           in: header # alternatively "cookie"
   ```
 
-<<<<<<< HEAD
-
-- # "Basic Authentication" type authentication. Type must be set to `basic_auth`. All properties are mandatory.
-- Basic Authentication type authentication. Type must be set to `basic_auth`. All properties are mandatory.
-
-  > > > > > > > 0be38164f86819c1d790478a80cd97f2fd572e33
+- "Basic Authentication" type authentication. Type must be set to `basic_auth`. All properties are mandatory.
 
   For `basic_auth` the config looks as follows:
 
