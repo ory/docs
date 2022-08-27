@@ -733,6 +733,16 @@
       "source": "/docs/kratos/guides/account-recovery-password-reset",
       "destination": "https://www.ory.sh/docs/kratos/self-hosted/account-recovery-password-reset",
       "permanent": false
+    },
+    {
+      "source": "/docs/kratos/self-service/hooks",
+      "destination": "https://www.ory.sh/docs/kratos/hooks/configure-hooks",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/guides/integration-with-other-systems-using-web-hooks",
+      "destination": "https://www.ory.sh/docs/kratos/hooks/webhooks-integrations",
+      "permanent": false
     }
   ]
 }
