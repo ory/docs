@@ -2,6 +2,7 @@
 id: facebook
 title: Add Facebook as a social sign-in provider in Ory
 sidebar_label: Facebook
+toc_max_heading_level: 4
 ---
 
 :::note
@@ -87,7 +88,7 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
 <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
 ```
 
-## Configuration with Ory CLI
+## Configuration for Ory Cloud
 
 Follow these steps to add Facebook as a social sign-in provider to your Ory Cloud project using the Ory CLI:
 
@@ -127,7 +128,7 @@ Follow these steps to add Facebook as a social sign-in provider to your Ory Clou
        enabled: true
    ```
 
-6. Update the Ory Cloud Identity Service configuration using the file you worked with:
+6. Update the Ory Identity Service (Ory Kratos) configuration using the file you worked with:
 
    ```shell
    ory update identity-config <project-id> --file updated_config.yaml

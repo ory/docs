@@ -2,6 +2,7 @@
 id: github
 title: Add GitHub as a social sign-in provider in Ory
 sidebar_label: GitHub
+toc_max_heading_level: 4
 ---
 
 ## Configuration in Ory Cloud Console
@@ -138,7 +139,7 @@ Follow these steps to add GitHub as a social sign-in provider to your Ory Cloud 
          enabled: true
    ```
 
-6. Update the Ory Cloud Identity Service configuration using the file you worked with:
+6. Update the Ory Identity Service (Ory Kratos) configuration using the file you worked with:
 
    ```shell
    ory update identity-config <project-id> --file updated_config.yaml
