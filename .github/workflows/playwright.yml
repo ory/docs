@@ -5,11 +5,13 @@ on:
   push:
     branches:
       - master
-    paths: "code-examples/**"
+    paths-ignore:
+      - "docs/**"
   pull_request:
     branches:
       - master
-    paths: "code-examples/**"
+    paths-ignore:
+      - "docs/**"
 
 jobs:
   test-playwright:
