@@ -24,7 +24,7 @@ app.use(
 )
 
 app.use((req, res, next) => {
-  // A simple middleware to authenticate the request.
+  // A simple middleware to authenticate the request TEST.
   // highlight-start
   ory
     .toSession(
