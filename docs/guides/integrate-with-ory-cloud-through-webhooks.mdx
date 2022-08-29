@@ -32,7 +32,7 @@ welcome email message to all newly registered users.
 
 2. Create a request body Jsonnet snippet and encode it with Base64:
 
-   ```json title="Mailchimp request body"
+   ```jsonnet title="Mailchimp request body"
    function(ctx) {
      key: "<Your-Api-Key>", // Mailchimp requires passing the API key in request body.
      message: {
