@@ -76,7 +76,7 @@ GitHub scopes are supported. Check the list of supported scopes in
 
 In this sample Jsonnet snippet, `email_primary` is mapped to the identity schema's `traits.email`:
 
-```json
+```jsonnet
 local claims = {
   email_verified: false,
 } + std.extVar('claims');

@@ -67,7 +67,7 @@ The Data Mapping section allows you to map the data returned by the sign-in prov
 To define the mapping, create a Jsonnet code snippet. Read [this document](./data-mapping) to learn more about Jsonnet data
 mapping.
 
-```json
+```jsonnet
 local claims = {
   email_verified: true,
 } + std.extVar('claims');
