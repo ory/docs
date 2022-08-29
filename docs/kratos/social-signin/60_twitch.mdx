@@ -1,18 +1,18 @@
 ---
-id: discord
-title: Add Discord as a social sign-in provider in Ory
-sidebar_label: Discord
+id: twitch
+title: Add Twitch as a social sign-in provider in Ory
+sidebar_label: Twitch
 ---
 
-## Configuration with Ory CLI
+## Configuration for Ory Cloud
 
-Follow these steps to add Discord as a social sign-in provider to your Ory Cloud project using the Ory CLI:
+Follow these steps to add Twitch as a social sign-in provider to your Ory Cloud project using the Ory CLI:
 
-1. [Create a Discord OAuth2 application](https://discord.com/developers/docs/topics/oauth2).
+1. [Create a Twitch OAuth2 Application](https://dev.twitch.tv/docs/authentication#registration).
 2. In the created app, set the redirect URI to:
 
    ```shell
-   https://<ory-cloud-project-slug>.projects.oryapis.com/self-service/methods/oidc/callback/discord
+   https://<ory-cloud-project-slug>.projects.oryapis.com/self-service/methods/oidc/callback/twitch
    ```
 
 <a name="mapping"></a>
@@ -28,11 +28,11 @@ Follow these steps to add Discord as a social sign-in provider to your Ory Cloud
      identity: {
        traits: {
          // Allowing unverified email addresses enables account
-         // enumeration attacks,  if the value is used for
+         // enumeration attacks, if the value is used for
          // verification or as a password login identifier.
          //
          // Therefore we only return the email if it (a) exists and (b) is marked verified
-         // by Discord.
+         // by Twitch.
          [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,
        },
      },
@@ -41,29 +41,10 @@ Follow these steps to add Discord as a social sign-in provider to your Ory Cloud
 
    :::info
 
-   Discord doesn't implement OpenID Connect. Ory makes a request to
-   [Discord's User API](https://discord.com/developers/docs/resources/user#get-current-user) and adds the data to
-   `std.extVar('claims')`. Not all fields are supported. Check the list of supported fields
-   [in the source code](https://github.com/ory/kratos/blob/v0.5.1-alpha.1/selfservice/strategy/oidc/provider_discord.go#L81-L91).
-
-   The `identify` scope adds these fields:
-
-   ```text
-   iss                 # always https://discord.com/api/v6/oauth2/
-   sub                 # numeric discord user id
-   name                # username + # + discriminator
-   nickname            # username
-   preferred_username  # username
-   picture             # avatar url
-   locale              # user locale
-   ```
-
-   The `email` scope adds these fields:
-
-   ```text
-   email               # user email
-   email_verified      # whether email is verified
-   ```
+   [Twitch provides an OIDC discovery URL](https://accounts.Twitch.com/.well-known/openid-configuration), but it doesn't support
+   the `openid` claim and returns an `access_token` only. Ory sends requests to
+   [Twitch's /me API](https://developer.Twitch.com/documentation/web-api/reference/#/operations/get-current-users-profile) and
+   adds the user info to `std.extVar('claims')`.
 
    :::
 
@@ -95,20 +76,27 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
        oidc:
          config:
            providers:
-             - id: discord # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
-               provider: discord
-               client_id: .... # Replace this with the OAuth2 Client ID provided by Discord
-               client_secret: .... # Replace this with the OAuth2 Client Secret provided by Discord
+             - id: twitch # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+               provider: generic
+               client_id: .... # Replace this with the OAuth2 Client ID provided by Twitch
+               client_secret: .... # Replace this with the OAuth2 Client Secret provided by Twitch
+               issuer_url: https://id.twitch.tv/oauth2
                mapper_url: "base64://<YOUR_BASE64_ENCODED_JSONNET_HERE>"
                # Alternatively, use an URL:
                # mapper_url: https://storage.googleapis.com/abc-cde-prd/9cac9717f007808bf17f22ce7f4295c739604b183f05ac4afb4
                scope:
-                 - identify
-                 - email
+                 - openid
+                 - user:read:email # required for email and email_verified claims in the near future
+               requested_claims: # explicitly request email and email_verified claims because twitch doesn't add them by default
+                 id_token:
+                   email:
+                     essential: true
+                   email_verified:
+                     essential: true
          enabled: true
    ```
 
-7. Update the Ory Cloud Identity Service configuration using the file you worked with:
+7. Update the Ory Identity Service (Ory Kratos) configuration using the file you worked with:
 
    ```shell
    ory update identity-config <project-id> --file updated_config.yaml
@@ -116,13 +104,13 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
 
 ## Configuration for self-hosted instances
 
-Follow these steps to add Discord as a social sign-in provider when self-hosting Ory Kratos:
+Follow these steps to add Twitch as a social sign-in provider when self-hosting Ory Kratos:
 
-1. [Create a Discord OAuth2 application](https://discord.com/developers/docs/topics/oauth2).
+1. [Create a Twitch OAuth2 Application](https://dev.twitch.tv/docs/authentication#registration).
 2. Set the redirect URI to URL that follows this pattern:
 
    ```shell
-   http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/discord
+   http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/twitch
    ```
 
 3. Create a [Jsonnet code snippet to map the desired claims to the Ory Identity schema](#mapping).

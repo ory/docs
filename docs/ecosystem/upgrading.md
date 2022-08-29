@@ -12,8 +12,7 @@ changes. We know that breaking changes are annoying so we want to make upgrading
 
 We document changelogs and upgrade guides for Ory services:
 
-- Ory Kratos: [upgrade guide](https://github.com/ory/kratos/blob/master/UPGRADE.md),
-  [changelog](https://github.com/ory/kratos/blob/master/CHANGELOG.md)
+- Ory Kratos: [upgrade guide](../kratos/guides/upgrade), [changelog](https://github.com/ory/kratos/blob/master/CHANGELOG.md)
 - Ory Hydra: [upgrade guide](https://github.com/ory/hydra/blob/master/UPGRADE.md),
   [changelog](https://github.com/ory/hydra/blob/master/CHANGELOG.md)
 - Ory Oathkeeper: [upgrade guide](https://github.com/ory/oathkeeper/blob/master/UPGRADE.md),
