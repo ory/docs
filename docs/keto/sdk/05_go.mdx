@@ -17,7 +17,7 @@ Ory Keto exposes two APIs for integration
 
 ```mdx-code-block
 
-<CodeBlock className="language-shell">{`go get github.com/ory/keto/proto/ory/keto/acl/v1alpha1@${useLatestRelease('keto')}`}</CodeBlock>
+<CodeBlock className="language-shell">{`go get github.com/ory/keto/proto@${useLatestRelease('keto')}`}</CodeBlock>
 
 ```
 
@@ -58,7 +58,7 @@ func main() {
 	checkClient := acl.NewCheckServiceClient(conn)
 	// _, err = checkClient.Check(context.Background() ...
 
-	conn, err = grpc.Dial("127.0.0.1:4466", gprc.WithInsecure())
+	conn, err = grpc.Dial("127.0.0.1:4466", grpc.WithInsecure())
 	expandClient := acl.NewExpandServiceClient(conn)
 	// _, err = expandClient.Expand(context.Background() ...
 }
