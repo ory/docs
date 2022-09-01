@@ -20,8 +20,11 @@ You can use hooks at specific points of select self-service flows:
 - `after` login: The hook runs when the user is successfully authenticated, before the system issues an Ory Session.
 - `before` registration: The hook runs when a registration flow starts.
 - `after` registration: The hook runs when a user successfully registers in the system.
+- `before` recovery: The hook runs when the user starts the recovery flow.
 - `after` recovery: The hook runs when the user successfully recovers their password.
+- `before` settings: The hook runs when the user starts the account settings flow.
 - `after` settings: The hook runs when the user successfully changes their account settings.
+- `before` verification: The hook runs when the user starts the verification flow.
 - `after` verification: The hook runs when the user verifies their account.
 
 ### Hooks for specific methods
