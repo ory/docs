@@ -25,17 +25,19 @@ keto relation-tuple delete-all [flags]
 ### Options
 
 ```
-      --force                 Force the deletion of relation tuples
-      --format string         Set the output format. One of table, json, yaml, and json-pretty. (default "default")
-  -h, --help                  help for delete-all
-      --namespace string      Set the requested namespace
-      --object string         Set the requested object
-  -q, --quiet                 Be quiet with output printing.
-      --read-remote string    Remote address of the read API endpoint. (default "127.0.0.1:4466")
-      --relation string       Set the requested relation
-      --subject-id string     Set the requested subject ID
-      --subject-set string    Set the requested subject set; format: "namespace:object#relation"
-      --write-remote string   Remote address of the write API endpoint. (default "127.0.0.1:4467")
+      --force                                 Force the deletion of relation tuples
+      --format string                         Set the output format. One of table, json, yaml, and json-pretty. (default "default")
+  -h, --help                                  help for delete-all
+      --insecure-disable-transport-security   Disables transport security. Do not use this in production.
+      --insecure-skip-hostname-verification   Disables hostname verification. Do not use this in production.
+      --namespace string                      Set the requested namespace
+      --object string                         Set the requested object
+  -q, --quiet                                 Be quiet with output printing.
+      --read-remote string                    Remote address of the read API endpoint. (default "127.0.0.1:4466")
+      --relation string                       Set the requested relation
+      --subject-id string                     Set the requested subject ID
+      --subject-set string                    Set the requested subject set; format: "namespace:object#relation"
+      --write-remote string                   Remote address of the write API endpoint. (default "127.0.0.1:4467")
 ```
 
 ### Options inherited from parent commands
