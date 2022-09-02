@@ -115,9 +115,8 @@ To enable this handler, set:
 ```yaml
 # Global configuration file oathkeeper.yml
 unauthorized:
-  noop:
-    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
-    enabled: true
+  # Set 'enabled' to 'true' if the authenticator should be enabled and 'false' to disable the authenticator. Defaults to 'false'.
+  enabled: true
 ```
 
 ### `unauthorized` access rule example
