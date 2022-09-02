@@ -743,6 +743,11 @@
       "source": "/docs/kratos/guides/integration-with-other-systems-using-web-hooks",
       "destination": "https://www.ory.sh/docs/kratos/hooks/webhooks-integrations",
       "permanent": false
+    },
+    {
+      "source": "/docs/kratos",
+      "destination": "https://www.ory.sh/docs/kratos/ory-kratos-intro",
+      "permanent": false
     }
   ]
 }
