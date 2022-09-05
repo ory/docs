@@ -1,4 +1,4 @@
 {
-  "main": "index.js",
-  "name": "docusaurus-plugin-matamo"
+  "name": "docusaurus-plugin-matamo",
+  "main": "index.js"
 }
