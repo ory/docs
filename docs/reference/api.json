@@ -142,31 +142,6 @@
         },
         "type": "object"
       },
-      "InternalRelationTuple": {
-        "properties": {
-          "namespace": {
-            "description": "Namespace of the Relation Tuple",
-            "type": "string"
-          },
-          "object": {
-            "description": "Object of the Relation Tuple",
-            "type": "string"
-          },
-          "relation": {
-            "description": "Relation of the Relation Tuple",
-            "type": "string"
-          },
-          "subject_id": {
-            "description": "SubjectID of the Relation Tuple\n\nEither SubjectSet or SubjectID are required.",
-            "type": "string"
-          },
-          "subject_set": {
-            "$ref": "#/components/schemas/SubjectSet"
-          }
-        },
-        "required": ["namespace", "object", "relation"],
-        "type": "object"
-      },
       "InvitePayload": {
         "properties": {
           "invitee_email": {
@@ -241,18 +216,6 @@
         "nullable": true,
         "type": "string"
       },
-      "PatchDelta": {
-        "properties": {
-          "action": {
-            "enum": ["insert", "delete"],
-            "type": "string"
-          },
-          "relation_tuple": {
-            "$ref": "#/components/schemas/InternalRelationTuple"
-          }
-        },
-        "type": "object"
-      },
       "QuotaCustomDomains": {
         "properties": {
           "available_domains": {
@@ -313,30 +276,6 @@
       "RecoveryAddressType": {
         "type": "string"
       },
-      "RelationQuery": {
-        "properties": {
-          "namespace": {
-            "description": "Namespace of the Relation Tuple",
-            "type": "string"
-          },
-          "object": {
-            "description": "Object of the Relation Tuple",
-            "type": "string"
-          },
-          "relation": {
-            "description": "Relation of the Relation Tuple",
-            "type": "string"
-          },
-          "subject_id": {
-            "description": "SubjectID of the Relation Tuple\n\nEither SubjectSet or SubjectID can be provided.",
-            "type": "string"
-          },
-          "subject_set": {
-            "$ref": "#/components/schemas/SubjectSet"
-          }
-        },
-        "type": "object"
-      },
       "String": {
         "$ref": "#/components/schemas/NullString"
       },
@@ -346,24 +285,6 @@
         },
         "title": "StringSliceJSONFormat represents []string{} which is encoded to/from JSON for SQL storage.",
         "type": "array"
-      },
-      "SubjectSet": {
-        "properties": {
-          "namespace": {
-            "description": "Namespace of the Subject Set",
-            "type": "string"
-          },
-          "object": {
-            "description": "Object of the Subject Set",
-            "type": "string"
-          },
-          "relation": {
-            "description": "Relation of the Subject Set",
-            "type": "string"
-          }
-        },
-        "required": ["namespace", "object", "relation"],
-        "type": "object"
       },
       "SubscriptionStatus": {
         "description": "For `collection_method=charge_automatically` a subscription moves into `incomplete` if the initial payment attempt fails. A subscription in this state can only have metadata and default_source updated. Once the first invoice is paid, the subscription moves into an `active` state. If the first invoice is not paid within 23 hours, the subscription transitions to `incomplete_expired`. This is a terminal state, the open invoice will be voided and no further invoices will be generated.\n\nA subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.\n\nIf subscription `collection_method=charge_automatically` it becomes `past_due` when payment to renew it fails and `canceled` or `unpaid` (depending on your subscriptions settings) when Stripe has exhausted all payment retry attempts.\n\nIf subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.",
@@ -879,20 +800,29 @@
       "expandTree": {
         "properties": {
           "children": {
+            "description": "The children of the node, possibly none.",
             "items": {
               "$ref": "#/components/schemas/expandTree"
             },
             "type": "array"
           },
-          "subject_id": {
-            "type": "string"
-          },
-          "subject_set": {
-            "$ref": "#/components/schemas/SubjectSet"
+          "tuple": {
+            "$ref": "#/components/schemas/relationTuple"
           },
           "type": {
-            "enum": ["union", "exclusion", "intersection", "leaf"],
-            "type": "string"
+            "description": "The type of the node.\nunion TreeNodeUnion\nexclusion TreeNodeExclusion\nintersection TreeNodeIntersection\nleaf TreeNodeLeaf\ntuple_to_subject_set TreeNodeTupleToSubjectSet\ncomputed_subject_set TreeNodeComputedSubjectSet\nnot TreeNodeNot\nunspecified TreeNodeUnspecified",
+            "enum": [
+              "union",
+              "exclusion",
+              "intersection",
+              "leaf",
+              "tuple_to_subject_set",
+              "computed_subject_set",
+              "not",
+              "unspecified"
+            ],
+            "type": "string",
+            "x-go-enum-desc": "union TreeNodeUnion\nexclusion TreeNodeExclusion\nintersection TreeNodeIntersection\nleaf TreeNodeLeaf\ntuple_to_subject_set TreeNodeTupleToSubjectSet\ncomputed_subject_set TreeNodeComputedSubjectSet\nnot TreeNodeNot\nunspecified TreeNodeUnspecified"
           }
         },
         "required": ["type"],
@@ -1018,7 +948,7 @@
           },
           "relation_tuples": {
             "items": {
-              "$ref": "#/components/schemas/InternalRelationTuple"
+              "$ref": "#/components/schemas/relationTuple"
             },
             "type": "array"
           }
@@ -3255,6 +3185,19 @@
         },
         "type": "object"
       },
+      "patchDelta": {
+        "properties": {
+          "action": {
+            "enum": ["insert", "delete"],
+            "type": "string",
+            "x-go-enum-desc": "insert ActionInsert\ndelete ActionDelete"
+          },
+          "relation_tuple": {
+            "$ref": "#/components/schemas/relationTuple"
+          }
+        },
+        "type": "object"
+      },
       "previousOAuth2ConsentSession": {
         "description": "The response used to return used consent requests\nsame as HandledLoginRequest, just with consent_request exposed as json",
         "properties": {
@@ -3608,6 +3551,55 @@
           }
         },
         "title": "The request payload used to accept a login or consent request.",
+        "type": "object"
+      },
+      "relationQuery": {
+        "properties": {
+          "namespace": {
+            "description": "Namespace to query",
+            "type": "string"
+          },
+          "object": {
+            "description": "Object to query",
+            "type": "string"
+          },
+          "relation": {
+            "description": "Relation to query",
+            "type": "string"
+          },
+          "subject_id": {
+            "description": "SubjectID to query\n\nEither SubjectSet or SubjectID can be provided.",
+            "type": "string"
+          },
+          "subject_set": {
+            "$ref": "#/components/schemas/subjectSet"
+          }
+        },
+        "type": "object"
+      },
+      "relationTuple": {
+        "properties": {
+          "namespace": {
+            "description": "Namespace of the Relation Tuple",
+            "type": "string"
+          },
+          "object": {
+            "description": "Object of the Relation Tuple",
+            "type": "string"
+          },
+          "relation": {
+            "description": "Relation of the Relation Tuple",
+            "type": "string"
+          },
+          "subject_id": {
+            "description": "SubjectID of the Relation Tuple\n\nEither SubjectSet or SubjectID can be provided.",
+            "type": "string"
+          },
+          "subject_set": {
+            "$ref": "#/components/schemas/subjectSet"
+          }
+        },
+        "required": ["namespace", "object", "relation"],
         "type": "object"
       },
       "revokedSessions": {
@@ -4180,7 +4172,22 @@
         },
         "type": "object"
       },
-      "subject": {
+      "subjectSet": {
+        "properties": {
+          "namespace": {
+            "description": "Namespace of the Subject Set",
+            "type": "string"
+          },
+          "object": {
+            "description": "Object of the Subject Set",
+            "type": "string"
+          },
+          "relation": {
+            "description": "Relation of the Subject Set",
+            "type": "string"
+          }
+        },
+        "required": ["namespace", "object", "relation"],
         "type": "object"
       },
       "submitSelfServiceFlowWithWebAuthnRegistrationMethod": {
@@ -7611,7 +7618,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "Delete Relation Tuples",
+        "summary": "# Delete Relation Tuples",
         "tags": ["write"]
       },
       "patch": {
@@ -7622,7 +7629,7 @@
             "application/json": {
               "schema": {
                 "items": {
-                  "$ref": "#/components/schemas/PatchDelta"
+                  "$ref": "#/components/schemas/patchDelta"
                 },
                 "type": "array"
               }
@@ -7670,7 +7677,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "Patch Multiple Relation Tuples",
+        "summary": "# Patch Multiple Relation Tuples",
         "tags": ["write"]
       },
       "put": {
@@ -7680,7 +7687,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RelationQuery"
+                "$ref": "#/components/schemas/relationQuery"
               }
             }
           },
@@ -7691,11 +7698,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RelationQuery"
+                  "$ref": "#/components/schemas/relationQuery"
                 }
               }
             },
-            "description": "RelationQuery"
+            "description": "relationQuery"
           },
           "400": {
             "content": {
@@ -7723,7 +7730,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "Create a Relation Tuple",
+        "summary": "# Create a Relation Tuple",
         "tags": ["write"]
       }
     },
@@ -9157,7 +9164,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "Query relation tuples",
+        "summary": "# Query relation tuples",
         "tags": ["read"]
       }
     },
@@ -9212,7 +9219,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "Check a relation tuple",
+        "summary": "# Check a relation tuple",
         "tags": ["read"]
       },
       "post": {
@@ -9265,7 +9272,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "Check a relation tuple",
+        "summary": "# Check a relation tuple",
         "tags": ["read"]
       }
     },
@@ -9376,7 +9383,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "Check a relation tuple",
+        "summary": "# Check a relation tuple",
         "tags": ["read"]
       },
       "post": {
@@ -9396,7 +9403,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RelationQuery"
+                "$ref": "#/components/schemas/relationQuery"
               }
             }
           },
@@ -9439,7 +9446,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "Check a relation tuple",
+        "summary": "# Check a relation tuple",
         "tags": ["read"]
       }
     },
@@ -9531,7 +9538,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "Expand a Relation Tuple",
+        "summary": "# Expand a Relation Tuple",
         "tags": ["read"]
       }
     },
