@@ -1,7 +1,7 @@
 ---
 id: ory-cloud-oauth2
 title: Perform OAuth2 Authorization Code Grant with Ory Cloud
-sidebar_label: OAuth2 in Ory Cloud
+sidebar_label: Federation with OAuth2
 ---
 
 This guide shows you a sample implementation of the
@@ -99,7 +99,7 @@ hydra clients create \
     --scope openid,offline \ # Mandatory for this example, don't change.
     --access-token ORY_PAT \ # Ory PAT copied from the Cloud Console, 'ory_pat' prefix included.
     --endpoint https://SDK_CONFIGURATION_URL/admin # Found in the 'Connect' section of the Cloud Console. Must end with '/admin'.
-    --callbacks http://127.0.0.1:5555/callback \ # Mandatory for this example, don't change.
+    --callbacks http://127.0.0.1:5555/callback # Mandatory for this example, don't change.
 ```
   </TabItem>
 </Tabs>
