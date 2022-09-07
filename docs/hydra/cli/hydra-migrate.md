@@ -23,5 +23,6 @@ Various migration helpers
 ### SEE ALSO
 
 * [hydra](hydra)	 - Run and manage Ory Hydra
+* [hydra migrate gen](hydra-migrate-gen)	 - Generate migration files from migration templates
 * [hydra migrate sql](hydra-migrate-sql)	 - Create SQL schemas and apply migration plans
 

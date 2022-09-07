@@ -21,11 +21,17 @@ Run and manage Ory Hydra
 
 ### SEE ALSO
 
-* [hydra clients](hydra-clients)	 - Manage OAuth 2.0 Clients
-* [hydra janitor](hydra-janitor)	 - Clean the database of old tokens, login/consent requests and jwt grant issuers
-* [hydra keys](hydra-keys)	 - Manage JSON Web Keys
+* [hydra create](hydra-create)	 - Create resources
+* [hydra delete](hydra-delete)	 - Delete resources
+* [hydra get](hydra-get)	 - Get resources
+* [hydra import](hydra-import)	 - Import resources
+* [hydra introspect](hydra-introspect)	 - Introspect resources
+* [hydra janitor](hydra-janitor)	 - This command cleans up stale database rows.
+* [hydra list](hydra-list)	 - List resources
 * [hydra migrate](hydra-migrate)	 - Various migration helpers
+* [hydra perform](hydra-perform)	 - Perform OAuth 2.0 Flows
+* [hydra revoke](hydra-revoke)	 - Revoke resources
 * [hydra serve](hydra-serve)	 - Parent command for starting public and administrative HTTP/2 APIs
-* [hydra token](hydra-token)	 - Issue and Manage OAuth2 tokens
+* [hydra update](hydra-update)	 - Update resources
 * [hydra version](hydra-version)	 - Display this binary's version, build time and git hash of this build
 

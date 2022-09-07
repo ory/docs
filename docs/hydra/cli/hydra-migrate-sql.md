@@ -29,7 +29,6 @@ You can read in the database URL using the -e flag, for example:
 
 Before running this command on an existing database, create a back up!
 
-
 ```
 hydra migrate sql <database-url> [flags]
 ```
