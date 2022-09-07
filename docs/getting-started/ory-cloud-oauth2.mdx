@@ -96,8 +96,10 @@ hydra clients create \
     --name YOUR_CLIENT_NAME \
     --grant-types authorization_code,refresh_token \ # Mandatory for this example, don't change.
     --response-types code,id_token \ # Mandatory for this example, don't change.
+    --scope openid,offline \ # Mandatory for this example, don't change.
     --access-token ORY_PAT \ # Ory PAT copied from the Cloud Console, 'ory_pat' prefix included.
     --endpoint https://SDK_CONFIGURATION_URL/admin # Found in the 'Connect' section of the Cloud Console. Must end with '/admin'.
+    --callbacks http://127.0.0.1:5555/callback \ # Mandatory for this example, don't change.
 ```
   </TabItem>
 </Tabs>
