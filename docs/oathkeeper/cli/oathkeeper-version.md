@@ -26,7 +26,7 @@ oathkeeper version [flags]
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to config file. Supports .json, .yaml, .yml, .toml. Default is &#34;$HOME/.oathkeeper.(yaml|yml|toml|json)&#34;
+  -c, --config strings   Path to one or more .json, .yaml, .yml, .toml config files. Values are loaded in the order provided, meaning that the last config file overwrites values from the previous config file.
 ```
 
 ### SEE ALSO
