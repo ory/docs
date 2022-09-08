@@ -16,8 +16,8 @@ A cloud native Access and Identity Proxy
 ### Options
 
 ```
-  -c, --config string   Path to config file. Supports .json, .yaml, .yml, .toml. Default is &#34;$HOME/.oathkeeper.(yaml|yml|toml|json)&#34;
-  -h, --help            help for oathkeeper
+  -c, --config strings   Path to one or more .json, .yaml, .yml, .toml config files. Values are loaded in the order provided, meaning that the last config file overwrites values from the previous config file.
+  -h, --help             help for oathkeeper
 ```
 
 ### SEE ALSO
