@@ -156,14 +156,14 @@ point to pages that handle these operations in your setup. In this example, the 
 
 Follow these steps to configure Ory Cloud to call the sample application for login and consent screens:
 
-1. Download the configuration of your Ory Cloud project and save it to a `yaml` file:
+1. Download the OAuth2 Federation Service configuration of your Ory Cloud project and save it to a `yaml` file:
 
    ```shell
    ## List all available projects
    ory list projects
 
    ## Get config
-   ory get project <project-id> --format yaml > config.yaml
+   ory get oauth2-config <project-id> --format yaml > config.yaml
    ```
 
 2. Adjust the configuration in `oauth2/urls/consent` and `oauth2/urls/login`:
@@ -183,7 +183,7 @@ Follow these steps to configure Ory Cloud to call the sample application for log
 3. Update the Ory Cloud project configuration using the file you worked with:
 
    ```shell
-   ory update project <project-id> --file config.yaml
+   ory update oauth2-config <project-id> --file config.yaml
    ```
 
 ### Create a local web server acting as OAuth2 client
