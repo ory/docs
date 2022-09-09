@@ -49,11 +49,12 @@ without the need of running another process.
 ## What about OAuth 2.0 / OpenID Connect?
 
 Ory offers an OAuth 2.0 and OpenID Connect solution in the form of open-source [Ory Hydra](https://github.com/ory/hydra), which
-you can currently self-host.
+you can self-host or use in Ory Cloud as the Ory OAuth2 Federation Service.
 
 At Ory, we believe that OAuth 2.0 and OpenID Connect isn't a one-size-fits-all solution. In fact, we think that you probably don't
-need to use such complicated protocols at all! We recommend the use of [Ory Hydra](https://github.com/ory/hydra) for targeted use
-cases only, such as providing third party integration with your application (e.g. a sign in with [your company] button).
+need to use such complicated protocols at all! We recommend using [Ory Hydra](https://github.com/ory/hydra) for targeted use cases
+only, such as providing third-party integration with your application (for example, in the form of the familiar "Sign in with
+[PROVIDER_NAME]" button).
 
 :::tip
 
@@ -80,13 +81,13 @@ Do you need JWTs in your implementation? Let us know in
 :::
 
 Other Ory components are capable of issuing JSON Web Tokens.
-[Ory's OAuth2 and OpenID Connect Provider (Ory Hydra)](https://www.ory.sh/hydra) is able to issue OAuth2 Access Tokens in the JSON
-Web Token format. Using OAuth2 and OpenID Connect is discouraged unless you have a
+[Ory OAuth2 and OpenID Connect Provider (Ory Hydra)](https://www.ory.sh/hydra) can issue OAuth2 Access Tokens in the JSON Web
+Token format. Using OAuth2 and OpenID Connect is discouraged unless you have a
 [targeted use case for it](https://www.ory.sh/oauth2-openid-connect-do-you-need-use-cases-examples/)
 
-[Ory's Zero Trust Identity and Access Proxy (Ory Oathkeeper)](https://www.ory.sh/oathkeeper) can "convert" Ory Sessions to JSON
-Web Tokens. Using Ory Oathkeeper is recommended when developing sophisticated applications with control over network traffic
-(Kubernetes, OpenShift, ...).
+[Ory Zero Trust Identity and Access Proxy (Ory Oathkeeper)](https://www.ory.sh/oathkeeper) can "convert" Ory Sessions to JSON Web
+Tokens. Using Ory Oathkeeper is recommended when developing sophisticated applications with control over network traffic (think
+Kubernetes, OpenShift).
 
 ## HTTP cookies
 
