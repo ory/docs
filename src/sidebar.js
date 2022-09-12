@@ -423,6 +423,7 @@ module.exports = {
             "keto/guides/v0.7-migration",
             "keto/guides/migrating-legacy-policies",
             "keto/guides/rbac",
+            "keto/guides/userset-rewrites",
             "keto/guides/access-control-inheritance",
             "keto/guides/access-control-list-design-best-practices",
             "keto/guides/upgrade",
@@ -435,6 +436,7 @@ module.exports = {
           Reference: [
             "keto/reference/configuration",
             "keto/reference/configuration-editor",
+            "keto/reference/ory-permission-language",
             "keto/reference/rest-api",
             "keto/reference/proto-api",
             {
