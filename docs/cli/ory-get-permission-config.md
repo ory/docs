@@ -15,7 +15,7 @@ Get an Ory Cloud project's permission configuration
 
 ### Synopsis
 
-You can use this command to render Ory Keto configurations as well.
+Get an Ory Cloud or Ory Keto project's permission configuration.
 
 ```
 ory get permission-config <project-id> [flags]

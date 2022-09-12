@@ -15,7 +15,7 @@ Get an Ory Cloud project's identity configuration
 
 ### Synopsis
 
-You can use this command to render Ory Kratos configurations as well.
+Get an Ory Cloud or Ory Kratos project's identity configuration.
 
 ```
 ory get identity-config <project-id> [flags]

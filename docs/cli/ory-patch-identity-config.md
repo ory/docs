@@ -15,8 +15,7 @@ Patch an Ory Cloud Project's Identity Config
 
 ### Synopsis
 
-Use this command to patch your current Ory Cloud Project's identity service configuration. Only values
-specified in the patch will be overwritten. To replace the config use the `update` command instead.
+Patch an Ory Cloud project's identity configuration. Only values specified in the patch will be overwritten. To replace the config use the `update` command instead.
 
 Compared to the `patch project` command, this command only updates the identity service configuration
 and also only returns the identity service configuration as a result. This command is useful when you want to

@@ -15,7 +15,7 @@ Update Ory Cloud Project Service Configuration
 
 ### Synopsis
 
-Use this command to replace your current Ory Cloud Project's service configuration. All values
+Updates your Ory Cloud project's service configuration. All values
 will be overwritten. To update individual settings use the `patch` command instead.
 
 If the `--name` flag is not set, the project's name will not be changed.

@@ -15,7 +15,7 @@ Patch an Ory Cloud Project's Permission Config
 
 ### Synopsis
 
-Use this command to patch your current Ory Cloud Project's permission service configuration. Only values
+Patches an Ory Cloud project's permission service configuration. Only values
 specified in the patch will be overwritten. To replace the config use the `update` command instead.
 
 Compared to the `patch project` command, this command only updates the permission service configuration

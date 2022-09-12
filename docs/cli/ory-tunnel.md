@@ -15,7 +15,7 @@ Tunnel Ory on a subdomain of your app or a separate port your app's domain
 
 ### Synopsis
 
-This command runs an HTTP Server which is connected to Ory's APIs, in order for your application and Ory's
+Tunnels Ory APIs on a subdomain or separate port of your app. This command runs an HTTP Server which is connected to Ory's APIs, in order for your application and Ory's
 APIs to run on the same top level domain (for example yourapp.com, localhost). Having Ory on your domain
 is required for cookies to work.
 
