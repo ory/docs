@@ -60,11 +60,12 @@ module.exports = {
   favicon: "img/favico.png",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "throw",
-  onDuplicateRoutes: "error",
+  onDuplicateRoutes: "throw",
   organizationName: "ory",
   projectName: "docs",
   staticDirectories: ["src/static"],
   themeConfig: {
+    respectPrefersColorScheme: true,
     prism: {
       additionalLanguages: [
         "powershell",
@@ -205,7 +206,6 @@ module.exports = {
       "@docusaurus/theme-classic",
       {
         customCss: [require.resolve("./src/css/theme.css")],
-        respectPrefersColorScheme: true,
       },
     ],
     "@docusaurus/theme-search-algolia",
