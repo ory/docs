@@ -10,10 +10,7 @@ module.exports = function (context, options) {
       const plugins = [
         new NodePolyfillPlugin(),
         new webpack.DefinePlugin({
-          'process.env': {
-            NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-            DEBUG: '({}).DEBUG'
-          }
+          'process.env.DEBUG': '({}).DEBUG'
         })
       ]
 
