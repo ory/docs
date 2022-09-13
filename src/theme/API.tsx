@@ -34,7 +34,7 @@ function API({
   }
 
   console.log("redoc", { isServer })
-  return <Redoc spec={spec} />
+  return <Redoc specProps={spec} />
 }
 
 export default API

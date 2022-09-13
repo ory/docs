@@ -45,6 +45,7 @@
     "axios": "^0.25.0",
     "classnames": "2.3.1",
     "clsx": "^1.1.1",
+    "debug": "^4.3.3",
     "file-loader": "6.2.0",
     "json-loader": "^0.5.7",
     "json-schema-faker": "^0.5.0-rcv.41",

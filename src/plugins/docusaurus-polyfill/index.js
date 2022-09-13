@@ -9,13 +9,14 @@ module.exports = function (context, options) {
     configureWebpack(config, isServer, utils) {
       const plugins = [
         new NodePolyfillPlugin(),
+        new webpack.DefinePlugin({
+          'process.env': {
+            NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+            DEBUG: '({}).DEBUG'
+          }
+        })
       ]
 
-      if (isServer) {
-        // plugins.push(new webpack.DefinePlugin({
-        //   'process.env': 'process.env'
-        // }))
-      }
       return {
         plugins,
       }
