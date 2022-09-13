@@ -13,7 +13,7 @@ module.exports = function (context, options) {
             fs: false,
             http: require.resolve("stream-http"),
             https: require.resolve("https-browserify"),
-            "buffer": require.resolve("buffer/")
+            buffer: require.resolve("buffer/"),
           },
         },
       }
