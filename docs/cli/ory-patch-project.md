@@ -1,7 +1,7 @@
 ---
 id: ory-patch-project
 title: ory patch project
-description: ory patch project Patch an Ory Cloud Project
+description: ory patch project Patch an Ory Cloud project
 ---
 
 <!--
@@ -11,7 +11,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory patch project
 
-Patch an Ory Cloud Project
+Patch an Ory Cloud project
 
 ### Synopsis
 

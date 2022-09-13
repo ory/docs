@@ -1,7 +1,7 @@
 ---
 id: ory-create-project
 title: ory create project
-description: ory create project Create a new Ory Cloud Project
+description: ory create project Create a new Ory Cloud project
 ---
 
 <!--
@@ -11,7 +11,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory create project
 
-Create a new Ory Cloud Project
+Create a new Ory Cloud project
 
 ```
 ory create project [flags]

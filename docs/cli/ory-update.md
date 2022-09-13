@@ -23,8 +23,8 @@ Update resources
 ### SEE ALSO
 
 * [ory](ory)	 - The ORY CLI
-* [ory update identity-config](ory-update-identity-config)	 - Update Ory Cloud Project's Identity Service Configuration
-* [ory update oauth2-config](ory-update-oauth2-config)	 - Update Ory Cloud Project's OAuth2 Service Configuration
-* [ory update permission-config](ory-update-permission-config)	 - Update Ory Cloud Project's Permission Service Configuration
-* [ory update project](ory-update-project)	 - Update Ory Cloud Project Service Configuration
+* [ory update identity-config](ory-update-identity-config)	 - Update Ory Cloud project's identity service configuration
+* [ory update oauth2-config](ory-update-oauth2-config)	 - Update Ory Cloud project's OAuth2 service configuration
+* [ory update permission-config](ory-update-permission-config)	 - Update Ory Cloud project's permission service configuration
+* [ory update project](ory-update-project)	 - Update Ory Cloud project service configuration
 

@@ -1,7 +1,7 @@
 ---
 id: ory-patch-permission-config
 title: ory patch permission-config
-description: ory patch permission-config Patch an Ory Cloud Project's Permission Config
+description: ory patch permission-config Patch an Ory Cloud project's permission config
 ---
 
 <!--
@@ -11,7 +11,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory patch permission-config
 
-Patch an Ory Cloud Project's Permission Config
+Patch an Ory Cloud project's permission config
 
 ### Synopsis
 

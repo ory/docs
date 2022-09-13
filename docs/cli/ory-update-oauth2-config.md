@@ -1,7 +1,7 @@
 ---
 id: ory-update-oauth2-config
 title: ory update oauth2-config
-description: ory update oauth2-config Update Ory Cloud Project's OAuth2 Service Configuration
+description: ory update oauth2-config Update Ory Cloud project's OAuth2 service configuration
 ---
 
 <!--
@@ -11,7 +11,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory update oauth2-config
 
-Update Ory Cloud Project's OAuth2 Service Configuration
+Update Ory Cloud project's OAuth2 service configuration
 
 ### Synopsis
 

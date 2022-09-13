@@ -1,7 +1,7 @@
 ---
 id: ory-update-permission-config
 title: ory update permission-config
-description: ory update permission-config Update Ory Cloud Project's Permission Service Configuration
+description: ory update permission-config Update Ory Cloud project's permission service configuration
 ---
 
 <!--
@@ -11,7 +11,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory update permission-config
 
-Update Ory Cloud Project's Permission Service Configuration
+Update Ory Cloud project's permission service configuration
 
 ### Synopsis
 
