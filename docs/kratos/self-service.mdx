@@ -48,6 +48,7 @@ Some flows break down into "flow methods" which implement some of the flow's bus
 - The `oidc` (OpenID Connect, OAuth2, Social Sign In) method implements "Sign in with ..." login and registration method and
   "un/link another social account" user settings method.
 - The `profile` method implements the "update your profile", "change your first/last name, ..." user settings method).
+- The `code` method implements a one-time-password sent to the user via their recovery addresses (Email, SMS, etc.)
 - The `link` method implements the "click this link to reset your password" account recovery method.
 
 Some flows implement the ability [to run hooks](hooks/configure-hooks) which allow users to be immediately signed in after

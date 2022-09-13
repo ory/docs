@@ -160,6 +160,7 @@ module.exports = {
           label: "Passwordless",
           items: ["kratos/passwordless/webauthn"],
         },
+        "kratos/account-recovery-password-reset",
         {
           type: "category",
           label: "Sending emails",
