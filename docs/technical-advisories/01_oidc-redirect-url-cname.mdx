@@ -1,0 +1,27 @@
+---
+id: oidc-redirect-url-cname
+title: Social Sign In `redirect_uri_mismatch` error (OTA-092022-01)
+sidebar_label: Resolve redirect_uri_mismatch error
+slug: /social-sign-in-redirect-url-mismatch-custom-domain-redirect_uri_mismatch
+---
+
+The problem affects Ory Cloud Projects created before September 2022 which had a custom domain enabled. When creating a new social
+sign in connection, the social sign-in flow can fail with the following error message:
+
+```text
+Unable to complete OpenID Connect flow because the OpenID Provider returned error "redirect_uri_mismatch": The redirect_uri MUST match the registered callback URL for this application.
+```
+
+## Mitigation
+
+To resolve this issue, remove the `/selfservice/methods/oidc/config/base_redirect_uri` config entry using the following Ory CLI
+command:
+
+```shell
+ory patch identity-config <your-project-id> \
+  --remove '/selfservice/methods/oidc/config/base_redirect_uri'
+```
+
+Please be aware that existing Social Sign In connections might break. To resolve this issue, go to your project's
+[Social Sign In configuration screen](https://console.ory.sh/projects/current/social-signin) and update the Callback URL of the
+failing Social Sign In provider. The Redirect URL should match.
