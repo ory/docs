@@ -475,6 +475,7 @@ module.exports = {
                 "oathkeeper/pipeline/error",
               ],
             },
+            "oathkeeper/grpc-middleware",
           ],
         },
         {
