@@ -4,7 +4,7 @@ export GO111MODULE        := on
 export PATH               := .bin:${PATH}
 
 format: node_modules
-	npm exec -- prettier write .
+	npm exec -- prettier --write .
 
 .PHONY: install
 install: code-examples/protect-page-login/nextjs/package-lock.json code-examples/protect-page-login/expressjs/package-lock.json package-lock.json code-examples/protect-page-login/go/go.sum code-examples/auth-api/expressjs/package-lock.json code-examples/protect-page-login/vue/package-lock.json code-examples/protect-page-login/flutter_web_redirect/pubspec.lock code-examples/protect-page-login/react/package-lock.json
