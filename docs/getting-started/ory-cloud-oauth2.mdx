@@ -68,12 +68,12 @@ import TabItem from '@theme/TabItem';
 
 ```shell
 ory create oauth2-client \
+  --project ORY_CLOUD_PROJECT_SLUG_OR_ID \
   --name YOUR_CLIENT_NAME \
   --grant-types authorization_code,refresh_token \ # Mandatory for this example, don't change.
   --response-types code,id_token \ # Mandatory for this example, don't change.
   --scope openid,offline \ # Mandatory for this example, don't change.
   --access-token ORY_PAT \ # Ory PAT copied from the Cloud Console, 'ory_pat' prefix included.
-  --endpoint https://SDK_CONFIGURATION_URL/admin # Found in the 'Connect' section of the Cloud Console. Must end with '/admin'.
   --callbacks http://127.0.0.1:5555/callback # Mandatory for this example, don't change.
 ```
   </TabItem>
@@ -168,15 +168,15 @@ Follow these steps to configure Ory Cloud to call the sample application for log
 2. Adjust the configuration in `oauth2/urls/consent` and `oauth2/urls/login`:
 
    ```yaml title="config.yaml"
-     oauth2:
+   oauth2:
      # ...
-       urls:
-         # highlight-next-line
-         consent: http://localhost:3000/consent
-         error: /oauth2/fallbacks/error
-         # highlight-next-line
-         login: http://localhost:3000/login
-         post_logout_redirect: /oauth2/fallbacks/logout
+     urls:
+       # highlight-next-line
+       consent: http://localhost:3000/consent
+       error: /oauth2/fallbacks/error
+       # highlight-next-line
+       login: http://localhost:3000/login
+       post_logout_redirect: /oauth2/fallbacks/logout
    ```
 
 3. Update the Ory Cloud project configuration using the file you worked with:
