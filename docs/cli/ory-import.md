@@ -27,4 +27,5 @@ Import resources
 
 * [ory](ory)	 - The ORY CLI
 * [ory import identities](ory-import-identities)	 - Import one or more identities from files or STD_IN
+* [ory import oauth2-client](ory-import-oauth2-client)	 - Import OAuth 2.0 Clients from files or STDIN
 

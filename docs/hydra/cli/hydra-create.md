@@ -27,6 +27,6 @@ Create resources
 ### SEE ALSO
 
 * [hydra](hydra)	 - Run and manage Ory Hydra
-* [hydra create client](hydra-create-client)	 - Create an OAuth 2.0 Client
 * [hydra create jwks](hydra-create-jwks)	 - Create a JSON Web Key Set with a JSON Web Key
+* [hydra create oauth2-client](hydra-create-oauth2-client)	 - Create an OAuth 2.0 Client
 
