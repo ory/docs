@@ -13,9 +13,7 @@
     "serve": "docusaurus serve",
     "test": "playwright test",
     "test:debug": "playwright test --debug",
-    "test:unit": "jest tests/jest --maxConcurrency=8 --bail 1",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "test:unit": "jest tests/jest --maxConcurrency=8 --bail 1"
   },
   "browserslist": {
     "production": [
