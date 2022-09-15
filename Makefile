@@ -35,3 +35,4 @@ test: install build-examples .bin/ory
 
 node_modules: package-lock.json
 	npm ci
+	touch node_modules
