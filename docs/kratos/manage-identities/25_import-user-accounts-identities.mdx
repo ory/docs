@@ -182,10 +182,12 @@ self-service flows.
 The password `the-password` will then be hashed according to the configured password hashing algorithm and stored in the database.
 The identity will be able to sign in using `docs-cleartext@example.org` and `the-password` as credentials.
 
-### BCrypt, PKBDF2, Argon2, SCrypt family hashed password
+### BCrypt, PKBDF2, Argon2, SCrypt, SSHA, SSHA256, SSHA512 family hashed password
 
 Besides clear text passwords it is possible to import password hashes. Currently the following algorithms are supported:
 
+- SSHA family, for example: `{SSHA}JFZFs0oHzxbMwkSJmYVeI8MnTDy/276a` `{SSHA256}czO44OTV17PcF1cRxWrLZLy9xHd7CWyVYplr1rOhuMlx/7IK`
+  `{SSHA512}xPUl/px+1cG55rUH4rzcwxdOIPSB2TingLpiJJumN2xyDWN4Ix1WQG3ihnvHaWUE8MYNkvMi5rf0C9NYixHsE6Yh59M=`
 - SCrypt, for example:
   `$scrypt$N=16384,r=8,p=1$ZtQva9xCHzlSELH/mA7Kj5KjH2tCrkbwYzdxknkL0QQ=$pnTcXKaWVT+FwFDdk3vO1K0J7ZgOxdSU1tCJNYmn8zI=`
 - PKBDF2 family (`HMAC-SHA1`, `HMAC-SHA256`), for example:
