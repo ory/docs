@@ -27,7 +27,6 @@
       "last 1 safari version"
     ]
   },
-  "prettier": "ory-prettier-styles",
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^9.0.9",
     "@docusaurus/core": "~2.0.1",
