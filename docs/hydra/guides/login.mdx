@@ -131,7 +131,7 @@ Check out our [reference implementation](https://github.com/ory/hydra-login-cons
 :::
 
 ```typescript title="routes/login.ts"
-// This is the endpoint the users end up at once they insert their password and username and hits "Log in".
+// This is the endpoint the users end up at once they insert their password and username and hit "Log in".
 router.post('/login', csrfProtection, (req, res, next) => {
   // The challenge is now a hidden input field, so let's take it from the request body instead
   const challenge = req.body.challenge
