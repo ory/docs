@@ -131,7 +131,7 @@ Check out our [reference implementation](https://github.com/ory/hydra-login-cons
 :::
 
 ```typescript title="routes/login.ts"
-// This is the endpoint the user ends up at once she/he inserts their password and username and hits "Log in".
+// This is the endpoint the user ends up at once they insert their password and username and hits "Log in".
 router.post('/login', csrfProtection, (req, res, next) => {
   // The challenge is now a hidden input field, so let's take it from the request body instead
   const challenge = req.body.challenge
@@ -146,7 +146,7 @@ router.post('/login', csrfProtection, (req, res, next) => {
     res.render('login', {
       csrfToken: req.csrfToken(),
       challenge: challenge,
-      error: 'The username / password combination isn't correct'
+      error: 'The username / password combination isn\'t correct'
     })
     return
   }
@@ -195,7 +195,7 @@ router.post('/login', csrfProtection, (req, res, next) => {
 hydraAdmin
   .rejectLoginRequest(challenge, {
     error: 'user_banned',
-    errorDescription: 'You aren't allowed to log in!'
+    errorDescription: 'You aren\'t allowed to log in!'
   })
   .then(({ body }) => {
     // All we need to do now is to redirect the browser back to hydra!
