@@ -3,6 +3,9 @@ SHELL=/bin/bash -euo pipefail
 export GO111MODULE        := on
 export PATH               := .bin:${PATH}
 
+format: node_modules
+	npm exec -- prettier --write .
+
 .PHONY: install
 install: code-examples/protect-page-login/nextjs/package-lock.json code-examples/protect-page-login/expressjs/package-lock.json package-lock.json code-examples/protect-page-login/go/go.sum code-examples/auth-api/expressjs/package-lock.json code-examples/protect-page-login/vue/package-lock.json code-examples/protect-page-login/flutter_web_redirect/pubspec.lock code-examples/protect-page-login/react/package-lock.json
 		cd code-examples/protect-page-login/nextjs && npm i
@@ -29,3 +32,7 @@ test: install build-examples .bin/ory
 .bin/ory: Makefile
 		bash <(curl https://raw.githubusercontent.com/ory/meta/master/install.sh) -d -b .bin ory v0.1.33
 		touch -a -m .bin/ory
+
+node_modules: package-lock.json
+	npm ci
+	touch node_modules

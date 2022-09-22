@@ -27,6 +27,6 @@ Import resources
 ### SEE ALSO
 
 * [hydra](hydra)	 - Run and manage Ory Hydra
-* [hydra import client](hydra-import-client)	 - Import OAuth 2.0 Clients from files or STDIN
 * [hydra import jwk](hydra-import-jwk)	 - Imports JSON Web Keys from one or more JSON files.
+* [hydra import oauth2-client](hydra-import-oauth2-client)	 - Import OAuth 2.0 Clients from files or STDIN
 

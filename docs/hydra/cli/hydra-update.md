@@ -27,5 +27,5 @@ Update resources
 ### SEE ALSO
 
 * [hydra](hydra)	 - Run and manage Ory Hydra
-* [hydra update client](hydra-update-client)	 - Update an OAuth 2.0 Client
+* [hydra update oauth2-client](hydra-update-oauth2-client)	 - Update an OAuth 2.0 Client
 
