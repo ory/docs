@@ -188,8 +188,7 @@ To format all relevant files, run these commands from the main directory of the
 repository:
 
 ```sh
-npm install
-npm run format
+make format
 git commit -a -m "styles: format"
 git push
 ```

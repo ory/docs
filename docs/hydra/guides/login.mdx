@@ -132,7 +132,7 @@ Check out our [reference implementation](https://github.com/ory/hydra-login-cons
 
 ```typescript title="routes/login.ts"
 // This is the endpoint the users end up at once they insert their password and username and hit "Log in".
-router.post('/login', csrfProtection, (req, res, next) => {
+router.post("/login", csrfProtection, (req, res, next) => {
   // The challenge is now a hidden input field, so let's take it from the request body instead
   const challenge = req.body.challenge
 
@@ -140,13 +140,13 @@ router.post('/login', csrfProtection, (req, res, next) => {
   // for this! Alternatively, you can also use Ory Kratos:
   //
   //      https://www.ory.sh/kratos
-  if (!(req.body.email === 'foo@bar.com' && req.body.password === 'foobar')) {
+  if (!(req.body.email === "foo@bar.com" && req.body.password === "foobar")) {
     // Looks like the user provided invalid credentials, let's show the ui again...
 
-    res.render('login', {
+    res.render("login", {
       csrfToken: req.csrfToken(),
       challenge: challenge,
-      error: 'The username / password combination isn\'t correct'
+      error: "The username / password combination isn't correct",
     })
     return
   }
@@ -155,14 +155,14 @@ router.post('/login', csrfProtection, (req, res, next) => {
   hydraAdmin
     .acceptLoginRequest(challenge, {
       // Subject is an alias for user ID. A subject can be a random string, a UUID, an email address, ....
-      subject: 'foo@bar.com',
+      subject: "foo@bar.com",
 
       // This tells hydra to remember the browser and automatically authenticate the user in future requests. This will
       // set the "skip" parameter in the other route to true on subsequent requests!
       remember: Boolean(req.body.remember),
 
       // When the session expires, in seconds. Set this to 0 so it will never expire.
-      remember_for: 3600
+      remember_for: 3600,
 
       // Sets which "level" (for example 2-factor authentication) of authentication the user has. The value is really arbitrary
       // and optional. In the context of OpenID Connect, a value of 0 indicates the lowest authorization level.
@@ -194,8 +194,8 @@ router.post('/login', csrfProtection, (req, res, next) => {
 // or the user has been banned, isn't allowed to use OAuth2 flows, and so on:
 hydraAdmin
   .rejectLoginRequest(challenge, {
-    error: 'user_banned',
-    errorDescription: 'You aren\'t allowed to log in!'
+    error: "user_banned",
+    errorDescription: "You aren't allowed to log in!",
   })
   .then(({ body }) => {
     // All we need to do now is to redirect the browser back to hydra!
