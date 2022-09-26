@@ -1,7 +1,7 @@
 ---
 id: ory-update-identity-config
 title: ory update identity-config
-description: ory update identity-config Update Ory Cloud Project's Identity Service Configuration
+description: ory update identity-config Update Ory Cloud project's identity service configuration
 ---
 
 <!--
@@ -11,7 +11,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory update identity-config
 
-Update Ory Cloud Project's Identity Service Configuration
+Update Ory Cloud project's identity service configuration
 
 ### Synopsis
 

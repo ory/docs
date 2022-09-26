@@ -110,6 +110,7 @@ ory tunnel https://app.example.com \
 
 ```
       --allowed-cors-origins strings   A list of allowed CORS origins. Wildcards are allowed.
+  -c, --config string                  Path to the Ory Cloud configuration file.
       --cookie-domain string           Set a dedicated cookie domain.
       --debug                          Use this flag to debug, for example, CORS requests.
       --default-redirect-url string    Set the URL to redirect to per default after e.g. login or account creation.
@@ -117,6 +118,8 @@ ory tunnel https://app.example.com \
   -h, --help                           help for tunnel
       --port int                       The port the proxy should listen on. (default 4000)
       --project string                 The slug of your Ory Cloud Project.
+  -q, --quiet                          Be quiet with output printing.
+  -y, --yes                            Confirm all dialogs with yes.
 ```
 
 ### SEE ALSO

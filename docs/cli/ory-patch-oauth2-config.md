@@ -1,7 +1,7 @@
 ---
 id: ory-patch-oauth2-config
 title: ory patch oauth2-config
-description: ory patch oauth2-config Patch an Ory Cloud Project's OAuth2 Config
+description: ory patch oauth2-config Patch an Ory Cloud project's OAuth2 config
 ---
 
 <!--
@@ -11,7 +11,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory patch oauth2-config
 
-Patch an Ory Cloud Project's OAuth2 Config
+Patch an Ory Cloud project's OAuth2 config
 
 ### Synopsis
 

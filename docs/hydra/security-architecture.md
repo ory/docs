@@ -9,8 +9,7 @@ Hydra is built with tough security in mind.
 
 Hydra is an implementation of the security-first Fosite OAuth 2.0 SDK
 ([https://github.com/ory/fosite](https://github.com/ory/fosite)). Fosite respects the
-[OAuth 2.0 Threat Model and Security Considerations](https://tools.ietf.org/html/rfc6819#section-5.1.5.3) by the IETF,
-specifically:
+[OAuth 2.0 Threat Model and Security Considerations](https://tools.ietf.org/html/rfc6819) by the IETF, specifically:
 
 - No Cleartext Storage of Credentials
 - Encryption of Credentials

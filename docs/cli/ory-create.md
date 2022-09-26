@@ -26,5 +26,6 @@ Create Ory Cloud resources
 ### SEE ALSO
 
 * [ory](ory)	 - The ORY CLI
-* [ory create project](ory-create-project)	 - Create a new Ory Cloud Project
+* [ory create oauth2-client](ory-create-oauth2-client)	 - Create an OAuth 2.0 Client
+* [ory create project](ory-create-project)	 - Create a new Ory Cloud project
 

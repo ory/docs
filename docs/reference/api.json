@@ -319,32 +319,8 @@
         },
         "type": "object"
       },
-      "RecoveryAddress": {
-        "properties": {
-          "created_at": {
-            "description": "CreatedAt is a helper struct field for gobuffalo.pop.",
-            "format": "date-time",
-            "type": "string"
-          },
-          "id": {
-            "$ref": "#/components/schemas/UUID"
-          },
-          "updated_at": {
-            "description": "UpdatedAt is a helper struct field for gobuffalo.pop.",
-            "format": "date-time",
-            "type": "string"
-          },
-          "value": {
-            "type": "string"
-          },
-          "via": {
-            "$ref": "#/components/schemas/RecoveryAddressType"
-          }
-        },
-        "required": ["id", "value", "via"],
-        "type": "object"
-      },
       "RecoveryAddressType": {
+        "title": "RecoveryAddressType must not exceed 16 characters as that is the limitation in the SQL Schema.",
         "type": "string"
       },
       "String": {
@@ -367,6 +343,9 @@
       "SubscriptionStatus": {
         "description": "For `collection_method=charge_automatically` a subscription moves into `incomplete` if the initial payment attempt fails. A subscription in this state can only have metadata and default_source updated. Once the first invoice is paid, the subscription moves into an `active` state. If the first invoice is not paid within 23 hours, the subscription transitions to `incomplete_expired`. This is a terminal state, the open invoice will be voided and no further invoices will be generated.\n\nA subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.\n\nIf subscription `collection_method=charge_automatically` it becomes `past_due` when payment to renew it fails and `canceled` or `unpaid` (depending on your subscriptions settings) when Stripe has exhausted all payment retry attempts.\n\nIf subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.",
         "title": "Possible values are `incomplete`, `incomplete_expired`, `trialing`, `active`, `past_due`, `canceled`, or `unpaid`.",
+        "type": "string"
+      },
+      "TemplateType": {
         "type": "string"
       },
       "Time": {
@@ -486,7 +465,7 @@
           "recovery_addresses": {
             "description": "RecoveryAddresses contains all the addresses that can be used to recover an identity.\n\nUse this structure to import recovery addresses for an identity. Please keep in mind\nthat the address needs to be represented in the Identity Schema or this field will be overwritten\non the next identity update.",
             "items": {
-              "$ref": "#/components/schemas/RecoveryAddress"
+              "$ref": "#/components/schemas/recoveryIdentityAddress"
             },
             "type": "array"
           },
@@ -578,7 +557,9 @@
             "type": "string"
           },
           "identity_id": {
-            "$ref": "#/components/schemas/UUID"
+            "description": "Identity to Recover\n\nThe identity's ID you wish to recover.",
+            "format": "uuid",
+            "type": "string"
           }
         },
         "required": ["identity_id"],
@@ -730,6 +711,24 @@
         "title": "Used to pass session data to a consent request.",
         "type": "object"
       },
+      "courierMessageList": {
+        "items": {
+          "$ref": "#/components/schemas/message"
+        },
+        "title": "A list of messages.",
+        "type": "array"
+      },
+      "courierMessageStatus": {
+        "description": "A Message's Status",
+        "enum": ["queued", "sent", "processing", "abandoned"],
+        "type": "string"
+      },
+      "courierMessageType": {
+        "description": "It can either be `email` or `phone`",
+        "enum": ["email", "phone"],
+        "title": "A Message's Type",
+        "type": "string"
+      },
       "createCustomHostnameBody": {
         "properties": {
           "cookie_domain": {
@@ -778,7 +777,7 @@
             "type": "string"
           },
           "details": {
-            "additionalProperties": true,
+            "additionalProperties": {},
             "description": "Further error details",
             "type": "object"
           },
@@ -1023,7 +1022,9 @@
             "type": "object"
           },
           "id": {
-            "$ref": "#/components/schemas/UUID"
+            "description": "ID is the identity's unique identifier.\n\nThe Identity ID can not be changed and can not be chosen. This ensures future\ncompatibility and optimization for distributed stores such as CockroachDB.",
+            "format": "uuid",
+            "type": "string"
           },
           "metadata_admin": {
             "$ref": "#/components/schemas/nullJsonRawMessage"
@@ -1034,7 +1035,7 @@
           "recovery_addresses": {
             "description": "RecoveryAddresses contains all the addresses that can be used to recover an identity.",
             "items": {
-              "$ref": "#/components/schemas/RecoveryAddress"
+              "$ref": "#/components/schemas/recoveryIdentityAddress"
             },
             "type": "array",
             "x-omitempty": true
@@ -1491,6 +1492,47 @@
         },
         "type": "array"
       },
+      "message": {
+        "properties": {
+          "body": {
+            "type": "string"
+          },
+          "created_at": {
+            "description": "CreatedAt is a helper struct field for gobuffalo.pop.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "recipient": {
+            "type": "string"
+          },
+          "send_count": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "status": {
+            "$ref": "#/components/schemas/courierMessageStatus"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "template_type": {
+            "$ref": "#/components/schemas/TemplateType"
+          },
+          "type": {
+            "$ref": "#/components/schemas/courierMessageType"
+          },
+          "updated_at": {
+            "description": "UpdatedAt is a helper struct field for gobuffalo.pop.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "needsPrivilegedSessionError": {
         "properties": {
           "code": {
@@ -1505,7 +1547,7 @@
             "type": "string"
           },
           "details": {
-            "additionalProperties": true,
+            "additionalProperties": {},
             "description": "Further error details",
             "type": "object"
           },
@@ -3068,6 +3110,32 @@
         "required": ["plan_or_price", "identity_id"],
         "type": "object"
       },
+      "recoveryIdentityAddress": {
+        "properties": {
+          "created_at": {
+            "description": "CreatedAt is a helper struct field for gobuffalo.pop.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "UpdatedAt is a helper struct field for gobuffalo.pop.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "via": {
+            "$ref": "#/components/schemas/RecoveryAddressType"
+          }
+        },
+        "required": ["id", "value", "via"],
+        "type": "object"
+      },
       "refreshTokenHookRequest": {
         "properties": {
           "client_id": {
@@ -3230,7 +3298,7 @@
             "type": "string"
           },
           "details": {
-            "additionalProperties": true,
+            "additionalProperties": {},
             "description": "Further error details",
             "type": "object"
           },
@@ -3278,7 +3346,9 @@
             "type": "object"
           },
           "id": {
-            "$ref": "#/components/schemas/UUID"
+            "description": "ID of the error container.",
+            "format": "uuid",
+            "type": "string"
           },
           "updated_at": {
             "description": "UpdatedAt is a helper struct field for gobuffalo.pop.",
@@ -3304,7 +3374,7 @@
             "type": "string"
           },
           "details": {
-            "additionalProperties": true,
+            "additionalProperties": {},
             "description": "Further error details",
             "type": "object"
           },
@@ -3336,7 +3406,9 @@
             "type": "string"
           },
           "use_flow_id": {
-            "$ref": "#/components/schemas/UUID"
+            "description": "The flow ID that should be used for the new flow as it contains the correct messages.",
+            "format": "uuid",
+            "type": "string"
           }
         },
         "required": ["message"],
@@ -3364,7 +3436,9 @@
             "type": "string"
           },
           "id": {
-            "$ref": "#/components/schemas/UUID"
+            "description": "ID represents the flow's unique ID. When performing the login flow, this\nrepresents the id in the login UI's query parameter: http://\u003cselfservice.flows.login.ui_url\u003e/?flow=\u003cflow_id\u003e",
+            "format": "uuid",
+            "type": "string"
           },
           "issued_at": {
             "description": "IssuedAt is the time (UTC) when the flow started.",
@@ -3436,7 +3510,9 @@
             "type": "string"
           },
           "id": {
-            "$ref": "#/components/schemas/UUID"
+            "description": "ID represents the request's unique ID. When performing the recovery flow, this\nrepresents the id in the recovery ui's query parameter: http://\u003cselfservice.flows.recovery.ui_url\u003e?request=\u003cid\u003e",
+            "format": "uuid",
+            "type": "string"
           },
           "issued_at": {
             "description": "IssuedAt is the time (UTC) when the request occurred.",
@@ -3505,7 +3581,9 @@
             "type": "string"
           },
           "id": {
-            "$ref": "#/components/schemas/UUID"
+            "description": "ID represents the flow's unique ID. When performing the registration flow, this\nrepresents the id in the registration ui's query parameter: http://\u003cselfservice.flows.registration.ui_url\u003e/?flow=\u003cid\u003e",
+            "format": "uuid",
+            "type": "string"
           },
           "issued_at": {
             "description": "IssuedAt is the time (UTC) when the flow occurred.",
@@ -3550,7 +3628,9 @@
             "type": "string"
           },
           "id": {
-            "$ref": "#/components/schemas/UUID"
+            "description": "ID represents the flow's unique ID. When performing the settings flow, this\nrepresents the id in the settings ui's query parameter: http://\u003cselfservice.flows.settings.ui_url\u003e?flow=\u003cid\u003e",
+            "format": "uuid",
+            "type": "string"
           },
           "identity": {
             "$ref": "#/components/schemas/identity"
@@ -3610,7 +3690,9 @@
             "type": "string"
           },
           "id": {
-            "$ref": "#/components/schemas/UUID"
+            "description": "ID represents the request's unique ID. When performing the verification flow, this\nrepresents the id in the verify ui's query parameter: http://\u003cselfservice.flows.verification.ui_url\u003e?request=\u003cid\u003e\n\ntype: string\nformat: uuid",
+            "format": "uuid",
+            "type": "string"
           },
           "issued_at": {
             "description": "IssuedAt is the time (UTC) when the request occurred.",
@@ -3669,7 +3751,9 @@
             "type": "string"
           },
           "id": {
-            "$ref": "#/components/schemas/UUID"
+            "description": "Session ID",
+            "format": "uuid",
+            "type": "string"
           },
           "identity": {
             "$ref": "#/components/schemas/identity"
@@ -4555,7 +4639,7 @@
             "$ref": "#/components/schemas/uiNodeAttributes"
           },
           "group": {
-            "description": "Group specifies which group (e.g. password authenticator) this node belongs to.",
+            "description": "Group specifies which group (e.g. password authenticator) this node belongs to.\ndefault DefaultGroup\npassword PasswordGroup\noidc OpenIDConnectGroup\nprofile ProfileGroup\nlink LinkGroup\ntotp TOTPGroup\nlookup_secret LookupGroup\nwebauthn WebAuthnGroup",
             "enum": [
               "default",
               "password",
@@ -4566,7 +4650,8 @@
               "lookup_secret",
               "webauthn"
             ],
-            "type": "string"
+            "type": "string",
+            "x-go-enum-desc": "default DefaultGroup\npassword PasswordGroup\noidc OpenIDConnectGroup\nprofile ProfileGroup\nlink LinkGroup\ntotp TOTPGroup\nlookup_secret LookupGroup\nwebauthn WebAuthnGroup"
           },
           "messages": {
             "$ref": "#/components/schemas/uiTexts"
@@ -4575,9 +4660,10 @@
             "$ref": "#/components/schemas/uiNodeMeta"
           },
           "type": {
-            "description": "The node's type",
+            "description": "The node's type\ntext Text\ninput Input\nimg Image\na Anchor\nscript Script",
             "enum": ["text", "input", "img", "a", "script"],
-            "type": "string"
+            "type": "string",
+            "x-go-enum-desc": "text Text\ninput Input\nimg Image\na Anchor\nscript Script"
           }
         },
         "required": ["type", "group", "attributes", "messages", "meta"],
@@ -4669,7 +4755,7 @@
         "description": "InputAttributes represents the attributes of an input node",
         "properties": {
           "autocomplete": {
-            "description": "The autocomplete attribute for the input.",
+            "description": "The autocomplete attribute for the input.\nemail InputAttributeAutocompleteEmail\ntel InputAttributeAutocompleteTel\nurl InputAttributeAutocompleteUrl\ncurrent-password InputAttributeAutocompleteCurrentPassword\nnew-password InputAttributeAutocompleteNewPassword\none-time-code InputAttributeAutocompleteOneTimeCode",
             "enum": [
               "email",
               "tel",
@@ -4678,7 +4764,8 @@
               "new-password",
               "one-time-code"
             ],
-            "type": "string"
+            "type": "string",
+            "x-go-enum-desc": "email InputAttributeAutocompleteEmail\ntel InputAttributeAutocompleteTel\nurl InputAttributeAutocompleteUrl\ncurrent-password InputAttributeAutocompleteCurrentPassword\nnew-password InputAttributeAutocompleteNewPassword\none-time-code InputAttributeAutocompleteOneTimeCode"
           },
           "disabled": {
             "description": "Sets the input's disabled field to true or false.",
@@ -4708,7 +4795,7 @@
             "type": "boolean"
           },
           "type": {
-            "description": "The input's element type.",
+            "description": "The input's element type.\ntext InputAttributeTypeText\npassword InputAttributeTypePassword\nnumber InputAttributeTypeNumber\ncheckbox InputAttributeTypeCheckbox\nhidden InputAttributeTypeHidden\nemail InputAttributeTypeEmail\ntel InputAttributeTypeTel\nsubmit InputAttributeTypeSubmit\nbutton InputAttributeTypeButton\ndatetime-local InputAttributeTypeDateTimeLocal\ndate InputAttributeTypeDate\nurl InputAttributeTypeURI",
             "enum": [
               "text",
               "password",
@@ -4723,7 +4810,8 @@
               "date",
               "url"
             ],
-            "type": "string"
+            "type": "string",
+            "x-go-enum-desc": "text InputAttributeTypeText\npassword InputAttributeTypePassword\nnumber InputAttributeTypeNumber\ncheckbox InputAttributeTypeCheckbox\nhidden InputAttributeTypeHidden\nemail InputAttributeTypeEmail\ntel InputAttributeTypeTel\nsubmit InputAttributeTypeSubmit\nbutton InputAttributeTypeButton\ndatetime-local InputAttributeTypeDateTimeLocal\ndate InputAttributeTypeDate\nurl InputAttributeTypeURI"
           },
           "value": {
             "description": "The input's value.",
@@ -4979,7 +5067,9 @@
             "type": "string"
           },
           "id": {
-            "$ref": "#/components/schemas/UUID"
+            "description": "The ID",
+            "format": "uuid",
+            "type": "string"
           },
           "status": {
             "$ref": "#/components/schemas/identityVerifiableAddressStatus"
@@ -5311,7 +5401,93 @@
             "description": "webAuthnJavaScript"
           }
         },
-        "summary": "Get WebAuthn JavaScript",
+        "summary": "# Get WebAuthn JavaScript",
+        "tags": ["v0alpha2"]
+      }
+    },
+    "/admin/courier/messages": {
+      "get": {
+        "description": "Lists all messages by given status and recipient.",
+        "operationId": "adminListCourierMessages",
+        "parameters": [
+          {
+            "description": "Items per Page\n\nThis is the number of items per page.",
+            "in": "query",
+            "name": "per_page",
+            "schema": {
+              "default": 250,
+              "format": "int64",
+              "maximum": 1000,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Pagination Page\n\nThis value is currently an integer, but it is not sequential. The value is not the page number, but a\nreference. The next page can be any number and some numbers might return an empty list.\n\nFor example, page 2 might not follow after page 1. And even if page 3 and 5 exist, but page 4 might not exist.",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "format": "int64",
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Status filters out messages based on status.\nIf no value is provided, it doesn't take effect on filter.",
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "$ref": "#/components/schemas/courierMessageStatus"
+            }
+          },
+          {
+            "description": "Recipient filters out messages based on recipient.\nIf no value is provided, it doesn't take effect on filter.",
+            "in": "query",
+            "name": "recipient",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/courierMessageList"
+                }
+              }
+            },
+            "description": "courierMessageList"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/jsonError"
+                }
+              }
+            },
+            "description": "jsonError"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/jsonError"
+                }
+              }
+            },
+            "description": "jsonError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "# List Messages",
         "tags": ["v0alpha2"]
       }
     },
@@ -5371,7 +5547,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "List Identities",
+        "summary": "# List Identities",
         "tags": ["v0alpha2"]
       },
       "post": {
@@ -5434,7 +5610,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "Create an Identity",
+        "summary": "# Create an Identity",
         "tags": ["v0alpha2"]
       }
     },
@@ -5483,7 +5659,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "Delete an Identity",
+        "summary": "# Delete an Identity",
         "tags": ["v0alpha2"]
       },
       "get": {
@@ -5548,7 +5724,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "Get an Identity",
+        "summary": "# Get an Identity",
         "tags": ["v0alpha2"]
       },
       "patch": {
@@ -5716,7 +5892,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "Update an Identity",
+        "summary": "# Update an Identity",
         "tags": ["v0alpha2"]
       }
     },
@@ -5955,7 +6131,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "Create a Recovery Link",
+        "summary": "# Create a Recovery Link",
         "tags": ["v0alpha2"]
       }
     },
@@ -9721,7 +9897,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "Get Self-Service Errors",
+        "summary": "# Get Self-Service Errors",
         "tags": ["v0alpha2"]
       }
     },
@@ -9827,7 +10003,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "Submit a Login Flow",
+        "summary": "# Submit a Login Flow",
         "tags": ["v0alpha2"]
       }
     },
@@ -9925,6 +10101,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
+            "in": "header",
+            "name": "Cookie",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -9962,7 +10146,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "Initialize Login Flow for Browsers",
+        "summary": "# Initialize Login Flow for Browsers",
         "tags": ["v0alpha2"]
       }
     },
@@ -10041,7 +10225,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "Get Login Flow",
+        "summary": "# Get Login Flow",
         "tags": ["v0alpha2"]
       }
     },
@@ -10085,7 +10269,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "Complete Self-Service Logout",
+        "summary": "# Complete Self-Service Logout",
         "tags": ["v0alpha2"]
       }
     },
@@ -10179,7 +10363,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "Create a Logout URL for Browsers",
+        "summary": "# Create a Logout URL for Browsers",
         "tags": ["v0alpha2"]
       }
     },
@@ -10275,13 +10459,13 @@
             "description": "jsonError"
           }
         },
-        "summary": "Complete Recovery Flow",
+        "summary": "# Complete Recovery Flow",
         "tags": ["v0alpha2"]
       }
     },
     "/self-service/recovery/api": {
       "get": {
-        "description": "This endpoint initiates a recovery flow for API clients such as mobile devices, smart TVs, and so on.\n\nIf a valid provided session cookie or session token is provided, a 400 Bad Request error.\n\nTo fetch an existing recovery flow call `/self-service/recovery/flows?flow=\u003cflow_id\u003e`.\n\nYou MUST NOT use this endpoint in client-side (Single Page Apps, ReactJS, AngularJS) nor server-side (Java Server\nPages, NodeJS, PHP, Golang, ...) browser applications. Using this endpoint in these applications will make\nyou vulnerable to a variety of CSRF attacks.\n\nThis endpoint MUST ONLY be used in scenarios such as native mobile apps (React Native, Objective C, Swift, Java, ...).\n\n\nMore information can be found at [Ory Kratos Account Recovery Documentation](../self-service/flows/account-recovery).",
+        "description": "This endpoint initiates a recovery flow for API clients such as mobile devices, smart TVs, and so on.\n\nIf a valid provided session cookie or session token is provided, a 400 Bad Request error.\n\nTo fetch an existing recovery flow call `/self-service/recovery/flows?flow=\u003cflow_id\u003e`.\n\nYou MUST NOT use this endpoint in client-side (Single Page Apps, ReactJS, AngularJS) nor server-side (Java Server\nPages, NodeJS, PHP, Golang, ...) browser applications. Using this endpoint in these applications will make\nyou vulnerable to a variety of CSRF attacks.\n\nThis endpoint MUST ONLY be used in scenarios such as native mobile apps (React Native, Objective C, Swift, Java, ...).\n\nMore information can be found at [Ory Kratos Account Recovery Documentation](../self-service/flows/account-recovery).",
         "operationId": "initializeSelfServiceRecoveryFlowWithoutBrowser",
         "responses": {
           "200": {
@@ -10368,7 +10552,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "Initialize Recovery Flow for Browsers",
+        "summary": "# Initialize Recovery Flow for Browsers",
         "tags": ["v0alpha2"]
       }
     },
@@ -10437,7 +10621,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "Get Recovery Flow",
+        "summary": "# Get Recovery Flow",
         "tags": ["v0alpha2"]
       }
     },
@@ -10535,7 +10719,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "Submit a Registration Flow",
+        "summary": "# Submit a Registration Flow",
         "tags": ["v0alpha2"]
       }
     },
@@ -10618,7 +10802,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "Initialize Registration Flow for Browsers",
+        "summary": "# Initialize Registration Flow for Browsers",
         "tags": ["v0alpha2"]
       }
     },
@@ -10697,7 +10881,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "Get Registration Flow",
+        "summary": "# Get Registration Flow",
         "tags": ["v0alpha2"]
       }
     },
@@ -10828,7 +11012,7 @@
             "sessionToken": []
           }
         ],
-        "summary": "Complete Settings Flow",
+        "summary": "# Complete Settings Flow",
         "tags": ["v0alpha2"]
       }
     },
@@ -10894,6 +11078,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
+            "in": "header",
+            "name": "Cookie",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -10951,7 +11143,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "Initialize Settings Flow for Browsers",
+        "summary": "# Initialize Settings Flow for Browsers",
         "tags": ["v0alpha2"]
       }
     },
@@ -11048,7 +11240,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "Get Settings Flow",
+        "summary": "# Get Settings Flow",
         "tags": ["v0alpha2"]
       }
     },
@@ -11227,7 +11419,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "Initialize Verification Flow for Browser Clients",
+        "summary": "# Initialize Verification Flow for Browser Clients",
         "tags": ["v0alpha2"]
       }
     },
@@ -11479,7 +11671,7 @@
     },
     "/sessions/whoami": {
       "get": {
-        "description": "Uses the HTTP Headers in the GET request to determine (e.g. by using checking the cookies) who is authenticated.\nReturns a session object in the body or 401 if the credentials are invalid or no credentials were sent.\nAdditionally when the request it successful it adds the user ID to the 'X-Kratos-Authenticated-Identity-Id' header\nin the response.\n\nIf you call this endpoint from a server-side application, you must forward the HTTP Cookie Header to this endpoint:\n\n```js\npseudo-code example\nrouter.get('/protected-endpoint', async function (req, res) {\nconst session = await client.toSession(undefined, req.header('cookie'))\n\nconsole.log(session)\n})\n```\n\nWhen calling this endpoint from a non-browser application (e.g. mobile app) you must include the session token:\n\n```js\npseudo-code example\n...\nconst session = await client.toSession(\"the-session-token\")\n\nconsole.log(session)\n```\n\nDepending on your configuration this endpoint might return a 403 status code if the session has a lower Authenticator\nAssurance Level (AAL) than is possible for the identity. This can happen if the identity has password + webauthn\ncredentials (which would result in AAL2) but the session has only AAL1. If this error occurs, ask the user\nto sign in with the second factor or change the configuration.\n\nThis endpoint is useful for:\n\nAJAX calls. Remember to send credentials and set up CORS correctly!\nReverse proxies and API Gateways\nServer-side calls - use the `X-Session-Token` header!\n\nThis endpoint authenticates users by checking\n\nif the `Cookie` HTTP header was set containing an Ory Kratos Session Cookie;\nif the `Authorization: bearer \u003cory-session-token\u003e` HTTP header was set with a valid Ory Kratos Session Token;\nif the `X-Session-Token` HTTP header was set with a valid Ory Kratos Session Token.\n\nIf none of these headers are set or the cooke or token are invalid, the endpoint returns a HTTP 401 status code.\n\nAs explained above, this request may fail due to several reasons. The `error.id` can be one of:\n\n`session_inactive`: No active session was found in the request (e.g. no Ory Session Cookie / Ory Session Token).\n`session_aal2_required`: An active session was found but it does not fulfil the Authenticator Assurance Level, implying that the session must (e.g.) authenticate the second factor.",
+        "description": "Uses the HTTP Headers in the GET request to determine (e.g. by using checking the cookies) who is authenticated.\nReturns a session object in the body or 401 if the credentials are invalid or no credentials were sent.\nAdditionally when the request it successful it adds the user ID to the 'X-Kratos-Authenticated-Identity-Id' header\nin the response.\n\nIf you call this endpoint from a server-side application, you must forward the HTTP Cookie Header to this endpoint:\n\n```js\npseudo-code example\nrouter.get('/protected-endpoint', async function (req, res) {\nconst session = await client.toSession(undefined, req.header('cookie'))\n\nconsole.log(session)\n})\n```\n\nWhen calling this endpoint from a non-browser application (e.g. mobile app) you must include the session token:\n\n```js\npseudo-code example\n...\nconst session = await client.toSession(\"the-session-token\")\n\nconsole.log(session)\n```\n\nDepending on your configuration this endpoint might return a 403 status code if the session has a lower Authenticator\nAssurance Level (AAL) than is possible for the identity. This can happen if the identity has password + webauthn\ncredentials (which would result in AAL2) but the session has only AAL1. If this error occurs, ask the user\nto sign in with the second factor or change the configuration.\n\nThis endpoint is useful for:\n\nAJAX calls. Remember to send credentials and set up CORS correctly!\nReverse proxies and API Gateways\nServer-side calls - use the `X-Session-Token` header!\n\n# This endpoint authenticates users by checking\n\nif the `Cookie` HTTP header was set containing an Ory Kratos Session Cookie;\nif the `Authorization: bearer \u003cory-session-token\u003e` HTTP header was set with a valid Ory Kratos Session Token;\nif the `X-Session-Token` HTTP header was set with a valid Ory Kratos Session Token.\n\nIf none of these headers are set or the cooke or token are invalid, the endpoint returns a HTTP 401 status code.\n\nAs explained above, this request may fail due to several reasons. The `error.id` can be one of:\n\n`session_inactive`: No active session was found in the request (e.g. no Ory Session Cookie / Ory Session Token).\n`session_aal2_required`: An active session was found but it does not fulfil the Authenticator Assurance Level, implying that the session must (e.g.) authenticate the second factor.",
         "operationId": "toSession",
         "parameters": [
           {
@@ -11543,7 +11735,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "Check Who the Current HTTP Session Belongs To",
+        "summary": "# Check Who the Current HTTP Session Belongs To",
         "tags": ["v0alpha2"]
       }
     },

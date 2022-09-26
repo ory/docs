@@ -1,7 +1,7 @@
 ---
 id: ory-patch-identity-config
 title: ory patch identity-config
-description: ory patch identity-config Patch an Ory Cloud Project's Identity Config
+description: ory patch identity-config Patch an Ory Cloud project's identity config
 ---
 
 <!--
@@ -11,7 +11,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory patch identity-config
 
-Patch an Ory Cloud Project's Identity Config
+Patch an Ory Cloud project's identity config
 
 ### Synopsis
 

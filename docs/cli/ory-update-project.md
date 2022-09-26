@@ -1,7 +1,7 @@
 ---
 id: ory-update-project
 title: ory update project
-description: ory update project Update Ory Cloud Project Service Configuration
+description: ory update project Update Ory Cloud project service configuration
 ---
 
 <!--
@@ -11,7 +11,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory update project
 
-Update Ory Cloud Project Service Configuration
+Update Ory Cloud project service configuration
 
 ### Synopsis
 
