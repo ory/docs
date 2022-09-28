@@ -1,7 +1,7 @@
 ---
-id: ory-create
-title: ory create
-description: ory create Create Ory Cloud resources
+id: ory-parse
+title: ory parse
+description: ory parse Parse Ory Cloud resources
 ---
 
 <!--
@@ -9,16 +9,16 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-## ory create
+## ory parse
 
-Create Ory Cloud resources
+Parse Ory Cloud resources
 
 ### Options
 
 ```
   -c, --config string   Path to the Ory Cloud configuration file.
       --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
-  -h, --help            help for create
+  -h, --help            help for parse
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
 ```
@@ -26,7 +26,5 @@ Create Ory Cloud resources
 ### SEE ALSO
 
 * [ory](ory)	 - The ORY CLI
-* [ory create oauth2-client](ory-create-oauth2-client)	 - Create an OAuth 2.0 Client
-* [ory create project](ory-create-project)	 - Create a new Ory Cloud project
-* [ory create relation-tuples](ory-create-relation-tuples)	 - Create relation tuples from JSON files
+* [ory parse relation-tuples](ory-parse-relation-tuples)	 - Parse human readable relation tuples
 

@@ -29,6 +29,7 @@ The ORY CLI
 * [ory import](ory-import)	 - Import resources
 * [ory lint](ory-lint)	 - Helpers for linting code
 * [ory list](ory-list)	 - List resources
+* [ory parse](ory-parse)	 - Parse Ory Cloud resources
 * [ory patch](ory-patch)	 - Patch resources
 * [ory perform](ory-perform)	 - Perform a flow
 * [ory proxy](ory-proxy)	 - Run your app and Ory on the same domain using a reverse proxy
