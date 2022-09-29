@@ -185,6 +185,7 @@ ory proxy http://localhost:3000 https://app.example.com \
       --port int                       The port the proxy should listen on. (default 4000)
       --project string                 The slug of your Ory Cloud Project.
   -q, --quiet                          Be quiet with output printing.
+      --rewrite-host                   Use this flag to rewrite the host header to the upstream host.
   -y, --yes                            Confirm all dialogs with yes.
 ```
 
