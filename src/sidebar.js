@@ -21,11 +21,11 @@ module.exports = {
                 "getting-started/integrate-auth/go",
                 "getting-started/integrate-auth/php",
                 "getting-started/integrate-auth/expressjs",
+                "getting-started/integrate-auth/nextjs",
               ],
             },
             {
               "Single Page App (SPA)": [
-                "getting-started/integrate-auth/nextjs",
                 "getting-started/integrate-auth/flutter-web-redirect",
                 "getting-started/integrate-auth/react",
                 "getting-started/integrate-auth/vue",
