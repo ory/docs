@@ -50,7 +50,7 @@ export function getSdkUrl() {
 #
 #   https://console.ory.sh/registration
 #
-# and create a free Ory Cloud Project to see your own configuration embedded in code samples!
+# and create a free Ory Cloud Project to see your own configuration embedded in code samples.
 `
   return {
     hint,
