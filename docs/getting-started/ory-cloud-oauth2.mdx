@@ -64,7 +64,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs>
-  <TabItem value="hydracli" label="Ory CLI">
+  <TabItem value="orycli" label="Ory CLI">
 
 ```shell
 ory create oauth2-client \
@@ -196,7 +196,7 @@ Run this command to create the client. Using flags, provide the client ID and se
 ory perform authorization-code \
   --client-id CLOUD_CLIENT_ID \
   --client-secret CLOUD_CLIENT_SECRET \
-  --project <id> \
+  --project ORY_CLOUD_PROJECT_ID \
   --port 5555 \
   --scope openid,offline
 ```
