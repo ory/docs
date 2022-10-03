@@ -1,6 +1,6 @@
 ---
 id: configure-permission-service
-title: Permission Service
+title: Configure Permission Service
 ---
 
 Using the Ory CLI, you can quickly adjust the configuration of the Ory Cloud Permission Service and apply config from the Cloud
@@ -18,9 +18,7 @@ different settings in the safety of the local development environment.
 To work with the Ory Cloud Permission Service, you must have an active Ory Cloud project. Use the
 [CLI](./config-with-cli#create-ory-cloud-project) or the [Ory Console](https://console.ory.sh/) to create one.
 
-## Configuration
-
-### Export configuration from Ory Cloud
+## Export configuration from Ory Cloud
 
 To get your project's Permission Service configuration, run this command:
 
@@ -43,7 +41,7 @@ The `--format` flag defines the format of the output file. You can choose one of
 
 Getting the configuration in the YAML format produces output that is ready to use with self-hosted Ory Keto.
 
-#### Export to file
+### Export to file
 
 For a convenient way to get the Permission Service configuration working in self-hosted Ory Keto, save the configuration to a YAML
 file.
@@ -51,19 +49,19 @@ file.
 Run this command:
 
 ```bash
-ory get permission-config <project-id> --format yaml > identity-config.yaml
+ory get permission-config <project-id> --format yaml > permission-config.yaml
 ```
 
-### Import configuration to Ory Cloud
+## Import configuration to Ory Cloud
 
 To start using the configuration from a self-hosted Ory Keto instance in the Ory Cloud Permission Service, import the
 configuration file with the CLI:
 
 ```shell
-ory update permission-config <project-id> --file config.yaml
+ory update permission-config <project-id> --file permission-config.yaml
 ```
 
-### Adjust specific keys
+## Adjust specific keys
 
 You can adjust specific keys in the configuration using the `ory patch` CLI command.
 
@@ -82,33 +80,42 @@ Read [this document](./config-with-cli) to learn more about adjusting project co
 
 ## Manage relation tuples
 
-You can manage the [relation tuples](../../keto/concepts/relation-tuples) directly from the Ory CLI as well. Here's how:
+You can manage [relation tuples](../../keto/concepts/relation-tuples) using Ory CLI. To run these operations, you must provide the
+ID of the Ory Cloud project in which you want to manage the tuples using the `--project` flag.
 
-### Setup
+For convenience, you can export the ID of your project as an environment variable and use the variable with the `--project` flag
+instead of passing the project ID directly in the command:
+
+:::info
+
+Examples in this section use the environment variable. To try them out without making adjustments, export your project ID as an
+environment variable.
+
+:::
 
 ```bash
-export PROJECT=<your_project_id>
+## List all available projects
+ory list projects
 
-## Authenticate first
-ory auth
-# (sign in with Ory Cloud account)
+## Export project ID as env. variable
+export PROJECT=<ory-cloud-project-id>
 ```
 
-### Create some relation tuples
+### Create
 
-[Detailed documentation for `ory create relation-tuples`](../../cli/ory-create-relation-tuples)
+Read the [Ory CLI reference](../../cli/ory-create-relation-tuples) to learn more about this command.
 
 ```bash
 echo "groups:devs#member@tom" \
-  | ory parse relation-tuples --project=$PROJECT --format=json - \
-  | ory create relation-tuples --project=$PROJECT -
+  | ory parse relation-tuples --project=$PROJECT --format=json \
+  | ory create relation-tuples --project=$PROJECT
 # NAMESPACE	OBJECT	RELATION NAME	SUBJECT
 # groups		devs	member		tom
 ```
 
-### List the tuple(s)
+### List
 
-[Detailed documentation for `ory list relation-tuples`](../../cli/ory-list-relation-tuples)
+Read the [Ory CLI reference](../../cli/ory-list-relation-tuples) to learn more about this command.
 
 ```bash
 ory list relation-tuples --project=$PROJECT
@@ -119,9 +126,9 @@ ory list relation-tuples --project=$PROJECT
 # IS LAST PAGE	true
 ```
 
-### Delete the tuple(s)
+### Delete
 
-[Detailed documentation for `ory delete relation-tuples`](../../cli/ory-delete-relation-tuples)
+Read the [Ory CLI reference](../../cli/ory-delete-relation-tuples) to learn more about this command.
 
 ```bash
 ory delete relation-tuples --project=$PROJECT --all
@@ -134,6 +141,6 @@ ory delete relation-tuples --project=$PROJECT --all
 # NEXT PAGE TOKEN
 # IS LAST PAGE	true
 
-## Delete the tuple(s) for real
+## Delete the tuple(s) after making sure this is what you want to do.
 ory delete relation-tuples --project=$PROJECT --all --force
 ```
