@@ -18,6 +18,8 @@ Update resources
 ```
   -c, --config string   Path to the Ory Cloud configuration file.
   -h, --help            help for update
+  -q, --quiet           Be quiet with output printing.
+  -y, --yes             Confirm all dialogs with yes.
 ```
 
 ### SEE ALSO
