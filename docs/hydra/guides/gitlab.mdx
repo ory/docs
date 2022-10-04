@@ -49,12 +49,12 @@ docker-compose -f quickstart.yml \
     up --build
 ```
 
-After this succeeds, you can access the login page [sign-in-page](http://localhost:8000/users/sign_in). Don't try to login, yet,
-we have to create the client in Ory Hydra, first.
+After this succeeds, you can access the login page [sign-in-page](http://localhost:8000/users/sign_in). Don't try to log in yet.
+We have to create the client in Ory Hydra first.
 
 ## Creating the client in Ory Hydra
 
-Depending on whether you've the hydra-binary available, you can use it directly or the one in the docker-container.
+Depending on whether you have the hydra-binary available, you can use it directly or the one in the docker-container.
 
 ```sh
 hydra clients create \
@@ -322,7 +322,7 @@ application been monkey-patched while following this guide (so far).
 
 ### Client wrong
 
-After trying to login you get a message like this:
+After trying to log in, you get a message like this:
 
 > Error: invalid_client Description: Client authentication failed (for example, unknown client, no client authentication included,
 > or unsupported authentication method) Hint: The requested OAuth 2.0 Client doesn't exist.
