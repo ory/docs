@@ -20,8 +20,8 @@ const Home = () => {
 
   // highlight-start
   const [session, setSession] = useState<Session | undefined>()
-  const [logoutUrl, setLogoutUrl] = useState<string | undefined>();
-  
+  const [logoutUrl, setLogoutUrl] = useState<string | undefined>()
+
   useEffect(() => {
     ory
       .toSession()
@@ -30,8 +30,8 @@ const Home = () => {
         setSession(data)
         // Create a logout url
         ory.createSelfServiceLogoutFlowUrlForBrowsers().then(({ data }) => {
-          setLogoutUrl(data.logout_url);
-        });
+          setLogoutUrl(data.logout_url)
+        })
       })
       .catch(() => {
         // Redirect to login page
@@ -66,15 +66,11 @@ const Home = () => {
           </a>
         </h1>
 
-        {
-          // highlight-start
-        }
+        {/* highlight-start */}
         <p className={styles.description}>
           <a href={logoutUrl}>Log out</a>
         </p>
-        {
-          // highlight-end
-        }
+        {/* highlight-end */}
 
         <p className={styles.description}>
           Get started by editing{" "}
