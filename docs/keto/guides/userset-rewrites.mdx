@@ -1,12 +1,11 @@
-id: userset-rewrites title: Define file access permissions with userset rewrites sidebar_label: Userset rewrites
-
+---
+id: userset-rewrites
+title: Define global permission rules using OPL
+sidebar_label: Global Rules
 ---
 
-import Tabs from "@theme/Tabs"
-import TabItem from "@theme/TabItem"
 import CodeFromRemote from "@theme/CodeFromRemote"
-const sha = "fc39b65f8be9b23bbb4e19480706964d61505c5e"
-const file = (path) => `https://github.com/ory/keto/blob/${sha}/contrib/rewrites-example/${path}`
+const file = (path) => `https://github.com/ory/keto/blob/master/contrib/rewrites-example/${path}`
 
 This guide explains how to configure namespaces and relations using the
 [Ory Permission Language](../reference/ory-permission-language).
@@ -17,9 +16,9 @@ access to all files in that folder.
 
 ## Setup and Configuration
 
-First, [install Keto](../install.mdx). Next, create the `keto.yaml` file and save it at the `contrib/rewrites-example/` path:
+First, [install Keto](../install.mdx). Next, create a `keto.yaml` file with this basic content:
 
-<CodeFromRemote src={file("keto.yaml")} />
+<CodeFromRemote src={file("keto.yaml")} title="keto.yaml" />
 
 In the `namespaces` key, you see the line `config: file://./namespaces.keto.ts`. This needs to point to your namespace
 configuration in the Ory Permission Language.
@@ -33,13 +32,14 @@ Namespace configurations without the Ory Permission Language are still supported
 
 Next, create a file with the namespace configuration:
 
-<CodeFromRemote src={file("namespaces.keto.ts")} />
+<CodeFromRemote src={file("namespaces.keto.ts")} title="namespaces.keto.ts" />
 
 :::tip
 
 If you are using a text editor with TypeScript support, you can get extra help when using the Ory Permission Language. Make sure
-that the file `contrib/rewrites-examples/lib.ts` is in the same folder as the file you are editing. It contains all definitions to
-type-check the config.
+to run `npm i @ory/keto-namespaces-types` and add a `tsconfig.json` file with the content:
+
+<CodeFromRemote src={file("tsconfig.json")} title="tsconfig.json" />
 
 :::
 
@@ -61,12 +61,12 @@ in the hierarchy.
 
 You can create additional fine-grained permission rules for certain objects, similar to the "private" file.
 
-<CodeFromRemote src={file("relation-tuples/tuples.json")} />
+<CodeFromRemote src={file("relation-tuples/tuples.json")} title="tuples.json" />
 
 To load the file into Ory Keto, run this command:
 
 ```sh
-$ keto relation-tuple create ./contrib/rewrites-example/relation-tuples/tuples.json
+$ keto relation-tuple create tuples.json
 
 NAMESPACE       OBJECT                  RELATION NAME   SUBJECT
 Group           developer               members         patrik
