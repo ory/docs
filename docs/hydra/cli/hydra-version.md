@@ -1,9 +1,7 @@
 ---
 id: hydra-version
 title: hydra version
-description:
-  hydra version Display this binary's version, build time and git hash of this
-  build
+description: hydra version Display this binary's version, build time and git hash of this build
 ---
 
 <!--
@@ -11,10 +9,9 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## hydra version
 
-Display this binary&#39;s version, build time and git hash of this build
+Display this binary's version, build time and git hash of this build
 
 ```
 hydra version [flags]
@@ -28,4 +25,5 @@ hydra version [flags]
 
 ### SEE ALSO
 
-- [hydra](hydra) - Run and manage Ory Hydra
+* [hydra](hydra)	 - Run and manage Ory Hydra
+

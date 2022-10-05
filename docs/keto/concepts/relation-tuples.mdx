@@ -1,19 +1,15 @@
 ---
-title: Relation Tuples
+title: Relation tuples
 ---
 
-Relation tuples are the underlying datatype of Ory Keto's access control
-language. They encode relations between [objects](./objects.mdx) and
-[subjects](./subjects.mdx). A relation tuple is associated with a
-[namespace](./namespaces.mdx) where its relation has to be defined and
-configured. The following
-[BNF grammar](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form) describes
-the encoding used in the documentation and within Ory Keto.
+Relation tuples are the underlying datatype of Ory Keto's access control language. They encode relations between
+[objects](./objects.mdx) and [subjects](./subjects.mdx). A relation tuple is associated with a [namespace](./namespaces.mdx) where
+its relation has to be defined and configured. The following [BNF grammar](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form)
+describes the encoding used in the documentation and within Ory Keto.
 
 :::note
 
-The namespace is often omitted in examples for readability, but is technically
-always required.
+The namespace is often omitted in examples for readability, but is technically always required.
 
 :::
 
@@ -32,14 +28,11 @@ object#relation@subject
 
 can be translated into the english sentence "Subject has relation on object".
 
-## Effect of a Relation Tuple
+## Effect of a relation tuple
 
-The effect of a relation tuple is the effect of its relation as defined in the
-[namespace configuration](./namespaces.mdx). It can be one of union (boolean
-or), intersection (boolean and), or exclusion (boolean not).
+The effect of a relation tuple is the effect of its relation as defined in the [namespace configuration](./namespaces.mdx). It can
+be one of union (boolean or), intersection (boolean and), or exclusion (boolean not).
 
 ## Basic Example
 
-Head over to the
-[basic full feature example](../examples/olymp-file-sharing.mdx) to see an
-example with some context.
+Head over to the [basic full feature example](../examples/olymp-file-sharing.mdx) to see an example with some context.

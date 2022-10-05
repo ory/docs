@@ -1,6 +1,6 @@
 ---
 id: oauth2-clients
-title: Creating OAuth 2.0 Clients
+title: Creating OAuth 2.0 clients
 ---
 
 You can manage _OAuth 2.0 clients_ using the cli or the HTTP REST API:
@@ -10,9 +10,8 @@ You can manage _OAuth 2.0 clients_ using the cli or the HTTP REST API:
 
 ## Authorize Code Flow with Refresh Token
 
-The following command creates an OAuth 2.0 Client capable of executing the
-Authorize Code Flow, requesting ID and Refresh Tokens and performing the OAuth
-2.0 Refresh Grant:
+The following command creates an OAuth 2.0 Client capable of executing the Authorize Code Flow, requesting ID and Refresh Tokens
+and performing the OAuth 2.0 Refresh Grant:
 
 ```sh
 hydra clients create \
@@ -25,27 +24,23 @@ hydra clients create \
     --callbacks http://my-app.com/callback,http://my-other-app.com/callback
 ```
 
-The OAuth 2.0 Client will be allowed to use values `http://my-app.com/callback`
-and `http://my-other-app.com/callback` as `redirect_url`.
+The OAuth 2.0 Client will be allowed to use values `http://my-app.com/callback` and `http://my-other-app.com/callback` as
+`redirect_url`.
 
-> It's expected that the OAuth 2.0 Client sends its credentials using HTTP Basic
-> Authorization.
+> It's expected that the OAuth 2.0 Client sends its credentials using HTTP Basic Authorization.
 
-If you wish to send credentials in the POST Body, add the following flag to the
-command above:
+If you wish to send credentials in the POST Body, add the following flag to the command above:
 
 ```
     --token-endpoint-auth-method client_secret_post \
 ```
 
-The same can be achieved by setting
-`"token_endpoint_auth_method": "client_secret_post"` in the request body of
-`POST /clients` and `PUT /clients/<id>`.
+The same can be achieved by setting `"token_endpoint_auth_method": "client_secret_post"` in the request body of `POST /clients`
+and `PUT /clients/<id>`.
 
-## Client Credentials Flow
+## Client credentials flow
 
-A client only capable of performing the Client Credentials Flow can be created
-as follows:
+A client only capable of performing the Client Credentials Flow can be created as follows:
 
 ```
 hydra clients create \

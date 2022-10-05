@@ -1,0 +1,65 @@
+---
+id: local-development
+title: Local development for Ory Cloud
+---
+
+As explained in the Ory Security Model description, Ory APIs must be available on the same domain as your application to allow
+communication between the systems. When developing locally, your application is often exposed at the `localhost` domain.
+
+The easiest way to achieve that is by using the [Ory Tunnel](../guides/cli/20_proxy-and-tunnel.mdx). Ory Tunnel is a tool that is
+a part of the [Ory CLI](../guides/cli/01_installation.mdx).
+
+Copy the Ory Cloud project slug from your project's [Connect page](https://console.ory.sh/projects/current/connect) and start the
+Ory Tunnel:
+
+```shell
+ory tunnel --project <your-slug> --dev http://localhost:3000
+```
+
+Running this commands opens the `4000` port on your local machine. This address is connected to your Ory Cloud project and its
+APIs. The value passed in the `--dev` flag must point to the host and port of the application you develop locally. In the example,
+the application runs On `http://localhost:3000`.
+
+:::tip
+
+After starting the Tunnel, test it by performing the registration flow: `http://localhost:4000/ui/registration`.
+
+:::
+
+You can now start developing locally. Make sure to send any HTTP calls you make to `http://localhost:4000` and not
+`https://<your-slug>.projects.oryapis.com`.
+
+For example, when you configure the Ory SDK (here in Node.js):
+
+```javascript
+import { Configuration, V0alpha2Api } from "@ory/client"
+
+const sdk = new V0alpha2Api(
+  new Configuration({
+    basePath: "http://localhost:4000", // instead of `https://<your-slug>.projects.oryapis.com`
+    baseOptions: {
+      withCredentials: true,
+    },
+  }),
+)
+```
+
+## Limitations
+
+Using the Ory Tunnel has a few limitations.
+
+### `localhost` vs `127.0.0.1`
+
+Your local machine is usually available on both `localhost` and `127.0.0.1`. For the browser these two domains are different
+top-level-domains. Cookies set on `localhost` will not be sent in requests to `127.0.0.1` and vice versa.
+
+:::tip
+
+If you encounter cookie issues, make sure that all of your requests are sent to `localhost` and not `127.0.0.1`.
+
+:::
+
+### WebAuthn
+
+Currently, [WebAuthn](../kratos/mfa/webauthn-fido-yubikey) isn't officially supported on `localhost`. The reason for this is the
+explicit origin matching in WebAuthn which is a measure against phishing.

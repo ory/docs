@@ -15,31 +15,24 @@ https://github.com/ory/docs/blob/master/docs/ecosystem/contributing.md
 
 ## Introduction
 
-You can contribute in many ways beyond writing code. The goal of this document
-is to provide a high-level overview of how you can get involved.
+You can contribute in many ways beyond writing code. The goal of this document is to provide a high-level overview of how you can
+get involved.
 
-_Please note_: We are serious about Ory's security and our users' trust. If you
-believe you have found a security issue in Ory, please disclose by contacting us
-at security@ory.sh.
+_Please note_: We are serious about Ory's security and our users' trust. If you believe you have found a security issue in Ory,
+please disclose by contacting us at security@ory.sh.
 
-First: As a potential contributor, your changes and ideas are welcome at any
-hour of the day or night, weekdays, weekends, and holidays. Please do not ever
-hesitate to ask a question or send a pull request.
+First: As a potential contributor, your changes and ideas are welcome at any hour of the day or night, weekdays, weekends, and
+holidays. Please do not ever hesitate to ask a question or send a pull request.
 
-If you are unsure, just ask or submit the issue or pull request anyways. You
-won't be yelled at for giving it your best effort. The worst that can happen is
-that you'll be asked to change something. We appreciate any sort of
-contributions, and don't want a wall of rules to get in the way of that.
+If you are unsure, just ask or submit the issue or pull request anyways. You won't be yelled at for giving it your best effort.
+The worst that can happen is that you'll be asked to change something. We appreciate any sort of contributions, and don't want a
+wall of rules to get in the way of that.
 
-That said, if you want to ensure that a pull request is going to be merged, talk
-to us! You can find out our thoughts and ensure that your contribution won't
-clash with Ory's normal direction. A great way to do this is via GitHub
-Discussions (([Ory Cloud](https://github.com/ory/cloud/discussions),
-[Ory Kratos](https://github.com/ory/kratos/discussions),
-[Ory Hydra](https://github.com/ory/kratos/discussions),
-[Ory Keto](https://github.com/ory/kratos/discussions),
-[Ory Oathkeeper](https://github.com/ory/kratos/discussions))) or the
-[Ory Chat](https://www.ory.sh/chat).
+That said, if you want to ensure that a pull request is going to be merged, talk to us! You can find out our thoughts and ensure
+that your contribution won't clash with Ory's normal direction. A great way to do this is via GitHub Discussions
+(([Ory Cloud](https://github.com/ory/cloud/discussions), [Ory Kratos](https://github.com/ory/kratos/discussions),
+[Ory Hydra](https://github.com/ory/kratos/discussions), [Ory Keto](https://github.com/ory/kratos/discussions),
+[Ory Oathkeeper](https://github.com/ory/kratos/discussions))) or the [Ory Chat](https://www.ory.sh/chat).
 
 ## Frequently asked questions
 
@@ -48,15 +41,13 @@ Discussions (([Ory Cloud](https://github.com/ory/cloud/discussions),
 
 - I have a question. Where can I get [answers to questions?](#communication)
 
-- I would like to contribute but I am not sure how. Are there
-  [easy ways to contribute?](#how-can-i-contribute)
+- I would like to contribute but I am not sure how. Are there [easy ways to contribute?](#how-can-i-contribute)
   [Or good first issues?](https://github.com/search?l=&o=desc&q=label%3A%22help+wanted%22+label%3A%22good+first+issue%22+is%3Aopen+user%3Aory+user%3Aory-corp&s=updated&type=Issues)
 
-- I want to talk to other Ory users.
-  [How can I become a part of the community?](#communication)
+- I want to talk to other Ory users. [How can I become a part of the community?](#communication)
 
-- I would like to know what I am agreeing to when I contribute to Ory. Does Ory
-  have [a Contributors License Agreement?](https://cla-assistant.io/ory/)
+- I would like to know what I am agreeing to when I contribute to Ory. Does Ory have
+  [a Contributors License Agreement?](https://cla-assistant.io/ory/)
 
 - I would like updates about new versions of Ory.
   [How are new releases announced?](https://ory.us10.list-manage.com/subscribe?u=ffb1a878e4ec6c0ed312a3480&id=f605a41b53)
@@ -66,110 +57,83 @@ Discussions (([Ory Cloud](https://github.com/ory/cloud/discussions),
 If you want to start contributing code right away, we have a
 [list of good first issues](https://github.com/ory/kratos/labels/good%20first%20issue).
 
-You can contribute without writing any code in multiple ways . Here are a few
-things you can do to help out:
+You can contribute without writing any code in multiple ways . Here are a few things you can do to help out:
 
-- **Give us a star.** It may not seem like much, but it really makes a
-  difference. This is something that everyone can do to help out Ory. Github
-  stars help the project gain visibility and stand out.
+- **Give us a star.** It may not seem like much, but it really makes a difference. This is something that everyone can do to help
+  out Ory. Github stars help the project gain visibility and stand out.
 
-- **Join the community.** Sometimes helping people can be as easy as listening
-  to their problems and offering a different perspective. Join our Slack, have a
-  look at discussions on GitHub and take part in events like the Community
-  Calls. More info on this in [Communication](#communication).
+- **Join the community.** Sometimes helping people can be as easy as listening to their problems and offering a different
+  perspective. Join our Slack, have a look at discussions on GitHub and take part in events like the Community Calls. More info on
+  this in [Communication](#communication).
 
-- **Helping with open issues.** We have a lot of open issues for Ory and some of
-  them may lack necessary information, some are duplicates of older issues. You
-  can help out by guiding people through the process of filling out the issue
-  template, asking for clarifying information, or pointing them to existing
-  issues that match their description of the problem.
+- **Helping with open issues.** We have a lot of open issues for Ory and some of them may lack necessary information, some are
+  duplicates of older issues. You can help out by guiding people through the process of filling out the issue template, asking for
+  clarifying information, or pointing them to existing issues that match their description of the problem.
 
-- **Reviewing documentation changes.** Most documentation just needs a review
-  for proper spelling and grammar. If you think you can improve a document in
-  any way, feel free to hit the `edit` button at the top of the page. More info
-  on contributing to documentation [here](#documentation).
+- **Reviewing documentation changes.** Most documentation just needs a review for proper spelling and grammar. If you think you
+  can improve a document in any way, feel free to hit the `edit` button at the top of the page. More info on contributing to
+  documentation [here](#documentation).
 
-- **Help with tests.** Some pull requests may lack proper tests or test plans.
-  These are needed for the change to be implemented.
+- **Help with tests.** Some pull requests may lack proper tests or test plans. These are needed for the change to be implemented.
 
 ## Communication
 
-We use [Slack](https://www.ory.sh/chat). You are welcome to drop in and ask
-questions, discuss bugs and feature requests, talk to other users of Ory, etc.
+We use [Slack](https://www.ory.sh/chat). You are welcome to drop in and ask questions, discuss bugs and feature requests, talk to
+other users of Ory, etc.
 
-Check out [Discussions] for
-[Ory Cloud](https://github.com/ory/cloud/discussions),
-[Ory Kratos](https://github.com/ory/kratos/discussions),
-[Ory Hydra](https://github.com/ory/kratos/discussions),
-[Ory Keto](https://github.com/ory/kratos/discussions),
-[Ory Oathkeeper](https://github.com/ory/kratos/discussions), and
-[more](https://github.com/ory/kratos/discussions). This is a great place for
-in-depth discussions and lots of code examples, logs and similar data.
+Check out [Discussions] for [Ory Cloud](https://github.com/ory/cloud/discussions),
+[Ory Kratos](https://github.com/ory/kratos/discussions), [Ory Hydra](https://github.com/ory/kratos/discussions),
+[Ory Keto](https://github.com/ory/kratos/discussions), [Ory Oathkeeper](https://github.com/ory/kratos/discussions), and
+[more](https://github.com/ory/kratos/discussions). This is a great place for in-depth discussions and lots of code examples, logs
+and similar data.
 
-You can also join our community hangout, if you want to speak to the Ory team
-directly or ask some questions. You can find more info on the hangouts in
-[Slack](https://www.ory.sh/chat).
+You can also join our community hangout, if you want to speak to the Ory team directly or ask some questions. You can find more
+info on the hangouts in [Slack](https://www.ory.sh/chat).
 
-If you want to receive regular notifications about updates to Ory, consider
-joining the mailing list. We will _only_ send you vital information on the
-projects that you are interested in.
+If you want to receive regular notifications about updates to Ory, consider joining the mailing list. We will _only_ send you
+vital information on the projects that you are interested in.
 
 Also [follow us on twitter](https://twitter.com/orycorp).
 
 ## Conduct
 
-Whether you are a regular contributor or a newcomer, we care about making this
-community a safe place for you and we've got your back.
+Whether you are a regular contributor or a newcomer, we care about making this community a safe place for you and we've got your
+back.
 
-- We are committed to providing a friendly, safe and welcoming environment for
-  all, regardless of gender, sexual orientation, disability, ethnicity,
-  religion, or similar personal characteristic.
-- Please avoid using nicknames that might detract from a friendly, safe and
-  welcoming environment for all.
+- We are committed to providing a friendly, safe and welcoming environment for all, regardless of gender, sexual orientation,
+  disability, ethnicity, religion, or similar personal characteristic.
+- Please avoid using nicknames that might detract from a friendly, safe and welcoming environment for all.
 - Be kind and courteous. Don't be mean or rude.
-- We will exclude you from interaction if you insult, demean or harass anyone.
-  In particular, we do not tolerate behavior that excludes people in socially
-  marginalized groups.
-- Private harassment is also unacceptable. No matter who you are, if you feel
-  you have been or are being harassed or made uncomfortable by a community
-  member, please contact a member of the Ory team.
-- Likewise any spamming, trolling, flaming, baiting or other attention-stealing
-  behavior is not welcome.
+- We will exclude you from interaction if you insult, demean or harass anyone. In particular, we do not tolerate behavior that
+  excludes people in socially marginalized groups.
+- Private harassment is also unacceptable. No matter who you are, if you feel you have been or are being harassed or made
+  uncomfortable by a community member, please contact a member of the Ory team.
+- Likewise any spamming, trolling, flaming, baiting or other attention-stealing behavior is not welcome.
 
-We welcome discussion about creating a welcoming, safe, and productive
-environment for the community. If you have any questions, feedback, or concerns
-[please let us know](https://www.ory.sh/chat).
+We welcome discussion about creating a welcoming, safe, and productive environment for the community. If you have any questions,
+feedback, or concerns [please let us know](https://www.ory.sh/chat).
 
 ## Contributing Code
 
-Unless you are fixing a known bug, we **strongly** recommend discussing it with
-the core team via a GitHub issue or [in our chat](https://www.ory.sh/chat)
-before getting started to ensure your work is consistent with Ory's road map and
+Unless you are fixing a known bug, we **strongly** recommend discussing it with the core team via a GitHub issue or
+[in our chat](https://www.ory.sh/chat) before getting started to ensure your work is consistent with Ory's road map and
 architecture.
 
-All contributions are made via pull requests. To make a pull request, you will
-need a GitHub account; if you are unclear on this process, see GitHub's
-documentation on [forking](https://help.github.com/articles/fork-a-repo) and
-[pull requests](https://help.github.com/articles/using-pull-requests). Pull
-requests should be targeted at the `master` branch. Before creating a pull
-request, go through this checklist:
+All contributions are made via pull requests. To make a pull request, you will need a GitHub account; if you are unclear on this
+process, see GitHub's documentation on [forking](https://help.github.com/articles/fork-a-repo) and
+[pull requests](https://help.github.com/articles/using-pull-requests). Pull requests should be targeted at the `master` branch.
+Before creating a pull request, go through this checklist:
 
 1. Create a feature branch off of `master` so that changes do not get mixed up.
-1. [Rebase](http://git-scm.com/book/en/Git-Branching-Rebasing) your local
-   changes against the `master` branch.
-1. Run the full project test suite with the `go test -tags sqlite ./...` (or
-   equivalent) command and confirm that it passes.
-1. Run `make format` if a `Makefile` is available, `gofmt -s` if the project is
-   written in Go, `npm run format` if the project is written for NodeJS.
-1. Ensure that each commit has a descriptive prefix. This ensures a uniform
-   commit history and helps structure the changelog.  
-   Please refer to this
-   [list of prefixes for Kratos](https://github.com/ory/kratos/blob/master/.github/semantic.yml)
-   for an overview.
-1. Sign-up with CircleCI so that it has access to your repository with the
-   branch containing your PR. Simply creating a CircleCI account is sufficient
-   for the CI jobs to run, you do not need to setup a CircleCI project for the
-   branch.
+1. [Rebase](http://git-scm.com/book/en/Git-Branching-Rebasing) your local changes against the `master` branch.
+1. Run the full project test suite with the `go test -tags sqlite ./...` (or equivalent) command and confirm that it passes.
+1. Run `make format` if a `Makefile` is available, `gofmt -s` if the project is written in Go, `npm run format` if the project is
+   written for Node.js.
+1. Ensure that each commit has a descriptive prefix. This ensures a uniform commit history and helps structure the changelog.  
+   Please refer to this [list of prefixes for Kratos](https://github.com/ory/kratos/blob/master/.github/semantic.yml) for an
+   overview.
+1. Sign-up with CircleCI so that it has access to your repository with the branch containing your PR. Simply creating a CircleCI
+   account is sufficient for the CI jobs to run, you do not need to setup a CircleCI project for the branch.
 
 If a pull request is not ready to be reviewed yet
 [it should be marked as a "Draft"](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/changing-the-stage-of-a-pull-request).
@@ -177,53 +141,45 @@ If a pull request is not ready to be reviewed yet
 Before your contributions can be reviewed you need to sign our
 [Contributor License Agreement](https://cla-assistant.io/ory/kratos).
 
-This agreement defines the terms under which your code is contributed to Ory.
-More specifically it declares that you have the right to, and actually do, grant
-us the rights to use your contribution. You can see the Apache 2.0 license under
-which our projects are published
-[here](https://github.com/ory/meta/blob/master/LICENSE).
+This agreement defines the terms under which your code is contributed to Ory. More specifically it declares that you have the
+right to, and actually do, grant us the rights to use your contribution. You can see the Apache 2.0 license under which our
+projects are published [here](https://github.com/ory/meta/blob/master/LICENSE).
 
-When pull requests fail testing, authors are expected to update their pull
-requests to address the failures until the tests pass.
+When pull requests fail testing, authors are expected to update their pull requests to address the failures until the tests pass.
 
 Pull requests eligible for review
 
 1. follow the repository's code formatting conventions;
-2. include tests which prove that the change works as intended and does not add
-   regressions;
+2. include tests which prove that the change works as intended and does not add regressions;
 3. document the changes in the code and/or the project's documentation;
 4. pass the CI pipeline;
-5. have signed our
-   [Contributor License Agreement](https://cla-assistant.io/ory/kratos);
+5. have signed our [Contributor License Agreement](https://cla-assistant.io/ory/kratos);
 6. include a proper git commit message following the
    [Conventional Commit Specification](https://www.conventionalcommits.org/en/v1.0.0/).
 
-If all of these items are checked, the pull request is ready to be reviewed and
-you should change the status to "Ready for review" and
+If all of these items are checked, the pull request is ready to be reviewed and you should change the status to "Ready for review"
+and
 [request review from a maintainer](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/requesting-a-pull-request-review).
 
 Reviewers will approve the pull request once they are satisfied with the patch.
 
 ## Documentation
 
-Please provide documentation when changing, removing, or adding features.
-Documentation resides in the
+Please provide documentation when changing, removing, or adding features. Documentation resides in the
 [Ory docs repository](https://github.com/ory/docs/tree/master/docs) folder.
 
-For further instructions please head over to
-[docs/README.md](https://github.com/ory/docs/blob/master/README.md).
+For further instructions please head over to [docs/README.md](https://github.com/ory/docs/blob/master/README.md).
 
 ## Disclosing vulnerabilities
 
-Please disclose vulnerabilities to [security@ory.sh](mailto:security@ory.sh). Do
-not use GitHub issues.
+Please disclose vulnerabilities to [security@ory.sh](mailto:security@ory.sh). Do not use GitHub issues.
 
 ## Code Style
 
 Please follow these guidelines when formatting source code:
 
 - Go code should match the output of `gofmt -s` and pass `golangci-lint run`.
-- Format NodeJS and JavaScript code using `npm run format` where appropriate.
+- Format Node.js and JavaScript code using `npm run format` where appropriate.
 
 ### Working with Forks
 
@@ -252,30 +208,22 @@ git push -u fork my-feature-branch
 
 Now go to the project's GitHub Pull Request page and click "New pull request"
 
-This document is a work in progress and documents the inner workings of the Ory
-GitHub ecosystem and project structures, as well as providing more in-depth tips
-& guides to contributors. If you feel there is something missing or should be
-added, please open an issue in [ory/docs](https://github.com/ory/docs) or
-contact us in the [Ory Chat](https://www.ory.sh/chat). We also offer discussions
-on GitHub for all major projects:
-[Ory Kratos](https://github.com/ory/kratos/discussions),
-[Ory Hydra](https://github.com/ory/hydra/discussions),
-[Ory Keto](https://github.com/ory/keto/discussions),
-[Ory Oathkeeper](https://github.com/ory/oathkeeper/discussions/), as well as one
-for all other Ory projects, events and content:
+This document is a work in progress and documents the inner workings of the Ory GitHub ecosystem and project structures, as well
+as providing more in-depth tips & guides to contributors. If you feel there is something missing or should be added, please open
+an issue in [ory/docs](https://github.com/ory/docs) or contact us in the [Ory Chat](https://www.ory.sh/chat). We also offer
+discussions on GitHub for all major projects: [Ory Kratos](https://github.com/ory/kratos/discussions),
+[Ory Hydra](https://github.com/ory/hydra/discussions), [Ory Keto](https://github.com/ory/keto/discussions),
+[Ory Oathkeeper](https://github.com/ory/oathkeeper/discussions/), as well as one for all other Ory projects, events and content:
 [Ory Meta discussions](https://github.com/ory/meta/discussions).
 
 ## Releasing Software
 
-To release a project, run the following bash command in the root of the project
-you would like to release. The first argument can be one of:
+To release a project, run the following bash command in the root of the project you would like to release. The first argument can
+be one of:
 
-- `patch` bumps `v1.2.3` to `v1.2.4` (doesn't work for pre-releases such as
-  `v1.2.3-beta.1`)
-- `minor` bumps `v1.2.3` to `v1.3.0` (doesn't work for pre-releases such as
-  `v1.2.3-beta.1`)
-- `major` bumps `v1.2.3` to `v2.0.0` (doesn't work for pre-releases such as
-  `v1.2.3-beta.1`)
+- `patch` bumps `v1.2.3` to `v1.2.4` (doesn't work for pre-releases such as `v1.2.3-beta.1`)
+- `minor` bumps `v1.2.3` to `v1.3.0` (doesn't work for pre-releases such as `v1.2.3-beta.1`)
+- `major` bumps `v1.2.3` to `v2.0.0` (doesn't work for pre-releases such as `v1.2.3-beta.1`)
 - Any [semver-valid](https://semver.org) version, for example `v1.2.3-beta.1`
 
 ```shell script
@@ -285,17 +233,15 @@ bash <(curl -s https://raw.githubusercontent.com/ory/meta/master/scripts/release
 
 ### Defining Release Config
 
-For the scripts to work, the project must be located in a directory structure
-that reflects the GitHub organization and repository name, for example:
-`path/to/ory/hydra`.
+For the scripts to work, the project must be located in a directory structure that reflects the GitHub organization and repository
+name, for example: `path/to/ory/hydra`.
 
 #### Goreleaser
 
 We use [goreleaser](https://github.com/goreleaser/goreleaser/releases).
 
-The listed configuration options should be included in every `.goreleaser.yml`
-config. Make sure you set env vars and `go mod download` and run e.g. packr2 and
-other tools first:
+The listed configuration options should be included in every `.goreleaser.yml` config. Make sure you set env vars and
+`go mod download` and run e.g. packr2 and other tools first:
 
 ```yaml title=".goreleaser.yml"
 env:
@@ -319,14 +265,12 @@ Name snapshot releases `-next`:
 
 ```yaml
 snapshot:
-  name_template: '{{ .Tag }}-_next'
+  name_template: "{{ .Tag }}-_next"
 ```
 
-If you create a new goreleaser config, you may also want to create the following
-empty GitHub repositories:
+If you create a new goreleaser config, you may also want to create the following empty GitHub repositories:
 
-Build and publish on Docker. You need to create a repository on Docker Hub
-first!
+Build and publish on Docker. You need to create a repository on Docker Hub first!
 
 ```yaml
 # Build dockerfiles
@@ -335,15 +279,14 @@ dockers:
     binaries:
       - $PROJECT_NAME
     image_templates:
-      - 'oryd/$PROJECT_NAME:v{{ .Major }}'
-      - 'oryd/$PROJECT_NAME:v{{ .Major }}.{{ .Minor }}'
-      - 'oryd/$PROJECT_NAME:v{{ .Major }}.{{ .Minor }}.{{ .Patch }}'
-      - 'oryd/$PROJECT_NAME:latest'
+      - "oryd/$PROJECT_NAME:v{{ .Major }}"
+      - "oryd/$PROJECT_NAME:v{{ .Major }}.{{ .Minor }}"
+      - "oryd/$PROJECT_NAME:v{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+      - "oryd/$PROJECT_NAME:latest"
 ```
 
-If you add [Scoop](https://scoop.sh) (Homebrew for Windows) you must also create
-a GitHub repository under the `ory` org named `scoop-$PROJECT_NAME` (e.g.
-`scoop-hydra`).
+If you add [Scoop](https://scoop.sh) (Homebrew for Windows) you must also create a GitHub repository under the `ory` org named
+`scoop-$PROJECT_NAME` (e.g. `scoop-hydra`).
 
 ```yaml
 scoop:
@@ -356,8 +299,8 @@ scoop:
     email: aeneas@ory.sh
 ```
 
-If you add [Homebrew](https://brew.sh) you must also create a GitHub repository
-under the `ory` org named `homebrew-$PROJECT_NAME` (e.g. `homebrew-hydra`).
+If you add [Homebrew](https://brew.sh) you must also create a GitHub repository under the `ory` org named `homebrew-$PROJECT_NAME`
+(e.g. `homebrew-hydra`).
 
 ```yaml
 brews:
@@ -419,7 +362,7 @@ workflows:
 
 ### Checking for vulnerabilities
 
-#### NodeJS
+#### Node.js
 
 This is done automatically by GitHub
 
@@ -435,12 +378,10 @@ This is done automatically by GitHub
 
 ### Pinning indirect go module dependencies
 
-Sometimes a project has an indirect dependency (another dependency requires that
-dependency) which doesn't pass, for example, `nancy` vulnerability scanning.
-Because it's not possible to pin this dependency to a specific version, we need
-to explicitly require it. But because it's not directly required by our code, it
-will be pruned when using `go mod tidy`. To prevent that, create a file which
-imports the dependency without use:
+Sometimes a project has an indirect dependency (another dependency requires that dependency) which doesn't pass, for example,
+`nancy` vulnerability scanning. Because it's not possible to pin this dependency to a specific version, we need to explicitly
+require it. But because it's not directly required by our code, it will be pruned when using `go mod tidy`. To prevent that,
+create a file which imports the dependency without use:
 
 ```title="go_mod_indirect_pins.go
 // +build go_mod_indirect_pins
@@ -450,9 +391,8 @@ package main
 import _ "github.com/my/dependency"
 ```
 
-You would do the same if the project uses dev tools such as `packr2`,
-`goimports`, `goreturns`, `swagutil`, ... as part of e.g. the Makefile or other
-scripts.
+You would do the same if the project uses dev tools such as `packr2`, `goimports`, `goreturns`, `swagutil`, ... as part of e.g.
+the Makefile or other scripts.
 
 ## Development
 
@@ -460,9 +400,8 @@ scripts.
 
 #### Table Names
 
-Please define custom table names for all table structs. Keep in mind that
-`TableName()` must be a value receiver, not a pointer receiver, for slices
-`[]Model` to work properly:
+Please define custom table names for all table structs. Keep in mind that `TableName()` must be a value receiver, not a pointer
+receiver, for slices `[]Model` to work properly:
 
 ```diff
 -func (m *Model) TableName(ctx context.Context) string {
@@ -473,28 +412,22 @@ Please define custom table names for all table structs. Keep in mind that
 
 ### SQL Migrations
 
-Ory uses a lightweight DBAL across all projects that require a database. This
-DBAL is typically stored in the `persistence/` directory. Since we just support
-SQL at the moment - there are no plans to add new databases and contributions
-won't be accepted due to maintenance effort - you will find the implementation
-in `persistence/sql`.
+Ory uses a lightweight DBAL across all projects that require a database. This DBAL is typically stored in the `persistence/`
+directory. Since we just support SQL at the moment - there are no plans to add new databases and contributions won't be accepted
+due to maintenance effort - you will find the implementation in `persistence/sql`.
 
 :::info
 
-This section just applies to Ory Kratos and Ory Keto. Ory Hydra is using an
-approach that doesn't rely on fizz migrations. Please discuss with maintainers
-before making changes to the Ory Hydra SQL schemata.
+This section just applies to Ory Kratos and Ory Keto. Ory Hydra is using an approach that doesn't rely on fizz migrations. Please
+discuss with maintainers before making changes to the Ory Hydra SQL schemata.
 
 :::
 
-In order to provide a process to upgrade SQL schemata, we use migrations. These
-migrations are generated using the
-[fizz language](https://github.com/gobuffalo/fizz) and then rendered to SQL
-using the Ory CLI.
+In order to provide a process to upgrade SQL schemata, we use migrations. These migrations are generated using the
+[fizz language](https://github.com/gobuffalo/fizz) and then rendered to SQL using the Ory CLI.
 
-This is necessary because there are differences between the SQL "dialects" of
-SQLite (doesn't support certain `ALTER TABLE` statements for example),
-PostgreSQL, MySQL, and CockroachDB.
+This is necessary because there are differences between the SQL "dialects" of SQLite (doesn't support certain `ALTER TABLE`
+statements for example), PostgreSQL, MySQL, and CockroachDB.
 
 To change the schema, create a new fizz template using:
 
@@ -520,25 +453,22 @@ This will create two new files:
 -rw-r--r--   1 foobar  staff      0 Apr 28 17:25 20210428172500_descriptive_change.up.fizz
 ```
 
-Add you fizz migrations there. The `up` file is for applying your schema
-changes, the `down` file for reverting them.
+Add you fizz migrations there. The `up` file is for applying your schema changes, the `down` file for reverting them.
 
-Once your migrations are added, it's time to render them to SQL. Make sure that
-Docker is running and execute:
+Once your migrations are added, it's time to render them to SQL. Make sure that Docker is running and execute:
 
 ```shell
   .bin/ory dev pop migration render persistence/sql/migrations/templates persistence/sql/migrations/sql
 ```
 
-If you encounter errors you can also try running this with the `--replace`
-option but please let maintainers know that you used `--replace` in your PR:
+If you encounter errors you can also try running this with the `--replace` option but please let maintainers know that you used
+`--replace` in your PR:
 
 ```shell
   .bin/ory dev pop migration render --replace persistence/sql/migrations/templates persistence/sql/migrations/sql
 ```
 
-This will render your migrations to SQL files. Add them to git (`git add -A`)
-and commit them.
+This will render your migrations to SQL files. Add them to git (`git add -A`) and commit them.
 
 Next, you need to update the migration tests. To do so, run the sync command:
 
@@ -553,10 +483,8 @@ This will add create a new SQL file:
 -rw-r--r--   1 foobar  staff      0 Apr 28 17:28 20210428172500_testdata.sql
 ```
 
-Add an `INSERT` or `UPDATE` or `DELETE` statement that reflects the changes you
-have made to the schema to the file. Let's say you added a new column
-`new_column` to table `bar`. In that case, write an `INSERT` statement that
-reflects this:
+Add an `INSERT` or `UPDATE` or `DELETE` statement that reflects the changes you have made to the schema to the file. Let's say you
+added a new column `new_column` to table `bar`. In that case, write an `INSERT` statement that reflects this:
 
 ```sql
 INSERT INTO bar (old_column, new_column) VALUES ('foo', 'bar');
@@ -569,28 +497,25 @@ cd persistence/sql/migratest
 go test -tags sqlite ./...
 ```
 
-The tests will probably fail because the fixtures need to be updated. To update
-them, run:
+The tests will probably fail because the fixtures need to be updated. To update them, run:
 
 ```go
 cd persistence/sql/migratest
 go test -tags sqlite,refresh -short .
 ```
 
-You might need to run the `go test` command two or three times before all
-fixtures have been updated.
+You might need to run the `go test` command two or three times before all fixtures have been updated.
 
 That's it! :)
 
 ## OpenAPI Spec and Go Swagger
 
-We use [go-swagger](https://goswagger.io) to generate OpenAPI Spec from source
-code. Here you can find conventions we use across the code base.
+We use [go-swagger](https://goswagger.io) to generate OpenAPI Spec from source code. Here you can find conventions we use across
+the code base.
 
 ### Models
 
-Models should have a descriptive title, a body, and be camelCase. It's good
-practice to scope the model where needed.
+Models should have a descriptive title, a body, and be camelCase. It's good practice to scope the model where needed.
 
 ```go
 package some
@@ -605,8 +530,8 @@ type SpecificModel struct {}
 
 ### Routes
 
-Routes should use tags for versioning. If a route is accessible through a
-privileged port (e.g. admin) it should be prefixed with `admin`.
+Routes should use tags for versioning. If a route is accessible through a privileged port (e.g. admin) it should be prefixed with
+`admin`.
 
 ```go
 // swagger:route POST /identities v0alpha1 adminCreateIdentity
@@ -620,9 +545,8 @@ Public endpoints don't need a prefix.
 
 #### Parameters
 
-Parameters for routes should have the same name as the route. If they have a
-body, you must not use an embedded struct and the struct's model name should be
-suffixed `Body`:
+Parameters for routes should have the same name as the route. If they have a body, you must not use an embedded struct and the
+struct's model name should be suffixed `Body`:
 
 ```go
 
@@ -685,9 +609,8 @@ type identityList []Identity
 
 #### Goland Tests
 
-While running tests inside the IDE make sure you have the tag `-tags sqlite` in
-the "Go Tool Arguments". In the example screenshot we're looking at
-`login_test.go` and add it to the Run/Debug Configurations.
+While running tests inside the IDE make sure you have the tag `-tags sqlite` in the "Go Tool Arguments". In the example screenshot
+we're looking at `login_test.go` and add it to the Run/Debug Configurations.
 
 ![Go Tool Arguments Configuration Screenshot](/images/contributing/goland-config.png)
 
@@ -695,9 +618,8 @@ the "Go Tool Arguments". In the example screenshot we're looking at
 
 #### Debugging Tests
 
-Jetbrains IDEs have an SQL debugger, that can open sqlite files. When debugging
-tests, you can set a bool flag to use an sqlite file instead of in-mem and then
-debug after the test failed.
+Jetbrains IDEs have an SQL debugger, that can open sqlite files. When debugging tests, you can set a bool flag to use an sqlite
+file instead of in-mem and then debug after the test failed.
 [Example](https://github.com/ory/keto/pull/638/files#diff-19d74043bd6f4fd4ffaf6dee2895a42da0a754b6135339343117614974ff6182R84):
 
 ```go
@@ -729,11 +651,9 @@ func GetSqlite(t testing.TB, mode sqliteMode) *DsnT {
 
 To transfer the above to Kratos:
 
-- Change the DSN to the following:
-  `dsn.Conn = "sqlite://file:TestDB.sqlite?_fk=true"`.
+- Change the DSN to the following: `dsn.Conn = "sqlite://file:TestDB.sqlite?_fk=true"`.
 - `mode=memory`.
-- In case you have an sqlite file, migrators aren't automatically applied. Run
-  them manually first with the
+- In case you have an sqlite file, migrators aren't automatically applied. Run them manually first with the
   [CLI](https://www.ory.sh/kratos/docs/cli/kratos-migrate-sql).
 
 ### VS Code
@@ -741,7 +661,6 @@ To transfer the above to Kratos:
 #### VS Code Tests
 
 - Under Settings, search for `Go: Test Tags`.
-- Click Edit in `settings.json`.
-  ![Screenshot of VSCode Search](/images/contributing/vscode-search.png)
+- Click Edit in `settings.json`. ![Screenshot of VSCode Search](/images/contributing/vscode-search.png)
 - Add the following KV to the `settings.json`: `"go.testTags": "sqlite",`.
   ![Screenshot of VScode settings.json](/images/contributing/vscode-settings.png)

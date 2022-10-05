@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory list
 
 List resources
@@ -21,10 +20,14 @@ List resources
       --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
   -h, --help            help for list
   -q, --quiet           Be quiet with output printing.
-  -y, --yes             Confirm all dialogues with yes.
+  -y, --yes             Confirm all dialogs with yes.
 ```
 
 ### SEE ALSO
 
-- [ory](ory) - The ORY CLI
-- [ory list projects](ory-list-projects) - List your Ory Cloud projects
+* [ory](ory)	 - The ORY CLI
+* [ory list identities](ory-list-identities)	 - List identities
+* [ory list oauth2-clients](ory-list-oauth2-clients)	 - List OAuth 2.0 Clients
+* [ory list projects](ory-list-projects)	 - List your Ory Cloud projects
+* [ory list relation-tuples](ory-list-relation-tuples)	 - List relation tuples
+

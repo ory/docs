@@ -1,0 +1,228 @@
+---
+id: overview
+title: Overview
+---
+
+The Ory Permission Service ([Keto](https://github.com/ory/keto)) implements Google Zanzibar. It might differ a bit from other
+authorization services you know, so let's first clarify a few concepts.
+
+:::note Ory Cloud Availability
+
+The Permission Service is available to all Ory Cloud users without additional fees or setup. The API is in a production-ready
+state. The documentation, integration, and UI are under active development.
+
+:::
+
+## Relations and relation tuples
+
+The data model used by the Permission Service are so-called [relation tuples](/keto/concepts/relation-tuples.mdx) that encode
+relations between [subjects](/keto/concepts/subjects.mdx) and [objects](/keto/concepts/objects.mdx).
+
+:::tip
+
+Read the dedicated documents to learn more about [subjects](/keto/concepts/subjects.mdx) and
+[objects](/keto/concepts/objects.mdx).
+
+:::
+
+Examples of relation tuples are:
+
+- `user1` is `member` of `groups:group1`
+- `member` of `groups:group1` is `reader` of `files:file1`
+
+As you can see, the subject of a relation tuple can either be a specific subject ID, or subjects defined through an
+[indirection](https://en.wikipedia.org/wiki/Indirection) (all members of a certain group). The object is referenced by its ID.
+
+## Checking permissions
+
+Permissions are just another form of relations. Therefore, a permission check is a request to check whether a subject has a
+certain relation to an object, possibly through one or more indirections.
+
+As a very simple example, we assume the following tuples exist:
+
+- `user1` is `member` of `groups:group1`
+- `member` of `groups:group1` is `reader` of `files:file1`
+
+Now, one could ask:
+
+- Is `user1` a `reader` of `files:file1`? - Yes, because `user1` is a `member` of `groups:group1` and all `member`s of
+  `groups:group1` are `reader` of `files:file1`.
+- Is `user2` a `member` of `groups:group1`? - No.
+
+## Example
+
+This example setup demonstrates the basics of relation tuple management and usage of the Check API.
+
+### Defining namespaces
+
+Relation tuples reside in [namespaces](/keto/concepts/namespaces.mdx). To create relation tuples, you must define their namespace
+first.
+
+````mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="cloud" label="Ory CLI" default>
+
+```shell
+ory patch permission-config <your-project-id> \
+  --add '/namespaces/-={"id": 0, "name": "resources"}' \
+  --add '/namespaces/-={"id": 1, "name": "groups"}'
+```
+
+  </TabItem>
+  <TabItem value="self-hosted" label="Self-Hosted Ory Keto Config" default>
+
+```yaml title=path/to/keto.yml
+namespaces:
+  - id: 0
+    name: resources
+  - id: 1
+    name: groups
+```
+
+  </TabItem>
+</Tabs>
+````
+
+### Creating relation tuples
+
+After creating the namespaces, you can use the [relation tuple APIs](/reference/api.mdx#operation/createRelationTuple) to create a
+relation tuple.
+
+````mdx-code-block
+<Tabs>
+  <TabItem value="cloud" label="Ory Cloud" default>
+
+```shell
+ORY_PAT="<your ory personal access token from the console>"
+ORY_SDK_URL="<your ory project sdk url from the console>"
+
+echo '[
+  {
+    "action": "insert",
+    "relation_tuple": {
+      "subject_id": "user1",
+      "relation": "member",
+      "namespace": "groups",
+      "object": "group1"
+    }
+  }, {
+    "action": "insert",
+    "relation_tuple": {
+      "subject_set": {
+        "relation": "member",
+        "namespace": "groups",
+        "object": "group1"
+      },
+      "relation": "owner",
+      "namespace": "resources",
+      "object": "file1"
+    }
+  }
+]' > relationtuple.json
+
+curl -X PATCH \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $ORY_PAT" \
+  -d @relationtuple.json \
+  "$ORY_SDK_URL/admin/relation-tuples"
+```
+
+  </TabItem>
+  <TabItem value="self-hosted" label="Self-Hosted Ory Keto" default>
+
+```shell
+KETO_WRITE_URL="<your keto write url>"
+
+echo '[
+  {
+    "action": "insert"
+    "relation_tuple": {
+      "subject_id": "user1",
+      "relation": "member",
+      "namespace": "groups",
+      "object": "group1"
+    }
+  }, {
+    "action": "insert"
+    "relation_tuple": {
+      "subject_set": {
+        "relation": "member",
+        "namespace": "groups",
+        "object": "group1"
+      },
+      "relation": "owner",
+      "namespace": "resources",
+      "object": "file1"
+    }
+  }
+]' > relationtuple.json
+
+curl -X PUT \
+  -H "Content-Type: application/json" \
+  -d @relationtuple.json \
+  "$KETO_WRITE_URL/admin/relation-tuples"
+```
+
+  </TabItem>
+</Tabs>
+````
+
+### Checking permissions
+
+Permission checks are requests that check whether a subject has a relation to an object. This relation can be directly defined, or
+constructed following indirections (e.g. members of a group).
+
+The [Check API](/reference/api.mdx#operation/postCheck) allows to perform such checks:
+
+````mdx-code-block
+<Tabs>
+  <TabItem value="cloud" label="Ory Cloud" default>
+
+```shell
+ORY_PAT="<your ory personal access token from the console>"
+ORY_SDK_URL="<your ory project sdk url from the console>"
+
+echo '{
+  "subject_id": "user1",
+  "relation": "owner",
+  "namespace": "resources",
+  "object": "file1"
+}' > query.json
+
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $ORY_PAT" \
+  -d @query.json \
+  "$ORY_SDK_URL/relation-tuples/check"
+# should print:
+# {"allowed":true}
+```
+
+  </TabItem>
+  <TabItem value="self-hosted" label="Self-Hosted Ory Keto" default>
+
+```shell
+KETO_WRITE_URL="<your keto write url>"
+
+echo '{
+  "subject_id": "user1",
+  "relation": "owner",
+  "namespace": "resources",
+  "object": "file1"
+}' > query.json
+
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d @query.json \
+  "$KETO_WRITE_URL/relation-tuples/check"
+# should print:
+# {"allowed":true}
+```
+
+  </TabItem>
+</Tabs>
+````

@@ -1,47 +1,36 @@
 ---
 id: self-service
-title: Self-Service Flows
-sidebar_label: Concepts and Overview
+title: Self-service flows
+sidebar_label: Concepts and overview
 ---
 
-Ory Kratos implements flows that users perform themselves as opposed to
-administrative intervention. Facebook and Google both provide self-service
-registration and profile management features as you are able to make changes to
-your profile and sign up yourself.
+Ory Kratos implements flows that users perform themselves as opposed to administrative intervention. Facebook and Google both
+provide self-service registration and profile management features as you are able to make changes to your profile and sign up
+yourself.
 
-import ApiWarning from '@site/src/theme/ApiWarning'
-import CodeTabs from '@site/src/theme/Code/CodeTabs'
-import {
-  initApiFlow,
-  initSpaFlow,
-  initBrowserFlow
-} from './self-service/flows/code/login'
-import SelfServiceBrowserFlow from '@site/src/theme/SelfServiceBrowserFlow'
-import SelfServiceApiFlow from '@site/src/theme/SelfServiceApiFlow'
-import SelfServiceSpaFlow from '@site/src/theme/SelfServiceSpaFlow'
+import ApiWarning from "@site/src/theme/ApiWarning"
+import CodeTabs from "@site/src/theme/Code/CodeTabs"
+import { initApiFlow, initSpaFlow, initBrowserFlow } from "./self-service/flows/code/login"
+import SelfServiceBrowserFlow from "@site/src/theme/SelfServiceBrowserFlow"
+import SelfServiceApiFlow from "@site/src/theme/SelfServiceApiFlow"
+import SelfServiceSpaFlow from "@site/src/theme/SelfServiceSpaFlow"
 
-Most believe that user management systems are easy to implement because picking
-the right password hashing algorithm and sending an account verification code is
-a solvable challenge. The real complexity however hides in the details and
-attack vectors of self-service flows. Most data leaks happen because someone is
-able to exploit
+Most believe that user management systems are easy to implement because picking the right password hashing algorithm and sending
+an account verification code is a solvable challenge. The real complexity however hides in the details and attack vectors of
+self-service flows. Most data leaks happen because someone is able to exploit
 
 - registration: with attack vectors such as account enumeration, ...;
-- login: phishing, account enumeration, leaked password databases, brute-force,
-  ...;
+- login: phishing, account enumeration, leaked password databases, brute-force, ...;
 - user settings: account enumeration, account takeover, ...;
-- account recovery: social engineering attacks, account takeover, spoofing, and
-  so on.
+- account recovery: social engineering attacks, account takeover, spoofing, and so on.
 
 There are also many other areas you need to think about, such as:
 
 - Mobile, Smart TV, ... authentication
-- Linking and unlinking social profiles (for example "Sign in with Google" or
-  "Connect with Google") to existing accounts
+- Linking and unlinking social profiles (for example "Sign in with Google" or "Connect with Google") to existing accounts
 
-Ory Kratos applies best practices established by experts (National Institute of
-Sciences NIST, Internet Engineering Task Force IETF, Microsoft Research, Google
-Research, Troy Hunt, ...) and implements the following flows:
+Ory Kratos applies best practices established by experts (National Institute of Sciences NIST, Internet Engineering Task Force
+IETF, Microsoft Research, Google Research, Troy Hunt, ...) and implements the following flows:
 
 - [Registration](self-service/flows/user-registration.mdx)
 - [Login](self-service/flows/user-login.mdx)
@@ -50,56 +39,46 @@ Research, Troy Hunt, ...) and implements the following flows:
 - [Account Recovery](self-service/flows/account-recovery.mdx)
 - [Address Verification](self-service/flows/verify-email-account-activation.mdx)
 - [User-Facing Error](self-service/flows/user-facing-errors.md)
-- [2FA / MFA](self-service/flows/2fa-mfa-multi-factor-authentication.md)
+- 2FA / MFA
 
-Some flows break down into "flow methods" which implement some of the flow's
-business logic:
+Some flows break down into "flow methods" which implement some of the flow's business logic:
 
-- The `password` method implements the login and registration with "email or/and
-  username and password" method, and "change your password" user settings
-  method.
-- The `oidc` (OpenID Connect, OAuth2, Social Sign In) method implements "Sign in
-  with ..." login and registration method and "un/link another social account"
-  user settings method.
-- The `profile` method implements the "update your profile", "change your
-  first/last name, ..." user settings method).
-- The `link` method implements the "click this link to reset your password"
-  account recovery method.
+- The `password` method implements the login and registration with "email or/and username and password" method, and "change your
+  password" user settings method.
+- The `oidc` (OpenID Connect, OAuth2, Social Sign In) method implements "Sign in with ..." login and registration method and
+  "un/link another social account" user settings method.
+- The `profile` method implements the "update your profile", "change your first/last name, ..." user settings method).
+- The `link` method implements the "click this link to reset your password" account recovery method.
 
-Some flows implement the ability [to run hooks](self-service/hooks.mdx) which
-allow users to be immediately signed in after registration, notify another
-system on successful registration (such as Mailchimp), and so on.
+Some flows implement the ability [to run hooks](hooks/configure-hooks) which allow users to be immediately signed in after
+registration, notify another system on successful registration (such as Mailchimp), and so on.
 
-## Performing Login, Registration, Settings, ... Flows
+## Performing login, registration, settings, ... flows
 
 There are two flow types supported in Ory Kratos:
 
 - Flows where the user sits in front of the Browser and the application is
-  - a server-side application (NodeJS, Java, ...)
-  - a client-side application (ReactJS, AngularJS, ...)
+  - a server-side application (Node.js, Java, ...)
+  - a client-side application (React.js, Angular, ...)
 - Flows where API interaction is required (mobile app, Smart TV, ...)
 
 All Self-Service Flows ([User Login](self-service/flows/user-login.mdx),
-[User Registration](self-service/flows/user-registration.mdx),
-[Profile Management](self-service/flows/user-settings.mdx),
+[User Registration](self-service/flows/user-registration.mdx), [Profile Management](self-service/flows/user-settings.mdx),
 [Account Recovery](self-service/flows/account-recovery.mdx),
-[Email or Phone verification](self-service/flows/verify-email-account-activation.mdx))
-support these two flow types and use the same data models but do use different
-API endpoints.
+[Email or Phone verification](self-service/flows/verify-email-account-activation.mdx)) support these two flow types and use the
+same data models but do use different API endpoints.
 
 <ApiWarning />
 
-## Browser Flows for Server-Side Apps: NodeJS, PHP, Java, ...
+## Browser flows for server-side apps: Node.js, PHP, Java, ...
 
-Browser-based flows for server-side apps make use of three core HTTP
-technologies:
+Browser-based flows for server-side apps make use of three core HTTP technologies:
 
 - HTTP Redirects
 - HTTP POST (`application/x-www-urlencoded`) and REST GET requests.
 - HTTP Cookies to prevent CSRF and Session Hijacking attack vectors.
 
-Ory Kratos takes care of all required session and CSRF cookies and ensures that
-all security requirements are fulfilled.
+Ory Kratos takes care of all required session and CSRF cookies and ensures that all security requirements are fulfilled.
 
 The browser flow has three stages:
 
@@ -109,24 +88,22 @@ The browser flow has three stages:
 
 :::note
 
-All examples use Ory Cloud playground project. Please be aware that everyone can
-see the data you enter there. You can replace the URL with a locally hosted Ory
-Kratos as well.
+All examples use Ory Cloud playground project. Please be aware that everyone can see the data you enter there. You can replace the
+URL with a locally hosted Ory Kratos as well.
 
 :::
 
-<SelfServiceBrowserFlow flows={['login', 'settings', '...']} />
+<SelfServiceBrowserFlow flows={["login", "settings", "..."]} />
 
-### Initialization and Redirect to UI
+### Initialization and redirect to UI
 
-First, the Browser opens the flow's initialization endpoint (for
-example`/self-service/login/browser`, `/self-service/registration/browser`,
-...):
+First, the Browser opens the flow's initialization endpoint (for example`/self-service/login/browser`,
+`/self-service/registration/browser`, ...):
 
 ```sh
 curl -s -i -X GET \
     -H "Accept: text/html" \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser
+    https://playground.projects.oryapis.com/self-service/login/browser
 
 HTTP/2 303
 date: Fri, 09 Jul 2021 10:23:52 GMT
@@ -142,21 +119,18 @@ strict-transport-security: max-age=15724800; includeSubDomains
 <a href="https://playground.projects.oryapis.com/hosted/login?flow=3fc63726-8461-43f4-974a-5579ff4174f1">See Other</a>.
 ```
 
-The initialization endpoint creates a flow object and stores it in the database.
-The flow object has an ID and contains additional information about the flow
-such as the login methods (for example "username/password" and "Sign in with
-Google") and their form data.
+The initialization endpoint creates a flow object and stores it in the database. The flow object has an ID and contains additional
+information about the flow such as the login methods (for example "username/password" and "Sign in with Google") and their form
+data.
 
-import DomainWarning from '@site/src/theme/DomainWarning'
+import DomainWarning from "@site/src/theme/DomainWarning"
 
 <DomainWarning />
 
-Once stored, the Browser is HTTP 303 redirected to the flow's configured UI URL
-(for example `selfservice.flows.login.ui_url`), appending the flow ID as the
-`flow` URL Query Parameter. Also included are HTTP cookies such as Anti-CSRF
-cookies.
+Once stored, the Browser is HTTP 303 redirected to the flow's configured UI URL (for example `selfservice.flows.login.ui_url`),
+appending the flow ID as the `flow` URL Query Parameter. Also included are HTTP cookies such as Anti-CSRF cookies.
 
-### Form Rendering
+### Form rendering
 
 The Browser follows the link and opens
 
@@ -164,25 +138,21 @@ The Browser follows the link and opens
 https://playground.projects.oryapis.com/hosted/login?flow=36c3246f-8e40-4f45-8721-c246576a8bc3
 ```
 
-which renders the HTML form which for example shows the "username and password"
-field, the "Update your email address" field, or other flow forms. This HTML
-form is rendered by the [Self-Service UI](concepts/ui-user-interface.mdx) which
-you fully control.
+which renders the HTML form which for example shows the "username and password" field, the "Update your email address" field, or
+other flow forms. This HTML form is rendered by the [Self-Service UI](concepts/ui-user-interface.mdx) which you fully control.
 
-The endpoint responsible for the UI URL uses the `flow` URL Query Parameter
-(here `...?flow=36c3246f-8e40-4f45-8721-c246576a8bc3`) to call the flow
-information endpoint, for example:
-`https://playground.projects.oryapis.com/api/kratos/public/self-service/login/flows?id=36c3246f-8e40-4f45-8721-c246576a8bc3`
+The endpoint responsible for the UI URL uses the `flow` URL Query Parameter (here `...?flow=36c3246f-8e40-4f45-8721-c246576a8bc3`)
+to call the flow information endpoint, for example:
+`https://playground.projects.oryapis.com/self-service/login/flows?id=36c3246f-8e40-4f45-8721-c246576a8bc3`
 
 :::note
 
-Calling the flow endpoint without the correct CSRF cookies will result in a
-failure!
+Calling the flow endpoint without the correct CSRF cookies will result in a failure!
 
 :::
 
-The endpoint returns the flow data - so for example the login form and any
-validation errors. Let's take a look at an example using CURL:
+The endpoint returns the flow data - so for example the login form and any validation errors. Let's take a look at an example
+using CURL:
 
 ```sh
 # A cookie jar for storing the CSRF tokens
@@ -190,17 +160,16 @@ cookieJar=$(mktemp)
 flowId=$(curl -s -X GET \
     --cookie-jar $cookieJar --cookie $cookieJar \
     -H "Accept: application/json" \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser | jq -r '.id')
+    https://playground.projects.oryapis.com/self-service/login/browser | jq -r '.id')
 
 # The endpoint uses Ory Kratos' REST API to fetch information about the request
 curl -s -X GET \
     --cookie-jar $cookieJar --cookie $cookieJar \
     -H "Accept: application/json" \
-    "https://playground.projects.oryapis.com/api/kratos/public/self-service/login/flows?id=$flowId" | jq
+    "https://playground.projects.oryapis.com/self-service/login/flows?id=$flowId" | jq
 ```
 
-The response includes login methods, their fields, and additional information
-about the flow:
+The response includes login methods, their fields, and additional information about the flow:
 
 ```json
 {
@@ -210,7 +179,7 @@ about the flow:
   "issued_at": "2021-07-09T09:08:08.856735Z",
   "request_url": "http://playground.projects.oryapis.com/self-service/login/browser",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=33f6079a-ef14-4084-af13-34a91e53cd6c",
+    "action": "https://playground.projects.oryapis.com/self-service/login?flow=33f6079a-ef14-4084-af13-34a91e53cd6c",
     "method": "POST",
     "nodes": [
       {
@@ -299,14 +268,10 @@ about the flow:
 
 For more details, check out the individual flow documentation.
 
-The flow UI then renders the given methods. For the example above, a suitable
-HTML Form would look along the lines of:
+The flow UI then renders the given methods. For the example above, a suitable HTML Form would look along the lines of:
 
 ```html
-<form
-  action="https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=f6209031-38d5-48bc-b6a5-118e8a24d1fe"
-  method="POST"
->
+<form action="https://playground.projects.oryapis.com/self-service/login?flow=f6209031-38d5-48bc-b6a5-118e8a24d1fe" method="POST">
   <input
     name="csrf_token"
     type="hidden"
@@ -328,110 +293,106 @@ HTML Form would look along the lines of:
 </form>
 ```
 
-### Form Submission and Payload Validation
+### Form submission and payload validation
 
-The user completes the flow by submitting the form. The form action always
-points to Ory Kratos directly. The business logic for the flow method will then
-validate the form payload and return to the UI URL on validation errors. The UI
-then fetches the information about the flow again
+The user completes the flow by submitting the form. The form action always points to Ory Kratos directly. The business logic for
+the flow method will then validate the form payload and return to the UI URL on validation errors. The UI then fetches the
+information about the flow again
 
 ```
 # The endpoint uses Ory Kratos' REST API to fetch information about the request
 theFlowID=...
 curl -s -i -X GET \
     -H "Accept: application/json"  \
-    'https://playground.projects.oryapis.com/api/kratos/public/self-service/login/flows?id=$theFlowID' | jq
+    'https://playground.projects.oryapis.com/self-service/login/flows?id=$theFlowID' | jq
 ```
 
 which now includes validation errors and other potential messages:
 
 ```json5
 {
-  id: '36c3246f-8e40-4f45-8721-c246576a8bc3',
-  type: 'browser',
-  expires_at: '2021-04-28T09:00:57.10254633Z',
-  issued_at: '2021-04-28T08:50:57.10254633Z',
-  request_url: 'https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser',
+  id: "36c3246f-8e40-4f45-8721-c246576a8bc3",
+  type: "browser",
+  expires_at: "2021-04-28T09:00:57.10254633Z",
+  issued_at: "2021-04-28T08:50:57.10254633Z",
+  request_url: "https://playground.projects.oryapis.com/self-service/login/browser",
   ui: {
-    action: 'https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=36c3246f-8e40-4f45-8721-c246576a8bc3',
-    method: 'POST',
+    action: "https://playground.projects.oryapis.com/self-service/login?flow=36c3246f-8e40-4f45-8721-c246576a8bc3",
+    method: "POST",
     nodes: [
       // ...
       {
-        type: 'input',
-        group: 'password',
+        type: "input",
+        group: "password",
         attributes: {
-          name: 'identifier',
-          type: 'text',
-          value: '',
+          name: "identifier",
+          type: "text",
+          value: "",
           required: true,
-          disabled: false
+          disabled: false,
         },
         messages: [
           {
             id: 4000001,
-            text: 'length must be >= 1, but got 0',
-            type: 'error'
-          }
+            text: "length must be >= 1, but got 0",
+            type: "error",
+          },
         ],
         meta: {
           label: {
             id: 1070004,
-            text: 'ID',
-            type: 'info'
-          }
-        }
+            text: "ID",
+            type: "info",
+          },
+        },
       },
       {
-        type: 'input',
-        group: 'password',
+        type: "input",
+        group: "password",
         attributes: {
-          name: 'password',
-          type: 'password',
+          name: "password",
+          type: "password",
           required: true,
-          disabled: false
+          disabled: false,
         },
         messages: [
           {
             id: 4000001,
-            text: 'length must be >= 1, but got 0',
-            type: 'error'
-          }
+            text: "length must be >= 1, but got 0",
+            type: "error",
+          },
         ],
         meta: {
           label: {
             id: 1070001,
-            text: 'Password',
-            type: 'info'
-          }
-        }
-      }
+            text: "Password",
+            type: "info",
+          },
+        },
+      },
       // ...
-    ]
+    ],
   },
-  forced: false
+  forced: false,
 }
 ```
 
-If a system error (for example broken configuration file) occurs, the browser is
-redirected to the [Error UI](self-service/flows/user-facing-errors.md).
+If a system error (for example broken configuration file) occurs, the browser is redirected to the
+[Error UI](self-service/flows/user-facing-errors.md).
 
-If the form payload is valid, the flow completes with a success. The result here
-depends on the flow itself - the login flow for example redirects the user to a
-specified redirect URL and sets a session cookie. The registration flow also
-redirects to a specified redirect URL but only creates the user in the database
-and might issue a session cookie if configured to do so.
+If the form payload is valid, the flow completes with a success. The result here depends on the flow itself - the login flow for
+example redirects the user to a specified redirect URL and sets a session cookie. The registration flow also redirects to a
+specified redirect URL but only creates the user in the database and might issue a session cookie if configured to do so.
 
-## Browser Flows for Client-Side Apps: Single-Page-Apps, ReactJS, AngularJS, NextJS, ...
+## Browser Flows for Client-Side Apps: Single-Page-Apps, React.js, Angular, Next.js, ...
 
-Browser-based flows also support Client Side applications such as
-Single-Page-Apps (ReactJS, AngularJS, NextJS, ...) that use AJAX to perform
-requests.
+Browser-based flows also support Client Side applications such as Single-Page-Apps (React.js, Angular, Next.js, ...) that use AJAX
+to perform requests.
 
 :::info
 
-Ory Kratos and your UI must be hosted on same top level domain! You can't host
-Ory Kratos and your UI on separate top level domains:
+Ory Kratos and your UI must be hosted on same top level domain! You can't host Ory Kratos and your UI on separate top level
+domains:
 
 - `kratos.bar.com` and `ui.bar.com` will work;
 - `kratos.bar.com` and `bar.com` will work;
@@ -439,12 +400,10 @@ Ory Kratos and your UI on separate top level domains:
 
 :::
 
-Ory Kratos identifies SPA requests by checking if the `Accept` HTTP Header is
-set to `application/json`.
+Ory Kratos identifies SPA requests by checking if the `Accept` HTTP Header is set to `application/json`.
 
-If it's, these flows act like an API flow and respond with JSON instead of HTTP
-redirects while still setting and requiring the necessary cookies for CSRF,
-sessions, and more:
+If it is, these flows act like an API flow and respond with JSON instead of HTTP redirects while still setting and requiring the
+necessary cookies for CSRF, sessions, and more:
 
 - Initialization **without redirect** using an AJAX request;
 - Form rendering using HTML;
@@ -456,16 +415,15 @@ The high-level sequence diagram for API flows looks as follows:
 
 ### Initialization
 
-The AJAX client (for example NextJS app) makes a request to the flow's
-initialization endpoint (for example`/self-service/login/browser`,
-`/self-service/registration/browser`, ...):
+The AJAX client (for example Next.js app) makes a request to the flow's initialization endpoint (for
+example`/self-service/login/browser`, `/self-service/registration/browser`, ...):
 
 ```sh
 curl -v -s -X GET \
     -H "Accept: application/json"  \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser | jq
+    https://playground.projects.oryapis.com/self-service/login/browser | jq
 
-> GET /api/kratos/public/self-service/login/browser HTTP/2
+> GET /self-service/login/browser HTTP/2
 > Host: playground.projects.oryapis.com
 > User-Agent: curl/7.64.1
 > Accept: application/json
@@ -487,7 +445,7 @@ curl -v -s -X GET \
   "issued_at": "2021-07-09T10:25:12.136099226Z",
   "request_url": "http://playground.projects.oryapis.com/self-service/login/browser",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=ff0c97c4-a7bb-49a5-a8a6-ebf174877fa5",
+    "action": "https://playground.projects.oryapis.com/self-service/login?flow=ff0c97c4-a7bb-49a5-a8a6-ebf174877fa5",
     "method": "POST",
     "nodes": [ /* ... */ ]
   },
@@ -497,91 +455,88 @@ curl -v -s -X GET \
 }
 ```
 
-The initialization endpoint creates a flow object and stores it in the database.
-The flow object has an ID and contains additional information about the flow
-such as the login methods (for example "username/password" and "Sign in with
-Google") and their form data.
+The initialization endpoint creates a flow object and stores it in the database. The flow object has an ID and contains additional
+information about the flow such as the login methods (for example "username/password" and "Sign in with Google") and their form
+data.
 
-### Form Rendering
+### Form rendering
 
 Form rendering works the same way as the flows for server-side browser apps.
 
-### Form Submission and Payload Validation
+### Form submission and payload validation
 
-To submit the form, it's recommended to intercept the submission and send the
-form as JSON using `fetch` (see
-["Submit HTML Forms to JSON APIs"](https://dev.to/amjadmh73/submit-html-forms-to-json-apis-easily-137l))
-or the [SDK](sdk.md).
+To submit the form, it's recommended to intercept the submission and send the form as JSON using `fetch` (see
+["Submit HTML Forms to JSON APIs"](https://dev.to/amjadmh73/submit-html-forms-to-json-apis-easily-137l)) or the
+[SDK](/docs/kratos/sdk/01_index.md).
 
-The response depends on the result (sign up success, account recovery success,
-form validation error, ...). If a form validation error occurs, the following
-response could be sent:
+The response depends on the result (sign up success, account recovery success, form validation error, ...). If a form validation
+error occurs, the following response could be sent:
 
 ```json5
 {
-  id: 'f6209031-38d5-48bc-b6a5-118e8a24d1fe',
-  type: 'browser',
-  expires_at: '2021-04-28T09:00:57.10254633Z',
-  issued_at: '2021-04-28T08:50:57.10254633Z',
-  request_url: 'https://playground.projects.oryapis.com/api/kratos/public/self-service/login/browser',
+  id: "f6209031-38d5-48bc-b6a5-118e8a24d1fe",
+  type: "browser",
+  expires_at: "2021-04-28T09:00:57.10254633Z",
+  issued_at: "2021-04-28T08:50:57.10254633Z",
+  request_url: "https://playground.projects.oryapis.com/self-service/login/browser",
   ui: {
-    action: 'https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=f6209031-38d5-48bc-b6a5-118e8a24d1fe',
-    method: 'POST',
+    action: "https://playground.projects.oryapis.com/self-service/login?flow=f6209031-38d5-48bc-b6a5-118e8a24d1fe",
+    method: "POST",
     nodes: [
       // ...
       {
-        type: 'input',
-        group: 'password',
+        type: "input",
+        group: "password",
         attributes: {
-          name: 'identifier',
-          type: 'text',
-          value: '',
+          name: "identifier",
+          type: "text",
+          value: "",
           required: true,
-          disabled: false
+          disabled: false,
         },
         messages: [
           {
             id: 4000001,
-            text: 'length must be >= 1, but got 0',
-            type: 'error'
-          }
+            text: "length must be >= 1, but got 0",
+            type: "error",
+          },
         ],
         meta: {
           label: {
             id: 1070004,
-            text: 'ID',
-            type: 'info'
-          }
-        }
+            text: "ID",
+            type: "info",
+          },
+        },
       },
       {
-        type: 'input',
-        group: 'password',
+        type: "input",
+        group: "password",
         attributes: {
-          name: 'password',
-          type: 'password',
+          name: "password",
+          type: "password",
           required: true,
-          disabled: false
+          disabled: false,
         },
         messages: [
           {
             id: 4000001,
-            text: 'length must be >= 1, but got 0',
-            type: 'error'
-          }
+            text: "length must be >= 1, but got 0",
+            type: "error",
+          },
         ],
         meta: {
           label: {
             id: 1070001,
-            text: 'Password',
-            type: 'info'
-          }
-        }
-      }
+            text: "Password",
+            type: "info",
+          },
+        },
+      },
       // ...
-    ]
+    ],
   },
-  forced: false
+  forced: false,
 }
 ```
 
@@ -601,14 +556,13 @@ The high-level sequence diagram for API flows looks as follows:
 
 ### Initialization
 
-The client (for example mobile application) makes a request to the flow's
-initialization endpoint (for example`/self-service/login/api`,
-`/self-service/registration/api`, ...):
+The client (for example mobile application) makes a request to the flow's initialization endpoint (for
+example`/self-service/login/api`, `/self-service/registration/api`, ...):
 
 ```sh
 curl -s -X GET \
     -H "Accept: application/json"  \
-    https://playground.projects.oryapis.com/api/kratos/public/self-service/login/api | jq
+    https://playground.projects.oryapis.com/self-service/login/api | jq
 
 {
   "id": "9d17f37b-b60b-44f5-9812-4829a89810f7",
@@ -617,24 +571,21 @@ curl -s -X GET \
   "issued_at": "2021-07-09T10:26:04.019418543Z",
   "request_url": "http://playground.projects.oryapis.com/self-service/login/api",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=9d17f37b-b60b-44f5-9812-4829a89810f7",
+    "action": "https://playground.projects.oryapis.com/self-service/login?flow=9d17f37b-b60b-44f5-9812-4829a89810f7",
     "method": "POST",
     "nodes": [ /* ... */ ]
   }
 }
 ```
 
-The initialization endpoint creates a flow object and stores it in the database.
-The flow object has an ID and contains additional information about the flow
-such as the login methods and their form data.
+The initialization endpoint creates a flow object and stores it in the database. The flow object has an ID and contains additional
+information about the flow such as the login methods and their form data.
 
-### Form Rendering
+### Form rendering
 
-While the Browser flow redirects the client and uses cookies to protect against
-CSRF and session hijacking attacks, the API flow answers with a fresh flow
-formatted as `application/json` right away. The client would then use that
-information to render the UI. In React Native, this may look like the following
-snippet:
+While the Browser flow redirects the client and uses cookies to protect against CSRF and session hijacking attacks, the API flow
+answers with a fresh flow formatted as `application/json` right away. The client would then use that information to render the UI.
+In React Native, this may look like the following snippet:
 
 ```tsx
 import React, { useState, useEffect } from 'react'
@@ -677,13 +628,12 @@ export default function Login () {
 }
 ```
 
-If needed, the client can re-request the flow using the same HTTP Request as the
-browser flow at the Public API endpoint:
+If needed, the client can re-request the flow using the same HTTP Request as the browser flow at the Public API endpoint:
 
 ```shell script
 curl -s -X GET \
     -H "Accept: application/json" \
-    "https://playground.projects.oryapis.com/api/kratos/public/self-service/login/flows?id=<the-flow-id>" | jq
+    "https://playground.projects.oryapis.com/self-service/login/flows?id=<the-flow-id>" | jq
 
 {
   "id": "41ebf1e9-79f5-4b97-b643-04bfc405f8ad",
@@ -691,17 +641,16 @@ curl -s -X GET \
   # ...
 ```
 
-### Form Submission and Payload Validation
+### Form submission and payload validation
 
-The request is then completed by sending the form formatted as
-`application/json` to the action endpoint
+The request is then completed by sending the form formatted as `application/json` to the action endpoint
 
 ```shell
-flow=$(curl -s -X GET -H "Accept: application/json" "https://playground.projects.oryapis.com/api/kratos/public/self-service/login/api")
+flow=$(curl -s -X GET -H "Accept: application/json" "https://playground.projects.oryapis.com/self-service/login/api")
 actionUrl=$(echo $flow | jq -r '.ui.action')
 
 echo $actionUrl
-# https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=6394ffa4-235f-4c1a-a200-e62f89862015
+# https://playground.projects.oryapis.com/self-service/login?flow=6394ffa4-235f-4c1a-a200-e62f89862015
 
 curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/json" \
     -d '{"identifier": "i-do-not-exist@user.org", "password": "the-wrong-password", "method": "password"}' \
@@ -716,9 +665,9 @@ which in this case fails with a 400 Bad Request error and the following payload:
   "type": "api",
   "expires_at": "2021-04-28T09:12:48.462374732Z",
   "issued_at": "2021-04-28T09:02:48.462374732Z",
-  "request_url": "https://playground.projects.oryapis.com/api/kratos/public/self-service/login/api",
+  "request_url": "https://playground.projects.oryapis.com/self-service/login/api",
   "ui": {
-    "action": "https://playground.projects.oryapis.com/api/kratos/public/self-service/login?flow=6394ffa4-235f-4c1a-a200-e62f89862015",
+    "action": "https://playground.projects.oryapis.com/self-service/login?flow=6394ffa4-235f-4c1a-a200-e62f89862015",
     "method": "POST",
     "messages": [
       {
@@ -804,5 +753,5 @@ which in this case fails with a 400 Bad Request error and the following payload:
 }
 ```
 
-On success, that endpoint would typically return a HTTP 200 Status OK response
-with the success `application/json` response payload in the body.
+On success, that endpoint would typically return a HTTP 200 Status OK response with the success `application/json` response
+payload in the body.

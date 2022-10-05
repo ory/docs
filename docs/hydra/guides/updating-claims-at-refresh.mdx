@@ -3,34 +3,31 @@ id: claims-at-refresh
 title: Updating claims at token refresh
 ---
 
-The Hydra OAuth2 and OpenID Connect server comes with a mechanism that allows
-updating `id_token` and `access_token` when a registered client sends a token
-refresh request. The flow is realized by calling the defined refresh token hook
-endpoint which returns updated data.
+The Hydra OAuth2 and OpenID Connect server comes with a mechanism that allows updating `id_token` and `access_token` when a
+registered client sends a token refresh request. The flow is realized by calling the defined refresh token hook endpoint which
+returns updated data.
 
-If the data provided by the webhook is different from the data the client sends,
-the webhook overwrites the session data with a new set.
+If the data provided by the webhook is different from the data the client sends, the webhook overwrites the session data with a
+new set.
 
 :::note
 
-The hook is called before any other logic is executed. If the hook execution
-fails, the entire token refresh flow fails and the `refresh_token` remains
-unused.
+The hook is called before any other logic is executed. If the hook execution fails, the entire token refresh flow fails and the
+`refresh_token` remains unused.
 
 :::
 
 ## Configuration
 
-To enable the token refresh webhook, configure the `oauth2.refresh_token_hook`
-key in the Hydra configuration:
+To enable the token refresh webhook, configure the `oauth2.refresh_token_hook` key in the Hydra configuration:
 
 ```yaml
 oauth2:
   refresh_token_hook: https://my-example.app/token-refresh-hook
 ```
 
-If you're running Hydra locally, you can set this value by exporting the refresh
-token hook endpoint URL as an environment variable. Run this command:
+If you're running Hydra locally, you can set this value by exporting the refresh token hook endpoint URL as an environment
+variable. Run this command:
 
 ```mdx-code-block
 
@@ -59,13 +56,60 @@ The refresh token hook endpoint must accept the following payload format:
 {
   "subject": "foo",
   "client_id": "bar",
+  "session": {
+    "id_token": {
+      "id_token_claims": {
+        "jti": "jti",
+        "iss": "http://localhost:4444/",
+        "sub": "foo",
+        "aud": ["bar"],
+        "iat": 1234567,
+        "exp": 1234567,
+        "rat": 1234567,
+        "auth_time": 1234567,
+        "nonce": "",
+        "at_hash": "",
+        "acr": "1",
+        "amr": [],
+        "c_hash": "",
+        "ext": {}
+      },
+      "headers": {
+        "extra": {
+          "kid": "key-id"
+        }
+      },
+      "username": "username",
+      "subject": "foo",
+      "expires_at": 1234567
+    },
+    "extra": {},
+    "client_id": "bar",
+    "consent_challenge": "",
+    "exclude_not_before_claim": false,
+    "allowed_top_level_claims": [],
+    "kid": "key-id"
+  },
+  "requester": {
+    "client_id": "bar",
+    "granted_scopes": ["openid", "offline"],
+    "granted_audience": [],
+    "grant_types": ["refresh_token"]
+  },
   "granted_scopes": ["openid", "offline"],
   "granted_audience": []
 }
 ```
 
-To update the data, the webhook must return a `200 OK` response and the updated
-session data in the following format:
+:::note
+
+`session` represents the consent session, along with the data that was passed to the
+[Accept Consent Request](https://www.ory.sh/docs/hydra/reference/api#operation/acceptConsentRequest) in the `id_token` field.
+`requester` is the token request context.
+
+:::
+
+To update the data, the webhook must return a `200 OK` response and the updated session data in the following format:
 
 ```json
 {
@@ -128,6 +172,5 @@ The following examples show fragments of tokens issued after refreshing:
 
 ## Rejecting token refresh
 
-To gracefully reject token contents update, the hook must return a
-`403 Forbidden` response. Any other response results in a failure of the token
-update and, as a result, failure of the entire token refresh flow.
+To gracefully reject token contents update, the hook must return a `403 Forbidden` response. Any other response results in a
+failure of the token update and, as a result, failure of the entire token refresh flow.

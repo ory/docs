@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory create
 
 Create Ory Cloud resources
@@ -21,10 +20,13 @@ Create Ory Cloud resources
       --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
   -h, --help            help for create
   -q, --quiet           Be quiet with output printing.
-  -y, --yes             Confirm all dialogues with yes.
+  -y, --yes             Confirm all dialogs with yes.
 ```
 
 ### SEE ALSO
 
-- [ory](ory) - The ORY CLI
-- [ory create project](ory-create-project) - Create a new Ory Cloud Project
+* [ory](ory)	 - The ORY CLI
+* [ory create oauth2-client](ory-create-oauth2-client)	 - Create an OAuth 2.0 Client
+* [ory create project](ory-create-project)	 - Create a new Ory Cloud project
+* [ory create relation-tuples](ory-create-relation-tuples)	 - Create relation tuples from JSON files
+

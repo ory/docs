@@ -6,57 +6,52 @@ title: Terminology
 # Terminology
 
 An overview of the terminology used in Ory Cloud documentation.  
-If you think a term is missing here, please
-[let us know](https://github.com/ory/docs/issues/new).
+If you think a term is missing here, please [let us know](https://github.com/ory/docs/issues/new).
 
-## Ory Cloud Terms
+## Ory Cloud terms
 
 #### Ory Cloud Project
 
-A single deployment of Ory Cloud. Each project runs its own copy of the Ory
-services. Learn more about [Ory Cloud Projects](./project.mdx).
+A single deployment of Ory Cloud. Each project runs its own copy of the Ory services. Learn more about
+[Ory Cloud Projects](./project.mdx).
 
-#### Ory Cloud Project Settings
+#### Ory Cloud Project settings
 
-The configuration for each individual Ory Project Cloud can be changed in the
-Ory Project Settings.
+The configuration for each individual Ory Project Cloud can be changed in the Ory Project Settings.
 
 #### Ory Cloud Console
 
-The graphical user interface that can be used to administer and manage Ory Cloud
-Projects. You can it at [https://console.ory.sh/](https://console.ory.sh/).
+The graphical user interface that can be used to administer and manage Ory Cloud Projects. You can it at
+[https://console.ory.sh/](https://console.ory.sh/).
 
 #### Ory SDK URL
 
-The environmental variable `ORY_SDK_URL` specifies where the Ory instance is
-available. It can be found in the "API & Services" section of your Ory Cloud
-Console.
+The environmental variable `ORY_SDK_URL` specifies where the Ory instance is available. It can be found in the "API & Services"
+section of your Ory Cloud Console.
 
 #### Identity Schema
 
-The JSON Schema that defines an identity in an Ory Cloud Project. Learn more
-about [Identity Schemas](./identity.mdx).
+The JSON Schema that defines an identity in an Ory Cloud Project.
 
 #### Ory Login Session
 
-A cookie or token that's stored in the users' Browser or API Client. It
-represents a successful Login Flow and lets the user access the authenticated
-identity.
+A cookie or token that's stored in the users' Browser or API Client. It represents a successful Login Flow and lets the user
+access the authenticated identity.
 
 #### Ory Project Slug
 
-A generic identifier for each Ory Cloud project. It has the format
-`adjective-name-randomstring` for example: `suspicious-curran-y23rz7k2t`.
+A generic identifier for each Ory Cloud project. It has the format `adjective-name-randomstring` for example:
+`suspicious-curran-y23rz7k2t`.
 
 #### Ory Project Public API
 
-The Ory Kratos endpoint for accessing your project's public API, it's composed
-like so: `https://$ORY_PROJECT_SLUG/api/kratos/public`.
+The Ory Kratos endpoint for accessing your project's public API, it's composed like so:
+`https://$ORY_PROJECT_SLUG/api/kratos/public`.
 
 #### Ory Project Admin API
 
-The Ory Kratos endpoint for accessing your project's administrative API, it's
-composed like so: `https://$ORY_PROJECT_SLUG/api/kratos/admin`.
+The Ory Kratos endpoint for accessing your project's administrative API, it's composed like so:
+`https://$ORY_PROJECT_SLUG/api/kratos/admin`.
 
 ## Basics
 
@@ -66,60 +61,48 @@ The person who actually uses a Web-App, SPA, or mobile App that uses Ory Cloud.
 
 #### Identity
 
-The "who" of the application. This can be an employee, customer, external
-developer, or a programmatic identity like an IoT device, application, or
-another kind of machine actor. Other often used aliases include "user",
-"account", or "user account".
+The "who" of the application. This can be an employee, customer, external developer, or a programmatic identity like an IoT
+device, application, or another kind of machine actor. Other often used aliases include "user", "account", or "user account".
 
 #### Self-services
 
-Interfaces and flows in Ory Cloud that allow end-users to consume services
-without the direct involvement of service employees. A common example would be
-when someone signs up for a service without interacting directly to support.
+Interfaces and flows in Ory Cloud that allow end-users to consume services without the direct involvement of service employees. A
+common example would be when someone signs up for a service without interacting directly to support.
 
 #### Browser Client
 
-End-user side. A browser client refers to the Web browser in the user's machine
-or mobile device.
+End-user side. A browser client refers to the Web browser in the user's machine or mobile device.
 
 #### API Client
 
-End-user side. A browser client refers to the Web browser in the user's machine
-or mobile device.
+End-user side. A browser client refers to the Web browser in the user's machine or mobile device.
 
 #### Web App
 
-A web application is a server-side application that renders HTML; often written
-in PHP, Java, Go, ExpressJS, etc... Also called "server-side browser client",
-since most of the application logic is performed on the server-side.
+A web application is a server-side application that renders HTML; often written in PHP, Java, Go, Express.js, etc... Also called
+"server-side browser client", since most of the application logic is performed on the server-side.
 
 #### Single Page Application
 
-A Single Page Application (or SPA) is a web application that dynamically
-rewrites the current web page with new data; often written in React, Angular,
-Next, etc... Also called "client-side browser client", since most of the
-application logic is performed in the end-users browser, so on the client-side.
+A Single Page Application (or SPA) is a web application that dynamically rewrites the current web page with new data; often
+written in React, Angular, Next, etc... Also called "client-side browser client", since most of the application logic is performed
+in the end-users browser, so on the client-side.
 
 #### Native App
 
-A native application is built for a specific device platform such as iOs,
-Android, Windows, smartTV, or others. Also called "client without browser",
-since the end-user doesn't use a browser directly, all flows go directly through
-the native app UI.
+A native application is built for a specific device platform such as iOs, Android, Windows, smartTV, or others. Also called
+"client without browser", since the end-user doesn't use a browser directly, all flows go directly through the native app UI.
 
 ## Self-Service Flows
 
 #### Registration Flow
 
-The path that a user has to take in order to create an identity at your
-application.
+The path that a user has to take in order to create an identity at your application.
 
 #### Login Flow
 
-The path that a user has to take in order to authenticate (i.e. prove they're a
-certain identity) at your application.
+The path that a user has to take in order to authenticate (i.e. prove they're a certain identity) at your application.
 
 #### Recovery Flow
 
-The path that a user has to take in order to recover access to their account,
-for example through a verified email or other means.
+The path that a user has to take in order to recover access to their account, for example through a verified email or other means.

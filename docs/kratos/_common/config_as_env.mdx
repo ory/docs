@@ -1,0 +1,10 @@
+:::tip
+
+When running a self-hosted instance, you can pass the social sign-in provider configuration in the
+`SELFSERVICE_METHODS_OIDC_CONFIG_PROVIDERS` [environment variable](../../kratos/configuring). For example:
+
+```shell
+SELFSERVICE_METHODS_OIDC_CONFIG_PROVIDERS='[{"id":"google","provider":"google","mapper_url":"<file_location>","client_id":"<client_id>","client_secret":"<client_secret>","scope":["openid","email","profile"],"auth_url":"https://accounts.google.com/o/oauth2/v2/auth","token_url":"https://www.googleapis.com/oauth2/v4/token","issuer_url":"https://accounts.google.com"}]'
+```
+
+:::

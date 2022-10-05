@@ -1,37 +1,31 @@
 ---
-title: 'List API: Display all Objects a User has Access to'
+title: "List API: display all objects a user has access to"
 ---
 
-import CodeTabs from '@site/src/theme/CodeTabs'
+import CodeTabs from "@site/src/theme/CodeTabs"
 
-In this guide you will learn how to use Ory Keto's list API to display a list of
-all objects (for example files, ...) a user has access to. Please refer to the
-[gRPC](../reference/proto-api.mdx) and [REST](../reference/rest-api.mdx) API
-reference documentation for all details. The list API allows you to query
-relation tuples based on partial relation tuples.
+In this guide you will learn how to use Ory Keto's list API to display a list of all objects (for example files, ...) a user has
+access to. Please refer to the [gRPC](../reference/proto-api.mdx) and [REST](../reference/rest-api.mdx) API reference
+documentation for all details. The list API allows you to query relation tuples based on partial relation tuples.
 
 ## Example
 
-As an example, we want to look at a chat application. Every user is part of one
-or more chats, and each chat has one or more members.
+As an example, we want to look at a chat application. Every user is part of one or more chats, and each chat has one or more
+members.
 
-Chats are stored in Ory Keto within the `chats` namespace. They're identified by
-a UUID that the application maps to the actual object metadata. Users are also
-identified by and mapped to a UUID.
+Chats are stored in Ory Keto within the `chats` namespace. They're identified by a UUID that the application maps to the actual
+object metadata. Users are also identified by and mapped to a UUID.
 
 :::info
 
-For the sake of readability, the code samples use the name of the chat and
-username instead of the UUIDs. Please refer to the
-[objects](../concepts/objects.mdx) and [subjects](../concepts/subjects.mdx)
-pages for why the mapping is necessary.
+For the sake of readability, the code samples use the name of the chat and username instead of the UUIDs. Please refer to the
+[objects](../concepts/objects.mdx) and [subjects](../concepts/subjects.mdx) pages for why the mapping is necessary.
 
 :::
 
-### Listing Objects
+### Listing objects
 
-Our example application allows users to browse the chats they belong to. To
-achieve that, it uses Ory Keto's list API.
+Our example application allows users to browse the chats they belong to. To achieve that, it uses Ory Keto's list API.
 
 We assume that the application has the following chats:
 
@@ -53,8 +47,7 @@ coffee-break:
     - Patrik
 ```
 
-This is represented in Ory Keto by the following
-[relation tuples](../concepts/relation-tuples.mdx):
+This is represented in Ory Keto by the following [relation tuples](../concepts/relation-tuples.mdx):
 
 ```keto-relation-tuples
 chats:memes#member@PM
@@ -70,60 +63,43 @@ chats:coffee-break#member@Julia
 chats:coffee-break#member@Patrik
 ```
 
-The user `PM` now opens the chat application. To display a list of all of `PM`'s
-chats, the application uses Keto's list API:
+The user `PM` now opens the chat application. To display a list of all of `PM`'s chats, the application uses Keto's list API:
 
-<CodeTabs
-  sampleId="list-api-display-objects/01-list-PM"
-  version="v0.7.0-alpha.1"
-/>
+<CodeTabs sampleId="list-api-display-objects/01-list-PM" version="v0.7.0-alpha.1" />
 
-As a response, the application gets the list of all chats the user `PM` is a
-member of. It can then use the information to build the UI.
+As a response, the application gets the list of all chats the user `PM` is a member of. It can then use the information to build
+the UI.
 
-### Listing Subjects
+### Listing subjects
 
-Another view of the chat application has to display all members of a specific
-group to the user. This can also be achieved using the list API. In cases where
-such a membership would be modeled through
-[subject sets](../concepts/subjects.mdx#subject-sets), you have to use the
-[expand-API](./expand-api-display-who-has-access.mdx).
+Another view of the chat application has to display all members of a specific group to the user. This can also be achieved using
+the list API. In cases where such a membership would be modeled through [subject sets](../concepts/subjects.mdx#subject-sets), you
+have to use the [expand-API](./expand-api-display-who-has-access.mdx).
 
 :::caution
 
-In this case the application should probably first use the
-[check-API](./simple-access-check-guide.mdx) to check whether the user is
-allowed to list the members of a group. This step isn't part of this example.
+In this case the application should probably first use the [check-API](./simple-access-check-guide.mdx) to check whether the user
+is allowed to list the members of a group. This step isn't part of this example.
 
 :::
 
 In our example, a user wants to see who is a member of the `coffee-break` group:
 
-<CodeTabs
-  sampleId="list-api-display-objects/02-list-coffee-break"
-  version="v0.7.0-alpha.1"
-/>
+<CodeTabs sampleId="list-api-display-objects/02-list-coffee-break" version="v0.7.0-alpha.1" />
 
-## Application Context
+## Application context
 
-It's important to note that the list API does **not** expand
-[subject sets](../concepts/subjects.mdx#subject-sets). Usually the application
-has some context to determine what tuples to query anyway. That could be
-knowledge of the structure of subject sets like depth or hierarchy, or the UI
-context, like a "My Items" view which should probably contain other objects than
-a "My Organizations" or "Shared with Me" views. If there really is no way to
-narrow down a query, you will have to use the
-[expand-API](./expand-api-display-who-has-access) instead, or repeatedly call
-the list API. Try to avoid such cases because they require a lot of resources
-and can quickly degrade the service quality for all users. Please refer to the
+It's important to note that the list API does **not** expand [subject sets](../concepts/subjects.mdx#subject-sets). Usually the
+application has some context to determine what tuples to query anyway. That could be knowledge of the structure of subject sets
+like depth or hierarchy, or the UI context, like a "My Items" view which should probably contain other objects than a "My
+Organizations" or "Shared with Me" views. If there really is no way to narrow down a query, you will have to use the
+[expand-API](./expand-api-display-who-has-access) instead, or repeatedly call the list API. Try to avoid such cases because they
+require a lot of resources and can quickly degrade the service quality for all users. Please refer to the
 [performance considerations](../performance.mdx).
 
 ## Pagination
 
-The list API only returns paginated results. It isn't possible to customize the
-order of results. The response returns an opaque token that has to be used to
-retrieve the following page. The first page can be retrieved by passing no, or
-an empty token.
+The list API only returns paginated results. It isn't possible to customize the order of results. The response returns an opaque
+token that has to be used to retrieve the following page. The first page can be retrieved by passing no, or an empty token.
 
-The page size can be adjusted at any point, not only when requesting the first
-page. It defaults to 100 items.
+The page size can be adjusted at any point, not only when requesting the first page. It defaults to 100 items.

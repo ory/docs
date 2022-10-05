@@ -1,38 +1,37 @@
 ---
 id: personal-access-token
-title: Personal Access Tokens
+title: Personal access tokens
 ---
 
-You need to access the Ory administrative APIs if you want to:
+A Personal Access Token (PAT) is a means of authentication you can use when directly calling the Ory APIs. The PAT is bound to the
+Ory Cloud project where it was created. A PAT created for an administrator in project `A` won't be valid in project `B` in any
+capacity.
 
-- [list](../cli/ory-identities-list.md),
-- [update](../cli/ory-identities-get.md) or
-- [delete](../cli/ory-identities-delete.md) identities,
-- use the [Ory CLI](../guides/cli/10_config-with-cli.mdx) to manage your project
+For example, when calling Ory administrative APIs to [list](../cli/ory-list-identities.md), [update](../cli/ory-get-identity.md),
+or [delete](../cli/ory-delete-identity.md) identities, you must authenticate as an administrator. You can do that by passing a PAT
+in the request's `Authorization` header. The PAT must be generated for a user with administrative rights in the Ory Cloud Project
+in which you want to manage identities.
 
-To access administrative APIs at Ory you need to authenticate as an
-administrator. Ory offers Personal Access Tokens to make this process easier for
-development. You can use PATs to access the admin API from the command line or
-via scripts.
+:::tip
 
-:::note
-
-Ory's Personal Access Tokens are always prefixed with `ory_pat_`, making them
-easier to identify in code analysis.
+You can use PATs to call APIs from the command line or through scripts. Ory PATs are always prefixed with `ory_pat_`, which makes
+it easy to identify them when analyzing code.
 
 :::
 
-Personal Access Tokens are bound to a project. They don't work for other
-projects than the one they have been created for.
+## Creating a Personal Access Token
 
-Every member can create many, but not unlimited, personal access tokens. When
-creating a token you must give it a description to help you remember what you
-created the token for. It helps to name the token after the function it performs
-or after the person that uses it, but the name can be freely chosen.
+Follow these steps to create a Personal Access Token (PAT):
 
-The token is only displayed once upon creation. If you lose the token you will
-have to create a new one.
+1. Open the [Ory Console](https://console.ory.sh/) and sign in.
+2. Select **Connect** from the left navigation bar.
+3. Scroll to the bottom of the page to the **Personal Access Token** section.
+4. Click the **+** icon.
+5. Define the name of the generated token. This name is used for identification purposes only.
+6. Copy the created PAT and store it in a safe place.
 
-To see detailed instructions how to create and use Personal Access Tokens, refer
-to the
-[Create Personal Access Tokens Guide](../guides/create-personal-access-token.mdx).
+   :::warning
+
+   The PAT is displayed only once. If you lose the token, you must generate a new one.
+
+   :::

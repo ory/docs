@@ -1,0 +1,95 @@
+---
+id: create-users-identities
+title: Learn how to create accounts for users
+sidebar_label: Create identities
+---
+
+The goal of this flow is to create an identity and provide the end user with a way of signing in and setting their password (or
+any other type of credential) for future logins. To achieve this, create the identity and set its traits and schema:
+
+````mdx-code-block
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
+import SelfHostedKratos from '@site/src/components/SelfHostedKratos'
+
+<Tabs
+  defaultValue="cloud"
+  values={[
+    {label: 'Ory Cloud', value: 'cloud'},
+    {label: 'Self-Hosted Ory Kratos', value: 'kratos'},
+  ]}>
+  <TabItem value="cloud">
+
+```shell
+curl --request POST -sL \\
+  --header "Authorization: Bearer ory_pat_xRKLsFEOUFQFVBjd6o3FQDifaLYhabGd" \\
+  --header "Content-Type: application/json" \\
+  --data '{
+  "schema_id": "preset://email",
+  "traits": {
+    "email": "docs@example.org"
+  }
+}' https://playground.projects.oryapis.com/admin/identities
+```
+
+  </TabItem>
+  <TabItem value="kratos">
+    <SelfHostedKratos/>
+    <p>And use it to create an identity:</p>
+
+```shell
+curl --request POST -sL \\
+  --header "Content-Type: application/json" \\
+  --data '{
+  "schema_id": "preset://email",
+  "traits": {
+    "email": "docs@example.org"
+  }
+}' http://127.0.0.1:4434/identities
+```
+
+ </TabItem>
+</Tabs>
+````
+
+The server responds with something similar to:
+
+```json
+{
+  "id": "e01b5f2f-6afc-4194-8578-4cebcf69a4d5",
+  "schema_id": "preset://email",
+  "schema_url": "https://playground.projects.oryapis.com/schemas/cHJlc2V0Oi8vZW1haWw",
+  "state": "active",
+  "state_changed_at": "2022-02-24T13:38:05.27510048Z",
+  "traits": {
+    "email": "docs@example.org"
+  },
+  "verifiable_addresses": [
+    {
+      "id": "c6cea2a7-f419-42fe-a610-456bea02aab5",
+      "value": "docs@example.org",
+      "verified": false,
+      "via": "email",
+      "status": "pending",
+      "created_at": "2022-02-24T13:38:05.28581Z",
+      "updated_at": "2022-02-24T13:38:05.28581Z"
+    }
+  ],
+  "recovery_addresses": [
+    {
+      "id": "21ff90e1-a9a9-491e-8194-774172420989",
+      "value": "docs@example.org",
+      "via": "email",
+      "created_at": "2022-02-24T13:38:05.29565Z",
+      "updated_at": "2022-02-24T13:38:05.29565Z"
+    }
+  ],
+  "created_at": "2022-02-24T13:38:05.27892Z",
+  "updated_at": "2022-02-24T13:38:05.27892Z"
+}
+```
+
+Keep in mind that you can change the `schema_id` to reflect the schema you want to use for this identity. Similarly, the trait
+key/values depend on your schema as well. The command shown does not create a password or any other type of credential for the
+identity.

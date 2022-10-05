@@ -2,10 +2,10 @@
   "name": "protect-page-login",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "next dev",
+    "lint": "next lint",
+    "start": "next start"
   },
   "dependencies": {
     "@ory/client": "^0.0.1-alpha.49",

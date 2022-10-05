@@ -1,86 +1,82 @@
 ---
 id: ui-user-interface
-title: Customize User Interface
+title: Customize user interface
 ---
 
-Ory Kratos is an HTTP API server and does not include a traditional HTML user
-interface (rendering forms such as "Login" or "Registration") in its code base.
-We provide several reference UI implementations which you can use to get started
-quickly, or as the basis for your own UI:
+Ory Kratos is an HTTP API server and does not include a traditional HTML user interface (rendering forms such as "Login" or
+"Registration") in its code base. We provide several reference UI implementations which you can use to get started quickly, or as
+the basis for your own UI:
 
-- The [Ory Cloud Managed UI](https://playground.projects.oryapis.com/ui/welcome)
-  is available when you run Ory Kratos in Ory Cloud.
+- The [Ory Cloud Managed UI](https://playground.projects.oryapis.com/ui/welcome) is available when you run Ory Kratos in Ory
+  Cloud.
 - [React Native Reference Implementation](https://github.com/ory/kratos-selfservice-ui-react-native)
-- [NodeJS Reference Implementation](https://github.com/ory/kratos-selfservice-ui-node)
+- [Node.js Reference Implementation](https://github.com/ory/kratos-selfservice-ui-node)
 - [React / SPA Reference Implementation](https://github.com/ory/react-nextjs-example)
 
-Ory Kratos' HTTP APIs make it easy and straight forward to write your own UI
-(e.g. "login" screen, "update profile settings", ...) in any programming
-languages and framework! It can be built in any programming language including
-Java, Node, or Python and can be run both a server or an end-user device for
-example a browser, or a mobile phone. Implementing your own UI is simple and
-straight forward. There is no complex authentication mechanism required and no
-need to worry about possible attack vectors such as CSRF or Session Attacks
-since Ory Kratos provides the preventive measures built in.
+Ory Kratos' HTTP APIs make it easy and straight forward to write your own UI (e.g. "login" screen, "update profile settings", ...)
+in any programming languages and framework! It can be built in any programming language including Java, Node, or Python and can be
+run both a server or an end-user device for example a browser, or a mobile phone. Implementing your own UI is simple and straight
+forward. There is no complex authentication mechanism required and no need to worry about possible attack vectors such as CSRF or
+Session Attacks since Ory Kratos provides the preventive measures built in.
 
-Chapter [Self-Service Flows](../self-service.mdx) contains further information
-on APIs and flows related to the SSUI, and build self-service applications.
+Chapter [Self-Service Flows](../self-service.mdx) contains further information on APIs and flows related to the SSUI, and build
+self-service applications.
 
-import CodeFromRemote from '@site/src/theme/CodeFromRemote'
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
+import CodeFromRemote from "@site/src/theme/CodeFromRemote"
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
-## UI Payloads
+## UI payloads
 
-To make UI customization easy, Ory Kratos prepares all the necessary data for
-forms that need to be shown during e.g. login, registration:
+To make UI customization easy, Ory Kratos prepares all the necessary data for forms that need to be shown during e.g. login,
+registration:
 
 ```json5
 {
-  id: '9b527900-2199-4221-9252-7971b3362282',
-  type: 'browser',
-  expires_at: '2021-04-28T13:55:36.046466067Z',
-  issued_at: '2021-04-28T12:55:36.046466067Z',
+  id: "9b527900-2199-4221-9252-7971b3362282",
+  type: "browser",
+  expires_at: "2021-04-28T13:55:36.046466067Z",
+  issued_at: "2021-04-28T12:55:36.046466067Z",
   ui: {
-    action: 'https://playground.projects.oryapis.com/api/kratos/public/self-service/settings?flow=9b527900-2199-4221-9252-7971b3362282',
-    method: 'POST',
+    action: "https://playground.projects.oryapis.com/self-service/settings?flow=9b527900-2199-4221-9252-7971b3362282",
+    method: "POST",
     nodes: [
       {
-        type: 'input',
-        group: 'default',
+        type: "input",
+        group: "default",
         attributes: {
-          node_type: 'input',
-          name: 'csrf_token',
-          type: 'hidden',
-          value: 'U3r/lgEfT8rA1Lg0Eeo06oGO8mX6T4TKoe/z7rbInhvYeacbRg0IW9zrqnpU1wmQJXKiekNzdLnypx5naHXoPg==',
+          node_type: "input",
+          name: "csrf_token",
+          type: "hidden",
+          value: "U3r/lgEfT8rA1Lg0Eeo06oGO8mX6T4TKoe/z7rbInhvYeacbRg0IW9zrqnpU1wmQJXKiekNzdLnypx5naHXoPg==",
           required: true,
-          disabled: false
+          disabled: false,
         },
         messages: null,
-        meta: {}
+        meta: {},
       },
       {
-        type: 'input',
-        group: 'profile',
+        type: "input",
+        group: "profile",
         attributes: {
-          node_type: 'input',
-          name: 'traits.email',
-          type: 'email',
-          value: 'foo@ory.sh',
-          disabled: false
+          node_type: "input",
+          name: "traits.email",
+          type: "email",
+          value: "foo@ory.sh",
+          disabled: false,
         },
         messages: null,
         meta: {
           label: {
             id: 1070002,
-            text: 'E-Mail',
-            type: 'info'
-          }
-        }
-      }
+            text: "E-Mail",
+            type: "info",
+          },
+        },
+      },
       // ...
-    ]
-  }
+    ],
+  },
 }
 ```
 
@@ -89,7 +85,7 @@ The above example would be rendered in HTML like this:
 ```html
 <form
   method="POST"
-  action="https://playground.projects.oryapis.com/api/kratos/public/self-service/settings?flow=9b527900-2199-4221-9252-7971b3362282"
+  action="https://playground.projects.oryapis.com/self-service/settings?flow=9b527900-2199-4221-9252-7971b3362282"
 >
   <!-- this is the first node -->
   <input
@@ -105,26 +101,22 @@ The above example would be rendered in HTML like this:
 </form>
 ```
 
-As you can see, the JSON can be mapped almost 1:1 to HTML! This method makes it
-easy for you to implement complex forms without having to deal with state
-management, form validation, and more!
+As you can see, the JSON can be mapped almost 1:1 to HTML! This method makes it easy for you to implement complex forms without
+having to deal with state management, form validation, and more!
 
-## UI Node Groups
+## UI node groups
 
-Nodes are grouped (using the `group` key) based on the source that generated the
-node. Sources are the different methods such as "password" ("Sign in/up with ID
-& password"), "oidc" (Social Sign In), "link" (Password reset and email
-verification), "profile" ("Update your profile") and the "default" group which
-typically contains the CSRF token.
+Nodes are grouped (using the `group` key) based on the source that generated the node. Sources are the different methods such as
+"password" ("Sign in/up with ID & password"), "oidc" (Social Sign In), "link" (Password reset and email verification), "profile"
+("Update your profile") and the "default" group which typically contains the CSRF token.
 
-You can use the node group to filter out items, re-arrange them, render them
-differently - up to you!
+You can use the node group to filter out items, re-arrange them, render them differently - up to you!
 
-## UI Node Types
+## UI node types
 
 UI Nodes can have several types!
 
-### UI Script Nodes
+### UI script nodes
 
 The `script` node type is primarily used to load required scripts for WebAuthn!
 
@@ -155,8 +147,8 @@ Rendering it is straight forward if you are on the server-side:
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_script.hbs"
 />
 
-For single-page apps, you might need a different set up to load the script
-asynchronously. In ReactJS you might want to do something like the following:
+For single-page apps, you might need a different set up to load the script asynchronously. In React.js you might want to do
+something like the following:
 
 <CodeFromRemote
   lang="tsx"
@@ -166,8 +158,7 @@ asynchronously. In ReactJS you might want to do something like the following:
 
 ### UI Anchor Nodes
 
-Nodes of type `a` are currently not used in Ory Kratos, but we have them around
-in case they are needed at a later stage!
+Nodes of type `a` are currently not used in Ory Kratos, but we have them around in case they are needed at a later stage!
 
 <CodeFromRemote
   lang="pug"
@@ -175,7 +166,7 @@ in case they are needed at a later stage!
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_anchor.hbs"
 />
 
-### UI Image Nodes
+### UI image nodes
 
 Nodes of type `img` are used as QR codes, for example.
 
@@ -201,7 +192,7 @@ Nodes of type `img` are used as QR codes, for example.
 }
 ```
 
-![QR Code](../images/totp/qr.png)
+![QR Code](../_static/ui-user-interface/1.png)
 
 Here is an example of implementing an `img` node in handlebars:
 
@@ -211,7 +202,7 @@ Here is an example of implementing an `img` node in handlebars:
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_image.hbs"
 />
 
-Here is an example of implementing an `img` node in ReactJS:
+Here is an example of implementing an `img` node in React.js:
 
 <CodeFromRemote
   lang="tsx"
@@ -219,13 +210,13 @@ Here is an example of implementing an `img` node in ReactJS:
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/ui/NodeImage.tsx"
 />
 
-### UI Text Nodes
+### UI text nodes
 
 Nodes of type `text` are commonly used to display secrets (e.g. lookup secrets).
 
-![Lookup Secret](../images/text-node-1.png)
+![Lookup Secret](../_static/ui-user-interface/2.png)
 
-![TOTP Secret](../images/text-node-2.png)
+![TOTP Secret](../_static/ui-user-interface/3.png)
 
 Their JSON usually contains a bit of contextual information.
 
@@ -394,10 +385,9 @@ Their JSON usually contains a bit of contextual information.
   </TabItem>
 </Tabs>
 
-Rendering the text component is usually a bit more complex, as you most likely
-want a bit of custom formatting. By the way, you can find an overview of all
-message IDs used here in the conditionals at the end of this page! In
-handlebars, this could look as follows:
+Rendering the text component is usually a bit more complex, as you most likely want a bit of custom formatting. By the way, you
+can find an overview of all message IDs used here in the conditionals at the end of this page! In handlebars, this could look as
+follows:
 
 <CodeFromRemote
   lang="pug"
@@ -405,7 +395,7 @@ handlebars, this could look as follows:
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_text.hbs"
 />
 
-In ReactJS, you will most likely find similar if statements on the message IDs.
+In React.js, you will most likely find similar if statements on the message IDs.
 
 <CodeFromRemote
   lang="tsx"
@@ -413,10 +403,9 @@ In ReactJS, you will most likely find similar if statements on the message IDs.
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/ui/NodeText.tsx"
 />
 
-### UI Input Nodes
+### UI input nodes
 
-The most common node type is the `input` type. In general, it represents an HTL
-`<input>` field:
+The most common node type is the `input` type. In general, it represents an HTL `<input>` field:
 
 ```json
 {
@@ -449,29 +438,28 @@ An `input` node itself has a type as well. These types are taken from HTML:
 - `date`
 - `url`
 
-#### Checkbox Input Node
+#### Checkbox input node
 
-Checkboxes are primarily used when an Identity Schema field is of
-`"type": "boolean"`. The following Identity Schema
+Checkboxes are primarily used when an Identity Schema field is of `"type": "boolean"`. The following Identity Schema
 
 ```json5
 {
-  $schema: 'http://json-schema.org/draft-07/schema#',
-  type: 'object',
+  $schema: "http://json-schema.org/draft-07/schema#",
+  type: "object",
   properties: {
     traits: {
-      type: 'object',
+      type: "object",
       properties: {
         // ...
         tos: {
-          title: 'Accept Terms of Service',
-          type: 'boolean'
-        }
+          title: "Accept Terms of Service",
+          type: "boolean",
+        },
         // ...
-      }
+      },
       // ...
-    }
-  }
+    },
+  },
 }
 ```
 
@@ -498,10 +486,9 @@ would result in such a checkbox node:
 }
 ```
 
-When using plain HTML and not a single page app, the best option you have is to
-use two input fields - one hidden and one a checkbox - with `false` and `true`
-respectively. Make sure that the checkbox input field is second as it needs to
-override the hidden field, if set.
+When using plain HTML and not a single page app, the best option you have is to use two input fields - one hidden and one a
+checkbox - with `false` and `true` respectively. Make sure that the checkbox input field is second as it needs to override the
+hidden field, if set.
 
 <CodeFromRemote
   lang="pug"
@@ -509,8 +496,7 @@ override the hidden field, if set.
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_checkbox.hbs"
 />
 
-In single page apps, such as ReactJS, this trickery is not needed as you have
-full control over the form's state:
+In single page apps, such as React.js, this trickery is not needed as you have full control over the form's state:
 
 <CodeFromRemote
   lang="tsx"
@@ -518,11 +504,10 @@ full control over the form's state:
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/ui/NodeInputCheckbox.tsx"
 />
 
-#### Button Input Node
+#### Button input node
 
-Buttons are primarily used to trigger something, which is why it is important to
-have the `onclick` attribute handled. If `onclick` exists, you will also find a
-`script` node:
+Buttons are primarily used to trigger something, which is why it is important to have the `onclick` attribute handled. If
+`onclick` exists, you will also find a `script` node:
 
 ```json
 [
@@ -565,8 +550,7 @@ have the `onclick` attribute handled. If `onclick` exists, you will also find a
 ]
 ```
 
-For example, when an end-user triggers a WebAuthn flow, the button would trigger
-the required JavaScript to get it working!
+For example, when an end-user triggers a WebAuthn flow, the button would trigger the required JavaScript to get it working!
 
 <CodeFromRemote
   lang="pug"
@@ -574,10 +558,9 @@ the required JavaScript to get it working!
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_checkbox.hbs"
 />
 
-In a single page application, we need a bit of trickery as we are executing
-JavaScript from a JSON source in JavaScript - which essentialy means we need to
-execute `eval`. Fortunately, this is only needed in this special case. If you do
-not use WebAuthn, you will not need `eval` at all!
+In a single page application, we need a bit of trickery as we are executing JavaScript from a JSON source in JavaScript - which
+essentially means we need to execute `eval`. Fortunately, this is only needed in this special case. If you do not use WebAuthn,
+you will not need `eval` at all!
 
 <CodeFromRemote
   lang="tsx"
@@ -585,10 +568,9 @@ not use WebAuthn, you will not need `eval` at all!
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/ui/NodeInputButton.tsx"
 />
 
-#### Submit Input Node
+#### Submit input node
 
-Submit buttons trigger the form submission. In pure HTML, this is just a simple
-submit button:
+Submit buttons trigger the form submission. In pure HTML, this is just a simple submit button:
 
 <CodeFromRemote
   lang="pug"
@@ -596,57 +578,56 @@ submit button:
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_submit.hbs"
 />
 
-If you have control over the form's payload, like in ReactJS, you need to ensure
-that the name of the form (e.g. `method`) is only submitted once with the
-correct value (e.g. `password`). Because in some cases Ory Kratos might generate
-multiple submit buttons with the same `name` attribute.
+If you have control over the form's payload, like in React.js, you need to ensure that the name of the form (e.g. `method`) is
+only submitted once with the correct value (e.g. `password`). Because in some cases Ory Kratos might generate multiple submit
+buttons with the same `name` attribute.
 
 ```json5
 [
   {
-    type: 'input',
-    group: 'profile',
+    type: "input",
+    group: "profile",
     attributes: {
-      name: 'method',
-      type: 'submit',
-      value: 'profile',
+      name: "method",
+      type: "submit",
+      value: "profile",
       disabled: false,
-      node_type: 'input'
+      node_type: "input",
     },
     messages: [],
     meta: {
       label: {
         id: 1070003,
-        text: 'Save',
-        type: 'info'
-      }
-    }
+        text: "Save",
+        type: "info",
+      },
+    },
   },
   // ...
   {
-    type: 'input',
-    group: 'password',
+    type: "input",
+    group: "password",
     attributes: {
-      name: 'method',
-      type: 'submit',
-      value: 'password',
+      name: "method",
+      type: "submit",
+      value: "password",
       disabled: false,
-      node_type: 'input'
+      node_type: "input",
     },
     messages: [],
     meta: {
       label: {
         id: 1070003,
-        text: 'Save',
-        type: 'info'
-      }
-    }
-  }
+        text: "Save",
+        type: "info",
+      },
+    },
+  },
 ]
 ```
 
-You need to ensure that the correct value for the `name` is submitted, or the
-user might end up updating their password instead of their email address!
+You need to ensure that the correct value for the `name` is submitted, or the user might end up updating their password instead of
+their email address!
 
 <CodeFromRemote
   lang="tsx"
@@ -654,24 +635,24 @@ user might end up updating their password instead of their email address!
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/ui/NodeInputSubmit.tsx"
 />
 
-#### Hidden Input Node
+#### Hidden input node
 
 Hidden input fields such as the `csrf_token`
 
 ```json5
 {
-  type: 'input',
-  group: 'default',
+  type: "input",
+  group: "default",
   attributes: {
-    name: 'csrf_token',
-    type: 'hidden',
-    value: 'By8X7TPnn/NMtXeDpK6sbshISK3t1WnezAtlMnFA6ZPsxxNmRsG8ks7WpsHMQtTLbxtqKJOiu4aArJok6/GOSw==',
+    name: "csrf_token",
+    type: "hidden",
+    value: "By8X7TPnn/NMtXeDpK6sbshISK3t1WnezAtlMnFA6ZPsxxNmRsG8ks7WpsHMQtTLbxtqKJOiu4aArJok6/GOSw==",
     required: true,
     disabled: false,
-    node_type: 'input'
+    node_type: "input",
   },
   messages: [],
-  meta: {}
+  meta: {},
 }
 ```
 
@@ -683,7 +664,7 @@ are easy to implement in both pure HTML
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_hidden.hbs"
 />
 
-and single page apps like ReactJS
+and single page apps like React.js
 
 <CodeFromRemote
   lang="tsx"
@@ -691,11 +672,10 @@ and single page apps like ReactJS
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/ui/NodeInputHidden.tsx"
 />
 
-#### Default Input Node Rendering
+#### Default input node rendering
 
-You do not need to have one view for every node type. Instead, you can "fall
-back" to a default implementation. The most important node types (`hidden`,
-`submit`, `button`, `checkbox`) we already covered!
+You do not need to have one view for every node type. Instead, you can "fall back" to a default implementation. The most important
+node types (`hidden`, `submit`, `button`, `checkbox`) we already covered!
 
 Here are some examples for you to get a feeling for possible payloads!
 
@@ -807,8 +787,7 @@ Here are some examples for you to get a feeling for possible payloads!
 </TabItem>
 </Tabs>
 
-You should render these components using a generic node input render logic like
-the one below:
+You should render these components using a generic node input render logic like the one below:
 
 <CodeFromRemote
   lang="pug"
@@ -816,10 +795,9 @@ the one below:
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_default.hbs"
 />
 
-## Node Order and Labels
+## Node order and labels
 
-For all traits, the labels and orders are taken from the Identity Schema. An
-Identity Schema such as
+For all traits, the labels and orders are taken from the Identity Schema. An Identity Schema such as
 
 ```json
 {
@@ -866,8 +844,7 @@ Identity Schema such as
 }
 ```
 
-will generate the following fields - take note that the order of the JSON Schema
-affects the order of the nodes:
+will generate the following fields - take note that the order of the JSON Schema affects the order of the nodes:
 
 ```json
 [
@@ -946,25 +923,19 @@ affects the order of the nodes:
 ]
 ```
 
-Generally, submit buttons are the last node in a group. If you wish to have more
-flexibility with regards to order or labeling the best option is to implement
-this in your UI using map, filter, and other JSON transformation functions.
+Generally, submit buttons are the last node in a group. If you wish to have more flexibility with regards to order or labeling the
+best option is to implement this in your UI using map, filter, and other JSON transformation functions.
 
 ## Titles, Labels & Validation Messages
 
-Ory Kratos helps users understand what is happening by providing messages that
-explain what went wrong or what needs to be done. Examples are "The provided
-credentials are invalid", "Missing property email" and similar.
+Ory Kratos helps users understand what is happening by providing messages that explain what went wrong or what needs to be done.
+Examples are "The provided credentials are invalid", "Missing property email" and similar.
 
-Typically login, registration, settings, ... flows include such messages on
-different levels:
+Typically login, registration, settings, ... flows include such messages on different levels:
 
-1. At the root level, indicating that the message affects the whole request
-   (e.g. request expired)
-2. At the method (password, oidc, profile) level, indicating that the message
-   affects a specific method / form.
-3. At the field level, indicating that the message affects a form field (e.g.
-   validation errors).
+1. At the root level, indicating that the message affects the whole request (e.g. request expired)
+2. At the method (password, oidc, profile) level, indicating that the message affects a specific method / form.
+3. At the field level, indicating that the message affects a form field (e.g. validation errors).
 
 Each message has a layout of:
 
@@ -972,18 +943,17 @@ Each message has a layout of:
 {
   id: 1234,
   // This ID will not change and can be used to translate the message or use your own message content.
-  text: 'Some default text',
+  text: "Some default text",
   // A default text in english that you can display if you do not want to customize the message.
-  context: {}
+  context: {},
   // A JSON object which may contain additional fields such as `expires_at`. This is helpful if you want to craft your own messages.
 }
 ```
 
 The message ID is a 7-digit number (`xyyzzzz`) where
 
-- `x` is the message type which is either `1` for an info message (e.g.
-  `1020000`), `4` (e.g. `4020000`) for an input validation error message, and
-  `5` (e.g. `5020000`) for a generic error message.
+- `x` is the message type which is either `1` for an info message (e.g. `1020000`), `4` (e.g. `4020000`) for an input validation
+  error message, and `5` (e.g. `5020000`) for a generic error message.
 - `yy` is the module or flow this error references and can be:
 - `01` for login messages (e.g. `1010000`)
 - `02` for logout messages (e.g. `1020000`)
@@ -992,16 +962,14 @@ The message ID is a 7-digit number (`xyyzzzz`) where
 - `05` for settings messages (e.g. `1050000`)
 - `06` for account recovery messages (e.g. `1060000`)
 - `07` for email/phone verification messages (e.g. `1070000`)
-- `zzzz` is the message ID and typically starts at `0001`. For example, message
-  ID `4070001` (`4` for input validation error, `07` for verification, `0001`
-  for the concrete message) is:
+- `zzzz` is the message ID and typically starts at `0001`. For example, message ID `4070001` (`4` for input validation error, `07`
+  for verification, `0001` for the concrete message) is:
   `The verification code has expired or was otherwise invalid. Please request another code.`.
 
 ## UI Error Codes
 
-When building a single page app, or a native app, Ory Kratos will respond with
-errors in some cases. You can find an exemplary error handling logic in our
-ReactJS reference implementation:
+When building a single page app, or a native app, Ory Kratos will respond with errors in some cases. You can find an exemplary
+error handling logic in our React.js reference implementation:
 
 <CodeFromRemote
   lang="tsx"
@@ -1009,27 +977,38 @@ ReactJS reference implementation:
   src="https://raw.githubusercontent.com/ory/kratos-react-nextjs-ui/master/pkg/errors.tsx"
 />
 
-## UI Message Codes
+## UI message codes
 
 UI Messages are always presented as the following JSON
 
 ```json5
 {
   id: 1234, // A unique, fixed number
-  text: '...',
-  type: '...', // Usually "error" or "info"
+  text: "...",
+  type: "...", // Usually "error" or "info"
   context: {
     // Additional, contextual information
-  }
+  },
 }
 ```
 
 for the values of these fields, please check the list below.
 
+### Machine Readable Format
+
+```mdx-code-block
+<CodeFromRemote
+  lang="json"
+  title="https://github.com/ory/docs/blob/master/docs/kratos/concepts/messages.json"
+  src="https://raw.githubusercontent.com/ory/docs/master/docs/kratos/concepts/messages.json"
+/>
+```
+
+### Human Readable Format
+
 :::note
 
-The section below is auto-generated. Changing it has no effect as any changes
-will be overwritten!
+The section below is auto-generated. Changing it has no effect as any changes will be overwritten!
 
 :::
 

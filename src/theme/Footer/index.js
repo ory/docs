@@ -4,29 +4,29 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import React from 'react'
-import clsx from 'clsx'
-import Link from '@docusaurus/Link'
-import { useThemeConfig } from '@docusaurus/theme-common'
-import useBaseUrl from '@docusaurus/useBaseUrl'
-import styles from './styles.module.css'
+import React from "react"
+import clsx from "clsx"
+import Link from "@docusaurus/Link"
+import { useThemeConfig } from "@docusaurus/theme-common"
+import useBaseUrl from "@docusaurus/useBaseUrl"
+import styles from "./styles.module.css"
 
 function FooterLink({ to, href, label, prependBaseUrlToHref, ...props }) {
   const toUrl = useBaseUrl(to)
   const normalizedHref = useBaseUrl(href, {
-    forcePrependBaseUrl: true
+    forcePrependBaseUrl: true,
   })
   return (
     <Link
       className="footer__link-item"
       {...(href
         ? {
-            target: '_blank',
-            rel: 'noopener noreferrer',
-            href: prependBaseUrlToHref ? normalizedHref : href
+            target: "_blank",
+            rel: "noopener noreferrer",
+            href: prependBaseUrlToHref ? normalizedHref : href,
           }
         : {
-            to: toUrl
+            to: toUrl,
           })}
       {...props}
     >
@@ -50,11 +50,11 @@ function Footer() {
 
   return (
     <footer
-      className={clsx('footer', {
-        'footer--dark': footer.style === 'dark'
+      className={clsx("footer", {
+        "footer--dark": footer.style === "dark",
       })}
     >
-      <div className="container">
+      <div className="container text--center">
         {links && links.length > 0 && (
           <div className="row footer__links">
             {links.map((linkItem, i) => (
@@ -73,14 +73,14 @@ function Footer() {
                           className="footer__item" // Developer provided the HTML, so assume it's safe.
                           // eslint-disable-_next-line react/no-danger
                           dangerouslySetInnerHTML={{
-                            __html: item.html
+                            __html: item.html,
                           }}
                         />
                       ) : (
                         <li key={item.href || item.to} className="footer__item">
                           <FooterLink {...item} />
                         </li>
-                      )
+                      ),
                     )}
                   </ul>
                 ) : null}
@@ -89,7 +89,7 @@ function Footer() {
           </div>
         )}
         {(logo || copyright) && (
-          <div className="text--center">
+          <div className="footer--copyright">
             {logo && logo.src && (
               <div className="margin-bottom--sm">
                 {logo.href ? (
@@ -110,7 +110,7 @@ function Footer() {
             <div // Developer provided the HTML, so assume it's safe.
               // eslint-disable-_next-line react/no-danger
               dangerouslySetInnerHTML={{
-                __html: copyright
+                __html: copyright,
               }}
             />
           </div>

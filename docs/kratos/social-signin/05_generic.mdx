@@ -1,0 +1,70 @@
+---
+id: generic
+title: Add any OpenID Connect certified social sign-in provider to your Ory project
+sidebar_label: Generic provider
+toc_max_heading_level: 4
+---
+
+The Generic Provider option allows you to add any OpenID Connect Certified provider that doesn't require custom API calls to get
+the required user information.
+
+[Ory Hydra](https://www.ory.sh/hydra) is such a provider.
+
+:::tip
+
+Do you want to see your preferred social sign-in provider get a dedicated integration flow? Let us know by filling out
+[this survey](https://share-eu1.hsforms.com/1-ARyzi8nSuCYQ9Ci2i18wgextgn)!
+
+:::
+
+To add a social sign-in provider, you need these details:
+
+- Client ID
+- Client Secret
+- Issuer URL - OpenID Connect server URL used by the provider to issue tokens
+
+## Configuration in Ory Cloud Console
+
+To add a Generic Provider, follow these steps:
+
+1. Sign in to Ory Cloud Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
+2. Click the **Add A Generic Provider** button.
+3. Define the **Provider name**. This name is used for identification purposes only.
+4. Paste the configuration details obtained from your social sign-in provider into the corresponding fields in the Console:
+   - Client ID
+   - Client Secret
+   - Issuer URL
+5. Copy the Redirect URI from the Console and add it to your provider's configuration.
+6. Click **Save Configuration** to finish.
+
+:::note
+
+These steps cover the basic configuration of a social sign-in provider integration. At this point, the user experience is
+incomplete. To complete the configuration and ensure a smooth and secure user experience, configure the [scopes](#scopes) and
+[data mapping](#data-mapping) as described in the next section.
+
+:::
+
+### Additional configuration
+
+When adding a generic social sign-in provider, you can customize the integration by defining the OAuth scopes Ory requests from
+the provider and by setting up custom data mappings.
+
+#### Scopes
+
+The Scopes section allows you to define the OAuth scopes Ory requests from the sign-in provider. Defining scopes allows you to
+interact with the provider's APIs on behalf of the user, or to access additional user data, which is exposed as claims for data
+mapping.
+
+#### Data mapping
+
+The Data Mapping section allows you to map the data returned by the sign-in provider to traits as defined in the identity schema.
+
+To define the mapping, create a Jsonnet code snippet. Read [this document](./data-mapping) to learn more about Jsonnet data
+mapping.
+
+```mdx-code-block
+import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
+
+<JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
+```

@@ -1,28 +1,29 @@
 ---
 id: tracing
-title: Distributed Tracing
+title: Distributed tracing
 ---
 
-Configuring Distributed Tracing (DT) will enable you to obtain a visualization
-of the call paths that take place in order to process a request made to Kratos.
-It's yet another tool that you can use to aid you in profiling, debugging and
-ultimately understanding your deployment of Kratos better. Kratos supports the
-following tracing options:
+Configuring Distributed Tracing (DT) will enable you to obtain a visualization of the call paths that take place in order to
+process a request made to Kratos. It's yet another tool that you can use to aid you in profiling, debugging and ultimately
+understanding your deployment of Kratos better. Kratos supports the following tracing options:
 
-- Tracing backend(s): Jaeger, Elastic APM, Datadog, Zipkin and Instana - _Note:
-  adding support for other
-  [opentracing compliant backends](https://opentracing.io/docs/supported-tracers)
-  is planned. To aid in priority, please
-  [create an issue](https://github.com/ory/kratos/issues) with your feature
-  request._
-- Following existing traces: If you have deployed Kratos behind a proxy that has
-  initiated a trace, Kratos will attempt to join that trace by examining the
-  request headers for tracing context.
+- Tracing backend(s): Jaeger
+
+  **Note**: Adding support for other [OpenTelemetry exporters](https://opentelemetry.io/docs/instrumentation/go/exporting_data/)
+  is planned. To aid in priority, please [create an issue](https://github.com/ory/kratos/issues) with your feature request.
+  However, official support in OpenTelemetry only exists for the exporters listed
+  [here](https://github.com/open-telemetry/opentelemetry-go/tree/main/exporters). Other backends can be technically "supported" by
+  sending spans to the OpenTelemetry Collector agent, and configuring the collector to push spans to whatever
+  [backend of your choice](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter).
+
+- Following existing traces: If you have deployed Kratos behind a proxy that has initiated a trace, Kratos will attempt to join
+  that trace by examining the request headers for tracing context. At present, support for Jaeger and Zipkin (B3) spans exists;
+  support for additional formats like Trace Context and Baggage is planned.
 
 ### What a Kratos trace includes
 
-In DT speak, a trace is comprised of one or more spans which are logical units
-of work. Each Kratos span is encapsulated with the following state:
+In DT speak, a trace is comprised of one or more spans which are logical units of work. Each Kratos span is encapsulated with the
+following state:
 
 - A name
 - A start time
@@ -31,13 +32,34 @@ of work. Each Kratos span is encapsulated with the following state:
 
 Kratos creates the following spans:
 
-- Top level span (_named after the request path_) for the requested endpoint.
-  Span tags: - http method - http status code - error IFF status code >= 400
-- Child span will be created if bcrypt is called. Span tags: - bcrypt work
-  factor
-- All SQL database interactions. Spans/tags will vary depending on the database
-  driver used.
+- Top level span (_named after the request path_) for the requested endpoint. Span tags: - http method - http status code - error
+  IFF status code >= 400
+- Child span will be created if bcrypt is called. Span tags: - bcrypt work factor
+- All SQL database interactions. Spans/tags will vary depending on the database driver used.
 
-This is still evolving and subject to change as tracing support continues to
-expand in Kratos. If you see something that's missing/wrong, please create an
-issue.
+This is still evolving and subject to change as tracing support continues to expand in Kratos. If you see something that's
+missing/wrong, please create an issue.
+
+### Configuring tracing
+
+The [provided docker-compose file](https://github.com/ory/kratos/blob/master/quickstart-tracing.yml) in the project repository has
+tracing configuration which you can use to play around with.
+
+Simply run
+
+```sh
+docker-compose -f quickstart.yml \
+    -f quickstart-tracing.yml \
+    up --build
+```
+
+Grab a coffee or stretch while you wait for everything to come up. You will then be able to navigate to the Jaeger UI which you
+have exposed on port `16686` at http://localhost:16686/search. You can now start making requests to Kratos and inspect traces!
+
+In essence, simply set the following environment variables:
+
+```sh
+TRACING_PROVIDER=jaeger    # only "jaeger" is supported for now
+TRACING_PROVIDERS_JAEGER_SAMPLING_SERVER_URL=http://jaeger:5778/sampling
+TRACING_PROVIDERS_JAEGER_LOCAL_AGENT_ADDRESS=jaeger:6831
+```

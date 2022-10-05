@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
+import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment"
 
 export default (function () {
   if (!ExecutionEnvironment.canUseDOM) {
@@ -29,9 +29,9 @@ export default (function () {
       }
       lastLocation = location.pathname
 
-      _paq.push(['setCustomUrl', pagePath])
-      _paq.push(['setDocumentTitle', document.domain + '/' + document.title])
-      _paq.push(['trackPageView'])
-    }
+      _paq.push(["setCustomUrl", pagePath])
+      _paq.push(["setDocumentTitle", document.domain + "/" + document.title])
+      _paq.push(["trackPageView"])
+    },
   }
 })()

@@ -2,6 +2,211 @@
 title: Role Based Access Control (RBAC)
 ---
 
-This guide will explain how to implement RBAC using Ory Keto. It's still work in
-progress. If you happened to figure this out yourself, please open a PR to add
-your findings on this page.
+This guide will explain how to implement RBAC using Ory Keto.
+
+:::warning
+
+Implementing RBAC currently is possible, but requires some workarounds. This guide enables RBAC support with Keto but native
+support is still work in progress. Follow the progress in [this issue](https://github.com/ory/keto/issues/598)
+
+:::
+
+[Role Based Access Control (RBAC)](https://en.wikipedia.org/wiki/Role-based_access_control) maps subjects to roles and roles to
+permissions. The goal of (H)RBAC is to make permission management convenient by grouping subjects in roles and assigning
+permissions roles. This type of access control is common in web applications where one often encounters roles such as
+"administrator", "moderator", and so on.
+
+In **Hierarchical Role Based Access Control (HRBAC)** roles can inherit permissions from other roles. The "administrator" role,
+for example, could inherit all permissions from the "moderator" role. This reduces duplication and management complexity around
+defining privileges.
+
+Let's assume that we are building a reporting application and need to have three groups of users with different access levels. We
+have the following group of reports in our application.
+
+- Financial performance reports
+- Marketing performance reports
+- Community performance reports
+
+This time we model the access rights using (H)RBAC and the roles `community`, `marketing`, `finance` and `admin`:
+
+The role `admin` inherits all privileges from `finance`, `marketing` and `community`
+
+(H)RBAC is everywhere. If you ever installed a forum software such as
+[phpBB](https://www.phpbb.com/support/docs/en/3.1/ug/adminguide/permissions_roles/) or
+[Wordpress](https://codex.wordpress.org/Roles_and_Capabilities), you have definitely encountered ACL, (H)RBAC, or both.
+
+(H)RBAC reduces management complexity and overhead with large user bases. Sometimes however, even (H)RBAC is not enough. An
+example is when you need to express ownership (e.g. `Dilan` can only modify his own reports), have attributes (e.g. `Dilan` needs
+to have access only during work hours), or in multi-tenant environments.
+
+**Benefits:**
+
+- Reduces management complexity when many identities share similar permissions.
+- Role hierarchies can reduce redundancy even further.
+- Is well established and easily understood by many developers as it is a de-facto standard for web applications.
+
+**Shortcomings:**
+
+- There is no concept of ownership: _Dan is the author of article "Hello World" and is thus allowed to update it_.
+- There is no concept of environment: _Dan is allowed to access accounting services when the request comes from IP 10.0.0.3_.
+- There is no concept of tenants: _Dan is allowed to access resources on the "dan's test" tenant_.
+
+## RBAC with Ory Keto
+
+We need to have three groups, `finance`, `marketing`, `community`. Also, we need to have two namespaces: `reports` to manage
+access control and `groups` to add users to this group
+
+Let's add namespaces to Keto config. [here](https://www.ory.sh/docs/keto/reference/configuration)
+
+```yaml
+# ...
+namespaces:
+  - id: 0
+    name: groups
+  - id: 1
+    name: reports
+#...
+```
+
+We can have two types of permission to access reports for granularity. Let's assume that we need `edit` and `view` access to the
+reports.
+
+```keto-relation-tuples
+// View only access for finance department
+reports:finance#view@(groups:finance#member)
+// View only access for community department
+reports:community#view@(groups:community#member)
+// View only access for marketing department
+reports:marketing#view@(groups:marketing#member)
+// Edit access for admin group
+reports:finance#edit@(groups:admin#member)
+reports:community#edit@(groups:admin#member)
+reports:marketing#edit@(groups:admin#member)
+reports:finance#view@(groups:admin#member)
+reports:community#view@(groups:admin#member)
+reports:marketing#view@(groups:admin#member)
+```
+
+Let's assume that we have four people in our organization. Lila is CFO and needs access to financial reports, Hadley works in
+marketing, and Dilan works as a community manager. Neel is an admin of a system and needs to have edit permissions for reports.
+
+```keto-relation-tuples
+groups:finance#member@Lila
+groups:community#member@Dilan
+groups:marketing#member@Hadley
+groups:admin#member@Neel
+```
+
+## Creating Relation Tuples
+
+Let's copy all permissions we created to a `policies.rts` file with the following content.
+
+```keto-relation-tuples
+reports:finance#view@(groups:finance#member)
+reports:community#view@(groups:community#member)
+reports:marketing#view@(groups:marketing#member)
+reports:finance#edit@(groups:admin#member)
+reports:community#edit@(groups:admin#member)
+reports:marketing#edit@(groups:admin#member)
+reports:finance#view@(groups:admin#member)
+reports:community#view@(groups:admin#member)
+reports:marketing#view@(groups:admin#member)
+groups:finance#member@Lila
+groups:community#member@Dilan
+groups:marketing#member@Hadley
+groups:admin#member@Neel
+```
+
+Then we can run
+
+```bash
+keto relation-tuple parse policies.rts --format json | \
+  keto relation-tuple create - >/dev/null \
+  && echo "Successfully created tuple" \
+  || echo "Encountered error"
+```
+
+Since Dilan works as a community manager, the following check examples show that he has access only to community reports
+
+```bash
+keto check Dilan view reports finance
+Denied
+keto check Dilan view reports community
+Allowed
+keto check Dilan edit reports community
+Denied
+```
+
+Now Dilan decided to also work with marketing. Therefore we need to update his permissions and add him to the marketing group.
+
+```keto-relation-tuples
+groups:marketing#member@Dilan
+```
+
+Now he also has access to marketing reports:
+
+```
+keto check Dilan view reports marketing
+Allowed
+```
+
+## Display all objects a user has access to
+
+The example below shows you how to get a list of objects Dilan has access to
+
+```bash
+# Get all groups for Dilan
+keto relation-tuple get --subject-id=Dilan --relation=member --format json --read-remote localhost:4466 | jq
+{
+  "relation_tuples": [
+    {
+      "namespace": "groups",
+      "object": "community",
+      "relation": "member",
+      "subject_id": "Dilan"
+    },
+    {
+      "namespace": "groups",
+      "object": "marketing",
+      "relation": "member",
+      "subject_id": "Dilan"
+    }
+  ],
+  "next_page_token": ""
+}
+
+# Get permissions to objects for marketing group
+keto relation-tuple get --subject-set="groups:marketing#member" --format json --read-remote localhost:4466 | jq
+{
+  "relation_tuples": [
+    {
+      "namespace": "reports",
+      "object": "marketing",
+      "relation": "view",
+      "subject_set": {
+        "namespace": "groups",
+        "object": "marketing",
+        "relation": "member"
+      }
+    }
+  ],
+  "next_page_token": ""
+}
+# Get permissions to objects for community group
+keto relation-tuple get --subject-set="groups:community#member" --format json --read-remote localhost:4466 | jq
+{
+  "relation_tuples": [
+    {
+      "namespace": "reports",
+      "object": "community",
+      "relation": "view",
+      "subject_set": {
+        "namespace": "groups",
+        "object": "community",
+        "relation": "member"
+      }
+    }
+  ],
+  "next_page_token": ""
+}
+```

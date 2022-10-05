@@ -1,0 +1,320 @@
+---
+id: custom-email-templates
+title: Customize message templates for recovery and verification emails
+sidebar_label: Email templates
+---
+
+Ory Identity Service (Ory Kratos) comes with built-in templates for all messages sent by the system. You can replace the default
+templates with custom ones that will carry your own branding, visual elements, and communication tone.
+
+The system uses templates in these flows:
+
+1. `recovery` - the system sends these messages when users recover their accounts, for example after forgetting their password.
+   - `recovery.valid` - the system sends these messages when the user completes the recovery flow successfully.
+   - `recovery.invalid` - the system sends these messages when the recovery flow fails, for example when you start the recovery
+     flow using an email address that isn't associated with a registered user account.
+2. `verification` - the system sends these messages when users verify their accounts after signing up.
+   - `verification.valid` - the system sends these messages when the user verifies their account successfully.
+   - `verification.invalid` - the system sends these messages when the account verification fails, for example when you start the
+     verification flow using an email address that isn't associated with a registered user account.
+
+## Use custom message templates
+
+You can use custom templates in place of built-in ones. If you don't specify a custom template, the system automatically uses the
+built-in one.
+
+````mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="cloud" label="Ory Cloud" default>
+
+To use custom templates in Ory Cloud, encode the content of the template with Base64 and use the encoded string to update the Identity Service config.
+Follow these steps:
+
+1. List all your projects and get the Identity Service config file:
+
+   ```shell
+   ## List all available projects
+   ory list projects
+
+   ## Get config
+   ory get identity-config <project-id> --format yaml > identity-config.yaml
+   ```
+2. Add your Base64-encoded custom message templates to the config:
+
+   ```yaml title="identity-config.yaml"
+   courier:
+     smtp:
+       from_name: MyProject via Ory
+     templates:
+       recovery:
+         invalid:
+           email:
+             body: {
+               "html": "base64://ENCODED_HTML_TEMPLATE",
+               "plaintext": "base64://ENCODED_PLAINTEXT_TEMPLATE"
+             }
+         valid:
+           email:
+             body: {}
+       verification:
+         invalid:
+           email:
+             body: {}
+         valid:
+           email:
+             body: {}
+    ```
+3. Upload the edited config:
+
+   ```shell
+   ory update identity-config <project-id> --file updated_config.yaml
+   ```
+
+:::warning
+
+In Ory Cloud, you can use only Base64-encoded templates. The system doesn't accept `http://` or `file://` URIs. If you provide
+custom templates using unsupported methods, the system uses the default templates.
+
+:::
+
+  </TabItem>
+  <TabItem value="selfhosted" label="Self-Hosted Ory Kratos Config" default>
+
+In self-hosted Ory Kratos instances, you can add custom templates from `http://`, `file://`, and `base64://` URIs.
+The `plaintext` and `html` fields are mandatory when defining the `body` key. All other keys are optional. If the system can't use
+the custom templates, it falls back to the built-in templates or to the `template_override_path` (if specified).
+
+```yaml title=path/to/kratos/config.yml
+smtp:
+  template_override_path: /conf/courier-template
+  # ...
+  templates:
+    verification:
+      valid:
+        email:
+          body:
+            html: https://some-remote-resource/gotmpl
+            plaintext: base64://SGV5IHlvdSBkZWNvZGVkIG1lIDop
+          # optional
+          subject: file://some-file/subject.gotmpl
+```
+
+:::info
+
+When self-hosting Ory Kratos, the system expects the templates at these paths:
+
+- `<kratos-root>/<template-root>/recovery/valid`
+- `<kratos-root>/<template-root>/recovery/invalid`
+- `<kratos-root>/<template-root>/verification/valid`
+- `<kratos-root>/<template-root>/verification/invalid`
+
+Read [this document](../self-hosted/mail-courier-selfhosted) to learn more about the email courier and the specifics of using
+templates in self-hosted Ory Kratos instances.
+
+:::
+
+  </TabItem>
+</Tabs>
+````
+
+## Creating templates
+
+Templates use the golang template engine in the `text/template` package for rendering the `email.subject.gotmpl` and
+`email.body.plaintext.gotmpl` templates, and the `html/template` package for rendering the `email.body.gotmpl` template.
+
+Learn more:
+
+- https://pkg.go.dev/text/template
+- https://pkg.go.dev/html/template
+
+<a name="spring-disabled"></a>
+
+:::tip
+
+Templates can use the [Sprig](https://github.com/Masterminds/sprig) library, which provides
+[more than 100 commonly used template functions](http://masterminds.github.io/sprig/)
+
+:::
+
+:::warning
+
+For security reasons, these Spring functions are disabled in Ory Cloud:
+
+- Date functions: `date`,`date_in_zone`,`date_modify`, `now`, `htmlDate`, `htmlDateInZone`, `dateInZone`, `dateModify`
+- Strings: `randAlphaNum`, `randAlpha`, `randAscii`, `randNumeric`, `uuidv4`
+- OS: `env`, `expandenv`
+- Network: `getHostByName`
+
+:::
+
+Use these variables in templates:
+
+- `recovery.valid` - `To`,`RecoveryURL`, and `Identity` for validating recovery.
+- `recovery.invalid` - `To` for invalidating recovery.
+- `verification.valid` - `To`, `VerificationURL` and `Identity` for validating verification.
+- `verification.invalid` - `To` for invalidating verification.
+
+Each template must have two versions: `html` and `plaintext`.
+
+- `html` version uses the HTML syntax to achieve the desired look and functionality (such as clickable buttons) of the email
+  message.
+- `plaintext` version can't contain any HTML. Must contain only plain text content and any necessary gotmpl logic. This version is
+  used as a fallback when the `html` version cannot be delivered, for example when the user's mail server blocks HTML in all
+  incoming messages.
+
+For example, for this template:
+
+[`https://github.com/ory/kratos/blob/master/courier/template/courier/builtin/templates/verification/valid/email.body.gotmpl`](https://github.com/ory/kratos/blob/master/courier/template/courier/builtin/templates/verification/valid/email.body.gotmpl)
+
+- The `html` version looks like this:
+
+  ```gotmpl title="courier/template/templates/verification/valid/email.body.gotmpl"
+  Hi, please verify your account by clicking the following link:
+
+  <a href="{{ .VerificationURL }}">{{ .VerificationURL }}</a>
+  ```
+
+- The `plaintext` version doesn't contain any HTML and keeps only the gotmpl logic (`{{ .VerificationURL }}`) and plain text.
+
+  ```gotmp title="courier/template/templates/verification/valid/email.body.plaintext.gotmpl"
+  Hi, please verify your account by clicking the following link: {{ .VerificationURL }}
+  ```
+
+## Customizing template content for specific users
+
+To enable customizing the content of templates based on the identity of the recipient of the email, the Ory identity is available
+as the `Identity` object. This object is a map containing all the attributes of an identity defined in the identity schema, such
+as `id`, `state`, `recovery_addresses`, `verifiable_addresses` and `traits`.
+
+:::tip
+
+Read [this document](../manage-identities/overview) to learn more about the Ory identity and the Identity Schema.
+
+:::
+
+### Nested templates: i18n customization
+
+You can use nested templates to render `email.subject.gotmpl`, `email.body.gotmpl` and `email.body.plaintext.gotmpl` templates.
+
+To enable i18n customization of templates, customize the identity schema to include the user's preferred communication language.
+For example:
+
+```json title="Sample custom Identity Schema with user language"
+{
+  // ...
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        // ...
+        // highlight-start
+        "lang": {
+          "type": "string",
+          "title": "Your preferred language"
+      },
+      // highlight-end
+      "required": [
+        "email"
+      ],
+      "additionalProperties": false,
+    }
+  }
+}
+```
+
+:::tip
+
+As an administrator, you can also set identity metadata, such as the language or the locale automatically using the identity
+metadata property. Read [this document](../manage-identities/managing-users-identities-metadata#metadata) to learn more.
+
+:::
+
+You can then use this trait to decide what template variant to show.
+
+````mdx-code-block
+<Tabs>
+  <TabItem value="cloud" label="Ory Cloud" default>
+
+You can use in-line template definitions in nested templates. The following example defines the message body for verification emails.
+It assumes that there is a `lang` attribute defined in the identity traits that contains the preferred language of the user. The verification email
+content changes to show the appropriate language version if the system detects `fr` or `it` in the identity traits. If the system detects any other language, it uses the `eng` template.
+
+```gotmpl title="Example nested template that serves different content based on an identity trait"
+{{define "en"}}
+Hi,
+
+Please recover access to your account by clicking the following link:
+
+{{ .RecoveryURL }}
+{{end}}
+
+{{define "fr"}}
+Bonjour,
+
+Veuillez récupérer l'accès à votre compte en cliquant sur le lien suivant:
+
+{{ .RecoveryURL }}
+{{end}}
+
+{{define "it"}}
+Ciao,
+
+Recuperare l'accesso al proprio account facendo clic sul seguente link:
+
+{{ .RecoveryURL }}
+{{end}}
+
+{{- else if eq .Identity.traits.language "fr" -}}
+{{ template "fr" . }}
+{{- else if eq .Identity.traits.language "it" -}}
+{{ template "it" . }}
+{{- else -}}
+{{ template "en" . }}
+{{- end -}}
+```
+
+  </TabItem>
+  <TabItem value="selfhosted" label="Self-Hosted Ory Kratos Config" default>
+
+To create nested templates, you can use either in-line template definitions, or as in this example, use separate template files. The following
+example defines the message body for verification emails. It assumes that there is a `lang` attribute defined in the identity traits
+that contains the preferred language of the user.
+
+```txt title="<template-root>/recovery/valid/email.body.gotmpl"
+{{- if eq .Identity.traits.language "de" -}}
+{{ template "email.body.de.gotmpl" . }}
+{{- else -}}
+{{ template "email.body.en.gotmpl" . }}
+{{- end -}}
+<a href="{{ .RecoveryURL }}">{{.RecoveryURL }}</a>
+```
+
+```txt title="<template-root>/recovery/valid/email.body.de.gotmpl"
+Hallo {{ upper .Identity.traits.firstName }},
+
+Um Ihr Konto wiederherzustellen, klicken Sie bitte auf den folgenden Link:
+```
+
+```txt title="<template-root>/recovery/valid/email.body.en.gotmpl"
+Hello {{ upper .Identity.traits.firstName }},
+
+to recover your account, please click on the link below:
+```
+
+The i18n template is nested in the root `email.body.gotmpl` template. The sub-templates must conform to the `email.body*` pattern.
+The identity of the user is available in all templates.
+
+  </TabItem>
+</Tabs>
+````
+
+:::tip
+
+You can use Sprig functions in the nested templates. For security reasons, some functions are disabled in Ory Cloud.
+[Click here to see the list of disabled functions.](#spring-disabled)
+
+:::

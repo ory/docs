@@ -1,23 +1,18 @@
 ---
-title: Check whether a User has Access to Something
+title: Check whether a user has access to something
 ---
 
-import Mermaid from '@site/src/theme/Mermaid'
-import CodeTabs from '@site/src/theme/CodeTabs'
+import Mermaid from "@site/src/theme/Mermaid"
+import CodeTabs from "@site/src/theme/CodeTabs"
 
-This guide will explain how you can use Ory Keto's
-[check-API](../concepts/api-overview.mdx#check-relation-tuple) to determine
-whether a [subject](../concepts/subjects.mdx) has a specific
-[relation](../concepts/relation-tuples.mdx) on an
-[object](../concepts/objects.mdx). The result can be used for controlling access
-to specific resources.
+This guide will explain how you can use Ory Keto's [check-API](../concepts/api-overview.mdx#check-relation-tuple) to determine
+whether a [subject](../concepts/subjects.mdx) has a specific [relation](../concepts/relation-tuples.mdx) on an
+[object](../concepts/objects.mdx). The result can be used for controlling access to specific resources.
 
-## Synchronous Authorization Flow
+## Synchronous authorization flow
 
-We recommend offloading the whole burden of access control to Ory Keto.
-Typically, this means that the application forwards every incoming request as a
-check request to Ory Keto. The following chart demonstrates how such a flow can
-look like:
+We recommend offloading the whole burden of access control to Ory Keto. Typically, this means that the application forwards every
+incoming request as a check request to Ory Keto. The following chart demonstrates how such a flow can look like:
 
 <Mermaid
   chart={`
@@ -39,23 +34,17 @@ sequenceDiagram
 `}
 />
 
-Note that the channel of communication between user <-> application, and
-application <-> Ory Keto can vastly differ. The application could offer a JSON
-API towards the user, while communicating with Keto through gRPC.
+Note that the channel of communication between user <-> application, and application <-> Ory Keto can vastly differ. The
+application could offer a JSON API towards the user, while communicating with Keto through gRPC.
 
-As a first step, the application has to authenticate the user reliably to
-provide the subject to Keto. This can be achieved by using
-[Ory Kratos](https://www.ory.sh/kratos/docs/) or any other authentication
-system.
+As a first step, the application has to authenticate the user reliably to provide the subject to Keto. This can be achieved by
+using [Ory Kratos](https://www.ory.sh/kratos/docs/) or any other authentication system.
 
-The request (here `decypher` of the message `02y_15_4w350m3`) is then translated
-into a request to Ory Keto's
-[check-API](../concepts/api-overview.mdx#check-relation-tuple). Basically, the
-application is asking Keto "Is john allowed to decypher the text
-02y_15_4w350m3?"
+The request (here `decypher` of the message `02y_15_4w350m3`) is then translated into a request to Ory Keto's
+[check-API](../concepts/api-overview.mdx#check-relation-tuple). Basically, the application is asking Keto "Is john allowed to
+decypher the text 02y_15_4w350m3?"
 
-This question is encoded as the following
-[relation tuple](../concepts/relation-tuples.mdx):
+This question is encoded as the following [relation tuple](../concepts/relation-tuples.mdx):
 
 ```keto-relation-tuples
 messages:02y_15_4w350m3#decypher@john
@@ -63,82 +52,60 @@ messages:02y_15_4w350m3#decypher@john
 
 :::caution Important
 
-It's up to the application and its defined relation tuples how the check
-requests have to be encoded. In this example we assume that the known cypher
-messages are stored in Ory Keto and access to the cleartext is encoded by the
-`decypher` relation.
+It's up to the application and its defined relation tuples how the check requests have to be encoded. In this example we assume
+that the known cypher messages are stored in Ory Keto and access to the cleartext is encoded by the `decypher` relation.
 
 :::
 
-### Directly Defined Access
+### Directly defined access
 
-Ory Keto can know the exact relation tuple that the application is checking.
-Intuitively, this means that `john` was allowed to `decypher` the message
-`02y_15_4w350m3` directly (imagine a "Share with `john`" input in a UI).
+Ory Keto can know the exact relation tuple that the application is checking. Intuitively, this means that `john` was allowed to
+`decypher` the message `02y_15_4w350m3` directly (imagine a "Share with `john`" input in a UI).
 
-Try this yourself by first adding the relation tuple using the
-[write API](../concepts/api-overview.mdx#write-apis):
+Try this yourself by first adding the relation tuple using the [write API](../concepts/api-overview.mdx#write-apis):
 
-<CodeTabs
-  sampleId="simple-access-check-guide/00-write-direct-access"
-  version="v0.7.0-alpha.1"
-/>
+<CodeTabs sampleId="simple-access-check-guide/00-write-direct-access" version="v0.7.0-alpha.1" />
 
-Now, we can use the check-API to verify that `john` is allowed to `decypher` the
-message:
+Now, we can use the check-API to verify that `john` is allowed to `decypher` the message:
 
-<CodeTabs
-  sampleId="simple-access-check-guide/01-check-direct-access"
-  version="v0.7.0-alpha.1"
-/>
+<CodeTabs sampleId="simple-access-check-guide/01-check-direct-access" version="v0.7.0-alpha.1" />
 
-### Indirectly Defined Access
+### Indirectly defined access
 
-On the other hand, it's possible to indirectly grant `john` access to the
-resource. This could be done by adding a group, lets call it `hackers`. Now we
-can grant access to the resource to everyone in that group by adding the
-following relation tuple to Ory Keto:
+On the other hand, it's possible to indirectly grant `john` access to the resource. This could be done by adding a group, lets
+call it `hackers`. Now we can grant access to the resource to everyone in that group by adding the following relation tuple to Ory
+Keto:
 
 ```keto-relation-tuples
 messages:02y_15_4w350m3#decypher@(groups:hackers#member)
 ```
 
-We also have to make `john` a `member` of `hackers` by adding the relation
-tuple:
+We also have to make `john` a `member` of `hackers` by adding the relation tuple:
 
 ```keto-relation-tuples
 groups:hackers#member@john
 ```
 
-Now, when Keto receives above check request, it will resolve the
-[subject set](../concepts/subjects.mdx#subject-sets)
+Now, when Keto receives above check request, it will resolve the [subject set](../concepts/subjects.mdx#subject-sets)
 
 ```keto-relation-tuples
 groups:hackers#member
 ```
 
-and determine that `john` is a subject in the resulting set. Therefore, it
-approves the check request.
+and determine that `john` is a subject in the resulting set. Therefore, it approves the check request.
 
-There is no limit on the number of indirections through subject sets. It's
-however important to follow our
-[best practices](./access-control-list-design-best-practices.mdx) to ensure a
-good [performance](../performance.mdx).
+There is no limit on the number of indirections through subject sets. It's however important to follow our
+[best practices](./access-control-list-design-best-practices.mdx) to ensure a good [performance](../performance.mdx).
 
-## Caching Keto's responses
+## Caching Keto responses
 
-We don't recommend that you cache the responses from Ory Keto. It's designed to
-respond quickly and still provide
-[some consistency guarantees](../concepts/snaptokens-evaluation-consistency.mdx).
-For the revocation of access it's important to not use a local cache. Be ensured
-that Ory Keto heavily utilizes caching wherever possible. If you still happen to
-find unacceptably slow check requests, check that you follow our
-[best practices](./access-control-list-design-best-practices.mdx) for good
-[performance](../performance.mdx), or open an issue if the problem still
-persists.
+We don't recommend that you cache the responses from Ory Keto. It's designed to respond quickly and still provide
+[some consistency guarantees](../concepts/snaptokens-evaluation-consistency.mdx). For the revocation of access it's important to
+not use a local cache. Be ensured that Ory Keto heavily utilizes caching wherever possible. If you still happen to find
+unacceptably slow check requests, check that you follow our [best practices](./access-control-list-design-best-practices.mdx) for
+good [performance](../performance.mdx), or open an issue if the problem still persists.
 
 ## Conclusion
 
-We learned how to integrate check requests and access control into an
-application using Ory Keto's
+We learned how to integrate check requests and access control into an application using Ory Keto's
 [check-API](../concepts/api-overview.mdx#check-relation-tuple).

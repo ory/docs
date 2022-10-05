@@ -1,5 +1,5 @@
 import { Configuration, V0alpha1Api } from '@ory/client';
-const kratos = new V0alpha1Api(new Configuration({ basePath: 'https://playground.projects.oryapis.com/api/kratos/public/' }));
+const kratos = new V0alpha1Api(new Configuration({ basePath: 'https://playground.projects.oryapis.com/' }));
 
 const route = (req: Request, res: Response) => {
   kratos.createSelfServiceLogoutFlowUrlForBrowsers(req.cookies['ory_kratos_session']).then(({data}) => {

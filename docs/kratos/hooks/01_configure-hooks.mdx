@@ -1,0 +1,422 @@
+---
+id: configure-hooks
+title: Add and configure hooks for self-service user flows
+sidebar_label: Configuration
+toc_max_heading_level: 4
+---
+
+Ory Identity Service (Kratos) allows you to enrich self-service user flows by executing additional logic at specific points of the
+selected flow. This includes calling external services, for example, Mailchimp, Segment, HubSpot, or Zapier. You enrich the flows
+through hooks.
+
+Adding hooks to self-service flows can help you shape your customers' user experience, increase the security of your solution by
+adding additional verifications, and exchange information with external systems.
+
+## When can you use hooks?
+
+You can use hooks at specific points of select self-service flows:
+
+- `before` login: The hook runs when the user starts the login flow.
+- `after` login: The hook runs when the user is successfully authenticated, before the system issues an Ory Session.
+- `before` registration: The hook runs when a registration flow starts.
+- `after` registration: The hook runs when a user successfully registers in the system.
+- `before` recovery: The hook runs when the user starts the recovery flow.
+- `after` recovery: The hook runs when the user successfully recovers their password.
+- `before` settings: The hook runs when the user starts the account settings flow.
+- `after` settings: The hook runs when the user successfully changes their account settings.
+- `before` verification: The hook runs when the user starts the verification flow.
+- `after` verification: The hook runs when the user verifies their account.
+
+### Hooks for specific methods
+
+The login and registration self-service flows support multiple authentication methods:
+
+| Authentication method | Description                                                                                    |
+| :-------------------- | :--------------------------------------------------------------------------------------------- |
+| `password`            | Sign-in and sign-up with username and password combo.                                          |
+| `oidc`                | Sign-in and sign-up through OIDC-compliant OAuth2 identity providers.                          |
+| `totp`                | Sign-in with a TOTP code from apps such as Google Authenticator.                               |
+| `webauthn`            | Sign-in with WebAuthn-compatible factors (FaceID, YubiKey) or paswordless sign-up and sign-in. |
+| `lookup_secret`       | Sign-in with recovery codes.                                                                   |
+
+:::tip
+
+You can use the authentication methods to further specify when you want to run hooks. For example, you can run a hook for the
+login flow with the `password` method and not run any hooks for logins with the `oidc` method.
+
+:::
+
+## Available hooks
+
+There are 4 hooks you can use to extend self-service user flows. Note that some hooks can only be used for specific flows and
+methods.
+
+| Hook                       | Description                                                                                       | Constraints                                                                                                                                                                                             |
+| :------------------------- | :------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `session`                  | Signs in the user immediately after they create an account.                                       | For use only with the `after` registration flow. To use it, you must define secrets for secret rotation.                                                                                                |
+| `revoke_active_sessions`   | Revokes all other active sessions of the user on successful login.                                | For use only with the login flow.                                                                                                                                                                       |
+| `require_verified_address` | Allows users to sign in only when they verified their email address.                              | For use only with the `after` login flow, `password` method only.                                                                                                                                       |
+| `web_hook`                 | Allows to trigger external logic. Can be used with all flows and methods except error and logout. | Requires providing web-hook configuration. The only hook type available for the `after` settings flow. See an example of using webhooks [here](../../guides/integrate-with-ory-cloud-through-webhooks). |
+
+## Configuration
+
+````mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs groupId="wherehosted">
+  <TabItem value="cloud" label="Ory Cloud" default>
+
+To add hooks to flows:
+
+1. Get the Identity Service config with Ory CLI:
+
+   ```shell
+   ## List all available projects
+   ory list projects
+
+   ## Get config
+   ory get identity-config <project-id> --format yaml > identity-config.yaml
+   ```
+
+2. Add the hook configuration to the downloaded file.
+3. Update the Ory Cloud Identity Service configuration using the file you worked with:
+
+   ```shell
+   ory update identity-config <project-id> --file updated_config.yaml
+   ```
+
+
+  </TabItem>
+  <TabItem value="selfhosted" label="Self-Hosted Ory Kratos Config" default>
+
+To add hooks to flows, edit the Ory Kratos configuration file.
+
+  </TabItem>
+</Tabs>
+````
+
+### Add hooks for all methods of a flow
+
+To configure hooks for all methods of a particular flow, use this pattern:
+
+```yaml
+selfservice:
+  flows:
+    login: # Defines for which flow triggers the hook. No method defined = applies to all methods.
+      before: # Defines the point at which the hook runs.
+        hooks:
+          - hook: <hook 1 name> # Specifies which hook is triggered.
+```
+
+### Add hooks for particular method of a flow
+
+To configure hooks for a particular flow method, use this pattern:
+
+```yaml
+selfservice:
+  flows:
+    registration: # Defines for which flow triggers the hook.
+      after: # Defines the point at which the hook runs.
+        password: # When method is defined, the hook is triggered only for this particular method and flow.
+          hooks:
+            - hook: <hook 1 name> # Specifies which hook is triggered.
+```
+
+#### Hook precedence
+
+Hooks configured on the method level always override the hooks configured on the flow level. When you apply the following hook
+configuration, `hook_1` always runs when the login flow is started. On the finalization of the flow, `hook_2` runs only for
+methods other than `password`. If the `password` method is used, the system triggers `hook_3`.
+
+```yaml
+selfservice:
+  flows:
+    login:
+      before:
+        hooks:
+          - hook: hook_1
+      after:
+        hooks:
+          - hook: hook_2
+        password:
+          hooks:
+            - hook: hook_3
+```
+
+### `session` hook configuration
+
+To use the `session` hook you must define secrets for secret rotation:
+
+```yaml
+secrets:
+  cookie:
+    - something-super-secret # The first entry will be used to sign and verify session cookies
+
+    # All other entries will be used to verify session cookies that were signed before
+    # "something-super-secret" became the current signing secret.
+    - old-session-secret
+    - older-session-secret
+    - ancient-session-secret
+
+selfservice:
+  flows:
+    registration:
+      after:
+        oidc:
+          hooks:
+            - hook: session
+```
+
+#### Behavior depending on registration flow
+
+The hook behaves differently depending on the registration flow used:
+
+- Registration through a web browser
+
+  The hook sends a `Set-Cookie` HTTP header which contains the session cookie. The user is signed in immediately.
+
+  :::warning
+
+  Using this job as part of your post-registration workflow makes your system vulnerable to Account Enumeration Attacks because a
+  threat agent can distinguish between existing and non-existing accounts by checking if Set-Cookie was sent as part of the
+  registration response.
+
+  :::
+
+- Registration through the API (mobile app)
+
+  When the registration is performed through an API client (such as a mobile app), the hook creates a session and returns the
+  session token and the session itself in the response body as `application/json`:
+
+  ```json
+  {
+    "session": {
+      "id": "..."
+      // ...
+    },
+    "session_token": "...",
+    "identity": {
+      "id": "..."
+      // ...
+    }
+  }
+  ```
+
+:::info
+
+The HTTP response is set by the hook. As a result, no other hooks can be executed after the `session` hook. This is because the
+initial HTTP response can't be modified by subsequent hooks.
+
+If you want to trigger multiple hooks in your setup, make sure that `session` is the last executed hook.
+
+:::
+
+### Webhooks
+
+To configure webhooks, use this pattern:
+
+````mdx-code-block
+<Tabs groupId="wherehosted">
+  <TabItem value="cloud" label="Ory Cloud" default>
+
+```yaml
+selfservice:
+  flows:
+    login:
+      before:
+        hooks:
+          - hook: web_hook # To use webhooks, you must set 'hook' to 'web_hook'
+            config:
+              url: https://test.hook.site.sh/before_login_hook # Webhook URL.
+              method: POST # HTTP method used to send request to the webhook URL.
+              body: base64://ENCODED_JSONNET # Encoded Jsonnet template used to render payload.
+              # Ignored when using an HTTP method that doesn't allow sending body. OPTIONAL
+              can_interrupt: true # Defines if the webhook can interrupt the flow. Boolean. OPTIONAL
+              auth:
+                type: # Can be one of 'basic_auth' or 'api_key'
+                config: # Additional auth config for the hook. Read next section for details.
+```
+
+| Setting | Mandatory | Description
+| :------ | :-------: | :--------- |
+| `url`   | Yes | URL called by the webhook. |
+| `method`| Yes | HTTP method used to send a request to the webhook URL. |
+| `body`  | No | Base64-encoded Jsonnet template used to render the payload. Ignored when using an HTTP method that doesn't allow sending body.|
+| `can_interrupt`  | No | Defines if the webhook can interrupt the flow. |
+| `auth`  | No | Webhook authentication mechanism configuration. |
+
+  </TabItem>
+  <TabItem value="selfhosted" label="Self-Hosted Ory Kratos Config" default>
+
+```yaml
+selfservice:
+  flows:
+    login:
+      before:
+        hooks:
+          - hook: web_hook # To use webhooks, you must set 'hook' to 'web_hook'
+            config:
+              url: https://test.hook.site.sh/before_login_hook # Webhook URL.
+              method: POST # HTTP method used to send request to the webhook URL.
+              body: file:///path/of/my/jsonnet/file # Jsonnet template URI used to render payload.
+              # Ignored when using an HTTP method that doesn't allow sending body. OPTIONAL
+              can_interrupt: true # Defines if the webhook can interrupt the flow. Boolean. OPTIONAL
+              auth:
+                type: # Can be one of 'basic_auth' or 'api_key'
+                config: # Additional auth config for the hook. Read next section for details.
+```
+
+| Setting | Mandatory | Description
+| :------ | :-------: | :--------- |
+| `url`   | Yes | URL called by the webhook. |
+| `method`| Yes | HTTP method used to send a request to the webhook URL. |
+| `body`  | No | Jsonnet template URI used to render payload. Use `file://path/to/body.jsonnet` when referring to local files. Ignored when using an HTTP method that doesn't allow sending body.|
+| `can_interrupt`  | No | Defines if the webhook can interrupt the flow. |
+| `auth`  | No | Webhook authentication mechanism configuration. |
+
+
+  </TabItem>
+</Tabs>
+````
+
+:::info
+
+Webhooks can't control the execution of the flow by patching/updating particular properties of flow-specific objects on webhook
+completion.
+
+The execution of the flow can be canceled if the call to the webhook endpoint fails either due to a network error or if the
+endpoint returns an HTTP code `4xx` or `5xx` response.
+
+:::
+
+#### Request body
+
+Webhooks bind the `flow`, as well as request headers (`request_headers`), request method (`request_method`), and the request URL
+(`request_url`) of the flow into the Jsonnet template for all methods and execution paths (before and after). For the `after`
+execution path of all flows, it binds the `identity` object into the Jsonnet template as well. These objects are available through
+a `ctx` object.
+
+To send `{ user_id: <some-id> }` in the request body, create the following the Jsonnet template:
+
+```jsonnet
+function(ctx) { user_id: ctx.identity.id }
+```
+
+#### Authentication and authorization in webhooks
+
+For `auth` following mechanisms are supported:
+
+- API key authentication. Type must be set to `api_key`. All properties are mandatory.
+
+  ```yaml
+  - hook: web_hook
+    # <other configuration keys>
+    config:
+      auth:
+        type: api_key
+        config:
+          name: Authorization
+          value: The-Value-of-My-Key
+          in: header # alternatively "cookie"
+  ```
+
+- "Basic Authentication" type authentication. Type must be set to `basic_auth`. All properties are mandatory.
+
+  For `basic_auth` the config looks as follows:
+
+  ```yaml
+  - hook: web_hook
+    # <other configuration keys>
+    config:
+      auth:
+        type: basic_auth
+        config:
+          user: My-User
+          password: My-Pass-Value
+  ```
+
+#### Canceling webhooks
+
+You can cancel configured webhooks and not make the defined request.
+
+This can come in handy in testing. For example, by canceling a webhook, you prevent the test accounts created during testing from
+being added to CRM.
+
+To get this behavior, cancel the webhook by raising an error for all accounts with the `test-` name prefix:
+
+```jsonnet
+function(ctx)
+if std.startsWith(ctx.identity.traits.email, "test-") then
+  error "cancel"
+else
+  {
+    user_id: ctx.identity.id
+  }
+```
+
+:::info
+
+Currently, jsonnet doesn't support regular expressions. Follow this issue to see if the feature has been implemented:
+[google/go-jsonnet/409](https://github.com/google/go-jsonnet/issues/409).
+
+:::
+
+#### Non-blocking webhooks
+
+Sometimes you need to interact with external systems without needing their response. For example, when a user signs up, a webhook
+is that adds their email address to the newsletter is triggered.
+
+If you decide that the system response that indicates if the process was successful is not critical for your setup, make the
+webhook execution non-blocking to ignore whatever response is returned.
+
+To do that, set `response.ignore` to `true` in the webhook config:
+
+```yaml
+- hook: web_hook
+  config:
+    # highlight-start
+    response:
+      ignore: true
+    # highlight-end
+```
+
+#### Flow-interrupting webhooks
+
+If you want the result of webhook execution to have the potential of blocking a self-service user flow, use the
+`can_interrupt: true` setting in the config.
+
+The external service called in the flow decides if it allows the flow to continue, or if it interrupts the flow. For example:
+
+- For HTTP response codes `1xx`, `2xx`, and `3xx`, the flow is not interrupted.
+- For HTTP response codes `4xx`, `5xx`, the external service interrupts the flow and returns a predefined payload.
+
+Example payload:
+
+```json
+{
+  "messages": [
+    {
+      "instance_ptr": "#/traits/foo/bar", # Indicates the field where there is an error.
+      "messages": [
+        {
+          "id": 123, # Unique numeric ID of the error that helps the frontend to interpret this message.
+          "text": "field must be longer than 12 characters",
+          "type": "validation",
+          "context": {
+            "value": "short value"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::tip
+
+Flow-interrupting webhooks work best if you give users meaningful information about the status of their flow. The best place to
+trigger these hooks is `after` flows.
+
+:::

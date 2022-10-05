@@ -3,28 +3,22 @@ id: community
 title: Community
 ---
 
-Ory is possible because of a unique, experienced, and dedicated community.
-Sponsors, contributors, and adopters make this ecosystem possible and shape it
-in significant ways.
+Ory is possible because of a unique, experienced, and dedicated community. Sponsors, contributors, and adopters make this
+ecosystem possible and shape it in significant ways.
 
-Important community resources include [GitHub](https://github.com/ory),
-[Ory Slack Chat](https://slack.ory.sh/) and GitHub Discussions for
-[Ory Kratos](https://github.com/ory/kratos/discussions),
-[Ory Hydra](https://github.com/ory/hydra/discussions),
-[Ory Keto](https://github.com/ory/oathkeeper/discussions),
-[Ory Oathkeeper](https://github.com/ory/oathkeeper/discussions) and all other
-[Ory projects](https://github.com/ory/meta/discussions), you can also visit our
-archived old [forum](https://community.ory.sh/).
+Important community resources include [GitHub](https://github.com/ory), [Ory Slack Chat](https://slack.ory.sh/) and GitHub
+Discussions for [Ory Kratos](https://github.com/ory/kratos/discussions), [Ory Hydra](https://github.com/ory/hydra/discussions),
+[Ory Keto](https://github.com/ory/oathkeeper/discussions), [Ory Oathkeeper](https://github.com/ory/oathkeeper/discussions) and all
+other [Ory projects](https://github.com/ory/meta/discussions), you can also visit our archived old
+[forum](https://community.ory.sh/).
 
-## Community Projects
+## Community projects
 
-Members of the Ory community have built technology, written blog posts, and
-published open source software that extends or modifies the core technology.
-This isn't an exhaustive list. Want your own content here? Create a PR!
+Members of the Ory community have built technology, written blog posts, and published open source software that extends or
+modifies the core technology. This isn't an exhaustive list. Want your own content here? Create a PR!
 
-> Please note that this content isn't actively maintained by the Ory team, is
-> written by the community and might be out of date, unmaintained, or otherwise
-> faulty.
+> Please note that this content isn't actively maintained by the Ory team, is written by the community and might be out of date,
+> unmaintained, or otherwise faulty.
 
 ### Ory Stack
 
@@ -32,12 +26,13 @@ This isn't an exhaustive list. Want your own content here? Create a PR!
 - [Starter for Svelte Kit and the Ory Stack](https://github.com/MicLeey/sveltekit-ory-starter)
 - [Reference Ory Docker Compose Setup ](https://github.com/radekg/ory-reference-compose) +
   [Article](https://gruchalski.com/posts/2021-04-10-ory-reference-docker-compose-and-thoughts-on-the-platform/)
-- [WIP Ory Hydra/Kratos Integration in Go](https://github.com/atreya2011/go-kratos-test)
+- [Ory Hydra/Kratos Integration in Go](https://github.com/atreya2011/go-kratos-test/tree/hydra-consent)
 - [Ory Kratos "hydra-integration" branch](https://github.com/ory/kratos-selfservice-ui-node/tree/hydra-integration-2021)
 - [Predefined dockertest libraries for Hydra, Kratos & Keto integration tests](https://github.com/radekg/app-kit-orytest)
 
 ### Ory Kratos
 
+- [Ory Kratos configuration to deploy on fly.io](https://github.com/tinco/kratos-service)
 - [Ory Kratos Vue 3/Vite with Typescript example](https://github.com/timalanfarrow/kratos-selfservice-ui-vue3-typescript)
 - [Ory Kratos Quarkus, Kotlin, and Qute example](https://github.com/hbrammer/quarkus_kratos_example)
 - [Ory Kratos Admin Interface in React](https://github.com/dfoxg/kratos-admin-ui)
@@ -50,6 +45,7 @@ This isn't an exhaustive list. Want your own content here? Create a PR!
 
 ### Ory Hydra
 
+- [Ory Hydra SDK for Laravel (unofficial)](https://github.com/ALTELMA/laravel-hydra)
 - [Ory Hydra Terraform Provider](https://github.com/svrakitin/terraform-provider-hydra)
 - [Ory Hydra Identity Provider for over LDAP](https://github.com/i-core/werther)
 - [Ory Hydra Middleware for Gin (Go)](https://github.com/janekolszak/gin-hydra)
@@ -77,11 +73,22 @@ This isn't an exhaustive list. Want your own content here? Create a PR!
 - [OpenID Connect client for Angular](https://git.webmeisterei.com/minadmin/js-oidc)
 - [Archived: Ory Hydra Golang login/consent provider using Authboss user/password authentication](https://github.com/nbycomp/login-consent)
 
-## Community Articles & Tutorials
+## Community articles and tutorials
+
+#### Ory Blog guest articles
+
+Are you building something with Ory? Are you interested in Auth and security topics in general? Do you want to share your
+knowledge and experiences? [Reach out to us](mailto:office@ory.sh) to be published in our blog!
+
+- [How I built LoginWithHN using Ory Hydra](https://www.ory.sh/how-to-build-login-with-hacker-news/)
+- [Add Authentication to your Flutter Web Applications with Ory Kratos](https://www.ory.sh/login-flutter-authentication-example-api-open-source/)
+- E-Commerce with Ory Cloud [Part 1: Backend](https://www.ory.sh/cloud-ecommerce-backend/),
+  [Part 2: Frontend](https://www.ory.sh/cloud-ecommerce-frontend/)
+- [Looking at Zanzibar through Ory Keto](https://www.ory.sh/looking-at-keto/)
 
 #### Ory Stack
 
-- [Open Source Authentication with Hydra and Kratos](https://blog.px.dev/open-source-auth/ossauth/)
+- [Open Source Authentication with Hydra and Kratos](https://blog.px.dev/open-source-auth/)
 
 #### Ory Kratos
 
@@ -91,6 +98,7 @@ This isn't an exhaustive list. Want your own content here? Create a PR!
 
 #### Ory Hydra
 
+- [Ory Hydra with Apache APISIX integration](https://apisix.apache.org/blog/2022/07/04/apisix-integrates-with-hydra/)
 - [Practical Example of Implementing OAuth 2.0 Using ory/hydra](https://yusufs.medium.com/practical-example-of-implementing-oauth-2-0-using-ory-hydra-fbaa2765d94f)
 - OAuth 2.0 with Ory Hydra and Vapor on iOS:
   [Part 1](https://medium.com/12plus1/oauth2-with-ory-hydra-vapor-3-and-ios-12-ca0e61c28f5a),
@@ -106,7 +114,7 @@ This isn't an exhaustive list. Want your own content here? Create a PR!
 
 #### Ory Oathkeepeer
 
-- [User Managment using Ory Oathkeeper](https://blog.commit.dev/articles/open-source-sundays-building-a-user-management-solution-using-ory-oathkeeper-and-auth0)
+- [User Management using Ory Oathkeeper](https://blog.commit.dev/articles/open-source-sundays-building-a-user-management-solution-using-ory-oathkeeper-and-auth0)
 - [API Access Control with Ambassador and Ory Oathkeeper](https://blog.getambassador.io/part-2-api-access-control-and-authentication-with-kubernetes-ambassador-and-ory-oathkeeper-q-a-127fa57f6332?utm_content=76739953&utm_medium=social&utm_source=twitter)
 - [Ory Oathkeeper Istio best practices/reference configuration](https://github.com/ory/oathkeeper/issues/624)
 
@@ -116,19 +124,18 @@ This isn't an exhaustive list. Want your own content here? Create a PR!
 - [Integration tests in Golang with dockertest](https://sergiocarracedo.es/integration-tests-in-golang-with-dockertest/)
 - [Go Package for better integration tests: Ory Dockertest](https://mariocarrion.com/2021/03/14/golang-package-testing-datastores-ory-dockertest.html)
 - [Using Dockertest with Golang](https://bignerdranch.com/blog/using-dockertest-with-golang/)
+- [How to write a Go API Part 3: Testing With Dockertest](https://jonnylangefeld.com/blog/how-to-write-a-go-api-part-3-testing-with-dockertest)
 
-## Postman API Reference Collections
+## Postman API reference collections
 
-> Note that while we try to keep the collections up to date, they might be
-> outdated. Please open an [issue](https://github.com/ory/docs/) if that's the
-> case.
+> Note that while we try to keep the collections up to date, they might be outdated. Please open an
+> [issue](https://github.com/ory/docs/) if that's the case.
 
-First, you have to install the Postman App for Windows, Mac, or Chrome. You can
-find it on the [Postman Apps](https://www.getpostman.com/apps) page.
+First, you have to install the Postman App for Windows, Mac, or Chrome. You can find it on the
+[Postman Apps](https://www.getpostman.com/apps) page.
 
-Visit the [Ory Postman Public Workspace](https://www.postman.com/ory-docs) and
-select the Collection you want to use and import it or select the Ory project
-you want to run below:
+Visit the [Ory Postman Public Workspace](https://www.postman.com/ory-docs) and select the Collection you want to use and import it
+or select the Ory project you want to run below:
 
 [![Run Ory Hydra in Postman](../../src/static/img/docs/postmanHydra.svg)](https://app.getpostman.com/run-collection/12423954-d820ed2c-b119-44df-8b3e-4f344d8aa03a?action=collection%2Ffork&collection-url=entityId%3D12423954-d820ed2c-b119-44df-8b3e-4f344d8aa03a%26entityType%3Dcollection%26workspaceId%3Dba1e6798-1497-4918-a896-cac2f90d481b)
 
@@ -138,30 +145,22 @@ you want to run below:
 
 [![Run Ory Oathkeeper in Postman](../../src/static/img/docs/postmanOathkeeper.svg)](https://app.getpostman.com/run-collection/12423954-8c811fa9-6666-499b-b5a6-71d059274dbf?action=collection%2Ffork&collection-url=entityId%3D12423954-8c811fa9-6666-499b-b5a6-71d059274dbf%26entityType%3Dcollection%26workspaceId%3Dba1e6798-1497-4918-a896-cac2f90d481b)
 
-Our API Collections are built directly from the swagger specification (you can
-find it at the path `/spec/api.json`) and are organized into folders that
-categorize the various API calls.
+Our API Collections are built directly from the swagger specification (you can find it at the path `/spec/api.json`) and are
+organized into folders that categorize the various API calls.
 
-For example, in the Ory Kratos collection, you will find all calls related to
-`identities` in the folder with the same name.
+For example, in the Ory Kratos collection, you will find all calls related to `identities` in the folder with the same name.
 
-To be able to work with the collection you need to set the `baseURl` variable.
-For example, when running Ory Kratos as configured, the `baseURl` needs to be
-set to the public endpoint(in the
-[Quickstart](https://www.ory.sh/kratos/docs/quickstart) it
+To be able to work with the collection you need to set the `baseURl` variable. For example, when running Ory Kratos as configured,
+the `baseURl` needs to be set to the public endpoint(in the [Quickstart](https://www.ory.sh/kratos/docs/quickstart) it
 is`http://127.0.0.1:4433/`).
 
-You may also have to configure query parameters or the JSON method body,
-depending on the API call.
+You may also have to configure query parameters or the JSON method body, depending on the API call.
 
 :::info
 
-Don't store tokens in Postman as environment variables! If you are signed in to
-the Postman application, it will automatically try to synchronize Collections
-and Environments with the Postman servers. This means that a token, which could
-allow someone else access to your APIs, is being uploaded to Postman's servers.
-Postman has taken measures to ensure that tokens are encrypted and encourages
-users to store them in Environment Variables. Read more
-[here](https://www.postman.com/security).
+Don't store tokens in Postman as environment variables! If you are signed in to the Postman application, it will automatically try
+to synchronize Collections and Environments with the Postman servers. This means that a token, which could allow someone else
+access to your APIs, is being uploaded to Postman's servers. Postman has taken measures to ensure that tokens are encrypted and
+encourages users to store them in Environment Variables. Read more [here](https://www.postman.com/security).
 
 :::

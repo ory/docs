@@ -1,17 +1,17 @@
 ---
 id: logging
-title: Logs and Audit Trails
+title: Logs and audit trails
 ---
 
-Log output is sent to stdout/stderr. There is no option to change the log
-destination. You should use bash pipes instead, for example:
+Log output is sent to stdout/stderr. There is no option to change the log destination. You should use bash pipes instead, for
+example:
 
 ```sh
 hydra serve all >log.txt 2>&1
 ```
 
-Log configuration happens via environment variables `LOG_LEVEL`, `LOG_FORMAT`,
-`LOG_LEAK_SENSITIVE_VALUES` or the configuration file:
+Log configuration happens via environment variables `LOG_LEVEL`, `LOG_FORMAT`, `LOG_LEAK_SENSITIVE_VALUES` or the configuration
+file:
 
 ```yaml title="path/to/config.yml"
 log:
@@ -22,18 +22,16 @@ log:
 
 The `level` configuration key supports the following values:
 
-- `panic`: highest level of severity. This event is so rare that it's, with
-  almost absolute certainty, unlikely for you to encounter ever.
-- `fatal`: the program is unable to continue execution and ended with a fatal
-  state. Can happen when the configuration is invalid, for example.
+- `panic`: highest level of severity. This event is so rare that it's, with almost absolute certainty, unlikely for you to
+  encounter ever.
+- `fatal`: the program is unable to continue execution and ended with a fatal state. Can happen when the configuration is invalid,
+  for example.
 - `error`: used for errors that should be noted.
 - `warn`: non-critical entries that deserve eyes.
-- `info`: general operational entries about what's going on inside the
-  application.
-- `debug`: usually only enabled when debugging. Very verbose logging. If `json`
-  is the log format, the JSON will be prettified for better readability.
-- `trace`: designates finer-grained informational events than debug. Includes
-  call traces of errors and log calls.
+- `info`: general operational entries about what's going on inside the application.
+- `debug`: usually only enabled when debugging. Very verbose logging. If `json` is the log format, the JSON will be prettified for
+  better readability.
+- `trace`: designates finer-grained informational events than debug. Includes call traces of errors and log calls.
 
 The `format` configuration key supports `text` and `json`:
 
@@ -45,11 +43,10 @@ time=2020-05-20T11:57:09+02:00 level=info msg=An example log message. audience=a
 {"audience":"application","level":"info","msg":"An example log message.","service_name":"foo","service_version":"bar","time":"2020-05-20T11:56:57+02:00"}
 ```
 
-The `leak_sensitive_values` configuration key should always be set to `false`.
-If set to `true`, sensitive data such as Personally Identifiable Information
-(PII), secrets, tokens, and others will be leaked to the logs. This is only
-useful for debugging on development environments or with a very narrow scope. If
-set to `true` you must ensure that the output isn't stored or cached anywhere.
+The `leak_sensitive_values` configuration key should always be set to `false`. If set to `true`, sensitive data such as Personally
+Identifiable Information (PII), secrets, tokens, and others will be leaked to the logs. This is only useful for debugging on
+development environments or with a very narrow scope. If set to `true` you must ensure that the output isn't stored or cached
+anywhere.
 
 ## Traces
 
@@ -78,9 +75,8 @@ Ory provides as much context as possible for each log operation.
 
 ### Audience
 
-The `audience` field distinguishes between `application` logs intended for
-operators and developers, and `audit` logs that document allowed and denied
-authorizations, failed and succeeded log in attempts, and so on:
+The `audience` field distinguishes between `application` logs intended for operators and developers, and `audit` logs that
+document allowed and denied authorizations, failed and succeeded log in attempts, and so on:
 
 ```sh
 time=2020-05-20T11:57:09+02:00 level=info msg=An example log message. audience=application service_name=foo service_version=bar
@@ -91,9 +87,8 @@ time=2020-05-20T11:57:29+02:00 level=info msg=Login successful. audience=audit s
 
 We include vital HTTP request info whenever possible:
 
-- Important HTTP `headers`. Headers `Authorization` and `Cookie` are redacted
-  per default and we do include defacto standards such as `X-Request-ID`,
-  `X-Forwarded-For`, ...
+- Important HTTP `headers`. Headers `Authorization` and `Cookie` are redacted per default and we do include defacto standards such
+  as `X-Request-ID`, `X-Forwarded-For`, ...
 - HTTP `method` (`POST`, `GET`, ...);
 - HTTP `scheme` (`https` or `http`);
 - HTTP `remote` IP Address;

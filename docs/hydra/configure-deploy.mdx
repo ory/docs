@@ -3,14 +3,12 @@ title: Run Ory Hydra in Docker
 id: configure-deploy
 ---
 
-The goal of this chapter is to introduce you to a fully functional set up that
-includes Ory Hydra as well as our User Login & Consent Provider reference
-implementation.
+The goal of this chapter is to introduce you to a fully functional set up that includes Ory Hydra as well as our User Login &
+Consent Provider reference implementation.
 
-The goal of this section is to familiarize you with the specifics of setting up
-Ory Hydra in your environment. Before starting with this section, please check
-out the [tutorial](5min-tutorial). It will teach you the most important flows
-and settings for Hydra.
+The goal of this section is to familiarize you with the specifics of setting up Ory Hydra in your environment. Before starting
+with this section, please check out the [tutorial](5min-tutorial). It will teach you the most important flows and settings for
+Hydra.
 
 This guide will:
 
@@ -21,15 +19,14 @@ This guide will:
 5. Perform the OAuth 2.0 Authorize Code flow.
 
 Before starting with this guide, please install the most recent version of
-[Docker](https://www.docker.com/community-edition#/download). While docker is
-not required for running Ory Hydra, we recommend using it for this tutorial as
-it will greatly reduce the complexity of setting up a database on your system
-without virtualization, installing Go, and compiling Ory Hydra.
+[Docker](https://www.docker.com/community-edition#/download). While docker is not required for running Ory Hydra, we recommend
+using it for this tutorial as it will greatly reduce the complexity of setting up a database on your system without
+virtualization, installing Go, and compiling Ory Hydra.
 
 ## Create a Network
 
-Before we can start, a network must be created which we will attach all our
-Docker containers to. That way, the containers can talk to one another.
+Before we can start, a network must be created which we will attach all our Docker containers to. That way, the containers can
+talk to one another.
 
 ```bash
 docker network create hydraguide
@@ -37,9 +34,8 @@ docker network create hydraguide
 
 ## Deploy PostgreSQL
 
-For the purpose of this tutorial, we will use PostgreSQL as a database. As you
-probably already know, don't run databases in Docker in production! For the sake
-of this tutorial however, let's use Docker to quickly deploy the database.
+For the purpose of this tutorial, we will use PostgreSQL as a database. As you probably already know, don't run databases in
+Docker in production! For the sake of this tutorial however, let's use Docker to quickly deploy the database.
 
 ```bash
 docker run \
@@ -51,18 +47,16 @@ docker run \
   -d postgres:9.6
 ```
 
-This command will start a postgres instance with name
-`ory-hydra-example--postgres`, set up a database called `hydra` and create a
+This command will start a postgres instance with name `ory-hydra-example--postgres`, set up a database called `hydra` and create a
 user `hydra` with password `secret`.
 
 ## Deploy Ory Hydra
 
-We highly recommend using Docker to run Hydra, as installing, configuring and
-running Hydra is easiest with Docker. Ory Hydra is available on
-[Docker Hub](https://hub.docker.com/r/oryd/hydra/).
+We highly recommend using Docker to run Hydra, as installing, configuring and running Hydra is easiest with Docker. Ory Hydra is
+available on [Docker Hub](https://hub.docker.com/r/oryd/hydra/).
 
-:::note This example remaps standard hydra ports `4444` to `5444` and `4445` to
-`5445` to prevent conflicts with a locally running hydra server. :::
+:::note This example remaps standard hydra ports `4444` to `5444` and `4445` to `5445` to prevent conflicts with a locally running
+hydra server. :::
 
 ```bash
 # The system secret can only be set against a fresh database. Key rotation is not supported. This
@@ -116,48 +110,41 @@ docker run -d \
 # And check if it's running:
 docker logs ory-hydra-example--hydra
 
-time="2017-06-29T21:26:26Z" level=info msg="Connecting with postgres://*:*@postgres:5432/hydra?sslmode=disable"
-time="2017-06-29T21:26:26Z" level=info msg="Connected to SQL!"
+time=2022-04-13T11:27:32Z level=info msg=No tracer configured - skipping tracing setup audience=application service_name=ORY Hydra service_version=v1.10.6
+time=2022-04-13T11:27:32Z level=warning msg=JSON Web Key Set "hydra.openid.id-token" does not exist yet, generating new key pair... audience=application service_name=ORY Hydra service_version=v1.10.6
 [...]
-time="2017-06-29T21:26:34Z" level=info msg="Setting up http server on :4444"
+time=2022-04-13T11:28:07Z level=warning msg=JSON Web Key Set "hydra.https-tls" does not exist yet, generating new key pair... audience=application service_name=ORY Hydra service_version=v1.10.6
+time=2022-04-13T11:28:19Z level=info msg=Setting up http server on :4444 audience=application service_name=ORY Hydra service_version=v1.10.6
+time=2022-04-13T11:28:19Z level=info msg=Setting up http server on :4445 audience=application service_name=ORY Hydra service_version=v1.10.6
 ```
 
 Let's dive into the various settings:
 
-- `--network hydraguide` connects this instance to the network and makes it
-  possible to connect to the PostgreSQL database.
+- `--network hydraguide` connects this instance to the network and makes it possible to connect to the PostgreSQL database.
 - `-p 5444:4444` exposes Ory Hydra's public API on `https://localhost:5444/`.
-- `-p 5445:4445` exposes Ory Hydra's administrative API on
-  `https://localhost:5445/`.
-- `-e SECRETS_SYSTEM=$SECRETS_SYSTEM` sets the system secret environment
-  variable **(required)**.
+- `-p 5445:4445` exposes Ory Hydra's administrative API on `https://localhost:5445/`.
+- `-e SECRETS_SYSTEM=$SECRETS_SYSTEM` sets the system secret environment variable **(required)**.
 - `-e DSN=$DSN` sets the database url environment variable **(required)**.
-- `-e URLS_SELF_ISSUER=https://localhost:5444/` this value must be set to the
-  publicly available URL of Ory Hydra **(required)**.
-- `-e URLS_CONSENT=http://localhost:9020/consent` this sets the URL of the
-  consent provider **(required)**. We will set up the service that handles
-  requests at that URL in the next sections.
-- `-e URLS_LOGIN=http://localhost:9020/login` this sets the URL of the login
-  provider **(required)**. We will set up the service that handles requests at
-  that URL in the next sections.
+- `-e URLS_SELF_ISSUER=https://localhost:5444/` this value must be set to the publicly available URL of Ory Hydra **(required)**.
+- `-e URLS_CONSENT=http://localhost:9020/consent` this sets the URL of the consent provider **(required)**. We will set up the
+  service that handles requests at that URL in the next sections.
+- `-e URLS_LOGIN=http://localhost:9020/login` this sets the URL of the login provider **(required)**. We will set up the service
+  that handles requests at that URL in the next sections.
 
 :::note
 
-In this example we didn't define a value for the optional setting `URLS_ERROR`.
-This URL can be used to provide an endpoint which will receive error messages
-from Ory Hydra that should be displayed to the end user. The URL receives
-`error` and `error_description` parameters. If this value isn't set, Hydra uses
-the fallback endpoint `/oauth2/fallbacks/error` and displays a default error
-message. In order to obtain a uniform UI, you might want to include such an
-endpoint in your login or consent provider.
+In this example we didn't define a value for the optional setting `URLS_ERROR`. This URL can be used to provide an endpoint which
+will receive error messages from Ory Hydra that should be displayed to the end user. The URL receives `error` and
+`error_description` parameters. If this value isn't set, Hydra uses the fallback endpoint `/oauth2/fallbacks/error` and displays a
+default error message. In order to obtain a uniform UI, you might want to include such an endpoint in your login or consent
+provider.
 
 :::
 
 :::note
 
-We only used environmental variables to configure Ory Hydra in this example. If
-you use a [configuration file](reference/configuration.md) instead, remember to
-mount it in the container. For example:
+We only used environmental variables to configure Ory Hydra in this example. If you use a
+[configuration file](reference/configuration.mdx) instead, remember to mount it in the container. For example:
 
 ```sh
 docker run -d \
@@ -167,34 +154,30 @@ docker run -d \
 
 :::
 
-To confirm that the instance is running properly,
-[open the health check](https://localhost:5445/health/ready). If asked, accept
+To confirm that the instance is running properly, [open the health check](https://localhost:5445/health/ready). If asked, accept
 the self-signed certificate in your browser. You should simply see `ok`.
 
-On start up, Ory Hydra is initializing some values. Let's take a look at the
-logs:
+On start up, Ory Hydra is initializing some values. Let's take a look at the logs:
 
 ```sh
 docker logs ory-hydra-example--hydra
-time="2017-06-30T09:06:34Z" level=info msg="Connecting with postgres://*:*@postgres:5432/hydra?sslmode=disable"
-time="2017-06-30T09:06:34Z" level=info msg="Connected to SQL!"
-time="2017-06-30T09:06:34Z" level=info msg="Key pair for signing hydra.openid.id-token is missing. Creating new one."
-time="2017-06-30T09:06:41Z" level=warning msg="No TLS Key / Certificate for HTTPS found. Generating self-signed certificate."
-time="2017-06-30T09:06:41Z" level=info msg="Setting up http server on :4444"
+time=2022-04-13T11:27:32Z level=info msg=No tracer configured - skipping tracing setup audience=application service_name=ORY Hydra service_version=v1.10.6
+time=2022-04-13T11:27:32Z level=warning msg=JSON Web Key Set "hydra.openid.id-token" does not exist yet, generating new key pair... audience=application service_name=ORY Hydra service_version=v1.10.6
+[...]
+time=2022-04-13T11:28:07Z level=warning msg=JSON Web Key Set "hydra.https-tls" does not exist yet, generating new key pair... audience=application service_name=ORY Hydra service_version=v1.10.6
+time=2022-04-13T11:28:19Z level=info msg=Setting up http server on :4444 audience=application service_name=ORY Hydra service_version=v1.10.6
+time=2022-04-13T11:28:19Z level=info msg=Setting up http server on :4445 audience=application service_name=ORY Hydra service_version=v1.10.6
 ```
 
-As you can see, the following steps are performed when running Ory Hydra against
-a fresh database:
+As you can see, the following steps are performed when running Ory Hydra against a fresh database:
 
-1. If no system secret was given (in our case we provided one), a random one is
-   generated and emitted to the logs. Note this down, otherwise you won't be
-   able to restart Hydra.
-2. Cryptographic keys are generated for the OpenID Connect ID Token, the consent
-   challenge and response, and TLS encryption using a self-signed certificate,
-   which is why we need to run all commands using `--skip-tls-verify`.
+1. If no system secret was given (in our case we provided one), a random one is generated and emitted to the logs. Note this down,
+   otherwise you won't be able to restart Hydra.
+2. Cryptographic keys are generated for the OpenID Connect ID Token, the consent challenge and response, and TLS encryption using
+   a self-signed certificate, which is why we need to run all commands using `--skip-tls-verify`.
 
-Ory Hydra can be managed using the Hydra Command Line Interface (CLI), which is
-using Ory Hydra's REST APIs. To see the available commands, run:
+Ory Hydra can be managed using the Hydra Command Line Interface (CLI), which is using Ory Hydra's REST APIs. To see the available
+commands, run:
 
 ```sh
 docker run --rm -it --entrypoint hydra oryd/hydra:v1.10.6 help
@@ -208,11 +191,9 @@ Usage:
 
 ## Deploy Login & Consent App
 
-The Login Provider and Consent Provider can be two separate web services. We
-provide a
-[reference implementation](https://github.com/ory/hydra-login-consent-node)
-which combines both features in one app. Here, we will use deploy that app using
-Docker.
+The Login Provider and Consent Provider can be two separate web services. We provide a
+[reference implementation](https://github.com/ory/hydra-login-consent-node) which combines both features in one app. Here, we will
+use deploy that app using Docker.
 
 ```sh
 docker pull oryd/hydra-login-consent-node:v1.10.6
@@ -226,31 +207,30 @@ docker run -d \
 
 # Let's check if it's running ok:
 docker logs ory-hydra-example--consent
+
+> hydra-login-consent-logout@0.0.0 serve /usr/src/app
+> node lib/app.js
+
+Listening on http://0.0.0.0:3000
 ```
 
 Let's take a look at the arguments:
 
-- `-p 9020:3000` exposes this service at port 9020. If you remember, that's the
-  port of the `URLS_CONSENT` and `URLS_LOGIN` value from the Ory Hydra docker
-  container (`URLS_CONSENT=http://localhost:9020/consent`,
-  `URLS_LOGIN=http://localhost:9020/login`).
+- `-p 9020:3000` exposes this service at port 9020. If you remember, that's the port of the `URLS_CONSENT` and `URLS_LOGIN` value
+  from the Ory Hydra docker container (`URLS_CONSENT=http://localhost:9020/consent`, `URLS_LOGIN=http://localhost:9020/login`).
 - `HYDRA_ADMIN_URL=http://hydra:4445` point to the Ory Hydra Administrative API.
-- `NODE_TLS_REJECT_UNAUTHORIZED=0` disables TLS verification, because we're
-  using self-signed certificates.
+- `NODE_TLS_REJECT_UNAUTHORIZED=0` disables TLS verification, because we're using self-signed certificates.
 
 ## Perform OAuth 2.0 Flow
 
-Great! Our infrastructure is all set up! Next it's time to perform the OAuth 2.0
-Authorize Code flow. For that purpose, the Ory Hydra CLI has a feature that sets
-up an OAuth 2.0 Consumer and an OAuth 2.0 callback URL. Typically, this would be
-a third-party application that requests access to a user's resources on your
-servers - for example a Facebook App you wrote that backs up a user's photos and
-thus requires read access to the user's photos.
+Great! Our infrastructure is all set up! Next it's time to perform the OAuth 2.0 Authorize Code flow. For that purpose, the Ory
+Hydra CLI has a feature that sets up an OAuth 2.0 Consumer and an OAuth 2.0 callback URL. Typically, this would be a third-party
+application that requests access to a user's resources on your servers - for example a Facebook App you wrote that backs up a
+user's photos and thus requires read access to the user's photos.
 
-Before we go ahead, the OAuth 2.0 Client that performs the request has to be set
-up. Let's call the client `facebook-photo-backup`. We've to specify which OAuth
-2.0 Grant Types, OAuth 2.0 Scope, OAuth 2.0 Response Types, and Callback URLs
-the client may request:
+Before we go ahead, the OAuth 2.0 Client that performs the request has to be set up. Let's call the client
+`facebook-photo-backup`. We've to specify which OAuth 2.0 Grant Types, OAuth 2.0 Scope, OAuth 2.0 Response Types, and Callback
+URLs the client may request:
 
 ```sh
 docker run --rm -it \
@@ -271,33 +251,24 @@ Client Secret: some-secret
 
 Let's dive into some of the arguments:
 
-- `--skip-tls-verify` is supported by all management commands
-  (create/delete/update/... OAuth 2.0 Client, JSON Web Key, ...) and tells the
-  CLI to trust any certificate authority - even self-signed ones. We need this
-  flag because the server uses a self-signed certificate. In production
-  deployments, you would use a certificate signed by a trusted CA.
-- `--grant-types authorize_code,refresh_token,client_credentials,implicit` we
-  want to be able to perform all of these OAuth 2.0 flows.
-- `--response-types token,code,id_token` allows us to receive authorize codes,
-  access and refresh tokens, and OpenID Connect ID Tokens.
-- `--scope openid,offline,photos.read` allows the client to request various
-  permissions:
-  - `openid` allows the client to perform the OpenID Connect flow and request an
-    OpenID Connect ID Token.
-  - `offline` allows the client to request a refresh token. Because we want to
-    continuously backup photos, the app must be able to refresh expired access
-    tokens. This scope allows that.
-  - `photos.read` this is an imaginary scope that'sn't handled by Ory Hydra but
-    serves the purpose of making it clear that we could request read access to a
-    user's photos. You can obviously omit this scope or use your own scope.
-  - `--callbacks http://localhost:9010/callback` allows the client to request
-    this redirect uri.
+- `--skip-tls-verify` is supported by all management commands (create/delete/update/... OAuth 2.0 Client, JSON Web Key, ...) and
+  tells the CLI to trust any certificate authority - even self-signed ones. We need this flag because the server uses a
+  self-signed certificate. In production deployments, you would use a certificate signed by a trusted CA.
+- `--grant-types authorize_code,refresh_token,client_credentials,implicit` we want to be able to perform all of these OAuth 2.0
+  flows.
+- `--response-types token,code,id_token` allows us to receive authorize codes, access and refresh tokens, and OpenID Connect ID
+  Tokens.
+- `--scope openid,offline,photos.read` allows the client to request various permissions:
+  - `openid` allows the client to perform the OpenID Connect flow and request an OpenID Connect ID Token.
+  - `offline` allows the client to request a refresh token. Because we want to continuously backup photos, the app must be able to
+    refresh expired access tokens. This scope allows that.
+  - `photos.read` this is an imaginary scope that'sn't handled by Ory Hydra but serves the purpose of making it clear that we
+    could request read access to a user's photos. You can obviously omit this scope or use your own scope.
+  - `--callbacks http://localhost:9010/callback` allows the client to request this redirect uri.
 
-Perfect, let's perform an exemplary OAuth 2.0 Authorize Code Flow! To make this
-easy, the Ory Hydra CLI provides a helper command called `hydra token user`.
-Just imagine this being, for example, passport.js that's generating an auth code
-url, redirecting the browser to it, and then exchanging the authorize code for
-an access token. The same thing happens with this command:
+Perfect, let's perform an exemplary OAuth 2.0 Authorize Code Flow! To make this easy, the Ory Hydra CLI provides a helper command
+called `hydra token user`. Just imagine this being, for example, passport.js that's generating an auth code url, redirecting the
+browser to it, and then exchanging the authorize code for an access token. The same thing happens with this command:
 
 ```sh
 docker run --rm -it \
@@ -312,25 +283,24 @@ docker run --rm -it \
     --client-secret some-secret \
     --scope openid,offline,photos.read
 
-Setting up callback listener on http://localhost:9010/callback
+Setting up home route on http://127.0.0.1:9010/
+Setting up callback listener on http://127.0.0.1:9010/callback
 Press ctrl + c on Linux / Windows or cmd + c on OSX to end the process.
 If your browser doesn't open automatically, navigate to:
 
-        https://localhost:9010/
+        http://127.0.0.1:9010/
 ```
 
-open the link, as prompted, in your browser, and follow the steps shown there.
-You might encounter a screen like the following one:
+open the link, as prompted, in your browser, and follow the steps shown there. You might encounter a screen like the following
+one:
 
 ![Allow connecting with self-signed TLS Certificate](images/insecure-connection.png)
 
-This happens because we run Ory Hydra with a self-signed TLS certificate. In
-production deployments, you would probably use a certificate signed by a trusted
-CA and not see this screen.
+This happens because we run Ory Hydra with a self-signed TLS certificate. In production deployments, you would probably use a
+certificate signed by a trusted CA and not see this screen.
 
-When you see this screen, click on "Advanced" and "Add Exception" to continue.
-In some browsers, this might work differently, but it's always possible to
-proceed.
+When you see this screen, click on "Advanced" and "Add Exception" to continue. In some browsers, this might work differently, but
+it's always possible to proceed.
 
 When completed, you should land at a screen that looks like this one:
 

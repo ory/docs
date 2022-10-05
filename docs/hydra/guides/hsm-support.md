@@ -1,36 +1,32 @@
 ---
 id: hsm-support
-title: Hardware Security Module support for JSON Web Key Sets
+title: Hardware Security Module support for JSON Web Key sets
 ---
 
 The
 [PKCS#11 Cryptographic Token Interface Standard](http://docs.oasis-open.org/pkcs11/pkcs11-base/v2.40/os/pkcs11-base-v2.40-os.html),
-also known as Cryptoki, is one of the Public Key Cryptography Standards
-developed by RSA Security. PKCS#11 defines the interface between an application
-and a cryptographic device.
+also known as Cryptoki, is one of the Public Key Cryptography Standards developed by RSA Security. PKCS#11 defines the interface
+between an application and a cryptographic device.
 
 :::note
 
-If a key isn't found in the Hardware Security Module, the regular Software Key
-Manager with AES-GCM software encryption will be used as a fallback.
-Adding/updating keys will always use the Software Key Manager as it isn't
-possible to add keys to a Hardware Security Module.
+If a key isn't found in the Hardware Security Module, the regular Software Key Manager with AES-GCM software encryption will be
+used as a fallback. Adding or updating keys always uses the Software Key Manager as it isn't possible to add keys to a Hardware Security
+Module.
 
 :::
 
-PKCS#11 is used as a low-level interface to perform cryptographic operations
-without the need for the application to directly interface a device through its
-driver. PKCS#11 represents cryptographic devices using a common model referred
-to simply as a token. An application can therefore perform cryptographic
-operations on any device or token, using the same independent command set.
+PKCS#11 is used as a low-level interface to perform cryptographic operations without the need for the application to directly
+interface a device through its driver. PKCS#11 represents cryptographic devices using a common model referred to simply as a
+token. An application can therefore perform cryptographic operations on any device or token, using the same independent command
+set.
 
 <a name="hsm-configuration"></a>
 
 ### Hardware Security Module configuration
 
-Ory Hydra can be configured using environment variables as well as a
-configuration file. For more information on configuration options, open the
-configuration documentation:
+Ory Hydra can be configured using environment variables as well as a configuration file. For more information on configuration
+options, open the configuration documentation:
 
 &gt;&gt; https://www.ory.sh/hydra/docs/reference/configuration &lt;&lt;
 
@@ -43,40 +39,33 @@ HSM_PIN=1234
 HSM_KEY_SET_PREFIX=app1.
 ```
 
-Token that's denoted by environment variables `HSM_TOKEN_LABEL` or `HSM_SLOT`
-must preexist and optionally contain RSA (or ECDSA when JWT support comes) key
-pairs with labels `hydra.openid.id-token` and `hydra.jwt.access-token` depending
-on configuration. **_If keys with these labels don't exist, they will be
-generated upon startup._** If both `HSM_TOKEN_LABEL` and `HSM_SLOT` are set,
-`HSM_TOKEN_LABEL` takes preference over `HSM_SLOT`. In this case first slot that
-contains this label is used. `HSM_LIBRARY` must point to vendor specific PKCS#11
-library or SoftHSM library if you want to
-[test HSM support](#testing-with-softhsm). `HSM_KEY_SET_PREFIX` can be used in
-case of multiple Ory Hydra instances need to store keys on the same HSM
-partition. For example if `HSM_KEY_SET_PREFIX=app1.` then key set
-`hydra.openid.id-token` would be generated/requested/deleted on HSM with
-`CKA_LABEL=app1.hydra.openid.id-token`. <a name="pkcs11-attribute-mappings"></a>
+Token that's denoted by environment variables `HSM_TOKEN_LABEL` or `HSM_SLOT` must preexist and optionally contain RSA (or ECDSA
+for JWT) key pairs with labels `hydra.openid.id-token` and `hydra.jwt.access-token` depending on configuration. **_If keys with
+these labels don't exist, they will be generated upon startup._** If both `HSM_TOKEN_LABEL` and `HSM_SLOT` are set, 
+`HSM_TOKEN_LABEL` takes precedence over `HSM_SLOT`. In this case first slot that contains this label is used. `HSM_LIBRARY` must 
+point to vendor-specific PKCS#11 library or SoftHSM library if you want to [test HSM support](#testing-with-softhsm).
+
+`HSM_KEY_SET_PREFIX` can be used in case of multiple Ory Hydra instances need to store keys on the same HSM partition. 
+For example if `HSM_KEY_SET_PREFIX=app1.` then key set `hydra.openid.id-token` would be generated/requested/deleted on 
+HSM with `CKA_LABEL=app1.hydra.openid.id-token`.
+
+<a name="pkcs11-attribute-mappings"></a>
 
 ### PKCS#11 attribute mappings to JSON Web Key Set attributes
 
-When key pair is generated or requested from HSM, the `CKA_LABEL` attribute is
-used as JSON Web Key Set name, `CKA_ID` attribute as `kid`. Key usage is
-determined by private key attributes, where `CKA_SIGN` and `CKA_DECRYPT` are
-mapped to `sig` and `enc` respectively and set as key `use` attribute.
-Furthermore, `CKA_ID's` of key pair private/public handles must be identical.
+When key pair is generated or requested from HSM, the `CKA_LABEL` attribute is used as JSON Web Key Set name, `CKA_ID` attribute
+as `kid`. Key usage is determined by private key attributes, where `CKA_SIGN` and `CKA_DECRYPT` are mapped to `sig` and `enc`
+respectively and set as key `use` attribute. Furthermore, `CKA_ID's` of key pair private/public handles must be identical.
 Attribute `alg` is determined from `CKA_KEY_TYPE` and `CKA_ECDSA_PARAMS`.
 
 <a name="supported-key-algorithms"></a>
 
 ### Supported key algorithms
 
-Ory Hydra supports generating 4096 bit RSA, ECDSA keys with curves secp256r1 or
-secp521r1. As of now PKCS#11 v2.4 doesn't support EdDSA keys using curve
-Ed25519. However,
-[PKCS#11 v3.0](https://docs.oasis-open.org/pkcs11/pkcs11-curr/v3.0/pkcs11-curr-v3.0.html)
-contains support for EdDSA and therefore can be supported in upcoming versions.
-Symmetric key algorithms aren't supported because it would imply, that shared
-HSM is used between server and authenticating client.
+Ory Hydra supports generating 4096 bit RSA, ECDSA keys with curves secp256r1 or secp521r1. As of now PKCS#11 v2.4 doesn't support
+EdDSA keys using curve Ed25519. However, [PKCS#11 v3.0](https://docs.oasis-open.org/pkcs11/pkcs11-curr/v3.0/pkcs11-curr-v3.0.html)
+contains support for EdDSA and therefore can be supported in upcoming versions. Symmetric key algorithms aren't supported because
+it would imply, that shared HSM is used between server and authenticating client.
 
 <a name="generating-key-pairs"></a>
 
@@ -86,11 +75,9 @@ HSM is used between server and authenticating client.
 
 #### Initializing token
 
-Different policies can apply for tokens, therefore HSM configuration expects,
-that token where to find or generate keys already exists. Depending on HSM
-vendor, tools initializing tokens and generating keys vary. To demonstrate key
-pair generation we first initialize token using `pkcs11-tool` (see how to
-[setup SoftHSM and OpenSC](#testing-with-softhsm))
+Different policies can apply for tokens, therefore HSM configuration expects, that token where to find or generate keys already
+exists. Depending on HSM vendor, tools initializing tokens and generating keys vary. To demonstrate key pair generation we first
+initialize token using `pkcs11-tool` (see how to [setup SoftHSM and OpenSC](#testing-with-softhsm))
 
 ```sh
 pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so --slot 0 --init-token --so-pin 0000 --pin 1234 --init-pin --label hydra
@@ -158,10 +145,9 @@ Public Key Object; RSA 4096 bits
 
 ### Testing with SoftHSM
 
-[SoftHSM](https://www.opendnssec.org/softhsm/) is an implementation of a
-cryptographic store accessible through a PKCS #11 interface. You can use it to
-explore PKCS#11 without having a Hardware Security Module. It's being developed
-as a part of the OpenDNSSEC project.
+[SoftHSM](https://www.opendnssec.org/softhsm/) is an implementation of a cryptographic store accessible through a PKCS #11
+interface. You can use it to explore PKCS#11 without having a Hardware Security Module. It's being developed as a part of the
+OpenDNSSEC project.
 
 [Follow these instructions to build SoftHSM from source.](https://wiki.opendnssec.org/display/SoftHSMDOCS/SoftHSM+Documentation+v2)
 
@@ -195,25 +181,20 @@ sudo apt install softhsm opensc
 
 #### Install SoftHSM/OpenSC on Windows
 
-Follow these instructions to install
-[SoftHSM](https://github.com/disig/SoftHSM2-for-Windows) and
+Follow these instructions to install [SoftHSM](https://github.com/disig/SoftHSM2-for-Windows) and
 [OpenSC](https://github.com/OpenSC/OpenSC/wiki) on windows.
 
 #### Run Ory Hydra with HSM using Docker
 
-Alternatively you can use quickstart docker container that setups
-SoftHSM/OpenSC, builds and runs Ory Hydra with HSM configuration enabled. You
-need to have the latest [Docker](https://www.docker.com) and
-[Docker Compose](https://docs.docker.com/compose) version installed. To run
-quickstart HSM change into the directory with the Hydra source code and run the
-following command:
+Alternatively you can use quickstart docker container that setups SoftHSM/OpenSC, builds and runs Ory Hydra with HSM configuration
+enabled. You need to have the latest [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose)
+version installed. To run quickstart HSM change into the directory with the Hydra source code and run the following command:
 
 ```sh
 docker-compose -f quickstart-hsm.yml up --build
 ```
 
-Following is logged on startup if Hardware Security Module is successfully
-configured:
+Following is logged on startup if Hardware Security Module is successfully configured:
 
 ```sh
 docker logs ory-hydra-example--hydra

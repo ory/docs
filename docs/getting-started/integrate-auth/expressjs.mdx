@@ -1,0 +1,131 @@
+---
+id: expressjs
+title: Integrate authentication into Node.js / Express.js
+sidebar_label: Node.js / Express.js
+---
+
+```mdx-code-block
+import Teaser from '../_common/teaser.mdx'
+import mp4 from '../_static/expressjs/screencast.mp4'
+import webm from '../_static/expressjs/screencast.webm'
+
+<Teaser
+  framework={<a href="https://expressjs.com/">Express.js</a>}
+  mp4={mp4}
+  webm={webm}
+/>
+```
+
+## Create Express.js app
+
+First we create a new Express.js project:
+
+```shell-session
+mkdir your-project
+cd your-project
+
+npx express-generator
+npm i
+```
+
+## Install Ory SDK
+
+To interact with Ory's APIs we install the Ory SDK:
+
+```shell-session
+npm i --save @ory/client
+```
+
+## Install Ory CLI
+
+The last step is setting up the Ory CLI.
+
+```shell
+npm i --save @ory/cli
+```
+
+### Why do I Need the Ory CLI?
+
+```mdx-code-block
+import OryCLI from '../_common/ory-cli.mdx'
+
+<OryCLI />
+```
+
+## Add NPM run script
+
+Now that the Ory CLI is installed, let's add it as a `npm run` script to our project:
+
+```json title="package.json"  {7}
+{
+  "name": "protect-page-login",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "proxy": "ory proxy --no-jwt --port 4000 http://localhost:3000/"
+  },
+  "dependencies": {
+```
+
+This requires the express app (`npm run start`) to run on port 3000. The browser / user uses however the port 4000
+([http://localhost:4000](http://localhost:4000)) to access the app.
+
+## Require login to access the home page
+
+Next we add a session check to the default home page of the example application. The highlighted code is what we added to check
+whether the user is signed in, and redirect them to the login page if not:
+
+```mdx-code-block
+import homePage from '!!raw-loader!../../../code-examples/protect-page-login/expressjs/routes/index.js'
+import CodeBlock from '@theme/CodeBlock'
+
+<CodeBlock language="js">{homePage}</CodeBlock>
+```
+
+## Run your Express.js app
+
+Great, that's it. Let's run your application. Start the Express.js server
+
+```shell-session
+npm run start
+```
+
+and set up your environment variables to connect with Ory's APIs
+
+```mdx-code-block
+import SdkEnvVar from '@site/src/components/SdkEnvVar'
+
+<SdkEnvVar />
+```
+
+Next open a new terminal window and start the Ory Proxy:
+
+```shell-session
+npm run proxy
+```
+
+To access the Express.js app through the ORY proxy open [http://localhost:4000](http://localhost:4000) in your browser. You are
+presented with Ory's Sign In page. Let's click on sign up and create your first user.
+
+## Go to production
+
+```mdx-code-block
+import ToProd from '../_common/going-to-prod.mdx'
+
+<ToProd />
+```
+
+```js {2,4-7}
+var sdk = require("@ory/client")
+
+var ory = new sdk.V0alpha2Api(
+  new sdk.Configuration({
+    basePath: "https://ory.example.org",
+    baseOptions: {
+      // Ensures that cookies are included in CORS requests:
+      withCredentials: true,
+    },
+  }),
+)
+```

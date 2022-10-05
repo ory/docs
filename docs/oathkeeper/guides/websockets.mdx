@@ -1,0 +1,198 @@
+---
+id: proxy-websockets
+title: Define WebSockets rules
+---
+
+import { useLatestRelease } from "@site/src/hooks"
+import CodeBlock from "@theme/CodeBlock"
+
+This guide shows how to use Ory Oathkeeper with [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API).
+
+:::tip
+
+WebSockets bypass Ory Oathkeeper after the first request and thus Ory Oathkeeper only validates cookies once. It is up to your
+service to make sure that WebSocket connections expire within a reasonable time frame so the session cookie is still active and
+valid.
+
+:::
+
+Let's create a simple echo WebSocket service that sends back an accepted message. We'll use the
+[Gin Web framework](https://github.com/gin-gonic/gin) to build our application, and [Ory Kratos](https://github.com/ory/kratos) to
+handle user login, sign-up, and verification flows.
+
+## Install Ory Kratos and Ory Oathkeeper
+
+You can create any directory for testing and create a `docker-compose.yml` file with the following content:
+
+<CodeBlock className="language-yaml">{`version: "3.7"
+services:
+  oathkeeper:
+    image: oryd/oathkeeper:${useLatestRelease("oathkeeper")}
+    depends_on:
+      - kratos
+    ports:
+      - 8080:4455
+      - 4456:4456
+    command:
+      serve proxy -c "/etc/config/oathkeeper/oathkeeper.yml"
+    environment:
+      - LOG_LEVEL=debug
+    restart: on-failure
+    networks:
+      - intranet
+    volumes:
+      - ./oathkeeper:/etc/config/oathkeeper
+  postgres-kratos:
+    image: postgres:9.6
+    environment:
+      - POSTGRES_USER=kratos
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=kratos
+    networks:
+      - intranet
+  kratos-migrate:
+    image: oryd/kratos:${useLatestRelease("kratos")}
+    links:
+      - postgres-kratos:postgres-kratos
+    environment:
+      - DSN=postgres://kratos:secret@postgres-kratos:5432/kratos?sslmode=disable&max_conns=20&max_idle_conns=4
+    networks:
+      - intranet
+    volumes:
+      - type: bind
+        source: ./kratos
+        target: /etc/config/kratos
+    command: -c /etc/config/kratos/kratos.yml migrate sql -e --yes
+  kratos:
+    image: oryd/kratos:${useLatestRelease("kratos")}
+    links:
+      - postgres-kratos:postgres-kratos
+    environment:
+      - DSN=postgres://kratos:secret@postgres-kratos:5432/kratos?sslmode=disable&max_conns=20&max_idle_conns=4
+    ports:
+      - '4433:4433'
+      - '4434:4434'
+    volumes:
+      - type: bind
+        source: ./kratos
+        target: /etc/config/kratos
+    networks:
+      - intranet
+    command: serve -c /etc/config/kratos/kratos.yml --dev --watch-courier
+  kratos-selfservice-ui-node:
+    image: oryd/kratos-selfservice-ui-node:latest
+    environment:
+      - KRATOS_PUBLIC_URL=http://kratos:4433/
+      - KRATOS_BROWSER_URL=http://127.0.0.1:4433/
+    networks:
+      - intranet
+    ports:
+      - "4455:3000"
+    restart: on-failure
+  mailslurper:
+    image: oryd/mailslurper:latest-smtps
+    ports:
+      - '4436:4436'
+      - '4437:4437'
+    networks:
+      - intranet
+networks:
+  intranet:`}</CodeBlock>
+
+This example uses the following network architecture:
+
+- `4433` port is the public ("browser") API of Ory Kratos.
+- `4434` is the admin API of Ory Kratos.
+- `4455` is a port for the user interface implemented by the
+  [reference self-service UI](https://github.com/ory/kratos-selfservice-ui-node).
+- `8080` is a port of Ory Oathkeeper.
+
+Other ports and services are available only in the internal network.
+
+## Configure Ory Oathkeeper and Ory Kratos
+
+1. Create a `kratos` folder and fetch configuration files:
+
+<CodeBlock className="language-shell">{`mkdir kratos
+wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
+  "kratos",
+)}/contrib/quickstart/kratos/email-password/identity.schema.json -O kratos/identity.schema.json
+wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
+  "kratos",
+)}/contrib/quickstart/kratos/email-password/kratos.yml -O kratos/kratos.yml`}</CodeBlock>
+
+2. Create a `oathkeeper` folder and `oathkeeper/oathkeeper.yml` with the following content:
+
+```mdx-code-block title="oathkeeper/oathkeeper.yml"
+import oathkeeper from '!!raw-loader!../../../code-examples/oathkeeper/oathkeeper/oathkeeper.yml'
+
+<CodeBlock language="yaml">{oathkeeper}</CodeBlock>
+```
+
+3. Create `oathkeeper/access-rules.yml` with the following content:
+
+```mdx-code-block title="oathkeeper/access-rules.yml"
+import rules from '!!raw-loader!../../../code-examples/oathkeeper/oathkeeper/access-rules.yml'
+
+<CodeBlock language="yaml">{rules}</CodeBlock>
+```
+
+This configuration of Ory Oathkeeper uses the
+[cookie authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#cookie_session) against Ory Kratos and proxies only
+authenticated requests to `http://ws:8080` upstream. The `ws` hostname is resolved through the Docker network. If you aren't
+deploying your application within Docker, this would just be your localhost IP.
+
+## WebSocket service
+
+1. Let's create a folder `ws` and create our WebSocket service using Go and Gin framework. Create `ws/main.go` file with the
+   following content:
+
+```mdx-code-block title="ws/main.go"
+import app from '!!raw-loader!../../../code-examples/oathkeeper/ws/main.go'
+
+<CodeBlock language="go">{app}</CodeBlock>
+```
+
+2. We need to initialize go modules by running the following commands:
+
+```shell
+cd ws
+go mod init ws
+go mod tidy
+```
+
+3. Create `ws/index.html` file with the following content:
+
+```mdx-code-block title="ws/index.html"
+import index from '!!raw-loader!../../../code-examples/oathkeeper/ws/index.html'
+
+<CodeBlock language="html">{index}</CodeBlock>
+```
+
+4. Create `ws/Dockerfile` with the following content:
+
+```mdx-code-block title="ws/Dockerfile"
+import dockerfile from '!!raw-loader!../../../code-examples/oathkeeper/ws/Dockerfile'
+
+<CodeBlock language="html">{dockerfile}</CodeBlock>
+```
+
+5. We need to add our `ws` service to the `docker-compose.yml`
+
+```yaml
+services:
+---
+ws:
+  build:
+    context: "ws"
+  networks:
+    - intranet
+```
+
+## Testing
+
+1. Run `docker-compose up`.
+2. Wait for services to be ready.
+3. Open `http://127.0.0.1:4455`.
+4. Create a new account.
+5. Open `http://127.0.0.1:8080`.

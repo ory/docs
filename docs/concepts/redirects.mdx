@@ -1,50 +1,41 @@
 ---
 id: redirects
-title: Browser Redirects and Flow Completion
+title: Browser redirects and flow completion
 ---
 
-This document covers browser redirects for Server Side Applications (NodeJs,
-PHP, Golang etc.) and how to configure them. To learn more about the SDK for
-Single Page Applications, check out the [SDK](./services-api.mdx) documentation.
+This document covers browser redirects for Server Side Applications (Node.js, PHP, Golang etc.) and how to configure them.
 
-## Allow List
+## Allow list
 
-Set dynamic redirects using the `?return_to=` query parameter on
-[Self-Service Flows](./self-service.mdx). For example: a user opens a sharable
-link to go to `https://myapp.com/posts`. This URL requires the user to have an
-active session and redirects the user back to the login page. To return the user
-back to the original URL, append `?return_to=https://myapp.com/posts` when
-starting the
+Set dynamic redirects using the `?return_to=` query parameter on self-service flows. For example: a user opens a sharable link to
+go to `https://myapp.com/posts`. This URL requires the user to have an active session and redirects the user back to the login
+page. To return the user back to the original URL, append `?return_to=https://myapp.com/posts` when starting the
 [self-service login flow](https://www.ory.sh/docs/reference/api#operation/initializeSelfServiceLoginFlowForBrowsers):
 
 ```js
 curl -X GET 'http://<your-project>.projects.oryapis.com/self-service/login/browser?return_to=...'
 ```
 
-When the login flow starts in a browser with a `return_to` URL set, `return_to`
-will be set. For API clients such as AJAX [visit this section](#api-clients).
+When the login flow starts in a browser with a `return_to` URL set, `return_to` will be set. For API clients such as AJAX
+[visit this section](#api-clients).
 
 The `allow list` prevents
-[Open Redirect Attacks](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html)
-by just allowing certain domains, or paths on a domain. As in the example below
-`https://sub.domain.myapp.com/only/path` needs to match the sub-domain and path.
-Other redirects using `myapp.com` will fail. Redirects using
-`https://anotherapp.com` will succeed on any path.
+[Open Redirect Attacks](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) by
+just allowing certain domains, or paths on a domain. As in the example below `https://sub.domain.myapp.com/only/path` needs to
+match the sub-domain and path. Other redirects using `myapp.com` will fail. Redirects using `https://anotherapp.com` will succeed
+on any path.
 
 ![Browser Redirects Allow List](/images/browser-redirects/browser-redirects-allow-list.png)
 
-## Redirect Flows
+## Redirect flows
 
-Ory Cloud has a total of six flows, **Login**, **Registration**,
-**Verification**, **Recovery**, **Settings** and **Logout** which can be
-configured to redirect back to any URL. A common use case would be to redirect
-the user to your application home screen after a logout or to a specific URL on
-a sub-domain after a settings password update.
+Ory Cloud has a total of six flows, **Login**, **Registration**, **Verification**, **Recovery**, **Settings** and **Logout** which
+can be configured to redirect back to any URL. A common use case would be to redirect the user to your application home screen
+after a logout or to a specific URL on a sub-domain after a settings password update.
 
-On project creation the redirect flows are set to the default
-[Managed User Interface](./managed-ui.mdx).
+On project creation the redirect flows are set to the default Managed User Interface.
 
-### Login, Registration, and Settings
+### Login, registration, and settings
 
 The Login and Registration flows have three fields (all optional):
 
@@ -91,69 +82,58 @@ selfservice:
           default_browser_return_url: https://end-up-here-after-login-with-password/
 ```
 
-The Default Redirect URL is used when Ory isn't sure where to redirect. It’s a
-good idea for this to be your default app URL, for example `/` or the dashboard.
-Use sub-conditions to control where users are redirected after registration,
-login, and other self-service flows.
+The Default Redirect URL is used when Ory isn't sure where to redirect. It’s a good idea for this to be your default app URL, for
+example `/` or the dashboard. Use sub-conditions to control where users are redirected after registration, login, and other
+self-service flows.
 
 When setting the Post-Login Redirect as an fully qualified domain name
-([FQDN](https://en.wikipedia.org/wiki/Fully_qualified_domain_name) such as
-`https://domain.example/login` it will overwrite the Default Redirect URL. As a
-path it will replace the Default Redirect URL path, for example `/login` will
-alter `https://domain.example/default/path` to `https://domain.example/login`.
-This works the same for all other Post- flows and sub-conditions.
+([FQDN](https://en.wikipedia.org/wiki/Fully_qualified_domain_name) such as `https://domain.example/login` it will overwrite the
+Default Redirect URL. As a path it will replace the Default Redirect URL path, for example `/login` will alter
+`https://domain.example/default/path` to `https://domain.example/login`. This works the same for all other Post- flows and
+sub-conditions.
 
-On sub-conditions such as After Password or After Profile an FQDN or a path can
-be set. All the relative URLs will be updated with their respective base URL. As
-shown in the example below, the Post-Login Redirect URL is a path. This means
-the base URL will be the Default Redirect URL (`https://myapp.com`). This will
-set the Post-Login Redirect URL to `https://myapp.com/after/login` and the
-Post-Password Redirect URL to `https://myapp.com/after/login/password`.
+On sub-conditions such as After Password or After Profile an FQDN or a path can be set. All the relative URLs will be updated with
+their respective base URL. As shown in the example below, the Post-Login Redirect URL is a path. This means the base URL will be
+the Default Redirect URL (`https://myapp.com`). This will set the Post-Login Redirect URL to `https://myapp.com/after/login` and
+the Post-Password Redirect URL to `https://myapp.com/after/login/password`.
 
 ![Browser Redirects Url Management](/images/browser-redirects/browser-redirects-url-management.png)
 
-In the example below, the Post-Login Redirect URL is a FQDN. This will set the
-Post-Login Redirect URL to `https://myapp.com/after/login` and the Post-Password
-Redirect URL to `https://myapp.com/after/login/password`.
+In the example below, the Post-Login Redirect URL is a FQDN. This will set the Post-Login Redirect URL to
+`https://myapp.com/after/login` and the Post-Password Redirect URL to `https://myapp.com/after/login/password`.
 
 ![Browser Redirects URL Management Transformed](/images/browser-redirects/browser-redirects-url-management-2.png)
 
-### Verification, Recovery, and Logout
+### Verification, recovery, and logout
 
 :::tip
 
-The Post-Recovery redirect isn't supported and will automatically redirect the
-user to the Settings UI URL. Use the Post-Settings redirect for Post-Recovery
-flows.
+The Post-Recovery redirect isn't supported and will automatically redirect the user to the Settings UI URL. Use the Post-Settings
+redirect for Post-Recovery flows.
 
 :::
 
-Each of these flows has a single field, the Default Redirect URL. As with Login,
-Registration, and Settings configurations, the Default Redirect URL can be an
-FQDN or a path.
+Each of these flows has a single field, the Default Redirect URL. As with Login, Registration, and Settings configurations, the
+Default Redirect URL can be an FQDN or a path.
 
 ![Browser Redirects URL Management Transformed](/images/browser-redirects/browser-redirects-url-management-3.png)
 
-## Reset and Update Flows
+## Reset and update flows
 
-Update or delete a redirect by either changing the current redirects value or
-deleting the entry and clicking the **Update** button. Reset all flows at once
-with the **Reset Flows** button which will prompt a confirmation box. Resetting
-all flows will reset all the fields back to the default value which is the Ory
-Cloud [Managed User Interface](./managed-ui.mdx).
+Update or delete a redirect by either changing the current redirects value or deleting the entry and clicking the **Update**
+button. Reset all flows at once with the **Reset Flows** button which will prompt a confirmation box. Resetting all flows will
+reset all the fields back to the default value which is the Ory Cloud Managed User Interface.
 
-Updates to flows will take effect on **new** flows. It will have no effect on
-old flows that haven't expired yet.
+Updates to flows will take effect on **new** flows. It will have no effect on old flows that haven't expired yet.
 
 ![Browser Redirects URL Reset All](/images/browser-redirects/browser-redirects-reset-all.png)
 
 ## Troubleshooting
 
-### API Clients
+### API clients
 
 The browser redirects work just for regular browser requests.  
-If you are using an API Client, for example AJAX, redirect the user to the right
-endpoint in the application:
+If you are using an API Client, for example AJAX, redirect the user to the right endpoint in the application:
 
 ```ts
           .then((res) => {
@@ -163,23 +143,21 @@ endpoint in the application:
 
 ### Invalid URL
 
-The [allow list](#allow-list) and any of the post-flow redirects require a valid
-URL with a scheme (HTTP or HTTPS). An example of a valid URL is
-`https://www.google.com`.
+The [allow list](#allow-list) and any of the post-flow redirects require a valid URL with a scheme (HTTP or HTTPS). An example of
+a valid URL is `https://www.google.com`.
 
 ![Browser Redirects URL Error Message](/images/browser-redirects/browser-redirects-error-messages-1.png)
 
 ![Browser Redirects URL Error Message Flows](/images/browser-redirects/browser-redirects-error-messages-flows.png)
 
-### Domain Denied
+### Domain denied
 
 It's not possible to set the any Ory-owned domain as redirect URL.
 
 ![Browser Redirects URL Error Message](/images/browser-redirects/browser-redirects-error-messages-2.png)
 
-## Read More
+## Read more
 
-For a deeper dive into the background of browser redirects, head over to the Ory
-Kratos concept documentation:
+For a deeper dive into the background of browser redirects, head over to the Ory Kratos concept documentation:
 
 - [HTTP Redirection Configuration](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion)

@@ -3,18 +3,16 @@ id: configuring
 title: Configuring Ory services
 ---
 
-All Ory services share the same configuration system. This page documents the
-details and edge cases that apply to all Ory services.
+All Ory services share the same configuration system. This page documents the details and edge cases that apply to all Ory
+services.
 
 :::info
 
-Please note that Ory Oathkeeper uses an old configuration library and doesn't
-yet respect everything explained in this document.
+Please note that Ory Oathkeeper uses an old configuration library and doesn't yet respect everything explained in this document.
 
 :::
 
-To find out more about configuring the individual services head to their
-corresponding sections.
+To find out more about configuring the individual services head to their corresponding sections.
 
 ## Configuration Format
 
@@ -43,8 +41,7 @@ social_sign_in:
 
 ## Loading Configuration from Files
 
-Configuration can be loaded from the file system. Ory supports loading
-configuration from YAML
+Configuration can be loaded from the file system. Ory supports loading configuration from YAML
 
 ```yaml
 some_config: value
@@ -58,21 +55,19 @@ and JSON files
 }
 ```
 
-You can combine several configuration files by defining the `-c` or `--config`
-flag multiple times when calling the CLI command or when importing configuration
-files to Ory Cloud:
+You can combine several configuration files by defining the `-c` or `--config` flag multiple times when calling the CLI command or
+when importing configuration files to Ory Cloud:
 
 ```
 someCommand --config file/a.yml --config file/b.yml
 ```
 
-The files are then merged in order. Here, `a.yml`'s values are overwritten by
-`b.yml`.
+The files are then merged in order. Here, `a.yml`'s values are overwritten by `b.yml`.
 
 :::info
 
-When merging configuration values, the configuration system will try its best to
-merge the keys. Please note that array values can will be overwritten!
+When merging configuration values, the configuration system will try its best to merge the keys. Please note that array values can
+will be overwritten!
 
 ```yml
 --- # file A
@@ -90,12 +85,10 @@ foo:
 
 ## Loading Configuration from Environment Variables
 
-In cases where you need to load secret values - this is usually the case when
-deploying Ory open source services yourself - you can use environment variables
-to override configuration values from files or CLI flags.
+In cases where you need to load secret values - this is usually the case when deploying Ory open source services yourself - you
+can use environment variables to override configuration values from files or CLI flags.
 
-It's possible to set _any_ configuration value from environment variables. To
-understand how this works, let's look at an example:
+It's possible to set _any_ configuration value from environment variables. To understand how this works, let's look at an example:
 
 ```yaml
 some:
@@ -125,10 +118,8 @@ $env:SOME_NESTED_KEY_AND_ARRAY_0_ID = foo
 $env:SOME_NESTED_KEY_AND_ARRAY_1_ID = bar
 ```
 
-As you can see, subkeys are separated with an underscore `_`. If a subkey is an
-array, you can reference the array item by using the array index (`0`, `1`). It
-is also possible to define a new array by using an array index that'sn't yet
-set:
+As you can see, subkeys are separated with an underscore `_`. If a subkey is an array, you can reference the array item by using
+the array index (`0`, `1`). It is also possible to define a new array by using an array index that'sn't yet set:
 
 ```shell
 export SOME_NESTED_KEY_AND_ARRAY_2_BAR=baz
@@ -158,17 +149,15 @@ $env:SOME_NESTED_KEY_AND_ARRAY = '[{"id":"foo"},{"id":"bar"}]'
 
 ## Loading Configuration from CLI Flags
 
-When using the CLI, you can also set configuration values using CLI flags. This
-option however is very rare and you will usually find configuration files or
-environment variables to set configuration values. To find information about CLI
-flags, append the help flag (`-h`) to the command you wish to use.
+When using the CLI, you can also set configuration values using CLI flags. This option however is very rare and you will usually
+find configuration files or environment variables to set configuration values. To find information about CLI flags, append the
+help flag (`-h`) to the command you wish to use.
 
 ## Configuration Types
 
-Ory uses JSON Schemas to define the configuration layout. JSON Schema defines
-types, which means that Ory is able to guess the type and convert strings (for
-example when using environment variables) to the correct type! A boolean type is
-converted to `true` or `false` accordingly for:
+Ory uses JSON Schemas to define the configuration layout. JSON Schema defines types, which means that Ory is able to guess the
+type and convert strings (for example when using environment variables) to the correct type! A boolean type is converted to `true`
+or `false` accordingly for:
 
 ```bash
 export SOME_VAR=true
@@ -179,8 +168,7 @@ The same applies to strings and numbers!
 
 ## Configuration References
 
-All of Ory's services have a full configuration reference available. You can
-find them here:
+All of Ory's services have a full configuration reference available. You can find them here:
 
 - [Ory Keto](https://www.ory.sh/docs/keto/reference/configuration)
 - [Ory Kratos](https://www.ory.sh/docs/kratos/reference/configuration)

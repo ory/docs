@@ -1,9 +1,7 @@
 ---
 id: hydra-token-user
 title: hydra token user
-description:
-  hydra token user An exemplary OAuth 2.0 Client performing the OAuth 2.0
-  Authorize Code Flow
+description: hydra token user An exemplary OAuth 2.0 Client performing the OAuth 2.0 Authorize Code Flow
 ---
 
 <!--
@@ -11,20 +9,17 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## hydra token user
 
 An exemplary OAuth 2.0 Client performing the OAuth 2.0 Authorize Code Flow
 
 ### Synopsis
 
-Starts an exemplary web server that acts as an OAuth 2.0 Client performing the
-Authorize Code Flow. This command will help you to see if Ory Hydra has been
-configured properly.
+Starts an exemplary web server that acts as an OAuth 2.0 Client performing the Authorize Code Flow.
+This command will help you to see if Ory Hydra has been configured properly.
 
-This command must not be used for anything else than manual testing or demo
-purposes. The server will terminate on error and success, unless if the
---no-shutdown flag is provided.
+This command must not be used for anything else than manual testing or demo purposes. The server will terminate on error
+and success, unless if the --no-shutdown flag is provided.
 
 ```
 hydra token user [flags]
@@ -54,10 +49,11 @@ hydra token user [flags]
 
 ```
       --fail-after duration    Stop retrying after the specified duration (default 1m0s)
-      --fake-tls-termination   fake tls termination by adding &#34;X-Forwarded-Proto: https&#34; to http headers
+      --fake-tls-termination   fake tls termination by adding "X-Forwarded-Proto: https" to http headers
       --skip-tls-verify        Foolishly accept TLS certificates signed by unknown certificate authorities
 ```
 
 ### SEE ALSO
 
-- [hydra token](hydra-token) - Issue and Manage OAuth2 tokens
+* [hydra token](hydra-token)	 - Issue and Manage OAuth2 tokens
+

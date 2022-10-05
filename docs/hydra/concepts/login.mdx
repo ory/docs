@@ -1,33 +1,23 @@
 ---
 id: login
-title: Login Flow
+title: Login flow
 ---
 
-import Mermaid from '@theme/Mermaid'
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
+import Mermaid from "@theme/Mermaid"
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
-OAuth2 and OpenID Connect require an authenticated End-User session for all
-OAuth2 / OpenID Connect flows except the `client_credentials` flow which does
-not involve End-Users.
+OAuth2 and OpenID Connect require an authenticated End-User session for all OAuth2 / OpenID Connect flows except the
+`client_credentials` flow which does not involve End-Users.
 
-Ory Hydra doesn't contain a database with End-Users but instead uses HTTP
-Redirection to "delegate" the login flow to another app - we call this the Login
-& Consent App.
+Ory Hydra doesn't contain a database with End-Users but instead uses HTTP Redirection to "delegate" the login flow to another
+app - we call this the Login & Consent App.
 
-The following short video shows the flow from an End-User's perspective - it
-includes both login and consent.
+The following short video shows the flow from an End-User's perspective - it includes both login and consent.
 
-<iframe
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/txUmfORzu8Y"
-  frameborder="0"
-  allowfullscreen
-></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/txUmfORzu8Y" frameborder="0" allowfullscreen></iframe>
 
-The following sequence diagram describes the different API calls and HTTP
-Redirects when performing the OAuth2 flow:
+The following sequence diagram describes the different API calls and HTTP Redirects when performing the OAuth2 flow:
 
 <Mermaid
   chart={`sequenceDiagram
@@ -48,14 +38,12 @@ Redirects when performing the OAuth2 flow:
     Ory Hydra->>OAuth2 Client: Transmits authorization code/token`}
 />
 
-## Initiating the OAuth 2.0 / OpenID Connect Flow
+## Initiating the OAuth 2.0 / OpenID Connect flow
 
-The OAuth2 2.0 / OpenID Connect Flow is initiated by pointing the End-User's
-browser to the `/oauth2/auth` endpoint. Depending on which flow ("Authorize Code
-Flow", "Implicit Flow", ...) you want to use some of the query parameters (for
-example `/oauth2/auth?response_type=code`, `/oauth2/auth?response_type=token`,
-...) might change but the overall initiation works always by sending the browser
-to that URL.
+The OAuth2 2.0 / OpenID Connect Flow is initiated by pointing the End-User's browser to the `/oauth2/auth` endpoint. Depending on
+which flow ("Authorize Code Flow", "Implicit Flow", ...) you want to use some of the query parameters (for example
+`/oauth2/auth?response_type=code`, `/oauth2/auth?response_type=token`, ...) might change but the overall initiation works always
+by sending the browser to that URL.
 
 :::note
 
@@ -64,8 +52,7 @@ This guide uses URLs from the [5 Minute Tutorial](../5min-tutorial.mdx):
 - Ory Hydra Public Endpoint: http://127.0.0.1:4444
 - Ory Hydra Admin Endpoint: http://127.0.0.1:4445
 
-When translating this guide into your own environment, make sure to use the
-correct endpoint for your interactions.
+When translating this guide into your own environment, make sure to use the correct endpoint for your interactions.
 
 :::
 
@@ -84,11 +71,7 @@ correct endpoint for your interactions.
 <TabItem value="html">
 
 ```html
-<a
-  href="https://<hydra-public>/oauth2/auth?client_id=...&response_type=...&scope=..."
->
-  Login in with Ory Hydra</a
->
+<a href="https://<hydra-public>/oauth2/auth?client_id=...&response_type=...&scope=..."> Login in with Ory Hydra</a>
 ```
 
 </TabItem>
@@ -96,25 +79,21 @@ correct endpoint for your interactions.
 
 ```js
 // ...
-window.location.href =
-  'https://public.hydra.url/oauth2/auth?client_id=...&response_type=...&scope=...'
+window.location.href = "https://public.hydra.url/oauth2/auth?client_id=...&response_type=...&scope=..."
 ```
 
 </TabItem>
 </Tabs>
 
-## Redirection to the Login Endpoint
+## Redirection to the login endpoint
 
-The next task for Ory Hydra is to know the user of the request. To achieve that,
-Ory Hydra checks if a session cookie is set containing information about a
-previously successful login. Additionally, OpenID Connect parameters
-`id_token_hint`, `prompt`, and `max_age` are evaluated and processed. Depending
-on their values and the login state, the user might need to re-authenticate or
+The next task for Ory Hydra is to know the user of the request. To achieve that, Ory Hydra checks if a session cookie is set
+containing information about a previously successful login. Additionally, OpenID Connect parameters `id_token_hint`, `prompt`, and
+`max_age` are evaluated and processed. Depending on their values and the login state, the user might need to re-authenticate or
 the flow will fail.
 
-To authenticate the user (this happens regardless of whether a session exists
-for the user or not), Ory Hydra redirects the browser to the "Login Endpoint"
-established in your config:
+To authenticate the user (this happens regardless of whether a session exists for the user or not), Ory Hydra redirects the
+browser to the "Login Endpoint" established in your config:
 
 ```yaml title="hydra serve all -c path/to/hydra/config.yml
 # Can also be set using the environment variable:
@@ -123,48 +102,37 @@ urls:
   login: https://login-app/login
 ```
 
-Ory Hydra appends a `login_challenge` query parameter to the url. The value is a
-ID which should later be used by the Login Endpoint to fetch important
-information about the request.
+Ory Hydra appends a `login_challenge` query parameter to the url. The value is a ID which should later be used by the Login
+Endpoint to fetch important information about the request.
 
 ```
 https://login-app/login?login_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2
 ```
 
-### Login Sessions, `prompt`, `max_age`, `id_token_hint`
+### Login sessions, `prompt`, `max_age`, `id_token_hint`
 
-Ory Hydra keeps track of user sessions. It does so by issuing a cookie which
-contains the user ID. On subsequent OAuth2 / OpenID Connect flows, the session
-will be checked and the Login Endpoint will be instructed to, for example, show
-the Login HTML Form or skip the Login HTML Form.
+Ory Hydra keeps track of user sessions. It does so by issuing a cookie which contains the user ID. On subsequent OAuth2 / OpenID
+Connect flows, the session will be checked and the Login Endpoint will be instructed to, for example, show the Login HTML Form or
+skip the Login HTML Form.
 
 Ory Hydra supports the following OpenID Connect query parameters:
 
-- `prompt` (optional). Space delimited, case sensitive list of ASCII string
-  values that specifies whether the Authorization Server prompts the End-User
-  for reauthentication and consent.
-  - `prompt=none` instructs Ory Hydra to not display the login or consent user
-    interface pages. An error is returned if an End-User isn't already
-    authenticated or the Client doesn't have pre-configured consent for the
-    requested Claims or doesn't fulfill other conditions for processing the
-    request. The error code will typically be `login_required`,
-    `interaction_required`, or another code. This can be used as a method to
-    check for existing authentication and/or consent.
-  - `prompt=login` instructs Ory Hydra to force the End-User to log in using the
-    Login HTML Form in the Login Endpoint.
-  - `prompt=consent` instructs Ory Hydra to force the End-User to re-authorize
-    (give consent) the OAuth2 Client using the
+- `prompt` (optional). Space delimited, case sensitive list of ASCII string values that specifies whether the Authorization Server
+  prompts the End-User for reauthentication and consent.
+  - `prompt=none` instructs Ory Hydra to not display the login or consent user interface pages. An error is returned if an
+    End-User isn't already authenticated or the Client doesn't have pre-configured consent for the requested Claims or doesn't
+    fulfill other conditions for processing the request. The error code will typically be `login_required`,
+    `interaction_required`, or another code. This can be used as a method to check for existing authentication and/or consent.
+  - `prompt=login` instructs Ory Hydra to force the End-User to log in using the Login HTML Form in the Login Endpoint.
+  - `prompt=consent` instructs Ory Hydra to force the End-User to re-authorize (give consent) the OAuth2 Client using the
     [Consent HTML Form in the Consent Endpoint](./consent.mdx).
   - `prompt=select_account` is not supported in Ory Hydra, see [#].
-- `max_age` (optional) specifies the allowable elapsed time in seconds since the
-  last time the End-User was actively authenticated by Ory Hydra. If the elapsed
-  time is greater than this value, the Login HTML Form must be shown and the
-  End-User must re-authenticate.
-- `id_token_hint` (optional) - ID Token previously issued by Ory Hydra being
-  passed as a hint about the End-User's current or past authenticated session
-  with the Client. If the End-User identified by the ID Token is logged in or is
-  logged in by the request, then the Authorization Server returns a positive
-  response; otherwise, it returns an error, typically `login_required`. It does
+- `max_age` (optional) specifies the allowable elapsed time in seconds since the last time the End-User was actively authenticated
+  by Ory Hydra. If the elapsed time is greater than this value, the Login HTML Form must be shown and the End-User must
+  re-authenticate.
+- `id_token_hint` (optional) - ID Token previously issued by Ory Hydra being passed as a hint about the End-User's current or past
+  authenticated session with the Client. If the End-User identified by the ID Token is logged in or is logged in by the request,
+  then the Authorization Server returns a positive response; otherwise, it returns an error, typically `login_required`. It does
   not matter if the ID Token is expired or not.
 
 To specify these parameters add them to the OAuth2 Auth Endpoint URL Query:
@@ -173,24 +141,21 @@ To specify these parameters add them to the OAuth2 Auth Endpoint URL Query:
 https://<hydra-public>/oauth2/auth?prompt=login&max_age=60&id_token_hint=...'
 ```
 
-## The Login Endpoint
+## The login endpoint
 
-The Login Endpoint (set by `urls.login`) is an application written by you. You
-can find an exemplary
-[NodeJS reference implementation on our GitHub](https://github.com/ory/hydra-login-consent-node).
+The Login Endpoint (set by `urls.login`) is an application written by you. You can find an exemplary
+[Node.js reference implementation on our GitHub](https://github.com/ory/hydra-login-consent-node).
 
-The Login Endpoint uses the `login_challenge` value in the URL to fetch
-information about the login request by making a HTTP GET request to:
+The Login Endpoint uses the `login_challenge` value in the URL to fetch information about the login request by making a HTTP GET
+request to:
 
 ```
 http(s)://<HYDRA_ADMIN_URL>/oauth2/auth/requests/login?login_challenge=<challenge>
 ```
 
-The response (see below in "Login Challenge Response" tab) contains information
-about the login request. The body contains a `skip` value. If the value is
-`false`, the user interface must be shown. If `skip` is true, you shouldn't show
-the user interface but instead just accept or reject the login request! For more
-details about the implementation check the
+The response (see below in "Login Challenge Response" tab) contains information about the login request. The body contains a
+`skip` value. If the value is `false`, the user interface must be shown. If `skip` is true, you shouldn't show the user interface
+but instead just accept or reject the login request! For more details about the implementation check the
 ["Implementing the Login Endpoint" Guide](../guides/login.mdx).
 
 <Tabs
@@ -211,8 +176,8 @@ details about the implementation check the
 curl "http://127.0.0.1:4445/oauth2/auth/requests/login?login_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2"
 ```
 
-Check the ["Implementing the Login Endpoint" Guide](../guides/login.mdx) for
-examples using the Ory Hydra SDK in different languages.
+Check the ["Implementing the Login Endpoint" Guide](../guides/login.mdx) for examples using the Ory Hydra SDK in different
+languages.
 
 </TabItem>
 <TabItem value="json">
@@ -255,38 +220,31 @@ examples using the Ory Hydra SDK in different languages.
 </TabItem>
 </Tabs>
 
-The way you authenticate the End-User is up to you. In most cases, you will show
-an HTML form similar to:
+The way you authenticate the End-User is up to you. In most cases, you will show an HTML form similar to:
 
 ```html
 <form action="/login" method="post">
   <input type="hidden" name="csrf_token" value="...." />
   <!-- Use CSRF tokens in your HTML forms! -->
-  <input
-    type="email"
-    name="login_email"
-    placeholder="Please enter your email address to log in"
-  />
+  <input type="email" name="login_email" placeholder="Please enter your email address to log in" />
   <input type="password" name="login_password" />
   <input type="checkbox" name="remember" value="Remember me on this device" />
   <input type="submit" value="Log in" />
 </form>
 ```
 
-Once the End-User authenticated successfully, you either **accept** the login
-challenge, or you **reject** (for example the user isn't allowed to perform
-OAuth2 flows) the login challenge.
+Once the End-User authenticated successfully, you either **accept** the login challenge, or you **reject** (for example the user
+isn't allowed to perform OAuth2 flows) the login challenge.
 
-### Accepting the Login Flow
+### Accepting the login flow
 
-To accept the Login Challenge, make a HTTP PUT request with
-`Content-Type: application/json` and a JSON payload (see
+To accept the Login Challenge, make a HTTP PUT request with `Content-Type: application/json` and a JSON payload (see
 [Accept Login Request HTTP API Reference](../reference/api.mdx#schemaacceptloginrequest))
 
 :::warning
 
-The subject must be an immutable user ID, it should never be an email address, a
-username, or something else that may change over time.
+The subject must be an immutable user ID, it should never be an email address, a username, or something else that may change over
+time.
 
 :::
 
@@ -351,13 +309,12 @@ The server responds with JSON
 
 which is the URL your application must redirect the End-User's browser to.
 
-Check the ["Implementing the Login Endpoint" Guide](../guides/login.mdx) for
-examples using the Ory Hydra SDK in different languages.
+Check the ["Implementing the Login Endpoint" Guide](../guides/login.mdx) for examples using the Ory Hydra SDK in different
+languages.
 
-### Rejecting the Login Flow
+### Rejecting the login flow
 
-To reject the Login Challenge, make a HTTP PUT request with
-`Content-Type: application/json` and a JSON payload (see
+To reject the Login Challenge, make a HTTP PUT request with `Content-Type: application/json` and a JSON payload (see
 [Reject Login Request HTTP API Reference](../reference/api.mdx#schemarejectrequest))
 
 ```json
@@ -406,30 +363,26 @@ The server responds with JSON
 
 which is the URL your application must the End-User's browser to.
 
-Check the ["Implementing the Login Endpoint" Guide](../guides/login.mdx) for
-examples using the Ory Hydra SDK in different languages.
+Check the ["Implementing the Login Endpoint" Guide](../guides/login.mdx) for examples using the Ory Hydra SDK in different
+languages.
 
-## Redirection to the Consent Endpoint
+## Redirection to the consent endpoint
 
 Please head over to [Consent Flow](./consent.mdx)!
 
-## Revoking Ory Hydra Login Sessions
+## Revoking Ory Hydra login sessions
 
-Revoking a login session will remove all of the user's cookies at Ory Hydra and
-will require the user to re-authenticate when performing the next OAuth 2.0
-Authorize Code Flow. Be aware that this option will remove all cookies from all
-devices.
+Revoking a login session will remove all of the user's cookies at Ory Hydra and will require the user to re-authenticate when
+performing the next OAuth 2.0 Authorize Code Flow. Be aware that this option will remove all cookies from all devices.
 
 :::info
 
-Revoking a login session doesn't invalidate any Access, Refresh, or ID Tokens!
-If you log out of GitHub, you won't be logged out of CircleCI/TravisCI.
+Revoking a login session doesn't invalidate any Access, Refresh, or ID Tokens! If you log out of GitHub, you won't be logged out
+of CircleCI/TravisCI.
 
 :::
 
-Revoking the login sessions of a user is as easy as sending `DELETE` to
-`/oauth2/auth/sessions/login?subject={subject}` (see
+Revoking the login sessions of a user is as easy as sending `DELETE` to `/oauth2/auth/sessions/login?subject={subject}` (see
 [full API documentation](../reference/api.mdx#opIdrevokeAuthenticationSession)).
 
-This endpoint isn't compatible with OpenID Connect Front-/Backchannel logout and
-doesn't revoke any tokens.
+This endpoint isn't compatible with OpenID Connect Front-/Backchannel logout and doesn't revoke any tokens.

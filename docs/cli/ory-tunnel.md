@@ -1,9 +1,7 @@
 ---
 id: ory-tunnel
 title: ory tunnel
-description:
-  ory tunnel Tunnel Ory on a subdomain of your app or a seperate port your app's
-  domain
+description: ory tunnel Tunnel Ory on a subdomain of your app or a separate port your app's domain
 ---
 
 <!--
@@ -11,99 +9,120 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## ory tunnel
 
-Tunnel Ory on a subdomain of your app or a seperate port your app's domain
+Tunnel Ory on a subdomain of your app or a separate port your app's domain
 
 ### Synopsis
 
-This command starts an HTTP tunnel to Ory on the domain `[tunnel-url]` you
-specify. This allows to co-locate Ory&#39;s APIs and your application on the
-same top-level-domain, which is required to get cookies and other security
-features working.
+Tunnels Ory APIs on a subdomain or separate port of your app. This command runs an HTTP Server which is connected to Ory's APIs, in order for your application and Ory's
+APIs to run on the same top level domain (for example yourapp.com, localhost). Having Ory on your domain
+is required for cookies to work.
 
-This tunnel works both in development and in production, for example when
-deploying a React, NodeJS, Java, PHP, ... app to a server / the cloud or when
-developing it locally on your machine. It is similar to the `ory proxy` command,
-but it does not require to route all your application&#39;s traffic through it!
+The first argument `application-url` points to the location of your application. This location
+will be used as the default redirect URL for the tunnel, for example after a successful login.
 
-Before you start, you need to have a running instance of Ory. Set the
-environment variable ORY_SDK_URL to the path where Ory is available. For Ory
-Cloud, this is the &#34;SDK URL&#34; which can be found in the &#34;API &amp;
-Services&#34; section of your Ory Cloud Console.
+    $ ory tunnel --project <your-project-slug> https://www.example.org
+    $ ORY_PROJECT_SLUG=<your-project-slug> ory tunnel http://localhost:3000
 
-    $ export ORY_SDK_URL=https://playground.projects.oryapis.com
+### Connecting to Ory
 
-The first argument `application-url` points to the location of your application.
-This location will be used as the default redirect URL for the tunnel, for
-example after a successful login.
+Before you start, you need to have a running Ory Cloud project. You can create one with the following command:
 
-    $ ory tunnel https://www.example.org
+	$ ory create project --name "Command Line Project"
 
-It has the same behavior as
-`ory proxy --default-redirect-url https://example.org/...`.
+Pass the project's slug as a flag to the tunnel command:
 
-You can change this behavior using the `--default-redirect-url` flag:
+	$ ory tunnel --project <your-project-slug> ...
+	$ ORY_PROJECT_SLUG=<your-project-slug> ory tunnel ...
 
-    $ ory tunnel --default-redirect-url /welcome \
-    	https://www.example.org
+### Developing Locally
 
-The second argument `[tunnel-url]` is optional. It refers to the public URL of
-this tunnel (e.g. https://auth.example.org).
+When developing locally we recommend to use the `--dev` flag, which uses a lax security setting:
 
-If `[tunnel-url]` is not set, it will default to the default host and port the
-tunnel listens on:
+    $ ory tunnel --dev --project <your-project-slug> \
+		http://localhost:3000
 
-    http://localhost:4000
+### Running on a Server
 
-You must set the `[tunnel-url]` if you are not using the tunnel in local
-development:
+To go to production set up a custom domain (CNAME) for Ory. If you can not set up a custom
+domain - for example because you are developing a staging environment - using the Ory Tunnel is an alternative.
 
-    $ ory tunnel \
-    	https://www.example.org \
-    	https://auth.example.org
+To run on a server, you need to set the optional second argument  `[tunnel-url]`. It tells the Ory Tunnel
+on which domain it will run (for example https://ory.example.org).
+
+	$ ory tunnel --project <your-project-slug> \
+		https://www.example.org \
+		https://auth.example.org \
+		--cookie-domain example.org \
+		--allowed-cors-origins https://www.example.org \
+		--allowed-cors-origins https://api.example.org
 
 Please note that you can not set a path in the `[tunnel-url]`!
 
-Per default, the tunnel listens on port 4000. If you want to listen on another
-port, use the port flag:
+### Ports
 
-    $ ory tunnel --port 8080 \
-    	https://www.example.org
+Per default, the tunnel listens on port 4000. If you want to listen on another port, use the
+port flag:
 
-If your application URL is available on a non-standard HTTP/HTTPS port, you can
-set that port in the `application-url`:
+	$ ory tunnel --port 8080 --project <your-project-slug> \
+		https://www.example.org
 
-    $ ory tunnel \
-    	https://example.org:1234
+If your application URL is available on a non-standard HTTP/HTTPS port, you can set that port in the `application-url`:
 
-If this tunnel runs on a subdomain, and you want Ory&#39;s cookies (e.g. the
-session cookie) to be available on all of your domain, you can use the following
-CLI flag to customize the cookie domain:
+	$ ory tunnel --project <your-project-slug> \
+		https://example.org:1234
 
-    $ ory tunnel \
-    	--cookie-domain example.org \
-    	https://www.example.org \
-    	https://auth.example.org
+### Cookies
 
-In contrast to the `ory proxy`, the tunnel does not alter the HTTP headers
-arriving at your application and it does not generate any JSON Web Tokens.
+We recommend setting the `--cookie-domain` value to your top level domain:
+
+	$ ory tunnel  -project <your-project-slug> \
+		--cookie-domain example.org \
+		https://www.example.org \
+		https://auth.example.org
+
+### Redirects
+
+TO use a different default redirect URL, use the `--default-redirect-url` flag:
+
+    $ ory tunnel --project <your-project-slug> \
+		--default-redirect-url /welcome \
+		https://www.example.org
+
 
 ```
 ory tunnel application-url [tunnel-url] [flags]
 ```
 
+### Examples
+
+```
+ory tunnel http://localhost:3000 --dev
+ory tunnel https://app.example.com \
+	--allowed-cors-origins https://www.example.org \
+	--allowed-cors-origins https://api.example.org \
+	--allowed-cors-origins https://www.another-app.com
+
+```
+
 ### Options
 
 ```
-      --cookie-domain string          Set a dedicated cookie domain.
-      --default-redirect-url string   Set the URL to redirect to per default after e.g. login or account creation.
-  -h, --help                          help for tunnel
-      --port int                      The port the proxy should listen on. (default 4000)
-      --sdk-url string                Set the Ory SDK URL.
+      --allowed-cors-origins strings   A list of allowed CORS origins. Wildcards are allowed.
+  -c, --config string                  Path to the Ory Cloud configuration file.
+      --cookie-domain string           Set a dedicated cookie domain.
+      --debug                          Use this flag to debug, for example, CORS requests.
+      --default-redirect-url string    Set the URL to redirect to per default after e.g. login or account creation.
+      --dev                            Use this flag when developing locally.
+  -h, --help                           help for tunnel
+      --port int                       The port the proxy should listen on. (default 4000)
+      --project string                 The slug of your Ory Cloud Project.
+  -q, --quiet                          Be quiet with output printing.
+  -y, --yes                            Confirm all dialogs with yes.
 ```
 
 ### SEE ALSO
 
-- [ory](ory) - The ORY CLI
+* [ory](ory)	 - The ORY CLI
+

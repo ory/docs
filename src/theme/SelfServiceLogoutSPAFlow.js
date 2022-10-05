@@ -1,11 +1,11 @@
-import React from 'react'
-import Mermaid from './Mermaid'
+import React from "react"
+import Mermaid from "./Mermaid"
 
 const chart = `
 sequenceDiagram
 
   participant B as Browser
-  participant A as Client-Side UI, e.g. ReactJS
+  participant A as Client-Side UI, e.g. React.js
   participant K as Ory Kratos
 
   B->>A: Makes request with Ory Session Cookie

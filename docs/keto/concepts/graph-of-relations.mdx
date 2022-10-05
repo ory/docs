@@ -1,31 +1,27 @@
 ---
-title: The Graph of Relations
+title: The graph of relations
 ---
 
-import Mermaid from '@site/src/theme/Mermaid'
+import Mermaid from "@site/src/theme/Mermaid"
 
-The [relation tuples](./relation-tuples.mdx) of the ACL used by Ory Keto can be
-represented as a graph of relations. This graph will help us to understand many
-[implications on performance](../performance.mdx) and
+The [relation tuples](./relation-tuples.mdx) of the ACL used by Ory Keto can be represented as a graph of relations. This graph
+will help us to understand many [implications on performance](../performance.mdx) and
 [internal algorithms](./internal-algorithms.mdx).
 
 ## Definition
 
-The graph consists of three types of nodes. [Object](./objects.mdx) nodes that
-represent application objects, intermediary
-[subject set](./subjects.mdx#subject-sets) nodes, and
-[subject ID](./subjects.mdx#subject-ids) nodes representing individuals. Edges
-are directed and represent the relation between an object and subject.
+The graph consists of three types of nodes. [Object](./objects.mdx) nodes that represent application objects, intermediary
+[subject set](./subjects.mdx#subject-sets) nodes, and [subject ID](./subjects.mdx#subject-ids) nodes representing individuals.
+Edges are directed and represent the relation between an object and subject.
 
 ## Example
 
-The following example translates a view relation tuples into the corresponding
-graph of relations.
+The following example translates a view relation tuples into the corresponding graph of relations.
 
 :::note
 
-This example omits the [namespace](./namespaces.mdx) from all data to improve
-readability. In practice, the namespace always has to be considered.
+This example omits the [namespace](./namespaces.mdx) from all data to improve readability. In practice, the namespace always has
+to be considered.
 
 :::
 
@@ -70,23 +66,17 @@ graph TD
 `}
 />
 
-Solid edges represent explicitly defined relations, while dotted edges represent
-relations inherited through a subject set.
+Solid edges represent explicitly defined relations, while dotted edges represent relations inherited through a subject set.
 
-## Observations about the Graph
+## Observations about the graph
 
 Ory Keto utilizes the following key properties of the graph of relations:
 
-1. **Directed edges from objects to subjects**: This implies a neat arrangement
-   with objects in one region, subject IDs in another one, and subject sets in
-   between. Edges will always go from the object region towards the subject
-   region.
-2. **Searching for a possible path is local**: Trying to find a path from an
-   object to a subject will always happen locally. This means that it's only
-   necessary to traverse the nodes that are successors of the object. In typical
-   setups, this means that only a small fraction of the graph has to be
-   searched, regardless of the outcome. The intuition here is that the relations
-   of user1's files are irrelevant when checking access to user2's files.
+1. **Directed edges from objects to subjects**: This implies a neat arrangement with objects in one region, subject IDs in another
+   one, and subject sets in between. Edges will always go from the object region towards the subject region.
+2. **Searching for a possible path is local**: Trying to find a path from an object to a subject will always happen locally. This
+   means that it's only necessary to traverse the nodes that are successors of the object. In typical setups, this means that only
+   a small fraction of the graph has to be searched, regardless of the outcome. The intuition here is that the relations of
+   user1's files are irrelevant when checking access to user2's files.
 
-Both of these properties are important to ensure
-[high performance](../performance.mdx).
+Both of these properties are important to ensure [high performance](../performance.mdx).

@@ -1,8 +1,7 @@
 ---
 id: oathkeeper-credentials-generate
 title: oathkeeper credentials generate
-description:
-  oathkeeper credentials generate Generate a key for the specified algorithm
+description: oathkeeper credentials generate Generate a key for the specified algorithm
 ---
 
 <!--
@@ -10,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## oathkeeper credentials generate
 
 Generate a key for the specified algorithm
@@ -19,9 +17,9 @@ Generate a key for the specified algorithm
 
 Examples:
 
-$ oathkeeper credentials generate --alg ES256 &gt; jwks.json $ oathkeeper
-credentials generate --alg RS256 &gt; jwks.json $ oathkeeper credentials
-generate --alg RS256 --bits 4096 &gt; jwks.json
+$ oathkeeper credentials generate --alg ES256 &gt; jwks.json
+$ oathkeeper credentials generate --alg RS256 &gt; jwks.json
+$ oathkeeper credentials generate --alg RS256 --bits 4096 &gt; jwks.json
 
 ```
 oathkeeper credentials generate [flags]
@@ -39,10 +37,10 @@ oathkeeper credentials generate [flags]
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to config file. Supports .json, .yaml, .yml, .toml. Default is &#34;$HOME/.oathkeeper.(yaml|yml|toml|json)&#34;
+  -c, --config strings   Path to one or more .json, .yaml, .yml, .toml config files. Values are loaded in the order provided, meaning that the last config file overwrites values from the previous config file.
 ```
 
 ### SEE ALSO
 
-- [oathkeeper credentials](oathkeeper-credentials) - Generate RSA, ECDSA, and
-  other keys and output them as JSON Web Keys
+* [oathkeeper credentials](oathkeeper-credentials)	 - Generate RSA, ECDSA, and other keys and output them as JSON Web Keys
+

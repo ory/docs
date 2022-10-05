@@ -1,16 +1,13 @@
 ---
 id: oauth2-public-spa-mobile
-title: Mobile & Browser (Single-Page-App) with OAuth2
+title: Mobile & browser (single-page-app) with OAuth2
 ---
 
-We've an
-[excellent blog post](https://www.ory.sh/oauth2-for-mobile-app-spa-browser) on
-this topic. Read it now!
+We've an [excellent blog post](https://www.ory.sh/oauth2-for-mobile-app-spa-browser) on this topic. Read it now!
 
-### Creating a public OAuth 2.0 Client
+### Creating a public OAuth 2.0 client
 
-You can create a public OAuth 2.0 Client (for example for the authorize code +
-PKCE or implicit flow) with the CLI
+You can create a public OAuth 2.0 Client (for example for the authorize code + PKCE or implicit flow) with the CLI
 
 ```
 hydra clients create --endpoint http://ory-hydra-admin-api --token-endpoint-auth-method none
@@ -25,9 +22,8 @@ or by setting in the HTTP API JSON body when POSTing to `/clients`:
 }
 ```
 
-Be aware that when making requests to `/oauth2/token` or `/oauth2/revoke` with a
-public OAuth 2.0 Client, you can't authenticate with the HTTP Basic
-Authorization but must include the `client_id` in the POST body:
+Be aware that when making requests to `/oauth2/token` or `/oauth2/revoke` with a public OAuth 2.0 Client, you can't authenticate
+with the HTTP Basic Authorization but must include the `client_id` in the POST body:
 
 ```
 POST /oauth2/token
@@ -39,7 +35,6 @@ client_id=...&
 
 :::note
 
-The public clients using a non-https redirect scheme can't skip consent as per
-OpenID Sepcification & Certification.
+The public clients using a non-https redirect scheme can't skip consent as per OpenID Specification & Certification.
 
 :::

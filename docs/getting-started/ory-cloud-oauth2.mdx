@@ -1,0 +1,234 @@
+---
+id: ory-cloud-oauth2
+title: Perform OAuth2 Authorization Code Grant with Ory Cloud
+sidebar_label: Federation with OAuth2
+---
+
+This guide shows you a sample implementation of the
+[Authorization Code Grant](https://www.rfc-editor.org/rfc/rfc6749#section-1.3.1) OAuth2 flow using Ory OAuth2 Federation in Ory
+Cloud. It takes you on a complete journey, from initial setup to running an OAuth2 flow.
+
+:::tip
+
+Ory OAuth2 Federation (based on [Ory Hydra](../hydra/index.md)) is available in Ory Cloud out of the box, which means you can use
+OIDC, Authorization Code Grant, Client Credentials Grant, and more. Read [this document](../hydra/concepts/before-oauth2) to learn
+more about OAuth2 and evaluate if it's the right fit for you.
+
+:::
+
+The implementation is based on a simple Node.js application with login and consent screens that allow you to simulate a common a
+real-world scenario where an application (client) asks the user for consent to get access to certain data or operations (scopes).
+
+For example, a service for selling goods allows users to add pictures from their Google Photos albums to their listings. To get
+access to the user's photos, the OAuth2 client of the goods selling service asks the user for consent to access data on their
+behalf. The request includes scopes - a list of operations the client wants to perform on behalf of the user. When the user
+agrees, the OAuth2 client gets an authorization code which it exchanges for an `id_token` and `access_token` pair issued by Google
+Photos. These tokens allow the client to access the user's resources from an external service.
+
+By following this guide you will:
+
+- Create an OAuth2 client in Ory Cloud.
+- Run a simple login and consent Node.js application that allows the user to grant or reject access to their data on your machine.
+- Configure Ory Cloud to work with the sample application that runs on your machine.
+- Perform Authorization Code Grant in Ory Cloud using the login and consent app and a sample web server acting as an OAuth2
+  Client.
+
+## Prerequisites
+
+Before you start, prepare your environment:
+
+- [Install Ory CLI](../guides/cli/installation).
+- Create an Ory Cloud account and project. Use [Ory CLI](../guides/cli/cli-basics#create-ory-cloud-project) or go to
+  [console.ory.sh](https://console.ory.sh/).
+- [Create a Personal Access Token (PAT)](../concepts/personal-access-token) and save it in a safe place for later use.
+
+## Setup
+
+### Create OAuth2 client in Ory Cloud
+
+Create a new OAuth2 client in Ory Cloud by sending a POST request to the `/admin/clients` API. This is a protected endpoint, which
+means that you must include the Ory PAT in the `Authorization` header of the request.
+
+Alternatively, you can use the Ory CLI and pass your Ory Cloud project slug and the Ory PAT using flags.
+
+:::tip
+
+Learn more about creating OAuth2 clients in Ory Cloud by reading the
+[API specification](../reference/api#operation/adminCreateOAuth2Client).
+
+:::
+
+````mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="orycli" label="Ory CLI">
+
+```shell
+ory create oauth2-client \
+  --project ORY_CLOUD_PROJECT_SLUG_OR_ID \
+  --name YOUR_CLIENT_NAME \
+  --grant-types authorization_code,refresh_token \ # Mandatory for this example, don't change.
+  --response-types code,id_token \ # Mandatory for this example, don't change.
+  --scope openid,offline \ # Mandatory for this example, don't change.
+  --access-token ORY_PAT \ # Ory PAT copied from the Cloud Console, 'ory_pat' prefix included.
+  --callbacks http://127.0.0.1:5555/callback # Mandatory for this example, don't change.
+```
+  </TabItem>
+  <TabItem value="curl" label="cURL" default>
+
+```bash
+curl -X POST 'SDK_CONFIGURATION_URL/admin/clients' \  # Found in the 'Connect' section of the Cloud Console. Must end with '/admin/clients'.
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer ORY_PAT' \  # Ory PAT copied from the Cloud Console, 'ory_pat' prefix included.
+  -d '{
+    "client_name": "YOUR_CLIENT_NAME",
+    "grant_types": [
+      "authorization_code"
+    ],
+    "redirect_uris": [
+      "http://127.0.0.1:5555/callback"
+    ],
+    "response_types": [
+      "code",
+      "id_token",
+      "refresh_token"
+    ],
+    "scope": "openid offline"
+  }'
+```
+
+  </TabItem>
+</Tabs>
+````
+
+After you create the client, copy the `client_id` and `client_secret` and save it for later use.
+
+### Run the sample application
+
+Follow these steps to run a sample application with login and consent screens:
+
+1. Clone the [repository with the application](https://github.com/ory/hydra-login-consent-node) and install dependencies:
+
+   ```bash
+   git clone git@github.com:ory/hydra-login-consent-node.git
+   cd hydra-login-consent-node/
+   npm i
+   ```
+
+2. Export the Ory PAT and the SDK URL of your Cloud Project as environment variables:
+
+   :::tip
+
+   Don't use previously existing Ory PATs that you use for other purposes. Create a new Ory PAT to use exclusively with the sample
+   application.
+
+   :::
+
+   ```bash
+   export ORY_PAT=ORY_PAT # Ory PAT copied from the Cloud Console, 'ory_pat' prefix included.
+   export HYDRA_ADMIN_URL=SDK_CONFIGURATION_URL  # Found in the 'Connect' section of the Cloud Console.
+   ```
+
+3. Start the application on port `3000`:
+
+   ```bash
+   npm start
+   ```
+
+When you start the application, go to `http://localhost:3000/` to see the application's welcome page.
+
+:::note
+
+Don't close this terminal window. The application must be running to perform the flow. When working with next parts of this
+document, open new terminal windows.
+
+:::
+
+### Configure Ory Cloud
+
+By default, Ory Cloud uses internal redirect URLs for operations such as user login and consent. You can adjust these URLs to
+point to pages that handle these operations in your setup. In this example, the sample application runs at
+`http://localhost:3000`.
+
+Follow these steps to configure Ory Cloud to call the sample application for login and consent screens:
+
+1. Download the OAuth2 Federation Service configuration of your Ory Cloud project and save it to a `yaml` file:
+
+   ```shell
+   ## List all available projects
+   ory list projects
+
+   ## Get config
+   ory get oauth2-config <project-id> --format yaml > config.yaml
+   ```
+
+2. Adjust the configuration in `oauth2/urls/consent` and `oauth2/urls/login`:
+
+   ```yaml title="config.yaml"
+   oauth2:
+     # ...
+     urls:
+       # highlight-next-line
+       consent: http://localhost:3000/consent
+       error: /oauth2/fallbacks/error
+       # highlight-next-line
+       login: http://localhost:3000/login
+       post_logout_redirect: /oauth2/fallbacks/logout
+   ```
+
+3. Update the Ory Cloud project configuration using the file you worked with:
+
+   ```shell
+   ory update oauth2-config <project-id> --file config.yaml
+   ```
+
+### Create a local web server acting as OAuth2 client
+
+Use the Ory CLI to create a sample web server that acts as the OAuth2 client. To successfully perform the Authorization Code Grant
+flow, the client ID and client secret must be registered in Ory Cloud.
+
+Run this command to create the client. Using flags, provide the client ID and secret of the client created in Ory Cloud:
+
+```bash
+ory perform authorization-code \
+  --client-id CLOUD_CLIENT_ID \
+  --client-secret CLOUD_CLIENT_SECRET \
+  --project ORY_CLOUD_PROJECT_ID \
+  --port 5555 \
+  --scope openid,offline
+```
+
+When this command runs successfully, a browser window opens automatically and displays a welcome page. If this doesn't happen, go
+to `http://127.0.0.1:5555/`.
+
+## Run the flow
+
+After completing the configuration steps, you can start the flow from the welcome page at `http://127.0.0.1:5555/`.
+
+:::tip
+
+The login and consent application at `http://localhost:3000/` shows live logs in its terminal session. Inspecting them can give
+you more insight into how this example works.
+
+:::
+
+To execute the flow:
+
+1. In a browser window, go to `http://127.0.0.1:5555/` and click **Authorize application**.
+2. On the login screen, provide the user details and log in to proceed.
+3. Choose the scopes you want to give the client access to and click **Allow access**. You must choose at least one scope.
+4. The next page shows the tokens the client got as a result of running the Authorization Code Grant flow.
+
+   :::note
+
+   You can get a closer look at the `access_token` by decoding it at [jwt.io](https://jwt.io/). In the decoded token, you can find
+   information about the user on whose behalf the client acts and the URL of the issuer - your Ory Cloud project.
+
+   :::
+
+By completing the flow and getting the tokens, you successfully granted access to the user's data for the OAuth2 client. If you
+think of the example that opens this guide, the goods selling service can now access the user's Google Photos albums and pull
+pictures from these albums into listings.

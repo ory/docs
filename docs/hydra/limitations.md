@@ -3,20 +3,17 @@ id: limitations
 title: Limitations
 ---
 
-Ory Hydra tries to solve all of OAuth 2.0 and OpenID Connect uses. There are,
-however, some limitations.
+Ory Hydra tries to solve all of OAuth 2.0 and OpenID Connect uses. There are, however, some limitations.
 
 ## MySQL <= 5.6 / MariaDB
 
-Ory Hydra has issues with MySQL <= 5.6 (but not MySQL 5.7+) and certain MariaDB
-versions. Read more about this [here](https://github.com/ory/hydra/issues/377).
-Our recommendation is to use MySQL 5.7+ or PostgreSQL.
+Ory Hydra has issues with MySQL <= 5.6 (but not MySQL 5.7+) and certain MariaDB versions. Read more about this
+[here](https://github.com/ory/hydra/issues/377). Our recommendation is to use MySQL 5.7+ or PostgreSQL.
 
-## OAuth 2.0 Client Secret Length
+## OAuth 2.0 client secret length
 
-OAuth 2.0 Client Secrets are hashed using BCrypt. BCrypt has, by design, a
-maximum password length. The Golang BCrypt library has a maximum password length
-of 73 bytes. Any password longer will be "truncated":
+OAuth 2.0 Client Secrets are hashed using BCrypt. BCrypt has, by design, a maximum password length. The Golang BCrypt library has
+a maximum password length of 73 bytes. Any password longer will be "truncated":
 
 ```sh
 hydra clients create --id long-secret \
@@ -35,15 +32,13 @@ For more information on this topic we recommend reading:
 - [Does bcrypt have a maximum password length?](https://security.stackexchange.com/questions/39849/does-bcrypt-have-a-maximum-password-length)
 - [Pre-hash password before applying bcrypt to avoid restricting password length](https://security.stackexchange.com/questions/6623/pre-hash-password-before-applying-bcrypt-to-avoid-restricting-password-length)
 
-## Resource Owner Password Credentials Grant Type (ROPC)
+## Resource Owner Password Credentials grant type (ROPC)
 
-Ory Hydra doesn't and won't implement the Resource Owner Password Credentials
-Grant Type. Read on for context.
+Ory Hydra doesn't and won't implement the Resource Owner Password Credentials Grant Type. Read on for context.
 
 ### Overview
 
-This grant type allows OAuth 2.0 Clients to exchange user credentials (username,
-password) for an access token.
+This grant type allows OAuth 2.0 Clients to exchange user credentials (username, password) for an access token.
 
 **Request:**
 
@@ -73,25 +68,21 @@ Pragma: no-cache
 }
 ```
 
-You might think that this is the perfect grant type for your first-party
-application. This grant type is most commonly used in mobile authentication for
-first-party apps. If you plan on doing this, stop right now and read
+You might think that this is the perfect grant type for your first-party application. This grant type is most commonly used in
+mobile authentication for first-party apps. If you plan on doing this, stop right now and read
 [this blog article](https://www.ory.sh/oauth2-for-mobile-app-spa-browser).
 
-### Legacy & Bad Security
+### Legacy and bad security
 
-The ROPC grant type is discouraged by developers, professionals, and the IETF
-itself. It was originally added because big legacy corporations (not dropping
-any names, but they're part of the IETF consortium) didn't want to migrate their
-authentication infrastructure to the modern web but instead do what they've been
-doing all along "but OAuth 2.0" and for systems that want to upgrade from OAuth
-(1.0) to OAuth 2.0.
+The ROPC grant type is discouraged by developers, professionals, and the IETF itself. It was originally added because big legacy
+corporations (not dropping any names, but they're part of the IETF consortium) didn't want to migrate their authentication
+infrastructure to the modern web but instead do what they've been doing all along "but OAuth 2.0" and for systems that want to
+upgrade from OAuth (1.0) to OAuth 2.0.
 
 There are a ton of good reasons why this is a bad flow, they're summarized in
 [this excellent blog article as well](https://www.scottbrady91.com/OAuth/Why-the-Resource-Owner-Password-Credentials-Grant-Type-is-not-Authentication-nor-Suitable-for-Modern-Applications).
 
 ### What about Auth0, Okta, ...?
 
-Auth0, Okta, Stormpath started with OAuth 2.0 SaaS and adopted the ROPC grant
-too. They since deprecated these old flows but still have them active as
-existing apps rely on them.
+Auth0, Okta, Stormpath started with OAuth 2.0 SaaS and adopted the ROPC grant too. They since deprecated these old flows but still
+have them active as existing apps rely on them.

@@ -1,0 +1,35 @@
+---
+id: requesting-2fa
+title: Requesting second-factor authentication
+---
+
+When implementing multi-factor authentication (MFA) in your application, you might want to prompt signed-in users to provide their
+configured second factor.
+
+To do that, initiate a new login flow using one of these endpoints with the `aal` parameter set to `aal2`:
+
+- [`/self-service/login/browser`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowForBrowsers)
+- [`/self-service/login/api`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowWithoutBrowser)
+
+```shell
+/self-service/login/browser?aal=aal2
+/self-service/login/api?aal=aal2
+```
+
+When the user successfully provides their configured second factor:
+
+- The method, for example `totp`, is added to the Ory Session.
+- Ory Session Authenticator Assurance Level (AAL) is set to `aal2`.
+- The `authenticated_at` time is set to the time when the user provides the second factor.
+
+:::note
+
+If the Ory Session has `aal2` already, this will error. In that case, you can request to refresh the session using the second
+factor:
+
+```shell
+/self-service/login/browser?refresh=true&aal=aal2
+/self-service/login/api?refresh=true&aal=aal2
+```
+
+:::

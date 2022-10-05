@@ -1,12 +1,12 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import Head from "next/head"
+import Image from "next/image"
+import styles from "../styles/Home.module.css"
+import { useEffect, useState } from "react"
+import { useRouter } from "next/router"
 
 // highlight-start
-import { Configuration, V0alpha2Api, Session, Identity } from '@ory/client'
-import { edgeConfig } from '@ory/integrations/next'
+import { Configuration, V0alpha2Api, Session, Identity } from "@ory/client"
+import { edgeConfig } from "@ory/integrations/next"
 
 const ory = new V0alpha2Api(new Configuration(edgeConfig))
 
@@ -20,16 +20,22 @@ const Home = () => {
 
   // highlight-start
   const [session, setSession] = useState<Session | undefined>()
+  const [logoutUrl, setLogoutUrl] = useState<string | undefined>()
+
   useEffect(() => {
     ory
       .toSession()
       .then(({ data }) => {
         // User has a session!
         setSession(data)
+        // Create a logout url
+        ory.createSelfServiceLogoutFlowUrlForBrowsers().then(({ data }) => {
+          setLogoutUrl(data.logout_url)
+        })
       })
       .catch(() => {
         // Redirect to login page
-        return router.push(edgeConfig.basePath + '/ui/login')
+        return router.push(edgeConfig.basePath + "/ui/login")
       })
   })
 
@@ -49,9 +55,9 @@ const Home = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to{' '}
+          Welcome to{" "}
           <a href="https://nextjs.org">
-            Next.js,{' '}
+            Next.js,{" "}
             {
               // highlight-next-line
               getUserName(session?.identity)
@@ -60,8 +66,14 @@ const Home = () => {
           </a>
         </h1>
 
+        {/* highlight-start */}
         <p className={styles.description}>
-          Get started by editing{' '}
+          <a href={logoutUrl}>Log out</a>
+        </p>
+        {/* highlight-end */}
+
+        <p className={styles.description}>
+          Get started by editing{" "}
           <code className={styles.code}>pages/index.tsx</code>
         </p>
 
@@ -102,7 +114,7 @@ const Home = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>

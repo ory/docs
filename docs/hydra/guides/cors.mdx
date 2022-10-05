@@ -1,10 +1,9 @@
 ---
 id: cors
-title: Setting up Cross-origin resource sharing (CORS)
+title: Setting up cross-origin resource sharing (CORS)
 ---
 
-Both Ory Hydra's Admin and Public endpoints support CORS. For detailed
-information, head over to the exemplary
+Both Ory Hydra's Admin and Public endpoints support CORS. For detailed information, head over to the exemplary
 [config file](https://github.com/ory/hydra/blob/master/docs/config.yaml).
 
 For CORS to work properly, we encourage to set the following values:
@@ -45,11 +44,9 @@ serve:
         - Content-Type
 ```
 
-Keep in mind that the OAuth 2.0 Authorization Endpoint (`/oauth2/auth`) doesn't
-expose CORS by design. This endpoint should never be consumed in a CORS-fashion.
-Some endpoints (`/oauth2/token`, `/userinfo`, `/oauth2/revoke`) also include
-URLs listed in field `allowed_cors_origins` of the OAuth 2.0 Client that is
-making the request. For example, OAuth 2.0 Client
+Keep in mind that the OAuth 2.0 Authorization Endpoint (`/oauth2/auth`) doesn't expose CORS by design. This endpoint should never
+be consumed in a CORS-fashion. Some endpoints (`/oauth2/token`, `/userinfo`, `/oauth2/revoke`) also include URLs listed in field
+`allowed_cors_origins` of the OAuth 2.0 Client that is making the request. For example, OAuth 2.0 Client
 
 ```json
 {
@@ -58,6 +55,5 @@ making the request. For example, OAuth 2.0 Client
 }
 ```
 
-is allowed to make CORS request to `/oauth2/token` from origin
-`https://foo-bar.com/` even if that origin isn't listed in
+is allowed to make CORS request to `/oauth2/token` from origin `https://foo-bar.com/` even if that origin isn't listed in
 `public.cors.allowed_origins`.
