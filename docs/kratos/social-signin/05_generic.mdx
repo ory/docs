@@ -58,7 +58,8 @@ mapping.
 
 #### Data mapping
 
-The data mapping section allows you to map the data returned by the sign-in provider to traits as defined in the identity schema.
+The **Data mapping** section allows you to map the data returned by the sign-in provider to traits as defined in the identity
+schema.
 
 To define the mapping, create a Jsonnet code snippet. Read [this document](./data-mapping) to learn more about Jsonnet data
 mapping.
@@ -79,10 +80,10 @@ Follow these steps to add a generic provider as a social sign-in provider to you
 4. Download the Identity Service config from your Ory Cloud project and save it to a file:
 
    ```shell
-   ## list all available projects
+   ## List all available projects
    ory list projects
 
-   ## store config
+   ## Get config
    ory get identity-config <project-id> --format yaml > identity-config.yaml
    ```
 
