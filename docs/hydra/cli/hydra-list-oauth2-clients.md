@@ -24,7 +24,7 @@ hydra list oauth2-clients [flags]
 ### Examples
 
 ```
-hydra ls identities --page-token eyJwYWdlIjoxfQ --page-size 10
+{{ .CommandPath }} --page-token eyJwYWdlIjoxfQ --page-size 10
 ```
 
 ### Options

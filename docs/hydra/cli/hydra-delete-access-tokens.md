@@ -1,7 +1,7 @@
 ---
 id: hydra-delete-access-tokens
 title: hydra delete access-tokens
-description: hydra delete access-tokens Invalidate all OAuth2 Access Tokens of an OAuth2 Client
+description: hydra delete access-tokens Delete all OAuth2 Access Tokens of an OAuth2 Client
 ---
 
 <!--
@@ -11,16 +11,16 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## hydra delete access-tokens
 
-Invalidate all OAuth2 Access Tokens of an OAuth2 Client
+Delete all OAuth2 Access Tokens of an OAuth2 Client
 
 ```
-hydra delete access-tokens client-id [flags]
+hydra delete access-tokens <client-id> [flags]
 ```
 
 ### Examples
 
 ```
-hydra delete access-tokens 33137249-dd2c-49e6-a066-75ad2a72f221
+{{ .CommandPath }} <client-id>
 ```
 
 ### Options
