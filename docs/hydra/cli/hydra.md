@@ -25,7 +25,6 @@ Run and manage Ory Hydra
 * [hydra delete](hydra-delete)	 - Delete resources
 * [hydra get](hydra-get)	 - Get resources
 * [hydra import](hydra-import)	 - Import resources
-* [hydra introspect](hydra-introspect)	 - Introspect resources
 * [hydra janitor](hydra-janitor)	 - This command cleans up stale database rows.
 * [hydra list](hydra-list)	 - List resources
 * [hydra migrate](hydra-migrate)	 - Various migration helpers

@@ -1,7 +1,7 @@
 ---
-id: hydra-delete
-title: hydra delete
-description: hydra delete Delete resources
+id: hydra-create-jwk
+title: hydra create jwk
+description: hydra create jwk Create a JSON Web Key Set with a JSON Web Key
 ---
 
 <!--
@@ -9,16 +9,33 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-## hydra delete
+## hydra create jwk
 
-Delete resources
+Create a JSON Web Key Set with a JSON Web Key
+
+```
+hydra create jwk <set-id> [<key-id>] [flags]
+```
+
+### Examples
+
+```
+{{ .CommandPath }} <my-jwk-set> --alg RS256 --use sig
+```
 
 ### Options
 
 ```
+      --alg string   The algorithm to be used to generated they key. Supports: RS256, RS512, ES256, ES512, EdDSA (default "RS256")
+  -h, --help         help for jwk
+      --use string   The intended use of this key. Supports: sig, enc (default "sig")
+```
+
+### Options inherited from parent commands
+
+```
   -e, --endpoint string   The API URL this command should target. Alternatively set using the ORY_SDK_URL environmental variable.
       --format string     Set the output format. One of table, json, yaml, and json-pretty. (default "default")
-  -h, --help              help for delete
   -H, --http-header :     A list of additional HTTP headers to set. HTTP headers is separated by a : , for example: `-H 'Authorization: bearer some-token'`.
   -q, --quiet             Be quiet with output printing.
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
@@ -26,8 +43,5 @@ Delete resources
 
 ### SEE ALSO
 
-* [hydra](hydra)	 - Run and manage Ory Hydra
-* [hydra delete access-tokens](hydra-delete-access-tokens)	 - Delete all OAuth2 Access Tokens of an OAuth2 Client
-* [hydra delete jwk](hydra-delete-jwk)	 - Delete one or more JSON Web Key Sets by their set ID
-* [hydra delete oauth2-client](hydra-delete-oauth2-client)	 - Delete one or more OAuth 2.0 Clients by their ID(s)
+* [hydra create](hydra-create)	 - Create resources
 
