@@ -3,7 +3,8 @@ SHELL=/bin/bash -euo pipefail
 export GO111MODULE        := on
 export PATH               := .bin:${PATH}
 
-format: node_modules
+format: .bin/ory node_modules  # formats all source code
+	.bin/ory dev headers license
 	npm exec -- prettier --write .
 
 .PHONY: install
@@ -30,8 +31,8 @@ test: install build-examples .bin/ory
 	./src/scripts/test.sh
 
 .bin/ory: Makefile
-	bash <(curl https://raw.githubusercontent.com/ory/meta/master/install.sh) -d -b .bin ory v0.1.33
-	touch -a -m .bin/ory
+	curl https://raw.githubusercontent.com/ory/meta/master/install.sh | bash -s -- -b .bin ory v0.1.41
+	touch .bin/ory
 
 node_modules: package-lock.json
 	npm ci
