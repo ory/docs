@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 import React from "react"

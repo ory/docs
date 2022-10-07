@@ -1,3 +1,5 @@
+<!-- Copyright © 2022 Ory Corp -->
+
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Welcome to Your Ory + Vue.js App" />

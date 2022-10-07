@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 var express = require("express")
 var router = express.Router()
 // highlight-start

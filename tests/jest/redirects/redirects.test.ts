@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 import { readSitemapXML } from "./utils"
 
 const { pathToRegexp, match, parse, compile } = require("path-to-regexp")

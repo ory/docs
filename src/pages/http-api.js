@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 import React from "react"
 import ApiDoc from "@theme/ApiDoc"
 import useBaseUrl from "@docusaurus/useBaseUrl"

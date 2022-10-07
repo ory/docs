@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 ;(function () {
   const script = document.createElement("script")
   script.src = "https://www.ory.sh/scripts.js"

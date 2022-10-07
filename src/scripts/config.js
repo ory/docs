@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 const RefParser = require("json-schema-ref-parser")
 const parser = new RefParser()
 const jsf = require("json-schema-faker").default

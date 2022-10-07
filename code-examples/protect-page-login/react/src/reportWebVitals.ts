@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 import { ReportHandler } from "web-vitals"
 
 const reportWebVitals = (onPerfEntry?: ReportHandler) => {

@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 const config = require("./contrib/config.js")
 const fs = require("fs")
 

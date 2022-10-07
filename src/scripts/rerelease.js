@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 const path = require("path")
 const name = process.argv[2]
 const fs = require("fs")

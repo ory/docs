@@ -1,3 +1,5 @@
+<!-- Copyright © 2022 Ory Corp -->
+
 <template>
   <div class="main">
     <h1>{{ msg }}</h1>

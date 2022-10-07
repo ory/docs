@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 <?php
   require 'vendor/autoload.php';
   require_once 'app.php';

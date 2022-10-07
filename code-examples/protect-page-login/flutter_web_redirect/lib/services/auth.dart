@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 import 'dart:convert';
 
 import 'package:dio/dio.dart';

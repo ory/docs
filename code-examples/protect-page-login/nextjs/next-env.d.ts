@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 /// <reference types="next" />
 /// <reference types="next/image-types/global" />
 

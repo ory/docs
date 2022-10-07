@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 import React, { useState } from "react"
 import cn from "classnames"
 import styles from "./faq.module.css"

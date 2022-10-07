@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 import logoutCode from "@site/src/theme/logoutCode"
 export const apiFlow = {
   curl: {

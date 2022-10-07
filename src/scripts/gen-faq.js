@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 // gen-faq.js
 // generates faq.mdx and faq.module.css from the contents of faq.yaml. See https://github.com/ory/kratos/pull/1039.
 const fs = require("fs")

@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 module.exports = {
   ...require("ory-prettier-styles"),
   overrides: [

@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 import React, { useEffect, useState } from "react"
 import fetch from "node-fetch"
 import CodeBlock from "@theme/CodeBlock"

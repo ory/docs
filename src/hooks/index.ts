@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 import { useEffect, useState } from "react"
 import { Configuration, Project, V0alpha0Api } from "@ory/client"
 import { Octokit } from "@octokit/rest"

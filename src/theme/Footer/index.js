@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *

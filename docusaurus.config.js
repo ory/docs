@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 const githubPrismTheme = require("prism-react-renderer/themes/github")
 
 const prismThemeLight = {

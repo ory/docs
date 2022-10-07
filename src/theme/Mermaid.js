@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 // according to https://github.com/facebook/docusaurus/issues/1258#issuecomment-594393744
 
 // use in *.mdx like:

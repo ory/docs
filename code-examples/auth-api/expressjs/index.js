@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 const express = require("express")
 const cors = require("cors")
 const { V0alpha2Api, Configuration } = require("@ory/client")

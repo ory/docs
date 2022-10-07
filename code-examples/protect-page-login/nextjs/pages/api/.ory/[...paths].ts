@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 // @ory/integrations offers a package for integrating with Next.js.
 import { config, createApiHandler } from "@ory/integrations/next-edge"
 

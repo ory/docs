@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 import { readFileSync } from "fs"
 import axios, { AxiosError } from "axios"
 import { resolve } from "path"

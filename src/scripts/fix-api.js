@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 const fs = require("fs")
 const prettier = require("prettier")
 const prettierStyles = require("ory-prettier-styles")
