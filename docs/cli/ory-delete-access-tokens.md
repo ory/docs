@@ -1,7 +1,7 @@
 ---
-id: ory-list-identities
-title: ory list identities
-description: ory list identities List identities
+id: ory-delete-access-tokens
+title: ory delete access-tokens
+description: ory delete access-tokens Delete all OAuth2 Access Tokens of an OAuth2 Client
 ---
 
 <!--
@@ -9,28 +9,24 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-## ory list identities
+## ory delete access-tokens
 
-List identities
-
-### Synopsis
-
-List identities (paginated)
+Delete all OAuth2 Access Tokens of an OAuth2 Client
 
 ```
-ory list identities [<page> <per-page>] [flags]
+ory delete access-tokens <client-id> [flags]
 ```
 
 ### Examples
 
 ```
-{{ .CommandPath }} 100 1
+{{ .CommandPath }} <client-id>
 ```
 
 ### Options
 
 ```
-  -h, --help             help for identities
+  -h, --help             help for access-tokens
       --project string   The project to use
 ```
 
@@ -45,5 +41,5 @@ ory list identities [<page> <per-page>] [flags]
 
 ### SEE ALSO
 
-* [ory list](ory-list)	 - List resources
+* [ory delete](ory-delete)	 - Delete resources
 

@@ -24,7 +24,7 @@ ory list oauth2-clients [flags]
 ### Examples
 
 ```
-ory ls identities --page-token eyJwYWdlIjoxfQ --page-size 10
+{{ .CommandPath }} --page-token eyJwYWdlIjoxfQ --page-size 10
 ```
 
 ### Options
