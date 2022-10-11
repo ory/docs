@@ -70,11 +70,10 @@ import TabItem from '@theme/TabItem';
 ory create oauth2-client \
   --project ORY_CLOUD_PROJECT_SLUG_OR_ID \
   --name YOUR_CLIENT_NAME \
-  --grant-types authorization_code,refresh_token \ # Mandatory for this example, don't change.
-  --response-types code,id_token \ # Mandatory for this example, don't change.
+  --grant-type authorization_code,refresh_token \ # Mandatory for this example, don't change.
+  --response-type code,id_token \ # Mandatory for this example, don't change.
   --scope openid,offline \ # Mandatory for this example, don't change.
-  --access-token ORY_PAT \ # Ory PAT copied from the Cloud Console, 'ory_pat' prefix included.
-  --callbacks http://127.0.0.1:5555/callback # Mandatory for this example, don't change.
+  --redirect-uri http://127.0.0.1:5555/callback # Mandatory for this example, don't change.
 ```
   </TabItem>
   <TabItem value="curl" label="cURL" default>
