@@ -1,0 +1,286 @@
+---
+id: react-with-elements
+title: Integrate authentication into your Elements React Application
+sidebar_label: React With Elements
+---
+
+```mdx-code-block
+import Teaser from '../_common/teaser.mdx'
+import mp4 from '../_static/react/screencast.mp4'
+import webm from '../_static/react/screencast.webm'
+
+<Teaser
+  framework={<a href="https://reactjs.org/">React</a>}
+  mp4={mp4}
+  webm={webm}
+/>
+```
+
+# Requirements:
+- Create Ory Console Account/Project
+- Install Ory CLI
+
+### Clone Elements:
+```bash
+git clone git@github.com:ory/elements
+cd ory-elements
+npm i
+npm run initialize
+npm run build:clean
+cd tests/react-spa
+```
+### Create Project React-TS with Vite:
+```bash
+npm create vite@latest react-ts -- --template react-ts
+cd react-ts
+npm i
+npm run dev
+```
+### Create .env:
+```bash
+VITE_ORY_SDK_URL=http://localhost:4000
+```
+
+### Or Set Environment Variables:
+### (UNIX)
+```bash
+export VITE_ORY_SDK_URL=http://localhost:4000
+```
+### (Windows PowerShell)
+```powershell
+$Env:VITE_ORY_SDK_URL = "http://localhost:4000"
+```
+
+### Finally:
+```bash
+npm run dev -- --port 3000
+```
+
+## Find your Project Slug in the Ory Console under
+### Projects > Overview
+```bash
+ory tunnel http://localhost:3000 --project <project-slug> --dev
+```
+
+### Install Dependencies:
+```bash
+npm i @ory/elements
+npm i react-router-dom
+npm i @ory/client --save
+```
+
+### package.json
+```json
+...
+{
+  "dependencies": {
+    "@ory/client": "^0.2.0-alpha.48",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.2"
+  }
+}
+...
+```
+
+### Create sdk.ts:
+```typescript
+import { V0alpha2Api, Configuration } from "@ory/client"
+
+export default new V0alpha2Api(
+  new Configuration({
+    //https://vitejs.dev/guide/env-and-mode.html#env-files
+    basePath: import.meta.env.VITE_ORY_SDK_URL,
+    baseOptions: {
+      withCredentials: true,
+    },
+  }),
+)
+```
+
+### Create main.tsx
+```tsx
+import React from "react"
+import ReactDOM from "react-dom/client"
+import { BrowserRouter } from "react-router-dom"
+import { ThemeProvider } from "@ory/elements"
+import App from "./App"
+import "./index.css"
+
+// import our Ory elements css
+import "@ory/elements/style.css"
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      {/* We add the Ory themes here */}
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </BrowserRouter>
+  </React.StrictMode>,
+)
+```
+
+### App.tsx Imports:
+```tsx
+import reactLogo from './assets/react.svg'
+import React, { useEffect, useState } from "react"
+import "./App.css"
+import { Routes, Route, useNavigate } from "react-router-dom"
+import { Session } from "@ory/client"
+import { Typography } from "@ory/elements"
+import sdk from "./sdk"
+```
+
+# Basic Registration / Login:
+
+## Create Registration.tsx:
+```tsx
+import React from "react"
+import {
+  SelfServiceRegistrationFlow,
+  SubmitSelfServiceRegistrationFlowBody,
+} from "@ory/client"
+import { useEffect, useState } from "react"
+import { UserAuthCard } from "@ory/elements"
+import sdk from "./sdk"
+import { useNavigate } from "react-router-dom"
+
+export const Registration = () => {
+  const [flow, setFlow] = useState<SelfServiceRegistrationFlow | null>(null)
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    sdk
+      .initializeSelfServiceRegistrationFlowForBrowsers()
+      .then(({ data: flow }) => {
+        setFlow(flow)
+      })
+      .catch((error) => console.error(error))
+  }, [])
+
+  const onSubmit = (body : SubmitSelfServiceRegistrationFlowBody) => {
+        if (!flow) {
+          return
+        }
+        sdk
+          .submitSelfServiceRegistrationFlow(
+            flow.id,
+            body as SubmitSelfServiceRegistrationFlowBody,
+          )
+          .then(() => {
+            // we successfully submitted the login flow, so lets redirect to the dashboard
+            navigate("/", { replace: true })
+          })
+          .catch((error) => {
+            setFlow(error.response.data)
+          })
+      }
+
+  return flow ? (
+    <UserAuthCard
+      flow={flow}
+      flowType={"registration"}
+      title={"Registration"}
+      additionalProps={{
+        loginURL: "/login",
+      }}
+      includeScripts={true}
+      onSubmit={({ body }) => onSubmit( body as SubmitSelfServiceRegistrationFlowBody )}
+    />
+  ) : (
+    <div>Loading...</div>
+  )
+}
+```
+
+## Create Login.tsx:
+```tsx
+import React, { useCallback, useEffect, useState } from "react"
+import {
+  SelfServiceLoginFlow,
+  SubmitSelfServiceLoginFlowBody,
+} from "@ory/client"
+import { UserAuthCard } from "@ory/elements"
+import sdk from "./sdk"
+import { useNavigate, useSearchParams } from "react-router-dom"
+
+export const Login = (): JSX.Element => {
+  const [flow, setFlow] = useState<SelfServiceLoginFlow | null>(null)
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const navigate = useNavigate()
+
+  const handleFlow = useCallback(
+    ({ refresh, mfa }: { refresh: boolean; mfa: boolean }) => {
+      return sdk
+        .initializeSelfServiceLoginFlowForBrowsers(
+          refresh,
+          mfa ? "aal2" : "aal1",
+        )
+        .then(({ data: flow }) => flow)
+    },
+    [],
+  )
+
+  useEffect(() => {
+    const aal2 = searchParams.get("aal2")
+    const isMFA = aal2 ? true : false
+    handleFlow({ refresh: true, mfa: isMFA })
+      .then((flow) => setFlow(flow))
+      .catch((error) => {
+        switch (error.response?.status) {
+          case 400:
+            setFlow(error.response.data)
+            break
+          case 410:
+          case 404:
+            return navigate("/login", { replace: true })
+        }
+      })
+  }, [])
+
+  const onSubmit = (body: SubmitSelfServiceLoginFlowBody) => {
+    if (!flow) {
+      return
+    }
+    sdk
+      .submitSelfServiceLoginFlow(
+        flow.id,
+        body as SubmitSelfServiceLoginFlowBody,
+      )
+      .then(() => {
+        // we successfully submitted the login flow, so lets redirect to the dashboard
+        navigate("/", { replace: true })
+      })
+      .catch((error) => {
+        switch (error.response.status) {
+          case 400:
+            setFlow(error.response.data)
+            break
+          case 410:
+          case 404:
+            return navigate("/login", { replace: true })
+        }
+      })
+  }
+
+  return flow ? (
+    <UserAuthCard
+      flow={flow}
+      flowType={"login"}
+      additionalProps={{
+        forgotPasswordURL: "/recovery",
+        signupURL: "/signup",
+      }}
+      title={"Login"}
+      includeScripts={true}
+      onSubmit={({ body }) => onSubmit( body as SubmitSelfServiceLoginFlowBody )}
+    />
+  ) : (
+    <div>Loading...</div>
+  )
+}
+```
