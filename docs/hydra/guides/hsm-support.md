@@ -203,7 +203,7 @@ The following are tips to help run Ory Hydra with AWS CloudHSM, please also refe
 
 Fetch the name of the token/slot in CloudHSM by using the `pkcs11-tool` with this command:
 `pkcs11-tool --module /opt/cloudhsm/lib/libcloudhsm_pkcs11.so --list-slots`.  
-CloudHSM only exposes a single slot/token to applications and connetions are load balanced accross `hsm-instances` in the cluster.
+CloudHSM only exposes a single slot/token to applications and connetions are load balanced across `hsm-instances` in the cluster.
 
 HSM settings in Hydra:
 
