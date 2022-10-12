@@ -1,7 +1,7 @@
 ---
-id: ory-list-identities
-title: ory list identities
-description: ory list identities List identities
+id: ory-delete-jwk
+title: ory delete jwk
+description: ory delete jwk Delete one or more JSON Web Key Sets by their set ID
 ---
 
 <!--
@@ -9,28 +9,28 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-## ory list identities
+## ory delete jwk
 
-List identities
+Delete one or more JSON Web Key Sets by their set ID
 
 ### Synopsis
 
-List identities (paginated)
+This command deletes one or more JSON Web Key Sets by their respective set IDs.
 
 ```
-ory list identities [<page> <per-page>] [flags]
+ory delete jwk <id-1> [<id-2> ...] [flags]
 ```
 
 ### Examples
 
 ```
-{{ .CommandPath }} 100 1
+{{ .CommandPath }} <set-1> <set-2> <set-3>
 ```
 
 ### Options
 
 ```
-  -h, --help             help for identities
+  -h, --help             help for jwk
       --project string   The project to use
 ```
 
@@ -45,5 +45,5 @@ ory list identities [<page> <per-page>] [flags]
 
 ### SEE ALSO
 
-* [ory list](ory-list)	 - List resources
+* [ory delete](ory-delete)	 - Delete resources
 

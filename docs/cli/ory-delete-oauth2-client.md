@@ -18,17 +18,17 @@ Delete one or more OAuth 2.0 Clients by their ID(s)
 This command deletes one or more OAuth 2.0 Clients by their respective IDs.
 
 ```
-ory delete oauth2-client id-1 [id-2] [id-n] [flags]
+ory delete oauth2-client <id-1> [<id-2> ...] [flags]
 ```
 
 ### Examples
 
 ```
-ory delete client client-1 client-2 client-3
+{{ .CommandPath }} <client-1> <client-2> <client-3>
 
 To delete OAuth 2.0 Clients with the owner of "foo@bar.com", run:
 
-	ory delete client $(ory list clients --format json | jq -r 'map(select(.contacts[] == "foo@bar.com")) | .[].client_id')
+	{{ .CommandPath }} $({{ .Root.Name }} list oauth2-clients --format json | jq -r 'map(select(.contacts[] == "foo@bar.com")) | .[].client_id')
 ```
 
 ### Options
