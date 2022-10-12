@@ -4,7 +4,7 @@ export GO111MODULE        := on
 export PATH               := .bin:${PATH}
 
 format: .bin/ory node_modules  # formats all source code
-	.bin/ory dev headers license
+	.bin/ory dev headers license --exclude=src/plugins
 	npm exec -- prettier --write .
 
 .PHONY: install

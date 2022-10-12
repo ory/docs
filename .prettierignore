@@ -11,4 +11,4 @@ build/
 .next
 playwright-report/
 .github/pull_request_template.md
-src/plugins
+src/plugins/
