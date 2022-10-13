@@ -751,7 +751,7 @@
     },
     {
       "source": "/docs/technical-advisories/oidc-redirect-url-cname-OTA-092022-01",
-      "destination": "https://www.ory.sh/docs/kratos/troubleshooting/oidc-redirect-url-cname-OTA-092022-01",
+      "destination": "https://www.ory.sh/docs/troubleshooting/oidc-redirect-url-cname-OTA-092022-01",
       "permanent": false
     }
   ]
