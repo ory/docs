@@ -1,4 +1,4 @@
-import { test, expect, Page } from "@playwright/test"
+import { expect, Page, test } from "@playwright/test"
 import { randomEmail, randomString } from "./helpers"
 
 const login = async (page: Page) => {
@@ -23,7 +23,7 @@ test.describe("protect-page-login", () => {
 
         await expect(page).toHaveURL(/.*\/\.ory\/ui\/login.*/)
 
-        await page.click('[data-testid="cta-link"]')
+        await page.click('[data-testid="signup-link"]')
         await expect(page).toHaveURL(/.*\/\.ory\/ui\/registration.*/)
 
         const email = await login(page)
@@ -78,7 +78,7 @@ test.describe("React Single Page App", () => {
   test("able to use Sign in and Login", async ({ page }) => {
     await page.goto("http://localhost:4008/")
     await page.waitForLoadState("networkidle")
-    await page.click('[data-testid="cta-link"]')
+    await page.click('[data-testid="signup-link"]')
     await expect(page).toHaveURL(/.*\/ui\/registration.*/)
 
     const email = await login(page)

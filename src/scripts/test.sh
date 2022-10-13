@@ -5,6 +5,22 @@ cd "$(dirname "${BASH_SOURCE[0]}")/../.."
 
 export ORY_SDK_URL=https://playground.projects.oryapis.com
 
+! nc -zv localhost 3001
+! nc -zv localhost 3002
+! nc -zv localhost 3003
+! nc -zv localhost 3004
+! nc -zv localhost 3005
+! nc -zv localhost 3006
+! nc -zv localhost 3007
+! nc -zv localhost 4001
+! nc -zv localhost 4002
+! nc -zv localhost 4003
+! nc -zv localhost 4004
+! nc -zv localhost 4005
+! nc -zv localhost 4006
+! nc -zv localhost 4007
+! nc -zv localhost 4008
+
 #
 # Please add any build steps to the Makefile and not here!
 #
@@ -36,7 +52,7 @@ cd code-examples/protect-page-login/vue && \
 ory tunnel --dev --port 3006 http://localhost:4006/ &
 
 cd code-examples/protect-page-login/react && \
-  PORT=4008 REACT_APP_ORY_URL=http://localhost:3007 npm run start &
+  PORT=4008 REACT_APP_ORY_URL=http://localhost:3007 BROWSER=none CI=true npm run start &
 ory tunnel --dev --port 3007 http://localhost:4008/ &
 
 trap "exit" INT TERM ERR
@@ -55,6 +71,6 @@ npx wait-on -v -t 300000 \
   tcp:127.0.0.1:4004 \
   tcp:localhost:4005 \
   tcp:localhost:4006 \
-  tcp:localhost:4005 \
+  tcp:localhost:4008 \
 
 npm run test
