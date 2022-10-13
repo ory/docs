@@ -4,7 +4,7 @@ title: Social sign-in `redirect_uri_mismatch` error (OTA-092022-01)
 sidebar_label: redirect_uri_mismatch error
 ---
 
-This problem affects Ory Cloud projects created before September 2022 that use a custom domain. For newly added social sign-in
+This problem affects projects created before September 2022 that use a custom domain. For newly added social sign-in
 providers, social sign-in flows can fail with the following message:
 
 ```text
@@ -28,7 +28,7 @@ ory patch identity-config <project-id> \
 
 Removing the `base_redirect_uri` can break previously existing and functional social sign-in connections. To fix a broken
 connection, choose the provider you want to fix from the
-[Ory Cloud Console social sign-in configuration screen](https://console.ory.sh/projects/current/social-signin) and copy the
+[Ory Console social sign-in configuration screen](https://console.ory.sh/projects/current/social-signin) and copy the
 redirect URI. Use the value you copied to update the callback URL configuration of the social sign-in provider.
 
 :::

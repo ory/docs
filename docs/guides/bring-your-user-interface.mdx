@@ -3,10 +3,10 @@ id: bring-your-user-interface
 title: Bring your own UI
 ---
 
-Ory provides a "managed UI" for essential pages such as User Login, User Registration, Account Recovery / Password Reset, Account
-Verification / Email Verification, User Settings, and more. The Managed UI will be customizable in the future.
+Ory Network comes with Ory Account Experience - a set of essential UI pages such as User Login, User Registration, Account Recovery / Password Reset, Account
+Verification / Email Verification, User Settings, and more.
 
-Further, Ory is an API-first service. Implementing these pages in your language and framework of choice is straightforward using
+Furthermore, Ory is an API-first service. Implementing these pages in your language and framework of choice is straightforward using
 our SDKs.
 
 Unless you are building a [Native App](#native-apps), you will need to configure the endpoints where your UI pages for the
@@ -14,14 +14,14 @@ individual flows (login, registration, ...) are located.
 
 ![Customize UI Endpoints in the Ory Console](_static/bring-your-user-interface/cloud-config.png)
 
-If you leave fields empty, the Ory Managed UI will be used for that flow.
+If you leave fields empty, the Ory Account Experience will be used for that flow.
 
 Let's say you have an app hosted at `https://www.example.org` with a login screen at `https://www.example.org/login` but have no
 other screens implemented yet? Your configuration would look as follows:
 
 ![Customize UI Endpoints in the Ory Console](_static/bring-your-user-interface/login-ui.png)
 
-All other flows (registration, settings, verification, recovery, error) would still use the Ory Network managed UI!
+All other flows (registration, settings, verification, recovery, error) would still use the Ory Account Experience.
 
 ## Reference Implementations and Guided Examples
 
@@ -35,7 +35,7 @@ forms on top of Ory's APIs:
 ## Development
 
 If you are developing locally, you can set the configuration to, for example, `http://localhost:1234/login`. To make this work,
-you will need to use the [Ory Proxy](./cli/proxy-and-tunnel) locally!
+you will need to use the [Ory Proxy](./cli/proxy-and-tunnel) locally.
 
 ## Native apps
 
@@ -44,7 +44,7 @@ Native Apps refer to applications that don't have a browser, such as React Nativ
 You can interface with Ory Network APIs to build your own UI for native apps today. Behind the scenes, we're using Ory Kratos to
 provide the features around login, registration, recovery, verification, and account settings.
 
-To learn more, head over to [this](../getting-started/integrate-auth/react-native) guide!
+To learn more, head over to [this](../getting-started/integrate-auth/react-native) guide.
 
 ## Technical concepts and APIs
 
