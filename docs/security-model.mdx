@@ -27,10 +27,10 @@ about `sessions`.
 ## Access to your domain
 
 To manage `sessions`, `tokens`, and `cookies`, Ory APIs must be exposed on the same domain as your application. If you don't
-fulfill this requirement, HTTP Cookies are ignored by the browser, which prevents the Ory Identity Service (Ory Kratos) from
+fulfill this requirement, HTTP Cookies are ignored by the browser, which prevents the Ory Identities (Ory Kratos) from
 functioning properly.
 
-Ory exposes the APIs at `https://<project-slug>.projects.oryapis.com`. To manage session information, Ory Identity Service
+Ory exposes the APIs at `https://<project-slug>.projects.oryapis.com`. To manage session information, Ory Identities
 (Kratos) must be able to set the domain in HTTP Cookies to the same domain as the application that consumes its APIs. For example:
 
 - When working with an application that runs on `http://localhost:3000` for local development, Ory must be able to set
@@ -71,12 +71,12 @@ Model is a much easier solution to handle.
 
 ### What about JSON Web Tokens?
 
-Currently, Ory's Identity Service doesn't support JSON Web Tokens (JWTs) natively.
+Currently, Ory Identities doesn't support JSON Web Tokens (JWTs) natively.
 
 :::note
 
 Do you need JWTs in your implementation? Let us know in
-[this issue for the Ory Identity Service (Kratos)](https://github.com/ory/kratos/issues/2487).
+[this issue for the Ory Identities (Kratos)](https://github.com/ory/kratos/issues/2487).
 
 :::
 

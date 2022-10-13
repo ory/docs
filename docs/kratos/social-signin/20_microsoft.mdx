@@ -198,7 +198,7 @@ By default, Microsoft uses the identifier taken from the `sub` field of OIDC `id
 the standard OIDC `/userinfo` endpoint.
 
 However, some systems use the `id` field returned by the `https://graph.microsoft.com/v1.0/me` endpoint as a subject identifier.
-To make migrating such systems to the Ory Identity Service (Ory Kratos) easier, you can use the identifier obtained from the `me`
+To make migrating such systems to the Ory Identities (Ory Kratos) easier, you can use the identifier obtained from the `me`
 endpoint.
 
 To do that, add the `subject_source` field set to `me` to the social sign-in provider config of your Ory Kratos instance.
