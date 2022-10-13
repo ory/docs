@@ -62,12 +62,12 @@ import SdkEnvVar from '@site/src/components/SdkEnvVar'
 
 ### Create .env
 
-If you'd prefer to store your credentials in a .env file, you can do so by creating a .env file in the root of your project and adding the following:
+If you'd prefer to store your credentials in a .env file, you can do so by creating a .env file in the root of your project and
+adding the following:
 
 ```bash
 VITE_ORY_SDK_URL=http://localhost:4000
 ```
-
 
 ### package.json
 
@@ -87,11 +87,13 @@ At this point, your package.json should look something like this:
 ```
 
 ### Run your app
+
 ```bash
 npm run dev -- --port 3000
 ```
 
 ### Run Ory CLI Tunnel
+
 ```bash
 ory tunnel http://localhost:3000 --project <project-slug> --dev
 ```
@@ -199,8 +201,7 @@ const Dashboard = () => {
     <>
       <Typography size={"headline37"}>Welcome to the dashboard!</Typography>
       <Typography size={"headline21"}>
-        {session?.identity.traits.firstName} you can logout here:{" "}
-        <a href={logoutUrl}>Logout</a> or go to your settings page here:{" "}
+        {session?.identity.traits.firstName} you can logout here: <a href={logoutUrl}>Logout</a> or go to your settings page here:{" "}
         <a href="/settings">Settings</a>
       </Typography>
       <pre>
