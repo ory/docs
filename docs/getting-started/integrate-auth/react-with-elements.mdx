@@ -16,23 +16,14 @@ import webm from '../_static/react/screencast.webm'
 />
 ```
 
-# Requirements:
+# Requirements
 
 - Create Ory Console Account/Project
 - Install Ory CLI
 
-### Clone Elements:
+### Create Project React-TS with Vite
 
-```bash
-git clone git@github.com:ory/elements
-cd ory-elements
-npm i
-npm run initialize
-npm run build:clean
-cd tests/react-spa
-```
-
-### Create Project React-TS with Vite:
+First we create a React TypeScript SPA with Vite:
 
 ```bash
 npm create vite@latest react-ts -- --template react-ts
@@ -41,49 +32,46 @@ npm i
 npm run dev
 ```
 
-### Create .env:
+### Install Dependencies
+
+To interact with Ory's APIs we install the [Ory SDK](https://www.npmjs.com/package/@ory/client)
+
+To use the Ory Element features, we install [Ory Elements](https://www.npmjs.com/package/@ory/elements)
+
+To manage our routes more dynamically, we install [React Router](https://www.npmjs.com/package/react-router-dom)
+
+```bash
+npm i @ory/client @ory/elements react-router-dom --save
+```
+
+To install Ory CLI follow [this guide](https://www.ory.sh/docs/guides/ory-cli-install-use)
+
+### Why do I Need the Ory CLI?
+
+```mdx-code-block
+import OryCLI from '../_common/ory-cli.mdx'
+
+<OryCLI />
+```
+
+```mdx-code-block
+import SdkEnvVar from '@site/src/components/SdkEnvVar'
+
+<SdkEnvVar />
+```
+
+### Create .env
+
+If you'd prefer to store your credentials in a .env file, you can do so by creating a .env file in the root of your project and adding the following:
 
 ```bash
 VITE_ORY_SDK_URL=http://localhost:4000
 ```
 
-### Or Set Environment Variables:
-
-### (UNIX)
-
-```bash
-export VITE_ORY_SDK_URL=http://localhost:4000
-```
-
-### (Windows PowerShell)
-
-```powershell
-$Env:VITE_ORY_SDK_URL = "http://localhost:4000"
-```
-
-### Finally:
-
-```bash
-npm run dev -- --port 3000
-```
-
-## Find your Project Slug in the Ory Console under
-
-### Projects > Overview
-
-```bash
-ory tunnel http://localhost:3000 --project <project-slug> --dev
-```
-
-### Install Dependencies:
-
-```bash
-npm i @ory/elements
-npm i react-router-dom
-npm i @ory/client --save
-```
 
 ### package.json
+
+At this point, your package.json should look something like this:
 
 ```json
 ...
@@ -98,7 +86,19 @@ npm i @ory/client --save
 ...
 ```
 
-### Create sdk.ts:
+### Run your app
+```bash
+npm run dev -- --port 3000
+```
+
+### Run Ory CLI Tunnel
+```bash
+ory tunnel http://localhost:3000 --project <project-slug> --dev
+```
+
+### Create sdk.ts
+
+This file is used to create a new instance of the Ory SDK. We will use this instance to interact with the Ory APIs.
 
 ```typescript
 import { V0alpha2Api, Configuration } from "@ory/client"
@@ -115,6 +115,8 @@ export default new V0alpha2Api(
 ```
 
 ### Create main.tsx
+
+This file is used as the main canvas for React. We will use this file to create our routes and render our components.
 
 ```tsx
 import React from "react"
@@ -151,9 +153,67 @@ import { Typography } from "@ory/elements"
 import sdk from "./sdk"
 ```
 
-# Basic Registration / Login:
+### App.tsx:
 
-## Create Registration.tsx:
+Create our main Dashboard / Home Page.
+
+```tsx
+const Dashboard = () => {
+  const [session, setSession] = useState<Session | null>(null)
+  const [logoutUrl, setLogoutUrl] = useState<string>()
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    sdk
+      .toSession()
+      .then(({ data: session }) => {
+        setSession(session)
+      })
+      .catch((error) => {
+        if (error.response?.status === 403) {
+          if (error.response?.data.error.id === "session_aal2_required") {
+            return navigate("/login?aal2=true", { replace: true })
+          }
+        }
+        return navigate("/login", { replace: true })
+      })
+  }, [])
+
+  useEffect(() => {
+    sdk
+      .createSelfServiceLogoutFlowUrlForBrowsers(undefined, {
+        params: {
+          return_url: "/",
+        },
+      })
+      .then(({ data }) => {
+        setLogoutUrl(data.logout_url)
+      })
+      .catch((data) => {
+        console.error(data)
+      })
+  }, [])
+
+  return (
+    <>
+      <Typography size={"headline37"}>Welcome to the dashboard!</Typography>
+      <Typography size={"headline21"}>
+        {session?.identity.traits.firstName} you can logout here:{" "}
+        <a href={logoutUrl}>Logout</a> or go to your settings page here:{" "}
+        <a href="/settings">Settings</a>
+      </Typography>
+      <pre>
+        <code>{JSON.stringify(session, null, 2)}</code>
+      </pre>
+    </>
+  )
+}
+```
+
+## Basic Registration / Login
+
+### Create Registration.tsx
 
 ```tsx
 import React from "react"
@@ -209,7 +269,7 @@ export const Registration = () => {
 }
 ```
 
-## Create Login.tsx:
+### Create Login.tsx
 
 ```tsx
 import React, { useCallback, useEffect, useState } from "react"
