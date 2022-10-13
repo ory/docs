@@ -17,7 +17,7 @@ If you are interested in a particular project, it's best to check out the
 [milestones and open issues & pull requests ](#milestones-issues-pull-requests) for that project.
 
 Please note that **our roadmap is subject to changes**. This means that development is considering feedback both from the Open
-Source community as well as Ory Cloud users.
+Source community as well as Ory Network users.
 
 Issues on GitHub aren't hard and fixed commitments. GitHub Issues, Milestones, and Discussions are general guidelines and efforts
 to make development at Ory as transparent as possible to facilitate collaboration, trust, and visibility.

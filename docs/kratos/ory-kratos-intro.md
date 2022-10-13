@@ -1,10 +1,10 @@
 ---
 id: ory-kratos-intro
-title: Introduction to the Ory Identity Service (Ory Kratos)
+title: Introduction to the Ory Identities (Ory Kratos)
 sidebar_label: Introduction
 ---
 
-Ory Identity Service (Ory Kratos) is an API-first identity and user management system built following
+Ory Identities (Ory Kratos) is an API-first identity and user management system built following
 [cloud architecture best practices](https://www.ory.sh/docs/ecosystem/software-architecture-philosophy/). It implements mechanisms
 that allow handling core use cases that the majority of modern software applications have to deal with:
 
@@ -21,14 +21,14 @@ that allow handling core use cases that the majority of modern software applicat
 
 :::tip
 
-Ory Identity Service (Ory Kratos) calls user accounts "identities". Clarity and simplicity are the key focus of the documentation,
-so we use these terms interchangeably making sure to provide unambiguous and clear information.
+Ory Identities (Ory Kratos) calls user accounts "identities". Clarity and simplicity are the key focus of the documentation,
+so we use these terms "user accounts", "users", and "identities" interchangeably making sure to provide unambiguous and clear information.
 
 Read [this document](./manage-identities/overview) to learn more about identities in Ory.
 
 :::
 
-Identity is a hard problem that Ory Identity Service (Ory Kratos) solves in a unique way. We value security, flexibility, and
+Identity is a hard problem that Ory Identities (Ory Kratos) solves in a unique way. We value security, flexibility, and
 integration with cloud technology (such as Kubernetes) the most:
 
 - Ory Kratos doesn't ship an HTML Rendering Engine. You use the Ory Managed UI or build your own UI in the language and framework
@@ -39,8 +39,8 @@ integration with cloud technology (such as Kubernetes) the most:
   internal support staff that's assigned to a cost center, and that smart fridge on floor 4. You can accommodate the different
   data models using [JSON Schema](https://json-schema.org/) and make the system work for you - not the other way around.
 
-Ory Identity Service (Ory Kratos) isn't just about features - it's about security, reliability, and speed. Being the cornerstone
-of Ory Cloud, the service runs in a managed cloud environment and gives you a production-ready way to securely manage your users
+Ory Identities (Ory Kratos) isn't just about features - it's about security, reliability, and speed. Being the cornerstone
+of Ory Network, the service runs in a managed cloud environment and gives you a production-ready way to securely manage your users
 and their authentication flows.
 
 When hosted on private infrastructure, Ory Kratos stands out from other solutions because it runs on any operating system (Linux,

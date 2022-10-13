@@ -3,19 +3,19 @@ id: overview
 title: Overview
 ---
 
-The Ory Permission Service ([Keto](https://github.com/ory/keto)) implements Google Zanzibar. It might differ a bit from other
+The Ory Permissions ([Keto](https://github.com/ory/keto)) implements Google Zanzibar. It might differ a bit from other
 authorization services you know, so let's first clarify a few concepts.
 
-:::note Ory Cloud Availability
+:::tip
 
-The Permission Service is available to all Ory Cloud users without additional fees or setup. The API is in a production-ready
+Ory Permissions is available to all Ory Network users without additional fees or setup. The API is in a production-ready
 state. The documentation, integration, and UI are under active development.
 
 :::
 
 ## Relations and relation tuples
 
-The data model used by the Permission Service are so-called [relation tuples](/keto/concepts/relation-tuples.mdx) that encode
+The data model used by Ory Permissions are so-called [relation tuples](/keto/concepts/relation-tuples.mdx) that encode
 relations between [subjects](/keto/concepts/subjects.mdx) and [objects](/keto/concepts/objects.mdx).
 
 :::tip
@@ -94,7 +94,7 @@ relation tuple.
 
 ````mdx-code-block
 <Tabs>
-  <TabItem value="cloud" label="Ory Cloud" default>
+  <TabItem value="cloud" label="Ory Network" default>
 
 ```shell
 ORY_PAT="<your ory personal access token from the console>"
@@ -132,7 +132,7 @@ curl -X PATCH \
 ```
 
   </TabItem>
-  <TabItem value="self-hosted" label="Self-Hosted Ory Keto" default>
+  <TabItem value="self-hosted" label="Self-Hosted Ory Keto">
 
 ```shell
 KETO_WRITE_URL="<your keto write url>"
@@ -180,7 +180,7 @@ The [Check API](/reference/api.mdx#operation/postCheck) allows to perform such c
 
 ````mdx-code-block
 <Tabs>
-  <TabItem value="cloud" label="Ory Cloud" default>
+  <TabItem value="cloud" label="Ory Network" default>
 
 ```shell
 ORY_PAT="<your ory personal access token from the console>"
@@ -203,7 +203,7 @@ curl -X POST \
 ```
 
   </TabItem>
-  <TabItem value="self-hosted" label="Self-Hosted Ory Keto" default>
+  <TabItem value="self-hosted" label="Self-Hosted Ory Keto">
 
 ```shell
 KETO_WRITE_URL="<your keto write url>"

@@ -38,7 +38,7 @@ are attacks
 
 - through the runtime environment of self-hosted Ory installations
 - through user-provided configuration like a user not setting appropriate permissions on projects containing sensitive information
-- through port address translation for Ory Cloud Projects
+- through port address translation for Ory Network Projects
 - around missing rate limiting (we have it on our roadmap)
 - on intentionally public hosts and information on them like our [documentation](https://github.com/ory/docs/) and
   [website](https://github.com/ory/docs/)

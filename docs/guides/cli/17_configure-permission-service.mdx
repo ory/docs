@@ -1,30 +1,30 @@
 ---
 id: configure-permission-service
-title: Configure Permission Service
+title: Configure Ory Permissions
 ---
 
-Using the Ory CLI, you can quickly adjust the configuration of the Ory Cloud Permission Service and apply config from the Cloud
+Using the Ory CLI, you can quickly adjust the configuration of Ory Permissions and apply config from the Ory Network
 environment to self-hosted Ory Keto instances.
 
 :::tip
 
-Ory Keto is the open-source project that powers the Ory Cloud Permission Service.
+Ory Keto is the open-source project that powers the Ory Permissions.
 
 :::
 
-This feature is useful for fluently moving your local setup to the Cloud, or for working on the configuration and testing
+This feature is useful for fluently moving your local setup to Ory Network, or for working on the configuration and testing
 different settings in the safety of the local development environment.
 
-To work with the Ory Cloud Permission Service, you must have an active Ory Cloud project. Use the
+To work with the Ory Permissions, you must have an active project. Use the
 [CLI](./config-with-cli#create-ory-cloud-project) or the [Ory Console](https://console.ory.sh/) to create one.
 
-## Export configuration from Ory Cloud
+## Export configuration from Ory Network
 
-To get your project's Permission Service configuration, run this command:
+To get your project's Ory Permissions configuration, run this command:
 
 :::info
 
-You must be signed in to an Ory Cloud account to perform this action. Read
+You must be signed in to an Ory Network account to perform this action. Read
 [this document](./cli-basics#use-cli-with-existing-cloud-account) to learn more.
 
 :::
@@ -43,7 +43,7 @@ Getting the configuration in the YAML format produces output that is ready to us
 
 ### Export to file
 
-For a convenient way to get the Permission Service configuration working in self-hosted Ory Keto, save the configuration to a YAML
+For a convenient way to get the Ory Permissions configuration working in self-hosted Ory Keto, save the configuration to a YAML
 file.
 
 Run this command:
@@ -52,9 +52,9 @@ Run this command:
 ory get permission-config <project-id> --format yaml > permission-config.yaml
 ```
 
-## Import configuration to Ory Cloud
+## Import configuration to Ory Network
 
-To start using the configuration from a self-hosted Ory Keto instance in the Ory Cloud Permission Service, import the
+To start using the configuration from a self-hosted Ory Keto instance in the Ory Permissions, import the
 configuration file with the CLI:
 
 ```shell
@@ -81,7 +81,7 @@ Read [this document](./config-with-cli) to learn more about adjusting project co
 ## Manage relation tuples
 
 You can manage [relation tuples](../../keto/concepts/relation-tuples) using Ory CLI. To run these operations, you must provide the
-ID of the Ory Cloud project in which you want to manage the tuples using the `--project` flag.
+ID of the project in which you want to manage the tuples using the `--project` flag.
 
 For convenience, you can export the ID of your project as an environment variable and use the variable with the `--project` flag
 instead of passing the project ID directly in the command:

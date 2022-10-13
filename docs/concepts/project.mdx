@@ -1,39 +1,39 @@
 ---
 id: project
-title: Ory Cloud Project
+title: Projects
 ---
 
-Ory Cloud Projects are isolated tenants providing functionality, user interfaces, and APIs around identities, sessions, login, and
+In Ory Network, projects are isolated tenants providing functionality, user interfaces, and APIs around identities, sessions, login, and
 many more.
 
-Internally, Ory Cloud Projects run our popular open source projects in a multi-tenant environment in a highly scalable,
-low-latency, and reliable way. Ory Cloud Projects include additional services (such as dashboards, endpoint security, SLAs, ...)
+Internally, projects run our popular open source projects in a multi-tenant environment in a highly scalable,
+low-latency, and reliable way. Projects include additional services (such as dashboards, endpoint security, or SLAs)
 which aren't available in the open source.
 
 ## Project services
 
-Each Ory Cloud Project consists of the following services :
+Each project in Ory Network consists of the following services :
 
 - Ory Kratos: All IAM and self-service user flows. Learn more about [Ory Kratos](https://www.ory.sh/kratos/docs/).
-- Ory Proxy: Proxy for Ory Cloud. Learn more about [the Ory Proxy capabilities](https://www.ory.sh/docs/guides/proxy).
+- Ory Proxy: Proxy for Ory Network. Learn more about [the Ory Proxy capabilities](https://www.ory.sh/docs/guides/proxy).
 - Hosted UI: To be found under "General/Managed UI". Provides clean and performant interfaces for all self-service flows without
   external JS dependencies. Comparable with the [Ory Node.js example UI](https://github.com/ory/kratos-selfservice-ui-node).
-- Console: The administrative interface for managing Ory Cloud, to be found under [console.ory.sh](https://console.ory.sh/).
-- Backoffice: The API Endpoints to manage Ory Cloud via CLI or API, to be found under `Hosts` in the
+- Ory Console: The administrative interface for managing Ory Network, to be found under [console.ory.sh](https://console.ory.sh/).
+- Backoffice: The API Endpoints to manage Ory Network via CLI or API, to be found under `Hosts` in the
   [Projects Overview](#projects-overview).
-- Observability Stack: Provides Metrics, Traces, Logs, and more for maintenance and will soon generate helpful insights on your
-  Ory Cloud Project on the General Dashboard.
+- Observability Stack: Provides Metrics, Traces, Logs, and more for maintenance and will soon generate helpful insights about your
+  project on the General Dashboard.
 
-as well as load balancing, and security components. Each Ory Cloud Project is connected to a
+as well as load balancing, and security components. Each project is connected to a
 [Cockroach database](https://www.cockroachlabs.com/docs/stable/frequently-asked-questions.html#what-is-cockroachdb) instance.
 
 ## Projects overview
 
-The Projects Overview displays a list of your active projects with several parameters that help identify your Ory Cloud Project:
+The Projects Overview displays a list of your active projects with several parameters that help identify your project:
 
 - `Name` is the name you choose when creating the project. It can be changed in the
   [Projects Overview](https://console.ory.sh/projects/list).
-- `Slug` is the internal human-readable [Clean URL](https://en.wikipedia.org/wiki/Clean_URL#Slug) of Ory Cloud Project. It
+- `Slug` is the internal human-readable [Clean URL](https://en.wikipedia.org/wiki/Clean_URL#Slug) of project. It
   consists of a randomly generated word pair and a random string for example `nostalgic-jemison-kj2qx2nhkm`. The Slug is part of
   the project URL: `https://nostalgic-jemison-kj2qx2nhkm.projects.oryapis.com`
 - `Hosts` are the projects main APIs:

@@ -4,9 +4,9 @@ title: Add Auth0 as a social sign-in provider in Ory
 sidebar_label: Auth0
 ---
 
-## Configuration for Ory Cloud
+## Configuration for Ory Network
 
-Follow these steps to add Auth0 as a social sign-in provider to your Ory Cloud project using the Ory CLI:
+Follow these steps to add Auth0 as a social sign-in provider to your project using the Ory CLI:
 
 1. [Create an Auth0 Application for your Auth0 Tenant](https://auth0.com/docs/applications).
 2. In the created app, set the redirect URI to:
@@ -54,8 +54,8 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
 <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
 ```
 
-4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Cloud.
-5. Download the Identity Service config from your Ory Cloud project and save it to a file:
+4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Network.
+5. Download the Ory Identities config from your project and save it to a file:
 
    ```shell
    ## List all available projects
@@ -91,7 +91,7 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
          enabled: true
    ```
 
-7. Update the Ory Identity Service (Ory Kratos) configuration using the file you worked with:
+7. Update the Ory Identities (Ory Kratos) configuration using the file you worked with:
 
    ```shell
    ory update identity-config <project-id> --file updated_config.yaml
