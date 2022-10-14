@@ -753,6 +753,66 @@
       "source": "/docs/technical-advisories/oidc-redirect-url-cname-OTA-092022-01",
       "destination": "https://www.ory.sh/docs/troubleshooting/oidc-redirect-url-cname-OTA-092022-01",
       "permanent": false
+    },
+    {
+      "source": "/docs/hydra/configure-deploy",
+      "destination": "https://www.ory.sh/docs/hydra/self-hosted/configure-deploy",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/dependencies-environment",
+      "destination": "https://www.ory.sh/docs/hydra/self-hosted/dependencies-environment",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/deploy-hydra-example",
+      "destination": "https://www.ory.sh/docs/hydra/self-hosted/deploy-hydra-example",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/gitlab",
+      "destination": "https://www.ory.sh/docs/hydra/self-hosted/gitlab",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/install",
+      "destination": "https://www.ory.sh/docs/hydra/self-hosted/install",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/kubernetes-helm-chart",
+      "destination": "https://www.ory.sh/docs/hydra/self-hosted/kubernetes-helm-chart",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/merge-multiple-db-secrets",
+      "destination": "https://www.ory.sh/docs/hydra/self-hosted/merge-multiple-db-secrets",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/migrating-from-mitreid",
+      "destination": "https://www.ory.sh/docs/hydra/self-hosted/migrating-from-mitreid",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/production",
+      "destination": "https://www.ory.sh/docs/hydra/self-hosted/production",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/scaling-hydra",
+      "destination": "https://www.ory.sh/docs/hydra/self-hosted/scaling-hydra",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/secrets-key-rotation",
+      "destination": "https://www.ory.sh/docs/hydra/self-hosted/secrets-key-rotation",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/upgrade",
+      "destination": "https://www.ory.sh/docs/hydra/self-hosted/upgrade",
+      "permanent": false
     }
   ]
 }
