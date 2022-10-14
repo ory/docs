@@ -6,21 +6,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")/../.."
 export ORY_SDK_URL=https://playground.projects.oryapis.com
 
 # ensure ports are free
-kill -9 $(lsof -t -i:3001)
-kill -9 $(lsof -t -i:3002)
-kill -9 $(lsof -t -i:3003)
-kill -9 $(lsof -t -i:3004)
-kill -9 $(lsof -t -i:3005)
-kill -9 $(lsof -t -i:3006)
-kill -9 $(lsof -t -i:3007)
-kill -9 $(lsof -t -i:4001)
-kill -9 $(lsof -t -i:4002)
-kill -9 $(lsof -t -i:4003)
-kill -9 $(lsof -t -i:4004)
-kill -9 $(lsof -t -i:4005)
-kill -9 $(lsof -t -i:4006)
-kill -9 $(lsof -t -i:4007)
-kill -9 $(lsof -t -i:4008)
+npx kill-port --port 3001,3002,3003,3004,3005,3006,3007,4001,4002,4003,4004,4005,4006,4007,4008
 
 #
 # Please add any build steps to the Makefile and not here!
