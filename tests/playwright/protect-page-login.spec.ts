@@ -21,10 +21,10 @@ test.describe("protect-page-login", () => {
       test("able to use login and sign up", async ({ page }) => {
         await page.goto(app.url, { waitUntil: "networkidle" })
 
-        await expect(page).toHaveURL(/.*\/\.ory\/ui\/login.*/)
+        await expect(page).toHaveURL(/.*\/ui\/login.*/)
 
         await page.click('[data-testid="signup-link"]')
-        await expect(page).toHaveURL(/.*\/\.ory\/ui\/registration.*/)
+        await expect(page).toHaveURL(/.*\/ui\/registration.*/)
 
         const email = await login(page)
 
