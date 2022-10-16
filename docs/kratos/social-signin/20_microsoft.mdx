@@ -56,9 +56,10 @@ mapping.
 
 For Microsoft, add the `email` and `profile` scopes for a basic setup.
 
-#### Data Mapping
+#### Data mapping
 
-The Data Mapping section allows you to map the data returned by the sign-in provider to traits as defined in the identity schema.
+The **Data mapping** section allows you to map the data returned by the sign-in provider to traits as defined in the identity
+schema.
 
 To define the mapping, create a Jsonnet code snippet. Read [this document](./data-mapping) to learn more about Jsonnet data
 mapping.
@@ -222,7 +223,7 @@ To do that, add the `subject_source` field set to `me` to the social sign-in pro
     - email
 ```
 
-## Prevent having to login after sign-up
+## Prevent having to log in after sign-up
 
 ```mdx-code-block
 import OidcSessionHook from '../_common/oidc_session_hook.mdx'

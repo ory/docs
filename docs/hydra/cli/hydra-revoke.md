@@ -28,5 +28,4 @@ Revoke resources
 
 * [hydra](hydra)	 - Run and manage Ory Hydra
 * [hydra revoke token](hydra-revoke-token)	 - Revoke an access or refresh token
-* [hydra revoke token](hydra-revoke-token)	 - Revoke an access or refresh token
 

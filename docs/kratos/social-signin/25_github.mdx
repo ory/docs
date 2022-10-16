@@ -56,9 +56,10 @@ For GitHub, add the `user:email` scope for a basic setup.
 To learn more about the scopes available for GitHub, read the
 [related documentation](https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps).
 
-#### Data Mapping
+#### Data mapping
 
-The Data Mapping section allows you to map the data returned by the sign-in provider to traits as defined in the identity schema.
+The **Data mapping** section allows you to map the data returned by the sign-in provider to traits as defined in the identity
+schema.
 
 To define the mapping, create a Jsonnet code snippet. Read [this document](./data-mapping) to learn more about Jsonnet data
 mapping.
@@ -147,7 +148,7 @@ Follow these steps to add GitHub as a social sign-in provider to your Ory Cloud 
 
 ## Configuration for self-hosted instances
 
-Follow these steps to add Google as a social sign-in provider when self-hosting Ory Kratos:
+Follow these steps to add Github as a social sign-in provider when self-hosting Ory Kratos:
 
 1. [Create a Github OAuth app](#configuration-in-ory-cloud-console).
 2. Set the redirect URI to URL that follows this pattern:
@@ -168,7 +169,7 @@ import ConfigAsEnv from '../_common/config_as_env.mdx'
 <ConfigAsEnv />
 ```
 
-## Prevent having to login after sign-up
+## Prevent having to log in after sign-up
 
 ```mdx-code-block
 import OidcSessionHook from '../_common/oidc_session_hook.mdx'

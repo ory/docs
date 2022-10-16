@@ -91,14 +91,14 @@ $ ory update project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
       --format string   Set the output format. One of table, json, yaml, and json-pretty. (default "default")
   -h, --help            help for project
   -n, --name string     The new name of the project.
-  -q, --quiet           Be quiet with output printing.
-  -y, --yes             Confirm all dialogs with yes.
 ```
 
 ### Options inherited from parent commands
 
 ```
   -c, --config string   Path to the Ory Cloud configuration file.
+  -q, --quiet           Be quiet with output printing.
+  -y, --yes             Confirm all dialogs with yes.
 ```
 
 ### SEE ALSO

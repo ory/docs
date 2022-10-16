@@ -27,6 +27,7 @@ Get a resource
 * [ory](ory)	 - The ORY CLI
 * [ory get identity](ory-get-identity)	 - Get one or more identities by their ID(s)
 * [ory get identity-config](ory-get-identity-config)	 - Get an Ory Cloud project's identity configuration
+* [ory get jwk](ory-get-jwk)	 - Get one or more JSON Web Key Set by its ID(s)
 * [ory get oauth2-client](ory-get-oauth2-client)	 - Get one or more OAuth 2.0 Clients by their ID(s)
 * [ory get oauth2-config](ory-get-oauth2-config)	 - Get an Ory Cloud project's OAuth2 configuration
 * [ory get permission-config](ory-get-permission-config)	 - Get an Ory Cloud project's permission configuration

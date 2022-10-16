@@ -24,7 +24,7 @@ kratos list identities [<page> <per-page>] [flags]
 ### Examples
 
 ```
-kratos ls identities 100 1
+{{ .CommandPath }} 100 1
 ```
 
 ### Options

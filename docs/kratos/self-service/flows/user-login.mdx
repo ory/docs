@@ -67,12 +67,22 @@ Two login methods are supported:
   ]}>
   <TabItem value="oc">
 
-Only the password method is enabled.
+You can choose which methods to use in the Identity Service (Ory Kratos) configuration or in the Console UI.
+
+```yaml title="path/to/my/ory/config.yml"
+selfservice:
+  methods:
+    password:
+      enabled: true
+    oidc:
+      enabled: true
+  # ...
+```
 
   </TabItem>
   <TabItem value="oss">
 
-You can configure which methods to use in the Ory Kratos config:
+You can choose which methods to use in the Ory Kratos configuration:
 
 ```yaml title="path/to/my/kratos/config.yml"
 selfservice:

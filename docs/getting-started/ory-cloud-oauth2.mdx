@@ -40,7 +40,6 @@ Before you start, prepare your environment:
 - [Install Ory CLI](../guides/cli/installation).
 - Create an Ory Cloud account and project. Use [Ory CLI](../guides/cli/cli-basics#create-ory-cloud-project) or go to
   [console.ory.sh](https://console.ory.sh/).
-- [Install Ory Hydra CLI](../hydra/install).
 - [Create a Personal Access Token (PAT)](../concepts/personal-access-token) and save it in a safe place for later use.
 
 ## Setup
@@ -50,7 +49,7 @@ Before you start, prepare your environment:
 Create a new OAuth2 client in Ory Cloud by sending a POST request to the `/admin/clients` API. This is a protected endpoint, which
 means that you must include the Ory PAT in the `Authorization` header of the request.
 
-Alternatively, you can use the Ory Hydra CLI and pass your Ory Cloud project slug and the Ory PAT using flags.
+Alternatively, you can use the Ory CLI and pass your Ory Cloud project slug using flags.
 
 :::tip
 
@@ -65,6 +64,18 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs>
+  <TabItem value="orycli" label="Ory CLI">
+
+```shell
+ory create oauth2-client \
+  --project ORY_CLOUD_PROJECT_SLUG_OR_ID \
+  --name YOUR_CLIENT_NAME \
+  --grant-type authorization_code,refresh_token \ # Mandatory for this example, don't change.
+  --response-type code,id_token \ # Mandatory for this example, don't change.
+  --scope openid,offline \ # Mandatory for this example, don't change.
+  --redirect-uri http://127.0.0.1:5555/callback # Mandatory for this example, don't change.
+```
+  </TabItem>
   <TabItem value="curl" label="cURL" default>
 
 ```bash
@@ -80,27 +91,14 @@ curl -X POST 'SDK_CONFIGURATION_URL/admin/clients' \  # Found in the 'Connect' s
       "http://127.0.0.1:5555/callback"
     ],
     "response_types": [
-          "code",
-          "id_token",
-          "refresh_token"
+      "code",
+      "id_token",
+      "refresh_token"
     ],
     "scope": "openid offline"
   }'
 ```
 
-  </TabItem>
-  <TabItem value="hydracli" label="Ory Hydra CLI">
-
-```shell
-hydra clients create \
-    --name YOUR_CLIENT_NAME \
-    --grant-types authorization_code,refresh_token \ # Mandatory for this example, don't change.
-    --response-types code,id_token \ # Mandatory for this example, don't change.
-    --scope openid,offline \ # Mandatory for this example, don't change.
-    --access-token ORY_PAT \ # Ory PAT copied from the Cloud Console, 'ory_pat' prefix included.
-    --endpoint https://SDK_CONFIGURATION_URL/admin # Found in the 'Connect' section of the Cloud Console. Must end with '/admin'.
-    --callbacks http://127.0.0.1:5555/callback # Mandatory for this example, don't change.
-```
   </TabItem>
 </Tabs>
 ````
@@ -169,15 +167,15 @@ Follow these steps to configure Ory Cloud to call the sample application for log
 2. Adjust the configuration in `oauth2/urls/consent` and `oauth2/urls/login`:
 
    ```yaml title="config.yaml"
-     oauth2:
+   oauth2:
      # ...
-       urls:
-       // highlight-next-line
-         consent: http://localhost:3000/consent
-         error: /oauth2/fallbacks/error
-       // highlight-next-line
-         login: http://localhost:3000/login
-         post_logout_redirect: /oauth2/fallbacks/logout
+     urls:
+       # highlight-next-line
+       consent: http://localhost:3000/consent
+       error: /oauth2/fallbacks/error
+       # highlight-next-line
+       login: http://localhost:3000/login
+       post_logout_redirect: /oauth2/fallbacks/logout
    ```
 
 3. Update the Ory Cloud project configuration using the file you worked with:
@@ -188,18 +186,18 @@ Follow these steps to configure Ory Cloud to call the sample application for log
 
 ### Create a local web server acting as OAuth2 client
 
-Use the Ory Hydra CLI to create a sample web server that acts as the OAuth2 client. To successfully perform the Authorization Code
-Grant flow, the client ID and client secret must be registered in Ory Cloud.
+Use the Ory CLI to create a sample web server that acts as the OAuth2 client. To successfully perform the Authorization Code Grant
+flow, the client ID and client secret must be registered in Ory Cloud.
 
 Run this command to create the client. Using flags, provide the client ID and secret of the client created in Ory Cloud:
 
 ```bash
-hydra token user \
-    --client-id CLOUD_CLIENT_ID \
-    --client-secret CLOUD_CLIENT_SECRET \
-    --endpoint SDK_CONFIGURATION_URL \ # Found in the 'Connect' section of the Cloud Console.
-    --port 5555 \
-    --scope openid,offline
+ory perform authorization-code \
+  --client-id CLOUD_CLIENT_ID \
+  --client-secret CLOUD_CLIENT_SECRET \
+  --project ORY_CLOUD_PROJECT_ID \
+  --port 5555 \
+  --scope openid,offline
 ```
 
 When this command runs successfully, a browser window opens automatically and displays a welcome page. If this doesn't happen, go

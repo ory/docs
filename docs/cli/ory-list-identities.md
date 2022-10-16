@@ -24,7 +24,7 @@ ory list identities [<page> <per-page>] [flags]
 ### Examples
 
 ```
-ory ls identities 100 1
+{{ .CommandPath }} 100 1
 ```
 
 ### Options

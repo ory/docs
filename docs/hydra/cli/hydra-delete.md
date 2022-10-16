@@ -27,7 +27,7 @@ Delete resources
 ### SEE ALSO
 
 * [hydra](hydra)	 - Run and manage Ory Hydra
-* [hydra delete access-tokens](hydra-delete-access-tokens)	 - Invalidate all OAuth2 Access Tokens of an OAuth2 Client
-* [hydra delete jwks](hydra-delete-jwks)	 - Delete one or more JSON Web Key Sets by their set ID
+* [hydra delete access-tokens](hydra-delete-access-tokens)	 - Delete all OAuth2 Access Tokens of an OAuth2 Client
+* [hydra delete jwk](hydra-delete-jwk)	 - Delete one or more JSON Web Key Sets by their set ID
 * [hydra delete oauth2-client](hydra-delete-oauth2-client)	 - Delete one or more OAuth 2.0 Clients by their ID(s)
 

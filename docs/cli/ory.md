@@ -27,11 +27,14 @@ The ORY CLI
 * [ory format](ory-format)	 - Helpers for formatting code
 * [ory get](ory-get)	 - Get a resource
 * [ory import](ory-import)	 - Import resources
+* [ory introspect](ory-introspect)	 - Introspect resources
 * [ory lint](ory-lint)	 - Helpers for linting code
 * [ory list](ory-list)	 - List resources
+* [ory parse](ory-parse)	 - Parse Ory Cloud resources
 * [ory patch](ory-patch)	 - Patch resources
 * [ory perform](ory-perform)	 - Perform a flow
 * [ory proxy](ory-proxy)	 - Run your app and Ory on the same domain using a reverse proxy
+* [ory revoke](ory-revoke)	 - Revoke resources
 * [ory tunnel](ory-tunnel)	 - Tunnel Ory on a subdomain of your app or a separate port your app's domain
 * [ory update](ory-update)	 - Update resources
 * [ory validate](ory-validate)	 - Validate resources

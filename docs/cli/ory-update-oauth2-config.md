@@ -78,14 +78,14 @@ oauth2:
   -f, --file strings    Configuration file(s) (file://config.json, https://example.org/config.yaml, ...) to update the oAuth2 config
       --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
   -h, --help            help for oauth2-config
-  -q, --quiet           Be quiet with output printing.
-  -y, --yes             Confirm all dialogs with yes.
 ```
 
 ### Options inherited from parent commands
 
 ```
   -c, --config string   Path to the Ory Cloud configuration file.
+  -q, --quiet           Be quiet with output printing.
+  -y, --yes             Confirm all dialogs with yes.
 ```
 
 ### SEE ALSO

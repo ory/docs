@@ -255,6 +255,12 @@
     "context": {}
   },
   {
+    "id": 1060003,
+    "text": "An email containing a recovery code has been sent to the email address you provided.",
+    "type": "info",
+    "context": {}
+  },
+  {
     "id": 1070001,
     "text": "Password",
     "type": "info"
@@ -287,6 +293,11 @@
   {
     "id": 1070007,
     "text": "Email",
+    "type": "info"
+  },
+  {
+    "id": 1070007,
+    "text": "Resend code",
     "type": "info"
   },
   {
@@ -477,6 +488,12 @@
     "context": {
       "expired_at": "2020-01-01T01:01:01Z"
     }
+  },
+  {
+    "id": 4060006,
+    "text": "The recovery code is invalid or has already been used. Please try again.",
+    "type": "error",
+    "context": {}
   },
   {
     "id": 4070001,

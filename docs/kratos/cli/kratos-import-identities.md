@@ -37,11 +37,11 @@ Create an example identity:
 	}
 	EOF
 
-	kratos import identities file.json
+	{{ .CommandPath }} file.json
 
 Alternatively:
 
-	cat file.json | kratos import identities
+	cat file.json | {{ .CommandPath }}
 ```
 
 ### Options
