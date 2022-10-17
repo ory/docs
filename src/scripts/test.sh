@@ -44,7 +44,7 @@ ory proxy --no-jwt --port 3004 http://localhost:4004/ -q -y > /dev/null 2>&1 &
 ## tunnel runs on 3005
 ## app runs on 4005
 cd code-examples/protect-page-login/flutter_web_redirect && \
-  dart pub global run dhttpd --host localhost --port 4005 --path build/web &
+  dart pub global run dhttpd --host localhost --port 4005 --path build/web > /dev/null 2>&1 &
 ory tunnel --port 3005 http://localhost:4005/ -q -y > /dev/null 2>&1 &
 
 ## VueJS SPA with ExpressJS backend example ##
@@ -78,7 +78,7 @@ npx wait-on -v -t 300000 \
   tcp:127.0.0.1:4002 \
   tcp:127.0.0.1:4003 \
   tcp:127.0.0.1:4004 \
-  tcp:localhost:4005 \
+  tcp:127.0.0.1:4005 \
   tcp:localhost:4006 \
   tcp:localhost:4007 \
   tcp:localhost:4008
