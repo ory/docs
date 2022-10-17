@@ -22,7 +22,7 @@ Compared to the `patch project` command, this command only updates the permissio
 and also only returns the permission service configuration as a result. This command is useful when you want to
 import an Ory Keto config as well, for example. This allows for shorter paths when specifying the flags
 
-	ory patch identity-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
+	ory patch permission-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 		--replace '/limit/max_read_depth=5'
 
 when compared to the `patch project` command:
