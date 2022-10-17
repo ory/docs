@@ -35,8 +35,8 @@ jobs:
           flutter-version: "3.3.4"
           channel: "stable"
       - uses: actions/setup-python@v4
-          with:
-            python-version: '3.10' 
+        with:
+          python-version: "3.10"
       - run: npm install
       - name: Install Playwright
         run: npx playwright install --with-deps
