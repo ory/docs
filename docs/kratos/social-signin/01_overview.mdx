@@ -35,7 +35,7 @@ Sessions. The tokens are used in the following way:
 1. Ory Identities (Ory Kratos) starts the OIDC flow with a social sign-in provider.
 2. Upon successful authentication, the social sign-in provider issues an `id_token`.
 3. Ory Identities (Ory Kratos) gets user information from the `id_token` claims.
-4. The Identity service checks if a matching identity exists. <br /> ✅ The user gets a Session. <br /> ❌ Identity Service
+4. Ory Identities checks if a matching identity exists. <br /> ✅ The user gets a Session. <br /> ❌ Ory Identities
    creates a new identity and issues a Session.
 5. The system discards of the `id_token` when the flow is completed.
 

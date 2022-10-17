@@ -11,7 +11,7 @@ As a result, when integrating with social sign-in providers, you must specify ho
 provider to the Identity traits.
 
 You define this mapping by creating a [Jsonnet code snippet](../../kratos/reference/jsonnet.mdx). This snippet becomes a part of
-the Identity Service configuration for the given social sign-in provider.
+the Ory Identities configuration for the given social sign-in provider.
 
 :::tip
 
@@ -63,7 +63,7 @@ To learn more, read our [Jsonnet documentation](../reference/jsonnet).
 
 :::tip
 
-To debug Jsonnet payloads when running the Identity Service (Kratos) locally, use the `--dev` flag and set `log.level` to `debug`
+To debug Jsonnet payloads when running the Ory Kratos Identity Server locally, use the `--dev` flag and set `log.level` to `debug`
 (for example `LOG_LEVEL=debug kratos serve --dev`).Logs with detailed payloads will be emitted once you complete OpenID Connect/
 OAuth2 login or registration.
 
