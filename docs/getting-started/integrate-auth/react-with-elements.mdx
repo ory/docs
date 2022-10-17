@@ -135,24 +135,24 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 ```
 
 If you are implementing Ory Elements in an existing project, you can just add the Ory Elements theme and imports instead as shown:
-  
-  ```tsx
-  //...imports
-  import ReactDOM from "react-dom/client"
-  import { BrowserRouter } from "react-router-dom"
-  import { ThemeProvider } from "@ory/elements"
-  //...
 
-  //...existing main.tsx
-    // Router from React Router
-    <BrowserRouter>
-      {/* We add the Ory themes here */}
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
-    </BrowserRouter>
-  //...
-  ```
+```tsx
+//...imports
+import ReactDOM from "react-dom/client"
+import { BrowserRouter } from "react-router-dom"
+import { ThemeProvider } from "@ory/elements"
+//...
+
+//...existing main.tsx
+// Router from React Router
+;<BrowserRouter>
+  {/* We add the Ory themes here */}
+  <ThemeProvider>
+    <App />
+  </ThemeProvider>
+</BrowserRouter>
+//...
+```
 
 ### App.tsx Imports
 
@@ -208,7 +208,7 @@ const Dashboard = () => {
       })
   }, [])
 
-// Return our basic dashboard using Ory Elements themes
+  // Return our basic dashboard using Ory Elements themes
   return (
     <>
       <Typography size={"headline37"}>Welcome to the dashboard!</Typography>
@@ -265,7 +265,7 @@ export const Registration = () => {
       })
   }
 
-// Return our dashboard using Ory Elements themes
+  // Return our dashboard using Ory Elements themes
   return flow ? (
     <UserAuthCard
       flow={flow}
@@ -341,7 +341,7 @@ export const Login = (): JSX.Element => {
       })
   }
 
-// Return our dashboard using Ory Elements themes
+  // Return our dashboard using Ory Elements themes
   return flow ? (
     <UserAuthCard
       flow={flow}
