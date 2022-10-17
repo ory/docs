@@ -32,7 +32,7 @@ Web Tokens) and can manage OAuth 2.0 Clients.
 
 ### Hardware Security Module support
 
-Ory Hydra also offers a safe storage for cryptographic keys using HSM. [Learn more](guides/hsm-support.md).
+Ory Hydra also offers a safe storage for cryptographic keys using HSM. [Learn more](self-hosted/hsm-support.md).
 
 ## Security first
 
@@ -44,21 +44,12 @@ Ory Hydra's architecture and work flows are designed to neutralize many common (
 Hydra has a low CPU and memory footprint, short start-up time, and scales effortlessly up and down on many platforms including
 Heroku, Cloud Foundry, Docker, Google Container Engine, and others.
 
-## Developer friendly
+## Developer-friendly
 
 Hydra is available for all popular platforms including Linux, OSX and Windows. It ships as a single binary without any additional
 dependencies. For further simplicity, it's available as a [Docker Image](https://hub.docker.com/r/oryd/hydra/).
 
 Hydra also provides a developer-friendly CLI.
-
-## Limitations
-
-Hydra has limitations too:
-
-1. Ory Hydra doesn't manage user accounts, i.e. user registration, password reset, user login, sending confirmation emails, etc.
-   In Hydra's architecture, the _Identity Provider_ is responsible for this.
-2. Ory Hydra doesn't support the OAuth 2.0 Resource Owner Password Credentials flow because it's legacy, discouraged, and
-   insecure.
 
 ## Is Ory Hydra the right fit for you?
 
@@ -72,12 +63,3 @@ right fit for a use case:
 4. you want to limit what type of information your backend services can read from each other. For example, the _comment service_
    should only be allowed to fetch user profile updates but shouldn't be able to read user passwords. OAuth 2.0 might make sense
    for you.
-
-## Other solutions
-
-If you only need a library or SDKs that implements OAuth 2.0, take a look at [fosite](https://github.com/ory/fosite) or
-[node-oauth2-server](https://github.com/oauthjs/node-oauth2-server).
-
-If you need a fully featured identity solution including user management and user interfaces, those exist in the cloud as
-[Ory](https://console.ory.sh) or when self-hosting as [Keycloak](https://www.keycloak.org) or
-[Ory Kratos](https://github.com/ory/kratos/) among others.
