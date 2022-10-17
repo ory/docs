@@ -302,7 +302,7 @@ module.exports = {
             "hydra/guides/using-oauth2",
             {
               type: "category",
-              label: "Implementing the User Interface",
+              label: "Implement user interface",
               items: [
                 "hydra/guides/login",
                 "hydra/guides/consent",
@@ -327,8 +327,8 @@ module.exports = {
                   "Advanced flows": [
                     "hydra/guides/openid",
                     "hydra/guides/jwt",
-                    "hydra/guides/audiences"
-                  ]
+                    "hydra/guides/audiences",
+                  ],
                 },
                 "hydra/guides/openid-connect-dynamic-client-registration",
                 "hydra/guides/oauth2-token-introspection",

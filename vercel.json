@@ -818,6 +818,11 @@
       "source": "/docs/hydra/guides/hsm-support",
       "destination": "https://www.ory.sh/docs/hydra/self-hosted/hsm-support",
       "permanent": false
+    },
+    {
+      "source": "/docs/hydra/advanced",
+      "destination": "https://www.ory.sh/docs/hydra/guides/openid",
+      "permanent": false
     }
   ]
 }

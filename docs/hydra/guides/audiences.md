@@ -18,8 +18,8 @@ in the OAuth 2.0 Client's metadata on a per-client basis:
 
 ```json
 {
-    "client_id": "...",
-    "audience": ["https://api.my-cloud.com/user", "https://some-tenant.my-cloud.com/"]
+  "client_id": "...",
+  "audience": ["https://api.my-cloud.com/user", "https://some-tenant.my-cloud.com/"]
 }
 ```
 
