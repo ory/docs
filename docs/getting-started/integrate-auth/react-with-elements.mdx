@@ -6,32 +6,41 @@ sidebar_label: React With Elements
 
 ```mdx-code-block
 import Teaser from '../_common/teaser.mdx'
-import mp4 from '../_static/react/screencast.mp4'
-import webm from '../_static/react/screencast.webm'
+import mp4 from '../_static/react-elements/screencast.mp4'
+import webm from '../_static/react-elements/screencast.webm'
 
 <Teaser
   framework={<a href="https://reactjs.org/">React</a>}
   mp4={mp4}
   webm={webm}
+  sampleUrl={"https://github.com/ory/elements/tree/main/tests/react-spa"}
 />
 ```
 
-## Requirements
+### Create Project
 
-- Create Ory Console Account/Project
-- Install Ory CLI
-- Install Node.js LTS
+First we create a React TypeScript SPA.
 
-### Create Project with Vite
+import Tabs from "@theme/Tabs"
 
-First we create a React TypeScript SPA with Vite:
+<Tabs>
 
-```bash
+<TabItem value="vite" label="Vite" default>
+
+```shell
 npm create vite@latest react-ts -- --template react-ts
-cd react-ts
-npm i
-npm run dev
 ```
+
+</TabItem>
+
+<TabItem value="create-react-app" label="Create React App">
+
+```shell
+npx create-react-app react-ts --template typescript
+```
+
+</TabItem>
+</Tabs>
 
 ### Install Dependencies
 
