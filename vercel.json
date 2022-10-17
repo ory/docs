@@ -823,6 +823,11 @@
       "source": "/docs/hydra/advanced",
       "destination": "https://www.ory.sh/docs/hydra/guides/openid",
       "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/oauth2-grant-type-jwt-bearer",
+      "destination": "https://www.ory.sh/docs/hydra/guides/jwt",
+      "permanent": false
     }
   ]
 }
