@@ -4,7 +4,7 @@ title: Configure Ory Identities
 ---
 
 Using the Ory CLI, you can quickly adjust the configuration of the Ory Identities and apply config from the Ory Network
-environment to self-hosted Ory Kratos instances.
+environment to self-hosted Ory Kratos Identity Server instances.
 
 :::tip
 
@@ -18,7 +18,7 @@ different settings in the safety of the local development environment.
 To work with the Ory Identities, you must have an active project. Use the [CLI](./config-with-cli#create-ory-cloud-project) or the
 [Ory Console](https://console.ory.sh/) to create one.
 
-## Export configuration from Ory Network
+## Export configuration from The Ory Network
 
 To get your project's Ory Identities configuration, run this command:
 
@@ -52,7 +52,7 @@ Run this command:
 ory get identity-config <project-id> --format yaml > identity-config.yaml
 ```
 
-## Import configuration to Ory Network
+## Import configuration to The Ory Network
 
 To start using the configuration from a self-hosted Ory Kratos instance in Ory Identities, import the configuration file with the
 CLI:

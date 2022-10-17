@@ -1,6 +1,6 @@
 ---
 id: ory-cloud-oauth2
-title: Perform OAuth2 Authorization Code Grant with Ory Network
+title: Perform OAuth2 Authorization Code Grant with The Ory Network
 sidebar_label: Federation with OAuth2
 ---
 
@@ -10,7 +10,7 @@ Network. It takes you on a complete journey, from initial setup to running an OA
 
 :::tip
 
-Ory OAuth2 & OpenID (based on [Ory Hydra](../hydra/index.md)) is available in Ory Network out of the box, which means you can use
+Ory OAuth2 & OpenID (based on [Ory Hydra](../hydra/index.md)) is available in The Ory Network out of the box, which means you can use
 OIDC, Authorization Code Grant, Client Credentials Grant, and more. Read [this document](../hydra/concepts/before-oauth2) to learn
 more about OAuth2 and evaluate if it's the right fit for you.
 
@@ -27,10 +27,10 @@ Photos. These tokens allow the client to access the user's resources from an ext
 
 By following this guide you will:
 
-- Create an OAuth2 client in Ory Network.
+- Create an OAuth2 client in The Ory Network.
 - Run a simple login and consent Node.js application that allows the user to grant or reject access to their data on your machine.
-- Configure Ory Network to work with the sample application that runs on your machine.
-- Perform Authorization Code Grant in Ory Network using the login and consent app and a sample web server acting as an OAuth2
+- Configure The Ory Network to work with the sample application that runs on your machine.
+- Perform Authorization Code Grant in The Ory Network using the login and consent app and a sample web server acting as an OAuth2
   Client.
 
 ## Prerequisites
@@ -38,22 +38,22 @@ By following this guide you will:
 Before you start, prepare your environment:
 
 - [Install Ory CLI](../guides/cli/installation).
-- Create an Ory Network account and project. Use [Ory CLI](../guides/cli/cli-basics#create-ory-cloud-project) or go to
+- Create an account and project in The Ory Network. Use [Ory CLI](../guides/cli/cli-basics#create-ory-cloud-project) or go to
   [console.ory.sh](https://console.ory.sh/).
 - [Create a Personal Access Token (PAT)](../concepts/personal-access-token) and save it in a safe place for later use.
 
 ## Setup
 
-### Create OAuth2 client in Ory Network
+### Create OAuth2 client in The Ory Network
 
-Create a new OAuth2 client in Ory Network by sending a POST request to the `/admin/clients` API. This is a protected endpoint,
+Create a new OAuth2 client in The Ory Network by sending a POST request to the `/admin/clients` API. This is a protected endpoint,
 which means that you must include the Ory PAT in the `Authorization` header of the request.
 
-Alternatively, you can use the Ory CLI and pass your Ory Network project slug using flags.
+Alternatively, you can use the Ory CLI and pass The Ory Network project slug using flags.
 
 :::tip
 
-Learn more about creating OAuth2 clients in Ory Network by reading the
+Learn more about creating OAuth2 clients in The Ory Network by reading the
 [API specification](../reference/api#operation/adminCreateOAuth2Client).
 
 :::
@@ -146,13 +146,13 @@ document, open new terminal windows.
 
 :::
 
-### Configure Ory Network
+### Configure The Ory Network
 
-By default, Ory Network uses internal redirect URLs for operations such as user login and consent. You can adjust these URLs to
+By default, The Ory Network uses internal redirect URLs for operations such as user login and consent. You can adjust these URLs to
 point to pages that handle these operations in your setup. In this example, the sample application runs at
 `http://localhost:3000`.
 
-Follow these steps to configure Ory Network to call the sample application for login and consent screens:
+Follow these steps to configure The Ory Network to call the sample application for login and consent screens:
 
 1. Download the OAuth2 Federation Service configuration of your project and save it to a `yaml` file:
 
@@ -187,9 +187,9 @@ Follow these steps to configure Ory Network to call the sample application for l
 ### Create a local web server acting as OAuth2 client
 
 Use the Ory CLI to create a sample web server that acts as the OAuth2 client. To successfully perform the Authorization Code Grant
-flow, the client ID and client secret must be registered in Ory Network.
+flow, the client ID and client secret must be registered in The Ory Network.
 
-Run this command to create the client. Using flags, provide the client ID and secret of the client created in Ory Network:
+Run this command to create the client. Using flags, provide the client ID and secret of the client created in The Ory Network:
 
 ```bash
 ory perform authorization-code \
