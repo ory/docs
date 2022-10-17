@@ -32,7 +32,7 @@ Web Tokens) and can manage OAuth 2.0 Clients.
 
 ### Hardware Security Module support
 
-Ory Hydra also offers a safe storage for cryptographic keys using HSM. [Learn more](guides/hsm-support.md).
+Ory Hydra also offers a safe storage for cryptographic keys using HSM. [Learn more](self-hosted/hsm-support.md).
 
 ## Security first
 

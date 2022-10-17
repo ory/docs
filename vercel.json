@@ -813,6 +813,11 @@
       "source": "/docs/hydra/guides/upgrade",
       "destination": "https://www.ory.sh/docs/hydra/self-hosted/upgrade",
       "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/hsm-support",
+      "destination": "https://www.ory.sh/docs/hydra/self-hosted/hsm-support",
+      "permanent": false
     }
   ]
 }

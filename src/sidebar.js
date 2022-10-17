@@ -296,6 +296,10 @@ module.exports = {
         },
         {
           Guides: [
+            "hydra/guides/common-oauth2-openid-connect-flows",
+            "hydra/guides/oauth2-public-spa-mobile",
+            "hydra/guides/oauth2-clients",
+            "hydra/guides/using-oauth2",
             {
               type: "category",
               label: "Implementing the User Interface",
@@ -307,9 +311,9 @@ module.exports = {
             },
             {
               type: "category",
-              label: "Operations",
+              label: "Configuration",
               items: [
-                "hydra/guides/hsm-support",
+                "hydra/guides/client-token-expiration",
                 "hydra/guides/cookies",
                 "hydra/guides/cors",
                 ,
@@ -317,17 +321,17 @@ module.exports = {
             },
             {
               type: "category",
-              label: "OAuth2 & OpenID Connect",
+              label: "Advanced usage",
               items: [
-                "hydra/advanced",
+                {
+                  "Advanced flows": [
+                    "hydra/guides/openid",
+                    "hydra/guides/jwt",
+                    "hydra/guides/audiences"
+                  ]
+                },
                 "hydra/guides/openid-connect-dynamic-client-registration",
-                "hydra/guides/oauth2-clients",
-                "hydra/guides/oauth2-grant-type-jwt-bearer",
-                "hydra/guides/common-oauth2-openid-connect-flows",
-                "hydra/guides/using-oauth2",
-                "hydra/guides/client-token-expiration",
                 "hydra/guides/oauth2-token-introspection",
-                "hydra/guides/oauth2-public-spa-mobile",
                 "hydra/guides/claims-at-refresh",
               ],
             },
@@ -359,6 +363,7 @@ module.exports = {
                 "hydra/self-hosted/configure-deploy",
                 "hydra/self-hosted/dependencies-environment",
                 "hydra/self-hosted/production",
+                "hydra/self-hosted/hsm-support",
                 "hydra/self-hosted/scaling-hydra",
                 "hydra/self-hosted/migrating-from-mitreid",
                 "hydra/self-hosted/merge-multiple-db-secrets",
