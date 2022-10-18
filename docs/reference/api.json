@@ -256,6 +256,20 @@
         "nullable": true,
         "type": "string"
       },
+      "ParseError": {
+        "properties": {
+          "end": {
+            "$ref": "#/components/schemas/SourcePosition"
+          },
+          "message": {
+            "type": "string"
+          },
+          "start": {
+            "$ref": "#/components/schemas/SourcePosition"
+          }
+        },
+        "type": "object"
+      },
       "PreviousConsentSession": {
         "description": "The response used to return used consent requests\nsame as HandledLoginRequest, just with consent_request exposed as json",
         "properties": {
@@ -322,6 +336,19 @@
       "RecoveryAddressType": {
         "title": "RecoveryAddressType must not exceed 16 characters as that is the limitation in the SQL Schema.",
         "type": "string"
+      },
+      "SourcePosition": {
+        "properties": {
+          "Line": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "column": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "type": "object"
       },
       "String": {
         "$ref": "#/components/schemas/NullString"
@@ -547,6 +574,22 @@
             "type": "string"
           }
         },
+        "type": "object"
+      },
+      "adminCreateSelfServiceRecoveryCodeBody": {
+        "properties": {
+          "expires_in": {
+            "description": "Code Expires In\n\nThe recovery code will expire at that point in time. Defaults to the configuration value of\n`selfservice.flows.recovery.request_lifespan`.",
+            "pattern": "^([0-9]+(ns|us|ms|s|m|h))*$",
+            "type": "string"
+          },
+          "identity_id": {
+            "description": "Identity to Recover\n\nThe identity's ID you wish to recover.",
+            "format": "uuid",
+            "type": "string"
+          }
+        },
+        "required": ["identity_id"],
         "type": "object"
       },
       "adminCreateSelfServiceRecoveryLinkBody": {
@@ -960,6 +1003,17 @@
         "properties": {
           "location": {
             "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "getNamespacesResponse": {
+        "properties": {
+          "namespaces": {
+            "items": {
+              "$ref": "#/components/schemas/namespace"
+            },
+            "type": "array"
           }
         },
         "type": "object"
@@ -1533,6 +1587,15 @@
         },
         "type": "object"
       },
+      "namespace": {
+        "properties": {
+          "name": {
+            "description": "Name of the namespace.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "needsPrivilegedSessionError": {
         "properties": {
           "code": {
@@ -1831,6 +1894,10 @@
             "readOnly": true,
             "type": "string"
           },
+          "keto_namespace_configuration": {
+            "description": "The Revisions' Keto Namespace Configuration\n\nThe string is a URL pointing to an OPL file with the configuration.",
+            "type": "string"
+          },
           "keto_namespaces": {
             "$ref": "#/components/schemas/KetoNamespaces"
           },
@@ -1855,6 +1922,30 @@
           },
           "kratos_courier_smtp_headers": {
             "$ref": "#/components/schemas/nullJsonRawMessage"
+          },
+          "kratos_courier_templates_recovery_code_invalid_email_body_html": {
+            "description": "Configures the Ory Kratos Invalid Recovery via Code Email Body HTML Template\n\nThis governs the \"courier.smtp.templates.recovery_code.invalid.email.body.html\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_recovery_code_invalid_email_body_plaintext": {
+            "description": "Configures the Ory Kratos Invalid Recovery via Code Email Body Plaintext Template\n\nThis governs the \"courier.smtp.templates.recovery_code.invalid.email.body.plaintext\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_recovery_code_invalid_email_subject": {
+            "description": "Configures the Ory Kratos Invalid Recovery via Code Email Subject Template\n\nThis governs the \"courier.smtp.templates.recovery_code.invalid.email.body.html\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_recovery_code_valid_email_body_html": {
+            "description": "Configures the Ory Kratos Valid Recovery via Code Email Body HTML Template\n\nThis governs the \"courier.smtp.templates.recovery_code.valid.email.body.html\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_recovery_code_valid_email_body_plaintext": {
+            "description": "Configures the Ory Kratos Valid Recovery via Code Email Body Plaintext Template\n\nThis governs the \"courier.smtp.templates.recovery_code.valid.email.body.plaintext\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_recovery_code_valid_email_subject": {
+            "description": "Configures the Ory Kratos Valid Recovery via Code Email Subject Template\n\nThis governs the \"courier.smtp.templates.recovery_code.valid.email.subject\" setting.",
+            "type": "string"
           },
           "kratos_courier_templates_recovery_invalid_email_body_html": {
             "description": "Configures the Ory Kratos Invalid Recovery Email Body HTML Template\n\nThis governs the \"courier.smtp.templates.recovery.invalid.email.body.html\" setting.",
@@ -1974,6 +2065,10 @@
             "description": "Configures the Ory Kratos Recovery UI URL\n\nThis governs the \"selfservice.flows.recovery.ui_url\" setting.",
             "type": "string"
           },
+          "kratos_selfservice_flows_recovery_use": {
+            "description": "Configures the Ory Kratos Recovery strategy to use (\"link\" or \"code\")\n\nThis governs the \"selfservice.flows.recovery.use\" setting.",
+            "type": "string"
+          },
           "kratos_selfservice_flows_registration_after_default_browser_return_url": {
             "description": "Configures the Ory Kratos Registration Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.default_browser_return_url\" setting.",
             "type": "string"
@@ -2046,12 +2141,20 @@
             "description": "Configures the Ory Kratos Verification UI URL\n\nThis governs the \"selfservice.flows.verification.ui_url\" setting.",
             "type": "string"
           },
+          "kratos_selfservice_methods_code_config_lifespan": {
+            "description": "Configures the Ory Kratos Code Method's lifespan\n\nThis governs the \"selfservice.methods.code.config.lifespan\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_code_enabled": {
+            "description": "Configures whether Ory Kratos Code Method is enabled\n\nThis governs the \"selfservice.methods.code.enabled\" setting.",
+            "type": "boolean"
+          },
           "kratos_selfservice_methods_link_config_base_url": {
             "description": "Configures the Base URL which Recovery, Verification, and Login Links Point to\n\nIt is recommended to leave this value empty. It will be appropriately configured to the best matching domain\n(e.g. when using custom domains) automatically.\n\nThis governs the \"selfservice.methods.link.config.base_url\" setting.",
             "type": "string"
           },
           "kratos_selfservice_methods_link_config_lifespan": {
-            "description": "Configures whether Ory Kratos Link Method is enabled\n\nThis governs the \"selfservice.methods.link.config.lifespan\" setting.",
+            "description": "Configures the Ory Kratos Link Method's lifespan\n\nThis governs the \"selfservice.methods.link.config.lifespan\" setting.",
             "type": "string"
           },
           "kratos_selfservice_methods_link_enabled": {
@@ -2800,6 +2903,19 @@
         },
         "type": "array"
       },
+      "postCheckOplSyntaxResponse": {
+        "properties": {
+          "errors": {
+            "description": "The list of syntax errors",
+            "items": {
+              "$ref": "#/components/schemas/ParseError"
+            },
+            "type": "array"
+          }
+        },
+        "title": "CheckOPLSyntaxResponse represents the response for an OPL syntax check request.",
+        "type": "object"
+      },
       "project": {
         "properties": {
           "id": {
@@ -3497,11 +3613,30 @@
         "required": ["logout_url", "logout_token"],
         "type": "object"
       },
+      "selfServiceRecoveryCode": {
+        "properties": {
+          "expires_at": {
+            "description": "Expires At is the timestamp of when the recovery flow expires\n\nThe timestamp when the recovery link expires.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "recovery_code": {
+            "description": "RecoveryCode is the code that can be used to recover the account",
+            "type": "string"
+          },
+          "recovery_link": {
+            "description": "RecoveryLink with flow\n\nThis link opens the recovery UI with an empty `code` field.",
+            "type": "string"
+          }
+        },
+        "required": ["recovery_link", "recovery_code"],
+        "type": "object"
+      },
       "selfServiceRecoveryFlow": {
         "description": "This request is used when an identity wants to recover their account.\n\nWe recommend reading the [Account Recovery Documentation](../self-service/flows/password-reset-account-recovery)",
         "properties": {
           "active": {
-            "description": "Active, if set, contains the registration method that is being used. It is initially\nnot set.",
+            "description": "Active, if set, contains the recovery method that is being used. It is initially\nnot set.",
             "type": "string"
           },
           "expires_at": {
@@ -3745,6 +3880,13 @@
           "authenticator_assurance_level": {
             "$ref": "#/components/schemas/authenticatorAssuranceLevel"
           },
+          "devices": {
+            "description": "Devices has history of all endpoints where the session was used",
+            "items": {
+              "$ref": "#/components/schemas/sessionDevice"
+            },
+            "type": "array"
+          },
           "expires_at": {
             "description": "The Session Expiry\n\nWhen this session expires at.",
             "format": "date-time",
@@ -3781,6 +3923,7 @@
           "method": {
             "enum": [
               "link_recovery",
+              "code_recovery",
               "password",
               "totp",
               "oidc",
@@ -3804,12 +3947,27 @@
         "type": "array"
       },
       "sessionDevice": {
+        "description": "Device corresponding to a Session",
         "properties": {
+          "id": {
+            "description": "Device record ID",
+            "format": "uuid",
+            "type": "string"
+          },
+          "ip_address": {
+            "description": "IPAddress of the client",
+            "type": "string"
+          },
+          "location": {
+            "description": "Geo Location corresponding to the IP Address",
+            "type": "string"
+          },
           "user_agent": {
-            "description": "UserAgent of this device",
+            "description": "UserAgent of the client",
             "type": "string"
           }
         },
+        "required": ["id"],
         "type": "object"
       },
       "sessionList": {
@@ -4031,6 +4189,7 @@
       "submitSelfServiceRecoveryFlowBody": {
         "discriminator": {
           "mapping": {
+            "code": "#/components/schemas/submitSelfServiceRecoveryFlowWithCodeMethodBody",
             "link": "#/components/schemas/submitSelfServiceRecoveryFlowWithLinkMethodBody"
           },
           "propertyName": "method"
@@ -4038,8 +4197,33 @@
         "oneOf": [
           {
             "$ref": "#/components/schemas/submitSelfServiceRecoveryFlowWithLinkMethodBody"
+          },
+          {
+            "$ref": "#/components/schemas/submitSelfServiceRecoveryFlowWithCodeMethodBody"
           }
         ]
+      },
+      "submitSelfServiceRecoveryFlowWithCodeMethodBody": {
+        "properties": {
+          "code": {
+            "description": "Code from recovery email\n\nSent to the user once a recovery has been initiated and is used to prove\nthat the user is in possession of the email",
+            "type": "string"
+          },
+          "csrf_token": {
+            "description": "Sending the anti-csrf token is only required for browser login flows.",
+            "type": "string"
+          },
+          "email": {
+            "description": "Email to Recover\n\nNeeds to be set when initiating the flow. If the email is a registered\nrecovery email, a recovery link will be sent. If the email is not known,\na email with details on what happened will be sent instead.\n\nformat: email",
+            "type": "string"
+          },
+          "method": {
+            "description": "Method supports `link` and `code` only right now.",
+            "type": "string"
+          }
+        },
+        "required": ["method"],
+        "type": "object"
       },
       "submitSelfServiceRecoveryFlowWithLinkMethodBody": {
         "properties": {
@@ -4639,19 +4823,20 @@
             "$ref": "#/components/schemas/uiNodeAttributes"
           },
           "group": {
-            "description": "Group specifies which group (e.g. password authenticator) this node belongs to.\ndefault DefaultGroup\npassword PasswordGroup\noidc OpenIDConnectGroup\nprofile ProfileGroup\nlink LinkGroup\ntotp TOTPGroup\nlookup_secret LookupGroup\nwebauthn WebAuthnGroup",
+            "description": "Group specifies which group (e.g. password authenticator) this node belongs to.\ndefault DefaultGroup\npassword PasswordGroup\noidc OpenIDConnectGroup\nprofile ProfileGroup\nlink LinkGroup\ncode CodeGroup\ntotp TOTPGroup\nlookup_secret LookupGroup\nwebauthn WebAuthnGroup",
             "enum": [
               "default",
               "password",
               "oidc",
               "profile",
               "link",
+              "code",
               "totp",
               "lookup_secret",
               "webauthn"
             ],
             "type": "string",
-            "x-go-enum-desc": "default DefaultGroup\npassword PasswordGroup\noidc OpenIDConnectGroup\nprofile ProfileGroup\nlink LinkGroup\ntotp TOTPGroup\nlookup_secret LookupGroup\nwebauthn WebAuthnGroup"
+            "x-go-enum-desc": "default DefaultGroup\npassword PasswordGroup\noidc OpenIDConnectGroup\nprofile ProfileGroup\nlink LinkGroup\ncode CodeGroup\ntotp TOTPGroup\nlookup_secret LookupGroup\nwebauthn WebAuthnGroup"
           },
           "messages": {
             "$ref": "#/components/schemas/uiTexts"
@@ -5401,7 +5586,7 @@
             "description": "webAuthnJavaScript"
           }
         },
-        "summary": "# Get WebAuthn JavaScript",
+        "summary": "Get WebAuthn JavaScript",
         "tags": ["v0alpha2"]
       }
     },
@@ -5487,7 +5672,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# List Messages",
+        "summary": "List Messages",
         "tags": ["v0alpha2"]
       }
     },
@@ -5547,7 +5732,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# List Identities",
+        "summary": "List Identities",
         "tags": ["v0alpha2"]
       },
       "post": {
@@ -5610,7 +5795,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# Create an Identity",
+        "summary": "Create an Identity",
         "tags": ["v0alpha2"]
       }
     },
@@ -5659,7 +5844,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# Delete an Identity",
+        "summary": "Delete an Identity",
         "tags": ["v0alpha2"]
       },
       "get": {
@@ -5724,11 +5909,11 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# Get an Identity",
+        "summary": "Get an Identity",
         "tags": ["v0alpha2"]
       },
       "patch": {
-        "description": "NOTE: The fields `id`, `stateChangedAt` and `credentials` are not updateable.\n\nLearn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
+        "description": "Partially updates an Identity's field using [JSON Patch](https://jsonpatch.com/)\n\nNOTE: The fields `id`, `stateChangedAt` and `credentials` are not updateable.\n\nLearn how identities work in [Ory Kratos' User And Identity Model Documentation](https://www.ory.sh/docs/next/kratos/concepts/identity-user-model).",
         "operationId": "adminPatchIdentity",
         "parameters": [
           {
@@ -5808,7 +5993,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "Partially updates an Identity's field using [JSON Patch](https://jsonpatch.com/)",
+        "summary": "Patch an Identity",
         "tags": ["v0alpha2"]
       },
       "put": {
@@ -5892,7 +6077,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# Update an Identity",
+        "summary": "Update an Identity",
         "tags": ["v0alpha2"]
       }
     },
@@ -6070,6 +6255,71 @@
         "tags": ["v0alpha2"]
       }
     },
+    "/admin/recovery/code": {
+      "post": {
+        "description": "This endpoint creates a recovery code which should be given to the user in order for them to recover\n(or activate) their account.",
+        "operationId": "adminCreateSelfServiceRecoveryCode",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/adminCreateSelfServiceRecoveryCodeBody"
+              }
+            }
+          },
+          "x-originalParamName": "Body"
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/selfServiceRecoveryCode"
+                }
+              }
+            },
+            "description": "selfServiceRecoveryCode"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/jsonError"
+                }
+              }
+            },
+            "description": "jsonError"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/jsonError"
+                }
+              }
+            },
+            "description": "jsonError"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/jsonError"
+                }
+              }
+            },
+            "description": "jsonError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Create a Recovery Link",
+        "tags": ["v0alpha2"]
+      }
+    },
     "/admin/recovery/link": {
       "post": {
         "description": "This endpoint creates a recovery link which should be given to the user in order for them to recover\n(or activate) their account.",
@@ -6131,7 +6381,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# Create a Recovery Link",
+        "summary": "Create a Recovery Link",
         "tags": ["v0alpha2"]
       }
     },
@@ -6227,7 +6477,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# Delete Relation Tuples",
+        "summary": "Delete Relation Tuples",
         "tags": ["write"]
       },
       "patch": {
@@ -6286,7 +6536,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# Patch Multiple Relation Tuples",
+        "summary": "Patch Multiple Relation Tuples",
         "tags": ["write"]
       },
       "put": {
@@ -6339,7 +6589,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# Create a Relation Tuple",
+        "summary": "Create a Relation Tuple",
         "tags": ["write"]
       }
     },
@@ -7387,6 +7637,41 @@
         },
         "summary": "Update a JSON Web Key",
         "tags": ["admin"]
+      }
+    },
+    "/namespaces": {
+      "get": {
+        "description": "Get all namespaces",
+        "operationId": "getNamespaces",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getNamespacesResponse"
+                }
+              }
+            },
+            "description": "getNamespacesResponse"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Query namespaces",
+        "tags": ["namespaces"]
       }
     },
     "/oauth2/auth": {
@@ -8473,6 +8758,64 @@
         "tags": ["admin"]
       }
     },
+    "/opl/syntax/check": {
+      "post": {
+        "description": "The OPL file is expected in the body of the request.",
+        "operationId": "checkOplSyntax",
+        "requestBody": {
+          "content": {
+            "text/plain": {
+              "schema": {
+                "description": "the OPL content to check",
+                "type": "string"
+              }
+            }
+          },
+          "description": "the OPL content to check",
+          "required": true,
+          "x-originalParamName": "content"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/postCheckOplSyntaxResponse"
+                }
+              }
+            },
+            "description": "postCheckOplSyntaxResponse"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Check the syntax of an OPL file",
+        "tags": ["syntax"]
+      }
+    },
     "/projects": {
       "get": {
         "description": "Lists all projects you have access to.",
@@ -8534,7 +8877,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# List All Projects",
+        "summary": "List All Projects",
         "tags": ["v0alpha2"]
       },
       "post": {
@@ -8607,7 +8950,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# Create a Project",
+        "summary": "Create a Project",
         "tags": ["v0alpha2"]
       }
     },
@@ -8676,7 +9019,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# Irrecoverably Purge a Project",
+        "summary": "Irrecoverably Purge a Project",
         "tags": ["v0alpha2"]
       },
       "get": {
@@ -8750,7 +9093,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# Get a Project",
+        "summary": "Get a Project",
         "tags": ["v0alpha2"]
       },
       "patch": {
@@ -8941,7 +9284,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# Update an Ory Cloud Project Configuration",
+        "summary": "Update an Ory Cloud Project Configuration",
         "tags": ["v0alpha2"]
       }
     },
@@ -9131,7 +9474,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# List a Project's API Tokens",
+        "summary": "List a Project's API Tokens",
         "tags": ["v0alpha2"]
       },
       "post": {
@@ -9192,7 +9535,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# Create API Token",
+        "summary": "Create API Token",
         "tags": ["v0alpha2"]
       }
     },
@@ -9240,7 +9583,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# Delete API Token",
+        "summary": "Delete API Token",
         "tags": ["v0alpha2"]
       }
     },
@@ -9358,7 +9701,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# Query relation tuples",
+        "summary": "Query relation tuples",
         "tags": ["read"]
       }
     },
@@ -9413,7 +9756,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# Check a relation tuple",
+        "summary": "Check a relation tuple",
         "tags": ["read"]
       },
       "post": {
@@ -9466,7 +9809,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# Check a relation tuple",
+        "summary": "Check a relation tuple",
         "tags": ["read"]
       }
     },
@@ -9577,7 +9920,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# Check a relation tuple",
+        "summary": "Check a relation tuple",
         "tags": ["read"]
       },
       "post": {
@@ -9640,7 +9983,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# Check a relation tuple",
+        "summary": "Check a relation tuple",
         "tags": ["read"]
       }
     },
@@ -9732,7 +10075,7 @@
             "oryAccessToken": []
           }
         ],
-        "summary": "# Expand a Relation Tuple",
+        "summary": "Expand a Relation Tuple",
         "tags": ["read"]
       }
     },
@@ -9897,7 +10240,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "# Get Self-Service Errors",
+        "summary": "Get Self-Service Errors",
         "tags": ["v0alpha2"]
       }
     },
@@ -10003,7 +10346,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "# Submit a Login Flow",
+        "summary": "Submit a Login Flow",
         "tags": ["v0alpha2"]
       }
     },
@@ -10146,7 +10489,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "# Initialize Login Flow for Browsers",
+        "summary": "Initialize Login Flow for Browsers",
         "tags": ["v0alpha2"]
       }
     },
@@ -10225,7 +10568,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "# Get Login Flow",
+        "summary": "Get Login Flow",
         "tags": ["v0alpha2"]
       }
     },
@@ -10269,7 +10612,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "# Complete Self-Service Logout",
+        "summary": "Complete Self-Service Logout",
         "tags": ["v0alpha2"]
       }
     },
@@ -10363,7 +10706,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "# Create a Logout URL for Browsers",
+        "summary": "Create a Logout URL for Browsers",
         "tags": ["v0alpha2"]
       }
     },
@@ -10448,6 +10791,16 @@
             },
             "description": "jsonError"
           },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/selfServiceBrowserLocationChangeRequiredError"
+                }
+              }
+            },
+            "description": "selfServiceBrowserLocationChangeRequiredError"
+          },
           "500": {
             "content": {
               "application/json": {
@@ -10459,7 +10812,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "# Complete Recovery Flow",
+        "summary": "Complete Recovery Flow",
         "tags": ["v0alpha2"]
       }
     },
@@ -10552,7 +10905,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "# Initialize Recovery Flow for Browsers",
+        "summary": "Initialize Recovery Flow for Browsers",
         "tags": ["v0alpha2"]
       }
     },
@@ -10621,7 +10974,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "# Get Recovery Flow",
+        "summary": "Get Recovery Flow",
         "tags": ["v0alpha2"]
       }
     },
@@ -10719,7 +11072,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "# Submit a Registration Flow",
+        "summary": "Submit a Registration Flow",
         "tags": ["v0alpha2"]
       }
     },
@@ -10802,7 +11155,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "# Initialize Registration Flow for Browsers",
+        "summary": "Initialize Registration Flow for Browsers",
         "tags": ["v0alpha2"]
       }
     },
@@ -10881,7 +11234,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "# Get Registration Flow",
+        "summary": "Get Registration Flow",
         "tags": ["v0alpha2"]
       }
     },
@@ -11012,7 +11365,7 @@
             "sessionToken": []
           }
         ],
-        "summary": "# Complete Settings Flow",
+        "summary": "Complete Settings Flow",
         "tags": ["v0alpha2"]
       }
     },
@@ -11143,7 +11496,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "# Initialize Settings Flow for Browsers",
+        "summary": "Initialize Settings Flow for Browsers",
         "tags": ["v0alpha2"]
       }
     },
@@ -11240,7 +11593,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "# Get Settings Flow",
+        "summary": "Get Settings Flow",
         "tags": ["v0alpha2"]
       }
     },
@@ -11336,7 +11689,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "# Complete Verification Flow",
+        "summary": "Complete Verification Flow",
         "tags": ["v0alpha2"]
       }
     },
@@ -11419,7 +11772,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "# Initialize Verification Flow for Browser Clients",
+        "summary": "Initialize Verification Flow for Browser Clients",
         "tags": ["v0alpha2"]
       }
     },
@@ -11488,7 +11841,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "# Get Verification Flow",
+        "summary": "Get Verification Flow",
         "tags": ["v0alpha2"]
       }
     },
@@ -11735,7 +12088,7 @@
             "description": "jsonError"
           }
         },
-        "summary": "# Check Who the Current HTTP Session Belongs To",
+        "summary": "Check Who the Current HTTP Session Belongs To",
         "tags": ["v0alpha2"]
       }
     },
