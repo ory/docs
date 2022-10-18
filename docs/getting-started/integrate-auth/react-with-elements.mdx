@@ -369,6 +369,22 @@ export const Login = (): JSX.Element => {
 
 ### Run your app
 
+First, set your environment variables through the following commands, or store them in a `.env` file:
+
+#### (UNIX)
+
+```bash
+export VITE_ORY_SDK_URL=http://localhost:4000
+```
+
+#### (Windows PowerShell)
+
+```powershell
+$Env:ORY_SDK_URL = "https://{your-project-slug-here}.projects.oryapis.com"
+```
+
+Now we can start the application.
+
 ```bash
 npm run dev -- --port 3000
 ```
