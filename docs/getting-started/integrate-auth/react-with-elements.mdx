@@ -62,12 +62,6 @@ import OryCLI from '../_common/ory-cli.mdx'
 <OryCLI />
 ```
 
-```mdx-code-block
-import SdkEnvVar from '@site/src/components/SdkEnvVar'
-
-<SdkEnvVar />
-```
-
 ### package.json
 
 At this point, your package.json should look something like this:
@@ -90,15 +84,9 @@ At this point, your package.json should look something like this:
 
 At this point, we have our dependencies installed and we can start integrating the Ory SDK and Ory Elements.
 
-### Create sdk.ts
+#### Create sdk.ts
 
 This file is used to create a new instance of the Ory SDK. We will use this instance to interact with the Ory APIs.
-
-This file is crucial because:
-
-- It is the entry point of the application
-- It creates the routes (we will replace the <App /> component with the routes)
-- And it wraps the application with Ory Elements <ThemeProvider />
 
 ```typescript
 import { V0alpha2Api, Configuration } from "@ory/client"
@@ -114,9 +102,15 @@ export default new V0alpha2Api(
 )
 ```
 
-### Create main.tsx
+#### Create main.tsx
 
 This file is used as the main canvas for React. We will use this file to create our routes and render our components.
+
+This file is crucial because:
+
+- It is the entry point of the application
+- It creates the routes (we will replace the <App /> component with the routes)
+- And it wraps the application with Ory Elements <ThemeProvider />
 
 <CodeBlock language="html" title="src/components/main.tsx"></CodeBlock>
 
@@ -163,7 +157,7 @@ import { ThemeProvider } from "@ory/elements"
 //...
 ```
 
-### App.tsx
+#### App.tsx
 
 Create our main Dashboard / Home Page.
 
@@ -231,9 +225,9 @@ const Dashboard = () => {
 }
 ```
 
-## Basic Registration / Login
+### Basic Registration / Login
 
-### Create Registration.tsx
+#### Create Registration.tsx
 
 ```tsx
 import React from "react"
@@ -290,7 +284,7 @@ export const Registration = () => {
 }
 ```
 
-### Create Login.tsx
+#### Create Login.tsx
 
 ```tsx
 import React, { useCallback, useEffect, useState } from "react"
@@ -370,6 +364,12 @@ export const Login = (): JSX.Element => {
 ### Run your app
 
 First, set your environment variables through the following commands, or store them in a `.env` file:
+
+```mdx-code-block
+import SdkEnvVar from '@site/src/components/SdkEnvVar'
+
+<SdkEnvVar />
+```
 
 #### (UNIX)
 
