@@ -66,19 +66,13 @@ import OryCLI from '../_common/ory-cli.mdx'
 
 At this point, your package.json should look something like this:
 
-```json
-...
-{
-  "dependencies": {
-    "@ory/client": "^0.2.0-alpha.48",
-    "@ory/elements": "^0.0.1-alpha.9",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.4.2"
-  }
-}
-...
-```
+import CodeFromRemote from "@theme/CodeFromRemote"
+
+<CodeFromRemote
+  lang="json"
+  title="package.json"
+  src="https://raw.githubusercontent.com/ory/elements/main/tests/react-spa/package.json"
+/>
 
 ### Setting Up Our App
 
@@ -88,19 +82,7 @@ At this point, we have our dependencies installed and we can start integrating t
 
 This file is used to create a new instance of the Ory SDK. We will use this instance to interact with the Ory APIs.
 
-```typescript
-import { V0alpha2Api, Configuration } from "@ory/client"
-
-export default new V0alpha2Api(
-  new Configuration({
-    //https://vitejs.dev/guide/env-and-mode.html#env-files
-    basePath: import.meta.env.VITE_ORY_SDK_URL,
-    baseOptions: {
-      withCredentials: true,
-    },
-  }),
-)
-```
+<CodeFromRemote lang="ts" title="sdk.ts" src="https://raw.githubusercontent.com/ory/elements/main/tests/react-spa/src/sdk.ts" />
 
 #### Create main.tsx
 
@@ -112,234 +94,39 @@ This file is crucial because:
 - It creates the routes (we will replace the <App /> component with the routes)
 - And it wraps the application with Ory Elements <ThemeProvider />
 
-<CodeBlock language="html" title="src/components/main.tsx"></CodeBlock>
-
-```tsx title="main.tsx"
-import React from "react"
-import ReactDOM from "react-dom/client"
-import { BrowserRouter } from "react-router-dom"
-import { ThemeProvider } from "@ory/elements"
-import App from "./App"
-import "./index.css"
-
-// import our Ory elements css
-import "@ory/elements/style.css"
-
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      {/* We add the Ory themes here */}
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
-)
-```
+<CodeFromRemote
+  lang="tsx"
+  title="main.tsx"
+  src="https://raw.githubusercontent.com/ory/elements/main/tests/react-spa/src/main.tsx"
+/>
 
 #### App.tsx
 
 Create our main Dashboard / Home Page.
 
-```tsx title="App.tsx"
-// highlight-start
-import reactLogo from "./assets/react.svg"
-import React, { useEffect, useState } from "react"
-import "./App.css"
-import { Routes, Route, useNavigate } from "react-router-dom"
-import { Session } from "@ory/client"
-import { Typography } from "@ory/elements"
-import sdk from "./sdk"
-// highlight-end
-
-const Dashboard = () => {
-  const [session, setSession] = useState<Session | null>(null)
-  const [logoutUrl, setLogoutUrl] = useState<string>()
-
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    sdk
-      .toSession()
-      .then(({ data: session }) => {
-        setSession(session)
-      })
-      .catch((error) => {
-        if (error.response?.status === 403) {
-          if (error.response?.data.error.id === "session_aal2_required") {
-            return navigate("/login?aal2=true", { replace: true })
-          }
-        }
-        return navigate("/login", { replace: true })
-      })
-  }, [])
-
-  useEffect(() => {
-    sdk
-      .createSelfServiceLogoutFlowUrlForBrowsers(undefined, {
-        params: {
-          return_url: "/",
-        },
-      })
-      .then(({ data }) => {
-        setLogoutUrl(data.logout_url)
-      })
-      .catch((data) => {
-        console.error(data)
-      })
-  }, [])
-
-  // Return our basic dashboard using Ory Elements themes
-  return (
-    <>
-      <Typography size={"headline37"}>Welcome to the dashboard!</Typography>
-      <Typography size={"headline21"}>
-        {session?.identity.traits.firstName} you can logout here: <a href={logoutUrl}>Logout</a> or go to your settings page here:{" "}
-        <a href="/settings">Settings</a>
-      </Typography>
-      <pre>
-        <code>{JSON.stringify(session, null, 2)}</code>
-      </pre>
-    </>
-  )
-}
-```
+<CodeFromRemote
+  lang="tsx"
+  title="App.tsx"
+  src="https://raw.githubusercontent.com/ory/elements/main/tests/react-spa/src/App.tsx"
+/>
 
 ### Basic Registration / Login
 
 #### Create Registration.tsx
 
-```tsx
-import React from "react"
-import { SelfServiceRegistrationFlow, SubmitSelfServiceRegistrationFlowBody } from "@ory/client"
-import { useEffect, useState } from "react"
-import { UserAuthCard } from "@ory/elements"
-import sdk from "./sdk"
-import { useNavigate } from "react-router-dom"
-
-export const Registration = () => {
-  const [flow, setFlow] = useState<SelfServiceRegistrationFlow | null>(null)
-
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    sdk
-      .initializeSelfServiceRegistrationFlowForBrowsers()
-      .then(({ data: flow }) => {
-        setFlow(flow)
-      })
-      .catch((error) => console.error(error))
-  }, [])
-
-  const onSubmit = (body: SubmitSelfServiceRegistrationFlowBody) => {
-    if (!flow) {
-      return
-    }
-    sdk
-      .submitSelfServiceRegistrationFlow(flow.id, body as SubmitSelfServiceRegistrationFlowBody)
-      .then(() => {
-        // we successfully submitted the registration flow, so lets redirect to the dashboard
-        navigate("/", { replace: true })
-      })
-      .catch((error) => {
-        setFlow(error.response.data)
-      })
-  }
-
-  // Return our dashboard using Ory Elements themes
-  return flow ? (
-    <UserAuthCard
-      flow={flow}
-      flowType={"registration"}
-      title={"Registration"}
-      additionalProps={{
-        loginURL: "/login",
-      }}
-      includeScripts={true}
-      onSubmit={({ body }) => onSubmit(body as SubmitSelfServiceRegistrationFlowBody)}
-    />
-  ) : (
-    <div>Loading...</div>
-  )
-}
-```
+<CodeFromRemote
+  lang="tsx"
+  title="Registration.tsx"
+  src="https://raw.githubusercontent.com/ory/elements/main/tests/react-spa/src/Registration.tsx"
+/>
 
 #### Create Login.tsx
 
-```tsx
-import React, { useCallback, useEffect, useState } from "react"
-import { SelfServiceLoginFlow, SubmitSelfServiceLoginFlowBody } from "@ory/client"
-import { UserAuthCard } from "@ory/elements"
-import sdk from "./sdk"
-import { useNavigate, useSearchParams } from "react-router-dom"
-
-export const Login = (): JSX.Element => {
-  const [flow, setFlow] = useState<SelfServiceLoginFlow | null>(null)
-  const [searchParams, setSearchParams] = useSearchParams()
-
-  const navigate = useNavigate()
-
-  const handleFlow = useCallback(({ refresh, mfa }: { refresh: boolean; mfa: boolean }) => {
-    return sdk.initializeSelfServiceLoginFlowForBrowsers(refresh, mfa ? "aal2" : "aal1").then(({ data: flow }) => flow)
-  }, [])
-
-  useEffect(() => {
-    const aal2 = searchParams.get("aal2")
-    const isMFA = aal2 ? true : false
-    handleFlow({ refresh: true, mfa: isMFA })
-      .then((flow) => setFlow(flow))
-      .catch((error) => {
-        switch (error.response?.status) {
-          case 400:
-            setFlow(error.response.data)
-            break
-          case 410:
-          case 404:
-            return navigate("/login", { replace: true })
-        }
-      })
-  }, [])
-
-  const onSubmit = (body: SubmitSelfServiceLoginFlowBody) => {
-    if (!flow) {
-      return
-    }
-    sdk
-      .submitSelfServiceLoginFlow(flow.id, body as SubmitSelfServiceLoginFlowBody)
-      .then(() => {
-        // we successfully submitted the login flow, so lets redirect to the dashboard
-        navigate("/", { replace: true })
-      })
-      .catch((error) => {
-        switch (error.response.status) {
-          case 400:
-            setFlow(error.response.data)
-            break
-          case 410:
-          case 404:
-            return navigate("/login", { replace: true })
-        }
-      })
-  }
-
-  // Return our dashboard using Ory Elements themes
-  return flow ? (
-    <UserAuthCard
-      flow={flow}
-      flowType={"login"}
-      additionalProps={{
-        forgotPasswordURL: "/recovery",
-        signupURL: "/signup",
-      }}
-      title={"Login"}
-      includeScripts={true}
-      onSubmit={({ body }) => onSubmit(body as SubmitSelfServiceLoginFlowBody)}
-    />
-  ) : (
-    <div>Loading...</div>
-  )
-}
-```
+<CodeFromRemote
+  lang="tsx"
+  title="Login.tsx"
+  src="https://raw.githubusercontent.com/ory/elements/main/tests/react-spa/src/Login.tsx"
+/>
 
 ### Run your app
 
@@ -351,13 +138,13 @@ import SdkEnvVar from '@site/src/components/SdkEnvVar'
 <SdkEnvVar />
 ```
 
-#### (UNIX)
+#### For UNIX
 
 ```bash
 export VITE_ORY_SDK_URL=http://localhost:4000
 ```
 
-#### (Windows PowerShell)
+#### For Windows PowerShell
 
 ```powershell
 $Env:ORY_SDK_URL = "https://{your-project-slug-here}.projects.oryapis.com"
@@ -367,11 +154,7 @@ Now we can start the application.
 
 ```bash
 npm run dev -- --port 3000
-```
-
-### Run Ory CLI Tunnel
-
-```bash
+# Run Ory CLI Tunnel
 ory tunnel http://localhost:3000 --project <project-slug> --dev
 ```
 
