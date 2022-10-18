@@ -44,13 +44,9 @@ npx create-react-app react-ts --template typescript
 
 ### Install Dependencies
 
-If you don't already have the latest Node.js LTS, install it from here [Node.js LTS](https://nodejs.org/en/download/)
-
 To interact with Ory's APIs we install the [Ory SDK](https://www.npmjs.com/package/@ory/client)
 
 To use the Ory Element features, we install [Ory Elements](https://www.npmjs.com/package/@ory/elements)
-
-To manage our routes more dynamically, we install [React Router](https://www.npmjs.com/package/react-router-dom)
 
 ```bash
 npm i @ory/client @ory/elements react-router-dom --save
@@ -72,15 +68,6 @@ import SdkEnvVar from '@site/src/components/SdkEnvVar'
 <SdkEnvVar />
 ```
 
-### Create .env
-
-If you'd prefer to store your credentials in a .env file, you can do so by creating a .env file in the root of your project and
-adding the following:
-
-```bash
-VITE_ORY_SDK_URL=http://localhost:4000
-```
-
 ### package.json
 
 At this point, your package.json should look something like this:
@@ -90,6 +77,7 @@ At this point, your package.json should look something like this:
 {
   "dependencies": {
     "@ory/client": "^0.2.0-alpha.48",
+    "@ory/elements": "^0.0.1-alpha.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.2"
@@ -98,9 +86,19 @@ At this point, your package.json should look something like this:
 ...
 ```
 
+### Setting Up Our App
+
+At this point, we have our dependencies installed and we can start integrating the Ory SDK and Ory Elements.
+
 ### Create sdk.ts
 
 This file is used to create a new instance of the Ory SDK. We will use this instance to interact with the Ory APIs.
+
+This file is crucial because:
+
+- It is the entry point of the application
+- It creates the routes (we will replace the <App /> component with the routes)
+- And it wraps the application with Ory Elements <ThemeProvider />
 
 ```typescript
 import { V0alpha2Api, Configuration } from "@ory/client"
@@ -120,7 +118,10 @@ export default new V0alpha2Api(
 
 This file is used as the main canvas for React. We will use this file to create our routes and render our components.
 
-```tsx
+<CodeBlock language="html" title="src/components/main.tsx">
+</CodeBlock>
+
+```tsx title="main.tsx"
 import React from "react"
 import ReactDOM from "react-dom/client"
 import { BrowserRouter } from "react-router-dom"
@@ -163,9 +164,12 @@ import { ThemeProvider } from "@ory/elements"
 //...
 ```
 
-### App.tsx Imports
+### App.tsx
 
-```tsx
+Create our main Dashboard / Home Page.
+
+```tsx title="App.tsx"
+// highlight-start
 import reactLogo from "./assets/react.svg"
 import React, { useEffect, useState } from "react"
 import "./App.css"
@@ -173,13 +177,8 @@ import { Routes, Route, useNavigate } from "react-router-dom"
 import { Session } from "@ory/client"
 import { Typography } from "@ory/elements"
 import sdk from "./sdk"
-```
+// highlight-end
 
-### App.tsx
-
-Create our main Dashboard / Home Page.
-
-```tsx
 const Dashboard = () => {
   const [session, setSession] = useState<Session | null>(null)
   const [logoutUrl, setLogoutUrl] = useState<string>()
