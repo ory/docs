@@ -1,6 +1,7 @@
 ---
 id: 5min-tutorial
 title: 5 minute tutorial
+sidebar_label: Quickstart
 ---
 
 import CodeFromRemote from "@theme/CodeFromRemote"
@@ -78,7 +79,7 @@ docker-compose -f quickstart.yml \
 ```
 
 If you want to test Hardware Security Module add `-f quickstart-hsm.yml`. For more information head over to
-[HSM support](./guides/hsm-support.md).
+[HSM support](./self-hosted/hsm-support.md).
 
 ```sh
 docker-compose -f quickstart.yml \
@@ -92,7 +93,7 @@ Note: The following commands run Hydra inside Docker. If you have the Ory Hydra 
 `docker-compose -f quickstart.yml exec /hydra` in front of each command.
 
 The OAuth 2.0 client uses port `4444` and `4445`. The former is Ory Hydra's public endpoint, the latter its administrative
-endpoint. For more information head over to [Exposing Administrative and Public API Endpoints](production).
+endpoint. For more information head over to [Exposing Administrative and Public API Endpoints](./self-hosted/production).
 
 Let's create the OAuth 2.0 Client:
 

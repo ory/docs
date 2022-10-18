@@ -1,6 +1,6 @@
 ---
 id: login-consent-flow
-title: Hydra's User Login and Consent Flow
+title: Hydra's "User Login and Consent" flow
 sidebar_label: Hydra workflow
 ---
 

@@ -1,8 +1,12 @@
-Ory CLI provides a convenient way to configure and manage Ory Cloud projects. Additionally, the CLI contains Ory Proxy - a reverse
-proxy that rewrites cookies to match the domain your application is currently on.
+Ory CLI provides a convenient way to configure and manage Ory Cloud projects. Additionally, the CLI contains the Ory Proxy and Ory
+Tunnel - both a reverse proxy that rewrites cookies to match the domain your application is currently on.
 
-Ory Proxy is a reverse proxy deployed in front of your application. The Proxy mirrors Ory endpoints on the same domain as the
+Ory Proxy is a reverse proxy deployed **in front of your application**. The Proxy mirrors Ory endpoints on the same domain as the
 application you're running and rewrites cookies to match the domain your application is currently on.
+
+Ory Tunnel is also a reverse proxy, however, **it is deployed alongside your application**. The Tunnel also mirrors Ory endpoints
+on the same TLD as your application and rewrites cookies to match the domain your application is currently on. You can also deploy
+the tunnel on a separate sub-domain if you wish.
 
 As a result, the origin of the cookies is set correctly to the domain you run the app on instead of <br />
 
@@ -12,10 +16,16 @@ As a result, the origin of the cookies is set correctly to the domain you run th
 
 This behavior is necessary to avoid issues with the browser [CORS policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
 
-By using the Proxy, you can easily connect the application you're developing locally to Ory Cloud and consume the APIs without the
-hassle of additional configuration and without the need to self-host any of the Ory Components.
+By using the Proxy/Tunnel, you can easily connect the application you're developing locally to Ory Cloud and consume the APIs
+without the hassle of additional configuration and without the need to self-host any of the Ory Components.
+
+A diagram of Ory Proxy:
 
 [![Ory Proxy mirrors Ory's APIs](https://mermaid.ink/img/pako:eNptkMFKxEAMhl8l5GIXdm1BT3MQWlxEEBxWL8JchjbaYqcZMlO0bPfdna71sGBOP-H7EpIj1twQKvwQ61t4OpgBUlVZJfwVSDaw293ND_tXaGP0Ks97rm3fcojqtiiKGXT2LBNo4e9p8-vqs-I6EZYANkJ-zTLlM5T6cYGvwpLCBf3vgpvzgjJ741Gg9H41ykU4UPA8BJr1OuaiWeEWHYmzXZNOOy6IwdiSI4MqxcbKp0EznBI3-sZG2jddZEH1bvtAW7Rj5JdpqFFFGekPuu9sepNbqdMP2FdlPQ)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNptkMFKxEAMhl8l5GIXdm1BT3MQWlxEEBxWL8JchjbaYqcZMlO0bPfdna71sGBOP-H7EpIj1twQKvwQ61t4OpgBUlVZJfwVSDaw293ND_tXaGP0Ks97rm3fcojqtiiKGXT2LBNo4e9p8-vqs-I6EZYANkJ-zTLlM5T6cYGvwpLCBf3vgpvzgjJ741Gg9H41ykU4UPA8BJr1OuaiWeEWHYmzXZNOOy6IwdiSI4MqxcbKp0EznBI3-sZG2jddZEH1bvtAW7Rj5JdpqFFFGekPuu9sepNbqdMP2FdlPQ)
+
+A diagram of Ory Tunnel:
+
+[![](https://mermaid.ink/img/pako:eNp1kEFrwzAMhf-K0GUptCSwnXwYJM0Yg42NrpeNXEyiLoHEMrLNKE3_-9y4sMumk_T09IHeCVvuCBV-ibY9PO8aA7HKrBL-diQr2Gzu58eHPfTeW5XnI7d67Nl5dVsUxQxVOqiyDw4CpbXpYkfOsnE0Q3kl_g-6W0Db5Ntmr3KEfTCGxtVV-puY5GkQYXGgPeQz1GlVXyA3Dsq3J7dAcI0TyaSHLr56uigN-p4malDFtqODDqNvsDHnaNXB8_vRtKi8BFpjsJ32VA86hjShOujRRdVq88n8O1M3eJaXFOeS6vkHGDFtdg)](https://mermaid.live/edit#pako:eNp1kEFrwzAMhf-K0GUptCSwnXwYJM0Yg42NrpeNXEyiLoHEMrLNKE3_-9y4sMumk_T09IHeCVvuCBV-ibY9PO8aA7HKrBL-diQr2Gzu58eHPfTeW5XnI7d67Nl5dVsUxQxVOqiyDw4CpbXpYkfOsnE0Q3kl_g-6W0Db5Ntmr3KEfTCGxtVV-puY5GkQYXGgPeQz1GlVXyA3Dsq3J7dAcI0TyaSHLr56uigN-p4malDFtqODDqNvsDHnaNXB8_vRtKi8BFpjsJ32VA86hjShOujRRdVq88n8O1M3eJaXFOeS6vkHGDFtdg)
 
 :::tip
 
