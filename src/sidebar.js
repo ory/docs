@@ -67,7 +67,7 @@ module.exports = {
         },
         {
           type: "category",
-          label: "Permissions",
+          label: "Ory Permissions",
           items: ["guides/permissions/overview"],
         },
         {
