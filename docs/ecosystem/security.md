@@ -6,8 +6,8 @@ title: Security policy
 :::info Private Bug Bounty Program
 
 Ory is working with Hackerone to provide a private bug bounty program for all Ory products. If you are interested in joining the
-program, please [create an account at Hackerone](https://hackerone.com/sign_up) and
-[request access](https://hackerone.com/ory_corp). The following is the policy for the private bug bounty program.
+program, please [create an account at Hackerone](https://hackerone.com/sign_up) and [request access](mailto:security@ory.sh). The
+following is the policy for the private bug bounty program.
 
 :::
 
