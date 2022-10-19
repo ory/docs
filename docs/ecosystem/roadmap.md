@@ -9,7 +9,7 @@ Users are often asking when a particular feature will be implemented or when it 
 
 This document strives to give an answer to those questions and give you an outlook of what's happening in the Ory ecosystem.
 Please note that this roadmap is mainly focused on the Ory Open Source libraries - but this also influences the development of Ory
-Cloud.
+Network.
 
 ## Ory Roadmap
 
