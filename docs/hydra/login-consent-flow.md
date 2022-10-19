@@ -1,6 +1,6 @@
 ---
 id: login-consent-flow
-title: "User Login and Consent" flow
+title: User Login and Consent flow
 sidebar_label: Ory OAuth2 & OpenID workflow
 ---
 
