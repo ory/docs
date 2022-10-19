@@ -25,8 +25,8 @@ Legend:
   remembered - hence it's not possible to forget it).
 - `***`: Here, the "valid session cookies" implies that the browser has a valid authentication cookie when calling
   `/oauth2/sessions/logout`. If you have problems at this step, check if there is a cookie `oauth2_authentication_session` for the
-  domain Ory OAuth2 & OpenID Connect is running at. **Do not mix up IP (for example `127.0.0.1`, `192.168.1.1`) addresses and FQDNs (for
-  example `localhost`, `google.com`).**
+  domain Ory OAuth2 & OpenID Connect is running at. **Do not mix up IP (for example `127.0.0.1`, `192.168.1.1`) addresses and
+  FQDNs (for example `localhost`, `google.com`).**
 - `****`: The `post_logout_redirect` defaults to the configuration value of `urls.post_logout_redirect`. If a
   `post_logout_redirect_uri` was set and that URL is in the array of the OAuth2 Client's `urls.post_logout_redirect`, the browser
   will be redirected there instead.
@@ -97,8 +97,8 @@ The server response is a JSON object with the following keys:
 
 Next, the logout provider should decide if the end-user should perform a UI action such as confirming the logout request. It's
 STRONGLY RECOMMENDED to request logout confirmation from the end-user when `rp_initiated` is set to `false` as this signifies that
-the end-user requested the logout without any further query parameters. In this situation neither Ory OAuth2 & OpenID Connect nor the
-logout provider can implicitly verify whether the end-user willingly requested the logout URL or if they were tricked into
+the end-user requested the logout without any further query parameters. In this situation neither Ory OAuth2 & OpenID Connect nor
+the logout provider can implicitly verify whether the end-user willingly requested the logout URL or if they were tricked into
 clicking a manipulated link in a vulnerable application. On the other hand, when `rp_initiated` is set to `true` it's also
 RECOMMENDED to request logout confirmation from the end-user, however, based on your Relying Parties (the OAuth2 Clients) this
 step could most likely safely be skipped.

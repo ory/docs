@@ -10,8 +10,8 @@ import TabItem from "@theme/TabItem"
 OAuth2 and OpenID Connect require an authenticated End-User session for all OAuth2 / OpenID Connect flows except the
 `client_credentials` flow which does not involve End-Users.
 
-Ory OAuth2 & OpenID Connect doesn't contain a database with End-Users but instead uses HTTP Redirection to "delegate" the login flow to
-another app - we call this the Login & Consent App.
+Ory OAuth2 & OpenID Connect doesn't contain a database with End-Users but instead uses HTTP Redirection to "delegate" the login
+flow to another app - we call this the Login & Consent App.
 
 The following short video shows the flow from an End-User's perspective - it includes both login and consent.
 
@@ -71,7 +71,9 @@ When translating this guide into your own environment, make sure to use the corr
 <TabItem value="html">
 
 ```html
-<a href="https://<hydra-public>/oauth2/auth?client_id=...&response_type=...&scope=..."> Login in with Ory OAuth2 & OpenID Connect</a>
+<a href="https://<hydra-public>/oauth2/auth?client_id=...&response_type=...&scope=...">
+  Login in with Ory OAuth2 & OpenID Connect</a
+>
 ```
 
 </TabItem>
@@ -87,13 +89,13 @@ window.location.href = "https://public.hydra.url/oauth2/auth?client_id=...&respo
 
 ## Redirection to the login endpoint
 
-The next task for Ory OAuth2 & OpenID Connect is to know the user of the request. To achieve that, Ory OAuth2 & OpenID Connect checks if a session
-cookie is set containing information about a previously successful login. Additionally, OpenID Connect parameters `id_token_hint`,
-`prompt`, and `max_age` are evaluated and processed. Depending on their values and the login state, the user might need to
-re-authenticate or the flow will fail.
+The next task for Ory OAuth2 & OpenID Connect is to know the user of the request. To achieve that, Ory OAuth2 & OpenID Connect
+checks if a session cookie is set containing information about a previously successful login. Additionally, OpenID Connect
+parameters `id_token_hint`, `prompt`, and `max_age` are evaluated and processed. Depending on their values and the login state,
+the user might need to re-authenticate or the flow will fail.
 
-To authenticate the user (this happens regardless of whether a session exists for the user or not), Ory OAuth2 & OpenID Connect redirects
-the browser to the "Login Endpoint" established in your config:
+To authenticate the user (this happens regardless of whether a session exists for the user or not), Ory OAuth2 & OpenID Connect
+redirects the browser to the "Login Endpoint" established in your config:
 
 ```yaml title="hydra serve all -c path/to/hydra/config.yml
 # Can also be set using the environment variable:
@@ -102,8 +104,8 @@ urls:
   login: https://login-app/login
 ```
 
-Ory OAuth2 & OpenID Connect appends a `login_challenge` query parameter to the url. The value is a ID which should later be used by the
-Login Endpoint to fetch important information about the request.
+Ory OAuth2 & OpenID Connect appends a `login_challenge` query parameter to the url. The value is a ID which should later be used
+by the Login Endpoint to fetch important information about the request.
 
 ```
 https://login-app/login?login_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2
@@ -111,28 +113,29 @@ https://login-app/login?login_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2
 
 ### Login sessions, `prompt`, `max_age`, `id_token_hint`
 
-Ory OAuth2 & OpenID Connect keeps track of user sessions. It does so by issuing a cookie which contains the user ID. On subsequent OAuth2
-/ OpenID Connect flows, the session will be checked and the Login Endpoint will be instructed to, for example, show the Login HTML
-Form or skip the Login HTML Form.
+Ory OAuth2 & OpenID Connect keeps track of user sessions. It does so by issuing a cookie which contains the user ID. On subsequent
+OAuth2 / OpenID Connect flows, the session will be checked and the Login Endpoint will be instructed to, for example, show the
+Login HTML Form or skip the Login HTML Form.
 
 Ory OAuth2 & OpenID Connect supports the following OpenID Connect query parameters:
 
 - `prompt` (optional). Space delimited, case sensitive list of ASCII string values that specifies whether the Authorization Server
   prompts the End-User for reauthentication and consent.
-  - `prompt=none` instructs Ory OAuth2 & OpenID Connect to not display the login or consent user interface pages. An error is returned if
-    an End-User isn't already authenticated or the Client doesn't have pre-configured consent for the requested Claims or doesn't
-    fulfill other conditions for processing the request. The error code will typically be `login_required`,
+  - `prompt=none` instructs Ory OAuth2 & OpenID Connect to not display the login or consent user interface pages. An error is
+    returned if an End-User isn't already authenticated or the Client doesn't have pre-configured consent for the requested Claims
+    or doesn't fulfill other conditions for processing the request. The error code will typically be `login_required`,
     `interaction_required`, or another code. This can be used as a method to check for existing authentication and/or consent.
-  - `prompt=login` instructs Ory OAuth2 & OpenID Connect to force the End-User to log in using the Login HTML Form in the Login Endpoint.
-  - `prompt=consent` instructs Ory OAuth2 & OpenID Connect to force the End-User to re-authorize (give consent) the OAuth2 Client using
-    the [Consent HTML Form in the Consent Endpoint](./consent.mdx).
+  - `prompt=login` instructs Ory OAuth2 & OpenID Connect to force the End-User to log in using the Login HTML Form in the Login
+    Endpoint.
+  - `prompt=consent` instructs Ory OAuth2 & OpenID Connect to force the End-User to re-authorize (give consent) the OAuth2 Client
+    using the [Consent HTML Form in the Consent Endpoint](./consent.mdx).
   - `prompt=select_account` is not supported in Ory OAuth2 & OpenID Connect, see [#].
 - `max_age` (optional) specifies the allowable elapsed time in seconds since the last time the End-User was actively authenticated
-  by Ory OAuth2 & OpenID Connect. If the elapsed time is greater than this value, the Login HTML Form must be shown and the End-User must
-  re-authenticate.
-- `id_token_hint` (optional) - ID Token previously issued by Ory OAuth2 & OpenID Connect being passed as a hint about the End-User's
-  current or past authenticated session with the Client. If the End-User identified by the ID Token is logged in or is logged in
-  by the request, then the Authorization Server returns a positive response; otherwise, it returns an error, typically
+  by Ory OAuth2 & OpenID Connect. If the elapsed time is greater than this value, the Login HTML Form must be shown and the
+  End-User must re-authenticate.
+- `id_token_hint` (optional) - ID Token previously issued by Ory OAuth2 & OpenID Connect being passed as a hint about the
+  End-User's current or past authenticated session with the Client. If the End-User identified by the ID Token is logged in or is
+  logged in by the request, then the Authorization Server returns a positive response; otherwise, it returns an error, typically
   `login_required`. It does not matter if the ID Token is expired or not.
 
 To specify these parameters add them to the OAuth2 Auth Endpoint URL Query:
@@ -372,8 +375,9 @@ Please head over to [Consent Flow](./consent.mdx)!
 
 ## Revoking Ory OAuth2 & OpenID Connect login sessions
 
-Revoking a login session will remove all of the user's cookies at Ory OAuth2 & OpenID Connect and will require the user to re-authenticate
-when performing the next OAuth 2.0 Authorize Code Flow. Be aware that this option will remove all cookies from all devices.
+Revoking a login session will remove all of the user's cookies at Ory OAuth2 & OpenID Connect and will require the user to
+re-authenticate when performing the next OAuth 2.0 Authorize Code Flow. Be aware that this option will remove all cookies from all
+devices.
 
 :::info
 

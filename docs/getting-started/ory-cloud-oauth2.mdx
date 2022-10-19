@@ -86,7 +86,7 @@ ory create oauth2-client \
 
 :::note
 
-Provide this data in the cURL request: 
+Provide this data in the cURL request:
 
 - `SDK_CONFIGURATION_URL` - found in the 'Connect' section of the Ory Console. Must end with '/admin/clients'.
 - `ORY_PAT`: Ory Personal Access Token copied from the Ory Console, 'ory_pat' prefix included.
@@ -94,9 +94,9 @@ Provide this data in the cURL request:
 :::
 
 ```bash
-curl -X POST 'SDK_CONFIGURATION_URL/admin/clients' \ 
+curl -X POST 'SDK_CONFIGURATION_URL/admin/clients' \
   -H 'Content-Type: application/json' \
-  -H 'Authorization: Bearer ORY_PAT' \ 
+  -H 'Authorization: Bearer ORY_PAT' \
   -d '{
     "client_name": "YOUR_CLIENT_NAME",
     "grant_types": [

@@ -3,9 +3,9 @@ id: oauth2
 title: OAuth 2.0
 ---
 
-This section describes on a high level what OAuth 2.0 is and how it works. Please keep in mind that Ory OAuth2 & OpenID Connect is a
-technology targeted at professionals using OAuth 2.0 on a regular basis. While we try to cover some of the concepts, OAuth 2.0 and
-OpenID knowledge is expected from you in order to understand and use Ory OAuth2 & OpenID Connect to its fullest potential.
+This section describes on a high level what OAuth 2.0 is and how it works. Please keep in mind that Ory OAuth2 & OpenID Connect is
+a technology targeted at professionals using OAuth 2.0 on a regular basis. While we try to cover some of the concepts, OAuth 2.0
+and OpenID knowledge is expected from you in order to understand and use Ory OAuth2 & OpenID Connect to its fullest potential.
 
 If you are new to these topics we recommend watching the following talk
 
@@ -72,8 +72,8 @@ To read more natural, this guide uses simpler terminologies like _user_ instead 
 
 A typical OAuth 2.0 flow looks as follows:
 
-1. A developer registers an OAuth 2.0 Client (external application) with the Authorization Server (Ory OAuth2 & OpenID Connect) the
-   intention to obtain information on behalf of a user.
+1. A developer registers an OAuth 2.0 Client (external application) with the Authorization Server (Ory OAuth2 & OpenID Connect)
+   the intention to obtain information on behalf of a user.
 2. The application UI asks the user to authorize the application to access information/data on his/her behalf.
 3. The user is redirected to the Authorization Server.
 4. The Authorization Server confirms the user's identity and asks the user to grant the OAuth 2.0 Client certain permissions.
@@ -177,5 +177,5 @@ resource to query an OAuth 2.0 authorization server to determine the active stat
 meta-information about this token. OAuth 2.0 deployments can use this method to convey information about the authorization context
 of the token from the authorization server to the protected resource.
 
-The usage of an access token or client credentials is required to access the endpoint. Ory OAuth2 & OpenID Connect will however accept any
-valid token or valid credentials as there is no built-in access control.
+The usage of an access token or client credentials is required to access the endpoint. Ory OAuth2 & OpenID Connect will however
+accept any valid token or valid credentials as there is no built-in access control.

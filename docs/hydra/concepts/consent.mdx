@@ -10,8 +10,8 @@ import TabItem from "@theme/TabItem"
 OAuth2 and OpenID Connect require an authenticated End-User session for all OAuth2 / OpenID Connect flows except the
 `client_credentials` flow which does not involve End-Users.
 
-Ory OAuth2 & OpenID Connect doesn't contain a database with End-Users but instead uses HTTP Redirection to "delegate" the login and
-consent flow to another app - we call this the Login & Consent App.
+Ory OAuth2 & OpenID Connect doesn't contain a database with End-Users but instead uses HTTP Redirection to "delegate" the login
+and consent flow to another app - we call this the Login & Consent App.
 
 The following short video shows the flow from an End-User's perspective - it includes both login and consent.
 
@@ -67,8 +67,8 @@ You can implement the Login and Consent endpoints in the same code base / applic
 
 :::
 
-Ory OAuth2 & OpenID Connect appends a `consent_challenge` query parameter to the url. The value is a ID which should later be used by the
-Consent Endpoint to fetch important information about the request.
+Ory OAuth2 & OpenID Connect appends a `consent_challenge` query parameter to the url. The value is a ID which should later be used
+by the Consent Endpoint to fetch important information about the request.
 
 ```
 https://consent-app/consent?consent_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2
@@ -138,8 +138,8 @@ curl \
   "http://127.0.0.1:4445/oauth2/auth/requests/consent?consent_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2"
 ```
 
-Check the ["Implementing the Consent Endpoint" Guide](../guides/consent.mdx) for examples using the Ory OAuth2 & OpenID Connect SDK in
-different languages.
+Check the ["Implementing the Consent Endpoint" Guide](../guides/consent.mdx) for examples using the Ory OAuth2 & OpenID Connect
+SDK in different languages.
 
 </TabItem>
 <TabItem value="json">
@@ -255,8 +255,8 @@ The server responds with JSON
 
 which is the URL your application must the End-User's browser to.
 
-Check the ["Implementing the Consent Endpoint" Guide](../guides/consent.mdx) for examples using the Ory OAuth2 & OpenID Connect SDK in
-different languages.
+Check the ["Implementing the Consent Endpoint" Guide](../guides/consent.mdx) for examples using the Ory OAuth2 & OpenID Connect
+SDK in different languages.
 
 ### Rejecting the consent flow
 
