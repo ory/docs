@@ -75,6 +75,18 @@ func main() {
   </TabItem>
   <TabItem value="kratos">
     <SelfHostedKratos />
+
+And use it to import an identity:
+
+```shell
+curl --request POST -sL \
+  --header "Content-Type: application/json" \
+  --data '{
+  "expires_in": "12h",
+  "identity_id": "e01b5f2f-6afc-4194-8578-4cebcf69a4d5"
+}' http://127.0.0.1:4434/recovery/link
+```
+
   </TabItem>
 </Tabs>
 ````
