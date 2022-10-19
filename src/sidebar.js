@@ -67,12 +67,12 @@ module.exports = {
         },
         {
           type: "category",
-          label: "Permissions",
+          label: "Ory Permissions",
           items: ["guides/permissions/overview"],
         },
         {
           type: "category",
-          label: "Customizing Ory Cloud",
+          label: "Customizing Ory Network",
           items: [
             "guides/custom-domains",
             "guides/bring-your-user-interface",

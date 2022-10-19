@@ -17,20 +17,20 @@ You can set the required authentication model for these operations/endpoints:
 
 Follow these steps to enforce multi-factor authentication:
 
-### Ory Cloud Console
+### Ory Console
 
-In Ory Cloud projects, the default multi-factor authentication enforcement model is Strict.
+In The Ory Network, the default multi-factor authentication enforcement model is Strict.
 
 To change it to Lax and allow users to sign in or access user settings without authenticating with the second factor, go to the
-**Ory Cloud Console → Two-Factor Authentication** and use the switches in the **General Settings** section.
+**Ory Console → Two-Factor Authentication** and use the switches in the **General Settings** section.
 
-![Authentication enforcement settings in Ory Cloud Console](../_static/mfa/10.png)
+![Authentication enforcement settings in Ory Console](../_static/mfa/10.png)
 
 ### Ory CLI
 
-Follow these steps to adjust the settings in Ory Cloud using the Ory CLI:
+Follow these steps to adjust the settings in The Ory Network using the Ory CLI:
 
-1. Get the Identity Service configuration from your project and save it to a file:
+1. Get the Ory Identities configuration from your project and save it to a file:
 
    ```shell
    ## List all available projects
@@ -61,7 +61,7 @@ Follow these steps to adjust the settings in Ory Cloud using the Ory CLI:
 
    :::
 
-3. Update the Ory Cloud Identity Service configuration using the file you worked with:
+3. Update the Ory Identities configuration using the file you worked with:
 
    ```shell
    ory update identity-config <project-id> --file identity-config.yaml
@@ -69,10 +69,10 @@ Follow these steps to adjust the settings in Ory Cloud using the Ory CLI:
 
 ### Self-hosted instances
 
-When working with self-hosted instances of the Ory Identity Service (Kratos), change the enforcement model by adjusting these keys
-in the configuration file:
+When working with self-hosted instances of the Ory Identities (Kratos), change the enforcement model by adjusting these keys in
+the configuration file:
 
-```yaml title="kratos.config.yml"
+```yaml title="config.yml"
 # ...
 selfservice:
   flows:

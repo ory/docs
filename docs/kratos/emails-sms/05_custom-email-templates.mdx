@@ -4,7 +4,7 @@ title: Customize message templates for recovery and verification emails
 sidebar_label: Email templates
 ---
 
-Ory Identity Service (Ory Kratos) comes with built-in templates for all messages sent by the system. You can replace the default
+Ory Identities (Ory Kratos) comes with built-in templates for all messages sent by the system. You can replace the default
 templates with custom ones that will carry your own branding, visual elements, and communication tone.
 
 The system uses templates in these flows:
@@ -29,12 +29,12 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs>
-  <TabItem value="cloud" label="Ory Cloud" default>
+  <TabItem value="cloud" label="The Ory Network" default>
 
-To use custom templates in Ory Cloud, encode the content of the template with Base64 and use the encoded string to update the Identity Service config.
+To use custom templates in The Ory Network, encode the content of the template with Base64 and use the encoded string to update the Ory Identities config.
 Follow these steps:
 
-1. List all your projects and get the Identity Service config file:
+1. List all your projects and get the Ory Identities config file:
 
    ```shell
    ## List all available projects
@@ -76,7 +76,7 @@ Follow these steps:
 
 :::warning
 
-In Ory Cloud, you can use only Base64-encoded templates. The system doesn't accept `http://` or `file://` URIs. If you provide
+In The Ory Network, you can use only Base64-encoded templates. The system doesn't accept `http://` or `file://` URIs. If you provide
 custom templates using unsupported methods, the system uses the default templates.
 
 :::
@@ -142,7 +142,7 @@ Templates can use the [Sprig](https://github.com/Masterminds/sprig) library, whi
 
 :::warning
 
-For security reasons, these Spring functions are disabled in Ory Cloud:
+For security reasons, these Spring functions are disabled in The Ory Network:
 
 - Date functions: `date`,`date_in_zone`,`date_modify`, `now`, `htmlDate`, `htmlDateInZone`, `dateInZone`, `dateModify`
 - Strings: `randAlphaNum`, `randAlpha`, `randAscii`, `randNumeric`, `uuidv4`
@@ -237,7 +237,7 @@ You can then use this trait to decide what template variant to show.
 
 ````mdx-code-block
 <Tabs>
-  <TabItem value="cloud" label="Ory Cloud" default>
+  <TabItem value="cloud" label="The Ory Network" default>
 
 You can use in-line template definitions in nested templates. The following example defines the message body for verification emails.
 It assumes that there is a `lang` attribute defined in the identity traits that contains the preferred language of the user. The verification email
@@ -278,7 +278,7 @@ Recuperare l'accesso al proprio account facendo clic sul seguente link:
 ```
 
   </TabItem>
-  <TabItem value="selfhosted" label="Self-Hosted Ory Kratos Config" default>
+  <TabItem value="selfhosted" label="Self-Hosted Ory Kratos Config"ś>
 
 To create nested templates, you can use either in-line template definitions, or as in this example, use separate template files. The following
 example defines the message body for verification emails. It assumes that there is a `lang` attribute defined in the identity traits
@@ -314,7 +314,7 @@ The identity of the user is available in all templates.
 
 :::tip
 
-You can use Sprig functions in the nested templates. For security reasons, some functions are disabled in Ory Cloud.
+You can use Sprig functions in the nested templates. For security reasons, some functions are disabled in The Ory Network.
 [Click here to see the list of disabled functions.](#spring-disabled)
 
 :::

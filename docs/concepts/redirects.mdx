@@ -29,11 +29,11 @@ on any path.
 
 ## Redirect flows
 
-Ory Cloud has a total of six flows, **Login**, **Registration**, **Verification**, **Recovery**, **Settings** and **Logout** which
-can be configured to redirect back to any URL. A common use case would be to redirect the user to your application home screen
-after a logout or to a specific URL on a sub-domain after a settings password update.
+The Ory Network has a total of six flows, **Login**, **Registration**, **Verification**, **Recovery**, **Settings** and **Logout**
+which can be configured to redirect back to any URL. A common use case would be to redirect the user to your application home
+screen after a logout or to a specific URL on a sub-domain after a settings password update.
 
-On project creation the redirect flows are set to the default Managed User Interface.
+On project creation the redirect flows are by default set to the Ory Account Experience pages.
 
 ### Login, registration, and settings
 
@@ -43,7 +43,7 @@ The Login and Registration flows have three fields (all optional):
 2. Post-Password Redirect URL
 3. Post-OIDC Redirect URL
 
-```yaml file="kratos.config.yml"
+```yaml file="config.yml"
 selfservice:
   flows:
     login:
@@ -68,7 +68,7 @@ The Settings flow has three fields (all optional):
 2. Post-Password Redirect URL
 3. Post-Profile Redirect URL
 
-```yaml file="kratos.config.yml"
+```yaml file="config.yml"
 selfservice:
   flows:
     settings:
@@ -122,7 +122,7 @@ Default Redirect URL can be an FQDN or a path.
 
 Update or delete a redirect by either changing the current redirects value or deleting the entry and clicking the **Update**
 button. Reset all flows at once with the **Reset Flows** button which will prompt a confirmation box. Resetting all flows will
-reset all the fields back to the default value which is the Ory Cloud Managed User Interface.
+reset all the fields back to the default value which is the Ory Account Experience.
 
 Updates to flows will take effect on **new** flows. It will have no effect on old flows that haven't expired yet.
 
@@ -158,6 +158,5 @@ It's not possible to set the any Ory-owned domain as redirect URL.
 
 ## Read more
 
-For a deeper dive into the background of browser redirects, head over to the Ory Kratos concept documentation:
-
-- [HTTP Redirection Configuration](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion)
+For a deeper dive into the background of browser redirects, read
+[this document](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion)

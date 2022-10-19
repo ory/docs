@@ -3,7 +3,7 @@ id: user-logout
 title: User logout
 ---
 
-Ory Kratos supports two logout flows:
+Ory Identities supports two logout flows:
 
 - Browser-based (easy): This flow works for all applications running on top of a browser. Websites, single-page apps,
   Cordova/Ionic, and so on.
@@ -15,23 +15,22 @@ import CodeTabs from "@site/src/theme/Code/CodeTabs"
 
 ## Self-service logout for server-side browser applications
 
-To ensure that a logout was indeed intended by the user, Ory Kratos first generates a Logout URL for a given Ory Session Cookie.
-You can then open the Logout URL in the Browser.
+To ensure that a logout was indeed intended by the user, Ory Identities first generates a Logout URL for a given Ory Session
+Cookie. You can then open the Logout URL in the Browser.
 
 import SelfServiceLogoutBrowserFlow from "@site/src/theme/SelfServiceLogoutBrowserFlow"
 
 <SelfServiceLogoutBrowserFlow />
 
 After successful logout, the browser will be redirected either to the `return_to` query parameter from the initial request URL, or
-fall back to the `default_browser_return_url` value set in Ory Kratos' configuration file:
+fall back to the `default_browser_return_url` value set in Ory Identities' configuration file:
 
 ```yaml
-# kratos.yaml
 selfservice:
   flows:
     logout:
       after:
-        default_browser_return_url: http://test.kratos.ory.sh:4000/
+        default_browser_return_url: http://test.ory.sh:4000/
 ```
 
 <CodeTabs items={browserFlow} />
@@ -40,16 +39,16 @@ If an error occurs, the browser is redirected to the [Error UI](./user-facing-er
 
 ## Self-service logout for client-side browser applications
 
-Similar to server-side browser applications, Ory Kratos first generates a Logout URL for a given Ory Session Cookie. However, you
-can simply call the Logout URL using an AJAX request. Ory Kratos returns a `204 No Content` response on success or an error
-otherwise.
+Similar to server-side browser applications, Ory Identities first generates a Logout URL for a given Ory Session Cookie. However,
+you can simply call the Logout URL using an AJAX request. Ory Identities returns a `204 No Content` response on success or an
+error otherwise.
 
 import SelfServiceLogoutSPAFlow from "@site/src/theme/SelfServiceLogoutSPAFlow"
 
 <SelfServiceLogoutSPAFlow />
 
 The following scripts show you how to do the browser flow based on cURL. Prerequisites are a recent version of cURL and a
-registered account in Kratos.
+registered account in Ory Identities.
 
 Before we start, we need to log in:
 

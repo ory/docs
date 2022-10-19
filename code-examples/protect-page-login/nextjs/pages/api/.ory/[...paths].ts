@@ -4,7 +4,7 @@ import { config, createApiHandler } from "@ory/integrations/next-edge"
 // We need to export the config.
 export { config }
 
-// And create the Ory Cloud API "bridge".
+// And create the Ory Network API "bridge".
 export default createApiHandler({
   fallbackToPlayground: true,
 })

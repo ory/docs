@@ -82,7 +82,7 @@ knowledge and experiences? [Reach out to us](mailto:office@ory.sh) to be publish
 
 - [How I built LoginWithHN using Ory Hydra](https://www.ory.sh/how-to-build-login-with-hacker-news/)
 - [Add Authentication to your Flutter Web Applications with Ory Kratos](https://www.ory.sh/login-flutter-authentication-example-api-open-source/)
-- E-Commerce with Ory Cloud [Part 1: Backend](https://www.ory.sh/cloud-ecommerce-backend/),
+- E-Commerce with The Ory Network [Part 1: Backend](https://www.ory.sh/cloud-ecommerce-backend/),
   [Part 2: Frontend](https://www.ory.sh/cloud-ecommerce-frontend/)
 - [Looking at Zanzibar through Ory Keto](https://www.ory.sh/looking-at-keto/)
 

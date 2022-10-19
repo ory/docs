@@ -4,7 +4,7 @@ title: Self-service flows
 sidebar_label: Concepts and overview
 ---
 
-Ory Kratos implements flows that users perform themselves as opposed to administrative intervention. Facebook and Google both
+Ory Identities implements flows that users perform themselves as opposed to administrative intervention. Facebook and Google both
 provide self-service registration and profile management features as you are able to make changes to your profile and sign up
 yourself.
 
@@ -29,7 +29,7 @@ There are also many other areas you need to think about, such as:
 - Mobile, Smart TV, ... authentication
 - Linking and unlinking social profiles (for example "Sign in with Google" or "Connect with Google") to existing accounts
 
-Ory Kratos applies best practices established by experts (National Institute of Sciences NIST, Internet Engineering Task Force
+Ory Identities applies best practices established by experts (National Institute of Sciences NIST, Internet Engineering Task Force
 IETF, Microsoft Research, Google Research, Troy Hunt, ...) and implements the following flows:
 
 - [Registration](self-service/flows/user-registration.mdx)
@@ -55,7 +55,7 @@ registration, notify another system on successful registration (such as Mailchim
 
 ## Performing login, registration, settings, ... flows
 
-There are two flow types supported in Ory Kratos:
+There are two flow types supported in Ory Identities:
 
 - Flows where the user sits in front of the Browser and the application is
   - a server-side application (Node.js, Java, ...)
@@ -78,7 +78,7 @@ Browser-based flows for server-side apps make use of three core HTTP technologie
 - HTTP POST (`application/x-www-urlencoded`) and REST GET requests.
 - HTTP Cookies to prevent CSRF and Session Hijacking attack vectors.
 
-Ory Kratos takes care of all required session and CSRF cookies and ensures that all security requirements are fulfilled.
+Ory Identities takes care of all required session and CSRF cookies and ensures that all security requirements are fulfilled.
 
 The browser flow has three stages:
 
@@ -88,8 +88,8 @@ The browser flow has three stages:
 
 :::note
 
-All examples use Ory Cloud playground project. Please be aware that everyone can see the data you enter there. You can replace the
-URL with a locally hosted Ory Kratos as well.
+All examples use the "Playground" project in The Ory Network. Please be aware that everyone can see the data you enter there. You
+can replace the URL with a locally hosted Ory Identities as well.
 
 :::
 
@@ -162,7 +162,7 @@ flowId=$(curl -s -X GET \
     -H "Accept: application/json" \
     https://playground.projects.oryapis.com/self-service/login/browser | jq -r '.id')
 
-# The endpoint uses Ory Kratos' REST API to fetch information about the request
+# The endpoint uses Ory Identities' REST API to fetch information about the request
 curl -s -X GET \
     --cookie-jar $cookieJar --cookie $cookieJar \
     -H "Accept: application/json" \
@@ -295,12 +295,12 @@ The flow UI then renders the given methods. For the example above, a suitable HT
 
 ### Form submission and payload validation
 
-The user completes the flow by submitting the form. The form action always points to Ory Kratos directly. The business logic for
-the flow method will then validate the form payload and return to the UI URL on validation errors. The UI then fetches the
+The user completes the flow by submitting the form. The form action always points to Ory Identities directly. The business logic
+for the flow method will then validate the form payload and return to the UI URL on validation errors. The UI then fetches the
 information about the flow again
 
 ```
-# The endpoint uses Ory Kratos' REST API to fetch information about the request
+# The endpoint uses Ory Identities' REST API to fetch information about the request
 theFlowID=...
 curl -s -i -X GET \
     -H "Accept: application/json"  \
@@ -391,8 +391,8 @@ to perform requests.
 
 :::info
 
-Ory Kratos and your UI must be hosted on same top level domain! You can't host Ory Kratos and your UI on separate top level
-domains:
+Ory Identities and your UI must be hosted on same top level domain! You can't host Ory Identities and your UI on separate top
+level domains:
 
 - `kratos.bar.com` and `ui.bar.com` will work;
 - `kratos.bar.com` and `bar.com` will work;
@@ -400,7 +400,7 @@ domains:
 
 :::
 
-Ory Kratos identifies SPA requests by checking if the `Accept` HTTP Header is set to `application/json`.
+Ory Identities identifies SPA requests by checking if the `Accept` HTTP Header is set to `application/json`.
 
 If it is, these flows act like an API flow and respond with JSON instead of HTTP redirects while still setting and requiring the
 necessary cookies for CSRF, sessions, and more:
