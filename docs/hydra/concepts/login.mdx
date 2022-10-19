@@ -10,8 +10,8 @@ import TabItem from "@theme/TabItem"
 OAuth2 and OpenID Connect require an authenticated End-User session for all OAuth2 / OpenID Connect flows except the
 `client_credentials` flow which does not involve End-Users.
 
-Ory Hydra doesn't contain a database with End-Users but instead uses HTTP Redirection to "delegate" the login flow to another
-app - we call this the Login & Consent App.
+Ory OAuth2 & OpenID doesn't contain a database with End-Users but instead uses HTTP Redirection to "delegate" the login flow to
+another app - we call this the Login & Consent App.
 
 The following short video shows the flow from an End-User's perspective - it includes both login and consent.
 
@@ -21,21 +21,21 @@ The following sequence diagram describes the different API calls and HTTP Redire
 
 <Mermaid
   chart={`sequenceDiagram
-    OAuth2 Client->>Ory Hydra: Initiates OAuth2 Authorize Code or Implicit Flow
-    Ory Hydra-->>Ory Hydra: No end user session available (not authenticated)
-    Ory Hydra->>Login Endpoint: Redirects end user with login challenge
-    Login Endpoint-->Ory Hydra: Fetches login info
+    OAuth2 Client->>Ory OAuth2 & OpenID: Initiates OAuth2 Authorize Code or Implicit Flow
+    Ory OAuth2 & OpenID-->>Ory OAuth2 & OpenID: No end user session available (not authenticated)
+    Ory OAuth2 & OpenID->>Login Endpoint: Redirects end user with login challenge
+    Login Endpoint-->Ory OAuth2 & OpenID: Fetches login info
     Login Endpoint-->>Login Endpoint: Authenticates user with credentials
-    Login Endpoint-->Ory Hydra: Transmits login info and receives redirect url with login verifier
-    Login Endpoint->>Ory Hydra: Redirects end user to redirect url with login verifier
-    Ory Hydra-->>Ory Hydra: First time that client asks user for permissions
-    Ory Hydra->>Consent Endpoint: Redirects end user with consent challenge
-    Consent Endpoint-->Ory Hydra: Fetches consent info (which user, what app, what scopes)
+    Login Endpoint-->Ory OAuth2 & OpenID: Transmits login info and receives redirect url with login verifier
+    Login Endpoint->>Ory OAuth2 & OpenID: Redirects end user to redirect url with login verifier
+    Ory OAuth2 & OpenID-->>Ory OAuth2 & OpenID: First time that client asks user for permissions
+    Ory OAuth2 & OpenID->>Consent Endpoint: Redirects end user with consent challenge
+    Consent Endpoint-->Ory OAuth2 & OpenID: Fetches consent info (which user, what app, what scopes)
     Consent Endpoint-->>Consent Endpoint: Asks for end user's permission to grant application access
-    Consent Endpoint-->Ory Hydra: Transmits consent result and receives redirect url with consent verifier
-    Consent Endpoint->>Ory Hydra: Redirects to redirect url with consent verifier
-    Ory Hydra-->>Ory Hydra: Verifies grant
-    Ory Hydra->>OAuth2 Client: Transmits authorization code/token`}
+    Consent Endpoint-->Ory OAuth2 & OpenID: Transmits consent result and receives redirect url with consent verifier
+    Consent Endpoint->>Ory OAuth2 & OpenID: Redirects to redirect url with consent verifier
+    Ory OAuth2 & OpenID-->>Ory OAuth2 & OpenID: Verifies grant
+    Ory OAuth2 & OpenID->>OAuth2 Client: Transmits authorization code/token`}
 />
 
 ## Initiating the OAuth 2.0 / OpenID Connect flow
@@ -49,8 +49,8 @@ by sending the browser to that URL.
 
 This guide uses URLs from the [5 Minute Tutorial](../5min-tutorial.mdx):
 
-- Ory Hydra Public Endpoint: http://127.0.0.1:4444
-- Ory Hydra Admin Endpoint: http://127.0.0.1:4445
+- Ory OAuth2 & OpenID Public Endpoint: http://127.0.0.1:4444
+- Ory OAuth2 & OpenID Admin Endpoint: http://127.0.0.1:4445
 
 When translating this guide into your own environment, make sure to use the correct endpoint for your interactions.
 
@@ -71,7 +71,7 @@ When translating this guide into your own environment, make sure to use the corr
 <TabItem value="html">
 
 ```html
-<a href="https://<hydra-public>/oauth2/auth?client_id=...&response_type=...&scope=..."> Login in with Ory Hydra</a>
+<a href="https://<hydra-public>/oauth2/auth?client_id=...&response_type=...&scope=..."> Login in with Ory OAuth2 & OpenID</a>
 ```
 
 </TabItem>
@@ -87,13 +87,13 @@ window.location.href = "https://public.hydra.url/oauth2/auth?client_id=...&respo
 
 ## Redirection to the login endpoint
 
-The next task for Ory Hydra is to know the user of the request. To achieve that, Ory Hydra checks if a session cookie is set
-containing information about a previously successful login. Additionally, OpenID Connect parameters `id_token_hint`, `prompt`, and
-`max_age` are evaluated and processed. Depending on their values and the login state, the user might need to re-authenticate or
-the flow will fail.
+The next task for Ory OAuth2 & OpenID is to know the user of the request. To achieve that, Ory OAuth2 & OpenID checks if a session
+cookie is set containing information about a previously successful login. Additionally, OpenID Connect parameters `id_token_hint`,
+`prompt`, and `max_age` are evaluated and processed. Depending on their values and the login state, the user might need to
+re-authenticate or the flow will fail.
 
-To authenticate the user (this happens regardless of whether a session exists for the user or not), Ory Hydra redirects the
-browser to the "Login Endpoint" established in your config:
+To authenticate the user (this happens regardless of whether a session exists for the user or not), Ory OAuth2 & OpenID redirects
+the browser to the "Login Endpoint" established in your config:
 
 ```yaml title="hydra serve all -c path/to/hydra/config.yml
 # Can also be set using the environment variable:
@@ -102,8 +102,8 @@ urls:
   login: https://login-app/login
 ```
 
-Ory Hydra appends a `login_challenge` query parameter to the url. The value is a ID which should later be used by the Login
-Endpoint to fetch important information about the request.
+Ory OAuth2 & OpenID appends a `login_challenge` query parameter to the url. The value is a ID which should later be used by the
+Login Endpoint to fetch important information about the request.
 
 ```
 https://login-app/login?login_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2
@@ -111,29 +111,29 @@ https://login-app/login?login_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2
 
 ### Login sessions, `prompt`, `max_age`, `id_token_hint`
 
-Ory Hydra keeps track of user sessions. It does so by issuing a cookie which contains the user ID. On subsequent OAuth2 / OpenID
-Connect flows, the session will be checked and the Login Endpoint will be instructed to, for example, show the Login HTML Form or
-skip the Login HTML Form.
+Ory OAuth2 & OpenID keeps track of user sessions. It does so by issuing a cookie which contains the user ID. On subsequent OAuth2
+/ OpenID Connect flows, the session will be checked and the Login Endpoint will be instructed to, for example, show the Login HTML
+Form or skip the Login HTML Form.
 
-Ory Hydra supports the following OpenID Connect query parameters:
+Ory OAuth2 & OpenID supports the following OpenID Connect query parameters:
 
 - `prompt` (optional). Space delimited, case sensitive list of ASCII string values that specifies whether the Authorization Server
   prompts the End-User for reauthentication and consent.
-  - `prompt=none` instructs Ory Hydra to not display the login or consent user interface pages. An error is returned if an
-    End-User isn't already authenticated or the Client doesn't have pre-configured consent for the requested Claims or doesn't
+  - `prompt=none` instructs Ory OAuth2 & OpenID to not display the login or consent user interface pages. An error is returned if
+    an End-User isn't already authenticated or the Client doesn't have pre-configured consent for the requested Claims or doesn't
     fulfill other conditions for processing the request. The error code will typically be `login_required`,
     `interaction_required`, or another code. This can be used as a method to check for existing authentication and/or consent.
-  - `prompt=login` instructs Ory Hydra to force the End-User to log in using the Login HTML Form in the Login Endpoint.
-  - `prompt=consent` instructs Ory Hydra to force the End-User to re-authorize (give consent) the OAuth2 Client using the
-    [Consent HTML Form in the Consent Endpoint](./consent.mdx).
-  - `prompt=select_account` is not supported in Ory Hydra, see [#].
+  - `prompt=login` instructs Ory OAuth2 & OpenID to force the End-User to log in using the Login HTML Form in the Login Endpoint.
+  - `prompt=consent` instructs Ory OAuth2 & OpenID to force the End-User to re-authorize (give consent) the OAuth2 Client using
+    the [Consent HTML Form in the Consent Endpoint](./consent.mdx).
+  - `prompt=select_account` is not supported in Ory OAuth2 & OpenID, see [#].
 - `max_age` (optional) specifies the allowable elapsed time in seconds since the last time the End-User was actively authenticated
-  by Ory Hydra. If the elapsed time is greater than this value, the Login HTML Form must be shown and the End-User must
+  by Ory OAuth2 & OpenID. If the elapsed time is greater than this value, the Login HTML Form must be shown and the End-User must
   re-authenticate.
-- `id_token_hint` (optional) - ID Token previously issued by Ory Hydra being passed as a hint about the End-User's current or past
-  authenticated session with the Client. If the End-User identified by the ID Token is logged in or is logged in by the request,
-  then the Authorization Server returns a positive response; otherwise, it returns an error, typically `login_required`. It does
-  not matter if the ID Token is expired or not.
+- `id_token_hint` (optional) - ID Token previously issued by Ory OAuth2 & OpenID being passed as a hint about the End-User's
+  current or past authenticated session with the Client. If the End-User identified by the ID Token is logged in or is logged in
+  by the request, then the Authorization Server returns a positive response; otherwise, it returns an error, typically
+  `login_required`. It does not matter if the ID Token is expired or not.
 
 To specify these parameters add them to the OAuth2 Auth Endpoint URL Query:
 
@@ -176,8 +176,8 @@ but instead just accept or reject the login request! For more details about the 
 curl "http://127.0.0.1:4445/oauth2/auth/requests/login?login_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2"
 ```
 
-Check the ["Implementing the Login Endpoint" Guide](../guides/login.mdx) for examples using the Ory Hydra SDK in different
-languages.
+Check the ["Implementing the Login Endpoint" Guide](../guides/login.mdx) for examples using the Ory OAuth2 & OpenID SDK in
+different languages.
 
 </TabItem>
 <TabItem value="json">
@@ -255,7 +255,7 @@ time.
 
   // All values below are optional!
 
-  // Remember, if set to true, tells Ory Hydra to remember this user by telling the user agent (browser) to store
+  // Remember, if set to true, tells Ory OAuth2 & OpenID to remember this user by telling the user agent (browser) to store
   // a cookie with authentication data. If the same user performs another OAuth 2.0 Authorization Request, he/she won't be asked to log in again.
   "remember": true,
 
@@ -277,10 +277,10 @@ time.
   // user ID refers to the (Pairwise Identifier Algorithm)[http://openid.net/specs/openid-connect-core-1_0.html#PairwiseAlg]
   // of the OpenID Connect specification. It allows you to set an obfuscated subject ("user") identifier that's unique
   // to the client. Please note that this changes the user ID on endpoint /userinfo and sub claim of the ID Token.
-  // It doesn't change the sub claim in the OAuth 2.0 Introspection. Per default, Ory Hydra handles this value with its own algorithm.
+  // It doesn't change the sub claim in the OAuth 2.0 Introspection. Per default, Ory OAuth2 & OpenID handles this value with its own algorithm.
   // In case you want to set this yourself you can use this field. Please note that setting this field has no effect if pairwise isn't
-  // configured in Ory Hydra or the OAuth 2.0 Client doesn't expect a pairwise identifier (set via subject_type key in the client's configuration).
-  // Please also be aware that Ory Hydra is unable to properly compute this value during authentication. This implies that
+  // configured in Ory OAuth2 & OpenID or the OAuth 2.0 Client doesn't expect a pairwise identifier (set via subject_type key in the client's configuration).
+  // Please also be aware that Ory OAuth2 & OpenID is unable to properly compute this value during authentication. This implies that
   // you have to compute this value on every authentication process (probably depending on the client ID or some other unique value).
   // If you fail to compute the proper value, then authentication processes which have id_token_hint set might fail.
   "force_subject_identifier": "string"
@@ -309,8 +309,8 @@ The server responds with JSON
 
 which is the URL your application must redirect the End-User's browser to.
 
-Check the ["Implementing the Login Endpoint" Guide](../guides/login.mdx) for examples using the Ory Hydra SDK in different
-languages.
+Check the ["Implementing the Login Endpoint" Guide](../guides/login.mdx) for examples using the Ory OAuth2 & OpenID SDK in
+different languages.
 
 ### Rejecting the login flow
 
@@ -363,17 +363,17 @@ The server responds with JSON
 
 which is the URL your application must the End-User's browser to.
 
-Check the ["Implementing the Login Endpoint" Guide](../guides/login.mdx) for examples using the Ory Hydra SDK in different
-languages.
+Check the ["Implementing the Login Endpoint" Guide](../guides/login.mdx) for examples using the Ory OAuth2 & OpenID SDK in
+different languages.
 
 ## Redirection to the consent endpoint
 
 Please head over to [Consent Flow](./consent.mdx)!
 
-## Revoking Ory Hydra login sessions
+## Revoking Ory OAuth2 & OpenID login sessions
 
-Revoking a login session will remove all of the user's cookies at Ory Hydra and will require the user to re-authenticate when
-performing the next OAuth 2.0 Authorize Code Flow. Be aware that this option will remove all cookies from all devices.
+Revoking a login session will remove all of the user's cookies at Ory OAuth2 & OpenID and will require the user to re-authenticate
+when performing the next OAuth 2.0 Authorize Code Flow. Be aware that this option will remove all cookies from all devices.
 
 :::info
 

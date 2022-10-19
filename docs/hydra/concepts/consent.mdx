@@ -10,8 +10,8 @@ import TabItem from "@theme/TabItem"
 OAuth2 and OpenID Connect require an authenticated End-User session for all OAuth2 / OpenID Connect flows except the
 `client_credentials` flow which does not involve End-Users.
 
-Ory Hydra doesn't contain a database with End-Users but instead uses HTTP Redirection to "delegate" the login and consent flow to
-another app - we call this the Login & Consent App.
+Ory OAuth2 & OpenID doesn't contain a database with End-Users but instead uses HTTP Redirection to "delegate" the login and
+consent flow to another app - we call this the Login & Consent App.
 
 The following short video shows the flow from an End-User's perspective - it includes both login and consent.
 
@@ -27,31 +27,31 @@ The following sequence diagram describes the different API calls and HTTP Redire
 
 <Mermaid
   chart={`sequenceDiagram
-    OAuth2 Client->>Ory Hydra: Initiates OAuth2 Authorize Code or Implicit Flow
-    Ory Hydra-->>Ory Hydra: No end user session available (not authenticated)
-    Ory Hydra->>Login Endpoint: Redirects end user with login challenge
-    Login Endpoint-->Ory Hydra: Fetches login info
+    OAuth2 Client->>Ory OAuth2 & OpenID: Initiates OAuth2 Authorize Code or Implicit Flow
+    Ory OAuth2 & OpenID-->>Ory OAuth2 & OpenID: No end user session available (not authenticated)
+    Ory OAuth2 & OpenID->>Login Endpoint: Redirects end user with login challenge
+    Login Endpoint-->Ory OAuth2 & OpenID: Fetches login info
     Login Endpoint-->>Login Endpoint: Authenticates user with credentials
-    Login Endpoint-->Ory Hydra: Transmits login info and receives redirect url with login verifier
-    Login Endpoint->>Ory Hydra: Redirects end user to redirect url with login verifier
-    Ory Hydra-->>Ory Hydra: First time that client asks user for permissions
-    Ory Hydra->>Consent Endpoint: Redirects end user with consent challenge
-    Consent Endpoint-->Ory Hydra: Fetches consent info (which user, what app, what scopes)
+    Login Endpoint-->Ory OAuth2 & OpenID: Transmits login info and receives redirect url with login verifier
+    Login Endpoint->>Ory OAuth2 & OpenID: Redirects end user to redirect url with login verifier
+    Ory OAuth2 & OpenID-->>Ory OAuth2 & OpenID: First time that client asks user for permissions
+    Ory OAuth2 & OpenID->>Consent Endpoint: Redirects end user with consent challenge
+    Consent Endpoint-->Ory OAuth2 & OpenID: Fetches consent info (which user, what app, what scopes)
     Consent Endpoint-->>Consent Endpoint: Asks for end user's permission to grant application access
-    Consent Endpoint-->Ory Hydra: Transmits consent result and receives redirect url with consent verifier
-    Consent Endpoint->>Ory Hydra: Redirects to redirect url with consent verifier
-    Ory Hydra-->>Ory Hydra: Verifies grant
-    Ory Hydra->>OAuth2 Client: Transmits authorization code/token`}
+    Consent Endpoint-->Ory OAuth2 & OpenID: Transmits consent result and receives redirect url with consent verifier
+    Consent Endpoint->>Ory OAuth2 & OpenID: Redirects to redirect url with consent verifier
+    Ory OAuth2 & OpenID-->>Ory OAuth2 & OpenID: Verifies grant
+    Ory OAuth2 & OpenID->>OAuth2 Client: Transmits authorization code/token`}
 />
 
 ## Redirection to the consent endpoint
 
-Once the login challenge is accepted, Ory Hydra will ask the user for consent:
+Once the login challenge is accepted, Ory OAuth2 & OpenID will ask the user for consent:
 
 ![OAuth 2.0 Asking for User Consent](../images/google-consent-playground.png)
 
-The UI is fully under your control, because Ory Hydra redirects the End-User's browser to the "Consent Endpoint" established in
-your config:
+The UI is fully under your control, because Ory OAuth2 & OpenID redirects the End-User's browser to the "Consent Endpoint"
+established in your config:
 
 ```yaml title="hydra serve all -c path/to/hydra/config.yml"
 # Can also be set using the environment variable:
@@ -67,8 +67,8 @@ You can implement the Login and Consent endpoints in the same code base / applic
 
 :::
 
-Ory Hydra appends a `consent_challenge` query parameter to the url. The value is a ID which should later be used by the Consent
-Endpoint to fetch important information about the request.
+Ory OAuth2 & OpenID appends a `consent_challenge` query parameter to the url. The value is a ID which should later be used by the
+Consent Endpoint to fetch important information about the request.
 
 ```
 https://consent-app/consent?consent_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2
@@ -138,8 +138,8 @@ curl \
   "http://127.0.0.1:4445/oauth2/auth/requests/consent?consent_challenge=7bb518c4eec2454dbb289f5fdb4c0ee2"
 ```
 
-Check the ["Implementing the Consent Endpoint" Guide](../guides/consent.mdx) for examples using the Ory Hydra SDK in different
-languages.
+Check the ["Implementing the Consent Endpoint" Guide](../guides/consent.mdx) for examples using the Ory OAuth2 & OpenID SDK in
+different languages.
 
 </TabItem>
 <TabItem value="json">
@@ -216,7 +216,7 @@ To accept the Consent Challenge, make an HTTP PUT request with `Content-Type: ap
   // the consent challenge.
   "grant_access_token_audience": ["https://my-audience.com"],
 
-  // Remember, if set to true, tells Ory Hydra to remember this consent authorization and reuse it if the same client
+  // Remember, if set to true, tells Ory OAuth2 & OpenID to remember this consent authorization and reuse it if the same client
   // asks the same user for the same, or a subset of, scope.
   "remember": true,
   // RememberFor sets how long the consent authorization should be remembered for in seconds. If set to 0, the
@@ -255,8 +255,8 @@ The server responds with JSON
 
 which is the URL your application must the End-User's browser to.
 
-Check the ["Implementing the Consent Endpoint" Guide](../guides/consent.mdx) for examples using the Ory Hydra SDK in different
-languages.
+Check the ["Implementing the Consent Endpoint" Guide](../guides/consent.mdx) for examples using the Ory OAuth2 & OpenID SDK in
+different languages.
 
 ### Rejecting the consent flow
 
@@ -309,8 +309,8 @@ The server responds with JSON
 
 which is the URL your application must the End-User's browser to.
 
-Check the ["Implementing the Login Endpoint" Guide](../guides/login.mdx) for examples using the Ory Hydra SDK in different
-languages.
+Check the ["Implementing the Login Endpoint" Guide](../guides/login.mdx) for examples using the Ory OAuth2 & OpenID SDK in
+different languages.
 
 ## Revoking consent
 

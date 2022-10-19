@@ -1,6 +1,6 @@
 ---
 id: ory-kratos-intro
-title: Introduction to the Ory Identities (Ory Kratos)
+title: Introduction to Ory Identities (Ory Kratos)
 sidebar_label: Introduction
 ---
 

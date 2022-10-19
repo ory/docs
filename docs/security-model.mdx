@@ -48,13 +48,13 @@ without the need of running another process.
 
 ## What about OAuth 2.0 / OpenID Connect?
 
-Ory offers an OAuth 2.0 and OpenID Connect solution in the form of open-source [Ory Hydra](https://github.com/ory/hydra), which
-you can self-host or use in The Ory Network as the Ory OAuth2 Federation Service.
+Ory offers an OAuth 2.0 and OpenID Connect solution in the form of Ory OAuth2 & OpenID available in The Ory Network and the
+open-source [Ory Hydra Federation Server](https://github.com/ory/hydra), which you can self-host.
 
 At Ory, we believe that OAuth 2.0 and OpenID Connect isn't a one-size-fits-all solution. In fact, we think that you probably don't
-need to use such complicated protocols at all! We recommend using [Ory Hydra](https://github.com/ory/hydra) for targeted use cases
-only, such as providing third-party integration with your application (for example, in the form of the familiar "Sign in with
-[PROVIDER_NAME]" button).
+need to use such complicated protocols at all! We recommend using [Ory OAuth2 & OpenID](https://github.com/ory/hydra) for targeted
+use cases only, such as providing third-party integration with your application (for example, in the form of the familiar "Sign in
+with [PROVIDER_NAME]" button).
 
 :::tip
 
@@ -65,8 +65,8 @@ need OAuth 2.0 and OpenID Connect in your project.
 
 ### What about Access Tokens / Refresh Tokens?
 
-You can generate access and refresh tokens using [Ory Hydra](https://github.com/ory/hydra). Unless you really need to use
-[you need OAuth 2.0 / OpenID Connect](https://www.ory.sh/oauth2-openid-connect-do-you-need-use-cases-examples/), Ory Security
+You can generate access and refresh tokens using [Ory OAuth2 & OpenID](https://github.com/ory/hydra). Unless you really need to
+use [you need OAuth 2.0 / OpenID Connect](https://www.ory.sh/oauth2-openid-connect-do-you-need-use-cases-examples/), Ory Security
 Model is a much easier solution to handle.
 
 ### What about JSON Web Tokens?
@@ -79,11 +79,6 @@ Do you need JWTs in your implementation? Let us know in
 [this issue for Ory Identities (Kratos)](https://github.com/ory/kratos/issues/2487).
 
 :::
-
-Other Ory components are capable of issuing JSON Web Tokens.
-[Ory OAuth2 and OpenID Connect Provider (Ory Hydra)](https://www.ory.sh/hydra) can issue OAuth2 Access Tokens in the JSON Web
-Token format. Using OAuth2 and OpenID Connect is discouraged unless you have a
-[targeted use case for it](https://www.ory.sh/oauth2-openid-connect-do-you-need-use-cases-examples/)
 
 [Ory Zero Trust Identity and Access Proxy (Ory Oathkeeper)](https://www.ory.sh/oathkeeper) can "convert" Ory Sessions to JSON Web
 Tokens. Using Ory Oathkeeper is recommended when developing sophisticated applications with control over network traffic (think

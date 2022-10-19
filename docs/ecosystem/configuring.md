@@ -165,12 +165,3 @@ export SOME_OTHER_VAR=false
 ```
 
 The same applies to strings and numbers!
-
-## Configuration References
-
-All of Ory's services have a full configuration reference available. You can find them here:
-
-- [Ory Keto](https://www.ory.sh/docs/keto/reference/configuration)
-- [Ory Kratos](https://www.ory.sh/docs/kratos/reference/configuration)
-- [Ory Hydra](https://www.ory.sh/docs/hydra/reference/configuration)
-- [Ory Oathkeeper](https://www.ory.sh/docs/oathkeeper/reference/configuration)
