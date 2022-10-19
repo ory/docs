@@ -95,7 +95,7 @@ A vocabulary extension can be used within a property:
           "type": "string",
           "format": "email",
 
-          // This tells Ory Kratos that the field should be used as the "username" for the username+password flow.
+          // This tells Ory Identities that the field should be used as the "username" for the username+password flow.
           // It's an extension to the regular JSON Schema vocabulary.
           "ory.sh/kratos": {
             "credentials": {
@@ -160,7 +160,7 @@ and using a JSON Schema that uses the `email` field as the identifier for the pa
           "type": "string",
           "format": "email",
 
-          // This tells Ory Kratos that the field should be used as the "username" for the username and password flow.
+          // This tells Ory Identities that the field should be used as the "username" for the username and password flow.
           "ory.sh/kratos": {
             "credentials": {
               "password": {
@@ -223,7 +223,7 @@ Let's extend the Identity Schema from the previous chapter with a phone number:
           "type": "string",
           "format": "email",
 
-          // This tells Ory Kratos that the field should be used as the "username" for the Username and Password Flow.
+          // This tells Ory Identities that the field should be used as the "username" for the Username and Password Flow.
           "ory.sh/kratos": {
             "credentials": {
               "password": {

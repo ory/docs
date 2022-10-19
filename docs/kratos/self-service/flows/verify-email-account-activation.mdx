@@ -30,13 +30,13 @@ Please read the [Self-Service Flows](../../self-service.mdx) overview before con
 
 :::
 
-Ory Kratos allows users to verify their out-of-band (email, telephone number, ...) communication channels. Verification can be
+Ory Identities allows users to verify their out-of-band (email, telephone number, ...) communication channels. Verification can be
 initiated
 
 - after registration or by performing a verification flow;
 - manually by the user.
 
-There are two Verification Flow types supported in Ory Kratos:
+There are two Verification Flow types supported in Ory Identities:
 
 - Flows where the user sits in front of the Browser and the application is
   - a server-side application (Node.js, Java, ...)
@@ -68,7 +68,7 @@ stateDiagram
   defaultValue="oss"
   values={[
     {label: 'The Ory Network', value: 'ocp'},
-    {label: 'Ory Kratos', value: 'oss'}
+    {label: 'Ory Identities', value: 'oss'}
   ]}>
   <TabItem value="ocp">
 
@@ -77,9 +77,9 @@ Account verification can be configured in the `Customize/Email Verification` scr
   </TabItem>
   <TabItem value="oss">
 
-To enable verification flows, make the following adjustments to your Ory Kratos configuration:
+To enable verification flows, make the following adjustments to your Ory Identities configuration:
 
-```yaml title="path/to/config/kratos.yml"
+```yaml title="config.yml"
 selfservice:
   methods:
     link:
@@ -107,9 +107,9 @@ selfservice:
 ## Account activation
 
 Using this feature implements the so-called "account activation". Depending on your scenario or use cases, you may either choose
-to limit what an identity without verified addresses is able to do in your application logic or API Gateways, or make Ory Kratos
-prevent signing into accounts without verified addresses. Latter is possible by the usage of `require_verified_address` hook (See
-[Hooks](../../hooks/configure-hooks) for more details).
+to limit what an identity without verified addresses is able to do in your application logic or API Gateways, or make Ory
+Identities prevent signing into accounts without verified addresses. Latter is possible by the usage of `require_verified_address`
+hook (See [Hooks](../../hooks/configure-hooks) for more details).
 
 :::note
 
@@ -128,8 +128,8 @@ being configured by the user, thus having a backup if something goes wrong.
 
 Enabling this method will send out verification emails on new sign ups and when a verified email address is updated.
 
-Before sending out a verification E-Mail, Ory Kratos will check if the email address is already known. Depending on the result,
-one of the two flows will be executed:
+Before sending out a verification E-Mail, Ory Identities will check if the email address is already known. Depending on the
+result, one of the two flows will be executed:
 
 - Unknown email address: An email is sent to the address informing the recipient that someone tried to verify this email address
   but that it isn't known by the system:
@@ -216,8 +216,8 @@ where
 
 ### Verification for server-side browser clients
 
-The Verification Flow for browser clients relies on HTTP redirects between Ory Kratos, your Verification UI, and the end-user's
-browser:
+The Verification Flow for browser clients relies on HTTP redirects between Ory Identities, your Verification UI, and the
+end-user's browser:
 
 <SelfServiceBrowserFlow
   flows={["verification"]}
@@ -253,7 +253,7 @@ example) to the URL configured here:
   defaultValue="oss"
   values={[
     {label: 'The Ory Network', value: 'oc'},
-    {label: 'Ory Kratos', value: 'oss'}
+    {label: 'Ory Identities', value: 'oss'}
   ]}>
   <TabItem value="oc">
 
@@ -263,9 +263,9 @@ The Ory Network offers a default UI implementation. Visit
   </TabItem>
   <TabItem value="oss">
 
-You can configure which recovery URL to use in the Ory Kratos config:
+You can configure which recovery URL to use in the Ory Identities config:
 
-```yaml title="path/to/config/kratos.yml"
+```yaml title="config.yml"
 selfservice:
   flows:
     verification:
@@ -524,7 +524,7 @@ curl -H "Accept: application/json" -s \
 
 ## Verification form validation
 
-The form payloads are then submitted to Ory Kratos which follows up with:
+The form payloads are then submitted to Ory Identities which follows up with:
 
 - An HTTP 303 See Other redirect pointing to the Registration UI for Browser Clients;
 - An `application/json` response for API Clients and Client-Side Browser applications (for example Single Page Apps)e Apps).
@@ -554,8 +554,8 @@ redirected to the Verification UI.
 
 :::note
 
-When an invalid or expired challenge is used, Ory Kratos initializes a new Account Verification flow automatically. This flow will
-always be a Browser-based flow because the challenge is completed by clicking a link!
+When an invalid or expired challenge is used, Ory Identities initializes a new Account Verification flow automatically. This flow
+will always be a Browser-based flow because the challenge is completed by clicking a link!
 
 :::
 
@@ -580,8 +580,8 @@ to that configured URL.
 The Verification User Interface is a route (page / site) in your application (server, native app, single page app) that should
 render a verification form.
 
-In stark contrast to other Identity Systems, Ory Kratos doesn't render this HTML. Instead, you need to implement the HTML code in
-your application (for example Node.js + Express.js, Java, PHP, React.js, ...), which gives you extreme flexibility and
+In stark contrast to other Identity Systems, Ory Identities doesn't render this HTML. Instead, you need to implement the HTML code
+in your application (for example Node.js + Express.js, Java, PHP, React.js, ...), which gives you extreme flexibility and
 customizability in your user interface flows and designs.
 
 You will use the Verification Flow JSON response to render the verification form UI, which could looks as follows depending on

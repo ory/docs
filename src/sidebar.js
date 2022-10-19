@@ -72,7 +72,7 @@ module.exports = {
         },
         {
           type: "category",
-          label: "Customizing Ory Cloud",
+          label: "Customizing Ory Network",
           items: [
             "guides/custom-domains",
             "guides/bring-your-user-interface",

@@ -13,14 +13,14 @@ Self-Service flows such as Login, Registration, Updating Settings support two su
 Browser requests, identified by the `Accept: text/html` header, complete with a redirection flow. If no redirection URL is set for
 the flow, the Default Redirect URL will be used for most flows (for example login, registration):
 
-```yaml file="path/to/my/kratos.config.yml"
+```yaml file="config.yml"
 selfservice:
   default_browser_return_url: https://always-end-up-here-per-default/
 ```
 
 It's possible to specify a redirect URL per Self-Service Flow:
 
-```yaml file="path/to/my/kratos.config.yml"
+```yaml file="config.yml"
 selfservice:
   flows:
     login:
@@ -35,7 +35,7 @@ selfservice:
 
 You may also set redirect URLs per method (overrides `selfservice.flows.<login|registration|...>.default_return_to`):
 
-```yaml file="path/to/my/kratos.config.yml"
+```yaml file="config.yml"
 selfservice:
   flows:
     login:
@@ -50,14 +50,14 @@ It's also possible to redirect someone back to the original URL. For example, if
 `https://www.myapp.com/blog/write` but isn't logged in, we want the user to end up at that page after login. To achieve that, you
 append `?return_to=https://www.myapp.com/blog/write` when initializing the Login / Registration /Settings flow.
 
-Because Ory Kratos prevents Open Redirect Attacks, you need to whitelist the domain in your Ory Kratos config when using the
-`?return_to=` query parameter. For other return urls specified inside the configuration it isn't necessary to add the domain to
-the whitelist.
+Because Ory Identities prevents Open Redirect Attacks, you need to whitelist the domain in your Ory Identities config when using
+the `?return_to=` query parameter. For other return urls specified inside the configuration it isn't necessary to add the domain
+to the whitelist.
 
 Let's look at an example, here we're adding `myapp.com` to the whitelist, thus we can now specify a dynamic return url like so
 `?return_to=https://www.myapp.com/blog/write`.
 
-```yaml file="path/to/my/kratos.config.yml"
+```yaml file="config.yml"
 selfservice:
   allowed_return_urls:
     - https://www.myapp.com/
@@ -67,7 +67,7 @@ selfservice:
 
 Post-login redirection considers the following configuration keys:
 
-```yaml file="path/to/my/kratos.config.yml"
+```yaml file="config.yml"
 selfservice:
   default_browser_return_url: https://end-up-here-per-default/
   flows:
@@ -84,7 +84,7 @@ selfservice:
 
 Post-registration redirection considers the following configuration keys:
 
-```yaml file="path/to/my/kratos.config.yml"
+```yaml file="config.yml"
 selfservice:
   default_browser_return_url: https://end-up-here-per-default/
   flows:
@@ -103,7 +103,7 @@ Post-settings redirection **doesn't use** the `urls.default_redirect_to` configu
 Settings UI with the same Settings Request ID and key `state` set to `success`. If the listed keys are set, the redirection will
 end up at the specified values:
 
-```yaml file="path/to/my/kratos.config.yml"
+```yaml file="config.yml"
 selfservice:
   flows:
     settings:
@@ -120,7 +120,7 @@ Post-verification redirection **doesn't use** the `urls.default_redirect_to` con
 same Verification UI with the same Verification Request ID and key `state` set to `passed_challenge`. If the listed keys are set,
 the redirection will end up at the specified values:
 
-```yaml file="path/to/my/kratos.config.yml"
+```yaml file="config.yml"
 selfservice:
   flows:
     verification:
@@ -134,7 +134,7 @@ Verification emails are usually sent in response to a successful registration fl
 verification flow after registration, append `after_verification_return_to` to the Browser Registration Init endpoint:
 
 ```
-https://public.kratos/self-service/registration/browser?after_verification_return_to=https://my-redirect/foo
+https://public.url/self-service/registration/browser?after_verification_return_to=https://my-redirect/foo
 ```
 
 ## JSON

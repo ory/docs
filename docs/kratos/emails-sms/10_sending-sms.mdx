@@ -4,21 +4,21 @@ title: Configure SMS message courier
 sidebar_label: Sending SMS messages
 ---
 
-For sending SMS Ory Kratos uses an external SMS gateway, which must have HTTP API (such as Twilio, your local SMS sender, or your
-own microservice). Request method, headers, body, and content-type are fully configurable using options below.
+For sending SMS Ory Identities uses an external SMS gateway, which must have HTTP API (such as Twilio, your local SMS sender, or
+your own microservice). Request method, headers, body, and content-type are fully configurable using options below.
 
 ## Configuration
 
-Default configuration of Ory Kratos doesn't include sending SMS. To enable it you need to set "enabled" flag to true, sender URL,
-authorization (if needed) and request body format.
+Default configuration of Ory Identities doesn't include sending SMS. To enable it you need to set "enabled" flag to true, sender
+URL, authorization (if needed) and request body format.
 
 ### Sender phone number
 
 SMS message will come to the recipient from this phone number. Depending on your SMS sender settings you can use letters here (for
-example "Your Org Name"). Default value is equal to "Ory Kratos".
+example "Your Org Name"). Default value is equal to "Ory Identities".
 
-```yaml title="path/to/my/kratos/config.yml"
-# kratos -c path/to/my/kratos/config.yml serve
+```yaml title="config.yml"
+# kratos -c config.yml serve
 courier:
   sms:
     from: "+12065550110"
@@ -26,8 +26,8 @@ courier:
 
 ### Request configuration
 
-```yaml title="path/to/my/kratos/config.yml"
-# kratos -c path/to/my/kratos/config.yml serve
+```yaml title="config.yml"
+# kratos -c config.yml serve
 courier:
   sms:
     request_config:

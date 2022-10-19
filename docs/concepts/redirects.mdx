@@ -43,7 +43,7 @@ The Login and Registration flows have three fields (all optional):
 2. Post-Password Redirect URL
 3. Post-OIDC Redirect URL
 
-```yaml file="kratos.config.yml"
+```yaml file="config.yml"
 selfservice:
   flows:
     login:
@@ -68,7 +68,7 @@ The Settings flow has three fields (all optional):
 2. Post-Password Redirect URL
 3. Post-Profile Redirect URL
 
-```yaml file="kratos.config.yml"
+```yaml file="config.yml"
 selfservice:
   flows:
     settings:
@@ -158,6 +158,5 @@ It's not possible to set the any Ory-owned domain as redirect URL.
 
 ## Read more
 
-For a deeper dive into the background of browser redirects, head over to the Ory Kratos concept documentation:
-
-- [HTTP Redirection Configuration](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion)
+For a deeper dive into the background of browser redirects, read
+[this document](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion)
