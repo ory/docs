@@ -18,7 +18,6 @@ SMS message will come to the recipient from this phone number. Depending on your
 example "Your Org Name"). Default value is equal to "Ory Identities".
 
 ```yaml title="config.yml"
-# kratos -c config.yml serve
 courier:
   sms:
     from: "+12065550110"
@@ -27,13 +26,12 @@ courier:
 ### Request configuration
 
 ```yaml title="config.yml"
-# kratos -c config.yml serve
 courier:
   sms:
     request_config:
       url: https://api.twilio.com/2010-04-01/Accounts/YourAccountID/Messages.json
       method: POST
-      body: file://./path/to/path/to/my/kratos/config/twilio.request.jsonnet
+      body: file://./twilio.request.jsonnet
       header:
         "Content-Type": "application/x-www-form-urlencoded"
       auth:

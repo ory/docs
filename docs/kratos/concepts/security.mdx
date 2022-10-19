@@ -81,12 +81,12 @@ A timing attack against password hashing looks as follows:
 2. Try out other accounts such as `alice@example.org`. If the account doesn't exist, password hashing doesn't run, hence it takes
    much less time for the server to answer (< 100ms).
 
-To protect against this attack, Ory Kratos adds a configurable delay with standard deviation to login flows where the account
+To protect against this attack, Ory Identities adds a configurable delay with standard deviation to login flows where the account
 doesn't exist.
 
 ### Enabling account enumeration defenses
 
-Assuming you wish to enable account enumeration defenses, you need to configure Ory Kratos as follows:
+Assuming you wish to enable account enumeration defenses, you need to configure Ory Identities as follows:
 
 - Collect one or more email addresses during sign up and enable email verification.
 - **Don't** enable the `session` post-registration workflow.
@@ -104,9 +104,9 @@ Scenario: In some cases you might want to use the email address returned by for 
 identity's account. You might also want to use it as an email + password identifier so that the identity is able to log in with a
 password as well. An attacker is able to exploit that by creating a social profile on another site (for example Google) and use
 the victims email address to set it up (this only works when the victim doesn't yet have an account with that email at Google).
-The attacker can then use that "spoofed" social profile to try and sign up with your Ory Kratos installation. Because the victim's
-email address is already known to Ory Kratos, the attacker might be able to observe the behavior (for example seeing an error
-page) and come to the conclusion that the victim already has an account at the website.
+The attacker can then use that "spoofed" social profile to try and sign up with your Ory Identities installation. Because the
+victim's email address is already known to Ory Identities, the attacker might be able to observe the behavior (for example seeing
+an error page) and come to the conclusion that the victim already has an account at the website.
 
 Mitigation: This attack surface is rather small and requires a lot of effort, including forging an for example Google profile, and
 can fail at several stages. To mitigate any chance of that happening, only accept email addresses that are marked as verified in
@@ -172,7 +172,7 @@ Further improvements are work in progress and are tracked on
 
 ### Expensive hashing with BCrypt
 
-Ory Kratos supports BCrypt for password hashing per default. BCrypt is recommended when you want hashing to take at most one
+Ory Identities supports BCrypt for password hashing per default. BCrypt is recommended when you want hashing to take at most one
 second:
 
 ```yaml
@@ -184,8 +184,8 @@ hashers:
 
 ### Expensive hashing with Argon2
 
-Ory Kratos supports Argon2 for password hashing. Argon2 is recommended when you want hashing to take at least 2 seconds. You can
-tweak the Argon2 configuration in your Ory Kratos configuration file:
+Ory Identities supports Argon2 for password hashing. Argon2 is recommended when you want hashing to take at least 2 seconds. You
+can tweak the Argon2 configuration in your Ory Identities configuration file:
 
 ```yaml
 hashers:
@@ -202,15 +202,15 @@ To determine the ideal parameters, head over to the [setup guide](../guides/sett
 
 ### Password policy
 
-To prevent weak passwords Ory Kratos implements different measures. Users often choose passwords similar to their traits. To
-prevent this Ory Kratos ensures there is a sufficient [Levenshtein-Distance](https://en.wikipedia.org/wiki/Levenshtein_distance)
-(aka "Edit-Distance") between the identifier and the password. It also makes sure that the identifier and password have a small
-enough longest common substring.
+To prevent weak passwords Ory Identities implements different measures. Users often choose passwords similar to their traits. To
+prevent this Ory Identities ensures there is a sufficient
+[Levenshtein-Distance](https://en.wikipedia.org/wiki/Levenshtein_distance) (aka "Edit-Distance") between the identifier and the
+password. It also makes sure that the identifier and password have a small enough longest common substring.
 
 Furthermore the `password` method comes with a build-in check against the ["Have I been pwned"](https://haveibeenpwned.com) breach
-database. This way Ory Kratos makes sure your users can't use passwords like "password", "123456" or any other commonly used one.
-To protect the value of the password the [range API](https://haveibeenpwned.com/API/v3#SearchingPwnedPasswordsByRange) is being
-used.
+database. This way Ory Identities makes sure your users can't use passwords like "password", "123456" or any other commonly used
+one. To protect the value of the password the [range API](https://haveibeenpwned.com/API/v3#SearchingPwnedPasswordsByRange) is
+being used.
 
 #### Password policy best practices
 
@@ -226,14 +226,14 @@ Troy Hunt has written an
 [excellent piece on password policies](https://www.troyhunt.com/passwords-evolved-authentication-guidance-for-the-modern-era/) and
 why they recently changed and how.
 
-Ory Kratos implements a password policy that:
+Ory Identities implements a password policy that:
 
 - Checks if a password has previously been leaked using the [HIBP API](https://haveibeenpwned.com/API/v2),
 - Checks if a password is too similar to one of the identifiers,
 - Doesn't expire passwords.
 
-This is a rundown of all the practices Ory Kratos implements and why. **Some things need to be implemented by yourself** as they
-must be implemented in the User Interface that interfaces with Ory Kratos. You can find these in the
+This is a rundown of all the practices Ory Identities implements and why. **Some things need to be implemented by yourself** as
+they must be implemented in the User Interface that interfaces with Ory Identities. You can find these in the
 [User Interface Guidelines](#user-interface-guidelines) section.
 
 ##### Password complexity
@@ -273,8 +273,8 @@ Don't require mixtures of characters types or prohibiting repeated characters:
 
 ##### User interface guidelines
 
-These best practices need to be implemented in your User Interface and can't be handled by Ory Kratos. All Ory-built reference and
-demo applications implement these best practices:
+These best practices need to be implemented in your User Interface and can't be handled by Ory Identities. All Ory-built reference
+and demo applications implement these best practices:
 
 Allow pasting of passwords:
 
@@ -356,6 +356,6 @@ It doesn't yet work as documented!
 
 ## Digital identity guidelines
 
-There is no one standard to digital identity. Ory Kratos follows emerging frameworks and guidelines such as:
+There is no one standard to digital identity. Ory Identities follows emerging frameworks and guidelines such as:
 [Digital Identity Guidelines established by the National Institute of Standards and Technology (NIST)](https://pages.nist.gov/800-63-3/)
 (and a follow-up [FAQ](https://pages.nist.gov/800-63-3/)) .
