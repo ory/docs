@@ -3,7 +3,7 @@ id: index
 title: Introduction
 ---
 
-Ory Keto is the first and only open source implementation of "Zanzibar: Google's Consistent, Global Authorization System":
+Ory Permissions (based on the open-source Ory Keto Permission Server) is the first and only open source implementation of "Zanzibar: Google's Consistent, Global Authorization System":
 
 > Determining whether online users are authorized to access digital objects is central to preserving privacy. This paper presents
 > the design, implementation, and deployment of Zanzibar, a global system for storing and evaluating access control lists.
@@ -16,7 +16,7 @@ Ory Keto is the first and only open source implementation of "Zanzibar: Google's
 >
 > [Source](https://research.google/pubs/pub48190/)
 
-If you need to know if a user (or robot, car, service) is allowed to do something - Ory Keto is the right fit for you.
+If you need to know if a user (or robot, car, service) is allowed to do something - Ory Permissions is the right fit for you.
 
-Ory Keto implements the basic API contracts for managing and checking relations ("permissions") with HTTP and gRPC APIs. Future
+Ory Permissions implements the basic API contracts for managing and checking relations ("permissions") with HTTP and gRPC APIs. Future
 versions will include features such as userset rewrites (for example RBAC-style role-permission models), Zookies, and more.

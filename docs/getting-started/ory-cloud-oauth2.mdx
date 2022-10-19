@@ -66,22 +66,37 @@ import TabItem from '@theme/TabItem';
 <Tabs>
   <TabItem value="orycli" label="Ory CLI">
 
+:::note
+
+Remember to provide the Ory Network project ID and the client name using flags. Don't adjust other flags - they are required for this example.
+
+:::
+
 ```shell
 ory create oauth2-client \
-  --project ORY_CLOUD_PROJECT_SLUG_OR_ID \
+  --project ORY_NETWORK_PROJECT_SLUG_OR_ID \
   --name YOUR_CLIENT_NAME \
-  --grant-type authorization_code,refresh_token \ # Mandatory for this example, don't change.
-  --response-type code,id_token \ # Mandatory for this example, don't change.
-  --scope openid,offline \ # Mandatory for this example, don't change.
-  --redirect-uri http://127.0.0.1:5555/callback # Mandatory for this example, don't change.
+  --grant-type authorization_code,refresh_token \
+  --response-type code,id_token \
+  --scope openid,offline \
+  --redirect-uri http://127.0.0.1:5555/callback
 ```
   </TabItem>
   <TabItem value="curl" label="cURL" default>
 
+:::note
+
+Provide this data in the cURL request: 
+
+- `SDK_CONFIGURATION_URL` - found in the 'Connect' section of the Ory Console. Must end with '/admin/clients'.
+- `ORY_PAT`: Ory Personal Access Token copied from the Ory Console, 'ory_pat' prefix included.
+
+:::
+
 ```bash
-curl -X POST 'SDK_CONFIGURATION_URL/admin/clients' \  # Found in the 'Connect' section of the Ory Console. Must end with '/admin/clients'.
+curl -X POST 'SDK_CONFIGURATION_URL/admin/clients' \ 
   -H 'Content-Type: application/json' \
-  -H 'Authorization: Bearer ORY_PAT' \  # Ory PAT copied from the Ory Console, 'ory_pat' prefix included.
+  -H 'Authorization: Bearer ORY_PAT' \ 
   -d '{
     "client_name": "YOUR_CLIENT_NAME",
     "grant_types": [
@@ -127,8 +142,8 @@ Follow these steps to run a sample application with login and consent screens:
    :::
 
    ```bash
-   export ORY_PAT=ORY_PAT # Ory PAT copied from the Cloud Console, 'ory_pat' prefix included.
-   export HYDRA_ADMIN_URL=SDK_CONFIGURATION_URL  # Found in the 'Connect' section of the Cloud Console.
+   export ORY_PAT=ORY_PAT # Ory PAT copied from the Ory Console, 'ory_pat' prefix included.
+   export HYDRA_ADMIN_URL=SDK_CONFIGURATION_URL  # Found in the 'Connect' section of the Ory Console.
    ```
 
 3. Start the application on port `3000`:
@@ -193,9 +208,9 @@ Run this command to create the client. Using flags, provide the client ID and se
 
 ```bash
 ory perform authorization-code \
-  --client-id CLOUD_CLIENT_ID \
-  --client-secret CLOUD_CLIENT_SECRET \
-  --project ORY_CLOUD_PROJECT_ID \
+  --client-id ORY_CLIENT_ID \
+  --client-secret ORY_CLIENT_SECRET \
+  --project ORY_PROJECT_ID \
   --port 5555 \
   --scope openid,offline
 ```

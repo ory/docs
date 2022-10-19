@@ -4,7 +4,7 @@ title: Do you need OAuth2?
 ---
 
 OAuth2 and OpenID Connect is all the rage with big platforms (Google, Facebook, GitHub) and identity SaaS products (Okta, Auth0)
-which is why you probably ended up at Ory OAuth2 & OpenID. But before you start hacking away, the best use of your time right now
+which is why you probably ended up at Ory OAuth2 & OpenID Connect. But before you start hacking away, the best use of your time right now
 is to re-evaluate if you really need OAuth2 and OpenID Connect.
 
 To do so, we will cover common misunderstandings and misconceptions about OAuth2 in this document and guidance on what to do
@@ -20,10 +20,10 @@ more, check out [Ory Identities](https://www.ory.sh/kratos) first!
 ## What it's good for
 
 If you are like GitHub and you want to enable people not associated with your company like CircleCi or TravisCI to have access to
-your user's data, Ory OAuth2 & OpenID is the right tool for you.
+your user's data, Ory OAuth2 & OpenID Connect is the right tool for you.
 
 If you want apps and websites you don't own to use your application as a potential sign in (for example be listed alongside "Sign
-in with Google", "Sign in with Apple"), Ory OAuth2 & OpenID is the right tool for you.
+in with Google", "Sign in with Apple"), Ory OAuth2 & OpenID Connect is the right tool for you.
 
 If you use an API that works with OAuth2 or OpenID Connect, then of course you need to use that API - but then you are on the
 OAuth2 / OpenID Connect client side!
@@ -50,7 +50,7 @@ With OAuth2 and OpenID Connect you end up with three session layers:
 
 - Your **Application's Session Manager** keeps track of the user within your application. You will use OpenID Connect to initiate
   and complete the login, but your application needs to store and track and invalidate the session.
-- Ory OAuth2 & OpenID maintains a session cookie. When a user signs in, the cookie will be set for that user. This allows the next
+- Ory OAuth2 & OpenID Connect maintains a session cookie. When a user signs in, the cookie will be set for that user. This allows the next
   OAuth2 request to complete without requesting the user to sign in again.
 - Optionally - If your application connects to a third-party identity provider (such as Sign in with Google, GitHub, Facebook)
   that third party provider also maintains a session of the user.
@@ -87,7 +87,7 @@ Now you should be at a point where
 1. you realize that you only want to solve sign up, login, session management and that you don't need OAuth2 - your next step in
    this case should be to check out [Ory Identities](https://www.ory.sh/kratos/) which does solve all of that;
 2. you are reaffirmed that you need OAuth2 and OpenID connect because you want developers you don't know to interact with your
-   users and your users' data - in which case Ory OAuth2 & OpenID is a great fit for you!
+   users and your users' data - in which case Ory OAuth2 & OpenID Connect is a great fit for you!
 
 ## "But Google/Facebook/... use OAuth2 and OpenID Connect"
 
