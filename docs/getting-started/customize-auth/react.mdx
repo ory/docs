@@ -83,17 +83,17 @@ import OryCLI from '../_common/ory-cli.mdx'
 
 At this point, we have our dependencies installed and we can start integrating the Ory SDK and Ory Elements.
 
-### Create `sdk.ts`
+### Create `src/sdk.ts`
 
 This file is used to create a new instance of the Ory SDK. We will use this instance to interact with the Ory APIs.
 
 <CodeFromRemote
   lang="ts"
-  title="sdk.ts"
+  title="src/sdk.ts"
   src="https://raw.githubusercontent.com/ory/elements/main/examples/react-spa/src/sdk.ts"
 />
 
-### Create `main.tsx`
+### Create `src/main.tsx`
 
 This file is used as the main entry point for React. We will use this file to create our routes and add theming to the other pages
 in the App.
@@ -106,17 +106,17 @@ This file is crucial because:
 
 <CodeFromRemote
   lang="tsx"
-  title="main.tsx"
+  title="src/main.tsx"
   src="https://raw.githubusercontent.com/ory/elements/main/examples/react-spa/src/main.tsx"
 />
 
-### Create `Dashboard.tsx`
+### Create `src/Dashboard.tsx`
 
 This will be the landing page of our application. This is also the page we would want to protect with authentication.
 
 <CodeFromRemote
   lang="tsx"
-  title="Dashboard.tsx"
+  title="src/Dashboard.tsx"
   src="https://raw.githubusercontent.com/ory/elements/main/examples/react-spa/src/Dashboard.tsx"
 />
 
@@ -144,7 +144,7 @@ For more information on the registration flow, please refer to the
 
 <CodeFromRemote
   lang="tsx"
-  title="Registration.tsx"
+  title="src/Registration.tsx"
   src="https://raw.githubusercontent.com/ory/elements/main/examples/react-spa/src/Registration.tsx"
 />
 
@@ -158,7 +158,7 @@ For more information on the login flow, please refer to the
 
 <CodeFromRemote
   lang="tsx"
-  title="Login.tsx"
+  title="src/Login.tsx"
   src="https://raw.githubusercontent.com/ory/elements/main/examples/react-spa/src/Login.tsx"
 />
 
