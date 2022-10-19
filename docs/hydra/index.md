@@ -37,6 +37,7 @@ The architecture and workflows of Ory OAuth2 & OpenID Connect are designed to ne
 OAuth 2.0 can be used in many environments for various purposes. This list gives you some use cases where the OAuth protocol and
 Ory OAuth2 & OpenID Connect work great:
 
-✅ Enabling third party solutions to access your APIs. ✅ Enabling browser, mobile, or wearable applications to access your APIs.
-✅ Becoming an Identity Provider like Google, Facebook, or Microsoft. ✅ Controlling the types of information your backend
-services can get from each other.
+✅ Enabling third party solutions to access your APIs. </br>
+✅ Enabling browser, mobile, or wearable applications to access your APIs. </br>
+✅ Becoming an Identity Provider like Google, Facebook, or Microsoft. </br>
+✅ Controlling the types of information your backend services can get from each other. </br>

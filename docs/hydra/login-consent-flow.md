@@ -1,10 +1,10 @@
 ---
 id: login-consent-flow
 title: User Login and Consent flow
-sidebar_label: Ory OAuth2 & OpenID workflow
+sidebar_label: Ory OAuth2 & OpenID Connect workflow
 ---
 
-Ory OAuth2 & OpenID uses a **User Login and Consent Flow** to include third-party user management (implemented by you) into the
+Ory OAuth2 & OpenID Connect uses a **User Login and Consent Flow** to include third-party user management (implemented by you) into the
 OAuth 2.0 and OpenID Connect authorization flow. An incoming authorization request is redirected to:
 
 1. the **Login Provider**: authenticates the user by validating his or her credentials (login)
@@ -19,24 +19,24 @@ The flow itself works as follows:
 
 1. The OAuth 2.0 Client initiates an Authorize Code, Hybrid, or Implicit flow. The user's user agent is redirect to
    `http://hydra/oauth2/auth?client_id=...&...`.
-2. Ory OAuth2 & OpenID, if unable to authenticate the user (= no session cookie exists), redirects the user's user agent to the
+2. Ory OAuth2 & OpenID Connect, if unable to authenticate the user (= no session cookie exists), redirects the user's user agent to the
    Login Provider URL. The application "sitting" at that URL is implemented by you and typically shows a login user interface
    ("Please enter your username and password"). The URL the user is redirect to looks similar to
    `http://login-service/login?login_challenge=1234...`.
-3. The Login Provider, once the user has successfully logged in, tells Ory OAuth2 & OpenID some information about who the user is
+3. The Login Provider, once the user has successfully logged in, tells Ory OAuth2 & OpenID Connect some information about who the user is
    (for example the user's ID) and also that the login attempt was successful. This is done using a REST request which includes
    another redirect URL along the lines of `http://hydra/oauth2/auth?client_id=...&...&login_verifier=4321`.
-4. The user's user agent follows the redirect and lands back at Ory OAuth2 & OpenID. Next, Ory OAuth2 & OpenID redirects the
+4. The user's user agent follows the redirect and lands back at Ory OAuth2 & OpenID Connect. Next, Ory OAuth2 & OpenID Connect redirects the
    user's user agent to the Consent Provider, hosted at - for example - `http://consent-service/consent?consent_challenge=4567...`
 5. The Consent Provider shows a user interface which asks the user if he/she would like to grant the OAuth 2.0 Client the
    requested permissions ("OAuth 2.0 Scope"). You've probably seen this screen around, which is usually something similar to:
    _"Would you like to grant Facebook Image Backup access to all your private and public images?"_.
-6. The Consent Provider makes another REST request to Ory OAuth2 & OpenID to let it know which permissions the user authorized,
+6. The Consent Provider makes another REST request to Ory OAuth2 & OpenID Connect to let it know which permissions the user authorized,
    and if the user authorized the request at all. The user can usually choose to not grant an application any access to his/her
    personal data. In the response of that REST request, a redirect URL is included along the lines of
    `http://hydra/oauth2/auth?client_id=...&...&consent_verifier=7654...`.
 7. The user's user agent follows that redirect.
-8. Now, the user has successfully authenticated and authorized the application. Next, Ory OAuth2 & OpenID will run some checks and
+8. Now, the user has successfully authenticated and authorized the application. Next, Ory OAuth2 & OpenID Connect will run some checks and
    if everything works out, issue access, refresh, and ID tokens.
 
 This flow allows you to take full control of the behavior of your login system (for example 2FA, passwordless, ...) and consent
