@@ -1,0 +1,218 @@
+---
+id: react
+title: Customize authentication in React
+sidebar_label: React
+---
+
+```mdx-code-block
+import CodeFromRemote from "@theme/CodeFromRemote"
+import Teaser from '../_common/teaser.mdx'
+import mp4 from '../_static/react-elements/screencast.mp4'
+import webm from '../_static/react-elements/screencast.webm'
+
+<Teaser
+  framework={<a href="https://reactjs.org/">React</a>}
+  mp4={mp4}
+  webm={webm}
+  sampleUrl={"https://github.com/ory/elements/tree/main/examples/react-spa"}
+/>
+```
+
+## Create React Project
+
+First we create a React TypeScript SPA.
+
+import Tabs from "@theme/Tabs"
+
+<Tabs>
+
+<TabItem value="vite" label="Vite" default>
+
+```shell
+npm create vite@latest react-ts -- --template react-ts
+```
+
+</TabItem>
+
+<TabItem value="create-react-app" label="Create React App">
+
+```shell
+npx create-react-app react-ts --template typescript
+```
+
+</TabItem>
+</Tabs>
+
+## Install Dependencies
+
+To interact with Ory's APIs we install the [Ory SDK](https://www.npmjs.com/package/@ory/client)
+
+In this guide we use [Ory Elements](https://github.com/ory/elements) for rapid integration of Ory's authentication flows. Ory
+Elements simplifies a lof of the frontend development by providing a React component that handles all the logic and user interface
+for you.
+
+To use the Ory Element features, we install [Ory Elements](https://www.npmjs.com/package/@ory/elements)
+
+```shell-session
+npm i @ory/client @ory/elements react-router-dom --save
+```
+
+At this point, your package.json should look something like below.
+
+:::tip
+
+The package versions in your `package.json` might differ.
+
+:::
+
+<CodeFromRemote
+  lang="json"
+  title="package.json"
+  src="https://raw.githubusercontent.com/ory/elements/main/examples/react-spa/package.json"
+/>
+
+### Why do I Need the Ory CLI?
+
+```mdx-code-block
+import OryCLI from '../_common/ory-cli.mdx'
+
+<OryCLI />
+```
+
+## Setting Up Our App
+
+At this point, we have our dependencies installed and we can start integrating the Ory SDK and Ory Elements.
+
+### Create `sdk.ts`
+
+This file is used to create a new instance of the Ory SDK. We will use this instance to interact with the Ory APIs.
+
+<CodeFromRemote
+  lang="ts"
+  title="sdk.ts"
+  src="https://raw.githubusercontent.com/ory/elements/main/examples/react-spa/src/sdk.ts"
+/>
+
+### Create `main.tsx`
+
+This file is used as the main entry point for React. We will use this file to create our routes and add theming to the other pages
+in the App.
+
+This file is crucial because:
+
+- It is the entry point of the application
+- It creates the routes (we will replace the `<App />` component with the routes)
+- And it wraps the application with Ory Elements `<ThemeProvider />`
+
+<CodeFromRemote
+  lang="tsx"
+  title="main.tsx"
+  src="https://raw.githubusercontent.com/ory/elements/main/examples/react-spa/src/main.tsx"
+/>
+
+### Create `Dashboard.tsx`
+
+This will be the landing page of our application. This is also the page we would want to protect with authentication.
+
+<CodeFromRemote
+  lang="tsx"
+  title="Dashboard.tsx"
+  src="https://raw.githubusercontent.com/ory/elements/main/examples/react-spa/src/Dashboard.tsx"
+/>
+
+### Login and Registration
+
+Below we create two files `Registration.tsx` and `Login.tsx` which contain components which interacts with the Ory APIs to
+register account and preform login requests.
+
+:::tip
+
+These pages are dynamic and will show the relavant fields based on your
+[Ory Network project](https://www.ory.sh/docs/concepts/project) configuration. You can play around by editing your projects'
+[Identity Schema](https://www.ory.sh/docs/kratos/manage-identities/identity-schema) or enabling/disabling certain project
+settings. For example, allowing password registration or [passwordless](https://www.ory.sh/docs/kratos/passwordless/webauthn).
+
+:::
+
+The registration page does two things:
+
+1. Initialize the registration to get the `flow` data on page load
+2. Submit the registration form data the user provides when they click the submit button
+
+For more information on the registration flow, please refer to the
+[User Registration documentation](https://www.ory.sh/docs/kratos/self-service/flows/user-registration)
+
+<CodeFromRemote
+  lang="tsx"
+  title="Registration.tsx"
+  src="https://raw.githubusercontent.com/ory/elements/main/examples/react-spa/src/Registration.tsx"
+/>
+
+The login page does three things:
+
+1. Initialize the login to get the `flow` data on page load
+2. Submit the login form data the user provides when they click the submit button
+
+For more information on the login flow, please refer to the
+[User Login documentation](https://www.ory.sh/docs/kratos/self-service/flows/user-login)
+
+<CodeFromRemote
+  lang="tsx"
+  title="Login.tsx"
+  src="https://raw.githubusercontent.com/ory/elements/main/examples/react-spa/src/Login.tsx"
+/>
+
+### Run your app
+
+First, set your environment variables through the following commands, or store them in a `.env` file:
+
+```mdx-code-block
+import SdkEnvVar from '@site/src/components/SdkEnvVar'
+
+<SdkEnvVar />
+```
+
+<Tabs>
+
+<TabItem value="unix" label="Unix" default>
+
+```shell-session
+export VITE_ORY_SDK_URL=http://localhost:4000
+```
+
+</TabItem>
+  
+<TabItem value="powershell" label="Windows Powershell">
+
+```powershell
+$Env:VITE_ORY_SDK_URL = "https://{your-project-slug-here}.projects.oryapis.com"
+```
+
+</TabItem>
+
+</Tabs>
+
+Now we can start the application.
+
+```shell-session
+npm run dev -- --port 3000
+# Run Ory CLI Tunnel
+ory tunnel http://localhost:3000 --project <project-slug> --dev
+```
+
+To access your React app, open [http://localhost:3000](http://localhost:3000) in your browser. You should see the login page!
+
+## Go to production
+
+To promote this app to production:
+
+1. Connect your project with a [custom domain](../../guides/custom-domains.mdx)
+2. Build the React app and run it somewhere (for example on Vercel or Netlify) e.g. `https://example.com`
+3. Set `VITE_ORY_SDK_URL` to your custom domain e.g. `https://ory.example.com`
+
+These three components must be hosted on the same top-level domain as they were on your local machine:
+
+| Component       | Production      | Local          |
+| --------------- | --------------- | -------------- |
+| Single Page App | www.example.com | localhost:3000 |
+| Ory             | ory.example.org | localhost:4000 |

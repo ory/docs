@@ -14,6 +14,15 @@ module.exports = {
         "getting-started/local-development",
         {
           type: "category",
+          label: "Customize Authentication",
+          items: [
+            {
+              "Single Page App (SPA)": ["getting-started/customize-auth/react"],
+            },
+          ],
+        },
+        {
+          type: "category",
           label: "Integrate Authentication",
           items: [
             {
@@ -29,7 +38,6 @@ module.exports = {
                 "getting-started/integrate-auth/flutter-web-redirect",
                 "getting-started/integrate-auth/react",
                 "getting-started/integrate-auth/vue",
-                "getting-started/integrate-auth/react-with-elements",
               ],
             },
             {
