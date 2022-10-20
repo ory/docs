@@ -51,8 +51,6 @@ In this guide we use [Ory Elements](https://github.com/ory/elements) for rapid i
 Elements simplifies a lof of the frontend development by providing a React component that handles all the logic and user interface
 for you.
 
-To use the Ory Element features, we install [Ory Elements](https://www.npmjs.com/package/@ory/elements)
-
 ```shell-session
 npm i @ory/client @ory/elements react-router-dom --save
 ```
@@ -123,7 +121,7 @@ This will be the landing page of our application. This is also the page we would
 ### Login and Registration
 
 Below we create two files `Registration.tsx` and `Login.tsx` which contain components which interacts with the Ory APIs to
-register account and preform login requests.
+register accounts and preform login requests.
 
 :::tip
 
@@ -136,7 +134,8 @@ settings. For example, allowing password registration or [passwordless](https://
 
 The registration page does two things:
 
-1. Initialize the registration to get the `flow` data on page load
+1. Get the registration flow (if it exists in the URL) or fallback to initialize the registration flow to get the `flow` data on
+   page load
 2. Submit the registration form data the user provides when they click the submit button
 
 For more information on the registration flow, please refer to the
@@ -150,7 +149,7 @@ For more information on the registration flow, please refer to the
 
 The login page does three things:
 
-1. Initialize the login to get the `flow` data on page load
+1. Get the login flow (if it exists in the URL) or fallback to initialize the login flow to get the `flow` data on page load
 2. Submit the login form data the user provides when they click the submit button
 
 For more information on the login flow, please refer to the
