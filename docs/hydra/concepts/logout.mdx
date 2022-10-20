@@ -3,8 +3,9 @@ id: logout
 title: Logout flow
 ---
 
-Ory Hydra implements [OpenID Connect RP-Initiated Logout 1.0](https://openid.net/specs/openid-connect-rpinitiated-1_0.html) and
-supports [OpenID Connect Front-Channel Logout 1.0](https://openid.net/specs/openid-connect-frontchannel-1_0.html) and
+Ory OAuth2 & OpenID Connect implements
+[OpenID Connect RP-Initiated Logout 1.0](https://openid.net/specs/openid-connect-rpinitiated-1_0.html) and supports
+[OpenID Connect Front-Channel Logout 1.0](https://openid.net/specs/openid-connect-frontchannel-1_0.html) and
 [OpenID Connect Back-Channel Logout 1.0](https://openid.net/specs/openid-connect-backchannel-1_0.html) flows.
 
 A logout request may be initiated by the OpenID Provider (OP - **you**) or by the Relying Party (RP - the OAuth2 Client). Both
@@ -24,8 +25,8 @@ Legend:
   remembered - hence it's not possible to forget it).
 - `***`: Here, the "valid session cookies" implies that the browser has a valid authentication cookie when calling
   `/oauth2/sessions/logout`. If you have problems at this step, check if there is a cookie `oauth2_authentication_session` for the
-  domain Ory Hydra is running at. **Do not mix up IP (for example `127.0.0.1`, `192.168.1.1`) addresses and FQDNs (for example
-  `localhost`, `google.com`).**
+  domain Ory OAuth2 & OpenID Connect is running at. **Do not mix up IP (for example `127.0.0.1`, `192.168.1.1`) addresses and
+  FQDNs (for example `localhost`, `google.com`).**
 - `****`: The `post_logout_redirect` defaults to the configuration value of `urls.post_logout_redirect`. If a
   `post_logout_redirect_uri` was set and that URL is in the array of the OAuth2 Client's `urls.post_logout_redirect`, the browser
   will be redirected there instead.
@@ -35,7 +36,7 @@ Legend:
 [![User Logout Flow Diagram](https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgVXNlciBBZ2VudC0-Pk9SWSBIeWRyYTogQ2FsbHMgbG9nb3V0IGVuZHBvaW50XG4gICAgT1JZIEh5ZHJhLS0-Pk9SWSBIeWRyYTogVmFsaWRhdGVzIGxvZ291dCBlbmRwb2ludFxuICAgIE9SWSBIeWRyYS0-PkxvZ291dCBQcm92aWRlcjogUmVkaXJlY3RzIGVuZCB1c2VyIHdpdGggbG9nb3V0IGNoYWxsZW5nZVxuICAgIExvZ291dCBQcm92aWRlci0tPk9SWSBIeWRyYTogRmV0Y2hlcyBsb2dvdXQgcmVxdWVzdCBpbmZvXG4gICAgTG9nb3V0IFByb3ZpZGVyLS0-PkxvZ291dCBQcm92aWRlcjogQWNxdWlyZXMgdXNlciBjb25zZW50IGZvciBsb2dvdXQgKG9wdGlvbmFsKVxuICAgIExvZ291dCBQcm92aWRlci0tPk9SWSBIeWRyYTogSW5mb3JtcyB0aGF0IGxvZ291dCByZXF1ZXN0IGlzIGdyYW50ZWRcbiAgICBMb2dvdXQgUHJvdmlkZXItPj5PUlkgSHlkcmE6IFJlZGlyZWN0cyBlbmQgdXNlciB0byByZWRpcmVjdCB1cmwgd2l0aCBsb2dvdXQgY2hhbGxlbmdlXG4gICAgT1JZIEh5ZHJhLS0-Pk9SWSBIeWRyYTogUGVyZm9ybXMgbG9nb3V0IHJvdXRpbmVzXG4gICAgT1JZIEh5ZHJhLS0-VXNlciBBZ2VudDogUmVkaXJlY3RzIHRvIHNwZWNpZmllZCByZWRpcmVjdCB1cmwiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9fQ)](https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgVXNlciBBZ2VudC0-Pk9SWSBIeWRyYTogQ2FsbHMgbG9nb3V0IGVuZHBvaW50XG4gICAgT1JZIEh5ZHJhLS0-Pk9SWSBIeWRyYTogVmFsaWRhdGVzIGxvZ291dCBlbmRwb2ludFxuICAgIE9SWSBIeWRyYS0-PkxvZ291dCBQcm92aWRlcjogUmVkaXJlY3RzIGVuZCB1c2VyIHdpdGggbG9nb3V0IGNoYWxsZW5nZVxuICAgIExvZ291dCBQcm92aWRlci0tPk9SWSBIeWRyYTogRmV0Y2hlcyBsb2dvdXQgcmVxdWVzdCBpbmZvXG4gICAgTG9nb3V0IFByb3ZpZGVyLS0-PkxvZ291dCBQcm92aWRlcjogQWNxdWlyZXMgdXNlciBjb25zZW50IGZvciBsb2dvdXQgKG9wdGlvbmFsKVxuICAgIExvZ291dCBQcm92aWRlci0tPk9SWSBIeWRyYTogSW5mb3JtcyB0aGF0IGxvZ291dCByZXF1ZXN0IGlzIGdyYW50ZWRcbiAgICBMb2dvdXQgUHJvdmlkZXItPj5PUlkgSHlkcmE6IFJlZGlyZWN0cyBlbmQgdXNlciB0byByZWRpcmVjdCB1cmwgd2l0aCBsb2dvdXQgY2hhbGxlbmdlXG4gICAgT1JZIEh5ZHJhLS0-Pk9SWSBIeWRyYTogUGVyZm9ybXMgbG9nb3V0IHJvdXRpbmVzXG4gICAgT1JZIEh5ZHJhLS0-VXNlciBBZ2VudDogUmVkaXJlY3RzIHRvIHNwZWNpZmllZCByZWRpcmVjdCB1cmwiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9fQ)
 
 1. A user-agent (browser) requests the logout endpoint (`/oauth2/sessions/logout`). If the URL query contains an ID Token issued
-   by Ory Hydra as the `id_token_hint` (`/oauth2/sessions/logout?id_token_hint=...`) then:
+   by Ory OAuth2 & OpenID Connect as the `id_token_hint` (`/oauth2/sessions/logout?id_token_hint=...`) then:
    - The URL query MAY contain key `post_logout_redirect_uri` indicating where the user agent should be redirected after the
      logout completed successfully. Each OAuth 2.0 Client can whitelist a list of URIs that can be used as the value using the
      `post_logout_redirect_uris` metadata field:
@@ -51,7 +52,7 @@ Legend:
 4. To accept the logout request, the logout provider makes a `PUT` call to `/oauth2/auth/requests/logout/accept?challenge=...`. No
    request body is required.
 5. The response contains a `redirect_to` value where the logout provider redirects the user back to.
-6. Ory Hydra performs OpenID Connect Front- and Back-Channel logout.
+6. Ory OAuth2 & OpenID Connect performs OpenID Connect Front- and Back-Channel logout.
 7. The user agent is being redirected to a specified redirect URL. This may either be the default redirect URL set by
    `urls.post_logout_redirect` or to the value specified by query parameter `post_logout_redirect_uri`.
 
@@ -96,11 +97,11 @@ The server response is a JSON object with the following keys:
 
 Next, the logout provider should decide if the end-user should perform a UI action such as confirming the logout request. It's
 STRONGLY RECOMMENDED to request logout confirmation from the end-user when `rp_initiated` is set to `false` as this signifies that
-the end-user requested the logout without any further query parameters. In this situation neither Ory Hydra nor the logout
-provider can implicitly verify whether the end-user willingly requested the logout URL or if they were tricked into clicking a
-manipulated link in a vulnerable application. On the other hand, when `rp_initiated` is set to `true` it's also RECOMMENDED to
-request logout confirmation from the end-user, however, based on your Relying Parties (the OAuth2 Clients) this step could most
-likely safely be skipped.
+the end-user requested the logout without any further query parameters. In this situation neither Ory OAuth2 & OpenID Connect nor
+the logout provider can implicitly verify whether the end-user willingly requested the logout URL or if they were tricked into
+clicking a manipulated link in a vulnerable application. On the other hand, when `rp_initiated` is set to `true` it's also
+RECOMMENDED to request logout confirmation from the end-user, however, based on your Relying Parties (the OAuth2 Clients) this
+step could most likely safely be skipped.
 
 When the logout provider decides to accept the logout request, the flow is completed as follows:
 
@@ -127,8 +128,8 @@ fetch("https://hydra/oauth2/auth/requests/logout/reject?" + querystring.stringif
 })
 ```
 
-If the logout request was granted and the user agent redirected back to Ory Hydra, all OpenID Connect Front-/Back-channel logout
-flows (if set) will be performed and the user will be redirect back to his/her final destination.
+If the logout request was granted and the user agent redirected back to Ory OAuth2 & OpenID Connect, all OpenID Connect
+Front-/Back-channel logout flows (if set) will be performed and the user will be redirect back to his/her final destination.
 
 ### [OpenID Connect Front-Channel Logout 1.0](https://openid.net/specs/openid-connect-frontchannel-1_0.html)
 
@@ -140,7 +141,7 @@ Hydra will redirect the user-agent (typically browser) to that URL after a logou
 Application to log out the end-user in its own system as well - for example by deleting a Cookie or otherwise invalidating the
 user session.
 
-Ory Hydra always appends query parameters values `iss` and `sid` to the Front-Channel Logout URI, for example:
+Ory OAuth2 & OpenID Connect always appends query parameters values `iss` and `sid` to the Front-Channel Logout URI, for example:
 
 ```
 https://rp.example.org/frontchannel_logout
@@ -150,7 +151,7 @@ https://rp.example.org/frontchannel_logout
 
 Each OpenID Connect ID Token is issued with a `sid` claim that will match the `sid` value from the Front-Channel Logout URI.
 
-Ory Hydra will automatically execute the required HTTP Redirects to make this work. No extra work is required.
+Ory OAuth2 & OpenID Connect will automatically execute the required HTTP Redirects to make this work. No extra work is required.
 
 ### OpenID Connect Back-Channel Logout
 
@@ -213,6 +214,6 @@ Cache-Control: no-cache, no-store
 Pragma: no-cache
 ```
 
-Because the OpenID Connect Back-Channel Logout Flow isn't executed using the user-agent (such as Browser) but from Ory Hydra
-directly, the session cookie of the end-user won't be available to the OAuth 2.0 Client and the session has to be invalidated by
-some other means (for example by blacklisting the session ID).
+Because the OpenID Connect Back-Channel Logout Flow isn't executed using the user-agent (such as Browser) but from Ory OAuth2 &
+OpenID directly, the session cookie of the end-user won't be available to the OAuth 2.0 Client and the session has to be
+invalidated by some other means (for example by blacklisting the session ID).

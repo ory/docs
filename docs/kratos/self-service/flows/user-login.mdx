@@ -21,7 +21,7 @@ Please read the [Self-Service Flows](../../self-service.mdx) overview before con
 
 :::
 
-There are two Login Flow types supported in Ory Kratos:
+There are two Login Flow types supported in Ory Identities:
 
 - Flows where the user sits in front of the Browser and the application is
   - a server-side application (Node.js, Java, ...)
@@ -62,12 +62,12 @@ Two login methods are supported:
 <Tabs
   defaultValue="oss"
   values={[
-    {label: 'Ory Cloud', value: 'oc'},
+    {label: 'The Ory Network', value: 'oc'},
     {label: 'Ory Kratos', value: 'oss'}
   ]}>
   <TabItem value="oc">
 
-You can choose which methods to use in the Identity Service (Ory Kratos) configuration or in the Console UI.
+You can choose which methods to use in the Ory Identities configuration or in the Console UI.
 
 ```yaml title="path/to/my/ory/config.yml"
 selfservice:
@@ -82,9 +82,9 @@ selfservice:
   </TabItem>
   <TabItem value="oss">
 
-You can choose which methods to use in the Ory Kratos configuration:
+You can choose which methods to use in the Ory Identities configuration:
 
-```yaml title="path/to/my/kratos/config.yml"
+```yaml title="config.yml"
 selfservice:
   methods:
     password:
@@ -105,7 +105,7 @@ The first step is to initialize the Login Flow. This allows pre-login hooks to r
 
 ### Login for server-side browser clients
 
-The Login Flow for browser clients relies on HTTP redirects between Ory Kratos, your Login UI, and the end-user's browser:
+The Login Flow for browser clients relies on HTTP redirects between Ory Identities, your Login UI, and the end-user's browser:
 
 <SelfServiceBrowserFlow flows={["login"]} success="Set session cookie" interactions={['"Log in"']} />
 
@@ -136,20 +136,20 @@ example) to the URL configured here:
 <Tabs
   defaultValue="oss"
   values={[
-    {label: 'Ory Cloud', value: 'oc'},
+    {label: 'The Ory Network', value: 'oc'},
     {label: 'Ory Kratos', value: 'oss'}
   ]}>
   <TabItem value="oc">
 
-Ory Cloud offers a default UI implementation. Visit [Bring Your Own UI](https://www.ory.sh/docs/guides/bring-your-user-interface)
-to learn how to implement a custom UI.
+The Ory Network offers a default UI implementation. Visit
+[Bring Your Own UI](https://www.ory.sh/docs/guides/bring-your-user-interface) to learn how to implement a custom UI.
 
   </TabItem>
   <TabItem value="oss">
 
-You can configure which login URL to use in the Ory Kratos config:
+You can configure which login URL to use in the Ory Identities config:
 
-```yaml title="path/to/config/kratos.yml"
+```yaml title="config.yml"
 selfservice:
   flows:
     login:
@@ -373,14 +373,14 @@ Check out the [social sign-in documentation](../../social-signin/overview) and l
 
 :::
 
-The Social Sign In Method (`oidc`) enables you to use
+The social sign-in method (`oidc`) enables you to use
 
 - [GitHub](http://github.com/);
 - [Apple](https://developer.apple.com/sign-in-with-apple/);
 - [GitLab](https://docs.gitlab.com/ee/integration/openid_connect_provider.html);
 - [Google](https://developers.google.com/identity/sign-in/web/sign-in);
 - [Facebook](https://developers.facebook.com/docs/facebook-login/);
-- [Ory Hydra](https://www.ory.sh/hydra);
+- [Ory OAuth2 & OpenID Connect (Ory Hydra)](https://www.ory.sh/hydra);
 - [Keycloak](https://www.keycloak.org);
 - and every other OpenID Connect Certified Provider
 
@@ -450,7 +450,7 @@ curl -H "Accept: application/json" -s \
 
 ## Login form validation
 
-The form payloads are then submitted to Ory Kratos which follows up with:
+The form payloads are then submitted to Ory Identities which follows up with:
 
 - An HTTP 303 See Other redirect pointing to the Login UI for Browser Clients;
 - An `application/json` response for API Clients and Client-Side Browser applications for example for Single Page Apps.
@@ -475,7 +475,7 @@ upstream identity provider (such as Google) and giving consent.
 :::note
 
 If the user has never signed in with the given provider before, a new account will be created. It's also possible to link upstream
-identities (such as Google profile) with an existing Ory Kratos identity.
+identities (such as Google profile) with an existing Ory Identities identity.
 
 :::
 
@@ -489,9 +489,9 @@ Completing the login behaves differently for Browser and API Clients.
 
 ### Server-side browser clients
 
-When the login is completed successfully, Ory Kratos responds with a HTTP 303 Redirect to the
+When the login is completed successfully, Ory Identities responds with a HTTP 303 Redirect to the
 [configured redirect URL](../../concepts/browser-redirect-flow-completion). Alongside the HTTP 303 Redirect is a `Set-Cookie`
-header which contains the Ory Kratos Login Session Cookie:
+header which contains the Ory Session Cookie:
 
 ```
 HTTP/1.1 303 See Other
@@ -551,8 +551,8 @@ curl -s -H "Cookie: ory_kratos_session=MTU5OTE2ODc2N3xEdi1CQkFFQ180SUFBUkFCRUFBQ
 
 ### Client-side browser clients (AJAX)
 
-When the login is completed successfully, Ory Kratos responds with a HTTP 200 OK which includes a `Set-Cookie` header and a JSON
-response (see below):
+When the login is completed successfully, Ory Identities responds with a HTTP 200 OK which includes a `Set-Cookie` header and a
+JSON response (see below):
 
 ```json
 {
@@ -597,8 +597,8 @@ response (see below):
 
 ### API clients
 
-For API Clients, Ory Kratos responds with a JSON payload which includes the identity which just authenticated, the session, and
-the Ory Kratos Session Token:
+For API Clients, Ory Identities responds with a JSON payload which includes the identity which just authenticated, the session,
+and the Ory Session Token:
 
 ```sh
 # Inits a Login Flow
@@ -654,7 +654,7 @@ curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/jso
 }
 ```
 
-The Ory Kratos Session Token can be checked at the `http://127.0.0.1/sessions/whoami` endpoint:
+The Ory Session Token can be checked at the `http://127.0.0.1/sessions/whoami` endpoint:
 
 ```sh
 curl -s -H "Authorization: Bearer svX8bE9HTiVpMr7r55TtKtcOkLRhAq1a" \
@@ -721,8 +721,8 @@ To refresh a session, append `?refresh=true` to:
 The Login User Interface is a route (page / site) in your application (server, native app, single page app) that should render a
 login form.
 
-In stark contrast to other Identity Systems, Ory Kratos doesn't render this HTML. Instead, you need to implement the HTML code in
-your application (for example Node.js + Express.js, Java, PHP, React.js, ...), which gives you extreme flexibility and
+In stark contrast to other Identity Systems, Ory Identities doesn't render this HTML. Instead, you need to implement the HTML code
+in your application (for example Node.js + Express.js, Java, PHP, React.js, ...), which gives you extreme flexibility and
 customizability in your user interface flows and designs.
 
 You will use the Login Flow JSON response to render the login form UI, which could looks as follows depending on your programming
@@ -732,7 +732,7 @@ language and web framework:
 
 ## Hooks
 
-Ory Kratos allows you to configure hooks that run before and after a Login Flow. This may be helpful if you'd like to restrict
+Ory Identities allows you to configure hooks that run before and after a Login Flow. This may be helpful if you'd like to restrict
 logins to IPs coming from your internal network or other logic.
 
 For more information about hooks please read the [Hook Documentation](../../hooks/configure-hooks).

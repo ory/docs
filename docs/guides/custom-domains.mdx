@@ -3,7 +3,7 @@ id: custom-domains
 title: Setup custom domains and CORS
 ---
 
-To use Ory Cloud on one or more domains that you own, you can set a CNAME record.
+To use The Ory Network on one or more domains that you own, you can set a CNAME record.
 
 :::note
 
@@ -12,9 +12,9 @@ custom domain.
 
 :::
 
-## Adding a custom domain to your Cloud project
+## Adding a custom domain to your project
 
-Locate "Custom Domains" in Cloud Console's navigation menu.
+Locate "Custom Domains" in the Ory Console navigation menu.
 
 When you click it and navigate to the "Custom Domains" page, your list of custom domains will likely be empty at this point. If
 you're not on a paid plan, you won't be able to add one.
@@ -23,22 +23,22 @@ Click "Add one now" to add your first domain. You will be greeted by a creation 
 
 ![Custom Domain Creation form](./_static/custom-domains/cname-create.png)
 
-The domain you enter in the first step will be the domain that you'll use for requests to Ory Cloud. You will have to create a
-CNAME record with the DNS provider with which the domain is registered, with the value that's provided in this form (you will be
+The domain you enter in the first step will be the domain that you'll use for requests to The Ory Network. You will have to create
+a CNAME record with the DNS provider with which the domain is registered, with the value that's provided in this form (you will be
 able to see this value later as well).
 
 Note that the value in the above screenshot **is an example**. You will have your own value that you will need to copy.
 
 The Cookie Domain is the domain cookies will be scoped to. This is an important security setting. In all likelihood, you'll want
 this to be the root domain of whatever you supplied in the first step. See the
-[Cookie configuration section in the Kratos docs](https://www.ory.sh/kratos/docs/guides/configuring-cookies/) and
+[Cookie configuration document](https://www.ory.sh/kratos/docs/guides/configuring-cookies/) and
 [this Stackoverflow answer](https://stackoverflow.com/a/23086139).
 
 ## CORS
 
 Cross-Origin Resource Sharing (CORS) is also enabled by default on the custom domain you add, in this example we have
-`auth.foobar.ory` set as our custom domain which will point to your Ory Cloud Project. It is important that you add CORS origins
-to your custom domain to **ensure Single Page Applications (SPAs) support**. We allow up to **50 origins**. If you plan on us ing
+`auth.foobar.ory` set as our custom domain which will point to your project. It is important that you add CORS origins to your
+custom domain to **ensure Single Page Applications (SPAs) support**. We allow up to **50 origins**. If you plan on us ing
 server-side rendering or native applications, you can safely disable CORS. You can read more about
 [CORS at MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
 
@@ -53,7 +53,7 @@ wildcard subdomain. To use `localhost/127.0.0.1` for development we recommend us
 
 ## Waiting for propagation
 
-When you've added the domain in Cloud Console, we will continuously recheck its status to see if it was configured with your
+When you've added the domain in Ory Console, we will continuously recheck its status to see if it was configured with your
 registrar. Note that it can take up to 24 hours for your changes to propagate.
 
 You may also manually recheck on the custom domains page, or check the value to set with your DNS provider by clicking the
@@ -68,8 +68,8 @@ show "Enabled/Disabled".
 
 ![Custom Domain Cors enabled](./_static/custom-domains/cname-cors-enabled.png)
 
-Once active the Ory Managed UI is reachable at `https://<your-custom-domain>/ui/welcome`. Learn how to configure a custom UI:
-[Bring Your Own UI](bring-your-user-interface.mdx).
+Once active, the Ory Account Experience is reachable at `https://<your-custom-domain>/ui/welcome`. Learn how to configure a custom
+UI: [Bring Your Own UI](bring-your-user-interface.mdx).
 
 You may also remove your custom domain from the Console, but please note that **any requests to it will no longer resolve** once
 you do.
@@ -98,4 +98,4 @@ requires you to specify 3 values:
 2. The Host, which is the subdomain that will be reachable. With most registrars, entering `@` as the value signifies that you
    want to use the root domain.
 3. The value, which is provided by us. Check the value provided in the form (detailed in the first step of this article) to know
-   what this should be for your Ory Cloud project.
+   what this should be for your project.

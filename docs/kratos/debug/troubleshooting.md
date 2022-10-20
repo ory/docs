@@ -40,5 +40,5 @@ You can't right now. It would allow account enumeration attacks. See also the
 > For example configure a callback to the legacy system when you can't find the corresponding user, and store the identity on
 > successful legacy system response.
 
-An alternative to callback and custom code is fronting the legacy system with Ory Hydra (OAuth2/OIDC Server) and then using that
-as an upstream in Ory Kratos.
+An alternative to callback and custom code is fronting the legacy system with Ory OAuth2 & OpenID Connect (Ory Hydra) and then
+using that as an upstream in Ory Identities (Ory Kratos).
