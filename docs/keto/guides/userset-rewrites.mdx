@@ -1,55 +1,53 @@
 ---
 id: userset-rewrites
-title: Define global permission rules using Ory Permission Language
-sidebar_label: Global rules
+title: Define global permission rules using the Ory Permission Language
+sidebar_label: Using the Ory Permission Language
 ---
 
 import CodeFromRemote from "@theme/CodeFromRemote"
 const file = (path) => `https://github.com/ory/keto/blob/master/contrib/rewrites-example/${path}`
 
-This guide explains how to configure namespaces and relations using the
-[Ory Permission Language](../reference/ory-permission-language).
+This guide explains how to configure namespaces and relationship rules using the
+[Ory Permission Language](../reference/ory-permission-language) (OPL). You can then run fine-grained checks against Ory Keto,
+which are answered based on a combination of OPL and the concrete high-level relationships stored.
 
 The example describes a file store. Individual files are organized in a folder hierarchy, and can be accessed by individual users
 or groups of users. Using the Ory Permission Language you can specify that if a user has access to a folder, the user also has
 access to all files in that folder.
 
-## Setup and Configuration
+## Ory Network Setup
 
-First, [install Keto](../install.mdx). Next, create a `keto.yaml` file with this basic content:
+The fastest way to get started with Ory Permissions is using [Ory Console](https://console.ory.sh/). You can register for an Ory
+Network account for free.
 
-<CodeFromRemote src={file("keto.yaml")} title="keto.yaml" />
+After logging in, navigate to `Namespaces & Rules` in the sidebar, and to the `Permisson Rules` tab.
 
-In the `namespaces` key, you see the line `config: file://./namespaces.keto.ts`. This needs to point to your namespace
-configuration in the Ory Permission Language.
+![Custom Domain Cors disabled](../_static/opl_editor.png)
 
-:::info
-
-Namespace configurations without the Ory Permission Language are still supported by either specifying the namespaces directly or a
-"naked" URI, e.g. `namespaces: file://.namespaces.yaml`.
-
-:::
-
-Next, create a file with the namespace configuration:
+Into the editor, paste the following content:
 
 <CodeFromRemote src={file("namespaces.keto.ts")} title="namespaces.keto.ts" />
 
-:::tip
+:::info
 
-If you are using a text editor with TypeScript support, you can get extra help when using the Ory Permission Language. Make sure
-to run `npm i @ory/keto-namespaces-types` and add a `tsconfig.json` file with the content:
-
-<CodeFromRemote src={file("tsconfig.json")} title="tsconfig.json" />
+The editor offers autocompletion for the Ory Permission Language.
 
 :::
 
-### Starting Ory Keto
+### Connecting to the Ory Permission Language via CLI
 
-After you created both configuration files (`keto.yaml` and `namespaces.keto.ts`), run this command to start Ory Keto:
+Next, you need to connect to the Ory Network using the Keto CLI. First, [install Keto](../install.mdx). To authenticate, navigate
+to `Access & APIs` in the Ory Console and create a Personal Access Token. This, together with the subdomain from the SDK
+configuration URL, need do be exported in a shell:
 
 ```sh
-$ keto serve --config ./path/to/keto.yaml
+export KETO_READ_REMOTE=<your project slug>.projects.oryapis.com:443
+export KETO_WRITE_REMOTE=<your project slug>.projects.oryapis.com:443
+export KETO_BEARER_TOKEN="<your access token>"
 ```
+
+Now, you can continue the guide by using the Keto CLI in the interaction with the Ory Network. Just keep in mind to issue the
+commands in the same shell where you exported the environment variables.
 
 ## Creating the tuples
 
@@ -112,6 +110,42 @@ Allowed
 
 $ keto check User:Henning edit File private
 Allowed
+```
+
+## (Optional) Local Setup and Configuration
+
+If you do not want to use the Ory Console you need to [install Keto](../install.mdx) locally. Next, create a `keto.yaml` file with
+this basic content:
+
+<CodeFromRemote src={file("keto.yaml")} title="keto.yaml" />
+
+In the `namespaces` key, you see the line `config: file://./namespaces.keto.ts`. This needs to point to your namespace
+configuration in the Ory Permission Language.
+
+:::info
+
+Namespace configurations without the Ory Permission Language are still supported by either specifying the namespaces directly or a
+"naked" URI, e.g. `namespaces: file://.namespaces.yaml`.
+
+:::
+
+Next, create a file with the same namespace configuration as above.
+
+:::tip
+
+If you are using a text editor with TypeScript support, you can get extra help when using the Ory Permission Language. Make sure
+to run `npm i @ory/keto-namespaces-types` and add a `tsconfig.json` file with the content:
+
+<CodeFromRemote src={file("tsconfig.json")} title="tsconfig.json" />
+
+:::
+
+### Starting Ory Keto
+
+After you created both configuration files (`keto.yaml` and `namespaces.keto.ts`), run this command to start Ory Keto:
+
+```sh
+$ keto serve --config ./path/to/keto.yaml
 ```
 
 ## Further reading
