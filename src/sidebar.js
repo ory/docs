@@ -14,6 +14,17 @@ module.exports = {
         "getting-started/local-development",
         {
           type: "category",
+          label: "Customize Authentication",
+          items: [
+            {
+              "Single Page App (SPA)": [
+                "getting-started/customize-authentication/preact",
+              ],
+            },
+          ],
+        },
+        {
+          type: "category",
           label: "Integrate Authentication",
           items: [
             {
