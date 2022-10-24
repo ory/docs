@@ -28,7 +28,7 @@ Please read the [Self-Service Flows](../../self-service.mdx) overview before con
 
 :::
 
-There are two Registration Flow types supported in Ory Kratos:
+There are two Registration Flow types supported in Ory Identities:
 
 - Flows where the user sits in front of the Browser and the application is
   - a server-side application (Node.js, Java, ...)
@@ -69,12 +69,12 @@ Two registration methods are supported:
 <Tabs
   defaultValue="oss"
   values={[
-    {label: 'Ory Cloud', value: 'oc'},
+    {label: 'The Ory Network', value: 'oc'},
     {label: 'Ory Kratos', value: 'oss'}
   ]}>
   <TabItem value="oc">
 
-You can choose which methods to use in the Identity Service (Ory Kratos) configuration or in the Console UI.
+You can choose which methods to use in the Ory Identities configuration or in the Console UI.
 
 ```yaml title="path/to/my/ory/config.yml"
 selfservice:
@@ -89,9 +89,9 @@ selfservice:
   </TabItem>
   <TabItem value="oss">
 
-You can configure which methods to use in the Ory Kratos config:
+You can configure which methods to use in the Ory Identities config:
 
-```yaml title="path/to/my/kratos/config.yml"
+```yaml title="config.yml"
 selfservice:
   methods:
     password:
@@ -113,8 +113,8 @@ more.
 
 ### Registration for server-side browser clients
 
-The Registration Flow for browser clients relies on HTTP redirects between Ory Kratos, your Registration UI, and the end-user's
-browser:
+The Registration Flow for browser clients relies on HTTP redirects between Ory Identities, your Registration UI, and the
+end-user's browser:
 
 <SelfServiceBrowserFlow
   flows={["registration"]}
@@ -149,20 +149,20 @@ example) to the configured registration URL.
 <Tabs
   defaultValue="oss"
   values={[
-    {label: 'Ory Cloud', value: 'oc'},
+    {label: 'The Ory Network', value: 'oc'},
     {label: 'Ory Kratos', value: 'oss'}
   ]}>
   <TabItem value="oc">
 
-Ory Cloud offers a default UI implementation. Visit [Bring Your Own UI](https://www.ory.sh/docs/guides/bring-your-user-interface)
-to learn how to implement a custom UI.
+The Ory Network offers a default UI implementation. Visit
+[Bring Your Own UI](https://www.ory.sh/docs/guides/bring-your-user-interface) to learn how to implement a custom UI.
 
   </TabItem>
   <TabItem value="oss">
 
-You can configure which login URL to use in the Ory Kratos config:
+You can configure which login URL to use in the Ory Identities config:
 
-```yaml title="path/to/config/kratos.yml"
+```yaml title="config.yml"
 selfservice:
   flows:
     registration:
@@ -287,7 +287,7 @@ first.
 
 :::
 
-When the `password` method is enabled, it will be part of the `methods` payload in the Registration Flow. Ory Kratos uses the
+When the `password` method is enabled, it will be part of the `methods` payload in the Registration Flow. Ory Identities uses the
 Identity Schema defined in `identity.default_schema_id` to generate a list of form fields and add it to the Registration Flow.
 Assuming we're using the Identity Schema from the Quickstart
 
@@ -434,7 +434,7 @@ The Social Sign Up Method (`oidc`) enables you to use
 - [GitLab](https://docs.gitlab.com/ee/integration/openid_connect_provider.html);
 - [Google](https://developers.google.com/identity/sign-in/web/sign-in);
 - [Facebook](https://developers.facebook.com/docs/facebook-login/);
-- [Ory Hydra](https://www.ory.sh/hydra);
+- [Ory OAuth2 & OpenID Connect (Ory Hydra)](https://www.ory.sh/hydra);
 - [Keycloak](https://www.keycloak.org);
 - and every other OpenID Connect Certified Provider
 
@@ -523,7 +523,7 @@ curl -H "Accept: application/json" -s \
 
 ## Registration form validation
 
-The form payloads are then submitted to Ory Kratos which follows up with:
+The form payloads are then submitted to Ory Identities which follows up with:
 
 - An HTTP 303 See Other redirect pointing to the Registration UI for Browser Clients;
 - An `application/json` response for API Clients and Client-Side Browser applications (for example Single Page Apps).
@@ -582,8 +582,8 @@ upstream identity provider (for example Google) and giving consent.
 
 :::note
 
-If the user has already sign up with the given provider before, the user will simply be logged in and no new Ory Kratos Identity
-will be created.
+If the user has already sign up with the given provider before, the user will simply be logged in and no new Ory Identities
+Identity will be created.
 
 :::
 
@@ -591,11 +591,11 @@ A possible validation error is a missing ID Token:
 
 <CodeTabs items={getFlowMethodOidcWithErrors} />
 
-What may also happen is that the Ory Kratos Identity Schema JSON includes a field which is required but wasn't provided by the
-upstream identity provider (for example Google). In those cases, the end-user's browser is returned to the registration screen
-with the form validation errors.
+What may also happen is that the Identity Schema JSON includes a field which is required but wasn't provided by the upstream
+identity provider (for example Google). In those cases, the end-user's browser is returned to the registration screen with the
+form validation errors.
 
-Let's assume the Ory Kratos Identity Schema JSON requires a `website` trait
+Let's assume the Identity Schema JSON requires a `website` trait
 
 ```diff
  {
@@ -633,7 +633,7 @@ Let's assume the Ory Kratos Identity Schema JSON requires a `website` trait
 ```
 
 which wasn't provided by the upstream identity provider. This can happen when the user refuses to accept a certain scope (for
-example "Allow Ory Kratos access to my website") or if the provider simply doesn't have this data (for example the upstream
+example "Allow Ory Identities access to my website") or if the provider simply doesn't have this data (for example the upstream
 identity provider doesn't collect the user's website).
 
 In that case the end-user ends up at the registration screen and is prompted to provide the missing or invalid fields:
@@ -642,12 +642,11 @@ In that case the end-user ends up at the registration screen and is prompted to 
 
 ## Successful registration
 
-Completing the registration behaves differently for Browser and API Clients. The Registration Flow doesn't issue a Ory Kratos
+Completing the registration behaves differently for Browser and API Clients. The Registration Flow doesn't issue a Ory Identities
 Login Session automatically which prevents Account Enumeration Attacks. If these types of attacks aren't your concern, you can add
 the session hook which will issue a session after successful registration:
 
-```yaml title="path/to/my/config/kratos.yml"
-# kratos -c path/to/my/config/kratos.yml serve
+```yaml title="config.yml"
 selfservice:
   flows:
     registration:
@@ -670,13 +669,13 @@ if you follow the guidelines in the [social sign-in documentation](../../social-
 
 ### Server-side browser clients
 
-When the registration is completed successfully, Ory Kratos responds with a HTTP 303 Redirect to the
+When the registration is completed successfully, Ory Identities responds with a HTTP 303 Redirect to the
 [configured redirect URL](../../concepts/browser-redirect-flow-completion.mdx).
 
 #### With auto-login on registration
 
 If the `session` after hook is enabled, a `Set-Cookie` HTTP Header is set alongside the HTTP 303 redirect which contains the Ory
-Kratos Login Session Cookie:
+Session Cookie:
 
 ```
 HTTP/1.1 303 See Other
@@ -736,7 +735,7 @@ curl -s -H "Cookie: ory_kratos_session=MTU5OTE2ODc2N3xEdi1CQkFFQ180SUFBUkFCRUFBQ
 
 ### Client-side browser clients
 
-When the registration is completed successfully, Ory Kratos responds with a HTTP 200 OK message which contains the identity:
+When the registration is completed successfully, Ory Identities responds with a HTTP 200 OK message which contains the identity:
 
 ```
 {
@@ -771,7 +770,7 @@ When the registration is completed successfully, Ory Kratos responds with a HTTP
 #### With auto-login on registration
 
 If the `session` after hook is enabled, a `Set-Cookie` HTTP Header is set alongside the HTTP 303 redirect which contains the Ory
-Kratos Login Session Cookie:
+Session Cookie:
 
 ```
 HTTP/1.1 303 See Other
@@ -848,7 +847,7 @@ As well as information about the session:
 
 ### API clients
 
-For API clients, Ory Kratos responds with a JSON payload which includes the signed up identity:
+For API clients, Ory Identities responds with a JSON payload which includes the signed up identity:
 
 ```shell script
 # Inits a Registration Flow
@@ -894,8 +893,7 @@ curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/jso
 
 #### With auto-login on registration
 
-If the `session` after hook is enabled, the Ory Kratos Login Session and Ory Kratos Login Session Token are included in the
-response:
+If the `session` after hook is enabled, the Ory Session Cookie and Ory Session Token are included in the response:
 
 ```shell script
 actionUrl=$(\
@@ -975,8 +973,8 @@ curl -s -X POST -H  "Accept: application/json" -H "Content-Type: application/jso
 The Registration User Interface is a route (page / site) in your application (server, native app, single page app) that should
 render a registration form.
 
-In stark contrast to other Identity Systems, Ory Kratos doesn't render this HTML. Instead, you need to implement the HTML code in
-your application (for example Node.js + Express.js, Java, PHP, React.js, ...), which gives you extreme flexibility and
+In stark contrast to other Identity Systems, Ory Identities doesn't render this HTML. Instead, you need to implement the HTML code
+in your application (for example Node.js + Express.js, Java, PHP, React.js, ...), which gives you extreme flexibility and
 customizability in your user interface flows and designs.
 
 You will use the Registration Flow JSON response to render the registration form UI, which could looks as follows depending on
@@ -986,7 +984,7 @@ your programming language and web framework:
 
 ## Hooks
 
-Ory Kratos allows you to configure hooks that run before and after a Registration Flow. This may be helpful if you'd like to
+Ory Identities allows you to configure hooks that run before and after a Registration Flow. This may be helpful if you'd like to
 restrict registration to IPs coming from your internal network or other logic.
 
 For more information about hooks please read the [Hook Documentation](../../hooks/configure-hooks).

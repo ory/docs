@@ -71,6 +71,9 @@ func main() {
 ```
 
   </TabItem>
+  <TabItem value="kratos">
+    <SelfHostedKratos />
+  </TabItem>
 </Tabs>
 
 The response contains a `recovery_link` containing the flow ID and a `recovery_code` containing a random 8-digit code. The link
@@ -101,8 +104,8 @@ To create the account recovery link, use:
 <Tabs
   defaultValue="curl"
   values={[
-    {label: 'curl', value: 'curl'},
-    {label: 'GoLang', value: 'go'},
+    {label: 'Ory Cloud', value: 'cloud'},
+    {label: 'Self-Hosted Ory Kratos', value: 'kratos'},
   ]}>
   <TabItem value="curl">
 
