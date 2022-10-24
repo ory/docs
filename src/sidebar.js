@@ -160,7 +160,6 @@ module.exports = {
           label: "Passwordless",
           items: ["kratos/passwordless/webauthn"],
         },
-        "kratos/account-recovery-password-reset",
         {
           type: "category",
           label: "Sending emails",
@@ -205,6 +204,7 @@ module.exports = {
             "kratos/self-service/flows/user-login",
             "kratos/self-service/flows/user-settings",
             "kratos/self-service/flows/verify-email-account-activation",
+            "kratos/self-service/flows/account-recovery-password-reset",
             "kratos/self-service/flows/user-logout",
             "kratos/self-service/flows/user-facing-errors",
           ],
