@@ -1,202 +1,229 @@
 ---
 id: preact
-title: Customize authentication in Preact
-sidebar_label: Preact
+title: Learn how to create custom UI for an SPA with Ory Elements
+sidebar_label: Create custom UI with Ory Elements
+toc_max_heading_level: 4
 ---
 
-```mdx-code-block
+Ory Elements is a component library designed to make building login, registration, and account pages for Ory quick and easy. Ory
+Elements is modular and customizable, which means that you can use only the views you need and style them to match your
+implementation's design.
+
+The UI created with Ory Elements changes dynamically to adapt to your Ory Network configuration, for example, by adjusting the
+sign-up form to reflect the changes introduced to the Identity Schema or by providing the necessary views for 2FA flows.
+
+This example provides a closer look at integrating Ory Elements with a Preact TypeScript single-page application (SPA). By
+following the instructions you will:
+
+- Create a simple Preact Typescript SPA.
+- Install Ory Elements and Ory SDK as dependencies.
+- Create UI views for the application with Ory Elements them and allow the UI to consume Ory APIs through the Ory SDK.
+- Use Ory CLI to connect the application running on your machine to your Ory Network project's APIs.
+
+:::tip
+
+Ory Elements integrates with:
+
+- Preact
+- React
+- Express.js (experimental)
+
+Visit the [project repository](https://github.com/ory/elements) to learn more.
+
+:::
+
+## Prerequisites
+
+Before you start, make sure to:
+
+- Create an [Ory Network project].
+- Install Ory CLI - a tool that will help you connect the app running on your machine to Ory Network APIs.
+
+## Create a sample app
+
+Create a basic Preact Typescript SPA. You will integrate Ory Elements into this app and connect it into your Ory Network project.
+
+````mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 import CodeFromRemote from "@theme/CodeFromRemote"
-import Teaser from '../_common/teaser.mdx'
-import mp4 from '../_static/preact-elements/screencast.mp4'
-import webm from '../_static/preact-elements/screencast.webm'
-<Teaser
-  framework={<a href="https://preactjs.com/">Preact</a>}
-  mp4={mp4}
-  webm={webm}
-  sampleUrl={"https://github.com/ory/elements/tree/main/examples/preact-spa"}
-/>
-```
-
-## Create Preact Project
-
-First we create a Preact TypeScript SPA.
-
-import Tabs from "@theme/Tabs"
 
 <Tabs>
-
-<TabItem value="vite" label="Vite" default>
+  <TabItem value="vite" label="Vite" default>
 
 ```shell
 npm create vite@latest my-preact-app --template preact-ts
 ```
 
-</TabItem>
-
-<TabItem value="create-preact-app" label="Create Preact App">
+  </TabItem>
+  <TabItem value="preact-cli" label="Preact CLI">
 
 ```shell
 npx preact-cli create typescript my-preact-app
 ```
 
-</TabItem>
+  </TabItem>
 </Tabs>
+````
 
-## Install Dependencies
+### Install dependencies
 
-To interact with Ory's APIs we install the [Ory SDK](https://www.npmjs.com/package/@ory/client)
+After you create the application, install Ory Elements and the Ory SDK as dependencies. This allows you to use the UI views
+provided by Ory Elements to interact with Ory Network APIs to experience real-life user interactions and the dynamic nature of
+Elements.
 
-In this guide we use [Ory Elements](https://github.com/ory/elements) for rapid integration of Ory's authentication flows. Ory
-Elements simplifies a lof of the frontend development by providing a Preact component that handles all the logic and user
-interface for you.
+To install both dependencies, run this command:
 
 ```shell-session
 npm i @ory/client @ory/elements-preact wouter --save
 ```
 
-At this point, your package.json should look something like below.
+After installing the dependencies, your `package.json` should look similar to this:
 
-:::tip
-
-The package versions in your `package.json` might differ.
-
-:::
-
+```mdx-code-block
 <CodeFromRemote
   lang="json"
   title="package.json"
   src="https://raw.githubusercontent.com/ory/elements/main/examples/preact-spa/package.json"
 />
-
-### Why do I Need the Ory CLI?
-
-```mdx-code-block
-import OryCLI from '../_common/ory-cli.mdx'
-<OryCLI />
 ```
 
-## Setting Up Our App
+## Integrate Ory Elements
 
-At this point, we have our dependencies installed and we can start integrating the Ory SDK and Ory Elements.
+After creating the application and installing dependencies, you can start integrating Ory Elements and Ory SDK.
 
-### Create `src/sdk.ts`
+### Create new instance of Ory SDK
 
-This file is used to create a new instance of the Ory SDK. We will use this instance to interact with the Ory APIs.
+The `sdk.ts` file is responsible for creating a new instance of the Ory SDK. This instance will be used to interact with Ory APIs.
 
+```mdx-code-block
 <CodeFromRemote
   lang="ts"
   title="src/sdk.ts"
   src="https://raw.githubusercontent.com/ory/elements/main/examples/preact-spa/src/sdk.ts"
 />
+```
 
-### Create `src/main.tsx`
+### Create Preact entry point
 
-This file is used as the main entry point for Preact. We will use this file to create our routes and add theming to the other
-pages in the App.
+The `main.tsx` file is the main entry point for Preact. This file contains routes and themes for other pages used by the app. The
+application is wrapped with Ory Elements using `<ThemeProvider />`.
 
-This file is crucial because:
-
-- It is the entry point of the application
-- It creates the routes (we will replace the `<App />` component with the routes)
-- And it wraps the application with Ory Elements `<ThemeProvider />`
-
+```mdx-code-block
 <CodeFromRemote
   lang="tsx"
   title="src/main.tsx"
   src="https://raw.githubusercontent.com/ory/elements/main/examples/preact-spa/src/main.tsx"
 />
+```
 
-### Create `src/Dashboard.tsx`
+### Create landing page
 
 This will be the landing page of our application. This is also the page we would want to protect with authentication.
 
+```mdx-code-block
 <CodeFromRemote
   lang="tsx"
-  title="src/Dashboard.tsx"
-  src="https://raw.githubusercontent.com/ory/elements/main/examples/preact-spa/src/Dashboard.tsx"
+  title="src/app.tsx"
+  src="https://raw.githubusercontent.com/ory/elements/main/examples/preact-spa/src/app.tsx"
 />
+```
 
-### Login and Registration
+### Login and registration pages
 
-Below we create two files `Registration.tsx` and `Login.tsx` which contain components which interacts with the Ory APIs to
-register accounts and preform login requests.
+The `login.tsx` and `register.tsx` pages contain components that interact with Ory APIs to allow registering accounts and
+performing the login flow.
+
+These pages are dynamic and will show relevant fields based on your Ory Network project configuration. To see the pages change,
+edit your project's [Identity Schema](../../kratos/manage-identities/identity-schema) or try changing certain settings such as
+allowing [passwordless](https://www.ory.sh/docs/kratos/passwordless/webauthn) flows.
+
+#### Registration
+
+The registration page, defined in the `register.tsx` file:
+
+1. Gets the registration flow (if it exists in the URL) or fallback to start the registration flow to get the `flow` data on page
+   load.
+2. Submits the registration form data the user provides when they click the **Submit** button,
 
 :::tip
 
-These pages are dynamic and will show the relavant fields based on your
-[Ory Network project](https://www.ory.sh/docs/concepts/project) configuration. You can play around by editing your projects'
-[Identity Schema](https://www.ory.sh/docs/kratos/manage-identities/identity-schema) or enabling/disabling certain project
-settings. For example, allowing password registration or [passwordless](https://www.ory.sh/docs/kratos/passwordless/webauthn).
+To learn more about the self-service registration flow, read
+[this document](https://www.ory.sh/docs/kratos/self-service/flows/user-registration)
 
 :::
 
-The registration page does two things:
-
-1. Get the registration flow (if it exists in the URL) or fallback to initialize the registration flow to get the `flow` data on
-   page load
-2. Submit the registration form data the user provides when they click the submit button
-
-For more information on the registration flow, please refer to the
-[User Registration documentation](https://www.ory.sh/docs/kratos/self-service/flows/user-registration)
-
+```mdx-code-block
 <CodeFromRemote
   lang="tsx"
-  title="src/Registration.tsx"
-  src="https://raw.githubusercontent.com/ory/elements/main/examples/preact-spa/src/Registration.tsx"
+  title="src/register.tsx"
+  src="https://raw.githubusercontent.com/ory/elements/main/examples/preact-spa/src/register.tsx"
 />
+```
 
-The login page does three things:
+#### Login
 
-1. Get the login flow (if it exists in the URL) or fallback to initialize the login flow to get the `flow` data on page load
-2. Submit the login form data the user provides when they click the submit button
+The login page, defined in the `login.tsx` file:
 
-For more information on the login flow, please refer to the
-[User Login documentation](https://www.ory.sh/docs/kratos/self-service/flows/user-login)
+1. Gets the login flow (if it exists in the URL) or falls back to start the registration flow to get the `flow` data on page load.
+2. Submits the login form data the user provides when they click the **Submit** button,
 
+:::tip
+
+To learn more about the self-service login flow, read
+[this document](https://www.ory.sh/docs/kratos/self-service/flows/user-login)
+
+:::
+
+```mdx-code-block
 <CodeFromRemote
   lang="tsx"
-  title="src/Login.tsx"
-  src="https://raw.githubusercontent.com/ory/elements/main/examples/preact-spa/src/Login.tsx"
+  title="src/login.tsx"
+  src="https://raw.githubusercontent.com/ory/elements/main/examples/preact-spa/src/login.tsx"
 />
+```
 
-### Run your app
+## See Ory Elements in action
+
+After setting up the application and creating all pages, run the application on your machine, connect it to Ory Network APIs, and
+see Ory Elements in action.
 
 First, set your environment variables through the following commands, or store them in a `.env` file:
 
-```mdx-code-block
-import SdkEnvVar from '@site/src/components/SdkEnvVar'
-<SdkEnvVar />
-```
+````mdx-code-block
 
 <Tabs>
-
-<TabItem value="unix" label="Unix" default>
+  <TabItem value="unix" label="Unix systems" default>
 
 ```shell-session
 export VITE_ORY_SDK_URL=http://localhost:4000
 ```
 
-</TabItem>
-
-<TabItem value="powershell" label="Windows Powershell">
+  </TabItem>
+  <TabItem value="powershell" label="Windows Powershell">
 
 ```powershell
 $Env:VITE_ORY_SDK_URL = "https://{your-project-slug-here}.projects.oryapis.com"
 ```
 
-</TabItem>
-
+  </TabItem>
 </Tabs>
+````
 
-Now we can start the application.
+Next, start the application locally and run Ory Tunnel to create a connection between the application and Ory APIs:
 
-```shell-session
-npm run dev -- --port 3000
-# Run Ory CLI Tunnel
+```shell
+# Start the app on port 3000
+npm run dev --port 3000
+
+# Run Ory Tunnel to connect to Ory APIs.
+# To get your project slug, go to 'Access & APIs' in your Ory Network project
+
 ory tunnel http://localhost:3000 --project <project-slug> --dev
 ```
 
-To access your Preact app, open [http://localhost:3000](http://localhost:3000) in your browser. You should see the login page!
+Finally, go to [http://localhost:3000](http://localhost:3000) in your browser. From there, you can try registering and signing-in
+using the Ory Elements-powered pages.
 
 ## Go to production
 
