@@ -25,6 +25,7 @@ users can't re-initiate the flow by themselves.
   values={[
     {label: 'curl', value: 'curl'},
     {label: 'GoLang', value: 'go'},
+    {label: 'Self-Hosted Ory Kratos', value: 'kratos'},
   ]}>
   <TabItem value="curl">
 
@@ -71,8 +72,20 @@ func main() {
 ```
 
   </TabItem>
-  <TabItem value="kratos">
+ <TabItem value="kratos">
     <SelfHostedKratos />
+
+And use it to create a recovery code:
+
+```shell
+curl --request POST -sL \
+  --header "Content-Type: application/json" \
+  --data '{
+  "expires_in": "12h",
+  "identity_id": "e01b5f2f-6afc-4194-8578-4cebcf69a4d5"
+}' http://127.0.0.1:4434/recovery/code
+```
+
   </TabItem>
 </Tabs>
 
@@ -83,8 +96,9 @@ Afterwards they can then connect to a social sign-in provider or set up a passwo
 
 ```json
 {
-  "recovery_link": "https://playground.projects.oryapis.com/self-service/recovery?flow=81c55cec-76fd-4907-bddf-cc112e835698&token=yM9nAZpPIjwccKh9qHRh8OfywZSRcr6q",
-  "expires_at": "2022-02-25T03:09:37.60684766Z"
+  "recovery_link": "https://playground.projects.oryapis.com/self-service/recovery?flow=81c55cec-76fd-4907-bddf-cc112e835698",
+  "recovery_code": "76453943",
+  "expires_at": "2022-10-25T03:09:37.60684766Z"
 }
 ```
 
@@ -104,6 +118,7 @@ To create the account recovery link, use:
 <Tabs
   defaultValue="curl"
   values={[
+    {label: 'curl', value: 'curl'},
     {label: 'Ory Cloud', value: 'cloud'},
     {label: 'Self-Hosted Ory Kratos', value: 'kratos'},
   ]}>
@@ -149,6 +164,21 @@ func main() {
 
   fmt.Printf("Use link: %s", *res.Payload.RecoveryLink)
 }
+```
+
+  </TabItem>
+  <TabItem value="kratos">
+    <SelfHostedKratos />
+
+And use it to create a recovery link:
+
+```shell
+curl --request POST -sL \
+  --header "Content-Type: application/json" \
+  --data '{
+  "expires_in": "12h",
+  "identity_id": "e01b5f2f-6afc-4194-8578-4cebcf69a4d5"
+}' http://127.0.0.1:4434/recovery/code
 ```
 
   </TabItem>
