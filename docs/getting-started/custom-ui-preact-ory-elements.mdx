@@ -1,7 +1,7 @@
 ---
-id: preact
-title: Learn how to create custom UI for an SPA with Ory Elements
-sidebar_label: Create custom UI with Ory Elements
+id: custom-ui-preact-ory-elements
+title: Learn how to create custom UI for a Preact TypeScript SPA with Ory Elements
+sidebar_label: Custom UI with Ory Elements
 toc_max_heading_level: 4
 ---
 
@@ -12,12 +12,12 @@ implementation's design.
 The UI created with Ory Elements changes dynamically to adapt to your Ory Network configuration, for example, by adjusting the
 sign-up form to reflect the changes introduced to the Identity Schema or by providing the necessary views for 2FA flows.
 
-This example provides a closer look at integrating Ory Elements with a Preact TypeScript single-page application (SPA). By
-following the instructions you will:
+This example provides a closer look at integrating Ory Elements with a [Preact](https://preactjs.com/) TypeScript single-page
+application (SPA). By following the instructions you will:
 
 - Create a simple Preact Typescript SPA.
 - Install Ory Elements and Ory SDK as dependencies.
-- Create UI views for the application with Ory Elements them and allow the UI to consume Ory APIs through the Ory SDK.
+- Create UI views for the application with Ory Elements and allow the UI to consume Ory APIs through the Ory SDK.
 - Use Ory CLI to connect the application running on your machine to your Ory Network project's APIs.
 
 :::tip
@@ -36,7 +36,7 @@ Visit the [project repository](https://github.com/ory/elements) to learn more.
 
 Before you start, make sure to:
 
-- Create an [Ory Network project].
+- Create an [Ory Network project](https://console.ory.sh/).
 - Install Ory CLI - a tool that will help you connect the app running on your machine to Ory Network APIs.
 
 ## Create a sample app
@@ -119,7 +119,8 @@ application is wrapped with Ory Elements using `<ThemeProvider />`.
 
 ### Create landing page
 
-This will be the landing page of our application. This is also the page we would want to protect with authentication.
+The `app.tsx` file defines the landing page of the application. If you want to protect access to an app, set up authentication to
+secure this page.
 
 ```mdx-code-block
 <CodeFromRemote
@@ -135,8 +136,8 @@ The `login.tsx` and `register.tsx` pages contain components that interact with O
 performing the login flow.
 
 These pages are dynamic and will show relevant fields based on your Ory Network project configuration. To see the pages change,
-edit your project's [Identity Schema](../../kratos/manage-identities/identity-schema) or try changing certain settings such as
-allowing [passwordless](https://www.ory.sh/docs/kratos/passwordless/webauthn) flows.
+edit your project's [Identity Schema](../../kratos/manage-identities/identity-schema) or try changing adjusting project settings
+and enable [passwordless](../kratos/passwordless/webauthn) flows.
 
 #### Registration
 
@@ -148,8 +149,7 @@ The registration page, defined in the `register.tsx` file:
 
 :::tip
 
-To learn more about the self-service registration flow, read
-[this document](https://www.ory.sh/docs/kratos/self-service/flows/user-registration)
+To learn more about the self-service registration flow, read [this document](../kratos/self-service/flows/user-registration)
 
 :::
 
@@ -170,8 +170,7 @@ The login page, defined in the `login.tsx` file:
 
 :::tip
 
-To learn more about the self-service login flow, read
-[this document](https://www.ory.sh/docs/kratos/self-service/flows/user-login)
+To learn more about the self-service login flow, read [this document](../kratos/self-service/flows/user-login)
 
 :::
 
@@ -186,56 +185,41 @@ To learn more about the self-service login flow, read
 ## See Ory Elements in action
 
 After setting up the application and creating all pages, run the application on your machine, connect it to Ory Network APIs, and
-see Ory Elements in action.
+see Ory Elements in action. Follow these steps:
 
-First, set your environment variables through the following commands, or store them in a `.env` file:
+1. Set your environment variables through the following commands, or store them in an `.env` file:
 
-````mdx-code-block
+   ````mdx-code-block
 
-<Tabs>
-  <TabItem value="unix" label="Unix systems" default>
+   <Tabs>
+     <TabItem value="unix" label="Unix systems" default>
 
-```shell-session
-export VITE_ORY_SDK_URL=http://localhost:4000
-```
+   ```shell-session
+   export VITE_ORY_SDK_URL=http://localhost:4000
+   ```
 
-  </TabItem>
-  <TabItem value="powershell" label="Windows Powershell">
+     </TabItem>
+     <TabItem value="powershell" label="Windows Powershell">
 
-```powershell
-$Env:VITE_ORY_SDK_URL = "https://{your-project-slug-here}.projects.oryapis.com"
-```
+   ```powershell
+   $Env:VITE_ORY_SDK_URL = "https://{your-project-slug-here}.projects.oryapis.com"
+   ```
 
-  </TabItem>
-</Tabs>
-````
+     </TabItem>
+   </Tabs>
+   ````
 
-Next, start the application locally and run Ory Tunnel to create a connection between the application and Ory APIs:
+2. Start the application locally and run Ory Tunnel to create a connection between the application and Ory APIs:
 
-```shell
-# Start the app on port 3000
-npm run dev --port 3000
+   ```shell
+   # Start the app on port 3000
+   npm run dev --port 3000
 
-# Run Ory Tunnel to connect to Ory APIs.
-# To get your project slug, go to 'Access & APIs' in your Ory Network project
+   # Run Ory Tunnel to connect to Ory APIs.
+   # To get your project slug, go to 'Access & APIs' in your Ory Network project
 
-ory tunnel http://localhost:3000 --project <project-slug> --dev
-```
+   ory tunnel http://localhost:3000 --project <project-slug> --dev
+   ```
 
-Finally, go to [http://localhost:3000](http://localhost:3000) in your browser. From there, you can try registering and signing-in
-using the Ory Elements-powered pages.
-
-## Go to production
-
-To promote this app to production:
-
-1. Connect your project with a [custom domain](../../guides/custom-domains.mdx)
-2. Build the Preact app and run it somewhere (for example on Vercel or Netlify) e.g. `https://example.com`
-3. Set `VITE_ORY_SDK_URL` to your custom domain e.g. `https://ory.example.com`
-
-These three components must be hosted on the same top-level domain as they were on your local machine:
-
-| Component       | Production      | Local          |
-| --------------- | --------------- | -------------- |
-| Single Page App | www.example.com | localhost:3000 |
-| Ory             | ory.example.org | localhost:4000 |
+3. In your browser, go to [http://localhost:3000](http://localhost:3000) to access the application. From there, you can try
+   registering and signing-in using the Ory Elements-powered pages.
