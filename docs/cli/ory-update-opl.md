@@ -1,7 +1,7 @@
 ---
 id: ory-update-opl
 title: ory update opl
-description: ory update opl Update the Ory Permission Language file in Ory Cloud
+description: ory update opl Update the Ory Permission Language file in your Ory Network project
 ---
 
 <!--
@@ -11,11 +11,11 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory update opl
 
-Update the Ory Permission Language file in Ory Cloud
+Update the Ory Permission Language file in your Ory Network project
 
 ### Synopsis
 
-Update the Ory Permission Language file in Ory Cloud. Legacy namespace definitions will be overwritten.
+Update the Ory Permission Language file in your Ory Network project. Legacy namespace definitions will be overwritten.
 
 ```
 ory update opl <project-id> [flags]
@@ -43,7 +43,7 @@ class Example implements Namespace {}
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
 ```

@@ -34,7 +34,7 @@ ory introspect token the-token [flags]
 ### Options inherited from parent commands
 
 ```
-  -c, --config string     Path to the Ory Cloud configuration file.
+  -c, --config string     Path to the Ory Network configuration file.
   -e, --endpoint string   The API URL this command should target. Alternatively set using the ORY_SDK_URL environmental variable.
       --format string     Set the output format. One of table, json, yaml, and json-pretty. (default "default")
   -H, --http-header :     A list of additional HTTP headers to set. HTTP headers is separated by a : , for example: `-H 'Authorization: bearer some-token'`.

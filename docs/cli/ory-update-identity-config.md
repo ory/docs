@@ -1,7 +1,7 @@
 ---
 id: ory-update-identity-config
 title: ory update identity-config
-description: ory update identity-config Update Ory Cloud project's identity service configuration
+description: ory update identity-config Update Ory Identities service configuration
 ---
 
 <!--
@@ -11,11 +11,11 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory update identity-config
 
-Update Ory Cloud project's identity service configuration
+Update Ory Identities service configuration
 
 ### Synopsis
 
-Updates your Ory Cloud project's identity service configuration. All values
+Updates your Ory Identities configuration. All values
 of the identity service will be overwritten. To update individual settings use the `patch` command instead.
 
 Compared to the `update project` command, this command only updates the identity service configuration
@@ -81,7 +81,7 @@ courier:
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
 ```
