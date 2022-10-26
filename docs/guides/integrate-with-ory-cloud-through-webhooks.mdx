@@ -1,11 +1,11 @@
 ---
 id: integrate-with-ory-cloud-through-webhooks
-title: Use webhooks to integrate with Ory Cloud
+title: Use webhooks to integrate with The Ory Network
 sidebar_label: Webhooks
 ---
 
-Thanks to webhooks, you can easily integrate with external services, for example ERP or CRM. Ory Identity Service (Ory Kratos)
-allows you to tie the execution of custom calls to external systems to self-service user flows.
+Thanks to webhooks, you can easily integrate with external services, for example ERP or CRM. Ory Identities (Ory Kratos) allows
+you to tie the execution of custom calls to external systems to self-service user flows.
 
 :::tip
 
@@ -20,7 +20,7 @@ trigger usage data collection to learn more about how your system is used, and m
 Follow these steps to add a webhook that enables integration with Mailchimp. With this integration in place, the system sends a
 welcome email message to all newly registered users.
 
-1. Get the Identity Service config with Ory CLI:
+1. Get the Ory Identities config with Ory CLI:
 
    ```shell
    ## List all available projects
@@ -49,7 +49,7 @@ welcome email message to all newly registered users.
    }
    ```
 
-3. Add the webhook configuration to the downloaded Ory Identity Service (Ory Kratos) configuration file.
+3. Add the webhook configuration to the downloaded Ory Identities (Ory Kratos) configuration file.
 
    ```yaml title="identity-config.yaml"
    selfservice:
@@ -66,7 +66,7 @@ welcome email message to all newly registered users.
                    body: base64://ENCODED_JSONNET
    ```
 
-4. Update the Ory Cloud Identity Service configuration using the file you worked with:
+4. Update the Ory Identities configuration using the file you worked with:
 
    ```shell
    ory update identity-config <project-id> --file updated_config.yaml
@@ -74,6 +74,6 @@ welcome email message to all newly registered users.
 
 :::tip
 
-Read [this document](../kratos/hooks/configure-hooks) to learn more about hooks in Ory Cloud.
+Read [this document](../kratos/hooks/configure-hooks) to learn more about hooks in The Ory Network.
 
 :::

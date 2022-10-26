@@ -1,7 +1,7 @@
 ---
 id: ory-get-permission-config
 title: ory get permission-config
-description: ory get permission-config Get an Ory Cloud project's permission configuration
+description: ory get permission-config Get an Ory Permissions configuration
 ---
 
 <!--
@@ -11,11 +11,11 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory get permission-config
 
-Get an Ory Cloud project's permission configuration
+Get an Ory Permissions configuration
 
 ### Synopsis
 
-Get an Ory Cloud or Ory Keto project's permission configuration.
+Get an Ory Permissions permission configuration.
 
 ```
 ory get permission-config <project-id> [flags]
@@ -49,7 +49,7 @@ $ ory get keto-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
 ```

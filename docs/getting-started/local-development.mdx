@@ -1,6 +1,6 @@
 ---
 id: local-development
-title: Local development for Ory Cloud
+title: Local development with The Ory Network
 ---
 
 As explained in the Ory Security Model description, Ory APIs must be available on the same domain as your application to allow
@@ -9,16 +9,16 @@ communication between the systems. When developing locally, your application is 
 The easiest way to achieve that is by using the [Ory Tunnel](../guides/cli/20_proxy-and-tunnel.mdx). Ory Tunnel is a tool that is
 a part of the [Ory CLI](../guides/cli/01_installation.mdx).
 
-Copy the Ory Cloud project slug from your project's [Connect page](https://console.ory.sh/projects/current/connect) and start the
-Ory Tunnel:
+Copy the project slug from your project's [Connect page](https://console.ory.sh/projects/current/connect) and start the Ory
+Tunnel:
 
 ```shell
 ory tunnel --project <your-slug> --dev http://localhost:3000
 ```
 
-Running this commands opens the `4000` port on your local machine. This address is connected to your Ory Cloud project and its
-APIs. The value passed in the `--dev` flag must point to the host and port of the application you develop locally. In the example,
-the application runs On `http://localhost:3000`.
+Running this commands opens the `4000` port on your local machine. This address is connected to your project and its APIs. The
+value passed in the `--dev` flag must point to the host and port of the application you develop locally. In the example, the
+application runs On `http://localhost:3000`.
 
 :::tip
 

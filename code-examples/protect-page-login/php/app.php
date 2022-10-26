@@ -31,7 +31,7 @@
           echo '
 <html lang="en">
 <head>
-    <title>Ory Cloud secured Go web app</title>
+    <title>Ory Network secured Go web app</title>
 </head>
 <body>
     <h1>Dashboard</h1>

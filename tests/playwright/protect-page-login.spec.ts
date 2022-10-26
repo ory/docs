@@ -1,6 +1,4 @@
-// Copyright © 2022 Ory Corp
-
-import { test, expect, Page } from "@playwright/test"
+import { expect, Page, test } from "@playwright/test"
 import { randomEmail, randomString } from "./helpers"
 
 const login = async (page: Page) => {
@@ -17,16 +15,16 @@ test.describe("protect-page-login", () => {
     { url: "http://localhost:3002/", name: "express.js" },
     { url: "http://localhost:3003/", name: "go" },
     { url: "http://localhost:3004/", name: "php" },
-    { url: "http://localhost:3005/", name: "flutter_web_redirect" },
+    { url: "http://localhost:4005/", name: "flutter_web_redirect" },
   ]) {
     test.describe(app.name, async () => {
       test("able to use login and sign up", async ({ page }) => {
         await page.goto(app.url, { waitUntil: "networkidle" })
 
-        await expect(page).toHaveURL(/.*\/\.ory\/ui\/login.*/)
+        await expect(page).toHaveURL(/.*\/ui\/login.*/)
 
-        await page.click('[data-testid="cta-link"]')
-        await expect(page).toHaveURL(/.*\/\.ory\/ui\/registration.*/)
+        await page.click('[data-testid="signup-link"]')
+        await expect(page).toHaveURL(/.*\/ui\/registration.*/)
 
         const email = await login(page)
 
@@ -80,7 +78,7 @@ test.describe("React Single Page App", () => {
   test("able to use Sign in and Login", async ({ page }) => {
     await page.goto("http://localhost:4008/")
     await page.waitForLoadState("networkidle")
-    await page.click('[data-testid="cta-link"]')
+    await page.click('[data-testid="signup-link"]')
     await expect(page).toHaveURL(/.*\/ui\/registration.*/)
 
     const email = await login(page)

@@ -37,7 +37,7 @@ ory delete jwk <id-1> [<id-2> ...] [flags]
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
       --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.

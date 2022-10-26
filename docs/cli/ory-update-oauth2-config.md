@@ -1,7 +1,7 @@
 ---
 id: ory-update-oauth2-config
 title: ory update oauth2-config
-description: ory update oauth2-config Update Ory Cloud project's OAuth2 service configuration
+description: ory update oauth2-config Update Ory OAuth2 & OpenID configuration
 ---
 
 <!--
@@ -11,11 +11,11 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory update oauth2-config
 
-Update Ory Cloud project's OAuth2 service configuration
+Update Ory OAuth2 & OpenID configuration
 
 ### Synopsis
 
-Updates your Ory Cloud project's OAuth2 service configuration. All values
+Updates your Ory OAuth2 & OpenID configuration. All values
 of the OAuth2 service will be overwritten. To update individual settings use the `patch` command instead.
 
 Compared to the `update project` command, this command only updates the OAuth2 service configuration
@@ -83,7 +83,7 @@ oauth2:
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
 ```

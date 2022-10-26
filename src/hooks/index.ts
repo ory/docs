@@ -46,13 +46,13 @@ export function getSdkUrl() {
 
   const hint = project
     ? ""
-    : `# This is a public Ory Cloud Project.
+    : `# This is a public Ory Network Project.
 # Don’t submit any personally identifiable information in requests made with this project.
-# Sign up for Ory Cloud at
+# Sign up to Ory Network at
 #
 #   https://console.ory.sh/registration
 #
-# and create a free Ory Cloud Project to see your own configuration embedded in code samples.
+# and create a free Ory Network Project to see your own configuration embedded in code samples.
 `
   return {
     hint,

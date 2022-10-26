@@ -1,30 +1,30 @@
 ---
 id: identity-cli
-title: Configure Identity Service
+title: Configure Ory Identities
 ---
 
-Using the Ory CLI, you can quickly adjust the configuration of the Ory Cloud Identity Service and apply config from the Cloud
-environment to self-hosted Ory Kratos instances.
+Using the Ory CLI, you can quickly adjust the configuration of the Ory Identities and apply config from the Ory Network
+environment to self-hosted Ory Kratos Identity Server instances.
 
 :::tip
 
-Ory Kratos is the open-source project that powers the Ory Cloud Identity Service.
+Ory Kratos is the open-source project that powers the Ory Identities.
 
 :::
 
-This feature is useful for fluently moving your local setup to the Cloud, or for working on the configuration and testing
+This feature is useful for fluently moving your local setup to the cloud, or for working on the configuration and testing
 different settings in the safety of the local development environment.
 
-To work with the Ory Cloud Identity Service, you must have an active Ory Cloud project. Use the
-[CLI](./config-with-cli#create-ory-cloud-project) or the [Ory Console](https://console.ory.sh/) to create one.
+To work with the Ory Identities, you must have an active project. Use the [CLI](./config-with-cli#create-ory-cloud-project) or the
+[Ory Console](https://console.ory.sh/) to create one.
 
-## Export configuration from Ory Cloud
+## Export configuration from The Ory Network
 
-To get your project's Identity Service configuration, run this command:
+To get your project's Ory Identities configuration, run this command:
 
 :::info
 
-You must be signed in to an Ory Cloud account to perform this action. Read
+You must be signed in to an Ory Network account to perform this action. Read
 [this document](./cli-basics#use-cli-with-existing-cloud-account) to learn more.
 
 :::
@@ -43,7 +43,7 @@ Getting the configuration in the YAML format produces output that is ready to us
 
 ### Export to file
 
-For a convenient way to get the Identity Service configuration working in self-hosted Ory Kratos, save the configuration to a YAML
+For a convenient way to get the Ory Identities configuration working in self-hosted Ory Kratos, save the configuration to a YAML
 file.
 
 Run this command:
@@ -52,10 +52,10 @@ Run this command:
 ory get identity-config <project-id> --format yaml > identity-config.yaml
 ```
 
-## Import Configuration to Ory Cloud
+## Import configuration to The Ory Network
 
-To start using the configuration from a self-hosted Ory Kratos instance in the Ory Cloud Identity Service, import the
-configuration file with the CLI:
+To start using the configuration from a self-hosted Ory Kratos instance in Ory Identities, import the configuration file with the
+CLI:
 
 ```shell
 ory update identity-config <project-id> --file config.yaml

@@ -16,15 +16,15 @@ import SelfHostedKratos from '@site/src/components/SelfHostedKratos'
 <Tabs
   defaultValue="cloud"
   values={[
-    {label: 'Ory Cloud', value: 'cloud'},
+    {label: 'The Ory Network', value: 'cloud'},
     {label: 'Self-Hosted Ory Kratos', value: 'kratos'},
   ]}>
   <TabItem value="cloud">
 
 ```shell
-curl --request POST -sL \\
-  --header "Authorization: Bearer ory_pat_xRKLsFEOUFQFVBjd6o3FQDifaLYhabGd" \\
-  --header "Content-Type: application/json" \\
+curl --request POST -sL \
+  --header "Authorization: Bearer ory_pat_xRKLsFEOUFQFVBjd6o3FQDifaLYhabGd" \
+  --header "Content-Type: application/json" \
   --data '{
   "schema_id": "preset://email",
   "traits": {
@@ -39,8 +39,8 @@ curl --request POST -sL \\
     <p>And use it to create an identity:</p>
 
 ```shell
-curl --request POST -sL \\
-  --header "Content-Type: application/json" \\
+curl --request POST -sL \
+  --header "Content-Type: application/json" \
   --data '{
   "schema_id": "preset://email",
   "traits": {

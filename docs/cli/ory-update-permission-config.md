@@ -1,7 +1,7 @@
 ---
 id: ory-update-permission-config
 title: ory update permission-config
-description: ory update permission-config Update Ory Cloud project's permission service configuration
+description: ory update permission-config Update Ory Permissions configuration
 ---
 
 <!--
@@ -11,11 +11,11 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory update permission-config
 
-Update Ory Cloud project's permission service configuration
+Update Ory Permissions configuration
 
 ### Synopsis
 
-Updates your Ory Cloud project's permission service configuration. All values
+Updates your Ory Permissions configuration. All values
 of the permission service will be overwritten. To update individual settings use the `patch` command instead.
 
 Compared to the `update project` command, this command only updates the permission service configuration
@@ -83,7 +83,7 @@ namespaces:
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
 ```

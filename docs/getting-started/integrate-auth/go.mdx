@@ -70,7 +70,7 @@ authenticated.
 The middleware passes the current `request` cookies to the Ory client to check if the session is valid.
 
 If the session is valid, the user is presented with the protected page. When the session is not valid, which means that the user
-is not authenticated or the session expired, the request is redirected for login using the Ory Managed UI.
+is not authenticated or the session expired, the request is redirected for login using the Ory Account Experience.
 
 To create the middleware, add the code to the `middleware.go` file:
 
@@ -111,7 +111,7 @@ With all of the pieces in place, it's time to test your application. Follow thes
 ```
 
 2. Export the SDK configuration URL for the desired Ory project. You can use the provided playground project for testing, or
-   export the SDK URL of your own Ory Cloud project.
+   export the SDK URL of your own project.
 
 :::info
 

@@ -8,7 +8,7 @@ toc_max_heading_level: 4
 The Generic Provider option allows you to add any OpenID Connect Certified provider that doesn't require custom API calls to get
 the required user information.
 
-[Ory Hydra](https://www.ory.sh/hydra) is such a provider.
+[Ory OAuth2 & OpenID Connect](https://www.ory.sh/hydra) is such a provider.
 
 :::tip
 
@@ -23,11 +23,11 @@ To add a social sign-in provider, you need these details:
 - Client Secret
 - Issuer URL - OpenID Connect server URL used by the provider to issue tokens
 
-## Configuration in Ory Cloud Console
+## Configuration in Ory Console
 
 To add a Generic Provider, follow these steps:
 
-1. Sign in to Ory Cloud Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
+1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
 2. Click the **Add A Generic Provider** button.
 3. Define the **Provider name**. This name is used for identification purposes only.
 4. Paste the configuration details obtained from your social sign-in provider into the corresponding fields in the Console:
@@ -72,12 +72,12 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
 
 ## Configuration using the Ory CLI
 
-Follow these steps to add a generic provider as a social sign-in provider to your Ory Cloud project using the Ory CLI:
+Follow these steps to add a generic provider as a social sign-in provider to your project using the Ory CLI:
 
 1. Create a client at your generic provider to get a Client ID and Client Secret.
 2. Create a [Jsonnet code snippet](#data-mapping) to map the desired claims to the Ory Identity schema.
-3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Cloud.
-4. Download the Identity Service config from your Ory Cloud project and save it to a file:
+3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to The Ory Network.
+4. Download the Ory Identities config from your project and save it to a file:
 
    ```shell
    ## List all available projects
@@ -110,7 +110,7 @@ Follow these steps to add a generic provider as a social sign-in provider to you
          enabled: true
    ```
 
-6. Update the Ory Identity Service (Ory Kratos) configuration using the file you worked with:
+6. Update the Ory Identities (Ory Kratos) configuration using the file you worked with:
 
    ```shell
    ory update identity-config <project-id> --file updated_config.yaml

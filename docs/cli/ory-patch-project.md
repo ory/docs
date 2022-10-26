@@ -1,7 +1,7 @@
 ---
 id: ory-patch-project
 title: ory patch project
-description: ory patch project Patch an Ory Cloud project
+description: ory patch project Patch an Ory Network project
 ---
 
 <!--
@@ -11,11 +11,11 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory patch project
 
-Patch an Ory Cloud project
+Patch an Ory Network project
 
 ### Synopsis
 
-Patches your Ory Cloud project's service configuration. Only values
+Patches your Ory Network project's service configuration. Only values
 specified in the patch will be overwritten. To replace the config use the `update` command instead.
 
 The format of the patch is a JSON-Patch document. For more details please check:
@@ -58,7 +58,7 @@ ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
 ```
 
 ### SEE ALSO

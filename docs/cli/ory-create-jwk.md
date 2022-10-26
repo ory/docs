@@ -35,7 +35,7 @@ ory create jwk <set-id> [<key-id>] [flags]
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
       --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
@@ -43,5 +43,5 @@ ory create jwk <set-id> [<key-id>] [flags]
 
 ### SEE ALSO
 
-* [ory create](ory-create)	 - Create Ory Cloud resources
+* [ory create](ory-create)	 - Create Ory Network resources
 

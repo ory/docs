@@ -137,7 +137,7 @@ router.post("/login", csrfProtection, (req, res, next) => {
   const challenge = req.body.challenge
 
   // Let's check if the user provided valid credentials. Of course, you'd use a database or some third-party service
-  // for this! Alternatively, you can also use Ory Kratos:
+  // for this! Alternatively, you can also use Ory Identities:
   //
   //      https://www.ory.sh/kratos
   if (!(req.body.email === "foo@bar.com" && req.body.password === "foobar")) {

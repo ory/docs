@@ -1,7 +1,7 @@
 ---
 id: ory-parse
 title: ory parse
-description: ory parse Parse Ory Cloud resources
+description: ory parse Parse Ory Network resources
 ---
 
 <!--
@@ -11,12 +11,12 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory parse
 
-Parse Ory Cloud resources
+Parse Ory Network resources
 
 ### Options
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
       --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
   -h, --help            help for parse
   -q, --quiet           Be quiet with output printing.
