@@ -4,29 +4,40 @@ title: Define global permission rules using the Ory Permission Language
 sidebar_label: Using the Ory Permission Language
 ---
 
+```mdx-code-block
 import CodeFromRemote from "@theme/CodeFromRemote"
+import BrowserWindow from "@site/src/theme/BrowserWindow"
 const file = (path) => `https://github.com/ory/keto/blob/master/contrib/rewrites-example/${path}`
+```
 
 This guide explains how to configure namespaces and relationship rules using the
-[Ory Permission Language](../reference/ory-permission-language) (OPL). You can then run fine-grained checks against Ory Keto,
-which are answered based on a combination of OPL and the concrete high-level relationships stored.
+[Ory Permission Language](../reference/ory-permission-language) (OPL). You can then run fine-grained checks against Ory
+Permissions, which are answered based on a combination of OPL and the concrete high-level relationships stored.
 
 The example describes a file store. Individual files are organized in a folder hierarchy, and can be accessed by individual users
 or groups of users. Using the Ory Permission Language you can specify that if a user has access to a folder, the user also has
 access to all files in that folder.
 
-## Ory Network Setup
+## Ory Network setup
 
 The fastest way to get started with Ory Permissions is using [Ory Console](https://console.ory.sh/). You can register for an Ory
 Network account for free.
 
-After logging in, navigate to `Namespaces & Rules` in the sidebar, and to the `Permisson Rules` tab.
+In the Ory Console, select **Namespaces & Rules** from the navigation bar and switch to the **Permission Rules** tab.
+
+```mdx-code-block
+<BrowserWindow url="https://console.ory.sh/projects/3afd6339-b999-4649-a2f6-740736775f80/permissions/configuration">
 
 ![Custom Domain Cors disabled](../_static/opl_editor.png)
 
+</BrowserWindow>
+```
+
 Into the editor, paste the following content:
 
+```mdx-code-block
 <CodeFromRemote src={file("namespaces.keto.ts")} title="namespaces.keto.ts" />
+```
 
 :::info
 
@@ -34,7 +45,7 @@ The editor offers autocompletion for the Ory Permission Language.
 
 :::
 
-### Connecting to the Ory Permission Language via CLI
+### Connecting to the Ory Network via CLI
 
 Next, you need to connect to the Ory Network using the Keto CLI. First, [install Keto](../install.mdx). To authenticate, navigate
 to `Access & APIs` in the Ory Console and create a Personal Access Token. This, together with the subdomain from the SDK
@@ -59,7 +70,9 @@ in the hierarchy.
 
 You can create additional fine-grained permission rules for certain objects, similar to the "private" file.
 
+```mdx-code-block
 <CodeFromRemote src={file("relation-tuples/tuples.json")} title="tuples.json" />
+```
 
 To load the file into Ory Keto, run this command:
 
@@ -114,10 +127,12 @@ Allowed
 
 ## (Optional) Local Setup and Configuration
 
-If you do not want to use the Ory Console you need to [install Keto](../install.mdx) locally. Next, create a `keto.yaml` file with
-this basic content:
+If you do not want to use Ory Permissions you need to [install Ory Keto](../install.mdx) locally. Next, create a `keto.yaml` file
+with this basic content:
 
+```mdx-code-block
 <CodeFromRemote src={file("keto.yaml")} title="keto.yaml" />
+```
 
 In the `namespaces` key, you see the line `config: file://./namespaces.keto.ts`. This needs to point to your namespace
 configuration in the Ory Permission Language.
@@ -136,7 +151,9 @@ Next, create a file with the same namespace configuration as above.
 If you are using a text editor with TypeScript support, you can get extra help when using the Ory Permission Language. Make sure
 to run `npm i @ory/keto-namespaces-types` and add a `tsconfig.json` file with the content:
 
+```mdx-code-block
 <CodeFromRemote src={file("tsconfig.json")} title="tsconfig.json" />
+```
 
 :::
 
