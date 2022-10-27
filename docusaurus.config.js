@@ -202,6 +202,21 @@ module.exports = {
       },
     ],
   ],
+  presets: [
+    [
+      'redocusaurus',
+      {
+        specs: [
+          {
+            id: 'ory-network-api',
+            spec: 'docs/reference/api.json',
+          },
+        ],
+        theme: {
+        },
+      },
+    ]
+  ],
   themes: [
     [
       "@docusaurus/theme-classic",
