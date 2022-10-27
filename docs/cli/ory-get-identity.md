@@ -28,7 +28,7 @@ ory get identity [id-1] [id-2] [id-n] [flags]
 ```
 To get the identities with the recovery email address at the domain "ory.sh", run:
 
-	ory get identity $(ory ls identities --format json | jq -r 'map(select(.recovery_addresses[].value | endswith("@ory.sh"))) | .[].id')
+	{{ .CommandPath }} $({{ .Root.Name }} ls identities --format json | jq -r 'map(select(.recovery_addresses[].value | endswith("@ory.sh"))) | .[].id')
 ```
 
 ### Options
@@ -43,7 +43,7 @@ To get the identities with the recovery email address at the domain "ory.sh", ru
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
 ```

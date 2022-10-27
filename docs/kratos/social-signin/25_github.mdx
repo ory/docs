@@ -5,11 +5,11 @@ sidebar_label: GitHub
 toc_max_heading_level: 4
 ---
 
-## Configuration in Ory Cloud Console
+## Configuration in Ory Console
 
-Follow these steps to add GitHub as a social sign-in provider for your for your Ory Cloud project using the Ory Cloud Console.
+Follow these steps to add GitHub as a social sign-in provider for your for your project using the Ory Console.
 
-1. Sign in to Ory Cloud Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
+1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
 2. Click the switch next to the GitHub logo to start the configuration.
 3. Copy the Redirect URI and save it for later use.
 4. Create an OAuth2 app in GitHub. Open a new browser tab, go to
@@ -17,8 +17,8 @@ Follow these steps to add GitHub as a social sign-in provider for your for your 
 
    :::info
 
-   Currently, the Ory Cloud Console allows you to integrate with GitHub through a GitHub OAuth App. If you want to create an
-   integration through a
+   Currently, the Ory Console allows you to integrate with GitHub through a GitHub OAuth App. If you want to create an integration
+   through a
    [GitHub App](https://docs.github.com/en/developers/apps/getting-started-with-apps/differences-between-github-apps-and-oauth-apps),
    use the Ory CLI. For more information read [these instructions](#configuration-using-the-ory-cli).
 
@@ -27,9 +27,9 @@ Follow these steps to add GitHub as a social sign-in provider for your for your 
 5. Paste the Redirect URI copied from Ory into the **Authorization Callback URL** field in GitHub and fill in other required app
    details.
 6. Click the **Register application** button.
-7. Copy the Client ID of the registered application and paste it into the corresponding field in Ory Cloud Console.
+7. Copy the Client ID of the registered application and paste it into the corresponding field in Ory Console.
 8. In GitHub, click **Generate a new client secret**, copy the generated string, and paste it into the corresponding field in Ory
-   Cloud Console.
+   Console.
 9. Click **Save Configuration** to enable the social sign-in provider.
 
 :::note
@@ -56,16 +56,17 @@ For GitHub, add the `user:email` scope for a basic setup.
 To learn more about the scopes available for GitHub, read the
 [related documentation](https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps).
 
-#### Data Mapping
+#### Data mapping
 
-The Data Mapping section allows you to map the data returned by the sign-in provider to traits as defined in the identity schema.
+The **Data mapping** section allows you to map the data returned by the sign-in provider to traits as defined in the identity
+schema.
 
 To define the mapping, create a Jsonnet code snippet. Read [this document](./data-mapping) to learn more about Jsonnet data
 mapping.
 
 :::info
 
-GitHub doesn't implement OpenID Connect. Because of this limitation, Ory Kratos makes a request to
+GitHub doesn't implement OpenID Connect. Because of this limitation, Ory Identities makes a request to
 [GitHub's User API](https://developer.github.com/v3/users/#get-the-authenticated-user) and adds the user data to
 `std.extVar('claims')`. Learn what data is available by reading the
 [GitHub Scopes documentation](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). Not all
@@ -103,12 +104,12 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
 
 ## Configuration using the Ory CLI
 
-Follow these steps to add GitHub as a social sign-in provider to your Ory Cloud project using the Ory CLI:
+Follow these steps to add GitHub as a social sign-in provider to your project using the Ory CLI:
 
 1. [Create a GitHub OAuth app or a GitHub App](#configuration-in-ory-cloud-console).
 2. Create a [Jsonnet code snippet](#data-mapping) to map the desired claims to the Ory Identity schema.
-3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Cloud.
-4. Download the Identity Service config from your Ory Cloud project and save it to a file:
+3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to The Ory Network.
+4. Download the Ory Identities config from your project and save it to a file:
 
    ```shell
    ## List all available projects
@@ -139,7 +140,7 @@ Follow these steps to add GitHub as a social sign-in provider to your Ory Cloud 
          enabled: true
    ```
 
-6. Update the Ory Identity Service (Ory Kratos) configuration using the file you worked with:
+6. Update the Ory Identities (Ory Kratos) configuration using the file you worked with:
 
    ```shell
    ory update identity-config <project-id> --file updated_config.yaml

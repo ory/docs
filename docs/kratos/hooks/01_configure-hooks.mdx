@@ -5,7 +5,7 @@ sidebar_label: Configuration
 toc_max_heading_level: 4
 ---
 
-Ory Identity Service (Kratos) allows you to enrich self-service user flows by executing additional logic at specific points of the
+Ory Identities (Kratos) allows you to enrich self-service user flows by executing additional logic at specific points of the
 selected flow. This includes calling external services, for example, Mailchimp, Segment, HubSpot, or Zapier. You enrich the flows
 through hooks.
 
@@ -66,11 +66,11 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs groupId="wherehosted">
-  <TabItem value="cloud" label="Ory Cloud" default>
+  <TabItem value="cloud" label="The Ory Network" default>
 
 To add hooks to flows:
 
-1. Get the Identity Service config with Ory CLI:
+1. Get the Ory Identities config with Ory CLI:
 
    ```shell
    ## List all available projects
@@ -81,7 +81,7 @@ To add hooks to flows:
    ```
 
 2. Add the hook configuration to the downloaded file.
-3. Update the Ory Cloud Identity Service configuration using the file you worked with:
+3. Update the Ory Identities configuration using the file you worked with:
 
    ```shell
    ory update identity-config <project-id> --file updated_config.yaml
@@ -219,7 +219,7 @@ To configure webhooks, use this pattern:
 
 ````mdx-code-block
 <Tabs groupId="wherehosted">
-  <TabItem value="cloud" label="Ory Cloud" default>
+  <TabItem value="cloud" label="The Ory Network" default>
 
 ```yaml
 selfservice:

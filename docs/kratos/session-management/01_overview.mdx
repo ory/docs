@@ -227,7 +227,7 @@ Sessions are not issued as JWTs for two main reasons:
 2. Ory Sessions can be updated and changed at any point in time (for example when the user updates their profile), which can't be
    easily reflected in a JWT before it is refreshed.
 
-We are taking many steps to reduce the latency of `toSession` / `/sessions/whoami` endpoints across the globe for Ory Cloud, so
+We are taking many steps to reduce the latency of `toSession` / `/sessions/whoami` endpoints across the globe for Ory Network, so
 that latency is not an issue for users.
 
 However, if you don't want to make repeated calls to `toSession` / `/sessions/whoami`, or you need to use JWTs in your setup, you

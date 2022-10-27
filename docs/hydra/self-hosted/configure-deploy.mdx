@@ -7,7 +7,7 @@ The goal of this chapter is to introduce you to a fully functional set up that i
 Consent Provider reference implementation.
 
 The goal of this section is to familiarize you with the specifics of setting up Ory Hydra in your environment. Before starting
-with this section, please check out the [tutorial](5min-tutorial). It will teach you the most important flows and settings for
+with this section, please check out the [tutorial](../5min-tutorial). It will teach you the most important flows and settings for
 Hydra.
 
 This guide will:
@@ -144,7 +144,7 @@ provider.
 :::note
 
 We only used environmental variables to configure Ory Hydra in this example. If you use a
-[configuration file](reference/configuration.mdx) instead, remember to mount it in the container. For example:
+[configuration file](../reference/configuration) instead, remember to mount it in the container. For example:
 
 ```sh
 docker run -d \
@@ -294,7 +294,7 @@ If your browser doesn't open automatically, navigate to:
 open the link, as prompted, in your browser, and follow the steps shown there. You might encounter a screen like the following
 one:
 
-![Allow connecting with self-signed TLS Certificate](images/insecure-connection.png)
+![Allow connecting with self-signed TLS Certificate](../images/insecure-connection.png)
 
 This happens because we run Ory Hydra with a self-signed TLS certificate. In production deployments, you would probably use a
 certificate signed by a trusted CA and not see this screen.
@@ -304,4 +304,4 @@ it's always possible to proceed.
 
 When completed, you should land at a screen that looks like this one:
 
-![OAuth 2.0 access and refresh token in the result page](images/install-result.png)
+![OAuth 2.0 access and refresh token in the result page](../images/install-result.png)

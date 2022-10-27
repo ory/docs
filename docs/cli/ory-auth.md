@@ -1,7 +1,7 @@
 ---
 id: ory-auth
 title: ory auth
-description: ory auth Create an or sign into your Ory Cloud account
+description: ory auth Create an or sign into your Ory Network account
 ---
 
 <!--
@@ -11,7 +11,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory auth
 
-Create an or sign into your Ory Cloud account
+Create an or sign into your Ory Network account
 
 ```
 ory auth [flags]
@@ -20,7 +20,7 @@ ory auth [flags]
 ### Options
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
       --format string   Set the output format. One of table, json, yaml, and json-pretty. (default "default")
   -h, --help            help for auth
   -q, --quiet           Be quiet with output printing.

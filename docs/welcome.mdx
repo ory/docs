@@ -7,21 +7,24 @@ sidebar_label: Welcome
 Ory is a software infrastructure provider building a global zero-trust network for humans, robots, devices, and software services.
 Ory develops open-source software on [GitHub](https://github.com/ory) and publishes open standards such as the
 [Ory Permission Language](https://github.com/ory/keto/blob/master/docs/ory_permission_language_spec.md).
-[Ory Cloud](https://console.ory.sh/) uses cloud-native open-source technologies (Kubernetes, Crossplane, Cockroach, Linux, Istio,
+[The Ory Network](https://console.ory.sh/) uses cloud-native open-source technologies (Kubernetes, Crossplane, Cockroach, Linux,
 Ory) and standards (OAuth 2.0/2.1, OpenID Connect, MITREid, WebAuthn, TOTP, FIDO3) to deliver a low-latency, planet-scale
 zero-trust infrastructure. Ory combines centuries of open-source, security, operational, and industry expertise with a
 user-centric and security-first mindset.
 
-[Ory Cloud](https://console.ory.sh)'s core infrastructure components are open source to foster collaboration, reduce supply chain
-risk, broaden access to secure services, and introduce the open standard for internet security. Being open source Ory improves the
-safety of everyone:
+Core infrastructure components of [The Ory Network](https://console.ory.sh) are open source to foster collaboration, reduce supply
+chain risk, broaden access to secure services, and introduce the open standard for internet security. Being open source Ory
+improves the safety of everyone:
 
-- The Ory Identity Service is developed as an open-source project called [Ory Kratos](https://github.com/ory/kratos), introducing
-  a new open standard for identity management.
-- The Ory OAuth2 & OpenID Connect Service is developed as an open-source project called [Ory Hydra](https://github.com/ory/hydra),
-  implementing 15+ IETF and OpenID standards.
-- The Ory Permission Service is developed as an open-source project called [Ory Keto](https://github.com/ory/keto), implementing
-  _[Zanzibar: Google’s Consistent, Global Authorization System](https://research.google/pubs/pub48190/)_ by Google.
+- Ory Identities offers a secure and modern central identity management solution with MFA, paswordless, WebAuthn, and more. It is
+  based on the open-source [Ory Kratos Identity Server](https://github.com/ory/kratos).
+- Ory OAuth2 & OpenID Connect implements 15+ IETF and OpenID standards to facilitate single-sign on, delegation and API access
+  authorization. It is based on the open-source [Ory Hydra Federation Server](https://github.com/ory/hydra). implementing 15+ IETF
+  and OpenID standards.
+- Ory Permissions is a low-latency, high-performance, relationship-based authorization system that enables fine-grained access
+  control (incl. RBAC and ABAC models) in any application. It is based on the open-source
+  [Ory Keto Permission Server](https://github.com/ory/keto), which implements
+  [Zanzibar: Google’s Consistent, Global Authorization System](https://research.google/pubs/pub48190/).
 
 Ory develops and maintains many additional open-source projects. From an Ory Zero Trust Identity & Access Proxy
 [Ory Oathkeeper](https://github.com/ory/oathkeeper) to developer tooling [Ory Dockertest](https://github.com/ory/dockertest) to
@@ -47,33 +50,33 @@ Ory differentiates from other vendors in the following key areas:
 - Zero Trust Networking.
 - Modern API design with partial support for gRPC.
 
-## Ory Cloud
+## The Ory Network
 
-Ory Cloud is the commercial offering of Ory and is built on top of our popular open-source software. Our goal with Ory Cloud is to
-offer a planet-scale, low-latency, resilient, and secure service that's easy to use and set up.
+The Ory Network is the commercial offering of Ory and is built on top of our popular open-source software. Our goal with The Ory
+Network is to offer a planet-scale, low-latency, resilient, and secure service that's easy to use and set up.
 
-In short: Ory Cloud is the most convenient and straightforward way to run Ory. Sign up at
+In short: The Ory Network is the most convenient and straightforward way to run Ory. Sign up at
 [console.ory.sh](https://console.ory.sh/registration) for an account and create a free developer project.
 
 ### Components
 
-Ory Cloud uses a variety of components - some are based on open-source projects and others are closed source.
+The Ory Network uses a variety of components - some are based on open-source projects and others are closed source.
 
-### Console
+### Ory Console
 
-The Ory Console is the management UI of Ory Cloud. It offers capabilities such as showing and searching for identities, managing
+Ory Console is the management UI of The Ory Network. It offers capabilities such as showing and searching for identities, managing
 user sessions, and gaining valuable insights in the form of dashboards and customization.
 
-### Managed UI
+### Ory Account Experience
 
-The Managed UI implements screens such as login, registration, account recovery, account setting, and account verification. This
-allows for fast adoption of Ory.
+Ory Account Experience implements screens such as login, registration, account recovery, account setting, and account
+verification. This allows for fast adoption of Ory.
 
 Contrary to other vendors, Ory allows you to implement your own (login, registration, ...) UI by offering simple, headless APIs.
 
 ### Identity & session services
 
-Ory Cloud incorporates the open-source [Ory Kratos](https://www.ory.sh/kratos) project and offers:
+The Ory Network incorporates the open-source [Ory Kratos Identity Server](https://www.ory.sh/kratos) project and offers:
 
 - **Self-service** flows are everything users do on their own / without the help of others:
 - Registration with passwords, social sign in, OpenID Connect, ...
@@ -89,7 +92,7 @@ Ory Cloud incorporates the open-source [Ory Kratos](https://www.ory.sh/kratos) p
 
 ### Permission services
 
-Ory Cloud incorporates the open-source [Ory Keto](https://www.ory.sh/keto) project and offers:
+The Ory Network incorporates the open-source [Ory Keto Permission Server](https://www.ory.sh/keto) project and offers:
 
 - **Permission management** to get, create, update, and delete permissions.
 - **Permission checking** to check if a user has a permission.
@@ -104,16 +107,17 @@ Head over to the [Ory Open Source Overview](./open-source.mdx) for an introducti
 
 ### Is open source taking a back seat?
 
-**No!** Ory Cloud is our commercial offering with which we generate revenue to build more open source and more features in Ory
-Cloud. Our value proposition and vision for Ory Cloud is to incorporate and advance the open-source ecosystem and add additional
-services which aren't possible to open source (for example Analytics, SLAs, SRE, Low-Latency).
+**No!** The Ory Network is our commercial offering with which we generate revenue to build more open source and more features in
+Ory Network. Our value proposition and vision for The Ory Network is to incorporate and advance the open-source ecosystem and add
+additional services which aren't possible to open source (for example analytics, SLAs, SRE, low-latency).
 
-Ory Cloud and our open-source software are interlinked. While we've made some modifications to the open source to make it work
-better in our multi-tenant environment and operational (SRE) model, we're using the same code base, APIs, features, and
-configurations for Ory Cloud.
+The Ory Network and our open-source software are interlinked. While we've made some modifications to the open source to make it
+work better in our multi-tenant environment and operational (SRE) model, we're using the same code base, APIs, features, and
+configurations for The Ory Network.
 
 In the future, we will increase our open-source footprint, make the projects easier to modify, use, access, and distribute. The
-only impact Ory Cloud will have is that it will accelerate development and enable us to spend more resources on the open source!
+only impact The Ory Network will have is that it will accelerate development and enable us to spend more resources on the open
+source!
 
 ## New to Ory ?
 
@@ -129,17 +133,17 @@ only impact Ory Cloud will have is that it will accelerate development and enabl
 
 Don't want to deal with Docker, Kubernetes, and securing your API?
 
-- [Sign up](https://console.ory.sh/registration) for a free Developer account in Ory Cloud.
+- [Sign up](https://console.ory.sh/registration) for a free Developer account in The Ory Network.
 
 ## Example applications
 
 - [Add Authentication to your Next.js/React Single Page Application (SPA)](https://www.ory.sh/login-spa-react-nextjs-authentication-example-api-open-source/)
 - [Add Custom Login, Registration, User Settings to Your Next.js/React Single Page Application (SPA) ](https://www.ory.sh/nextjs-authentication-spa-custom-flows-open-source/)
 - [Run your own OAuth2 Server ](https://www.ory.sh/run-oauth2-server-open-source-api-security/)
-- E-Commerce with Ory Cloud: [Part 1: Backend](https://www.ory.sh/cloud-ecommerce-backend/) &
+- E-Commerce with The Ory Network: [Part 1: Backend](https://www.ory.sh/cloud-ecommerce-backend/) &
   [Part 2: Frontend](https://www.ory.sh/cloud-ecommerce-frontend/)
-- The best way to run Ory: Learn about [Ory Cloud Projects](https://www.ory.sh/docs/concepts/project) and
-  [Ory Cloud Services & APIs](https://www.ory.sh/docs/concepts/services-api)
+- The best way to use Ory: learn about [projects](https://www.ory.sh/docs/concepts/project) and
+  [Ory Network Services & APIs](https://www.ory.sh/docs/concepts/services-api)
 
 ### Explore Ory
 
@@ -154,8 +158,8 @@ Don't want to deal with Docker, Kubernetes, and securing your API?
 
 - [Ory Hydra 5 Minute Tutorial](https://www.youtube.com/watch?v=tlO9p2E501A)
 - [Ory Kratos Quickstart](https://www.youtube.com/watch?v=JhlIZ3aChXc)
-- [Ory Cloud Frontend Example](https://www.youtube.com/watch?v=VKLXbrZS7tU)
-- [Ory Cloud Backend Example](https://www.youtube.com/watch?v=umSRQBVdPjM)
+- [The Ory Network Frontend Example](https://www.youtube.com/watch?v=VKLXbrZS7tU)
+- [The Ory Network Backend Example](https://www.youtube.com/watch?v=umSRQBVdPjM)
 
 **Grok the API**
 

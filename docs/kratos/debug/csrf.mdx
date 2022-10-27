@@ -19,10 +19,10 @@ implemented in Ory Kratos. One of them is protection against CSRF:
 
 To protect against CSRF, several endpoints are protected by Anti-CSRF measures. Typically, endpoints accepting `POST`, `DELETE`,
 `PUT` actions have Anti-CSRF measures. When rendering a form for example, a `<input type="hidden" name="csrf_token" value="...">`
-HTML Input Element is added. Ory Kratos compares that value to the value set in the Anti-CSRF Cookie. If the values match, the
+HTML Input Element is added. Ory Krato compares that value to the value set in the Anti-CSRF Cookie. If the values match, the
 request is allowed.
 
-Ory Kratos uses HTTP Cookies to store login sessions when accessed via a browser.
+Ory Krato uses HTTP Cookies to store login sessions when accessed via a browser.
 
 ## Common pitfalls
 

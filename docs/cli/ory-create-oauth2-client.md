@@ -20,7 +20,7 @@ the Authorize Code, Implicit, Refresh flow. This command allows settings all fie
 
 To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp-key-url` or `--keybase` flag, for example:
 
-  create create client -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
+  {{ .CommandPath }} -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
 
 
 ```
@@ -30,13 +30,13 @@ ory create oauth2-client [flags]
 ### Examples
 
 ```
-create create client -n "my app" -c http://localhost/cb -g authorization_code -r code -a core,foobar
+{{ .CommandPath }} -n "my app" -c http://localhost/cb -g authorization_code -r code -a core,foobar
 
 Use the tool jq (or any other JSON tool) to get the OAuth2 Client ID and and Secret:
 
-client=$(hydra create client \
+client=$({{ .CommandPath }} \
     --format json \
-    ...
+    ...)
 echo $client
 
 # Parse the JSON response using jq to get the client ID and client secret:
@@ -83,7 +83,7 @@ client_secret=$(echo $client | jq -r '.client_secret')
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
       --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
@@ -91,5 +91,5 @@ client_secret=$(echo $client | jq -r '.client_secret')
 
 ### SEE ALSO
 
-* [ory create](ory-create)	 - Create Ory Cloud resources
+* [ory create](ory-create)	 - Create Ory Network resources
 

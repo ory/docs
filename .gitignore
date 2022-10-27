@@ -30,3 +30,4 @@ playwright-report/
 .vercel/
 
 .vercel
+.bin/

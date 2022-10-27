@@ -28,7 +28,7 @@ ory perform authorization-code [flags]
 ### Examples
 
 ```
-ory perform authorization-code --client-id ... --client-secret ...
+{{ .CommandPath }} --client-id ... --client-secret ...
 ```
 
 ### Options
@@ -55,7 +55,7 @@ ory perform authorization-code --client-id ... --client-secret ...
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
 ```

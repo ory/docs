@@ -12,11 +12,11 @@ To add Google as a social sign-in provider, you need a Google Developer account.
 
 :::
 
-## Configuration in Ory Cloud Console
+## Configuration in Ory Console
 
-Follow these steps to add Google as a social sign-in provider for your Ory Cloud project using the Ory Cloud Console.
+Follow these steps to add Google as a social sign-in provider for your project using the Ory Console.
 
-1. Sign in to Ory Cloud Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
+1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
 2. Click the switch next to the Google logo to start the configuration.
 3. Copy the Redirect URI and save it for later use.
 4. Go to [Google Cloud Console → APIs & Services](https://console.cloud.google.com/apis/) to set up OAuth 2.
@@ -30,10 +30,10 @@ Follow these steps to add Google as a social sign-in provider for your Ory Cloud
 
    :::
 
-7. Configure the Google OAuth client. In the **Authorized redirect URIs** section, add the redirect URI copied from the Ory Cloud
+7. Configure the Google OAuth client. In the **Authorized redirect URIs** section, add the redirect URI copied from the Ory
    Console.
 8. Save the configuration and copy the Client ID and Client secret.
-9. Paste the Client ID and Client secret of the created OAuth client into the corresponding fields in the Ory Cloud Console.
+9. Paste the Client ID and Client secret of the created OAuth client into the corresponding fields in the Ory Console.
 10. Click **Save Configuration** to enable Google as a social sign-in provider.
 
 :::note
@@ -60,9 +60,10 @@ For Google, add the `email`, `email_verified`, `given_name`, and `family_name` s
 To learn more about the scopes available for Google, read the
 [related documentation](https://developers.google.com/identity/protocols/oauth2/scopes).
 
-#### Data Mapping
+#### Data mapping
 
-The Data Mapping section allows you to map the data returned by the sign-in provider to traits as defined in the identity schema.
+The **Data mapping** section allows you to map the data returned by the sign-in provider to traits as defined in the identity
+schema.
 
 To define the mapping, create a Jsonnet code snippet. Read [this document](./data-mapping) to learn more about Jsonnet data
 mapping.
@@ -110,12 +111,12 @@ To learn more about the ID payload returned by Google, read the
 
 ## Configuration using the Ory CLI
 
-Follow these steps to add Google as a social sign-in provider to your Ory Cloud project using the Ory CLI:
+Follow these steps to add Google as a social sign-in provider to your project using the Ory CLI:
 
 1. [Create a Google OAuth client](#configuration-in-ory-cloud-console).
 2. Create a [Jsonnet code snippet](#data-mapping) to map the desired claims to the Ory Identity schema.
-3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Cloud.
-4. Download the Identity Service config from your Ory Cloud project and save it to a file:
+3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to The Ory Network.
+4. Download the Ory Identities config from your project and save it to a file:
 
    ```shell
    ## List all available projects
@@ -158,7 +159,7 @@ Follow these steps to add Google as a social sign-in provider to your Ory Cloud 
          enabled: true
    ```
 
-6. Update the Ory Identity Service (Ory Kratos) configuration using the file you worked with:
+6. Update the Ory Identities (Ory Kratos) configuration using the file you worked with:
 
    ```shell
    ory update identity-config <project-id> --file updated_config.yaml

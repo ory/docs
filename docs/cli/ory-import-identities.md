@@ -19,8 +19,6 @@ Import identities from files or STD_IN.
 
 Files can contain only a single or an array of identities. The validity of files can be tested beforehand using "... identities validate".
 
-WARNING: Importing credentials is not yet supported.
-
 ```
 ory import identities file-1.json [file-2.json] [file-3.json] [file-n.json] [flags]
 ```
@@ -39,11 +37,11 @@ Create an example identity:
 	}
 	EOF
 
-	ory import identities file.json
+	{{ .CommandPath }} file.json
 
 Alternatively:
 
-	cat file.json | ory import identities
+	cat file.json | {{ .CommandPath }}
 ```
 
 ### Options
@@ -56,7 +54,7 @@ Alternatively:
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
       --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.

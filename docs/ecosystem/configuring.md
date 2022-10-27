@@ -56,7 +56,7 @@ and JSON files
 ```
 
 You can combine several configuration files by defining the `-c` or `--config` flag multiple times when calling the CLI command or
-when importing configuration files to Ory Cloud:
+when importing configuration files to The Ory Network:
 
 ```
 someCommand --config file/a.yml --config file/b.yml
@@ -165,12 +165,3 @@ export SOME_OTHER_VAR=false
 ```
 
 The same applies to strings and numbers!
-
-## Configuration References
-
-All of Ory's services have a full configuration reference available. You can find them here:
-
-- [Ory Keto](https://www.ory.sh/docs/keto/reference/configuration)
-- [Ory Kratos](https://www.ory.sh/docs/kratos/reference/configuration)
-- [Ory Hydra](https://www.ory.sh/docs/hydra/reference/configuration)
-- [Ory Oathkeeper](https://www.ory.sh/docs/oathkeeper/reference/configuration)

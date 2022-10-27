@@ -3,7 +3,10 @@ id: production
 title: Prepare for production
 ---
 
-This document summarizes some considerations you will find useful when preparing for production.
+Read this document to prepare for production when self-hosting Ory Hydra.  
+Feel free to open a pull request when you have an idea how to improve this documentation.
+
+Read more about [deployment fundamentals and requirements for Ory](https://www.ory.sh/docs/ecosystem/deployment).
 
 ## Ory Hydra behind an API gateway
 
@@ -40,8 +43,8 @@ that we discourage you from doing so and that you should know what you're doing.
 ### Routing
 
 It's common to use a router, or API gateway, to route subdomains or paths to a specific service. For example,
-`https://myservice.com/hydra/` is routed to `http://10.0.1.213:3912/` where `10.0.1.213` is the host running ORY Hydra. To compute
-the values for the consent challenge, ORY Hydra uses the host and path headers from the HTTP request. Therefore, it's important to
+`https://myservice.com/hydra/` is routed to `http://10.0.1.213:3912/` where `10.0.1.213` is the host running Ory Hydra. To compute
+the values for the consent challenge, Ory Hydra uses the host and path headers from the HTTP request. Therefore, it's important to
 set up your API Gateway in such a way, that it passes the public host (in this case `myservice.com`) and the path without any
 prefix (in this case `hydra/`). If you use the Mashape Kong API gateway, you can achieve this by setting `strip_request_path=true`
 and `preserve_host=true.`
@@ -83,7 +86,7 @@ The Token Introspection endpoint requires authentication. But since there is no 
 the endpoint to be used. If you need to access this endpoint in production, you should configure your API Gateway or Application
 Proxy to restrict which clients have access to the endpoint.
 
-We generally advise to run ORY Hydra with `hydra serve all` which listens on both ports in one process.
+We generally advise to run Ory Hydra with `hydra serve all` which listens on both ports in one process.
 
 ### Binding to different interfaces or UNIX sockets
 
@@ -95,7 +98,7 @@ specified as TCP address or as UNIX socket (giving the absolute path to the sock
 - `PUBLIC_HOST=127.0.0.1`
 - `ADMIN_HOST="unix:/var/run/hydra/admin_socket"`
 
-ORY Hydra will try to create the socket file during startup and the socket will be writeable by the user running ORY Hydra. The
+Ory Hydra will try to create the socket file during startup and the socket will be writeable by the user running Ory Hydra. The
 owner, group and mode of the socket can be modified:
 
 ```yaml
@@ -111,7 +114,7 @@ serve:
 ### Key generation and high availability environments
 
 Be aware that on the very first launch of the Hydra container(s), a worker process will perform certain first-time installation
-tasks, such as generating [JSON web keys](jwks.md) if they don't already exist.
+tasks, such as generating [JSON web keys](../jwks) if they don't already exist.
 
 If you intend on running your production Hydra environment in a highly-available setup (for example, multiple concurrent
 containers behind a load-balancer), it's possible that both containers will generate JWKs at the same time.
@@ -123,4 +126,4 @@ Once done, you can raise your number of containers to achieve high availability.
 
 ## Next steps
 
-For a deployment guide using Nginx, visit the [Deploy to production](./guides/deploy-hydra-example.mdx) documentation.
+For a deployment guide using Nginx, visit the [Deploy to production](./deploy-hydra-example) documentation.

@@ -12,11 +12,11 @@ To add Microsoft as a social sign-in provider, you need an Azure account with an
 
 :::
 
-## Configuration in Ory Cloud Console
+## Configuration in Ory Console
 
-Follow these steps to add Microsoft as a social sign-in provider for your Ory Cloud project using the Ory Cloud Console.
+Follow these steps to add Microsoft as a social sign-in provider for your project using the Ory Console.
 
-1. Sign in to Ory Cloud Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
+1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
 2. Click the switch next to the Microsoft logo to start the configuration.
 3. Copy the Redirect URI from Ory and save it for later use.
 4. Go to the [Azure portal](https://portal.azure.com/) → **Azure Active Directory**.
@@ -56,9 +56,10 @@ mapping.
 
 For Microsoft, add the `email` and `profile` scopes for a basic setup.
 
-#### Data Mapping
+#### Data mapping
 
-The Data Mapping section allows you to map the data returned by the sign-in provider to traits as defined in the identity schema.
+The **Data mapping** section allows you to map the data returned by the sign-in provider to traits as defined in the identity
+schema.
 
 To define the mapping, create a Jsonnet code snippet. Read [this document](./data-mapping) to learn more about Jsonnet data
 mapping.
@@ -118,12 +119,12 @@ Learn more:
 
 ## Configuration using the Ory CLI
 
-Follow these steps to add Microsoft as a social sign-in provider to your Ory Cloud project using the Ory CLI:
+Follow these steps to add Microsoft as a social sign-in provider to your project using the Ory CLI:
 
 1. [Create an Azure AD Application and Tenant](#configuration-in-ory-cloud-console).
 2. Create a [Jsonnet code snippet](#data-mapping) to map the desired claims to the Ory Identity schema.
-3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Cloud.
-4. Download the Identity Service config from your Ory Cloud project and save it to a file:
+3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to The Ory Network.
+4. Download the Ory Identities config from your project and save it to a file:
 
    ```shell
    ## List all available projects
@@ -162,7 +163,7 @@ Follow these steps to add Microsoft as a social sign-in provider to your Ory Clo
 
    :::
 
-6. Update the Ory Identity Service (Ory Kratos) configuration using the file you worked with:
+6. Update the Ory Identities (Ory Kratos) configuration using the file you worked with:
 
    ```shell
    ory update identity-config <project-id> --file updated_config.yaml
@@ -197,7 +198,7 @@ By default, Microsoft uses the identifier taken from the `sub` field of OIDC `id
 the standard OIDC `/userinfo` endpoint.
 
 However, some systems use the `id` field returned by the `https://graph.microsoft.com/v1.0/me` endpoint as a subject identifier.
-To make migrating such systems to the Ory Identity Service (Ory Kratos) easier, you can use the identifier obtained from the `me`
+To make migrating such systems to the Ory Identities (Ory Kratos) easier, you can use the identifier obtained from the `me`
 endpoint.
 
 To do that, add the `subject_source` field set to `me` to the social sign-in provider config of your Ory Kratos instance.

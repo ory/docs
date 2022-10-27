@@ -75,6 +75,18 @@ func main() {
   </TabItem>
   <TabItem value="kratos">
     <SelfHostedKratos />
+
+And use it to import an identity:
+
+```shell
+curl --request POST -sL \
+  --header "Content-Type: application/json" \
+  --data '{
+  "expires_in": "12h",
+  "identity_id": "e01b5f2f-6afc-4194-8578-4cebcf69a4d5"
+}' http://127.0.0.1:4434/recovery/link
+```
+
   </TabItem>
 </Tabs>
 ````
@@ -96,7 +108,7 @@ session
 <Tabs
   defaultValue="cloud"
   values={[
-    {label: 'Ory Cloud', value: 'cloud'},
+    {label: 'The Ory Network', value: 'cloud'},
     {label: 'Self-Hosted Ory Kratos', value: 'kratos'},
   ]}>
   <TabItem value="cloud">
@@ -125,9 +137,9 @@ It is currently not possible to send the recovery link directly to a user's emai
 
 ### Enable account recovery
 
-To enable recovery flows, make the following adjustments to your Ory Kratos configuration:
+To enable recovery flows, make the following adjustments to the Ory Identities configuration:
 
-```yaml title="path/to/config/kratos.yml"
+```yaml title="config.yml"
 selfservice:
   methods:
     link:
