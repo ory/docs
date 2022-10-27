@@ -11,6 +11,9 @@ import SelfHostedKratos from "@site/src/components/SelfHostedKratos"
 
 You can initiate account recovery for identities using the admin API endpoints.
 
+For more detailed information and general guidelines on account recovery, take a look at the
+[account recovery and password reset](../self-service/flows/account-recovery-password-reset.mdx) section.
+
 :::note
 
 You can initiate account recovery for a user without a recovery address via the admin API, but if the recovery flow expires the
@@ -47,27 +50,35 @@ curl --request POST -sL \
 package main
 
 import (
-  "fmt"
-  "github.com/ory/client-go/client"
-  "github.com/ory/client-go/client/admin"
-  "github.com/ory/client-go/models"
+	"context"
+	"fmt"
+	"io"
+
+	ory "github.com/ory/client-go"
 )
 
 func main() {
-  c := client.New(nil, &client.TransportConfig{
-        Host: "https://playground.projects.oryapis.com",
-        BasePath: "/",
-        Schemes: []string{"http"},
-    })
+	client := ory.NewAPIClient(&ory.Configuration{
+		Servers: ory.ServerConfigurations{{
+			URL: "https://playground.projects.oryapis.com",
+		}},
+		DefaultHeader: map[string]string{
+			"Authorization": "Bearer ory_pat_xRKLsFEOUFQFVBjd6o3FQDifaLYhabGd", // Bearer Token for the Ory Network playground project
+		},
+	})
 
-  res, err := c.Admin.CreateRecoveryLink(admin.NewCreateRecoveryLinkParams().WithBody(admin.CreateRecoveryLinkBody{
-    IdentityID: models.UUID("the-uuid"),
-  }))
-  if err != nil {
-    // ...
-  }
+	code, res, err := client.V0alpha2Api.AdminCreateSelfServiceRecoveryCode(context.Background()).
+		AdminCreateSelfServiceRecoveryCodeBody(*ory.NewAdminCreateSelfServiceRecoveryCodeBody("YOUR_IDENTITY_ID")).
+		Execute()
 
-  fmt.Printf("Use link: %s", *res.Payload.RecoveryLink)
+	if err != nil {
+		body, _ := io.ReadAll(res.Body)
+		fmt.Printf("could not create recovery code %v: %v", err.Error(), string(body))
+		panic(err)
+	}
+
+	fmt.Printf("Use link: %s\n", code.RecoveryLink)
+	fmt.Printf("  With code: %s\n", code.RecoveryCode)
 }
 ```
 
@@ -89,27 +100,20 @@ curl --request POST -sL \
   </TabItem>
 </Tabs>
 
-The response contains a `recovery_link` containing the flow ID and a `recovery_code` containing a random 8-digit code. The link
-should be opened by the user which will open a recovery code form. The `recovery_code` should be entered by the user here.
+### Responses
 
-Afterwards they can then connect to a social sign-in provider or set up a password:
+The response contains a `recovery_link` containing the flow ID and a `recovery_code`. The link should be opened by the user which
+will show a recovery code form. The `recovery_code` should be entered by the user here.
 
 ```json
 {
-  "recovery_link": "https://playground.projects.oryapis.com/self-service/recovery?flow=81c55cec-76fd-4907-bddf-cc112e835698",
+  "recovery_link": "/ui/recovery?flow=79686c66-e427-4c1b-861e-083572f97964",
   "recovery_code": "76453943",
   "expires_at": "2022-10-25T03:09:37.60684766Z"
 }
 ```
 
-If the user fails to set up their credentials in time, another recovery link needs to be issued and the user needs to re-do the
-flow.
-
-It is currently not possible to send the recovery link directly to a user's email, this feature is tracked as
-[#595](https://github.com/ory/kratos/issues/595).
-
-For more detailed information and general guidelines on account recovery, take a look at the
-[account recovery and password reset](../self-service/flows/account-recovery-password-reset.mdx) section.
+After successfully recovering their account, they can connect to a social sign-in provider or set up a password.
 
 ## Magic links
 
@@ -142,27 +146,34 @@ curl --request POST -sL \
 package main
 
 import (
-  "fmt"
-  "github.com/ory/client-go/client"
-  "github.com/ory/client-go/client/admin"
-  "github.com/ory/client-go/models"
+	"context"
+	"fmt"
+	"io"
+
+	ory "github.com/ory/client-go"
 )
 
 func main() {
-  c := client.New(nil, &client.TransportConfig{
-        Host: "https://playground.projects.oryapis.com",
-        BasePath: "/",
-        Schemes: []string{"http"},
-    })
+	client := ory.NewAPIClient(&ory.Configuration{
+		Servers: ory.ServerConfigurations{{
+			URL: "https://playground.projects.oryapis.com",
+		}},
+		DefaultHeader: map[string]string{
+			"Authorization": "Bearer ory_pat_xRKLsFEOUFQFVBjd6o3FQDifaLYhabGd", // Bearer Token for the Ory Network playground project
+		},
+	})
 
-  res, err := c.Admin.CreateRecoveryLink(admin.NewCreateRecoveryLinkParams().WithBody(admin.CreateRecoveryLinkBody{
-    IdentityID: models.UUID("the-uuid"),
-  }))
-  if err != nil {
-    // ...
-  }
+	link, res, err := client.V0alpha2Api.AdminCreateSelfServiceRecoveryLink(context.Background()).
+		AdminCreateSelfServiceRecoveryLinkBody(*ory.NewAdminCreateSelfServiceRecoveryLinkBody("YOUR_INDENTITY_ID")).
+		Execute()
 
-  fmt.Printf("Use link: %s", *res.Payload.RecoveryLink)
+	if err != nil {
+		body, _ := io.ReadAll(res.Body)
+		fmt.Printf("could not create recovery link %v: %v", err.Error(), string(body))
+		panic(err)
+	}
+
+	fmt.Printf("Use link: %s\n", link.RecoveryLink)
 }
 ```
 
@@ -184,6 +195,8 @@ curl --request POST -sL \
   </TabItem>
 </Tabs>
 
+### Responses
+
 The response contains a `recovery_link` value containing the flow ID and a random token. This link should be opened by the user.
 Afterwards they can then connect to a social sign-in provider or set up a password:
 
@@ -197,8 +210,8 @@ Afterwards they can then connect to a social sign-in provider or set up a passwo
 If the user fails to set up their credentials in time, another recovery link needs to be issued and the user needs to re-do the
 flow.
 
-It is currently not possible to send the recovery link directly to a user's email, this feature is tracked as
-[#595](https://github.com/ory/kratos/issues/595).
-
 For more detailed information and general guidelines on account recovery, take a look at the
 [account recovery and password reset](../../kratos//self-service/flows/account-recovery-password-reset.mdx) section.
+
+It is currently not possible to send the recovery link directly to a user's email, this feature is tracked as
+[#595](https://github.com/ory/kratos/issues/595).
