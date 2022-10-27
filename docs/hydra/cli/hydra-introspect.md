@@ -28,5 +28,4 @@ Introspect resources
 
 * [hydra](hydra)	 - Run and manage Ory Hydra
 * [hydra introspect token](hydra-introspect-token)	 - Introspect an OAuth 2.0 Access or Refresh Token
-* [hydra introspect token](hydra-introspect-token)	 - Introspect an OAuth 2.0 Access or Refresh Token
 
