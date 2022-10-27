@@ -186,8 +186,11 @@ module.exports = {
       },
     ],
     "@docusaurus/plugin-content-pages",
-    require.resolve("./src/plugins/ory-scripts-loader"),
     require.resolve("./src/plugins/docusaurus-plugin-matamo"),
+    [
+      "./src/plugins/plugin-usercentrics-gtm",
+      { usercentricsID: "dwogEWVkK", gtmID: "GTM-NTT7RMX" },
+    ],
     require.resolve("./src/plugins/docusaurus-polyfill"),
     "@docusaurus/plugin-sitemap",
     [
