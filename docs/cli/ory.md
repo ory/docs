@@ -21,8 +21,8 @@ The ORY CLI
 
 ### SEE ALSO
 
-* [ory auth](ory-auth)	 - Create an or sign into your Ory Cloud account
-* [ory create](ory-create)	 - Create Ory Cloud resources
+* [ory auth](ory-auth)	 - Create an or sign into your Ory Network account
+* [ory create](ory-create)	 - Create Ory Network resources
 * [ory delete](ory-delete)	 - Delete resources
 * [ory format](ory-format)	 - Helpers for formatting code
 * [ory get](ory-get)	 - Get a resource
@@ -30,7 +30,7 @@ The ORY CLI
 * [ory introspect](ory-introspect)	 - Introspect resources
 * [ory lint](ory-lint)	 - Helpers for linting code
 * [ory list](ory-list)	 - List resources
-* [ory parse](ory-parse)	 - Parse Ory Cloud resources
+* [ory parse](ory-parse)	 - Parse Ory Network resources
 * [ory patch](ory-patch)	 - Patch resources
 * [ory perform](ory-perform)	 - Perform a flow
 * [ory proxy](ory-proxy)	 - Run your app and Ory on the same domain using a reverse proxy

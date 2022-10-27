@@ -27,7 +27,7 @@ will be used as the default redirect URL for the tunnel, for example after a suc
 
 ### Connecting to Ory
 
-Before you start, you need to have a running Ory Cloud project. You can create one with the following command:
+Before you start, you need to have a running Ory Network project. You can create one with the following command:
 
 	$ ory create project --name "Command Line Project"
 
@@ -110,14 +110,14 @@ ory tunnel https://app.example.com \
 
 ```
       --allowed-cors-origins strings   A list of allowed CORS origins. Wildcards are allowed.
-  -c, --config string                  Path to the Ory Cloud configuration file.
+  -c, --config string                  Path to the Ory Network configuration file.
       --cookie-domain string           Set a dedicated cookie domain.
       --debug                          Use this flag to debug, for example, CORS requests.
       --default-redirect-url string    Set the URL to redirect to per default after e.g. login or account creation.
       --dev                            Use this flag when developing locally.
   -h, --help                           help for tunnel
       --port int                       The port the proxy should listen on. (default 4000)
-      --project string                 The slug of your Ory Cloud Project.
+      --project string                 The slug of your Ory Network Project.
   -q, --quiet                          Be quiet with output printing.
   -y, --yes                            Confirm all dialogs with yes.
 ```

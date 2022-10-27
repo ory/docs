@@ -16,7 +16,7 @@ Delete resources
 ### Options
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
       --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
   -h, --help            help for delete
   -q, --quiet           Be quiet with output printing.

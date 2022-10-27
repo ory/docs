@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react"
-import { Configuration, Project, V0alpha0Api } from "@ory/client"
+import { Configuration, V0alpha2Api } from "@ory/client"
 import { Octokit } from "@octokit/rest"
 import useDocusaurusContext from "@docusaurus/core/lib/client/exports/useDocusaurusContext"
+import { ProjectMetadata } from "@ory/client/api"
 
 export function getSdkUrl() {
-  const [project, setProject] = useState<Project | undefined>()
+  const [project, setProject] = useState<ProjectMetadata | undefined>()
   const { siteConfig } = useDocusaurusContext()
 
-  const sdk = new V0alpha0Api(
+  const sdk = new V0alpha2Api(
     new Configuration({
       basePath: String(siteConfig.customFields.CLOUD_URL),
       baseOptions: {
@@ -20,22 +21,8 @@ export function getSdkUrl() {
     sdk
       .listProjects()
       .then(({ data: projects }) => {
-        return sdk
-          .getActiveProject()
-          .then(({ data }) => {
-            const active = data.project_id
-            const found = projects.find((p) => p.id === active)
-            if (!found && projects.length > 0) {
-              setProject(projects[0])
-              return
-            }
-            setProject(found)
-            return
-          })
-          .catch(() => {
-            // Fall back to the first project found
-            setProject(projects[0])
-          })
+        // Fall back to the first project found
+        setProject(projects[0])
       })
       .catch(() => {
         // do nothing

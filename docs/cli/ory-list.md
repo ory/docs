@@ -16,7 +16,7 @@ List resources
 ### Options
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
       --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
   -h, --help            help for list
   -q, --quiet           Be quiet with output printing.
@@ -28,6 +28,6 @@ List resources
 * [ory](ory)	 - The ORY CLI
 * [ory list identities](ory-list-identities)	 - List identities
 * [ory list oauth2-clients](ory-list-oauth2-clients)	 - List OAuth 2.0 Clients
-* [ory list projects](ory-list-projects)	 - List your Ory Cloud projects
+* [ory list projects](ory-list-projects)	 - List your Ory Network projects
 * [ory list relation-tuples](ory-list-relation-tuples)	 - List relation tuples
 

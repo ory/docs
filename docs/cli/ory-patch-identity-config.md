@@ -1,7 +1,7 @@
 ---
 id: ory-patch-identity-config
 title: ory patch identity-config
-description: ory patch identity-config Patch an Ory Cloud project's identity config
+description: ory patch identity-config Patch an Ory Identities config
 ---
 
 <!--
@@ -11,11 +11,11 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory patch identity-config
 
-Patch an Ory Cloud project's identity config
+Patch an Ory Identities config
 
 ### Synopsis
 
-Patch an Ory Cloud project's identity configuration. Only values specified in the patch will be overwritten. To replace the config use the `update` command instead.
+Patch an Ory Identities configuration. Only values specified in the patch will be overwritten. To replace the config use the `update` command instead.
 
 Compared to the `patch project` command, this command only updates the identity service configuration
 and also only returns the identity service configuration as a result. This command is useful when you want to
@@ -73,7 +73,7 @@ $ ory patch identity-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
 ```
 
 ### SEE ALSO

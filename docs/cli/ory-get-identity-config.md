@@ -1,7 +1,7 @@
 ---
 id: ory-get-identity-config
 title: ory get identity-config
-description: ory get identity-config Get an Ory Cloud project's identity configuration
+description: ory get identity-config Get an Ory Identities configuration
 ---
 
 <!--
@@ -11,11 +11,11 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory get identity-config
 
-Get an Ory Cloud project's identity configuration
+Get an Ory Identities configuration
 
 ### Synopsis
 
-Get an Ory Cloud or Ory Kratos project's identity configuration.
+Get an Ory Identities configuration.
 
 ```
 ory get identity-config <project-id> [flags]
@@ -48,7 +48,7 @@ $ ory get kratos-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
 ```

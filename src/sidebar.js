@@ -87,6 +87,7 @@ module.exports = {
         "concepts/project",
         "concepts/redirects",
         "concepts/personal-access-token",
+        "concepts/cache",
         "ecosystem/api-design",
         "concepts/password-policy",
       ],
