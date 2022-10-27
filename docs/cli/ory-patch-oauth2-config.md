@@ -1,7 +1,7 @@
 ---
 id: ory-patch-oauth2-config
 title: ory patch oauth2-config
-description: ory patch oauth2-config Patch an Ory Cloud project's OAuth2 config
+description: ory patch oauth2-config Patch an Ory OAuth2 & OpenID config
 ---
 
 <!--
@@ -11,11 +11,11 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory patch oauth2-config
 
-Patch an Ory Cloud project's OAuth2 config
+Patch an Ory OAuth2 & OpenID config
 
 ### Synopsis
 
-Patch an Ory Cloud project's OAuth2 service configuration. Only values
+Patch an Ory OAuth2 & OpenID configuration. Only values
 specified in the patch will be overwritten. To replace the config use the `update` command instead.
 
 Compared to the `patch project` command, this command only updates the OAuth2 service configuration
@@ -83,7 +83,7 @@ $ ory patch oauth2-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
 ```
 
 ### SEE ALSO

@@ -3,8 +3,8 @@ id: csrf
 title: Common CSRF pitfalls
 ---
 
-Because Ory Hydra isn't just an API, but instead talks to your users' browsers directly, several security measures have been
-implemented in Ory Kratos. One of them is protection against CSRF:
+Because Ory OAuth2 & OpenID Connect isn't just an API, but instead talks to your users' browsers directly, several security
+measures have been implemented in Ory Identities. One of them is protection against CSRF:
 
 > CSRF is an attack that tricks the victim into submitting a malicious request. It inherits the identity and privileges of the
 > victim to perform an undesired function on the victim’s behalf. For most sites, browser requests automatically include any
@@ -35,7 +35,7 @@ Google Chrome changed the behavior of `SameSite=None` so that it isn't possible 
 
 If you run a version of Ory Hydra 1.6 and below and experience this issue:
 
-- Make sure to not use the `--dangerous-force-http` flag
+- Make sure to not use the `--dev` flag
 - Set configuration value `serve.cookies.same_site_mode` or environment variable `SERVE_COOKIES_SAME_SITE_MODE` to `Lax` - this
   happens automatically for Ory Hydra v1.7.0 when running in HTTP mode.
 
@@ -45,10 +45,10 @@ you need to delete the cookies for the domain in order to get them working again
 
 ### Ory Hydra Running Over HTTP Without dev-mode Enabled
 
-You are running Ory Hydra via HTTP but are missing the `--dangerous-force-http` CLI flag:
+You are running Ory Hydra via HTTP but are missing the `--dev` CLI flag:
 
 ```
-hydra serve all -c path/to/config.yml --dangerous-force-http
+hydra serve all -c path/to/config.yml --dev
 ```
 
 ### Mixing up `127.0.0.1` and `localhost`

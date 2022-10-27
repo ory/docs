@@ -21,14 +21,10 @@ interface a device through its driver. PKCS#11 represents cryptographic devices 
 token. An application can therefore perform cryptographic operations on any device or token, using the same independent command
 set.
 
-<a name="hsm-configuration"></a>
-
-### Hardware Security Module configuration
+## Hardware Security Module configuration
 
 Ory Hydra can be configured using environment variables as well as a configuration file. For more information on configuration
-options, open the configuration documentation:
-
-&gt;&gt; https://www.ory.sh/hydra/docs/reference/configuration &lt;&lt;
+options, visit the [configuration reference](https://www.ory.sh/hydra/docs/reference/configuration)
 
 ```
 HSM_ENABLED=true
@@ -49,16 +45,12 @@ point to vendor-specific PKCS#11 library or SoftHSM library if you want to [test
 if `HSM_KEY_SET_PREFIX=app1.` then key set `hydra.openid.id-token` would be generated/requested/deleted on HSM with
 `CKA_LABEL=app1.hydra.openid.id-token`.
 
-<a name="pkcs11-attribute-mappings"></a>
-
 ### PKCS#11 attribute mappings to JSON Web Key Set attributes
 
 When key pair is generated or requested from HSM, the `CKA_LABEL` attribute is used as JSON Web Key Set name, `CKA_ID` attribute
 as `kid`. Key usage is determined by private key attributes, where `CKA_SIGN` and `CKA_DECRYPT` are mapped to `sig` and `enc`
 respectively and set as key `use` attribute. Furthermore, `CKA_ID's` of key pair private/public handles must be identical.
 Attribute `alg` is determined from `CKA_KEY_TYPE` and `CKA_ECDSA_PARAMS`.
-
-<a name="supported-key-algorithms"></a>
 
 ### Supported key algorithms
 
@@ -67,11 +59,7 @@ EdDSA keys using curve Ed25519. However, [PKCS#11 v3.0](https://docs.oasis-open.
 contains support for EdDSA and therefore can be supported in upcoming versions. Symmetric key algorithms aren't supported because
 it would imply, that shared HSM is used between server and authenticating client.
 
-<a name="generating-key-pairs"></a>
-
 ### Generating key pairs
-
-<a name="initializing-token"></a>
 
 #### Initializing token
 
@@ -143,7 +131,7 @@ Public Key Object; RSA 4096 bits
 
 <a name="testing-with-softhsm"></a>
 
-### Testing with SoftHSM
+## Testing with SoftHSM
 
 [SoftHSM](https://www.opendnssec.org/softhsm/) is an implementation of a cryptographic store accessible through a PKCS #11
 interface. You can use it to explore PKCS#11 without having a Hardware Security Module. It's being developed as a part of the
@@ -207,3 +195,43 @@ time="2021-07-07T12:51:23Z" level=info msg="JSON Web Key Set 'hydra.openid.id-to
 ```sh
 make quicktest-hsm
 ```
+
+## AWS CloudHSM
+
+The following are tips to help run Ory Hydra with AWS CloudHSM, please also refer to the
+[official documentation](https://docs.aws.amazon.com/cloudhsm/).
+
+Fetch the name of the token/slot in CloudHSM by using the `pkcs11-tool` with this command:
+`pkcs11-tool --module /opt/cloudhsm/lib/libcloudhsm_pkcs11.so --list-slots`.  
+CloudHSM only exposes a single slot/token to applications and connetions are load balanced across `hsm-instances` in the cluster.
+
+HSM settings in Hydra:
+
+```bash
+hsm:
+   enabled: true
+   library: /opt/cloudhsm/lib/libcloudhsm_pkcs11.so
+   token_label: "hsm1"
+   pin: "{{ HSM_PIN }}"
+```
+
+AWS changed the default value of `cavium` for `token_label` to `hsm1`.
+
+To generate a compatible key pair run the following command:
+
+```bash
+pkcs11-tool \
+   --module /opt/cloudhsm/lib/libcloudhsm_pkcs11.so \
+   --pin <PIN> \
+   --token-label <LABEL> \
+   --keypairgen \
+   --key-type rsa:4096 \
+   --label hydra.openid.id-token \
+   --id <ID> \
+   --login \
+   --usage-sign \
+   --private \
+   --sensitive
+```
+
+The `--private` and `--sensitive` flags are important, include them to prevent errors.

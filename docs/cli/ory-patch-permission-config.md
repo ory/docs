@@ -1,7 +1,7 @@
 ---
 id: ory-patch-permission-config
 title: ory patch permission-config
-description: ory patch permission-config Patch an Ory Cloud project's permission config
+description: ory patch permission-config Patch an Ory Permissions config
 ---
 
 <!--
@@ -11,18 +11,18 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory patch permission-config
 
-Patch an Ory Cloud project's permission config
+Patch an Ory Permissions config
 
 ### Synopsis
 
-Patches an Ory Cloud project's permission service configuration. Only values
+Patches an Ory Permissions configuration. Only values
 specified in the patch will be overwritten. To replace the config use the `update` command instead.
 
 Compared to the `patch project` command, this command only updates the permission service configuration
 and also only returns the permission service configuration as a result. This command is useful when you want to
 import an Ory Keto config as well, for example. This allows for shorter paths when specifying the flags
 
-	ory patch identity-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
+	ory patch permission-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 		--replace '/limit/max_read_depth=5'
 
 when compared to the `patch project` command:
@@ -79,7 +79,7 @@ $ ory patch permission-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
 ```
 
 ### SEE ALSO

@@ -9,15 +9,15 @@ Users are often asking when a particular feature will be implemented or when it 
 
 This document strives to give an answer to those questions and give you an outlook of what's happening in the Ory ecosystem.
 Please note that this roadmap is mainly focused on the Ory Open Source libraries - but this also influences the development of Ory
-Cloud.
+Network.
 
 ## Ory Roadmap
 
 If you are interested in a particular project, it's best to check out the
 [milestones and open issues & pull requests ](#milestones-issues-pull-requests) for that project.
 
-Please note that **our roadmap is subject to changes**. This means that development is considering feedback both from the Open
-Source community as well as Ory Cloud users.
+Please note that **our roadmap is subject to change**. This means that development is considering feedback both from the Open
+Source community as well as The Ory Network users.
 
 Issues on GitHub aren't hard and fixed commitments. GitHub Issues, Milestones, and Discussions are general guidelines and efforts
 to make development at Ory as transparent as possible to facilitate collaboration, trust, and visibility.

@@ -11,8 +11,9 @@ act as its Policy Decision Point.
 The implemented problem domain and scope is called Zero-Trust Network Architecture, [BeyondCorp](https://www.beyondcorp.com), and
 Identity And Access Proxy (IAP).
 
-While Ory Oathkeeper works well with Ory Hydra and Ory Keto, Ory Oathkeeper can be used standalone and alongside other stacks with
-adjacent problem domains (Keycloak, Gluu, Vault, ...). Ory Oathkeeper's Access Control Decision API works with
+While Ory Oathkeeper works well with Ory OAuth2 & OpenID Connect (Ory Hydra) and Ory Keto, Ory Oathkeeper can be used standalone
+and alongside other stacks with adjacent problem domains (Keycloak, Gluu, Vault). Ory Oathkeeper's Access Control Decision API
+works with
 
 - [Ambassador](https://github.com/datawire/ambassador) via
   [auth service](https://www.getambassador.io/reference/services/auth-service)

@@ -1,7 +1,7 @@
 ---
 id: hydra-clients-create
-title: hydra clients create
-description: hydra clients create Create a new OAuth 2.0 Client
+title: hydra create client
+description: hydra create client Create a new OAuth 2.0 Client
 ---
 
 <!--
@@ -9,7 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-## hydra clients create
+## hydra create client
 
 Create a new OAuth 2.0 Client
 
@@ -22,14 +22,14 @@ Ory Hydra implements the OpenID Connect Dynamic Client registration specificatio
 as well.
 
 Example:
-  hydra clients create -n &#34;my app&#34; -c http://localhost/cb -g authorization_code -r code -a core,foobar
+  hydra create client -n &#34;my app&#34; -c http://localhost/cb -g authorization_code -r code -a core,foobar
 
 To encrypt auto generated client secret, use &#34;--pgp-key&#34;, &#34;--pgp-key-url&#34; or &#34;--keybase&#34; flag, for example:
-  hydra clients create -n &#34;my app&#34; -g client_credentials -r token -a core,foobar --keybase keybase_username
+  hydra create client -n &#34;my app&#34; -g client_credentials -r token -a core,foobar --keybase keybase_username
 
 
 ```
-hydra clients create [flags]
+hydra create client [flags]
 ```
 
 ### Options
@@ -39,11 +39,11 @@ hydra clients create [flags]
       --audience strings                         The audience this client is allowed to request
       --backchannel-logout-callback string       Client URL that will cause the client to log itself out when sent a Logout Token by Hydra.
       --backchannel-logout-session-required      Boolean flag specifying whether the client requires that a sid (session ID) Claim be included in the Logout Token to identify the client session with the OP when the backchannel-logout-callback is used. If omitted, the default value is false.
-  -c, --callbacks strings                        REQUIRED list of allowed callback URLs
+  -c, --redirect-uri strings                        REQUIRED list of allowed callback URLs
       --client-uri string                        A URL string of a web page providing information about the client
       --frontchannel-logout-callback string      Client URL that will cause the client to log itself out when rendered in an iframe by Hydra.
       --frontchannel-logout-session-required     Boolean flag specifying whether the client requires that a sid (session ID) Claim be included in the Logout Token to identify the client session with the OP when the frontchannel-logout-callback is used. If omitted, the default value is false.
-  -g, --grant-types strings                      A list of allowed grant types (default [authorization_code])
+  -g, --grant-type strings                      A list of allowed grant types (default [authorization_code])
   -h, --help                                     help for create
       --id string                                Give the client this id
       --jwks-uri string                          Define the URL where the JSON Web Key Set should be fetched from when performing the "private_key_jwt" client authentication method
@@ -54,7 +54,7 @@ hydra clients create [flags]
       --pgp-key-url string                       PGP encryption key URL for encrypting client secret
       --policy-uri string                        A URL string that points to a human-readable privacy policy document that describes how the deployment organization collects, uses, retains, and discloses personal data
       --post-logout-callbacks strings            List of allowed URLs to be redirected to after a logout
-  -r, --response-types strings                   A list of allowed response types (default [code])
+  -r, --response-type strings                   A list of allowed response types (default [code])
   -a, --scope strings                            The scope the client is allowed to request
       --secret string                            Provide the client's secret
       --subject-type string                      A identifier algorithm. Valid values are "public" and "pairwise" (default "public")
