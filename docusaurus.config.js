@@ -204,18 +204,17 @@ module.exports = {
   ],
   presets: [
     [
-      'redocusaurus',
+      "redocusaurus",
       {
         specs: [
           {
-            id: 'ory-network-api',
-            spec: 'docs/reference/api.json',
+            id: "ory-network-api",
+            spec: "docs/reference/api.json",
           },
         ],
-        theme: {
-        },
+        theme: {},
       },
-    ]
+    ],
   ],
   themes: [
     [

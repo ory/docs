@@ -1,10 +1,10 @@
 import React from "react"
 import ApiDoc from "@theme/ApiDoc"
 import useBaseUrl from "@docusaurus/useBaseUrl"
-import useSpecData from '@theme/useSpecData';
+import useSpecData from "@theme/useSpecData"
 
 function CustomPage() {
-  const specData = useSpecData('ory-network-api');
+  const specData = useSpecData("ory-network-api")
   return (
     <ApiDoc
       layoutProps={{
