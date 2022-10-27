@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
-import { Configuration, V0alpha2Api } from '@ory/client'
-import { Octokit } from '@octokit/rest'
-import useDocusaurusContext from '@docusaurus/core/lib/client/exports/useDocusaurusContext'
-import { ProjectMetadata } from '@ory/client/api'
+import { useEffect, useState } from "react"
+import { Configuration, V0alpha2Api } from "@ory/client"
+import { Octokit } from "@octokit/rest"
+import useDocusaurusContext from "@docusaurus/core/lib/client/exports/useDocusaurusContext"
+import { ProjectMetadata } from "@ory/client/api"
 
 export function getSdkUrl() {
   const [project, setProject] = useState<ProjectMetadata | undefined>()
@@ -12,9 +12,9 @@ export function getSdkUrl() {
     new Configuration({
       basePath: String(siteConfig.customFields.CLOUD_URL),
       baseOptions: {
-        withCredentials: true
-      }
-    })
+        withCredentials: true,
+      },
+    }),
   )
 
   useEffect(() => {
@@ -42,8 +42,8 @@ export function getSdkUrl() {
   return {
     hint,
     url: project
-      ? 'https://' + project.slug + '.projects.oryapis.com'
-      : 'https://{your-project-slug-here}.projects.oryapis.com'
+      ? "https://" + project.slug + ".projects.oryapis.com"
+      : "https://{your-project-slug-here}.projects.oryapis.com",
   }
 }
 
@@ -57,20 +57,20 @@ const octokit = new Octokit({})
  */
 export function useLatestRelease(
   repo: string,
-  fallback = '<version-you-want>'
+  fallback = "<version-you-want>",
 ) {
   const [release, setRelease] = useState<string>(fallback)
 
   useEffect(() => {
     octokit.repos
       .listReleases({
-        owner: 'ory',
+        owner: "ory",
         repo,
-        per_page: 100
+        per_page: 100,
       })
       .then(({ data }) => {
         const published = data.filter(
-          ({ draft, tag_name }) => !draft && !tag_name.match(/pre.[0-9]+$/)
+          ({ draft, tag_name }) => !draft && !tag_name.match(/pre.[0-9]+$/),
         )
         if (published.length > 0) {
           setRelease(published[0].tag_name)
@@ -89,8 +89,8 @@ export function useLatestRelease(
  */
 export function useLatestReleaseFilename(
   repo: string,
-  fallback = '<version-you-want>'
+  fallback = "<version-you-want>",
 ) {
   const releaseTag = useLatestRelease(repo)
-  return releaseTag.replace('v', '')
+  return releaseTag.replace("v", "")
 }

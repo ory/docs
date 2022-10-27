@@ -1,5 +1,5 @@
-const webpack = require('webpack');
-const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
+const webpack = require("webpack")
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 
 // eslint-disable-next-line
 module.exports = function (context, options) {
@@ -10,8 +10,8 @@ module.exports = function (context, options) {
       const plugins = [
         new NodePolyfillPlugin(),
         new webpack.DefinePlugin({
-          'process.env.DEBUG': '({}).DEBUG'
-        })
+          "process.env.DEBUG": "({}).DEBUG",
+        }),
       ]
 
       return {
