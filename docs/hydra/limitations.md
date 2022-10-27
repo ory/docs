@@ -11,13 +11,18 @@ Ory Hydra has issues with MySQL <= 5.6 (but not MySQL 5.7+) and certain MariaDB 
 [here](https://github.com/ory/hydra/issues/377). Our recommendation is to use MySQL 5.7+ or PostgreSQL.
 
 <<<<<<< HEAD
-## OAuth 2.0 client secret length
-=======
-## OAuth 2.0 Client Secret BCrypt Length
->>>>>>> aa7f823f (docs(hydra): add pbkdf2)
 
-When using BCrypt as the OAuth 2.0 Client Secrets hashing algorithm, the length of the hsecretsh is limited to 72 characters. BCrypt has, by design, a maximum password length. The Golang BCrypt library has
-a maximum password length of 73 bytes. Any password longer will be "truncated":
+## OAuth 2.0 client secret length
+
+=======
+
+## OAuth 2.0 Client Secret BCrypt Length
+
+> > > > > > > aa7f823f (docs(hydra): add pbkdf2)
+
+When using BCrypt as the OAuth 2.0 Client Secrets hashing algorithm, the length of the hsecretsh is limited to 72 characters.
+BCrypt has, by design, a maximum password length. The Golang BCrypt library has a maximum password length of 73 bytes. Any
+password longer will be "truncated":
 
 ```sh
 hydra create client \

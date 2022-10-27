@@ -51,8 +51,8 @@ Ory's OAuth2 Tokens are prefixed:
 - OAuth2 Refresh Tokens: `ory_rt_`
 - OAuth2 Authorize Codes: `ory_ac_`
 
-Token prefixes are useful when scanning for secrets in e.g. git repositories. Token prefixes are only set for opaque
-tokens, not JSON Web Tokens. Adding prefixes to JSON Web Tokens would invalidate the JSON Web Token.
+Token prefixes are useful when scanning for secrets in e.g. git repositories. Token prefixes are only set for opaque tokens, not
+JSON Web Tokens. Adding prefixes to JSON Web Tokens would invalidate the JSON Web Token.
 
 ## Cryptography
 
@@ -91,15 +91,19 @@ is encouraged by NIST, see [http://csrc.nist.gov/groups/ST/hash/policy.html](htt
 
 ### PBKDF2
 
-PBKDF2 is the default OAuth2 Client Secret hashing algorithm to strike a balance between security and performance. As most client secrets are auto-generated, using high hash costs is not useful. The password (OAuth2 Client Secret) is not user chosen and unlikely to be reused. As such, there is little point in using excessive hash costs to protect users. High hash costs in a system like Ory Hydra will cause high CPU costs from mostly automated traffic (OAuth2 Client interactions). It has also been a point of critizism from some who wish for better RPS on specific endpoints.
+PBKDF2 is the default OAuth2 Client Secret hashing algorithm to strike a balance between security and performance. As most client
+secrets are auto-generated, using high hash costs is not useful. The password (OAuth2 Client Secret) is not user chosen and
+unlikely to be reused. As such, there is little point in using excessive hash costs to protect users. High hash costs in a system
+like Ory Hydra will cause high CPU costs from mostly automated traffic (OAuth2 Client interactions). It has also been a point of
+critizism from some who wish for better RPS on specific endpoints.
 
 We suggest between 20.000 and 50.000 iterations for PBKDF2.
 
 ### BCrypt
 
-BCrypt can be used to hash client credentials at rest. It isn't officially recommended by NIST as it isn't based on hashing primitives
-such as SHA-2, but rather on Blowfish. However, BCrypt is much stronger than any other (salted) hashing method for passwords, has
-wide adoption and is an official golang/x library.
+BCrypt can be used to hash client credentials at rest. It isn't officially recommended by NIST as it isn't based on hashing
+primitives such as SHA-2, but rather on Blowfish. However, BCrypt is much stronger than any other (salted) hashing method for
+passwords, has wide adoption and is an official golang/x library.
 
 Be aware that BCrypt causes very high CPU loads, depending on the Workload Factor. We strongly advise reducing the number of
 requests that use Basic Authorization.
