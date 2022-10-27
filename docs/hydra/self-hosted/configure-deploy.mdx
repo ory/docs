@@ -267,8 +267,9 @@ Let's dive into some of the arguments:
   - `--redirect-uri http://localhost:9010/callback` allows the client to request this redirect uri.
 
 Perfect, let's perform an exemplary OAuth 2.0 Authorize Code Flow! To make this easy, the Ory Hydra CLI provides a helper command
-called `hydra perform authorization-code`. Just imagine this being, for example, passport.js that's generating an auth code url, redirecting the
-browser to it, and then exchanging the authorize code for an access token. The same thing happens with this command:
+called `hydra perform authorization-code`. Just imagine this being, for example, passport.js that's generating an auth code url,
+redirecting the browser to it, and then exchanging the authorize code for an access token. The same thing happens with this
+command:
 
 ```sh
 docker run --rm -it \
