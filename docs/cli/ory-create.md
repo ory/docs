@@ -29,5 +29,5 @@ Create Ory Network resources
 * [ory create jwk](ory-create-jwk)	 - Create a JSON Web Key Set with a JSON Web Key
 * [ory create oauth2-client](ory-create-oauth2-client)	 - Create an OAuth 2.0 Client
 * [ory create project](ory-create-project)	 - Create a new Ory Network project
-* [ory create relation-tuples](ory-create-relation-tuples)	 - Create relation tuples from JSON files
+* [ory create relationships](ory-create-relationships)	 - Create relation tuples from JSON files
 
