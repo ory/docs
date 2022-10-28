@@ -13,8 +13,9 @@ The `Kratos` Docker images use Alpine Linux as their base image and come with SQ
 
 ## How to use these images
 
-In order to make the provided Docker images as useful as possible they can be partially configured through a set of supported Environment
-variables. In addition to the environment variables, the image needs you to bind a directory to pass in your configuration files (unless you extend the base docker image).
+In order to make the provided Docker images as useful as possible they can be partially configured through a set of supported
+Environment variables. In addition to the environment variables, the image needs you to bind a directory to pass in your
+configuration files (unless you extend the base docker image).
 
 ## Do not use `latest`
 
@@ -54,8 +55,8 @@ This environment variable allows you to specify the secret used to sign and veri
 
 #### Binding configuration directory
 
-**Note that for both of these methods** you must supply the location of the configuration file using the `--config` flag when running the
-container.
+**Note that for both of these methods** you must supply the location of the configuration file using the `--config` flag when
+running the container.
 
 ```sh
 docker run <theimage> serve --config /home/ory/kratos.yml
@@ -64,10 +65,10 @@ docker run <theimage> serve --config /home/ory/kratos.yml
 ##### Binding host directory example
 
 In this example we start the standard Docker container with SQLite support and use the quickstart email-password example
-configuration files by bind mounting the local directory. 
+configuration files by bind mounting the local directory.
 
-This example assumes that you checked out the Kratos Git repo and
-execute the Docker command in the Kratos Git repo directory, it mounts the configuration files [here](https://github.com/ory/kratos/tree/master/contrib/quickstart/kratos/email-password) to `~/`.
+This example assumes that you checked out the Kratos Git repo and execute the Docker command in the Kratos Git repo directory, it
+mounts the configuration files [here](https://github.com/ory/kratos/tree/master/contrib/quickstart/kratos/email-password) to `~/`.
 
 ```sh
 docker run -it -e DSN="memory" \
