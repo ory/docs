@@ -140,7 +140,8 @@ The `sdk.ts` file is responsible for creating a new instance of the Ory SDK. Thi
 ### Application entry point
 
 This is the main entry point for the application. This file contains routes and themes for other pages used by the app. The
-application is wrapped with Ory Elements using `<ThemeProvider />`.
+application is wrapped with Ory Elements using `<ThemeProvider />`. You can change the theme colors by passing in a `Theme` object
+to the `themeOverrides` property on the `<ThemeProvider />` component.
 
 ```mdx-code-block
 <Tabs groupId="react-or-preact">
@@ -168,7 +169,8 @@ application is wrapped with Ory Elements using `<ThemeProvider />`.
 ### Landing page
 
 This file defines the landing page of the application. If you want to protect access to an app, set up authentication to secure
-this page.
+this page. In this case the `Dashboard` component checks if the user has a session and redirects them to the login page if they
+don't. We also initialize a logout URL which is necessary for the logout button to work.
 
 ```mdx-code-block
 <Tabs groupId="react-or-preact">
@@ -277,7 +279,9 @@ To learn more about the self-service login flow, read [this document](../kratos/
 
 ### Settings page
 
-The `settings.tsx` file defines the page of the application where users can change their account settings.
+The `settings.tsx` file defines the page of the application where users can change their account settings. This page will also
+only render the settings available to the user, an example is enabling passwordless will give the option to add a hardware key,
+otherwise it will be omitted. The contents of this page thus change based on your Ory Network project.
 
 ```mdx-code-block
 <Tabs groupId="react-or-preact">
