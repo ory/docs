@@ -9,16 +9,15 @@ templates with custom ones that will carry your own branding, visual elements, a
 
 The system uses templates in these flows:
 
-1. `recovery` - the system sends these messages when users recover their accounts, for example after forgetting their password.
+1. `recovery` - the system sends these messages when users recover their accounts, when using the `link` strategy
    - `recovery.valid` - the system sends these messages when the user completes the recovery flow successfully.
    - `recovery.invalid` - the system sends these messages when the recovery flow fails, for example when you start the recovery
      flow using an email address that isn't associated with a registered user account.
-1. `recovery_code` - the system sends these messages when users recover their accounts, for example after forgetting their
-   password.
+2. `recovery_code` - the system sends these messages when users recover their accounts, when using the `code` recovery strategy.
    - `recovery_code.valid` - the system sends these messages when the user provided a valid recovery address.
    - `recovery_code.invalid` - the system sends these messages when the recovery flow fails, for example when you start the
      recovery flow using an email address that isn't associated with a registered user account.
-1. `verification` - the system sends these messages when users verify their accounts after signing up.
+3. `verification` - the system sends these messages when users verify their accounts after signing up.
    - `verification.valid` - the system sends these messages when the user verifies their account successfully.
    - `verification.invalid` - the system sends these messages when the account verification fails, for example when you start the
      verification flow using an email address that isn't associated with a registered user account.
