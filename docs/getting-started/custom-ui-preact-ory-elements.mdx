@@ -279,9 +279,9 @@ To learn more about the self-service login flow, read [this document](../kratos/
 
 ### Settings page
 
-The `settings.tsx` file defines the page of the application where users can change their account settings. This page will also
-only render the settings available to the user, an example is enabling passwordless will give the option to add a hardware key,
-otherwise it will be omitted. The contents of this page thus change based on your Ory Network project.
+The `settings.tsx` file defines the page of the application where users can change their account settings. This page changes dynamically based on the configuration of the Ory Network project. 
+
+For example, if you enable passwordless flows, users see the option to register a new hardware key. If passwordless flows are disabled, the option to add hardware keys is not visible in the UI.
 
 ```mdx-code-block
 <Tabs groupId="react-or-preact">
