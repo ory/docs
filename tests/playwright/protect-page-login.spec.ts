@@ -1,3 +1,5 @@
+// Copyright © 2022 Ory Corp
+
 import { expect, Page, test } from "@playwright/test"
 import { randomEmail, randomString } from "./helpers"
 
