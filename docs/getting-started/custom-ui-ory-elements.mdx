@@ -1,6 +1,6 @@
 ---
-id: custom-ui-preact-ory-elements
-title: Learn how to create custom UI for a Preact TypeScript SPA with Ory Elements
+id: custom-ui-ory-elements
+title: Learn how to create custom typescript SPA with Ory Elements
 sidebar_label: Custom UI with Ory Elements
 toc_max_heading_level: 4
 ---
@@ -169,7 +169,9 @@ to the `themeOverrides` property on the `<ThemeProvider />` component.
 ### Landing page
 
 This file defines the landing page of the application. If you want to protect access to an app, set up authentication to secure
-this page. In this implementation, the `Dashboard` component checks if the user has a session. If the user doesn't have a session, they are redirected to the login page. Additionally, the logout URL is initialized, which allows for a functional **Log out** button.
+this page. In this implementation, the `Dashboard` component checks if the user has a session. If the user doesn't have a session,
+they are redirected to the login page. Additionally, the logout URL is initialized, which allows for a functional **Log out**
+button.
 
 ```mdx-code-block
 <Tabs groupId="react-or-preact">
@@ -278,9 +280,11 @@ To learn more about the self-service login flow, read [this document](../kratos/
 
 ### Settings page
 
-The `settings.tsx` file defines the page of the application where users can change their account settings. This page changes dynamically based on the configuration of the Ory Network project. 
+The `settings.tsx` file defines the page of the application where users can change their account settings. This page changes
+dynamically based on the configuration of the Ory Network project.
 
-For example, if you enable passwordless flows, users see the option to register a new hardware key. If passwordless flows are disabled, the option to add hardware keys is not visible in the UI.
+For example, if you enable passwordless flows, users see the option to register a new hardware key. If passwordless flows are
+disabled, the option to add hardware keys is not visible in the UI.
 
 ```mdx-code-block
 <Tabs groupId="react-or-preact">
