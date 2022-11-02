@@ -13,7 +13,7 @@ The system uses templates in these flows:
    - `recovery.valid` - the system sends these messages when the user completes the recovery flow successfully.
    - `recovery.invalid` - the system sends these messages when the recovery flow fails, for example when you start the recovery
      flow using an email address that isn't associated with a registered user account.
-2. `recovery_code` - the system sends these messages when users recover their accounts, when using the `code` recovery strategy.
+2. `recovery_code` - the system sends these messages when users recover their accounts. Used with the `code` recovery strategy.
    - `recovery_code.valid` - the system sends these messages when the user provided a valid recovery address.
    - `recovery_code.invalid` - the system sends these messages when the recovery flow fails, for example when you start the
      recovery flow using an email address that isn't associated with a registered user account.
