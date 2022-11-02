@@ -25,9 +25,15 @@ build-examples:
 	cd code-examples/protect-page-login/vue && VUE_APP_API_URL=http://localhost:4007 VUE_APP_ORY_URL=http://localhost:3006 npm run build
 	cd code-examples/protect-page-login/react && npm run build
 
+licenses: .bin/licenses node_modules  # checks open-source licenses
+	.bin/licenses
+
 .PHONY: test
 test: install build-examples .bin/ory
 	./src/scripts/test.sh
+
+.bin/licenses: Makefile
+	curl https://raw.githubusercontent.com/ory/ci/master/licenses/install | sh
 
 .bin/ory: Makefile
 	bash <(curl https://raw.githubusercontent.com/ory/meta/master/install.sh) -d -b .bin ory v0.1.44
