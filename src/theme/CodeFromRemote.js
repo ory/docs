@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react"
-import fetch from "node-fetch"
 import CodeBlock from "@theme/CodeBlock"
+import fetch from "node-fetch"
+import React, { useEffect, useState } from "react"
 import styles from "./CodeFromRemote.module.css"
 
 const detectLanguage = (src) => {
@@ -92,7 +92,12 @@ const CodeFromRemote = (props) => {
 
   return (
     <div className={styles.container}>
-      <CodeBlock metastring={metaString} className={lang} children={content} />
+      <CodeBlock
+        metastring={metaString}
+        className={lang}
+        children={content}
+        showLineNumbers={true}
+      />
     </div>
   )
 }
