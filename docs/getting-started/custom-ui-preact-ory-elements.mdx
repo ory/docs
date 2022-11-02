@@ -169,8 +169,7 @@ to the `themeOverrides` property on the `<ThemeProvider />` component.
 ### Landing page
 
 This file defines the landing page of the application. If you want to protect access to an app, set up authentication to secure
-this page. In this case the `Dashboard` component checks if the user has a session and redirects them to the login page if they
-don't. We also initialize a logout URL which is necessary for the logout button to work.
+this page. In this implementation, the `Dashboard` component checks if the user has a session. If the user doesn't have a session, they are redirected to the login page. Additionally, the logout URL is initialized, which allows for a functional **Log out** button.
 
 ```mdx-code-block
 <Tabs groupId="react-or-preact">
