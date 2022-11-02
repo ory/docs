@@ -11,6 +11,9 @@ Back up your data! Applying upgrades can lead to data loss if handled incorrectl
 
 :::
 
+1. Read the release notes.  
+   We try to make our [release notes](https://github.com/ory/hydra/releases) as comprehensive as possible, so make sure to give
+   them a good read. They might contain information that is specific to your deployment.
 1. Review breaking changes.  
    Visit the [CHANGELOG.md](https://github.com/ory/hydra/blob/master/CHANGELOG.md) to see if breaking changes have been introduced
    in the version you are upgrading to.
@@ -21,3 +24,21 @@ Back up your data! Applying upgrades can lead to data loss if handled incorrectl
 
 Should you run into problems with the upgrade, consider a stepped upgrade and please visit the community
 [chat](https://slack.ory.sh/) or start a [discussion](https://github.com/ory/hydra/discussions).
+
+## Migrate from Hydra v1 to v2
+
+Some consents may be erased when migrating to Hydra 2.0. We assume that only a very small number of sessions, issued by pre-1.0
+Hydra, will be affected. Please contact us if this assumption doesn't apply or if the deletion adversely affects your deployment.
+
+The below query displays the numbers of consents that will be deleted by the v2 migration. Make sure that you are happy with these
+consents being deleted before you proceed.
+
+```
+-- postgresql
+SELECT
+  COUNT(*) AS count,
+  DATE_TRUNC('month', requested_at) AS month
+FROM hydra_oauth2_consent_request
+WHERE login_challenge IS NULL
+GROUP BY month;
+```

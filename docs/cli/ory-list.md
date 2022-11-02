@@ -29,5 +29,5 @@ List resources
 * [ory list identities](ory-list-identities)	 - List identities
 * [ory list oauth2-clients](ory-list-oauth2-clients)	 - List OAuth 2.0 Clients
 * [ory list projects](ory-list-projects)	 - List your Ory Network projects
-* [ory list relation-tuples](ory-list-relation-tuples)	 - List relation tuples
+* [ory list relationships](ory-list-relationships)	 - List relation tuples
 

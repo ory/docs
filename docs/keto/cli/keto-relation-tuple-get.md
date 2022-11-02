@@ -25,7 +25,8 @@ keto relation-tuple get [flags]
 ### Options
 
 ```
-      --format string                         Set the output format. One of table, json, yaml, and json-pretty. (default "default")
+      --authority string                      Set the authority header for the remote gRPC server.
+      --format string                         Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help                                  help for get
       --insecure-disable-transport-security   Disables transport security. Do not use this in production.
       --insecure-skip-hostname-verification   Disables hostname verification. Do not use this in production.

@@ -33,7 +33,6 @@ function API({
     return <></>
   }
 
-  console.log("redoc", { isServer })
   return <Redoc spec={spec} />
 }
 

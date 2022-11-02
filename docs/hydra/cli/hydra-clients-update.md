@@ -38,11 +38,11 @@ hydra clients update <id> [flags]
       --audience strings                         The audience this client is allowed to request
       --backchannel-logout-callback string       Client URL that will cause the client to log itself out when sent a Logout Token by Hydra.
       --backchannel-logout-session-required      Boolean flag specifying whether the client requires that a sid (session ID) Claim be included in the Logout Token to identify the client session with the OP when the backchannel-logout-callback is used. If omitted, the default value is false.
-  -c, --callbacks strings                        REQUIRED list of allowed callback URLs
+  -c, --redirect-uri strings                        REQUIRED list of allowed callback URLs
       --client-uri string                        A URL string of a web page providing information about the client
       --frontchannel-logout-callback string      Client URL that will cause the client to log itself out when rendered in an iframe by Hydra.
       --frontchannel-logout-session-required     Boolean flag specifying whether the client requires that a sid (session ID) Claim be included in the Logout Token to identify the client session with the OP when the frontchannel-logout-callback is used. If omitted, the default value is false.
-  -g, --grant-types strings                      A list of allowed grant types (default [authorization_code])
+  -g, --grant-type strings                      A list of allowed grant types (default [authorization_code])
   -h, --help                                     help for update
       --jwks-uri string                          Define the URL where the JSON Web Key Set should be fetched from when performing the "private_key_jwt" client authentication method
       --keybase string                           Keybase username for encrypting client secret
@@ -52,7 +52,7 @@ hydra clients update <id> [flags]
       --pgp-key-url string                       PGP encryption key URL for encrypting client secret
       --policy-uri string                        A URL string that points to a human-readable privacy policy document that describes how the deployment organization collects, uses, retains, and discloses personal data
       --post-logout-callbacks strings            List of allowed URLs to be redirected to after a logout
-  -r, --response-types strings                   A list of allowed response types (default [code])
+  -r, --response-type strings                   A list of allowed response types (default [code])
   -a, --scope strings                            The scope the client is allowed to request
       --secret string                            Provide the client's secret
       --subject-type string                      A identifier algorithm. Valid values are "public" and "pairwise" (default "public")
