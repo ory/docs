@@ -24,6 +24,7 @@ keto status [flags]
 ### Options
 
 ```
+      --authority string                      Set the authority header for the remote gRPC server.
   -b, --block                                 block until the service is healthy
       --endpoint string                       which endpoint to use; one of {read, write} (default "read")
   -h, --help                                  help for status

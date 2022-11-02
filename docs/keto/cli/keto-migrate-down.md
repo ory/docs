@@ -25,7 +25,7 @@ keto migrate down <steps> [flags]
 ### Options
 
 ```
-      --format string   Set the output format. One of table, json, yaml, and json-pretty. (default "default")
+      --format string   Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help            help for down
   -q, --quiet           Be quiet with output printing.
   -y, --yes             yes to all questions, no user input required

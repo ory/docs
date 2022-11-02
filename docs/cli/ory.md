@@ -28,6 +28,7 @@ The ORY CLI
 * [ory get](ory-get)	 - Get a resource
 * [ory import](ory-import)	 - Import resources
 * [ory introspect](ory-introspect)	 - Introspect resources
+* [ory is](ory-is)	 - Assert the state of Ory Network resources
 * [ory lint](ory-lint)	 - Helpers for linting code
 * [ory list](ory-list)	 - List resources
 * [ory parse](ory-parse)	 - Parse Ory Network resources

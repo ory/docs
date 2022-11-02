@@ -36,6 +36,7 @@ module.exports = {
             },
           ],
         },
+        "getting-started/custom-ui-ory-elements",
         "getting-started/ory-cloud-oauth2",
       ],
     },
