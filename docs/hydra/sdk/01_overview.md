@@ -1,5 +1,5 @@
 ---
-id: index
+id: overview
 title: Software Development Kits (SDKs)
 sidebar_label: Overview
 ---
