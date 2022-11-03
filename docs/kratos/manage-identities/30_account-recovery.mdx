@@ -9,42 +9,39 @@ import TabItem from "@theme/TabItem"
 import CodeBlock from "@theme/CodeBlock"
 import SelfHostedKratos from "@site/src/components/SelfHostedKratos"
 
-You can initiate account recovery for identities using the admin API endpoints.
-
-For more detailed information and general guidelines on account recovery, take a look at the
-[account recovery and password reset](../self-service/flows/account-recovery-password-reset.mdx) section.
+You can initiate account recovery for users using the admin API endpoints. You can initiate the flow even for users that don't
+have a recovery address configured.
 
 :::note
 
-You can initiate account recovery for a user without a recovery address via the admin API, but if the recovery flow expires the
-users can't re-initiate the flow by themselves.
+If the recovery flow initiated through the admin API expires, users without a recovery address can't start the flow again by
+themselves.
 
 :::
 
-## One time codes
+Read [this document](../self-service/flows/account-recovery-password-reset) to learn more about the account recovery flow.
 
-<Tabs
-  defaultValue="curl"
-  values={[
-    {label: 'curl', value: 'curl'},
-    {label: 'GoLang', value: 'go'},
-    {label: 'Self-Hosted Ory Kratos', value: 'kratos'},
-  ]}>
-  <TabItem value="curl">
+## One-time codes
+
+````mdx-code-block
+<Tabs>
+<TabItem value="oc" label="Ory Network" default>
+
+Send a request to the admin API of your project:
 
 ```shell
 curl --request POST -sL \
-  --header "Authorization: Bearer ory_pat_xRKLsFEOUFQFVBjd6o3FQDifaLYhabGd" \
+  --header "Authorization: Bearer ORY_PAT" \
   --header "Content-Type: application/json" \
   --request POST \
   --data '{
   "expires_in": "12h",
   "identity_id": "e01b5f2f-6afc-4194-8578-4cebcf69a4d5"
-}' https://playground.projects.oryapis.com/admin/recovery/code
+}' https://{your-project-slug}.projects.oryapis.com/admin/recovery/code
 ```
 
-  </TabItem>
-  <TabItem value="go">
+</TabItem>
+<TabItem value="go" label="Golang code">
 
 ```go
 package main
@@ -60,10 +57,10 @@ import (
 func main() {
 	client := ory.NewAPIClient(&ory.Configuration{
 		Servers: ory.ServerConfigurations{{
-			URL: "https://playground.projects.oryapis.com",
+			URL: "https://{your-project-slug}.projects.oryapis.com",
 		}},
 		DefaultHeader: map[string]string{
-			"Authorization": "Bearer ory_pat_xRKLsFEOUFQFVBjd6o3FQDifaLYhabGd", // Bearer Token for the Ory Network playground project
+			"Authorization": "Bearer ORY_PAT", // Personal access token for your Ory Network project
 		},
 	})
 
@@ -82,9 +79,10 @@ func main() {
 }
 ```
 
-  </TabItem>
- <TabItem value="kratos">
-    <SelfHostedKratos />
+</TabItem>
+<TabItem value="kratos" label="Self-hosted Ory Kratos">
+
+<SelfHostedKratos />
 
 And use it to create a recovery code:
 
@@ -99,11 +97,12 @@ curl --request POST -sL \
 
   </TabItem>
 </Tabs>
+````
 
-### Responses
+### Response
 
-The response contains a `recovery_link` containing the flow ID and a `recovery_code`. The link should be opened by the user which
-will show a recovery code form. The `recovery_code` should be entered by the user here.
+The response contains a `recovery_link` with the flow ID and a `recovery_code`. To recover the account, the user must access the
+link and enter the recovery code in the form available at the link.
 
 ```json
 {
@@ -113,34 +112,31 @@ will show a recovery code form. The `recovery_code` should be entered by the use
 }
 ```
 
-After successfully recovering their account, they can connect to a social sign-in provider or set up a password.
+After successfully recovering their account, users can connect to a social sign-in provider or create a new password.
 
 ## Magic links
 
 To create the account recovery link, use:
 
-<Tabs
-  defaultValue="curl"
-  values={[
-    {label: 'curl', value: 'curl'},
-    {label: 'Ory Cloud', value: 'cloud'},
-    {label: 'Self-Hosted Ory Kratos', value: 'kratos'},
-  ]}>
-  <TabItem value="curl">
+````mdx-code-block
+<Tabs>
+<TabItem value="oc" label="Ory Network" default>
+
+Send a request to the admin API of your project:
 
 ```shell
 curl --request POST -sL \
-  --header "Authorization: Bearer ory_pat_xRKLsFEOUFQFVBjd6o3FQDifaLYhabGd" \
+  --header "Authorization: Bearer ORY_PAT" \
   --header "Content-Type: application/json" \
   --request POST \
   --data '{
   "expires_in": "12h",
   "identity_id": "e01b5f2f-6afc-4194-8578-4cebcf69a4d5"
-}' https://playground.projects.oryapis.com/admin/recovery/link
+}'  https://{your-project-slug}.projects.oryapis.com/admin/recovery/link
 ```
 
-  </TabItem>
-  <TabItem value="go">
+</TabItem>
+<TabItem value="go" label="Golang code">
 
 ```go
 package main
@@ -156,10 +152,10 @@ import (
 func main() {
 	client := ory.NewAPIClient(&ory.Configuration{
 		Servers: ory.ServerConfigurations{{
-			URL: "https://playground.projects.oryapis.com",
+			URL: "https://{your-project-slug}.projects.oryapis.com",
 		}},
 		DefaultHeader: map[string]string{
-			"Authorization": "Bearer ory_pat_xRKLsFEOUFQFVBjd6o3FQDifaLYhabGd", // Bearer Token for the Ory Network playground project
+			"Authorization": "Bearer ORY_PAT", // Personal access token for your Ory Network project
 		},
 	})
 
@@ -177,9 +173,10 @@ func main() {
 }
 ```
 
-  </TabItem>
-  <TabItem value="kratos">
-    <SelfHostedKratos />
+</TabItem>
+<TabItem value="kratos" label="Self-hosted Ory Kratos">
+
+<SelfHostedKratos />
 
 And use it to create a recovery link:
 
@@ -194,11 +191,12 @@ curl --request POST -sL \
 
   </TabItem>
 </Tabs>
+````
 
-### Responses
+### Response
 
-The response contains a `recovery_link` value containing the flow ID and a random token. This link should be opened by the user.
-Afterwards they can then connect to a social sign-in provider or set up a password:
+The response contains a `recovery_link` with the flow ID and a random token. The user must access the link to recover the account.
+Upon accessing the link, the user can connect to a social sign-in provider or set up a new password.
 
 ```json
 {
@@ -206,12 +204,6 @@ Afterwards they can then connect to a social sign-in provider or set up a passwo
   "expires_at": "2022-02-25T03:09:37.60684766Z"
 }
 ```
-
-If the user fails to set up their credentials in time, another recovery link needs to be issued and the user needs to re-do the
-flow.
-
-For more detailed information and general guidelines on account recovery, take a look at the
-[account recovery and password reset](../../kratos//self-service/flows/account-recovery-password-reset.mdx) section.
 
 It is currently not possible to send the recovery link directly to a user's email, this feature is tracked as
 [#595](https://github.com/ory/kratos/issues/595).
