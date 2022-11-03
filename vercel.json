@@ -833,6 +833,11 @@
       "source": "/docs/getting-started/custom-ui-preact-ory-elements",
       "destination": "https://www.ory.sh/docs/getting-started/custom-ui-ory-elements",
       "permanent": false
+    },
+    {
+      "source": "/docs/concepts/social-sign-in",
+      "destination": "https://www.ory.sh/docs/kratos/social-signin/overview",
+      "permanent": false
     }
   ]
 }
