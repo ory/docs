@@ -840,8 +840,8 @@
       "permanent": false
     },
     {
-      "source": "/docs/kratos/self-service/flows/account-recovery",
-      "destination": "https://www.ory.sh/docs/kratos/self-service/flows/account-recovery-password-reset",
+      "source": "/docs/concepts/social-sign-in",
+      "destination": "https://www.ory.sh/docs/kratos/social-signin/overview",
       "permanent": false
     }
   ]
