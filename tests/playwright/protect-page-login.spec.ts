@@ -1,4 +1,5 @@
 // Copyright © 2022 Ory Corp
+// SPDX-License-Identifier: Apache-2.0
 
 import { expect, Page, test } from "@playwright/test"
 import { randomEmail, randomString } from "./helpers"

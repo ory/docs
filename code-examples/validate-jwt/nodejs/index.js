@@ -1,4 +1,5 @@
 // Copyright © 2022 Ory Corp
+// SPDX-License-Identifier: Apache-2.0
 
 // This is the middleware which protects the endpoint. It requires a valid
 // JSON Web Token signed by a key provided by the Ory Proxy.

@@ -1,4 +1,5 @@
 // Copyright © 2022 Ory Corp
+// SPDX-License-Identifier: Apache-2.0
 
 const RefParser = require("json-schema-ref-parser")
 const parser = new RefParser()

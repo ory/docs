@@ -1,4 +1,5 @@
 // Copyright © 2022 Ory Corp
+// SPDX-License-Identifier: Apache-2.0
 
 // according to https://github.com/facebook/docusaurus/issues/1258#issuecomment-594393744
 
