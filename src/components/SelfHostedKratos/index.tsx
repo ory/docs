@@ -5,7 +5,8 @@ export default function SelfHostedKratos() {
   return (
     <>
       <p>
-        Run Ory Kratos easily on your local machine or server with the Ory Account Experience and default configuration in Docker:
+        Run Ory Kratos easily on your local machine or server with the Ory
+        Account Experience and default configuration in Docker:
       </p>
       <CodeBlock language="shell">
         {`git clone --depth 1 --branch master https://github.com/ory/kratos.git
