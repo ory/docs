@@ -1,3 +1,6 @@
+// Copyright © 2022 Ory Corp
+// SPDX-License-Identifier: Apache-2.0
+
 const githubPrismTheme = require("prism-react-renderer/themes/github")
 
 const prismThemeLight = {

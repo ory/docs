@@ -1,3 +1,6 @@
+// Copyright © 2022 Ory Corp
+// SPDX-License-Identifier: Apache-2.0
+
 import React from "react"
 import ApiDoc from "@theme/ApiDoc"
 import useBaseUrl from "@docusaurus/useBaseUrl"

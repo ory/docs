@@ -1,3 +1,6 @@
+// Copyright © 2022 Ory Corp
+// SPDX-License-Identifier: Apache-2.0
+
 import mp4 from "./images/browser-privileged-update.mp4"
 import webm from "./images/browser-privileged-update.webm"
 

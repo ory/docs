@@ -21,6 +21,7 @@ yarn-error.log*
 
 /tmp
 
+.bin/
 .idea/
 
 docs/build
