@@ -153,23 +153,25 @@ module.exports = {
       copyright: `Copyright © ${new Date().getFullYear()} Ory Corp`,
       links: [
         {
-          title: "Company",
-          items: [
-            {
-              label: "Imprint",
-              href: "https://www.ory.sh/imprint",
-            },
-            {
-              label: "Privacy",
-              href: "https://www.ory.sh/privacy",
-            },
-            {
-              label: "Terms",
-              href: "https://www.ory.sh/tos",
-            },
-          ],
+          label: "Imprint",
+          href: "https://www.ory.sh/imprint",
+        },
+        {
+          label: "Privacy",
+          href: "https://www.ory.sh/privacy",
+        },
+        {
+          label: "Terms",
+          href: "https://www.ory.sh/tos",
         },
       ],
+      logo: {
+        alt: 'Meta Open Source Logo',
+        src: '/docs/img/logo-hydra.svg',
+        href: 'https://opensource.fb.com',
+        width: 160,
+        height: 30,
+      },
     },
   },
   plugins: [
