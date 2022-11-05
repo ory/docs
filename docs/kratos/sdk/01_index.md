@@ -15,9 +15,9 @@ We publish our SDKs for popular languages in their respective package repositori
 
 - [Dart](https://pub.dev/packages/ory_client)
 - [.NET](https://www.nuget.org/packages/Ory.Client/)
-- [Go](https://github.com/ory/client-go)
-- [Java](https://search.maven.org/artifact/sh.ory/ory-client)
-- [JavaScript](https://www.npmjs.com/package/@ory/client) with TypeScript definitions and compatible with: Node.js, React.js,
+- [Go](https://github.com/ory/kratos-client-go)
+- [Java](https://search.maven.org/artifact/sh.ory.kratos/kratos-client)
+- [JavaScript](https://www.npmjs.com/package/@ory/kratos-client) with TypeScript definitions and compatible with: Node.js, React.js,
   Angular, Vue.js, and many more.
 - [PHP](https://packagist.org/packages/ory/client)
 - [Python](https://pypi.org/project/ory-client/)
