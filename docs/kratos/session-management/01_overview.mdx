@@ -104,7 +104,7 @@ import { getSdkUrl } from '@site/src/hooks'
 import CodeBlock from '@theme/CodeBlock'
 
 <CodeBlock language="shell">{`curl '${getSdkUrl().url}/sessions/whoami' \\
-  -H 'Accept: application/json \\
+  -H 'Accept: application/json' \\
   -H 'Cookie: ory_kratos_session=MTYzNDIyNzEzN3xEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJRTFDYWtvME5VNVlaVWxvYVZWeWJrUnZhSEF4YmxSV2VVRlhNMWwxVlVGenxXpsk2cL21Dclk3nCoXV41N6bFxvVJSt7CeICy_815Aw=='`}</CodeBlock>
 ```
 
@@ -119,7 +119,7 @@ You must pass the token in one of two ways:
 
   ```mdx-code-block
   <CodeBlock language="shell">{`curl '${getSdkUrl().url}/sessions/whoami' \\
-    -H 'Accept: application/json \
+    -H 'Accept: application/json' \
     -H 'Authorization: Bearer BRFbGMzTnBiMjVmZEcEdjM1J5YVc1bkRDSUFvME5VNVlaVeWJrUnZhSEF4YmxSV2VVRlhNMWwxVlVGenxXpsk2cLXV41N6bFxvVJSt7CeICy'`}</CodeBlock>
   ```
 
@@ -127,7 +127,7 @@ You must pass the token in one of two ways:
 
   ```mdx-code-block
   <CodeBlock language="shell">{`curl '${getSdkUrl().url}/sessions/whoami' \\
-    -H 'Accept: application/json \
+    -H 'Accept: application/json' \
     -H 'X-Session-Token: BRFbGMzTnBiMjVmZEcEdjM1J5YVc1bkRDSUFvME5VNVlaVeWJrUnZhSEF4YmxSV2VVRlhNMWwxVlVGenxXpsk2cLXV41N6bFxvVJSt7CeICy'`}</CodeBlock>
   ```
 
