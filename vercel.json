@@ -843,6 +843,16 @@
       "source": "/docs/concepts/social-sign-in",
       "destination": "https://www.ory.sh/docs/kratos/social-signin/overview",
       "permanent": false
+    },
+    {
+      "source": "/docs/hydra/sdk/index",
+      "destination": "https://www.ory.sh/docs/hydra/sdk/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/sdk",
+      "destination": "https://www.ory.sh/docs/hydra/sdk/overview",
+      "permanent": false
     }
   ]
 }
