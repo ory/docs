@@ -27,8 +27,10 @@ ory create jwk <set-id> [<key-id>] [flags]
 
 ```
       --alg string       The algorithm to be used to generated they key. Supports: RS256, RS512, ES256, ES512, EdDSA (default "RS256")
+      --format string    Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help             help for jwk
       --project string   The project to use
+  -q, --quiet            Be quiet with output printing.
       --use string       The intended use of this key. Supports: sig, enc (default "sig")
 ```
 
@@ -36,8 +38,6 @@ ory create jwk <set-id> [<key-id>] [flags]
 
 ```
   -c, --config string   Path to the Ory Network configuration file.
-      --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
-  -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
 ```
 

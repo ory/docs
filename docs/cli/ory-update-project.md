@@ -1,7 +1,7 @@
 ---
 id: ory-update-project
 title: ory update project
-description: ory update project Update Ory Network project configuration
+description: ory update project Update Ory Network project service configuration
 ---
 
 <!--
@@ -11,11 +11,11 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory update project
 
-Update Ory Network project configuration
+Update Ory Network project service configuration
 
 ### Synopsis
 
-Updates your Ory Network project's configuration. All values
+Updates your Ory Network project's service configuration. All values
 will be overwritten. To update individual settings use the `patch` command instead.
 
 If the `--name` flag is not set, the project's name will not be changed.
@@ -88,17 +88,17 @@ $ ory update project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 
 ```
   -f, --file strings    Configuration file(s) (file://config.json, https://example.org/config.yaml, ...) to update the project
-      --format string   Set the output format. One of table, json, yaml, and json-pretty. (default "default")
+      --format string   Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help            help for project
   -n, --name string     The new name of the project.
+  -q, --quiet           Be quiet with output printing.
+  -y, --yes             Confirm all dialogs with yes.
 ```
 
 ### Options inherited from parent commands
 
 ```
   -c, --config string   Path to the Ory Network configuration file.
-  -q, --quiet           Be quiet with output printing.
-  -y, --yes             Confirm all dialogs with yes.
 ```
 
 ### SEE ALSO

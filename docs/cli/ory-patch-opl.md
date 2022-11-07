@@ -1,7 +1,7 @@
 ---
 id: ory-patch-opl
 title: ory patch opl
-description: ory patch opl Update the Ory Permission Language file in your Ory Network project
+description: ory patch opl Update the Ory Permission Language file in Ory Network
 ---
 
 <!--
@@ -11,11 +11,11 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory patch opl
 
-Update the Ory Permission Language file in your Ory Network project
+Update the Ory Permission Language file in Ory Network
 
 ### Synopsis
 
-Update the Ory Permission Language file in your Ory Network project. Legacy namespace definitions will be overwritten.
+Update the Ory Permission Language file in Ory Network. Legacy namespace definitions will be overwritten.
 
 ```
 ory patch opl <project-id> [flags]
@@ -35,7 +35,7 @@ class Example implements Namespace {}
 
 ```
   -f, --file string      Configuration file (file://namespace_config.ts, https://example.org/namespace_config.ts, ...) to update the Ory Permission Language config
-      --format string    Set the output format. One of table, json, yaml, and json-pretty. (default "default")
+      --format string    Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help             help for opl
       --project string   The project to use
   -q, --quiet            Be quiet with output printing.

@@ -17,7 +17,7 @@ Create Ory Network resources
 
 ```
   -c, --config string   Path to the Ory Network configuration file.
-      --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
+      --format string   Set the output format. One of default, json, yaml, json-pretty and jsonpath. (default "default")
   -h, --help            help for create
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.

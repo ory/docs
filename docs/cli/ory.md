@@ -21,7 +21,7 @@ The ORY CLI
 
 ### SEE ALSO
 
-* [ory auth](ory-auth)	 - Create an or sign into your Ory Network account
+* [ory auth](ory-auth)	 - Create a new Ory Network account or sign in to an existing account.
 * [ory create](ory-create)	 - Create Ory Network resources
 * [ory delete](ory-delete)	 - Delete resources
 * [ory format](ory-format)	 - Helpers for formatting code
