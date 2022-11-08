@@ -32,16 +32,16 @@ To get the OAuth 2.0 Client's secret, run:
 ### Options
 
 ```
-      --format string    Set the output format. One of table, json, yaml, and json-pretty. (default "default")
+      --format string    Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help             help for oauth2-client
       --project string   The project to use
+  -q, --quiet            Be quiet with output printing.
 ```
 
 ### Options inherited from parent commands
 
 ```
   -c, --config string   Path to the Ory Network configuration file.
-  -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
 ```
 

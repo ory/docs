@@ -38,7 +38,7 @@ ory perform authorization-code [flags]
       --auth-url endpoint      Usually it is enough to specify the endpoint flag, but if you want to force the authorization url, use this flag
       --client-id string       Use the provided OAuth 2.0 Client ID, defaults to environment variable OAUTH2_CLIENT_ID
       --client-secret string   Use the provided OAuth 2.0 Client Secret, defaults to environment variable OAUTH2_CLIENT_SECRET
-      --format string          Set the output format. One of table, json, yaml, and json-pretty. (default "default")
+      --format string          Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help                   help for authorization-code
       --https                  Sets up HTTPS for the endpoint using a self-signed certificate which is re-generated every time you start this command
       --max-age int            Set the OpenID Connect max_age parameter
@@ -47,6 +47,7 @@ ory perform authorization-code [flags]
   -p, --port int               The port on which the server should run (default 4446)
       --project string         The project to use
       --prompt strings         Set the OpenID Connect prompt parameter
+  -q, --quiet                  Be quiet with output printing.
       --redirect string        Force a redirect url
       --scope strings          Request OAuth2 scope (default [offline,openid])
       --token-url endpoint     Usually it is enough to specify the endpoint flag, but if you want to force the token url, use this flag
@@ -56,7 +57,6 @@ ory perform authorization-code [flags]
 
 ```
   -c, --config string   Path to the Ory Network configuration file.
-  -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
 ```
 

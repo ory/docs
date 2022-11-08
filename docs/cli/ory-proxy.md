@@ -180,10 +180,10 @@ ory proxy http://localhost:3000 https://app.example.com \
       --default-redirect-url string    Set the URL to redirect to per default after e.g. login or account creation.
       --dev                            Use this flag when developing locally.
   -h, --help                           help for proxy
-      --no-jwt                         Do not create a JWT from the Ory Kratos Session. Useful if you need fast start up times of the Ory Proxy.
+      --no-jwt                         Do not create a JWT from the Ory Session. Useful if you need fast start up times of the Ory Proxy.
       --open                           Open the browser when the proxy starts.
       --port int                       The port the proxy should listen on. (default 4000)
-      --project string                 The slug of your Ory Network Project.
+      --project string                 The slug of your Ory Network project.
   -q, --quiet                          Be quiet with output printing.
       --rewrite-host                   Use this flag to rewrite the host header to the upstream host.
   -y, --yes                            Confirm all dialogs with yes.

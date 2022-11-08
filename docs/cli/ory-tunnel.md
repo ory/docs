@@ -117,7 +117,7 @@ ory tunnel https://app.example.com \
       --dev                            Use this flag when developing locally.
   -h, --help                           help for tunnel
       --port int                       The port the proxy should listen on. (default 4000)
-      --project string                 The slug of your Ory Network Project.
+      --project string                 The slug of your Ory Network project.
   -q, --quiet                          Be quiet with output printing.
   -y, --yes                            Confirm all dialogs with yes.
 ```

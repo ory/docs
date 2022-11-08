@@ -835,8 +835,23 @@
       "permanent": false
     },
     {
+      "source": "/docs/kratos/self-hosted/account-recovery-password-reset",
+      "destination": "https://www.ory.sh/docs/kratos/self-service/flows/account-recovery-password-reset",
+      "permanent": false
+    },
+    {
       "source": "/docs/concepts/social-sign-in",
       "destination": "https://www.ory.sh/docs/kratos/social-signin/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/sdk/index",
+      "destination": "https://www.ory.sh/docs/hydra/sdk/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/sdk",
+      "destination": "https://www.ory.sh/docs/hydra/sdk/overview",
       "permanent": false
     }
   ]

@@ -1,7 +1,7 @@
 ---
 id: ory-patch-project
 title: ory patch project
-description: ory patch project Patch an Ory Network project
+description: ory patch project Patch the Ory Network project configuration.
 ---
 
 <!--
@@ -11,11 +11,11 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory patch project
 
-Patch an Ory Network project
+Patch the Ory Network project configuration.
 
 ### Synopsis
 
-Patches your Ory Network project's service configuration. Only values
+Patch the Ory Network project configuration. Only values
 specified in the patch will be overwritten. To replace the config use the `update` command instead.
 
 The format of the patch is a JSON-Patch document. For more details please check:
@@ -47,7 +47,7 @@ ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 ```
       --add stringArray       Add a specific key to the configuration
   -f, --file strings          Configuration file(s) (file://config.json, https://example.org/config.yaml, ...) to update the project
-      --format string         Set the output format. One of table, json, yaml, and json-pretty. (default "default")
+      --format string         Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help                  help for project
   -q, --quiet                 Be quiet with output printing.
       --remove stringArray    Remove a specific key from the configuration
