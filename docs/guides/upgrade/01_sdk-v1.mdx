@@ -1,0 +1,364 @@
+---
+id: sdk-v1
+title: Upgrade your Ory SDKs to v1
+sidebar_label: SDK V1 Upgrade Guide
+---
+
+# SDK V1 Upgrade Guide
+
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
+We are excited to announce the release of version 1.0 of Ory's Software Development Kits (SDKs) for all major languages.
+As part of releasing version 1.0, we have streamlined naming conventions and improved the API documentation.
+
+## History
+
+Ory SDKs have been around for a while and have gone through several transformations. We always relied on [openapi-generator](https://github.com/OpenAPITools/openapi-generator)
+to auto-generate SDKs from our OpenAPI specifications.
+
+## Backwards Compatibility
+
+Versions prior to 1.0 will remain functional and compatible with APIs offered on the Ory Network. However, we will no longer be maintaining these versions. We recommend that you upgrade to the latest version of the SDKs
+within the next 3 months.
+
+## Upgrade Guide
+
+Let's take a look at the changes we made to the SDKs and some examples of how to upgrade your code. We will use Golang for
+the examples, but the changes are similar for all languages.
+
+In essence, what is changing are naming conventions, not payloads or functionality. Let's create a new SDK client for the
+examples below:
+
+````mdx-code-block
+<Tabs>
+  <TabItem value="go" label="Golang" default>
+
+```go
+import ory "github.com/ory/client-go"
+
+var client = NewSDK()
+
+// Use this context to access Ory APIs which require an Ory API Key.
+var oryAuthedContext = context.WithValue(context.Background(), ory.ContextAccessToken, os.Getenv("ORY_API_KEY"))
+
+func NewSDK() *ory.APIClient {
+  conf := ory.NewConfiguration()
+  conf.Servers = ory.ServerConfigurations{{
+    URL: "https://{your-project}.projects.oryapis.com/",
+  }}
+
+  // If you want the SDK to use a custom HTTP Client, set:
+  //  conf.HTTPClient = &http.Client{ /* ... */ }
+
+  return ory.NewAPIClient(conf)
+}
+```
+
+  </TabItem>
+  <TabItem value="js" label="JavaScript">
+
+```diff
+import {
+  Configuration,
+- V0alpha2Api
++ OAuth2Api,
++ IdentityApi,
++ FrontendApi,
+} from "@ory/client"
+
+const config = new Configuration({
+  basePath: "https://{your-project}.projects.oryapis.com/",
+  accessToken: process.env.ORY_API_KEY,
+  baseOptions: {
+    withCredentials: true, // Important for CORS
+    timeout: 30000, // 30 seconds
+  },
+})
+
+const ory = {
+- v0alpha2: V0alpha2Api
++ identity: new IdentityApi(config),
++ frontend: new FrontendApi(config),
++ oauth2: new OAuth2Api(config),
+}
+```
+
+  </TabItem>
+</Tabs>
+````
+
+### Identity Management
+
+Generally, identity (and their sessions) management APIs have moved in the SDK from tag `v0alpha2` to
+`identity`. APIs requiring authorization are no longer prefixed with `admin` for better readability. Most
+`identity` APIs require authorization.
+
+````mdx-code-block
+<Tabs>
+  <TabItem value="go" label="Golang" default>
+
+```diff
+// Create
+ 	identity, res, err := client.
+-   V0alpha2Api.AdminCreateIdentity(oryAuthedContext).AdminCreateIdentityBody(ory.AdminCreateIdentityBody{
++   IdentityApi.CreateIdentity(oryAuthedContext).CreateIdentityBody(ory.CreateIdentityBody{
+      SchemaId: "default",
+      Traits: map[string]interface{}{
+        "email": "hello@example.org",
+      },
+    }).Execute()
+
+// Get
+-	identity, res, err := client.V0alpha2Api.AdminGetIdentity(oryAuthedContext, created.Id).Execute()
++	identity, res, err := client.IdentityApi.GetIdentity(oryAuthedContext, created.Id).Execute()
+
+// Update
+  identity, res, err := client.
+-   V0alpha2Api.AdminUpdateIdentity(oryAuthedContext, toUpdate.Id).AdminUpdateIdentityBody(ory.AdminUpdateIdentityBody{
++   IdentityApi.UpdateIdentity(oryAuthedContext, toUpdate.Id).UpdateIdentityBody(ory.UpdateIdentityBody{
+      Traits: map[string]interface{}{
+        "email": "dev+not-" + x.NewUUID().String() + "@ory.sh",
+      },
+    }).Execute()
+
+// Delete
+-	res, err := client.V0alpha2Api.AdminDeleteIdentity(oryAuthedContext, identity.Id).Execute()
++	res, err := client.IdentityApi.DeleteIdentity(oryAuthedContext, identity.Id).Execute()
+```
+
+  </TabItem>
+  <TabItem value="js" label="JavaScript">
+
+```diff
+  // Create
+  const identity = await ory
+-   .v0alpha2.adminCreateIdentity({
++   .identity.createIdentity({
+      schema_id: "preset://email",
+      traits: { email: generateEmail() },
+    })
+    .then(({ data }) => data)
+
+  // Get
+  const identity = await ory
+-   .v0alpha2.adminGetIdentity(expected.id)
++   .identity.getIdentity(expected.id)
+    .then(({ data }) => data)
+
+  // Update
+  const identity = await ory
+-   .v0alpha2.adminUpdateIdentity(expected.id, {
++   .identity.updateIdentity(expected.id, {
+      schema_id: expected.schema_id,
+      traits: { email: "new@email.com", ...expected.traits },
+      state: .state,
+    })
+    .then(({ data }) => data)
+
+  // Delete
+- await ory.v0alpha2.adminDeleteIdentity(identity.id)
++ await ory.identity.deleteIdentity(identity.id)
+```
+
+  </TabItem>
+</Tabs>
+````
+
+### Frontend APIs
+
+APIs used in the frontend (e.g. signup, registration, ...) have moved from tag `V0alpha2Api` to `frontend` and are no
+longer prefix with `SelfService`. This improves readability significantly as you can see in the following example:
+
+```diff
+  const flow = await ory
+-   .v0alpha2.initializeSelfServiceSettingsFlowForBrowsers()
++   .frontend.createBrowserSettingsFlow()
+    then(({ data: flow }) => flow)
+```
+
+Below you find examples for the error and native/browser app registration  flow. Changes to verification, recovery, settings, and login methods
+are analogous.
+
+#### Login, Registration, Recovery, Verification Settings
+
+Login, recovery, registration, verification, settings APIs no longer use the `SelfService` prefix and `WithoutBrowser` has been changed to `Native`. Additionally,
+updating a flow (by filling the form out) has been changed from `Submit` to `Update`
+
+````mdx-code-block
+<Tabs>
+  <TabItem value="go" label="Golang" default>
+
+```diff
+  // Browser App
+  flow, res, err := c.
+-   V0alpha2Api.InitializeSelfServiceRegistrationFlowBrowser(ctx).
++   FrontendApi.CreateNativeRegistrationFlow(ctx).
+    Execute()
+
+
+  // Native App
+  flow, res, err := c.
+-   V0alpha2Api.initializeSelfServiceLoginFlowForBrowsers(ctx).
++   FrontendApi.CreateBrowserRegistrationFlow(ctx).
+    Execute()
+  // if err != ...
+
+  result, res, err := c.
+-   V0alpha2Api.SubmitSelfServiceRegistrationFlow(ctx).
++   FrontendApi.UpdateRegistrationFlow(ctx).
+    Flow(flow.Id).
+-   SubmitSelfServiceRegistrationFlowBody(
++    UpdateRegistrationFlowBody(
+-     ory.SubmitSelfServiceRegistrationFlowWithPasswordMethodBodyAsSubmitSelfServiceRegistrationFlowBody(
++     ory.UpdateRegistrationFlowWithPasswordMethodAsUpdateRegistrationFlowBody
+-       &ory.SubmitSelfServiceRegistrationFlowWithPasswordMethodBody{
++       &ory.UpdateRegistrationFlowWithPasswordMethod{
+          Method:   "password",
+          Password: password,
+          Traits:   map[string]interface{}{"email": email},
+    		}),
+    ).Execute()
+
+  // if err != ...
+  if result.Session == nil // ...
+```
+
+  </TabItem>
+  <TabItem value="javascript" label="JavaScript" default>
+
+
+```diff
+async function example() {
+  // Browser App
+  const browerFlow = await ory
+-   .v0alpha2.initializeSelfServiceRegistrationFlowForBrowsers()
++   .frontend.createBrowserRegistrationFlow()
+    .then(({ data: flow }) => flow)
+
+  // Native App
+  const browerFlow = await ory
+-   .v0alpha2.initializeSelfServiceRegistrationFlowWithoutBrowser()
++   .frontend.createNativeRegistrationFlow()
+    .then(({ data: flow }) => flow)
+
+  // Get
+  const getFlow = await ory
+-   .v0alpha2.getSelfServiceRegistrationFlow(flow.id)
++   .frontend.getRegistrationFlow(flow.id)
+
+  // Update / Submit
+  const result = await ory
+-   .v0alpha2.submitSelfServiceRegistrationFlow(flow.id,
++   .frontend.updateRegistrationFlow(flow.id, {
+      method: "password",
+      password: "some-password",
+      traits: { email },
+      // csrf_token: ... - needed in browser apps
+    })
+    .then(({ data }) => data)
+}
+```
+
+  </TabItem>
+</Tabs>
+````
+
+#### Frontend Errors
+
+Fetch frontend errors with a simple command - `GetFlowError`:
+
+````mdx-code-block
+<Tabs>
+  <TabItem value="go" label="Golang" default>
+
+```diff
+  // Use a stub error
+  var errorId = "stub:500"
+
+- func getError() *ory.SelfServiceError {
++ func getError() *ory.FlowError {
+    e, res, err := client.
+-     V0alpha2Api.GetSelfServiceError(context.Background()).
++     FrontendApi.GetFlowError(context.Background()).
+      Id(errorId).Execute()
+    // if err != nil ...
+    return e
+  }
+```
+
+  </TabItem>
+  <TabItem value="js" label="JavaScript">
+
+```diff
+- const error = await ory.v0alpha2
+-  .getSelfServiceError(errorId)
++ const error = await ory.frontend
++  .getFlowError(errorId)
+   .then(({ data }) => data)
+```
+
+  </TabItem>
+</Tabs>
+````
+
+#### Logout for Native Apps
+
+```diff
+ 	res, err := client.
+-	  V0alpha2Api.SubmitSelfServiceLogoutFlowWithoutBrowser(context.Background()).
+- 		SubmitSelfServiceLogoutFlowWithoutBrowserBody(ory.SubmitSelfServiceLogoutFlowWithoutBrowserBody{
++	  FrontendApi.PerformNativeLogout(context.Background()).
++ 		PerformNativeLogoutBody(ory.PerformNativeLogoutBody{SessionToken: sessionToken}).
+        SessionToken: sessionToken,
+      }).
+      Execute()
+```
+
+### Session Checking
+
+Checking session is now available in the `frontend` module:
+
+````mdx-code-block
+<Tabs>
+  <TabItem value="go" label="Golang" default>
+
+```diff
+  // Session Tokens
+ 	res, err := client.
+-   V0alpha2Api.
+-   FrontentApi.
+    ToSession(context.Background()).
+    XSessionToken(sessionToken).Execute()
+
+  // Session Cookies
+	session, res, err := client.
+-   V0alpha2Api.
+-   FrontentApi.
+    ToSession(context.Background()).
+    Cookie("ory_session_...=...").Execute()
+```
+
+
+  </TabItem>
+  <TabItem value="js" label="JavaScript">
+
+```diff
+  const flow = await ory.
+-   v0alpha2.
++   frontend.
+    toSession(sessionToken).then(({ data: session }) => session)
+
+  // Session Cookies
+  const flow = await ory.
+-   v0alpha2.
++   frontend.
+    toSession(undefined, "ory_session_...=...").then(({ data: session }) => session)
+```
+
+  </TabItem>
+</Tabs>
+````
