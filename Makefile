@@ -4,7 +4,7 @@ export GO111MODULE        := on
 export PATH               := .bin:${PATH}
 
 format: .bin/ory node_modules  # formats all source code
-	.bin/ory dev headers license --exclude=src/plugins
+	.bin/ory dev headers copyright --type=open-source --exclude=src/plugins
 	npm exec -- prettier --write .
 
 .PHONY: install
@@ -37,7 +37,7 @@ test: install build-examples .bin/ory
 	curl https://raw.githubusercontent.com/ory/ci/master/licenses/install | sh
 
 .bin/ory: Makefile
-	curl https://raw.githubusercontent.com/ory/meta/master/install.sh | bash -s -- -b .bin ory v0.1.47
+	curl https://raw.githubusercontent.com/ory/meta/master/install.sh | bash -s -- -b .bin ory v0.1.48
 	touch .bin/ory
 
 node_modules: package-lock.json
