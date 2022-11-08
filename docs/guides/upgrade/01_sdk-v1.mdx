@@ -312,7 +312,11 @@ Fetch frontend errors with a simple command - `GetFlowError`:
 </Tabs>
 ````
 
-#### Logout for Native Apps
+### Logout for Native Apps
+
+````mdx-code-block
+<Tabs>
+  <TabItem value="go" label="Golang" default>
 
 ```diff
  	res, err := client.
@@ -324,6 +328,39 @@ Fetch frontend errors with a simple command - `GetFlowError`:
       }).
       Execute()
 ```
+
+  </TabItem>
+  <TabItem value="js" label="JavaScript">
+
+```diff
+  const logoutUrl = await ory
+-   .v0alpha2.SubmitSelfServiceLogoutFlowWithoutBrowser({
++   .frontend.performNativeLogout({
+      session_token: '...'
+    })
+    .then(({ data }) => data.logout_url)
+```
+
+  </TabItem>
+</Tabs>
+````
+
+### Logout for Browser Apps
+
+````mdx-code-block
+<Tabs>
+  <TabItem value="js" label="JavaScript">
+
+```diff
+- const logoutUrl = await ory
+-   .v0alpha2.createSelfServiceLogoutFlowUrlForBrowsers()
++   .frontend.createBrowserLogoutFlow()
+    .then(({ data }) => data.logout_url)
+```
+
+  </TabItem>
+</Tabs>
+````
 
 ### Session Checking
 
