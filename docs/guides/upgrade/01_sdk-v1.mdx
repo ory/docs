@@ -99,6 +99,52 @@ const ory = {
 </Tabs>
 ````
 
+### JavaScript / TypeScript
+
+How you pass arguments to the JavaScript SDK has changed. Previously, parameters would be a list of arguments:
+
+```typescript
+await ory.frontend.toSession(undefined, "ory_session_...=...")
+```
+
+Now, parameters are passed as an object:
+
+```typescript
+ory.frontend.toSession({
+  cookie: "",
+  // xSessionToken: result.session_token,
+})
+```
+
+Sending request bodies has also changed. Previously, you would pass the body as the first argument:
+
+```typescript
+ory.v0alpha2.submitSelfServiceRegistrationFlow(flow.id, {
+  method: "password",
+  password: "some-password",
+  traits: { email },
+  // csrf_token: ... - needed in browser apps
+})
+```
+
+To pass the response body, use the function name and append `Body`. For example `updateRegistrationFlow` becomes
+`updateRegistrationFlowBody` :
+
+```typescript
+await ory.frontend
+  .updateRegistrationFlow({
+    flow: flow.id,
+    updateRegistrationFlowBody: {
+      method: "password",
+      password: "some-password",
+      traits: { "some@email.com" },
+    },
+  })
+```
+
+Unfortunately this naming convention is due to an OpenAPI 3.x limitation. We wish the body would just be `body`, but it is
+currently not possible.
+
 ### Identity Management
 
 Generally, identity (and their sessions) management APIs have moved in the SDK from tag `v0alpha2` to `identity`. APIs requiring
@@ -144,31 +190,41 @@ authorization are no longer prefixed with `admin` for better readability. Most `
   // Create
   const identity = await ory
 -   .v0alpha2.adminCreateIdentity({
+-     schema_id: "preset://email",
+-     traits: { email: generateEmail() },
 +   .identity.createIdentity({
-      schema_id: "preset://email",
-      traits: { email: generateEmail() },
++     createIdentityBody: {
++       schema_id: "preset://email",
++       traits: { email: generateEmail() },
++     }
     })
     .then(({ data }) => data)
 
   // Get
   const identity = await ory
--   .v0alpha2.adminGetIdentity(expected.id)
-+   .identity.getIdentity(expected.id)
+-   .v0alpha2.adminGetIdentity(identity.id)
++   .identity.getIdentity({ id: identity.id })
     .then(({ data }) => data)
 
   // Update
   const identity = await ory
--   .v0alpha2.adminUpdateIdentity(expected.id, {
-+   .identity.updateIdentity(expected.id, {
-      schema_id: expected.schema_id,
-      traits: { email: "new@email.com", ...expected.traits },
-      state: .state,
+-   .v0alpha2.adminUpdateIdentity(identity.id, {
+-     schema_id: identity.schema_id,
+-     traits: { email: "new@email.com", ...identity.traits },
+-     state: identity.state,
++   .identity.updateIdentity({
++     id: identity.id,
++     updateIdentityBody: {
++       schema_id: identity.schema_id,
++       traits: { email: "new@email.com", ...identity.traits },
++       state: identity.state,
++     }
     })
     .then(({ data }) => data)
 
   // Delete
 - await ory.v0alpha2.adminDeleteIdentity(identity.id)
-+ await ory.identity.deleteIdentity(identity.id)
++ await ory.identity.deleteIdentity({ id: identity.id })
 ```
 
   </TabItem>
@@ -255,16 +311,22 @@ async function example() {
   // Get
   const getFlow = await ory
 -   .v0alpha2.getSelfServiceRegistrationFlow(flow.id)
-+   .frontend.getRegistrationFlow(flow.id)
++   .frontend.getRegistrationFlow({ id: flow.id })
 
   // Update / Submit
   const result = await ory
--   .v0alpha2.submitSelfServiceRegistrationFlow(flow.id,
-+   .frontend.updateRegistrationFlow(flow.id, {
-      method: "password",
-      password: "some-password",
-      traits: { email },
-      // csrf_token: ... - needed in browser apps
+-   .v0alpha2.submitSelfServiceRegistrationFlow(flow.id, {
+-     method: "password",
+-     password: "some-password",
+-     traits: { email },
++   .frontend.updateRegistrationFlow({
++     flow: flow.id,
++     updateRegistrationFlowBody: {
++       method: "password",
++       password: generatePassword(),
++       traits: { email },
++       // csrf_token: ... - needed in browser apps
++     }
     })
     .then(({ data }) => data)
 }
@@ -304,7 +366,7 @@ Fetch frontend errors with a simple command - `GetFlowError`:
 - const error = await ory.v0alpha2
 -  .getSelfServiceError(errorId)
 + const error = await ory.frontend
-+  .getFlowError(errorId)
++  .getFlowError({ id: errorId })
    .then(({ data }) => data)
 ```
 
@@ -335,8 +397,11 @@ Fetch frontend errors with a simple command - `GetFlowError`:
 ```diff
   const logoutUrl = await ory
 -   .v0alpha2.SubmitSelfServiceLogoutFlowWithoutBrowser({
+-     session_token: '...'
 +   .frontend.performNativeLogout({
-      session_token: '...'
++     performNativeLogoutBody: {
++       session_token: '...'
++     }
     })
     .then(({ data }) => data.logout_url)
 ```
@@ -386,21 +451,23 @@ Checking session is now available in the `frontend` module:
     Cookie("ory_session_...=...").Execute()
 ```
 
-
   </TabItem>
   <TabItem value="js" label="JavaScript">
 
 ```diff
-  const flow = await ory.
+  const session = await ory.
 -   v0alpha2.
 +   frontend.
     toSession(sessionToken).then(({ data: session }) => session)
 
   // Session Cookies
-  const flow = await ory.
--   v0alpha2.
-+   frontend.
-    toSession(undefined, "ory_session_...=...").then(({ data: session }) => session)
+  const session = await ory.
+-   v0alpha2.toSession(undefined, "ory_session_...=...")
++   frontend.toSession({
++     cookie: "ory_session_...=...",
++     // xSessionToken: ...,
++   })
+   .then(({ data: session }) => session)
 ```
 
   </TabItem>
