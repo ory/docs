@@ -40,7 +40,7 @@ module.exports = {
           ],
         },
         "getting-started/custom-ui-ory-elements",
-        "getting-started/ory-cloud-oauth2",
+        "getting-started/ory-network-oauth2",
       ],
     },
     {

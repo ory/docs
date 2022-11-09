@@ -853,6 +853,11 @@
       "source": "/docs/hydra/sdk",
       "destination": "https://www.ory.sh/docs/hydra/sdk/overview",
       "permanent": false
+    },
+    {
+      "source": "/docs/getting-started/ory-cloud-oauth2",
+      "destination": "https://www.ory.sh/docs/getting-started/ory-network-oauth2",
+      "permanent": false
     }
   ]
 }
