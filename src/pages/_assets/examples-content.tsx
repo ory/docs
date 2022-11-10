@@ -12,7 +12,7 @@ export const official: PropTypes = {
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/nextjs",
-      docs: "hhttps://www.ory.sh/docs/getting-started/integrate-auth/nextjs",
+      docs: "https://www.ory.sh/docs/getting-started/integrate-auth/nextjs",
     },
     {
       title: "Protect a page with login: React",
