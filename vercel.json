@@ -835,7 +835,7 @@
       "permanent": false
     },
     {
-      "source": "/docs/kratos/self-service/account-recovery-password-reset",
+      "source": "/docs/kratos/self-service/flows/account-recovery",
       "destination": "https://www.ory.sh/docs/kratos/self-service/flows/account-recovery-password-reset",
       "permanent": false
     },
