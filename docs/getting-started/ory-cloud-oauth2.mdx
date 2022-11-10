@@ -44,9 +44,17 @@ their Google Photos album to listings.
 To achieve that, the online marketplace must access the user's Google Photos library on their behalf.
 
 If the user accepts the access scope requested by the app (online marketplace), the app's client gets an `id_token` and
-`access_token` pair which is then used to interact with Google Photos.
+`access_token` pair which is then used to interact with Google Photos. This is what using the grant looks like:
 
-To run the flow, follow these steps:
+```mdx-code-block
+import mp4 from './_static/ory-network-oauth2/oauth2-ory.mp4'
+import webm from './_static/ory-network-oauth2/oauth2-ory.webm'
+import VideoEmbed from '@site/src/components/VideoEmbed'
+
+<VideoEmbed mp4={mp4} webm={webm} />
+```
+
+To try the Authorization Code Grant, follow these steps:
 
 1. Create an Ory Network project using the Ory CLI and export the project ID:
 
@@ -126,44 +134,6 @@ To run the flow, follow these steps:
 
    # Perform token introspection
    ory introspect token $code_access_token --project $project_id
-   ```
-
-### Use custom UI
-
-By default, Ory Network uses internal redirect URLs for operations such as user login and consent. You can adjust these URLs to
-point to pages that handle these operations in your setup. In this example, the sample application runs at
-`http://localhost:3000`.
-
-Follow these steps to configure Ory Network to call the sample application for login and consent screens:
-
-1. Download the Ory OAuth2 & OpenID Connect configuration of your project and save it to a `yaml` file:
-
-   ```shell
-   ## List all available projects
-   ory list projects
-
-   ## Get config
-   ory get oauth2-config <project-id> --format yaml > config.yaml
-   ```
-
-2. Adjust the configuration in `oauth2/urls/consent` and `oauth2/urls/login`:
-
-   ```yaml title="config.yaml"
-   oauth2:
-     # ...
-     urls:
-       # highlight-next-line
-       consent: http://localhost:3000/consent
-       error: /oauth2/fallbacks/error
-       # highlight-next-line
-       login: http://localhost:3000/login
-       post_logout_redirect: /oauth2/fallbacks/logout
-   ```
-
-3. Update the project configuration using the file you worked with:
-
-   ```shell
-   ory update oauth2-config <project-id> --file config.yaml
    ```
 
 ## Client Credentials Grant

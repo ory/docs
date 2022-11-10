@@ -308,6 +308,7 @@ module.exports = {
               type: "category",
               label: "Implement user interface",
               items: [
+                "hydra/guides/custom-ui-oauth2",
                 "hydra/guides/login",
                 "hydra/guides/consent",
                 "hydra/guides/logout",
