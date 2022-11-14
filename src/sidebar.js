@@ -40,7 +40,7 @@ module.exports = {
           ],
         },
         "getting-started/custom-ui-ory-elements",
-        "getting-started/ory-cloud-oauth2",
+        "getting-started/ory-network-oauth2",
       ],
     },
     {
@@ -308,6 +308,7 @@ module.exports = {
               type: "category",
               label: "Implement user interface",
               items: [
+                "hydra/guides/custom-ui-oauth2",
                 "hydra/guides/login",
                 "hydra/guides/consent",
                 "hydra/guides/logout",
