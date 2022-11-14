@@ -17,7 +17,7 @@ Parse human readable relation tuples
 
 Parse human readable relation tuples as used in the documentation.
 Supports various output formats. Especially useful for piping into other commands by using `--format json`.
-Ignores comments (starting with `//`) and blank lines.
+Ignores comments (lines starting with `//`) and blank lines.
 
 ```
 keto relation-tuple parse [flags]
