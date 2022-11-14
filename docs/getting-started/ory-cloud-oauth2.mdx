@@ -6,17 +6,17 @@ sidebar_label: Federation with OAuth2
 
 # Common OAuth2 flows in the Ory Network
 
-Ory OAuth2 & OpenID Connect (based on the [Ory Hydra Federation Server](../hydra/index.md)) is available in The Ory Network out of
+Ory OAuth2 & OpenID Connect (based on the [Ory Hydra Federation Server](../hydra/index.md)) is available in the Ory Network out of
 the box. This means that you can use OIDC, Authorization Code Grant, Client Credentials Grant, and more, without additional
 configuration or extra charge.
 
 Following this guide allows you to experience the most commonly used OAuth2 flows and see how they work in Ory Network. The
 examples will take you through the following steps:
 
-- Creating OAuth2 clients in The Ory Network with the Ory CLI
-- Using the Authorization Code Grant (with OpenID) flow with user accounts created in Ory Identities and login and consent screens
-  supplied by the Ory Account Experience.
-- Using the Client Credentials Grant in The Ory Network
+- Creating OAuth2 clients in the Ory Network with the Ory CLI
+- Using the Authorization Code Grant with federation to Ory Identities for user authentication and UI views (login page, consent
+  page) supplied by the Ory Account Experience
+- Using the Client Credentials Grant
 - Performing token introspection using the Ory CLI
 
 ## Prerequisites
@@ -27,7 +27,7 @@ Before you start, prepare your environment:
 
 :::tip
 
-Make sure you're running the latest version of the CLI. Run:
+Make sure you're using the latest version of the CLI. Run:
 
 ```shell
 brew upgrade ory/tap/cli
@@ -37,14 +37,15 @@ brew upgrade ory/tap/cli
 
 ## Authorization Code Grant
 
-The [Authorization Code Grant](https://www.rfc-editor.org/rfc/rfc6749#section-1.3.1) is most commonly used in scenarios where
-applications need to perform actions on behalf of users, for example, when an online marketplace allows users to add photos from
+The [Authorization Code Grant](https://www.rfc-editor.org/rfc/rfc6749#section-1.3) is most commonly used in scenarios where
+applications need to perform actions on behalf of users. For example, when an online marketplace allows users to add photos from
 their Google Photos album to listings.
 
-To achieve that, the online marketplace must access the user's Google Photos library on their behalf.
+To achieve that, the online marketplace must access the user's Google Photos library on their behalf. If the user accepts the
+access scope requested by the app (online marketplace), the app's client gets an `id_token` and `access_token` pair which is then
+used to interact with Google Photos.
 
-If the user accepts the access scope requested by the app (online marketplace), the app's client gets an `id_token` and
-`access_token` pair which is then used to interact with Google Photos. This is what using the grant looks like:
+This is what using the grant with UI views supplied by the Ory Account Experience looks like:
 
 ```mdx-code-block
 import mp4 from './_static/ory-network-oauth2/oauth2-ory.mp4'
@@ -79,7 +80,7 @@ To try the Authorization Code Grant, follow these steps:
    [API specification](../reference/api#operation/adminCreateOAuth2Client).
 
    ```bash
-   curl -X POST 'SDK_CONFIGURATION_URL/admin/clients' \
+   curl -X POST 'SDK_CONFIGURATION_URL/admin/clients' \ # Get it from the Ory Console → Access & APIs
      -H 'Content-Type: application/json' \
      -H 'Authorization: Bearer ORY_PAT' \ # Ory Network personal access token
      -d '{
@@ -139,9 +140,8 @@ To try the Authorization Code Grant, follow these steps:
 ## Client Credentials Grant
 
 The [Client Credentials Grant](https://www.rfc-editor.org/rfc/rfc6749#section-4.4) is commonly used in machine-to-machine
-communications. This allows web services, applications, or devices to call other entities using their own identities without
-impersonating any human users. Activity that uses this grant often runs in the background and doesn't require any interaction from
-users.
+communications. This allows web services, applications, or devices to call each other without the context of human users. Activity
+that uses this grant often runs in the background and doesn't require any user interaction.
 
 Follow these steps to try this grant in Ory Network:
 
