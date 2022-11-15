@@ -301,6 +301,11 @@
     "type": "info"
   },
   {
+    "id": 1070009,
+    "text": "Return",
+    "type": "info"
+  },
+  {
     "id": 1080001,
     "text": "An email containing a verification link has been sent to the email address you provided.",
     "type": "info",
@@ -520,6 +525,12 @@
     "context": {
       "expired_at": "2020-01-01T00:59:59Z"
     }
+  },
+  {
+    "id": 4070006,
+    "text": "The verification code is invalid or has already been used. Please try again.",
+    "type": "error",
+    "context": {}
   },
   {
     "id": 5000001,
