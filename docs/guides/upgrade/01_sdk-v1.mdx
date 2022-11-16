@@ -1,10 +1,10 @@
 ---
 id: sdk-v1
 title: Upgrade your Ory SDKs to v1
-sidebar_label: SDK V1 Upgrade Guide
+sidebar_label: SDK V1 upgrade guide
 ---
 
-# SDK V1 Upgrade Guide
+# SDK V1 upgrade guide
 
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock'
@@ -20,12 +20,12 @@ of releasing version 1.0, we have streamlined naming conventions and improved th
 Ory SDKs have been around for a while and have gone through several transformations. We always relied on
 [openapi-generator](https://github.com/OpenAPITools/openapi-generator) to auto-generate SDKs from our OpenAPI specifications.
 
-## Backwards Compatibility
+## Backwards compatibility
 
 Versions prior to 1.0 will remain functional and compatible with APIs offered on the Ory Network. However, we will no longer be
-maintaining these versions. We recommend that you upgrade to the latest version of the SDKs within the next 3 months.
+maintaining these versions. We recommend that you upgrade to the latest version of the SDKs by the end of January 2023.
 
-## Upgrade Guide
+## Upgrade guide
 
 Let's take a look at the changes we made to the SDKs and some examples of how to upgrade your code. We will use Golang for the
 examples, but the changes are similar for all languages.
@@ -145,7 +145,7 @@ await ory.frontend
 Unfortunately this naming convention is due to an OpenAPI 3.x limitation. We wish the body would just be `body`, but it is
 currently not possible.
 
-### Identity Management
+### Identity management
 
 Generally, identity (and their sessions) management APIs have moved in the SDK from tag `v0alpha2` to `identity`. APIs requiring
 authorization are no longer prefixed with `admin` for better readability. Most `identity` APIs require authorization.
@@ -246,10 +246,10 @@ prefix with `SelfService`. This improves readability significantly as you can se
 Below you find examples for the error and native/browser app registration flow. Changes to verification, recovery, settings, and
 login methods are analogous.
 
-#### Login, Registration, Recovery, Verification Settings
+#### Login, registration, recovery, verification, and settings APIs
 
-Login, recovery, registration, verification, settings APIs no longer use the `SelfService` prefix and `WithoutBrowser` has been
-changed to `Native`. Additionally, updating a flow (by filling the form out) has been changed from `Submit` to `Update`
+Login, registration, recovery, verification, and settings APIs no longer use the `SelfService` prefix and `WithoutBrowser` has
+been changed to `Native`. Additionally, updating a flow (by filling the form out) has been changed from `Submit` to `Update`.
 
 ````mdx-code-block
 <Tabs>
@@ -336,7 +336,7 @@ async function example() {
 </Tabs>
 ````
 
-#### Frontend Errors
+#### Frontend errors
 
 Fetch frontend errors with a simple command - `GetFlowError`:
 
@@ -374,7 +374,7 @@ Fetch frontend errors with a simple command - `GetFlowError`:
 </Tabs>
 ````
 
-### Logout for Native Apps
+### Logout for native apps
 
 ````mdx-code-block
 <Tabs>
@@ -410,7 +410,7 @@ Fetch frontend errors with a simple command - `GetFlowError`:
 </Tabs>
 ````
 
-### Logout for Browser Apps
+### Logout for browser apps
 
 ````mdx-code-block
 <Tabs>
@@ -427,7 +427,7 @@ Fetch frontend errors with a simple command - `GetFlowError`:
 </Tabs>
 ````
 
-### Session Checking
+### Session checking
 
 Checking session is now available in the `frontend` module:
 
