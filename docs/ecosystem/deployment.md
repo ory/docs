@@ -95,6 +95,21 @@ Additionally, the following DSN parameters are supported:
 To set such a parameter, append it to the DSN query, for example:
 `mysql://user:password@tcp(host:123)/database?parseTime=true&writeTimeout=123s`
 
+###### AWS Aurora / MySQL 8.0+ not completing migrations
+
+If you encounter errors such as
+
+```
+An error occurred while connecting to SQL: error executing migrations/sql/20210817181232000006_unique_credentials.mysql.up.sql, sql: ALTER TABLE `identity_credential_identifiers` MODIFY `identity_credential_type_id` char(36) NOT NULL;: Error 1832: Cannot change column 'identity_credential_type_id': used in a foreign key constraint 'identity_credential_identifiers_type_id_fk_idx'
+```
+
+set `sql_mode=TRADITIONAL` to resolve the issue.
+
+See also:
+
+* https://github.com/ory/hydra/issues/3363
+* https://github.com/ory/kratos/issues/2167
+
 ##### CockroachDB
 
 If configuration key `dsn` (Data Source Name) is prefixed with `cockroach://`, then CockroachDB will be used as storage backend.
