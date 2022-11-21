@@ -14,11 +14,24 @@ The example screenshot is captured using the Ory Account Experience.
 
 :::
 
+````mdx-code-block
+import BrowserWindow from "@site/src/theme/BrowserWindow"
+
+<BrowserWindow url="https://account.settings.com/">
+
 ![TOTP linking in Ory Account Experience](../_static/mfa/1.png)
+
+</BrowserWindow>
 
 When attempting to perform actions secured with 2FA, users get a TOTP code with the application identifier:
 
+```mdx-code-block
+<BrowserWindow url="https://account.settings.com/">
+
 ![2FA with Google Authenticator](../_static/mfa/2.png)
+
+</BrowserWindow>
+````
 
 :::info
 
@@ -39,7 +52,13 @@ Follow these steps to enable Time-Based One-Time Password (TOTP) as the second a
    a one-time password.
 4. Click **Save** to finish.
 
+```mdx-code-block
+<BrowserWindow url="https://console.ory.sh/">
+
 ![TOTP setup in Ory Console](../_static/mfa/3.png)
+
+</BrowserWindow>
+```
 
 ### Ory CLI
 

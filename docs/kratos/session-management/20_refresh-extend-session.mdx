@@ -34,8 +34,8 @@ Refreshing sessions causes database writes.
 To reduce the database load, you can limit the time in which the session can be refreshed by adjusting the
 `earliest_possible_extend` configuration.
 
-For example, if you set `earliest_possible_extend` to `24h`, sessions can't be refreshed no sooner than 24 hours before they expire. This
-setting prevents putting excessive load on the database.
+For example, if you set `earliest_possible_extend` to `24h`, sessions can't be refreshed sooner than 24 hours before they expire.
+This setting prevents putting excessive load on the database.
 
 If you need high flexibility when extending sessions, you can set `earliest_possible_extend` to `lifespan`, which allows sessions
 to be refreshed during their entire lifespan, even right after they are created.
