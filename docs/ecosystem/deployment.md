@@ -107,8 +107,8 @@ set `sql_mode=TRADITIONAL` to resolve the issue.
 
 See also:
 
-* https://github.com/ory/hydra/issues/3363
-* https://github.com/ory/kratos/issues/2167
+- https://github.com/ory/hydra/issues/3363
+- https://github.com/ory/kratos/issues/2167
 
 ##### CockroachDB
 
