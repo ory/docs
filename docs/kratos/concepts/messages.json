@@ -109,7 +109,7 @@
   {
     "id": 1050001,
     "text": "Your changes have been saved!",
-    "type": "info"
+    "type": "success"
   },
   {
     "id": 1050002,
@@ -243,7 +243,7 @@
   {
     "id": 1060001,
     "text": "You successfully recovered your account. Please change your password or set up an alternative login method (e.g. social sign in) within the next 0.02 minutes.",
-    "type": "info",
+    "type": "success",
     "context": {
       "privilegedSessionExpiresAt": "2020-01-01T01:01:00Z"
     }
@@ -314,7 +314,7 @@
   {
     "id": 1080002,
     "text": "You successfully verified your email address.",
-    "type": "info"
+    "type": "success"
   },
   {
     "id": 4000001,
