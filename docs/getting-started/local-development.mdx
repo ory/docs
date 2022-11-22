@@ -18,149 +18,81 @@ and create your first project (it's free):
 ory create project --name "Documentation example"
 ```
 
-### Frontend and Privileged APIs
+Once the project is created, you have access to Ory's APIs.
 
-Ory offers two principal types of APIs:
+## API
 
-- Backend / admin APIs offer privileged access, for example deleting identities. To use Admin APIs, you need a Ory Network API
-  Key.
-- Frontend APIs do not require a Ory Network API Key because:
-  - they do not need authorization and can be accessed by any client (e.g. a login page)
-  - they implement a protocol which defines what authorization mechanism to use (e.g. OAuth2 Client Credentials).
+```mdx-code-block
+import ApiTypes from '../api/_common/api-types.mdx'
 
-Both APIs are available at your project's (custom) domain:
-
-```
-https://{project.slug}.projects.oryapis.com
-
-# When you own a custom domain:
-# https://ory.your-custom-domain.com
+<ApiTypes />
 ```
 
-The endpoint above is your SDK URL, and you will need to use it when configuring Ory' SDKs and tools.
+For a full reference of APIs check out the [REST and gRPC](../keto/reference/proto-api.mdx) API documentation.
 
-## API Keys
+### API Keys
 
 API Keys are used to authenticate privileged requests to the Ory backend APIs. You can create API Keys in the Ory Cloud Console.
 Head over to the Ory Console [API key page](https://console.ory.sh/projects/current/connect).
 
-## Connecting to Ory
+## Local Development
 
-Talk about the SDK URL.
+To make login easy and secure, Ory uses cookies to manage session in browser applications. Ory additionally deploys CSRF cookies
+to protect against CSRF attacks. We recommend taking a deep-dive into [Ory's security model](../security-model.mdx) if you are not
+familiar with the concepts.
 
-### Local Development
+Ory also supports advanced SSO capabilities based on OpenID Connect. For system that do not require an enterprise SSO solution, we
+recommend sticking to session cookies.
 
-Talk about cookies etc
-[https://www.ory.sh/docs/getting-started/local-development](https://www.ory.sh/docs/getting-started/local-development)
-
-## Configure SDK
-
-Examples in different languages in a code tab of how to use the three things listed above.
-
-## Domain-based Security
-
-The security model used by Ory delivers the most secure and hassle-free solution to users by managing:
-
-- sessions
-- tokens
-- cookies
-
-Although it is an uncommon approach that might require a shift in thinking, it's implemented so that you don't have to worry about
-refreshing tokens or deciding whether to store them in `localStorage` or `document.cookies`.
-
-Instead, you can devote all your focus and time to developing great software for your users, while Ory takes care of the security
-by giving you the best-in-class protection from all common browser attack vectors, such as
-[Cross-site scripting (XSS)](https://owasp.org/www-community/attacks/xss/) or
-[Cross-site request forgery (CSRF)](https://owasp.org/www-community/attacks/csrf/).
-
-:::tip
-
-Read our blog post exploring [authentication and modern software](https://www.ory.sh/auth-and-modern-software/) to learn more
-about `sessions`.
-
-:::
-
-## Access to your domain
-
-To manage `sessions`, `tokens`, and `cookies`, Ory APIs must be exposed on the same domain as your application. If you don't
-fulfill this requirement, HTTP Cookies are ignored by the browser, which prevents the Ory Identities (Ory Kratos) from functioning
-properly.
-
-Ory exposes the APIs at `https://<project-slug>.projects.oryapis.com`. To manage session information, Ory Identities (Kratos) must
-be able to set the domain in HTTP Cookies to the same domain as the application that consumes its APIs. For example:
-
-- When working with an application that runs on `http://localhost:3000` for local development, Ory must be able to set
-  `domain=localhost` in the HTTP cookie.
-
-Ory offers SDKs for certain deployment options such as [Vercel](https://www.notion.so/getting-started/integrate-auth/nextjs.mdx)
-which mirror Ory's APIs without the need of running another process.
-
-- When working with an application that runs on `https://app.example.org`, Ory must be able to set `domain=example.org` in the
-  HTTP cookie.
-- Some multi-tenant providers like Heroku (`<your-slug>.herokuapp.com`) or Vercel (`<your-slug>.vercel.app`) expose many apps
-  under the same domain. These domains are listed in
-  [Public Suffix Domain List](https://publicsuffix.org/list/public_suffix_list.dat). For these domains it is not possible to set a
-  cookie on the root domain (`cookie=herokuapp.com`) but only on the subdomain (`cookie=your-slug.herokuapp.com`).
-
-# Developing with Ory
-
-As explained in the Ory Security Model description, Ory APIs must be available on the same domain as your application to allow
-communication between the systems. When developing locally, your application is often exposed at the `localhost` domain.
-
-The easiest way to achieve that is by using the [Ory Tunnel](../guides/cli/20_proxy-and-tunnel.mdx). Ory Tunnel is a tool that is
-a part of the [Ory CLI](../guides/cli/01_installation.mdx).
+When developing locally, your application is often exposed at the `localhost` domain. Ory APIs must be available on the same
+domain (so `localhost`) as your application to avoid issues with third-party cookie (e.g. when using Ory Session Cookies). The
+easiest way to expose Ory on your `localhost` domain is to use the [Ory CLI Tunnel](../guides/cli/20_proxy-and-tunnel.mdx).
 
 Copy the project slug from your project's [Connect page](https://console.ory.sh/projects/current/connect) and start the Ory
-Tunnel:
+Tunnel. Here we assume that your app runs on `http://localhost:3000`:
 
 ```shell
-ory tunnel --project <your-slug> --dev http://localhost:3000
+ory tunnel --dev --project {project.id-or-project.slug} \
+  http://localhost:3000
 ```
 
-Running this commands opens the `4000` port on your local machine. This address is connected to your project and its APIs. The
-value passed in the `--dev` flag must point to the host and port of the application you develop locally. In the example, the
-application runs On `http://localhost:3000`.
-
-:::tip
-
-After starting the Tunnel, test it by performing the registration flow: `http://localhost:4000/ui/registration`.
-
-:::
+Running this commands opens the `4000` port on your local machine. The URL `http://localhost:3000` is where your application is
+available. The `--dev` flag disables a few security checks to make local development easier. After starting the Tunnel, test it by
+performing the registration flow: [`http://localhost:4000/ui/registration`](http://localhost:4000/ui/registration).
 
 You can now start developing locally. Make sure to send any HTTP calls you make to `http://localhost:4000` and not
-`https://<your-slug>.projects.oryapis.com`.
+`https://<your-slug>.projects.oryapis.com`. For example, when you configure the Ory SDK (here in Node.js):
 
-For example, when you configure the Ory SDK (here in Node.js):
+```typescript
+import { Configuration, FrontendApi } from "@ory/client"
 
-```javascript
-import { Configuration, V0alpha2Api } from "@ory/client"
-
-const sdk = new V0alpha2Api(
+const frontend = new FrontendApi(
   new Configuration({
-    basePath: "http://localhost:4000", // instead of `https://<your-slug>.projects.oryapis.com`
+    // Replace
+    //  basePath: "https://{project.slug}.projects.oryapis.com",
+    // with
+    basePath: "http://localhost:4000",
     baseOptions: {
       withCredentials: true,
     },
   }),
 )
+
+const { data: login } = await frontend.createBrowserLoginFlow()
+const { data: session } = await frontend.toSession()
+// ...
 ```
 
-## Limitations
+Only the `FrontendApi` needs to access the Ory Tunnel. Administrative APIs like `IdentityApi` can be accessed directly from your
+project slug, although they also work via the Ory Tunnel.
 
-Using the Ory Tunnel has a few limitations.
+### Limitations
 
-### `localhost` vs `127.0.0.1`
+Using the Ory Tunnel has two key limitations currently.
 
-Your local machine is usually available on both `localhost` and `127.0.0.1`. For the browser these two domains are different
-top-level-domains. Cookies set on `localhost` will not be sent in requests to `127.0.0.1` and vice versa.
+First, your local machine is usually available on both `localhost` and `127.0.0.1`. For the browser these two domains are
+different top-level-domains. Cookies set on `localhost` will not be sent in requests to `127.0.0.1` and vice versa. If you
+encounter cookie issues, make sure that all of your requests are sent to `localhost` and not `127.0.0.1`.
 
-:::tip
-
-If you encounter cookie issues, make sure that all of your requests are sent to `localhost` and not `127.0.0.1`.
-
-:::
-
-### WebAuthn
-
-Currently, [WebAuthn](../kratos/mfa/webauthn-fido-yubikey) isn't officially supported on `localhost`. The reason for this is the
-explicit origin matching in WebAuthn which is a measure against phishing.
+Second, [WebAuthn](../kratos/mfa/webauthn-fido-yubikey) does not support cross-domain use. We are working together with the
+[W3C to figure out solutions](https://github.com/w3c/webauthn/issues/1372).

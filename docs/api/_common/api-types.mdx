@@ -1,0 +1,31 @@
+Ory offers two principal types of APIs:
+
+- Backend / admin APIs offer privileged access, for example deleting identities. To use Admin APIs, you need a Ory Network API
+  Key.
+- Frontend APIs do not require a Ory Network API Key because:
+  - they do not need authorization and can be accessed by any client (e.g. a login page)
+  - they implement a protocol which defines what authorization mechanism to use (e.g. OAuth2 Client Credentials).
+
+Both APIs are available at your project's (custom) domain:
+
+```
+https://{project.slug}.projects.oryapis.com
+
+# When you own a custom domain:
+# https://ory.your-custom-domain.com
+```
+
+The endpoint above is your SDK URL, and you will need to use it when configuring Ory SDKs and tools.
+
+```typescript
+import { Configuration, IdentityApi } from "@ory/client"
+
+const identity = new IdentityApi(
+  new Configuration({
+    basePath: "https://ory.your-custom-domain.com",
+    baseOptions: {
+      withCredentials: true,
+    },
+  }),
+)
+```

@@ -575,6 +575,7 @@ module.exports = {
     },
   ],
   api: [
+    "api/index",
     "concepts/personal-access-token",
     "ecosystem/api-design",
     "concepts/cache",
