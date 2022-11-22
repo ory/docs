@@ -1217,7 +1217,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1050001,
   "text": "Your changes have been saved!",
-  "type": "info"
+  "type": "success"
 }
 ```
 
@@ -1446,7 +1446,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1060001,
   "text": "You successfully recovered your account. Please change your password or set up an alternative login method (e.g. social sign in) within the next 0.02 minutes.",
-  "type": "info",
+  "type": "success",
   "context": {
     "privilegedSessionExpiresAt": "2020-01-01T01:01:00Z"
   }
@@ -1459,6 +1459,17 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1060002,
   "text": "An email containing a recovery link has been sent to the email address you provided.",
+  "type": "info",
+  "context": {}
+}
+```
+
+###### An email containing a recovery code has been sent to the email address you provided. (1060003)
+
+```json
+{
+  "id": 1060003,
+  "text": "An email containing a recovery code has been sent to the email address you provided.",
   "type": "info",
   "context": {}
 }
@@ -1534,6 +1545,26 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 }
 ```
 
+###### Resend code (1070007)
+
+```json
+{
+  "id": 1070007,
+  "text": "Resend code",
+  "type": "info"
+}
+```
+
+###### Continue (1070009)
+
+```json
+{
+  "id": 1070009,
+  "text": "Continue",
+  "type": "info"
+}
+```
+
 ###### An email containing a verification link has been sent to the email address you provided. (1080001)
 
 ```json
@@ -1551,7 +1582,18 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1080002,
   "text": "You successfully verified your email address.",
-  "type": "info"
+  "type": "success"
+}
+```
+
+###### An email containing a verification code has been sent to the email address you provided. (1080003)
+
+```json
+{
+  "id": 1080003,
+  "text": "An email containing a verification code has been sent to the email address you provided.",
+  "type": "info",
+  "context": {}
 }
 ```
 
@@ -1738,15 +1780,15 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 }
 ```
 
-###### The login flow expired 0.02 minutes ago, please try again. (4010001)
+###### The login flow expired 1.02 minutes ago, please try again. (4010001)
 
 ```json
 {
   "id": 4010001,
-  "text": "The login flow expired 0.02 minutes ago, please try again.",
+  "text": "The login flow expired 1.02 minutes ago, please try again.",
   "type": "error",
   "context": {
-    "expired_at": "2020-01-01T01:01:01Z"
+    "expired_at": "2020-01-01T00:59:59Z"
   }
 }
 ```
@@ -1801,28 +1843,28 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 }
 ```
 
-###### The registration flow expired 0.02 minutes ago, please try again. (4040001)
+###### The registration flow expired -0.02 minutes ago, please try again. (4040001)
 
 ```json
 {
   "id": 4040001,
-  "text": "The registration flow expired 0.02 minutes ago, please try again.",
+  "text": "The registration flow expired -0.02 minutes ago, please try again.",
   "type": "error",
   "context": {
-    "expired_at": "2020-01-01T01:01:01Z"
+    "expired_at": "2020-01-01T00:59:59Z"
   }
 }
 ```
 
-###### The settings flow expired 0.02 minutes ago, please try again. (4050001)
+###### The settings flow expired -0.02 minutes ago, please try again. (4050001)
 
 ```json
 {
   "id": 4050001,
-  "text": "The settings flow expired 0.02 minutes ago, please try again.",
+  "text": "The settings flow expired -0.02 minutes ago, please try again.",
   "type": "error",
   "context": {
-    "expired_at": "2020-01-01T01:01:01Z"
+    "expired_at": "2020-01-01T00:59:59Z"
   }
 }
 ```
@@ -1860,16 +1902,27 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 }
 ```
 
-###### The recovery flow expired 0.02 minutes ago, please try again. (4060005)
+###### The recovery flow expired -0.02 minutes ago, please try again. (4060005)
 
 ```json
 {
   "id": 4060005,
-  "text": "The recovery flow expired 0.02 minutes ago, please try again.",
+  "text": "The recovery flow expired -0.02 minutes ago, please try again.",
   "type": "error",
   "context": {
-    "expired_at": "2020-01-01T01:01:01Z"
+    "expired_at": "2020-01-01T00:59:59Z"
   }
+}
+```
+
+###### The recovery code is invalid or has already been used. Please try again. (4060006)
+
+```json
+{
+  "id": 4060006,
+  "text": "The recovery code is invalid or has already been used. Please try again.",
+  "type": "error",
+  "context": {}
 }
 ```
 
@@ -1914,8 +1967,19 @@ The section below is auto-generated. Changing it has no effect as any changes wi
   "text": "The verification flow expired -0.02 minutes ago, please try again.",
   "type": "error",
   "context": {
-    "expired_at": "2020-01-01T01:00:59Z"
+    "expired_at": "2020-01-01T00:59:59Z"
   }
+}
+```
+
+###### The verification code is invalid or has already been used. Please try again. (4070006)
+
+```json
+{
+  "id": 4070006,
+  "text": "The verification code is invalid or has already been used. Please try again.",
+  "type": "error",
+  "context": {}
 }
 ```
 
