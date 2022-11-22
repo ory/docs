@@ -858,6 +858,11 @@
       "source": "/docs/getting-started/ory-cloud-oauth2",
       "destination": "https://www.ory.sh/docs/getting-started/ory-network-oauth2",
       "permanent": false
+    },
+    {
+      "source": "/docs/examples",
+      "destination": "https://www.ory.sh/docs/getting-started/overview",
+      "permanent": false
     }
   ]
 }

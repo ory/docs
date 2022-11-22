@@ -19,7 +19,7 @@ real-world examples of how this data improved a project.
 The data processing pipeline has the following steps:
 
 1. Telemetry data is collected at each service.
-2. Periodically this data is sent to the [segment.com](https://segment.com/) API.
+2. Periodically this data is sent to the `sqa.ory.sh`.
 3. Segment forwards this data to a private AWS S3 Bucket owned by the Ory organization. The data isn't shared with any other
    party.
 4. The AWS S3 Bucket(s) are periodically downloaded onto on of our on-premise servers.
@@ -52,8 +52,6 @@ The following real-world outcomes have been achieved using this data (excerpt):
 You can opt out of software quality assurance features (telemetry)
 
 - by providing the `--sqa-opt-out` flag.
-- by setting environment variable `SQA_OPT_OUT=true`.
-- by setting the yaml configuration key (if supported) `sqa.opt_out=true`.
 
 Disabling telemetry doesn't have any downsides, except for us not being able to improve the project. Note that Ory always sends
 minimal ping with version information once on start up.

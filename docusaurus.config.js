@@ -104,27 +104,22 @@ module.exports = {
           label: "Documentation",
         },
         {
-          type: "doc",
-          position: "left",
-          docId: "reference/api",
-          label: "API reference",
-        },
-        {
           type: "docSidebar",
           position: "left",
           sidebarId: "sdk",
-          label: "SDKs",
-        },
-        {
-          to: "/examples",
-          position: "left",
-          label: "Examples",
+          label: "SDK",
         },
         {
           type: "docSidebar",
           position: "left",
-          sidebarId: "opensource",
-          label: "Open source",
+          sidebarId: "api",
+          label: "API",
+        },
+        {
+          type: "docSidebar",
+          position: "left",
+          sidebarId: "selfhosting",
+          label: "Self-Hosting",
         },
         {
           to: "https://www.ory.sh/",

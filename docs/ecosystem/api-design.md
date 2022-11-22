@@ -1,10 +1,20 @@
 ---
 id: api-design
-title: API design
+title: REST Design
 ---
 
-This chapter contains generally applicable information on API design. When using Ory services, one can expect a consistent
-experience when interacting with REST APIs.
+This document provides a summary of Ory's REST design with topics like pagination and date formats. If you're interested in Ory's
+API design, check out the [REST API design guidelines](../../open-source/guidelines/rest-api-guidelines).
+
+## Date format
+
+Ory's APIs use [rfc3339](https://tools.ietf.org/html/rfc3339) as the date format:
+
+```
+{
+  "created_at": "2006-01-02T15:04:05+07:00"
+}
+```
 
 ## Pagination
 
@@ -25,14 +35,13 @@ In most scenarios, the `offset` should be a multiple of the `limit`.
 Example:
 
 ```
-> GET hydra-admin/clients?limit=5&offset=10 HTTP/1.1
-> Host: localhost:4445
-> User-Agent: curl/7.64.1
+> GET /admin/clients?page_size=5&page_token=... HTTP/1.1
+> Host: https://{project.slug}.projects.oryapis.com
 > Accept: */*
 >
 < HTTP/1.1 200 OK
 < Content-Type: application/json
-< Link: <hydra-admin/clients?limit=5&offset=0>; rel="first",</clients?limit=5&offset=15>; rel="next",</clients?limit=5&offset=5>; rel="prev",</clients?limit=5&offset=20>; rel="last"
+< Link: <https://{project.slug}.projects.oryapis.com/admin/clients/clients?page_size=5&page_token=ey...>; rel="first",</clients?page_size=5&page_token=ez...>; rel="next",</clients?page_size=5&page_token=eb....>; rel="prev",</clients?page_size=5&page_token=ca...>; rel="last"
 < X-Total-Count: 123
 < Date: Mon, 22 Apr 2019 23:34:29 GMT
 < Transfer-Encoding: chunked
@@ -43,13 +52,3 @@ Example:
 ### Total count
 
 You can get the total item count from the `X-Total-Count` HTTP Header.
-
-## Date format
-
-Ory's APIs use [rfc3339](https://tools.ietf.org/html/rfc3339) as the date format:
-
-```
-{
-  "created_at": "2006-01-02T15:04:05+07:00"
-}
-```

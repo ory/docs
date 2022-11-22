@@ -1,14 +1,14 @@
 ---
 id: ory-network-oauth2
-title: Get started with common OAuth2 flows in the Ory Network
-sidebar_label: Federation with OAuth2
+title: Perform OAuth2 Authorization Code Grant and Client Credentials Grant
+sidebar_label: Try It
 ---
 
-# Common OAuth2 flows in the Ory Network
+# Try out common OAuth2 Grants
 
-Ory OAuth2 & OpenID Connect (based on the [Ory Hydra Federation Server](../hydra/index.md)) is available in the Ory Network out of
-the box. This means that you can use OIDC, Authorization Code Grant, Client Credentials Grant, and more, without additional
-configuration or extra charge.
+Ory OAuth2 & OpenID Connect (based on [Ory Hydra](../hydra/index.md)) is available in the Ory Network out of the box. This means
+that you can use OIDC, Authorization Code Grant, Client Credentials Grant, and more, without additional configuration or extra
+charge.
 
 Following this guide allows you to experience the most commonly used OAuth2 flows and see how they work in Ory Network. The
 examples will take you through the following steps:
@@ -34,6 +34,55 @@ brew upgrade ory/tap/cli
 ```
 
 :::
+
+## Client Credentials Grant
+
+The [Client Credentials Grant](https://www.rfc-editor.org/rfc/rfc6749#section-4.4) is commonly used in machine-to-machine
+communications. This allows web services, applications, or devices to call each other without the context of human users. Activity
+that uses this grant often runs in the background and doesn't require any user interaction.
+
+Follow these steps to try this grant in Ory Network:
+
+1. Create an Ory Network project using the Ory CLI and export the project ID:
+
+```shell
+ory create project --name "Ory OAuth2 Example"
+project_id="{set to the project ID from output}"
+```
+
+2. Create an OAuth2 client:
+
+```shell
+ory create oauth2-client --project $project_id \
+ --name "Client Credentials Demo" \
+ --grant-type client_credentials
+```
+
+3. Export the ID and secret of the created client:
+
+```shell
+client_id="{set to CLIENT ID from output}"
+client_secret="{set to CLIENT SECRET from output}"
+```
+
+4. Start the Client Credentials Grant:
+
+```shell
+ory perform client-credentials \
+ --client-id=$client_id \
+ --client-secret=$client_secret \
+ --project $project_id
+```
+
+5. Perform token introspection to get the `access_token` details:
+
+```shell
+# Export 'access_token'
+access_token="{set to ACCESS TOKEN from output}"
+
+# Perform token introspection
+ory introspect token $access_token --project $project_id
+```
 
 ## Authorization Code Grant
 
@@ -135,53 +184,4 @@ To try the Authorization Code Grant, follow these steps:
 
    # Perform token introspection
    ory introspect token $code_access_token --project $project_id
-   ```
-
-## Client Credentials Grant
-
-The [Client Credentials Grant](https://www.rfc-editor.org/rfc/rfc6749#section-4.4) is commonly used in machine-to-machine
-communications. This allows web services, applications, or devices to call each other without the context of human users. Activity
-that uses this grant often runs in the background and doesn't require any user interaction.
-
-Follow these steps to try this grant in Ory Network:
-
-1. Create an Ory Network project using the Ory CLI and export the project ID:
-
-   ```shell
-   ory create project --name "Ory OAuth2 Example"
-   project_id="{set to the project ID from output}"
-   ```
-
-2. Create an OAuth2 client:
-
-   ```shell
-   ory create oauth2-client --project $project_id \
-    --name "Client Credentials Demo" \
-    --grant-type client_credentials
-   ```
-
-3. Export the ID and secret of the created client:
-
-   ```shell
-   client_id="{set to CLIENT ID from output}"
-   client_secret="{set to CLIENT SECRET from output}"
-   ```
-
-4. Start the Client Credentials Grant:
-
-   ```shell
-   ory perform client-credentials \
-    --client-id=$client_id \
-    --client-secret=$client_secret \
-    --project $project_id
-   ```
-
-5. Perform token introspection to get the `access_token` details:
-
-   ```shell
-   # Export 'access_token'
-   access_token="{set to ACCESS TOKEN from output}"
-
-   # Perform token introspection
-   ory introspect token $access_token --project $project_id
    ```

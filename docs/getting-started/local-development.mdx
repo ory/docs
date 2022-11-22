@@ -1,7 +1,108 @@
 ---
 id: local-development
-title: Local development with The Ory Network
+title: Develop applications on your local machine
+sidebar_label: Developing with Ory
 ---
+
+To create your first project on the Ory Network, install the Ory CLI
+
+```mdx-code-block
+import Install from '@site/docs/_common/install-cli.mdx'
+
+<Install />
+```
+
+and create your first project (it's free):
+
+```shell
+ory create project --name "Documentation example"
+```
+
+### Frontend and Privileged APIs
+
+Ory offers two principal types of APIs:
+
+- Backend / admin APIs offer privileged access, for example deleting identities. To use Admin APIs, you need a Ory Network API
+  Key.
+- Frontend APIs do not require a Ory Network API Key because:
+  - they do not need authorization and can be accessed by any client (e.g. a login page)
+  - they implement a protocol which defines what authorization mechanism to use (e.g. OAuth2 Client Credentials).
+
+Both APIs are available at your project's (custom) domain:
+
+```
+https://{project.slug}.projects.oryapis.com
+
+# When you own a custom domain:
+# https://ory.your-custom-domain.com
+```
+
+The endpoint above is your SDK URL, and you will need to use it when configuring Ory' SDKs and tools.
+
+## API Keys
+
+API Keys are used to authenticate privileged requests to the Ory backend APIs. You can create API Keys in the Ory Cloud Console.
+Head over to the Ory Console [API key page](https://console.ory.sh/projects/current/connect).
+
+## Connecting to Ory
+
+Talk about the SDK URL.
+
+### Local Development
+
+Talk about cookies etc
+[https://www.ory.sh/docs/getting-started/local-development](https://www.ory.sh/docs/getting-started/local-development)
+
+## Configure SDK
+
+Examples in different languages in a code tab of how to use the three things listed above.
+
+## Domain-based Security
+
+The security model used by Ory delivers the most secure and hassle-free solution to users by managing:
+
+- sessions
+- tokens
+- cookies
+
+Although it is an uncommon approach that might require a shift in thinking, it's implemented so that you don't have to worry about
+refreshing tokens or deciding whether to store them in `localStorage` or `document.cookies`.
+
+Instead, you can devote all your focus and time to developing great software for your users, while Ory takes care of the security
+by giving you the best-in-class protection from all common browser attack vectors, such as
+[Cross-site scripting (XSS)](https://owasp.org/www-community/attacks/xss/) or
+[Cross-site request forgery (CSRF)](https://owasp.org/www-community/attacks/csrf/).
+
+:::tip
+
+Read our blog post exploring [authentication and modern software](https://www.ory.sh/auth-and-modern-software/) to learn more
+about `sessions`.
+
+:::
+
+## Access to your domain
+
+To manage `sessions`, `tokens`, and `cookies`, Ory APIs must be exposed on the same domain as your application. If you don't
+fulfill this requirement, HTTP Cookies are ignored by the browser, which prevents the Ory Identities (Ory Kratos) from functioning
+properly.
+
+Ory exposes the APIs at `https://<project-slug>.projects.oryapis.com`. To manage session information, Ory Identities (Kratos) must
+be able to set the domain in HTTP Cookies to the same domain as the application that consumes its APIs. For example:
+
+- When working with an application that runs on `http://localhost:3000` for local development, Ory must be able to set
+  `domain=localhost` in the HTTP cookie.
+
+Ory offers SDKs for certain deployment options such as [Vercel](https://www.notion.so/getting-started/integrate-auth/nextjs.mdx)
+which mirror Ory's APIs without the need of running another process.
+
+- When working with an application that runs on `https://app.example.org`, Ory must be able to set `domain=example.org` in the
+  HTTP cookie.
+- Some multi-tenant providers like Heroku (`<your-slug>.herokuapp.com`) or Vercel (`<your-slug>.vercel.app`) expose many apps
+  under the same domain. These domains are listed in
+  [Public Suffix Domain List](https://publicsuffix.org/list/public_suffix_list.dat). For these domains it is not possible to set a
+  cookie on the root domain (`cookie=herokuapp.com`) but only on the subdomain (`cookie=your-slug.herokuapp.com`).
+
+# Developing with Ory
 
 As explained in the Ory Security Model description, Ory APIs must be available on the same domain as your application to allow
 communication between the systems. When developing locally, your application is often exposed at the `localhost` domain.
