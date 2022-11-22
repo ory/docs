@@ -1,13 +1,12 @@
 ---
 id: security-model
-title: Security model
+title: Cookie-based security model
+sidebar_label: Cookie-based security
 ---
 
-The security model used by Ory delivers the most secure and hassle-free solution to users by managing:
-
-- sessions
-- tokens
-- cookies
+Ory Identities supports both mobile (native) and browser applications. Because of the broad capabilities browsers offer, they pose
+a higher security risk than native applications. To shield your users from those risks, Ory Identities implements special browser
+APIs which use additional security measures such as anti-CSRF cookies.
 
 Although it is an uncommon approach that might require a shift in thinking, it's implemented so that you don't have to worry about
 refreshing tokens or deciding whether to store them in `localStorage` or `document.cookies`.
@@ -17,21 +16,13 @@ by giving you the best-in-class protection from all common browser attack vector
 [Cross-site scripting (XSS)](https://owasp.org/www-community/attacks/xss/) or
 [Cross-site request forgery (CSRF)](https://owasp.org/www-community/attacks/csrf/).
 
-:::tip
-
-Read our blog post exploring [authentication and modern software](https://www.ory.sh/auth-and-modern-software/) to learn more
-about `sessions`.
-
-:::
-
 ## Access to your domain
 
-To manage `sessions`, `tokens`, and `cookies`, Ory APIs must be exposed on the same domain as your application. If you don't
-fulfill this requirement, HTTP Cookies are ignored by the browser, which prevents the Ory Identities (Ory Kratos) from functioning
-properly.
+To manage HTTP cookies, Ory APIs must be exposed on the same domain as your application. If you don't fulfill this requirement,
+HTTP Cookies are ignored by the browser, which prevents the Ory Identities from functioning properly.
 
-Ory exposes the APIs at `https://<project-slug>.projects.oryapis.com`. To manage session information, Ory Identities (Kratos) must
-be able to set the domain in HTTP Cookies to the same domain as the application that consumes its APIs. For example:
+Ory exposes the APIs at `https://{project.slug}.projects.oryapis.com`. To manage session information, Ory Identities must be able
+to set the domain in HTTP Cookies to the same domain as the application that consumes its APIs. For example:
 
 - When working with an application that runs on `http://localhost:3000` for local development, Ory must be able to set
   `domain=localhost` in the HTTP cookie.
@@ -45,44 +36,6 @@ without the need of running another process.
   under the same domain. These domains are listed in
   [Public Suffix Domain List](https://publicsuffix.org/list/public_suffix_list.dat). For these domains it is not possible to set a
   cookie on the root domain (`cookie=herokuapp.com`) but only on the subdomain (`cookie=your-slug.herokuapp.com`).
-
-## What about OAuth 2.0 / OpenID Connect?
-
-Ory offers an OAuth 2.0 and OpenID Connect solution in the form of Ory OAuth2 & OpenID Connect available in the Ory Network and
-the open-source [Ory Hydra Federation Server](https://github.com/ory/hydra), which you can self-host.
-
-At Ory, we believe that OAuth 2.0 and OpenID Connect isn't a one-size-fits-all solution. In fact, we think that you probably don't
-need to use such complicated protocols at all! We recommend using [Ory OAuth2 & OpenID Connect](https://github.com/ory/hydra) for
-targeted use cases only, such as providing third-party integration with your application (for example, in the form of the familiar
-"Sign in with [PROVIDER_NAME]" button).
-
-:::tip
-
-Read [this blog post](https://www.ory.sh/oauth2-openid-connect-do-you-need-use-cases-examples/) to learn why you probably don't
-need OAuth 2.0 and OpenID Connect in your project.
-
-:::
-
-### What about Access Tokens / Refresh Tokens?
-
-You can generate access and refresh tokens using [Ory OAuth2 & OpenID](https://github.com/ory/hydra). Unless you really need to
-use [you need OAuth 2.0 / OpenID Connect](https://www.ory.sh/oauth2-openid-connect-do-you-need-use-cases-examples/), Ory Security
-Model is a much easier solution to handle.
-
-### What about JSON Web Tokens?
-
-Currently, Ory Identities doesn't support JSON Web Tokens (JWTs) natively.
-
-:::note
-
-Do you need JWTs in your implementation? Let us know in
-[this issue for Ory Identities (Kratos)](https://github.com/ory/kratos/issues/2487).
-
-:::
-
-[Ory Zero Trust Identity and Access Proxy (Ory Oathkeeper)](https://www.ory.sh/oathkeeper) can "convert" Ory Sessions to JSON Web
-Tokens. Using Ory Oathkeeper is recommended when developing sophisticated applications with control over network traffic (think
-Kubernetes, OpenShift).
 
 ## HTTP cookies
 
@@ -166,7 +119,7 @@ const ory = new V0alpha2Api(
 or using the [Browser's Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API):
 
 ```js
-fetch("https://example.org/", {
+fetch("https://ory.your-custom-domain.com/", {
   credentials: "include",
 })
 ```
@@ -183,3 +136,41 @@ Notable mentions are:
 1. [Safari](https://www.infoq.com/news/2020/04/safari-third-party-cookies-block/)
 2. [Chrome](https://www.adexchanger.com/privacy/google-will-limit-cross-site-tracking-in-chrome-by-default-starting-in-february/)
 3. [Firefox](https://www.theverge.com/2019/6/4/18650363/firefox-block-trackers-default-enhanced-tracking-protection)
+
+## What about JSON Web Tokens?
+
+Currently, Ory Identities doesn't support JSON Web Tokens (JWTs) natively.
+
+:::note
+
+Do you need JWTs in your implementation? Let us know in
+[this issue for Ory Identities (Kratos)](https://github.com/ory/kratos/issues/2487).
+
+:::
+
+[Ory Zero Trust Identity and Access Proxy (Ory Oathkeeper)](https://www.ory.sh/oathkeeper) can "convert" Ory Sessions to JSON Web
+Tokens. Using Ory Oathkeeper is recommended when developing sophisticated applications with control over network traffic (think
+Kubernetes, OpenShift).
+
+## Can I use OAuth 2.0 / OpenID Connect
+
+Ory is fully compliant with OAuth 2.0 and OpenID Connect. If you are interested to use OAuth 2.0 / OpenID Connect for advanced use
+cases, check out [Ory OAuth 2.0 and OpenID](https://www.ory.sh/federated-identity-management/) documentation.
+
+:::tip
+
+[You probably do not need OAuth2 / OpenID Connect](https://www.ory.sh/oauth2-openid-connect-do-you-need-use-cases-examples/)
+covers common misconceptions about OAuth2 and OpenID Connect and is worth a read if you are unsure whether OAuth2 is the right fit
+for you.
+
+:::
+
+At Ory, we believe that OAuth 2.0 and OpenID Connect isn't a one-size-fits-all solution. In fact, we think that you probably don't
+need to use such complicated protocols at all! We recommend using
+[Ory OAuth2 & OpenID](https://www.ory.sh/federated-identity-management/) for targeted use cases only, such as providing
+third-party integration with your application (for example, in the form of the familiar "Sign in with [PROVIDER_NAME]" button).
+
+### What about Access Tokens / Refresh Tokens?
+
+You can generate access and refresh tokens using [Ory OAuth2 & OpenID](https://www.ory.sh/federated-identity-management/). We do
+not recommend using access and refresh tokens for session management!

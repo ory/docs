@@ -4,7 +4,7 @@ title: Design
 ---
 
 This document provides a summary of Ory's REST design with topics like pagination and date formats. If you're interested in Ory's
-API design, check out the [REST API design guidelines](../../open-source/guidelines/rest-api-guidelines).
+API design, check out the [REST API design guidelines](../open-source/guidelines/rest-api-guidelines.mdx).
 
 ## Date format
 
