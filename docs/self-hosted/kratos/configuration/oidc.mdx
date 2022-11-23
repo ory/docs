@@ -1,0 +1,32 @@
+---
+id: oidc
+title: Social Sign In
+---
+
+Follow these steps to add a generic provider as a social sign-in provider when self-hosting Ory Kratos. First, you need to know
+the redirect URL:
+
+```
+http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/<social-signin-provider-id>
+```
+
+Next,
+
+1. create a client at your generic provider to get a Client ID and Client Secret;
+2. set the redirect URI to URL that follows this pattern:
+   `http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/<social-signin-provider-id>`;
+3. create a [Jsonnet code snippet](#data-mapping) to map the desired claims to the Ory Identity schema;
+4. encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or store it in a location available to your Ory Kratos
+   instance;
+5. add the [social sign-in provider configuration](#configuration-with-ory-cli) to the Ory Kratos configuration. Add the Jsonnet
+   snippet with mappings as a Base64 string or provide a path or an URL of the file.
+
+## Environment Variables
+
+It is not recommended to use environment variables to configure OIDC providers, as the data object is complex and getting the
+syntax right is difficult. If you want to use environment variables, it is recommended to set the full JSON array as an
+environment variable:
+
+```shell
+export SELFSERVICE_METHODS_OIDC_CONFIG_PROVIDERS='[{"id":"google","provider":"google","mapper_url":"<file_location>","client_id":"<client_id>","client_secret":"<client_secret>","scope":["openid","email","profile"],"auth_url":"https://accounts.google.com/o/oauth2/v2/auth","token_url":"https://www.googleapis.com/oauth2/v4/token","issuer_url":"https://accounts.google.com"}]'
+```
