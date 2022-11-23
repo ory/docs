@@ -1,7 +1,10 @@
 ---
 id: session-management
-title: Session management
+title: Session management in Ory
+sidebar_label: Session management
 ---
+
+# Session management
 
 Sessions can be managed by:
 
@@ -22,7 +25,7 @@ make sure to include credentials and configure CORS properly.
 
 ### Listing sessions
 
-Users can list their sessions by sending a `GET` request to the `/sessions` endpoint or by using the `listSessions` SDK command:
+Users can list their sessions by sending a `GET` request to the `/sessions` endpoint or by using the `listSessions` SDK method:
 
 ```mdx-code-block
 import { getSdkUrl } from '@site/src/hooks'
@@ -45,7 +48,7 @@ You can use this call to show a UI with all active sessions to the user.
 ### Revoking specific sessions
 
 To revoke a specific session, the user must send a `DELETE` request to the
-[`/sessions/{id}`](../../reference/api.mdx#operation/revokeSessionById) endpoint or use the `revokeSessionById` SDK command:
+[`/sessions/{id}`](../../reference/api.mdx#operation/revokeSessionById) endpoint or use the `revokeSessionById` SDK method:
 
 ```mdx-code-block
 <CodeBlock>{`DELETE ${getSdkUrl().url}/sessions/{id}
