@@ -4,6 +4,9 @@ export GO111MODULE        := on
 export PATH               := .bin:${PATH}
 
 format: .bin/ory node_modules  # formats all source code
+	make format-fast
+
+format-fast:
 	.bin/ory dev headers copyright --type=open-source --exclude=src/plugins
 	npm exec -- prettier --write .
 
