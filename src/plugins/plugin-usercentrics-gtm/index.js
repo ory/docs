@@ -62,7 +62,7 @@ window.dataLayer.push({event: "track", action: "page_view",track: null});
               async: true,
               type: "text/plain",
               "data-usercentrics": "Google Tag Manager",
-              src: "https://www.googletagmanager.com/gtm.js?id=" + gtmID,
+              src: "https://sst.ory.sh/gtm.js?id=" + gtmID,
             },
           },
         ],
