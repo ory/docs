@@ -67,9 +67,9 @@ This endpoint revokes only sessions other than the current session. To revoke th
 
 :::
 
-### Revoking all sessions
+### Revoking all other sessions
 
-To revoke all sessions, the user must send a `DELETE` request to the
+To revoke all sessions except the current, the user must send a `DELETE` request to the
 [`/sessions`](../../reference/api.mdx#operation/revokeSessions) endpoint or use the `revokeSessions` SDK command:
 
 ```mdx-code-block
@@ -78,6 +78,13 @@ Cookies: ory_kratos_session=...
 # OR
 X-Session-Token: ...`}</CodeBlock>
 ```
+
+:::note
+
+This endpoint revokes all sessions other than the current session. To revoke the current session, use the
+[self-service logout](../../kratos/self-service/flows/user-logout.mdx).
+
+:::
 
 ## Administrative session management
 
