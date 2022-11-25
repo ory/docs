@@ -1,7 +1,7 @@
 ---
 id: keto-relation-tuple-parse
 title: keto relation-tuple parse
-description: keto relation-tuple parse Parse human readable relation tuples
+description: keto relation-tuple parse Parse human readable relationships
 ---
 
 <!--
@@ -11,11 +11,11 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## keto relation-tuple parse
 
-Parse human readable relation tuples
+Parse human readable relationships
 
 ### Synopsis
 
-Parse human readable relation tuples as used in the documentation.
+Parse human readable relationships as used in the documentation.
 Supports various output formats. Especially useful for piping into other commands by using `--format json`.
 Ignores comments (lines starting with `//`) and blank lines.
 
@@ -39,5 +39,5 @@ keto relation-tuple parse [flags]
 
 ### SEE ALSO
 
-* [keto relation-tuple](keto-relation-tuple)	 - Read and manipulate relation tuples
+* [keto relation-tuple](keto-relation-tuple)	 - Read and manipulate relationships
 

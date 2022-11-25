@@ -1,7 +1,7 @@
 ---
 id: keto-relation-tuple-delete-all
 title: keto relation-tuple delete-all
-description: keto relation-tuple delete-all Delete ALL relation tuples matching the relation query.
+description: keto relation-tuple delete-all Delete ALL relationships matching the relation query.
 ---
 
 <!--
@@ -11,11 +11,11 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## keto relation-tuple delete-all
 
-Delete ALL relation tuples matching the relation query.
+Delete ALL relationships matching the relation query.
 
 ### Synopsis
 
-Delete all relation tuples matching the relation query.
+Delete all relationships matching the relation query.
 It is recommended to first run the command without the `--force` flag to verify that the operation is safe.
 
 ```
@@ -26,7 +26,7 @@ keto relation-tuple delete-all [flags]
 
 ```
       --authority string                      Set the authority header for the remote gRPC server.
-      --force                                 Force the deletion of relation tuples
+      --force                                 Force the deletion of relationships
       --format string                         Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help                                  help for delete-all
       --insecure-disable-transport-security   Disables transport security. Do not use this in production.
@@ -49,5 +49,5 @@ keto relation-tuple delete-all [flags]
 
 ### SEE ALSO
 
-* [keto relation-tuple](keto-relation-tuple)	 - Read and manipulate relation tuples
+* [keto relation-tuple](keto-relation-tuple)	 - Read and manipulate relationships
 

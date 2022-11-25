@@ -1,7 +1,7 @@
 ---
 id: keto-relation-tuple
 title: keto relation-tuple
-description: keto relation-tuple Read and manipulate relation tuples
+description: keto relation-tuple Read and manipulate relationships
 ---
 
 <!--
@@ -11,7 +11,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## keto relation-tuple
 
-Read and manipulate relation tuples
+Read and manipulate relationships
 
 ### Options
 
@@ -28,9 +28,9 @@ Read and manipulate relation tuples
 ### SEE ALSO
 
 * [keto](keto)	 - Global and consistent permission and authorization server
-* [keto relation-tuple create](keto-relation-tuple-create)	 - Create relation tuples from JSON files
-* [keto relation-tuple delete](keto-relation-tuple-delete)	 - Delete relation tuples defined in JSON files
-* [keto relation-tuple delete-all](keto-relation-tuple-delete-all)	 - Delete ALL relation tuples matching the relation query.
-* [keto relation-tuple get](keto-relation-tuple-get)	 - Get relation tuples
-* [keto relation-tuple parse](keto-relation-tuple-parse)	 - Parse human readable relation tuples
+* [keto relation-tuple create](keto-relation-tuple-create)	 - Create relationships from JSON files
+* [keto relation-tuple delete](keto-relation-tuple-delete)	 - Delete relationships defined in JSON files
+* [keto relation-tuple delete-all](keto-relation-tuple-delete-all)	 - Delete ALL relationships matching the relation query.
+* [keto relation-tuple get](keto-relation-tuple-get)	 - Get relationships
+* [keto relation-tuple parse](keto-relation-tuple-parse)	 - Parse human readable relationships
 
