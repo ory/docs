@@ -473,3 +473,59 @@ Checking session is now available in the `frontend` module:
   </TabItem>
 </Tabs>
 ````
+
+### Permissions & Access Control
+
+Manipulation relationships and checking permissions are now available in the `relationship` and `permissions` modules,
+respectively:
+
+````mdx-code-block
+<Tabs>
+  <TabItem value="go" label="Golang" default>
+
+```diff
+  // Create a relationship
+  res, _, err := client.
+-   WriteApi.
+-   CreateRelationTuple(context.Background()).
+-   RelationQuery(query).
++   RelationshipApi.
++   CreateRelationship(context.Background()).
++   CreateRelationshipBody(query).
+    Execute()
+
+  // Check a permission
+  res, _, err := client.
+-   ReadApi.
+-   GetCheck(context.Background()).
++   PermissionApi.
++   CheckPermission(context.Background()).
+    Namespace(r.Namespace).
+    Object(r.Object).
+    Relation(r.Relation).
+    Execute()
+```
+
+  </TabItem>
+  <TabItem value="js" label="JavaScript">
+
+```diff
+  // Create a relationship
+  await ory
+-   .write
+-   .createRelationTuple({relationQuery: {/* ... */}})
++   .relationship
++   .createRelationship({createRelationshipBody: {/* ... */}})
+
+  // Check a permission
+  const isAllowed = await ory
+-   .read
+-   .getCheck({namespace: "n", /* ... */}})
++   .permission
++   .checkPermission({namespace: "n", /* ... */})
+    .then(({data}) => data.allowed)
+```
+
+  </TabItem>
+</Tabs>
+````
