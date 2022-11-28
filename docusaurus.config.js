@@ -68,7 +68,7 @@ const config = {
           type: "docSidebar",
           position: "left",
           sidebarId: "selfhosting",
-          label: "Self-Hosting",
+          label: "Self-hosting",
         },
         {
           to: "https://www.ory.sh/",

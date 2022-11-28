@@ -1,13 +1,13 @@
 ---
 id: native-browser
-title: Browser vs Native Apps
+title: Browser vs. Native Apps
 ---
 
 Ory Identities supports both mobile (native) and browser applications. Because of the broad capabilities browsers offer, they pose
 a higher security risk than native applications. To shield your users from those risks, Ory Identities implements special browser
 APIs which use additional security measures such as anti-CSRF cookies.
 
-## Native Apps
+## Native apps
 
 Native apps use the `https://{project.slug}.projects.oryapis.com/self-service/{flow-type}/api` endpoint to initialize flows such
 as sign in, registration, profile changes, and so on. When using this endpoint, no CSRF cookies will be issued by Ory.
@@ -18,7 +18,7 @@ returns the same session response when calling `ory.toSession({ xSessionToken: "
 Because it is very dangerous to use native app endpoints in a browser context, Ory prevents you from using these APIs in the
 browser.
 
-## Browser Apps
+## Browser apps
 
 Native apps use the `https://{project.slug}.projects.oryapis.com/self-service/{flow-type}/browser` endpoint to initialize flows
 such as sign in, registration, profile changes, and so on. When using this endpoint, Ory will set anti CSRF cookies.

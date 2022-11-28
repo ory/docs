@@ -40,7 +40,7 @@ module.exports = {
         "security-model",
         {
           type: "category",
-          label: "Sign in & registration",
+          label: "Sign-in & registration",
           items: [
             {
               type: "category",
