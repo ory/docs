@@ -90,9 +90,8 @@ project slug, although they also work via the Ory Tunnel.
 
 Using the Ory Tunnel has two key limitations currently.
 
-First, your local machine is usually available on both `localhost` and `127.0.0.1`. For the browser these two domains are
-different top-level-domains. Cookies set on `localhost` will not be sent in requests to `127.0.0.1` and vice versa. If you
-encounter cookie issues, make sure that all of your requests are sent to `localhost` and not `127.0.0.1`.
-
-Second, [WebAuthn](../kratos/mfa/webauthn-fido-yubikey) does not support cross-domain use. We are working together with the
-[W3C to figure out solutions](https://github.com/w3c/webauthn/issues/1372).
+- Your local machine is usually available on both `localhost` and `127.0.0.1`. For the browser these two domains are different
+  top-level-domains. Cookies set on `localhost` will not be sent in requests to `127.0.0.1` and vice versa. If you encounter
+  cookie issues, make sure that all of your requests are sent to `localhost` and not `127.0.0.1`.
+- [WebAuthn](../kratos/mfa/webauthn-fido-yubikey) does not support cross-domain use currently. We are working together with the
+  [W3C to figure out solutions](https://github.com/w3c/webauthn/issues/1372).

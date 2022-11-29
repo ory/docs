@@ -19,7 +19,7 @@ real-world examples of how this data improved a project.
 The data processing pipeline has the following steps:
 
 1. Telemetry data is collected at each service.
-2. Periodically this data is sent to the `sqa.ory.sh`.
+2. Periodically this data is sent to `sqa.ory.sh`.
 3. Segment forwards this data to a private AWS S3 Bucket owned by the Ory organization. The data isn't shared with any other
    party.
 4. The AWS S3 Bucket(s) are periodically downloaded onto on of our on-premise servers.

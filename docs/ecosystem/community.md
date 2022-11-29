@@ -1,6 +1,6 @@
 ---
 id: community
-title: Community Resources
+title: Community resources
 ---
 
 Ory is possible because of a unique, experienced, and dedicated community. Sponsors, contributors, and adopters make this
