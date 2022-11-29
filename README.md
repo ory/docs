@@ -11,29 +11,28 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Ory Documentation](#ory-documentation)
-  - [Style](#style)
-    - [Categories](#categories)
-      - [Document frontmatter](#document-frontmatter)
-    - [Text](#text)
-      - [Headings](#headings)
-        - [Headings capitalization](#headings-capitalization)
-    - [Names for console UI elements](#names-for-console-ui-elements)
+- [Overview](#overview)
+- [Style guide](#style-guide)
+  - [Grammar and style](#grammar-and-style)
     - [Lists](#lists)
+    - [Headings](#headings)
+  - [Formatting](#formatting)
+    - [Document front matter](#document-front-matter)
+    - [Bolding, 'code formatting'](#bolding-code-formatting)
+    - [Linking](#linking)
+    - [Code blocks](#code-blocks)
+    - [Placeholders and dummy data](#placeholders-and-dummy-data)
+    - [UI references](#ui-references)
+  - [Import \& reference content](#import--reference-content)
+    - [Markdown partials](#markdown-partials)
+    - [Code snippets](#code-snippets)
+      - [From GitHub](#from-github)
+      - [From this repository](#from-this-repository)
   - [Testing](#testing)
     - [Playwright tests](#playwright-tests)
-    - [Jest tests](#jest-tests)
     - [Formatting documentation](#formatting-documentation)
-    - [Markdownlint](#markdownlint)
   - [How to...](#how-to)
     - [Add content to Examples page](#add-content-to-examples-page)
-    - [Links to other pages](#links-to-other-pages)
-    - [Import Markdown](#import-markdown)
-    - [Code snippets](#code-snippets)
-      - [From Github](#from-github)
-      - [From this repository](#from-this-repository)
-      - [Code examples in MDX](#code-examples-in-mdx)
-    - [Shell examples](#shell-examples)
     - [Images](#images)
     - [Videos](#videos)
   - [CLI documentation](#cli-documentation)
@@ -41,21 +40,19 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# Ory Documentation
+# Overview
 
-> Documentation is the single source of truth
+The Ory documentation is the is the single source of truth for usage, implementation, configuration, and troubleshooting of the Ory Network and
+all projects of the [Ory Ecosystem](https://www.ory.sh/docs/ecosystem/projects/).
 
-The Ory documentation is the place to find all information related to Ory
-services, usage and troubleshooting.
-
-This repository contains meta-documentation for the
-[Ory Ecosystem](https://www.ory.sh/docs/ecosystem/projects/). You can find the
-source code for each project here:
+To see the source code of each of the projects, visit the project repository: 
 
 - [Ory Kratos](https://github.com/ory/kratos/)
 - [Ory Hydra](https://github.com/ory/hydra/)
 - [Ory Oathkeeper](https://github.com/ory/oathkeeper/)
 - [Ory Keto](https://github.com/ory/keto/)
+
+The documentation is best consumed through the [Ory documentation portal](https://www.ory.sh/docs/).
 
 Other Ory Projects documentation:
 
@@ -63,96 +60,212 @@ Other Ory Projects documentation:
 - [Ory Dockertest](https://github.com/ory/dockertest/blob/v3/README.md)
 - [Ory SDKs](https://github.com/ory/sdk/blob/master/README.md)
 
-## Style
+# Style guide
 
-### Categories
+This style guide outlines the most important rules and conventions that apply to the Ory documentation. If there is are no Ory-specific
+requirements or guidelines for a given topic, refer to the [Microsoft Writing Style Guide](https://learn.microsoft.com/en-us/style-guide/welcome/) 
+and follow the rules described there.  
 
-The Ory Developer documentation can be organized in three different main
-categories:
+## Grammar and style
 
-- Concepts
-  - The purpose of this category is to give the reader a deep understanding of
-    the ideas upon which the project is built. Content in this category has the
-    form of a discursive explanation. The main goal is to explain.
-- Guides
-  - The purpose of this category is to solve a specific problem. It has the form
-    of a series of steps towards a goal. It's aimed towards more experienced
-    users, who are already familiar with the concepts and tools
-- Reference
-  - The purpose of this category is to provide a detailed & in-depth description
-    of the project. It has the form of an austere and to the point explanation
-    and is rooted in code, most often these documents are built directly from
-    code without editor interaction. It doesn't give information on how to do
-    specific things.
+Ory documentation must be clear, concise, and unambiguous. To achieve that, follow these simple rules: 
 
-There are also sub-types:
-
-- Introduction
-  - The purpose of this guide is to introduce the very basics of the project and
-    give newcomers an easy way to start. Contains the most basic explanation of
-    the project, an installation guide or a Quickstart/5-Minute Tutorial.
-- Troubleshooting
-  - Contains instructions on how to resolve issues with Ory services.
-
-#### Document frontmatter
-
-Add a meaningful title and an ID to the top of the document. `id` needs to be
-separated with `-` and lowercase, `title` with space and Uppercase. Example:
-
-```md
----
-id: documentation-id
-title: Documentation Title
----
-```
-
-### Text
-
-Ory documentation should be clear and easy to understand.
-
-- Avoid unnecessary words.
-- Be clear, concise, and stick to the goal of the topic.
-- Write in US English with US grammar.
-- Use articles such as a/an and the wherever possible.
-- Use active voice.
-- Avoid slang and jargon, while allowing for specific terminology.
-
-#### Headings
-
-- Use
-  [sentence case](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization)
-  for headings.
-- Start with an `h2` (`##`), and respect the order `h2` > `h3` > `h4` > `h5` >
-  `h6`. Never skip the hierarchy level, such as `h2` > `h4`
-- Avoid using symbols and special characters in headers. Whenever possible, they
-  should be plain and short text.
-- Leave one blank line before and after a heading.
-- Don't use links in headings.
-- Search engines prioritize words used in headings and subheadings. Make your
-  subheading titles clear, descriptive, and complete to help users find the
-  right example, as shown in the section on [heading titles](#heading-titles).
-
-##### Headings capitalization
-
-<!-- TODO sentence-casing or [letter-casing](https://en.wikipedia.org/wiki/Letter_case#Sentence_case)  -->
-
-### Names for console UI elements
-
-<!-- TODO
-
-UI elements, like button and checkbox names, should be **bold**. Guidance for
-each individual UI element is in
-[the word list](https://github.com/ory/docs/blob/master/docs/markdownlint.yml#L31).  -->
+1. Use active voice and present tense. 
+2. Always write in American English. 
+3. Use [zero conditional](https://www.ef.com/wwen/english-resources/english-grammar/zero-conditional/) when talking about the cause-and-effect 
+   in software behavior.
+4. Use the right words to make sure that your message is clear and unambiguous. Don't use words like "should", "could", or "may".
+5. Don't use phrasal verbs, colloquialisms, and jargon.
+6. Don't refer to users in ways that imply their sex.
+7. Remember to use articles (`a`, `an`, `the`) in your writing.
+8. Use common contractions such are `aren't`, `don't`, `doesn't` to sound friendly and informal.
 
 ### Lists
 
-- Always start list items with a capital letter, unless they're parameters or
-  commands that are in backticks, or similar.
-- Always leave a blank line before and after a list.
-- Begin a line with spaces (not tabs) to denote a
-  [nested sub-item](#nesting-inside-a-list-item).
-- Indent all code blocks in lists so that they are formatted to be part of list
-  items.
+Ory follows the [Microsoft Writing Style Guide list formatting guidelines](https://learn.microsoft.com/en-us/style-guide/scannable-content/lists).
+
+- List items must begin with a capital letter, unless there's a specific reason not to do that. For example, the item is a proper name that's 
+  not capitalized, a parameter, or a command wrapped in backticks (`` ` ``).
+- Don't use punctuation such as commas (`,`), semicolons (`;`), or conjunctions (`and`, `or`) at the end of list items. 
+- Use periods (`.`) only at the end of list items that are proper sentences, even very short ones.
+- Make list items consistent in structure. For example, if one list item is a full sentence, make all list items full sentences. Don't 
+  use different structures for list items in a single list.
+- Indent lines with 3 spaces to denote nested sub-items in lists. Indent text, code blocks, and images.
+
+### Headings
+
+- Use [sentence case](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization) for headings.
+- The highest heading level in documents is `h2`. Use `h1` only when you override the document `title`.
+- The lowest heading level in documents is `h4`. If you absolutely need to add more heading levels, don't go lower than `h5`.
+- Avoid using symbols and special characters in headings.
+- Leave one blank line before and after a heading.
+- Don't use links in headings.
+- Headings play an important role in SEO and searchability, and make the document more scannable. Make your headings short and true to 
+  the content they introduce.
+
+## Formatting
+
+Write in [Markdown](https://www.markdownguide.org/). Files with the `.mdx` extension use [JSX-extended Markdown (MDX)](https://mdxjs.com/).
+   
+### Document front matter
+
+Add this front matter to every document you create: 
+
+```md
+---
+id: excellent_feature
+title: Learn how to use the excellent feature in your implementation
+sidebar_label: Excellent feature
+---
+```
+
+- `id` is the document identifier that makes up the last part of the document URL. Try to come up with a short ID that accurately describes the content. IDs that use multiple words must use hyphens (`-`) to separate the words.
+- `title` is the document title that’s displayed as the page header. Used by search engines when displaying search result. Try to make it descriptive so that it helps readers understand what the document is about at the first glance. If it comes out long(ish), you can overwrite it by adding a `h1` in the very first line following the front matter. Use sentence case.
+- `sidebar_label` represents the document title used in the sidebar (left navigation). Create a short document title that fits the sidebar width. Use sentence case.
+
+### Bolding, 'code formatting'
+
+- Use only `code` and **bold** formatting. Don't use any other formatting. 
+- For inline code, wrap text in single backticks (`` ` ``). For code blocks use three backticks (`` ``` ``)
+- Use `code` formatting for: 
+  - Commands, for example `ory --help`
+  - File names and paths, for example `file.txt`, `~/Desktop/git/docs`
+  - Environment variables, for example `CUSTOM_ENV_VAR`
+- Use **bold** only when writing about user interface (UI) elements.
+
+### Linking
+
+- Link to external web pages using absolute links. Don't expose the link on its own. Instead, embed it in descriptive text. For example: 
+
+    ```
+    Ory documentation uses [Prism syntax highlighting](https://prismjs.com/).
+    ```
+
+- Link to documents within this repository using relative links. When referencing the file, use the file name. 
+  
+    ```
+    [Some link](../path/to/file.mdx)
+    ```
+
+### Code blocks
+
+- Always add programming language identifier to code blocks. Ory documentation uses [Prism syntax highlighting](https://prismjs.com/).  
+
+  ````
+  ```json
+  some JSON code here
+  ```
+  ````
+
+- For command line examples, use `shell` as the programming language identifier. Don't put `$` before the command.
+  
+  ````
+  ```shell
+  ory get identities
+  ```
+  ````
+
+- For multi-line commands, indent subsequent lines of the command with two spaces.
+
+  ````
+  ```shell
+  curl --request GET -sL \
+    --header "Content-Type: application/json" \
+    --header "Authorization: Bearer {ORY_API_KEY}" \
+    'https://{project-slug}.projects.oryapis.com/admin/identities/{identity_id}?include_credential=oidc'
+  ```
+  ````
+
+### Placeholders and dummy data
+
+Using placeholders and dummy data in code snippets and command examples is a good way to ensure that users run commands in the context 
+of their setups and, as a result, achieve success quicker. Additionally, this fabricated information prevents leaking sensitive data 
+such as tokens or API keys. 
+
+Follow these rules when using placeholders and dummy data: 
+
+- Introduce placeholders and dummy data in curly brackets (`{}`).
+- Use colons (`-`) or underscores (`_`) to separate multiple words, for example `{ORY_SESSION_COOKIE}` or `{project-slug}`.
+- When referring to a project API URL or SDK URL, always use `https://{project.slug}.projects.oryapis.com`.
+- When referring to scenarios in which the user runs a custom domain, use `https://ory.your-custom-domain.com`.
+- Always use short, but descriptive, verbal placeholders. Don't mix digits and letters to mimic the format of the data you mock.
+
+### UI references
+
+When talking about any UI in the Ory documentation follow these rules: 
+
+- When referring to UI elements, always use the exact text associated with the given element. 
+- Format the name of the UI element you refer to in **bold**.
+- Format any user input with `code`. 
+
+> Example: In the **Identity Model Schema** box, type `MyCustomIdentitySchema`.
+
+## Import & reference content
+
+### Markdown partials
+
+If a certain piece of content must be re-used across multiple documents in the exact form, it's a good idea to turn it into a partial.
+Thanks to that, you maintain content in a single file, instead of multiple instances of the same content in many docs.
+
+Add partials to the `_common` directory. 
+
+To import a partial, use this `mdx-code-block`: 
+
+````md
+```mdx-code-block
+import ExamplePartial from './_common/example.md'
+
+<ExamplePartial />
+```
+````
+
+### Code snippets
+
+#### From GitHub
+
+Use [CodeFromRemote](https://github.com/ory/docusaurus-template/blob/master/src/theme/CodeFromRemote.js) to import code directly from Github.
+
+Use this `mdx-code-block`: 
+
+
+<CodeFromRemote
+  lang="js" # the language of the code you want to add e.g. jsx,tsx,ts,go,yaml,yml,js,html,pug
+  link="https://github.com/ory/kratos-selfservice-ui-node/blob/master/src/middleware/simple.ts"
+  src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/src/middleware/simple.ts"
+/>
+
+````md
+```mdx-code-block
+import CodeFromRemote from '@theme/CodeFromRemote'
+
+<CodeFromRemote
+  lang="js"
+  link="https://github.com/ory/kratos-selfservice-ui-node/blob/master/src/middleware/simple.ts"
+  src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/src/middleware/simple.ts"
+  startAt="{CONTENT_FROM_CODE}"
+  endAt="{CONTENT_FROM_CODE}"
+/>
+```
+````
+
+- `lang` specifies the programming language the code is in
+- `link` is the file location displayed in the top part of the code block window
+- `src` is the direct link used to import the code (optional)
+- `startAt` , `endAt` are used to define where the imported snippet starts and ends (optional)
+
+#### From this repository
+
+````md
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import exampleJs from '!!raw-loader!./code-example.jsx'
+import exampleGo from '!!raw-loader!./code-example.go'
+
+<CodeBlock className="language-jsx">{exampleJs}</CodeBlock>
+<CodeBlock className="language-go">{exampleGo}</CodeBlock>
+```
+````
+
 
 ## Testing
 
@@ -167,11 +280,6 @@ to run Playright tests locally. To test the documentation locally:
 1. Install dependencies by running: `npm install`.
 1. Run the Docs webserver and test the documentation by running: `npm start`
 1. Build the docs and verify by running: `npm run build`
-
-### Jest tests
-
-The Playwright (E2E) tests file names end with `.test.ts` and can be found in
-`/tests/jest`.
 
 ### Formatting documentation
 
@@ -192,21 +300,6 @@ make format
 git commit -a -m "styles: format"
 git push
 ```
-
-### Markdownlint
-
-- [Word List](https://github.com/ory/docs/blob/master/docs/markdownlint.yml#L31).
-
-Locally:
-
-1. Download and install the
-   [markdownlint CLI](https://github.com/igorshubovych/markdownlint-cli).
-   `brew install markdownlint-cli`
-1. Check if markdownlint installed. `markdownlint --help``
-1. Lint all files in the project, in the docs folder use `cd docs`
-   `markdownlint '**/*.md' --ignore node_modules`
-1. Fix all files in the project, `Warning: This writes to your files!` `cd docs`
-   `markdownlint './docs/**/*.+(md|mdx)' --ignore node_modules --fix`
 
 ## How to...
 
@@ -236,140 +329,6 @@ Ory examples. Add a new example or modify existing entries:
 
 - Open a pull request with your changes.
 
-### Links to other pages
-
-If you would add a link to an outside resource, just go ahead.
-
-**If you want to add a link to a document in our own documentation, add the
-filename.**
-
-- ✅ `[XY Guide](./guide/XY.md)`
-- 🚫 `[XY Guide](./guide/XY)`
-
-This prevents
-[broken links issue](https://github.com/ory/docusaurus-template/issues/38) when
-you load the documentation from an outside link.
-
-### Import Markdown
-
-Use the same markdown in several places:
-
-````md
-```mdx-code-block
-import ExampleMarkdown from './_common/example.md'
-
-<ExampleMarkdown />
-```
-````
-
-### Code snippets
-
-#### From Github
-
-Use
-[CodeFromRemote](https://github.com/ory/docusaurus-template/blob/master/src/theme/CodeFromRemote.js)
-to import code directly from Github.
-
-Import at the beginning of your document like so:
-
-```md
----
-id: documentation id
-title: Documentation Title
----
-
-import CodeFromRemote from '@theme/CodeFromRemote'
-```
-
-Then at the place you want the code to appear in the document add:
-
-```js
-<CodeFromRemote
-  lang="js" # the language of the code you want to add e.g. jsx,tsx,ts,go,yaml,yml,js,html,pug
-  link="https://github.com/ory/kratos-selfservice-ui-node/blob/master/src/middleware/simple.ts"
-  src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/src/middleware/simple.ts"
-
-/>
-```
-
-You can use `startAt` and `endAt` if you only want to show a part of the code:
-
-```js
-<CodeFromRemote
-  lang="yml"
-  src="https://github.com/gen1us2k/kratos_flask_example/blob/master/docker-compose.yml"
-  startAt="postgres-kratos:"
-  endAt="postgres-keto:"
-/>
-```
-
-#### From this repository
-
-Use the same code example in several places:
-
-````md
-```mdx-code-block
-import CodeBlock from '@theme/CodeBlock'
-import exampleJs from '!!raw-loader!./code-example.jsx'
-import exampleGo from '!!raw-loader!./code-example.go'
-
-<CodeBlock className="language-jsx">{exampleJs}</CodeBlock>
-<CodeBlock className="language-go">{exampleGo}</CodeBlock>
-```
-````
-
-#### Code examples in MDX
-
-If you are using MDX and are in, for example, code tabs, use the `CodeBlock` to
-nest code items:
-
-````md
-```mdx-code-block
-import CodeBlock from '@theme/CodeBlock'
-
-<Tabs
-  defaultValue="ui"
-  values={[
-    {label: 'UI', value: 'ui'},
-  ]}>
-  <TabItem value="ui">
-    <CodeBlock className="language-jsx">{`Your
-
-code
-
-here`}</CodeBlock>
-  </TabItem>
-  <TabItem value="node">
-    <CodeFromRemote
-      src="https://github.com/ory/hydra-login-consent-node/blob/master/src/routes/consent.ts"
-    />
-  </TabItem>
-  <TabItem value="html">
-    <CodeFromRemote
-      src="https://github.com/ory/hydra-login-consent-node/blob/master/views/consent.pug"
-    />
-  </TabItem>
-</Tabs>
-```
-````
-
-### Shell examples
-
-Use `shellsession`:
-
-````md
-```shellsession
-npx create-next-app@latest --typescript
-npm i --save @ory/integrations
-```
-````
-
-Please do not prefixes with `$`
-
-```patch
-- $ command --arg # do not
-+ command --arg # do
-```
 
 ### Images
 
