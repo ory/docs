@@ -27,7 +27,10 @@ module.exports = {
         {
           type: "category",
           label: "OAuth2 / OpenID",
-          items: ["getting-started/ory-network-oauth2"],
+          items: [
+            "getting-started/ory-network-oauth2",
+            "getting-started/oauth2-openid/expressjs",
+          ],
         },
         "guides/permissions/overview",
       ],
