@@ -270,12 +270,6 @@ to import code directly from Github.
 
 Use this `mdx-code-block`:
 
-<CodeFromRemote lang="js" # the language of the code you want to add e.g.
-jsx,tsx,ts,go,yaml,yml,js,html,pug
-link="https://github.com/ory/kratos-selfservice-ui-node/blob/master/src/middleware/simple.ts"
-src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/src/middleware/simple.ts"
-/>
-
 ````md
 ```mdx-code-block
 import CodeFromRemote from '@theme/CodeFromRemote'
