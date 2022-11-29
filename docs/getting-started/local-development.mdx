@@ -55,7 +55,6 @@ Tunnel. Here we assume that your app runs on `http://localhost:3000`:
 ory tunnel --dev --project {project.id-or-project.slug} \
   http://localhost:3000
 ```
-```
 
 Running this commands opens the `4000` port on your local machine. The URL `http://localhost:3000` is where your application is
 available. The `--dev` flag disables a few security checks to make local development easier. After starting the Tunnel, test it by
@@ -82,7 +81,7 @@ const frontend = new FrontendApi(
 const { data: login } = await frontend.createBrowserLoginFlow()
 const { data: session } = await frontend.toSession()
 // ...
-```
+````
 
 Only the `FrontendApi` needs to access the Ory Tunnel. Administrative APIs like `IdentityApi` can be accessed directly from your
 project slug, although they also work via the Ory Tunnel.
@@ -92,7 +91,7 @@ project slug, although they also work via the Ory Tunnel.
 Using the Ory Tunnel has two key limitations currently.
 
 - Your local machine is usually available on both `localhost` and `127.0.0.1`. For the browser these two domains are different
-  domains. Cookies set on `localhost` will not be sent in requests to `127.0.0.1` and vice versa. If you encounter
-  cookie issues, make sure that all of your requests are sent to `localhost` and not `127.0.0.1`.
+  domains. Cookies set on `localhost` will not be sent in requests to `127.0.0.1` and vice versa. If you encounter cookie issues,
+  make sure that all of your requests are sent to `localhost` and not `127.0.0.1`.
 - [WebAuthn](../kratos/mfa/webauthn-fido-yubikey) does not support cross-domain use currently. We are working together with the
   [W3C to figure out solutions](https://github.com/w3c/webauthn/issues/1372).
