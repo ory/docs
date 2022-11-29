@@ -41,9 +41,9 @@
 
 # Overview
 
-The Ory documentation is the is the single source of truth for usage,
-implementation, configuration, and troubleshooting of the Ory Network and all
-projects of the [Ory Ecosystem](https://www.ory.sh/docs/ecosystem/projects/).
+The Ory documentation is the single source of truth for usage, implementation,
+configuration, and troubleshooting of the Ory Network and all projects of the
+[Ory Ecosystem](https://www.ory.sh/docs/ecosystem/projects/).
 
 To see the source code of each of the projects, visit the project repository:
 
@@ -64,8 +64,8 @@ Other Ory Projects documentation:
 # Style guide
 
 This style guide outlines the most important rules and conventions that apply to
-the Ory documentation. If there is are no Ory-specific requirements or
-guidelines for a given topic, refer to the
+the Ory documentation. If there are no Ory-specific requirements or guidelines
+for a given topic, refer to the
 [Microsoft Writing Style Guide](https://learn.microsoft.com/en-us/style-guide/welcome/)
 and follow the rules described there.
 
@@ -138,15 +138,15 @@ sidebar_label: Excellent feature
 ---
 ```
 
-- `id` is the document identifier that makes up the last part of the document
+- `id` is the document identifier that makes up the last part of the document
   URL. Try to come up with a short ID that accurately describes the content. IDs
   that use multiple words must use hyphens (`-`) to separate the words.
-- `title` is the document title that’s displayed as the page header. Used by
-  search engines when displaying search result. Try to make it descriptive so
+- `title` is the document title that’s displayed as the page header. Used by
+  search engines when displaying search results. Try to make it descriptive so
   that it helps readers understand what the document is about at the first
   glance. If it comes out long(ish), you can overwrite it by adding a `h1` in
   the very first line following the front matter. Use sentence case.
-- `sidebar_label` represents the document title used in the sidebar (left
+- `sidebar_label` represents the document title used in the sidebar (left
   navigation). Create a short document title that fits the sidebar width. Use
   sentence case.
 
@@ -214,7 +214,7 @@ sidebar_label: Excellent feature
 Using placeholders and dummy data in code snippets and command examples is a
 good way to ensure that users run commands in the context of their setups and,
 as a result, achieve success quicker. Additionally, this fabricated information
-prevents leaking sensitive data such as tokens or API keys.
+prevents leaking of sensitive data such as tokens or API keys.
 
 Follow these rules when using placeholders and dummy data:
 
@@ -237,7 +237,7 @@ When talking about any UI in the Ory documentation follow these rules:
 - Format the name of the UI element you refer to in **bold**.
 - Format any user input with `code`.
 
-> Example: In the **Identity Model Schema** box, type `MyCustomIdentitySchema`.
+> Example: In the **Identity Model Schema** box, type `MyCustomIdentitySchema`.
 
 ## Import & reference content
 
@@ -311,16 +311,16 @@ import exampleGo from '!!raw-loader!./code-example.go'
 - Screenshots and videos must capture UI elements in English. If you’re
   capturing parts of the browser UI in your work, make sure the UI is in
   English.
-- Make an effort to get the screenshots and vids looking as clean as possible.
+- Make an effort to get the screenshots and videos looking as clean as possible.
   Avoid situations where text fields suggest irrelevant inputs, avoid erratic
   mouse cursor movements and general chaos.
-- All media must be added to `_static` folders.
-  - Within the `_static` directory, each document that uses media has its own
+- All media must be added to `_static` folders.
+  - Within the `_static` directory, each document that uses media has its own
     directory.
   - With the directory of the document, the files have numbers for names, for
-    example `1.png`, `2.png`, `3.png`. The filenames should reflect the stage at
+    example `1.png`, `2.png`, `3.png`. The filenames should reflect the stage at
     which the media is used in the document. This means that the screenshot
-    named `1.png` will be used in line 70, while the diagram `2.svg` will be
+    named `1.png` will be used in line 70, while the diagram `2.svg` will be
     used in line 100.
 
 ### Compressing images
