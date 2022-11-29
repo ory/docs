@@ -4,7 +4,7 @@ title: Develop applications on your local machine
 sidebar_label: Developing with Ory
 ---
 
-To create your first project on the Ory Network, install the Ory CLI
+To create your first project on the Ory Network, install the Ory CLI:
 
 ```mdx-code-block
 import Install from '@site/docs/_common/install-cli.mdx'
@@ -20,7 +20,7 @@ ory create project --name "Documentation example"
 
 Once the project is created, you have access to Ory's APIs.
 
-## API
+## Ory APIs
 
 ```mdx-code-block
 import ApiTypes from '../api/_common/api-types.mdx'
@@ -54,6 +54,7 @@ Tunnel. Here we assume that your app runs on `http://localhost:3000`:
 ```shell
 ory tunnel --dev --project {project.id-or-project.slug} \
   http://localhost:3000
+```
 ```
 
 Running this commands opens the `4000` port on your local machine. The URL `http://localhost:3000` is where your application is
@@ -91,7 +92,7 @@ project slug, although they also work via the Ory Tunnel.
 Using the Ory Tunnel has two key limitations currently.
 
 - Your local machine is usually available on both `localhost` and `127.0.0.1`. For the browser these two domains are different
-  top-level-domains. Cookies set on `localhost` will not be sent in requests to `127.0.0.1` and vice versa. If you encounter
+  domains. Cookies set on `localhost` will not be sent in requests to `127.0.0.1` and vice versa. If you encounter
   cookie issues, make sure that all of your requests are sent to `localhost` and not `127.0.0.1`.
 - [WebAuthn](../kratos/mfa/webauthn-fido-yubikey) does not support cross-domain use currently. We are working together with the
   [W3C to figure out solutions](https://github.com/w3c/webauthn/issues/1372).
