@@ -52,7 +52,8 @@ To see the source code of each of the projects, visit the project repository:
 - [Ory Hydra](https://github.com/ory/hydra/)
 - [Ory Oathkeeper](https://github.com/ory/oathkeeper/)
 - [Ory Keto](https://github.com/ory/keto/)
-- Other Ory Projects documentation:
+
+Other Ory Projects documentation:
 
 - [Ory Kubernetes Helm Charts](https://github.com/ory/k8s/tree/master/docs/helm)
 - [Ory Dockertest](https://github.com/ory/dockertest/blob/v3/README.md)
