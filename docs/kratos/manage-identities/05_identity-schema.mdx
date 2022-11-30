@@ -83,34 +83,34 @@ example:
 
 A vocabulary extension can be used within a property:
 
-```json
+```json5
 {
-  "$id": "http://mydomain.com/schemas/v2/customer.schema.json",
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "A customer (v2)",
-  "type": "object",
-  "properties": {
-    "traits": {
-      "type": "object",
-      "properties": {
-        "email": {
-          "title": "E-Mail",
-          "type": "string",
-          "format": "email",
+  $id: "http://mydomain.com/schemas/v2/customer.schema.json",
+  $schema: "http://json-schema.org/draft-07/schema#",
+  title: "A customer (v2)",
+  type: "object",
+  properties: {
+    traits: {
+      type: "object",
+      properties: {
+        email: {
+          title: "E-Mail",
+          type: "string",
+          format: "email",
 
           // This tells Ory Identities that the field should be used as the "username" for the username+password flow.
           // It's an extension to the regular JSON Schema vocabulary.
           "ory.sh/kratos": {
-            "credentials": {
-              "password": {
-                "identifier": true
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+            credentials: {
+              password: {
+                identifier: true,
+              },
+            },
+          },
+        },
+      },
+    },
+  },
 }
 ```
 
@@ -148,52 +148,52 @@ traits:
 
 and using a JSON Schema that uses the `email` field as the identifier for the password flow:
 
-```json
+```json5
 {
-  "$id": "http://mydomain.com/schemas/v2/customer.schema.json",
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "A customer (v2)",
-  "type": "object",
-  "properties": {
-    "traits": {
-      "type": "object",
-      "properties": {
-        "email": {
-          "title": "E-Mail",
-          "type": "string",
-          "format": "email",
+  $id: "http://mydomain.com/schemas/v2/customer.schema.json",
+  $schema: "http://json-schema.org/draft-07/schema#",
+  title: "A customer (v2)",
+  type: "object",
+  properties: {
+    traits: {
+      type: "object",
+      properties: {
+        email: {
+          title: "E-Mail",
+          type: "string",
+          format: "email",
 
           // This tells Ory Identities that the field should be used as the "username" for the username and password flow.
           "ory.sh/kratos": {
-            "credentials": {
-              "password": {
-                "identifier": true
-              }
-            }
-          }
-        },
-        "name": {
-          "type": "object",
-          "properties": {
-            "first": {
-              "type": "string"
+            credentials: {
+              password: {
+                identifier: true,
+              },
             },
-            "last": {
-              "type": "string"
-            }
-          }
+          },
         },
-        "favorite_animal": {
-          "type": "string"
+        name: {
+          type: "object",
+          properties: {
+            first: {
+              type: "string",
+            },
+            last: {
+              type: "string",
+            },
+          },
         },
-        "accepted_tos": {
-          "type": "string"
-        }
+        favorite_animal: {
+          type: "string",
+        },
+        accepted_tos: {
+          type: "string",
+        },
       },
-      "required": ["email"],
-      "additionalProperties": false
-    }
-  }
+      required: ["email"],
+      additionalProperties: false,
+    },
+  },
 }
 ```
 
@@ -211,79 +211,283 @@ set.
 
 Let's extend the Identity Schema from the previous chapter with a phone number:
 
-```json
+```json5
 {
-  "$id": "http://mydomain.com/schemas/v2/customer.schema.json",
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "A customer (v2)",
-  "type": "object",
-  "properties": {
-    "traits": {
-      "type": "object",
-      "properties": {
-        "email": {
-          "title": "E-Mail",
-          "type": "string",
-          "format": "email",
+  $id: "http://mydomain.com/schemas/v2/customer.schema.json",
+  $schema: "http://json-schema.org/draft-07/schema#",
+  title: "A customer (v2)",
+  type: "object",
+  properties: {
+    traits: {
+      type: "object",
+      properties: {
+        email: {
+          title: "E-Mail",
+          type: "string",
+          format: "email",
 
           // This tells Ory Identities that the field should be used as the "username" for the Username and Password Flow.
           "ory.sh/kratos": {
-            "credentials": {
-              "password": {
-                "identifier": true
-              }
-            }
-          }
+            credentials: {
+              password: {
+                identifier: true,
+              },
+            },
+          },
         },
-        "phone": {
-          "title": "Phone",
-          "type": "string",
-          "format": "tel",
+        phone: {
+          title: "Phone",
+          type: "string",
+          format: "tel",
 
           // The phone number is marked as an identifier. This allows the user to log in with both email and phone number.
           "ory.sh/kratos": {
-            "credentials": {
-              "password": {
-                "identifier": true
-              }
-            }
-          }
-        },
-        "name": {
-          "type": "object",
-          "properties": {
-            "first": {
-              "type": "string"
+            credentials: {
+              password: {
+                identifier: true,
+              },
             },
-            "last": {
-              "type": "string"
-            }
-          }
+          },
         },
-        "favorite_animal": {
-          "type": "string"
+        name: {
+          type: "object",
+          properties: {
+            first: {
+              type: "string",
+            },
+            last: {
+              type: "string",
+            },
+          },
         },
-        "accepted_tos": {
-          "type": "string"
-        }
+        favorite_animal: {
+          type: "string",
+        },
+        accepted_tos: {
+          type: "string",
+        },
       },
-      "required": ["email"],
-      "additionalProperties": false
-    }
-  }
+      required: ["email"],
+      additionalProperties: false,
+    },
+  },
 }
 ```
 
 By using the `"format": "tel"` field we enable validation of phone numbers using the Golang
 [port](https://github.com/nyaruka/phonenumbers) of Google's [libphonenumber](https://github.com/google/libphonenumber).
 
-## Identity state
+## Examples
 
-The identity can have one of these states:
+### Choosing between username, email, and phone Number
 
-- `created` - via API or self-service registration
-- `updated` - via API or self-service settings, account recovery, etc.
-- `inactive` - only via API
+Before you start, you need to decide what data you want to collect from your users and why! It's hard to change this decision
+afterwards, so make sure you've taken everything into account!
 
-An inactive identity can't sign in to the system. When trying to sign in, an inactive identity gets a code `401` error with a
-message indicating that the account was disabled.
+When logging in, the user will use a login identifier and a password to sign up and in. The identifier can be
+
+- a username - "john.doe" or "johndoe123" or "oryuser",
+- an email address - `john.doe@gmail.com`,
+- a phone number - `+49-1234-4321-1234-4321`.
+
+All of these approaches have up- and downsides.
+
+Using the email address as the login identifier is easy to remember, doesn't require additional fields (because the email address
+is already being collected), and is usually unique. It's usually unique because sometimes companies use a "shared" email account
+(for example office@acme.org) to access services. In that case, multiple real identities are using the same email identifier to
+log in.
+
+The email address however represents a unique identifier and personally identifiable information (PII). An attacker could for
+example check if the email address `john.doe@gmail.com` is registered at for example an adult website and use that information for
+blackmail (see [Account Enumeration Attacks](../concepts/security.mdx#account-enumeration-attacks)).
+
+The same considerations apply to using a phone number as the primary registration & login identifier.
+
+Using a free text username reduces the privacy risk because it's much harder to make a connection between the username and a real
+world identity. It's still possible in cases where users choose a username such as "john.doe.from.newyork.1970", but finding the
+right username identifier is still difficult and there is plausible deniability because anyone could use that username.
+
+A free text username however requires capturing additional fields (for example an email address for password resets / account
+recovery) and is hard to remember. It's often very difficult to find unique usernames as people tend to use a combination of their
+names and initials such as `john.doe` which has a high chance of collision. Therefore, one ends up with usernames such as
+`john.doe1234432`.
+
+It's important to understand that Ory Identities lowercases all `password` identifiers and therefore E-Mail addresses. Characters
+`+` or `.` which have special meaning for some E-Mail Providers such as Gmail aren't normalized:
+
+- `userNAME` is equal to `username`
+- `foo@BaR.com` is equal to `foo@bar.com`
+- `foo+baz@bar.com` is NOT equal to `foo@bar.com`
+- `foo.baz@bar.com` is NOT equal to `foobaz@bar.com`
+
+You need to decide which route you want to take.
+
+### Pick the right identity schema
+
+When processing an identity and its traits, the method will use [JSON Schema](../reference/json-schema-json-paths.md) to extract
+one or more identifiers.
+
+#### Use Case: Email and Password
+
+To use the email address as the login identifier, define the following Identity JSON Schema:
+
+```json
+{
+  "$id": "https://example.com/registration.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Person",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+#### Use case: multiple emails and password
+
+You can allow users to sign up with multiple E-Mail Addresses and use any of those for log in:
+
+```json
+{
+  "$id": "https://example.com/registration.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Person",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "emails": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "email",
+            "ory.sh/kratos": {
+              "credentials": {
+                "password": {
+                  "identifier": true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+#### Use case: username and password
+
+To use a username as the login identifier, define the following Identity JSON Schema:
+
+```json
+{
+  "$id": "https://example.com/registration.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Person",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+#### Use Case: username and email and password
+
+You may also mix usernames and passwords:
+
+```json
+{
+  "$id": "https://example.com/registration.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Person",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
+        },
+        "username": {
+          "type": "string",
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+#### Use case: phone number and password
+
+```json
+{
+  "$id": "https://example.com/registration.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Person",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "phone": {
+          "type": "string",
+          "format": "tel",
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```

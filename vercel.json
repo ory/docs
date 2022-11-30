@@ -863,6 +863,11 @@
       "source": "/docs/examples",
       "destination": "https://www.ory.sh/docs/getting-started/overview",
       "permanent": false
+    },
+    {
+      "source": "/docs/kratos/guides/password-policy",
+      "destination": "https://www.ory.sh/docs/concepts/password-policy",
+      "permanent": false
     }
   ]
 }

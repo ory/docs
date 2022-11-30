@@ -21,7 +21,7 @@ used browser. This is a Chrome example:
 ```mdx-code-block
 import BrowserWindow from "@site/src/theme/BrowserWindow"
 
-<BrowserWindow url="https://console.ory.sh/">
+<BrowserWindow url="https://ory.yourapp.com/">
 
 ![WebAuthn prompt](../_static/webauthn/3.png)
 
@@ -45,7 +45,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs>
-  <TabItem value="cloud" label="Ory CLI" default>
+  <TabItem value="cloud" label="Ory CLI">
     <CodeBlock language="shell">{`ory patch identity-config <your-project-id> \\
   --add '/selfservice/methods/webauthn/enabled=true' \\
   --add '/selfservice/methods/webauthn/config/passwordless=${props.passwordless || false}' \\

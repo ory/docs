@@ -57,6 +57,14 @@ module.exports = {
             },
             {
               type: "category",
+              label: "Password",
+              items: [
+                "kratos/concepts/credentials/username-email-password",
+                "concepts/password-policy",
+              ],
+            },
+            {
+              type: "category",
               label: "Social sign-in",
               items: [
                 "kratos/social-signin/overview",
@@ -145,10 +153,7 @@ module.exports = {
             {
               label: "Identity Credentials",
               type: "category",
-              items: [
-                "kratos/concepts/credentials",
-                "kratos/concepts/credentials/username-email-password",
-              ],
+              items: ["kratos/concepts/credentials"],
             },
           ],
         },
@@ -343,7 +348,7 @@ module.exports = {
     {
       type: "category",
       label: "Security and Compliance",
-      items: ["ecosystem/security", "concepts/password-policy"],
+      items: ["ecosystem/security"],
     },
     {
       type: "category",
@@ -480,8 +485,9 @@ module.exports = {
                 "kratos/guides/configuring-cookies",
                 "kratos/guides/multi-domain-cookies",
                 "self-hosted/kratos/configuration/oidc",
+                "self-hosted/kratos/configuration/password",
+                "kratos/guides/setting-up-password-hashing-parameters",
                 "kratos/guides/setting-up-cors",
-                "kratos/guides/password-policy",
                 "kratos/self-hosted/mail-courier-selfhosted",
                 "kratos/self-hosted/account-activation-email-verification",
                 "kratos/guides/zero-trust-iap-proxy-identity-access-proxy",
@@ -491,7 +497,6 @@ module.exports = {
                 "kratos/guides/high-availability-ha",
                 "kratos/guides/docker",
                 "kratos/guides/https-tls",
-                "kratos/guides/setting-up-password-hashing-parameters",
                 "kratos/guides/tracing",
               ],
             },
