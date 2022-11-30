@@ -81,7 +81,7 @@ const frontend = new FrontendApi(
 const { data: login } = await frontend.createBrowserLoginFlow()
 const { data: session } = await frontend.toSession()
 // ...
-````
+```
 
 Only the `FrontendApi` needs to access the Ory Tunnel. Administrative APIs like `IdentityApi` can be accessed directly from your
 project slug, although they also work via the Ory Tunnel.
