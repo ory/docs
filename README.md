@@ -408,9 +408,9 @@ Ory examples. To add a new example or modify existing entries:
         },
     ```
 
-        - `language` can be one of: dart, django, docker, erlang, flutter, go, java,
-          javascript, kotlin, kubernetes, nextjs, nodejs, ory, php, python, react,
-          rescript, svelte, typescript, vue
+    - `language` can be one of: dart, django, docker, erlang, flutter, go, java,
+      javascript, kotlin, kubernetes, nextjs, nodejs, ory, php, python, react,
+      rescript, svelte, typescript, vue
 
 3.  Open a pull request with your changes.
 
