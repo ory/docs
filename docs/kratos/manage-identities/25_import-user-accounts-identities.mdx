@@ -260,19 +260,18 @@ $md5$CY9rzUYh03PK3k6DJie09g==
 
 #### Salted format (hashes with salt)
 
-Using this format Administrators are able to import passwords that use _salting_ to calculate the MD5 hash. ORY doesn't prepend or
-append _the salt_ to _User's password_ instead it offers much flexible way on how _salting_ should be done. In order to specify
-that, a Base64 encoded format string should be put in the place of `salting-format` parameter. For more information about how to
-configure `salting-format`, read [this section](#salting-format-parameter).
+This format allows administrators to import passwords that use salting to calculate the MD5 hash. Ory doesn't prepend or append
+the salt to the user's password. To determine the way system performs salting, use the `salting-format` parameter.
 
 ```
 $md5$pf=<salting-format>$<salt>$<hash>
 ```
 
+Read [this section](#salting-format-parameter) to learn more about configuring the `salting-format` parameter.
+
 #### Parameters
 
-- `salting-format`(`string`): Format string specifies how salting should be done. Must be encoded to Base64. For more details,
-  read [this section](#salting-format-parameter).
+- `salting-format`(`string`): Format string specifies how salting should be done. Must be encoded to Base64.
 - `salt`(`string`): A sequence of bits, known as a cryptographic salt encoded to Base64.
 - `hash`(`string`): The computed hash by the MD5 algorithm encoded to Base64.
 
