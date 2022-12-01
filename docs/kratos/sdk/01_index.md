@@ -11,12 +11,6 @@ make backwards compatibility promises with regards to the generated SDKs. We hop
 Before you check out the SDKs, head over to the [REST API](reference/api.mdx) documentation which includes code samples for common
 programming languages for each REST endpoint.
 
-:::info
-
-`ory-kratos-client` SDK has been deprecated, please use `ory-client`!
-
-:::
-
 We publish our SDKs for popular languages in their respective package repositories:
 
 - [Dart](https://pub.dev/packages/ory_client)
@@ -34,7 +28,7 @@ Code examples:
 
 - [Go](./05_go.mdx)
 
-Take a look at the source: [Generated SDKs for Ory]https://github.com/ory/sdk/tree/master/clients/client)
+Take a look at the source: [Generated SDKs for Ory](https://github.com/ory/sdk/tree/master/clients/client)
 
 Missing your programming language? [Create an issue](https://github.com/ory/sdk/issues) and help us build, test and publish the
 SDK for your programming language!

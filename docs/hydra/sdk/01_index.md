@@ -11,12 +11,6 @@ make backwards compatibility promises with regards to the generated SDKs. We hop
 Before you check out the SDKs, head over to the [REST API](reference/api.mdx) documentation which includes code samples for common
 programming languages for each REST endpoint.
 
-:::info
-
-`ory-hydra-client` SDK has been deprecated, please use `ory-client`!
-
-:::
-
 > The SDKs don't provide a good API for dealing with OAuth 2.0 Flows (for example Authorize Code Flow, Refresh Flow, ...). But
 > there are tons of [libraries available for consuming OAuth 2.0](https://oauth.net/code/). Don't write your own OAuth 2.0
 > Library!

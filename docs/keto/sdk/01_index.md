@@ -19,13 +19,11 @@ We publish our SDKs for popular languages in their respective package repositori
 - [Go REST](https://github.com/ory/client-go)
 - [Java](https://search.maven.org/artifact/sh.ory.keto/ory-client)
 - [Javascript REST](https://www.npmjs.com/package/@ory/client) with TypeScript definitions and compatible with: Node.js, React.js,
-- [Javascript gRPC](https://www.npmjs.com/package/@ory/keto-grpc-client) with TypeScript definitions and compatible with: Node.js,
-  React.js,
+- [Javascript gRPC](https://www.npmjs.com/package/@ory/keto-grpc-client) with TypeScript definitions and compatible with Node.js
 - [PHP](https://packagist.org/packages/ory/client)
 - [Python](https://pypi.org/project/ory-client/)
 - [Ruby](https://rubygems.org/gems/ory-client)
 - [Rust](https://crates.io/crates/ory-client)
-
 
 Code examples:
 
