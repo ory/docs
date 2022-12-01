@@ -30,7 +30,7 @@ wall of rules to get in the way of that.
 
 That said, if you want to ensure that a pull request is going to be merged, talk to us! You can find out our thoughts and ensure
 that your contribution won't clash with Ory's normal direction. A great way to do this is via GitHub Discussions
-(([Ory Cloud](https://github.com/ory/cloud/discussions), [Ory Kratos](https://github.com/ory/kratos/discussions),
+(([The Ory Network](https://github.com/ory/cloud/discussions), [Ory Kratos](https://github.com/ory/kratos/discussions),
 [Ory Hydra](https://github.com/ory/kratos/discussions), [Ory Keto](https://github.com/ory/kratos/discussions),
 [Ory Oathkeeper](https://github.com/ory/kratos/discussions))) or the [Ory Chat](https://www.ory.sh/chat).
 
@@ -81,7 +81,7 @@ You can contribute without writing any code in multiple ways . Here are a few th
 We use [Slack](https://www.ory.sh/chat). You are welcome to drop in and ask questions, discuss bugs and feature requests, talk to
 other users of Ory, etc.
 
-Check out [Discussions] for [Ory Cloud](https://github.com/ory/cloud/discussions),
+Check out [Discussions] for [The Ory Network](https://github.com/ory/cloud/discussions),
 [Ory Kratos](https://github.com/ory/kratos/discussions), [Ory Hydra](https://github.com/ory/kratos/discussions),
 [Ory Keto](https://github.com/ory/kratos/discussions), [Ory Oathkeeper](https://github.com/ory/kratos/discussions), and
 [more](https://github.com/ory/kratos/discussions). This is a great place for in-depth discussions and lots of code examples, logs
@@ -612,7 +612,7 @@ type identityList []Identity
 While running tests inside the IDE make sure you have the tag `-tags sqlite` in the "Go Tool Arguments". In the example screenshot
 we're looking at `login_test.go` and add it to the Run/Debug Configurations.
 
-![Go Tool Arguments Configuration Screenshot](/images/contributing/goland-config.png)
+![Go Tool Arguments Configuration Screenshot](./_static/contributing/goland-config.png)
 
 ### Jetbrains
 
@@ -647,7 +647,7 @@ func GetSqlite(t testing.TB, mode sqliteMode) *DsnT {
 }
 ```
 
-![Screenshot of Jetbrains SQL debugger, Fast!](/images/contributing/jetbrains-config.png)
+![Screenshot of Jetbrains SQL debugger, Fast!](./_static/contributing/jetbrains-config.png)
 
 To transfer the above to Kratos:
 
@@ -661,6 +661,6 @@ To transfer the above to Kratos:
 #### VS Code Tests
 
 - Under Settings, search for `Go: Test Tags`.
-- Click Edit in `settings.json`. ![Screenshot of VSCode Search](/images/contributing/vscode-search.png)
+- Click Edit in `settings.json`. ![Screenshot of VSCode Search](./_static/contributing/vscode-search.png)
 - Add the following KV to the `settings.json`: `"go.testTags": "sqlite",`.
-  ![Screenshot of VScode settings.json](/images/contributing/vscode-settings.png)
+  ![Screenshot of VScode settings.json](./_static/contributing/vscode-settings.png)

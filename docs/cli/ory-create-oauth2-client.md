@@ -20,7 +20,7 @@ the Authorize Code, Implicit, Refresh flow. This command allows settings all fie
 
 To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp-key-url` or `--keybase` flag, for example:
 
-  create create client -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
+  {{ .CommandPath }} -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
 
 
 ```
@@ -30,13 +30,13 @@ ory create oauth2-client [flags]
 ### Examples
 
 ```
-create create client -n "my app" -c http://localhost/cb -g authorization_code -r code -a core,foobar
+{{ .CommandPath }} -n "my app" -c http://localhost/cb -g authorization_code -r code -a core,foobar
 
 Use the tool jq (or any other JSON tool) to get the OAuth2 Client ID and and Secret:
 
-client=$(hydra create client \
+client=$({{ .CommandPath }} \
     --format json \
-    ...
+    ...)
 echo $client
 
 # Parse the JSON response using jq to get the client ID and client secret:
@@ -53,6 +53,7 @@ client_secret=$(echo $client | jq -r '.client_secret')
       --backchannel-logout-session-required             Boolean flag specifying whether the client requires that a sid (session ID) Claim be included in the Logout Token to identify the client session with the OP when the backchannel-logout-callback is used. If omitted, the default value is false.
       --client-uri string                               A URL string of a web page providing information about the client
       --contact strings                                 A list representing ways to contact people responsible for this client, typically email addresses.
+      --format string                                   Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
       --frontchannel-logout-callback string             Client URL that will cause the client to log itself out when rendered in an iframe by Hydra.
       --frontchannel-logout-session-required            Boolean flag specifying whether the client requires that a sid (session ID) Claim be included in the Logout Token to identify the client session with the OP when the frontchannel-logout-callback is used. If omitted, the default value is false.
       --grant-type strings                              A list of allowed grant types. (default [authorization_code])
@@ -68,6 +69,7 @@ client_secret=$(echo $client | jq -r '.client_secret')
       --policy-uri string                               A URL string that points to a human-readable privacy policy document that describes how the deployment organization collects, uses, retains, and discloses personal data.
       --post-logout-callback strings                    List of allowed URLs to be redirected to after a logout.
       --project string                                  The project to use
+  -q, --quiet                                           Be quiet with output printing.
       --redirect-uri strings                            List of allowed OAuth2 Redirect URIs.
       --request-object-signing-alg string               Algorithm that must be used for signing Request Objects sent to the OP. (default "RS256")
       --request-uri strings                             Array of request_uri values that are pre-registered by the RP for use at the OP.
@@ -83,13 +85,11 @@ client_secret=$(echo $client | jq -r '.client_secret')
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
-      --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
-  -q, --quiet           Be quiet with output printing.
+  -c, --config string   Path to the Ory Network configuration file.
   -y, --yes             Confirm all dialogs with yes.
 ```
 
 ### SEE ALSO
 
-* [ory create](ory-create)	 - Create Ory Cloud resources
+* [ory create](ory-create)	 - Create Ory Network resources
 

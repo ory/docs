@@ -1,7 +1,10 @@
 ---
 id: check-session
-title: Check for sessions
+title: Check for user sessions in browser cookies and session tokens
+sidebar_label: Check for sessions
 ---
+
+# Check for sessions
 
 You can check for sessions by calling the `/sessions/whoami` endpoint and including the issued cookie or token.
 
@@ -56,8 +59,8 @@ app.get("/", function (req, res) {
 
 ## Session tokens
 
-To check for sessions of API clients, call the `/sessions/whoami` and include the Ory Kratos Session Token as the Bearer Token in
-the HTTP `Authorization` header:
+To check for sessions of API clients, call the `/sessions/whoami` and include the Ory Session Token as the Bearer Token in the
+HTTP `Authorization` header:
 
 ```mdx-code-block
 <CodeBlock language="shell">{`sessionToken={someSessionTokenHere}

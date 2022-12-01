@@ -1,8 +1,10 @@
 ---
 id: data-mapping
 title: Learn how to map data from social sign-in providers to Ory identity traits
-sidebar_label: Data mapping with Jsonnet
+sidebar_label: Data mapping
 ---
+
+# Map and merge profile data
 
 Different social sign-in providers will send different data in their payloads. While you might expect to get some basic
 information consistently, the payload isn't standardized.
@@ -11,7 +13,7 @@ As a result, when integrating with social sign-in providers, you must specify ho
 provider to the Identity traits.
 
 You define this mapping by creating a [Jsonnet code snippet](../../kratos/reference/jsonnet.mdx). This snippet becomes a part of
-the Identity Service configuration for the given social sign-in provider.
+the Ory Identities configuration for the given social sign-in provider.
 
 :::tip
 
@@ -20,8 +22,8 @@ You can find the mapping required for a basic configuration of social sign-in pr
 
 :::
 
-Ory Identity Service (Ory Kratos) adds an external variable called `claims` to the data mapper. It contains all claims for the
-OpenID Connect or OAuth2 provider such as the username and user email.
+Ory Identities (Ory Kratos) adds an external variable called `claims` to the data mapper. It contains all claims for the OpenID
+Connect or OAuth2 provider such as the username and user email.
 
 Keep in mind that the claims vary per provider and per flow - depending on what permissions the user gives to your app, for
 example "App XYZ can access my private email".
@@ -63,7 +65,7 @@ To learn more, read our [Jsonnet documentation](../reference/jsonnet).
 
 :::tip
 
-To debug Jsonnet payloads when running the Identity Service (Kratos) locally, use the `--dev` flag and set `log.level` to `debug`
+To debug Jsonnet payloads when running the Ory Kratos Identity Server locally, use the `--dev` flag and set `log.level` to `debug`
 (for example `LOG_LEVEL=debug kratos serve --dev`).Logs with detailed payloads will be emitted once you complete OpenID Connect/
 OAuth2 login or registration.
 
@@ -141,28 +143,47 @@ The `std.ExtVar('claims')` object has the following structure and keys available
 package oidc
 
 type Claims struct {
-	Issuer              string `json:"iss,omitempty"`
-	Subject             string `json:"sub,omitempty"`
-	Name                string `json:"name,omitempty"`
-	GivenName           string `json:"given_name,omitempty"`
-	FamilyName          string `json:"family_name,omitempty"`
-	LastName            string `json:"last_name,omitempty"`
-	MiddleName          string `json:"middle_name,omitempty"`
-	Nickname            string `json:"nickname,omitempty"`
-	PreferredUsername   string `json:"preferred_username,omitempty"`
-	Profile             string `json:"profile,omitempty"`
-	Picture             string `json:"picture,omitempty"`
-	Website             string `json:"website,omitempty"`
-	Email               string `json:"email,omitempty"`
-	EmailVerified       bool   `json:"email_verified,omitempty"`
-	Gender              string `json:"gender,omitempty"`
-	Birthdate           string `json:"birthdate,omitempty"`
-	Zoneinfo            string `json:"zoneinfo,omitempty"`
-	Locale              string `json:"locale,omitempty"`
-	PhoneNumber         string `json:"phone_number,omitempty"`
-	PhoneNumberVerified bool   `json:"phone_number_verified,omitempty"`
-	UpdatedAt           int64  `json:"updated_at,omitempty"`
-	HD                  string `json:"hd,omitempty"`
+	Issuer              string                  `json:"iss,omitempty"`
+	Subject             string                  `json:"sub,omitempty"`
+	Name                string                  `json:"name,omitempty"`
+	GivenName           string                  `json:"given_name,omitempty"`
+	FamilyName          string                  `json:"family_name,omitempty"`
+	LastName            string                  `json:"last_name,omitempty"`
+	MiddleName          string                  `json:"middle_name,omitempty"`
+	Nickname            string                  `json:"nickname,omitempty"`
+	PreferredUsername   string                  `json:"preferred_username,omitempty"`
+	Profile             string                  `json:"profile,omitempty"`
+	Picture             string                  `json:"picture,omitempty"`
+	Website             string                  `json:"website,omitempty"`
+	Email               string                  `json:"email,omitempty"`
+	EmailVerified       bool                    `json:"email_verified,omitempty"`
+	Gender              string                  `json:"gender,omitempty"`
+	Birthdate           string                  `json:"birthdate,omitempty"`
+	Zoneinfo            string                  `json:"zoneinfo,omitempty"`
+	Locale              string                  `json:"locale,omitempty"`
+	PhoneNumber         string                  `json:"phone_number,omitempty"`
+	PhoneNumberVerified bool                    `json:"phone_number_verified,omitempty"`
+	UpdatedAt           int64                   `json:"updated_at,omitempty"`
+	HD                  string                  `json:"hd,omitempty"`
+	Team                string                  `json:"team,omitempty"`
+    RawClaims           map[string]interface{}  `json:"raw_claims,omitempty"`
+}
+```
+
+#### Raw Claims `raw_claims`
+
+All claims that are not part of the standard userinfo claims, are mapped into `raw_claims`. An example of mapping a raw claim
+called "groups":
+
+```jsonnet title="github.data-mapper.jsonnet"
+local claims = std.extVar('claims');
+
+{
+  identity: {
+    traits: {
+      [if "groups" in claims.raw_claims then "groups" else null]: claims.raw_claims.groups,
+    },
+  },
 }
 ```
 

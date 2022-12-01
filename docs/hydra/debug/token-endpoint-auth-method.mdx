@@ -14,7 +14,7 @@ Both are valid schemes. But the OAuth 2.0 Client has to be configured to allow e
 Client allows HTTP Basic Authorization only. You can check which method is allowed:
 
 ```
-hydra clients get --endpoint http://ory-hydra <the-client-id>
+hydra get client--endpoint http://ory-hydra <the-client-id>
 {
         // ...
         "token_endpoint_auth_method": "client_secret_basic",

@@ -1,5 +1,12 @@
 :root {
   --ifm-color-primary: #5528ff;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* If you have a different syntax highlighting theme for dark mode. */
+[data-theme="dark"] {
+  /* Color which works with dark mode syntax highlighting theme */
+  --docusaurus-highlighted-code-line-bg: rgba(66, 66, 66, 0.35);
 }
 
 .markdown figure {
@@ -10,4 +17,8 @@
 .menu__link[href*="https://"] svg,
 svg[class*="iconExternalLink"] {
   display: none !important;
+}
+
+.command-line span.token.output {
+  user-select: none;
 }

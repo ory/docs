@@ -24,11 +24,11 @@ ory update oauth2-client [id] [flags]
 ### Examples
 
 ```
-update update client <client-id-here> -c http://localhost/cb -g authorization_code -r code -a core,foobar
+{{ .CommandPath }} <client-id-here> -c http://localhost/cb -g authorization_code -r code -a core,foobar
 
 To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp-key-url` or `--keybase` flag, for example:
 
-  update update client e6e96aa5-9cd2-4a70-bf56-ad6434c8aaa2 -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
+  {{ .CommandPath }} e6e96aa5-9cd2-4a70-bf56-ad6434c8aaa2 -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
 
 ```
 
@@ -41,6 +41,7 @@ To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp
       --backchannel-logout-session-required             Boolean flag specifying whether the client requires that a sid (session ID) Claim be included in the Logout Token to identify the client session with the OP when the backchannel-logout-callback is used. If omitted, the default value is false.
       --client-uri string                               A URL string of a web page providing information about the client
       --contact strings                                 A list representing ways to contact people responsible for this client, typically email addresses.
+      --format string                                   Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
       --frontchannel-logout-callback string             Client URL that will cause the client to log itself out when rendered in an iframe by Hydra.
       --frontchannel-logout-session-required            Boolean flag specifying whether the client requires that a sid (session ID) Claim be included in the Logout Token to identify the client session with the OP when the frontchannel-logout-callback is used. If omitted, the default value is false.
       --grant-type strings                              A list of allowed grant types. (default [authorization_code])
@@ -55,6 +56,8 @@ To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp
       --pgp-key-url string                              PGP encryption key URL for encrypting client secret.
       --policy-uri string                               A URL string that points to a human-readable privacy policy document that describes how the deployment organization collects, uses, retains, and discloses personal data.
       --post-logout-callback strings                    List of allowed URLs to be redirected to after a logout.
+      --project string                                  The project to use
+  -q, --quiet                                           Be quiet with output printing.
       --redirect-uri strings                            List of allowed OAuth2 Redirect URIs.
       --request-object-signing-alg string               Algorithm that must be used for signing Request Objects sent to the OP. (default "RS256")
       --request-uri strings                             Array of request_uri values that are pre-registered by the RP for use at the OP.
@@ -70,7 +73,8 @@ To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
+  -y, --yes             Confirm all dialogs with yes.
 ```
 
 ### SEE ALSO

@@ -1,0 +1,68 @@
+---
+id: cache
+title: Low-latency Edge Network
+sidebar_label: Low latency
+---
+
+The Ory Network provides a global Edge Network to ensure low-latency access to critical-path APIs. These APIs are eventually
+consistent, which means that the changes you make are always reflected in the API, even if in some cases this might not be
+instantaneous.
+
+## Check Session API (`toSession` / `/sessions/whoami`)
+
+The `/sessions/whoami` endpoint has been optimized for maximum performance and low latency when using Ory Session Cookies. We
+achieve this with a planet-scale network edge cache. The cache strategy is as follows:
+
+- If the session credentials are unknown, the cache is bypassed;
+- If the session credentials are known and cached, the cache is served immediately and refreshed in the background;
+- If the session credentials are known and cached, the cache will respect `Cache-Control: max-age=60` headers;
+- If the user updates their profile or steps-up their authentication, the session will be refreshed in the cache automatically.
+
+### Performance
+
+You can expect a P95 latency of ~60ms and a P99 latency ~70ms across the globe when the cache is used. Depending on your distance
+to our closest node, the latency may vary in your location.
+
+### Caveats
+
+There are some edge cases where caching might affect your business logic:
+
+- Changes made to the session or its identity through the admin API will not be immediately reflected in the `/session/whoami`
+  endpoint;
+- In some scenarios, revoked sessions will not immediately be marked as inactive by the `/session/whoami` endpoint.
+
+### Force Refresh
+
+You can ask the `/session/whoami` API to return a fresh response by setting `Cache-Control: max-age=0`.
+
+:::note
+
+Bypassing the cache will significantly increase response latencies. Try to avoid `Cache-Control: max-age=0` and use the cache as
+much as possible.
+
+:::
+
+This will always fetch the freshest session data available and can be used in APIs where you need up-to-date data:
+
+```js
+import { Configuration, V0alpha2Api } from "@ory/client"
+
+const ory = new V0alpha2Api(new Configuration())
+
+ory.toSession(undefined, undefined, {
+  headers: {
+    "Cache-Control": "max-age=0",
+  },
+})
+```
+
+The `max-age` defines what the maximum age of the cache can be. If you set it to `10`, the server will reply with a cached
+response if the cache is no older than 10 seconds:
+
+```js
+ory.toSession(undefined, undefined, {
+  headers: {
+    "Cache-Control": "max-age=10",
+  },
+})
+```

@@ -3,22 +3,35 @@ id: totp
 title: TOTP (Google Authenticator)
 ---
 
-You can enable Time-Based One-Time Password (TOTP) authentication in the Ory Identity Service (Kratos) to allow users to perform
-2FA with TOTP apps such as Google Authenticator, LastPass, or [FreeOTP](https://freeotp.github.io/).
+You can enable Time-Based One-Time Password (TOTP) authentication in the Ory Identities (Kratos) to allow users to perform 2FA
+with TOTP apps such as Google Authenticator, LastPass, or [FreeOTP](https://freeotp.github.io/).
 
 When enabled, users can pair a TOTP app with their account:
 
 :::note
 
-The example screenshot is captured using the Ory Managed UI.
+The example screenshot is captured using the Ory Account Experience.
 
 :::
 
-![TOTP linking in Ory Managed UI](../_static/mfa/1.png)
+````mdx-code-block
+import BrowserWindow from "@site/src/theme/BrowserWindow"
+
+<BrowserWindow url="https://playground.projects.oryapis.com/ui">
+
+![TOTP linking in Ory Account Experience](../_static/mfa/1.png)
+
+</BrowserWindow>
 
 When attempting to perform actions secured with 2FA, users get a TOTP code with the application identifier:
 
+```mdx-code-block
+<BrowserWindow url="https://playground.projects.oryapis.com/ui">
+
 ![2FA with Google Authenticator](../_static/mfa/2.png)
+
+</BrowserWindow>
+````
 
 :::info
 
@@ -31,19 +44,25 @@ In this example, the user identifier (email - `alice@example.com`) is used. To l
 
 Follow these steps to enable Time-Based One-Time Password (TOTP) as the second authentication factor:
 
-### Ory Cloud Console
+### Ory Console
 
-1. Sign in to the **Ory Cloud Console** and go to **Two-Factor Authentication**.
+1. Sign in to the **Ory Console** and go to **Two-Factor Authentication**.
 2. In the **TOTP Authenticator App** section, use the switch to enable TOTP.
 3. Define the name of the requesting party in the **Display Name**. The users sees this name in the TOTP application when getting
    a one-time password.
 4. Click **Save** to finish.
 
-![TOTP setup in Ory Cloud Console](../_static/mfa/3.png)
+```mdx-code-block
+<BrowserWindow url="https://console.ory.sh/">
+
+![TOTP setup in Ory Console](../_static/mfa/3.png)
+
+</BrowserWindow>
+```
 
 ### Ory CLI
 
-1. Get the Identity Service configuration from your project and save it to a file:
+1. Get the Ory Identities configuration from your project and save it to a file:
 
    ```shell
    ## List all available projects
@@ -67,7 +86,7 @@ Follow these steps to enable Time-Based One-Time Password (TOTP) as the second a
          // highlight-end
    ```
 
-3. Update the Ory Cloud Identity Service configuration using the file you worked with:
+3. Update the Ory Identities configuration using the file you worked with:
 
    ```shell
    ory update identity-config <project-id> --file identity-config.yaml
@@ -75,8 +94,8 @@ Follow these steps to enable Time-Based One-Time Password (TOTP) as the second a
 
 ### Self-hosted instances
 
-When working with self-hosted instances of the Ory Identity Service (Kratos), add the `totp` method to `selfservice/methods` in
-the configuration file:
+When working with self-hosted instances of the Ory Identities (Ory Kratos), add the `totp` method to `selfservice/methods` in the
+configuration file:
 
 ```yaml title="kratos.config.yml"
 selfservice:
@@ -88,7 +107,7 @@ selfservice:
       enabled: true
 ```
 
-### Distinguishing Identities requesting TOTP
+### Distinguishing identities requesting TOTP
 
 To help users distinguish which identity requests for the TOTP code, add a `totp` object to the trait which represents the TOTP
 account name.
@@ -97,7 +116,7 @@ In this example, the user's email address is the identifier:
 
 :::note
 
-This configuration is the default for all Ory Cloud projects.
+This configuration is the default for The Ory Network.
 
 :::
 
@@ -137,7 +156,7 @@ This configuration is the default for all Ory Cloud projects.
 ## Writing E2E tests
 
 When writing end-to-end (E2E) tests for TOTP implementation in your app,
-[you can reference the Cypress tests used in Ory Identity Service (Kratos)](https://github.com/ory/kratos/blob/fc2cecfbeab811aa1a851f953b6bc2a4c119c412/test/e2e/cypress/integration/profiles/mfa/totp.spec.ts).
+[you can reference the Cypress tests used in Ory Identities (Ory Kratos)](https://github.com/ory/kratos/blob/fc2cecfbeab811aa1a851f953b6bc2a4c119c412/test/e2e/cypress/integration/profiles/mfa/totp.spec.ts).
 
 ## Identity credentials
 

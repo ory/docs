@@ -1,7 +1,7 @@
 ---
 id: client-token-expiration
-title: Configure token expiration time
-sidebar_label: Configure instance-wide token expiration time or adjust it for individual OAuth2 clients
+title: Configure instance-wide token expiration time or adjust it for individual OAuth2 clients
+sidebar_label: Configure token expiration time
 ---
 
 The Ory Hydra `config.yaml` file located in the main Ory Hydra directory allows you to adjust:
@@ -15,8 +15,8 @@ This configuration is instance-wide, which means that it applies to all register
 
 If you need to set different token lifespans for specific clients, you can do that by calling the
 [OAuth2ClientLifespans](../reference/api#operation/UpdateOAuth2ClientLifespans) endpoint of the Ory Hydra Admin API. The client
-configuration takes precedence over the instance-wide configuration. Read [this section](#client-token-lifespan-configuration) to
-learn more.
+configuration takes precedence over the instance-wide configuration. Read
+[this section](#lifespan-configuration-for-specific-clients) to learn more.
 
 ## Instance-wide configuration
 

@@ -1,7 +1,7 @@
 ---
 id: ory-update-identity-config
 title: ory update identity-config
-description: ory update identity-config Update Ory Cloud project's identity service configuration
+description: ory update identity-config Update the Ory Identities configuration of the specified Ory Network project.
 ---
 
 <!--
@@ -11,16 +11,16 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory update identity-config
 
-Update Ory Cloud project's identity service configuration
+Update the Ory Identities configuration of the specified Ory Network project.
 
 ### Synopsis
 
-Updates your Ory Cloud project's identity service configuration. All values
-of the identity service will be overwritten. To update individual settings use the `patch` command instead.
+Update the Ory Identities configuration of the specified Ory Network project. All values
+will be overwritten. To update individual settings use the `patch` command instead.
 
-Compared to the `update project` command, this command only updates the identity service configuration
-and also only returns the identity service configuration as a result. This command is useful when you want to
-import an Ory Kratos config as well, for example.
+Compared to the `update project` command, this command updates only the Ory Identities configuration
+and returns the configuration as a result. This command is useful when you want to import configuration from 
+self-hosted Ory Kratos to Ory Network.
 
 The full configuration payload can be found at:
 
@@ -74,7 +74,7 @@ courier:
 
 ```
   -f, --file strings    Configuration file(s) (file://config.json, https://example.org/config.yaml, ...) to update the identity config
-      --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
+      --format string   Set the output format. One of default, json, yaml, json-pretty and jsonpath. (default "default")
   -h, --help            help for identity-config
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
@@ -83,7 +83,7 @@ courier:
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
 ```
 
 ### SEE ALSO

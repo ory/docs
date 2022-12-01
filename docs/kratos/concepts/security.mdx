@@ -6,7 +6,7 @@ title: Threat models and security profiles
 :::warning
 
 Please be aware that this chapter is still work in progress. Not all mitigation strategies have been implemented yet in Ory
-Kratos!
+Identities!
 
 :::
 
@@ -15,7 +15,7 @@ risk, understanding the possible motivations for an attack, or why an agent is a
 likelihood, and the impact are important all aspects of a threat model.
 
 This documentation can't substitute a thorough and serious threat model, yet it will provide some guidelines to help configure Ory
-Kratos in a way that makes it best suited for any risk assessment.
+Identities in a way that makes it best suited for any risk assessment.
 
 ## Account enumeration attacks
 
@@ -81,12 +81,12 @@ A timing attack against password hashing looks as follows:
 2. Try out other accounts such as `alice@example.org`. If the account doesn't exist, password hashing doesn't run, hence it takes
    much less time for the server to answer (< 100ms).
 
-To protect against this attack, Ory Kratos adds a configurable delay with standard deviation to login flows where the account
+To protect against this attack, Ory Identities adds a configurable delay with standard deviation to login flows where the account
 doesn't exist.
 
 ### Enabling account enumeration defenses
 
-Assuming you wish to enable account enumeration defenses, you need to configure Ory Kratos as follows:
+Assuming you wish to enable account enumeration defenses, you need to configure Ory Identities as follows:
 
 - Collect one or more email addresses during sign up and enable email verification.
 - **Don't** enable the `session` post-registration workflow.
@@ -104,9 +104,9 @@ Scenario: In some cases you might want to use the email address returned by for 
 identity's account. You might also want to use it as an email + password identifier so that the identity is able to log in with a
 password as well. An attacker is able to exploit that by creating a social profile on another site (for example Google) and use
 the victims email address to set it up (this only works when the victim doesn't yet have an account with that email at Google).
-The attacker can then use that "spoofed" social profile to try and sign up with your Ory Kratos installation. Because the victim's
-email address is already known to Ory Kratos, the attacker might be able to observe the behavior (for example seeing an error
-page) and come to the conclusion that the victim already has an account at the website.
+The attacker can then use that "spoofed" social profile to try and sign up with your Ory Identities installation. Because the
+victim's email address is already known to Ory Identities, the attacker might be able to observe the behavior (for example seeing
+an error page) and come to the conclusion that the victim already has an account at the website.
 
 Mitigation: This attack surface is rather small and requires a lot of effort, including forging an for example Google profile, and
 can fail at several stages. To mitigate any chance of that happening, only accept email addresses that are marked as verified in
@@ -157,156 +157,7 @@ password. A good example of this flow is the
 
 ## Passwords
 
-Password-based authentication flows are subject to frequent abuse through
-
-- Social Engineering Attacks;
-- Password Guessing Attacks;
-- Phishing Attacks.
-
-:::info
-
-Further improvements are work in progress and are tracked on
-[GitHub](https://github.com/ory/kratos/labels/package%2Fselfservice%2Fpassword).
-
-:::
-
-### Expensive hashing with BCrypt
-
-Ory Kratos supports BCrypt for password hashing per default. BCrypt is recommended when you want hashing to take at most one
-second:
-
-```yaml
-hashers:
-  algorithm: bcrypt
-  bcrypt:
-    cost: 12
-```
-
-### Expensive hashing with Argon2
-
-Ory Kratos supports Argon2 for password hashing. Argon2 is recommended when you want hashing to take at least 2 seconds. You can
-tweak the Argon2 configuration in your Ory Kratos configuration file:
-
-```yaml
-hashers:
-  algorithm: argon2
-  argon2:
-    memory: 128MB
-    iterations: 2
-    parallelism: 4
-    salt_length: 16
-    key_length: 32
-```
-
-To determine the ideal parameters, head over to the [setup guide](../guides/setting-up-password-hashing-parameters.md).
-
-### Password policy
-
-To prevent weak passwords Ory Kratos implements different measures. Users often choose passwords similar to their traits. To
-prevent this Ory Kratos ensures there is a sufficient [Levenshtein-Distance](https://en.wikipedia.org/wiki/Levenshtein_distance)
-(aka "Edit-Distance") between the identifier and the password. It also makes sure that the identifier and password have a small
-enough longest common substring.
-
-Furthermore the `password` method comes with a build-in check against the ["Have I been pwned"](https://haveibeenpwned.com) breach
-database. This way Ory Kratos makes sure your users can't use passwords like "password", "123456" or any other commonly used one.
-To protect the value of the password the [range API](https://haveibeenpwned.com/API/v3#SearchingPwnedPasswordsByRange) is being
-used.
-
-#### Password policy best practices
-
-Almost every service with a login offers some type of registration using a password. Therefore, there are many strategies floating
-around, with many of them implementing terrible and insecure patterns such as:
-
-- Not allowing special characters in passwords.
-- Not allowing the use of password managers by disabling the "paste" functionality in password fields.
-- Requiring you to rotate your password every month (passwords expire).
-- ...
-
-Troy Hunt has written an
-[excellent piece on password policies](https://www.troyhunt.com/passwords-evolved-authentication-guidance-for-the-modern-era/) and
-why they recently changed and how.
-
-Ory Kratos implements a password policy that:
-
-- Checks if a password has previously been leaked using the [HIBP API](https://haveibeenpwned.com/API/v2),
-- Checks if a password is too similar to one of the identifiers,
-- Doesn't expire passwords.
-
-This is a rundown of all the practices Ory Kratos implements and why. **Some things need to be implemented by yourself** as they
-must be implemented in the User Interface that interfaces with Ory Kratos. You can find these in the
-[User Interface Guidelines](#user-interface-guidelines) section.
-
-##### Password complexity
-
-This outline and quotes are defined in the
-[NIST Digital Identity Guidelines - 5.1.1.2 Memorized Secret Verifiers](https://pages.nist.gov/800-63-3/sp800-63b.html). Ory
-Kratos, unless explicitly advertised, implements these guidelines and best practices.
-
-Passwords must have a minimum length of 8 characters and all characters (unicode, ASCII) must be allowed:
-
-> Verifiers SHALL require subscriber-chosen memorized secrets to be at least 8 characters in length. Verifiers SHOULD permit
-> subscriber-chosen memorized secrets at least 64 characters in length. All printing ASCII [RFC 20] characters as well as the
-> space character SHOULD be acceptable in memorized secrets. Unicode [ISO/ISC 10646] characters SHOULD be accepted as well. To
-> make allowances for likely mistyping, verifiers MAY replace multiple consecutive space characters with a single space character
-> prior to verification, provided that the result is at least 8 characters in length. Truncation of the secret SHALL NOT be
-> performed. For purposes of the above length requirements, each Unicode code point SHALL be counted as a single character.
-
-Passwords must be checked against a database of compromised secrets such as [Have I Been Pwnd](https://haveibeenpwned.com):
-
-> When processing requests to establish and change memorized secrets, verifiers SHALL compare the prospective secrets against a
-> list that contains values known to be commonly-used, expected, or compromised. For example, the list MAY include, but isn't
-> limited to:
->
-> - Passwords obtained from previous breach corpuses.
-> - Dictionary words.
-> - Repetitive or sequential characters (such as ‘aaaaaa’, ‘1234abcd’).
-> - Context-specific words, such as the name of the service, the username, and derivatives thereof.
->
-> If the chosen secret is found in the list, the CSP or verifier SHALL advise the subscriber that they need to select a different
-> secret, SHALL provide the reason for rejection, and SHALL require the subscriber to choose a different value.
-
-Don't require mixtures of characters types or prohibiting repeated characters:
-
-> Verifiers SHOULD NOT impose other composition rules (such as, requiring mixtures of different character types or prohibiting
-> consecutively repeated characters) for memorized secrets. Verifiers SHOULD NOT require memorized secrets to be changed
-> arbitrarily. However, verifiers SHALL force a change if there is evidence of compromise of the authenticator.
-
-##### User interface guidelines
-
-These best practices need to be implemented in your User Interface and can't be handled by Ory Kratos. All Ory-built reference and
-demo applications implement these best practices:
-
-Allow pasting of passwords:
-
-> Verifiers SHOULD permit claimants to use “paste” functionality when entering a memorized secret. This facilitates the use of
-> password managers, which are widely used and in many cases increase the likelihood that users will choose stronger memorized
-> secrets.
-
-Allow the user to show the secret in the UI:
-
-> In order to assist the claimant in successfully entering a memorized secret, the verifier SHOULD offer an option to display the
-> secret — rather than a series of dots or asterisks — until it's entered. This allows the claimant to verify their entry if
-> they're in a location where their screen is unlikely to be observed. The verifier MAY also permit the user’s device to display
-> individual entered characters for a short time after each character is typed to verify correct entry. This is particularly
-> applicable on mobile devices.
-
-##### Password hints
-
-> Memorized secret verifiers SHALL NOT permit the subscriber to store a “hint” that's accessible to an unauthenticated claimant.
->
-> [NIST Digital Identity Guidelines - 5.1.1.2 Memorized Secret Verifiers](https://pages.nist.gov/800-63-3/sp800-63b.html)
-
-##### Password expiry
-
-> Forcing password expiry carries no real benefits because:
->
-> - the user is likely to choose new passwords that are only minor variations of the old
-> - stolen passwords are generally exploited immediately
-> - resetting the password gives you no information about whether a compromise has occurred
-> - an attacker with access to the account will probably also receive the request to reset the password
-> - if compromised via insecure storage, the attacker will be able to find the new password in the same place
->
-> [NSCS Password administration for system owners](https://www.ncsc.gov.uk/collection/passwords/updating-your-approach)
+Head over to the [password policy page](../../concepts/password-policy.mdx).
 
 ## Anti-automation
 
@@ -356,6 +207,6 @@ It doesn't yet work as documented!
 
 ## Digital identity guidelines
 
-There is no one standard to digital identity. Ory Kratos follows emerging frameworks and guidelines such as:
+There is no one standard to digital identity. Ory Identities follows emerging frameworks and guidelines such as:
 [Digital Identity Guidelines established by the National Institute of Standards and Technology (NIST)](https://pages.nist.gov/800-63-3/)
 (and a follow-up [FAQ](https://pages.nist.gov/800-63-3/)) .

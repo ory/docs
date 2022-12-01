@@ -1,7 +1,7 @@
 ---
 id: hydra-delete-access-tokens
 title: hydra delete access-tokens
-description: hydra delete access-tokens Invalidate all OAuth2 Access Tokens of an OAuth2 Client
+description: hydra delete access-tokens Delete all OAuth2 Access Tokens of an OAuth2 Client
 ---
 
 <!--
@@ -11,16 +11,16 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## hydra delete access-tokens
 
-Invalidate all OAuth2 Access Tokens of an OAuth2 Client
+Delete all OAuth2 Access Tokens of an OAuth2 Client
 
 ```
-hydra delete access-tokens client-id [flags]
+hydra delete access-tokens <client-id> [flags]
 ```
 
 ### Examples
 
 ```
-hydra delete access-tokens 33137249-dd2c-49e6-a066-75ad2a72f221
+{{ .CommandPath }} <client-id>
 ```
 
 ### Options
@@ -33,7 +33,7 @@ hydra delete access-tokens 33137249-dd2c-49e6-a066-75ad2a72f221
 
 ```
   -e, --endpoint string   The API URL this command should target. Alternatively set using the ORY_SDK_URL environmental variable.
-      --format string     Set the output format. One of table, json, yaml, and json-pretty. (default "default")
+      --format string     Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -H, --http-header :     A list of additional HTTP headers to set. HTTP headers is separated by a : , for example: `-H 'Authorization: bearer some-token'`.
   -q, --quiet             Be quiet with output printing.
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!

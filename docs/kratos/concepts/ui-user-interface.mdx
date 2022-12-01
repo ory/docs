@@ -3,21 +3,21 @@ id: ui-user-interface
 title: Customize user interface
 ---
 
-Ory Kratos is an HTTP API server and does not include a traditional HTML user interface (rendering forms such as "Login" or
+Ory Identities is an HTTP API server and does not include a traditional HTML user interface (rendering forms such as "Login" or
 "Registration") in its code base. We provide several reference UI implementations which you can use to get started quickly, or as
 the basis for your own UI:
 
-- The [Ory Cloud Managed UI](https://playground.projects.oryapis.com/ui/welcome) is available when you run Ory Kratos in Ory
-  Cloud.
+- The [Ory Account Experience](https://playground.projects.oryapis.com/ui/welcome) is available when you use Ory Identities in Ory
+  Network.
 - [React Native Reference Implementation](https://github.com/ory/kratos-selfservice-ui-react-native)
 - [Node.js Reference Implementation](https://github.com/ory/kratos-selfservice-ui-node)
 - [React / SPA Reference Implementation](https://github.com/ory/react-nextjs-example)
 
-Ory Kratos' HTTP APIs make it easy and straight forward to write your own UI (e.g. "login" screen, "update profile settings", ...)
-in any programming languages and framework! It can be built in any programming language including Java, Node, or Python and can be
-run both a server or an end-user device for example a browser, or a mobile phone. Implementing your own UI is simple and straight
-forward. There is no complex authentication mechanism required and no need to worry about possible attack vectors such as CSRF or
-Session Attacks since Ory Kratos provides the preventive measures built in.
+Ory Identities' HTTP APIs make it easy and straight forward to write your own UI (e.g. "login" screen, "update profile settings",
+...) in any programming languages and framework! It can be built in any programming language including Java, Node, or Python and
+can be run both a server or an end-user device for example a browser, or a mobile phone. Implementing your own UI is simple and
+straight forward. There is no complex authentication mechanism required and no need to worry about possible attack vectors such as
+CSRF or Session Attacks since Ory Identities provides the preventive measures built in.
 
 Chapter [Self-Service Flows](../self-service.mdx) contains further information on APIs and flows related to the SSUI, and build
 self-service applications.
@@ -28,7 +28,7 @@ import TabItem from "@theme/TabItem"
 
 ## UI payloads
 
-To make UI customization easy, Ory Kratos prepares all the necessary data for forms that need to be shown during e.g. login,
+To make UI customization easy, Ory Identities prepares all the necessary data for forms that need to be shown during e.g. login,
 registration:
 
 ```json5
@@ -158,7 +158,7 @@ something like the following:
 
 ### UI Anchor Nodes
 
-Nodes of type `a` are currently not used in Ory Kratos, but we have them around in case they are needed at a later stage!
+Nodes of type `a` are currently not used in Ory Identities, but we have them around in case they are needed at a later stage!
 
 <CodeFromRemote
   lang="pug"
@@ -192,7 +192,15 @@ Nodes of type `img` are used as QR codes, for example.
 }
 ```
 
+```mdx-code-block
+import BrowserWindow from "@site/src/theme/BrowserWindow"
+
+<BrowserWindow url="https://playground.projects.oryapis.com/ui">
+
 ![QR Code](../_static/ui-user-interface/1.png)
+
+</BrowserWindow>
+```
 
 Here is an example of implementing an `img` node in handlebars:
 
@@ -214,9 +222,21 @@ Here is an example of implementing an `img` node in React.js:
 
 Nodes of type `text` are commonly used to display secrets (e.g. lookup secrets).
 
+```mdx-code-block
+<BrowserWindow url="https://playground.projects.oryapis.com/ui">
+
 ![Lookup Secret](../_static/ui-user-interface/2.png)
 
+</BrowserWindow>
+```
+
+```mdx-code-block
+<BrowserWindow url="https://playground.projects.oryapis.com/ui">
+
 ![TOTP Secret](../_static/ui-user-interface/3.png)
+
+</BrowserWindow>
+```
 
 Their JSON usually contains a bit of contextual information.
 
@@ -579,7 +599,7 @@ Submit buttons trigger the form submission. In pure HTML, this is just a simple 
 />
 
 If you have control over the form's payload, like in React.js, you need to ensure that the name of the form (e.g. `method`) is
-only submitted once with the correct value (e.g. `password`). Because in some cases Ory Kratos might generate multiple submit
+only submitted once with the correct value (e.g. `password`). Because in some cases Ory Identities might generate multiple submit
 buttons with the same `name` attribute.
 
 ```json5
@@ -928,8 +948,8 @@ best option is to implement this in your UI using map, filter, and other JSON tr
 
 ## Titles, Labels & Validation Messages
 
-Ory Kratos helps users understand what is happening by providing messages that explain what went wrong or what needs to be done.
-Examples are "The provided credentials are invalid", "Missing property email" and similar.
+Ory Identities helps users understand what is happening by providing messages that explain what went wrong or what needs to be
+done. Examples are "The provided credentials are invalid", "Missing property email" and similar.
 
 Typically login, registration, settings, ... flows include such messages on different levels:
 
@@ -968,7 +988,7 @@ The message ID is a 7-digit number (`xyyzzzz`) where
 
 ## UI Error Codes
 
-When building a single page app, or a native app, Ory Kratos will respond with errors in some cases. You can find an exemplary
+When building a single page app, or a native app, Ory Identities will respond with errors in some cases. You can find an exemplary
 error handling logic in our React.js reference implementation:
 
 <CodeFromRemote
@@ -1217,7 +1237,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1050001,
   "text": "Your changes have been saved!",
-  "type": "info"
+  "type": "success"
 }
 ```
 
@@ -1446,7 +1466,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1060001,
   "text": "You successfully recovered your account. Please change your password or set up an alternative login method (e.g. social sign in) within the next 0.02 minutes.",
-  "type": "info",
+  "type": "success",
   "context": {
     "privilegedSessionExpiresAt": "2020-01-01T01:01:00Z"
   }
@@ -1459,6 +1479,17 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1060002,
   "text": "An email containing a recovery link has been sent to the email address you provided.",
+  "type": "info",
+  "context": {}
+}
+```
+
+###### An email containing a recovery code has been sent to the email address you provided. (1060003)
+
+```json
+{
+  "id": 1060003,
+  "text": "An email containing a recovery code has been sent to the email address you provided.",
   "type": "info",
   "context": {}
 }
@@ -1534,6 +1565,26 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 }
 ```
 
+###### Resend code (1070007)
+
+```json
+{
+  "id": 1070007,
+  "text": "Resend code",
+  "type": "info"
+}
+```
+
+###### Continue (1070009)
+
+```json
+{
+  "id": 1070009,
+  "text": "Continue",
+  "type": "info"
+}
+```
+
 ###### An email containing a verification link has been sent to the email address you provided. (1080001)
 
 ```json
@@ -1551,7 +1602,18 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1080002,
   "text": "You successfully verified your email address.",
-  "type": "info"
+  "type": "success"
+}
+```
+
+###### An email containing a verification code has been sent to the email address you provided. (1080003)
+
+```json
+{
+  "id": 1080003,
+  "text": "An email containing a verification code has been sent to the email address you provided.",
+  "type": "info",
+  "context": {}
 }
 ```
 
@@ -1738,15 +1800,15 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 }
 ```
 
-###### The login flow expired 0.02 minutes ago, please try again. (4010001)
+###### The login flow expired 1.02 minutes ago, please try again. (4010001)
 
 ```json
 {
   "id": 4010001,
-  "text": "The login flow expired 0.02 minutes ago, please try again.",
+  "text": "The login flow expired 1.02 minutes ago, please try again.",
   "type": "error",
   "context": {
-    "expired_at": "2020-01-01T01:01:01Z"
+    "expired_at": "2020-01-01T00:59:59Z"
   }
 }
 ```
@@ -1801,28 +1863,28 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 }
 ```
 
-###### The registration flow expired 0.02 minutes ago, please try again. (4040001)
+###### The registration flow expired -0.02 minutes ago, please try again. (4040001)
 
 ```json
 {
   "id": 4040001,
-  "text": "The registration flow expired 0.02 minutes ago, please try again.",
+  "text": "The registration flow expired -0.02 minutes ago, please try again.",
   "type": "error",
   "context": {
-    "expired_at": "2020-01-01T01:01:01Z"
+    "expired_at": "2020-01-01T00:59:59Z"
   }
 }
 ```
 
-###### The settings flow expired 0.02 minutes ago, please try again. (4050001)
+###### The settings flow expired -0.02 minutes ago, please try again. (4050001)
 
 ```json
 {
   "id": 4050001,
-  "text": "The settings flow expired 0.02 minutes ago, please try again.",
+  "text": "The settings flow expired -0.02 minutes ago, please try again.",
   "type": "error",
   "context": {
-    "expired_at": "2020-01-01T01:01:01Z"
+    "expired_at": "2020-01-01T00:59:59Z"
   }
 }
 ```
@@ -1860,16 +1922,27 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 }
 ```
 
-###### The recovery flow expired 0.02 minutes ago, please try again. (4060005)
+###### The recovery flow expired -0.02 minutes ago, please try again. (4060005)
 
 ```json
 {
   "id": 4060005,
-  "text": "The recovery flow expired 0.02 minutes ago, please try again.",
+  "text": "The recovery flow expired -0.02 minutes ago, please try again.",
   "type": "error",
   "context": {
-    "expired_at": "2020-01-01T01:01:01Z"
+    "expired_at": "2020-01-01T00:59:59Z"
   }
+}
+```
+
+###### The recovery code is invalid or has already been used. Please try again. (4060006)
+
+```json
+{
+  "id": 4060006,
+  "text": "The recovery code is invalid or has already been used. Please try again.",
+  "type": "error",
+  "context": {}
 }
 ```
 
@@ -1914,8 +1987,19 @@ The section below is auto-generated. Changing it has no effect as any changes wi
   "text": "The verification flow expired -0.02 minutes ago, please try again.",
   "type": "error",
   "context": {
-    "expired_at": "2020-01-01T01:00:59Z"
+    "expired_at": "2020-01-01T00:59:59Z"
   }
+}
+```
+
+###### The verification code is invalid or has already been used. Please try again. (4070006)
+
+```json
+{
+  "id": 4070006,
+  "text": "The verification code is invalid or has already been used. Please try again.",
+  "type": "error",
+  "context": {}
 }
 ```
 

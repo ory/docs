@@ -28,7 +28,7 @@ kratos delete identity id-0 [id-1] [id-2] [id-n] [flags]
 ```
 To delete the identity with the recovery email address "foo@bar.com", run:
 
-	kratos delete identity $(kratos list identities --format json | jq -r 'map(select(.recovery_addresses[].value == "foo@bar.com")) | .[].id')
+	{{ .CommandPath }} $({{ .Root.Name }} list identities --format json | jq -r 'map(select(.recovery_addresses[].value == "foo@bar.com")) | .[].id')
 ```
 
 ### Options
@@ -41,7 +41,7 @@ To delete the identity with the recovery email address "foo@bar.com", run:
 
 ```
   -e, --endpoint string   The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
-      --format string     Set the output format. One of table, json, yaml, and json-pretty. (default "default")
+      --format string     Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -q, --quiet             Be quiet with output printing.
 ```
 

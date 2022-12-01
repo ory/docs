@@ -15,7 +15,7 @@ to get more information about the command, available command-specific flags and 
 ```shell
 ory auth --help
 
-Create an or sign into your Ory Cloud account
+Create an or sign into your Ory Network account
 
 Usage:
   ory auth [flags]
@@ -25,7 +25,7 @@ Available Commands:
   logout      Signs you out of your account on this computer.
 
 Flags:
-  -c, --config string   Path to the Ory Cloud configuration file.
+  -c, --config string   Path to the Ory Network configuration file.
       --format string   Set the output format. One of table, json, and json-pretty. (default "default")
   -h, --help            help for auth
   -q, --quiet           Be quiet with output printing.
@@ -41,9 +41,9 @@ documentation is generated automatically from the CLI source code.
 
 :::
 
-## Create Ory Cloud account and project
+## Create Ory Network account and project
 
-With Ory CLI, you can create a new Ory Cloud account and project from your terminal.
+With Ory CLI, you can create a new Ory Network account and project from your terminal.
 
 Follow these steps:
 
@@ -53,7 +53,7 @@ Follow these steps:
    ory auth
    ```
 
-2. If you haven't signed in with the CLI before, you're asked if you have an Ory Cloud account.
+2. If you haven't signed in with the CLI before, you're asked if you have an Ory Network account.
 
    ```shell
    Do you already have an Ory Console account you wish to use? [y/n]: n
@@ -85,9 +85,9 @@ By default, no projects are associated with new accounts created through the Ory
 
 :::
 
-## Create Ory Cloud Project
+## Create a project
 
-Run this command to create a new Ory Cloud project:
+Run this command to create a new project:
 
 ```shell
 ory create project
@@ -103,9 +103,9 @@ STATE	 running
 NAME	 My Amazing Project
 ```
 
-## Use CLI with Existing Cloud Account
+## Use CLI with existing account
 
-Sign in to use the CLI with your existing Ory Cloud account and project.
+Sign in to use the CLI with your existing Ory Network account and project.
 
 1. Run this command to start the wizard:
 
@@ -113,7 +113,7 @@ Sign in to use the CLI with your existing Ory Cloud account and project.
    ory auth
    ```
 
-2. If you haven't signed in with the CLI before, you're asked if you have an Ory Cloud account.
+2. If you haven't signed in with the CLI before, you're asked if you have an Ory Network account.
 
    ```shell
    Do you already have an Ory Console account you wish to use? [y/n]: n
@@ -123,12 +123,12 @@ Sign in to use the CLI with your existing Ory Cloud account and project.
 
    :::info
 
-   If you created your Ory Cloud account with a social sign-in provider, you must adjust the account configuration to use the CLI.
-   [Read this section for more information](#accounts-with-social-sign-in).
+   If you created your Ory Network account with a social sign-in provider, you must adjust the account configuration to use the
+   CLI. [Read this section for more information](#accounts-with-social-sign-in).
 
    :::
 
-4. Upon successful sign in, the CLI shows the details of the signed-in user and the selected Ory Cloud project:
+4. Upon successful sign in, the CLI shows the details of the signed-in user and the selected project:
 
    ```text
    You are now signed in as: john.wick@company.com

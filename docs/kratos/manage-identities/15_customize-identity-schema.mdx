@@ -4,11 +4,13 @@ title: Learn how to customize Ory Identity Schemas
 sidebar_label: Customize Identity Schema
 ---
 
+# Customize Identity Schema
+
 Ory supports custom Identity Schemas. The Identity Schema is a JSON Schema that describes the traits that make up an identity.
 
 ## Create custom Identity Schema
 
-Follow these steps to create a custom Identity Schema in Ory Cloud:
+Follow these steps to create a custom Identity Schema in The Ory Network:
 
 1. Open the [Ory Console](https://console.ory.sh/) and sign in.
 2. Select **Customize → Identity Schema** from the left navigation bar.
@@ -64,8 +66,8 @@ email and password:
 This Identity Schema translates into the following sign-up screen:
 ![Email Password Identity Schema](../_static/manage-identities/1.png)
 
-The part highlighted below defines the identity's `email` for the email+password flow in Ory Cloud. It also includes a method for
-[`recovery`](https://www.ory.sh/kratos/docs/self-service/flows/account-recovery#recovery-link-method) as well as
+The part highlighted below defines the identity's `email` for the email+password flow in The Ory Network. It also includes a
+method for [`recovery`](https://www.ory.sh/kratos/docs/self-service/flows/account-recovery#recovery-link-method) as well as
 [`verification`](https://www.ory.sh/kratos/docs/self-service/flows/verify-email-account-activation/#verification-link-method).
 Only the `email` method is available (recovery/verification via a link sent in an email).
 

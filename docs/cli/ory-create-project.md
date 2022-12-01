@@ -1,7 +1,7 @@
 ---
 id: ory-create-project
 title: ory create project
-description: ory create project Create a new Ory Cloud project
+description: ory create project Create a new Ory Network project
 ---
 
 <!--
@@ -11,7 +11,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory create project
 
-Create a new Ory Cloud project
+Create a new Ory Network project
 
 ```
 ory create project [flags]
@@ -20,20 +20,20 @@ ory create project [flags]
 ### Options
 
 ```
-  -h, --help          help for project
-  -n, --name string   The name of the project, required when quiet mode is used
+      --format string   Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
+  -h, --help            help for project
+  -n, --name string     The name of the project, required when quiet mode is used
+  -q, --quiet           Be quiet with output printing.
 ```
 
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
-      --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
-  -q, --quiet           Be quiet with output printing.
+  -c, --config string   Path to the Ory Network configuration file.
   -y, --yes             Confirm all dialogs with yes.
 ```
 
 ### SEE ALSO
 
-* [ory create](ory-create)	 - Create Ory Cloud resources
+* [ory create](ory-create)	 - Create Ory Network resources
 

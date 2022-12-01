@@ -24,11 +24,11 @@ hydra update oauth2-client [id] [flags]
 ### Examples
 
 ```
-hydra update client <client-id-here> -c http://localhost/cb -g authorization_code -r code -a core,foobar
+{{ .CommandPath }} <client-id-here> -c http://localhost/cb -g authorization_code -r code -a core,foobar
 
 To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp-key-url` or `--keybase` flag, for example:
 
-  hydra update client e6e96aa5-9cd2-4a70-bf56-ad6434c8aaa2 -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
+  {{ .CommandPath }} e6e96aa5-9cd2-4a70-bf56-ad6434c8aaa2 -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
 
 ```
 
@@ -71,7 +71,7 @@ To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp
 
 ```
   -e, --endpoint string   The API URL this command should target. Alternatively set using the ORY_SDK_URL environmental variable.
-      --format string     Set the output format. One of table, json, yaml, and json-pretty. (default "default")
+      --format string     Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -H, --http-header :     A list of additional HTTP headers to set. HTTP headers is separated by a : , for example: `-H 'Authorization: bearer some-token'`.
   -q, --quiet             Be quiet with output printing.
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!

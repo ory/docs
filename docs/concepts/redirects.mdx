@@ -25,15 +25,15 @@ just allowing certain domains, or paths on a domain. As in the example below `ht
 match the sub-domain and path. Other redirects using `myapp.com` will fail. Redirects using `https://anotherapp.com` will succeed
 on any path.
 
-![Browser Redirects Allow List](/images/browser-redirects/browser-redirects-allow-list.png)
+![Browser Redirects Allow List](./_static/redirects/browser-redirects-allow-list.png)
 
 ## Redirect flows
 
-Ory Cloud has a total of six flows, **Login**, **Registration**, **Verification**, **Recovery**, **Settings** and **Logout** which
-can be configured to redirect back to any URL. A common use case would be to redirect the user to your application home screen
-after a logout or to a specific URL on a sub-domain after a settings password update.
+The Ory Network has a total of six flows, **Login**, **Registration**, **Verification**, **Recovery**, **Settings** and **Logout**
+which can be configured to redirect back to any URL. A common use case would be to redirect the user to your application home
+screen after a logout or to a specific URL on a sub-domain after a settings password update.
 
-On project creation the redirect flows are set to the default Managed User Interface.
+On project creation the redirect flows are by default set to the Ory Account Experience pages.
 
 ### Login, registration, and settings
 
@@ -43,7 +43,7 @@ The Login and Registration flows have three fields (all optional):
 2. Post-Password Redirect URL
 3. Post-OIDC Redirect URL
 
-```yaml file="kratos.config.yml"
+```yaml file="config.yml"
 selfservice:
   flows:
     login:
@@ -68,7 +68,7 @@ The Settings flow has three fields (all optional):
 2. Post-Password Redirect URL
 3. Post-Profile Redirect URL
 
-```yaml file="kratos.config.yml"
+```yaml file="config.yml"
 selfservice:
   flows:
     settings:
@@ -97,12 +97,12 @@ their respective base URL. As shown in the example below, the Post-Login Redirec
 the Default Redirect URL (`https://myapp.com`). This will set the Post-Login Redirect URL to `https://myapp.com/after/login` and
 the Post-Password Redirect URL to `https://myapp.com/after/login/password`.
 
-![Browser Redirects Url Management](/images/browser-redirects/browser-redirects-url-management.png)
+![Browser Redirects Url Management](./_static/redirects/browser-redirects-url-management.png)
 
 In the example below, the Post-Login Redirect URL is a FQDN. This will set the Post-Login Redirect URL to
 `https://myapp.com/after/login` and the Post-Password Redirect URL to `https://myapp.com/after/login/password`.
 
-![Browser Redirects URL Management Transformed](/images/browser-redirects/browser-redirects-url-management-2.png)
+![Browser Redirects URL Management Transformed](./_static/redirects/browser-redirects-url-management-2.png)
 
 ### Verification, recovery, and logout
 
@@ -116,17 +116,17 @@ redirect for Post-Recovery flows.
 Each of these flows has a single field, the Default Redirect URL. As with Login, Registration, and Settings configurations, the
 Default Redirect URL can be an FQDN or a path.
 
-![Browser Redirects URL Management Transformed](/images/browser-redirects/browser-redirects-url-management-3.png)
+![Browser Redirects URL Management Transformed](./_static/redirects/browser-redirects-url-management-3.png)
 
 ## Reset and update flows
 
 Update or delete a redirect by either changing the current redirects value or deleting the entry and clicking the **Update**
 button. Reset all flows at once with the **Reset Flows** button which will prompt a confirmation box. Resetting all flows will
-reset all the fields back to the default value which is the Ory Cloud Managed User Interface.
+reset all the fields back to the default value which is the Ory Account Experience.
 
 Updates to flows will take effect on **new** flows. It will have no effect on old flows that haven't expired yet.
 
-![Browser Redirects URL Reset All](/images/browser-redirects/browser-redirects-reset-all.png)
+![Browser Redirects URL Reset All](./_static/redirects/browser-redirects-reset-all.png)
 
 ## Troubleshooting
 
@@ -146,18 +146,17 @@ If you are using an API Client, for example AJAX, redirect the user to the right
 The [allow list](#allow-list) and any of the post-flow redirects require a valid URL with a scheme (HTTP or HTTPS). An example of
 a valid URL is `https://www.google.com`.
 
-![Browser Redirects URL Error Message](/images/browser-redirects/browser-redirects-error-messages-1.png)
+![Browser Redirects URL Error Message](./_static/redirects/browser-redirects-error-messages-1.png)
 
-![Browser Redirects URL Error Message Flows](/images/browser-redirects/browser-redirects-error-messages-flows.png)
+![Browser Redirects URL Error Message Flows](./_static/redirects/browser-redirects-error-messages-flows.png)
 
 ### Domain denied
 
 It's not possible to set the any Ory-owned domain as redirect URL.
 
-![Browser Redirects URL Error Message](/images/browser-redirects/browser-redirects-error-messages-2.png)
+![Browser Redirects URL Error Message](./_static/redirects/browser-redirects-error-messages-2.png)
 
 ## Read more
 
-For a deeper dive into the background of browser redirects, head over to the Ory Kratos concept documentation:
-
-- [HTTP Redirection Configuration](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion)
+For a deeper dive into the background of browser redirects, read
+[this document](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion)

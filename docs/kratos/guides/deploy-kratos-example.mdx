@@ -571,8 +571,8 @@ You can use `ps ax | grep node` to confirm it is running.
    -  default_browser_return_url: http://127.0.0.1:4455/
    +  default_browser_return_url: https://accounts.example.com/auth/
      allowed_return_urls:
-   -    - https://accounts.example.com
-   +    - http://127.0.0.1:4455
+   -    - http://127.0.0.1:4455
+   +    - https://accounts.example.com
 
      methods:
        password:
@@ -712,6 +712,6 @@ We need to set up secure keys and run Ory Kratos in production mode:
 
 - Fork the [Ory Kratos Node.js UI Reference](https://github.com/ory/kratos-selfservice-ui-node) or
   [build a custom UI in the language of your choice](../sdk/01_index.md).
-- [Add Two Factor Authentication (2FA) to your App](../mfa/overview)
-- [Configure The Password Policy](./password-policy.mdx)
-- [Integrate using webhooks](../hooks/configure-hooks)
+- [Add Two Factor Authentication (2FA) to your App](../mfa/01_overview.mdx)
+- [Configure The Password Policy](../../concepts/password-policy.mdx)
+- [Integrate using webhooks](../hooks/01_configure-hooks.mdx)

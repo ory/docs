@@ -18,7 +18,7 @@ Get one or more OAuth 2.0 Clients by their ID(s)
 This command gets all the details about an OAuth 2.0 Client. You can use this command in combination with jq.
 
 ```
-ory get oauth2-client id-1 [id-2] [id-n] [flags]
+ory get oauth2-client <id-1> [<id-2> ...] [flags]
 ```
 
 ### Examples
@@ -26,22 +26,22 @@ ory get oauth2-client id-1 [id-2] [id-n] [flags]
 ```
 To get the OAuth 2.0 Client's secret, run:
 
-	ory get client <your-client-id> | jq -r '.client_secret'
+	{{ .CommandPath }} <your-client-id> --json | jq -r '.client_secret'
 ```
 
 ### Options
 
 ```
-      --format string    Set the output format. One of table, json, yaml, and json-pretty. (default "default")
+      --format string    Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help             help for oauth2-client
       --project string   The project to use
+  -q, --quiet            Be quiet with output printing.
 ```
 
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
-  -q, --quiet           Be quiet with output printing.
+  -c, --config string   Path to the Ory Network configuration file.
   -y, --yes             Confirm all dialogs with yes.
 ```
 

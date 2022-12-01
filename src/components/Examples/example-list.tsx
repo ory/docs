@@ -23,7 +23,7 @@ const ExampleCard = ({ title, language, author, repo, docs }: ExampleCard) => (
     <div>
       <img
         className={styles.cardimage}
-        src={"./img/examples/" + language + ".svg"}
+        src={"/docs/img/examples/" + language + ".svg"}
       />
     </div>
     <section className={styles.cardcontent}>
@@ -92,8 +92,8 @@ const ExampleCard = ({ title, language, author, repo, docs }: ExampleCard) => (
 const ExampleList = ({ id, examples, title, description }: PropTypes) => (
   <section className={styles.examplesection} id={id}>
     <div className={styles.examplesectionheading}>
-      <h1>{title}</h1>
-      <p>{description}</p>
+      {title && <h2>{title}</h2>}
+      {description && <p>{description}</p>}
     </div>
     <div className={styles.cardgrid}>
       {examples.map((examples, index) => (

@@ -21,6 +21,7 @@ yarn-error.log*
 
 /tmp
 
+.bin/
 .idea/
 
 docs/build
@@ -30,3 +31,4 @@ playwright-report/
 .vercel/
 
 .vercel
+.bin/

@@ -24,7 +24,7 @@ kratos list identities [<page> <per-page>] [flags]
 ### Examples
 
 ```
-kratos ls identities 100 1
+{{ .CommandPath }} 100 1
 ```
 
 ### Options
@@ -37,7 +37,7 @@ kratos ls identities 100 1
 
 ```
   -e, --endpoint string   The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
-      --format string     Set the output format. One of table, json, yaml, and json-pretty. (default "default")
+      --format string     Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -q, --quiet             Be quiet with output printing.
 ```
 

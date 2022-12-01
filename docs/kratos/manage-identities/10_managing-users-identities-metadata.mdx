@@ -4,6 +4,8 @@ title: Learn about the types of data that make up user accounts in Ory
 sidebar_label: Identity metadata & traits
 ---
 
+# Identity metadata & traits
+
 Identities have traits and metadata:
 
 - **Traits** are the attributes of an identity, that can be updated by the identity owner, for example the username or email
@@ -38,12 +40,12 @@ To manage metadata, use the following APIs:
 ## Traits
 
 Traits are the data associated with an identity. This data can be modified by the identity owner, for example at sign up or in the
-profile update process. Identity traits can also be modified by users with Ory Identity Service (Kratos) Admin API access.
+profile update process. Identity traits can also be modified by users with Ory Identities (Kratos) Admin API access.
 
 :::note
 
-Ory Identity Service (Kratos) uses [JSON Schema](https://json-schema.org/learn/getting-started-step-by-step.html) to validate
-Identity traits.
+Ory Identities (Kratos) uses [JSON Schema](https://json-schema.org/learn/getting-started-step-by-step.html) to validate Identity
+traits.
 
 :::
 
@@ -63,7 +65,7 @@ identity has one JSON schema that defines it:
 - Grandfather Accounts: `http://mydomain.com/schemas/v1/customer.schema.json`
 - Service Accounts: `http://mydomain.com/schemas/service-account.schema.json`
 
-Ory Kratos expects the JSON Schemas in its configuration file:
+Ory Identities expects the JSON Schemas in its configuration file:
 
 ```yaml
 identity:

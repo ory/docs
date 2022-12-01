@@ -20,7 +20,7 @@ the Authorize Code, Implicit, Refresh flow. This command allows settings all fie
 
 To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp-key-url` or `--keybase` flag, for example:
 
-  hydra create client -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
+  {{ .CommandPath }} -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
 
 
 ```
@@ -30,13 +30,13 @@ hydra create oauth2-client [flags]
 ### Examples
 
 ```
-hydra create client -n "my app" -c http://localhost/cb -g authorization_code -r code -a core,foobar
+{{ .CommandPath }} -n "my app" -c http://localhost/cb -g authorization_code -r code -a core,foobar
 
 Use the tool jq (or any other JSON tool) to get the OAuth2 Client ID and and Secret:
 
-client=$(hydra create client \
+client=$({{ .CommandPath }} \
     --format json \
-    ...
+    ...)
 echo $client
 
 # Parse the JSON response using jq to get the client ID and client secret:
@@ -83,7 +83,7 @@ client_secret=$(echo $client | jq -r '.client_secret')
 
 ```
   -e, --endpoint string   The API URL this command should target. Alternatively set using the ORY_SDK_URL environmental variable.
-      --format string     Set the output format. One of table, json, yaml, and json-pretty. (default "default")
+      --format string     Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -H, --http-header :     A list of additional HTTP headers to set. HTTP headers is separated by a : , for example: `-H 'Authorization: bearer some-token'`.
   -q, --quiet             Be quiet with output printing.
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!

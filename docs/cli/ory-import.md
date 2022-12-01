@@ -16,8 +16,8 @@ Import resources
 ### Options
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
-      --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
+  -c, --config string   Path to the Ory Network configuration file.
+      --format string   Set the output format. One of default, json, yaml, json-pretty and jsonpath. (default "default")
   -h, --help            help for import
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
@@ -27,5 +27,6 @@ Import resources
 
 * [ory](ory)	 - The ORY CLI
 * [ory import identities](ory-import-identities)	 - Import one or more identities from files or STD_IN
-* [ory import oauth2-client](ory-import-oauth2-client)	 - Import OAuth 2.0 Clients from files or STDIN
+* [ory import jwk](ory-import-jwk)	 - Imports JSON Web Keys from one or more JSON files.
+* [ory import oauth2-client](ory-import-oauth2-client)	 - Import one or more OAuth 2.0 Clients from files or STDIN
 

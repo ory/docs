@@ -1,7 +1,7 @@
 ---
 id: keto-relation-tuple-get
 title: keto relation-tuple get
-description: keto relation-tuple get Get relation tuples
+description: keto relation-tuple get Get relationships
 ---
 
 <!--
@@ -11,11 +11,11 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## keto relation-tuple get
 
-Get relation tuples
+Get relationships
 
 ### Synopsis
 
-Get relation tuples matching the given partial tuple.
+Get relationships matching the given partial tuple.
 Returns paginated results.
 
 ```
@@ -25,7 +25,8 @@ keto relation-tuple get [flags]
 ### Options
 
 ```
-      --format string                         Set the output format. One of table, json, yaml, and json-pretty. (default "default")
+      --authority string                      Set the authority header for the remote gRPC server.
+      --format string                         Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help                                  help for get
       --insecure-disable-transport-security   Disables transport security. Do not use this in production.
       --insecure-skip-hostname-verification   Disables hostname verification. Do not use this in production.
@@ -49,5 +50,5 @@ keto relation-tuple get [flags]
 
 ### SEE ALSO
 
-* [keto relation-tuple](keto-relation-tuple)	 - Read and manipulate relation tuples
+* [keto relation-tuple](keto-relation-tuple)	 - Read and manipulate relationships
 

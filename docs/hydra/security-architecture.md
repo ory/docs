@@ -9,8 +9,7 @@ Hydra is built with tough security in mind.
 
 Hydra is an implementation of the security-first Fosite OAuth 2.0 SDK
 ([https://github.com/ory/fosite](https://github.com/ory/fosite)). Fosite respects the
-[OAuth 2.0 Threat Model and Security Considerations](https://tools.ietf.org/html/rfc6819#section-5.1.5.3) by the IETF,
-specifically:
+[OAuth 2.0 Threat Model and Security Considerations](https://tools.ietf.org/html/rfc6819) by the IETF, specifically:
 
 - No Cleartext Storage of Credentials
 - Encryption of Credentials
@@ -43,6 +42,17 @@ attacker to gain access to any valid authorize codes, access tokens, or refresh 
 
 Because HMAC-SHA256 is used, the System Secret is required to create valid key-signature pairs, rendering an attacker unable to
 inject new codes or tokens into a compromised datastore.
+
+## Token Prefixes
+
+Ory's OAuth2 Tokens are prefixed:
+
+- OAuth2 Access Tokens: `ory_at_`
+- OAuth2 Refresh Tokens: `ory_rt_`
+- OAuth2 Authorize Codes: `ory_ac_`
+
+Token prefixes are useful when scanning for secrets in e.g. git repositories. Token prefixes are only set for opaque tokens, not
+JSON Web Tokens. Adding prefixes to JSON Web Tokens would invalidate the JSON Web Token.
 
 ## Cryptography
 
@@ -79,18 +89,33 @@ cryptography based on discrete logarithms (RSA). 4096 exceeds all recommendation
 HMAC (FIPS 198) with SHA256 (FIPS 180-4) is used to sign access tokens, authorize codes and refresh tokens. SHA-2 (with 256 bit)
 is encouraged by NIST, see [http://csrc.nist.gov/groups/ST/hash/policy.html](http://csrc.nist.gov/groups/ST/hash/policy.html)
 
+### PBKDF2
+
+PBKDF2 is the default OAuth2 Client Secret hashing algorithm to strike a balance between security and performance. As most client
+secrets are auto-generated, using high hash costs is not useful. The password (OAuth2 Client Secret) is not user chosen and
+unlikely to be reused. As such, there is little point in using excessive hash costs to protect users. High hash costs in a system
+like Ory Hydra will cause high CPU costs from mostly automated traffic (OAuth2 Client interactions). It has also been a point of
+critizism from some who wish for better RPS on specific endpoints.
+
+We suggest between 20.000 and 50.000 iterations for PBKDF2.
+
 ### BCrypt
 
-BCrypt is used to hash client credentials at rest. It isn't officially recommended by NIST as it isn't based on hashing primitives
-such as SHA-2, but rather on Blowfish. However, BCrypt is much stronger than any other (salted) hashing method for passwords, has
-wide adoption and is an official golang/x library.
-
-I recommend reading this thread on Security Stack Exchange on BCrypt, SCrypt and PBKDF2:
-[https://security.stackexchange.com/questions/4781/do-any-security-experts-recommend-bcrypt-for-password-storage](https://security.stackexchange.com/questions/4781/do-any-security-experts-recommend-bcrypt-for-password-storage)
+BCrypt can be used to hash client credentials at rest. It isn't officially recommended by NIST as it isn't based on hashing
+primitives such as SHA-2, but rather on Blowfish. However, BCrypt is much stronger than any other (salted) hashing method for
+passwords, has wide adoption and is an official golang/x library.
 
 Be aware that BCrypt causes very high CPU loads, depending on the Workload Factor. We strongly advise reducing the number of
 requests that use Basic Authorization.
 
-## How does access control work with Hydra?
+To use BCrypt instead of PBKDF2, set:
+
+```yaml
+oauth2:
+  hashers:
+    algorithm: bcrypt
+```
+
+## How does Access Control work with Hydra?
 
 See [OAuth 2.0 Token Introspection](guides/oauth2-token-introspection).

@@ -24,24 +24,24 @@ ory list oauth2-clients [flags]
 ### Examples
 
 ```
-ory ls identities --page-token eyJwYWdlIjoxfQ --page-size 10
+{{ .CommandPath }} --page-token eyJwYWdlIjoxfQ --page-size 10
 ```
 
 ### Options
 
 ```
+      --format string       Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help                help for oauth2-clients
       --page-size int       maximum number of items to return (default 100)
       --page-token string   page token acquired from a previous response
       --project string      The project to use
+  -q, --quiet               Be quiet with output printing.
 ```
 
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Cloud configuration file.
-      --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
-  -q, --quiet           Be quiet with output printing.
+  -c, --config string   Path to the Ory Network configuration file.
   -y, --yes             Confirm all dialogs with yes.
 ```
 

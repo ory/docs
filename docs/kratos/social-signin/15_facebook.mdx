@@ -5,6 +5,8 @@ sidebar_label: Facebook
 toc_max_heading_level: 4
 ---
 
+# Facebook
+
 :::note
 
 To add Facebook as a social sign-in provider, you need a Facebook Developer account. Go to
@@ -12,22 +14,22 @@ To add Facebook as a social sign-in provider, you need a Facebook Developer acco
 
 :::
 
-## Configuration in Ory Cloud Console
+## Configuration in Ory Console
 
-Follow these steps to add Facebook as a social sign-in provider for your for your Ory Cloud project using the Ory Cloud Console.
+Follow these steps to add Facebook as a social sign-in provider for your for your project using the Ory Console.
 
-1. Sign in to Ory Cloud Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
+1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
 2. Click the switch next to the Facebook logo to start the configuration.
 3. Copy the Redirect URI and save it for later use.
 4. In your Facebook Developers account, go to **My Apps → Create App**.
 5. Select **Consumer** and click **Next**.
 6. Enter you app's name and preferred contact email. Click **Create App**.
 7. In the "Facebook Login" card, click **Set Up**. Ignore the quickstart and select **Settings → Basic** from the sidebar.
-8. Copy the Client ID and Client secret from Facebook and paste them into the corresponding fields in the Ory Cloud Console.
+8. Copy the Client ID and Client secret from Facebook and paste them into the corresponding fields in the Ory Console.
 9. On Facebook Developers, click **Save Changes**.
 10. From the left navigation bar, select **Facebook Login → Settings**.
 11. Paste the redirect URI copied from Ory into the **Valid OAuth redirect URIs** and click **Save Changes**.
-12. In the Ory Cloud Console, click **Save Configuration** to enable Facebook as a social sign-in provider.
+12. In the Ory Console, click **Save Configuration** to enable Facebook as a social sign-in provider.
 
 :::note
 
@@ -53,9 +55,10 @@ For Facebook, add the `email` scope for a basic setup.
 To learn more about the scopes available for Facebook, read the
 [related documentation](https://developers.facebook.com/docs/permissions/reference/).
 
-#### Data Mapping
+#### Data mapping
 
-The Data Mapping section allows you to map the data returned by the sign-in provider to traits as defined in the identity schema.
+The **Data mapping** section allows you to map the data returned by the sign-in provider to traits as defined in the identity
+schema.
 
 To define the mapping, create a Jsonnet code snippet. Read [this document](./data-mapping) to learn more about Jsonnet data
 mapping.
@@ -88,14 +91,14 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
 <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
 ```
 
-## Configuration for Ory Cloud
+## Configuration using the Ory CLI
 
-Follow these steps to add Facebook as a social sign-in provider to your Ory Cloud project using the Ory CLI:
+Follow these steps to add Facebook as a social sign-in provider to your project using the Ory CLI:
 
 1. [Create a Facebook app](#configuration-in-ory-cloud-console).
 2. Create a [Jsonnet code snippet](#data-mapping) to map the desired claims to the Ory Identity schema.
-3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Cloud.
-4. Download the Identity Service config from your Ory Cloud project and save it to a file:
+3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to The Ory Network.
+4. Download the Ory Identities config from your project and save it to a file:
 
    ```shell
    ## List all available projects
@@ -128,42 +131,13 @@ Follow these steps to add Facebook as a social sign-in provider to your Ory Clou
        enabled: true
    ```
 
-6. Update the Ory Identity Service (Ory Kratos) configuration using the file you worked with:
+6. Update the Ory Identities (Ory Kratos) configuration using the file you worked with:
 
    ```shell
    ory update identity-config <project-id> --file updated_config.yaml
    ```
 
-## Configuration for self-hosted instances
-
-Follow these steps to add Google as a social sign-in provider to your when self-hosting Ory Kratos:
-
-1. [Create a Facebook app](#configuration-in-ory-cloud-console).
-2. Set the redirect URI to URL that follows this pattern:
-
-   ```shell
-   https://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/<social-signin-provider-id>
-   ```
-
-   :::note
-
-   Facebook requires HTTPS redirect URIs.
-
-   :::
-
-3. Create a [Jsonnet code snippet](#data-mapping) to map the desired claims to the Ory Identity schema.
-4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or store it in a location available to your Ory Kratos
-   instance.
-5. Add the [social sign-in provider configuration](#configuration-with-ory-cli) to the Ory Kratos configuration. Add the Jsonnet
-   snippet with mappings as a Base64 string or provide a path or an URL of the file.
-
-```mdx-code-block
-import ConfigAsEnv from '../_common/config_as_env.mdx'
-
-<ConfigAsEnv />
-```
-
-## Prevent having to login after sign-up
+## Prevent having to log in after sign-up
 
 ```mdx-code-block
 import OidcSessionHook from '../_common/oidc_session_hook.mdx'

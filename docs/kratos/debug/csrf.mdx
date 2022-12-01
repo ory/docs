@@ -19,10 +19,10 @@ implemented in Ory Kratos. One of them is protection against CSRF:
 
 To protect against CSRF, several endpoints are protected by Anti-CSRF measures. Typically, endpoints accepting `POST`, `DELETE`,
 `PUT` actions have Anti-CSRF measures. When rendering a form for example, a `<input type="hidden" name="csrf_token" value="...">`
-HTML Input Element is added. Ory Kratos compares that value to the value set in the Anti-CSRF Cookie. If the values match, the
+HTML Input Element is added. Ory Krato compares that value to the value set in the Anti-CSRF Cookie. If the values match, the
 request is allowed.
 
-Ory Kratos uses HTTP Cookies to store login sessions when accessed via a browser.
+Ory Krato uses HTTP Cookies to store login sessions when accessed via a browser.
 
 ## Common pitfalls
 
@@ -68,14 +68,14 @@ We don't recommend running them on separate subdomains, such as `https://kratos.
 To allow cookies to work across subdomains, make sure to set the domain name in the Kratos config file under
 [`session.cookie.domain`](https://www.ory.sh/kratos/docs/next/guides/configuring-cookies/#session-cookies).
 
-Running the apps on different TLDs won't work at all, such as `https://kratos-my-website/` and `https://secureapp-my-website/`.
+Running the apps on different domains won't work at all, such as `https://kratos-my-website/` and `https://secureapp-my-website/`.
 
 Running the services on different ports however is ok, if the domain stays the same.
 
 ### Mixing up 127.0.0.1 and localhost
 
-As already explained, make sure that the TLD stays the same. This is also true for `127.0.0.1` and `localhost` which are both
-separate TLDs. Make sure that you use `127.0.0.1` or `localhost` consistently across your configuration!
+As already explained, make sure that the domain stays the same. This is also true for `127.0.0.1` and `localhost` which are both
+separate domains. Make sure that you use `127.0.0.1` or `localhost` consistently across your configuration!
 
 ### Trying to access Ory Kratos Cookies from client-side JavaScript
 

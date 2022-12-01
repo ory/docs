@@ -1,14 +1,16 @@
 ---
 id: 5min-tutorial
 title: 5 minute tutorial
+sidebar_label: Quickstart
 ---
 
 import CodeFromRemote from "@theme/CodeFromRemote"
 
-This tutorial walks you through a quick setup of Ory Hydra and an exemplary User Login & Consent App based on Docker Compose. You
-need to have the latest [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose) version installed.
+This tutorial walks you through a quick setup of Ory Hydra Federation Server and an exemplary User Login & Consent App based on
+Docker Compose. You need to have the latest [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose)
+version installed, as well as [`jq`](https://stedolan.github.io/jq/download/).
 
-![OAuth2 Flow with Open Source OAuth2 Server Ory Hydra](images/oauth2-flow.gif)
+![OAuth2 Flow with Open Source OAuth2 Server Ory Hydra](_static/oauth2-flow.gif)
 
 <p align="center">
   <iframe width="560" height="315" src="https://www.youtube.com/embed/tlO9p2E501A" frameborder="0" allowfullscreen />
@@ -78,7 +80,7 @@ docker-compose -f quickstart.yml \
 ```
 
 If you want to test Hardware Security Module add `-f quickstart-hsm.yml`. For more information head over to
-[HSM support](./guides/hsm-support.md).
+[HSM support](./self-hosted/hsm-support.md).
 
 ```sh
 docker-compose -f quickstart.yml \
@@ -92,47 +94,56 @@ Note: The following commands run Hydra inside Docker. If you have the Ory Hydra 
 `docker-compose -f quickstart.yml exec /hydra` in front of each command.
 
 The OAuth 2.0 client uses port `4444` and `4445`. The former is Ory Hydra's public endpoint, the latter its administrative
-endpoint. For more information head over to [Exposing Administrative and Public API Endpoints](production).
+endpoint. For more information head over to [Exposing Administrative and Public API Endpoints](./self-hosted/production).
 
 Let's create the OAuth 2.0 Client:
 
 ```sh
-docker-compose -f quickstart.yml exec hydra \
-    hydra clients create \
+client=$(docker-compose -f quickstart.yml exec hydra \
+    hydra create client \
     --endpoint http://127.0.0.1:4445/ \
-    --id my-client \
-    --secret secret \
-    --grant-types client_credentials
+    --format json \
+    --grant-type client_credentials)
+
+# We parse the JSON response using jq to get the client ID and client secret:
+client_id=$(echo $client | jq -r '.client_id')
+client_secret=$(echo $client | jq -r '.client_secret')
 ```
 
 Let's perform the client credentials grant:
 
 ```sh
 docker-compose -f quickstart.yml exec hydra \
-    hydra token client \
-    --endpoint http://127.0.0.1:4444/ \
-    --client-id my-client \
-    --client-secret secret
+  hydra perform client-credentials \
+  --endpoint http://127.0.0.1:4444/ \
+  --client-id $client_id \
+  --client-secret $client_secret
 
-UDYMha9TwsMBejEvKfnDOXkhgkLsnmUNYVQDklT5bD8.ZNpuNRC85erbIYDjPqhMwTinlvQmNTk_UvttcLQxFJY
+ACCESS TOKEN    ory_at_ZDTkKci59rH_8KlZlRjIek0812n9oPsvJX_nTdptGt0.bbpFutv5CsfjHzs8QrsnmPZ-0VxgwPvg9jgw1DQaYNg
+REFRESH TOKEN   <empty>
+ID TOKEN        <empty>
+EXPIRY          2022-06-27 11:50:28.244046504 +0000 UTC m=+3599.059213960
 ```
 
 Let's perform token introspection on that token. Make sure to copy the token you just got and not the dummy value.
 
 ```sh
 docker-compose -f quickstart.yml exec hydra \
-    hydra token introspect \
-    --endpoint http://127.0.0.1:4445/ \
-    UDYMha9TwsMBejEvKfnDOXkhgkLsnmUNYVQDklT5bD8.ZNpuNRC85erbIYDjPqhMwTinlvQmNTk_UvttcLQxFJY
+  hydra introspect token \
+  --format json-pretty \
+  --endpoint http://127.0.0.1:4445/ \
+  UDYMha9TwsMBejEvKfnDOXkhgkLsnmUNYVQDklT5bD8.ZNpuNRC85erbIYDjPqhMwTinlvQmNTk_UvttcLQxFJY
 
 {
-    "active": true,
-    "client_id": "my-client",
-    "exp": 1527078658,
-    "iat": 1527075058,
-    "iss": "http://127.0.0.1:4444/",
-    "sub": "my-client",
-    "token_type": "access_token"
+  "active": true,
+  "client_id": "24451202-afa7-4278-98ce-8d40f421afec",
+  "exp": 1656330629,
+  "iat": 1656327029,
+  "iss": "http://127.0.0.1:4444",
+  "nbf": 1656327029,
+  "sub": "24451202-afa7-4278-98ce-8d40f421afec",
+  "token_type": "Bearer",
+  "token_use": "access_token"
 }
 ```
 
@@ -140,15 +151,17 @@ Next, we will perform the OAuth 2.0 Authorization Code Grant. For that, we must 
 that grant:
 
 ```sh
-docker-compose -f quickstart.yml exec hydra \
-    hydra clients create \
+code_client=$(docker-compose -f quickstart.yml exec hydra \
+    hydra create client \
     --endpoint http://127.0.0.1:4445 \
-    --id auth-code-client \
-    --secret secret \
-    --grant-types authorization_code,refresh_token \
-    --response-types code,id_token \
-    --scope openid,offline \
-    --callbacks http://127.0.0.1:5555/callback
+    --grant-type authorization_code,refresh_token \
+    --response-type code,id_token \
+    --format json \
+    --scope openid --scope offline \
+    --redirect-uri http://127.0.0.1:5555/callback)
+
+code_client_id=$(echo $code_client | jq -r '.client_id')
+code_client_secret=$(echo $code_client | jq -r '.client_secret')
 ```
 
 Note that you need to add `--token-endpoint-auth-method none` if your clients are public (such as SPA apps and native apps)
@@ -159,12 +172,12 @@ Authorization Code Flow using Ory Hydra. The web server runs on [http://127.0.0.
 
 ```sh
 docker-compose -f quickstart.yml exec hydra \
-    hydra token user \
-    --client-id auth-code-client \
-    --client-secret secret \
+    hydra perform authorization-code \
+    --client-id $code_client_id \
+    --client-secret $code_client_secret \
     --endpoint http://127.0.0.1:4444/ \
     --port 5555 \
-    --scope openid,offline
+    --scope openid --scope offline
 
 Setting up home route on http://127.0.0.1:5555/
 Setting up callback listener on http://127.0.0.1:5555/callback

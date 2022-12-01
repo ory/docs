@@ -1,55 +1,7 @@
-const githubPrismTheme = require("prism-react-renderer/themes/github")
+// Copyright © 2022 Ory Corp
+// SPDX-License-Identifier: Apache-2.0
 
-const prismThemeLight = {
-  ...githubPrismTheme,
-  styles: [
-    ...githubPrismTheme.styles,
-    {
-      languages: ["keto-relation-tuples"],
-      types: ["namespace"],
-      style: {
-        color: "#666",
-      },
-    },
-    {
-      languages: ["keto-relation-tuples"],
-      types: ["object"],
-      style: {
-        color: "#939",
-      },
-    },
-    {
-      languages: ["keto-relation-tuples"],
-      types: ["relation"],
-      style: {
-        color: "#e80",
-      },
-    },
-    {
-      languages: ["keto-relation-tuples"],
-      types: ["delimiter"],
-      style: {
-        color: "#555",
-      },
-    },
-    {
-      languages: ["keto-relation-tuples"],
-      types: ["comment"],
-      style: {
-        color: "#999",
-      },
-    },
-    {
-      languages: ["keto-relation-tuples"],
-      types: ["subject"],
-      style: {
-        color: "#903",
-      },
-    },
-  ],
-}
-
-module.exports = {
+const config = {
   customFields: {
     CLOUD_URL: process.env.CLOUD_URL || "https://api.console.ory:8080",
   },
@@ -101,27 +53,22 @@ module.exports = {
           label: "Documentation",
         },
         {
-          type: "doc",
-          position: "left",
-          docId: "reference/api",
-          label: "API reference",
-        },
-        {
           type: "docSidebar",
           position: "left",
           sidebarId: "sdk",
-          label: "SDKs",
-        },
-        {
-          to: "/examples",
-          position: "left",
-          label: "Examples",
+          label: "SDK",
         },
         {
           type: "docSidebar",
           position: "left",
-          sidebarId: "opensource",
-          label: "Open source",
+          sidebarId: "api",
+          label: "API",
+        },
+        {
+          type: "docSidebar",
+          position: "left",
+          sidebarId: "selfhosting",
+          label: "Self-hosting",
         },
         {
           to: "https://www.ory.sh/",
@@ -150,23 +97,28 @@ module.exports = {
       copyright: `Copyright © ${new Date().getFullYear()} Ory Corp`,
       links: [
         {
-          title: "Company",
-          items: [
-            {
-              label: "Imprint",
-              href: "https://www.ory.sh/imprint",
-            },
-            {
-              label: "Privacy",
-              href: "https://www.ory.sh/privacy",
-            },
-            {
-              label: "Terms",
-              href: "https://www.ory.sh/tos",
-            },
-          ],
+          label: "Status",
+          href: "https://status.ory.sh/",
+        },
+        {
+          label: "Privacy",
+          href: "https://www.ory.sh/privacy",
+        },
+        {
+          label: "Imprint",
+          href: "https://www.ory.sh/imprint",
+        },
+        {
+          label: "Terms of Service",
+          href: "https://www.ory.sh/tos",
         },
       ],
+      logo: {
+        alt: "Ory logo in white",
+        src: "/docs/img/logo-ory-white.svg",
+        href: "https://opensource.fb.com",
+        height: 80,
+      },
     },
   },
   plugins: [
@@ -186,8 +138,12 @@ module.exports = {
       },
     ],
     "@docusaurus/plugin-content-pages",
-    require.resolve("./src/plugins/ory-scripts-loader"),
     require.resolve("./src/plugins/docusaurus-plugin-matamo"),
+    process.env.NODE_ENV !== "development" && [
+      "./src/plugins/plugin-usercentrics-gtm",
+      { usercentricsID: "dwogEWVkK", gtmID: "GTM-NTT7RMX" },
+    ],
+    require.resolve("./src/plugins/docusaurus-polyfill"),
     "@docusaurus/plugin-sitemap",
     [
       "@docusaurus/plugin-client-redirects",
@@ -198,6 +154,20 @@ module.exports = {
           // to: '/docs/welcome'
           // }
         ],
+      },
+    ],
+  ],
+  presets: [
+    [
+      "redocusaurus",
+      {
+        specs: [
+          {
+            id: "ory-network-api",
+            spec: "docs/reference/api.json",
+          },
+        ],
+        theme: {},
       },
     ],
   ],
@@ -216,3 +186,13 @@ module.exports = {
     "/docs/scripts/redirect.js",
   ],
 }
+
+async function createConfig() {
+  const lightTheme = (await import("./src/utils/prismLight.mjs")).default
+  const darkTheme = (await import("./src/utils/prismDark.mjs")).default
+  config.themeConfig.prism.theme = lightTheme
+  config.themeConfig.prism.darkTheme = darkTheme
+  return config
+}
+
+module.exports = createConfig

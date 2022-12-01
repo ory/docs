@@ -1,30 +1,30 @@
 ---
 id: configure-permission-service
-title: Configure permission service
+title: Configure Ory Permissions
 ---
 
-Using the Ory CLI, you can quickly adjust the configuration of the Ory Cloud Permission Service and apply config from the Cloud
-environment to self-hosted Ory Keto instances.
+Using the Ory CLI, you can quickly adjust the configuration of Ory Permissions and apply config from the Ory Network environment
+to self-hosted Ory Keto instances.
 
 :::tip
 
-Ory Keto is the open-source project that powers the Ory Cloud Permission Service.
+Ory Keto is the open-source project that powers Ory Permissions.
 
 :::
 
-This feature is useful for fluently moving your local setup to the Cloud, or for working on the configuration and testing
+This feature is useful for fluently moving your local setup to The Ory Network, or for working on the configuration and testing
 different settings in the safety of the local development environment.
 
-To work with the Ory Cloud Permission Service, you must have an active Ory Cloud project. Use the
-[CLI](./config-with-cli#create-ory-cloud-project) or the [Ory Console](https://console.ory.sh/) to create one.
+To work with the Ory Permissions, you must have an active project. Use the [CLI](./config-with-cli#create-ory-cloud-project) or
+the [Ory Console](https://console.ory.sh/) to create one.
 
-## Export configuration from Ory Cloud
+## Export configuration from The Ory Network
 
-To get your project's Permission Service configuration, run this command:
+To get your project's Ory Permissions configuration, run this command:
 
 :::info
 
-You must be signed in to an Ory Cloud account to perform this action. Read
+You must be signed in to an Ory Network account to perform this action. Read
 [this document](./cli-basics#use-cli-with-existing-cloud-account) to learn more.
 
 :::
@@ -43,22 +43,22 @@ Getting the configuration in the YAML format produces output that is ready to us
 
 ### Export to file
 
-For a convenient way to get the Permission Service configuration working in self-hosted Ory Keto, save the configuration to a YAML
+For a convenient way to get the Ory Permissions configuration working in self-hosted Ory Keto, save the configuration to a YAML
 file.
 
 Run this command:
 
 ```bash
-ory get permission-config <project-id> --format yaml > identity-config.yaml
+ory get permission-config <project-id> --format yaml > permission-config.yaml
 ```
 
-## Import configuration to Ory Cloud
+## Import configuration to The Ory Network
 
-To start using the configuration from a self-hosted Ory Keto instance in the Ory Cloud Permission Service, import the
-configuration file with the CLI:
+To start using the configuration from a self-hosted Ory Keto instance in the Ory Permissions, import the configuration file with
+the CLI:
 
 ```shell
-ory update permission-config <project-id> --file config.yaml
+ory update permission-config <project-id> --file permission-config.yaml
 ```
 
 ## Adjust specific keys
@@ -77,3 +77,70 @@ ory patch permission-config <project-id> \
 Read [this document](./config-with-cli) to learn more about adjusting project configuration with the Ory CLI.
 
 :::
+
+## Manage relation tuples
+
+You can manage [relation tuples](../../keto/concepts/relation-tuples) using Ory CLI. To run these operations, you must provide the
+ID of the project in which you want to manage the tuples using the `--project` flag.
+
+For convenience, you can export the ID of your project as an environment variable and use the variable with the `--project` flag
+instead of passing the project ID directly in the command:
+
+:::info
+
+Examples in this section use the environment variable. To try them out without making adjustments, export your project ID as an
+environment variable.
+
+:::
+
+```bash
+## List all available projects
+ory list projects
+
+## Export project ID as env. variable
+export PROJECT=<ory-project-id>
+```
+
+### Create
+
+Read the [Ory CLI reference](../../cli/ory-create-relation-tuples) to learn more about this command.
+
+```bash
+echo "groups:devs#member@tom" \
+  | ory parse relation-tuples --project=$PROJECT --format=json \
+  | ory create relation-tuples --project=$PROJECT
+# NAMESPACE	OBJECT	RELATION NAME	SUBJECT
+# groups		devs	member		tom
+```
+
+### List
+
+Read the [Ory CLI reference](../../cli/ory-list-relation-tuples) to learn more about this command.
+
+```bash
+ory list relation-tuples --project=$PROJECT
+# NAMESPACE	OBJECT	RELATION NAME	SUBJECT
+# groups		devs	member		tom
+#
+# NEXT PAGE TOKEN
+# IS LAST PAGE	true
+```
+
+### Delete
+
+Read the [Ory CLI reference](../../cli/ory-delete-relation-tuples) to learn more about this command.
+
+```bash
+ory delete relation-tuples --project=$PROJECT --all
+# WARNING: This operation is not reversible. Please use the `--force` flag to proceed.
+# These tuples would be deleted:
+#
+# NAMESPACE	OBJECT	RELATION NAME	SUBJECT
+# groups		devs	member		tom
+#
+# NEXT PAGE TOKEN
+# IS LAST PAGE	true
+
+## Delete the tuple(s) after making sure this is what you want to do.
+ory delete relation-tuples --project=$PROJECT --all --force
+```

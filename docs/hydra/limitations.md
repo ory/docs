@@ -10,19 +10,20 @@ Ory Hydra tries to solve all of OAuth 2.0 and OpenID Connect uses. There are, ho
 Ory Hydra has issues with MySQL <= 5.6 (but not MySQL 5.7+) and certain MariaDB versions. Read more about this
 [here](https://github.com/ory/hydra/issues/377). Our recommendation is to use MySQL 5.7+ or PostgreSQL.
 
-## OAuth 2.0 client secret length
+## OAuth 2.0 Client Secret BCrypt Length
 
-OAuth 2.0 Client Secrets are hashed using BCrypt. BCrypt has, by design, a maximum password length. The Golang BCrypt library has
-a maximum password length of 73 bytes. Any password longer will be "truncated":
+When using BCrypt as the OAuth 2.0 Client Secrets hashing algorithm, the length of the hsecretsh is limited to 72 characters.
+BCrypt has, by design, a maximum password length. The Golang BCrypt library has a maximum password length of 73 bytes. Any
+password longer will be "truncated":
 
 ```sh
-hydra clients create --id long-secret \
+hydra create client \
   --secret 525348e77144a9cee9a7471a8b67c50ea85b9e3eb377a3c1a3a23db88f9150eefe76e6a339fdbc62b817595f53d72549d9ebe36438f8c2619846b963e9f43a94 \
   --endpoint http://localhost:4445 \
   --token-endpoint-auth-method client_secret_post \
-  --grant-types client_credentials
+  --grant-type client_credentials
 
-hydra token client --client-id long-secret \
+hydra perform client-credentials --client-id <the-client-id> \
   --client-secret 525348e77144a9cee9a7471a8b67c50ea85b9e3eb377a3c1a3a23db88f9150eefe76e6a3 \
   --endpoint http://localhost:4444
 ```

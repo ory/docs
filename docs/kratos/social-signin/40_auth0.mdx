@@ -4,15 +4,17 @@ title: Add Auth0 as a social sign-in provider in Ory
 sidebar_label: Auth0
 ---
 
-## Configuration for Ory Cloud
+# Auth0
 
-Follow these steps to add Auth0 as a social sign-in provider to your Ory Cloud project using the Ory CLI:
+## Configuration for Ory Network
+
+Follow these steps to add Auth0 as a social sign-in provider to your project using the Ory CLI:
 
 1. [Create an Auth0 Application for your Auth0 Tenant](https://auth0.com/docs/applications).
 2. In the created app, set the redirect URI to:
 
    ```shell
-   https://<ory-cloud-project-slug>.projects.oryapis.com/self-service/methods/oidc/callback/auth0
+   https://<ory-project-slug>.projects.oryapis.com/self-service/methods/oidc/callback/auth0
    ```
 
 <a name="mapping"></a>
@@ -54,8 +56,8 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
 <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
 ```
 
-4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Cloud.
-5. Download the Identity Service config from your Ory Cloud project and save it to a file:
+4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to The Ory Network.
+5. Download the Ory Identities config from your project and save it to a file:
 
    ```shell
    ## List all available projects
@@ -91,36 +93,13 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
          enabled: true
    ```
 
-7. Update the Ory Identity Service (Ory Kratos) configuration using the file you worked with:
+7. Update the Ory Identities (Ory Kratos) configuration using the file you worked with:
 
    ```shell
    ory update identity-config <project-id> --file updated_config.yaml
    ```
 
-## Configuration for self-hosted instances
-
-Follow these steps to add Auth0 as a social sign-in provider when self-hosting Ory Kratos:
-
-1. [Create an Auth0 Application for your Auth0 Tenant](https://auth0.com/docs/applications).
-2. Set the redirect URI to URL that follows this pattern:
-
-   ```shell
-   http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/auth0
-   ```
-
-3. Create a [Jsonnet code snippet to map the desired claims to the Ory Identity schema](#mapping).
-4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or store it in a location available to your Ory Kratos
-   instance.
-5. Add the social [sign-in provider configuration to the Ory Kratos configuration](#config). Add the Jsonnet snippet with mappings
-   as a Base64 string or provide a path or an URL of the file.
-
-```mdx-code-block
-import ConfigAsEnv from '../_common/config_as_env.mdx'
-
-<ConfigAsEnv />
-```
-
-## Prevent having to login after sign-up
+## Prevent having to log in after sign-up
 
 ```mdx-code-block
 import OidcSessionHook from '../_common/oidc_session_hook.mdx'

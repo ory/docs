@@ -1,13 +1,17 @@
+// Copyright © 2022 Ory Corp
+// SPDX-License-Identifier: Apache-2.0
+
 import { useEffect, useState } from "react"
-import { Configuration, Project, V0alpha0Api } from "@ory/client"
+import { Configuration, V0alpha2Api } from "@ory/client"
 import { Octokit } from "@octokit/rest"
 import useDocusaurusContext from "@docusaurus/core/lib/client/exports/useDocusaurusContext"
+import { ProjectMetadata } from "@ory/client/api"
 
 export function getSdkUrl() {
-  const [project, setProject] = useState<Project | undefined>()
+  const [project, setProject] = useState<ProjectMetadata | undefined>()
   const { siteConfig } = useDocusaurusContext()
 
-  const sdk = new V0alpha0Api(
+  const sdk = new V0alpha2Api(
     new Configuration({
       basePath: String(siteConfig.customFields.CLOUD_URL),
       baseOptions: {
@@ -20,22 +24,8 @@ export function getSdkUrl() {
     sdk
       .listProjects()
       .then(({ data: projects }) => {
-        return sdk
-          .getActiveProject()
-          .then(({ data }) => {
-            const active = data.project_id
-            const found = projects.find((p) => p.id === active)
-            if (!found && projects.length > 0) {
-              setProject(projects[0])
-              return
-            }
-            setProject(found)
-            return
-          })
-          .catch(() => {
-            // Fall back to the first project found
-            setProject(projects[0])
-          })
+        // Fall back to the first project found
+        setProject(projects[0])
       })
       .catch(() => {
         // do nothing
@@ -44,13 +34,13 @@ export function getSdkUrl() {
 
   const hint = project
     ? ""
-    : `# This is a public Ory Cloud Project.
+    : `# This is a public Ory Network Project.
 # Don’t submit any personally identifiable information in requests made with this project.
-# Sign up for Ory Cloud at
+# Sign up to Ory Network at
 #
 #   https://console.ory.sh/registration
 #
-# and create a free Ory Cloud Project to see your own configuration embedded in code samples!
+# and create a free Ory Network Project to see your own configuration embedded in code samples.
 `
   return {
     hint,

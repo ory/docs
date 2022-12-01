@@ -4,7 +4,7 @@ title: Self-service flows
 sidebar_label: Concepts and overview
 ---
 
-Ory Kratos implements flows that users perform themselves as opposed to administrative intervention. Facebook and Google both
+Ory Identities implements flows that users perform themselves as opposed to administrative intervention. Facebook and Google both
 provide self-service registration and profile management features as you are able to make changes to your profile and sign up
 yourself.
 
@@ -29,14 +29,14 @@ There are also many other areas you need to think about, such as:
 - Mobile, Smart TV, ... authentication
 - Linking and unlinking social profiles (for example "Sign in with Google" or "Connect with Google") to existing accounts
 
-Ory Kratos applies best practices established by experts (National Institute of Sciences NIST, Internet Engineering Task Force
+Ory Identities applies best practices established by experts (National Institute of Sciences NIST, Internet Engineering Task Force
 IETF, Microsoft Research, Google Research, Troy Hunt, ...) and implements the following flows:
 
 - [Registration](self-service/flows/user-registration.mdx)
 - [Login](self-service/flows/user-login.mdx)
 - [Logout](self-service/flows/user-logout.mdx)
 - [User Settings](self-service/flows/user-settings.mdx)
-- [Account Recovery](self-service/flows/account-recovery.mdx)
+- [Account Recovery](./self-service/flows/account-recovery-password-reset.mdx)
 - [Address Verification](self-service/flows/verify-email-account-activation.mdx)
 - [User-Facing Error](self-service/flows/user-facing-errors.md)
 - 2FA / MFA
@@ -48,6 +48,7 @@ Some flows break down into "flow methods" which implement some of the flow's bus
 - The `oidc` (OpenID Connect, OAuth2, Social Sign In) method implements "Sign in with ..." login and registration method and
   "un/link another social account" user settings method.
 - The `profile` method implements the "update your profile", "change your first/last name, ..." user settings method).
+- The `code` method implements a one-time-password sent to the user via their recovery addresses (Email, SMS, etc.)
 - The `link` method implements the "click this link to reset your password" account recovery method.
 
 Some flows implement the ability [to run hooks](hooks/configure-hooks) which allow users to be immediately signed in after
@@ -55,7 +56,7 @@ registration, notify another system on successful registration (such as Mailchim
 
 ## Performing login, registration, settings, ... flows
 
-There are two flow types supported in Ory Kratos:
+There are two flow types supported in Ory Identities:
 
 - Flows where the user sits in front of the Browser and the application is
   - a server-side application (Node.js, Java, ...)
@@ -64,7 +65,7 @@ There are two flow types supported in Ory Kratos:
 
 All Self-Service Flows ([User Login](self-service/flows/user-login.mdx),
 [User Registration](self-service/flows/user-registration.mdx), [Profile Management](self-service/flows/user-settings.mdx),
-[Account Recovery](self-service/flows/account-recovery.mdx),
+[Account Recovery](.//self-service/flows/account-recovery-password-reset.mdx),
 [Email or Phone verification](self-service/flows/verify-email-account-activation.mdx)) support these two flow types and use the
 same data models but do use different API endpoints.
 
@@ -78,7 +79,7 @@ Browser-based flows for server-side apps make use of three core HTTP technologie
 - HTTP POST (`application/x-www-urlencoded`) and REST GET requests.
 - HTTP Cookies to prevent CSRF and Session Hijacking attack vectors.
 
-Ory Kratos takes care of all required session and CSRF cookies and ensures that all security requirements are fulfilled.
+Ory Identities takes care of all required session and CSRF cookies and ensures that all security requirements are fulfilled.
 
 The browser flow has three stages:
 
@@ -88,8 +89,8 @@ The browser flow has three stages:
 
 :::note
 
-All examples use Ory Cloud playground project. Please be aware that everyone can see the data you enter there. You can replace the
-URL with a locally hosted Ory Kratos as well.
+All examples use the "Playground" project in The Ory Network. Please be aware that everyone can see the data you enter there. You
+can replace the URL with a locally hosted Ory Identities as well.
 
 :::
 
@@ -162,7 +163,7 @@ flowId=$(curl -s -X GET \
     -H "Accept: application/json" \
     https://playground.projects.oryapis.com/self-service/login/browser | jq -r '.id')
 
-# The endpoint uses Ory Kratos' REST API to fetch information about the request
+# The endpoint uses Ory Identities' REST API to fetch information about the request
 curl -s -X GET \
     --cookie-jar $cookieJar --cookie $cookieJar \
     -H "Accept: application/json" \
@@ -295,12 +296,12 @@ The flow UI then renders the given methods. For the example above, a suitable HT
 
 ### Form submission and payload validation
 
-The user completes the flow by submitting the form. The form action always points to Ory Kratos directly. The business logic for
-the flow method will then validate the form payload and return to the UI URL on validation errors. The UI then fetches the
+The user completes the flow by submitting the form. The form action always points to Ory Identities directly. The business logic
+for the flow method will then validate the form payload and return to the UI URL on validation errors. The UI then fetches the
 information about the flow again
 
 ```
-# The endpoint uses Ory Kratos' REST API to fetch information about the request
+# The endpoint uses Ory Identities' REST API to fetch information about the request
 theFlowID=...
 curl -s -i -X GET \
     -H "Accept: application/json"  \
@@ -391,8 +392,8 @@ to perform requests.
 
 :::info
 
-Ory Kratos and your UI must be hosted on same top level domain! You can't host Ory Kratos and your UI on separate top level
-domains:
+Ory Identities and your UI must be hosted on same top level domain! You can't host Ory Identities and your UI on separate top
+level domains:
 
 - `kratos.bar.com` and `ui.bar.com` will work;
 - `kratos.bar.com` and `bar.com` will work;
@@ -400,7 +401,7 @@ domains:
 
 :::
 
-Ory Kratos identifies SPA requests by checking if the `Accept` HTTP Header is set to `application/json`.
+Ory Identities identifies SPA requests by checking if the `Accept` HTTP Header is set to `application/json`.
 
 If it is, these flows act like an API flow and respond with JSON instead of HTTP redirects while still setting and requiring the
 necessary cookies for CSRF, sessions, and more:

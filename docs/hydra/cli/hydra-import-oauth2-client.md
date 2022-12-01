@@ -1,7 +1,7 @@
 ---
 id: hydra-import-oauth2-client
 title: hydra import oauth2-client
-description: hydra import oauth2-client Import OAuth 2.0 Clients from files or STDIN
+description: hydra import oauth2-client Import one or more OAuth 2.0 Clients from files or STDIN
 ---
 
 <!--
@@ -11,7 +11,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## hydra import oauth2-client
 
-Import OAuth 2.0 Clients from files or STDIN
+Import one or more OAuth 2.0 Clients from files or STDIN
 
 ### Synopsis
 
@@ -29,13 +29,13 @@ The format for the JSON file is:
 Please be aware that this command does not update existing clients. If the client exists already, this command will fail.
 
 ```
-hydra import oauth2-client [file-1.json] [file-2.json] [file-3.json] [file-n.json] [flags]
+hydra import oauth2-client <file-1.json> [<file-2.json> ...] [flags]
 ```
 
 ### Examples
 
 ```
-Create an example OAuth2 Client:
+Import an example OAuth2 Client:
 	cat > ./file.json <<EOF
 	[
       {
@@ -49,15 +49,15 @@ Create an example OAuth2 Client:
     ]
 	EOF
 
-	hydra import client file.json
+	{{ .CommandPath }} file.json
 
 Alternatively:
 
-	cat file.json | hydra import client
+	cat file.json | {{ .CommandPath }}
 
 To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp-key-url` or `--keybase` flag, for example:
 
-  hydra create client -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
+  {{ .CommandPath }} -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
 
 ```
 
@@ -74,7 +74,7 @@ To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp
 
 ```
   -e, --endpoint string   The API URL this command should target. Alternatively set using the ORY_SDK_URL environmental variable.
-      --format string     Set the output format. One of table, json, yaml, and json-pretty. (default "default")
+      --format string     Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -H, --http-header :     A list of additional HTTP headers to set. HTTP headers is separated by a : , for example: `-H 'Authorization: bearer some-token'`.
   -q, --quiet             Be quiet with output printing.
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
