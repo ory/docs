@@ -303,6 +303,25 @@ In that case result of the `salting` process would be:
 salt123--ory123
 ```
 
+### SSHA, SSHA256, and SSHA512
+
+Ory Identities doesn't hash passwords by salted SHA but can compare stored salted SHA hashes and migrate to configured hasher
+(`hashers.algorithm`). SSHA does not take in any parameters for verification.
+
+#### Examples
+
+```
+{SSHA}JFZFs0oHzxbMwkSJmYVeI8MnTDy/276a
+```
+
+```
+{SSHA256}czO44OTV17PcF1cRxWrLZLy9xHd7CWyVYplr1rOhuMlx/7IK
+```
+
+```
+{SSHA512}xPUl/px+1cG55rUH4rzcwxdOIPSB2TingLpiJJumN2xyDWN4Ix1WQG3ihnvHaWUE8MYNkvMi5rf0C9NYixHsE6Yh59M=
+```
+
 ### PBKDF2
 
 Ory Identities doesn't hash passwords by PBKDF2 but can compare stored PBKDF2 hash and migrate to configured hasher
