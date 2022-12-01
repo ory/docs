@@ -1,0 +1,79 @@
+---
+id: expressjs
+title: Add OAuth2 and OpenID Connect to your NodeJS / ExpressJS application
+sidebar_label: Node.js / Express.js
+slug: add-oauth2-openid-connect-nodejs-expressjs
+---
+
+# Add OAuth2 and OpenID Connect to your ExpressJS app
+
+Adding OAuth2 to any application using the Ory Network is straight forward. This guide demonstrates how to write an app receiving
+OAuth2 and OpenID Connect tokens.
+
+## Prerequisites
+
+1. [Install the Ory CLI](../../guides/cli/01_installation.mdx)
+2. Create an Ory Network project if you don't have one yet:
+
+   ```shell
+   ory create project --name "Ory Docs OAuth2 Integration Example"
+   project_id="{set to the project ID from output}"
+
+   # Use the email identity schema preset
+   ory patch identity-config $project_id \
+     --replace '/identity/default_schema_id="preset://email"' \
+     --replace '/identity/schemas=[{"id":"preset://email","url":"preset://email"}]'
+
+   export ORY_PROJECT_SLUG="{set to the project slug from output}"
+   ```
+
+3. Create an OAuth2 client to be used by your app:
+
+   :::note
+
+   If you are not using our example code, replace `http://localhost:3000/callback` with the URL of your app's callback endpoint.
+
+   :::
+
+   ```shell
+   ory create oauth2-client --project $project_id \
+     --name "Ory Docs OAuth2 Integration Example Client" \
+     --grant-type authorization_code,refresh_token,client_credentials \
+     --response-type code \
+     --scope openid --scope offline_access --scope email \
+     --redirect-uri http://localhost:3000/callback
+   export OAUTH_CLIENT_ID="{set to the client ID from output}"
+   export OAUTH_CLIENT_SECRET="{set to the client secret from output}"
+   ```
+
+## Add OAuth2 to ExpressJS
+
+Adding OAuth2 to an ExpressJS app is straight forward. Create the ExpressJS application from scratch
+
+```shell
+mkdir example
+cd example
+npm init -y
+npm install express-openid-connect express
+```
+
+and create a file `server.js` with the following content:
+
+```mdx-code-block title="server.js"
+import CodeBlock from '@theme/CodeBlock';
+import content from '!!raw-loader!../../../code-examples/getting-started/oauth2-integration/express/server.js';
+
+<CodeBlock language="js">{content}</CodeBlock>
+```
+
+Finally, start the server
+
+```shell
+export ORY_PROJECT_SLUG="{set to the project slug from output}"
+export OAUTH_CLIENT_ID="{set to the client ID from output}"
+export OAUTH_CLIENT_SECRET="{set to the client secret from output}"
+
+node server.js
+```
+
+and open [http://localhost:3000](http://localhost:3000) in your browser.
