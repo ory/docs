@@ -4,7 +4,9 @@ title: Add NetID as a social sign-in provider in Ory
 sidebar_label: NetID
 ---
 
-## Configuration for The Ory Network
+# NetID
+
+## Configuration for Ory Network
 
 Follow these steps to add NetID as a social sign-in provider to your project using the Ory CLI:
 
@@ -105,30 +107,6 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
    ```shell
    ory update identity-config <project-id> --file updated_config.yaml
    ```
-
-## Configuration for self-hosted instances
-
-Follow these steps to add NetID as a social sign-in provider when self-hosting Ory Kratos:
-
-1. Create a [NetID Service](https://developerzone.netid.dev/devportal/tutorial/services/) and
-   [NetID Client](https://developerzone.netid.dev/devportal/tutorial/clients/).
-2. Set the redirect URI to URL that follows this pattern:
-
-   ```shell
-   http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/netid
-   ```
-
-3. Create a [Jsonnet code snippet to map the desired claims to the Ory Identity schema](#mapping).
-4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or store it in a location available to your Ory Kratos
-   instance.
-5. Add the social [sign-in provider configuration to the Ory Kratos configuration](#config). Add the Jsonnet snippet with mappings
-   as a Base64 string or provide a path or an URL of the file.
-
-```mdx-code-block
-import ConfigAsEnv from '../_common/config_as_env.mdx'
-
-<ConfigAsEnv />
-```
 
 ## Prevent having to log in after sign-up
 

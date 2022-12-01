@@ -1,0 +1,25 @@
+```mdx-code-block
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import MacOS from '@site/src/components/Install/MacOS'
+import Linux from '@site/src/components/Install/Linux'
+import Windows from '@site/src/components/Install/Windows'
+
+<Tabs
+  defaultValue="macos"
+  values={[
+    { label: 'macOS', value: 'macos' },
+    { label: 'Linux', value: 'linux' },
+    { label: 'Windows', value: 'windows' },
+  ]}>
+  <TabItem value="linux">
+    <Linux repo="ory" name="the Ory CLI" />
+  </TabItem>
+  <TabItem value="macos">
+    <MacOS repo="ory" name="the Ory CLI" />
+  </TabItem>
+  <TabItem value="windows">
+    <Windows repo="ory" name="the Ory CLI"  />
+  </TabItem>
+</Tabs>
+```

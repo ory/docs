@@ -1,7 +1,7 @@
 ---
 id: keto-relation-tuple-create
 title: keto relation-tuple create
-description: keto relation-tuple create Create relation tuples from JSON files
+description: keto relation-tuple create Create relationships from JSON files
 ---
 
 <!--
@@ -11,16 +11,16 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## keto relation-tuple create
 
-Create relation tuples from JSON files
+Create relationships from JSON files
 
 ### Synopsis
 
-Create relation tuples from JSON files.
-A directory will be traversed and all relation tuples will be created.
+Create relationships from JSON files.
+A directory will be traversed and all relationships will be created.
 Pass the special filename `-` to read from STD_IN.
 
 ```
-keto relation-tuple create <relation-tuple.json> [<relation-tuple-dir>] [flags]
+keto relation-tuple create <relationships.json> [<relationships-dir>] [flags]
 ```
 
 ### Options
@@ -44,5 +44,5 @@ keto relation-tuple create <relation-tuple.json> [<relation-tuple-dir>] [flags]
 
 ### SEE ALSO
 
-* [keto relation-tuple](keto-relation-tuple)	 - Read and manipulate relation tuples
+* [keto relation-tuple](keto-relation-tuple)	 - Read and manipulate relationships
 

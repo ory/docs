@@ -1,8 +1,10 @@
 ---
 id: get-tokens
 title: Learn how to get OIDC/OAuth 2.0 access, refresh, and ID tokens issued by social sign-in providers
-sidebar_label: Get social sign-in provider tokens
+sidebar_label: Get OAuth2 tokens
 ---
+
+# Get social sign-in provider tokens
 
 You can get the OIDC / OAuth 2.0 access, refresh, and ID tokens issued for the identity by social sign-in providers.
 
@@ -16,51 +18,43 @@ Run this command to get the Identity details that include the social sign-in pro
 ````mdx-code-block
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import CodeFromRemote from '@theme/CodeFromRemote'
+import CodeBlock from '@theme/CodeBlock'
+
+import goExample from '!!raw-loader!../../../code-examples/sdk/go/social/get_token.go'
+import tsExample from '!!raw-loader!../../../code-examples/sdk/typescript/src/social/get-token.ts'
 
 <Tabs>
-<TabItem value="The Ory Network">
+<TabItem value="Ory CLI">
 
-Use the Ory CLI:
-
-```shell
-ory get identity <IDENTITY_ID> --project <ORY_CLOUD_PROJECT_ID> -i oidc --format yaml
+```bash
+ory get identity "{identity.id}" --project "{project.id}" \
+  -i oidc --format yaml
 ```
-
-Alternatively, call the API:
-
-```shell
-curl --request GET -sL \
-     --header "Content-Type: application/json" \
-     --header "Authorization: Bearer <ORY_PERSONAL_ACCESS_TOKEN>" \
-    'https://<project-slug>.projects.oryapis.com/admin/identities/<identity_id>?include_credential=oidc'
-```
-
-:::info
-
-When calling the API directly, you must include a valid Personal Access Token (PAT) created for the project with the requested
-Identity in the call.
-
-To get a PAT, sign in at [console.ory.sh](https://console.ory.sh/), select **Connect** from the left
-navigation panel, and create a new token in the **Personal Access Tokens** section.
-
-:::
 
 </TabItem>
-<TabItem value="Self-hosted Instances">
+<TabItem value="cURL">
 
-```
+```bash
 curl --request GET -sL \
-     --header "Content-Type: application/json" \
-    http://127.0.0.1:4434/admin/identities/<identity_id>\?include_credential\=oidc
+  --header "Content-Type: application/json" \
+  --header "Authorization: Bearer {ORY_API_KEY}" \
+  'https://{project.slug}.projects.oryapis.com/admin/identities/<identity_id>?include_credential=oidc'
 ```
 
+</TabItem>
+<TabItem value="JavaScript">
+  <CodeBlock language="ts">{tsExample}</CodeBlock>
+</TabItem>
+<TabItem value="Go">
+  <CodeBlock language="ts">{goExample}</CodeBlock>
 </TabItem>
 </Tabs>
 ````
 
 When the call is successful, the system returns the Identity details with the available social sign-in provider tokens:
 
-```sh
+```json5
 {
   "id": "IDENTITY_ID",
   "credentials": {
@@ -122,7 +116,5 @@ When the call is successful, the system returns the Identity details with the av
 
 ## Encryption
 
-By default, tokens are stored as plain text recorded with the default Noop cipher.
-
-To increase the security, you can choose to encode the tokens with AES or XChaCha20 Poly1305 ciphers. Read
-[this document](../../kratos/guides/select-cipher-algorithm) to learn how to choose the cipher.
+The Ory Network encrypts these tokens per default at rest using
+[XChaCha20 Poly1305](https://en.wikipedia.org/wiki/ChaCha20-Poly1305#XChaCha20-Poly1305_–_extended_nonce_variant).

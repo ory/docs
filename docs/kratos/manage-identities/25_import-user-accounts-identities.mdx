@@ -4,6 +4,8 @@ title: Learn how to import user accounts from other systems to Ory
 sidebar_label: Import identities
 ---
 
+# Import identities
+
 Ory allows you to import identities from any other system. The endpoint used is the same as when
 [creating identities](./create-users-identities) with the subtle difference that you also provide the `credentials` field.
 
@@ -163,7 +165,7 @@ self-service flows.
 
 :::
 
-```json {6-10}
+```json {6-12}
 {
   "schema_id": "preset://email",
   "traits": {
@@ -182,24 +184,11 @@ self-service flows.
 The password `the-password` will then be hashed according to the configured password hashing algorithm and stored in the database.
 The identity will be able to sign in using `docs-cleartext@example.org` and `the-password` as credentials.
 
-### BCrypt, PKBDF2, Argon2, SCrypt family hashed password
+### Hashed passwords
 
-Besides clear text passwords it is possible to import password hashes. Currently, the following algorithms are supported:
+To import a hashed password, provide the hashed password in the JSON payload.
 
-- SCrypt, for example:
-  `$scrypt$ln=16384,r=8,p=1$ZtQva9xCHzlSELH/mA7Kj5KjH2tCrkbwYzdxknkL0QQ=$pnTcXKaWVT+FwFDdk3vO1K0J7ZgOxdSU1tCJNYmn8zI=`
-- Firebase SCrypt, for example:
-  `$firescrypt$ln=14,r=8,p=1$sPtDhWcd1MfdAw==$xbSou7FOl6mChCyzpCPIQ7tku7nsQMTFtyOZSXXd7tjBa4NtimOx7v42Gv2SfzPQu1oxM2/k4SsbOu73wlKe1A==$Bw==$YE0dO4bwD4JnJafh6lZZfkp1MtKzuKAXQcDCJNJNyeCHairWHKENOkbh3dzwaCdizzOspwr/FITUVlnOAwPKyw==`
-- PKBDF2 family (`HMAC-SHA1`, `HMAC-SHA256`), for example:
-  `$pbkdf2-sha256$i=1000,l=128$e8/arsEf4cvQihdNgqj0Nw$5xQQKNTyeTHx2Ld5/JDE7A`
-- Argon2 family (`Argon2id`, `Argon2i`, `Argon2d`), for example:
-  `$argon2id$v=19$m=16,t=2,p=1$bVI1aE1SaTV6SGQ3bzdXdw$fnjCcZYmEPOUOjYXsT92Cg`
-- BCrypt, for example: `$2a$10$ZsCsoVQ3xfBG/K2z2XpBf.tm90GZmtOqtqWcB5.pYd5Eq8y7RlDyq`
-- MD5, for example: `$md5$pf=e1NBTFR9e1BBU1NXT1JEfQ==$MTIz$q+RdKCgc+ipCAcm5ChQwlQ==`
-
-Read [this document](../../kratos/concepts/credentials/username-email-password.mdx#hashed-password-format) to learn more.
-
-```json {6-10}
+```json {6-12}
 {
   "schema_id": "preset://email",
   "traits": {
@@ -215,6 +204,184 @@ Read [this document](../../kratos/concepts/credentials/username-email-password.m
 }
 ```
 
+### BCrypt
+
+Ory Identities can hash passwords by BCrypt and can compare stored BCrypt hash and migrate if configured hasher
+(`hashers.algorithm`) isn't BCrypt.
+
+#### Format
+
+BCrypt format is described [here](https://en.wikipedia.org/wiki/Bcrypt#Description).
+
+### Argon2
+
+Ory Identities can hash passwords by Argon2 and can compare stored Argon2 hash and migrate if configured hasher
+(`hashers.algorithm`) isn't Argon2.
+
+#### Format
+
+`$argon2id$v=<version>$m=<memory>,t=<iterations>,p=<parallelism>$<hash>`
+
+#### Parameters
+
+- `version`(`number`): The current version.
+- `memory`(`number`): Amount of memory to use.
+- `iterations`(`number`): Number of iterations to perform.
+- `parallelism`(`number`): Degree of parallelism.
+- `hash`(`string`): The computed derived key by the Argon2 algorithm encoded to Base64.
+
+#### Example
+
+```
+$argon2id$v=19$m=32,t=2,p=4$cm94YnRVOW5jZzFzcVE4bQ$MNzk5BtR2vUhrp6qQEjRNw
+```
+
+### MD5
+
+Ory Identities doesn't hash password by MD5 but can compare stored MD5 hashes and migrate to configured hasher
+(`hashers.algorithm`). You can configure MD5 hashes to use a plain format (for hashes without salt) or a salted format (for hashes
+with salt).
+
+#### Plain format (hashes without salt)
+
+```
+$md5$<hash>
+```
+
+#### Parameters
+
+- `hash`(`string`): The computed hash by the MD5 algorithm encoded to Base64.
+
+#### Example
+
+```
+$md5$CY9rzUYh03PK3k6DJie09g==
+```
+
+#### Salted format (hashes with salt)
+
+Using this format Administrators are able to import passwords that use _salting_ to calculate the MD5 hash. ORY doesn't prepend or
+append _the salt_ to _User's password_ instead it offers much flexible way on how _salting_ should be done. In order to specify
+that, a Base64 encoded format string should be put in the place of `salting-format` parameter. For more information about how to
+configure `salting-format`, read [this section](#salting-format-parameter).
+
+```
+$md5$pf=<salting-format>$<salt>$<hash>
+```
+
+#### Parameters
+
+- `salting-format`(`string`): Format string specifies how salting should be done. Must be encoded to Base64. For more details,
+  read [this section](#salting-format-parameter).
+- `salt`(`string`): A sequence of bits, known as a cryptographic salt encoded to Base64.
+- `hash`(`string`): The computed hash by the MD5 algorithm encoded to Base64.
+
+#### Example
+
+```
+$md5$pf=e1NBTFR9e1BBU1NXT1JEfQ==$MTIz$q+RdKCgc+ipCAcm5ChQwlQ==
+```
+
+##### Salting format parameter
+
+Below are formatting specifiers that can be used in the `salting-format`.
+
+- `{SALT}`: Salt value from the previous section.
+- `{PASSWORD}`: User's password in clear text.
+
+##### Example
+
+Assuming that User's password is `ory123` and salt is `c2FsdDEyMw==`(_in clear text: salt123_) and the clear text form of
+`salting-format` parameter as follows:
+
+```
+{SALT}--{PASSWORD}
+```
+
+In that case result of the `salting` process would be:
+
+```
+salt123--ory123
+```
+
+### PBKDF2
+
+Ory Identities doesn't hash passwords by PBKDF2 but can compare stored PBKDF2 hash and migrate to configured hasher
+(`hashers.algorithm`).
+
+#### Format
+
+```
+$pbkdf2-<algorithm>$i=<iteration>,l=<length>$<salt>$<hash>
+```
+
+#### Parameters
+
+- `digest`(`string`): The HMAC digest algorithm applied to derive a key of the input password.
+- `iterations`(`number`): The number of iterations desired. The higher the number of iterations, the more secure the derived key
+  will be, but will take a longer amount of time to complete.
+- `length`(`number`): Length in octets of derived key.
+- `salt`(`string`): A sequence of bits, known as a cryptographic salt encoded to Base64.
+- `hash`(`string`): The computed derived key by the PBKDF2 algorithm encoded to Base64.
+
+#### Example
+
+```
+$pbkdf2-sha256$i=100000,l=32$1jP+5Zxpxgtee/iPxGgOz0RfE9/KJuDElP1ley4VxXc$QJxzfvdbHYBpydCbHoFg3GJEqMFULwskiuqiJctoYpI
+```
+
+### SCrypt
+
+Ory Identities doesn't hash passwords by SCrypt but can compare stored SCrypt hashes and migrate to configured hasher
+(`hashers.algorithm`).
+
+#### Format
+
+```
+$scrypt$ln=<cost>,r=<block>,p=<parrelization>$<salt>$<hash>
+```
+
+#### Parameters
+
+- `cost`(`number`): CPU/memory cost (has to be power of 2 and >1)
+- `block`(`number`): block size parameter (must satisfy r \* p < 2³⁰)
+- `parallelization`(`number`): parallelization parameter (must satisfy r \* p < 2³⁰)
+- `salt`(`string`): A sequence of bits, known as a cryptographic salt encoded to Base64.
+- `hash`(`string`): The computed derived key by the SCrypt algorithm encoded to Base64.
+
+#### Example
+
+```
+$scrypt$ln=16384,r=8,p=1$ZtQva9xCHzlSELH/mA7Kj5KjH2tCrkbwYzdxknkL0QQ=$pnTcXKaWVT+FwFDdk3vO1K0J7ZgOxdSU1tCJNYmn8zI=
+```
+
+### Firebase SCrypt
+
+Ory Identities doesn't hash passwords by Firebase SCrypt but can compare stored Firebase SCrypt hashes and migrate to configured
+hasher (`hashers.algorithm`).
+
+#### Format
+
+```
+$firescrypt$ln=<mem_cost>,r=<rounds>,p=<parallelization>$<salt>$<hash>$<salt_separator>$<signer_key>
+```
+
+#### Parameters
+
+- `mem_cost`(`number`): CPU/memory cost as given by
+- `rounds`(`number`): rounds firebase hash config parameter (must satisfy r \* p < 2³⁰)
+- `parallelization`(`number`): parallelization parameter (must satisfy r \* p < 2³⁰)
+- `salt`(`string`): A sequence of bits, known as a cryptographic salt encoded to Base64.
+- `hash`(`string`): The computed derived key by the SCrypt algorithm encoded to Base64.
+- `salt_separator`(`string`): Firebase hash config parameter encoded to Base64.
+- `signer_key`(`string`): Firebase hash config parameter encoded to Base64.
+
+#### Example
+
+```
+$firescrypt$ln=14,r=8,p=1$sPtDhWcd1MfdAw==$xbSou7FOl6mChCyzpCPIQ7tku7nsQMTFtyOZSXXd7tjBa4NtimOx7v42Gv2SfzPQu1oxM2/k4SsbOu73wlKe1A==$Bw==$YE0dO4bwD4JnJafh6lZZfkp1MtKzuKAXQcDCJNJNyeCHairWHKENOkbh3dzwaCdizzOspwr/FITUVlnOAwPKyw==
+```
+
 ### Social sign-in connections
 
 Similar to importing passwords it is possible to import social sign-in connections as well. If you do not have Social Sign In set
@@ -224,7 +391,7 @@ When importing social sign in connections, the provider refers to the `provider`
 The `subject` ID must be the ID of the user on the given platform. Usually, this is the `sub` claim of the OpenID Connect ID Token
 provider such as Google.
 
-```json {7-18}
+```json {7-20}
 {
   "schema_id": "preset://email",
   "traits": {

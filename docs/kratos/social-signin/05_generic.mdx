@@ -5,19 +5,10 @@ sidebar_label: Generic provider
 toc_max_heading_level: 4
 ---
 
+# Generic provider
+
 The Generic Provider option allows you to add any OpenID Connect Certified provider that doesn't require custom API calls to get
-the required user information.
-
-[Ory OAuth2 & OpenID Connect](https://www.ory.sh/hydra) is such a provider.
-
-:::tip
-
-Do you want to see your preferred social sign-in provider get a dedicated integration flow? Let us know by filling out
-[this survey](https://share-eu1.hsforms.com/1-ARyzi8nSuCYQ9Ci2i18wgextgn)!
-
-:::
-
-To add a social sign-in provider, you need these details:
+the required user information. To add a social sign-in provider, you need these details:
 
 - Client ID
 - Client Secret
@@ -115,29 +106,6 @@ Follow these steps to add a generic provider as a social sign-in provider to you
    ```shell
    ory update identity-config <project-id> --file updated_config.yaml
    ```
-
-## Configuration for self-hosted instances
-
-Follow these steps to add a generic provider as a social sign-in provider when self-hosting Ory Kratos:
-
-1. Create a client at your generic provider to get a Client ID and Client Secret.
-2. Set the redirect URI to URL that follows this pattern:
-
-   ```shell
-   http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/<social-signin-provider-id>
-   ```
-
-3. Create a [Jsonnet code snippet](#data-mapping) to map the desired claims to the Ory Identity schema.
-4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or store it in a location available to your Ory Kratos
-   instance.
-5. Add the [social sign-in provider configuration](#configuration-with-ory-cli) to the Ory Kratos configuration. Add the Jsonnet
-   snippet with mappings as a Base64 string or provide a path or an URL of the file.
-
-```mdx-code-block
-import ConfigAsEnv from '../_common/config_as_env.mdx'
-
-<ConfigAsEnv />
-```
 
 ## Prevent having to log in after sign-up
 
