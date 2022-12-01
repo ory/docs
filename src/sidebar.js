@@ -312,7 +312,7 @@ module.exports = {
           ],
         },
         {
-          SDKs: ["keto/sdk/index", "keto/sdk/go"],
+          SDKs: ["keto/sdk/overview", "keto/sdk/go"],
         },
       ],
     },
@@ -524,7 +524,7 @@ module.exports = {
                   ],
                 },
                 {
-                  SDKs: ["kratos/sdk/index", "kratos/sdk/go"],
+                  SDKs: ["kratos/sdk/overview", "kratos/sdk/go"],
                 },
                 "kratos/reference/configuration",
                 "kratos/reference/json-schema-json-paths",
