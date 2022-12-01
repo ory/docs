@@ -1,0 +1,57 @@
+---
+id: account-linking
+title: Link and unlink social sign in to and from existing user accounts
+sidebar_label: Account linking
+slug: social-sign-in-account-link-connect-multiple
+---
+
+# Link and unlink social sign in providers
+
+This document explains how to link and unlink social sign in to and from existing user accounts. Account linking is required for
+three main use cases:
+
+- Users signed up with email and password can link a social sign in provider to their account.
+- Users signed up using a social sign in provider (for example GitHub) can add another social sign in provider (for example
+  Google) to their account.
+- Users can remove a social sign in provider from their account. To prevent users from locking themselves out of their account,
+  unlinking is only possible if the user has multiple sign in methods configured.
+
+## Perform account linking
+
+Linking accounts is an operation that users must perform manually from their account settings.
+
+1. Set up at least two methods for users to sign up, for example password and GitHub, in your project.
+2. Sign up with a test account in your project using a password.
+3. In the managed account experience, navigate to your account settings.
+4. Click **Link GitHub** under social sign in.
+
+## Unlink account
+
+A user with two ways of signing in, for example password and GitHub, has the following steps to perform:
+
+1. Log in to your project.
+2. In the managed account experience, navigate to the account settings.
+3. Click **Unlink GitHub** under social sign in.
+
+## Automatic account linking
+
+While convenient for users, automatic account linking creates an attack vector that can allow malicious actors to steal user
+accounts.
+
+:::warning
+
+Since it constitutes a security threat, automatic account linking is not available in Ory.
+
+:::
+
+To better understand the danger, consider the following scenario:
+
+- Your application allows users to create new accounts or sign in with ACME - a well-known social sign-in provider.
+- John creates a new account in your application using his `john@doe.com` email.
+- Malicious actors know that John uses `john@doe.com` to sign in to his account in your app.
+- Malicious actors create an ACME account for `john@doe.com`.
+- Malicious actors sign up in your application using the ACME account created for the `john@doe.com` account.
+- Your system uses the default behavior and when it detects two accounts with the same identifier, malicious actors are asked to
+  link the accounts.
+- Malicious actors link the accounts.
+- Malicious actors get access to the account that John created manually using his `john@doe.com` email.
