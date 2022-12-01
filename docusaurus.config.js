@@ -195,7 +195,7 @@ module.exports = {
     ],
     "@docusaurus/plugin-content-pages",
     require.resolve("./src/plugins/docusaurus-plugin-matamo"),
-    [
+    process.env.NODE_ENV !== "development" && [
       "./src/plugins/plugin-usercentrics-gtm",
       { usercentricsID: "dwogEWVkK", gtmID: "GTM-NTT7RMX" },
     ],
