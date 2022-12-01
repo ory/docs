@@ -57,7 +57,7 @@
 .examplesection {
   max-width: var(--ifm-container-width-xl);
   margin: 0 auto;
-  padding: 2rem 2rem 3rem;
+  padding: 0rem 0rem 3rem;
 }
 
 .examplesectionheading {
