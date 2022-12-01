@@ -144,7 +144,7 @@ export const community: PropTypes = {
       docs: "https://www.ory.sh/login-flutter-authentication-example-api-open-source/",
     },
     {
-      title: "Protect a page with login: Kotlin",
+      title: "Protect a page with login: Quarkus",
       language: "quarkus",
       author: "hbrammer",
       tested: false,
@@ -160,7 +160,7 @@ export const community: PropTypes = {
       docs: "https://github.com/timalanfarrow/kratos-selfservice-ui-vue3-typescript/blob/main/README.md",
     },
     {
-      title: "Customize self-service UI: NextJs",
+      title: "Customize self-service UI: Next.js",
       language: "nextjs",
       author: "spa5k",
       tested: false,
