@@ -4,17 +4,17 @@ title: Authorization and API keys
 sidebar_label: Authorization
 ---
 
-Each project has API keys used to perform privileged operations, for example deleting an identity. To create an API Key head over
-to the Ory Console [API Key page](https://console.ory.sh/projects/current/connect).
+Each project has API keys used to perform privileged operations, for example deleting an identity. To create an API key head over
+to the Ory Console [API key page](https://console.ory.sh/projects/current/connect).
 
 :::tip
 
-You can use API keys to call APIs from the command line or through scripts. Ory API Keys are always prefixed with `ory_apikey_`
+You can use API keys to call APIs from the command line or through scripts. Ory API keys are always prefixed with `ory_apikey_`
 (or `ory_pat_`), which makes it easy to identify them when analyzing code.
 
 :::
 
-Passing the API Key is done via the `Authorization` header:
+Passing the API key is done via the `Authorization` header:
 
 ```text
 GET /admin/identities HTTP/1.1
