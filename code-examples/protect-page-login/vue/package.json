@@ -31,7 +31,7 @@
   "dependencies": {
     "@ory/client": "^0.0.1-alpha.184",
     "core-js": "^3.8.3",
-    "serve": "^13.0.2",
+    "serve": "^14.1.2",
     "vue": "^3.2.13"
   },
   "devDependencies": {

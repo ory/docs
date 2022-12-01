@@ -228,12 +228,98 @@ Ory Identities can hash passwords by Argon2 and can compare stored Argon2 hash a
 - `memory`(`number`): Amount of memory to use.
 - `iterations`(`number`): Number of iterations to perform.
 - `parallelism`(`number`): Degree of parallelism.
-- `hash`(`string`): The computed derived key by the Argon2 algorithm encoded in base64.
+- `hash`(`string`): The computed derived key by the Argon2 algorithm encoded to Base64.
 
 #### Example
 
 ```
 $argon2id$v=19$m=32,t=2,p=4$cm94YnRVOW5jZzFzcVE4bQ$MNzk5BtR2vUhrp6qQEjRNw
+```
+
+### MD5
+
+Ory Identities doesn't hash password by MD5 but can compare stored MD5 hashes and migrate to configured hasher
+(`hashers.algorithm`). You can configure MD5 hashes to use a plain format (for hashes without salt) or a salted format (for hashes
+with salt).
+
+#### Plain format (hashes without salt)
+
+```
+$md5$<hash>
+```
+
+#### Parameters
+
+- `hash`(`string`): The computed hash by the MD5 algorithm encoded to Base64.
+
+#### Example
+
+```
+$md5$CY9rzUYh03PK3k6DJie09g==
+```
+
+#### Salted format (hashes with salt)
+
+This format allows administrators to import passwords that use salting to calculate the MD5 hash. Ory doesn't prepend or append
+the salt to the user's password. To determine the way system performs salting, use the `salting-format` parameter.
+
+```
+$md5$pf=<salting-format>$<salt>$<hash>
+```
+
+Read [this section](#salting-format-parameter) to learn more about configuring the `salting-format` parameter.
+
+#### Parameters
+
+- `salting-format`(`string`): Format string specifies how salting should be done. Must be encoded to Base64.
+- `salt`(`string`): A sequence of bits, known as a cryptographic salt encoded to Base64.
+- `hash`(`string`): The computed hash by the MD5 algorithm encoded to Base64.
+
+#### Example
+
+```
+$md5$pf=e1NBTFR9e1BBU1NXT1JEfQ==$MTIz$q+RdKCgc+ipCAcm5ChQwlQ==
+```
+
+##### Salting format parameter
+
+Below are formatting specifiers that can be used in the `salting-format`.
+
+- `{SALT}`: Salt value from the previous section.
+- `{PASSWORD}`: User's password in clear text.
+
+##### Example
+
+Assuming that User's password is `ory123` and salt is `c2FsdDEyMw==`(_in clear text: salt123_) and the clear text form of
+`salting-format` parameter as follows:
+
+```
+{SALT}--{PASSWORD}
+```
+
+In that case result of the `salting` process would be:
+
+```
+salt123--ory123
+```
+
+### SSHA, SSHA256, and SSHA512
+
+Ory Identities doesn't hash passwords by salted SHA but can compare stored salted SHA hashes and migrate to configured hasher
+(`hashers.algorithm`). SSHA does not take in any parameters for verification.
+
+#### Examples
+
+```
+{SSHA}JFZFs0oHzxbMwkSJmYVeI8MnTDy/276a
+```
+
+```
+{SSHA256}czO44OTV17PcF1cRxWrLZLy9xHd7CWyVYplr1rOhuMlx/7IK
+```
+
+```
+{SSHA512}xPUl/px+1cG55rUH4rzcwxdOIPSB2TingLpiJJumN2xyDWN4Ix1WQG3ihnvHaWUE8MYNkvMi5rf0C9NYixHsE6Yh59M=
 ```
 
 ### PBKDF2
@@ -253,8 +339,8 @@ $pbkdf2-<algorithm>$i=<iteration>,l=<length>$<salt>$<hash>
 - `iterations`(`number`): The number of iterations desired. The higher the number of iterations, the more secure the derived key
   will be, but will take a longer amount of time to complete.
 - `length`(`number`): Length in octets of derived key.
-- `salt`(`string`): A sequence of bits, known as a cryptographic salt encoded in base64.
-- `hash`(`string`): The computed derived key by the PBKDF2 algorithm encoded in base64.
+- `salt`(`string`): A sequence of bits, known as a cryptographic salt encoded to Base64.
+- `hash`(`string`): The computed derived key by the PBKDF2 algorithm encoded to Base64.
 
 #### Example
 
@@ -278,8 +364,8 @@ $scrypt$ln=<cost>,r=<block>,p=<parrelization>$<salt>$<hash>
 - `cost`(`number`): CPU/memory cost (has to be power of 2 and >1)
 - `block`(`number`): block size parameter (must satisfy r \* p < 2³⁰)
 - `parallelization`(`number`): parallelization parameter (must satisfy r \* p < 2³⁰)
-- `salt`(`string`): A sequence of bits, known as a cryptographic salt encoded in base64.
-- `hash`(`string`): The computed derived key by the SCrypt algorithm encoded in base64.
+- `salt`(`string`): A sequence of bits, known as a cryptographic salt encoded to Base64.
+- `hash`(`string`): The computed derived key by the SCrypt algorithm encoded to Base64.
 
 #### Example
 
@@ -303,10 +389,10 @@ $firescrypt$ln=<mem_cost>,r=<rounds>,p=<parallelization>$<salt>$<hash>$<salt_sep
 - `mem_cost`(`number`): CPU/memory cost as given by
 - `rounds`(`number`): rounds firebase hash config parameter (must satisfy r \* p < 2³⁰)
 - `parallelization`(`number`): parallelization parameter (must satisfy r \* p < 2³⁰)
-- `salt`(`string`): A sequence of bits, known as a cryptographic salt encoded in base64.
-- `hash`(`string`): The computed derived key by the SCrypt algorithm encoded in base64.
-- `salt_separator`(`string`): Firebase hash config parameter encoded in base64.
-- `signer_key`(`string`): Firebase hash config parameter encoded in base64.
+- `salt`(`string`): A sequence of bits, known as a cryptographic salt encoded to Base64.
+- `hash`(`string`): The computed derived key by the SCrypt algorithm encoded to Base64.
+- `salt_separator`(`string`): Firebase hash config parameter encoded to Base64.
+- `signer_key`(`string`): Firebase hash config parameter encoded to Base64.
 
 #### Example
 
