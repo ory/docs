@@ -42,7 +42,7 @@ const findPath = (src) => {
   return src
 }
 
-const findLine = (needle, haystack) => {
+const findLine = (needle: string | undefined, haystack: Array<string>) => {
   if (!needle) {
     return 0
   }
@@ -57,8 +57,8 @@ const findLine = (needle, haystack) => {
 }
 
 const transform =
-  ({ startAt, endAt }) =>
-  (content) => {
+  ({ startAt, endAt }: { startAt?: string; endAt?: string }) =>
+  (content: string) => {
     let lines = content.split("\n")
 
     const startIndex = findLine(startAt, lines)
@@ -74,11 +74,21 @@ const transform =
     return lines.join("\n")
   }
 
-const CodeFromRemote = (props) => {
-  const { src, title } = props
-  const [content, setContent] = useState("")
+const CodeFromRemote = (props: {
+  title: string
+  src?: string
+  contentOverride?: string
+  startAt?: string
+  endAt?: string
+}) => {
+  const { src, title, contentOverride } = props
+  const [content, setContent] = useState(contentOverride || "")
 
   useEffect(() => {
+    if (contentOverride) {
+      return
+    }
+
     fetch(
       src
         .replace("github.com", "raw.githubusercontent.com")
@@ -88,7 +98,7 @@ const CodeFromRemote = (props) => {
       .then(transform(props))
       .then(setContent)
       .catch(console.error)
-  }, [])
+  }, [contentOverride, src])
 
   const lang = `language-${detectLanguage(src)}`
   const metaString = `title="${title || findPath(src)}"`

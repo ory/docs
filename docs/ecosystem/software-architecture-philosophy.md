@@ -1,6 +1,6 @@
 ---
 id: software-architecture-philosophy
-title: Software architecture and philosophy
+title: Architecture principles
 ---
 
 Ory's architecture is designed along several guiding principles:

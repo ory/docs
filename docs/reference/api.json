@@ -2547,7 +2547,7 @@
             "type": "string"
           },
           "web_hook_config_auth_api_key_in": {
-            "description": "Whether to send the API Key in the HTTP Header or as a HTTP Cookie",
+            "description": "Whether to send the API key in the HTTP Header or as a HTTP Cookie",
             "example": "header",
             "type": "string"
           },
