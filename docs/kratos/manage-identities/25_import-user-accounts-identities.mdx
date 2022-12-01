@@ -4,6 +4,8 @@ title: Learn how to import user accounts from other systems to Ory
 sidebar_label: Import identities
 ---
 
+# Import identities
+
 Ory allows you to import identities from any other system. The endpoint used is the same as when
 [creating identities](./create-users-identities) with the subtle difference that you also provide the `credentials` field.
 
@@ -144,8 +146,8 @@ The API then responds with the created identity:
 It is possible to import a list of `recovery_addresses` - similar to `verifiable_addresses`. It is better to let the identity
 schema handle setting the appropriate fields since there is no status to set for this address type.
 
-We do not recommend setting these fields as they will be overwritten anyways! For more information on account recovery please head
-over to the [account recovery documentation](../self-hosted/account-recovery-password-reset).
+We do not recommend setting these fields as they will be overwritten by other self-service flows! For more information on account
+recovery please head over to the [account recovery documentation](../self-service/flows/account-recovery-password-reset.mdx).
 
 ## Importing credentials
 

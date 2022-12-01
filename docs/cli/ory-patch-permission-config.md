@@ -1,7 +1,7 @@
 ---
 id: ory-patch-permission-config
 title: ory patch permission-config
-description: ory patch permission-config Patch an Ory Permissions config
+description: ory patch permission-config Patch the Ory Permissions configuration of the specified Ory Network project.
 ---
 
 <!--
@@ -11,16 +11,16 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory patch permission-config
 
-Patch an Ory Permissions config
+Patch the Ory Permissions configuration of the specified Ory Network project.
 
 ### Synopsis
 
-Patches an Ory Permissions configuration. Only values
+Patch the Ory Permissions configuration of the specified Ory Network project. Only values
 specified in the patch will be overwritten. To replace the config use the `update` command instead.
 
-Compared to the `patch project` command, this command only updates the permission service configuration
-and also only returns the permission service configuration as a result. This command is useful when you want to
-import an Ory Keto config as well, for example. This allows for shorter paths when specifying the flags
+Compared to the `patch project` command, this command updates only the Ory Permissions configuration
+and returns the configuration as a result. This command is useful when you want to import configuration from 
+self-hosted Ory Keto to Ory Network. Using this command allows for shorter paths when specifying the flags:
 
 	ory patch permission-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 		--replace '/limit/max_read_depth=5'
@@ -68,7 +68,7 @@ $ ory patch permission-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 ```
       --add stringArray       Add a specific key to the configuration
   -f, --file strings          Configuration file(s) (file://config.json, https://example.org/config.yaml, ...) to update the project
-      --format string         Set the output format. One of table, json, yaml, and json-pretty. (default "default")
+      --format string         Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help                  help for permission-config
   -q, --quiet                 Be quiet with output printing.
       --remove stringArray    Remove a specific key from the configuration

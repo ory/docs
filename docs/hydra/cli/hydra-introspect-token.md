@@ -20,7 +20,7 @@ hydra introspect token the-token [flags]
 ### Examples
 
 ```
-{{ .CommandPath }} --client-id a0184d6c-b313-4e70-a0b9-905b581e9218 --client-secret Hh1BjioNNm ciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNT
+{{ .CommandPath }} AYjcyMzY3ZDhiNmJkNTY --project 32197be3-8e57-4009-becd-9d38dbde129c
 ```
 
 ### Options
@@ -34,7 +34,7 @@ hydra introspect token the-token [flags]
 
 ```
   -e, --endpoint string   The API URL this command should target. Alternatively set using the ORY_SDK_URL environmental variable.
-      --format string     Set the output format. One of table, json, yaml, and json-pretty. (default "default")
+      --format string     Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -H, --http-header :     A list of additional HTTP headers to set. HTTP headers is separated by a : , for example: `-H 'Authorization: bearer some-token'`.
   -q, --quiet             Be quiet with output printing.
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!

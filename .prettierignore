@@ -11,3 +11,5 @@ build/
 .next
 playwright-report/
 .github/pull_request_template.md
+src/plugins/
+docs/keto/reference/proto-api.mdx

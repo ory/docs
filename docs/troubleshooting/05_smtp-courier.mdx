@@ -1,0 +1,44 @@
+---
+id: smtp-courier-OTA-112022-01
+title: Invalid SMTP courier URL format (OTA-112022-01)
+sidebar_label: Invalid courier URL
+---
+
+If you get an error that points you to this document, it means that your email configuration (SMTP URL) is incorrect. The most
+common reason for incorrect SMTP URLs is using usernames or passwords that contain special characters which are not URL-encoded.
+
+These are examples of incorrect URLs:
+
+```bash
+smtp://username:pass/word@email-smtp.eu-west-3.amazonaws.com:587
+smtp://user%name:pass$word@some-email-service.com:587
+```
+
+Usernames and passwords can contain special characters such as `%`, `/` or `$` but they must be URL-encoded.
+
+To fix the issue, URL encode the username and password.
+
+- Use JavaScript:
+
+  ```js
+  console.log(encodeURIComponent("pass/word"))
+  ```
+
+- Use an online tool, such as [urlencoder.org](https://www.urlencoder.org).
+
+  :::warning
+
+  Be extremely cautious when providing your credential in any websites or web tools for encoding. If you don't fully trust the
+  provider, consider encoding the credentials locally.
+
+  :::
+
+Properly URL-encoded SMTP URLs:
+
+```diff
+-smtp://username:pass/word@email-smtp.eu-west-3.amazonaws.com:587
++smtp://username:pass%2Fword@email-smtp.eu-west-3.amazonaws.com:587
+
+-smtp://user%name:pass$word@some-email-service.com:587
++smtp://user%25name:pass%24word@some-email-service.com:587
+```

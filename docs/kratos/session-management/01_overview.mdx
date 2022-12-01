@@ -1,7 +1,10 @@
 ---
 id: overview
-title: Overview
+title: Overview of sessions, session cookies, and session tokens in Ory
+sidebar_label: Overview
 ---
+
+# Overview
 
 When an identity or end-user authenticates, for example by signing in with their username and password, they receive an Ory
 Session.
@@ -22,7 +25,7 @@ For security reasons, you can't break the isolation between cookies and session 
 
 :::
 
-## The Ory Session
+## Ory Session
 
 This is an sample Ory Session:
 
@@ -94,9 +97,9 @@ This is an sample Ory Session:
 | `expires_at`       | Defines the time when the Session expires. This value depends on the session lifespan configuration.                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `authenticated_at` | Indicates the time of the most recent successful authentication. This value is updated when: <ul><li>The end-user authenticates with a second factor such as TOTP</li><li>The end-user refreshes their session using the [`/self-service/login/browser`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowForBrowsers) endpoint or [`/self-service/login/api`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowWithoutBrowser) endpoint and setting `refresh` to `true`</li></ul> |
 
-## Session cookie
+## Ory Session Cookie
 
-The Session Cookie is issued when the user signs in through a web browser. To get the session payload, send a request to the
+An Ory Session Cookie is issued when the user signs in through a web browser. To get the session payload, send a request to the
 `/sessions/whoami` endpoint:
 
 ```mdx-code-block
@@ -104,14 +107,14 @@ import { getSdkUrl } from '@site/src/hooks'
 import CodeBlock from '@theme/CodeBlock'
 
 <CodeBlock language="shell">{`curl '${getSdkUrl().url}/sessions/whoami' \\
-  -H 'Accept: application/json \\
+  -H 'Accept: application/json' \\
   -H 'Cookie: ory_kratos_session=MTYzNDIyNzEzN3xEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJRTFDYWtvME5VNVlaVWxvYVZWeWJrUnZhSEF4YmxSV2VVRlhNMWwxVlVGenxXpsk2cL21Dclk3nCoXV41N6bFxvVJSt7CeICy_815Aw=='`}</CodeBlock>
 ```
 
-## Session token
+## Ory Session Token
 
-A Session Token is issued when the user authenticates through a client other than a web browser. To get the session payload, send
-a request to the `/sessions/whoami` endpoint.
+An Ory Session Token is issued when the user authenticates through a client other than a web browser. To get the session payload,
+send a request to the `/sessions/whoami` endpoint.
 
 You must pass the token in one of two ways:
 
@@ -119,7 +122,7 @@ You must pass the token in one of two ways:
 
   ```mdx-code-block
   <CodeBlock language="shell">{`curl '${getSdkUrl().url}/sessions/whoami' \\
-    -H 'Accept: application/json \
+    -H 'Accept: application/json' \
     -H 'Authorization: Bearer BRFbGMzTnBiMjVmZEcEdjM1J5YVc1bkRDSUFvME5VNVlaVeWJrUnZhSEF4YmxSV2VVRlhNMWwxVlVGenxXpsk2cLXV41N6bFxvVJSt7CeICy'`}</CodeBlock>
   ```
 
@@ -127,7 +130,7 @@ You must pass the token in one of two ways:
 
   ```mdx-code-block
   <CodeBlock language="shell">{`curl '${getSdkUrl().url}/sessions/whoami' \\
-    -H 'Accept: application/json \
+    -H 'Accept: application/json' \
     -H 'X-Session-Token: BRFbGMzTnBiMjVmZEcEdjM1J5YVc1bkRDSUFvME5VNVlaVeWJrUnZhSEF4YmxSV2VVRlhNMWwxVlVGenxXpsk2cLXV41N6bFxvVJSt7CeICy'`}</CodeBlock>
   ```
 

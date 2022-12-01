@@ -109,7 +109,7 @@
   {
     "id": 1050001,
     "text": "Your changes have been saved!",
-    "type": "info"
+    "type": "success"
   },
   {
     "id": 1050002,
@@ -243,7 +243,7 @@
   {
     "id": 1060001,
     "text": "You successfully recovered your account. Please change your password or set up an alternative login method (e.g. social sign in) within the next 0.02 minutes.",
-    "type": "info",
+    "type": "success",
     "context": {
       "privilegedSessionExpiresAt": "2020-01-01T01:01:00Z"
     }
@@ -301,6 +301,11 @@
     "type": "info"
   },
   {
+    "id": 1070009,
+    "text": "Continue",
+    "type": "info"
+  },
+  {
     "id": 1080001,
     "text": "An email containing a verification link has been sent to the email address you provided.",
     "type": "info",
@@ -309,7 +314,13 @@
   {
     "id": 1080002,
     "text": "You successfully verified your email address.",
-    "type": "info"
+    "type": "success"
+  },
+  {
+    "id": 1080003,
+    "text": "An email containing a verification code has been sent to the email address you provided.",
+    "type": "info",
+    "context": {}
   },
   {
     "id": 4000001,
@@ -520,6 +531,12 @@
     "context": {
       "expired_at": "2020-01-01T00:59:59Z"
     }
+  },
+  {
+    "id": 4070006,
+    "text": "The verification code is invalid or has already been used. Please try again.",
+    "type": "error",
+    "context": {}
   },
   {
     "id": 5000001,

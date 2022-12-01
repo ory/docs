@@ -1,7 +1,7 @@
 ---
 id: ory-get-oauth2-config
 title: ory get oauth2-config
-description: ory get oauth2-config Get an Ory OAuth2 & OpenID configuration
+description: ory get oauth2-config Get Ory OAuth2 & OpenID Connect configuration.
 ---
 
 <!--
@@ -11,11 +11,11 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory get oauth2-config
 
-Get an Ory OAuth2 & OpenID configuration
+Get Ory OAuth2 & OpenID Connect configuration.
 
 ### Synopsis
 
-Get an Ory OAuth2 & OpenID configuration. You can use this command to render Ory OAuth2 & OpenID configuration as well.
+Get the Ory OAuth2 & OpenID Connect configuration for the specified Ory Network project.
 
 ```
 ory get oauth2-config <project-id> [flags]
@@ -49,7 +49,7 @@ $ ory get oauth2-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
 ### Options
 
 ```
-      --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
+      --format string   Set the output format. One of default, json, yaml, json-pretty and jsonpath. (default "default")
   -h, --help            help for oauth2-config
 ```
 

@@ -1,7 +1,10 @@
 ---
 id: session-lifespan
-title: Session lifespan
+title: Adjusting user session lifespan in Ory
+sidebar_label: Session lifespan
 ---
+
+# Session lifespan
 
 Each session is valid for a set amount of time. This time is the session's lifespan. When the session lifespan expires, the user
 must re-authenticate.
@@ -24,7 +27,7 @@ ory patch identity-config <your-project-id> \\
 ```
 
   </TabItem>
-  <TabItem value="selfhosted" label="Self-Hosted Ory Kratos Config" default>
+  <TabItem value="selfhosted" label="Self-Hosted Ory Kratos config">
 
 ```yaml title=path/to/kratos/config.yml
 // highlight-start

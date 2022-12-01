@@ -94,7 +94,13 @@ This setup creates a non-blocking webhook. [Click here](configure-hooks#non-bloc
     config:
       response:
         ignore: true
-      url: "https://api.hubapi.com/crm/v3/objects/contacts?hapikey=<YOUR_API_KEY_HERE>"
+      auth:
+        type: api_key
+        config:
+          name: Authorization
+          value: "Bearer <YOUR_API_KEY_HERE>"
+          in: header
+      url: "https://api.hubapi.com/crm/v3/objects/contacts"
       method: POST
       # Encode the Jsonnet with Base64 and add the encoded string to 'body'.
       body: base64://ENCODED_JSONNET
@@ -108,7 +114,13 @@ This setup creates a non-blocking webhook. [Click here](configure-hooks#non-bloc
     config:
       response:
         ignore: true
-      url: "https://api.hubapi.com/crm/v3/objects/contacts?hapikey=<YOUR_API_KEY_HERE>"
+      auth:
+        type: api_key
+        config:
+          name: Authorization
+          value: "Bearer <YOUR_API_KEY_HERE>"
+          in: header
+      url: "https://api.hubapi.com/crm/v3/objects/contacts"
       method: POST
       body: /path/to/my/hubspot_body.jsonnet
 ```

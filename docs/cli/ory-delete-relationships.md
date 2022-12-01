@@ -27,10 +27,12 @@ ory delete relationships [flags]
 ```
       --all                  Delete all relation tuples
       --force                Force the deletion of relation tuples
+      --format string        Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help                 help for relationships
       --namespace string     Set the requested namespace
       --object string        Set the requested object
       --project string       The project to use
+  -q, --quiet                Be quiet with output printing.
       --relation string      Set the requested relation
       --subject-id string    Set the requested subject ID
       --subject-set string   Set the requested subject set; format: "namespace:object#relation"
@@ -40,8 +42,6 @@ ory delete relationships [flags]
 
 ```
   -c, --config string   Path to the Ory Network configuration file.
-      --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
-  -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
 ```
 

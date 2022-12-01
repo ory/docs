@@ -828,6 +828,36 @@
       "source": "/docs/hydra/guides/oauth2-grant-type-jwt-bearer",
       "destination": "https://www.ory.sh/docs/hydra/guides/jwt",
       "permanent": false
+    },
+    {
+      "source": "/docs/getting-started/custom-ui-preact-ory-elements",
+      "destination": "https://www.ory.sh/docs/getting-started/custom-ui-ory-elements",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/self-service/flows/account-recovery",
+      "destination": "https://www.ory.sh/docs/kratos/self-service/flows/account-recovery-password-reset",
+      "permanent": false
+    },
+    {
+      "source": "/docs/concepts/social-sign-in",
+      "destination": "https://www.ory.sh/docs/kratos/social-signin/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/sdk/index",
+      "destination": "https://www.ory.sh/docs/hydra/sdk/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/sdk",
+      "destination": "https://www.ory.sh/docs/hydra/sdk/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/getting-started/ory-cloud-oauth2",
+      "destination": "https://www.ory.sh/docs/getting-started/ory-network-oauth2",
+      "permanent": false
     }
   ]
 }

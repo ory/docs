@@ -23,9 +23,9 @@ Patch resources
 ### SEE ALSO
 
 * [ory](ory)	 - The ORY CLI
-* [ory patch identity-config](ory-patch-identity-config)	 - Patch an Ory Identities config
-* [ory patch oauth2-config](ory-patch-oauth2-config)	 - Patch an Ory OAuth2 & OpenID config
-* [ory patch opl](ory-patch-opl)	 - Update the Ory Permission Language file in your Ory Network project
-* [ory patch permission-config](ory-patch-permission-config)	 - Patch an Ory Permissions config
-* [ory patch project](ory-patch-project)	 - Patch an Ory Network project
+* [ory patch identity-config](ory-patch-identity-config)	 - Patch the Ory Identities configuration of the defined Ory Network project.
+* [ory patch oauth2-config](ory-patch-oauth2-config)	 - Patch the Ory OAuth2 & OpenID Connect configuration of the specified Ory Network project.
+* [ory patch opl](ory-patch-opl)	 - Update the Ory Permission Language file in Ory Network
+* [ory patch permission-config](ory-patch-permission-config)	 - Patch the Ory Permissions configuration of the specified Ory Network project.
+* [ory patch project](ory-patch-project)	 - Patch the Ory Network project configuration.
 

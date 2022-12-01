@@ -192,7 +192,15 @@ Nodes of type `img` are used as QR codes, for example.
 }
 ```
 
+```mdx-code-block
+import BrowserWindow from "@site/src/theme/BrowserWindow"
+
+<BrowserWindow url="https://playground.projects.oryapis.com/ui">
+
 ![QR Code](../_static/ui-user-interface/1.png)
+
+</BrowserWindow>
+```
 
 Here is an example of implementing an `img` node in handlebars:
 
@@ -214,9 +222,21 @@ Here is an example of implementing an `img` node in React.js:
 
 Nodes of type `text` are commonly used to display secrets (e.g. lookup secrets).
 
+```mdx-code-block
+<BrowserWindow url="https://playground.projects.oryapis.com/ui">
+
 ![Lookup Secret](../_static/ui-user-interface/2.png)
 
+</BrowserWindow>
+```
+
+```mdx-code-block
+<BrowserWindow url="https://playground.projects.oryapis.com/ui">
+
 ![TOTP Secret](../_static/ui-user-interface/3.png)
+
+</BrowserWindow>
+```
 
 Their JSON usually contains a bit of contextual information.
 
@@ -1217,7 +1237,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1050001,
   "text": "Your changes have been saved!",
-  "type": "info"
+  "type": "success"
 }
 ```
 
@@ -1446,7 +1466,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1060001,
   "text": "You successfully recovered your account. Please change your password or set up an alternative login method (e.g. social sign in) within the next 0.02 minutes.",
-  "type": "info",
+  "type": "success",
   "context": {
     "privilegedSessionExpiresAt": "2020-01-01T01:01:00Z"
   }
@@ -1555,6 +1575,16 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 }
 ```
 
+###### Continue (1070009)
+
+```json
+{
+  "id": 1070009,
+  "text": "Continue",
+  "type": "info"
+}
+```
+
 ###### An email containing a verification link has been sent to the email address you provided. (1080001)
 
 ```json
@@ -1572,7 +1602,18 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1080002,
   "text": "You successfully verified your email address.",
-  "type": "info"
+  "type": "success"
+}
+```
+
+###### An email containing a verification code has been sent to the email address you provided. (1080003)
+
+```json
+{
+  "id": 1080003,
+  "text": "An email containing a verification code has been sent to the email address you provided.",
+  "type": "info",
+  "context": {}
 }
 ```
 
@@ -1948,6 +1989,17 @@ The section below is auto-generated. Changing it has no effect as any changes wi
   "context": {
     "expired_at": "2020-01-01T00:59:59Z"
   }
+}
+```
+
+###### The verification code is invalid or has already been used. Please try again. (4070006)
+
+```json
+{
+  "id": 4070006,
+  "text": "The verification code is invalid or has already been used. Please try again.",
+  "type": "error",
+  "context": {}
 }
 ```
 

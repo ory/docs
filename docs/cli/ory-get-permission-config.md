@@ -1,7 +1,7 @@
 ---
 id: ory-get-permission-config
 title: ory get permission-config
-description: ory get permission-config Get an Ory Permissions configuration
+description: ory get permission-config Get Ory Permissions configuration.
 ---
 
 <!--
@@ -11,11 +11,11 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory get permission-config
 
-Get an Ory Permissions configuration
+Get Ory Permissions configuration.
 
 ### Synopsis
 
-Get an Ory Permissions permission configuration.
+Get the Ory Permissions configuration for the specified Ory Network project.
 
 ```
 ory get permission-config <project-id> [flags]
@@ -24,9 +24,9 @@ ory get permission-config <project-id> [flags]
 ### Examples
 
 ```
-$ ory get keto-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format yaml > keto-config.yaml
+$ ory get permission-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format yaml > permission-config.yaml
 
-$ ory get keto-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
+$ ory get permission-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
 
 {
   "namespaces": [
@@ -42,7 +42,7 @@ $ ory get keto-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
 ### Options
 
 ```
-      --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
+      --format string   Set the output format. One of default, json, yaml, json-pretty and jsonpath. (default "default")
   -h, --help            help for permission-config
 ```
 

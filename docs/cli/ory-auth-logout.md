@@ -20,18 +20,18 @@ ory auth logout [flags]
 ### Options
 
 ```
-  -h, --help   help for logout
+  -c, --config string   Path to the Ory Network configuration file.
+  -h, --help            help for logout
 ```
 
 ### Options inherited from parent commands
 
 ```
-  -c, --config string   Path to the Ory Network configuration file.
-  -q, --quiet           Be quiet with output printing.
-  -y, --yes             Confirm all dialogs with yes.
+  -q, --quiet   Be quiet with output printing.
+  -y, --yes     Confirm all dialogs with yes.
 ```
 
 ### SEE ALSO
 
-* [ory auth](ory-auth)	 - Create an or sign into your Ory Network account
+* [ory auth](ory-auth)	 - Create a new Ory Network account or sign in to an existing account.
 

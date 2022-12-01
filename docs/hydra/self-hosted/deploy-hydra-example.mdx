@@ -160,10 +160,9 @@ Congratulations, you have installed and configured the PostgreSQL database. Next
    wget https://raw.githubusercontent.com/ory/hydra/${useLatestRelease("hydra")}/contrib/quickstart/5-min/hydra.yml`}</CodeBlock>
    ```
 
-5. Add configuration for Ory Hydra in `hydra.yml` to use the Postgres database.  
-   Open `hydra.yml` and change the DSN configuration. Ory Hydra is storing data in an SQLite database in the default quickstart
-   configuration. Change the DSN key to use the Postgres database you configured before and add the `issuer` URL. This URL will be
-   used as `issuer` in access and ID tokens.
+5. Add configuration for Ory Hydra in `hydra.yml` to use the Postgres database. Open `hydra.yml` and change the DSN configuration.
+   Ory Hydra is storing data in an SQLite database in the default quickstart configuration. Change the DSN key to use the Postgres
+   database you configured before and add the `issuer` URL. This URL will be used as `issuer` in access and ID tokens.
 
    ```yml
    dsn: postgres://hydra:b0qw68gr3Q@127.0.0.1:5432/hydra?sslmode=disable&max_conns=20&max_idle_conns=4
@@ -489,5 +488,5 @@ server {
 
 - Read the [Prepare for production](./production).
 - Fork the [Ory Hydra Node.js UI Reference](https://github.com/ory/hydra-login-consent-node) or
-  [build a custom UI in the language of your choice](../sdk/01_index.md).
+  [build a custom UI in the language of your choice](../sdk/01_overview.md).
 - [Add Identity and Account Management](../../kratos/ory-kratos-intro)

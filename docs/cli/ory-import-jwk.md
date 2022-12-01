@@ -35,8 +35,10 @@ ory import jwk set-id file-1 [file-2] [file-n] [flags]
 
 ```
       --alg string       Sets the "alg" value of the JSON Web Key if not "alg" value was defined by the key itself. Required when importing PEM/DER encoded data.
+      --format string    Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help             help for jwk
       --project string   The project to use
+  -q, --quiet            Be quiet with output printing.
       --use string       Sets the "use" value of the JSON Web Key if no "use" value was defined by the key itself. Required when importing PEM/DER encoded data. (default "sig")
 ```
 
@@ -44,8 +46,6 @@ ory import jwk set-id file-1 [file-2] [file-n] [flags]
 
 ```
   -c, --config string   Path to the Ory Network configuration file.
-      --format string   Set the output format. One of default, json, yaml, and json-pretty. (default "default")
-  -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
 ```
 

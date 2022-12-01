@@ -137,13 +137,13 @@ First, you have to install the Postman App for Windows, Mac, or Chrome. You can 
 Visit the [Ory Postman Public Workspace](https://www.postman.com/ory-docs) and select the Collection you want to use and import it
 or select the Ory project you want to run below:
 
-[![Run Ory Hydra in Postman](../../src/static/img/docs/postmanHydra.svg)](https://app.getpostman.com/run-collection/12423954-d820ed2c-b119-44df-8b3e-4f344d8aa03a?action=collection%2Ffork&collection-url=entityId%3D12423954-d820ed2c-b119-44df-8b3e-4f344d8aa03a%26entityType%3Dcollection%26workspaceId%3Dba1e6798-1497-4918-a896-cac2f90d481b)
+[![Run Ory Hydra in Postman](./_static/community/postmanHydra.svg)](https://app.getpostman.com/run-collection/12423954-d820ed2c-b119-44df-8b3e-4f344d8aa03a?action=collection%2Ffork&collection-url=entityId%3D12423954-d820ed2c-b119-44df-8b3e-4f344d8aa03a%26entityType%3Dcollection%26workspaceId%3Dba1e6798-1497-4918-a896-cac2f90d481b)
 
-[![Run Ory Kratos in Postman](../../src/static/img/docs/postmanKratos.svg)](https://app.getpostman.com/run-collection/12423954-3497f685-0b0b-4075-81a5-14f317d2ad09?action=collection%2Ffork&collection-url=entityId%3D12423954-3497f685-0b0b-4075-81a5-14f317d2ad09%26entityType%3Dcollection%26workspaceId%3Dba1e6798-1497-4918-a896-cac2f90d481b)
+[![Run Ory Kratos in Postman](./_static/community/postmanKratos.svg)](https://app.getpostman.com/run-collection/12423954-3497f685-0b0b-4075-81a5-14f317d2ad09?action=collection%2Ffork&collection-url=entityId%3D12423954-3497f685-0b0b-4075-81a5-14f317d2ad09%26entityType%3Dcollection%26workspaceId%3Dba1e6798-1497-4918-a896-cac2f90d481b)
 
-[![Run Ory Keto in Postman](../../src/static/img/docs/postmanKeto.svg)](https://app.getpostman.com/run-collection/12423954-890f43c0-e175-4237-8ec4-64ecd2904f49?action=collection%2Ffork&collection-url=entityId%3D12423954-890f43c0-e175-4237-8ec4-64ecd2904f49%26entityType%3Dcollection%26workspaceId%3Dba1e6798-1497-4918-a896-cac2f90d481b)
+[![Run Ory Keto in Postman](./_static/community/postmanKeto.svg)](https://app.getpostman.com/run-collection/12423954-890f43c0-e175-4237-8ec4-64ecd2904f49?action=collection%2Ffork&collection-url=entityId%3D12423954-890f43c0-e175-4237-8ec4-64ecd2904f49%26entityType%3Dcollection%26workspaceId%3Dba1e6798-1497-4918-a896-cac2f90d481b)
 
-[![Run Ory Oathkeeper in Postman](../../src/static/img/docs/postmanOathkeeper.svg)](https://app.getpostman.com/run-collection/12423954-8c811fa9-6666-499b-b5a6-71d059274dbf?action=collection%2Ffork&collection-url=entityId%3D12423954-8c811fa9-6666-499b-b5a6-71d059274dbf%26entityType%3Dcollection%26workspaceId%3Dba1e6798-1497-4918-a896-cac2f90d481b)
+[![Run Ory Oathkeeper in Postman](./_static/community/postmanOathkeeper.svg)](https://app.getpostman.com/run-collection/12423954-8c811fa9-6666-499b-b5a6-71d059274dbf?action=collection%2Ffork&collection-url=entityId%3D12423954-8c811fa9-6666-499b-b5a6-71d059274dbf%26entityType%3Dcollection%26workspaceId%3Dba1e6798-1497-4918-a896-cac2f90d481b)
 
 Our API Collections are built directly from the swagger specification (you can find it at the path `/spec/api.json`) and are
 organized into folders that categorize the various API calls.
