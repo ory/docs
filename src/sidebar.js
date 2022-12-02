@@ -22,7 +22,6 @@ module.exports = {
             "getting-started/integrate-auth/react",
             "getting-started/integrate-auth/vue",
             "getting-started/integrate-auth/react-native",
-            "getting-started/custom-ui-ory-elements",
           ],
         },
         {
@@ -115,7 +114,15 @@ module.exports = {
             },
           ],
         },
-        "guides/bring-your-user-interface",
+        {
+          type: "category",
+          label: "Bring your own UI",
+          items: [
+            "guides/bring-your-user-interface",
+            "getting-started/custom-ui-ory-elements",
+          ],
+        },
+        "concepts/redirects",
         {
           type: "category",
           label: "Multi-factor authentication (MFA)",
@@ -166,7 +173,6 @@ module.exports = {
             "kratos/self-service/flows/user-registration",
             "kratos/self-service/flows/user-login",
             "kratos/self-service/flows/user-settings",
-            "concepts/redirects",
             "kratos/self-service/flows/verify-email-account-activation",
             "kratos/self-service/flows/account-recovery-password-reset",
             "kratos/self-service/flows/user-logout",
