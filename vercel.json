@@ -445,6 +445,16 @@
       "permanent": false
     },
     {
+      "source": "/docs/concepts/project",
+      "destination": "https://www.ory.sh/docs/welcome",
+      "permanent": false
+    },
+    {
+      "source": "/docs/concepts/terminology",
+      "destination": "https://www.ory.sh/docs/welcome",
+      "permanent": false
+    },
+    {
       "source": "/docs/guides/console/create-project",
       "destination": "https://www.ory.sh/docs/welcome",
       "permanent": false
