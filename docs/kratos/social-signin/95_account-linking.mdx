@@ -1,41 +1,52 @@
 ---
 id: account-linking
-title: Link and unlink social sign in to and from existing user accounts
+title: Manage social sign-in providers linked to user accounts
 sidebar_label: Account linking
 slug: social-sign-in-account-link-connect-multiple
 ---
 
-# Link and unlink social sign in providers
+# User account linking
 
-This document explains how to link and unlink social sign in to and from existing user accounts. Account linking is required for
-three main use cases:
+Ory allows users to link their accounts to social sing-in providers after they sign up, as well as un-link social sign-in
+providers they previously added.
 
-- Users signed up with email and password can link a social sign in provider to their account.
-- Users signed up using a social sign in provider (for example GitHub) can add another social sign in provider (for example
-  Google) to their account.
-- Users can remove a social sign in provider from their account. To prevent users from locking themselves out of their account,
-  unlinking is only possible if the user has multiple sign in methods configured.
+:::info
 
-## Perform account linking
+Users can link their accounts only to social providers you configured in your Ory project.
 
-Linking accounts is an operation that users must perform manually from their account settings.
+:::
 
-1. Set up at least two methods for users to sign up, for example password and GitHub, in your project.
-2. Sign up with a test account in your project using a password.
-3. In the managed account experience, navigate to your account settings.
-4. Click **Link GitHub** under social sign in.
+Users can use account linking and un-linking:
 
-## Unlink account
+- to start signing in with a profile created in a social sign-in provider when they originally signed up with email and password
+- to link another social sign-in provider to their profile so that they can sign in with their GitHub profile and their Facebook
+  profile
+- to remove a social sign-in provider link from the profile (possible only when multiple sign-in methods are available to prevent
+  locking users out from accounts)
 
-A user with two ways of signing in, for example password and GitHub, has the following steps to perform:
+## Linking accounts
 
-1. Log in to your project.
-2. In the managed account experience, navigate to the account settings.
-3. Click **Unlink GitHub** under social sign in.
+Users link can link accounts manually through their account's settings page. To try out account linking, use the Ory Account
+Experience. Follow these steps:
+
+1. Configure at least two sign-up methods in your Ory project. One of these methods must be through a social sign-in provider.
+2. Go to your project's Ory Account Experience at `https://{project.slug}.projects.oryapis.com/ui` and sign up.
+3. After you sign up, go to **Account Settings** and navigate to the **Social Sign In** section.
+4. Select one of the buttons to link an available social sign-in provider.
+
+## Un-linking account
+
+Users with multiple sign-in methods can un-link social sign-in providers from their account through their account's settings page.
+To try out account un-linking, use the Ory Account Experience. Follow these steps:
+
+1. Go to your project's Ory Account Experience at `https://{project.slug}.projects.oryapis.com/ui` and sign in with a user account
+   with multiple sign-in methods available.
+2. Go to **Account Settings** and navigate to the **Social Sign In** section.
+3. Use the buttons to un-link a social sign-in provider.
 
 ## Automatic account linking
 
-While convenient for users, automatic account linking creates an attack vector that can allow malicious actors to steal user
+While it is convenient for users, automatic account linking creates an attack vector that can allow malicious actors to steal user
 accounts.
 
 :::warning

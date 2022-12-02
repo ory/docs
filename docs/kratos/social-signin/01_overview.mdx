@@ -1,53 +1,34 @@
 ---
 id: overview
 title: Set up social sign-in and connect with OAuth2 and OpenID Connect providers
-sidebar_label: Quickstart
+sidebar_label: Overview
 ---
 
-# Get Started with social sign-in
+# Get started with social sign-in
 
-Ory supports 15+ social sign-in providers out of the box. Using the generic OpenID Connect connector, you can use any OpenID
-Connect provider to register and sign in users. To enable social sign-in in your project, follow these steps:
+Out of the box, Ory comes with custom-tailored connectors for 15+ social sign-in providers such as GitHub, Google, or Facebook.
+Additionally, you can connect any OpenID Connect-compliant identity provider using the
+[Generic provider integration](./05_generic.mdx).
 
-```mdx-code-block
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
+## Reduce friction, boost conversion
 
-<Tabs>
-  <TabItem value="Ory Console" default>
+:::tip
 
+Adding social sign-in to your system can
+[increase conversion rates by up to 40%](https://www.google.com/search?q=social+sign+in+conversion+rate).
 
-1. Go to the [social sign-in](https://console.ory.sh/projects/current/social-signin) page in the Ory Console.
-2. Pick a provider of your choice.
-3. Create a new application in the provider's developer console. Use the redirect URI provided in the Ory Console.
-4. Check out the flow using the [Ory Account Experience](https://console.ory.sh/projects/ec786258-af7a-41ef-876e-ef258f77d202/connect).
-
-
-  </TabItem>
-</Tabs>
-```
-
-Once set up, check the following resources to get the most out of social sign-in:
-
-1. Find out how to configure each social sign-in provider by checking out **Integrating Providers** in the navigation.
-2. [Map data](90_data-mapping.mdx) from the social sign-in provider to the user profile.
-3. [Link and unlink](95_account-linking.mdx) social sign in provider from user accounts.
-4. Get access to [access, refresh, and ID tokens](85_get-tokens.mdx) issued by the social sign-in provider.
-
-## Social sign-in is a good idea
-
-Adding social sign-in to your site increases
-[conversion rates by up to 40% amongst many other benefits](https://www.google.com/search?q=social+sign+in+conversion+rate).
-
-Thanks to social sign-in, users can use their existing accounts from providers such as Google, Slack, or Facebook for sign-up and
-sign-in in your application. By signing up with external identity providers, users give Ory access to the profile data of the
-account created in the external identity provider. This data is used to create an Ory identity and a user account in your
-application.
+:::
 
 Allowing users to use their existing accounts with your application removes the friction that comes with having to remember
 another set of credentials and makes the decision to sign up much easier.
 
-The Ory Network provides convenient, GUI-based flows for adding new social sign-in providers through the
+Thanks to social sign-in, users can use their existing accounts from providers such as Google, Slack, or Facebook for sign-up and
+sign-in in your application. By signing up with external identity providers, users give Ory access to the profile data of their
+account created in an external identity provider. This data is used to create an Ory identity and a user account in your
+application.
+
+## Easy configuration through Ory Console and CLI
+
+The Ory Network provides convenient, GUI-based flows for adding and configuring social sign-in providers through the
 [Ory Console](https://console.ory.sh/login). Each flow is custom-tailored to accommodate configuration requirements of the
-specific identity provider. Alternatively, you can use the [Ory CLI](../../guides/cli/01_installation.mdx) to add and configure
-social sign-in providers.
+specific identity provider. Alternatively, you can use the [Ory CLI](../../guides/cli/01_installation.mdx).
