@@ -871,7 +871,7 @@
     },
     {
       "source": "/docs/keto/sdk",
-      "destination": "https://www.ory.sh/docs/hydra/sdk/overview",
+      "destination": "https://www.ory.sh/docs/keto/sdk/overview",
       "permanent": false
     },
     {
