@@ -92,6 +92,7 @@ module.exports = {
                 "kratos/social-signin/data-mapping",
               ],
             },
+            "identities/sign-in/check-session",
           ],
         },
         {

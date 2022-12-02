@@ -868,6 +868,11 @@
       "source": "/docs/kratos/guides/password-policy",
       "destination": "https://www.ory.sh/docs/concepts/password-policy",
       "permanent": false
+    },
+    {
+      "source": "/docs/kratos/session-management/check-session",
+      "destination": "https://www.ory.sh/docs/identities/sign-in/check-session-token-cookie-api",
+      "permanent": false
     }
   ]
 }
