@@ -237,6 +237,26 @@ When talking about any UI in the Ory documentation follow these rules:
 
 > Example: In the **Identity Model Schema** box, type `MyCustomIdentitySchema`.
 
+### Graphs and diagrams
+
+The Ory documentation uses [mermaid.js](https://mermaid-js.github.io/mermaid/#/)
+to create graphs and diagrams. Run mermaid locally or use the
+[mermaid live editor](https://mermaid.live) in the browser.  
+To use graphs and diagrams in documents use the following code:
+
+````md
+```mdx-code-block
+import Mermaid from "@site/src/theme/Mermaid"
+<Mermaid
+  chart={`
+
+$<Mermaid code goes here!>
+
+`}
+/>
+```
+````
+
 ## Import & reference content
 
 ### Markdown partials
@@ -301,45 +321,6 @@ import exampleGo from '!!raw-loader!./code-example.go'
 ```
 ````
 
-### Mermaid graphs
-
-Use [mermaid.js](https://mermaid-js.github.io/mermaid/#/) to create graphs and
-diagrams,
-[for example](https://www.ory.sh/docs/kratos/self-service/flows/user-registration).
-The [mermaid live editor](https://mermaid.live) runs in the browser.  
-To use the graphs in documents import Mermaid at the top of the document:
-
-```js
-import Mermaid from "@site/src/theme/Mermaid"
-```
-
-Add the mermaid code where it should appear:
-
-```js
-<Mermaid
-  chart={`
-
-$Mermaid code goes here
-
-`}
-/>
-```
-
-for example:
-
-```js
-<Mermaid
-  chart={`
-graph TD
-    A[Christmas] -->|Get money| B(Go shopping)
-    B --> C{Let me think}
-    C -->|One| D[Laptop]
-    C -->|Two| E[iPhone]
-    C -->|Three| F[fa:fa-car Car]
-    `}
-/>
-```
-
 ## Screenshots and videos
 
 - Use screenshots and videos sparingly. These resources tend to get out-of-date
@@ -388,7 +369,6 @@ ffmpeg -i $file -vcodec h264 -vf scale=1024:-1 -an "${file%.*}".mp4
 Use this `mdx-code-block` to add the video to your document:
 
 ````
-
 ```mdx-code-block
 import mp4 from './_static/screencast.mp4'
 import webm from './_static/screencast.webm'
@@ -396,7 +376,6 @@ import VideoEmbed from '@site/src/components/VideoEmbed'
 
 <VideoEmbed mp4={mp4} webm={webm} />
 ```
-
 ````
 
 ## Testing
@@ -474,7 +453,3 @@ The `cmd/clidoc/main.go` is the general path for all Ory projects.
 
 The command to generate the CLI docs can be found here:
 https://github.com/ory/x/blob/master/clidoc/generate.go#L96
-
-```
-
-```
