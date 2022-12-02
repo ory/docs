@@ -44,7 +44,7 @@ module.exports = {
         "security-model",
         {
           type: "category",
-          label: "Sign-in & registration",
+          label: "Sign-in and registration",
           items: [
             {
               type: "category",
@@ -177,7 +177,7 @@ module.exports = {
     },
     {
       type: "category",
-      label: "OAuth2 & OpenID",
+      label: "OAuth2 and OIDC",
       items: [
         "hydra/index",
         {
@@ -236,7 +236,7 @@ module.exports = {
           ],
         },
         {
-          "Debug & Help": [
+          "Debug and Help": [
             "hydra/debug",
             "hydra/debug/csrf",
             "hydra/debug/token-endpoint-auth-method",
