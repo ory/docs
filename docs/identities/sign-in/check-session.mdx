@@ -1,12 +1,13 @@
 ---
 id: check-session
-title: Check for user session status in browser cookies and session tokens
+title: Check for user sessions status in browser cookies and session tokens
 sidebar_label: Check login session
 slug: check-session-token-cookie-api
 ---
 
 # Check session status
 
+```mdx-code-block
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 import { getSdkUrl } from "@site/src/hooks"
@@ -15,6 +16,7 @@ import CodeFromRemote from "@theme/CodeFromRemote"
 import expressjs from "!!raw-loader!../../../code-examples/identity/sign-in/check-session/js/server.js"
 import ajax from "!!raw-loader!../../../code-examples/identity/sign-in/check-session/js/client.js"
 import goExample from "!!raw-loader!../../../code-examples/identity/sign-in/check-session/go/server.go"
+```
 
 Ory stores session data in different ways for browser apps and native apps:
 
@@ -35,7 +37,6 @@ and the session payload.
 When using the SDK, use the `frontend.toSession()` method.
 
 ````mdx-code-block
-
 <Tabs>
 <TabItem value="curl" label="cURL" default>
 
