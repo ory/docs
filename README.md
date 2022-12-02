@@ -237,7 +237,7 @@ When talking about any UI in the Ory documentation follow these rules:
 
 > Example: In the **Identity Model Schema** box, type `MyCustomIdentitySchema`.
 
-### Graphs and diagrams
+### Diagrams
 
 The Ory documentation uses [mermaid.js](https://mermaid-js.github.io/mermaid/#/)
 to create graphs and diagrams. Run mermaid locally or use the
