@@ -14,9 +14,14 @@ To add Google as a social sign-in provider, you need a Google Developer account.
 
 :::
 
-## Configuration in Ory Console
+````mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-Follow these steps to add Google as a social sign-in provider for your project using the Ory Console.
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+
+Follow these steps to add Google as a social sign-in provider to your project using the Ory Console:
 
 1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
 2. Click the switch next to the Google logo to start the configuration.
@@ -46,12 +51,12 @@ incomplete. To complete the configuration and ensure a smooth and secure user ex
 
 :::
 
-### Additional configuration
+## Additional configuration
 
 When adding a social sign-in provider, you can customize the integration by defining the OAuth scopes Ory requests from the
 provider and by setting up custom data mappings.
 
-#### Scopes
+### Scopes
 
 The Scopes section allows you to define the OAuth scopes Ory requests from the sign-in provider. Defining scopes allows you to
 interact with the provider's APIs on behalf of the user, or to access additional user data, which is exposed as claims for data
@@ -62,7 +67,7 @@ For Google, add the `email` and `profile` scopes for a basic setup.
 To learn more about the scopes available for Google, read the
 [related documentation](https://developers.google.com/identity/protocols/oauth2/scopes).
 
-#### Data mapping
+### Data mapping
 
 The **Data mapping** section allows you to map the data returned by the sign-in provider to traits as defined in the identity
 schema.
@@ -104,7 +109,7 @@ If you want to use this data mapping, you must include the `first_name` and `las
 ```mdx-code-block
 import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
 
-<JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
+<JsonnetWarning />
 ```
 
 :::tip
@@ -117,13 +122,51 @@ To learn more about the ID payload returned by Google, read the
 
 :::
 
-## Configuration using the Ory CLI
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
 
 Follow these steps to add Google as a social sign-in provider to your project using the Ory CLI:
 
-1. [Create a Google OAuth client](#configuration-in-ory-cloud-console).
-2. Create a [Jsonnet code snippet](#data-mapping) to map the desired claims to the Ory Identity schema.
+1. Create a Google OAuth client.
+2. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema.
+
+    ```jsonnet
+    local claims = {
+      email_verified: true,
+    } + std.extVar('claims');
+
+    {
+      identity: {
+        traits: {
+          [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,
+          first_name: claims.given_name,
+          last_name: claims.family_name,
+          [if 'hd' in claims && claims.email_verified then 'hd' else null]: claims.hd,
+        },
+      },
+    }
+    ```
+
+    The sample Jsonnet snippet creates the following mapping:
+
+    | Google claim | Ory Identity schema mapping |
+    | :----------- | :-------------------------- |
+    | email        | email                       |
+    | given_name   | first_name                  |
+    | family_name  | last_name                   |
+
+    :::note
+
+    If you want to use this data mapping, you must include the `first_name` and `last_name` fields in your Identity Schema
+
+    :::
+
 3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to The Ory Network.
+
+  ```shell
+  cat your-data-mapping.jsonnet | base64
+  ```
+
 4. Download the Ory Identities config from your project and save it to a file:
 
    ```shell
@@ -131,7 +174,7 @@ Follow these steps to add Google as a social sign-in provider to your project us
    ory list projects
 
    ## Get config
-   ory get identity-config <project-id> --format yaml > identity-config.yaml
+   ory get identity-config {project-id} --format yaml > identity-config.yaml
    ```
 
 5. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
@@ -147,7 +190,7 @@ Follow these steps to add Google as a social sign-in provider to your project us
                provider: google
                client_id: .... # Replace this with the OAuth2 Client ID
                client_secret: .... # Replace this with the OAuth2 Client secret
-               mapper_url: "base64://<YOUR_BASE64_ENCODED_JSONNET_HERE>"
+               mapper_url: "base64://{YOUR_BASE64_ENCODED_JSONNET_HERE}"
                # Alternatively, use an URL:
                # mapper_url: https://storage.googleapis.com/abc-cde-prd/9cac9717f007808bf17f22ce7f4295c739604b183f05ac4afb4
                scope:
@@ -167,16 +210,12 @@ Follow these steps to add Google as a social sign-in provider to your project us
          enabled: true
    ```
 
-6. Update the Ory Identities (Ory Kratos) configuration using the file you worked with:
+6. Update the Ory Identities configuration using the file you worked with:
 
    ```shell
-   ory update identity-config <project-id> --file updated_config.yaml
+   ory update identity-config {project-id} --file updated_config.yaml
    ```
 
-## Prevent having to log in after sign-up
-
-```mdx-code-block
-import OidcSessionHook from '../_common/oidc_session_hook.mdx'
-
-<OidcSessionHook />
-```
+</TabItem>
+</Tabs>
+````
