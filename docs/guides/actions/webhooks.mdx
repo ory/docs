@@ -1,0 +1,92 @@
+---
+title: Integrate third-party services with webhooks
+sidebar_label: Webhooks
+---
+
+Use webhooks to easily integrate with third-party services such as ERP or CRM platforms. Ory Identities (Ory Kratos) allows you to
+tie the invocation of user-defined webhooks to self-service user flows.
+
+:::tip
+
+Self-service user flows are actions that the users of a system perform on their own, without the need for administrative
+intervention.
+
+:::
+
+By triggering custom logic at specific points of self-service user flows, you can tailor your users' customer experience, trigger
+usage data collection, and more.
+
+Follow these steps to add a webhook that enables integration with Mailchimp. With this integration in place, the system sends a
+welcome email message to all newly registered users.
+
+1. Get the Ory Identities config with Ory CLI:
+
+   ```shell
+   ## List all available projects
+   ory list projects
+
+   ## Get config
+   ory get identity-config <project-id> --format yaml > identity-config.yaml
+   ```
+
+2. Create a request body [Jsonnet](https://jsonnet.org/) snippet:
+
+   ```jsonnet title="mailchimp.jsonnet"
+   function(ctx) {
+     key: "<Your-Mailchimp-API-Key>", // Mailchimp requires passing the API key in request body.
+     message: {
+       from_email: "hello@welcomemail.com",
+       subject: "Hello from Ory",
+       text: "Welcome to Ory! Have fun and happy hacking!",
+       to: [
+         {
+           email: ctx.identity.verifiable_addresses[0].value,
+           type: "to"
+         }
+       ]
+     }
+   }
+   ```
+
+3. Base64-encode the Jsonnet snippet:
+
+```shell
+base64 < mailchimp.jsonnet
+```
+
+The result should look something like this:
+
+```base64
+ZnVuY3Rpb24oY3R4KSB7CiAga2V5OiAiPFlvdXItTWFpbGNoaW1wLUFQSS1LZXk+IiwgLy8gTWFpbGNoaW1wIHJlcXVpcmVzIHBhc3NpbmcgdGhlIEFQSSBrZXkgaW4gcmVxdWVzdCBib2R5LgogIG1lc3NhZ2U6IHsKICAgIGZyb21fZW1haWw6ICJoZWxsb0B3ZWxjb21lbWFpbC5jb20iLAogICAgc3ViamVjdDogIkhlbGxvIGZyb20gT3J5IiwKICAgIHRleHQ6ICJXZWxjb21lIHRvIE9yeSEgSGF2ZSBmdW4gYW5kIGhhcHB5IGhhY2tpbmchIiwKICAgIHRvOiBbCiAgICAgIHsKICAgICAgICBlbWFpbDogY3R4LmlkZW50aXR5LnZlcmlmaWFibGVfYWRkcmVzc2VzWzBdLnZhbHVlLAogICAgICAgIHR5cGU6ICJ0byIKICAgICAgfQogICAgXQogIH0KfQ==
+```
+
+4. Add the webhook configuration to the downloaded Ory Identities (Ory Kratos) configuration file.
+
+   ```yaml title="identity-config.yaml"
+   selfservice:
+     flows:
+       registration: # Defines for which flow triggers the hook.
+         after: # Defines the point at which the hook runs.
+           password: # When defined, the hook is triggered only for this particular method and flow.
+             hooks:
+               - hook: web_hook
+                 config:
+                   url: https://mandrillapp.com/api/1.0/messages/send
+                   method: POST
+                   body: base64://ZnVuY3Rpb24oY3R4KSB7CiAga2V5OiAiPFlvdXItTWFpbGNoaW1wLUFQSS1LZXk+IiwgLy8gTWFpbGNoaW1wIHJlcXVpcmVzIHBhc3NpbmcgdGhlIEFQSSBrZXkgaW4gcmVxdWVzdCBib2R5LgogIG1lc3NhZ2U6IHsKICAgIGZyb21fZW1haWw6ICJoZWxsb0B3ZWxjb21lbWFpbC5jb20iLAogICAgc3ViamVjdDogIkhlbGxvIGZyb20gT3J5IiwKICAgIHRleHQ6ICJXZWxjb21lIHRvIE9yeSEgSGF2ZSBmdW4gYW5kIGhhcHB5IGhhY2tpbmchIiwKICAgIHRvOiBbCiAgICAgIHsKICAgICAgICBlbWFpbDogY3R4LmlkZW50aXR5LnZlcmlmaWFibGVfYWRkcmVzc2VzWzBdLnZhbHVlLAogICAgICAgIHR5cGU6ICJ0byIKICAgICAgfQogICAgXQogIH0KfQ==
+   ```
+
+5. Update the Ory Identities configuration using the file you just edited:
+
+   ```shell
+   ory update identity-config <project-id> --file identity-config.yaml
+   ```
+
+When a user signs up to your project, Ory Identities will send a webhook to `https://mandrillapp.com/api/1.0/messages/send` which
+in turn will trigger an email being sent to the user.
+
+:::tip
+
+Read [this document](../../kratos/hooks/configure-hooks) to learn more about hooks in The Ory Network.
+
+:::

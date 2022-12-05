@@ -298,8 +298,8 @@ module.exports = {
     },
     {
       type: "category",
-      label: "Actions",
-      items: ["guides/integrate-with-ory-cloud-through-webhooks"],
+      label: "Ory Actions",
+      items: ["guides/actions/webhooks"],
     },
     {
       type: "category",
