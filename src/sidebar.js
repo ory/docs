@@ -441,7 +441,7 @@ module.exports = {
                   ],
                 },
                 {
-                  SDKs: ["kratos/sdk/index", "kratos/sdk/go"],
+                  SDKs: ["kratos/sdk/overview", "kratos/sdk/go"],
                 },
                 "kratos/reference/configuration",
                 "kratos/reference/json-schema-json-paths",
