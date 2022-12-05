@@ -7,70 +7,80 @@ slug: check-session-token-cookie-api
 
 # Check session status
 
-Ory uses cookies for browser applications and tokens for native apps.
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import { getSdkUrl } from "@site/src/hooks"
+import CodeBlock from "@theme/CodeBlock"
+import CodeFromRemote from "@theme/CodeFromRemote"
+import expressjs from "!!raw-loader!../../../code-examples/identity/sign-in/check-session/js/server.js"
+import ajax from "!!raw-loader!../../../code-examples/identity/sign-in/check-session/js/client.js"
+import goExample from "!!raw-loader!../../../code-examples/identity/sign-in/check-session/go/server.go"
+
+Ory stores session data in different ways for browser apps and native apps:
+
+- For browser apps, Ory stores session data in Ory Session Cookies
+- For native apps, Ory stores session data in Ory Session Tokens
 
 :::tip
 
-Refresh your knowledge on [cookie-based security](../../security-model.mdx) and
-[browser versus native APIs](../native-browser.mdx).
+Refresh your knowledge on the [cookie-based security](../../security-model.mdx) used by Ory and
+[the difference between browser and native APIs](../native-browser.mdx).
 
 :::
 
-To check if the user is signed in, the `/sessions/whoami` REST endpoint is used. When the user doesn't have a session, it returns
-a `401 Unauthorized` response. If the user has a session, you get a `200 OK` response and the session payload.
+To check if the user is signed in and has an active session, use the `/sessions/whoami` endpoint. If the user doesn't have an
+active session, the system returns a `401 Unauthorized` response. If the user has an active session, you get a `200 OK` response
+and the session payload.
 
 When using the SDK, use the `frontend.toSession()` method.
 
 ````mdx-code-block
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import { getSdkUrl } from '@site/src/hooks'
-import CodeBlock from '@theme/CodeBlock'
-import CodeFromRemote from '@theme/CodeFromRemote'
-import expressjs from '!!raw-loader!../../../code-examples/identity/sign-in/check-session/js/server.js'
-import ajax from '!!raw-loader!../../../code-examples/identity/sign-in/check-session/js/client.js'
-import goExample from '!!raw-loader!../../../code-examples/identity/sign-in/check-session/go/server.go'
-
 
 <Tabs>
-  <TabItem value="curl" label="curl" default>
+<TabItem value="curl" label="cURL" default>
 
-To check for a session token, use:
+To check for an active session with an Ory Session Token, run:
 
 ```shell
 curl -H "Authorization: Bearer {your-session-token}" \
   "https://{project.slug}.projects.oryapis.com/sessions/whoami"
 ```
 
-To check for a session cookie, use:
+To check for an active session with an Ory Session Cookie, run:
 
 ```shell
 curl -H "Cookie: ory_session_...=..." \
   "https://{project.slug}.projects.oryapis.com/sessions/whoami"
 ```
 
-  </TabItem>
-  <TabItem value="ajax" label="AJAX / SPA" >
-    <p>When calling Ory or your API from a Single Page Application using AJAX, you need to ensure three things:</p>
-    <ol>
-      <li>The Single Page App (<code>www.yourdomain.com</code>, <code>localhost:3000</code>), Ory (<code>ory.yourdomain.com</code>, <code>localhost:4000</code>), and your API are all on the domain.</li>
-      <li>You configured CORS in the Ory Console and your API server.</li>
-      <li>The cookie is configured to be available on the domains you need (for example the full <code>yourdomain.com</code>)</li>
-    </ol>
-    <CodeBlock language="js">{ajax}</CodeBlock>
-  </TabItem>
-  <TabItem value="node" label="ExpressJS">
-    <p>Your API should be able to handle both Ory Session Cookies and Ory Session Tokens, which is why we forward both headers in the check:</p>
-    <CodeBlock language="js">{expressjs}</CodeBlock>
-  </TabItem>
-  <TabItem value="go" label="Go">
-    <p>Your API should be able to handle both Ory Session Cookies and Ory Session Tokens, which is why we forward both headers in the check:</p>
-    <CodeBlock language="go">{goExample}</CodeBlock>
-  </TabItem>
+</TabItem>
+<TabItem value="ajax" label="AJAX / SPA">
+
+When calling Ory or your API from a Single Page Application (SPA) using AJAX:
+
+- The SPA (`www.yourdomain.com`, `localhost:3000`), Ory (`ory.yourdomain.com`, `localhost:4000`), and your API must be on the same domain.
+- You configured CORS in the Ory Console and on your API server.
+- The cookie is configured to be available on the domains you need, for example, the full `yourdomain.com`.
+
+<CodeBlock className="language-js">{ajax}</CodeBlock>
+
+</TabItem>
+<TabItem value="expressjs" label="ExpressJS">
+
+Ory checks for both the cookie and the token, which means that your API must handle both Ory Session Cookies and Ory Session Tokens:
+
+<CodeBlock className="language-js">{expressjs}</CodeBlock>
+
+</TabItem>
+<TabItem value="go" label="Go">
+
+Ory checks for both the cookie and the token, which means that your API must handle both Ory Session Cookies and Ory Session Tokens:
+
+<CodeBlock className="language-go">{goExample}</CodeBlock>
+
+</TabItem>
 </Tabs>
 ````
-
-If you have the session cookie available from another source you can also use the `X-Session-Cookie` header:
 
 ## Session response
 
