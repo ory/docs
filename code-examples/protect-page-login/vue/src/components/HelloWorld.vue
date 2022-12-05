@@ -59,7 +59,7 @@
 
 <script>
 // highlight-next-line
-import { V0alpha2Api, Configuration } from "@ory/client"
+import { FrontendApi, Configuration } from "@ory/client"
 
 // The basePath points to the location of Ory's APIs.
 // You can use https://<slug>.projects.oryapis.com/ here because cookies can not
@@ -69,7 +69,7 @@ import { V0alpha2Api, Configuration } from "@ory/client"
 // on your local machine using the Ory Tunnel at http://localhost:4000
 // highlight-start
 const basePath = process.env.VUE_APP_ORY_URL || "http://localhost:4000"
-const ory = new V0alpha2Api(
+const ory = new FrontendApi(
   new Configuration({
     basePath,
     baseOptions: {
@@ -104,7 +104,7 @@ export default {
 
       // If the user is logged in, we want to show a logout link!
       // highlight-start
-      ory.createSelfServiceLogoutFlowUrlForBrowsers().then(({ data }) => {
+      ory.createBrowserLogoutFlow().then(({ data }) => {
         this.logoutUrl = data.logout_url
       })
       // highlight-end

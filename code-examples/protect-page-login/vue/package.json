@@ -29,7 +29,7 @@
     "root": true
   },
   "dependencies": {
-    "@ory/client": "^0.0.1-alpha.184",
+    "@ory/client": "~1.0.2",
     "core-js": "^3.8.3",
     "serve": "^14.1.2",
     "vue": "^3.2.13"

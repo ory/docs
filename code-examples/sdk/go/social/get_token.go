@@ -24,8 +24,8 @@ func init() {
 
 func getTokens(identityId string) (cl client.IdentityCredentials, err error) {
 	// highlight-start
-	identity, _, err := ory.V0alpha2Api.
-		AdminGetIdentity(authed, identityId).
+	identity, _, err := ory.IdentityApi.
+		GetIdentity(authed, identityId).
 		IncludeCredential([]string{"oidc"}).Execute()
 	// highlight-end
 	if err != nil {
