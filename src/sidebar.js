@@ -90,6 +90,7 @@ module.exports = {
                 },
                 "kratos/social-signin/get-tokens",
                 "kratos/social-signin/data-mapping",
+                "kratos/social-signin/account-linking",
               ],
             },
           ],
