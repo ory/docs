@@ -23,6 +23,7 @@
     - [Code blocks](#code-blocks)
     - [Placeholders and dummy data](#placeholders-and-dummy-data)
     - [UI references](#ui-references)
+    - [Diagrams](#diagrams)
   - [Import \& reference content](#import--reference-content)
     - [Markdown partials](#markdown-partials)
     - [Code snippets](#code-snippets)
@@ -53,7 +54,7 @@ To see the source code of each of the projects, visit the project repository:
 - [Ory Oathkeeper](https://github.com/ory/oathkeeper/)
 - [Ory Keto](https://github.com/ory/keto/)
 
-Other Ory Projects documentation:
+Documentation of other Ory projects:
 
 - [Ory Kubernetes Helm Charts](https://github.com/ory/k8s/tree/master/docs/helm)
 - [Ory Dockertest](https://github.com/ory/dockertest/blob/v3/README.md)
@@ -182,7 +183,7 @@ sidebar_label: Excellent feature
 
   ````
   ```json
-  some JSON code here
+  {some-JSON-code-here}
   ```
   ````
 
@@ -236,6 +237,27 @@ When talking about any UI in the Ory documentation follow these rules:
 - Format any user input with `code`.
 
 > Example: In the **Identity Model Schema** box, type `MyCustomIdentitySchema`.
+
+### Diagrams
+
+Use [Mermaid](https://mermaid-js.github.io/mermaid/#/) to create diagrams. You
+can run the tool locally or use [Mermaid Live Editor](https://mermaid.live) in
+the browser.
+
+To add a Mermaid diagram, use this `mdx-code-block`:
+
+````md
+```mdx-code-block
+import Mermaid from "@site/src/theme/Mermaid"
+<Mermaid
+  chart={`
+
+{your-Mermaid-code}
+
+`}
+/>
+```
+````
 
 ## Import & reference content
 

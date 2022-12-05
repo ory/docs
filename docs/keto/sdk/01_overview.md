@@ -1,5 +1,5 @@
 ---
-id: index
+id: overview
 title: Overview
 ---
 
@@ -13,17 +13,17 @@ documentation which includes code samples for common programming languages for e
 
 We publish our SDKs for popular languages in their respective package repositories:
 
-- [Dart](https://pub.dev/packages/ory_keto_client)
-- [.NET](https://www.nuget.org/packages/Ory.Keto.Client/)
+- [Dart](https://pub.dev/packages/ory_client)
+- [.NET](https://www.nuget.org/packages/Ory.Client/)
 - [Go gRPC](https://github.com/ory/keto/blob/master/proto/go.mod) (import using `go get github.com/ory/keto/proto`)
-- [Go REST](https://github.com/ory/keto-client-go)
-- [Java](https://search.maven.org/artifact/sh.ory.keto/keto-client)
-- [PHP](https://packagist.org/packages/ory/keto-client)
-- [Python](https://pypi.org/project/ory-keto-client/)
-- [Ruby](https://rubygems.org/gems/ory-keto-client)
-- [Rust](https://crates.io/crates/ory-keto-client)
-- [Node.js REST](https://www.npmjs.com/package/@ory/keto-client) (with TypeScript)
-- [Node.js gRPC](https://www.npmjs.com/package/@ory/keto-grpc-client) (with TypeScript)
+- [Go REST](https://github.com/ory/client-go)
+- [Java](https://search.maven.org/artifact/sh.ory.keto/ory-client)
+- [Javascript REST](https://www.npmjs.com/package/@ory/client) with TypeScript definitions and compatible with: Node.js, React.js,
+- [Javascript gRPC](https://www.npmjs.com/package/@ory/keto-grpc-client) with TypeScript definitions and compatible with Node.js
+- [PHP](https://packagist.org/packages/ory/client)
+- [Python](https://pypi.org/project/ory-client/)
+- [Ruby](https://rubygems.org/gems/ory-client)
+- [Rust](https://crates.io/crates/ory-client)
 
 Code examples:
 
