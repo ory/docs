@@ -319,8 +319,8 @@ module.exports = {
     },
     {
       type: "category",
-      label: "Actions",
-      items: ["guides/integrate-with-ory-cloud-through-webhooks"],
+      label: "Third-party integrations",
+      items: ["guides/third-party-integrations/webhooks"],
     },
     {
       type: "category",
