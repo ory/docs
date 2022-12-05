@@ -1,0 +1,84 @@
+---
+id: update-relationships
+title: Create relationships
+sidebar_label: Create relationships
+---
+
+```mdx-code-block
+import CodeTabs from "@site/src/theme/Code/CodeTabs"
+import { createRelationship, deleteRelationship } from "./code/"
+```
+
+This guide shows how to create or update [relationships](./index.md#relationships).
+
+## Before starting
+
+### 1. Set up Ory Console
+
+Create or sign in to an account on the [Ory Network](https://console.ory.sh/) note the SDK URL under "Access & APIs". The format
+is `https://<slug>.projects.oryapis.com`.
+
+```shell
+export SDK_URL=https://<slug>.projects.oryapis.com
+```
+
+On that same page, create a personal access token and store it as the environment variable `API_TOKEN`
+
+```shell
+export API_TOKEN=<random string>
+```
+
+Then, go to "Namespaces & Rules" and further to "Permission Rules" and create a simple permission model for this example by
+pasting the following code into the editor:
+
+```ts
+import { Namespace, SubjectSet, Context } from "@ory/permission-namespace-types"
+
+class User implements Namespaces {}
+class Document implements Namespaces {}
+```
+
+### 2. Set up the Ory CLI
+
+- Download the [Ory CLI](https://www.ory.sh/cli/) and sign in with `ory auth`.
+- Log in to Ory Network from the Ory CLI.
+
+### 3. Configure your shell
+
+```shell
+# List all available projects:
+ory list projects
+
+# Copy and export the correct project ID:
+export PROJECT=<hexadecimal project UUID>
+```
+
+## Step by step
+
+We will enter the following relationship into Ory Permissions, expressing that the user `Tom` has the `reader` relationship on the
+document `secret`:
+
+```json
+{
+  "namespace": "Document",
+  "object": "secret",
+  "relation": "reader",
+  "subject_set": {
+    "namespace": "User",
+    "object": "Tom",
+    "relation": ""
+  }
+}
+```
+
+### 1. Create the relationship
+
+Create the relationship using the following API call:
+
+<CodeTabs items={createRelationship} />
+
+### 2. Delete the relationship
+
+Delete the relationship using the following API call:
+
+<CodeTabs items={deleteRelationship} />
