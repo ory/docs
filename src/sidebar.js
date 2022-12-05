@@ -183,7 +183,7 @@ module.exports = {
     },
     {
       type: "category",
-      label: "OAuth2 and OIDC",
+      label: "OAuth2 and OpenID",
       items: [
         "hydra/index",
         {
