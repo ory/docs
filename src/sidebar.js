@@ -337,6 +337,7 @@ module.exports = {
       label: "Open source",
       items: [
         "open-source",
+        "open-source/commitment",
         "ecosystem/contributing",
         "ecosystem/software-architecture-philosophy",
         {
