@@ -136,7 +136,7 @@
     },
     {
       "source": "/docs/start-building/create-project",
-      "destination": "https://www.ory.sh/docs/",
+      "destination": "https://www.ory.sh/docs/guides/console/create-project",
       "permanent": false
     },
     {
@@ -146,7 +146,7 @@
     },
     {
       "source": "/docs/start-building/ory-cli-install-use",
-      "destination": "https://www.ory.sh/docs/guides/cli/installation",
+      "destination": "https://www.ory.sh/docs/guides/ory-cli-install-use",
       "permanent": false
     },
     {
@@ -456,7 +456,7 @@
     },
     {
       "source": "/docs/guides/console/create-project",
-      "destination": "https://www.ory.sh/docs/welcome",
+      "destination": "https://www.ory.sh/docs/guides/console/create-project",
       "permanent": false
     },
     {
