@@ -1,0 +1,116 @@
+---
+id: actions
+title: Customize login and registration flows with webhooks and actions
+sidebar_label: Actions and webhooks
+---
+
+# Customize Login and registration
+
+You may customize login and registration flows in many ways. Let's look at a few examples.
+
+## Third-party services and webhooks
+
+Make webhook calls to a 3rd party service provider when a user signs up or logs in:
+
+- [Mailchimp](../../kratos/hooks/05_webhooks-integrations.mdx#mailchimp)
+- [Segment](../../kratos/hooks/05_webhooks-integrations.mdx#segment)
+- [Hubspot](../../kratos/hooks/05_webhooks-integrations.mdx#hubspot)
+- other [webhook targets](../../kratos/hooks/01_configure-hooks.mdx#webhooks)
+
+## Invalidate all other session on login
+
+To invalidate all other sessions of a user on their login, use the [Ory CLI](../../guides/cli/01_installation.mdx):
+
+```shell
+ory patch identity-config $project_id \
+  --add '/selfservice/flows/login/after/hooks=[{"hook": "revoke_active_sessions"}]'
+```
+
+To use this feature only for a specific login method use:
+
+```shell
+ory patch identity-config $project_id \
+  --add '/selfservice/flows/login/after/password/hooks=[{"hook": "revoke_active_sessions"}]' \
+  --add '/selfservice/flows/login/after/oidc/hooks=[{"hook": "revoke_active_sessions"}]' \
+  --add '/selfservice/flows/login/after/webauthn/hooks=[{"hook": "revoke_active_sessions"}]'
+```
+
+### Disable session invalidation
+
+To remove the hook you need to find the position of the hook:
+
+1. List the configured hooks using
+
+   ```shell
+   ory get identity-config $project_id \
+     --format=jsonpath='selfservice.flows.login.after'
+   ```
+
+2. Check the JSON output and find the array index of the hook:
+
+   ```json
+   {
+     "hooks": [
+       {
+         "hook": "some_other_hook"
+       },
+       {
+         "hook": "revoke_active_sessions"
+       }
+     ],
+     "oidc": {
+       "hooks": []
+     },
+     "password": {
+       "hooks": []
+     },
+     "webauthn": {
+       "hooks": []
+     }
+   }
+   ```
+
+3. And finally remove the hook using:
+
+   ```shell
+   ory patch identity-config $project_id \
+     --remove '/selfservice/flows/login/after/hooks/1'
+   ```
+
+## Require verified email address on login
+
+:::info
+
+Ory does not recommend requiring email verification on login. Show a banner and limit functionality for unverified accounts to
+improve sign up conversion.
+
+:::
+
+To allow only users with a verified email to sign in, follow these steps:
+
+1. Open the [email verification page in the Ory Console](https://console.ory.sh/projects/current/verification).
+2. Toggle **Require Verified Address for Login**.
+
+### First sign in without verification
+
+If sessions are issued after registration, users will be signed in after registration, but will need to verify their email address
+before they can sign in on another device or session. Learn how to [be logged in after registration](#session-hook).
+
+<a id={"session-hook"} />
+
+## Be logged in after registration
+
+1. Open the [Ory Console base settings page](https://console.ory.sh/projects/current/auth).
+2. Toggle **Sign In After Registration**.
+
+## Block registration with advanced validation
+
+With Ory Actions it is easy to perform advanced validation and block registration when:
+
+- The email domain does not match a certain value.
+- The IP address is not allowed.
+- An invalid invite code or invite password was used.
+- ...
+
+Head over to the [blocking webhooks documentation](../../kratos/hooks/01_configure-hooks.mdx#flow-interrupting-webhooks) to learn
+more.
