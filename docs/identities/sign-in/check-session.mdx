@@ -30,7 +30,7 @@ import CodeFromRemote from '@theme/CodeFromRemote'
 import expressjs from '!!raw-loader!../../../code-examples/identity/sign-in/check-session/js/server.js'
 import ajax from '!!raw-loader!../../../code-examples/identity/sign-in/check-session/js/client.js'
 import goExample from '!!raw-loader!../../../code-examples/identity/sign-in/check-session/go/server.go'
-
+import reactNative from '!!raw-loader!../../../code-examples/identity/sign-in/check-session/js/react-native.tsx'
 
 <Tabs>
   <TabItem value="curl" label="curl" default>
@@ -66,6 +66,9 @@ curl -H "Cookie: ory_session_...=..." \
   <TabItem value="go" label="Go">
     <p>Your API should be able to handle both Ory Session Cookies and Ory Session Tokens, which is why we forward both headers in the check:</p>
     <CodeBlock language="go">{goExample}</CodeBlock>
+  </TabItem>
+  <TabItem value="react-native" label="React Native">
+    <CodeBlock language="tsx">{reactNative}</CodeBlock>
   </TabItem>
 </Tabs>
 ````
