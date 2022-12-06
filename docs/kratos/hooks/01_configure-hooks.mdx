@@ -414,6 +414,28 @@ Example payload:
 }
 ```
 
+When using an `after` registration hook, you can define the specific point in the flow where this webhook is called:
+
+- When the webhook can interrupt the flow (`can_interrupt: true`), the logic is called before the system creates a new identity.
+- When the webhook can't interrupt the flow (`can_interrupt: false`), the logic is called after the system creates a new identity.
+
+You can call a webhook before and after the system creates an identity. To do that, define two webhooks with different
+`can_interrupt` values:
+
+```yaml
+flows:
+  registration:
+    after:
+      password:
+        hooks:
+          - hook: web_hook
+            config:
+              can_interrupt: true
+          - hook: web_hook
+            config:
+              can_interrupt: false
+```
+
 :::tip
 
 Flow-interrupting webhooks work best if you give users meaningful information about the status of their flow. The best place to
