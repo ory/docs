@@ -2,6 +2,8 @@
 title: "Quickstart: Cat Videos Example"
 ---
 
+import Mermaid from "@site/src/theme/Mermaid"
+
 This example describes a video sharing service. The individual videos are organized in directories. Every directory has an owner
 and every video has the same owner as it's parent directory. The owner has elevated privileges about the video files that aren't
 modeled individually in Ory Keto. The only other privilege modeled in this example is "view access." Every owner has view access
@@ -135,9 +137,10 @@ keto check "*" view videos /cats/1.mp4
 # Allowed
 ```
 
-graph of those tuples
+Diagram of those tuples:
 
-```mermaid
+<Mermaid
+  chart={`
 flowchart TD
   obj[videos:/cats] --- r1((owner))
   obj --- r2((view))
@@ -162,7 +165,8 @@ flowchart TD
   style r4 fill:darkgreen,color:white
   style r5 fill:darkgreen,color:white
   style r6 fill:darkgreen,color:white
-```
+`}
+/>
 
 <!--TODO-->
 
