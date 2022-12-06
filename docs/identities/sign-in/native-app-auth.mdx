@@ -5,7 +5,6 @@ title: Implement login and registration in native apps
 sidebar_label: Native app authentication
 ---
 
-
 This guide explains how to authenticate native apps. This includes:
 
 - Apps for mobile phones written in, for example, Swift, Android, React Native, Cordova, or Ionic
@@ -19,8 +18,8 @@ Ory's native app APIs don't use HTTP redirects and HTTP cookies but instead full
 :::
 
 These apps use the native API to sign in `createNativeLoginFlow()`, register `createNativeRegistrationFlow()`, change settings
-`createNativeSettingsFlow()`, and so on. Native apps receive an Ory session token instead of an Ory session cookie. The session
-token is used to look up the user.
+`createNativeSettingsFlow()`, `createNativeRecoveryFlow()`, and `createNativeVerificationFlow()`. Native apps receive an Ory
+Session Token instead of an Ory Session Cookie. The token is used to look up the user.
 
 ## Check session token
 
@@ -47,12 +46,6 @@ Read the [check login session](check-session-token-cookie-api) documentation for
 ```
 
 ## User interfaces
-
-:::note
-
-[Ory elements](https://github.com/ory/elements) is not yet available for native apps.
-
-:::
 
 Check out the [React Native quickstart](../../getting-started/integrate-auth/react-native.mdx) to learn how to build your own
 native UI for sign-in, registration, recovery, verification, and account settings.
