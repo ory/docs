@@ -26,11 +26,18 @@ import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 ```
 
-Ory allows users to verify the addresses of their account. This is important to prove that the user has access to the address they
-used to create their account. If verification is enabled, Ory Identities starts the verification process automatically. A user can
-also verify their address manually.
+Ory allows users to verify email addresses associated with their accounts. This is important to prove that the user has access to
+the address they used to create their account. If verification is enabled, Ory Identities starts the verification process
+automatically. A user can also verify their address manually.
 
 The verification flow is supported in both browsers and API clients.
+
+:::caution
+
+Email verification should not be taken as a guarantee that the person currently using the account, is the person that verified the
+address. It is recommended to implement additional security mechanisms.
+
+:::
 
 ## Configuration
 
@@ -129,16 +136,15 @@ This prevents account enumeration attacks as explained in this
 
 ### Require a verified address for login
 
-Depending on your use case, you might want to limit what a user without at least one verified address is able to do in your
-application. Ory Identities supports requiring a verified address before the user can log into their account.
+Ory Identities supports only allowing users with a verified address to login.
 
 ```mdx-code-block
 <Tabs groupId="oc-or-oss">
   <TabItem value="ocp" label="The Ory Network" default>
 ```
 
-Go to the **Authentication** → **Email Verification** page in the [Ory Console](https://console.ory.sh/guides) and enable **
-Require Verified Address for Login**.
+Go to **Authentication** → **Email Verification** in the [Ory Console](https://console.ory.sh/projects/current/verification) and
+enable **Require Verified Address for Login**.
 
 ```mdx-code-block
   </TabItem>
@@ -163,13 +169,6 @@ For more information see the [hooks configuration](../../hooks/01_configure-hook
 </Tabs>
 ```
 
-:::note
-
-Please be aware, that when requiring a verified address for login, a typo in the email address set by the user either during the
-registration or when changing their email address, will make the login for that user impossible.
-
-:::
-
 ## Choosing the right strategy
 
 Ory supports two strategies for verifying your user's addresses.
@@ -179,8 +178,8 @@ Ory supports two strategies for verifying your user's addresses.
   <TabItem value="code" label="One-time codes">
 ```
 
-When using one-time codes to verify a user's address, Ory Identities sends out an email containing a 6-digit code. If the user has
-access to the mailbox they can enter the code they received to verify their address.
+When using one-time codes to verify a user's address, Ory Identities sends out an email containing a 6-digit code. The user must
+enter the code in a dedicated UI text field to verify their address.
 
 Alternatively, the email also contains a link to the form that pre-fills the code if the user clicks on it. The user must still
 submit the form for Ory Identities to actually mark the address as verified.
@@ -190,8 +189,8 @@ submit the form for Ory Identities to actually mark the address as verified.
   <TabItem value="oss" label="Magic Links">
 ```
 
-When choosing to send magic links to verify a user's address, Ory Identities sends out an email containing a "magic link". If the
-user has access to the mailbox of that account and clicks the link, Ory Identities marks that address as verified.
+When using the "magic link" method, Ory Identities sends the user an email with a "magic link". If the user has access to the
+email associated with the and clicks the link, Ory Identities marks that address as verified.
 
 ```mdx-code-block
   </TabItem>
@@ -203,17 +202,17 @@ a new email for verification.
 
 ### Comparison
 
-"One-time codes" (`code`) is the default, preferred, and recommended strategy by Ory.
+"One-time code" (`code`) is the default, preferred, and recommended method by Ory.
 
-Ory supports magic links, but considers this strategy a legacy solution. Currently, the strategy is supported but should be
+Ory supports "magic links", but considers this method a legacy solution. Currently, the method is supported but should be
 considered deprecated and is set to be removed in future releases.
 
-Consider using the `code` strategy as it mitigates many of the drawbacks of magic links:
+Consider using the `code` method as it mitigates many of the drawbacks of "magic links":
 
-- Some email virus scanners open links in emails to scan them. This invalidates the magic link and may prevent users from
-  recovering their account even if they have the access to the defined recovery address.
-- Verification flows initialized by apps on mobile phones or smart devices don't work with magic links.
-- Depending on the device settings, clicking a magic link can open a different browser than the one used to initialize the
+- Some email virus scanners open links in emails to scan them. This invalidates the link and may prevent users from recovering
+  their account even if they have the access to the defined recovery address.
+- Verification flows initialized by apps on mobile phones or smart devices don't work with links.
+- Depending on the device settings, clicking a link from an email can open a different browser than the one used to initialize the
   verification flow. This can confuse your users.
 
 :::caution
