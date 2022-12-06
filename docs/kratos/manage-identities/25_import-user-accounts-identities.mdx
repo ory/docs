@@ -306,8 +306,8 @@ salt123--ory123
 ### SSHA, SSHA256, and SSHA512
 
 Ory Identities doesn't hash passwords by SSHA but can compare stored SSHA hashes and migrate to configured hasher
-(`hashers.algorithm`). SSHA does not take in any parameters for verification.
-If your passwords do not follow the SSHA scheme you can also use a [custom SHA format](#custom-sha1-sha256-sha512).
+(`hashers.algorithm`). SSHA does not take in any parameters for verification. If your passwords do not follow the SSHA scheme you
+can also use a [custom SHA format](#custom-sha1-sha256-sha512).
 
 #### Examples
 
@@ -326,21 +326,25 @@ If your passwords do not follow the SSHA scheme you can also use a [custom SHA f
 ### SHA1, SHA256, SHA512
 
 Ory Identities doesn't hash passwords by SHA but can compare stored SHA hashes and migrate to configured hasher
-(`hashers.algorithm`). If your hashes do not use the common [SSHA format](#ssha-ssha256-and-ssha512) you can configure SHA hashes to use a custom format.
+(`hashers.algorithm`). If your hashes do not use the common [SSHA format](#ssha-ssha256-and-ssha512) you can configure SHA hashes
+to use a custom format.
 
 #### Format
 
-This [PHC](https://github.com/P-H-C/phc-string-format/blob/master/phc-sf-spec.md) format allows administrators to import passwords that use a custom format to calculate the SHA hash.
+This [PHC](https://github.com/P-H-C/phc-string-format/blob/master/phc-sf-spec.md) format allows administrators to import passwords
+that use a custom format to calculate the SHA hash.
 
 ```
 $sha1$pf=<salting-format>$<salt>$<hash>
 ```
 
-SHA uses the same `salting-format` parameter as [MD5](#md5). You can read about it in [this section](#salting-format-parameter) to learn how to configure it.
+SHA uses the same `salting-format` parameter as [MD5](#md5). You can read about it in [this section](#salting-format-parameter) to
+learn how to configure it.
 
 #### Parameters
 
-- `salting-format`(`string`): [Format string](#salting-format-parameter) specifies how salting should be done. Must be encoded to Base64.
+- `salting-format`(`string`): [Format string](#salting-format-parameter) specifies how salting should be done. Must be encoded to
+  Base64.
 - `salt`(`string`): A sequence of bits, known as a cryptographic salt encoded to Base64.
 - `hash`(`string`): The computed hash by the SHA algorithm encoded to Base64.
 
