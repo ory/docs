@@ -1,0 +1,26 @@
+import { Configuration, FrontendApi } from "@ory/client"
+
+const ory = new FrontendApi(
+  new Configuration({
+    basePath: "http://localhost:4000", // Use your local Ory Tunnel URL
+    baseOptions: {
+      withCredentials: true,
+    },
+  }),
+)
+export function Logout() {
+  const handleLogout = async () => {
+    try {
+      const { data: flow } = await ory.createBrowserLogoutFlow()
+      await ory.updateLogoutFlow({
+        token: flow.logout_token,
+      })
+    } catch (error) {
+      // The user could not be logged out
+    }
+
+    // Logout was succesful
+  }
+
+  return <button onClick={handleLogout}>Logout</button>
+}
