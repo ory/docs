@@ -48,7 +48,7 @@ address. It is recommended to implement additional security mechanisms.
 ```
 
 Account verification can be configured on the **Authentication** → **Email Verification** page in the
-[Ory Console](https://console.ory.sh/guides).
+[Ory Console](https://console.ory.sh/projects/current/verification).
 
 ```mdx-code-block
   </TabItem>
@@ -103,7 +103,7 @@ To make an address verifiable, it must be marked as such in the
 [identity schema](../../manage-identities/15_customize-identity-schema.mdx). In most cases this is the email address the user
 provides when registering their account. Other fields inside the `traits` section are supported as well.
 
-```diff
+```diff title="identity-schema.json"
  {
    "$id": "https://schemas.ory.sh/presets/kratos/quickstart/email-password/identity.schema.json",
    "$schema": "http://json-schema.org/draft-07/schema#",
@@ -136,7 +136,7 @@ provides when registering their account. Other fields inside the `traits` sectio
 
 ### Email templates
 
-Ory Identities (Ory Kratos) comes with default email templates for verification flows.
+Ory Identities comes with default email templates for verification flows.
 
 You can quickly replace the defaults and customize the messages to match the look and feel of your solution. Read the
 [custom email template documentation](../../emails-sms/05_custom-email-templates.mdx) to learn more.
