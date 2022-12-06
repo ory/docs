@@ -63,7 +63,14 @@ chats:coffee-break#member@Julia
 chats:coffee-break#member@Patrik
 ```
 
-The user `PM` now opens the chat application. To display a list of all of `PM`'s chats, the application uses Keto's list API:
+The user `PM` now opens the chat application. To display a list of all of `PM`'s chats, the application uses Keto's list API.
+
+:::note
+
+You must use the flag `--insecure-disable-transport-security` with version v0.9.0 or newer of the Keto CLI if you run Keto without
+TLS.
+
+:::
 
 <CodeTabs sampleId="list-api-display-objects/01-list-PM" version="v0.7.0-alpha.1" />
 

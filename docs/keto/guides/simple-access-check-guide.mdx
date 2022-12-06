@@ -62,7 +62,8 @@ that the known cypher messages are stored in Ory Keto and access to the cleartex
 Ory Keto can know the exact relation tuple that the application is checking. Intuitively, this means that `john` was allowed to
 `decypher` the message `02y_15_4w350m3` directly (imagine a "Share with `john`" input in a UI).
 
-Try this yourself by first adding the relation tuple using the [write API](../concepts/api-overview.mdx#write-apis):
+Try this yourself by first adding the relation tuple using the [write API](../concepts/api-overview.mdx#write-apis) (note that the
+flag `--insecure-disable-transport-security` is necessary with newer versions of the Keto CLI if you run Keto without TLS):
 
 <CodeTabs sampleId="simple-access-check-guide/00-write-direct-access" version="v0.7.0-alpha.1" />
 
