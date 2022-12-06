@@ -6,7 +6,7 @@
   class App {
       // save the session to display it on the dashboard
       private ?Ory\Client\Model\Session $session;
-      public ?Ory\Client\Api\V0alpha2Api $ory;
+      public ?Ory\Client\Api\FrontendApi $ory;
 
       public function validateSession(){
           $cookies = "";
@@ -20,7 +20,7 @@
               $session = $this->ory->toSession("", $cookies);
               if (! $session["active"]) throw new Exception('Session expired');
           } catch (Exception $e) {
-              error_log('Exception when calling V0alpha2Api->toSession: '.$e->getMessage());
+              error_log('Exception when calling toSession: '.$e->getMessage());
               // this will initialize a new login flow and Kratos will redirect the user to the login UI
               header("Location: /.ory/self-service/login/browser", true, 303);
               die();
