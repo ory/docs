@@ -22,28 +22,13 @@ These apps use the native API to sign in `createNativeLoginFlow()`, register `cr
 `createNativeSettingsFlow()`, `createNativeRecoveryFlow()`, and `createNativeVerificationFlow()`. Native apps receive an Ory Session Token instead of an Ory Session Cookie. The
 token is used to look up the user.
 
-## Check session token
+## Check session token in React Native
 
 ```mdx-code-block
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import { getSdkUrl } from '@site/src/hooks'
 import CodeBlock from '@theme/CodeBlock'
-import CodeFromRemote from '@theme/CodeFromRemote'
 import reactNative from '!!raw-loader!../../../code-examples/identity/sign-in/check-session/js/react-native.tsx'
 
-<Tabs>
-<TabItem value="react-native" label="React Native" default>
 <CodeBlock language="tsx">{reactNative}</CodeBlock>
-</TabItem>
-<TabItem value="curl" label="curl">
-
-
-Read the [check login session](./check-session.mdx) documentation for more details about authentication native apps.
-
-
-</TabItem>
-</Tabs>
 ```
 
 ## User interfaces
