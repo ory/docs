@@ -8,7 +8,8 @@ sidebar_label: Lark
 
 Follow these steps to add Lark as a social sign-in provider to your project using the Ory CLI:
 
-1. create an application in [Feishu Open Platform Developer](https://open.feishu.cn/app) Background and obtain the ID and secret of the application.
+1. create an application in [Feishu Open Platform Developer](https://open.feishu.cn/app) Background and obtain the ID and secret
+   of the application.
 2. In the created app, set the redirect URI to:
 
    ```shell
@@ -67,7 +68,7 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
          config:
            providers:
              - id: lark # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
-               provider: lark 
+               provider: lark
                client_id: .... # Replace this with the OAuth2 Client ID provided by lark
                client_secret: .... # Replace this with the OAuth2 Client Secret provided by lark
                mapper_url: "base64://{YOUR_BASE64_ENCODED_JSONNET_HERE}"
