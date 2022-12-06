@@ -5,6 +5,7 @@ title: Implement login and registration in native apps
 sidebar_label: Native app authentication
 ---
 
+
 This guide explains how to authenticate native apps. This includes:
 
 - Apps for mobile phones written in, for example, Swift, Android, React Native, Cordova, or Ionic
@@ -18,8 +19,8 @@ Ory's native app APIs don't use HTTP redirects and HTTP cookies but instead full
 :::
 
 These apps use the native API to sign in `createNativeLoginFlow()`, register `createNativeRegistrationFlow()`, change settings
-`createNativeSettingsFlow()`, `createNativeRecoveryFlow()`, and `createNativeVerificationFlow()`. Native apps receive an Ory
-Session Token instead of an Ory Session Cookie. The token is used to look up the user.
+`createNativeSettingsFlow()`, `createNativeRecoveryFlow()`, and `createNativeVerificationFlow()`. Native apps receive an Ory Session Token instead of an Ory Session Cookie. The
+token is used to look up the user.
 
 ## Check session token
 
@@ -32,16 +33,16 @@ import CodeFromRemote from '@theme/CodeFromRemote'
 import reactNative from '!!raw-loader!../../../code-examples/identity/sign-in/check-session/js/react-native.tsx'
 
 <Tabs>
-  <TabItem value="react-native" label="React Native" default>
-    <CodeBlock language="tsx">{reactNative}</CodeBlock>
-  </TabItem>
-  <TabItem value="curl" label="curl">
+<TabItem value="react-native" label="React Native" default>
+<CodeBlock language="tsx">{reactNative}</CodeBlock>
+</TabItem>
+<TabItem value="curl" label="curl">
 
 
-Read the [check login session](check-session-token-cookie-api) documentation for more details about authentication native apps.
+Read the [check login session](./check-session.mdx) documentation for more details about authentication native apps.
 
 
-  </TabItem>
+</TabItem>
 </Tabs>
 ```
 
