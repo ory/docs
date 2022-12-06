@@ -2,6 +2,8 @@
 title: "Quickstart: Cat Videos Example"
 ---
 
+import Mermaid from "@site/src/theme/Mermaid"
+
 This example describes a video sharing service. The individual videos are organized in directories. Every directory has an owner
 and every video has the same owner as it's parent directory. The owner has elevated privileges about the video files that aren't
 modeled individually in Ory Keto. The only other privilege modeled in this example is "view access." Every owner has view access
@@ -137,8 +139,6 @@ keto check "*" view videos /cats/1.mp4
 
 Diagram of those tuples:
 
-```mdx-code-block
-import Mermaid from "@site/src/theme/Mermaid"
 <Mermaid
   chart={`
 flowchart TD
@@ -166,7 +166,6 @@ flowchart TD
   style r6 fill:darkgreen,color:white
 `}
 />
-```
 
 <!--TODO-->
 
