@@ -6,7 +6,7 @@ var router = express.Router()
 // highlight-start
 var sdk = require("@ory/client")
 
-var ory = new sdk.V0alpha2Api(
+var ory = new sdk.FrontendApi(
   new sdk.Configuration({
     basePath:
       process.env.ORY_SDK_URL || "https://playground.projects.oryapis.com",
@@ -18,7 +18,7 @@ var ory = new sdk.V0alpha2Api(
 router.get("/", function (req, res, next) {
   // highlight-start
   ory
-    .toSession(undefined, req.header("cookie"))
+    .toSession({ cookie: req.header("cookie") })
     .then(({ data: session }) => {
       res.render("index", {
         title: "Express",

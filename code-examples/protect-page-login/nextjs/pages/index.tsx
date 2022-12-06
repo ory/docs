@@ -5,10 +5,10 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 
 // highlight-start
-import { Configuration, V0alpha2Api, Session, Identity } from "@ory/client"
+import { Configuration, FrontendApi, Session, Identity } from "@ory/client"
 import { edgeConfig } from "@ory/integrations/next"
 
-const ory = new V0alpha2Api(new Configuration(edgeConfig))
+const ory = new FrontendApi(new Configuration(edgeConfig))
 
 // Returns either the email or the username depending on the user's Identity Schema
 const getUserName = (identity: Identity) =>
@@ -29,7 +29,7 @@ const Home = () => {
         // User has a session!
         setSession(data)
         // Create a logout url
-        ory.createSelfServiceLogoutFlowUrlForBrowsers().then(({ data }) => {
+        ory.createBrowserLogoutFlow().then(({ data }) => {
           setLogoutUrl(data.logout_url)
         })
       })

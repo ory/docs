@@ -1,0 +1,150 @@
+---
+id: check-session
+title: Check for user session status in browser cookies and session tokens
+sidebar_label: Check login session
+slug: check-session-token-cookie-api
+---
+
+# Check session status
+
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import { getSdkUrl } from "@site/src/hooks"
+import CodeBlock from "@theme/CodeBlock"
+import CodeFromRemote from "@theme/CodeFromRemote"
+import expressjs from "!!raw-loader!../../../code-examples/identity/sign-in/check-session/js/server.js"
+import ajax from "!!raw-loader!../../../code-examples/identity/sign-in/check-session/js/client.js"
+import goExample from "!!raw-loader!../../../code-examples/identity/sign-in/check-session/go/server.go"
+
+Ory stores session data in different ways for browser apps and native apps:
+
+- For browser apps, Ory stores session data in Ory Session Cookies
+- For native apps, Ory stores session data in Ory Session Tokens
+
+:::tip
+
+Refresh your knowledge on the [cookie-based security](../../security-model.mdx) used by Ory and
+[the difference between browser and native APIs](../native-browser.mdx).
+
+:::
+
+To check if the user is signed in and has an active session, use the `/sessions/whoami` endpoint. If the user doesn't have an
+active session, the system returns a `401 Unauthorized` response. If the user has an active session, you get a `200 OK` response
+and the session payload.
+
+When using the SDK, use the `frontend.toSession()` method.
+
+````mdx-code-block
+
+<Tabs>
+<TabItem value="curl" label="cURL" default>
+
+To check for an active session with an Ory Session Token, run:
+
+```shell
+curl -H "Authorization: Bearer {your-session-token}" \
+  "https://{project.slug}.projects.oryapis.com/sessions/whoami"
+```
+
+To check for an active session with an Ory Session Cookie, run:
+
+```shell
+curl -H "Cookie: ory_session_...=..." \
+  "https://{project.slug}.projects.oryapis.com/sessions/whoami"
+```
+
+</TabItem>
+<TabItem value="ajax" label="AJAX / SPA">
+
+When calling Ory or your API from a Single Page Application (SPA) using AJAX:
+
+- The SPA (`www.yourdomain.com`, `localhost:3000`), Ory (`ory.yourdomain.com`, `localhost:4000`), and your API must be on the same domain.
+- You configured CORS in the Ory Console and on your API server.
+- The cookie is configured to be available on the domains you need, for example, the full `yourdomain.com`.
+
+<CodeBlock className="language-js">{ajax}</CodeBlock>
+
+</TabItem>
+<TabItem value="expressjs" label="ExpressJS">
+
+Ory checks for both the cookie and the token, which means that your API must handle both Ory Session Cookies and Ory Session Tokens:
+
+<CodeBlock className="language-js">{expressjs}</CodeBlock>
+
+</TabItem>
+<TabItem value="go" label="Go">
+
+Ory checks for both the cookie and the token, which means that your API must handle both Ory Session Cookies and Ory Session Tokens:
+
+<CodeBlock className="language-go">{goExample}</CodeBlock>
+
+</TabItem>
+</Tabs>
+````
+
+## Session response
+
+Ory sessions have the format of:
+
+```json
+{
+  "id": "65dea6f4-5d15-4e61-9eb7-f30190c0b2e2",
+  "active": true,
+  "expires_at": "2022-12-31T13:50:30.427292Z",
+  "authenticated_at": "2022-12-01T13:50:30.825516Z",
+  "authenticator_assurance_level": "aal1",
+  "authentication_methods": [
+    {
+      "method": "password",
+      "aal": "aal1",
+      "completed_at": "2022-12-01T13:50:30.427375604Z"
+    }
+  ],
+  "issued_at": "2022-12-01T13:50:30.427292Z",
+  "identity": {
+    "id": "969d7a6e-b8a9-49ea-bf7b-9e2732a41a81",
+    "schema_id": "9cadbdf1d6bc5c5c521a1c17ea83648c911c5cd74a14d9e6cc11a5790d133339c3524f8a2d35d34f4151d2df10a7b73d19f7bd0f709fd5ace9019e080bbc4df6",
+    "state": "active",
+    "state_changed_at": "2022-12-01T13:50:30.331786Z",
+    "traits": {
+      "consent": {
+        "newsletter": false,
+        "tos": "2022-12-01T13:50:28.706Z"
+      },
+      "email": "user@example.org",
+      "name": "User"
+    },
+    "verifiable_addresses": [
+      {
+        "id": "f5f4afde-697e-4e10-a6b6-f870dce927d6",
+        "value": "user@example.org",
+        "verified": false,
+        "via": "email",
+        "status": "sent",
+        "created_at": "2022-12-01T13:50:30.345386Z",
+        "updated_at": "2022-12-01T13:50:30.345386Z"
+      }
+    ],
+    "recovery_addresses": [
+      {
+        "id": "6e16a3b4-518f-4a5a-b045-95177deb40f1",
+        "value": "user@example.org",
+        "via": "email",
+        "created_at": "2022-12-01T13:50:30.35227Z",
+        "updated_at": "2022-12-01T13:50:30.35227Z"
+      }
+    ],
+    "metadata_public": null,
+    "created_at": "2022-12-01T13:50:30.340643Z",
+    "updated_at": "2022-12-01T13:50:30.340643Z"
+  },
+  "devices": [
+    {
+      "id": "592515ee-7b70-4e08-b4d7-fb0b1643cb48",
+      "ip_address": "2001:a61:1101:8001:cc85:1111:2222:3333",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+      "location": "Berlin, DE"
+    }
+  ]
+}
+```

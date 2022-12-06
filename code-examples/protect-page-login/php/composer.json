@@ -1,6 +1,6 @@
 {
   "require": {
-    "ory/client": "^v0.0.1-alpha",
+    "ory/client": "^v1.0.2",
     "bramus/router": "^1.6"
   }
 }
