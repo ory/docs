@@ -16,18 +16,3 @@ export const apiFlow = {
     code: goAPIExample,
   },
 }
-export const browserFlow = {
-  node: {
-    label: "TypeScript",
-    language: "ts",
-    code: require("raw-loader!./samples/browser/node.txt").default,
-  },
-}
-
-export const spaFlow = {
-  react: {
-    label: "React",
-    language: "tsx",
-    code: require("raw-loader!./samples/spa/react.txt").default,
-  },
-}
