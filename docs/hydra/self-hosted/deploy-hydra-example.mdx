@@ -207,7 +207,7 @@ INFO[2022-04-15T15:24:41Z] Setting up http server on :4445               audienc
    chown -R hydra /opt/hydra/
    ```
 
-2. Create a `/etc/systemd/system/kratos.service` file
+2. Create a `/etc/systemd/system/hydra.service` file
 
    ```bash
    cd /etc/systemd/system
@@ -258,8 +258,8 @@ INFO[2022-04-15T15:24:41Z] Setting up http server on :4445               audienc
    19206 ?        Ss     0:00 postgres: 12/main: hydra hydra 127.0.0.1(36094) idle
    ```
 
-We have Ory Kratos up and running, now we need to configure a reverse proxy to make the Hydra Admin API inaccessible via the
-public internet.
+We have Ory Hydra up and running, now we need to configure a reverse proxy to make the Hydra Admin API inaccessible via the public
+internet.
 
 ## Install and configure Nginx
 
