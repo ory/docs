@@ -5,27 +5,10 @@ sidebar_label: Verify Emails
 ---
 
 ```mdx-code-block
-import useBaseUrl from "@docusaurus/useBaseUrl"
-import Mermaid from "@theme/Mermaid"
-import ApiWarning from "@theme/ApiWarning"
-import SelfServiceBrowserFlow from "@theme/SelfServiceBrowserFlow"
-import SelfServiceSpaFlow from "@theme/SelfServiceSpaFlow"
-import SelfServiceApiFlow from "@theme/SelfServiceApiFlow"
-
 import CodeTabs from "@theme/Code/CodeTabs"
-import {
-  getFlowMethodLinkWithErrors,
-  getFlowMethodLinkSuccess,
-  getFlowMethodLinkInvalidChallenge,
-  getFlowMethodLinkChallengeDone,
-} from "./code/verification"
-import RenderFlow from "@site/src/theme/Code/RenderFlow"
 
-import DomainWarning from "@theme/DomainWarning"
-import AjaxWarning from "@theme/AjaxWarning"
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
-import CodeLinkComparison from "./partials/code-link-comparison.mdx"
 ```
 
 Ory allows users to verify email addresses associated with their accounts. This is important to prove that the user has access to
@@ -36,7 +19,7 @@ The verification flow is supported in both browsers and API clients.
 
 :::caution
 
-Completing account verification does not guarantee that the account is used by the person who performed the verification. We
+Completing account verification doesn't guarantee that the account is used by the person who performed the verification. We
 recommend implementing additional security mechanisms to ensure that verified accounts aren't taken over by malicious actors.
 
 :::
@@ -220,7 +203,7 @@ When using one-time codes to verify a user's address, Ory Identities sends an em
 enter the code in a dedicated UI text field to verify their address.
 
 The email also contains a link, that takes the user to the verification form with the code pre-filled in the appropriate form
-field. Now, the user only has to submit the form to complete the verification.
+field. The only thing the user must do to verify their address is to submit the form.
 
 ```mdx-code-block
   </TabItem>
@@ -236,9 +219,13 @@ email associated with the account and clicks the link, Ory Identities marks that
 ```
 
 If the user completes the verification after the link or code expired, they must provide the email address associated with their
-account again to receive a new verification email.
+account to get a new verification email.
+
+```mdx-code-block
+import CodeLinkComparison from "./_common/code-link-comparison.mdx"
 
 <CodeLinkComparison />
+```
 
 ## Code examples
 
