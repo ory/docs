@@ -17,9 +17,15 @@ Ory's native app APIs don't use HTTP redirects and HTTP cookies but instead full
 
 :::
 
-These apps use the native API to sign in `createNativeLoginFlow()`, register `createNativeRegistrationFlow()`, change settings
-`createNativeSettingsFlow()`, `createNativeRecoveryFlow()`, and `createNativeVerificationFlow()`. Native apps receive an Ory
-Session Token instead of an Ory Session Cookie. The token is used to look up the user.
+These apps use the native API to:
+
+- sign users in with the `createNativeLoginFlow()` method
+- register users with the `createNativeRegistrationFlow()` method
+- change user settings with the `createNativeSettingsFlow()` method
+- recover user accounts with the`createNativeRecoveryFlow()` method
+- verify user accounts with the `createNativeVerificationFlow()` method
+
+Native apps receive Ory Session Tokens instead of an Ory Session Cookie. The token is used to look up the user.
 
 ## Check session token in React Native
 
