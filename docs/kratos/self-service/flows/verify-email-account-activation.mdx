@@ -29,7 +29,7 @@ import TabItem from "@theme/TabItem"
 
 Ory allows users to verify email addresses associated with their accounts. This is important to prove that the user has access to
 the address they used to create their account. If verification is enabled, Ory Identities starts the verification process
-automatically. A user can also verify their address manually.
+automatically when users sign up. Users can also verify their addresses manually.
 
 The verification flow is supported in both browsers and API clients.
 
@@ -47,8 +47,7 @@ address. It is recommended to implement additional security mechanisms.
   <TabItem value="console" label="Ory Console" default>
 ```
 
-Account verification can be configured on the **Authentication** → **Email Verification** page in the
-[Ory Console](https://console.ory.sh/projects/current/verification).
+To configure account verification, go to **Authentication** → **Email Verification** in the [Ory Console](https://console.ory.sh/projects/current/verification).
 
 ```mdx-code-block
   </TabItem>
@@ -151,9 +150,9 @@ This prevents account enumeration attacks as explained in this
 
 :::
 
-### Require a verified address for login
+### Allow login only with verified email
 
-Ory Identities supports only allowing users with a verified address to login.
+To allow only the users with a verified email to sign in, follow these steps:
 
 ```mdx-code-block
 <Tabs groupId="console-or-cli">
@@ -215,7 +214,7 @@ Ory supports two strategies for verifying your user's addresses.
   <TabItem value="code" label="One-time codes">
 ```
 
-When using one-time codes to verify a user's address, Ory Identities sends out an email containing a 6-digit code. The user must
+When using one-time codes to verify a user's address, Ory Identities sends an email with a 6-digit code to the user. They must
 enter the code in a dedicated UI text field to verify their address.
 
 Alternatively, the email also contains a link to the form that pre-fills the code if the user clicks on it. The user must still
@@ -261,8 +260,7 @@ sure the flow works correctly with your UI implementation after changing the rec
 
 ## Code examples
 
-The user interface for the account verification is a page in your solution that should render the actual form elements for the
-user.
+The user interface for account verification is a page in your solution that renders the actual form elements for the user.
 
 In contrast to other identity systems, Ory Identities (Ory Kratos) doesn't render this HTML directly. Instead, you need to
 implement the HTML code in your solution, which gives you complete flexibility and customizability in your user interface flows
