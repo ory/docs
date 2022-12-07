@@ -855,6 +855,26 @@
       "permanent": false
     },
     {
+      "source": "/docs/kratos/sdk/index",
+      "destination": "https://www.ory.sh/docs/kratos/sdk/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/sdk",
+      "destination": "https://www.ory.sh/docs/kratos/sdk/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/keto/sdk/index",
+      "destination": "https://www.ory.sh/docs/keto/sdk/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/keto/sdk",
+      "destination": "https://www.ory.sh/docs/keto/sdk/overview",
+      "permanent": false
+    },
+    {
       "source": "/docs/getting-started/ory-cloud-oauth2",
       "destination": "https://www.ory.sh/docs/getting-started/ory-network-oauth2",
       "permanent": false
@@ -867,6 +887,11 @@
     {
       "source": "/docs/kratos/guides/password-policy",
       "destination": "https://www.ory.sh/docs/concepts/password-policy",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/session-management/check-session",
+      "destination": "https://www.ory.sh/docs/identities/sign-in/check-session-token-cookie-api",
       "permanent": false
     }
   ]

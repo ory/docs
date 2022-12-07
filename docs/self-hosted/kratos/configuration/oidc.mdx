@@ -29,3 +29,18 @@ environment variable:
 ```shell
 export SELFSERVICE_METHODS_OIDC_CONFIG_PROVIDERS='[{"id":"google","provider":"google","mapper_url":"<file_location>","client_id":"<client_id>","client_secret":"<client_secret>","scope":["openid","email","profile"],"auth_url":"https://accounts.google.com/o/oauth2/v2/auth","token_url":"https://www.googleapis.com/oauth2/v4/token","issuer_url":"https://accounts.google.com"}]'
 ```
+
+## Prevent having to log in after sign-up
+
+When adding social sign-in providers manually, remember to add the `session` hook to `after/oidc/hooks`. If you don't add this
+hook, users will have to log in again after signing up to get a session.
+
+```yaml
+selfservice:
+  flows:
+    registration:
+      after:
+        oidc:
+          hooks:
+            - hook: session
+```

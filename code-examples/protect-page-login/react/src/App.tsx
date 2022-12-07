@@ -3,12 +3,12 @@ import logo from "./logo.svg"
 import "./App.css"
 
 // highlight-start
-import { V0alpha2Api, Configuration, Session, Identity } from "@ory/client"
+import { FrontendApi, Configuration, Session, Identity } from "@ory/client"
 
 // Get your Ory url from .env
 // Or localhost for local development
 const basePath = process.env.REACT_APP_ORY_URL || "http://localhost:4000"
-const ory = new V0alpha2Api(
+const ory = new FrontendApi(
   new Configuration({
     basePath,
     baseOptions: {
@@ -35,7 +35,7 @@ function App() {
       .then(({ data }) => {
         // User has a session!
         setSession(data)
-        ory.createSelfServiceLogoutFlowUrlForBrowsers().then(({ data }) => {
+        ory.createBrowserLogoutFlow().then(({ data }) => {
           // Get also the logout url
           setLogoutUrl(data.logout_url)
         })

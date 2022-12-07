@@ -59,7 +59,14 @@ directories:/photos#parent@(files:/photos/mountains.jpg#_)
 ```
 
 The user `maureen` now wants to manage `access` for the file `/photos/beach.jpg`. Therefore, the application uses the expand-API
-to get a tree of everyone who has access to that file:
+to get a tree of everyone who has access to that file.
+
+:::note
+
+You must use the flag `--insecure-disable-transport-security` with version v0.9.0 or newer of the Keto CLI if you run Keto without
+TLS.
+
+:::
 
 <CodeTabs sampleId="expand-api-display-access/01-expand-beach" version="v0.7.0-alpha.1" />
 

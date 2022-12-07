@@ -6,18 +6,14 @@ sidebar_label: Slack
 
 # Slack
 
-## Configuration for Ory Network
-
 Follow these steps to add Spotify as a social sign-in provider to your project using the Ory CLI:
 
 1. [Create a Slack OAuth Application](https://api.slack.com/apps).
 2. In the created app, set the redirect URI to:
 
    ```shell
-   https://<ory-project-slug>.projects.oryapis.com/self-service/methods/oidc/callback/slack
+   https://{project.slug}.projects.oryapis.com/self-service/methods/oidc/callback/slack
    ```
-
-<a name="mapping"></a>
 
 3. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema.
 
@@ -48,6 +44,11 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
 ```
 
 4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to The Ory Network.
+
+   ```shell
+   cat your-data-mapping.jsonnet | base64
+   ```
+
 5. Download the Ory Identities config from your project and save it to a file:
 
    ```shell
@@ -55,10 +56,8 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
    ory list projects
 
    ## Get config
-   ory get identity-config <project-id> --format yaml > identity-config.yaml
+   ory get identity-config {project-id} --format yaml > identity-config.yaml
    ```
-
-<a name="config"></a>
 
 6. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
    string or provide an URL to the file.
@@ -72,7 +71,7 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
              - id: slack # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
                provider: slack
                client_id: .... # Replace this with the OAuth2 Client ID provided by Slack
-               mapper_url: "base64://<YOUR_BASE64_ENCODED_JSONNET_HERE>"
+               mapper_url: "base64://{YOUR_BASE64_ENCODED_JSONNET_HERE}"
                # Alternatively, use an URL:
                # mapper_url: https://storage.googleapis.com/abc-cde-prd/9cac9717f007808bf17f22ce7f4295c739604b183f05ac4afb4t
                scope:
@@ -81,16 +80,8 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
          enabled: true
    ```
 
-7. Update the Ory Identities (Ory Kratos) configuration using the file you worked with:
+7. Update the Ory Identities configuration using the file you worked with:
 
    ```shell
-   ory update identity-config <project-id> --file updated_config.yaml
+   ory update identity-config {project-id} --file updated_config.yaml
    ```
-
-## Prevent having to log in after sign-up
-
-```mdx-code-block
-import OidcSessionHook from '../_common/oidc_session_hook.mdx'
-
-<OidcSessionHook />
-```

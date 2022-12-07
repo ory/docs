@@ -6,11 +6,9 @@ sidebar_label: Data mapping
 
 # Map and merge profile data
 
-Different social sign-in providers will send different data in their payloads. While you might expect to get some basic
-information consistently, the payload isn't standardized.
-
-As a result, when integrating with social sign-in providers, you must specify how to map the data you get from the specific
-provider to the Identity traits.
+Every social sign-in provider returns different data in their payloads. Some providers use usernames, others emails, and so on.
+While you might expect to get some basic information consistently, the payload isn't standardized. As a result, when integrating
+with social sign-in providers, you must specify how to map the data you get from the specific provider to the Identity traits.
 
 You define this mapping by creating a [Jsonnet code snippet](../../kratos/reference/jsonnet.mdx). This snippet becomes a part of
 the Ory Identities configuration for the given social sign-in provider.
@@ -18,60 +16,61 @@ the Ory Identities configuration for the given social sign-in provider.
 :::tip
 
 You can find the mapping required for a basic configuration of social sign-in providers in our documentation. For example,
-[learn how to create a data mapping for GitHub.](github#data-mapping)
+[learn how to create a data mapping for GitHub.](25_github.mdx#data-mapping)
 
 :::
 
-Ory Identities (Ory Kratos) adds an external variable called `claims` to the data mapper. It contains all claims for the OpenID
-Connect or OAuth2 provider such as the username and user email.
+## Write a Jsonnet data mapper
 
-Keep in mind that the claims vary per provider and per flow - depending on what permissions the user gives to your app, for
-example "App XYZ can access my private email".
+[Jsonnet](https://jsonnet.org/) is data templating language specialized for working with JSON. The simplest document is a plain
+JSON object:
 
-Your Jsonnet code must return a JSON object that looks like this:
+```json
+{
+  "foo": "bar"
+}
+```
+
+JsonNet also supports variables, functions, and other features:
+
+```jsonnet
+local email = 'hello@example.org';
+
+{
+  identity: { traits: { email: email } }
+}
+```
+
+results in JSON:
+
+```json
+{
+  "identity": {
+    "traits": {
+      "email": "hello@example.org"
+    }
+  }
+}
+```
+
+### Expected result
+
+The data mapper must returns an object with the following structure:
 
 ```json5
 {
   identity: {
     traits: {
-      /* ... */
+      /* ... depends on your identity schema ... */
     },
   },
 }
 ```
 
-You can set public and admin metadata fields, these fields will then be populated whenever data is mapped.
+### Use social sign-in data
 
-```jsonnet
-local claims = std.extVar('claims');
-
-{
-  identity: {
-    traits: {
-      email: claims.email
-    },
-    metadata_public: {
-        id: claims.sub,
-        subscriber: true
-    },
-    metadata_admin: {
-        tier: 1
-    },
-  }
-}
-```
-
-To learn more, read our [Jsonnet documentation](../reference/jsonnet).
-
-:::tip
-
-To debug Jsonnet payloads when running the Ory Kratos Identity Server locally, use the `--dev` flag and set `log.level` to `debug`
-(for example `LOG_LEVEL=debug kratos serve --dev`).Logs with detailed payloads will be emitted once you complete OpenID Connect/
-OAuth2 login or registration.
-
-:::
-
-For example, this Jsonnet code snippet:
+Ory Identities adds an external variable called `claims` to the data mapper. It contains all values the social sign-in provider
+returned. For example, this Jsonnet code snippet:
 
 ```jsonnet title="github.data-mapper.jsonnet"
 // claims contains all the data sent by the upstream.
@@ -80,8 +79,7 @@ local claims = std.extVar('claims');
 {
   identity: {
     traits: {
-      email: claims.email, // If email isn't set the Jsonnet snippet will fail with an error.
-      [if "website" in claims then "website" else null]: claims.website, // The website claim is optional.
+      [if "website" in claims then "website" else null]: claims.website,
     },
   },
 }
@@ -100,20 +98,215 @@ returns this object:
 }
 ```
 
-when the ID Token body (or the OAuth2 equivalent) returned by the OpenID Connect provider contains:
+### Fill in the data gaps
+
+:::note
+
+Social sign-in providers may not return all data you expect. The user may not give you permission to access their email address,
+for example. Ory will ask the user to fill in the missing data in such a case.
+
+:::
+
+Sometimes the social sign-in provider does not return the data we expect:
+
+- User needs to agree to **your** terms of service.
+- User did not agree to share their email address when performing the consent step.
+
+If the data returned by the JsonNet data mapper does not validate against the Identity Schema of your project, the user will be
+redirected to the registration page where they need to update the missing fields. When submitting the form again, the data
+provided by the user and the data coming from the OpenID Connect / OAuth2 provider will be merged. This process repeats itself
+until the Identity's traits are valid against the defined JSON Schema.
+
+#### External variable `claims`
+
+The `std.ExtVar('claims')` object has the following structure and keys available:
+
+```json5
+{
+  iss: "https://accounts.google.com",
+  sub: "1234",
+  name: "John Doe",
+  given_name: "John",
+  family_name: "Doe",
+  last_name: "Doe",
+  middle_name: "Peter",
+  nickname: "john_doe",
+  preferred_username: "johnny",
+  profile: "https://plus.google.com/1234",
+  picture: "https://plus.google.com/1234/profile.png",
+  website: "https://example.org",
+  email: "john@doe.com",
+  email_verified: true,
+  gender: "m",
+  birthdate: "1980/11/12",
+  zoneinfo: "de",
+  locale: "de",
+  phone_number: "+1123123123",
+  phone_number_verified: true,
+  updated_at: "2022-11-30T11:07:24.405345Z",
+  hd: "4321",
+  team: "some-microsoft-team",
+  raw_claims: {
+    /* ... */
+  },
+}
+```
+
+##### Raw Claims `raw_claims`
+
+All claims that are not part of the standard userinfo claims, are mapped into `raw_claims`. An example of mapping a raw claim
+called "groups":
+
+```jsonnet title="data-mapper.jsonnet"
+local claims = std.extVar('claims');
+
+{
+  identity: {
+    traits: {
+      [if "groups" in claims.raw_claims then "groups" else null]: claims.raw_claims.groups,
+    },
+  },
+}
+```
+
+### Set identity metadata
+
+You can set [public and admin metadata fields](../manage-identities/10_managing-users-identities-metadata.mdx), these fields will
+then be populated whenever data is mapped. This is useful if you want to store data from the social sign-in provider without the
+user being able to modify it.
+
+```jsonnet
+local claims = std.extVar('claims');
+
+{
+  identity: {
+    traits: {
+      email: claims.email
+    },
+    metadata_public: {
+      discord_username: claims.discord_username,
+    },
+    metadata_admin: {
+      // ...
+    },
+  }
+}
+```
+
+### Emails and phone numbers
+
+:::danger
+
+Never trust unverified email addresses and phone numbers.
+
+:::
+
+When using the email or phone number from a social sign-in provider in your identity, you must make sure that the email or phone
+number is verified. Not doing so may open several attack vectors related to social sign in.
+
+```jsonnet title="github.data-mapper.jsonnet"
+local claims = {
+  email_verified: false,
+} + std.extVar('claims');
+
+{
+  identity: {
+    traits: {
+      // Allowing unverified email addresses enables account
+      // enumeration attacks, especially if the value is used for
+      // e.g. verification or as a password login identifier.
+      //
+      // Therefore we only return the email if it (a) exists and (b) is marked verified
+      // by GitHub.
+      [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,
+    },
+  },
+}
+```
+
+## Configure data mapper
+
+Configure the data mapper in the Ory Console:
+
+```mdx-code-block
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="Ory Console" default>
+
+
+1. Go to the [social sign-in](https://console.ory.sh/projects/current/social-signin) page in the Ory Console.
+2. Pick a provider of your choice.
+3. Add your JsonNet code snippet to the **data mapper** input form.
+
+
+  </TabItem>
+</Tabs>
+```
+
+## End-to-end GitHub example
+
+Let's set up a complete example with GitHub:
+
+1. Create a new project or use an existing one in the [Ory Console](https://console.ory.sh).
+2. Go to the [social sign-in](https://console.ory.sh/projects/current/social-signin) page in the Ory Console.
+3. Use the **Add GitHub** provider, follow the set-up steps from the [GitHub social sign-in documentation](25_github.mdx).
+4. Copy and paste the following JsonNet data mapper:
+
+   ```jsonnet title="github.data-mapper.jsonnet"
+   local claims = {
+     email_verified: false,
+   } + std.extVar('claims');
+
+   {
+     identity: {
+       traits: {
+         // Allowing unverified email addresses enables account
+         // enumeration attacks, especially if the value is used for
+         // e.g. verification or as a password login identifier.
+         //
+         // Therefore we only return the email if it (a) exists and (b) is marked verified
+         // by GitHub.
+         [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,
+       },
+       metadata_public: {
+         github_username: claims.username,
+       }
+     },
+   }
+   ```
+
+Let's assume that GitHub returns the following for `std.extVar('claims')`:
 
 ```json
 {
   "sub": "some-identity-id-4hA8gk",
   "email": "foo@ory.sh",
-  "website": "https://www.ory.sh"
+  "email_verified": true,
+  "username": "foo-user"
 }
 ```
 
-which is used for the Identity's traits.
+The JsonNet data mapper will return the following data from GitHub:
+
+```json
+{
+  "identity": {
+    "traits": {
+      "email": "foo@ory.sh"
+    },
+    "metadata_public": {
+      "github_username": "foo-user"
+    }
+  }
+}
+```
 
 The `sub` field, which is returned by OpenID Connect and OAuth2 servers alike is used as the primary credential identifier for the
-provider. This allows to link the identity to the "social sign-in profile" for future login flows:
+provider. This allows to link the identity to the "social sign-in profile" for future login flows.
+
+In Ory, the data will be stored in the following format:
 
 ```yaml
 # This is the YAML representation of an identity
@@ -128,76 +321,11 @@ credentials:
       - provider: example
         identifier: some-identity-id-4hA8gk
 
-schema_url: http://foo.bar.com/person.schema.json # This comes from the default identity schema url.
+schema_id: some-example
 
 traits:
-  email: foo@ory.sh # This is extracted from `username` using
-  website: https://www.ory.sh # This is extracted from `username` using
+  email: foo@ory.sh
+
+metadata_public:
+  github_username: foo-user
 ```
-
-### External variable `claims`
-
-The `std.ExtVar('claims')` object has the following structure and keys available:
-
-```go
-package oidc
-
-type Claims struct {
-	Issuer              string                  `json:"iss,omitempty"`
-	Subject             string                  `json:"sub,omitempty"`
-	Name                string                  `json:"name,omitempty"`
-	GivenName           string                  `json:"given_name,omitempty"`
-	FamilyName          string                  `json:"family_name,omitempty"`
-	LastName            string                  `json:"last_name,omitempty"`
-	MiddleName          string                  `json:"middle_name,omitempty"`
-	Nickname            string                  `json:"nickname,omitempty"`
-	PreferredUsername   string                  `json:"preferred_username,omitempty"`
-	Profile             string                  `json:"profile,omitempty"`
-	Picture             string                  `json:"picture,omitempty"`
-	Website             string                  `json:"website,omitempty"`
-	Email               string                  `json:"email,omitempty"`
-	EmailVerified       bool                    `json:"email_verified,omitempty"`
-	Gender              string                  `json:"gender,omitempty"`
-	Birthdate           string                  `json:"birthdate,omitempty"`
-	Zoneinfo            string                  `json:"zoneinfo,omitempty"`
-	Locale              string                  `json:"locale,omitempty"`
-	PhoneNumber         string                  `json:"phone_number,omitempty"`
-	PhoneNumberVerified bool                    `json:"phone_number_verified,omitempty"`
-	UpdatedAt           int64                   `json:"updated_at,omitempty"`
-	HD                  string                  `json:"hd,omitempty"`
-	Team                string                  `json:"team,omitempty"`
-    RawClaims           map[string]interface{}  `json:"raw_claims,omitempty"`
-}
-```
-
-#### Raw Claims `raw_claims`
-
-All claims that are not part of the standard userinfo claims, are mapped into `raw_claims`. An example of mapping a raw claim
-called "groups":
-
-```jsonnet title="github.data-mapper.jsonnet"
-local claims = std.extVar('claims');
-
-{
-  identity: {
-    traits: {
-      [if "groups" in claims.raw_claims then "groups" else null]: claims.raw_claims.groups,
-    },
-  },
-}
-```
-
-## Identity traits validation and data completion
-
-Sometimes the data provided by OpenID Connect or OAuth2 providers isn't enough. A common example of not enough data is asking the
-user to agree to the terms of service. No OpenID Connect or OAuth2 provider can give you this information because these are YOUR
-terms of service, not something that comes from the provider.
-
-Another example is when users don't agree to share their email address when authorizing your OAuth2 app. If such a validation
-error occurs, the user will be redirected to the Registration UI. The Registration Flow includes all the valid and invalid fields.
-
-When submitting the form again, the data provided by the user and the data coming from the OpenID Connect / OAuth2 provider will
-be merged. This process repeats itself until the Identity's traits are valid against the defined JSON Schema.
-
-For more information on this flow (network flow, examples, UI, and more) head over to the
-[OpenID Connect and OAuth2 Self-Service Method Documentation](../../kratos/self-service/flows/user-registration.mdx).

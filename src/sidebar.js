@@ -90,8 +90,10 @@ module.exports = {
                 },
                 "kratos/social-signin/get-tokens",
                 "kratos/social-signin/data-mapping",
+                "kratos/social-signin/account-linking",
               ],
             },
+            "identities/sign-in/check-session",
           ],
         },
         {
@@ -312,7 +314,7 @@ module.exports = {
           ],
         },
         {
-          SDKs: ["keto/sdk/index", "keto/sdk/go"],
+          SDKs: ["keto/sdk/overview", "keto/sdk/go"],
         },
       ],
     },
@@ -336,6 +338,7 @@ module.exports = {
       label: "Open source",
       items: [
         "open-source",
+        "open-source/commitment",
         "ecosystem/contributing",
         "ecosystem/software-architecture-philosophy",
         {
@@ -524,7 +527,7 @@ module.exports = {
                   ],
                 },
                 {
-                  SDKs: ["kratos/sdk/index", "kratos/sdk/go"],
+                  SDKs: ["kratos/sdk/overview", "kratos/sdk/go"],
                 },
                 "kratos/reference/configuration",
                 "kratos/reference/json-schema-json-paths",

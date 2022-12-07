@@ -4,77 +4,31 @@ title: Set up social sign-in and connect with OAuth2 and OpenID Connect provider
 sidebar_label: Overview
 ---
 
-# Overview
+# Get started with social sign-in
 
-Thanks to social sign-in, users can use their existing accounts from providers such as Google, Slack, or Facebook for sign-up and
-sign-in in your application.
+Out of the box, Ory comes with custom-tailored connectors for 15+ social sign-in providers such as GitHub, Google, or Facebook.
+Additionally, you can connect any OpenID Connect-compliant identity provider using the
+[Generic provider integration](./05_generic.mdx).
 
-The Ory Network provides convenient, GUI-based flows for adding new social sign-in providers through the
-[Ory Console](https://console.ory.sh/login). Each flow is custom-tailored to accommodate configuration requirements of the
-specific identity provider. Alternatively, you can use the [Ory CLI](../../guides/cli/installation) to add and configure social
-sign-in providers.
+## Reduce friction, boost conversion
 
-By signing up with external identity providers, users give Ory access to the profile data of the account created in the external
-identity provider. This data is used to create an Ory identity and a user account in your application
+:::tip
+
+Adding social sign-in to your system can
+[increase conversion rates by up to 40%](https://www.google.com/search?q=social+sign+in+conversion+rate).
+
+:::
 
 Allowing users to use their existing accounts with your application removes the friction that comes with having to remember
 another set of credentials and makes the decision to sign up much easier.
 
-Adding social sign-in providers relies on OAuth2 and OpenID Connect.
+Thanks to social sign-in, users can use their existing accounts from providers such as Google, Slack, or Facebook for sign-up and
+sign-in in your application. By signing up with external identity providers, users give Ory access to the profile data of their
+account created in an external identity provider. This data is used to create an Ory identity and a user account in your
+application.
 
-## Preventing account linking
+## Easy configuration through Ory Console and CLI
 
-If you enable multiple registration methods, users can link their existing accounts to social sign-in provider accounts after
-email verification.
-
-Linking accounts is an operation that users must perform manually from their account settings.
-
-:::info
-
-Automatic account linking is not available in Ory as it creates an attack vector that hackers can use to steal user accounts. Read
-[this section](#dangers-of-automatic-account-linking) to learn more.
-
-:::
-
-To disable account linking, add the `session` hook after one of the registration methods (for example `password`):
-
-```yaml
-selfservice:
-  flows:
-    registration:
-      after:
-        password:
-          hooks:
-            - hook: session
-```
-
-### Dangers of automatic account linking
-
-While convenient for users, automatic account linking creates an attack vector that can allow malicious actors to steal user
-accounts.
-
-To better understand the danger, consider the following scenario:
-
-- Your application allows users to create new accounts or sign in with ACME - a well-known social sign-in provider.
-- John creates a new account in your application using his `john@doe.com` email.
-- Malicious actors know that John uses `john@doe.com` to sign in to his account in your app.
-- Malicious actors create an ACME account for `john@doe.com`.
-- Malicious actors sign up in your application using the ACME account created for the `john@doe.com` account.
-- Your system uses the default behavior and when it detects two accounts with the same identifier, malicious actors are asked to
-  link the accounts.
-- Malicious actors link the accounts.
-- Malicious actors get access to the account that John created manually using his `john@doe.com` email.
-
-:::warning
-
-Since it constitutes a security threat, automatic account linking is not available in Ory.
-
-:::
-
-## Prevent having to log in after sign-up
-
-```mdx-code-block
-import OidcSessionHook from '../_common/oidc_session_hook.mdx'
-
-<OidcSessionHook />
-```
+The Ory Network provides convenient, GUI-based flows for adding and configuring social sign-in providers through the
+[Ory Console](https://console.ory.sh/login). Each flow is custom-tailored to accommodate configuration requirements of the
+specific identity provider. Alternatively, you can use the [Ory CLI](../../guides/cli/01_installation.mdx).
