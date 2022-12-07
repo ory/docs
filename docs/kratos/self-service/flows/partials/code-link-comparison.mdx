@@ -1,0 +1,21 @@
+### Comparison
+
+"One-time code" (`code`) is the default, preferred, and recommended method by Ory.
+
+Ory supports "magic links", but considers this method a legacy solution. Currently, the method is supported but should be
+considered deprecated and is set to be removed in future releases.
+
+Consider using the `code` method as it mitigates many of the drawbacks of "magic links":
+
+- Some email virus scanners open links in emails to scan them. This invalidates the link and may prevent users from completing the
+  flow even if they have the access to the defined address.
+- Flows initialized by apps on mobile phones or smart devices don't work with links.
+- Depending on the device settings, clicking a link from an email can open a different browser than the one used to initialize the
+  flow. This can confuse your users.
+
+:::caution
+
+When you change the strategy from `link` to `code` in an existing project, you might need to adjust your UI. Make sure the flow
+works correctly with your UI implementation after changing the strategy.
+
+:::

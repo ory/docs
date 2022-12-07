@@ -25,6 +25,7 @@ import DomainWarning from "@theme/DomainWarning"
 import AjaxWarning from "@theme/AjaxWarning"
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
+import CodeLinkComparison from "./partials/code-link-comparison.mdx"
 ```
 
 Ory allows users to verify email addresses associated with their accounts. This is important to prove that the user has access to
@@ -35,8 +36,8 @@ The verification flow is supported in both browsers and API clients.
 
 :::caution
 
-Email verification should not be taken as a guarantee that the person currently using the account, is the person that verified the
-address. It is recommended to implement additional security mechanisms.
+Completing account verification does not guarantee that the account is used by the person who performed the verification. We
+recommend implementing additional security mechanisms to ensure that verified accounts aren't taken over by malicious actors.
 
 :::
 
@@ -47,7 +48,8 @@ address. It is recommended to implement additional security mechanisms.
   <TabItem value="console" label="Ory Console" default>
 ```
 
-To configure account verification, go to **Authentication** → **Email Verification** in the [Ory Console](https://console.ory.sh/projects/current/verification).
+To configure account verification, go to **Authentication** → **Email Verification** in the
+[Ory Console](https://console.ory.sh/projects/current/verification).
 
 ```mdx-code-block
   </TabItem>
@@ -217,46 +219,26 @@ Ory supports two strategies for verifying your user's addresses.
 When using one-time codes to verify a user's address, Ory Identities sends an email with a 6-digit code to the user. They must
 enter the code in a dedicated UI text field to verify their address.
 
-Alternatively, the email also contains a link to the form that pre-fills the code if the user clicks on it. The user must still
-submit the form for Ory Identities to actually mark the address as verified.
+The email also contains a link, that takes the user to the verification form with the code pre-filled in the appropriate form
+field. Now, the user only has to submit the form to complete the verification.
 
 ```mdx-code-block
   </TabItem>
   <TabItem value="link" label="Magic Links">
 ```
 
-When using the "magic link" method, Ory Identities sends the user an email with a "magic link". If the user has access to the
-email associated with the and clicks the link, Ory Identities marks that address as verified.
+When using the "magic link" method, Ory Identities sends an email to the user with a "magic link". If the user has access to the
+email associated with the account and clicks the link, Ory Identities marks that address as verified.
 
 ```mdx-code-block
   </TabItem>
 </Tabs>
 ```
 
-If the user completes the verification after the link or code expired, they are asked to re-enter their email address and are sent
-a new email for verification.
+If the user completes the verification after the link or code expired, they must provide the email address associated with their
+account again to receive a new verification email.
 
-### Comparison
-
-"One-time code" (`code`) is the default, preferred, and recommended method by Ory.
-
-Ory supports "magic links", but considers this method a legacy solution. Currently, the method is supported but should be
-considered deprecated and is set to be removed in future releases.
-
-Consider using the `code` method as it mitigates many of the drawbacks of "magic links":
-
-- Some email virus scanners open links in emails to scan them. This invalidates the link and may prevent users from recovering
-  their account even if they have the access to the defined recovery address.
-- Verification flows initialized by apps on mobile phones or smart devices don't work with links.
-- Depending on the device settings, clicking a link from an email can open a different browser than the one used to initialize the
-  verification flow. This can confuse your users.
-
-:::caution
-
-When you change the verification strategy from `link` to `code` in an existing project, you might need to adjust your UI. Make
-sure the flow works correctly with your UI implementation after changing the recovery strategy.
-
-:::
+<CodeLinkComparison />
 
 ## Code examples
 
