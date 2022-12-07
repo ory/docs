@@ -1,61 +1,82 @@
 ---
 id: actions
 title: Customize login and registration flows with webhooks and actions
-sidebar_label: Actions and webhooks
+sidebar_label: Customize login and registration
 ---
 
 # Customize login and registration
 
-You may customize login and registration flows in many ways. Let's look at a few examples.
+You can customize login and registration flows using Ory Actions. This includes calling external services or logic with webhooks
+and triggering logic that is built-in to Ory, such requiring a verified email address to sign in.
 
-## Third-party services and webhooks
+## Trigger external logic with webhooks
 
-Make webhook calls to a 3rd party service provider when a user signs up or logs in:
+Make webhook calls to third-party service providers when users sign up or sign in:
 
 - [Mailchimp](../../kratos/hooks/05_webhooks-integrations.mdx#mailchimp)
 - [Segment](../../kratos/hooks/05_webhooks-integrations.mdx#segment)
 - [Hubspot](../../kratos/hooks/05_webhooks-integrations.mdx#hubspot)
-- other [webhook targets](../../kratos/hooks/01_configure-hooks.mdx#webhooks)
+- Other [webhook targets](../../kratos/hooks/01_configure-hooks.mdx#webhooks)
 
-## Invalidate all other session on login
+### Control who registers with additional validation
 
-To invalidate all other sessions of a user on their login, use the [Ory CLI](../../guides/cli/01_installation.mdx):
+Use Ory Actions to add extra validation that allows you to control exactly who can sign up. For example, you can prevent users
+from signing up when:
+
+- their email domain does not match a certain value - this way you can allow only users from certain organizations to sign up
+- their IP address is not allowed - this way you can prevent user registrations from locales where you don't provide services
+- they used an invalid invite code or invite password to sign up - this way you can ensure that newly registered users don't get
+  access to expired content or functionality
+
+Use flow-interrupting webhooks to add this validation to sign-up and registration flows.
+
+Read the [Flow-interrupting webhooks documentation](../../kratos/hooks/01_configure-hooks.mdx#flow-interrupting-webhooks) to learn
+more.
+
+## Revoke other sessions at login
+
+You can revoke all of the user's active session when they log in to your system. This allows the users to have only one active
+session, and ensures that they access your services from one point of entry (a device, a browser) at a time.
+
+To enable this behavior, use the [Ory CLI](../../guides/cli/01_installation.mdx).
+
+Run this command to revoke all active session's of the user after every login:
 
 ```shell
-ory patch identity-config $project_id \
+ory patch identity-config {project_id} \
   --add '/selfservice/flows/login/after/hooks=[{"hook": "revoke_active_sessions"}]'
 ```
 
-To use this feature only for a specific login method use:
+To use this feature only for specific method(s), run this command:
 
 ```shell
-ory patch identity-config $project_id \
+ory patch identity-config {project_id} \
   --add '/selfservice/flows/login/after/password/hooks=[{"hook": "revoke_active_sessions"}]' \
   --add '/selfservice/flows/login/after/oidc/hooks=[{"hook": "revoke_active_sessions"}]' \
   --add '/selfservice/flows/login/after/webauthn/hooks=[{"hook": "revoke_active_sessions"}]'
 ```
 
-### Disable session invalidation
+### Disable session revocation
 
-To remove the hook you need to find the position of the hook:
+Follow these steps to disable session revocation on login:
 
-1. List the configured hooks using
+1. List all configured hooks for the `after` login method:
 
    ```shell
-   ory get identity-config $project_id \
+   ory get identity-config {project_id} \
      --format=jsonpath='selfservice.flows.login.after'
    ```
 
-2. Check the JSON output and find the array index of the hook:
+2. Check the JSON output and identify the array index of the `revoke_active_sessions` hook:
 
    ```json
    {
      "hooks": [
        {
-         "hook": "some_other_hook"
+         "hook": "some_other_hook" // The index of this hook is '0'.
        },
        {
-         "hook": "revoke_active_sessions"
+         "hook": "revoke_active_sessions" // The index of this hook is '0'.
        }
      ],
      "oidc": {
@@ -70,45 +91,36 @@ To remove the hook you need to find the position of the hook:
    }
    ```
 
-3. Remove the hook using:
+3. Remove the hook by passing the hook index in the command:
 
    ```shell
    ory patch identity-config {project_id} \
      --remove '/selfservice/flows/login/after/hooks/1'
    ```
 
-## Require verified email address on login
+## Allow login only with verified email
+
+To allow only the users with a verified email to sign in, follow these steps:
+
+1. Go to Ory Console → [**Email Verification**](https://console.ory.sh/projects/current/verification).
+2. Toggle **Require Verified Address for Login** to switch on the feature.
 
 :::info
 
-Ory does not recommend requiring email verification on login. Show a banner and limit functionality for unverified accounts to
-improve sign up conversion.
+Ory doesn't recommend requiring a verified email to sign in. If you want to encourage users to verify their addresses, show a
+banner and limit functionality for unverified accounts. This approach helps improve signup conversion.
 
 :::
-
-To allow only users with a verified email to sign in, follow these steps:
-
-1. Open the [email verification page in the Ory Console](https://console.ory.sh/projects/current/verification).
-2. Toggle **Require Verified Address for Login**.
 
 ### First sign in without verification
 
 If sessions are issued after registration, users will be signed in after registration, but will need to verify their email address
-before they can sign in on another device or session.
+before they can sign in using other devices or browsers and get more active sessions as a result.
 
-## Be logged in after registration
+## Log in users after registration
 
-1. Open the [Ory Console base settings page](https://console.ory.sh/projects/current/auth).
+When you enable this behavior, users get a session after they sign up. This means that they don't have to sign in with their newly
+created account to get access to your services, but instead can access all the features immediately.
+
+1. Go to Ory Console → [**Base Settings**](https://console.ory.sh/projects/current/auth).
 2. Toggle **Sign In After Registration**.
-
-## Block registration with advanced validation
-
-With Ory Actions it is easy to perform advanced validation and block registration when:
-
-- The email domain does not match a certain value.
-- The IP address is not allowed.
-- An invalid invite code or invite password was used.
-- ...
-
-Head over to the [blocking webhooks documentation](../../kratos/hooks/01_configure-hooks.mdx#flow-interrupting-webhooks) to learn
-more.
