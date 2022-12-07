@@ -93,7 +93,6 @@ module.exports = {
                 "kratos/social-signin/account-linking",
               ],
             },
-            "identities/sign-in/native-app-auth",
             "identities/sign-in/check-session",
           ],
         },

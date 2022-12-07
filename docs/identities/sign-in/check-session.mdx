@@ -16,6 +16,7 @@ import CodeFromRemote from "@theme/CodeFromRemote"
 import expressjs from "!!raw-loader!../../../code-examples/identity/sign-in/check-session/js/server.js"
 import ajax from "!!raw-loader!../../../code-examples/identity/sign-in/check-session/js/client.js"
 import goExample from "!!raw-loader!../../../code-examples/identity/sign-in/check-session/go/server.go"
+import reactNative from '!!raw-loader!../../../code-examples/identity/sign-in/check-session/js/react-native.tsx'
 ```
 
 Ory stores session data in different ways for browser apps and native apps:
@@ -80,6 +81,11 @@ Ory checks for both the cookie and the token, which means that your API must han
 <CodeBlock className="language-go">{goExample}</CodeBlock>
 
 </TabItem>
+
+<TabItem value="reactnative" label="React Native">
+<CodeBlock language="tsx">{reactNative}</CodeBlock>
+</TabItem>
+
 </Tabs>
 ````
 
