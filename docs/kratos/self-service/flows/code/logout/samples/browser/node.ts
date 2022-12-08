@@ -3,14 +3,14 @@
 
 import { Configuration, FrontendApi } from "@ory/client"
 
-const kratos = new FrontendApi(
+const ory = new FrontendApi(
   new Configuration({
     basePath: "https://playground.projects.oryapis.com/",
   }),
 )
 
 const route = (req: Request, res: Response) => {
-  kratos
+  ory
     .createBrowserLogoutFlow(req.cookies["ory_kratos_session"])
     .then(({ data }) => {
       console.log(data.logout_url) // The logout URL
