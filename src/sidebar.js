@@ -106,6 +106,7 @@ module.exports = {
             },
           ],
         },
+        "kratos/self-service/flows/user-logout",
         {
           type: "category",
           label: "Managing sessions",
@@ -177,7 +178,6 @@ module.exports = {
             "kratos/self-service/flows/user-settings",
             "kratos/self-service/flows/verify-email-account-activation",
             "kratos/self-service/flows/account-recovery-password-reset",
-            "kratos/self-service/flows/user-logout",
             "kratos/self-service/flows/user-facing-errors",
           ],
         },
