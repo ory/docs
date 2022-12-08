@@ -4,7 +4,7 @@ title: Customize login and registration flows with webhooks and actions
 sidebar_label: Customize login and registration
 ---
 
-# Customize login and registration
+# Customize login and registration behavior
 
 You can customize login and registration flows using Ory Actions. This includes calling external services or logic with webhooks
 and triggering logic that is built-in to Ory, such requiring a verified email address to sign in.
@@ -23,8 +23,8 @@ Make webhook calls to third-party service providers when users sign up or sign i
 Use Ory Actions to add extra validation that allows you to control exactly who can sign up. For example, you can prevent users
 from signing up when:
 
-- their email domain does not match a certain value - this way you can allow only users from certain organizations to sign up
-- their IP address is not allowed - this way you can prevent user registrations from locales where you don't provide services
+- their email domain does'nt match a certain value - this way you can allow only users from certain organizations to sign up
+- their IP address isn't allowed - this way you can prevent user registrations from locales where you don't provide services
 - they used an invalid invite code or invite password to sign up - this way you can ensure that newly registered users don't get
   access to expired content or functionality
 
@@ -69,7 +69,7 @@ Follow these steps to disable session revocation on login:
 
 2. Check the JSON output and identify the array index of the `revoke_active_sessions` hook:
 
-   ```json
+   ```json5
    {
      "hooks": [
        {
