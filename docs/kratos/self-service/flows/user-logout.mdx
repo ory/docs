@@ -15,17 +15,18 @@ import CodeBlock from "@theme/CodeBlock"
 
 The logout flow is used to terminate an Ory Identities session. Ory supports logout on all supported clients:
 
-- [Server rendered browser applications](#server-side-browser-applications)
-- [Client side browser applications](#client-side-browser-applications)
-- [Native applications](#native-api-applications)
+- [Server-rendered browser applications](#server-rendered-browser-applications)
+- [Single page application (SPA)](#single-page-application-spa)
+- [Native API applications](#native-api-applications)
 
-## Server-side browser applications
+## Server-rendered browser applications
 
-To ensure that a logout was intended by the user, Ory Identities first generates a logout URL for a given Ory Session cookie. You
-can then open the logout URL in the browser.
+To ensure that logging out is performed by the user intentionally, Ory Identities first generates a logout URL for a given Ory
+Session cookie. You can then open the logout URL in the browser.
 
-The logout URL is valid for the duration of the session. This means that you can call the endpoint once and cache this URL for
-some time before you call the endpoint again.
+The logout URL is valid for the duration of the user's session. This means that you can call the endpoint before the user decides
+they want to log out and cache the logout URL. You can then use the cached URL when the user performs the action required to log
+out, for example, accesses a designated UI element.
 
 Alternatively, you can create the logout URL only when the user actually clicks the logout button and immediately call the
 resulting `logout_url` from your server to log out the user. Beware, that this method can lead to inconsistent behavior for users
@@ -35,29 +36,31 @@ that switch accounts often.
 <CodeBlock language="ts" title="index.ts">{browserExample}</CodeBlock>
 ```
 
-### After logout redirect
+### Post-logout redirect
 
-After successful logout, the browser will be redirected either to the `return_to` query parameter from the initial request URL, or
-fall back to the default post logout return URL.
+After a successful logout, the system redirects the browser to the address defined in the `return_to` query parameter of the
+logout request URL. If the parameter is omitted, the default post logout return URL is used.
+
+To set the default post-logout return URL:
 
 ```mdx-code-block
 <Tabs group="console-or-cli">
   <TabItem value="console" label="Ory Console" default>
 ```
 
-You can set a default return URL in the [Ory Console](https://console.ory.sh/projects/current/browser-redirects) on the **Browser
-Redirects** page using the **Post-Logout Redirect** value.
+Go to **Browser Redirects** and set the URL in the **Post-Logout Redirect** field in the
+[Ory Console](https://console.ory.sh/projects/current/browser-redirects).
 
 ```mdx-code-block
   </TabItem>
   <TabItem value="cli" label="Ory CLI">
 ```
 
-You can set the default return URL after a logout using the [Ory CLI](../../../guides/cli/01_installation.mdx):
+Run this command in the [Ory CLI](../../../guides/cli/01_installation.mdx):
 
 ```shell
 ory patch identity-config {project-id} \
-   --replace '/selfservice/flows/logout/after/default_browser_return_url="https://example.org"'
+   --replace '/selfservice/flows/logout/after/default_browser_return_url="{return_url}"'
 ```
 
 ```mdx-code-block
@@ -67,7 +70,7 @@ ory patch identity-config {project-id} \
 
 If an error occurs, the browser is redirected to the [Error UI](./user-facing-errors.md).
 
-## Single page application (SPAs)
+## Single page application (SPA)
 
 Similar to server-side browser applications, Ory Identities first generates a logout URL for a given Ory Session Cookie. However,
 you can simply call the logout URL using an AJAX request.
