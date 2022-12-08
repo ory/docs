@@ -102,7 +102,7 @@ module.exports = {
           items: [
             "kratos/manage-identities/overview",
             "kratos/manage-identities/identity-schema",
-            "identities/model/state",
+            "identities/model/identity-state",
             "kratos/manage-identities/customize-identity-schema",
             "kratos/manage-identities/managing-users-identities-metadata",
             "kratos/manage-identities/best-practices",

@@ -1,18 +1,18 @@
 ---
 id: identity-schema
-title: Identity Schema - the model that defines the data that makes up user accounts
+title: Identity schema - the model that defines the data that makes up user accounts
 sidebar_label: Identity schema
 toc_max_heading_level: 4
 ---
 
 # Identity schema
 
-The Identity Schema is a JSON schema that describes the data model that makes up the identity. In Ory, every identity can have its
+The identity schema is a JSON schema that describes the data model that makes up the identity. In Ory, every identity can have its
 own model (a unique set of data fields).
 
 ## Available presets
 
-The Ory Network provides three basic Identity Schema presets.
+The Ory Network provides three basic identity schema presets.
 
 ### Username and password
 
@@ -72,7 +72,7 @@ This preset has an email field, a first name, last name, and a "newsletter" chec
 }
 ```
 
-## Identity Schema vocabulary extensions
+## Identity schema vocabulary extensions
 
 Because the system doesn't know that a particular field has a system-relevant meaning, you have to specify that in the schema. For
 example:
@@ -203,13 +203,13 @@ In this example, Ory understands that `traits.email='office@ory.sh'` is the iden
 [Username and Password Credentials](../../kratos/concepts/credentials/username-email-password) contains more information and
 examples about credentials usage.
 
-Note that the `format` field of the Identity Schema will perform validation of the given trait. In this example, the email address
+Note that the `format` field of the identity schema will perform validation of the given trait. In this example, the email address
 is validated using the [JSONSchema](https://json-schema.org/understanding-json-schema/reference/string.html#email-addresses) rule
 set.
 
 #### Phone number
 
-Let's extend the Identity Schema from the previous chapter with a phone number:
+Let's extend the identity schema from the previous chapter with a phone number:
 
 ```json5
 {
