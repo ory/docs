@@ -71,23 +71,23 @@ Follow these steps to disable session revocation on login:
 
    ```json5
    {
-     "hooks": [
+     hooks: [
        {
-         "hook": "some_other_hook" // The index of this hook is '0'.
+         hook: "some_other_hook", // The index of this hook is '0'.
        },
        {
-         "hook": "revoke_active_sessions" // The index of this hook is '1'.
-       }
+         hook: "revoke_active_sessions", // The index of this hook is '1'.
+       },
      ],
-     "oidc": {
-       "hooks": []
+     oidc: {
+       hooks: [],
      },
-     "password": {
-       "hooks": []
+     password: {
+       hooks: [],
      },
-     "webauthn": {
-       "hooks": []
-     }
+     webauthn: {
+       hooks: [],
+     },
    }
    ```
 
