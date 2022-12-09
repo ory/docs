@@ -8,15 +8,20 @@ const ory = new FrontendApi(
     },
   }),
 )
+
 export function Logout() {
   const handleLogout = async () => {
     try {
+      // Create a "logout flow" in Ory Identities
       const { data: flow } = await ory.createBrowserLogoutFlow()
+      // Use the recieved token to "update" the flow and thus perform the logout
       await ory.updateLogoutFlow({
         token: flow.logout_token,
       })
     } catch (error) {
       // The user could not be logged out
+      // This typically happens if the token does not match the session,
+      // or is otherwise malformed or missing
     }
 
     // Logout was succesful
