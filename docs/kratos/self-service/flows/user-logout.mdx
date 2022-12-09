@@ -39,15 +39,18 @@ logout request URL. If the parameter is omitted, the default post logout return 
 
 To set the default post-logout return URL:
 
-````mdx-code-block
+```mdx-code-block
 <Tabs group="console-or-cli">
-<TabItem value="console" label="Ory Console" default>
+  <TabItem value="console" label="Ory Console" default>
+```
 
 Go to **Browser Redirects** and set the URL in the **Post-Logout Redirect** field in the
 [Ory Console](https://console.ory.sh/projects/current/browser-redirects).
 
-</TabItem>
-<TabItem value="cli" label="Ory CLI">
+```mdx-code-block
+  </TabItem>
+  <TabItem value="cli" label="Ory CLI">
+```
 
 Run this command in the [Ory CLI](../../../guides/cli/01_installation.mdx):
 
@@ -56,9 +59,10 @@ ory patch identity-config {project-id} \
    --replace '/selfservice/flows/logout/after/default_browser_return_url="{return-url}"'
 ```
 
-</TabItem>
+```mdx-code-block
+  </TabItem>
 </Tabs>
-````
+```
 
 If an error occurs, the browser is redirected to the [Error UI](./user-facing-errors.md).
 
