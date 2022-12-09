@@ -28,10 +28,6 @@ The logout URL is valid for the duration of the user's session. This means that 
 they want to log out and cache the logout URL. You can then use the cached URL when the user performs the action required to log
 out, for example, accesses a designated UI element.
 
-Alternatively, you can create the logout URL only when the user actually clicks the logout button and immediately call the
-resulting `logout_url` from your server to log out the user. Beware, that this method can lead to inconsistent behavior for users
-that switch accounts often.
-
 ```mdx-code-block
 <CodeBlock language="ts" title="index.ts">{browserExample}</CodeBlock>
 ```
