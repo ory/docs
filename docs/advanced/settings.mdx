@@ -1,0 +1,28 @@
+---
+id: settings
+title: Settings
+---
+
+Ory Network has optional features that may be turned on or off.
+
+:::note
+
+The availability of certain features is dependent on the project plan.
+
+:::
+
+## Session caching
+
+Turning this feature on, enables cached session check responses. This helps reduce the latency for subsequent whoami responses
+after the first query. The tradeoff worth considering is that the embedded identity representation will have eventual consistency
+(post expiry of the cached session).
+
+:::note
+
+Projects on Business plan or higher can use the Session caching feature.
+
+:::
+
+Once the feature has been turned on, the cache duration can be controlled by the clients by setting the `max-age` value in the
+`Cache-Control` header. To do so, the specified header value has to be lower than the
+[session lifespan configuration](../kratos/session-management/session-lifespan).
