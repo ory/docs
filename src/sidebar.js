@@ -118,6 +118,7 @@ module.exports = {
             "kratos/manage-identities/account-recovery",
           ],
         },
+        "kratos/self-service/flows/user-logout",
         "kratos/self-service/flows/verify-email-account-activation",
         "kratos/self-service/flows/account-recovery-password-reset",
         {
@@ -189,7 +190,6 @@ module.exports = {
             "kratos/self-service/flows/user-registration",
             "kratos/self-service/flows/user-login",
             "kratos/self-service/flows/user-settings",
-            "kratos/self-service/flows/user-logout",
             "kratos/self-service/flows/user-facing-errors",
           ],
         },
