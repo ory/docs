@@ -23,10 +23,10 @@ Make webhook calls to third-party service providers when users sign up or sign i
 Use Ory Actions to add extra validation that allows you to control exactly who can sign up. For example, you can prevent users
 from signing up when:
 
-- their email domain does'nt match a certain value - this way you can allow only users from certain organizations to sign up
-- their IP address isn't allowed - this way you can prevent user registrations from locales where you don't provide services
-- they used an invalid invite code or invite password to sign up - this way you can ensure that newly registered users don't get
-  access to expired content or functionality
+- their email domain doesn't match a certain value - this way you can allow only users from certain organizations to sign up.
+- their IP address isn't allowed. This way you can prevent user registrations from locales where you don't provide services.
+- they used an invalid invite code or invite password to sign up. This way you can ensure that newly registered users don't get
+  access to expired content or functionality.
 
 Use flow-interrupting webhooks to add this validation to sign-up and registration flows.
 
@@ -40,14 +40,14 @@ session, and ensures that they access your services from one point of entry (a d
 
 To enable this behavior, use the [Ory CLI](../../guides/cli/01_installation.mdx).
 
-Run this command to revoke all active session's of the user after every login:
+Run this command to revoke all active sessions of the user after every login:
 
 ```shell
 ory patch identity-config {project_id} \
   --add '/selfservice/flows/login/after/hooks=[{"hook": "revoke_active_sessions"}]'
 ```
 
-To use this feature only for specific method(s), run this command:
+To use this feature only for specific methods, run this command:
 
 ```shell
 ory patch identity-config {project_id} \
