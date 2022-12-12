@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@ory/client": "^1.0.2",
+    "expo-secure-store": "^12.0.0",
     "express": "^4.18.2"
   }
 }
