@@ -116,7 +116,7 @@ const config = {
       logo: {
         alt: "Ory logo in white",
         src: "/docs/img/logo-ory-white.svg",
-        href: "https://opensource.fb.com",
+        href: "https://www.ory.sh/",
         height: 80,
       },
     },

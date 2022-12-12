@@ -41,7 +41,7 @@
 
 # Overview
 
-The Ory documentation is the single source of truth for usage, implementation,
+Ory documentation is the single source of truth for usage, implementation,
 configuration, and troubleshooting of the Ory Network and all projects of the
 [Ory Ecosystem](https://www.ory.sh/docs/ecosystem/projects/). The documentation
 is best consumed through the
@@ -83,7 +83,7 @@ follow these simple rules:
 5. Don't use phrasal verbs, colloquialisms, and jargon.
 6. Don't refer to users in ways that imply their sex.
 7. Remember to use articles (`a`, `an`, `the`) in your writing.
-8. Use common contractions such are `aren't`, `don't`, `doesn't` to sound
+8. Use common contractions such as `aren't`, `don't`, `doesn't` to sound
    friendly and informal.
 
 ### Lists
@@ -134,6 +134,7 @@ Add this front matter to every document you create:
 id: excellent_feature
 title: Learn how to use the excellent feature in your implementation
 sidebar_label: Excellent feature
+slug:
 ---
 ```
 
