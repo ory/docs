@@ -240,7 +240,7 @@ $argon2id$v=19$m=32,t=2,p=4$cm94YnRVOW5jZzFzcVE4bQ$MNzk5BtR2vUhrp6qQEjRNw
 </TabItem>
 <TabItem value="md5" label="MD5">
 
-Ory Identities doesn't hash password by MD5 but can compare stored MD5 hashes and migrate to configured hasher
+Ory Identities doesn't hash passwords by MD5 but can compare stored MD5 hashes and migrate to configured hasher
 (`hashers.algorithm`). You can configure MD5 hashes to use a plain format (for hashes without salt) or a salted format (for hashes
 with salt).
 
@@ -263,7 +263,7 @@ $md5$CY9rzUYh03PK3k6DJie09g==
 #### Salted format (hashes with salt)
 
 This format allows administrators to import passwords that use salting to calculate the MD5 hash. Ory doesn't prepend or append
-the salt to the user's password. To determine the way system performs salting, use the `salting-format` parameter.
+the salt to the user's password. To determine the way the system performs salting, use the `salting-format` parameter.
 
 ```
 $md5$pf=<salting-format>$<salt>$<hash>
