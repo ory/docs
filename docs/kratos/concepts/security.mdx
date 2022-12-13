@@ -7,7 +7,7 @@ Threat modeling is essential for securing a system like Ory Identities. This doc
 analyzing threats and implementing security measures for Ory Identities and self-hosted Ory Kratos Identity Server.
 
 Running software that stores personal information carries risk. It is important to identify threats and understand the system's
-attack surface, the likelihood, and impact of an attack.
+attack surface, the likelihood, and the impact of an attack.
 
 In the case of Ory Identities, threats could include hackers or malicious insiders who may try to steal or manipulate personal
 information. To protect against these threats, it is important to properly configure Ory and implement appropriate security
@@ -16,7 +16,7 @@ crucial.
 
 ## Digital identity guidelines
 
-There is no universally accepted standard to digital identity.  
+There is no universally accepted standard for digital identity.  
 Ory follows [Digital Identity Guidelines](https://pages.nist.gov/800-63-3/) established by the
 [National Institute of Standards and Technology (NIST)](https://www.nist.gov/).  
 These guidelines are accompanied by a [FAQ](https://pages.nist.gov/800-63-3/) that provides additional information and answers to
@@ -24,8 +24,8 @@ common questions.
 
 ## Brute-force defenses
 
-Ory Network provides Ory Identities with protection against brute force attacks by rate limiting requests to API public endpoints,
-for exanple login and registration endpoints.
+Ory Network provides Ory Identities with protection against brute force attacks by rate-limiting requests to API public endpoints,
+for example login and registration endpoints.
 
 When self-hosting the Ory Kratos Identity Server, it is the responsibility of the administrator to implement and manage
 rate-limiting or other measures to ensure the security of the network.
@@ -42,11 +42,11 @@ Out-of-band communication methods, such as sending activation links via email or
 by automated systems. This type of attack can result in a large number of emails or SMS being sent, which could damage your
 reputation or incur significant costs.
 
-Ory Network provides Ory Identities with protection against automation attacks by rate limiting all email sending endpoints.
+Ory Network provides Ory Identities with protection against automation attacks by rate-limiting all email-sending endpoints.
 
 When self-hosting the Ory Kratos Identity Server, it is the responsibility of the administrator to implement rate-limiting or
-CAPTCHA measures to ensure the security of the network. For guidelines how this can be implemented for each flow please check the
-[concept documentation for self-service flows](https://www.ory.sh/docs/kratos/self-service).
+CAPTCHA measures to ensure the security of the network. For guidelines on how this can be implemented for each flow please check
+the [concept documentation for self-service flows](https://www.ory.sh/docs/kratos/self-service).
 
 ## Password Policy
 
