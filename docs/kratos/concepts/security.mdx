@@ -36,18 +36,6 @@ The [settings flow](../self-service/flows/user-settings) implements account take
 before allowing the user to change it. This makes it impossible for an attacker to change the password without knowing the
 existing password.
 
-## Anti-automation defenses
-
-Out-of-band communication methods, such as sending activation links via email or activation codes via SMS, are vulnerable to abuse
-by automated systems. This type of attack can result in a large number of emails or SMS being sent, which could damage your
-reputation or incur significant costs.
-
-Ory Network provides Ory Identities with protection against automation attacks by rate-limiting all email-sending endpoints.
-
-When self-hosting the Ory Kratos Identity Server, it is the responsibility of the administrator to implement rate-limiting or
-CAPTCHA measures to ensure the security of the network. For guidelines on how this can be implemented for each flow please check
-the [concept documentation for self-service flows](https://www.ory.sh/docs/kratos/self-service).
-
 ## Password Policy
 
 To learn more about setting up a secure password policy, please refer to the
