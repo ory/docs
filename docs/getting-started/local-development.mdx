@@ -35,7 +35,7 @@ For a full reference of APIs check out the [REST and gRPC](../keto/reference/pro
 API keys are used to authenticate privileged requests to the Ory backend APIs. You can create API keys in the Ory Cloud Console.
 Head over to the Ory Console [API key page](https://console.ory.sh/projects/current/connect).
 
-## Local Development
+## Local development
 
 To make login easy and secure, Ory uses cookies to manage session in browser applications. Ory additionally deploys CSRF cookies
 to protect against CSRF attacks. We recommend taking a deep-dive into [Ory's security model](../security-model.mdx) if you are not
@@ -61,7 +61,7 @@ available. The `--dev` flag disables a few security checks to make local develop
 performing the registration flow: [`http://localhost:4000/ui/registration`](http://localhost:4000/ui/registration).
 
 You can now start developing locally. Make sure to send any HTTP calls you make to `http://localhost:4000` and not
-`https://<your-slug>.projects.oryapis.com`. For example, when you configure the Ory SDK (here in Node.js):
+`https://{your-slug}.projects.oryapis.com`. For example, when you configure the Ory SDK (here in Node.js):
 
 ```typescript
 import { Configuration, FrontendApi } from "@ory/client"

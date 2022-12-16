@@ -1,0 +1,37 @@
+---
+id: identity-state
+title: Activate and de-activate identities
+slug: activate-deactivate-user-login-state
+sidebar_label: De-activate identities
+---
+
+# Identity state
+
+The identity state determines whether an identity is active or not with the following states:
+
+- `active` - The identity can use self-service flows such as sign-in.
+- `inactive` - The identity can't use self-service flows.
+
+When an inactive identity tries to sign in, the server responds with a UI error.
+
+## Change identity state using the SDK
+
+Use the SDK to activate and de-activate identities:
+
+```mdx-code-block
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
+
+import tsExample from '!!raw-loader!../../../code-examples/sdk/typescript/src/identity/state.ts'
+import goExample from '!!raw-loader!../../../code-examples/sdk/go/identity/state.go'
+
+<Tabs>
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock language="tsx">{tsExample}</CodeBlock>
+  </TabItem>
+  <TabItem value="go" label="Go">
+    <CodeBlock language="go">{goExample}</CodeBlock>
+  </TabItem>
+</Tabs>
+```

@@ -21,6 +21,11 @@ The system uses templates in these flows:
    - `verification.valid` - the system sends these messages when the user verifies their account successfully.
    - `verification.invalid` - the system sends these messages when the account verification fails, for example when you start the
      verification flow using an email address that isn't associated with a registered user account.
+4. `verification_code` - the system sends these messages when users verify their accounts after signing up. Used with the `code`
+   recovery strategy.
+   - `verification_code.valid` - the system sends these messages when the user verifies their account successfully.
+   - `verification_code.invalid` - the system sends these messages when the account verification fails, for example when you start
+     the verification flow using an email address that isn't associated with a registered user account.
 
 ## Use custom message templates
 
