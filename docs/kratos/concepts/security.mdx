@@ -4,13 +4,13 @@ title: Threat models and security profiles
 ---
 
 Threat modeling is essential for securing a system like Ory Identities. This document provides guidelines for identifying and
-analyzing threats and implementing security measures for Ory Identities and self-hosted Ory Kratos Identity Server.
+analyzing threats and implementing security measures for Ory Identities.
 
-Running software that stores personal information carries risk. It is important to identify threats and understand the system's
-attack surface, the likelihood, and the impact of an attack.
+Working with and administering software that stores personal information carries risk. It's important to identify threats and
+understand the system's attack surface, the likelihood, and the impact of an attack.
 
 In the case of Ory Identities, threats could include hackers or malicious insiders who may try to steal or manipulate personal
-information. To protect against these threats, it is important to properly configure Ory and implement appropriate security
+information. To protect against these threats, it's important to properly configure Ory and implement appropriate security
 measures, such as strong authentication and access controls. Regular monitoring and timely response to security incidents are also
 crucial.
 
@@ -24,19 +24,13 @@ common questions.
 
 ## Brute-force defenses
 
-Ory Network provides Ory Identities with protection against brute force attacks by rate-limiting requests to API public endpoints,
+Ory Network provides Ory Identities with protection against brute-force attacks by rate limiting requests to API public endpoints,
 for example login and registration endpoints.
 
-When self-hosting the Ory Kratos Identity Server, it is the responsibility of the administrator to implement and manage
+When self-hosting the Ory Kratos Identity Server, it's the responsibility of the administrator to implement and manage
 rate-limiting or other measures to ensure the security of the network.
 
-## Account takeover defenses
+## Password policy
 
-The [settings flow](../self-service/flows/user-settings) implements account takeover defenses by requiring the current password
-before allowing the user to change it. This makes it impossible for an attacker to change the password without knowing the
-existing password.
-
-## Password Policy
-
-To learn more about setting up a secure password policy, please refer to the
-[password policy page](../../concepts/password-policy.mdx) for instructions and best practices.
+To learn more about setting up a secure password policy, refer to the [password policy page](../../concepts/password-policy.mdx)
+for instructions and best practices.
