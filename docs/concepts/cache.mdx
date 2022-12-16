@@ -4,6 +4,11 @@ title: Low-latency Edge Network
 sidebar_label: Low latency
 ---
 
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+```
+
 The Ory Network provides a global Edge Network to ensure low-latency access to critical-path APIs. These APIs are eventually
 consistent, which means that the changes you make are always reflected in the API, even if in some cases this might not be
 instantaneous.
@@ -65,4 +70,53 @@ ory.toSession(undefined, undefined, {
     "Cache-Control": "max-age=10",
   },
 })
+```
+
+### Configuration
+
+:::note
+
+Projects on Business plan or higher can use the Session caching feature.
+
+:::
+
+```mdx-code-block
+<Tabs groupId="console-or-cli">
+  <TabItem value="console" label="Ory Console" default>
+```
+
+To configure session caching, go to **Customize** → **Advanced Settings** in the
+[Ory Console](https://console.ory.sh/projects/current/advanced-settings).
+
+```mdx-code-block
+  </TabItem>
+  <TabItem value="cli" label="Ory CLI">
+```
+
+1. Download the Ory Identities config from your project and save it to a file:
+
+```shell
+## List all available projects
+ory list projects
+
+## Get config
+ory get identity-config {project-id} --format yaml > identity-config.yaml
+   ```
+
+2. Add the configuration for session caching
+
+```yaml title="config.yml"
+feature_flags:
+  cacheable_sessions: true
+   ```
+
+3. Update the Ory Identities configuration using the file you worked with:
+
+```shell
+ory update identity-config {project-id} --file updated_config.yaml
+   ```
+
+```mdx-code-block
+  </TabItem>
+</Tabs>
 ```
