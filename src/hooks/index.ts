@@ -29,8 +29,8 @@ export function getSdkUrl() {
       })
       .catch(() => {
         // do nothing
-      }, [])
-  })
+      })
+  }, [])
 
   const hint = project
     ? ""
