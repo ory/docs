@@ -334,7 +334,7 @@ module.exports = {
     {
       type: "category",
       label: "Migrating to Ory",
-      items: ["hydra/self-hosted/migrating-from-mitreid"],
+      items: ["hydra/self-hosted/migrating-from-mitreid","migrate-to-ory/auth0"],
     },
     {
       type: "category",
