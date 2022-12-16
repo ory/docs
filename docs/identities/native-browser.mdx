@@ -20,7 +20,7 @@ browser.
 
 ## Browser apps
 
-Native apps use the `https://{project.slug}.projects.oryapis.com/self-service/{flow-type}/browser` endpoint to initialize flows
+Browser apps use the `https://{project.slug}.projects.oryapis.com/self-service/{flow-type}/browser` endpoint to initialize flows
 such as sign in, registration, profile changes, and so on. When using this endpoint, Ory will set anti CSRF cookies.
 
 When a user signs in successfully, Ory will issue an Ory Session Cookie. Calling `ory.toSession()` will return the same session
