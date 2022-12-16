@@ -1,0 +1,79 @@
+---
+id: oauth2-cli
+title: Configure Ory OAuth2 and OpenID
+---
+
+Using the Ory CLI, you can quickly adjust the configuration of the Ory OAuth2 and OpenID and apply config from the Ory Network
+environment to self-hosted Ory Hydra OAuth2 Server instances.
+
+:::tip
+
+[Ory Hydra](https://github.com/ory/hydra) is the open-source project that powers the Ory OAuth2 and OpenID.
+
+:::
+
+This feature is useful for fluently moving your local setup to the cloud, or for working on the configuration and testing
+different settings in the safety of the local development environment.
+
+To work with the Ory OAuth2 and OpenID, you must have an active project. Use the [CLI](./config-with-cli#create-ory-cloud-project)
+or the [Ory Console](https://console.ory.sh/) to create one.
+
+## Export configuration from The Ory Network
+
+To get your project's Ory OAuth2 and OpenID configuration, run this command:
+
+:::info
+
+You must be signed in to an Ory Network account to perform this action. Read
+[this document](./cli-basics#use-cli-with-existing-cloud-account) to learn more.
+
+:::
+
+```bash
+## List all available projects
+ory list projects
+
+## Get config
+ory get oauth2-config <project-id> --format yaml
+```
+
+The `--format` flag defines the format of the output file. You can choose one of `yaml` ,`json`, or `json-pretty`.
+
+Getting the configuration in the YAML format produces output that is ready to use with self-hosted Ory Hydra.
+
+### Export to file
+
+For a convenient way to get the Ory OAuth2 and OpenID configuration working in self-hosted Ory Hydra, save the configuration to a
+YAML file.
+
+Run this command:
+
+```bash
+ory get oauth2-config <project-id> --format yaml > oauth2-config.yaml
+```
+
+## Import configuration to The Ory Network
+
+To start using the configuration from a self-hosted Ory Hydra instance in Ory OAuth2 and OpenID, import the configuration file
+with the CLI:
+
+```shell
+ory update oauth2-config <project-id> --file config.yaml
+```
+
+## Adjust specific keys
+
+You can adjust specific keys in the configuration using the `ory patch` CLI command.
+
+Running this sample command sets the time to live (`ttl`) for refresh tokens to `999h0m0s`:
+
+```shell
+ory patch oauth2-config <project-id> \
+  --replace '/ttl/refresh_token="999h0m0s"'
+```
+
+:::note
+
+Read [this document](./config-with-cli) to learn more about adjusting project configuration with the Ory CLI.
+
+:::
