@@ -11,6 +11,10 @@ format: node_modules
 format-licenses: .bin/ory
 	.bin/ory dev headers copyright --type=open-source --exclude=src/plugins
 
+.PHONY: format-licenses
+format-licenses: .bin/ory
+	.bin/ory dev headers copyright --type=open-source --exclude=src/plugins
+
 .PHONY: install
 install: code-examples/protect-page-login/nextjs/package-lock.json code-examples/protect-page-login/expressjs/package-lock.json package-lock.json code-examples/protect-page-login/go/go.sum code-examples/auth-api/expressjs/package-lock.json code-examples/protect-page-login/vue/package-lock.json code-examples/protect-page-login/flutter_web_redirect/pubspec.lock code-examples/protect-page-login/react/package-lock.json
 	cd code-examples/protect-page-login/nextjs && npm i
