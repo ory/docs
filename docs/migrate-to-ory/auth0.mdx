@@ -7,8 +7,9 @@ slug: migrating-from-auth0
 
 ## Migrating from Auth0 to Ory
 
-While every setup has its own spin and we can't possibly account for all of them in this guide, we still try to give a good base
-for usecase.
+This guide helps you to migrate from Auth0 to Ory. The base example assumes that your Auth0 setup includes a database connection
+and email and password for credentials. For other setups this guide serves as a good starting point, which you can fit to your
+usecase.
 
 In this guide, you'll:
 
@@ -36,7 +37,7 @@ the same password they used previously.
 To start the process of obtaining the hashes, open a support ticket. From your dashboard, navigate to Get Support, and then open a
 ticket by scrolling to the bottom of the support page.
 
-![](_static/1.png)
+![Image of Auth0 Support Page](_static/1.png)
 
 Select the issue and details of your request. Choose `I have a question regarding my Auth0 account` and then pick the
 `I would like to obtain an export of my password hashes` option.
@@ -67,9 +68,8 @@ Access Token and the ID for your connection.
 On your Auth0 dashboard, navigate to **Applications > APIs**, select **Auth0 Management API** and go to the **API Explorer** tab.
 Here you'll see a token that you can copy and that's valid for 24 hours.
 
-The bulk user export runs for a single connection only. In this guide it's assumed that you're using a database connection - to
-get the ID you navigate to **Authentication > Database**, click on the connection and copy the ID. Every Auth0 connection has an
-ID that's obtained this way.
+The bulk user export runs for a single connection only. To get the ID you navigate to **Authentication > Database**, click on the
+connection and copy the ID. Every Auth0 connection has an ID that's obtained this way.
 
 You'll be using a script that does most of the legwork:
 
@@ -102,7 +102,7 @@ then this might be a viable option for you (`pw reset flow?`).
 
 Now you create an Ory Project incase you don't have one yet:
 
-`setting schema doesnt work this way and needs to be updated`
+`setting schema this isnt pretty - i know, see https://github.com/ory/docs/pull/1157`
 
 ```shell
 ory create project --name "Ory Docs Auth0 Migration Example"
@@ -110,8 +110,8 @@ export ORY_PROJECT_ID='{set to the project ID from output}'
 
 # Use the email identity schema preset
 ory patch identity-config $ORY_PROJECT_ID \
-  --replace '/identity/default_schema_id="preset://email"' \
-  --replace '/identity/schemas=[{"id":"preset://email","url":"preset://email"}]'
+     --replace '/identity/default_schema_id="preset://email"' \
+     --replace '/identity/schemas=[{"id":"preset://email","url":"base64://ewogICIkaWQiOiAiaHR0cHM6Ly9zY2hlbWFzLm9yeS5zaC9wcmVzZXRzL2tyYXRvcy9pZGVudGl0eS5lbWFpbC5zY2hlbWEuanNvbiIsCiAgIiRzY2hlbWEiOiAiaHR0cDovL2pzb24tc2NoZW1hLm9yZy9kcmFmdC0wNy9zY2hlbWEjIiwKICAidGl0bGUiOiAiUGVyc29uIiwKICAidHlwZSI6ICJvYmplY3QiLAogICJwcm9wZXJ0aWVzIjogewogICAgInRyYWl0cyI6IHsKICAgICAgInR5cGUiOiAib2JqZWN0IiwKICAgICAgInByb3BlcnRpZXMiOiB7CiAgICAgICAgImVtYWlsIjogewogICAgICAgICAgInR5cGUiOiAic3RyaW5nIiwKICAgICAgICAgICJmb3JtYXQiOiAiZW1haWwiLAogICAgICAgICAgInRpdGxlIjogIkUtTWFpbCIsCiAgICAgICAgICAib3J5LnNoL2tyYXRvcyI6IHsKICAgICAgICAgICAgImNyZWRlbnRpYWxzIjogewogICAgICAgICAgICAgICJwYXNzd29yZCI6IHsKICAgICAgICAgICAgICAgICJpZGVudGlmaWVyIjogdHJ1ZQogICAgICAgICAgICAgIH0sCiAgICAgICAgICAgICAgIndlYmF1dGhuIjogewogICAgICAgICAgICAgICAgImlkZW50aWZpZXIiOiB0cnVlCiAgICAgICAgICAgICAgfSwKICAgICAgICAgICAgICAidG90cCI6IHsKICAgICAgICAgICAgICAgICJhY2NvdW50X25hbWUiOiB0cnVlCiAgICAgICAgICAgICAgfQogICAgICAgICAgICB9LAogICAgICAgICAgICAicmVjb3ZlcnkiOiB7CiAgICAgICAgICAgICAgInZpYSI6ICJlbWFpbCIKICAgICAgICAgICAgfSwKICAgICAgICAgICAgInZlcmlmaWNhdGlvbiI6IHsKICAgICAgICAgICAgICAidmlhIjogImVtYWlsIgogICAgICAgICAgICB9CiAgICAgICAgICB9LAogICAgICAgICAgIm1heExlbmd0aCI6IDMyMAogICAgICAgIH0KICAgICAgfSwKICAgICAgInJlcXVpcmVkIjogWwogICAgICAgICJlbWFpbCIKICAgICAgXSwKICAgICAgImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjogZmFsc2UKICAgIH0KICB9Cn0K"}]'
 ```
 
 Export the paths to your hashed passwords and your Auth0 user data like this:
@@ -133,6 +133,8 @@ You can either check the **Identities** page on Ory Network or run:
 ory list identities --project $ORY_PROJECT_ID
 ```
 
-Your users are now migrated!
+Make sure to enable some form of
+[account recovery](https://www.ory.sh/docs/kratos/self-service/flows/account-recovery-password-reset) so that users with no
+associated password can regain access.
 
-`enable reset pw flow`
+Your users are now migrated and can login with their Auth0 credentials 🎉!
