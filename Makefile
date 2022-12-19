@@ -5,7 +5,6 @@ export PATH               := .bin:${PATH}
 
 .PHONY: format
 format: node_modules
-	.bin/ory dev headers copyright --type=open-source --exclude=src/plugins
 	npm exec -- prettier --write .
 
 .PHONY: format-licenses
