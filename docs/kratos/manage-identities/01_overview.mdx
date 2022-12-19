@@ -4,10 +4,10 @@ title: What is an identity in Ory?
 sidebar_label: Overview
 ---
 
-# Overview
+# Identity overview
 
-Identities in Ory are humans that sign up on a website or an application that uses Ory, for example online store customers, file
-sharing service users, or company contractors signing up to use internal systems.
+Identities are humans that sign up on a website or an application, for example online store customers, file sharing service users,
+or company contractors signing up to use internal systems.
 
 What Ory calls identities, other software often refers to as "users", "accounts", "user accounts", etc. For the sake of clarity,
 we're not strict about using the term "identity" in the documentation. This means that you can see references to "account
@@ -16,6 +16,8 @@ recovery" or "account activation", which are widely understood terms, while "ide
 Identities are created on the basis of schemas, which define what fields (data) the system stores for the identity. Thanks to
 schemas, every identity created in your system can store its own set of data, which allows you to easily differentiate between
 user types, for example customers and employees.
+
+## Identity example
 
 This is a sample identity presented in the YAML format. To interact with identities (create, list, etc.), use the
 `/admin/identities` endpoint. Keep in mind that the API payload is in JSON format.
@@ -70,6 +72,6 @@ metadata_public:
 # Public metadata only visible at administrative endpoints and cannot be modified by the users themselves.
 metadata_admin:
   another:
-    valid: ["json"]
-    example: 1
+    valid: ["yaml"]
+    example: 2
 ```
