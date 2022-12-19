@@ -34,7 +34,7 @@ You must be signed in to an Ory Network account to perform this action. Read
 ory list projects
 
 ## Get config
-ory get identity-config <project-id> --format yaml
+ory get identity-config {project-id} --format yaml
 ```
 
 The `--format` flag defines the format of the output file. You can choose one of `yaml` ,`json`, or `json-pretty`.
@@ -49,7 +49,7 @@ file.
 Run this command:
 
 ```bash
-ory get identity-config <project-id> --format yaml > identity-config.yaml
+ory get identity-config {project-id} --format yaml > identity-config.yaml
 ```
 
 ## Import configuration to The Ory Network
@@ -58,7 +58,7 @@ To start using the configuration from a self-hosted Ory Kratos instance in Ory I
 CLI:
 
 ```shell
-ory update identity-config <project-id> --file config.yaml
+ory update identity-config {project-id} --file config.yaml
 ```
 
 ## Adjust specific keys
@@ -68,7 +68,7 @@ You can adjust specific keys in the configuration using the `ory patch` CLI comm
 Running this sample command sets the `/selfservice/methods/totp/enabled` key value to `false`:
 
 ```shell
-ory patch identity-config <project-id> \
+ory patch identity-config {project-id} \
   --replace '/selfservice/methods/totp/enabled=false'
 ```
 

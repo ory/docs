@@ -34,7 +34,7 @@ You must be signed in to an Ory Network account to perform this action. Read
 ory list projects
 
 ## Get config
-ory get oauth2-config <project-id> --format yaml
+ory get oauth2-config {project-id} --format yaml
 ```
 
 The `--format` flag defines the format of the output file. You can choose one of `yaml` ,`json`, or `json-pretty`.
@@ -49,7 +49,7 @@ YAML file.
 Run this command:
 
 ```bash
-ory get oauth2-config <project-id> --format yaml > oauth2-config.yaml
+ory get oauth2-config {project-id} --format yaml > oauth2-config.yaml
 ```
 
 ## Import configuration to The Ory Network
@@ -58,7 +58,7 @@ To start using the configuration from a self-hosted Ory Hydra instance in Ory OA
 with the CLI:
 
 ```shell
-ory update oauth2-config <project-id> --file config.yaml
+ory update oauth2-config {project-id} --file config.yaml
 ```
 
 ## Adjust specific keys
@@ -68,7 +68,7 @@ You can adjust specific keys in the configuration using the `ory patch` CLI comm
 Running this sample command sets the time to live (`ttl`) for refresh tokens to `999h0m0s`:
 
 ```shell
-ory patch oauth2-config <project-id> \
+ory patch oauth2-config {project-id} \
   --replace '/ttl/refresh_token="999h0m0s"'
 ```
 
