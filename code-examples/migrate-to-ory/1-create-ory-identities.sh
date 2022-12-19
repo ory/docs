@@ -33,10 +33,7 @@ create_identity() {
         echo "please supply a valid payload"
         exit 1
     else
-        curl --request POST -sL \
-            --header "Authorization: Bearer $ORY_TOKEN" \
-            --header "Content-Type: application/json" \
-            --data "$payload" "https://${ORY_SLUG}.projects.oryapis.com/admin/identities"
+        echo $payload | ory import identities --project $ORY_PROJECT_ID
     fi
 }
 

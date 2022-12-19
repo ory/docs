@@ -7,8 +7,6 @@ slug: migrating-from-auth0
 
 ## Migrating from Auth0 to Ory
 
-`better intro here`
-
 While every setup has its own spin and we can't possibly account for all of them in this guide, we still try to give a good base
 for usecase.
 
@@ -108,36 +106,31 @@ Now you create an Ory Project incase you don't have one yet:
 
 ```shell
 ory create project --name "Ory Docs Auth0 Migration Example"
-project_id="{set to the project ID from output}"
+export ORY_PROJECT_ID='{set to the project ID from output}'
 
 # Use the email identity schema preset
-ory patch identity-config $project_id \
+ory patch identity-config $ORY_PROJECT_ID \
   --replace '/identity/default_schema_id="preset://email"' \
   --replace '/identity/schemas=[{"id":"preset://email","url":"preset://email"}]'
 ```
 
-You export the project slug and create a [Personal Access Token](https://www.ory.sh/docs/concepts/personal-access-token) and add
-paths pointing to the Auth0 exports.
+Export the paths to your hashed passwords and your Auth0 user data like this:
 
 ```shell
-export ORY_SLUG='{your_ory_slug}'
-export ORY_TOKEN='{ory_token}'
 export AUTH0_USERDATA="{/path/to/AUTH0_USERDATA.json}"
 export AUTH0_PWEXPORT="{/path/to/hashed_passwords.json}" # comment this line to reserve not create identities
 ```
 
-Now you can create the identities using this script.
+Now you can import identities using this script.
 
 ```shell
 bash <(curl https://raw.githubusercontent.com/ory/docs/auth0guide/code-examples/migrate-to-ory/1-create-ory-identities.sh)
 ```
 
-You can either check the Identities page on Ory Network or you run:
+You can either check the **Identities** page on Ory Network or run:
 
 ```shell
-ory list projects
-project_id="{project_id}" #copy the correct ID and run
-ory list identities --project $project_id
+ory list identities --project $ORY_PROJECT_ID
 ```
 
 Your users are now migrated!
