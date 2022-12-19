@@ -118,6 +118,14 @@ export const official: PropTypes = {
       repo: "https://github.com/ory/examples/tree/master/supabase-ory-cloud",
       docs: "https://github.com/ory/examples/blob/master/supabase-ory-cloud/README.md",
     },
+    {
+      title: "Ory Network with ASP.NET Core",
+      language: "dotnet",
+      author: "ory",
+      tested: false,
+      repo: "https://github.com/ory/examples/tree/master/dotnet-ory-network",
+      docs: "https://github.com/ory/examples/blob/master/dotnet-ory-network/README.md",
+    },
   ],
 }
 
