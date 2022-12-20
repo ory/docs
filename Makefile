@@ -3,12 +3,14 @@ SHELL=/bin/bash -euo pipefail
 export GO111MODULE        := on
 export PATH               := .bin:${PATH}
 
-format: .bin/ory node_modules  # formats all source code
-	make format-fast
-
-format-fast:
+.PHONY: format
+format: node_modules
 	.bin/ory dev headers copyright --type=open-source --exclude=src/plugins
 	npm exec -- prettier --write .
+
+.PHONY: format-licenses
+format-licenses: .bin/ory
+	.bin/ory dev headers copyright --type=open-source --exclude=src/plugins
 
 .PHONY: install
 install: code-examples/protect-page-login/nextjs/package-lock.json code-examples/protect-page-login/expressjs/package-lock.json package-lock.json code-examples/protect-page-login/go/go.sum code-examples/auth-api/expressjs/package-lock.json code-examples/protect-page-login/vue/package-lock.json code-examples/protect-page-login/flutter_web_redirect/pubspec.lock code-examples/protect-page-login/react/package-lock.json
@@ -43,6 +45,6 @@ test: install build-examples .bin/ory
 	curl https://raw.githubusercontent.com/ory/meta/master/install.sh | bash -s -- -b .bin ory v0.1.48
 	touch .bin/ory
 
-node_modules: package-lock.json
+node_modules: package.json package-lock.json
 	npm ci
 	touch node_modules

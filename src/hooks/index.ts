@@ -1,14 +1,13 @@
 // Copyright © 2022 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
+import { useQuery } from "react-query"
 import { useEffect, useState } from "react"
 import { Configuration, V0alpha2Api } from "@ory/client"
 import { Octokit } from "@octokit/rest"
 import useDocusaurusContext from "@docusaurus/core/lib/client/exports/useDocusaurusContext"
-import { ProjectMetadata } from "@ory/client/api"
 
 export function getSdkUrl() {
-  const [project, setProject] = useState<ProjectMetadata | undefined>()
   const { siteConfig } = useDocusaurusContext()
 
   const sdk = new V0alpha2Api(
@@ -19,20 +18,23 @@ export function getSdkUrl() {
       },
     }),
   )
-
-  useEffect(() => {
+  const { data: projectSlug } = useQuery("getSdkUrl", () =>
     sdk
       .listProjects()
       .then(({ data: projects }) => {
+        if (projects.length === 0) {
+          return
+        }
+
         // Fall back to the first project found
-        setProject(projects[0])
+        return projects[0].slug
       })
       .catch(() => {
-        // do nothing
-      })
-  })
+        return ""
+      }),
+  )
 
-  const hint = project
+  const hint = projectSlug
     ? ""
     : `# This is a public Ory Network Project.
 # Don’t submit any personally identifiable information in requests made with this project.
@@ -44,9 +46,9 @@ export function getSdkUrl() {
 `
   return {
     hint,
-    url: project
-      ? "https://" + project.slug + ".projects.oryapis.com"
-      : "https://{your-project-slug-here}.projects.oryapis.com",
+    url: projectSlug
+      ? "https://" + projectSlug + ".projects.oryapis.com"
+      : "https://{project.slug}.projects.oryapis.com",
   }
 }
 

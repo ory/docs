@@ -8,7 +8,7 @@ to self-hosted Ory Keto instances.
 
 :::tip
 
-Ory Keto is the open-source project that powers Ory Permissions.
+[Ory Keto](https://github.com/ory/keto) is the open-source project that powers Ory Permissions.
 
 :::
 
@@ -34,7 +34,7 @@ You must be signed in to an Ory Network account to perform this action. Read
 ory list projects
 
 ## Get config
-ory get permission-config <project-id> --format yaml
+ory get permission-config {project-id} --format yaml
 ```
 
 The `--format` flag defines the format of the output file. You can choose one of `yaml` ,`json`, or `json-pretty`.
@@ -49,7 +49,7 @@ file.
 Run this command:
 
 ```bash
-ory get permission-config <project-id> --format yaml > permission-config.yaml
+ory get permission-config {project-id} --format yaml > permission-config.yaml
 ```
 
 ## Import configuration to The Ory Network
@@ -58,7 +58,7 @@ To start using the configuration from a self-hosted Ory Keto instance in the Ory
 the CLI:
 
 ```shell
-ory update permission-config <project-id> --file permission-config.yaml
+ory update permission-config {project-id} --file permission-config.yaml
 ```
 
 ## Adjust specific keys
@@ -68,7 +68,7 @@ You can adjust specific keys in the configuration using the `ory patch` CLI comm
 Running this sample command sets the `/limit/max_read_depth` key value to `3`:
 
 ```shell
-ory patch permission-config <project-id> \
+ory patch permission-config {project-id} \
   --replace '/limit/max_read_depth=3'
 ```
 
