@@ -87,6 +87,14 @@ export const official: PropTypes = {
       docs: "https://www.ory.sh/securing-flask-application-using-kratos-and-keto/",
     },
     {
+      title: "Protect a page with login: Dotnet",
+      language: "dotnet",
+      author: "ory",
+      tested: true,
+      repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/dotnet",
+      docs: "https://www.ory.sh/docs/getting-started/integrate-auth/dotnet",
+    },
+    {
       title: "Customize self-service UI: Node.js",
       language: "nodejs",
       author: "ory",
@@ -125,6 +133,7 @@ export const official: PropTypes = {
       tested: false,
       repo: "https://github.com/ory/examples/tree/master/dotnet-ory-network",
       docs: "https://github.com/ory/examples/blob/master/dotnet-ory-network/README.md",
+      description: "Advanced example",
     },
   ],
 }

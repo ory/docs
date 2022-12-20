@@ -29,6 +29,8 @@ const config = {
         "php",
         "yaml",
         "dart",
+        "csharp",
+        "cshtml",
       ],
     },
     algolia: {

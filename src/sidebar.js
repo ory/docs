@@ -22,6 +22,7 @@ module.exports = {
             "getting-started/integrate-auth/react",
             "getting-started/integrate-auth/vue",
             "getting-started/integrate-auth/react-native",
+            "getting-started/integrate-auth/dotnet",
           ],
         },
         {
