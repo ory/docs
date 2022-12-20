@@ -39,7 +39,9 @@ performed in his example are shown here:
 
 ## Setup
 
-1. Create an ASP.NET Core app. We will base this on the empty web template. Run these commands:
+### Create an ASP.NET Core app
+
+We will base this on the empty web template. Run these commands:
 
 ```shell-session
 mkdir your-project
@@ -50,7 +52,9 @@ dotnet new web
 
 ![Create ASP.NET Core app](../_static/dotnet/new_project.gif)
 
-2. Run this command to install the Ory SDK which allows you to interact with Ory APIs:
+### Install Ory SDK
+
+Run this command to install the Ory SDK which allows you to interact with Ory APIs:
 
 ```shell-session
 dotnet add package Ory.Client
@@ -58,7 +62,7 @@ dotnet add package Ory.Client
 
 ![Add Ory.Client package](../_static/dotnet/add_package.gif)
 
-3. Configure the SDK
+### Configure the SDK
 
 We will need to add the Ory Client to this app. Make the following changes to the `Program.cs` file that was generated:
 
@@ -140,13 +144,15 @@ app.Run();
 
 As the final step, create an `Index` page that's presented to signed-in users. This page diplays the user's session data.
 
-1. Create the `Index` RazorPage that renders the page with the session data:
+### Create the page
+
+Create the `Index` RazorPage that renders the page with the session data:
 
 ```shell-session
 dotnet new page --name Index --no-pagemodel --output Pages
 ```
 
-2. Add this code to the `Pages/Index.cshtml` file to present the data to the user:
+Add this code to the `Pages/Index.cshtml` file to present the data to the user:
 
 ```cshtml title="Pages/Index.cshtml" {3-4,7-17}
 @page
@@ -168,7 +174,9 @@ dotnet new page --name Index --no-pagemodel --output Pages
 </html>
 ```
 
-3. To configure the app to serve RazorPages, make the following changes in `Program.cs`:
+### App configuration
+
+To configure the app to serve RazorPages, make the following changes in `Program.cs`:
 
 ```csharp title="Program.cs" showLineNumbers {3-4,21-22}
 var builder = WebApplication.CreateBuilder(args);
