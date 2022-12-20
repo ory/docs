@@ -6,47 +6,51 @@ using Ory.Client.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// add support for RazorPages
 builder.Services.AddRazorPages();
-
-var oryBasePath = builder.Configuration.GetValue<string>("ORY_BASEPATH") ?? "http://localhost:4000";
-
-var ory = new FrontendApi(new Configuration
-{
-  BasePath = oryBasePath
-});
 
 var app = builder.Build();
 
-app.Use(async (ctx, next) =>
+// create a new Ory Client with the BasePath set to the Ory Tunnel enpoint
+var oryBasePath = builder.Configuration.GetValue<string>("ORY_BASEPATH") ?? "http://localhost:4000";
+var ory = new FrontendApi(new Configuration
 {
-  async Task Login()
-  {
-    var flow = await ory.CreateBrowserLoginFlowAsync() ?? throw new InvalidOperationException("Could not create browser login flow");
-    ctx.Response.Redirect(flow.RequestUrl);
-  }
-
-  var cookies = ctx.Request.Headers.Cookie;
-
-  try
-  {
-    var session = await ory.ToSessionAsync(cookie: cookies, cancellationToken: ctx.RequestAborted);
-    if (session?.Active is not true)
-    {
-      await Login();
-      return;
-    }
-
-    ctx.Items["req.session"] = session;
-  }
-  catch (ApiException)
-  {
-    await Login();
-    return;
-  }
-
-  await next(ctx);
+	BasePath = oryBasePath
 });
 
+// add session middleware
+app.Use(async (ctx, next) =>
+{
+	async Task Login()
+	{
+		// this will redirect the user to the managed Ory Login UI
+		var flow = await ory.CreateBrowserLoginFlowAsync() ?? throw new InvalidOperationException("Could not create browser login flow");
+		ctx.Response.Redirect(flow.RequestUrl);
+	}
+
+	try
+	{
+		// check if we have a session
+		var session = await ory.ToSessionAsync(cookie: ctx.Request.Headers.Cookie, cancellationToken: ctx.RequestAborted);
+		if (session?.Active is not true)
+		{
+			await Login();
+			return;
+		}
+
+		// add session to HttpContext
+		ctx.Items["req.session"] = session;
+	}
+	catch (ApiException)
+	{
+		await Login();
+		return;
+	}
+
+	await next(ctx);
+});
+
+// configure pipeline to use RazorPages
 app.MapRazorPages();
 
 app.Run();

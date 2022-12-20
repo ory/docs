@@ -3,6 +3,7 @@
 
 @page
 @{
+  // try to retrieve session from HttpContext
   var session = HttpContext.Items.TryGetValue("req.session", out var item) && item is Ory.Client.Model.ClientSession s ? s.ToJson() : "<NO SESSION>";
 }
 
