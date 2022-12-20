@@ -1,6 +1,7 @@
 #!/bin/bash
 create_payload() {
     unset payload
+    ory_schema_id='preset://email'
 
     # uses both email and pwhash. pwhash can also be 'null'-string
     if [[ -z "$email" && -z "$pwhash" ]]; then
@@ -8,13 +9,13 @@ create_payload() {
         exit 1
     elif [[ -z "$pwhash" || "$pwhash" == "null" ]]; then
         payload=$(jq -n \
-            --arg sid "$ORY_SCHEMA_ID" \
+            --arg sid "$ory_schema_id" \
             --arg em "$email" \
             '{schema_id: $sid, traits: {email: $em}}')
     else
         payload=$(
             jq -n \
-                --arg sid "$ORY_SCHEMA_ID" \
+                --arg sid "$ory_schema_id" \
                 --arg em "$email" \
                 --arg pwhash "$pwhash" \
                 '{schema_id: $sid,
@@ -37,9 +38,7 @@ create_identity() {
     fi
 }
 
-export ORY_SCHEMA_ID='preset://email'
-
-if [ -z ${AUTH0_PWEXPORT+x} ]; then
+if [[ "${RESERVE_ONLY}" == "true" ]]; then
     userdata=$(cat ${AUTH0_USERDATA} | jq ".")
 
     echo "$userdata" | jq -r '.[] | .email' | while read email; do

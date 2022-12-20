@@ -17,40 +17,46 @@ In this guide, you'll:
 
 2. run a bulk user export to get your complete user data.
 
-3. create identities in Ory Network.
+3. create Ory identities.
 
 ### Export password hashes
 
 Because password hashes are considered sensitive information, Auth0 doesn't export them as part of the general export process. You
 must file a support ticket to get the hashes and other password related information.
 
-! **When you are exporting hashed passwords, neither you, nor Auth0 or the Ory system has access to the plain text password** !
+:::info
+
+When you are exporting hashed passwords, neither you, nor Auth0 or the Ory system has access to the plain text password
+
+:::
 
 When you have exported the hashed passwords from Auth0 and imported them into Ory Kratos, your users will be able to log in with
 the same password they used previously.
 
-**Tip:**
+:::tip
 
-> If you aren't able to export the hashes, due to the plan you are on or the migration timelines, one alternative is to have every
-> user change their password using the forgot password flow. You can still import all the user data.
+If you aren't able to export the hashes, due to the plan you are on or the migration timelines, one alternative is to have every
+user change their password using the forgot password flow. You can still import all the user data.
 
-To start the process of obtaining the hashes, open a support ticket. From your dashboard, navigate to Get Support, and then open a
-ticket by scrolling to the bottom of the support page.
+:::
 
-![Image of Auth0 Support Page](_static/1.png)
+To start the process of obtaining the hashes, open a support ticket. From your Auth0 **Dashboard**, navigate to **Get Support**,
+**Tickets** and select **Open Ticket**.
 
-Select the issue and details of your request. Choose `I have a question regarding my Auth0 account` and then pick the
-`I would like to obtain an export of my password hashes` option.
+Select the issue and details of your request. Choose **I have a question regarding my Auth0 account** and then pick the **I would
+like to obtain an export of my tenant password hashes** option.
 
 You’ll receive an automated message after this ticket is submitted. View progress on the ticket screen.
 
-**Important!**
+:::info
 
-> Auth0 requires you to be on a paid plan to export your password hashes. You cannot export them otherwise. Additionally, Auth0
-> makes no commitments about the processing time for a password hash request. Plan accordingly.
+Auth0 requires you to be on a paid plan to export your password hashes. You cannot export them otherwise. Additionally, Auth0
+makes no commitments about the processing time for a password hash request. Plan accordingly.
 
-After your request is processed, you’ll download a gzipped JSON file containing password hashes, related information and user ids.
-It will look like this:
+:::
+
+After your request is processed, you’ll download a compressed JSON file containing password hashes, related information and user
+IDs. It will look like this:
 
 ```JSON
 {"_ID":{"$oid":"60425dc43519d90068f82973"},"email_verified":false,"email":"test2@example.com","passwordHash":"$2b$10$Z6hUTEEeoJXN5/AmSm/4.eZ75RYgFVriQM9LPhNEC7kbAbS/VAaJ2","password_set_date":{"$date":"2021-03-05T16:35:16.775Z"},"tenant":"dev-rwsbs6ym","connection":"Username-Password-Authentication","_tmp_is_unique":true}
@@ -75,9 +81,13 @@ You'll be using a script that does most of the legwork:
 
 1. It accounts for all possible metrics you can export in a bulk user export.
 2. The job might take a while to complete, but will pinged be and downloaded when it's ready.
-3. The download is a gzipped, newline-delimited JSON, which then will be extracted and converted to a valid JSON file.
+3. The download is a compressed, newline-delimited JSON, which then will be extracted and converted to a valid JSON file.
 
-> These scripts assume that you have **jq, gzip and the Ory CLI** installed and that you use a POSIX-compliant shell like bash.
+:::info
+
+These scripts assume that you have **jq, gzip and the Ory CLI** installed and that you use a POSIX-compliant shell like bash.
+
+:::
 
 In order to use it, you'll need to export some variables:
 
@@ -93,16 +103,14 @@ bash <(curl https://raw.githubusercontent.com/ory/docs/auth0guide/code-examples/
 
 ### Creating identities
 
-Once the download is finished and Auth0 provided you with the hashed passwords, you can create the identities
-`in Ory Kratos / Ory Network?`, requiring the users to login with email and password.
+Once the download is finished and Auth0 provided you with the hashed passwords, you can create the identities, requiring the users
+to login with email and password.
 
 Since it's possible your user data contains new users who weren't registered when the hashed passwords were exported, we'll
 reserve an identity for that email. If you're on a free Auth0 plan and you don't qualify for an export of your hashed passwords,
-then this might be a viable option for you (`pw reset flow?`).
+then this might be a viable option for you.
 
-Now you create an Ory Project incase you don't have one yet:
-
-`setting schema this isnt pretty - i know, see https://github.com/ory/docs/pull/1157`
+Now you create an Ory project incase you don't have one yet:
 
 ```shell
 ory create project --name "Ory Docs Auth0 Migration Example"
@@ -117,8 +125,9 @@ ory patch identity-config $ORY_PROJECT_ID \
 Export the paths to your hashed passwords and your Auth0 user data like this:
 
 ```shell
+export RESERVE_ONLY="false" # set this to "true" if you lack the Auth0 password hashes
 export AUTH0_USERDATA="{/path/to/AUTH0_USERDATA.json}"
-export AUTH0_PWEXPORT="{/path/to/hashed_passwords.json}" # comment this line to reserve not create identities
+export AUTH0_PWEXPORT="{/path/to/hashed_passwords.json}"
 ```
 
 Now you can import identities using this script.
@@ -127,7 +136,7 @@ Now you can import identities using this script.
 bash <(curl https://raw.githubusercontent.com/ory/docs/auth0guide/code-examples/migrate-to-ory/1-create-ory-identities.sh)
 ```
 
-You can either check the **Identities** page on Ory Network or run:
+You can either check the **Identities** page on the Ory Console or run:
 
 ```shell
 ory list identities --project $ORY_PROJECT_ID
@@ -137,4 +146,4 @@ Make sure to enable some form of
 [account recovery](https://www.ory.sh/docs/kratos/self-service/flows/account-recovery-password-reset) so that users with no
 associated password can regain access.
 
-Your users are now migrated and can login with their Auth0 credentials 🎉!
+Your users are now migrated and can login with their Auth0 credentials! 🎉
