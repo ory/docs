@@ -1,0 +1,58 @@
+---
+id: sdk
+title: Ory SDK
+sidebar_label: SDK
+---
+
+Use the Ory SDK to interact with **Ory Identities**, **Ory Permissions**, and **Ory OAuth2**.  
+It works with Ory Network and when self-hosting Ory services.
+
+Ory Oathkeeper has its own SDK. To learn more about it, visit the [Ory Oathkeeper SDK](./oathkeeper/sdk) documentation.
+
+Before using the SDK, it is recommended to consult the [Ory REST API](./reference/api) documentation, which includes code samples
+and examples for various programming languages.
+
+---
+
+Ory publishes SDKs for popular languages in their respective package repositories:
+
+- [Dart](https://pub.dev/packages/ory_client)
+- [.NET](https://www.nuget.org/packages/Ory.Client/)
+- [Go](https://github.com/ory/client-go)
+- [Java](https://search.maven.org/artifact/sh.ory/ory-client)
+- [JavaScript](https://www.npmjs.com/package/@ory/client) with TypeScript definitions and compatible with: Node.js, React.js,
+  Angular, Vue.js, and many more.
+- [PHP](https://packagist.org/packages/ory/client)
+- [Python](https://pypi.org/project/ory-client/)
+- [Ruby](https://rubygems.org/gems/ory-client)
+- [Rust](https://crates.io/crates/ory-client)
+
+---
+
+:::info Source Code
+
+To view the source code for the generated Ory SDKs, visit the GitHub repository:
+[Generated SDKs for Ory](https://github.com/ory/sdk/tree/master/clients/client)
+
+Missing your programming language?  
+[Create an issue](https://github.com/ory/sdk/issues) and help the Ory team build, test and publish the SDK for your programming
+language!
+
+:::
+
+:::caution old sdks
+
+[`hydra-client`](https://github.com/ory/sdk/tree/master/clients/hydra),
+[`kratos-client`](https://github.com/ory/sdk/tree/master/clients/kratos), and
+[`keto-client`](https://github.com/ory/sdk/tree/master/clients/keto) SDKs are no longer actively maintained.  
+Read the [Ory SDK upgrade guide](https://www.ory.sh/docs/guides/upgrade/sdk-v1) to learn more.
+
+:::
+
+:::note backwards compatibility
+
+The Ory SDK uses automated code generation by [`openapi-generator`](https://github.com/OpenAPITools/openapi-generator).
+`openapi-generator` can make changes to the generated code with each new version, which breaks backwards compatibility in some
+cases. As a result, the Ory SDK may not be compatible with previous versions.
+
+:::
