@@ -23,7 +23,7 @@ sequenceDiagram
   K->>B: HTTP 302 Found <selfservice.flows.${components}.ui_url>?flow=<flow-id>
 
   B->>A: Opens <selfservice.flows.<${flows.join("|")}>.ui_url>?flow=<flow-id>
-  A-->>K: Fetches data to render forms using /selfservice/${components}/flows?id=<flow-id>
+  A-->>K: Fetches data to render forms using /self-service/${components}/flows?id=<flow-id>
   B-->>A: Fills out forms, clicks e.g. ${interactions.join(", ")}
   B->>K: Submits form
   K-->>K: Validates and processes form payloads
