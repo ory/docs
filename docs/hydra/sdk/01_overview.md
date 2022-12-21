@@ -1,40 +1,62 @@
 ---
 id: overview
-title: Software Development Kits (SDKs)
-sidebar_label: Overview
+title: Software Development Kit (SDK)
+sidebar_label: Ory Hydra SDK
 ---
 
-All SDKs use automated code generation provided by [`openapi-generator`](https://github.com/OpenAPITools/openapi-generator).
-Unfortunately, `openapi-generator` has serious breaking changes in the generated code when upgrading versions. Therefore, we don't
-make backwards compatibility promises with regards to the generated SDKs. We hope to improve this process in the future.
+The Ory Hydra SDK allows for integration with a self-hosted [Ory Hydra OAuth2 Server](https://github.com/ory/hydra).
 
-Before you check out the SDKs, head over to the [REST API](reference/api.mdx) documentation which includes code samples for common
-programming languages for each REST endpoint.
+Before using the SDK, it is recommended to consult the [Ory REST API](../reference/api) documentation, which includes code samples
+and examples for various programming languages.
 
-> The SDKs don't provide a good API for dealing with OAuth 2.0 Flows (for example Authorize Code Flow, Refresh Flow, ...). But
-> there are tons of [libraries available for consuming OAuth 2.0](https://oauth.net/code/). Don't write your own OAuth 2.0
-> Library!
+---
 
-We publish our SDKs for popular languages in their respective package repositories:
+Ory publishes SDKs for popular languages in their respective package repositories:
 
-- [Dart](https://pub.dev/packages/ory_client)
-- [.NET](https://www.nuget.org/packages/Ory.Client/)
-- [Go](https://github.com/ory/client-go)
-- [Java](https://search.maven.org/artifact/sh.ory/ory-client)
-- [JavaScript](https://www.npmjs.com/package/@ory/client) with TypeScript definitions and compatible with: Node.js, React.js,
-  Angular, Vue.js, and many more.
-- [PHP](https://packagist.org/packages/ory/client)
-- [Python](https://pypi.org/project/ory-client/)
-- [Ruby](https://rubygems.org/gems/ory-client)
-- [Rust](https://crates.io/crates/ory-client)
+- [Dart](https://pub.dev/packages/ory_hydra_client)
+- [.NET](https://www.nuget.org/packages/Ory.Hydra.Client/)
+- [Go](https://github.com/ory/hydra-client-go)
+- [Java](https://search.maven.org/artifact/sh.ory.hydra/hydra-client)
+- [JavaScript](https://www.npmjs.com/package/@ory/hydra-client) with TypeScript definitions and compatible with: Node.js,
+  React.js, Angular, Vue.js, and many more.
+- [PHP](https://packagist.org/packages/ory/hydra-client)
+- [Python](https://pypi.org/project/ory-hydra-client/)
+- [Ruby](https://rubygems.org/gems/ory-hydra-client)
+- [Rust](https://crates.io/crates/ory-hydra-client)
 
-Code examples:
+---
 
-- [Go](./05_go.mdx)
-- [JavaScript](./10_js.mdx)
-- [PHP](./15_php.mdx)
+:::caution
 
-Take a look at the source: [Generated SDKs for Ory Hydra](https://github.com/ory/sdk/tree/master/clients/client)
+The Ory Hydra SDK does not provide a comprehensive API for dealing with OAuth 2.0 flows such as the authorization code flow and
+refresh flow. Use one of the many [well-established libraries](https://oauth.net/code/) for this purpose, _do not write your own
+code to interact with OAuth 2.0_.  
+Visit the [Oauth2 client libraries](../guides/using-oauth2) document for more information.
 
-Missing your programming language? [Create an issue](https://github.com/ory/hydra/issues) and help us build, test and publish the
-SDK for your programming language!
+:::
+
+:::info Source Code
+
+To view the source code for the generated Ory SDKs, visit the GitHub repository:
+[Generated SDKs for Ory Kratos](https://github.com/ory/sdk/tree/master/clients/kratos/)
+
+Missing your programming language?  
+[Create an issue](https://github.com/ory/sdk/issues) and help the Ory team build, test, and publish the SDK for your programming
+language!
+
+:::
+
+:::info client sdk
+
+The Ory [`client`](../../sdk.mdx) SDK works with self-hosted Ory services, but due to different release cycles it is recommended
+to use `hydra-client` with self-hosted Ory Hydra.
+
+:::
+
+:::note backwards compatibility
+
+The Ory SDK uses automated code generation by [`openapi-generator`](https://github.com/OpenAPITools/openapi-generator).
+`openapi-generator` can make changes to the generated code with each new version, which breaks backwards compatibility in some
+cases. As a result, the Ory SDK may not be compatible with previous versions.
+
+:::
