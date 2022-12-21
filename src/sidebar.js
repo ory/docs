@@ -58,10 +58,7 @@ module.exports = {
             {
               type: "category",
               label: "Password",
-              items: [
-                "kratos/concepts/credentials/username-email-password",
-                "concepts/password-policy",
-              ],
+              items: ["kratos/concepts/credentials/username-email-password"],
             },
             {
               type: "category",
@@ -174,7 +171,6 @@ module.exports = {
           Concepts: [
             "kratos/concepts/ui-user-interface",
             "kratos/concepts/browser-redirect-flow-completion",
-            "kratos/concepts/security",
             {
               label: "Identity Credentials",
               type: "category",
@@ -362,7 +358,11 @@ module.exports = {
     {
       type: "category",
       label: "Security and compliance",
-      items: ["ecosystem/security"],
+      items: [
+        "ecosystem/security",
+        "kratos/concepts/security",
+        "concepts/password-policy",
+      ],
     },
     {
       type: "category",
