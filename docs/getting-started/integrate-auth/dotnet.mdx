@@ -33,8 +33,8 @@ import OryCLI from '../_common/ory-cli.mdx'
 
 ### Usage of Ory Tunnel
 
-For this example we will be using the [Ory Tunnel](../../guides/cli/proxy-and-tunnel#ory-tunnel). The interactions beeing
-performed in his example are shown here:
+We will be using the [Ory Tunnel](../../guides/cli/proxy-and-tunnel#ory-tunnel) in this tutorial. The interactions being performed
+in his example are shown here:
 [![Interactions for authenticating users in this example](https://mermaid.ink/img/pako:eNq9U01LxDAQ_StDLh60dAVFyEFoUcSDH2AvQi8xnW6DbVInE0XE_27Srq7rLujJHkJn5s3LzJvMm9CuQSGFx6eAVuOZUUtSQ20hfiqws2F4QJrtUREbbUZlGUpQHkpyL35XtEjRexcIinEExduIKiFu6BWqYC32OyhuL1eQPZ8MX9sZVGanp_uFhIvzCjrmUeZ577TqO-dZHh8uTmZYkWCVBN2hfgSP3hu3YqgmhtvLncHoj-EsZrbK9NisU7Ji05duyEoJhI0h1Azstgs6WiwWuce-zaJQz0ZjjC2NzR--S1euat3Z0p8Y1i0ljl_h144RyCw7BtfClDcitY6G2M3SeCbFURFQtskdwcQwnfqnSD5oHeVrQz-jvsn1mzTrWf3bSFfVbs50w_k51CQegnaW0cbnKw7EgDQo08RleUvQWnCHA9ZCxt9G0WMtavsecWlr7l6tFpIp4IEIY6P4c7GEbFXvv7znjWFHX06czKt5JafNfP8AW_kqnQ?type=png)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNq9U01LxDAQ_StDLh60dAVFyEFoUcSDH2AvQi8xnW6DbVInE0XE_27Srq7rLujJHkJn5s3LzJvMm9CuQSGFx6eAVuOZUUtSQ20hfiqws2F4QJrtUREbbUZlGUpQHkpyL35XtEjRexcIinEExduIKiFu6BWqYC32OyhuL1eQPZ8MX9sZVGanp_uFhIvzCjrmUeZ577TqO-dZHh8uTmZYkWCVBN2hfgSP3hu3YqgmhtvLncHoj-EsZrbK9NisU7Ji05duyEoJhI0h1Azstgs6WiwWuce-zaJQz0ZjjC2NzR--S1euat3Z0p8Y1i0ljl_h144RyCw7BtfClDcitY6G2M3SeCbFURFQtskdwcQwnfqnSD5oHeVrQz-jvsn1mzTrWf3bSFfVbs50w_k51CQegnaW0cbnKw7EgDQo08RleUvQWnCHA9ZCxt9G0WMtavsecWlr7l6tFpIp4IEIY6P4c7GEbFXvv7znjWFHX06czKt5JafNfP8AW_kqnQ)
 
 ## Setup
@@ -90,7 +90,7 @@ app.Run();
 Next, create middleware that checks if the user has a valid session. The session is considered valid when the user is
 authenticated.
 
-The middleware passes the current `HttpContext` cookies to the Ory client to check if the session is valid.
+The middleware passes the request cookies to the Ory client to check if the session is valid.
 
 If the session is valid, the user is presented with the protected page. When the session is not valid, which means that the user
 is not authenticated or the session expired, the request is redirected for login using the Ory Account Experience.
