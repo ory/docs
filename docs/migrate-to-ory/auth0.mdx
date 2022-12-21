@@ -67,7 +67,7 @@ The file you get has this format:
 
 To create a [bulk user export](https://auth0.com/docs/manage-users/user-migration/bulk-user-exports), you need a Management API
 Access Token and the ID of your connection. This data is used by the migration script you run to get the user data. You inspect
-the script [here](https://raw.githubusercontent.com/ory/docs/auth0guide/code-examples/migrate-to-ory/0-get-auth0-user-data.sh).
+the script [here](https://raw.githubusercontent.com/ory/docs/master/code-examples/migrate-to-ory/0-get-auth0-user-data.sh).
 
 ### Get the API Access Token and connection ID
 
@@ -108,7 +108,7 @@ Follow these steps:
 2. Run the script:
 
    ```shell
-   bash <(curl https://raw.githubusercontent.com/ory/docs/auth0guide/code-examples/migrate-to-ory/0-get-auth0-user-data.sh)
+   bash <(curl https://raw.githubusercontent.com/ory/docs/master/code-examples/migrate-to-ory/0-get-auth0-user-data.sh)
    ```
 
 ### Import users to Ory
@@ -122,8 +122,8 @@ To import your Auth0 users to Ory, you must create new users in Ory and associat
   [account recovery](https://www.ory.sh/docs/kratos/self-service/flows/account-recovery-password-reset).
 
 The procedure is performed by running a
-[custom script](https://raw.githubusercontent.com/ory/docs/auth0guide/code-examples/migrate-to-ory/1-create-ory-identities.sh). To
-use it, you must install:
+[custom script](https://raw.githubusercontent.com/ory/docs/master/code-examples/migrate-to-ory/1-create-ory-identities.sh). To use
+it, you must install:
 
 - [jq](https://stedolan.github.io/jq/download/)
 - [Gzip](https://www.gnu.org/software/gzip/)
@@ -156,7 +156,7 @@ Follow these steps to import Auth0 users to Ory:
 4. Run the script to import users:
 
    ```shell
-   bash <(curl https://raw.githubusercontent.com/ory/docs/auth0guide/code-examples/migrate-to-ory/1-create-ory-identities.sh)
+   bash <(curl https://raw.githubusercontent.com/ory/docs/master/code-examples/migrate-to-ory/1-create-ory-identities.sh)
    ```
 
 5. Check the list of users available in your project to verify if the operation is successful:
