@@ -66,7 +66,10 @@ dotnet add package Ory.Client
 
 We will need to add the Ory Client to this app. Make the following changes to the `Program.cs` file that was generated:
 
-```csharp title="Program.cs" showLineNumbers {4-9}
+```csharp title="Program.cs" showLineNumbers {1-2,7-12}
+using Ory.Client.Api;
+using Ory.Client.Client;
+
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
@@ -92,7 +95,10 @@ The middleware passes the current `HttpContext` cookies to the Ory client to che
 If the session is valid, the user is presented with the protected page. When the session is not valid, which means that the user
 is not authenticated or the session expired, the request is redirected for login using the Ory Account Experience.
 
-```csharp title="Program.cs" showLineNumbers {11-41}
+```csharp title="Program.cs" showLineNumbers {14-44}
+using Ory.Client.Api;
+using Ory.Client.Client;
+
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
@@ -178,7 +184,10 @@ Add this code to the `Pages/Index.cshtml` file to present the data to the user:
 
 To configure the app to serve RazorPages, make the following changes in `Program.cs`:
 
-```csharp title="Program.cs" showLineNumbers {3-4,21-22}
+```csharp title="Program.cs" showLineNumbers {6-7,24-25}
+using Ory.Client.Api;
+using Ory.Client.Client;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // add support for RazorPages
