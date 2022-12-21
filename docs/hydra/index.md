@@ -11,8 +11,12 @@ OAuth2 and adds an additional layer of identity management, enabling clients to 
 Ory OAuth2 & OpenID Connect is an OAuth 2.0 and OpenID Connect provider available out of the box in the Ory Network. It is based
 on the popular, secure and widely deployed open-source Ory Hydra Federation Server.
 
-:::note If you are looking to authenticate your customers using social sign-in (e.g. with Facebook or Google) or an existing
-Single Sign-On: Ory Identities supports login via any OIDC-compliant provider. [Learn more](/kratos/social-signin/overview) :::
+:::note
+
+If you are looking to authenticate your customers using social sign-in (e.g. with Facebook or Google) or an existing Single
+Sign-On: Ory Identities supports login via any OIDC-compliant provider. [Learn more](/kratos/social-signin/overview)
+
+:::
 
 ## Securely connect users, apps and services using OAuth2 and OpenID Connect
 
