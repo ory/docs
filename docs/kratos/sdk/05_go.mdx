@@ -31,7 +31,7 @@ func main() {
 	configuration := client.NewConfiguration()
 	configuration.Servers = []client.ServerConfiguration{
 		{
-			URL: "http://127.0.0.1:4443", // Kratos Admin API
+			URL: "http://127.0.0.1:4434", // Kratos Admin API
 		},
 	}
 	apiClient := client.NewAPIClient(configuration)
@@ -59,7 +59,7 @@ func main() {
 	configuration := client.NewConfiguration()
 	configuration.Servers = []client.ServerConfiguration{
 		{
-			URL: "http://127.0.0.1:4433", // Kratos Admin API
+			URL: "http://127.0.0.1:4434", // Kratos Admin API
 		},
 	}
 	apiClient := client.NewAPIClient(configuration)
@@ -98,7 +98,7 @@ func NewMiddleware() *kratosMiddleware {
 	configuration := client.NewConfiguration()
 	configuration.Servers = []client.ServerConfiguration{
 		{
-			URL: "http://127.0.0.1:4433", // Kratos Admin API
+			URL: "http://127.0.0.1:4434", // Kratos Admin API
 		},
 	}
 	return &kratosMiddleware{
@@ -173,7 +173,7 @@ func NewMiddleware() *kratosMiddleware {
 	configuration := client.NewConfiguration()
 	configuration.Servers = []client.ServerConfiguration{
 		{
-			URL: "http://127.0.0.1:4433", // Kratos Admin API
+			URL: "http://127.0.0.1:4434", // Kratos Admin API
 		},
 	}
 	return &kratosMiddleware{
