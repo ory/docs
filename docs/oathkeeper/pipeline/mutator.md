@@ -457,7 +457,7 @@ request headers.
 
 ### Cache
 
-This handler supports caching. If caching is enabled, the `api.url` configuration value and the the full `AuthenticationSession`
+This handler supports caching. If caching is enabled, the `api.url` configuration value and the full `AuthenticationSession`
 payload.
 
 :::info

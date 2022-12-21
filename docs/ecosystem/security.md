@@ -31,7 +31,7 @@ Prohibited activities:
 ## What can you report
 
 Please report any potential security vulnerability that potentially leads to sensible exploits. Please report vulnerabilities in
-Ory's upstream dependencies to the respective projects and only reach out to us if the the report to upstream was unsuccessful.
+Ory's upstream dependencies to the respective projects and only reach out to us if the report to upstream was unsuccessful.
 
 When reporting vulnerabilities, please consider the attack scenario, exploitability, and security impact of the bug. Out of scope
 are attacks
