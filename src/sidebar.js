@@ -100,9 +100,7 @@ module.exports = {
           items: [
             "kratos/manage-identities/overview",
             "kratos/manage-identities/identity-schema",
-            "identities/model/identity-state",
             "kratos/manage-identities/customize-identity-schema",
-            "kratos/manage-identities/managing-users-identities-metadata",
             "kratos/manage-identities/best-practices",
           ],
         },
@@ -330,7 +328,10 @@ module.exports = {
     {
       type: "category",
       label: "Migrating to Ory",
-      items: ["hydra/self-hosted/migrating-from-mitreid"],
+      items: [
+        "hydra/self-hosted/migrating-from-mitreid",
+        "migrate-to-ory/auth0",
+      ],
     },
     {
       type: "category",
