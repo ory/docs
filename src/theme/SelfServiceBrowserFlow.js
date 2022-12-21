@@ -15,8 +15,8 @@ const chart = ({
 sequenceDiagram
 
   participant B as Browser
-  participant K as Ory Kratos
   participant A as Flow UI
+  participant K as Ory Kratos
 
   B->>K: Follow link to /self-service/${components}/browser
   K-->>K: Create and store new ${flows.join(", ")} flow
