@@ -1,13 +1,10 @@
 ---
 id: sdk
 title: Ory SDK
-sidebar_label: SDK
+sidebar_label: Ory SDK
 ---
 
-Use the Ory SDK to interact with **Ory Identities**, **Ory Permissions**, and **Ory OAuth2**.  
-It works with Ory Network and when self-hosting Ory services.
-
-Ory Oathkeeper has its own SDK. To learn more about it, visit the [Ory Oathkeeper SDK](./oathkeeper/sdk) documentation.
+The Ory SDK allows for integration with Ory services, including **Ory Identities**, **Ory Permissions**, and **Ory OAuth2**.
 
 Before using the SDK, it is recommended to consult the [Ory REST API](./reference/api) documentation, which includes code samples
 and examples for various programming languages.
@@ -35,17 +32,15 @@ To view the source code for the generated Ory SDKs, visit the GitHub repository:
 [Generated SDKs for Ory](https://github.com/ory/sdk/tree/master/clients/client)
 
 Missing your programming language?  
-[Create an issue](https://github.com/ory/sdk/issues) and help the Ory team build, test and publish the SDK for your programming
+[Create an issue](https://github.com/ory/sdk/issues) and help the Ory team build, test, and publish the SDK for your programming
 language!
 
 :::
 
-:::caution old sdks
+:::note self-hosting
 
-[`hydra-client`](https://github.com/ory/sdk/tree/master/clients/hydra),
-[`kratos-client`](https://github.com/ory/sdk/tree/master/clients/kratos), and
-[`keto-client`](https://github.com/ory/sdk/tree/master/clients/keto) SDKs are no longer actively maintained.  
-Read the [Ory SDK upgrade guide](https://www.ory.sh/docs/guides/upgrade/sdk-v1) to learn more.
+The `client` SDK works with self-hosted Ory services, but it is recommended to use the dedicated client. Read more in the
+[self-hosting documentation](https://www.ory.sh/docs/ecosystem/projects) for each project under _Reference/SDK_.
 
 :::
 
