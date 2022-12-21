@@ -110,8 +110,6 @@ module.exports = {
           items: [
             "kratos/manage-identities/create-users-identities",
             "kratos/manage-identities/import-user-accounts-identities",
-            "identities/model/identity-state",
-            "kratos/manage-identities/managing-users-identities-metadata",
             "kratos/manage-identities/account-recovery",
           ],
         },
