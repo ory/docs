@@ -22,3 +22,18 @@ svg[class*="iconExternalLink"] {
 .command-line span.token.output {
   user-select: none;
 }
+
+.code-block-delete-line {
+  background-color: rgba(255, 0, 0, 0.2);
+  margin: 0 -12px;
+  padding: 0 12px;
+  display: block;
+  text-decoration: line-through;
+}
+
+.code-block-add-line {
+  background-color: rgba(0, 255, 0, 0.2);
+  margin: 0 -12px;
+  padding: 0 12px;
+  display: block;
+}
