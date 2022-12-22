@@ -4,10 +4,10 @@ title: Software Development Kit (SDK)
 sidebar_label: Ory Oathkeeper SDK
 ---
 
-Before using the SDK, it is recommended to consult the Ory Oathkeeper [REST](../reference/api) API documentation, which includes
-code samples and examples for various programming languages.
+Before using the SDK, consult the Ory Oathkeeper [REST](../reference/api.mdx) API documentation, which includes code samples and
+examples for various programming languages.
 
----
+## Download the SDK
 
 Ory publishes SDKs for popular languages in their respective package repositories:
 
@@ -22,9 +22,7 @@ Ory publishes SDKs for popular languages in their respective package repositorie
 - [Ruby](https://rubygems.org/gems/ory-oathkeeper-client)
 - [Rust](https://crates.io/crates/ory-oathkeeper-client)
 
----
-
-:::info Source Code
+## Further information
 
 To view the source code for the generated Ory SDKs, visit the GitHub repository:
 [Generated SDKs for Ory Oathkeeper](https://github.com/ory/sdk/tree/master/clients/oathkeeper/)
@@ -35,7 +33,7 @@ language!
 
 :::
 
-:::note backwards compatibility
+### SDK Backwards compatibility
 
 The Ory SDK uses automated code generation by [`openapi-generator`](https://github.com/OpenAPITools/openapi-generator).
 `openapi-generator` can make changes to the generated code with each new version, which breaks backwards compatibility in some

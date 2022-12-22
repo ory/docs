@@ -6,10 +6,10 @@ sidebar_label: Ory Keto SDK
 
 The Ory Keto SDK allows for integration with a self-hosted [Ory Keto Permission Server](https://github.com/ory/keto).
 
-Before using the SDK, it is recommended to consult the Ory Keto [REST](../reference/rest-api) and [gRPC](../reference/rest-api)
-API documentation, which includes code samples and examples for various programming languages.
+Before using the SDK, consult the Ory Keto [REST](../reference/rest-api.mdx) and [gRPC](../reference/rest-api.mdx) API
+documentation, which includes code samples and examples for various programming languages.
 
----
+## Download the SDK
 
 Ory publishes SDKs for popular languages in their respective package repositories:
 
@@ -25,9 +25,7 @@ Ory publishes SDKs for popular languages in their respective package repositorie
 - [Ruby](https://rubygems.org/gems/ory-keto-client)
 - [Rust](https://crates.io/crates/ory-keto-client)
 
----
-
-:::info Source Code
+## Further information
 
 To view the source code for the generated Ory SDKs, visit the GitHub repository:
 [Generated SDKs for Ory Keto](https://github.com/ory/sdk/tree/master/clients/keto/)
@@ -36,19 +34,15 @@ Missing your programming language?
 [Create an issue](https://github.com/ory/sdk/issues) and help the Ory team build, test, and publish the SDK for your programming
 language!
 
-:::
-
-:::info self-hosting
+:::info
 
 The Ory [`client`](../../sdk.mdx) SDK works with self-hosted Ory services, but due to different release cycles it is recommended
 to use `keto-client` with self-hosted Ory Keto.
 
 :::
 
-:::note backwards compatibility
+### SDK Backwards compatibility
 
 The Ory SDK uses automated code generation by [`openapi-generator`](https://github.com/OpenAPITools/openapi-generator).
 `openapi-generator` can make changes to the generated code with each new version, which breaks backwards compatibility in some
 cases. As a result, the Ory SDK may not be compatible with previous versions.
-
-:::
