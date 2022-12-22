@@ -6,6 +6,12 @@ using Ory.Client.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// configure http port explicitly to override generated settings from launchSettings.json
+builder.WebHost.ConfigureKestrel(opt => {
+	var port = builder.Configuration.GetValue<int>("APP_PORT", 5000);
+	opt.ListenAnyIP(port);
+});
+
 // add support for RazorPages
 builder.Services.AddRazorPages();
 
