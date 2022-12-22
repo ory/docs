@@ -29,8 +29,8 @@ Ory publishes SDKs for popular languages in their respective package repositorie
 ## Further information
 
 The Ory Hydra SDK does not provide a comprehensive API for dealing with OAuth 2.0 flows such as the authorization code flow and
-refresh flow. Use one of the many [well-established libraries](https://oauth.net/code/) for this purpose, _do not write your own
-code to interact with OAuth 2.0_.  
+refresh flow. Use one of the many [well-established libraries](https://oauth.net/code/) for this purpose, **do not write your own
+code to interact with OAuth 2.0**.  
 Visit the [Oauth2 client libraries](../guides/using-oauth2.mdx) document for more information.
 
 To view the source code for the generated Ory SDKs, visit the GitHub repository:
