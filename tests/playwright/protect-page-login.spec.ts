@@ -19,6 +19,7 @@ test.describe("protect-page-login", () => {
     { url: "http://localhost:3003/", name: "go" },
     { url: "http://localhost:3004/", name: "php" },
     { url: "http://localhost:4005/", name: "flutter_web_redirect" },
+    { url: "http://localhost:3009/", name: "dotnet" },
   ]) {
     test.describe(app.name, async () => {
       test("able to use login and sign up", async ({ page }) => {

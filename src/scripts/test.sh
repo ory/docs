@@ -6,7 +6,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")/../.."
 export ORY_SDK_URL=https://playground.projects.oryapis.com
 
 # ensure ports are free
-npx kill-port --port 3001,3002,3003,3004,3005,3006,3007,4002,4003,4004,4005,4006,4007,4008
+npx kill-port --port 3001,3002,3003,3004,3005,3006,3007,3009,4002,4003,4004,4005,4006,4007,4008,4009
 
 #
 # Please add any build steps to the Makefile and not here!
@@ -64,8 +64,13 @@ cd code-examples/protect-page-login/react && \
   PORT=4008 REACT_APP_ORY_URL=http://localhost:3007 BROWSER=none CI=true npm run start &
 ory tunnel --dev --port 3007 http://localhost:4008/ -q -y > /dev/null 2>&1 &
 
+## Dotnet server example ##
+## proxy runs on 3009
+## app runs on 4009
+docker run --rm -d --env APP_PORT=4009 -p 4009:4009 --env ORY_TUNNEL_PORT=3009 -p 3009:3009 dotnet-01-basic
+
 trap "exit" INT TERM ERR
-trap 'kill $(jobs -p)' EXIT
+trap 'docker stop dotnet-01-basic; kill $(jobs -p)' EXIT
 
 npx wait-on -v -t 300000 \
   tcp:127.0.0.1:3001 \
@@ -75,12 +80,14 @@ npx wait-on -v -t 300000 \
   tcp:127.0.0.1:3005 \
   tcp:127.0.0.1:3006 \
   tcp:127.0.0.1:3007 \
+  tcp:127.0.0.1:3009 \
   tcp:127.0.0.1:4002 \
   tcp:127.0.0.1:4003 \
   tcp:127.0.0.1:4004 \
   tcp:127.0.0.1:4005 \
   tcp:localhost:4006 \
   tcp:localhost:4007 \
-  tcp:localhost:4008
+  tcp:localhost:4008 \
+  tcp:localhost:4009
 
 npm run test

@@ -29,6 +29,7 @@ build-examples:
 	cd code-examples/protect-page-login/flutter_web_redirect && flutter build web --web-renderer html
 	cd code-examples/protect-page-login/vue && VUE_APP_API_URL=http://localhost:4007 VUE_APP_ORY_URL=http://localhost:3006 npm run build
 	cd code-examples/protect-page-login/react && npm run build
+	cd code-examples/protect-page-login/dotnet && docker build --build-arg APP_DIR=01-basic -t dotnet-01-basic .
 
 licenses: .bin/licenses node_modules  # checks open-source licenses
 	.bin/licenses
