@@ -192,7 +192,8 @@ Add this code to the `Pages/Index.cshtml` file to present the data to the user:
 
 ### App configuration
 
-To configure the app to serve RazorPages, make the following changes in `Program.cs`:
+To configure the app to serve RazorPages, make the following changes in `Program.cs`. Make sure, you replace the line
+`app.MapGet("/", () => "Hello World!");` with `app.MapRazorPages();`.
 
 ```csharp title="Program.cs" showLineNumbers
 using Ory.Client.Api;
@@ -223,7 +224,33 @@ var ory = new FrontendApi(new Configuration
 // add session middleware
 app.Use(async (ctx, next) =>
 {
-	// ... session middleware logic ...
+	async Task Login()
+	{
+		// this will redirect the user to the managed Ory Login UI
+		var flow = await ory.CreateBrowserLoginFlowAsync() ?? throw new InvalidOperationException("Could not create browser login flow");
+		ctx.Response.Redirect(flow.RequestUrl);
+	}
+
+	try
+	{
+		// check if we have a session
+		var session = await ory.ToSessionAsync(cookie: ctx.Request.Headers.Cookie, cancellationToken: ctx.RequestAborted);
+		if (session?.Active is not true)
+		{
+			await Login();
+			return;
+		}
+
+		// add session to HttpContext
+		ctx.Items["req.session"] = session;
+	}
+	catch (ApiException)
+	{
+		await Login();
+		return;
+	}
+
+	await next(ctx);
 });
 
 // add-lines-start
