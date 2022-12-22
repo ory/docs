@@ -35,7 +35,7 @@ import OryCLI from '../_common/ory-cli.mdx'
 
 We will be using the [Ory Tunnel](../../guides/cli/proxy-and-tunnel#ory-tunnel) in this tutorial. The interactions being performed
 in his example are shown here:
-[![Interactions for authenticating users in this example](https://mermaid.ink/img/pako:eNq9U01LxDAQ_StDLh60dAVFyEFoUcSDH2AvQi8xnW6DbVInE0XE_27Srq7rLujJHkJn5s3LzJvMm9CuQSGFx6eAVuOZUUtSQ20hfiqws2F4QJrtUREbbUZlGUpQHkpyL35XtEjRexcIinEExduIKiFu6BWqYC32OyhuL1eQPZ8MX9sZVGanp_uFhIvzCjrmUeZ577TqO-dZHh8uTmZYkWCVBN2hfgSP3hu3YqgmhtvLncHoj-EsZrbK9NisU7Ji05duyEoJhI0h1Azstgs6WiwWuce-zaJQz0ZjjC2NzR--S1euat3Z0p8Y1i0ljl_h144RyCw7BtfClDcitY6G2M3SeCbFURFQtskdwcQwnfqnSD5oHeVrQz-jvsn1mzTrWf3bSFfVbs50w_k51CQegnaW0cbnKw7EgDQo08RleUvQWnCHA9ZCxt9G0WMtavsecWlr7l6tFpIp4IEIY6P4c7GEbFXvv7znjWFHX06czKt5JafNfP8AW_kqnQ?type=png)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNq9U01LxDAQ_StDLh60dAVFyEFoUcSDH2AvQi8xnW6DbVInE0XE_27Srq7rLujJHkJn5s3LzJvMm9CuQSGFx6eAVuOZUUtSQ20hfiqws2F4QJrtUREbbUZlGUpQHkpyL35XtEjRexcIinEExduIKiFu6BWqYC32OyhuL1eQPZ8MX9sZVGanp_uFhIvzCjrmUeZ577TqO-dZHh8uTmZYkWCVBN2hfgSP3hu3YqgmhtvLncHoj-EsZrbK9NisU7Ji05duyEoJhI0h1Azstgs6WiwWuce-zaJQz0ZjjC2NzR--S1euat3Z0p8Y1i0ljl_h144RyCw7BtfClDcitY6G2M3SeCbFURFQtskdwcQwnfqnSD5oHeVrQz-jvsn1mzTrWf3bSFfVbs50w_k51CQegnaW0cbnKw7EgDQo08RleUvQWnCHA9ZCxt9G0WMtavsecWlr7l6tFpIp4IEIY6P4c7GEbFXvv7znjWFHX06czKt5JafNfP8AW_kqnQ)
+[![Interactions for authenticating users in this example](https://mermaid.ink/img/pako:eNq9U7FOxDAM_RUrCwNUvQGWDEitQOgG4CS6IHUJqXuNaJPiOCCE-HeS9uA47iSY6BDV9vOL_Ry_Ce0aFFJ4fApoNV4YtSY11BbipwI7G4YHpNkeFbHRZlSWoQTloST34g9FixS9d4GgGEdQvI-oEuKWXqEK1mJ_gGK13ECOfDJ8bWdQmZ2fHxcSri4r6JhHmee906rvnGd5tlgsZliRYJUE3aF-BI_eG7dhqCaG1fJgMPpjOIuZrTI9NtuUrNj1pRuyUgJhYwg1A7v9gk5jQbnHvs2iUM9GY4ytjc0fvktXbmo92NKfGLYtJY5f4TeOEcisOwbXwpQ3IrWOhtjN2ngmxVERULbJHcHEMJ36p0g-aB3la0M_o77J9Zs021n920g31e7OdMf5OdQkHoJ2ltHG5ytOxIA0KNPEZXlL0FpwhwPWQsbfRtFjLWr7HnFpa-5erRaSKeCJCGOj-HOxhGxV77-8l41hR19OnMzreSWnzXz_ADSbKoU?type=png)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNq9U7FOxDAM_RUrCwNUvQGWDEitQOgG4CS6IHUJqXuNaJPiOCCE-HeS9uA47iSY6BDV9vOL_Ry_Ce0aFFJ4fApoNV4YtSY11BbipwI7G4YHpNkeFbHRZlSWoQTloST34g9FixS9d4GgGEdQvI-oEuKWXqEK1mJ_gGK13ECOfDJ8bWdQmZ2fHxcSri4r6JhHmee906rvnGd5tlgsZliRYJUE3aF-BI_eG7dhqCaG1fJgMPpjOIuZrTI9NtuUrNj1pRuyUgJhYwg1A7v9gk5jQbnHvs2iUM9GY4ytjc0fvktXbmo92NKfGLYtJY5f4TeOEcisOwbXwpQ3IrWOhtjN2ngmxVERULbJHcHEMJ36p0g-aB3la0M_o77J9Zs021n920g31e7OdMf5OdQkHoJ2ltHG5ytOxIA0KNPEZXlL0FpwhwPWQsbfRtFjLWr7HnFpa-5erRaSKeCJCGOj-HOxhGxV77-8l41hR19OnMzreSWnzXz_ADSbKoU)
 
 ## Setup
 
@@ -66,19 +66,21 @@ dotnet add package Ory.Client
 
 We will need to add the Ory Client to this app. Make the following changes to the `Program.cs` file that was generated:
 
-```csharp title="Program.cs" showLineNumbers {1-2,7-12}
+```csharp title="Program.cs" showLineNumbers
 using Ory.Client.Api;
 using Ory.Client.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+// add-lines-start
 // create a new Ory Client with the BasePath set to the Ory Tunnel enpoint
 var oryBasePath = builder.Configuration.GetValue<string>("ORY_BASEPATH") ?? "http://localhost:4000";
 var ory = new FrontendApi(new Configuration
 {
 	BasePath = oryBasePath
 });
+// add-lines-end
 
 app.MapGet("/", () => "Hello World!");
 
@@ -95,7 +97,7 @@ The middleware passes the request cookies to the Ory client to check if the sess
 If the session is valid, the user is presented with the protected page. When the session is not valid, which means that the user
 is not authenticated or the session expired, the request is redirected for login using the Ory Account Experience.
 
-```csharp title="Program.cs" showLineNumbers {14-44}
+```csharp title="Program.cs" showLineNumbers
 using Ory.Client.Api;
 using Ory.Client.Client;
 
@@ -109,6 +111,7 @@ var ory = new FrontendApi(new Configuration
 	BasePath = oryBasePath
 });
 
+// add-lines-start
 // add session middleware
 app.Use(async (ctx, next) =>
 {
@@ -140,6 +143,7 @@ app.Use(async (ctx, next) =>
 
 	await next(ctx);
 });
+// add-lines-end
 
 app.MapGet("/", () => "Hello World!");
 
@@ -160,13 +164,16 @@ dotnet new page --name Index --no-pagemodel --output Pages
 
 Add this code to the `Pages/Index.cshtml` file to present the data to the user:
 
-```cshtml title="Pages/Index.cshtml" {3-4,7-17}
+```cshtml title="Pages/Index.cshtml" showLineNumbers
 @page
 @{
+  // add-lines-start
   // try to retrieve session from HttpContext
   var session = HttpContext.Items.TryGetValue("req.session", out var item) && item is Ory.Client.Model.ClientSession s ? s.ToJson() : "<NO SESSION>";
+  // add-lines-end
 }
 
+// add-lines-start
 <html lang="en">
   <head>
     <title>Ory Network secured ASP.NET Core web app</title>
@@ -178,20 +185,29 @@ Add this code to the `Pages/Index.cshtml` file to present the data to the user:
     <pre><code>@session</code></pre>
   </body>
 </html>
+// add-lines-end
 ```
 
 ### App configuration
 
 To configure the app to serve RazorPages, make the following changes in `Program.cs`:
 
-```csharp title="Program.cs" showLineNumbers {6-7,24-25}
+```csharp title="Program.cs" showLineNumbers
 using Ory.Client.Api;
 using Ory.Client.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// add-lines-start
+// configure http port explicitly to override generated settings from launchSettings.json
+builder.WebHost.ConfigureKestrel(opt => {
+	var port = builder.Configuration.GetValue<int>("APP_PORT", 5000);
+	opt.ListenAnyIP(port);
+});
+
 // add support for RazorPages
 builder.Services.AddRazorPages();
+// add-lines-end
 
 var app = builder.Build();
 
@@ -208,8 +224,12 @@ app.Use(async (ctx, next) =>
 	// ... session middleware logic ...
 });
 
+// add-lines-start
 // configure pipeline to use RazorPages
 app.MapRazorPages();
+// add-lines-end
+// delete-next-line
+app.MapGet("/", () => "Hello World!");
 
 app.Run();
 ```
@@ -226,42 +246,17 @@ dotnet run
 
 ![Run ASP.NET Core app](../_static/dotnet/dotnet_run.gif)
 
-2. Export the SDK configuration URL for the desired Ory project. You can use the provided playground project for testing, or
-   export the SDK URL of your own project.
-
-:::info
-
-To get your project's SDK URL, sign in at [console.ory.sh](https://console.ory.sh/), select **Access & APIs** from the left
-navigation panel, and copy the URL from the **SDK Configuration** section.
-
-:::
-
-```mdx-code-block
-import SdkEnvVar from '@site/src/components/SdkEnvVar'
-
-<SdkEnvVar />
-```
-
-3. Run the Ory Tunnel to mirror the Ory API endpoints on your application's domain (`localhost`):
+2. Run the Ory Tunnel to mirror the Ory API endpoints on your application's domain (`localhost`):
 
 ```shell-session
-ory tunnel --dev http://localhost:5107
+ory tunnel --project playground --dev http://localhost:5000
 ```
 
-![Run Ory Tunnel](../_static/dotnet/ory_tunnel.png)
+![Run Ory Tunnel](../_static/dotnet/ory_tunnel.gif)
 
-:::caution
-
-When running `dotnet new web` the default http port for the app is chosen at random. You can find the relevant configuration in
-`/Properties/launchSettings.json`.<br/> Alternatively you can override the port as specified in the
-[documentation](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/endpoints).<br/><br/> The http port
-used in this example is **5107**, which may be different from yours.
-
-:::
-
-4. Open [http://localhost:5107](http://localhost:5107) to access the application. As the initial call is made by an
+3. Open [localhost:5000](http://localhost:5000) to access the application. As the initial call is made by an
    unauthenticated user, the middleware doesn't detect a valid session and redirects to the login page of the defined Ory project.
-   <br /> <br /> From there, you can create a new account or sign in using an existing identity. When you sign in, the session
+   <br/><br/>From there, you can create a new account or sign in using an existing identity. When you sign in, the session
    becomes valid and the application shows the `Index` page with the session data.
 
 ## More advanced scenarios
