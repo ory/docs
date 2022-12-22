@@ -67,8 +67,10 @@ dotnet add package Ory.Client
 We will need to add the Ory Client to this app. Make the following changes to the `Program.cs` file that was generated:
 
 ```csharp title="Program.cs" showLineNumbers
+// add-lines-start
 using Ory.Client.Api;
 using Ory.Client.Client;
+// add-lines-end
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
