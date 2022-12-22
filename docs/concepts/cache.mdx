@@ -1,7 +1,7 @@
 ---
 id: cache
-title: Low-latency Edge Network
-sidebar_label: Low latency
+title: Low latency with session caching
+sidebar_label: Session caching
 ---
 
 ```mdx-code-block
@@ -9,41 +9,57 @@ import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 ```
 
-The Ory Network provides a global Edge Network to ensure low-latency access to critical-path APIs. These APIs are eventually
-consistent, which means that the changes you make are always reflected in the API, even if in some cases this might not be
-instantaneous.
+Session caching is an Ory Network feature designed to ensure the lowest possible latency on the critical-path Check Session API,
+which includes the `toSession` and `/sessions/whoami` endpoints.
 
-## Check Session API (`toSession` / `/sessions/whoami`)
+:::tip
 
-The `/sessions/whoami` endpoint has been optimized for maximum performance and low latency when using Ory Session Cookies. We
-achieve this with a planet-scale network edge cache. The cache strategy is as follows:
+Session caching is available for projects on the Business plan or higher. You must enable this feature manually. Read the
+[Configuration](#configuration) section to learn how to turn it on.
 
-- If the session credentials are unknown, the cache is bypassed;
-- If the session credentials are known and cached, the cache is served immediately and refreshed in the background;
-- If the session credentials are known and cached, the cache will respect `Cache-Control: max-age=60` headers;
-- If the user updates their profile or steps-up their authentication, the session will be refreshed in the cache automatically.
+:::
 
-### Performance
+## Caching strategy
 
-You can expect a P95 latency of ~60ms and a P99 latency ~70ms across the globe when the cache is used. Depending on your distance
-to our closest node, the latency may vary in your location.
+The `/sessions/whoami` endpoint is optimized for maximum performance and low latency when using Ory Session Cookies. To achieve
+this, Ory uses a planet-scale network edge cache.
 
-### Caveats
+The caching strategy is as follows:
 
-There are some edge cases where caching might affect your business logic:
+- If the session credentials are unknown, the cache is bypassed.
+- If the session credentials are known and cached, the cache is served immediately and refreshed in the background.
+- If the session credentials are known and cached, the cache respects the `Cache-Control: max-age=60` header.
+- If the user updates their profile or adds another authentication factor, the session is refreshed in the cache automatically.
 
-- Changes made to the session or its identity through the admin API will not be immediately reflected in the `/session/whoami`
-  endpoint;
+## Performance
+
+You can expect a P95 latency of ~60ms and a P99 latency of ~70ms across the globe when you use session caching. Results can vary
+depending on the geographical proximity to the closest node.
+
+## Impact on business logic
+
+There are some edge cases where session caching can affect your business logic:
+
+- Changes made to sessions or their corresponding identities through the admin API will not be immediately reflected in the
+  `/session/whoami` endpoint.
+
+  :::info
+
+  The Check Session APIs are eventually consistent, which means that the changes you make are always reflected in the API, even if
+  in some cases this might not be instantaneous.
+
+  :::
+
 - In some scenarios, revoked sessions will not immediately be marked as inactive by the `/session/whoami` endpoint.
 
-### Force refresh
+## Force refresh
 
-You can ask the `/session/whoami` API to return a fresh response by setting `Cache-Control: max-age=0`.
+You can force the `/session/whoami` API to bypass the cache and to return a fresh response by setting `Cache-Control: max-age=0`.
 
 :::note
 
-Bypassing the cache will significantly increase response latencies. Try to avoid `Cache-Control: max-age=0` and use the cache as
-much as possible.
+Bypassing the cache significantly increases response latencies. Try to avoid `Cache-Control: max-age=0` and use the cache as much
+as possible.
 
 :::
 
@@ -72,20 +88,16 @@ ory.toSession(undefined, undefined, {
 })
 ```
 
-### Configuration
+## Configuration
 
-:::note
-
-Projects on Business plan or higher can use the Session caching feature.
-
-:::
+By default, session caching is turned off for all projects. Follow these steps to turn the feature on:
 
 ````mdx-code-block
 <Tabs groupId="console-or-cli">
 <TabItem value="console" label="Ory Console" default>
 
 
-To configure session caching, go to **Customize** → **Advanced Settings** in the
+To turn on session caching, go to **Customize** → **Advanced Settings** in the
 [Ory Console](https://console.ory.sh/projects/current/advanced-settings).
 
 </TabItem>
