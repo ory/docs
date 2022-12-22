@@ -625,7 +625,7 @@ module.exports = {
         },
         {
           type: "category",
-          label: "Ory OAuth2",
+          label: "Ory OAuth2 & OpenID",
           items: ["hydra/sdk/go", "hydra/sdk/js", "hydra/sdk/php"],
         },
       ],
