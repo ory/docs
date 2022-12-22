@@ -83,6 +83,7 @@ module.exports = {
                     "kratos/social-signin/yandex",
                     "kratos/social-signin/vk",
                     "kratos/social-signin/dingtalk",
+                    "kratos/social-signin/lark",
                   ],
                 },
                 "kratos/social-signin/get-tokens",
