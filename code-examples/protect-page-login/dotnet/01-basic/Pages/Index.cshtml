@@ -1,0 +1,20 @@
+@* Copyright © 2022 Ory Corp *@
+@* SPDX-License-Identifier: Apache-2.0 *@
+
+@page
+@{
+  // try to retrieve session from HttpContext
+  var session = HttpContext.Items.TryGetValue("req.session", out var item) && item is Ory.Client.Model.ClientSession s ? s.ToJson() : "<NO SESSION>";
+}
+
+<html lang="en">
+  <head>
+    <title>Ory Network secured ASP.NET Core web app</title>
+  </head>
+  <body>
+    <h1>Dashboard</h1>
+    <hr />
+    <h2>Your Session Data:</h2>
+    <pre><code>@session</code></pre>
+  </body>
+</html>

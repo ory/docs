@@ -29,6 +29,25 @@ const config = {
         "php",
         "yaml",
         "dart",
+        "csharp",
+        "cshtml",
+      ],
+      magicComments: [
+        {
+          className: "theme-code-block-highlighted-line",
+          line: "highlight-next-line",
+          block: { start: "highlight-start", end: "highlight-end" },
+        },
+        {
+          className: "code-block-delete-line",
+          line: "delete-next-line",
+          block: { start: "delete-lines-start", end: "delete-lines-end" },
+        },
+        {
+          className: "code-block-add-line",
+          line: "add-next-line",
+          block: { start: "add-lines-start", end: "add-lines-end" },
+        },
       ],
     },
     algolia: {
