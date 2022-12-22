@@ -67,7 +67,7 @@ ory tunnel --dev --port 3007 http://localhost:4008/ -q -y > /dev/null 2>&1 &
 ## Dotnet server example ##
 ## proxy runs on 3009
 ## app runs on 4009
-docker run --rm -d --env APP_PORT=4009 -p 4009:4009 --env ORY_TUNNEL_PORT=3009 -p 3009:3009 dotnet-01-basic
+docker run --rm -d --name dotnet-01-basic --env APP_PORT=4009 -p 4009:4009 --env ORY_TUNNEL_PORT=3009 -p 3009:3009 dotnet-01-basic
 
 trap "exit" INT TERM ERR
 trap 'docker stop dotnet-01-basic; kill $(jobs -p)' EXIT
