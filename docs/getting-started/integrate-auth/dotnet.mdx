@@ -73,6 +73,15 @@ using Ory.Client.Client;
 // add-lines-end
 
 var builder = WebApplication.CreateBuilder(args);
+
+// add-lines-start
+// configure http port explicitly to override generated settings from launchSettings.json
+builder.WebHost.ConfigureKestrel(opt => {
+	var port = builder.Configuration.GetValue<int>("APP_PORT", 5001);
+	opt.ListenAnyIP(port);
+});
+// add-lines-end
+
 var app = builder.Build();
 
 // add-lines-start
@@ -104,6 +113,13 @@ using Ory.Client.Api;
 using Ory.Client.Client;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// configure http port explicitly to override generated settings from launchSettings.json
+builder.WebHost.ConfigureKestrel(opt => {
+	var port = builder.Configuration.GetValue<int>("APP_PORT", 5001);
+	opt.ListenAnyIP(port);
+});
+
 var app = builder.Build();
 
 // create a new Ory Client with the BasePath set to the Ory Tunnel enpoint
@@ -201,13 +217,13 @@ using Ory.Client.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// add-lines-start
 // configure http port explicitly to override generated settings from launchSettings.json
 builder.WebHost.ConfigureKestrel(opt => {
-	var port = builder.Configuration.GetValue<int>("APP_PORT", 5000);
+	var port = builder.Configuration.GetValue<int>("APP_PORT", 5001);
 	opt.ListenAnyIP(port);
 });
 
+// add-lines-start
 // add support for RazorPages
 builder.Services.AddRazorPages();
 // add-lines-end
@@ -278,12 +294,12 @@ dotnet run
 2. Run the Ory Tunnel to mirror the Ory API endpoints on your application's domain (`localhost`):
 
 ```shell-session
-ory tunnel --project playground --dev http://localhost:5000
+ory tunnel --project playground --dev http://localhost:5001
 ```
 
 ![Run Ory Tunnel](../_static/dotnet/ory_tunnel.gif)
 
-3. Open [localhost:5000](http://localhost:5000) to access the application. As the initial call is made by an unauthenticated user,
+3. Open [localhost:5001](http://localhost:5001) to access the application. As the initial call is made by an unauthenticated user,
    the middleware doesn't detect a valid session and redirects to the login page of the defined Ory project.
    <br />
    <br />

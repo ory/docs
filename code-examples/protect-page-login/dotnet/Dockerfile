@@ -19,7 +19,7 @@ COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 ENV \
-    APP_PORT=5000 \
+    APP_PORT=5001 \
     ORY_TUNNEL_PORT=4000 \
     ORY_PROJECT_SLUG=playground \
     COMPlus_EnableDiagnostics=0
