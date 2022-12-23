@@ -34,7 +34,7 @@ A user can be shown a list of all their active sessions that haven't expired, ex
 SDK. This API has a paginated response and optional parameters for page number and number of items per page.
 
 ````mdx-code-block
-<Tabs groupId="console-or-cli">
+<Tabs groupId="self-service-list-sessions">
 <TabItem value="listing-sessions-go" label="Go" default>
 
 ```mdx-code-block
@@ -71,27 +71,52 @@ You can use this call to show a UI with all active sessions to the user.
 
 :::
 
-### Revoking specific sessions
+### Revoking a specific session
 
-To revoke a specific session, the user must send a `DELETE` request to the
-[`/sessions/{id}`](../../reference/api.mdx#operation/revokeSessionById) endpoint or use the `revokeSessionById` SDK method:
+A user can choose to terminate a session that they no longer need or deem as malicious. The revoke session API is built for this
+scenario.
 
-```mdx-code-block
-<CodeBlock>{`DELETE ${getSdkUrl().url}/sessions/{id}
-Cookies: ory_kratos_session=...
-# OR
-X-Session-Token: ...`}</CodeBlock>
-```
-
-Sessions revoked by users are not deleted from the system. Instead, they become inactive. Only administrators can delete sessions
-using the administrative endpoints.
+Session(s) revoked by users are not deleted from the system. Instead, they become inactive. Only administrators can delete
+sessions using the administrative endpoints described [here](#administrative-session-management).
 
 :::note
 
-This endpoint revokes only sessions other than the current session. To revoke the current session, use the
+This API can only revoke session(s) other than the current session. To revoke the current session, use the
 [self-service logout](../../kratos/self-service/flows/user-logout.mdx).
 
 :::
+
+````mdx-code-block
+<Tabs groupId="self-service-revoke-session">
+<TabItem value="revoke-session-go" label="Go" default>
+
+```mdx-code-block
+import goRevokeSession from '!!raw-loader!../../../code-examples/sdk/go/selfservice/revoke-session.go'
+
+<CodeBlock language="go">{goRevokeSession}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="revoke-session-native" label="Native">
+
+```mdx-code-block
+import revokeSessionNative from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/revoke-session-native.ts"
+
+<CodeBlock language="ts" title="revoke-session-native.ts">{revokeSessionNative}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="revoke-session-react" label="React">
+
+```mdx-code-block
+import revokeSessionReact from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/revoke-session-react.tsx"
+
+<CodeBlock language="ts" title="revoke-session-react.tsx">{revokeSessionReact}</CodeBlock>
+```
+
+</TabItem>
+</Tabs>
+````
 
 ### Revoking all other sessions
 

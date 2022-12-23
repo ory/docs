@@ -11,6 +11,7 @@ const ory = new FrontendApi(
 
 // Example of a modal component
 export function RevokeSession(sessionId: string) {
+  // highlight-start
   const handleRevokeSession = async () => {
     try {
       await ory.disableMySession({
@@ -23,6 +24,7 @@ export function RevokeSession(sessionId: string) {
 
     // Session was revoked successfully
   }
+  // highlight-end
 
   return (
     <button onClick={handleRevokeSession}>Revoke Session {sessionId}</button>
