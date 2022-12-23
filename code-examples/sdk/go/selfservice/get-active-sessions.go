@@ -16,7 +16,7 @@ func init() {
 	ory = client.NewAPIClient(cfg)
 }
 
-func getActiveSessions(ctx context.Context, sessionToken string) ([]client.Session, error) {
+func GetActiveSessions(ctx context.Context, sessionToken string) ([]client.Session, error) {
 	// Page and Per Page parameters are optional
 	// highlight-start
 	activeSessions, _, err := ory.FrontendApi.ListMySessions(ctx).

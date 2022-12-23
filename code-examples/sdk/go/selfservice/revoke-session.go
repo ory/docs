@@ -16,7 +16,7 @@ func init() {
 	ory = client.NewAPIClient(cfg)
 }
 
-func revokeSession(ctx context.Context, sessionToken string, sessionToRevokeId string) error {
+func RevokeSession(ctx context.Context, sessionToken string, sessionToRevokeId string) error {
 	// highlight-start
 	_, err := ory.FrontendApi.DisableMySession(ctx, sessionToRevokeId).
 		XSessionToken(sessionToken).

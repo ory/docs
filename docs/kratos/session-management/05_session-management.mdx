@@ -170,28 +170,210 @@ This endpoint revokes all sessions other than the current session. To revoke the
 
 System administrators have access to all sessions in the system.
 
-### Listing Sessions
+:::note
 
-To get all sessions of a specific identity, administrators must send a `GET` request to the administrative
-[`/admin/identities/{id}/sessions`](../../reference/api.mdx#operation/adminListIdentitySessions) endpoint.
+To perform the following operations, a Personal access token (called P.A.T otherwise) is required.
+
+:::
 
 ```mdx-code-block
-<CodeBlock>{`GET ${getSdkUrl().url}/admin/identities/{id}/sessions
-Authorization: Bearer {your-personal-access-token}`}</CodeBlock>
+import goInitClient from '!!raw-loader!../../../code-examples/sdk/go/session/init.go'
+
+<CodeBlock language="go" title="Initalising the Go SDK client">{goInitClient}</CodeBlock>
 ```
 
-### Revoke sessions as an administrator
+### General
+
+#### Listing Sessions
+
+To get all sessions, administrators may use the [List sessions API](../../reference/api#tag/identity/operation/listSessions) from
+the SDK. This API has a paginated response and optional parameters for page and number of items per page.
+
+````mdx-code-block
+<Tabs groupId="list-identity-sessions">
+<TabItem value="listing-identity-sessions-go" label="Go" default>
+
+```mdx-code-block
+import goGetSessions from '!!raw-loader!../../../code-examples/sdk/go/session/get-sessions.go'
+
+<CodeBlock language="go">{goGetSessions}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="listing-identity-sessions-native" label="Native">
+
+```mdx-code-block
+import getSessionsNative2 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-native.ts"
+
+<CodeBlock language="ts" title="get-active-sessions-native.ts">{getSessionsNative1}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="listing-identity-sessions-react" label="React">
+
+```mdx-code-block
+import react2 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-react.tsx"
+
+<CodeBlock language="ts" title="get-active-sessions-react.tsx">{react1}</CodeBlock>
+```
+
+</TabItem>
+</Tabs>
+````
+
+#### Get Session
+
+To get the details for a given session with all expand options.
+
+````mdx-code-block
+<Tabs groupId="list-identity-sessions">
+<TabItem value="listing-identity-sessions-go" label="Go" default>
+
+```mdx-code-block
+import goGetSession from '!!raw-loader!../../../code-examples/sdk/go/session/get-session.go'
+
+<CodeBlock language="go">{goGetSession}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="listing-identity-sessions-native" label="Native">
+
+```mdx-code-block
+import getSessionsNative3 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-native.ts"
+
+<CodeBlock language="ts" title="get-active-sessions-native.ts">{getSessionsNative1}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="listing-identity-sessions-react" label="React">
+
+```mdx-code-block
+import react3 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-react.tsx"
+
+<CodeBlock language="ts" title="get-active-sessions-react.tsx">{react1}</CodeBlock>
+```
+
+</TabItem>
+</Tabs>
+````
+
+#### Deactivate a Session
+
+To terminate a specific session.
+
+````mdx-code-block
+<Tabs groupId="list-identity-sessions">
+<TabItem value="listing-identity-sessions-go" label="Go" default>
+
+```mdx-code-block
+import goDisableSession from '!!raw-loader!../../../code-examples/sdk/go/session/disable-session.go'
+
+<CodeBlock language="go">{goDisableSession}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="listing-identity-sessions-native" label="Native">
+
+```mdx-code-block
+import getSessionsNative4 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-native.ts"
+
+<CodeBlock language="ts" title="get-active-sessions-native.ts">{getSessionsNative1}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="listing-identity-sessions-react" label="React">
+
+```mdx-code-block
+import react4 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-react.tsx"
+
+<CodeBlock language="ts" title="get-active-sessions-react.tsx">{react1}</CodeBlock>
+```
+
+</TabItem>
+</Tabs>
+````
+
+### For a specific Identity
+
+The following operations are built for an administrator to manage sessions specific to a given Identity.
+
+#### Listing Sessions
+
+To get all sessions of a specific identity, administrators may use the
+[List identity sessions API](../../reference/api#tag/identity/operation/listIdentitySessions) from the SDK. This API has a
+paginated response and optional parameters for page number and number of items per page.
+
+````mdx-code-block
+<Tabs groupId="list-identity-sessions">
+<TabItem value="listing-identity-sessions-go" label="Go" default>
+
+```mdx-code-block
+import goGetIdentitySessions from '!!raw-loader!../../../code-examples/sdk/go/session/get-identity-sessions.go'
+
+<CodeBlock language="go">{goGetIdentitySessions}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="listing-identity-sessions-native" label="Native">
+
+```mdx-code-block
+import getSessionsNative9 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-native.ts"
+
+<CodeBlock language="ts" title="get-active-sessions-native.ts">{getSessionsNative1}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="listing-identity-sessions-react" label="React">
+
+```mdx-code-block
+import react6 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-react.tsx"
+
+<CodeBlock language="ts" title="get-active-sessions-react.tsx">{react1}</CodeBlock>
+```
+
+</TabItem>
+</Tabs>
+````
+
+#### Revoke and delete sessions
 
 To revoke all sessions of a specific identity, administrators must send a `DELETE` request to the administrative
 [`/admin/identities/{id}/sessions`](../../reference/api.mdx#operation/adminDeleteIdentitySessions) endpoint.
-
-```mdx-code-block
-<CodeBlock>{`DELETE ${getSdkUrl().url}/admin/identities/{id}/sessions
-Authorization: Bearer {your-personal-access-token}`}</CodeBlock>
-```
 
 :::note
 
 This operation forcefully logs the user out of all their sessions and deletes all session data.
 
 :::
+
+````mdx-code-block
+<Tabs groupId="list-identity-sessions">
+<TabItem value="listing-identity-sessions-go" label="Go" default>
+
+```mdx-code-block
+import goDisableAndDeleteSessions from '!!raw-loader!../../../code-examples/sdk/go/session/delete-sessions.go'
+
+<CodeBlock language="go">{goDisableAndDeleteSessions}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="listing-identity-sessions-native" label="Native">
+
+```mdx-code-block
+import getSessionsNative1 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-native.ts"
+
+<CodeBlock language="ts" title="get-active-sessions-native.ts">{getSessionsNative1}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="listing-identity-sessions-react" label="React">
+
+```mdx-code-block
+import react1 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-react.tsx"
+
+<CodeBlock language="ts" title="get-active-sessions-react.tsx">{react1}</CodeBlock>
+```
+
+</TabItem>
+</Tabs>
+````
