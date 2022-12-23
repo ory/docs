@@ -1,10 +1,15 @@
 ---
 id: session-management
-title: Session management in Ory
+title: Session management
 sidebar_label: Session management
 ---
 
-# Session management
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import { getSdkUrl } from '@site/src/hooks'
+import CodeBlock from '@theme/CodeBlock'
+```
 
 Sessions can be managed by:
 
@@ -25,19 +30,33 @@ make sure to include credentials and configure CORS properly.
 
 ### Listing sessions
 
-Users can list their active sessions by sending a `GET` request to the `/sessions` endpoint or by using the `listSessions` SDK method:
-
-```mdx-code-block
-import { getSdkUrl } from '@site/src/hooks'
-import CodeBlock from '@theme/CodeBlock'
-
-<CodeBlock>{`GET ${getSdkUrl().url}/sessions
-Cookies: ory_kratos_session=...
-# OR
-X-Session-Token: ...`}</CodeBlock>
-```
+Users can list their active sessions by sending a `GET` request to the `/sessions` endpoint or by using the `listSessions` SDK method.
 
 This call returns a list af all of the user's active sessions that haven't expired, except the current session.
+
+````mdx-code-block
+<Tabs groupId="console-or-cli">
+<TabItem value="listing-sessions-go" label="Go" default>
+
+Go code example
+
+</TabItem>
+<TabItem value="listing-sessions-native" label="Native">
+
+Native code example
+
+</TabItem>
+<TabItem value="listing-sessions-react" label="React">
+
+```mdx-code-block
+import react from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-react.tsx"
+
+<CodeBlock language="ts" title="get-active-sessions-react.tsx">{react}</CodeBlock>
+```
+
+</TabItem>
+</Tabs>
+````
 
 :::tip
 
