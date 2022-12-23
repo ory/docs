@@ -1,30 +1,42 @@
 ---
 id: sdk
-title: Ory Oathkeeper SDKs
-sidebar_label: Ory Oathkeeper
+title: Software Development Kit (SDK)
+sidebar_label: Ory Oathkeeper SDK
 ---
 
-All SDKs use automated code generation provided by [`openapi-generator`](https://github.com/OpenAPITools/openapi-generator).
-Unfortunately, `openapi-generator` has serious breaking changes in the generated code when upgrading versions. Therefore, we don't
-make backwards compatibility promises with regards to the generated SDKs. We hope to improve this process in the future.
+Before using the SDK, consult the Ory Oathkeeper [REST](../reference/api.mdx) API documentation, which includes code samples and
+examples for various programming languages.
 
-Before you check out the SDKs, head over to the [REST API](reference/api.mdx) documentation which includes code samples for common
-programming languages for each REST endpoint.
+## Download the SDK
 
-We publish our SDKs for popular languages in their respective package repositories:
+Ory publishes SDKs for popular languages in their respective package repositories:
 
 - [Dart](https://pub.dev/packages/ory_oathkeeper_client)
-- [.NET](https://www.nuget.org/packages/Ory.Oathkeeper.Client/)
-- [Go](https://github.com/ory/oathkeeper-client-go)
+- [.NET](https://www.nuget.org/packages/Ory.oathkeeper.Client/)
+- [Go REST](https://github.com/ory/oathkeeper-client-go)
 - [Java](https://search.maven.org/artifact/sh.ory.oathkeeper/oathkeeper-client)
 - [JavaScript](https://www.npmjs.com/package/@ory/oathkeeper-client) with TypeScript definitions and compatible with: Node.js,
-  React.js, AnuglarJS, Vue.js, and many more.
+  React.js, Angular, Vue.js, and many more.
 - [PHP](https://packagist.org/packages/ory/oathkeeper-client)
 - [Python](https://pypi.org/project/ory-oathkeeper-client/)
 - [Ruby](https://rubygems.org/gems/ory-oathkeeper-client)
 - [Rust](https://crates.io/crates/ory-oathkeeper-client)
 
-Take a look at the source: [Generated SDKs for Ory Oathkeeper](https://github.com/ory/sdk/tree/master/clients/oathkeeper/)
+## Further information
 
-Missing your programming language? [Create an issue](https://github.com/ory/oathkeeper/issues) and help us build, test and publish
-the SDK for your programming language!
+To view the source code for the generated Ory SDKs, visit the GitHub repository:
+[Generated SDKs for Ory Oathkeeper](https://github.com/ory/sdk/tree/master/clients/oathkeeper/)
+
+Missing your programming language?  
+[Create an issue](https://github.com/ory/sdk/issues) and help the Ory team build, test, and publish the SDK for your programming
+language!
+
+:::
+
+### SDK Backwards compatibility
+
+The Ory SDK uses automated code generation by [`openapi-generator`](https://github.com/OpenAPITools/openapi-generator).
+`openapi-generator` can make changes to the generated code with each new version, which breaks backwards compatibility in some
+cases. As a result, the Ory SDK may not be compatible with previous versions.
+
+:::
