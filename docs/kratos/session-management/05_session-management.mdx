@@ -30,7 +30,7 @@ make sure to include credentials and configure CORS properly.
 
 ### Listing sessions
 
-A user can be shown a list of all their active sessions that haven't expired, except the current session using the API from the
+A user can be shown a list of all their active sessions that haven't expired, except the current session using the [Session Listing API](../../reference/api#tag/frontend/operation/listMySessions) from the
 SDK. This API has a paginated response and optional parameters for page number and number of items per page.
 
 ````mdx-code-block
@@ -73,7 +73,7 @@ You can use this call to show a UI with all active sessions to the user.
 
 ### Revoking a specific session
 
-A user can choose to terminate a session that they no longer need or deem as malicious. The revoke session API is built for this
+A user can choose to terminate a session that they no longer need or deem as malicious. The [revoke session API](../../reference/api#tag/frontend/operation/disableMySession) is built for this
 scenario.
 
 Session(s) revoked by users are not deleted from the system. Instead, they become inactive. Only administrators can delete
