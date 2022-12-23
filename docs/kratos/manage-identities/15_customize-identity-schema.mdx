@@ -4,36 +4,177 @@ title: Learn how to customize Ory Identity Schemas
 sidebar_label: Customize Identity Schema
 ---
 
-# Customize Identity Schema
+# Customize identity schema
 
-Ory supports custom Identity Schemas. The Identity Schema is a JSON Schema that describes the traits that make up an identity.
+This document explains how to customize your identity model with a custom identity schema. A custom identity schema allows you to
+add custom fields to your identities such as birthday or job title.
 
-## Create custom Identity Schema
+:::info
 
-Follow these steps to create a custom Identity Schema in The Ory Network:
+Use the online [JSON Schema Validator](https://www.jsonschemavalidator.net) to test your identity model and check out some
+[JSON Schema examples](https://json-schema.org/learn/miscellaneous-examples.html).
 
-1. Open the [Ory Console](https://console.ory.sh/) and sign in.
-2. Select **Customize → Identity Schema** from the left navigation bar.
-3. Using the dropdown menu, select one of the preset schemas or the empty template as the starting point for your custom schema.
-4. Check the **Customize Identity Schema** box to enable editing of the schema.
-5. Adjust the schema to your needs - adjust or remove traits.
-6. Define the name of the custom schema in the **Identity Model Schema** text box.
-7. Click the **Update** button to save.
+:::
 
-## Customize fields
-
-The traits of an Identity Schema are specified under
+The most minimal form of an identity schema is:
 
 ```json
-"traits": {
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-    "properties": {
+  "properties": {
+    "traits": {
+      "type": "object"
+    }
+  }
+}
 ```
 
-Each trait translates into a field on the user-facing frontend. For example, the "email and password" preset defines two traits -
-email and password:
+## Write your first custom identity schema
+
+The most minimal form of an identity schema is:
 
 ```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object"
+    }
+  }
+}
+```
+
+Each trait translates into a field on the user-facing frontend. Currently, the user has no traits and thus no fields. Let's change
+that by adding three fields:
+
+- first name
+- last name
+- username
+
+```json {7-25}
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "title": "Username",
+          "type": "string"
+        },
+        "name": {
+          "type": "object",
+          "properties": {
+            "first": {
+              "title": "First name",
+              "type": "string"
+            },
+            "last": {
+              "title": "Last name",
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+![Registration screen with username, first name, and last name.](_static/registration.png)
+
+To log in, a user will need to supply an ID and password. The identity schema does not yet state which field is the ID used for
+login. Let's change that by adding the following schema extension:
+
+```json {11-17}
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "title": "Username",
+          "type": "string",
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
+        },
+        "name": {
+          "type": "object",
+          "properties": {
+            "first": {
+              "title": "First name",
+              "type": "string"
+            },
+            "last": {
+              "title": "Last name",
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Ory supports all JSON Schema types (`string`, `number`, `integer`, `boolean`, `object`). Use `string` for text fields, `boolean`
+for checkboxes fields, `integer` or `number` for integral or floating-point numbers. If you want to know more about these types,
+please refer to the [json-schema documentation](https://json-schema.org/understanding-json-schema/reference/type.html).
+
+:::info
+
+Avoid complex identity schemas and use the identity schema for basic profile information. The more complex the schema, the more
+difficult it is to introduce changes in the future. Complex schemas make it difficult to auto-generate user interfaces.
+
+:::
+
+Adding
+
+```json
+{
+  "properties": {
+    "newsletter": {
+      "type": "boolean",
+      "title": "Newsletter subscription"
+    }
+  }
+}
+```
+
+## Custom user interface labels
+
+The `title` of each field is what the user as description or sample input. After adding the above examples the sign-up screen
+would look like so:
+
+![Example Identity Schema with GitHub and Phone Number Fields](../_static/manage-identities/2.png)
+
+## Identity schema extensions
+
+Because the system doesn't know which fields have system-relevant meaning, you have to specify that in the schema. For example:
+
+- This email address should be used for recovering a lost password.
+- This identifier (username or email) should be used for logging in with a password.
+- This is the phone number used for SMS 2FA.
+
+The vocabulary extension can be used within a property. Let's take a look at the email identity schema preset. It uses all
+available identity schema extensions:
+
+```json {8-34}
+{
+  "$id": "https://schemas.ory.sh/presets/kratos/identity.email.schema.json",
+  "title": "Person",
+  "type": "object",
+  "properties": {
     "traits": {
       "type": "object",
       "properties": {
@@ -45,6 +186,12 @@ email and password:
             "credentials": {
               "password": {
                 "identifier": true
+              },
+              "webauthn": {
+                "identifier": true
+              },
+              "totp": {
+                "account_name": true
               }
             },
             "recovery": {
@@ -53,136 +200,577 @@ email and password:
             "verification": {
               "via": "email"
             }
-          }
+          },
+          "maxLength": 320
         }
       },
-      "required": [
-        "email"
-      ],
+      "required": ["email"],
       "additionalProperties": false
     }
+  }
+}
 ```
 
-This Identity Schema translates into the following sign-up screen:
-![Email Password Identity Schema](../_static/manage-identities/1.png)
+### Multiple identifiers
 
-The part highlighted below defines the identity's `email` for the email+password flow in The Ory Network. It also includes a
-method for [`recovery`](https://www.ory.sh/kratos/docs/self-service/flows/account-recovery#recovery-link-method) as well as
-[`verification`](https://www.ory.sh/kratos/docs/self-service/flows/verify-email-account-activation/#verification-link-method).
-Only the `email` method is available (recovery/verification via a link sent in an email).
+It is possible to have multiple identifiers. For example, you could have a username and an email address that the user can use to
+sign in:
 
-```diff
+```json {9-45}
+{
+  "$id": "https://schemas.ory.sh/presets/kratos/identity.email.schema.json",
+  "title": "Person",
+  "type": "object",
+  "properties": {
     "traits": {
       "type": "object",
       "properties": {
-+       "email": {
-+         "type": "string",
-+         "format": "email",
-+         "title": "E-Mail",
-+         "ory.sh/kratos": {
-+           "credentials": {
-+             "password": {
-+               "identifier": true
-+             }
-+           },
+        "username": {
+          "type": "string",
+          "minLength": 6,
+          "title": "Username",
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "title": "E-Mail",
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              },
+              "webauthn": {
+                "identifier": true
+              },
+              "totp": {
+                "account_name": true
+              }
+            },
             "recovery": {
               "via": "email"
             },
             "verification": {
               "via": "email"
             }
-          }
+          },
+          "maxLength": 320
         }
       },
-      "required": [
-        "username"
-      ],
+      "required": ["email"],
       "additionalProperties": false
     }
+  }
+}
 ```
 
-To add traits to the Identity Schema, add them inside the `traits "properties"`
-
-```diff
-"traits": {
-  "type": "object",
-    "properties": {
-+      "customtrait": {
-+        "type": "string",
-+        "title": "Your Custom Trait Title"
-+        }
-       }
-    }
-```
-
-for example the GitHub Handle as `string` :
+You can also specify an array of elements:
 
 ```json
-"traits": {
+{
+  "$id": "https://schemas.ory.sh/presets/kratos/identity.email.schema.json",
+  "title": "Person",
   "type": "object",
-    "properties": {
-      "handle": {
-        "type": "string",
-        "title": "Your GitHub Handle"
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "emails": {
+          "type": "array",
+          "items": [
+            {
+              "type": "string",
+              "format": "email",
+              "title": "E-Mail",
+              "ory.sh/kratos": {
+                "credentials": {
+                  "password": {
+                    "identifier": true
+                  },
+                  "webauthn": {
+                    "identifier": true
+                  },
+                  "totp": {
+                    "account_name": true
+                  }
+                },
+                "recovery": {
+                  "via": "email"
+                },
+                "verification": {
+                  "via": "email"
+                }
+              },
+              "maxLength": 320
+            }
+          ]
+        }
+      },
+      "required": ["email"],
+      "additionalProperties": false
+    }
+  }
+}
+```
+
+### Password login identifier
+
+You can configure Ory Identitiesto use specific fields as the identity's identifier. In this example, the `password` is set as the
+identifier:
+
+```json
+{
+  "ory.sh/kratos": {
+    "credentials": {
+      "password": {
+        "identifier": true
+      }
+    }
+  }
+}
+```
+
+#### Email
+
+Let's assume the identity's traits are
+
+```yaml
+traits:
+  # These are just examples
+  email: office@ory.sh
+  name:
+    first: Aeneas
+    last: Rekkas
+  favorite_animal: Dog
+  accepted_tos: true
+```
+
+and we using a JSON Schema that uses the `email` field as the identifier for the password flow:
+
+```json5
+{
+  $id: "http://mydomain.com/schemas/v2/customer.schema.json",
+  $schema: "http://json-schema.org/draft-07/schema#",
+  title: "A customer (v2)",
+  type: "object",
+  properties: {
+    traits: {
+      type: "object",
+      properties: {
+        email: {
+          title: "E-Mail",
+          type: "string",
+          format: "email",
+
+          // This tells Ory Identities that the field should be used as the "username" for the username and password flow.
+          "ory.sh/kratos": {
+            credentials: {
+              password: {
+                identifier: true,
+              },
+            },
+          },
+        },
+        name: {
+          type: "object",
+          properties: {
+            first: {
+              type: "string",
+            },
+            last: {
+              type: "string",
+            },
+          },
+        },
+        favorite_animal: {
+          type: "string",
+        },
+        accepted_tos: {
+          type: "string",
+        },
+      },
+      required: ["email"],
+      additionalProperties: false,
+    },
+  },
+}
+```
+
+In this example, Ory understands that `traits.email='office@ory.sh'` is the identifier for this identity. The system must get
+`office@ory.sh` and a password to sign in an user.
+
+[Username and Password Credentials](../../kratos/concepts/credentials/username-email-password) contains more information and
+examples about credentials usage.
+
+Note that the `format` field of the identity schema will perform validation of the given trait. In this example, the email address
+is validated using the [JSONSchema](https://json-schema.org/understanding-json-schema/reference/string.html#email-addresses) rule
+set.
+
+#### Phone number
+
+Let's extend the identity schema from the previous chapter with a phone number:
+
+```json5
+{
+  $id: "http://mydomain.com/schemas/v2/customer.schema.json",
+  $schema: "http://json-schema.org/draft-07/schema#",
+  title: "A customer (v2)",
+  type: "object",
+  properties: {
+    traits: {
+      type: "object",
+      properties: {
+        email: {
+          title: "E-Mail",
+          type: "string",
+          format: "email",
+
+          // This tells Ory Identities that the field should be used as the "username" for the Username and Password Flow.
+          "ory.sh/kratos": {
+            credentials: {
+              password: {
+                identifier: true,
+              },
+            },
+          },
+        },
+        phone: {
+          title: "Phone",
+          type: "string",
+          format: "tel",
+
+          // The phone number is marked as an identifier. This allows the user to log in with both email and phone number.
+          "ory.sh/kratos": {
+            credentials: {
+              password: {
+                identifier: true,
+              },
+            },
+          },
+        },
+        name: {
+          type: "object",
+          properties: {
+            first: {
+              type: "string",
+            },
+            last: {
+              type: "string",
+            },
+          },
+        },
+        favorite_animal: {
+          type: "string",
+        },
+        accepted_tos: {
+          type: "string",
+        },
+      },
+      required: ["email"],
+      additionalProperties: false,
+    },
+  },
+}
+```
+
+By using the `"format": "tel"` field we enable validation of phone numbers using the Golang
+[port](https://github.com/nyaruka/phonenumbers) of Google's [libphonenumber](https://github.com/google/libphonenumber).
+
+Using the following identity schema extension we specify that the field is used as the "ID" when signing in using a password:
+
+```json
+{
+  "ory.sh/kratos": {
+    "credentials": {
+      "password": {
+        "identifier": true
+      }
+    }
+  }
+}
+```
+
+### Passwordless WebAuthn login identifier
+
+Using the following identity schema extension we specify that the field is used as the "ID" when using passwordless WebAuthn
+login:
+
+```json
+{
+  "ory.sh/kratos": {
+    "credentials": {
+      "webauthn": {
+        "identifier": true
+      }
+    }
+  }
+}
+```
+
+### TOTP display username
+
+The following identity schema extension specifies that this field should be displayed in the Authenticator App as the account
+name.
+
+```json
+{
+  "ory.sh/kratos": {
+    "credentials": {
+      "totp": {
+        "account_name": true
+      }
+    }
+  }
+}
+```
+
+### Verification address
+
+Specifies that the field is verifiable by sending an email with a verification code or link.
+
+```json
+{
+  "ory.sh/kratos": {
+    "verification": {
+      "via": "email"
+    }
+  }
+}
+```
+
+### Recovery address
+
+Specifies that the field can be used to send an account recovery code or link.
+
+```json
+{
+  "ory.sh/kratos": {
+    "recovery": {
+      "via": "email"
+    }
+  }
+}
+```
+
+## Choosing between username, email, and phone Number
+
+Before you start, you need to decide what data you want to collect from your users and why! It's hard to change this decision
+afterwards, so make sure you've taken everything into account!
+
+When logging in, the user will use a login identifier and a password to sign up and in. The identifier can be
+
+- a username - "john.doe" or "johndoe123" or "oryuser",
+- an email address - `john.doe@gmail.com`,
+- a phone number - `+49-1234-4321-1234-4321`.
+
+All of these approaches have up- and downsides.
+
+Using the email address as the login identifier is easy to remember, doesn't require additional fields (because the email address
+is already being collected), and is usually unique. It's usually unique because sometimes companies use a "shared" email account
+(for example office@acme.org) to access services. In that case, multiple real identities are using the same email identifier to
+log in.
+
+The email address however represents a unique identifier and personally identifiable information (PII). An attacker could for
+example check if the email address `john.doe@gmail.com` is registered at for example an adult website and use that information for
+blackmail (see [Account Enumeration Attacks](../concepts/security.mdx#account-enumeration-attacks)).
+
+The same considerations apply to using a phone number as the primary registration & login identifier.
+
+Using a free text username reduces the privacy risk because it's much harder to make a connection between the username and a real
+world identity. It's still possible in cases where users choose a username such as "john.doe.from.newyork.1970", but finding the
+right username identifier is still difficult and there is plausible deniability because anyone could use that username.
+
+A free text username however requires capturing additional fields (for example an email address for password resets / account
+recovery) and is hard to remember. It's often very difficult to find unique usernames as people tend to use a combination of their
+names and initials such as `john.doe` which has a high chance of collision. Therefore, one ends up with usernames such as
+`john.doe1234432`.
+
+It's important to understand that Ory Identities lowercases all `password` identifiers and therefore E-Mail addresses. Characters
+`+` or `.` which have special meaning for some E-Mail Providers such as Gmail aren't normalized:
+
+- `userNAME` is equal to `username`
+- `foo@BaR.com` is equal to `foo@bar.com`
+- `foo+baz@bar.com` is NOT equal to `foo@bar.com`
+- `foo.baz@bar.com` is NOT equal to `foobaz@bar.com`
+
+You need to decide which route you want to take.
+
+## Examples
+
+Let's take a look at some examples!
+
+### Email and Password
+
+To use the email address as the login identifier, define the following Identity JSON Schema:
+
+```json
+{
+  "$id": "https://example.com/registration.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Person",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
         }
       }
     }
+  }
+}
 ```
 
-or a checkbox as `boolean`:
+### Multiple emails and password
+
+You can allow users to sign up with multiple E-Mail Addresses and use any of those for log in:
 
 ```json
-"traits": {
+{
+  "$id": "https://example.com/registration.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Person",
   "type": "object",
-    "properties": {
-      "newsletter": {
-        "type": "boolean",
-        "title": "Newsletter subscription"
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "emails": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "email",
+            "ory.sh/kratos": {
+              "credentials": {
+                "password": {
+                  "identifier": true
+                }
+              }
+            }
+          }
         }
       }
     }
+  }
+}
 ```
 
-Possible values for the `type` are `string`, `number`, `integer`, `boolean`.
+### Username and password
 
-Use `string` for text fields, `boolean` for checkboxes fields, `integer` or `number` for integral or floating-point numbers. If
-you want to know more about these types, please refer to the
-[json-schema documentation](https://json-schema.org/understanding-json-schema/reference/type.html).
-
-The `title` of each field is what the user as description or sample input. After adding the above examples the sign-up screen
-would look like so:
-
-![Example Identity Schema with GitHub and Phone Number Fields](../_static/manage-identities/2.png)
-
-### Change existing Identity Schemas
-
-While it's not possible to directly edit existing Identity Schemas, you can make revisions.
-
-For example, an Identity Schema named "Customer Type 1" exists and you would like to make changes to it:
-
-- Select the "Customer Type 1" Identity Schema and press `Customize Identity Schema`.
-- Make the necessary changes.
-- Enter a new name, for example "Customer Type 2".
-- Press the `Enter` key or `Update` to save it.
-
-### Add identity metadata
-
-It is possible to add metadata to an identity, either as a protected field that can only be read by the admin or as a public field
-that can be read by the user as well.
-[Visit the Manage Identity Metadata documentation](https://www.ory.sh/docs/guides/manage-identities/managing-users-identities-metadata)
-for details on how to add metadata to identities.
-
-### Additional properties
-
-The [`additionalProperties`](https://json-schema.org/understanding-json-schema/reference/object.html#additional-properties)
-keyword is used to control the handling of properties whose names aren't listed in the properties keyword. This has no effect and
-should be set to false.
+To use a username as the login identifier, define the following Identity JSON Schema:
 
 ```json
-      "additionalProperties": false
+{
+  "$id": "https://example.com/registration.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Person",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
 ```
 
-## Reference Identity Schema
+### Username and email and password
+
+You may also mix usernames and passwords:
+
+```json
+{
+  "$id": "https://example.com/registration.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Person",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
+        },
+        "username": {
+          "type": "string",
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Phone number and password
+
+```json
+{
+  "$id": "https://example.com/registration.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Person",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "phone": {
+          "type": "string",
+          "format": "tel",
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Advanced schema
 
 The following Identity Schema includes first/last and nickname, as well as number fields for the users' age. There are also two
 true/false fields for specifying the newsletter subscription and enterprise status.
@@ -256,3 +844,22 @@ Please note that this is just a reference Identity Schema, for practical uses it
 This is what the above Identity Schema would look like on the sign-up screen:
 
 ![Example Identity Schema with many fields](../_static/manage-identities/3.png)
+
+## Additional properties
+
+Keep your identities clean by denying
+[`additionalProperties`](https://json-schema.org/understanding-json-schema/reference/object.html#additional-properties):
+
+```json5
+{
+  properties: {
+    traits: {
+      type: "object",
+      properties: {
+        // ...
+      },
+      additionalProperties: false,
+    },
+  },
+}
+```

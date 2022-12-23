@@ -4,13 +4,15 @@ title: Best practices for creating secure and functional accounts for your users
 sidebar_label: Best practices
 ---
 
-# Best practices
+# Identity schema best practices
+
+Follow this guide to learn about best practices when creating custom identity schemas.
 
 ## Sensitive data in Identity Schema
 
-:::warning
+:::info
 
-The Identity Schema isn't a place to store sensitive information that should not be visible to the end-user.
+Do not store sensitive internal data in the identity's traits. Use the `metadata_admin` field for this purpose.
 
 :::
 
@@ -22,16 +24,17 @@ the end user.
 
 ## Keep your data lean
 
-Theoretically, any amount and type of data can be included in your identity model. We recommend that you don't include more fields
-than necessary in your Identity Schema. The Identity Schema should only include traits that are necessary or relevant to the
-users' profile. If the data is related to something else - for example business logic - it makes sense to store it somewhere else.
-It can still be captured in the sign up form, it just will need to be saved for example in your backend database.
+- **Do not** add too many fields to your identities. Keep the number of fields well below 15.
+- **Do not** store business logic in your identities. Store this information (for example credit card information, shipping
+  addresses, shopping cart items, user preferences, ...) in another 3rd party or 1st party system.
+- **Do** store profile data that is needed everywhere in your system. For example, the user's name, email address, phone number,
+  first name and last name, ...
 
 ## Updating Identity Schemas
 
-We strongly encourage everyone to specify unique, for example versioned, identifiers for every Identity Schema defined. This
-allows you to gradually update your Identity Schema without affecting existing identities. Assume you just defined your first
-Identity Schema:
+When using the Ory CLI and Ory configuration files, use versioning to keep track of changes to your identity schema. This allows
+you to gradually update your Identity Schema without affecting existing identities. Assume you just defined your first Identity
+Schema:
 
 ```yaml
 identity:
