@@ -30,20 +30,26 @@ make sure to include credentials and configure CORS properly.
 
 ### Listing sessions
 
-Users can list their active sessions by sending a `GET` request to the `/sessions` endpoint or by using the `listSessions` SDK method.
-
-This call returns a list af all of the user's active sessions that haven't expired, except the current session.
+A user can be shown a list of all their active sessions that haven't expired, except the current session using the API from the SDK. This API has a paginated response and optional parameters for page number and number of items per page.
 
 ````mdx-code-block
 <Tabs groupId="console-or-cli">
 <TabItem value="listing-sessions-go" label="Go" default>
 
-Go code example
+```mdx-code-block
+import goApi from '!!raw-loader!../../../code-examples/sdk/go/selfservice/get-active-sessions.go'
+
+<CodeBlock language="go">{goApi}</CodeBlock>
+```
 
 </TabItem>
 <TabItem value="listing-sessions-native" label="Native">
 
-Native code example
+```mdx-code-block
+import getSessionsNative from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-native.ts"
+
+<CodeBlock language="ts" title="get-active-sessions-native.ts">{getSessionsNative}</CodeBlock>
+```
 
 </TabItem>
 <TabItem value="listing-sessions-react" label="React">
