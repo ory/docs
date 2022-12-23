@@ -21,5 +21,7 @@ export function RevokeOtherSessions() {
     // Sessions were revoked successfully
   }
 
-  return <button onClick={handleRevokeOtherSessions}>Revoke other sessions</button>
+  return (
+    <button onClick={handleRevokeOtherSessions}>Revoke other sessions</button>
+  )
 }

@@ -14,7 +14,7 @@ export function RevokeSession(sessionId: string) {
   const handleRevokeSession = async () => {
     try {
       await ory.disableMySession({
-        id: sessionId
+        id: sessionId,
       })
     } catch (error) {
       // The session could not be revoked
@@ -24,5 +24,7 @@ export function RevokeSession(sessionId: string) {
     // Session was revoked successfully
   }
 
-  return <button onClick={handleRevokeSession}>Revoke Session {sessionId}</button>
+  return (
+    <button onClick={handleRevokeSession}>Revoke Session {sessionId}</button>
+  )
 }

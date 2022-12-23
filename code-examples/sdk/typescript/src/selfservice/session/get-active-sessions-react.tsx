@@ -1,5 +1,5 @@
-import {Configuration, FrontendApi, Session} from "@ory/client"
-import {useEffect, useState} from "react";
+import { Configuration, FrontendApi, Session } from "@ory/client"
+import { useEffect, useState } from "react"
 
 const ory = new FrontendApi(
   new Configuration({
@@ -15,17 +15,19 @@ export function MySessions() {
 
   useEffect(() => {
     // highlight-start
-    ory.listMySessions({
-      page: 1,
-      perPage: 10,
-    }).then((res) => {
-      setSessions(res.data)
-    }).catch((err) => {
-      // Couldn't fetch active sessions
-      // This might occur if the current session has expired
-    })
+    ory
+      .listMySessions({
+        page: 1,
+        perPage: 10,
+      })
+      .then((res) => {
+        setSessions(res.data)
+      })
+      .catch((err) => {
+        // Couldn't fetch active sessions
+        // This might occur if the current session has expired
+      })
     // highlight-end
-
   }, [])
 
   if (!sessions) {
@@ -42,13 +44,9 @@ export function MySessions() {
       {sessions.length > 0 ? (
         sessions.map((session) => (
           <tr id={session.id}>
-            <td>
-              {session.id}
-            </td>
+            <td>{session.id}</td>
             <td>{session.expires_at || ""}</td>
-            <td>
-              {session.authenticated_at || ""}
-            </td>
+            <td>{session.authenticated_at || ""}</td>
           </tr>
         ))
       ) : (
