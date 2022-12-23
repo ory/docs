@@ -30,8 +30,9 @@ make sure to include credentials and configure CORS properly.
 
 ### Listing sessions
 
-A user can be shown a list of all their active sessions that haven't expired, except the current session using the [Session Listing API](../../reference/api#tag/frontend/operation/listMySessions) from the
-SDK. This API has a paginated response and optional parameters for page number and number of items per page.
+A user can be shown a list of all their active sessions that haven't expired, except the current session using the
+[Session Listing API](../../reference/api#tag/frontend/operation/listMySessions) from the SDK. This API has a paginated response
+and optional parameters for page number and number of items per page.
 
 ````mdx-code-block
 <Tabs groupId="self-service-list-sessions">
@@ -73,8 +74,8 @@ You can use this call to show a UI with all active sessions to the user.
 
 ### Revoking a specific session
 
-A user can choose to terminate a session that they no longer need or deem as malicious. The [revoke session API](../../reference/api#tag/frontend/operation/disableMySession) is built for this
-scenario.
+A user can choose to terminate a session that they no longer need or deem as malicious. The
+[revoke session API](../../reference/api#tag/frontend/operation/disableMySession) is built for this scenario.
 
 Session(s) revoked by users are not deleted from the system. Instead, they become inactive. Only administrators can delete
 sessions using the administrative endpoints described [here](#administrative-session-management).
@@ -120,15 +121,43 @@ import revokeSessionReact from "!!raw-loader!@site/code-examples/sdk/typescript/
 
 ### Revoking all other sessions
 
-To revoke all sessions except the current, the user must send a `DELETE` request to the
-[`/sessions`](../../reference/api.mdx#operation/revokeSessions) endpoint or use the `revokeSessions` SDK command:
+A user may want to revoke all the other active sessions. The
+[revoke sessions API](../../reference/api#tag/frontend/operation/disableMyOtherSessions) was built to enable this scenario.
+
+Session(s) revoked by users are not deleted from the system. Instead, they become inactive. Only administrators can delete
+sessions using the administrative endpoints described [here](#administrative-session-management).
+
+````mdx-code-block
+<Tabs groupId="self-service-revoke-other-sessions">
+<TabItem value="revoke-other-sessions-go" label="Go" default>
 
 ```mdx-code-block
-<CodeBlock>{`DELETE ${getSdkUrl().url}/sessions
-Cookies: ory_kratos_session=...
-# OR
-X-Session-Token: ...`}</CodeBlock>
+import goRevokeOtherSessions from '!!raw-loader!../../../code-examples/sdk/go/selfservice/revoke-other-sessions.go'
+
+<CodeBlock language="go">{goRevokeOtherSessions}</CodeBlock>
 ```
+
+</TabItem>
+<TabItem value="revoke-other-sessions-native" label="Native">
+
+```mdx-code-block
+import revokeOtherSessionsNative from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/revoke-other-sessions-native.ts"
+
+<CodeBlock language="ts" title="revoke-other-sessions-native.ts">{revokeOtherSessionsNative}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="revoke--other-sessions-react" label="React">
+
+```mdx-code-block
+import revokeOtherSessionsReact from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/revoke-other-sessions-react.tsx"
+
+<CodeBlock language="ts" title="revoke-other-sessions-react.tsx">{revokeOtherSessionsReact}</CodeBlock>
+```
+
+</TabItem>
+</Tabs>
+````
 
 :::note
 

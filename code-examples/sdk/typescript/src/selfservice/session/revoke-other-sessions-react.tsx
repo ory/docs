@@ -11,12 +11,14 @@ const ory = new FrontendApi(
 
 export function RevokeOtherSessions() {
   const handleRevokeOtherSessions = async () => {
+    // highlight-start
     try {
       await ory.disableMyOtherSessions()
     } catch (error) {
       // The sessions could not be revoked
       // This might occur if the current session has expired
     }
+    // highlight-end
 
     // Sessions were revoked successfully
   }

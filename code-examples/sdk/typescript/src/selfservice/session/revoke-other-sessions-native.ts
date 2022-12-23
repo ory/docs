@@ -8,8 +8,7 @@ const frontend = new FrontendApi(
 
 export async function revokeSession(sessionId: string, token: string) {
   // highlight-start
-  return await frontend.disableMySession({
-    id: sessionId,
+  return await frontend.disableMyOtherSessions({
     xSessionToken: token,
   })
   // highlight-end
