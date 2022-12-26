@@ -207,22 +207,22 @@ To get all sessions, administrators may use the [List sessions API](../../refere
 the SDK. This API has a paginated response and optional parameters for page and number of items per page.
 
 ````mdx-code-block
-<Tabs groupId="sdk-identity-list-identity-sessions">
+<Tabs groupId="sdk-identity-listing-sessions">
 <TabItem value="sdk-identity-listing-sessions-go" label="Go" default>
 
 ```mdx-code-block
 import goGetSessions from '!!raw-loader!../../../code-examples/sdk/go/session/get-sessions.go'
 
-<CodeBlock language="go">{goGetSessions}</CodeBlock>
+<CodeBlock language="go" title="Listing all sessions">{goGetSessions}</CodeBlock>
 ```
 
 </TabItem>
 <TabItem value="sdk-identity-listing-sessions-native" label="Native">
 
 ```mdx-code-block
-import getSessionsNative2 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-native.ts"
+import nativeGetSessions from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/get-sessions-native.ts"
 
-<CodeBlock language="ts" title="get-active-sessions-native.ts">{getSessionsNative2}</CodeBlock>
+<CodeBlock language="ts" title="Listing all sessions">{nativeGetSessions}</CodeBlock>
 ```
 
 </TabItem>
@@ -241,23 +241,23 @@ To get the details for a given session (with all possible expand options), admin
 ```mdx-code-block
 import goGetSession from '!!raw-loader!../../../code-examples/sdk/go/session/get-session.go'
 
-<CodeBlock language="go">{goGetSession}</CodeBlock>
+<CodeBlock language="go" title="Get a session">{goGetSession}</CodeBlock>
 ```
 
 </TabItem>
 <TabItem value="sdk-identity-get-session-native" label="Native">
 
 ```mdx-code-block
-import getSessionsNative3 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-native.ts"
+import nativeGetSession from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/get-session-native.ts"
 
-<CodeBlock language="ts" title="get-active-sessions-native.ts">{getSessionsNative3}</CodeBlock>
+<CodeBlock language="ts" title="Get a session (Typescript SDK)">{nativeGetSession}</CodeBlock>
 ```
 
 </TabItem>
 </Tabs>
 ````
 
-#### Deactivate a Session
+#### Disable a Session
 
 To terminate a specific session, administrators may use the
 [Disable session API](../../reference/api#tag/identity/operation/disableSession) from the SDK.
@@ -269,16 +269,16 @@ To terminate a specific session, administrators may use the
 ```mdx-code-block
 import goDisableSession from '!!raw-loader!../../../code-examples/sdk/go/session/disable-session.go'
 
-<CodeBlock language="go">{goDisableSession}</CodeBlock>
+<CodeBlock language="go" title="Disabling a session">{goDisableSession}</CodeBlock>
 ```
 
 </TabItem>
 <TabItem value="sdk-identity-deactivate-session-native" label="Native">
 
 ```mdx-code-block
-import getSessionsNative4 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-native.ts"
+import nativeDisableSession from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/disable-session-native.ts"
 
-<CodeBlock language="ts" title="get-active-sessions-native.ts">{getSessionsNative4}</CodeBlock>
+<CodeBlock language="ts" title="Disabling a session (Typescript SDK)">{nativeDisableSession}</CodeBlock>
 ```
 
 </TabItem>
