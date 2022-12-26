@@ -7,7 +7,7 @@ const identityApi = new IdentityApi(
   }),
 )
 
-export async function GetIdentitySessions(
+export async function DisableAndDeleteSessions(
   identityId: string,
   active?: boolean,
 ) {
