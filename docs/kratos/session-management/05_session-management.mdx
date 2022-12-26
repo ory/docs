@@ -231,7 +231,8 @@ import getSessionsNative2 from "!!raw-loader!@site/code-examples/sdk/typescript/
 
 #### Get Session
 
-To get the details for a given session with all expand options.
+To get the details for a given session (with all possible expand options), administrators may use the
+[Get session API](../../reference/api#tag/identity/operation/getSession) from the SDK.
 
 ````mdx-code-block
 <Tabs groupId="sdk-identity-get-session">
@@ -258,7 +259,8 @@ import getSessionsNative3 from "!!raw-loader!@site/code-examples/sdk/typescript/
 
 #### Deactivate a Session
 
-To terminate a specific session.
+To terminate a specific session, administrators may use the
+[Disable session API](../../reference/api#tag/identity/operation/disableSession) from the SDK.
 
 ````mdx-code-block
 <Tabs groupId="sdk-identity-deactivate-session">
@@ -318,8 +320,8 @@ import nativeGetIdentitySessions from "!!raw-loader!@site/code-examples/sdk/type
 
 #### Revoke and delete sessions
 
-To revoke all sessions of a specific identity, administrators must send a `DELETE` request to the administrative
-[`/admin/identities/{id}/sessions`](../../reference/api.mdx#operation/adminDeleteIdentitySessions) endpoint.
+To revoke and delete all sessions of a specific identity, administrators may use the
+[Disable and delete identity sessions API](../../reference/api#tag/identity/operation/deleteIdentitySessions) from the SDK.
 
 :::note
 
