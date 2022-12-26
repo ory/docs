@@ -8,12 +8,15 @@ const identityApi = new IdentityApi(
 )
 
 export async function ListSessions(
-  expandOptions: Array<"Devices" | "Identity">,
-  pageToken: string,
-  pageSize: number,
+  expandOptions?: Array<"Devices" | "Identity">,
+  pageToken?: string,
+  pageSize?: number,
   active?: boolean,
 ) {
   // highlight-start
+  // All parameters here are optional
+  // Expand options can be used to include data for certain attributes in the response which are not returned by default to improve performance
+  // Page Token obtained from the response header has to be set to receive subsequent page data
   return await identityApi.listSessions({
     expand: expandOptions,
     active: active,
