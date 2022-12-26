@@ -206,6 +206,13 @@ import nativeInitClient from "!!raw-loader!@site/code-examples/sdk/typescript/sr
 To get all sessions, administrators may use the [List sessions API](../../reference/api#tag/identity/operation/listSessions) from
 the SDK. This API has a paginated response and optional parameters for page and number of items per page.
 
+:::tip
+
+You can use the [Ory Console](https://console.ory.sh/projects/current/sessions) to view all sessions in an administrative context
+for a particular project.
+
+:::
+
 ````mdx-code-block
 <Tabs groupId="sdk-identity-listing-sessions">
 <TabItem value="sdk-identity-listing-sessions-go" label="Go" default>
@@ -234,6 +241,13 @@ import nativeGetSessions from "!!raw-loader!@site/code-examples/sdk/typescript/s
 To get the details for a given session (with all possible expand options), administrators may use the
 [Get session API](../../reference/api#tag/identity/operation/getSession) from the SDK.
 
+:::tip
+
+You can use the [Ory Console](https://console.ory.sh/projects/current/sessions/<sessionId>) (replace sessionId) to view session
+metadata in an administrative context for a particular project.
+
+:::
+
 ````mdx-code-block
 <Tabs groupId="sdk-identity-get-session">
 <TabItem value="sdk-identity-get-session-go" label="Go" default>
@@ -261,6 +275,13 @@ import nativeGetSession from "!!raw-loader!@site/code-examples/sdk/typescript/sr
 
 To terminate a specific session, administrators may use the
 [Disable session API](../../reference/api#tag/identity/operation/disableSession) from the SDK.
+
+:::tip
+
+You can use the [Ory Console](https://console.ory.sh/projects/current/sessions/<sessionId>) (replace sessionId) to view and then
+terminate a session in an administrative context for a particular project.
+
+:::
 
 ````mdx-code-block
 <Tabs groupId="sdk-identity-deactivate-session">
