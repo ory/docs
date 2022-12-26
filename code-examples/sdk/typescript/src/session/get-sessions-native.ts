@@ -19,9 +19,9 @@ export async function ListSessions(
   // Page Token obtained from the response header has to be set to receive subsequent page data
   return await identityApi.listSessions({
     expand: expandOptions,
-    active: active,
+    active: active, // Optional parameter to filter sessions based on state (active/inactive)
     pageToken: pageToken,
-    pageSize: pageSize,
+    pageSize: pageSize, // Optional parameter to control the number of sessions per page (has default fallback value)
   })
   // highlight-end
 }

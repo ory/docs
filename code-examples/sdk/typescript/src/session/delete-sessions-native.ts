@@ -7,10 +7,7 @@ const identityApi = new IdentityApi(
   }),
 )
 
-export async function DisableAndDeleteSessions(
-  identityId: string,
-  active?: boolean,
-) {
+export async function DisableAndDeleteSessions(identityId: string) {
   // highlight-start
   return await identityApi.deleteIdentitySessions({
     id: identityId,

@@ -10,11 +10,15 @@ const identityApi = new IdentityApi(
 export async function GetIdentitySessions(
   identityId: string,
   active?: boolean,
+  pageNumber?: number,
+  pageSize?: number,
 ) {
   // highlight-start
   return await identityApi.listIdentitySessions({
     id: identityId,
-    active: active,
+    active: active, // Optional parameter to filter sessions based on state (active/inactive)
+    page: pageNumber, // Optional parameter to receive subsequent pages
+    perPage: pageSize, // Optional parameter to control the number of sessions per page (has default fallback value)
   })
   // highlight-end
 }

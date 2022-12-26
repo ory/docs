@@ -9,7 +9,7 @@ const identityApi = new IdentityApi(
 
 export async function GetSession(
   sessionId: string,
-  expandOptions: Array<"Devices" | "Identity">,
+  expandOptions?: Array<"Devices" | "Identity">,
 ) {
   // highlight-start
   return await identityApi.getSession({
