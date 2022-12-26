@@ -6,15 +6,3 @@ const identityApi = new IdentityApi(
     apiKey: `${process.env.ORY_ACCESS_TOKEN}`,
   }),
 )
-
-export async function GetIdentitySessions(
-  identityId: string,
-  active?: boolean,
-) {
-  // highlight-start
-  return await identityApi.listIdentitySessions({
-    id: identityId,
-    active: active,
-  })
-  // highlight-end
-}

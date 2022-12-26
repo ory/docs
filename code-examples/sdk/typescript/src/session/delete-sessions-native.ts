@@ -12,9 +12,8 @@ export async function GetIdentitySessions(
   active?: boolean,
 ) {
   // highlight-start
-  return await identityApi.listIdentitySessions({
+  return await identityApi.deleteIdentitySessions({
     id: identityId,
-    active: active,
   })
   // highlight-end
 }

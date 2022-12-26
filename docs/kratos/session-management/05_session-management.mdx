@@ -176,11 +176,28 @@ To perform the following operations, a Personal access token (called P.A.T other
 
 :::
 
+````mdx-code-block
+<Tabs groupId="sdk-identity-setup">
+<TabItem value="listing-identity-sessions-go" label="Go" default>
+
 ```mdx-code-block
 import goInitClient from '!!raw-loader!../../../code-examples/sdk/go/session/init.go'
 
 <CodeBlock language="go" title="Initalising the Go SDK client">{goInitClient}</CodeBlock>
 ```
+
+</TabItem>
+<TabItem value="listing-identity-sessions-native" label="Native">
+
+```mdx-code-block
+import nativeInitClient from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/init-client-native.ts"
+
+<CodeBlock language="ts" title="Initalising the Typescript SDK client">{nativeInitClient}</CodeBlock>
+```
+
+</TabItem>
+</Tabs>
+````
 
 ### General
 
@@ -205,16 +222,7 @@ import goGetSessions from '!!raw-loader!../../../code-examples/sdk/go/session/ge
 ```mdx-code-block
 import getSessionsNative2 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-native.ts"
 
-<CodeBlock language="ts" title="get-active-sessions-native.ts">{getSessionsNative1}</CodeBlock>
-```
-
-</TabItem>
-<TabItem value="listing-identity-sessions-react" label="React">
-
-```mdx-code-block
-import react2 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-react.tsx"
-
-<CodeBlock language="ts" title="get-active-sessions-react.tsx">{react1}</CodeBlock>
+<CodeBlock language="ts" title="get-active-sessions-native.ts">{getSessionsNative2}</CodeBlock>
 ```
 
 </TabItem>
@@ -241,16 +249,7 @@ import goGetSession from '!!raw-loader!../../../code-examples/sdk/go/session/get
 ```mdx-code-block
 import getSessionsNative3 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-native.ts"
 
-<CodeBlock language="ts" title="get-active-sessions-native.ts">{getSessionsNative1}</CodeBlock>
-```
-
-</TabItem>
-<TabItem value="listing-identity-sessions-react" label="React">
-
-```mdx-code-block
-import react3 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-react.tsx"
-
-<CodeBlock language="ts" title="get-active-sessions-react.tsx">{react1}</CodeBlock>
+<CodeBlock language="ts" title="get-active-sessions-native.ts">{getSessionsNative3}</CodeBlock>
 ```
 
 </TabItem>
@@ -277,16 +276,7 @@ import goDisableSession from '!!raw-loader!../../../code-examples/sdk/go/session
 ```mdx-code-block
 import getSessionsNative4 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-native.ts"
 
-<CodeBlock language="ts" title="get-active-sessions-native.ts">{getSessionsNative1}</CodeBlock>
-```
-
-</TabItem>
-<TabItem value="listing-identity-sessions-react" label="React">
-
-```mdx-code-block
-import react4 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-react.tsx"
-
-<CodeBlock language="ts" title="get-active-sessions-react.tsx">{react1}</CodeBlock>
+<CodeBlock language="ts" title="get-active-sessions-native.ts">{getSessionsNative4}</CodeBlock>
 ```
 
 </TabItem>
@@ -317,18 +307,9 @@ import goGetIdentitySessions from '!!raw-loader!../../../code-examples/sdk/go/se
 <TabItem value="listing-identity-sessions-native" label="Native">
 
 ```mdx-code-block
-import getSessionsNative9 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-native.ts"
+import nativeGetIdentitySessions from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/get-identity-sessions-native.ts"
 
-<CodeBlock language="ts" title="get-active-sessions-native.ts">{getSessionsNative1}</CodeBlock>
-```
-
-</TabItem>
-<TabItem value="listing-identity-sessions-react" label="React">
-
-```mdx-code-block
-import react6 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-react.tsx"
-
-<CodeBlock language="ts" title="get-active-sessions-react.tsx">{react1}</CodeBlock>
+<CodeBlock language="ts" title="get-identity-sessions-native.ts">{nativeGetIdentitySessions}</CodeBlock>
 ```
 
 </TabItem>
@@ -360,18 +341,9 @@ import goDisableAndDeleteSessions from '!!raw-loader!../../../code-examples/sdk/
 <TabItem value="listing-identity-sessions-native" label="Native">
 
 ```mdx-code-block
-import getSessionsNative1 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-native.ts"
+import nativeDisableAndDeleteSessions from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/delete-sessions-native.ts"
 
-<CodeBlock language="ts" title="get-active-sessions-native.ts">{getSessionsNative1}</CodeBlock>
-```
-
-</TabItem>
-<TabItem value="listing-identity-sessions-react" label="React">
-
-```mdx-code-block
-import react1 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-react.tsx"
-
-<CodeBlock language="ts" title="get-active-sessions-react.tsx">{react1}</CodeBlock>
+<CodeBlock language="ts" title="get-active-sessions-native.ts">{nativeDisableAndDeleteSessions}</CodeBlock>
 ```
 
 </TabItem>
