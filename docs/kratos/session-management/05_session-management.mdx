@@ -178,7 +178,7 @@ To perform the following operations, a Personal access token (called P.A.T other
 
 ````mdx-code-block
 <Tabs groupId="sdk-identity-setup">
-<TabItem value="listing-identity-sessions-go" label="Go" default>
+<TabItem value="sdk-identity-init-go" label="Go" default>
 
 ```mdx-code-block
 import goInitClient from '!!raw-loader!../../../code-examples/sdk/go/session/init.go'
@@ -187,7 +187,7 @@ import goInitClient from '!!raw-loader!../../../code-examples/sdk/go/session/ini
 ```
 
 </TabItem>
-<TabItem value="listing-identity-sessions-native" label="Native">
+<TabItem value="sdk-identity-init-native" label="Native">
 
 ```mdx-code-block
 import nativeInitClient from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/init-client-native.ts"
@@ -207,8 +207,8 @@ To get all sessions, administrators may use the [List sessions API](../../refere
 the SDK. This API has a paginated response and optional parameters for page and number of items per page.
 
 ````mdx-code-block
-<Tabs groupId="list-identity-sessions">
-<TabItem value="listing-identity-sessions-go" label="Go" default>
+<Tabs groupId="sdk-identity-list-identity-sessions">
+<TabItem value="sdk-identity-listing-sessions-go" label="Go" default>
 
 ```mdx-code-block
 import goGetSessions from '!!raw-loader!../../../code-examples/sdk/go/session/get-sessions.go'
@@ -217,7 +217,7 @@ import goGetSessions from '!!raw-loader!../../../code-examples/sdk/go/session/ge
 ```
 
 </TabItem>
-<TabItem value="listing-identity-sessions-native" label="Native">
+<TabItem value="sdk-identity-listing-sessions-native" label="Native">
 
 ```mdx-code-block
 import getSessionsNative2 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-native.ts"
@@ -234,8 +234,8 @@ import getSessionsNative2 from "!!raw-loader!@site/code-examples/sdk/typescript/
 To get the details for a given session with all expand options.
 
 ````mdx-code-block
-<Tabs groupId="list-identity-sessions">
-<TabItem value="listing-identity-sessions-go" label="Go" default>
+<Tabs groupId="sdk-identity-get-session">
+<TabItem value="sdk-identity-get-session-go" label="Go" default>
 
 ```mdx-code-block
 import goGetSession from '!!raw-loader!../../../code-examples/sdk/go/session/get-session.go'
@@ -244,7 +244,7 @@ import goGetSession from '!!raw-loader!../../../code-examples/sdk/go/session/get
 ```
 
 </TabItem>
-<TabItem value="listing-identity-sessions-native" label="Native">
+<TabItem value="sdk-identity-get-session-native" label="Native">
 
 ```mdx-code-block
 import getSessionsNative3 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-native.ts"
@@ -261,8 +261,8 @@ import getSessionsNative3 from "!!raw-loader!@site/code-examples/sdk/typescript/
 To terminate a specific session.
 
 ````mdx-code-block
-<Tabs groupId="list-identity-sessions">
-<TabItem value="listing-identity-sessions-go" label="Go" default>
+<Tabs groupId="sdk-identity-deactivate-session">
+<TabItem value="sdk-identity-deactivate-session-go" label="Go" default>
 
 ```mdx-code-block
 import goDisableSession from '!!raw-loader!../../../code-examples/sdk/go/session/disable-session.go'
@@ -271,7 +271,7 @@ import goDisableSession from '!!raw-loader!../../../code-examples/sdk/go/session
 ```
 
 </TabItem>
-<TabItem value="listing-identity-sessions-native" label="Native">
+<TabItem value="sdk-identity-deactivate-session-native" label="Native">
 
 ```mdx-code-block
 import getSessionsNative4 from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-native.ts"
@@ -294,8 +294,8 @@ To get all sessions of a specific identity, administrators may use the
 paginated response and optional parameters for page number and number of items per page.
 
 ````mdx-code-block
-<Tabs groupId="list-identity-sessions">
-<TabItem value="listing-identity-sessions-go" label="Go" default>
+<Tabs groupId="sdk-identity-list-identity-sessions">
+<TabItem value="sdk-identity-list-identity-sessions-go" label="Go" default>
 
 ```mdx-code-block
 import goGetIdentitySessions from '!!raw-loader!../../../code-examples/sdk/go/session/get-identity-sessions.go'
@@ -304,7 +304,7 @@ import goGetIdentitySessions from '!!raw-loader!../../../code-examples/sdk/go/se
 ```
 
 </TabItem>
-<TabItem value="listing-identity-sessions-native" label="Native">
+<TabItem value="sdk-identity-list-identity-sessions-native" label="Native">
 
 ```mdx-code-block
 import nativeGetIdentitySessions from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/get-identity-sessions-native.ts"
@@ -328,8 +328,8 @@ This operation forcefully logs the user out of all their sessions and deletes al
 :::
 
 ````mdx-code-block
-<Tabs groupId="list-identity-sessions">
-<TabItem value="listing-identity-sessions-go" label="Go" default>
+<Tabs groupId="sdk-identity-disable-delete-sessions">
+<TabItem value="sdk-identity-disable-delete-sessions-go" label="Go" default>
 
 ```mdx-code-block
 import goDisableAndDeleteSessions from '!!raw-loader!../../../code-examples/sdk/go/session/delete-sessions.go'
@@ -338,7 +338,7 @@ import goDisableAndDeleteSessions from '!!raw-loader!../../../code-examples/sdk/
 ```
 
 </TabItem>
-<TabItem value="listing-identity-sessions-native" label="Native">
+<TabItem value="sdk-identity-disable-delete-sessions-native" label="Native">
 
 ```mdx-code-block
 import nativeDisableAndDeleteSessions from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/delete-sessions-native.ts"
