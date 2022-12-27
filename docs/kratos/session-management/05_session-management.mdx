@@ -36,12 +36,12 @@ and optional parameters for page number and number of items per page.
 
 ````mdx-code-block
 <Tabs groupId="self-service-list-sessions">
-<TabItem value="self-service-listing-sessions-go" label="Go" default>
+<TabItem value="self-service-listing-sessions-react" label="React">
 
 ```mdx-code-block
-import goApi from '!!raw-loader!../../../code-examples/sdk/go/selfservice/get-active-sessions.go'
+import react from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-react.tsx"
 
-<CodeBlock language="go">{goApi}</CodeBlock>
+<CodeBlock language="ts" title="get-active-sessions-react.tsx">{react}</CodeBlock>
 ```
 
 </TabItem>
@@ -54,12 +54,12 @@ import getSessionsNative from "!!raw-loader!@site/code-examples/sdk/typescript/s
 ```
 
 </TabItem>
-<TabItem value="self-service-listing-sessions-react" label="React">
+<TabItem value="self-service-listing-sessions-go" label="Go" default>
 
 ```mdx-code-block
-import react from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-react.tsx"
+import goApi from '!!raw-loader!../../../code-examples/sdk/go/selfservice/get-active-sessions.go'
 
-<CodeBlock language="ts" title="get-active-sessions-react.tsx">{react}</CodeBlock>
+<CodeBlock language="go">{goApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -89,12 +89,12 @@ This API can only revoke session(s) other than the current session. To revoke th
 
 ````mdx-code-block
 <Tabs groupId="self-service-revoke-session">
-<TabItem value="self-service-revoke-session-go" label="Go" default>
+<TabItem value="self-service-revoke-session-react" label="React">
 
 ```mdx-code-block
-import goRevokeSession from '!!raw-loader!../../../code-examples/sdk/go/selfservice/revoke-session.go'
+import revokeSessionReact from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/revoke-session-react.tsx"
 
-<CodeBlock language="go">{goRevokeSession}</CodeBlock>
+<CodeBlock language="ts" title="revoke-session-react.tsx">{revokeSessionReact}</CodeBlock>
 ```
 
 </TabItem>
@@ -107,12 +107,12 @@ import revokeSessionNative from "!!raw-loader!@site/code-examples/sdk/typescript
 ```
 
 </TabItem>
-<TabItem value="self-service-revoke-session-react" label="React">
+<TabItem value="self-service-revoke-session-go" label="Go" default>
 
 ```mdx-code-block
-import revokeSessionReact from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/revoke-session-react.tsx"
+import goRevokeSession from '!!raw-loader!../../../code-examples/sdk/go/selfservice/revoke-session.go'
 
-<CodeBlock language="ts" title="revoke-session-react.tsx">{revokeSessionReact}</CodeBlock>
+<CodeBlock language="go">{goRevokeSession}</CodeBlock>
 ```
 
 </TabItem>
@@ -129,12 +129,12 @@ sessions using the administrative endpoints described [here](#administrative-ses
 
 ````mdx-code-block
 <Tabs groupId="self-service-revoke-other-sessions">
-<TabItem value="self-service-revoke-other-sessions-go" label="Go" default>
+<TabItem value="self-service-revoke--other-sessions-react" label="React">
 
 ```mdx-code-block
-import goRevokeOtherSessions from '!!raw-loader!../../../code-examples/sdk/go/selfservice/revoke-other-sessions.go'
+import revokeOtherSessionsReact from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/revoke-other-sessions-react.tsx"
 
-<CodeBlock language="go">{goRevokeOtherSessions}</CodeBlock>
+<CodeBlock language="ts" title="revoke-other-sessions-react.tsx">{revokeOtherSessionsReact}</CodeBlock>
 ```
 
 </TabItem>
@@ -147,12 +147,12 @@ import revokeOtherSessionsNative from "!!raw-loader!@site/code-examples/sdk/type
 ```
 
 </TabItem>
-<TabItem value="self-service-revoke--other-sessions-react" label="React">
+<TabItem value="self-service-revoke-other-sessions-go" label="Go" default>
 
 ```mdx-code-block
-import revokeOtherSessionsReact from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/revoke-other-sessions-react.tsx"
+import goRevokeOtherSessions from '!!raw-loader!../../../code-examples/sdk/go/selfservice/revoke-other-sessions.go'
 
-<CodeBlock language="ts" title="revoke-other-sessions-react.tsx">{revokeOtherSessionsReact}</CodeBlock>
+<CodeBlock language="go">{goRevokeOtherSessions}</CodeBlock>
 ```
 
 </TabItem>
@@ -224,7 +224,7 @@ import goGetSessions from '!!raw-loader!../../../code-examples/sdk/go/session/ge
 ```
 
 </TabItem>
-<TabItem value="sdk-identity-listing-sessions-native" label="Native">
+<TabItem value="sdk-identity-listing-sessions-native" label="TypeScript">
 
 ```mdx-code-block
 import nativeGetSessions from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/get-sessions-native.ts"
@@ -259,7 +259,7 @@ import goGetSession from '!!raw-loader!../../../code-examples/sdk/go/session/get
 ```
 
 </TabItem>
-<TabItem value="sdk-identity-get-session-native" label="Native">
+<TabItem value="sdk-identity-get-session-native" label="TypeScript">
 
 ```mdx-code-block
 import nativeGetSession from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/get-session-native.ts"
@@ -294,7 +294,7 @@ import goDisableSession from '!!raw-loader!../../../code-examples/sdk/go/session
 ```
 
 </TabItem>
-<TabItem value="sdk-identity-deactivate-session-native" label="Native">
+<TabItem value="sdk-identity-deactivate-session-native" label="TypeScript">
 
 ```mdx-code-block
 import nativeDisableSession from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/disable-session-native.ts"
@@ -327,7 +327,7 @@ import goGetIdentitySessions from '!!raw-loader!../../../code-examples/sdk/go/se
 ```
 
 </TabItem>
-<TabItem value="sdk-identity-list-identity-sessions-native" label="Native">
+<TabItem value="sdk-identity-list-identity-sessions-native" label="TypeScript">
 
 ```mdx-code-block
 import nativeGetIdentitySessions from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/get-identity-sessions-native.ts"
@@ -361,7 +361,7 @@ import goDisableAndDeleteSessions from '!!raw-loader!../../../code-examples/sdk/
 ```
 
 </TabItem>
-<TabItem value="sdk-identity-disable-delete-sessions-native" label="Native">
+<TabItem value="sdk-identity-disable-delete-sessions-native" label="TypeScript">
 
 ```mdx-code-block
 import nativeDisableAndDeleteSessions from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/delete-sessions-native.ts"
