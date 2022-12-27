@@ -2,13 +2,19 @@ package session
 
 import (
 	"context"
+	"github.com/ory/client-go"
 )
 
-func GetSession(ctx context.Context, sessionId string, expanOptions []string) (err error) {
+func GetSession(ctx context.Context, sessionId string, expandOptions []string) (session *client.Session, err error) {
 	// highlight-start
-	_, _, err = ory.IdentityApi.GetSession(ContextWithToken(ctx), sessionId).
-		Expand(expanOptions).
+	session, _, err = ory.IdentityApi.GetSession(ContextWithToken(ctx), sessionId).
+		Expand(expandOptions).
 		Execute()
 	// highlight-end
-	return err
+
+	if err != nil {
+		return nil, err
+	}
+
+	return session, err
 }
