@@ -26,12 +26,11 @@ modifies the core technology. This isn't an exhaustive list. Want your own conte
 - [Starter for Svelte Kit and the Ory Stack](https://github.com/MicLeey/sveltekit-ory-starter)
 - [Reference Ory Docker Compose Setup ](https://github.com/radekg/ory-reference-compose) +
   [Article](https://gruchalski.com/posts/2021-04-10-ory-reference-docker-compose-and-thoughts-on-the-platform/)
-- [Ory Hydra/Kratos Integration in Go](https://github.com/atreya2011/go-kratos-test/tree/hydra-consent)
-- [Ory Kratos "hydra-integration" branch](https://github.com/ory/kratos-selfservice-ui-node/tree/hydra-integration-2021)
 - [Predefined dockertest libraries for Hydra, Kratos & Keto integration tests](https://github.com/radekg/app-kit-orytest)
 
 ### Ory Kratos
 
+- [Ory Kratos Loopback4 integration](https://github.com/giuseppegrieco/loopback4-kratos)
 - [Ory Kratos configuration to deploy on fly.io](https://github.com/tinco/kratos-service)
 - [Ory Kratos Vue 3/Vite with Typescript example](https://github.com/timalanfarrow/kratos-selfservice-ui-vue3-typescript)
 - [Ory Kratos Quarkus, Kotlin, and Qute example](https://github.com/hbrammer/quarkus_kratos_example)
