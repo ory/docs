@@ -25,6 +25,7 @@ Ory publishes SDKs for popular languages in their respective package repositorie
 
 - [Dart](https://pub.dev/packages/ory_hydra_client)
 - [.NET](https://www.nuget.org/packages/Ory.Hydra.Client/)
+- [Elixir](https://hex.pm/packages/ory_hydra)
 - [Go](https://github.com/ory/hydra-client-go)
 - [Java](https://search.maven.org/artifact/sh.ory.hydra/hydra-client)
 - [JavaScript](https://www.npmjs.com/package/@ory/hydra-client) with TypeScript definitions and compatible with Node.js, React.js,
