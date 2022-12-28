@@ -13,6 +13,7 @@ Ory publishes SDKs for popular languages in their respective package repositorie
 
 - [Dart](https://pub.dev/packages/ory_oathkeeper_client)
 - [.NET](https://www.nuget.org/packages/Ory.oathkeeper.Client/)
+- [Elixir](https://hex.pm/packages/ory_oathkeeper)
 - [Go REST](https://github.com/ory/oathkeeper-client-go)
 - [Java](https://search.maven.org/artifact/sh.ory.oathkeeper/oathkeeper-client)
 - [JavaScript](https://www.npmjs.com/package/@ory/oathkeeper-client) with TypeScript definitions and compatible with: Node.js,

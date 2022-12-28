@@ -25,6 +25,7 @@ Ory publishes SDKs for popular languages in their respective package repositorie
 
 - [Dart](https://pub.dev/packages/ory_kratos_client)
 - [.NET](https://www.nuget.org/packages/Ory.Kratos.Client/)
+- [Elixir](https://hex.pm/packages/ory_kratos)
 - [Go](https://github.com/ory/kratos-client-go)
 - [Java](https://search.maven.org/artifact/sh.ory.kratos/kratos-client)
 - [JavaScript](https://www.npmjs.com/package/@ory/kratos-client) with TypeScript definitions and compatible with Node.js,

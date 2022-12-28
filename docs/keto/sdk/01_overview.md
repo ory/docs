@@ -25,6 +25,7 @@ Ory publishes SDKs for popular languages in their respective package repositorie
 
 - [Dart](https://pub.dev/packages/ory_keto_client)
 - [.NET](https://www.nuget.org/packages/Ory.keto.Client/)
+- [Elixir](https://hex.pm/packages/ory_keto)
 - [Go gRPC](https://github.com/ory/keto/blob/master/proto/go.mod) (import using `go get github.com/ory/keto/proto`)
 - [Go REST](https://github.com/ory/keto-client-go)
 - [Java](https://search.maven.org/artifact/sh.ory.keto/keto-client)
