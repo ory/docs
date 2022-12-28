@@ -217,7 +217,10 @@ Optional parameters allow to get a specific page and define the number of items 
 ```mdx-code-block
 import goGetSessions from '!!raw-loader!../../../code-examples/sdk/go/session/get-sessions.go'
 
-<CodeBlock language="go" title="Listing all sessions">{goGetSessions}</CodeBlock>
+<CodeBlock language="go" title="Listing all sessions">
+{goInitClient}
+{goGetSessions}
+</CodeBlock>
 ```
 
 </TabItem>
@@ -251,7 +254,10 @@ paginated response. Optional parameters allow to get a specific page and define 
 ```mdx-code-block
 import goGetIdentitySessions from '!!raw-loader!../../../code-examples/sdk/go/session/get-identity-sessions.go'
 
-<CodeBlock language="go">{goGetIdentitySessions}</CodeBlock>
+<CodeBlock language="go">
+{goInitClient}
+{goGetIdentitySessions}
+</CodeBlock>
 ```
 
 </TabItem>
@@ -279,7 +285,10 @@ Administrators can get the details of any session available in the system using 
 ```mdx-code-block
 import goGetSession from '!!raw-loader!../../../code-examples/sdk/go/session/get-session.go'
 
-<CodeBlock language="go" title="Get a session">{goGetSession}</CodeBlock>
+<CodeBlock language="go" title="Get a session">
+{goInitClient}
+{goGetSession}
+</CodeBlock>
 ```
 
 </TabItem>
@@ -313,7 +322,10 @@ Administrators can revoke any session available in the system using the
 ```mdx-code-block
 import goDisableSession from '!!raw-loader!../../../code-examples/sdk/go/session/disable-session.go'
 
-<CodeBlock language="go" title="Disabling a session">{goDisableSession}</CodeBlock>
+<CodeBlock language="go" title="Disabling a session">
+{goInitClient}
+{goDisableSession}
+</CodeBlock>
 ```
 
 </TabItem>
@@ -353,7 +365,10 @@ This operation forcefully logs the user out of all their sessions and deletes al
 ```mdx-code-block
 import goDisableAndDeleteSessions from '!!raw-loader!../../../code-examples/sdk/go/session/delete-sessions.go'
 
-<CodeBlock language="go">{goDisableAndDeleteSessions}</CodeBlock>
+<CodeBlock language="go">
+{goInitClient}
+{goDisableAndDeleteSessions}
+</CodeBlock>
 ```
 
 </TabItem>

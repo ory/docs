@@ -31,6 +31,10 @@ svg[class*="iconExternalLink"] {
   text-decoration: line-through;
 }
 
+.code-block-hide-line {
+  display: none;
+}
+
 .code-block-add-line {
   background-color: rgba(0, 255, 0, 0.2);
   margin: 0 -12px;

@@ -1,9 +1,12 @@
+// hide-lines-start
 package session
 
 import (
 	"context"
 	"github.com/ory/client-go"
 )
+
+// hide-lines-end
 
 func GetSessions(ctx context.Context, pageToken string, perPage int64) (sessions []client.Session, err error) {
 	// highlight-start

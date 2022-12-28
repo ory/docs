@@ -44,6 +44,11 @@ const config = {
           block: { start: "delete-lines-start", end: "delete-lines-end" },
         },
         {
+          className: "code-block-hide-line",
+          line: "hide-next-line",
+          block: { start: "hide-lines-start", end: "hide-lines-end" },
+        },
+        {
           className: "code-block-add-line",
           line: "add-next-line",
           block: { start: "add-lines-start", end: "add-lines-end" },
