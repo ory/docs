@@ -1,7 +1,8 @@
 ---
 id: customize-identity-schema
-title: Learn how to customize Ory Identity Schemas
-sidebar_label: Customize Identity Schema
+title: Learn how to customize Ory identity schemas
+sidebar_label: Customize identity schemas
+toc_max_heading_level: 4
 ---
 
 # Customize identity schema
@@ -11,12 +12,15 @@ add custom fields to your identities such as birthday or job title.
 
 :::info
 
-Use the online [JSON Schema Validator](https://www.jsonschemavalidator.net) to test your identity model and check out some
-[JSON Schema examples](https://json-schema.org/learn/miscellaneous-examples.html).
+Use the [JSON Schema Validator](https://www.jsonschemavalidator.net) to check your identity schemas. If you're not familiar with
+JSON Schemas, study the [official examples](https://json-schema.org/learn/miscellaneous-examples.html) to get familiar with the
+structure.
 
 :::
 
-The most minimal form of an identity schema is:
+## Writing your first custom identity schema
+
+This is the minimum viable identity schema:
 
 ```json
 {
@@ -30,24 +34,8 @@ The most minimal form of an identity schema is:
 }
 ```
 
-## Write your first custom identity schema
-
-The most minimal form of an identity schema is:
-
-```json
-{
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "type": "object",
-  "properties": {
-    "traits": {
-      "type": "object"
-    }
-  }
-}
-```
-
-Each trait translates into a field on the user-facing frontend. Currently, the user has no traits and thus no fields. Let's change
-that by adding three fields:
+Each trait translates into a field presented in an user-facing UI. In the minimum viable identity schema, there are no traits
+which means that the UI doesn't present any fields. Let's change that by adding three fields:
 
 - first name
 - last name
@@ -84,9 +72,9 @@ that by adding three fields:
 }
 ```
 
-![Registration screen with username, first name, and last name.](_static/registration.png)
+![Registration screen with username, first name, and last name.](../_static//customize-identity-schema/1.png)
 
-To log in, a user will need to supply an ID and password. The identity schema does not yet state which field is the ID used for
+To log in, the user needs to provide their ID and password. The identity schema does not yet state which field is the ID used for
 login. Let's change that by adding the following schema extension:
 
 ```json {11-17}
@@ -128,17 +116,10 @@ login. Let's change that by adding the following schema extension:
 ```
 
 Ory supports all JSON Schema types (`string`, `number`, `integer`, `boolean`, `object`). Use `string` for text fields, `boolean`
-for checkboxes fields, `integer` or `number` for integral or floating-point numbers. If you want to know more about these types,
+for checkbox fields, and `integer` or `number` for integral or floating-point numbers. If you want to know more about these types,
 please refer to the [json-schema documentation](https://json-schema.org/understanding-json-schema/reference/type.html).
 
-:::info
-
-Avoid complex identity schemas and use the identity schema for basic profile information. The more complex the schema, the more
-difficult it is to introduce changes in the future. Complex schemas make it difficult to auto-generate user interfaces.
-
-:::
-
-Adding
+For example, to add a newsletter opt-in checkbox to the schema, use this code:
 
 ```json
 {
@@ -150,6 +131,13 @@ Adding
   }
 }
 ```
+
+:::info
+
+Avoid complex identity schemas and use the identity schema for basic profile information. The more complex the schema, the more
+difficult it is to introduce changes in the future. Complex schemas make it difficult to generate user interfaces automatically.
+
+:::
 
 ## Custom user interface labels
 
@@ -321,8 +309,8 @@ You can also specify an array of elements:
 
 ### Password login identifier
 
-You can configure Ory Identitiesto use specific fields as the identity's identifier. In this example, the `password` is set as the
-identifier:
+You can configure Ory Identities to use specific fields as the identity's identifier. In this example, the `password` is set as
+the identifier:
 
 ```json
 {
@@ -409,7 +397,7 @@ In this example, Ory understands that `traits.email='office@ory.sh'` is the iden
 examples about credentials usage.
 
 Note that the `format` field of the identity schema will perform validation of the given trait. In this example, the email address
-is validated using the [JSONSchema](https://json-schema.org/understanding-json-schema/reference/string.html#email-addresses) rule
+is validated using the [JSON Schema](https://json-schema.org/understanding-json-schema/reference/string.html#email-addresses) rule
 set.
 
 #### Phone number
@@ -558,7 +546,7 @@ Specifies that the field can be used to send an account recovery code or link.
 }
 ```
 
-## Choosing between username, email, and phone Number
+## Choosing between username, email, and phone number
 
 Before you start, you need to decide what data you want to collect from your users and why! It's hard to change this decision
 afterwards, so make sure you've taken everything into account!
@@ -591,8 +579,8 @@ recovery) and is hard to remember. It's often very difficult to find unique user
 names and initials such as `john.doe` which has a high chance of collision. Therefore, one ends up with usernames such as
 `john.doe1234432`.
 
-It's important to understand that Ory Identities lowercases all `password` identifiers and therefore E-Mail addresses. Characters
-`+` or `.` which have special meaning for some E-Mail Providers such as Gmail aren't normalized:
+It's important to understand that Ory Identities lowercases all `password` identifiers and therefore email addresses. Characters
+`+` or `.` which have special meaning for some email providers such as Gmail aren't normalized:
 
 - `userNAME` is equal to `username`
 - `foo@BaR.com` is equal to `foo@bar.com`
@@ -605,9 +593,9 @@ You need to decide which route you want to take.
 
 Let's take a look at some examples!
 
-### Email and Password
+### Email and password
 
-To use the email address as the login identifier, define the following Identity JSON Schema:
+To use the email address as the login identifier, define the following identity schema:
 
 ```json
 {
@@ -638,7 +626,7 @@ To use the email address as the login identifier, define the following Identity 
 
 ### Multiple emails and password
 
-You can allow users to sign up with multiple E-Mail Addresses and use any of those for log in:
+You can allow users to sign up with multiple email addresses and use any of them to log in:
 
 ```json
 {
@@ -672,7 +660,7 @@ You can allow users to sign up with multiple E-Mail Addresses and use any of tho
 
 ### Username and password
 
-To use a username as the login identifier, define the following Identity JSON Schema:
+To use a username as the login identifier, define the following identity schema:
 
 ```json
 {
@@ -772,10 +760,10 @@ You may also mix usernames and passwords:
 
 ### Advanced schema
 
-The following Identity Schema includes first/last and nickname, as well as number fields for the users' age. There are also two
-true/false fields for specifying the newsletter subscription and enterprise status.
+The following identity schema includes first name, last name, a nickname, and numerical fields for the users' age. There are also
+two true/false fields for specifying the newsletter subscription and enterprise customer status.
 
-Please note that this is just a reference Identity Schema, for practical uses it contains probably too many traits.
+Please note that this is just a reference identity schema, for practical uses it contains probably too many traits.
 
 ```json
 {
