@@ -5,7 +5,12 @@ sidebar_label: Customize identity schemas
 toc_max_heading_level: 4
 ---
 
-# Customize identity schema
+# Customize identity schemas
+
+````mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem'
+````
 
 This document explains how to customize your identity model with a custom identity schema. A custom identity schema allows you to
 add custom fields to your identities such as birthday or job title.
@@ -34,12 +39,16 @@ This is the minimum viable identity schema:
 }
 ```
 
-Each trait translates into a field presented in an user-facing UI. In the minimum viable identity schema, there are no traits
+Traits translate into fields presented in the user-facing UI. In the minimum viable identity schema, there are no traits
 which means that the UI doesn't present any fields. Let's change that by adding three fields:
 
 - first name
 - last name
 - username
+
+````mdx-code-block
+<Tabs>
+<TabItem value="schema" label="Identity schema" default>
 
 ```json {7-25}
 {
@@ -72,7 +81,14 @@ which means that the UI doesn't present any fields. Let's change that by adding 
 }
 ```
 
+</TabItem>
+<TabItem value="UI" label="Generated UI">
+
 ![Registration screen with username, first name, and last name.](../_static/customize-identity-schema/1.png)
+
+</TabItem>
+</Tabs>
+````
 
 To log in, the user needs to provide their ID and password. The identity schema does not yet state which field is the ID used for
 login. Let's change that by adding the following schema extension:
@@ -117,20 +133,7 @@ login. Let's change that by adding the following schema extension:
 
 Ory supports all JSON Schema types (`string`, `number`, `integer`, `boolean`, `object`). Use `string` for text fields, `boolean`
 for checkbox fields, and `integer` or `number` for integral or floating-point numbers. If you want to know more about these types,
-please refer to the [json-schema documentation](https://json-schema.org/understanding-json-schema/reference/type.html).
-
-For example, to add a newsletter opt-in checkbox to the schema, use this code:
-
-```json
-{
-  "properties": {
-    "newsletter": {
-      "type": "boolean",
-      "title": "Newsletter subscription"
-    }
-  }
-}
-```
+read the the [JSON Schema documentation](https://json-schema.org/understanding-json-schema/reference/type.html).
 
 :::info
 
@@ -141,10 +144,63 @@ difficult it is to introduce changes in the future. Complex schemas make it diff
 
 ## Custom user interface labels
 
-The `title` of each field is what the user as description or sample input. After adding the above examples the sign-up screen
-would look like so:
+The `title` property defines the description of the field rendered in the UI. This schema has a field which asks users to provide their
+GitHub handle, which is clear thanks to the field description defined in the `title` property. 
 
-![Example Identity Schema with GitHub and Phone Number Fields](../_static/manage-identities/2.png)
+
+````mdx-code-block
+<Tabs>
+<TabItem value="schema" label="Identity schema" default>
+
+```json {29}
+{
+  "$id": "https://schemas.ory.sh/presets/kratos/identity.basic.schema.json",
+  "title": "Person",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "title": "Email",
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            },
+            "recovery": {
+              "via": "email"
+            },
+            "verification": {
+              "via": "email"
+            }
+          }
+        },
+        "name": {
+          "type": "string",
+          "title": "What's your GitHub handle?"
+        }
+      }
+    }
+  },
+  "required": [
+    "email"
+  ],
+  "additionalProperties": false
+}
+```
+
+</TabItem>
+<TabItem value="UI" label="Generated UI">
+
+![Identity schema with GitHub handle generated UI](../_static/customize-identity-schema/2.png)
+
+</TabItem>
+</Tabs>
+````
 
 ## Identity schema extensions
 
@@ -548,14 +604,14 @@ Specifies that the field can be used to send an account recovery code or link.
 
 ## Choosing between username, email, and phone number
 
-Before you start, you need to decide what data you want to collect from your users and why! It's hard to change this decision
-afterwards, so make sure you've taken everything into account!
+Before you start, you need to decide what data you want to collect from your users and why. It's hard to change this decision
+afterwards, so make sure you've taken everything into account.
 
-When logging in, the user will use a login identifier and a password to sign up and in. The identifier can be
+When logging in, the user will use a login identifier and a password to sign up and in. The identifier can be:
 
-- a username - "john.doe" or "johndoe123" or "oryuser",
-- an email address - `john.doe@gmail.com`,
-- a phone number - `+49-1234-4321-1234-4321`.
+- a username - "john.doe" or "johndoe123" or "oryuser"
+- an email address - `john.doe@gmail.com`
+- a phone number - `+49-1234-4321-1234-4321`
 
 All of these approaches have up- and downsides.
 
@@ -761,9 +817,17 @@ You may also mix usernames and passwords:
 ### Advanced schema
 
 The following identity schema includes first name, last name, a nickname, and numerical fields for the users' age. There are also
-two true/false fields for specifying the newsletter subscription and enterprise customer status.
+two checkboxes for specifying the newsletter subscription and enterprise customer status.
 
-Please note that this is just a reference identity schema, for practical uses it contains probably too many traits.
+:::note
+
+This identity schema is just an example. It contains too many fields to be used in production.
+
+:::
+
+````mdx-code-block
+<Tabs>
+<TabItem value="schema" label="Identity schema" default>
 
 ```json
 {
@@ -777,7 +841,7 @@ Please note that this is just a reference identity schema, for practical uses it
         "email": {
           "type": "string",
           "format": "email",
-          "title": "E-Mail",
+          "title": "Email",
           "ory.sh/kratos": {
             "credentials": {
               "password": {
@@ -797,15 +861,15 @@ Please note that this is just a reference identity schema, for practical uses it
           "properties": {
             "first": {
               "type": "string",
-              "title": "Your First name"
+              "title": "Your first name"
             },
             "last": {
               "type": "string",
-              "title": "Your Last name"
+              "title": "Your last name"
             },
             "nickname": {
               "type": "string",
-              "title": "Your Nickname"
+              "title": "Your nickname"
             }
           }
         },
@@ -822,16 +886,23 @@ Please note that this is just a reference identity schema, for practical uses it
           "title": "Are you an Enterprise customer?"
         }
       },
-      "required": ["email"],
+      "required": [
+        "email"
+      ],
       "additionalProperties": false
     }
   }
 }
 ```
 
-This is what the above Identity Schema would look like on the sign-up screen:
+</TabItem>
+<TabItem value="UI" label="Generated UI">
 
-![Example Identity Schema with many fields](../_static/manage-identities/3.png)
+![Identity schema with many fields generated UI](../_static/customize-identity-schema/3.png)
+
+</TabItem>
+</Tabs>
+````
 
 ## Additional properties
 
