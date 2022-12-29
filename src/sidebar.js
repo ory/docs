@@ -102,6 +102,7 @@ module.exports = {
           items: [
             "kratos/manage-identities/overview",
             "kratos/manage-identities/identity-schema",
+            "identities/model/manage-identity-schema",
             "kratos/manage-identities/customize-identity-schema",
             "kratos/manage-identities/best-practices",
           ],
@@ -112,6 +113,8 @@ module.exports = {
           items: [
             "kratos/manage-identities/create-users-identities",
             "kratos/manage-identities/import-user-accounts-identities",
+            "identities/model/identity-state",
+            "kratos/manage-identities/managing-users-identities-metadata",
             "kratos/manage-identities/account-recovery",
           ],
         },

@@ -1,0 +1,52 @@
+---
+id: manage-identity-schema
+title: Create and update identity schemas
+---
+
+# Creating identity schemas
+
+Follow these steps to create a custom identity schema in The Ory Network:
+
+````mdx-code-block
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+
+1. Sign in to Ory Console and select [**Identity Schema**](https://console.ory.sh/projects/current/identity-schema).
+2. Using the dropdown menu, select one of the preset schemas or the empty template as the starting point for your custom schema.
+3. Check the **Customize Identity Schema** box to enable editing of the schema.
+4. Adjust the schema to your needs. Add, remove, or adjust traits.
+5. Define the name of the custom schema in the **Identity Model Schema** text box.
+6. Click the **Update** button to save.
+
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
+
+```shell
+# Encode your schema to Base64 and export it to a variable.
+schema=$(cat {path-to-json-with-identity-schema} | base64)
+
+# Update your project's configuration.
+ory patch identity-config {your-project-id} \
+  --replace '/identity/default_schema_id="{unique-schema-id}"' \
+  --replace '/identity/schemas=[{"id":"{unique-schema-id}","url":"base64://'$schema'"}]'
+```
+
+</TabItem>
+</Tabs>
+````
+
+## Updating identity schemas
+
+To update an identity schema, you must create a new revision of that schema. You can't update existing identity schemas by editing
+them.
+
+For example, to update an identity schema named "Customer Type 1", follow these steps:
+
+1. Sign in to Ory Console and select [**Identity Schema**](https://console.ory.sh/projects/current/identity-schema).
+2. Using the dropdown menu, select the "Customer Type 1" schema.
+3. Check the **Customize Identity Schema** box to enable editing and make the necessary changes.
+4. Enter a new name in the **Identity Model Schema** text box, for example "Customer Type 2".
+5. Click the **Update** button to save.
