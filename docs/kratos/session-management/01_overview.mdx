@@ -7,9 +7,7 @@ sidebar_label: Overview
 # Overview
 
 When an identity or end-user authenticates, for example by signing in with their username and password, they receive an Ory
-Session.
-
-The session is a proof that the user is authenticated and allows to interact with the system without the need to authenticate
+Session. The session is proof that the user is authenticated and allows to interact with the system without the need to authenticate
 again for every request.
 
 Sessions can be issued in two formats:
@@ -27,77 +25,15 @@ For security reasons, you can't break the isolation between cookies and session 
 
 ## Ory Session
 
-This is an sample Ory Session:
-
-```json
-{
-  "id": "1338410d-c473-4503-a96a-53efa06e2531",
-  "active": true,
-  "expires_at": "2021-10-15T15:58:57.683338Z",
-  "authenticated_at": "2021-10-14T15:58:57.683338Z",
-  "authenticator_assurance_level": "aal2",
-  "authentication_methods": [
-    {
-      "method": "password",
-      "completed_at": "2021-10-14T15:55:19.03621Z"
-    },
-    {
-      "method": "lookup_secret",
-      "completed_at": "2021-10-14T15:56:21.257867Z"
-    },
-    {
-      "method": "lookup_secret",
-      "completed_at": "2021-10-14T15:58:57.683337Z"
-    },
-    {
-      "method": "lookup_secret",
-      "completed_at": "2021-10-14T16:03:14.833192Z"
-    }
-  ],
-  "issued_at": "2021-10-14T15:58:57.683338Z",
-  "identity": {
-    "id": "9496bbd5-f426-473f-b087-c7df853f274a",
-    "schema_id": "default",
-    "schema_url": "https://<your-project-slug>.projects.oryapis.com/schemas/default",
-    "state": "active",
-    "state_changed_at": "2021-10-14T17:55:17.885497+02:00",
-    "traits": {
-      "website": "https://www.ory.sh/",
-      "email": "0.wz4yhr0zwyd@ory.sh"
-    },
-    "verifiable_addresses": [
-      {
-        "id": "4de14270-ca13-4efb-ac3f-8f03b1f649d8",
-        "value": "0.wz4yhr0zwyd@ory.sh",
-        "verified": false,
-        "via": "email",
-        "status": "sent",
-        "created_at": "2021-10-14T17:55:17.886639+02:00",
-        "updated_at": "2021-10-14T18:03:14.839009+02:00"
-      }
-    ],
-    "recovery_addresses": [
-      {
-        "id": "fdab5a5f-5efc-4202-93b5-fd3ee632420b",
-        "value": "0.wz4yhr0zwyd@ory.sh",
-        "via": "email",
-        "created_at": "2021-10-14T17:55:17.886831+02:00",
-        "updated_at": "2021-10-14T18:03:14.839105+02:00"
-      }
-    ],
-    "created_at": "2021-10-14T17:55:17.886237+02:00",
-    "updated_at": "2021-10-14T17:55:17.886237+02:00"
-  }
-}
-```
+An example of a sample Ory session can be seen in the [Get session API](../../reference/api#tag/identity/operation/disableSession) response.
 
 | Property           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| :----------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|:-------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `active`           | When set to `true`, the Ory Session is active and can be used to authenticate requests.                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `expires_at`       | Defines the time when the Session expires. This value depends on the session lifespan configuration.                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `authenticated_at` | Indicates the time of the most recent successful authentication. This value is updated when: <ul><li>The end-user authenticates with a second factor such as TOTP</li><li>The end-user refreshes their session using the [`/self-service/login/browser`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowForBrowsers) endpoint or [`/self-service/login/api`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowWithoutBrowser) endpoint and setting `refresh` to `true`</li></ul> |
 
-## Ory Session Cookie
+### Using Ory Session Cookie
 
 An Ory Session Cookie is issued when the user signs in through a web browser. To get the session payload, send a request to the
 `/sessions/whoami` endpoint:
@@ -111,7 +47,7 @@ import CodeBlock from '@theme/CodeBlock'
   -H 'Cookie: ory_kratos_session=MTYzNDIyNzEzN3xEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJRTFDYWtvME5VNVlaVWxvYVZWeWJrUnZhSEF4YmxSV2VVRlhNMWwxVlVGenxXpsk2cL21Dclk3nCoXV41N6bFxvVJSt7CeICy_815Aw=='`}</CodeBlock>
 ```
 
-## Ory Session Token
+### Using Ory Session Token
 
 An Ory Session Token is issued when the user authenticates through a client other than a web browser. To get the session payload,
 send a request to the `/sessions/whoami` endpoint.
