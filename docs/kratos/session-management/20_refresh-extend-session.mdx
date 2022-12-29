@@ -3,6 +3,13 @@ id: refresh-extend-sessions
 title: Refresh and extend sessions
 ---
 
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import { getSdkUrl } from '@site/src/hooks'
+import CodeBlock from '@theme/CodeBlock'
+```
+
 For certain use cases, sessions need to be refreshed on user activity or administrative action.
 
 When you refresh a session, its `expires` property is set to a value that is the time when the refresh is triggered plus the
@@ -10,16 +17,31 @@ amount of time defined by the value of `/session/lifespan`.
 
 ## Refresh sessions as administrator
 
-To extend a session's lifespan, call the administrative
-[`adminRefreshSession`](../../reference/api.mdx#operation/adminRefreshSession) endpoint with the session ID:
+Administrators can refresh the session of a specific user using the
+[extend session API](../../reference/api#tag/identity/operation/extendSession) from the SDK.
+
+````mdx-code-block
+<Tabs groupId="sdk-console">
+<TabItem value="go" label="Go" default>
 
 ```mdx-code-block
-import { getSdkUrl } from '@site/src/hooks'
-import CodeBlock from '@theme/CodeBlock'
+import goExtendSession from '!!raw-loader!../../../code-examples/sdk/go/session/refresh-session.go'
 
-<CodeBlock>{`PATCH ${getSdkUrl().url}/admin/sessions/{id}/refresh
-Authorization: Bearer {your-personal-access-token}`}</CodeBlock>
+<CodeBlock language="go">{goExtendSession}</CodeBlock>
 ```
+
+</TabItem>
+<TabItem value="native" label="TypeScript">
+
+```mdx-code-block
+import nativeExtendSession from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/refresh-session-native.ts"
+
+<CodeBlock language="ts" title="extend-session-native.ts">{nativeExtendSession}</CodeBlock>
+```
+
+</TabItem>
+</Tabs>
+````
 
 :::tip
 
