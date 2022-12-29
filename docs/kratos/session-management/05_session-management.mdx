@@ -1,19 +1,28 @@
 ---
 id: session-management
-title: Session management in Ory
+title: List, revoke, and get sessions as user or admin
 sidebar_label: Session management
+slug: list-revoke-get-sessions
 ---
 
 # Session management
 
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import { getSdkUrl } from '@site/src/hooks'
+import CodeBlock from '@theme/CodeBlock'
+```
+
 Sessions can be managed by:
 
-1. The user who owns the session through **self-service**
-2. System administrators using **administrative endpoints**
+1. The user who owns the session through self-service endpoints
+2. System administrators through administrative endpoints
 
-## Self-service session management
+## Self-service
 
-Using self-service session management, users can manage their own sessions.
+Self-service session management allows users to manage their accounts on their own, without any administrative intervention. Each
+user can manage only the sessions tied to their accounts.
 
 :::note
 
@@ -23,95 +32,339 @@ make sure to include credentials and configure CORS properly.
 
 :::
 
-### Listing sessions
+### Listing all active sessions
 
-Users can list their sessions by sending a `GET` request to the `/sessions` endpoint or by using the `listSessions` SDK method:
-
-```mdx-code-block
-import { getSdkUrl } from '@site/src/hooks'
-import CodeBlock from '@theme/CodeBlock'
-
-<CodeBlock>{`GET ${getSdkUrl().url}/sessions
-Cookies: ory_kratos_session=...
-# OR
-X-Session-Token: ...`}</CodeBlock>
-```
-
-This call returns a list af all of the user's active sessions that haven't expired, except the current session.
+You can show users a list of all of their active sessions using the
+[session listing API](../../reference/api#tag/frontend/operation/listMySessions) from the SDK. The API returns a paginated
+response. Optional parameters allow to get a specific page and define the number of items shown on a single page.
 
 :::tip
 
-You can use this call to show a UI with all active sessions to the user.
+You can use this call to build a user interface (UI) that shows users their active sessions.
 
 :::
 
-### Revoking specific sessions
-
-To revoke a specific session, the user must send a `DELETE` request to the
-[`/sessions/{id}`](../../reference/api.mdx#operation/revokeSessionById) endpoint or use the `revokeSessionById` SDK method:
+````mdx-code-block
+<Tabs groupId="sdk-console">
+<TabItem value="go" label="Go" default>
 
 ```mdx-code-block
-<CodeBlock>{`DELETE ${getSdkUrl().url}/sessions/{id}
-Cookies: ory_kratos_session=...
-# OR
-X-Session-Token: ...`}</CodeBlock>
+import goApi from '!!raw-loader!../../../code-examples/sdk/go/selfservice/get-active-sessions.go'
+
+<CodeBlock language="go">{goApi}</CodeBlock>
 ```
 
+</TabItem>
+<TabItem value="native" label="TypeScript">
+
+```mdx-code-block
+import getSessionsNative from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-native.ts"
+
+<CodeBlock language="ts" title="get-active-sessions-native.ts">{getSessionsNative}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="react" label="React">
+
+```mdx-code-block
+import react from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/get-active-sessions-react.tsx"
+
+<CodeBlock language="ts" title="get-active-sessions-react.tsx">{react}</CodeBlock>
+```
+
+</TabItem>
+</Tabs>
+````
+
+### Revoking a specific session
+
+You can revoke specific sessions using the [revoke session API](../../reference/api#tag/frontend/operation/disableMySession). This
+allows users to log out from their account on different devices or terminate sessions they don't recognize and suspect of
+malicious activity.
+
 Sessions revoked by users are not deleted from the system. Instead, they become inactive. Only administrators can delete sessions
-using the administrative endpoints.
+using the [administrative endpoints](#administrative-session-management).
 
-:::note
+:::info
 
-This endpoint revokes only sessions other than the current session. To revoke the current session, use the
+This API can only revoke sessions other than the current session. To revoke the current session, use the
 [self-service logout](../../kratos/self-service/flows/user-logout.mdx).
 
 :::
+
+````mdx-code-block
+<Tabs groupId="sdk-console">
+<TabItem value="go" label="Go" default>
+
+```mdx-code-block
+import goRevokeSession from '!!raw-loader!../../../code-examples/sdk/go/selfservice/revoke-session.go'
+
+<CodeBlock language="go">{goRevokeSession}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="native" label="TypeScript">
+
+```mdx-code-block
+import revokeSessionNative from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/revoke-session-native.ts"
+
+<CodeBlock language="ts" title="revoke-session-native.ts">{revokeSessionNative}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="react" label="React">
+
+```mdx-code-block
+import revokeSessionReact from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/revoke-session-react.tsx"
+
+<CodeBlock language="ts" title="revoke-session-react.tsx">{revokeSessionReact}</CodeBlock>
+```
+
+</TabItem>
+</Tabs>
+````
 
 ### Revoking all other sessions
 
-To revoke all sessions except the current, the user must send a `DELETE` request to the
-[`/sessions`](../../reference/api.mdx#operation/revokeSessions) endpoint or use the `revokeSessions` SDK command:
+To allow users to revoke all sessions other than the currently active one, use the
+[revoke sessions API](../../reference/api#tag/frontend/operation/disableMyOtherSessions). Sessions revoked by users are not
+deleted from the system. Instead, they become inactive.
 
-```mdx-code-block
-<CodeBlock>{`DELETE ${getSdkUrl().url}/sessions
-Cookies: ory_kratos_session=...
-# OR
-X-Session-Token: ...`}</CodeBlock>
-```
+Only administrators can delete sessions [using the administrative endpoints](#administrative-session-management).
 
-:::note
+:::info
 
-This endpoint revokes all sessions other than the current session. To revoke the current session, use the
+This API can only revoke sessions other than the current session. To revoke the current session, use the
 [self-service logout](../../kratos/self-service/flows/user-logout.mdx).
 
 :::
 
-## Administrative session management
-
-System administrators have access to all sessions in the system.
-
-### Listing Sessions
-
-To get all sessions of a specific identity, administrators must send a `GET` request to the administrative
-[`/admin/identities/{id}/sessions`](../../reference/api.mdx#operation/adminListIdentitySessions) endpoint.
+````mdx-code-block
+<Tabs groupId="sdk-console">
+<TabItem value="go" label="Go" default>
 
 ```mdx-code-block
-<CodeBlock>{`GET ${getSdkUrl().url}/admin/identities/{id}/sessions
-Authorization: Bearer {your-personal-access-token}`}</CodeBlock>
+import goRevokeOtherSessions from '!!raw-loader!../../../code-examples/sdk/go/selfservice/revoke-other-sessions.go'
+
+<CodeBlock language="go">{goRevokeOtherSessions}</CodeBlock>
 ```
 
-### Revoke sessions as an administrator
-
-To revoke all sessions of a specific identity, administrators must send a `DELETE` request to the administrative
-[`/admin/identities/{id}/sessions`](../../reference/api.mdx#operation/adminDeleteIdentitySessions) endpoint.
+</TabItem>
+<TabItem value="native" label="TypeScript">
 
 ```mdx-code-block
-<CodeBlock>{`DELETE ${getSdkUrl().url}/admin/identities/{id}/sessions
-Authorization: Bearer {your-personal-access-token}`}</CodeBlock>
+import revokeOtherSessionsNative from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/revoke-other-sessions-native.ts"
+
+<CodeBlock language="ts" title="revoke-other-sessions-native.ts">{revokeOtherSessionsNative}</CodeBlock>
 ```
+
+</TabItem>
+<TabItem value="react" label="React">
+
+```mdx-code-block
+import revokeOtherSessionsReact from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/revoke-other-sessions-react.tsx"
+
+<CodeBlock language="ts" title="revoke-other-sessions-react.tsx">{revokeOtherSessionsReact}</CodeBlock>
+```
+
+</TabItem>
+</Tabs>
+````
+
+## Administrative
+
+Administrative session management allows privileged users to manage all sessions in the system.
+
+:::info
+
+You must use a personal access token (PAT) for all administrative session management operations.
+
+:::
+
+````mdx-code-block
+<Tabs groupId="sdk-console">
+<TabItem value="go" label="Go" default>
+
+```mdx-code-block
+import goInitClient from '!!raw-loader!../../../code-examples/sdk/go/session/init.go'
+
+<CodeBlock language="go" title="Initializing the Go SDK client">{goInitClient}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="native" label="TypeScript">
+
+```mdx-code-block
+import nativeInitClient from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/init-client-native.ts"
+
+<CodeBlock language="ts" title="Initializing the Typescript SDK client">{nativeInitClient}</CodeBlock>
+```
+
+</TabItem>
+</Tabs>
+````
+
+### Listing all sessions
+
+You can get a list of all sessions available in the system using the
+[list sessions API](../../reference/api#tag/identity/operation/listSessions) from the SDK. The API returns a paginated response.
+Optional parameters allow to get a specific page and define the number of items shown on a single page.
+
+````mdx-code-block
+<Tabs groupId="sdk-console">
+<TabItem value="go" label="Go" default>
+
+```mdx-code-block
+import goGetSessions from '!!raw-loader!../../../code-examples/sdk/go/session/get-sessions.go'
+
+<CodeBlock language="go" title="Listing all sessions">{goGetSessions}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="native" label="TypeScript">
+
+```mdx-code-block
+import nativeGetSessions from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/get-sessions-native.ts"
+
+<CodeBlock language="ts" title="Listing all sessions">{nativeGetSessions}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="console" label="Ory Console">
+
+To view all sessions available in a project, go to [**Ory Console**](https://console.ory.sh/) → **Sessions**.
+
+</TabItem>
+</Tabs>
+````
+
+### Listing all sessions of a user
+
+Administrators can get a list of all sessions of a given available in the system using the
+[list identity sessions API](../../reference/api#tag/identity/operation/listIdentitySessions) from the SDK. The API returns a
+paginated response. Optional parameters allow to get a specific page and define the number of items shown on a single page.
+
+````mdx-code-block
+<Tabs groupId="sdk-console">
+<TabItem value="go" label="Go" default>
+
+```mdx-code-block
+import goGetIdentitySessions from '!!raw-loader!../../../code-examples/sdk/go/session/get-identity-sessions.go'
+
+<CodeBlock language="go">{goGetIdentitySessions}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="native" label="TypeScript">
+
+```mdx-code-block
+import nativeGetIdentitySessions from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/get-identity-sessions-native.ts"
+
+<CodeBlock language="ts" title="get-identity-sessions-native.ts">{nativeGetIdentitySessions}</CodeBlock>
+```
+
+</TabItem>
+</Tabs>
+````
+
+### Getting session details
+
+Administrators can get the details of any session available in the system using the
+[get session API](../../reference/api#tag/identity/operation/getSession) from the SDK.
+
+````mdx-code-block
+<Tabs groupId="sdk-console">
+<TabItem value="go" label="Go" default>
+
+```mdx-code-block
+import goGetSession from '!!raw-loader!../../../code-examples/sdk/go/session/get-session.go'
+
+<CodeBlock language="go" title="Get a session">{goGetSession}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="native" label="TypeScript">
+
+```mdx-code-block
+import nativeGetSession from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/get-session-native.ts"
+
+<CodeBlock language="ts" title="Get a session (Typescript SDK)">{nativeGetSession}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="console" label="Ory Console">
+
+To view sessions metadata, go to [**Ory Console**](https://console.ory.sh/) → **Sessions** and click the **Actions** icon corresponding
+to the session you want to inspect.
+
+</TabItem>
+</Tabs>
+````
+
+### Revoking a session
+
+Administrators can revoke any session available in the system using the
+[revoke session API](../../reference/api#tag/identity/operation/disableSession) from the SDK.
+
+````mdx-code-block
+<Tabs groupId="sdk-console">
+<TabItem value="go" label="Go" default>
+
+```mdx-code-block
+import goDisableSession from '!!raw-loader!../../../code-examples/sdk/go/session/disable-session.go'
+
+<CodeBlock language="go" title="Disabling a session">{goDisableSession}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="native" label="TypeScript">
+
+```mdx-code-block
+import nativeDisableSession from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/disable-session-native.ts"
+
+<CodeBlock language="ts" title="Disabling a session (Typescript SDK)">{nativeDisableSession}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="console" label="Ory Console">
+
+To revoke a session, go to [**Ory Console**](https://console.ory.sh/) → **Sessions**, select the **Actions** icon corresponding
+to the session you want to terminate and click the **Terminate Session** button.
+
+</TabItem>
+</Tabs>
+````
+
+### Revoke and delete sessions of a user
+
+Administrators can revoke and delete all sessions of a specific user using the
+[revoke and delete identity sessions API](../../reference/api#tag/identity/operation/deleteIdentitySessions) from the SDK.
 
 :::note
 
 This operation forcefully logs the user out of all their sessions and deletes all session data.
 
 :::
+
+````mdx-code-block
+<Tabs groupId="sdk-console">
+<TabItem value="go" label="Go" default>
+
+```mdx-code-block
+import goDisableAndDeleteSessions from '!!raw-loader!../../../code-examples/sdk/go/session/delete-sessions.go'
+
+<CodeBlock language="go">{goDisableAndDeleteSessions}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="native" label="TypeScript">
+
+```mdx-code-block
+import nativeDisableAndDeleteSessions from "!!raw-loader!@site/code-examples/sdk/typescript/src/session/delete-sessions-native.ts"
+
+<CodeBlock language="ts" title="get-active-sessions-native.ts">{nativeDisableAndDeleteSessions}</CodeBlock>
+```
+
+</TabItem>
+</Tabs>
+````
