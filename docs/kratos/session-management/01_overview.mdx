@@ -87,6 +87,8 @@ This flow is similar to [GitHub's sudo mode](https://help.github.com/en/github/a
 The session is considered privileged when its `authenticated_at` isn't older than the `privileged_session_max_age` value defined
 in the configuration.
 
+### Configuration
+
 This is how you update the `privileged_session_max_age` to `15m`:
 
 ````mdx-code-block
@@ -94,29 +96,47 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs>
-  <TabItem value="cloud" label="Ory CLI" default>
+<TabItem value="console" label="Ory Console" default>
 
-```shell
-ory patch identity-config <your-project-id> \\
-  --replace '/selfservice/flows/settings/privileged_session_max_age/lifespan="15m"' # 15 minutes
-```
+To change the privileged session duration, go to [**Ory Console**](https://console.ory.sh/) → **Session Settings**, enter the desired value (Use hour (h), minute (m), second (s) to define interval, for example: 15m30s, 1m) in the Privileged Sessions section and click the **Save** button.
+
+For example, to set the privileged session duration to 15 minutes, enter `15m`.
 
   </TabItem>
-  <TabItem value="macos" label="Self-Hosted Ory Kratos Config" default>
+  <TabItem value="cloud" label="Ory CLI">
+1. Download the Ory Identities config from your project and save it to a file:
 
-```yaml title=path/to/kratos/config.yml
-settings:
-  after:
-    hooks: []
-    password:
-      hooks: []
-    profile:
-      hooks: []
-  lifespan: 30m0s
-  // highlight-next-line
-  privileged_session_max_age: 15m0s
-  required_aal: highest_available
-  ui_url: /ui/settings
+```shell
+## List all available projects
+ory list projects
+
+## Get config
+ory get identity-config {project-id} --format yaml > identity-config.yaml
+```
+
+2. Update the configuration value for privileged session max age property (`privileged_session_max_age`) to the desired value (Use hour (h), minute (m), second (s) to define interval, for example: 15m30s, 1m).
+
+```yaml title="config.yml"
+selfservice:
+  flows:
+    settings:
+      after:
+        hooks: []
+        password:
+          hooks: []
+        profile:
+          hooks: []
+      ui_url: /ui/settings
+      // highlight-start
+      privileged_session_max_age: 15m
+      // highlight-end
+      required_aal: highest_available
+```
+
+3. Update the Ory Identities configuration using the file you worked with:
+
+```shell
+ ory update identity-config {project-id} --file identity-config.yaml
 ```
 
   </TabItem>
@@ -125,6 +145,8 @@ settings:
 
 With this configuration in place, the user can perform the actions that require a privileged session up to 15 minutes after
 signing in. When this time passes, the user must re-authenticate to access these options.
+
+### Demo
 
 Watch this video to see the flow in action:
 
