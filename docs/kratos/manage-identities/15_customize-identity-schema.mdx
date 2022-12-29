@@ -7,10 +7,10 @@ toc_max_heading_level: 4
 
 # Customize identity schemas
 
-````mdx-code-block
+```mdx-code-block
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem'
-````
+```
 
 This document explains how to customize your identity model with a custom identity schema. A custom identity schema allows you to
 add custom fields to your identities such as birthday or job title.
@@ -39,8 +39,8 @@ This is the minimum viable identity schema:
 }
 ```
 
-Traits translate into fields presented in the user-facing UI. In the minimum viable identity schema, there are no traits
-which means that the UI doesn't present any fields. Let's change that by adding three fields:
+Traits translate into fields presented in the user-facing UI. In the minimum viable identity schema, there are no traits which
+means that the UI doesn't present any fields. Let's change that by adding three fields:
 
 - first name
 - last name
@@ -144,9 +144,8 @@ difficult it is to introduce changes in the future. Complex schemas make it diff
 
 ## Custom user interface labels
 
-The `title` property defines the description of the field rendered in the UI. This schema has a field which asks users to provide their
-GitHub handle, which is clear thanks to the field description defined in the `title` property. 
-
+The `title` property defines the description of the field rendered in the UI. This schema has a field which asks users to provide
+their GitHub handle, which is clear thanks to the field description defined in the `title` property.
 
 ````mdx-code-block
 <Tabs>
