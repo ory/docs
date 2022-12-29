@@ -7,8 +7,8 @@ sidebar_label: Overview
 # Overview
 
 When an identity or end-user authenticates, for example by signing in with their username and password, they receive an Ory
-Session. The session is proof that the user is authenticated and allows to interact with the system without the need to authenticate
-again for every request.
+Session. The session is proof that the user is authenticated and allows to interact with the system without the need to
+authenticate again for every request.
 
 Sessions can be issued in two formats:
 
@@ -25,10 +25,11 @@ For security reasons, you can't break the isolation between cookies and session 
 
 ## Ory Session
 
-An example of a sample Ory session can be seen in the [Get session API](../../reference/api#tag/identity/operation/disableSession) response.
+An example of an Ory session can be seen in the [Get session API](../../reference/api#tag/identity/operation/disableSession)
+response.
 
 | Property           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-|:-------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| :----------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `active`           | When set to `true`, the Ory Session is active and can be used to authenticate requests.                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `expires_at`       | Defines the time when the Session expires. This value depends on the session lifespan configuration.                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `authenticated_at` | Indicates the time of the most recent successful authentication. This value is updated when: <ul><li>The end-user authenticates with a second factor such as TOTP</li><li>The end-user refreshes their session using the [`/self-service/login/browser`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowForBrowsers) endpoint or [`/self-service/login/api`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowWithoutBrowser) endpoint and setting `refresh` to `true`</li></ul> |
