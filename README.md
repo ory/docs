@@ -122,8 +122,9 @@ Ory follows the
 
 ## Formatting
 
-Write in [Markdown](https://www.markdownguide.org/). Files with the `.mdx`
-extension use [JSX-extended Markdown (MDX)](https://mdxjs.com/).
+Write in [Markdown](https://www.markdownguide.org/). Don't mix HTML tags with
+Markdown. Files with the `.mdx` extension use
+[JSX-extended Markdown (MDX)](https://mdxjs.com/).
 
 ### Document front matter
 
@@ -134,7 +135,7 @@ Add this front matter to every document you create:
 id: excellent_feature
 title: Learn how to use the excellent feature in your implementation
 sidebar_label: Excellent feature
-slug:
+slug: excellent-feature-for-some-reason
 ---
 ```
 
@@ -149,6 +150,8 @@ slug:
 - `sidebar_label` represents the document title used in the sidebar (left
   navigation). Create a short document title that fits the sidebar width. Use
   sentence case.
+- `slug` is an optional property that allows you to customize the document URL.
+  Use it to create more meaningful, SEO-friendly URLs.
 
 ### Bolding, 'code formatting'
 
@@ -179,7 +182,7 @@ slug:
 
 ### Code blocks
 
-- Always add programming language identifier to code blocks. Ory documentation
+- Always add a programming language identifier to code blocks. Ory documentation
   uses [Prism syntax highlighting](https://prismjs.com/).
 
   ````
@@ -230,7 +233,8 @@ Follow these rules when using placeholders and dummy data:
 
 ### UI references
 
-When talking about any UI in the Ory documentation follow these rules:
+When talking about any user interface (UI) in the Ory documentation, follow
+these rules:
 
 - When referring to UI elements, always use the exact text associated with the
   given element.
@@ -287,7 +291,7 @@ import ExamplePartial from './_common/example.md'
 
 Use
 [CodeFromRemote](https://github.com/ory/docusaurus-template/blob/master/src/theme/CodeFromRemote.js)
-to import code directly from Github.
+to import code directly from GitHub.
 
 Use this `mdx-code-block`:
 
@@ -356,9 +360,9 @@ We recommend using
 [Quicktime to record videos](https://support.apple.com/en-gb/guide/quicktime-player/qtp97b08e666/mac).
 Follow these rules:
 
-1. Use 16:9 format with at least 1024 pixels of width. `ffmpeg` will scale it to
-   the right size.
-2. Make sure that no history or auto-suggestions are visible.
+- Use 16:9 format with at least 1024 pixels of width. `ffmpeg` will scale it to
+  the right size.
+- Make sure that no history or auto-suggestions are visible.
 
 After recording the video, convert the `.mov` file to `mp4` and `webm`:
 
@@ -386,10 +390,13 @@ import VideoEmbed from '@site/src/components/VideoEmbed'
 To test the documentation locally:
 
 1. Clone this repository.
-2. Enter the `/docs` folder in your local git environment.
-3. Install dependencies by running: `npm install`.
-4. Run the Docs webserver and test the documentation by running: `npm start`
-5. Build the docs and verify by running: `npm run build`
+2. Navigate to the cloned repository and run `npm install` to install all
+   dependencies.
+3. Run the development server and test the changes you made using a fully
+   operational version of the documentation portal that runs on your machine.
+   Run `npm run start`.
+4. Create a production build to check for any technical issues, such as invalid
+   internal links. Run `npm run build`.
 
 ## Formatting documentation
 
@@ -415,7 +422,7 @@ For a better workflow, install the Prettier plugin for your editor:
 [The "Examples" page](https://www.ory.sh/docs/examples) provides an overview of
 Ory examples. To add a new example or modify existing entries:
 
-1.  Open `examples-content.tsx` under the path `docs/src/pages/_assets/`.
+1.  Open `examples-content.tsx` in `docs/src/pages/_assets/`.
 2.  Copy the following snippet and append it to the correct array (either
     official, community, or self-hosting examples):
 
