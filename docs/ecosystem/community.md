@@ -52,6 +52,7 @@ modifies the core technology. This isn't an exhaustive list. Want your own conte
 - [Ory Hydra Identity Provider](https://github.com/janekolszak/idp)
 - [Ory Hydra PoC for OAuth 2.0/OIDC provider](https://git.dittberner.info/jan/hydra_oidc_poc)
 - [Ory Hydra Python login/consent provider example](https://github.com/westphahl/hydra-login-consent-python)
+- [Ory Hydra Java login/consent provider example](https://github.com/ardetrick/ory-hydra-refrence-java)
 
 ### Ory Keto
 
