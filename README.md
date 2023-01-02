@@ -422,7 +422,7 @@ For a better workflow, install the Prettier plugin for your editor:
 [The "Examples" page](https://www.ory.sh/docs/examples) provides an overview of
 Ory examples. To add a new example or modify existing entries:
 
-1.  Open `examples-content.tsx` in `docs/src/pages/_assets/`.
+1.  Open `examples-content.tsx` in `src/pages/_assets/`.
 2.  Copy the following snippet and append it to the correct array (either
     official, community, or self-hosting examples):
 

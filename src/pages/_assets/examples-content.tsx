@@ -224,6 +224,14 @@ export const community: PropTypes = {
       repo: "https://github.com/emrahcom/kratos-selfservice-svelte-node",
       docs: "https://github.com/emrahcom/kratos-selfservice-svelte-node/blob/master/README.md",
     },
+    {
+      title: 'Ory Hydra Reference Implementation - Java - Spring',
+      language: 'java',
+      author: 'ardetrick',
+      tested: false,
+      repo: 'https://github.com/ardetrick/ory-hydra-refrence-java',
+      docs: 'https://github.com/ardetrick/ory-hydra-refrence-java/blob/main/README.md'
+    },
   ],
 }
 
