@@ -3,15 +3,9 @@ id: contributing
 title: Contribute to Ory
 ---
 
-<!--
+This document explains how you can contribute to Ory. 
 
-Thank you for contributing changes to this document! Because we use a central repository
-to synchronize this file across all our repositories, make sure to make your edits
-in the correct file, which you can find here:
-
-https://github.com/ory/docs/blob/master/docs/ecosystem/contributing.md
-
--->
+If have have ideas to improve it, please have a look at the[ main template](https://github.com/ory/docs/blob/master/docs/ecosystem/contributing.md).
 
 ## Introduction
 

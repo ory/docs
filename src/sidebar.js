@@ -346,9 +346,13 @@ module.exports = {
     {
       type: "category",
       label: "Open source",
+      link: {
+        type: "generated-index",
+      },
       items: [
         "open-source",
         "open-source/commitment",
+        "ecosystem/community",
         "ecosystem/contributing",
         "ecosystem/software-architecture-philosophy",
         {
