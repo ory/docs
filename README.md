@@ -428,12 +428,12 @@ Ory examples. To add a new example or modify existing entries:
 
     ```tsx
     {
-          title: 'Protect a Page with Login: NextJs/React', //Your example title goes here
-          language: 'typescript',                           //The main programming language of your example
-          author: 'ory',                                    //The author's GitHub handle
+          title: "Protect a Page with Login: NextJs/React", //Your example title goes here
+          language: "typescript",                           //The main programming language of your example
+          author: "ory",                                    //The author's GitHub handle
           tested: true,                                     //Is the example in ory/examples or ory/docs and has automated tests?
-          repo: 'https://github.com/ory/docs/tree/master/code-examples/protect-page-login/nextjs', //The repo containing the example code
-          docs: 'https://www.ory.sh/docs/guides/protect-page-login/next.js'                        //Documentation for the example, can be README, blog article or similar
+          repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/nextjs", //The repo containing the example code
+          docs: "https://www.ory.sh/docs/guides/protect-page-login/next.js"                        //Documentation for the example, can be README, blog article or similar
         },
     ```
 
