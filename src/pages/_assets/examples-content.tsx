@@ -230,7 +230,7 @@ export const community: PropTypes = {
       author: "ardetrick",
       tested: false,
       repo: "https://github.com/ardetrick/ory-hydra-refrence-java",
-      docs: "https://github.com/ardetrick/ory-hydra-refrence-java/blob/main/README.md"
+      docs: "https://github.com/ardetrick/ory-hydra-refrence-java/blob/main/README.md",
     },
   ],
 }
