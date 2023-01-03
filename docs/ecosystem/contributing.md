@@ -24,7 +24,7 @@ wall of rules to get in the way of that.
 
 That said, if you want to ensure that a pull request is going to be merged, talk to us! You can find out our thoughts and ensure
 that your contribution won't clash with Ory's normal direction. A great way to do this is via GitHub Discussions
-(([The Ory Network](https://github.com/ory/cloud/discussions), [Ory Kratos](https://github.com/ory/kratos/discussions),
+(([The Ory Network](https://github.com/ory/network/discussions), [Ory Kratos](https://github.com/ory/kratos/discussions),
 [Ory Hydra](https://github.com/ory/kratos/discussions), [Ory Keto](https://github.com/ory/kratos/discussions),
 [Ory Oathkeeper](https://github.com/ory/kratos/discussions))) or the [Ory Chat](https://www.ory.sh/chat).
 
@@ -75,7 +75,7 @@ You can contribute without writing any code in multiple ways . Here are a few th
 We use [Slack](https://www.ory.sh/chat). You are welcome to drop in and ask questions, discuss bugs and feature requests, talk to
 other users of Ory, etc.
 
-Check out [Discussions] for [The Ory Network](https://github.com/ory/cloud/discussions),
+Check out [Discussions] for [The Ory Network](https://github.com/ory/network/discussions),
 [Ory Kratos](https://github.com/ory/kratos/discussions), [Ory Hydra](https://github.com/ory/kratos/discussions),
 [Ory Keto](https://github.com/ory/kratos/discussions), [Ory Oathkeeper](https://github.com/ory/kratos/discussions), and
 [more](https://github.com/ory/kratos/discussions). This is a great place for in-depth discussions and lots of code examples, logs

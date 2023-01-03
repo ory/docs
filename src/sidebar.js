@@ -346,9 +346,6 @@ module.exports = {
     {
       type: "category",
       label: "Open source",
-      link: {
-        type: "generated-index",
-      },
       items: [
         "open-source",
         "open-source/commitment",
