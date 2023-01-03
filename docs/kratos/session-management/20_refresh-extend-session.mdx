@@ -51,8 +51,7 @@ To get the Session ID, call the `/sessions/whoami` endpoint or `toSession` SDK m
 
 ## Refresh threshold
 
-You can limit the time in which the session can be refreshed by adjusting the
-`earliest_possible_extend` configuration.
+You can limit the time in which the session can be refreshed by adjusting the `earliest_possible_extend` configuration.
 
 For example, if you set `earliest_possible_extend` to `24h`, sessions can't be refreshed sooner than 24 hours before they expire.
 
@@ -64,7 +63,6 @@ to be refreshed during their entire lifespan, even right after they are created.
 If you set `earliest_possible_extend` to `lifespan`, all sessions will constantly be refreshed!
 
 :::
-
 
 ````mdx-code-block
 <Tabs>
