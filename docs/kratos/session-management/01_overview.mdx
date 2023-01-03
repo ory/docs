@@ -121,7 +121,7 @@ This flow is similar to [GitHub's sudo mode](https://help.github.com/en/github/a
 
 :::
 
-The session is considered privileged when its `authenticated_at` isn't older than the `privileged_session_max_age` value defined
+The session is considered privileged when its `authenticated_at` is younger than the `privileged_session_max_age` value defined
 in the configuration.
 
 ### Configuration
