@@ -101,8 +101,8 @@ ory get identity-config {project-id} --format yaml > identity-config.yaml
 ```yaml title="config.yml"
 session:
   cookie:
-    domain: fancy-moofasa-nsuq4mdx5a.projects.oryapis.com
-    name: ory_session_fancymoofasansuq4mdx5a
+    domain: {project.slug}.projects.oryapis.com
+    name: ory_session_{name}
     path: /
     // highlight-start
     persistent: false
