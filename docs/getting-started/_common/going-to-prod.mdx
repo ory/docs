@@ -1,8 +1,9 @@
-Going to production with your app is possible in many ways. Whether you deploy it on Kubernetes, AWS, a VM, or a RaspberryPi is up
-to you. To get your app working with Ory, your app and Ory must be available under the same common domain (e.g.
-`https://ory.example.com` and `https://www.example.com`).
+You can use many different approaches to go to production with your application. You can deploy it on Kubernetes, AWS, a VM, a
+RaspberryPi - the choice is yours! To connect the application to your Ory project, the app and Ory APIs must be available under
+the same common domain, for example `https://ory.example.com` and `https://www.example.com`.
 
-The easiest way to connect Ory to your domain is to connect Ory to a subdomain of yours. You can do this easily by
-[adding a Custom Domain to your project](../../guides/custom-domains.mdx).
+You can easily connect Ory to your subdomain. To do that,
+[add a Custom Domain to your Ory Network project](../../guides/custom-domains.mdx).
 
-With the custom domain set up, you do not need the Ory Proxy anymore and will use the configured custom domain in your SDK calls:
+With the custom domain set up, you don't need to use Ory Proxy or Ory Tunnel to interact with Ory APIs. Instead, use the
+configured custom domain in your SDK calls:

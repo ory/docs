@@ -1,23 +1,28 @@
 ---
 id: dotnet
-title: Integrate authentication into ASP.NET Core
-sidebar_label: Dotnet / ASP.NET Core
+title: Integrate authentication into ASP.NET
+sidebar_label: .NET / ASP.NET
 ---
 
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock'
-import Teaser from '../_common/teaser.mdx'
-import mp4 from '../_static/go/screencast.mp4'
-import webm from '../_static/go/screencast.webm'
-
-<Teaser
-  language={<a href="https://dotnet.microsoft.com/en-us/">.NET</a>}
-  framework={<a href="https://dotnet.microsoft.com/en-us/apps/aspnet">ASP.NET Core</a>}
-  mp4={mp4}
-  webm={webm}
-  url="https://github.com/ory/docs/tree/master/code-examples/protect-page-login/dotnet/01-basic"
-/>
 ```
+
+This guide shows how to create a simple [ASP.NET](https://dotnet.microsoft.com/en-us/apps/aspnet) application and secure it with
+authentication powered by Ory. You can use this guide with both The Ory Network and self-hosted Ory software.
+
+This guide is perfect for you if:
+
+1. You have [.NET](https://dotnet.microsoft.com/en-us/) installed.
+2. You want to build an app using [ASP.NET](https://dotnet.microsoft.com/en-us/apps/aspnet).
+3. You want to give access to your application to signed-in users only.
+
+:::info
+
+You can find the code of the sample application
+[here](https://github.com/ory/docs/tree/master/code-examples/protect-page-login/dotnet/01-basic).
+
+:::
 
 ## Install Ory CLI
 
@@ -25,23 +30,15 @@ Follow [this guide](../../guides/cli/01_installation.mdx) to install the Ory CLI
 
 ### Why do I Need the Ory CLI?
 
-```mdx-code-block
-import OryCLI from '../_common/ory-cli.mdx'
+Ory CLI provides a convenient way to configure and manage projects. Additionally, the CLI contains Ory Tunnel, which exposes Ory
+APIs under the same top-level domain as your application to ensure that there are no CORS issues. This allows the application that
+runs on your machine to connect to Ory APIs.
 
-<OryCLI />
-```
+[![Ory Tunnel](https://mermaid.ink/img/pako:eNq9U7FOxDAM_RUrCwNUvQGWDEitQOgG4CS6IHUJqXuNaJPiOCCE-HeS9uA47iSY6BDV9vOL_Ry_Ce0aFFJ4fApoNV4YtSY11BbipwI7G4YHpNkeFbHRZlSWoQTloST34g9FixS9d4GgGEdQvI-oEuKWXqEK1mJ_gGK13ECOfDJ8bWdQmZ2fHxcSri4r6JhHmee906rvnGd5tlgsZliRYJUE3aF-BI_eG7dhqCaG1fJgMPpjOIuZrTI9NtuUrNj1pRuyUgJhYwg1A7v9gk5jQbnHvs2iUM9GY4ytjc0fvktXbmo92NKfGLYtJY5f4TeOEcisOwbXwpQ3IrWOhtjN2ngmxVERULbJHcHEMJ36p0g-aB3la0M_o77J9Zs021n920g31e7OdMf5OdQkHoJ2ltHG5ytOxIA0KNPEZXlL0FpwhwPWQsbfRtFjLWr7HnFpa-5erRaSKeCJCGOj-HOxhGxV77-8l41hR19OnMzreSWnzXz_ADSbKoU?type=png)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNq9U7FOxDAM_RUrCwNUvQGWDEitQOgG4CS6IHUJqXuNaJPiOCCE-HeS9uA47iSY6BDV9vOL_Ry_Ce0aFFJ4fApoNV4YtSY11BbipwI7G4YHpNkeFbHRZlSWoQTloST34g9FixS9d4GgGEdQvI-oEuKWXqEK1mJ_gGK13ECOfDJ8bWdQmZ2fHxcSri4r6JhHmee906rvnGd5tlgsZliRYJUE3aF-BI_eG7dhqCaG1fJgMPpjOIuZrTI9NtuUrNj1pRuyUgJhYwg1A7v9gk5jQbnHvs2iUM9GY4ytjc0fvktXbmo92NKfGLYtJY5f4TeOEcisOwbXwpQ3IrWOhtjN2ngmxVERULbJHcHEMJ36p0g-aB3la0M_o77J9Zs021n920g31e7OdMf5OdQkHoJ2ltHG5ytOxIA0KNPEZXlL0FpwhwPWQsbfRtFjLWr7HnFpa-5erRaSKeCJCGOj-HOxhGxV77-8l41hR19OnMzreSWnzXz_ADSbKoU)
 
-### Usage of Ory Tunnel
+## Create ASP.NET app
 
-We will be using the [Ory Tunnel](../../guides/cli/proxy-and-tunnel#ory-tunnel) in this tutorial. The interactions being performed
-in his example are shown here:
-[![Interactions for authenticating users in this example](https://mermaid.ink/img/pako:eNq9U7FOxDAM_RUrCwNUvQGWDEitQOgG4CS6IHUJqXuNaJPiOCCE-HeS9uA47iSY6BDV9vOL_Ry_Ce0aFFJ4fApoNV4YtSY11BbipwI7G4YHpNkeFbHRZlSWoQTloST34g9FixS9d4GgGEdQvI-oEuKWXqEK1mJ_gGK13ECOfDJ8bWdQmZ2fHxcSri4r6JhHmee906rvnGd5tlgsZliRYJUE3aF-BI_eG7dhqCaG1fJgMPpjOIuZrTI9NtuUrNj1pRuyUgJhYwg1A7v9gk5jQbnHvs2iUM9GY4ytjc0fvktXbmo92NKfGLYtJY5f4TeOEcisOwbXwpQ3IrWOhtjN2ngmxVERULbJHcHEMJ36p0g-aB3la0M_o77J9Zs021n920g31e7OdMf5OdQkHoJ2ltHG5ytOxIA0KNPEZXlL0FpwhwPWQsbfRtFjLWr7HnFpa-5erRaSKeCJCGOj-HOxhGxV77-8l41hR19OnMzreSWnzXz_ADSbKoU?type=png)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNq9U7FOxDAM_RUrCwNUvQGWDEitQOgG4CS6IHUJqXuNaJPiOCCE-HeS9uA47iSY6BDV9vOL_Ry_Ce0aFFJ4fApoNV4YtSY11BbipwI7G4YHpNkeFbHRZlSWoQTloST34g9FixS9d4GgGEdQvI-oEuKWXqEK1mJ_gGK13ECOfDJ8bWdQmZ2fHxcSri4r6JhHmee906rvnGd5tlgsZliRYJUE3aF-BI_eG7dhqCaG1fJgMPpjOIuZrTI9NtuUrNj1pRuyUgJhYwg1A7v9gk5jQbnHvs2iUM9GY4ytjc0fvktXbmo92NKfGLYtJY5f4TeOEcisOwbXwpQ3IrWOhtjN2ngmxVERULbJHcHEMJ36p0g-aB3la0M_o77J9Zs021n920g31e7OdMf5OdQkHoJ2ltHG5ytOxIA0KNPEZXlL0FpwhwPWQsbfRtFjLWr7HnFpa-5erRaSKeCJCGOj-HOxhGxV77-8l41hR19OnMzreSWnzXz_ADSbKoU)
-
-## Setup
-
-### Create an ASP.NET Core app
-
-We will base this on the empty web template. Run these commands:
+Create an empty web template as a starting point for this example. Run these commands:
 
 ```shell-session
 mkdir your-project
@@ -50,21 +47,17 @@ cd your-project
 dotnet new web
 ```
 
-![Create ASP.NET Core app](../_static/dotnet/new_project.gif)
+## Install Ory SDK
 
-### Install Ory SDK
-
-Run this command to install the Ory SDK which allows you to interact with Ory APIs:
+Run this command to install the Ory SDK:
 
 ```shell-session
 dotnet add package Ory.Client
 ```
 
-![Add Ory.Client package](../_static/dotnet/add_package.gif)
-
 ### Configure the SDK
 
-We will need to add the Ory Client to this app. Make the following changes to the `Program.cs` file that was generated:
+Add the Ory Client to the template app. Make the following changes to the `Program.cs` file:
 
 ```csharp title="Program.cs" showLineNumbers
 // add-lines-start
@@ -103,7 +96,7 @@ app.Run();
 Next, create middleware that checks if the user has a valid session. The session is considered valid when the user is
 authenticated.
 
-The middleware passes the request cookies to the Ory client to check if the session is valid.
+The middleware passes the request cookies to the Ory Client to check if the session is valid.
 
 If the session is valid, the user is presented with the protected page. When the session is not valid, which means that the user
 is not authenticated or the session expired, the request is redirected for login using the Ory Account Experience.
@@ -170,46 +163,42 @@ app.Run();
 
 ## The protected page
 
-As the final step, create an `Index` page that's presented to signed-in users. This page diplays the user's session data.
+1. Create the `Index` RazorPage page that shows session data to users with a valid session.
 
-### Create the page
+   ```shell-session
+   dotnet new page --name Index --no-pagemodel --output Pages
+   ```
 
-Create the `Index` RazorPage that renders the page with the session data:
+2. Add this code to the `Pages/Index.cshtml` file to present the data to the user:
 
-```shell-session
-dotnet new page --name Index --no-pagemodel --output Pages
-```
+   ```cshtml title="Pages/Index.cshtml" showLineNumbers
+   @page
+   @{
+   // add-lines-start
+   // try to retrieve session from HttpContext
+   var session = HttpContext.Items.TryGetValue("req.session", out var item) && item is Ory.Client.Model.ClientSession s ? s.ToJson() : "<NO SESSION>";
+   // add-lines-end
+   }
 
-Add this code to the `Pages/Index.cshtml` file to present the data to the user:
+   // add-lines-start
+   <html lang="en">
+   <head>
+      <title>Ory Network secured ASP.NET Core web app</title>
+   </head>
+   <body>
+      <h1>Dashboard</h1>
+      <hr />
+      <h2>Your Session Data:</h2>
+      <pre><code>@session</code></pre>
+   </body>
+   </html>
+   // add-lines-end
+   ```
 
-```cshtml title="Pages/Index.cshtml" showLineNumbers
-@page
-@{
-  // add-lines-start
-  // try to retrieve session from HttpContext
-  var session = HttpContext.Items.TryGetValue("req.session", out var item) && item is Ory.Client.Model.ClientSession s ? s.ToJson() : "<NO SESSION>";
-  // add-lines-end
-}
+## Configure application
 
-// add-lines-start
-<html lang="en">
-  <head>
-    <title>Ory Network secured ASP.NET Core web app</title>
-  </head>
-  <body>
-    <h1>Dashboard</h1>
-    <hr />
-    <h2>Your Session Data:</h2>
-    <pre><code>@session</code></pre>
-  </body>
-</html>
-// add-lines-end
-```
-
-### App configuration
-
-To configure the app to serve RazorPages, make the following changes in `Program.cs`. Make sure, you replace the line
-`app.MapGet("/", () => "Hello World!");` with `app.MapRazorPages();`.
+To configure the app to serve RazorPages, make the following changes in `Program.cs`. Make sure to replace the
+`app.MapGet("/", () => "Hello World!");` line with `app.MapRazorPages();`.
 
 ```csharp title="Program.cs" showLineNumbers
 using Ory.Client.Api;
@@ -283,33 +272,29 @@ app.Run();
 
 With all of the pieces in place, it's time to test your application. Follow these steps:
 
-1. Start your ASP.NET app:
+1. Start the application:
 
-```shell-session
-dotnet run
-```
+   ```shell-session
+   dotnet run
+   ```
 
-![Run ASP.NET Core app](../_static/dotnet/dotnet_run.gif)
+2. Run Ory Tunnel to mirror the Ory API endpoints on your application's domain (`localhost`):
 
-2. Run the Ory Tunnel to mirror the Ory API endpoints on your application's domain (`localhost`):
-
-```shell-session
-ory tunnel --project playground --dev http://localhost:5001
-```
-
-![Run Ory Tunnel](../_static/dotnet/ory_tunnel.gif)
+   ```shell-session
+   ory tunnel --project playground --dev http://localhost:5001
+   ```
 
 3. Open [localhost:5001](http://localhost:5001) to access the application. As the initial call is made by an unauthenticated user,
    the middleware doesn't detect a valid session and redirects to the login page of the defined Ory project.
-   <br />
-   <br />
-   From there, you can create a new account or sign in using an existing identity. When you sign in, the session becomes valid and
+4. From there, you can create a new account or sign in using an existing identity. When you sign in, the session becomes valid and
    the application shows the `Index` page with the session data.
 
-## More advanced scenarios
+:::tip
 
-For a more advanced example of integrating Ory with ASP.NET Core please have a look at the
+To see a more advanced example of integrating Ory with ASP.NET Core check out the
 [examples repository](https://github.com/ory/examples/tree/master/dotnet-ory-network).
+
+:::
 
 ## Go to production
 
