@@ -900,8 +900,8 @@
       "permanent": false
     },
     {
-      "source": "/docs/kratos/session-management/check-session",
-      "destination": "https://www.ory.sh/docs/identities/sign-in/check-session-token-cookie-api",
+      "source": "/docs/self-service/flows/account-recovery",
+      "destination": "https://www.ory.sh/docs/kratos/self-service/flows/account-recovery-password-reset",
       "permanent": false
     }
   ]
