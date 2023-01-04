@@ -34,6 +34,87 @@ For security reasons, you can't break the isolation between cookies and session 
 
 An example of an Ory session can be seen in the [Get session API](../../reference/api#tag/identity/operation/getSession) response.
 
+```json
+{
+  "active": true,
+  "authenticated_at": "2019-08-24T14:15:22Z",
+  "authentication_methods": [
+    {
+      "aal": "aal0",
+      "completed_at": "2019-08-24T14:15:22Z",
+      "method": "link_recovery"
+    }
+  ],
+  "authenticator_assurance_level": "aal0",
+  "devices": [
+    {
+      "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+      "ip_address": "string",
+      "location": "string",
+      "user_agent": "string"
+    }
+  ],
+  "expires_at": "2019-08-24T14:15:22Z",
+  "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+  "identity": {
+    "created_at": "2019-08-24T14:15:22Z",
+    "credentials": {
+      "property1": {
+        "config": {},
+        "created_at": "2019-08-24T14:15:22Z",
+        "identifiers": [
+          "string"
+        ],
+        "type": "password",
+        "updated_at": "2019-08-24T14:15:22Z",
+        "version": 0
+      },
+      "property2": {
+        "config": {},
+        "created_at": "2019-08-24T14:15:22Z",
+        "identifiers": [
+          "string"
+        ],
+        "type": "password",
+        "updated_at": "2019-08-24T14:15:22Z",
+        "version": 0
+      }
+    },
+    "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+    "metadata_admin": {},
+    "metadata_public": {},
+    "recovery_addresses": [
+      {
+        "created_at": "2019-08-24T14:15:22Z",
+        "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+        "updated_at": "2019-08-24T14:15:22Z",
+        "value": "string",
+        "via": "string"
+      }
+    ],
+    "schema_id": "string",
+    "schema_url": "string",
+    "state": "active",
+    "state_changed_at": "2019-08-24T14:15:22Z",
+    "traits": null,
+    "updated_at": "2019-08-24T14:15:22Z",
+    "verifiable_addresses": [
+      {
+        "created_at": "2014-01-01T23:28:56.782Z",
+        "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+        "status": "string",
+        "updated_at": "2014-01-01T23:28:56.782Z",
+        "value": "string",
+        "verified": true,
+        "verified_at": "2019-08-24T14:15:22Z",
+        "via": "string"
+      }
+    ]
+  },
+  "issued_at": "2019-08-24T14:15:22Z"
+}
+```
+
 | Property           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | :----------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `active`           | When set to `true`, the Ory Session is active and can be used to authenticate requests.                                                                                                                                                                                                                                                                                                                                                                                                                          |
