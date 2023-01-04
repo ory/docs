@@ -75,7 +75,7 @@ You can contribute without writing any code in multiple ways . Here are a few th
 We use [Slack](https://www.ory.sh/chat). You are welcome to drop in and ask questions, discuss bugs and feature requests, talk to
 other users of Ory, etc.
 
-Check out [Discussions] for [The Ory Network](https://github.com/ory/network/discussions),
+Check out discussions for [The Ory Network](https://github.com/ory/network/discussions),
 [Ory Kratos](https://github.com/ory/kratos/discussions), [Ory Hydra](https://github.com/ory/kratos/discussions),
 [Ory Keto](https://github.com/ory/kratos/discussions), [Ory Oathkeeper](https://github.com/ory/kratos/discussions), and
 [more](https://github.com/ory/kratos/discussions). This is a great place for in-depth discussions and lots of code examples, logs
