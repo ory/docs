@@ -62,9 +62,7 @@ An example of an Ory session can be seen in the [Get session API](../../referenc
       "property1": {
         "config": {},
         "created_at": "2019-08-24T14:15:22Z",
-        "identifiers": [
-          "string"
-        ],
+        "identifiers": ["string"],
         "type": "password",
         "updated_at": "2019-08-24T14:15:22Z",
         "version": 0
@@ -72,9 +70,7 @@ An example of an Ory session can be seen in the [Get session API](../../referenc
       "property2": {
         "config": {},
         "created_at": "2019-08-24T14:15:22Z",
-        "identifiers": [
-          "string"
-        ],
+        "identifiers": ["string"],
         "type": "password",
         "updated_at": "2019-08-24T14:15:22Z",
         "version": 0
@@ -123,12 +119,11 @@ An example of an Ory session can be seen in the [Get session API](../../referenc
 
 ### Using Ory Session Cookie
 
-An Ory Session Cookie is issued when the user signs in through the browser based self-service login flow. To get the session payload, send a request to the
-`/sessions/whoami` endpoint.
+An Ory Session Cookie is issued when the user signs in through the browser based self-service login flow. To get the session
+payload, send a request to the `/sessions/whoami` endpoint.
 
-:::note
-Browser based applications including single-page applications(SPAs) and server-side rendered should use cookies instead of the session tokens.
-:::
+:::note Browser based applications including single-page applications(SPAs) and server-side rendered should use cookies instead of
+the session tokens. :::
 
 ````mdx-code-block
 <Tabs groupId="sdk-console">
@@ -159,10 +154,8 @@ import reactWhoAmI from "!!raw-loader!@site/code-examples/sdk/typescript/src/sel
 An Ory Session Token is issued when the user authenticates through a client other than a web browser. To get the session payload,
 send a request to the `/sessions/whoami` endpoint.
 
-:::note
-Native applications such as desktop and mobile applications, terminal based applications that do not run inside a browser should use session tokens instead of cookies.
-:::
-
+:::note Native applications such as desktop and mobile applications, terminal based applications that do not run inside a browser
+should use session tokens instead of cookies. :::
 
 ````mdx-code-block
 <Tabs groupId="sdk-console">
