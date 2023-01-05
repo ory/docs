@@ -13,16 +13,15 @@ import { getSdkUrl } from '@site/src/hooks'
 import CodeBlock from '@theme/CodeBlock'
 ```
 
-When an identity or end-user authenticates, for example by signing in with their username and password, they receive an Ory
-Session. The session is proof that the user is authenticated and allows to interact with the system without the need to
-authenticate again for every request.
+When a user authenticates, for example by signing in with their username and password, they receive a session. The session is
+proof that the user is authenticated and allows to interact with the system without the need to re-authenticate for every request.
 
 Sessions can be issued in two formats:
 
-- **Session cookie** - when the system detects that the interaction is done through a web browser, a cookie which represents the
-  user's Session is stored in the browser.
-- **Session token** - when the system detects a client other than a web browser, for example a native mobile app, a Session token
-  is issued to the client.
+- **Ory Session Cookie** - when the system detects that the interaction is performed through a web browser, a cookie which
+  represents the user's session is stored in the browser.
+- **Ory Session Token** - when the system detects that the interaction is performed by a client other than a web browser, for
+  example a native mobile app, a session token is issued to the client.
 
 :::note
 
@@ -30,9 +29,9 @@ For security reasons, you can't break the isolation between cookies and session 
 
 :::
 
-## Ory Session
+## Ory session
 
-An example of an Ory session can be seen in the [Get session API](../../reference/api#tag/identity/operation/getSession) response.
+This is a sample session:
 
 ```json
 {
@@ -119,13 +118,13 @@ An example of an Ory session can be seen in the [Get session API](../../referenc
 
 ### Using Ory Session Cookie
 
-An Ory Session Cookie is issued when the user signs in through the browser based self-service login flow. To get the session
-payload, send a request to the `/sessions/whoami` endpoint.
+An Ory Session Cookie is issued when the user signs in through the browser-based login flow. To get the session payload, send a
+request to the `/sessions/whoami` endpoint.
 
 :::note
 
-Browser based applications including single-page applications(SPAs) and server-side rendered should use cookies instead of the
-session tokens.
+Browser-based applications including single-page applications (SPAs) and server-side rendered apps should use session cookies
+instead of session tokens.
 
 :::
 
@@ -141,7 +140,6 @@ import reactWhoAmI from "!!raw-loader!@site/code-examples/sdk/typescript/src/sel
 
 </TabItem>
 <TabItem value="curl" label="cURL">
-
 
 ```mdx-code-block
 <CodeBlock language="shell">{`curl '${getSdkUrl().url}/sessions/whoami' \\
@@ -160,8 +158,8 @@ send a request to the `/sessions/whoami` endpoint.
 
 :::note
 
-Native applications such as desktop and mobile applications, terminal based applications that do not run inside a browser should
-use session tokens instead of cookies.
+Native applications such as desktop applications, mobile applications, or terminal-based apps that do not run inside a browser
+should use session tokens instead of session cookies.
 
 :::
 
@@ -187,142 +185,40 @@ import nativeWhoAmI from "!!raw-loader!@site/code-examples/sdk/typescript/src/se
 </TabItem>
 <TabItem value="curl" label="cURL">
 
-
-  ```mdx-code-block
-  <CodeBlock language="shell">{`curl '${getSdkUrl().url}/sessions/whoami' \\
-    -H 'Accept: application/json' \\
-    -H 'Authorization: Bearer BRFbGMzTnBiMjVmZEcEdjM1J5YVc1bkRDSUFvME5VNVlaVeWJrUnZhSEF4YmxSV2VVRlhNMWwxVlVGenxXpsk2cLXV41N6bFxvVJSt7CeICy'`}</CodeBlock>
-  ```
+```mdx-code-block
+<CodeBlock language="shell">{`curl '${getSdkUrl().url}/sessions/whoami' \\
+   -H 'Accept: application/json' \\
+   -H 'Authorization: Bearer BRFbGMzTnBiMjVmZEcEdjM1J5YVc1bkRDSUFvME5VNVlaVeWJrUnZhSEF4YmxSV2VVRlhNMWwxVlVGenxXpsk2cLXV41N6bFxvVJSt7CeICy'`}</CodeBlock>
+```
 
 </TabItem>
 </Tabs>
 ````
 
-## Privileged Sessions
-
-import { privilegedVideo } from "../../kratos/self-service/flows/code/settings"
-
-To perform some profile changes, such as updating the email address, password, or adding/removing 2FA, the user must have a
-privileged session.
-
-:::tip
-
-This flow is similar to [GitHub's sudo mode](https://help.github.com/en/github/authenticating-to-github/sudo-mode).
-
-:::
-
-The session is considered privileged when its `authenticated_at` is younger than the `privileged_session_max_age` value defined in
-the configuration.
-
-### Configuration
-
-This is how you update the `privileged_session_max_age` to `15m`:
-
-````mdx-code-block
-<Tabs>
-<TabItem value="console" label="Ory Console" default>
-
-To change the privileged session duration, go to [**Ory Console**](https://console.ory.sh/) → **Session Settings**, enter the desired value (Use hour (h), minute (m), second (s) to define interval, for example: 1h15m30s, 15m30s, 1m) in the Privileged Sessions section and click the **Save** button.
-
-For example, to set the privileged session duration to 15 minutes, enter `15m`.
-
-  </TabItem>
-  <TabItem value="cloud" label="Ory CLI">
-
-1. Download the Ory Identities config from your project and save it to a file.
-
-```shell
-## List all available projects
-ory list projects
-
-## Get config
-ory get identity-config {project-id} --format yaml > identity-config.yaml
-```
-
-2. Update the configuration value for privileged session max age property (`privileged_session_max_age`) to the desired value (Use hour (h), minute (m), second (s) to define interval, for example: 15m30s, 1m).
-
-```yaml title="config.yml"
-selfservice:
-  flows:
-    settings:
-      after:
-        hooks: []
-        password:
-          hooks: []
-        profile:
-          hooks: []
-      ui_url: /ui/settings
-      // highlight-start
-      privileged_session_max_age: 15m
-      // highlight-end
-      required_aal: highest_available
-```
-
-3. Update the Ory Identities configuration using the file you worked with.
-
-```shell
- ory update identity-config {project-id} --file identity-config.yaml
-```
-
-  </TabItem>
-</Tabs>
-````
-
-With this configuration in place, the user can perform the actions that require a privileged session up to 15 minutes after
-signing in. When this time passes, the user must re-authenticate to access these options.
-
-### Demo
-
-Watch this video to see the flow in action:
-
-<video controls width="100%">
-  <source src={privilegedVideo.webm} type="video/webm" />
-  <source src={privilegedVideo.mp4} type="video/mp4" />
-  Sorry, your browser doesn't support embedded videos.
-</video>
-
-## Refreshing sessions
-
-You can prompt the user to re-authenticate by interacting with the
-[`/self-service/login/browser`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowForBrowsers) or
-[`/self-service/login/api`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowWithoutBrowser) API and setting the
-`refresh` parameter to true. Once the user has re-authenticated, the `authenticated_at` timestamp of the Ory Session will be set
-to the current time.
-
-```mdx-code-block
-<CodeBlock language="shell">{`${getSdkUrl().url}/self-service/login/browser?refresh=true`}</CodeBlock>
-```
-
-If enabled, you can also refresh the second factor by setting both `refresh` and `aal`:
-
-```mdx-code-block
-<CodeBlock language="shell">{`${getSdkUrl().url}/self-service/login/browser?refresh=true&aal=aal2`}</CodeBlock>
-```
-
 ## JSON Web Token (JWT) support
 
 :::warning
 
-Ory doesn't issue Sessions as JSON Web Tokens (JWTs).
+Ory doesn't issue sessions as JSON Web Tokens (JWTs).
 
 :::
 
 Sessions are not issued as JWTs for two main reasons:
 
-1. Ory Sessions can end at any point in time, indicating that the user is no longer signed in. With JWTs it would not easily be
-   possible to determine whether a session is still valid before the token expires.
-2. Ory Sessions can be updated and changed at any point in time (for example when the user updates their profile), which can't be
-   easily reflected in a JWT before it is refreshed.
+1. Sessions can end at any point in time, indicating that the user is no longer signed in. With JWTs, it's difficult to determine
+   if a session is still valid before the token expires.
+2. Sessions can be updated and changed at any point in time, for example, when the user updates their profile. Such change can't
+   be easily reflected in a JWT before it is refreshed.
 
-We are taking many steps to reduce the latency of `toSession` / `/sessions/whoami` endpoints across the globe for Ory Network, so
-that latency is not an issue for users.
+Ory Network employs a session caching mechanism to reduce the latency for `toSession` / `/sessions/whoami` endpoint calls across
+the globe so that latency is not an issue for users. [Read more about session caching.](../../concepts/cache.mdx)
 
-However, if you don't want to make repeated calls to `toSession` / `/sessions/whoami`, or you need to use JWTs in your setup, you
-can convert Ory Sessions to JWTs on your entry point. There, you could add caching to further reduce the amount of API calls made.
+If you don't want to make repeated calls to `toSession` / `/sessions/whoami`, or you need to use JWTs in your setup, you can
+convert sessions to JWTs on your entry point. There, you could add caching to further reduce the amount of API calls made.
 
 :::tip
 
-[Ory Oathkeeper](https://www.ory.sh/oathkeeper) is an API Gateway capable of converting Ory Sessions to JWTs.
+[Ory Oathkeeper](https://www.ory.sh/oathkeeper) is an API Gateway capable of converting sessions to JWTs.
 
 :::
 

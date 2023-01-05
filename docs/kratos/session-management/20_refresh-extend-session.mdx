@@ -15,7 +15,27 @@ For certain use cases, sessions need to be refreshed on user activity or adminis
 When you refresh a session, its `expires` property is set to a value that is the time when the refresh is triggered plus the
 amount of time defined by the value of `/session/lifespan`.
 
-## Refresh sessions as administrator
+## Forcing session refresh
+
+You can force users to refresh session by prompting them to re-authenticate by interacting with the
+[`/self-service/login/browser`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowForBrowsers) or
+[`/self-service/login/api`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowWithoutBrowser) APIs and setting the
+`refresh` parameter to true.
+
+When the user re-authenticates, the `authenticated_at` timestamp of the session is set to the time when user re-authenticated.
+
+```mdx-code-block
+<CodeBlock language="shell">{`${getSdkUrl().url}/self-service/login/browser?refresh=true`}</CodeBlock>
+```
+
+When forcing users to refresh sessions, you can also force them to refresh their second authentication factor. To do that, set
+`refresh=true` and `aal=aal2`:
+
+```mdx-code-block
+<CodeBlock language="shell">{`${getSdkUrl().url}/self-service/login/browser?refresh=true&aal=aal2`}</CodeBlock>
+```
+
+## Refreshing sessions as administrator
 
 Administrators can refresh the session of a specific user using the
 [extend session API](../../reference/api#tag/identity/operation/extendSession) from the SDK.
@@ -66,40 +86,40 @@ If you set `earliest_possible_extend` to `lifespan`, all sessions will constantl
 
 ````mdx-code-block
 <Tabs>
-  <TabItem value="cloud" label="Ory CLI" default>
+<TabItem value="cloud" label="Ory CLI" default>
 
 1. Download the Ory Identities config from your project and save it to a file:
 
-```shell
-## List all available projects
-ory list projects
+   ```shell
+   ## List all available projects
+   ory list projects
 
-## Get config
-ory get identity-config {project-id} --format yaml > identity-config.yaml
-```
+   ## Get config
+   ory get identity-config {project-id} --format yaml > identity-config.yaml
+   ```
 
 2. Update the configuration value for the property to the desired value. (Use hour (h), minute (m), second (s) to define interval, for example: 1h1m10s, 10s, 1h)
 
-```yaml title="config.yml"
-session:
-  cookie:
-    domain: {project.slug}.projects.oryapis.com
-    name: ory_session_{name}
-    path: /
-    persistent: false
-    same_site: Lax
-  lifespan: 720h0m0s
-  // highlight-start
-  earliest_possible_extend: 24h0m0s
-  // highlight-end
-```
+   ```yaml title="config.yml"
+   session:
+   cookie:
+      domain: {project.slug}.projects.oryapis.com
+      name: ory_session_{name}
+      path: /
+      persistent: false
+      same_site: Lax
+   lifespan: 720h0m0s
+   // highlight-start
+   earliest_possible_extend: 24h0m0s
+   // highlight-end
+   ```
 
 3. Update the Ory Identities configuration using the file you worked with:
 
-```shell
- ory update identity-config {project-id} --file identity-config.yaml
-```
+   ```shell
+   ory update identity-config {project-id} --file identity-config.yaml
+   ```
 
-  </TabItem>
+</TabItem>
 </Tabs>
 ````
