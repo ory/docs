@@ -3,15 +3,9 @@ id: contributing
 title: Contribute to Ory
 ---
 
-<!--
+This document explains how you can contribute to Ory. 
 
-Thank you for contributing changes to this document! Because we use a central repository
-to synchronize this file across all our repositories, make sure to make your edits
-in the correct file, which you can find here:
-
-https://github.com/ory/docs/blob/master/docs/ecosystem/contributing.md
-
--->
+If have have ideas to improve it, please have a look at the[ main template](https://github.com/ory/docs/blob/master/docs/ecosystem/contributing.md).
 
 ## Introduction
 
@@ -30,7 +24,7 @@ wall of rules to get in the way of that.
 
 That said, if you want to ensure that a pull request is going to be merged, talk to us! You can find out our thoughts and ensure
 that your contribution won't clash with Ory's normal direction. A great way to do this is via GitHub Discussions
-(([The Ory Network](https://github.com/ory/cloud/discussions), [Ory Kratos](https://github.com/ory/kratos/discussions),
+(([The Ory Network](https://github.com/ory/network/discussions), [Ory Kratos](https://github.com/ory/kratos/discussions),
 [Ory Hydra](https://github.com/ory/kratos/discussions), [Ory Keto](https://github.com/ory/kratos/discussions),
 [Ory Oathkeeper](https://github.com/ory/kratos/discussions))) or the [Ory Chat](https://www.ory.sh/chat).
 
@@ -81,7 +75,7 @@ You can contribute without writing any code in multiple ways . Here are a few th
 We use [Slack](https://www.ory.sh/chat). You are welcome to drop in and ask questions, discuss bugs and feature requests, talk to
 other users of Ory, etc.
 
-Check out [Discussions] for [The Ory Network](https://github.com/ory/cloud/discussions),
+Check out discussions for [The Ory Network](https://github.com/ory/network/discussions),
 [Ory Kratos](https://github.com/ory/kratos/discussions), [Ory Hydra](https://github.com/ory/kratos/discussions),
 [Ory Keto](https://github.com/ory/kratos/discussions), [Ory Oathkeeper](https://github.com/ory/kratos/discussions), and
 [more](https://github.com/ory/kratos/discussions). This is a great place for in-depth discussions and lots of code examples, logs

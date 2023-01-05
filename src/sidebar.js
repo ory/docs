@@ -349,6 +349,7 @@ module.exports = {
       items: [
         "open-source",
         "open-source/commitment",
+        "ecosystem/community",
         "ecosystem/contributing",
         "ecosystem/software-architecture-philosophy",
         {
