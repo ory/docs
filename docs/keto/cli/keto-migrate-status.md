@@ -25,7 +25,7 @@ keto migrate status [flags]
 ### Options
 
 ```
-      --format string   Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
+      --format string   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help            help for status
   -q, --quiet           Be quiet with output printing.
 ```
