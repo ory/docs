@@ -1,23 +1,27 @@
 ---
 id: overview
-title: Overview of sessions, session cookies, and session tokens in Ory
+title: Overview of sessions, Ory Session Cookies, and Ory Session Tokens
 sidebar_label: Overview
 ---
 
 # Overview
 
-When an identity or end-user authenticates, for example by signing in with their username and password, they receive an Ory
-Session.
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import { getSdkUrl } from '@site/src/hooks'
+import CodeBlock from '@theme/CodeBlock'
+```
 
-The session is a proof that the user is authenticated and allows to interact with the system without the need to authenticate
-again for every request.
+When a user authenticates, for example by signing in with their username and password, they receive a session. The session is
+proof that the user is authenticated and allows to interact with the system without the need to re-authenticate for every request.
 
 Sessions can be issued in two formats:
 
-- **Session cookie** - when the system detects that the interaction is done through a web browser, a cookie which represents the
-  user's Session is stored in the browser.
-- **Session token** - when the system detects a client other than a web browser, for example a native mobile app, a Session token
-  is issued to the client.
+- **Ory Session Cookie** - when the system detects that the interaction is performed through a web browser, a cookie which
+  represents the user's session is stored in the browser.
+- **Ory Session Token** - when the system detects that the interaction is performed by a client other than a web browser, for
+  example a native mobile app, a session token is issued to the client.
 
 :::note
 
@@ -25,69 +29,84 @@ For security reasons, you can't break the isolation between cookies and session 
 
 :::
 
-## Ory Session
+## Ory session
 
-This is an sample Ory Session:
+This is a sample session:
 
 ```json
 {
-  "id": "1338410d-c473-4503-a96a-53efa06e2531",
   "active": true,
-  "expires_at": "2021-10-15T15:58:57.683338Z",
-  "authenticated_at": "2021-10-14T15:58:57.683338Z",
-  "authenticator_assurance_level": "aal2",
+  "authenticated_at": "2019-08-24T14:15:22Z",
   "authentication_methods": [
     {
-      "method": "password",
-      "completed_at": "2021-10-14T15:55:19.03621Z"
-    },
-    {
-      "method": "lookup_secret",
-      "completed_at": "2021-10-14T15:56:21.257867Z"
-    },
-    {
-      "method": "lookup_secret",
-      "completed_at": "2021-10-14T15:58:57.683337Z"
-    },
-    {
-      "method": "lookup_secret",
-      "completed_at": "2021-10-14T16:03:14.833192Z"
+      "aal": "aal0",
+      "completed_at": "2019-08-24T14:15:22Z",
+      "method": "link_recovery"
     }
   ],
-  "issued_at": "2021-10-14T15:58:57.683338Z",
+  "authenticator_assurance_level": "aal0",
+  "devices": [
+    {
+      "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+      "ip_address": "string",
+      "location": "string",
+      "user_agent": "string"
+    }
+  ],
+  "expires_at": "2019-08-24T14:15:22Z",
+  "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
   "identity": {
-    "id": "9496bbd5-f426-473f-b087-c7df853f274a",
-    "schema_id": "default",
-    "schema_url": "https://<your-project-slug>.projects.oryapis.com/schemas/default",
-    "state": "active",
-    "state_changed_at": "2021-10-14T17:55:17.885497+02:00",
-    "traits": {
-      "website": "https://www.ory.sh/",
-      "email": "0.wz4yhr0zwyd@ory.sh"
-    },
-    "verifiable_addresses": [
-      {
-        "id": "4de14270-ca13-4efb-ac3f-8f03b1f649d8",
-        "value": "0.wz4yhr0zwyd@ory.sh",
-        "verified": false,
-        "via": "email",
-        "status": "sent",
-        "created_at": "2021-10-14T17:55:17.886639+02:00",
-        "updated_at": "2021-10-14T18:03:14.839009+02:00"
+    "created_at": "2019-08-24T14:15:22Z",
+    "credentials": {
+      "property1": {
+        "config": {},
+        "created_at": "2019-08-24T14:15:22Z",
+        "identifiers": ["string"],
+        "type": "password",
+        "updated_at": "2019-08-24T14:15:22Z",
+        "version": 0
+      },
+      "property2": {
+        "config": {},
+        "created_at": "2019-08-24T14:15:22Z",
+        "identifiers": ["string"],
+        "type": "password",
+        "updated_at": "2019-08-24T14:15:22Z",
+        "version": 0
       }
-    ],
+    },
+    "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+    "metadata_admin": {},
+    "metadata_public": {},
     "recovery_addresses": [
       {
-        "id": "fdab5a5f-5efc-4202-93b5-fd3ee632420b",
-        "value": "0.wz4yhr0zwyd@ory.sh",
-        "via": "email",
-        "created_at": "2021-10-14T17:55:17.886831+02:00",
-        "updated_at": "2021-10-14T18:03:14.839105+02:00"
+        "created_at": "2019-08-24T14:15:22Z",
+        "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+        "updated_at": "2019-08-24T14:15:22Z",
+        "value": "string",
+        "via": "string"
       }
     ],
-    "created_at": "2021-10-14T17:55:17.886237+02:00",
-    "updated_at": "2021-10-14T17:55:17.886237+02:00"
-  }
+    "schema_id": "string",
+    "schema_url": "string",
+    "state": "active",
+    "state_changed_at": "2019-08-24T14:15:22Z",
+    "traits": null,
+    "updated_at": "2019-08-24T14:15:22Z",
+    "verifiable_addresses": [
+      {
+        "created_at": "2014-01-01T23:28:56.782Z",
+        "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+        "status": "string",
+        "updated_at": "2014-01-01T23:28:56.782Z",
+        "value": "string",
+        "verified": true,
+        "verified_at": "2019-08-24T14:15:22Z",
+        "via": "string"
+      }
+    ]
+  },
+  "issued_at": "2019-08-24T14:15:22Z"
 }
 ```
 
@@ -97,148 +116,109 @@ This is an sample Ory Session:
 | `expires_at`       | Defines the time when the Session expires. This value depends on the session lifespan configuration.                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `authenticated_at` | Indicates the time of the most recent successful authentication. This value is updated when: <ul><li>The end-user authenticates with a second factor such as TOTP</li><li>The end-user refreshes their session using the [`/self-service/login/browser`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowForBrowsers) endpoint or [`/self-service/login/api`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowWithoutBrowser) endpoint and setting `refresh` to `true`</li></ul> |
 
-## Ory Session Cookie
+### Using Ory Session Cookie
 
-An Ory Session Cookie is issued when the user signs in through a web browser. To get the session payload, send a request to the
-`/sessions/whoami` endpoint:
+An Ory Session Cookie is issued when the user signs in through the browser-based login flow. To get the session payload, send a
+request to the `/sessions/whoami` endpoint.
+
+:::note
+
+Browser-based applications including single-page applications (SPAs) and server-side rendered apps should use session cookies
+instead of session tokens.
+
+:::
+
+````mdx-code-block
+<Tabs groupId="sdk-console">
+<TabItem value="React" label="React">
 
 ```mdx-code-block
-import { getSdkUrl } from '@site/src/hooks'
-import CodeBlock from '@theme/CodeBlock'
+import reactWhoAmI from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/whoami-react.tsx"
 
+<CodeBlock language="ts" title="Checking current session">{reactWhoAmI}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```mdx-code-block
 <CodeBlock language="shell">{`curl '${getSdkUrl().url}/sessions/whoami' \\
   -H 'Accept: application/json' \\
   -H 'Cookie: ory_kratos_session=MTYzNDIyNzEzN3xEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJRTFDYWtvME5VNVlaVWxvYVZWeWJrUnZhSEF4YmxSV2VVRlhNMWwxVlVGenxXpsk2cL21Dclk3nCoXV41N6bFxvVJSt7CeICy_815Aw=='`}</CodeBlock>
 ```
 
-## Ory Session Token
+</TabItem>
+</Tabs>
+````
+
+### Using Ory Session Token
 
 An Ory Session Token is issued when the user authenticates through a client other than a web browser. To get the session payload,
 send a request to the `/sessions/whoami` endpoint.
 
-You must pass the token in one of two ways:
+:::note
 
-- In the `Authorization` HTTP header:
-
-  ```mdx-code-block
-  <CodeBlock language="shell">{`curl '${getSdkUrl().url}/sessions/whoami' \\
-    -H 'Accept: application/json' \
-    -H 'Authorization: Bearer BRFbGMzTnBiMjVmZEcEdjM1J5YVc1bkRDSUFvME5VNVlaVeWJrUnZhSEF4YmxSV2VVRlhNMWwxVlVGenxXpsk2cLXV41N6bFxvVJSt7CeICy'`}</CodeBlock>
-  ```
-
-- In the `X-Session-Token` HTTP header:
-
-  ```mdx-code-block
-  <CodeBlock language="shell">{`curl '${getSdkUrl().url}/sessions/whoami' \\
-    -H 'Accept: application/json' \
-    -H 'X-Session-Token: BRFbGMzTnBiMjVmZEcEdjM1J5YVc1bkRDSUFvME5VNVlaVeWJrUnZhSEF4YmxSV2VVRlhNMWwxVlVGenxXpsk2cLXV41N6bFxvVJSt7CeICy'`}</CodeBlock>
-  ```
-
-## Privileged Sessions
-
-import { privilegedVideo } from "../../kratos/self-service/flows/code/settings"
-
-To perform some profile changes, such as updating the email address, password, or adding/removing 2FA, the user must have a
-privileged session.
-
-:::tip
-
-This flow is similar to [GitHub's sudo mode](https://help.github.com/en/github/authenticating-to-github/sudo-mode).
+Native applications such as desktop applications, mobile applications, or terminal-based apps that do not run inside a browser
+should use session tokens instead of session cookies.
 
 :::
 
-The session is considered privileged when its `authenticated_at` isn't older than the `privileged_session_max_age` value defined
-in the configuration.
-
-This is how you update the `privileged_session_max_age` to `15m`:
-
 ````mdx-code-block
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+<Tabs groupId="sdk-console">
+<TabItem value="go" label="Go" default>
 
-<Tabs>
-  <TabItem value="cloud" label="Ory CLI" default>
+```mdx-code-block
+import goDisableSession from '!!raw-loader!../../../code-examples/sdk/go/selfservice/whoami.go'
 
-```shell
-ory patch identity-config <your-project-id> \\
-  --replace '/selfservice/flows/settings/privileged_session_max_age/lifespan="15m"' # 15 minutes
+<CodeBlock language="go" title="Checking current session">{goDisableSession}</CodeBlock>
 ```
 
-  </TabItem>
-  <TabItem value="macos" label="Self-Hosted Ory Kratos Config" default>
+</TabItem>
+<TabItem value="native" label="TypeScript">
 
-```yaml title=path/to/kratos/config.yml
-settings:
-  after:
-    hooks: []
-    password:
-      hooks: []
-    profile:
-      hooks: []
-  lifespan: 30m0s
-  // highlight-next-line
-  privileged_session_max_age: 15m0s
-  required_aal: highest_available
-  ui_url: /ui/settings
+```mdx-code-block
+import nativeWhoAmI from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/session/whoami-native.ts"
+
+<CodeBlock language="ts" title="Checking current session (Typescript SDK)">{nativeWhoAmI}</CodeBlock>
 ```
 
-  </TabItem>
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```mdx-code-block
+<CodeBlock language="shell">{`curl '${getSdkUrl().url}/sessions/whoami' \\
+   -H 'Accept: application/json' \\
+   -H 'Authorization: Bearer BRFbGMzTnBiMjVmZEcEdjM1J5YVc1bkRDSUFvME5VNVlaVeWJrUnZhSEF4YmxSV2VVRlhNMWwxVlVGenxXpsk2cLXV41N6bFxvVJSt7CeICy'`}</CodeBlock>
+```
+
+</TabItem>
 </Tabs>
 ````
-
-With this configuration in place, the user can perform the actions that require a privileged session up to 15 minutes after
-signing in. When this time passes, the user must re-authenticate to access these options.
-
-Watch this video to see the flow in action:
-
-<video controls width="100%">
-  <source src={privilegedVideo.webm} type="video/webm" />
-  <source src={privilegedVideo.mp4} type="video/mp4" />
-  Sorry, your browser doesn't support embedded videos.
-</video>
-
-## Refreshing sessions
-
-You can prompt the user to re-authenticate by interacting with the
-[`/self-service/login/browser`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowForBrowsers) or
-[`/self-service/login/api`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowWithoutBrowser) API and setting the
-`refresh` parameter to true. Once the user has re-authenticated, the `authenticated_at` timestamp of the Ory Session will be set
-to the current time.
-
-```mdx-code-block
-<CodeBlock language="shell">{`${getSdkUrl().url}/self-service/login/browser?refresh=true`}</CodeBlock>
-```
-
-If enabled, you can also refresh the second factor by setting both `refresh` and `aal`:
-
-```mdx-code-block
-<CodeBlock language="shell">{`${getSdkUrl().url}/self-service/login/browser?refresh=true&aal=aal2`}</CodeBlock>
-```
 
 ## JSON Web Token (JWT) support
 
 :::warning
 
-Ory doesn't issue Sessions as JSON Web Tokens (JWTs).
+Ory doesn't issue sessions as JSON Web Tokens (JWTs).
 
 :::
 
 Sessions are not issued as JWTs for two main reasons:
 
-1. Ory Sessions can end at any point in time, indicating that the user is no longer signed in. With JWTs it would not easily be
-   possible to determine whether a session is still valid before the token expires.
-2. Ory Sessions can be updated and changed at any point in time (for example when the user updates their profile), which can't be
-   easily reflected in a JWT before it is refreshed.
+1. Sessions can end at any point in time, indicating that the user is no longer signed in. With JWTs, it's difficult to determine
+   if a session is still valid before the token expires.
+2. Sessions can be updated and changed at any point in time, for example, when the user updates their profile. Such change can't
+   be easily reflected in a JWT before it is refreshed.
 
-We are taking many steps to reduce the latency of `toSession` / `/sessions/whoami` endpoints across the globe for Ory Network, so
-that latency is not an issue for users.
+Ory Network employs a session caching mechanism to reduce the latency for `toSession` / `/sessions/whoami` endpoint calls across
+the globe so that latency is not an issue for users. [Read more about session caching.](../../concepts/cache.mdx)
 
-However, if you don't want to make repeated calls to `toSession` / `/sessions/whoami`, or you need to use JWTs in your setup, you
-can convert Ory Sessions to JWTs on your entry point. There, you could add caching to further reduce the amount of API calls made.
+If you don't want to make repeated calls to `toSession` / `/sessions/whoami`, or you need to use JWTs in your setup, you can
+convert sessions to JWTs on your entry point. There, you could add caching to further reduce the amount of API calls made.
 
 :::tip
 
-[Ory Oathkeeper](https://www.ory.sh/oathkeeper) is an API Gateway capable of converting Ory Sessions to JWTs.
+[Ory Oathkeeper](https://www.ory.sh/oathkeeper) is an API Gateway capable of converting sessions to JWTs.
 
 :::
 

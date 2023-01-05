@@ -7,14 +7,10 @@ const identityApi = new IdentityApi(
   }),
 )
 
-export async function GetSession(
-  sessionId: string,
-  expandOptions?: Array<"Devices" | "Identity">,
-) {
+export async function RefreshSession(sessionId: string) {
   // highlight-start
-  return await identityApi.getSession({
+  return await identityApi.extendSession({
     id: sessionId,
-    expand: expandOptions,
   })
   // highlight-end
 }
