@@ -30,11 +30,6 @@ in both of the Kratos configurations. You may need to tell your login/registrati
 instances are cheap to deploy and the databases are isolated from each other. For example something like `/login/customer` and
 `/login/employee`.
 
-### How can I verify in advance if a username is available during registration?
-
-You can't right now. It would allow account enumeration attacks. See also the
-[section in the documentation](https://www.ory.sh/kratos/docs/concepts/security/#account-enumeration).
-
 ### Do have plans to support automatic user migration scenarios?
 
 > For example configure a callback to the legacy system when you can't find the corresponding user, and store the identity on
