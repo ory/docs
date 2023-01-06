@@ -17,8 +17,9 @@ The UI created with Ory Elements changes dynamically to adapt to your Ory Networ
 changes to after you edit the Identity Schema without the need for any additional action. The same is true for other options
 available in Ory Network, such as social sign-in connections or passwordless login.
 
-The two available examples provide a closer look at integrating Ory Elements with [Preact](https://preactjs.com/) and
-[React](https://reactjs.org/) TypeScript single-page applications (SPA). By following the instructions you will:
+The three available examples provide a closer look at integrating Ory Elements with [React](https://reactjs.org/),
+[Preact](https://preactjs.com/), and [Next.js](https://nextjs.org/) TypeScript single-page applications (SPA). By following the
+instructions you will:
 
 - Get the example app code from the [Ory Elements repository](https://github.com/ory/elements/).
 - Run the application on your machine.
@@ -58,6 +59,16 @@ Follow these steps to get the sample application code and run it on your machine
      cd elements
      npm run initialize
      cd examples/preact-spa
+     ```
+
+     </TabItem>
+     <TabItem value="nextjs" label="Next.js">
+
+     ```shell
+     git clone --depth 1 git@github.com:ory/elements.git
+     cd elements
+     npm run initialize
+     cd examples/nextjs-spa
      ```
 
      </TabItem>
@@ -134,6 +145,14 @@ The `sdk.ts` file is responsible for creating a new instance of the Ory SDK. Thi
   src="https://raw.githubusercontent.com/ory/elements/main/examples/preact-spa/src/sdk.ts"
 />
   </TabItem>
+  <TabItem value="nextjs" label="Next.js">
+
+<CodeFromRemote
+  lang="tsx"
+  title="pkg/sdk.tsx"
+  src="https://raw.githubusercontent.com/GabeCurran/ory-elements/nextExample/examples/nextjs-spa/pkg/sdk.tsx"
+/>
+  </TabItem>
 </Tabs>
 ```
 
@@ -162,6 +181,14 @@ to the `themeOverrides` property on the `<ThemeProvider />` component.
   src="https://raw.githubusercontent.com/ory/elements/main/examples/preact-spa/src/main.tsx"
 />
 
+  </TabItem>
+  <TabItem value="nextjs" label="Next.js">
+
+<CodeFromRemote
+  lang="tsx"
+  title="pages/_app.tsx"
+  src="https://raw.githubusercontent.com/GabeCurran/ory-elements/nextExample/examples/nextjs-spa/pages/_app.tsx"
+/>
   </TabItem>
 </Tabs>
 ```
@@ -192,6 +219,14 @@ button.
   src="https://raw.githubusercontent.com/ory/elements/main/examples/preact-spa/src/app.tsx"
 />
 
+  </TabItem>
+  <TabItem value="nextjs" label="Next.js">
+
+<CodeFromRemote
+  lang="tsx"
+  title="pages/index.tsx"
+  src="https://raw.githubusercontent.com/GabeCurran/ory-elements/nextExample/examples/nextjs-spa/pages/index.tsx"
+/>
   </TabItem>
 </Tabs>
 ```
@@ -239,6 +274,14 @@ To learn more about the self-service registration flow, read [this document](../
 />
 
   </TabItem>
+  <TabItem value="nextjs" label="Next.js">
+
+<CodeFromRemote
+  lang="tsx"
+  title="pages/registration.tsx"
+  src="https://raw.githubusercontent.com/GabeCurran/ory-elements/nextExample/examples/nextjs-spa/pages/registration.tsx"
+/>
+  </TabItem>
 </Tabs>
 ```
 
@@ -275,6 +318,14 @@ To learn more about the self-service login flow, read [this document](../kratos/
 />
 
   </TabItem>
+  <TabItem value="nextjs" label="Next.js">
+
+<CodeFromRemote
+  lang="tsx"
+  title="pages/login.tsx"
+  src="https://raw.githubusercontent.com/GabeCurran/ory-elements/nextExample/examples/nextjs-spa/pages/login.tsx"
+/>
+  </TabItem>
 </Tabs>
 ```
 
@@ -306,6 +357,14 @@ disabled, the option to add hardware keys is not visible in the UI.
 />
 
   </TabItem>
+  <TabItem value="nextjs" label="Next.js">
+
+<CodeFromRemote
+  lang="tsx"
+  title="pages/settings.tsx"
+  src="https://raw.githubusercontent.com/GabeCurran/ory-elements/nextExample/examples/nextjs-spa/pages/settings.tsx"
+/>
+  </TabItem>
 </Tabs>
 ```
 
@@ -332,6 +391,14 @@ The `verification.tsx` file defines the page of the application where users veri
   src="https://raw.githubusercontent.com/ory/elements/main/examples/preact-spa/src/verification.tsx"
 />
 
+  </TabItem>
+  <TabItem value="nextjs" label="Next.js">
+
+<CodeFromRemote
+  lang="tsx"
+  title="pages/verification.tsx"
+  src="https://raw.githubusercontent.com/GabeCurran/ory-elements/nextExample/examples/nextjs-spa/pages/verification.tsx"
+/>
   </TabItem>
 </Tabs>
 ```
@@ -360,6 +427,14 @@ losing access to a second authentication factor.
   src="https://raw.githubusercontent.com/ory/elements/main/examples/preact-spa/src/recovery.tsx"
 />
 
+  </TabItem>
+  <TabItem value="nextjs" label="Next.js">
+
+<CodeFromRemote
+  lang="tsx"
+  title="pages/recovery.tsx"
+  src="https://raw.githubusercontent.com/GabeCurran/ory-elements/nextExample/examples/nextjs-spa/pages/recovery.tsx"
+/>
   </TabItem>
 </Tabs>
 ```
