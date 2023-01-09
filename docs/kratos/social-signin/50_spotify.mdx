@@ -6,6 +6,18 @@ sidebar_label: Spotify
 
 # Spotify
 
+````mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+
+Follow these steps to add Spotify as a social sign-in provider to your project using the Ory Console:
+
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
+
 Follow these steps to add Spotify as a social sign-in provider to your project using the Ory CLI:
 
 1. [Create a Spotify Application](https://developer.spotify.com/dashboard/applications).
@@ -87,3 +99,7 @@ import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
    ```shell
    ory update identity-config {project-id} --file updated_config.yaml
    ```
+
+</TabItem>
+</Tabs>
+````
