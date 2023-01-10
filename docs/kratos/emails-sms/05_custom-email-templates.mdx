@@ -18,6 +18,7 @@ templates with custom ones that can carry your own branding, visual elements, an
 ```mdx-code-block
 <Tabs groupId="email-templates">
 <TabItem value="recovery" label="Account Recovery" default>
+```
 
 Ory Identities uses the following email templates to fulfil account recovery requests, if the chosen account recovery strategy is
 "Code":
@@ -33,12 +34,15 @@ used instead:
 
 :::info
 
-To read more about the recovery flow, read [Account recovery and password reset](../self-service/flows/account-recovery-password-reset.mdx).
+To read more about the recovery flow, read
+[Account recovery and password reset](../self-service/flows/account-recovery-password-reset.mdx).
 
 :::
 
-</TabItem>
-<TabItem value="verification" label="Address Verification">
+```mdx-code-block
+  </TabItem>
+  <TabItem value="verification" label="Address Verification">
+```
 
 Ory Identities uses the following email templates to fulfil address verification requests, if the chosen strategy is "Code":
 
@@ -53,9 +57,12 @@ used instead:
 
 :::info
 
-To read more about the verification flow, read [Email and phone verification](../self-service/flows/verify-email-account-activation.mdx).
+To read more about the verification flow, read
+[Email and phone verification](../self-service/flows/verify-email-account-activation.mdx).
 
 :::
+
+```mdx-code-block
 </TabItem>
 </Tabs>
 ```
@@ -65,15 +72,19 @@ To read more about the verification flow, read [Email and phone verification](..
 You can use custom templates in place of built-in ones. If you don't specify a custom template, the system automatically uses the
 built-in one.
 
-````mdx-code-block
+```mdx-code-block
 <Tabs>
   <TabItem value="cloud" label="Ory Console" default>
+```
 
-To use custom email templates, go to **Customize** → **Email Configuration** on the [Ory Console](https://console.ory.sh/projects/current/email-configuration) and select the email template you want to customize from the **Email Templates** section at the bottom of the page.
+To use custom email templates, go to **Customize** → **Email Configuration** on the
+[Ory Console](https://console.ory.sh/projects/current/email-configuration) and select the email template you want to customize
+from the **Email Templates** section at the bottom of the page.
 
-
+```mdx-code-block
   </TabItem>
   <TabItem value="selfhosted" label="Ory CLI" default>
+```
 
 1. List all your projects and get the Ory Identities config file:
 
@@ -84,6 +95,7 @@ To use custom email templates, go to **Customize** → **Email Configuration** o
    ## Get config
    ory get identity-config <project-id> --format yaml > identity-config.yaml
    ```
+
 2. Add your Base64-encoded custom message templates to the config:
 
    ```yaml title="identity-config.yaml"
@@ -94,10 +106,7 @@ To use custom email templates, go to **Customize** → **Email Configuration** o
        recovery:
          invalid:
            email:
-             body: {
-               "html": "base64://ENCODED_HTML_TEMPLATE",
-               "plaintext": "base64://ENCODED_PLAINTEXT_TEMPLATE"
-             }
+             body: { "html": "base64://ENCODED_HTML_TEMPLATE", "plaintext": "base64://ENCODED_PLAINTEXT_TEMPLATE" }
          valid:
            email:
              body: {}
@@ -108,7 +117,8 @@ To use custom email templates, go to **Customize** → **Email Configuration** o
          valid:
            email:
              body: {}
-    ```
+   ```
+
 3. Upload the edited config:
 
    ```shell
@@ -122,10 +132,10 @@ custom templates using unsupported methods, the system uses the default template
 
 :::
 
-
-  </TabItem>
+```mdx-code-block
+ </TabItem>
 </Tabs>
-````
+```
 
 ## Creating templates
 
