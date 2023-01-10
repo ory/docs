@@ -1,0 +1,58 @@
+---
+id: custom-ui-headless-api
+title: Introduction to Self-Service APIs
+sidebar_label: Introduction to Self-Service APIs
+toc_max_heading_level: 4
+---
+
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+
+The Ory Network provides headless APIs for ease of integration. This ensures that Ory provides compatibility with many software
+stacks across different programming languages.
+
+This document's focus is specifically on APIs that are used to integrate with Ory's self-service flows. Flows are the fundamental
+of Ory's self-service APIs and are used to accomplish a variety of goals, such as `login`, `registration`, `settings`,
+`verification` and `recovery`.
+
+The self-service `flows` are standardised so that it follows the same steps regardless of the technology used to integrate with
+Ory.
+
+Here is an example for `login`:
+
+1. Get or create the login `flow` data
+2. Submit the login `flow` with user data (e.g. username and password)
+
+These two steps are the fundamental of all of Ory's self-service `flows`.
+
+Another example for `verification`:
+
+1. Get or create the verification `flow`
+2. Submit the verification `flow` with user data (e.g. email)
+
+As you can see the self-service `flows` have the same two steps regardless of the `flow` type.
+
+## Login flows
+
+Login flows are used to authenticate users. When the login is successful the request will respond with a `200 OK` HTTP status code
+and a JSON body containing the user's identity information. On a failed request the response will be a `400 Bad Request` or
+`403 Forbidden`.
+
+```mdx-code-block
+<Tabs groupId="sdk-examples">
+    <TabItem value="go" label="Go" default>
+        Go example
+    </TabItem>
+    <TabItem value="typescript" label="TypeScript">
+        TypeScript example
+    </TabItem>
+</Tabs>
+```
+
+[Get Login Flow](../reference/api#tag/frontend/operation/getLoginFlow)
+[Create Login Flow](../reference/api#tag/frontend/operation/createBrowserLoginFlow)
+[Submit Login Flow](../reference/api#tag/frontend/operation/updateLoginFlow)
+
+[Get Login Flow](../reference/api#tag/frontend/operation/getLoginFlow)
+[Create Login Flow](../reference/api#tag/frontend/operation/createNativeLoginFlow)
+[Submit Login Flow](../reference/api#tag/frontend/operation/updateLoginFlow)

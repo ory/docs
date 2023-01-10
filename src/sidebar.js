@@ -136,6 +136,7 @@ module.exports = {
           type: "category",
           label: "Bring your own UI",
           items: [
+            "concepts/custom-ui-headless-api",
             "guides/bring-your-user-interface",
             "getting-started/custom-ui-ory-elements",
           ],
