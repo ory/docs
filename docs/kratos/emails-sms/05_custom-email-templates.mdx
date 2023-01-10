@@ -4,30 +4,30 @@ title: Customize message templates for recovery and verification emails
 sidebar_label: Email templates
 ---
 
+# Email templates
+
 ```mdx-code-block
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 import CodeBlock from "@theme/CodeBlock"
 ```
 
-Ory Identities (Ory Kratos) comes with built-in templates for all messages sent by the system. You can replace the default
-templates with custom ones that can carry your own branding, visual elements, and communication tone.
+Ory Identities comes with built-in templates for all messages sent by the system. You can replace the default templates with
+custom ones that can carry your own branding, visual elements, and communication tone.
 
 ## Built-in templates
 
 ```mdx-code-block
 <Tabs groupId="email-templates">
-<TabItem value="recovery" label="Account Recovery" default>
+<TabItem value="recovery" label="Account recovery" default>
 ```
 
-Ory Identities uses the following email templates to fulfill account recovery requests, if the chosen account recovery strategy is
-"Code":
+When you set the account recovery method to `code`, the system uses these templates:
 
-- `recovery_code.valid`: Sent, if the user provided a recovery address that belongs to a registered account.
-- `recovery_code.invalid`: Sent, if the user provided an address that does not belong to any known account.
+- `recovery_code.valid`: Sent if the user provided a recovery address that belongs to a registered account.
+- `recovery_code.invalid`: Sent if the user provided an address that doesn't belong to a known account.
 
-If Ory Identities is configured to use the "Magic Link" strategy to fulfill account recovery requests, the following templates are
-used instead:
+When you set the account recovery method to `link`, the system uses these templates:
 
 - `recovery.valid`
 - `recovery.invalid`
@@ -40,17 +40,16 @@ To read more about the recovery flow, read
 :::
 
 ```mdx-code-block
-  </TabItem>
-  <TabItem value="verification" label="Address Verification">
+</TabItem>
+<TabItem value="verification" label="Address verification">
 ```
 
-Ory Identities uses the following email templates to fulfill address verification requests, if the chosen strategy is "Code":
+When you set the account verification method to `code`, the system uses these templates:
 
 - `verification_code.valid`: Sent, if the user provided a verification address that belongs to a registered account.
 - `verification_code.invalid`: Sent, if the user provided an address that does not belong to any known account.
 
-If Ory Identities is configured to use the "Code" strategy to fulfill address verification requests, the following templates are
-used instead:
+When you set the account verification method to `link`, the system uses these templates:
 
 - `verification.valid`
 - `verification.invalid`
@@ -67,14 +66,14 @@ To read more about the verification flow, read
 </Tabs>
 ```
 
-## Use custom message templates
+## Using custom message templates
 
 You can use custom templates in place of built-in ones. If you don't specify a custom template, the system automatically uses the
 built-in one.
 
 ```mdx-code-block
 <Tabs>
-  <TabItem value="cloud" label="Ory Console" default>
+<TabItem value="console" label="Ory Console" default>
 ```
 
 To use custom email templates, go to **Customize** → **Email Configuration** on the
@@ -82,8 +81,8 @@ To use custom email templates, go to **Customize** → **Email Configuration** o
 from the **Email Templates** section at the bottom of the page.
 
 ```mdx-code-block
-  </TabItem>
-  <TabItem value="selfhosted" label="Ory CLI" default>
+</TabItem>
+<TabItem value="cli" label="Ory CLI" default>
 ```
 
 1. List all your projects and get the Ory Identities config file:
@@ -133,13 +132,13 @@ custom templates using unsupported methods, the system uses the default template
 :::
 
 ```mdx-code-block
- </TabItem>
+</TabItem>
 </Tabs>
 ```
 
 ## Creating templates
 
-Templates use the golang template engine in the `text/template` package for rendering the `email.subject.gotmpl` and
+Templates use the Go template engine in the `text/template` package for rendering the `email.subject.gotmpl` and
 `email.body.plaintext.gotmpl` templates, and the `html/template` package for rendering the `email.body.gotmpl` template.
 
 Learn more:
@@ -169,7 +168,7 @@ For security reasons, these Spring functions are disabled in the Ory Network:
 
 ### Available variables
 
-The different Ory Identities flows support different variables.
+The variables available for use in email templates change depending on the flow and the selected method:
 
 ```mdx-code-block
 <Tabs groupId="email-templates">
@@ -197,6 +196,8 @@ The different Ory Identities flows support different variables.
 </Tabs>
 ```
 
+### Mandatory template formats
+
 Each template must have two versions: `html` and `plaintext`.
 
 - `html` version uses the HTML syntax to achieve the desired look and functionality (such as clickable buttons) of the email
@@ -205,23 +206,28 @@ Each template must have two versions: `html` and `plaintext`.
   is used as a fallback when the `html` version cannot be delivered, for example when the user's mail server blocks HTML in all
   incoming messages.
 
-For example, for this template:
+````mdx-code-block
+<Tabs>
+<TabItem value="html" label="HTML" default>
 
-[`https://github.com/ory/kratos/blob/master/courier/template/courier/builtin/templates/verification/valid/email.body.gotmpl`](https://github.com/ory/kratos/blob/master/courier/template/courier/builtin/templates/verification/valid/email.body.gotmpl)
+```gotmpl title="courier/template/templates/verification/valid/email.body.gotmpl"
+Hi, please verify your account by clicking the following link:
 
-- The `html` version looks like this:
+<a href="{{ .VerificationURL }}">{{ .VerificationURL }}</a>
+```
 
-  ```gotmpl title="courier/template/templates/verification/valid/email.body.gotmpl"
-  Hi, please verify your account by clicking the following link:
+</TabItem>
+<TabItem value="plaintext" label="Plain text">
 
-  <a href="{{ .VerificationURL }}">{{ .VerificationURL }}</a>
-  ```
+The `plaintext` version doesn't contain any HTML and keeps only the gotmpl logic (`{{ .VerificationURL }}`) and plain text.
 
-- The `plaintext` version doesn't contain any HTML and keeps only the gotmpl logic (`{{ .VerificationURL }}`) and plain text.
+```gotmp title="courier/template/templates/verification/valid/email.body.plaintext.gotmpl"
+Hi, please verify your account by clicking the following link: {{ .VerificationURL }}
+```
 
-  ```gotmp title="courier/template/templates/verification/valid/email.body.plaintext.gotmpl"
-  Hi, please verify your account by clicking the following link: {{ .VerificationURL }}
-  ```
+</TabItem>
+</Tabs>
+````
 
 ## Customizing template content for specific users
 
@@ -231,11 +237,11 @@ such as `id`, `state`, `recovery_addresses`, `verifiable_addresses` and `traits`
 
 :::tip
 
-Read [this document](../manage-identities/overview) to learn more about the Ory identity and the Identity Schema.
+Read [this document](../manage-identities/overview) to learn more about the Ory Identity and the identity schema.
 
 :::
 
-### Translated templates (I18n)
+### Translated templates (i18n)
 
 You can use nested templates to render `email.subject.gotmpl`, `email.body.gotmpl` and `email.body.plaintext.gotmpl` templates
 based on user settings, for example based on their chosen language.
@@ -266,19 +272,7 @@ For example:
 }
 ```
 
-:::tip
-
-As an administrator, you can also set identity metadata, such as the user's language inside your own application code using the
-identity metadata property. Read [this document](../manage-identities/10_managing-users-identities-metadata.mdx#metadata) to learn
-more.
-
-Note, however, that currently only `metadata_public` is available inside the templates.
-
-See [Metadata inside templates](#metadata-inside-templates) for more information.
-
-:::
-
-This identity traits can then be used inside the template to render a section conditionally.
+This identity trait can then be used inside the template to render a section conditionally.
 
 The following example defines various templates for the `recovery_code.valid` template and renders the respective template
 depending on the language set in the `lang` identity traits, that was defined above:
@@ -324,12 +318,15 @@ You can use Sprig functions in the nested templates. For security reasons, some 
 
 :::
 
-### Metadata inside templates
+### Metadata in templates
 
-To use the `metadata_public` field instead, `.Identity.metadata_public` is available inside your template.
+As an administrator, you can set identity metadata, such as the user's language, in your application code using Identity metadata
+property. Read [this document](../manage-identities/10_managing-users-identities-metadata.mdx#metadata) to learn more.
 
-The following example requires that the field `lang` is set. Your application could set this value manually after the registration
-completed.
+You can access `metadata_public` through `.Identity.metadata_public` in email templates.
+
+The following example requires that the field `lang` is set in the public metadata. Your application could set this value after
+user completes registration.
 
 ```gotmpl title="recovery_code/valid/email.body.gotmpl"
 {{define "en"}}
@@ -367,7 +364,7 @@ Bitte geben Sie den folgenden Code ein, um Ihr Konto wiederherzustellen:
 
 :::warning
 
-Since metadata is not validated by Ory Identities, missing entries or unexpected values can lead to a failure in the template
-rendering process. Ory Identities will use the default templates if an error occurs.
+Since metadata is not validated by Ory Identities, missing entries or unexpected values can cause errors in the template rendering
+process. If the system encounters errors in the rendering process, Ory Identities uses the default templates.
 
 :::

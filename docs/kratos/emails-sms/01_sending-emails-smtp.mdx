@@ -9,7 +9,6 @@ toc_max_heading_level: 4
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 import CodeBlock from "@theme/CodeBlock"
-import SelfHostedKratos from "@site/src/components/SelfHostedKratos"
 ```
 
 The Ory Network comes with SMTP email sending configured out of the box. Ory emails are sent from this address:
@@ -18,21 +17,27 @@ The Ory Network comes with SMTP email sending configured out of the box. Ory ema
 {project.name} via Ory <no-reply@courier-eu.mg.oryapis.com>
 ```
 
+:::info
+
+You must send emails using your SMTP server to change the sender address (`from_address`) and sender name (`from_name`).
+
+:::
+
 ## Send emails using your SMTP server
 
-Ory supports sending emails using your own SMTP server.
+You can send emails from your server. Follow these steps to configure Ory to use a custom SMTP server:
 
 ```mdx-code-block
 <Tabs groupId="console-or-cli">
-  <TabItem value="console" label="Ory Console" default>
+<TabItem value="console" label="Ory Console" default>
 ```
 
-To configure your credentials for the custom SMTP server, go to **Customize** → **Email Configuration** in the
-[Ory Console](https://console.ory.sh/projects/current/email-configuration).
+Sign in to the [Ory Console](https://console.ory.sh/projects/current/email-configuration) and go to **Customize** → **Email
+Configuration**. Toggle the **Advanced Settings** switch and provide the configuration for your SMTP server.
 
 ```mdx-code-block
-  </TabItem>
-  <TabItem value="cli" label="Ory CLI">
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
 ```
 
 1. Download the Ory Identities config from your project and save it to a file:
@@ -65,12 +70,6 @@ To configure your credentials for the custom SMTP server, go to **Customize** �
 </TabItem>
 </Tabs>
 ```
-
-:::note
-
-Customizing the `from_address` and `from_name` is not supported without a custom SMTP server.
-
-:::
 
 ### SMTP security mechanisms
 
@@ -112,7 +111,7 @@ Use the following connection URI to
 [send emails using Mailgun](https://documentation.mailgun.com/en/latest/quickstart-sending.html):
 
 ```
-smtp://<smtp-user>:<smtp-password>@smtp.mailgun.org:587
+smtp://{smtp-user}:{smtp-password}@smtp.mailgun.org:587
 
 # For example:
 # smtp://some-user%40mailgun.example.org:df2a2c4e-5caa-4f04-85b9-72d54a2468ad@smtp.eu.mailgun.org:587
@@ -124,7 +123,7 @@ Use the following connection URI to
 [send emails using AWS SES SMTP](https://docs.aws.amazon.com/ses/latest/dg/send-email-smtp.html):
 
 ```
-smtp://<smtp-user>:<smtp-password>@email-smtp.<region>.amazonaws.com:587/
+smtp://{smtp-user}:{smtp-password}@email-smtp.{region}.amazonaws.com:587/
 
 # For example:
 # smtp://theuser:the-password@email-smtp.eu-central-1.amazonaws.com:587/
@@ -135,7 +134,7 @@ smtp://<smtp-user>:<smtp-password>@email-smtp.<region>.amazonaws.com:587/
 Use the following connection URI to [send emails using Postmark](https://postmarkapp.com/smtp-service):
 
 ```
-smtp://<YOUR_POSTMARK_SEVER_API_TOKEN>:<YOUR_POSTMARK_SEVER_API_TOKEN>@smtp.postmarkapp.com:587/
+smtp://{YOUR_POSTMARK_SEVER_API_TOKEN}:{YOUR_POSTMARK_SEVER_API_TOKEN}@smtp.postmarkapp.com:587/
 
 # For example:
 # smtp://thetoken:thetoken@smtp.postmarkapp.com:587/
