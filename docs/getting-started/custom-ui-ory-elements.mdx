@@ -80,19 +80,43 @@ Follow these steps to get the sample application code and run it on your machine
    ````mdx-code-block
 
    <Tabs groupId="react-or-preact">
-     <TabItem value="unix" label="Unix systems" default>
+     <TabItem value="react" label="React" default>
 
-   ```shell-session
-   export VITE_ORY_SDK_URL=http://localhost:4000
-   ```
+  ### Unix
+    ```shell-session
+    export VITE_ORY_SDK_URL=http://localhost:4000
+    ```
+  ### Windows
+    ```powershell
+    $Env:VITE_ORY_SDK_URL = "https://{your-project-slug-here}.projects.oryapis.com"
+    ```
+
+    </TabItem>
+     <TabItem value="preact" label="Preact">
+
+  ### Unix
+    ```shell-session
+    export VITE_ORY_SDK_URL=http://localhost:4000
+    ```
+  ### Windows
+    ```powershell
+    $Env:VITE_ORY_SDK_URL = "https://{your-project-slug-here}.projects.oryapis.com"
+    ```
 
      </TabItem>
-     <TabItem value="powershell" label="Windows Powershell">
+     <TabItem value="nextjs" label="Next.js">
 
-   ```powershell
-   $Env:VITE_ORY_SDK_URL = "https://{your-project-slug-here}.projects.oryapis.com"
-   ```
-
+  ### Unix
+    ```shell-session
+    export NEXT_PUBLIC_ORY_SDK_URL=http://localhost:4000
+    ```
+  ### Windows
+    ```powershell
+    $Env:NEXT_PUBLIC_ORY_SDK_URL = "http://localhost:4000"
+    # Here we are using the Ory CLI to connect to Ory Network APIs.
+    ory tunnel http://localhost:3000 --project <project-slug> --dev
+    ```
+  [Learn more about environment variables with Next.js](https://nextjs.org/docs/basic-features/environment-variables)
      </TabItem>
    </Tabs>
    ````
