@@ -20,13 +20,13 @@ templates with custom ones that can carry your own branding, visual elements, an
 <TabItem value="recovery" label="Account Recovery" default>
 ```
 
-Ory Identities uses the following email templates to fulfil account recovery requests, if the chosen account recovery strategy is
+Ory Identities uses the following email templates to fulfill account recovery requests, if the chosen account recovery strategy is
 "Code":
 
 - `recovery_code.valid`: Sent, if the user provided a recovery address that belongs to a registered account.
 - `recovery_code.invalid`: Sent, if the user provided an address that does not belong to any known account.
 
-If Ory Identities is configured to use the "Magic Link" strategy to fulfil account recovery requests, the following templates are
+If Ory Identities is configured to use the "Magic Link" strategy to fulfill account recovery requests, the following templates are
 used instead:
 
 - `recovery.valid`
@@ -44,12 +44,12 @@ To read more about the recovery flow, read
   <TabItem value="verification" label="Address Verification">
 ```
 
-Ory Identities uses the following email templates to fulfil address verification requests, if the chosen strategy is "Code":
+Ory Identities uses the following email templates to fulfill address verification requests, if the chosen strategy is "Code":
 
 - `verification_code.valid`: Sent, if the user provided a verification address that belongs to a registered account.
 - `verification_code.invalid`: Sent, if the user provided an address that does not belong to any known account.
 
-If Ory Identities is configured to use the "Code" strategy to fulfil address verification requests, the following templates are
+If Ory Identities is configured to use the "Code" strategy to fulfill address verification requests, the following templates are
 used instead:
 
 - `verification.valid`
