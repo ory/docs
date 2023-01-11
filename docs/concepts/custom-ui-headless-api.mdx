@@ -5,9 +5,11 @@ sidebar_label: Introduction to self-Service APIs
 toc_max_heading_level: 4
 ---
 
+```mdx-code-block
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 import CodeBlock from "@theme/CodeBlock"
+```
 
 The Ory Network provides headless APIs for ease of integration. This ensures that Ory provides compatibility with many software
 stacks across different programming languages.
@@ -46,16 +48,20 @@ is important to take note of the CSRF tokens since it is required when submittin
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
-    <TabItem value="go" label="Go" default>
-        ```mdx-code-block
-        import goApi from '!!raw-loader!../../../code-examples/sdk/go/selfservice/create-login.go'
 
-        <CodeBlock language="go">{goApi}</CodeBlock>
-        ```
-    </TabItem>
-    <TabItem value="typescript" label="TypeScript">
-        TypeScript example
-    </TabItem>
+<TabItem value="go" label="Go" default>
+
+```mdx-code-block
+import createLoginApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/create-login.go'
+
+<CodeBlock language="go">{createLoginApi}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+    TypeScript example
+</TabItem>
+
 </Tabs>
 ````
 
@@ -76,16 +82,21 @@ Here are some cases where the flow would already exist:
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
-    <TabItem value="go" label="Go" default>
-        ```mdx-code-block
-        import goApi from '!!raw-loader!../../../code-examples/sdk/go/selfservice/get-login.go'
 
-        <CodeBlock language="go">{goApi}</CodeBlock>
-        ```
-    </TabItem>
-    <TabItem value="typescript" label="TypeScript">
-        TypeScript example
-    </TabItem>
+<TabItem value="go" label="Go" default>
+
+```mdx-code-block
+import getLoginApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/get-login.go'
+
+<CodeBlock language="go">{getLoginApi}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="typescript" label="TypeScript">
+TypeScript example
+</TabItem>
+
 </Tabs>
 ````
 
@@ -125,7 +136,3 @@ Native flows:
 [Create Registration Flow](../reference/api#tag/frontend/operation/createNativeRegistrationFlow)
 [Get Registration Flow](../reference/api#tag/frontend/operation/getRegistrationFlow)
 [Update Registration Flow](../reference/api#tag/frontend/operation/updateRegistrationFlow)
-
-```
-
-```
