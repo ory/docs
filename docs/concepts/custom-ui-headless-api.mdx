@@ -11,28 +11,28 @@ import TabItem from "@theme/TabItem"
 import CodeBlock from "@theme/CodeBlock"
 ```
 
-The Ory Network provides headless APIs for ease of integration. This ensures that Ory provides compatibility with many software
-stacks across different programming languages.
+Ory provides headless APIs for ease of integration. This ensures that Ory provides compatibility with many software stacks across
+different programming languages.
 
-This documents' focus is specifically on APIs that are used to integrate with Ory's self-service flows. Flows are the fundamental
-of Ory's self-service APIs and are used to accomplish a variety of goals, such as `login`, `registration`, `settings`,
-`verification` and `recovery`.
+This documents' focus is to provide concrete examples on custom UI integration. Flows are the fundamental of Ory's self-service
+APIs and are used to accomplish a variety of goals, such as `login`, `registration`, `settings`, `verification` and `recovery`.
 
 The self-service `flows` are standardised so that it follows the same steps regardless of which `flow` is integrated.
 
-Here is an example for `login`:
+A general overview of the flow can be summed up in two steps:
 
-1. Get or create the login `flow` data
-2. Submit the login `flow` with user data (e.g. username and password)
+1. Get or create the `flow` data, e.g. login, registration etc.
+2. Submit the `flow` with user data (e.g. username and password)
 
-These two steps are the fundamental of all of Ory's self-service `flows`.
+For more information on the concepts take a look at the [Self-service flow](../kratos/self-service) documentation.
 
-Another example for `verification`:
+:::note
 
-1. Get or create the verification `flow`
-2. Submit the verification `flow` with user data (e.g. email)
+Depending on the type of application (browser or native) the initialized flow will set a CSRF cookie and return a CSRF token in
+the response body. It is important in **browser based applications** to take note of the CSRF tokens since it is required when
+submitting the user data.
 
-As shown by the verification `flow` the self-service `flows` have the same two steps regardless of the `flow` type.
+:::
 
 ## Login flow
 
@@ -71,14 +71,18 @@ In cases where the flow already exists we can retrieve the flow data using the f
 already initialized the flow and redirected to the UI. In such a case the flow ID can be extracted from the URL `?flow=` query
 parameter.
 
-Depending on the type of application (e.g. browser or native) the initialized flow will set a CSRF cookie and return a CSRF token
-in the response body. It is important to take note of the CSRF tokens since it is required when submitting the user data.
-
 Here are some cases where the flow would already exist:
 
 1. Ory has initialized the flow and redirects to the UI (e.g. `/login?flow=<uuidv4>`)
 2. The request was completed by the user, however, an error occurred and we need to retrieve the flow data to display the error
 3. The UI has 'stored' the flow ID in the URL so that page refreshes can retrieve the flow data
+
+:::note
+
+The flow ID has an expiration time, so it is important to check the response status code when retrieving the flow data using an
+existing flow ID. It is up to your application to handle this and create a new flow if the flow ID has expired.
+
+:::
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
@@ -104,6 +108,13 @@ TypeScript example
 
 We can submit the login flow with user data (e.g. username and password) using the flow ID. Depending on the type of application
 (e.g. browser or native) the CSRF tokens are required in the request body and cookie.
+
+:::note
+
+In some cases the response code could be `422` which indicates that the browser needs to be redirected with a new flow. In Single
+Page Applications (SPAs) the response can be decoded and the new flowID extracted.
+
+:::
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
@@ -234,6 +245,85 @@ A session cookie or token is only available after registration when enabled in t
 found in [Customize login and registration](../identities/sign-in/actions#log-in-users-after-registration).
 
 :::
+
+## Recovery
+
+Recovery flows are used to recover user credentials. The recovery flow has two methods, `link` and `code` which determines how the
+how the recovery flow is completed. The `link` method sends a recovery link and `code` sends a recovery code to the user's email
+address.
+
+:::note
+
+The `code` method is preferred to the `link` method to prevent the recovery from being invalidated by email clients and spam
+filters.
+
+:::
+
+### Create Recovery flow
+
+````mdx-code-block
+<Tabs groupId="sdk-examples">
+
+<TabItem value="go" label="Go" default>
+
+```mdx-code-block
+import createRecoveryApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/create-recovery.go'
+
+<CodeBlock language="go">{createRecoveryApi}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="typescript" label="TypeScript">
+TypeScript example
+</TabItem>
+
+</Tabs>
+````
+
+### Get Recovery flow
+
+````mdx-code-block
+<Tabs groupId="sdk-examples">
+
+<TabItem value="go" label="Go" default>
+
+```mdx-code-block
+import getRecoveryApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/get-recovery.go'
+
+<CodeBlock language="go">{getRecoveryApi}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="typescript" label="TypeScript">
+TypeScript example
+</TabItem>
+
+</Tabs>
+````
+
+### Submit Recovery flow
+
+````mdx-code-block
+<Tabs groupId="sdk-examples">
+
+<TabItem value="go" label="Go" default>
+
+```mdx-code-block
+import submitRecoveryApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/submit-recovery.go'
+
+<CodeBlock language="go">{submitRecoveryApi}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="typescript" label="TypeScript">
+TypeScript example
+</TabItem>
+
+</Tabs>
+````
 
 ### More Concepts and API References
 
