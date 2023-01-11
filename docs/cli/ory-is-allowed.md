@@ -27,7 +27,7 @@ ory is allowed <subject> <relation> <namespace> <object> [flags]
       --format string     Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help              help for allowed
   -d, --max-depth int32   Maximum depth of the search tree. If the value is less than 1 or greater than the global max-depth then the global max-depth will be used instead.
-      --project string    The project to use
+      --project string    The project to use, either project ID or a (partial) slug.
   -q, --quiet             Be quiet with output printing.
 ```
 

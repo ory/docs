@@ -45,7 +45,7 @@ ory perform authorization-code [flags]
       --no-open                Do not open the browser window automatically
       --no-shutdown            Do not terminate on success/error. State and nonce will be regenerated when auth flow has completed (either due to an error or success).
   -p, --port int               The port on which the server should run (default 4446)
-      --project string         The project to use
+      --project string         The project to use, either project ID or a (partial) slug.
       --prompt strings         Set the OpenID Connect prompt parameter
   -q, --quiet                  Be quiet with output printing.
       --redirect string        Force a redirect url

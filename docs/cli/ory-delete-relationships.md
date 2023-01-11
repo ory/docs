@@ -31,7 +31,7 @@ ory delete relationships [flags]
   -h, --help                 help for relationships
       --namespace string     Set the requested namespace
       --object string        Set the requested object
-      --project string       The project to use
+      --project string       The project to use, either project ID or a (partial) slug.
   -q, --quiet                Be quiet with output printing.
       --relation string      Set the requested relation
       --subject-id string    Set the requested subject ID

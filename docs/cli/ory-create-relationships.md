@@ -28,7 +28,7 @@ ory create relationships [flags]
 ```
       --format string    Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help             help for relationships
-      --project string   The project to use
+      --project string   The project to use, either project ID or a (partial) slug.
   -q, --quiet            Be quiet with output printing.
 ```
 

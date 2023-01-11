@@ -31,7 +31,7 @@ ory list relationships [flags]
       --object string        Set the requested object
       --page-size int32      maximum number of items to return (default 100)
       --page-token string    page token acquired from a previous response
-      --project string       The project to use
+      --project string       The project to use, either project ID or a (partial) slug.
   -q, --quiet                Be quiet with output printing.
       --relation string      Set the requested relation
       --subject-id string    Set the requested subject ID

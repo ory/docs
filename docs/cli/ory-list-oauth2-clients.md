@@ -34,7 +34,7 @@ ory list oauth2-clients [flags]
   -h, --help                help for oauth2-clients
       --page-size int       maximum number of items to return (default 100)
       --page-token string   page token acquired from a previous response
-      --project string      The project to use
+      --project string      The project to use, either project ID or a (partial) slug.
   -q, --quiet               Be quiet with output printing.
 ```
 

@@ -48,7 +48,7 @@ Alternatively:
 
 ```
   -h, --help             help for identities
-      --project string   The project to use
+      --project string   The project to use, either project ID or a (partial) slug.
 ```
 
 ### Options inherited from parent commands

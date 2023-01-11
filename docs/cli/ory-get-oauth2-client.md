@@ -34,7 +34,7 @@ To get the OAuth 2.0 Client's secret, run:
 ```
       --format string    Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help             help for oauth2-client
-      --project string   The project to use
+      --project string   The project to use, either project ID or a (partial) slug.
   -q, --quiet            Be quiet with output printing.
 ```
 
