@@ -17,14 +17,14 @@ different programming languages.
 This documents' focus is to provide concrete examples on custom UI integration. Flows are the fundamental of Ory's self-service
 APIs and are used to accomplish a variety of goals, such as `login`, `registration`, `settings`, `verification` and `recovery`.
 
-The self-service `flows` are standardised so that it follows the same steps regardless of which `flow` is integrated.
+The self-service `flows` are standardized so that it follows the same steps regardless of which `flow` is integrated.
 
 A general overview of the flow can be summed up in two steps:
 
 1. Get or create the `flow` data, e.g. login, registration etc.
 2. Submit the `flow` with user data (e.g. username and password)
 
-For more information on the concepts take a look at the [Self-service flow](../kratos/self-service) documentation.
+For more information on the concepts, take a look at the [Self-service flow](../kratos/self-service) documentation.
 
 :::note
 
@@ -36,9 +36,9 @@ submitting the user data.
 
 ## Login flow
 
-Login flows are used to authenticate users. When the login is successful the request will respond with a `200 OK` HTTP status code
-and a JSON body containing the user's identity information. When the request fails, it responds with the appropriate HTTP status
-and error messages.
+Login flows are used to authenticate users. When the login is successful, the request will respond with a `200 OK` HTTP status
+code and a JSON body containing the user's identity information. When the request fails, it responds with the appropriate HTTP
+status and error messages.
 
 ### Create Login flow
 
@@ -67,14 +67,14 @@ import createLoginApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/
 
 ### Get Login flow
 
-In cases where the flow already exists we can retrieve the flow data using the flow ID. This is useful in cases where Ory has
-already initialized the flow and redirected to the UI. In such a case the flow ID can be extracted from the URL `?flow=` query
+In cases where the flow already exists, we can retrieve the flow data using the flow ID. This is useful in cases where Ory has
+already initialized the flow and redirected to the UI. In such a case, the flow ID can be extracted from the URL `?flow=` query
 parameter.
 
 Here are some cases where the flow would already exist:
 
 1. Ory has initialized the flow and redirects to the UI (e.g. `/login?flow=<uuidv4>`)
-2. The request was completed by the user, however, an error occurred and we need to retrieve the flow data to display the error
+2. The request was completed by the user, however, an error occurred, and we need to retrieve the flow data to display the error
 3. The UI has 'stored' the flow ID in the URL so that page refreshes can retrieve the flow data
 
 :::note
@@ -112,7 +112,7 @@ We can submit the login flow with user data (e.g. username and password) using t
 :::note
 
 In some cases the response code could be `422` which indicates that the browser needs to be redirected with a new flow. In Single
-Page Applications (SPAs) the response can be decoded and the new flowID extracted.
+Page Applications (SPAs) the response can be decoded and the new flow ID extracted.
 
 :::
 
@@ -152,14 +152,14 @@ For API references, please take a look at the [API Reference](../reference/api) 
 
 Below are the API references for the login flow.
 
-- [Get Browser Login Flow](../reference/api#tag/frontend/operation/getLoginFlow)
-- [Get Native Login Flow](../reference/api#tag/frontend/operation/getLoginFlow)
-- [Create Login Flow](../reference/api#tag/frontend/operation/createBrowserLoginFlow)
+- [Create Browser Login Flow](../reference/api#tag/frontend/operation/createBrowserLoginFlow)
+- [Create Native Login Flow](../reference/api#tag/frontend/operation/createNativeLoginFlow)
+- [Get Login Flow](../reference/api#tag/frontend/operation/getLoginFlow)
 - [Update Login Flow](../reference/api#tag/frontend/operation/updateLoginFlow)
 
 ## Registration flow
 
-Registration flows are used to create user identities. When the registration is successful the request will respond with a
+Registration flows are used to create user identities. When the registration is successful, the request will respond with a
 `200 OK` HTTP status code. When the request fails, it responds with the appropriate HTTP status and error messages.
 
 :::note
@@ -246,6 +246,20 @@ found in [Customize login and registration](../identities/sign-in/actions#log-in
 
 :::
 
+### More Concepts and API References
+
+More conceptual information on the registration flow can be found in
+[Self-service Registration Flow](../kratos/self-service/flows/user-registration).
+
+For API references, please take a look at the [API Reference](../reference/api) section.
+
+Below are the API references for the registration flow.
+
+- [Create Browser Registration Flow](../reference/api#tag/frontend/operation/createBrowserRegistrationFlow)
+- [Create Native Registration Flow](../reference/api#tag/frontend/operation/createNativeRegistrationFlow)
+- [Get Registration Flow](../reference/api#tag/frontend/operation/getRegistrationFlow)
+- [Update Registration Flow](../reference/api#tag/frontend/operation/updateRegistrationFlow)
+
 ## Recovery
 
 Recovery flows are used to recover user credentials. The recovery flow has two methods, `link` and `code` which determines how the
@@ -327,19 +341,106 @@ TypeScript example
 
 ### More Concepts and API References
 
-More information on the registration flow can be found in
-[Self-service Registration Flow](../kratos/self-service/user-registration)
+More conceptual information on the recovery flow can be found in
+[Account recovery and password reset](../kratos/self-service/flows/account-recovery-password-reset).
 
-Below are the API references for the registration flow.
+For API references, please take a look at the [API Reference](../reference/api) section.
 
-Browser flows:
+Below are the API references for the recovery flow.
 
-[Create Registration Flow](../reference/api#tag/frontend/operation/createBrowserRegistrationFlow)
-[Get Registration Flow](../reference/api#tag/frontend/operation/getRegistrationFlow)
-[Update Registration Flow](../reference/api#tag/frontend/operation/updateRegistrationFlow)
+- [Create Browser Recovery Flow](../reference/api#tag/frontend/operation/createBrowserRecoveryFlow)
+- [Create Native Recovery Flow](../reference/api#tag/frontend/operation/createNativeRecoveryFlow)
+- [Get Recovery Flow](../reference/api#tag/frontend/operation/getRecoveryFlow)
+- [Update Recovery Flow](../reference/api#tag/frontend/operation/updateRecoveryFlow)
 
-Native flows:
+## Verification flow
 
-[Create Registration Flow](../reference/api#tag/frontend/operation/createNativeRegistrationFlow)
-[Get Registration Flow](../reference/api#tag/frontend/operation/getRegistrationFlow)
-[Update Registration Flow](../reference/api#tag/frontend/operation/updateRegistrationFlow)
+Verification flows are used to verify user email addresses. When the verification is successful, the request will respond with a
+`200 OK` HTTP status code. When the request fails, it responds with the appropriate HTTP status and error messages.
+
+:::note
+
+To use the verification flow, you might need to enable it. Please take a look at
+[Email verification](../kratos/self-service/flows/verify-email-account-activation)
+
+:::
+
+### Create Verification flow
+
+````mdx-code-block
+<Tabs groupId="sdk-examples">
+
+<TabItem value="go" label="Go" default>
+
+```mdx-code-block
+import createVerificaitonApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/create-verification.go'
+
+<CodeBlock language="go">{createVerificaitonApi}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="typescript" label="TypeScript">
+TypeScript example
+</TabItem>
+
+</Tabs>
+````
+
+### Get Verification flow
+
+````mdx-code-block
+<Tabs groupId="sdk-examples">
+
+<TabItem value="go" label="Go" default>
+
+```mdx-code-block
+import getVerificaitonApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/get-verification.go'
+
+<CodeBlock language="go">{getVerificaitonApi}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="typescript" label="TypeScript">
+TypeScript example
+</TabItem>
+
+</Tabs>
+````
+
+### Submit Verification flow
+
+````mdx-code-block
+<Tabs groupId="sdk-examples">
+
+<TabItem value="go" label="Go" default>
+
+```mdx-code-block
+import submitVerificaitonApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/submit-verification.go'
+
+<CodeBlock language="go">{submitVerificaitonApi}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="typescript" label="TypeScript">
+TypeScript example
+</TabItem>
+
+</Tabs>
+````
+
+### More Concepts and API References
+
+More conceptual information on the verification flow can be found in
+[Verify email account activation](../kratos/self-service/flows/verify-email-account-activation).
+
+For API references, please take a look at the [API Reference](../reference/api) section.
+
+Below are the API references for the verification flow.
+
+- [Create Browser Verification Flow](../reference/api#tag/frontend/operation/createBrowserVerificationFlow)
+- [Create Native Verification Flow](../reference/api#tag/frontend/operation/createNativeVerificationFlow)
+- [Get Verification Flow](../reference/api#tag/frontend/operation/getVerificationFlow)
+- [Update Verification Flow](../reference/api#tag/frontend/operation/updateVerificationFlow)
