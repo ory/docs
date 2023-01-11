@@ -100,28 +100,145 @@ TypeScript example
 </Tabs>
 ````
 
-More information on the login flow can be found in [Self-service Login Flow](../kratos/self-service/user-login)
+### Submit Login flow
+
+We can submit the login flow with user data (e.g. username and password) using the flow ID. Depending on the type of application
+(e.g. browser or native) the CSRF tokens are required in the request body and cookie.
+
+````mdx-code-block
+<Tabs groupId="sdk-examples">
+
+<TabItem value="go" label="Go" default>
+
+```mdx-code-block
+import submitLoginApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/submit-login.go'
+
+<CodeBlock language="go">{submitLoginApi}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="typescript" label="TypeScript">
+TypeScript example
+</TabItem>
+
+</Tabs>
+````
+
+:::note
+
+A session cookie or token can also be prevented on login using additional checks, such as only allowing verified users to login.
+For more information, please take a look at
+[Customize login and registration](../identities/sign-in/actions#allow-login-only-with-verified-email)
+
+:::
+
+### More Concepts and API References
+
+More conceptual information on the login flow can be found in [Self-service Login Flow](../kratos/self-service/flows/user-login).
+
+For API references, please take a look at the [API Reference](../reference/api) section.
 
 Below are the API references for the login flow.
 
-Browser flows:
-
-[Get Login Flow](../reference/api#tag/frontend/operation/getLoginFlow)
-[Create Login Flow](../reference/api#tag/frontend/operation/createBrowserLoginFlow)
-[Update Login Flow](../reference/api#tag/frontend/operation/updateLoginFlow)
-
-Native flows:
-
-[Get Login Flow](../reference/api#tag/frontend/operation/getLoginFlow)
-[Create Login Flow](../reference/api#tag/frontend/operation/createNativeLoginFlow)
-[Update Login Flow](../reference/api#tag/frontend/operation/updateLoginFlow)
+- [Get Browser Login Flow](../reference/api#tag/frontend/operation/getLoginFlow)
+- [Get Native Login Flow](../reference/api#tag/frontend/operation/getLoginFlow)
+- [Create Login Flow](../reference/api#tag/frontend/operation/createBrowserLoginFlow)
+- [Update Login Flow](../reference/api#tag/frontend/operation/updateLoginFlow)
 
 ## Registration flow
 
 Registration flows are used to register users. When the registration is successful the request will respond with a `200 OK` HTTP
-status code.
+status code. When the request fails, it responds with the appropriate HTTP status and error messages.
 
-More information on the login flow can be found in [Self-service Registration Flow](../kratos/self-service/user-registration)
+:::note
+
+Registration data is dependent on the [Identity Schema](../identities/manage-identity-schema) traits. This ensures registration
+flows are flexible and can be used for a variety of use cases.
+
+:::
+
+### Create Registration flow
+
+The flow always has to be initialized before any user data (e.g. username and password) can be submitted. Depending on the type of
+application (e.g. browser or native) the initialized flow will set a CSRF cookie and return a CSRF token in the response body. It
+is important to take note of the CSRF tokens since it is required when submitting the user data.
+
+````mdx-code-block
+<Tabs groupId="sdk-examples">
+
+<TabItem value="go" label="Go" default>
+
+```mdx-code-block
+import createRegistrationApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/create-registration.go'
+
+<CodeBlock language="go">{createRegistrationApi}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="typescript" label="TypeScript">
+TypeScript example
+</TabItem>
+
+</Tabs>
+````
+
+### Get Registration flow
+
+````mdx-code-block
+<Tabs groupId="sdk-examples">
+
+<TabItem value="go" label="Go" default>
+
+```mdx-code-block
+import getRegistrationApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/get-registration.go'
+
+<CodeBlock language="go">{getRegistrationApi}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="typescript" label="TypeScript">
+TypeScript example
+</TabItem>
+
+</Tabs>
+````
+
+### Submit Registration flow
+
+````mdx-code-block
+<Tabs groupId="sdk-examples">
+
+<TabItem value="go" label="Go" default>
+
+```mdx-code-block
+import submitRegistrationApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/submit-registration.go'
+
+<CodeBlock language="go">{submitRegistrationApi}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="typescript" label="TypeScript">
+TypeScript example
+</TabItem>
+
+</Tabs>
+````
+
+:::note
+
+A session cookie or token is only available after registration when enabled in the Ory configuration. More information can be
+found in [Customize login and registration](../identities/sign-in/actions#log-in-users-after-registration).
+
+:::
+
+### More Concepts and API References
+
+More information on the registration flow can be found in
+[Self-service Registration Flow](../kratos/self-service/user-registration)
 
 Below are the API references for the registration flow.
 
