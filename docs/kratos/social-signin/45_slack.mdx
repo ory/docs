@@ -15,6 +15,40 @@ import TabItem from '@theme/TabItem';
 
 Follow these steps to add Slack as a social sign-in provider to your project using the Ory Console:
 
+1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
+2. Click the switch next to the Slack logo to start the configuration.
+3. Copy the **Redirect URI** and save it for later use.
+4. [Create a Slack OAuth Application](https://api.slack.com/apps) by clicking the **Create New App** button
+5. After creating the new application, navigate to the **OAuth & Permissions** section of the registered application in Slack
+  and add the saved **Redirect URI** from Ory to the **Redirect URLS** of the registered application.
+6. Navigate to the **Basic Information** section of the registered application in Slack and copy the following data:
+    1. Copy the **Client ID** to the corresponding field in the form on the Ory Console.
+    2. Copy the **Client Secret** to the corresponding field in the form on the Ory Console.
+7. In the **Scopes** field of the form on the Ory Console, add the following scopes (one by one):
+    - `identity.basic`
+    - `identity.email`
+8. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
+   ```jsonnet
+   local claims = {
+     email_verified: true,
+   } + std.extVar('claims');
+
+   {
+     identity: {
+       traits: {
+         // Allowing unverified email addresses enables account
+         // enumeration attacks,  if the value is used for
+         // verification or as a password login identifier.
+         //
+         // It's assumed that Slack requires an email to be verified to be accessible
+         // via OAuth (because they don't provide a email_verified field).
+         email: claims.email,
+       },
+     },
+   }
+   ```
+9. Click **Save Configuration**.
+
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
 
