@@ -4,6 +4,8 @@ title: Add Slack as a social sign-in provider in Ory
 sidebar_label: Slack
 ---
 
+import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
+
 # Slack
 
 ````mdx-code-block
@@ -20,7 +22,7 @@ Follow these steps to add Slack as a social sign-in provider to your project usi
 3. Copy the **Redirect URI** and save it for later use.
 4. [Create a Slack OAuth Application](https://api.slack.com/apps) by clicking the **Create New App** button
 5. After creating the new application, navigate to the **OAuth & Permissions** section of the registered application in Slack
-  and add the saved **Redirect URI** from Ory to the **Redirect URLS** of the registered application.
+  and add the saved **Redirect URI** from Ory to the **Redirect URLs** of the registered application.
 6. Navigate to the **Basic Information** section of the registered application in Slack and copy the following data:
     1. Copy the **Client ID** to the corresponding field in the form on the Ory Console.
     2. Copy the **Client Secret** to the corresponding field in the form on the Ory Console.
@@ -46,6 +48,9 @@ Follow these steps to add Slack as a social sign-in provider to your project usi
        },
      },
    }
+   ```
+   ```mdx-code-block
+   <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
    ```
 9. Click **Save Configuration**.
 
@@ -82,12 +87,9 @@ Follow these steps to add Slack as a social sign-in provider to your project usi
      },
    }
    ```
-
-```mdx-code-block
-import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
-
-<JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
-```
+   ```mdx-code-block
+   <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
+   ```
 
 4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to The Ory Network.
 

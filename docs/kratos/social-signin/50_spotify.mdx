@@ -4,6 +4,8 @@ title: Add Spotify as a social sign-in provider in Ory
 sidebar_label: Spotify
 ---
 
+import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
+
 # Spotify
 
 ````mdx-code-block
@@ -14,6 +16,36 @@ import TabItem from '@theme/TabItem';
 <TabItem value="console" label="Ory Console" default>
 
 Follow these steps to add Spotify as a social sign-in provider to your project using the Ory Console:
+
+1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
+2. Click the switch next to the Spotify logo to start the configuration.
+3. Copy the **Redirect URI** and save it for later use.
+4. [Create a Spotify Application](https://developer.spotify.com/dashboard/applications) by clicking the **CREATE AN APP** button.
+5. From the registered application page in Spotify, copy the following data:
+    1. Copy the **Client ID** to the corresponding field in the form on the Ory Console.
+    2. Copy the **Client Secret** to the corresponding field in the form on the Ory Console.
+6. From the registered application page in Spotify, click **EDIT SETTINGS** to open the **EDIT SETTINGS** dialog:
+    1. Add the saved **Redirect URI** from Ory to the **Redirect URIs** of the registered application.
+    2. Click **Save** to confirm and close the dialog.
+7. In the **Scopes** field of the form on the Ory Console, add the following scopes (one by one):
+    - `user-read-email`
+    - `user-read-private`
+8. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
+   ```jsonnet
+   local claims = std.extVar('claims');
+
+   {
+     identity: {
+       traits: {
+         email: claims.email,
+       },
+     },
+   }
+   ```
+   ```mdx-code-block
+   <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
+   ```
+9. Click **Save Configuration**.
 
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
@@ -51,8 +83,6 @@ Follow these steps to add Spotify as a social sign-in provider to your project u
    :::
 
 ```mdx-code-block
-import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
-
 <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
 ```
 
