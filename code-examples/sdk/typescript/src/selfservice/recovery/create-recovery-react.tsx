@@ -10,11 +10,10 @@ const ory = new FrontendApi(
   }),
 )
 
-export const CreateLogin = useCallback((aal: string, refresh: boolean) => {
-  // highlight-start
-  return ory.createBrowserLoginFlow({
-    aal, // the authentication level (e.g. 2FA)
-    refresh, // if we already have a session, refresh it.
-  })
+export const CreateRecovery = useCallback(
+  () =>
+    // highlight-start
+    ory.createBrowserRecoveryFlow(),
   // highlight-end
-}, [])
+  [],
+)

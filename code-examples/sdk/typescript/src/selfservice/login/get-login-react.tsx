@@ -11,7 +11,9 @@ const ory = new FrontendApi(
 )
 
 export const GetLogin = useCallback((id: string) => {
+  // highlight-start
   return ory.getLoginFlow({
     id,
   })
+  // highlight-end
 }, [])

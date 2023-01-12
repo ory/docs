@@ -1,4 +1,5 @@
-import { Configuration, FrontendApi, UpdateLoginFlowBody } from "@ory/client"
+import { Configuration, FrontendApi } from "@ory/client"
+import { useCallback } from "react"
 
 const ory = new FrontendApi(
   new Configuration({
@@ -9,11 +10,9 @@ const ory = new FrontendApi(
   }),
 )
 
-export const SubmitLogin = (id: string, body: UpdateLoginFlowBody) => {
+export const CreateVerification = useCallback(
   // highlight-start
-  return ory.updateLoginFlow({
-    flow: id,
-    updateLoginFlowBody: body,
-  })
+  () => ory.createBrowserVerificationFlow(),
   // highlight-end
-}
+  [],
+)
