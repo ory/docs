@@ -4,6 +4,8 @@ title: Add Discord as a social sign-in provider in Ory
 sidebar_label: Discord
 ---
 
+import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
+
 # Discord
 
 ````mdx-code-block
@@ -14,6 +16,45 @@ import TabItem from '@theme/TabItem';
 <TabItem value="console" label="Ory Console" default>
 
 Follow these steps to add Discord as a social sign-in provider to your project using the Ory Console:
+
+1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
+2. Click the switch next to the Discord logo to start the configuration.
+3. Copy the **Redirect URI** and save it for later use.
+4. [Create a Discord OAuth2 application](https://discord.com/developers/applications) by clicking the **New Application** button.
+5. After creating the application, navigate to the **OAuth2 | General** section of the registered application in Discord
+   and copy the following data:
+    1. Copy the **CLIENT ID** to the corresponding field in the form on the Ory Console.
+    2. Copy the **CLIENT SECRET** to the corresponding field in the form on the Ory Console.
+6. From the **OAuth2 | General** section in Discord,
+   add the saved **Redirect URI** from Ory to the **Redirects** of the registered application.
+7. In the **Scopes** field of the form on the Ory Console, add the following scopes (one by one):
+    - `identify`
+    - `email`
+8. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
+   ```jsonnet
+   local claims = {
+     email_verified: false,
+   } + std.extVar('claims');
+
+   {
+     identity: {
+       traits: {
+         // Allowing unverified email addresses enables account
+         // enumeration attacks,  if the value is used for
+         // verification or as a password login identifier.
+         //
+         // Therefore we only return the email if it (a) exists and (b) is marked verified
+         // by Discord.
+         [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,
+       },
+     },
+   }
+   ```
+   ```mdx-code-block
+   <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
+   ```
+9. Click **Save Configuration**.
+
 
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
@@ -78,8 +119,6 @@ Follow these steps to add Discord as a social sign-in provider to your project u
    :::
 
 ```mdx-code-block
-import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
-
 <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
 ```
 
