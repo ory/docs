@@ -1,7 +1,7 @@
 ---
 id: custom-ui-headless-api
-title: Custom UI integration basics
-sidebar_label: Custom UI integration basics
+title: Integration Basics
+sidebar_label: Integration Basics
 toc_max_heading_level: 4
 ---
 
@@ -26,11 +26,42 @@ A general overview of the flow can be summed up in two steps:
 
 For more information on the concepts, take a look at the [Self-service flow](../kratos/self-service) documentation.
 
+## Creating a flow
+
+All browser flows can be initialized with the optional `?return_to=<url>` query parameter. This parameter is used to redirect the
+user to the specified URL after the flow is successfully completed.
+
+Some flows, such as login have additional query parameters which can be used in both browser and native applications.
+
+## Reusing an existing flow
+
+In cases where the flow already exists, we can retrieve the flow data using the flow ID. This is useful in cases where Ory has
+already initialized the flow and redirected to the UI. In such a case, the flow ID can be extracted from the URL `?flow=` query
+parameter.
+
+Here are some cases where the flow would already exist:
+
+1. Ory has initialized the flow and redirects to the UI (e.g. `/login?flow=<uuidv4>`)
+2. The request was completed by the user, however, an error occurred, and we need to retrieve the flow data to display the error
+3. The UI has 'stored' the flow ID in the URL so that page refreshes can retrieve the already existing flow data
+
 :::note
 
-Depending on the type of application (browser or native) the initialized flow will set a CSRF cookie and return a CSRF token in
-the response body. It is important in **browser based applications** to take note of the CSRF tokens since it is required when
-submitting the user data.
+The flow ID has an expiration time, so it is important to check the response status code when retrieving the flow data using an
+existing flow ID. It is up to your application to handle this error case and create a new flow.
+
+:::
+
+## Submitting a flow
+
+The flow always has to be initialized before any user data (e.g. email and password) can be submitted. Depending on the type of
+application (e.g. browser or native) the initialized flow will set a CSRF cookie and return a CSRF token in the response body. It
+is important in **browser based applications** to take note of the CSRF tokens since it is required when submitting the user data.
+
+:::warning
+
+Never use API flows to implement Browser applications! Using API flows in Single-Page-Apps as well as server-side apps opens up
+several potential attack vectors, including Login and other CSRF attacks.
 
 :::
 
@@ -42,9 +73,9 @@ status and error messages.
 
 ### Create Login flow
 
-The flow always has to be initialized before any user data (e.g. username and password) can be submitted. Depending on the type of
-application (e.g. browser or native) the initialized flow will set a CSRF cookie and return a CSRF token in the response body. It
-is important to take note of the CSRF tokens since it is required when submitting the user data.
+In browser and native applications, additional options can be specified when creating a login flow such as `?refresh=true` and
+`?aal=<level>`. For more information on these options, take a look at the [Self-service flow](../kratos/self-service)
+documentation.
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
@@ -82,24 +113,24 @@ import createReactLoginApi from '!!raw-loader!../../code-examples/sdk/typescript
 </Tabs>
 ````
 
+#### Two-Factor authentication
+
+Two-Factor authentication (2FA) is a second step to confirming the user's credentials with another credential, such as `TOTP` or
+`TouchID`. When creating a login flow, you can specify the `?aal=<level>` query parameter to specify the level of authentication.
+
+In Ory the levels are:
+
+- aal1: Password or OIDC
+- aal2: aal1 + TOTP or WebAuthn or Lookup Secrets
+
+In the case of initializing a second factor, the user must already have a valid session cookie. The
+[`/sessions/whoami`](../../reference/api#sessionWhoami) endpoint will return with an error with an id `session_aal2_required` if
+the user is required to complete a second factor. More information on UI error messages can be found on the
+[Customize user interface](../kratos/concepts/ui-user-interface) page.
+
+For more information on Multi-factor authentication take a look at the [Multi-factor authentication](../kratos/mfa/overview).
+
 ### Get Login flow
-
-In cases where the flow already exists, we can retrieve the flow data using the flow ID. This is useful in cases where Ory has
-already initialized the flow and redirected to the UI. In such a case, the flow ID can be extracted from the URL `?flow=` query
-parameter.
-
-Here are some cases where the flow would already exist:
-
-1. Ory has initialized the flow and redirects to the UI (e.g. `/login?flow=<uuidv4>`)
-2. The request was completed by the user, however, an error occurred, and we need to retrieve the flow data to display the error
-3. The UI has 'stored' the flow ID in the URL so that page refreshes can retrieve the flow data
-
-:::note
-
-The flow ID has an expiration time, so it is important to check the response status code when retrieving the flow data using an
-existing flow ID. It is up to your application to handle this and create a new flow if the flow ID has expired.
-
-:::
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
@@ -142,10 +173,15 @@ import getReactLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/sr
 We can submit the login flow with user data (e.g. username and password) using the flow ID. Depending on the type of application
 (e.g. browser or native) the CSRF tokens are required in the request body and cookie.
 
+In some cases, such as submitting WebAuthn passwordless, the response code could be `422` which indicates that the browser needs
+to be redirected with a newly created flow. In Single Page Applications (SPAs) instead of redirecting, the response can be decoded
+and the new flow ID extracted.
+
 :::note
 
-In some cases the response code could be `422` which indicates that the browser needs to be redirected with a new flow. In Single
-Page Applications (SPAs) the response can be decoded and the new flow ID extracted.
+A session cookie or token can also be prevented on login using additional checks, such as only allowing verified users to login.
+For more information, please take a look at
+[Customize login and registration](../identities/sign-in/actions#allow-login-only-with-verified-email)
 
 :::
 
@@ -185,14 +221,6 @@ import submitReactLoginApi from '!!raw-loader!../../code-examples/sdk/typescript
 </Tabs>
 ````
 
-:::note
-
-A session cookie or token can also be prevented on login using additional checks, such as only allowing verified users to login.
-For more information, please take a look at
-[Customize login and registration](../identities/sign-in/actions#allow-login-only-with-verified-email)
-
-:::
-
 ### More Concepts and API References
 
 More conceptual information on the login flow can be found in [Self-service Login Flow](../kratos/self-service/flows/user-login).
@@ -213,16 +241,12 @@ Registration flows are used to create user identities. When the registration is 
 
 :::note
 
-Registration data is dependent on the [Identity Schema](../identities/manage-identity-schema) traits. This ensures registration
+Registration data are dependent on the [Identity Schema](../identities/manage-identity-schema) traits. This ensures registration
 flows are flexible and can be used for a variety of use cases.
 
 :::
 
 ### Create Registration flow
-
-The flow always has to be initialized before any user data (e.g. username and password) can be submitted. Depending on the type of
-application (e.g. browser or native) the initialized flow will set a CSRF cookie and return a CSRF token in the response body. It
-is important to take note of the CSRF tokens since it is required when submitting the user data.
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
@@ -300,6 +324,13 @@ import getReactRegistrationApi from '!!raw-loader!../../code-examples/sdk/typesc
 
 ### Submit Registration flow
 
+:::note
+
+A session cookie or token is only available after registration when enabled in the Ory configuration. More information can be
+found in [Customize login and registration](../identities/sign-in/actions#log-in-users-after-registration).
+
+:::
+
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
 
@@ -336,13 +367,6 @@ import submitReactRegistrationApi from '!!raw-loader!../../code-examples/sdk/typ
 </Tabs>
 ````
 
-:::note
-
-A session cookie or token is only available after registration when enabled in the Ory configuration. More information can be
-found in [Customize login and registration](../identities/sign-in/actions#log-in-users-after-registration).
-
-:::
-
 ### More Concepts and API References
 
 More conceptual information on the registration flow can be found in
@@ -364,7 +388,7 @@ recovery flow is completed. The `link` method sends a recovery link and `code` s
 
 :::note
 
-The `code` method is preferred to the `link` method to prevent the recovery from being invalidated by email clients and spam
+The `code` method is preferred to the `link` method to prevent the recovery flow from being invalidated by email clients and spam
 filters.
 
 :::
