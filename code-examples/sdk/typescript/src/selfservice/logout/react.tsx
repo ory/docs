@@ -1,6 +1,6 @@
 import { Configuration, FrontendApi } from "@ory/client"
 
-const ory = new FrontendApi(
+const frontend = new FrontendApi(
   new Configuration({
     basePath: "http://localhost:4000", // Use your local Ory Tunnel URL
     baseOptions: {
@@ -13,9 +13,9 @@ export function Logout() {
   const handleLogout = async () => {
     try {
       // Create a "logout flow" in Ory Identities
-      const { data: flow } = await ory.createBrowserLogoutFlow()
-      // Use the recieved token to "update" the flow and thus perform the logout
-      await ory.updateLogoutFlow({
+      const { data: flow } = await frontend.createBrowserLogoutFlow()
+      // Use the received token to "update" the flow and thus perform the logout
+      await frontend.updateLogoutFlow({
         token: flow.logout_token,
       })
     } catch (error) {

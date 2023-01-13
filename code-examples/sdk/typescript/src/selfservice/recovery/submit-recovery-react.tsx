@@ -1,7 +1,7 @@
-import { Configuration, FrontendApi } from "@ory/client"
+import { Configuration, FrontendApi, UpdateRecoveryFlowBody } from "@ory/client"
 import { useCallback } from "react"
 
-const ory = new FrontendApi(
+const frontend = new FrontendApi(
   new Configuration({
     basePath: "http://localhost:4000", // Use your local Ory Tunnel URL
     baseOptions: {
@@ -13,7 +13,7 @@ const ory = new FrontendApi(
 export const SubmitRecovery = useCallback(
   (id: string, body: UpdateRecoveryFlowBody) =>
     // highlight-start
-    ory.updateRecoveryFlow({
+    frontend.updateRecoveryFlow({
       flow: id,
       updateRecoveryFlowBody: body,
     }),

@@ -1,13 +1,13 @@
 import { Configuration, IdentityApi } from "@ory/client"
 
-const identityApi = new IdentityApi(
+const identity = new IdentityApi(
   new Configuration({
     basePath: `https://${process.env.ORY_PROJECT_SLUG}.projects.oryapis.com`,
     accessToken: `${process.env.ORY_ACCESS_TOKEN}`,
   }),
 )
 
-export async function ListSessions(
+export async function listSessions(
   expandOptions?: Array<"Devices" | "Identity">,
   pageToken?: string,
   pageSize?: number,
@@ -17,7 +17,7 @@ export async function ListSessions(
   // All parameters here are optional
   // Expand options can be used to include data for certain attributes in the response which are not returned by default to improve performance
   // Page Token obtained from the response header has to be set to receive subsequent page data
-  return await identityApi.listSessions({
+  return await identity.listSessions({
     expand: expandOptions,
     active: active, // Optional parameter to filter sessions based on state (active/inactive)
     pageToken: pageToken,

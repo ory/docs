@@ -1,15 +1,15 @@
 import { Configuration, IdentityApi } from "@ory/client"
 
-const identityApi = new IdentityApi(
+const identity = new IdentityApi(
   new Configuration({
     basePath: `https://${process.env.ORY_PROJECT_SLUG}.projects.oryapis.com`,
     accessToken: `${process.env.ORY_ACCESS_TOKEN}`,
   }),
 )
 
-export async function DisableAndDeleteSessions(identityId: string) {
+export async function disableAndDeleteSessions(identityId: string) {
   // highlight-start
-  return await identityApi.deleteIdentitySessions({
+  return await identity.deleteIdentitySessions({
     id: identityId,
   })
   // highlight-end

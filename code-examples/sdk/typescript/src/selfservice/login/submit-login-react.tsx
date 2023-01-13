@@ -1,6 +1,6 @@
 import { Configuration, FrontendApi, UpdateLoginFlowBody } from "@ory/client"
 
-const ory = new FrontendApi(
+const frontend = new FrontendApi(
   new Configuration({
     basePath: "http://localhost:4000", // Use your local Ory Tunnel URL
     baseOptions: {
@@ -11,7 +11,7 @@ const ory = new FrontendApi(
 
 export const SubmitLogin = (id: string, body: UpdateLoginFlowBody) => {
   // highlight-start
-  return ory.updateLoginFlow({
+  return frontend.updateLoginFlow({
     flow: id,
     updateLoginFlowBody: body,
   })

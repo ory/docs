@@ -1,6 +1,6 @@
 import { Configuration, FrontendApi } from "@ory/client"
 
-const ory = new FrontendApi(
+const frontend = new FrontendApi(
   new Configuration({
     basePath: "http://localhost:4000", // Use your local Ory Tunnel URL
     baseOptions: {
@@ -9,11 +9,11 @@ const ory = new FrontendApi(
   }),
 )
 
-export function RevokeOtherSessions() {
+export function revokeOtherSessions() {
   const handleRevokeOtherSessions = async () => {
     // highlight-start
     try {
-      await ory.disableMyOtherSessions()
+      await frontend.disableMyOtherSessions()
     } catch (error) {
       // The sessions could not be revoked
       // This might occur if the current session has expired

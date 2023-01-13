@@ -1,7 +1,7 @@
 import { Configuration, FrontendApi, Session } from "@ory/client"
 import { useState } from "react"
 
-const ory = new FrontendApi(
+const frontend = new FrontendApi(
   new Configuration({
     basePath: "http://localhost:4000", // Use your local Ory Tunnel URL
     baseOptions: {
@@ -11,13 +11,13 @@ const ory = new FrontendApi(
 )
 
 // Example of a modal component
-export function CheckSession() {
+export function checkSession() {
   const [session, setSession] = useState<Session>(undefined)
 
   // highlight-start
   const handleCheckSession = async () => {
     try {
-      const result = await ory.toSession()
+      const result = await frontend.toSession()
       setSession(result.data)
     } catch (error) {
       // The session could not be fetched
