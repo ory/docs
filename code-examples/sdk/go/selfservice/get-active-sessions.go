@@ -17,8 +17,8 @@ func init() {
 }
 
 func GetActiveSessions(ctx context.Context, sessionToken string) ([]client.Session, error) {
-	// Page and Per Page parameters are optional
 	// highlight-start
+	// Page and Per Page parameters are optional
 	activeSessions, _, err := ory.FrontendApi.ListMySessions(ctx).
 		XSessionToken(sessionToken).
 		Page(1).

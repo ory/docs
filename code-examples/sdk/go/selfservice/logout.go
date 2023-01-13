@@ -30,8 +30,8 @@ func logout(ctx context.Context, sessionToken string) error {
 	if err != nil {
 		return err
 	}
-	// highlight-end
 	// Logout was successful
+	// highlight-end
 
 	return nil
 }

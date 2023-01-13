@@ -22,7 +22,6 @@ func init() {
 func submitRegistration(ctx context.Context, flowId string, body client.UpdateRegistrationFlowBody) (*client.SuccessfulNativeRegistration, error) {
 	// highlight-start
 	flow, _, err := ory.FrontendApi.UpdateRegistrationFlow(ctx).Flow(flowId).UpdateRegistrationFlowBody(body).Execute()
-
 	if err != nil {
 		return nil, err
 	}

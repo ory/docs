@@ -22,7 +22,6 @@ func init() {
 func submitVerification(ctx context.Context, flowId string, body client.UpdateVerificationFlowBody) (*client.VerificationFlow, error) {
 	// highlight-start
 	flow, _, err := ory.FrontendApi.UpdateVerificationFlow(ctx).Flow(flowId).UpdateVerificationFlowBody(body).Execute()
-
 	if err != nil {
 		return nil, err
 	}

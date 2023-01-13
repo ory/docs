@@ -22,7 +22,6 @@ func init() {
 func submitRecovery(ctx context.Context, flowId string, body client.UpdateRecoveryFlowBody) (*client.RecoveryFlow, error) {
 	// highlight-start
 	flow, _, err := ory.FrontendApi.UpdateRecoveryFlow(ctx).Flow(flowId).UpdateRecoveryFlowBody(body).Execute()
-
 	if err != nil {
 		return nil, err
 	}

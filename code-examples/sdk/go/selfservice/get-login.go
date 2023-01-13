@@ -22,7 +22,6 @@ func init() {
 func getLogin(ctx context.Context, flowId string) (*client.LoginFlow, error) {
 	// highlight-start
 	flow, _, err := ory.FrontendApi.GetLoginFlow(ctx).Id(flowId).Execute()
-
 	if err != nil {
 		return nil, err
 	}

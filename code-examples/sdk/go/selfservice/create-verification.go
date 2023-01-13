@@ -22,7 +22,6 @@ func init() {
 func createVerification(ctx context.Context) (*client.VerificationFlow, error) {
 	// highlight-start
 	flow, _, err := ory.FrontendApi.CreateNativeVerificationFlow(ctx).Execute()
-
 	if err != nil {
 		return nil, err
 	}
