@@ -124,9 +124,9 @@ In Ory the levels are:
 - aal2: aal1 + TOTP or WebAuthn or Lookup Secrets
 
 In the case of initializing a second factor, the user must already have a valid session cookie. The
-[`/sessions/whoami`](../../reference/api#sessionWhoami) endpoint will return with an error with an id `session_aal2_required` if
-the user is required to complete a second factor. More information on UI error messages can be found on the
-[Customize user interface](../kratos/concepts/ui-user-interface) page.
+[`/sessions/whoami`](../reference/api#tag/frontend/operation/toSession) endpoint will return with an error with an id
+`session_aal2_required` if the user is required to complete a second factor. More information on UI error messages can be found on
+the [Customize user interface](../kratos/concepts/ui-user-interface) page.
 
 For more information on Multi-factor authentication take a look at the [Multi-factor authentication](../kratos/mfa/overview).
 
@@ -241,8 +241,8 @@ Registration flows are used to create user identities. When the registration is 
 
 :::note
 
-Registration data are dependent on the [Identity Schema](../identities/manage-identity-schema) traits. This ensures registration
-flows are flexible and can be used for a variety of use cases.
+Registration data are dependent on the [Identity Schema](../kratos/manage-identities/identity-schema) traits. This ensures
+registration flows are flexible and can be used for a variety of use cases.
 
 :::
 
