@@ -4,6 +4,8 @@ title: Add Apple as a social sign-in provider in Ory
 sidebar_label: Apple
 ---
 
+import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
+
 # Apple
 
 ````mdx-code-block
@@ -14,6 +16,44 @@ import TabItem from '@theme/TabItem';
 <TabItem value="console" label="Ory Console" default>
 
 Follow these steps to add Apple as a social sign-in provider to your project using the Ory Console:
+
+1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
+2. Click the switch next to the Apple logo to start the configuration.
+3. Copy the **Redirect URI** and save it for later use.
+4. Follow the [Sign in with Apple](https://developer.apple.com/documentation/sign_in_with_apple) guide to
+   [create an app, a service, and a private key using an Apple Developer account](https://developer.apple.com/documentation/sign_in_with_apple/implementing_user_authentication_with_sign_in_with_apple).
+5. Copy the **Services ID** from the Apple registered app to the **Client ID** field in the form on the Ory Console.
+5. Add the saved **Redirect URI** from Ory to the **Return URLs** of the Apple registered application.
+6. In the **Scopes** field of the form on the Ory Console, add the following scope:
+    - `email`
+7. Copy the following details from your registered application in Apple to the Ory Console form:
+    1. Copy the **Apple Team Id** to the corresponding field in the form on the Ory Console.
+    2. Copy the **Apple Private Key Id** to the corresponding field in the form on the Ory Console.
+    3. Copy the **Apple Private Key** to the corresponding field in the form on the Ory Console.
+8. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
+   ```jsonnet
+   local claims = {
+     email_verified: false,
+   } + std.extVar('claims');
+
+   {
+     identity: {
+       traits: {
+         // Allowing unverified email addresses enables account
+         // enumeration attacks,  if the value is used for
+         // verification or as a password login identifier.
+         //
+         // Therefore we only return the email if it (a) exists and (b) is marked verified
+         // by Apple.
+         [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,
+       },
+     },
+   }
+   ```
+   ```mdx-code-block
+   <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
+   ```
+9. Click **Save Configuration**.
 
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
@@ -48,13 +88,9 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
      },
    }
    ```
-
-```mdx-code-block
-import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
-
-<JsonnetWarning />
-```
-
+   ```mdx-code-block
+   <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
+   ```
 4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to The Ory Network.
 
    ```shell
