@@ -3,17 +3,17 @@ id: index
 title: Introduction
 ---
 
-Ory Permissions (based on the open-source Ory Keto Permission Server) is the first open source implementation of
+Ory Permissions (based on the open-source Ory Keto Permission Server) is the first open-source implementation of
 [Zanzibar: Google's Consistent, Global Authorization System"](https://research.google/pubs/pub48190/).
 
 With Ory Permissions, you can
 
-- unify authorization logic in one service that is the authoritative source across all your applications,
-- define a permission model (RBAC, ABAC, anything in between) independent of any tech-stack, with [SDKs](./sdk/01_overview.md)
-  available for all major programming languages,
-- query permissions across the world against the globally-distributed Ory Network,
-- issue fine-grained permissions (e.g., `user x can read document y`),
-- inherit permissions through groups, roles, hierarchies, etc.
+- unify authorization logic in one service that is the authoritative source across all your applications.
+- define a permission model such as RBAC, ABAC, or a more flexible model that fits your use case.
+- work independent of any tech-stack, with [SDKs](./sdk/01_overview.md) available for all major programming languages.
+- query permissions across the world against the globally-distributed Ory Network.
+- issue fine-grained permissions, for example `user x can read document y`.
+- inherit permissions through groups, roles, hierarchies, and more.
 
 ## How does Ory Permissions work?
 
