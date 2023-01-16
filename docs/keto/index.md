@@ -19,15 +19,15 @@ With Ory Permissions, you can
 
 ### Relationships
 
-Ory Permissions operates on and manages relationships. These relationships represent the ground-truth from which all permissions
-are derived. Common examples include:
+Ory Permissions operates on and manages relationships. These relationships represent the source of truth from which all
+permissions are derived. Common examples include:
 
 - `User c is the owner of Document d`
 - `User a is a member of Group b`
 
 Typically, relationships represent just some fact that is part of your application already. To ensure the Ory Permission Server
-always has the most up-to-date information, you should use it as the ground-truth for your application as well. There are multiple
-APIs to query and manage relationships, but more on those later.
+always has the most up-to-date information, you should use it as the source of truth for your application as well. There are
+multiple APIs to query and manage relationships, but more on those later.
 
 ### Ory Permission Language (OPL)
 
