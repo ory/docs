@@ -9,7 +9,7 @@ Ory Permissions (based on the open-source Ory Keto Permission Server) is the fir
 With Ory Permissions, you can
 
 - unify authorization logic in one service that is the authoritative source across all your applications,
-- define a permission model (RBAC, ABAC, anything in between) independent of any tech-stack, with [SDKs](./sdk/01_index.md)
+- define a permission model (RBAC, ABAC, anything in between) independent of any tech-stack, with [SDKs](./sdk/01_overview.md)
   available for all major programming languages,
 - query permissions across the world against the globally-distributed Ory Network,
 - issue fine-grained permissions (e.g., `user x can read document y`),
