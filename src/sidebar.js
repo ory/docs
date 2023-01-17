@@ -430,6 +430,7 @@ module.exports = {
                 "kratos/self-hosted/mail-courier-templates",
                 "kratos/self-hosted/sms-messages",
                 "kratos/self-hosted/account-activation-email-verification",
+                "kratos/self-hosted/mfa",
                 "kratos/guides/zero-trust-iap-proxy-identity-access-proxy",
                 "kratos/guides/multi-tenancy-multitenant",
                 "kratos/guides/select-cipher-algorithm",

@@ -1,10 +1,10 @@
 ---
 id: enforce-mfa
 title: Enforce multi-factor authentication
-sidebar_label: Enforce MFA
+sidebar_label: Configuration
 ---
 
-# Enforce MFA
+# Configure MFA in your application
 
 You can enforce multi-factor authentication in one of two models:
 
@@ -20,24 +20,30 @@ You can set the required authentication model for these operations/endpoints:
 
 Follow these steps to enforce multi-factor authentication:
 
-### Ory Console
+````mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-In The Ory Network, the default multi-factor authentication enforcement model is Strict.
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+
+In the Ory Network, the default multi-factor authentication enforcement model is Strict.
 
 To change it to Lax and allow users to sign in or access user settings without authenticating with the second factor, go to the
-**Ory Console → Two-Factor Authentication** and use the switches in the **General Settings** section.
+**Ory Console** → [**Two-Factor Authentication**](https://console.ory.sh/projects/current/mfa) and use the switches in the **General Settings** section.
 
-```mdx-code-block
-import BrowserWindow from "@site/src/theme/BrowserWindow"
+  ```mdx-code-block
+  import BrowserWindow from "@site/src/theme/BrowserWindow"
 
-<BrowserWindow url="https://console.ory.sh/">
+  <BrowserWindow url="https://console.ory.sh/">
 
-![Authentication enforcement settings in Ory Console](../_static/mfa/10.png)
+  ![Authentication enforcement settings in Ory Console](../_static/mfa/10.png)
 
-</BrowserWindow>
-```
+  </BrowserWindow>
+  ```
 
-### Ory CLI
+</TabItem>
+<TabItem value="cli" label="Ory CLI" default>
 
 Follow these steps to adjust the settings in The Ory Network using the Ory CLI:
 
@@ -78,20 +84,38 @@ Follow these steps to adjust the settings in The Ory Network using the Ory CLI:
    ory update identity-config <project-id> --file identity-config.yaml
    ```
 
-### Self-hosted instances
+</TabItem>
+</Tabs>
+````
 
-When working with self-hosted instances of the Ory Identities (Kratos), change the enforcement model by adjusting these keys in
-the configuration file:
+## Requiring MFA for a session
 
-```yaml title="config.yml"
-# ...
-selfservice:
-  flows:
-    settings:
-      required_aal: aal1
-# ...
-session:
-  whoami:
-    required_aal: highest_available
-# ...
+Some actions in your application might require a session, that has provided a second factor.
+
+To do that, initiate a new login flow using one of these endpoints with the `aal` parameter set to `aal2`:
+
+- [`/self-service/login/browser`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowForBrowsers)
+- [`/self-service/login/api`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowWithoutBrowser)
+
+```shell
+/self-service/login/browser?aal=aal2
+/self-service/login/api?aal=aal2
 ```
+
+When the user successfully provides their configured second factor:
+
+- The method, for example `totp`, is added to the Ory Session.
+- Ory Session Authenticator Assurance Level (AAL) is set to `aal2`.
+- The `authenticated_at` time is set to the time when the user provides the second factor.
+
+:::note
+
+If the Ory Session has `aal2` already, this will error. In that case, you can request to refresh the session using the second
+factor:
+
+```shell
+/self-service/login/browser?refresh=true&aal=aal2
+/self-service/login/api?refresh=true&aal=aal2
+```
+
+:::

@@ -1,12 +1,28 @@
 ---
 id: totp
-title: TOTP (Google Authenticator)
+title: Multi-factor authentication with TOTP (Google Authenticator)
+sidebar_label: TOTP (Google Authenticator)
 ---
 
-You can enable Time-Based One-Time Password (TOTP) authentication in the Ory Identities (Kratos) to allow users to perform 2FA
-with TOTP apps such as Google Authenticator, LastPass, or [FreeOTP](https://freeotp.github.io/).
+# Time-based one-time passwords (TOTP)
 
-When enabled, users can pair a TOTP app with their account:
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import BrowserWindow from "@site/src/theme/BrowserWindow"
+```
+
+Time-based one-time passwords are codes of a few digits, that are only valid for a short amount of time, usually 30 seconds or
+less. It requires users to use a companion app such as [Google Authenticator](https://g.co/kgs/YgRFR5) or the OnePassword password
+manager. The app is responsible for generating these codes.
+
+When accessing resources protected with the second-factor requirement, the paired application generates a one-time password that
+expires after a certain time. Users must input this password before it expires to authenticate and perform the protected actions.
+
+You can enable Time-Based One-Time Password (TOTP) authentication in Ory Identities (Kratos) to allow users to perform 2FA with
+TOTP apps such as Google Authenticator, LastPass, or [FreeOTP](https://freeotp.github.io/).
+
+When enabled, users can pair a TOTP app to their account:
 
 :::note
 
@@ -14,16 +30,18 @@ The example screenshot is captured using the Ory Account Experience.
 
 :::
 
-````mdx-code-block
-import BrowserWindow from "@site/src/theme/BrowserWindow"
-
+```mdx-code-block
 <BrowserWindow url="https://playground.projects.oryapis.com/ui">
+```
 
 ![TOTP linking in Ory Account Experience](../_static/mfa/1.png)
 
+```mdx-code-block
 </BrowserWindow>
+```
 
-When attempting to perform actions secured with 2FA, users get a TOTP code with the application identifier:
+When attempting to perform actions while having 2FA enabled, users are asked to enter the short code in the Ory Identities UI.
+This proves that they have access to their chosen second factor.
 
 ```mdx-code-block
 <BrowserWindow url="https://playground.projects.oryapis.com/ui">
@@ -31,25 +49,26 @@ When attempting to perform actions secured with 2FA, users get a TOTP code with 
 ![2FA with Google Authenticator](../_static/mfa/2.png)
 
 </BrowserWindow>
-````
+```
 
 :::info
 
 In this example, the user identifier (email - `alice@example.com`) is used. To learn how to enable this behavior, read
-[this section](#distinguishing-identities-requesting-totp).
+[Distinguishing identities requesting TOTP](#distinguishing-identities-requesting-totp).
 
 :::
 
 ## Configuration
 
-Follow these steps to enable Time-Based One-Time Password (TOTP) as the second authentication factor:
-
-### Ory Console
+```mdx-code-block
+<Tabs groupId="console-or-cli">
+  <TabItem value="oc" label="Ory Console" default>
+```
 
 1. Sign in to the **Ory Console** and go to **Two-Factor Authentication**.
 2. In the **TOTP Authenticator App** section, use the switch to enable TOTP.
-3. Define the name of the requesting party in the **Display Name**. The users sees this name in the TOTP application when getting
-   a one-time password.
+3. Define the name of the requesting party in the **Display Name**. The users see this name in the TOTP application when getting a
+   one-time password.
 4. Click **Save** to finish.
 
 ```mdx-code-block
@@ -60,7 +79,10 @@ Follow these steps to enable Time-Based One-Time Password (TOTP) as the second a
 </BrowserWindow>
 ```
 
-### Ory CLI
+```mdx-code-block
+</TabItem>
+<TabItem value="cli" label="Ory CLI" default>
+```
 
 1. Get the Ory Identities configuration from your project and save it to a file:
 
@@ -92,31 +114,21 @@ Follow these steps to enable Time-Based One-Time Password (TOTP) as the second a
    ory update identity-config <project-id> --file identity-config.yaml
    ```
 
-### Self-hosted instances
-
-When working with self-hosted instances of the Ory Identities (Ory Kratos), add the `totp` method to `selfservice/methods` in the
-configuration file:
-
-```yaml title="kratos.config.yml"
-selfservice:
-  methods:
-    totp:
-      config:
-        # The "issuer" is the name in the TOTP application users see when getting a one-time password.
-        issuer: ExampleIssuerForSelfHosted.com
-      enabled: true
+```mdx-code-block
+  </TabItem>
+</Tabs>
 ```
 
 ### Distinguishing identities requesting TOTP
 
-To help users distinguish which identity requests for the TOTP code, add a `totp` object to the trait which represents the TOTP
-account name.
+To help users distinguish which identity the registered TOTP code belongs to, add a `totp` section to the identity schema section
+of the trait you want to show up in the TOTP app.
 
 In this example, the user's email address is the identifier:
 
 :::note
 
-This configuration is the default for The Ory Network.
+This configuration is the default behavior on the Ory Network.
 
 :::
 
@@ -128,7 +140,9 @@ This configuration is the default for The Ory Network.
     "traits": {
       "type": "object",
       "properties": {
+        // highlight-start
         "email": {
+          // highlight-end
           "type": "string",
           "format": "email",
           "title": "Your E-Mail",
