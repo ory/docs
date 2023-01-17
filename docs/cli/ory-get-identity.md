@@ -37,7 +37,7 @@ To get the identities with the recovery email address at the domain "ory.sh", ru
       --format string                     Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help                              help for identity
   -i, --include-credentials stringArray   Include third party tokens (only "oidc" supported) 
-      --project string                    The project to use
+      --project string                    The project to use, either project ID or a (partial) slug.
   -q, --quiet                             Be quiet with output printing.
 ```
 

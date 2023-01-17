@@ -1,0 +1,72 @@
+---
+id: mail-courier-templates
+title: Email templates in self-hosted Ory Kratos
+sidebar_label: Email templates
+---
+
+## Configuration
+
+In self-hosted Ory Kratos instances, you can add custom templates from `http://`, `file://`, and `base64://` URIs. The `plaintext`
+and `html` fields are mandatory when defining the `body` key. All other keys are optional. If the system can't use the custom
+templates, it falls back to the built-in templates or to the `template_override_path` (if specified).
+
+```yaml title=path/to/kratos/config.yml
+courier:
+  template_override_path: /conf/courier-template
+  # ...
+  templates:
+    verification:
+      valid:
+        email:
+          body:
+            html: https://some-remote-resource/gotmpl
+            plaintext: base64://SGV5IHlvdSBkZWNvZGVkIG1lIDop
+          # optionally, define the subject
+          subject: file://some-file/subject.gotmpl
+```
+
+:::info
+
+When self-hosting Ory Kratos, the system expects the templates at these paths:
+
+- `<kratos-root>/<template-root>/recovery/valid`
+- `<kratos-root>/<template-root>/recovery/invalid`
+- `<kratos-root>/<template-root>/verification/valid`
+- `<kratos-root>/<template-root>/verification/invalid`
+
+Read [this document](../self-hosted/mail-courier-selfhosted) to learn more about the email courier and the specifics of using
+templates in self-hosted Ory Kratos instances.
+
+:::
+
+## Translated templates (I18n)
+
+To create internationalized templates, you can either use in-line template definitions, as described
+[here](../emails-sms/05_custom-email-templates.mdx#translated-templates-i18n), or as in this example, use separate template files.
+The following example defines the message body for recovery emails. It assumes that there is a `lang` attribute defined in the
+identity traits that contains the preferred language of the user.
+
+```txt title="<template-root>/recovery_code/valid/email.body.gotmpl"
+{{- if eq .Identity.traits.language "de" -}}
+{{ template "email.body.de.gotmpl" . }}
+{{- else -}}
+{{ template "email.body.en.gotmpl" . }}
+{{- end -}}
+
+{{ .RecoveryCode }}
+```
+
+```txt title="<template-root>/recovery_code/valid/email.body.de.gotmpl"
+Hallo {{ upper .Identity.traits.firstName }},
+
+Um Ihr Konto wiederherzustellen, geben Sie bitte den folgenden Code ein:
+```
+
+```txt title="<template-root>/recovery/valid/email.body.en.gotmpl"
+Hello {{ upper .Identity.traits.firstName }},
+
+to recover your account, please enter the following code:
+```
+
+The i18n template is nested in the root `email.body.gotmpl` template. The sub-templates must conform to the `email.body*` pattern.
+The identity of the user is available in all templates.

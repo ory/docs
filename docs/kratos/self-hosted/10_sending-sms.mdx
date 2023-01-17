@@ -4,18 +4,18 @@ title: Configure SMS message courier
 sidebar_label: Sending SMS messages
 ---
 
-For sending SMS Ory Identities uses an external SMS gateway, which must have HTTP API (such as Twilio, your local SMS sender, or
-your own microservice). Request method, headers, body, and content-type are fully configurable using options below.
+For sending SMS, Ory Kratos uses an external SMS gateway, which must have HTTP API (such as Twilio, your local SMS sender, or your
+own microservice). Request method, headers, body, and content-type are fully configurable using options below.
 
 ## Configuration
 
-Default configuration of Ory Identities doesn't include sending SMS. To enable it you need to set "enabled" flag to true, sender
-URL, authorization (if needed) and request body format.
+Default configuration doesn't include sending SMS. To enable it you need to set "enabled" flag to true, sender URL, authorization
+(if needed) and request body format.
 
 ### Sender phone number
 
 SMS message will come to the recipient from this phone number. Depending on your SMS sender settings you can use letters here (for
-example "Your Org Name"). Default value is equal to "Ory Identities".
+example "Your Org Name"). Default value is equal to "Ory Kratos".
 
 ```yaml title="config.yml"
 courier:
@@ -63,7 +63,7 @@ function(ctx) {
 }
 ```
 
-### Authentication and Authorization
+### Authentication and authorization
 
 For `auth` following mechanisms are supported:
 

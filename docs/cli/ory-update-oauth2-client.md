@@ -56,7 +56,7 @@ To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp
       --pgp-key-url string                              PGP encryption key URL for encrypting client secret.
       --policy-uri string                               A URL string that points to a human-readable privacy policy document that describes how the deployment organization collects, uses, retains, and discloses personal data.
       --post-logout-callback strings                    List of allowed URLs to be redirected to after a logout.
-      --project string                                  The project to use
+      --project string                                  The project to use, either project ID or a (partial) slug.
   -q, --quiet                                           Be quiet with output printing.
       --redirect-uri strings                            List of allowed OAuth2 Redirect URIs.
       --request-object-signing-alg string               Algorithm that must be used for signing Request Objects sent to the OP. (default "RS256")

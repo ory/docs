@@ -196,7 +196,7 @@ module.exports = {
     },
     {
       type: "category",
-      label: "OAuth2 and OpenID",
+      label: "OAuth2 and OpenID Connect",
       items: [
         "hydra/index",
         {
@@ -427,6 +427,8 @@ module.exports = {
                 "kratos/guides/setting-up-password-hashing-parameters",
                 "kratos/guides/setting-up-cors",
                 "kratos/self-hosted/mail-courier-selfhosted",
+                "kratos/self-hosted/mail-courier-templates",
+                "kratos/self-hosted/sms-messages",
                 "kratos/self-hosted/account-activation-email-verification",
                 "kratos/guides/zero-trust-iap-proxy-identity-access-proxy",
                 "kratos/guides/multi-tenancy-multitenant",

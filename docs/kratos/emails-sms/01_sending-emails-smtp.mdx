@@ -5,41 +5,71 @@ sidebar_label: SMTP server configuration
 toc_max_heading_level: 4
 ---
 
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import CodeBlock from "@theme/CodeBlock"
+```
+
 The Ory Network comes with SMTP email sending configured out of the box. Ory emails are sent from this address:
 
 ```
 {project.name} via Ory <no-reply@courier-eu.mg.oryapis.com>
 ```
 
-## Send emails using your SMTP server
+:::info
 
-To use your own SMTP server for sending emails, adjust the SMTP configuration key directly in the Ory Identities (Kratos) config:
-
-URL with the `smtp` or `smtps` scheme:
-
-```yaml
-courier:
-  smtp:
-    connection_uri: smtp://username:password@server:port/
-    from_address: "hello@example.org"
-    from_name: "My Company"
-```
-
-Alternatively, you can configure these values using the Ory CLI:
-
-```shell
-ory patch project {your-project-id} \
-  --replace '/services/identity/config/courier/smtp/connection_uri="smtp://username:password@server:port/"' \
-  --replace '/services/identity/config/courier/smtp/from_address="hello@example.org' \
-  --replace '/services/identity/config/courier/smtp/from_name="My Company"'
-```
-
-:::note
-
-You can't customize the `from_address` and `from_name` fields without also setting your own email sending server
-(`connection_uri`).
+You must send emails using your SMTP server to change the sender address (`from_address`) and sender name (`from_name`).
 
 :::
+
+## Send emails using your SMTP server
+
+You can send emails from your server. Follow these steps to configure Ory to use a custom SMTP server:
+
+```mdx-code-block
+<Tabs groupId="console-or-cli">
+<TabItem value="console" label="Ory Console" default>
+```
+
+Sign in to the [Ory Console](https://console.ory.sh/projects/current/email-configuration) and go to **Customize** → **Email
+Configuration**. Toggle the **Advanced Settings** switch and provide the configuration for your SMTP server.
+
+```mdx-code-block
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
+```
+
+1. Download the Ory Identities config from your project and save it to a file:
+
+   ```shell
+   ## List all available projects
+   ory list projects
+
+   ## Get config
+   ory get identity-config {project-id} --format yaml > identity-config.yaml
+   ```
+
+2. Add the configuration for your custom SMTP server
+
+   ```yaml title="config.yml"
+   courier:
+     smtp:
+       connection_uri: smtp://username:password@server:port/
+       from_address: hello@example.org
+       from_name: My Company
+   ```
+
+3. Update the Ory Identities configuration using the file you worked with:
+
+   ```shell
+   ory update identity-config {project-id} --file updated_config.yaml
+   ```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
 
 ### SMTP security mechanisms
 
@@ -81,7 +111,7 @@ Use the following connection URI to
 [send emails using Mailgun](https://documentation.mailgun.com/en/latest/quickstart-sending.html):
 
 ```
-smtp://<smtp-user>:<smtp-password>@smtp.mailgun.org:587
+smtp://{smtp-user}:{smtp-password}@smtp.mailgun.org:587
 
 # For example:
 # smtp://some-user%40mailgun.example.org:df2a2c4e-5caa-4f04-85b9-72d54a2468ad@smtp.eu.mailgun.org:587
@@ -93,7 +123,7 @@ Use the following connection URI to
 [send emails using AWS SES SMTP](https://docs.aws.amazon.com/ses/latest/dg/send-email-smtp.html):
 
 ```
-smtp://<smtp-user>:<smtp-password>@email-smtp.<region>.amazonaws.com:587/
+smtp://{smtp-user}:{smtp-password}@email-smtp.{region}.amazonaws.com:587/
 
 # For example:
 # smtp://theuser:the-password@email-smtp.eu-central-1.amazonaws.com:587/
@@ -104,7 +134,7 @@ smtp://<smtp-user>:<smtp-password>@email-smtp.<region>.amazonaws.com:587/
 Use the following connection URI to [send emails using Postmark](https://postmarkapp.com/smtp-service):
 
 ```
-smtp://<YOUR_POSTMARK_SEVER_API_TOKEN>:<YOUR_POSTMARK_SEVER_API_TOKEN>@smtp.postmarkapp.com:587/
+smtp://{YOUR_POSTMARK_SEVER_API_TOKEN}:{YOUR_POSTMARK_SEVER_API_TOKEN}@smtp.postmarkapp.com:587/
 
 # For example:
 # smtp://thetoken:thetoken@smtp.postmarkapp.com:587/
@@ -112,14 +142,5 @@ smtp://<YOUR_POSTMARK_SEVER_API_TOKEN>:<YOUR_POSTMARK_SEVER_API_TOKEN>@smtp.post
 
 ### Troubleshooting
 
-If you have problems setting up email delivery or you experience errors or bugs, reach out to the Ory team directly:
-
-- Send us a message on [Slack](https://slack.ory.sh)
-- Create an issue on [GitHub](https://github.com/ory/cloud)
-
-:::note
-
-We are working on improving the error observability of RPC calls which will help with debugging this feature. The work is tracked
-in [this GitHub issue](https://github.com/ory/cloud/issues/117).
-
-:::
+If you have problems setting up email delivery, you can view outgoing messages on the **Monitoring** → **Email Delivery** page in
+the [Ory Console](https://console.ory.sh/projects/current/email-delivery)

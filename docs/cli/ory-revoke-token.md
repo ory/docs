@@ -30,7 +30,7 @@ ory revoke token the-token [flags]
       --client-secret string   Use the provided OAuth 2.0 Client Secret, defaults to environment variable OAUTH2_CLIENT_SECRET
       --format string          Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help                   help for token
-      --project string         The project to use
+      --project string         The project to use, either project ID or a (partial) slug.
   -q, --quiet                  Be quiet with output printing.
 ```
 

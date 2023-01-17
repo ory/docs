@@ -34,7 +34,7 @@ To get the JSON Web Key Set's secret, run:
 ```
       --format string    Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
   -h, --help             help for jwk
-      --project string   The project to use
+      --project string   The project to use, either project ID or a (partial) slug.
   -q, --quiet            Be quiet with output printing.
 ```
 
