@@ -278,6 +278,9 @@ module.exports = {
       items: [
         "keto/index",
         {
+          "Modeling Guides": ["keto/modeling/learn-the-concepts"],
+        },
+        {
           Concepts: [
             "keto/concepts/relation-tuples",
             "keto/concepts/namespaces",

@@ -1,0 +1,14 @@
+---
+title: Learn the concepts
+---
+
+- Modelling means translating your permission model to the Ory Permission Language.
+- This is an iterative process
+
+Process:
+
+- Start with objects (things that you want to give access to). How can they be accessed? Example: Documents: Users can `view`,
+  `edit`, `delete`, `share` them.
+- Next, for each verb on each object, write out the rules that give a user access. Example: Users can `view` a document if they
+  are an owner of the document; Users can also view the document if they can `view` the folder.
+- Next, translate these rules into OPL language, using TypeScript.
