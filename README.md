@@ -212,7 +212,9 @@ slug: excellent-feature-for-some-reason
   ```
   ````
 
-- For Ory Permission (Keto) relation-tuples, use the `keto-relation-tuples` language, and for the new relationships, use the `keto-relationships` language.
+- For Ory Permission (Keto) relation-tuples, use the `keto-relation-tuples`
+  language, and for the new relationships, use the `keto-relationships`
+  language.
 
   ````
   ```keto-relation-tuples
