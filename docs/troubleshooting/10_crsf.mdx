@@ -3,23 +3,14 @@ id: csrf
 title: CSRF troubleshooting
 ---
 
-import useBaseUrl from "@docusaurus/useBaseUrl"
-import CodeFromRemote from "@site/src/theme/CodeFromRemote"
-
 Sometimes, cookies and CSRF don't work and all requests end up with `401 Unauthorized` or `400 Bad Request`.
 
 In this document you can learn about common causes and fixes when using the Ory Identities API.
 
-### What is CRSF
+### What is Cross Site Request Forgery
 
 Because Ory Identities isn't just an API, but instead talks to your users' browsers directly, several security measures have been
-implemented in Ory Identities. One of them is protection against CSRF:
-
-> CSRF is an attack that tricks the victim into submitting a malicious request. It inherits the identity and privileges of the
-> victim to perform an undesired function on the victim’s behalf. For most sites, browser requests automatically include any
-> credentials associated with the site, such as the user’s session cookie, IP address, Windows domain credentials, and so forth.
-> Therefore, if the user is authenticated to the site, the site will have no way to distinguish between the forged request sent by
-> the victim and a legitimate request sent by the victim. [Source](https://owasp.org/www-community/attacks/csrf)
+implemented in Ory Identities. One of them is protection against Cross Site Request Forgery (CSRF).
 
 To protect against CSRF, several endpoints are protected by Anti-CSRF measures. Typically, endpoints accepting `POST`, `DELETE`,
 `PUT` actions have Anti-CSRF measures. When rendering a form for example, a `<input type="hidden" name="csrf_token" value="...">`
@@ -28,10 +19,17 @@ request is allowed.
 
 Ory Identities uses HTTP cookies to store login sessions when accessed via a browser.
 
+:::info
+
+Read more about CRSF at [OWASP](https://owasp.org/www-community/attacks/csrf)
+
+:::
+
 ## Common issues
 
-When starting to debug cookie and CSRF issues, make sure to check out the Chrome Developer Tools (or any comparable technology)
-**Cookies** tabs in the **Application** tab as well as the **Network** tab - look for `Cookie` and `Set-Cookie` HTTP Headers.
+When starting to debug cookie and CSRF issues, make sure to check cookies with
+[Chrome DevTools](https://developer.chrome.com/docs/devtools/) or a comparable tool. Look at the **Cookies** section in the
+**Application** tab as well as the **Network** tab - look for `Cookie` and `Set-Cookie` HTTP Headers.
 
 ### Accessing Ory Identities cookies from client-side JavaScript
 
@@ -50,26 +48,30 @@ default. For example when using the browser's `fetch` function, you need to set
 
 ### Accessing Ory Identities APIs from a server-side application
 
-When implementing a server-side application (for example in PHP, Java, Go, Node.js, ...) make sure to include the `Cookie` header
-from the client when fetching the self-service flows (for example `GET /self-service/login/flows?id=...`):
+When implementing a server-side application for example in PHP, Java, Go, or Node.js, make sure to include the `Cookie` header
+from the client when fetching the self-service flows, for example `GET /self-service/login/flows?id=...`:
 
 ```ts
 export default (req: Request, res: Response) => {
   // ...
-  kratos.getSelfServiceLoginFlow(flow, req.header("cookie"))
+  .getLoginFlow({ id: flow, cookie: req.header("cookie") })
 }
 ```
 
 A complete example looks as follows:
 
+```mdx-code-block
+import CodeFromRemote from "@site/src/theme/CodeFromRemote"
+
 <CodeFromRemote
   lang="js"
-  link="https://github.com/ory/kratos-selfservice-ui-node/blob/782f20cb023c140b230dfa0f5358c76999e9b938/src/routes/login.ts#L25"
+  link="https://github.com/ory/kratos-selfservice-ui-node/blob/3e4eacea49763f455604fdbd5bea1f90b6f8fee7/src/routes/login.ts#L66"
   src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/src/routes/login.ts"
 />
+```
 
 Without forwarding the `Cookie` HTTP Header it won't be possible to fetch the flow due to a security error. This protection
-prevents accidental leak of personal information when users copy/paste, for example, the login URL.
+prevents leaks of personal information when users copy/paste, for example, the login URL.
 
 ### Further reading
 
