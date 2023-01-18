@@ -1,0 +1,76 @@
+---
+id: csrf
+title: CSRF troubleshooting
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl"
+import CodeFromRemote from "@site/src/theme/CodeFromRemote"
+
+Sometimes, cookies and CSRF don't work and all requests end up with `401 Unauthorized` or `400 Bad Request`.
+
+In this document you can learn about common causes and fixes when using the Ory Identities API.
+
+### What is CRSF
+
+Because Ory Identities isn't just an API, but instead talks to your users' browsers directly, several security measures have been
+implemented in Ory Identities. One of them is protection against CSRF:
+
+> CSRF is an attack that tricks the victim into submitting a malicious request. It inherits the identity and privileges of the
+> victim to perform an undesired function on the victim’s behalf. For most sites, browser requests automatically include any
+> credentials associated with the site, such as the user’s session cookie, IP address, Windows domain credentials, and so forth.
+> Therefore, if the user is authenticated to the site, the site will have no way to distinguish between the forged request sent by
+> the victim and a legitimate request sent by the victim. [Source](https://owasp.org/www-community/attacks/csrf)
+
+To protect against CSRF, several endpoints are protected by Anti-CSRF measures. Typically, endpoints accepting `POST`, `DELETE`,
+`PUT` actions have Anti-CSRF measures. When rendering a form for example, a `<input type="hidden" name="csrf_token" value="...">`
+HTML Input Element is added. Ory Identities compares that value to the value set in the Anti-CSRF Cookie. If the values match, the
+request is allowed.
+
+Ory Identities uses HTTP cookies to store login sessions when accessed via a browser.
+
+## Common issues
+
+When starting to debug cookie and CSRF issues, make sure to check out the Chrome Developer Tools (or any comparable technology)
+**Cookies** tabs in the **Application** tab as well as the **Network** tab - look for `Cookie` and `Set-Cookie` HTTP Headers.
+
+### Accessing Ory Kratos Cookies from client-side JavaScript
+
+The cookies Ory Identities sets can't be accessed directly from client-side JavaScript because the `HttpOnly` flag is set. This
+flag can't be modified.
+
+### Accessing Ory Identities APIs from client-side JavaScript / AJAX
+
+When implementing a Single Page App (SPA) using for example Angular or React.js you probably want to access the Ory Identities
+Public API. To prevent against several attack vectors, this API is protected with Anti-CSRF measures, even for some `GET`
+requests.
+
+To use the Ory Identities API you need to configure your AJAX request to include cookies, because AJAX doesn't send cookies per
+default. For example when using the browser's `fetch` function, you need to set
+[`credentials: 'include'`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters).
+
+### Accessing Ory Identities APIs from a server-side application
+
+When implementing a server-side application (for example in PHP, Java, Go, Node.js, ...) make sure to include the `Cookie` header
+from the client when fetching the self-service flows (for example `GET /self-service/login/flows?id=...`):
+
+```ts
+export default (req: Request, res: Response) => {
+  // ...
+  kratos.getSelfServiceLoginFlow(flow, req.header("cookie"))
+}
+```
+
+A complete example looks as follows:
+
+<CodeFromRemote
+  lang="js"
+  link="https://github.com/ory/kratos-selfservice-ui-node/blob/782f20cb023c140b230dfa0f5358c76999e9b938/src/routes/login.ts#L25"
+  src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/src/routes/login.ts"
+/>
+
+Without forwarding the `Cookie` HTTP Header it won't be possible to fetch the flow due to a security error. This protection
+prevents accidental leak of personal information when users copy/paste, for example, the login URL.
+
+### Further reading
+
+Visit [this document](../kratos/debug/csrf.mdx) for CRSF troubleshooting when self-hosting the Ory Identities Identity Server.
