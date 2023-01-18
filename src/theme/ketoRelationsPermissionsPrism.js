@@ -18,14 +18,14 @@ const object = {
 }
 
 const relation = {
-  pattern: /[a-zA-Z0-9-_]+ of /,
+  pattern: /[a-zA-Z0-9-_]+ o[fn] /,
   inside: {
-    delimiter: / of /,
+    delimiter: / o[fn] /,
   },
 }
 
 const relationAndObject = {
-  pattern: /[a-zA-Z0-9-_]+ of [a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+/,
+  pattern: /[a-zA-Z0-9-_]+ o[fn] [a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+/,
   inside: {
     relation,
     object,
@@ -33,7 +33,7 @@ const relationAndObject = {
 }
 
 const relationSubject = {
-  pattern: /\(?([a-zA-Z0-9-_]+ of )?[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\)? is /,
+  pattern: /\(?([a-zA-Z0-9-_]+ o[fn] )?[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\)? is /,
   inside: {
     delimiter: /( is )|[()]/,
     // we first try to match relationAndObject, if that fails we match object
@@ -43,7 +43,7 @@ const relationSubject = {
 }
 
 const permissionSubject = {
-  pattern: /is \(?([a-zA-Z0-9-_]+ of )?[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\)?/,
+  pattern: /is \(?([a-zA-Z0-9-_]+ o[fn] )?[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\)?/,
   inside: {
     delimiter: /(is )|[()]/,
     // we first try to match relationAndObject, if that fails we match object
@@ -57,7 +57,7 @@ export default (prism) => {
     comment: /\/\/.*(\n|$)/,
     relationship: {
       pattern:
-        /\(?([a-zA-Z0-9-_]+ of )?[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\)? is [a-zA-Z0-9-_]+ of [a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+/,
+        /\(?([a-zA-Z0-9-_]+ o[fn] )?[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\)? is [a-zA-Z0-9-_]+ o[fn] [a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+/,
       inside: {
         subject: relationSubject,
         "": relationAndObject,
@@ -65,7 +65,7 @@ export default (prism) => {
     },
     "permission-question": {
       pattern:
-        /is \(?([a-zA-Z0-9-_]+ of )?[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\)? allowed to [a-zA-Z0-9-_]+ of [a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\??/,
+        /is \(?([a-zA-Z0-9-_]+ o[fn] )?[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\)? allowed to [a-zA-Z0-9-_]+ o[fn] [a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\??/,
       inside: {
         delimiter: /( allowed to )|\?/,
         subject: permissionSubject,

@@ -212,6 +212,21 @@ slug: excellent-feature-for-some-reason
   ```
   ````
 
+- For Ory Permission (Keto) relation-tuples, use the `keto-relation-tuples` language, and for the new relationships, use the `keto-relationships` language.
+
+  ````
+  ```keto-relation-tuples
+  namespace:object#relation:subject
+  // comment
+  ```
+
+  ```keto-relationships
+  namespace:subject is relation of object
+  is namespace:subject allowed to permission on object?
+  // comment
+  ```
+  ````
+
 ### Placeholders and dummy data
 
 Using placeholders and dummy data in code snippets and command examples is a
