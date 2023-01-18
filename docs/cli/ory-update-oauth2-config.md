@@ -40,7 +40,7 @@ This command expects the contents of the `/services/oauth2/config` key, so for e
 
 
 ```
-ory update oauth2-config <project-id> [flags]
+ory update oauth2-config [project-id] [flags]
 ```
 
 ### Examples

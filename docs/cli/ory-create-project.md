@@ -24,6 +24,7 @@ ory create project [flags]
   -h, --help            help for project
   -n, --name string     The name of the project, required when quiet mode is used
   -q, --quiet           Be quiet with output printing.
+      --use-project     Set the created project as the default.
 ```
 
 ### Options inherited from parent commands

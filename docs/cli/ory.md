@@ -38,6 +38,7 @@ The ORY CLI
 * [ory revoke](ory-revoke)	 - Revoke resources
 * [ory tunnel](ory-tunnel)	 - Tunnel Ory on a subdomain of your app or a separate port your app's domain
 * [ory update](ory-update)	 - Update resources
+* [ory use](ory-use)	 - Use a resource
 * [ory validate](ory-validate)	 - Validate resources
 * [ory version](ory-version)	 - Display this binary's version, build time, and git hash of this build
 

@@ -18,7 +18,7 @@ Get Ory Permissions configuration.
 Get the Ory Permissions configuration for the specified Ory Network project.
 
 ```
-ory get permission-config <project-id> [flags]
+ory get permission-config [project-id] [flags]
 ```
 
 ### Examples

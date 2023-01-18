@@ -44,7 +44,7 @@ As an example an input could look like:
 
 
 ```
-ory update project <id> [flags]
+ory update project [id] [flags]
 ```
 
 ### Examples

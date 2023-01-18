@@ -1,7 +1,7 @@
 ---
-id: ory-get-project
-title: ory get project
-description: ory get project Get the complete configuration of an Ory Network project.
+id: ory-use-project
+title: ory use project
+description: ory use project Set the project as the default. When no id is provided, prints the currently used default project.
 ---
 
 <!--
@@ -9,40 +9,25 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-## ory get project
+## ory use project
 
-Get the complete configuration of an Ory Network project.
+Set the project as the default. When no id is provided, prints the currently used default project.
 
 ```
-ory get project [id] [flags]
+ory use project [id] [flags]
 ```
 
 ### Examples
 
 ```
-$ ory get project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89
+$ ory use project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89
 
 ID		ecaaa3cb-0730-4ee8-a6df-9553cdfeef89
-SLUG	good-wright-t7kzy3vugf
-STATE	running
-NAME	Example Project
 
-$ ory get project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
+$ ory use project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
 
 {
-  "name": "Example Project",
-  "identity": {
-	"services": {
-	  "config": {
-		"courier": {
-		  "smtp": {
-			"from_name": "..."
-		  }
-		  // ...
-		}
-	  }
-	}
-  }
+  "id": "ecaaa3cb-0730-4ee8-a6df-9553cdfeef89
 }
 ```
 
@@ -63,5 +48,5 @@ $ ory get project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
 
 ### SEE ALSO
 
-* [ory get](ory-get)	 - Get a resource
+* [ory use](ory-use)	 - Use a resource
 
