@@ -277,6 +277,7 @@ module.exports = {
       label: "Permissions and relationships",
       items: [
         "keto/index",
+        "keto/modeling/create-permission-model",
         {
           Concepts: [
             "keto/concepts/relation-tuples",
