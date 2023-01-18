@@ -7,49 +7,6 @@
 
 import lightTheme from "prism-react-renderer/themes/github/index.cjs.js"
 
-//     {
-//       languages: ["keto-relation-tuples"],
-//       types: ["namespace"],
-//       style: {
-//         color: "#666",
-//       },
-//     },
-//     {
-//       languages: ["keto-relation-tuples"],
-//       types: ["object"],
-//       style: {
-//         color: "#939",
-//       },
-//     },
-//     {
-//       languages: ["keto-relation-tuples"],
-//       types: ["relation"],
-//       style: {
-//         color: "#e80",
-//       },
-//     },
-//     {
-//       languages: ["keto-relation-tuples"],
-//       types: ["delimiter"],
-//       style: {
-//         color: "#555",
-//       },
-//     },
-//     {
-//       languages: ["keto-relation-tuples"],
-//       types: ["comment"],
-//       style: {
-//         color: "#999",
-//       },
-//     },
-//     {
-//       languages: ["keto-relation-tuples"],
-//       types: ["subject"],
-//       style: {
-//         color: "#903",
-//       },
-//     },
-
 export default {
   ...lightTheme,
   styles: [
@@ -137,6 +94,48 @@ export default {
       types: ["comment"],
       style: {
         color: "#6B6B6B",
+      },
+    },
+    {
+      languages: ["keto-relation-tuples", "keto-relationships"],
+      types: ["namespace"],
+      style: {
+        color: "#666",
+      },
+    },
+    {
+      languages: ["keto-relation-tuples"],
+      types: ["object"],
+      style: {
+        color: "#939",
+      },
+    },
+    {
+      languages: ["keto-relation-tuples", "keto-relationships"],
+      types: ["relation"],
+      style: {
+        color: "#e80",
+      },
+    },
+    {
+      languages: ["keto-relation-tuples", "keto-relationships"],
+      types: ["delimiter"],
+      style: {
+        color: "#555",
+      },
+    },
+    {
+      languages: ["keto-relation-tuples"],
+      types: ["subject"],
+      style: {
+        color: "#903",
+      },
+    },
+    {
+      languages: ["keto-relationships"],
+      types: ["id"],
+      style: {
+        color: "#939",
       },
     },
   ],
