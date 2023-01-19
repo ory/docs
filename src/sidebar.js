@@ -442,7 +442,7 @@ module.exports = {
             },
             {
               type: "category",
-              label: "Debugging and help",
+              label: "Troubleshooting",
               items: [
                 "kratos/debug/troubleshooting",
                 "kratos/debug/csrf",

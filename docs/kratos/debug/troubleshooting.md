@@ -1,13 +1,13 @@
 ---
 id: troubleshooting
-title: Tips and troubleshooting
+title: General troubleshooting
 ---
 
 :::info
 
 Please add your troubleshooting tricks and other tips to this document, You can either open a
 [discussion](https://github.com/ory/kratos/discussions) and ping `@ory/documenters` or
-[edit the page directly](https://github.com/ory/kratos/edit/master/docs/docs/debug/troubleshooting.md).
+[edit the page directly](https://github.com/ory/docs/edit/master/docs/kratos/debug/troubleshooting.md).
 
 :::
 
@@ -30,7 +30,7 @@ in both of the Kratos configurations. You may need to tell your login/registrati
 instances are cheap to deploy and the databases are isolated from each other. For example something like `/login/customer` and
 `/login/employee`.
 
-### Do have plans to support automatic user migration scenarios?
+### Automatic user migration from legacy system
 
 > For example configure a callback to the legacy system when you can't find the corresponding user, and store the identity on
 > successful legacy system response.
