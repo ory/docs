@@ -4,6 +4,8 @@ title: Add Auth0 as a social sign-in provider in Ory
 sidebar_label: Auth0
 ---
 
+import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
+
 # Auth0
 
 ````mdx-code-block
@@ -14,6 +16,51 @@ import TabItem from '@theme/TabItem';
 <TabItem value="console" label="Ory Console" default>
 
 Follow these steps to add Auth0 as a social sign-in provider to your project using the Ory Console:
+
+1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
+2. Click the switch next to the Auth0 logo to start the configuration.
+3. Copy the Redirect URI and save it for later use.
+4. [Create an Auth0 Application for your Auth0 Tenant](https://auth0.com/docs/applications), noting the following points:
+    - Choose the application type to be **Regular Web Applications**.
+    - Paste the saved **Redirect URI** from Ory into the **Allowed Callback URLs** field in the **Settings** tab of the registered application.
+5. Navigate to the **Settings** tab of the registered application on the Auth0 dashboard and then copy the following data:
+    - Copy the **Client ID** to the corresponding field in the form on the Ory Console.
+    - Copy the **Client Secret** to the corresponding field in the form on the Ory Console.
+6. In the **Scopes** field of the form on the Ory Console, add the following scopes (one by one):
+    - `openid`
+    - `profile`
+    - `email`
+7. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
+   ```jsonnet
+   local claims = {
+     email_verified: false,
+   } + std.extVar('claims');
+
+   {
+     identity: {
+       traits: {
+         // Allowing unverified email addresses enables account
+         // enumeration attacks,  if the value is used for
+         // verification or as a password login identifier.
+         //
+         // Therefore we only return the email if it (a) exists and (b) is marked verified
+         // by Auth0.
+         [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,
+         username: claims.nickname,
+       },
+     },
+   }
+   ```
+   :::info
+   [Auth0](https://docs.gitlab.com/ee/integration/openid_connect_provider.html) returns only the `sub` and `sub_legacy` claims in
+   the `id_token`. Ory makes a request to [Auth0's /userinfo API](https://auth0.com/docs/api/authentication?http#user-profile) and
+   adds the user info to `std.extVar('claims')`.
+   :::
+   ```mdx-code-block
+   <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
+   ```
+8. Click **Save Configuration**.
+
 
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
@@ -59,8 +106,6 @@ Follow these steps to add Auth0 as a social sign-in provider to your project usi
    :::
 
 ```mdx-code-block
-import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
-
 <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
 ```
 
