@@ -1,14 +1,300 @@
 ---
+id: learn-the-concepts
 title: Learn the concepts
+sidebar_label: Learn the concepts
 ---
 
-- Modelling means translating your permission model to the Ory Permission Language.
-- This is an iterative process
+```mdx-code-block
+import Mermaid from "@site/src/theme/Mermaid"
+```
 
-Process:
+This section guides you through creating your first permission model using the Ory Permission Language.
 
-- Start with objects (things that you want to give access to). How can they be accessed? Example: Documents: Users can `view`,
-  `edit`, `delete`, `share` them.
-- Next, for each verb on each object, write out the rules that give a user access. Example: Users can `view` a document if they
-  are an owner of the document; Users can also view the document if they can `view` the folder.
-- Next, translate these rules into OPL language, using TypeScript.
+## What a permission model is
+
+Remember, permission checks are answered based on the concrete data in the database (e.g., Bob is an owner of document X) and the
+permission model (e.g., all owners of a document can view it). So when you ask Ory Permissons if Bob can view document X, it will
+eventually check if Bob is an owner of the document X. So in short, a permission model tells Ory Permissons what to check in the
+database.
+
+## Process for defining a permission model
+
+Defining a permission model is not a trivial task. If you would not use Ory Permissions, you would probably define the business
+logic in code, which gives you a maximum degree of freedom. The Ory Permission Language, which is a subset of TypeScript, is a
+little more constrained, with the benefit of being interpreted by a fast, global permission engine.
+
+In the same vein that there is no general guideline for programming, there is no general one-fits-all guide for building a
+permission model. However, the following iterative process is a good way to start.
+
+In short, the process is as follows
+
+1. Create a list of objects, which are things that you want to give access to.
+1. For each object
+   1. Make a list of relationships this has to other objects. In a database, those would be associatons expressed with foreign
+      keys.
+   1. Make a list of permissions that you want to check.
+1. Define each relation in the OPL
+1. Define each permission in the OPL
+1. Test your permission model
+
+### Our example: a document store
+
+While guiding you through the process of defining a permission model, we will use the following example:
+
+> We want to model user access to documents such that users can be an owner, editor, or viewer of a document. An owner is also an
+> editor of a document, and an editor is also a viewer of a document. Furthermore, documents can put into a hierarchy of folders,
+> such that being able to view the parent folder implies being able to view the enclosed folders and documents.
+
+### 1. Create a list of objects
+
+We start with the description and highlight all objects that we find:
+
+> We want to model `user` access to `documents` such that `users` can be an owner, editor, or viewer of a document. An owner is
+> also an editor of a `document`, and an editor is also a viewer of a `document`. Furthermore, `documents` can put into a
+> hierarchy of `folders`, such that being able to view the parent `folder` implies being able to view the enclosed `folders` and
+> `documents`.
+
+Thus, we found the following objects:
+
+- User
+- Document
+- Folder
+
+This list translates nicely into our first version of the permission model.
+
+```ts title="permissions-v1.ts"
+import { Namespace, Context } from "@ory/keto-namespace-types"
+
+// highlight-start
+class User implements Namespace {}
+class Document implements Namespace {}
+class Folder implements Namespace {}
+// highlight-end
+```
+
+:::tip Modelling tip
+
+The objects and subjects from your description translate to namespaces in Ory Permissions, and are declared as classes in the Ory
+Permission Language. The convention is to spell these class names as proper TypeScript classes, capitalized and in singular form,
+i.e., `Document` instead of `documents`.
+
+:::
+
+### 2.i For each object, make a list of relationships to other objects
+
+Go through the description sentence by sentence to find the list of relationships:
+
+> We want to model `user` access to `documents` such that `users` can be an `owner`, `editor`, or `viewer` of a `document`.
+
+<Mermaid
+  chart={`
+graph LR
+    Document -->|owner| User
+    Document -->|editor| User
+    Document -->|viewer| User
+`}
+/>
+
+> An owner is also an editor of a `document`, and an editor is also a viewer of a `document`. Furthermore, `documents` can put
+> into a hierarchy of `folders`, such that being able to view the parent `folder` implies being able to view the enclosed
+> `folders` and `documents`.
+
+<Mermaid
+  chart={`
+graph LR
+    Document -->|parent| Folder
+    Folder -->|parent| Folder
+    Folder -->|owner| User
+    Folder -->|editor| User
+    Folder -->|viewer| User
+`}
+/>
+
+Putting this all together in one graph yields:
+
+<Mermaid
+  chart={`
+graph LR
+    Document -->|owner| User
+    Document -->|editor| User
+    Document -->|viewer| User
+    Document -->|parent| Folder
+    Folder -->|parent| Folder
+    Folder -->|owner| User
+    Folder -->|editor| User
+    Folder -->|viewer| User
+`}
+/>
+
+### 2.ii For each object, make a list of permissions to check
+
+When you perform an action on behalf of a user, you often want to check a concrete permission (such as `view` or `edit`) instead
+of a relation (such as `owner`), and have the relation imply the permission.
+
+These permissions can easily be added to the database to express the needs of the application. For our document store, we assume
+the following permissions:
+
+- `view` a document if the user is a `viewer`, `editor`, or `owner` of the document; or if the user can `view` the parent folder
+- `edit` a document if the user is a `editor`, or `owner` of the document; or if the user can `edit` the parent folder
+- `delete` a document if the user is an `owner` of the document; or if the user can `delete` the parent folder
+- `share` a document if the user is an `owner` of the document; or if the user can `share` the parent folder
+- `delete` a folder if the user is an `owner` of the folder; or if the user can `delete` the parent folder
+- `share` a folder if the user is an `owner` of the folder; or if the user can `share` the parent folder
+
+### 3. Define each relation in the OPL
+
+Next, we add each relation to the permission config.
+
+:::tip Modelling tip
+
+The relations from the description translate to relations in Ory Permissions, which are declared inside the corresponding class in
+the Ory Permission Language. Since we ultimately store arbitrary tuples in Ory Permissions, we always have many-to-many relations
+between these objects. To reflect this in our language, the convention is to pluralize the relation name, i.e., `viewers` instead
+of `viewer`.
+
+:::
+
+```ts title="permissions-v2.ts"
+import { Namespace, Context } from "@ory/keto-namespace-types"
+
+class User implements Namespace {}
+
+class Document implements Namespace {
+  // highlight-start
+  related: {
+    owners: User[]
+    editors: User[]
+    viewers: User[]
+    parents: Folder[]
+  }
+  // highlight-end
+}
+
+class Folder implements Namespace {
+  // highlight-start
+  related: {
+    owners: User[]
+    editors: User[]
+    viewers: User[]
+    parents: Folder[]
+  }
+  // highlight-end
+}
+```
+
+### 4. Define each permission in the OPL
+
+The permissions are expressed in the OPL as TypeScript as functions that take a context containing the subject (i.e., the current
+user) and that answers the permission check based on the relations this object (i.e., the current document) has.
+
+:::tip Modelling tip
+
+The permissions from the description are declared as functions inside the `permits` property of the corresponding class in the Ory
+Permission Language.
+
+:::
+
+Let's see this in practice for just the first permission:
+
+- `view` a document if the user is a `viewer`, `editor`, or `owner` of the document; or if the user can `view` the parent folder
+
+```ts title="permissions-v3.ts"
+import { Namespace, Context } from "@ory/keto-namespace-types"
+
+class User implements Namespace {}
+
+class Document implements Namespace {
+  related: {
+    owners: User[]
+    editors: User[]
+    viewers: User[]
+    parents: Folder[]
+  }
+
+  permits = {
+    //highlight-start
+    view: (ctx: Context): boolean =>
+      this.related.viewers.includes(ctx.subject) ||
+      this.related.editors.includes(ctx.subject) ||
+      this.related.owners.includes(ctx.subject) ||
+      this.related.parents.traverse((parent) => parent.permits.view(ctx)),
+    //highlight-end
+  }
+}
+
+class Folder implements Namespace {
+  related: {
+    owners: User[]
+    editors: User[]
+    viewers: User[]
+    parents: Folder[]
+  }
+}
+```
+
+With some TypeScript knowledge, it is straightforward to follow the logic of this permission check. Let's do this for the
+remaining permissions:
+
+```ts title="permissions-v4.ts"
+import { Namespace, Context } from "@ory/keto-namespace-types"
+
+class User implements Namespace {}
+
+class Document implements Namespace {
+  related: {
+    owners: User[]
+    editors: User[]
+    viewers: User[]
+    parents: Folder[]
+  }
+
+  permits = {
+    view: (ctx: Context): boolean =>
+      this.related.viewers.includes(ctx.subject) ||
+      this.related.editors.includes(ctx.subject) ||
+      this.related.owners.includes(ctx.subject) ||
+      this.related.parents.traverse((parent) => parent.permits.view(ctx)),
+    //highlight-start
+    edit: (ctx: Context): boolean =>
+      this.related.editors.includes(ctx.subject) ||
+      this.related.owners.includes(ctx.subject) ||
+      this.related.parents.traverse((parent) => parent.permits.edit(ctx)),
+    delete: (ctx: Context): boolean =>
+      this.related.owners.includes(ctx.subject) || this.related.parents.traverse((parent) => parent.permits.delete(ctx)),
+    share: (ctx: Context): boolean =>
+      this.related.owners.includes(ctx.subject) || this.related.parents.traverse((parent) => parent.permits.share(ctx)),
+    //highlight-end
+  }
+}
+
+class Folder implements Namespace {
+  related: {
+    owners: User[]
+    editors: User[]
+    viewers: User[]
+    parents: Folder[]
+  }
+
+  //highlight-start
+  permits = {
+    delete: (ctx: Context): boolean =>
+      this.related.owners.includes(ctx.subject) || this.related.parents.traverse((parent) => parent.permits.delete(ctx)),
+    share: (ctx: Context): boolean =>
+      this.related.owners.includes(ctx.subject) || this.related.parents.traverse((parent) => parent.permits.share(ctx)),
+  }
+  //highlight-end
+}
+```
+
+### 5. Test your permissions
+
+Finally, it is important to test your permission model. To explore the permissions, you can just
+[create relationships](../update_relationships.mdx) and [check permissions](../guides/simple-access-check-guide.mdx) through the
+API or an SDK.
+
+For continuous testing, we strongly recommend the following best practices:
+
+- Automate testing your permission model. Write a test, in a language of your choice, that inserts the relationships and checks
+  the permissions through the [SDK](../sdk/01_overview.md).
+- For complex permission model changes, use a separate project. Each project has an isolated permission model, so you can iterate
+  on and test your changes on a test project and only deploy the changes once all tests pass.
