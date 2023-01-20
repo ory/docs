@@ -24,7 +24,7 @@ The format of the patch is a JSON-Patch document. For more details please check:
 	https://jsonpatch.com
 
 ```
-ory patch project <id> [flags]
+ory patch project [id] [flags]
 ```
 
 ### Examples

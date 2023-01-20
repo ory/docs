@@ -18,7 +18,7 @@ Get Ory Identities configuration.
 Get the Ory Identities configuration for the specified Ory Network project.
 
 ```
-ory get identity-config <project-id> [flags]
+ory get identity-config [project-id] [flags]
 ```
 
 ### Examples

@@ -39,7 +39,7 @@ This command expects the contents of the `/services/identity/config` key, so for
 
 
 ```
-ory update identity-config <project-id> [flags]
+ory update identity-config [project-id] [flags]
 ```
 
 ### Examples

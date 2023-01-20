@@ -40,7 +40,7 @@ This command expects the contents of the `/services/permission/config` key, so f
 
 
 ```
-ory update permission-config <project-id> [flags]
+ory update permission-config [project-id] [flags]
 ```
 
 ### Examples

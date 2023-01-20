@@ -18,7 +18,7 @@ Get Ory OAuth2 & OpenID Connect configuration.
 Get the Ory OAuth2 & OpenID Connect configuration for the specified Ory Network project.
 
 ```
-ory get oauth2-config <project-id> [flags]
+ory get oauth2-config [project-id] [flags]
 ```
 
 ### Examples
