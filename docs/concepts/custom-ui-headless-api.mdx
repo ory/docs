@@ -11,18 +11,24 @@ import TabItem from "@theme/TabItem"
 import CodeBlock from "@theme/CodeBlock"
 ```
 
-Ory provides headless APIs for ease of integration. This ensures that Ory provides compatibility with many software stacks across
-different programming languages.
+Ory provides headless APIs for ease of integration. This ensures that Ory is compatible with many software stacks across different
+programming languages.
 
-This documents' focus is to provide concrete examples on custom UI integration. Flows are the fundamental of Ory's self-service
-APIs and are used to accomplish a variety of goals, such as `login`, `registration`, `settings`, `verification` and `recovery`.
+This documents' focus is to provide the necessary fundamentals to get started with custom UI integration. Flows are the
+fundamental of Ory's self-service APIs and are used to accomplish a variety of goals, such as `login`, `registration`, `settings`,
+`verification` and `recovery`.
 
-The self-service `flows` are standardized so that it follows the same steps regardless of which `flow` is integrated.
+The self-service `flows` are standardized so that it follows the same steps regardless of which `flow` is integrated. The API is
+also seperated into two types of applications - browser and native. The difference between the two is to set the necessary
+security measures for the application type.
 
 A general overview of the flow can be summed up in two steps:
 
-1. Get or create the `flow` data, e.g. login, registration etc.
-2. Submit the `flow` with user data (e.g. username and password)
+1. Create the `flow` with the appropriate purpose (e.g. login, registration, etc.) and application type (e.g. browser or native)
+2. Use the flow data to render the UI.
+3. Submit the flow with user data. (e.g. username and password)
+4. Potentially handle flow errors like invalid user input by going back to step 2.
+5. Handle the successful submission.
 
 For more information on the concepts, take a look at the [Self-service flow](../kratos/self-service) documentation.
 
@@ -33,7 +39,7 @@ user to the specified URL after the flow is successfully completed.
 
 Some flows, such as login have additional query parameters which can be used in both browser and native applications.
 
-## Reusing an existing flow
+## Fetching an existing flow
 
 In cases where the flow already exists, we can retrieve the flow data using the flow ID. This is useful in cases where Ory has
 already initialized the flow and redirected to the UI. In such a case, the flow ID can be extracted from the URL `?flow=` query
