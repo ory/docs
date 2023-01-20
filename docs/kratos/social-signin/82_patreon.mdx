@@ -1,6 +1,6 @@
 ---
 id: patreon
-title: Add patreon as a social sign-in provider in Ory
+title: Add Patreon as a social sign-in provider in Ory
 sidebar_label: Patreon
 ---
 
@@ -8,8 +8,8 @@ sidebar_label: Patreon
 
 Follow these steps to add Patreon as a social sign-in provider to your project using the Ory CLI:
 
-1. Create a client on the [Patreon Portal](https://www.patreon.com/portal/registration/register-clients).
-2. Ensure you configure the redirect URIs to:
+1. Create a [Patreon OAuth2 client](https://www.patreon.com/portal/registration/register-clients).
+2. In the client configuration, set the redirect URI to:
 
    ```shell
    https://{project.slug}.projects.oryapis.com/self-service/methods/oidc/callback/patreon
@@ -69,8 +69,8 @@ Follow these steps to add Patreon as a social sign-in provider to your project u
            providers:
              - id: patreon # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
                provider: patreon
-               client_id: .... # Replace this with the OAuth2 Client ID provided by patreon
-               client_secret: .... # Replace this with the OAuth2 Client Secret provided by patreon
+               client_id: .... # Replace this with the OAuth2 Client ID provided by Patreon
+               client_secret: .... # Replace this with the OAuth2 Client Secret provided by Patreon
                mapper_url: "base64://{YOUR_BASE64_ENCODED_JSONNET_HERE}"
                # Alternatively, use an URL:
                # mapper_url: https://storage.googleapis.com/abc-cde-prd/9cac9717f007808bf17f22ce7f4295c739604b183f05ac4afb4
