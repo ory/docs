@@ -19,7 +19,7 @@ func init() {
 	ory = client.NewAPIClient(cfg)
 }
 
-func getLogin(ctx context.Context, flowId string) (*client.LoginFlow, error) {
+func GetLogin(ctx context.Context, flowId string) (*client.LoginFlow, error) {
 	// highlight-start
 	flow, _, err := ory.FrontendApi.GetLoginFlow(ctx).Id(flowId).Execute()
 	if err != nil {

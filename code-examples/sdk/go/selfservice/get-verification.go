@@ -19,7 +19,7 @@ func init() {
 	ory = client.NewAPIClient(cfg)
 }
 
-func getVerification(ctx context.Context, flowId string) (*client.VerificationFlow, error) {
+func GetVerification(ctx context.Context, flowId string) (*client.VerificationFlow, error) {
 	// highlight-start
 	flow, _, err := ory.FrontendApi.GetVerificationFlow(ctx).Id(flowId).Execute()
 	if err != nil {

@@ -19,7 +19,7 @@ func init() {
 	ory = client.NewAPIClient(cfg)
 }
 
-func createLogin(ctx context.Context) (*client.LoginFlow, error) {
+func CreateLogin(ctx context.Context) (*client.LoginFlow, error) {
 	// highlight-start
 	flow, _, err := ory.FrontendApi.CreateNativeLoginFlow(ctx).Execute()
 	if err != nil {

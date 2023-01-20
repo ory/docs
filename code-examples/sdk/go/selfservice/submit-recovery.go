@@ -19,7 +19,7 @@ func init() {
 	ory = client.NewAPIClient(cfg)
 }
 
-func submitRecovery(ctx context.Context, flowId string, body client.UpdateRecoveryFlowBody) (*client.RecoveryFlow, error) {
+func SubmitRecovery(ctx context.Context, flowId string, body client.UpdateRecoveryFlowBody) (*client.RecoveryFlow, error) {
 	// highlight-start
 	flow, _, err := ory.FrontendApi.UpdateRecoveryFlow(ctx).Flow(flowId).UpdateRecoveryFlowBody(body).Execute()
 	if err != nil {

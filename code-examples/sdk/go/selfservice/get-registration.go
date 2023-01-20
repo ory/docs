@@ -19,7 +19,7 @@ func init() {
 	ory = client.NewAPIClient(cfg)
 }
 
-func getRegistration(ctx context.Context, flowId string) (*client.RegistrationFlow, error) {
+func GetRegistration(ctx context.Context, flowId string) (*client.RegistrationFlow, error) {
 	// highlight-start
 	flow, _, err := ory.FrontendApi.GetRegistrationFlow(ctx).Id(flowId).Execute()
 	if err != nil {

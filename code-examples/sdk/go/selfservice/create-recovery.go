@@ -19,7 +19,7 @@ func init() {
 	ory = client.NewAPIClient(cfg)
 }
 
-func createRecovery(ctx context.Context) (*client.RecoveryFlow, error) {
+func CreateRecovery(ctx context.Context) (*client.RecoveryFlow, error) {
 	// highlight-start
 	flow, _, err := ory.FrontendApi.CreateNativeRecoveryFlow(ctx).Execute()
 	if err != nil {
