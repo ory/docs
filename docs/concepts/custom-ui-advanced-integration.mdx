@@ -33,9 +33,9 @@ Here is a breakdown of how the redirect works:
 3. Submit the flow with user data. (e.g. username and password)
 4. Assuming the flow was successful, the user will be redirected to the `return_to` URL.
 
-The `return_to` URL will need to be re-initialized with a new flow. This query parameter does not automatically persist across
-different flows. For example, if the user has started a `login` flow with the `return_to` URL set and then switches to a
-`registration` flow, the `return_to` URL will not be used for the registration flow.
+The `return_to` query parameter does not automatically persist across different flows, the `return_to` will need to be re-added on
+a new flow. For example, if the user has started a `login` flow with the `return_to` URL set and then switches to a `registration`
+flow, the `return_to` URL will not be used for the registration flow.
 
 The only case where the `return_to` URL will persist across flows are with a `recovery` flow transitioning into a `settings` flow.
 
