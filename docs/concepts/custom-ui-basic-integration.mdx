@@ -1,7 +1,7 @@
 ---
 id: custom-ui-basic-integration
-title: Integration Basics
-sidebar_label: Integration Basics
+title: Basic Integration
+sidebar_label: Basic Integration
 toc_max_heading_level: 4
 ---
 
@@ -71,19 +71,10 @@ set the cookies, you must set the `withCredentials: true` in axios or `credentia
 
 When using the Ory SDK you need to specify the `withCredentials: true` option in the SDK configuration.
 
-```ts
-import { Configuration, FrontendApi } from "@ory/client"
+```mdx-code-block
+import whoamiReact from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/session/whoami-react.tsx'
 
-export default new FrontendApi(
-  new Configuration({
-    basePath: process.env.ORY_SDK_URL, // usually your cname entry or local ory tunnel url
-    // we always want to include the cookies in each request
-    // cookies are used for sessions and CSRF protection
-    baseOptions: {
-      withCredentials: true,
-    },
-  }),
-)
+<CodeBlock language="tsx">{whoamiReact}</CodeBlock>
 ```
 
 ### Native applications
@@ -95,28 +86,10 @@ the session token can be used to authenticate subsequent requests to Ory.
 With the Ory SDK you can set the `withCredentials: false` option and use the session token in the `Authorization: Bearer <token>`
 header.
 
-```ts
-import { Configuration, FrontendApi } from "@ory/client"
+```mdx-code-block
+import whoamiNative from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/session/whoami-native.ts'
 
-const frontend = new FrontendApi(
-  new Configuration({
-    basePath: process.env.ORY_SDK_URL,
-    baseOptions: {
-      withCredentials: false,
-    },
-  }),
-)
-
-frontend
-  .toSession({ xSessionToken: token })
-  .then(({ status, data: flow }) => {
-    if (status === 200) {
-      // we have a valid session
-    }
-  })
-  .catch((err) => {
-    // we have an invalid session
-  })
+<CodeBlock language="ts">{whoamiNative}</CodeBlock>
 ```
 
 ## Fetching an existing flow
@@ -172,7 +145,7 @@ documentation.
 import createLoginApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/create-login.go'
 
 <CodeBlock language="go">{createLoginApi}</CodeBlock>
-````
+```
 
 </TabItem>
 <TabItem value="typescript" label="TypeScript">
@@ -745,3 +718,31 @@ Below are the API references for the verification flow.
 - [Create Native Verification Flow](../reference/api#tag/frontend/operation/createNativeVerificationFlow)
 - [Get Verification Flow](../reference/api#tag/frontend/operation/getVerificationFlow)
 - [Update Verification Flow](../reference/api#tag/frontend/operation/updateVerificationFlow)
+
+## Debugging
+
+### CORS errors
+
+To solve Cross-Origin Resource Sharing (CORS) errors please make sure you are using the
+[Ory CLI tunnel](../getting-started/local-development) on local development and in production you should
+[add your domain](../guides/custom-domains) to the Ory Project so that all requests from your frontend can be made to Ory under
+the same domain.
+
+Ory has a deny by default policy which means that the `Access-Control-Allow-Origin` header is only set on domains we own.
+
+To learn more about CORS please read the [Mozilla CORS documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
+
+### CSRF errors
+
+Ory provides CSRF protection for all `flows`. This means that you need to send a CSRF token in the body and CSRF cookie back when
+submitting a `flow`. The cookie should be sent by default by your browser, but you need to add the CSRF token manually to the body
+of the request. This can be a JSON object or a native form POST.
+
+When mapping UI nodes take note of input fields with the name `csrf_token` with the `hidden` attribute. An example of mapping the
+UI nodes for csrf protection could look like this:
+
+```mdx-code-block
+import csrfMapping from '!!raw-loader!../../code-examples/sdk/typescript/src/ui/csrf-mapping.tsx'
+
+<CodeBlock language="tsx">{csrfMapping}</CodeBlock>
+```

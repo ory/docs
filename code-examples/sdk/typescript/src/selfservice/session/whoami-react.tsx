@@ -1,5 +1,5 @@
 import { Configuration, FrontendApi, Session } from "@ory/client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const frontend = new FrontendApi(
   new Configuration({
@@ -15,34 +15,34 @@ export function checkSession() {
   const [session, setSession] = useState<Session>(undefined)
 
   // highlight-start
-  const handleCheckSession = async () => {
-    try {
-      const result = await frontend.toSession()
-      setSession(result.data)
-    } catch (error) {
-      // The session could not be fetched
-      // This might occur if the current session has expired
-    }
-  }
-  // highlight-end
+  useEffect(() => {
+    frontend
+      // the cookie is automatically sent with the request
+      .toSession()
+      .then(({ data: session }) => {
+        setSession(session)
+      })
+      .catch((error) => {
+        // The session could not be fetched
+        // This might occur if the current session has expired
+      })
+  }, [])
 
-  return (
-    <>
-      <button onClick={handleCheckSession}>Get my Session payload</button>
-      {session && (
-        <table>
-          <tr>
-            <th>Session ID</th>
-            <th>Expires at</th>
-            <th>Authenticated at</th>
-          </tr>
-          <tr id={session.id}>
-            <td>{session.id}</td>
-            <td>{session.expires_at || ""}</td>
-            <td>{session.authenticated_at || ""}</td>
-          </tr>
-        </table>
-      )}
-    </>
+  // highlight-end
+  return session ? (
+    <table>
+      <tr>
+        <th>Session ID</th>
+        <th>Expires at</th>
+        <th>Authenticated at</th>
+      </tr>
+      <tr id={session.id}>
+        <td>{session.id}</td>
+        <td>{session.expires_at || ""}</td>
+        <td>{session.authenticated_at || ""}</td>
+      </tr>
+    </table>
+  ) : (
+    <div>Loading session data...</div>
   )
 }
