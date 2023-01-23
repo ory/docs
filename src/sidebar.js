@@ -136,7 +136,8 @@ module.exports = {
           type: "category",
           label: "Bring your own UI",
           items: [
-            "concepts/custom-ui-headless-api",
+            "concepts/custom-ui-basic-integration",
+            "concepts/custom-ui-advanced-integration",
             "kratos/concepts/ui-user-interface",
             "guides/bring-your-user-interface",
             "getting-started/custom-ui-ory-elements",

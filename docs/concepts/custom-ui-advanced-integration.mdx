@@ -1,0 +1,58 @@
+---
+id: custom-ui-advanced-integration
+title: Integration Advanced
+sidebar_label: Integration Advanced
+toc_max_heading_level: 4
+---
+
+This document gives you a deeper understanding of how to integrate a custom UI with Ory. It is recommended to read the
+[Integration Basics](./custom-ui-basic-integration) first.
+
+## Advanced redirects
+
+Most of the time, the application integrating with Ory would have advanced URL redirects. For example, the application might have
+a protected page that the user is redirected from to the login page. After the user has logged in, the user should be redirected
+back to the page they were on.
+
+To achieve this, the application can pass a `?return_to=<url>` query parameter to the initialize flow endpoint
+[`/self-service/<login|registration|settings|verification|recovery|logout>/browser?return_to=https://myapp.com/protected`](../reference/api#tag/frontend).
+
+The `return_to` URL will be used as the redirect URL after the flow has been completed. For example, in the case of a `login` flow
+we would redirect after a successful login has been completed.
+
+Here is a breakdown of how the redirect works:
+
+1. Initialize the flow with a `return_to` URL
+2. Use the flow data to render the UI.
+3. Submit the flow with user data. (e.g. username and password)
+4. Assuming the flow was successful, the user will be redirected to the `return_to` URL.
+
+The `return_to` URL will need to be re-initialized with a new flow. This query parameter does not automatically persist across
+different flows. For example, if the user has started a `login` flow with the `return_to` URL set and then switches to a
+`registration` flow, the `return_to` URL will not be used for the registration flow.
+
+The only case where the `return_to` URL will persist across flows are with a `recovery` flow transitioning into a `settings` flow.
+
+Let's take a look at an example of how this works:
+
+1. Create a `recovery` flow with `return_to`
+2. Email is sent with a `link` or `code` method
+3. User completes the `recovery` flow by submitting the `code` or clicking the `link`.
+4. The user is given a session and redirected through the `settings` flow.
+5. The user submits the `settings` flow with an updated password.
+6. The user is redirected to the `return_to` URL.
+
+## Refreshing a user session
+
+It is sometimes required to refresh an active user session beyond the global default session lifespan. In such a case the
+application implementing the UI can request through the `?refresh=true` query parameter that Ory should refresh the already
+existing session [`/self-service/login/browser?refresh=true`](../reference/api#tag/frontend/operation/createBrowserLoginFlow).
+This is only applicable to the `login` flow and requires the user to already be logged in.
+
+A common use case would be:
+
+1. User logs in
+2. User interacts with the application
+3. User is inactive for a period of time
+4. The user returns before the global default session lifespan has expired
+5. The session is refreshed through a `login` flow with the `?refresh=true` query parameter.

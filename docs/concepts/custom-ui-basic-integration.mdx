@@ -1,5 +1,5 @@
 ---
-id: custom-ui-headless-api
+id: custom-ui-basic-integration
 title: Integration Basics
 sidebar_label: Integration Basics
 toc_max_heading_level: 4
@@ -14,30 +14,110 @@ import CodeBlock from "@theme/CodeBlock"
 Ory provides headless APIs for ease of integration. This ensures that Ory is compatible with many software stacks across different
 programming languages.
 
-This documents' focus is to provide the necessary fundamentals to get started with custom UI integration. Flows are the
+This document's focus is to provide the necessary fundamentals to get started with custom UI integration. Flows are the
 fundamental of Ory's self-service APIs and are used to accomplish a variety of goals, such as `login`, `registration`, `settings`,
-`verification` and `recovery`.
+`verification`, `recovery` and `logout`.
 
 The self-service `flows` are standardized so that it follows the same steps regardless of which `flow` is integrated. The API is
-also seperated into two types of applications - browser and native. The difference between the two is to set the necessary
-security measures for the application type.
+also seperated into two types of applications - browser and native. The difference between the two application types are to set
+the necessary security measures. For example in browser applications, the API will set a CSRF cookie while in native applications
+no CSRF cookie is necessary.
 
-A general overview of the flow can be summed up in two steps:
+A general overview of the flow can be summed up in five steps:
 
 1. Create the `flow` with the appropriate purpose (e.g. login, registration, etc.) and application type (e.g. browser or native)
 2. Use the flow data to render the UI.
 3. Submit the flow with user data. (e.g. username and password)
-4. Potentially handle flow errors like invalid user input by going back to step 2.
+4. Potentially handle errors like invalid user input by going back to step 2.
 5. Handle the successful submission.
 
-For more information on the concepts, take a look at the [Self-service flow](../kratos/self-service) documentation.
+For more information on the `flow` concepts, take a look at the [Self-service flow](../kratos/self-service) documentation.
 
-## Creating a flow
+## Create a flow
 
-All browser flows can be initialized with the optional `?return_to=<url>` query parameter. This parameter is used to redirect the
-user to the specified URL after the flow is successfully completed.
+The first step is to initialize a flow. This is done by calling the
+[`/self-service/<login|registration|settings|recovery|verification|logout/<browser|api>`](../reference/api#tag/frontend) endpoint.
 
-Some flows, such as login have additional query parameters which can be used in both browser and native applications.
+### Server Side (Browser)
+
+In browser applications that are rendered by the server (e.g. Go, PHP, Java, NodeJs, etc.) the flow can be initialized with a
+redirect directly to Ory in the browser which in turn will redirect the browser back to the configured
+[application URL](./bring-your-user-interface) (e.g. `https://myapp.com/login?flow=<uuid>`).
+
+```html
+<form method="GET" action="https://<project-url>/self-service/login/browser">
+  <button type="submit">Login</button>
+</form>
+```
+
+Do note, however, that since this is a browser flow cookies are set which will need to be parsed on the server when making any
+subsequent requests to Ory.
+
+Here is an example in ExpressJS to include cookies on a session request to Ory:
+
+```mdx-code-block
+import whoamiServerSide from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/session/whoami-server.ts'
+
+<CodeBlock language="ts">{whoamiServerSide}</CodeBlock>
+```
+
+### Single Page Applications (SPA)
+
+Single Page Applications (SPA) can initialize the flow by calling the endpoint using AJAX or fetch instead of redirecting the
+browser. In the event that a flow is initialized through a browser redirect, the
+[application URL](../guides/bring-your-user-interface) needs to be set for Ory to know about your application. The response will
+set any necessary cookies in the browser and contain all the data used to render the UI. For AJAX and fetch request to properly
+set the cookies, you must set the `withCredentials: true` in axios or `credentials: "include"` in fetch.
+
+When using the Ory SDK you need to specify the `withCredentials: true` option in the SDK configuration.
+
+```ts
+import { Configuration, FrontendApi } from "@ory/client"
+
+export default new FrontendApi(
+  new Configuration({
+    basePath: process.env.ORY_SDK_URL, // usually your cname entry or local ory tunnel url
+    // we always want to include the cookies in each request
+    // cookies are used for sessions and CSRF protection
+    baseOptions: {
+      withCredentials: true,
+    },
+  }),
+)
+```
+
+### Native applications
+
+Native applications such as Desktop and Mobile applications must use the API flows which do not set any cookies, however, on a
+successful session Ory provides a session token. The response will contain all the data used to render the UI. On successful login
+the session token can be used to authenticate subsequent requests to Ory.
+
+With the Ory SDK you can set the `withCredentials: false` option and use the session token in the `Authorization: Bearer <token>`
+header.
+
+```ts
+import { Configuration, FrontendApi } from "@ory/client"
+
+const frontend = new FrontendApi(
+  new Configuration({
+    basePath: process.env.ORY_SDK_URL,
+    baseOptions: {
+      withCredentials: false,
+    },
+  }),
+)
+
+frontend
+  .toSession({ xSessionToken: token })
+  .then(({ status, data: flow }) => {
+    if (status === 200) {
+      // we have a valid session
+    }
+  })
+  .catch((err) => {
+    // we have an invalid session
+  })
+```
 
 ## Fetching an existing flow
 
@@ -92,7 +172,7 @@ documentation.
 import createLoginApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/create-login.go'
 
 <CodeBlock language="go">{createLoginApi}</CodeBlock>
-```
+````
 
 </TabItem>
 <TabItem value="typescript" label="TypeScript">
@@ -114,7 +194,6 @@ import createReactLoginApi from '!!raw-loader!../../code-examples/sdk/typescript
 ```
 
 </TabItem>
-
 
 </Tabs>
 ````
