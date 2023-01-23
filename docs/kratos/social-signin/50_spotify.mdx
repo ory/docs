@@ -4,7 +4,9 @@ title: Add Spotify as a social sign-in provider in Ory
 sidebar_label: Spotify
 ---
 
+```mdx-code-block
 import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
+```
 
 # Spotify
 
@@ -32,6 +34,7 @@ Follow these steps to add Spotify as a social sign-in provider to your project u
     - `user-read-email`
     - `user-read-private`
 10. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
+
    ```jsonnet
    local claims = std.extVar('claims');
 

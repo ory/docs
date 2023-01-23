@@ -4,7 +4,9 @@ title: Add GitLab as a social sign-in provider in Ory
 sidebar_label: GitLab
 ---
 
+```mdx-code-block
 import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
+```
 
 # GitLab
 
@@ -28,6 +30,7 @@ Follow these steps to add GitLab as a social sign-in provider to your project us
     - `profile`
     - `email`
 7. After clicking **Save application** on the GitLab form, you see a summary of the registered application's properties.
+
     :::caution
 
     Make sure to copy the **Secret** field on this summary page right away.
@@ -43,6 +46,7 @@ Follow these steps to add GitLab as a social sign-in provider to your project us
     - `profile`
     - `email`
 11. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
+
    ```jsonnet
    local claims = {
      email_verified: false,

@@ -4,7 +4,9 @@ title: Add Auth0 as a social sign-in provider in Ory
 sidebar_label: Auth0
 ---
 
+```mdx-code-block
 import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
+```
 
 # Auth0
 
@@ -32,6 +34,7 @@ Follow these steps to add Auth0 as a social sign-in provider to your project usi
     - `profile`
     - `email`
 7. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
+
    ```jsonnet
    local claims = {
      email_verified: false,

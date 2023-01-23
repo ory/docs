@@ -4,7 +4,9 @@ title: Add Slack as a social sign-in provider in Ory
 sidebar_label: Slack
 ---
 
+```mdx-code-block
 import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
+```
 
 # Slack
 
@@ -31,6 +33,7 @@ Follow these steps to add Slack as a social sign-in provider to your project usi
     - `identity.basic`
     - `identity.email`
 8. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
+
    ```jsonnet
    local claims = {
      email_verified: true,

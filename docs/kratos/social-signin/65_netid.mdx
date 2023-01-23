@@ -4,7 +4,9 @@ title: Add NetID as a social sign-in provider in Ory
 sidebar_label: NetID
 ---
 
+```mdx-code-block
 import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
+```
 
 # NetID
 
@@ -32,6 +34,7 @@ To enable an email address for OAuth, go to the NetID Service page and click **A
     - `openid`
     - `email`
 9. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
+
    ```jsonnet
    local claims = {
      email_verified: false

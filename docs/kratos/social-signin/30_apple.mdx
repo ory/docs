@@ -4,7 +4,9 @@ title: Add Apple as a social sign-in provider in Ory
 sidebar_label: Apple
 ---
 
+```mdx-code-block
 import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
+```
 
 # Apple
 
@@ -31,6 +33,7 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
     - **Apple Private Key Id**
     - **Apple Private Key**
 9. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
+
    ```jsonnet
    local claims = {
      email_verified: false,
@@ -62,7 +65,8 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
 
 Follow these steps to add Apple as a social sign-in provider to your project using the Ory CLI:
 
-1. [Create an app, a service, and a private key using an Apple Developer account](https://developer.okta.com/blog/2019/06/04/what-the-heck-is-sign-in-with-apple#create-an-app-id).
+1. Follow the [Sign in with Apple](https://developer.apple.com/documentation/sign_in_with_apple) guide to
+   [create an app, a service, and a private key using an Apple Developer account](https://developer.apple.com/documentation/sign_in_with_apple/implementing_user_authentication_with_sign_in_with_apple).
 2. In the created app, set the redirect URI to:
 
    ```shell

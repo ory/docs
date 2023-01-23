@@ -4,7 +4,9 @@ title: Add Discord as a social sign-in provider in Ory
 sidebar_label: Discord
 ---
 
+```mdx-code-block
 import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
+```
 
 # Discord
 
@@ -31,6 +33,7 @@ Follow these steps to add Discord as a social sign-in provider to your project u
     - `identify`
     - `email`
 8. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
+
    ```jsonnet
    local claims = {
      email_verified: false,
