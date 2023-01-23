@@ -1,4 +1,13 @@
-import { Configuration, FrontendApi, LoginFlow } from "@ory/client"
+import {
+  Configuration,
+  FrontendApi,
+  LoginFlow,
+  UiNodeInputAttributes,
+} from "@ory/client"
+import {
+  filterNodesByGroups,
+  isUiNodeInputAttributes,
+} from "@ory/integrations/ui"
 import { useEffect, useState } from "react"
 
 const frontend = new FrontendApi(
@@ -19,19 +28,28 @@ function CsrfMapping() {
 
   return flow ? (
     // highlight-start
-    flow.ui.nodes
-      .filter(({ group, attributes }) => {
-        if (group.includes("default") && attributes.name === "csrf_token") {
-          return true
+    <form action={flow.ui.action} method={flow.ui.method}>
+      {filterNodesByGroups({
+        nodes: flow.ui.nodes,
+        // we will also map default fields here but not oidc and password fields
+        groups: ["default"],
+        attributes: ["hidden"], // only want hidden fields
+      }).map((node) => {
+        if (
+          isUiNodeInputAttributes(node.attributes) &&
+          (node.attributes as UiNodeInputAttributes).type === "hidden" &&
+          (node.attributes as UiNodeInputAttributes).name === "csrf_token"
+        ) {
+          return (
+            <input
+              type={node.attributes.type}
+              name={node.attributes.name}
+              value={node.attributes.value}
+            />
+          )
         }
-      })
-      .map((node) => (
-        <input
-          type={node.attributes.type}
-          name={node.attributes.name}
-          value={node.attributes.value}
-        />
-      ))
+      })}
+    </form>
   ) : (
     // highlight-end
     <div>Loading...</div>

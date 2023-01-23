@@ -5,6 +5,12 @@ sidebar_label: Advanced Integration
 toc_max_heading_level: 4
 ---
 
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import CodeBlock from "@theme/CodeBlock"
+```
+
 This document gives you a deeper understanding of how to integrate a custom UI with Ory. It is recommended to read the
 [Integration Basics](./custom-ui-basic-integration) first.
 
@@ -56,3 +62,44 @@ A common use case would be:
 3. User is inactive for a period of time
 4. The user returns before the global default session lifespan has expired
 5. The session is refreshed through a `login` flow with the `?refresh=true` query parameter.
+
+## Two-Factor authentication
+
+Two-Factor authentication (2FA) is a second step to confirming the user's credentials with another credential, such as `TOTP` or
+`TouchID`. When creating a login flow, you can specify the `?aal=<level>` query parameter to specify the level of authentication.
+
+In Ory the levels are:
+
+- aal1: Password or OIDC
+- aal2: aal1 + TOTP or WebAuthn or Lookup Secrets
+
+In the case of initializing a second factor, the user must already have a valid session cookie. The
+[`/sessions/whoami`](../reference/api#tag/frontend/operation/toSession) endpoint will return with an error with an id
+`session_aal2_required` if the user is required to complete a second factor. More information on UI error messages can be found on
+the [Customize user interface](../kratos/concepts/ui-user-interface) page.
+
+For more information on Multi-factor authentication take a look at the [Multi-factor authentication](../kratos/mfa/overview).
+
+## Passwordless authentication
+
+Passwordless authentication uses WebAuthn to authenticate a user using a hardware key or biometrics (such as faceID).
+
+To enable passwordless authentication, take a look at the [WebAuthn and FIDO2](../kratos/mfa/webauthn-fido-yubikey) document.
+
+In your application we will need to add the WebAuthn javascript to the page.
+
+````mdx-code-block
+<Tabs groupId="webauthn">
+
+<TabItem value="ts" label="React" default>
+
+```mdx-code-block
+import webAuthnMapping from '!!raw-loader!../../code-examples/sdk/typescript/src/ui/webauthn-mapping.tsx'
+
+<CodeBlock language="tsx">{webAuthnMapping}</CodeBlock>
+```
+
+</TabItem>
+
+</Tabs>
+````

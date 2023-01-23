@@ -3,13 +3,13 @@ import {
   FrontendApi,
   LoginFlow,
   UiNodeInputAttributes,
+  UiNodeScriptAttributes,
 } from "@ory/client"
 import {
   filterNodesByGroups,
-  getNodeLabel,
   isUiNodeInputAttributes,
 } from "@ory/integrations/ui"
-import { useEffect, useState } from "react"
+import { HTMLAttributeReferrerPolicy, useEffect, useState } from "react"
 
 const frontend = new FrontendApi(
   new Configuration({
@@ -20,30 +20,54 @@ const frontend = new FrontendApi(
   }),
 )
 
-function OidcMapping() {
+function PasswordlessMapping() {
   const [flow, setFlow] = useState<LoginFlow>()
 
   useEffect(() => {
     frontend.createBrowserLoginFlow().then(({ data: flow }) => setFlow(flow))
   }, [])
 
+  // Add the WebAuthn script to the DOM
+  useEffect(() => {
+    const scriptNodes = filterNodesByGroups({
+      nodes: flow.ui.nodes,
+      groups: "webauthn",
+      attributes: "text/javascript",
+      withoutDefaultGroup: true,
+      withoutDefaultAttributes: true,
+    }).map((node) => {
+      const attr = node.attributes as UiNodeScriptAttributes
+      const script = document.createElement("script")
+      script.src = attr.src
+      script.type = attr.type
+      script.async = attr.async
+      script.referrerPolicy = attr.referrerpolicy as HTMLAttributeReferrerPolicy
+      script.crossOrigin = attr.crossorigin
+      script.integrity = attr.integrity
+      document.body.appendChild(script)
+      return script
+    })
+
+    // cleanup
+    return () => {
+      scriptNodes.forEach((script) => {
+        document.body.removeChild(script)
+      })
+    }
+  }, [flow.ui.nodes])
+
   return flow ? (
     // highlight-start
-    <form method={flow.ui.action} action={flow.ui.method}>
+    <form action={flow.ui.action} method={flow.ui.method}>
       {filterNodesByGroups({
         nodes: flow.ui.nodes,
-        // we will also map default fields here
-        groups: ["oidc"],
+        // we will also map default fields here but not oidc and password fields
+        groups: ["webauthn"],
         attributes: ["hidden", "submit", "button"],
       }).map((node) => {
         if (isUiNodeInputAttributes(node.attributes)) {
           const attrs = node.attributes as UiNodeInputAttributes
           const nodeType = attrs.type
-
-          const isSocial =
-            (attrs.name === "provider" || attrs.name === "link") &&
-            node.group === "oidc"
-
           const submit: any = {
             type: attrs.type as "submit" | "reset" | "button" | undefined,
             name: attrs.name,
@@ -53,18 +77,15 @@ function OidcMapping() {
           switch (nodeType) {
             case "button":
             case "submit":
-              if (isSocial) {
-                submit.formNoValidate = true
-                submit.onClick = (e) => {
-                  // we want to submit the form natively on click
-                  // so we can redirect to the provider
-                  e.currentTarget.type = "submit"
-                  e.currentTarget.dispatchEvent(
-                    new Event("submit", { cancelable: true, bubbles: true }),
-                  )
+              if (attrs.onclick) {
+                // This is a bit hacky but it wouldn't work otherwise.
+                const oc = attrs.onclick
+                submit.onClick = () => {
+                  eval(oc)
                 }
-                return <button {...submit}>{getNodeLabel(node)}</button>
               }
+
+              return <button disabled={attrs.disabled} {...submit} />
             default:
               return (
                 <input
@@ -85,4 +106,4 @@ function OidcMapping() {
   )
 }
 
-export default OidcMapping
+export default PasswordlessMapping
