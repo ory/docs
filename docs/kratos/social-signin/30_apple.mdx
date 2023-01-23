@@ -23,14 +23,14 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
 4. Follow the [Sign in with Apple](https://developer.apple.com/documentation/sign_in_with_apple) guide to
    [create an app, a service, and a private key using an Apple Developer account](https://developer.apple.com/documentation/sign_in_with_apple/implementing_user_authentication_with_sign_in_with_apple).
 5. Copy the **Services ID** from the Apple registered app to the **Client ID** field in the form on the Ory Console.
-5. Add the saved **Redirect URI** from Ory to the **Return URLs** of the Apple registered application.
-6. In the **Scopes** field of the form on the Ory Console, add the following scope:
+6. Add the saved **Redirect URI** from Ory to the **Return URLs** of the Apple registered application.
+7. In the **Scopes** field of the form on the Ory Console, add the following scope:
     - `email`
-7. Copy the following details from your registered application in Apple to the Ory Console form:
-    1. Copy the **Apple Team Id** to the corresponding field in the form on the Ory Console.
-    2. Copy the **Apple Private Key Id** to the corresponding field in the form on the Ory Console.
-    3. Copy the **Apple Private Key** to the corresponding field in the form on the Ory Console.
-8. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
+8. Copy the following details from your registered application in Apple to the corresponding fields in the Ory Console form:
+    - **Apple Team Id**
+    - **Apple Private Key Id**
+    - **Apple Private Key**
+9. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
    ```jsonnet
    local claims = {
      email_verified: false,
@@ -50,10 +50,12 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
      },
    }
    ```
+
    ```mdx-code-block
    <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
    ```
-9. Click **Save Configuration**.
+
+10. Click **Save Configuration**.
 
 </TabItem>
 <TabItem value="cli" label="Ory CLI">

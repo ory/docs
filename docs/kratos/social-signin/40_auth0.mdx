@@ -23,9 +23,10 @@ Follow these steps to add Auth0 as a social sign-in provider to your project usi
 4. [Create an Auth0 Application for your Auth0 Tenant](https://auth0.com/docs/applications), noting the following points:
     - Choose the application type to be **Regular Web Applications**.
     - Paste the saved **Redirect URI** from Ory into the **Allowed Callback URLs** field in the **Settings** tab of the registered application.
-5. Navigate to the **Settings** tab of the registered application on the Auth0 dashboard and then copy the following data:
-    - Copy the **Client ID** to the corresponding field in the form on the Ory Console.
-    - Copy the **Client Secret** to the corresponding field in the form on the Ory Console.
+5. Navigate to the **Settings** tab of the registered application on the Auth0 dashboard and copy the following data
+   to the corresponding fields in the form on the Ory Console:
+    - **Client ID**
+    - **Client Secret**
 6. In the **Scopes** field of the form on the Ory Console, add the following scopes (one by one):
     - `openid`
     - `profile`
@@ -51,14 +52,19 @@ Follow these steps to add Auth0 as a social sign-in provider to your project usi
      },
    }
    ```
+
    :::info
+
    [Auth0](https://docs.gitlab.com/ee/integration/openid_connect_provider.html) returns only the `sub` and `sub_legacy` claims in
    the `id_token`. Ory makes a request to [Auth0's /userinfo API](https://auth0.com/docs/api/authentication?http#user-profile) and
    adds the user info to `std.extVar('claims')`.
+
    :::
+
    ```mdx-code-block
    <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
    ```
+
 8. Click **Save Configuration**.
 
 

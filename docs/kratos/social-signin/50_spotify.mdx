@@ -21,16 +21,17 @@ Follow these steps to add Spotify as a social sign-in provider to your project u
 2. Click the switch next to the Spotify logo to start the configuration.
 3. Copy the **Redirect URI** and save it for later use.
 4. [Create a Spotify Application](https://developer.spotify.com/dashboard/applications) by clicking the **CREATE AN APP** button.
-5. From the registered application page in Spotify, copy the following data:
-    1. Copy the **Client ID** to the corresponding field in the form on the Ory Console.
-    2. Copy the **Client Secret** to the corresponding field in the form on the Ory Console.
-6. From the registered application page in Spotify, click **EDIT SETTINGS** to open the **EDIT SETTINGS** dialog:
-    1. Add the saved **Redirect URI** from Ory to the **Redirect URIs** of the registered application.
-    2. Click **Save** to confirm and close the dialog.
-7. In the **Scopes** field of the form on the Ory Console, add the following scopes (one by one):
+5. From the registered application page in Spotify, copy the following data
+   to the corresponding fields in the form on the Ory Console:
+    - **Client ID**
+    - **Client Secret**
+6. From the registered application page in Spotify, click **EDIT SETTINGS** to open the **EDIT SETTINGS** dialog.
+7. Add the saved **Redirect URI** from Ory to the **Redirect URIs** of the registered application.
+8. Click **Save** to confirm and close the dialog.
+9. In the **Scopes** field of the form on the Ory Console, add the following scopes (one by one):
     - `user-read-email`
     - `user-read-private`
-8. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
+10. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
    ```jsonnet
    local claims = std.extVar('claims');
 
@@ -42,10 +43,12 @@ Follow these steps to add Spotify as a social sign-in provider to your project u
      },
    }
    ```
+
    ```mdx-code-block
    <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
    ```
-9. Click **Save Configuration**.
+
+11. Click **Save Configuration**.
 
 </TabItem>
 <TabItem value="cli" label="Ory CLI">

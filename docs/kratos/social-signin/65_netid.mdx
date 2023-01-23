@@ -25,9 +25,9 @@ Follow these steps to add NetID as a social sign-in provider to your project usi
 5. While creating the NetID Client, enter the saved **Redirect URI** from Ory to the **Callback URL** field of the NetID Client.
 6. After creating the NetID Client, the client is initially in sandbox mode, where only specified test user email addresses can use OAuth login.
 To enable an email address for OAuth, go to the NetID Service page and click **Add test user**.
-7. Copy the following data from the NetID Client settings:
-    1. Copy the **Client ID** to the corresponding field in the form on the Ory Console.
-    2. Copy the **Client secret** (sandbox or live, depending on the status of the NetID Service) to the corresponding field in the form on the Ory Console.
+7. Copy the following data from the NetID Client settings to the corresponding fields in the form on the Ory Console:
+    - **Client ID**
+    - **Client secret** (sandbox or live, depending on the status of the NetID Service)
 8. In the **Scopes** field of the form on the Ory Console, add the following scopes (one by one):
     - `openid`
     - `email`
@@ -51,9 +51,11 @@ To enable an email address for OAuth, go to the NetID Service page and click **A
      },
    }
    ```
+
    ```mdx-code-block
    <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
    ```
+
 10. Click **Save Configuration**.
 
 

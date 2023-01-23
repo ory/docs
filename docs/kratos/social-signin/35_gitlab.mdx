@@ -20,27 +20,29 @@ Follow these steps to add GitLab as a social sign-in provider to your project us
 1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
 2. Click the switch next to the GitLab logo to start the configuration.
 3. Copy the Redirect URI and save it for later use.
-4. [Create a GitLab OAuth2 Application](https://docs.gitlab.com/ee/integration/oauth_provider.html#adding-an-application-through-the-profile),
-  noting the following points:
-    - Paste the saved **Redirect URI** from Ory into the **Redirect URI** field in the GitLab form.
-    - Enable the relevant **Scopes** for the application, by ticking the relevant boxes in the GitLab form:
-        - `read_user`
-        - `openid`
-        - `profile`
-        - `email`
-5. After clicking **Save application** on the GitLab form, you see a summary of the registered application's properties.
-    :::caution
-    Do not click away from this page before copying the **Secret** field.
-    This is the only opportunity you will get to copy the secret.
-    :::
-6. Copy the **Application ID** from the registered application in GitLab to the **Client ID** field in the form on the Ory Console.
-7. Copy the **Secret** from the registered application in GitLab to the **Client Secret** field on the Ory Console.
-8. In the **Scopes** field of the form on the Ory Console, add the following scopes (one by one):
+4. [Create a GitLab OAuth2 Application](https://docs.gitlab.com/ee/integration/oauth_provider.html#adding-an-application-through-the-profile).
+5. Paste the saved **Redirect URI** from Ory into the **Redirect URI** field in the GitLab form.
+6. Enable the relevant **Scopes** for the application, by ticking the relevant boxes in the GitLab form:
     - `read_user`
     - `openid`
     - `profile`
     - `email`
-9. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
+7. After clicking **Save application** on the GitLab form, you see a summary of the registered application's properties.
+    :::caution
+
+    Make sure to copy the **Secret** field on this summary page right away.
+    This is the only opportunity you will get to copy the secret.
+
+    :::
+
+8. Copy the **Secret** from the registered application in GitLab to the **Client Secret** field on the Ory Console.
+9. Copy the **Application ID** from the registered application in GitLab to the **Client ID** field in the form on the Ory Console.
+10. In the **Scopes** field of the form on the Ory Console, add the following scopes (one by one):
+    - `read_user`
+    - `openid`
+    - `profile`
+    - `email`
+11. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
    ```jsonnet
    local claims = {
      email_verified: false,
@@ -59,15 +61,20 @@ Follow these steps to add GitLab as a social sign-in provider to your project us
      },
    }
    ```
+
    :::info
+
    [GitLab](https://docs.gitlab.com/ee/integration/openid_connect_provider.html) returns only the `sub` and `sub_legacy` claims in
    the `id_token`. Ory makes a request to [GitLab's /oauth/userinfo API](https://gitlab.com/oauth/userinfo) and adds the user info
    to `std.extVar('claims')`.
+
    :::
+
    ```mdx-code-block
    <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
    ```
-10. Click **Save Configuration**.
+
+12. Click **Save Configuration**.
 
 
 
