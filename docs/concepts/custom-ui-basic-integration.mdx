@@ -31,6 +31,19 @@ A general overview of the flow can be summed up in five steps:
 4. Potentially handle errors like invalid user input by going back to step 2.
 5. Handle the successful submission.
 
+Furthermore, a `flow` can also consist of multiple `methods`, for example the `login` flow can have the `password` method. Only
+one `method` can be used at a time to complete the flow and the `method` can be deactivated and configured in the Ory project.
+
+Here are the `methods` according to the flow:
+
+| Flow           | Methods                                                            |
+| -------------- | ------------------------------------------------------------------ |
+| `login`        | `password`, `oidc`, `totp`, `webauthn`, `lookup_secret`            |
+| `registration` | `password`, `oidc`, `webauthn`                                     |
+| `settings`     | `profile`, `password`, `oidc`, `lookup_secret`, `webauthn`, `totp` |
+| `recovery`     | `link`, `code`                                                     |
+| `verification` | `link`, `code`                                                     |
+
 For more information on the `flow` concepts, take a look at the [Self-service flow](../kratos/self-service) documentation.
 
 ## Create a flow
@@ -38,7 +51,13 @@ For more information on the `flow` concepts, take a look at the [Self-service fl
 The first step is to initialize a flow. This is done by doing a GET request to the
 [`/self-service/<login|registration|settings|recovery|verification|logout/<browser|api>`](../reference/api#tag/frontend) endpoint.
 
-The response will contain the flow data which can be used to render the UI. Below is an example of a `login` flow.
+The response will contain the flow data which can be used to render the UI.
+
+Below is an example of a `login` flow.
+
+```shell
+curl https://{project.slug}.projects.oryapis.com/self-service/login/browser -H "Accept: application/json"
+```
 
 ```json5
 {
@@ -886,6 +905,86 @@ Below are the API references for the verification flow.
 - [Create Native Verification Flow](../reference/api#tag/frontend/operation/createNativeVerificationFlow)
 - [Get Verification Flow](../reference/api#tag/frontend/operation/getVerificationFlow)
 - [Update Verification Flow](../reference/api#tag/frontend/operation/updateVerificationFlow)
+
+## Error Handling
+
+Ory provides errors at different levels of the flow:
+
+1. Request level errors (e.g. the request expired)
+2. Method level (e.g. login with password method)
+3. Field level (e.g. password field)
+
+Request level errors happen when the request has failed due to an invalid state. For example, the login flow is created, however,
+the session already exists.
+
+Method level errors happen when the method being requested fails.
+
+Each level's error message structure is the same as shown below:
+
+```json5
+{
+  id: 1234,
+  // This ID will not change and can be used to translate the message or use your own message content.
+  text: "Some default text",
+  // A default text in english that you can display if you do not want to customize the message.
+  context: {},
+  // A JSON object which may contain additional fields such as `expires_at`. This is helpful if you want to craft your own messages.
+}
+```
+
+Here is an example of each:
+
+```ts
+  // call the sdk
+  // sdk.submit...
+  .then(({data: flow}) => {
+    // error message can also exist when the request is successful
+    // inside the flow data. It is usually the case when we
+    // retrieved the login flow using the flow ID and the flow was submitted previously
+    // but still contains errors.
+
+    // method level error
+    // messages is an array of error messages
+    err.response?.data?.ui.messages.forEach((message) => {
+      console.log(message)
+    })
+
+    // field level error
+    err.response?.data?.ui.nodes.forEach(({ messages }) => {
+      // messages is an array of error messages
+      messages.forEach((message) => {
+        console.log(message)
+      })
+    })
+  })
+  .catch((err: AxiosError) => {
+    // if the request failed but the response is not only an error
+    // it will contain flow data which can be used to display error messages
+    // this is common when submitting a form (e.g. login or registration)
+    // and getting a response status 400 `Bad Request` back.
+
+    if (err.response.status === 400) {
+      // method level error
+      // messages is an array of error messages
+      err.response?.data?.ui.messages.forEach((message) => {
+        console.log(message)
+      })
+
+      // field level error
+      err.response?.data?.ui.nodes.forEach(({ messages }) => {
+        // messages is an array of error messages
+        messages.forEach((message) => {
+          console.log(message)
+        })
+      })
+    } else {
+      // request level error
+      if (err.response?.data?.error) {
+        console.log(err.response.data.error)
+      }
+    }
+  })
+```
 
 ## Debugging
 
