@@ -20,30 +20,34 @@ You can set the required authentication model for these operations/endpoints:
 
 Follow these steps to enforce multi-factor authentication:
 
-````mdx-code-block
+```mdx-code-block
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs>
 <TabItem value="console" label="Ory Console" default>
+```
 
-In the Ory Network, the default multi-factor authentication enforcement model is Strict.
+In the Ory Network, the default multi-factor authentication enforcement model is **Strict**.
 
 To change it to Lax and allow users to sign in or access user settings without authenticating with the second factor, go to the
-**Ory Console** → [**Two-Factor Authentication**](https://console.ory.sh/projects/current/mfa) and use the switches in the **General Settings** section.
+**Ory Console** → [**Two-Factor Authentication**](https://console.ory.sh/projects/current/mfa) and use the switches in the
+**General Settings** section.
 
-  ```mdx-code-block
-  import BrowserWindow from "@site/src/theme/BrowserWindow"
+```mdx-code-block
+import BrowserWindow from "@site/src/theme/BrowserWindow"
 
-  <BrowserWindow url="https://console.ory.sh/">
+<BrowserWindow url="https://console.ory.sh/">
 
-  ![Authentication enforcement settings in Ory Console](../_static/mfa/10.png)
+![Authentication enforcement settings in Ory Console](../_static/mfa/10.png)
 
-  </BrowserWindow>
-  ```
+</BrowserWindow>
+```
 
+```mdx-code-block
 </TabItem>
 <TabItem value="cli" label="Ory CLI" default>
+```
 
 Follow these steps to adjust the settings in The Ory Network using the Ory CLI:
 
@@ -84,15 +88,17 @@ Follow these steps to adjust the settings in The Ory Network using the Ory CLI:
    ory update identity-config <project-id> --file identity-config.yaml
    ```
 
+```mdx-code-block
 </TabItem>
 </Tabs>
-````
+```
 
 ## Requiring MFA for a session
 
-Some actions in your application might require a session, that has provided a second factor.
+Some actions in your application might require a session, with a higher AAL.
 
-To do that, initiate a new login flow using one of these endpoints with the `aal` parameter set to `aal2`:
+To require users to complete a second factor in their current session, initiate a new login flow using one of these endpoints with
+the `aal` parameter set to `aal2`:
 
 - [`/self-service/login/browser`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowForBrowsers)
 - [`/self-service/login/api`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowWithoutBrowser)
