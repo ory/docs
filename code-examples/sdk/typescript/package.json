@@ -12,8 +12,13 @@
   "dependencies": {
     "@ory/client": "~1.1.5",
     "@ory/integrations": "^1.1.0",
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.6",
     "jest": "^29.3.1",
     "react-router-dom": "^6.7.0",
     "typescript": "^4.9.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.16"
   }
 }

@@ -1,4 +1,5 @@
 import { Configuration, FrontendApi } from "@ory/client"
+import { NextFunction, Request, Response } from "express"
 
 const frontend = new FrontendApi(
   new Configuration({

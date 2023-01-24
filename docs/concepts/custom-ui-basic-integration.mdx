@@ -260,9 +260,9 @@ subsequent requests to Ory.
 Here is an example in ExpressJS to include cookies on a session request to Ory:
 
 ```mdx-code-block
-import whoamiServerSide from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/session/whoami-server.ts'
+import whoamiExpress from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/session/whoami-express.ts'
 
-<CodeBlock language="ts">{whoamiServerSide}</CodeBlock>
+<CodeBlock language="ts">{whoamiExpress}</CodeBlock>
 ```
 
 ### Single Page Applications (SPA)
@@ -317,16 +317,39 @@ existing flow ID. It is up to your application to handle this error case and cre
 
 ## Submitting a flow
 
-The flow always has to be initialized before any user data (e.g. email and password) can be submitted. Depending on the type of
-application (e.g. browser or native) the initialized flow will set a CSRF cookie and return a CSRF token in the response body. It
-is important in **browser based applications** to take note of the CSRF tokens since it is required when submitting the user data.
+The flow always has to be initialized before any user data (e.g. email and password) can be submitted. Depending on the
+application type the submission will be handled differently, however, the request will always be a `POST` request to the
+`/self-service/login/<browser|api>?flow=<uuid>` endpoint. The `flow` data will contain the correct URL to be used in the form
+under the `flow.ui.action` key.
 
-:::warning
+```json5
+{
+  ui: {
+    action: "http://{project.slug}.projects.oryapis.com/self-service/login?flow=<uuid>",
+    method: "POST",
+  },
+}
+```
 
-Never use API flows to implement Browser applications! Using API flows in Single-Page-Apps as well as server-side apps opens up
-several potential attack vectors, including Login and other CSRF attacks.
+### Server Side (Browser)
 
-:::
+In server-side rendered browser applications the submission will be handled by a native form POST to the Ory project URL. For
+example, the action for login would be a POST request to
+`https://{project.slug}.projects.oryapis.com/self-service/login/browser?flow=<id>`.
+
+```mdx-code-block
+import loginExpress from '!!raw-loader!../../code-examples/sdk/typescript/src/ui/login-express.ts'
+
+<CodeBlock language="ts">{loginExpress}</CodeBlock>
+```
+
+```mdx-code-block
+import authLayoutExpress from '!!raw-loader!../../code-examples/sdk/typescript/src/ui/auth.hbs'
+
+<CodeBlock language="handlebars">{authLayoutExpress}</CodeBlock>
+```
+
+### Single Page Applications (SPA)
 
 ## Login flow
 
