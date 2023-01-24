@@ -35,8 +35,193 @@ For more information on the `flow` concepts, take a look at the [Self-service fl
 
 ## Create a flow
 
-The first step is to initialize a flow. This is done by calling the
+The first step is to initialize a flow. This is done by doing a GET request to the
 [`/self-service/<login|registration|settings|recovery|verification|logout/<browser|api>`](../reference/api#tag/frontend) endpoint.
+
+The response will contain the flow data which can be used to render the UI. Below is an example of a `login` flow.
+
+```json5
+{
+  id: "4253b0f4-a6d9-4b0a-ba31-00e5cc1c14aa",
+  oauth2_login_challenge: null,
+  type: "browser",
+  expires_at: "2023-01-24T13:53:30.344286509Z",
+  issued_at: "2023-01-24T13:23:30.344286509Z",
+  request_url: "https://{project.slug}.projects.oryapis.com/self-service/login/browser",
+  ui: {
+    action: "https://{project.slug}.projects.oryapis.com/self-service/login?flow=4253b0f4-a6d9-4b0a-ba31-00e5cc1c14aa",
+    method: "POST",
+    nodes: [
+      {
+        type: "input",
+        group: "oidc",
+        attributes: {
+          name: "provider",
+          type: "submit",
+          value: "discord",
+          disabled: false,
+          node_type: "input",
+        },
+        messages: [],
+        meta: {
+          label: {
+            id: 1010002,
+            text: "Sign in with Discord",
+            type: "info",
+            context: {
+              provider: "Discord",
+            },
+          },
+        },
+      },
+      {
+        type: "input",
+        group: "oidc",
+        attributes: {
+          name: "provider",
+          type: "submit",
+          value: "facebook",
+          disabled: false,
+          node_type: "input",
+        },
+        messages: [],
+        meta: {
+          label: {
+            id: 1010002,
+            text: "Sign in with Facebook",
+            type: "info",
+            context: {
+              provider: "Facebook",
+            },
+          },
+        },
+      },
+      {
+        type: "input",
+        group: "oidc",
+        attributes: {
+          name: "provider",
+          type: "submit",
+          value: "github",
+          disabled: false,
+          node_type: "input",
+        },
+        messages: [],
+        meta: {
+          label: {
+            id: 1010002,
+            text: "Sign in with GitHub",
+            type: "info",
+            context: {
+              provider: "GitHub",
+            },
+          },
+        },
+      },
+      {
+        type: "input",
+        group: "oidc",
+        attributes: {
+          name: "provider",
+          type: "submit",
+          value: "google",
+          disabled: false,
+          node_type: "input",
+        },
+        messages: [],
+        meta: {
+          label: {
+            id: 1010002,
+            text: "Sign in with Google",
+            type: "info",
+            context: {
+              provider: "Google",
+            },
+          },
+        },
+      },
+      {
+        type: "input",
+        group: "default",
+        attributes: {
+          name: "csrf_token",
+          type: "hidden",
+          value: "24I7BFl9PNOueG3K8mn7+ejY8OXMWQL2rp7M8HUiou8Q4datR0QbL4nOuXrpLGLqkGoOIgOgZmi1fjPwIpHGaQ==",
+          required: true,
+          disabled: false,
+          node_type: "input",
+        },
+        messages: [],
+        meta: {},
+      },
+      {
+        type: "input",
+        group: "default",
+        attributes: {
+          name: "identifier",
+          type: "text",
+          value: "",
+          required: true,
+          disabled: false,
+          node_type: "input",
+        },
+        messages: [],
+        meta: {
+          label: {
+            id: 1070004,
+            text: "ID",
+            type: "info",
+          },
+        },
+      },
+      {
+        type: "input",
+        group: "password",
+        attributes: {
+          name: "password",
+          type: "password",
+          required: true,
+          autocomplete: "current-password",
+          disabled: false,
+          node_type: "input",
+        },
+        messages: [],
+        meta: {
+          label: {
+            id: 1070001,
+            text: "Password",
+            type: "info",
+          },
+        },
+      },
+      {
+        type: "input",
+        group: "password",
+        attributes: {
+          name: "method",
+          type: "submit",
+          value: "password",
+          disabled: false,
+          node_type: "input",
+        },
+        messages: [],
+        meta: {
+          label: {
+            id: 1010001,
+            text: "Sign in",
+            type: "info",
+            context: {},
+          },
+        },
+      },
+    ],
+  },
+  created_at: "2023-01-24T13:23:30.436056Z",
+  updated_at: "2023-01-24T13:23:30.436056Z",
+  refresh: false,
+  requested_aal: "aal1",
+}
+```
 
 ### Server Side (Browser)
 

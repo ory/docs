@@ -6,7 +6,10 @@ import {
   UiNodeInputAttributes,
   UpdateLoginFlowBody,
 } from "@ory/client"
-import { isUiNodeInputAttributes } from "@ory/integrations/ui"
+import {
+  filterNodesByGroups,
+  isUiNodeInputAttributes,
+} from "@ory/integrations/ui"
 import { AxiosError } from "axios"
 import { useEffect, useState } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
@@ -26,7 +29,7 @@ export const Login = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const id = searchParams.get("id")
+    const id = searchParams.get("flow")
     frontend
       .getLoginFlow({
         id,
@@ -124,7 +127,11 @@ export const Login = () => {
   return flow ? (
     // highlight-start
     <form action={flow.ui.action} method={flow.ui.method} onSubmit={submit}>
-      {flow.ui.nodes.map((node, key) => mapUINode(node, key))}
+      {filterNodesByGroups({
+        nodes: flow.ui.nodes,
+        // we will also map default fields here
+        groups: ["default", "password"],
+      }).map((node, key) => mapUINode(node, key))}
     </form>
   ) : (
     // highlight-end
