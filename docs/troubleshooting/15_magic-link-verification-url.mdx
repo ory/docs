@@ -1,0 +1,32 @@
+---
+id: magic-link-verification-url
+title: Magic links use old custom domain name
+sidebar_label: Wrong domain in magic links
+---
+
+After updating their custom domain, some users reported an error that caused the verification emails to come with magic links
+generated for the old domain.
+
+This means that after changing the custom domain from `old.production.com` to `new-domain.production.com`, some verification
+emails still use `old.production.com` to generate magic links for the verification flow.
+
+This results in emails that contain `https://old.production.com/self-service/verification?code={...}` instead of
+`https://new-domain.production.com/self-service/verification?code={...}`.
+
+To fix this error, run this Ory CLI command to force Ory to update the `/selfservice/methods/link/config/base_url` configuration
+key:
+
+```shell
+ory patch identity-config <your-project-id> \
+  --remove '/selfservice/methods/link/config/base_url'
+```
+
+When you run this command, the `/selfservice/methods/link/config/base_url` updates automatically to use your current custom
+domain.
+
+:::tip
+
+Ory recommends using the "one-time code" verification method. Read
+[this document](../kratos/self-service/flows/verify-email-account-activation.mdx#choosing-the-right-strategy) to learn more.
+
+:::
