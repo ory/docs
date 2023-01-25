@@ -1,20 +1,13 @@
 ---
 id: mfa
-title: Configure Multi-factor authentication
+title: Configure multi-factor authentication in Ory Kratos
 sidebar_label: Multi-factor authentication
 ---
 
 ## Enforce MFA
 
-When working with self-hosted instances of the Ory Identities (Kratos), change the enforcement model by adjusting these keys in
-the configuration file.
-
-The following will require users to provide the highest factor they have provided, to access their identity's settings. For
-example, a user without a configured second factor will be able to access the settings after logging in with a password. A user
-that has a second factor set-up (such as a TOTP app), will be required to complete the second factor challenge, before they can
-access their settings.
-
-It will also allow users to use your application without completing a second factor.
+When working with self-hosted instances of the Ory Identities (Kratos), change the enforcement model by adjusting the
+configuration file.
 
 ```yaml title="config.yml"
 # ...
@@ -28,6 +21,12 @@ session:
     required_aal: aal1
 # ...
 ```
+
+This configuration forces users to provide the highest authentication factor to access their account settings. For example, users
+without a second factor configured can access the settings after they sign in with their password. Users that have a second factor
+set up (such as a TOTP app) will must complete the second factor challenge to access account settings.
+
+It will also allow users to use your application without completing a second factor.
 
 If instead, you want all users that configured a second factor to complete the factor before using your app, set
 `session.whoami.required_all` to `highest_available`.
@@ -54,12 +53,12 @@ selfservice:
 
 :::note
 
-Pay special attention to the `origin` URL, as it has to match the actual scheme, host and port of the page you're starting the
-flow from.
+Pay special attention to the `origin` URL, as it has to match the scheme, host, and port of the page you're starting the flow
+from.
 
 :::
 
-## TOTP
+## Time-based one-time passwords (TOTP)
 
 To configure TOTP in your self-hosted Kratos instance, add the `totp` method to `selfservice/methods` in the configuration file:
 
@@ -73,7 +72,7 @@ selfservice:
       enabled: true
 ```
 
-## Lookup secrets
+## Lookup Secrets (Recovery Codes)
 
 To configure lookup secrets, add the `lookup_secret` method to `selfservice/methods` in the configuration file:
 

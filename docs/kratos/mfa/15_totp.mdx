@@ -12,9 +12,9 @@ import TabItem from '@theme/TabItem';
 import BrowserWindow from "@site/src/theme/BrowserWindow"
 ```
 
-Time-based one-time passwords are codes of a few digits, that are only valid for a short amount of time, usually 30 seconds or
-less. It requires users to use a companion app such as [Google Authenticator](https://g.co/kgs/YgRFR5) or the OnePassword password
-manager. The app is responsible for generating these codes.
+Time-based one-time passwords are codes made up of digits, that are valid for a short amount of time, usually 30 seconds or less.
+Users generate these passwords with companion apps such as [Google Authenticator](https://g.co/kgs/YgRFR5) or
+[FreeOTP](https://freeotp.github.io/) and enter them when asked to provide their second authentication factor.
 
 When accessing resources protected with the second-factor requirement, the paired application generates a one-time password that
 expires after a certain time. Users must input this password before it expires to authenticate and perform the protected actions.
@@ -32,11 +32,9 @@ The example screenshot is captured using the Ory Account Experience.
 
 ```mdx-code-block
 <BrowserWindow url="https://playground.projects.oryapis.com/ui">
-```
 
 ![TOTP linking in Ory Account Experience](../_static/mfa/1.png)
 
-```mdx-code-block
 </BrowserWindow>
 ```
 
@@ -62,7 +60,7 @@ In this example, the user identifier (email - `alice@example.com`) is used. To l
 
 ```mdx-code-block
 <Tabs groupId="console-or-cli">
-  <TabItem value="oc" label="Ory Console" default>
+<TabItem value="oc" label="Ory Console" default>
 ```
 
 1. Sign in to the **Ory Console** and go to **Two-Factor Authentication**.
@@ -115,7 +113,7 @@ In this example, the user identifier (email - `alice@example.com`) is used. To l
    ```
 
 ```mdx-code-block
-  </TabItem>
+</TabItem>
 </Tabs>
 ```
 
