@@ -11,8 +11,8 @@ import TabItem from "@theme/TabItem"
 import CodeBlock from "@theme/CodeBlock"
 ```
 
-This document gives you a deeper understanding of how to integrate a custom UI with Ory. It is recommended to read the
-[Integration Basics](./custom-ui-basic-integration) first.
+This document goes into detail on advanced topics such as Social Sign In, Passwordless, Two-Factor authentication. It is
+recommended to read the [Integration Basics](./custom-ui-basic-integration) first.
 
 ## Advanced redirects
 
@@ -48,7 +48,22 @@ Let's take a look at an example of how this works:
 5. The user submits the `settings` flow with an updated password.
 6. The user is redirected to the `return_to` URL.
 
-## Refreshing a user session
+## Login
+
+We can submit the login flow with user data (e.g. username and password) using the flow ID. Depending on the type of application
+(e.g. browser or native) the CSRF tokens are required in the request body and cookie.
+
+In some cases, such as submitting WebAuthn passwordless, the response code could be `422` which indicates that the browser needs
+to be redirected with a newly created flow. In Single Page Applications (SPAs) instead of redirecting, the response can be decoded
+and the new flow ID extracted.
+
+### Verification required
+
+A session cookie or token can also be prevented on login using additional checks, such as only allowing verified users to login.
+For more information, please take a look at
+[Customize login and registration](../identities/sign-in/actions#allow-login-only-with-verified-email)
+
+### Refreshing a user session
 
 It is sometimes required to refresh an active user session beyond the global default session lifespan. In such a case the
 application implementing the UI can request through the `?refresh=true` query parameter that Ory should refresh the already
@@ -63,7 +78,7 @@ A common use case would be:
 4. The user returns before the global default session lifespan has expired
 5. The session is refreshed through a `login` flow with the `?refresh=true` query parameter.
 
-## Two-Factor authentication
+### Two-Factor authentication
 
 Two-Factor authentication (2FA) is a second step to confirming the user's credentials with another credential, such as `TOTP` or
 `WebAuthn`. When creating a login flow, you can specify the `?aal=<level>` query parameter to specify the level of authentication.
@@ -80,7 +95,7 @@ the [Customize user interface](../kratos/concepts/ui-user-interface) page.
 
 For more information on Multi-factor authentication, take a look at the [Multi-factor authentication](../kratos/mfa/overview).
 
-## Passwordless authentication
+### Passwordless authentication
 
 Passwordless authentication uses WebAuthn to authenticate a user using a hardware key or biometrics (such as touchID).
 
@@ -110,3 +125,18 @@ import webAuthnMapping from '!!raw-loader!../../code-examples/sdk/typescript/src
 
 </Tabs>
 ````
+
+## Registration
+
+### Getting a session after registration
+
+:::note
+
+A session cookie or token is only available after registration when enabled in the Ory configuration. More information can be
+found in [Customize login and registration](../identities/sign-in/actions#log-in-users-after-registration).
+
+:::
+
+### Custom Identity Traits
+
+The registration flow can map custom identity traits to the user based on the Identity Schema.

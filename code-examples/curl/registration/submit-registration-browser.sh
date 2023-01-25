@@ -1,0 +1,2 @@
+curl -X POST -H 'Content-Type: application/json' -H 'Accept: application/json' --data '{"method":"password","csrf_token":"your-csrf-token","traits.email":"email@example.com","pass
+word":"verystrongpassword","traits.tos":"true"}' -b cookies.txt "https://{project.slug}.projects.oryapis.com/self-service/registration?flow=<your-flow-id>"

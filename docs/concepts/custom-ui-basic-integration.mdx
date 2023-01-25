@@ -14,9 +14,12 @@ import CodeBlock from "@theme/CodeBlock"
 Ory provides headless APIs for ease of integration. This ensures that Ory is compatible with many software stacks across different
 programming languages.
 
-This document's focus is to provide the necessary fundamentals to get started with custom UI integration. Flows are the
-fundamental of Ory's self-service APIs and are used to accomplish a variety of goals, such as `login`, `registration`, `settings`,
-`verification`, `recovery` and `logout`.
+This document's focus is to provide the necessary fundamentals to get started with custom UI integration. This document does not
+cover integrating Social Sign In, Passwordless and Two-Factor Authentication, this will be covered in the
+[Advanced Integration](./custom-ui-advanced-integration) document.
+
+Flows are the fundamental of Ory's self-service APIs and are used to accomplish a variety of goals, such as `login`,
+`registration`, `settings`, `verification`, `recovery` and `logout`.
 
 The self-service flows are standardized so that it follows the same steps regardless of which flow is integrated. The API is also
 seperated into two types of applications - browser and native. The difference between the two application types are to set the
@@ -158,6 +161,8 @@ extracted from the URL `?flow=` query parameter.
 Take note of the type of flow as it determines the endpoint used to retrieve the flow. For example, the `login` flow will only be
 available at the [`/self-service/login/flows?id=<flowId>`](../reference/api#tag/frontend/operation/getLoginFlow) endpoint.
 
+Below is an example of fetching an existing `login` flow.
+
 ```mdx-code-block
 import getLoginCurlBrowser from '!!raw-loader!../../code-examples/curl/login/get-login-browser.sh'
 
@@ -196,6 +201,8 @@ under the `flow.ui.action` key.
 ```html
 <form action="{flow.ui.action}" method="{flow.ui.method}">...</form>
 ```
+
+Below are examples of submitting a `login` flow.
 
 ````mdx-code-block
 <Tabs groupId="application-type-examples">
@@ -285,15 +292,12 @@ import submitLoginCurlNative from '!!raw-loader!../../code-examples/curl/login/s
 
 ## Login flow
 
-Login flows are used to authenticate users. When the login is successful, the request will respond with a `200 OK` HTTP status
-code and a JSON body containing the user's identity information. When the request fails, it responds with the appropriate HTTP
-status and error messages.
+The login flow is used to authenticate users and consists of a multitude of `methods`, namely `password`, `oidc` and `webauthn`.
+The login flow also manages Two-Factor-Authentication (2FA) through the `totp`, `webauthn` and `lookup_secrets` methods.
+
+In this section we will only cover the `password` method since it is the easiest to get started with.
 
 ### Create Login flow
-
-In browser and native applications, additional options can be specified when creating a login flow such as `?refresh=true` and
-`?aal=<level>`. For more information on these options, take a look at the [Self-service flow](../kratos/self-service)
-documentation.
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
@@ -421,21 +425,6 @@ import getLoginCurlNativeJson from '../../code-examples/curl/login/get-login-api
 
 ### Submit Login flow
 
-We can submit the login flow with user data (e.g. username and password) using the flow ID. Depending on the type of application
-(e.g. browser or native) the CSRF tokens are required in the request body and cookie.
-
-In some cases, such as submitting WebAuthn passwordless, the response code could be `422` which indicates that the browser needs
-to be redirected with a newly created flow. In Single Page Applications (SPAs) instead of redirecting, the response can be decoded
-and the new flow ID extracted.
-
-:::note
-
-A session cookie or token can also be prevented on login using additional checks, such as only allowing verified users to login.
-For more information, please take a look at
-[Customize login and registration](../identities/sign-in/actions#allow-login-only-with-verified-email)
-
-:::
-
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
 
@@ -512,15 +501,12 @@ Below are the API references for the login flow.
 
 ## Registration flow
 
-Registration flows are used to create user identities. When the registration is successful, the request will respond with a
-`200 OK` HTTP status code. When the request fails, it responds with the appropriate HTTP status and error messages.
+The registration flow is used to by your users to register themselves within your application. This flow is highly flexible and
+allows you to define custom fields and validation rules through your
+[Identity Schema](../kratos/manage-identities/identity-schema). This flow also consists of a number of `methods` such as
+`password`, `oidc` and `webauthn`.
 
-:::note
-
-Registration data are dependent on the [Identity Schema](../kratos/manage-identities/identity-schema) traits. This ensures
-registration flows are flexible and can be used for a variety of use cases.
-
-:::
+In this section, we will only focus on the `password` method since it is the easiest to get started with.
 
 ### Create Registration flow
 
@@ -553,6 +539,21 @@ import createTsRegistrationApi from '!!raw-loader!../../code-examples/sdk/typesc
 import createReactRegistrationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/registration/create-registration-react.tsx'
 
 <CodeBlock language="tsx" title="registration.tsx">{createReactRegistrationApi}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-browser" label="cUrl (Browser flow)">
+
+To ensure the requests work correctly for the browser flow, we can use the `-b` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+```mdx-code-block
+import createRegistrationCurlBrowser from '!!raw-loader!../../code-examples/curl/registration/create-registration-browser.sh'
+import createRegistrationCurlBrowserJson from '../../code-examples/curl/registration/create-registration-browser.json'
+
+<CodeBlock language="shell" title="create-registration-browser.sh">{createRegistrationCurlBrowser}</CodeBlock>
+<CodeBlock language="json5" title="create-registration-browser.json">{JSON.stringify(createRegistrationCurlBrowserJson, null, 2)}</CodeBlock>
 ```
 
 </TabItem>
@@ -595,17 +596,30 @@ import getReactRegistrationApi from '!!raw-loader!../../code-examples/sdk/typesc
 
 </TabItem>
 
+<TabItem value="curl-browser" label="cUrl (Browser flow)">
+
+To ensure the requests work correctly for the browser flow, we can use the `-b` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+```mdx-code-block
+import getRegistrationCurlBrowser from '!!raw-loader!../../code-examples/curl/registration/get-registration-browser.sh'
+import getRegistrationCurlBrowserJson from '../../code-examples/curl/registration/get-registration-browser.json'
+
+<CodeBlock language="shell" title="create-registration-browser.sh">{getRegistrationCurlBrowser}</CodeBlock>
+<CodeBlock language="json5" title="create-registration-browser.json">{JSON.stringify(getRegistrationCurlBrowserJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
 </Tabs>
 ````
 
 ### Submit Registration flow
 
-:::note
-
-A session cookie or token is only available after registration when enabled in the Ory configuration. More information can be
-found in [Customize login and registration](../identities/sign-in/actions#log-in-users-after-registration).
-
-:::
+The registration payload is fully dependent on your Identity Schema. Take note of the `flow.ui.nodes` property in the response
+payload when creating or getting the registration flow. This property contains the registration form fields that you need to
+provide in the request payload. To learn more about customizing your Identity Schema please refer to
+[Identity model](../kratos/manage-identities/overview) documentation.
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
@@ -636,6 +650,23 @@ import submitTsRegistrationApi from '!!raw-loader!../../code-examples/sdk/typesc
 import submitReactRegistrationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/registration/submit-registration-react.tsx'
 
 <CodeBlock language="tsx" title="registration.tsx">{submitReactRegistrationApi}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-browser" label="cUrl (Browser flow)">
+
+To ensure the requests work correctly for the browser flow, we can use the `-b` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+Take note of the payload, in this example we have two required traits, `traits.email` and `traits.tos` which is based on the Identity Schema.
+
+```mdx-code-block
+import submitRegistrationCurlBrowser from '!!raw-loader!../../code-examples/curl/registration/submit-registration-browser.sh'
+import submitRegistrationCurlBrowserJson from '../../code-examples/curl/registration/submit-registration-browser.json'
+
+<CodeBlock language="shell" title="submit-registration-browser.sh">{submitRegistrationCurlBrowser}</CodeBlock>
+<CodeBlock language="json5" title="submit-registration-browser.json">{JSON.stringify(submitRegistrationCurlBrowserJson, null, 2)}</CodeBlock>
 ```
 
 </TabItem>
