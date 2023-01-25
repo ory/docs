@@ -1,0 +1,180 @@
+{
+  "id": "a42a9cb9-e436-483b-9845-b8aa8516e2e9",
+  "oauth2_login_challenge": null,
+  "type": "browser",
+  "expires_at": "2023-01-25T14:34:55.335611Z",
+  "issued_at": "2023-01-25T14:04:55.335611Z",
+  "request_url": "https://{project.slug}.projects.oryapis.com/self-service/login/browser",
+  "ui": {
+    "action": "https://{project.slug}.projects.oryapis.com/self-service/login?flow=a42a9cb9-e436-483b-9845-b8aa8516e2e9",
+    "method": "POST",
+    "nodes": [
+      {
+        "type": "input",
+        "group": "oidc",
+        "attributes": {
+          "name": "provider",
+          "type": "submit",
+          "value": "discord",
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {
+          "label": {
+            "id": 1010002,
+            "text": "Sign in with Discord",
+            "type": "info",
+            "context": {
+              "provider": "Discord"
+            }
+          }
+        }
+      },
+      {
+        "type": "input",
+        "group": "oidc",
+        "attributes": {
+          "name": "provider",
+          "type": "submit",
+          "value": "facebook",
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {
+          "label": {
+            "id": 1010002,
+            "text": "Sign in with Facebook",
+            "type": "info",
+            "context": {
+              "provider": "Facebook"
+            }
+          }
+        }
+      },
+      {
+        "type": "input",
+        "group": "oidc",
+        "attributes": {
+          "name": "provider",
+          "type": "submit",
+          "value": "github",
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {
+          "label": {
+            "id": 1010002,
+            "text": "Sign in with GitHub",
+            "type": "info",
+            "context": {
+              "provider": "GitHub"
+            }
+          }
+        }
+      },
+      {
+        "type": "input",
+        "group": "oidc",
+        "attributes": {
+          "name": "provider",
+          "type": "submit",
+          "value": "google",
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {
+          "label": {
+            "id": 1010002,
+            "text": "Sign in with Google",
+            "type": "info",
+            "context": {
+              "provider": "Google"
+            }
+          }
+        }
+      },
+      {
+        "type": "input",
+        "group": "default",
+        "attributes": {
+          "name": "csrf_token",
+          "type": "hidden",
+          "value": "fEbwhQFcC/q5AkS9RsdqiX65Az7PTrC1tecZH4wNevAV7N/jSvVron06mYYs7y5HVedX/W2QbqGx3KvJpsvhNg==",
+          "required": true,
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {}
+      },
+      {
+        "type": "input",
+        "group": "default",
+        "attributes": {
+          "name": "identifier",
+          "type": "text",
+          "value": "",
+          "required": true,
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {
+          "label": {
+            "id": 1070004,
+            "text": "ID",
+            "type": "info"
+          }
+        }
+      },
+      {
+        "type": "input",
+        "group": "password",
+        "attributes": {
+          "name": "password",
+          "type": "password",
+          "required": true,
+          "autocomplete": "current-password",
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {
+          "label": {
+            "id": 1070001,
+            "text": "Password",
+            "type": "info"
+          }
+        }
+      },
+      {
+        "type": "input",
+        "group": "password",
+        "attributes": {
+          "name": "method",
+          "type": "submit",
+          "value": "password",
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {
+          "label": {
+            "id": 1010001,
+            "text": "Sign in",
+            "type": "info",
+            "context": {}
+          }
+        }
+      }
+    ]
+  },
+  "created_at": "2023-01-25T14:04:55.443614Z",
+  "updated_at": "2023-01-25T14:04:55.443614Z",
+  "refresh": false,
+  "requested_aal": "aal1"
+}

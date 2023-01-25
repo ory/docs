@@ -1,4 +1,9 @@
 <form action="{{ui.action}}" method="{{ui.method}}">
-  {{> messages messages=ui.messages }}
+  <div class="messages {{className}}">
+  {{~#each ui.messages~}}
+    <div class="message">{{text}}</div>
+  {{~/each~}}
+  </div>
+
   {{> ui_nodes nodes=ui.nodes only=only }}
 </form>

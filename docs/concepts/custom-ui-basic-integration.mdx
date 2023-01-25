@@ -60,193 +60,6 @@ The response will contain the flow data which can be used to render the UI.
 
 Below is an example of a `login` flow for browser applications.
 
-```shell
-curl https://{project.slug}.projects.oryapis.com/self-service/login/browser -H "Accept: application/json"
-```
-
-```json5
-{
-  id: "4253b0f4-a6d9-4b0a-ba31-00e5cc1c14aa",
-  oauth2_login_challenge: null,
-  type: "browser",
-  expires_at: "2023-01-24T13:53:30.344286509Z",
-  issued_at: "2023-01-24T13:23:30.344286509Z",
-  request_url: "https://{project.slug}.projects.oryapis.com/self-service/login/browser",
-  ui: {
-    action: "https://{project.slug}.projects.oryapis.com/self-service/login?flow=4253b0f4-a6d9-4b0a-ba31-00e5cc1c14aa",
-    method: "POST",
-    nodes: [
-      {
-        type: "input",
-        group: "oidc",
-        attributes: {
-          name: "provider",
-          type: "submit",
-          value: "discord",
-          disabled: false,
-          node_type: "input",
-        },
-        messages: [],
-        meta: {
-          label: {
-            id: 1010002,
-            text: "Sign in with Discord",
-            type: "info",
-            context: {
-              provider: "Discord",
-            },
-          },
-        },
-      },
-      {
-        type: "input",
-        group: "oidc",
-        attributes: {
-          name: "provider",
-          type: "submit",
-          value: "facebook",
-          disabled: false,
-          node_type: "input",
-        },
-        messages: [],
-        meta: {
-          label: {
-            id: 1010002,
-            text: "Sign in with Facebook",
-            type: "info",
-            context: {
-              provider: "Facebook",
-            },
-          },
-        },
-      },
-      {
-        type: "input",
-        group: "oidc",
-        attributes: {
-          name: "provider",
-          type: "submit",
-          value: "github",
-          disabled: false,
-          node_type: "input",
-        },
-        messages: [],
-        meta: {
-          label: {
-            id: 1010002,
-            text: "Sign in with GitHub",
-            type: "info",
-            context: {
-              provider: "GitHub",
-            },
-          },
-        },
-      },
-      {
-        type: "input",
-        group: "oidc",
-        attributes: {
-          name: "provider",
-          type: "submit",
-          value: "google",
-          disabled: false,
-          node_type: "input",
-        },
-        messages: [],
-        meta: {
-          label: {
-            id: 1010002,
-            text: "Sign in with Google",
-            type: "info",
-            context: {
-              provider: "Google",
-            },
-          },
-        },
-      },
-      {
-        type: "input",
-        group: "default",
-        attributes: {
-          name: "csrf_token",
-          type: "hidden",
-          value: "24I7BFl9PNOueG3K8mn7+ejY8OXMWQL2rp7M8HUiou8Q4datR0QbL4nOuXrpLGLqkGoOIgOgZmi1fjPwIpHGaQ==",
-          required: true,
-          disabled: false,
-          node_type: "input",
-        },
-        messages: [],
-        meta: {},
-      },
-      {
-        type: "input",
-        group: "default",
-        attributes: {
-          name: "identifier",
-          type: "text",
-          value: "",
-          required: true,
-          disabled: false,
-          node_type: "input",
-        },
-        messages: [],
-        meta: {
-          label: {
-            id: 1070004,
-            text: "ID",
-            type: "info",
-          },
-        },
-      },
-      {
-        type: "input",
-        group: "password",
-        attributes: {
-          name: "password",
-          type: "password",
-          required: true,
-          autocomplete: "current-password",
-          disabled: false,
-          node_type: "input",
-        },
-        messages: [],
-        meta: {
-          label: {
-            id: 1070001,
-            text: "Password",
-            type: "info",
-          },
-        },
-      },
-      {
-        type: "input",
-        group: "password",
-        attributes: {
-          name: "method",
-          type: "submit",
-          value: "password",
-          disabled: false,
-          node_type: "input",
-        },
-        messages: [],
-        meta: {
-          label: {
-            id: 1010001,
-            text: "Sign in",
-            type: "info",
-            context: {},
-          },
-        },
-      },
-    ],
-  },
-  created_at: "2023-01-24T13:23:30.436056Z",
-  updated_at: "2023-01-24T13:23:30.436056Z",
-  refresh: false,
-  requested_aal: "aal1",
-}
-```
-
 ````mdx-code-block
 <Tabs groupId="application-type-examples">
 
@@ -312,6 +125,26 @@ import whoamiNative from '!!raw-loader!../../code-examples/sdk/typescript/src/se
 
 </TabItem>
 
+<TabItem value="curl-browser" label="cUrl (Browser flow)">
+
+```mdx-code-block
+import createLoginCurlBrowser from '!!raw-loader!../../code-examples/curl/login/create-login-browser.sh'
+
+<CodeBlock language="shell" title="create-login-browser.sh">{createLoginCurlBrowser}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-native" label="cUrl (Browser Native)">
+
+```mdx-code-block
+import createLoginCurlNative from '!!raw-loader!../../code-examples/curl/login/create-login-api.sh'
+
+<CodeBlock language="shell" title="create-login-api.sh">{createLoginCurlNative}</CodeBlock>
+```
+
+</TabItem>
+
 </Tabs>
 ````
 
@@ -325,10 +158,10 @@ extracted from the URL `?flow=` query parameter.
 Take note of the type of flow as it determines the endpoint used to retrieve the flow. For example, the `login` flow will only be
 available at the [`/self-service/login/flows?id=<flowId>`](../reference/api#tag/frontend/operation/getLoginFlow) endpoint.
 
-```shell
-curl -X GET \
-  -H "Content-Type: application/json" \
-  https://{project.slug}.projects.oryapis.com/self-service/login/flows?id=<flowId>
+```mdx-code-block
+import getLoginCurlBrowser from '!!raw-loader!../../code-examples/curl/login/get-login-browser.sh'
+
+<CodeBlock language="shell" title="get-login-browser.sh">{getLoginCurlBrowser}</CodeBlock>
 ```
 
 Here are some cases where the flow would already exist:
@@ -421,6 +254,32 @@ import loginNative from '!!raw-loader!../../code-examples/sdk/typescript/src/sel
 
 </TabItem>
 
+<TabItem value="curl-browser" label="cUrl (Browser flow)">
+
+To ensure the requests work correctly for the browser flow, we can use the `-b` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+Ensure you are using the correct URL from the `flow.ui.action` key in the JSON response you retrieved when creating or retrieving the flow data.
+The CSRF token must also be included in the body of the request, which can be found in the `flow.ui.nodes` key.
+
+```mdx-code-block
+import submitLoginCurlBrowser from '!!raw-loader!../../code-examples/curl/login/submit-login-browser.sh'
+
+<CodeBlock language="shell" title="submit-login-browser.sh">{submitLoginCurlBrowser}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-native" label="cUrl (Native flow)">
+
+```mdx-code-block
+import submitLoginCurlNative from '!!raw-loader!../../code-examples/curl/login/submit-login-api.sh'
+
+<CodeBlock language="shell" title="submit-login-api.sh">{submitLoginCurlNative}</CodeBlock>
+```
+
+</TabItem>
+
 </Tabs>
 ````
 
@@ -468,6 +327,31 @@ import createReactLoginApi from '!!raw-loader!../../code-examples/sdk/typescript
 
 </TabItem>
 
+<TabItem value="curl-browser" label="cUrl (Browser flow)">
+
+To ensure the requests work correctly for the browser flow, we can use the `-b` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+```mdx-code-block
+import createLoginCurlBrowserJson from '../../code-examples/curl/login/create-login-browser.json'
+
+<CodeBlock language="shell" title="create-login-browser.sh">{createLoginCurlBrowser}</CodeBlock>
+<CodeBlock language="json5" title="create-login-browser.json">{JSON.stringify(createLoginCurlBrowserJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-native" label="cUrl (Native flow)">
+
+```mdx-code-block
+import createLoginCurlNativeJson from '../../code-examples/curl/login/create-login-api.json'
+
+<CodeBlock language="shell" title="create-login-api.sh">{createLoginCurlNative}</CodeBlock>
+<CodeBlock language="json5" title="create-login-api.sh">{JSON.stringify(createLoginCurlNativeJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
 </Tabs>
 ````
 
@@ -502,6 +386,32 @@ import getTsLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/src/s
 import getReactLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/login/get-login-react.tsx'
 
 <CodeBlock language="ts" title="login.tsx">{getReactLoginApi}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-browser" label="cUrl (Browser flow)">
+
+To ensure the requests work correctly for the browser flow, we can use the `-b` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+```mdx-code-block
+import getLoginCurlBrowserJson from '../../code-examples/curl/login/get-login-browser.json'
+
+<CodeBlock language="shell" title="get-login-browser.sh">{getLoginCurlBrowser}</CodeBlock>
+<CodeBlock language="json5" title="get-login-browser.json">{JSON.stringify(getLoginCurlBrowserJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-native" label="cUrl (Native flow)">
+
+```mdx-code-block
+import getLoginCurlNative from '!!raw-loader!../../code-examples/curl/login/get-login-api.sh'
+import getLoginCurlNativeJson from '../../code-examples/curl/login/get-login-api.json'
+
+<CodeBlock language="shell" title="get-login-api.sh">{getLoginCurlNative}</CodeBlock>
+<CodeBlock language="json5" title="get-login-api.sh">{JSON.stringify(getLoginCurlNativeJson, null, 2)}</CodeBlock>
 ```
 
 </TabItem>
@@ -555,6 +465,31 @@ import submitTsLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/sr
 import submitReactLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/login/submit-login-react.tsx'
 
 <CodeBlock language="tsx" title="login.tsx">{submitReactLoginApi}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-browser" label="cUrl (Browser flow)">
+
+To ensure the requests work correctly for the browser flow, we can use the `-b` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+```mdx-code-block
+import submitLoginCurlBrowserJson from '../../code-examples/curl/login/submit-login-browser.json'
+
+<CodeBlock language="shell" title="submit-login-browser.sh">{submitLoginCurlBrowser}</CodeBlock>
+<CodeBlock language="json5" title="submit-login-browser.json">{JSON.stringify(getLoginCurlBrowserJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-native" label="cUrl (Native flow)">
+
+```mdx-code-block
+import submitLoginCurlNativeJson from '../../code-examples/curl/login/submit-login-api.json'
+
+<CodeBlock language="shell" title="submit-login-api.sh">{getLoginCurlNative}</CodeBlock>
+<CodeBlock language="json5" title="submit-login-api.sh">{JSON.stringify(getLoginCurlNativeJson, null, 2)}</CodeBlock>
 ```
 
 </TabItem>
@@ -1002,6 +937,24 @@ Below are the API references for the verification flow.
 - [Get Verification Flow](../reference/api#tag/frontend/operation/getVerificationFlow)
 - [Update Verification Flow](../reference/api#tag/frontend/operation/updateVerificationFlow)
 
+## Logout flow
+
+Depending on the application type (browser or native) the logout flow has a different behaviour. With a browser application, the
+logout flow needs to be initialized to create a logout URL which is associated with the current session cookie. The application
+can then call the logout URL through a redirect or a background AJAX request.
+
+Note that in browser applications the application needs to do a GET request to initialize the logout URL by calling
+[`/self-service/logout/browser`](../reference/api#tag/frontend/operation/createBrowserLogoutFlow) and a GET to complete the logout
+[/self-service/logout](../reference/api#tag/frontend/operation/updateLogoutFlow) flow.
+
+In native applications the application does not need to initialize the logout flow and only needs to do a DELETE request to the
+[`/self-service/logout/api`](../reference/api#tag/frontend/operation/performNativeLogout) endpoint containing the session token in
+the body.
+
+```shell
+curl -X DELETE -H "Content-Type: application/json" -d '{"session_token":"<session_token>"}' https://{project.}
+```
+
 ## Error Handling
 
 Ory provides errors at different levels of the flow:
@@ -1028,15 +981,14 @@ Each level's error message structure is the same as shown below:
 }
 ```
 
-Here is an example of each:
+Here is a Typescript example using the Ory SDK of each:
 
 ```ts
   // call the sdk
-  // sdk.submit...
+  // sdk...
   .then(({data: flow}) => {
-    // error message can also exist when the request is successful
-    // inside the flow data. It is usually the case when we
-    // retrieved the login flow using the flow ID and the flow was submitted previously
+    // error message can also exist inside the flow data even when the request is successful.
+    // It is usually the case when we retrieved the login flow using the flow ID and the flow was submitted previously
     // but still contains errors.
 
     // method level error
