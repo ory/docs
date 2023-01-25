@@ -129,7 +129,9 @@ export const Login = () => {
     <form action={flow.ui.action} method={flow.ui.method} onSubmit={submit}>
       {filterNodesByGroups({
         nodes: flow.ui.nodes,
-        // we will also map default fields here
+        // we will also map default fields here such as csrf_token
+        // this only maps the `password` method
+        // you can also map `oidc` or `webauhthn` here as well
         groups: ["default", "password"],
       }).map((node, key) => mapUINode(node, key))}
     </form>

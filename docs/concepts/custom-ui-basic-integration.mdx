@@ -270,11 +270,11 @@ Below is an example of the SDK calling the [`/sessions/whoami`](../reference/api
 ```mdx-code-block
 import whoamiExpress from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/session/whoami-express.ts'
 
-<CodeBlock language="ts">{whoamiExpress}</CodeBlock>
+<CodeBlock language="ts" title="middleware.ts">{whoamiExpress}</CodeBlock>
 ```
 </TabItem>
 
-<TabItem value="client-spa" label="Client Side (SPA)">
+<TabItem value="client-browser" label="Client Side (SPA)">
 
 Single Page Applications (SPA) can initialize the flow by calling the endpoint using AJAX or fetch instead of redirecting the
 browser. The response will set the necessary cookies and contain all the UI nodes to render the form. For AJAX and fetch requests
@@ -289,7 +289,7 @@ cookies in the request.
 ```mdx-code-block
 import whoamiReact from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/session/whoami-react.tsx'
 
-<CodeBlock language="tsx">{whoamiReact}</CodeBlock>
+<CodeBlock language="tsx" title="session.tsx">{whoamiReact}</CodeBlock>
 ```
 
 </TabItem>
@@ -307,7 +307,7 @@ endpoint.
 ```mdx-code-block
 import whoamiNative from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/session/whoami-native.ts'
 
-<CodeBlock language="ts">{whoamiNative}</CodeBlock>
+<CodeBlock language="ts" title="session.ts">{whoamiNative}</CodeBlock>
 ```
 
 </TabItem>
@@ -373,24 +373,56 @@ In server-side rendered browser applications the submission will be handled by a
 example, the action for login would be a POST request to
 `https://{project.slug}.projects.oryapis.com/self-service/login/browser?flow=<id>`.
 
+Below is a partial example of an ExpressJs application rendering the UI using handlebars.
+
 ```mdx-code-block
 import loginExpress from '!!raw-loader!../../code-examples/sdk/typescript/src/ui/login-express.ts'
 
-<CodeBlock language="ts">{loginExpress}</CodeBlock>
+<CodeBlock language="ts" title="index.ts">{loginExpress}</CodeBlock>
 ```
 
 ```mdx-code-block
 import authLayoutExpress from '!!raw-loader!../../code-examples/sdk/typescript/src/ui/auth.hbs'
+import uiPartialExpress from '!!raw-loader!../../code-examples/sdk/typescript/src/ui/partials/ui.hbs'
 
-<CodeBlock language="handlebars">{authLayoutExpress}</CodeBlock>
+<CodeBlock language="handlebars" title="auth.hbs">{authLayoutExpress}</CodeBlock>
+<CodeBlock language="handlebars" title="partials/ui.hbs">{uiPartialExpress}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="client-browser" label="Client Side (Browser)">
+
+In client-side rendered browser applications such as SPAs the submission can be handled in the background through AJAX or fetch using a POST
+request to the Ory project URL. For example, the action for login would be a POST request to `https://{project.slug}.projects.oryapis.com/self-service/login/browser?flow=<id>`.
+
+Below is a partial example of a React application using the Ory SDK.
+
+```mdx-code-block
+import loginReact from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/login/submit-login-react.tsx'
+
+<CodeBlock language="tsx" title="login.tsx">{loginReact}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="native" label="Native">
+
+In native applications we can simply do a POST request to the Ory project URL. For example, the action for login would be a POST
+request to `https://{project.slug}.projects.oryapis.com/self-service/login/api?flow=<id>`.
+
+Below is a partial example of a Typescript Native application using the Ory SDK.
+
+```mdx-code-block
+import loginNative from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/login/submit-login-native.ts'
+
+<CodeBlock language="ts" title="login.ts">{loginNative}</CodeBlock>
 ```
 
 </TabItem>
 
 </Tabs>
 ````
-
-### Single Page Applications (SPA)
 
 ## Login flow
 
@@ -412,7 +444,7 @@ documentation.
 ```mdx-code-block
 import createLoginApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/create-login.go'
 
-<CodeBlock language="go">{createLoginApi}</CodeBlock>
+<CodeBlock language="go" title="login.go">{createLoginApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -421,7 +453,7 @@ import createLoginApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/
 ```mdx-code-block
 import createTsLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/login/create-login-native.ts'
 
-<CodeBlock language="ts">{createTsLoginApi}</CodeBlock>
+<CodeBlock language="ts" title="login.ts">{createTsLoginApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -431,7 +463,7 @@ import createTsLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/sr
 ```mdx-code-block
 import createReactLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/login/create-login-react.tsx'
 
-<CodeBlock language="ts">{createReactLoginApi}</CodeBlock>
+<CodeBlock language="ts" title="login.tsx">{createReactLoginApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -449,7 +481,7 @@ import createReactLoginApi from '!!raw-loader!../../code-examples/sdk/typescript
 ```mdx-code-block
 import getLoginApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/get-login.go'
 
-<CodeBlock language="go">{getLoginApi}</CodeBlock>
+<CodeBlock language="go" title="login.go">{getLoginApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -459,7 +491,7 @@ import getLoginApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/get
 ```mdx-code-block
 import getTsLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/login/get-login-native.ts'
 
-<CodeBlock language="ts">{getTsLoginApi}</CodeBlock>
+<CodeBlock language="ts" title="login.ts">{getTsLoginApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -469,7 +501,7 @@ import getTsLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/src/s
 ```mdx-code-block
 import getReactLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/login/get-login-react.tsx'
 
-<CodeBlock language="ts">{getReactLoginApi}</CodeBlock>
+<CodeBlock language="ts" title="login.tsx">{getReactLoginApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -502,7 +534,7 @@ For more information, please take a look at
 ```mdx-code-block
 import submitLoginApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/submit-login.go'
 
-<CodeBlock language="go">{submitLoginApi}</CodeBlock>
+<CodeBlock language="go" title="login.go">{submitLoginApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -512,7 +544,7 @@ import submitLoginApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/
 ```mdx-code-block
 import submitTsLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/login/submit-login-native.ts'
 
-<CodeBlock language="ts">{submitTsLoginApi}</CodeBlock>
+<CodeBlock language="ts" title="login.ts">{submitTsLoginApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -522,7 +554,7 @@ import submitTsLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/sr
 ```mdx-code-block
 import submitReactLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/login/submit-login-react.tsx'
 
-<CodeBlock language="ts">{submitReactLoginApi}</CodeBlock>
+<CodeBlock language="tsx" title="login.tsx">{submitReactLoginApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -565,7 +597,7 @@ registration flows are flexible and can be used for a variety of use cases.
 ```mdx-code-block
 import createRegistrationApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/create-registration.go'
 
-<CodeBlock language="go">{createRegistrationApi}</CodeBlock>
+<CodeBlock language="go" title="registration.go">{createRegistrationApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -575,7 +607,7 @@ import createRegistrationApi from '!!raw-loader!../../code-examples/sdk/go/selfs
 ```mdx-code-block
 import createTsRegistrationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/registration/create-registration-native.ts'
 
-<CodeBlock language="ts">{createTsRegistrationApi}</CodeBlock>
+<CodeBlock language="ts" title="registration.ts">{createTsRegistrationApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -585,7 +617,7 @@ import createTsRegistrationApi from '!!raw-loader!../../code-examples/sdk/typesc
 ```mdx-code-block
 import createReactRegistrationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/registration/create-registration-react.tsx'
 
-<CodeBlock language="ts">{createReactRegistrationApi}</CodeBlock>
+<CodeBlock language="tsx" title="registration.tsx">{createReactRegistrationApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -603,7 +635,7 @@ import createReactRegistrationApi from '!!raw-loader!../../code-examples/sdk/typ
 ```mdx-code-block
 import getRegistrationApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/get-registration.go'
 
-<CodeBlock language="go">{getRegistrationApi}</CodeBlock>
+<CodeBlock language="go" title="registration.go">{getRegistrationApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -613,7 +645,7 @@ import getRegistrationApi from '!!raw-loader!../../code-examples/sdk/go/selfserv
 ```mdx-code-block
 import getTsRegistrationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/registration/get-registration-native.ts'
 
-<CodeBlock language="ts">{getTsRegistrationApi}</CodeBlock>
+<CodeBlock language="ts" title="registration.ts">{getTsRegistrationApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -623,7 +655,7 @@ import getTsRegistrationApi from '!!raw-loader!../../code-examples/sdk/typescrip
 ```mdx-code-block
 import getReactRegistrationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/registration/get-registration-react.tsx'
 
-<CodeBlock language="ts">{getReactRegistrationApi}</CodeBlock>
+<CodeBlock language="tsx" title="registration.tsx">{getReactRegistrationApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -648,7 +680,7 @@ found in [Customize login and registration](../identities/sign-in/actions#log-in
 ```mdx-code-block
 import submitRegistrationApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/submit-registration.go'
 
-<CodeBlock language="go">{submitRegistrationApi}</CodeBlock>
+<CodeBlock language="go" title="registration.go">{submitRegistrationApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -658,7 +690,7 @@ import submitRegistrationApi from '!!raw-loader!../../code-examples/sdk/go/selfs
 ```mdx-code-block
 import submitTsRegistrationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/registration/submit-registration-native.ts'
 
-<CodeBlock language="ts">{submitTsRegistrationApi}</CodeBlock>
+<CodeBlock language="ts" title="registration.ts">{submitTsRegistrationApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -668,7 +700,7 @@ import submitTsRegistrationApi from '!!raw-loader!../../code-examples/sdk/typesc
 ```mdx-code-block
 import submitReactRegistrationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/registration/submit-registration-react.tsx'
 
-<CodeBlock language="ts">{submitReactRegistrationApi}</CodeBlock>
+<CodeBlock language="tsx" title="registration.tsx">{submitReactRegistrationApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -712,7 +744,7 @@ filters.
 ```mdx-code-block
 import createRecoveryApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/create-recovery.go'
 
-<CodeBlock language="go">{createRecoveryApi}</CodeBlock>
+<CodeBlock language="go" title="recovery.go">{createRecoveryApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -722,7 +754,7 @@ import createRecoveryApi from '!!raw-loader!../../code-examples/sdk/go/selfservi
 ```mdx-code-block
 import createTsRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/recovery/create-recovery-native.ts'
 
-<CodeBlock language="ts">{createTsRecoveryApi}</CodeBlock>
+<CodeBlock language="ts" title="recovery.ts">{createTsRecoveryApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -732,7 +764,7 @@ import createTsRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescript
 ```mdx-code-block
 import createReactRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/recovery/create-recovery-react.tsx'
 
-<CodeBlock language="ts">{createReactRecoveryApi}</CodeBlock>
+<CodeBlock language="tsx" title="recovery.tsx">{createReactRecoveryApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -750,7 +782,7 @@ import createReactRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescr
 ```mdx-code-block
 import getRecoveryApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/get-recovery.go'
 
-<CodeBlock language="go">{getRecoveryApi}</CodeBlock>
+<CodeBlock language="go" title="recovery.go">{getRecoveryApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -760,7 +792,7 @@ import getRecoveryApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/
 ```mdx-code-block
 import getTsRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/recovery/get-recovery-native.ts'
 
-<CodeBlock language="ts">{getTsRecoveryApi}</CodeBlock>
+<CodeBlock language="ts" title="recovery.ts">{getTsRecoveryApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -770,7 +802,7 @@ import getTsRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescript/sr
 ```mdx-code-block
 import getReactRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/recovery/get-recovery-react.tsx'
 
-<CodeBlock language="ts">{getReactRecoveryApi}</CodeBlock>
+<CodeBlock language="tsx" title="recovery.tsx">{getReactRecoveryApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -788,7 +820,7 @@ import getReactRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescript
 ```mdx-code-block
 import submitRecoveryApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/submit-recovery.go'
 
-<CodeBlock language="go">{submitRecoveryApi}</CodeBlock>
+<CodeBlock language="go" title="recovery.go">{submitRecoveryApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -798,7 +830,7 @@ import submitRecoveryApi from '!!raw-loader!../../code-examples/sdk/go/selfservi
 ```mdx-code-block
 import submitTsRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/recovery/submit-recovery-native.ts'
 
-<CodeBlock language="ts">{submitTsRecoveryApi}</CodeBlock>
+<CodeBlock language="ts" title="recovery.ts">{submitTsRecoveryApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -808,7 +840,7 @@ import submitTsRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescript
 ```mdx-code-block
 import submitReactRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/recovery/submit-recovery-react.tsx'
 
-<CodeBlock language="ts">{submitReactRecoveryApi}</CodeBlock>
+<CodeBlock language="tsx" title="recovery.tsx">{submitReactRecoveryApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -852,7 +884,7 @@ To use the verification flow, you might need to enable it. Please take a look at
 ```mdx-code-block
 import createVerificaitonApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/create-verification.go'
 
-<CodeBlock language="go">{createVerificaitonApi}</CodeBlock>
+<CodeBlock language="go" title="verification.go">{createVerificaitonApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -862,7 +894,7 @@ import createVerificaitonApi from '!!raw-loader!../../code-examples/sdk/go/selfs
 ```mdx-code-block
 import createTsVerificationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/verification/create-verification-native.ts'
 
-<CodeBlock language="ts">{createTsVerificationApi}</CodeBlock>
+<CodeBlock language="ts" title="verification.ts">{createTsVerificationApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -872,7 +904,7 @@ import createTsVerificationApi from '!!raw-loader!../../code-examples/sdk/typesc
 ```mdx-code-block
 import createReactVerificationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/verification/create-verification-react.tsx'
 
-<CodeBlock language="ts">{createReactVerificationApi}</CodeBlock>
+<CodeBlock language="tsx" title="verification.tsx">{createReactVerificationApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -890,7 +922,7 @@ import createReactVerificationApi from '!!raw-loader!../../code-examples/sdk/typ
 ```mdx-code-block
 import getVerificaitonApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/get-verification.go'
 
-<CodeBlock language="go">{getVerificaitonApi}</CodeBlock>
+<CodeBlock language="go" title="verification.go">{getVerificaitonApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -900,7 +932,7 @@ import getVerificaitonApi from '!!raw-loader!../../code-examples/sdk/go/selfserv
 ```mdx-code-block
 import getTsVerificationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/verification/get-verification-native.ts'
 
-<CodeBlock language="ts">{getTsVerificationApi}</CodeBlock>
+<CodeBlock language="ts" title="verification.ts">{getTsVerificationApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -910,7 +942,7 @@ import getTsVerificationApi from '!!raw-loader!../../code-examples/sdk/typescrip
 ```mdx-code-block
 import getReactVerificationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/verification/get-verification-react.tsx'
 
-<CodeBlock language="ts">{getReactVerificationApi}</CodeBlock>
+<CodeBlock language="tsx" title="verification.tsx">{getReactVerificationApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -928,7 +960,7 @@ import getReactVerificationApi from '!!raw-loader!../../code-examples/sdk/typesc
 ```mdx-code-block
 import submitVerificationApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/submit-verification.go'
 
-<CodeBlock language="go">{submitVerificationApi}</CodeBlock>
+<CodeBlock language="go" title="verification.go">{submitVerificationApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -938,7 +970,7 @@ import submitVerificationApi from '!!raw-loader!../../code-examples/sdk/go/selfs
 ```mdx-code-block
 import submitTsVerificationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/verification/submit-verification-native.ts'
 
-<CodeBlock language="ts">{submitTsVerificationApi}</CodeBlock>
+<CodeBlock language="ts" title="verification.ts">{submitTsVerificationApi}</CodeBlock>
 ```
 
 </TabItem>
@@ -948,7 +980,7 @@ import submitTsVerificationApi from '!!raw-loader!../../code-examples/sdk/typesc
 ```mdx-code-block
 import submitReactVerificationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/verification/submit-verification-react.tsx'
 
-<CodeBlock language="ts">{submitReactVerificationApi}</CodeBlock>
+<CodeBlock language="tsx" title="verification.tsx">{submitReactVerificationApi}</CodeBlock>
 ```
 
 </TabItem>

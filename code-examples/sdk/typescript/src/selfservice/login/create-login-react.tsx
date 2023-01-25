@@ -5,7 +5,10 @@ import {
   UiNode,
   UiNodeInputAttributes,
 } from "@ory/client"
-import { isUiNodeInputAttributes } from "@ory/integrations/ui"
+import {
+  filterNodesByGroups,
+  isUiNodeInputAttributes,
+} from "@ory/integrations/ui"
 import { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 
@@ -89,9 +92,13 @@ export const Login = () => {
   return flow ? (
     // highlight-start
     <form action={flow.ui.action} method={flow.ui.method}>
-      {flow.ui.nodes.map((node, idx) => {
-        mapUINode(node, idx)
-      })}
+      {filterNodesByGroups({
+        nodes: flow.ui.nodes,
+        // we will also map default fields here such as csrf_token
+        // this only maps the `password` method
+        // other methods can also be mapped such as `oidc` or `webauthn`
+        groups: ["default", "password"],
+      }).map((node, idx) => mapUINode(node, idx))}
     </form>
   ) : (
     // highlight-end
