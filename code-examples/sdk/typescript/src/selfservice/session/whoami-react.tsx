@@ -10,7 +10,6 @@ const frontend = new FrontendApi(
   }),
 )
 
-// Example of a modal component
 export function checkSession() {
   const [session, setSession] = useState<Session>(undefined)
 

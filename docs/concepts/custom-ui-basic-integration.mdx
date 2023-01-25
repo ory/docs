@@ -18,23 +18,28 @@ This document's focus is to provide the necessary fundamentals to get started wi
 fundamental of Ory's self-service APIs and are used to accomplish a variety of goals, such as `login`, `registration`, `settings`,
 `verification`, `recovery` and `logout`.
 
-The self-service `flows` are standardized so that it follows the same steps regardless of which `flow` is integrated. The API is
-also seperated into two types of applications - browser and native. The difference between the two application types are to set
-the necessary security measures. For example in browser applications, the API will set a CSRF cookie while in native applications
-no CSRF cookie is necessary.
+The self-service flows are standardized so that it follows the same steps regardless of which flow is integrated. The API is also
+seperated into two types of applications - browser and native. The difference between the two application types are to set the
+necessary security measures. For example in browser applications, the API will set a CSRF cookie while in native applications no
+CSRF cookie is necessary.
 
 A general overview of the flow can be summed up in five steps:
 
-1. Create the `flow` with the appropriate purpose (e.g. login, registration, etc.) and application type (e.g. browser or native)
+1. Create the flow with the appropriate purpose (e.g. login, registration, etc.) and application type (e.g. browser or native)
 2. Use the flow data to render the UI.
 3. Submit the flow with user data. (e.g. username and password)
 4. Potentially handle errors like invalid user input by going back to step 2.
 5. Handle the successful submission.
 
-Furthermore, a `flow` can also consist of multiple `methods`, for example the `login` flow can have the `password` method. Only
-one `method` can be used at a time to complete the flow and the `method` can be deactivated and configured in the Ory project.
+[![Flow overview](https://mermaid.ink/img/pako:eNpNkMFqwzAMhl9F-LRBS-45bDRJOwo7JfSU9CBstQkktmfLGyPJu891c5hOgu_74ZdmIY0ikYu7Q9vDZ91piHN4OVg7DhJ5MPoV9vs3KNrSETJlH8RwGs0PKGS8Pv0iKWVbk1bkgHuCy3ljZWJVm118RKSZnE_ZbBOqh7DU9BXIM6BWUEUK3zgOKhVY4DifPbjNSOB9fYaPKdwEKcn7BU5t08dq1hkmyaTA4p2u_9Wjc8YtUIidmMhNOKh4_fwwOhF7T9SJPK6KbhhG7kSn16hiYNP8ailydoF2IthYjaoB498mkd9w9LT-AWnNa80?type=png)](https://mermaid.live/edit#pako:eNpNkMFqwzAMhl9F-LRBS-45bDRJOwo7JfSU9CBstQkktmfLGyPJu891c5hOgu_74ZdmIY0ikYu7Q9vDZ91piHN4OVg7DhJ5MPoV9vs3KNrSETJlH8RwGs0PKGS8Pv0iKWVbk1bkgHuCy3ljZWJVm118RKSZnE_ZbBOqh7DU9BXIM6BWUEUK3zgOKhVY4DifPbjNSOB9fYaPKdwEKcn7BU5t08dq1hkmyaTA4p2u_9Wjc8YtUIidmMhNOKh4_fwwOhF7T9SJPK6KbhhG7kSn16hiYNP8ailydoF2IthYjaoB498mkd9w9LT-AWnNa80)
 
-Here are the `methods` according to the flow:
+Furthermore, a flow can also consist of multiple `methods`, for example the `login` flow can have the `password` method. Only one
+`method` can be used at a time to complete the flow. The `methods` can also be customized through project configuration, for
+example the `password` flow can be disabled and the `webauthn` method enabled or both can be enabled at the same time to allow
+users to choose the `method` they which to use. This makes Ory very flexible and can be used for a variety of use cases. For now
+lets focus on the basics.
+
+Below is a table mapping the `methods` according to their respective flow.
 
 | Flow           | Methods                                                            |
 | -------------- | ------------------------------------------------------------------ |
@@ -44,7 +49,7 @@ Here are the `methods` according to the flow:
 | `recovery`     | `link`, `code`                                                     |
 | `verification` | `link`, `code`                                                     |
 
-For more information on the `flow` concepts, take a look at the [Self-service flow](../kratos/self-service) documentation.
+For more information on flows, take a look at the [Self-service flow](../kratos/self-service) documentation.
 
 ## Create a flow
 
@@ -53,7 +58,7 @@ The first step is to initialize a flow. This is done by doing a GET request to t
 
 The response will contain the flow data which can be used to render the UI.
 
-Below is an example of a `login` flow.
+Below is an example of a `login` flow for browser applications.
 
 ```shell
 curl https://{project.slug}.projects.oryapis.com/self-service/login/browser -H "Accept: application/json"
@@ -242,38 +247,44 @@ curl https://{project.slug}.projects.oryapis.com/self-service/login/browser -H "
 }
 ```
 
-### Server Side (Browser)
+````mdx-code-block
+<Tabs groupId="application-type-examples">
+
+<TabItem value="server-browser" label="Server Side (browser)" default>
 
 In browser applications that are rendered by the server (e.g. Go, PHP, Java, NodeJs, etc.) the flow can be initialized with a
 redirect directly to Ory in the browser which in turn will redirect the browser back to the configured
-[application URL](./bring-your-user-interface) (e.g. `https://myapp.com/login?flow=<uuid>`).
+[application URL](../guides/bring-your-user-interface) (e.g. `https://myapp.com/login?flow=<uuid>`).
 
 ```html
-<form method="GET" action="https://<project-url>/self-service/login/browser">
+<form method="GET" action="https://{project.slug}.projects.oryapis.com/self-service/login/browser">
   <button type="submit">Login</button>
 </form>
 ```
 
-Do note, however, that since this is a browser flow cookies are set which will need to be parsed on the server when making any
-subsequent requests to Ory.
+Since this is a browser based application, Ory will set cookies for CSRF protection as well as when a session is succesfully
+created. For any subsequent requests to Ory from the server, the cookies will need to be included in the request header.
 
-Here is an example in ExpressJS to include cookies on a session request to Ory:
+Below is an example of the SDK calling the [`/sessions/whoami`](../reference/api#tag/frontend/operation/toSession) endpoint in an ExpressJs middleware.
 
 ```mdx-code-block
 import whoamiExpress from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/session/whoami-express.ts'
 
 <CodeBlock language="ts">{whoamiExpress}</CodeBlock>
 ```
+</TabItem>
 
-### Single Page Applications (SPA)
+<TabItem value="client-spa" label="Client Side (SPA)">
 
 Single Page Applications (SPA) can initialize the flow by calling the endpoint using AJAX or fetch instead of redirecting the
-browser. In the event that a flow is initialized through a browser redirect, the
-[application URL](../guides/bring-your-user-interface) needs to be set for Ory to know about your application. The response will
-set any necessary cookies in the browser and contain all the data used to render the UI. For AJAX and fetch request to properly
-set the cookies, you must set the `withCredentials: true` in axios or `credentials: "include"` in fetch.
+browser. The response will set the necessary cookies and contain all the UI nodes to render the form. For AJAX and fetch requests
+to properly set the cookies, you must set the `withCredentials: true` in axios or `credentials: "include"` in fetch. In the event
+that a flow is initialized through a browser redirect, the [application URL](../guides/bring-your-user-interface) needs to be set
+for Ory to know about your application.
 
-When using the Ory SDK you need to specify the `withCredentials: true` option in the SDK configuration.
+When using the Ory SDK you need to specify the `withCredentials: true` option in the SDK configuration. Below is an example of the
+SDK calling the [`/sessions/whoami`](../reference/api#tag/frontend/operation/toSession) endpoint automatically including the
+cookies in the request.
 
 ```mdx-code-block
 import whoamiReact from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/session/whoami-react.tsx'
@@ -281,14 +292,17 @@ import whoamiReact from '!!raw-loader!../../code-examples/sdk/typescript/src/sel
 <CodeBlock language="tsx">{whoamiReact}</CodeBlock>
 ```
 
-### Native applications
+</TabItem>
 
-Native applications such as Desktop and Mobile applications must use the API flows which do not set any cookies, however, on a
-successful session Ory provides a session token. The response will contain all the data used to render the UI. On successful login
-the session token can be used to authenticate subsequent requests to Ory.
+<TabItem value="native" label="Native">
+
+Native applications such as desktop and mobile must use the API flows which do not set any cookies. The response will contain all
+the data used to render the UI. On successful login a session token is issued instead of a cookie and can be used to authenticate
+subsequent requests to Ory.
 
 With the Ory SDK you can set the `withCredentials: false` option and use the session token in the `Authorization: Bearer <token>`
-header.
+header. Below is an example of the SDK calling the [`/sessions/whoami`](../reference/api#tag/frontend/operation/toSession)
+endpoint.
 
 ```mdx-code-block
 import whoamiNative from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/session/whoami-native.ts'
@@ -296,11 +310,26 @@ import whoamiNative from '!!raw-loader!../../code-examples/sdk/typescript/src/se
 <CodeBlock language="ts">{whoamiNative}</CodeBlock>
 ```
 
+</TabItem>
+
+</Tabs>
+````
+
 ## Fetching an existing flow
 
-In cases where the flow already exists, we can retrieve the flow data using the flow ID. This is useful in cases where Ory has
-already initialized the flow and redirected to the UI. In such a case, the flow ID can be extracted from the URL `?flow=` query
-parameter.
+In cases where the flow already exists, we can retrieve the flow data using the flow ID through a GET request to
+[`/self-service/<login|registration|settings|verification|recovery>/flows?id=<flowID>`](../reference/api#tag/frontend). This is
+useful in cases where Ory has already initialized the flow and redirected to your application. In such a case, the flow ID can be
+extracted from the URL `?flow=` query parameter.
+
+Take note of the type of flow as it determines the endpoint used to retrieve the flow. For example, the `login` flow will only be
+available at the [`/self-service/login/flows?id=<flowId>`](../reference/api#tag/frontend/operation/getLoginFlow) endpoint.
+
+```shell
+curl -X GET \
+  -H "Content-Type: application/json" \
+  https://{project.slug}.projects.oryapis.com/self-service/login/flows?id=<flowId>
+```
 
 Here are some cases where the flow would already exist:
 
@@ -331,7 +360,14 @@ under the `flow.ui.action` key.
 }
 ```
 
-### Server Side (Browser)
+```html
+<form action="{flow.ui.action}" method="{flow.ui.method}">...</form>
+```
+
+````mdx-code-block
+<Tabs groupId="application-type-examples">
+
+<TabItem value="server-browser" label="Server Side (Browser)">
 
 In server-side rendered browser applications the submission will be handled by a native form POST to the Ory project URL. For
 example, the action for login would be a POST request to
@@ -348,6 +384,11 @@ import authLayoutExpress from '!!raw-loader!../../code-examples/sdk/typescript/s
 
 <CodeBlock language="handlebars">{authLayoutExpress}</CodeBlock>
 ```
+
+</TabItem>
+
+</Tabs>
+````
 
 ### Single Page Applications (SPA)
 
