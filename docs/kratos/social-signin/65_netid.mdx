@@ -4,13 +4,10 @@ title: Add NetID as a social sign-in provider in Ory
 sidebar_label: NetID
 ---
 
-```mdx-code-block
-import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
-```
-
 # NetID
 
 ````mdx-code-block
+import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -21,16 +18,18 @@ Follow these steps to add NetID as a social sign-in provider to your project usi
 
 1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
 2. Click the switch next to the NetID logo to start the configuration.
-3. Copy the **Redirect URI** and save it for later use.
+3. Copy the Redirect URI and save it for later use.
 4. Create a [NetID Service](https://developerzone.netid.dev/latest/devportal/tutorial/services/) and
    [NetID Client](https://developerzone.netid.dev/latest/devportal/tutorial/clients/).
-5. While creating the NetID Client, enter the saved **Redirect URI** from Ory to the **Callback URL** field of the NetID Client.
-6. After creating the NetID Client, the client is initially in sandbox mode, where only specified test user email addresses can use OAuth login.
-To enable an email address for OAuth, go to the NetID Service page and click **Add test user**.
+5. Enter the Redirect URI you copied from Ory to the **Callback URL** field of the NetID Client.
+6. After creating the NetID Client, the client is initially in _sandbox mode_, which is a pre-production state
+   prior to the release of your NetID Service.
+   If you want to test your NetID Client while it is in sandbox mode, you need to create one or more test users,
+   by going to the NetID Service page and clicking **Add test user**.
 7. Copy the following data from the NetID Client settings to the corresponding fields in the form on the Ory Console:
     - **Client ID**
     - **Client secret** (sandbox or live, depending on the status of the NetID Service)
-8. In the **Scopes** field of the form on the Ory Console, add the following scopes (one by one):
+8. In the **Scopes** field of the form on the Ory Console, add the following scopes:
     - `openid`
     - `email`
 9. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
@@ -105,9 +104,9 @@ Follow these steps to add NetID as a social sign-in provider to your project usi
 
    :::
 
-```mdx-code-block
-<JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
-```
+   ```mdx-code-block
+   <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
+   ```
 
 4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to The Ory Network.
 

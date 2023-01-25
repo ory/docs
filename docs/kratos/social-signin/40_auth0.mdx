@@ -4,13 +4,10 @@ title: Add Auth0 as a social sign-in provider in Ory
 sidebar_label: Auth0
 ---
 
-```mdx-code-block
-import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
-```
-
 # Auth0
 
 ````mdx-code-block
+import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -24,12 +21,12 @@ Follow these steps to add Auth0 as a social sign-in provider to your project usi
 3. Copy the Redirect URI and save it for later use.
 4. [Create an Auth0 Application for your Auth0 Tenant](https://auth0.com/docs/applications), noting the following points:
     - Choose the application type to be **Regular Web Applications**.
-    - Paste the saved **Redirect URI** from Ory into the **Allowed Callback URLs** field in the **Settings** tab of the registered application.
-5. Navigate to the **Settings** tab of the registered application on the Auth0 dashboard and copy the following data
+    - Paste the saved Redirect URI from Ory into the **Allowed Callback URLs** field in the **Settings** tab of the registered application.
+5. Go to the **Settings** tab of the registered application on the Auth0 dashboard and copy the following data
    to the corresponding fields in the form on the Ory Console:
     - **Client ID**
     - **Client Secret**
-6. In the **Scopes** field of the form on the Ory Console, add the following scopes (one by one):
+6. In the **Scopes** field of the form in the Ory Console, add the following scopes:
     - `openid`
     - `profile`
     - `email`
@@ -114,9 +111,9 @@ Follow these steps to add Auth0 as a social sign-in provider to your project usi
 
    :::
 
-```mdx-code-block
-<JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
-```
+   ```mdx-code-block
+   <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
+   ```
 
 4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to The Ory Network.
 

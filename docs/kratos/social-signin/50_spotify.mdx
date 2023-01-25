@@ -4,13 +4,10 @@ title: Add Spotify as a social sign-in provider in Ory
 sidebar_label: Spotify
 ---
 
-```mdx-code-block
-import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
-```
-
 # Spotify
 
 ````mdx-code-block
+import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -21,16 +18,16 @@ Follow these steps to add Spotify as a social sign-in provider to your project u
 
 1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
 2. Click the switch next to the Spotify logo to start the configuration.
-3. Copy the **Redirect URI** and save it for later use.
-4. [Create a Spotify Application](https://developer.spotify.com/dashboard/applications) by clicking the **CREATE AN APP** button.
+3. Copy the Redirect URI and save it for later use.
+4. [Create a Spotify Application](https://developer.spotify.com/dashboard/applications).
 5. From the registered application page in Spotify, copy the following data
    to the corresponding fields in the form on the Ory Console:
     - **Client ID**
     - **Client Secret**
-6. From the registered application page in Spotify, click **EDIT SETTINGS** to open the **EDIT SETTINGS** dialog.
-7. Add the saved **Redirect URI** from Ory to the **Redirect URIs** of the registered application.
+6. From the registered application page in Spotify, click **EDIT SETTINGS**.
+7. Add the saved Redirect URI from Ory to the **Redirect URIs** of the registered application.
 8. Click **Save** to confirm and close the dialog.
-9. In the **Scopes** field of the form on the Ory Console, add the following scopes (one by one):
+9. In the **Scopes** field of the form on the Ory Console, add the following scopes:
     - `user-read-email`
     - `user-read-private`
 10. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
@@ -88,9 +85,9 @@ Follow these steps to add Spotify as a social sign-in provider to your project u
 
    :::
 
-```mdx-code-block
-<JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
-```
+   ```mdx-code-block
+   <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
+   ```
 
 4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to The Ory Network.
 

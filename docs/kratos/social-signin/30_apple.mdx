@@ -4,13 +4,18 @@ title: Add Apple as a social sign-in provider in Ory
 sidebar_label: Apple
 ---
 
-```mdx-code-block
-import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
-```
 
 # Apple
 
+:::note
+
+To add Apple as a social sign-in provider, you need an Apple Developer account. Go to
+[Enrolling and Verifying Your Identity with the Apple Developer App](https://developer.apple.com/support/app-account/) to create one.
+
+:::
+
 ````mdx-code-block
+import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -21,11 +26,10 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
 
 1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
 2. Click the switch next to the Apple logo to start the configuration.
-3. Copy the **Redirect URI** and save it for later use.
-4. Follow the [Sign in with Apple](https://developer.apple.com/documentation/sign_in_with_apple) guide to
-   [create an app, a service, and a private key using an Apple Developer account](https://developer.apple.com/documentation/sign_in_with_apple/implementing_user_authentication_with_sign_in_with_apple).
+3. Copy the Redirect URI and save it for later use.
+4. Using an Apple Developer Account, create an app, a service, and a private key.
 5. Copy the **Services ID** from the Apple registered app to the **Client ID** field in the form on the Ory Console.
-6. Add the saved **Redirect URI** from Ory to the **Return URLs** of the Apple registered application.
+6. Add the saved Redirect URI from Ory to the **Return URLs** of the Apple registered application.
 7. In the **Scopes** field of the form on the Ory Console, add the following scope:
     - `email`
 8. Copy the following details from your registered application in Apple to the corresponding fields in the Ory Console form:
@@ -65,8 +69,7 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
 
 Follow these steps to add Apple as a social sign-in provider to your project using the Ory CLI:
 
-1. Follow the [Sign in with Apple](https://developer.apple.com/documentation/sign_in_with_apple) guide to
-   [create an app, a service, and a private key using an Apple Developer account](https://developer.apple.com/documentation/sign_in_with_apple/implementing_user_authentication_with_sign_in_with_apple).
+1. Using an Apple Developer Account, create an app, a service, and a private key.
 2. In the created app, set the redirect URI to:
 
    ```shell
@@ -94,6 +97,7 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
      },
    }
    ```
+
    ```mdx-code-block
    <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
    ```
