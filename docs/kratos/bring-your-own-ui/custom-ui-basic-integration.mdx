@@ -15,15 +15,17 @@ import CodeBlock from "@theme/CodeBlock"
 Ory provides headless APIs for ease of integration. This ensures that Ory is compatible with many software stacks across different
 programming languages.
 
-This document's focus is to provide the necessary fundamentals to get started with custom UI integration. This document does not
-cover integrating Social Sign In, Passwordless and Two-Factor Authentication, this will be covered in the
+This document's focus is to provide the necessary fundamentals to get started with custom user interface integration. This
+document does not cover integrating Social Sign In, Passwordless and Two-Factor Authentication, this will be covered in the
 [Advanced Integration](./custom-ui-advanced-integration) document.
+
+## The Ory Flow
 
 Flows are the fundamental of Ory's self-service APIs and are used to accomplish a variety of goals, such as `login`,
 `registration`, `settings`, `verification`, `recovery` and `logout`.
 
 The self-service flows are standardized so that it follows the same steps regardless of which flow is integrated. The API is also
-seperated into two types of applications - browser and native. The difference between the two application types are to set the
+seperated into two types of applications - **browser and native**. The difference between the two application types are to set the
 necessary security measures. For example in browser applications, the API will set a CSRF cookie while in native applications no
 CSRF cookie is necessary.
 
@@ -53,17 +55,28 @@ Below is a table mapping the `methods` according to their respective flow.
 | `recovery`     | `link`, `code`                                                     |
 | `verification` | `link`, `code`                                                     |
 
-For more information on flows, take a look at the [Self-service flow](../self-service) documentation.
+## Application Types
+
+To understand which API endpoints to use, it is important to understand the difference between browser and native applications.
+
+**Browser applications** are applications that the user interacts with inside the browser. This is true for Server-Side rendered
+(SSR) and Single-Page applications (SPA). Since the application is rendered in the browser, the request between the user and Ory
+needs to be secured. This is done by setting a CSRF cookie and token.
+
+**Native applications** are all other applications that are not rendered in the browser. For example an Android application or
+Desktop application. Since the application is not rendered in the browser, the CSRF cookie and token are not necessary.
+
+That is why it is important to use the correct API endpoints for the correct application type.
 
 ## Create a flow
 
-The first step is to initialize a flow. This is done by doing a GET request to the
-[`/self-service/<login|registration|settings|recovery|verification|logout/<browser|api>`](../../reference/api#tag/frontend)
+Before any data can be sent to Ory, a flow must be initialized. When a flow is created it will use the current project
+configuration and return a flow object which can be used to render the UI. Additional security measures are also applied to the
+flow to secure subsequent requests to Ory.
+
+A flow can be created through a GET request to the
+[`/self-service/<login|registration|settings|recovery|verification|logout>/<browser|api>`](../../reference/api#tag/frontend)
 endpoint.
-
-The response will contain the flow data which can be used to render the UI.
-
-Below is an example of a `login` flow for browser applications.
 
 ````mdx-code-block
 <Tabs groupId="application-type-examples">
@@ -72,7 +85,7 @@ Below is an example of a `login` flow for browser applications.
 
 In browser applications that are rendered by the server (e.g. Go, PHP, Java, NodeJs, etc.) the flow can be initialized with a
 redirect directly to Ory in the browser which in turn will redirect the browser back to the configured
-[application URL](../guides/bring-your-user-interface) (e.g. `https://myapp.com/login?flow=<uuid>`).
+[application URL](./configure-ory-to-use-your-ui) (e.g. `https://myapp.com/login?flow=<uuid>`).
 
 ```html
 <form method="GET" action="https://{project.slug}.projects.oryapis.com/self-service/login/browser">
@@ -490,7 +503,7 @@ import submitLoginCurlNativeJson from '../../../code-examples/curl/login/submit-
 
 ### More Concepts and API References
 
-More conceptual information on the login flow can be found in [Self-service Login Flow](../kratos/self-service/flows/user-login).
+More conceptual information on the login flow can be found in [Self-service Login Flow](../self-service/flows/user-login).
 
 For API references, please take a look at the [API Reference](../reference/api) section.
 
@@ -504,9 +517,8 @@ Below are the API references for the login flow.
 ## Registration flow
 
 The registration flow is used to by your users to register themselves within your application. This flow is highly flexible and
-allows you to define custom fields and validation rules through your
-[Identity Schema](../kratos/manage-identities/identity-schema). This flow also consists of a number of `methods` such as
-`password`, `oidc` and `webauthn`.
+allows you to define custom fields and validation rules through your [Identity Schema](../manage-identities/identity-schema). This
+flow also consists of a number of `methods` such as `password`, `oidc` and `webauthn`.
 
 In this section, we will only focus on the `password` method since it is the easiest to get started with.
 
@@ -621,7 +633,7 @@ import getRegistrationCurlBrowserJson from '../../../code-examples/curl/registra
 The registration payload is fully dependent on your Identity Schema. Take note of the `flow.ui.nodes` property in the response
 payload when creating or getting the registration flow. This property contains the registration form fields that you need to
 provide in the request payload. To learn more about customizing your Identity Schema please refer to
-[Identity model](../kratos/manage-identities/overview) documentation.
+[Identity model](../manage-identities/overview) documentation.
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
@@ -679,7 +691,7 @@ import submitRegistrationCurlBrowserJson from '../../../code-examples/curl/regis
 ### More Concepts and API References
 
 More conceptual information on the registration flow can be found in
-[Self-service Registration Flow](../kratos/self-service/flows/user-registration).
+[Self-service Registration Flow](../self-service/flows/user-registration).
 
 For API references, please take a look at the [API Reference](../reference/api) section.
 
@@ -819,7 +831,7 @@ import submitReactRecoveryApi from '!!raw-loader!../../../code-examples/sdk/type
 ### More Concepts and API References
 
 More conceptual information on the recovery flow can be found in
-[Account recovery and password reset](../kratos/self-service/flows/account-recovery-password-reset).
+[Account recovery and password reset](../self-service/flows/account-recovery-password-reset).
 
 For API references, please take a look at the [API Reference](../reference/api) section.
 
@@ -838,7 +850,7 @@ Verification flows are used to verify user email addresses. When the verificatio
 :::note
 
 To use the verification flow, you might need to enable it. Please take a look at
-[Email verification](../kratos/self-service/flows/verify-email-account-activation)
+[Email verification](../self-service/flows/verify-email-account-activation)
 
 :::
 
@@ -959,7 +971,7 @@ import submitReactVerificationApi from '!!raw-loader!../../../code-examples/sdk/
 ### More Concepts and API References
 
 More conceptual information on the verification flow can be found in
-[Verify email account activation](../kratos/self-service/flows/verify-email-account-activation).
+[Verify email account activation](../self-service/flows/verify-email-account-activation).
 
 For API references, please take a look at the [API Reference](../reference/api) section.
 
@@ -1072,7 +1084,7 @@ Here is a Typescript example using the Ory SDK of each:
 ### CORS errors
 
 To solve Cross-Origin Resource Sharing (CORS) errors please make sure you are using the
-[Ory CLI tunnel](../getting-started/local-development) on local development and in production you should
+[Ory CLI tunnel](../../getting-started/local-development) on local development and in production you should
 [add your domain](../guides/custom-domains) to the Ory Project so that all requests from your frontend can be made to Ory under
 the same domain.
 
