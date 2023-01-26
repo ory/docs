@@ -19,7 +19,7 @@ Follow these steps to add Slack as a social sign-in provider to your project usi
 1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
 2. Click the switch next to the Slack logo to start the configuration.
 3. Copy the Redirect URI and save it for later use.
-4. [Create a Slack OAuth Application](https://api.slack.com/apps) by clicking the **Create New App** button
+4. [Create a Slack OAuth Application](https://api.slack.com/apps).
 5. After creating the new application, navigate to the **OAuth & Permissions** section of the registered application in Slack
   and add the saved Redirect URI from Ory to the **Redirect URLs** of the registered application.
 6. Navigate to the **Basic Information** section of the registered application in Slack and copy the following data
@@ -136,7 +136,7 @@ Follow these steps to add Slack as a social sign-in provider to your project usi
 7. Update the Ory Identities configuration using the file you worked with:
 
    ```shell
-   ory update identity-config {project-id} --file updated_config.yaml
+   ory update identity-config {project-id} --file identity-config.yaml
    ```
 
 </TabItem>
