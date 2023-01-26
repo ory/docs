@@ -82,8 +82,9 @@ follow these simple rules:
    Don't use words like "should", "could", or "may".
 5. Don't use phrasal verbs, colloquialisms, and jargon.
 6. Don't refer to users in ways that imply their sex.
-7. Remember to use articles (`a`, `an`, `the`) in your writing.
-8. Use common contractions such as `aren't`, `don't`, `doesn't` to sound
+7. Don't use contractions of latin origins such as `e.g` or `i.e`.
+8. Remember to use articles (`a`, `an`, `the`) in your writing.
+9. Use common contractions such as `aren't`, `don't`, `doesn't` to sound
    friendly and informal.
 
 ### Lists
@@ -200,21 +201,8 @@ slug: excellent-feature-for-some-reason
   ```
   ````
 
-- For multi-line commands, indent subsequent lines of the command with two
-  spaces.
-
-  ````
-  ```shell
-  curl --request GET -sL \
-    --header "Content-Type: application/json" \
-    --header "Authorization: Bearer {ORY_API_KEY}" \
-    'https://{project-slug}.projects.oryapis.com/admin/identities/{identity_id}?include_credential=oidc'
-  ```
-  ````
-
-- For Ory Permission (Keto) relation-tuples, use the `keto-relation-tuples`
-  language, and for the new relationships, use the `keto-relationships`
-  language.
+- For Ory Permissions (Keto) relation tuples, use `keto-relation-tuples`
+  language identifier, and for relationships use `keto-relationships`.
 
   ````
   ```keto-relation-tuples
@@ -226,6 +214,18 @@ slug: excellent-feature-for-some-reason
   namespace:subject is relation of object
   is namespace:subject allowed to permission on object?
   // comment
+  ```
+  ````
+
+- For multi-line commands, indent subsequent lines of the command with two
+  spaces.
+
+  ````
+  ```shell
+  curl --request GET -sL \
+    --header "Content-Type: application/json" \
+    --header "Authorization: Bearer {ORY_API_KEY}" \
+    'https://{project-slug}.projects.oryapis.com/admin/identities/{identity_id}?include_credential=oidc'
   ```
   ````
 
