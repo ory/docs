@@ -21,15 +21,16 @@ Follow these steps to add Discord as a social sign-in provider to your project u
 3. Copy the Redirect URI and save it for later use.
 4. [Create a Discord OAuth2 application](https://discord.com/developers/applications) by clicking the **New Application** button.
 5. After creating the application, navigate to the **OAuth2 | General** section of the registered application in Discord
-   and copy the following data to the corresponding fields in the form on the Ory Console:
+   and copy the following data to the corresponding fields in the form in the Ory Console:
     - **CLIENT ID**
     - **CLIENT SECRET**
 6. From the **OAuth2 &rarr; General** section in Discord,
    add the saved Redirect URI from Ory to the **Redirects** of the registered application.
-7. In the **Scopes** field of the form on the Ory Console, add the following scopes:
+7. In the **Scopes** field of the form in the Ory Console, add the following scopes:
     - `identify`
     - `email`
-8. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
+8. In the **Data Mapping** field of the form in the Ory Console, add the following Jsonnet code snippet,
+   which maps the desired claims to the Ory Identity schema:
 
    ```jsonnet
    local claims = {

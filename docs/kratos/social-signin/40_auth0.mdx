@@ -23,14 +23,15 @@ Follow these steps to add Auth0 as a social sign-in provider to your project usi
     - Choose the application type to be **Regular Web Applications**.
     - Paste the saved Redirect URI from Ory into the **Allowed Callback URLs** field in the **Settings** tab of the registered application.
 5. Go to the **Settings** tab of the registered application on the Auth0 dashboard and copy the following data
-   to the corresponding fields in the form on the Ory Console:
+   to the corresponding fields in the form in the Ory Console:
     - **Client ID**
     - **Client Secret**
 6. In the **Scopes** field of the form in the Ory Console, add the following scopes:
     - `openid`
     - `profile`
     - `email`
-7. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
+7. In the **Data Mapping** field of the form in the Ory Console, add the following Jsonnet code snippet,
+   which maps the desired claims to the Ory Identity schema:
 
    ```jsonnet
    local claims = {

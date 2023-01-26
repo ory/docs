@@ -28,15 +28,16 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
 2. Click the switch next to the Apple logo to start the configuration.
 3. Copy the Redirect URI and save it for later use.
 4. Using an Apple Developer Account, create an app, a service, and a private key.
-5. Copy the **Services ID** from the Apple registered app to the **Client ID** field in the form on the Ory Console.
+5. Copy the **Services ID** from the Apple registered app to the **Client ID** field in the form in the Ory Console.
 6. Add the saved Redirect URI from Ory to the **Return URLs** of the Apple registered application.
-7. In the **Scopes** field of the form on the Ory Console, add the following scope:
+7. In the **Scopes** field of the form in the Ory Console, add the following scope:
     - `email`
 8. Copy the following details from your registered application in Apple to the corresponding fields in the Ory Console form:
     - **Apple Team Id**
     - **Apple Private Key Id**
     - **Apple Private Key**
-9. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
+9. In the **Data Mapping** field of the form in the Ory Console, add the following Jsonnet code snippet,
+   which maps the desired claims to the Ory Identity schema:
 
    ```jsonnet
    local claims = {

@@ -22,17 +22,18 @@ Follow these steps to add NetID as a social sign-in provider to your project usi
 4. Create a [NetID Service](https://developerzone.netid.dev/latest/devportal/tutorial/services/) and
    [NetID Client](https://developerzone.netid.dev/latest/devportal/tutorial/clients/).
 5. Enter the Redirect URI you copied from Ory to the **Callback URL** field of the NetID Client.
-6. After creating the NetID Client, the client is initially in _sandbox mode_, which is a pre-production state
+6. After creating the NetID Client, the client is initially in sandbox mode, which is a pre-production state
    prior to the release of your NetID Service.
    If you want to test your NetID Client while it is in sandbox mode, you need to create one or more test users,
    by going to the NetID Service page and clicking **Add test user**.
-7. Copy the following data from the NetID Client settings to the corresponding fields in the form on the Ory Console:
+7. Copy the following data from the NetID Client settings to the corresponding fields in the form in the Ory Console:
     - **Client ID**
     - **Client secret** (sandbox or live, depending on the status of the NetID Service)
-8. In the **Scopes** field of the form on the Ory Console, add the following scopes:
+8. In the **Scopes** field of the form in the Ory Console, add the following scopes:
     - `openid`
     - `email`
-9. In the **Data Mapping** field of the form on the Ory Console, add the following Jsonnet code snippet:
+9. In the **Data Mapping** field of the form in the Ory Console, add the following Jsonnet code snippet,
+   which maps the desired claims to the Ory Identity schema:
 
    ```jsonnet
    local claims = {
@@ -68,13 +69,17 @@ Follow these steps to add NetID as a social sign-in provider to your project usi
 
 1. Create a [NetID Service](https://developerzone.netid.dev/latest/devportal/tutorial/services/) and
    [NetID Client](https://developerzone.netid.dev/latest/devportal/tutorial/clients/).
-2. In the created app, set the redirect URI to:
+2. After creating the NetID Client, the client is initially in sandbox mode, which is a pre-production state
+   prior to the release of your NetID Service.
+   If you want to test your NetID Client while it is in sandbox mode, you need to create one or more test users,
+   by going to the NetID Service page and clicking **Add test user**.
+3. In the created app, set the redirect URI to:
 
    ```shell
    https://{project.slug}.projects.oryapis.com/self-service/methods/oidc/callback/netid
    ```
 
-3. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema.
+4. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema.
 
    ```jsonnet
    local claims = {
@@ -108,13 +113,13 @@ Follow these steps to add NetID as a social sign-in provider to your project usi
    <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
    ```
 
-4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to The Ory Network.
+5. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to The Ory Network.
 
    ```shell
    cat your-data-mapping.jsonnet | base64
    ```
 
-5. Download the Ory Identities config from your project and save it to a file:
+6. Download the Ory Identities config from your project and save it to a file:
 
    ```shell
    ## List all available projects
@@ -124,7 +129,7 @@ Follow these steps to add NetID as a social sign-in provider to your project usi
    ory get identity-config {project-id} --format yaml > identity-config.yaml
    ```
 
-6. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
+7. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
    string or provide an URL to the file.
 
    ```yaml
@@ -157,7 +162,7 @@ Follow these steps to add NetID as a social sign-in provider to your project usi
          enabled: true
    ```
 
-7. Update the Ory Identities configuration using the file you worked with:
+8. Update the Ory Identities configuration using the file you worked with:
 
    ```shell
    ory update identity-config {project-id} --file updated_config.yaml
