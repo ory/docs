@@ -125,7 +125,7 @@
     },
     "schemas": {
       "CustomHostnameStatus": {
-        "description": "CustomHostnameStatus is the enumeration of valid state values in the CustomHostnameSSL",
+        "title": "CustomHostnameStatus is the enumeration of valid state values in the CustomHostnameSSL.",
         "type": "string"
       },
       "Duration": {
@@ -8941,12 +8941,12 @@
             }
           },
           {
-            "description": "ExpandOptions is a query parameter encoded list of all properties that must be expanded in the Session.\nExample - ?expand=Identity\u0026expand=Devices\nIf no value is provided, the expandable properties are skipped.",
+            "description": "ExpandOptions is a query parameter encoded list of all properties that must be expanded in the Session.\nIf no value is provided, the expandable properties are skipped.",
             "in": "query",
             "name": "expand",
             "schema": {
+              "enum": ["identity", "devices"],
               "items": {
-                "enum": ["Devices", "Identity"],
                 "type": "string"
               },
               "type": "array"
@@ -9054,8 +9054,8 @@
             "in": "query",
             "name": "expand",
             "schema": {
+              "enum": ["identity", "devices"],
               "items": {
-                "enum": ["Devices", "Identity"],
                 "type": "string"
               },
               "type": "array"
