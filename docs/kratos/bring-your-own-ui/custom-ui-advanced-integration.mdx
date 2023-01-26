@@ -2,6 +2,7 @@
 id: custom-ui-advanced-integration
 title: Advanced Integration
 sidebar_label: Advanced Integration
+sidebar_position: 3
 toc_max_heading_level: 4
 ---
 
@@ -21,7 +22,7 @@ a protected page that the user is redirected from to the login page. After the u
 back to the page they were on.
 
 To achieve this, the application can pass a `?return_to=<url>` query parameter to the initialize flow endpoint
-[`/self-service/<login|registration|settings|verification|recovery|logout>/browser?return_to=https://myapp.com/protected`](../reference/api#tag/frontend).
+[`/self-service/<login|registration|settings|verification|recovery|logout>/browser?return_to=https://myapp.com/protected`](../../reference/api#tag/frontend).
 
 The `return_to` URL will be used as the redirect URL after the flow has been completed. For example, in the case of a `login` flow
 we would redirect after a successful login has been completed.
@@ -67,7 +68,7 @@ For more information, please take a look at
 
 It is sometimes required to refresh an active user session beyond the global default session lifespan. In such a case the
 application implementing the UI can request through the `?refresh=true` query parameter that Ory should refresh the already
-existing session [`/self-service/login/browser?refresh=true`](../reference/api#tag/frontend/operation/createBrowserLoginFlow).
+existing session [`/self-service/login/browser?refresh=true`](../../reference/api#tag/frontend/operation/createBrowserLoginFlow).
 This is only applicable to the `login` flow and requires the user to already be logged in.
 
 A common use case would be:
@@ -89,17 +90,17 @@ In Ory the levels are:
 - aal2: aal1 + TOTP or WebAuthn or Lookup Secrets
 
 In the case of initializing a second factor, the user must already have a valid session cookie. The
-[`/sessions/whoami`](../reference/api#tag/frontend/operation/toSession) endpoint will return with an error with an id
+[`/sessions/whoami`](../../reference/api#tag/frontend/operation/toSession) endpoint will return with an error with an id
 `session_aal2_required` if the user is required to complete a second factor. More information on UI error messages can be found on
-the [Customize user interface](../kratos/concepts/ui-user-interface) page.
+the [Customize user interface](../concepts/ui-user-interface) page.
 
-For more information on Multi-factor authentication, take a look at the [Multi-factor authentication](../kratos/mfa/overview).
+For more information on Multi-factor authentication, take a look at the [Multi-factor authentication](../mfa/overview).
 
 ### Passwordless authentication
 
 Passwordless authentication uses WebAuthn to authenticate a user using a hardware key or biometrics (such as touchID).
 
-To enable passwordless authentication, take a look at the [WebAuthn and FIDO2](../kratos/mfa/webauthn-fido-yubikey) document.
+To enable passwordless authentication, take a look at the [WebAuthn and FIDO2](../mfa/webauthn-fido-yubikey) document.
 
 :::info
 
@@ -116,7 +117,7 @@ In your application, you will need to add the WebAuthn JavaScript to the page.
 <TabItem value="ts" label="React" default>
 
 ```mdx-code-block
-import webAuthnMapping from '!!raw-loader!../../code-examples/sdk/typescript/src/ui/webauthn-mapping.tsx'
+import webAuthnMapping from '!!raw-loader!../../../code-examples/sdk/typescript/src/ui/webauthn-mapping.tsx'
 
 <CodeBlock language="tsx">{webAuthnMapping}</CodeBlock>
 ```

@@ -2,6 +2,7 @@
 id: custom-ui-basic-integration
 title: Basic Integration
 sidebar_label: Basic Integration
+sidebar_position: 4
 toc_max_heading_level: 4
 ---
 
@@ -52,12 +53,13 @@ Below is a table mapping the `methods` according to their respective flow.
 | `recovery`     | `link`, `code`                                                     |
 | `verification` | `link`, `code`                                                     |
 
-For more information on flows, take a look at the [Self-service flow](../kratos/self-service) documentation.
+For more information on flows, take a look at the [Self-service flow](../self-service) documentation.
 
 ## Create a flow
 
 The first step is to initialize a flow. This is done by doing a GET request to the
-[`/self-service/<login|registration|settings|recovery|verification|logout/<browser|api>`](../reference/api#tag/frontend) endpoint.
+[`/self-service/<login|registration|settings|recovery|verification|logout/<browser|api>`](../../reference/api#tag/frontend)
+endpoint.
 
 The response will contain the flow data which can be used to render the UI.
 
@@ -84,7 +86,7 @@ created. For any subsequent requests to Ory from the server, the cookies will ne
 Below is an example of the SDK calling the [`/sessions/whoami`](../reference/api#tag/frontend/operation/toSession) endpoint in an ExpressJs middleware.
 
 ```mdx-code-block
-import whoamiExpress from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/session/whoami-express.ts'
+import whoamiExpress from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/session/whoami-express.ts'
 
 <CodeBlock language="ts" title="middleware.ts">{whoamiExpress}</CodeBlock>
 ```
@@ -103,7 +105,7 @@ SDK calling the [`/sessions/whoami`](../reference/api#tag/frontend/operation/toS
 cookies in the request.
 
 ```mdx-code-block
-import whoamiReact from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/session/whoami-react.tsx'
+import whoamiReact from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/session/whoami-react.tsx'
 
 <CodeBlock language="tsx" title="session.tsx">{whoamiReact}</CodeBlock>
 ```
@@ -121,7 +123,7 @@ header. Below is an example of the SDK calling the [`/sessions/whoami`](../refer
 endpoint.
 
 ```mdx-code-block
-import whoamiNative from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/session/whoami-native.ts'
+import whoamiNative from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/session/whoami-native.ts'
 
 <CodeBlock language="ts" title="session.ts">{whoamiNative}</CodeBlock>
 ```
@@ -131,7 +133,7 @@ import whoamiNative from '!!raw-loader!../../code-examples/sdk/typescript/src/se
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
 
 ```mdx-code-block
-import createLoginCurlBrowser from '!!raw-loader!../../code-examples/curl/login/create-login-browser.sh'
+import createLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/create-login-browser.sh'
 
 <CodeBlock language="shell" title="create-login-browser.sh">{createLoginCurlBrowser}</CodeBlock>
 ```
@@ -141,7 +143,7 @@ import createLoginCurlBrowser from '!!raw-loader!../../code-examples/curl/login/
 <TabItem value="curl-native" label="cUrl (Browser Native)">
 
 ```mdx-code-block
-import createLoginCurlNative from '!!raw-loader!../../code-examples/curl/login/create-login-api.sh'
+import createLoginCurlNative from '!!raw-loader!../../../code-examples/curl/login/create-login-api.sh'
 
 <CodeBlock language="shell" title="create-login-api.sh">{createLoginCurlNative}</CodeBlock>
 ```
@@ -154,7 +156,7 @@ import createLoginCurlNative from '!!raw-loader!../../code-examples/curl/login/c
 ## Fetching an existing flow
 
 In cases where the flow already exists, we can retrieve the flow data using the flow ID through a GET request to
-[`/self-service/<login|registration|settings|verification|recovery>/flows?id=<flowID>`](../reference/api#tag/frontend). This is
+[`/self-service/<login|registration|settings|verification|recovery>/flows?id=<flowID>`](../../reference/api#tag/frontend). This is
 useful in cases where Ory has already initialized the flow and redirected to your application. In such a case, the flow ID can be
 extracted from the URL `?flow=` query parameter.
 
@@ -164,7 +166,7 @@ available at the [`/self-service/login/flows?id=<flowId>`](../reference/api#tag/
 Below is an example of fetching an existing `login` flow.
 
 ```mdx-code-block
-import getLoginCurlBrowser from '!!raw-loader!../../code-examples/curl/login/get-login-browser.sh'
+import getLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/get-login-browser.sh'
 
 <CodeBlock language="shell" title="get-login-browser.sh">{getLoginCurlBrowser}</CodeBlock>
 ```
@@ -216,14 +218,14 @@ example, the action for login would be a POST request to
 Below is a partial example of an ExpressJs application rendering the UI using handlebars.
 
 ```mdx-code-block
-import loginExpress from '!!raw-loader!../../code-examples/sdk/typescript/src/ui/login-express.ts'
+import loginExpress from '!!raw-loader!../../../code-examples/sdk/typescript/src/ui/login-express.ts'
 
 <CodeBlock language="ts" title="index.ts">{loginExpress}</CodeBlock>
 ```
 
 ```mdx-code-block
-import authLayoutExpress from '!!raw-loader!../../code-examples/sdk/typescript/src/ui/auth.hbs'
-import uiPartialExpress from '!!raw-loader!../../code-examples/sdk/typescript/src/ui/partials/ui.hbs'
+import authLayoutExpress from '!!raw-loader!../../../code-examples/sdk/typescript/src/ui/auth.hbs'
+import uiPartialExpress from '!!raw-loader!../../../code-examples/sdk/typescript/src/ui/partials/ui.hbs'
 
 <CodeBlock language="handlebars" title="auth.hbs">{authLayoutExpress}</CodeBlock>
 <CodeBlock language="handlebars" title="partials/ui.hbs">{uiPartialExpress}</CodeBlock>
@@ -239,7 +241,7 @@ request to the Ory project URL. For example, the action for login would be a POS
 Below is a partial example of a React application using the Ory SDK.
 
 ```mdx-code-block
-import loginReact from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/login/submit-login-react.tsx'
+import loginReact from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/login/submit-login-react.tsx'
 
 <CodeBlock language="tsx" title="login.tsx">{loginReact}</CodeBlock>
 ```
@@ -254,7 +256,7 @@ request to `https://{project.slug}.projects.oryapis.com/self-service/login/api?f
 Below is a partial example of a Typescript Native application using the Ory SDK.
 
 ```mdx-code-block
-import loginNative from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/login/submit-login-native.ts'
+import loginNative from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/login/submit-login-native.ts'
 
 <CodeBlock language="ts" title="login.ts">{loginNative}</CodeBlock>
 ```
@@ -270,7 +272,7 @@ Ensure you are using the correct URL from the `flow.ui.action` key in the JSON r
 The CSRF token must also be included in the body of the request, which can be found in the `flow.ui.nodes` key.
 
 ```mdx-code-block
-import submitLoginCurlBrowser from '!!raw-loader!../../code-examples/curl/login/submit-login-browser.sh'
+import submitLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/submit-login-browser.sh'
 
 <CodeBlock language="shell" title="submit-login-browser.sh">{submitLoginCurlBrowser}</CodeBlock>
 ```
@@ -280,7 +282,7 @@ import submitLoginCurlBrowser from '!!raw-loader!../../code-examples/curl/login/
 <TabItem value="curl-native" label="cUrl (Native flow)">
 
 ```mdx-code-block
-import submitLoginCurlNative from '!!raw-loader!../../code-examples/curl/login/submit-login-api.sh'
+import submitLoginCurlNative from '!!raw-loader!../../../code-examples/curl/login/submit-login-api.sh'
 
 <CodeBlock language="shell" title="submit-login-api.sh">{submitLoginCurlNative}</CodeBlock>
 ```
@@ -305,7 +307,7 @@ In this section we will only cover the `password` method since it is the easiest
 <TabItem value="go" label="Go" default>
 
 ```mdx-code-block
-import createLoginApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/create-login.go'
+import createLoginApi from '!!raw-loader!../../../code-examples/sdk/go/selfservice/create-login.go'
 
 <CodeBlock language="go" title="login.go">{createLoginApi}</CodeBlock>
 ```
@@ -314,7 +316,7 @@ import createLoginApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/
 <TabItem value="typescript" label="TypeScript">
 
 ```mdx-code-block
-import createTsLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/login/create-login-native.ts'
+import createTsLoginApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/login/create-login-native.ts'
 
 <CodeBlock language="ts" title="login.ts">{createTsLoginApi}</CodeBlock>
 ```
@@ -324,7 +326,7 @@ import createTsLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/sr
 <TabItem value="react" label="React">
 
 ```mdx-code-block
-import createReactLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/login/create-login-react.tsx'
+import createReactLoginApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/login/create-login-react.tsx'
 
 <CodeBlock language="ts" title="login.tsx">{createReactLoginApi}</CodeBlock>
 ```
@@ -337,7 +339,7 @@ To ensure the requests work correctly for the browser flow, we can use the `-b` 
 On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
-import createLoginCurlBrowserJson from '../../code-examples/curl/login/create-login-browser.json'
+import createLoginCurlBrowserJson from '../../../code-examples/curl/login/create-login-browser.json'
 
 <CodeBlock language="shell" title="create-login-browser.sh">{createLoginCurlBrowser}</CodeBlock>
 <CodeBlock language="json5" title="create-login-browser.json">{JSON.stringify(createLoginCurlBrowserJson, null, 2)}</CodeBlock>
@@ -348,7 +350,7 @@ import createLoginCurlBrowserJson from '../../code-examples/curl/login/create-lo
 <TabItem value="curl-native" label="cUrl (Native flow)">
 
 ```mdx-code-block
-import createLoginCurlNativeJson from '../../code-examples/curl/login/create-login-api.json'
+import createLoginCurlNativeJson from '../../../code-examples/curl/login/create-login-api.json'
 
 <CodeBlock language="shell" title="create-login-api.sh">{createLoginCurlNative}</CodeBlock>
 <CodeBlock language="json5" title="create-login-api.sh">{JSON.stringify(createLoginCurlNativeJson, null, 2)}</CodeBlock>
@@ -367,7 +369,7 @@ import createLoginCurlNativeJson from '../../code-examples/curl/login/create-log
 <TabItem value="go" label="Go" default>
 
 ```mdx-code-block
-import getLoginApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/get-login.go'
+import getLoginApi from '!!raw-loader!../../../code-examples/sdk/go/selfservice/get-login.go'
 
 <CodeBlock language="go" title="login.go">{getLoginApi}</CodeBlock>
 ```
@@ -377,7 +379,7 @@ import getLoginApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/get
 <TabItem value="typescript" label="TypeScript">
 
 ```mdx-code-block
-import getTsLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/login/get-login-native.ts'
+import getTsLoginApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/login/get-login-native.ts'
 
 <CodeBlock language="ts" title="login.ts">{getTsLoginApi}</CodeBlock>
 ```
@@ -387,7 +389,7 @@ import getTsLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/src/s
 <TabItem value="react" label="React">
 
 ```mdx-code-block
-import getReactLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/login/get-login-react.tsx'
+import getReactLoginApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/login/get-login-react.tsx'
 
 <CodeBlock language="ts" title="login.tsx">{getReactLoginApi}</CodeBlock>
 ```
@@ -400,7 +402,7 @@ To ensure the requests work correctly for the browser flow, we can use the `-b` 
 On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
-import getLoginCurlBrowserJson from '../../code-examples/curl/login/get-login-browser.json'
+import getLoginCurlBrowserJson from '../../../code-examples/curl/login/get-login-browser.json'
 
 <CodeBlock language="shell" title="get-login-browser.sh">{getLoginCurlBrowser}</CodeBlock>
 <CodeBlock language="json5" title="get-login-browser.json">{JSON.stringify(getLoginCurlBrowserJson, null, 2)}</CodeBlock>
@@ -411,8 +413,8 @@ import getLoginCurlBrowserJson from '../../code-examples/curl/login/get-login-br
 <TabItem value="curl-native" label="cUrl (Native flow)">
 
 ```mdx-code-block
-import getLoginCurlNative from '!!raw-loader!../../code-examples/curl/login/get-login-api.sh'
-import getLoginCurlNativeJson from '../../code-examples/curl/login/get-login-api.json'
+import getLoginCurlNative from '!!raw-loader!../../../code-examples/curl/login/get-login-api.sh'
+import getLoginCurlNativeJson from '../../../code-examples/curl/login/get-login-api.json'
 
 <CodeBlock language="shell" title="get-login-api.sh">{getLoginCurlNative}</CodeBlock>
 <CodeBlock language="json5" title="get-login-api.sh">{JSON.stringify(getLoginCurlNativeJson, null, 2)}</CodeBlock>
@@ -431,7 +433,7 @@ import getLoginCurlNativeJson from '../../code-examples/curl/login/get-login-api
 <TabItem value="go" label="Go" default>
 
 ```mdx-code-block
-import submitLoginApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/submit-login.go'
+import submitLoginApi from '!!raw-loader!../../../code-examples/sdk/go/selfservice/submit-login.go'
 
 <CodeBlock language="go" title="login.go">{submitLoginApi}</CodeBlock>
 ```
@@ -441,7 +443,7 @@ import submitLoginApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/
 <TabItem value="typescript" label="TypeScript">
 
 ```mdx-code-block
-import submitTsLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/login/submit-login-native.ts'
+import submitTsLoginApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/login/submit-login-native.ts'
 
 <CodeBlock language="ts" title="login.ts">{submitTsLoginApi}</CodeBlock>
 ```
@@ -451,7 +453,7 @@ import submitTsLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/sr
 <TabItem value="react" label="React">
 
 ```mdx-code-block
-import submitReactLoginApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/login/submit-login-react.tsx'
+import submitReactLoginApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/login/submit-login-react.tsx'
 
 <CodeBlock language="tsx" title="login.tsx">{submitReactLoginApi}</CodeBlock>
 ```
@@ -464,7 +466,7 @@ To ensure the requests work correctly for the browser flow, we can use the `-b` 
 On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
-import submitLoginCurlBrowserJson from '../../code-examples/curl/login/submit-login-browser.json'
+import submitLoginCurlBrowserJson from '../../../code-examples/curl/login/submit-login-browser.json'
 
 <CodeBlock language="shell" title="submit-login-browser.sh">{submitLoginCurlBrowser}</CodeBlock>
 <CodeBlock language="json5" title="submit-login-browser.json">{JSON.stringify(getLoginCurlBrowserJson, null, 2)}</CodeBlock>
@@ -475,7 +477,7 @@ import submitLoginCurlBrowserJson from '../../code-examples/curl/login/submit-lo
 <TabItem value="curl-native" label="cUrl (Native flow)">
 
 ```mdx-code-block
-import submitLoginCurlNativeJson from '../../code-examples/curl/login/submit-login-api.json'
+import submitLoginCurlNativeJson from '../../../code-examples/curl/login/submit-login-api.json'
 
 <CodeBlock language="shell" title="submit-login-api.sh">{getLoginCurlNative}</CodeBlock>
 <CodeBlock language="json5" title="submit-login-api.sh">{JSON.stringify(getLoginCurlNativeJson, null, 2)}</CodeBlock>
@@ -516,7 +518,7 @@ In this section, we will only focus on the `password` method since it is the eas
 <TabItem value="go" label="Go" default>
 
 ```mdx-code-block
-import createRegistrationApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/create-registration.go'
+import createRegistrationApi from '!!raw-loader!../../../code-examples/sdk/go/selfservice/create-registration.go'
 
 <CodeBlock language="go" title="registration.go">{createRegistrationApi}</CodeBlock>
 ```
@@ -526,7 +528,7 @@ import createRegistrationApi from '!!raw-loader!../../code-examples/sdk/go/selfs
 <TabItem value="typescript" label="TypeScript">
 
 ```mdx-code-block
-import createTsRegistrationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/registration/create-registration-native.ts'
+import createTsRegistrationApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/registration/create-registration-native.ts'
 
 <CodeBlock language="ts" title="registration.ts">{createTsRegistrationApi}</CodeBlock>
 ```
@@ -536,7 +538,7 @@ import createTsRegistrationApi from '!!raw-loader!../../code-examples/sdk/typesc
 <TabItem value="react" label="React">
 
 ```mdx-code-block
-import createReactRegistrationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/registration/create-registration-react.tsx'
+import createReactRegistrationApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/registration/create-registration-react.tsx'
 
 <CodeBlock language="tsx" title="registration.tsx">{createReactRegistrationApi}</CodeBlock>
 ```
@@ -549,8 +551,8 @@ To ensure the requests work correctly for the browser flow, we can use the `-b` 
 On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
-import createRegistrationCurlBrowser from '!!raw-loader!../../code-examples/curl/registration/create-registration-browser.sh'
-import createRegistrationCurlBrowserJson from '../../code-examples/curl/registration/create-registration-browser.json'
+import createRegistrationCurlBrowser from '!!raw-loader!../../../code-examples/curl/registration/create-registration-browser.sh'
+import createRegistrationCurlBrowserJson from '../../../code-examples/curl/registration/create-registration-browser.json'
 
 <CodeBlock language="shell" title="create-registration-browser.sh">{createRegistrationCurlBrowser}</CodeBlock>
 <CodeBlock language="json5" title="create-registration-browser.json">{JSON.stringify(createRegistrationCurlBrowserJson, null, 2)}</CodeBlock>
@@ -569,7 +571,7 @@ import createRegistrationCurlBrowserJson from '../../code-examples/curl/registra
 <TabItem value="go" label="Go" default>
 
 ```mdx-code-block
-import getRegistrationApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/get-registration.go'
+import getRegistrationApi from '!!raw-loader!../../../code-examples/sdk/go/selfservice/get-registration.go'
 
 <CodeBlock language="go" title="registration.go">{getRegistrationApi}</CodeBlock>
 ```
@@ -579,7 +581,7 @@ import getRegistrationApi from '!!raw-loader!../../code-examples/sdk/go/selfserv
 <TabItem value="typescript" label="TypeScript">
 
 ```mdx-code-block
-import getTsRegistrationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/registration/get-registration-native.ts'
+import getTsRegistrationApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/registration/get-registration-native.ts'
 
 <CodeBlock language="ts" title="registration.ts">{getTsRegistrationApi}</CodeBlock>
 ```
@@ -589,7 +591,7 @@ import getTsRegistrationApi from '!!raw-loader!../../code-examples/sdk/typescrip
 <TabItem value="react" label="React">
 
 ```mdx-code-block
-import getReactRegistrationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/registration/get-registration-react.tsx'
+import getReactRegistrationApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/registration/get-registration-react.tsx'
 
 <CodeBlock language="tsx" title="registration.tsx">{getReactRegistrationApi}</CodeBlock>
 ```
@@ -602,8 +604,8 @@ To ensure the requests work correctly for the browser flow, we can use the `-b` 
 On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
-import getRegistrationCurlBrowser from '!!raw-loader!../../code-examples/curl/registration/get-registration-browser.sh'
-import getRegistrationCurlBrowserJson from '../../code-examples/curl/registration/get-registration-browser.json'
+import getRegistrationCurlBrowser from '!!raw-loader!../../../code-examples/curl/registration/get-registration-browser.sh'
+import getRegistrationCurlBrowserJson from '../../../code-examples/curl/registration/get-registration-browser.json'
 
 <CodeBlock language="shell" title="create-registration-browser.sh">{getRegistrationCurlBrowser}</CodeBlock>
 <CodeBlock language="json5" title="create-registration-browser.json">{JSON.stringify(getRegistrationCurlBrowserJson, null, 2)}</CodeBlock>
@@ -627,7 +629,7 @@ provide in the request payload. To learn more about customizing your Identity Sc
 <TabItem value="go" label="Go" default>
 
 ```mdx-code-block
-import submitRegistrationApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/submit-registration.go'
+import submitRegistrationApi from '!!raw-loader!../../../code-examples/sdk/go/selfservice/submit-registration.go'
 
 <CodeBlock language="go" title="registration.go">{submitRegistrationApi}</CodeBlock>
 ```
@@ -637,7 +639,7 @@ import submitRegistrationApi from '!!raw-loader!../../code-examples/sdk/go/selfs
 <TabItem value="typescript" label="TypeScript">
 
 ```mdx-code-block
-import submitTsRegistrationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/registration/submit-registration-native.ts'
+import submitTsRegistrationApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/registration/submit-registration-native.ts'
 
 <CodeBlock language="ts" title="registration.ts">{submitTsRegistrationApi}</CodeBlock>
 ```
@@ -647,7 +649,7 @@ import submitTsRegistrationApi from '!!raw-loader!../../code-examples/sdk/typesc
 <TabItem value="react" label="React">
 
 ```mdx-code-block
-import submitReactRegistrationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/registration/submit-registration-react.tsx'
+import submitReactRegistrationApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/registration/submit-registration-react.tsx'
 
 <CodeBlock language="tsx" title="registration.tsx">{submitReactRegistrationApi}</CodeBlock>
 ```
@@ -662,8 +664,8 @@ On subsequent requests, we can use the `-b` flag to read the cookies from the fi
 Take note of the payload, in this example we have two required traits, `traits.email` and `traits.tos` which is based on the Identity Schema.
 
 ```mdx-code-block
-import submitRegistrationCurlBrowser from '!!raw-loader!../../code-examples/curl/registration/submit-registration-browser.sh'
-import submitRegistrationCurlBrowserJson from '../../code-examples/curl/registration/submit-registration-browser.json'
+import submitRegistrationCurlBrowser from '!!raw-loader!../../../code-examples/curl/registration/submit-registration-browser.sh'
+import submitRegistrationCurlBrowserJson from '../../../code-examples/curl/registration/submit-registration-browser.json'
 
 <CodeBlock language="shell" title="submit-registration-browser.sh">{submitRegistrationCurlBrowser}</CodeBlock>
 <CodeBlock language="json5" title="submit-registration-browser.json">{JSON.stringify(submitRegistrationCurlBrowserJson, null, 2)}</CodeBlock>
@@ -708,7 +710,7 @@ filters.
 <TabItem value="go" label="Go" default>
 
 ```mdx-code-block
-import createRecoveryApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/create-recovery.go'
+import createRecoveryApi from '!!raw-loader!../../../code-examples/sdk/go/selfservice/create-recovery.go'
 
 <CodeBlock language="go" title="recovery.go">{createRecoveryApi}</CodeBlock>
 ```
@@ -718,7 +720,7 @@ import createRecoveryApi from '!!raw-loader!../../code-examples/sdk/go/selfservi
 <TabItem value="typescript" label="TypeScript">
 
 ```mdx-code-block
-import createTsRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/recovery/create-recovery-native.ts'
+import createTsRecoveryApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/recovery/create-recovery-native.ts'
 
 <CodeBlock language="ts" title="recovery.ts">{createTsRecoveryApi}</CodeBlock>
 ```
@@ -728,7 +730,7 @@ import createTsRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescript
 <TabItem value="react" label="React">
 
 ```mdx-code-block
-import createReactRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/recovery/create-recovery-react.tsx'
+import createReactRecoveryApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/recovery/create-recovery-react.tsx'
 
 <CodeBlock language="tsx" title="recovery.tsx">{createReactRecoveryApi}</CodeBlock>
 ```
@@ -746,7 +748,7 @@ import createReactRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescr
 <TabItem value="go" label="Go" default>
 
 ```mdx-code-block
-import getRecoveryApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/get-recovery.go'
+import getRecoveryApi from '!!raw-loader!../../../code-examples/sdk/go/selfservice/get-recovery.go'
 
 <CodeBlock language="go" title="recovery.go">{getRecoveryApi}</CodeBlock>
 ```
@@ -756,7 +758,7 @@ import getRecoveryApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/
 <TabItem value="typescript" label="TypeScript">
 
 ```mdx-code-block
-import getTsRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/recovery/get-recovery-native.ts'
+import getTsRecoveryApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/recovery/get-recovery-native.ts'
 
 <CodeBlock language="ts" title="recovery.ts">{getTsRecoveryApi}</CodeBlock>
 ```
@@ -766,7 +768,7 @@ import getTsRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescript/sr
 <TabItem value="react" label="React">
 
 ```mdx-code-block
-import getReactRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/recovery/get-recovery-react.tsx'
+import getReactRecoveryApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/recovery/get-recovery-react.tsx'
 
 <CodeBlock language="tsx" title="recovery.tsx">{getReactRecoveryApi}</CodeBlock>
 ```
@@ -784,7 +786,7 @@ import getReactRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescript
 <TabItem value="go" label="Go" default>
 
 ```mdx-code-block
-import submitRecoveryApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/submit-recovery.go'
+import submitRecoveryApi from '!!raw-loader!../../../code-examples/sdk/go/selfservice/submit-recovery.go'
 
 <CodeBlock language="go" title="recovery.go">{submitRecoveryApi}</CodeBlock>
 ```
@@ -794,7 +796,7 @@ import submitRecoveryApi from '!!raw-loader!../../code-examples/sdk/go/selfservi
 <TabItem value="typescript" label="TypeScript">
 
 ```mdx-code-block
-import submitTsRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/recovery/submit-recovery-native.ts'
+import submitTsRecoveryApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/recovery/submit-recovery-native.ts'
 
 <CodeBlock language="ts" title="recovery.ts">{submitTsRecoveryApi}</CodeBlock>
 ```
@@ -804,7 +806,7 @@ import submitTsRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescript
 <TabItem value="react" label="React">
 
 ```mdx-code-block
-import submitReactRecoveryApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/recovery/submit-recovery-react.tsx'
+import submitReactRecoveryApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/recovery/submit-recovery-react.tsx'
 
 <CodeBlock language="tsx" title="recovery.tsx">{submitReactRecoveryApi}</CodeBlock>
 ```
@@ -848,7 +850,7 @@ To use the verification flow, you might need to enable it. Please take a look at
 <TabItem value="go" label="Go" default>
 
 ```mdx-code-block
-import createVerificaitonApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/create-verification.go'
+import createVerificaitonApi from '!!raw-loader!../../../code-examples/sdk/go/selfservice/create-verification.go'
 
 <CodeBlock language="go" title="verification.go">{createVerificaitonApi}</CodeBlock>
 ```
@@ -858,7 +860,7 @@ import createVerificaitonApi from '!!raw-loader!../../code-examples/sdk/go/selfs
 <TabItem value="typescript" label="TypeScript">
 
 ```mdx-code-block
-import createTsVerificationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/verification/create-verification-native.ts'
+import createTsVerificationApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/verification/create-verification-native.ts'
 
 <CodeBlock language="ts" title="verification.ts">{createTsVerificationApi}</CodeBlock>
 ```
@@ -868,7 +870,7 @@ import createTsVerificationApi from '!!raw-loader!../../code-examples/sdk/typesc
 <TabItem value="react" label="React">
 
 ```mdx-code-block
-import createReactVerificationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/verification/create-verification-react.tsx'
+import createReactVerificationApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/verification/create-verification-react.tsx'
 
 <CodeBlock language="tsx" title="verification.tsx">{createReactVerificationApi}</CodeBlock>
 ```
@@ -886,7 +888,7 @@ import createReactVerificationApi from '!!raw-loader!../../code-examples/sdk/typ
 <TabItem value="go" label="Go" default>
 
 ```mdx-code-block
-import getVerificaitonApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/get-verification.go'
+import getVerificaitonApi from '!!raw-loader!../../../code-examples/sdk/go/selfservice/get-verification.go'
 
 <CodeBlock language="go" title="verification.go">{getVerificaitonApi}</CodeBlock>
 ```
@@ -896,7 +898,7 @@ import getVerificaitonApi from '!!raw-loader!../../code-examples/sdk/go/selfserv
 <TabItem value="typescript" label="TypeScript">
 
 ```mdx-code-block
-import getTsVerificationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/verification/get-verification-native.ts'
+import getTsVerificationApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/verification/get-verification-native.ts'
 
 <CodeBlock language="ts" title="verification.ts">{getTsVerificationApi}</CodeBlock>
 ```
@@ -906,7 +908,7 @@ import getTsVerificationApi from '!!raw-loader!../../code-examples/sdk/typescrip
 <TabItem value="react" label="React">
 
 ```mdx-code-block
-import getReactVerificationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/verification/get-verification-react.tsx'
+import getReactVerificationApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/verification/get-verification-react.tsx'
 
 <CodeBlock language="tsx" title="verification.tsx">{getReactVerificationApi}</CodeBlock>
 ```
@@ -924,7 +926,7 @@ import getReactVerificationApi from '!!raw-loader!../../code-examples/sdk/typesc
 <TabItem value="go" label="Go" default>
 
 ```mdx-code-block
-import submitVerificationApi from '!!raw-loader!../../code-examples/sdk/go/selfservice/submit-verification.go'
+import submitVerificationApi from '!!raw-loader!../../../code-examples/sdk/go/selfservice/submit-verification.go'
 
 <CodeBlock language="go" title="verification.go">{submitVerificationApi}</CodeBlock>
 ```
@@ -934,7 +936,7 @@ import submitVerificationApi from '!!raw-loader!../../code-examples/sdk/go/selfs
 <TabItem value="typescript" label="TypeScript">
 
 ```mdx-code-block
-import submitTsVerificationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/verification/submit-verification-native.ts'
+import submitTsVerificationApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/verification/submit-verification-native.ts'
 
 <CodeBlock language="ts" title="verification.ts">{submitTsVerificationApi}</CodeBlock>
 ```
@@ -944,7 +946,7 @@ import submitTsVerificationApi from '!!raw-loader!../../code-examples/sdk/typesc
 <TabItem value="react" label="React">
 
 ```mdx-code-block
-import submitReactVerificationApi from '!!raw-loader!../../code-examples/sdk/typescript/src/selfservice/verification/submit-verification-react.tsx'
+import submitReactVerificationApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/verification/submit-verification-react.tsx'
 
 <CodeBlock language="tsx" title="verification.tsx">{submitReactVerificationApi}</CodeBlock>
 ```
@@ -1088,7 +1090,7 @@ When mapping UI nodes take note of input fields with the name `csrf_token` with 
 UI nodes for csrf protection could look like this:
 
 ```mdx-code-block
-import csrfMapping from '!!raw-loader!../../code-examples/sdk/typescript/src/ui/csrf-mapping.tsx'
+import csrfMapping from '!!raw-loader!../../../code-examples/sdk/typescript/src/ui/csrf-mapping.tsx'
 
 <CodeBlock language="tsx">{csrfMapping}</CodeBlock>
 ```
