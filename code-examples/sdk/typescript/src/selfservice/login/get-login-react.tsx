@@ -26,7 +26,7 @@ export const Login = () => {
   const [searchParams] = useSearchParams()
 
   useEffect(() => {
-    const id = searchParams.get("id")
+    const id = searchParams.get("flow")
     frontend
       .getLoginFlow({
         id,

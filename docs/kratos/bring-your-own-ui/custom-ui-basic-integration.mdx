@@ -322,6 +322,12 @@ In this section we will only cover the `password` method since it is the easiest
 
 ### Create Login flow
 
+Below there are code examples to create a `login` flow and render the user interface (where applicable). When creating a `login`
+flow for **browser applications** you must use the
+[`/self-service/login/browser`](../../reference/api#tag/frontend/operation/createBrowserLoginFlow) endpoint. When creating a
+`login` flow for **native applications** you must use the
+[`/self-service/login/api`](../../reference/api#tag/frontend/operation/createNativeLoginFlow) endpoint.
+
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
 
@@ -345,6 +351,9 @@ import createTsLoginApi from '!!raw-loader!../../../code-examples/sdk/typescript
 </TabItem>
 
 <TabItem value="react" label="React">
+
+This is a small react example that uses the Ory SDK to create a `login` flow and render the user interface.
+Take note that we use the `@ory/integrations` package as a helper to filter the flow data to only render the `password` method form fields.
 
 ```mdx-code-block
 import createReactLoginApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/login/create-login-react.tsx'
@@ -384,6 +393,11 @@ import createLoginCurlNativeJson from '../../../code-examples/curl/login/create-
 
 ### Get Login flow
 
+When a flow already exists, we can retrieve it through a GET request to the
+[`/self-service/login/flows?id=<flow-id>`](../../reference/api#tag/frontend/operation/getLoginFlow) endpoint using the flow ID.
+Usually the flow ID is stored in the URL query parameter `?flow=` in your application. Below is an example of how to retrieve the
+flow data using the flow ID.
+
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
 
@@ -408,6 +422,9 @@ import getTsLoginApi from '!!raw-loader!../../../code-examples/sdk/typescript/sr
 </TabItem>
 
 <TabItem value="react" label="React">
+
+This is a small react example that uses the Ory SDK to retrieve the `login` flow and render the user interface.
+Take note that we use the `@ory/integrations` package as a helper to filter the flow data to only render the `password` method form fields.
 
 ```mdx-code-block
 import getReactLoginApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/login/get-login-react.tsx'
@@ -447,6 +464,12 @@ import getLoginCurlNativeJson from '../../../code-examples/curl/login/get-login-
 ````
 
 ### Submit Login flow
+
+The last step is to submit the login flow with the user's credentials. This is done through a POST request to the Ory
+[`/self-service/login`](../../reference/api#tag/frontend/operation/updateLoginFlow) endpoint.
+
+For browser applications you need to ensure that all cookies are included in the request and that the CSRF token is sent in the
+body of the request. The CSRF token value is a hidden input field called `csrf_token`.
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
