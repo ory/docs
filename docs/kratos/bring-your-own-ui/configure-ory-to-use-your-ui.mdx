@@ -1,5 +1,5 @@
 ---
-id: bring-your-user-interface
+id: configure-ory-to-use-your-ui
 title: Configure Ory to use your UI
 sidebar_position: 2
 ---
@@ -13,14 +13,14 @@ using our SDKs.
 Unless you are building a [Native App](#native-apps), you will need to configure the endpoints where your UI pages for the
 individual flows (login, registration, ...) are located.
 
-![Customize UI Endpoints in the Ory Console](_static/bring-your-user-interface/cloud-config.png)
+![Customize UI Endpoints in the Ory Console](_static/configure-ory-to-use-your-ui/cloud-config.png)
 
 If you leave fields empty, the Ory Account Experience will be used for that flow.
 
 Let's say you have an app hosted at `https://www.example.org` with a login screen at `https://www.example.org/login` but have no
 other screens implemented yet? Your configuration would look as follows:
 
-![Customize UI Endpoints in the Ory Console](_static/bring-your-user-interface/login-ui.png)
+![Customize UI Endpoints in the Ory Console](_static/configure-ory-to-use-your-ui/login-ui.png)
 
 All other flows (registration, settings, verification, recovery, error) would still use the Ory Account Experience.
 

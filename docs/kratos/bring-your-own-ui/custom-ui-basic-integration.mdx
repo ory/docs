@@ -97,7 +97,7 @@ import whoamiExpress from '!!raw-loader!../../../code-examples/sdk/typescript/sr
 Single Page Applications (SPA) can initialize the flow by calling the endpoint using AJAX or fetch instead of redirecting the
 browser. The response will set the necessary cookies and contain all the UI nodes to render the form. For AJAX and fetch requests
 to properly set the cookies, you must set the `withCredentials: true` in axios or `credentials: "include"` in fetch. In the event
-that a flow is initialized through a browser redirect, the [application URL](../guides/bring-your-user-interface) needs to be set
+that a flow is initialized through a browser redirect, the [application URL](./configure-ory-to-use-your-ui) needs to be set
 for Ory to know about your application.
 
 When using the Ory SDK you need to specify the `withCredentials: true` option in the SDK configuration. Below is an example of the
