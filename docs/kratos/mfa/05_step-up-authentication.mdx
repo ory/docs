@@ -1,0 +1,129 @@
+---
+id: step-up-authentication
+title: Use step-up authentication to protect high-risk operations
+sidebar_label: Step-up authentication
+---
+
+# Step-up authentication
+
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import BrowserWindow from "@site/src/theme/BrowserWindow"
+```
+
+You can set up multi-factor authentication to work in one of two models:
+
+- **Strict**, where secured operations always require the highest Authenticator Assurance Level (AAL).
+- **Lax**, where the secured operations require only the `aal1` Authenticator Assurance Level (AAL).
+
+You can set the required authentication model for these operations/endpoints:
+
+- User sign-in (getting an Ory Session) / `/sessions/whoami` endpoint
+- Self-service user settings
+
+In the Ory Network, the default multi-factor authentication enforcement model is **Strict**. This means that high-risk operations
+such as updating user settings require step-up authentication by default.
+
+## Configuration
+
+```mdx-code-block
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+```
+
+To change the multi-factor authentication enforcement to Lax and allow users to sign in or access user settings without
+authenticating with the second factor, go to the **Ory Console** →
+[**Two-Factor Authentication**](https://console.ory.sh/projects/current/mfa) and use the switches in the **General Settings**
+section.
+
+```mdx-code-block
+<BrowserWindow url="https://console.ory.sh/">
+
+![Step-up authentication settings in Ory Console](../_static/mfa/10.png)
+
+</BrowserWindow>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
+```
+
+Follow these steps to adjust the settings in the Ory Network using the Ory CLI:
+
+1. Get the Ory Identities configuration from your project and save it to a file:
+
+   ```shell
+   ## List all available projects
+   ory list projects
+
+   ## Get config
+   ory get identity-config {project-id} --format yaml > identity-config.yaml
+   ```
+
+2. Adjust the values of the indicated keys to the desired values:
+
+   ```yaml title="identity-config.yaml"
+   # ...
+   selfservice:
+     flows:
+       settings:
+         required_aal: highest_available
+   # ...
+   session:
+     whoami:
+       required_aal: highest_available
+   # ...
+   ```
+
+   :::tip
+
+   Use `aal1` for the Lax model and `highest_available` for the Strict model. The default value in Ory Network is
+   `highest_available`.
+
+   :::
+
+3. Update the Ory Identities configuration using the file you worked with:
+
+   ```shell
+   ory update identity-config {project-id} --file identity-config.yaml
+   ```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+## Trigger step-up authentication
+
+You can make users complete a second authentication factor in their current session by initiating a new login flow using one of
+these endpoints with the `aal` parameter set to `aal2`:
+
+- [`/self-service/login/browser`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowForBrowsers)
+- [`/self-service/login/api`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowWithoutBrowser)
+
+For example:
+
+```shell
+/self-service/login/browser?aal=aal2
+/self-service/login/api?aal=aal2
+```
+
+:::note
+
+If the Ory Session has `aal2` already, this will error. In that case, you can request to refresh the session using the second
+factor:
+
+```shell
+/self-service/login/browser?refresh=true&aal=aal2
+/self-service/login/api?refresh=true&aal=aal2
+```
+
+:::
+
+When the user successfully provides their configured second factor:
+
+- The method, for example `totp`, is added to the Ory Session.
+- Ory Session Authenticator Assurance Level (AAL) is set to `aal2`.
+- The `authenticated_at` time is set to the time when the user provides the second factor.
