@@ -82,7 +82,7 @@ follow these simple rules:
    Don't use words like "should", "could", or "may".
 5. Don't use phrasal verbs, colloquialisms, and jargon.
 6. Don't refer to users in ways that imply their sex.
-7. Don't use contractions of latin origins such as `e.g` or `i.e`.
+7. Don't use contractions of Latin origins such as `e.g` or `i.e`.
 8. Remember to use articles (`a`, `an`, `the`) in your writing.
 9. Use common contractions such as `aren't`, `don't`, `doesn't` to sound
    friendly and informal.
