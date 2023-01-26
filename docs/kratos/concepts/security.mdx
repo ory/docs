@@ -30,6 +30,26 @@ for example login and registration endpoints.
 When self-hosting the Ory Kratos Identity Server, it's the responsibility of the administrator to implement and manage rate
 limiting or other measures to ensure the security of the network.
 
+## Defenses against cross-site request forgery
+
+Cross-site request forgery, also known as CSRF or XSRF, is a type of attack that occurs when a malicious website or attacker
+tricks a user's web browser into sending a request to another website without the user's knowledge or consent. In the context of
+Ory Identities, it is a security vulnerability that can be exploited by an attacker to gain unauthorized access to a user's
+account or perform actions on their behalf.
+
+For example, imagine an attacker creates a website that has a form that, when submitted, sends a request to Ory Identities to
+change a user's password. If a user is logged in and visits the attacker's website, their browser may automatically include their
+Ory session cookie in the request, allowing the attacker to change the user's password without their knowledge or consent. To
+prevent this Ory Identities uses a cookie-based security model with the [`sameSite`](samesite at w3) attribute on the cookie. This
+means that the Ory session cookie can only sent with requests that originate from the same website or origin that set the cookie,
+effectively protecting against cross-site request forgery (CSRF) attacks.
+
+This is a security feature that allows Ory Identities to only recognize requests made by the same website, preventing a malicious
+website from making a request to Ory Identities on behalf of the user. This way, even if an attacker is able to create a request
+that includes a user's session cookie, the request will not be accepted by Ory Identities as it will not be made from the same
+website. It ensures that only requests from the same origin are able to use the cookie, providing an additional layer of security
+against CSRF attacks.
+
 ## Password policy
 
 To learn more about setting up a secure password policy, refer to the [password policy page](../../concepts/password-policy.mdx)
