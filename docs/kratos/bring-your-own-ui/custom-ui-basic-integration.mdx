@@ -39,11 +39,11 @@ A general overview of the flow can be summed up in five steps:
 
 [![Flow overview](https://mermaid.ink/img/pako:eNpNkMFqwzAMhl9F-LRBS-45bDRJOwo7JfSU9CBstQkktmfLGyPJu891c5hOgu_74ZdmIY0ikYu7Q9vDZ91piHN4OVg7DhJ5MPoV9vs3KNrSETJlH8RwGs0PKGS8Pv0iKWVbk1bkgHuCy3ljZWJVm118RKSZnE_ZbBOqh7DU9BXIM6BWUEUK3zgOKhVY4DifPbjNSOB9fYaPKdwEKcn7BU5t08dq1hkmyaTA4p2u_9Wjc8YtUIidmMhNOKh4_fwwOhF7T9SJPK6KbhhG7kSn16hiYNP8ailydoF2IthYjaoB498mkd9w9LT-AWnNa80?type=png)](https://mermaid.live/edit#pako:eNpNkMFqwzAMhl9F-LRBS-45bDRJOwo7JfSU9CBstQkktmfLGyPJu891c5hOgu_74ZdmIY0ikYu7Q9vDZ91piHN4OVg7DhJ5MPoV9vs3KNrSETJlH8RwGs0PKGS8Pv0iKWVbk1bkgHuCy3ljZWJVm118RKSZnE_ZbBOqh7DU9BXIM6BWUEUK3zgOKhVY4DifPbjNSOB9fYaPKdwEKcn7BU5t08dq1hkmyaTA4p2u_9Wjc8YtUIidmMhNOKh4_fwwOhF7T9SJPK6KbhhG7kSn16hiYNP8ailydoF2IthYjaoB498mkd9w9LT-AWnNa80)
 
-Furthermore, a flow can also consist of multiple `methods`, for example the `login` flow can have the `password` method. Only one
-`method` can be used at a time to complete the flow. The `methods` can also be customized through project configuration, for
-example the `password` flow can be disabled and the `webauthn` method enabled or both can be enabled at the same time to allow
-users to choose the `method` they which to use. This makes Ory very flexible and can be used for a variety of use cases. For now
-lets focus on the basics.
+Furthermore, a flow can also consist of multiple `methods`, for example the `login` flow can have the `password` and `oidc`
+method, however, only one `method` can be used at a time to complete the flow. The `methods` can also be customized through
+project configuration, for example the `password` flow can be disabled and the `webauthn` method enabled or both can be enabled at
+the same time to allow users to choose the `method` they which to use. This makes Ory very flexible and can be used for a variety
+of use cases.
 
 Below is a table mapping the `methods` according to their respective flow.
 
@@ -112,6 +112,14 @@ browser. The response will set the necessary cookies and contain all the UI node
 to properly set the cookies, you must set the `withCredentials: true` in axios or `credentials: "include"` in fetch. In the event
 that a flow is initialized through a browser redirect, the [application URL](./configure-ory-to-use-your-ui) needs to be set
 for Ory to know about your application.
+
+```typescript
+await fetch('https://{project.slug}.projects.oryapis.com/self-service/login/browser', {
+  method: 'GET',
+  // highlight-next-line
+  credentials: 'include',
+}).then((response) => response.json())
+```
 
 When using the Ory SDK you need to specify the `withCredentials: true` option in the SDK configuration. Below is an example of the
 SDK calling the [`/sessions/whoami`](../reference/api#tag/frontend/operation/toSession) endpoint automatically including the

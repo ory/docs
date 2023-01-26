@@ -50,7 +50,7 @@
     "devices": [
       {
         "id": "4b128690-aefd-4c4e-b69e-653d4026adda",
-        "ip_address": "2001:a61:1277:1701:699:76d7:6451:2d14",
+        "ip_address": "",
         "user_agent": "curl/7.81.0",
         "location": "Munich, DE"
       }
