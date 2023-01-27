@@ -144,7 +144,7 @@ Next, add each relation to the permission config.
 :::tip
 
 In Ory Permissions, relationships are declared inside the corresponding class in the Ory Permission Language. Ory Permissions only
-has [many-to-many relationships](https://en.wikipedia.org/wiki/Many-to-many_(data_model)) between objects and subjects. To
+has [many-to-many relationships](<https://en.wikipedia.org/wiki/Many-to-many_(data_model)>) between objects and subjects. To
 reflect this in OPL, pluralize the relation name, for example, `viewers` instead of `viewer`.
 
 :::
@@ -180,7 +180,8 @@ class Folder implements Namespace {
 ### List permissions to check for each object
 
 When you perform an action on behalf of a user, you should check for a specific permission, such as `view` or `edit`, instead of a
-relationship, such as `owner`. The concrete permission is then still checked against the relationships. For example, if `owners` can `view` a file and the `view` permission is checked, then the `owners` relation is looked up in the relationships database.
+relationship, such as `owner`. The concrete permission is then still checked against the relationships. For example, if `owners`
+can `view` a file and the `view` permission is checked, then the `owners` relation is looked up in the relationships database.
 
 Add these permissions to the model to express what the application needs. For our document storage, you have these permissions:
 
