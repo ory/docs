@@ -42,7 +42,7 @@ test: install build-examples .bin/ory
 	curl https://raw.githubusercontent.com/ory/ci/master/licenses/install | sh
 
 .bin/ory: Makefile
-	curl https://raw.githubusercontent.com/ory/meta/master/install.sh | bash -s -- -b .bin ory v0.1.48
+	curl https://raw.githubusercontent.com/ory/meta/master/install.sh | bash -s -- -b .bin ory v0.2.1
 	touch .bin/ory
 
 node_modules: package.json package-lock.json

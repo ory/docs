@@ -31,6 +31,7 @@ The ORY CLI
 * [ory is](ory-is)	 - Assert the state of Ory Network resources
 * [ory lint](ory-lint)	 - Helpers for linting code
 * [ory list](ory-list)	 - List resources
+* [ory open](ory-open)	 - Open Ory Account Experience Pages
 * [ory parse](ory-parse)	 - Parse Ory Network resources
 * [ory patch](ory-patch)	 - Patch resources
 * [ory perform](ory-perform)	 - Perform a flow
