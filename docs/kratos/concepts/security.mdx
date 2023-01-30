@@ -32,23 +32,19 @@ limiting or other measures to ensure the security of the network.
 
 ## Defenses against cross-site request forgery
 
-Cross-site request forgery, also known as CSRF or XSRF, is a type of attack that occurs when a malicious website or attacker
-tricks a user's web browser into sending a request to another website without the user's knowledge or consent. In the context of
-Ory Identities, it is a security vulnerability that can be exploited by an attacker to gain unauthorized access to a user's
-account or perform actions on their behalf.
+Cross-site request forgery (CSRF or XSRF) is a type of attack where a malicious site tricks a user's browser into sending a
+request to another site without user consent. This can occur even without a user session in a
+[login CSRF](https://support.detectify.com/support/solutions/articles/48001048951-login-csrf) attack. In the context of Ory
+Identities, it is an attack vector that can be exploited to gain unauthorized access to a user account or perform actions on their
+behalf.
 
-For example, imagine an attacker creates a website that has a form that, when submitted, sends a request to Ory Identities to
-change a user's password. If a user is logged in and visits the attacker's website, their browser may automatically include their
-Ory session cookie in the request, allowing the attacker to change the user's password without their knowledge or consent. To
-prevent this Ory Identities uses a cookie-based security model with the [`sameSite`](samesite at w3) attribute on the cookie. This
-means that the Ory session cookie can only sent with requests that originate from the same website or origin that set the cookie,
-effectively protecting against cross-site request forgery (CSRF) attacks.
-
-This is a security feature that allows Ory Identities to only recognize requests made by the same website, preventing a malicious
-website from making a request to Ory Identities on behalf of the user. This way, even if an attacker is able to create a request
-that includes a user's session cookie, the request will not be accepted by Ory Identities as it will not be made from the same
-website. It ensures that only requests from the same origin are able to use the cookie, providing an additional layer of security
-against CSRF attacks.
+To protect against these attacks, Ory Identities uses multiple countermeasures, including the
+[`sameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite) attribute as well as a dedicated
+anti-CSRF cookie using the
+[synchronizer token pattern](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#synchronizer-token-pattern).
+The protected APIs are mainly the endpoints that accept the `POST`, `DELETE`, or `PUT` methods. For example, when an app renders a
+form, a `<input type="hidden" name="csrf_token" value="...">` HTML input element is added. Ory Identities compares that value to
+the value set in the anti-CSRF cookie. If the values match, the request is allowed.
 
 ## Password policy
 
