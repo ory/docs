@@ -13,7 +13,7 @@ emails still use `old.production.com` to generate magic links for the verificati
 This results in emails that contain `https://old.production.com/self-service/verification?code={...}` instead of
 `https://new-domain.production.com/self-service/verification?code={...}`.
 
-To fix this error, run this Ory CLI command to force Ory to update the `/selfservice/methods/link/config/base_url` configuration
+To fix this error, run this Ory CLI command to force Ory Network to update the `/selfservice/methods/link/config/base_url` configuration
 key:
 
 ```shell
