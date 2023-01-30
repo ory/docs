@@ -34,9 +34,9 @@ limiting or other measures to ensure the security of the network.
 
 Cross-site request forgery (CSRF or XSRF) is a type of attack where a malicious site tricks a user's browser into sending a
 request to another site without user consent. This can occur even without a user session in a
-[login CSRF](https://support.detectify.com/support/solutions/articles/48001048951-login-csrf) attack. In the context of Ory
-Identities, it is an attack vector that can be exploited to gain unauthorized access to a user account or perform actions on their
-behalf.
+[login CSRF](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#login-csrf)
+attack. In the context of Ory Identities, it is an attack vector that can be exploited to gain unauthorized access to a user
+account or perform actions on their behalf.
 
 To protect against these attacks, Ory Identities uses multiple countermeasures, including the
 [`sameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite) attribute as well as a dedicated
