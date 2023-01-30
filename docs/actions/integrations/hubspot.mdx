@@ -1,0 +1,70 @@
+---
+id: hubspot
+title: Hubspot Integration
+---
+
+Use this configuration to add customers to your [HubSpot contact list](https://developers.hubspot.com/docs/api/crm/contacts):
+
+:::note
+
+This setup creates a non-blocking webhook. [Click here](configure-hooks#non-blocking-webhooks) to learn more.
+
+:::
+
+````mdx-code-block
+<Tabs groupId="wherehosted">
+  <TabItem value="cloud" label="The Ory Network" default>
+
+
+```yaml
+  - hook: web_hook
+    config:
+      response:
+        ignore: true
+      auth:
+        type: api_key
+        config:
+          name: Authorization
+          value: "Bearer <YOUR_API_KEY_HERE>"
+          in: header
+      url: "https://api.hubapi.com/crm/v3/objects/contacts"
+      method: POST
+      # Encode the Jsonnet with Base64 and add the encoded string to 'body'.
+      body: base64://ENCODED_JSONNET
+```
+
+  </TabItem>
+  <TabItem value="selfhosted" label="Self-Hosted Ory Kratos Config">
+
+```yaml title="path/to/my/kratos.config.yml"
+  - hook: web_hook
+    config:
+      response:
+        ignore: true
+      auth:
+        type: api_key
+        config:
+          name: Authorization
+          value: "Bearer <YOUR_API_KEY_HERE>"
+          in: header
+      url: "https://api.hubapi.com/crm/v3/objects/contacts"
+      method: POST
+      body: /path/to/my/hubspot_body.jsonnet
+```
+
+  </TabItem>
+</Tabs>
+````
+
+Request body Jsonnet:
+
+```json title="HubSpot request body"
+function(ctx)
+    {
+      properties: {
+        email: ctx.identity.traits.email,
+        firstname: ctx.identity.traits.name,
+        // ...
+      },
+    }
+```
