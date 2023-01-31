@@ -7,8 +7,8 @@ Ory Hydra is built with tough security in mind.
 
 ## OAuth 2.0 security overview
 
-Ory Hydra is an implementation of the security-first [Ory Fosite OAuth 2.0 SDK](https://github.com/ory/fosite). Ory Fosite respects the
-[OAuth 2.0 Threat Model and Security Considerations](https://tools.ietf.org/html/rfc6819) by the IETF, specifically:
+Ory Hydra is an implementation of the security-first [Ory Fosite OAuth 2.0 SDK](https://github.com/ory/fosite). Ory Fosite
+respects the [OAuth 2.0 Threat Model and Security Considerations](https://tools.ietf.org/html/rfc6819) by the IETF, specifically:
 
 - No Cleartext Storage of Credentials
 - Encryption of Credentials
