@@ -103,7 +103,7 @@ app.get("/login", async (req: Request, res: Response) => {
     return
   }
 
-  // highlight-start
+  // hightlight-start
   return sdk
     .getLoginFlow({
       id: flow,
@@ -113,6 +113,22 @@ app.get("/login", async (req: Request, res: Response) => {
       const initRegistrationQuery = new URLSearchParams({
         return_to: return_to.toString(),
       })
+      console.log({ flow })
+      if (flow.requested_aal === "aal2") {
+        return sdk
+          .createBrowserLogoutFlow({
+            cookie: req.header("cookie"),
+          })
+          .then(({ data: logoutFlow }) => {
+            res.render("auth", {
+              ...flow,
+              signUpUrl: getUrlForFlow("registration", initRegistrationQuery),
+              recoveryUrl: getUrlForFlow("recovery"),
+              logoutUrl: logoutFlow.logout_url,
+            })
+            return
+          })
+      }
       // Render the data using a view (e.g. Jade Template):
       res.render("auth", {
         ...flow,
@@ -126,7 +142,7 @@ app.get("/login", async (req: Request, res: Response) => {
         return
       }
     })
-  // highlight-end
+  // hightlight-end
 })
 
 const port = Number(process.env.PORT) || 3001
