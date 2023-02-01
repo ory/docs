@@ -1,4 +1,152 @@
-<div class="card">
-    {{> messages messages=messages className="global"}}
-    {{> ui ui=ui}}
-</div>
+<form action="{{ui.action}}" method="{{ui.method}}" style="gap:1rem;display:flex;flex-direction:column;">
+
+{{#each (onlyNodes ui.nodes only)}}
+
+  {{#if (toUiNodePartial . "ui_node_input_hidden")}}
+    <input
+      type="hidden"
+      name="{{attributes.name}}"
+      value="{{attributes.value}}" />
+  {{/if}}
+
+  {{#if (toUiNodePartial . "ui_node_script")}}
+    <script
+      src="{{attributes.src}}"
+      type="{{attributes.type}}"
+      integrity="{{attributes.integrity}}"
+      referrerpolicy="{{attributes.referrerpolicy}}"
+      crossorigin="{{attributes.crossorigin}}"
+      {{#if attributes.async}}async{{/if}}
+      data-testid="node/script/{{attributes.id}}"
+    ></script>
+  {{/if}}
+
+  {{#if (toUiNodePartial . "ui_node_input_default")}}
+  <fieldset data-testid="node/input/{{attributes.name}}">
+    <label>
+      <span>{{getNodeLabel .}}{{#if attributes.required}}
+        <span>*</span>{{/if}}
+      </span> `
+      <input
+        name="{{attributes.name}}"
+        type="{{attributes.type}}"
+        value="{{attributes.value}}"
+        placeholder="{{getNodeLabel .}}"
+        {{#if attributes.disabled}}disabled{{/if}}
+      />
+    </label>
+    {{#if messages}}
+        {{~#each messages~}}
+          <div data-testid="ui/message/{{id}}">{{text}}</div>
+        {{~/each~}}
+    {{/if}}
+  </fieldset>
+  {{/if}}
+
+  {{#if (toUiNodePartial . "ui_node_input_button")}}
+    <button
+        onclick="{{attributes.onclick}}"
+        name="{{attributes.name}}"
+        type="{{attributes.type}}"
+        value="{{attributes.value}}"
+        {{#if attributes.disabled}}disabled{{/if}}>
+        {{getNodeLabel .}}
+    </button>
+      
+    {{#if messages}}
+      {{~#each messages~}}
+        <div data-testid="ui/message/{{id}}">{{text}}</div>
+      {{~/each~}}
+    {{/if}}
+  {{/if}}
+
+  {{#if (toUiNodePartial . "ui_node_image")}}
+    <img
+      src="{{attributes.src}}"
+      width="{{attributes.width}}"
+      height="{{attributes.height}}"
+      alt="{{getNodeLabel . }}"
+      data-testid="node/image/{{attributes.id}}" />
+  {{/if}}
+
+  {{#if (toUiNodePartial . "ui_node_input_checkbox")}}
+  <fieldset>
+    <input
+        name="{{attributes.name}}"
+        type="hidden"
+        value="false" />
+    <input
+        name="{{attributes.name}}"
+        id="{{attributes.name}}"
+        type="{{attributes.type}}"
+        value="true"
+        placeholder="{{getNodeLabel .}}"
+        {{#if attributes.value}}checked{{/if}}
+        {{#if attributes.disabled}}disabled{{/if}} />
+    <label for="{{attributes.name}}">
+      <!-- Checkbox SVG -->
+      <svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.75 1.8125L2.75 6.8125L0.25 4.3125L1.1875 3.375L2.75 4.9375L6.8125 0.875L7.75 1.8125Z" fill="#F9F9FA" /></svg>
+      <span>{{getNodeLabel .}}</span>
+    </label>
+    {{#if messages}}
+      {{~#each messages~}}
+        <div data-testid="ui/message/{{id}}">{{text}}</div>
+      {{~/each~}}
+    {{/if}}
+  </fieldset>
+  {{/if}}
+
+  {{#if (toUiNodePartial . "ui_node_text")}}
+  <div data-testid="node/text/{{attributes.id}}">
+    <p style="margin-bottom: .5rem"
+      data-testid="node/text/{{attributes.id}}/label">
+      {{getNodeLabel .}}
+    </p>
+    {{#if (eq attributes.text.id 1050015)}}
+      <!-- lookup_secret -->
+      <div
+          data-testid="node/text/{{attributes.id}}/text">
+        <div class="row">
+          {{#each attributes.text.context.secrets}}
+            <!-- Used lookup_secret has ID 1050014 -->
+            <div data-testid="node/text/{{attributes.id}}/lookup_secret">
+              {{#if (eq id 1050014)}}<code>Used</code>{{else}}<code>{{text}}</code>{{/if}}</div>
+          {{/each}}
+        </div>
+        <!--Recovery Code-->
+      </div>
+    {{else}}
+      <pre style="margin-top: 0"><code
+        data-testid="node/text/{{attributes.id}}/text">{{attributes.text.text}}</code></pre>
+    {{/if}}
+  </div>
+  {{/if}}
+
+  {{#if (toUiNodePartial . "ui_node_anchor")}}
+    <a
+      href="{{attributes.href}}"
+      data-testid="node/anchor/{{attributes.id}}"
+    >
+      {{attributes.title.text}}
+    </a>
+    {{#if messages}}
+      {{~#each messages~}}
+        <div data-testid="ui/message/{{id}}">{{text}}</div>
+      {{~/each~}}
+    {{/if}}
+  {{/if}}
+
+{{/each}}
+</form>
+
+{{#if signUpUrl}}
+  <a href="{{signUpUrl}}">Sign up</a>
+{{/if}}
+
+{{#if loginUrl}}
+  <a href="{{loginUrl}}">Log in</a>
+{{/if}}
+
+{{#if recoveryUrl}}
+  <a href="{{recoveryUrl}}">Recover</a>
+{{/if}}

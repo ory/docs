@@ -85,16 +85,18 @@ app.engine(
   }),
 )
 
-app.get("/login", async (req: Request, res: Response) => {
-  const { flow, aal = "", refresh = "", return_to = "" } = req.query
+app.get("/recovery", async (req: Request, res: Response) => {
+  const { flow, return_to = "" } = req.query
 
   const initFlowQuery = new URLSearchParams({
-    aal: aal.toString(),
-    refresh: refresh.toString(),
     return_to: return_to.toString(),
   })
 
-  const initFlowUrl = getUrlForFlow("login", initFlowQuery)
+  const initLoginFlow = new URLSearchParams({
+    return_to: return_to.toString(),
+  })
+
+  const initFlowUrl = getUrlForFlow("recovery", initFlowQuery)
 
   // The flow is used to identify the settings and registration flow and
   // return data like the csrf_token and so on.
@@ -103,21 +105,18 @@ app.get("/login", async (req: Request, res: Response) => {
     return
   }
 
-  // highlight-start
   return sdk
-    .getLoginFlow({
+    .getRecoveryFlow({
       id: flow,
       cookie: req.header("cookie"),
     })
     .then(({ data: flow }) => {
-      const initRegistrationQuery = new URLSearchParams({
-        return_to: return_to.toString(),
-      })
       // Render the data using a view (e.g. Jade Template):
+      const loginUrl = getUrlForFlow("login", initLoginFlow)
+
       res.render("auth", {
         ...flow,
-        signUpUrl: getUrlForFlow("registration", initRegistrationQuery),
-        recoveryUrl: getUrlForFlow("recovery"),
+        loginUrl: loginUrl,
       })
     })
     .catch((err) => {
@@ -126,7 +125,6 @@ app.get("/login", async (req: Request, res: Response) => {
         return
       }
     })
-  // highlight-end
 })
 
 const port = Number(process.env.PORT) || 3001
