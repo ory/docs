@@ -1,186 +1,319 @@
 ---
 id: integrate-with-ory-cloud-through-webhooks
-title: Use webhooks to integrate with The Ory Network
+title: Webhooks
 sidebar_label: Webhooks
 ---
 
-Thanks to webhooks, you can easily integrate with external services, for example ERP or CRM. Ory Identities (Ory Kratos) allows
-you to tie the execution of custom calls to external systems to self-service user flows.
+Ory Actions support webhooks, which are HTTP callbacks that can be triggered by specific events in your Ory Actions-powered
+application. Webhooks allow Ory Actions to notify external systems, such as Hubspot, Mailchimp, and others, when certain events
+occur, such as a user registration or profile update.
 
-:::tip
+When to use webhooks:
 
-Self-service user flows are actions that the users of a system perform on their own, without the need of administrative
-intervention.
+1. Integration with third-party systems: If you want to integrate your Ory Actions-powered application with another system, such
+   as a CRM, email marketing platform, or analytics tool, webhooks can be used to trigger updates in that system when events occur
+   in your Ory Actions application.
+2. Automated workflows: You can use webhooks to automate workflows and processes that span multiple systems. For example, you
+   could use webhooks to automatically add a new lead to your CRM when a user registers in your Ory Actions application.
+3. User data modification: Webhooks can be used to modify user data when certain events occur. For example, you could use webhooks
+   to update user data in your Ory Actions application when a user updates their profile information in another system.
 
-:::
+:::note
 
-By triggering custom logic at specific points of self-service user flows, you can custom-tailor your users' customer experience,
-trigger usage data collection to learn more about how your system is used, and more.
-
-Follow these steps to add a webhook that enables integration with Mailchimp. With this integration in place, the system sends a
-welcome email message to all newly registered users.
-
-1. Get the Ory Identities config with Ory CLI:
-
-   ```shell
-   ## List all available projects
-   ory list projects
-
-   ## Get config
-   ory get identity-config <project-id> --format yaml > identity-config.yaml
-   ```
-
-2. Create a request body Jsonnet snippet and encode it with Base64:
-
-   ```jsonnet title="Mailchimp request body"
-   function(ctx) {
-     key: "<Your-Api-Key>", // Mailchimp requires passing the API key in request body.
-     message: {
-       from_email: "hello@welcomemail.com",
-       subject: "Hello from Ory",
-       text: "Welcome to Ory! Have fun and happy hacking!",
-       to: [
-         {
-           email: ctx.identity.verifiable_addresses[0].value,
-           type: "to"
-         }
-       ]
-     }
-   }
-   ```
-
-3. Add the webhook configuration to the downloaded Ory Identities (Ory Kratos) configuration file.
-
-   ```yaml title="identity-config.yaml"
-   selfservice:
-     flows:
-       registration: # Defines for which flow triggers the hook.
-         after: # Defines the point at which the hook runs.
-           password: # When method is defined, the hook is triggered only for this particular method and flow.
-             hooks:
-               - hook: web_hook
-                 config:
-                   url: https://mandrillapp.com/api/1.0/messages/send
-                   method: POST
-                   # Encode the Jsonnet with Base64 and add the encoded string to 'body'.
-                   body: base64://ENCODED_JSONNET
-   ```
-
-4. Update the Ory Identities configuration using the file you worked with:
-
-   ```shell
-   ory update identity-config <project-id> --file updated_config.yaml
-   ```
-
-:::tip
-
-Read [this document](../kratos/hooks/configure-hooks) to learn more about hooks in The Ory Network.
+When using webhooks, it is important to ensure that the data being transmitted is secure and that the external system you are
+integrating with is trustworthy. Additionally, make sure to consider the data privacy laws and regulations that may apply to your
+use case.
 
 :::
 
+## Configuration overview
 
----
-
-
-### Webhooks
-
-To configure webhooks, use this pattern:
-
-````mdx-code-block
-<Tabs groupId="wherehosted">
-  <TabItem value="cloud" label="The Ory Network" default>
+Ory Action webhooks have several configuration options:
 
 ```yaml
-selfservice:
-  flows:
-    login:
-      before:
-        hooks:
-          - hook: web_hook # To use webhooks, you must set 'hook' to 'web_hook'
-            config:
-              url: https://test.hook.site.sh/before_login_hook # Webhook URL.
-              method: POST # HTTP method used to send request to the webhook URL.
-              body: base64://ENCODED_JSONNET # Encoded Jsonnet template used to render payload.
-              # Ignored when using an HTTP method that doesn't allow sending body. OPTIONAL
-              can_interrupt: true # Defines if the webhook can interrupt the flow. Boolean. OPTIONAL
-              auth:
-                type: # Can be one of 'basic_auth' or 'api_key'
-                config: # Additional auth config for the hook. Read next section for details.
+hook: web_hook # To use webhooks, you must set 'hook' to 'web_hook'
+config:
+  url: https://test.hook.site.sh/before_login_hook # Webhook URL.
+  method: POST # HTTP method used to send request to the webhook URL.
+  body: base64://ENCODED_JSONNET # Encoded Jsonnet template used to render payload.
+  response:
+    ignore: false # Defines if the webhook response should be ignored and run async. Boolean. OPTIONAL
+    parse: false # Defines if the webhook response should be parsed and interpreted. Boolean. OPTIONAL
+  auth:
+    type: # Can be one of 'basic_auth' or 'api_key'
+    config: # Additional auth config for the hook. Read next section for details.
 ```
 
-| Setting | Mandatory | Description
-| :------ | :-------: | :--------- |
-| `url`   | Yes | URL called by the webhook. |
-| `method`| Yes | HTTP method used to send a request to the webhook URL. |
-| `body`  | No | Base64-encoded Jsonnet template used to render the payload. Ignored when using an HTTP method that doesn't allow sending body.|
-| `can_interrupt`  | No | Defines if the webhook can interrupt the flow. |
-| `auth`  | No | Webhook authentication mechanism configuration. |
+```mdx-code-block
+<details>
+<summary>Expand me to learn how to configure webhooks in your project.</summary>
+<div>
+```
 
-  </TabItem>
-  <TabItem value="selfhosted" label="Self-Hosted Ory Kratos Config" default>
+While Ory does not yet support webhook configuration in the UI, we provide examples in YAML format which you can copy and paste
+into your project configuration file. We use the Ory CLI to get the project configuration file:
+
+```shell
+ory get identity-config {project.id} \
+  --format yaml > project-configuration.yaml
+```
+
+Then, you add the webhook to your project configuration file:
 
 ```yaml
+session:
+  lifespan: # ...
+# ...
+# highlight-start
 selfservice:
   flows:
-    login:
-      before:
+    registration: # or login, recovery, verification, settings
+      after:
         hooks:
-          - hook: web_hook # To use webhooks, you must set 'hook' to 'web_hook'
+          - hook: web_hook
             config:
-              url: https://test.hook.site.sh/before_login_hook # Webhook URL.
-              method: POST # HTTP method used to send request to the webhook URL.
-              body: file:///path/of/my/jsonnet/file # Jsonnet template URI used to render payload.
-              # Ignored when using an HTTP method that doesn't allow sending body. OPTIONAL
-              can_interrupt: true # Defines if the webhook can interrupt the flow. Boolean. OPTIONAL
+              url: https://webhook.traget/example
+              method: POST
+              body: base64://ey...
+              response:
+                ignore: false
+                parse: false
               auth:
-                type: # Can be one of 'basic_auth' or 'api_key'
-                config: # Additional auth config for the hook. Read next section for details.
+                # ...
+        password:
+          after:
+            # Actions in this sections will be executed after sign up (or login, settings) with password
+            # ...
+        oidc:
+          after:
+            # Actions in this sections will be executed after sign up (or login, settings) with a social sign in provider / OpenID Connect
+            # ...
+# highlight-end
 ```
 
-| Setting | Mandatory | Description
-| :------ | :-------: | :--------- |
-| `url`   | Yes | URL called by the webhook. |
-| `method`| Yes | HTTP method used to send a request to the webhook URL. |
-| `body`  | No | Jsonnet template URI used to render payload. Use `file://path/to/body.jsonnet` when referring to local files. Ignored when using an HTTP method that doesn't allow sending body.|
-| `can_interrupt`  | No | Defines if the webhook can interrupt the flow. |
-| `auth`  | No | Webhook authentication mechanism configuration. |
+```shell
+ory update identity-config {project.id} \
+  --file project-configuration.yaml \
+  --format yaml > project-configuration-updated.yaml
+```
 
+And verify that the updated project configuration file is correct.
 
-  </TabItem>
-</Tabs>
-````
+```mdx-code-block
+</div>
+</details>
+```
 
-:::info
+## Define HTTP request
 
-Webhooks can't control the execution of the flow by patching/updating particular properties of flow-specific objects on webhook
-completion.
+Webhooks trigger HTTP requests to the webhook URL. The request method, URL, authorization, and body can be configured.
 
-The execution of the flow can be canceled if the call to the webhook endpoint fails either due to a network error or if the
-endpoint returns an HTTP code `4xx` or `5xx` response.
-
-:::
-
-#### Request body
+### Customizing request body with JsonNet
 
 Webhooks bind the `flow`, as well as request headers (`request_headers`), request method (`request_method`), and the request URL
 (`request_url`) of the flow into the Jsonnet template for all methods and execution paths (before and after). For the `after`
 execution path of all flows, it binds the `identity` object into the Jsonnet template as well. These objects are available through
 a `ctx` object.
 
-To send `{ user_id: <some-id> }` in the request body, create the following the Jsonnet template:
+To send `{ user_id: <some-id> }` in the request body, create the following the [JsonNet](https://jsonnet.org) template:
 
 ```jsonnet
 function(ctx) { user_id: ctx.identity.id }
 ```
 
-#### Authentication and authorization in webhooks
+```mdx-code-block
+<details>
+  <summary>Expand me to see an example of all properties of the <code>ctx</code> object for a registration flow.</summary>
+  <div>
+```
 
-For `auth` following mechanisms are supported:
+```json
+{
+  "ctx": {
+    "flow": {
+      "expires_at": "2023-01-31T12:19:35.782238Z",
+      "id": "cec1c06e-48eb-4f9d-abf1-2e287371f4eb",
+      "issued_at": "2023-01-31T11:19:35.782238Z",
+      "oauth2_login_challenge": null,
+      "request_url": "https://playground.projects.oryapis.com/self-service/registration/browser?return_to=",
+      "type": "browser",
+      "ui": {
+        "action": "http://localhost:4455/self-service/registration?flow=cec1c06e-48eb-4f9d-abf1-2e287371f4eb",
+        "method": "POST",
+        "nodes": [
+          {
+            "attributes": {
+              "disabled": false,
+              "name": "csrf_token",
+              "node_type": "input",
+              "required": true,
+              "type": "hidden",
+              "value": "P91A1RzvL4xHAls2Gl76cbaXVMhBdpAj3c4vaRMckYY7JmGswmBHuul/+mZguOsQUOBmeJMOJWoa5xY2bd81CQ=="
+            },
+            "group": "default",
+            "messages": [],
+            "meta": {},
+            "type": "input"
+          },
+          {
+            "attributes": {
+              "autocomplete": "email",
+              "disabled": false,
+              "name": "traits.email",
+              "node_type": "input",
+              "required": true,
+              "type": "email"
+            },
+            "group": "password",
+            "messages": [],
+            "meta": {
+              "label": {
+                "id": 1070002,
+                "text": "Your E-Mail",
+                "type": "info"
+              }
+            },
+            "type": "input"
+          },
+          {
+            "attributes": {
+              "autocomplete": "new-password",
+              "disabled": false,
+              "name": "password",
+              "node_type": "input",
+              "required": true,
+              "type": "password"
+            },
+            "group": "password",
+            "messages": [],
+            "meta": {
+              "label": {
+                "id": 1070001,
+                "text": "Password",
+                "type": "info"
+              }
+            },
+            "type": "input"
+          },
+          {
+            "attributes": {
+              "disabled": false,
+              "name": "method",
+              "node_type": "input",
+              "type": "submit",
+              "value": "password"
+            },
+            "group": "password",
+            "messages": [],
+            "meta": {
+              "label": {
+                "context": {},
+                "id": 1040001,
+                "text": "Sign up",
+                "type": "info"
+              }
+            },
+            "type": "input"
+          }
+        ]
+      }
+    },
+    "identity": {
+      "created_at": "0001-01-01T00:00:00Z",
+      "id": "3a5293f1-f4d6-49f4-b34f-6da62c360604",
+      "metadata_public": null,
+      "recovery_addresses": [
+        {
+          "created_at": "0001-01-01T00:00:00Z",
+          "id": "00000000-0000-0000-0000-000000000000",
+          "updated_at": "0001-01-01T00:00:00Z",
+          "value": "0.g5vv0qpoxl@ory.sh",
+          "via": "email"
+        }
+      ],
+      "schema_id": "default",
+      "schema_url": "",
+      "state": "active",
+      "state_changed_at": "2023-01-31T11:19:37.096674Z",
+      "traits": {
+        "email": "0.g5vv0qpoxl@ory.sh"
+      },
+      "updated_at": "0001-01-01T00:00:00Z",
+      "verifiable_addresses": [
+        {
+          "created_at": "0001-01-01T00:00:00Z",
+          "id": "00000000-0000-0000-0000-000000000000",
+          "status": "pending",
+          "updated_at": "0001-01-01T00:00:00Z",
+          "value": "0.g5vv0qpoxl@ory.sh",
+          "verified": false,
+          "via": "email"
+        }
+      ]
+    },
+    "request_cookies": {
+      "__cypress.initial": "true",
+      "csrf_token_9eaa18484d26154fc69bb6b144100bec9a99a10709387620e8e4f0b7395e97ec": "BPshed6PaDaufaFQeuYRYeZ3MrDSeLVJxyk5X37DpI8="
+    },
+    "request_headers": {
+      "Accept": [
+        "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+      ],
+      "Accept-Encoding": ["gzip"],
+      "Accept-Language": ["en-GB,en-US;q=0.9,en;q=0.8"],
+      "Cache-Control": ["max-age=0"],
+      "Connection": ["keep-alive"],
+      "Content-Length": ["180"],
+      "Content-Type": ["application/x-www-form-urlencoded"],
+      "Cookie": [
+        "csrf_token_9eaa18484d26154fc69bb6b144100bec9a99a10709387620e8e4f0b7395e97ec=BPshed6PaDaufaFQeuYRYeZ3MrDSeLVJxyk5X37DpI8=; __cypress.initial=true"
+      ],
+      "Origin": ["http://localhost:4455"],
+      "Proxy-Connection": ["keep-alive"],
+      "Referer": ["http://localhost:4455/registration?flow=cec1c06e-48eb-4f9d-abf1-2e287371f4eb"],
+      "Sec-Ch-Ua": ["\"Not_A Brand\";v=\"99\", \"Google Chrome\";v=\"109\", \"Chromium\";v=\"109\""],
+      "Sec-Ch-Ua-Mobile": ["?0"],
+      "Sec-Ch-Ua-Platform": ["\"macOS\""],
+      "Sec-Fetch-Dest": ["iframe"],
+      "Sec-Fetch-Mode": ["navigate"],
+      "Sec-Fetch-Site": ["same-origin"],
+      "Upgrade-Insecure-Requests": ["1"],
+      "User-Agent": [
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
+      ]
+    },
+    "request_method": "POST",
+    "request_url": "https://playground.projects.oryapis.com/self-service/registration?flow=cec1c06e-48eb-4f9d-abf1-2e287371f4eb"
+  }
+}
+```
+
+```mdx-code-block
+  </div>
+</details>
+```
+
+Use the `ctx` object to access these fields in your Jsonnet template, for example:
+
+```jsonnet title="./segment_identify.jsonnet"
+function(ctx) {
+  userId: ctx.identity.id,
+  traits: {
+    email: ctx.identity.traits.email,
+    name: ctx.identity.traits.name,
+    newsletterConsent: ctx.identity.traits.consent.newsletter,
+  },
+}
+```
+
+### Request authentication
+
+Webhooks can be configured to use HTTP Basic Authentication or API key authentication.
 
 - API key authentication. Type must be set to `api_key`. All properties are mandatory.
 
-```yaml
-- hook: web_hook
+  ```yaml
+  hook: web_hook
   # <other configuration keys>
   config:
     auth:
@@ -191,12 +324,11 @@ For `auth` following mechanisms are supported:
         in: header # alternatively "cookie"
   ```
 
-- "Basic Authentication" type authentication. Type must be set to `basic_auth`. All properties are mandatory.
+- "Basic Authentication" type authentication. Type must be set to `basic_auth`. All properties are mandatory. For `basic_auth` the
+  config looks as follows:
 
-For `basic_auth` the config looks as follows:
-
-```yaml
-- hook: web_hook
+  ```yaml
+  hook: web_hook
   # <other configuration keys>
   config:
     auth:
@@ -206,7 +338,7 @@ For `basic_auth` the config looks as follows:
         password: My-Pass-Value
   ```
 
-#### Canceling webhooks
+### Canceling webhooks
 
 You can cancel configured webhooks and not make the defined request.
 
@@ -232,7 +364,12 @@ Currently, jsonnet doesn't support regular expressions. Follow this issue to see
 
 :::
 
-#### Non-blocking webhooks
+## Webhook response handling
+
+Webhooks can be configured to ignore the response, or to parse the response and use it to interrupt the flow or to update the
+identity.
+
+### Non-blocking / async webhooks
 
 Sometimes you need to interact with external systems without needing their response. For example, when a user signs up, a webhook
 is that adds their email address to the newsletter is triggered.
@@ -243,18 +380,178 @@ webhook execution non-blocking to ignore whatever response is returned.
 To do that, set `response.ignore` to `true` in the webhook config:
 
 ```yaml
-- hook: web_hook
-  config:
-    # highlight-start
-    response:
-      ignore: true
-    # highlight-end
+hook: web_hook
+config:
+  # highlight-start
+  response:
+    ignore: true
+  # highlight-end
 ```
 
-#### Flow-interrupting webhooks
+### Modify identities
 
-If you want the result of webhook execution to have the potential of blocking a self-service user flow, use the
-`can_interrupt: true` setting in the config.
+If you want the result of webhook execution to modify the identity, you can configure the webhook to parse the response:
+
+```yaml
+hook: web_hook
+config:
+  # highlight-start
+  response:
+    parse: true
+  # highlight-end
+```
+
+When the webhook target returns a 200 OK response code and the response body is a JSON object with the key `identity` in it, the
+values from that object will be used to change the identity before it is saved to the database.
+
+:::info
+
+Modifying the identity is currently only possible during the **registration** and **settings** flows.
+
+:::
+
+When updating any of the identity fields, be aware that the whole field is replaced by the value returned by the webhook. For
+example, if the user signed up with
+
+```json title="Identity before hook"
+{
+  "identity": {
+    "traits": {
+      "email": "joe@example.org"
+    }
+  }
+}
+```
+
+and the webhook returns
+
+```json title="Incorrect webhook response"
+{
+  "identity": {
+    "traits": {
+      "another_value": "example"
+    }
+  }
+}
+```
+
+the identity will no longer have the `email` trait, which will break the sign up flow. Always make sure that the webhook returns
+complete data:
+
+```json title="Correct webhook response"
+{
+  "identity": {
+    "traits": {
+      "email": "joe@example.org",
+      "another_value": "example"
+    }
+  }
+}
+```
+
+#### Update identity traits
+
+When the webhook target returns a 200 OK response code and the response body is a JSON object with the key `identity.traits` in
+it, the values from that object will be used to replace the identity traits before they are saved to the database.
+
+:::info
+
+This method replaces the entire identity traits object. It is not possible to update only a single trait.
+
+:::
+
+```json
+{
+  "identity": {
+    "traits": {
+      "email": "0.g5vv0qpoxl@ory.sh",
+      "the_webhook": "updated this value"
+    }
+  }
+}
+```
+
+#### Update identity metadata
+
+When the webhook target returns a 200 OK response code and the response body is a JSON object with the key
+`identity.public_metadata` or `identity.admin_metadata` in it, the values from that object will be used to replace the
+[identity metadata](../kratos/manage-identities/10_managing-users-identities-metadata.mdx) fields before they are saved to the
+database.
+
+:::info
+
+This method replaces metadata object. It is not possible to update only a single value in `metadata_public` or `metadata_admin`
+respectively.
+
+:::
+
+```json
+{
+  "identity": {
+    "public_metadata": {
+      "the_webhook": "changed this value",
+      "and_added_this_one": "too"
+    },
+    "admin_metadata": {
+      "the_webhook": "updated this value",
+      "and_this_one": "too"
+    }
+  }
+}
+```
+
+#### Update verification or recovery addresses
+
+When the webhook target returns a 200 OK response code and the response body is a JSON object with the key
+`identity.verifiable_addresses` in it, the values from that object will be used to replace the identity verification addresses
+before they are saved to the database.
+
+:::info
+
+Verification and recovery addresses are taken from the `identity.traits` object using the Identity Schema. If you add additional
+verification or recovery addresses, these will be deleted unless the Identity Traits also contain that address.
+
+:::
+
+```json5
+{
+  identity: {
+    traits: {
+      email: "john@example.org",
+    },
+    // highlight-start
+    verifiable_addresses: [
+      {
+        status: "completed",
+        value: "john@example.org",
+        verified: true,
+        via: "email",
+      },
+    ],
+    recovery_addresses: [
+      {
+        value: "john@example.org",
+        via: "email",
+      },
+    ],
+    // highlight-end
+  },
+}
+```
+
+### Flow-interrupting webhooks
+
+If you want the result of webhook execution to have the potential of interrupting the flow, you can configure the webhook to parse
+the response:
+
+```yaml
+hook: web_hook
+config:
+  # highlight-start
+  response:
+    parse: true
+  # highlight-end
+```
 
 The external service called in the flow decides if it allows the flow to continue, or if it interrupts the flow. For example:
 
@@ -285,24 +582,21 @@ Example payload:
 
 When using an `after` registration hook, you can define the specific point in the flow where this webhook is called:
 
-- When the webhook can interrupt the flow (`can_interrupt: true`), the logic is called before the system creates a new identity.
-- When the webhook can't interrupt the flow (`can_interrupt: false`), the logic is called after the system creates a new identity.
+- When the webhook parses the response, the logic is called before the system creates a new identity.
+- When the webhook does not parse the response, the logic is called after the system creates a new identity.
 
-You can call a webhook before and after the system creates an identity. To do that, define two webhooks with different
-`can_interrupt` values:
+You can call a webhook before and after the system creates an identity. To do that, define two webhooks with different `parse`
+values:
 
 ```yaml
-flows:
-  registration:
-    after:
-      password:
-        hooks:
-          - hook: web_hook
-            config:
-              can_interrupt: true
-          - hook: web_hook
-            config:
-              can_interrupt: false
+- hook: web_hook
+  config:
+    response:
+      parse: true
+- hook: web_hook
+  config:
+    response:
+      parse: false
 ```
 
 :::tip

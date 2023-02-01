@@ -3,68 +3,108 @@ id: hubspot
 title: Hubspot Integration
 ---
 
-Use this configuration to add customers to your [HubSpot contact list](https://developers.hubspot.com/docs/api/crm/contacts):
+[Hubspot](https://www.hubspot.com) is an inbound marketing, sales, and customer service platform. It provides a suite of tools and
+services that allow businesses to manage and optimize their online presence, including website content, email marketing, social
+media, lead generation, and analytics. Hubspot's platform is designed to be a one-stop-shop for businesses to manage their
+marketing and sales efforts, and the platform integrates with a variety of third-party tools and services to provide a
+comprehensive and seamless experience for users. Ory can synchronize user data with Hubspot. via the
+[HubSpot contact list API](https://developers.hubspot.com/docs/api/crm/contacts):
 
-:::note
+To integrate Hubspot with Ory Actions, you'll need to complete the following steps:
 
-This setup creates a non-blocking webhook. [Click here](configure-hooks#non-blocking-webhooks) to learn more.
+1. Create a Hubspot account and set up the necessary contact lists for your customer data.
+1. Create a [private app access token](https://developers.hubspot.com/docs/api/private-apps) in Hubspot.
+1. In your Ory Network project, set up an Ory Action trigger that will send data to the Hubspot destination whenever a specific
+   event occurs, for example on successful registration.
+1. Test the integration to ensure that data is being correctly routed from your Ory Actions application to Hubspot.
+
+## Configuration
+
+:::info
+
+Unsure what JsonNet is? Read the [Ory Actions webhook guide](../../guides/integrate-with-ory-cloud-through-webhooks.mdx).
 
 :::
 
-````mdx-code-block
-<Tabs groupId="wherehosted">
-  <TabItem value="cloud" label="The Ory Network" default>
+First, we create a JsonNet file. It transforms the identity data from Ory to a format Hubspot understands:
 
-
-```yaml
-  - hook: web_hook
-    config:
-      response:
-        ignore: true
-      auth:
-        type: api_key
-        config:
-          name: Authorization
-          value: "Bearer <YOUR_API_KEY_HERE>"
-          in: header
-      url: "https://api.hubapi.com/crm/v3/objects/contacts"
-      method: POST
-      # Encode the Jsonnet with Base64 and add the encoded string to 'body'.
-      body: base64://ENCODED_JSONNET
+```jsonnet title="./hubspot_identify.jsonnet"
+function(ctx) {
+  properties: {
+    email: ctx.identity.traits.email,
+    firstname: ctx.identity.traits.name,
+    // ...
+  },
+}
 ```
 
-  </TabItem>
-  <TabItem value="selfhosted" label="Self-Hosted Ory Kratos Config">
+To use this JsonNet snippet, we need to encode it to base64 and save it to the clipboard:
 
-```yaml title="path/to/my/kratos.config.yml"
-  - hook: web_hook
-    config:
-      response:
-        ignore: true
-      auth:
-        type: api_key
-        config:
-          name: Authorization
-          value: "Bearer <YOUR_API_KEY_HERE>"
-          in: header
-      url: "https://api.hubapi.com/crm/v3/objects/contacts"
-      method: POST
-      body: /path/to/my/hubspot_body.jsonnet
+```shell
+cat hubspot_identify.jsonnet | base64 | pbcopy
 ```
 
-  </TabItem>
-</Tabs>
-````
+Next, we define the Ory Action as a JSON Object
 
-Request body Jsonnet:
+```json title="./webhook-action.json"
+{
+  "hook": "web_hook",
+  "config": {
+    "response": {
+      "ignore": true
+    },
+    "auth": {
+      "type": "api_key",
+      "config": {
+        "name": "Authorization",
+        "value": "Bearer <YOUR_API_KEY_HERE>",
+        "in": "header"
+      }
+    },
+    "url": "https://api.hubapi.com/crm/v3/objects/contacts",
+    "method": "POST",
+    "body": "base64://ENCODED_JSONNET"
+  }
+}
+```
 
-```json title="HubSpot request body"
-function(ctx)
-    {
-      properties: {
-        email: ctx.identity.traits.email,
-        firstname: ctx.identity.traits.name,
-        // ...
-      },
-    }
+and replace the values. The result will look something like this:
+
+```json title="webhook-action.json"
+{
+  "hook": "web_hook",
+  "config": {
+    "response": {
+      "ignore": true
+    },
+    "auth": {
+      "type": "api_key",
+      "config": {
+        "name": "Authorization",
+        "value": "Bearer hs_gzj3IFnglAJKSfs",
+        "in": "header"
+      }
+    },
+    "url": "https://api.hubapi.com/crm/v3/objects/contacts",
+    "method": "POST",
+    "body": "base64://CmZ1bmN0aW9uKGN0eCkgewogIHByb3BlcnRpZXM6IHsKICAgIGVtYWlsOiBjdHguaWRlbnRpdHkudHJhaXRzLmVtYWlsLAogICAgZmlyc3RuYW1lOiBjdHguaWRlbnRpdHkudHJhaXRzLm5hbWUsCiAgICAvLyAuLi4KICB9LAp9"
+  }
+}
+```
+
+The last step is to add this action to your Ory Network Project using the Ory CLI. Here, we trigger this webhook after successful
+registration:
+
+```shell
+ory patch identity-config {project.id} \
+  --add "/selfservice/flows/registration/after/hooks/0=$(cat webhook-action.json)" \
+  --format yaml
+```
+
+You may also trigger this webhook only when the user signs up with a password or social sign in:
+
+```shell
+ory patch identity-config {project.id} \
+  --add "/selfservice/flows/registration/after/password/hooks/0=$(cat webhook-action.json)" \
+  --format yaml
 ```

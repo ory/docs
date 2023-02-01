@@ -918,6 +918,11 @@
       "source": "/docs/kratos/mfa/requesting-2fa",
       "destination": "https://www.ory.sh/docs/kratos/mfa/step-up-authentication",
       "permanent": false
+    },
+    {
+      "source": "/docs/kratos/hooks/webhooks-integrations",
+      "destination": "https://www.ory.sh/guides/integrate-with-ory-cloud-through-webhooks",
+      "permanent": false
     }
   ]
 }

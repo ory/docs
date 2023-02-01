@@ -1,0 +1,89 @@
+---
+id: session
+title: Login after sign up
+sidebar_label: Login after sign up
+---
+
+The `session` action is used to sign in the user after they successfully registered. If the option to verify the email address
+before being able to sign in is enabled, the session action can be used once to bypass this requirement.
+
+For example, after a user successfully registers for an account, you can use the session action to sign them in immediately,
+bypassing the requirement to verify their email address first. This allows the user to start using the application immediately,
+without having to wait for an email verification.
+
+However, if the option to verify the email address before being able to sign in is enabled, the user will still have to verify
+their email address the first time they sign in. After that, they can sign in using the session action without having to verify
+their email address again.
+
+The session action provides a convenient way to sign in users and control the flow of events in your application.
+
+:::note
+
+Ory automatically activates the `session` action when a user signs up using a social sign in provider.
+
+:::
+
+## Toggle action
+
+:::info
+
+This action modifies the HTTP response. As a result, no other hooks can be executed after the `session` hook. If you want to
+trigger multiple actions that modify the HTTP response in your setup, make sure that `session` is the last hook.
+
+:::
+
+En/disabling this feature can be done using the Ory Console or the Ory CLI:
+
+````mdx-code-block
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+
+1. Sign in to Ory Console and select [**Authentication Settings**](https://console.ory.sh/projects/current/auth).
+2. Toggle **Sign In After Registration**.
+6. Click the **Save** button to save.
+
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
+
+```shell
+ory patch identity-config {project.id} \
+  --add '/selfservice/flows/registration/after/hooks/0/hook="session"'
+```
+
+</TabItem>
+</Tabs>
+````
+
+## Web browser registration
+
+The hook sends a `Set-Cookie` HTTP header which contains the session cookie. The user is signed in immediately.
+
+:::warning
+
+Using this job as part of your post-registration workflow makes your system vulnerable to Account Enumeration Attacks because a
+threat agent can distinguish between existing and non-existing accounts by checking if Set-Cookie was sent as part of the
+registration response.
+
+:::
+
+## Native App registration
+
+When the registration is performed through an API client (such as a mobile app), the hook creates a session and returns the
+session token and the session itself in the response body as `application/json`:
+
+```json
+{
+  "session": {
+    "id": "..."
+    // ...
+  },
+  "session_token": "...",
+  "identity": {
+    "id": "..."
+    // ...
+  }
+}
+```

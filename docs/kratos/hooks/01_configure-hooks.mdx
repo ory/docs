@@ -5,213 +5,153 @@ sidebar_label: Overview
 toc_max_heading_level: 4
 ---
 
-Ory Identities (Kratos) allows you to enrich self-service user flows by executing additional logic at specific points of the
-selected flow. This includes calling external services, for example, Mailchimp, Segment, HubSpot, or Zapier. You enrich the flows
-through hooks.
+Ory Actions are an extensibility mechanism provided by the Ory Network to allow you to integrate with third-party services such as
+CRM (Mailchimp, Hubspot), payment gateways (Stripe), analytics (Google Analytics, Mixpanel, Segment), integration platforms
+(Zapier, IFTT), and so on. They allow you to define custom business logic and automate specific actions in response to events in
+your Ory-powered applications. Ory Actions can be written in any programming language and can be triggered by events such as user
+sign-up, password reset, etc. This provides a flexible way to extend Ory's capabilities and integrate with other services to
+streamline your workflows and improve the overall experience of your users.
 
-Adding hooks to self-service flows can help you shape your customers' user experience, increase the security of your solution by
-adding additional verifications, and exchange information with external systems.
+## Actions overview
 
-## When can you use hooks?
+Ory Actions is a feature supported by two of the Ory services:
 
-You can use hooks at specific points of select self-service flows:
+- Ory Identities: Execute actions in response to identity-related events such as login, registration, account recovery,
+  verification, and settings.
+- Ory OAuth2 and OpenID Connect: Execute actions in response to refreshing OAuth 2.0 Access Tokens.
 
-- `before` login: The hook runs when the user starts the login flow.
-- `after` login: The hook runs when the user is successfully authenticated, before the system issues an Ory Session.
-- `before` registration: The hook runs when a registration flow starts.
-- `after` registration: The hook runs when a user successfully registers in the system.
-- `before` recovery: The hook runs when the user starts the recovery flow.
-- `after` recovery: The hook runs when the user successfully recovers their password.
-- `before` settings: The hook runs when the user starts the account settings flow.
-- `after` settings: The hook runs when the user successfully changes their account settings.
-- `before` verification: The hook runs when the user starts the verification flow.
-- `after` verification: The hook runs when the user verifies their account.
+## Ory Identities Actions
 
-### Hooks for specific methods
+Ory Identities is an identity management solution that supports actions for identity-related events: login, registration, account
+recovery, verification, and settings:
 
-The login and registration self-service flows support multiple authentication methods:
+- Login actions allow you to automate specific actions in response to a user logging in to your application. For example, you can
+  use Ory Actions to update user information in your database or send a welcome email to the user.
+- Registration actions allow you to automate specific actions in response to a user registering for an account on your
+  application. For example, you can use Ory Actions to automatically create a user account in your database or add the user to
+  your mailing list.
+- Account recovery actions allow you to automate specific actions in response to a user initiating an account recovery process.
+  For example, you can use Ory Actions to send a password reset email to the user or update user information in your database.
+- Verification actions allow you to automate specific actions in response to a user verifying their account. For example, you can
+  use Ory Actions to update user information in your database or send a welcome email to the user.
+- Settings actions allow you to automate specific actions in response to a user updating their account settings. For example, you
+  can use Ory Actions to update user information in your database or send a confirmation email to the user.
 
-| Authentication method | Description                                                                                    |
-| :-------------------- | :--------------------------------------------------------------------------------------------- |
-| `password`            | Sign-in and sign-up with username and password combo.                                          |
-| `oidc`                | Sign-in and sign-up through OIDC-compliant OAuth2 identity providers.                          |
-| `totp`                | Sign-in with a TOTP code from apps such as Google Authenticator.                               |
-| `webauthn`            | Sign-in with WebAuthn-compatible factors (FaceID, YubiKey) or paswordless sign-up and sign-in. |
-| `lookup_secret`       | Sign-in with recovery codes.                                                                   |
+Ory Actions can also be used when initiating login, registration, recovery, verification, and settings flows. This allows you to
+control the flow of events in your application and determine when specific actions should be executed.
 
-:::tip
+For example, you can use Ory Actions to only allow registration flows when certain criteria are met, such as an invite-only
+registration. This means that users can only register for an account if they have received an invitation from you. This can be
+useful for controlling the number of users that have access to your application and ensuring that only authorized users can
+register for an account.
 
-You can use the authentication methods to further specify when you want to run hooks. For example, you can run a hook for the
-login flow with the `password` method and not run any hooks for logins with the `oidc` method.
+Ory Actions can also be used to add additional security checks when initiating login, registration, recovery, verification, and
+settings flows. For example, you can use Ory Actions to check the IP address of the user to ensure that the request is coming from
+a trusted location, or to verify that the user's email address is associated with a valid domain.
 
-:::
+By using Ory Actions you can have a high degree of control over the flow of events in your application and improve the overall
+security and user experience.
 
-## Available hooks
+### Action triggers
+
+Ory Identities supports the following action triggers:
+
+- **before login**: The hook runs when the user starts the login flow.
+- **after login**: The hook runs when the user is successfully authenticated, before the system issues an Ory Session.
+- **before registration**: The hook runs when a registration flow starts.
+- **after registration**: The hook runs when a user successfully registers in the system.
+- **before recovery**: The hook runs when the user starts the recovery flow.
+- **after recovery**: The hook runs when the user successfully recovers their password.
+- **before settings**: The hook runs when the user starts the account settings flow.
+- **after settings**: The hook runs when the user successfully changes their account settings.
+- **before verification**: The hook runs when the user starts the verification flow.
+- **after verification**: The hook runs when the user verifies their account.
+
+#### Triggers based on authentication methods
+
+Ory Actions can be triggered based on the authentication method used during login, registration, and user settings. This allows
+you to tailor the functionality of Ory Identities to meet the unique needs of your application.
+
+For example, when a user logs in using a password, you can use Ory Actions to send a welcome email to the user or update user
+information in your database. When a user logs in using OIDC, you can use Ory Actions to enrich your CRM with data from the social
+sign in provider:
+
+| Authentication method | Description                                                                                        |
+| :-------------------- | :------------------------------------------------------------------------------------------------- |
+| `password`            | Sign-in and sign-up with username/email and password combo.                                        |
+| `oidc`                | Sign-in and sign-up through OIDC-compliant OAuth2 identity providers.                              |
+| `totp`                | MFA Sign-in with a TOTP code from apps such as Google Authenticator.                               |
+| `webauthn`            | MFA Sign-in with WebAuthn-compatible factors (FaceID, YubiKey) or paswordless sign-up and sign-in. |
+| `lookup_secret`       | MFA Sign-in with recovery codes.                                                                   |
+
+By triggering Ory Actions based on the authentication method used, you can tailor the functionality of Ory Identities to meet the
+unique needs of your application
+
+### Available actions
 
 There are 4 hooks you can use to extend self-service user flows. Note that some hooks can only be used for specific flows and
 methods.
 
-| Hook                       | Description                                                                                       | Constraints                                                                                                                                                                                             |
-| :------------------------- | :------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `session`                  | Signs in the user immediately after they create an account.                                       | For use only with the `after` registration flow. To use it, you must define secrets for secret rotation.                                                                                                |
-| `revoke_active_sessions`   | Revokes all other active sessions of the user on successful login.                                | For use only with the login flow.                                                                                                                                                                       |
-| `require_verified_address` | Allows users to sign in only when they verified their email address.                              | For use only with the `after` login flow, `password` method only.                                                                                                                                       |
-| `web_hook`                 | Allows to trigger external logic. Can be used with all flows and methods except error and logout. | Requires providing web-hook configuration. The only hook type available for the `after` settings flow. See an example of using webhooks [here](../../guides/integrate-with-ory-cloud-through-webhooks). |
+| Hook                                                                 | Description                                                                                       | Constraints                                                                                                                                                                                             |
+| :------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [`session`](../../actions/session.mdx)                               | Signs in the user immediately after they create an account.                                       | For use only with the `after` registration flow. To use it, you must define secrets for secret rotation.                                                                                                |
+| [`revoke_active_sessions`](../../actions/revoke-active-session)      | Revokes all other active sessions of the user on successful login.                                | For use only with the login flow.                                                                                                                                                                       |
+| [`require_verified_address`](../../actions/require-verified-address) | Allows users to sign in only when they verified their email address.                              | For use only with the `after` login flow, `password` method only.                                                                                                                                       |
+| [`web_hook`](../../actions/web-hook.mdx)                             | Allows to trigger external logic. Can be used with all flows and methods except error and logout. | Requires providing web-hook configuration. The only hook type available for the `after` settings flow. See an example of using webhooks [here](../../guides/integrate-with-ory-cloud-through-webhooks). |
 
-## Configuration
+### Trigger precedence
 
-````mdx-code-block
-import CodeBlock from '@theme/CodeBlock'
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+The graph below shows when triggers happen. Ory executes the `before` actions when the user starts the flow and `after` actions
+when the user submits or completes the flow. When an authentication method specifies actions, it overrides the default actions for
+the flow.
 
-<Tabs groupId="wherehosted">
-  <TabItem value="cloud" label="The Ory Network" default>
+```mdx-code-block
+import Mermaid from "@site/src/theme/Mermaid"
 
-To add hooks to flows:
-
-1. Get the Ory Identities config with Ory CLI:
-
-   ```shell
-   ## List all available projects
-   ory list projects
-
-   ## Get config
-   ory get identity-config <project-id> --format yaml > identity-config.yaml
-   ```
-
-2. Add the hook configuration to the downloaded file.
-3. Update the Ory Identities configuration using the file you worked with:
-
-   ```shell
-   ory update identity-config <project-id> --file updated_config.yaml
-   ```
-
-
-  </TabItem>
-  <TabItem value="selfhosted" label="Self-Hosted Ory Kratos Config" default>
-
-To add hooks to flows, edit the Ory Kratos configuration file.
-
-  </TabItem>
-</Tabs>
-````
-
-### Add hooks for all methods of a flow
-
-To configure hooks for all methods of a particular flow, use this pattern:
-
-```yaml
-selfservice:
-  flows:
-    login: # Defines for which flow triggers the hook. No method defined = applies to all methods.
-      before: # Defines the point at which the hook runs.
-        hooks:
-          - hook: <hook 1 name> # Specifies which hook is triggered.
+<Mermaid
+  chart={`
+graph LR
+    BL(Before login) --> L{Login}
+    L -->|on submit| AL(After login)
+    BR(Before registration) --> R{Registration}
+    R -->|on submit| AR(After registration)
+    S -->|on submit| AS(After settings)
+    BS(Before settings) --> S{Settings}
+    RC -->|on submit| ARC(After recovery)
+    BRC(Before recovery) --> RC{Recovery}
+    V -->|on submit| AV(After verification)
+    BV(Before verification) --> V{Verification}
+    AL --> LPW(On password login)
+    AL --> LOIDC(On social/oidc login)
+    AL --> LWA(On webauthn login)
+    AR --> RPW(On password sign up)
+    AR --> ROIDC(On social/oidc sign up)
+    AR --> RWA(On webauthn passwordless sign up)
+    AS --> SPW(On password change)
+    AS --> SPD(On profile data change)
+`}/>
 ```
 
-### Add hooks for particular method of a flow
+Assuming the following configuration
 
-To configure hooks for a particular flow method, use this pattern:
-
-```yaml
+```yaml title="ory get identity-config --format yaml"
 selfservice:
   flows:
-    registration: # Defines for which flow triggers the hook.
-      after: # Defines the point at which the hook runs.
-        password: # When method is defined, the hook is triggered only for this particular method and flow.
-          hooks:
-            - hook: <hook 1 name> # Specifies which hook is triggered.
-```
-
-#### Hook precedence
-
-Hooks configured on the method level always override the hooks configured on the flow level. When you apply the following hook
-configuration, `hook_1` always runs when the login flow is started. On the finalization of the flow, `hook_2` runs only for
-methods other than `password`. If the `password` method is used, the system triggers `hook_3`.
-
-```yaml
-selfservice:
-  flows:
-    login:
-      before:
+    login: # Defines for which flow triggers the action.
+      before: # When the user starts the flow
         hooks:
-          - hook: hook_1
-      after:
+          - hook: hook_1 # Specifies which hook is triggered.
+      after: # When the user submits the flow
         hooks:
-          - hook: hook_2
+          - hook: hook_2 # is executed for all authentication methods except password
         password:
           hooks:
-            - hook: hook_3
+            - hook: hook_3 # is executed only for password method
 ```
 
-### `session` hook configuration
+`hook_3` would be executed when the user logs in with a password, `hook_2` would be executed when the user logs in with any other
+method (e.g. social login), and `hook_1` would be executed for all login flows when the user starts the flow.
 
-To use the `session` hook you must define secrets for secret rotation:
+## Ory OAuth2 & OpenID Connect Actions
 
-```yaml
-secrets:
-  cookie:
-    - something-super-secret # The first entry will be used to sign and verify session cookies
-
-    # All other entries will be used to verify session cookies that were signed before
-    # "something-super-secret" became the current signing secret.
-    - old-session-secret
-    - older-session-secret
-    - ancient-session-secret
-
-selfservice:
-  flows:
-    registration:
-      after:
-        oidc:
-          hooks:
-            - hook: session
-```
-
-#### Behavior depending on registration flow
-
-The hook behaves differently depending on the registration flow used:
-
-- Registration through a web browser
-
-  The hook sends a `Set-Cookie` HTTP header which contains the session cookie. The user is signed in immediately.
-
-  :::warning
-
-  Using this job as part of your post-registration workflow makes your system vulnerable to Account Enumeration Attacks because a
-  threat agent can distinguish between existing and non-existing accounts by checking if Set-Cookie was sent as part of the
-  registration response.
-
-  :::
-
-- Registration through the API (mobile app)
-
-  When the registration is performed through an API client (such as a mobile app), the hook creates a session and returns the
-  session token and the session itself in the response body as `application/json`:
-
-  ```json
-  {
-    "session": {
-      "id": "..."
-      // ...
-    },
-    "session_token": "...",
-    "identity": {
-      "id": "..."
-      // ...
-    }
-  }
-  ```
-
-:::info
-
-The HTTP response is set by the hook. As a result, no other hooks can be executed after the `session` hook. This is because the
-initial HTTP response can't be modified by subsequent hooks.
-
-If you want to trigger multiple hooks in your setup, make sure that `session` is the last executed hook.
-
-:::
-
-### Webhooks
-
+Please head over to [Updating claims at token refresh](../../hydra/guides/updating-claims-at-refresh.mdx).
