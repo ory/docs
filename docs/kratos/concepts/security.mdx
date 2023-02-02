@@ -30,6 +30,22 @@ for example login and registration endpoints.
 When self-hosting the Ory Kratos Identity Server, it's the responsibility of the administrator to implement and manage rate
 limiting or other measures to ensure the security of the network.
 
+## Defenses against cross-site request forgery
+
+Cross-site request forgery (CSRF or XSRF) is a type of attack where a malicious site tricks a user's browser into sending a
+request to another site without user consent. This can occur even without a user session in a
+[login CSRF](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#login-csrf)
+attack. In the context of Ory Identities, it is an attack vector that can be exploited to gain unauthorized access to a user
+account or perform actions on their behalf.
+
+To protect against these attacks, Ory Identities uses multiple countermeasures, including the
+[`sameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite) attribute as well as a dedicated
+anti-CSRF cookie using the
+[synchronizer token pattern](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#synchronizer-token-pattern).
+The protected APIs are mainly the endpoints that accept the `POST`, `DELETE`, or `PUT` methods. For example, when an app renders a
+form, a `<input type="hidden" name="csrf_token" value="...">` HTML input element is added. Ory Identities compares that value to
+the value set in the anti-CSRF cookie. If the values match, the request is allowed.
+
 ## Password policy
 
 To learn more about setting up a secure password policy, refer to the [password policy page](../../concepts/password-policy.mdx)
