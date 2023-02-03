@@ -78,6 +78,37 @@ A flow can be created through a GET request to the
 [`/self-service/<login|registration|settings|recovery|verification|logout>/<browser|api>`](../../reference/api#tag/frontend)
 endpoint.
 
+``````mdx-code-block
+<Tabs groupId="create-flow-examples">
+
+<TabItem value="curl-browser" label="cUrl (Browser flow)" default>
+
+To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+```mdx-code-block
+import createExampleLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/create-login-browser.sh'
+
+<CodeBlock language="shell" title="create-login-browser.sh">{createExampleLoginCurlBrowser}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-native" label="cUrl (Native flow)">
+
+```mdx-code-block
+import createExampleLoginCurlNative from '!!raw-loader!../../../code-examples/curl/login/create-login-api.sh'
+
+<CodeBlock language="shell" title="create-login-api.sh">{createExampleLoginCurlNative}</CodeBlock>
+```
+
+</TabItem>
+
+
+</Tabs>
+
+### Server Side (Browser) Application
+
 In browser applications that are rendered by the server (e.g. Go, PHP, Java, NodeJs, etc.) the flow can be initialized with a
 redirect directly to Ory in the browser which in turn will redirect the browser back to the configured
 [application URL](./configure-ory-to-use-your-ui) (e.g. `https://myapp.com/login?flow=<uuid>`).
@@ -89,13 +120,17 @@ redirect directly to Ory in the browser which in turn will redirect the browser 
 ```
 
 Since this is a browser based application, Ory will set cookies for CSRF protection as well as when a session is succesfully
-created. For any subsequent requests to Ory from the server, the cookies will need to be included in the request header.
+created.
+
+### Single Page Application (SPA)
 
 Single Page Applications (SPA) can initialize the flow by calling the endpoint using AJAX or fetch instead of redirecting the
 browser. The response will set the necessary cookies and contain all the UI nodes to render the form. For AJAX and fetch requests
 to properly set the cookies, you must set the `withCredentials: true` in axios or `credentials: "include"` in fetch. In the event
 that a flow is initialized through a browser redirect, the [application URL](./configure-ory-to-use-your-ui) needs to be set for
 Ory to know about your application.
+
+### Native Application
 
 Native applications such as desktop and mobile must use the API flows which do not set any cookies. The response will contain all
 the data used to render the UI. On successful login a session token is issued instead of a cookie and can be used to authenticate
@@ -113,11 +148,34 @@ available at the [`/self-service/login/flows?id=<flowId>`](../reference/api#tag/
 
 Below is an example of fetching an existing `login` flow.
 
-```mdx-code-block
-import getLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/get-login-browser.sh'
+`````mdx-code-block
+<Tabs groupId="create-flow-examples">
 
-<CodeBlock language="shell" title="get-login-browser.sh">{getLoginCurlBrowser}</CodeBlock>
+<TabItem value="curl-browser" label="cUrl (Browser flow)" default>
+
+To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+```mdx-code-block
+import getExampleLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/get-login-browser.sh'
+
+<CodeBlock language="shell" title="get-login-browser.sh">{getExampleLoginCurlBrowser}</CodeBlock>
 ```
+
+</TabItem>
+
+<TabItem value="curl-native" label="cUrl (Native flow)">
+
+```mdx-code-block
+import getExampleLoginCurlNative from '!!raw-loader!../../../code-examples/curl/login/get-login-api.sh'
+
+<CodeBlock language="shell" title="get-login-api.sh">{getExampleLoginCurlNative}</CodeBlock>
+```
+
+</TabItem>
+
+
+</Tabs>
 
 Here are some cases where the flow would already exist:
 
@@ -152,13 +210,48 @@ under the `flow.ui.action` key.
 <form action="{flow.ui.action}" method="{flow.ui.method}">...</form>
 ```
 
+`````mdx-code-block
+<Tabs groupId="create-flow-examples">
+
+<TabItem value="curl-browser" label="cUrl (Browser flow)" default>
+
+To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+```mdx-code-block
+import submitExampleLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/submit-login-browser.sh'
+
+<CodeBlock language="shell" title="submit-login-browser.sh">{submitExampleLoginCurlBrowser}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-native" label="cUrl (Native flow)">
+
+```mdx-code-block
+import submitExampleLoginCurlNative from '!!raw-loader!../../../code-examples/curl/login/submit-login-api.sh'
+
+<CodeBlock language="shell" title="submit-login-api.sh">{submitExampleLoginCurlNative}</CodeBlock>
+```
+
+</TabItem>
+
+
+</Tabs>
+
+### Server Side (Browser) Application
+
 In server-side rendered browser applications the submission will be handled by a native form POST to the Ory project URL. For
 example, the action for login would be a POST request to
 `https://{project.slug}.projects.oryapis.com/self-service/login/browser?flow=<id>`.
 
+### Single Page Application (SPA)
+
 In client-side rendered browser applications such as SPAs the submission can be handled in the background through AJAX or fetch
 using a POST request to the Ory project URL. For example, the action for login would be a POST request to
 `https://{project.slug}.projects.oryapis.com/self-service/login/browser?flow=<id>`.
+
+### Native Application
 
 In native applications we can simply do a POST request to the Ory project URL. For example, the action for login would be a POST
 request to `https://{project.slug}.projects.oryapis.com/self-service/login/api?flow=<id>`.
@@ -212,7 +305,7 @@ import loginExpress from '!!raw-loader!../../../code-examples/sdk/typescript/src
 import authLayoutExpress from '!!raw-loader!../../../code-examples/sdk/typescript/src/ui/auth.hbs'
 import mainLayoutExpress from '!!raw-loader!../../../code-examples/sdk/typescript/src/ui/main.hbs'
 
-<CodeBlock language="handlebars" title="partials/ui.hbs">{mainLayoutExpress}</CodeBlock>
+<CodeBlock language="handlebars" title="main.hbs">{mainLayoutExpress}</CodeBlock>
 <CodeBlock language="handlebars" title="auth.hbs">{authLayoutExpress}</CodeBlock>
 ```
 
@@ -233,7 +326,7 @@ import createReactLoginApi from '!!raw-loader!../../../code-examples/sdk/typescr
 
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
 
-To ensure the requests work correctly for the browser flow, we can use the `-b` flag to store the cookies in a file.
+To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
 On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
@@ -259,7 +352,7 @@ import createLoginCurlNativeJson from '../../../code-examples/curl/login/create-
 </TabItem>
 
 </Tabs>
-````
+``````
 
 ### Get Login flow
 
@@ -306,10 +399,11 @@ import getReactLoginApi from '!!raw-loader!../../../code-examples/sdk/typescript
 
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
 
-To ensure the requests work correctly for the browser flow, we can use the `-b` flag to store the cookies in a file.
+To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
 On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
+import getLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/get-login-browser.sh'
 import getLoginCurlBrowserJson from '../../../code-examples/curl/login/get-login-browser.json'
 
 <CodeBlock language="shell" title="get-login-browser.sh">{getLoginCurlBrowser}</CodeBlock>
@@ -376,7 +470,7 @@ import submitReactLoginApi from '!!raw-loader!../../../code-examples/sdk/typescr
 
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
 
-To ensure the requests work correctly for the browser flow, we can use the `-b` flag to store the cookies in a file.
+To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
 On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
@@ -449,6 +543,21 @@ import createTsRegistrationApi from '!!raw-loader!../../../code-examples/sdk/typ
 
 </TabItem>
 
+<TabItem value="expressjs" label="Express.js (Browser)">
+
+```mdx-code-block
+import registrationExpress from '!!raw-loader!../../../code-examples/sdk/typescript/src/ui/registration-express.ts'
+
+<CodeBlock language="ts" title="index.ts">{registrationExpress}</CodeBlock>
+```
+
+```mdx-code-block
+<CodeBlock language="handlebars" title="main.hbs">{mainLayoutExpress}</CodeBlock>
+<CodeBlock language="handlebars" title="auth.hbs">{authLayoutExpress}</CodeBlock>
+```
+
+</TabItem>
+
 <TabItem value="react" label="React">
 
 ```mdx-code-block
@@ -461,7 +570,7 @@ import createReactRegistrationApi from '!!raw-loader!../../../code-examples/sdk/
 
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
 
-To ensure the requests work correctly for the browser flow, we can use the `-b` flag to store the cookies in a file.
+To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
 On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
@@ -514,7 +623,7 @@ import getReactRegistrationApi from '!!raw-loader!../../../code-examples/sdk/typ
 
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
 
-To ensure the requests work correctly for the browser flow, we can use the `-b` flag to store the cookies in a file.
+To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
 On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
@@ -572,7 +681,7 @@ import submitReactRegistrationApi from '!!raw-loader!../../../code-examples/sdk/
 
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
 
-To ensure the requests work correctly for the browser flow, we can use the `-b` flag to store the cookies in a file.
+To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
 On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 Take note of the payload, in this example we have two required traits, `traits.email` and `traits.tos` which is based on the Identity Schema.
@@ -627,6 +736,21 @@ filters.
 import createRecoveryApi from '!!raw-loader!../../../code-examples/sdk/go/selfservice/create-recovery.go'
 
 <CodeBlock language="go" title="recovery.go">{createRecoveryApi}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="expressjs" label="Express.js (Browser)">
+
+```mdx-code-block
+import recoveryExpress from '!!raw-loader!../../../code-examples/sdk/typescript/src/ui/recovery-express.ts'
+
+<CodeBlock language="ts" title="index.ts">{recoveryExpress}</CodeBlock>
+```
+
+```mdx-code-block
+<CodeBlock language="handlebars" title="main.hbs">{mainLayoutExpress}</CodeBlock>
+<CodeBlock language="handlebars" title="auth.hbs">{authLayoutExpress}</CodeBlock>
 ```
 
 </TabItem>
@@ -767,6 +891,21 @@ To use the verification flow, you might need to enable it. Please take a look at
 import createVerificaitonApi from '!!raw-loader!../../../code-examples/sdk/go/selfservice/create-verification.go'
 
 <CodeBlock language="go" title="verification.go">{createVerificaitonApi}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="expressjs" label="Express.js (Browser)">
+
+```mdx-code-block
+import verificationExpress from '!!raw-loader!../../../code-examples/sdk/typescript/src/ui/verification-express.ts'
+
+<CodeBlock language="ts" title="index.ts">{verificationExpress}</CodeBlock>
+```
+
+```mdx-code-block
+<CodeBlock language="handlebars" title="main.hbs">{mainLayoutExpress}</CodeBlock>
+<CodeBlock language="handlebars" title="auth.hbs">{authLayoutExpress}</CodeBlock>
 ```
 
 </TabItem>
@@ -921,7 +1060,7 @@ import whoamiExpress from '!!raw-loader!../../../code-examples/sdk/typescript/sr
 <TabItem value="client-browser" label="Client Side (SPA)">
 
 ```typescript
-await fetch('https://{project.slug}.projects.oryapis.com/self-service/login/browser', {
+await fetch('https://localhost:4000/sessions/whoami', { // <-- your Ory CLI tunnel URL
   method: 'GET',
   // highlight-next-line
   credentials: 'include',
@@ -957,15 +1096,23 @@ import whoamiNative from '!!raw-loader!../../../code-examples/sdk/typescript/src
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
 
 ```mdx-code-block
-<CodeBlock language="shell" title="create-login-browser.sh">{createLoginCurlBrowser}</CodeBlock>
+import whoamiCurlBrowser from '!!raw-loader!../../../code-examples/curl/session/check-session-browser.sh'
+import whoamiCurlBrowserJson from '../../../code-examples/curl/session/check-session-browser.json'
+
+<CodeBlock language="shell" title="check-session-browser.sh">{whoamiCurlBrowser}</CodeBlock>
+<CodeBlock language="json5" title="check-session-browser.json">{JSON.stringify(whoamiCurlBrowserJson, null, 2)}</CodeBlock>
 ```
 
 </TabItem>
 
-<TabItem value="curl-native" label="cUrl (Browser Native)">
+<TabItem value="curl-native" label="cUrl (Native flow)">
 
 ```mdx-code-block
-<CodeBlock language="shell" title="create-login-api.sh">{createLoginCurlNative}</CodeBlock>
+import whoamiCurlNative from '!!raw-loader!../../../code-examples/curl/session/check-session-api.sh'
+import whoamiCurlNativeJson from '../../../code-examples/curl/session/check-session-api.json'
+
+<CodeBlock language="shell" title="create-login-api.sh">{whoamiCurlNative}</CodeBlock>
+<CodeBlock language="json5" title="check-session-native.json">{JSON.stringify(whoamiCurlNativeJson, null, 2)}</CodeBlock>
 ```
 
 </TabItem>

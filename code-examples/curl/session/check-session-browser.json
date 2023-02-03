@@ -1,0 +1,57 @@
+{
+    "id": "0cd29640-3b64-419d-93b0-8c9e84c2090d",
+    "active": true,
+    "expires_at": "2023-02-06T15:41:22.898169Z",
+    "authenticated_at": "2023-02-03T15:41:22.963917Z",
+    "authenticator_assurance_level": "aal1",
+    "authentication_methods": [
+        {
+            "method": "password",
+            "aal": "aal1",
+            "completed_at": "2023-02-03T15:41:22.898346346Z"
+        }
+    ],
+    "issued_at": "2023-02-03T15:41:22.898169Z",
+    "identity": {
+        "id": "c4d24c01-feba-4213-858b-262c8d427f8c",
+        "schema_id": "dc9e56067fce00e628f70621eed24c5a2c9253bfebb14db405a05fe082a00bc638e6f171a05f829db95e4830f79d5e98004d8b229dad410a90122044dbd2fba0",
+        "schema_url": "https://{project.slug}.projects.oryapis.com/schemas/ZGM5ZTU2MDY3ZmNlMDBlNjI4ZjcwNjIxZWVkMjRjNWEyYzkyNTNiZmViYjE0ZGI0MDVhMDVmZTA4MmEwMGJjNjM4ZTZmMTcxYTA1ZjgyOWRiOTVlNDgzMGY3OWQ1ZTk4MDA0ZDhiMjI5ZGFkNDEwYTkwMTIyMDQ0ZGJkMmZiYTA",
+        "state": "active",
+        "state_changed_at": "2023-02-03T15:41:22.835918Z",
+        "traits": {
+            "email": "email@example.com",
+            "tos": true
+        },
+        "verifiable_addresses": [
+            {
+                "id": "9cd9ebe2-0a37-4588-8846-1eccc1dd2804",
+                "value": "email@example.com",
+                "verified": false,
+                "via": "email",
+                "status": "sent",
+                "created_at": "2023-02-03T15:41:22.850495Z",
+                "updated_at": "2023-02-03T15:41:22.850495Z"
+            }
+        ],
+        "recovery_addresses": [
+            {
+                "id": "0426eca3-154d-49ba-b59e-ee16d454d197",
+                "value": "email@example.com",
+                "via": "email",
+                "created_at": "2023-02-03T15:41:22.857649Z",
+                "updated_at": "2023-02-03T15:41:22.857649Z"
+            }
+        ],
+        "metadata_public": null,
+        "created_at": "2023-02-03T15:41:22.843984Z",
+        "updated_at": "2023-02-03T15:41:22.843984Z"
+    },
+    "devices": [
+        {
+            "id": "3d4af645-002a-40ee-af42-f81ec2c614ac",
+            "ip_address": "",
+            "user_agent": "curl/7.81.0",
+            "location": "Munich, DE"
+        }
+    ]
+}
