@@ -66,18 +66,20 @@ For more information, please take a look at
 
 ### Refreshing a user session
 
-It is sometimes required to refresh an active user session beyond the global default session lifespan. In such a case the
-application implementing the UI can request through the `?refresh=true` query parameter that Ory should refresh the already
-existing session [`/self-service/login/browser?refresh=true`](../../reference/api#tag/frontend/operation/createBrowserLoginFlow).
-This is only applicable to the `login` flow and requires the user to already be logged in.
+It is sometimes required to re-authenticate an active user session, e.g. to confirm the same user is logged in. In such a case,
+the application implementing the UI can request through the `?refresh=true` query parameter that Ory should re-check the
+credentials. This cane be done by calling the
+[`/self-service/login/browser?refresh=true`](../../reference/api#tag/frontend/operation/createBrowserLoginFlow) endpoint. This is
+only applicable to the `login` flow and requires the user to already have a session.
 
 A common use case would be:
 
 1. User logs in
 2. User interacts with the application
 3. User is inactive for a period of time
-4. The user returns before the global default session lifespan has expired
-5. The session is refreshed through a `login` flow with the `?refresh=true` query parameter.
+4. The user returns before session lifespan has expired
+5. The application needs to confirm that the user interacting with the application is the same user that logged in.
+6. The session is refreshed through a `login` flow with the `?refresh=true` query parameter.
 
 ### Two-Factor authentication
 
