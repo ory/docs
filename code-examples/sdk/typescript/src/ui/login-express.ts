@@ -113,7 +113,6 @@ app.get("/login", async (req: Request, res: Response) => {
       const initRegistrationQuery = new URLSearchParams({
         return_to: return_to.toString(),
       })
-      console.log({ flow })
       if (flow.requested_aal === "aal2") {
         return sdk
           .createBrowserLogoutFlow({

@@ -78,11 +78,6 @@ A flow can be created through a GET request to the
 [`/self-service/<login|registration|settings|recovery|verification|logout>/<browser|api>`](../../reference/api#tag/frontend)
 endpoint.
 
-````mdx-code-block
-<Tabs groupId="application-type-examples">
-
-<TabItem value="server-browser" label="Server Side (browser)" default>
-
 In browser applications that are rendered by the server (e.g. Go, PHP, Java, NodeJs, etc.) the flow can be initialized with a
 redirect directly to Ory in the browser which in turn will redirect the browser back to the configured
 [application URL](./configure-ory-to-use-your-ui) (e.g. `https://myapp.com/login?flow=<uuid>`).
@@ -96,83 +91,15 @@ redirect directly to Ory in the browser which in turn will redirect the browser 
 Since this is a browser based application, Ory will set cookies for CSRF protection as well as when a session is succesfully
 created. For any subsequent requests to Ory from the server, the cookies will need to be included in the request header.
 
-Below is an example of the SDK calling the [`/sessions/whoami`](../reference/api#tag/frontend/operation/toSession) endpoint in an ExpressJs middleware.
-
-```mdx-code-block
-import whoamiExpress from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/session/whoami-express.ts'
-
-<CodeBlock language="ts" title="middleware.ts">{whoamiExpress}</CodeBlock>
-```
-</TabItem>
-
-<TabItem value="client-browser" label="Client Side (SPA)">
-
 Single Page Applications (SPA) can initialize the flow by calling the endpoint using AJAX or fetch instead of redirecting the
 browser. The response will set the necessary cookies and contain all the UI nodes to render the form. For AJAX and fetch requests
 to properly set the cookies, you must set the `withCredentials: true` in axios or `credentials: "include"` in fetch. In the event
-that a flow is initialized through a browser redirect, the [application URL](./configure-ory-to-use-your-ui) needs to be set
-for Ory to know about your application.
-
-```typescript
-await fetch('https://{project.slug}.projects.oryapis.com/self-service/login/browser', {
-  method: 'GET',
-  // highlight-next-line
-  credentials: 'include',
-}).then((response) => response.json())
-```
-
-When using the Ory SDK you need to specify the `withCredentials: true` option in the SDK configuration. Below is an example of the
-SDK calling the [`/sessions/whoami`](../reference/api#tag/frontend/operation/toSession) endpoint automatically including the
-cookies in the request.
-
-```mdx-code-block
-import whoamiReact from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/session/whoami-react.tsx'
-
-<CodeBlock language="tsx" title="session.tsx">{whoamiReact}</CodeBlock>
-```
-
-</TabItem>
-
-<TabItem value="native" label="Native">
+that a flow is initialized through a browser redirect, the [application URL](./configure-ory-to-use-your-ui) needs to be set for
+Ory to know about your application.
 
 Native applications such as desktop and mobile must use the API flows which do not set any cookies. The response will contain all
 the data used to render the UI. On successful login a session token is issued instead of a cookie and can be used to authenticate
 subsequent requests to Ory.
-
-With the Ory SDK you can set the `withCredentials: false` option and use the session token in the `Authorization: Bearer <token>`
-header. Below is an example of the SDK calling the [`/sessions/whoami`](../reference/api#tag/frontend/operation/toSession)
-endpoint.
-
-```mdx-code-block
-import whoamiNative from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/session/whoami-native.ts'
-
-<CodeBlock language="ts" title="session.ts">{whoamiNative}</CodeBlock>
-```
-
-</TabItem>
-
-<TabItem value="curl-browser" label="cUrl (Browser flow)">
-
-```mdx-code-block
-import createLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/create-login-browser.sh'
-
-<CodeBlock language="shell" title="create-login-browser.sh">{createLoginCurlBrowser}</CodeBlock>
-```
-
-</TabItem>
-
-<TabItem value="curl-native" label="cUrl (Browser Native)">
-
-```mdx-code-block
-import createLoginCurlNative from '!!raw-loader!../../../code-examples/curl/login/create-login-api.sh'
-
-<CodeBlock language="shell" title="create-login-api.sh">{createLoginCurlNative}</CodeBlock>
-```
-
-</TabItem>
-
-</Tabs>
-````
 
 ## Fetching an existing flow
 
@@ -225,93 +152,16 @@ under the `flow.ui.action` key.
 <form action="{flow.ui.action}" method="{flow.ui.method}">...</form>
 ```
 
-Below are examples of submitting a `login` flow.
-
-````mdx-code-block
-<Tabs groupId="application-type-examples">
-
-<TabItem value="server-browser" label="Server Side (Browser)">
-
 In server-side rendered browser applications the submission will be handled by a native form POST to the Ory project URL. For
 example, the action for login would be a POST request to
 `https://{project.slug}.projects.oryapis.com/self-service/login/browser?flow=<id>`.
 
-Below is a partial example of an ExpressJs application rendering the UI using handlebars.
-
-```mdx-code-block
-import loginExpress from '!!raw-loader!../../../code-examples/sdk/typescript/src/ui/login-express.ts'
-
-<CodeBlock language="ts" title="index.ts">{loginExpress}</CodeBlock>
-```
-
-```mdx-code-block
-import authLayoutExpress from '!!raw-loader!../../../code-examples/sdk/typescript/src/ui/auth.hbs'
-import mainLayoutExpress from '!!raw-loader!../../../code-examples/sdk/typescript/src/ui/main.hbs'
-
-<CodeBlock language="handlebars" title="partials/ui.hbs">{mainLayoutExpress}</CodeBlock>
-<CodeBlock language="handlebars" title="auth.hbs">{authLayoutExpress}</CodeBlock>
-```
-
-</TabItem>
-
-<TabItem value="client-browser" label="Client Side (Browser)">
-
-In client-side rendered browser applications such as SPAs the submission can be handled in the background through AJAX or fetch using a POST
-request to the Ory project URL. For example, the action for login would be a POST request to `https://{project.slug}.projects.oryapis.com/self-service/login/browser?flow=<id>`.
-
-Below is a partial example of a React application using the Ory SDK.
-
-```mdx-code-block
-import loginReact from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/login/submit-login-react.tsx'
-
-<CodeBlock language="tsx" title="login.tsx">{loginReact}</CodeBlock>
-```
-
-</TabItem>
-
-<TabItem value="native" label="Native">
+In client-side rendered browser applications such as SPAs the submission can be handled in the background through AJAX or fetch
+using a POST request to the Ory project URL. For example, the action for login would be a POST request to
+`https://{project.slug}.projects.oryapis.com/self-service/login/browser?flow=<id>`.
 
 In native applications we can simply do a POST request to the Ory project URL. For example, the action for login would be a POST
 request to `https://{project.slug}.projects.oryapis.com/self-service/login/api?flow=<id>`.
-
-Below is a partial example of a Typescript Native application using the Ory SDK.
-
-```mdx-code-block
-import loginNative from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/login/submit-login-native.ts'
-
-<CodeBlock language="ts" title="login.ts">{loginNative}</CodeBlock>
-```
-
-</TabItem>
-
-<TabItem value="curl-browser" label="cUrl (Browser flow)">
-
-To ensure the requests work correctly for the browser flow, we can use the `-b` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
-
-Ensure you are using the correct URL from the `flow.ui.action` key in the JSON response you retrieved when creating or retrieving the flow data.
-The CSRF token must also be included in the body of the request, which can be found in the `flow.ui.nodes` key.
-
-```mdx-code-block
-import submitLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/submit-login-browser.sh'
-
-<CodeBlock language="shell" title="submit-login-browser.sh">{submitLoginCurlBrowser}</CodeBlock>
-```
-
-</TabItem>
-
-<TabItem value="curl-native" label="cUrl (Native flow)">
-
-```mdx-code-block
-import submitLoginCurlNative from '!!raw-loader!../../../code-examples/curl/login/submit-login-api.sh'
-
-<CodeBlock language="shell" title="submit-login-api.sh">{submitLoginCurlNative}</CodeBlock>
-```
-
-</TabItem>
-
-</Tabs>
-````
 
 ## Login flow
 
@@ -340,12 +190,30 @@ import createLoginApi from '!!raw-loader!../../../code-examples/sdk/go/selfservi
 ```
 
 </TabItem>
-<TabItem value="typescript" label="TypeScript">
+<TabItem value="typescript" label="TypeScript (Native)">
 
 ```mdx-code-block
 import createTsLoginApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/login/create-login-native.ts'
 
 <CodeBlock language="ts" title="login.ts">{createTsLoginApi}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="expressjs" label="Express.js (Browser)">
+
+```mdx-code-block
+import loginExpress from '!!raw-loader!../../../code-examples/sdk/typescript/src/ui/login-express.ts'
+
+<CodeBlock language="ts" title="index.ts">{loginExpress}</CodeBlock>
+```
+
+```mdx-code-block
+import authLayoutExpress from '!!raw-loader!../../../code-examples/sdk/typescript/src/ui/auth.hbs'
+import mainLayoutExpress from '!!raw-loader!../../../code-examples/sdk/typescript/src/ui/main.hbs'
+
+<CodeBlock language="handlebars" title="partials/ui.hbs">{mainLayoutExpress}</CodeBlock>
+<CodeBlock language="handlebars" title="auth.hbs">{authLayoutExpress}</CodeBlock>
 ```
 
 </TabItem>
@@ -369,6 +237,7 @@ To ensure the requests work correctly for the browser flow, we can use the `-b` 
 On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
+import createLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/create-login-browser.sh'
 import createLoginCurlBrowserJson from '../../../code-examples/curl/login/create-login-browser.json'
 
 <CodeBlock language="shell" title="create-login-browser.sh">{createLoginCurlBrowser}</CodeBlock>
@@ -380,6 +249,7 @@ import createLoginCurlBrowserJson from '../../../code-examples/curl/login/create
 <TabItem value="curl-native" label="cUrl (Native flow)">
 
 ```mdx-code-block
+import createLoginCurlNative from '!!raw-loader!../../../code-examples/curl/login/create-login-api.sh'
 import createLoginCurlNativeJson from '../../../code-examples/curl/login/create-login-api.json'
 
 <CodeBlock language="shell" title="create-login-api.sh">{createLoginCurlNative}</CodeBlock>
@@ -510,6 +380,7 @@ To ensure the requests work correctly for the browser flow, we can use the `-b` 
 On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
+import submitLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/submit-login-browser.sh'
 import submitLoginCurlBrowserJson from '../../../code-examples/curl/login/submit-login-browser.json'
 
 <CodeBlock language="shell" title="submit-login-browser.sh">{submitLoginCurlBrowser}</CodeBlock>
@@ -1030,6 +901,77 @@ the body.
 ```shell
 curl -X DELETE -H "Content-Type: application/json" -d '{"session_token":"<session_token>"}' https://{project.}
 ```
+
+## Session Checks
+
+````mdx-code-block
+<Tabs groupId="application-type-examples">
+
+<TabItem value="server-browser" label="Server Side (browser)" default>
+
+Below is an example of the SDK calling the [`/sessions/whoami`](../reference/api#tag/frontend/operation/toSession) endpoint in an Express.js middleware.
+
+```mdx-code-block
+import whoamiExpress from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/session/whoami-express.ts'
+
+<CodeBlock language="ts" title="middleware.ts">{whoamiExpress}</CodeBlock>
+```
+</TabItem>
+
+<TabItem value="client-browser" label="Client Side (SPA)">
+
+```typescript
+await fetch('https://{project.slug}.projects.oryapis.com/self-service/login/browser', {
+  method: 'GET',
+  // highlight-next-line
+  credentials: 'include',
+}).then((response) => response.json())
+```
+
+When using the Ory SDK you need to specify the `withCredentials: true` option in the SDK configuration. Below is an example of the
+SDK calling the [`/sessions/whoami`](../reference/api#tag/frontend/operation/toSession) endpoint automatically including the
+cookies in the request.
+
+```mdx-code-block
+import whoamiReact from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/session/whoami-react.tsx'
+
+<CodeBlock language="tsx" title="session.tsx">{whoamiReact}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="native" label="Native">
+
+With the Ory SDK you can set the `withCredentials: false` option and use the session token in the `Authorization: Bearer <token>`
+header. Below is an example of the SDK calling the [`/sessions/whoami`](../reference/api#tag/frontend/operation/toSession)
+endpoint.
+
+```mdx-code-block
+import whoamiNative from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/session/whoami-native.ts'
+
+<CodeBlock language="ts" title="session.ts">{whoamiNative}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-browser" label="cUrl (Browser flow)">
+
+```mdx-code-block
+<CodeBlock language="shell" title="create-login-browser.sh">{createLoginCurlBrowser}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-native" label="cUrl (Browser Native)">
+
+```mdx-code-block
+<CodeBlock language="shell" title="create-login-api.sh">{createLoginCurlNative}</CodeBlock>
+```
+
+</TabItem>
+
+</Tabs>
+````
 
 ## Error Handling
 
