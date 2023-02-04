@@ -12,16 +12,16 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem'
 ```
 
-Ory OAuth2 and OpenID Connect comes with a mechanism that allows updating `id_token` and `access_token` when a registered client
-sends a token refresh request. The flow is realized by calling the defined refresh token hook endpoint which returns updated data.
+The Hydra OAuth2 and OpenID Connect server comes with a mechanism that allows updating `id_token` and `access_token` when a
+registered client sends a token request. The flow is realized by calling the defined token hook endpoint which returns updated
+data.
 
 If the data provided by the webhook is different from the data the client sends, the webhook overwrites the session data with a
 new set.
 
 :::note
 
-The hook is called before any other logic is executed. If the hook execution fails, the entire token refresh flow fails and the
-`refresh_token` remains unused.
+The hook is called before any other logic is executed. If the hook execution fails, the entire token flow fails.
 
 :::
 
@@ -35,9 +35,66 @@ ory patch oauth2-config {project.id} \
   --format yaml
 ```
 
+### Grant types
+
+The hooks feature is enabled for the following grant types:
+
+- `authorization_code`
+- `client_credentials`
+- `refresh_token`
+- `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` - see [RFC7523](https://www.rfc-editor.org/rfc/rfc7523)
+
+To enable the token webhooks, configure the following keys in the Hydra configuration:
+
+```yaml
+oauth2:
+  # authorization_code grant type
+  authorization_code_hook: https://my-example.app/authorization-code-hook
+
+  # client_credentials grant type
+  client_credentials_hook: https://my-example.app/client-credentials-hook
+
+  # refresh_token grant type
+  refresh_token_hook: https://my-example.app/token-refresh-hook
+
+  # urn:ietf:params:oauth:client-assertion-type:jwt-bearer grant type
+  jwt_bearer_hook: https://my-example.app/jwt-bearer-hook
+```
+
+If you're running Hydra locally, you can set these values by exporting the token hook endpoint URLs as environment variables. Run
+this command:
+
+```mdx-code-block
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock'
+
+<Tabs>
+  <TabItem value="macos" label="macOS" default>
+    <CodeBlock language="shell">export OAUTH2_AUTHORIZATION_CODE_HOOK=value</CodeBlock>
+    <CodeBlock language="shell">export OAUTH2_CLIENT_CREDENTIALS_HOOK=value</CodeBlock>
+    <CodeBlock language="shell">export OAUTH2_REFRESH_TOKEN_HOOK=value</CodeBlock>
+    <CodeBlock language="shell">export OAUTH2_JWT_BEARER_HOOK=value</CodeBlock>
+  </TabItem>
+  <TabItem value="linux" label="Linux">
+    <CodeBlock language="shell">export OAUTH2_AUTHORIZATION_CODE_HOOK=value</CodeBlock>
+    <CodeBlock language="shell">export OAUTH2_CLIENT_CREDENTIALS_HOOK=value</CodeBlock>
+    <CodeBlock language="shell">export OAUTH2_REFRESH_TOKEN_HOOK=value</CodeBlock>
+    <CodeBlock language="shell">export OAUTH2_JWT_BEARER_HOOK=value</CodeBlock>
+  </TabItem>
+  <TabItem value="windows" label="Windows">
+    <CodeBlock language="shell">set OAUTH2_AUTHORIZATION_CODE_HOOK=value</CodeBlock>
+    <CodeBlock language="shell">set OAUTH2_CLIENT_CREDENTIALS_HOOK=value</CodeBlock>
+    <CodeBlock language="shell">set OAUTH2_REFRESH_TOKEN_HOOK=value</CodeBlock>
+    <CodeBlock language="shell">set OAUTH2_JWT_BEARER_HOOK=value</CodeBlock>
+  </TabItem>
+</Tabs>
+```
+
 ### Webhook payload
 
-The refresh token hook endpoint must accept the following payload format:
+The token hook endpoint must accept the following payload format:
 
 ```json
 {
@@ -81,7 +138,8 @@ The refresh token hook endpoint must accept the following payload format:
     "client_id": "bar",
     "granted_scopes": ["openid", "offline"],
     "granted_audience": [],
-    "grant_types": ["refresh_token"]
+    "grant_types": ["refresh_token"],
+    "payload": {}
   },
   "granted_scopes": ["openid", "offline"],
   "granted_audience": []
@@ -95,6 +153,48 @@ The refresh token hook endpoint must accept the following payload format:
 `requester` is the token request context.
 
 :::
+
+### Requester payload
+
+For `client_credentials` and `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` grant types, Hydra will also send an entire
+payload that was sent to the `/token` endpoint by the client.
+
+Here's the format of the `requester.payload` field for each grant type:
+
+```mdx-code-block
+<Tabs>
+  <TabItem value="client_credentials" label="client_credentials" default>
+    <CodeBlock language="json">{`
+{
+  "grant_type": [
+    "client_credentials"
+  ],
+  "audience": ["my-api"],
+  "scope": ["user:profile:read"]
+}
+    `}</CodeBlock>
+  </TabItem>
+  <TabItem value="urn:ietf:params:oauth:client-assertion-type:jwt-bearer" label="urn:ietf:params:oauth:client-assertion-type:jwt-bearer">
+    <CodeBlock language="json">{`
+{
+  "grant_type": [
+    "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"
+  ],
+  "assertion": ["eyJhbGciOiJIUzI..."],
+  "scope": ["user:profile:read"]
+}
+     `}</CodeBlock>
+  </TabItem>
+</Tabs>
+```
+
+:::note
+
+For `authorization_code` and `refresh_token` grant types, the `requester.payload` is always empty.
+
+:::
+
+#### Webhook responses
 
 To update the data, the webhook must return a `200 OK` response and the updated session data in the following format:
 
@@ -121,7 +221,7 @@ The token subject is never overridden.
 
 ### Updated tokens
 
-The following examples show fragments of tokens issued after refreshing:
+The following examples show fragments of tokens issued after the webhook call:
 
 ```mdx-code-block
 <Tabs>
@@ -158,7 +258,12 @@ The following examples show fragments of tokens issued after refreshing:
 </Tabs>
 ```
 
-## Rejecting token refresh
+## Rejecting token claims update
 
 To gracefully reject token contents update, the hook must return a `403 Forbidden` response. Any other response results in a
-failure of the token update and, as a result, failure of the entire token refresh flow.
+failure of the token update and, as a result, failure of the entire token flow.
+
+### Refresh token
+
+If a webhook for `refresh_token` grant type fails with a non-graceful result, the refresh flow will also fail and the supplied
+`refresh_token` will remain unused.
