@@ -2825,6 +2825,9 @@
           "scope": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
+          "subject_source": {
+            "$ref": "#/components/schemas/String"
+          },
           "token_url": {
             "description": "TokenURL is the token url, typically something like: https://example.org/oauth2/token\n\nShould only be used when the OAuth2 / OpenID Connect server is not supporting OpenID Connect Discovery and when\n`provider` is set to `generic`.",
             "example": "https://www.googleapis.com/oauth2/v4/token",
