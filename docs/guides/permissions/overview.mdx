@@ -4,13 +4,19 @@ title: Write and check permissions and roles
 sidebar_label: Permissions
 ---
 
-# Get started with Ory Permissions
+```mdx-code-block
+import CodeFromRemote from "@theme/CodeFromRemote"
+import BrowserWindow from "@site/src/theme/BrowserWindow"
+const file = (path) => `https://github.com/ory/keto/blob/master/contrib/rewrites-example/${path}`
+```
+
+## Get started with Ory Permissions
 
 [Ory Permissions](https://www.ory.sh/permissions/) (based on [Ory Keto](https://github.com/ory/keto)) implements
 [Google Zanzibar](https://research.google/pubs/pub48190/). It might differ a bit from other authorization services you know, so
 let's first clarify a few concepts.
 
-## Relations and relation tuples
+### Relations and relation tuples
 
 The data model used by Ory Permissions are so-called [relation tuples](/keto/concepts/relation-tuples.mdx) that encode relations
 between [subjects](/keto/concepts/subjects.mdx) and [objects](/keto/concepts/objects.mdx).
@@ -24,202 +30,168 @@ Read the dedicated documents to learn more about [subjects](/keto/concepts/subje
 
 Examples of relation tuples are:
 
-- `user1` is `member` of `groups:group1`
-- `member` of `groups:group1` is `reader` of `files:file1`
+```keto-relationships
+users:user1 is in members of groups:group1
+members of groups:group1 are readers of files:file1
+```
 
 As you can see, the subject of a relation tuple can either be a specific subject ID, or subjects defined through an
 [indirection](https://en.wikipedia.org/wiki/Indirection) (all members of a certain group). The object is referenced by its ID.
 
-## Checking permissions
+### Checking permissions
 
 Permissions are just another form of relations. Therefore, a permission check is a request to check whether a subject has a
 certain relation to an object, possibly through one or more indirections.
 
 As a very simple example, we assume the following tuples exist:
 
-- `user1` is `member` of `groups:group1`
-- `member` of `groups:group1` is `reader` of `files:file1`
+```keto-relationships
+users:user1 is in members of groups:group1
+members of groups:group1 are readers of files:file1
+```
 
 Now, one could ask:
 
-- Is `user1` a `reader` of `files:file1`? - Yes, because `user1` is a `member` of `groups:group1` and all `member`s of
-  `groups:group1` are `reader` of `files:file1`.
-- Is `user2` a `member` of `groups:group1`? - No.
+```keto-relationships
+is users:user1 in readers of files:file1?  // Yes
+```
+
+Yes, because `user1` is in `members` of `groups:group1` and all `members` of `groups:group1` are `readers` of `files:file1`.
+
+```keto-relationships
+is users:user2 in members of groups:group1?  // No
+```
+
+No, because there is no relation between `user2` and `group1`.
 
 ## Example
 
 This example setup demonstrates the basics of relation tuple management and usage of the Check API.
 
-### Defining namespaces
+This guide explains how to configure namespaces and relationship rules using the
+[Ory Permission Language](../../keto/reference/ory-permission-language) (OPL). You can then run fine-grained checks against Ory
+Permissions, which are answered based on a combination of OPL and the concrete high-level relationships stored.
 
-Relation tuples reside in [namespaces](/keto/concepts/namespaces.mdx). To create relation tuples, you must define their namespace
-first.
+The example describes a file store. Individual files are organized in a folder hierarchy, and can be accessed by individual users
+or groups of users. Using the Ory Permission Language you can specify that if a user has access to a folder, the user also has
+access to all files in that folder.
 
-````mdx-code-block
-import CodeBlock from '@theme/CodeBlock'
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+### Ory Network setup
 
-<Tabs>
-  <TabItem value="cloud" label="Ory CLI" default>
+The fastest way to get started with Ory Permissions is using [Ory Console](https://console.ory.sh/). You can register for an Ory
+Network account for free.
+
+In the Ory Console, select **Namespaces & Rules** from the navigation bar and switch to the **Permission Rules** tab.
+
+```mdx-code-block
+<BrowserWindow url="https://console.ory.sh/projects/3afd6339-b999-4649-a2f6-740736775f80/permissions/configuration">
+
+![Custom Domain Cors disabled](../../keto/_static/opl_editor.png)
+
+</BrowserWindow>
+```
+
+Into the editor, paste the following content:
+
+```mdx-code-block
+<CodeFromRemote src={file("namespaces.keto.ts")} title="namespaces.keto.ts" />
+```
+
+:::info
+
+The editor offers autocompletion for the Ory Permission Language.
+
+:::
+
+### Connecting to the Ory Network via CLI
+
+Next, connect to the Ory Network using the Ory CLI. If you haven't done so already, [install the Ory CLI](../cli/installation).
+
+Next, in a shell:
 
 ```shell
-ory patch permission-config <your-project-id> \
-  --add '/namespaces/-={"id": 0, "name": "resources"}' \
-  --add '/namespaces/-={"id": 1, "name": "groups"}'
+# Log in with your Ory Network credentials
+ory auth
+
+# List your projects
+ory list projects
+# Output:
+#   ID                                      SLUG                            STATE   NAME
+#   1e5ff8a6-b374-41a0-9f96-bcfe022b0a0a    laughing-lederberg-58dlr9kvp7   running Ory Permissions Test
+
+# Use the project ID to set the project where you added the permission rules.
+ory use project 1e5ff8a6-b374-41a0-9f96-bcfe022b0a0a
+# Output:
+#   ID      1e5ff8a6-b374-41a0-9f96-bcfe022b0a0a
 ```
 
-  </TabItem>
-  <TabItem value="self-hosted" label="Self-Hosted Ory Keto Config" default>
+Now the Ory CLI is configured to use your Ory Network project.
 
-```yaml title=path/to/keto.yml
-namespaces:
-  - id: 0
-    name: resources
-  - id: 1
-    name: groups
+### Creating the tuples
+
+Next, create the tuples using the Ory CLI.
+
+The following relation tuples showcase the namespace configuration. In short, it sets up a `developer` group with two members, and
+a folder hierarchy. Through the rules in the Ory Permission Language, every member of the `developer` group can access the files
+in the hierarchy.
+
+You can create additional fine-grained permission rules for certain objects, similar to the `private` file.
+
+```mdx-code-block
+<CodeFromRemote src={file("relation-tuples/tuples.json")} title="tuples.json" />
 ```
 
-  </TabItem>
-</Tabs>
-````
-
-### Creating relation tuples
-
-After creating the namespaces, you can use the [relation tuple APIs](/reference/api.mdx#operation/createRelationTuple) to create a
-relation tuple.
-
-````mdx-code-block
-<Tabs>
-  <TabItem value="cloud" label="The Ory Network" default>
+Save the file as `tuples.json` in your current working directory. To load the file into Ory Permissions, run this command:
 
 ```shell
-ORY_PAT="<your ory personal access token from the console>"
-ORY_SDK_URL="<your ory project sdk url from the console>"
-
-echo '[
-  {
-    "action": "insert",
-    "relation_tuple": {
-      "subject_id": "user1",
-      "relation": "member",
-      "namespace": "groups",
-      "object": "group1"
-    }
-  }, {
-    "action": "insert",
-    "relation_tuple": {
-      "subject_set": {
-        "relation": "member",
-        "namespace": "groups",
-        "object": "group1"
-      },
-      "relation": "owner",
-      "namespace": "resources",
-      "object": "file1"
-    }
-  }
-]' > relationtuple.json
-
-curl -X PATCH \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $ORY_PAT" \
-  -d @relationtuple.json \
-  "$ORY_SDK_URL/admin/relation-tuples"
+ory create relationships tuples.json
+# Output:
+#   NAMESPACE       OBJECT                  RELATION NAME   SUBJECT
+#   Group           developer               members         patrik
+#   Group           developer               members         User:Patrik
+#   Group           developer               members         User:Henning
+#   Folder          keto/                   viewers         Group:developer#members
+#   File            keto/README.md          parents         Folder:keto/
+#   Folder          keto/src/               parents         Folder:keto/
+#   File            keto/src/main.go        parents         Folder:keto/src/
+#   File            private                 owners          User:Henning
 ```
 
-  </TabItem>
-  <TabItem value="self-hosted" label="Self-Hosted Ory Keto">
+### Checking for permissions
 
-```shell
-KETO_WRITE_URL="<your keto write url>"
+Now, let's check some permissions! Some queries to try:
 
-echo '[
-  {
-    "action": "insert"
-    "relation_tuple": {
-      "subject_id": "user1",
-      "relation": "member",
-      "namespace": "groups",
-      "object": "group1"
-    }
-  }, {
-    "action": "insert"
-    "relation_tuple": {
-      "subject_set": {
-        "relation": "member",
-        "namespace": "groups",
-        "object": "group1"
-      },
-      "relation": "owner",
-      "namespace": "resources",
-      "object": "file1"
-    }
-  }
-]' > relationtuple.json
+#### Transitive permissions for objects in the hierarchy
 
-curl -X PUT \
-  -H "Content-Type: application/json" \
-  -d @relationtuple.json \
-  "$KETO_WRITE_URL/admin/relation-tuples"
+Patrik can view `keto/src/main.go`. This file is in the `keto/src` folder, which is in `keto`. The `keto` directory has the
+"developer" group as its "viewers". Patrik is a member of the "developer" group.
+
+```
+$ ory is allowed User:Patrik view File keto/src/main.go
+Allowed
 ```
 
-  </TabItem>
-</Tabs>
-````
+#### No transitivity for objects outside the hierarchy
 
-### Checking permissions
+Patrik cannot view the private file, since that file is not part of any folder hierarchy Patrik has access to.
 
-Permission checks are requests that check whether a subject has a relation to an object. This relation can be directly defined, or
-constructed following indirections (e.g. members of a group).
-
-The [Check API](/reference/api.mdx#operation/postCheck) allows to perform such checks:
-
-````mdx-code-block
-<Tabs>
-  <TabItem value="cloud" label="The Ory Network" default>
-
-```shell
-ORY_PAT="<your ory personal access token from the console>"
-ORY_SDK_URL="<your ory project sdk url from the console>"
-
-echo '{
-  "subject_id": "user1",
-  "relation": "owner",
-  "namespace": "resources",
-  "object": "file1"
-}' > query.json
-
-curl -X POST \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $ORY_PAT" \
-  -d @query.json \
-  "$ORY_SDK_URL/relation-tuples/check"
-# should print:
-# {"allowed":true}
+```
+$ ory is allowed User:Patrik view File private
+Denied
 ```
 
-  </TabItem>
-  <TabItem value="self-hosted" label="Self-Hosted Ory Keto">
+#### Fine-grained permissions for any object
 
-```shell
-KETO_WRITE_URL="<your keto write url>"
+Henning can both edit and view the private file, since he is an "owner" of it.
 
-echo '{
-  "subject_id": "user1",
-  "relation": "owner",
-  "namespace": "resources",
-  "object": "file1"
-}' > query.json
+```
+$ ory is allowed User:Henning view File private
+Allowed
 
-curl -X POST \
-  -H "Content-Type: application/json" \
-  -d @query.json \
-  "$KETO_WRITE_URL/relation-tuples/check"
-# should print:
-# {"allowed":true}
+$ ory is allowed User:Henning edit File private
+Allowed
 ```
 
-  </TabItem>
-</Tabs>
-````
+## Further reading
+
+To learn more about the Ory Permission Language, read the [specification](../../keto/reference/ory-permission-language) document.
