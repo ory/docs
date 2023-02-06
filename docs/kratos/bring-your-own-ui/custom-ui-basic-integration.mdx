@@ -42,8 +42,9 @@ A general overview of the flow can be summed up in five steps:
 Furthermore, a flow can also consist of multiple `methods`, for example the `login` flow can have the `password` and `oidc`
 method, however, only one `method` can be used at a time to complete the flow. The `methods` can also be customized through
 project configuration, for example the `password` flow can be disabled and the `webauthn` method enabled or both can be enabled at
-the same time to allow users to choose the `method` they which to use. This makes Ory very flexible and can be used for a variety
-of use cases.
+the same time to allow users to choose the `method` they wish to use. Some flows can also be disabled, for example the
+`registration` flow can be disabled if the intent is to have an invite only registration process. These features allow Ory to be
+very flexible and support a variety of use cases.
 
 Below is a table mapping the `methods` according to their respective flow.
 
@@ -63,8 +64,8 @@ To understand which API endpoints to use, it is important to understand the diff
 (SSR) and Single-Page applications (SPA). Since the application is rendered in the browser, the request between the user and Ory
 needs to be secured. This is done by setting a CSRF cookie and token.
 
-**Native applications** are all other applications that are not rendered in the browser. For example an Android application or
-Desktop application. Since the application is not rendered in the browser, the CSRF cookie and token are not necessary.
+**Native applications** are all other applications that are not rendered in the browser. For example an Android or Desktop
+application. Since the application is not rendered in the browser, the CSRF cookie and token are not necessary.
 
 That is why it is important to use the correct API endpoints for the correct application type.
 
