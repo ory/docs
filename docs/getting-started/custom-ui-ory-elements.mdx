@@ -5,9 +5,13 @@ sidebar_label: Custom UI with Ory Elements
 toc_max_heading_level: 4
 ---
 
+# Custom UI with Ory Elements
+
+```mdx-code-block
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 import CodeFromRemote from "@theme/CodeFromRemote"
+```
 
 Ory Elements is a component library designed to make building login, registration, and account pages for Ory quick and easy. Ory
 Elements is modular and customizable, which means that you can use only the views you need and style them to match your
@@ -31,8 +35,8 @@ instructions you will:
 Before you start, make sure to:
 
 - Create an [Ory Network project](https://console.ory.sh/).
-- [Install Ory CLI](../guides/cli/installation) - a tool that will help you connect the app running on your machine to Ory Network
-  APIs.
+- [Install Ory CLI](../guides/cli/01_installation.mdx) - a tool that will help you connect the app running on your machine to Ory
+  Network APIs.
 
 ## Run the sample application
 
@@ -117,7 +121,9 @@ Follow these steps to get the sample application code and run it on your machine
     # Windows
     $Env:NEXT_PUBLIC_ORY_SDK_URL = "http://localhost:4000"
     ```
+
     [Learn more about environment variables with Next.js](https://nextjs.org/docs/basic-features/environment-variables)
+
       </TabItem>
     </Tabs>
    ````
@@ -136,7 +142,7 @@ Follow these steps to get the sample application code and run it on your machine
    # To get your project slug, go to 'Access & APIs' in Ory Console
    # at https://console.ory.sh/
 
-   ory tunnel http://localhost:3000 --project <project-slug> --dev
+   ory tunnel http://localhost:3000 --project {project-slug} --dev
    ```
 
 5. In your browser, go to [http://localhost:3000](http://localhost:3000) to access the application. From there, you can try
@@ -175,7 +181,7 @@ The `sdk.ts` file is responsible for creating a new instance of the Ory SDK. Thi
 <CodeFromRemote
   lang="tsx"
   title="pkg/sdk.tsx"
-  src="https://raw.githubusercontent.com/ory/elements/main/examples/nextjs-spa/pkg/sdk.tsx"
+  src="https://raw.githubusercontent.com/ory/elements/main/examples/nextjs-spa/src/pkg/sdk.tsx"
 />
   </TabItem>
 </Tabs>
@@ -212,7 +218,7 @@ to the `themeOverrides` property on the `<ThemeProvider />` component.
 <CodeFromRemote
   lang="tsx"
   title="pages/_app.tsx"
-  src="https://raw.githubusercontent.com/ory/elements/main/examples/nextjs-spa/pages/_app.tsx"
+  src="https://raw.githubusercontent.com/ory/elements/main/examples/nextjs-spa/src/pages/_app.tsx"
 />
   </TabItem>
 </Tabs>
@@ -250,7 +256,7 @@ button.
 <CodeFromRemote
   lang="tsx"
   title="pages/index.tsx"
-  src="https://raw.githubusercontent.com/ory/elements/main/examples/nextjs-spa/pages/index.tsx"
+  src="https://raw.githubusercontent.com/ory/elements/main/examples/nextjs-spa/src/pages/index.tsx"
 />
   </TabItem>
 </Tabs>
@@ -262,8 +268,8 @@ The `login.tsx` and `register.tsx` pages contain components that interact with O
 performing the login flow.
 
 These pages are dynamic and will show relevant fields based on your Ory Network project configuration. To see the pages change,
-edit your project's [Identity Schema](../kratos/manage-identities/identity-schema) or try changing adjusting project settings and
-enable [passwordless](../kratos/passwordless/webauthn) flows.
+edit your project's [Identity Schema](../kratos/manage-identities/05_identity-schema.mdx) or try changing adjusting project
+settings and enable [passwordless](../kratos/passwordless/01_webauthn.mdx) flows.
 
 #### Registration
 
@@ -304,7 +310,7 @@ To learn more about the self-service registration flow, read [this document](../
 <CodeFromRemote
   lang="tsx"
   title="pages/registration.tsx"
-  src="https://raw.githubusercontent.com/ory/elements/main/examples/nextjs-spa/pages/registration.tsx"
+  src="https://raw.githubusercontent.com/ory/elements/main/examples/nextjs-spa/src/pages/registration.tsx"
 />
   </TabItem>
 </Tabs>
@@ -315,11 +321,11 @@ To learn more about the self-service registration flow, read [this document](../
 The login page, defined in the `login.tsx` file:
 
 1. Gets the login flow (if it exists in the URL) or falls back to start the registration flow to get the `flow` data on page load.
-2. Submits the login form data the user provides when they click the **Submit** button,
+2. Submits the login form data the user provides when they click the **Submit** button.
 
 :::tip
 
-To learn more about the self-service login flow, read [this document](../kratos/self-service/flows/user-login)
+To learn more about the self-service login flow, read [this document](../kratos/self-service/flows/user-login.mdx)
 
 :::
 
@@ -348,7 +354,7 @@ To learn more about the self-service login flow, read [this document](../kratos/
 <CodeFromRemote
   lang="tsx"
   title="pages/login.tsx"
-  src="https://raw.githubusercontent.com/ory/elements/main/examples/nextjs-spa/pages/login.tsx"
+  src="https://raw.githubusercontent.com/ory/elements/main/examples/nextjs-spa/src/pages/login.tsx"
 />
   </TabItem>
 </Tabs>
@@ -387,7 +393,7 @@ disabled, the option to add hardware keys is not visible in the UI.
 <CodeFromRemote
   lang="tsx"
   title="pages/settings.tsx"
-  src="https://raw.githubusercontent.com/ory/elements/main/examples/nextjs-spa/pages/settings.tsx"
+  src="https://raw.githubusercontent.com/ory/elements/main/examples/nextjs-spa/src/pages/settings.tsx"
 />
   </TabItem>
 </Tabs>
@@ -422,7 +428,7 @@ The `verification.tsx` file defines the page of the application where users veri
 <CodeFromRemote
   lang="tsx"
   title="pages/verification.tsx"
-  src="https://raw.githubusercontent.com/ory/elements/main/examples/nextjs-spa/pages/verification.tsx"
+  src="https://raw.githubusercontent.com/ory/elements/main/examples/nextjs-spa/src/pages/verification.tsx"
 />
   </TabItem>
 </Tabs>
@@ -458,7 +464,7 @@ losing access to a second authentication factor.
 <CodeFromRemote
   lang="tsx"
   title="pages/recovery.tsx"
-  src="https://raw.githubusercontent.com/ory/elements/main/examples/nextjs-spa/pages/recovery.tsx"
+  src="https://raw.githubusercontent.com/ory/elements/main/examples/nextjs-spa/src/pages/recovery.tsx"
 />
   </TabItem>
 </Tabs>
