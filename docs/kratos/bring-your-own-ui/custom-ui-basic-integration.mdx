@@ -80,7 +80,7 @@ A flow can be created through a GET request to the
 endpoint.
 
 ``````mdx-code-block
-<Tabs groupId="create-flow-examples">
+<Tabs groupId="curl-flow-examples">
 
 <TabItem value="curl-browser" label="cUrl (Browser flow)" default>
 
@@ -150,7 +150,7 @@ available at the [`/self-service/login/flows?id=<flowId>`](../reference/api#tag/
 Below is an example of fetching an existing `login` flow.
 
 `````mdx-code-block
-<Tabs groupId="create-flow-examples">
+<Tabs groupId="curl-flow-examples">
 
 <TabItem value="curl-browser" label="cUrl (Browser flow)" default>
 
@@ -212,7 +212,7 @@ under the `flow.ui.action` key.
 ```
 
 `````mdx-code-block
-<Tabs groupId="create-flow-examples">
+<Tabs groupId="curl-flow-examples">
 
 <TabItem value="curl-browser" label="cUrl (Browser flow)" default>
 
@@ -273,6 +273,39 @@ flow for **browser applications** you must use the
 [`/self-service/login/api`](../../reference/api#tag/frontend/operation/createNativeLoginFlow) endpoint.
 
 ````mdx-code-block
+<Tabs groupId="curl-flow-examples">
+
+<TabItem value="curl-browser" label="cUrl (Browser flow)">
+
+To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+```mdx-code-block
+import createLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/create-login-browser.sh'
+import createLoginCurlBrowserJson from '../../../code-examples/curl/login/create-login-browser.json'
+
+<CodeBlock language="shell" title="create-login-browser.sh">{createLoginCurlBrowser}</CodeBlock>
+<CodeBlock language="json5" title="create-login-browser.json">{JSON.stringify(createLoginCurlBrowserJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-native" label="cUrl (Native flow)">
+
+```mdx-code-block
+import createLoginCurlNative from '!!raw-loader!../../../code-examples/curl/login/create-login-api.sh'
+import createLoginCurlNativeJson from '../../../code-examples/curl/login/create-login-api.json'
+
+<CodeBlock language="shell" title="create-login-api.sh">{createLoginCurlNative}</CodeBlock>
+<CodeBlock language="json5" title="create-login-api.json">{JSON.stringify(createLoginCurlNativeJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+</Tabs>
+````
+
+````mdx-code-block
 <Tabs groupId="sdk-examples">
 
 <TabItem value="go" label="Go" default>
@@ -325,35 +358,8 @@ import createReactLoginApi from '!!raw-loader!../../../code-examples/sdk/typescr
 
 </TabItem>
 
-<TabItem value="curl-browser" label="cUrl (Browser flow)">
-
-To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
-
-```mdx-code-block
-import createLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/create-login-browser.sh'
-import createLoginCurlBrowserJson from '../../../code-examples/curl/login/create-login-browser.json'
-
-<CodeBlock language="shell" title="create-login-browser.sh">{createLoginCurlBrowser}</CodeBlock>
-<CodeBlock language="json5" title="create-login-browser.json">{JSON.stringify(createLoginCurlBrowserJson, null, 2)}</CodeBlock>
-```
-
-</TabItem>
-
-<TabItem value="curl-native" label="cUrl (Native flow)">
-
-```mdx-code-block
-import createLoginCurlNative from '!!raw-loader!../../../code-examples/curl/login/create-login-api.sh'
-import createLoginCurlNativeJson from '../../../code-examples/curl/login/create-login-api.json'
-
-<CodeBlock language="shell" title="create-login-api.sh">{createLoginCurlNative}</CodeBlock>
-<CodeBlock language="json5" title="create-login-api.sh">{JSON.stringify(createLoginCurlNativeJson, null, 2)}</CodeBlock>
-```
-
-</TabItem>
-
 </Tabs>
-``````
+````
 
 ### Get Login flow
 
@@ -361,6 +367,39 @@ When a flow already exists, we can retrieve it through a GET request to the
 [`/self-service/login/flows?id=<flow-id>`](../../reference/api#tag/frontend/operation/getLoginFlow) endpoint using the flow ID.
 Usually the flow ID is stored in the URL query parameter `?flow=` in your application. Below is an example of how to retrieve the
 flow data using the flow ID.
+
+````mdx-code-block
+<Tabs groupId="curl-flow-examples">
+
+<TabItem value="curl-browser" label="cUrl (Browser flow)">
+
+To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+```mdx-code-block
+import getLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/get-login-browser.sh'
+import getLoginCurlBrowserJson from '../../../code-examples/curl/login/get-login-browser.json'
+
+<CodeBlock language="shell" title="get-login-browser.sh">{getLoginCurlBrowser}</CodeBlock>
+<CodeBlock language="json5" title="get-login-browser.json">{JSON.stringify(getLoginCurlBrowserJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-native" label="cUrl (Native flow)">
+
+```mdx-code-block
+import getLoginCurlNative from '!!raw-loader!../../../code-examples/curl/login/get-login-api.sh'
+import getLoginCurlNativeJson from '../../../code-examples/curl/login/get-login-api.json'
+
+<CodeBlock language="shell" title="get-login-api.sh">{getLoginCurlNative}</CodeBlock>
+<CodeBlock language="json5" title="get-login-api.json">{JSON.stringify(getLoginCurlNativeJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+</Tabs>
+````
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
@@ -398,33 +437,6 @@ import getReactLoginApi from '!!raw-loader!../../../code-examples/sdk/typescript
 
 </TabItem>
 
-<TabItem value="curl-browser" label="cUrl (Browser flow)">
-
-To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
-
-```mdx-code-block
-import getLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/get-login-browser.sh'
-import getLoginCurlBrowserJson from '../../../code-examples/curl/login/get-login-browser.json'
-
-<CodeBlock language="shell" title="get-login-browser.sh">{getLoginCurlBrowser}</CodeBlock>
-<CodeBlock language="json5" title="get-login-browser.json">{JSON.stringify(getLoginCurlBrowserJson, null, 2)}</CodeBlock>
-```
-
-</TabItem>
-
-<TabItem value="curl-native" label="cUrl (Native flow)">
-
-```mdx-code-block
-import getLoginCurlNative from '!!raw-loader!../../../code-examples/curl/login/get-login-api.sh'
-import getLoginCurlNativeJson from '../../../code-examples/curl/login/get-login-api.json'
-
-<CodeBlock language="shell" title="get-login-api.sh">{getLoginCurlNative}</CodeBlock>
-<CodeBlock language="json5" title="get-login-api.sh">{JSON.stringify(getLoginCurlNativeJson, null, 2)}</CodeBlock>
-```
-
-</TabItem>
-
 </Tabs>
 ````
 
@@ -435,6 +447,38 @@ The last step is to submit the login flow with the user's credentials. This is d
 
 For browser applications you need to ensure that all cookies are included in the request and that the CSRF token is sent in the
 body of the request. The CSRF token value is a hidden input field called `csrf_token`.
+
+````mdx-code-block
+<Tabs groupId="curl-flow-examples">
+
+<TabItem value="curl-browser" label="cUrl (Browser flow)">
+
+To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+```mdx-code-block
+import submitLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/submit-login-browser.sh'
+import submitLoginCurlBrowserJson from '../../../code-examples/curl/login/submit-login-browser.json'
+
+<CodeBlock language="shell" title="submit-login-browser.sh">{submitLoginCurlBrowser}</CodeBlock>
+<CodeBlock language="json5" title="submit-login-browser.json">{JSON.stringify(getLoginCurlBrowserJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-native" label="cUrl (Native flow)">
+
+```mdx-code-block
+import submitLoginCurlNativeJson from '../../../code-examples/curl/login/submit-login-api.json'
+
+<CodeBlock language="shell" title="submit-login-api.sh">{getLoginCurlNative}</CodeBlock>
+<CodeBlock language="json5" title="submit-login-api.json">{JSON.stringify(getLoginCurlNativeJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+</Tabs>
+````
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
@@ -469,32 +513,6 @@ import submitReactLoginApi from '!!raw-loader!../../../code-examples/sdk/typescr
 
 </TabItem>
 
-<TabItem value="curl-browser" label="cUrl (Browser flow)">
-
-To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
-
-```mdx-code-block
-import submitLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/submit-login-browser.sh'
-import submitLoginCurlBrowserJson from '../../../code-examples/curl/login/submit-login-browser.json'
-
-<CodeBlock language="shell" title="submit-login-browser.sh">{submitLoginCurlBrowser}</CodeBlock>
-<CodeBlock language="json5" title="submit-login-browser.json">{JSON.stringify(getLoginCurlBrowserJson, null, 2)}</CodeBlock>
-```
-
-</TabItem>
-
-<TabItem value="curl-native" label="cUrl (Native flow)">
-
-```mdx-code-block
-import submitLoginCurlNativeJson from '../../../code-examples/curl/login/submit-login-api.json'
-
-<CodeBlock language="shell" title="submit-login-api.sh">{getLoginCurlNative}</CodeBlock>
-<CodeBlock language="json5" title="submit-login-api.sh">{JSON.stringify(getLoginCurlNativeJson, null, 2)}</CodeBlock>
-```
-
-</TabItem>
-
 </Tabs>
 ````
 
@@ -520,6 +538,31 @@ flow also consists of a number of `methods` such as `password`, `oidc` and `weba
 In this section, we will only focus on the `password` method since it is the easiest to get started with.
 
 ### Create Registration flow
+
+Below there are code examples to create a `registration` flow and render the user interface (where applicable).
+When creating a `registration` flow for **browser applications** you must use the [`/self-service/registration/browser`](../reference/api#tag/frontend/operation/createBrowserRegistrationFlow) endpoint.
+When creating a `registration` flow for **native applications** you must use the [`/self-service/registration/api`](../reference/api#tag/frontend/operation/createNativeRegistrationFlow) endpoint.
+
+````mdx-code-block
+<Tabs groupId="curl-flow-examples">
+
+<TabItem value="curl-browser" label="cUrl (Browser flow)">
+
+To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+```mdx-code-block
+import createRegistrationCurlBrowser from '!!raw-loader!../../../code-examples/curl/registration/create-registration-browser.sh'
+import createRegistrationCurlBrowserJson from '../../../code-examples/curl/registration/create-registration-browser.json'
+
+<CodeBlock language="shell" title="create-registration-browser.sh">{createRegistrationCurlBrowser}</CodeBlock>
+<CodeBlock language="json5" title="create-registration-browser.json">{JSON.stringify(createRegistrationCurlBrowserJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+</Tabs>
+````
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
@@ -569,25 +612,36 @@ import createReactRegistrationApi from '!!raw-loader!../../../code-examples/sdk/
 
 </TabItem>
 
+</Tabs>
+````
+
+### Get Registration flow
+
+When a flow already exists, we can retrieve it through a GET request to the
+[`/self-service/registration/flows?id=<flow-id>`](../reference/api#tag/frontend/operation/getRegistrationFlow)
+endpoint using the flow ID. Usually the flow ID is stored in the URL query parameter `?flow=` in your application.
+Below is an example of how to retrieve the flow data using the flow ID.
+
+````mdx-code-block
+<Tabs groupId="curl-flow-examples">
+
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
 
 To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
 On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
-import createRegistrationCurlBrowser from '!!raw-loader!../../../code-examples/curl/registration/create-registration-browser.sh'
-import createRegistrationCurlBrowserJson from '../../../code-examples/curl/registration/create-registration-browser.json'
+import getRegistrationCurlBrowser from '!!raw-loader!../../../code-examples/curl/registration/get-registration-browser.sh'
+import getRegistrationCurlBrowserJson from '../../../code-examples/curl/registration/get-registration-browser.json'
 
-<CodeBlock language="shell" title="create-registration-browser.sh">{createRegistrationCurlBrowser}</CodeBlock>
-<CodeBlock language="json5" title="create-registration-browser.json">{JSON.stringify(createRegistrationCurlBrowserJson, null, 2)}</CodeBlock>
+<CodeBlock language="shell" title="create-registration-browser.sh">{getRegistrationCurlBrowser}</CodeBlock>
+<CodeBlock language="json5" title="create-registration-browser.json">{JSON.stringify(getRegistrationCurlBrowserJson, null, 2)}</CodeBlock>
 ```
 
 </TabItem>
 
 </Tabs>
 ````
-
-### Get Registration flow
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
@@ -622,30 +676,44 @@ import getReactRegistrationApi from '!!raw-loader!../../../code-examples/sdk/typ
 
 </TabItem>
 
+</Tabs>
+````
+
+### Submit Registration flow
+
+The last step is to submit the `registration` flow with the provided user credentials and traits.
+This is done through a POST request to the Ory [`/self-service/registration`](../reference/api#tag/frontend/operation/updateRegistrationFlow) endpoint.
+
+The registration payload is fully dependent on your Identity Schema. Take note of the `flow.ui.nodes` property in the response
+payload when creating or getting the registration flow. This property contains the registration form fields that you need to
+provide in the POST request payload. To learn more about customizing your Identity Schema please refer to
+[Identity model](../manage-identities/overview) documentation.
+
+For browser applications you need to ensure that all cookies are included in the request and that the CSRF token is sent in the body of the request.
+The CSRF token value is a hidden input field called `csrf_token`.
+
+````mdx-code-block
+<Tabs groupId="curl-flow-examples">
+
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
 
 To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
 On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
-```mdx-code-block
-import getRegistrationCurlBrowser from '!!raw-loader!../../../code-examples/curl/registration/get-registration-browser.sh'
-import getRegistrationCurlBrowserJson from '../../../code-examples/curl/registration/get-registration-browser.json'
+Take note of the payload, in this example we have two required traits, `traits.email` and `traits.tos` which is based on the Identity Schema.
 
-<CodeBlock language="shell" title="create-registration-browser.sh">{getRegistrationCurlBrowser}</CodeBlock>
-<CodeBlock language="json5" title="create-registration-browser.json">{JSON.stringify(getRegistrationCurlBrowserJson, null, 2)}</CodeBlock>
+```mdx-code-block
+import submitRegistrationCurlBrowser from '!!raw-loader!../../../code-examples/curl/registration/submit-registration-browser.sh'
+import submitRegistrationCurlBrowserJson from '../../../code-examples/curl/registration/submit-registration-browser.json'
+
+<CodeBlock language="shell" title="submit-registration-browser.sh">{submitRegistrationCurlBrowser}</CodeBlock>
+<CodeBlock language="json5" title="submit-registration-browser.json">{JSON.stringify(submitRegistrationCurlBrowserJson, null, 2)}</CodeBlock>
 ```
 
 </TabItem>
 
 </Tabs>
 ````
-
-### Submit Registration flow
-
-The registration payload is fully dependent on your Identity Schema. Take note of the `flow.ui.nodes` property in the response
-payload when creating or getting the registration flow. This property contains the registration form fields that you need to
-provide in the request payload. To learn more about customizing your Identity Schema please refer to
-[Identity model](../manage-identities/overview) documentation.
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
@@ -680,23 +748,6 @@ import submitReactRegistrationApi from '!!raw-loader!../../../code-examples/sdk/
 
 </TabItem>
 
-<TabItem value="curl-browser" label="cUrl (Browser flow)">
-
-To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
-
-Take note of the payload, in this example we have two required traits, `traits.email` and `traits.tos` which is based on the Identity Schema.
-
-```mdx-code-block
-import submitRegistrationCurlBrowser from '!!raw-loader!../../../code-examples/curl/registration/submit-registration-browser.sh'
-import submitRegistrationCurlBrowserJson from '../../../code-examples/curl/registration/submit-registration-browser.json'
-
-<CodeBlock language="shell" title="submit-registration-browser.sh">{submitRegistrationCurlBrowser}</CodeBlock>
-<CodeBlock language="json5" title="submit-registration-browser.json">{JSON.stringify(submitRegistrationCurlBrowserJson, null, 2)}</CodeBlock>
-```
-
-</TabItem>
-
 </Tabs>
 ````
 
@@ -716,17 +767,31 @@ Below are the API references for the registration flow.
 
 ## Recovery
 
-Recovery flows are used to recover user credentials. The recovery flow has two methods, `link` and `code` which determines how the
-recovery flow is completed. The `link` method sends a recovery link and `code` sends a recovery code to the user's email address.
+The `recovery` flow is used to recover user credentials and is used in conjunction with the `settings` flow.
+Once a recovery flow has been submitted successfully, a session issued to the application.
+This allows the user to reset their password and update their profile information on the settings page.
+Browser applications are automatically redirected to the settings page, while native applications will need to
+navigate the user to the settings page.
+
+The recovery flow has two methods, `link` and `code`. The `link` method requires the user to open the recovery link
+from their email client using a browser on the same device. This makes it difficult as the user might be switching
+between devices to recover their credentials.
+
+The `code` method is more user friendly since the code can be entered on the same device as the one they requested
+the recovery code from. This method is also more preferred due to spam filters and email clients invalidating the
+recovery link.
 
 :::note
 
-The `code` method is preferred to the `link` method to prevent the recovery flow from being invalidated by email clients and spam
-filters.
+Only one recovery method can be enabled at a time. The `code` method is enabled by default on all new Ory Network projects.
 
 :::
 
 ### Create Recovery flow
+
+Below there are code examples to create a recovery flow and render the user interface (where applicable).
+When creating a recovery flow for **browser applications** you must use the
+[`/self-service/registration/browser`](../reference/api#tag/frontend/operation/createBrowserRecoveryFlow) endpoint. When creating a registration flow for **native applications** you must use the [`/self-service/registration/api`](../reference/api#tag/frontend/operation/createNativeRecoveryFlow) endpoint.
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
@@ -1227,3 +1292,4 @@ import csrfMapping from '!!raw-loader!../../../code-examples/sdk/typescript/src/
 
 <CodeBlock language="tsx">{csrfMapping}</CodeBlock>
 ```
+``````
