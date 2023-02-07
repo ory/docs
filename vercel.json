@@ -923,6 +923,11 @@
       "source": "/docs/kratos/concepts/docker",
       "destination": "https://www.ory.sh/docs/kratos/guides/docker",
       "permanent": false
+    },
+    {
+      "source": "/docs/kratos/hooks/webhooks-integrations",
+      "destination": "https://www.ory.sh/guides/integrate-with-ory-cloud-through-webhooks",
+      "permanent": false
     }
   ]
 }
