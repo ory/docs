@@ -33,47 +33,47 @@ Unsure what JsonNet is? Read the [Ory Actions webhook guide](../../guides/integr
 
 1. First, create a Jsonnet file. It transforms the identity data from Ory to a format Mailchimp understands:
 
-:::info
+   :::info
 
-For Mailchimp, you must pass the API key in the request body. This means you must include it in the Jsonnet snippet.
+   For Mailchimp, you must pass the API key in the request body. This means you must include it in the Jsonnet snippet.
 
-:::
+   :::
 
-```jsonnet title="./mailchimp_identify.jsonnet"
-function(ctx) {
-  key: "{Your-Api-Key}",
-  message: {
-    from_email: "hello@example.com",
-    subject: "Hello from Ory",
-    text: "Welcome to Ory! Have fun and happy hacking!",
-    to: [
-      {
-        email: ctx.identity.verifiable_addresses[0].value,
-        type: "to"
-      }
-    ]
-  }
-}
-```
+   ```jsonnet title="./mailchimp_identify.jsonnet"
+   function(ctx) {
+   key: "{Your-Api-Key}",
+   message: {
+      from_email: "hello@example.com",
+      subject: "Hello from Ory",
+      text: "Welcome to Ory! Have fun and happy hacking!",
+      to: [
+         {
+         email: ctx.identity.verifiable_addresses[0].value,
+         type: "to"
+         }
+      ]
+   }
+   }
+   ```
 
 2. To use this Jsonnet snippet, encode it to Base64 and save it to the clipboard:
 
-```shell
-cat mailchimp_identify.jsonnet | base64 | pbcopy
-```
+   ```shell
+   cat mailchimp_identify.jsonnet | base64 | pbcopy
+   ```
 
 3. Next, define the Ory Action as a JSON Object. Remember to replace the placeholders with your data.
 
-```json title="./webhook-action.json"
-{
-  "hook": "web_hook",
-  "config": {
-    "url": "https://mandrillapp.com/api/1.0/messages/send",
-    "method": "POST",
-    "body": "base64://{ENCODED_JSONNET}"
-  }
-}
-```
+   ```json title="./webhook-action.json"
+   {
+     "hook": "web_hook",
+     "config": {
+       "url": "https://mandrillapp.com/api/1.0/messages/send",
+       "method": "POST",
+       "body": "base64://{ENCODED_JSONNET}"
+     }
+   }
+   ```
 
 4. Finally, add this action to your Ory Network Project using the Ory CLI.
 

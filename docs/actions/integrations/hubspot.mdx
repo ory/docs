@@ -29,45 +29,45 @@ Not sure what Jsonnet is? Read the [Ory Actions webhook guide](../../guides/inte
 
 1. First, create a Jsonnet file. It transforms the identity data from Ory to a format Hubspot understands:
 
-```jsonnet title="./hubspot_identify.jsonnet"
-function(ctx) {
-  properties: {
-    email: ctx.identity.traits.email,
-    firstname: ctx.identity.traits.name,
-    // ...
-  },
-}
-```
+   ```jsonnet title="./hubspot_identify.jsonnet"
+   function(ctx) {
+   properties: {
+      email: ctx.identity.traits.email,
+      firstname: ctx.identity.traits.name,
+      // ...
+   },
+   }
+   ```
 
 2. To use this Jsonnet snippet, encode it to Base64 and save it to the clipboard:
 
-```shell
-cat hubspot_identify.jsonnet | base64 | pbcopy
-```
+   ```shell
+   cat hubspot_identify.jsonnet | base64 | pbcopy
+   ```
 
 3. Next, define the Ory Action as a JSON Object. Remember to replace the placeholders with your data.
 
-```json title="./webhook-action.json"
-{
-  "hook": "web_hook",
-  "config": {
-    "response": {
-      "ignore": true
-    },
-    "auth": {
-      "type": "api_key",
-      "config": {
-        "name": "Authorization",
-        "value": "Bearer {YOUR_API_KEY_HERE}",
-        "in": "header"
-      }
-    },
-    "url": "https://api.hubapi.com/crm/v3/objects/contacts",
-    "method": "POST",
-    "body": "base64://{ENCODED_JSONNET}"
-  }
-}
-```
+   ```json title="./webhook-action.json"
+   {
+     "hook": "web_hook",
+     "config": {
+       "response": {
+         "ignore": true
+       },
+       "auth": {
+         "type": "api_key",
+         "config": {
+           "name": "Authorization",
+           "value": "Bearer {YOUR_API_KEY_HERE}",
+           "in": "header"
+         }
+       },
+       "url": "https://api.hubapi.com/crm/v3/objects/contacts",
+       "method": "POST",
+       "body": "base64://{ENCODED_JSONNET}"
+     }
+   }
+   ```
 
 4. Finally, add this action to your Ory Network Project using the Ory CLI.
 

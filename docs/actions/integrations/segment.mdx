@@ -33,42 +33,42 @@ Unsure what JsonNet is? Read the [Ory Actions webhook guide](../../guides/integr
 
 1. First, create a Jsonnet file. It transforms the identity data from Ory to a format Segment understands:
 
-```jsonnet title="./segment_identify.jsonnet"
-function(ctx) {
-  userId: ctx.identity.id,
-  traits: {
-    email: ctx.identity.traits.email,
-    name: ctx.identity.traits.name,
-    newsletterConsent: ctx.identity.traits.consent.newsletter,
-  },
-}
-```
+   ```jsonnet title="./segment_identify.jsonnet"
+   function(ctx) {
+   userId: ctx.identity.id,
+   traits: {
+      email: ctx.identity.traits.email,
+      name: ctx.identity.traits.name,
+      newsletterConsent: ctx.identity.traits.consent.newsletter,
+   },
+   }
+   ```
 
 2. To use this Jsonnet snippet, encode it to Base64 and save it to the clipboard:
 
-```shell
-cat segment_identify.jsonnet | base64 | pbcopy
-```
+   ```shell
+   cat segment_identify.jsonnet | base64 | pbcopy
+   ```
 
 3. Next, define the Ory Action as a JSON Object. Remember to replace the placeholders with your data.
 
-```json title="./webhook-action.json"
-{
-  "hook": "web_hook",
-  "config": {
-    "auth": {
-      "type": "basic_auth",
-      "config": {
-        "user": "{YOUR_SEGMENT_WRITE_KEY}",
-        "password": ""
-      }
-    },
-    "url": "https://api.segment.io/v1/identify",
-    "method": "POST",
-    "body": "base64://{JSONNET_FROM_CLIPBOARD}"
-  }
-}
-```
+   ```json title="./webhook-action.json"
+   {
+     "hook": "web_hook",
+     "config": {
+       "auth": {
+         "type": "basic_auth",
+         "config": {
+           "user": "{YOUR_SEGMENT_WRITE_KEY}",
+           "password": ""
+         }
+       },
+       "url": "https://api.segment.io/v1/identify",
+       "method": "POST",
+       "body": "base64://{JSONNET_FROM_CLIPBOARD}"
+     }
+   }
+   ```
 
 4. Finally, add this action to your Ory Network Project using the Ory CLI.
 
