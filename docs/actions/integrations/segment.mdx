@@ -1,6 +1,6 @@
 ---
 id: segment
-title: Segment Integration
+title: Segment integration with Ory Actions
 sidebar_label: Segment
 ---
 
@@ -8,21 +8,21 @@ sidebar_label: Segment
 sources into one centralized location. It provides a unified API for collecting, storing, and routing customer data to other
 tools, such as analytics and marketing platforms.
 
-To integrate Segment with Ory Actions, you'll need to complete the following steps:
+To integrate Segment using Ory Actions, you must complete these steps:
 
 1. Create a Segment account and set up the necessary sources for your customer data.
-1. Configure a destination for Ory Actions in the Segment Workspace.
-1. Write down the Segment Write Key.
-1. In your Ory Network project, set up an Ory Action trigger that will send data to the Segment destination whenever a specific
+2. Configure a destination for Ory Actions in the Segment Workspace.
+3. Get a Segment Write Key.
+4. In your Ory Network project, set up an Ory Action trigger that will send data to the Segment destination whenever a specific
    event occurs, for example on successful registration.
-1. Test the integration to ensure that data is being correctly routed from your Ory Actions application to Segment.
+5. Test the integration to ensure that data is correctly routed from your application to Segment.
 
 By integrating Segment with Ory Actions, you can easily collect and route customer data to other tools, helping you to gain a
 better understanding of your customers and make data-driven decisions.
 
-## Sending `identify` to Segment
+## Configuration
 
-In the following example, we will set up an action which calls
+In the following example, you set up an action which calls
 [Segment's Identify API](https://segment.com/docs/connections/spec/identify/) during registration to identify the user.
 
 :::info
@@ -31,7 +31,7 @@ Unsure what JsonNet is? Read the [Ory Actions webhook guide](../../guides/integr
 
 :::
 
-First, we create a JsonNet file. It transforms the identity data from Ory to a format Segment understands:
+1. First, create a Jsonnet file. It transforms the identity data from Ory to a format Segment understands:
 
 ```jsonnet title="./segment_identify.jsonnet"
 function(ctx) {
@@ -44,13 +44,13 @@ function(ctx) {
 }
 ```
 
-To use this JsonNet snippet, we need to encode it to base64 and save it to the clipboard:
+2. To use this Jsonnet snippet, encode it to Base64 and save it to the clipboard:
 
 ```shell
 cat segment_identify.jsonnet | base64 | pbcopy
 ```
 
-Next, we define the Ory Action as a JSON Object
+3. Next, define the Ory Action as a JSON Object. Remember to replace the placeholders with your data.
 
 ```json title="./webhook-action.json"
 {
@@ -70,40 +70,20 @@ Next, we define the Ory Action as a JSON Object
 }
 ```
 
-and replace the values. The result will look something like this:
+4. Finally, add this action to your Ory Network Project using the Ory CLI.
 
-```json title="webhook-action.json"
-{
-  "hook": "web_hook",
-  "config": {
-    "auth": {
-      "type": "basic_auth",
-      "config": {
-        "user": "DcJ2eWJSCG8gw3njklgdLUHKA780456hjg",
-        "password": ""
-      }
-    },
-    "response": { "ignore": true },
-    "url": "https://api.segment.io/v1/identify",
-    "method": "POST",
-    "body": "base64://CmZ1bmN0aW9uKGN0eCkgewogIHVzZXJJZDogY3R4LmlkZW50aXR5LmlkLAogIHRyYWl0czogewogICAgZW1haWw6IGN0eC5pZGVudGl0eS50cmFpdHMuZW1haWwsCiAgICBuYW1lOiBjdHguaWRlbnRpdHkudHJhaXRzLm5hbWUsCiAgICBuZXdzbGV0dGVyQ29uc2VudDogY3R4LmlkZW50aXR5LnRyYWl0cy5jb25zZW50Lm5ld3NsZXR0ZXIsCiAgfSwKfQo="
-  }
-}
-```
+- You can trigger this webhook after successful registration:
 
-The last step is to add this action to your Ory Network Project using the Ory CLI. Here, we trigger this webhook after successful
-registration:
+  ```shell
+  ory patch identity-config {project-id} \
+    --add "/selfservice/flows/registration/after/hooks/0=$(cat webhook-action.json)" \
+    --format yaml
+  ```
 
-```shell
-ory patch identity-config {project.id} \
-  --add "/selfservice/flows/registration/after/hooks/0=$(cat webhook-action.json)" \
-  --format yaml
-```
+- Alternatively, you can trigger this action only when the user signs up with a password or social sign-in:
 
-You may also trigger this webhook only when the user signs up with a password or social sign in:
-
-```shell
-ory patch identity-config {project.id} \
-  --add "/selfservice/flows/registration/after/password/hooks/0=$(cat webhook-action.json)" \
-  --format yaml
-```
+  ```shell
+  ory patch identity-config {project-id} \
+    --add "/selfservice/flows/registration/after/password/hooks/0=$(cat webhook-action.json)" \
+    --format yaml
+  ```

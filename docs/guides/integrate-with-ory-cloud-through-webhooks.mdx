@@ -1,26 +1,35 @@
 ---
 id: integrate-with-ory-cloud-through-webhooks
-title: Webhooks
+title: Trigger custom logic and integrate with external systems with webhooks
 sidebar_label: Webhooks
+toc_max_heading_level: 4
 ---
 
-Ory Actions support webhooks, which are HTTP callbacks that can be triggered by specific events in your Ory Actions-powered
-application. Webhooks allow Ory Actions to notify external systems, such as Hubspot, Mailchimp, and others, when certain events
-occur, such as a user registration or profile update.
+Ory Actions supports webhooks, which are HTTP callbacks that can be triggered by specific events in your Ory-powered application.
+Webhooks allow Ory Actions to notify external systems, such as Hubspot, Mailchimp, when certain events occur, such as a user
+registration or profile update. Aside from integrating with external systems, webhooks allow you to use custom, external business
+logic in Ory Actions.
 
-When to use webhooks:
+Should you use webhooks? They work perfectly for use cases like these:
 
-1. Integration with third-party systems: If you want to integrate your Ory Actions-powered application with another system, such
-   as a CRM, email marketing platform, or analytics tool, webhooks can be used to trigger updates in that system when events occur
-   in your Ory Actions application.
-2. Automated workflows: You can use webhooks to automate workflows and processes that span multiple systems. For example, you
-   could use webhooks to automatically add a new lead to your CRM when a user registers in your Ory Actions application.
-3. User data modification: Webhooks can be used to modify user data when certain events occur. For example, you could use webhooks
-   to update user data in your Ory Actions application when a user updates their profile information in another system.
+**Integration with third-party systems**
 
-:::note
+If you want to integrate your Ory Actions-powered application with another system, such as a CRM, an email marketing platform, or
+an analytics tool, you can use webhooks to trigger updates in that system when events occur in your Ory Actions application.
 
-When using webhooks, it is important to ensure that the data being transmitted is secure and that the external system you are
+**Automated workflows**
+
+You can use webhooks to automate workflows and processes that span multiple systems. For example, you can use webhooks to
+automatically add a new lead to your CRM when a user registers in your application.
+
+**User data modification**
+
+You can use webhooks to modify user data when certain events occur. For example, you can use webhooks to update user data in your
+application when a user updates their profile information in another system.
+
+:::tip
+
+Always put security first! When using webhooks, ensure that the data you send is secure and that the external system you are
 integrating with is trustworthy. Additionally, make sure to consider the data privacy laws and regulations that may apply to your
 use case.
 
@@ -46,21 +55,22 @@ config:
 
 ```mdx-code-block
 <details>
-<summary>Expand me to learn how to configure webhooks in your project.</summary>
+<summary>Expand to learn how to configure webhooks in your Ory Network project.</summary>
 <div>
 ```
 
-While Ory does not yet support webhook configuration in the UI, we provide examples in YAML format which you can copy and paste
-into your project configuration file. We use the Ory CLI to get the project configuration file:
+Follow these steps to start using webhooks in your project.
+
+1. Get your project configuration using Ory CLI:
 
 ```shell
-ory get identity-config {project.id} \
+ory get identity-config {project-id} \
   --format yaml > project-configuration.yaml
 ```
 
-Then, you add the webhook to your project configuration file:
+2. Add the webhook to your project configuration file:
 
-```yaml
+```yaml title="project-configuration.yaml"
 session:
   lifespan: # ...
 # ...
@@ -86,18 +96,18 @@ selfservice:
             # ...
         oidc:
           after:
-            # Actions in this sections will be executed after sign up (or login, settings) with a social sign in provider / OpenID Connect
+            # Actions in this section will be executed after sign up (or login, settings) with a social sign-in provider / OpenID Connect
             # ...
 # highlight-end
 ```
 
-```shell
-ory update identity-config {project.id} \
-  --file project-configuration.yaml \
-  --format yaml > project-configuration-updated.yaml
-```
+3. Update your project's configuration using the file you worked with:
 
-And verify that the updated project configuration file is correct.
+```shell
+ory update identity-config {project-id} \
+  --file project-configuration.yaml \
+  --format yaml > project-configuration.yaml
+```
 
 ```mdx-code-block
 </div>
@@ -106,16 +116,16 @@ And verify that the updated project configuration file is correct.
 
 ## Define HTTP request
 
-Webhooks trigger HTTP requests to the webhook URL. The request method, URL, authorization, and body can be configured.
+Webhooks trigger HTTP requests to the webhook URL. You can configure the request method, URL, authorization, and body.
 
-### Customizing request body with JsonNet
+### Customizing request body with Jsonnet
 
 Webhooks bind the `flow`, as well as request headers (`request_headers`), request method (`request_method`), and the request URL
 (`request_url`) of the flow into the Jsonnet template for all methods and execution paths (before and after). For the `after`
 execution path of all flows, it binds the `identity` object into the Jsonnet template as well. These objects are available through
 a `ctx` object.
 
-To send `{ user_id: <some-id> }` in the request body, create the following the [JsonNet](https://jsonnet.org) template:
+To send `{ user_id: {some-id} }` in the request body, create the following the [Jsonnet](https://jsonnet.org) template:
 
 ```jsonnet
 function(ctx) { user_id: ctx.identity.id }
@@ -123,7 +133,7 @@ function(ctx) { user_id: ctx.identity.id }
 
 ```mdx-code-block
 <details>
-  <summary>Expand me to see an example of all properties of the <code>ctx</code> object for a registration flow.</summary>
+  <summary>Expand to see an example of all properties of the <code>ctx</code> object for a registration flow.</summary>
   <div>
 ```
 
@@ -314,7 +324,7 @@ Webhooks can be configured to use HTTP Basic Authentication or API key authentic
 
   ```yaml
   hook: web_hook
-  # <other configuration keys>
+  # {other configuration keys}
   config:
     auth:
       type: api_key
@@ -329,7 +339,7 @@ Webhooks can be configured to use HTTP Basic Authentication or API key authentic
 
   ```yaml
   hook: web_hook
-  # <other configuration keys>
+  # {other configuration keys}
   config:
     auth:
       type: basic_auth
@@ -359,7 +369,7 @@ else
 
 :::info
 
-Currently, jsonnet doesn't support regular expressions. Follow this issue to see if the feature has been implemented:
+Currently, Jsonnet doesn't support regular expressions. Follow this issue to see if the feature has been implemented:
 [google/go-jsonnet/409](https://github.com/google/go-jsonnet/issues/409).
 
 :::
@@ -406,7 +416,7 @@ values from that object will be used to change the identity before it is saved t
 
 :::info
 
-Modifying the identity is currently only possible during the **registration** and **settings** flows.
+Modifying the identity is currently only possible during the registration and settings flows.
 
 :::
 
@@ -480,8 +490,7 @@ database.
 
 :::info
 
-This method replaces metadata object. It is not possible to update only a single value in `metadata_public` or `metadata_admin`
-respectively.
+This method replaces the entire metadata object. You can't update only a single value in `metadata_public` or `metadata_admin`.
 
 :::
 
@@ -509,7 +518,7 @@ before they are saved to the database.
 :::info
 
 Verification and recovery addresses are taken from the `identity.traits` object using the Identity Schema. If you add additional
-verification or recovery addresses, these will be deleted unless the Identity Traits also contain that address.
+verification or recovery addresses, these will be deleted unless the Identity traits also contain that address.
 
 :::
 

@@ -1,24 +1,25 @@
 ---
 id: mailchimp
-title: Mailchimp Integration
+title: Mailchimp integration with Ory Actions
+sidebar_label: Mailchimp
 ---
 
 [Mailchimp](https://www.mailchimp.com) is an email marketing platform that provides tools and services to help businesses send
 marketing emails, newsletters, and automated campaigns to their customers. It allows you to create, manage, and send emails to
 your subscribers, as well as segment and target specific groups of subscribers based on their interests and behaviors.
 
-To synchronize user data between Ory Actions and Mailchimp, you would need to follow these high-level steps:
+To integrate Mailchimp using Ory Actions, you must complete these steps:
 
-1. Create an account on Mailchimp.
-1. Create a new list in Mailchimp.
-1. Create a [Mailchimp API key](https://mailchimp.com/en-gb/help/about-api-keys/).
-1. Configure the Ory Action to synchroinze user data with Mailchimp.
-1. Test the integration by signing up with a test account in your Ory Network project and checking that the corresponding user
-   data is being updated in Mailchimp.
+1. Create a Mailchimp account.
+2. Create a new list in Mailchimp.
+3. Create a [Mailchimp API key](https://mailchimp.com/en-gb/help/about-api-keys/).
+4. Configure the Ory Action to synchronize user data with Mailchimp.
+5. Test the integration by signing up with a test account in your Ory Network project and checking that the corresponding user
+   data is updated in Mailchimp.
 
 :::note
 
-Make sure to also consider the data privacy laws and regulations that may apply to your use case.
+Make sure to consider the data privacy laws and regulations that may apply to your use case.
 
 :::
 
@@ -30,7 +31,7 @@ Unsure what JsonNet is? Read the [Ory Actions webhook guide](../../guides/integr
 
 :::
 
-First, we create a JsonNet file. It transforms the identity data from Ory to a format Mailchimp understands:
+1. First, create a Jsonnet file. It transforms the identity data from Ory to a format Mailchimp understands:
 
 :::info
 
@@ -40,7 +41,7 @@ For Mailchimp, you must pass the API key in the request body. This means you mus
 
 ```jsonnet title="./mailchimp_identify.jsonnet"
 function(ctx) {
-  key: "<Your-Api-Key>",
+  key: "{Your-Api-Key}",
   message: {
     from_email: "hello@example.com",
     subject: "Hello from Ory",
@@ -55,13 +56,13 @@ function(ctx) {
 }
 ```
 
-To use this JsonNet snippet, we need to encode it to base64 and save it to the clipboard:
+2. To use this Jsonnet snippet, encode it to Base64 and save it to the clipboard:
 
 ```shell
 cat mailchimp_identify.jsonnet | base64 | pbcopy
 ```
 
-Next, we define the Ory Action as a JSON Object
+3. Next, define the Ory Action as a JSON Object. Remember to replace the placeholders with your data.
 
 ```json title="./webhook-action.json"
 {
@@ -69,40 +70,25 @@ Next, we define the Ory Action as a JSON Object
   "config": {
     "url": "https://mandrillapp.com/api/1.0/messages/send",
     "method": "POST",
-    "body": "base64://ENCODED_JSONNET"
+    "body": "base64://{ENCODED_JSONNET}"
   }
 }
 ```
 
-and replace the values. The result will look something like this:
+4. Finally, add this action to your Ory Network Project using the Ory CLI.
 
-```json title="webhook-action.json"
-{
-  "hook": "web_hook",
-  "config": {
-    "response": {
-      "ignore": true
-    },
-    "url": "https://mandrillapp.com/api/1.0/messages/send",
-    "method": "POST",
-    "body": "base64://CmZ1bmN0aW9uKGN0eCkgewogIGtleTogIjxZb3VyLUFwaS1LZXk+IiwKICBtZXNzYWdlOiB7CiAgICBmcm9tX2VtYWlsOiAiaGVsbG9AZXhhbXBsZS5jb20iLAogICAgc3ViamVjdDogIkhlbGxvIGZyb20gT3J5IiwKICAgIHRleHQ6ICJXZWxjb21lIHRvIE9yeSEgSGF2ZSBmdW4gYW5kIGhhcHB5IGhhY2tpbmchIiwKICAgIHRvOiBbCiAgICAgIHsKICAgICAgICBlbWFpbDogY3R4LmlkZW50aXR5LnZlcmlmaWFibGVfYWRkcmVzc2VzWzBdLnZhbHVlLAogICAgICAgIHR5cGU6ICJ0byIKICAgICAgfQogICAgXQogIH0KfQ=="
-  }
-}
-```
+- You can trigger this webhook after successful registration:
 
-The last step is to add this action to your Ory Network Project using the Ory CLI. Here, we trigger this webhook after successful
-registration:
+  ```shell
+  ory patch identity-config {project-id} \
+    --add "/selfservice/flows/registration/after/hooks/0=$(cat webhook-action.json)" \
+    --format yaml
+  ```
 
-```shell
-ory patch identity-config {project.id} \
-  --add "/selfservice/flows/registration/after/hooks/0=$(cat webhook-action.json)" \
-  --format yaml
-```
+- Alternatively, you can trigger this action only when the user signs up with a password or social sign-in:
 
-You may also trigger this webhook only when the user signs up with a password or social sign in:
-
-```shell
-ory patch identity-config {project.id} \
-  --add "/selfservice/flows/registration/after/password/hooks/0=$(cat webhook-action.json)" \
-  --format yaml
-```
+  ```shell
+  ory patch identity-config {project-id} \
+    --add "/selfservice/flows/registration/after/password/hooks/0=$(cat webhook-action.json)" \
+    --format yaml
+  ```

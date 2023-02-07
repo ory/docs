@@ -4,23 +4,25 @@ title: One active session per user
 sidebar_label: Only one active device
 ---
 
-The revoke_active_sessions action is used to log out a user from all other active sessions. This ensures that every user has
+The `revoke_active_sessions` action is used to log out a user from all other active sessions. This ensures that every user has
 exactly one active session and device at a time.
 
-For example, if a user logs in to your application on multiple devices, the revoke_active_sessions action can be used to log out
+For example, if a user logs in to your application on multiple devices, the `revoke_active_sessions` action can be used to log out
 the user from all other devices when they sign in on a new device. This ensures that the user is only able to access the
 application from one device at a time and improves the overall security of your application.
 
-The revoke_active_sessions action can also be used to log out a user when they change their password or perform other
+The `revoke_active_session`s action can also be used to log out a user when they change their password or perform other
 security-related actions. This ensures that the user is immediately logged out from all other devices and prevents unauthorized
 access to the application.
 
-By using the revoke_active_sessions action in combination with other security measures, you can ensure that users are only able to
-access the application from one device at a time and improve the overall security of your application.
+By using the `revoke_active_sessions` action in combination with other security measures, you can ensure that users are only able
+to access the application from one device at a time and improve the overall security of your application.
 
 ## Toggle action
 
+Run this command:
+
 ```shell
-ory patch identity-config {project.id} \
+ory patch identity-config {project-id} \
   --add '/selfservice/flows/login/after/hooks/0/hook="revoke_active_sessions"'
 ```

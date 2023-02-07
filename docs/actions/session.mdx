@@ -1,25 +1,26 @@
 ---
 id: session
-title: Login after sign up
-sidebar_label: Login after sign up
+title: Sign in after registration
+sidebar_label: Sign in after registration
 ---
 
+```mdx-code-block
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+```
+
 The `session` action is used to sign in the user after they successfully registered. If the option to verify the email address
-before being able to sign in is enabled, the session action can be used once to bypass this requirement.
+before allowing users to sign in is enabled, the `session` action can be used one time to bypass this requirement.
 
-For example, after a user successfully registers for an account, you can use the session action to sign them in immediately,
-bypassing the requirement to verify their email address first. This allows the user to start using the application immediately,
-without having to wait for an email verification.
+For example, after the user successfully registers, you can use the `session` action to sign them in immediately, bypassing the
+requirement to verify their email address first. This allows the user to start using the application right away, without having to
+wait for account verification. The user still has to verify their account before they sign in the next time after they registered.
 
-However, if the option to verify the email address before being able to sign in is enabled, the user will still have to verify
-their email address the first time they sign in. After that, they can sign in using the session action without having to verify
-their email address again.
-
-The session action provides a convenient way to sign in users and control the flow of events in your application.
+The `session` action provides a convenient way to sign in users and control the flow of events in your application.
 
 :::note
 
-Ory automatically activates the `session` action when a user signs up using a social sign in provider.
+Ory automatically activates the `session` action when a user signs up using a social sign-in provider.
 
 :::
 
@@ -27,29 +28,28 @@ Ory automatically activates the `session` action when a user signs up using a so
 
 :::info
 
-This action modifies the HTTP response. As a result, no other hooks can be executed after the `session` hook. If you want to
-trigger multiple actions that modify the HTTP response in your setup, make sure that `session` is the last hook.
+This action modifies the HTTP response. As a result, no other hooks can be executed after the `session` action. If you want to
+trigger multiple actions that modify the HTTP response in your setup, make sure that `session` is triggered last.
 
 :::
 
-En/disabling this feature can be done using the Ory Console or the Ory CLI:
+Follow these steps to toggle this action on or off:
 
 ````mdx-code-block
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-
 <Tabs>
 <TabItem value="console" label="Ory Console" default>
 
-1. Sign in to Ory Console and select [**Authentication Settings**](https://console.ory.sh/projects/current/auth).
+1. Sign in to the Ory Console and select [**Authentication Settings**](https://console.ory.sh/projects/current/auth).
 2. Toggle **Sign In After Registration**.
-6. Click the **Save** button to save.
+6. Click **Save**.
 
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
 
+Run this command:
+
 ```shell
-ory patch identity-config {project.id} \
+ory patch identity-config {project-id} \
   --add '/selfservice/flows/registration/after/hooks/0/hook="session"'
 ```
 
