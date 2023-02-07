@@ -422,6 +422,7 @@ module.exports = {
             "kratos/ory-kratos-intro",
             "kratos/install",
             "kratos/quickstart",
+            "kratos/guides/docker",
             "kratos/guides/deploy-kratos-example",
             "kratos/guides/upgrade",
             {
@@ -446,7 +447,6 @@ module.exports = {
                 "kratos/guides/select-cipher-algorithm",
                 "kratos/guides/secret-key-rotation",
                 "kratos/guides/high-availability-ha",
-                "kratos/guides/docker",
                 "kratos/guides/https-tls",
                 "kratos/guides/tracing",
               ],
