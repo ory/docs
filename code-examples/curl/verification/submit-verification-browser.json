@@ -1,0 +1,107 @@
+{
+  "id": "7b500ad3-f5d0-46ae-acb7-d39eda5c60d8",
+  "type": "browser",
+  "expires_at": "2023-02-08T17:34:35.934427Z",
+  "issued_at": "2023-02-08T17:04:35.934427Z",
+  "request_url": "https://{project.slug}.projects.oryapis.com/self-service/verification/browser",
+  "active": "code",
+  "ui": {
+    "action": "https://{project.slug}.projects.oryapis.com/self-service/verification?flow=7b500ad3-f5d0-46ae-acb7-d39eda5c60d8",
+    "method": "POST",
+    "nodes": [
+      {
+        "type": "input",
+        "group": "code",
+        "attributes": {
+          "name": "code",
+          "type": "text",
+          "required": true,
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {
+          "label": {
+            "id": 1070006,
+            "text": "Verify code",
+            "type": "info"
+          }
+        }
+      },
+      {
+        "type": "input",
+        "group": "code",
+        "attributes": {
+          "name": "method",
+          "type": "hidden",
+          "value": "code",
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {}
+      },
+      {
+        "type": "input",
+        "group": "code",
+        "attributes": {
+          "name": "method",
+          "type": "submit",
+          "value": "code",
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {
+          "label": {
+            "id": 1070005,
+            "text": "Submit",
+            "type": "info"
+          }
+        }
+      },
+      {
+        "type": "input",
+        "group": "code",
+        "attributes": {
+          "name": "email",
+          "type": "submit",
+          "value": "email@example.com",
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {
+          "label": {
+            "id": 1070007,
+            "text": "Resend code",
+            "type": "info"
+          }
+        }
+      },
+      {
+        "type": "input",
+        "group": "default",
+        "attributes": {
+          "name": "csrf_token",
+          "type": "hidden",
+          "value": "FH3SnueiKNY6/xbipx7F6pSEkwY90OwFLjLeNUHAgO3d6ISqM6+uuUGC96Sp6J+qHNXQ5jbcRZgScb4KGSshnw==",
+          "required": true,
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {}
+      }
+    ],
+    "messages": [
+      {
+        "id": 1080003,
+        "text": "An email containing a verification code has been sent to the email address you provided.",
+        "type": "info",
+        "context": {}
+      }
+    ]
+  },
+  "state": "sent_email"
+}

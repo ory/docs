@@ -1,0 +1,19 @@
+{
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "title": "E-Mail",
+          "maxLength": 320
+        },
+        "tos": {
+          "type": "boolean",
+          "title": "Accept Tos"
+        }
+      }
+    }
+  }
+}

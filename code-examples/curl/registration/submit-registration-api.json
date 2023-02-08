@@ -1,0 +1,94 @@
+{
+  "session_token": "kBIBfJfbXkbzuBIzSsN3cvHffi4w7hkm",
+  "session": {
+    "id": "530b163a-a9f9-4189-b83f-c92c4577e5ae",
+    "active": true,
+    "expires_at": "2023-02-11T14:16:41.285266457Z",
+    "authenticated_at": "2023-02-08T14:16:41.353501841Z",
+    "authenticator_assurance_level": "aal1",
+    "authentication_methods": [
+      {
+        "method": "password",
+        "aal": "aal1",
+        "completed_at": "2023-02-08T14:16:41.285339187Z"
+      }
+    ],
+    "issued_at": "2023-02-08T14:16:41.285266457Z",
+    "identity": {
+      "id": "a82f5694-0b84-48e4-b5f9-aa100c7bc2e4",
+      "schema_id": "dc9e56067fce00e628f70621eed24c5a2c9253bfebb14db405a05fe082a00bc638e6f171a05f829db95e4830f79d5e98004d8b229dad410a90122044dbd2fba0",
+      "schema_url": "https://{project.slug}.projects.oryapis.com/schemas/ZGM5ZTU2MDY3ZmNlMDBlNjI4ZjcwNjIxZWVkMjRjNWEyYzkyNTNiZmViYjE0ZGI0MDVhMDVmZTA4MmEwMGJjNjM4ZTZmMTcxYTA1ZjgyOWRiOTVlNDgzMGY3OWQ1ZTk4MDA0ZDhiMjI5ZGFkNDEwYTkwMTIyMDQ0ZGJkMmZiYTA",
+      "state": "active",
+      "state_changed_at": "2023-02-08T14:16:41.218176193Z",
+      "traits": {
+        "email": "email@example.com",
+        "tos": true
+      },
+      "verifiable_addresses": [
+        {
+          "id": "38dd078c-b295-49ba-a8e0-e4bd8837ca91",
+          "value": "email@example.com",
+          "verified": false,
+          "via": "email",
+          "status": "sent",
+          "created_at": "2023-02-08T14:16:41.237567Z",
+          "updated_at": "2023-02-08T14:16:41.237567Z"
+        }
+      ],
+      "recovery_addresses": [
+        {
+          "id": "370db6dd-7e8b-482d-8298-fb6469368a3c",
+          "value": "email@example.com",
+          "via": "email",
+          "created_at": "2023-02-08T14:16:41.24398Z",
+          "updated_at": "2023-02-08T14:16:41.24398Z"
+        }
+      ],
+      "metadata_public": null,
+      "created_at": "2023-02-08T14:16:41.230451Z",
+      "updated_at": "2023-02-08T14:16:41.230451Z"
+    },
+    "devices": [
+      {
+        "id": "02390b9d-386c-4b4a-8dd0-252a8346e0b8",
+        "ip_address": "",
+        "user_agent": "curl/7.81.0",
+        "location": "Munich, DE"
+      }
+    ]
+  },
+  "identity": {
+    "id": "a82f5694-0b84-48e4-b5f9-aa100c7bc2e4",
+    "schema_id": "dc9e56067fce00e628f70621eed24c5a2c9253bfebb14db405a05fe082a00bc638e6f171a05f829db95e4830f79d5e98004d8b229dad410a90122044dbd2fba0",
+    "schema_url": "https://{project.slug}.projects.oryapis.com/schemas/ZGM5ZTU2MDY3ZmNlMDBlNjI4ZjcwNjIxZWVkMjRjNWEyYzkyNTNiZmViYjE0ZGI0MDVhMDVmZTA4MmEwMGJjNjM4ZTZmMTcxYTA1ZjgyOWRiOTVlNDgzMGY3OWQ1ZTk4MDA0ZDhiMjI5ZGFkNDEwYTkwMTIyMDQ0ZGJkMmZiYTA",
+    "state": "active",
+    "state_changed_at": "2023-02-08T14:16:41.218176193Z",
+    "traits": {
+      "email": "email@example.com",
+      "tos": true
+    },
+    "verifiable_addresses": [
+      {
+        "id": "38dd078c-b295-49ba-a8e0-e4bd8837ca91",
+        "value": "email@example.com",
+        "verified": false,
+        "via": "email",
+        "status": "sent",
+        "created_at": "2023-02-08T14:16:41.237567Z",
+        "updated_at": "2023-02-08T14:16:41.237567Z"
+      }
+    ],
+    "recovery_addresses": [
+      {
+        "id": "370db6dd-7e8b-482d-8298-fb6469368a3c",
+        "value": "email@example.com",
+        "via": "email",
+        "created_at": "2023-02-08T14:16:41.24398Z",
+        "updated_at": "2023-02-08T14:16:41.24398Z"
+      }
+    ],
+    "metadata_public": null,
+    "created_at": "2023-02-08T14:16:41.230451Z",
+    "updated_at": "2023-02-08T14:16:41.230451Z"
+  }
+}

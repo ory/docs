@@ -561,6 +561,18 @@ import createRegistrationCurlBrowserJson from '../../../code-examples/curl/regis
 
 </TabItem>
 
+<TabItem value="curl-native" label="cUrl (Native flow)">
+
+```mdx-code-block
+import createRegistrationCurlApi from '!!raw-loader!../../../code-examples/curl/registration/create-registration-api.sh'
+import createRegistrationCurlApiJson from '../../../code-examples/curl/registration/create-registration-api.json'
+
+<CodeBlock language="shell" title="create-registration-browser.sh">{createRegistrationCurlApi}</CodeBlock>
+<CodeBlock language="json5" title="create-registration-browser.json">{JSON.stringify(createRegistrationCurlApiJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
 </Tabs>
 ````
 
@@ -640,6 +652,18 @@ import getRegistrationCurlBrowserJson from '../../../code-examples/curl/registra
 
 </TabItem>
 
+<TabItem value="curl-native" label="cUrl (Native flow)">
+
+```mdx-code-block
+import getRegistrationCurlApi from '!!raw-loader!../../../code-examples/curl/registration/get-registration-api.sh'
+import getRegistrationCurlApiJson from '../../../code-examples/curl/registration/get-registration-api.json'
+
+<CodeBlock language="shell" title="get-registration-native.sh">{getRegistrationCurlApi}</CodeBlock>
+<CodeBlock language="json5" title="get-registration-native.json">{JSON.stringify(getRegistrationCurlApiJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
 </Tabs>
 ````
 
@@ -692,6 +716,14 @@ provide in the POST request payload. To learn more about customizing your Identi
 For browser applications you need to ensure that all cookies are included in the request and that the CSRF token is sent in the body of the request.
 The CSRF token value is a hidden input field called `csrf_token`.
 
+Based on the following Identity Schema snippet the examples below submit the required traits `traits.email` and `traits.tos`.
+
+```mdx-code-block
+import identitySchemaPartial from '../../../code-examples/curl/identity-schema-partial.json'
+
+<CodeBlock language="json5" title="partial-identity-schema.json">{JSON.stringify(identitySchemaPartial, null, 2)}</CodeBlock>
+```
+
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
@@ -708,6 +740,18 @@ import submitRegistrationCurlBrowserJson from '../../../code-examples/curl/regis
 
 <CodeBlock language="shell" title="submit-registration-browser.sh">{submitRegistrationCurlBrowser}</CodeBlock>
 <CodeBlock language="json5" title="submit-registration-browser.json">{JSON.stringify(submitRegistrationCurlBrowserJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-native" label="cUrl (Native flow)">
+
+```mdx-code-block
+import submitRegistrationCurlApi from '!!raw-loader!../../../code-examples/curl/registration/submit-registration-api.sh'
+import submitRegistrationCurlApiJson from '../../../code-examples/curl/registration/submit-registration-api.json'
+
+<CodeBlock language="shell" title="submit-registration-native.sh">{submitRegistrationCurlApi}</CodeBlock>
+<CodeBlock language="json5" title="submit-registration-native.json">{JSON.stringify(submitRegistrationCurlApiJson, null, 2)}</CodeBlock>
 ```
 
 </TabItem>
@@ -791,7 +835,43 @@ Only one recovery method can be enabled at a time. The `code` method is enabled 
 
 Below there are code examples to create a recovery flow and render the user interface (where applicable).
 When creating a recovery flow for **browser applications** you must use the
-[`/self-service/registration/browser`](../reference/api#tag/frontend/operation/createBrowserRecoveryFlow) endpoint. When creating a registration flow for **native applications** you must use the [`/self-service/registration/api`](../reference/api#tag/frontend/operation/createNativeRecoveryFlow) endpoint.
+[`/self-service/recovery/browser`](../reference/api#tag/frontend/operation/createBrowserRecoveryFlow) endpoint.
+When creating a registration flow for **native applications** you must use the [`/self-service/recovery/api`](../reference/api#tag/frontend/operation/createNativeRecoveryFlow) endpoint.
+
+````mdx-code-block
+<Tabs groupId="curl-flow-examples">
+
+<TabItem value="curl-browser" label="cUrl (Browser flow)">
+
+To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+
+
+```mdx-code-block
+import createRecoveryCurlBrowser from '!!raw-loader!../../../code-examples/curl/recovery/create-recovery-browser.sh'
+import createRecoveryCurlBrowserJson from '../../../code-examples/curl/recovery/create-recovery-browser.json'
+
+<CodeBlock language="shell" title="submit-registration-browser.sh">{createRecoveryCurlBrowser}</CodeBlock>
+<CodeBlock language="json5" title="submit-registration-browser.json">{JSON.stringify(createRecoveryCurlBrowserJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-native" label="cUrl (Native flow)">
+
+```mdx-code-block
+import createRecoveryCurlApi from '!!raw-loader!../../../code-examples/curl/recovery/create-recovery-api.sh'
+import createRecoveryCurlApiJson from '../../../code-examples/curl/recovery/create-recovery-api.json'
+
+<CodeBlock language="shell" title="submit-registration-native.sh">{createRecoveryCurlApi}</CodeBlock>
+<CodeBlock language="json5" title="submit-registration-native.json">{JSON.stringify(createRecoveryCurlApiJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+</Tabs>
+````
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
@@ -847,6 +927,41 @@ import createReactRecoveryApi from '!!raw-loader!../../../code-examples/sdk/type
 ### Get Recovery flow
 
 ````mdx-code-block
+<Tabs groupId="curl-flow-examples">
+
+<TabItem value="curl-browser" label="cUrl (Browser flow)">
+
+To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+
+
+```mdx-code-block
+import getRecoveryCurlBrowser from '!!raw-loader!../../../code-examples/curl/recovery/get-recovery-browser.sh'
+import getRecoveryCurlBrowserJson from '../../../code-examples/curl/recovery/get-recovery-browser.json'
+
+<CodeBlock language="shell" title="get-recovery-browser.sh">{getRecoveryCurlBrowser}</CodeBlock>
+<CodeBlock language="json5" title="get-recovery-browser.json">{JSON.stringify(getRecoveryCurlBrowserJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-native" label="cUrl (Native flow)">
+
+```mdx-code-block
+import getRecoveryCurlApi from '!!raw-loader!../../../code-examples/curl/recovery/get-recovery-api.sh'
+import getRecoveryCurlApiJson from '../../../code-examples/curl/recovery/get-recovery-api.json'
+
+<CodeBlock language="shell" title="get-recovery-native.sh">{getRecoveryCurlApi}</CodeBlock>
+<CodeBlock language="json5" title="get-recovery-native.json">{JSON.stringify(getRecoveryCurlApiJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+</Tabs>
+````
+
+````mdx-code-block
 <Tabs groupId="sdk-examples">
 
 <TabItem value="go" label="Go" default>
@@ -883,6 +998,39 @@ import getReactRecoveryApi from '!!raw-loader!../../../code-examples/sdk/typescr
 ````
 
 ### Submit Recovery flow
+
+````mdx-code-block
+<Tabs groupId="curl-flow-examples">
+
+<TabItem value="curl-browser" label="cUrl (Browser flow)">
+
+To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+```mdx-code-block
+import submitRecoveryCurlBrowser from '!!raw-loader!../../../code-examples/curl/recovery/submit-recovery-browser.sh'
+import submitRecoveryCurlBrowserJson from '../../../code-examples/curl/recovery/submit-recovery-browser.json'
+
+<CodeBlock language="shell" title="submit-recovery-browser.sh">{submitRecoveryCurlBrowser}</CodeBlock>
+<CodeBlock language="json5" title="submit-recovery-browser.json">{JSON.stringify(submitRecoveryCurlBrowserJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-native" label="cUrl (Native flow)">
+
+```mdx-code-block
+import submitRecoveryCurlApi from '!!raw-loader!../../../code-examples/curl/recovery/submit-recovery-api.sh'
+import submitRecoveryCurlApiJson from '../../../code-examples/curl/recovery/submit-recovery-api.json'
+
+<CodeBlock language="shell" title="submit-recovery-native.sh">{submitRecoveryCurlApi}</CodeBlock>
+<CodeBlock language="json5" title="submit-recovery-native.json">{JSON.stringify(submitRecoveryCurlApiJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+</Tabs>
+````
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
@@ -949,6 +1097,41 @@ To use the verification flow, you might need to enable it. Please take a look at
 ### Create Verification flow
 
 ````mdx-code-block
+<Tabs groupId="curl-flow-examples">
+
+<TabItem value="curl-browser" label="cUrl (Browser flow)">
+
+To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+
+
+```mdx-code-block
+import createVerificationCurlBrowser from '!!raw-loader!../../../code-examples/curl/verification/create-verification-browser.sh'
+import createVerificationCurlBrowserJson from '../../../code-examples/curl/verification/create-verification-browser.json'
+
+<CodeBlock language="shell" title="create-verification-browser.sh">{createVerificationCurlBrowser}</CodeBlock>
+<CodeBlock language="json5" title="create-verification-browser.json">{JSON.stringify(createVerificationCurlBrowserJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-native" label="cUrl (Native flow)">
+
+```mdx-code-block
+import createVerificationCurlApi from '!!raw-loader!../../../code-examples/curl/verification/create-verification-api.sh'
+import createVerificationCurlApiJson from '../../../code-examples/curl/verification/create-verification-api.json'
+
+<CodeBlock language="shell" title="create-verification-native.sh">{createVerificationCurlApi}</CodeBlock>
+<CodeBlock language="json5" title="create-verification-native.json">{JSON.stringify(createVerificationCurlApiJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+</Tabs>
+````
+
+````mdx-code-block
 <Tabs groupId="sdk-examples">
 
 <TabItem value="go" label="Go" default>
@@ -1002,6 +1185,41 @@ import createReactVerificationApi from '!!raw-loader!../../../code-examples/sdk/
 ### Get Verification flow
 
 ````mdx-code-block
+<Tabs groupId="curl-flow-examples">
+
+<TabItem value="curl-browser" label="cUrl (Browser flow)">
+
+To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+
+
+```mdx-code-block
+import getVerificationCurlBrowser from '!!raw-loader!../../../code-examples/curl/verification/get-verification-browser.sh'
+import getVerificationCurlBrowserJson from '../../../code-examples/curl/verification/get-verification-browser.json'
+
+<CodeBlock language="shell" title="get-verification-browser.sh">{getVerificationCurlBrowser}</CodeBlock>
+<CodeBlock language="json5" title="get-verification-browser.json">{JSON.stringify(getVerificationCurlBrowserJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-native" label="cUrl (Native flow)">
+
+```mdx-code-block
+import getVerificationCurlApi from '!!raw-loader!../../../code-examples/curl/verification/get-verification-api.sh'
+import getVerificationCurlApiJson from '../../../code-examples/curl/verification/get-verification-api.json'
+
+<CodeBlock language="shell" title="get-verification-native.sh">{getVerificationCurlApi}</CodeBlock>
+<CodeBlock language="json5" title="get-verification-native.json">{JSON.stringify(getVerificationCurlApiJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+</Tabs>
+````
+
+````mdx-code-block
 <Tabs groupId="sdk-examples">
 
 <TabItem value="go" label="Go" default>
@@ -1038,6 +1256,41 @@ import getReactVerificationApi from '!!raw-loader!../../../code-examples/sdk/typ
 ````
 
 ### Submit Verification flow
+
+````mdx-code-block
+<Tabs groupId="curl-flow-examples">
+
+<TabItem value="curl-browser" label="cUrl (Browser flow)">
+
+To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+
+
+```mdx-code-block
+import submitVerificationCurlBrowser from '!!raw-loader!../../../code-examples/curl/verification/submit-verification-browser.sh'
+import submitVerificationCurlBrowserJson from '../../../code-examples/curl/verification/submit-verification-browser.json'
+
+<CodeBlock language="shell" title="submit-verification-browser.sh">{submitVerificationCurlBrowser}</CodeBlock>
+<CodeBlock language="json5" title="submit-verification-browser.json">{JSON.stringify(submitVerificationCurlBrowserJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+<TabItem value="curl-native" label="cUrl (Native flow)">
+
+```mdx-code-block
+import submitVerificationCurlApi from '!!raw-loader!../../../code-examples/curl/verification/submit-verification-api.sh'
+import submitVerificationCurlApiJson from '../../../code-examples/curl/verification/submit-verification-api.json'
+
+<CodeBlock language="shell" title="get-verification-native.sh">{submitVerificationCurlApi}</CodeBlock>
+<CodeBlock language="json5" title="get-verification-native.json">{JSON.stringify(submitVerificationCurlApiJson, null, 2)}</CodeBlock>
+```
+
+</TabItem>
+
+</Tabs>
+````
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
@@ -1097,15 +1350,44 @@ can then call the logout URL through a redirect or a background AJAX request.
 
 Note that in browser applications the application needs to do a GET request to initialize the logout URL by calling
 [`/self-service/logout/browser`](../reference/api#tag/frontend/operation/createBrowserLogoutFlow) and a GET to complete the logout
-[/self-service/logout](../reference/api#tag/frontend/operation/updateLogoutFlow) flow.
+[`/self-service/logout`](../reference/api#tag/frontend/operation/updateLogoutFlow) flow.
 
 In native applications the application does not need to initialize the logout flow and only needs to do a DELETE request to the
 [`/self-service/logout/api`](../reference/api#tag/frontend/operation/performNativeLogout) endpoint containing the session token in
 the body.
 
-```shell
-curl -X DELETE -H "Content-Type: application/json" -d '{"session_token":"<session_token>"}' https://{project.}
+````mdx-code-block
+<Tabs groupId="curl-flow-examples">
+
+<TabItem value="curl-browser" label="cUrl (Browser flow)">
+
+To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
+On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+
+```mdx-code-block
+import createLogoutCurlBrowser from '!!raw-loader!../../../code-examples/curl/logout/create-logout-browser.sh'
+import createLogoutCurlBrowserJson from '../../../code-examples/curl/logout/create-logout-browser.json'
+import submitLogoutCurlBrowser from '!!raw-loader!../../../code-examples/curl/logout/submit-logout-browser.sh'
+
+<CodeBlock language="shell" title="get-logout-browser.sh">{createLogoutCurlBrowser}</CodeBlock>
+<CodeBlock language="json5" title="get-logout-browser.json">{JSON.stringify(createLogoutCurlBrowserJson, null, 2)}</CodeBlock>
+<CodeBlock language="shell" title="submit-logout-browser.sh">{submitLogoutCurlBrowser}</CodeBlock>
 ```
+
+</TabItem>
+
+<TabItem value="curl-native" label="cUrl (Native flow)">
+
+```mdx-code-block
+import logoutCurlApi from '!!raw-loader!../../../code-examples/curl/logout/logout-api.sh'
+
+<CodeBlock language="shell" title="logout-native.sh">{logoutCurlApi}</CodeBlock>
+```
+
+</TabItem>
+
+</Tabs>
+````
 
 ## Session Checks
 

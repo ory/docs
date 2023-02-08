@@ -1,0 +1,67 @@
+{
+  "id": "fb395045-429b-406b-b7cc-cd878b2d453f",
+  "type": "browser",
+  "expires_at": "2023-02-08T16:47:37.742765Z",
+  "issued_at": "2023-02-08T16:17:37.742765Z",
+  "request_url": "https://{project.slug}.projects.oryapis.com/self-service/recovery/browser",
+  "active": "code",
+  "ui": {
+    "action": "https://{project.slug}.projects.oryapis.com/self-service/recovery?flow=fb395045-429b-406b-b7cc-cd878b2d453f",
+    "method": "POST",
+    "nodes": [
+      {
+        "type": "input",
+        "group": "default",
+        "attributes": {
+          "name": "csrf_token",
+          "type": "hidden",
+          "value": "mNBAW/7SFWLH+G/goy7nBayFlEiDBXjN+55qvL/yfHi7/kRpqEhpD4GBEjhXc2OdenuLCIBje3dsHUqvls+wOw==",
+          "required": true,
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {}
+      },
+      {
+        "type": "input",
+        "group": "code",
+        "attributes": {
+          "name": "email",
+          "type": "email",
+          "required": true,
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {
+          "label": {
+            "id": 1070007,
+            "text": "Email",
+            "type": "info"
+          }
+        }
+      },
+      {
+        "type": "input",
+        "group": "code",
+        "attributes": {
+          "name": "method",
+          "type": "submit",
+          "value": "code",
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {
+          "label": {
+            "id": 1070005,
+            "text": "Submit",
+            "type": "info"
+          }
+        }
+      }
+    ]
+  },
+  "state": "choose_method"
+}
