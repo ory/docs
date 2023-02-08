@@ -928,6 +928,11 @@
       "source": "/docs/kratos/hooks/webhooks-integrations",
       "destination": "https://www.ory.sh/guides/integrate-with-ory-cloud-through-webhooks",
       "permanent": false
+    },
+    {
+      "source": "/docs/keto/guides/userset-rewrites",
+      "destination": "https://www.ory.sh/docs/guides/permissions/overview",
+      "permanent": false
     }
   ]
 }

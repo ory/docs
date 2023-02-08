@@ -1,7 +1,8 @@
 ---
 id: overview
-title: Write and check permissions and roles
+title: Get started with Permissions in the Ory Network
 sidebar_label: Permissions
+toc_max_heading_level: 4
 ---
 
 ```mdx-code-block
@@ -10,13 +11,13 @@ import BrowserWindow from "@site/src/theme/BrowserWindow"
 const file = (path) => `https://github.com/ory/keto/blob/master/contrib/rewrites-example/${path}`
 ```
 
-## Get started with Ory Permissions
+# Get started with Ory Permissions
 
 [Ory Permissions](https://www.ory.sh/permissions/) (based on [Ory Keto](https://github.com/ory/keto)) implements
 [Google Zanzibar](https://research.google/pubs/pub48190/). It might differ a bit from other authorization services you know, so
 let's first clarify a few concepts.
 
-### Relations and relation tuples
+## Relations and relation tuples
 
 The data model used by Ory Permissions are so-called [relation tuples](/keto/concepts/relation-tuples.mdx) that encode relations
 between [subjects](/keto/concepts/subjects.mdx) and [objects](/keto/concepts/objects.mdx).
@@ -38,31 +39,35 @@ members of groups:group1 are readers of files:file1
 As you can see, the subject of a relation tuple can either be a specific subject ID, or subjects defined through an
 [indirection](https://en.wikipedia.org/wiki/Indirection) (all members of a certain group). The object is referenced by its ID.
 
-### Checking permissions
+## Checking permissions
 
 Permissions are just another form of relations. Therefore, a permission check is a request to check whether a subject has a
 certain relation to an object, possibly through one or more indirections.
 
-As a very simple example, we assume the following tuples exist:
+As a very simple example, let's assume the following tuples exist:
 
 ```keto-relationships
 users:user1 is in members of groups:group1
 members of groups:group1 are readers of files:file1
 ```
 
-Now, one could ask:
+Based on these tuples, you can run permission checks:
 
-```keto-relationships
-is users:user1 in readers of files:file1?  // Yes
-```
+- Is `user1` a `reader` of `file1`?
 
-Yes, because `user1` is in `members` of `groups:group1` and all `members` of `groups:group1` are `readers` of `files:file1`.
+  ```keto-relationships
+  is users:user1 in readers of files:file1?  // Yes
+  ```
 
-```keto-relationships
-is users:user2 in members of groups:group1?  // No
-```
+  Yes, because `user1` is in `members` of `groups:group1` and all `members` of `groups:group1` are `readers` of `files:file1`.
 
-No, because there is no relation between `user2` and `group1`.
+- Is `user2` a member of `group1`?
+
+  ```keto-relationships
+  is users:user2 in members of groups:group1?  // No
+  ```
+
+  No, because there is no relation between `user2` and `group1`.
 
 ## Example
 
@@ -78,20 +83,19 @@ access to all files in that folder.
 
 ### Ory Network setup
 
-The fastest way to get started with Ory Permissions is using [Ory Console](https://console.ory.sh/). You can register for an Ory
-Network account for free.
+The fastest way to get started with Ory Permissions is using [Ory Console](https://console.ory.sh/).
 
 In the Ory Console, select **Namespaces & Rules** from the navigation bar and switch to the **Permission Rules** tab.
 
 ```mdx-code-block
 <BrowserWindow url="https://console.ory.sh/projects/3afd6339-b999-4649-a2f6-740736775f80/permissions/configuration">
 
-![Custom Domain Cors disabled](../../keto/_static/opl_editor.png)
+![Permission Rules editor in Ory Console](../_static/permissions/opl_editor.png)
 
 </BrowserWindow>
 ```
 
-Into the editor, paste the following content:
+Paste the following content into the editor:
 
 ```mdx-code-block
 <CodeFromRemote src={file("namespaces.keto.ts")} title="namespaces.keto.ts" />
@@ -103,29 +107,30 @@ The editor offers autocompletion for the Ory Permission Language.
 
 :::
 
-### Connecting to the Ory Network via CLI
+#### Connecting to Ory Network via CLI
 
-Next, connect to the Ory Network using the Ory CLI. If you haven't done so already, [install the Ory CLI](../cli/installation).
+Next, connect to the Ory Network using the Ory CLI. If you haven't done so already,
+[install the Ory CLI](../cli/01_installation.mdx).
 
-Next, in a shell:
+Follow these steps:
 
-```shell
-# Log in with your Ory Network credentials
-ory auth
+1. Sign in to your Ory Network account:
 
-# List your projects
-ory list projects
-# Output:
-#   ID                                      SLUG                            STATE   NAME
-#   1e5ff8a6-b374-41a0-9f96-bcfe022b0a0a    laughing-lederberg-58dlr9kvp7   running Ory Permissions Test
+   ```shell
+   ory auth
+   ```
 
-# Use the project ID to set the project where you added the permission rules.
-ory use project 1e5ff8a6-b374-41a0-9f96-bcfe022b0a0a
-# Output:
-#   ID      1e5ff8a6-b374-41a0-9f96-bcfe022b0a0a
-```
+2. List your projects:
 
-Now the Ory CLI is configured to use your Ory Network project.
+   ```shell
+   ory list projects
+   ```
+
+3. Use the project ID of the project in which you want to create permission rules:
+
+   ```shell
+   ory use project {ID_OF_YOUR_PROJECT}
+   ```
 
 ### Creating the tuples
 
@@ -145,6 +150,7 @@ Save the file as `tuples.json` in your current working directory. To load the fi
 
 ```shell
 ory create relationships tuples.json
+
 # Output:
 #   NAMESPACE       OBJECT                  RELATION NAME   SUBJECT
 #   Group           developer               members         patrik
@@ -167,7 +173,7 @@ Patrik can view `keto/src/main.go`. This file is in the `keto/src` folder, which
 "developer" group as its "viewers". Patrik is a member of the "developer" group.
 
 ```
-$ ory is allowed User:Patrik view File keto/src/main.go
+ory is allowed User:Patrik view File keto/src/main.go
 Allowed
 ```
 
@@ -176,7 +182,7 @@ Allowed
 Patrik cannot view the private file, since that file is not part of any folder hierarchy Patrik has access to.
 
 ```
-$ ory is allowed User:Patrik view File private
+ory is allowed User:Patrik view File private
 Denied
 ```
 
@@ -185,13 +191,14 @@ Denied
 Henning can both edit and view the private file, since he is an "owner" of it.
 
 ```
-$ ory is allowed User:Henning view File private
+ory is allowed User:Henning view File private
 Allowed
 
-$ ory is allowed User:Henning edit File private
+ory is allowed User:Henning edit File private
 Allowed
 ```
 
 ## Further reading
 
-To learn more about the Ory Permission Language, read the [specification](../../keto/reference/ory-permission-language) document.
+To learn more about the Ory Permission Language, read the [specification](../../keto/reference/ory-permission-language.mdx)
+document.
