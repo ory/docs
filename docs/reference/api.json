@@ -1998,8 +1998,15 @@
             "readOnly": true,
             "type": "string"
           },
+          "hydra_oauth2_allowed_top_level_claims": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
           "hydra_oauth2_client_credentials_default_grant_allowed_scope": {
             "description": "Automatically grant authorized OAuth2 Scope in OAuth2 Client Credentials Flow.\n\nEach OAuth2 Client is allowed to request a predefined OAuth2 Scope (for example `read write`). If this option is enabled, the full\nscope is automatically granted when performing the OAuth2 Client Credentials flow.\n\nIf disabled, the OAuth2 Client has to request the scope in the OAuth2 request by providing the `scope` query parameter.\n\nSetting this option to true is common if you need compatibility with MITREid.\n\nThis governs the \"oauth2.client_credentials.default_grant_allowed_scope\" setting.",
+            "type": "boolean"
+          },
+          "hydra_oauth2_exclude_not_before_claim": {
+            "description": "Set to true if you want to exclude claim `nbf (not before)` part of access token.\n\nThis governs the \"oauth2.exclude_not_before_claim\" setting.",
             "type": "boolean"
           },
           "hydra_oauth2_grant_jwt_iat_optional": {
@@ -2028,13 +2035,6 @@
           "hydra_oauth2_refresh_token_hook": {
             "description": "Sets the Refresh Token Hook Endpoint. If set this endpoint will be called during the OAuth2 Token Refresh grant update the OAuth2 Access Token claims.\n\nThis governs the \"oauth2.refresh_token_hook\" setting.",
             "type": "string"
-          },
-          "hydra_oauth2_session_allowed_top_level_claims": {
-            "$ref": "#/components/schemas/StringSliceJSONFormat"
-          },
-          "hydra_oauth2_session_exclude_not_before_claim": {
-            "description": "Set to true if you want to exclude claim `nbf (not before)` part of access token.\n\nThis governs the \"oauth2.session.exclude_not_before_claim\" setting.",
-            "type": "boolean"
           },
           "hydra_oidc_dynamic_client_registration_default_scope": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
@@ -2683,6 +2683,10 @@
           },
           "web_hook_config_response_ignore": {
             "description": "Whether to ignore the Web Hook response",
+            "type": "boolean"
+          },
+          "web_hook_config_response_parse": {
+            "description": "Whether to parse the Web Hook response",
             "type": "boolean"
           },
           "web_hook_config_url": {
@@ -7316,6 +7320,72 @@
           }
         ],
         "summary": "Update an Identity",
+        "tags": ["identity"]
+      }
+    },
+    "/admin/identities/{id}/credentials/{type}": {
+      "delete": {
+        "description": "Delete an [identity](https://www.ory.sh/docs/kratos/concepts/identity-user-model) credential by its type\nYou can only delete second factor (aal2) credentials.",
+        "operationId": "deleteIdentityCredentials",
+        "parameters": [
+          {
+            "description": "ID is the identity's ID.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Type is the credential's Type.\nOne of totp, webauthn, lookup",
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "enum": ["totp", "webauthn", "lookup"],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/identity"
+                }
+              }
+            },
+            "description": "identity"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Delete a credential for a specific identity",
         "tags": ["identity"]
       }
     },

@@ -1,0 +1,47 @@
+---
+id: require-verified-address
+title: Require verified address
+---
+
+```mdx-code-block
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+```
+
+The `require_verified_address` action is used on login triggers. As the name suggests, this action requires users to have a
+verified email address before they are able to sign in to the application.
+
+For example, if you want to ensure that only users with a verified email address are able to access your application, you can use
+the `require_verified_address` action on the login trigger. This action will check whether the user's email address has been
+verified before allowing them to sign in. If the email address has not been verified, the user will not be able to sign in and
+will receive an error message.
+
+By using the `require_verified_address` action, you can improve the security of your application and ensure that only users with a
+verified email address are able to access the application. This can help prevent unauthorized access and improve the overall
+security of your application.
+
+## Toggle action
+
+Follow these steps to toggle this action on or off:
+
+````mdx-code-block
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+
+1. Sign in to Ory Console and select [**Verification Settings**](https://console.ory.sh/projects/current/verification).
+2. Toggle **Require Verified Address for Login**.
+6. Click **Save**.
+
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
+
+Run this command:
+
+```shell
+ory patch identity-config {project-id} \
+  --add '/selfservice/flows/login/after/password/hooks/0/hook="require_verified_address"'
+```
+
+</TabItem>
+</Tabs>
+````

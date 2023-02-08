@@ -11,35 +11,25 @@ likely that the Ory anti-Cross-Site Request Forgery (CSRF) mechanisms are trigge
 
 This document describes common scenarios where you can face CSRF problems and gives advice for solving them.
 
-## What is CSRF?
-
-As defined by [OWASP](https://owasp.org/), "Cross-Site Request Forgery (CSRF) is an attack that forces an end user to execute
-unwanted actions on a web application in which they're currently authenticated."
-
 :::tip
 
-To learn more about CSRF, read the [OWASP attack description](https://owasp.org/www-community/attacks/csrf)
+To learn more about CSRF and how Ory Identities protects against it, read the
+[Ory threat models and security profile documentation](../kratos/concepts/security.mdx) and the
+[OWASP attack description](https://owasp.org/www-community/attacks/csrf).
 
 :::
-
-To protect against these attacks, many Ory Identities API endpoints are protected by anti-CSRF measures. These are mainly the
-endpoints that accept the `POST`, `DELETE`, or `PUT` methods. For example, when an app renders a form, a
-`<input type="hidden" name="csrf_token" value="...">` HTML input element is added. Ory Identities compares that value to the value
-set in the anti-CSRF cookie. If the values match, the request is allowed.
-
-:::info
-
-Ory Identities uses HTTP cookies to store sessions when accessed via a browser.
-[Learn more about the cookie-based security model in Ory.](../security-model.mdx)
-
-:::
-
-## How to debug
 
 To debug issues related to cookies or anti-CSRF defenses, use tools like the
 [Chrome DevTools](https://developer.chrome.com/docs/devtools/). In Chrome DevTools, go to the **Application** tab and open the
 **Cookies** section. Look for `Cookie` and `Set-Cookie` HTTP headers. Inspecting the **Network** tab and looking for the same
 headers can also help you find the root cause of your problems.
+
+:::info
+
+Ory Identities uses HTTP cookies to store sessions when accessed via a browser.  
+[Learn more about the cookie-based security model in Ory.](../security-model.mdx)
+
+:::
 
 ## Accessing cookies from client-side JavaScript
 
