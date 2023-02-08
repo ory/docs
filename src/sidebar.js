@@ -287,7 +287,6 @@ module.exports = {
             "keto/guides/simple-access-check-guide",
             "keto/guides/list-api-display-objects",
             "keto/guides/expand-api-display-who-has-access",
-            "keto/guides/userset-rewrites",
             "keto/guides/rbac",
             "keto/guides/access-control-inheritance",
             "keto/guides/access-control-list-design-best-practices",
