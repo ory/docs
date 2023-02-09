@@ -2646,12 +2646,12 @@
             "type": "string"
           },
           "web_hook_config_auth_api_key_name": {
-            "description": "The name of the api key",
+            "description": "The name of the API Key",
             "example": "X-API-Key",
             "type": "string"
           },
           "web_hook_config_auth_api_key_value": {
-            "description": "The value of the api key",
+            "description": "The value of the API Key",
             "example": "eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ",
             "type": "string"
           },
@@ -6361,7 +6361,7 @@
       "email": "support@ory.sh",
       "name": "API Support"
     },
-    "description": "Documentation for all public and administrative Ory APIs. Administrative APIs can only be accessed\nwith a valid Personal Access Token. Public APIs are mostly used in browsers.\n",
+    "description": "Documentation for all public and administrative Ory APIs. Administrative APIs can only be accessed\nwith a valid API Key. Public APIs are mostly used in browsers.\n",
     "license": {
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"

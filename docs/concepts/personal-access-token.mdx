@@ -1,24 +1,45 @@
 ---
 id: personal-access-token
-title: Authorization and API keys
+title: Authorization with API Keys
 sidebar_label: Authorization
 ---
 
-Each project has API keys used to perform privileged operations, for example deleting an identity. To create an API key head over
-to the Ory Console [API key page](https://console.ory.sh/projects/current/connect).
+# Authorization with API Keys
 
-:::tip
+API Keys are used to authorize privileged operations. For example, you must use an API Key to call the Admin API, which allows you
+to delete users.
 
-You can use API keys to call APIs from the command line or through scripts. Ory API keys are always prefixed with `ory_apikey_`
-(or `ory_pat_`), which makes it easy to identify them when analyzing code.
+API Keys work only in the context of the Project for which they were created. You create API Keys in the
+[Ory Console](https://console.ory.sh/).
+
+## Creating API Keys
+
+Follow these steps to create API Keys for your Project:
+
+1. Go to the [Ory Console](https://console.ory.sh/).
+2. Go to **Access & APIs**.
+3. Click the **+** icon in the **API Keys** section.
+4. Enter the API Key name and click **Create API Key**.
+5. Copy the created API Key from the prompt that shows at the bottom right of the screen.
+
+:::caution
+
+The API Key you created is displayed only once. When you close the prompt, you can't access the key again. Make sure to save the
+API Key before you close the prompt or reload the page.
 
 :::
 
-Passing the API key is done via the `Authorization` header:
+## Usage
 
-```text
+Use the API Key in API calls, SDK calls, or command-line interactions. Ory API Keys have a `ory_apikey_` or `ory_pat_`, which
+makes it easy to identify them when analyzing code.
+
+For example, when calling the Admin API at `/admin/identities`, include the API Key in the `Authorization` header:
+
+```shell
 GET /admin/identities HTTP/1.1
 Host: {project.slug}.projects.oryapis.com
 Accept: application/json
-Authorization: Bearer {api-key}
+# highlight-next-line
+Authorization: Bearer {API-Key}
 ```

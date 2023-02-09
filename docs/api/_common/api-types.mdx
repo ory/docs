@@ -1,7 +1,14 @@
 There are two main API types available in Ory:
 
 - Admin APIs, which are often used by the application backend, offer privileged access that's not available to end users. To use
-  Admin APIs, you need an Ory Network API key.
+  Admin APIs, you need an Ory Network API Key.
+
+  :::tip
+
+  Read [Authorization with API Keys](../../concepts/personal-access-token.mdx) to learn more about API Keys in the Ory Network.
+
+  :::
+
 - Public APIs, which are often used by the application frontend, don't require an Ory Network API key because:
   - they don't require authorization and can be accessed by any client, for example, an application's login page.
   - they implement a protocol that defines what authorization mechanism must be used, for example, OAuth2 Client Credentials.

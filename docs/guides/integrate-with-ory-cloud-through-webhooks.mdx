@@ -318,34 +318,40 @@ function(ctx) {
 
 ### Request authentication
 
-Webhooks can be configured to use HTTP Basic Authentication or API key authentication.
+Webhooks can be configured to use HTTP Basic Authentication or API Key authentication.
 
 - API key authentication. Type must be set to `api_key`. All properties are mandatory.
 
   ```yaml
   hook: web_hook
-  # {other configuration keys}
+  # other configuration keys
   config:
     auth:
       type: api_key
       config:
         name: Authorization
-        value: The-Value-of-My-Key
+        value: { API Key value }
         in: header # alternatively "cookie"
   ```
+
+  :::tip
+
+  Read [Authorization with API Keys](../concepts/personal-access-token.mdx) to learn how to create and use API Keys.
+
+  :::
 
 - "Basic Authentication" type authentication. Type must be set to `basic_auth`. All properties are mandatory. For `basic_auth` the
   config looks as follows:
 
   ```yaml
   hook: web_hook
-  # {other configuration keys}
+  # other configuration keys
   config:
     auth:
       type: basic_auth
       config:
-        user: My-User
-        password: My-Pass-Value
+        user: { USERNAME }
+        password: { YOUR-PASSWORD }
   ```
 
 ### Canceling webhooks
