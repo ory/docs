@@ -812,18 +812,17 @@ Below are the API references for the registration flow.
 ## Recovery
 
 The `recovery` flow is used to recover user credentials and is used in conjunction with the `settings` flow.
-Once a recovery flow has been submitted successfully, a session issued to the application.
+Once a `recovery` flow has been submitted successfully, a session is issued to the application.
 This allows the user to reset their password and update their profile information on the settings page.
 Browser applications are automatically redirected to the settings page, while native applications will need to
 navigate the user to the settings page.
 
-The recovery flow has two methods, `link` and `code`. The `link` method requires the user to open the recovery link
+The `recovery` flow has two methods, `link` and `code`. The `link` method requires the user to open the recovery link
 from their email client using a browser on the same device. This makes it difficult as the user might be switching
 between devices to recover their credentials.
 
-The `code` method is more user friendly since the code can be entered on the same device as the one they requested
-the recovery code from. This method is also more preferred due to spam filters and email clients invalidating the
-recovery link.
+The `code` method is more user friendly since the code can be entered on the same device where the user requested the code from.
+This method is also more preferred due to spam filters and email clients invalidating the recovery link.
 
 :::note
 
@@ -836,7 +835,7 @@ Only one recovery method can be enabled at a time. The `code` method is enabled 
 Below there are code examples to create a recovery flow and render the user interface (where applicable).
 When creating a recovery flow for **browser applications** you must use the
 [`/self-service/recovery/browser`](../reference/api#tag/frontend/operation/createBrowserRecoveryFlow) endpoint.
-When creating a registration flow for **native applications** you must use the [`/self-service/recovery/api`](../reference/api#tag/frontend/operation/createNativeRecoveryFlow) endpoint.
+When creating a recovery flow for **native applications** you must use the [`/self-service/recovery/api`](../reference/api#tag/frontend/operation/createNativeRecoveryFlow) endpoint.
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
@@ -845,8 +844,6 @@ When creating a registration flow for **native applications** you must use the [
 
 To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
 On subsequent requests, we can use the `-b` flag to read the cookies from the file.
-
-
 
 ```mdx-code-block
 import createRecoveryCurlBrowser from '!!raw-loader!../../../code-examples/curl/recovery/create-recovery-browser.sh'
@@ -926,6 +923,11 @@ import createReactRecoveryApi from '!!raw-loader!../../../code-examples/sdk/type
 
 ### Get Recovery flow
 
+When a flow already exists, we can retrieve it through a GET request to the
+[`/self-service/recovery/flows?id=<flow-id>`](../../reference/api#tag/frontend/operation/getRecoveryFlow) endpoint using the flow ID.
+Usually the flow ID is stored in the URL query parameter `?flow=` in your application. Below is an example of how to retrieve the
+flow data using the flow ID.
+
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
@@ -998,6 +1000,15 @@ import getReactRecoveryApi from '!!raw-loader!../../../code-examples/sdk/typescr
 ````
 
 ### Submit Recovery flow
+
+The next step is to submit the recovery flow with the user's email. This is done through a POST request to the Ory
+[`/self-service/recovery`](../../reference/api#tag/frontend/operation/updateRecoveryFlow) endpoint.
+
+For browser applications you need to ensure that all cookies are included in the request and that the CSRF token is sent in the
+body of the request. The CSRF token value is a hidden input field called `csrf_token`.
+
+The `recovery` flow could have a second submit step if the recovery method is a `code` strategy.
+In this case after the user has submitted their email the recovery flow will include a field to submit the received code.
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
@@ -1084,17 +1095,32 @@ Below are the API references for the recovery flow.
 
 ## Verification flow
 
-Verification flows are used to verify user email addresses. When the verification is successful, the request will respond with a
-`200 OK` HTTP status code. When the request fails, it responds with the appropriate HTTP status and error messages.
+The `verification` flow is used to verify the user's account through email. In some cases applications might need
+to restrict access to the application or certain features until the user has verified that they own the email address.
+
+The `verification` flow has two methods, `link` and `code`. The `link` method requires the user to open the verification link
+from their email client using a browser on the same device. This makes it difficult as the user might be switching
+between devices.
+
+The `code` method is more user friendly since the code can be entered on the same device where the user requested the code from.
+This method is also more preferred due to spam filters and email clients invalidating the verification link.
+
+Once the `verification` flow has been submitted successfully, the session will contain the
+`identity.verifiable_addresses[0].verified: true` value.
 
 :::note
 
-To use the verification flow, you might need to enable it. Please take a look at
-[Email verification](../self-service/flows/verify-email-account-activation)
+Only one verification method can be enabled at a time. The `code` method is enabled by default on all new Ory Network projects.
 
 :::
 
 ### Create Verification flow
+
+Below there are code examples to create a verification flow and render the user interface (where applicable).
+When creating a verification flow for **browser applications** you must use the
+[`/self-service/verification/browser`](../reference/api#tag/frontend/operation/createBrowserVerificationFlow) endpoint.
+When creating a verification flow for **native applications** you must use the [`/self-service/verification/api`](../reference/api#tag/frontend/operation/createBrowserVerificationFlow) endpoint.
+
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
@@ -1184,6 +1210,11 @@ import createReactVerificationApi from '!!raw-loader!../../../code-examples/sdk/
 
 ### Get Verification flow
 
+When a flow already exists, we can retrieve it through a GET request to the
+[`/self-service/verification/flows?id=<flow-id>`](../../reference/api#tag/frontend/operation/getVerificationFlow) endpoint using the flow ID.
+Usually the flow ID is stored in the URL query parameter `?flow=` in your application. Below is an example of how to retrieve the
+flow data using the flow ID.
+
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
@@ -1191,8 +1222,6 @@ import createReactVerificationApi from '!!raw-loader!../../../code-examples/sdk/
 
 To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
 On subsequent requests, we can use the `-b` flag to read the cookies from the file.
-
-
 
 ```mdx-code-block
 import getVerificationCurlBrowser from '!!raw-loader!../../../code-examples/curl/verification/get-verification-browser.sh'
@@ -1257,6 +1286,16 @@ import getReactVerificationApi from '!!raw-loader!../../../code-examples/sdk/typ
 
 ### Submit Verification flow
 
+The next step is to submit the verification flow with the user's email. This is done through a POST request to the Ory
+[`/self-service/verification`](../../reference/api#tag/frontend/operation/updateVerificationFlow) endpoint.
+
+For browser applications you need to ensure that all cookies are included in the request and that the CSRF token is sent in the
+body of the request. The CSRF token value is a hidden input field called `csrf_token`.
+
+The `verification` flow could have a second submit step if the verification method is a `code` strategy.
+In this case after the user has submitted their email the verification flow will include a field to submit the received code.
+
+
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
@@ -1264,8 +1303,6 @@ import getReactVerificationApi from '!!raw-loader!../../../code-examples/sdk/typ
 
 To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
 On subsequent requests, we can use the `-b` flag to read the cookies from the file.
-
-
 
 ```mdx-code-block
 import submitVerificationCurlBrowser from '!!raw-loader!../../../code-examples/curl/verification/submit-verification-browser.sh'
