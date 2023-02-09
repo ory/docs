@@ -27,7 +27,13 @@ Before you start, prepare your environment:
 ### Create OAuth2 client in Ory Network
 
 Create a new OAuth2 client using the Ory CLI. Alternatively, use the API and sending a POST request to the `/admin/clients` API.
-This is a protected endpoint, which means that you must include the Ory PAT in the `Authorization` header of the request.
+This is a protected endpoint, which means that you must include the API Key in the `Authorization` header of the request.
+
+:::tip
+
+Read [Authorization with API Keys](../../concepts/personal-access-token.mdx) to learn more about API Keys in the Ory Network.
+
+:::
 
 ````mdx-code-block
 import CodeBlock from '@theme/CodeBlock'
@@ -110,17 +116,17 @@ Follow these steps to run a sample application with login and consent screens:
    npm i
    ```
 
-2. Export the Ory PAT and the SDK URL of your project as environment variables:
+2. Export the API Key and the SDK URL of your project as environment variables:
 
    :::tip
 
-   Don't use previously existing Ory PATs that you use for other purposes. Create a new Ory PAT to use exclusively with the sample
+   Don't use previously existing API Keys that you use for other purposes. Create a new API Key to use exclusively with the sample
    application.
 
    :::
 
    ```bash
-   export ORY_PAT=ORY_PAT # Ory PAT copied from the Ory Console, 'ory_pat' prefix included.
+   export ORY_PAT=ORY_API_KEY # API Key copied from the Ory Console, 'ory_pat' prefix included.
    export HYDRA_ADMIN_URL=SDK_CONFIGURATION_URL  # Found in the 'Connect' section of the Ory Console.
    ```
 
