@@ -30,10 +30,18 @@ import ApiTypes from '../api/_common/api-types.mdx'
 
 For a full reference of APIs check out the [REST and gRPC](../keto/reference/proto-api.mdx) API documentation.
 
-### API keys
+### API Keys
 
-API keys are used to authenticate privileged requests to the Ory backend APIs. You can create API keys in the Ory Cloud Console.
-Head over to the Ory Console [API key page](https://console.ory.sh/projects/current/connect).
+API Keys are used to authorize privileged operations. For example, you must use an API Key to call the Admin API, which allows you
+to delete users. You can create API Keys in the Ory Console.
+
+Follow these steps:
+
+1. Go to the [Ory Console](https://console.ory.sh/).
+2. Go to **Access & APIs**.
+3. Click the **+** icon in the **API Keys** section.
+4. Enter the API Key name and click **Create API Key**.
+5. Copy the created API Key from the prompt that shows at the bottom right of the screen.
 
 ## Local development
 

@@ -18,9 +18,9 @@ Network.
 Before you start, prepare your environment:
 
 - [Install Ory CLI](../../guides/cli/installation).
-- Create an account and project in the Ory Network. Use [Ory CLI](../../guides/cli/cli-basics#create-ory-cloud-project) or go to
-  [console.ory.sh](https://console.ory.sh/).
-- [Create a Personal Access Token (PAT)](../../concepts/personal-access-token) and save it in a safe place for later use.
+- Create an account and project in the Ory Network. Use [Ory CLI](../../guides/cli/05_cli-basics.mdx#create-ory-cloud-project) or
+  go to [console.ory.sh](https://console.ory.sh/).
+- [Create an API Key](../../concepts/personal-access-token.mdx) and save it in a safe place for later use.
 
 ## Setup
 
@@ -35,7 +35,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs>
-  <TabItem value="orycli" label="Ory CLI" default>
+<TabItem value="orycli" label="Ory CLI" default>
 
 :::note
 
@@ -52,22 +52,22 @@ ory create oauth2-client \
   --scope openid,offline \
   --redirect-uri http://127.0.0.1:5555/callback
 ```
-  </TabItem>
-  <TabItem value="curl" label="cURL">
+</TabItem>
+<TabItem value="curl" label="cURL">
 
 :::note
 
 Provide this data in the cURL request:
 
 - `SDK_CONFIGURATION_URL` - found in the 'Connect' section of the Ory Console. Must end with '/admin/clients'.
-- `ORY_PAT`: Ory Personal Access Token copied from the Ory Console, 'ory_pat' prefix included.
+- `ORY_API_KEY`: Ory API Key created in the Ory Console, `ory_apikey_` or `ory_pat_` prefix included.
 
 :::
 
 ```bash
 curl -X POST 'SDK_CONFIGURATION_URL/admin/clients' \
   -H 'Content-Type: application/json' \
-  -H 'Authorization: Bearer ORY_PAT' \
+  -H 'Authorization: Bearer ORY_API_KEY' \
   -d '{
     "client_name": "YOUR_CLIENT_NAME",
     "grant_types": [
@@ -84,13 +84,15 @@ curl -X POST 'SDK_CONFIGURATION_URL/admin/clients' \
     "scope": "openid offline"
   }'
 ```
+
 :::tip
 
 Learn more about creating OAuth2 clients in The Ory Network by reading the
 [API specification](../reference/api#operation/adminCreateOAuth2Client).
 
 :::
-  </TabItem>
+
+</TabItem>
 </Tabs>
 ````
 

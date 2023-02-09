@@ -31,11 +31,11 @@ Read [this document](../self-service/flows/account-recovery-password-reset) to l
 <Tabs>
 <TabItem value="oc" label="Ory Network" default>
 
-Send a request to the admin API of your project:
+Send a request to the Admin API of your project. This operation requires an API Key.
 
 ```shell
 curl --request POST -sL \
-  --header "Authorization: Bearer ORY_PAT" \
+  --header "Authorization: Bearer ORY_API_KEY" \
   --header "Content-Type: application/json" \
   --request POST \
   --data '{
@@ -43,6 +43,12 @@ curl --request POST -sL \
   "identity_id": "e01b5f2f-6afc-4194-8578-4cebcf69a4d5"
 }' https://{your-project-slug}.projects.oryapis.com/admin/recovery/code
 ```
+
+:::tip
+
+Read [Authorization with API Keys](../../concepts/personal-access-token.mdx) to learn more about API Keys in the Ory Network.
+
+:::
 
 </TabItem>
 <TabItem value="go" label="Golang code">
@@ -64,7 +70,7 @@ func main() {
 			URL: "https://{your-project-slug}.projects.oryapis.com",
 		}},
 		DefaultHeader: map[string]string{
-			"Authorization": "Bearer ORY_PAT", // Personal access token for your Ory Network project
+			"Authorization": "Bearer ORY_API_KEY", // API Key for your Ory Network project
 		},
 	})
 
@@ -82,6 +88,12 @@ func main() {
 	fmt.Printf("  With code: %s\n", code.RecoveryCode)
 }
 ```
+
+:::tip
+
+This code requires an API Key. Read [Authorization with API Keys](../../concepts/personal-access-token.mdx) to learn more about API Keys in the Ory Network.
+
+:::
 
 </TabItem>
 <TabItem value="kratos" label="Self-hosted Ory Kratos">
@@ -159,7 +171,7 @@ func main() {
 			URL: "https://{your-project-slug}.projects.oryapis.com",
 		}},
 		DefaultHeader: map[string]string{
-			"Authorization": "Bearer ORY_PAT", // Personal access token for your Ory Network project
+			"Authorization": "Bearer ORY_API_KEY", // API Key for your Ory Network project
 		},
 	})
 
