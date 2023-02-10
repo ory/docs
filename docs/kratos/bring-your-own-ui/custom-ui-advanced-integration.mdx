@@ -12,8 +12,9 @@ import TabItem from "@theme/TabItem"
 import CodeBlock from "@theme/CodeBlock"
 ```
 
-This document goes into detail on advanced topics such as Social Sign In, Passwordless, Two-Factor authentication. It is
-recommended to read the [Integration Basics](./custom-ui-basic-integration) first.
+This document goes into detail on advanced topics in specific use cases after you have already successfully integrated a basic
+user interface. The topics range from advanced redirects to passwordless and Two-Factor authentication. It is recommended to read
+the [Basic Integration](./custom-ui-basic-integration) document first to understand Ory `flows` and `methods`.
 
 ## Advanced redirects
 
@@ -22,7 +23,7 @@ a protected page that the user is redirected from to the login page. After the u
 back to the page they were on.
 
 To achieve this, the application can pass a `?return_to=<url>` query parameter to the initialize flow endpoint
-[`/self-service/<login|registration|settings|verification|recovery|logout>/browser?return_to=https://myapp.com/protected`](../../reference/api#tag/frontend).
+[`/self-service/<login|registration|settings|verification|recovery>/browser?return_to=https://myapp.com/protected`](../../reference/api#tag/frontend).
 
 The `return_to` URL will be used as the redirect URL after the flow has been completed. For example, in the case of a `login` flow
 we would redirect after a successful login has been completed.
@@ -36,7 +37,16 @@ Here is a breakdown of how the redirect works:
 
 The `return_to` query parameter does not automatically persist across different flows, the `return_to` will need to be re-added on
 a new flow. For example, if the user has started a `login` flow with the `return_to` URL set and then switches to a `registration`
-flow, the `return_to` URL will not be used for the registration flow.
+flow, the `return_to` URL will not be used for the registration flow. In such a case, your application could re-use the same
+`return_to` from the `login` flow by extracting the `return_to` URL from the `login` `flow.return_to` and adding it to the
+`registration` flow.
+
+```ts
+sdk.getLoginFlow({ id: flow }).then(({ data: flow }) => {
+  const returnTo = flow.return_to
+  return sdk.createBrowserRegistrationFlow({ id: flow.id, return_to: returnTo })
+})
+```
 
 The only case where the `return_to` URL will persist across flows are with a `recovery` flow transitioning into a `settings` flow.
 
@@ -51,14 +61,7 @@ Let's take a look at an example of how this works:
 
 ## Login
 
-We can submit the login flow with user data (e.g. username and password) using the flow ID. Depending on the type of application
-(e.g. browser or native) the CSRF tokens are required in the request body and cookie.
-
-In some cases, such as submitting WebAuthn passwordless, the response code could be `422` which indicates that the browser needs
-to be redirected with a newly created flow. In Single Page Applications (SPAs) instead of redirecting, the response can be decoded
-and the new flow ID extracted.
-
-### Verification required
+### Email Verification required
 
 A session cookie or token can also be prevented on login using additional checks, such as only allowing verified users to login.
 For more information, please take a look at
@@ -68,7 +71,7 @@ For more information, please take a look at
 
 It is sometimes required to re-authenticate an active user session, e.g. to confirm the same user is logged in. In such a case,
 the application implementing the UI can request through the `?refresh=true` query parameter that Ory should re-check the
-credentials. This cane be done by calling the
+credentials. This can be done by calling the
 [`/self-service/login/browser?refresh=true`](../../reference/api#tag/frontend/operation/createBrowserLoginFlow) endpoint. This is
 only applicable to the `login` flow and requires the user to already have a session.
 
@@ -80,6 +83,28 @@ A common use case would be:
 4. The user returns before session lifespan has expired
 5. The application needs to confirm that the user interacting with the application is the same user that logged in.
 6. The session is refreshed through a `login` flow with the `?refresh=true` query parameter.
+
+```ts
+sdk.createBrowserLoginFlow({ refresh: true })
+```
+
+### Social Sign in
+
+The Social Sign in (oidc) method requires the user to be redirected to Ory using a native form POST which will redirect the user
+to the correct provider. Usually in Single Page Applications (SPA) the page is never redirected. For the application to then have
+a background post on other methods such as `password` the application will need to split the flow data across two forms.
+
+```tsx
+{/*This form will do a native post request to Ory for the selected provider*/}
+<form action={flow.action} method={flow.method}>
+    <button type="submit" value="google">Sign in with Google</button>
+    <button type="submit" value="facebook">Sign in with Facebook</button>
+</form>
+
+<form action={flow.action} method={flow.method} onSubmit={submitHandler}>
+    {/*Map the other flow groups here such as `default` and `password`*/}
+</form>
+```
 
 ### Two-Factor authentication
 
@@ -98,6 +123,25 @@ the [Customize user interface](../concepts/ui-user-interface) page.
 
 For more information on Multi-factor authentication, take a look at the [Multi-factor authentication](../mfa/overview).
 
+```ts
+sdk
+  .toSession()
+  .then(({ data: session }) => {
+    // we set the session data which contains the user Identifier and other traits.
+  })
+  .catch((err: AxiosError) => {
+    switch (error.response?.status) {
+      case 403: {
+        // the user might have a session, but would require 2FA (Two-Factor Authentication)
+        if (error.response?.data.error?.id === "session_aal2_required") {
+          navigate("/login?aal2=true", { replace: true })
+          return
+        }
+      }
+    }
+  })
+```
+
 ### Passwordless authentication
 
 Passwordless authentication uses WebAuthn to authenticate a user using a hardware key or biometrics (such as touchID).
@@ -111,7 +155,24 @@ WebAuthn Two-Factor authentication before enabling passwordless authentication.
 
 :::
 
-In your application, you will need to add the WebAuthn JavaScript to the page.
+In your application, you will need to add the WebAuthn JavaScript
+[`/.well-known/ory/webauthn.js`](../../reference/api#tag/frontend/operation/getWebAuthnJavaScript) to the page. Ory will provide
+the on click handler for the button to start the passwordless authentication flow.
+
+The flow will work as follows:
+
+1. Create login flow
+2. Render the UI with the `webauthn` group
+3. User enters their identifier (email, phone number, username) and clicks the `Sign in with security key` button
+4. The form is submitted which will start a new flow with the `webauthn` group only
+5. Render the new UI which will prompt the user to insert their security key
+6. The user inserts their security key and clicks the `Continue` button
+
+```html
+<head>
+  <script src="/.well-known/ory/webauthn.js"></script>
+</head>
+```
 
 ````mdx-code-block
 <Tabs groupId="webauthn">
@@ -129,17 +190,95 @@ import webAuthnMapping from '!!raw-loader!../../../code-examples/sdk/typescript/
 </Tabs>
 ````
 
+Below is an example response from the `login` flow with passwordless authentication enabled. This is the first step of the flow
+where the user enters their identifier.
+
+```json5
+{
+  ui: {
+    nodes: [
+      {
+        type: "input",
+        group: "webauthn",
+        attributes: {
+          name: "method",
+          type: "submit",
+          value: "webauthn",
+          disabled: false,
+          node_type: "input",
+        },
+        messages: [],
+        meta: {
+          label: {
+            id: 1010001,
+            text: "Sign in with security key",
+            type: "info",
+            context: {},
+          },
+        },
+      },
+    ],
+  },
+}
+```
+
+After the user has been redirected with a new flow, the response will contain the `webauthn` group only. In this response the
+button `onclick` attribute call the script that was added in the header of the page which will start the WebAuthn prompt for the
+security key.
+
+```json5
+{
+  ui: {
+    nodes: [
+      {
+        type: "input",
+        group: "webauthn",
+        attributes: {
+          name: "webauthn_login_trigger",
+          type: "button",
+          value: "",
+          disabled: false,
+          onclick: 'window.__oryWebAuthnLogin({"publicKey":{"challenge":"LLoTYU0Xv7QkmIFiwKDOpr1XeNU5c0TGnCgzj6kqSIQ=","timeout":60000,"rpId":"auth.example.com","allowCredentials":[{"type":"public-key","id":"3DUZPEd3DwUCaRkyTy0L0MntQElA0AH4uAUydiVhBdGWTXHS1TDsY+lgHRhTj52cFUL/uua2Af+dgqD14a/rHA=="}],"userVerification":"discouraged"}})',
+          node_type: "input",
+        },
+        messages: [],
+        meta: {
+          label: {
+            id: 1010013,
+            text: "Continue",
+            type: "info",
+          },
+        },
+      },
+    ],
+  },
+}
+```
+
+#### The special `422` error code
+
+In the case of a Single Page Application (SPA), the response code could be `422` which indicates that the browser needs to be
+redirected with a newly created flow. Since this is an SPA the new flow ID can be extracted from the payload and the response
+retrieved in the background instead of a redirect.
+
+Below is an example of such a `422` error
+
+```json5
+{
+  error: {
+    id: "browser_location_change_required",
+    code: 422,
+    status: "Unprocessable Entity",
+    reason: "In order to complete this flow please redirect the browser to: /ui/login?flow=ad574ad7-1a3c-4b52-9f54-ef9e866f3cec",
+    message: "browser location change required",
+  },
+  redirect_browser_to: "/ui/login?flow=ad574ad7-1a3c-4b52-9f54-ef9e866f3cec",
+}
+```
+
 ## Registration
 
 ### Getting a session after registration
 
-:::note
-
 A session cookie or token is only available after registration when enabled in the Ory configuration. More information can be
 found in [Customize login and registration](../../identities/sign-in/actions#log-in-users-after-registration).
-
-:::
-
-### Custom Identity Traits
-
-The registration flow can map custom identity traits to the user based on the Identity Schema.
