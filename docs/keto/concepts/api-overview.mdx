@@ -5,7 +5,7 @@ title: API overview
 This page gives an overview over all APIs Ory Keto offers, including common use cases.
 
 The APIs are separated based on privileges into a `read` and `write` endpoint. Each endpoint is exposed on a different port, so
-[you can decide how to restrict access](../secure.md). gRPC and REST connections are multiplexed on the same port.
+you can decide how to restrict access. gRPC and REST connections are multiplexed on the same port.
 
 All APIs are available to gRPC and REST clients, although feature parity isn't always given. Because we follow gRPC and REST best
 practices and design guidelines, the APIs offer slightly different interfaces and capabilities.
@@ -34,8 +34,7 @@ The check-API allows you to check whether a subject has a relation on an object.
 This API is primarily used to [check permissions to restrict actions](../guides/simple-access-check-guide.mdx).
 
 A check-request can include the maximum depth of the search tree. If the value is less than 1 or greater than the global max-depth
-then the global max-depth will be used instead. This is to ensure low latency and limit the resource usage per request. To find
-out more about Ory Keto's performance, head over to the [performance considerations](../performance.mdx).
+then the global max-depth will be used instead. This is to ensure low latency and limit the resource usage per request.
 
 For more details, head over to the [gRPC API reference](../reference/proto-api.mdx#checkservice) or
 [REST API reference](../reference/rest-api.mdx#check-a-relation-tuple).
@@ -52,7 +51,7 @@ used to:
 
 An expand-request can include the maximum depth of the tree to be returned. If the value is less than 1 or greater than the global
 max-depth then the global max-depth will be used instead. This is required to ensure low latency and limit the resource usage per
-request. To find out more about Ory Keto's performance, head over to the [performance considerations](../performance.mdx).
+request.
 
 For more details, head over to the [gRPC API reference](../reference/proto-api.mdx#expandservice) or
 [REST API reference](../reference/rest-api.mdx#getexpand).
