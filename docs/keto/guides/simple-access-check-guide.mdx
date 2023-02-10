@@ -95,16 +95,13 @@ groups:hackers#member
 
 and determine that `john` is a subject in the resulting set. Therefore, it approves the check request.
 
-There is no limit on the number of indirections through subject sets. It's however important to follow our
-[best practices](./access-control-list-design-best-practices.mdx) to ensure a good [performance](../performance.mdx).
+There is no limit on the number of indirections through subject sets.
 
 ## Caching Keto responses
 
-We don't recommend that you cache the responses from Ory Keto. It's designed to respond quickly and still provide
-[some consistency guarantees](../concepts/snaptokens-evaluation-consistency.mdx). For the revocation of access it's important to
-not use a local cache. Be ensured that Ory Keto heavily utilizes caching wherever possible. If you still happen to find
-unacceptably slow check requests, check that you follow our [best practices](./access-control-list-design-best-practices.mdx) for
-good [performance](../performance.mdx), or open an issue if the problem still persists.
+We don't recommend that you cache the responses from Ory Keto. It's designed to respond quickly and still provide some consistency
+guarantees. For the revocation of access it's important to not use a local cache. Be ensured that Ory Keto heavily utilizes
+caching wherever possible.
 
 ## Conclusion
 

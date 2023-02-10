@@ -277,20 +277,14 @@ module.exports = {
             "keto/concepts/subjects",
             "keto/concepts/graph-of-relations",
             "keto/concepts/api-overview",
-            "keto/concepts/internal-algorithms",
-            "keto/concepts/snaptokens-evaluation-consistency",
-            "keto/performance",
           ],
         },
         {
           Guides: [
-            "keto/secure",
             "keto/guides/simple-access-check-guide",
             "keto/guides/list-api-display-objects",
             "keto/guides/expand-api-display-who-has-access",
             "keto/guides/rbac",
-            "keto/guides/access-control-inheritance",
-            "keto/guides/access-control-list-design-best-practices",
           ],
         },
         {
