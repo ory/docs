@@ -61,7 +61,7 @@ const config = {
       logo: {
         alt: "Ory",
         src: `/docs/img/logo-docs.svg`,
-        srcDark: `/docs/img/logo-docs.svg`,
+        srcDark: `/docs/img/logo-docs-dark.svg`,
         href: `https://www.ory.sh/docs`,
       },
       items: [
