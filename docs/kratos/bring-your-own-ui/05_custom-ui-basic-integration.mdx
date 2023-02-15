@@ -1,8 +1,7 @@
 ---
 id: custom-ui-basic-integration
-title: Basic Integration
-sidebar_label: Basic Integration
-sidebar_position: 2
+title: Basic integration
+sidebar_label: Basic integration
 toc_max_heading_level: 4
 ---
 
@@ -15,83 +14,121 @@ import CodeBlock from "@theme/CodeBlock"
 Ory provides headless APIs for ease of integration. This ensures that Ory is compatible with many software stacks across different
 programming languages.
 
-This document's focus is to provide the necessary fundamentals to get started with custom user interface integration. This
-document does not cover integrating Social Sign In, Passwordless and Two-Factor Authentication, this will be covered in the
-[Advanced Integration](./custom-ui-advanced-integration) document.
+This document provides the fundamentals required to get started with custom user interface integration.
 
-## The Ory Flow
+:::info
 
-Flows are the fundamental of Ory's self-service APIs and are used to accomplish a variety of goals, such as `login`,
-`registration`, `settings`, `verification`, `recovery` and `logout`.
+If you want to learn how to integrate custom UI for social sign-in, passwordless, or two-factor authentication, read
+[Advanced integration](./10_custom-ui-advanced-integration.mdx).
 
-The self-service flows are standardized so that it follows the same steps regardless of which flow is integrated. The API is also
-seperated into two types of applications - **browser and native**. The difference between the two application types are to set the
-necessary security measures. For example in browser applications, the API will set a CSRF cookie while in native applications no
-CSRF cookie is necessary.
+:::
 
-A general overview of the flow can be summed up in five steps:
+## Flows in Ory
 
-1. Create the flow with the appropriate purpose (e.g. login, registration, etc.) and application type (e.g. browser or native)
-2. Use the flow data to render the UI.
-3. Submit the flow with user data. (e.g. username and password)
-4. Potentially handle errors like invalid user input by going back to step 2.
-5. Handle the successful submission.
+Flows are an important element of Ory's self-service APIs and are used to accomplish a variety of goals, such as:
+
+- User login
+- User logout
+- User registration
+- Changing account settings
+- Account verification
+- Account recovery
+
+Self-service flows are standardized, which means that run the same basic operations, regardless of which specific flow is
+integrated.
+
+Additionally, the self-service API is split to integrate with two types of applications - browser and native. The reason for the
+API split is the security measures necessary for the different application types. For example, the API sets a CSRF cookie for
+browser applications. For native applications, CSRF cookie isn't required and isn't set.
+
+:::tip
+
+Make sure to call the right self-service API endpoints for your application To ensure that the integration between your
+application's UI and Ory APIs works correctly.
+
+:::
+
+### Flow overview
+
+A flow in Ory consists of five operations:
+
+1. Creating the flow with for the specific goal and application type, for example user login in a native app.
+2. Using the flow data to render the UI.
+3. Submitting the flow with user data, such as username and password.
+4. Potentially handling errors, such as invalid user input and going back to step 2.
+5. Handling the successful submission.
 
 [![Flow overview](https://mermaid.ink/img/pako:eNpNkMFqwzAMhl9F-LRBS-45bDRJOwo7JfSU9CBstQkktmfLGyPJu891c5hOgu_74ZdmIY0ikYu7Q9vDZ91piHN4OVg7DhJ5MPoV9vs3KNrSETJlH8RwGs0PKGS8Pv0iKWVbk1bkgHuCy3ljZWJVm118RKSZnE_ZbBOqh7DU9BXIM6BWUEUK3zgOKhVY4DifPbjNSOB9fYaPKdwEKcn7BU5t08dq1hkmyaTA4p2u_9Wjc8YtUIidmMhNOKh4_fwwOhF7T9SJPK6KbhhG7kSn16hiYNP8ailydoF2IthYjaoB498mkd9w9LT-AWnNa80?type=png)](https://mermaid.live/edit#pako:eNpNkMFqwzAMhl9F-LRBS-45bDRJOwo7JfSU9CBstQkktmfLGyPJu891c5hOgu_74ZdmIY0ikYu7Q9vDZ91piHN4OVg7DhJ5MPoV9vs3KNrSETJlH8RwGs0PKGS8Pv0iKWVbk1bkgHuCy3ljZWJVm118RKSZnE_ZbBOqh7DU9BXIM6BWUEUK3zgOKhVY4DifPbjNSOB9fYaPKdwEKcn7BU5t08dq1hkmyaTA4p2u_9Wjc8YtUIidmMhNOKh4_fwwOhF7T9SJPK6KbhhG7kSn16hiYNP8ailydoF2IthYjaoB498mkd9w9LT-AWnNa80)
 
-Furthermore, a flow can also consist of multiple `methods`, for example the `login` flow can have the `password` and `oidc`
-method, however, only one `method` can be used at a time to complete the flow. The `methods` can also be customized through
-project configuration, for example the `password` flow can be disabled and the `webauthn` method enabled or both can be enabled at
-the same time to allow users to choose the `method` they wish to use. Some flows can also be disabled, for example the
-`registration` flow can be disabled if the intent is to have an invite only registration process. These features allow Ory to be
-very flexible and support a variety of use cases.
+#### Methods in flows
 
-Below is a table mapping the `methods` according to their respective flow.
+This table shows the methods available for each flow:
 
-| Flow           | Methods                                                            |
-| -------------- | ------------------------------------------------------------------ |
-| `login`        | `password`, `oidc`, `totp`, `webauthn`, `lookup_secret`            |
-| `registration` | `password`, `oidc`, `webauthn`                                     |
-| `settings`     | `profile`, `password`, `oidc`, `lookup_secret`, `webauthn`, `totp` |
-| `recovery`     | `link`, `code`                                                     |
-| `verification` | `link`, `code`                                                     |
+| Flow         | Methods                                                            |
+| ------------ | ------------------------------------------------------------------ |
+| login        | `password`, `oidc`, `totp`, `webauthn`, `lookup_secret`            |
+| registration | `password`, `oidc`, `webauthn`                                     |
+| settings     | `profile`, `password`, `oidc`, `lookup_secret`, `webauthn`, `totp` |
+| recovery     | `link`, `code`                                                     |
+| verification | `link`, `code`                                                     |
 
-## Application Types
+:::note
 
-To understand which API endpoints to use, it is important to understand the difference between browser and native applications.
+Flows can consist of multiple methods. For example, a login flow can can have the `password` and `oidc` methods. Flows can be
+completed by only one method at a time.
 
-**Browser applications** are applications that the user interacts with inside the browser. This is true for Server-Side rendered
-(SSR) and Single-Page applications (SPA). Since the application is rendered in the browser, the request between the user and Ory
-needs to be secured. This is done by setting a CSRF cookie and token.
+:::
 
-**Native applications** are all other applications that are not rendered in the browser. For example an Android or Desktop
-application. Since the application is not rendered in the browser, the CSRF cookie and token are not necessary.
+### Browser vs native apps
 
-That is why it is important to use the correct API endpoints for the correct application type.
+The type of the application that consumes Ory APIs through its UI directly determines which API endpoints must be called and, as a
+result, what security measures are applied.
+
+- Browser applications are apps with which users interact through their web browsers. Two common types of browser applications are
+  server-side rendered apps (SSR) and single-page apps (SPA). Since the application is rendered in the browser, the communication
+  between the user that interacts with the app and Ory must to be secured. This is achieved. by setting a CSRF cookie and token.
+
+  :::info
+
+  All browser apps must call Ory self-service APIs at `/self-service/{flow_type}/browser`
+
+  :::
+
+- Native applications are applications not rendered in the browser, such as Android mobile apps or desktop applications. Since the
+  application is not rendered in the browser, the CSRF cookie and token are not necessary.
+
+  :::info
+
+  All native apps must call Ory self-service APIs at `/self-service/{flow_type}/api`
+
+  :::
 
 ## Create a flow
 
-Before any data can be sent to Ory, a flow must be initialized. When a flow is created it will use the current project
-configuration and return a flow object which can be used to render the UI. Additional security measures are also applied to the
-flow to secure subsequent requests to Ory.
+Before any data can be sent to Ory, a flow must be initialized. When a flow is created it uses the current project configuration
+and returns a flow object that can be used to render the UI. Additional security measures are also applied to the flow to secure
+subsequent requests to Ory.
 
-A flow can be created through a GET request to the
-[`/self-service/<login|registration|settings|recovery|verification|logout>/<browser|api>`](../../reference/api#tag/frontend)
-endpoint.
+You can create a flow by sending a GET request to the
+[`/self-service/{flow_type}/{browser/api}`](../../reference/api#tag/frontend) endpoint.
 
-``````mdx-code-block
+````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
 <TabItem value="curl-browser" label="cUrl (Browser flow)" default>
-
-To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
 import createExampleLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/create-login-browser.sh'
 
 <CodeBlock language="shell" title="create-login-browser.sh">{createExampleLoginCurlBrowser}</CodeBlock>
 ```
+
+:::tip
+
+To ensure that requests work correctly for the browser flow, use the `-c` flag to store the cookies in a file.
+On subsequent requests, you can use the `-b` flag to read the cookies from the file.
+
+:::
 
 </TabItem>
 
@@ -104,15 +141,14 @@ import createExampleLoginCurlNative from '!!raw-loader!../../../code-examples/cu
 ```
 
 </TabItem>
-
-
 </Tabs>
+````
 
-### Server Side (Browser) Application
+### Server-side (browser) application
 
-In browser applications that are rendered by the server (e.g. Go, PHP, Java, NodeJs, etc.) the flow can be initialized with a
-redirect directly to Ory in the browser which in turn will redirect the browser back to the configured
-[application URL](./configure-ory-to-use-your-ui) (e.g. `https://myapp.com/login?flow=<uuid>`).
+In browser applications that are rendered servers, the flow can be initialized with a redirect to Ory executed in the browser
+which in turn will redirect the browser back to the configured [application URL](./20_configure-ory-to-use-your-ui.mdx), for
+example `https://myapp.com/login?flow=<uuid>`.
 
 ```html
 <form method="GET" action="https://{project.slug}.projects.oryapis.com/self-service/login/browser">
@@ -120,42 +156,59 @@ redirect directly to Ory in the browser which in turn will redirect the browser 
 </form>
 ```
 
-Since this is a browser based application, Ory will set cookies for CSRF protection as well as when a session is succesfully
-created.
+On successful login, Ory sets the CSRF cookie and issues a session cookie that can be used to authenticate subsequent requests to
+Ory.
 
-### Single Page Application (SPA)
+### Single-page application (SPA)
 
-Single Page Applications (SPA) can initialize the flow by calling the endpoint using AJAX or fetch instead of redirecting the
-browser. The response will set the necessary cookies and contain all the UI nodes to render the form. For AJAX and fetch requests
-to properly set the cookies, you must set the `withCredentials: true` in axios or `credentials: "include"` in fetch. In the event
-that a flow is initialized through a browser redirect, the [application URL](./configure-ory-to-use-your-ui) needs to be set for
-Ory to know about your application.
+Single-page applications (SPA) can initialize the flow by calling the endpoint using AJAX or fetch instead of redirecting the
+browser. The response sets the necessary cookies and contains all UI nodes required to render the form. You must set
+`withCredentials: true` in axios or `credentials: "include"` in fetch for AJAX and fetch requests to properly set cookies.
 
-### Native Application
+If the flow is initialized through a browser redirect, the [application URL](./20_configure-ory-to-use-your-ui.mdx) must to be set
+so that Ory can reach your application.
 
-Native applications such as desktop and mobile must use the API flows which do not set any cookies. The response will contain all
-the data used to render the UI. On successful login a session token is issued instead of a cookie and can be used to authenticate
-subsequent requests to Ory.
+### Native application
 
-## Fetching an existing flow
+Native must use the API flows which don't set any cookies. The response contains all data required to render the UI. On successful
+login, Ory issues a session token that can be used to authenticate subsequent requests to Ory.
 
-In cases where the flow already exists, we can retrieve the flow data using the flow ID through a GET request to
+## Fetching existing flows
+
+If the flow already exists, you can get the flow data using the flow ID through a GET request to
 [`/self-service/<login|registration|settings|verification|recovery>/flows?id=<flowID>`](../../reference/api#tag/frontend). This is
 useful in cases where Ory has already initialized the flow and redirected to your application. In such a case, the flow ID can be
 extracted from the URL `?flow=` query parameter.
 
+When does a flow already exist and is available to fetch?
+
+1. Ory has initialized the flow and redirects to the UI, for example `/login?flow=<uuidv4>`.
+2. The request was completed by the user but an error occurred and you need to retrieve the flow data to display the error.
+3. The UI has 'stored' the flow ID in the URL so that page refreshes can fetch the existing flow data.
+
+:::note
+
+The flow ID has an expiration time so it's important to check the response status code when retrieving the flow data using an
+existing flow ID. It's up to your application to handle this error case and create a new flow.
+
+:::
+
 Take note of the type of flow as it determines the endpoint used to retrieve the flow. For example, the `login` flow will only be
 available at the [`/self-service/login/flows?id=<flowId>`](../reference/api#tag/frontend/operation/getLoginFlow) endpoint.
 
-Below is an example of fetching an existing `login` flow.
+This is an example of fetching an existing login flow:
 
-`````mdx-code-block
+````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
 <TabItem value="curl-browser" label="cUrl (Browser flow)" default>
 
-To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
+:::tip
+
+To ensure that requests work correctly for the browser flow, use the `-c` flag to store the cookies in a file.
+On subsequent requests, you can use the `-b` flag to read the cookies from the file.
+
+:::
 
 ```mdx-code-block
 import getExampleLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/get-login-browser.sh'
@@ -174,27 +227,13 @@ import getExampleLoginCurlNative from '!!raw-loader!../../../code-examples/curl/
 ```
 
 </TabItem>
-
-
 </Tabs>
+````
 
-Here are some cases where the flow would already exist:
+## Submitting flows
 
-1. Ory has initialized the flow and redirects to the UI (e.g. `/login?flow=<uuidv4>`)
-2. The request was completed by the user, however, an error occurred, and we need to retrieve the flow data to display the error
-3. The UI has 'stored' the flow ID in the URL so that page refreshes can retrieve the already existing flow data
-
-:::note
-
-The flow ID has an expiration time, so it is important to check the response status code when retrieving the flow data using an
-existing flow ID. It is up to your application to handle this error case and create a new flow.
-
-:::
-
-## Submitting a flow
-
-The flow always has to be initialized before any user data (e.g. email and password) can be submitted. Depending on the
-application type the submission will be handled differently, however, the request will always be a `POST` request to the
+Flows must be initialized before any user data, such as username and password, can be submitted. Depending on the application
+type, the submission will be handled differently. The request will always be a POST request to the
 `/self-service/login/<browser|api>?flow=<uuid>` endpoint. The `flow` data will contain the correct URL to be used in the form
 under the `flow.ui.action` key.
 
@@ -211,19 +250,23 @@ under the `flow.ui.action` key.
 <form action="{flow.ui.action}" method="{flow.ui.method}">...</form>
 ```
 
-`````mdx-code-block
+````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
 <TabItem value="curl-browser" label="cUrl (Browser flow)" default>
-
-To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
 import submitExampleLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/submit-login-browser.sh'
 
 <CodeBlock language="shell" title="submit-login-browser.sh">{submitExampleLoginCurlBrowser}</CodeBlock>
 ```
+
+:::tip
+
+To ensure that requests work correctly for the browser flow, use the `-c` flag to store the cookies in a file.
+On subsequent requests, you can use the `-b` flag to read the cookies from the file.
+
+:::
 
 </TabItem>
 
@@ -236,49 +279,52 @@ import submitExampleLoginCurlNative from '!!raw-loader!../../../code-examples/cu
 ```
 
 </TabItem>
-
-
 </Tabs>
+````
 
-### Server Side (Browser) Application
+### Server-side (browser) application
 
-In server-side rendered browser applications the submission will be handled by a native form POST to the Ory project URL. For
-example, the action for login would be a POST request to
-`https://{project.slug}.projects.oryapis.com/self-service/login/browser?flow=<id>`.
+In server-side rendered browser applications, the submission is handled by a native form POST to the Ory project URL.
 
-### Single Page Application (SPA)
+For example, login is a POST request to `https://{project.slug}.projects.oryapis.com/self-service/login/browser?flow=<id>`.
 
-In client-side rendered browser applications such as SPAs the submission can be handled in the background through AJAX or fetch
-using a POST request to the Ory project URL. For example, the action for login would be a POST request to
-`https://{project.slug}.projects.oryapis.com/self-service/login/browser?flow=<id>`.
+### Single-page application (SPA)
 
-### Native Application
+In client-side rendered browser applications such as SPAs, the submission is handled in the background through AJAX or fetch using
+a POST request to the Ory project URL.
 
-In native applications we can simply do a POST request to the Ory project URL. For example, the action for login would be a POST
-request to `https://{project.slug}.projects.oryapis.com/self-service/login/api?flow=<id>`.
+For example, login is a POST request to `https://{project.slug}.projects.oryapis.com/self-service/login/browser?flow=<id>`.
+
+### Native application
+
+In native applications send a POST request to the Ory project URL. For example, login is a POST request to
+`https://{project.slug}.projects.oryapis.com/self-service/login/api?flow=<id>`.
 
 ## Login flow
 
-The login flow is used to authenticate users and consists of a multitude of `methods`, namely `password`, `oidc` and `webauthn`.
-The login flow also manages Two-Factor-Authentication (2FA) through the `totp`, `webauthn` and `lookup_secrets` methods.
+The login flow is used to authenticate users and can be completed using different methods: `password`, `oidc`, and `webauthn`.
+This flow also manages two-factor authentication (2FA) through the `totp`, `webauthn`, and `lookup_secrets` methods.
 
-In this section we will only cover the `password` method since it is the easiest to get started with.
+This section covers only the `password` method since it is the easiest to get started with.
 
-### Create Login flow
+### Create login flow
 
-Below there are code examples to create a `login` flow and render the user interface (where applicable). When creating a `login`
-flow for **browser applications** you must use the
-[`/self-service/login/browser`](../../reference/api#tag/frontend/operation/createBrowserLoginFlow) endpoint. When creating a
-`login` flow for **native applications** you must use the
-[`/self-service/login/api`](../../reference/api#tag/frontend/operation/createNativeLoginFlow) endpoint.
+The following code examples show how to create a login flow and render the user interface (where applicable).
+
+:::tip
+
+Remember to use the correct API endpoints for your application type.
+
+- Browser applications must use
+  [`/self-service/login/browser`](../../reference/api#tag/frontend/operation/createBrowserLoginFlow).
+- Native applications must use [`/self-service/login/api`](../../reference/api#tag/frontend/operation/createNativeLoginFlow).
+
+:::
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
-
-To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
 import createLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/create-login-browser.sh'
@@ -287,6 +333,13 @@ import createLoginCurlBrowserJson from '../../../code-examples/curl/login/create
 <CodeBlock language="shell" title="create-login-browser.sh">{createLoginCurlBrowser}</CodeBlock>
 <CodeBlock language="json5" title="create-login-browser.json">{JSON.stringify(createLoginCurlBrowserJson, null, 2)}</CodeBlock>
 ```
+
+:::tip
+
+To ensure that requests work correctly for the browser flow, use the `-c` flag to store the cookies in a file.
+On subsequent requests, you can use the `-b` flag to read the cookies from the file.
+
+:::
 
 </TabItem>
 
@@ -301,7 +354,6 @@ import createLoginCurlNativeJson from '../../../code-examples/curl/login/create-
 ```
 
 </TabItem>
-
 </Tabs>
 ````
 
@@ -326,7 +378,6 @@ import createTsLoginApi from '!!raw-loader!../../../code-examples/sdk/typescript
 ```
 
 </TabItem>
-
 <TabItem value="expressjs" label="Express.js (Browser)">
 
 ```mdx-code-block
@@ -344,11 +395,10 @@ import mainLayoutExpress from '!!raw-loader!../../../code-examples/sdk/typescrip
 ```
 
 </TabItem>
-
 <TabItem value="react" label="React">
 
-This is a small react example that uses the Ory SDK to create a `login` flow and render the user interface.
-Take note that we use the `@ory/integrations` package as a helper to filter the flow data to only render the `password` method form fields.
+This example uses the Ory SDK (`@ory/client`) to create a login flow and render the user interface.
+The `@ory/integrations` package is used as a helper to filter the flow data and render only the `password` method form fields.
 
 ```mdx-code-block
 import createReactLoginApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/login/create-login-react.tsx'
@@ -357,24 +407,20 @@ import createReactLoginApi from '!!raw-loader!../../../code-examples/sdk/typescr
 ```
 
 </TabItem>
-
 </Tabs>
 ````
 
-### Get Login flow
+### Get login flow
 
-When a flow already exists, we can retrieve it through a GET request to the
-[`/self-service/login/flows?id=<flow-id>`](../../reference/api#tag/frontend/operation/getLoginFlow) endpoint using the flow ID.
-Usually the flow ID is stored in the URL query parameter `?flow=` in your application. Below is an example of how to retrieve the
-flow data using the flow ID.
+When a login flow already exists, you can retrieve it by sending a GET request that contains the flow ID to the
+[`/self-service/login/flows?id=<flow-id>`](../../reference/api#tag/frontend/operation/getLoginFlow) endpoint.
+
+The flow ID is usually stored in the `?flow=` URL query parameter in your application. The following example shows how to get flow
+data using the flow ID.
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
-
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
-
-To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
 import getLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/get-login-browser.sh'
@@ -384,8 +430,14 @@ import getLoginCurlBrowserJson from '../../../code-examples/curl/login/get-login
 <CodeBlock language="json5" title="get-login-browser.json">{JSON.stringify(getLoginCurlBrowserJson, null, 2)}</CodeBlock>
 ```
 
-</TabItem>
+:::tip
 
+To ensure that requests work correctly for the browser flow, use the `-c` flag to store the cookies in a file.
+On subsequent requests, you can use the `-b` flag to read the cookies from the file.
+
+:::
+
+</TabItem>
 <TabItem value="curl-native" label="cUrl (Native flow)">
 
 ```mdx-code-block
@@ -397,7 +449,6 @@ import getLoginCurlNativeJson from '../../../code-examples/curl/login/get-login-
 ```
 
 </TabItem>
-
 </Tabs>
 ````
 
@@ -426,8 +477,8 @@ import getTsLoginApi from '!!raw-loader!../../../code-examples/sdk/typescript/sr
 
 <TabItem value="react" label="React">
 
-This is a small react example that uses the Ory SDK to retrieve the `login` flow and render the user interface.
-Take note that we use the `@ory/integrations` package as a helper to filter the flow data to only render the `password` method form fields.
+This example uses the Ory SDK (`@ory/client`) to get a login flow and render the user interface.
+The `@ory/integrations` package is used as a helper to filter the flow data and render only the `password` method form fields.
 
 ```mdx-code-block
 import getReactLoginApi from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/login/get-login-react.tsx'
@@ -436,25 +487,20 @@ import getReactLoginApi from '!!raw-loader!../../../code-examples/sdk/typescript
 ```
 
 </TabItem>
-
 </Tabs>
 ````
 
-### Submit Login flow
+### Submit login flow
 
-The last step is to submit the login flow with the user's credentials. This is done through a POST request to the Ory
+The last step is to submit the login flow with the user's credentials. To do that, send a POST request to the
 [`/self-service/login`](../../reference/api#tag/frontend/operation/updateLoginFlow) endpoint.
 
-For browser applications you need to ensure that all cookies are included in the request and that the CSRF token is sent in the
-body of the request. The CSRF token value is a hidden input field called `csrf_token`.
+For browser applications you must send all cookies and the CSRF token the request body. The CSRF token value is a hidden input
+field called `csrf_token`.
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
-
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
-
-To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
 import submitLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/submit-login-browser.sh'
@@ -463,6 +509,13 @@ import submitLoginCurlBrowserJson from '../../../code-examples/curl/login/submit
 <CodeBlock language="shell" title="submit-login-browser.sh">{submitLoginCurlBrowser}</CodeBlock>
 <CodeBlock language="json5" title="submit-login-browser.json">{JSON.stringify(getLoginCurlBrowserJson, null, 2)}</CodeBlock>
 ```
+
+:::tip
+
+To ensure that requests work correctly for the browser flow, use the `-c` flag to store the cookies in a file.
+On subsequent requests, you can use the `-b` flag to read the cookies from the file.
+
+:::
 
 </TabItem>
 
@@ -476,7 +529,6 @@ import submitLoginCurlNativeJson from '../../../code-examples/curl/login/submit-
 ```
 
 </TabItem>
-
 </Tabs>
 ````
 
@@ -492,7 +544,6 @@ import submitLoginApi from '!!raw-loader!../../../code-examples/sdk/go/selfservi
 ```
 
 </TabItem>
-
 <TabItem value="typescript" label="TypeScript">
 
 ```mdx-code-block
@@ -502,7 +553,6 @@ import submitTsLoginApi from '!!raw-loader!../../../code-examples/sdk/typescript
 ```
 
 </TabItem>
-
 <TabItem value="react" label="React">
 
 ```mdx-code-block
@@ -516,40 +566,34 @@ import submitReactLoginApi from '!!raw-loader!../../../code-examples/sdk/typescr
 </Tabs>
 ````
 
-### More Concepts and API References
-
-More conceptual information on the login flow can be found in [Self-service Login Flow](../self-service/flows/user-login).
-
-For API references, please take a look at the [API Reference](../reference/api) section.
-
-Below are the API references for the login flow.
-
-- [Create Browser Login Flow](../reference/api#tag/frontend/operation/createBrowserLoginFlow)
-- [Create Native Login Flow](../reference/api#tag/frontend/operation/createNativeLoginFlow)
-- [Get Login Flow](../reference/api#tag/frontend/operation/getLoginFlow)
-- [Update Login Flow](../reference/api#tag/frontend/operation/updateLoginFlow)
-
 ## Registration flow
 
-The registration flow is used to by your users to register themselves within your application. This flow is highly flexible and
-allows you to define custom fields and validation rules through your [Identity Schema](../manage-identities/identity-schema). This
-flow also consists of a number of `methods` such as `password`, `oidc` and `webauthn`.
+The registration flow allows users to register in your application. This flow is highly customizable and allows you to define
+custom fields and validation rules through the [identity schema](../manage-identities/05_identity-schema.mdx)
 
-In this section, we will only focus on the `password` method since it is the easiest to get started with.
+This flow also consists of a number of methods such as `password`, `oidc` and `webauthn`.
 
-### Create Registration flow
+This section covers only the `password` method since it is the easiest to get started with.
 
-Below there are code examples to create a `registration` flow and render the user interface (where applicable).
-When creating a `registration` flow for **browser applications** you must use the [`/self-service/registration/browser`](../reference/api#tag/frontend/operation/createBrowserRegistrationFlow) endpoint.
-When creating a `registration` flow for **native applications** you must use the [`/self-service/registration/api`](../reference/api#tag/frontend/operation/createNativeRegistrationFlow) endpoint.
+### Create registration flow
+
+The following code examples show how to create a registration flow and render the user interface (where applicable).
+
+:::tip
+
+Remember to use the correct API endpoints for your application type.
+
+- Browser applications must use
+  [`/self-service/registration/browser`](../../reference/api#tag/frontend/operation/createBrowserRegistrationFlow).
+- Native applications must use
+  [`/self-service/registration/api`](../../reference/api#tag/frontend/operation/createNativeRegistrationFlow).
+
+:::
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
-
-To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
 import createRegistrationCurlBrowser from '!!raw-loader!../../../code-examples/curl/registration/create-registration-browser.sh'
@@ -559,8 +603,14 @@ import createRegistrationCurlBrowserJson from '../../../code-examples/curl/regis
 <CodeBlock language="json5" title="create-registration-browser.json">{JSON.stringify(createRegistrationCurlBrowserJson, null, 2)}</CodeBlock>
 ```
 
-</TabItem>
+:::tip
 
+To ensure that requests work correctly for the browser flow, use the `-c` flag to store the cookies in a file.
+On subsequent requests, you can use the `-b` flag to read the cookies from the file.
+
+:::
+
+</TabItem>
 <TabItem value="curl-native" label="cUrl (Native flow)">
 
 ```mdx-code-block
@@ -572,7 +622,6 @@ import createRegistrationCurlApiJson from '../../../code-examples/curl/registrat
 ```
 
 </TabItem>
-
 </Tabs>
 ````
 
@@ -627,20 +676,18 @@ import createReactRegistrationApi from '!!raw-loader!../../../code-examples/sdk/
 </Tabs>
 ````
 
-### Get Registration flow
+### Get registration flow
 
-When a flow already exists, we can retrieve it through a GET request to the
-[`/self-service/registration/flows?id=<flow-id>`](../reference/api#tag/frontend/operation/getRegistrationFlow)
-endpoint using the flow ID. Usually the flow ID is stored in the URL query parameter `?flow=` in your application.
-Below is an example of how to retrieve the flow data using the flow ID.
+When a registration flow already exists, you can retrieve it by sending a GET request that contains the flow ID to the
+[`/self-service/registration/flows?id=<flow-id>`](../reference/api#tag/frontend/operation/getRegistrationFlow) endpoint.
+
+The flow ID is usually stored in the `?flow=` URL query parameter in your application. The following example shows how to get flow
+data using the flow ID.
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
-
-To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
 import getRegistrationCurlBrowser from '!!raw-loader!../../../code-examples/curl/registration/get-registration-browser.sh'
@@ -649,6 +696,13 @@ import getRegistrationCurlBrowserJson from '../../../code-examples/curl/registra
 <CodeBlock language="shell" title="create-registration-browser.sh">{getRegistrationCurlBrowser}</CodeBlock>
 <CodeBlock language="json5" title="create-registration-browser.json">{JSON.stringify(getRegistrationCurlBrowserJson, null, 2)}</CodeBlock>
 ```
+
+:::tip
+
+To ensure that requests work correctly for the browser flow, use the `-c` flag to store the cookies in a file.
+On subsequent requests, you can use the `-b` flag to read the cookies from the file.
+
+:::
 
 </TabItem>
 
@@ -679,7 +733,6 @@ import getRegistrationApi from '!!raw-loader!../../../code-examples/sdk/go/selfs
 ```
 
 </TabItem>
-
 <TabItem value="typescript" label="TypeScript">
 
 ```mdx-code-block
@@ -689,7 +742,6 @@ import getTsRegistrationApi from '!!raw-loader!../../../code-examples/sdk/typesc
 ```
 
 </TabItem>
-
 <TabItem value="react" label="React">
 
 ```mdx-code-block
@@ -699,24 +751,24 @@ import getReactRegistrationApi from '!!raw-loader!../../../code-examples/sdk/typ
 ```
 
 </TabItem>
-
 </Tabs>
 ````
 
-### Submit Registration flow
+### Submit registration flow
 
-The last step is to submit the `registration` flow with the provided user credentials and traits.
-This is done through a POST request to the Ory [`/self-service/registration`](../reference/api#tag/frontend/operation/updateRegistrationFlow) endpoint.
+The last step is to submit the login flow with the user's credentials. To do that, send a POST request to the
+[`/self-service/registration`](../reference/api#tag/frontend/operation/updateRegistrationFlow) endpoint.
 
-The registration payload is fully dependent on your Identity Schema. Take note of the `flow.ui.nodes` property in the response
-payload when creating or getting the registration flow. This property contains the registration form fields that you need to
-provide in the POST request payload. To learn more about customizing your Identity Schema please refer to
-[Identity model](../manage-identities/overview) documentation.
+The registration payload depends on the identity schema you use. Take note of the `flow.ui.nodes` property in the response payload
+when creating or getting the registration flow. This property contains the registration form fields that you need to provide in
+the POST request payload. To learn more about customizing your identity schema please refer to
+[Identity model](../manage-identities/01_overview.mdx) documentation.
 
-For browser applications you need to ensure that all cookies are included in the request and that the CSRF token is sent in the body of the request.
-The CSRF token value is a hidden input field called `csrf_token`.
+For browser applications you must send all cookies and the CSRF token the request body. The CSRF token value is a hidden input
+field called `csrf_token`.
 
-Based on the following Identity Schema snippet the examples below submit the required traits `traits.email` and `traits.tos`.
+Examples in this section are based of the following identity schema snippet and submit the required submit the required traits
+`traits.email` and `traits.tos`.
 
 ```mdx-code-block
 import identitySchemaPartial from '../../../code-examples/curl/identity-schema-partial.json'
@@ -729,10 +781,7 @@ import identitySchemaPartial from '../../../code-examples/curl/identity-schema-p
 
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
 
-To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
-
-Take note of the payload, in this example we have two required traits, `traits.email` and `traits.tos` which is based on the Identity Schema.
+Take note of the payload. This example is based on the identity schema snippet and has two required traits, `traits.email` and `traits.tos`.
 
 ```mdx-code-block
 import submitRegistrationCurlBrowser from '!!raw-loader!../../../code-examples/curl/registration/submit-registration-browser.sh'
@@ -742,8 +791,14 @@ import submitRegistrationCurlBrowserJson from '../../../code-examples/curl/regis
 <CodeBlock language="json5" title="submit-registration-browser.json">{JSON.stringify(submitRegistrationCurlBrowserJson, null, 2)}</CodeBlock>
 ```
 
-</TabItem>
+:::tip
 
+To ensure that requests work correctly for the browser flow, use the `-c` flag to store the cookies in a file.
+On subsequent requests, you can use the `-b` flag to read the cookies from the file.
+
+:::
+
+</TabItem>
 <TabItem value="curl-native" label="cUrl (Native flow)">
 
 ```mdx-code-block
@@ -795,55 +850,44 @@ import submitReactRegistrationApi from '!!raw-loader!../../../code-examples/sdk/
 </Tabs>
 ````
 
-### More Concepts and API References
-
-More conceptual information on the registration flow can be found in
-[Self-service Registration Flow](../self-service/flows/user-registration).
-
-For API references, please take a look at the [API Reference](../reference/api) section.
-
-Below are the API references for the registration flow.
-
-- [Create Browser Registration Flow](../reference/api#tag/frontend/operation/createBrowserRegistrationFlow)
-- [Create Native Registration Flow](../reference/api#tag/frontend/operation/createNativeRegistrationFlow)
-- [Get Registration Flow](../reference/api#tag/frontend/operation/getRegistrationFlow)
-- [Update Registration Flow](../reference/api#tag/frontend/operation/updateRegistrationFlow)
-
 ## Recovery
 
-The `recovery` flow is used to recover user credentials and is used in conjunction with the `settings` flow.
-Once a `recovery` flow has been submitted successfully, a session is issued to the application.
-This allows the user to reset their password and update their profile information on the settings page.
-Browser applications are automatically redirected to the settings page, while native applications will need to
-navigate the user to the settings page.
+The recovery flow allows users to recover access to their accounts and is used in conjunction with the settings flow. When a
+recovery flow is submitted successfully, a session is issued to the application. This allows the user to reset their password and
+update their profile information on the settings page. Browser applications are automatically redirected to the settings page,
+while native applications must take the user to the settings page.
 
-The `recovery` flow has two methods, `link` and `code`. The `link` method requires the user to open the recovery link
-from their email client using a browser on the same device. This makes it difficult as the user might be switching
-between devices to recover their credentials.
+The recovery flow has two methods: `link` and `code`. The `link` method requires the user to open the recovery link from their
+email client using a browser on the same device. This makes it difficult as the user might be switching between devices to recover
+their credentials.
 
 The `code` method is more user friendly since the code can be entered on the same device where the user requested the code from.
-This method is also more preferred due to spam filters and email clients invalidating the recovery link.
+This is the preferred method as spam filters and email clients can invalidating recovery links.
 
 :::note
 
-Only one recovery method can be enabled at a time. The `code` method is enabled by default on all new Ory Network projects.
+Only one recovery method can be enabled at a time. The `code` method is enabled by default in all new Ory Network projects.
 
 :::
 
-### Create Recovery flow
+### Create recovery flow
 
-Below there are code examples to create a recovery flow and render the user interface (where applicable).
-When creating a recovery flow for **browser applications** you must use the
-[`/self-service/recovery/browser`](../reference/api#tag/frontend/operation/createBrowserRecoveryFlow) endpoint.
-When creating a recovery flow for **native applications** you must use the [`/self-service/recovery/api`](../reference/api#tag/frontend/operation/createNativeRecoveryFlow) endpoint.
+The following code examples show how to create a recovery flow and render the user interface (where applicable).
+
+:::tip
+
+Remember to use the correct API endpoints for your application type.
+
+- Browser applications must use
+  [`/self-service/recovery/browser`](../../reference/api#tag/frontend/operation/createBrowserRecoveryFlow).
+- Native applications must use
+  [`/self-service/recovery/api`](../../reference/api#tag/frontend/operation/createNativeRecoveryFlow).
+
+:::
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
-
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
-
-To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
 import createRecoveryCurlBrowser from '!!raw-loader!../../../code-examples/curl/recovery/create-recovery-browser.sh'
@@ -853,8 +897,14 @@ import createRecoveryCurlBrowserJson from '../../../code-examples/curl/recovery/
 <CodeBlock language="json5" title="submit-registration-browser.json">{JSON.stringify(createRecoveryCurlBrowserJson, null, 2)}</CodeBlock>
 ```
 
-</TabItem>
+:::tip
 
+To ensure that requests work correctly for the browser flow, use the `-c` flag to store the cookies in a file.
+On subsequent requests, you can use the `-b` flag to read the cookies from the file.
+
+:::
+
+</TabItem>
 <TabItem value="curl-native" label="cUrl (Native flow)">
 
 ```mdx-code-block
@@ -866,7 +916,6 @@ import createRecoveryCurlApiJson from '../../../code-examples/curl/recovery/crea
 ```
 
 </TabItem>
-
 </Tabs>
 ````
 
@@ -882,7 +931,6 @@ import createRecoveryApi from '!!raw-loader!../../../code-examples/sdk/go/selfse
 ```
 
 </TabItem>
-
 <TabItem value="expressjs" label="Express.js (Browser)">
 
 ```mdx-code-block
@@ -897,7 +945,6 @@ import recoveryExpress from '!!raw-loader!../../../code-examples/sdk/typescript/
 ```
 
 </TabItem>
-
 <TabItem value="typescript" label="TypeScript">
 
 ```mdx-code-block
@@ -907,7 +954,6 @@ import createTsRecoveryApi from '!!raw-loader!../../../code-examples/sdk/typescr
 ```
 
 </TabItem>
-
 <TabItem value="react" label="React">
 
 ```mdx-code-block
@@ -917,26 +963,21 @@ import createReactRecoveryApi from '!!raw-loader!../../../code-examples/sdk/type
 ```
 
 </TabItem>
-
 </Tabs>
 ````
 
-### Get Recovery flow
+### Get recovery flow
 
-When a flow already exists, we can retrieve it through a GET request to the
-[`/self-service/recovery/flows?id=<flow-id>`](../../reference/api#tag/frontend/operation/getRecoveryFlow) endpoint using the flow ID.
-Usually the flow ID is stored in the URL query parameter `?flow=` in your application. Below is an example of how to retrieve the
-flow data using the flow ID.
+When a login flow already exists, you can retrieve it by sending a GET request that contains the flow ID to the
+[`/self-service/recovery/flows?id=<flow-id>`](../../reference/api#tag/frontend/operation/getRecoveryFlow) endpoint.
+
+The flow ID is usually stored in the `?flow=` URL query parameter in your application. The following example shows how to get flow
+data using the flow ID.
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
-
-To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
-
-
 
 ```mdx-code-block
 import getRecoveryCurlBrowser from '!!raw-loader!../../../code-examples/curl/recovery/get-recovery-browser.sh'
@@ -946,8 +987,14 @@ import getRecoveryCurlBrowserJson from '../../../code-examples/curl/recovery/get
 <CodeBlock language="json5" title="get-recovery-browser.json">{JSON.stringify(getRecoveryCurlBrowserJson, null, 2)}</CodeBlock>
 ```
 
-</TabItem>
+:::tip
 
+To ensure that requests work correctly for the browser flow, use the `-c` flag to store the cookies in a file.
+On subsequent requests, you can use the `-b` flag to read the cookies from the file.
+
+:::
+
+</TabItem>
 <TabItem value="curl-native" label="cUrl (Native flow)">
 
 ```mdx-code-block
@@ -959,13 +1006,11 @@ import getRecoveryCurlApiJson from '../../../code-examples/curl/recovery/get-rec
 ```
 
 </TabItem>
-
 </Tabs>
 ````
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
-
 <TabItem value="go" label="Go" default>
 
 ```mdx-code-block
@@ -975,7 +1020,6 @@ import getRecoveryApi from '!!raw-loader!../../../code-examples/sdk/go/selfservi
 ```
 
 </TabItem>
-
 <TabItem value="typescript" label="TypeScript">
 
 ```mdx-code-block
@@ -985,7 +1029,6 @@ import getTsRecoveryApi from '!!raw-loader!../../../code-examples/sdk/typescript
 ```
 
 </TabItem>
-
 <TabItem value="react" label="React">
 
 ```mdx-code-block
@@ -995,28 +1038,23 @@ import getReactRecoveryApi from '!!raw-loader!../../../code-examples/sdk/typescr
 ```
 
 </TabItem>
-
 </Tabs>
 ````
 
-### Submit Recovery flow
+### Submit recovery flow
 
-The next step is to submit the recovery flow with the user's email. This is done through a POST request to the Ory
+The last step is to submit the recovery flow with the user's credentials. To do that, send a POST request to the
 [`/self-service/recovery`](../../reference/api#tag/frontend/operation/updateRecoveryFlow) endpoint.
 
-For browser applications you need to ensure that all cookies are included in the request and that the CSRF token is sent in the
-body of the request. The CSRF token value is a hidden input field called `csrf_token`.
+For browser applications you must send all cookies and the CSRF token the request body. The CSRF token value is a hidden input
+field called `csrf_token`.
 
-The `recovery` flow could have a second submit step if the recovery method is a `code` strategy.
-In this case after the user has submitted their email the recovery flow will include a field to submit the received code.
+The recovery flow can have a second submit step if the recovery method is set to `code`. In such case, the recovery flow shows a
+field to submit the received code the user gets after they submit their email.
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
-
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
-
-To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
 import submitRecoveryCurlBrowser from '!!raw-loader!../../../code-examples/curl/recovery/submit-recovery-browser.sh'
@@ -1026,8 +1064,14 @@ import submitRecoveryCurlBrowserJson from '../../../code-examples/curl/recovery/
 <CodeBlock language="json5" title="submit-recovery-browser.json">{JSON.stringify(submitRecoveryCurlBrowserJson, null, 2)}</CodeBlock>
 ```
 
-</TabItem>
+:::tip
 
+To ensure that requests work correctly for the browser flow, use the `-c` flag to store the cookies in a file.
+On subsequent requests, you can use the `-b` flag to read the cookies from the file.
+
+:::
+
+</TabItem>
 <TabItem value="curl-native" label="cUrl (Native flow)">
 
 ```mdx-code-block
@@ -1039,13 +1083,11 @@ import submitRecoveryCurlApiJson from '../../../code-examples/curl/recovery/subm
 ```
 
 </TabItem>
-
 </Tabs>
 ````
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
-
 <TabItem value="go" label="Go" default>
 
 ```mdx-code-block
@@ -1055,7 +1097,6 @@ import submitRecoveryApi from '!!raw-loader!../../../code-examples/sdk/go/selfse
 ```
 
 </TabItem>
-
 <TabItem value="typescript" label="TypeScript">
 
 ```mdx-code-block
@@ -1065,7 +1106,6 @@ import submitTsRecoveryApi from '!!raw-loader!../../../code-examples/sdk/typescr
 ```
 
 </TabItem>
-
 <TabItem value="react" label="React">
 
 ```mdx-code-block
@@ -1075,62 +1115,47 @@ import submitReactRecoveryApi from '!!raw-loader!../../../code-examples/sdk/type
 ```
 
 </TabItem>
-
 </Tabs>
 ````
 
-### More Concepts and API References
-
-More conceptual information on the recovery flow can be found in
-[Account recovery and password reset](../self-service/flows/account-recovery-password-reset).
-
-For API references, please take a look at the [API Reference](../reference/api) section.
-
-Below are the API references for the recovery flow.
-
-- [Create Browser Recovery Flow](../reference/api#tag/frontend/operation/createBrowserRecoveryFlow)
-- [Create Native Recovery Flow](../reference/api#tag/frontend/operation/createNativeRecoveryFlow)
-- [Get Recovery Flow](../reference/api#tag/frontend/operation/getRecoveryFlow)
-- [Update Recovery Flow](../reference/api#tag/frontend/operation/updateRecoveryFlow)
-
 ## Verification flow
 
-The `verification` flow is used to verify the user's account through email. In some cases applications might need
-to restrict access to the application or certain features until the user has verified that they own the email address.
+The verification flow is used to verify the user's account through their email address.
 
-The `verification` flow has two methods, `link` and `code`. The `link` method requires the user to open the verification link
-from their email client using a browser on the same device. This makes it difficult as the user might be switching
-between devices.
+The flow has two methods: `link` and `code`. The `link` method requires the user to open the recovery link from their email client
+using a browser on the same device. This makes it difficult as the user might be switching between devices to recover their
+credentials.
 
 The `code` method is more user friendly since the code can be entered on the same device where the user requested the code from.
-This method is also more preferred due to spam filters and email clients invalidating the verification link.
+This is the preferred method as spam filters and email clients can invalidating recovery links.
 
-Once the `verification` flow has been submitted successfully, the session will contain the
-`identity.verifiable_addresses[0].verified: true` value.
+Once the `verification` flow is submitted successfully, the session has the `identity.verifiable_addresses[0].verified: true`
+value.
 
 :::note
 
-Only one verification method can be enabled at a time. The `code` method is enabled by default on all new Ory Network projects.
+Only one verification method can be enabled at a time. The `code` method is enabled by default in all new Ory Network projects.
 
 :::
 
-### Create Verification flow
+### Create verification flow
 
-Below there are code examples to create a verification flow and render the user interface (where applicable).
-When creating a verification flow for **browser applications** you must use the
-[`/self-service/verification/browser`](../reference/api#tag/frontend/operation/createBrowserVerificationFlow) endpoint.
-When creating a verification flow for **native applications** you must use the [`/self-service/verification/api`](../reference/api#tag/frontend/operation/createBrowserVerificationFlow) endpoint.
+The following code examples show how to create a recovery flow and render the user interface (where applicable).
 
+:::tip
+
+Remember to use the correct API endpoints for your application type.
+
+- Browser applications must use
+  [`/self-service/recovery/browser`](../../reference/api#tag/frontend/operation/createBrowserVerificationFlow).
+- Native applications must use
+  [`/self-service/recovery/api`](../../reference/api#tag/frontend/operation/createBrowserVerificationFlow).
+
+:::
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
-
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
-
-To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
-
-
 
 ```mdx-code-block
 import createVerificationCurlBrowser from '!!raw-loader!../../../code-examples/curl/verification/create-verification-browser.sh'
@@ -1139,6 +1164,13 @@ import createVerificationCurlBrowserJson from '../../../code-examples/curl/verif
 <CodeBlock language="shell" title="create-verification-browser.sh">{createVerificationCurlBrowser}</CodeBlock>
 <CodeBlock language="json5" title="create-verification-browser.json">{JSON.stringify(createVerificationCurlBrowserJson, null, 2)}</CodeBlock>
 ```
+
+:::tip
+
+To ensure that requests work correctly for the browser flow, use the `-c` flag to store the cookies in a file.
+On subsequent requests, you can use the `-b` flag to read the cookies from the file.
+
+:::
 
 </TabItem>
 
@@ -1208,20 +1240,18 @@ import createReactVerificationApi from '!!raw-loader!../../../code-examples/sdk/
 </Tabs>
 ````
 
-### Get Verification flow
+### Get verification flow
 
-When a flow already exists, we can retrieve it through a GET request to the
-[`/self-service/verification/flows?id=<flow-id>`](../../reference/api#tag/frontend/operation/getVerificationFlow) endpoint using the flow ID.
-Usually the flow ID is stored in the URL query parameter `?flow=` in your application. Below is an example of how to retrieve the
-flow data using the flow ID.
+When a login flow already exists, you can retrieve it by sending a GET request that contains the flow ID to the
+[`/self-service/verification/flows?id=<flow-id>`](../../reference/api#tag/frontend/operation/getRecoveryFlow) endpoint.
+
+The flow ID is usually stored in the `?flow=` URL query parameter in your application. The following example shows how to get flow
+data using the flow ID.
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
-
-To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
 import getVerificationCurlBrowser from '!!raw-loader!../../../code-examples/curl/verification/get-verification-browser.sh'
@@ -1231,8 +1261,15 @@ import getVerificationCurlBrowserJson from '../../../code-examples/curl/verifica
 <CodeBlock language="json5" title="get-verification-browser.json">{JSON.stringify(getVerificationCurlBrowserJson, null, 2)}</CodeBlock>
 ```
 
-</TabItem>
+:::tip
 
+To ensure that requests work correctly for the browser flow, use the `-c` flag to store the cookies in a file.
+On subsequent requests, you can use the `-b` flag to read the cookies from the file.
+
+:::
+
+
+</TabItem>
 <TabItem value="curl-native" label="cUrl (Native flow)">
 
 ```mdx-code-block
@@ -1244,13 +1281,11 @@ import getVerificationCurlApiJson from '../../../code-examples/curl/verification
 ```
 
 </TabItem>
-
 </Tabs>
 ````
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
-
 <TabItem value="go" label="Go" default>
 
 ```mdx-code-block
@@ -1260,7 +1295,6 @@ import getVerificaitonApi from '!!raw-loader!../../../code-examples/sdk/go/selfs
 ```
 
 </TabItem>
-
 <TabItem value="typescript" label="TypeScript">
 
 ```mdx-code-block
@@ -1270,7 +1304,6 @@ import getTsVerificationApi from '!!raw-loader!../../../code-examples/sdk/typesc
 ```
 
 </TabItem>
-
 <TabItem value="react" label="React">
 
 ```mdx-code-block
@@ -1280,29 +1313,24 @@ import getReactVerificationApi from '!!raw-loader!../../../code-examples/sdk/typ
 ```
 
 </TabItem>
-
 </Tabs>
 ````
 
-### Submit Verification flow
+### Submit verification flow
 
-The next step is to submit the verification flow with the user's email. This is done through a POST request to the Ory
-[`/self-service/verification`](../../reference/api#tag/frontend/operation/updateVerificationFlow) endpoint.
+The last step is to submit the verification flow with the user's email. To do that, send a POST request to the
+[`/self-service/verification`](../../reference/api#tag/frontend/operation/updateRecoveryFlow) endpoint.
 
-For browser applications you need to ensure that all cookies are included in the request and that the CSRF token is sent in the
-body of the request. The CSRF token value is a hidden input field called `csrf_token`.
+For browser applications you must send all cookies and the CSRF token the request body. The CSRF token value is a hidden input
+field called `csrf_token`.
 
-The `verification` flow could have a second submit step if the verification method is a `code` strategy.
-In this case after the user has submitted their email the verification flow will include a field to submit the received code.
-
+The verification flow can have a second submit step if the recovery method is set to `code`. In such case, the verification flow
+shows a field to submit the received code the user gets after they submit their email.
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
-
-To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
 import submitVerificationCurlBrowser from '!!raw-loader!../../../code-examples/curl/verification/submit-verification-browser.sh'
@@ -1312,8 +1340,14 @@ import submitVerificationCurlBrowserJson from '../../../code-examples/curl/verif
 <CodeBlock language="json5" title="submit-verification-browser.json">{JSON.stringify(submitVerificationCurlBrowserJson, null, 2)}</CodeBlock>
 ```
 
-</TabItem>
+:::tip
 
+To ensure that requests work correctly for the browser flow, use the `-c` flag to store the cookies in a file.
+On subsequent requests, you can use the `-b` flag to read the cookies from the file.
+
+:::
+
+</TabItem>
 <TabItem value="curl-native" label="cUrl (Native flow)">
 
 ```mdx-code-block
@@ -1325,13 +1359,11 @@ import submitVerificationCurlApiJson from '../../../code-examples/curl/verificat
 ```
 
 </TabItem>
-
 </Tabs>
 ````
 
 ````mdx-code-block
 <Tabs groupId="sdk-examples">
-
 <TabItem value="go" label="Go" default>
 
 ```mdx-code-block
@@ -1341,7 +1373,6 @@ import submitVerificationApi from '!!raw-loader!../../../code-examples/sdk/go/se
 ```
 
 </TabItem>
-
 <TabItem value="typescript" label="TypeScript">
 
 ```mdx-code-block
@@ -1351,7 +1382,6 @@ import submitTsVerificationApi from '!!raw-loader!../../../code-examples/sdk/typ
 ```
 
 </TabItem>
-
 <TabItem value="react" label="React">
 
 ```mdx-code-block
@@ -1361,45 +1391,25 @@ import submitReactVerificationApi from '!!raw-loader!../../../code-examples/sdk/
 ```
 
 </TabItem>
-
 </Tabs>
 ````
 
-### More Concepts and API References
-
-More conceptual information on the verification flow can be found in
-[Verify email account activation](../self-service/flows/verify-email-account-activation).
-
-For API references, please take a look at the [API Reference](../reference/api) section.
-
-Below are the API references for the verification flow.
-
-- [Create Browser Verification Flow](../reference/api#tag/frontend/operation/createBrowserVerificationFlow)
-- [Create Native Verification Flow](../reference/api#tag/frontend/operation/createNativeVerificationFlow)
-- [Get Verification Flow](../reference/api#tag/frontend/operation/getVerificationFlow)
-- [Update Verification Flow](../reference/api#tag/frontend/operation/updateVerificationFlow)
-
 ## Logout flow
 
-Depending on the application type (browser or native) the logout flow has a different behaviour. With a browser application, the
-logout flow needs to be initialized to create a logout URL which is associated with the current session cookie. The application
-can then call the logout URL through a redirect or a background AJAX request.
+Depending on the application type, the logout flow has a different behavior. With a browser application, the logout flow needs to
+be initialized to create a logout URL which is associated with the current session cookie. The application can then call the
+logout URL through a redirect or a background AJAX request.
 
-Note that in browser applications the application needs to do a GET request to initialize the logout URL by calling
-[`/self-service/logout/browser`](../reference/api#tag/frontend/operation/createBrowserLogoutFlow) and a GET to complete the logout
-[`/self-service/logout`](../reference/api#tag/frontend/operation/updateLogoutFlow) flow.
+Browser applications must send a GET request to initialize the logout URL by calling
+[`/self-service/logout/browser`](../reference/api#tag/frontend/operation/createBrowserLogoutFlow) and a GET request to
+[`/self-service/logout`](../reference/api#tag/frontend/operation/updateLogoutFlow) to complete the logout flow.
 
-In native applications the application does not need to initialize the logout flow and only needs to do a DELETE request to the
-[`/self-service/logout/api`](../reference/api#tag/frontend/operation/performNativeLogout) endpoint containing the session token in
-the body.
+Native applications don't initialize the logout flow and only need to send a DELETE request with the session token in the request
+body to the [`/self-service/logout/api`](../reference/api#tag/frontend/operation/performNativeLogout) endpoint.
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
-
 <TabItem value="curl-browser" label="cUrl (Browser flow)">
-
-To ensure the requests work correctly for the browser flow, we can use the `-c` flag to store the cookies in a file.
-On subsequent requests, we can use the `-b` flag to read the cookies from the file.
 
 ```mdx-code-block
 import createLogoutCurlBrowser from '!!raw-loader!../../../code-examples/curl/logout/create-logout-browser.sh'
@@ -1411,8 +1421,14 @@ import submitLogoutCurlBrowser from '!!raw-loader!../../../code-examples/curl/lo
 <CodeBlock language="shell" title="submit-logout-browser.sh">{submitLogoutCurlBrowser}</CodeBlock>
 ```
 
-</TabItem>
+:::tip
 
+To ensure that requests work correctly for the browser flow, use the `-c` flag to store the cookies in a file.
+On subsequent requests, you can use the `-b` flag to read the cookies from the file.
+
+:::
+
+</TabItem>
 <TabItem value="curl-native" label="cUrl (Native flow)">
 
 ```mdx-code-block
@@ -1422,7 +1438,6 @@ import logoutCurlApi from '!!raw-loader!../../../code-examples/curl/logout/logou
 ```
 
 </TabItem>
-
 </Tabs>
 ````
 
@@ -1430,10 +1445,9 @@ import logoutCurlApi from '!!raw-loader!../../../code-examples/curl/logout/logou
 
 ````mdx-code-block
 <Tabs groupId="application-type-examples">
+<TabItem value="server-browser" label="Server-side (browser)" default>
 
-<TabItem value="server-browser" label="Server Side (browser)" default>
-
-Below is an example of the SDK calling the [`/sessions/whoami`](../reference/api#tag/frontend/operation/toSession) endpoint in an Express.js middleware.
+This example shows how to use the SDK to call the [`/sessions/whoami`](../reference/api#tag/frontend/operation/toSession) endpoint in an Express.js middleware.
 
 ```mdx-code-block
 import whoamiExpress from '!!raw-loader!../../../code-examples/sdk/typescript/src/selfservice/session/whoami-express.ts'
@@ -1441,8 +1455,7 @@ import whoamiExpress from '!!raw-loader!../../../code-examples/sdk/typescript/sr
 <CodeBlock language="ts" title="middleware.ts">{whoamiExpress}</CodeBlock>
 ```
 </TabItem>
-
-<TabItem value="client-browser" label="Client Side (SPA)">
+<TabItem value="client-browser" label="Client-side (SPA)">
 
 ```typescript
 await fetch('https://localhost:4000/sessions/whoami', { // <-- your Ory CLI tunnel URL
@@ -1452,8 +1465,8 @@ await fetch('https://localhost:4000/sessions/whoami', { // <-- your Ory CLI tunn
 }).then((response) => response.json())
 ```
 
-When using the Ory SDK you need to specify the `withCredentials: true` option in the SDK configuration. Below is an example of the
-SDK calling the [`/sessions/whoami`](../reference/api#tag/frontend/operation/toSession) endpoint automatically including the
+When using the Ory SDK (@ory/client) you need to set the `withCredentials: true` option in the SDK configuration.This example shows how to use the
+SDK to call the [`/sessions/whoami`](../reference/api#tag/frontend/operation/toSession) endpoint while automatically including the
 cookies in the request.
 
 ```mdx-code-block
@@ -1466,8 +1479,7 @@ import whoamiReact from '!!raw-loader!../../../code-examples/sdk/typescript/src/
 
 <TabItem value="native" label="Native">
 
-With the Ory SDK you can set the `withCredentials: false` option and use the session token in the `Authorization: Bearer <token>`
-header. Below is an example of the SDK calling the [`/sessions/whoami`](../reference/api#tag/frontend/operation/toSession)
+With the Ory SDK you can set the `withCredentials: false` option and use the session token in the `Authorization: Bearer` header. This example shows how to use the SDK to call the [`/sessions/whoami`](../reference/api#tag/frontend/operation/toSession)
 endpoint.
 
 ```mdx-code-block
@@ -1505,16 +1517,16 @@ import whoamiCurlNativeJson from '../../../code-examples/curl/session/check-sess
 </Tabs>
 ````
 
-## Error Handling
+## Error handling
 
 Ory provides errors at different levels of the flow:
 
-1. Request level errors (e.g. the request expired)
-2. Method level (e.g. login with password method)
-3. Field level (e.g. password field)
+1. Request level errors, for example when the request expires
+2. Method level errors, for example concerning login with password method
+3. Field level errors, for example when password field contains forbidden characters
 
-Request level errors happen when the request has failed due to an invalid state. For example, the login flow is created, however,
-the session already exists.
+Request level errors happen when the request has failed due to an invalid state. For example, the login flow is created, but the
+session already exists.
 
 Method level errors happen when the method being requested fails.
 
@@ -1588,27 +1600,31 @@ Here is a Typescript example using the Ory SDK of each:
 
 ### CORS errors
 
-To solve Cross-Origin Resource Sharing (CORS) errors please make sure you are using the
-[Ory CLI tunnel](../../getting-started/local-development) on local development and in production you should
-[add your domain](../../guides/custom-domains) to the Ory Project so that all requests from your frontend can be made to Ory under
-the same domain.
+To solve Cross-Origin Resource Sharing (CORS) errors, use
+[Ory Tunnel for local development](../../getting-started/local-development.mdx). In production,
+[add your domain](../../guides/custom-domains.mdx) to the Ory Project so that all requests from your frontend can be made to Ory
+under the same domain.
 
-Ory has a deny by default policy which means that the `Access-Control-Allow-Origin` header is only set on domains we own.
+Ory has a "deny by default" policy which means that the `Access-Control-Allow-Origin` header is only set on domains we own.
 
-To learn more about CORS please read the [Mozilla CORS documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
+:::tip
+
+To learn more about CORS, read [Mozilla CORS documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
+
+:::
 
 ### CSRF errors
 
-Ory provides CSRF protection for all `flows`. This means that you need to send a CSRF token in the body and CSRF cookie back when
-submitting a `flow`. The cookie should be sent by default by your browser, but you need to add the CSRF token manually to the body
-of the request. This can be a JSON object or a native form POST.
+Ory provides CSRF protection for all flows. This means that you must send a CSRF token in the body and CSRF cookie back when
+submitting a flow. The cookie should be sent by default by your browser, but you must add the CSRF token manually to the request
+body. This can be a JSON object or a native form POST.
 
-When mapping UI nodes take note of input fields with the name `csrf_token` with the `hidden` attribute. An example of mapping the
-UI nodes for csrf protection could look like this:
+When mapping UI nodes, take note of input fields with the name `csrf_token` with the `hidden` attribute.
+
+An example of mapping the UI nodes for CSRF protection could look like this:
 
 ```mdx-code-block
 import csrfMapping from '!!raw-loader!../../../code-examples/sdk/typescript/src/ui/csrf-mapping.tsx'
 
 <CodeBlock language="tsx">{csrfMapping}</CodeBlock>
 ```
-``````

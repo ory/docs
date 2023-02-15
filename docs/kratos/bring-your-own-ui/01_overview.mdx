@@ -4,32 +4,50 @@ title: Custom UI Overview
 sidebar_label: Overview
 ---
 
-Ory has been built with customization in mind through its simple to use headless API flows. This allows for easy integration, may
-it be with browser or native applications. Even though it is tempting to immediately start building your own UI, we recommend to
-first start with the provided UIs as they are battle tested and provide a great starting point for your journey with Ory.
+Ory is designed to allow you to easily implement custom user interfaces (UI) for browser and native applications thanks to
+simple-to-use headless API flows.
 
-## Why should I use the provided UIs?
+In addition to that, Ory Network comes with a flexible and customizable UI out of the box. Ory Account Experience allows you to
+integrate all of the essential flows, such as login or registration, without the need to dedicate time or resources to designing
+and coding UI on your own.
 
-Ory provides an out-of-the-box UI called the Account Experience with every Ory project, no matter if it is a free or paid tier.
-This allows for you to immediately start using Ory without having to understand the Ory APIs in detail. The Account Experience is
-already battle tested and provides a great set of customizability options. The customizations are done through the Ory Console or
-Ory CLI and are applied to the Account Experience automatically. You can even theme the Account Experience to match your brand!
+:::tip
 
-## Why should I build my own UI?
+Even though it's tempting to start building a custom UI right away, we recommend you start your journey with Ory using the Account
+Experience, which is a battle-tested solution that provides a great starting point for integrating your application with the Ory
+Network.
 
-A custom user interface allows for a better user experience with a tight integration with your business requirements. This allows
-for you to cater to your user's needs and have full control of the user experience. The best way to start is by using the provided
-Ory examples and tooling, since this will shorten the time to market and allow you to focus on your application business logic.
+:::
 
-[Ory Elements](./custom-ui-ory-elements) is a great way to get started with your own UI as it provides a set of drop-in components
-that automatically map Ory provided flow data to the UI. It handles all the UI mapping for the authentication flows such as
-`login`, `registration`, `settings`, `verification` and `recovery` for you. Ory Elements is designed to leave the business logic
-up to you. This means you decide how you would like to handle API calls to Ory and how that state of the data is managed within
-your application.
+## Why should I use Ory Account Experience?
 
-To get started with Ory Elements, take a look at the [Custom UI with Ory Elements](./custom-ui-ory-elements) guide.
+Ory Account Experience is the out-of-the-box UI that comes with every Ory Network project, on all available plans. It allows you
+to start using Ory without the need to understand the APIs in detail. With Ory Account Experience, your UI adjusts dynamically to
+reflect the changes in your project configuration, such as adding new social sign-in connectors. You can also make the look of the
+Account Experience UI match your brand using the customization tools available in the Ory Console.
 
-## What are the next steps?
+To see the Ory Account Experience in action and customize the views, go to the **Overview** and **Theming** views of the **Account
+Experience** section in the Ory Console.
 
-To understand the fundamentals of the Ory APIs and how to interact with them, take a look at the
-[Basic Integration](./custom-ui-basic-integration) document.
+## Why should I build a custom UI?
+
+Building a custom UI allows you to get the highest level of integration with your business requirements and have the ultimate
+control over the user experience.
+
+The best way to start building a custom UI is to use the provided Ory examples and tooling, since this will shorten the time to
+market and allow you to focus on your application's business logic.
+
+### Ory Elements
+
+The Ory Elements component library is a great way to get started with your own UI as it provides a set of drop-in components that
+automatically map Ory provided flow data to the UI. It handles all UI mapping for authentication flows such as `login`,
+`registration`, `settings`, `verification` and `recovery`. Ory Elements is designed to work with your business logic, which means
+that you can decide how to handle API calls to Ory and how the data resulting from these calls is managed in your application.
+
+To learn how to use Ory Elements and see a sample implementation, read
+[Custom UI with Ory Elements](./15_custom-ui-ory-elements.mdx).
+
+## Next steps
+
+To understand the fundamentals Ory APIs and learn how to interact with them in your UI, take a look at the
+[Basic integration](./custom-ui-basic-integration) document.
