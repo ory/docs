@@ -975,11 +975,6 @@
       "permanent": false
     },
     {
-      "source": "/docs/kratos/concepts/ui-user-interface",
-      "destination": "https://www.ory.sh/docs/kratos/bring-your-own-ui/ui-nodes-errors",
-      "permanent": false
-    },
-    {
       "source": "/docs/kratos/guides/custom-ui",
       "destination": "https://www.ory.sh/docs/kratos/bring-your-own-ui/overview",
       "permanent": false
