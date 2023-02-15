@@ -1,5 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+
 :root {
-  --ifm-color-primary: #5528ff;
+  --ifm-font-family-base: 'Inter';
+  --ifm-color-primary: #312E81; /* Indigo 900 */
+  --ifm-heading-color: #312E81; /* Indigo 900 - Color used for headings in text */
+  --ifm-heading-font-family: "Inter";
+  --ifm-navbar-link-hover-color: #06B6D4; /* Cyan 500 */
+  --ifm-menu-color-active: #06B6D4; /* Cyan 500 - Active text in sidebar */
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
@@ -7,6 +14,8 @@
 [data-theme="dark"] {
   /* Color which works with dark mode syntax highlighting theme */
   --docusaurus-highlighted-code-line-bg: rgba(66, 66, 66, 0.35);
+  --ifm-color-primary: #7986CB; /* Indigo 300 */
+  --ifm-heading-color: #7986CB; /* Indigo 300 - Color used for headings in text */
 }
 
 .markdown figure {
