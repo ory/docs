@@ -1,0 +1,28 @@
+---
+id: configure-ory-to-use-your-ui
+title: Configure Ory to use your UI
+---
+
+Unless you are building a native app, you must configure the endpoints where your UI pages for the individual flows are located.
+
+To define the endpoints where Ory should look for your custom UI, go to [**Ory Console**](https://console.ory.sh/) → **User
+Interface**. If you don't define any of the endpoints, Ory Account Experience will be used for that flow.
+
+Let's say you have an app hosted at `https://www.example.org` with a login screen at `https://www.example.org/login` but you don't
+have other screens implemented yet. It's okay! Provide the login UI endpoint and leave the other endpoints untouched to use Ory
+Account Experience.
+
+## Development
+
+When developing locally, you can set the configuration to, for example, `http://localhost:1234/login`. To make this work, you will
+use [Ory Tunnel](../../guides/cli/proxy-and-tunnel). Read [Developing with Ory](../../getting-started/local-development.mdx) to
+learn more.
+
+## Reference implementations and examples
+
+There are several reference implementations and guides available for building your own user interface and forms on top of Ory's
+APIs:
+
+- [Add Custom Login, Registration, User Settings to Your Next.js & React Single Page Application (SPA)](https://www.ory.sh/nextjs-authentication-spa-custom-flows-open-source/)
+- [Node.js / Express.js UI Reference Implementation](https://github.com/ory/kratos-selfservice-ui-node)
+- [React Native UI Reference Implementation](https://github.com/ory/kratos-selfservice-ui-react-native)

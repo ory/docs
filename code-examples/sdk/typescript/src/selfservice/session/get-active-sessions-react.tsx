@@ -1,7 +1,7 @@
 import { Configuration, FrontendApi, Session } from "@ory/client"
 import { useEffect, useState } from "react"
 
-const ory = new FrontendApi(
+const frontend = new FrontendApi(
   new Configuration({
     basePath: "http://localhost:4000", // Use your local Ory Tunnel URL
     baseOptions: {
@@ -10,12 +10,12 @@ const ory = new FrontendApi(
   }),
 )
 
-export function MySessions() {
+export function mySessions() {
   const [sessions, setSessions] = useState<Session[]>([])
 
   useEffect(() => {
     // highlight-start
-    ory
+    frontend
       .listMySessions({
         page: 1,
         perPage: 10,
@@ -43,7 +43,7 @@ export function MySessions() {
       </tr>
       {sessions.length > 0 ? (
         sessions.map((session) => (
-          <tr id={session.id}>
+          <tr id={session.id} key={session.id}>
             <td>{session.id}</td>
             <td>{session.expires_at || ""}</td>
             <td>{session.authenticated_at || ""}</td>

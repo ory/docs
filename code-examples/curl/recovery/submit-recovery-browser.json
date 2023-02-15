@@ -1,0 +1,107 @@
+{
+  "id": "292cb0d4-7e69-4ecb-8245-294dde4f0836",
+  "type": "browser",
+  "expires_at": "2023-02-08T17:04:55.818765Z",
+  "issued_at": "2023-02-08T16:34:55.818765Z",
+  "request_url": "https://{project.slug}.projects.oryapis.com/self-service/recovery/browser",
+  "active": "code",
+  "ui": {
+    "action": "https://{project.slug}.projects.oryapis.com/self-service/recovery?flow=292cb0d4-7e69-4ecb-8245-294dde4f0836",
+    "method": "POST",
+    "nodes": [
+      {
+        "type": "input",
+        "group": "default",
+        "attributes": {
+          "name": "csrf_token",
+          "type": "hidden",
+          "value": "ToYpvWDs+EBlfVwCGfFh4NFKdLdPfC41qo5tc2Wl4lnLiZQp1NgX2e9KyxfeHK21tw0xTF4QqcaGfqRTXBQRFQ==",
+          "required": true,
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {}
+      },
+      {
+        "type": "input",
+        "group": "code",
+        "attributes": {
+          "name": "code",
+          "type": "text",
+          "required": true,
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {
+          "label": {
+            "id": 1070006,
+            "text": "Verify code",
+            "type": "info"
+          }
+        }
+      },
+      {
+        "type": "input",
+        "group": "code",
+        "attributes": {
+          "name": "method",
+          "type": "hidden",
+          "value": "code",
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {}
+      },
+      {
+        "type": "input",
+        "group": "code",
+        "attributes": {
+          "name": "method",
+          "type": "submit",
+          "value": "code",
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {
+          "label": {
+            "id": 1070005,
+            "text": "Submit",
+            "type": "info"
+          }
+        }
+      },
+      {
+        "type": "input",
+        "group": "code",
+        "attributes": {
+          "name": "email",
+          "type": "submit",
+          "value": "email@example.com",
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {
+          "label": {
+            "id": 1070007,
+            "text": "Resend code",
+            "type": "info"
+          }
+        }
+      }
+    ],
+    "messages": [
+      {
+        "id": 1060003,
+        "text": "An email containing a recovery code has been sent to the email address you provided.",
+        "type": "info",
+        "context": {}
+      }
+    ]
+  },
+  "state": "sent_email"
+}

@@ -1,20 +1,20 @@
 import { Configuration, IdentityApi } from "@ory/client"
 
-const identityApi = new IdentityApi(
+const identity = new IdentityApi(
   new Configuration({
     basePath: `https://${process.env.ORY_PROJECT_SLUG}.projects.oryapis.com`,
     accessToken: `${process.env.ORY_ACCESS_TOKEN}`,
   }),
 )
 
-export async function GetIdentitySessions(
+export async function getIdentitySessions(
   identityId: string,
   active?: boolean,
   pageNumber?: number,
   pageSize?: number,
 ) {
   // highlight-start
-  return await identityApi.listIdentitySessions({
+  return await identity.listIdentitySessions({
     id: identityId,
     active: active, // Optional parameter to filter sessions based on state (active/inactive)
     page: pageNumber, // Optional parameter to receive subsequent pages

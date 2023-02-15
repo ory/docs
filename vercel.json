@@ -963,6 +963,21 @@
       "source": "/docs/keto/secure",
       "destination": "https://www.ory.sh/docs/guides/permissions/overview",
       "permanent": false
+    },
+    {
+      "source": "/docs/guides/bring-your-user-interface",
+      "destination": "https://www.ory.sh/docs/kratos/bring-your-own-ui/configure-ory-to-use-your-ui",
+      "permanent": false
+    },
+    {
+      "source": "/docs/getting-started/custom-ui-ory-elements",
+      "destination": "https://www.ory.sh/docs/kratos/bring-your-own-ui/custom-ui-ory-elements",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/guides/custom-ui",
+      "destination": "https://www.ory.sh/docs/kratos/bring-your-own-ui/overview",
+      "permanent": false
     }
   ]
 }

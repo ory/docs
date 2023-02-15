@@ -22,7 +22,7 @@ func init() {
 	ory = client.NewAPIClient(cfg)
 }
 
-func logout(ctx context.Context, sessionToken string) error {
+func Logout(ctx context.Context, sessionToken string) error {
 	// highlight-start
 	_, err := ory.FrontendApi.PerformNativeLogout(ctx).
 		PerformNativeLogoutBody(*client.NewPerformNativeLogoutBody(sessionToken)).
@@ -30,8 +30,8 @@ func logout(ctx context.Context, sessionToken string) error {
 	if err != nil {
 		return err
 	}
-	// highlight-end
 	// Logout was successful
+	// highlight-end
 
 	return nil
 }

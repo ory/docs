@@ -1,6 +1,6 @@
 import { Configuration, FrontendApi } from "@ory/client"
 
-const ory = new FrontendApi(
+const frontend = new FrontendApi(
   new Configuration({
     basePath: "http://localhost:4000", // Use your local Ory Tunnel URL
     baseOptions: {
@@ -10,11 +10,11 @@ const ory = new FrontendApi(
 )
 
 // Example of a modal component
-export function RevokeSession(sessionId: string) {
+export function revokeSession(sessionId: string) {
   // highlight-start
   const handleRevokeSession = async () => {
     try {
-      await ory.disableMySession({
+      await frontend.disableMySession({
         id: sessionId,
       })
     } catch (error) {

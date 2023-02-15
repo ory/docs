@@ -1,0 +1,67 @@
+{
+  "id": "f022d468-e0a4-4529-b123-228d1d0932a9",
+  "type": "api",
+  "expires_at": "2023-02-08T17:13:53.840259493Z",
+  "issued_at": "2023-02-08T16:43:53.840259493Z",
+  "request_url": "https://{project.slug}.projects.oryapis.com/self-service/recovery/api",
+  "active": "code",
+  "ui": {
+    "action": "https://{project.slug}.projects.oryapis.com/self-service/recovery?flow=f022d468-e0a4-4529-b123-228d1d0932a9",
+    "method": "POST",
+    "nodes": [
+      {
+        "type": "input",
+        "group": "default",
+        "attributes": {
+          "name": "csrf_token",
+          "type": "hidden",
+          "value": "",
+          "required": true,
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {}
+      },
+      {
+        "type": "input",
+        "group": "code",
+        "attributes": {
+          "name": "email",
+          "type": "email",
+          "required": true,
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {
+          "label": {
+            "id": 1070007,
+            "text": "Email",
+            "type": "info"
+          }
+        }
+      },
+      {
+        "type": "input",
+        "group": "code",
+        "attributes": {
+          "name": "method",
+          "type": "submit",
+          "value": "code",
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {
+          "label": {
+            "id": 1070005,
+            "text": "Submit",
+            "type": "info"
+          }
+        }
+      }
+    ]
+  },
+  "state": "choose_method"
+}
