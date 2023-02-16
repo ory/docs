@@ -764,11 +764,11 @@ when creating or getting the registration flow. This property contains the regis
 the POST request payload. To learn more about customizing your identity schema please refer to
 [Identity model](../manage-identities/01_overview.mdx) documentation.
 
-For browser applications you must send all cookies and the CSRF token the request body. The CSRF token value is a hidden input
+For browser applications you must send all cookies and the CSRF token in the request body. The CSRF token value is a hidden input
 field called `csrf_token`.
 
-Examples in this section are based of the following identity schema snippet and submit the required submit the required traits
-`traits.email` and `traits.tos`.
+Examples in this section are based of the following identity schema snippet and submit the required traits `traits.email` and
+`traits.tos`.
 
 ```mdx-code-block
 import identitySchemaPartial from '../../../code-examples/curl/identity-schema-partial.json'
@@ -1043,13 +1043,13 @@ import getReactRecoveryApi from '!!raw-loader!../../../code-examples/sdk/typescr
 
 ### Submit recovery flow
 
-The last step is to submit the recovery flow with the user's credentials. To do that, send a POST request to the
+The last step is to submit the recovery flow with the user's email. To do that, send a POST request to the
 [`/self-service/recovery`](../../reference/api#tag/frontend/operation/updateRecoveryFlow) endpoint.
 
 For browser applications you must send all cookies and the CSRF token the request body. The CSRF token value is a hidden input
 field called `csrf_token`.
 
-The recovery flow can have a second submit step if the recovery method is set to `code`. In such case, the recovery flow shows a
+The recovery flow can have a second submit step if the recovery method is set to `code`. In such a case, the recovery flow shows a
 field to submit the received code the user gets after they submit their email.
 
 ````mdx-code-block
@@ -1122,12 +1122,12 @@ import submitReactRecoveryApi from '!!raw-loader!../../../code-examples/sdk/type
 
 The verification flow is used to verify the user's account through their email address.
 
-The flow has two methods: `link` and `code`. The `link` method requires the user to open the recovery link from their email client
-using a browser on the same device. This makes it difficult as the user might be switching between devices to recover their
-credentials.
+The flow has two methods: `link` and `code`. The `link` method requires the user to open the verification link from their email
+client using a browser on the same device. This makes it difficult as the user might be switching between devices to verify their
+account.
 
 The `code` method is more user friendly since the code can be entered on the same device where the user requested the code from.
-This is the preferred method as spam filters and email clients can invalidating recovery links.
+This is the preferred method as spam filters and email clients can invalidating verification links.
 
 Once the `verification` flow is submitted successfully, the session has the `identity.verifiable_addresses[0].verified: true`
 value.
@@ -1140,16 +1140,16 @@ Only one verification method can be enabled at a time. The `code` method is enab
 
 ### Create verification flow
 
-The following code examples show how to create a recovery flow and render the user interface (where applicable).
+The following code examples show how to create a verification flow and render the user interface (where applicable).
 
 :::tip
 
 Remember to use the correct API endpoints for your application type.
 
 - Browser applications must use
-  [`/self-service/recovery/browser`](../../reference/api#tag/frontend/operation/createBrowserVerificationFlow).
+  [`/self-service/verification/browser`](../../reference/api#tag/frontend/operation/createBrowserVerificationFlow).
 - Native applications must use
-  [`/self-service/recovery/api`](../../reference/api#tag/frontend/operation/createBrowserVerificationFlow).
+  [`/self-service/verification/api`](../../reference/api#tag/frontend/operation/createBrowserVerificationFlow).
 
 :::
 
@@ -1242,8 +1242,8 @@ import createReactVerificationApi from '!!raw-loader!../../../code-examples/sdk/
 
 ### Get verification flow
 
-When a login flow already exists, you can retrieve it by sending a GET request that contains the flow ID to the
-[`/self-service/verification/flows?id=<flow-id>`](../../reference/api#tag/frontend/operation/getRecoveryFlow) endpoint.
+When a verification flow already exists, you can retrieve it by sending a GET request that contains the flow ID to the
+[`/self-service/verification/flows?id=<flow-id>`](../../reference/api#tag/frontend/operation/getVerificationFlow) endpoint.
 
 The flow ID is usually stored in the `?flow=` URL query parameter in your application. The following example shows how to get flow
 data using the flow ID.
@@ -1324,7 +1324,7 @@ The last step is to submit the verification flow with the user's email. To do th
 For browser applications you must send all cookies and the CSRF token the request body. The CSRF token value is a hidden input
 field called `csrf_token`.
 
-The verification flow can have a second submit step if the recovery method is set to `code`. In such case, the verification flow
+The verification flow can have a second submit step if the recovery method is set to `code`. In such a case, the verification flow
 shows a field to submit the received code the user gets after they submit their email.
 
 ````mdx-code-block
