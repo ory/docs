@@ -18,16 +18,22 @@ Network.
 Before you start, prepare your environment:
 
 - [Install Ory CLI](../../guides/cli/installation).
-- Create an account and project in the Ory Network. Use [Ory CLI](../../guides/cli/cli-basics#create-ory-cloud-project) or go to
-  [console.ory.sh](https://console.ory.sh/).
-- [Create a Personal Access Token (PAT)](../../concepts/personal-access-token) and save it in a safe place for later use.
+- Create an account and project in the Ory Network. Use [Ory CLI](../../guides/cli/05_cli-basics.mdx#create-ory-cloud-project) or
+  go to [console.ory.sh](https://console.ory.sh/).
+- [Create an API Key](../../concepts/personal-access-token.mdx) and save it in a safe place for later use.
 
 ## Setup
 
 ### Create OAuth2 client in Ory Network
 
 Create a new OAuth2 client using the Ory CLI. Alternatively, use the API and sending a POST request to the `/admin/clients` API.
-This is a protected endpoint, which means that you must include the Ory PAT in the `Authorization` header of the request.
+This is a protected endpoint, which means that you must include the API Key in the `Authorization` header of the request.
+
+:::tip
+
+Read [Authorization with API Keys](../../concepts/personal-access-token.mdx) to learn more about API Keys in the Ory Network.
+
+:::
 
 ````mdx-code-block
 import CodeBlock from '@theme/CodeBlock'
@@ -35,7 +41,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs>
-  <TabItem value="orycli" label="Ory CLI" default>
+<TabItem value="orycli" label="Ory CLI" default>
 
 :::note
 
@@ -52,22 +58,22 @@ ory create oauth2-client \
   --scope openid,offline \
   --redirect-uri http://127.0.0.1:5555/callback
 ```
-  </TabItem>
-  <TabItem value="curl" label="cURL">
+</TabItem>
+<TabItem value="curl" label="cURL">
 
 :::note
 
 Provide this data in the cURL request:
 
 - `SDK_CONFIGURATION_URL` - found in the 'Connect' section of the Ory Console. Must end with '/admin/clients'.
-- `ORY_PAT`: Ory Personal Access Token copied from the Ory Console, 'ory_pat' prefix included.
+- `ORY_API_KEY`: Ory API Key created in the Ory Console, `ory_apikey_` or `ory_pat_` prefix included.
 
 :::
 
 ```bash
 curl -X POST 'SDK_CONFIGURATION_URL/admin/clients' \
   -H 'Content-Type: application/json' \
-  -H 'Authorization: Bearer ORY_PAT' \
+  -H 'Authorization: Bearer ORY_API_KEY' \
   -d '{
     "client_name": "YOUR_CLIENT_NAME",
     "grant_types": [
@@ -84,13 +90,15 @@ curl -X POST 'SDK_CONFIGURATION_URL/admin/clients' \
     "scope": "openid offline"
   }'
 ```
+
 :::tip
 
 Learn more about creating OAuth2 clients in The Ory Network by reading the
 [API specification](../reference/api#operation/adminCreateOAuth2Client).
 
 :::
-  </TabItem>
+
+</TabItem>
 </Tabs>
 ````
 
@@ -108,17 +116,17 @@ Follow these steps to run a sample application with login and consent screens:
    npm i
    ```
 
-2. Export the Ory PAT and the SDK URL of your project as environment variables:
+2. Export the API Key and the SDK URL of your project as environment variables:
 
    :::tip
 
-   Don't use previously existing Ory PATs that you use for other purposes. Create a new Ory PAT to use exclusively with the sample
+   Don't use previously existing API Keys that you use for other purposes. Create a new API Key to use exclusively with the sample
    application.
 
    :::
 
    ```bash
-   export ORY_PAT=ORY_PAT # Ory PAT copied from the Ory Console, 'ory_pat' prefix included.
+   export ORY_PAT=ORY_API_KEY # API Key copied from the Ory Console, 'ory_pat' prefix included.
    export HYDRA_ADMIN_URL=SDK_CONFIGURATION_URL  # Found in the 'Connect' section of the Ory Console.
    ```
 

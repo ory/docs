@@ -1,6 +1,7 @@
 ---
 id: ui-user-interface
-title: Customize user interface
+sidebar_label: UI nodes and error messages
+title: Understanding UI nodes and error messages
 ---
 
 Ory Identities is an HTTP API server and does not include a traditional HTML user interface (rendering forms such as "Login" or
@@ -1473,23 +1474,23 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 }
 ```
 
-###### An email containing a recovery link has been sent to the email address you provided. (1060002)
+###### An email containing a recovery link has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with. (1060002)
 
 ```json
 {
   "id": 1060002,
-  "text": "An email containing a recovery link has been sent to the email address you provided.",
+  "text": "An email containing a recovery link has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
   "type": "info",
   "context": {}
 }
 ```
 
-###### An email containing a recovery code has been sent to the email address you provided. (1060003)
+###### An email containing a recovery code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with. (1060003)
 
 ```json
 {
   "id": 1060003,
-  "text": "An email containing a recovery code has been sent to the email address you provided.",
+  "text": "An email containing a recovery code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
   "type": "info",
   "context": {}
 }
@@ -1565,11 +1566,11 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 }
 ```
 
-###### Resend code (1070007)
+###### Resend code (1070008)
 
 ```json
 {
-  "id": 1070007,
+  "id": 1070008,
   "text": "Resend code",
   "type": "info"
 }
@@ -1585,12 +1586,12 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 }
 ```
 
-###### An email containing a verification link has been sent to the email address you provided. (1080001)
+###### An email containing a verification link has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with. (1080001)
 
 ```json
 {
   "id": 1080001,
-  "text": "An email containing a verification link has been sent to the email address you provided.",
+  "text": "An email containing a verification link has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
   "type": "info",
   "context": {}
 }
@@ -1606,12 +1607,12 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 }
 ```
 
-###### An email containing a verification code has been sent to the email address you provided. (1080003)
+###### An email containing a verification code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with. (1080003)
 
 ```json
 {
   "id": 1080003,
-  "text": "An email containing a verification code has been sent to the email address you provided.",
+  "text": "An email containing a verification code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
   "type": "info",
   "context": {}
 }
@@ -1640,31 +1641,25 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 }
 ```
 
-###### Length must be >= 1, but got 2. (4000003)
+###### length must be >= 5, but got 3 (4000003)
 
 ```json
 {
   "id": 4000003,
-  "text": "Length must be \u003e= 1, but got 2.",
+  "text": "length must be \u003e= 5, but got 3",
   "type": "error",
-  "context": {
-    "actual_length": 2,
-    "expected_length": 1
-  }
+  "context": {}
 }
 ```
 
-###### "{value}" is not valid "{format}" (4000004)
+###### does not match pattern "^[a-z]\*$" (4000004)
 
 ```json
 {
   "id": 4000004,
-  "text": "\"{value}\" is not valid \"{format}\"",
+  "text": "does not match pattern \"^[a-z]*$\"",
   "type": "error",
-  "context": {
-    "actual_value": "{value}",
-    "expected_format": "{format}"
-  }
+  "context": {}
 }
 ```
 
@@ -1795,6 +1790,116 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4000016,
   "text": "The backup recovery code is not valid.",
+  "type": "error",
+  "context": {}
+}
+```
+
+###### length must be <= 5, but got 6 (4000017)
+
+```json
+{
+  "id": 4000017,
+  "text": "length must be \u003c= 5, but got 6",
+  "type": "error",
+  "context": {}
+}
+```
+
+###### must be >= 5 but found 3 (4000018)
+
+```json
+{
+  "id": 4000018,
+  "text": "must be \u003e= 5 but found 3",
+  "type": "error",
+  "context": {}
+}
+```
+
+###### must be > 5 but found 5 (4000019)
+
+```json
+{
+  "id": 4000019,
+  "text": "must be \u003e 5 but found 5",
+  "type": "error",
+  "context": {}
+}
+```
+
+###### must be <= 5 but found 6 (4000020)
+
+```json
+{
+  "id": 4000020,
+  "text": "must be \u003c= 5 but found 6",
+  "type": "error",
+  "context": {}
+}
+```
+
+###### must be < 5 but found 5 (4000021)
+
+```json
+{
+  "id": 4000021,
+  "text": "must be \u003c 5 but found 5",
+  "type": "error",
+  "context": {}
+}
+```
+
+###### 7 not multipleOf 3 (4000022)
+
+```json
+{
+  "id": 4000022,
+  "text": "7 not multipleOf 3",
+  "type": "error",
+  "context": {}
+}
+```
+
+###### maximum 3 items allowed, but found 4 items (4000023)
+
+```json
+{
+  "id": 4000023,
+  "text": "maximum 3 items allowed, but found 4 items",
+  "type": "error",
+  "context": {}
+}
+```
+
+###### minimum 3 items allowed, but found 2 items (4000024)
+
+```json
+{
+  "id": 4000024,
+  "text": "minimum 3 items allowed, but found 2 items",
+  "type": "error",
+  "context": {}
+}
+```
+
+###### items at index 0 and 2 are equal (4000025)
+
+```json
+{
+  "id": 4000025,
+  "text": "items at index 0 and 2 are equal",
+  "type": "error",
+  "context": {}
+}
+```
+
+###### expected number, but got string (4000026)
+
+```json
+{
+  "id": 4000026,
+  "text": "expected number, but got string",
   "type": "error",
   "context": {}
 }

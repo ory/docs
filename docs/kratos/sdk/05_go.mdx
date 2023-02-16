@@ -35,7 +35,7 @@ func main() {
 		},
 	}
 	apiClient := client.NewAPIClient(configuration)
-	// resp, r, err := apiClient.V0alpha2Api.ToSession(context.Background()).Cookie("ory_Kratos_session").Execute()
+	// resp, r, err := apiClient.FrontendApi.ToSession(context.Background()).Cookie("ory_Kratos_session").Execute()
 }
 
 ```
@@ -64,9 +64,9 @@ func main() {
 	}
 	apiClient := client.NewAPIClient(configuration)
 	cookie := "ory_kratos_session=MTY0ODgyMTExN3xEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJRkZDVFVKbFNIcEJOalZyY0Vad1JEZ3dNMng1V0RsWlpEQlFXa3RoUjNJenzKCLhzCkox1OmvNJlKcqtWuNkSnPLrUgM6Ew2EMYksfg=="
-	resp, r, err := apiClient.V0alpha2Api.ToSession(context.Background()).Cookie(cookie).Execute()
+	resp, r, err := apiClient.FrontendApi.ToSession(context.Background()).Cookie(cookie).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `V0alpha2Api.ToSession``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrontendApi.ToSession``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `ToSession`: Session
@@ -127,7 +127,7 @@ func (k *kratosMiddleware) validateSession(r *http.Request) (*client.Session, er
 	if cookie == nil {
 		return nil, errors.New("no session found in cookie")
 	}
-	resp, _, err := k.client.V0alpha2Api.ToSession(context.Background()).Cookie(cookie.String()).Execute()
+	resp, _, err := k.client.FrontendApi.ToSession(context.Background()).Cookie(cookie.String()).Execute()
 	if err != nil {
 		return nil, err
 	}
@@ -200,7 +200,7 @@ func (k *kratosMiddleware) validateSession(r *http.Request) (*client.Session, er
 	if cookie == nil {
 		return nil, errors.New("no session found in cookie")
 	}
-	resp, _, err := k.client.V0alpha2Api.ToSession(context.Background()).Cookie(cookie.String()).Execute()
+	resp, _, err := k.client.FrontendApi.ToSession(context.Background()).Cookie(cookie.String()).Execute()
 	if err != nil {
 		return nil, err
 	}
@@ -250,23 +250,23 @@ func main() {
 		},
 	) // AdminCreateIdentityBody |  (optional)
 
-	createdIdentity, r, err := apiClient.V0alpha2Api.AdminCreateIdentity(context.Background()).AdminCreateIdentityBody(adminCreateIdentityBody).Execute()
+	createdIdentity, r, err := apiClient.FrontendApi.AdminCreateIdentity(context.Background()).AdminCreateIdentityBody(adminCreateIdentityBody).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `V0alpha2Api.AdminCreateIdentity``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrontendApi.AdminCreateIdentity``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `AdminCreateIdentity`: Identity
 	fmt.Fprintf(os.Stdout, "Created identity with ID: %v\n", createdIdentity.Id)
-	getIdentity, r, err := apiClient.V0alpha2Api.AdminGetIdentity(context.Background(), createdIdentity.Id).Execute()
+	getIdentity, r, err := apiClient.FrontendApi.AdminGetIdentity(context.Background(), createdIdentity.Id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `V0alpha2Api.AdminGetIdentity``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrontendApi.AdminGetIdentity``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	fmt.Fprintf(os.Stdout, "Email for identity with id %v. Traits %v\n", createdIdentity.Id, getIdentity.Traits)
 
-	r, err = apiClient.V0alpha2Api.AdminDeleteIdentity(context.Background(), getIdentity.Id).Execute()
+	r, err = apiClient.FrontendApi.AdminDeleteIdentity(context.Background(), getIdentity.Id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `V0alpha2Api.AdminDeleteIdentity``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrontendApi.AdminDeleteIdentity``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	fmt.Println("Successfully Removed identity")

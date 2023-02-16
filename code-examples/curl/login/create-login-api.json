@@ -1,0 +1,92 @@
+{
+  "id": "db748b69-a059-464f-870c-2d4f4a3a2f26",
+  "oauth2_login_challenge": null,
+  "type": "api",
+  "expires_at": "2023-01-25T13:36:37.647917454Z",
+  "issued_at": "2023-01-25T13:06:37.647917454Z",
+  "request_url": "https://{project.slug}.projects.oryapis.com/self-service/login/api",
+  "ui": {
+    "action": "https://{project.slug}.projects.oryapis.com/self-service/login?flow=db748b69-a059-464f-870c-2d4f4a3a2f26",
+    "method": "POST",
+    "nodes": [
+      {
+        "type": "input",
+        "group": "default",
+        "attributes": {
+          "name": "csrf_token",
+          "type": "hidden",
+          "value": "",
+          "required": true,
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {}
+      },
+      {
+        "type": "input",
+        "group": "default",
+        "attributes": {
+          "name": "identifier",
+          "type": "text",
+          "value": "",
+          "required": true,
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {
+          "label": {
+            "id": 1070004,
+            "text": "ID",
+            "type": "info"
+          }
+        }
+      },
+      {
+        "type": "input",
+        "group": "password",
+        "attributes": {
+          "name": "password",
+          "type": "password",
+          "required": true,
+          "autocomplete": "current-password",
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {
+          "label": {
+            "id": 1070001,
+            "text": "Password",
+            "type": "info"
+          }
+        }
+      },
+      {
+        "type": "input",
+        "group": "password",
+        "attributes": {
+          "name": "method",
+          "type": "submit",
+          "value": "password",
+          "disabled": false,
+          "node_type": "input"
+        },
+        "messages": [],
+        "meta": {
+          "label": {
+            "id": 1010001,
+            "text": "Sign in",
+            "type": "info",
+            "context": {}
+          }
+        }
+      }
+    ]
+  },
+  "created_at": "2023-01-25T13:06:37.732557Z",
+  "updated_at": "2023-01-25T13:06:37.732557Z",
+  "refresh": false,
+  "requested_aal": "aal1"
+}

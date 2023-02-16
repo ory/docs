@@ -2,15 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Configuration, FrontendApi } from "@ory/client"
+import { Request, Response } from "express"
 
-const ory = new FrontendApi(
+const frontend = new FrontendApi(
   new Configuration({
     basePath: "https://playground.projects.oryapis.com/",
   }),
 )
 
 const route = (req: Request, res: Response) => {
-  ory
+  frontend
     .createBrowserLogoutFlow(req.cookies["ory_kratos_session"])
     .then(({ data }) => {
       console.log(data.logout_url) // The logout URL

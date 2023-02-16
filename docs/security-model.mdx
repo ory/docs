@@ -103,9 +103,9 @@ These requests are allowed only if the server at `api.example.org`:
 Setting `withCredentials` to `true` can be done in the Ory JavaScript / TypeScript SDK:
 
 ```js
-import { V0alpha2Api, Configuration } from "@ory/client"
+import { FrontendApi, Configuration } from "@ory/client"
 
-const ory = new V0alpha2Api(
+const ory = new FrontendApi(
   new Configuration({
     basePath,
     baseOptions: {

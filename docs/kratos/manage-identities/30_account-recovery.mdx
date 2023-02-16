@@ -27,15 +27,16 @@ Read [this document](../self-service/flows/account-recovery-password-reset) to l
 
 ## One-time codes
 
-````mdx-code-block
+```mdx-code-block
 <Tabs>
 <TabItem value="oc" label="Ory Network" default>
+```
 
-Send a request to the admin API of your project:
+Send a request to the Admin API of your project. This operation requires an API Key.
 
 ```shell
 curl --request POST -sL \
-  --header "Authorization: Bearer ORY_PAT" \
+  --header "Authorization: Bearer ORY_API_KEY" \
   --header "Content-Type: application/json" \
   --request POST \
   --data '{
@@ -44,8 +45,16 @@ curl --request POST -sL \
 }' https://{your-project-slug}.projects.oryapis.com/admin/recovery/code
 ```
 
+:::tip
+
+Read [Authorization with API Keys](../../concepts/personal-access-token.mdx) to learn more about API Keys in the Ory Network.
+
+:::
+
+```mdx-code-block
 </TabItem>
 <TabItem value="go" label="Golang code">
+```
 
 ```go
 package main
@@ -64,11 +73,11 @@ func main() {
 			URL: "https://{your-project-slug}.projects.oryapis.com",
 		}},
 		DefaultHeader: map[string]string{
-			"Authorization": "Bearer ORY_PAT", // Personal access token for your Ory Network project
+			"Authorization": "Bearer ORY_API_KEY", // API Key for your Ory Network project
 		},
 	})
 
-	code, res, err := client.V0alpha2Api.AdminCreateSelfServiceRecoveryCode(context.Background()).
+	code, res, err := client.FrontendApi.AdminCreateSelfServiceRecoveryCode(context.Background()).
 		AdminCreateSelfServiceRecoveryCodeBody(*ory.NewAdminCreateSelfServiceRecoveryCodeBody("YOUR_IDENTITY_ID")).
 		Execute()
 
@@ -83,8 +92,17 @@ func main() {
 }
 ```
 
+:::tip
+
+This code requires an API Key. Read [Authorization with API Keys](../../concepts/personal-access-token.mdx) to learn more about
+API Keys in the Ory Network.
+
+:::
+
+```mdx-code-block
 </TabItem>
 <TabItem value="kratos" label="Self-hosted Ory Kratos">
+```
 
 <SelfHostedKratos />
 
@@ -99,9 +117,10 @@ curl --request POST -sL \
 }' http://127.0.0.1:4434/recovery/code
 ```
 
-  </TabItem>
+```mdx-code-block
+</TabItem>
 </Tabs>
-````
+```
 
 ### Response
 
@@ -122,15 +141,16 @@ After successfully recovering their account, users can connect to a social sign-
 
 To create the account recovery link, use:
 
-````mdx-code-block
+```mdx-code-block
 <Tabs>
 <TabItem value="oc" label="Ory Network" default>
+```
 
-Send a request to the admin API of your project:
+Send a request to the Admin API of your project. This operation requires an API Key.
 
 ```shell
 curl --request POST -sL \
-  --header "Authorization: Bearer ORY_PAT" \
+  --header "Authorization: Bearer ORY_API_KEY" \
   --header "Content-Type: application/json" \
   --request POST \
   --data '{
@@ -139,8 +159,16 @@ curl --request POST -sL \
 }'  https://{your-project-slug}.projects.oryapis.com/admin/recovery/link
 ```
 
+:::tip
+
+Read [Authorization with API Keys](../../concepts/personal-access-token.mdx) to learn more about API Keys in the Ory Network.
+
+:::
+
+```mdx-code-block
 </TabItem>
 <TabItem value="go" label="Golang code">
+```
 
 ```go
 package main
@@ -159,11 +187,11 @@ func main() {
 			URL: "https://{your-project-slug}.projects.oryapis.com",
 		}},
 		DefaultHeader: map[string]string{
-			"Authorization": "Bearer ORY_PAT", // Personal access token for your Ory Network project
+			"Authorization": "Bearer ORY_API_KEY", // API Key for your Ory Network project
 		},
 	})
 
-	link, res, err := client.V0alpha2Api.AdminCreateSelfServiceRecoveryLink(context.Background()).
+	link, res, err := client.FrontendApi.AdminCreateSelfServiceRecoveryLink(context.Background()).
 		AdminCreateSelfServiceRecoveryLinkBody(*ory.NewAdminCreateSelfServiceRecoveryLinkBody("YOUR_INDENTITY_ID")).
 		Execute()
 
@@ -177,8 +205,17 @@ func main() {
 }
 ```
 
+:::tip
+
+This code requires an API Key. Read [Authorization with API Keys](../../concepts/personal-access-token.mdx) to learn more about
+API Keys in the Ory Network.
+
+:::
+
+```mdx-code-block
 </TabItem>
 <TabItem value="kratos" label="Self-hosted Ory Kratos">
+```
 
 <SelfHostedKratos />
 
@@ -193,9 +230,10 @@ curl --request POST -sL \
 }' http://127.0.0.1:4434/recovery/code
 ```
 
-  </TabItem>
+```mdx-code-block
+</TabItem>
 </Tabs>
-````
+```
 
 ### Response
 

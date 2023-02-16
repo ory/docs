@@ -1,0 +1,27 @@
+{
+  "session_token": "pdWpLWxtlOEhtXB2jOwRWhEaKiKVsVHn",
+  "session": {
+    "id": "6bf1b431-704b-4db5-b349-d568ff855c7c",
+    "active": true,
+    "expires_at": "2023-01-28T13:26:48.479024747Z",
+    "authenticated_at": "2023-01-25T13:26:48.479024747Z",
+    "authenticator_assurance_level": "aal1",
+    "authentication_methods": [
+      {
+        "method": "password",
+        "aal": "aal1",
+        "completed_at": "2023-01-25T13:26:48.479019279Z"
+      }
+    ],
+    "issued_at": "2023-01-25T13:26:48.479024747Z",
+    "identity": null,
+    "devices": [
+      {
+        "id": "61bd9b8d-5ef4-4999-a609-adc8cd5a91b9",
+        "ip_address": "",
+        "user_agent": "curl/7.81.0",
+        "location": "Munich, DE"
+      }
+    ]
+  }
+}

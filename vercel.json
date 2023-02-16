@@ -933,6 +933,51 @@
       "source": "/docs/keto/guides/userset-rewrites",
       "destination": "https://www.ory.sh/docs/guides/permissions/overview",
       "permanent": false
+    },
+    {
+      "source": "/docs/keto/concepts/internal-algorithms",
+      "destination": "https://www.ory.sh/docs/guides/permissions/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/keto/concepts/snaptokens-evaluation-consistency",
+      "destination": "https://www.ory.sh/docs/guides/permissions/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/keto/guides/access-control-inheritance",
+      "destination": "https://www.ory.sh/docs/guides/permissions/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/keto/guides/access-control-list-design-best-practices",
+      "destination": "https://www.ory.sh/docs/guides/permissions/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/keto/performance",
+      "destination": "https://www.ory.sh/docs/guides/permissions/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/keto/secure",
+      "destination": "https://www.ory.sh/docs/guides/permissions/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/bring-your-user-interface",
+      "destination": "https://www.ory.sh/docs/kratos/bring-your-own-ui/configure-ory-to-use-your-ui",
+      "permanent": false
+    },
+    {
+      "source": "/docs/getting-started/custom-ui-ory-elements",
+      "destination": "https://www.ory.sh/docs/kratos/bring-your-own-ui/custom-ui-ory-elements",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/guides/custom-ui",
+      "destination": "https://www.ory.sh/docs/kratos/bring-your-own-ui/overview",
+      "permanent": false
     }
   ]
 }

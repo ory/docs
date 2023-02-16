@@ -16,7 +16,7 @@ func init() {
 	ory = client.NewAPIClient(cfg)
 }
 
-func RevokeOtherSessions(ctx context.Context, sessionToken string, sessionToRevokeId string) (*client.DeleteMySessionsCount, error) {
+func RevokeOtherSessions(ctx context.Context, sessionToken string) (*client.DeleteMySessionsCount, error) {
 	// highlight-start
 	revokedSessionsCount, _, err := ory.FrontendApi.DisableMyOtherSessions(ctx).
 		XSessionToken(sessionToken).

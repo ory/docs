@@ -250,13 +250,13 @@
   },
   {
     "id": 1060002,
-    "text": "An email containing a recovery link has been sent to the email address you provided.",
+    "text": "An email containing a recovery link has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
     "type": "info",
     "context": {}
   },
   {
     "id": 1060003,
-    "text": "An email containing a recovery code has been sent to the email address you provided.",
+    "text": "An email containing a recovery code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
     "type": "info",
     "context": {}
   },
@@ -296,7 +296,7 @@
     "type": "info"
   },
   {
-    "id": 1070007,
+    "id": 1070008,
     "text": "Resend code",
     "type": "info"
   },
@@ -307,7 +307,7 @@
   },
   {
     "id": 1080001,
-    "text": "An email containing a verification link has been sent to the email address you provided.",
+    "text": "An email containing a verification link has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
     "type": "info",
     "context": {}
   },
@@ -318,7 +318,7 @@
   },
   {
     "id": 1080003,
-    "text": "An email containing a verification code has been sent to the email address you provided.",
+    "text": "An email containing a verification code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
     "type": "info",
     "context": {}
   },
@@ -337,21 +337,15 @@
   },
   {
     "id": 4000003,
-    "text": "Length must be \u003e= 1, but got 2.",
+    "text": "length must be \u003e= 5, but got 3",
     "type": "error",
-    "context": {
-      "actual_length": 2,
-      "expected_length": 1
-    }
+    "context": {}
   },
   {
     "id": 4000004,
-    "text": "\"{value}\" is not valid \"{format}\"",
+    "text": "does not match pattern \"^[a-z]*$\"",
     "type": "error",
-    "context": {
-      "actual_value": "{value}",
-      "expected_format": "{format}"
-    }
+    "context": {}
   },
   {
     "id": 4000005,
@@ -422,6 +416,66 @@
   {
     "id": 4000016,
     "text": "The backup recovery code is not valid.",
+    "type": "error",
+    "context": {}
+  },
+  {
+    "id": 4000017,
+    "text": "length must be \u003c= 5, but got 6",
+    "type": "error",
+    "context": {}
+  },
+  {
+    "id": 4000018,
+    "text": "must be \u003e= 5 but found 3",
+    "type": "error",
+    "context": {}
+  },
+  {
+    "id": 4000019,
+    "text": "must be \u003e 5 but found 5",
+    "type": "error",
+    "context": {}
+  },
+  {
+    "id": 4000020,
+    "text": "must be \u003c= 5 but found 6",
+    "type": "error",
+    "context": {}
+  },
+  {
+    "id": 4000021,
+    "text": "must be \u003c 5 but found 5",
+    "type": "error",
+    "context": {}
+  },
+  {
+    "id": 4000022,
+    "text": "7 not multipleOf 3",
+    "type": "error",
+    "context": {}
+  },
+  {
+    "id": 4000023,
+    "text": "maximum 3 items allowed, but found 4 items",
+    "type": "error",
+    "context": {}
+  },
+  {
+    "id": 4000024,
+    "text": "minimum 3 items allowed, but found 2 items",
+    "type": "error",
+    "context": {}
+  },
+  {
+    "id": 4000025,
+    "text": "items at index 0 and 2 are equal",
+    "type": "error",
+    "context": {}
+  },
+  {
+    "id": 4000026,
+    "text": "expected number, but got string",
     "type": "error",
     "context": {}
   },

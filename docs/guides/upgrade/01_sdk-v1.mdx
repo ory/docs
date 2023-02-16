@@ -46,7 +46,7 @@ import ory "github.com/ory/client-go"
 
 var client = NewSDK()
 
-// Use this context to access Ory APIs which require an Ory API key.
+// Use this context to access Ory APIs which require an Ory API Key.
 var oryAuthedContext = context.WithValue(context.Background(), ory.ContextAccessToken, os.Getenv("ORY_API_KEY"))
 
 func NewSDK() *ory.APIClient {
@@ -98,6 +98,13 @@ const ory = {
   </TabItem>
 </Tabs>
 ````
+
+:::info
+
+This client needs an API Key to call some of Ory APIs. Read
+[Authorization with API Keys](../../concepts/personal-access-token.mdx) to learn more.
+
+:::
 
 ### JavaScript / TypeScript
 

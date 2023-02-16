@@ -79,24 +79,24 @@ selfservice:
   flows:
     registration: # or login, recovery, verification, settings
       after:
-        hooks:
-          - hook: web_hook
-            config:
-              url: https://webhook.traget/example
-              method: POST
-              body: base64://ey...
-              response:
-                ignore: false
-                parse: false
-              auth:
-                # ...
+        hooks: [] # These acions are executed only if no more specific hooks in the `password` or `oidc` sections are defined
         password:
-          after:
-            # Actions in this sections will be executed after sign up (or login, settings) with password
-            # ...
+          # Actions in this section will be executed after registration (or login, settings) with a password
+          hooks:
+            - hook: web_hook
+              config:
+                url: https://webhook.target/example
+                method: POST
+                body: base64://ey...
+                response:
+                  ignore: false
+                  parse: false
+                auth:
+                  # ...
+            - hook: session # see https://www.ory.sh/docs/actions/session
         oidc:
-          after:
-            # Actions in this section will be executed after sign up (or login, settings) with a social sign-in provider / OpenID Connect
+          hooks:
+            # Actions in this section will be executed after registration (or login, settings) with a social sign-in provider / OpenID Connect
             # ...
 # highlight-end
 ```
@@ -105,8 +105,7 @@ selfservice:
 
 ```shell
 ory update identity-config {project-id} \
-  --file project-configuration.yaml \
-  --format yaml > project-configuration.yaml
+  --file project-configuration.yaml
 ```
 
 ```mdx-code-block
@@ -318,19 +317,19 @@ function(ctx) {
 
 ### Request authentication
 
-Webhooks can be configured to use HTTP Basic Authentication or API key authentication.
+Webhooks can be configured to use HTTP Basic Authentication or API Key authentication.
 
 - API key authentication. Type must be set to `api_key`. All properties are mandatory.
 
   ```yaml
   hook: web_hook
-  # {other configuration keys}
+  # other configuration keys
   config:
     auth:
       type: api_key
       config:
         name: Authorization
-        value: The-Value-of-My-Key
+        value: { API Key value }
         in: header # alternatively "cookie"
   ```
 
@@ -339,13 +338,13 @@ Webhooks can be configured to use HTTP Basic Authentication or API key authentic
 
   ```yaml
   hook: web_hook
-  # {other configuration keys}
+  # other configuration keys
   config:
     auth:
       type: basic_auth
       config:
-        user: My-User
-        password: My-Pass-Value
+        user: { USERNAME }
+        password: { YOUR-PASSWORD }
   ```
 
 ### Canceling webhooks
