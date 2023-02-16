@@ -67,9 +67,9 @@ as possible.
 This will always fetch the freshest session data available and can be used in APIs where you need up-to-date data:
 
 ```js
-import { Configuration, V0alpha2Api } from "@ory/client"
+import { Configuration, FrontendApi } from "@ory/client"
 
-const ory = new V0alpha2Api(new Configuration())
+const ory = new FrontendApi(new Configuration())
 
 ory.toSession(undefined, undefined, {
   headers: {
