@@ -81,7 +81,7 @@ selfservice:
       after:
         hooks: [] # These acions are executed only if no more specific hooks in the `password` or `oidc` sections are defined
         password:
-          # Actions in this sections will be executed after sign up (or login, settings) with password
+          # Actions in this section will be executed after registration (or login, settings) with a password
           hooks:
             - hook: web_hook
               config:
@@ -96,7 +96,7 @@ selfservice:
             - hook: session # see https://www.ory.sh/docs/actions/session
         oidc:
           hooks:
-            # Actions in this section will be executed after sign up (or login, settings) with a social sign-in provider / OpenID Connect
+            # Actions in this section will be executed after registration (or login, settings) with a social sign-in provider / OpenID Connect
             # ...
 # highlight-end
 ```
