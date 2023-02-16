@@ -34,7 +34,7 @@ Flows are an important element of Ory's self-service APIs and are used to accomp
 - Account verification
 - Account recovery
 
-Self-service flows are standardized, which means that run the same basic operations, regardless of which specific flow is
+Self-service flows are standardized, which means that they run the same basic operations, regardless of which specific flow is
 integrated.
 
 Additionally, the self-service API is split to integrate with two types of applications - browser and native. The reason for the
@@ -52,7 +52,7 @@ application's UI and Ory APIs works correctly.
 
 A flow in Ory consists of five operations:
 
-1. Creating the flow with for the specific goal and application type, for example user login in a native app.
+1. Creating the flow for the specific goal and application type, for example user login in a native app.
 2. Using the flow data to render the UI.
 3. Submitting the flow with user data, such as username and password.
 4. Potentially handling errors, such as invalid user input and going back to step 2.
@@ -74,7 +74,7 @@ This table shows the methods available for each flow:
 
 :::note
 
-Flows can consist of multiple methods. For example, a login flow can can have the `password` and `oidc` methods. Flows can be
+Flows can consist of multiple methods. For example, a login flow can have the `password` and `oidc` methods. Flows can be
 completed by only one method at a time.
 
 :::
@@ -146,7 +146,7 @@ import createExampleLoginCurlNative from '!!raw-loader!../../../code-examples/cu
 
 ### Server-side (browser) application
 
-In browser applications that are rendered servers, the flow can be initialized with a redirect to Ory executed in the browser
+In browser applications that are server-side rendered, the flow can be initialized with a redirect to Ory executed in the browser
 which in turn will redirect the browser back to the configured [application URL](./20_configure-ory-to-use-your-ui.mdx), for
 example `https://myapp.com/login?flow=<uuid>`.
 
