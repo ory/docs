@@ -79,24 +79,24 @@ selfservice:
   flows:
     registration: # or login, recovery, verification, settings
       after:
-        hooks:
-          - hook: web_hook
-            config:
-              url: https://webhook.traget/example
-              method: POST
-              body: base64://ey...
-              response:
-                ignore: false
-                parse: false
-              auth:
-                # ...
+        hooks: [] # These acions are executed only if no more specific hooks in the `password` or `oidc` sections are defined
         password:
-          after:
-            # Actions in this sections will be executed after sign up (or login, settings) with password
-            # ...
+          # Actions in this section will be executed after registration (or login, settings) with a password
+          hooks:
+            - hook: web_hook
+              config:
+                url: https://webhook.target/example
+                method: POST
+                body: base64://ey...
+                response:
+                  ignore: false
+                  parse: false
+                auth:
+                  # ...
+            - hook: session # see https://www.ory.sh/docs/actions/session
         oidc:
-          after:
-            # Actions in this section will be executed after sign up (or login, settings) with a social sign-in provider / OpenID Connect
+          hooks:
+            # Actions in this section will be executed after registration (or login, settings) with a social sign-in provider / OpenID Connect
             # ...
 # highlight-end
 ```
@@ -105,8 +105,7 @@ selfservice:
 
 ```shell
 ory update identity-config {project-id} \
-  --file project-configuration.yaml \
-  --format yaml > project-configuration.yaml
+  --file project-configuration.yaml
 ```
 
 ```mdx-code-block
