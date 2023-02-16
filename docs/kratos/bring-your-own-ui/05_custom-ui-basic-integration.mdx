@@ -767,8 +767,8 @@ the POST request payload. To learn more about customizing your identity schema p
 For browser applications you must send all cookies and the CSRF token in the request body. The CSRF token value is a hidden input
 field called `csrf_token`.
 
-Examples in this section are based of the following identity schema snippet and submit the required traits
-`traits.email` and `traits.tos`.
+Examples in this section are based of the following identity schema snippet and submit the required traits `traits.email` and
+`traits.tos`.
 
 ```mdx-code-block
 import identitySchemaPartial from '../../../code-examples/curl/identity-schema-partial.json'
@@ -1122,8 +1122,9 @@ import submitReactRecoveryApi from '!!raw-loader!../../../code-examples/sdk/type
 
 The verification flow is used to verify the user's account through their email address.
 
-The flow has two methods: `link` and `code`. The `link` method requires the user to open the verification link from their email client
-using a browser on the same device. This makes it difficult as the user might be switching between devices to verify their account.
+The flow has two methods: `link` and `code`. The `link` method requires the user to open the verification link from their email
+client using a browser on the same device. This makes it difficult as the user might be switching between devices to verify their
+account.
 
 The `code` method is more user friendly since the code can be entered on the same device where the user requested the code from.
 This is the preferred method as spam filters and email clients can invalidating verification links.
