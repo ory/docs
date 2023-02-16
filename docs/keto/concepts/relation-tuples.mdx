@@ -1,37 +1,54 @@
 ---
-title: Relation tuples
+title: Relationships
 ---
 
-Relation tuples are the underlying datatype of Ory Keto's access control language. They encode relations between
-[objects](./objects.mdx) and [subjects](./subjects.mdx). A relation tuple is associated with a [namespace](./namespaces.mdx) where
-its relation has to be defined and configured. The following [BNF grammar](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form)
-describes the encoding used in the documentation and within Ory Keto.
+```mdx-code-block
+import Mermaid from "@site/src/theme/Mermaid"
+```
 
-:::note
+Relationships are the underlying datatype of Ory Permissions. They encode relations between [objects](./objects.mdx) (things that
+you want to give access to) and [subjects](./subjects.mdx) (people or things that want to have access). A relationship is
+associated with a [namespace](./namespaces.mdx) where its relation has to be defined and configured.
 
-The namespace is often omitted in examples for readability, but is technically always required.
+In a graphical sense, think of relationships as edges in a graph. For a simple relationship spelled as:
+
+```keto-relationships
+User:user1 is in members of Group:group1
+User:user2 is in readers of Document:readme.txt
+Folder:src is in parents of Document:package.json
+```
+
+```mdx-code-block
+<Mermaid
+  chart={`
+graph LR
+    User:user1 -->|members| Group:group1
+`}
+/>
+```
+
+`User` and `Group` are the subject and object namespaces respectively. `user1` and `group1` are the subject and object.
+
+:::info
+
+In the original [Zanzibar paper by Google](https://research.google/pubs/pub48190/), you will see the following notation for
+relationships (called relationships there):
+
+```keto-relation-tuples
+Group:group1#members@User:user1
+```
+
+We prefer the notation above as it is more readable and easier to understand.
 
 :::
 
-```
-<relation-tuple> ::= <object>'#'relation'@'<subject>
-<object> ::= namespace':'object_id
-<subject> ::= subject_id | <subject_set>
-<subject_set> ::= <object>'#'relation
-```
+## Relationships and Permissions
 
-A relation tuple
-
-```keto-relation-tuples
-object#relation@subject
-```
-
-can be translated into the english sentence "Subject has relation on object".
-
-## Effect of a relation tuple
-
-The effect of a relation tuple is the effect of its relation as defined in the [namespace configuration](./namespaces.mdx). It can
-be one of union (boolean or), intersection (boolean and), or exclusion (boolean not).
+Ultimately, permissions in Ory Keto are checked based on the relationships as well as the permission rules (see our
+[permission modeling guide](../modeling/create-permission-model.mdx)). View the relationships as facts that are used to answer the
+permission checks. For example, if a user is added to a group, add a relationship from the user (subject) through a `members`
+relation to the group (object). Then, use the permission model to define the concrete permissions that are granted to the user by
+being a member of this group.
 
 ## Basic Example
 

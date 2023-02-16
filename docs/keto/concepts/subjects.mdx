@@ -37,10 +37,10 @@ ensure:
 
 1. single source of truth and easy data update
 2. free choice of encoding (Keto doesn't allow the characters `:#@`)
-3. unlimited data size (Keto only allows up to 64 characters)
+3. unlimited data size
 
 For example, this can be used to implement a crude ABAC system by mapping attributes to a subject ID. The application can then
-define relation tuples that reflect permissions depending on the value of attributes. It will have to map each request to the
+define relationships that reflect permissions depending on the value of attributes. It will have to map each request to the
 subject representing the attributes.
 
 Let's assume the application knows the following mapping between attributes and UUIDs:
@@ -51,7 +51,7 @@ c5b6454f-f79c-4a6d-9e1b-b44e04b56009:
   office_hours: true
 ```
 
-Keto could then know the following relation tuple:
+Keto could then know the following relationship:
 
 ```keto-relation-tuples
 // allow access to TCP port 22 when the request originates from a specific subnet during office hours
@@ -60,5 +60,5 @@ tcp/22#access@c5b6454f-f79c-4a6d-9e1b-b44e04b56009
 
 The application has to map each incoming request to a subject string representing the attributes of the request. Ory Keto will
 reply with a positive [check response](./api-overview.mdx#check-relation-tuple) depending on the string equality of the requested
-subject representing the attributes with the known relation tuples. Remember that Ory Keto does **not** know how to interpret any
-information stored in the relation tuples. Rather, the application has to preprocess and map the value to the corresponding UUID.
+subject representing the attributes with the known relationships. Remember that Ory Keto does **not** know how to interpret any
+information stored in the relationships. Rather, the application has to preprocess and map the value to the corresponding UUID.

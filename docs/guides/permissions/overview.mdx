@@ -17,9 +17,9 @@ const file = (path) => `https://github.com/ory/keto/blob/master/contrib/rewrites
 [Google Zanzibar](https://research.google/pubs/pub48190/). It might differ a bit from other authorization services you know, so
 let's first clarify a few concepts.
 
-## Relations and relation tuples
+## Relations and relationships
 
-The data model used by Ory Permissions are so-called [relation tuples](/keto/concepts/relation-tuples.mdx) that encode relations
+The data model used by Ory Permissions are so-called [relationships](/keto/concepts/relation-tuples.mdx) that encode relations
 between [subjects](/keto/concepts/subjects.mdx) and [objects](/keto/concepts/objects.mdx).
 
 :::tip
@@ -29,14 +29,14 @@ Read the dedicated documents to learn more about [subjects](/keto/concepts/subje
 
 :::
 
-Examples of relation tuples are:
+Examples of relationships are:
 
 ```keto-relationships
 users:user1 is in members of groups:group1
 members of groups:group1 are readers of files:file1
 ```
 
-As you can see, the subject of a relation tuple can either be a specific subject ID, or subjects defined through an
+As you can see, the subject of a relationship can either be a specific subject ID, or subjects defined through an
 [indirection](https://en.wikipedia.org/wiki/Indirection) (all members of a certain group). The object is referenced by its ID.
 
 ## Checking permissions
@@ -71,7 +71,7 @@ Based on these tuples, you can run permission checks:
 
 ## Example
 
-This example setup demonstrates the basics of relation tuple management and usage of the Check API.
+This example setup demonstrates the basics of relationship management and usage of the Check API.
 
 This guide explains how to configure namespaces and relationship rules using the
 [Ory Permission Language](../../keto/reference/ory-permission-language) (OPL). You can then run fine-grained checks against Ory
@@ -136,9 +136,9 @@ Follow these steps:
 
 Next, create the tuples using the Ory CLI.
 
-The following relation tuples showcase the namespace configuration. In short, it sets up a `developer` group with two members, and
-a folder hierarchy. Through the rules in the Ory Permission Language, every member of the `developer` group can access the files
-in the hierarchy.
+The following relationships showcase the namespace configuration. In short, it sets up a `developer` group with two members, and a
+folder hierarchy. Through the rules in the Ory Permission Language, every member of the `developer` group can access the files in
+the hierarchy.
 
 You can create additional fine-grained permission rules for certain objects, similar to the `private` file.
 

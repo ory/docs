@@ -35,7 +35,7 @@ this example, we assume that the application knows the following files and direc
    ├─ mountains.jpg  (owner: laura)
 ```
 
-This is represented in Ory Keto by the following [relation tuples](../concepts/relation-tuples.mdx):
+This is represented in Ory Keto by the following [relationships](../concepts/relation-tuples.mdx):
 
 ```keto-relation-tuples
 // ownership
@@ -76,7 +76,7 @@ The `max-depth` parameter is important to keep the request latency within an acc
 basic subject sets. In many cases the application doesn't want to resolve all subject sets, but rather wants to display that for
 example `Everyone in the company` or `Admins` have a specific relation.
 
-In this example the application knows the rough structure of the relation tuples it uses and can therefore determine that
+In this example the application knows the rough structure of the relationships it uses and can therefore determine that
 `max-depth=3` is sufficient to display all relevant relations:
 
 1. directly granted access (depth 1)
