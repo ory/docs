@@ -24,7 +24,7 @@ their session expired.
 To achieve this, the application can pass a `?return_to=<url>` query parameter to the endpoint that initializes a flow:
 [`/self-service/{flow_type}/browser?return_to=https://myapp.com/protected`](../../reference/api#tag/frontend).
 
-The `return_to` URL will is as the redirect URL after the flow is completed. For example, in the case of a login flow the redirect
+The `return_to` URL is the redirect URL after the flow is completed. For example, in the case of a login flow the redirect
 happens after a successful login.
 
 This is a breakdown of how the redirect works:
@@ -62,7 +62,7 @@ Let's take a look at an example of how this works:
 ### Refreshing user session
 
 To re-authenticate an active user session and confirm the same user is logged in, the application implementing the UI can request
-Ory to force user to authenticate again through the `?refresh=true` query parameter. To do that, call the
+Ory to force the user to authenticate again through the `?refresh=true` query parameter. To do that, call the
 [`/self-service/login/browser?refresh=true`](../../reference/api#tag/frontend/operation/createBrowserLoginFlow) endpoint. This is
 only applicable to the login flow and requires the user to already have a session.
 
@@ -82,7 +82,7 @@ sdk.createBrowserLoginFlow({ refresh: true })
 ### Social sign-in
 
 When using social sign-in, the user must be redirected using a native form POST. In single-page applications the page is never
-redirected. For the application to then have a background POST on other methods such as `password`, the application must the flow
+redirected. For the application to then have a background POST on other methods such as `password`, the application must separate the flow
 data across two forms.
 
 ```tsx
@@ -99,10 +99,10 @@ data across two forms.
 
 ### Two-factor authentication
 
-Two-factor authentication (2FA) is a second step used to confirm user's identity. When creating a login flow, you can specify the
+Two-factor authentication (2FA) is a second step used to confirm the user's identity. When creating a login flow, you can specify the
 `?aal=<level>` query parameter to specify the required level of authentication: `aal1` or `aal2`.
 
-To initialize second authentication factor, the user must already have a valid session cookie. The
+To initialize the second factor authentication, the user must already have a valid session cookie. The
 [`/sessions/whoami`](../../reference/api#tag/frontend/operation/toSession) endpoint returns an error with the
 `session_aal2_required` ID if the user is required to complete a second factor.
 
@@ -203,7 +203,7 @@ the user enters their identifier.
 ```
 
 After the user is redirected with a new flow, the response contains the `webauthn` group only. In this response, the button
-`onclick` attribute calls the script added in the header of the page. Triggers the WebAuthn prompt for the security key.
+`onclick` attribute calls the script added in the header/body of the page. The button then triggers the WebAuthn prompt for the security key.
 
 ```json5
 {
@@ -234,9 +234,9 @@ After the user is redirected with a new flow, the response contains the `webauth
 }
 ```
 
-#### SPA '422' error
+#### SPAs and the '422' error
 
-In the case of a SPAs, you can get a code `422` response which indicates that the browser needs to be redirected with a newly
+A response code `422` indicates that the browser needs to be redirected with a newly
 created flow. Since this is an SPA, the new flow ID can be extracted from the payload and the response can be retrieved in the
 background instead of a redirect.
 
