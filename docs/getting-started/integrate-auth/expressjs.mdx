@@ -119,7 +119,7 @@ import ToProd from '../_common/going-to-prod.mdx'
 ```js {2,4-7}
 var sdk = require("@ory/client")
 
-var ory = new sdk.V0alpha2Api(
+var ory = new sdk.FrontendApi(
   new sdk.Configuration({
     basePath: "https://ory.example.org",
     baseOptions: {
