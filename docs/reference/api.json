@@ -1479,7 +1479,7 @@
         "type": "object"
       },
       "jsonPatch": {
-        "description": "JSON Patch allows you to target individual keys in a JSON document for updates.\n\nFor more examples see: https://jsonpatch.com",
+        "description": "A JSONPatch document as defined by RFC 6902",
         "properties": {
           "from": {
             "description": "This field is used together with operation \"move\" and uses JSON Pointer notation.\n\nLearn more [about JSON Pointers](https://datatracker.ietf.org/doc/html/rfc6901#section-5).",
@@ -1487,23 +1487,22 @@
             "type": "string"
           },
           "op": {
-            "description": "The JSON Patch operation",
+            "description": "The operation to be performed. One of \"add\", \"remove\", \"replace\", \"move\", \"copy\", or \"test\".",
             "enum": ["add", "remove", "replace", "move", "copy", "test"],
             "example": "replace",
             "type": "string"
           },
           "path": {
-            "description": "The JSON Pointer to the target key",
-            "example": "/services/identity/config/smtp/from_name",
+            "description": "The path to the target path. Uses JSON pointer notation.\n\nLearn more [about JSON Pointers](https://datatracker.ietf.org/doc/html/rfc6901#section-5).",
+            "example": "/name",
             "type": "string"
           },
           "value": {
-            "description": "The value to be used. Only available for `add` and `replace` operations.",
+            "description": "The value to be used within the operations.\n\nLearn more [about JSON Pointers](https://datatracker.ietf.org/doc/html/rfc6901#section-5).",
             "example": "foobar"
           }
         },
         "required": ["op", "path"],
-        "title": "A JSON Patch",
         "type": "object"
       },
       "jsonPatchDocument": {
@@ -6954,6 +6953,14 @@
               "format": "int64",
               "minimum": 1,
               "type": "integer"
+            }
+          },
+          {
+            "description": "Identifier\n\nThis query parameter can be used to lookup an identity using its identifier.\nFor example - an email address",
+            "in": "query",
+            "name": "identifier",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -12442,6 +12449,14 @@
             "description": "Ory OAuth 2.0 Login Challenge.\n\nIf set will cooperate with Ory OAuth2 and OpenID to act as an OAuth2 server / OpenID Provider.\n\nThe value for this parameter comes from `login_challenge` URL Query parameter sent to your\napplication (e.g. `/registration?login_challenge=abcde`).\n\nThis feature is compatible with Ory Hydra when not running on the Ory Network.",
             "in": "query",
             "name": "login_challenge",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "The URL to return the browser to after the verification flow was completed.\n\nAfter the registration flow is completed, the user will be sent a verification email.\nUpon completing the verification flow, this URL will be used to override the default\n`selfservice.flows.verification.after.default_redirect_to` value.",
+            "in": "query",
+            "name": "after_verification_return_to",
             "schema": {
               "type": "string"
             }
