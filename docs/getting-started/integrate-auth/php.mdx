@@ -113,5 +113,5 @@ import ToProd from '../_common/going-to-prod.mdx'
 
 ```php
 $config = Ory\Client\Configuration::getDefaultConfiguration()->setHost("https://ory.example.org"));
-$ory = new Ory\Client\Api\V0alpha2Api(new GuzzleHttp\Client(), $config);
+$ory = new Ory\Client\Api\FrontendApi(new GuzzleHttp\Client(), $config);
 ```

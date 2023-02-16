@@ -77,7 +77,7 @@ func main() {
 		},
 	})
 
-	code, res, err := client.V0alpha2Api.AdminCreateSelfServiceRecoveryCode(context.Background()).
+	code, res, err := client.FrontendApi.AdminCreateSelfServiceRecoveryCode(context.Background()).
 		AdminCreateSelfServiceRecoveryCodeBody(*ory.NewAdminCreateSelfServiceRecoveryCodeBody("YOUR_IDENTITY_ID")).
 		Execute()
 
@@ -191,7 +191,7 @@ func main() {
 		},
 	})
 
-	link, res, err := client.V0alpha2Api.AdminCreateSelfServiceRecoveryLink(context.Background()).
+	link, res, err := client.FrontendApi.AdminCreateSelfServiceRecoveryLink(context.Background()).
 		AdminCreateSelfServiceRecoveryLinkBody(*ory.NewAdminCreateSelfServiceRecoveryLinkBody("YOUR_INDENTITY_ID")).
 		Execute()
 
