@@ -13,13 +13,11 @@ any other type of credential) for future logins. To achieve this, create the ide
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import CodeBlock from '@theme/CodeBlock'
-import SelfHostedKratos from '@site/src/components/SelfHostedKratos'
 
 <Tabs
   defaultValue="cloud"
   values={[
     {label: 'The Ory Network', value: 'cloud'},
-    {label: 'Self-Hosted Ory Kratos', value: 'kratos'},
   ]}>
   <TabItem value="cloud">
 
@@ -35,27 +33,11 @@ curl --request POST -sL \
 }' https://playground.projects.oryapis.com/admin/identities
 ```
 
-  </TabItem>
-  <TabItem value="kratos">
-    <SelfHostedKratos/>
-    <p>And use it to create an identity:</p>
-
-```shell
-curl --request POST -sL \
-  --header "Content-Type: application/json" \
-  --data '{
-  "schema_id": "preset://email",
-  "traits": {
-    "email": "docs@example.org"
-  }
-}' http://127.0.0.1:4434/identities
-```
-
- </TabItem>
+</TabItem>
 </Tabs>
 ````
 
-The server responds with something similar to:
+The server response contains the created identity:
 
 ```json
 {
