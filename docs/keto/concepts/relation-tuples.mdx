@@ -23,6 +23,8 @@ Folder:src is in parents of Document:package.json
   chart={`
 graph LR
     User:user1 -->|members| Group:group1
+    User:user2 -->|readers| Document:readme.txt
+    Folder:src -->|members| Document:package.json
 `}
 />
 ```

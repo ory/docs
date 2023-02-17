@@ -2,60 +2,72 @@
 title: Namespaces
 ---
 
-Ory Keto knows the concept of namespaces to organize [relationships](./relation-tuples.mdx). Namespaces have a configuration that
-defines the relations, and some other important values ([see reference](../reference/configuration.mdx)). Unlike other
-applications, Ory Keto does **not** isolate namespaces. [Subject sets](./subjects.mdx) can cross-reference from one namespace to
-another. The namespaces' purpose is to split up the data into coherent partitions, each with its corresponding configuration.
+In Ory Permissions, namespaces fulfill two purposes:
 
-## Scoping of objects
+- They are used to scope [objects](./objects.mdx) and [subjects](./subjects.mdx).
+- They contain rules about which [relationships](./relation-tuples.mdx) should be looked up as part of a permission check.
 
-The application can also use namespaces to scope [objects](./objects.mdx) because Ory Keto only compares objects within a
-namespace. For example, if Ory Keto knows the following relationships
+A [relationship](./relation-tuples.mdx) can reference different namespaces. For example, a user (from the `User` namespace) can
+have access to a file (from the `Document` namespace).
 
-```keto-relation-tuples
-// user1 has acces to the directory foo
-directories:foo#access@user1
-// user2 has access to the file foo
-files:foo#access@user2
+## Namespaces in the Ory Permission Language
+
+In the Ory Permission Language, namespaces are defined as follows:
+
+```ts
+import { Namespace, Context } from "@ory/keto-namespace-types"
+
+class User implements Namespace {}
+class Document implements Namespace {}
+class Folder implements Namespace {}
 ```
 
-both of the following [check](./api-overview.mdx#check-relation-tuples) requests
+Each namespace holds a set of permissions, which define which relationships should be checked. For example, to check a `view`
+permission for `User:bob` on an `readme.txt` in the `Document` namespace would entail the following relationship lookups:
 
-```keto-relation-tuples
-// Does user2 have access to the directory foo?
-directories:foo#access@user2
-// Does user1 have access to the file foo?
-files:foo#access@user1
+```keto-relationships
+is User:bob in viewers of Document:readme.txt // all viewers can view the document
+is User:bob in editors of Document:readme.txt // all editors can view the document
+is User:bob in owners of Document:readme.txt // all owners can view the document
 ```
 
-will evaluate to false (a.k.a. rejected).
-
-Vice versa, all relationships containing an object have to be in the same namespace to reference the same object.
+Which relationships are checked precisely depends on the permission model.
+[Learn how to create a permission model with our guide](../modeling/create-permission-model.mdx).
 
 ## Naming conventions
 
-Namespaces should be named after the plural of the type of objects they describe (for example `files`, `chats`, `organizations`).
-Relations within a namespace should be a word that describes what relation a subject has towards an object. As a rule of thumb,
-every relationship should translate to an english sentence like so:
+Namesapces should be named after the singular form of the type they describe, in `UpperCamelCase` (for example: `User`,
+`Document`, `Folder`, `AccessKey`).
 
-> **Subject** has **relation** on **object** which is one of the **namespace**.
+Rationale: Namespaces are defined as TypeScript classes in the Ory Permission Language, and the convention for TypeScript classes
+is `UpperCamelCase`.
+
+Relationships within a namespace should be a word that describes what relation a subject has towards an object, in plural form. As
+a rule of thumb, every relationship should translate to an english sentence like so:
+
+```keto-relationships
+Subject is in members of Object
+```
+
+Rationale: Relationships are like the edges in a graph connecting subjects and objects. These edges are always
+[many-to-many relationships](<https://en.wikipedia.org/wiki/Many-to-many_(data_model)>), so the relationship should be in plural
+form.
 
 Examples:
 
-```keto-relation-tuples
+```keto-relationships
 // good examples
-
-
-files:8f427c01-c295-44f3-b43d-49c3a1042f35#write@02a3c847-c903-446a-a34f-dae74b4fab86
-groups:43784684-103e-44c0-9d6c-db9fb265f617#member@b8d00059-b803-4123-9d3d-b3613bfe7c1b
-directories:803a87e9-0da0-486e-bc08-ef559dd8e034#child@(files:11488ab9-4ede-479f-add4-f1379da4ae43#_)
-files:11488ab9-4ede-479f-add4-f1379da4ae43#parent@(directories:803a87e9-0da0-486e-bc08-ef559dd8e034#_)
+User:02a3c847-c903-446a-a34f-dae74b4fab86 is in writers of File:8f427c01-c295-44f3-b43d-49c3a1042f35
+User:b8d00059-b803-4123-9d3d-b3613bfe7c1b is in members of Group:43784684-103e-44c0-9d6c-db9fb265f617
+File:11488ab9-4ede-479f-add4-f1379da4ae43 is in children of Directory:803a87e9-0da0-486e-bc08-ef559dd8e034
+Directory:803a87e9-0da0-486e-bc08-ef559dd8e034 is in parents of File:11488ab9-4ede-479f-add4-f1379da4ae43
 
 // bad examples
 
 
 // namespace isn't describing homogenous type of objects
-tenant-1-objects:62237c27-19c3-4bb1-9cbc-a5a67372569b#access@7a012165-7b21-495b-b84b-cf4e1a21b484
-// relation describes a relation of the object towards the subject
-directories:803a87e9-0da0-486e-bc08-ef559dd8e034#parent@(files:11488ab9-4ede-479f-add4-f1379da4ae43#_)
+User:7a012165-7b21-495b-b84b-cf4e1a21b484 is in members of Tenant1Objects:62237c27-19c3-4bb1-9cbc-a5a67372569b
+
+// Does not adhere to the naming conventions
+users:02a3c847-c903-446a-a34f-dae74b4fab86 is in view of files:8f427c01-c295-44f3-b43d-49c3a1042f35
 ```
