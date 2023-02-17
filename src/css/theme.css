@@ -23,6 +23,10 @@
   margin: 32px;
 }
 
+a {
+  color: #06b6d4; /* Cyan 500 */
+}
+
 .menu__link[href*="https://"] svg,
 svg[class*="iconExternalLink"] {
   display: none !important;
