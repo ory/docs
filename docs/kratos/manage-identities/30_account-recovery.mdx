@@ -10,7 +10,6 @@ sidebar_label: Administrative account recovery
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 import CodeBlock from "@theme/CodeBlock"
-import SelfHostedKratos from "@site/src/components/SelfHostedKratos"
 ```
 
 You can initiate account recovery for users using the admin API endpoints. You can initiate the flow even for users that don't
@@ -29,7 +28,7 @@ Read [this document](../self-service/flows/account-recovery-password-reset) to l
 
 ```mdx-code-block
 <Tabs>
-<TabItem value="oc" label="Ory Network" default>
+<TabItem value="oc" label="Ory Network API" default>
 ```
 
 Send a request to the Admin API of your project. This operation requires an API Key.
@@ -53,7 +52,7 @@ Read [Authorization with API Keys](../../concepts/personal-access-token.mdx) to 
 
 ```mdx-code-block
 </TabItem>
-<TabItem value="go" label="Golang code">
+<TabItem value="go" label="Go SDK">
 ```
 
 ```go
@@ -101,24 +100,6 @@ API Keys in the Ory Network.
 
 ```mdx-code-block
 </TabItem>
-<TabItem value="kratos" label="Self-hosted Ory Kratos">
-```
-
-<SelfHostedKratos />
-
-And use it to create a recovery code:
-
-```shell
-curl --request POST -sL \
-  --header "Content-Type: application/json" \
-  --data '{
-  "expires_in": "12h",
-  "identity_id": "e01b5f2f-6afc-4194-8578-4cebcf69a4d5"
-}' http://127.0.0.1:4434/recovery/code
-```
-
-```mdx-code-block
-</TabItem>
 </Tabs>
 ```
 
@@ -143,20 +124,19 @@ To create the account recovery link, use:
 
 ```mdx-code-block
 <Tabs>
-<TabItem value="oc" label="Ory Network" default>
+<TabItem value="oc" label="Ory Network API" default>
 ```
 
 Send a request to the Admin API of your project. This operation requires an API Key.
 
 ```shell
 curl --request POST -sL \
-  --header "Authorization: Bearer ORY_API_KEY" \
-  --header "Content-Type: application/json" \
-  --request POST \
-  --data '{
-  "expires_in": "12h",
-  "identity_id": "e01b5f2f-6afc-4194-8578-4cebcf69a4d5"
-}'  https://{your-project-slug}.projects.oryapis.com/admin/recovery/link
+   --header "Authorization: Bearer {ORY_API_KEY}" \
+   --header "Content-Type: application/json" \
+   --data '{
+   "expires_in": "12h",
+   "identity_id": "{ACCOUNT_ID}"
+   }' https://{project-slug}.projects.oryapis.com/admin/recovery/link
 ```
 
 :::tip
@@ -167,7 +147,7 @@ Read [Authorization with API Keys](../../concepts/personal-access-token.mdx) to 
 
 ```mdx-code-block
 </TabItem>
-<TabItem value="go" label="Golang code">
+<TabItem value="go" label="Go SDK">
 ```
 
 ```go
@@ -211,24 +191,6 @@ This code requires an API Key. Read [Authorization with API Keys](../../concepts
 API Keys in the Ory Network.
 
 :::
-
-```mdx-code-block
-</TabItem>
-<TabItem value="kratos" label="Self-hosted Ory Kratos">
-```
-
-<SelfHostedKratos />
-
-And use it to create a recovery link:
-
-```shell
-curl --request POST -sL \
-  --header "Content-Type: application/json" \
-  --data '{
-  "expires_in": "12h",
-  "identity_id": "e01b5f2f-6afc-4194-8578-4cebcf69a4d5"
-}' http://127.0.0.1:4434/recovery/code
-```
 
 ```mdx-code-block
 </TabItem>

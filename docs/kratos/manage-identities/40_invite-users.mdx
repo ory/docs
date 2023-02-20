@@ -1,0 +1,105 @@
+---
+id: invite-users
+title: Learn how to invite users to Ory-powered applications
+sidebar_label: Invite users
+---
+
+# Invite users
+
+If your application must be accessible only to a hand-picked group of specific individuals, and you don't want to make
+registration publicly available, you can send invitations to selected users.
+
+The process of inviting users to an Ory-powered application follows these steps:
+
+1. You create a basic user account for the user you want to invite. You use their email address as the account identifier.
+2. You trigger account recovery for the user account you created.
+3. You get the recovery link from the API response and send it to the user's email address.
+4. The user performs account recovery which forces them to define new credentials.
+5. The user gets a fully functional account with the credentials they defined.
+
+:::info
+
+Automating this process requires writing custom code that relies on the specifics of your implementation.
+
+:::
+
+## Procedure
+
+Send these API calls to the Admin API to create a new user account and create a recovery link. Admin API calls don't trigger Ory
+Actions.
+
+:::tip
+
+You need an API Key to call these endpoints. Read [Authorization with API Keys](../../concepts/personal-access-token.mdx) to learn
+more.
+
+:::
+
+1. Create a new user account:
+
+   ```shell
+   curl --request POST -sL \
+     --header "Authorization: Bearer {ORY_API_KEY}" \
+     --header "Content-Type: application/json" \
+     --data '{
+     "schema_id": "preset://email",
+     "traits": {
+        "email": "{USER_EMAIL_ADDRESS}"
+       }
+     }' https://{project-slug}.projects.oryapis.com/admin/identities
+   ```
+
+   :::info
+
+   The `schema_id` property must point to the schema set in your project. To get the schema name, look for `default_schema_id` in
+   your Ory Identities configuration.
+   [Read the Ory CLI documentation to learn how to get your Ory Identities configuration and save it to a file.](../../guides/cli/15_config-identity-service.mdx)
+
+   :::
+
+2. Get the ID of the created account from the API response:
+
+   ```json
+   {
+   // highlight-next-line
+      "id":"{ACCOUNT_ID}",
+      "credentials":{
+         "password":{
+            "type":"password",
+            "identifiers":[
+               "{USER_EMAIL_ADDRESS}"
+            ],
+            "version":0,
+            "created_at":"2023-02-17T14:16:06.8591Z",
+            "updated_at":"2023-02-17T14:16:06.8591Z"
+         },
+         // ...
+   ```
+
+3. Use the account ID to get the recovery link for that account.
+
+   :::note
+
+   Use the `expires_in` property to set the appropriate expiry time for the recovery link. If the user you want to invite doesn't
+   access the link before it expires, you must generate a new recovery link.
+
+   :::
+
+   ```shell
+   curl --request POST -sL \
+      --header "Authorization: Bearer {ORY_API_KEY}" \
+      --header "Content-Type: application/json" \
+      --data '{
+      "expires_in": "12h",
+      "identity_id": "{ACCOUNT_ID}"
+      }' https://{project-slug}.projects.oryapis.com/admin/recovery/link
+   ```
+
+4. Copy the recovery link from the API response and send it to the user:
+
+   ```json
+   {
+     "recovery_link": "https://{project-slug}.projects.oryapis.com/self-service/recovery?flow=b6c81504-dc8e-4786-b849-ac292bc9f317&token=VjKUKGU7J4YAonC5b5q1hDySJjWGh3qf",
+     "expires_at": "2023-02-18T02:16:47.286385565Z"
+   }
+   ```

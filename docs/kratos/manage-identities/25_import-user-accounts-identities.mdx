@@ -22,7 +22,7 @@ identity update.
 
 :::
 
-An exemplary payload for importing an identity with a verified address:
+This is a sample payload for importing an identity with a verified address:
 
 ```json {4,8-11}
 {
@@ -46,13 +46,11 @@ Test the above example with a cURL command:
 ````mdx-code-block
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-import SelfHostedKratos from '@site/src/components/SelfHostedKratos'
 
 <Tabs
   defaultValue="cloud"
   values={[
     {label: 'The Ory Network', value: 'cloud'},
-    {label: 'Self-Hosted Ory Kratos', value: 'kratos'},
   ]}>
   <TabItem value="cloud">
 
@@ -73,45 +71,20 @@ curl --request POST -sL \
       "status": "completed"
     }
   ]
-}' https://playground.projects.oryapis.com/admin/identities
+}' https://{your-project-slug}.projects.oryapis.com/admin/identities
 ```
 
-  </TabItem>
-  <TabItem value="kratos">
-    <SelfHostedKratos/>
-
-And use it to create an identity:
-
-```shell
-curl --request POST -sL \
-  --header "Content-Type: application/json" \
-  --data '{
-  "schema_id": "preset://email",
-  "traits": {
-    "email": "docs-verify@example.org"
-  },
-  "verifiable_addresses": [
-    {
-      "value": "docs-verify@example.org",
-      "verified": true,
-      "via": "email",
-      "status": "completed"
-    }
-  ]
-}' http://127.0.0.1:4434/identities
-```
-
-  </TabItem>
+</TabItem>
 </Tabs>
 ````
 
-The API then responds with the created identity:
+The API response contains the created identity:
 
 ```json {13-15}
 {
   "id": "880052ae-d32c-4b56-b82d-0dc711080910",
   "schema_id": "preset://email",
-  "schema_url": "http://localhost:4455/schemas/cHJlc2V0Oi8vZW1haWw",
+  "schema_url": "https://{your-project-slug}.projects.oryapis.com/schemas/cHJlc2V0Oi8vZW1haWw",
   "state": "active",
   "state_changed_at": "2022-02-24T15:33:17.845589803Z",
   "traits": {
