@@ -33,7 +33,7 @@ docker-compose -f contrib/cat-videos-example/docker-compose.yml up
 # or
 ./contrib/cat-videos-example/up.sh
 
-# output: all initially created relation tuples
+# output: all initially created relationships
 
 # NAMESPACE       OBJECT          RELATION NAME   SUBJECT
 # videos          /cats/1.mp4     owner           videos:/cats#owner
@@ -49,7 +49,7 @@ docker-compose -f contrib/cat-videos-example/docker-compose.yml up
 
 At the current state only one user with the username `cat lady` has added videos. Both videos are in the `/cats` directory owned
 by `cat lady`. The file `/cats/1.mp4` can be viewed by anyone (`*`), while `/cats/2.mp4` has no extra sharing options, and can
-therefore only be viewed by its owner, `cat lady`. The relation tuple definitions are located in the
+therefore only be viewed by its owner, `cat lady`. The relationship definitions are located in the
 `contrib/cat-videos-example/relation-tuples` directory.
 
 ## Simulating the video sharing application
@@ -86,8 +86,8 @@ keto check "*" view videos /cats/2.mp4
 We already discussed that this request should be denied, but it's always good to see this in action.
 
 Now `cat lady` wants to change some view permissions of `/cats/1.mp4`. For this, the video service application has to show all
-users that are allowed to view the video. It uses Keto's [expand-API](./concepts/api-overview.mdx#expand-subject-set) to get these
-data:
+users that are allowed to view the video. It uses Keto's [expand-API](./concepts/25_api-overview.mdx#expand-subject-set) to get
+these data:
 
 ```shell
 # Who is allowed to "view" the object "videos":"/cats/2.mp4"?
@@ -121,7 +121,7 @@ videos:/cats#owner
 
 We see that `cat lady` is the owner of `/cats`.
 
-Note that there is no direct relation tuple that would grant `cat lady` view access on `/cats/1.mp4` as this is indirectly defined
+Note that there is no direct relationship that would grant `cat lady` view access on `/cats/1.mp4` as this is indirectly defined
 via the ownership relation.
 
 The special user `*` on the other hand was directly granted view access on the object, as it's a first-level leaf of the expansion

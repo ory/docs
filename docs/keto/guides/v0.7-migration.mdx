@@ -44,8 +44,8 @@ This procedure is zero-downtime only for read API requests. The write API will n
 6. Run `keto namespace migrate legacy --yes` considering the points raised in [preparations](#preparations). This command will
    migrate **all** namespaces **and** delete the old tables on success.
 7. In case of failure, re-run the command until it succeeds.
-8. In case of log statements stating `Skipping relation tuple, it seems to be in a broken state. Please recreate it manually.`
-   note down the logged data somewhere and recreate the relation tuples in question once the migration is done using the API.
+8. In case of log statements stating `Skipping relationship, it seems to be in a broken state. Please recreate it manually.` note
+   down the logged data somewhere and recreate the relationships in question once the migration is done using the API.
 9. After the migration is successfully done, route all traffic to Keto v0.7 and shut down Keto v0.6. At this point the API is
    fully operational again.
 

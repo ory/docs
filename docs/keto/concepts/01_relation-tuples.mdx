@@ -1,0 +1,68 @@
+---
+id: relation-tuples
+title: Relationships in Ory Permissions
+sidebar_label: Relationships
+---
+
+# Relationships
+
+```mdx-code-block
+import Mermaid from "@site/src/theme/Mermaid"
+```
+
+Relationships are the underlying datatype of Ory Permissions. They encode relations between [objects](./10_objects.mdx), which are
+the resources that you want to manage to, and [subjects](./15_subjects.mdx), which are the people or things that want to access
+these resources. A relationship is associated with a [namespace](./05_namespaces.mdx) where its relation has to be defined and
+configured.
+
+You can think of relationships as edges in a graph. For a simple relationship:
+
+```keto-relationships
+User:user1 is in members of Group:group1
+User:user2 is in readers of Document:readme.txt
+Folder:src is in parents of Document:package.json
+```
+
+:::info
+
+The [Zanzibar paper](https://research.google/pubs/pub48190/) uses the following notation for relationships:
+
+```keto-relation-tuples
+Group:group1#members@User:user1
+```
+
+Ory commonly uses the notation presented in the example as it's easier to read and understand.
+
+:::
+
+The graphical representation looks like this:
+
+```mdx-code-block
+<Mermaid
+  chart={`
+graph LR
+    User:user1 -->|members| Group:group1
+    User:user2 -->|readers| Document:readme.txt
+    Folder:src -->|members| Document:package.json
+`}
+/>
+```
+
+`User` and `Group` are the subject and object namespaces respectively. `user1` and `group1` are the subject and object.
+
+## Relationships and permissions
+
+Ory Permissions checks permissions based on:
+
+- relationships
+- permission rules
+
+Think of relationships as of facts used to answer permission checks. When a user is added to a group, add a relationship from the
+user (subject) to the group (object) through a `members` relationship. Use the permission model to define concrete permissions the
+user gets by being a member of this group.
+
+:::tip
+
+[Learn how to create a permission model](../modeling/create-permission-model.mdx).
+
+:::

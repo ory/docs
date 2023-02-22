@@ -5,9 +5,9 @@ title: Check whether a user has access to something
 import Mermaid from "@site/src/theme/Mermaid"
 import CodeTabs from "@site/src/theme/CodeTabs"
 
-This guide will explain how you can use Ory Keto's [check-API](../concepts/api-overview.mdx#check-relation-tuple) to determine
-whether a [subject](../concepts/subjects.mdx) has a specific [relation](../concepts/relation-tuples.mdx) on an
-[object](../concepts/objects.mdx). The result can be used for controlling access to specific resources.
+This guide will explain how you can use Ory Keto's [check-API](../concepts/25_api-overview.mdx#check-relation-tuple) to determine
+whether a [subject](../concepts/15_subjects.mdx) has a specific [relation](../concepts/01_relation-tuples.mdx) on an
+[object](../concepts/10_objects.mdx). The result can be used for controlling access to specific resources.
 
 ## Synchronous authorization flow
 
@@ -41,10 +41,10 @@ As a first step, the application has to authenticate the user reliably to provid
 using [Ory Identities](https://www.ory.sh/kratos/docs/) or any other authentication system.
 
 The request (here `decypher` of the message `02y_15_4w350m3`) is then translated into a request to Ory Keto's
-[check-API](../concepts/api-overview.mdx#check-relation-tuple). Basically, the application is asking Keto "Is john allowed to
+[check-API](../concepts/25_api-overview.mdx#check-relation-tuple). Basically, the application is asking Keto "Is john allowed to
 decypher the text 02y_15_4w350m3?"
 
-This question is encoded as the following [relation tuple](../concepts/relation-tuples.mdx):
+This question is encoded as the following [relationship](../concepts/01_relation-tuples.mdx):
 
 ```keto-relation-tuples
 messages:02y_15_4w350m3#decypher@john
@@ -52,18 +52,18 @@ messages:02y_15_4w350m3#decypher@john
 
 :::caution Important
 
-It's up to the application and its defined relation tuples how the check requests have to be encoded. In this example we assume
-that the known cypher messages are stored in Ory Keto and access to the cleartext is encoded by the `decypher` relation.
+It's up to the application and its defined relationships how the check requests have to be encoded. In this example we assume that
+the known cypher messages are stored in Ory Keto and access to the cleartext is encoded by the `decypher` relation.
 
 :::
 
 ### Directly defined access
 
-Ory Keto can know the exact relation tuple that the application is checking. Intuitively, this means that `john` was allowed to
+Ory Keto can know the exact relationship that the application is checking. Intuitively, this means that `john` was allowed to
 `decypher` the message `02y_15_4w350m3` directly (imagine a "Share with `john`" input in a UI).
 
-Try this yourself by first adding the relation tuple using the [write API](../concepts/api-overview.mdx#write-apis) (note that the
-flag `--insecure-disable-transport-security` is necessary with newer versions of the Keto CLI if you run Keto without TLS):
+Try this yourself by first adding the relationship using the [write API](../concepts/25_api-overview.mdx#write-apis) (note that
+the flag `--insecure-disable-transport-security` is necessary with newer versions of the Keto CLI if you run Keto without TLS):
 
 <CodeTabs sampleId="simple-access-check-guide/00-write-direct-access" version="v0.7.0-alpha.1" />
 
@@ -74,20 +74,20 @@ Now, we can use the check-API to verify that `john` is allowed to `decypher` the
 ### Indirectly defined access
 
 On the other hand, it's possible to indirectly grant `john` access to the resource. This could be done by adding a group, lets
-call it `hackers`. Now we can grant access to the resource to everyone in that group by adding the following relation tuple to Ory
+call it `hackers`. Now we can grant access to the resource to everyone in that group by adding the following relationship to Ory
 Keto:
 
 ```keto-relation-tuples
 messages:02y_15_4w350m3#decypher@(groups:hackers#member)
 ```
 
-We also have to make `john` a `member` of `hackers` by adding the relation tuple:
+We also have to make `john` a `member` of `hackers` by adding the relationship:
 
 ```keto-relation-tuples
 groups:hackers#member@john
 ```
 
-Now, when Keto receives above check request, it will resolve the [subject set](../concepts/subjects.mdx#subject-sets)
+Now, when Keto receives above check request, it will resolve the [subject set](../concepts/15_subjects.mdx#subject-sets)
 
 ```keto-relation-tuples
 groups:hackers#member
@@ -106,4 +106,4 @@ caching wherever possible.
 ## Conclusion
 
 We learned how to integrate check requests and access control into an application using Ory Keto's
-[check-API](../concepts/api-overview.mdx#check-relation-tuple).
+[check-API](../concepts/25_api-overview.mdx#check-relation-tuple).

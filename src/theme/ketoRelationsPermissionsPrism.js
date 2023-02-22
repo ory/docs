@@ -57,7 +57,7 @@ export default (prism) => {
     comment: /\/\/.*(\n|$)/,
     relationship: {
       pattern:
-        /\(?([a-zA-Z0-9-_]+ o[fn] )?[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\)? ((is( in)?)|are) [a-zA-Z0-9-_]+ o[fn] [a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+/,
+        /\(?([a-zA-Z0-9-_]+\s+o[fn]\s+)?[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\)?\s+((is( in)?)|are)\s+[a-zA-Z0-9-_]+\s+o[fn]\s+[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+/,
       inside: {
         subject: relationSubject,
         "": relationAndObject,
@@ -65,7 +65,7 @@ export default (prism) => {
     },
     "permission-question": {
       pattern:
-        /(is|are) \(?([a-zA-Z0-9-_]+ o[fn] )?[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\)? (allowed to|in) [a-zA-Z0-9-_]+ o[fn] [a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\??/,
+        /(is|are)\s+\(?([a-zA-Z0-9-_]+\s+o[fn]\s+)?[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\)?\s+(allowed to|in)\s+[a-zA-Z0-9-_]+\s+o[fn]\s+[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\??/,
       inside: {
         delimiter: /( allowed to )|\?/,
         subject: permissionSubject,

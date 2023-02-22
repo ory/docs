@@ -4,7 +4,7 @@ title: Introduction
 ---
 
 Ory Permissions (based on the open-source Ory Keto Permission Server) is the first open-source implementation of
-[Zanzibar: Google's Consistent, Global Authorization System"](https://research.google/pubs/pub48190/).
+[Zanzibar: Google's Consistent, Global Authorization System](https://research.google/pubs/pub48190/).
 
 With Ory Permissions, you can
 

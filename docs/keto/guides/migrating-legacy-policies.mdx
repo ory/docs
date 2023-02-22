@@ -22,10 +22,10 @@ The policy below allows `Alice` and `Bob` to create/read/modify/delete `blog_pos
 }
 ```
 
-## Rewriting it to relation tuples
+## Rewriting it to relationships
 
 According to the example above we need to create required [namespace](https://www.ory.sh/docs/keto/concepts/namespaces) and
-[relation tuple](https://www.ory.sh/docs/keto/concepts/relation-tuples)
+[relationship](https://www.ory.sh/docs/keto/concepts/relation-tuples)
 
 General mapping from old to new policies
 
@@ -51,7 +51,7 @@ serve:
     port: 4467
 ```
 
-## Alice relation tuples
+## Alice relationships
 
 Let's create an `alice_policies` file with the following content, which adds exactly the same permissions to Alice as the previous
 example
@@ -88,9 +88,9 @@ blog_posts:3#delete@bob
 blog_posts:3#create@bob
 ```
 
-## Creating relation tuples using the CLI
+## Creating relationships using the CLI
 
-This example uses the Ory Keto CLI to create the relation tuple using the [write API](../concepts/api-overview#write-apis)
+This example uses the Ory Keto CLI to create the relationship using the [write API](../concepts/api-overview#write-apis)
 
 ```bash
 keto relation-tuple parse alice_policies --format json | \
