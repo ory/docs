@@ -1,0 +1,75 @@
+---
+id: api-overview
+title: Ory Permissions API overview
+sidebar_label: API overview
+---
+
+# API overview
+
+This page gives an overview of Ory Permissions APIs including common use cases.
+
+All APIs are available to gRPC and REST clients, although feature parity isn't guaranteed. Ory follows gRPC and REST best
+practices and design guidelines, which can cause the APIs offer slightly different interfaces and capabilities.
+
+## Read APIs
+
+### List relationships
+
+This API allows you to query [relationships](./01_relation-tuples.mdx) by providing a partial relationship. It can be used to:
+
+- [list objects a user has access to](../guides/list-api-display-objects.mdx#listing-objects)
+- [list users who have a specific role](../guides/list-api-display-objects.mdx#listing-subjects)
+- list users who are members of a specific group
+- audit permissions in the system
+
+For more details, head over to the [gRPC API reference](../reference/proto-api.mdx#readservice) or
+[REST API reference](../reference/rest-api.mdx#query-relation-tuples).
+
+### Check relationships
+
+The Check API allows you to check whether a subject has a relation on an object. This API resolves
+[subject sets](./15_subjects.mdx#subject-sets) and relationships.
+
+This API is primarily used to [check permissions to restrict actions](../guides/simple-access-check-guide.mdx).
+
+A check request can include the maximum depth of the search tree. If the value is less than 1 or greater than the global max-depth
+then the global max-depth will be used instead. This is to ensure low latency and limit the resource usage per request.
+
+For more details, head over to the [gRPC API reference](../reference/proto-api.mdx#checkservice) or
+[REST API reference](../reference/rest-api.mdx#check-a-relation-tuple).
+
+### Expand subject sets
+
+The Expand API recursively expands a [subject set](./15_subjects.mdx#subject-sets) into a tree of subjects. For each subject, the
+tree assembles the relationships including the operands as defined in the [namespace configuration](./05_namespaces.mdx). It can
+be used to:
+
+- [List who has access to an object](../guides/expand-api-display-who-has-access.mdx)
+- Determine why someone has access to an object
+- Audit permissions in the system
+
+An expand request can include the maximum depth of the tree to be returned. If the value is less than 1 or greater than the global
+max-depth then the global max-depth will be used instead. This is required to ensure low latency and limit the resource usage per
+request.
+
+For more details, head over to the [gRPC API reference](../reference/proto-api.mdx#expandservice) or
+[REST API reference](../reference/rest-api.mdx#getexpand).
+
+## Write APIs
+
+### Change relationships
+
+The Write APIs offer multiple ways to insert and delete relationships. Please head over to the
+[gRPC API reference](../reference/proto-api.mdx#writeservice) or [REST API reference](../reference/rest-api.mdx#write) to read
+more about the available methods for each client type.
+
+It's preferred to use the transaction based methods over repeatedly calling simple methods for bulk updates. This isn't only
+because they provide stronger consistency guarantees, but also because the database usually handles a single transaction with a
+lot of data faster than a lot of small transactions.
+
+The main use cases for the Write APIs are:
+
+- Setting up permissions for a new object
+- Sharing an object with another user
+- Revoking access to an object
+- Transferring relations to an object to another user

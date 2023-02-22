@@ -1,0 +1,67 @@
+---
+id: objects
+title: Objects in Ory Permissions
+sidebar_label: Objects
+---
+
+# Objects
+
+Objects are identifiers of entities in an application. For example, objects can represent files, network ports, or physical items.
+It's up to the application to map its objects to unambiguous identifiers. The name length limit for object identifiers is 64
+characters.
+
+We recommend using UUIDs as they provide a high entropy and therefore are unique identifiers. However, you can also use URLs or
+opaque tokens as identifiers. Objects are considered equal when their string representation is equal.
+
+## Basic example
+
+In the basic case an application uses the same object identifiers as the identifiers it uses internally, for example:
+
+- UUIDv4: `61e75133-efff-4281-8148-a1806919f568`
+- SHA-1: `5c6f593a4e12970d647843f97846fd5ed18179eb`
+
+:::tip
+
+See this in a [real-life example](../examples/olymp-file-sharing.mdx).
+
+:::
+
+## Advanced example
+
+Since Ory Permissions can use arbitrary strings as objects, you can encode application data within the object. We strongly
+discourage this practice. Instead, use a UUID to map application data to Ory Permissions objects.
+
+This is required to ensure:
+
+1. A single source of truth and easy data updates
+2. Free choice of encoding (Ory Permissions doesn't allow the `: # @` characters)
+3. Unlimited data size
+
+For example, this could be used to implement checks on value ranges. The application knows the following mapping of comparison
+conditions and UUIDs:
+
+```yml
+f832e1e7-3c97-4cb8-8582-979e63ae2f1d:
+  greater_than: 5
+
+c4540cf5-6ac4-4007-910b-c5a56aa3d4e6:
+  greater_than: 2
+  smaller_equal: 5
+```
+
+Ory Permissions has the following relationships:
+
+```keto-relation-tuples
+// Members of the "admins" group are allowed to set a value v > 5
+values:f832e1e7-3c97-4cb8-8582-979e63ae2f1d#set_value@(groups:admins#member)
+
+// Members of the "devs" group are allowed to set a value v: 2 < v <= 5
+values:c4540cf5-6ac4-4007-910b-c5a56aa3d4e6#set_value@(groups:devs#member)
+
+// Anyone who can set a value v > 5 can also set 2 < v <= 5
+values:c4540cf5-6ac4-4007-910b-c5a56aa3d4e6#set_value@(values:f832e1e7-3c97-4cb8-8582-979e63ae2f1d#set_value)
+```
+
+The application must translate an incoming "set value" request to the corresponding condition the value fulfills. It's important
+to understand that Ory Permissions doesn't know how to interpret this information. The application must pre-process and map the
+value to the corresponding UUID.

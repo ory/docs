@@ -19,7 +19,7 @@ object metadata. Users are also identified by and mapped to a UUID.
 :::info
 
 For the sake of readability, the code samples use the name of the chat and username instead of the UUIDs. Please refer to the
-[objects](../concepts/objects.mdx) and [subjects](../concepts/subjects.mdx) pages for why the mapping is necessary.
+[objects](../concepts/10_objects.mdx) and [subjects](../concepts/15_subjects.mdx) pages for why the mapping is necessary.
 
 :::
 
@@ -47,7 +47,7 @@ coffee-break:
     - Patrik
 ```
 
-This is represented in Ory Keto by the following [relationships](../concepts/relation-tuples.mdx):
+This is represented in Ory Keto by the following [relationships](../concepts/01_relation-tuples.mdx):
 
 ```keto-relation-tuples
 chats:memes#member@PM
@@ -80,8 +80,8 @@ the UI.
 ### Listing subjects
 
 Another view of the chat application has to display all members of a specific group to the user. This can also be achieved using
-the list API. In cases where such a membership would be modeled through [subject sets](../concepts/subjects.mdx#subject-sets), you
-have to use the [expand-API](./expand-api-display-who-has-access.mdx).
+the list API. In cases where such a membership would be modeled through [subject sets](../concepts/15_subjects.mdx#subject-sets),
+you have to use the [expand-API](./expand-api-display-who-has-access.mdx).
 
 :::caution
 
@@ -96,7 +96,7 @@ In our example, a user wants to see who is a member of the `coffee-break` group:
 
 ## Application context
 
-It's important to note that the list API does **not** expand [subject sets](../concepts/subjects.mdx#subject-sets). Usually the
+It's important to note that the list API does **not** expand [subject sets](../concepts/15_subjects.mdx#subject-sets). Usually the
 application has some context to determine what tuples to query anyway. That could be knowledge of the structure of subject sets
 like depth or hierarchy, or the UI context, like a "My Items" view which should probably contain other objects than a "My
 Organizations" or "Shared with Me" views. If there really is no way to narrow down a query, you will have to use the
