@@ -36,6 +36,10 @@ Pass the project's slug as a flag to the tunnel command:
 	$ ory tunnel --project <your-project-slug> ...
 	$ ORY_PROJECT_SLUG=<your-project-slug> ory tunnel ...
 
+When using the `ORY_SDK_URL` or `ORY_KRATOS_URL` to point to a custom domain on the project instead of the `ORY_PROJECT_SLUG` environment variable,
+take care that the project has not set the custom UI base URL on this domain. This will cause the browser to always redirect to the custom UI base URL instead
+of the configured `application-url`.
+
 ### Developing Locally
 
 When developing locally we recommend to use the `--dev` flag, which uses a lax security setting:
