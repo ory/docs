@@ -37,9 +37,10 @@ and the session payload.
 
 When using the SDK, use the `frontend.toSession()` method.
 
-:::warning Edge Sessions need the `__cflb` cookie
+:::caution
 
-When using Edge Sessions to serve `/sessions/whoami` checks with 40ms latency, make sure to pass the `__cflb` cookie as well.
+You must pass the `__cflb` cookie with the Ory Session Cookie in your requests to leverage the benefits of
+[Edge Sessions](../../concepts/cache.mdx) and serve `/sessions/whoami` checks with 40ms latency.
 
 :::
 

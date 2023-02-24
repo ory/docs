@@ -34,9 +34,10 @@ The caching strategy is as follows:
 
 The cache will respond with `CF-Cache-Status: Hit` if a cached response is served.
 
-:::warning Don't forget the `__cflb` cookie
+:::caution
 
-When calling the `/sessions/whoami` endpoint ensure to also pass the `__cflb` cookie to it, or you get a lot of cache misses.
+Pass the `__cflb` cookie when you call the `/sessions/whoami` endpoint. If you don't pass the `__cflb`, you get a lot of cache
+misses.
 
 :::
 
