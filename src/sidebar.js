@@ -194,8 +194,12 @@ module.exports = {
       items: [
         "hydra/index",
         {
-          Concepts: [
+          "OAuth2 overview": [
             "hydra/concepts/before-oauth2",
+          ]
+        },
+        {
+          Concepts: [
             "hydra/concepts/oauth2",
             "hydra/concepts/openid-connect-oidc",
             "hydra/concepts/login",
