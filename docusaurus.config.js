@@ -48,6 +48,18 @@ const config = {
           line: "add-next-line",
           block: { start: "add-lines-start", end: "add-lines-end" },
         },
+        {
+          className: "copyright-2022-ory-corp",
+          line: "Copyright © 2022 Ory Corp",
+        },
+        {
+          className: "copyright-2023-ory-corp",
+          line: "Copyright © 2023 Ory Corp",
+        },
+        {
+          className: "spdx-license-identifier",
+          line: "SPDX-License-Identifier: Apache-2.0",
+        },
       ],
     },
     algolia: {
