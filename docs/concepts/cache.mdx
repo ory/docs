@@ -32,6 +32,15 @@ The caching strategy is as follows:
 - If the session credentials are known and cached, the cache respects the `Cache-Control: max-age=60` header.
 - If the user updates their profile or adds another authentication factor, the session is refreshed in the cache automatically.
 
+The cache will respond with `CF-Cache-Status: Hit` if a cached response is served.
+
+:::caution
+
+Pass the `__cflb` cookie when you call the `/sessions/whoami` endpoint. If you don't pass the `__cflb`, you get a lot of cache
+misses.
+
+:::
+
 ## Performance
 
 You can expect a P95 latency of ~60ms and a P99 latency of ~70ms across the globe when you use edge sessions. Results can vary
