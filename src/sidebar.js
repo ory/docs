@@ -194,9 +194,7 @@ module.exports = {
       items: [
         "hydra/index",
         {
-          "OAuth2 overview": [
-            "hydra/concepts/before-oauth2",
-          ]
+          "OAuth2 overview": ["hydra/concepts/before-oauth2"],
         },
         {
           Concepts: [
@@ -262,10 +260,7 @@ module.exports = {
           ],
         },
         {
-          "Further Reading": [
-            "hydra/benchmark",
-            "hydra/security-architecture",
-          ],
+          "Further Reading": ["hydra/benchmark", "hydra/security-architecture"],
         },
       ],
     },
