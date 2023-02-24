@@ -47,18 +47,17 @@ into many use cases, including these popular ones:
 Ory OAuth2 & OpenID Connect is a [Certified OpenID Connect Implementation](https://openid.net/developers/certified/) that fulfills
 all requirements set by the OpenID Foundation.
 
+### Flexible user management
+
+Ory OAuth2 & OpenID Connect is connected to Ory Identities per default. But unlike many other OAuth 2.0 service providers, Ory's
+service is a headless API and doesn't force you to use Ory's or any specific user management system. This means that Ory OAuth2 &
+OpenID Connect is the perfect fit if you want to become an OAuth2 provider and already have an existing user management system and
+the only solution on the market capable of this.
+
 ### Cryptographic key storage
 
 In addition to the OAuth 2.0 functionality, Ory OAuth2 & OpenID Connect offers safe storage for cryptographic keys that can be
 used, for example, to sign JSON Web Tokens.
-
-### Flexible user management
-
-Unlike many other OAuth 2.0 implementations, Ory OAuth2 & OpenID Connect doesn't force you to use any specific user management
-system, a particular template engine, or a predefined front end.
-
-This allows you to build user management and login your way, in your technology stack, with authentication mechanisms required by
-your use case.
 
 ### Security-first architecture
 
