@@ -2387,6 +2387,10 @@
             "description": "Configures the Ory Kratos Recovery Lifespan\n\nThis governs the \"selfservice.flows.recovery.lifespan\" setting.",
             "type": "string"
           },
+          "kratos_selfservice_flows_recovery_notify_unknown_recipients": {
+            "description": "Configures whether to notify unknown recipients of a Ory Kratos recovery flow\n\nThis governs the \"selfservice.flows.recovery.notify_unknown_recipients\" setting.",
+            "type": "boolean"
+          },
           "kratos_selfservice_flows_recovery_ui_url": {
             "description": "Configures the Ory Kratos Recovery UI URL\n\nThis governs the \"selfservice.flows.recovery.ui_url\" setting.",
             "type": "string"
@@ -2464,6 +2468,10 @@
           "kratos_selfservice_flows_verification_lifespan": {
             "description": "Configures the Ory Kratos Verification Lifespan\n\nThis governs the \"selfservice.flows.verification.lifespan\" setting.",
             "type": "string"
+          },
+          "kratos_selfservice_flows_verification_notify_unknown_recipients": {
+            "description": "Configures whether to notify unknown recipients of a Ory Kratos verification flow\n\nThis governs the \"selfservice.flows.verification.notify_unknown_recipients\" setting.",
+            "type": "boolean"
           },
           "kratos_selfservice_flows_verification_ui_url": {
             "description": "Configures the Ory Kratos Verification UI URL\n\nThis governs the \"selfservice.flows.verification.ui_url\" setting.",
@@ -4540,6 +4548,10 @@
             "description": "ReturnTo contains the requested return_to URL.",
             "type": "string"
           },
+          "transient_payload": {
+            "description": "TransientPayload is used to pass data from the registration to a webhook",
+            "type": "object"
+          },
           "type": {
             "$ref": "#/components/schemas/selfServiceFlowType"
           },
@@ -5915,6 +5927,10 @@
           "traits": {
             "description": "The identity traits",
             "type": "object"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["provider", "method"],
@@ -5938,6 +5954,10 @@
           "traits": {
             "description": "The identity's traits",
             "type": "object"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["password", "traits", "method"],
@@ -5956,6 +5976,10 @@
           },
           "traits": {
             "description": "The identity's traits",
+            "type": "object"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
             "type": "object"
           },
           "webauthn_register": {
