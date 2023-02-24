@@ -906,7 +906,12 @@
     },
     {
       "source": "/docs/kratos/emails-sms/sms-messages",
-      "destination": "https://www.ory.sh/docs/kratos/self-hosted/sms-messages",
+      "destination": "https://www.ory.sh/docs/kratos/",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/self-hosted/sms-messages",
+      "destination": "https://www.ory.sh/docs/kratos/",
       "permanent": false
     },
     {
