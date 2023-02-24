@@ -264,7 +264,9 @@ these rules:
 
 Use [Mermaid](https://mermaid-js.github.io/mermaid/#/) to create diagrams. You
 can run the tool locally or use [Mermaid Live Editor](https://mermaid.live) in
-the browser.
+the browser. See the
+[Mermaid Cheatsheet](https://jojozhuang.github.io/tutorial/mermaid-cheat-sheet/)
+for a detailed description on how to use Mermaid.
 
 To add a Mermaid diagram, use this `mdx-code-block`:
 
