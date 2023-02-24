@@ -263,7 +263,6 @@ module.exports = {
         },
         {
           "Further Reading": [
-            "hydra/case-study",
             "hydra/benchmark",
             "hydra/security-architecture",
           ],
@@ -533,6 +532,7 @@ module.exports = {
                 },
               ],
             },
+            "hydra/case-study",
           ],
         },
         {
