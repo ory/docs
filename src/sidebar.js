@@ -194,7 +194,10 @@ module.exports = {
       items: [
         "hydra/index",
         {
-          "OAuth2 overview": ["hydra/concepts/before-oauth2"],
+          "OAuth2 overview": [
+            "hydra/concepts/before-oauth2",
+            "hydra/limitations",
+          ],
         },
         {
           Concepts: [
@@ -204,7 +207,6 @@ module.exports = {
             "hydra/concepts/consent",
             "hydra/concepts/logout",
             "hydra/jwks",
-            "hydra/limitations",
           ],
         },
         {
@@ -260,7 +262,7 @@ module.exports = {
           ],
         },
         {
-          "Further Reading": ["hydra/benchmark", "hydra/security-architecture"],
+          "Further Reading": ["hydra/security-architecture"],
         },
       ],
     },
@@ -527,6 +529,7 @@ module.exports = {
                 },
               ],
             },
+            "hydra/benchmark",
             "hydra/case-study",
           ],
         },
