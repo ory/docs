@@ -37,6 +37,12 @@ and the session payload.
 
 When using the SDK, use the `frontend.toSession()` method.
 
+:::warning Edge Sessions need the `__cflb` cookie
+
+When using Edge Sessions to serve `/sessions/whoami` checks with 40ms latency, make sure to pass the `__cflb` cookie as well.
+
+:::
+
 ````mdx-code-block
 <Tabs>
 <TabItem value="curl" label="cURL" default>
