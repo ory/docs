@@ -51,7 +51,7 @@ curl -H "Authorization: Bearer {your-session-token}" \
 To check for an active session with an Ory Session Cookie, run:
 
 ```shell
-curl -H "Cookie: ory_session_...=..." \
+curl -H "Cookie: ory_session_...=...; __cflb=..." \
   "https://{project.slug}.projects.oryapis.com/sessions/whoami"
 ```
 
