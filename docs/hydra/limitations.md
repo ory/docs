@@ -3,13 +3,6 @@ id: limitations
 title: Limitations
 ---
 
-Ory Hydra tries to solve all of OAuth 2.0 and OpenID Connect uses. There are, however, some limitations.
-
-## MySQL <= 5.6 / MariaDB
-
-Ory Hydra has issues with MySQL <= 5.6 (but not MySQL 5.7+) and certain MariaDB versions. Read more about this
-[here](https://github.com/ory/hydra/issues/377). Our recommendation is to use MySQL 5.7+ or PostgreSQL.
-
 ## OAuth 2.0 Client Secret BCrypt Length
 
 When using BCrypt as the OAuth 2.0 Client Secrets hashing algorithm, the length of the hsecretsh is limited to 72 characters.
