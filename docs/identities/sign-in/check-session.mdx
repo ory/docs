@@ -37,13 +37,6 @@ and the session payload.
 
 When using the SDK, use the `frontend.toSession()` method.
 
-:::caution
-
-You must pass the `__cflb` cookie with the Ory Session Cookie in your requests to leverage the benefits of
-[Edge Sessions](../../concepts/cache.mdx) and serve `/sessions/whoami` checks with 40ms latency.
-
-:::
-
 ````mdx-code-block
 <Tabs>
 <TabItem value="curl" label="cURL" default>
@@ -58,7 +51,7 @@ curl -H "Authorization: Bearer {your-session-token}" \
 To check for an active session with an Ory Session Cookie, run:
 
 ```shell
-curl -H "Cookie: ory_session_...=...; __cflb=..." \
+curl -H "Cookie: ory_session_...=..." \
   "https://{project.slug}.projects.oryapis.com/sessions/whoami"
 ```
 
