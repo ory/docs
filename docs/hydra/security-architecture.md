@@ -1,14 +1,14 @@
 ---
 id: security-architecture
-title: Security architecture
+title: OAuth 2.0 security overview
 ---
 
-Ory Hydra is built with tough security in mind.
+Ory OAuth2 and OpenID Connect is a certified OAuth2 and OpenID Connect provider. It is based on the popular, secure, and widely
+deployed open-source [Ory Hydra](https://github.com/ory/hydra).
 
-## OAuth 2.0 security overview
+## Security principles
 
-Ory Hydra is an implementation of the security-first [Ory Fosite OAuth 2.0 SDK](https://github.com/ory/fosite). Ory Fosite
-respects the [OAuth 2.0 Threat Model and Security Considerations](https://tools.ietf.org/html/rfc6819) by the IETF, specifically:
+Ory OAuth2 and OpenID Connect is designed to be secure by default. It follows the following principles:
 
 - No Cleartext Storage of Credentials
 - Encryption of Credentials
@@ -114,7 +114,3 @@ oauth2:
   hashers:
     algorithm: bcrypt
 ```
-
-## How does Access Control work with Hydra?
-
-See [OAuth 2.0 Token Introspection](guides/oauth2-token-introspection).
