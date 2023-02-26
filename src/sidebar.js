@@ -261,9 +261,6 @@ module.exports = {
             "hydra/faq",
           ],
         },
-        {
-          "Further Reading": ["hydra/security-architecture"],
-        },
       ],
     },
     {
@@ -371,6 +368,7 @@ module.exports = {
         "ecosystem/security",
         "kratos/concepts/security",
         "concepts/password-policy",
+        "hydra/security-architecture",
       ],
     },
     {
