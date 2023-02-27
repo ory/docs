@@ -88,7 +88,7 @@ result, what security measures are applied.
 
 - Browser applications are apps with which users interact through their web browsers. Two common types of browser applications are
   server-side rendered apps (SSR) and single-page apps (SPA). Since the application is rendered in the browser, the communication
-  between the user that interacts with the app and Ory must to be secured. This is achieved. by setting a CSRF cookie and token.
+  between the user that interacts with the app and Ory must be secured. This is achieved by setting a CSRF cookie and token.
 
   :::info
 
@@ -96,8 +96,8 @@ result, what security measures are applied.
 
   :::
 
-- Native applications are applications not rendered in the browser, such as Android mobile apps or desktop applications. Since the
-  application is not rendered in the browser, the CSRF cookie and token are not necessary.
+- Native applications, such as Android mobile apps or desktop applications, are not rendered in the browser. Since the application
+  is not rendered in the browser, the CSRF cookie and token are not necessary.
 
   :::info
 
@@ -117,7 +117,7 @@ You can create a flow by sending a GET request to the
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
-<TabItem value="curl-browser" label="cUrl (Browser flow)" default>
+<TabItem value="curl-browser" label="cURL (Browser flow)" default>
 
 ```mdx-code-block
 import createExampleLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/create-login-browser.sh'
@@ -134,7 +134,7 @@ On subsequent requests, you can use the `-b` flag to read the cookies from the f
 
 </TabItem>
 
-<TabItem value="curl-native" label="cUrl (Native flow)">
+<TabItem value="curl-native" label="cURL (Native flow)">
 
 ```mdx-code-block
 import createExampleLoginCurlNative from '!!raw-loader!../../../code-examples/curl/login/create-login-api.sh'
@@ -172,8 +172,8 @@ so that Ory can reach your application.
 
 ### Native application
 
-Native must use the API flows which don't set any cookies. The response contains all data required to render the UI. On successful
-login, Ory issues a session token that can be used to authenticate subsequent requests to Ory.
+Native applications must use the API flows which don't set any cookies. The response contains all data required to render the UI.
+On successful login, Ory issues a session token that can be used to authenticate subsequent requests to Ory.
 
 ## Fetching existing flows
 
@@ -203,7 +203,7 @@ This is an example of fetching an existing login flow:
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
-<TabItem value="curl-browser" label="cUrl (Browser flow)" default>
+<TabItem value="curl-browser" label="cURL (Browser flow)" default>
 
 :::tip
 
@@ -220,7 +220,7 @@ import getExampleLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl
 
 </TabItem>
 
-<TabItem value="curl-native" label="cUrl (Native flow)">
+<TabItem value="curl-native" label="cURL (Native flow)">
 
 ```mdx-code-block
 import getExampleLoginCurlNative from '!!raw-loader!../../../code-examples/curl/login/get-login-api.sh'
@@ -255,7 +255,7 @@ under the `flow.ui.action` key.
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
-<TabItem value="curl-browser" label="cUrl (Browser flow)" default>
+<TabItem value="curl-browser" label="cURL (Browser flow)" default>
 
 ```mdx-code-block
 import submitExampleLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/submit-login-browser.sh'
@@ -272,7 +272,7 @@ On subsequent requests, you can use the `-b` flag to read the cookies from the f
 
 </TabItem>
 
-<TabItem value="curl-native" label="cUrl (Native flow)">
+<TabItem value="curl-native" label="cURL (Native flow)">
 
 ```mdx-code-block
 import submitExampleLoginCurlNative from '!!raw-loader!../../../code-examples/curl/login/submit-login-api.sh'
@@ -326,7 +326,7 @@ Remember to use the correct API endpoints for your application type.
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
-<TabItem value="curl-browser" label="cUrl (Browser flow)">
+<TabItem value="curl-browser" label="cURL (Browser flow)">
 
 ```mdx-code-block
 import createLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/create-login-browser.sh'
@@ -345,7 +345,7 @@ On subsequent requests, you can use the `-b` flag to read the cookies from the f
 
 </TabItem>
 
-<TabItem value="curl-native" label="cUrl (Native flow)">
+<TabItem value="curl-native" label="cURL (Native flow)">
 
 ```mdx-code-block
 import createLoginCurlNative from '!!raw-loader!../../../code-examples/curl/login/create-login-api.sh'
@@ -422,7 +422,7 @@ data using the flow ID.
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
-<TabItem value="curl-browser" label="cUrl (Browser flow)">
+<TabItem value="curl-browser" label="cURL (Browser flow)">
 
 ```mdx-code-block
 import getLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/get-login-browser.sh'
@@ -440,7 +440,7 @@ On subsequent requests, you can use the `-b` flag to read the cookies from the f
 :::
 
 </TabItem>
-<TabItem value="curl-native" label="cUrl (Native flow)">
+<TabItem value="curl-native" label="cURL (Native flow)">
 
 ```mdx-code-block
 import getLoginCurlNative from '!!raw-loader!../../../code-examples/curl/login/get-login-api.sh'
@@ -502,7 +502,7 @@ field called `csrf_token`.
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
-<TabItem value="curl-browser" label="cUrl (Browser flow)">
+<TabItem value="curl-browser" label="cURL (Browser flow)">
 
 ```mdx-code-block
 import submitLoginCurlBrowser from '!!raw-loader!../../../code-examples/curl/login/submit-login-browser.sh'
@@ -521,7 +521,7 @@ On subsequent requests, you can use the `-b` flag to read the cookies from the f
 
 </TabItem>
 
-<TabItem value="curl-native" label="cUrl (Native flow)">
+<TabItem value="curl-native" label="cURL (Native flow)">
 
 ```mdx-code-block
 import submitLoginCurlNativeJson from '../../../code-examples/curl/login/submit-login-api.json'
@@ -595,7 +595,7 @@ Remember to use the correct API endpoints for your application type.
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
-<TabItem value="curl-browser" label="cUrl (Browser flow)">
+<TabItem value="curl-browser" label="cURL (Browser flow)">
 
 ```mdx-code-block
 import createRegistrationCurlBrowser from '!!raw-loader!../../../code-examples/curl/registration/create-registration-browser.sh'
@@ -613,7 +613,7 @@ On subsequent requests, you can use the `-b` flag to read the cookies from the f
 :::
 
 </TabItem>
-<TabItem value="curl-native" label="cUrl (Native flow)">
+<TabItem value="curl-native" label="cURL (Native flow)">
 
 ```mdx-code-block
 import createRegistrationCurlApi from '!!raw-loader!../../../code-examples/curl/registration/create-registration-api.sh'
@@ -689,7 +689,7 @@ data using the flow ID.
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
-<TabItem value="curl-browser" label="cUrl (Browser flow)">
+<TabItem value="curl-browser" label="cURL (Browser flow)">
 
 ```mdx-code-block
 import getRegistrationCurlBrowser from '!!raw-loader!../../../code-examples/curl/registration/get-registration-browser.sh'
@@ -708,7 +708,7 @@ On subsequent requests, you can use the `-b` flag to read the cookies from the f
 
 </TabItem>
 
-<TabItem value="curl-native" label="cUrl (Native flow)">
+<TabItem value="curl-native" label="cURL (Native flow)">
 
 ```mdx-code-block
 import getRegistrationCurlApi from '!!raw-loader!../../../code-examples/curl/registration/get-registration-api.sh'
@@ -781,7 +781,7 @@ import identitySchemaPartial from '../../../code-examples/curl/identity-schema-p
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
-<TabItem value="curl-browser" label="cUrl (Browser flow)">
+<TabItem value="curl-browser" label="cURL (Browser flow)">
 
 Take note of the payload. This example is based on the identity schema snippet and has two required traits, `traits.email` and `traits.tos`.
 
@@ -801,7 +801,7 @@ On subsequent requests, you can use the `-b` flag to read the cookies from the f
 :::
 
 </TabItem>
-<TabItem value="curl-native" label="cUrl (Native flow)">
+<TabItem value="curl-native" label="cURL (Native flow)">
 
 ```mdx-code-block
 import submitRegistrationCurlApi from '!!raw-loader!../../../code-examples/curl/registration/submit-registration-api.sh'
@@ -889,7 +889,7 @@ Remember to use the correct API endpoints for your application type.
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
-<TabItem value="curl-browser" label="cUrl (Browser flow)">
+<TabItem value="curl-browser" label="cURL (Browser flow)">
 
 ```mdx-code-block
 import createRecoveryCurlBrowser from '!!raw-loader!../../../code-examples/curl/recovery/create-recovery-browser.sh'
@@ -907,7 +907,7 @@ On subsequent requests, you can use the `-b` flag to read the cookies from the f
 :::
 
 </TabItem>
-<TabItem value="curl-native" label="cUrl (Native flow)">
+<TabItem value="curl-native" label="cURL (Native flow)">
 
 ```mdx-code-block
 import createRecoveryCurlApi from '!!raw-loader!../../../code-examples/curl/recovery/create-recovery-api.sh'
@@ -979,7 +979,7 @@ data using the flow ID.
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
-<TabItem value="curl-browser" label="cUrl (Browser flow)">
+<TabItem value="curl-browser" label="cURL (Browser flow)">
 
 ```mdx-code-block
 import getRecoveryCurlBrowser from '!!raw-loader!../../../code-examples/curl/recovery/get-recovery-browser.sh'
@@ -997,7 +997,7 @@ On subsequent requests, you can use the `-b` flag to read the cookies from the f
 :::
 
 </TabItem>
-<TabItem value="curl-native" label="cUrl (Native flow)">
+<TabItem value="curl-native" label="cURL (Native flow)">
 
 ```mdx-code-block
 import getRecoveryCurlApi from '!!raw-loader!../../../code-examples/curl/recovery/get-recovery-api.sh'
@@ -1056,7 +1056,7 @@ field to submit the received code the user gets after they submit their email.
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
-<TabItem value="curl-browser" label="cUrl (Browser flow)">
+<TabItem value="curl-browser" label="cURL (Browser flow)">
 
 ```mdx-code-block
 import submitRecoveryCurlBrowser from '!!raw-loader!../../../code-examples/curl/recovery/submit-recovery-browser.sh'
@@ -1074,7 +1074,7 @@ On subsequent requests, you can use the `-b` flag to read the cookies from the f
 :::
 
 </TabItem>
-<TabItem value="curl-native" label="cUrl (Native flow)">
+<TabItem value="curl-native" label="cURL (Native flow)">
 
 ```mdx-code-block
 import submitRecoveryCurlApi from '!!raw-loader!../../../code-examples/curl/recovery/submit-recovery-api.sh'
@@ -1157,7 +1157,7 @@ Remember to use the correct API endpoints for your application type.
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
-<TabItem value="curl-browser" label="cUrl (Browser flow)">
+<TabItem value="curl-browser" label="cURL (Browser flow)">
 
 ```mdx-code-block
 import createVerificationCurlBrowser from '!!raw-loader!../../../code-examples/curl/verification/create-verification-browser.sh'
@@ -1176,7 +1176,7 @@ On subsequent requests, you can use the `-b` flag to read the cookies from the f
 
 </TabItem>
 
-<TabItem value="curl-native" label="cUrl (Native flow)">
+<TabItem value="curl-native" label="cURL (Native flow)">
 
 ```mdx-code-block
 import createVerificationCurlApi from '!!raw-loader!../../../code-examples/curl/verification/create-verification-api.sh'
@@ -1253,7 +1253,7 @@ data using the flow ID.
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
-<TabItem value="curl-browser" label="cUrl (Browser flow)">
+<TabItem value="curl-browser" label="cURL (Browser flow)">
 
 ```mdx-code-block
 import getVerificationCurlBrowser from '!!raw-loader!../../../code-examples/curl/verification/get-verification-browser.sh'
@@ -1272,7 +1272,7 @@ On subsequent requests, you can use the `-b` flag to read the cookies from the f
 
 
 </TabItem>
-<TabItem value="curl-native" label="cUrl (Native flow)">
+<TabItem value="curl-native" label="cURL (Native flow)">
 
 ```mdx-code-block
 import getVerificationCurlApi from '!!raw-loader!../../../code-examples/curl/verification/get-verification-api.sh'
@@ -1332,7 +1332,7 @@ shows a field to submit the received code the user gets after they submit their 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
 
-<TabItem value="curl-browser" label="cUrl (Browser flow)">
+<TabItem value="curl-browser" label="cURL (Browser flow)">
 
 ```mdx-code-block
 import submitVerificationCurlBrowser from '!!raw-loader!../../../code-examples/curl/verification/submit-verification-browser.sh'
@@ -1350,7 +1350,7 @@ On subsequent requests, you can use the `-b` flag to read the cookies from the f
 :::
 
 </TabItem>
-<TabItem value="curl-native" label="cUrl (Native flow)">
+<TabItem value="curl-native" label="cURL (Native flow)">
 
 ```mdx-code-block
 import submitVerificationCurlApi from '!!raw-loader!../../../code-examples/curl/verification/submit-verification-api.sh'
@@ -1411,7 +1411,7 @@ body to the [`/self-service/logout/api`](../reference/api#tag/frontend/operation
 
 ````mdx-code-block
 <Tabs groupId="curl-flow-examples">
-<TabItem value="curl-browser" label="cUrl (Browser flow)">
+<TabItem value="curl-browser" label="cURL (Browser flow)">
 
 ```mdx-code-block
 import createLogoutCurlBrowser from '!!raw-loader!../../../code-examples/curl/logout/create-logout-browser.sh'
@@ -1431,7 +1431,7 @@ On subsequent requests, you can use the `-b` flag to read the cookies from the f
 :::
 
 </TabItem>
-<TabItem value="curl-native" label="cUrl (Native flow)">
+<TabItem value="curl-native" label="cURL (Native flow)">
 
 ```mdx-code-block
 import logoutCurlApi from '!!raw-loader!../../../code-examples/curl/logout/logout-api.sh'
@@ -1492,7 +1492,7 @@ import whoamiNative from '!!raw-loader!../../../code-examples/sdk/typescript/src
 
 </TabItem>
 
-<TabItem value="curl-browser" label="cUrl (Browser flow)">
+<TabItem value="curl-browser" label="cURL (Browser flow)">
 
 ```mdx-code-block
 import whoamiCurlBrowser from '!!raw-loader!../../../code-examples/curl/session/check-session-browser.sh'
@@ -1504,7 +1504,7 @@ import whoamiCurlBrowserJson from '../../../code-examples/curl/session/check-ses
 
 </TabItem>
 
-<TabItem value="curl-native" label="cUrl (Native flow)">
+<TabItem value="curl-native" label="cURL (Native flow)">
 
 ```mdx-code-block
 import whoamiCurlNative from '!!raw-loader!../../../code-examples/curl/session/check-session-api.sh'
