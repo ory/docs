@@ -27,6 +27,11 @@ automatically add a new lead to your CRM when a user registers in your applicati
 You can use webhooks to modify user data when certain events occur. For example, you can use webhooks to update user data in your
 application when a user updates their profile information in another system.
 
+**Passing additional data on registration**
+
+When building your own UI you can pass additional data when completing the registration flow that gets forwarded to any configured
+webhooks. This can be used to solve more complex use cases that would be out of scope for identity traits.
+
 :::tip
 
 Always put security first! When using webhooks, ensure that the data you send is secure and that the external system you are
@@ -121,8 +126,8 @@ Webhooks trigger HTTP requests to the webhook URL. You can configure the request
 
 Webhooks bind the `flow`, as well as request headers (`request_headers`), request method (`request_method`), and the request URL
 (`request_url`) of the flow into the Jsonnet template for all methods and execution paths (before and after). For the `after`
-execution path of all flows, it binds the `identity` object into the Jsonnet template as well. These objects are available through
-a `ctx` object.
+execution path of all flows, it binds the `identity` and the `transient_payload` object into the Jsonnet template as well. These
+objects are available through a `ctx` object.
 
 To send `{ user_id: {some-id} }` in the request body, create the following the [Jsonnet](https://jsonnet.org) template:
 
@@ -145,6 +150,9 @@ function(ctx) { user_id: ctx.identity.id }
       "issued_at": "2023-01-31T11:19:35.782238Z",
       "oauth2_login_challenge": null,
       "request_url": "https://playground.projects.oryapis.com/self-service/registration/browser?return_to=",
+      "transient_payload": {
+        "custom_data": "test"
+      },
       "type": "browser",
       "ui": {
         "action": "http://localhost:4455/self-service/registration?flow=cec1c06e-48eb-4f9d-abf1-2e287371f4eb",
@@ -307,6 +315,7 @@ Use the `ctx` object to access these fields in your Jsonnet template, for exampl
 ```jsonnet title="./segment_identify.jsonnet"
 function(ctx) {
   userId: ctx.identity.id,
+  customData: ctx.transient_payload.custom_data
   traits: {
     email: ctx.identity.traits.email,
     name: ctx.identity.traits.name,

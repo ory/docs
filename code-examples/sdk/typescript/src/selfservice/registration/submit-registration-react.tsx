@@ -64,6 +64,9 @@ export const Registration = () => {
       body = {
         ...body,
         ...{ [method.name]: method.value },
+        transient_payload: {
+          consents: "newsletter,usage_stats",
+        },
       }
     }
 
