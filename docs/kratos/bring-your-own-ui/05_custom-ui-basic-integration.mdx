@@ -766,15 +766,15 @@ when creating or getting the registration flow. This property contains the regis
 the POST request payload. To learn more about customizing your identity schema please refer to
 [Identity model](../manage-identities/01_overview.mdx) documentation.
 
-For more complex use cases you can pass additional data to the flow by utilising the optional `transient_payload` field. This data
-gets forwarded to webhooks without beeing persisted by Ory like identity traits do. To learn how to configure and use a webhook,
-please have a look at the [Webhooks](../../guides/integrate-with-ory-cloud-through-webhooks.mdx) documentation.
+For more complex use cases you can pass additional data to the flow using the optional `transient_payload` field. This data gets
+forwarded to webhooks without being persisted by Ory like identity traits do. To learn how to configure and use a webhook, please
+have a look at the [Webhooks](../../guides/integrate-with-ory-cloud-through-webhooks.mdx) documentation.
 
 For browser applications you must send all cookies and the CSRF token in the request body. The CSRF token value is a hidden input
 field called `csrf_token`.
 
-Examples in this section are based of the following identity schema snippet and submit the required traits `traits.email` and
-`traits.tos`. Also an example `transient_payload` was added to demonstrate it's usage.
+Examples in this section are based on the following identity schema snippet and submit the required traits `traits.email` and
+`traits.tos`. Also a sample `transient_payload` was added to demonstrate its usage.
 
 ```mdx-code-block
 import identitySchemaPartial from '../../../code-examples/curl/identity-schema-partial.json'
