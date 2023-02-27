@@ -428,6 +428,10 @@
             "description": "CORS Enabled for the custom hostname.",
             "type": "boolean"
           },
+          "custom_ui_base_url": {
+            "description": "The base URL where the custom user interface will be exposed.",
+            "type": "string"
+          },
           "hostname": {
             "description": "The custom hostname where the API will be exposed.",
             "type": "string"
@@ -630,6 +634,9 @@
           },
           "created_at": {
             "format": "date-time",
+            "type": "string"
+          },
+          "custom_ui_base_url": {
             "type": "string"
           },
           "hostname": {
@@ -4913,6 +4920,10 @@
           "cors_enabled": {
             "description": "CORS Enabled for the custom hostname.",
             "type": "boolean"
+          },
+          "custom_ui_base_url": {
+            "description": "The custom UI base URL where the UI will be exposed.",
+            "type": "string"
           },
           "hostname": {
             "description": "The custom hostname where the API will be exposed.",
