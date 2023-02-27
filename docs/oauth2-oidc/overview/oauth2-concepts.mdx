@@ -1,0 +1,247 @@
+---
+id: oauth2-concepts
+title: Comprehensive OAuth 2.0 overview
+sidebar_label: OAuth2
+---
+
+OAuth 2.0 is an authorization framework that enables applications to access user accounts on an HTTP service. This guide provides
+an overview of OAuth 2 roles, grant types, use cases, and flows, geared towards application developers. OAuth 2.0 provides access
+to resources hosted by other web apps on behalf of a user, without sharing the user's credentials. The specification also covers
+delegated access to client types such as browser-based, server-side web, native/mobile apps, and connected devices. This post aims
+to simplify the terminology and decisions required for most OAuth 2 implementations.
+
+## OAuth2 Actors
+
+OAuth2 has different actors defined in the authentication and authorization process. These actors work together to ensure that the
+user's information is kept secure and that the application only accesses the information that the user has explicitly granted
+permission for.
+
+### The User: "Resource Owner"
+
+The Resource Owner is the person or system that owns the protected resources, such as an account, file, or data, and has the
+ability to grant access to them. In the context of OAuth2 and OpenID Connect, the Resource Owner is typically a user who has an
+account with a service or application.
+
+When an application wants to access a Resource Owner's account, it must first request authorization from the Resource Owner. The
+Resource Owner has the ability to limit the application's access to their account to a specific scope, such as read or write
+access, as defined by the application. This means that the application can only access the user's account within the limits of the
+authorization granted.
+
+For example, if a user wants to use an application that requires access to their email account, the user must first grant the
+application permission to access their account. The user can choose to grant access only to specific emails or folders, or limit
+the application's access to read-only mode. The Resource Owner is in complete control of who can access their account and what
+level of access they are granted.
+
+With Ory OAuth2 and OpenID Connect, developers have the flexibility to use their own user management systems to store and manage
+Resource Owners, while still taking advantage of the robust authorization and authentication mechanisms provided by these
+protocols. Per default, Ory Identities is used to store and manage Resource Owners in Ory.
+
+### The Application: "OAuth2 Client"
+
+The OAuth2 client is the application that requires access to protected resources, such as a user's account or data. Before the
+client can access these resources, it must first obtain an Access Token, which serves as proof of authorization to access the
+requested resources. The client must first be authorized by the Resource Owner and must hold a valid Access Token in order to
+access protected resources. The API server that hosts the protected resources will validate the Access Token to ensure that the
+client is authorized to access the requested resources.
+
+### The API: "Resource Server"
+
+The Resource Server is a server that hosts and protects the user's resources, such as their account information or data. It is
+typically an API server that exposes a set of endpoints that allow clients to access the protected resources. The Resource Server
+receives access requests from the OAuth2 Client and verifies the Access Token presented with the request to ensure that the
+request is authorized. If the Access Token is valid and authorized, the Resource Server returns the appropriate resources to the
+client. If the Access Token is invalid or unauthorized, the Resource Server returns an error message to the client.
+
+## The OAuth 2.0 scope represents user consent
+
+OAuth2 scope is a parameter used to specify the level of access that OAuth2 Clients have to protected resources. It enables
+Resource Owners to define specific permissions or actions that a client is authorized to perform in their name.
+
+Scopes are an important concept in OAuth 2.0, as they are used to specify exactly why access to resources may be granted. For
+example, a scope may include read access to a user's email, write access to a user's calendar, or access to a specific set of
+files. The acceptable scope values, and which resources they relate to, are dependent on the Resource Server.
+
+It is important to note that the difference between scope and permission is that scopes define what the client is authorized to
+access in the name of the user, whereas permissions define what the user themselves are allowed to do. By using scope, users can
+control the level of access that clients have to protected resources. But the user has access to "their" resources only, not the
+resources (e.g. photos) of another user.
+
+### The Authorization Server: Ory OAuth2 & OpenID Connect
+
+The Authorization Server is a critical component in the OAuth2 flow. It receives requests from the Client for Access Tokens and
+issues them upon successful authentication and consent by the Resource Owner. The authorization server exposes two endpoints: the
+Authorization endpoint and the Token endpoint. The Authorization endpoint is responsible for handling the interactive
+authentication and consent of the user, while the Token endpoint is involved in a machine-to-machine interaction.
+
+The Authorization endpoint is where the Resource Owner approves or denies the request from the Client. This endpoint presents an
+interface to the Resource Owner that allows them to view the scope of the requested access and make an informed decision about
+whether to grant or deny access to their resources. In smaller implementations, the Authorization Server may be combined with the
+API server, but larger scale deployments will often build this as a separate component.
+
+## Creating an OAuth2 Client
+
+Creating an OAuth2 Client is a necessary step to enable your application to use the OAuth2 flow. Before using OAuth with your
+application, you must first register your application with the service you plan to integrate with. This is done through a
+registration form in the developer or API portion of the service’s website, where you will provide the following information about
+your application: Application Name, Application Website, and a Redirect URI or Callback URL.
+
+The Application Name and Website are basic pieces of information that identify your application. The Redirect URI or Callback URL
+is a crucial part of the registration process as it is where the service will redirect the user after they authorize (or deny)
+your application. The Redirect URI is also where your application will handle authorization codes or access tokens, making it an
+important component of the OAuth2 flow.
+
+It is important to ensure that the Redirect URI or Callback URL is correctly specified during the registration process, as it is a
+critical part of the OAuth2 flow. Without a correctly specified Redirect URI, the OAuth2 flow will not be able to complete
+successfully, resulting in an error for the user. Overall, registering your application with the service and specifying the
+correct Redirect URI or Callback URL is a necessary step to enable your application to use the OAuth2 flow and access protected
+resources.
+
+#### Client ID and secret
+
+Once you have registered your application with the service, you will typically receive a Client ID and optionally a Client Secret
+from the Authorization Server. These are unique identifiers that allow the Authorization Server to identify your application and
+enable it to access protected resources. The Client ID is considered public information and can be included in JavaScript source
+code or used to build login URLs. The Client Secret, however, must be kept confidential and is used to authenticate the client to
+the Authorization Server.
+
+The `token_endpoint_auth_method` parameter is an optional parameter that is used to specify the client authentication method when
+requesting an Access Token. This parameter is included in the request to the Token endpoint and can be set to a variety of values,
+including `client_secret_basic` (default), `client_secret_post`, and `none`. The value of this parameter can affect how the client
+authenticates itself to the Authorization Server.
+
+For example, if the value of the `token_endpoint_auth_method` parameter is set to `client_secret_basic`, the client will
+authenticate itself to the Authorization Server by including the Client ID and Client Secret in the Authorization header of the
+request:
+
+```
+POST /oauth2/token
+Host: server.example.com
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic base64(urlencoded(id):urlencoded(secret))
+```
+
+If the value of the `token_endpoint_auth_method` parameter is set to `client_secret_post`, the client will authenticate itself to
+the Authorization Server by including the Client ID and Client Secret in the form body of the request:
+
+```
+POST /oauth2/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=id&client_secret=secret
+```
+
+The `none` method is typically used for public clients, such as Single Page Applications (SPAs) and mobile apps, which are not
+capable of keeping a client secret confidential. When the token_endpoint_auth_method parameter is set to "none", the client does
+not include any credentials when requesting an Access Token. This means that the client relies solely on the redirect URI to
+securely receive the Access Token, rather than using a shared secret to authenticate itself to the Authorization Server.
+
+## Getting a client token
+
+OAuth2 defines several grant types, each of which is intended for a specific type of client application.
+
+### Client credentials flow
+
+The client credentials flow is designed for non-interactive applications, such as automated processes or microservices, where the
+client is authenticated using its client ID and client secret. In this flow, the application sends a POST request to the
+Authorization Server, including its credentials and a request for an access token. If the credentials are verified, the
+Authorization Server returns an access token to the application, which can then use it to access its own account.
+
+Fore more information, see the [Client Credentials Flow](../client-credentials.mdx).
+
+### Authorization code flow
+
+The authorization code flow, on the other hand, is the most commonly used flow and is optimized for server-side applications where
+client secret confidentiality can be maintained. In this flow, the user is first presented with an authorization code link that
+includes the application's client ID and other parameters, such as the redirect URI and the requested scope of access. After the
+user approves the application, the service redirects the user-agent to the redirect URI specified by the application, including an
+authorization code. The application then exchanges this code, along with its client secret, for an access token using the token
+endpoint.
+
+It's worth noting that in this flow, the client secret cannot be stored securely, since it needs to be included in the request to
+the token endpoint. For this reason, single-page applications and mobile/native apps are often not appropriate for this flow, and
+should instead use the authorization code with PKCE grant. In addition, the scope parameter is used to specify the level of access
+that the application is requesting, and acceptable scope values are dependent on the Resource Server. Overall, the authorization
+code flow is a redirection-based flow that relies on the user-agent (i.e. the user’s web browser) and API authorization codes to
+securely handle authentication and consent.
+
+Fore more information, see the [OAuth 2.0 Authorization Code flow](../authorization-code-flow.mdx).
+
+## Use case examples
+
+### Server-side web apps
+
+Server-side web applications, such as those built with Node.js or PHP, are typically best suited to using the
+[OAuth 2.0 Authorization Code flow](../authorization-code-flow.mdx). This is because server-side applications are able to keep the
+client secret confidential, which is necessary for using the authorization code flow.
+
+In addition, it is recommended that server-side web applications use the authorization code flow with PKCE to provide an added
+layer of security. The PKCE extension helps to mitigate the risk of attacks by requiring the client to generate a code verifier
+for every authorization request, which is then transformed into a code challenge and sent to the authorization endpoint along with
+the request.
+
+### Mobile apps
+
+When it comes to mobile applications, the [OAuth 2.0 Authorization Code flow](../authorization-code-flow.mdx) is the recommended
+flow to use with OAuth2. Because mobile applications are considered "public clients," it is highly recommended to use the
+Authorization Code flow with Proof Key for Code Exchange (PKCE) extension.
+
+### Single page apps
+
+Single page applications (SPAs) are web applications that run inside a web browser and dynamically update the page as the user
+interacts with the application. Because the client-side code of an SPA is fully exposed to the user, it's not safe to store a
+client secret in the application. As a result, SPAs should also use the
+[OAuth 2.0 Authorization Code flow](../authorization-code-flow.mdx) flow with PKCE, to ensure the client secret is not exposed.
+
+For example, an SPA that uses OAuth 2.0 to access Google APIs would use the Authorization Code flow with PKCE. When the user
+clicks the "Sign in with Google" button, the SPA would redirect the user to Google's authorization endpoint, where they would be
+prompted to grant permission for the application to access their Google account. If the user grants permission, Google will return
+an authorization code to the SPA, which can then exchange it for an access token using the token endpoint. The SPA can then use
+the access token to access the user's data on Google's APIs. By using PKCE, the SPA can ensure that the authorization code cannot
+be intercepted and used by an attacker.
+
+### Smart devices
+
+The device code flow is designed for devices that have limited inputs or do not have a web browser, and need to obtain an access
+token to access a user’s account. This grant type provides an easier way for users to authorize applications on such devices to
+access their accounts. It is particularly useful in scenarios where users want to sign in to an application on a device that lacks
+a typical keyboard input, such as a smart TV or video game console.
+
+With the device code grant type, the user initiates the flow on a separate device, such as a phone or computer, and is presented
+with a device code. The user then enters this code on the device that needs to obtain the access token. This device will
+periodically poll the authorization server until the user grants or denies the authorization request. Once the user grants access,
+the device receives an access token that can be used to access the user's account.
+
+## Accessing APIs access
+
+Sending an access token to a resource server usually involves including the token in the HTTP `Authorization` header of the
+request. Here's an example code snippet in JavaScript that shows how to do this:
+
+```js
+const fetch = require("node-fetch")
+const accessToken = "your_access_token_here"
+
+fetch("https://api.example.com/resource", {
+  headers: {
+    Authorization: "Bearer " + accessToken,
+  },
+})
+  .then((response) => response.json())
+  .then((data) => console.log(data))
+  .catch((error) => console.error(error))
+```
+
+In this example, the access token is included in the `Authorization` header of the GET request to the resource server API
+endpoint. The `Bearer` keyword indicates that the token is a bearer token, which is a type of access token that can be used by any
+client to access the protected resources. The resource server will then verify the token and grant or deny access based on the
+token's validity and the scope of access that was granted.
+
+## Resource Owner Password Credentials flow
+
+Ory doesn't support the Resource Owner Password Credentials Grant Type as we prepare for [OAuth 2.1](https://oauth.net/2.1/) which
+removed this grant type.
+
+## Implicit flow
+
+As the industry has evolved, so has the best practice for implementing OAuth2 in mobile and native apps. Previously, the Implicit
+grant was recommended, but it has since been found to be less secure. The current recommendation is to use the authorization code
+flow with PKCE for native apps, which provides greater security for both the user and the application.
