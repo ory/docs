@@ -983,6 +983,11 @@
       "source": "/docs/kratos/guides/custom-ui",
       "destination": "https://www.ory.sh/docs/kratos/bring-your-own-ui/overview",
       "permanent": false
+    },
+    {
+      "source": "/docs/hydra/limitations",
+      "destination": "https://www.ory.sh/docs/oauth2-oidc/overview/oauth2-concepts",
+      "permanent": false
     }
   ]
 }
