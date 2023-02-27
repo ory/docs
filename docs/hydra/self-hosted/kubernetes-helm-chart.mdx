@@ -155,7 +155,8 @@ helm install hydra-example ory/hydra \
     --set 'hydra.config.urls.logout=http://example-idp.localhost/logout' \
     --set 'ingress.public.enabled=true' \
     --set 'ingress.admin.enabled=true' \
-    --set 'hydra.dangerousForceHttp=true'
+    --set 'hydra.dangerousForceHttp=true' \
+    --set 'hydra.dev=true'
 ```
 
 with hostnames
