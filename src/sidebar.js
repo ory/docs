@@ -233,8 +233,6 @@ module.exports = {
               label: "Configuration",
               items: [
                 "hydra/guides/client-token-expiration",
-                "hydra/guides/cookies",
-                "hydra/guides/cors",
               ],
             },
             {
@@ -313,7 +311,7 @@ module.exports = {
         {
           type: "category",
           label: "Analytics Integrations",
-          items: ["actions/integrations/segment"],
+          items: ["actions/integrations/segment"]
         },
       ],
     },
@@ -505,6 +503,8 @@ module.exports = {
                 "hydra/self-hosted/kubernetes-helm-chart",
                 "hydra/self-hosted/ssl-https-tls",
                 "hydra/self-hosted/tracing",
+                "hydra/guides/cookies",
+                "hydra/guides/cors",
               ],
             },
             {
