@@ -231,9 +231,7 @@ module.exports = {
             {
               type: "category",
               label: "Configuration",
-              items: [
-                "hydra/guides/client-token-expiration",
-              ],
+              items: ["hydra/guides/client-token-expiration"],
             },
             {
               type: "category",
@@ -311,7 +309,7 @@ module.exports = {
         {
           type: "category",
           label: "Analytics Integrations",
-          items: ["actions/integrations/segment"]
+          items: ["actions/integrations/segment"],
         },
       ],
     },
