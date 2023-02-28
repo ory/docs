@@ -1,210 +1,89 @@
 ---
 id: client-token-expiration
-title: Configure instance-wide token expiration time or adjust it for individual OAuth2 clients
-sidebar_label: Configure token expiration time
+title: Configure token expiration time
+sidebar_label: Configure token expiration
 ---
 
-The Ory Hydra `config.yaml` file located in the main Ory Hydra directory allows you to adjust:
+This guide will help you configure the token expiration time for various tokens in Ory, including the user login and consent flow,
+access tokens, ID tokens, auth codes, and refresh tokens.
 
-- Expiration time of the user login and consent flow
-- Expiration time for an access token
-- Expiration time for an ID token
-- Expiration time for auth codes
+## Access token
 
-This configuration is instance-wide, which means that it applies to all registered clients.
+Access tokens are short-lived tokens that grant access to resources for a limited time. By default, the access token in Ory lasts
+for one hour. However, you can configure the access token's expiration time per client or globally by using the Ory CLI.
 
-If you need to set different token lifespans for specific clients, you can do that by calling the
-[OAuth2ClientLifespans](../reference/api#operation/UpdateOAuth2ClientLifespans) endpoint of the Ory Hydra Admin API. The client
-configuration takes precedence over the instance-wide configuration. Read
-[this section](#lifespan-configuration-for-specific-clients) to learn more.
+Use the Ory CLI to configure the access token's lifespan. The following command sets the access token's lifespan to two hours
+globally:
 
-## Instance-wide configuration
-
-You can change the configuration on the instance-wide level by adjusting specific keys in the Ory Hydra configuration.
-
-### Login and consent request flow expiration
-
-The `ttl.login_consent_request` key defines the expiration time of the user login and consent flow.
-
-```json title="path/to/hydra/config.yaml"
-#....
-  ## login_consent_request ##
-  #
-  # Defines the expiration time of the user login and consent flow.
-  #
-  # Default value: 1h
-  #
-  # Set this value using environment variables on
-  # - Linux/macOS:
-  #    export TTL_LOGIN_CONSENT_REQUEST=<value>
-  # - Windows Command Line (CMD):
-  #    > set TTL_LOGIN_CONSENT_REQUEST=<value>
-  #
-  login_consent_request: 1h
- #....
+```shell
+ory patch oauth2-config {project.id} \
+  --replace "/ttl/access_token=\"2h\"" \
+  --format yaml
 ```
 
-### Access token expiration
+## Refresh token
 
-The `ttl.access_token` key defines the expiration time of access tokens.
+Refresh tokens are long-lived tokens that are used to obtain new access tokens. By default, the refresh token in Ory lasts for 30
+days.
 
-```yaml title="path/to/hydra/config.yaml"
-#....
-## access_token ##
-#
-# Defines how long access tokens are valid.
-#
-# Default value: 1h
-#
-# Set this value using environment variables on
-# - Linux/macOS:
-#    export TTL_ACCESS_TOKEN=<value>
-# - Windows Command Line (CMD):
-#    > set TTL_ACCESS_TOKEN=<value>
-#
-access_token:
-  1h
-  #....
-```
+:::note
 
-### Refresh token expiration
-
-The `ttl.refresh_token` key defines the expiration time of refresh tokens.
-
-:::tip
-
-When set to `-1`, refresh tokens never expire.
+The maximum age of refresh tokens is 6 months. This means that refresh tokens must be rotated at least every 6 months.
 
 :::
 
-```yaml title="path/to/hydra/config.yaml"
-#....
-## refresh_token ##
-#
-# Defines how long refresh tokens are valid. Set to -1 for refresh tokens to never expire.
-#
-# Default value: 720h
-#
-# Set this value using environment variables on
-# - Linux/macOS:
-#    export TTL_REFRESH_TOKEN=<value>
-# - Windows Command Line (CMD):
-#    > set TTL_REFRESH_TOKEN=<value>
-#
-refresh_token:
-  "-1"
-  #....
+Use the Ory CLI to configure the refresh token's lifespan. The following command sets the refresh token's lifespan to one day
+globally:
+
+```shell
+ory patch oauth2-config {project.id} \
+  --replace "/ttl/refresh_token=\"24h\"" \
+  --format yaml
 ```
 
-### ID token expiration
+## Authorization code
 
-The `ttl.id_token` key defines the expiration time of ID tokens.
+Auth codes are temporary codes that are exchanged for access tokens. By default, the auth code in Ory lasts for ten minutes. For
+example, if you want the auth code to last for five minutes, you can set the config as follows:
 
-```yaml title="path/to/hydra/config.yaml"
-#....
-## id_token ##
-#
-# Defines how long id tokens are valid.
-#
-# Default value: 1h
-#
-# Set this value using environment variables on
-# - Linux/macOS:
-#    export TTL_ID_TOKEN=<value>
-# - Windows Command Line (CMD):
-#    > set TTL_ID_TOKEN=<value>
-#
-id_token:
-  1h
-  #....
+```shell
+ory patch oauth2-config {project.id} \
+  --replace "/ttl/authorization_code=\"5m\"" \
+  --format yaml
 ```
 
-### Auth code expiration
+## ID Token
 
-The `ttl.auth_code` defines the expiration time of auth codes.
+ID tokens are JSON Web Tokens (JWTs) that contain user identity information. By default, the ID token in Ory lasts for one hour.
+However, you can modify this value using:
 
-```yaml title="path/to/hydra/config.yaml"
-#....
-## auth_code ##
-#
-# Defines how long auth codes are valid.
-#
-# Default value: 10m
-#
-# Set this value using environment variables on
-# - Linux/macOS:
-#    export TTL_AUTH_CODE=<value>
-# - Windows Command Line (CMD):
-#    > set TTL_AUTH_CODE=<value>
-#
-auth_code:
-  1h
-  #....
+```shell
+ory patch oauth2-config {project.id} \
+  --replace "/ttl/id_token=\"5m\"" \
+  --format yaml
+```
+
+## Login and consent flow
+
+The user login and consent flow in Ory defines how long the user has to submit login credentials and consent. By default, the user
+session lasts for 1 hour. However, you can modify this value using the Ory CLI:
+
+```shell
+ory patch oauth2-config {project.id} \
+  --replace "/ttl/login_consent_request=\"2h\"" \
+  --format yaml
 ```
 
 ## Lifespan configuration for specific clients
 
-To adjust the configuration for a specific client, call the
-[OAuth2ClientLifespans](../reference/api#operation/UpdateOAuth2ClientLifespans) endpoint of the Hydra admin API. This endpoint
-allows to configure every combination of client, grant type, and token type.
+In Ory, you can modify the access, ID, and refresh token lifespan for each grant type (`authorization_code`, `implicit`,
+`refresh_token`, `client_credentials`, `urn:ietf:params:oauth:grant-type:jwt-bearer`) individually per client.
 
-:::tip
+To configure the lifespan for specific clients, use the SDK:
 
-The configuration applied to a specific client using this endpoint precedes the instance-wide configuration set in the Hydra
-configuration file.
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import tsExample from '!!raw-loader!../../../code-examples/sdk/typescript/src/oauth2/client-lifespan.ts'
 
-:::
-
-For example, to update the configuration of a client registered in a Hydra instance that runs locally, send this request:
-
-```shell
-$ curl -H "Content-Type: application/json" \
-  -X PUT https://localhost:4445/clients/db779000-01f3-4c12-bf70-ff85933d485e/lifespans --data '{
-    "authorization_code_grant_access_token_lifespan": "1h",
-    "authorization_code_grant_id_token_lifespan": "12h",
-    "authorization_code_grant_refresh_token_lifespan": "24h",
-    "client_credentials_grant_access_token_lifespan": "1h",
-    "implicit_grant_access_token_lifespan": "1h",
-    "implicit_grant_id_token_lifespan": "12h",
-    "jwt_bearer_grant_access_token_lifespan": "1h",
-    "refresh_token_grant_access_token_lifespan": "1h",
-    "refresh_token_grant_id_token_lifespan": "12h",
-    "refresh_token_grant_refresh_token_lifespan": "24h"
-  }' 2>/dev/null | jq
-{
-  "client_id": "db779000-01f3-4c12-bf70-ff85933d485e",
-  "client_name": "",
-  "redirect_uris": [],
-  "grant_types": [],
-  "response_types": [],
-  "scope": "offline_access offline openid",
-  "audience": [],
-  "owner": "",
-  "policy_uri": "",
-  "allowed_cors_origins": [],
-  "tos_uri": "",
-  "client_uri": "",
-  "logo_uri": "",
-  "contacts": [],
-  "client_secret_expires_at": 0,
-  "subject_type": "public",
-  "jwks": {},
-  "token_endpoint_auth_method": "client_secret_basic",
-  "userinfo_signed_response_alg": "none",
-  "created_at": "2022-08-02T09:40:07Z",
-  "updated_at": "2022-08-02T11:45:35.322963+02:00",
-  "metadata": {},
-  "authorization_code_grant_access_token_lifespan": "1h0m0s",
-  "authorization_code_grant_id_token_lifespan": "12h0m0s",
-  "authorization_code_grant_refresh_token_lifespan": "24h0m0s",
-  "client_credentials_grant_access_token_lifespan": "1h0m0s",
-  "implicit_grant_access_token_lifespan": "1h0m0s",
-  "implicit_grant_id_token_lifespan": "12h0m0s",
-  "jwt_bearer_grant_access_token_lifespan": "1h0m0s",
-  "password_grant_access_token_lifespan": null,
-  "password_grant_refresh_token_lifespan": null,
-  "refresh_token_grant_id_token_lifespan": "12h0m0s",
-  "refresh_token_grant_access_token_lifespan": "1h0m0s",
-  "refresh_token_grant_refresh_token_lifespan": "24h0m0s"
-}
+<CodeBlock language="tsx">{tsExample}</CodeBlock>
 ```

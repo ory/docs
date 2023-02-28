@@ -130,6 +130,12 @@ can consider the following storage layers:
 You can adjust the Refresh Token lifespan (TTL) using the `/ttl/refresh_token` configuration key. By default, the TTL is set to 1
 hour.
 
+:::note
+
+The maximum age of refresh tokens is 6 months. This means that refresh tokens must be rotated at least every 6 months.
+
+:::
+
 ```bash
 ory patch oauth2-config {project.id} \
   --replace "/ttl/refresh_token=\"900h\"" \
