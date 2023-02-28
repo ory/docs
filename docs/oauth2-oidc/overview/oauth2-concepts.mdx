@@ -52,20 +52,6 @@ receives access requests from the OAuth2 Client and verifies the Access Token pr
 request is authorized. If the Access Token is valid and authorized, the Resource Server returns the appropriate resources to the
 client. If the Access Token is invalid or unauthorized, the Resource Server returns an error message to the client.
 
-## The OAuth 2.0 scope represents user consent
-
-OAuth2 scope is a parameter used to specify the level of access that OAuth2 Clients have to protected resources. It enables
-Resource Owners to define specific permissions or actions that a client is authorized to perform in their name.
-
-Scopes are an important concept in OAuth 2.0, as they are used to specify exactly why access to resources may be granted. For
-example, a scope may include read access to a user's email, write access to a user's calendar, or access to a specific set of
-files. The acceptable scope values, and which resources they relate to, are dependent on the Resource Server.
-
-It is important to note that the difference between scope and permission is that scopes define what the client is authorized to
-access in the name of the user, whereas permissions define what the user themselves are allowed to do. By using scope, users can
-control the level of access that clients have to protected resources. But the user has access to "their" resources only, not the
-resources (e.g. photos) of another user.
-
 ### The Authorization Server: Ory OAuth2 & OpenID Connect
 
 The Authorization Server is a critical component in the OAuth2 flow. It receives requests from the Client for Access Tokens and
@@ -77,6 +63,41 @@ The Authorization endpoint is where the Resource Owner approves or denies the re
 interface to the Resource Owner that allows them to view the scope of the requested access and make an informed decision about
 whether to grant or deny access to their resources. In smaller implementations, the Authorization Server may be combined with the
 API server, but larger scale deployments will often build this as a separate component.
+
+## OAuth 2.0 scope represents user consent
+
+OAuth2 scope is a parameter used to specify the level of access that OAuth2 Clients have to protected resources. It enables
+Resource Owners to define specific permissions or actions that a client is authorized to perform in their name.
+
+Scopes are an important concept in OAuth 2.0, as they are used to specify exactly why access to resources may be granted. For
+example, a scope may include read access to a user's email, write access to a user's calendar, or access to a specific set of
+files. The acceptable scope values, and which resources they relate to, are dependent on the Resource Server.
+
+It is important to note that the difference between scope and permission is that scopes define what the client is authorized to
+access in the name of the user, whereas permissions (think RBAC, ACL) define what the user themselves are allowed to do. By using
+scope, users can control the level of access that clients have to protected resources. But the user has access to "their"
+resources only, not the resources (e.g. photos) of another user.
+
+Ory OAuth2 & OpenID Connect has pre-defined OAuth 2.0 Scope values:
+
+- `offline_access`: Include this scope if you wish to receive a refresh token
+- `openid`: Include this scope if you wish to perform an OpenID Connect request.
+
+## OAuth 2.0 access token audience
+
+The Audience of an Access Token refers to the Resource Servers that this token is intended for. The audience usually refers to one
+or more URLs such as
+
+- `https://api.mydomain.com/blog/posts`
+- `https://api.mydomain.com/users`
+
+but may also refer to a subset of resources:
+
+- `https://api.mydomain.com/tenants/foo/users`
+
+When performing an OAuth 2.0 Flow where the end-user is involved (for example Implicit or Authorize Code), the granted audience
+must be set when accepting the consent using the `grant_access_token_audience` key. In most cases, it's ok to grant the audience
+without user-interaction.
 
 ## Creating an OAuth2 Client
 
@@ -211,7 +232,7 @@ with a device code. The user then enters this code on the device that needs to o
 periodically poll the authorization server until the user grants or denies the authorization request. Once the user grants access,
 the device receives an access token that can be used to access the user's account.
 
-## Accessing APIs access
+## Accessing APIs
 
 Sending an access token to a resource server usually involves including the token in the HTTP `Authorization` header of the
 request. Here's an example code snippet in JavaScript that shows how to do this:
@@ -233,7 +254,22 @@ fetch("https://api.example.com/resource", {
 In this example, the access token is included in the `Authorization` header of the GET request to the resource server API
 endpoint. The `Bearer` keyword indicates that the token is a bearer token, which is a type of access token that can be used by any
 client to access the protected resources. The resource server will then verify the token and grant or deny access based on the
-token's validity and the scope of access that was granted.
+token's validity and the scope of access that was granted:
+
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import tsExample from '!!raw-loader!../../../code-examples/sdk/typescript/src/oauth2/token-introspect.ts'
+
+<CodeBlock language="tsx">{tsExample}</CodeBlock>
+```
+
+The resource server needs to ensure that the access token is valid and has not been tampered with or expired before allowing
+access to protected resources. To achieve this, the resource server uses the OAuth2 token introspection endpoint, which is an API
+endpoint exposed by the authorization server.
+
+The token introspection endpoint is used to validate the access token itself. It takes an access token as an input and returns
+metadata about the token, such as its expiration date, scope, and other information. The resource server can use this information
+to determine whether the token is valid or not and whether the requested resource should be served.
 
 ## Resource Owner Password Credentials flow
 
