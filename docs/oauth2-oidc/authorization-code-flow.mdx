@@ -10,8 +10,6 @@ everyone can understand. We will also discuss different parameters such as `gran
 `state` and explain how to get ID tokens and refresh tokens. Additionally, we will cover how to perform PKCE on top of the
 Authorization Code flow.
 
-## Authorization Code Flow Overview
-
 The Authorization Code flow is the most secure and widely used OAuth2 flow for web applications. Here is the high-level overview
 of the Authorization Code flow:
 
@@ -22,6 +20,25 @@ of the Authorization Code flow:
    authorization code.
 4. The requesting application exchanges the authorization code for an access token that can be used to access the protected
    resource.
+
+```mdx-code-block
+import Mermaid from "@site/src/theme/Mermaid";
+
+<Mermaid
+  chart={`sequenceDiagram
+    participant User
+    participant Client
+    participant AS as OAuth2 Server
+    User->>+Client: Click "Login with OAuth2"
+    Client->>+AS: Redirect to /authorize
+    AS->>+User: Prompt for login and consent
+    User->>+AS: Enter credentials and consent
+    AS->>+Client: Redirect to client callback URL with code
+    Client->>+AS: Exchange code for token
+    AS->>+Client: Return token
+    Client-->>Client: Process and store token
+`} />
+```
 
 ### Step 1: Get the user's permission
 
