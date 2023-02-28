@@ -1,0 +1,47 @@
+---
+id: token-formats
+title: Identifiable token formats
+---
+
+Ory is an open-source service that allows developers to secure their applications using different protocols such as OAuth 2.0,
+OpenID Connect, and Ory Sessions. In this article, we will discuss Ory's credential formats, including access tokens, refresh
+tokens, and authorization codes, and their prefixes, which make them easily identifiable for auditing and security purposes.
+
+## Ory OAuth2 token prefixes
+
+Ory prefixes its access tokens, refresh tokens, and authorization codes with identifiable strings, making it easy for security
+scanners to identify leaked tokens. These prefixes are:
+
+- `ory_at`: OAuth 2.0 Access Token
+- `ory_rt`: OAuth 2.0 Refresh Token
+- `ory_ac`: OAuth 2.0 Authorization Code
+
+It is important to note that when using JSON Web Tokens (JWTs), the prefix is not applied.
+
+Using these prefixes is a best practice for identifying OAuth2 credentials in code scanning tools, which can help to prevent
+security breaches and unauthorized access.
+
+## Ory session cookies
+
+Ory also issues session cookies to maintain user sessions across requests. Session cookies are usually used to store user
+authentication information, such as the user ID, and can be used to provide a seamless user experience. Ory session cookies are
+prefixed with the ory*session* prefix, making them easily identifiable in logs and tracking tools.
+
+Session cookies are essential for maintaining user sessions, and Ory ensures that session cookies are secure and tamper-proof.
+Developers can configure the expiration time and cookie options for Ory session cookies to fit their application's specific needs.
+
+In summary, Ory session cookies are prefixed with ory*session* and are essential for maintaining user sessions. They can be
+customized to fit specific application needs and are secure and tamper-proof.
+
+## Ory session tokens
+
+Ory session tokens are used to maintain user sessions and can be used in place of session cookies for applications that do not
+support cookies. Session tokens contain authentication information that is used to validate the user's identity and provide access
+to protected resources. Ory session tokens are prefixed with the `ory_st_` prefix, which makes them easily identifiable and
+distinguishes them from other types of tokens.
+
+## Ory Identities logout tokens
+
+Ory logout tokens are used to log out users from their sessions. When a user logs out, their session is terminated, and they are
+no longer able to access protected resources. Ory issues logout tokens with the `ory_lo_` prefix, which makes them easily
+identifiable and distinguishes them from other types of tokens.
