@@ -1,9 +1,10 @@
 ---
 id: claims-at-refresh
-title: Updating claims at token refresh
+title: Hook into the OAuth2 refresh token flow
+sidebar_label: OAuth2 webhooks
 ---
 
-The Hydra OAuth2 and OpenID Connect server comes with a mechanism that allows updating `id_token` and `access_token` when a
+Ory OAuth2 and OpenID Connect comes with a mechanism that allows updating `id_token` and `access_token` when a
 registered client sends a token refresh request. The flow is realized by calling the defined refresh token hook endpoint which
 returns updated data.
 
@@ -19,36 +20,15 @@ The hook is called before any other logic is executed. If the hook execution fai
 
 ## Configuration
 
-To enable the token refresh webhook, configure the `oauth2.refresh_token_hook` key in the Hydra configuration:
+Use the Ory CLI with key `/oauth2/refresh_token_hook` to enable this feature:
 
-```yaml
-oauth2:
-  refresh_token_hook: https://my-example.app/token-refresh-hook
+```shell title="Enable the refresh token hook"
+ory patch oauth2-config {project.id} \
+  --replace "/oauth2/refresh_token_hook=\"https://my-example.app/token-refresh-hook\"" \
+  --format yaml
 ```
 
-If you're running Hydra locally, you can set this value by exporting the refresh token hook endpoint URL as an environment
-variable. Run this command:
-
-```mdx-code-block
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import CodeBlock from '@theme/CodeBlock'
-
-<Tabs>
-  <TabItem value="macos" label="macOS" default>
-    <CodeBlock language="shell">export OAUTH2_REFRESH_TOKEN_HOOK=value</CodeBlock>
-  </TabItem>
-  <TabItem value="linux" label="Linux">
-    <CodeBlock language="shell">export OAUTH2_REFRESH_TOKEN_HOOK=value</CodeBlock>
-  </TabItem>
-  <TabItem value="windows" label="Windows">
-    <CodeBlock language="shell">set OAUTH2_REFRESH_TOKEN_HOOK=value</CodeBlock>
-  </TabItem>
-</Tabs>
-```
-
-### Webhook configuration
+### Webhook payload
 
 The refresh token hook endpoint must accept the following payload format:
 
