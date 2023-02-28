@@ -10,7 +10,7 @@
     "test:typescript": "tsc"
   },
   "dependencies": {
-    "@ory/client": "~1.1.19",
+    "@ory/client": "~1.1.21",
     "@ory/integrations": "^1.1.0",
     "express": "^4.18.2",
     "express-handlebars": "^6.0.6",

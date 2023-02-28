@@ -4,9 +4,8 @@ title: Hook into the OAuth2 refresh token flow
 sidebar_label: OAuth2 webhooks
 ---
 
-Ory OAuth2 and OpenID Connect comes with a mechanism that allows updating `id_token` and `access_token` when a
-registered client sends a token refresh request. The flow is realized by calling the defined refresh token hook endpoint which
-returns updated data.
+Ory OAuth2 and OpenID Connect comes with a mechanism that allows updating `id_token` and `access_token` when a registered client
+sends a token refresh request. The flow is realized by calling the defined refresh token hook endpoint which returns updated data.
 
 If the data provided by the webhook is different from the data the client sends, the webhook overwrites the session data with a
 new set.
