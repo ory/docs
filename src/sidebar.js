@@ -203,6 +203,7 @@ module.exports = {
         "oauth2-oidc/client-credentials",
         "oauth2-oidc/authorization-code-flow",
         "oauth2-oidc/refresh-token-grant",
+        "oauth2-oidc/jwt-access-token",
         "hydra/guides/oauth2-token-introspection",
         "hydra/guides/client-token-expiration",
         {
