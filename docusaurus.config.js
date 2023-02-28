@@ -170,6 +170,7 @@ const config = {
     ],
     "@docusaurus/plugin-content-pages",
     require.resolve("./src/plugins/docusaurus-plugin-matamo"),
+    require.resolve("./src/plugins/plugin-utterances"),
     process.env.NODE_ENV !== "development" && [
       "./src/plugins/plugin-usercentrics-gtm",
       { usercentricsID: "dwogEWVkK", gtmID: "GTM-NTT7RMX" },
