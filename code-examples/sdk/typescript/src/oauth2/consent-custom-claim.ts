@@ -22,6 +22,9 @@ export async function acceptConsent(consentChallenge: string) {
           access_token: {
             some_custom_claim: "some_custom_value",
           },
+          id_token: {
+            id_custom_claim: "some_value",
+          },
         },
         // highlight-end
       },
