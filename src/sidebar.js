@@ -246,7 +246,6 @@ module.exports = {
                 },
                 "hydra/guides/openid-connect-dynamic-client-registration",
                 "hydra/guides/oauth2-token-introspection",
-                "hydra/guides/claims-at-refresh",
               ],
             },
           ],
@@ -298,6 +297,7 @@ module.exports = {
         "actions/session",
         "actions/revoke-active-sessions",
         "actions/require-verified-address",
+        "hydra/guides/claims-at-refresh",
         {
           type: "category",
           label: "CRM Integrations",
