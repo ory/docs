@@ -214,7 +214,6 @@ module.exports = {
         },
         {
           Guides: [
-            "hydra/guides/common-oauth2-openid-connect-flows",
             "hydra/guides/oauth2-clients",
             "hydra/guides/using-oauth2",
             {
