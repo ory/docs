@@ -1,0 +1,154 @@
+---
+id: jwt-access-token
+title: Opaque and JWT access tokens
+sidebar_label: JWT access tokens
+---
+
+JSON Web Tokens (JWTs) are a widely used format for representing claims securely between parties. They can be used as access
+tokens, which are used to grant access to protected resources, such as APIs. JWTs consist of three parts: a header, a payload, and
+a signature. The header contains metadata about the token, such as the algorithm used to sign it. The payload contains claims,
+which are statements about an entity (typically, the user) and additional data. The signature is used to verify that the token was
+not tampered with.
+
+|            | opaque tokens | jwt tokens |
+| ---------- | ------------- | ---------- |
+| revokation | immediate     | eventually |
+| latency    | ~50ms         | ~1ms       |
+
+## Opaque access tokens versus JWT
+
+By default, Ory issues opaque access tokens, which are random strings with a cryptographic signature that have no meaning or
+structure. Opaque tokens are stored in a database, and their validity is checked by performing a database lookup.
+
+Here's an example of an opaque token:
+
+```
+ory_at_JGhESDjKfHMQ8Wcy0cC3.hIQxGmX37ydn8WmKAnlD3U
+```
+
+Opaque tokens are stored in a database, and their validity can be checked by performing a database lookup. This means that if you
+need to revoke an opaque token, you can simply delete it from the database. Once the token has been deleted, any subsequent
+attempts to use it will fail.
+
+JWTs, on the other hand, are self-contained and do not require a database lookup to validate. Instead, JWTs contain a signature
+that can be verified to ensure that the token has not been tampered with. Because of this, revoking a JWT requires a different
+approach.
+
+Overall, opaque tokens have an advantage when it comes to revocation, as they can be immediately revoked by deleting them from the
+database. JWTs, on the other hand, have a delay between being marked as invalid and actually becoming invalid, which can be a
+problem in some cases. However, it's worth noting that opaque tokens require a network roundtrip to the introspection API to
+validate, which can be slower than validating a JWT.
+
+## Refresh tokens are always opaque
+
+Ory uses opaque tokens for refresh tokens. Refresh tokens are used in OAuth 2.0 to obtain new access tokens once the original
+access token has expired. Refresh tokens are always opaque tokens in Ory because they must be immediately revocable if needed.
+
+## JWT access tokens
+
+To configure Ory OAuth2 to issue JWT access tokens, you'll need to update the configuration as Ory defaults to opaque tokens:
+
+```shell
+ory patch oauth2-config {project.id} \
+  --replace "/strategies/access_token=\"jwt\""
+```
+
+### Revoking JSON Web Tokens
+
+One limitation of using JSON Web Tokens (JWTs) as access tokens is that they can't be immediately revoked once issued. Instead,
+revoking a JWT requires either waiting for it to expire or using a blacklist or revocation list to mark the token as invalid.
+
+However, there is another option for checking whether a JWT has been revoked: OAuth 2.0 token introspection. Token introspection
+is a feature of OAuth 2.0 that allows a client to query the authorization server to determine the validity and other metadata of
+an access token.
+
+To use token introspection to check whether a JWT has been revoked, the client sends a request to the authorization server's
+introspection endpoint, providing the access token in question as a parameter. The introspection endpoint responds with
+information about the token, including its validity, expiry time, and any associated metadata.
+
+Here's an example of a token introspection request using the SDK:
+
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import tsExample from '!!raw-loader!../../code-examples/sdk/typescript/src/oauth2/token-introspect.ts'
+
+<CodeBlock language="tsx">{tsExample}</CodeBlock>
+```
+
+### Limitations
+
+While JWTs have many benefits as access tokens, there are also some limitations to consider:
+
+- OAuth 2.0 Access Tokens represent internal state but are public knowledge: An Access Token often contains internal data (such as
+  session data) or other sensitive data (such as user roles and permissions) and is sometimes used as a means of transporting
+  system-relevant information in a stateless manner. Therefore, making these tokens transparent (by using JSON Web Tokens as
+  Access Tokens) comes with risk of exposing this information, and with the downside of not storing this information in the OAuth
+  2.0 Access Token at all.
+- JSON Web Tokens can't hold secrets: Unless encrypted, JSON Web Tokens can be read by everyone, including third parties.
+  Therefore, they can't keep secrets. This point is similar to (1), but it's important to stress this.
+- Access Tokens as JSON Web Tokens can't be revoked: You can revoke them, but they will be considered valid until the "expiry" of
+  the token is reached. But you can check Ory's APIs if the token was revoked if required.
+- Certain OpenID Connect features won't work: When using JSON Web Tokens as access tokens, certain OpenID Connect features may not
+  work, such as the pairwise subject identifier algorithm.
+
+### JSON Web Token validation
+
+You can validate JSON Web Tokens issued by Ory by pointing your `jwt` library (for example
+[node-jwks-rsa](https://github.com/auth0/node-jwks-rsa)) to:
+
+```
+http://{project.slug}.projects.oryapis.com/.well-known/jwks.json
+```
+
+All necessary keys are available there.
+
+## Custom consent UI and custom claims for (JWT) access token
+
+Using the following code during, you can add custom claims to every access token during consent acceptance
+
+```mdx-code-block
+import customClaimTsExample from '!!raw-loader!../../code-examples/sdk/typescript/src/oauth2/consent-custom-claim.ts'
+
+<CodeBlock language="tsx">{customClaimTsExample}</CodeBlock>
+```
+
+which will result in the following access token:
+
+```json5
+{
+  sub: "...",
+  // ...
+  ext: {
+    some_custom_claim: "some_custom_value",
+  },
+  // ...
+}
+```
+
+If you instead want `some_custom_claim` to be added top-level in the access token, you need to modify the
+`/oauth2/allowed_top_level_claims` configuration:
+
+:::note
+
+Required JWT claims can not be overwritten by custom claims.
+
+:::
+
+```shell
+ory patch oauth2-config {project.id} \
+  --replace "/oauth2/allowed_top_level_claims=[\"some_custom_claim\"]"
+```
+
+which results in an access token with the following structure:
+
+```json
+{
+  "sub": "...",
+  // ...
+  "some_custom_claim": "some_custom_value",
+  "ext": {
+    "some_custom_claim": "some_custom_value"
+  }
+  // ...
+}
+```
