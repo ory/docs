@@ -209,7 +209,6 @@ module.exports = {
         "oauth2-oidc/userinfo-oidc",
         {
           Concepts: [
-            "hydra/concepts/openid-connect-oidc",
             "hydra/concepts/login",
             "hydra/concepts/consent",
             "hydra/concepts/logout",

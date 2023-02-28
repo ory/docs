@@ -1003,6 +1003,11 @@
       "source": "/docs/hydra/guides/common-oauth2-openid-connect-flows",
       "destination": "https://www.ory.sh/docs/oauth2-oidc/authorization-code-flow",
       "permanent": false
+    },
+    {
+      "source": "/docs/hydra/concepts/openid-connect-oidc",
+      "destination": "https://www.ory.sh/docs/oauth2-oidc/overview/oidc-concepts",
+      "permanent": false
     }
   ]
 }
