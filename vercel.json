@@ -998,6 +998,11 @@
       "source": "/docs/hydra/guides/oauth2-public-spa-mobile",
       "destination": "https://www.ory.sh/docs/oauth2-oidc/authorization-code-flow",
       "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/common-oauth2-openid-connect-flows",
+      "destination": "https://www.ory.sh/docs/oauth2-oidc/authorization-code-flow",
+      "permanent": false
     }
   ]
 }
