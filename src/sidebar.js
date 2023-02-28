@@ -205,7 +205,6 @@ module.exports = {
         "oauth2-oidc/refresh-token-grant",
         {
           Concepts: [
-            "hydra/concepts/oauth2",
             "hydra/concepts/openid-connect-oidc",
             "hydra/concepts/login",
             "hydra/concepts/consent",
@@ -216,7 +215,6 @@ module.exports = {
         {
           Guides: [
             "hydra/guides/common-oauth2-openid-connect-flows",
-            "hydra/guides/oauth2-public-spa-mobile",
             "hydra/guides/oauth2-clients",
             "hydra/guides/using-oauth2",
             {
