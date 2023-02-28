@@ -988,6 +988,16 @@
       "source": "/docs/hydra/limitations",
       "destination": "https://www.ory.sh/docs/oauth2-oidc/overview/oauth2-concepts",
       "permanent": false
+    },
+    {
+      "source": "/docs/hydra/concepts/oauth2",
+      "destination": "https://www.ory.sh/docs/oauth2-oidc/overview/oauth2-concepts",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/oauth2-public-spa-mobile",
+      "destination": "https://www.ory.sh/docs/oauth2-oidc/authorization-code-flow",
+      "permanent": false
     }
   ]
 }
