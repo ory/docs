@@ -1,0 +1,88 @@
+---
+id: userinfo-oidc
+sidebar_label: Userinfo
+title: OpenID Connect userinfo endpoint
+---
+
+The OpenID Connect (OIDC) UserInfo endpoint is a protected resource that provides information about a user when a service provider
+presents an access token that has been issued by your Token endpoint. The scopes in the access token specify the user attributes
+that are returned in the response of the userinfo endpoint. It is important to note that the "openid" scope must be one of the
+access token claims.
+
+In this article, we will explore how to call the userinfo endpoint using the Ory SDK in JavaScript, how to add custom claims to
+the userinfo response, and how the userinfo_signed_response_alg field works.
+
+## Calling the userinfo endpoint using Ory SDK
+
+The Ory SDK provides a simple way to call the UserInfo endpoint using JavaScript. To call the endpoint, you can use the following
+code:
+
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import tsExample from '!!raw-loader!../../code-examples/sdk/typescript/src/oauth2/userinfo.ts'
+
+<CodeBlock language="tsx">{tsExample}</CodeBlock>
+```
+
+In this example, we create a new instance of the Ory SDK with the `basePath` set to the URL of your Ory Network project. We then
+define an async function that calls the userinfo function with the `accessToken` passed as a parameter. The `data` contains the
+user attributes returned by the userinfo endpoint.
+
+# Adding custom claims to the userinfo response
+
+Any information included in `session.id_token` when accepting the consent request will also be included in the response.
+
+```mdx-code-block
+import customClaimsTs from '!!raw-loader!../../code-examples/sdk/typescript/src/oauth2/consent-custom-claim.ts'
+
+<CodeBlock language="tsx">{customClaimsTs}</CodeBlock>
+```
+
+Be aware that the `/userinfo` endpoint is publicly available. Its contents are thus as visible as those of ID Tokens. It's
+therefore imperative to not expose sensitive information without end-user consent.
+
+The result we be a response along the lines of:
+
+```json5
+{
+  // ...
+  sub: "04d75756-xxxx-4xxx-9xxx-xxxxxxxxxxxx",
+  ext: {
+    id_custom_claim: "some_value",
+  },
+  // ...
+}
+```
+
+## Returning a signed JWT from the userinfo endpoint
+
+The `userinfo_signed_response_alg` field specifies the algorithm that is used to sign the payload by the userinfo endpoint. If the
+field is empty, the userinfo endpoint returns a regular JSON response.
+
+However, if the value is set to "RS256"
+
+```mdx-code-block
+import userinfoAlgTs from '!!raw-loader!../../code-examples/sdk/typescript/src/oauth2/client-userinfo-alg.ts'
+
+<CodeBlock language="tsx">{userinfoAlgTs}</CodeBlock>
+```
+
+the userinfo endpoint returns a signed JWT with the content type of `application/jwt`:
+
+```
+HTTP/1.1 200 OK
+Content-Type: application/jwt
+
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGljZSIsImVtYWlsIjoiYWxpY2V
+Ad29uZGVybGFuZC5uZXQiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6IkFsaWNlIEFkYW1
+zIiwiYXVkIjoiMDAwMTIzIiwiaXNzIjoiaHR0cHM6Ly97cHJvamVjdC5zbHVnfS5wcm9qZWN0cy5
+vcnlhcGlzLmNvbSIsImZhbWlseV9uYW1lIjoiQWRhbXMiLCJpYXQiOjE0MTM5ODU0MDIsImdyb3V
+wcyI6WyJhZG1pbiIsImF1ZGl0Il19.XvjPXI5l9msigrY03gJyJMK717J6mZrIs1yuREtCWiGlks
+g4W9jgrWzYeUhIeqrCuBJv8eRf-OTyQVd0iJ1SmCFGR_YyYHvk5YonBNdq6H_qDS-cL73-ewB-AO
+yNkSoEDF3mX5jgF3jz5sZkU_DuXXM9FXr__M2UH8HVX5kNMCKJiYnYMD8ImCNIrzYuGWL3XiYrBC
+_vhE8xw4f1r9on2n_QfnWF1-e255V1zgJInJPIFM7itLE91UwYXtUznwJwN-UV3ZlG6dXYznep3L
+yjqEPSRDbJ6_-y1yTYBAYPPVkIR0slyM3TPa2h9X18LF5r4vmt4U_N27_GAWNIujflzA
+```
+
+It's important to note that the contents of the userinfo endpoint are publicly available, and should not include any sensitive
+information without the end-user's consent.

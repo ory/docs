@@ -206,6 +206,7 @@ module.exports = {
         "oauth2-oidc/jwt-access-token",
         "hydra/guides/oauth2-token-introspection",
         "hydra/guides/client-token-expiration",
+        "oauth2-oidc/userinfo-oidc",
         {
           Concepts: [
             "hydra/concepts/openid-connect-oidc",
