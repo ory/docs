@@ -204,6 +204,7 @@ module.exports = {
         "oauth2-oidc/authorization-code-flow",
         "oauth2-oidc/refresh-token-grant",
         "hydra/guides/oauth2-token-introspection",
+        "hydra/guides/client-token-expiration",
         {
           Concepts: [
             "hydra/concepts/openid-connect-oidc",
@@ -226,11 +227,6 @@ module.exports = {
                 "hydra/guides/consent",
                 "hydra/guides/logout",
               ],
-            },
-            {
-              type: "category",
-              label: "Configuration",
-              items: ["hydra/guides/client-token-expiration"],
             },
             {
               type: "category",
