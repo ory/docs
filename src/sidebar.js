@@ -202,6 +202,7 @@ module.exports = {
         },
         "oauth2-oidc/client-credentials",
         "oauth2-oidc/authorization-code-flow",
+        "oauth2-oidc/refresh-token-grant",
         {
           Concepts: [
             "hydra/concepts/oauth2",
@@ -366,6 +367,7 @@ module.exports = {
       items: [
         "ecosystem/security",
         "kratos/concepts/security",
+        "security-compliance/token-formats",
         "concepts/password-policy",
         "hydra/security-architecture",
       ],
