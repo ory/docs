@@ -203,6 +203,7 @@ module.exports = {
         "oauth2-oidc/client-credentials",
         "oauth2-oidc/authorization-code-flow",
         "oauth2-oidc/refresh-token-grant",
+        "hydra/guides/oauth2-token-introspection",
         {
           Concepts: [
             "hydra/concepts/openid-connect-oidc",
@@ -243,7 +244,6 @@ module.exports = {
                   ],
                 },
                 "hydra/guides/openid-connect-dynamic-client-registration",
-                "hydra/guides/oauth2-token-introspection",
               ],
             },
           ],
