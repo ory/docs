@@ -196,6 +196,12 @@ In this example, we will use a custom redirect scheme (`myapp://callback`) to re
 granted permission. We will also generate a random code verifier and transform it into a code challenge using the SHA-256 hash
 algorithm.
 
+**Create OAuth2 client:**
+
+```sh
+ory create oauth2-client --token-endpoint-auth-method none
+```
+
 **Request consent:**
 
 ```js
@@ -238,6 +244,12 @@ In this example, we will use a standard HTTPS redirect (`https://myapp.com/callb
 user has granted permission. We will also generate a random code verifier and transform it into a code challenge using the SHA-256
 hash algorithm.
 
+**Create OAuth2 client:**
+
+```sh
+ory create oauth2-client --token-endpoint-auth-method none
+```
+
 **Request consent:**
 
 ```js
@@ -278,6 +290,12 @@ authentication mechanism.
 
 In this example, we will use a standard HTTPS redirect (`https://myapp.com/callback`) to receive the authorization code after the
 user has granted permission. We will also include the `offline_access` scope in the access request
+
+**Create OAuth2 client:**
+
+```sh
+ory create oauth2-client --token-endpoint-auth-method client_secret_post
+```
 
 **Request Access:**
 
