@@ -1,52 +1,22 @@
 ---
 id: oauth2-token-introspection
 title: OAuth 2.0 token introspection
+sidebar_label: Token introspection
 ---
 
-The Token Introspection extension defines a mechanism for resource servers to obtain information about access tokens. With this
+Token introspection is a mechanism for resource servers to obtain information about access tokens. With this
 spec, resource servers can check the validity of access tokens, and find out other information such as which user and which scopes
 are associated with the token.
 
-:::warning
+:::important
 
 Token Introspection is meant for first-party / internal use only. The endpoint shouldn't be exposed publicly.
 
 :::
 
-You can find more details on this endpoint in the [Ory Hydra API Docs](https://www.ory.sh/hydra/docs/reference/api). You can also
-use the CLI command `hydra introspect token <token>`.
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import tsExample from '!!raw-loader!../../../code-examples/sdk/typescript/src/oauth2/token-introspect.ts'
 
-Another helpful resource is [Token Introspection Endpoint](https://www.oauth.com/oauth2-servers/token-introspection-endpoint/).
-
-## Examples
-
-### Node.js
-
-```
-const token = 'the access token'
-const body = qs.stringify({ token })
-
-fetch('http://<ory-hydra-admin-api>/oauth2/introspect', {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Content-Length': body.length
-    },
-    method: 'POST', body
-}).then(body => {
-    if (!body.active) {
-        // Token isn't active/valid
-    }
-
-    // token is active
-})
-```
-
-Where `<ory-hydra-admin-api>` implies `http://localhost:4445` if deployed locally.
-
-#### CURL
-
-```sh
-curl -X POST \
-    -d 'token=<the-token>' \
-    http://localhost:4445/oauth2/introspect
+<CodeBlock language="tsx">{tsExample}</CodeBlock>
 ```
