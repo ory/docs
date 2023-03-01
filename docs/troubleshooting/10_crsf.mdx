@@ -26,17 +26,19 @@ headers can also help you find the root cause of your problems.
 
 :::info
 
-Ory Identities uses HTTP cookies to store sessions when accessed via a browser.  
+Ory Identities uses HTTP cookies to store sessions when accessed via a browser.
 [Learn more about the cookie-based security model in Ory.](../security-model.mdx)
 
 :::
 
-## Accessing cookies from client-side JavaScript
+## Ory Identities
+
+### Accessing cookies from client-side JavaScript
 
 The cookies Ory Identities sets can't be accessed directly from client-side JavaScript because the `HttpOnly` flag is set. This
 flag can't be modified.
 
-## Accessing APIs from client-side JavaScript / AJAX
+### Accessing APIs from client-side JavaScript / AJAX
 
 When building Single-Page Apps (SPAs) in Angular or React.js and you want the application to access the Ory Identities Public API
 you need to configure your AJAX request to include cookies, because AJAX doesn't send cookies by default default.
@@ -44,7 +46,7 @@ you need to configure your AJAX request to include cookies, because AJAX doesn't
 For example, when using the browser's `fetch` function, you need to set
 [`credentials: 'include'`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters).
 
-## Accessing APIs from a server-side application
+### Accessing APIs from a server-side application
 
 When building a server-side application, make sure to include the `Cookie` header from the client when fetching the self-service
 flows, for example, `GET /self-service/login/flows?id=...`:
@@ -70,6 +72,35 @@ import CodeFromRemote from "@site/src/theme/CodeFromRemote"
 
 Without forwarding the `Cookie` HTTP header you can't fetch the flow due to a security error. This prevents leaks of personal
 information when users copy and paste, for example, the login URL.
+
+## Ory OAuth2
+
+Before starting to debug cookie and CSRF issues, make sure to check out the Chrome Developer Tools (or any comparable technology)
+Cookies tabs in the Application tab
+
+![Google Chrome Developer Tools - Application Tab - Cookies](../hydra/_static/csrf_app_tab.png)
+
+as well as the network tab - look for `Cookie` and `Set-Cookie` HTTP Headers:
+
+![Google Chrome Developer Tools - Network Tab - Cookies](../hydra/_static/csrf_network_tab.png)
+
+### Running flows in separate browsers or browser windows
+
+You are running the OAuth2 flow in separate browsers, or in a browser with incognito mode. The Brave browser is also known for
+notoriously discarding cookies when used in "No-Tracking" mode.
+
+### Running multiple OAuth2 flows simultaneously
+
+You are trying to do two OAuth2 flows at the same time in the same Browser.
+
+### Cookie same-site mode
+
+You have changed the Cookie SameSite behavior. If this is the default value (you didn't change it), this shouldn't be an issue.
+
+### Using AJAX to call `/oauth2/auth`
+
+You **can't** call `/oauth2/auth` using an AJAX request. It isn't allowed and not possible with OAuth2. This endpoint can only be
+accessed using a normal browser request by clicking a link or redirecting the end-user's browser to that endpoint.
 
 ## Further reading
 
