@@ -13,6 +13,6 @@ const ory = new OAuth2Api(
 export async function introspectToken(accessToken: string) {
   // highlight-start
   const { data } = await ory.introspectOAuth2Token({ token: accessToken })
-  data.active // true or false
+  console.log(data.aud)
   // highlight-end
 }

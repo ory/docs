@@ -210,6 +210,7 @@ module.exports = {
         "oauth2-oidc/userinfo-oidc",
         "hydra/jwks",
         "hydra/guides/openid",
+        "hydra/guides/audiences",
 
         {
           Concepts: [
@@ -236,10 +237,7 @@ module.exports = {
               label: "Advanced usage",
               items: [
                 {
-                  "Advanced flows": [
-                    "hydra/guides/jwt",
-                    "hydra/guides/audiences",
-                  ],
+                  "Advanced flows": ["hydra/guides/jwt"],
                 },
               ],
             },
