@@ -1,47 +1,320 @@
 ---
 id: oauth2-clients
-title: Managing OAuth 2.0 clients
+title: Manage OAuth 2.0 & OpendID Connect clients
+sidebar_label: Manage OAuth2 clients
 ---
 
-You can manage OAuth 2.0 clients using the CLI or the HTTP REST API:
+OAuth2 clients are applications that securely authenticate with the authorization server to obtain access to an HTTP service.
+Confidential clients can use registered client secrets to authenticate, while public clients are unable to use registered client
+secrets. OAuth2 clients can be configured in a secure manner using the Ory OAuth2 and OpenID Connect product. This documentation
+article explains how to manage OAuth2 clients using the Ory Console, Ory SDK, Ory CLI, and Ory REST APIs.
 
-- **CLI:** `hydra help clients`
-- **REST:** Read the [API Docs](../reference/api.mdx)
+## Create OAuth2 Client
 
-## Authorize Code Flow with Refresh Token
+To create a new OAuth2 client, use the following methods:
 
-The following command creates an OAuth 2.0 Client capable of executing the Authorize Code Flow, requesting ID and Refresh Tokens
-and performing the OAuth 2.0 Refresh Grant:
+````mdx-code-block
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
-```sh
-hydra create client \
-  --endpoint http://ory-hydra:4445 \
-  --grant-type authorization_code,refresh_token \
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+
+The Ory Console is a web-based user interface that allows you to manage OAuth2 clients. To create a new client:
+
+1. Sign in to Ory Console and select [**OAuth2 Clients**](https://console.ory.sh/projects/current/oauth).
+2. Click on **Add New Client** and complete the form or update an existing client.
+3. When creating a confidential client, copy the client secret when printed. It is only shown **once**.
+
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
+
+```shell
+ory create oauth2-client \
+  --grant-type authorization_code --grant-type refresh_token  --grant-type client_credentials \
   --response-type code \
-  --scope openid,offline \
-  --redirect-uri http://my-app.com/callback,http://my-other-app.com/callback
+  --scope openid --scope offline_access \
+  --token-endpoint-auth-method client_secret_post \
+  --redirect-uri https://my-app.com/callback --redirect-uri http://my-other-app.com/callback
 ```
 
-The OAuth 2.0 Client will be allowed to use values `http://my-app.com/callback` and `http://my-other-app.com/callback` as
-`redirect_url`.
+</TabItem>
+<TabItem value="sdk" label="Ory SDK">
 
-> It's expected that the OAuth 2.0 Client sends its credentials using HTTP Basic Authorization.
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import createTs from '!!raw-loader!../../../code-examples/sdk/typescript/src/oauth2/client-create.ts'
 
-If you wish to send credentials in the POST Body, add the following flag to the command above:
+<CodeBlock language="tsx">{createTs}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="rest" label="REST API">
+
+Head over to the [API documentation](../../reference/api#tag/oAuth2/operation/createOAuth2Client).
+
+</TabItem>
+</Tabs>
+````
+
+## Update OAuth2 Client
+
+To update an existing OAuth2 client, use the following methods:
+
+````mdx-code-block
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+
+1. Sign in to Ory Console and select [**OAuth2 Clients**](https://console.ory.sh/projects/current/oauth).
+2. Locate the client you want to update.
+3. Click on **pen symbol** to update the client's configuration.
+3. When done making changes, scroll to the top and click the **Save** button.
+
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
 
 ```
-    --token-endpoint-auth-method client_secret_post \
+ory update oauth2-client {client.id} \
+  --grant-type authorization_code --grant-type refresh_token  --grant-type client_credentials \
+  --response-type code \
+  --scope openid --scope offline_access \
+  --token-endpoint-auth-method client_secret_post \
+  --redirect-uri https://a-new-callback
 ```
 
-The same can be achieved by setting `"token_endpoint_auth_method": "client_secret_post"` in the request body of `POST /clients`
-and `PUT /clients/<id>`.
+</TabItem>
+<TabItem value="sdk" label="Ory SDK">
 
-## Client credentials flow
+```mdx-code-block
+import updateTs from '!!raw-loader!../../../code-examples/sdk/typescript/src/oauth2/client-update.ts'
 
-A client only capable of performing the Client Credentials Flow can be created as follows:
+<CodeBlock language="tsx">{updateTs}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="rest" label="REST API">
+
+Head over to the [API documentation](../../reference/api#tag/oAuth2/operation/setOAuth2Client).
+
+</TabItem>
+</Tabs>
+````
+
+## Patch OAuth2 Client
+
+To partially update an existing OAuth2 client, use the following methods:
+
+````mdx-code-block
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+
+1. Sign in to Ory Console and select [**OAuth2 Clients**](https://console.ory.sh/projects/current/oauth).
+2. Locate the client you want to update.
+3. Click on **pen symbol** to update the client's configuration.
+3. When done making changes, scroll to the top and click the **Save** button.
+
+</TabItem>
+<TabItem value="sdk" label="Ory SDK">
+
+```mdx-code-block
+import patchTs from '!!raw-loader!../../../code-examples/sdk/typescript/src/oauth2/client-patch.ts'
+
+<CodeBlock language="tsx">{patchTs}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="rest" label="REST API">
+
+Head over to the [API documentation](../../reference/api#tag/oAuth2/operation/patchOAuth2Client).
+
+</TabItem>
+</Tabs>
+````
+
+## Delete OAuth2 Client
+
+To delete an existing OAuth2 client, use the following methods:
+
+````mdx-code-block
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+
+1. Sign in to Ory Console and select [**OAuth2 Clients**](https://console.ory.sh/projects/current/oauth).
+2. Locate the client you want to update.
+3. Click on **pen symbol** to update the client's configuration.
+3. Scroll to the buttom and click **delete client**.
+
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
 
 ```
-hydra create client \
-  --endpoint http://ory-hydra:4445 \
-  -g client_credentials
+ory delete oauth2-client {client.id}
+```
+
+</TabItem>
+<TabItem value="sdk" label="Ory SDK">
+
+```mdx-code-block
+import clientDeleteTs from '!!raw-loader!../../../code-examples/sdk/typescript/src/oauth2/client-delete.ts'
+
+<CodeBlock language="tsx">{clientDeleteTs}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="rest" label="REST API">
+
+Head over to the [API documentation](../../reference/api#tag/oAuth2/operation/deleteOAuth2Client).
+
+</TabItem>
+</Tabs>
+````
+
+## OpenID Dynamic Client Registration
+
+OpenID Dynamic Client Registration enables automatic registration of OAuth2 clients with the authorization server. When enabled,
+clients can be created, retrieved, updated, patched, and deleted dynamically without manual configuration. To enable OpenID
+Dynamic Client Registration use the Ory CLI:
+
+```shell
+ory patch oauth2-config {project.id}
+  --replace "oidc/dynamic_client_registration/enabled=true"
+```
+
+OpenID Connect Dynamic Registration involves the use of a `registration_access_token`, which is a bearer token that allows a
+client to make requests to the OpenID Connect Dynamic Registration endpoint. The token is issued by the authorization server and
+can only be used by the client that it was issued to.
+
+It's important to note that the `registration_access_token` is a sensitive piece of information that should be kept secure. It
+should only be used by the client that it was issued to and should not be shared with any other parties.
+
+### Register OAuth2 & OpenID Connect clients
+
+Use the SDK or REST API to register an OAuth2 & OpenID Connect client:
+
+````mdx-code-block
+<Tabs>
+<TabItem value="sdk" label="Ory SDK">
+
+```mdx-code-block
+import dynamicCreateTs from '!!raw-loader!../../../code-examples/sdk/typescript/src/oauth2/dynamic-client-create.ts'
+
+<CodeBlock language="tsx">{dynamicCreateTs}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="rest" label="REST API">
+
+Head over to the [API documentation](../../reference/api#tag/oAuth2/operation/createOidcDynamicClient).
+
+</TabItem>
+</Tabs>
+````
+
+The response includes the `registration_access_token` which is needed to manage the client. The token will only be shown once!
+
+### Get OAuth2 & OpenID Connect clients
+
+The `GET` endpoint requires the client to authenticate with the `registration_access_token` regardless of the
+`token_endpoint_auth_method`. It can be used to retrieve the OAuth2 and OpenID Connect client.
+
+````mdx-code-block
+<Tabs>
+<TabItem value="sdk" label="Ory SDK">
+
+```mdx-code-block
+import dynamicGetTs from '!!raw-loader!../../../code-examples/sdk/typescript/src/oauth2/dynamic-client-get.ts'
+
+<CodeBlock language="tsx">{dynamicGetTs}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="rest" label="REST API">
+
+Head over to the [API documentation](../../reference/api#tag/oAuth2/operation/getOidcDynamicClient).
+
+</TabItem>
+</Tabs>
+````
+
+### Update OAuth2 & OpenID Connect clients
+
+The `POST` endpoint requires the client to authenticate with the `registration_access_token` regardless of the
+`token_endpoint_auth_method`. It can be used to update the OAuth2 and OpenID Connect client.
+
+````mdx-code-block
+<Tabs>
+<TabItem value="sdk" label="Ory SDK">
+
+```mdx-code-block
+import dynamicUpdateTs from '!!raw-loader!../../../code-examples/sdk/typescript/src/oauth2/dynamic-client-update.ts'
+
+<CodeBlock language="tsx">{dynamicUpdateTs}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="rest" label="REST API">
+
+Head over to the [API documentation](../../reference/api#tag/oAuth2/operation/setOidcDynamicClient).
+
+</TabItem>
+</Tabs>
+````
+
+### Delete OAuth2 & OpenID Connect clients
+
+The `DELETE` endpoint requires the client to authenticate with the `registration_access_token` regardless of the
+`token_endpoint_auth_method`. It can be used to delete the OAuth2 and OpenID Connect client.
+
+````mdx-code-block
+<Tabs>
+<TabItem value="sdk" label="Ory SDK">
+
+```mdx-code-block
+import dynamicDeleteTs from '!!raw-loader!../../../code-examples/sdk/typescript/src/oauth2/dynamic-client-delete.ts'
+
+<CodeBlock language="tsx">{dynamicDeleteTs}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="rest" label="REST API">
+
+Head over to the [API documentation](../../reference/api#tag/oAuth2/operation/deleteOidcDynamicClient).
+
+</TabItem>
+</Tabs>
+````
+
+## Example OAuth2 Clients
+
+Here are some examples of creating OAuth2 clients with different options:
+
+### Client credentials
+
+```shell
+ory create oauth2-client \
+  --grant-type client_credentials \
+  --scope my-scope \
+  --token-endpoint-auth-method client_secret_basic
+```
+
+### Token endpoint auth method
+
+```shell
+ory create oauth2-client \
+  --grant-type authorization_code \
+  --response-type code \
+  --scope openid \
+  --token-endpoint-auth-method client_secret_post \
+  --redirect-uri https://my-app.com/callback
+```
+
+### Multiple redirect URIs
+
+```
+ory create oauth2-client \
+  --grant-type authorization_code --grant-type refresh_token \
+  --response-type code \
+  --scope openid --scope offline_access \
+  --token-endpoint-auth-method client_secret_post \
+  --redirect-uri https://my-app.com/callback --redirect-uri http://my-other-app.com/callback
 ```

@@ -204,6 +204,7 @@ module.exports = {
         "oauth2-oidc/authorization-code-flow",
         "oauth2-oidc/refresh-token-grant",
         "oauth2-oidc/jwt-access-token",
+        "hydra/guides/oauth2-clients",
         "hydra/guides/oauth2-token-introspection",
         "hydra/guides/client-token-expiration",
         "oauth2-oidc/userinfo-oidc",
@@ -217,7 +218,6 @@ module.exports = {
         },
         {
           Guides: [
-            "hydra/guides/oauth2-clients",
             "hydra/guides/using-oauth2",
             {
               type: "category",
@@ -240,7 +240,6 @@ module.exports = {
                     "hydra/guides/audiences",
                   ],
                 },
-                "hydra/guides/openid-connect-dynamic-client-registration",
               ],
             },
           ],
