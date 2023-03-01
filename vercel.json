@@ -1013,6 +1013,11 @@
       "source": "/docs/hydra/guides/openid-connect-dynamic-client-registration",
       "destination": "/docs/hydra/guides/oauth2-clients",
       "permanent": false
+    },
+    {
+      "source": "/docs/hydra/debug/csrf",
+      "destination": "/docs/troubleshooting/csrf",
+      "permanent": false
     }
   ]
 }
