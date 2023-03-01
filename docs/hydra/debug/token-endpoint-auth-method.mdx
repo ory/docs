@@ -1,6 +1,7 @@
 ---
 id: token-endpoint-auth-method
-title: Wrong token endpoint auth method
+sidebar_label: Client auth fails
+title: Client auth fails because Wrong token_endpoint_auth_method
 ---
 
 There are multiple ways of authenticating OAuth 2.0 Clients at the `/oauth2/token`:
@@ -13,12 +14,13 @@ There are multiple ways of authenticating OAuth 2.0 Clients at the `/oauth2/toke
 Both are valid schemes. But the OAuth 2.0 Client has to be configured to allow either of the one. Per default, the OAuth 2.0
 Client allows HTTP Basic Authorization only. You can check which method is allowed:
 
-```
-hydra get client--endpoint http://ory-hydra <the-client-id>
+```shell
+ory get oauth2-client {client.id}
+
 {
-        // ...
-        "token_endpoint_auth_method": "client_secret_basic",
-        // ...
+  // ...
+  "token_endpoint_auth_method": "client_secret_basic",
+  // ...
 }
 ```
 

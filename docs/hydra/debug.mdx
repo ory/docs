@@ -1,7 +1,7 @@
 ---
 id: debug
-title: OAuth2 first aid
-sidebar_label: Solutions for common OAuth2-related problems
+title: Solutions for common OAuth2-related problems
+sidebar_label: OAuth2 first aid
 ---
 
 Spec-compliant OAuth 2.0 and OpenID Connect is hard. Let's take a look how to resolve certain issues.
@@ -83,7 +83,7 @@ The result shows you the whole client (excluding its secret). Check that the val
 ### Redirect URL isn't whitelisted
 
 A likely cause of your request failing is that you are using the wrong redirect URL. Assuming your OAuth 2.0 URL looks like
-`http://ory-hydra/oauth2/auth?client_id=my-client&...&redirect_uri=http://my-url/callback`
+`https://{project.slug}.projects.oryapis.com/oauth2/auth?client_id=my-client&...&redirect_uri=http://my-url/callback`
 
 The redirect URL `http://my-url/callback` must be whitelisted in your client configuration. The URLs **must** match. URL
 `http://my-url/callback` and `http://my-url/callback?foo=bar` are different URLs!
