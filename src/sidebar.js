@@ -209,6 +209,8 @@ module.exports = {
         "hydra/guides/client-token-expiration",
         "oauth2-oidc/userinfo-oidc",
         "hydra/jwks",
+        "hydra/guides/openid",
+
         {
           Concepts: [
             "hydra/concepts/login",
@@ -235,7 +237,6 @@ module.exports = {
               items: [
                 {
                   "Advanced flows": [
-                    "hydra/guides/openid",
                     "hydra/guides/jwt",
                     "hydra/guides/audiences",
                   ],
