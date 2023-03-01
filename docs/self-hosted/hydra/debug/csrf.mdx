@@ -12,7 +12,7 @@ If you run a version of Ory Hydra 1.6 and below and experience this issue:
 
 - Make sure to not use the `--dev` flag
 - Set configuration value `serve.cookies.same_site_mode` or environment variable `SERVE_COOKIES_SAME_SITE_MODE` to `Lax` - this
-happens automatically for Ory Hydra v1.7.0 when running in HTTP mode.
+  happens automatically for Ory Hydra v1.7.0 when running in HTTP mode.
 
 Chrome rejects cookies without the `secure` flag if a cookie with the same name for the same scope (domain, path) is set that has
 the `secure` flag. Ory Hydra 1.7.0+ uses different names for cookies with and without `secure` flag. For versions prior to that,

@@ -1,118 +1,84 @@
 ---
 id: jwt
-title: JSON Web Tokens (JWT)
+title: JSON Web Tokens (JWT) profile for OAuth2
+sidebar_label: JWT profile for OAuth2
 toc_max_heading_level: 4
 ---
 
-## OAuth 2.0 Client Authentication with private/public key pairs
+JSON Web Tokens (JWT) for OAuth Client Authorization Grants is an extension to OAuth2 framework. It allows a client to send a
+signed JWT token to an OpenID Connect Provider in exchange for an OAuth 2.0 access token.
 
-Ory Hydra is capable of performing the
-[JSON Web Token (JWT) Profile for OAuth 2.0 Client Authentication and Authorization Grants](https://tools.ietf.org/html/rfc7523).
-This guide defines how a JWT Bearer Token can be used to request an access token when a client wishes to utilize an existing trust
-relationship, expressed through the semantics of the JWT, without a direct user-approval step at the authorization server (Hydra).
+## Usage Scenario
 
-Ory Hydra supports both methods expressed in RFC 7523:
+A usage scenario for this feature could be an electric company that needs to receive automatic monthly payments from a customer's
+online bank account. If the electric company and the online bank have a trusted relationship, the electric company can send a
+signed JWT token with the required claims to the OpenID Connect Provider configured for the online bank to request an OAuth 2.0
+access token each month. The electric company can then use the access token to cash the monthly payments from the online bank.
 
-- _Using JWTs as Authorization Grants_: Allows exchanging a JSON Web Token for an Access Token.
-- _Using JWTs for Client Authentication_: Allows OAuth 2.0 Client Authentication using public/private keys via JSON Web Tokens.
+## Ory JWT profile capabilities
 
-### Exchanging JWTs for Access Tokens
+Ory supports both methods described in [RFC 7523](https://www.rfc-editor.org/rfc/rfc7523) for using JWTs as authorization grants
+and client authentication:
 
-To use the Authorization Grant `urn:ietf:params:oauth:grant-type:jwt-bearer`, the client performs an OAuth 2.0 Access Token
-Request as defined in
-[Section 4.1 of the OAuth Assertion Framework RFC7521](https://datatracker.ietf.org/doc/html/rfc7521#section-4.1) with the
-following specific parameter values and encodings:
+- Using JWTs as Authorization Grants: Allows exchanging a JSON Web Token for an access token using an established trust
+  relationship.
+- Using JWTs for Client Authentication: Allows OAuth 2.0 client authentication using public/private keys via JSON Web Tokens.
 
-- The value of the `grant_type` is `urn:ietf:params:oauth:grant-type:jwt-bearer`.
-- The value of the `assertion` parameter MUST contain a single JWT.
+## Using JWTs as Authorization Grants
 
-The `scope` parameter may be used, as defined in the OAuth Assertion Framework
-[RFC7521](https://datatracker.ietf.org/doc/html/rfc7521), to indicate the requested scope:
+To use the `urn:ietf:params:oauth:grant-type:jwt-bearer` Authorization Grant, the client must make an OAuth 2.0 Access Token
+Request using the following specific parameter values and encodings:
+
+- `grant_type` value must be `urn:ietf:params:oauth:grant-type:jwt-bearer`.
+- The `assertion` parameter must contain a single JWT.
+
+The `scope` parameter may also be included to indicate the requested scope:
 
 ```
 POST /oauth2/token HTTP/1.1
-Host: public.hydra.com
+Host: {project.slug}.projects.oryapis.com
 Content-Type: application/x-www-form-urlencoded
 
-grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer
+scope=foo+bar
+&grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer
 &assertion=eyJhbGciOiJFUzI1NiIsImtpZCI6IjE2In0.
 eyJpc3Mi[...omitted for brevity...].
 J9l-ZhwP[...omitted for brevity...]
 ```
 
-Clients using this grant must be authenticated.
+### Establishing a trust relationship
 
-#### Establishing a trust relationship
-
-Before using this grant type, you must establish a trust relationship in Ory Hydra. Trust relationships come in two flavors:
+Before using this grant type, a trust relationship must be established in Ory OAuth2 and OpenID Connect. Trust relationships come
+in two flavors:
 
 - Trust relationships restricted to a single subject. This means that the issuer is only allowed to sign JWTs for the trusted
   subject.
 - Trust relationships that allow issuing tokens for any subject. This may be useful for some cases (like implementing a Secure
-  Token Service), but gives the issuer the ability to impersonate any user so you should only do this if you trust the issuer as
-  much as you trust your own Ory Hydra instance.
+  Token Service), but gives the issuer the ability to impersonate any user, so this should only be done if the issuer is as
+  trusted as your own Ory OAuth2 and OpenID Connect instance.
 
-Restricted trust relationships require registering the issuer, subject, and the public key at Ory Hydra's Admin Endpoint:
+Restricted trust relationships require registering the issuer, subject, and the public key using the Ory SDK:
 
-```
-POST https://<admin.ory-hydra>/trust/grants/jwt-bearer/issuers
-Content-Type: application/json
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import trustExample from '!!raw-loader!../../../code-examples/sdk/typescript/src/oauth2/trust.ts'
 
-{
-  // The issuer you want to trust.
-  "issuer": "https://my-issuer.com",
-
-  // The "sub" field of the access token to be created.
-  // Let's say 7146dd0b-f243-43ba-815c-7a00216b4823 is the user ID of Alice:
-  "subject": "7146dd0b-f243-43ba-815c-7a00216b4823",
-
-  // The allowed scope of the generated access token.
-  "scope": ["read"],
-
-  // The public key with which the JWT Bearer's signature can be verified.
-  "jwk": {
-    "kty":"RSA",
-    "e":"AQAB",
-    "kid":"d8e91f55-67e0-4e56-a066-6a5f0c2efdf7",
-    "n":"nzyis1ZjfNB0bBgKFMSvvkTtwlvBsaJq7S5wA-kzeVOVpVWwkWdVha4s38XM_pa_yr47av7-z3VTmvDRyAHcaT92whREFpLv9cj5lTeJSibyr_Mrm_YtjCZVWgaOYIhwrXwKLqPr_11inWsAkfIytvHWTxZYEcXLgAXFuUuaS3uF9gEiNQwzGTU1v0FqkqTBr4B8nW3HCN47XUu0t8Y0e-lf4s4OxQawWD79J9_5d3Ry0vbV3Am1FtGJiJvOwRsIfVChDpYStTcHTCMqtvWbV6L11BWkpzGXSW4Hv43qa-GSYOD2QU68Mb59oSk2OB-BtOLpJofmbGEGgvmwyCI9Mw"
-  }
-
-  // When this trust relationship expires.
-  "expires_at": "2021-04-23T18:25:43.511Z",
-}
+<CodeBlock language="tsx">{trustExample}</CodeBlock>
 ```
 
-If you want an issuer to provide tokens for any subject you can omit the subject field and set the `allow_any_subject` flag to
-true:
+You can also [delete](../../reference/api#tag/oAuth2/operation/deleteTrustedOAuth2JwtGrantIssuer),
+[get](../../reference/api#tag/oAuth2/operation/getTrustedOAuth2JwtGrantIssuer), and
+[list](../../reference/api#tag/oAuth2/operation/listTrustedOAuth2JwtGrantIssuers) trust relationships.
 
-```
-POST https://<admin.ory-hydra>/trust/grants/jwt-bearer/issuers
-Content-Type: application/json
+### Exchanging JWT assertion for access token
 
-{
-  // The issuer you want to trust.
-  "issuer": "https://my-issuer.com",
+To exchange a JWT for an access token at the OAuth2 token endpoint, you need to make a POST request to the OAuth2 token endpoint
+with the following parameters:
 
-  // Setting this to true will allow the issuer to provide tokens for any subject.
-  "allow_any_subject": true,
+- `grant_type`: set to `urn:ietf:params:oauth:grant-type:jwt-bearer`
+- `assertion`: the JWT, which should be passed in the request body or in the `assertion` parameter of the request body.
 
-  // The allowed scope of the generated access token.
-  "scope": ["read"],
-
-  // The public key with which the JWT Bearer's signature can be verified.
-  "jwk": {
-    "kty":"RSA",
-    "e":"AQAB",
-    "kid":"d8e91f55-67e0-4e56-a066-6a5f0c2efdf7",
-    "n":"nzyis1ZjfNB0bBgKFMSvvkTtwlvBsaJq7S5wA-kzeVOVpVWwkWdVha4s38XM_pa_yr47av7-z3VTmvDRyAHcaT92whREFpLv9cj5lTeJSibyr_Mrm_YtjCZVWgaOYIhwrXwKLqPr_11inWsAkfIytvHWTxZYEcXLgAXFuUuaS3uF9gEiNQwzGTU1v0FqkqTBr4B8nW3HCN47XUu0t8Y0e-lf4s4OxQawWD79J9_5d3Ry0vbV3Am1FtGJiJvOwRsIfVChDpYStTcHTCMqtvWbV6L11BWkpzGXSW4Hv43qa-GSYOD2QU68Mb59oSk2OB-BtOLpJofmbGEGgvmwyCI9Mw"
-  }
-
-  // When this trust relationship expires.
-  "expires_at": "2021-04-23T18:25:43.511Z",
-}
-```
-
-Both examples above would allow the following JWT Bearer
+Here is an example HTTP request to exchange the JWT
 
 ```
 eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL215LWlzc3Vlci5jb20iLCJzdWIiOiJhbGljZUBleGFtcGxlLm9yZyIsImF1ZCI6IjcxNDZkZDBiLWYyNDMtNDNiYS04MTVjLTdhMDAyMTZiNDgyMyIsIm5iZiI6MTMwMDgxNTc4MCwiZXhwIjoxMzAwODE5MzgwfQ.Dpn7zYEhaWxi7CLxr1c8Db2zxOJDzpu5QTZgeM6me68aGt7jgpKujunfx2FBhhuKY2oJmIAhXJWXplGH2NnbCGxNzx17Y4CPGJE9jLC2ZxprvV_5Cdmx5GkGcFjpOXsgBSonhmsyKkxYhS3C-mq4u2Tx9Zi494G2EbDH0L2BSuWYi411qm4LrIHQRdiFP9v34VH-5hU005bvrlGJBA9W-Eom4krFYtC4_Zgc7XY2mcChBw0AYz3A1B0_7ui95iDR-33D5tBAGRn6iGgnVBeR1GmZX5y4jz7Nht2lbPQkrCyLsoPxn2ZQPqvbOUKxdgsrhkcs0UGND8GsDwDzISuuAw
@@ -124,17 +90,17 @@ which has the claims
 {
   iss: "https://my-issuer.com",
   sub: "7146dd0b-f243-43ba-815c-7a00216b4823",
-  aud: "https://public.hydra.com/oauth2/token",
+  aud: "https://{project.slug}.projects.oryapis.com/oauth2/token",
   nbf: 1300815780,
   exp: 1300819380,
 }
 ```
 
-to be exchanged for an OAuth2 Access Token (the `scope` parameter is optional!)
+for an OAuth2 Access Token (the `scope` parameter is optional):
 
 ```
 POST /oauth2/token HTTP/1.1
-Host: public.hydra.com
+Host: {project.slug}.projects.oryapis.com
 Content-Type: application/x-www-form-urlencoded
 
 grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer
@@ -142,94 +108,99 @@ grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer
 &assertion=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL215LWlzc3Vlci5jb20iLCJzdWIiOiJhbGljZUBleGFtcGxlLm9yZyIsImF1ZCI6IjcxNDZkZDBiLWYyNDMtNDNiYS04MTVjLTdhMDAyMTZiNDgyMyIsIm5iZiI6MTMwMDgxNTc4MCwiZXhwIjoxMzAwODE5MzgwfQ.Dpn7zYEhaWxi7CLxr1c8Db2zxOJDzpu5QTZgeM6me68aGt7jgpKujunfx2FBhhuKY2oJmIAhXJWXplGH2NnbCGxNzx17Y4CPGJE9jLC2ZxprvV_5Cdmx5GkGcFjpOXsgBSonhmsyKkxYhS3C-mq4u2Tx9Zi494G2EbDH0L2BSuWYi411qm4LrIHQRdiFP9v34VH-5hU005bvrlGJBA9W-Eom4krFYtC4_Zgc7XY2mcChBw0AYz3A1B0_7ui95iDR-33D5tBAGRn6iGgnVBeR1GmZX5y4jz7Nht2lbPQkrCyLsoPxn2ZQPqvbOUKxdgsrhkcs0UGND8GsDwDzISuuAw
 ```
 
-with resulting access token claims:
+In the example above, the JWT is passed in the `assertion` parameter of the request body. The `grant_type` parameter is set to
+`urn:ietf:params:oauth:grant-type:jwt-bearer` to indicate that we are exchanging a JWT for an access token.
 
-```
+The OAuth2 token endpoint will then verify the signature of the JWT and check the claims to ensure that it is valid. If the JWT is
+valid, the OAuth2 token endpoint will issue an access token that can be used to access protected resources:
+
+```json5 title="Example claims of JSON Web Token"
 {
-  "iss": "https://public.hydra.com/",
-  "sub": "7146dd0b-f243-43ba-815c-7a00216b4823",
-  "scp": ["read"],
+  iss: "https://{project.slug}.projects.oryapis.com/",
+  sub: "7146dd0b-f243-43ba-815c-7a00216b4823",
+  scp: ["read"],
   // ...
 }
 ```
 
-You can also delete, get, and list trust relationships. Please check the [HTTP REST API documentation](../reference/api.mdx) for
-more details.
+### JWT assertion validation requirements
 
-#### OAuth2 JWT bearer grant type validation
+When using the `urn:ietf:params:oauth:grant-type:jwt-bearer` Authorization Grant, the assertion parameter's JWT is validated
+through the following steps:
 
-When performing the `urn:ietf:params:oauth:grant-type:jwt-bearer` Authorization Grant, the JWT Bearer in the `assertion` parameter
-is validated as follows:
+- The JWT must contain an `iss` (issuer) claim that has a unique identifier for the entity that issued the JWT. This value should
+  match the `issuer` value of the trust relationship.
+- The JWT must contain a `sub` (subject) claim that identifies the principal as the subject of the JWT (e.g., the user ID). This
+  value should match the `subject` value of the trust relationship unless `allow_any_subject` is `true`.
+- The JWT must contain an `aud` (audience) claim with a value that identifies the authorization server as an intended audience.
+  The value should be the OAuth2 Token URL.
+- The JWT must contain an `exp` (expiration time) claim that restricts the time window during which the JWT can be used. This can
+  be controlled through the `/oauth2/grant/jwt/max_ttl` setting.
+- The JWT may contain an `nbf` (not before) claim that identifies the time before which the token must not be accepted for
+  processing by Ory.
+- The JWT may contain an `iat` (issued at) claim that identifies the time at which the JWT was issued. This can be controlled
+  through the `/oauth2/grant/jwt/iat_optional` (default `false`) setting. If iat is not provided, the current time (when Ory
+  receives the assertion) will be considered the issued date.
+- The JWT may contain a `jti` (JWT ID) claim that provides a unique identifier for the token. This can be controlled through the
+  `/oauth2/grant/jwt/jti_optional` (default `false`) setting. Note that if jti is required, Ory will reject all assertions with
+  the same `jti` if `jti` was already used by some assertion, and this assertion is not expired yet (see `exp` claim).
+- The JWT signature is verified using the JSON Web Key registered in the trust relationship.
+- If a scope was included in the OAuth2 access token request, it will be validated against the allowed scope in the trust
+  relationship.
 
-1. The JWT MUST contain an `iss` (issuer) claim that contains a unique identifier for the entity that'ssued the JWT. The value
-   must match the `issuer` value of the trust relationship.
-2. The JWT MUST contain a `sub` (subject) claim identifying the principal that is the subject of the JWT (for example the user
-   ID). The value must match the `subject` value of the trust relationship.
-3. The JWT MUST contain an `aud` (audience) claim containing a value that identifies the authorization server (Hydra) as an
-   intended audience. So this value must be Hydra Token URL.
-4. The JWT MUST contain an `exp` (expiration time) claim that limits the time window during which the JWT can be used. Can be
-   controlled by `oauth2.grant.jwt.max_ttl` setting.
-5. The JWT MAY contain an `nbf` (not before) claim that identifies the time before which the token MUST NOT be accepted for
-   processing by Hydra.
-6. The JWT MAY contain an `iat` (issued at) claim that identifies the time at which the JWT was issued. Controlled by
-   `oauth2.grant.jwt.iat_optional` (default `false`) If `iat` isn't passed, then current time (when assertion is received by
-   Hydra) will be considered as issued date.
-7. The JWT MAY contain a `jti` (JWT ID) claim that provides a unique identifier for the token. Controlled by
-   `oauth2.grant.jwt.jti_optional` (default `false`) setting. **Note**: If `jti` is configured to be required, then Hydra will
-   reject all assertions with the same `jti`, if `jti` was already used by some assertion, and this assertion isn't expired yet
-   (see `exp` claim).
-8. The JWT MUST be digitally signed.
+### Configuring JWT validation parameters
 
-If a scope was included in the OAuth2 Access Token Request
+To configure the `/oauth2/grant/jwt/jti_optional`, `/oauth2/grant/jwt/iat_optional`, and `/oauth2/grant/jwt/max_ttl` settings
+using the Ory CLI, follow the example below:
 
-```
-POST /oauth2/token HTTP/1.1
-Host: public.hydra.com
-Content-Type: application/x-www-form-urlencoded
-
-grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer
-&scope=read
-&assertion=...
+```shell
+ory patch oauth2-config \
+  --replace "/oauth2/grant/jwt/jti_optional=true" \
+  --replace "/oauth2/grant/jwt/iat_optional=true" \
+  --replace "/oauth2/grant/jwt/max_ttl=1h"
 ```
 
-Hydra will check them against scopes defined in the corresponding trust relationship.
+## JWTs for client authentication
 
-### Using JWTs for client authentication
+Ory provides support for OAuth 2.0 Client Authentication with RSA and ECDSA private/public key pairs and supports signing
+algorithms such as RS256, RS384, RS512, PS256, PS384, PS512, ES256, ES384, ES512, and EdDSA. This method of authentication
+replaces the classic HTTP Basic Authorization and HTTP POST Authorization schemes. Instead of sending the `client_id` and
+`client_secret`, you authenticate the client with a signed JSON Web Token.
 
-Ory Hydra supports OAuth 2.0 Client Authentication with RSA and ECDSA private/public keypairs with supported signing algorithms:
+To use this feature for a specific OAuth 2.0 Client, set the `token_endpoint_auth_method` to `private_key_jwt` and register the
+public key of the RSA/ECDSA signing key either using the `jwks_uri` or `jwks` fields of the client.
 
-- RS256 (default), RS384, RS512
-- PS256, PS384, PS512
-- ES256, ES384, ES512
-- EdDSA
+When authenticating the client at the token endpoint, generate and sign (with the RSA/ECDSA private key) a JSON Web Token with the
+following claims:
 
-This authentication method replaces the classic HTTP Basic Authorization and HTTP POST Authorization schemes. Instead of sending
-the `client_id` and `client_secret`, you authenticate the client with a signed JSON Web Token.
-
-To enable this feature for a specific OAuth 2.0 Client, you must set `token_endpoint_auth_method` to `private_key_jwt` and
-register the public key of the RSA/ECDSA signing key either using the `jwks_uri` or `jwks` fields of the client.
-
-When authenticating the client at the token endpoint, you generate and sign (with the RSA/ECDSA private key) a JSON Web Token with
-the following claims:
-
-- `iss`: REQUIRED. Issuer. This MUST contain the client_id of the OAuth Client.
-- `sub`: REQUIRED. Subject. This MUST contain the client_id of the OAuth Client.
-- `aud`: REQUIRED. Audience. The aud (audience) Claim. Value that identifies the Authorization Server (Ory Hydra) as an intended
+- `iss`: REQUIRED. Issuer. This claim MUST contain the client_id of the OAuth Client.
+- `sub`: REQUIRED. Subject. This claim MUST contain the client_id of the OAuth Client.
+- `aud`: REQUIRED. Audience. The `aud` (audience) Claim is a value that identifies the Authorization Server (Ory) as an intended
   audience. The Authorization Server MUST verify that it's an intended audience for the token. The Audience SHOULD be the URL of
   the Authorization Server's Token Endpoint.
-- `jti`: REQUIRED. JWT ID. A unique identifier for the token, which can be used to prevent reuse of the token. These tokens MUST
-  only be used once, unless conditions for reuse were negotiated between the parties; any such negotiation is beyond the scope of
-  this specification.
+- `jti`: REQUIRED. JWT ID. This is a unique identifier for the token, which can be used to prevent reuse of the token. These
+  tokens MUST only be used once, unless conditions for reuse were negotiated between the parties; any such negotiation is beyond
+  the scope of this specification.
 - `exp`: REQUIRED. Expiration time on or after which the ID Token MUST NOT be accepted for processing.
 - `iat`: OPTIONAL. Time at which the JWT was issued.
 
-When making a request to the `/oauth2/token` endpoint, you include
-`client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer` and `client_assertion=<signed-jwt>` in the request
-body:
+To make a request to the `/oauth2/token` endpoint, include
+
+```
+client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer
+```
+
+and
+
+```
+client_assertion=<signed-jwt>
+```
+
+in the request body:
 
 ```
 POST /oauth2/token HTTP/1.1
-Host: my-hydra.com
+Host: {project.slug}.projects.oryapis.com
 Content-Type: application/x-www-form-urlencoded
 
 grant_type=authorization_code&
@@ -240,93 +211,28 @@ urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer&
 client_assertion=PHNhbWxwOl ... ZT
 ```
 
-Here's what a client with a `jwks` containing one RSA public key looks like:
+### Registering the client's public key
 
-```json
-{
-  "client_id": "rsa-client-jwks",
-  "jwks": {
-    "keys": [
-      {
-        "kty": "RSA",
-        "n": "jL7h5wc-yeMUsHGJHc0xe9SbTdaLKXMHvcIHQck20Ji7SvrHPdTDQTvZtTDS_wJYbeShcCrliHvbJRSZhtEe0mPJpyWg3O_HkKy6_SyHepLK-_BR7HfcXYB6pVJCG3BW-lVMY7gl5sULFA74kNZH50h8hdmyWC9JgOHn0n3YLdaxSWlhctuwNPSwqwzY4qtN7_CZub81SXWpKiwj4UpyB10b8rM8qn35FS1hfsaFCVi0gQpd4vFDgFyqqpmiwq8oMr8RZ2mf0NMKCP3RXnMhy9Yq8O7lgG2t6g1g9noWbzZDUZNc54tv4WGFJ_rJZRz0jE_GR6v5sdqsDTdjFquPlQ",
-        "e": "AQAB",
-        "use": "sig",
-        "kid": "rsa-jwk"
-      }
-    ]
-  },
-  "token_endpoint_auth_method": "private_key_jwt",
-  "token_endpoint_auth_signing_alg": "RS256"
-}
+To configure the public key for an OAuth2 client in order to verify the signature of the authentication JWT, you need to do the
+following:
+
+1. Generate an RSA or ECDSA key pair. The private key will be used by the client to sign JWTs, and the public key will be used by
+   the authorization server to verify the signatures.
+2. Register the public key with the OAuth2 client. This can be done using the `jwks_uri` or `jwks` fields of the client. The
+   `jwks_uri` is a URL that points to a JSON Web Key Set (JWKS) that contains the public key. The `jwks` field is a direct JSON
+   object representation of the JWKS.
+
+Here is an example of how to register an RSA public key for an OAuth2 client:
+
+```mdx-code-block
+import jwkExample from '!!raw-loader!../../../code-examples/sdk/typescript/src/oauth2/client-create-jwk.ts'
+
+<CodeBlock language="tsx">{jwkExample}</CodeBlock>
 ```
 
-And here is how it looks like for a `jwks` including an ECDSA public key:
+Note that the `kid` field (key ID) should be a unique identifier for the public key. This is used by the authorization server to
+identify which key to use to verify the signature of the JWT. If you have multiple keys, you should use a different `kid` for each
+key.
 
-```json
-{
-  "client_id": "ecdsa-client-jwks",
-  "jwks": {
-    "keys": [
-      {
-        "kty": "EC",
-        "use": "sig",
-        "crv": "P-256",
-        "kid": "ecdsa-jwk",
-        "x": "nQjdhpecjZRlworpYk_TJAQBe4QbS8IwHY1DWkfR0w0",
-        "y": "UQfLzHxhc4i3EETUeaAS1vDVFJ-Y01hIESiXqqS86Vc"
-      }
-    ]
-  },
-  "token_endpoint_auth_method": "private_key_jwt",
-  "token_endpoint_auth_signing_alg": "ES256"
-}
-```
-
-And here is how it looks like for a `jwks` including an EdDSA public key:
-
-```json
-{
-  "client_id": "eddsa-client-jwks",
-  "jwks": {
-    "keys": [
-      {
-        "kty": "OKP",
-        "use": "sig",
-        "crv": "Ed25519",
-        "kid": "eddsa-jwk",
-        "x": "cg1qGqQGSF6xvzoDZVaDfxu0c2fPhUEuVHYUr1WYVXs"
-      }
-    ]
-  },
-  "token_endpoint_auth_method": "private_key_jwt",
-  "token_endpoint_auth_signing_alg": "EdDSA"
-}
-```
-
-And with `jwks_uri`:
-
-```json
-{
-  "client_id": "client-jwks-uri",
-  "jwks_uri": "http://path-to-my-public/keys.json",
-  "token_endpoint_auth_method": "private_key_jwt",
-  "token_endpoint_auth_signing_alg": "RS256"
-}
-```
-
-The `jwks_uri` must return a JSON object containing the public keys associated with the OAuth 2.0 Client:
-
-```json
-{
-  "keys": [
-    {
-      "kty": "RSA",
-      "n": "jL7h5wc-yeMUsHGJHc0xe9SbTdaLKXMHvcIHQck20Ji7SvrHPdTDQTvZtTDS_wJYbeShcCrliHvbJRSZhtEe0mPJpyWg3O_HkKy6_SyHepLK-_BR7HfcXYB6pVJCG3BW-lVMY7gl5sULFA74kNZH50h8hdmyWC9JgOHn0n3YLdaxSWlhctuwNPSwqwzY4qtN7_CZub81SXWpKiwj4UpyB10b8rM8qn35FS1hfsaFCVi0gQpd4vFDgFyqqpmiwq8oMr8RZ2mf0NMKCP3RXnMhy9Yq8O7lgG2t6g1g9noWbzZDUZNc54tv4WGFJ_rJZRz0jE_GR6v5sdqsDTdjFquPlQ",
-      "e": "AQAB",
-      "use": "sig",
-      "kid": "rsa-jwk"
-    }
-  ]
-}
-```
+Once the public key has been registered, the OAuth2 client can use its private key to sign JWTs, and the authorization server can
+use the public key to verify the signatures.
