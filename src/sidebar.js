@@ -369,7 +369,7 @@ module.exports = {
             "hydra/debug",
             "hydra/debug/token-endpoint-auth-method",
             "hydra/debug/logout",
-          ]
+          ],
         },
       ],
     },

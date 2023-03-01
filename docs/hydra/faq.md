@@ -15,17 +15,17 @@ There are three things you can do to quickly debug any issue:
    line for a client that requested a redirect URL that didn't match the whitelisted redirect URLS:
    `time="2018-08-07T16:01:16Z" level=error msg="An error occurred" description="The request is missing a required parameter, includes an invalid parameter value, includes a parameter more than once, or is otherwise malformed" error=invalid_request hint="The \"redirect_uri\" parameter doesn't match any of the OAuth 2.0 Client's pre-registered redirect urls."`
 2. Check the URL because of two reasons:
-  1. Ory Hydra sends `error_hint`, `error`, `error_description`, `error_debug` in the URL. You will find the cause of the error
-     most likely in there.
-  2. You are maybe in the wrong URL. Make sure the host and port and path is correct. This happens often when you're just
-     starting out and experimenting.
-3. Set environment variable `OAUTH2_EXPOSE_INTERNAL_ERRORS=true`. Don't do this in production, it's possible, though unlikely,
+3. Ory Hydra sends `error_hint`, `error`, `error_description`, `error_debug` in the URL. You will find the cause of the error most
+   likely in there.
+4. You are maybe in the wrong URL. Make sure the host and port and path is correct. This happens often when you're just starting
+   out and experimenting.
+5. Set environment variable `OAUTH2_EXPOSE_INTERNAL_ERRORS=true`. Don't do this in production, it's possible, though unlikely,
    that important data leaks with this. If set to true, Ory Hydra will set the `error_debug` query parameter if debug information
    is available.
-4. If you're just starting out and experimenting your docker set up doesn't work at all:
-  1. Stop all containers
-  2. Remove them (unless you have something important running)
-  3. Retry. **This can help a lot if you are new to this!**
+6. If you're just starting out and experimenting your docker set up doesn't work at all:
+7. Stop all containers
+8. Remove them (unless you have something important running)
+9. Retry. **This can help a lot if you are new to this!**
 
 ## How to omit consent redirection
 
