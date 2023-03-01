@@ -208,12 +208,12 @@ module.exports = {
         "hydra/guides/oauth2-token-introspection",
         "hydra/guides/client-token-expiration",
         "oauth2-oidc/userinfo-oidc",
+        "hydra/jwks",
         {
           Concepts: [
             "hydra/concepts/login",
             "hydra/concepts/consent",
             "hydra/concepts/logout",
-            "hydra/jwks",
           ],
         },
         {
