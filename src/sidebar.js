@@ -291,6 +291,7 @@ module.exports = {
         {
           Examples: ["keto/examples/olymp-file-sharing"],
         },
+        "keto/reference/ory-permission-language",
       ],
     },
     {
@@ -556,7 +557,6 @@ module.exports = {
                 { SDK: ["keto/sdk/overview", "keto/sdk/go"] },
                 "keto/reference/configuration",
                 "keto/reference/configuration-editor",
-                "keto/reference/ory-permission-language",
               ],
             },
           ],
