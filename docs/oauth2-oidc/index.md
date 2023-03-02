@@ -10,7 +10,7 @@ Connect provider built on top of the widely deployed open source [Ory Hydra](htt
 ## Overview
 
 OAuth2 is the industry-standard protocol that enables secure machine-to-machine communication and grants limited access to data
-and services on behalf of users. OpenID Connect, built on top of OAuth2, is the required to become a Social Sign In provider.
+and services on behalf of users. OpenID Connect, built on top of OAuth2, is required to become a Social Sign In provider.
 
 Ory OAuth2 & OpenID Connect is available out of the box in the Ory Network and is the perfect solution for securely connecting
 users, applications, and services. Whether you need single sign-on (SSO), mobile and third-party application authorization, API
