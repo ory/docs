@@ -63,4 +63,4 @@ used, for example, to sign JSON Web Tokens.
 
 The architecture and workflows of Ory OAuth2 & OpenID Connect are designed to neutralize the common attack vectors as listed in
 [OWASP Top Ten](https://owasp.org/www-project-top-ten/), as well as numerous less exploited security risks. Read about the
-[security architecture](./security-architecture.md) to learn more.
+[security architecture](../hydra/security-architecture.md) to learn more.

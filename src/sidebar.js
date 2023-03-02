@@ -192,7 +192,7 @@ module.exports = {
       type: "category",
       label: "OAuth2 and OpenID Connect",
       items: [
-        "hydra/index",
+        "oauth2-oidc/index",
         {
           "Concepts explained": [
             "oauth2-oidc/overview/oauth2-concepts",
