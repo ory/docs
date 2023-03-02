@@ -1,10 +1,8 @@
 ---
 id: custom-ui-oauth2
-title: Use your custom UI when running OAuth2 flows in Ory Network
-sidebar_label: Custom UI with OAuth2
+title: Try out custom OAuth2 login and consent
+sidebar_label: Try it
 ---
-
-# Custom UI with OAuth2 flows
 
 When using OAuth2 grants in Ory Network, you can use your custom UI implementation in place of the default screens supplied by the
 Ory Account Experience.
@@ -22,9 +20,7 @@ Before you start, prepare your environment:
   go to [console.ory.sh](https://console.ory.sh/).
 - [Create an API Key](../../concepts/personal-access-token.mdx) and save it in a safe place for later use.
 
-## Setup
-
-### Create OAuth2 client in Ory Network
+## Create OAuth2 client in Ory Network
 
 Create a new OAuth2 client using the Ory CLI. Alternatively, use the API and sending a POST request to the `/admin/clients` API.
 This is a protected endpoint, which means that you must include the API Key in the `Authorization` header of the request.
@@ -104,7 +100,7 @@ Learn more about creating OAuth2 clients in The Ory Network by reading the
 
 After you create the client, copy the `client_id` and `client_secret` and save it for later use.
 
-### Run the sample application
+## Run the sample application
 
 Follow these steps to run a sample application with login and consent screens:
 
@@ -145,7 +141,7 @@ document, open new terminal windows.
 
 :::
 
-### Configure Ory Network
+## Configure Ory Network
 
 By default, The Ory Network uses internal redirect URLs for operations such as user login and consent. You can adjust these URLs
 to point to pages that handle these operations in your setup. In this example, the sample application runs at
@@ -183,7 +179,7 @@ Follow these steps to configure The Ory Network to call the sample application f
    ory update oauth2-config <project-id> --file config.yaml
    ```
 
-### Start a local web server acting as OAuth2 client
+## Start a local web server acting as OAuth2 client
 
 Use the Ory CLI to start a web server that acts as the OAuth2 client. To run the Authorization Code Grant, the client ID and
 client secret must be registered in the Ory Network.

@@ -1015,8 +1015,28 @@
       "permanent": false
     },
     {
-      "source": "/docs/hydra/debug/csrf",
-      "destination": "/docs/troubleshooting/csrf",
+      "source": "/docs/hydra/guides/login",
+      "destination": "/docs/oauth2-oidc/custom-login-consent/flow",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/consent",
+      "destination": "/docs/oauth2-oidc/custom-login-consent/flow",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/concepts/login",
+      "destination": "/docs/oauth2-oidc/custom-login-consent/flow",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/concepts/consent",
+      "destination": "/docs/oauth2-oidc/custom-login-consent/flow",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/concepts/logout",
+      "destination": "/docs/oauth2-oidc/oidc-logout",
       "permanent": false
     }
   ]

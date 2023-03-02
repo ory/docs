@@ -212,34 +212,14 @@ module.exports = {
         "hydra/jwks",
         "hydra/guides/openid",
         "hydra/guides/audiences",
+        "hydra/guides/jwt",
+        "oauth2-oidc/revoke-consent",
+        "oauth2-oidc/oidc-logout",
         {
-          Concepts: [
-            "hydra/concepts/login",
-            "hydra/concepts/consent",
-            "hydra/concepts/logout",
-          ],
-        },
-        {
-          Guides: [
-            {
-              type: "category",
-              label: "Implement user interface",
-              items: [
-                "hydra/guides/custom-ui-oauth2",
-                "hydra/guides/login",
-                "hydra/guides/consent",
-                "hydra/guides/logout",
-              ],
-            },
-            {
-              type: "category",
-              label: "Advanced usage",
-              items: [
-                {
-                  "Advanced flows": ["hydra/guides/jwt"],
-                },
-              ],
-            },
+          "Bring your own users and UI": [
+            "hydra/guides/custom-ui-oauth2",
+            "oauth2-oidc/custom-login-consent/flow",
+            "hydra/guides/logout",
           ],
         },
       ],
