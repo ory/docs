@@ -147,14 +147,14 @@ the hierarchy.
 You can create additional fine-grained permission rules for certain objects, similar to the `private` file.
 
 ```mdx-code-block
-<CodeFromRemote src={file("relation-tuples/tuples.json")} title="tuples.json" />
+<CodeFromRemote src={file("relation-tuples/tuples.json")} title="relationships.json" />
 ```
 
-Save the file as `tuples.json` in your current working directory. To create these relationships in Ory Permissions, run this
-command:
+Save the file as `relationships.json` in your current working directory. To create these relationships in Ory Permissions, run
+this command:
 
 ```shell
-ory create relationships tuples.json
+ory create relationships relationships.json
 
 # Output:
 #   NAMESPACE       OBJECT                  RELATION NAME   SUBJECT

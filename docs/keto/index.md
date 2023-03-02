@@ -14,19 +14,14 @@ described in [Zanzibar: Google's Consistent, Global Authorization System](https:
 Implementing the design principles described in the Zanzibar paper allows Ory Permissions to offer the following benefits over
 older, widely adopted permission systems:
 
-- Flexibility: Older permission systems typically rely on a fixed set of permissions and access control rules that are difficult
-  to customize or modify. Ory Permissions provides a flexible data model you can customize to fit a wide range of use cases.
-  Creating custom permission models is aided by Ory Permission Language, a developer-friendly, TypeScript-based configuration
-  language.
+- Flexibility: Traditional permission systems typically rely on a fixed set of permissions and access control rules that are
+  difficult to customize or modify. Ory Permissions provides a flexible data model you can customize to fit a wide range of use
+  cases. Creating custom permission models is aided by Ory Permission Language, a developer-friendly, TypeScript-based
+  configuration language.
 
 - Scalability: While traditional permission systems often struggle to handle large-scale applications and services with high
   request volume, Ory Permissions is designed to be highly scalable and handle a large number of concurrent requests without
   sacrificing performance or reliability.
-
-- Consistency: In older permissions systems, the data is often eventually consistent, which leaves windows of opportunity for
-  potential unauthorized access to resources before the data is correctly propagated to all parts of the system. By implementing
-  Zanzibar, Ory Permissions puts consistency in the spotlight and ensures that permission checks that are at the critical path of
-  user experience, are always answered correctly.
 
 With Ory Permissions, you can:
 
@@ -39,9 +34,9 @@ With Ory Permissions, you can:
 
 ## Ory Permission Language
 
-The Ory Permission Language (OPL) is a developer-friendly configuration language defined as a subset of [TypeScript](https://www.typescriptlang.org/).
-It's designed to be easy to learn and has a familiar source in contrary to other, proprietary languages used to represent
-permissions, such as Rego or Casbin.
+The Ory Permission Language (OPL) is a developer-friendly configuration language defined as a subset of
+[TypeScript](https://www.typescriptlang.org/). It's designed to be easy to learn and has a familiar source in contrary to other,
+proprietary languages used to represent permissions, such as Rego or Casbin.
 
 :::tip
 
