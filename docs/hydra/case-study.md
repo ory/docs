@@ -25,14 +25,14 @@ authentication as well!
 
 So you decide to implement OAuth2 and use Ory Hydra to do the job. You run Hydra by adding its Docker image to your cluster. Next,
 you set up some exemplary OAuth2 clients. These clients need to access a user's todo lists. To do so, the client initiates an
-OAuth2 request. This is where Hydra's [user login & consent flow](concepts/oauth2.mdx) comes into play. Before Hydra can issue an
-access token, we need to know which user is giving consent. To determine this, Hydra redirects the user agent (browser, mobile
-device) to ToDo24's login endpoint alongside with a challenge that contains important request information. The login endpoint
-(todo24.com/login) authenticates the user as usual, for example by username & password, session cookie or other means. Upon
-successful authentication, the login endpoint redirects the user back to Ory Hydra. Next, Ory Hydra needs the user's consent. It
-redirects the user agent to the consent endpoint (todo24.com/consent) where the user is asked something like _"Do you want to
-grant MyAnalyticsApp read access to your todo lists? [Yes][no]"_. Once the user gives consent by clicking _Yes_, the consent
-endpoint redirects back to Ory Hydra. Hydra validates the request and issues the access, refresh, and ID tokens.
+OAuth2 request. This is where Hydra's [user login & consent flow](../oauth2-oidc/overview/oauth2-concepts.mdx) comes into play.
+Before Hydra can issue an access token, we need to know which user is giving consent. To determine this, Hydra redirects the user
+agent (browser, mobile device) to ToDo24's login endpoint alongside with a challenge that contains important request information.
+The login endpoint (todo24.com/login) authenticates the user as usual, for example by username & password, session cookie or other
+means. Upon successful authentication, the login endpoint redirects the user back to Ory Hydra. Next, Ory Hydra needs the user's
+consent. It redirects the user agent to the consent endpoint (todo24.com/consent) where the user is asked something like _"Do you
+want to grant MyAnalyticsApp read access to your todo lists? [Yes][no]"_. Once the user gives consent by clicking _Yes_, the
+consent endpoint redirects back to Ory Hydra. Hydra validates the request and issues the access, refresh, and ID tokens.
 
 You can validate the access tokens which are sent to your API directly at Ory Hydra, or use an Identity & Access Proxy like Ory
 Oathkeeper to do it for you.
