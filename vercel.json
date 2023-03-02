@@ -1038,6 +1038,11 @@
       "source": "/docs/hydra/concepts/logout",
       "destination": "/docs/oauth2-oidc/oidc-logout",
       "permanent": false
+    },
+    {
+      "source": "/docs/hydra",
+      "destination": "/docs/oauth2-oidc",
+      "permanent": false
     }
   ]
 }
