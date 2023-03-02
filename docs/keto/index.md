@@ -33,14 +33,14 @@ With Ory Permissions, you can:
 - Use Ory Permission Language to create permission models that fit your exact use case - RBAC, ABAC, and beyond.
 - Unify authorization logic in one service that's the single source of truth for access rights across all of your applications.
 - Be tech-stack agnostic and use Ory Network [SDKs](./sdk/01_overview.md) available for all major programming languages.
-- Issue fine-grained permissions, for example `user x can read document y`.
+- Issue fine-grained permissions, for example `User:x is in readers of Document:y`.
 - Allow permissions inheritance through groups, roles, and hierarchies to ensure organic scaling that follows the growth of your
   application.
 
 ## Ory Permission Language
 
-The Ory Permission Language (OPL) is a developer-friendly, [TypeScript](https://www.typescriptlang.org/)-based configuration
-language designed to have a low learning curve and a familiar source in contrary to other, proprietary languages used to represent
+The Ory Permission Language (OPL) is a developer-friendly configuration language defined as a subset of [TypeScript](https://www.typescriptlang.org/).
+It's designed to be easy to learn and has a familiar source in contrary to other, proprietary languages used to represent
 permissions, such as Rego or Casbin.
 
 :::tip
