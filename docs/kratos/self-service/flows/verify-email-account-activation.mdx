@@ -31,15 +31,15 @@ recommend implementing additional security mechanisms to ensure that verified ac
 
 ```mdx-code-block
 <Tabs groupId="console-or-cli">
-  <TabItem value="console" label="Ory Console" default>
+<TabItem value="console" label="Ory Console" default>
 ```
 
 To configure account verification, go to **Authentication** → **Email Verification** in the
 [Ory Console](https://console.ory.sh/projects/current/verification).
 
 ```mdx-code-block
-  </TabItem>
-  <TabItem value="cli" label="Ory CLI">
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
 ```
 
 1. Download the Ory Identities config from your project and save it to a file:
@@ -83,7 +83,7 @@ To configure account verification, go to **Authentication** → **Email Verifica
    ```
 
 ```mdx-code-block
-  </TabItem>
+</TabItem>
 </Tabs>
 ```
 
@@ -124,6 +124,65 @@ provides when registering their account. Other fields inside the `traits` sectio
  }
 ```
 
+### Attempted verification notifications
+
+When this option is on and users attempt to initiate verification for unregistered addresses, the system sends an attempted
+verification notification to the email address that was used in the attempt. This prevents account enumeration attacks as
+explained in this
+[blog post by Troy Hunt](https://www.troyhunt.com/website-enumeration-insanity-how-our-personal-data-is-leaked/).
+
+:::info
+
+By default, this feature is disabled in newly created Ory Network projects.
+
+:::
+
+Follow these steps to enable sending attempted verification notifications:
+
+```mdx-code-block
+<Tabs groupId="console-or-cli">
+<TabItem value="console" label="Ory Console" default>
+```
+
+Go to [**Ory Console**](https://console.ory.sh/) → **Email Verification** to enable and toggle **Notify unknown recipients** on.
+
+```mdx-code-block
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
+```
+
+1. Download the Ory Identities config from your project and save it to a file:
+
+   ```shell
+   ## List all available projects
+   ory list projects
+
+   ## Get config
+   ory get identity-config {project-id} --format yaml > identity-config.yaml
+   ```
+
+2. Set `notify_unknown_recipients` to `true`:
+
+   ```yaml title="identity-config.yaml"
+   flows:
+     verification:
+       enabled: true
+       lifespan: 15m # Defines how much time the user has to complete the verification flow in the UI. Default: 1h.
+       use: code # Defines which method is used, one of 'code' or 'link'.
+       notify_unknown_recipients: true # Defines if the system sends attempted verification notifications to unregistered addresses.
+   ```
+
+3. Update the Ory Identities configuration using the file you worked with:
+
+   ```shell
+   ory update identity-config {project-id} --file identity-config.yaml
+   ```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
 ### Email templates
 
 Ory Identities comes with default email templates for verification flows.
@@ -131,26 +190,21 @@ Ory Identities comes with default email templates for verification flows.
 You can quickly replace the defaults and customize the messages to match the look and feel of your solution. Read the
 [custom email template documentation](../../emails-sms/05_custom-email-templates.mdx) to learn more.
 
-### Notifying unknown addresses
-
-Ory Identities can send a notification email, if verification was requested for an address that does not belong to any known
-account.
-
 ### Allow login only with verified email
 
 To allow only the users with a verified email to sign in, follow these steps:
 
 ```mdx-code-block
 <Tabs groupId="console-or-cli">
-  <TabItem value="console" label="Ory Console" default>
+<TabItem value="console" label="Ory Console" default>
 ```
 
 Go to **Authentication** → **Email Verification** in the [Ory Console](https://console.ory.sh/projects/current/verification) and
 enable **Require Verified Address for Login**.
 
 ```mdx-code-block
-  </TabItem>
-  <TabItem value="cli" label="Ory CLI">
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
 ```
 
 1. Download the Ory Identities config from your project and save it to a file:
@@ -187,7 +241,7 @@ For more information see the [hooks configuration](../../hooks/01_configure-hook
 :::
 
 ```mdx-code-block
-  </TabItem>
+</TabItem>
 </Tabs>
 ```
 
@@ -197,7 +251,7 @@ Ory supports two strategies for verifying your user's addresses.
 
 ```mdx-code-block
 <Tabs>
-  <TabItem value="code" label="One-time codes">
+<TabItem value="code" label="One-time codes">
 ```
 
 When using one-time codes to verify a user's address, Ory Identities sends an email with a 6-digit code to the user. They must
@@ -207,15 +261,15 @@ The email also contains a link, that takes the user to the verification form wit
 field. The only thing the user must do to verify their address is to submit the form.
 
 ```mdx-code-block
-  </TabItem>
-  <TabItem value="link" label="Magic Links">
+</TabItem>
+<TabItem value="link" label="Magic Links">
 ```
 
 When using the "magic link" method, Ory Identities sends the user an email with a verification link. If the user has access to the
 email associated with the account and clicks the link, Ory Identities marks that address as verified.
 
 ```mdx-code-block
-  </TabItem>
+</TabItem>
 </Tabs>
 ```
 
