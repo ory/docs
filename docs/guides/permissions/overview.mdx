@@ -14,10 +14,14 @@ const file = (path) => `https://github.com/ory/keto/blob/master/contrib/rewrites
 ```
 
 [Ory Permissions](https://www.ory.sh/permissions/) (based on [Ory Keto](https://github.com/ory/keto)) implements
-[Google Zanzibar](https://research.google/pubs/pub48190/). It might differ a bit from other authorization services you know, so
-let's first clarify a few concepts.
+[Google Zanzibar](https://research.google/pubs/pub48190/). This document explains the most fundamental concepts necessary to work
+with Ory Permissions and gives you an opportunity to create and query a simple set of relationships.
 
-## Relations and relationships
+## Basic concepts
+
+Before you start, learn about the basic concepts used in Ory Permissions.
+
+### Relations and relationships
 
 The data model used by Ory Permissions are so-called [relationships](/keto/concepts/01_relation-tuples.mdx) that encode relations
 between [subjects](/keto/concepts/15_subjects.mdx) and [objects](/keto/concepts/10_objects.mdx).
@@ -39,7 +43,7 @@ members of groups:group1 are readers of files:file1
 As you can see, the subject of a relationship can either be a specific subject ID, or subjects defined through an
 [indirection](https://en.wikipedia.org/wiki/Indirection) (all members of a certain group). The object is referenced by its ID.
 
-## Checking permissions
+### Checking permissions
 
 Permissions are just another form of relations. Therefore, a permission check is a request to check whether a subject has a
 certain relation to an object, possibly through one or more indirections.
@@ -132,24 +136,25 @@ Follow these steps:
    ory use project {ID_OF_YOUR_PROJECT}
    ```
 
-### Creating the tuples
+### Creating relationships
 
-Next, create the tuples using the Ory CLI.
+Next, create relationships in your Ory Network project using the Ory CLI.
 
-The following relationships showcase the namespace configuration. In short, it sets up a `developer` group with two members, and a
+The following relationships showcase the namespace configuration. The sample defines a `developer` group with two members and a
 folder hierarchy. Through the rules in the Ory Permission Language, every member of the `developer` group can access the files in
 the hierarchy.
 
 You can create additional fine-grained permission rules for certain objects, similar to the `private` file.
 
 ```mdx-code-block
-<CodeFromRemote src={file("relation-tuples/tuples.json")} title="tuples.json" />
+<CodeFromRemote src={file("relation-tuples/tuples.json")} title="relationships.json" />
 ```
 
-Save the file as `tuples.json` in your current working directory. To load the file into Ory Permissions, run this command:
+Save the file as `relationships.json` in your current working directory. To create these relationships in Ory Permissions, run
+this command:
 
 ```shell
-ory create relationships tuples.json
+ory create relationships relationships.json
 
 # Output:
 #   NAMESPACE       OBJECT                  RELATION NAME   SUBJECT
@@ -165,7 +170,7 @@ ory create relationships tuples.json
 
 ### Checking for permissions
 
-Now, let's check some permissions! Some queries to try:
+With the relationships created, try running queries that illustrate use cases:
 
 #### Transitive permissions for objects in the hierarchy
 
@@ -198,7 +203,7 @@ ory is allowed User:Henning edit File private
 Allowed
 ```
 
-## Further reading
+## Next steps
 
-To learn more about the Ory Permission Language, read the [specification](../../keto/reference/ory-permission-language.mdx)
-document.
+- Learn [what a permission model is and how to create one](../../keto/modeling/create-permission-model.mdx).
+- Read the Ory Permission Language [specification](../../keto/reference/ory-permission-language.mdx).
