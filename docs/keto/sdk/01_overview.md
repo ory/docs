@@ -12,13 +12,6 @@ documentation, which includes code samples and examples for various programming 
 To view the source code for the generated SDKs, visit the
 [Ory Keto SDKs GitHub repository](https://github.com/ory/sdk/tree/master/clients/keto/).
 
-:::info
-
-The [`ory-client`](../../sdk.mdx) SDK works with self-hosted Ory services, but due to different release cycles it is recommended
-to use `keto-client` with self-hosted Ory Keto.
-
-:::
-
 ## Download the SDK
 
 Ory publishes SDKs for popular languages in their respective package repositories:

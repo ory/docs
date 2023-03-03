@@ -3,20 +3,38 @@ id: go
 title: Go
 ---
 
-This guide shows how you can use Go SDK with Ory Kratos.
+In this document you can find code examples for the Ory Identities Go SDK.
+
+:::info
+
+Missing an example? Please create a
+[feature request](https://github.com/ory/docs/issues/new?assignees=&labels=feat&template=FEATURE-REQUEST.yml) and it will be added
+here.
+
+You can find more examples of SDK usage in the auto-generated documentation
+[`client-go`](https://github.com/ory/client-go/tree/master/docs).
+
+:::
 
 ## Installation
 
-```mdx-code-block
-import CodeBlock from '@theme/CodeBlock'
-import { useLatestRelease } from '@site/src/hooks'
+If you are starting from scratch, first set up a new Go project
 
-<CodeBlock className="language-shell">{`go get  github.com/ory/client-go@${useLatestRelease('keto')}`}</CodeBlock>
+```bash
+mkdir myproject
+cd myproject
+go mod init myproject
+```
+
+Install the Ory Go SDK
+
+```go
+go get github.com/ory/client-go
 ```
 
 ## Configuration
 
-The following code example shows how to set up and configure Ory Kratos using the Go SDK:
+The following code example shows how to connect to Ory Identities using the Go SDK:
 
 ```go
 package main
@@ -24,27 +42,43 @@ package main
 import (
 	"context"
 
-	client "github.com/ory/client-go"
+	ory "github.com/ory/client-go"
 )
 
 func main() {
-	configuration := client.NewConfiguration()
-	configuration.Servers = []client.ServerConfiguration{
+	configuration := ory.NewConfiguration()
+	configuration.Servers = []ory.ServerConfiguration{
 		{
-			URL: "http://127.0.0.1:4434", // Kratos Admin API
+			URL: "https://playground.projects.oryapis.com/", // Ory Identities API
 		},
 	}
-	apiClient := client.NewAPIClient(configuration)
+	apiClient := ory.NewAPIClient(configuration)
 	// resp, r, err := apiClient.FrontendApi.ToSession(context.Background()).Cookie("ory_Kratos_session").Execute()
 }
-
 ```
 
-## Make requests
+## Use Frontend API
 
-The following code example shows how to use make a toSession call to check the active session using the Kratos Go SDK.
+The following code examples show how to use the [FrontendApi](https://www.ory.sh/docs/reference/api#tag/frontend).
+
+### toSession
+
+In this example you make a [toSession](https://www.ory.sh/docs/reference/api#tag/frontend/operation/toSession) call to check if
+the session is active.
+
+1. Open the [Ory Identities Playground](https://playground.projects.oryapis.com/ui/) in your browser
+1. Open **Sign Up** to create an account and log in
+1. Copy the `ory_session_playground` cookie from the **Application** tab in your browser developer tools
+1. Add the cookie value in `cookie`
+1. Run the example and send the request with `go run main.go`
+
+The response should look like this.
 
 ```go
+Traits  map[email:youremail@example.com]
+```
+
+```go toSession
 package main
 
 import (
@@ -52,18 +86,18 @@ import (
 	"fmt"
 	"os"
 
-	client "github.com/ory/client-go"
+	ory "github.com/ory/client-go"
 )
 
 func main() {
-	configuration := client.NewConfiguration()
-	configuration.Servers = []client.ServerConfiguration{
-		{
-			URL: "http://127.0.0.1:4434", // Kratos Admin API
-		},
+	proxyPort := os.Getenv("PROXY_PORT")
+	if proxyPort == "" {
+		proxyPort = "4000"
 	}
-	apiClient := client.NewAPIClient(configuration)
-	cookie := "ory_kratos_session=MTY0ODgyMTExN3xEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJRkZDVFVKbFNIcEJOalZyY0Vad1JEZ3dNMng1V0RsWlpEQlFXa3RoUjNJenzKCLhzCkox1OmvNJlKcqtWuNkSnPLrUgM6Ew2EMYksfg=="
+	configuration := ory.NewConfiguration()
+	configuration.Servers = ory.ServerConfigurations{{URL: fmt.Sprintf("http://localhost:%s/.ory", proxyPort)}}
+	apiClient := ory.NewAPIClient(configuration)
+	cookie := "ory_session_playground=<your-session-cookie-here>"
 	resp, r, err := apiClient.FrontendApi.ToSession(context.Background()).Cookie(cookie).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FrontendApi.ToSession``: %v\n", err)
@@ -74,9 +108,95 @@ func main() {
 }
 ```
 
-## Gin-middleware
+## Use Identity Management API
 
-The following code example shows how to use the Kratos Go SDK with the [Gin Web Framework](https://github.com/gin-gonic/gin):
+To use the Identity Management API [IdentityAPI](https://www.ory.sh/docs/reference/api#tag/identity) requests need to be
+authorized.
+
+- Create a free Developer project with the [Ory CLI](https://www.ory.sh/docs/guides/cli/installation) or
+  [Ory Console](https://console.ory.sh/guides) `ory create project --name "Ory IdentityAPI Example"`
+- Create a new [API key](https://www.ory.sh/docs/concepts/personal-access-token) and export it `export ORY_API_KEY=<your-api-key>`
+- Run the example with `go run main.go`
+
+### CreateIdentity and DeleteIdentity
+
+With this example you [create an identity](https://www.ory.sh/docs/reference/api#tag/identity/operation/createIdentity) and
+[delete it](https://www.ory.sh/docs/reference/api#tag/identity/operation/deleteIdentity).
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+
+	ory "github.com/ory/client-go"
+)
+
+// Use this context to access Ory APIs which require an Ory API Key.
+var oryAuthedContext = context.WithValue(context.Background(), ory.ContextAccessToken, os.Getenv("ORY_API_KEY"))
+
+func main() {
+	configuration := ory.NewConfiguration()
+	configuration.Servers = []ory.ServerConfiguration{
+		{
+			URL: "https://<your-ory-project-slug>.projects.oryapis.com", // Ory Network Project URL
+		},
+	}
+	apiClient := ory.NewAPIClient(configuration)
+	CreateIdentityBody := *ory.NewCreateIdentityBody(
+		"preset://basic",
+		map[string]interface{}{
+			"email": "foo@example.com",
+			"name": map[string]string{
+				"first": "foo",
+				"last":  "bar",
+			},
+		},
+	) // CreateIdentityBody |  (optional)
+
+	createdIdentity, r, err := apiClient.IdentityApi.CreateIdentity(oryAuthedContext).CreateIdentityBody(CreateIdentityBody).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IdentityApi.CreateIdentity``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `IdentityApi.CreateIdentity`: Identity
+	fmt.Fprintf(os.Stdout, "Created identity with ID: %v\n", createdIdentity.Id)
+	getIdentity, r, err := apiClient.IdentityApi.GetIdentity(oryAuthedContext, createdIdentity.Id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IdentityApi.GetIdentity``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	fmt.Fprintf(os.Stdout, "Email for identity with id %v. Traits %v\n", createdIdentity.Id, getIdentity.Traits)
+
+	// Delete the identity that was just created (optional)
+	r, err = apiClient.IdentityApi.DeleteIdentity(oryAuthedContext, getIdentity.Id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IdentityApi.DeleteIdentity``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	fmt.Println("Successfully Removed identity")
+
+}
+```
+
+## Gin middleware
+
+The following code example shows how to use the Ory Identities Go SDK with the
+[Gin Web Framework](https://github.com/gin-gonic/gin). Follow the instructions in the
+[README](https://github.com/gin-gonic/gin/blob/master/README.md) to install Gin.
+
+1. Run the Gin middleware with `go run main.go`
+1. Open the [Ory Identities Playground](https://playground.projects.oryapis.com/ui/) in your browser
+1. Open **Sign Up** to create an account and log in
+1. Copy the `ory_session_playground` cookie from the **Application** tab in your browser developer tools
+1. Add the cooie to the cUrl request below:
+
+```curl
+curl 'http://localhost:8080/ping' -b 'ory_session_playground=<your-session-cookie-here>'
+pong
+```
 
 ```go
 package main
@@ -87,47 +207,47 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	client "github.com/ory/client-go"
+	ory "github.com/ory/client-go"
 )
 
 type kratosMiddleware struct {
-	client *client.APIClient
+	ory *ory.APIClient
 }
 
 func NewMiddleware() *kratosMiddleware {
-	configuration := client.NewConfiguration()
-	configuration.Servers = []client.ServerConfiguration{
+	configuration := ory.NewConfiguration()
+	configuration.Servers = []ory.ServerConfiguration{
 		{
-			URL: "http://127.0.0.1:4434", // Kratos Admin API
+			URL: "https://playground.projects.oryapis.com", // Ory Network Project URL
 		},
 	}
 	return &kratosMiddleware{
-		client: client.NewAPIClient(configuration),
+		ory: ory.NewAPIClient(configuration),
 	}
 }
 func (k *kratosMiddleware) Session() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session, err := k.validateSession(c.Request)
 		if err != nil {
-			c.Redirect(http.StatusMovedPermanently, "http://127.0.0.1:4455/login")
+			c.Redirect(http.StatusMovedPermanently, "https://playground.projects.oryapis.com/ui/login") // Ory Identities Login URL
 			return
 		}
 		if !*session.Active {
-			c.Redirect(http.StatusMovedPermanently, "http://your_endpoint")
+			c.Redirect(http.StatusMovedPermanently, "http://example.com") // Your Application URL
 			return
 		}
 		c.Next()
 	}
 }
-func (k *kratosMiddleware) validateSession(r *http.Request) (*client.Session, error) {
-	cookie, err := r.Cookie("ory_kratos_session")
+func (k *kratosMiddleware) validateSession(r *http.Request) (*ory.Session, error) {
+	cookie, err := r.Cookie("ory_session_playground")
 	if err != nil {
 		return nil, err
 	}
 	if cookie == nil {
 		return nil, errors.New("no session found in cookie")
 	}
-	resp, _, err := k.client.FrontendApi.ToSession(context.Background()).Cookie(cookie.String()).Execute()
+	resp, _, err := k.ory.FrontendApi.ToSession(context.Background()).Cookie(cookie.String()).Execute()
 	if err != nil {
 		return nil, err
 	}
@@ -150,7 +270,19 @@ func main() {
 
 ## Echo middleware
 
-The following code example shows how to use Kratos Go SDK with the [Echo framework](https://echo.labstack.com):
+The following code example shows how to use Ory Identities Go SDK with the [Echo framework](https://echo.labstack.com). Follow the
+[instructions](https://echo.labstack.com/guide/#installation) to install Echo.
+
+1. Run the Echo middleware with `go run main.go`
+1. Open the [Ory Identities Playground](https://playground.projects.oryapis.com/ui/) in your browser
+1. Open **Sign Up** to create an account and log in
+1. Copy the `ory_session_playground` cookie from the **Application** tab in your browser developer tools
+1. Add the cooie to the cUrl request below:
+
+```curl
+curl 'http://localhost:3000/hello' -b 'ory_session_playground=<your-session-cookie-here>'
+Hello World
+```
 
 ```go
 package main
@@ -162,45 +294,45 @@ import (
 
 	"github.com/labstack/echo/v4"
 
-	client "github.com/ory/client-go"
+	ory "github.com/ory/client-go"
 )
 
-type kratosMiddleware struct {
-	client *client.APIClient
+type oryMiddleware struct {
+	ory *ory.APIClient
 }
 
-func NewMiddleware() *kratosMiddleware {
-	configuration := client.NewConfiguration()
-	configuration.Servers = []client.ServerConfiguration{
+func NewMiddleware() *oryMiddleware {
+	configuration := ory.NewConfiguration()
+	configuration.Servers = []ory.ServerConfiguration{
 		{
-			URL: "http://127.0.0.1:4434", // Kratos Admin API
+			URL: "https://playground.projects.oryapis.com", // Ory Network Project URL
 		},
 	}
-	return &kratosMiddleware{
-		client: client.NewAPIClient(configuration),
+	return &oryMiddleware{
+		ory: ory.NewAPIClient(configuration),
 	}
 }
-func (k *kratosMiddleware) Session(next echo.HandlerFunc) echo.HandlerFunc {
+func (k *oryMiddleware) Session(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		session, err := k.validateSession(c.Request())
 		if err != nil {
-			return c.Redirect(http.StatusMovedPermanently, "http://127.0.0.1:4455/login")
+			return c.Redirect(http.StatusMovedPermanently, "https://playground.projects.oryapis.com/ui/login")
 		}
 		if !*session.Active {
-			return c.Redirect(http.StatusMovedPermanently, "http://your_endpoint")
+			return c.Redirect(http.StatusMovedPermanently, "https://example.com")
 		}
 		return next(c)
 	}
 }
-func (k *kratosMiddleware) validateSession(r *http.Request) (*client.Session, error) {
-	cookie, err := r.Cookie("ory_kratos_session")
+func (k *oryMiddleware) validateSession(r *http.Request) (*ory.Session, error) {
+	cookie, err := r.Cookie("ory_session_playground")
 	if err != nil {
 		return nil, err
 	}
 	if cookie == nil {
 		return nil, errors.New("no session found in cookie")
 	}
-	resp, _, err := k.client.FrontendApi.ToSession(context.Background()).Cookie(cookie.String()).Execute()
+	resp, _, err := k.ory.FrontendApi.ToSession(context.Background()).Cookie(cookie.String()).Execute()
 	if err != nil {
 		return nil, err
 	}
@@ -214,69 +346,6 @@ func main() {
 	e.GET("/hello", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
-	e.Logger.Fatal(e.Start(":1323"))
+	e.Logger.Fatal(e.Start(":3000"))
 }
 ```
-
-## Use admin API
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-
-	client "github.com/ory/client-go"
-)
-
-func main() {
-	configuration := client.NewConfiguration()
-	configuration.Servers = []client.ServerConfiguration{
-		{
-			URL: "http://127.0.0.1:4434", // Kratos Admin API
-		},
-	}
-	apiClient := client.NewAPIClient(configuration)
-	adminCreateIdentityBody := *client.NewAdminCreateIdentityBody(
-		"default",
-		map[string]interface{}{
-			"email": "foo@example.com",
-			"name": map[string]string{
-				"first": "foo",
-				"last":  "bar",
-			},
-		},
-	) // AdminCreateIdentityBody |  (optional)
-
-	createdIdentity, r, err := apiClient.FrontendApi.AdminCreateIdentity(context.Background()).AdminCreateIdentityBody(adminCreateIdentityBody).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrontendApi.AdminCreateIdentity``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `AdminCreateIdentity`: Identity
-	fmt.Fprintf(os.Stdout, "Created identity with ID: %v\n", createdIdentity.Id)
-	getIdentity, r, err := apiClient.FrontendApi.AdminGetIdentity(context.Background(), createdIdentity.Id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrontendApi.AdminGetIdentity``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	fmt.Fprintf(os.Stdout, "Email for identity with id %v. Traits %v\n", createdIdentity.Id, getIdentity.Traits)
-
-	r, err = apiClient.FrontendApi.AdminDeleteIdentity(context.Background(), getIdentity.Id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrontendApi.AdminDeleteIdentity``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	fmt.Println("Successfully Removed identity")
-
-}
-```
-
-## More examples
-
-You can find more examples of SDK usage in the auto-generated documentation:
-
-- [`client-go`](https://github.com/ory/client-go/tree/master/docs) for the Ory Network
-- [`kratos-client`](https://github.com/ory/kratos-client-go/tree/master/docs) for self-hosted Ory Kratos

@@ -1,7 +1,7 @@
 ---
 id: overview
 title: Software Development Kit (SDK)
-sidebar_label: Ory Kratos SDK
+sidebar_label: Overview
 ---
 
 The Ory Kratos SDK allows for integration with a self-hosted [Ory Kratos Identity Server](https://github.com/ory/kratos).
@@ -11,13 +11,6 @@ examples for various programming languages.
 
 To view the source code for the generated SDKs, visit the
 [Ory Kratos SDKs GitHub repository](https://github.com/ory/sdk/tree/master/clients/kratos/).
-
-:::info
-
-The [`ory-client`](../../sdk.mdx) SDK works with self-hosted Ory services, but due to different release cycles it is recommended
-to use `kratos-client` with self-hosted Ory Kratos.
-
-:::
 
 ## Download the SDK
 

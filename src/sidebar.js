@@ -440,7 +440,7 @@ module.exports = {
                   ],
                 },
                 {
-                  SDK: ["kratos/sdk/overview", "kratos/sdk/go"],
+                  SDK: ["kratos/sdk/overview", "kratos/self-hosted/go"],
                 },
                 "kratos/reference/configuration",
                 "kratos/reference/json-schema-json-paths",
@@ -617,6 +617,17 @@ module.exports = {
           type: "category",
           label: "Ory OAuth2 & OpenID",
           items: ["hydra/sdk/go", "hydra/sdk/js", "hydra/sdk/php"],
+        },
+        {
+          type: "category",
+          label: "Self-hosted Ory",
+          items: [
+            {
+              type: "category",
+              label: "Ory Kratos",
+              items: ["kratos/sdk/overview", "kratos/self-hosted/go"],
+            },
+          ],
         },
       ],
     },
