@@ -1,6 +1,6 @@
 ---
 id: claims-at-refresh
-title: Hook into the OAuth2 refresh token flow
+title: Adding custom claims to tokens
 sidebar_label: OAuth2 webhooks
 ---
 
@@ -27,7 +27,26 @@ The hook is called before any other logic is executed. If the hook execution fai
 
 ## Configuration
 
-Use the Ory CLI with key `/oauth2/refresh_token_hook` to enable this feature:
+You can use hooks feature with the following grant types:
+
+- `authorization_code`
+- `client_credentials`
+- `refresh_token`
+- `jwt-bearer` - see [RFC7523](https://www.rfc-editor.org/rfc/rfc7523)
+
+Use the Ory CLI with following keys to enable this feature:
+
+```shell title="Enable the authorization code hook"
+ory patch oauth2-config {project.id} \
+  --replace "/oauth2/authorization_code_hook=\"https://my-example.app/authorization-code-hook\"" \
+  --format yaml
+```
+
+```shell title="Enable the client credentials token hook"
+ory patch oauth2-config {project.id} \
+  --replace "/oauth2/client_credentials_hook=\"https://my-example.app/client-credentials-hook\"" \
+  --format yaml
+```
 
 ```shell title="Enable the refresh token hook"
 ory patch oauth2-config {project.id} \
@@ -35,61 +54,10 @@ ory patch oauth2-config {project.id} \
   --format yaml
 ```
 
-### Grant types
-
-The hooks feature is enabled for the following grant types:
-
-- `authorization_code`
-- `client_credentials`
-- `refresh_token`
-- `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` - see [RFC7523](https://www.rfc-editor.org/rfc/rfc7523)
-
-To enable the token webhooks, configure the following keys in the Hydra configuration:
-
-```yaml
-oauth2:
-  # authorization_code grant type
-  authorization_code_hook: https://my-example.app/authorization-code-hook
-
-  # client_credentials grant type
-  client_credentials_hook: https://my-example.app/client-credentials-hook
-
-  # refresh_token grant type
-  refresh_token_hook: https://my-example.app/token-refresh-hook
-
-  # urn:ietf:params:oauth:client-assertion-type:jwt-bearer grant type
-  jwt_bearer_hook: https://my-example.app/jwt-bearer-hook
-```
-
-If you're running Hydra locally, you can set these values by exporting the token hook endpoint URLs as environment variables. Run
-this command:
-
-```mdx-code-block
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import CodeBlock from '@theme/CodeBlock'
-
-<Tabs>
-  <TabItem value="macos" label="macOS" default>
-    <CodeBlock language="shell">export OAUTH2_AUTHORIZATION_CODE_HOOK=value</CodeBlock>
-    <CodeBlock language="shell">export OAUTH2_CLIENT_CREDENTIALS_HOOK=value</CodeBlock>
-    <CodeBlock language="shell">export OAUTH2_REFRESH_TOKEN_HOOK=value</CodeBlock>
-    <CodeBlock language="shell">export OAUTH2_JWT_BEARER_HOOK=value</CodeBlock>
-  </TabItem>
-  <TabItem value="linux" label="Linux">
-    <CodeBlock language="shell">export OAUTH2_AUTHORIZATION_CODE_HOOK=value</CodeBlock>
-    <CodeBlock language="shell">export OAUTH2_CLIENT_CREDENTIALS_HOOK=value</CodeBlock>
-    <CodeBlock language="shell">export OAUTH2_REFRESH_TOKEN_HOOK=value</CodeBlock>
-    <CodeBlock language="shell">export OAUTH2_JWT_BEARER_HOOK=value</CodeBlock>
-  </TabItem>
-  <TabItem value="windows" label="Windows">
-    <CodeBlock language="shell">set OAUTH2_AUTHORIZATION_CODE_HOOK=value</CodeBlock>
-    <CodeBlock language="shell">set OAUTH2_CLIENT_CREDENTIALS_HOOK=value</CodeBlock>
-    <CodeBlock language="shell">set OAUTH2_REFRESH_TOKEN_HOOK=value</CodeBlock>
-    <CodeBlock language="shell">set OAUTH2_JWT_BEARER_HOOK=value</CodeBlock>
-  </TabItem>
-</Tabs>
+```shell title="Enable the jwt-bearer token hook"
+ory patch oauth2-config {project.id} \
+  --replace "/oauth2/jwt_bearer_hook=\"https://my-example.app/jwt-bearer-hook\"" \
+  --format yaml
 ```
 
 ### Webhook payload
@@ -156,8 +124,8 @@ The token hook endpoint must accept the following payload format:
 
 ### Requester payload
 
-For `client_credentials` and `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` grant types, Hydra will also send an entire
-payload that was sent to the `/token` endpoint by the client.
+For `client_credentials` and `jwt-bearer` grant types, the entire payload that you send to the `/token` endpoint will also be sent
+to the configured webhook URL.
 
 Here's the format of the `requester.payload` field for each grant type:
 
