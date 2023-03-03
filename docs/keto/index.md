@@ -12,7 +12,7 @@ the open-source Ory Keto Permission Server, is the first open-source implementat
 described in [Zanzibar: Google's Consistent, Global Authorization System](https://research.google/pubs/pub48190/).
 
 Implementing the design principles described in the Zanzibar paper allows Ory Permissions to offer the following benefits over
-older, widely adopted permission systems:
+other, widely adopted permission systems:
 
 - Flexibility: Traditional permission systems typically rely on a fixed set of permissions and access control rules that are
   difficult to customize or modify. Ory Permissions provides a flexible data model you can customize to fit a wide range of use
