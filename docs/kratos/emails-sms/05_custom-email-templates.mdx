@@ -22,12 +22,12 @@ custom ones that can carry your own branding, visual elements, and communication
 <TabItem value="recovery" label="Account recovery" default>
 ```
 
-When you set the account recovery method to `code`, the system uses these templates:
+When you set the account verification method to `code`, the system uses the `recovery_code.valid` template to send the recovery
+code to the user.
 
-- `recovery_code.valid`: Sent if the user provided a recovery address that belongs to a registered account.
-- `recovery_code.invalid`: Sent if the user provided an address that doesn't belong to a known account.
+If you enabled notifications to unknown recipients, the `recovery_code.invalid` template is used.
 
-When you set the account recovery method to `link`, the system uses these templates:
+If you set the account recovery method to `link`, the system uses these templates instead:
 
 - `recovery.valid`
 - `recovery.invalid`
@@ -44,12 +44,12 @@ To read more about the recovery flow, read
 <TabItem value="verification" label="Address verification">
 ```
 
-When you set the account verification method to `code`, the system uses these templates:
+When you set the account verification method to `code`, the system uses the `verification_code.valid` template to send the
+verification code and a URL to the form to the user.
 
-- `verification_code.valid`: Sent, if the user provided a verification address that belongs to a registered account.
-- `verification_code.invalid`: Sent, if the user provided an address that does not belong to any known account.
+If you enabled notifications to unknown recipients, the `verification_code.invalid` template is used.
 
-When you set the account verification method to `link`, the system uses these templates:
+If you set the account verification method to `link`, the system uses these templates instead:
 
 - `verification.valid`
 - `verification.invalid`

@@ -71,6 +71,9 @@ To configure account verification, go to **Authentication** → **Email Verifica
          # Defines how long the verification flow (the UI interaction, not the link!)
          # is valid for (default 1h)
          lifespan: 15m
+
+         # Whether to notify unknown addresses, if verification is requested for them
+         notify_unknown_recipients: false
    ```
 
 3. Update the Ory Identities configuration using the file you worked with:
@@ -128,15 +131,10 @@ Ory Identities comes with default email templates for verification flows.
 You can quickly replace the defaults and customize the messages to match the look and feel of your solution. Read the
 [custom email template documentation](../../emails-sms/05_custom-email-templates.mdx) to learn more.
 
-:::note
+### Notifying unknown addresses
 
-When users attempt to initiate verification for unregistered addresses, the system sends a message to the email address that was
-used in the attempt.
-
-This prevents account enumeration attacks as explained in this
-[blog post by Troy Hunt](https://www.troyhunt.com/website-enumeration-insanity-how-our-personal-data-is-leaked/).
-
-:::
+Ory Identities can send a notification email, if verification was requested for an address that does not belong to any known
+account.
 
 ### Allow login only with verified email
 
