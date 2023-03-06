@@ -107,7 +107,7 @@ requires you to specify 3 values:
 3. The value, which is provided by us. Check the value provided in the form (detailed in the first step of this article) to know
    what this should be for your project.
 
-## Automated Emails
+## Automated emails
 
 The Ory Network sends emails for certain actions a user can take, for example
 [account recovery](./../kratos/self-service/flows/account-recovery-password-reset.mdx) or
@@ -115,13 +115,13 @@ The Ory Network sends emails for certain actions a user can take, for example
 measures against spam and phishing attacks, for example "fake" link campaigns, it is advised to only link to domains that match
 the sender of the email.
 
-However, when using a custom domain in the Ory Network but no custom SMTP server, links inside the automated Ory Identities emails
+However, when using a custom domain in the Ory Network without a custom SMTP server, links inside the automated Ory Identities emails
 won't match the domain these emails were sent from. For example the address verification link will point to
 `ory.your-custom-domain.com`, but the email was sent from the default Ory Network email sender domain (e.g.
 `courier-eu.oryapis.com`). Some email providers, such as Gmail, might interpret this as a phishing attack and mark the email as
 spam, or block it entirely.
 
-To prevent this, it is advised to also configure a custom SMTP server, that matches at least the top-level domain (TLD) of your
+To prevent this configure a custom SMTP server, that matches at least the top-level domain (TLD) of your
 custom domain. For example, if you configured the custom domain `ory.your-custom-domain.com`, you should also configure an email
 server that lives under `your-custom-domain.com`.
 
