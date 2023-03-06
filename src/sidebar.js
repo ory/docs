@@ -86,6 +86,7 @@ module.exports = {
                     "kratos/social-signin/dingtalk",
                     "kratos/social-signin/lark",
                     "kratos/social-signin/patreon",
+                    "kratos/social-signin/linkedin",
                   ],
                 },
                 "kratos/social-signin/get-tokens",
