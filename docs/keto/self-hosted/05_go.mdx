@@ -6,25 +6,23 @@ title: Go
 import CodeBlock from "@theme/CodeBlock"
 import { useLatestRelease } from "@site/src/hooks"
 
-Ory Permissions exposes two APIs for integration
+Ory Keto exposes two APIs for integration
 
-- REST
-  - [Permission API](https://www.ory.sh/docs/reference/api#tag/permission)
-  - [Relationship API](https://www.ory.sh/docs/reference/api#tag/relationship)
 - [gRPC](http://ory.sh/docs/keto/reference/proto-api)
+- [REST](http://ory.sh/docs/keto/reference/rest-api)
 
 ## Installation
 
-### Installation REST API
-
-```mdx-code-block
-go get github.com/ory/client-go
-```
-
 ### Installation gRPC API
 
-```mdx-code-block
+```
 go get github.com/ory/keto/proto
+```
+
+### Installation REST API
+
+```
+go get github.com/ory/keto-client-go
 ```
 
 ## REST API examples
@@ -70,11 +68,10 @@ import (
 	"fmt"
 	"os"
 
-	ory "github.com/ory/client-go"
+	ory "github.com/ory/keto-client-go"
 )
 
 // Use this context to access Ory APIs which require an Ory API Key.
-var oryAuthedContext = context.WithValue(context.Background(), ory.ContextAccessToken, os.Getenv("ORY_API_KEY"))
 var namespace = "Blog"
 var object = "secret_post"
 var relation = "view"
@@ -90,17 +87,24 @@ func main() {
 	configuration := ory.NewConfiguration()
 	configuration.Servers = []ory.ServerConfiguration{
 		{
-			URL: "https://practical-swirles-whg26u2ofh.projects.oryapis.com", // Write API
+			URL: "http://127.0.0.1:4467", // Write API
 		},
 	}
-	ory := ory.NewAPIClient(configuration)
-	_, r, err := ory.RelationshipApi.CreateRelationship(oryAuthedContext).CreateRelationshipBody(payload).Execute()
+	writeClient := ory.NewAPIClient(configuration)
+	_, r, err := writeClient.RelationshipApi.CreateRelationship(context.Background()).CreateRelationshipBody(payload).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 		panic("Encountered error: " + err.Error())
 	}
 	fmt.Println("Successfully created tuple")
-	check, r, err := ory.PermissionApi.CheckPermission(oryAuthedContext).
+	configuration.Servers = []client.ServerConfiguration{
+		{
+			URL: "http://127.0.0.1:4466", // Read API
+		},
+	}
+	readClient := client.NewAPIClient(configuration)
+
+	check, r, err := readClient.PermissionApi.CheckPermission(context.Background()).
 		Namespace(*&namespace).
 		Object(*&object).
 		Relation(*&relation).
