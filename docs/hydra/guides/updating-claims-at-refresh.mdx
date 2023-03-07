@@ -4,6 +4,14 @@ title: Hook into the OAuth2 refresh token flow
 sidebar_label: OAuth2 webhooks
 ---
 
+# OAuth2 webhooks
+
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem'
+```
+
 Ory OAuth2 and OpenID Connect comes with a mechanism that allows updating `id_token` and `access_token` when a registered client
 sends a token refresh request. The flow is realized by calling the defined refresh token hook endpoint which returns updated data.
 
@@ -23,7 +31,7 @@ Use the Ory CLI with key `/oauth2/refresh_token_hook` to enable this feature:
 
 ```shell title="Enable the refresh token hook"
 ory patch oauth2-config {project.id} \
-  --replace "/oauth2/refresh_token_hook=\"https://my-example.app/token-refresh-hook\"" \
+  --add "/oauth2/refresh_token_hook=\"https://my-example.app/token-refresh-hook\"" \
   --format yaml
 ```
 

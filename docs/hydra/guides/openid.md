@@ -6,17 +6,17 @@ title: Subject anonymization
 Ory OAuth2 and OpenID Connect offer two subject identifier algorithms: `public` and `pairwise`. These algorithms are used to
 provide a unique identifier for each user that can be used by the clients without revealing the user's identity.
 
-## Public Algorithm
+## Public algorithm
 
 The public algorithm is the default algorithm in Ory OAuth2 and OpenID Connect. It provides the same subject value (sub) to all
 clients. You can set this algorithm using the Ory CLI:
 
 ```shell
 ory patch oauth2-config {project.id} \
-  --replace "oidc/subject_identifiers/supported_types=[\"public\"]"
+  --replace "/oidc/subject_identifiers/supported_types=[\"public\"]"
 ```
 
-## Pairwise Algorithm
+## Pairwise algorithm
 
 The `pairwise` algorithm provides a different sub value to each client, ensuring that the clients cannot correlate the user's
 activities without permission. To use the `pairwise` algorithm, you must enable it and set
@@ -26,8 +26,8 @@ To enable both algorithms, use the following configuration:
 
 ```shell
 ory patch oauth2-config {project.id} \
-  --replace "oidc/subject_identifiers/supported_types=[\"public\", \"pairwise\"]" \
-  --replace "oidc/subject_identifiers/pairwise/salt=\"some-16-character-long-salt-REPLACEME\""
+  --replace "/oidc/subject_identifiers/supported_types=[\"public\", \"pairwise\"]" \
+  --replace "/oidc/subject_identifiers/pairwise/salt=\"{16-character-long-salt}\""
 ```
 
 :::warning
