@@ -7,20 +7,13 @@ module.exports = {
       type: "category",
       label: "Use cases",
       collapsed: false,
-      items: [
-        "use-cases/greenfield",
-        "use-cases/gdpr",
-        "use-cases/mailchimp",
-      ],
+      items: ["use-cases/greenfield", "use-cases/gdpr", "use-cases/mailchimp"],
     },
     {
       type: "category",
       label: "Popular features",
       collapsed: false,
-      items: [
-        "use-cases/passwordless",
-        "use-cases/mfa",
-      ],
+      items: ["use-cases/passwordless", "use-cases/mfa"],
     },
   ],
 }

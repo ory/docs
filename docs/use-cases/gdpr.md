@@ -6,19 +6,20 @@ sidebar_label: GDPR compliance
 
 ## Use case:
 
-
 ## How Ory Network helps you to be GDPR compliant
 
-With the option of hosting personal data on EU based servers and with Ory's dedication to upholding the highest standards in data protection, adopting Ory Network as your identity management solution represents a big step towards becoming GDPR compliant.
-The following GDPR checklist provides an overview of how Ory Network can bring you closer to overall GDPR compliance.
+With the option of hosting personal data on EU based servers and with Ory's dedication to upholding the highest standards in data
+protection, adopting Ory Network as your identity management solution represents a big step towards becoming GDPR compliant. The
+following GDPR checklist provides an overview of how Ory Network can bring you closer to overall GDPR compliance.
 
 ### GDPR checklist
 
-According to the EU Commission's guidelines on [Rules for business and organisations](https://commission.europa.eu/law/law-topic/data-protection/reform/rules-business-and-organisations_en), there is an extensive set of GDPR rules that affect the processing of EU citizens' personal data.
-The following table summarizes this aspect of the GDPR regulations and indicates the level at which Ory Network supports compliance.
+According to the EU Commission's guidelines on
+[Rules for business and organisations](https://commission.europa.eu/law/law-topic/data-protection/reform/rules-business-and-organisations_en),
+there is an extensive set of GDPR rules that affect the processing of EU citizens' personal data. The following table summarizes
+this aspect of the GDPR regulations and indicates the level at which Ory Network supports compliance.
 
-
-````mdx-code-block
+```mdx-code-block
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -60,10 +61,9 @@ import TabItem from '@theme/TabItem';
 
 </TabItem>
 </Tabs>
-````
+```
 
-
-````mdx-code-block
+```mdx-code-block
 <Tabs groupId="gdpr-regs">
 <TabItem value="regulation" label="GDPR regulation">
 
@@ -96,10 +96,9 @@ import TabItem from '@theme/TabItem';
 
 </TabItem>
 </Tabs>
-````
+```
 
-
-````mdx-code-block
+```mdx-code-block
 <Tabs groupId="gdpr-regs">
 <TabItem value="regulation" label="GDPR regulation">
 
@@ -132,10 +131,9 @@ import TabItem from '@theme/TabItem';
 
 </TabItem>
 </Tabs>
-````
+```
 
-
-````mdx-code-block
+```mdx-code-block
 <Tabs groupId="gdpr-regs">
 <TabItem value="regulation" label="GDPR regulation">
 
@@ -177,57 +175,65 @@ import TabItem from '@theme/TabItem';
 
 </TabItem>
 </Tabs>
-````
+```
 
 Where the support levels in this table are, as follows:
 
-- ![Single check mark](./_common/check-mark-single.svg) - Compliance with this GDPR regulation is mainly the responsibility of the customer.
-- ![Single check mark green](./_common/check-mark-single-green.svg) - Ory Network is compliant and/or facilitates compliance with this GDPR regulation.
-- ![Double check mark green](./_common/check-mark-double-green.svg) - Ory Network has special features that strongly support compliance with this aspect of GDPR. 
+- ![Single check mark](./_common/check-mark-single.svg) - Compliance with this GDPR regulation is mainly the responsibility of the
+  customer.
+- ![Single check mark green](./_common/check-mark-single-green.svg) - Ory Network is compliant and/or facilitates compliance with
+  this GDPR regulation.
+- ![Double check mark green](./_common/check-mark-double-green.svg) - Ory Network has special features that strongly support
+  compliance with this aspect of GDPR.
 
 :::caution
 
-The purpose of the preceding checklist is to help you understand how Ory Network can assist you with making your applications and systems GDPR compliant.
-This checklist does not list the complete provisions of the GDPR and is **not** a substitutes for due diligence and conducting your own research.
-Only the text of the General Data Protection Regulation (GDPR) has legal force.
+The purpose of the preceding checklist is to help you understand how Ory Network can assist you with making your applications and
+systems GDPR compliant. This checklist does not list the complete provisions of the GDPR and is **not** a substitutes for due
+diligence and conducting your own research. Only the text of the General Data Protection Regulation (GDPR) has legal force.
 
 :::
 
 ### EU based servers
 
-In the context of the GDPR, cross-border transfers of personal data are problematic.
-The GDPR rules for international data transfer are derived from the principle that _"protection offered by the General Data Protection Regulation (GDPR) travels with the data"_.
-Transferring data to a third country outside the EU is therefore not generally permitted, unless the the EU accepts that the destination country upholds data protection standards equivalent to GDPR.
-The only exceptions are for those countries the EU has certified as a _safe destination_ for data, through a so-called "Adequacy Decision".
-Unfortunately, until now very few countries have been certified, and the list of certified countries does **not** include the US.
+In the context of the GDPR, cross-border transfers of personal data are problematic. The GDPR rules for international data
+transfer are derived from the principle that _"protection offered by the General Data Protection Regulation (GDPR) travels with
+the data"_. Transferring data to a third country outside the EU is therefore not generally permitted, unless the the EU accepts
+that the destination country upholds data protection standards equivalent to GDPR. The only exceptions are for those countries the
+EU has certified as a _safe destination_ for data, through a so-called "Adequacy Decision". Unfortunately, until now very few
+countries have been certified, and the list of certified countries does **not** include the US.
 
-Hence, in most cases, in order to be GDPR compliant, your company needs to store personal data for European customers on EU based servers.
-With Ory Network, you can choose to store all of your identity data on EU based servers, which ensures compliance with this aspect of GDPR.
-
+Hence, in most cases, in order to be GDPR compliant, your company needs to store personal data for European customers on EU based
+servers. With Ory Network, you can choose to store all of your identity data on EU based servers, which ensures compliance with
+this aspect of GDPR.
 
 ### Integrity and confidentiality
 
-The GDPR requires companies to take technical measures to ensure data integrity and confidentiality.
-At Ory, data integrity and confidentiality are central to our mission and we adhere to recommended industry standards and security practices to ensure your data remains safe.
-In particular, these measures include:
+The GDPR requires companies to take technical measures to ensure data integrity and confidentiality. At Ory, data integrity and
+confidentiality are central to our mission and we adhere to recommended industry standards and security practices to ensure your
+data remains safe. In particular, these measures include:
 
-- Ory Network forces HTTPS for all services using TLS 1.2 or higher, including our public website, the Ory Console, and the Ory Network APIs to ensure data is encrypted in transit.
-- Any data stored by the Ory Network is encrypted at rest using industry best practice standard AES-256 Password Encryption Ory uses salted bcrypt to ensure passwords are stored securely.
+- Ory Network forces HTTPS for all services using TLS 1.2 or higher, including our public website, the Ory Console, and the Ory
+  Network APIs to ensure data is encrypted in transit.
+- Any data stored by the Ory Network is encrypted at rest using industry best practice standard AES-256 Password Encryption Ory
+  uses salted bcrypt to ensure passwords are stored securely.
 - The Ory Network implements a backup strategy to ensure regular backups are created and stored in an encrypted fashion.
 
 ### Protection against data breaches
 
-The GDPR also requires companies to protect personal data and prevent data breaches.
-Ory has multiple policies and technical measures in place to keep your data safe:
+The GDPR also requires companies to protect personal data and prevent data breaches. Ory has multiple policies and technical
+measures in place to keep your data safe:
 
-- **Vulnerability management** &mdash; Ory embeds vulnerability scans into the CI/CD pipelines and scans all containers built for deployment.
-   In addition, at runtime all containers running in our clusters are scanned continuously to report findings.
+- **Vulnerability management** &mdash; Ory embeds vulnerability scans into the CI/CD pipelines and scans all containers built for
+  deployment. In addition, at runtime all containers running in our clusters are scanned continuously to report findings.
 
-- **Third party penetration testing** &mdash; Third party pen tests are conducted on a quarterly basis to ensure regular verification of our systems and procedures.
+- **Third party penetration testing** &mdash; Third party pen tests are conducted on a quarterly basis to ensure regular
+  verification of our systems and procedures.
 
-- **Bug bounty program** &mdash; Ory's disclosure and reward program supports anyone who wants to increase the security of the Ory Network by conducting external pen testing.
+- **Bug bounty program** &mdash; Ory's disclosure and reward program supports anyone who wants to increase the security of the Ory
+  Network by conducting external pen testing.
 
-- **Secure cloud deployment** &mdash; Google Cloud Platform provides secure and scalable infrastructure that meets Ory's strict requirements and compliance needs.
+- **Secure cloud deployment** &mdash; Google Cloud Platform provides secure and scalable infrastructure that meets Ory's strict
+  requirements and compliance needs.
 
 - **Logging and audit trail** &mdash; Ory uses logging in its cloud network. enabling forensic analysis of potential incidents.
-
