@@ -45,7 +45,6 @@ hydra create client [flags]
       --frontchannel-logout-session-required     Boolean flag specifying whether the client requires that a sid (session ID) Claim be included in the Logout Token to identify the client session with the OP when the frontchannel-logout-callback is used. If omitted, the default value is false.
   -g, --grant-type strings                      A list of allowed grant types (default [authorization_code])
   -h, --help                                     help for create
-      --id string                                Give the client this id
       --jwks-uri string                          Define the URL where the JSON Web Key Set should be fetched from when performing the "private_key_jwt" client authentication method
       --keybase string                           Keybase username for encrypting client secret
       --logo-uri string                          A URL string that references a logo for the client
