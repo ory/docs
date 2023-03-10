@@ -228,14 +228,9 @@ The following parameters are available for the Google provider:
 - `hd`
 
 The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the
-proper session. The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.
+proper session. The `hd` parameter limits the login/registration process to a Google Organization, for example `mycollege.edu`.
 
 The parameters can be passed along to Ory on `login`, `registration` and `settings` flows on form submit.
 
-```html
-<form action="https://{project.slug}.projects.oryapis.com/self-service/login?flow=<flow-id>" method="POST">
-  <input type="submit" name="provider" value="google" />
-  <input type="hidden" name="upstream_parameters.login_hint" value="foo@bar.com" />
-  <input type="hidden" name="upstream_parameters.hd" value="bar.com" />
-</form>
-```
+See the [Advanced Integration](../bring-your-own-ui/custom-ui-advanced-integration#upstream-provider-parameters) document for more
+information on passing parameters from your UI to Ory.
