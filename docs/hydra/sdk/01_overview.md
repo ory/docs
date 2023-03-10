@@ -6,11 +6,11 @@ sidebar_label: Ory Hydra SDK
 
 The Ory Hydra SDK allows for integration with a self-hosted [Ory Hydra OAuth2 Server](https://github.com/ory/hydra).
 
-Before using the SDK, consult the Ory Hydra [REST](../reference/api.mdx) API documentation, which includes code samples and
-examples for various programming languages.
+Before using the SDK, consult the Ory Hydra [REST](../reference/api.mdx) API documentation′.
 
 To view the source code for the generated SDKs, visit the
-[Ory Hydra SDKs GitHub repository](https://github.com/ory/sdk/tree/master/clients/hydra/).
+[Ory Hydra SDKs GitHub repository](https://github.com/ory/sdk/tree/master/clients/hydra/). Ory SDKs are generated using the
+[openapi-generator](https://github.com/OpenAPITools/openapi-generator).
 
 ## Download the SDK
 
