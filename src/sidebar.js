@@ -617,7 +617,7 @@ module.exports = {
         {
           type: "category",
           label: "Ory OAuth2 & OpenID",
-          items: ["hydra/sdk/go", "hydra/sdk/js", "hydra/sdk/php"],
+          items: ["hydra/sdk/go", "hydra/sdk/js"],
         },
         {
           type: "category",
@@ -641,6 +641,11 @@ module.exports = {
               type: "category",
               label: "Ory Keto",
               items: ["keto/sdk/overview", "keto/self-hosted/go"],
+            },
+            {
+              type: "category",
+              label: "Ory Oathkeeper",
+              items: ["oathkeeper/sdk"],
             },
           ],
         },
