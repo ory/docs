@@ -3,8 +3,18 @@ id: go
 title: Go
 ---
 
-import CodeBlock from "@theme/CodeBlock"
-import { useLatestRelease } from "@site/src/hooks"
+In this document you can find code examples for the Ory Permissions Go SDK.
+
+:::info
+
+Missing an example? Please create a
+[feature request](https://github.com/ory/docs/issues/new?assignees=&labels=feat&template=FEATURE-REQUEST.yml) and it will be added
+here.
+
+You can find more examples of SDK usage in the auto-generated documentation
+[`client-go`](https://github.com/ory/client-go/tree/master/docs).
+
+:::
 
 Ory Permissions exposes two APIs for integration
 
@@ -17,13 +27,13 @@ Ory Permissions exposes two APIs for integration
 
 ### Installation REST API
 
-```mdx-code-block
+```go
 go get github.com/ory/client-go
 ```
 
 ### Installation gRPC API
 
-```mdx-code-block
+```go
 go get github.com/ory/keto/proto
 ```
 
@@ -61,6 +71,9 @@ Blog:secret_post#view@Bob
 ```
 
 This means Bob can view the `secret_post` in the `Blog` namespace.
+
+1. Export your API Key as "ORY_API_KEY"
+1. Run the example and send the request with `go run main.go`
 
 ```go
 package main

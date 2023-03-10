@@ -7,10 +7,11 @@ sidebar_label: Ory Keto SDK
 The Ory Keto SDK allows for integration with a self-hosted [Ory Keto Permission Server](https://github.com/ory/keto).
 
 Before using the SDK, consult the Ory Keto [REST](../reference/rest-api.mdx) and [gRPC](../reference/rest-api.mdx) API
-documentation, which includes code samples and examples for various programming languages.
+documentation′.
 
 To view the source code for the generated SDKs, visit the
-[Ory Keto SDKs GitHub repository](https://github.com/ory/sdk/tree/master/clients/keto/).
+[Ory Keto SDKs GitHub repository](https://github.com/ory/sdk/tree/master/clients/keto/). Ory SDKs are generated using the
+[openapi-generator](https://github.com/OpenAPITools/openapi-generator).
 
 ## Download the SDK
 
