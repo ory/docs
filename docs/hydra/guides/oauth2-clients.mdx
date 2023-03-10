@@ -23,8 +23,8 @@ import TabItem from '@theme/TabItem'
 The Ory Console is a web-based user interface that allows you to manage OAuth2 clients. To create a new client:
 
 1. Sign in to Ory Console and select [**OAuth2 Clients**](https://console.ory.sh/projects/current/oauth).
-2. Click on **Add New Client** and complete the form or update an existing client.
-3. When creating a confidential client, copy the client secret when printed. It is only shown **once**.
+2. Click **Add New Client** and complete the form or update an existing client.
+3. When creating a confidential client, copy the client secret when printed. It is only shown once.
 
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
@@ -310,7 +310,7 @@ ory create oauth2-client \
 
 ### Multiple redirect URIs
 
-```
+```shell
 ory create oauth2-client \
   --grant-type authorization_code --grant-type refresh_token \
   --response-type code \
