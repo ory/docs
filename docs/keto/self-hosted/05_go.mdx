@@ -3,7 +3,7 @@ id: go
 title: Go
 ---
 
-In this document you can find code examples for the Ory Permissions Go SDK.
+In this document you can find code examples for the Ory Keto Go SDK.
 
 :::info
 
@@ -12,29 +12,27 @@ Missing an example? Please create a
 here.
 
 You can find more examples of SDK usage in the auto-generated documentation
-[`client-go`](https://github.com/ory/client-go/tree/master/docs).
+[`keto-client-go`](https://github.com/ory/keto-client-go/tree/master/docs).
 
 :::
 
-Ory Permissions exposes two APIs for integration
+Ory Keto exposes two APIs for integration
 
-- REST
-  - [Permission API](https://www.ory.sh/docs/reference/api#tag/permission)
-  - [Relationship API](https://www.ory.sh/docs/reference/api#tag/relationship)
 - [gRPC](http://ory.sh/docs/keto/reference/proto-api)
+- [REST](http://ory.sh/docs/keto/reference/rest-api)
 
 ## Installation
 
-### Installation REST API
-
-```go
-go get github.com/ory/client-go
-```
-
 ### Installation gRPC API
 
-```go
+```
 go get github.com/ory/keto/proto
+```
+
+### Installation REST API
+
+```
+go get github.com/ory/keto-client-go
 ```
 
 ## REST API examples
@@ -72,9 +70,6 @@ Blog:secret_post#view@Bob
 
 This means Bob can view the `secret_post` in the `Blog` namespace.
 
-1. Export your API Key as "ORY_API_KEY"
-1. Run the example and send the request with `go run main.go`
-
 ```go
 package main
 
@@ -83,11 +78,10 @@ import (
 	"fmt"
 	"os"
 
-	ory "github.com/ory/client-go"
+	ory "github.com/ory/keto-client-go"
 )
 
 // Use this context to access Ory APIs which require an Ory API Key.
-var oryAuthedContext = context.WithValue(context.Background(), ory.ContextAccessToken, os.Getenv("ORY_API_KEY"))
 var namespace = "Blog"
 var object = "secret_post"
 var relation = "view"
@@ -103,17 +97,24 @@ func main() {
 	configuration := ory.NewConfiguration()
 	configuration.Servers = []ory.ServerConfiguration{
 		{
-			URL: "https://practical-swirles-whg26u2ofh.projects.oryapis.com", // Write API
+			URL: "http://127.0.0.1:4467", // Write API
 		},
 	}
-	ory := ory.NewAPIClient(configuration)
-	_, r, err := ory.RelationshipApi.CreateRelationship(oryAuthedContext).CreateRelationshipBody(payload).Execute()
+	writeClient := ory.NewAPIClient(configuration)
+	_, r, err := writeClient.RelationshipApi.CreateRelationship(context.Background()).CreateRelationshipBody(payload).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 		panic("Encountered error: " + err.Error())
 	}
 	fmt.Println("Successfully created tuple")
-	check, r, err := ory.PermissionApi.CheckPermission(oryAuthedContext).
+	configuration.Servers = []client.ServerConfiguration{
+		{
+			URL: "http://127.0.0.1:4466", // Read API
+		},
+	}
+	readClient := client.NewAPIClient(configuration)
+
+	check, r, err := readClient.PermissionApi.CheckPermission(context.Background()).
 		Namespace(*&namespace).
 		Object(*&object).
 		Relation(*&relation).

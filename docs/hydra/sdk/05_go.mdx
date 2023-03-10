@@ -3,8 +3,20 @@ id: go
 title: Go
 ---
 
-Ory SDKs are generated using the [openapi-generator](https://github.com/OpenAPITools/openapi-generator). The Ory Hydra Go SDK is
-generated using [`go-swagger`](http://goswagger.io).
+In this document you can find code examples for a self-hosted Ory Kratos Go SDK.
+
+:::info
+
+Missing an example? Please create a
+[feature request](https://github.com/ory/docs/issues/new?assignees=&labels=feat&template=FEATURE-REQUEST.yml) and it will be added
+here.
+
+You can find more examples of SDK usage in the auto-generated documentation
+[`kratos-client`](https://github.com/ory/kratos-client-go/tree/master/docs).
+
+:::
+
+The Ory Hydra Go SDK is generated using [`go-swagger`](http://goswagger.io).
 
 :::warning
 
@@ -18,338 +30,75 @@ Don't consume the `/oauth2/auth` and `/oauth2/token` endpoints using this SDK. U
 
 To install the Go SDK, run:
 
-```mdx-code-block
-import CodeBlock from '@theme/CodeBlock'
-import { useLatestRelease } from '@site/src/hooks'
-
-<CodeBlock className="language-shell">{`go get github.com/ory/hydra-client-go@${useLatestRelease('hydra')}`}</CodeBlock>
-```
-
-## Configuration
-
-The following code example shows how to set up and configure Ory Hydra using the Go SDK:
-
 ```go
-package main
-
-import (
-  client "github.com/ory/hydra-client-go"
-)
-
-func main() {
-  configuration := client.NewConfiguration()
-  configuration.Servers = []client.ServerConfiguration{
-    {
-      URL: "http://localhost:4445", // Admin API URL
-    },
-  }
-  // admin := client.NewAPIClient(configuration)
-  // admin.AdminApi.CreateOAuth2Client(...
-
-  configuration.Servers = []client.ServerConfiguration{
-    {
-      URL: "http://localhost:4445", // Public API URL
-    },
-  }
-
-  // hydraPublic := client.NewAPIClient(configuration)
-  // public.PublicApi.RevokeOAuth2Token(...
-}
+go get github.com/ory/client-go
 ```
 
 ## Making requests
 
-The following code example shows how to make requests to the Ory Hydra Public API. In this example the request is used to create
-an OAuth 2.0 client:
+The following code examples show how to make requests to the Ory Hydra API.
+
+### CreateOAuth2Client and ListOAuth2Clients
+
+In this example the admin API is called to create a new OAuth2 client request is used to create an OAuth 2.0 client, as well as
+looping through existing clients and listing them.
 
 ```go
 package main
 
 import (
-  "context"
-  "fmt"
-  "net/http"
-  "os"
+	"context"
+	"fmt"
+	"net/http"
+	"os"
 
-  client "github.com/ory/hydra-client-go"
+	ory "github.com/ory/client-go"
 )
 
-func main() {
-  clientName := "example_client"
-  oAuth2Client := *client.NewOAuth2Client() // OAuth2Client |
-  oAuth2Client.SetClientId("example_client_id")
-  oAuth2Client.SetClientName(clientName)
-
-  configuration := client.NewConfiguration()
-  configuration.Servers = []client.ServerConfiguration{
-    {
-      URL: "http://localhost:4445", // Public API URL
-    },
-  }
-  apiClient := client.NewAPIClient(configuration)
-  resp, r, err := apiClient.AdminApi.CreateOAuth2Client(context.Background()).OAuth2Client(oAuth2Client).Execute()
-  if err != nil {
-    switch r.StatusCode {
-    case http.StatusConflict:
-      fmt.Fprintf(os.Stderr, "Conflict when creating oAuth2Client: %v\n", err)
-    default:
-      fmt.Fprintf(os.Stderr, "Error when calling `AdminApi.CreateOAuth2Client``: %v\n", err)
-      fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-  }
-  // response from `CreateOAuth2Client`: OAuth2Client
-  fmt.Fprintf(os.Stdout, "Created client with name %s\n", resp.GetClientName())
-
-  limit := int64(20)
-  offset := int64(0)
-  clients, r, err := apiClient.AdminApi.ListOAuth2Clients(context.Background()).Limit(limit).Offset(offset).ClientName(clientName).Execute()
-  if err != nil {
-    fmt.Fprintf(os.Stderr, "Error when calling `AdminApi.ListOAuth2Clients``: %v\n", err)
-    fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-  }
-  fmt.Fprintf(os.Stdout, "We have %d clients\n", len(clients))
-  fmt.Fprintf(os.Stdout, "First client name: %s\n", clients[0].GetClientName())
-
-}
-```
-
-## With Authentication
-
-Some endpoints require basic authentication. The following code example shows how to make an authenticated request to the Ory
-Hydra Admin API:
-
-```go
-package main
-
-import (
-  "context"
-  "encoding/base64"
-  "fmt"
-  "net/http"
-
-  client "github.com/ory/hydra-client-go"
-)
-
-type BasicAuthTransport struct {
-  Username string
-  Password string
-}
-
-func (t BasicAuthTransport) RoundTrip(req *http.Request) (*http.Response, error) {
-  req.Header.Set("Authorization", fmt.Sprintf("Basic %s",
-    base64.StdEncoding.EncodeToString([]byte(fmt.Sprintf("%s:%s",
-      t.Username, t.Password)))))
-  return http.DefaultTransport.RoundTrip(req)
-}
+// Use this context to access Ory APIs which require an Ory API Key.
+var oryAuthedContext = context.WithValue(context.Background(), ory.ContextAccessToken, os.Getenv("ORY_API_KEY"))
 
 func main() {
-  config := client.NewConfiguration()
-  config.Servers = []client.ServerConfiguration{
-    {
-      URL: "http://localhost:4445", // Admin API
-    },
-  }
+	clientName := "example_client"
+	oAuth2Client := *ory.NewOAuth2Client() // OAuth2Client |
+	oAuth2Client.SetClientName(clientName)
 
-  c := client.NewAPIClient(config)
-  config.HTTPClient.Transport = BasicAuthTransport{Username: "foo", Password: "bar"}
+	configuration := ory.NewConfiguration()
+	configuration.Servers = []ory.ServerConfiguration{
+		{
+			URL: "https://practical-swirles-whg26u2ofh.projects.oryapis.com", // Public API URL
+		},
+	}
+	ory := ory.NewAPIClient(configuration)
+	resp, r, err := ory.OAuth2Api.CreateOAuth2Client(oryAuthedContext).OAuth2Client(oAuth2Client).Execute()
+	if err != nil {
+		switch r.StatusCode {
+		case http.StatusConflict:
+			fmt.Fprintf(os.Stderr, "Conflict when creating oAuth2Client: %v\n", err)
+		default:
+			fmt.Fprintf(os.Stderr, "Error when calling `OAuth2Api.CreateOAuth2Client`: %v\n", err)
+			fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+		}
+	}
+	// response from `CreateOAuth2Client`: OAuth2Client
+	fmt.Fprintf(os.Stdout, "Created client with name %s\n", resp.GetClientName())
 
-  req := c.AdminApi.GetConsentRequest(context.Background()).ConsentChallenge("consentChallenge_example")
-  fmt.Println(req.Execute())
-
+	clients, r, err := ory.OAuth2Api.ListOAuth2Clients(oryAuthedContext).ClientName(clientName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AdminApi.ListOAuth2Clients``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	fmt.Fprintf(os.Stdout, "We have %d clients\n", len(clients))
+	for i, client := range clients {
+		fmt.Fprintf(os.Stdout, "Client %d name: %s\n", i+1, client.GetClientName())
+		// Add any additional information you want to display about the client
+	}
 }
-```
-
-## Status codes and error handling
-
-The following code example shows how to handle errors and status codes:
-
-```go
-package main
-
-import (
-  "context"
-  "fmt"
-  "net/http"
-  "os"
-
-  client "github.com/ory/hydra-client-go"
-)
-
-func main() {
-  consentChallenge := "consentChallenge_example" // string |
-
-  configuration := client.NewConfiguration()
-  configuration.Servers = []client.ServerConfiguration{
-    {
-      URL: "http://localhost:4445", // Admin API
-    },
-  }
-  apiClient := client.NewAPIClient(configuration)
-  resp, r, err := apiClient.AdminApi.GetConsentRequest(context.Background()).ConsentChallenge(consentChallenge).Execute()
-  if err != nil {
-    switch r.StatusCode {
-    case http.StatusNotFound:
-      // Accessing to response details
-      // cast err to *client.GenericOpenAPIError object first and then
-      // to your desired type
-      notFound, ok := err.(*client.GenericOpenAPIError).Model().(client.JsonError)
-      fmt.Println(ok)
-      fmt.Println(*notFound.ErrorDescription)
-    case http.StatusGone:
-
-      r, ok := err.(*client.GenericOpenAPIError).Model().(client.RequestWasHandledResponse)
-      fmt.Println(r, ok)
-      fmt.Println("It's gone")
-    default:
-      fmt.Fprintf(os.Stderr, "Error when calling `AdminApi.GetConsentRequest``: %v\n", err)
-      fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-  }
-  // response from `GetConsentRequest`: ConsentRequest
-  fmt.Fprintf(os.Stdout, "Response from `AdminApi.GetConsentRequest`: %v\n", resp)
-}
-```
-
-### On every request
-
-You may want to protect Ory Hydra using OAuth2 Access Tokens. In that case, you can enhance the SDK by using the OAuth2 Client:
-
-```go
-package main
-
-import (
-  "context"
-
-  client "github.com/ory/hydra-client-go"
-  "golang.org/x/oauth2/clientcredentials"
-)
-
-func main() {
-  config := client.NewConfiguration()
-  config.Servers = []client.ServerConfiguration{
-    {
-      URL: "http://localhost:4444", // Public API URL
-    },
-  }
-
-  creds := clientcredentials.Config{
-    TokenURL:     "http://hydra.localhost:4444/oauth2/token",
-    ClientID:     "my-client",
-    ClientSecret: "my-secret",
-    Scopes:       []string{"scope-a", "scope-b"},
-  }
-  config.HTTPClient = creds.Client(context.TODO())
-  c := client.NewAPIClient(config)
-  req := c.PublicApi.RevokeOAuth2Token(context.TODO())
-  req.Execute()
-
-}
-```
-
-### Fake TLS termination
-
-You can set Ory Hydra to HTTPS mode without actually accepting TLS connections, visit
-[Preparing for Production](https://www.ory.sh/docs/hydra/production#tls-termination) to learn more. The following code example
-shows how to configure Ory Hydra to fake a TLS termination:
-
-```go
-package main
-
-import (
-  "context"
-  "fmt"
-  "net/http"
-
-  client "github.com/ory/hydra-client-go"
-)
-
-func main() {
-
-  tlsTermClient := new(http.Client)
-  rt := WithHeader(tlsTermClient.Transport)
-  rt.Set("X-Forwarded-Proto", "https")
-  tlsTermClient.Transport = rt
-
-  config := client.NewConfiguration()
-  config.Servers = []client.ServerConfiguration{
-    {
-      URL: "https://hydra.localhost:4444", // Public API URL
-    },
-  }
-  config.HTTPClient = tlsTermClient
-  c := client.NewAPIClient(config)
-  fmt.Println(c.PublicApi.RevokeOAuth2Token(context.Background()).Token("some_token").Execute())
-
-  // ...
-}
-
-type withHeader struct {
-  http.Header
-  rt http.RoundTripper
-}
-
-func WithHeader(rt http.RoundTripper) withHeader {
-  if rt == nil {
-    rt = http.DefaultTransport
-  }
-
-  return withHeader{Header: make(http.Header), rt: rt}
-}
-
-func (h withHeader) RoundTrip(req *http.Request) (*http.Response, error) {
-  for k, v := range h.Header {
-    req.Header[k] = v
-  }
-
-  return h.rt.RoundTrip(req)
-}
-
-```
-
-### Skip TLS verification
-
-When using self-signed certificates we need to skip the TLS verification and accept all certificates. In production deployments,
-you would use a certificate signed by a trusted CA. The following code example shows how to configure Ory Hydra to skip the TLS
-verification:
-
-```go
-package main
-
-import (
-  "context"
-  "crypto/tls"
-  "fmt"
-  "net/http"
-
-  client "github.com/ory/hydra-client-go"
-)
-
-func main() {
-  skipTLSClient := &http.Client{
-    Transport: &http.Transport{
-      TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-    },
-    Timeout: 10,
-  }
-  config := client.NewConfiguration()
-  config.Servers = []client.ServerConfiguration{
-    {
-      URL: "https://hydra.localhost:4444", // Public API URL
-    },
-  }
-  config.HTTPClient = skipTLSClient
-  c := client.NewAPIClient(config)
-  fmt.Println(c.PublicApi.RevokeOAuth2Token(context.Background()).Token("some_token").Execute())
-
-  // ...
-}
-
 ```
 
 ## More examples
 
-You can find more examples of SDK usage in the autogenerated documentation for hydra sdk
+You can find more examples of SDK usage in the autogenerated documentation:
 
-- [Admin API](https://github.com/ory/hydra-client-go/blob/master/docs/AdminApi.md)
-- [Metadata API](https://github.com/ory/hydra-client-go/blob/master/docs/MetadataApi.md)
-- [Public API](https://github.com/ory/hydra-client-go/blob/master/docs/PublicApi.md)
+- [OAuth2Api API](https://github.com/ory/hydra-client-go/blob/master/docs/OAuth2Api.md)
+- [OidcApi API](https://github.com/ory/hydra-client-go/blob/master/docs/OidcApi.md)
