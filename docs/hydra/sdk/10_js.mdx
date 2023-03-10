@@ -3,10 +3,33 @@ id: js
 title: JavaScript
 ---
 
+In this document you can find code examples for a self-hosted Ory Kratos Go SDK.
+
+:::info
+
+Missing an example? Please create a
+[feature request](https://github.com/ory/docs/issues/new?assignees=&labels=feat&template=FEATURE-REQUEST.yml) and it will be added
+here.
+
+You can find more examples of SDK usage in the auto-generated documentation
+[`kratos-client`](https://github.com/ory/kratos-client-go/tree/master/docs).
+
+:::
+
+:::warning
+
+Don't consume the `/oauth2/auth` and `/oauth2/token` endpoints using this SDK. Use
+[golang.org/x/oauth2](https://godoc.org/golang.org/x/oauth2). For more information visit the
+[Using OAuth2](../guides/using-oauth2.mdx) guide.
+
+:::
+
+## Installation
+
 To install the JavaScript SDK, run:
 
 ```
-npm install --save @ory/hydra-client
+npm install --save @ory/client
 ```
 
 ### Configuration
@@ -14,7 +37,7 @@ npm install --save @ory/hydra-client
 #### Basic configuration
 
 ```js
-import { Configuration, PublicApi, AdminApi } from "@ory/hydra-client"
+import { Configuration, PublicApi, AdminApi } from "@ory/client"
 
 const hydraPublic = new PublicApi(
   new Configuration({
