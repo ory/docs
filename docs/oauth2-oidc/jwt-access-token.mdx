@@ -46,12 +46,29 @@ access token has expired. Refresh tokens are always opaque tokens in Ory because
 
 ## JWT access tokens
 
-To configure Ory OAuth2 to issue JWT access tokens, you'll need to update the configuration as Ory defaults to opaque tokens:
+### Global configuration
+
+To configure Ory OAuth2 to issue JWT access tokens for all clients, you'll need to update the configuration as Ory defaults to
+opaque tokens:
 
 ```shell
 ory patch oauth2-config {project.id} \
   --replace "/strategies/access_token=\"jwt\""
 ```
+
+### Per-client configuration
+
+To configure Ory OAuth2 to issue JWT access tokens for a specific client, you'll need to update the client configuration as Ory
+defaults to opaque tokens:
+
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import setAccessTokenStrategyExample from '!!raw-loader!../../code-examples/sdk/typescript/src/oauth2/client-set-access-token-strategy.ts'
+
+<CodeBlock language="tsx">{setAccessTokenStrategyExample}</CodeBlock>
+```
+
+The setting is also available through the Ory Console under the clients' settings.
 
 ### Revoking JSON Web Tokens
 
@@ -69,7 +86,6 @@ information about the token, including its validity, expiry time, and any associ
 Here's an example of a token introspection request using the SDK:
 
 ```mdx-code-block
-import CodeBlock from '@theme/CodeBlock'
 import tsExample from '!!raw-loader!../../code-examples/sdk/typescript/src/oauth2/token-introspect.ts'
 
 <CodeBlock language="tsx">{tsExample}</CodeBlock>
