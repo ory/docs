@@ -755,6 +755,16 @@
       "permanent": false
     },
     {
+      "source": "/docs/kratos/sdk/01_overview.md",
+      "destination": "https://www.ory.sh/docs/kratos/sdk/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/configure-ory-to-use-your-ui",
+      "destination": "https://www.ory.sh/docs/kratos/bring-your-own-ui/custom-ui-overview",
+      "permanent": false
+    },
+    {
       "source": "/docs/kratos",
       "destination": "https://www.ory.sh/docs/kratos/ory-kratos-intro",
       "permanent": false
