@@ -4,7 +4,10 @@ title: Prepare for production
 ---
 
 Read this document to prepare for production when self-hosting Ory Keto.  
-Feel free to open a pull request when you have an idea how to improve this documentation.
+Feel free to [open an issue or pull request](https://github.com/ory/docs/) when you have an idea how to improve this
+documentation.
+
+Read more about [deployment fundamentals and requirements for Ory](https://www.ory.sh/docs/ecosystem/deployment).
 
 ## Database
 
