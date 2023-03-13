@@ -356,7 +356,7 @@
     },
     {
       "source": "/docs/kratos/guides/login-session",
-      "destination": "https://www.ory.sh/docs/guides/session-management/check-session",
+      "destination": "https://www.ory.sh/docs/kratos/session-management/overview",
       "permanent": false
     },
     {
@@ -741,7 +741,7 @@
     },
     {
       "source": "/docs/kratos/guides/account-recovery-password-reset",
-      "destination": "https://www.ory.sh/docs/kratos/self-hosted/account-recovery-password-reset",
+      "destination": "https://www.ory.sh/docs/kratos/self-service/flows/account-recovery-password-reset",
       "permanent": false
     },
     {
@@ -931,7 +931,7 @@
     },
     {
       "source": "/docs/kratos/hooks/webhooks-integrations",
-      "destination": "https://www.ory.sh/guides/integrate-with-ory-cloud-through-webhooks",
+      "destination": "https://www.ory.sh/docs/guides/integrate-with-ory-cloud-through-webhooks",
       "permanent": false
     },
     {
