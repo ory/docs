@@ -403,6 +403,7 @@ module.exports = {
                 "self-hosted/kratos/configuration/password",
                 "kratos/guides/setting-up-password-hashing-parameters",
                 "kratos/guides/setting-up-cors",
+                "kratos/guides/production",
                 "kratos/self-hosted/mail-courier-selfhosted",
                 "kratos/self-hosted/mail-courier-templates",
                 "kratos/self-hosted/account-activation-email-verification",
