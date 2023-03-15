@@ -1,24 +1,21 @@
 ---
 id: passwordless
-title: Passkeys and passwordless sign-in
+title: Passkeys and passwordless
 sidebar_label: Passkeys and passwordless
 ---
 
-## Use case: Using passwordless authentication to protect users against phishing attacks
+## Use case: Using passwordless authentication to protect against phishing attacks
 
-Example corporation is considering the requirements for an authentication system that will be integrated into their new
-browser-based application. They would prefer to avoid using a traditional password-based solution, because they have had bad
-experiences in the past, where some of their users were successfully targeted in phishing attacks. They are also concerned about
-the possibility of a credentials stuffing attack on their system. They have heard about passkeys and passwordless authentication
-as a potential solution which could protect their system against phishing attacks, but they would like to understand more, and to
-find out how Ory supports this solution.
+ACME Corporation is considering the requirements for an authentication system that will integrate with their new browser-based
+application. They would prefer to avoid using a traditional password-based solution, because some of their app users were targeted
+by phishing attacks in the past. They have heard about passwordless authentication as a potential solution which could protect
+their system against phishing attacks, but they would like to understand more, and find out how Ory supports this solution.
 
 ## How does Ory support passwordless authentication?
 
-For _browser-based apps_, Ory supports passwordless authentication out of the box. Ory's self-service flows (for example,
-registration and login) support passwordless authentication by integrating with the W3C Web Authentication (WebAuthn)
-specification for browsers. After enabling WebAuthn in an Ory project, the registration and login flows automatically present
-passwordless as an option.
+For _browser-based apps_, Ory supports passwordless authentication out of the box. Ory's self-service flows support passwordless
+authentication by integrating with the W3C Web Authentication (WebAuthn) specification for browsers. After enabling WebAuthn in an
+Ory project, the registration and login flows automatically present passwordless as an option.
 
 Support for passkeys and passwordless varies, depending on whether you are using a browser-based app or a native app:
 
@@ -26,103 +23,181 @@ Support for passkeys and passwordless varies, depending on whether you are using
 - For native apps, you need to implement your own integration with the underlying platform, using the protocol defined in the
   CTAP2 specification.
 
-Because passwordless is a relatively new technology, at the time of writing (in 2023) it has not yet been rolled out across all
-browsers and platforms, but adoption is spreading rapidly. Very soon, passwordless authentication is expected to become available
-on all major platforms and browsers. To check the current status of adoption, consult the FAQ on the
+Because passwordless is a relatively new technology, at the time of writing it has not yet been rolled out across all browsers and
+platforms, but adoption is spreading rapidly. Very soon, passwordless authentication is expected to become available on all major
+platforms and browsers. To check the current status of adoption, consult the FAQ on the
 [FIDO Alliance](https://fidoalliance.org/passkeys/) website.
 
 ### What is passwordless authentication?
 
-Passkeys and passwordless authentication is a technology based on the specifications published by the
-[FIDO Alliance](https://fidoalliance.org/), sponsored by software companies with an interest in security technology and standards.
 As the name implies, passwordless authentication is intended to replace traditional password-based authentication, enabling users
 to verify their identity using authenticators bound to the device they are using&mdash;for example, biometric measurement or PIN.
+Passkeys and passwordless authentication is a technology based on the specifications published by the
+[FIDO Alliance](https://fidoalliance.org/), sponsored by software companies with an interest in security technology and standards.
 
-#### A sample login flow with passwordless
+There are two different classes of authenticator that can be used with passwordless:
 
-From the end user's perspective, logging in with passwordless is remarkably simple:
+- On-device authenticator &mdash; an authenticator available directly on the device you are using, for example fingerprint
+  detection on a mobile phone.
+- External authenticator &mdash; an authenticator provided by an external device, such as a USB key (YubiKey) or an NFC device.
 
-1. Ory's self-service login flow presents an option to log in using passwordless. -> Screenshot of Ory Account Experience login
-2. If the user chooses passwordless, the browser opens a special dialog (powered by WebAuthn), asking the user to choose one of
-   the available verification methods (biometric, USB key, device pin, and so on). -> Screenshot (example) of special dialog
-3. The platform verifies the users identity using the chosen method.
-4. Login/registration completes automatically.
+#### On-device authenticator for passwordless login flow
 
-#### Authenticator options with passwordless
+From the end user's perspective, passwordless login with an on-device authenticator is simple:
 
-These are some of the options that users might have for signing up or logging in, during a passwordless flow:
+1. Ory's self-service login flow presents an option to log in using passwordless (below the option for signing in with a
+   password). ![Ory Account Experience login](./_static/ax-login-options.png)
+2. To sign in with passwordless, the user enters their ID and clicks the **Sign in with security key** button.
+3. The Ory Account Experience displays the sign-in preparation dialog, which gives the user time to prepare the physical device
+   for passwordless login. The user clicks **Continue** to proceed to the next step.
+4. The platform verifies the user's identity using the chosen method.
+5. Login/registration completes automatically.
 
-- Fingerprint
-- Voice recognition
-- Facial recognition
-- Iris scan
-- Handwriting recognition
-- USB key &mdash; for example, YubiKey
-- Device unlock / PIN (mobile phones)
+#### External authenticator for passwordless login flow
+
+From the end user's perspective, passwordless login with an external authenticator is simple:
+
+1. Ory's self-service login flow presents an option to log in using passwordless.
+2. To sign in with passwordless, the user enters their ID and clicks the **Sign in with security key** button.
+3. The Ory Account Experience displays the sign-in preparation dialog, which gives the user time to prepare the physical device
+   for passwordless login. The user clicks **Continue** to proceed to the next step.
+4. The user chooses the external authenticator to use for sign-in (for example, a USB security key).
+   ![Choose external authenticator device](./_static/external-device-choose.png)
+5. The platform verifies the user's identity using the chosen method.
+   ![Verify identity with USB security key](./_static/external-device-verify-identity.png)
+6. Login/registration completes automatically.
+
+#### Authenticator options for passwordless
+
+Authenticators for passwordless are generally designed to be easy to use. For example, biometric authenticators are a popular
+alternative.
+
+Here are some of the current authenticator options for passwordless:
+
+- **On-device authenticators**
+  - Fingerprint (Apple TouchID, Windows Hello)
+  - Facial recognition (Apple FaceID, Windows Hello)
+  - Iris scan (Windows Hello)
+  - Voice recognition
+  - Handwriting recognition
+  - Device unlock / OS password
+- **External authenticators**
+  - USB key (YubiKey)
+  - NFC devices
+  - Bluetooth (BLE) devices
 
 #### Secrets stay on your device
 
-It is important to note that, during a passwordless flow, "secrets" never leave your local device, in particular:
+It is important to note that, during a passwordless flow, secrets never leave your local device, in particular:
 
-- The passkeys (private keys) are never sent to the server.
+- Passkeys (private keys) are never sent to the server.
 - Biometric data is never sent to the server.
 - Codes from a USB key are never sent to the server.
 - Device unlock code is never sent to the server.
 - Passwords are never sent to the server.
 
-In summary, passwordless is much easier to use, does not require you to remember a password, and is more secure than
-password-based login.
-
 ### How does passwordless work?
 
-Given how easy and secure passwordless authentication is, it seems almost too good to be true. The trick with passwordless,
-however, is that it leverages a powerful existing technology to verify the user's identity: symmetric keys and a
-challenge/response algorithm. The underlying symmetric key technology is not new &mdash; for example, it is already commonly used
-for pushing commits to Git repositories &mdash; but FIDO automates the process, making it much more user friendly.
+Passwordless is not only easier to use, but also more secure than traditional password-based authentication. This might seem hard
+to believe at first, given that security processes usually involve a trade-off between ease-of-use and increased security. But
+passwordless authentication achieves this by building on the following insights:
 
-To understand how the WebAuthn leverages symmetric keys to implement the passwordless authentication flow, consider the following
-diagram, which illustrates the passwordless-based login flow.
+- The device you are using (mobile phone or PC) already has built-in capabilities for verifying your identity. There should be no
+  need to duplicate the procedure for identity verification (for example, by manually creating new passwords), when the platform
+  already has this capability.
+- Symmetric key authentication is an existing and proven technology, which has better security characteristics than password-based
+  authentication. The problem with symmetric key authentication, however, is that until recently this method was hard to use. The
+  FIDO alliance set itself the goal of automating symmetric key technology, making it more user friendly.
 
-TBD - DIAGRAM SHOWING PASSWORDLESS LOGIN FLOW
+Consider the following diagram, which illustrates the passwordless-based login flow.
+
+![Passwordless login flow](./_static/passwordless-login-flow.png)
 
 The main steps in the passwordless login flow are, as follows:
 
-1. The app (running in the browser) requests FIDO authentication through the browser (leveraging the browser's support for
-   WebAuthn).
-2. WebAuthn pops up a dialog in the browser, presenting the user with options for verifying their identity.
-3. After the user selects a verification option, WebAuthn asks the platform to verify the user's identity using that option
-   (leveraging the CTAP2 standard for communication with the platform).
-4. The platform prompts the user to verify their identity using either:
-   - On-device authenticator, or
-   - External authenticator
-5. If the user identity is verified successfully, the platform finds the matching key-pair for the application in its keychain,
-   and returns the public key to the browser (WebAuthn). The browser then forwards the public key to the app.
-6. Now that the app has the user's public key, it can initiate the challenge/response protocol, to verify that the user is
-   actually in possession of the corresponding private key. This is a critical step in the authentication flow, because this is
-   the step where the app effectively confirms the user's identity. At the same time, note that the app is not in possession of
-   any secrets from the user &mdash; in particular, the corresponding passkey (private key) has never left the keychain on the
-   user's device. This is the step of the protocol that leverages the power of symmetric key authentication.
-7. If the challenge/response step is successful, the Ory login flow creates a new login session and the user is logged in.
+1. The frontend app detects that a user session is needed and sends a request to the application backend (server) to initiate
+   authentication.
+2. The server generates a challenge (consisting essentially of randomized data) and sends it back to the frontend app.
+3. The frontend app requests identity verification through the browser API (WebAuthn), passing the challenge from the server and
+   the ID that identifies this particular app (the _relying party ID_).
+4. WebAuthn pops up a dialog in the browser, presenting the user with options for verifying their identity.
+5. After the user selects a verification option, WebAuthn asks the platform (through the CTAP2 protocol) to verify the user's
+   identity using the chosen authenticator.
+6. The platform verifies the user identity using either:
+   - An on-device authenticator
+   - An external authenticator
+7. If the user identity is verified, the platform retrieves the key pair for the application and uses the private key (passkey) to
+   sign the challenge issued by the server.
+8. The platform returns the signed response to the browser and the frontend app.
+9. The frontend app returns the signed response to the server.
+10. The server validates the signed reponse, using the public key from the user's account to verify the signature (where the
+    user's public key was obtained during the passwordless sign-up flow).
 
-Contrast password approach Passwordless registration Passwordless login Logging in across devices (use of Bluetooth technology -
-BLE) Logging in across devices - use of O/S backup to transfer passkeys between devices (e.g. iCloud Keychain)
+:::note
 
-FIDO2 standards and protocols:
+Neither the public key nor the private key are exposed to the app during this authentication flow. The only time the public key is
+sent over the network is during sign-up (registration flow), at which point the server stores the public key in the user's account
+in the database. The corresponding passkey (private key) never leaves the keychain on the user's device.
 
-- WebAuthn (browser)
-- CTAP2 (Client to Authenticator - communication with the O/S)
+:::
+
+### How are passkeys and passwordless related?
+
+Passkey-based authentication and passwordless authentication are often talked about together. But if you are new to passwordless,
+it's not always clear how these concepts are related.
+
+At some level, passkeys are always involved in the passwordless authentication process, in one of the following ways:
+
+- **Implicit use of passkeys** &mdash; for example, when a user authenticates using fingerprint recognition or face recognition,
+  the platform implicitly creates a symmetric key pair, but this detail is hidden from the user.
+- **Explicit use of passkeys** &mdash; for example, when a user authenticates using a USB key (for example, YubiKey), which has a
+  private key embedded in the physical USB key.
 
 ### Resistance to phishing
 
-Explain how passwordless is immune to phishing.
+The essential idea of a phishing attack is to trick a user somehow into giving up their password to the attacker, typically by
+luring the user to a fake website where they are persuaded to log in, enabling the attacker to steal the password from the login
+credentials.
 
-### Log in with passwordless across multiple devices
+The reason that passwordless is resistant to phishing is that secrets are never passed to web applications. Moreover, the user
+does not even have direct access to the passkeys and would not be able to send them to an attacker.
 
-Unique situation with passwordless, because the passkey is stored on the device. Two possibilities for moving between devices:
+### Log in with a passkey across multiple devices
+
+If you need to log in with a passkey across multiple devices, the following options are supported by passwordless:
 
 - Once-off authentication using an external device
-- Securely transfer passkey to new device
+- Securely transfer the passkey to the new device
+- Platform specific passkey sharing between devices
 
-Platform support for transferring passkeys between devices:
+#### Once-off authentication using an external device
 
-- Apple iCloud Keychain -> makes passkeys available to of your Apple devices
+Passkeys can also be used to perform login across devices. WebAuthn defines a protocol for performing passkey authentication
+remotely over a (secured) Bluetooth connection.
+
+For example, consider the case where the passkey for a particular application is stored in the Android OS on your mobile phone. If
+you need to log into the application from a PC, you can use the passkey on your mobile phone to verify your identity. In this
+case, you would select a BLE (Bluetooth) device as the external authenticator on the PC and, after pairing your phone with the PC,
+you are prompted to verify your identity on the mobile phone. This authentication step is a once-off and, in particular, the
+passkey **is not transferred to the PC**.
+
+Using this remote authentication protocol, you can use your mobile phone as an external authenticator for any device that supports
+WebAuthn, without leaving any trace of your credentials on that device.
+
+#### Securely transfer passkey to a new device
+
+On the other hand, if you want to transfer passkey credentials from your mobile phone to your PC, this is also supported by the
+FIDO standard (although support for this feature is not available on all platforms, as it is a recent addition to the standard).
+
+For example, consider the case where a passkey for a particular appplication is stored on your mobile phone, but you also want to
+have this passkey available on your personal laptop, so that you don't need to take out your phone every time you log in from your
+laptop. If your platform has support for this, you see an option to securely transfer the passkey to your laptop, while performing
+remote authentication over BLE. If you choose to transfer the passkey, it will be stored permanently (and securely) on your
+laptop's OS and in future you will be able to log in to the application directly from your laptop.
+
+#### Platform specific passkey sharing between devices
+
+If all of your devices belong to the same platform ecosystem (for example, Android, Apple, or Windows), you might find there is a
+platform-specific mechanism available for sharing passkeys securely between devices. For example, the Apple iCloud keychain is
+capable of sharing passkeys for passwordless login across multiple apple devices (assuming these devices have access to the same
+Apple iCloud account).
