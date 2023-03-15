@@ -334,6 +334,7 @@ module.exports = {
         "security-compliance/token-formats",
         "concepts/password-policy",
         "hydra/security-architecture",
+        "security-compliance/gdpr",
       ],
     },
     {
