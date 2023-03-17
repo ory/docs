@@ -11,7 +11,7 @@ create_payload() {
         payload=$(jq -n \
             --arg sid "$ory_schema_id" \
             --arg em "$email" \
-            '{schema_id: $sid, traits: {email: $em}}')
+            '{schema_id: $sid, traits: {email: $em}, metadata_admin: {origin: "auth0"}}')
     else
         payload=$(
             jq -n \
@@ -21,6 +21,7 @@ create_payload() {
                 '{schema_id: $sid,
                   traits:
                     {email: $em},
+                    metadata_admin: "auth0",
                      credentials:
                          {password:
                              {config:
