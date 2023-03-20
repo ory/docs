@@ -69,7 +69,9 @@ In outline, the main steps for setting up the integration are, as follows:
    domain. See [Configure your DNS](https://mailchimp.com/developer/transactional/guides/send-first-email/#configure-your-dns) in
    the Mailchimp developer documentation.
 3. The system administrator generates a (Mandrill) API key, in order to authorize the Ory Action to access the Mandrill API,
-   enabling Ory to forward transactional emails to Mailchimp. :::note
+   enabling Ory to forward transactional emails to Mailchimp.
+
+   :::note
 
    A Mandrill API key is _not_ the same thing as a regular Mailchimp API key. You must generate the Mandrill API key from the
    [**Settings**](https://mandrillapp.com/settings) page on the Mailchimp Transactional Email system dashboard.
@@ -79,9 +81,3 @@ In outline, the main steps for setting up the integration are, as follows:
 4. Using the API key from the previous step, the system administrator creates and registers an Ory Action for triggering a
    transactional email whenever a user completes the registration flow. See
    [Mailchimp integration with Ory Actions](https://www.ory.sh/docs/actions/integrations/mailchimp) in the Ory documentation.
-
-Note the recent issue addresse by Arne, which is relevant to this use case: "The flows.registration.after.hooks section is used
-only if the flows.registration.after.{password,oidc} sections are empty.
-
-This was confusing to users, because by default we have the session hook in this section, which would then case the webhooks in
-the "global" section to not be sent."
