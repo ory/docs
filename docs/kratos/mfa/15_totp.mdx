@@ -43,14 +43,15 @@ TOTP apps such as Google Authenticator, LastPass, or [FreeOTP](https://freeotp.g
    </BrowserWindow>
    ```
 
-5. After TOTP has been enabled for the Ory Network project, a user can enable TOTP for their own account by signing in and going to the **Authenticator App** section of the **Account Settings** page (see [Pairing a TOTP app with your account](#pairing-a-totp-app-with-your-account)).
+5. After TOTP has been enabled for the Ory Network project, a user can enable TOTP for their own account by signing in and going
+   to the **Authenticator App** section of the **Account Settings** page (see
+   [Pairing a TOTP app with your account](#pairing-a-totp-app-with-your-account)).
 
    :::note
 
    In the Ory Account Experience, users are **not** automatically prompted to enable TOTP on their account.
 
    :::
-
 
 ```mdx-code-block
 </TabItem>
@@ -87,7 +88,9 @@ TOTP apps such as Google Authenticator, LastPass, or [FreeOTP](https://freeotp.g
    ory update identity-config <project-id> --file identity-config.yaml
    ```
 
-5. After TOTP has been enabled for the Ory Network project, a user can enable TOTP for their own account by signing in and going to the **Authenticator App** section of the **Account Settings** page (see [Pairing a TOTP app with your account](#pairing-a-totp-app-with-your-account)).
+4. After TOTP has been enabled for the Ory Network project, a user can enable TOTP for their own account by signing in and going
+   to the **Authenticator App** section of the **Account Settings** page (see
+   [Pairing a TOTP app with your account](#pairing-a-totp-app-with-your-account)).
 
    :::note
 
@@ -102,7 +105,8 @@ TOTP apps such as Google Authenticator, LastPass, or [FreeOTP](https://freeotp.g
 
 ## Account Experience with TOTP
 
-After TOTP has been enabled in the Ory Network project, users have the ability to manage their own TOTP configuration using **Account Settings**.
+After TOTP has been enabled in the Ory Network project, users have the ability to manage their own TOTP configuration using
+**Account Settings**.
 
 ### Pairing a TOTP app with your account
 
@@ -129,18 +133,18 @@ If TOTP is enabled in Ory Network, you can pair a TOTP app with your account, as
 
 5. On your phone, tap the new account in the TOTP app to generate a short code.
 6. Enter the short code in the **Verify code** field in your account settings and click **Save**.
-7. Ory Account Experience prompts you to confirm this action by signing in.
-   Sign in to confirm the TOTP pairing.
+7. Ory Account Experience prompts you to confirm this action by signing in. Sign in to confirm the TOTP pairing.
 
 ### Authenticating with TOTP as the second factor
 
-After pairing the TOTP app with your account, Ory Account Experience requires you to provide the TOTP code as a second factor when you are signing in.
-The new sign-in flow works as follows:
+After pairing the TOTP app with your account, Ory Account Experience requires you to provide the TOTP code as a second factor when
+you are signing in. The new sign-in flow works as follows:
 
 1. Initiate sign-in with the Ory Account Experience.
 2. Ory Account Experience prompts you to log in with your first authentication factor (for example, user ID and password).
-3. Ory Account Experience prompts you log in with TOTP as the second factor.
-   Open the TOTP app on your phone, tap the relevant account button to generate a TOTP short code, enter the code in the **Authentication code** field, and click **Use Authenticator**.
+3. Ory Account Experience prompts you log in with TOTP as the second factor. Open the TOTP app on your phone, tap the relevant
+   account button to generate a TOTP short code, enter the code in the **Authentication code** field, and click **Use
+   Authenticator**.
 
    ```mdx-code-block
    <BrowserWindow url="https://playground.projects.oryapis.com/ui">
@@ -163,13 +167,14 @@ You can disable the TOTP second factor on your account at any Time, as follows:
 
 1. Sign in to your account in the Ory Account Experience.
 2. Go to **Account Settings** and then go to the **Authenticator App** section.
-3. Click the **Unlink TOTP Authenticator App**  button.
+3. Click the **Unlink TOTP Authenticator App** button.
 4. On your phone, delete the corresponding account entry in the TOTP app, as this pairing is no longer valid.
 
 ## Custom identity schema
 
-By default, the identity schema is preconfigured to display the user's email address when requesting the TOTP short code.
-If you are working with a custom identity schema, however, you must ensure that the identity schema is configured to select an identity trait to display in the TOTP app.
+By default, the identity schema is preconfigured to display the user's email address when requesting the TOTP short code. If you
+are working with a custom identity schema, however, you must ensure that the identity schema is configured to select an identity
+trait to display in the TOTP app.
 
 ### Distinguishing identities requesting TOTP
 
